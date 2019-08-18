@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <PackageDescription></PackageDescription>
+    <PackageTags></PackageTags>
+    <PackageReleaseNotes></PackageReleaseNotes>
+  </PropertyGroup>
+
+  <Import Project="..\Common.NetStandard_2_0.proj" />
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="2.2.0" />
+    <PackageReference Include="Microsoft.OpenApi.Readers" Version="1.1.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
+    <PackageReference Include="System.Interactive" Version="3.2.0" />
+    <PackageReference Include="System.Text.Encodings.Web" Version="4.5.0" />
+    <PackageReference Include="Tavis.UriTemplates" Version="1.1.1" />
+  </ItemGroup>
+
+</Project>

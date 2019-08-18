@@ -1,0 +1,34 @@
+<Project>
+
+  <Import Project="Common.GitHub.proj" />
+  <Import Project="Common.Nuget.proj" />
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <RootNamespace />
+    <DocumentationFile>$(OutputPath)$(TargetFramework.ToLowerInvariant())\$(AssemblyName).xml</DocumentationFile>
+    <Copyright>Copyright (c) Endjin Limited 2019. All rights reserved.</Copyright>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <TreatSpecificWarningsAsErrors />
+    <WarningsAsErrors />
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <DebugType>portable</DebugType>
+    <ci>true</ci>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <AdditionalFiles Include="..\stylecop.json" Link="stylecop.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
+</Project>

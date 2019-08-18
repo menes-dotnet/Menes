@@ -1,0 +1,64 @@
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+
+  BuildConfiguration: 'Release'
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
+  SolutionToBuild: 'Solutions/Corvus.Extensions.sln'
+
+steps:
+
+- task: DotNetCoreInstaller@0
+  displayName: 'Install .NET Core SDK 2.2.401 (Global Tools error workaround)'
+  inputs:
+    version: 2.2.401
+
+- task: gittools.gitversion.gitversion-task.GitVersion@5
+  displayName: 'GitVersion'
+  inputs:
+    preferBundledVersion: false
+
+- task: DotNetCoreCLI@2
+  displayName: 'Restore & Build'
+  inputs:
+    command: 'build'
+    projects: $(SolutionToBuild)
+    arguments: '/p:VersionPrefix="$(GitVersion.MajorMinorPatch)" /p:VersionSuffix="$(GitVersion.PreReleaseTag)" --configuration $(BuildConfiguration) '
+
+- task: DotNetCoreCLI@2
+  displayName: 'Run Executable Specifications'
+  inputs:
+    command: 'test'
+    projects: $(SolutionToBuild)
+    arguments: '-c $(BuildConfiguration) --no-restore /p:VersionPrefix="$(GitVersion.MajorMinorPatch)" /p:VersionSuffix="$(GitVersion.PreReleaseTag)" /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura'
+    nobuild: true
+
+- script: |
+    dotnet tool install -g dotnet-reportgenerator-globaltool
+    reportgenerator "-reports:$(Build.SourcesDirectory)/**/**/coverage.cobertura.xml" "-targetdir:$(Build.SourcesDirectory)/CodeCoverage" "-reporttypes:HtmlInline_AzurePipelines;Cobertura"
+  displayName: 'Generate Code Coverage Report'
+
+- task: PublishCodeCoverageResults@1
+  displayName: 'Publish Code Coverage Report'
+  inputs:
+    codeCoverageTool: Cobertura
+    summaryFileLocation: '$(Build.SourcesDirectory)/CodeCoverage/Cobertura.xml'
+    reportDirectory: '$(Build.SourcesDirectory)/CodeCoverage'
+
+- task: DotNetCoreCLI@2
+  displayName: 'Create NuGet Packages'
+  inputs:
+    command: 'pack'
+    projects: $(SolutionToBuild)
+    packDirectory: '$(Build.ArtifactStagingDirectory)/packages/$(Build.BuildID)'
+    nobuild: true
+    buildProperties: 'VersionPrefix="$(GitVersion.MajorMinorPatch)";VersionSuffix="$(GitVersion.PreReleaseTag)"'
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact: Drop'
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
