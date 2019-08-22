@@ -4,6 +4,7 @@
 
 namespace Menes.Internal
 {
+    using Corvus.ContentHandling;
     using Menes.Exceptions;
     using Menes.Links;
 

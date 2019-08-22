@@ -6,6 +6,8 @@ namespace Menes.Internal
 {
     using System;
     using System.Collections.Generic;
+    using Corvus.ContentHandling;
+    using Corvus.Extensions;
 
     /// <summary>
     /// Class that handles mapping of content types/objects and link relation types to Open API operation Ids.
@@ -62,8 +64,6 @@ namespace Menes.Internal
         /// <inheritdoc/>
         public bool TryGetOperationId(object owner, string relationType, string context, out string operationId)
         {
-            operationId = null;
-
             if (ContentFactory.TryGetContentType(owner, out string ownerContentType) && this.TryGetOperationId(ownerContentType, relationType, context, out operationId))
             {
                 return true;

@@ -6,6 +6,7 @@ namespace Menes.Converters
 {
     using System;
     using Menes.Validation;
+    using Microsoft.Extensions.DependencyInjection;
     using Microsoft.OpenApi.Models;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Linq;
@@ -15,16 +16,19 @@ namespace Menes.Converters
     /// </summary>
     public class ObjectConverter : IOpenApiConverter
     {
+        private readonly IServiceProvider serviceProvider;
         private readonly OpenApiSchemaValidator validator;
         private readonly OpenApiConfiguration configuration;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ObjectConverter"/> class.
         /// </summary>
+        /// <param name="serviceProvider">The service provider that can supply type information.</param>
         /// <param name="validator">The <see cref="OpenApiSchemaValidator"/>.</param>
         /// <param name="configuration">The OpenAPI host configuration.</param>
-        public ObjectConverter(OpenApiSchemaValidator validator, OpenApiConfiguration configuration)
+        public ObjectConverter(IServiceProvider serviceProvider, OpenApiSchemaValidator validator, OpenApiConfiguration configuration)
         {
+            this.serviceProvider = serviceProvider;
             this.validator = validator;
             this.configuration = configuration;
         }
@@ -40,11 +44,10 @@ namespace Menes.Converters
         {
             this.validator.ValidateAndThrow(content, schema);
 
-            string type = null;
-
             // Use the discriminator to look up the type, if it is available
             string discriminator = schema.Discriminator?.PropertyName;
 
+            string type;
             if (!string.IsNullOrEmpty(discriminator))
             {
                 var jobj = JObject.Parse(content);
@@ -71,7 +74,7 @@ namespace Menes.Converters
 
             if (!this.configuration.DiscriminatedTypes.TryGetValue(type, out Type targetType))
             {
-                if (!ContentFactory.TryGetTypeFor(type, out targetType))
+                if (!this.serviceProvider.TryGetTypeFor(type, out targetType))
                 {
                     // We have no immediately obvious way to discriminate the type, so fall back on the serializers.
                     return JsonConvert.DeserializeObject(content, this.configuration.DefaultSerializerSettings);
