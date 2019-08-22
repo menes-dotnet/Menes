@@ -1,0 +1,175 @@
+﻿// <copyright file="OpenApiHostingServiceCollectionExtensions.cs" company="Endjin Limited">
+// Copyright (c) Endjin Limited. All rights reserved.
+// </copyright>
+
+namespace Microsoft.Extensions.DependencyInjection
+{
+    using System;
+    using Menes;
+    using Menes.Auditing;
+    using Menes.Exceptions;
+    using Menes.Internal;
+    using Menes.Links;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.Logging;
+    using Newtonsoft.Json;
+
+    /// <summary>
+    /// Extensions for a <see cref="IServiceCollection"/>.
+    /// </summary>
+    public static class OpenApiHostingServiceCollectionExtensions
+    {
+        /// <summary>
+        /// Configure Open API hosting using an <see cref="IOpenApiHost"/>.
+        /// </summary>
+        /// <typeparam name="TRequest">The type of the request.</typeparam>
+        /// <typeparam name="TResponse">The type of the response.</typeparam>
+        /// <param name="services">The services collection to configure.</param>
+        /// <param name="configureHost">A function used to configure the host.</param>
+        /// <param name="configureEnvironment">A function used to optionally configure the hosting environment.</param>
+        /// <returns>The configured <see cref="IServiceCollection"/>.</returns>
+        /// <remarks>
+        /// <para>
+        /// See <see cref="IOpenApiService"/> for details on using the Open API hosting environment.
+        /// </para>
+        /// <para>
+        /// To host in functions, you should provide a function entry point with a catch-all for your base URI, and any operation types you need to support (GET, POST etc.)
+        /// </para>
+        /// <para>
+        /// <code>
+        /// [FunctionName("openapihostroot")]
+        /// public static Task&lt;IActionResult&gt; RunAsync([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = "{*path}")]HttpRequest req, ExecutionContext context, ILogger log)
+        /// {
+        ///     Initialize(context);
+        ///
+        ///     var host = ServiceRoot.ServiceProvider.GetRequiredService&lt;OpenApiHttpRequestHost&gt;();
+        ///     return host.HandleRequest(req);
+        /// }
+        /// </code>
+        /// </para>
+        /// <para>
+        /// Initialization is handled using this method, during Functions container initialization.
+        /// </para>
+        /// <para>
+        /// <code>
+        /// private static void Initialize(ExecutionContext context)
+        /// {
+        ///     Functions.InitializeContainer(context, services =&gt;
+        ///     {
+        ///         services.AddOpenApiHttpHosting(host =&gt;
+        ///         {
+        ///             using (var stream = File.OpenRead(".\\yaml\\petstore.yaml"))
+        ///             {
+        ///                 var openApiDocument = new OpenApiStreamReader().Read(stream, out var diagnostics);
+        ///                 host.AddDocument(openApiDocument);
+        ///             }
+        ///         });
+        ///
+        ///         // We can add all the services here
+        ///         services.AddSingleton&lt;IOpenApiService, PetStoreService&gt;();
+        ///     });
+        /// }
+        /// </code>
+        /// </para>
+        /// <para>
+        /// You can add as many <see cref="IOpenApiService"/> instances to the container as you have, but the framework will
+        /// <i>only</i> expose those that are bound to Open API documents that you have added to the host. While you typically
+        /// add documents on startup, you can add more at runtime to light up services that are registered in the container, but not
+        /// actually bound to Open API documents.
+        /// </para>
+        /// <para>
+        /// See <see cref="IOpenApiService"/> for more details on configuring the host using this mechanism.
+        /// </para>
+        /// </remarks>
+        public static IServiceCollection AddOpenApiHosting<TRequest, TResponse>(this IServiceCollection services, Action<OpenApiHostConfiguration> configureHost, Action<OpenApiConfiguration> configureEnvironment = null)
+        {
+            services.AddSingleton<JsonConverter, OpenApiDocumentJsonConverter>();
+            services.AddSingleton<IOpenApiDocumentProvider, OpenApiDocumentProvider>();
+
+            services.AddSingleton<IOpenApiServiceOperationLocator, DefaultOperationLocator>();
+            services.AddSingleton<IPathMatcher, PathMatcher>();
+            services.AddSingleton<IOpenApiService, SwaggerService>();
+            services.AddSingleton<IOpenApiLinkOperationMapper, OpenApiLinkOperationMapper>();
+            services.AddSingleton<IOpenApiAccessChecker, OpenApiAccessChecker>();
+            services.AddSingleton<IOpenApiExceptionMapper, OpenApiExceptionMapper>();
+            services.AddSingleton<IOpenApiWebLinkResolver, OpenApiWebLinkResolver>();
+            services.AddSingleton<JsonConverter, HalWebLinkCollectionJsonConverter>();
+            services.AddSingleton<IAuditContext, AuditContext>();
+            services.AddSingleton<IOpenApiOperationInvoker<TRequest, TResponse>, OpenApiOperationInvoker<TRequest, TResponse>>();
+
+            services.AddSingleton<IOpenApiHost<TRequest, TResponse>>(serviceProvider =>
+            {
+                var result = new OpenApiHost<TRequest, TResponse>(
+                        serviceProvider.GetRequiredService<IOpenApiServiceOperationLocator>(),
+                        serviceProvider.GetRequiredService<IPathMatcher>(),
+                        serviceProvider.GetRequiredService<IOpenApiContextBuilder<TRequest>>(),
+                        serviceProvider.GetRequiredService<IOpenApiOperationInvoker<TRequest, TResponse>>(),
+                        serviceProvider.GetRequiredService<IOpenApiResultBuilder<TResponse>>());
+
+                IOpenApiExceptionMapper exceptionMapper = serviceProvider.GetRequiredService<IOpenApiExceptionMapper>();
+
+                exceptionMapper.Map<OpenApiBadRequestException>(400);
+                exceptionMapper.Map<OpenApiUnauthorizedException>(401);
+                exceptionMapper.Map<OpenApiForbiddenException>(403);
+                exceptionMapper.Map<OpenApiNotFoundException>(404);
+
+                configureHost(new OpenApiHostConfiguration(serviceProvider.GetRequiredService<IOpenApiDocumentProvider>(), exceptionMapper, serviceProvider.GetRequiredService<IOpenApiLinkOperationMapper>()));
+
+                return result;
+            });
+
+            services.AddSingleton(serviceProvider =>
+            {
+                var config = new OpenApiConfiguration(serviceProvider);
+                configureEnvironment?.Invoke(config);
+
+                return config;
+            });
+
+            services.AddOpenApiJsonConverters();
+            services.AddOpenApiExceptionMappers();
+
+            return services;
+        }
+
+        /// <summary>
+        /// Adds the /swagger endpoint to your host.
+        /// </summary>
+        /// <param name="documents">
+        /// The Open API document provider.
+        /// </param>
+        public static void AddSwaggerEndpoint(this IOpenApiDocuments documents)
+        {
+            documents.Add(SwaggerService.BuildSwaggerDocument());
+        }
+
+        /// <summary>
+        /// Enables resolution of URLs to external services.
+        /// </summary>
+        /// <param name="services">The service collection.</param>
+        /// <param name="configurationSectionName">
+        /// The name of the configuration section in which external service base URLs are configured.
+        /// </param>
+        /// <param name="configure">A callback for registering external services.</param>
+        /// <returns>The service collection, to enable chaining.</returns>
+        public static IServiceCollection AddExternalServices(
+            this IServiceCollection services,
+            string configurationSectionName,
+            Action<IOpenApiExternalServices> configure)
+        {
+            services.AddSingleton(sp =>
+            {
+                IConfigurationRoot configRoot = sp.GetRequiredService<IConfigurationRoot>();
+                IOpenApiExternalServices result = new OpenApiExternalServices(
+                    configRoot.GetSection(configurationSectionName),
+                    sp.GetRequiredService<ILogger<OpenApiDocumentProvider>>());
+
+                configure(result);
+
+                return result;
+            });
+
+            return services;
+        }
+    }
+}

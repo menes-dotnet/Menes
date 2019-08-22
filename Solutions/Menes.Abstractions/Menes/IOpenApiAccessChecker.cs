@@ -10,8 +10,7 @@ namespace Menes
     /// <summary>
     /// Interface implemented by types responsible for applying access control to an incoming request.
     /// </summary>
-    /// <typeparam name="TTenant">The type of the tenant.</typeparam>
-    public interface IOpenApiAccessChecker<TTenant>
+    public interface IOpenApiAccessChecker
     {
         /// <summary>
         /// Invoked prior to executing a service operation implementation. Determines whether
@@ -29,7 +28,7 @@ namespace Menes
         /// <see cref="AccessControlPolicyResult"/> indicating the outcome of the policy evaluation.
         /// </returns>
         Task<IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> CheckAccessPoliciesAsync(
-            IOpenApiContext<TTenant> context,
+            IOpenApiContext context,
             params AccessCheckOperationDescriptor[] requests);
     }
 }

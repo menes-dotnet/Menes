@@ -7,18 +7,18 @@ namespace Menes
     using System.Threading.Tasks;
 
     /// <summary>
-    /// Interface implemented by types responsible for setting properties on an <see cref="IOpenApiContext{TTenant}"/> for an incoming request.
+    /// Interface implemented by types responsible for setting properties on an <see cref="IOpenApiContext"/> for an incoming request.
     /// </summary>
     /// <typeparam name="TRequest">The type of the request.</typeparam>
-    /// <typeparam name="TTenant">The type of the tenant.</typeparam>
-    public interface IOpenApiContextBuilderComponent<TRequest, TTenant>
+    public interface IOpenApiContextBuilderComponent<TRequest>
     {
         /// <summary>
-        /// Sets properties on an <see cref="IOpenApiContext{TTenant}"/> for an incoming request.
+        /// Sets properties on an <see cref="IOpenApiContext"/> for an incoming request.
         /// </summary>
-        /// <param name="context">The <see cref="IOpenApiContext{TTenant}"/> for the current request.</param>
+        /// <param name="context">The <see cref="IOpenApiContext"/> for the current request.</param>
         /// <param name="request">The incoming request.</param>
+        /// <param name="parameters">A dyamically built parameters object passed to the builder.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        Task BuildAsync(IOpenApiContext<TTenant> context, TRequest request);
+        Task BuildAsync(IOpenApiContext context, TRequest request, dynamic parameters);
     }
 }

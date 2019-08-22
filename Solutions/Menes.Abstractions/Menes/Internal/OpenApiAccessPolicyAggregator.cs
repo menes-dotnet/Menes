@@ -10,13 +10,13 @@ namespace Menes.Internal
     using System.Threading.Tasks;
 
     /// <summary>
-    /// Evaluates multiple <see cref="IOpenApiAccessControlPolicy{TTenant}"/> implementations, and
+    /// Evaluates multiple <see cref="IOpenApiAccessControlPolicy"/> implementations, and
     /// aggregates the results.
     /// </summary>
     /// <remarks>
     /// <para>
-    /// This enables the <see cref="OpenApiAccessChecker{TTenant}"/> and
-    /// <see cref="AccessControlPolicies.ShortCircuitingAccessControlPolicyAdapter{TTenant}"/> to share the same aggregation logic.
+    /// This enables the <see cref="OpenApiAccessChecker"/> and
+    /// <see cref="AccessControlPolicies.ShortCircuitingAccessControlPolicyAdapter"/> to share the same aggregation logic.
     /// </para>
     /// </remarks>
     internal static class OpenApiAccessPolicyAggregator
@@ -26,15 +26,11 @@ namespace Menes.Internal
         /// result if all policies says Allow, and otherwise returning a Deny result where the
         /// Explanation is formed by appending any Explanations produced by the individual policies.
         /// </summary>
-        /// <typeparam name="TTenant">The type of the tenant.</typeparam>
         /// <param name="accessControlPolicies">
         /// The policies to evaluate and aggregate.
         /// </param>
-        /// <param name="principal">
-        /// The caller's identity.
-        /// </param>
-        /// <param name="tenant">
-        /// The tenant for which to perform the check.
+        /// <param name="context">
+        /// The context for which to perform the check.
         /// </param>
         /// <param name="requests">
         /// The list of operation descriptors to check.
@@ -43,18 +39,16 @@ namespace Menes.Internal
         /// A task that produces an <see cref="AccessControlPolicyResultType"/> indicating whether
         /// access is allowed, and if it is not, an optional textual explanation (which may be null).
         /// </returns>
-        internal static async Task<IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> EvaluteAccessPoliciesConcurrentlyAsync<TTenant>(
-            IEnumerable<IOpenApiAccessControlPolicy<TTenant>> accessControlPolicies,
-            ClaimsPrincipal principal,
-            TTenant tenant,
+        internal static async Task<IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> EvaluteAccessPoliciesConcurrentlyAsync(
+            IEnumerable<IOpenApiAccessControlPolicy> accessControlPolicies,
+            IOpenApiContext context,
             params AccessCheckOperationDescriptor[] requests)
         {
             // Evaluate the set of requests with all policies simultaneously.
             IEnumerable<Task<IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>>> policyEvaluationTasks =
                 accessControlPolicies.Select(
                     policy => policy.ShouldAllowAsync(
-                        principal,
-                        tenant,
+                        context,
                         requests));
 
             // Wait for all policy evaluation to complete.

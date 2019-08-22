@@ -56,12 +56,11 @@ namespace Menes.Internal
         /// <summary>
         /// Execute the service operation.
         /// </summary>
-        /// <typeparam name="TTenant">The type of the tenant.</typeparam>
         /// <param name="context">The Open API context.</param>
         /// <param name="inputParameters">The parameters for the operation.</param>
         /// <returns>The result.</returns>
-        public object Execute<TTenant>(
-            IOpenApiContext<TTenant> context,
+        public object Execute(
+            IOpenApiContext context,
             IDictionary<string, object> inputParameters)
         {
             object[] paramArray = new object[this.parameterNames.Length];
@@ -71,7 +70,7 @@ namespace Menes.Internal
                 string parameterName = this.parameterNames[index];
                 Type targetType = this.operation.GetParameters()[index].ParameterType;
 
-                if (targetType == typeof(IOpenApiContext<TTenant>))
+                if (targetType == typeof(IOpenApiContext))
                 {
                     paramArray[index] = context;
                 }

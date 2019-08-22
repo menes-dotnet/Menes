@@ -9,7 +9,7 @@ namespace Menes.Links
     using System.Threading.Tasks;
 
     /// <summary>
-    /// Link-related extension methods on <see cref="IOpenApiAccessChecker{TTenant}"/>.
+    /// Link-related extension methods on <see cref="IOpenApiAccessChecker"/>.
     /// </summary>
     public static class OpenApiAccessCheckerExtensions
     {
@@ -19,19 +19,19 @@ namespace Menes.Links
         /// </summary>
         /// <typeparam name="TTenant">The type of the tenant.</typeparam>
         /// <param name="that">
-        /// The <see cref="IOpenApiAccessChecker{TTenant}"/> that will be used to check the individual links.
+        /// The <see cref="IOpenApiAccessChecker"/> that will be used to check the individual links.
         /// </param>
         /// <param name="target">
         /// The <see cref="HalDocument"/> to check.
         /// </param>
         /// <param name="context">
-        /// The <see cref="IOpenApiContext{TTenant}"/> used to get information about the current principal.
+        /// The <see cref="IOpenApiContext"/> used to get information about the current principal.
         /// </param>
         /// <param name="options">
         /// The <see cref="HalDocumentLinkRemovalOptions"/> to apply when checking links.
         /// </param>
         /// <returns>A task that completes when all links have been checked.</returns>
-        public static async Task RemoveForbiddenLinksAsync<TTenant>(this IOpenApiAccessChecker<TTenant> that, HalDocument target, IOpenApiContext<TTenant> context, HalDocumentLinkRemovalOptions options = default)
+        public static async Task RemoveForbiddenLinksAsync<TTenant>(this IOpenApiAccessChecker that, HalDocument target, IOpenApiContext context, HalDocumentLinkRemovalOptions options = default)
         {
             // First, we need to build a collection of all the links. For each one we need:
             // 1. The link itself.

@@ -11,10 +11,9 @@ namespace Menes.AccessControlPolicies
     using Menes.Internal;
 
     /// <summary>
-    /// An <see cref="IOpenApiAccessControlPolicy{TTenant}"/> that wraps set of policies, enabling the
+    /// An <see cref="IOpenApiAccessControlPolicy"/> that wraps set of policies, enabling the
     /// first to avoid the evalution of the rest.
     /// </summary>
-    /// <typeparam name="TTenant">The type of the tenant.</typeparam>
     /// <remarks>
     /// <para>
     /// This 'short-circuits' evaluation in the same sense as the C# <c>||</c> operator: if the
@@ -24,7 +23,7 @@ namespace Menes.AccessControlPolicies
     /// <para>
     /// In a similar way, this adapter enables us to avoid evaluation of the other policies in the
     /// case where the first policy would allow the request through. This has no bearing on the
-    /// final outcome: the <see cref="OpenApiAccessChecker{TTenant}"/> implements a logical and, in that it
+    /// final outcome: the <see cref="OpenApiAccessChecker"/> implements a logical and, in that it
     /// only requires a single policy to say Deny to block the request. But it works more like the
     /// C# <c>|</c> operator in that it evaluates all the policies. (It does that so that it can
     /// evaluate them in parallel.) In cases where one policy is significantly cheaper to evaluate
@@ -34,13 +33,13 @@ namespace Menes.AccessControlPolicies
     /// outcome.
     /// </para>
     /// </remarks>
-    public class ShortCircuitingAccessControlPolicyAdapter<TTenant> : IOpenApiAccessControlPolicy<TTenant>
+    public class ShortCircuitingAccessControlPolicyAdapter : IOpenApiAccessControlPolicy
     {
-        private readonly IOpenApiAccessControlPolicy<TTenant> firstPolicy;
-        private readonly IEnumerable<IOpenApiAccessControlPolicy<TTenant>> otherPolicies;
+        private readonly IOpenApiAccessControlPolicy firstPolicy;
+        private readonly IEnumerable<IOpenApiAccessControlPolicy> otherPolicies;
 
         /// <summary>
-        /// Create a <see cref="ShortCircuitingAccessControlPolicyAdapter{TTenant}"/>.
+        /// Create a <see cref="ShortCircuitingAccessControlPolicyAdapter"/>.
         /// </summary>
         /// <param name="firstPolicy">
         /// The policy that will be evaluated first. If this returns Allow, we will return an
@@ -52,8 +51,8 @@ namespace Menes.AccessControlPolicies
         /// The policies that will be evaluated only if the first policy returns Deny.
         /// </param>
         public ShortCircuitingAccessControlPolicyAdapter(
-            IOpenApiAccessControlPolicy<TTenant> firstPolicy,
-            IEnumerable<IOpenApiAccessControlPolicy<TTenant>> otherPolicies)
+            IOpenApiAccessControlPolicy firstPolicy,
+            IEnumerable<IOpenApiAccessControlPolicy> otherPolicies)
         {
             this.firstPolicy = firstPolicy;
             this.otherPolicies = otherPolicies;
@@ -61,11 +60,10 @@ namespace Menes.AccessControlPolicies
 
         /// <inheritdoc/>
         public async Task<IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> ShouldAllowAsync(
-            ClaimsPrincipal principal,
-            TTenant tenant,
+            IOpenApiContext context,
             params AccessCheckOperationDescriptor[] requests)
         {
-            IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult> firstPolicyResults = await this.firstPolicy.ShouldAllowAsync(principal, tenant, requests).ConfigureAwait(false);
+            IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult> firstPolicyResults = await this.firstPolicy.ShouldAllowAsync(context, requests).ConfigureAwait(false);
 
             // Get the "denys" from the first policy results so we can feed them into the second.
             AccessCheckOperationDescriptor[] deniedByFirstPolicy = firstPolicyResults.Where(x => !x.Value.Allow).Select(x => x.Key).ToArray();
@@ -80,8 +78,7 @@ namespace Menes.AccessControlPolicies
             // Evaluate the remaining requests.
             IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult> otherPolicyResults = await OpenApiAccessPolicyAggregator.EvaluteAccessPoliciesConcurrentlyAsync(
                 this.otherPolicies,
-                principal,
-                tenant,
+                context,
                 deniedByFirstPolicy).ConfigureAwait(false);
 
             // Merge the result from the other policies into that from the first.

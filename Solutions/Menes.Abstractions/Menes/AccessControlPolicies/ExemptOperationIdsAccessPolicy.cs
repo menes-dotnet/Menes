@@ -13,7 +13,6 @@ namespace Menes.AccessControlPolicies
     /// <summary>
     /// Access control policy that allows operations based on the operation id.
     /// </summary>
-    /// <typeparam name="TTenant">The type of the tenant.</typeparam>
     /// <remarks>
     /// <para>
     /// When using an access control policy, you may want to exempt certain Open API operations
@@ -26,16 +25,16 @@ namespace Menes.AccessControlPolicies
     /// </para>
     /// <para>
     /// This policy evaluates quickly because it does not need to access any external policy.
-    /// Therefore consider using the <see cref="ShortCircuitingAccessControlPolicyAdapter{TTenant}"/> to
+    /// Therefore consider using the <see cref="ShortCircuitingAccessControlPolicyAdapter"/> to
     /// avoid evaluating other policies in the case where this allows an operation in.
     /// </para>
     /// </remarks>
-    public class ExemptOperationIdsAccessPolicy<TTenant> : IOpenApiAccessControlPolicy<TTenant>
+    public class ExemptOperationIdsAccessPolicy : IOpenApiAccessControlPolicy
     {
         private readonly string[] exemptOperationIds;
 
         /// <summary>
-        /// Create an <see cref="ExemptOperationIdsAccessPolicy{TTenant}"/>.
+        /// Create an <see cref="ExemptOperationIdsAccessPolicy"/>.
         /// </summary>
         /// <param name="exemptOperationIds">
         /// The Open API operation ids that should always be granted access.
@@ -48,8 +47,7 @@ namespace Menes.AccessControlPolicies
 
         /// <inheritdoc/>
         public Task<IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> ShouldAllowAsync(
-            ClaimsPrincipal principal,
-            TTenant tenant,
+            IOpenApiContext context,
             params AccessCheckOperationDescriptor[] requests)
         {
             IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult> result = requests.ToDictionary(request => request, request => this.ShouldAllow(request.OperationId));

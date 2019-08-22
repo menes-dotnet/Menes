@@ -9,24 +9,23 @@ namespace Menes
     using System.Threading.Tasks;
 
     /// <summary>
-    /// Extension methods for classes implementing <see cref="IOpenApiAccessChecker{TTenant}"/>.
+    /// Extension methods for classes implementing <see cref="IOpenApiAccessChecker"/>.
     /// </summary>
     public static class OpenApiAccessCheckerExtensions
     {
         /// <summary>
-        /// An extension method that provides simpler syntax when using the <see cref="IOpenApiAccessChecker{TTenant}"/>
+        /// An extension method that provides simpler syntax when using the <see cref="IOpenApiAccessChecker"/>
         /// to check access for a single operation.
         /// </summary>
-        /// <typeparam name="TTenant">The type of the tenant.</typeparam>
-        /// <param name="checker">The underlying <see cref="IOpenApiAccessChecker{TTenant}"/> to use.</param>
-        /// <param name="context">The current <see cref="IOpenApiContext{TTenant}"/>.</param>
+        /// <param name="checker">The underlying <see cref="IOpenApiAccessChecker"/> to use.</param>
+        /// <param name="context">The current <see cref="IOpenApiContext"/>.</param>
         /// <param name="path">The request path.</param>
         /// <param name="operationId">The request Operation Id.</param>
         /// <param name="httpMethod">The request Http method.</param>
         /// <returns>A task that resolves to the result of the access check.</returns>
-        public static async Task<AccessControlPolicyResult> CheckAccessPolicyAsync<TTenant>(
-            this IOpenApiAccessChecker<TTenant> checker,
-            IOpenApiContext<TTenant> context,
+        public static async Task<AccessControlPolicyResult> CheckAccessPolicyAsync(
+            this IOpenApiAccessChecker checker,
+            IOpenApiContext context,
             string path,
             string operationId,
             string httpMethod)

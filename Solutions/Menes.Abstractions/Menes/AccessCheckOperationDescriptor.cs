@@ -9,8 +9,8 @@ namespace Menes
 
     /// <summary>
     /// Contains information about an operation that needs to be part of an
-    /// access check for a user, using the <see cref="IOpenApiAccessChecker{TTenant}"/>,
-    /// <see cref="IOpenApiAccessControlPolicy{TTenant}"/> or one of the other classes
+    /// access check for a user, using the <see cref="IOpenApiAccessChecker"/>,
+    /// <see cref="IOpenApiAccessControlPolicy"/> or one of the other classes
     /// involved in that process.
     /// </summary>
     [DebuggerDisplay("{OperationId} - {Method} {Path}")]
