@@ -1,5 +1,11 @@
 trigger:
-- master
+  branches:
+    include:
+    - master
+    - feature/*
+  tags:
+    include:
+    - '*'
 
 pool:
   vmImage: 'ubuntu-latest'
@@ -17,24 +23,40 @@ steps:
   inputs:
     version: 2.2.401
 
-- task: gittools.gitversion.gitversion-task.GitVersion@5
-  displayName: 'GitVersion'
+- task: DotNetCoreCLI@2
+  displayName: 'Install GitVersion (Global Tools Linux Build Agent Workaround)'
   inputs:
-    preferBundledVersion: false
+    command: custom
+    custom: 'tool'
+    arguments: 'install -g GitVersion.Tool'
+
+- script: 'dotnet-gitversion /output buildserver /nofetch' 
+  displayName: 'Run GitVersion'
+
+- powershell: |
+    $IsPreRelease = (-not ([string]::IsNullOrEmpty($Env:GITVERSION_PRERELEASETAG)))
+    Write-Host "##vso[task.setvariable variable=Endjin_IsPreRelease]$IsPreRelease"
+    Write-Host "##vso[task.setvariable variable=Endjin_Repository_Name]$Env:BUILD_REPOSITORY_NAME"
+  displayName: 'Set Environment Variable for GitHub Releases'
+
+# Useful for debugging purposes
+#- powershell: 'gci Env:'
+#  displayName: 'Print Environment Variables'
 
 - task: DotNetCoreCLI@2
   displayName: 'Restore & Build'
   inputs:
     command: 'build'
     projects: $(SolutionToBuild)
-    arguments: '/p:VersionPrefix="$(GitVersion.MajorMinorPatch)" /p:VersionSuffix="$(GitVersion.PreReleaseTag)" --configuration $(BuildConfiguration) '
+    arguments: '--configuration $(BuildConfiguration) /p:Version=$(GitVersion.SemVer)'
+    versioningScheme: byBuildNumber
 
 - task: DotNetCoreCLI@2
   displayName: 'Run Executable Specifications'
   inputs:
     command: 'test'
     projects: $(SolutionToBuild)
-    arguments: '-c $(BuildConfiguration) --no-restore /p:VersionPrefix="$(GitVersion.MajorMinorPatch)" /p:VersionSuffix="$(GitVersion.PreReleaseTag)" /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura'
+    arguments: '-c $(BuildConfiguration) --no-restore /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura'
     nobuild: true
 
 - script: |
@@ -56,9 +78,37 @@ steps:
     projects: $(SolutionToBuild)
     packDirectory: '$(Build.ArtifactStagingDirectory)/packages/$(Build.BuildID)'
     nobuild: true
-    buildProperties: 'VersionPrefix="$(GitVersion.MajorMinorPatch)";VersionSuffix="$(GitVersion.PreReleaseTag)"'
+    versioningScheme: byEnvVar
+    versionEnvVar: GitVersion.SemVer
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifact: Drop'
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+
+- task: NuGetToolInstaller@0
+  inputs:
+    versionSpec: '5.1.0'
+
+- task: GithubRelease@0 
+  displayName: 'Create GitHub Release'      
+  condition: and(succeeded(), or(variables['Endjin.ForcePublish'], eq(variables['GitVersion.PreReleaseTag'], '')))
+  inputs:
+    gitHubConnection: 'corvus-dotnet-github'
+    repositoryName: $(Endjin_Repository_Name)
+    tagSource: manual
+    tag: $(GitVersion.SemVer) 
+    isPreRelease: $(Endjin_IsPreRelease)
+    assets: |
+        $(Build.ArtifactStagingDirectory)/**/*.nupkg
+        $(Build.ArtifactStagingDirectory)/**/*.snupkg
+
+- task: NuGetCommand@2
+  displayName: 'Publish to nuget.org'
+  condition: and(succeeded(), or(variables['Endjin.ForcePublish'], eq(variables['GitVersion.PreReleaseTag'], '')))
+  inputs:
+    command: push
+    nuGetFeedType: external
+    publishFeedCredentials: 'corvus-dotnet-nuget-org'
+    versioningScheme: byBuildNumber
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg'

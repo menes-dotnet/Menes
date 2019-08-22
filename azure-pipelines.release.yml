@@ -1,0 +1,37 @@
+trigger: none
+pr: none
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
+
+steps:
+
+- task: DotNetCoreInstaller@0
+  displayName: 'Install .NET Core SDK 2.2.401 (Global Tools error workaround)'
+  inputs:
+    version: 2.2.401
+
+- task: DotNetCoreCLI@2
+  displayName: 'Install GitVersion (Global Tools Linux Build Agent Workaround)'
+  inputs:
+    command: custom
+    custom: 'tool'
+    arguments: 'install -g GitVersion.Tool'
+
+- script: 'dotnet-gitversion /output buildserver /nofetch' 
+  displayName: 'Run GitVersion'
+
+- powershell: |
+    Write-Host "##vso[task.setvariable variable=Endjin_Repository_Name]$Env:BUILD_REPOSITORY_NAME"
+  displayName: 'Set Environment Variable for Tag Git'
+
+- task: GitHubTag@1
+  displayName: 'Tag Git'
+  inputs:
+    githubEndpoint: 'corvus-dotnet-github'
+    repositoryName: $(Endjin_Repository_Name)
+    commmit: 'Release v$(GitVersion.MajorMinorPatch)'
+    tag: '$(GitVersion.MajorMinorPatch)'
