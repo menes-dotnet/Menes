@@ -14,7 +14,7 @@ variables:
 
   BuildConfiguration: 'Release'
   DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
-  SolutionToBuild: 'Solutions/Corvus.Extensions.sln'
+  SolutionToBuild: 'Solutions/Menes.sln'
 
 steps:
 
@@ -94,7 +94,7 @@ steps:
   displayName: 'Create GitHub Release'      
   condition: and(succeeded(), or(variables['Endjin.ForcePublish'], eq(variables['GitVersion.PreReleaseTag'], '')))
   inputs:
-    gitHubConnection: 'corvus-dotnet-github'
+    gitHubConnection: 'menes-dotnet-github'
     repositoryName: $(Endjin_Repository_Name)
     tagSource: manual
     tag: $(GitVersion.SemVer) 
@@ -109,6 +109,6 @@ steps:
   inputs:
     command: push
     nuGetFeedType: external
-    publishFeedCredentials: 'corvus-dotnet-nuget-org'
+    publishFeedCredentials: 'menes-dotnet-nuget-org'
     versioningScheme: byBuildNumber
     packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg'

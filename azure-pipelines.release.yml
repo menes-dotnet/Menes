@@ -31,7 +31,7 @@ steps:
 - task: GitHubTag@1
   displayName: 'Tag Git'
   inputs:
-    githubEndpoint: 'corvus-dotnet-github'
+    githubEndpoint: 'menes-dotnet-github'
     repositoryName: $(Endjin_Repository_Name)
     commmit: 'Release v$(GitVersion.MajorMinorPatch)'
     tag: '$(GitVersion.MajorMinorPatch)'
