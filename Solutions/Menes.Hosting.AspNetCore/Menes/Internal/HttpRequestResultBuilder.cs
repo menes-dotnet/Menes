@@ -1,8 +1,8 @@
-﻿// <copyright file="HttpRequestResultBuilder.cs" company="Endjin">
-// Copyright (c) Endjin. All rights reserved.
+﻿// <copyright file="HttpRequestResultBuilder.cs" company="Endjin Limited">
+// Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
-namespace Endjin.OpenApi.Internal
+namespace Menes.Internal
 {
     using System.Collections.Generic;
     using System.Linq;

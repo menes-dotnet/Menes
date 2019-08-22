@@ -7,6 +7,7 @@ namespace Menes
     using System;
     using System.Collections.Generic;
     using System.Globalization;
+    using Corvus.ContentHandling.Json;
     using Microsoft.Extensions.DependencyInjection;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Serialization;
@@ -99,33 +100,43 @@ namespace Menes
         {
             if (jsonSerializerSettings == null)
             {
-                jsonSerializerSettings = new JsonSerializerSettings
+                // Use the content provider if available
+                IDefaultJsonSerializerSettings provider = serviceProvider.GetService<IDefaultJsonSerializerSettings>();
+                if (provider != null)
                 {
-                    ContractResolver = StandardContractResolver.Instance,
-                    MissingMemberHandling = MissingMemberHandling.Ignore,
-                    ReferenceLoopHandling = ReferenceLoopHandling.Error,
-                    NullValueHandling = NullValueHandling.Include,
-                    ObjectCreationHandling = ObjectCreationHandling.Auto,
-                    PreserveReferencesHandling = PreserveReferencesHandling.None,
-                    ConstructorHandling = ConstructorHandling.Default,
-                    TypeNameHandling = TypeNameHandling.None,
-                    MetadataPropertyHandling = MetadataPropertyHandling.Default,
-                    Formatting = Formatting.None,
-                    DateFormatHandling = DateFormatHandling.IsoDateFormat,
-                    DateTimeZoneHandling = DateTimeZoneHandling.RoundtripKind,
-                    DateParseHandling = DateParseHandling.DateTimeOffset,
-                    FloatParseHandling = FloatParseHandling.Double,
-                    FloatFormatHandling = FloatFormatHandling.String,
-                    StringEscapeHandling = StringEscapeHandling.Default,
-                    CheckAdditionalContent = false,
-                    DateFormatString = "yyyy'-'MM'-'dd'T'HH':'mm':'ss.FFFFFFFK",
-                    Converters = new List<JsonConverter>(serviceProvider.GetServices<JsonConverter>()),
-                    ReferenceResolverProvider = null,
-                    Context = default,
-                    Culture = CultureInfo.InvariantCulture,
-                    MaxDepth = 4096,
-                    DefaultValueHandling = DefaultValueHandling.Include,
-                };
+                    jsonSerializerSettings = provider.Instance;
+                }
+                else
+                {
+                    // Otherwise fall back on compatible defaults.
+                    jsonSerializerSettings = new JsonSerializerSettings
+                    {
+                        ContractResolver = StandardContractResolver.Instance,
+                        MissingMemberHandling = MissingMemberHandling.Ignore,
+                        ReferenceLoopHandling = ReferenceLoopHandling.Error,
+                        NullValueHandling = NullValueHandling.Include,
+                        ObjectCreationHandling = ObjectCreationHandling.Auto,
+                        PreserveReferencesHandling = PreserveReferencesHandling.None,
+                        ConstructorHandling = ConstructorHandling.Default,
+                        TypeNameHandling = TypeNameHandling.None,
+                        MetadataPropertyHandling = MetadataPropertyHandling.Default,
+                        Formatting = Formatting.None,
+                        DateFormatHandling = DateFormatHandling.IsoDateFormat,
+                        DateTimeZoneHandling = DateTimeZoneHandling.RoundtripKind,
+                        DateParseHandling = DateParseHandling.DateTimeOffset,
+                        FloatParseHandling = FloatParseHandling.Double,
+                        FloatFormatHandling = FloatFormatHandling.String,
+                        StringEscapeHandling = StringEscapeHandling.Default,
+                        CheckAdditionalContent = false,
+                        DateFormatString = "yyyy'-'MM'-'dd'T'HH':'mm':'ss.FFFFFFFK",
+                        Converters = new List<JsonConverter>(serviceProvider.GetServices<JsonConverter>()),
+                        ReferenceResolverProvider = null,
+                        Context = default,
+                        Culture = CultureInfo.InvariantCulture,
+                        MaxDepth = 4096,
+                        DefaultValueHandling = DefaultValueHandling.Include,
+                    };
+                }
             }
 
             return jsonSerializerSettings;

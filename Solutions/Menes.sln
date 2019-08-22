@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Menes.Abstractions", "Menes
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Menes.Hosting", "Menes.Hosting\Menes.Hosting.csproj", "{2850943E-8FB1-45A6-A1EB-560E906D96CE}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Menes.Hosting.AspNetCore", "Menes.Hosting.AspNetCore\Menes.Hosting.AspNetCore.csproj", "{A20D10A6-DC8D-4137-8300-890CB55A9A47}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{2850943E-8FB1-45A6-A1EB-560E906D96CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2850943E-8FB1-45A6-A1EB-560E906D96CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2850943E-8FB1-45A6-A1EB-560E906D96CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A20D10A6-DC8D-4137-8300-890CB55A9A47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A20D10A6-DC8D-4137-8300-890CB55A9A47}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A20D10A6-DC8D-4137-8300-890CB55A9A47}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A20D10A6-DC8D-4137-8300-890CB55A9A47}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

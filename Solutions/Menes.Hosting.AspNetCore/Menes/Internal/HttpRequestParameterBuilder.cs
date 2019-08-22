@@ -1,16 +1,16 @@
-﻿// <copyright file="HttpRequestParameterBuilder.cs" company="Endjin">
-// Copyright (c) Endjin. All rights reserved.
+﻿// <copyright file="HttpRequestParameterBuilder.cs" company="Endjin Limited">
+// Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
-namespace Endjin.OpenApi.Internal
+namespace Menes.Internal
 {
     using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
     using System.Threading.Tasks;
-    using Endjin.OpenApi.Converters;
-    using Endjin.OpenApi.Exceptions;
+    using Menes.Converters;
+    using Menes.Exceptions;
     using Microsoft.AspNetCore.Http;
     using Microsoft.Extensions.Logging;
     using Microsoft.OpenApi.Models;
@@ -43,7 +43,6 @@ namespace Endjin.OpenApi.Internal
             }
 
             var parameters = new Dictionary<string, object>();
-            var uri = new UriBuilder();
 
             IList<OpenApiParameter> openApiParameters = operationPathTemplate.BuildOpenApiParameters();
             IDictionary<string, object> templateParameterValues = operationPathTemplate.BuildTemplateParameterValues(new Uri(request.Path.Value, UriKind.Relative));
@@ -323,9 +322,11 @@ namespace Endjin.OpenApi.Internal
 
         private async Task<object> ConvertBodyAsync(OpenApiSchema schema, Stream body)
         {
-            string value = await body.AsStringAsync().ConfigureAwait(false);
-
-            return this.ConvertValue(schema, value);
+            using (var reader = new StreamReader(body))
+            {
+                string value = await reader.ReadToEndAsync().ConfigureAwait(false);
+                return this.ConvertValue(schema, value);
+            }
         }
 
         private bool TryGetParameterFromHeader(IHeaderDictionary headers, OpenApiParameter parameter, out object result)

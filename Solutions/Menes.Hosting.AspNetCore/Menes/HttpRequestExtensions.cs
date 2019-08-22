@@ -1,14 +1,14 @@
-﻿// <copyright file="HttpRequestExtensions.cs" company="Endjin">
-// Copyright (c) Endjin. All rights reserved.
+﻿// <copyright file="HttpRequestExtensions.cs" company="Endjin Limited">
+// Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
-namespace Endjin.OpenApi
+namespace Microsoft.Extensions.DependencyInjection
 {
+    using System;
     using System.Threading.Tasks;
-    using Endjin.Composition;
+    using Menes;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.Extensions.DependencyInjection;
 
     /// <summary>
     /// Extension methods for HttpRequest.
@@ -18,12 +18,13 @@ namespace Endjin.OpenApi
         /// <summary>
         /// Uses the <see cref="IOpenApiHost{HttpRequest, IActionResult}"/> to handle the request.
         /// </summary>
+        /// <param name="host">The host to handle the request.</param>
         /// <param name="httpRequest">The request to handle.</param>
+        /// <param name="parameters">Any dynamically constructed parameters sent to the request.</param>
         /// <returns>The result of the request.</returns>
-        public static Task<IActionResult> HandleRequestAsync(this HttpRequest httpRequest)
+        public static Task<IActionResult> HandleRequestAsync(this IOpenApiHost<HttpRequest, IActionResult> host, HttpRequest httpRequest, dynamic parameters)
         {
-            IOpenApiHost<HttpRequest, IActionResult> host = ServiceRoot.ServiceProvider.GetRequiredService<IOpenApiHost<HttpRequest, IActionResult>>();
-            return host.HandleRequestAsync(httpRequest.Path, httpRequest.Method, httpRequest);
+            return host.HandleRequestAsync(httpRequest.Path, httpRequest.Method, httpRequest, parameters);
         }
     }
 }

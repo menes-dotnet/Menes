@@ -1,16 +1,16 @@
-﻿// <copyright file="OpenApiActionResult.cs" company="Endjin">
-// Copyright (c) Endjin. All rights reserved.
+﻿// <copyright file="OpenApiActionResult.cs" company="Endjin Limited">
+// Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
-namespace Endjin.OpenApi.Internal
+namespace Menes.Internal
 {
     using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
     using System.Threading.Tasks;
-    using Endjin.OpenApi.Converters;
-    using Endjin.OpenApi.Exceptions;
+    using Menes.Converters;
+    using Menes.Exceptions;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
@@ -35,26 +35,22 @@ namespace Endjin.OpenApi.Internal
         private readonly OpenApiOperation operation;
         private readonly IEnumerable<IOpenApiConverter> converters;
         private readonly ILogger logger;
-        private readonly OpenApiConfiguration configuration;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="OpenApiActionResult"/> class.
         /// </summary>
         /// <param name="openApiResult">The <see cref="OpenApiResult"/>.</param>
         /// <param name="operation">The OpenAPI operation definition.</param>
-        /// <param name="configuration">The OpenAPI configuration.</param>
         /// <param name="converters">The OpenAPI converters to use.</param>
         /// <param name="logger">A logger for the operation.</param>
         private OpenApiActionResult(
             OpenApiResult openApiResult,
             OpenApiOperation operation,
-            OpenApiConfiguration configuration,
             IEnumerable<IOpenApiConverter> converters,
             ILogger logger)
         {
             this.openApiResult = openApiResult;
             this.operation = operation;
-            this.configuration = configuration;
             this.converters = converters;
             this.logger = logger;
         }
@@ -64,34 +60,30 @@ namespace Endjin.OpenApi.Internal
         /// </summary>
         /// <param name="openApiResult">The <see cref="OpenApiResult"/>.</param>
         /// <param name="operation">The OpenAPI operation definition.</param>
-        /// <param name="configuration">The OpenAPI configuration.</param>
         /// <param name="converters">The OpenAPI converters to use.</param>
         /// <param name="logger">A logger for the operation.</param>
         /// <returns>A new <see cref="OpenApiActionResult"/>.</returns>
         public static OpenApiActionResult FromOpenApiResult(
             OpenApiResult openApiResult,
             OpenApiOperation operation,
-            OpenApiConfiguration configuration,
             IEnumerable<IOpenApiConverter> converters,
             ILogger logger)
-            => new OpenApiActionResult(openApiResult, operation, configuration, converters, logger);
+            => new OpenApiActionResult(openApiResult, operation, converters, logger);
 
         /// <summary>
         /// Creates a new <see cref="OpenApiActionResult"/> from a plain object.
         /// </summary>
         /// <param name="result">The result object, or null.</param>
         /// <param name="operation">The OpenAPI operation definition.</param>
-        /// <param name="configuration">The OpenAPI configuration.</param>
         /// <param name="converters">The OpenAPI converters to use.</param>
         /// <param name="logger">A logger for the operation.</param>
         /// <returns>A new <see cref="OpenApiActionResult"/>.</returns>
         public static OpenApiActionResult FromPoco(
             object result,
             OpenApiOperation operation,
-            OpenApiConfiguration configuration,
             IEnumerable<IOpenApiConverter> converters,
             ILogger logger)
-            => new OpenApiActionResult(GetOpenApiResultForPoco(result, operation, logger), operation, configuration, converters, logger);
+            => new OpenApiActionResult(GetOpenApiResultForPoco(result, operation, logger), operation, converters, logger);
 
         /// <summary>
         /// Determines if the action result can be constructed from the provided result and operation definition.

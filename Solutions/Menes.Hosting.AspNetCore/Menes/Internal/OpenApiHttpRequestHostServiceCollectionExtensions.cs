@@ -1,12 +1,12 @@
-﻿// <copyright file="OpenApiHttpRequestHostServiceCollectionExtensions.cs" company="Endjin">
-// Copyright (c) Endjin. All rights reserved.
+﻿// <copyright file="OpenApiHttpRequestHostServiceCollectionExtensions.cs" company="Endjin Limited">
+// Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
 namespace Microsoft.Extensions.DependencyInjection
 {
     using System;
-    using Endjin.OpenApi;
-    using Endjin.OpenApi.Internal;
+    using Menes;
+    using Menes.Internal;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using Newtonsoft.Json;
@@ -19,16 +19,18 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <summary>
         /// Adds <see cref="HttpRequest"/> / <see cref="IActionResult"/> based hosting.
         /// </summary>
+        /// <typeparam name="TContext">The type of the OpenApi context.</typeparam>
         /// <param name="services">The service collection to configure.</param>
         /// <param name="configureHost">A function to configure the host.</param>
         /// <param name="configureEnvironment">A function to configure the environment.</param>
         /// <returns>The configured service collection.</returns>
-        public static IServiceCollection AddOpenApiHttpRequestHosting(this IServiceCollection services, Action<OpenApiHostConfiguration> configureHost, Action<OpenApiConfiguration> configureEnvironment = null)
+        public static IServiceCollection AddOpenApiHttpRequestHosting<TContext>(this IServiceCollection services, Action<OpenApiHostConfiguration> configureHost, Action<OpenApiConfiguration> configureEnvironment = null)
+            where TContext : class, IOpenApiContext, new()
         {
             services.AddSingleton<IActionResultOutputBuilder, PocoActionResultOutputBuilder>();
             services.AddSingleton<IActionResultOutputBuilder, OpenApiResultActionResultOutputBuilder>();
 
-            services.AddSingleton<IOpenApiContextBuilder<HttpRequest>, OpenApiContextBuilder<HttpRequest>>();
+            services.AddSingleton<IOpenApiContextBuilder<HttpRequest>, OpenApiContextBuilder<HttpRequest, TContext>>();
             services.AddSingleton<IOpenApiParameterBuilder<HttpRequest>, HttpRequestParameterBuilder>();
             services.AddSingleton<IOpenApiResultBuilder<IActionResult>, HttpRequestResultBuilder>();
 

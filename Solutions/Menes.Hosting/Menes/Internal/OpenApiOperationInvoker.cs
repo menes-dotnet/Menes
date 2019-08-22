@@ -9,6 +9,7 @@ namespace Menes.Internal
     using System.Reflection;
     using System.Threading.Tasks;
     using Corvus.Extensions;
+    using Menes.Auditing;
     using Menes.Exceptions;
     using Microsoft.Extensions.Logging;
     using Microsoft.OpenApi.Models;

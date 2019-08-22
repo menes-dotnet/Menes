@@ -1,29 +1,23 @@
-﻿// <copyright file="IActionResultOutputBuilder.cs" company="Endjin Limited">
+﻿// <copyright file="IAuditLogBuilder.cs" company="Endjin Limited">
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
-namespace Menes.Internal
+namespace Menes.Auditing.Internal
 {
-    using Microsoft.AspNetCore.Mvc;
     using Microsoft.OpenApi.Models;
 
     /// <summary>
-    /// Interface implemented by types that are used to build <see cref="IActionResult"/> based output.
+    /// Interface implemented by types that are used to build <see cref="AuditLog"/> entries
+    /// from OpenApi operation results.
     /// </summary>
-    /// <remarks>
-    /// <para>
-    /// This can be used by any host that implements the AspNetCore 2.x model, such as
-    /// Functions V2 and AspNetCore itself.
-    /// </para>
-    /// </remarks>
-    public interface IActionResultOutputBuilder
+    public interface IAuditLogBuilder
     {
         /// <summary>
         /// Gets the priority of the output builder.
         /// </summary>
         /// <remarks>
         /// <para>
-        /// The candidate output builders will be executed in priority order, lowest to highest.
+        /// The candidate audit log builders will be executed in priority order, lowest to highest.
         /// </para>
         /// </remarks>
         int Priority { get; }
@@ -31,17 +25,19 @@ namespace Menes.Internal
         /// <summary>
         /// Indicates whether the builder can build a result for the given operation and result.
         /// </summary>
+        /// <param name="context">The current <see cref="IOpenApiContext"/>.</param>
         /// <param name="result">The result.</param>
         /// <param name="operation">The operation.</param>
         /// <returns>True if the builder can handle the operation and result.</returns>
-        bool CanBuildOutput(object result, OpenApiOperation operation);
+        bool CanBuildAuditLog(IOpenApiContext context, object result, OpenApiOperation operation);
 
         /// <summary>
         /// Build the result for the operation.
         /// </summary>
+        /// <param name="context">The current <see cref="IOpenApiContext"/>.</param>
         /// <param name="result">The result.</param>
         /// <param name="operation">The operation.</param>
-        /// <returns>The <see cref="IActionResult"/> constructed from the operation and result.</returns>
-        IActionResult BuildOutput(object result, OpenApiOperation operation);
+        /// <returns>The <see cref="AuditLog"/> constructed from the operation and result.</returns>
+        AuditLog BuildAuditLog(IOpenApiContext context, object result, OpenApiOperation operation);
     }
 }

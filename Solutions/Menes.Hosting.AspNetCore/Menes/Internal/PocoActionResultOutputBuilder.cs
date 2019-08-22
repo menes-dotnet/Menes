@@ -1,11 +1,11 @@
-﻿// <copyright file="PocoActionResultOutputBuilder.cs" company="Endjin">
-// Copyright (c) Endjin. All rights reserved.
+﻿// <copyright file="PocoActionResultOutputBuilder.cs" company="Endjin Limited">
+// Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
-namespace Endjin.OpenApi.Internal
+namespace Menes.Internal
 {
     using System.Collections.Generic;
-    using Endjin.OpenApi.Converters;
+    using Menes.Converters;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
     using Microsoft.OpenApi.Models;
@@ -22,19 +22,16 @@ namespace Endjin.OpenApi.Internal
     {
         private readonly IEnumerable<IOpenApiConverter> converters;
         private readonly ILogger<PocoActionResultOutputBuilder> logger;
-        private readonly OpenApiConfiguration configuration;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PocoActionResultOutputBuilder"/> class.
         /// </summary>
         /// <param name="converters">The open API converters to use with the builder.</param>
-        /// <param name="configuration">The current host configuration.</param>
         /// <param name="logger">The logger for the output builder.</param>
-        public PocoActionResultOutputBuilder(IEnumerable<IOpenApiConverter> converters, OpenApiConfiguration configuration, ILogger<PocoActionResultOutputBuilder> logger)
+        public PocoActionResultOutputBuilder(IEnumerable<IOpenApiConverter> converters, ILogger<PocoActionResultOutputBuilder> logger)
         {
             this.converters = converters;
             this.logger = logger;
-            this.configuration = configuration;
         }
 
         /// <inheritdoc/>
@@ -53,7 +50,7 @@ namespace Endjin.OpenApi.Internal
 
             // This must have been called after CanBuildOutput(), so we know these casts
             // and lookups will succeed
-            var actionResult = OpenApiActionResult.FromPoco(result, operation, this.configuration, this.converters, this.logger);
+            var actionResult = OpenApiActionResult.FromPoco(result, operation, this.converters, this.logger);
 
             if (this.logger.IsEnabled(LogLevel.Debug))
             {

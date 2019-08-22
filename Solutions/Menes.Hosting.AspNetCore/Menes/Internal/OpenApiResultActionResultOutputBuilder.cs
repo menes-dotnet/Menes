@@ -1,11 +1,11 @@
-﻿// <copyright file="OpenApiResultActionResultOutputBuilder.cs" company="Endjin">
-// Copyright (c) Endjin. All rights reserved.
+﻿// <copyright file="OpenApiResultActionResultOutputBuilder.cs" company="Endjin Limited">
+// Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
-namespace Endjin.OpenApi.Internal
+namespace Menes.Internal
 {
     using System.Collections.Generic;
-    using Endjin.OpenApi.Converters;
+    using Menes.Converters;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
     using Microsoft.OpenApi.Models;
@@ -22,19 +22,16 @@ namespace Endjin.OpenApi.Internal
     {
         private readonly IEnumerable<IOpenApiConverter> converters;
         private readonly ILogger<OpenApiResultActionResultOutputBuilder> logger;
-        private readonly OpenApiConfiguration configuration;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="OpenApiResultActionResultOutputBuilder"/> class.
         /// </summary>
-        /// <param name="configuration">The current host configuration.</param>
         /// <param name="converters">The open API converters to use with the builder.</param>
         /// <param name="logger">The logger for the output builder.</param>
-        public OpenApiResultActionResultOutputBuilder(OpenApiConfiguration configuration, IEnumerable<IOpenApiConverter> converters, ILogger<OpenApiResultActionResultOutputBuilder> logger)
+        public OpenApiResultActionResultOutputBuilder(IEnumerable<IOpenApiConverter> converters, ILogger<OpenApiResultActionResultOutputBuilder> logger)
         {
             this.converters = converters;
             this.logger = logger;
-            this.configuration = configuration;
         }
 
         /// <inheritdoc/>
@@ -54,7 +51,7 @@ namespace Endjin.OpenApi.Internal
             // and lookups will succeed
             var openApiResult = result as OpenApiResult;
 
-            var actionResult = OpenApiActionResult.FromOpenApiResult(openApiResult, operation, this.configuration, this.converters, this.logger);
+            var actionResult = OpenApiActionResult.FromOpenApiResult(openApiResult, operation, this.converters, this.logger);
 
             if (this.logger.IsEnabled(LogLevel.Debug))
             {

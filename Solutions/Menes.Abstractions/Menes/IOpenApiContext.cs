@@ -15,5 +15,10 @@ namespace Menes
         /// Gets or sets the current principal for the request.
         /// </summary>
         ClaimsPrincipal CurrentPrincipal { get; set; }
+
+        /// <summary>
+        /// Gets the current tenant ID for the request.
+        /// </summary>
+        string CurrentTenantId { get; }
     }
 }
