@@ -25,7 +25,6 @@ steps:
   displayName: 'Run GitVersion'
 
 - powershell: |
-    Write-Host "##vso[task.setvariable variable=Endjin_Service_Connection_GitHub]$($Env:BUILD_REPOSITORY_NAME.Split('/')[0])-github"
     Write-Host "##vso[task.setvariable variable=Endjin_Repository_Name]$Env:BUILD_REPOSITORY_NAME"
   displayName: 'Set Custom Environment Variables'
 
