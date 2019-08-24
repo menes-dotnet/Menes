@@ -8,13 +8,13 @@ trigger:
     - '*'
 
 pool:
-  vmImage: 'ubuntu-latest'
+  vmImage: 'windows-latest' # stylecop analyzers incompatible with ubuntu-latest
 
 variables:
 
   BuildConfiguration: 'Release'
   DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
-  SolutionToBuild: 'Solutions/Menes.sln'
+  SolutionToBuild: $(Endjin_Solution_To_Build)
 
 steps:
 
@@ -34,10 +34,9 @@ steps:
   displayName: 'Run GitVersion'
 
 - powershell: |
-    $IsPreRelease = (-not ([string]::IsNullOrEmpty($Env:GITVERSION_PRERELEASETAG)))
-    Write-Host "##vso[task.setvariable variable=Endjin_IsPreRelease]$IsPreRelease"
+    Write-Host "##vso[task.setvariable variable=Endjin_IsPreRelease]$((-not ([string]::IsNullOrEmpty($Env:GITVERSION_PRERELEASETAG))))"
     Write-Host "##vso[task.setvariable variable=Endjin_Repository_Name]$Env:BUILD_REPOSITORY_NAME"
-  displayName: 'Set Environment Variable for GitHub Releases'
+  displayName: 'Set Custom Environment Variables'
 
 # Useful for debugging purposes
 #- powershell: 'gci Env:'
@@ -94,7 +93,7 @@ steps:
   displayName: 'Create GitHub Release'      
   condition: and(succeeded(), or(variables['Endjin.ForcePublish'], eq(variables['GitVersion.PreReleaseTag'], '')))
   inputs:
-    gitHubConnection: 'menes-dotnet-github'
+    gitHubConnection: $(Endjin_Service_Connection_GitHub)
     repositoryName: $(Endjin_Repository_Name)
     tagSource: manual
     tag: $(GitVersion.SemVer) 
@@ -109,6 +108,6 @@ steps:
   inputs:
     command: push
     nuGetFeedType: external
-    publishFeedCredentials: 'menes-dotnet-nuget-org'
+    publishFeedCredentials: $(Endjin_Service_Connection_NuGet_Org)
     versioningScheme: byBuildNumber
     packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg'

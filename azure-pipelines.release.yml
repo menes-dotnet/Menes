@@ -26,12 +26,12 @@ steps:
 
 - powershell: |
     Write-Host "##vso[task.setvariable variable=Endjin_Repository_Name]$Env:BUILD_REPOSITORY_NAME"
-  displayName: 'Set Environment Variable for Tag Git'
+  displayName: 'Set Custom Environment Variables'
 
 - task: GitHubTag@1
   displayName: 'Tag Git'
   inputs:
-    githubEndpoint: 'menes-dotnet-github'
+    githubEndpoint: $(Endjin_Service_Connection_GitHub)
     repositoryName: $(Endjin_Repository_Name)
     commmit: 'Release v$(GitVersion.MajorMinorPatch)'
     tag: '$(GitVersion.MajorMinorPatch)'
