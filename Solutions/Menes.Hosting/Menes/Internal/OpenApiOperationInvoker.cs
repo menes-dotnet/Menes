@@ -85,7 +85,7 @@ namespace Menes.Internal
                 if (this.logger.IsEnabled(LogLevel.Debug))
                 {
                     this.logger.LogDebug(
-                                        "Invoked operation [{openApiServiceOperation}] with with parameters [{@namedParameters}] for request [{path}] [{method}], continuing to build result",
+                                        "Invoked operation [{openApiServiceOperation}] with parameters [{@namedParameters}] for request [{path}] [{method}], continuing to build result",
                                         openApiServiceOperation.GetName(),
                                         namedParameters.Keys,
                                         path,
