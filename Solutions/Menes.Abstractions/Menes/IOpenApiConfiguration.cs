@@ -36,7 +36,7 @@ namespace Menes
         /// <summary>
         /// Gets or sets the <see cref="JsonSerializerSettings"/>.
         /// </summary>
-        JsonSerializerSettings DefaultSerializerSettings { get; set; }
+        JsonSerializerSettings SerializerSettings { get; set; }
 
         /// <summary>
         /// Gets or sets the discriminator to type mappings. These allow you to define descriminator values

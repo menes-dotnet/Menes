@@ -17,8 +17,13 @@ namespace Menes
         ClaimsPrincipal CurrentPrincipal { get; set; }
 
         /// <summary>
-        /// Gets the current tenant ID for the request.
+        /// Gets or sets the current tenant ID for the request.
         /// </summary>
-        string CurrentTenantId { get; }
+        string CurrentTenantId { get; set;  }
+
+        /// <summary>
+        /// Gets or sets additional context for the request.
+        /// </summary>
+        dynamic AdditionalContext { get; set;  }
     }
 }

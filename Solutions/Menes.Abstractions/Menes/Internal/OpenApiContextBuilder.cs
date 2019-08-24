@@ -29,7 +29,10 @@ namespace Menes.Internal
         /// <inheritdoc/>
         public async Task<IOpenApiContext> BuildAsync(TRequest request, dynamic parameters)
         {
-            var context = new TContextType();
+            var context = new TContextType
+            {
+                AdditionalContext = parameters,
+            };
 
             foreach (IOpenApiContextBuilderComponent<TRequest> builder in this.contextBuilderComponents)
             {

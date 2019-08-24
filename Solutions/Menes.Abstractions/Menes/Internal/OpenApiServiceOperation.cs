@@ -90,7 +90,7 @@ namespace Menes.Internal
                         }
                         else
                         {
-                            paramArray[index] = JsonConvert.DeserializeObject(stringValue, targetType, this.configuration.DefaultSerializerSettings);
+                            paramArray[index] = JsonConvert.DeserializeObject(stringValue, targetType, this.configuration.SerializerSettings);
                         }
                     }
                     else if (targetType.IsEnum)

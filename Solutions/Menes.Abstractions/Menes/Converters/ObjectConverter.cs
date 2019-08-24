@@ -77,17 +77,17 @@ namespace Menes.Converters
                 if (!this.serviceProvider.TryGetTypeFor(type, out targetType))
                 {
                     // We have no immediately obvious way to discriminate the type, so fall back on the serializers.
-                    return JsonConvert.DeserializeObject(content, this.configuration.DefaultSerializerSettings);
+                    return JsonConvert.DeserializeObject(content, this.configuration.SerializerSettings);
                 }
             }
 
-            return JsonConvert.DeserializeObject(content, targetType, this.configuration.DefaultSerializerSettings);
+            return JsonConvert.DeserializeObject(content, targetType, this.configuration.SerializerSettings);
         }
 
         /// <inheritdoc/>
         public string ConvertTo(object instance, OpenApiSchema schema)
         {
-            string result = JsonConvert.SerializeObject(instance, this.configuration.Formatting, this.configuration.DefaultSerializerSettings);
+            string result = JsonConvert.SerializeObject(instance, this.configuration.Formatting, this.configuration.SerializerSettings);
 
             this.validator.ValidateAndThrow(result, schema);
 

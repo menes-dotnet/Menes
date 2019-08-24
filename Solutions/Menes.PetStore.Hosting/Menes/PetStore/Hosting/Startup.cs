@@ -38,7 +38,7 @@ namespace Menes.PetStore.Hosting
 
             Log.Logger = loggerConfig.CreateLogger();
 
-            services.AddDefaultJsonSerializationSettings();
+            services.AddDefaultJsonSerializerSettings();
 
             services.AddOpenApiHttpRequestHosting<SimpleOpenApiContext>(hostConfig =>
             {
