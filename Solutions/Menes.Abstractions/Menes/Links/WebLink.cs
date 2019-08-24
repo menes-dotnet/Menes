@@ -4,11 +4,14 @@
 
 namespace Menes.Links
 {
+    using System;
+    using System.Collections.Generic;
+
     /// <summary>
     /// Represents a hypermedia link to a related resource. Follows the general pattern described
     /// in RFC 8288 (https://tools.ietf.org/html/rfc8288).
     /// </summary>
-    public class WebLink
+    public class WebLink : IEquatable<WebLink>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="WebLink"/> struct.
@@ -40,30 +43,39 @@ namespace Menes.Links
         public string Href { get; set; }
 
         /// <summary>
-        /// Checks equality of two WebLink instances.
+        /// Standard equality operator.
         /// </summary>
-        /// <param name="lhs">The left hand side of the expression.</param>
-        /// <param name="rhs">The right hand side of the expression.</param>
-        /// <returns>True if the two instances are equal, false otherwise.</returns>
-        public static bool operator ==(WebLink lhs, WebLink rhs) => lhs.Equals(rhs);
+        /// <param name="left">The left hand side of the comparison.</param>
+        /// <param name="right">The right hand side of the comparison.</param>
+        /// <returns>True if the links are equivalent.</returns>
+        public static bool operator ==(WebLink left, WebLink right)
+        {
+            return EqualityComparer<WebLink>.Default.Equals(left, right);
+        }
 
         /// <summary>
-        /// Checks inequality of two WebLink instances.
+        /// Standard inequality operator.
         /// </summary>
-        /// <param name="lhs">The left hand side of the expression.</param>
-        /// <param name="rhs">The right hand side of the expression.</param>
-        /// <returns>False if the two instances are equal, true otherwise.</returns>
-        public static bool operator !=(WebLink lhs, WebLink rhs) => !lhs.Equals(rhs);
+        /// <param name="left">The left hand side of the comparison.</param>
+        /// <param name="right">The right hand side of the comparison.</param>
+        /// <returns>True if the links are not equivalent.</returns>
+        public static bool operator !=(WebLink left, WebLink right)
+        {
+            return !(left == right);
+        }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj is WebLink link)
-            {
-                return (this.Href, this.Rel) == (link.Href, link.Rel);
-            }
+            return this.Equals(obj as WebLink);
+        }
 
-            return false;
+        /// <inheritdoc/>
+        public bool Equals(WebLink other)
+        {
+            return other != null &&
+                   this.Rel == other.Rel &&
+                   this.Href == other.Href;
         }
 
         /// <inheritdoc/>

@@ -2,12 +2,12 @@
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
-namespace Menes
+namespace Menes.Internal
 {
     /// <summary>
-    /// Provides the means to configure the OpenApi service.
+    /// Provides the means to configure the OpenApi service host.
     /// </summary>
-    public class OpenApiHostConfiguration
+    public class OpenApiHostConfiguration : IOpenApiHostConfiguration
     {
         /// <summary>
         /// Creates an instance of the <see cref="OpenApiHostConfiguration"/>.
@@ -22,19 +22,13 @@ namespace Menes
             this.Links = linkMap;
         }
 
-        /// <summary>
-        /// Gets the document provider.
-        /// </summary>
+        /// <inheritdoc/>
         public IOpenApiDocuments Documents { get; }
 
-        /// <summary>
-        /// Gets the exception mapper.
-        /// </summary>
+        /// <inheritdoc/>
         public IOpenApiExceptionMap Exceptions { get; }
 
-        /// <summary>
-        /// Gets the operation link mapper.
-        /// </summary>
+        /// <inheritdoc/>
         public IOpenApiLinkOperationMap Links { get; }
     }
 }

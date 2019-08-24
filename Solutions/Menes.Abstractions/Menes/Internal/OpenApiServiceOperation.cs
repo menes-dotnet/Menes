@@ -17,7 +17,7 @@ namespace Menes.Internal
     {
         private readonly IOpenApiService service;
         private readonly MethodInfo operation;
-        private readonly OpenApiConfiguration configuration;
+        private readonly IOpenApiConfiguration configuration;
         private readonly object[] defaultValues;
         private readonly bool[] hasDefaultValues;
         private readonly string[] parameterNames;
@@ -28,7 +28,7 @@ namespace Menes.Internal
         /// <param name="service">The service hosting the operation.</param>
         /// <param name="operation">The operation.</param>
         /// <param name="configuration">The OpenAPI configuration.</param>
-        public OpenApiServiceOperation(IOpenApiService service, MethodInfo operation, OpenApiConfiguration configuration)
+        public OpenApiServiceOperation(IOpenApiService service, MethodInfo operation, IOpenApiConfiguration configuration)
         {
             this.service = service;
             this.operation = operation;

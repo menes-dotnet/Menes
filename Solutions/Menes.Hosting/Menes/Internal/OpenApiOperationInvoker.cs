@@ -28,7 +28,7 @@ namespace Menes.Internal
         private readonly IOpenApiResultBuilder<TResponse> resultBuilder;
         private readonly IAuditContext auditContext;
         private readonly ILogger<OpenApiOperationInvoker<TRequest, TResponse>> logger;
-        private readonly OpenApiConfiguration configuration;
+        private readonly IOpenApiConfiguration configuration;
 
         /// <summary>
         /// Creates an instance of the <see cref="OpenApiOperationInvoker{TRequest, TResponse}"/>.
@@ -38,7 +38,7 @@ namespace Menes.Internal
         /// <param name="accessChecker">The access checker.</param>
         /// <param name="exceptionMapper">The exception mapper.</param>
         /// <param name="resultBuilder">The result builder.</param>
-        /// <param name="configuration">The <see cref="OpenApiConfiguration"/>.</param>
+        /// <param name="configuration">The <see cref="IOpenApiConfiguration"/>.</param>
         /// <param name="auditContext">The audit context.</param>
         /// <param name="logger">The logger.</param>
         public OpenApiOperationInvoker(
@@ -47,7 +47,7 @@ namespace Menes.Internal
             IOpenApiAccessChecker accessChecker,
             IOpenApiExceptionMapper exceptionMapper,
             IOpenApiResultBuilder<TResponse> resultBuilder,
-            OpenApiConfiguration configuration,
+            IOpenApiConfiguration configuration,
             IAuditContext auditContext,
             ILogger<OpenApiOperationInvoker<TRequest, TResponse>> logger)
         {

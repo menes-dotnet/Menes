@@ -18,7 +18,7 @@ namespace Menes.Converters
     {
         private readonly IServiceProvider serviceProvider;
         private readonly OpenApiSchemaValidator validator;
-        private readonly OpenApiConfiguration configuration;
+        private readonly IOpenApiConfiguration configuration;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ObjectConverter"/> class.
@@ -26,7 +26,7 @@ namespace Menes.Converters
         /// <param name="serviceProvider">The service provider that can supply type information.</param>
         /// <param name="validator">The <see cref="OpenApiSchemaValidator"/>.</param>
         /// <param name="configuration">The OpenAPI host configuration.</param>
-        public ObjectConverter(IServiceProvider serviceProvider, OpenApiSchemaValidator validator, OpenApiConfiguration configuration)
+        public ObjectConverter(IServiceProvider serviceProvider, OpenApiSchemaValidator validator, IOpenApiConfiguration configuration)
         {
             this.serviceProvider = serviceProvider;
             this.validator = validator;

@@ -24,7 +24,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <param name="configureHost">A function to configure the host.</param>
         /// <param name="configureEnvironment">A function to configure the environment.</param>
         /// <returns>The configured service collection.</returns>
-        public static IServiceCollection AddOpenApiHttpRequestHosting<TContext>(this IServiceCollection services, Action<OpenApiHostConfiguration> configureHost, Action<OpenApiConfiguration> configureEnvironment = null)
+        public static IServiceCollection AddOpenApiHttpRequestHosting<TContext>(this IServiceCollection services, Action<IOpenApiHostConfiguration> configureHost, Action<IOpenApiConfiguration> configureEnvironment = null)
             where TContext : class, IOpenApiContext, new()
         {
             services.AddSingleton<IActionResultOutputBuilder, PocoActionResultOutputBuilder>();

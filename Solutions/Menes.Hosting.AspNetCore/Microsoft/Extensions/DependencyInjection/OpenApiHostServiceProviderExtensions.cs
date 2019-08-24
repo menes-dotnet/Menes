@@ -5,7 +5,6 @@
 namespace Microsoft.Extensions.DependencyInjection
 {
     using System;
-    using System.Threading.Tasks;
     using Menes;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;

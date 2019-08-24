@@ -81,7 +81,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// See <see cref="IOpenApiService"/> for more details on configuring the host using this mechanism.
         /// </para>
         /// </remarks>
-        public static IServiceCollection AddOpenApiHosting<TRequest, TResponse>(this IServiceCollection services, Action<OpenApiHostConfiguration> configureHost, Action<OpenApiConfiguration> configureEnvironment = null)
+        public static IServiceCollection AddOpenApiHosting<TRequest, TResponse>(this IServiceCollection services, Action<OpenApiHostConfiguration> configureHost, Action<IOpenApiConfiguration> configureEnvironment = null)
         {
             services.AddSingleton<JsonConverter, OpenApiDocumentJsonConverter>();
             services.AddSingleton<IOpenApiDocumentProvider, OpenApiDocumentProvider>();
@@ -118,7 +118,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 return result;
             });
 
-            services.AddSingleton(serviceProvider =>
+            services.AddSingleton<IOpenApiConfiguration>(serviceProvider =>
             {
                 var config = new OpenApiConfiguration(serviceProvider);
                 configureEnvironment?.Invoke(config);

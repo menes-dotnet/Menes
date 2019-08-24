@@ -16,14 +16,14 @@ namespace Menes.Converters
     public class UuidConverter : IOpenApiConverter
     {
         private readonly OpenApiSchemaValidator validator;
-        private readonly OpenApiConfiguration configuration;
+        private readonly IOpenApiConfiguration configuration;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="UuidConverter"/> class.
         /// </summary>
         /// <param name="validator">The <see cref="OpenApiSchemaValidator"/>.</param>
         /// <param name="configuration">The OpenAPI host configuration.</param>
-        public UuidConverter(OpenApiSchemaValidator validator, OpenApiConfiguration configuration)
+        public UuidConverter(OpenApiSchemaValidator validator, IOpenApiConfiguration configuration)
         {
             this.validator = validator;
             this.configuration = configuration;

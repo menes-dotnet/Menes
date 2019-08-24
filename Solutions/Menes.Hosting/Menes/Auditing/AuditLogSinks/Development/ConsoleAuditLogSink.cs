@@ -13,13 +13,13 @@ namespace Menes.Auditing.AuditLogSinks.Development
     /// </summary>
     public class ConsoleAuditLogSink : IAuditLogSink
     {
-        private readonly OpenApiConfiguration openApiConfiguration;
+        private readonly IOpenApiConfiguration openApiConfiguration;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ConsoleAuditLogSink"/> class.
         /// </summary>
         /// <param name="openApiConfiguration">The OpenApi configuration.</param>
-        public ConsoleAuditLogSink(OpenApiConfiguration openApiConfiguration)
+        public ConsoleAuditLogSink(IOpenApiConfiguration openApiConfiguration)
         {
             this.openApiConfiguration = openApiConfiguration;
         }
