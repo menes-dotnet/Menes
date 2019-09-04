@@ -11,7 +11,7 @@ namespace Menes.PetStore.Responses.Mappers
     /// <summary>
     /// Maps a list of Pets to a PetListResource.
     /// </summary>
-    public class PetListResourceMapper
+    public class PetListResourceMapper : IHalDocumentMapper<PetListResource>
     {
         private const string PetsRelation = "pets";
         private readonly IHalDocumentFactory halDocumentFactory;
@@ -31,37 +31,26 @@ namespace Menes.PetStore.Responses.Mappers
             this.petResourceMapper = petResourceMapper;
         }
 
-        /// <summary>
-        /// Map links for the resource.
-        /// </summary>
-        /// <param name="links">The links to map.</param>
-        /// <returns>The link operation map with the links mapped.</returns>
-        public static IOpenApiLinkOperationMap MapLinks(IOpenApiLinkOperationMap links)
+        /// <inheritdoc/>
+        public void ConfigureLinkMap(IOpenApiLinkOperationMap links)
         {
             links.Map<PetListResource>("self", "listPets");
             links.Map<PetListResource>("create", "createPets");
             links.Map<PetListResource>("next", "listPets");
-            return links;
         }
 
-        /// <summary>
-        /// Performs the mapping.
-        /// </summary>
-        /// <param name="pets">The list of pets.</param>
-        /// <param name="currentContinuationToken">The continuation token for the current page.</param>
-        /// <param name="nextContinuationToken">The continuation token for the next page.</param>
-        /// <returns>The mapped PetListResource.</returns>
-        public HalDocument Map(PetListResource pets, string currentContinuationToken, string nextContinuationToken)
+        /// <inheritdoc/>
+        public HalDocument Map(PetListResource pets)
         {
             HalDocument response = this.halDocumentFactory.CreateHalDocumentFrom(pets);
             response.AddEmbeddedResources(PetsRelation, pets.Pets.Select(this.petResourceMapper.Map));
 
-            response.ResolveAndAdd(this.linkResolver, response, "self", ("limit", pets.PageSize), ("continuationToken", currentContinuationToken));
+            response.ResolveAndAdd(this.linkResolver, response, "self", ("limit", pets.PageSize), ("continuationToken", pets.CurrentContinuationToken));
             response.ResolveAndAdd(this.linkResolver, response, "create");
 
-            if (!string.IsNullOrEmpty(nextContinuationToken))
+            if (!string.IsNullOrEmpty(pets.NextContinuationToken))
             {
-                response.ResolveAndAdd(this.linkResolver, response, "next", ("limit", pets.PageSize), ("continuationToken", nextContinuationToken));
+                response.ResolveAndAdd(this.linkResolver, response, "next", ("limit", pets.PageSize), ("continuationToken", pets.NextContinuationToken));
             }
 
             return response;

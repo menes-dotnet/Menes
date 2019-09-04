@@ -8,6 +8,7 @@ namespace Menes.PetStore.Hosting
 {
     using System.IO;
     using Menes.Auditing.AuditLogSinks.Development;
+    using Menes.PetStore.Responses;
     using Menes.PetStore.Responses.Mappers;
     using Microsoft.Azure.WebJobs;
     using Microsoft.Azure.WebJobs.Hosting;
@@ -37,14 +38,13 @@ namespace Menes.PetStore.Hosting
 
             services.AddDefaultJsonSerializerSettings();
 
+            services.AddHalDocumentMapper<PetResource, PetResourceMapper>();
+            services.AddHalDocumentMapper<PetListResource, PetListResourceMapper>();
+
             services.AddOpenApiHttpRequestHosting<SimpleOpenApiContext>(hostConfig =>
             {
                 LoadDocuments(hostConfig);
-                MapLinks(hostConfig);
             });
-
-            services.AddSingleton<PetListResourceMapper>();
-            services.AddSingleton<PetResourceMapper>();
 
             services.AddOpenApiAuditing();
             services.AddAuditLogSink<ConsoleAuditLogSink>();
@@ -55,12 +55,6 @@ namespace Menes.PetStore.Hosting
             // We will only actually *provide* services that are in the YAML file(s) we load below
             // So you can register everything, and use the yaml files you deploy to decide what is responded to by this instance
             services.AddSingleton<IOpenApiService, PetStoreService>();
-        }
-
-        private static void MapLinks(IOpenApiHostConfiguration hostConfig)
-        {
-            PetResourceMapper.MapLinks(hostConfig.Links);
-            PetListResourceMapper.MapLinks(hostConfig.Links);
         }
 
         private static void LoadDocuments(IOpenApiHostConfiguration hostConfig)

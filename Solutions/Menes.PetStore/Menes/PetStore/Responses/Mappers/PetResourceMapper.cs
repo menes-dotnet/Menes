@@ -10,7 +10,7 @@ namespace Menes.PetStore.Responses.Mappers
     /// <summary>
     /// Maps Pets to PetResources.
     /// </summary>
-    public class PetResourceMapper
+    public class PetResourceMapper : IHalDocumentMapper<PetResource>
     {
         private readonly IHalDocumentFactory halDocumentFactory;
         private readonly IOpenApiWebLinkResolver linkResolver;
@@ -26,25 +26,15 @@ namespace Menes.PetStore.Responses.Mappers
             this.linkResolver = linkResolver;
         }
 
-        /// <summary>
-        /// Map links for the resource.
-        /// </summary>
-        /// <param name="links">The links to map.</param>
-        /// <returns>The link operation map with the links mapped.</returns>
-        public static IOpenApiLinkOperationMap MapLinks(IOpenApiLinkOperationMap links)
+        /// <inheritdoc/>
+        public void ConfigureLinkMap(IOpenApiLinkOperationMap links)
         {
             links.Map(PetResource.ContentTypeBase, "self", "showPetById");
             links.Map(PetResource.ContentTypeBase, "image", "petImage");
             links.Map(PetResource.ContentTypeBase, "pocoimage", "petImagePoco");
-
-            return links;
         }
 
-        /// <summary>
-        /// Performs the mapping.
-        /// </summary>
-        /// <param name="input">The Pet to map.</param>
-        /// <returns>The mapped PetResource.</returns>
+        /// <inheritdoc/>
         public HalDocument Map(PetResource input)
         {
             HalDocument response = this.halDocumentFactory.CreateHalDocumentFrom(input);

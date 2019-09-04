@@ -29,8 +29,22 @@ namespace Menes.PetStore.Responses
         /// <summary>
         /// Gets the pets in the pet resource.
         /// </summary>
-        /// <remarks>These are serialized as a Embedded resources.</remarks>
+        /// <remarks>These are serialized as embedded resources.</remarks>
         [JsonIgnore]
         public PetResource[] Pets { get; internal set; }
+
+        /// <summary>
+        /// Gets the current continuation token related to the resource.
+        /// </summary>
+        /// <remarks>The is serialized in the links.</remarks>
+        [JsonIgnore]
+        public string CurrentContinuationToken { get; internal set; }
+
+        /// <summary>
+        /// Gets the current continuation token related to the resource.
+        /// </summary>
+        /// <remarks>The is serialized in the links.</remarks>
+        [JsonIgnore]
+        public string NextContinuationToken { get; internal set; }
     }
 }

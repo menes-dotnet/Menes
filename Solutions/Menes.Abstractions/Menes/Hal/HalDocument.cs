@@ -38,27 +38,6 @@ namespace Menes.Hal
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="HalDocument"/> class.
-        /// </summary>
-        /// <param name="serializerSettings">The serializer settings to use for the property bag.</param>
-        public HalDocument(JsonSerializerSettings serializerSettings)
-        {
-            this.Properties = new JObject();
-            this.SerializerSettings = serializerSettings ?? JsonConvert.DefaultSettings?.Invoke();
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="HalDocument"/> class.
-        /// </summary>
-        /// <param name="jobject">The JObject from which to initialize the property bag.</param>
-        /// <param name="serializerSettings">The serializer settings to use for the property bag.</param>
-        public HalDocument(JObject jobject, JsonSerializerSettings serializerSettings = null)
-        {
-            this.Properties = jobject;
-            this.SerializerSettings = serializerSettings ?? JsonConvert.DefaultSettings?.Invoke();
-        }
-
-        /// <summary>
         /// Gets the content type for the HalDocument.
         /// </summary>
         /// <remarks>This is set from the target object when you call <see cref="SetProperties{T}(T)"/> and defaults to <c>application/hal+json</c>.</remarks>

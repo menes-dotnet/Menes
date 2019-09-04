@@ -5,6 +5,7 @@
 namespace Microsoft.Extensions.DependencyInjection
 {
     using System;
+    using System.Linq;
     using Menes;
     using Menes.Auditing;
     using Menes.Exceptions;
@@ -100,7 +101,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddSingleton<IAuditContext, AuditContext>();
             services.AddSingleton<IOpenApiOperationInvoker<TRequest, TResponse>, OpenApiOperationInvoker<TRequest, TResponse>>();
 
-            services.AddSingleton<IOpenApiHost<TRequest, TResponse>>(serviceProvider =>
+            services.AddSingleton((Func<IServiceProvider, IOpenApiHost<TRequest, TResponse>>)(serviceProvider =>
             {
                 var result = new OpenApiHost<TRequest, TResponse>(
                         serviceProvider.GetRequiredService<IOpenApiServiceOperationLocator>(),
@@ -116,10 +117,13 @@ namespace Microsoft.Extensions.DependencyInjection
                 exceptionMapper.Map<OpenApiForbiddenException>(403);
                 exceptionMapper.Map<OpenApiNotFoundException>(404);
 
-                configureHost(new OpenApiHostConfiguration(serviceProvider.GetRequiredService<IOpenApiDocumentProvider>(), exceptionMapper, serviceProvider.GetRequiredService<IOpenApiLinkOperationMapper>()));
+                var hostConfiguration = new OpenApiHostConfiguration(serviceProvider.GetRequiredService<IOpenApiDocumentProvider>(), exceptionMapper, serviceProvider.GetRequiredService<IOpenApiLinkOperationMapper>());
+
+                serviceProvider.GetServices<IHalDocumentMapper>().ForEach(mapper => mapper.ConfigureLinkMap(hostConfiguration.Links));
+                configureHost(hostConfiguration);
 
                 return result;
-            });
+            }));
 
             services.AddSingleton<IOpenApiConfiguration>(serviceProvider =>
             {
@@ -132,6 +136,22 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddOpenApiJsonConverters();
             services.AddOpenApiExceptionMappers();
 
+            return services;
+        }
+
+        /// <summary>
+        /// Add an <see cref="IHalDocumentMapper"/> to the service collection.
+        /// </summary>
+        /// <typeparam name="TResource">The type of the resource mapped by the HAL document mapper.</typeparam>
+        /// <typeparam name="TMapper">The type fo the mapper.</typeparam>
+        /// <param name="services">The service collection to which to add the mapper.</param>
+        /// <returns>The service collection, configured with the HAL document mapper.</returns>
+        public static IServiceCollection AddHalDocumentMapper<TResource, TMapper>(this IServiceCollection services)
+            where TMapper : class, IHalDocumentMapper<TResource>
+        {
+            services.AddSingleton<TMapper>();
+            services.AddSingleton<IHalDocumentMapper>(s => s.GetRequiredService<TMapper>());
+            services.AddSingleton<IHalDocumentMapper<TResource>>(s => s.GetRequiredService<TMapper>());
             return services;
         }
 

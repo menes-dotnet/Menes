@@ -64,7 +64,7 @@ namespace Menes.PetStore
             PetResource[] pets = this.pets.Skip(skip).Take(limit).ToArray();
 
             string nextContinuationToken = (skip + limit < this.pets.Count) ? BuildContinuationToken(limit + skip) : null;
-            HalDocument response = this.petListMapper.Map(new PetListResource { Pets = pets, TotalCount = this.pets.Count, PageSize = limit }, continuationToken, nextContinuationToken);
+            HalDocument response = this.petListMapper.Map(new PetListResource { Pets = pets, TotalCount = this.pets.Count, PageSize = limit, CurrentContinuationToken = continuationToken,  NextContinuationToken = nextContinuationToken });
 
             OpenApiResult result = this.OkResult(response, HalDocument.RegisteredContentType);
 
