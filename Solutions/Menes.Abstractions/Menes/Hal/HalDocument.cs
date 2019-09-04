@@ -230,6 +230,17 @@ namespace Menes.Hal
         }
 
         /// <summary>
+        /// Adds a collection of embedded resources for a particular relation.
+        /// </summary>
+        /// <param name="rel">The relation type.</param>
+        /// <param name="resources">The resources to embed.</param>
+        public void AddEmbeddedResources(string rel, IEnumerable<HalDocument> resources)
+        {
+            List<HalDocument> embeddedResourceList = this.EnsureListForEmbeddedResource(rel);
+            embeddedResourceList.AddRange(resources);
+        }
+
+        /// <summary>
         /// Removes a embeddedResource from the <c>_embeddedResources</c> collection.
         /// </summary>
         /// <param name="rel">The relation for the embedded resource.</param>

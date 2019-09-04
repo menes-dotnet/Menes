@@ -50,11 +50,7 @@ namespace Menes.PetStore.Responses.Mappers
             };
 
             HalDocument response = this.halDocumentFactory.CreateHalDocumentFrom(resource);
-
-            pets.ForEach(pet =>
-            {
-                response.AddEmbeddedResource(PetsRelation, this.petResourceMapper.Map(pet));
-            });
+            response.AddEmbeddedResources(PetsRelation, pets.Select(this.petResourceMapper.Map));
 
             response.ResolveAndAdd(this.linkResolver, response, "self", ("limit", limit), ("continuationToken", currentContinuationToken));
             response.ResolveAndAdd(this.linkResolver, response, "create");
