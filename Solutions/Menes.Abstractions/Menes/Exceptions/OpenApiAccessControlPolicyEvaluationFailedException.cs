@@ -9,7 +9,7 @@ namespace Menes.Exceptions
     using System.Runtime.Serialization;
 
     /// <summary>
-    /// An exception that is thrown by an <see cref="IOpenApiAccessControlPolicy{TTenant}"/> if it fails
+    /// An exception that is thrown by an <see cref="IOpenApiAccessControlPolicy"/> if it fails
     /// to evaluate due for an unexpected reason - e.g. a configuration error, third party
     /// service unavailable or similar.
     /// </summary>
@@ -80,7 +80,7 @@ namespace Menes.Exceptions
         }
 
         /// <summary>
-        /// Gets the name of the <see cref="IOpenApiAccessControlPolicy{TTenant}"/> that threw the exception.
+        /// Gets the name of the <see cref="IOpenApiAccessControlPolicy"/> that threw the exception.
         /// </summary>
         public string PolicyName { get; }
 

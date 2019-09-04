@@ -8,35 +8,35 @@ namespace Menes.Internal
     using System.Threading.Tasks;
 
     /// <summary>
-    /// Class responsible for building an <see cref="IOpenApiContext{TTenant}"/> for an incoming request.
+    /// Class responsible for building an <see cref="IOpenApiContext"/> for an incoming request.
     /// </summary>
     /// <typeparam name="TRequest">The type of the request.</typeparam>
-    /// <typeparam name="TTenant">The type of the tenant.</typeparam>
-    public class OpenApiContextBuilder<TRequest, TTenant> : IOpenApiContextBuilder<TRequest, TTenant>
+    /// <typeparam name="TContextType">The type of the context.</typeparam>
+    public class OpenApiContextBuilder<TRequest, TContextType> : IOpenApiContextBuilder<TRequest>
+        where TContextType : class, IOpenApiContext, new()
     {
-        private readonly IEnumerable<IOpenApiContextBuilderComponent<TRequest, TTenant>> contextBuilderComponents;
+        private readonly IEnumerable<IOpenApiContextBuilderComponent<TRequest>> contextBuilderComponents;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="OpenApiContextBuilder{TRequest, TTenant}"/> class.
         /// </summary>
-        /// <param name="contextBuilderComponents">The collection of registered <see cref="IOpenApiContextBuilderComponent{TRequest, TTenant}"/> instances.</param>
-        public OpenApiContextBuilder(IEnumerable<IOpenApiContextBuilderComponent<TRequest, TTenant>> contextBuilderComponents)
+        /// <param name="contextBuilderComponents">The collection of registered <see cref="IOpenApiContextBuilderComponent{TRequest}"/> instances.</param>
+        public OpenApiContextBuilder(IEnumerable<IOpenApiContextBuilderComponent<TRequest>> contextBuilderComponents)
         {
             this.contextBuilderComponents = contextBuilderComponents;
         }
 
-        /// <summary>
-        /// Builds an <see cref="IOpenApiContext{TTenant}" /> for an incoming request using all registered <see cref="IOpenApiContextBuilderComponent{TRequest, TTenant}"/> services.
-        /// </summary>
-        /// <param name="request">The incoming request.</param>
-        /// <returns>The context for the request.</returns>
-        public async Task<IOpenApiContext<TTenant>> BuildAsync(TRequest request)
+        /// <inheritdoc/>
+        public async Task<IOpenApiContext> BuildAsync(TRequest request, dynamic parameters)
         {
-            var context = new OpenApiContext<TTenant>();
-
-            foreach (IOpenApiContextBuilderComponent<TRequest, TTenant> builder in this.contextBuilderComponents)
+            var context = new TContextType
             {
-                await builder.BuildAsync(context, request).ConfigureAwait(false);
+                AdditionalContext = parameters,
+            };
+
+            foreach (IOpenApiContextBuilderComponent<TRequest> builder in this.contextBuilderComponents)
+            {
+                await builder.BuildAsync(context, request, parameters).ConfigureAwait(false);
             }
 
             return context;

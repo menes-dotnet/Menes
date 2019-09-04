@@ -4,6 +4,8 @@
 
 namespace Menes
 {
+    using Corvus.ContentHandling;
+
     /// <summary>
     /// Handles mapping of content types/objects and link relation types to Open API operation IDs.
     /// </summary>

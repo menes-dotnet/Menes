@@ -17,7 +17,7 @@ namespace Menes.Internal
     {
         private readonly IOpenApiService service;
         private readonly MethodInfo operation;
-        private readonly OpenApiConfiguration configuration;
+        private readonly IOpenApiConfiguration configuration;
         private readonly object[] defaultValues;
         private readonly bool[] hasDefaultValues;
         private readonly string[] parameterNames;
@@ -28,7 +28,7 @@ namespace Menes.Internal
         /// <param name="service">The service hosting the operation.</param>
         /// <param name="operation">The operation.</param>
         /// <param name="configuration">The OpenAPI configuration.</param>
-        public OpenApiServiceOperation(IOpenApiService service, MethodInfo operation, OpenApiConfiguration configuration)
+        public OpenApiServiceOperation(IOpenApiService service, MethodInfo operation, IOpenApiConfiguration configuration)
         {
             this.service = service;
             this.operation = operation;
@@ -56,12 +56,11 @@ namespace Menes.Internal
         /// <summary>
         /// Execute the service operation.
         /// </summary>
-        /// <typeparam name="TTenant">The type of the tenant.</typeparam>
         /// <param name="context">The Open API context.</param>
         /// <param name="inputParameters">The parameters for the operation.</param>
         /// <returns>The result.</returns>
-        public object Execute<TTenant>(
-            IOpenApiContext<TTenant> context,
+        public object Execute(
+            IOpenApiContext context,
             IDictionary<string, object> inputParameters)
         {
             object[] paramArray = new object[this.parameterNames.Length];
@@ -71,7 +70,7 @@ namespace Menes.Internal
                 string parameterName = this.parameterNames[index];
                 Type targetType = this.operation.GetParameters()[index].ParameterType;
 
-                if (targetType == typeof(IOpenApiContext<TTenant>))
+                if (targetType == typeof(IOpenApiContext))
                 {
                     paramArray[index] = context;
                 }
@@ -91,7 +90,7 @@ namespace Menes.Internal
                         }
                         else
                         {
-                            paramArray[index] = JsonConvert.DeserializeObject(stringValue, targetType, this.configuration.DefaultSerializerSettings);
+                            paramArray[index] = JsonConvert.DeserializeObject(stringValue, targetType, this.configuration.SerializerSettings);
                         }
                     }
                     else if (targetType.IsEnum)

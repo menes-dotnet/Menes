@@ -1,64 +1,23 @@
 trigger:
-- master
+  branches:
+    include:
+    - master
+    - feature/*
+  tags:
+    include:
+    - '*'
 
-pool:
-  vmImage: 'ubuntu-latest'
+resources:
+  repositories:
+    - repository: recommended_practices
+      type: github
+      name: endjin/Endjin.RecommendedPractices.AzureDevopsPipelines.GitHub
+      endpoint: menes-dotnet-github
 
-variables:
-
-  BuildConfiguration: 'Release'
-  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
-  SolutionToBuild: 'Solutions/Corvus.Extensions.sln'
-
-steps:
-
-- task: DotNetCoreInstaller@0
-  displayName: 'Install .NET Core SDK 2.2.401 (Global Tools error workaround)'
-  inputs:
-    version: 2.2.401
-
-- task: gittools.gitversion.gitversion-task.GitVersion@5
-  displayName: 'GitVersion'
-  inputs:
-    preferBundledVersion: false
-
-- task: DotNetCoreCLI@2
-  displayName: 'Restore & Build'
-  inputs:
-    command: 'build'
-    projects: $(SolutionToBuild)
-    arguments: '/p:VersionPrefix="$(GitVersion.MajorMinorPatch)" /p:VersionSuffix="$(GitVersion.PreReleaseTag)" --configuration $(BuildConfiguration) '
-
-- task: DotNetCoreCLI@2
-  displayName: 'Run Executable Specifications'
-  inputs:
-    command: 'test'
-    projects: $(SolutionToBuild)
-    arguments: '-c $(BuildConfiguration) --no-restore /p:VersionPrefix="$(GitVersion.MajorMinorPatch)" /p:VersionSuffix="$(GitVersion.PreReleaseTag)" /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura'
-    nobuild: true
-
-- script: |
-    dotnet tool install -g dotnet-reportgenerator-globaltool
-    reportgenerator "-reports:$(Build.SourcesDirectory)/**/**/coverage.cobertura.xml" "-targetdir:$(Build.SourcesDirectory)/CodeCoverage" "-reporttypes:HtmlInline_AzurePipelines;Cobertura"
-  displayName: 'Generate Code Coverage Report'
-
-- task: PublishCodeCoverageResults@1
-  displayName: 'Publish Code Coverage Report'
-  inputs:
-    codeCoverageTool: Cobertura
-    summaryFileLocation: '$(Build.SourcesDirectory)/CodeCoverage/Cobertura.xml'
-    reportDirectory: '$(Build.SourcesDirectory)/CodeCoverage'
-
-- task: DotNetCoreCLI@2
-  displayName: 'Create NuGet Packages'
-  inputs:
-    command: 'pack'
-    projects: $(SolutionToBuild)
-    packDirectory: '$(Build.ArtifactStagingDirectory)/packages/$(Build.BuildID)'
-    nobuild: true
-    buildProperties: 'VersionPrefix="$(GitVersion.MajorMinorPatch)";VersionSuffix="$(GitVersion.PreReleaseTag)"'
-
-- task: PublishBuildArtifacts@1
-  displayName: 'Publish Artifact: Drop'
-  inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+jobs:
+- template: templates/build.and.release.yml@recommended_practices
+  parameters:
+    vmImage: 'ubuntu-latest'
+    service_connection_nuget_org: $(Endjin_Service_Connection_NuGet_Org)
+    service_connection_github: $(Endjin_Service_Connection_GitHub)
+    solution_to_build: $(Endjin_Solution_To_Build)

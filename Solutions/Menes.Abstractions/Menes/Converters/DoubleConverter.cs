@@ -15,14 +15,14 @@ namespace Menes.Converters
     public class DoubleConverter : IOpenApiConverter
     {
         private readonly OpenApiSchemaValidator validator;
-        private readonly OpenApiConfiguration configuration;
+        private readonly IOpenApiConfiguration configuration;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DoubleConverter"/> class.
         /// </summary>
         /// <param name="validator">The <see cref="OpenApiSchemaValidator"/>.</param>
         /// <param name="configuration">The OpenAPI host configuration.</param>
-        public DoubleConverter(OpenApiSchemaValidator validator, OpenApiConfiguration configuration)
+        public DoubleConverter(OpenApiSchemaValidator validator, IOpenApiConfiguration configuration)
         {
             this.validator = validator;
             this.configuration = configuration;
@@ -48,7 +48,7 @@ namespace Menes.Converters
         /// <inheritdoc/>
         public string ConvertTo(object instance, OpenApiSchema schema)
         {
-            string result = JsonConvert.SerializeObject(instance, this.configuration.Formatting, this.configuration.DefaultSerializerSettings);
+            string result = JsonConvert.SerializeObject(instance, this.configuration.Formatting, this.configuration.SerializerSettings);
             this.validator.ValidateAndThrow(result, schema);
 
             return result;

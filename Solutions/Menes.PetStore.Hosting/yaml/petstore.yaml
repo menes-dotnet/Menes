@@ -1,0 +1,376 @@
+﻿openapi: "3.0.0"
+info:
+  version: 1.0.0
+  title: Swagger Petstore
+  license:
+    name: MIT
+servers:
+  - url: http://localhost:7071/api
+paths:
+  /pets:
+    get:
+      summary: List all pets
+      operationId: listPets
+      tags:
+        - pets
+      parameters:
+        - name: limit
+          in: query
+          description: How many items to return at one time (max 100)
+          required: false
+          schema:
+            type: integer
+            format: int32
+            maximum: 100
+            minimum: 1
+        - name: continuationToken
+          in: query
+          description: The continuation token for a paged result
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A paged array of pets
+          headers:
+            x-next:
+              description: A link to the next page of responses
+              schema:
+                type: string
+          content:
+            application/hal+json:    
+              schema:
+                $ref: "#/components/schemas/PetList"
+        default:
+          description: unexpected error
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetails"
+    post:
+      summary: Create a pet
+      operationId: createPets
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/NewPet"
+      tags:
+        - pets
+      responses:
+        '201':
+          description: Null response
+          headers:
+            Location:
+              description: A link to the canoncial uri for this element
+              schema:
+                type: string
+          content:
+            application/hal+json:
+              schema:
+                $ref: "#/components/schemas/Pet"
+        default:
+          description: unexpected error
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetails"
+  /longpets/{petId}:
+    get:
+      summary: Info for a specific pet
+      operationId: showPetByLongId
+      tags:
+        - pets
+      parameters:
+        - name: petId
+          in: path
+          required: true
+          description: The id of the pet to retrieve
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Expected response to a valid request
+          content:
+            application/hal+json:
+              schema:
+                $ref: "#/components/schemas/Pet"
+        '404':
+          description: No pet with that ID
+        default:
+          description: unexpected error
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetails"
+  /petsWithIdInHeader:
+    get:
+      summary: Info for a specific pet
+      operationId: showPetByLongIdInHeader
+      tags:
+        - pets
+      parameters:
+        - name: X-PET-ID
+          in: header
+          required: true
+          description: The id of the pet to retrieve
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Expected response to a valid request
+          content:
+            application/hal+json:
+              schema:
+                $ref: "#/components/schemas/Pet"
+        '404':
+          description: No pet with that ID
+        '400':
+          description: Bad  request
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetails"
+        default:
+          description: unexpected error
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetails"
+  /globalpets/{petId}:
+    get:
+      summary: Info for a specific pet
+      operationId: showPetByGlobalId
+      tags:
+        - pets
+      parameters:
+        - name: petId
+          in: path
+          required: true
+          description: The id of the pet to retrieve
+          schema:
+            type: string
+            format: guid
+      responses:
+        '200':
+          description: Expected response to a valid request
+          content:
+            application/hal+json:
+              schema:
+                $ref: "#/components/schemas/Pet"
+        '404':
+          description: No pet with that ID
+        default:
+          description: unexpected error
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetails"
+  /pets/{petId}:
+    parameters:
+      - name: petId
+        in: path
+        required: true
+        description: The id of the pet to retrieve
+        schema:
+          type: string
+    get:
+      summary: Info for a specific pet
+      operationId: showPetById
+      tags:
+        - pets
+      responses:
+        '200':
+          description: Expected response to a valid request
+          content:
+            application/hal+json:
+              schema:
+                $ref: "#/components/schemas/Pet"
+        '404':
+          description: No pet with that ID
+        default:
+          description: unexpected error
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetails"
+  /pets/{petId}/image:
+    parameters:
+      - name: petId
+        in: path
+        required: true
+        description: The id of the pet to retrieve
+        schema:
+          type: string
+    get:
+      summary: Returns a picture for the pet
+      operationId: petImage
+      tags:
+        - pets
+      responses:
+        '200':
+          description: Expected response to a valid request
+          content:
+            image/jpeg:
+              schema:
+                type: string
+                format: binary
+        '404':
+          description: No pet with that ID
+        default:
+          description: unexpected error
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetails"
+  /pets/{petId}/pocoimage:
+    parameters:
+      - name: petId
+        in: path
+        required: true
+        description: The id of the pet to retrieve
+        schema:
+          type: string
+    get:
+      summary: Returns a picture for the pet, with the handler returning a raw stream rather than an OpenAPI response
+      operationId: petImagePoco
+      tags:
+        - pets
+      responses:
+        '200':
+          description: Expected response to a valid request
+          content:
+            image/jpeg:
+              schema:
+                type: string
+                format: binary
+        '404':
+          description: No pet with that ID
+        '500':
+          description: unexpected error
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetails"
+    delete:
+      summary: Deletes a pet
+      operationId: deletePetById
+      tags:
+        - pets
+      responses:
+        '204':
+          description: Expected response to a valid request
+        '404':
+          description: No pet with that ID
+        default:
+          description: unexpected error
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetails"
+  /secretPet:
+    get:
+      summary: Info for the secret pet
+      operationId: showSecretPet
+      tags:
+        - pets
+      responses:
+        '200':
+          description: Expected response to a valid request
+          content:
+            application/hal+json:
+              schema:
+                $ref: "#/components/schemas/Pet"
+        '401':
+          description: Insufficient priveliges
+        default:
+          description: unexpected error
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetails"
+components:
+  schemas:
+    NewPet:
+      required:
+        - id
+        - name
+        - size
+      properties:
+        id:
+          type: integer
+          format: int64
+        globalIdentifier:
+          type: string
+          format: guid
+        name:
+          type: string
+        tag:
+          type: string
+          nullable: true
+        size:
+          type: string
+          enum: ["Small", "Medium", "Large"]
+    Pet:
+      properties:
+        id:
+          type: integer
+          format: int64
+        globalIdentifier:
+          type: string
+          format: guid
+        name:
+          type: string
+        tag:
+          type: string
+          nullable: true
+        size:
+          type: string
+        _links:
+          $ref: "#/components/schemas/Links"
+    PetList:
+      properties:
+        totalCount:
+          type: integer
+          format: int64
+        pageSize:
+          type: integer
+        _embedded:
+          type: object
+          properties:
+            pets:
+              type: array
+              items:
+                $ref: "#/components/schemas/Pet"
+    Links:
+      type: object
+      additionalProperties: true
+      example:
+        self: { href: "/path/to/self" }
+        friends:
+          - { href: "/path/to/friend/1" }
+          - { href: "/path/to/friend/2" }
+    ProblemDetails:
+      required:
+        - status
+        - detail
+      properties:
+        status:
+          type: integer
+          format: int32
+        detail:
+          type: string
+        title:
+          type: string
+        instance:
+          type: string
+          format: url
+        type: 
+          type: string
+          format: url
+        validationErrors: 
+          type: array
+      additionalProperties: true

@@ -9,6 +9,7 @@ namespace Menes
     using System.Linq;
     using System.Text;
     using System.Text.Encodings.Web;
+    using Corvus.Extensions;
     using Menes.Exceptions;
     using Menes.Internal;
     using Menes.Validation;

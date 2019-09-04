@@ -8,7 +8,7 @@ namespace Menes
     using System.Diagnostics;
 
     /// <summary>
-    /// The result of evaluating an <see cref="IOpenApiAccessControlPolicy{TTenant}"/>, indicating whether
+    /// The result of evaluating an <see cref="IOpenApiAccessControlPolicy"/>, indicating whether
     /// an operation should be allowed, with an optional explanation if it is disallowed.
     /// </summary>
     [DebuggerDisplay("{ResultType}")]

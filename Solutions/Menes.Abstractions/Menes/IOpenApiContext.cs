@@ -9,8 +9,7 @@ namespace Menes
     /// <summary>
     /// Interface implemented by types that provide a context that is built up in the Open API host.
     /// </summary>
-    /// <typeparam name="TTenant">The type of the tenant for the context.</typeparam>
-    public interface IOpenApiContext<TTenant>
+    public interface IOpenApiContext
     {
         /// <summary>
         /// Gets or sets the current principal for the request.
@@ -18,8 +17,13 @@ namespace Menes
         ClaimsPrincipal CurrentPrincipal { get; set; }
 
         /// <summary>
-        /// Gets or sets the current tenant for the request.
+        /// Gets or sets the current tenant ID for the request.
         /// </summary>
-        TTenant CurrentTenant { get; set; }
+        string CurrentTenantId { get; set;  }
+
+        /// <summary>
+        /// Gets or sets additional context for the request.
+        /// </summary>
+        dynamic AdditionalContext { get; set;  }
     }
 }

@@ -17,7 +17,7 @@ namespace Menes.Internal
     {
         private readonly ILogger<DefaultOperationLocator> logger;
         private readonly IEnumerable<IOpenApiService> services;
-        private readonly OpenApiConfiguration configuration;
+        private readonly IOpenApiConfiguration configuration;
         private readonly Lazy<IDictionary<string, OpenApiServiceOperation>> operations;
 
         /// <summary>
@@ -26,7 +26,7 @@ namespace Menes.Internal
         /// <param name="services">The registered Open API Service.</param>
         /// <param name="configuration">The Open API configuration.</param>
         /// <param name="logger">The logger.</param>
-        public DefaultOperationLocator(IEnumerable<IOpenApiService> services, OpenApiConfiguration configuration, ILogger<DefaultOperationLocator> logger)
+        public DefaultOperationLocator(IEnumerable<IOpenApiService> services, IOpenApiConfiguration configuration, ILogger<DefaultOperationLocator> logger)
         {
             this.logger = logger;
             this.services = services;
