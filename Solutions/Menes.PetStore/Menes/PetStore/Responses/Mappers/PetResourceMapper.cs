@@ -4,6 +4,7 @@
 
 namespace Menes.PetStore.Responses.Mappers
 {
+    using Menes.Hal;
     using Menes.Links;
     using Menes.PetStore.Abstractions;
 
@@ -12,14 +13,17 @@ namespace Menes.PetStore.Responses.Mappers
     /// </summary>
     public class PetResourceMapper
     {
+        private readonly IHalDocumentFactory halDocumentFactory;
         private readonly IOpenApiWebLinkResolver linkResolver;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PetResourceMapper"/> class.
         /// </summary>
+        /// <param name="halDocumentFactory">The service provider to construct <see cref="HalDocument"/> instances.</param>
         /// <param name="linkResolver">The link resolver to build the links collection.</param>
-        public PetResourceMapper(IOpenApiWebLinkResolver linkResolver)
+        public PetResourceMapper(IHalDocumentFactory halDocumentFactory, IOpenApiWebLinkResolver linkResolver)
         {
+            this.halDocumentFactory = halDocumentFactory;
             this.linkResolver = linkResolver;
         }
 
@@ -28,16 +32,12 @@ namespace Menes.PetStore.Responses.Mappers
         /// </summary>
         /// <param name="input">The Pet to map.</param>
         /// <returns>The mapped PetResource.</returns>
-        public HalDocument<Pet> Map(Pet input)
+        public HalDocument Map(Pet input)
         {
-            var response = new HalDocument<Pet>
-            {
-                Data = input,
-            };
-
-            response.Links.ResolveAndAdd(this.linkResolver, response.Data, "self", ("petId", response.Data.Id));
-            response.Links.ResolveAndAdd(this.linkResolver, response.Data, "image", ("petId", response.Data.Id));
-            response.Links.ResolveAndAdd(this.linkResolver, response.Data, "pocoimage", ("petId", response.Data.Id));
+            HalDocument response = this.halDocumentFactory.CreateHalDocumentFrom(input);
+            response.ResolveAndAdd(this.linkResolver, input, "self", ("petId", input.Id));
+            response.ResolveAndAdd(this.linkResolver, input, "image", ("petId", input.Id));
+            response.ResolveAndAdd(this.linkResolver, input, "pocoimage", ("petId", input.Id));
 
             return response;
         }

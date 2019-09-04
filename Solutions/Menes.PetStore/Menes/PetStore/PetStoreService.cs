@@ -14,9 +14,9 @@ namespace Menes.PetStore
     using System.Web;
     using Corvus.Extensions;
     using Menes.Exceptions;
+    using Menes.Hal;
     using Menes.Links;
     using Menes.PetStore.Abstractions;
-    using Menes.PetStore.Responses;
     using Menes.PetStore.Responses.Mappers;
 
     /// <inheritdoc/>
@@ -64,9 +64,9 @@ namespace Menes.PetStore
             Pet[] pets = this.pets.Skip(skip).Take(limit).ToArray();
 
             string nextContinuationToken = (skip + limit < this.pets.Count) ? BuildContinuationToken(limit + skip) : null;
-            PetListResource response = this.petListMapper.Map(pets, this.pets.Count, limit, continuationToken, nextContinuationToken);
+            HalDocument response = this.petListMapper.Map(pets, this.pets.Count, limit, continuationToken, nextContinuationToken);
 
-            OpenApiResult result = this.OkResult(response);
+            OpenApiResult result = this.OkResult(response, HalDocument.RegisteredContentType);
 
             // We also add the next page link to the header, just to demonstrate that it's possible
             // to use WebLink items in this way.
@@ -185,9 +185,8 @@ namespace Menes.PetStore
                 this.pets.Add(body);
             }
 
-            HalDocument<Pet> response = this.petMapper.Map(body);
-            WebLink location = response.Links.First(x => x.Rel == "self");
-
+            HalDocument response = this.petMapper.Map(body);
+            WebLink location = response.GetLinksForRelation("self").First();
             return this.CreatedResult(location.Href, response, auditData: new[] { ("id", (object)body.Id) });
         }
 
@@ -290,9 +289,9 @@ namespace Menes.PetStore
                 throw new OpenApiNotFoundException();
             }
 
-            HalDocument<Pet> response = this.petMapper.Map(result);
+            HalDocument response = this.petMapper.Map(result);
 
-            return this.OkResult(response, auditData: new[] { ("id", (object)result.Id) });
+            return this.OkResult(response, HalDocument.RegisteredContentType, auditData: new[] { ("id", (object)result.Id) });
         }
     }
 }

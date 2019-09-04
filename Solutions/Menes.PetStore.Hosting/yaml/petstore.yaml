@@ -38,7 +38,7 @@ paths:
               schema:
                 type: string
           content:
-            application/json:    
+            application/hal+json:    
               schema:
                 $ref: "#/components/schemas/PetList"
         default:
@@ -67,7 +67,7 @@ paths:
               schema:
                 type: string
           content:
-            application/json:
+            application/hal+json:
               schema:
                 $ref: "#/components/schemas/Pet"
         default:
@@ -94,7 +94,7 @@ paths:
         '200':
           description: Expected response to a valid request
           content:
-            application/json:
+            application/hal+json:
               schema:
                 $ref: "#/components/schemas/Pet"
         '404':
@@ -123,7 +123,7 @@ paths:
         '200':
           description: Expected response to a valid request
           content:
-            application/json:
+            application/hal+json:
               schema:
                 $ref: "#/components/schemas/Pet"
         '404':
@@ -158,7 +158,7 @@ paths:
         '200':
           description: Expected response to a valid request
           content:
-            application/json:
+            application/hal+json:
               schema:
                 $ref: "#/components/schemas/Pet"
         '404':
@@ -186,7 +186,7 @@ paths:
         '200':
           description: Expected response to a valid request
           content:
-            application/json:
+            application/hal+json:
               schema:
                 $ref: "#/components/schemas/Pet"
         '404':
@@ -281,7 +281,7 @@ paths:
         '200':
           description: Expected response to a valid request
           content:
-            application/json:
+            application/hal+json:
               schema:
                 $ref: "#/components/schemas/Pet"
         '401':

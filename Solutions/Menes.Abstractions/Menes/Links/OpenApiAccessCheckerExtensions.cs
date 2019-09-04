@@ -7,6 +7,7 @@ namespace Menes.Links
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+    using Menes.Hal;
 
     /// <summary>
     /// Link-related extension methods on <see cref="IOpenApiAccessChecker"/>.
@@ -64,10 +65,10 @@ namespace Menes.Links
                 {
                     foreach (HalDocument document in linkMap[link])
                     {
-                        document.Links.Remove(link);
+                        document.RemoveLink(link);
 
                         // Also remove from embedded resources if present.
-                        document.EmbeddedResources.Remove(link.Rel);
+                        document.RemoveEmbeddedResource(link);
                     }
                 }
             }
@@ -75,34 +76,31 @@ namespace Menes.Links
 
         private static void AddHalDocumentLinksToMap(HalDocument target, Dictionary<OpenApiWebLink, List<HalDocument>> linkMap, bool recursive, bool unsafeChecking)
         {
-            if (target.Links != null)
+            foreach (OpenApiWebLink current in target.Links.OfType<OpenApiWebLink>())
             {
-                foreach (OpenApiWebLink current in target.Links.OfType<OpenApiWebLink>())
+                if (unsafeChecking && ShouldSkipInUnsafeMode(current, target))
                 {
-                    if (unsafeChecking && ShouldSkipInUnsafeMode(current, target))
-                    {
-                        continue;
-                    }
-
-                    if (!linkMap.TryGetValue(current, out List<HalDocument> documents))
-                    {
-                        documents = new List<HalDocument>();
-                        linkMap.Add(current, documents);
-                    }
-
-                    documents.Add(target);
+                    continue;
                 }
+
+                if (!linkMap.TryGetValue(current, out List<HalDocument> documents))
+                {
+                    documents = new List<HalDocument>();
+                    linkMap.Add(current, documents);
+                }
+
+                documents.Add(target);
             }
 
             if (recursive)
             {
-                target.EmbeddedResources?.Values.OfType<HalDocument>().ForEach(embeddedDocument => AddHalDocumentLinksToMap(embeddedDocument, linkMap, recursive, unsafeChecking));
+                target.EmbeddedResources.ForEach(embeddedDocument => AddHalDocumentLinksToMap(embeddedDocument, linkMap, recursive, unsafeChecking));
             }
         }
 
         private static bool ShouldSkipInUnsafeMode(WebLink link, HalDocument target)
         {
-            return (link.Rel == "self") || (target.EmbeddedResources?.ContainsKey(link.Rel) ?? false);
+            return (link.Rel == "self") || (target?.HasEmbeddedResourceForLink(link) ?? false);
         }
     }
 }

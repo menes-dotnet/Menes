@@ -4,22 +4,12 @@
 
 namespace Menes.PetStore.Hosting
 {
-    using System;
-    using System.IO;
     using System.Threading.Tasks;
-    using Menes.Auditing.AuditLogSinks.Development;
-    using Menes.PetStore.Abstractions;
-    using Menes.PetStore.Responses;
-    using Menes.PetStore.Responses.Mappers;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Azure.WebJobs;
     using Microsoft.Azure.WebJobs.Extensions.Http;
     using Microsoft.Extensions.DependencyInjection;
-    using Microsoft.OpenApi.Models;
-    using Microsoft.OpenApi.Readers;
-    using Serilog;
-    using Serilog.Filters;
 
     /// <summary>
     /// An example openAPI host.

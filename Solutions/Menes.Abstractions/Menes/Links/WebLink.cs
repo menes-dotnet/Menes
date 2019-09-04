@@ -25,22 +25,36 @@ namespace Menes.Links
         /// </summary>
         /// <param name="rel">The link relation type.</param>
         /// <param name="href">The link url.</param>
-        public WebLink(string rel, string href)
+        /// <param name="name">The name of the link (optional).</param>
+        /// <param name="isTemplated">Whether the link is templated (optional).</param>
+        public WebLink(string rel, string href, string name = null, bool? isTemplated = null)
         {
             this.Rel = rel;
             this.Href = href;
+            this.Name = name;
+            this.IsTemplated = isTemplated;
         }
 
         /// <summary>
-        /// Gets or sets the relation type of this link.
+        /// Gets the relation type of this link.
         /// </summary>
         /// <example>self.</example>
-        public string Rel { get; set; }
+        public string Rel { get; }
 
         /// <summary>
-        /// Gets or sets the Uri of the link.
+        /// Gets the Uri of the link.
         /// </summary>
-        public string Href { get; set; }
+        public string Href { get; }
+
+        /// <summary>
+        /// Gets the name of the link (or null if there is no name set).
+        /// </summary>
+        public string Name { get; }
+
+        /// <summary>
+        /// Gets a value that indicates whether the link is templated (or null if the property is not set).
+        /// </summary>
+        public bool? IsTemplated { get; }
 
         /// <summary>
         /// Standard equality operator.
@@ -75,13 +89,15 @@ namespace Menes.Links
         {
             return other != null &&
                    this.Rel == other.Rel &&
-                   this.Href == other.Href;
+                   this.Href == other.Href &&
+                   this.IsTemplated == other.IsTemplated &&
+                   this.Name == other.Name;
         }
 
         /// <inheritdoc/>
         public override int GetHashCode()
         {
-            return (this.Href, this.Rel).GetHashCode();
+            return (this.Href, this.Rel, this.Name, this.IsTemplated).GetHashCode();
         }
     }
 }

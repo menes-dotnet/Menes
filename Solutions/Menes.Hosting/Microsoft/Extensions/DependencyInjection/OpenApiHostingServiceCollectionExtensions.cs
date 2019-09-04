@@ -8,6 +8,8 @@ namespace Microsoft.Extensions.DependencyInjection
     using Menes;
     using Menes.Auditing;
     using Menes.Exceptions;
+    using Menes.Hal;
+    using Menes.Hal.Internal;
     using Menes.Internal;
     using Menes.Links;
     using Microsoft.Extensions.Configuration;
@@ -84,8 +86,10 @@ namespace Microsoft.Extensions.DependencyInjection
         public static IServiceCollection AddOpenApiHosting<TRequest, TResponse>(this IServiceCollection services, Action<OpenApiHostConfiguration> configureHost, Action<IOpenApiConfiguration> configureEnvironment = null)
         {
             services.AddSingleton<JsonConverter, OpenApiDocumentJsonConverter>();
+            services.AddSingleton<JsonConverter, HalDocumentJsonConverter>();
             services.AddSingleton<IOpenApiDocumentProvider, OpenApiDocumentProvider>();
-
+            services.AddSingleton<IHalDocumentFactory, HalDocumentFactory>();
+            services.AddTransient<HalDocument>();
             services.AddSingleton<IOpenApiServiceOperationLocator, DefaultOperationLocator>();
             services.AddSingleton<IPathMatcher, PathMatcher>();
             services.AddSingleton<IOpenApiService, SwaggerService>();
@@ -93,7 +97,6 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddSingleton<IOpenApiAccessChecker, OpenApiAccessChecker>();
             services.AddSingleton<IOpenApiExceptionMapper, OpenApiExceptionMapper>();
             services.AddSingleton<IOpenApiWebLinkResolver, OpenApiWebLinkResolver>();
-            services.AddSingleton<JsonConverter, HalWebLinkCollectionJsonConverter>();
             services.AddSingleton<IAuditContext, AuditContext>();
             services.AddSingleton<IOpenApiOperationInvoker<TRequest, TResponse>, OpenApiOperationInvoker<TRequest, TResponse>>();
 

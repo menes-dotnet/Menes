@@ -9,7 +9,6 @@ namespace Microsoft.Extensions.DependencyInjection
     using Menes.Internal;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
-    using Newtonsoft.Json;
 
     /// <summary>
     /// Extensions to register open api request hosting for <see cref="HttpRequest"/> and <see cref="IActionResult"/>.
@@ -33,8 +32,6 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddSingleton<IOpenApiContextBuilder<HttpRequest>, OpenApiContextBuilder<HttpRequest, TContext>>();
             services.AddSingleton<IOpenApiParameterBuilder<HttpRequest>, HttpRequestParameterBuilder>();
             services.AddSingleton<IOpenApiResultBuilder<IActionResult>, HttpRequestResultBuilder>();
-
-            services.AddSingleton<JsonConverter, HalDocumentJsonConverter>();
 
             services.AddOpenApiHosting<HttpRequest, IActionResult>(
                 configureHost,

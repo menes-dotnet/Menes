@@ -5,7 +5,6 @@
 namespace Menes
 {
     using System.Collections.Generic;
-    using System.Security.Claims;
     using System.Threading.Tasks;
 
     /// <summary>

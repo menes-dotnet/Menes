@@ -5,6 +5,7 @@
 namespace Menes.Links
 {
     using System;
+    using Menes.Hal;
 
     /// <summary>
     /// Options for processing HalDocuments to remove forbidden

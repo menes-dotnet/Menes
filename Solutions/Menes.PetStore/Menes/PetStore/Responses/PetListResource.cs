@@ -4,23 +4,15 @@
 
 namespace Menes.PetStore.Responses
 {
-    using Menes.Links;
-    using Menes.PetStore.Abstractions;
-    using Newtonsoft.Json;
-
     /// <summary>
     /// Wire representation of a list of pets.
     /// </summary>
-    public class PetListResource : HalDocument
+    public class PetListResource
     {
-        private const string PetsKey = "pets";
-
         /// <summary>
-        /// Initializes a new instance of the <see cref="PetListResource"/> class.
+        /// The registered content type for the pet list resource.
         /// </summary>
-        public PetListResource()
-        {
-        }
+        public const string RegisteredContentType = "application/vnd.menes.demo.petlistresource";
 
         /// <summary>
         /// Gets the total number of available pets.
@@ -31,30 +23,5 @@ namespace Menes.PetStore.Responses
         /// Gets the current page size.
         /// </summary>
         public int PageSize { get; internal set; }
-
-        /// <summary>
-        /// Gets or sets the list of pets.
-        /// </summary>
-        [JsonIgnore]
-        public HalDocument<Pet>[] Pets
-        {
-            get
-            {
-                HalDocument<Pet>[] pets = this.GetEmbeddedResource<HalDocument<Pet>[]>(PetsKey);
-
-                if (pets == null)
-                {
-                    pets = new HalDocument<Pet>[0];
-                    this.SetEmbeddedResource(PetsKey, pets);
-                }
-
-                return pets;
-            }
-
-            set
-            {
-                this.SetEmbeddedResource(PetsKey, value);
-            }
-        }
     }
 }

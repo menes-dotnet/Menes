@@ -5,6 +5,7 @@
 namespace Menes.PetStore.Responses.Mappers
 {
     using System.Linq;
+    using Menes.Hal;
     using Menes.Links;
     using Menes.PetStore.Abstractions;
 
@@ -13,16 +14,20 @@ namespace Menes.PetStore.Responses.Mappers
     /// </summary>
     public class PetListResourceMapper
     {
+        private const string PetsRelation = "pets";
+        private readonly IHalDocumentFactory halDocumentFactory;
         private readonly IOpenApiWebLinkResolver linkResolver;
         private readonly PetResourceMapper petResourceMapper;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PetListResourceMapper"/> class.
         /// </summary>
+        /// <param name="halDocumentFactory">The factoryh with which to create <see cref="HalDocument"/> instances.</param>
         /// <param name="linkResolver">The link resolver to build the links collection.</param>
         /// <param name="petResourceMapper">The mapper for individual Pets.</param>
-        public PetListResourceMapper(IOpenApiWebLinkResolver linkResolver, PetResourceMapper petResourceMapper)
+        public PetListResourceMapper(IHalDocumentFactory halDocumentFactory, IOpenApiWebLinkResolver linkResolver, PetResourceMapper petResourceMapper)
         {
+            this.halDocumentFactory = halDocumentFactory;
             this.linkResolver = linkResolver;
             this.petResourceMapper = petResourceMapper;
         }
@@ -36,23 +41,27 @@ namespace Menes.PetStore.Responses.Mappers
         /// <param name="currentContinuationToken">The continuation token for the current page.</param>
         /// <param name="nextContinuationToken">The continuation token for the next page.</param>
         /// <returns>The mapped PetListResource.</returns>
-        public PetListResource Map(Pet[] pets, long totalPets, int limit, string currentContinuationToken, string nextContinuationToken)
+        public HalDocument Map(Pet[] pets, long totalPets, int limit, string currentContinuationToken, string nextContinuationToken)
         {
-            HalDocument<Pet>[] mappedPets = pets.Select(this.petResourceMapper.Map).ToArray();
-
-            var response = new PetListResource
+            var resource = new PetListResource
             {
-                Pets = mappedPets,
                 TotalCount = totalPets,
                 PageSize = limit,
             };
 
-            response.Links.ResolveAndAdd(this.linkResolver, response, "self", ("limit", limit), ("continuationToken", currentContinuationToken));
-            response.Links.ResolveAndAdd(this.linkResolver, response, "create");
+            HalDocument response = this.halDocumentFactory.CreateHalDocumentFrom(resource);
+
+            pets.ForEach(pet =>
+            {
+                response.AddEmbeddedResource(PetsRelation, this.petResourceMapper.Map(pet));
+            });
+
+            response.ResolveAndAdd(this.linkResolver, response, "self", ("limit", limit), ("continuationToken", currentContinuationToken));
+            response.ResolveAndAdd(this.linkResolver, response, "create");
 
             if (!string.IsNullOrEmpty(nextContinuationToken))
             {
-                response.Links.ResolveAndAdd(this.linkResolver, response, "next", ("limit", limit), ("continuationToken", nextContinuationToken));
+                response.ResolveAndAdd(this.linkResolver, response, "next", ("limit", limit), ("continuationToken", nextContinuationToken));
             }
 
             return response;

@@ -6,7 +6,6 @@
 
 namespace Menes.PetStore.Hosting
 {
-    using System;
     using System.IO;
     using Menes.Auditing.AuditLogSinks.Development;
     using Menes.PetStore.Abstractions;

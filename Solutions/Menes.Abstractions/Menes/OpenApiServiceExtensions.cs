@@ -8,6 +8,7 @@ namespace Menes
 {
     using System.Linq;
     using System.Net;
+    using Corvus.ContentHandling;
 
     /// <summary>
     /// Extension methods to help create responses for the OpenAPI service.
@@ -24,12 +25,12 @@ namespace Menes
         /// <param name="auditData">Any additional audit data to add to the result.</param>
         /// <returns>An OpenApi result with the OK status code and the object in the response body against the relevant content type.</returns>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "For symmetry with other extension methods")]
-        public static OpenApiResult OkResult<T>(this IOpenApiService service, T result, string contentType = "application/json", (string, object)[] auditData = null)
+        public static OpenApiResult OkResult<T>(this IOpenApiService service, T result, string contentType = null, (string, object)[] auditData = null)
         {
             return new OpenApiResult
             {
                 StatusCode = (int)HttpStatusCode.OK,
-                Results = { { contentType, result } },
+                Results = { { GetContentType(result, contentType), result } },
                 AuditData = auditData?.ToDictionary(x => x.Item1, x => x.Item2),
             };
         }
@@ -111,12 +112,12 @@ namespace Menes
         /// <param name="auditData">Any additional audit data to add to the result.</param>
         /// <returns>An OpenApi result with the Created status code and the object in the response body against the relevant content type.</returns>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "For symmetry with other extension methods")]
-        public static OpenApiResult CreatedResult<T>(this IOpenApiService service, string location, T result, string contentType = "application/json", (string, object)[] auditData = null)
+        public static OpenApiResult CreatedResult<T>(this IOpenApiService service, string location, T result, string contentType = null, (string, object)[] auditData = null)
         {
             return new OpenApiResult
             {
                 StatusCode = (int)HttpStatusCode.Created,
-                Results = { { "Location", location }, { contentType, result } },
+                Results = { { "Location", location }, { GetContentType(result, contentType), result } },
                 AuditData = auditData?.ToDictionary(x => x.Item1, x => x.Item2),
             };
         }
@@ -153,6 +154,16 @@ namespace Menes
                 StatusCode = (int)HttpStatusCode.NotImplemented,
                 AuditData = auditData?.ToDictionary(x => x.Item1, x => x.Item2),
             };
+        }
+
+        private static string GetContentType<T>(T instance, string contentType)
+        {
+            return contentType ?? GetContentTypeOrNull(instance) ?? "application/json";
+        }
+
+        private static string GetContentTypeOrNull<T>(T instance)
+        {
+            return ContentFactory.TryGetContentType(instance, out string contentType) ? contentType : null;
         }
     }
 }
