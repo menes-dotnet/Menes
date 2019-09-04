@@ -4,7 +4,6 @@
 
 namespace Microsoft.Extensions.DependencyInjection
 {
-    using Endjin.Auditing.Internal;
     using Menes.Auditing;
     using Menes.Auditing.Internal;
 

@@ -2,12 +2,10 @@
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
-namespace Endjin.Auditing.Internal
+namespace Menes.Auditing.Internal
 {
     using System;
     using Menes;
-    using Menes.Auditing;
-    using Menes.Auditing.Internal;
     using Microsoft.OpenApi.Models;
 
     /// <summary>

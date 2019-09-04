@@ -31,8 +31,8 @@ namespace Menes.PetStore.Hosting
             LoggerConfiguration loggerConfig = new LoggerConfiguration()
                     .Enrich.FromLogContext()
                     .MinimumLevel.Debug()
-                    .WriteTo.Logger(lc => lc.Filter.ByExcluding(Matching.FromSource("Endjin.OpenApi")).WriteTo.Console().MinimumLevel.Debug())
-                    .WriteTo.Logger(lc => lc.Filter.ByIncludingOnly(Matching.FromSource("Endjin.OpenApi")).WriteTo.Console().MinimumLevel.Debug());
+                    .WriteTo.Logger(lc => lc.Filter.ByExcluding(Matching.FromSource("Menes.OpenApi")).WriteTo.Console().MinimumLevel.Debug())
+                    .WriteTo.Logger(lc => lc.Filter.ByIncludingOnly(Matching.FromSource("Menes.OpenApi")).WriteTo.Console().MinimumLevel.Debug());
 
             Log.Logger = loggerConfig.CreateLogger();
 
