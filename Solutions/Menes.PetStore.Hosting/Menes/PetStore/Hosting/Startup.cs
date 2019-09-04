@@ -8,8 +8,6 @@ namespace Menes.PetStore.Hosting
 {
     using System.IO;
     using Menes.Auditing.AuditLogSinks.Development;
-    using Menes.PetStore.Abstractions;
-    using Menes.PetStore.Responses;
     using Menes.PetStore.Responses.Mappers;
     using Microsoft.Azure.WebJobs;
     using Microsoft.Azure.WebJobs.Hosting;
@@ -61,12 +59,8 @@ namespace Menes.PetStore.Hosting
 
         private static void MapLinks(IOpenApiHostConfiguration hostConfig)
         {
-            hostConfig.Links.Map(Pet.ContentTypeBase, "self", "showPetById");
-            hostConfig.Links.Map(Pet.ContentTypeBase, "image", "petImage");
-            hostConfig.Links.Map(Pet.ContentTypeBase, "pocoimage", "petImagePoco");
-            hostConfig.Links.Map<PetListResource>("self", "listPets");
-            hostConfig.Links.Map<PetListResource>("create", "createPets");
-            hostConfig.Links.Map<PetListResource>("next", "listPets");
+            PetResourceMapper.MapLinks(hostConfig.Links);
+            PetListResourceMapper.MapLinks(hostConfig.Links);
         }
 
         private static void LoadDocuments(IOpenApiHostConfiguration hostConfig)

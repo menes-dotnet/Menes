@@ -1,15 +1,15 @@
-﻿// <copyright file="Pet.cs" company="Endjin Limited">
+﻿// <copyright file="PetResource.cs" company="Endjin Limited">
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
-namespace Menes.PetStore.Abstractions
+namespace Menes.PetStore.Responses
 {
     using System;
 
     /// <summary>
     /// Pet DTO.
     /// </summary>
-    public class Pet
+    public class PetResource
     {
         /// <summary>
         /// Base content type for all pets.
@@ -17,9 +17,9 @@ namespace Menes.PetStore.Abstractions
         public const string ContentTypeBase = "application/vnd.menes.petstore.pet";
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Pet"/> class.
+        /// Initializes a new instance of the <see cref="PetResource"/> class.
         /// </summary>
-        public Pet()
+        public PetResource()
         {
             this.GlobalIdentifier = Guid.NewGuid();
         }

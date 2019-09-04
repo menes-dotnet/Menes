@@ -16,17 +16,17 @@ namespace Menes.PetStore
     using Menes.Exceptions;
     using Menes.Hal;
     using Menes.Links;
-    using Menes.PetStore.Abstractions;
+    using Menes.PetStore.Responses;
     using Menes.PetStore.Responses.Mappers;
 
     /// <inheritdoc/>
     public class PetStoreService : IOpenApiService
     {
         private static readonly Regex MatchContinuationToken = new Regex("skip=([0-9]*)");
-        private readonly List<Pet> pets;
+        private readonly List<PetResource> pets;
         private readonly PetListResourceMapper petListMapper;
         private readonly PetResourceMapper petMapper;
-        private readonly Pet secretPet;
+        private readonly PetResource secretPet;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PetStoreService"/> class.
@@ -35,17 +35,17 @@ namespace Menes.PetStore
         /// <param name="petMapper">Mapper for pet responses.</param>
         public PetStoreService(PetListResourceMapper petListMapper, PetResourceMapper petMapper)
         {
-            this.pets = new List<Pet>
+            this.pets = new List<PetResource>
                             {
-                                new Pet { Id = 1, Name = "Suki", Tag = "Cat", Size = Size.Small, GlobalIdentifier = Guid.NewGuid() },
-                                new Pet { Id = 2, Name = "Caspar", Tag = "Dog", Size = Size.Medium, GlobalIdentifier = Guid.NewGuid() },
-                                new Pet { Id = 3, Name = "Tim", Tag = "Goldfish", Size = Size.Large, GlobalIdentifier = Guid.NewGuid() },
+                                new PetResource { Id = 1, Name = "Suki", Tag = "Cat", Size = Size.Small, GlobalIdentifier = Guid.NewGuid() },
+                                new PetResource { Id = 2, Name = "Caspar", Tag = "Dog", Size = Size.Medium, GlobalIdentifier = Guid.NewGuid() },
+                                new PetResource { Id = 3, Name = "Tim", Tag = "Goldfish", Size = Size.Large, GlobalIdentifier = Guid.NewGuid() },
                             };
 
             this.petListMapper = petListMapper;
             this.petMapper = petMapper;
 
-            this.secretPet = new Pet { Id = 0, Name = "Yogi", Tag = "Bear", Size = Size.Large, GlobalIdentifier = Guid.NewGuid() };
+            this.secretPet = new PetResource { Id = 0, Name = "Yogi", Tag = "Bear", Size = Size.Large, GlobalIdentifier = Guid.NewGuid() };
         }
 
         /// <summary>
@@ -61,10 +61,10 @@ namespace Menes.PetStore
         {
             int skip = ParseContinuationToken(continuationToken);
 
-            Pet[] pets = this.pets.Skip(skip).Take(limit).ToArray();
+            PetResource[] pets = this.pets.Skip(skip).Take(limit).ToArray();
 
             string nextContinuationToken = (skip + limit < this.pets.Count) ? BuildContinuationToken(limit + skip) : null;
-            HalDocument response = this.petListMapper.Map(pets, this.pets.Count, limit, continuationToken, nextContinuationToken);
+            HalDocument response = this.petListMapper.Map(new PetListResource { Pets = pets, TotalCount = this.pets.Count, PageSize = limit }, continuationToken, nextContinuationToken);
 
             OpenApiResult result = this.OkResult(response, HalDocument.RegisteredContentType);
 
@@ -88,13 +88,13 @@ namespace Menes.PetStore
         /// The pet id.
         /// </param>
         /// <returns>
-        /// The <see cref="Pet"/>.
+        /// The <see cref="PetResource"/>.
         /// </returns>
         [OperationId("showPetById")]
         public OpenApiResult ShowPet(string petId)
         {
             long.TryParse(petId, out long idAsLong);
-            Pet result = this.pets.SingleOrDefault(p => p.Id == idAsLong);
+            PetResource result = this.pets.SingleOrDefault(p => p.Id == idAsLong);
 
             return this.MapAndReturnPet(result);
         }
@@ -107,13 +107,13 @@ namespace Menes.PetStore
         /// in the OpenApi service definition to enable testing of <see cref="OpenApiParameterAttribute"/>.
         /// </param>
         /// <returns>
-        /// The <see cref="Pet"/>.
+        /// The <see cref="PetResource"/>.
         /// </returns>
         [OperationId("showPetByLongId")]
         public OpenApiResult ShowPet(
             [OpenApiParameter("petId")] long petIdWithParameterNameSetByAttribute)
         {
-            Pet result = this.pets.SingleOrDefault(p => p.Id == petIdWithParameterNameSetByAttribute);
+            PetResource result = this.pets.SingleOrDefault(p => p.Id == petIdWithParameterNameSetByAttribute);
 
             return this.MapAndReturnPet(result);
         }
@@ -126,13 +126,13 @@ namespace Menes.PetStore
         /// parameter name matching is enabled by default, we can use this simplified name.
         /// </param>
         /// <returns>
-        /// The <see cref="Pet"/>.
+        /// The <see cref="PetResource"/>.
         /// </returns>
         [OperationId("showPetByLongIdInHeader")]
         public OpenApiResult ShowPetWithIdInHeader(
             long xPetId)
         {
-            Pet result = this.pets.SingleOrDefault(p => p.Id == xPetId);
+            PetResource result = this.pets.SingleOrDefault(p => p.Id == xPetId);
 
             return this.MapAndReturnPet(result);
         }
@@ -144,12 +144,12 @@ namespace Menes.PetStore
         /// The pet id.
         /// </param>
         /// <returns>
-        /// The <see cref="Pet"/>.
+        /// The <see cref="PetResource"/>.
         /// </returns>
         [OperationId("showPetByGlobalId")]
         public OpenApiResult ShowPet(Guid petId)
         {
-            Pet result = this.pets.SingleOrDefault(p => p.GlobalIdentifier == petId);
+            PetResource result = this.pets.SingleOrDefault(p => p.GlobalIdentifier == petId);
 
             return this.MapAndReturnPet(result);
         }
@@ -159,7 +159,7 @@ namespace Menes.PetStore
         /// </summary>
         /// <param name="openApiContext">The Open API context.</param>
         /// <returns>
-        /// The <see cref="Pet"/>.
+        /// The <see cref="PetResource"/>.
         /// </returns>
         [OperationId("showSecretPet")]
         public OpenApiResult ShowSecretPet(IOpenApiContext openApiContext)
@@ -178,7 +178,7 @@ namespace Menes.PetStore
         /// <param name="body">The pet to create.</param>
         /// <returns>Created if the pet is created.</returns>
         [OperationId("createPets")]
-        public OpenApiResult CreatePets(Pet body)
+        public OpenApiResult CreatePets(PetResource body)
         {
             if (!this.pets.Any(p => p.Id == body.Id))
             {
@@ -203,7 +203,7 @@ namespace Menes.PetStore
         public async Task<OpenApiResult> ShowPetImage(string petId)
         {
             long.TryParse(petId, out long idAsLong);
-            Pet pet = this.pets.SingleOrDefault(p => p.Id == idAsLong);
+            PetResource pet = this.pets.SingleOrDefault(p => p.Id == idAsLong);
 
             Stream result = await GetImageForPetAsync(pet).ConfigureAwait(false);
 
@@ -223,12 +223,12 @@ namespace Menes.PetStore
         public Task<Stream> ShowPetImagePoco(string petId)
         {
             long.TryParse(petId, out long idAsLong);
-            Pet pet = this.pets.SingleOrDefault(p => p.Id == idAsLong);
+            PetResource pet = this.pets.SingleOrDefault(p => p.Id == idAsLong);
 
             return GetImageForPetAsync(pet);
         }
 
-        private static async Task<Stream> GetImageForPetAsync(Pet pet)
+        private static async Task<Stream> GetImageForPetAsync(PetResource pet)
         {
             using (var client = new WebClient())
             {
@@ -282,7 +282,7 @@ namespace Menes.PetStore
             return skip;
         }
 
-        private OpenApiResult MapAndReturnPet(Pet result)
+        private OpenApiResult MapAndReturnPet(PetResource result)
         {
             if (result == null)
             {

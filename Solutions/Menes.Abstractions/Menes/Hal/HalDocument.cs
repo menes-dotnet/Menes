@@ -15,6 +15,9 @@ namespace Menes.Hal
     /// <summary>
     /// A HAL document.
     /// </summary>
+    /// <remarks>
+    /// You will typically create an instance of this type using the <see cref="IHalDocumentFactory"/>.
+    /// </remarks>
     public class HalDocument : ILinkCollection
     {
         /// <summary>

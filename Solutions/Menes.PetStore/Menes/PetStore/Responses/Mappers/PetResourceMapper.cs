@@ -6,7 +6,6 @@ namespace Menes.PetStore.Responses.Mappers
 {
     using Menes.Hal;
     using Menes.Links;
-    using Menes.PetStore.Abstractions;
 
     /// <summary>
     /// Maps Pets to PetResources.
@@ -28,11 +27,25 @@ namespace Menes.PetStore.Responses.Mappers
         }
 
         /// <summary>
+        /// Map links for the resource.
+        /// </summary>
+        /// <param name="links">The links to map.</param>
+        /// <returns>The link operation map with the links mapped.</returns>
+        public static IOpenApiLinkOperationMap MapLinks(IOpenApiLinkOperationMap links)
+        {
+            links.Map(PetResource.ContentTypeBase, "self", "showPetById");
+            links.Map(PetResource.ContentTypeBase, "image", "petImage");
+            links.Map(PetResource.ContentTypeBase, "pocoimage", "petImagePoco");
+
+            return links;
+        }
+
+        /// <summary>
         /// Performs the mapping.
         /// </summary>
         /// <param name="input">The Pet to map.</param>
         /// <returns>The mapped PetResource.</returns>
-        public HalDocument Map(Pet input)
+        public HalDocument Map(PetResource input)
         {
             HalDocument response = this.halDocumentFactory.CreateHalDocumentFrom(input);
             response.ResolveAndAdd(this.linkResolver, input, "self", ("petId", input.Id));

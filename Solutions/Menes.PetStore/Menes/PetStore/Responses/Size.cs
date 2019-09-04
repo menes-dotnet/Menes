@@ -2,7 +2,7 @@
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
-namespace Menes.PetStore.Abstractions
+namespace Menes.PetStore.Responses
 {
     /// <summary>
     /// The size of the pet.

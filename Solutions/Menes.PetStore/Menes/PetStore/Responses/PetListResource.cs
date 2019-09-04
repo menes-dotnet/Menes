@@ -4,6 +4,8 @@
 
 namespace Menes.PetStore.Responses
 {
+    using Newtonsoft.Json;
+
     /// <summary>
     /// Wire representation of a list of pets.
     /// </summary>
@@ -23,5 +25,12 @@ namespace Menes.PetStore.Responses
         /// Gets the current page size.
         /// </summary>
         public int PageSize { get; internal set; }
+
+        /// <summary>
+        /// Gets the pets in the pet resource.
+        /// </summary>
+        /// <remarks>These are serialized as a Embedded resources.</remarks>
+        [JsonIgnore]
+        public PetResource[] Pets { get; internal set; }
     }
 }
