@@ -7,107 +7,17 @@ trigger:
     include:
     - '*'
 
-pool:
-  vmImage: 'windows-latest' # stylecop analyzers incompatible with ubuntu-latest
+resources:
+  repositories:
+    - repository: recommended_practices
+      type: github
+      name: endjin/Endjin.RecommendedPractices.AzureDevopsPipelines.GitHub
+      endpoint: menes-dotnet-github
 
-variables:
-
-  BuildConfiguration: 'Release'
-  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
-  SolutionToBuild: $(Endjin_Solution_To_Build)
-
-steps:
-
-- task: DotNetCoreInstaller@0
-  displayName: 'Install .NET Core SDK 2.2.401 (Global Tools error workaround)'
-  inputs:
-    version: 2.2.401
-
-- task: DotNetCoreCLI@2
-  displayName: 'Install GitVersion (Global Tools Linux Build Agent Workaround)'
-  inputs:
-    command: custom
-    custom: 'tool'
-    arguments: 'install -g GitVersion.Tool'
-
-- script: 'dotnet-gitversion /output buildserver /nofetch' 
-  displayName: 'Run GitVersion'
-
-- powershell: |
-    Write-Host "##vso[task.setvariable variable=Endjin_IsPreRelease]$((-not ([string]::IsNullOrEmpty($Env:GITVERSION_PRERELEASETAG))))"
-    Write-Host "##vso[task.setvariable variable=Endjin_Repository_Name]$Env:BUILD_REPOSITORY_NAME"
-  displayName: 'Set Custom Environment Variables'
-
-# Useful for debugging purposes
-#- powershell: 'gci Env:'
-#  displayName: 'Print Environment Variables'
-
-- task: DotNetCoreCLI@2
-  displayName: 'Restore & Build'
-  inputs:
-    command: 'build'
-    projects: $(SolutionToBuild)
-    arguments: '--configuration $(BuildConfiguration) /p:Version=$(GitVersion.SemVer)'
-    versioningScheme: byBuildNumber
-
-- task: DotNetCoreCLI@2
-  displayName: 'Run Executable Specifications'
-  inputs:
-    command: 'test'
-    projects: $(SolutionToBuild)
-    arguments: '-c $(BuildConfiguration) --no-restore /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura'
-    nobuild: true
-
-- script: |
-    dotnet tool install -g dotnet-reportgenerator-globaltool
-    reportgenerator "-reports:$(Build.SourcesDirectory)/**/**/coverage.cobertura.xml" "-targetdir:$(Build.SourcesDirectory)/CodeCoverage" "-reporttypes:HtmlInline_AzurePipelines;Cobertura"
-  displayName: 'Generate Code Coverage Report'
-
-- task: PublishCodeCoverageResults@1
-  displayName: 'Publish Code Coverage Report'
-  inputs:
-    codeCoverageTool: Cobertura
-    summaryFileLocation: '$(Build.SourcesDirectory)/CodeCoverage/Cobertura.xml'
-    reportDirectory: '$(Build.SourcesDirectory)/CodeCoverage'
-
-- task: DotNetCoreCLI@2
-  displayName: 'Create NuGet Packages'
-  inputs:
-    command: 'pack'
-    projects: $(SolutionToBuild)
-    packDirectory: '$(Build.ArtifactStagingDirectory)/packages/$(Build.BuildID)'
-    nobuild: true
-    versioningScheme: byEnvVar
-    versionEnvVar: GitVersion.SemVer
-
-- task: PublishBuildArtifacts@1
-  displayName: 'Publish Artifact: Drop'
-  inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-
-- task: NuGetToolInstaller@0
-  inputs:
-    versionSpec: '5.1.0'
-
-- task: GithubRelease@0 
-  displayName: 'Create GitHub Release'      
-  condition: and(succeeded(), or(variables['Endjin.ForcePublish'], eq(variables['GitVersion.PreReleaseTag'], '')))
-  inputs:
-    gitHubConnection: $(Endjin_Service_Connection_GitHub)
-    repositoryName: $(Endjin_Repository_Name)
-    tagSource: manual
-    tag: $(GitVersion.SemVer) 
-    isPreRelease: $(Endjin_IsPreRelease)
-    assets: |
-        $(Build.ArtifactStagingDirectory)/**/*.nupkg
-        $(Build.ArtifactStagingDirectory)/**/*.snupkg
-
-- task: NuGetCommand@2
-  displayName: 'Publish to nuget.org'
-  condition: and(succeeded(), or(variables['Endjin.ForcePublish'], eq(variables['GitVersion.PreReleaseTag'], '')))
-  inputs:
-    command: push
-    nuGetFeedType: external
-    publishFeedCredentials: $(Endjin_Service_Connection_NuGet_Org)
-    versioningScheme: byBuildNumber
-    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg'
+jobs:
+- template: templates/build.and.release.yml@recommended_practices
+  parameters:
+    vmImage: 'windows-latest'
+    service_connection_nuget_org: $(Endjin_Service_Connection_NuGet_Org)
+    service_connection_github: $(Endjin_Service_Connection_GitHub)
+    solution_to_build: $(Endjin_Solution_To_Build)
