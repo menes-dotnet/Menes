@@ -5,10 +5,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-    <PackageDescription></PackageDescription>
-    <PackageTags></PackageTags>
-    <PackageReleaseNotes></PackageReleaseNotes>
+    <IsPackable>false</IsPackable>
   </PropertyGroup>
 
   <Import Project="..\Common.NetStandard_2_0.proj" />
