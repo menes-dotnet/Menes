@@ -4,6 +4,7 @@
 
 namespace Microsoft.Extensions.DependencyInjection
 {
+    using System.Linq;
     using Menes.Auditing;
     using Menes.Auditing.Internal;
 
@@ -19,8 +20,16 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <returns>The service collection.</returns>
         public static IServiceCollection AddOpenApiAuditing(this IServiceCollection services)
         {
-            services.AddSingleton<IAuditLogBuilder, OpenApiResultAuditLogBuilder>();
-            services.AddSingleton<IAuditLogBuilder, PocoAuditLogBuilder>();
+            if (!services.Any(s => s.ImplementationType == typeof(OpenApiResultAuditLogBuilder)))
+            {
+                services.AddSingleton<IAuditLogBuilder, OpenApiResultAuditLogBuilder>();
+            }
+
+            if (!services.Any(s => s.ImplementationType == typeof(PocoAuditLogBuilder)))
+            {
+                services.AddSingleton<IAuditLogBuilder, PocoAuditLogBuilder>();
+            }
+
             return services;
         }
 
@@ -33,7 +42,10 @@ namespace Microsoft.Extensions.DependencyInjection
         public static IServiceCollection AddAuditLogSink<TSink>(this IServiceCollection services)
             where TSink : class, IAuditLogSink
         {
-            services.AddSingleton<IAuditLogSink, TSink>();
+            if (!services.Any(s => s.ImplementationType == typeof(TSink)))
+            {
+                services.AddSingleton<IAuditLogSink, TSink>();
+            }
 
             return services;
         }

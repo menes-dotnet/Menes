@@ -7,7 +7,6 @@
 namespace Menes.PetStore.Hosting
 {
     using System.IO;
-    using Menes.Auditing.AuditLogSinks.Development;
     using Menes.PetStore.Responses;
     using Menes.PetStore.Responses.Mappers;
     using Microsoft.Azure.WebJobs;
@@ -36,7 +35,7 @@ namespace Menes.PetStore.Hosting
 
             Log.Logger = loggerConfig.CreateLogger();
 
-            services.AddDefaultJsonSerializerSettings();
+            services.AddLogging(loggingBuilder => loggingBuilder.AddSerilog(dispose: true));
 
             services.AddHalDocumentMapper<PetResource, PetResourceMapper>();
             services.AddHalDocumentMapper<PetListResource, PetListResourceMapper>();
@@ -45,11 +44,6 @@ namespace Menes.PetStore.Hosting
             {
                 LoadDocuments(hostConfig);
             });
-
-            services.AddOpenApiAuditing();
-            services.AddAuditLogSink<ConsoleAuditLogSink>();
-
-            services.AddLogging(loggingBuilder => loggingBuilder.AddSerilog(dispose: true));
 
             // We can add all the services here
             // We will only actually *provide* services that are in the YAML file(s) we load below

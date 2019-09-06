@@ -8,6 +8,7 @@ namespace Microsoft.Extensions.DependencyInjection
     using System.Linq;
     using Menes;
     using Menes.Auditing;
+    using Menes.Auditing.AuditLogSinks.Development;
     using Menes.Exceptions;
     using Menes.Hal;
     using Menes.Hal.Internal;
@@ -86,6 +87,16 @@ namespace Microsoft.Extensions.DependencyInjection
         /// </remarks>
         public static IServiceCollection AddOpenApiHosting<TRequest, TResponse>(this IServiceCollection services, Action<OpenApiHostConfiguration> configureHost, Action<IOpenApiConfiguration> configureEnvironment = null)
         {
+            if (services.Any(s => typeof(IOpenApiHost<TRequest, TResponse>).IsAssignableFrom(s.ServiceType)))
+            {
+                return services;
+            }
+
+            services.AddJsonSerializerSettings();
+
+            services.AddOpenApiAuditing();
+            services.AddAuditLogSink<ConsoleAuditLogSink>();
+
             services.AddSingleton<JsonConverter, OpenApiDocumentJsonConverter>();
             services.AddSingleton<JsonConverter, HalDocumentJsonConverter>();
             services.AddSingleton<IOpenApiDocumentProvider, OpenApiDocumentProvider>();
