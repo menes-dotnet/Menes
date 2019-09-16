@@ -57,7 +57,19 @@ namespace Menes.Specs.Steps
 
             IEnumerable<(string Rel, object Object)> embeddedResources = embeddedResourceTable.CreateSet<(string Rel, object Object)>();
             HalDocument doc = this.scenarioContext.Get<HalDocument>(halDocumentName);
-            embeddedResources.ForEach(x => doc.AddEmbeddedResource(x.Rel, halDocumentFactory.CreateHalDocumentFrom(x.Object ?? new object())));
+            embeddedResources.ForEach(x => doc.AddEmbeddedResource(x.Rel, CreateHalDocument(x, halDocumentFactory)));
+        }
+
+        private static HalDocument CreateHalDocument((string Rel, object Object) x, IHalDocumentFactory halDocumentFactory)
+        {
+            if (x.Object is HalDocument hal)
+            {
+                return hal;
+            }
+
+            HalDocument doc = halDocumentFactory.CreateHalDocumentFrom(x.Object ?? new object());
+            doc.AddLink(new WebLink(x.Rel, "/some/link"));
+            return doc;
         }
 
         [Given("the current user does not have permission to")]
@@ -85,7 +97,7 @@ namespace Menes.Specs.Steps
             string[] expectedLinkRelations = expectedLinkRelationsTable.Rows.Select(x => x[0]).ToArray();
             HalDocument doc = this.scenarioContext.Get<HalDocument>(halDocumentName);
 
-            expectedLinkRelations.ForEach(expected => doc.Links.Any(l => l.Rel == expected));
+            expectedLinkRelations.ForEach(expected => Assert.IsTrue(doc.Links.Any(l => l.Rel == expected)));
 
             WebLink[] unexpectedLinkRelations = doc.Links.Where(link => !expectedLinkRelations.Any(rel => link.Rel == rel)).ToArray();
 
@@ -99,7 +111,7 @@ namespace Menes.Specs.Steps
             HalDocument doc = this.scenarioContext.Get<HalDocument>(halDocumentName);
 
             IEnumerable<string> relations = doc.GetEmbeddedResourceRelations().ToList();
-            expectedEmbeddedResources.ForEach(expected => relations.Any(r => r == expected));
+            expectedEmbeddedResources.ForEach(expected => Assert.IsTrue(relations.Any(r => r == expected)));
 
             string[] unexpectedEmbeddedResources = relations.Where(r => !expectedEmbeddedResources.Any(rel => r == rel)).ToArray();
 

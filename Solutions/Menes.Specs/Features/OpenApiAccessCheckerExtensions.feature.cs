@@ -101,16 +101,22 @@ namespace Menes.Specs.Features
                         "get"});
 #line 9
  testRunner.And("the HalDocument called \'embeddedDocument\' has internal links", ((string)(null)), table1, "And ");
+#line 14
+ testRunner.And("I have a HalDocument called \'embeddedDocument2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
                         "Rel",
-                        "Object"});
+                        "OperationId",
+                        "Href",
+                        "OperationType"});
             table2.AddRow(new string[] {
-                        "itemInEmbeddedDocumentToWhichUserDoesNotHavePermissionButIsEmbedded",
-                        "This is link 1"});
-#line 14
- testRunner.And("the HalDocument called \'embeddedDocument\' has embedded resources", ((string)(null)), table2, "And ");
-#line 17
+                        "self",
+                        "getEmbedded",
+                        "/things/target/embedded/2",
+                        "get"});
+#line 15
+ testRunner.And("the HalDocument called \'embeddedDocument2\' has internal links", ((string)(null)), table2, "And ");
+#line 18
  testRunner.And("I have a HalDocument called \'target\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
@@ -133,7 +139,7 @@ namespace Menes.Specs.Features
                         "getEmbedded",
                         "/things/target/embedded/2",
                         "get"});
-#line 18
+#line 19
  testRunner.And("the HalDocument called \'target\' has internal links", ((string)(null)), table3, "And ");
 #line hidden
             TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
@@ -144,8 +150,8 @@ namespace Menes.Specs.Features
                         "{embeddedDocument}"});
             table4.AddRow(new string[] {
                         "itemInTargetToWhichUserDoesNotHavePermissionButIsEmbedded",
-                        "This is resource 2"});
-#line 23
+                        "{embeddedDocument2}"});
+#line 24
  testRunner.And("the HalDocument called \'target\' has embedded resources", ((string)(null)), table4, "And ");
 #line hidden
             TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
@@ -160,7 +166,7 @@ namespace Menes.Specs.Features
             table5.AddRow(new string[] {
                         "/things/target/embedded/2",
                         "get"});
-#line 27
+#line 28
  testRunner.And("the current user does not have permission to", ((string)(null)), table5, "And ");
 #line hidden
         }
@@ -174,7 +180,7 @@ namespace Menes.Specs.Features
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Default checking is recursive; child item links to which the user doesn\'t have ac" +
                     "cess are removed", null, new string[] {
                         "useChildObjects"});
-#line 34
+#line 35
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
 #line 7
@@ -184,7 +190,7 @@ this.FeatureBackground();
                         "Option"});
             table6.AddRow(new string[] {
                         "None"});
-#line 35
+#line 36
  testRunner.When("I ask the access checker to remove forbidden links from the HalDocument called \'t" +
                     "arget\' with the following options", ((string)(null)), table6, "When ");
 #line hidden
@@ -194,14 +200,14 @@ this.FeatureBackground();
                         "self"});
             table7.AddRow(new string[] {
                         "itemInTargetToWhichUserHasPermission"});
-#line 38
+#line 39
  testRunner.Then("the HalDocument called \'target\' should contain only the following link relations", ((string)(null)), table7, "Then ");
 #line hidden
             TechTalk.SpecFlow.Table table8 = new TechTalk.SpecFlow.Table(new string[] {
                         "Rel"});
             table8.AddRow(new string[] {
                         "self"});
-#line 42
+#line 43
  testRunner.And("the HalDocument called \'embeddedDocument\' should contain only the following link " +
                     "relations", ((string)(null)), table8, "And ");
 #line hidden
@@ -209,10 +215,10 @@ this.FeatureBackground();
                         "Rel"});
             table9.AddRow(new string[] {
                         "itemInTargetToWhichUserHasPermission"});
-#line 45
+#line 46
  testRunner.And("the HalDocument called \'target\' should contain only the following embedded resour" +
                     "ces", ((string)(null)), table9, "And ");
-#line 48
+#line 49
  testRunner.And("the HalDocument called \'embeddedDocument\' should contain no embedded resources", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -227,7 +233,7 @@ this.FeatureBackground();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("When non-recursive checking is used, only links and resources from the top level " +
                     "document are removed", null, new string[] {
                         "useChildObjects"});
-#line 51
+#line 52
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
 #line 7
@@ -237,7 +243,7 @@ this.FeatureBackground();
                         "Option"});
             table10.AddRow(new string[] {
                         "NonRecursive"});
-#line 52
+#line 53
  testRunner.When("I ask the access checker to remove forbidden links from the HalDocument called \'t" +
                     "arget\' with the following options", ((string)(null)), table10, "When ");
 #line hidden
@@ -247,7 +253,7 @@ this.FeatureBackground();
                         "self"});
             table11.AddRow(new string[] {
                         "itemInTargetToWhichUserHasPermission"});
-#line 55
+#line 56
  testRunner.Then("the HalDocument called \'target\' should contain only the following link relations", ((string)(null)), table11, "Then ");
 #line hidden
             TechTalk.SpecFlow.Table table12 = new TechTalk.SpecFlow.Table(new string[] {
@@ -258,7 +264,7 @@ this.FeatureBackground();
                         "itemInEmbeddedDocumentToWhichUserDoesNotHavePermissionButIsEmbedded"});
             table12.AddRow(new string[] {
                         "itemInEmbeddedDocumentToWhichUserDoesNotHavePermission"});
-#line 59
+#line 60
  testRunner.And("the HalDocument called \'embeddedDocument\' should contain only the following link " +
                     "relations", ((string)(null)), table12, "And ");
 #line hidden
@@ -266,7 +272,7 @@ this.FeatureBackground();
                         "Rel"});
             table13.AddRow(new string[] {
                         "itemInTargetToWhichUserHasPermission"});
-#line 64
+#line 65
  testRunner.And("the HalDocument called \'target\' should contain only the following embedded resour" +
                     "ces", ((string)(null)), table13, "And ");
 #line hidden
@@ -274,7 +280,7 @@ this.FeatureBackground();
                         "Rel"});
             table14.AddRow(new string[] {
                         "itemInEmbeddedDocumentToWhichUserDoesNotHavePermissionButIsEmbedded"});
-#line 67
+#line 68
  testRunner.And("the HalDocument called \'embeddedDocument\' should contain only the following embed" +
                     "ded resources", ((string)(null)), table14, "And ");
 #line hidden
@@ -290,7 +296,7 @@ this.FeatureBackground();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("When unsafe checking is used, only links that do not have corresponding embedded " +
                     "resources are removed.", null, new string[] {
                         "useChildObjects"});
-#line 72
+#line 73
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
 #line 7
@@ -300,7 +306,7 @@ this.FeatureBackground();
                         "Option"});
             table15.AddRow(new string[] {
                         "Unsafe"});
-#line 73
+#line 74
  testRunner.When("I ask the access checker to remove forbidden links from the HalDocument called \'t" +
                     "arget\' with the following options", ((string)(null)), table15, "When ");
 #line hidden
@@ -312,7 +318,7 @@ this.FeatureBackground();
                         "itemInTargetToWhichUserHasPermission"});
             table16.AddRow(new string[] {
                         "itemInTargetToWhichUserDoesNotHavePermissionButIsEmbedded"});
-#line 76
+#line 77
  testRunner.Then("the HalDocument called \'target\' should contain only the following link relations", ((string)(null)), table16, "Then ");
 #line hidden
             TechTalk.SpecFlow.Table table17 = new TechTalk.SpecFlow.Table(new string[] {
@@ -321,7 +327,7 @@ this.FeatureBackground();
                         "self"});
             table17.AddRow(new string[] {
                         "itemInEmbeddedDocumentToWhichUserDoesNotHavePermissionButIsEmbedded"});
-#line 81
+#line 82
  testRunner.And("the HalDocument called \'embeddedDocument\' should contain only the following link " +
                     "relations", ((string)(null)), table17, "And ");
 #line hidden
@@ -331,7 +337,7 @@ this.FeatureBackground();
                         "itemInTargetToWhichUserHasPermission"});
             table18.AddRow(new string[] {
                         "itemInTargetToWhichUserDoesNotHavePermissionButIsEmbedded"});
-#line 85
+#line 86
  testRunner.And("the HalDocument called \'target\' should contain only the following embedded resour" +
                     "ces", ((string)(null)), table18, "And ");
 #line hidden
@@ -339,7 +345,7 @@ this.FeatureBackground();
                         "Rel"});
             table19.AddRow(new string[] {
                         "itemInEmbeddedDocumentToWhichUserDoesNotHavePermissionButIsEmbedded"});
-#line 89
+#line 90
  testRunner.And("the HalDocument called \'embeddedDocument\' should contain only the following embed" +
                     "ded resources", ((string)(null)), table19, "And ");
 #line hidden

@@ -11,9 +11,10 @@ Background:
 		| self                                                                | getEmbedded     | /things/target/embedded/1   | get           |
 		| itemInEmbeddedDocumentToWhichUserDoesNotHavePermissionButIsEmbedded | getEmbeddedLink | /things/target/embedded/1/1 | get           |
 		| itemInEmbeddedDocumentToWhichUserDoesNotHavePermission              | getEmbeddedLink | /things/target/embedded/1/2 | get           |
-	And the HalDocument called 'embeddedDocument' has embedded resources
-		| Rel                                                                 | Object         |
-		| itemInEmbeddedDocumentToWhichUserDoesNotHavePermissionButIsEmbedded | This is link 1 |
+	And I have a HalDocument called 'embeddedDocument2'
+	And the HalDocument called 'embeddedDocument2' has internal links
+		| Rel  | OperationId | Href                      | OperationType |
+		| self | getEmbedded | /things/target/embedded/2 | get           |
 	And I have a HalDocument called 'target'
 	And the HalDocument called 'target' has internal links
 		| Rel                                                       | OperationId | Href                      | OperationType |
@@ -21,9 +22,9 @@ Background:
 		| itemInTargetToWhichUserHasPermission                      | getEmbedded | /things/target/embedded/1 | get           |
 		| itemInTargetToWhichUserDoesNotHavePermissionButIsEmbedded | getEmbedded | /things/target/embedded/2 | get           |
 	And the HalDocument called 'target' has embedded resources
-		| Rel                                                       | Object             |
-		| itemInTargetToWhichUserHasPermission                      | {embeddedDocument} |
-		| itemInTargetToWhichUserDoesNotHavePermissionButIsEmbedded | This is resource 2 |
+		| Rel                                                       | Object              |
+		| itemInTargetToWhichUserHasPermission                      | {embeddedDocument}  |
+		| itemInTargetToWhichUserDoesNotHavePermissionButIsEmbedded | {embeddedDocument2} |
 	And the current user does not have permission to
 		| Url                         | OperationType |
 		| /things/target/embedded/1/1 | get           |

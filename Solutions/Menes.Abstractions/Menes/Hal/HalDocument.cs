@@ -100,7 +100,7 @@ namespace Menes.Hal
         public void RemoveEmbeddedResource(WebLink selfLink)
         {
             this.GetEmbeddedResourcesForRelation(selfLink.Rel)
-                .Where(r => r.GetLinksForRelation("self").Any(links => links == selfLink))
+                .Where(r => r.GetLinksForRelation("self").Any(link => link.Href == selfLink.Href)).ToList()
                 .ForEach(r => this.RemoveEmbeddedResource(selfLink.Rel, r));
         }
 
@@ -171,6 +171,10 @@ namespace Menes.Hal
         {
             List<WebLink> linkList = this.EnsureListForLink(link);
             linkList.Remove(link);
+            if (linkList.Count == 0)
+            {
+                this.links.Remove(link.Rel);
+            }
         }
 
         /// <inheritdoc/>
@@ -231,6 +235,11 @@ namespace Menes.Hal
         {
             List<HalDocument> embeddedResourceList = this.EnsureListForEmbeddedResource(rel);
             embeddedResourceList.Remove(embeddedResource);
+
+            if (embeddedResourceList.Count == 0)
+            {
+                this.embeddedResources.Remove(rel);
+            }
         }
 
         /// <summary>
