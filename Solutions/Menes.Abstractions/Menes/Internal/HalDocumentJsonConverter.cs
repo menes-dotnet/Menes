@@ -63,7 +63,7 @@ namespace Menes.Internal
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
             var halDocument = (HalDocument)value;
-            var result = (JObject)halDocument.Properties.DeepClone();
+            JObject result = (JObject)halDocument.Properties?.DeepClone() ?? new JObject();
 
             SerializeLinks(halDocument, result);
             SerializeEmbeddedResources(halDocument, result, serializer);

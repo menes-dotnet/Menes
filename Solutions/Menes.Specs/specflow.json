@@ -1,3 +1,5 @@
 {
-
+  "stepAssemblies": [
+    { "assembly": "Corvus.SpecFlow.Extensions" }
+  ]
 }

@@ -30,9 +30,9 @@ namespace Menes.Internal
         /// <param name="configuration">The OpenAPI configuration.</param>
         public OpenApiServiceOperation(IOpenApiService service, MethodInfo operation, IOpenApiConfiguration configuration)
         {
-            this.service = service;
-            this.operation = operation;
-            this.configuration = configuration;
+            this.service = service ?? throw new ArgumentNullException(nameof(service));
+            this.operation = operation ?? throw new ArgumentNullException(nameof(operation));
+            this.configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
             ParameterInfo[] parameters = this.operation.GetParameters();
             this.defaultValues = new object[parameters.Length];
             this.hasDefaultValues = new bool[parameters.Length];
@@ -63,6 +63,16 @@ namespace Menes.Internal
             IOpenApiContext context,
             IDictionary<string, object> inputParameters)
         {
+            if (context is null)
+            {
+                throw new ArgumentNullException(nameof(context));
+            }
+
+            if (inputParameters is null)
+            {
+                throw new ArgumentNullException(nameof(inputParameters));
+            }
+
             object[] paramArray = new object[this.parameterNames.Length];
 
             for (int index = 0; index < this.parameterNames.Length; ++index)

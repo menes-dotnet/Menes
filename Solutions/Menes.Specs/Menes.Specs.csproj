@@ -8,8 +8,22 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <SpecFlowObsoleteCodeBehindFiles Remove="Features\AccessControlPolicy.feature.cs" />
+    <SpecFlowObsoleteCodeBehindFiles Remove="Features\ExemptOperationIdsAccessPolicy.feature.cs" />
+    <SpecFlowObsoleteCodeBehindFiles Remove="Features\HalDocument{T}.feature.cs" />
+    <SpecFlowObsoleteCodeBehindFiles Remove="Features\OpenApiAccessCheckerExtensions.feature.cs" />
+    <SpecFlowObsoleteCodeBehindFiles Remove="Features\OpenApiMisconfigurationDetection.feature.cs" />
+    <SpecFlowObsoleteCodeBehindFiles Remove="Features\OpenApiOperationInvoker.feature.cs" />
+    <SpecFlowObsoleteCodeBehindFiles Remove="Features\OpenApiWebLinkResolver.feature.cs" />
+    <SpecFlowObsoleteCodeBehindFiles Remove="Features\ShortCircuitingAccessControlPolicyAdapter.feature.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Corvus.SpecFlow.Extensions" Version="0.2.0" />
     <PackageReference Include="NUnit3TestAdapter" Version="3.15.1" />
+    <PackageReference Include="Moq" Version="4.13.0" />
     <PackageReference Include="SpecFlow" Version="3.0.225" />
+    <PackageReference Include="Idg.AsyncTestTools" Version="1.0.0-beta-1" />
     <PackageReference Include="SpecFlow.NUnit" Version="3.0.225" />
     <PackageReference Include="SpecFlow.Tools.MsBuild.Generation" Version="3.0.225" />
     <PackageReference Include="nunit" Version="3.12.0" />
@@ -22,6 +36,18 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Menes.Abstractions\Menes.Abstractions.csproj" />
+    <ProjectReference Include="..\Menes.Hosting.AspNetCore\Menes.Hosting.AspNetCore.csproj" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <None Remove="Steps\TestClasses\OpenApiWebLinkResolverTest.yaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Steps\TestClasses\OpenApiWebLinkResolverTest.yaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>

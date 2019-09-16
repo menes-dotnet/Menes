@@ -18,7 +18,6 @@ namespace Menes.Links
         /// Searches through a <see cref="HalDocument"/> and removes any links that the current
         /// principal does not have access to.
         /// </summary>
-        /// <typeparam name="TTenant">The type of the tenant.</typeparam>
         /// <param name="that">
         /// The <see cref="IOpenApiAccessChecker"/> that will be used to check the individual links.
         /// </param>
@@ -32,7 +31,7 @@ namespace Menes.Links
         /// The <see cref="HalDocumentLinkRemovalOptions"/> to apply when checking links.
         /// </param>
         /// <returns>A task that completes when all links have been checked.</returns>
-        public static async Task RemoveForbiddenLinksAsync<TTenant>(this IOpenApiAccessChecker that, HalDocument target, IOpenApiContext context, HalDocumentLinkRemovalOptions options = default)
+        public static async Task RemoveForbiddenLinksAsync(this IOpenApiAccessChecker that, HalDocument target, IOpenApiContext context, HalDocumentLinkRemovalOptions options = default)
         {
             // First, we need to build a collection of all the links. For each one we need:
             // 1. The link itself.

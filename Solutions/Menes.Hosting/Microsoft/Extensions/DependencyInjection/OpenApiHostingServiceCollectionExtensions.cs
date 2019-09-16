@@ -131,7 +131,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 var hostConfiguration = new OpenApiHostConfiguration(serviceProvider.GetRequiredService<IOpenApiDocumentProvider>(), exceptionMapper, serviceProvider.GetRequiredService<IOpenApiLinkOperationMapper>());
 
                 serviceProvider.GetServices<IHalDocumentMapper>().ForEach(mapper => mapper.ConfigureLinkMap(hostConfiguration.Links));
-                configureHost(hostConfiguration);
+                configureHost?.Invoke(hostConfiguration);
 
                 return result;
             }));

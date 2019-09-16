@@ -36,25 +36,25 @@ namespace Menes.Links
         }
 
         /// <summary>
-        /// Gets the relation type of this link.
+        /// Gets or sets the relation type of this link.
         /// </summary>
         /// <example>self.</example>
-        public string Rel { get; }
+        public string Rel { get; set; }
 
         /// <summary>
-        /// Gets the Uri of the link.
+        /// Gets or sets the Uri of the link.
         /// </summary>
-        public string Href { get; }
+        public string Href { get; set; }
 
         /// <summary>
-        /// Gets the name of the link (or null if there is no name set).
+        /// Gets or sets the name of the link (or null if there is no name set).
         /// </summary>
-        public string Name { get; }
+        public string Name { get; set; }
 
         /// <summary>
-        /// Gets a value that indicates whether the link is templated (or null if the property is not set).
+        /// Gets or sets a value that indicates whether the link is templated (or null if the property is not set).
         /// </summary>
-        public bool? IsTemplated { get; }
+        public bool? IsTemplated { get; set; }
 
         /// <summary>
         /// Standard equality operator.
