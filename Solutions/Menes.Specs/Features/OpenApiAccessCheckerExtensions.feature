@@ -65,9 +65,6 @@ Scenario: When non-recursive checking is used, only links and resources from the
 	And the HalDocument called 'target' should contain only the following embedded resources
 		| Rel                                  |
 		| itemInTargetToWhichUserHasPermission |
-	And the HalDocument called 'embeddedDocument' should contain only the following embedded resources
-		| Rel                                                                 |
-		| itemInEmbeddedDocumentToWhichUserDoesNotHavePermissionButIsEmbedded |
 
 @useChildObjects
 Scenario: When unsafe checking is used, only links that do not have corresponding embedded resources are removed.
@@ -82,11 +79,7 @@ Scenario: When unsafe checking is used, only links that do not have correspondin
 	And the HalDocument called 'embeddedDocument' should contain only the following link relations
 		| Rel                                                                 |
 		| self                                                                |
-		| itemInEmbeddedDocumentToWhichUserDoesNotHavePermissionButIsEmbedded |
 	And the HalDocument called 'target' should contain only the following embedded resources
 		| Rel                                                       |
 		| itemInTargetToWhichUserHasPermission                      |
 		| itemInTargetToWhichUserDoesNotHavePermissionButIsEmbedded |
-	And the HalDocument called 'embeddedDocument' should contain only the following embedded resources
-		| Rel                                                                 |
-		| itemInEmbeddedDocumentToWhichUserDoesNotHavePermissionButIsEmbedded |

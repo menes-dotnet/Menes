@@ -94,14 +94,15 @@ namespace Menes.Hal
         }
 
         /// <summary>
-        /// Removes an embedded resource based on its self link.
+        /// Removes an embedded resource based on its href.
         /// </summary>
-        /// <param name="selfLink">The self link for the embedded resource.</param>
-        public void RemoveEmbeddedResource(WebLink selfLink)
+        /// <param name="resourceLink">The link for the embedded resource from the links collection.</param>
+        /// <remarks>This finds the embdedded resources that match the rel type of the resource link, whose self link href matches the href of the resource link.</remarks>
+        public void RemoveEmbeddedResource(WebLink resourceLink)
         {
-            this.GetEmbeddedResourcesForRelation(selfLink.Rel)
-                .Where(r => r.GetLinksForRelation("self").Any(link => link.Href == selfLink.Href)).ToList()
-                .ForEach(r => this.RemoveEmbeddedResource(selfLink.Rel, r));
+            this.GetEmbeddedResourcesForRelation(resourceLink.Rel)
+                .Where(r => r.GetLinksForRelation("self").Any(link => link.Href == resourceLink.Href)).ToList()
+                .ForEach(r => this.RemoveEmbeddedResource(resourceLink.Rel, r));
         }
 
         /// <summary>
@@ -127,7 +128,7 @@ namespace Menes.Hal
         public bool HasEmbeddedResourceForLink(WebLink resourceLink)
         {
             return this.GetEmbeddedResourcesForRelation(resourceLink.Rel)
-                .Any(r => r.GetLinksForRelation("self").Any(links => links == resourceLink));
+                .Any(r => r.GetLinksForRelation("self").Any(link => link.Href == resourceLink.Href));
         }
 
         /// <summary>
