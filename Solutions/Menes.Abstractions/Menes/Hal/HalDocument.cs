@@ -8,6 +8,7 @@ namespace Menes.Hal
     using System.Linq;
     using Corvus.ContentHandling;
     using Corvus.Extensions.Json;
+    using Menes.Internal;
     using Menes.Links;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Linq;
@@ -20,11 +21,6 @@ namespace Menes.Hal
     /// </remarks>
     public class HalDocument : ILinkCollection
     {
-        /// <summary>
-        /// The standard content type for a HalDocument.
-        /// </summary>
-        public const string RegisteredContentType = "application/hal+json";
-
         private Dictionary<string, List<WebLink>> links = new Dictionary<string, List<WebLink>>();
         private Dictionary<string, List<HalDocument>> embeddedResources = new Dictionary<string, List<HalDocument>>();
 
@@ -36,12 +32,6 @@ namespace Menes.Hal
         {
             this.SerializerSettings = serializerSettingsProvider.Instance;
         }
-
-        /// <summary>
-        /// Gets the content type for the HalDocument.
-        /// </summary>
-        /// <remarks>This is set from the target object when you call <see cref="SetProperties{T}(T)"/> and defaults to <c>application/hal+json</c>.</remarks>
-        public string ContentType { get; private set; } = RegisteredContentType;
 
         /// <summary>
         /// Gets the serializer settings for the HAL document.
@@ -113,11 +103,6 @@ namespace Menes.Hal
         public void SetProperties<T>(T properties)
         {
             this.Properties = JObject.FromObject(properties, JsonSerializer.Create(this.SerializerSettings));
-
-            if (ContentFactory.TryGetContentType(properties, out string contentType))
-            {
-                this.ContentType = contentType;
-            }
         }
 
         /// <summary>

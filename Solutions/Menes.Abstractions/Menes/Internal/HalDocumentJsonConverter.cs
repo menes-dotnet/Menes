@@ -10,13 +10,14 @@ namespace Menes.Internal
     using Menes.Hal;
     using Menes.Links;
     using Newtonsoft.Json;
+    using Newtonsoft.Json.Converters;
     using Newtonsoft.Json.Linq;
 
     /// <summary>
     /// A type converter for serializing a <see cref="HalDocument"/> as a standard
     /// HAL document.
     /// </summary>
-    public class HalDocumentJsonConverter : JsonConverter
+    public class HalDocumentJsonConverter : CustomCreationConverter<HalDocument>
     {
         private readonly IHalDocumentFactory halDocumentFactory;
 
@@ -69,6 +70,13 @@ namespace Menes.Internal
             SerializeEmbeddedResources(halDocument, result, serializer);
 
             result.WriteTo(writer);
+        }
+
+        /// <inheritdoc/>
+        public override HalDocument Create(Type objectType)
+        {
+            // Do nothing
+            return null;
         }
 
         private static void SerializeLinks(HalDocument halDocument, JObject result)

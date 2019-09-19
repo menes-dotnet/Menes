@@ -66,7 +66,7 @@ namespace Menes.PetStore
             string nextContinuationToken = (skip + limit < this.pets.Count) ? BuildContinuationToken(limit + skip) : null;
             HalDocument response = this.petListMapper.Map(new PetListResource { Pets = pets, TotalCount = this.pets.Count, PageSize = limit, CurrentContinuationToken = continuationToken,  NextContinuationToken = nextContinuationToken });
 
-            OpenApiResult result = this.OkResult(response, HalDocument.RegisteredContentType);
+            OpenApiResult result = this.OkResult(response, "application/hal+hson");
 
             // We also add the next page link to the header, just to demonstrate that it's possible
             // to use WebLink items in this way.
@@ -291,7 +291,7 @@ namespace Menes.PetStore
 
             HalDocument response = this.petMapper.Map(result);
 
-            return this.OkResult(response, HalDocument.RegisteredContentType, auditData: new[] { ("id", (object)result.Id) });
+            return this.OkResult(response, "application/hal+json", auditData: new[] { ("id", (object)result.Id) });
         }
     }
 }
