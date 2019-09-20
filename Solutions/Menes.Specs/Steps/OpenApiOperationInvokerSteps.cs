@@ -28,7 +28,6 @@ namespace Menes.Specs.Steps
     {
         private const string OperationInvokedScenarioContextKey = "OperationInvoked";
 
-        private readonly Mock<IOpenApiService> openApiService = new Mock<IOpenApiService>();
         private readonly Mock<IOpenApiConfiguration> openApiConfiguration = new Mock<IOpenApiConfiguration>();
         private readonly Mock<IOpenApiContext> openApiContext = new Mock<IOpenApiContext>();
         private readonly Mock<IOpenApiServiceOperationLocator> operationLocator = new Mock<IOpenApiServiceOperationLocator>();

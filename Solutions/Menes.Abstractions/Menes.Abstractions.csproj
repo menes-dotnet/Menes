@@ -14,9 +14,9 @@
   <Import Project="..\Common.NetStandard_2_0.proj" />
 
   <ItemGroup>
-    <PackageReference Include="Corvus.ContentHandling" Version="0.7.0" />
+    <PackageReference Include="Corvus.ContentHandling" Version="0.9.0" />
     <PackageReference Include="Corvus.Extensions" Version="0.7.0" />
-    <PackageReference Include="Corvus.Extensions.Newtonsoft.Json" Version="0.3.0" />
+    <PackageReference Include="Corvus.Extensions.Newtonsoft.Json" Version="0.5.0" />
     <PackageReference Include="Microsoft.CSharp" Version="4.5.0" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="2.2.0" />
     <PackageReference Include="Microsoft.OpenApi.Readers" Version="1.1.4" />

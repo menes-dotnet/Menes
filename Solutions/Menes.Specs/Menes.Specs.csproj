@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Corvus.SpecFlow.Extensions" Version="0.2.0" />
+    <PackageReference Include="Corvus.SpecFlow.Extensions" Version="0.3.0" />
     <PackageReference Include="NUnit3TestAdapter" Version="3.15.1" />
     <PackageReference Include="Moq" Version="4.13.0" />
     <PackageReference Include="SpecFlow" Version="3.0.225" />
