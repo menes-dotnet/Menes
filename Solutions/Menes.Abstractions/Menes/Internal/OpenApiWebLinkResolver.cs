@@ -33,7 +33,7 @@ namespace Menes.Internal
             if (this.linkOperationMapper.TryGetOperationId(owner, relationType, out string operationId))
             {
                 ResolvedOperationRequestInfo operation = this.templateProvider.GetResolvedOperationRequestInfo(operationId, parameters);
-                return new OpenApiWebLink(relationType, operationId, operation.Uri, operation.OperationType);
+                return new OpenApiWebLink(operationId, operation.Uri, operation.OperationType);
             }
 
             ContentFactory.TryGetContentType(owner, out string contentType);
@@ -48,7 +48,7 @@ namespace Menes.Internal
             if (this.linkOperationMapper.TryGetOperationId(owner, relationType, context, out string operationId))
             {
                 ResolvedOperationRequestInfo operation = this.templateProvider.GetResolvedOperationRequestInfo(operationId, parameters);
-                return new OpenApiWebLink(relationType, operationId, operation.Uri, operation.OperationType);
+                return new OpenApiWebLink(operationId, operation.Uri, operation.OperationType);
             }
 
             ContentFactory.TryGetContentType(owner, out string contentType);
@@ -61,7 +61,7 @@ namespace Menes.Internal
         public OpenApiWebLink Resolve(string operationId, string relationType, params (string, object)[] parameters)
         {
             ResolvedOperationRequestInfo operation = this.templateProvider.GetResolvedOperationRequestInfo(operationId, parameters);
-            return new OpenApiWebLink(relationType, operationId, operation.Uri, operation.OperationType);
+            return new OpenApiWebLink(operationId, operation.Uri, operation.OperationType);
         }
     }
 }

@@ -17,12 +17,11 @@ namespace Menes.Links
         /// <summary>
         /// Initializes a new instance of the <see cref="OpenApiWebLink"/> struct.
         /// </summary>
-        /// <param name="rel">The <see cref="WebLink.Rel"/>.</param>
         /// <param name="operationId">The <see cref="OperationId"/>.</param>
         /// <param name="href">The <see cref="WebLink.Href"/>.</param>
         /// <param name="operationType">The <see cref="OperationType"/>.</param>
-        public OpenApiWebLink(string rel, string operationId, string href, OperationType operationType)
-            : base(rel, href)
+        public OpenApiWebLink(string operationId, string href, OperationType operationType)
+            : base(href)
         {
             this.OperationType = operationType;
             this.OperationId = operationId;
@@ -59,7 +58,7 @@ namespace Menes.Links
         {
             if (obj is OpenApiWebLink link)
             {
-                return (this.Href, this.Rel, this.OperationId, this.OperationType) == (link.Href, link.Rel, link.OperationId, link.OperationType);
+                return (this.Href, this.OperationId, this.OperationType) == (link.Href, link.OperationId, link.OperationType);
             }
 
             return false;
@@ -68,7 +67,7 @@ namespace Menes.Links
         /// <inheritdoc/>
         public override int GetHashCode()
         {
-            return (this.Href, this.Rel, this.OperationId, this.OperationType).GetHashCode();
+            return (this.Href, this.OperationId, this.OperationType).GetHashCode();
         }
     }
 }

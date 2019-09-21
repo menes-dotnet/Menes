@@ -45,9 +45,12 @@ namespace Menes.Specs.Steps
         [Given("the HalDocument called '(.*)' has internal links")]
         public void GivenTheHalDocumentCalledHasInternalLinks(string halDocumentName, Table openApiWebLinkTable)
         {
-            IEnumerable<OpenApiWebLink> links = openApiWebLinkTable.CreateSet(() => new OpenApiWebLink(string.Empty, string.Empty, string.Empty, OperationType.Get));
             HalDocument doc = this.scenarioContext.Get<HalDocument>(halDocumentName);
-            links.ForEach(doc.AddLink);
+
+            openApiWebLinkTable.Rows.ForEach(row =>
+            {
+                doc.AddLink(row["Rel"], new OpenApiWebLink(row["OperationId"], row["Href"], Enum.Parse<OperationType>(row["OperationType"], true)));
+            });
         }
 
         [Given("the HalDocument called '(.*)' has embedded resources")]
@@ -68,7 +71,7 @@ namespace Menes.Specs.Steps
             }
 
             HalDocument doc = halDocumentFactory.CreateHalDocumentFrom(x.Object ?? new object());
-            doc.AddLink(new WebLink(x.Rel, "/some/link"));
+            doc.AddLink(x.Rel, new WebLink("/some/link"));
             return doc;
         }
 
@@ -97,11 +100,11 @@ namespace Menes.Specs.Steps
             string[] expectedLinkRelations = expectedLinkRelationsTable.Rows.Select(x => x[0]).ToArray();
             HalDocument doc = this.scenarioContext.Get<HalDocument>(halDocumentName);
 
-            expectedLinkRelations.ForEach(expected => Assert.IsTrue(doc.Links.Any(l => l.Rel == expected)));
+            expectedLinkRelations.ForEach(expected => Assert.IsTrue(doc.GetLinksForRelation(expected).Any()));
 
-            WebLink[] unexpectedLinkRelations = doc.Links.Where(link => !expectedLinkRelations.Any(rel => link.Rel == rel)).ToArray();
+            (string, WebLink)[] unexpectedLinkRelations = doc.GetLinkRelations().Where(actualRel => !expectedLinkRelations.Any(rel => actualRel == rel)).SelectMany(rel => doc.GetLinksForRelation(rel).Select(d => (rel, d))).ToArray();
 
-            Assert.IsEmpty(unexpectedLinkRelations, $"HalDocument called \"{halDocumentName}\" contains unexpected link relations: {string.Join(", ", unexpectedLinkRelations.Select(l => l.Rel))}");
+            Assert.IsEmpty(unexpectedLinkRelations, $"HalDocument called \"{halDocumentName}\" contains unexpected link relations: {string.Join(", ", unexpectedLinkRelations.Select(l => l.Item1))}");
         }
 
         [Then("the HalDocument called '(.*)' should contain only the following embedded resources")]

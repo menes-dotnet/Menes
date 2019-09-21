@@ -86,13 +86,14 @@ namespace Menes.Hal
         /// <summary>
         /// Removes an embedded resource based on its href.
         /// </summary>
+        /// <param name="rel">The relation type of the link.</param>
         /// <param name="resourceLink">The link for the embedded resource from the links collection.</param>
         /// <remarks>This finds the embdedded resources that match the rel type of the resource link, whose self link href matches the href of the resource link.</remarks>
-        public void RemoveEmbeddedResource(WebLink resourceLink)
+        public void RemoveEmbeddedResource(string rel, WebLink resourceLink)
         {
-            this.GetEmbeddedResourcesForRelation(resourceLink.Rel)
+            this.GetEmbeddedResourcesForRelation(rel)
                 .Where(r => r.GetLinksForRelation("self").Any(link => link.Href == resourceLink.Href)).ToList()
-                .ForEach(r => this.RemoveEmbeddedResource(resourceLink.Rel, r));
+                .ForEach(r => this.RemoveEmbeddedResource(rel, r));
         }
 
         /// <summary>
@@ -108,11 +109,12 @@ namespace Menes.Hal
         /// <summary>
         /// Determine if the document contains an embedded resource for the provided link.
         /// </summary>
+        /// <param name="rel">The relation type of the link.</param>
         /// <param name="resourceLink">The link with which to compare.</param>
         /// <returns>True if there is a resource whose self link matches the resource link.</returns>
-        public bool HasEmbeddedResourceForLink(WebLink resourceLink)
+        public bool HasEmbeddedResourceForLink(string rel, WebLink resourceLink)
         {
-            return this.GetEmbeddedResourcesForRelation(resourceLink.Rel)
+            return this.GetEmbeddedResourcesForRelation(rel)
                 .Any(r => r.GetLinksForRelation("self").Any(link => link.Href == resourceLink.Href));
         }
 
@@ -146,20 +148,20 @@ namespace Menes.Hal
         }
 
         /// <inheritdoc/>
-        public void AddLink(WebLink link)
+        public void AddLink(string rel, WebLink link)
         {
-            List<WebLink> linkList = this.EnsureListForLink(link);
+            List<WebLink> linkList = this.EnsureListForLink(rel);
             linkList.Add(link);
         }
 
         /// <inheritdoc/>
-        public void RemoveLink(WebLink link)
+        public void RemoveLink(string rel, WebLink link)
         {
-            List<WebLink> linkList = this.EnsureListForLink(link);
+            List<WebLink> linkList = this.EnsureListForLink(rel);
             linkList.Remove(link);
             if (linkList.Count == 0)
             {
-                this.links.Remove(link.Rel);
+                this.links.Remove(rel);
             }
         }
 
@@ -262,14 +264,14 @@ namespace Menes.Hal
             yield break;
         }
 
-        private List<WebLink> EnsureListForLink(WebLink link)
+        private List<WebLink> EnsureListForLink(string rel)
         {
             this.EnsureLinks();
 
-            if (!this.links.TryGetValue(link.Rel, out List<WebLink> linkList))
+            if (!this.links.TryGetValue(rel, out List<WebLink> linkList))
             {
                 linkList = new List<WebLink>();
-                this.links.Add(link.Rel, linkList);
+                this.links.Add(rel, linkList);
             }
 
             return linkList;

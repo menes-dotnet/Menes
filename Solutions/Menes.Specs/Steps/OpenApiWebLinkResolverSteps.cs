@@ -101,7 +101,7 @@ namespace Menes.Specs.Steps
         [Then("the resulting link matches")]
         public void ThenTheResultingLinkMatches(Table expectedResultTable)
         {
-            OpenApiWebLink expectedResult = expectedResultTable.CreateInstance(() => new OpenApiWebLink(string.Empty, string.Empty, string.Empty, OperationType.Get));
+            OpenApiWebLink expectedResult = expectedResultTable.CreateInstance(() => new OpenApiWebLink(string.Empty, string.Empty, OperationType.Get));
             OpenApiWebLink actualResult = this.scenarioContext.Get<OpenApiWebLink>();
 
             Assert.AreEqual(expectedResult, actualResult);

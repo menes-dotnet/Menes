@@ -21,7 +21,7 @@ namespace Menes.Links
         public static OpenApiWebLink ResolveAndAdd(this ILinkCollection linkCollection, IOpenApiWebLinkResolver linkResolver, object owner, string rel, params (string, object)[] parameters)
         {
             OpenApiWebLink link = linkResolver.Resolve(owner, rel, parameters);
-            linkCollection.AddLink(link);
+            linkCollection.AddLink(rel, link);
             return link;
         }
 
@@ -37,8 +37,8 @@ namespace Menes.Links
         /// <returns>A new <see cref="WebLink"/> which has been added to the given link collection.</returns>
         public static OpenApiWebLink ResolveAndAdd(this ILinkCollection linkCollection, IOpenApiWebLinkResolver linkResolver, object owner, string rel, string context, params (string, object)[] parameters)
         {
-            OpenApiWebLink link = linkResolver.Resolve(owner, rel, context, parameters);
-            linkCollection.AddLink(link);
+            OpenApiWebLink link = linkResolver.Resolve(owner, context, parameters);
+            linkCollection.AddLink(rel, link);
             return link;
         }
 
@@ -53,8 +53,8 @@ namespace Menes.Links
         /// <returns>A new <see cref="WebLink"/> which has been added to the given link collection.</returns>
         public static OpenApiWebLink ResolveAndAdd(this ILinkCollection linkCollection, IOpenApiWebLinkResolver linkResolver, string operationId, string rel, params (string, object)[] parameters)
         {
-            OpenApiWebLink link = linkResolver.Resolve(rel, operationId, parameters);
-            linkCollection.AddLink(link);
+            OpenApiWebLink link = linkResolver.Resolve(operationId, rel, parameters);
+            linkCollection.AddLink(rel, link);
             return link;
         }
     }

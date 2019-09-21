@@ -37,7 +37,7 @@ namespace Menes.Links
             // 1. The link itself.
             // 2. The HalDocument(s) to which it belongs - it is possible that we may encounter the same link twice and we need to be able to deal with that
             // 3. The link relation name.
-            var linkMap = new Dictionary<OpenApiWebLink, List<HalDocument>>();
+            var linkMap = new Dictionary<(string, OpenApiWebLink), List<HalDocument>>();
 
             AddHalDocumentLinksToMap(
                 target,
@@ -48,7 +48,7 @@ namespace Menes.Links
             // Build a second map of operation descriptors (needed to invoke the access policy check) to our OpenApiWebLinks.
             var operationDescriptorMap = linkMap
                 .Keys
-                .Select(link => (Descriptor: new AccessCheckOperationDescriptor(link.Href, link.OperationId, link.OperationType.ToString().ToLowerInvariant()), Link: link))
+                .Select(link => (Descriptor: new AccessCheckOperationDescriptor(link.Item2.Href, link.Item2.OperationId, link.Item2.OperationType.ToString().ToLowerInvariant()), Link: link))
                 .GroupBy(x => x.Descriptor)
                 .ToDictionary(descriptor => descriptor.Key, descriptor => descriptor.Select(link => link.Link).ToArray());
 
@@ -60,35 +60,38 @@ namespace Menes.Links
             // Now use the results of the access policy check to remove links/documents that don't belong because the access policy denies them.
             foreach (KeyValuePair<AccessCheckOperationDescriptor, AccessControlPolicyResult> accessCheckResult in accessCheckResults.Where(result => !result.Value.Allow))
             {
-                foreach (OpenApiWebLink link in operationDescriptorMap[accessCheckResult.Key])
+                foreach ((string, OpenApiWebLink) link in operationDescriptorMap[accessCheckResult.Key])
                 {
                     foreach (HalDocument document in linkMap[link])
                     {
-                        document.RemoveLink(link);
+                        document.RemoveLink(link.Item1, link.Item2);
 
                         // Also remove from embedded resources if present.
-                        document.RemoveEmbeddedResource(link);
+                        document.RemoveEmbeddedResource(link.Item1, link.Item2);
                     }
                 }
             }
         }
 
-        private static void AddHalDocumentLinksToMap(HalDocument target, Dictionary<OpenApiWebLink, List<HalDocument>> linkMap, bool recursive, bool unsafeChecking)
+        private static void AddHalDocumentLinksToMap(HalDocument target, Dictionary<(string, OpenApiWebLink), List<HalDocument>> linkMap, bool recursive, bool unsafeChecking)
         {
-            foreach (OpenApiWebLink current in target.Links.OfType<OpenApiWebLink>())
+            foreach (string rel in target.GetLinkRelations())
             {
-                if (unsafeChecking && ShouldSkipInUnsafeMode(current, target))
+                foreach (OpenApiWebLink current in target.GetLinksForRelation(rel))
                 {
-                    continue;
-                }
+                    if (unsafeChecking && ShouldSkipInUnsafeMode(rel, current, target))
+                    {
+                        continue;
+                    }
 
-                if (!linkMap.TryGetValue(current, out List<HalDocument> documents))
-                {
-                    documents = new List<HalDocument>();
-                    linkMap.Add(current, documents);
-                }
+                    if (!linkMap.TryGetValue((rel, current), out List<HalDocument> documents))
+                    {
+                        documents = new List<HalDocument>();
+                        linkMap.Add((rel, current), documents);
+                    }
 
-                documents.Add(target);
+                    documents.Add(target);
+                }
             }
 
             if (recursive)
@@ -97,9 +100,9 @@ namespace Menes.Links
             }
         }
 
-        private static bool ShouldSkipInUnsafeMode(WebLink link, HalDocument target)
+        private static bool ShouldSkipInUnsafeMode(string rel, WebLink link, HalDocument target)
         {
-            return (link.Rel == "self") || (target?.HasEmbeddedResourceForLink(link) ?? false);
+            return (rel == "self") || (target?.HasEmbeddedResourceForLink(rel, link) ?? false);
         }
     }
 }

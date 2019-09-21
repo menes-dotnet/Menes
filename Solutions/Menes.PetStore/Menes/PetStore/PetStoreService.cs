@@ -70,7 +70,7 @@ namespace Menes.PetStore
 
             // We also add the next page link to the header, just to demonstrate that it's possible
             // to use WebLink items in this way.
-            WebLink nextLink = response.Links.FirstOrDefault(x => x.Rel == "next");
+            WebLink nextLink = response.GetLinksForRelation("next").First();
             if (nextLink != default)
             {
                 result.Results.Add("x-next", nextLink.Href);

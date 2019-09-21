@@ -48,8 +48,7 @@ namespace Menes.Internal
             var jobject = JObject.Load(reader);
             HalDocument halDocument = this.halDocumentFactory.CreateHalDocument();
 
-            DeserializeLinks(jobject, halDocument);
-
+            DeserializeLinks(serializer, jobject, halDocument);
             DeserializeEmbeddedResources(serializer, jobject, halDocument);
 
             jobject.Remove("_embedded");
@@ -66,7 +65,7 @@ namespace Menes.Internal
             var halDocument = (HalDocument)value;
             JObject result = (JObject)halDocument.Properties?.DeepClone() ?? new JObject();
 
-            SerializeLinks(halDocument, result);
+            SerializeLinks(halDocument, result, serializer);
             SerializeEmbeddedResources(halDocument, result, serializer);
 
             result.WriteTo(writer);
@@ -79,7 +78,7 @@ namespace Menes.Internal
             return null;
         }
 
-        private static void SerializeLinks(HalDocument halDocument, JObject result)
+        private static void SerializeLinks(HalDocument halDocument, JObject result, JsonSerializer serializer)
         {
             var linksObject = new JObject();
 
@@ -93,12 +92,12 @@ namespace Menes.Internal
 
                 if (links.Length == 1)
                 {
-                    linksObject.Add(relation, GetJObjectFor(links[0]));
+                    linksObject.Add(relation, JObject.FromObject(links[0], serializer));
                 }
                 else
                 {
                     var linksArray = new JArray();
-                    links.ForEach(link => linksArray.Add(GetJObjectFor(link)));
+                    links.ForEach(link => linksArray.Add(JObject.FromObject(links[0], serializer)));
                     linksObject.Add(relation, linksArray);
                 }
             }
@@ -139,27 +138,7 @@ namespace Menes.Internal
             }
         }
 
-        private static JObject GetJObjectFor(WebLink webLink)
-        {
-            var result = new JObject
-            {
-                { "href", webLink.Href },
-            };
-
-            if (!string.IsNullOrEmpty(webLink.Name))
-            {
-                result.Add("name", webLink.Name);
-            }
-
-            if (webLink.IsTemplated.HasValue)
-            {
-                result.Add("isTemplated", webLink.IsTemplated.Value);
-            }
-
-            return result;
-        }
-
-        private static void DeserializeLinks(JObject jobject, HalDocument halDocument)
+        private static void DeserializeLinks(JsonSerializer serializer, JObject jobject, HalDocument halDocument)
         {
             foreach (KeyValuePair<string, JToken> link in (JObject)jobject["_links"])
             {
@@ -167,14 +146,14 @@ namespace Menes.Internal
                 {
                     foreach (JToken linkItem in array)
                     {
-                        var weblink = new WebLink(link.Key, (string)linkItem["href"], (string)linkItem["name"], (bool?)linkItem["isTemplated"]);
-                        halDocument.AddLink(weblink);
+                        WebLink weblink = linkItem.ToObject<WebLink>(serializer);
+                        halDocument.AddLink(link.Key, weblink);
                     }
                 }
                 else
                 {
-                    var weblink = new WebLink(link.Key, (string)link.Value["href"], (string)link.Value["name"], (bool?)link.Value["isTemplated"]);
-                    halDocument.AddLink(weblink);
+                    WebLink weblink = link.Value.ToObject<WebLink>(serializer);
+                    halDocument.AddLink(link.Key, weblink);
                 }
             }
         }

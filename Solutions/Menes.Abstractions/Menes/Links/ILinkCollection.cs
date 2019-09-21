@@ -19,8 +19,9 @@ namespace Menes.Links
         /// <summary>
         /// Adds a link to the collection.
         /// </summary>
+        /// <param name="rel">The relation type of the link.</param>
         /// <param name="link">The link to add.</param>
-        void AddLink(WebLink link);
+        void AddLink(string rel, WebLink link);
 
         /// <summary>
         /// Enumerate the relations in the link collection.
@@ -38,7 +39,8 @@ namespace Menes.Links
         /// <summary>
         /// Removes a link from a <c>_links</c> collection.
         /// </summary>
+        /// <param name="rel">The relation type of the link.</param>
         /// <param name="link">The link to remove.</param>
-        void RemoveLink(WebLink link);
+        void RemoveLink(string rel, WebLink link);
     }
 }

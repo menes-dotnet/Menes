@@ -68,7 +68,7 @@ namespace Menes.Specs.Steps
         public void GivenIAddALinkToTheHalDocumentT()
         {
             HalDocument document = this.scenarioContext.Get<HalDocument>();
-            document.AddLink(new WebLink("somrel", "http://marain.io/examples/link"));
+            document.AddLink("somrel", new WebLink("http://marain.io/examples/link"));
         }
 
         [Given(@"I add an embedded resource to the HalDocument\{T}")]
