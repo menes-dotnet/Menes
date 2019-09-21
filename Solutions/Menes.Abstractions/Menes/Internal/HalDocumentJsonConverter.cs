@@ -97,7 +97,7 @@ namespace Menes.Internal
                 else
                 {
                     var linksArray = new JArray();
-                    links.ForEach(link => linksArray.Add(JObject.FromObject(links[0], serializer)));
+                    links.ForEach(link => linksArray.Add(JObject.FromObject(link, serializer)));
                     linksObject.Add(relation, linksArray);
                 }
             }
