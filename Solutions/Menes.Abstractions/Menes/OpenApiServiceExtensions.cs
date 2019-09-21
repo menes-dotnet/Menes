@@ -56,13 +56,45 @@ namespace Menes
         /// </summary>
         /// <param name="service">The open api service serving the response.</param>
         /// <param name="auditData">Any additional audit data to add to the result.</param>
-        /// <returns>An OpenApi result with the OK status code and the object in the response body against the relevant content type.</returns>
+        /// <returns>An OpenApi result with the NotFound status code.</returns>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "For symmetry with other extension methods")]
         public static OpenApiResult NotFoundResult(this IOpenApiService service, (string, object)[] auditData = null)
         {
             return new OpenApiResult
             {
                 StatusCode = (int)HttpStatusCode.NotFound,
+                AuditData = auditData?.ToDictionary(x => x.Item1, x => x.Item2),
+            };
+        }
+
+        /// <summary>
+        /// Instantiate a Conflict result.
+        /// </summary>
+        /// <param name="service">The open api service serving the response.</param>
+        /// <param name="auditData">Any additional audit data to add to the result.</param>
+        /// <returns>An OpenApi result with the Conflict status code.</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "For symmetry with other extension methods")]
+        public static OpenApiResult ConflictResult(this IOpenApiService service, (string, object)[] auditData = null)
+        {
+            return new OpenApiResult
+            {
+                StatusCode = (int)HttpStatusCode.Conflict,
+                AuditData = auditData?.ToDictionary(x => x.Item1, x => x.Item2),
+            };
+        }
+
+        /// <summary>
+        /// Instantiate a Not Modified result.
+        /// </summary>
+        /// <param name="service">The open api service serving the response.</param>
+        /// <param name="auditData">Any additional audit data to add to the result.</param>
+        /// <returns>An OpenApi result with the NotModified status code.</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "For symmetry with other extension methods")]
+        public static OpenApiResult NotModifiedResult(this IOpenApiService service, (string, object)[] auditData = null)
+        {
+            return new OpenApiResult
+            {
+                StatusCode = (int)HttpStatusCode.NotModified,
                 AuditData = auditData?.ToDictionary(x => x.Item1, x => x.Item2),
             };
         }
