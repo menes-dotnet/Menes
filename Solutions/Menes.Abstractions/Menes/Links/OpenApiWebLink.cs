@@ -5,6 +5,7 @@
 namespace Menes.Links
 {
     using Microsoft.OpenApi.Models;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Represents a hypermedia link to a related resource that's obtained from another OpenApi
@@ -30,11 +31,13 @@ namespace Menes.Links
         /// <summary>
         /// Gets or sets the Http Method that this link is expected to be used with.
         /// </summary>
+        [JsonIgnore]
         public OperationType OperationType { get; set; }
 
         /// <summary>
         /// Gets or sets the OpenApi OperationId that this link was generated from.
         /// </summary>
+        [JsonIgnore]
         public string OperationId { get; set; }
 
         /// <summary>

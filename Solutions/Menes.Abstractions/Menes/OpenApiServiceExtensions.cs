@@ -188,6 +188,22 @@ namespace Menes
             };
         }
 
+        /// <summary>
+        /// Instantiate a Forbidden result.
+        /// </summary>
+        /// <param name="service">The open api service serving the response.</param>
+        /// <param name="auditData">Any additional audit data to add to the result.</param>
+        /// <returns>An OpenApi result with the Not Implemented status code.</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "For symmetry with other extension methods")]
+        public static OpenApiResult ForbiddenResult(this IOpenApiService service, (string, object)[] auditData = null)
+        {
+            return new OpenApiResult
+            {
+                StatusCode = (int)HttpStatusCode.Forbidden,
+                AuditData = auditData?.ToDictionary(x => x.Item1, x => x.Item2),
+            };
+        }
+
         private static string GetContentType<T>(T instance, string contentType)
         {
             return contentType ?? GetContentTypeOrNull(instance) ?? "application/json";
