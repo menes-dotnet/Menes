@@ -14,8 +14,6 @@ namespace Menes.PetStore.Hosting
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.OpenApi.Models;
     using Microsoft.OpenApi.Readers;
-    using Serilog;
-    using Serilog.Filters;
 
     /// <summary>
     /// Startup code for the Function.
@@ -27,15 +25,7 @@ namespace Menes.PetStore.Hosting
         {
             IServiceCollection services = builder.Services;
 
-            LoggerConfiguration loggerConfig = new LoggerConfiguration()
-                    .Enrich.FromLogContext()
-                    .MinimumLevel.Debug()
-                    .WriteTo.Logger(lc => lc.Filter.ByExcluding(Matching.FromSource("Menes.OpenApi")).WriteTo.Console().MinimumLevel.Debug())
-                    .WriteTo.Logger(lc => lc.Filter.ByIncludingOnly(Matching.FromSource("Menes.OpenApi")).WriteTo.Console().MinimumLevel.Debug());
-
-            Log.Logger = loggerConfig.CreateLogger();
-
-            services.AddLogging(loggingBuilder => loggingBuilder.AddSerilog(dispose: true));
+            services.AddLogging();
 
             services.AddHalDocumentMapper<PetResource, PetResourceMapper>();
             services.AddHalDocumentMapper<PetListResource, PetListResourceMapper>();

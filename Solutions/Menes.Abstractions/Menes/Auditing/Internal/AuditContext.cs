@@ -29,6 +29,16 @@ namespace Menes.Auditing
         /// <param name="logger">The logger.</param>
         public AuditContext(IEnumerable<IAuditLogBuilder> auditLogBuilders, IEnumerable<IAuditLogSink> auditSinks, ILogger<AuditContext> logger)
         {
+            if (auditLogBuilders is null)
+            {
+                throw new System.ArgumentNullException(nameof(auditLogBuilders));
+            }
+
+            if (auditSinks is null)
+            {
+                throw new System.ArgumentNullException(nameof(auditSinks));
+            }
+
             this.logger = logger;
             this.auditLogBuilders = auditLogBuilders.OrderBy(b => b.Priority).ToList();
             this.auditSinks = auditSinks.ToList();

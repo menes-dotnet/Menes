@@ -137,7 +137,7 @@ namespace Menes
             this.pathTemplatesByOperationId = this.pathTemplates.SelectMany(t => t.PathItem.Operations.Select(o => new { o.Value.OperationId, PathTemplate = t })).ToDictionary(k => k.OperationId, v => v.PathTemplate);
             if (this.logger.IsEnabled(LogLevel.Trace))
             {
-                this.logger.LogTrace("Added Document [{document}] to template provider", document.Info.Title);
+                this.logger.LogTrace("Added Document [{document}] to template provider", document.Info?.Title ?? "No title provided.");
             }
         }
 

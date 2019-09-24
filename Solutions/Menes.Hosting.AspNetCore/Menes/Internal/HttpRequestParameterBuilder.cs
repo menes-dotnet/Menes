@@ -245,7 +245,7 @@ namespace Menes.Internal
                             request.Path,
                             request.Method,
                             request.ContentType,
-                            string.Join(", ", operationPathTemplate.Operation.RequestBody.Content.Keys));
+                            string.Join(", ", operationPathTemplate?.Operation?.RequestBody?.Content?.Keys));
                     }
 
                     return;
