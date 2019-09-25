@@ -17,11 +17,11 @@
     <PackageReference Include="Corvus.ContentHandling" Version="0.12.0" />
     <PackageReference Include="Corvus.Extensions" Version="0.7.0" />
     <PackageReference Include="Corvus.Extensions.Newtonsoft.Json" Version="0.9.0" />
-    <PackageReference Include="Microsoft.CSharp" Version="4.5.0" />
-    <PackageReference Include="Microsoft.Extensions.Logging" Version="2.2.0" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.6.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="3.0.0" />
     <PackageReference Include="Microsoft.OpenApi.Readers" Version="1.1.4" />
-    <PackageReference Include="System.Interactive" Version="3.2.0" />
-    <PackageReference Include="System.Text.Encodings.Web" Version="4.5.0" />
+    <PackageReference Include="System.Interactive" Version="4.0.0" />
+    <PackageReference Include="System.Text.Encodings.Web" Version="4.6.0" />
     <PackageReference Include="Tavis.UriTemplates" Version="1.1.1" />
   </ItemGroup>
 
