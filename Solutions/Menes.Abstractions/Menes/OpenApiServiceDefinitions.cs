@@ -31,18 +31,16 @@ namespace Menes
                     $"Type {typeof(T).FullName} does not have the EmbeddedOpenApiDefinitionAttribute attribute", "T");
             }
 
-            using (Stream stream = typeof(T).Assembly.GetManifestResourceStream(attribute.ResourceName))
+            using Stream stream = typeof(T).Assembly.GetManifestResourceStream(attribute.ResourceName);
+            OpenApiDocument openApiDocument = new OpenApiStreamReader().Read(stream, out OpenApiDiagnostic diagnostics);
+
+            if (diagnostics.Errors.Count > 0)
             {
-                OpenApiDocument openApiDocument = new OpenApiStreamReader().Read(stream, out OpenApiDiagnostic diagnostics);
-
-                if (diagnostics.Errors.Count > 0)
-                {
-                    throw new OpenApiServiceMismatchException($"Errors reading the YAML file for service {typeof(T).FullName} at resource name attribute.ResourceName")
-                        .AddProblemDetailsExtension("OpenApiErrors", diagnostics.Errors);
-                }
-
-                return openApiDocument;
+                throw new OpenApiServiceMismatchException($"Errors reading the YAML file for service {typeof(T).FullName} at resource name attribute.ResourceName")
+                    .AddProblemDetailsExtension("OpenApiErrors", diagnostics.Errors);
             }
+
+            return openApiDocument;
         }
 
         /// <summary>
@@ -55,18 +53,16 @@ namespace Menes
             Assembly assembly,
             string resourceName)
         {
-            using (Stream stream = assembly.GetManifestResourceStream(resourceName))
+            using Stream stream = assembly.GetManifestResourceStream(resourceName);
+            OpenApiDocument openApiDocument = new OpenApiStreamReader().Read(stream, out OpenApiDiagnostic diagnostics);
+
+            if (diagnostics.Errors.Count > 0)
             {
-                OpenApiDocument openApiDocument = new OpenApiStreamReader().Read(stream, out OpenApiDiagnostic diagnostics);
-
-                if (diagnostics.Errors.Count > 0)
-                {
-                    throw new OpenApiServiceMismatchException($"Errors reading the YAML file at resource name attribute.ResourceName")
-                        .AddProblemDetailsExtension("OpenApiErrors", diagnostics.Errors);
-                }
-
-                return openApiDocument;
+                throw new OpenApiServiceMismatchException($"Errors reading the YAML file at resource name attribute.ResourceName")
+                    .AddProblemDetailsExtension("OpenApiErrors", diagnostics.Errors);
             }
+
+            return openApiDocument;
         }
     }
 }

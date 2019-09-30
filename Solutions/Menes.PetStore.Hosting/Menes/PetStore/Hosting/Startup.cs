@@ -43,12 +43,10 @@ namespace Menes.PetStore.Hosting
 
         private static void LoadDocuments(IOpenApiHostConfiguration hostConfig)
         {
-            using (FileStream stream = File.OpenRead(".\\yaml\\petstore.yaml"))
-            {
-                OpenApiDocument openApiDocument = new OpenApiStreamReader().Read(stream, out OpenApiDiagnostic diagnostics);
-                hostConfig.Documents.Add(openApiDocument);
-                hostConfig.Documents.AddSwaggerEndpoint();
-            }
+            using FileStream stream = File.OpenRead(".\\yaml\\petstore.yaml");
+            OpenApiDocument openApiDocument = new OpenApiStreamReader().Read(stream, out OpenApiDiagnostic diagnostics);
+            hostConfig.Documents.Add(openApiDocument);
+            hostConfig.Documents.AddSwaggerEndpoint();
         }
     }
 }

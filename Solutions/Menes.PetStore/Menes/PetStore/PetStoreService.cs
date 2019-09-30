@@ -230,12 +230,10 @@ namespace Menes.PetStore
 
         private static async Task<Stream> GetImageForPetAsync(PetResource pet)
         {
-            using (var client = new WebClient())
-            {
-                string uri = $"https://loremflickr.com/320/240/{HttpUtility.UrlEncode(pet.Tag)},{pet.Size}";
-                byte[] image = await client.DownloadDataTaskAsync(uri).ConfigureAwait(false);
-                return new MemoryStream(image);
-            }
+            using var client = new WebClient();
+            string uri = $"https://loremflickr.com/320/240/{HttpUtility.UrlEncode(pet.Tag)},{pet.Size}";
+            byte[] image = await client.DownloadDataTaskAsync(uri).ConfigureAwait(false);
+            return new MemoryStream(image);
         }
 
         private static string BuildContinuationToken(int skip)

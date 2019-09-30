@@ -174,25 +174,16 @@ namespace Menes.Internal
 
             if (result.ResultType == AccessControlPolicyResultType.NotAuthenticated)
             {
-                Exception x;
-                switch (this.configuration.AccessPolicyUnauthenticatedResponse)
+                Exception x = this.configuration.AccessPolicyUnauthenticatedResponse switch
                 {
-                    case ResponseWhenUnauthenticated.Unauthorized:
-                        x = new OpenApiUnauthorizedException("Unauthorized");
-                        break;
+                    ResponseWhenUnauthenticated.Unauthorized => new OpenApiUnauthorizedException("Unauthorized"),
 
-                    case ResponseWhenUnauthenticated.Forbidden:
-                        x = OpenApiForbiddenException.WithoutProblemDetails("Forbidden");
-                        break;
+                    ResponseWhenUnauthenticated.Forbidden => OpenApiForbiddenException.WithoutProblemDetails("Forbidden"),
 
-                    case ResponseWhenUnauthenticated.ServerError:
-                        x = new OpenApiServiceMismatchException("Unauthenticated requests should not be reaching this service");
-                        break;
+                    ResponseWhenUnauthenticated.ServerError => new OpenApiServiceMismatchException("Unauthenticated requests should not be reaching this service"),
 
-                    default:
-                        x = new OpenApiServiceMismatchException($"Unknown AccessPolicyUnauthenticatedResponse: {this.configuration.AccessPolicyUnauthenticatedResponse}");
-                        break;
-                }
+                    _ => new OpenApiServiceMismatchException($"Unknown AccessPolicyUnauthenticatedResponse: {this.configuration.AccessPolicyUnauthenticatedResponse}"),
+                };
 
                 if (!string.IsNullOrWhiteSpace(result.Explanation))
                 {

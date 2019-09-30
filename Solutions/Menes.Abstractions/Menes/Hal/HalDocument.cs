@@ -132,18 +132,16 @@ namespace Menes.Hal
                 return true;
             }
 
-            using (JsonReader reader = this.Properties.CreateReader())
+            using JsonReader reader = this.Properties.CreateReader();
+            try
             {
-                try
-                {
-                    result = JsonSerializer.Create(this.SerializerSettings).Deserialize<T>(reader);
-                    return true;
-                }
-                catch (JsonSerializationException)
-                {
-                    result = default;
-                    return false;
-                }
+                result = JsonSerializer.Create(this.SerializerSettings).Deserialize<T>(reader);
+                return true;
+            }
+            catch (JsonSerializationException)
+            {
+                result = default;
+                return false;
             }
         }
 
