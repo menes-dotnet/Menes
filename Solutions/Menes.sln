@@ -15,7 +15,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Demo", "Demo", "{9F5741F1-1
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Menes.PetStore.Hosting", "Menes.PetStore.Hosting\Menes.PetStore.Hosting.csproj", "{C5D7A4FA-88FB-4E7F-BB49-2B1F19323DD0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Menes.Specs", "Menes.Specs\Menes.Specs.csproj", "{D4255494-ACA0-4F19-8425-AE5B134A9C7F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Menes.Specs", "Menes.Specs\Menes.Specs.csproj", "{D4255494-ACA0-4F19-8425-AE5B134A9C7F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Menes.ServiceBuilder", "Menes.ServiceBuilder\Menes.ServiceBuilder.csproj", "{847BF06B-45DA-4641-84E3-BF2EE79AEA3D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,6 +49,10 @@ Global
 		{D4255494-ACA0-4F19-8425-AE5B134A9C7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D4255494-ACA0-4F19-8425-AE5B134A9C7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D4255494-ACA0-4F19-8425-AE5B134A9C7F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{847BF06B-45DA-4641-84E3-BF2EE79AEA3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{847BF06B-45DA-4641-84E3-BF2EE79AEA3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{847BF06B-45DA-4641-84E3-BF2EE79AEA3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{847BF06B-45DA-4641-84E3-BF2EE79AEA3D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
