@@ -13,6 +13,7 @@ namespace Menes.ServiceBuilder.Commands
     [Command(FullName = "ServiceBuilder", Description = "Generate OpenAPI services", ThrowOnUnexpectedArgument = false, ShowInHelpText = true)]
     [HelpOption]
     [Subcommand(typeof(BuildCSharp))]
+    [Subcommand(typeof(DiffCSharp))]
     public class ServiceBuilder
     {
         /// <summary>
