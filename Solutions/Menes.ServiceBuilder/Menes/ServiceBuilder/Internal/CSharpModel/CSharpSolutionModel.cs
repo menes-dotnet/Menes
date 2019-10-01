@@ -22,7 +22,7 @@ namespace Menes.ServiceBuilder.Internal.CSharpModel
     internal class CSharpSolutionModel : IDisposable
     {
         private IList<ServiceModel> services;
-        private IList<TypeModel> serviceTypes;
+        private IDictionary<string, TypeModel> typeModels;
 
         /// <summary>
         /// Construct a CSharp project model of the OpenApi project.
@@ -53,7 +53,7 @@ namespace Menes.ServiceBuilder.Internal.CSharpModel
         /// <summary>
         /// Gets the list of types that are used by the services implemented by the project.
         /// </summary>
-        public IList<TypeModel> ServiceTypes => this.serviceTypes ?? (this.serviceTypes = new List<TypeModel>());
+        public IDictionary<string, TypeModel> TypeModels => this.typeModels ?? (this.typeModels = new Dictionary<string, TypeModel>());
 
         /// <summary>
         /// Build the list of services found in the solution.
@@ -99,10 +99,34 @@ namespace Menes.ServiceBuilder.Internal.CSharpModel
             }
         }
 
+        /// <summary>
+        /// Get or add a <see cref="TypeModel"/> for a type symbol.
+        /// </summary>
+        /// <param name="semanticModel">The semantic model for the service.</param>
+        /// <param name="typeSymbol">The type symbol.</param>
+        /// <param name="serviceBuilderOptions">The service builder options.</param>
+        /// <returns>The <see cref="TypeModel"/> for the given symbol.</returns>
+        public TypeModel GetOrAddTypeModel(SemanticModel semanticModel, ITypeSymbol typeSymbol, ServiceBuilderOptions serviceBuilderOptions)
+        {
+            string key = this.GetKeyFor(typeSymbol);
+            if (!this.TypeModels.TryGetValue(key, out TypeModel value))
+            {
+                value = new TypeModel(this, semanticModel, typeSymbol, serviceBuilderOptions);
+                this.TypeModels.Add(key, value);
+            }
+
+            return value;
+        }
+
         /// <inheritdoc/>
         public void Dispose()
         {
             this.Workspace.Dispose();
+        }
+
+        private string GetKeyFor(ISymbol typeSymbol)
+        {
+            return typeSymbol.ToDisplayString();
         }
     }
 }

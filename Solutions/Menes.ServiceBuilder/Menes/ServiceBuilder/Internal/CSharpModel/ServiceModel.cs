@@ -22,23 +22,23 @@ namespace Menes.ServiceBuilder.Internal.CSharpModel
         /// <summary>
         /// Initializes a new instance of the <see cref="ServiceModel"/> class.
         /// </summary>
-        /// <param name="parentProjectModel">The parent project model.</param>
+        /// <param name="parentSolutionModel">The parent solution model.</param>
         /// <param name="semanticModel">The semantic model associated with the class.</param>
         /// <param name="classDeclaration">The class declaration that corresponds to this service.</param>
         /// <param name="serviceBuilderOptions">The service builder options.</param>
-        public ServiceModel(CSharpSolutionModel parentProjectModel, SemanticModel semanticModel, ClassDeclarationSyntax classDeclaration, ServiceBuilderOptions serviceBuilderOptions)
+        public ServiceModel(CSharpSolutionModel parentSolutionModel, SemanticModel semanticModel, ClassDeclarationSyntax classDeclaration, ServiceBuilderOptions serviceBuilderOptions)
         {
-            this.ParentProjectModel = parentProjectModel ?? throw new ArgumentNullException(nameof(parentProjectModel));
+            this.ParentSolutionModel = parentSolutionModel ?? throw new ArgumentNullException(nameof(parentSolutionModel));
             this.SemanticModel = semanticModel ?? throw new ArgumentNullException(nameof(semanticModel));
-            this.ClassDeclaration = classDeclaration ?? throw new System.ArgumentNullException(nameof(classDeclaration));
+            this.ClassDeclaration = classDeclaration ?? throw new ArgumentNullException(nameof(classDeclaration));
             this.serviceBuilderOptions = serviceBuilderOptions ?? throw new ArgumentNullException(nameof(serviceBuilderOptions));
             this.BuildServiceOperations();
         }
 
         /// <summary>
-        /// Gets the parent project model.
+        /// Gets the parent solution model.
         /// </summary>
-        public CSharpSolutionModel ParentProjectModel { get; }
+        public CSharpSolutionModel ParentSolutionModel { get; }
 
         /// <summary>
         /// Gets the semantic model for the service.
@@ -64,7 +64,7 @@ namespace Menes.ServiceBuilder.Internal.CSharpModel
                         m => m.AttributeLists.SelectMany(l => l.Attributes)
                             .Any(t => this.IsOperationIdAttribute(t)));
 
-            this.serviceOperationsByOperationId = methods.ToDictionary(m => this.GetOperationId(m), m => new ServiceOperationModel(this.ParentProjectModel, this.SemanticModel, m, this.serviceBuilderOptions));
+            this.serviceOperationsByOperationId = methods.ToDictionary(m => this.GetOperationId(m), m => new ServiceOperationModel(this.ParentSolutionModel, this.SemanticModel, m, this.serviceBuilderOptions));
         }
 
         private string GetOperationId(MethodDeclarationSyntax m)

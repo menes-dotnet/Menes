@@ -19,13 +19,13 @@ namespace Menes.ServiceBuilder.Internal.CSharpModel
         /// <summary>
         /// Initializes a new instance of the <see cref="RequestParameterModel"/> class.
         /// </summary>
-        /// <param name="parentProjectModel">The parent project model.</param>
+        /// <param name="parentSolutionModel">The parent solution model.</param>
         /// <param name="semanticModel">The semantic model for the parameter.</param>
         /// <param name="parameterSyntax">The parameter syntax.</param>
         /// <param name="serviceBuilderOptions">The service builder options.</param>
-        public RequestParameterModel(CSharpSolutionModel parentProjectModel, SemanticModel semanticModel, ParameterSyntax parameterSyntax, ServiceBuilderOptions serviceBuilderOptions)
+        public RequestParameterModel(CSharpSolutionModel parentSolutionModel, SemanticModel semanticModel, ParameterSyntax parameterSyntax, ServiceBuilderOptions serviceBuilderOptions)
         {
-            this.ParentProjectModel = parentProjectModel ?? throw new ArgumentNullException(nameof(parentProjectModel));
+            this.ParentSolutionModel = parentSolutionModel ?? throw new ArgumentNullException(nameof(parentSolutionModel));
             this.SemanticModel = semanticModel ?? throw new ArgumentNullException(nameof(semanticModel));
             this.ParameterSyntax = parameterSyntax ?? throw new ArgumentNullException(nameof(parameterSyntax));
             this.serviceBuilderOptions = serviceBuilderOptions ?? throw new ArgumentNullException(nameof(serviceBuilderOptions));
@@ -33,9 +33,9 @@ namespace Menes.ServiceBuilder.Internal.CSharpModel
         }
 
         /// <summary>
-        /// Gets the parent project model.
+        /// Gets the parent solution model.
         /// </summary>
-        public CSharpSolutionModel ParentProjectModel { get; }
+        public CSharpSolutionModel ParentSolutionModel { get; }
 
         /// <summary>
         /// Gets the semantic model for the parameter.
@@ -47,8 +47,15 @@ namespace Menes.ServiceBuilder.Internal.CSharpModel
         /// </summary>
         public ParameterSyntax ParameterSyntax { get; }
 
+        /// <summary>
+        /// Gets the type model for this parameter.
+        /// </summary>
+        public TypeModel Type { get; private set; }
+
         private void BuildParameterType()
         {
+            ITypeSymbol parameterType = this.SemanticModel.GetTypeInfo(this.ParameterSyntax.Type).ConvertedType;
+            this.Type = this.ParentSolutionModel.GetOrAddTypeModel(this.SemanticModel, parameterType, this.serviceBuilderOptions);
         }
     }
 }

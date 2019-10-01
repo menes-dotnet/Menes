@@ -159,7 +159,7 @@ namespace Menes.Internal
                 "Attempting to get OpenAPI result for with POCO with [{operation}]",
                 operation.GetOperationId());
 #pragma warning disable IDE0007 // Use implicit type - see https://github.com/dotnet/roslyn/issues/30450
-            List<KeyValuePair<string, OpenApiResponse>> successResponses = operation
+            var successResponses = operation
 #pragma warning restore IDE0007 // Use implicit type
                 .Responses
                 .Where(r => r.Key == "default" || (r.Key.Length == 3 && r.Key[0] == '2'))

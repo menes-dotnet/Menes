@@ -21,13 +21,13 @@ namespace Menes.ServiceBuilder.Internal.CSharpModel
         /// <summary>
         /// Initializes a new instance of the <see cref="ServiceOperationModel"/> class.
         /// </summary>
-        /// <param name="parentProjectModel">The parent project model.</param>
+        /// <param name="parentSolutionModel">The parent solution model.</param>
         /// <param name="semanticModel">The semantic model for the service.</param>
         /// <param name="methodDeclaration">The method that implements the OperationID.</param>
         /// <param name="serviceBuilderOptions">The service builder options.</param>
-        public ServiceOperationModel(CSharpSolutionModel parentProjectModel, SemanticModel semanticModel, MethodDeclarationSyntax methodDeclaration, ServiceBuilderOptions serviceBuilderOptions)
+        public ServiceOperationModel(CSharpSolutionModel parentSolutionModel, SemanticModel semanticModel, MethodDeclarationSyntax methodDeclaration, ServiceBuilderOptions serviceBuilderOptions)
         {
-            this.ParentProjectModel = parentProjectModel ?? throw new ArgumentNullException(nameof(parentProjectModel));
+            this.ParentSolutionModel = parentSolutionModel ?? throw new ArgumentNullException(nameof(parentSolutionModel));
             this.SemanticModel = semanticModel ?? throw new ArgumentNullException(nameof(semanticModel));
             this.MethodDeclaration = methodDeclaration ?? throw new ArgumentNullException(nameof(methodDeclaration));
             this.serviceBuilderOptions = serviceBuilderOptions ?? throw new ArgumentNullException(nameof(serviceBuilderOptions));
@@ -35,9 +35,9 @@ namespace Menes.ServiceBuilder.Internal.CSharpModel
         }
 
         /// <summary>
-        /// Gets the parent project model.
+        /// Gets the parent solution model.
         /// </summary>
-        public CSharpSolutionModel ParentProjectModel { get; }
+        public CSharpSolutionModel ParentSolutionModel { get; }
 
         /// <summary>
         /// Gets the semantic model for the service.
@@ -63,7 +63,7 @@ namespace Menes.ServiceBuilder.Internal.CSharpModel
 
         private void BuildRequestParameters()
         {
-            this.RequestParameters = this.MethodDeclaration.ParameterList.Parameters.ToDictionary(p => this.GetParameterName(p), p => new RequestParameterModel(this.ParentProjectModel, this.SemanticModel, p, this.serviceBuilderOptions));
+            this.RequestParameters = this.MethodDeclaration.ParameterList.Parameters.ToDictionary(p => this.GetParameterName(p), p => new RequestParameterModel(this.ParentSolutionModel, this.SemanticModel, p, this.serviceBuilderOptions));
         }
 
         private string GetParameterName(ParameterSyntax p)
