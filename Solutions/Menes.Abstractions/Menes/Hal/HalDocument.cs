@@ -6,9 +6,7 @@ namespace Menes.Hal
 {
     using System.Collections.Generic;
     using System.Linq;
-    using Corvus.ContentHandling;
     using Corvus.Extensions.Json;
-    using Menes.Internal;
     using Menes.Links;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Linq;

@@ -32,10 +32,10 @@ namespace Menes.ServiceBuilder.Commands
         /// <summary>
         /// Gets or sets the path to the csproj project file.
         /// </summary>
-        [Option(Description = "The path to the csproj project (required)", LongName = "project", ShortName = "p")]
+        [Option(Description = "The path to the .sln containing the project(s) (required)", LongName = "solution", ShortName = "s")]
         [Required]
         [FileExists]
-        public string ProjectPath { get; set; }
+        public string SolutionPath { get; set; }
 
         /// <summary>
         /// Gets or sets the root namespace to use for the output.
@@ -71,17 +71,17 @@ namespace Menes.ServiceBuilder.Commands
                 return -1;
             }
 
-            using CSharpProjectModel projectModel = await CSharpProjectTasks.LoadServiceProjectAsync(app, this.ProjectPath);
+            using CSharpSolutionModel solutionModel = await CSharpProjectTasks.LoadServiceSolution(app, this.SolutionPath);
 
-            if (projectModel is null)
+            if (solutionModel is null)
             {
                 return -1;
             }
 
             var options = new ServiceBuilderOptions { DefaultToIdentifierCase = this.DefaultToCamelCaseSerialization };
 
-            await projectModel.BuildServicesAsync(options);
-            await DiffTasks.DiffAsync(app, openApiDocument, projectModel);
+            await solutionModel.BuildServicesAsync(options);
+            await DiffTasks.DiffAsync(app, openApiDocument, solutionModel);
 
             return 0;
         }

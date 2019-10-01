@@ -21,14 +21,14 @@ namespace Menes.ServiceBuilder.Internal
         /// Load the service definitions for a csharp project.
         /// </summary>
         /// <param name="app">The command line application context.</param>
-        /// <param name="projectFile">The target project file.</param>
-        /// <returns>The <see cref="CSharpProjectModel"/> for the project.</returns>
-        internal static async Task<CSharpProjectModel> LoadServiceProjectAsync(CommandLineApplication app, string projectFile)
+        /// <param name="solutionFile">The target solution file.</param>
+        /// <returns>The <see cref="CSharpSolutionModel"/> for the project.</returns>
+        internal static async Task<CSharpSolutionModel> LoadServiceSolution(CommandLineApplication app, string solutionFile)
         {
             MSBuildLocator.RegisterDefaults();
             var workspace = MSBuildWorkspace.Create();
-            Project project = await workspace.OpenProjectAsync(projectFile, new ProgressReporter(app)).ConfigureAwait(false);
-            return new CSharpProjectModel(workspace, project);
+            Solution solution = await workspace.OpenSolutionAsync(solutionFile, new ProgressReporter(app)).ConfigureAwait(false);
+            return new CSharpSolutionModel(workspace, solution);
         }
 
         private class ProgressReporter : IProgress<ProjectLoadProgress>

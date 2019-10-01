@@ -4,8 +4,6 @@
 
 namespace Menes.Specs.Steps.TestClasses
 {
-    using System;
-
     /// <summary>
     /// Pet DTO.
     /// </summary>

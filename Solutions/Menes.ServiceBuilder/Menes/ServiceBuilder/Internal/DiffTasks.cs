@@ -10,7 +10,7 @@ namespace Menes.ServiceBuilder.Internal
     using Microsoft.OpenApi.Models;
 
     /// <summary>
-    /// Diffing operations between <see cref="CSharpProjectModel"/> and an <see cref="OpenApiDocument"/>.
+    /// Diffing operations between <see cref="CSharpSolutionModel"/> and an <see cref="OpenApiDocument"/>.
     /// </summary>
     internal class DiffTasks
     {
@@ -21,7 +21,7 @@ namespace Menes.ServiceBuilder.Internal
         /// <param name="openApiDocument">The open api document.</param>
         /// <param name="projectModel">The project model.</param>
         /// <returns>A <see cref="Task"/> which completes when the diff operation is complete.</returns>
-        internal static Task DiffAsync(CommandLineApplication app, OpenApiDocument openApiDocument, CSharpProjectModel projectModel)
+        internal static Task DiffAsync(CommandLineApplication app, OpenApiDocument openApiDocument, CSharpSolutionModel projectModel)
         {
             return Task.CompletedTask;
         }
