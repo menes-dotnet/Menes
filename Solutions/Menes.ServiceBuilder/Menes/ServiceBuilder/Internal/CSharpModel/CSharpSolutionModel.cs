@@ -88,7 +88,7 @@ namespace Menes.ServiceBuilder.Internal.CSharpModel
                             .DescendantNodes()
                             .OfType<ClassDeclarationSyntax>()
                             .Where(c =>
-                                c.BaseList.Types.Any(
+                                !(c.BaseList is null) && c.BaseList.Types.Any(
                                     t =>
                                     {
                                         ITypeSymbol type = semanticModel.GetTypeInfo(t.Type).ConvertedType;
