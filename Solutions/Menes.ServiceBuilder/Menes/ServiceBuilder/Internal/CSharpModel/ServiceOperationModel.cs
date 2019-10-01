@@ -70,8 +70,10 @@ namespace Menes.ServiceBuilder.Internal.CSharpModel
         {
             AttributeSyntax openApiAttribute = p.AttributeLists.SelectMany(l => l.Attributes)
                             .Where(t =>
-                                this.SemanticModel.GetTypeInfo(t).ConvertedType.Name == nameof(OpenApiParameterAttribute) &&
-                                this.SemanticModel.GetTypeInfo(t).ConvertedType.ContainingNamespace.Name == nameof(Menes)).SingleOrDefault();
+                            {
+                                ITypeSymbol convertedType = this.SemanticModel.GetTypeInfo(t).ConvertedType;
+                                return convertedType.Name == nameof(OpenApiParameterAttribute) && convertedType.ContainingNamespace.Name == nameof(Menes);
+                            }).SingleOrDefault();
 
             if (openApiAttribute is null)
             {

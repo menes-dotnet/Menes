@@ -90,9 +90,8 @@ namespace Menes.ServiceBuilder.Internal.CSharpModel
 
         private bool IsOperationIdAttribute(AttributeSyntax t)
         {
-            return
-                this.SemanticModel.GetTypeInfo(t).ConvertedType.Name == nameof(OperationIdAttribute) &&
-                this.SemanticModel.GetTypeInfo(t).ConvertedType.ContainingNamespace.Name == nameof(Menes);
+            ITypeSymbol convertedType = this.SemanticModel.GetTypeInfo(t).ConvertedType;
+            return convertedType.Name == nameof(OperationIdAttribute) && convertedType.ContainingNamespace.Name == nameof(Menes);
         }
     }
 }

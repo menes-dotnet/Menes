@@ -90,8 +90,10 @@ namespace Menes.ServiceBuilder.Internal.CSharpModel
                             .Where(c =>
                                 c.BaseList.Types.Any(
                                     t =>
-                                        semanticModel.GetTypeInfo(t.Type).ConvertedType.Name == nameof(IOpenApiService)
-                                        && semanticModel.GetTypeInfo(t.Type).ConvertedType.ContainingNamespace.Name == nameof(Menes)))
+                                    {
+                                        ITypeSymbol type = semanticModel.GetTypeInfo(t.Type).ConvertedType;
+                                        return type.Name == nameof(IOpenApiService) && type.ContainingNamespace.Name == nameof(Menes);
+                                    }))
                             .Select(s => new ServiceModel(this, semanticModel, s, serviceBuilderOptions)));
                 }
             }
