@@ -26,12 +26,12 @@ namespace Menes.ServiceBuilder.Commands
         public string OpenApiDocumentPath { get; set; }
 
         /// <summary>
-        /// Gets or sets the path to the csproj project file.
+        /// Gets or sets the path to the Solution containing the csharp projects.
         /// </summary>
-        [Option(Description = "The path to the csproj project file (required)", LongName = "project", ShortName = "p")]
+        [Option(Description = "The path to the .sln containing the project(s) (required)", LongName = "solution", ShortName = "s")]
         [Required]
         [FileExists]
-        public string ProjectPath { get; set; }
+        public string SolutionPath { get; set; }
 
         /// <summary>
         /// Gets or sets the root namespace to use for the output.
