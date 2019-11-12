@@ -21,7 +21,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <param name="httpRequest">The request to handle.</param>
         /// <param name="parameters">Any dynamically constructed parameters sent to the request.</param>
         /// <returns>The result of the request.</returns>
-        public static Task<IActionResult> HandleRequestAsync(this IOpenApiHost<HttpRequest, IActionResult> host, HttpRequest httpRequest, dynamic parameters)
+        public static Task<IActionResult> HandleRequestAsync(this IOpenApiHost<HttpRequest, IActionResult> host, HttpRequest httpRequest, object parameters)
         {
             return host.HandleRequestAsync(httpRequest.Path, httpRequest.Method, httpRequest, parameters);
         }
