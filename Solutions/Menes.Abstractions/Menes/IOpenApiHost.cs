@@ -28,6 +28,6 @@ namespace Menes
         /// <param name="request">The underlying request body.</param>
         /// <param name="parameters">The dynamically created parameters for the request.</param>
         /// <returns>A <see cref="Task{T}"/> which when complete, provides the response.</returns>
-        Task<TResponse> HandleRequestAsync(string path, string method, TRequest request, dynamic parameters);
+        Task<TResponse> HandleRequestAsync(string path, string method, TRequest request, object parameters);
     }
 }

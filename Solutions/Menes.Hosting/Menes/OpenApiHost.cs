@@ -38,7 +38,7 @@ namespace Menes
         }
 
         /// <inheritdoc/>
-        public async Task<TResponse> HandleRequestAsync(string path, string method, TRequest request, dynamic parameters)
+        public async Task<TResponse> HandleRequestAsync(string path, string method, TRequest request, object parameters)
         {
             IOpenApiContext context = await this.BuildContextAsync(request, parameters).ConfigureAwait(false);
 
@@ -68,7 +68,7 @@ namespace Menes
         /// <param name="request">The request from which to build the OpenAPI context.</param>
         /// <param name="parameters">The dynamically built parameters from which to build the context.</param>
         /// <returns>A <see cref="Task{TResult}"/> which, when complete, provides the <see cref="IOpenApiContext"/>.</returns>
-        private async Task<IOpenApiContext> BuildContextAsync(TRequest request, dynamic parameters)
+        private async Task<IOpenApiContext> BuildContextAsync(TRequest request, object parameters)
         {
             return await this.contextBuilder.BuildAsync(request, parameters).ConfigureAwait(false);
         }

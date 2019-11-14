@@ -18,6 +18,6 @@ namespace Menes
         public string CurrentTenantId { get; set;  }
 
         /// <inheritdoc/>
-        public dynamic AdditionalContext { get; set; }
+        public object AdditionalContext { get; set; }
     }
 }

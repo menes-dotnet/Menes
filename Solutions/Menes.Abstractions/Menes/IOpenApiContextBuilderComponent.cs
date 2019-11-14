@@ -19,6 +19,6 @@ namespace Menes
         /// <param name="request">The incoming request.</param>
         /// <param name="parameters">A dyamically built parameters object passed to the builder.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        Task BuildAsync(IOpenApiContext context, TRequest request, dynamic parameters);
+        Task BuildAsync(IOpenApiContext context, TRequest request, object parameters);
     }
 }
