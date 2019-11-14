@@ -2,8 +2,8 @@
 	In order to use Menes in my application
 	As a developer
 	I want to be able to add Menes services and related components to my service collection
-	
-Scenario: Adding AspNetCore OpenApi hosting
+
+Scenario: Adding AspNetCore OpenApi hosting adds the IOpenApiHost for HttpRequest and IActionResult
 	Given I have created a service collection to register my services against
 	When I add AspNetCore OpenApi hosting to the service collection
 	Then a service is added as a Singleton for type IOpenApiHost{HttpRequest, IActionResult}
@@ -40,14 +40,14 @@ Scenario: OpenApi host initialisation adds link maps from registered IHalDocumen
 	Then the HalDocumentMapper for resource type has configured its links
 	And the HalDocumentMapper for resource and context types has configured its links
 
-Scenario: Add HAL document mappers with resource type parameter
+Scenario: Registering HAL document mappers with resource type parameters adds them to the container with the concrete type, the IHalDocumentMapper interface and the generic IHalDocumentMapper interface
 	Given I have created a service collection to register my services against
 	When I register a HalDocumentMapper for a resource type to the service collection
 	Then it should be added as a Singleton with the service type matching the concrete type of the mapper
 	And It should be added as a Singleton with a service type of IHalDocumentMapper
 	And it should be added as a Singleton with a service type of IHalDocumentMapper{TResource}
 
-Scenario: Add HAL document mappers with resource and context type parameters
+Scenario: Registering HAL document mappers with resource and context type parameters adds them to the container with the concrete type, the IHalDocumentMapper interface and the generic IHalDocumentMapper interface
 	Given I have created a service collection to register my services against
 	When I register a HalDocumentMapper for a resource and context type to the service collection
 	Then it should be added as a Singleton with the service type matching the concrete type of the mapper with context

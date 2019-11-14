@@ -71,10 +71,12 @@ namespace Menes.Specs.Features
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Adding AspNetCore OpenApi hosting")]
-        public virtual void AddingAspNetCoreOpenApiHosting()
+        [NUnit.Framework.DescriptionAttribute("Adding AspNetCore OpenApi hosting adds the IOpenApiHost for HttpRequest and IActi" +
+            "onResult")]
+        public virtual void AddingAspNetCoreOpenApiHostingAddsTheIOpenApiHostForHttpRequestAndIActionResult()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Adding AspNetCore OpenApi hosting", null, ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Adding AspNetCore OpenApi hosting adds the IOpenApiHost for HttpRequest and IActi" +
+                    "onResult", null, ((string[])(null)));
 #line 6
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
@@ -174,10 +176,14 @@ this.ScenarioInitialize(scenarioInfo);
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Add HAL document mappers with resource type parameter")]
-        public virtual void AddHALDocumentMappersWithResourceTypeParameter()
+        [NUnit.Framework.DescriptionAttribute("Registering HAL document mappers with resource type parameters adds them to the c" +
+            "ontainer with the concrete type, the IHalDocumentMapper interface and the generi" +
+            "c IHalDocumentMapper interface")]
+        public virtual void RegisteringHALDocumentMappersWithResourceTypeParametersAddsThemToTheContainerWithTheConcreteTypeTheIHalDocumentMapperInterfaceAndTheGenericIHalDocumentMapperInterface()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add HAL document mappers with resource type parameter", null, ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Registering HAL document mappers with resource type parameters adds them to the c" +
+                    "ontainer with the concrete type, the IHalDocumentMapper interface and the generi" +
+                    "c IHalDocumentMapper interface", null, ((string[])(null)));
 #line 43
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
@@ -198,10 +204,14 @@ this.ScenarioInitialize(scenarioInfo);
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Add HAL document mappers with resource and context type parameters")]
-        public virtual void AddHALDocumentMappersWithResourceAndContextTypeParameters()
+        [NUnit.Framework.DescriptionAttribute("Registering HAL document mappers with resource and context type parameters adds t" +
+            "hem to the container with the concrete type, the IHalDocumentMapper interface an" +
+            "d the generic IHalDocumentMapper interface")]
+        public virtual void RegisteringHALDocumentMappersWithResourceAndContextTypeParametersAddsThemToTheContainerWithTheConcreteTypeTheIHalDocumentMapperInterfaceAndTheGenericIHalDocumentMapperInterface()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add HAL document mappers with resource and context type parameters", null, ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Registering HAL document mappers with resource and context type parameters adds t" +
+                    "hem to the container with the concrete type, the IHalDocumentMapper interface an" +
+                    "d the generic IHalDocumentMapper interface", null, ((string[])(null)));
 #line 50
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
