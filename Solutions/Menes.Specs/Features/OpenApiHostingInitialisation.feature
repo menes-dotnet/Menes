@@ -11,6 +11,7 @@ Scenario: Adding AspNetCore OpenApi hosting adds the IOpenApiHost for HttpReques
 Scenario: Adding OpenApi hosting enables auditing to console by default
 	Given I have created a service collection to register my services against
 	And I have added AspNetCore OpenApi hosting to the service collection
+	And I have built the service provider from the service collection
 	Then an audit log builder service is added for auditing operations which return OpenApiResults
 	And an audit log builder service is added for auditing operations which return a POCO
 	And an audit log sink service is added for console logging

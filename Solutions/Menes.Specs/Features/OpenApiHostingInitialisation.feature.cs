@@ -104,14 +104,16 @@ this.ScenarioInitialize(scenarioInfo);
 #line 13
  testRunner.And("I have added AspNetCore OpenApi hosting to the service collection", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 14
+ testRunner.And("I have built the service provider from the service collection", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 15
  testRunner.Then("an audit log builder service is added for auditing operations which return OpenAp" +
                     "iResults", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 15
+#line 16
  testRunner.And("an audit log builder service is added for auditing operations which return a POCO" +
                     "", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 16
- testRunner.And("an audit log sink service is added for console logging", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 17
+ testRunner.And("an audit log sink service is added for console logging", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 18
  testRunner.And("auditing is enabled", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -126,18 +128,18 @@ this.ScenarioInitialize(scenarioInfo);
         public virtual void OpenApiHostInitialisationRegistersStandardMenesExceptionTypes(string exceptionType, string mappedResponseCode, string[] exampleTags)
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("OpenApi host initialisation registers standard Menes exception types", null, exampleTags);
-#line 19
+#line 20
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
-#line 20
- testRunner.Given("I have created a service collection to register my services against", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 21
- testRunner.And("I have added AspNetCore OpenApi hosting to the service collection", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.Given("I have created a service collection to register my services against", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 22
- testRunner.And("I have built the service provider from the service collection", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("I have added AspNetCore OpenApi hosting to the service collection", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 23
- testRunner.When("I request an instance of the OpenApi host", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.And("I have built the service provider from the service collection", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 24
+ testRunner.When("I request an instance of the OpenApi host", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 25
  testRunner.Then(string.Format("the exception of type \"{0}\" is mapped to response code \"{1}\"", exceptionType, mappedResponseCode), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -150,26 +152,26 @@ this.ScenarioInitialize(scenarioInfo);
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("OpenApi host initialisation adds link maps from registered IHalDocumentMapper typ" +
                     "es", null, ((string[])(null)));
-#line 33
+#line 34
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
-#line 34
- testRunner.Given("I have created a service collection to register my services against", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 35
- testRunner.And("I have added AspNetCore OpenApi hosting to the service collection", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.Given("I have created a service collection to register my services against", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 36
+ testRunner.And("I have added AspNetCore OpenApi hosting to the service collection", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 37
  testRunner.And("I have registered a HalDocumentMapper for a resource type to the service collecti" +
                     "on", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 37
+#line 38
  testRunner.And("I have registered a HalDocumentMapper for a resource and context type to the serv" +
                     "ice collection", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 38
- testRunner.And("I have built the service provider from the service collection", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 39
- testRunner.When("I request an instance of the OpenApi host", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.And("I have built the service provider from the service collection", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 40
- testRunner.Then("the HalDocumentMapper for resource type has configured its links", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.When("I request an instance of the OpenApi host", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 41
+ testRunner.Then("the HalDocumentMapper for resource type has configured its links", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 42
  testRunner.And("the HalDocumentMapper for resource and context types has configured its links", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -184,19 +186,19 @@ this.ScenarioInitialize(scenarioInfo);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Registering HAL document mappers with resource type parameters adds them to the c" +
                     "ontainer with the concrete type, the IHalDocumentMapper interface and the generi" +
                     "c IHalDocumentMapper interface", null, ((string[])(null)));
-#line 43
+#line 44
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
-#line 44
- testRunner.Given("I have created a service collection to register my services against", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 45
- testRunner.When("I register a HalDocumentMapper for a resource type to the service collection", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.Given("I have created a service collection to register my services against", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 46
+ testRunner.When("I register a HalDocumentMapper for a resource type to the service collection", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 47
  testRunner.Then("it should be added as a Singleton with the service type matching the concrete typ" +
                     "e of the mapper", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 47
- testRunner.And("It should be added as a Singleton with a service type of IHalDocumentMapper", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 48
+ testRunner.And("It should be added as a Singleton with a service type of IHalDocumentMapper", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 49
  testRunner.And("it should be added as a Singleton with a service type of IHalDocumentMapper{TReso" +
                     "urce}", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
@@ -212,20 +214,20 @@ this.ScenarioInitialize(scenarioInfo);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Registering HAL document mappers with resource and context type parameters adds t" +
                     "hem to the container with the concrete type, the IHalDocumentMapper interface an" +
                     "d the generic IHalDocumentMapper interface", null, ((string[])(null)));
-#line 50
+#line 51
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
-#line 51
- testRunner.Given("I have created a service collection to register my services against", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 52
+ testRunner.Given("I have created a service collection to register my services against", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 53
  testRunner.When("I register a HalDocumentMapper for a resource and context type to the service col" +
                     "lection", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 53
+#line 54
  testRunner.Then("it should be added as a Singleton with the service type matching the concrete typ" +
                     "e of the mapper with context", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 54
- testRunner.And("It should be added as a Singleton with a service type of IHalDocumentMapper", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 55
+ testRunner.And("It should be added as a Singleton with a service type of IHalDocumentMapper", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 56
  testRunner.And("it should be added as a Singleton with a service type of IHalDocumentMapper{TReso" +
                     "urce, TContext}", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden

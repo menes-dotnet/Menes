@@ -187,7 +187,7 @@ namespace Menes.Specs.Steps
         [Then(@"auditing is enabled")]
         public void ThenAuditingIsEnabled()
         {
-            AuditContext auditContext = this.scenarioContext.Get<ServiceProvider>().GetRequiredService<AuditContext>();
+            IAuditContext auditContext = this.scenarioContext.Get<ServiceProvider>().GetRequiredService<IAuditContext>();
             Assert.IsTrue(auditContext.IsAuditingEnabled);
         }
 
