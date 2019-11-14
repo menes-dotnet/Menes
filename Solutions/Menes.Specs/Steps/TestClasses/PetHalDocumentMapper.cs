@@ -8,8 +8,11 @@ namespace Menes.Specs.Steps.TestClasses
 
     public class PetHalDocumentMapper : IHalDocumentMapper<Pet>
     {
+        public bool LinkMapConfigured { get; private set; }
+
         public void ConfigureLinkMap(IOpenApiLinkOperationMap links)
         {
+            this.LinkMapConfigured = true;
         }
 
         public HalDocument Map(Pet resource)
