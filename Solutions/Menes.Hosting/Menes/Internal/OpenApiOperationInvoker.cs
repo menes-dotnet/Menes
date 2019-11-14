@@ -79,6 +79,13 @@ namespace Menes.Internal
             try
             {
                 IDictionary<string, object> namedParameters = await this.BuildRequestParametersAsync(request, operationPathTemplate).ConfigureAwait(false);
+
+                // Try to find the tenantID in the parameters, but before we check the access policies.
+                if (namedParameters.TryGetValue("tenantId", out object tenantIdObject) && tenantIdObject is string tenantId)
+                {
+                    context.CurrentTenantId = tenantId;
+                }
+
                 await this.CheckAccessPoliciesAsync(context, path, method, operationPathTemplate.Operation.OperationId).ConfigureAwait(false);
                 object result = openApiServiceOperation.Execute(context, namedParameters);
 
