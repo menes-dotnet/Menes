@@ -3,23 +3,24 @@
 	As a developer
 	I want to be able to add Menes services and related components to my service collection
 
-Scenario: Adding AspNetCore OpenApi hosting adds the IOpenApiHost for HttpRequest and IActionResult
+Background:
 	Given I have created a service collection to register my services against
+
+Scenario: Adding AspNetCore OpenApi hosting adds the IOpenApiHost for HttpRequest and IActionResult
 	When I add AspNetCore OpenApi hosting to the service collection
-	Then a service is added as a Singleton for type IOpenApiHost{HttpRequest, IActionResult}
+	And I build the service provider from the service collection
+	Then a service is available as a Singleton for type IOpenApiHost{HttpRequest, IActionResult}
 
 Scenario: Adding OpenApi hosting enables auditing to console by default
-	Given I have created a service collection to register my services against
-	And I have added AspNetCore OpenApi hosting to the service collection
+	Given I have added AspNetCore OpenApi hosting to the service collection
 	And I have built the service provider from the service collection
-	Then an audit log builder service is added for auditing operations which return OpenApiResults
-	And an audit log builder service is added for auditing operations which return a POCO
-	And an audit log sink service is added for console logging
+	Then an audit log builder service is available for auditing operations which return OpenApiResults
+	And an audit log builder service is available for auditing operations which return a POCO
+	And an audit log sink service is available for console logging
 	And auditing is enabled
 
-Scenario Outline: OpenApi host initialisation registers standard Menes exception types
-	Given I have created a service collection to register my services against
-	And I have added AspNetCore OpenApi hosting to the service collection
+Scenario Outline: OpenApi host initialisation maps standard Menes exception types to their corresponding HTTP status codes
+	Given I have added AspNetCore OpenApi hosting to the service collection
 	And I have built the service provider from the service collection
 	When I request an instance of the OpenApi host
 	Then the exception of type '<Exception Type>' is mapped to response code '<Mapped Response Code>'
@@ -32,8 +33,7 @@ Scenario Outline: OpenApi host initialisation registers standard Menes exception
 	| Menes.Exceptions.OpenApiNotFoundException, Menes.Abstractions     | 404                  |
 
 Scenario: OpenApi host initialisation adds link maps from registered IHalDocumentMapper types
-	Given I have created a service collection to register my services against
-	And I have added AspNetCore OpenApi hosting to the service collection
+	Given I have added AspNetCore OpenApi hosting to the service collection
 	And I have registered a HalDocumentMapper for a resource type to the service collection
 	And I have registered a HalDocumentMapper for a resource and context type to the service collection
 	And I have built the service provider from the service collection
@@ -42,15 +42,15 @@ Scenario: OpenApi host initialisation adds link maps from registered IHalDocumen
 	And the HalDocumentMapper for resource and context types has configured its links
 
 Scenario: Registering HAL document mappers with resource type parameters adds them to the container with the concrete type, the IHalDocumentMapper interface and the generic IHalDocumentMapper interface
-	Given I have created a service collection to register my services against
 	When I register a HalDocumentMapper for a resource type to the service collection
-	Then it should be added as a Singleton with the service type matching the concrete type of the mapper
-	And It should be added as a Singleton with a service type of IHalDocumentMapper
-	And it should be added as a Singleton with a service type of IHalDocumentMapper{TResource}
+	And I build the service provider from the service collection
+	Then it should be available as a Singleton with the service type matching the concrete type of the mapper
+	And It should be available as a Singleton with a service type of IHalDocumentMapper
+	And it should be available as a Singleton with a service type of IHalDocumentMapper{TResource}
 
 Scenario: Registering HAL document mappers with resource and context type parameters adds them to the container with the concrete type, the IHalDocumentMapper interface and the generic IHalDocumentMapper interface
-	Given I have created a service collection to register my services against
 	When I register a HalDocumentMapper for a resource and context type to the service collection
-	Then it should be added as a Singleton with the service type matching the concrete type of the mapper with context
-	And It should be added as a Singleton with a service type of IHalDocumentMapper
-	And it should be added as a Singleton with a service type of IHalDocumentMapper{TResource, TContext}
+	And I build the service provider from the service collection
+	Then it should be available as a Singleton with the service type matching the concrete type of the mapper with context
+	And It should be available as a Singleton with a service type of IHalDocumentMapper
+	And it should be available as a Singleton with a service type of IHalDocumentMapper{TResource, TContext}

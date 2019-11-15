@@ -41,10 +41,11 @@ namespace Menes.Specs.Steps
             ServiceCollection collection = this.scenarioContext.Get<ServiceCollection>();
 
             collection.AddLogging();
-            collection.AddOpenApiHttpRequestHosting<SimpleOpenApiContext>(config => { }, null);
+            collection.AddOpenApiHttpRequestHosting<SimpleOpenApiContext>(_ => { }, null);
         }
 
         [Given("I have built the service provider from the service collection")]
+        [When("I build the service provider from the service collection")]
         public void GivenIHaveBuiltTheServiceCollection()
         {
             ServiceProvider provider = this.scenarioContext.Get<ServiceCollection>().BuildServiceProvider();
@@ -66,58 +67,46 @@ namespace Menes.Specs.Steps
                 .AddHalDocumentMapper<Pet, MappingContext, PetHalDocumentMapperWithContext>();
         }
 
-        [Then("a service is added as a Singleton for type IOpenApiHost{HttpRequest, IActionResult}")]
+        [Then("a service is available as a Singleton for type IOpenApiHost{HttpRequest, IActionResult}")]
         public void ThenAServiceIsAddedAsASingletonForTypeIOpenApiHostHttpRequestIActionResult()
         {
-            ServiceDescriptor registration = this.scenarioContext.Get<ServiceCollection>()
-                .FirstOrDefault(x => x.ServiceType == typeof(IOpenApiHost<HttpRequest, IActionResult>));
-            Assert.NotNull(registration);
-            Assert.AreEqual(ServiceLifetime.Singleton, registration.Lifetime);
+            this.AssertServiceIsAvailableFromServiceProvider<IOpenApiHost<HttpRequest, IActionResult>>();
+            this.AssertServiceIsASingleton<IOpenApiHost<HttpRequest, IActionResult>>();
         }
 
-        [Then("it should be added as a Singleton with the service type matching the concrete type of the mapper")]
-        public void ThenItShouldBeAddedAsASingletonWithTheServiceTypeMatchingTheMapperType()
+        [Then("it should be available as a Singleton with the service type matching the concrete type of the mapper")]
+        public void ThenItShouldBeAvailableAsASingletonWithTheServiceTypeMatchingTheMapperType()
         {
-            ServiceDescriptor registration = this.scenarioContext.Get<ServiceCollection>()
-                .FirstOrDefault(x => x.ServiceType == typeof(PetHalDocumentMapper));
-            Assert.NotNull(registration);
-            Assert.AreEqual(ServiceLifetime.Singleton, registration.Lifetime);
+            this.AssertServiceIsAvailableFromServiceProvider<PetHalDocumentMapper>();
+            this.AssertServiceIsASingleton<PetHalDocumentMapper>();
         }
 
-        [Then("it should be added as a Singleton with the service type matching the concrete type of the mapper with context")]
-        public void ThenItShouldBeAddedAsASingletonWithTheServiceTypeMatchingTheMapperTypeWithContext()
+        [Then("it should be available as a Singleton with the service type matching the concrete type of the mapper with context")]
+        public void ThenItShouldBeAvailableAsASingletonWithTheServiceTypeMatchingTheMapperTypeWithContext()
         {
-            ServiceDescriptor registration = this.scenarioContext.Get<ServiceCollection>()
-                .FirstOrDefault(x => x.ServiceType == typeof(PetHalDocumentMapperWithContext));
-            Assert.NotNull(registration);
-            Assert.AreEqual(ServiceLifetime.Singleton, registration.Lifetime);
+            this.AssertServiceIsAvailableFromServiceProvider<PetHalDocumentMapperWithContext>();
+            this.AssertServiceIsASingleton<PetHalDocumentMapperWithContext>();
         }
 
-        [Then("It should be added as a Singleton with a service type of IHalDocumentMapper")]
-        public void ThenItShouldBeAddedAsASingletonWithAServiceTypeOfIHalDocumentMapper()
+        [Then("It should be available as a Singleton with a service type of IHalDocumentMapper")]
+        public void ThenItShouldBeAvailableAsASingletonWithAServiceTypeOfIHalDocumentMapper()
         {
-            ServiceDescriptor registration = this.scenarioContext.Get<ServiceCollection>()
-                .FirstOrDefault(x => x.ServiceType == typeof(IHalDocumentMapper));
-            Assert.NotNull(registration);
-            Assert.AreEqual(ServiceLifetime.Singleton, registration.Lifetime);
+            this.AssertServiceIsAvailableFromServiceProvider<IHalDocumentMapper>();
+            this.AssertServiceIsASingleton<IHalDocumentMapper>();
         }
 
-        [Then("it should be added as a Singleton with a service type of IHalDocumentMapper{TResource}")]
-        public void ThenItShouldBeAddedAsASingletonWithAServiceTypeOfIHalDocumentMapperTResource()
+        [Then("it should be available as a Singleton with a service type of IHalDocumentMapper{TResource}")]
+        public void ThenItShouldBeAvailableAsASingletonWithAServiceTypeOfIHalDocumentMapperTResource()
         {
-            ServiceDescriptor registration = this.scenarioContext.Get<ServiceCollection>()
-                .FirstOrDefault(x => x.ServiceType == typeof(IHalDocumentMapper<Pet>));
-            Assert.NotNull(registration);
-            Assert.AreEqual(ServiceLifetime.Singleton, registration.Lifetime);
+            this.AssertServiceIsAvailableFromServiceProvider<IHalDocumentMapper<Pet>>();
+            this.AssertServiceIsASingleton<IHalDocumentMapper<Pet>>();
         }
 
-        [Then("it should be added as a Singleton with a service type of IHalDocumentMapper{TResource, TContext}")]
-        public void ThenItShouldBeAddedAsASingletonWithAServiceTypeOfIHalDocumentMapperWithResourceAndContext()
+        [Then("it should be available as a Singleton with a service type of IHalDocumentMapper{TResource, TContext}")]
+        public void ThenItShouldBeAvailableAsASingletonWithAServiceTypeOfIHalDocumentMapperWithResourceAndContext()
         {
-            ServiceDescriptor registration = this.scenarioContext.Get<ServiceCollection>()
-                .FirstOrDefault(x => x.ServiceType == typeof(IHalDocumentMapper<Pet, MappingContext>));
-            Assert.NotNull(registration);
-            Assert.AreEqual(ServiceLifetime.Singleton, registration.Lifetime);
+            this.AssertServiceIsAvailableFromServiceProvider<IHalDocumentMapper<Pet, MappingContext>>();
+            this.AssertServiceIsASingleton<IHalDocumentMapper<Pet, MappingContext>>();
         }
 
         [When("I request an instance of the OpenApi host")]
@@ -175,22 +164,22 @@ namespace Menes.Specs.Steps
             }
         }
 
-        [Then("an audit log builder service is added for auditing operations which return OpenApiResults")]
+        [Then("an audit log builder service is available for auditing operations which return OpenApiResults")]
         public void ThenAnAuditLogBuilderServiceIsAddedForAuditingOperationsWhichReturnOpenApiResults()
         {
-            this.AssertServiceIsRegistered<IAuditLogBuilder, OpenApiResultAuditLogBuilder>();
+            this.AssertServiceIsAvailableFromServiceProvider<IAuditLogBuilder, OpenApiResultAuditLogBuilder>();
         }
 
-        [Then("an audit log builder service is added for auditing operations which return a POCO")]
+        [Then("an audit log builder service is available for auditing operations which return a POCO")]
         public void ThenAnAuditLogBuilderServiceIsAddedForAuditingOperationsWhichReturnAPoco()
         {
-            this.AssertServiceIsRegistered<IAuditLogBuilder, PocoAuditLogBuilder>();
+            this.AssertServiceIsAvailableFromServiceProvider<IAuditLogBuilder, PocoAuditLogBuilder>();
         }
 
-        [Then("an audit log sink service is added for console logging")]
+        [Then("an audit log sink service is available for console logging")]
         public void ThenAnAuditLogSinkServiceIsAddedForConsoleLogging()
         {
-            this.AssertServiceIsRegistered<IAuditLogSink, ConsoleAuditLogSink>();
+            this.AssertServiceIsAvailableFromServiceProvider<IAuditLogSink, ConsoleAuditLogSink>();
         }
 
         [Then("auditing is enabled")]
@@ -200,11 +189,32 @@ namespace Menes.Specs.Steps
             Assert.IsTrue(auditContext.IsAuditingEnabled);
         }
 
-        private void AssertServiceIsRegistered<TService, TImplementation>()
+        private void AssertServiceIsAvailableFromServiceProvider<TService>()
         {
-            bool expectedServiceIsRegistered = this.scenarioContext.Get<ServiceCollection>()
-                .Any(x => x.ServiceType == typeof(TService) && x.ImplementationType == typeof(TImplementation));
-            Assert.IsTrue(expectedServiceIsRegistered);
+            TService service = this.scenarioContext.Get<ServiceProvider>().GetService<TService>();
+            
+            Assert.IsNotNull(service);
+        }
+
+        private void AssertServiceIsAvailableFromServiceProvider<TService, TExpectedConcreteType>()
+        {
+            TService[] services = this.scenarioContext.Get<ServiceProvider>().GetServices<TService>().ToArray();
+
+            Assert.IsNotEmpty(services);
+            Assert.IsTrue(services.Any(x => typeof(TExpectedConcreteType) == x.GetType()));
+        }
+
+        private void AssertServiceIsASingleton<TService>()
+        {
+            ServiceProvider provider = this.scenarioContext.Get<ServiceProvider>();
+
+            using IServiceScope scope1 = provider.CreateScope();
+            using IServiceScope scope2 = provider.CreateScope();
+
+            TService serviceInScope1 = scope1.ServiceProvider.GetRequiredService<TService>();
+            TService serviceInScope2 = scope2.ServiceProvider.GetRequiredService<TService>();
+            
+            Assert.AreSame(serviceInScope1, serviceInScope2);
         }
     }
 }
