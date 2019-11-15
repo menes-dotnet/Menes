@@ -22,7 +22,7 @@ Scenario Outline: OpenApi host initialisation registers standard Menes exception
 	And I have added AspNetCore OpenApi hosting to the service collection
 	And I have built the service provider from the service collection
 	When I request an instance of the OpenApi host
-	Then the exception of type "<Exception Type>" is mapped to response code "<Mapped Response Code>"
+	Then the exception of type '<Exception Type>' is mapped to response code '<Mapped Response Code>'
 
 	Examples:
 	| Exception Type                                                    | Mapped Response Code |
