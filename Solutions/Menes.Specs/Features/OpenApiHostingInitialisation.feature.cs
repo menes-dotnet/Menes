@@ -130,14 +130,16 @@ this.FeatureBackground();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("OpenApi host initialisation registers standard Menes exception types")]
+        [NUnit.Framework.DescriptionAttribute("OpenApi host initialisation maps standard Menes exception types to their correspo" +
+            "nding HTTP status codes")]
         [NUnit.Framework.TestCaseAttribute("Menes.Exceptions.OpenApiBadRequestException, Menes.Abstractions", "400", null)]
         [NUnit.Framework.TestCaseAttribute("Menes.Exceptions.OpenApiUnauthorizedException, Menes.Abstractions", "401", null)]
         [NUnit.Framework.TestCaseAttribute("Menes.Exceptions.OpenApiForbiddenException, Menes.Abstractions", "403", null)]
         [NUnit.Framework.TestCaseAttribute("Menes.Exceptions.OpenApiNotFoundException, Menes.Abstractions", "404", null)]
-        public virtual void OpenApiHostInitialisationRegistersStandardMenesExceptionTypes(string exceptionType, string mappedResponseCode, string[] exampleTags)
+        public virtual void OpenApiHostInitialisationMapsStandardMenesExceptionTypesToTheirCorrespondingHTTPStatusCodes(string exceptionType, string mappedResponseCode, string[] exampleTags)
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("OpenApi host initialisation registers standard Menes exception types", null, exampleTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("OpenApi host initialisation maps standard Menes exception types to their correspo" +
+                    "nding HTTP status codes", null, exampleTags);
 #line 22
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();

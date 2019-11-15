@@ -232,14 +232,14 @@ namespace Menes.Specs.Steps
         [Then("the invoker should return the result from the result builder")]
         public async Task ThenTheInvokerShouldReturnTheResultFromTheResultBuilder()
         {
-            object result = await this.invokerResultTask;
+            object result = await this.invokerResultTask.ConfigureAwait(false);
             Assert.AreSame(this.resultBuilderResult, result);
         }
 
         [Then("invoker should return a (.*) error result")]
         public async Task ThenInvokerShouldReturnAErrorResult(int statusCode)
         {
-            object result = await this.invokerResultTask;
+            object result = await this.invokerResultTask.ConfigureAwait(false);
             Assert.AreSame(this.resultBuilderErrorResult, result);
             this.resultBuilder.Verify(m => m.BuildErrorResult(statusCode));
         }

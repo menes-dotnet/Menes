@@ -42,8 +42,8 @@ namespace Menes.Links
             AddHalDocumentLinksToMap(
                 target,
                 linkMap,
-                !options.HasFlag(HalDocumentLinkRemovalOptions.NonRecursive),
-                options.HasFlag(HalDocumentLinkRemovalOptions.Unsafe));
+                (options & HalDocumentLinkRemovalOptions.NonRecursive) == 0,
+                (options & HalDocumentLinkRemovalOptions.Unsafe) != 0);
 
             // Build a second map of operation descriptors (needed to invoke the access policy check) to our OpenApiWebLinks.
             var operationDescriptorMap = linkMap

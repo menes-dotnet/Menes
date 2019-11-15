@@ -113,7 +113,7 @@ namespace Menes.Specs.Steps
         public void WhenIRequestAnInstanceOfTheOpenApiHost()
         {
             ServiceProvider provider = this.scenarioContext.Get<ServiceProvider>();
-            IOpenApiHost<HttpRequest, IActionResult> host = 
+            IOpenApiHost<HttpRequest, IActionResult> host =
                 provider.GetRequiredService<IOpenApiHost<HttpRequest, IActionResult>>();
 
             this.scenarioContext.Set(host);
@@ -149,7 +149,7 @@ namespace Menes.Specs.Steps
                 .GetType()
                 .GetMethods()
                 .First(x => x.Name == "Map" && x.GetGenericArguments().Length == 1);
-            
+
             MethodInfo createdMapMethod = mapMethod.MakeGenericMethod(type);
 
             try
@@ -192,7 +192,7 @@ namespace Menes.Specs.Steps
         private void AssertServiceIsAvailableFromServiceProvider<TService>()
         {
             TService service = this.scenarioContext.Get<ServiceProvider>().GetService<TService>();
-            
+
             Assert.IsNotNull(service);
         }
 
@@ -213,7 +213,7 @@ namespace Menes.Specs.Steps
 
             TService serviceInScope1 = scope1.ServiceProvider.GetRequiredService<TService>();
             TService serviceInScope2 = scope2.ServiceProvider.GetRequiredService<TService>();
-            
+
             Assert.AreSame(serviceInScope1, serviceInScope2);
         }
     }
