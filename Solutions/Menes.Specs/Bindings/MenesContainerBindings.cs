@@ -4,12 +4,8 @@
 
 namespace Marain.Claims.SpecFlow.Bindings
 {
-    using System.Collections.Generic;
     using Corvus.SpecFlow.Extensions;
     using Menes;
-    using Menes.Hal;
-    using Menes.Hal.Internal;
-    using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using TechTalk.SpecFlow;
 

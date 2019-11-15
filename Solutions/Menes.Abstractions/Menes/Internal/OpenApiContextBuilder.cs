@@ -27,7 +27,7 @@ namespace Menes.Internal
         }
 
         /// <inheritdoc/>
-        public async Task<IOpenApiContext> BuildAsync(TRequest request, dynamic parameters)
+        public async Task<IOpenApiContext> BuildAsync(TRequest request, object parameters)
         {
             var context = new TContextType
             {

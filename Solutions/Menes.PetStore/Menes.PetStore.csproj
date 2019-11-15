@@ -11,6 +11,10 @@
   <Import Project="..\Common.NetStandard_2_0.proj" />
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Http" Version="2.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Menes.Abstractions\Menes.Abstractions.csproj" />
   </ItemGroup>
 

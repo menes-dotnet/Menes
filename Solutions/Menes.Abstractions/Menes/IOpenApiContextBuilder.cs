@@ -19,6 +19,6 @@ namespace Menes
         /// <param name="parameters">A dynamic parameters object for the context builder.</param>
         /// <returns>The context for the request.</returns>
         /// <remarks>The parameters are defined by the particular context builder, and may include e.g. tenancy.</remarks>
-        Task<IOpenApiContext> BuildAsync(TRequest request, dynamic parameters);
+        Task<IOpenApiContext> BuildAsync(TRequest request, object parameters);
     }
 }

@@ -14,7 +14,6 @@ namespace Menes
     /// <typeparam name="TResponse">The type of the repsonse.</typeparam>
     public class OpenApiHost<TRequest, TResponse> : IOpenApiHost<TRequest, TResponse>
     {
-        private readonly IOpenApiServiceOperationLocator operationLocator;
         private readonly IPathMatcher matcher;
         private readonly IOpenApiContextBuilder<TRequest> contextBuilder;
         private readonly IOpenApiOperationInvoker<TRequest, TResponse> operationInvoker;
@@ -23,14 +22,12 @@ namespace Menes
         /// <summary>
         /// Creates an instance of the <see cref="OpenApiHost{TRequest, TResponse}"/>.
         /// </summary>
-        /// <param name="operationLocator">The operation locator.</param>
         /// <param name="matcher">The path matcher.</param>
         /// <param name="contextBuilder">The OpenAPI context builder.</param>
         /// <param name="operationInvoker">The OpenAPI operation invoker.</param>
         /// <param name="resultBuilder">The OpenAPI result builder.</param>
-        public OpenApiHost(IOpenApiServiceOperationLocator operationLocator, IPathMatcher matcher, IOpenApiContextBuilder<TRequest> contextBuilder, IOpenApiOperationInvoker<TRequest, TResponse> operationInvoker, IOpenApiResultBuilder<TResponse> resultBuilder)
+        public OpenApiHost(IPathMatcher matcher, IOpenApiContextBuilder<TRequest> contextBuilder, IOpenApiOperationInvoker<TRequest, TResponse> operationInvoker, IOpenApiResultBuilder<TResponse> resultBuilder)
         {
-            this.operationLocator = operationLocator;
             this.matcher = matcher;
             this.contextBuilder = contextBuilder;
             this.operationInvoker = operationInvoker;
@@ -38,7 +35,7 @@ namespace Menes
         }
 
         /// <inheritdoc/>
-        public async Task<TResponse> HandleRequestAsync(string path, string method, TRequest request, dynamic parameters)
+        public async Task<TResponse> HandleRequestAsync(string path, string method, TRequest request, object parameters)
         {
             IOpenApiContext context = await this.BuildContextAsync(request, parameters).ConfigureAwait(false);
 
@@ -68,7 +65,7 @@ namespace Menes
         /// <param name="request">The request from which to build the OpenAPI context.</param>
         /// <param name="parameters">The dynamically built parameters from which to build the context.</param>
         /// <returns>A <see cref="Task{TResult}"/> which, when complete, provides the <see cref="IOpenApiContext"/>.</returns>
-        private async Task<IOpenApiContext> BuildContextAsync(TRequest request, dynamic parameters)
+        private async Task<IOpenApiContext> BuildContextAsync(TRequest request, object parameters)
         {
             return await this.contextBuilder.BuildAsync(request, parameters).ConfigureAwait(false);
         }

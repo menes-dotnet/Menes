@@ -79,6 +79,13 @@ namespace Menes.Internal
             try
             {
                 IDictionary<string, object> namedParameters = await this.BuildRequestParametersAsync(request, operationPathTemplate).ConfigureAwait(false);
+
+                // Try to find the tenantID in the parameters, but before we check the access policies.
+                if (namedParameters.TryGetValue("tenantId", out object tenantIdObject) && tenantIdObject is string tenantId)
+                {
+                    context.CurrentTenantId = tenantId;
+                }
+
                 await this.CheckAccessPoliciesAsync(context, path, method, operationPathTemplate.Operation.OperationId).ConfigureAwait(false);
                 object result = openApiServiceOperation.Execute(context, namedParameters);
 
@@ -174,26 +181,14 @@ namespace Menes.Internal
 
             if (result.ResultType == AccessControlPolicyResultType.NotAuthenticated)
             {
-                Exception x;
-                switch (this.configuration.AccessPolicyUnauthenticatedResponse)
+                Exception x = this.configuration.AccessPolicyUnauthenticatedResponse switch
                 {
-                    case ResponseWhenUnauthenticated.Unauthorized:
-                        x = new OpenApiUnauthorizedException("Unauthorized");
-                        break;
+                    ResponseWhenUnauthenticated.Unauthorized => new OpenApiUnauthorizedException("Unauthorized"),
+                    ResponseWhenUnauthenticated.Forbidden    => OpenApiForbiddenException.WithoutProblemDetails("Forbidden"),
+                    ResponseWhenUnauthenticated.ServerError  => new OpenApiServiceMismatchException("Unauthenticated requests should not be reaching this service"),
 
-                    case ResponseWhenUnauthenticated.Forbidden:
-                        x = OpenApiForbiddenException.WithoutProblemDetails("Forbidden");
-                        break;
-
-                    case ResponseWhenUnauthenticated.ServerError:
-                        x = new OpenApiServiceMismatchException("Unauthenticated requests should not be reaching this service");
-                        break;
-
-                    default:
-                        x = new OpenApiServiceMismatchException($"Unknown AccessPolicyUnauthenticatedResponse: {this.configuration.AccessPolicyUnauthenticatedResponse}");
-                        break;
-                }
-
+                    _ => new OpenApiServiceMismatchException($"Unknown AccessPolicyUnauthenticatedResponse: {this.configuration.AccessPolicyUnauthenticatedResponse}"),
+                };
                 if (!string.IsNullOrWhiteSpace(result.Explanation))
                 {
                     x.AddProblemDetailsExplanation(result.Explanation);

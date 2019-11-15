@@ -115,7 +115,6 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddSingleton((Func<IServiceProvider, IOpenApiHost<TRequest, TResponse>>)(serviceProvider =>
             {
                 var result = new OpenApiHost<TRequest, TResponse>(
-                        serviceProvider.GetRequiredService<IOpenApiServiceOperationLocator>(),
                         serviceProvider.GetRequiredService<IPathMatcher>(),
                         serviceProvider.GetRequiredService<IOpenApiContextBuilder<TRequest>>(),
                         serviceProvider.GetRequiredService<IOpenApiOperationInvoker<TRequest, TResponse>>(),

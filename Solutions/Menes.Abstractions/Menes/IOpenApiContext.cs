@@ -24,6 +24,6 @@ namespace Menes
         /// <summary>
         /// Gets or sets additional context for the request.
         /// </summary>
-        dynamic AdditionalContext { get; set;  }
+        object AdditionalContext { get; set;  }
     }
 }
