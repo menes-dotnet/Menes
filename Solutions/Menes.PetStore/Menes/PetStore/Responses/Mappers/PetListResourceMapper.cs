@@ -45,12 +45,12 @@ namespace Menes.PetStore.Responses.Mappers
             HalDocument response = this.halDocumentFactory.CreateHalDocumentFrom(pets);
             response.AddEmbeddedResources(PetsRelation, pets.Pets.Select(this.petResourceMapper.Map));
 
-            response.ResolveAndAdd(this.linkResolver, response, "self", ("limit", pets.PageSize), ("continuationToken", pets.CurrentContinuationToken));
-            response.ResolveAndAdd(this.linkResolver, response, "create");
+            response.ResolveAndAdd(this.linkResolver, pets, "self", ("limit", pets.PageSize), ("continuationToken", pets.CurrentContinuationToken));
+            response.ResolveAndAdd(this.linkResolver, pets, "create");
 
             if (!string.IsNullOrEmpty(pets.NextContinuationToken))
             {
-                response.ResolveAndAdd(this.linkResolver, response, "next", ("limit", pets.PageSize), ("continuationToken", pets.NextContinuationToken));
+                response.ResolveAndAdd(this.linkResolver, pets, "next", ("limit", pets.PageSize), ("continuationToken", pets.NextContinuationToken));
             }
 
             return response;

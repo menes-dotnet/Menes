@@ -26,6 +26,7 @@ namespace Menes.PetStore.Hosting
             IServiceCollection services = builder.Services;
 
             services.AddLogging();
+            services.AddHttpClient();
 
             services.AddHalDocumentMapper<PetResource, PetResourceMapper>();
             services.AddHalDocumentMapper<PetListResource, PetListResourceMapper>();
@@ -43,12 +44,14 @@ namespace Menes.PetStore.Hosting
 
         private static void LoadDocuments(IOpenApiHostConfiguration hostConfig)
         {
+            OpenApiDocument openApiDocument;
             using (FileStream stream = File.OpenRead(".\\yaml\\petstore.yaml"))
             {
-                OpenApiDocument openApiDocument = new OpenApiStreamReader().Read(stream, out OpenApiDiagnostic diagnostics);
-                hostConfig.Documents.Add(openApiDocument);
-                hostConfig.Documents.AddSwaggerEndpoint();
+                openApiDocument = new OpenApiStreamReader().Read(stream, out _);
             }
+
+            hostConfig.Documents.Add(openApiDocument);
+            hostConfig.Documents.AddSwaggerEndpoint();
         }
     }
 }
