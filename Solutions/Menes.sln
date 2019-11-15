@@ -15,7 +15,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Demo", "Demo", "{9F5741F1-1
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Menes.PetStore.Hosting", "Menes.PetStore.Hosting\Menes.PetStore.Hosting.csproj", "{C5D7A4FA-88FB-4E7F-BB49-2B1F19323DD0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Menes.Specs", "Menes.Specs\Menes.Specs.csproj", "{D4255494-ACA0-4F19-8425-AE5B134A9C7F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Menes.Specs", "Menes.Specs\Menes.Specs.csproj", "{D4255494-ACA0-4F19-8425-AE5B134A9C7F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7D2D4E50-99AF-4F25-A28C-A8A391641070}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		Common.GitHub.proj = Common.GitHub.proj
+		Common.NetStandard_2_0.proj = Common.NetStandard_2_0.proj
+		Common.NuGet.proj = Common.NuGet.proj
+		Directory.build.props = Directory.build.props
+		Directory.build.targets = Directory.build.targets
+		stylecop.json = stylecop.json
+		StyleCop.ruleset = StyleCop.ruleset
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

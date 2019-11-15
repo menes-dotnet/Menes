@@ -9,7 +9,6 @@ namespace Menes.Specs.Steps
 {
     using System;
     using System.Collections.Generic;
-    using System.IO;
     using System.Linq;
     using System.Reflection;
     using Menes.Internal;
@@ -34,17 +33,15 @@ namespace Menes.Specs.Steps
         [Given("I have initialised the OpenApiDocument provider from test YAML file '(.*)'")]
         public void GivenIHaveInitialisedTheOpenApiDocumentProviderFromTestYAMLFile(string embeddedResourceName)
         {
-            using (Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(embeddedResourceName))
-            {
-                OpenApiDocument document = new OpenApiStreamReader().Read(stream, out OpenApiDiagnostic diagnostic);
+            OpenApiDocument document = OpenApiServiceDefinitions.ReadOpenApiServiceFromEmbeddedDefinitionWithDiagnostics(
+                Assembly.GetExecutingAssembly(), embeddedResourceName, out OpenApiDiagnostic diagnostic);
 
-                Assert.IsEmpty(diagnostic.Errors);
+            Assert.IsEmpty(diagnostic.Errors);
 
-                var documentProvider = new OpenApiDocumentProvider(new LoggerFactory().CreateLogger<OpenApiDocumentProvider>());
-                documentProvider.Add(document);
+            var documentProvider = new OpenApiDocumentProvider(new LoggerFactory().CreateLogger<OpenApiDocumentProvider>());
+            documentProvider.Add(document);
 
-                this.scenarioContext.Set<IOpenApiDocumentProvider>(documentProvider);
-            }
+            this.scenarioContext.Set<IOpenApiDocumentProvider>(documentProvider);
         }
 
         [Given("I have mapped link relations by type")]

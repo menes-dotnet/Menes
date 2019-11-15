@@ -5,7 +5,6 @@
 namespace Menes.Hal.Internal
 {
     using System;
-    using Menes.Links;
     using Microsoft.Extensions.DependencyInjection;
 
     /// <summary>

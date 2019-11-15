@@ -20,27 +20,19 @@ namespace Menes.Internal
         /// <exception cref="ArgumentException">Thrown if the method string is unsupported.</exception>
         public static OperationType ToOperationType(this string httpMethod)
         {
-            switch (httpMethod.ToLowerInvariant())
+            return httpMethod.ToLowerInvariant() switch
             {
-                case "delete":
-                    return OperationType.Delete;
-                case "get":
-                    return OperationType.Get;
-                case "head":
-                    return OperationType.Head;
-                case "options":
-                    return OperationType.Options;
-                case "patch":
-                    return OperationType.Patch;
-                case "post":
-                    return OperationType.Post;
-                case "put":
-                    return OperationType.Put;
-                case "trace":
-                    return OperationType.Trace;
-                default:
-                    throw new ArgumentException("Unsupported Http Method", nameof(httpMethod));
-            }
+                "delete"  => OperationType.Delete,
+                "get"     => OperationType.Get,
+                "head"    => OperationType.Head,
+                "options" => OperationType.Options,
+                "patch"   => OperationType.Patch,
+                "post"    => OperationType.Post,
+                "put"     => OperationType.Put,
+                "trace"   => OperationType.Trace,
+
+                _ => throw new ArgumentException("Unsupported Http Method", nameof(httpMethod)),
+            };
         }
     }
 }

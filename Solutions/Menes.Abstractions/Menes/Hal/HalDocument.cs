@@ -6,9 +6,7 @@ namespace Menes.Hal
 {
     using System.Collections.Generic;
     using System.Linq;
-    using Corvus.ContentHandling;
     using Corvus.Extensions.Json;
-    using Menes.Internal;
     using Menes.Links;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Linq;
@@ -132,18 +130,16 @@ namespace Menes.Hal
                 return true;
             }
 
-            using (JsonReader reader = this.Properties.CreateReader())
+            using JsonReader reader = this.Properties.CreateReader();
+            try
             {
-                try
-                {
-                    result = JsonSerializer.Create(this.SerializerSettings).Deserialize<T>(reader);
-                    return true;
-                }
-                catch (JsonSerializationException)
-                {
-                    result = default;
-                    return false;
-                }
+                result = JsonSerializer.Create(this.SerializerSettings).Deserialize<T>(reader);
+                return true;
+            }
+            catch (JsonSerializationException)
+            {
+                result = default;
+                return false;
             }
         }
 
