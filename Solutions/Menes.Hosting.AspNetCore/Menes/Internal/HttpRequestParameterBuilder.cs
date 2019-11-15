@@ -519,7 +519,8 @@ namespace Menes.Internal
             this.logger.LogError(
                 "Failed to convert value with [{schema}]",
                 schema.GetLoggingInformation());
-            throw new NotImplementedException();
+
+            throw new OpenApiServiceMismatchException($"Unable to convert value to match [{schema.GetLoggingInformation()}]");
         }
     }
 }

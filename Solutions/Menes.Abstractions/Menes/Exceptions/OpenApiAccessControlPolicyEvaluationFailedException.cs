@@ -100,7 +100,7 @@ namespace Menes.Exceptions
                 this.AddProblemDetailsExtension("Policy Name", this.PolicyName);
             }
 
-            if (this.Requests != null && this.Requests.Length > 0)
+            if (this.Requests?.Length > 0)
             {
                 this.AddProblemDetailsExtension("Requests", string.Join(Environment.NewLine, this.Requests.Select(r => $"{r.OperationId}: {r.Method} {r.Path}")));
             }

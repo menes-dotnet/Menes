@@ -34,7 +34,7 @@ namespace Menes.Hal
         /// <summary>
         /// Gets the serializer settings for the HAL document.
         /// </summary>
-        public JsonSerializerSettings SerializerSettings { get; private set; }
+        public JsonSerializerSettings SerializerSettings { get; }
 
         /// <summary>
         /// Gets the properites for the HalDocument.

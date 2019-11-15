@@ -79,7 +79,6 @@ namespace Menes.Specs.Steps
             document.AddEmbeddedResource("somerel", halDocumentFactory.CreateHalDocument());
         }
 
-
         [Then("the properties of the domain class should be serialized as top level properties in the JSON")]
         public void ThenThePropertiesOfTheDomainClassShouldBeSerializedAsTopLevelPropertiesInTheJSON()
         {

@@ -31,10 +31,7 @@ namespace Menes.PetStore.Hosting
             services.AddHalDocumentMapper<PetResource, PetResourceMapper>();
             services.AddHalDocumentMapper<PetListResource, PetListResourceMapper>();
 
-            services.AddOpenApiHttpRequestHosting<SimpleOpenApiContext>(hostConfig =>
-            {
-                LoadDocuments(hostConfig);
-            });
+            _ = services.AddOpenApiHttpRequestHosting<SimpleOpenApiContext>(LoadDocuments);
 
             // We can add all the services here
             // We will only actually *provide* services that are in the YAML file(s) we load below
