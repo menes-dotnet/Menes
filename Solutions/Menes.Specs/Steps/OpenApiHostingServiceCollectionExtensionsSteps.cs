@@ -182,7 +182,7 @@ namespace Menes.Specs.Steps
         }
 
         [Then("an audit log builder service is added for auditing operations which return a POCO")]
-        public void ThenAnAuditLogBuilderServiceIsAddedForAuditingOperationsWhichReturnAPOCO()
+        public void ThenAnAuditLogBuilderServiceIsAddedForAuditingOperationsWhichReturnAPoco()
         {
             this.AssertServiceIsRegistered<IAuditLogBuilder, PocoAuditLogBuilder>();
         }
