@@ -1,4 +1,4 @@
-﻿@setupContainer
+﻿@perScenarioContainer
 Feature: HalDocument{T} serialization
 	In order avoid creating response classes that are very similar to my domain classes
 	I want to be able to return a domain class as a HAL document

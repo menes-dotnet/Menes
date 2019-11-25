@@ -19,7 +19,7 @@ namespace Menes.Specs.Features
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
     [NUnit.Framework.DescriptionAttribute("OpenApiMisconfigurationDetection")]
-    [NUnit.Framework.CategoryAttribute("setupContainer")]
+    [NUnit.Framework.CategoryAttribute("perScenarioContainer")]
     public partial class OpenApiMisconfigurationDetectionFeature
     {
         
@@ -34,7 +34,7 @@ namespace Menes.Specs.Features
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
             TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "OpenApiMisconfigurationDetection", "\tIn order to discover that I\'ve made a mistake\r\n\tAs an OpenApi service developer\r" +
                     "\n\tI want to be told when my configuration is wrong", ProgrammingLanguage.CSharp, new string[] {
-                        "setupContainer"});
+                        "perScenarioContainer"});
             testRunner.OnFeatureStart(featureInfo);
         }
         

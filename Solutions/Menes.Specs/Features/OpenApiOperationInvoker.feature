@@ -1,4 +1,4 @@
-﻿@setupContainer
+﻿@perScenarioContainer
 
 Feature: OpenApiOperationInvoker
     In order to implement an Open API service

@@ -19,7 +19,7 @@ namespace Menes.Specs.Features
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
     [NUnit.Framework.DescriptionAttribute("OpenApiOperationInvoker")]
-    [NUnit.Framework.CategoryAttribute("setupContainer")]
+    [NUnit.Framework.CategoryAttribute("perScenarioContainer")]
     public partial class OpenApiOperationInvokerFeature
     {
         
@@ -35,7 +35,7 @@ namespace Menes.Specs.Features
             TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "OpenApiOperationInvoker", "    In order to implement an Open API service\r\n    As a developer\r\n    I want the" +
                     " OpenApiOperationInvoker to invoke my service implementation method, and all ass" +
                     "ociated services", ProgrammingLanguage.CSharp, new string[] {
-                        "setupContainer"});
+                        "perScenarioContainer"});
             testRunner.OnFeatureStart(featureInfo);
         }
         

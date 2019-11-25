@@ -1,4 +1,4 @@
-﻿@setupContainer
+﻿@perScenarioContainer
 Feature: OpenApiAccessCheckerExtensions
 	In order to ensure that I only return links to a user if they have permission to use them
 	As a developer
