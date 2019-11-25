@@ -98,8 +98,11 @@ this.FeatureBackground();
 #line 14
  testRunner.Then("instrumentation should start a request named \'TestOperation\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 15
-    testRunner.And("the instrumentation should report an OpenAPI operation id of \'TestOperationId\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+    testRunner.And("instrumentation should have already reported the request by the time the operatio" +
+                    "n implementation is invoked", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 16
+    testRunner.And("the instrumentation should report an OpenAPI operation id of \'TestOperationId\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 17
     testRunner.And("the request should not have been finished yet", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -110,20 +113,20 @@ this.FeatureBackground();
         public virtual void OperationSucceeded()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Operation succeeded", null, ((string[])(null)));
-#line 18
+#line 19
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
 #line 8
 this.FeatureBackground();
-#line 19
- testRunner.When("I handle a \'POST\' to \'/test/path\' with an operation id of \'TestOperationId\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 20
-    testRunner.And("the operation invoker has been invoked", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.When("I handle a \'POST\' to \'/test/path\' with an operation id of \'TestOperationId\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 21
-    testRunner.And("the operation completes", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+    testRunner.And("the operation invoker has been invoked", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 22
- testRunner.Then("instrumentation should start a request named \'TestOperation\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+    testRunner.And("the operation completes", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 23
+ testRunner.Then("instrumentation should start a request named \'TestOperation\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 24
     testRunner.And("the request should have been finished", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();

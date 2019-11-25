@@ -27,6 +27,7 @@ namespace Menes.Specs.Steps
         private readonly CompletionSource operationCompletionSource = new CompletionSource();
         private readonly ScenarioContext scenarioContext;
         private Task operationInvocationTask;
+        private int reportedOperationCountWhenOpeartionBodyInvoked;
 
         public OperationInstrumentationSteps(ScenarioContext scenarioContext)
         {
@@ -91,6 +92,12 @@ namespace Menes.Specs.Steps
             Assert.AreEqual(requestName, operation.Name);
         }
 
+        [Then("instrumentation should have already reported the request by the time the operation implementation is invoked")]
+        public void ThenInstrumentationShouldHaveAlreadyReportedTheRequestByTheTimeTheOperationImplementationIsInvoked()
+        {
+            Assert.AreEqual(1, this.reportedOperationCountWhenOpeartionBodyInvoked);
+        }
+
         [Then("the instrumentation should report an OpenAPI operation id of '(.*)'")]
         public void ThenTheInstrumentationShouldReportAnOpenAPIOperationIdOf(string operationId)
         {
@@ -118,14 +125,19 @@ namespace Menes.Specs.Steps
         private OperationInvokerTestContext InvokerContext
             => ContainerBindings.GetServiceProvider(this.scenarioContext).GetRequiredService<OperationInvokerTestContext>();
 
-        private Task TestOperation() => this.operationCompletionSource.GetTask();
+        private FakeInstrumentationProvider InstrumentationProvider
+            => ContainerBindings.GetServiceProvider(this.scenarioContext).GetRequiredService<FakeInstrumentationProvider>();
+
+        private Task TestOperation()
+        {
+            this.reportedOperationCountWhenOpeartionBodyInvoked = this.InstrumentationProvider.Operations.Count;
+            return this.operationCompletionSource.GetTask();
+        }
 
         private OperationDetail GetSingleOperationDetail()
         {
-            FakeInstrumentationProvider instrumentation = ContainerBindings.GetServiceProvider(this.scenarioContext).GetRequiredService<FakeInstrumentationProvider>();
-
-            Assert.AreEqual(1, instrumentation.Operations.Count, "Operations.Count");
-            OperationDetail operation = instrumentation.Operations[0];
+            Assert.AreEqual(1, this.InstrumentationProvider.Operations.Count, "Operations.Count");
+            OperationDetail operation = this.InstrumentationProvider.Operations[0];
             return operation;
         }
     }
