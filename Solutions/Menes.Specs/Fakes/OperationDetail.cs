@@ -20,13 +20,16 @@ namespace Menes.Specs.Fakes
     public class OperationDetail : IOperationInstance
     {
         private readonly List<AdditionalInstrumentationDetail> furtherDetails = new List<AdditionalInstrumentationDetail>();
+        private readonly Action<OperationDetail> onDisposed;
 
         public OperationDetail(
             string name,
-            AdditionalInstrumentationDetail additionalDetail)
+            AdditionalInstrumentationDetail additionalDetail,
+            Action<OperationDetail> onDisposed)
         {
             this.Name = name;
             this.AdditionalDetail = additionalDetail;
+            this.onDisposed = onDisposed;
         }
 
         /// <summary>
@@ -61,6 +64,7 @@ namespace Menes.Specs.Fakes
         void IDisposable.Dispose()
         {
             this.IsDisposed = true;
+            this.onDisposed(this);
         }
     }
 }

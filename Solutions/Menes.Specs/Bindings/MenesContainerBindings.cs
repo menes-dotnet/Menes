@@ -35,6 +35,7 @@ namespace Marain.Claims.SpecFlow.Bindings
                     var instrumentationProvider = new FakeInstrumentationProvider();
                     serviceCollection.AddSingleton(instrumentationProvider);
                     serviceCollection.AddSingleton<IOperationsInstrumentation>(instrumentationProvider);
+                    serviceCollection.AddSingleton<IExceptionsInstrumentation>(instrumentationProvider);
                     serviceCollection.AddInstrumentation();
                     serviceCollection.AddInstrumentationSourceTagging();
 

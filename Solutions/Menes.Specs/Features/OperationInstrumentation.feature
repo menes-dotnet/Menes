@@ -1,4 +1,5 @@
 ﻿@perScenarioContainer
+@useZeroArgumentTestOperations
 
 Feature: OperationInstrumentation
 	In order to monitor service usage and performance
@@ -13,7 +14,7 @@ Scenario: Operation started
     And the operation invoker has been invoked
 	Then instrumentation should start a request named 'TestOperation'
     And instrumentation should have already reported the request by the time the operation implementation is invoked
-    And the instrumentation should report an OpenAPI operation id of 'TestOperationId'
+    And the operation instrumentation should report an OpenAPI operation id of 'TestOperationId'
     And the request should not have been finished yet
 
 Scenario: Operation succeeded
@@ -22,8 +23,3 @@ Scenario: Operation succeeded
     And the operation completes
 	Then instrumentation should start a request named 'TestOperation'
     And the request should have been finished
-
-# Question:
-# Should we write a specialized diagnostic interface that OpenApiOperationInvoker calls to describe
-# all the happenings, and then write an implementation of that which plumbs everything through to
-# the instrumentation interfaces?

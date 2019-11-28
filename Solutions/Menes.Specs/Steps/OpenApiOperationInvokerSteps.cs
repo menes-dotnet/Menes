@@ -12,7 +12,6 @@ namespace Menes.Specs.Steps
     using System.Reflection;
     using System.Threading.Tasks;
     using Corvus.SpecFlow.Extensions;
-    using Idg.AsyncTest;
     using Idg.AsyncTest.TaskExtensions;
     using Menes.Exceptions;
     using Menes.Internal;
@@ -30,7 +29,6 @@ namespace Menes.Specs.Steps
 
         private readonly Mock<IOpenApiConfiguration> openApiConfiguration = new Mock<IOpenApiConfiguration>();
         private readonly Mock<IOpenApiContext> openApiContext = new Mock<IOpenApiContext>();
-        private readonly CompletionSourceWithArgs<CheckAccessArguments, IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> accessCheckCalls = new CompletionSourceWithArgs<CheckAccessArguments, IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>>();
         private readonly OpenApiResult exceptionMapperResult = new OpenApiResult();
         private readonly object resultBuilderResult = new object();
         private readonly object resultBuilderErrorResult = new object();
@@ -71,7 +69,7 @@ namespace Menes.Specs.Steps
         }
 
         [When("I handle a '(.*)' request for '(.*)'")]
-        public void WhenIHandleARequestFor(string method, string path)
+        public async Task WhenIHandleARequestFor(string method, string path)
         {
             var parameterBuilder = new Mock<IOpenApiParameterBuilder<object>>();
             parameterBuilder
@@ -95,10 +93,7 @@ namespace Menes.Specs.Steps
                 configuration.AccessPolicyUnauthenticatedResponse = this.responseWhenUnauthenticated.Value;
             }
 
-            this.InvokerContext.AccessChecker
-                .Setup(m => m.CheckAccessPoliciesAsync(It.IsAny<IOpenApiContext>(), It.IsAny<AccessCheckOperationDescriptor[]>()))
-                .Returns((IOpenApiContext context, AccessCheckOperationDescriptor[] requests) => this.accessCheckCalls.GetTask(
-                    new CheckAccessArguments { Context = context, Requests = requests }));
+            this.InvokerContext.UseManualAccessChecks();
 
             this.invokerResultTask = this.Invoker.InvokeAsync(
                 path,
@@ -106,6 +101,8 @@ namespace Menes.Specs.Steps
                 new object(),
                 this.operationPathTemplate,
                 this.openApiContext.Object);
+
+            await this.InvokerContext.AccessCheckCalls.WaitAsync().WithTimeout().ConfigureAwait(false);
         }
 
         [When("the access checker blocks access with '(.*)'")]
@@ -113,9 +110,9 @@ namespace Menes.Specs.Steps
         {
             var result = new Dictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>
             {
-                { this.accessCheckCalls.Arguments[0].Requests[0], new AccessControlPolicyResult(resultType) }
+                { this.InvokerContext.AccessCheckCalls.Arguments[0].Requests[0], new AccessControlPolicyResult(resultType) }
             };
-            this.accessCheckCalls.SupplyResult(result);
+            this.InvokerContext.AccessCheckCalls.SupplyResult(result);
             await this.WaitForInvokerToFinishIgnoringErrors().ConfigureAwait(false);
         }
 
@@ -124,9 +121,9 @@ namespace Menes.Specs.Steps
         {
             var result = new Dictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>
             {
-                { this.accessCheckCalls.Arguments[0].Requests[0], new AccessControlPolicyResult(AccessControlPolicyResultType.NotAllowed, explanation) }
+                { this.InvokerContext.AccessCheckCalls.Arguments[0].Requests[0], new AccessControlPolicyResult(AccessControlPolicyResultType.NotAllowed, explanation) }
             };
-            this.accessCheckCalls.SupplyResult(result);
+            this.InvokerContext.AccessCheckCalls.SupplyResult(result);
             await this.WaitForInvokerToFinishIgnoringErrors().ConfigureAwait(false);
         }
 
@@ -135,34 +132,34 @@ namespace Menes.Specs.Steps
         {
             var result = new Dictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>
             {
-                { this.accessCheckCalls.Arguments[0].Requests[0], new AccessControlPolicyResult(AccessControlPolicyResultType.Allowed) }
+                { this.InvokerContext.AccessCheckCalls.Arguments[0].Requests[0], new AccessControlPolicyResult(AccessControlPolicyResultType.Allowed) }
             };
-            this.accessCheckCalls.SupplyResult(result);
+            this.InvokerContext.AccessCheckCalls.SupplyResult(result);
             await this.WaitForInvokerToFinishIgnoringErrors().ConfigureAwait(false);
         }
 
         [Then("the access checker should receive a path of '(.*)'")]
         public void ThenTheAccessCheckerShouldReceiveAPathOf(string path)
         {
-            Assert.AreEqual(path, this.accessCheckCalls.Arguments[0].Requests[0].Path);
+            Assert.AreEqual(path, this.InvokerContext.AccessCheckCalls.Arguments[0].Requests[0].Path);
         }
 
         [Then("the access checker should receive an operationId of '(.*)'")]
         public void ThenTheAccessCheckerShouldReceiveAnOperationIdOf(string operationId)
         {
-            Assert.AreEqual(operationId, this.accessCheckCalls.Arguments[0].Requests[0].OperationId);
+            Assert.AreEqual(operationId, this.InvokerContext.AccessCheckCalls.Arguments[0].Requests[0].OperationId);
         }
 
         [Then("the access checker should receive an HttpMethod of '(.*)'")]
         public void ThenTheAccessCheckerShouldReceiveAnHttpMethodOf(string method)
         {
-            Assert.AreEqual(method, this.accessCheckCalls.Arguments[0].Requests[0].Method);
+            Assert.AreEqual(method, this.InvokerContext.AccessCheckCalls.Arguments[0].Requests[0].Method);
         }
 
         [Then("the access checker should receive the Open API context")]
         public void ThenTheAccessCheckerShouldReceiveTheOpenAPIContext()
         {
-            Assert.AreSame(this.openApiContext.Object, this.accessCheckCalls.Arguments[0].Context);
+            Assert.AreSame(this.openApiContext.Object, this.InvokerContext.AccessCheckCalls.Arguments[0].Context);
         }
 
         [Then("the invoker should complete without exceptions")]

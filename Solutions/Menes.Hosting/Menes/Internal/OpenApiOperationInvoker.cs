@@ -31,6 +31,7 @@ namespace Menes.Internal
         private readonly ILogger<OpenApiOperationInvoker<TRequest, TResponse>> logger;
         private readonly IOpenApiConfiguration configuration;
         private readonly IOperationsInstrumentation<OpenApiOperationInvoker<TRequest, TResponse>> operationsInstrumentation;
+        private readonly IExceptionsInstrumentation<OpenApiOperationInvoker<TRequest, TResponse>> exceptionsInstrumentation;
 
         /// <summary>
         /// Creates an instance of the <see cref="OpenApiOperationInvoker{TRequest, TResponse}"/>.
@@ -44,6 +45,7 @@ namespace Menes.Internal
         /// <param name="auditContext">The audit context.</param>
         /// <param name="logger">The logger.</param>
         /// <param name="operationsInstrumentation">Operations instrumentation.</param>
+        /// <param name="exceptionsInstrumentation">Exceptions instrumentation.</param>
         public OpenApiOperationInvoker(
             IOpenApiServiceOperationLocator operationLocator,
             IOpenApiParameterBuilder<TRequest> parameterBuilder,
@@ -53,7 +55,8 @@ namespace Menes.Internal
             IOpenApiConfiguration configuration,
             IAuditContext auditContext,
             ILogger<OpenApiOperationInvoker<TRequest, TResponse>> logger,
-            IOperationsInstrumentation<OpenApiOperationInvoker<TRequest, TResponse>> operationsInstrumentation)
+            IOperationsInstrumentation<OpenApiOperationInvoker<TRequest, TResponse>> operationsInstrumentation,
+            IExceptionsInstrumentation<OpenApiOperationInvoker<TRequest, TResponse>> exceptionsInstrumentation)
         {
             this.operationLocator = operationLocator;
             this.parameterBuilder = parameterBuilder;
@@ -64,6 +67,7 @@ namespace Menes.Internal
             this.logger = logger;
             this.operationsInstrumentation = operationsInstrumentation;
             this.configuration = configuration;
+            this.exceptionsInstrumentation = exceptionsInstrumentation;
         }
 
         /// <inheritdoc/>
@@ -82,9 +86,10 @@ namespace Menes.Internal
                 operationName,
                 path,
                 method);
+            var instrumentationDetail = new AdditionalInstrumentationDetail { Properties = { { "Menes.OperationId", operationId } } };
             using IOperationInstance instrumentationOperation = this.operationsInstrumentation.StartOperation(
                 operationName,
-                new AdditionalInstrumentationDetail { Properties = { { "Menes.OperationId", operationId } } });
+                instrumentationDetail);
 
             try
             {
@@ -156,6 +161,8 @@ namespace Menes.Internal
             }
             catch (Exception ex)
             {
+                this.exceptionsInstrumentation.ReportException(ex, instrumentationDetail);
+
                 try
                 {
                     this.logger.LogError(

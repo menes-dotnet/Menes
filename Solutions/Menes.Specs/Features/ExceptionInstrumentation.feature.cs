@@ -18,23 +18,24 @@ namespace Menes.Specs.Features
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.0.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("OperationInstrumentation")]
+    [NUnit.Framework.DescriptionAttribute("ExceptionInstrumentation")]
     [NUnit.Framework.CategoryAttribute("perScenarioContainer")]
     [NUnit.Framework.CategoryAttribute("useZeroArgumentTestOperations")]
-    public partial class OperationInstrumentationFeature
+    public partial class ExceptionInstrumentationFeature
     {
         
         private TechTalk.SpecFlow.ITestRunner testRunner;
         
-#line 1 "OperationInstrumentation.feature"
+#line 1 "ExceptionInstrumentation.feature"
 #line hidden
         
         [NUnit.Framework.OneTimeSetUpAttribute()]
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "OperationInstrumentation", "\tIn order to monitor service usage and performance\r\n\tAs a developer\r\n\tI want oper" +
-                    "ation execution to be reported automatically through the instrumentation API", ProgrammingLanguage.CSharp, new string[] {
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "ExceptionInstrumentation", "\tIn order to monitor service usage and performance\r\n\tAs a developer\r\n\tI want exce" +
+                    "ptions thrown by operations to be reported automatically through the instrumenta" +
+                    "tion API", ProgrammingLanguage.CSharp, new string[] {
                         "perScenarioContainer",
                         "useZeroArgumentTestOperations"});
             testRunner.OnFeatureStart(featureInfo);
@@ -84,10 +85,10 @@ namespace Menes.Specs.Features
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Operation started")]
-        public virtual void OperationStarted()
+        [NUnit.Framework.DescriptionAttribute("Operation threw exception")]
+        public virtual void OperationThrewException()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Operation started", null, ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Operation threw exception", null, ((string[])(null)));
 #line 12
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
@@ -98,38 +99,18 @@ this.FeatureBackground();
 #line 14
     testRunner.And("the operation invoker has been invoked", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 15
- testRunner.Then("instrumentation should start a request named \'TestOperation\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+    testRunner.And("the operation throws an exception", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 16
-    testRunner.And("instrumentation should have already reported the request by the time the operatio" +
-                    "n implementation is invoked", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 17
-    testRunner.And("the operation instrumentation should report an OpenAPI operation id of \'TestOpera" +
-                    "tionId\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 18
-    testRunner.And("the request should not have been finished yet", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Operation succeeded")]
-        public virtual void OperationSucceeded()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Operation succeeded", null, ((string[])(null)));
-#line 20
-this.ScenarioInitialize(scenarioInfo);
-            this.ScenarioStart();
-#line 9
-this.FeatureBackground();
-#line 21
- testRunner.When("I handle a \'POST\' to \'/test/path\' with an operation id of \'TestOperationId\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 22
-    testRunner.And("the operation invoker has been invoked", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 23
-    testRunner.And("the operation completes", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 24
  testRunner.Then("instrumentation should start a request named \'TestOperation\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 25
+#line 17
+    testRunner.And("the instrumentation should report the exception thrown by the operation", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 18
+    testRunner.And("the exception instrumentation should report an OpenAPI operation id of \'TestOpera" +
+                    "tionId\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 19
+    testRunner.And("the request should not have been finished at the point when the exception was rep" +
+                    "orted", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 20
     testRunner.And("the request should have been finished", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
