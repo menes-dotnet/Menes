@@ -94,6 +94,8 @@ namespace Microsoft.Extensions.DependencyInjection
 
             services.AddJsonSerializerSettings();
 
+            services.AddInstrumentation();
+
             services.AddOpenApiAuditing();
             services.AddAuditLogSink<ConsoleAuditLogSink>();
 

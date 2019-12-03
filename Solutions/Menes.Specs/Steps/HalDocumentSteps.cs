@@ -20,12 +20,10 @@ namespace Menes.Specs.Steps
     [Binding]
     public class HalDocumentSteps
     {
-        private readonly FeatureContext featureContext;
         private readonly ScenarioContext scenarioContext;
 
-        public HalDocumentSteps(FeatureContext featureContext, ScenarioContext scenarioContext)
+        public HalDocumentSteps(ScenarioContext scenarioContext)
         {
-            this.featureContext = featureContext;
             this.scenarioContext = scenarioContext;
         }
 
@@ -45,7 +43,7 @@ namespace Menes.Specs.Steps
         [Given("I have created an instance of HalDocument{T} from the domain class")]
         public void GivenIHaveCreatedAnInstanceOfHalDocumentFromTheDomainClass()
         {
-            IHalDocumentFactory halDocumentFactory = ContainerBindings.GetServiceProvider(this.featureContext).GetService<IHalDocumentFactory>();
+            IHalDocumentFactory halDocumentFactory = ContainerBindings.GetServiceProvider(this.scenarioContext).GetService<IHalDocumentFactory>();
             HalDocument halDocument = halDocumentFactory.CreateHalDocumentFrom(this.scenarioContext.Get<TestDomainClass>());
             this.scenarioContext.Set(halDocument);
         }
@@ -57,7 +55,7 @@ namespace Menes.Specs.Steps
 
             // We're actually going to serialize to a JObject as this will make it easier to
             // check the results.
-            IJsonSerializerSettingsProvider serializerSettingsProvider = ContainerBindings.GetServiceProvider(this.featureContext).GetRequiredService<IJsonSerializerSettingsProvider>();
+            IJsonSerializerSettingsProvider serializerSettingsProvider = ContainerBindings.GetServiceProvider(this.scenarioContext).GetRequiredService<IJsonSerializerSettingsProvider>();
             var serializer = JsonSerializer.Create(serializerSettingsProvider.Instance);
             var result = JObject.FromObject(document, serializer);
 
@@ -75,7 +73,7 @@ namespace Menes.Specs.Steps
         public void GivenIAddAnEmbeddedResourceToTheHalDocumentT()
         {
             HalDocument document = this.scenarioContext.Get<HalDocument>();
-            IHalDocumentFactory halDocumentFactory = ContainerBindings.GetServiceProvider(this.featureContext).GetService<IHalDocumentFactory>();
+            IHalDocumentFactory halDocumentFactory = ContainerBindings.GetServiceProvider(this.scenarioContext).GetService<IHalDocumentFactory>();
             document.AddEmbeddedResource("somerel", halDocumentFactory.CreateHalDocument());
         }
 

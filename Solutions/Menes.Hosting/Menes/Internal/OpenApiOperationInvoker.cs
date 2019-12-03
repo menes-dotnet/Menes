@@ -9,6 +9,7 @@ namespace Menes.Internal
     using System.Reflection;
     using System.Threading.Tasks;
     using Corvus.Extensions;
+    using Corvus.Monitoring.Instrumentation;
     using Menes.Auditing;
     using Menes.Exceptions;
     using Microsoft.Extensions.Logging;
@@ -29,6 +30,8 @@ namespace Menes.Internal
         private readonly IAuditContext auditContext;
         private readonly ILogger<OpenApiOperationInvoker<TRequest, TResponse>> logger;
         private readonly IOpenApiConfiguration configuration;
+        private readonly IOperationsInstrumentation<OpenApiOperationInvoker<TRequest, TResponse>> operationsInstrumentation;
+        private readonly IExceptionsInstrumentation<OpenApiOperationInvoker<TRequest, TResponse>> exceptionsInstrumentation;
 
         /// <summary>
         /// Creates an instance of the <see cref="OpenApiOperationInvoker{TRequest, TResponse}"/>.
@@ -41,6 +44,8 @@ namespace Menes.Internal
         /// <param name="configuration">The <see cref="IOpenApiConfiguration"/>.</param>
         /// <param name="auditContext">The audit context.</param>
         /// <param name="logger">The logger.</param>
+        /// <param name="operationsInstrumentation">Operations instrumentation.</param>
+        /// <param name="exceptionsInstrumentation">Exceptions instrumentation.</param>
         public OpenApiOperationInvoker(
             IOpenApiServiceOperationLocator operationLocator,
             IOpenApiParameterBuilder<TRequest> parameterBuilder,
@@ -49,7 +54,9 @@ namespace Menes.Internal
             IOpenApiResultBuilder<TResponse> resultBuilder,
             IOpenApiConfiguration configuration,
             IAuditContext auditContext,
-            ILogger<OpenApiOperationInvoker<TRequest, TResponse>> logger)
+            ILogger<OpenApiOperationInvoker<TRequest, TResponse>> logger,
+            IOperationsInstrumentation<OpenApiOperationInvoker<TRequest, TResponse>> operationsInstrumentation,
+            IExceptionsInstrumentation<OpenApiOperationInvoker<TRequest, TResponse>> exceptionsInstrumentation)
         {
             this.operationLocator = operationLocator;
             this.parameterBuilder = parameterBuilder;
@@ -58,23 +65,31 @@ namespace Menes.Internal
             this.resultBuilder = resultBuilder;
             this.auditContext = auditContext;
             this.logger = logger;
+            this.operationsInstrumentation = operationsInstrumentation;
             this.configuration = configuration;
+            this.exceptionsInstrumentation = exceptionsInstrumentation;
         }
 
         /// <inheritdoc/>
         public async Task<TResponse> InvokeAsync(string path, string method, TRequest request, OpenApiOperationPathTemplate operationPathTemplate, IOpenApiContext context)
         {
-            if (!this.operationLocator.TryGetOperation(operationPathTemplate.Operation.OperationId, out OpenApiServiceOperation openApiServiceOperation))
+            string operationId = operationPathTemplate.Operation.OperationId;
+            if (!this.operationLocator.TryGetOperation(operationId, out OpenApiServiceOperation openApiServiceOperation))
             {
                 throw new OpenApiServiceMismatchException(
                     $"The service's formal definition includes an operation '{operationPathTemplate.Operation.GetOperationId()}', but the service class does not provide an implementation");
             }
 
+            string operationName = openApiServiceOperation.GetName();
             this.logger.LogInformation(
                 "Executing operation [{openApiServiceOperation}] for [{path}] [{method}]",
-                openApiServiceOperation.GetName(),
+                operationName,
                 path,
                 method);
+            var instrumentationDetail = new AdditionalInstrumentationDetail { Properties = { { "Menes.OperationId", operationId } } };
+            using IOperationInstance instrumentationOperation = this.operationsInstrumentation.StartOperation(
+                operationName,
+                instrumentationDetail);
 
             try
             {
@@ -86,7 +101,7 @@ namespace Menes.Internal
                     context.CurrentTenantId = tenantId;
                 }
 
-                await this.CheckAccessPoliciesAsync(context, path, method, operationPathTemplate.Operation.OperationId).ConfigureAwait(false);
+                await this.CheckAccessPoliciesAsync(context, path, method, operationId).ConfigureAwait(false);
                 object result = openApiServiceOperation.Execute(context, namedParameters);
 
                 if (this.logger.IsEnabled(LogLevel.Debug))
@@ -146,6 +161,8 @@ namespace Menes.Internal
             }
             catch (Exception ex)
             {
+                this.exceptionsInstrumentation.ReportException(ex, instrumentationDetail);
+
                 try
                 {
                     this.logger.LogError(
@@ -174,9 +191,6 @@ namespace Menes.Internal
             string method,
             string operationId)
         {
-            // TODO: why do we create one of these and throw it away?
-            _ = new AccessCheckOperationDescriptor(path, operationId, method);
-
             AccessControlPolicyResult result = await this.accessChecker.CheckAccessPolicyAsync(context, path, operationId, method).ConfigureAwait(false);
 
             if (result.ResultType == AccessControlPolicyResultType.NotAuthenticated)

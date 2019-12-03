@@ -19,7 +19,7 @@ namespace Menes.Specs.Features
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
     [NUnit.Framework.DescriptionAttribute("HalDocument{T} serialization")]
-    [NUnit.Framework.CategoryAttribute("setupContainer")]
+    [NUnit.Framework.CategoryAttribute("perScenarioContainer")]
     public partial class HalDocumentTSerializationFeature
     {
         
@@ -34,7 +34,7 @@ namespace Menes.Specs.Features
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
             TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "HalDocument{T} serialization", "\tIn order avoid creating response classes that are very similar to my domain clas" +
                     "ses\r\n\tI want to be able to return a domain class as a HAL document", ProgrammingLanguage.CSharp, new string[] {
-                        "setupContainer"});
+                        "perScenarioContainer"});
             testRunner.OnFeatureStart(featureInfo);
         }
         

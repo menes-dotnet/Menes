@@ -24,20 +24,18 @@ namespace Menes.Specs.Steps
     [Binding]
     public class OpenApiAccessCheckerExtensionsSteps
     {
-        private readonly FeatureContext featureContext;
         private readonly ScenarioContext scenarioContext;
         private List<(string Uri, string Method)> checksToDeny = new List<(string Uri, string Method)>();
 
-        public OpenApiAccessCheckerExtensionsSteps(FeatureContext featureContext, ScenarioContext scenarioContext)
+        public OpenApiAccessCheckerExtensionsSteps(ScenarioContext scenarioContext)
         {
-            this.featureContext = featureContext;
             this.scenarioContext = scenarioContext;
         }
 
         [Given("I have a HalDocument called '(.*)'")]
         public void GivenIHaveAHalDocumentCalled(string halDocumentName)
         {
-            IHalDocumentFactory halDocumentFactory = ContainerBindings.GetServiceProvider(this.featureContext).GetService<IHalDocumentFactory>();
+            IHalDocumentFactory halDocumentFactory = ContainerBindings.GetServiceProvider(this.scenarioContext).GetService<IHalDocumentFactory>();
 
             this.scenarioContext.Set(halDocumentFactory.CreateHalDocument(), halDocumentName);
         }
@@ -60,7 +58,7 @@ namespace Menes.Specs.Steps
         public void GivenTheHalDocumentCalledHasEmbeddedResources(string halDocumentName, Table embeddedResourceTable)
         {
             IHalDocumentFactory halDocumentFactory =
-                ContainerBindings.GetServiceProvider(this.featureContext).GetService<IHalDocumentFactory>();
+                ContainerBindings.GetServiceProvider(this.scenarioContext).GetService<IHalDocumentFactory>();
 
             IEnumerable<(string Rel, object Object)> embeddedResources =
                 embeddedResourceTable.CreateSet<(string Rel, object Object)>();

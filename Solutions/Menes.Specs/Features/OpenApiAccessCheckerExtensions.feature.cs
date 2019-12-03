@@ -19,7 +19,7 @@ namespace Menes.Specs.Features
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
     [NUnit.Framework.DescriptionAttribute("OpenApiAccessCheckerExtensions")]
-    [NUnit.Framework.CategoryAttribute("setupContainer")]
+    [NUnit.Framework.CategoryAttribute("perScenarioContainer")]
     public partial class OpenApiAccessCheckerExtensionsFeature
     {
         
@@ -35,7 +35,7 @@ namespace Menes.Specs.Features
             TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "OpenApiAccessCheckerExtensions", "\tIn order to ensure that I only return links to a user if they have permission to" +
                     " use them\r\n\tAs a developer\r\n\tI want to be able to check all links in a HalDocume" +
                     "nt based response in a single call", ProgrammingLanguage.CSharp, new string[] {
-                        "setupContainer"});
+                        "perScenarioContainer"});
             testRunner.OnFeatureStart(featureInfo);
         }
         
