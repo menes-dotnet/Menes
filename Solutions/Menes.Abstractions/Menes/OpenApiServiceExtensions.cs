@@ -143,7 +143,7 @@ namespace Menes
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "For symmetry with other extension methods")]
         public static OpenApiResult CreatedResult(this IOpenApiService service, IOpenApiWebLinkResolver linkResolver, string operationId, params (string, object)[] parameters)
         {
-            OpenApiWebLink link = linkResolver.Resolve(operationId, "self", parameters);
+            OpenApiWebLink link = linkResolver.ResolveByOperationIdAndRelation(operationId, "self", parameters);
             return new OpenApiResult
             {
                 StatusCode = (int)HttpStatusCode.Created,

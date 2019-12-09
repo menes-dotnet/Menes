@@ -22,7 +22,7 @@ namespace Menes
         /// This should be used where there is a single global operation for links with a given content type and relation type.
         /// </para>
         /// </remarks>
-        void Map(string contentType, string relationType, string operationId);
+        void MapByContentTypeRelationAndOperationId(string contentType, string relationType, string operationId);
 
         /// <summary>
         /// Adds a link mapping from a content type and relation to an operation Url.
@@ -31,7 +31,7 @@ namespace Menes
         /// <param name="relationType">The relation type of the link to be generated.</param>
         /// <param name="operationId">The Id of the operation that will be used to resolve the link.</param>
         /// <remarks>This should be used where there is a single global operation for a given content type and relation type.</remarks>
-        void Map<T>(string relationType, string operationId);
+        void MapByContentTypeRelationAndOperationId<T>(string relationType, string operationId);
 
         /// <summary>
         /// Adds a link mapping from a content type and relation to an operation Url.
@@ -40,7 +40,7 @@ namespace Menes
         /// <param name="relationType">The relation type of the link to be generated.</param>
         /// <param name="context">A user-defined context in which the link is being used. This allows you to discriminate between operations with the same content type and relation, targetting different operations, in different APIs.</param>
         /// <param name="operationId">The Id of the operation that will be used to resolve the link.</param>
-        void Map(string contentType, string relationType, string context, string operationId);
+        void MapByContentTypeRelationContextAndOperationId(string contentType, string relationType, string context, string operationId);
 
         /// <summary>
         /// Adds a link mapping from a content type and relation to an operation Url.
@@ -49,6 +49,6 @@ namespace Menes
         /// <param name="relationType">The relation type of the link to be generated.</param>
         /// <param name="context">A user-defined context in which the link is being used. This allows you to discriminate between operations with the same content type and relation, targetting different operations.</param>
         /// <param name="operationId">The Id of the operation that will be used to resolve the link.</param>
-        void Map<T>(string relationType, string context, string operationId);
+        void MapByContentTypeRelationContextAndOperationId<T>(string relationType, string context, string operationId);
     }
 }

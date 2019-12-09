@@ -26,19 +26,19 @@ namespace Menes.Internal
         }
 
         /// <inheritdoc/>
-        public void Map(string contentType, string relationType, string operationId)
+        public void MapByContentTypeRelationAndOperationId(string contentType, string relationType, string operationId)
         {
-            this.Map(contentType, relationType, GlobalContext, operationId);
+            this.MapByContentTypeRelationContextAndOperationId(contentType, relationType, GlobalContext, operationId);
         }
 
         /// <inheritdoc/>
-        public void Map<T>(string relationType, string operationId)
+        public void MapByContentTypeRelationAndOperationId<T>(string relationType, string operationId)
         {
-            this.Map<T>(relationType, GlobalContext, operationId);
+            this.MapByContentTypeRelationContextAndOperationId<T>(relationType, GlobalContext, operationId);
         }
 
         /// <inheritdoc/>
-        public void Map(string contentType, string relationType, string context, string operationId)
+        public void MapByContentTypeRelationContextAndOperationId(string contentType, string relationType, string context, string operationId)
         {
             var mediaType = new MediaType(contentType, relationType);
             string key = GetKey(context, mediaType);
@@ -49,10 +49,10 @@ namespace Menes.Internal
         }
 
         /// <inheritdoc/>
-        public void Map<T>(string relationType, string context, string operationId)
+        public void MapByContentTypeRelationContextAndOperationId<T>(string relationType, string context, string operationId)
         {
             string contentType = this.GetContentType<T>();
-            this.Map(contentType, relationType, context, operationId);
+            this.MapByContentTypeRelationContextAndOperationId(contentType, relationType, context, operationId);
         }
 
         /// <inheritdoc/>

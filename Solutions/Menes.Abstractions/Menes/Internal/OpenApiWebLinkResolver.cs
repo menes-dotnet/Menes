@@ -28,7 +28,7 @@ namespace Menes.Internal
         }
 
         /// <inheritdoc/>
-        public OpenApiWebLink Resolve(object owner, string relationType, params (string, object)[] parameters)
+        public OpenApiWebLink ResolveByOwnerAndRelation(object owner, string relationType, params (string, object)[] parameters)
         {
             if (this.linkOperationMapper.TryGetOperationId(owner, relationType, out string operationId))
             {
@@ -43,7 +43,7 @@ namespace Menes.Internal
         }
 
         /// <inheritdoc/>
-        public OpenApiWebLink Resolve(object owner, string relationType, string context, params (string, object)[] parameters)
+        public OpenApiWebLink ResolveByOwnerRelationAndContext(object owner, string relationType, string context, params (string, object)[] parameters)
         {
             if (this.linkOperationMapper.TryGetOperationId(owner, relationType, context, out string operationId))
             {
@@ -58,7 +58,7 @@ namespace Menes.Internal
         }
 
         /// <inheritdoc/>
-        public OpenApiWebLink Resolve(string operationId, string relationType, params (string, object)[] parameters)
+        public OpenApiWebLink ResolveByOperationIdAndRelation(string operationId, string relationType, params (string, object)[] parameters)
         {
             ResolvedOperationRequestInfo operation = this.templateProvider.GetResolvedOperationRequestInfo(operationId, parameters);
             return new OpenApiWebLink(operationId, operation.Uri, operation.OperationType);

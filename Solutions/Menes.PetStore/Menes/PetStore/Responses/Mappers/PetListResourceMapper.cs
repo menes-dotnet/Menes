@@ -34,9 +34,9 @@ namespace Menes.PetStore.Responses.Mappers
         /// <inheritdoc/>
         public void ConfigureLinkMap(IOpenApiLinkOperationMap links)
         {
-            links.Map<PetListResource>("self", "listPets");
-            links.Map<PetListResource>("create", "createPets");
-            links.Map<PetListResource>("next", "listPets");
+            links.MapByContentTypeRelationAndOperationId<PetListResource>("self", "listPets");
+            links.MapByContentTypeRelationAndOperationId<PetListResource>("create", "createPets");
+            links.MapByContentTypeRelationAndOperationId<PetListResource>("next", "listPets");
         }
 
         /// <inheritdoc/>
@@ -45,12 +45,12 @@ namespace Menes.PetStore.Responses.Mappers
             HalDocument response = this.halDocumentFactory.CreateHalDocumentFrom(pets);
             response.AddEmbeddedResources(PetsRelation, pets.Pets.Select(this.petResourceMapper.Map));
 
-            response.ResolveAndAdd(this.linkResolver, pets, "self", ("limit", pets.PageSize), ("continuationToken", pets.CurrentContinuationToken));
-            response.ResolveAndAdd(this.linkResolver, pets, "create");
+            response.ResolveByOwnerAndRelationAndAdd(this.linkResolver, pets, "self", ("limit", pets.PageSize), ("continuationToken", pets.CurrentContinuationToken));
+            response.ResolveByOwnerAndRelationAndAdd(this.linkResolver, pets, "create");
 
             if (!string.IsNullOrEmpty(pets.NextContinuationToken))
             {
-                response.ResolveAndAdd(this.linkResolver, pets, "next", ("limit", pets.PageSize), ("continuationToken", pets.NextContinuationToken));
+                response.ResolveByOwnerAndRelationAndAdd(this.linkResolver, pets, "next", ("limit", pets.PageSize), ("continuationToken", pets.NextContinuationToken));
             }
 
             return response;

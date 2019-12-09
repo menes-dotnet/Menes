@@ -29,18 +29,18 @@ namespace Menes.PetStore.Responses.Mappers
         /// <inheritdoc/>
         public void ConfigureLinkMap(IOpenApiLinkOperationMap links)
         {
-            links.Map(PetResource.ContentTypeBase, "self", "showPetById");
-            links.Map(PetResource.ContentTypeBase, "image", "petImage");
-            links.Map(PetResource.ContentTypeBase, "pocoimage", "petImagePoco");
+            links.MapByContentTypeRelationAndOperationId(PetResource.ContentTypeBase, "self", "showPetById");
+            links.MapByContentTypeRelationAndOperationId(PetResource.ContentTypeBase, "image", "petImage");
+            links.MapByContentTypeRelationAndOperationId(PetResource.ContentTypeBase, "pocoimage", "petImagePoco");
         }
 
         /// <inheritdoc/>
         public HalDocument Map(PetResource input)
         {
             HalDocument response = this.halDocumentFactory.CreateHalDocumentFrom(input);
-            response.ResolveAndAdd(this.linkResolver, input, "self", ("petId", input.Id));
-            response.ResolveAndAdd(this.linkResolver, input, "image", ("petId", input.Id));
-            response.ResolveAndAdd(this.linkResolver, input, "pocoimage", ("petId", input.Id));
+            response.ResolveByOwnerAndRelationAndAdd(this.linkResolver, input, "self", ("petId", input.Id));
+            response.ResolveByOwnerAndRelationAndAdd(this.linkResolver, input, "image", ("petId", input.Id));
+            response.ResolveByOwnerAndRelationAndAdd(this.linkResolver, input, "pocoimage", ("petId", input.Id));
 
             return response;
         }

@@ -15,13 +15,18 @@ namespace Menes.Links
         /// <param name="linkCollection">The <see cref="ILinkCollection"/> to add to.</param>
         /// <param name="linkResolver">The <see cref="IOpenApiWebLinkResolver"/> to use for resolving links.</param>
         /// <param name="owner">The owner of the link. An operation map for the owner and relation type must be defined on startup.</param>
-        /// <param name="rel">The link relation type.</param>
+        /// <param name="relationType">The link relation type.</param>
         /// <param name="parameters">Any parameters that will be required to build the link.</param>
         /// <returns>A new <see cref="WebLink"/> which has been added to the given link collection.</returns>
-        public static OpenApiWebLink ResolveAndAdd(this ILinkCollection linkCollection, IOpenApiWebLinkResolver linkResolver, object owner, string rel, params (string, object)[] parameters)
+        public static OpenApiWebLink ResolveByOwnerAndRelationAndAdd(
+            this ILinkCollection linkCollection,
+            IOpenApiWebLinkResolver linkResolver,
+            object owner,
+            string relationType,
+            params (string, object)[] parameters)
         {
-            OpenApiWebLink link = linkResolver.Resolve(owner, rel, parameters);
-            linkCollection.AddLink(rel, link);
+            OpenApiWebLink link = linkResolver.ResolveByOwnerAndRelation(owner, relationType, parameters);
+            linkCollection.AddLink(relationType, link);
             return link;
         }
 
@@ -31,14 +36,20 @@ namespace Menes.Links
         /// <param name="linkCollection">The <see cref="ILinkCollection"/> to add to.</param>
         /// <param name="linkResolver">The <see cref="IOpenApiWebLinkResolver"/> to use for resolving links.</param>
         /// <param name="owner">The owner of the link. An operation map for the owner and relation type must be defined on startup.</param>
-        /// <param name="rel">The link relation type.</param>
+        /// <param name="relationType">The link relation type.</param>
         /// <param name="context">The context in which to resolve the link.</param>
         /// <param name="parameters">Any parameters that will be required to build the link.</param>
         /// <returns>A new <see cref="WebLink"/> which has been added to the given link collection.</returns>
-        public static OpenApiWebLink ResolveAndAdd(this ILinkCollection linkCollection, IOpenApiWebLinkResolver linkResolver, object owner, string rel, string context, params (string, object)[] parameters)
+        public static OpenApiWebLink ResolveByOwnerRelationAndContextAndAdd(
+            this ILinkCollection linkCollection,
+            IOpenApiWebLinkResolver linkResolver,
+            object owner,
+            string relationType,
+            string context,
+            params (string, object)[] parameters)
         {
-            OpenApiWebLink link = linkResolver.Resolve(owner, context, parameters);
-            linkCollection.AddLink(rel, link);
+            OpenApiWebLink link = linkResolver.ResolveByOwnerRelationAndContext(owner, relationType, context, parameters);
+            linkCollection.AddLink(relationType, link);
             return link;
         }
 
@@ -48,13 +59,18 @@ namespace Menes.Links
         /// <param name="linkCollection">The <see cref="ILinkCollection"/> to add to.</param>
         /// <param name="linkResolver">The <see cref="IOpenApiWebLinkResolver"/> to use for resolving links.</param>
         /// <param name="operationId">The ID of the operation for the link.</param>
-        /// <param name="rel">The link relation type.</param>
+        /// <param name="relationType">The link relation type.</param>
         /// <param name="parameters">Any parameters that will be required to build the link.</param>
         /// <returns>A new <see cref="WebLink"/> which has been added to the given link collection.</returns>
-        public static OpenApiWebLink ResolveAndAdd(this ILinkCollection linkCollection, IOpenApiWebLinkResolver linkResolver, string operationId, string rel, params (string, object)[] parameters)
+        public static OpenApiWebLink ResolveByOperationIdAndRelationAndAdd(
+            this ILinkCollection linkCollection,
+            IOpenApiWebLinkResolver linkResolver,
+            string operationId,
+            string relationType,
+            params (string, object)[] parameters)
         {
-            OpenApiWebLink link = linkResolver.Resolve(operationId, rel, parameters);
-            linkCollection.AddLink(rel, link);
+            OpenApiWebLink link = linkResolver.ResolveByOperationIdAndRelation(operationId, relationType, parameters);
+            linkCollection.AddLink(relationType, link);
             return link;
         }
     }
