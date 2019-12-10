@@ -48,7 +48,7 @@ namespace Menes.Specs.Steps
         public void GivenIHaveMappedLinkRelationsByType(Table table)
         {
             var mapper = new OpenApiLinkOperationMapper();
-            MethodInfo genericMapMethod = typeof(OpenApiLinkOperationMapper).GetMethod(nameof(IOpenApiLinkOperationMap.MapByContentTypeRelationAndOperationId), new[] { typeof(string), typeof(string) });
+            MethodInfo genericMapMethod = typeof(OpenApiLinkOperationMapper).GetMethod(nameof(IOpenApiLinkOperationMap.MapByContentTypeAndRelationTypeAndOperationId), new[] { typeof(string), typeof(string) });
             IEnumerable<(string RelationName, string TargetType, string OperationId)> mappings = table.CreateSet<(string RelationName, string TargetType, string OperationId)>();
 
             foreach ((string RelationName, string TargetType, string OperationId) in mappings)
@@ -69,7 +69,7 @@ namespace Menes.Specs.Steps
 
             foreach ((string RelationName, string ContentType, string OperationId) in mappings)
             {
-                mapper.MapByContentTypeRelationAndOperationId(ContentType, RelationName, OperationId);
+                mapper.MapByContentTypeAndRelationTypeAndOperationId(ContentType, RelationName, OperationId);
             }
 
             this.scenarioContext.Set<IOpenApiLinkOperationMapper>(mapper);
@@ -82,7 +82,7 @@ namespace Menes.Specs.Steps
             (string Key, string Value)[] parameters = parameterTable.CreateSet<(string Key, string Value)>().ToArray();
 
             var resolver = new OpenApiWebLinkResolver(this.scenarioContext.Get<IOpenApiDocumentProvider>(), this.scenarioContext.Get<IOpenApiLinkOperationMapper>());
-            OpenApiWebLink result = resolver.ResolveByOwnerAndRelation(target, relationName, parameters.Select(x => (x.Key, (object)x.Value)).ToArray());
+            OpenApiWebLink result = resolver.ResolveByOwnerAndRelationType(target, relationName, parameters.Select(x => (x.Key, (object)x.Value)).ToArray());
 
             this.scenarioContext.Set(result);
         }

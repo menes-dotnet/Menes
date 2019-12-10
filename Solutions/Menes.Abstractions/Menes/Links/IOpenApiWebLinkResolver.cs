@@ -39,7 +39,7 @@ namespace Menes.Links
         /// content types instead.
         /// </para>
         /// </remarks>
-        OpenApiWebLink ResolveByOwnerAndRelation(object owner, string relationType, params (string, object)[] parameters);
+        OpenApiWebLink ResolveByOwnerAndRelationType(object owner, string relationType, params (string, object)[] parameters);
 
         /// <summary>
         /// Resolves the url for the given link and returns an <see cref="OpenApiWebLink"/> containing
@@ -71,7 +71,7 @@ namespace Menes.Links
         /// content types instead.
         /// </para>
         /// </remarks>
-        OpenApiWebLink ResolveByOwnerRelationAndContext(object owner, string relationType, string context, params (string, object)[] parameters);
+        OpenApiWebLink ResolveByOwnerAndRelationTypeAndContext(object owner, string relationType, string context, params (string, object)[] parameters);
 
         /// <summary>
         /// Resolves the url for the given link and returns an <see cref="OpenApiWebLink"/> containing
@@ -81,6 +81,6 @@ namespace Menes.Links
         /// <param name="relationType">The link relation type. This is the "rel" attribute for the link.</param>
         /// <param name="parameters">Any parameters which are needed to build the link.</param>
         /// <returns>The resolved <see cref="OpenApiWebLink"/>.</returns>
-        OpenApiWebLink ResolveByOperationIdAndRelation(string operationId, string relationType, params (string, object)[] parameters);
+        OpenApiWebLink ResolveByOperationIdAndRelationType(string operationId, string relationType, params (string, object)[] parameters);
     }
 }

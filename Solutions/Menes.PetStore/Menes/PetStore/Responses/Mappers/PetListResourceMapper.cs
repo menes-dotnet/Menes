@@ -34,9 +34,9 @@ namespace Menes.PetStore.Responses.Mappers
         /// <inheritdoc/>
         public void ConfigureLinkMap(IOpenApiLinkOperationMap links)
         {
-            links.MapByContentTypeRelationAndOperationId<PetListResource>("self", "listPets");
-            links.MapByContentTypeRelationAndOperationId<PetListResource>("create", "createPets");
-            links.MapByContentTypeRelationAndOperationId<PetListResource>("next", "listPets");
+            links.MapByContentTypeAndRelationTypeAndOperationId<PetListResource>("self", "listPets");
+            links.MapByContentTypeAndRelationTypeAndOperationId<PetListResource>("create", "createPets");
+            links.MapByContentTypeAndRelationTypeAndOperationId<PetListResource>("next", "listPets");
         }
 
         /// <inheritdoc/>
@@ -45,12 +45,12 @@ namespace Menes.PetStore.Responses.Mappers
             HalDocument response = this.halDocumentFactory.CreateHalDocumentFrom(pets);
             response.AddEmbeddedResources(PetsRelation, pets.Pets.Select(this.petResourceMapper.Map));
 
-            response.ResolveByOwnerAndRelationAndAdd(this.linkResolver, pets, "self", ("limit", pets.PageSize), ("continuationToken", pets.CurrentContinuationToken));
-            response.ResolveByOwnerAndRelationAndAdd(this.linkResolver, pets, "create");
+            response.ResolveAndAddByOwnerAndRelationType(this.linkResolver, pets, "self", ("limit", pets.PageSize), ("continuationToken", pets.CurrentContinuationToken));
+            response.ResolveAndAddByOwnerAndRelationType(this.linkResolver, pets, "create");
 
             if (!string.IsNullOrEmpty(pets.NextContinuationToken))
             {
-                response.ResolveByOwnerAndRelationAndAdd(this.linkResolver, pets, "next", ("limit", pets.PageSize), ("continuationToken", pets.NextContinuationToken));
+                response.ResolveAndAddByOwnerAndRelationType(this.linkResolver, pets, "next", ("limit", pets.PageSize), ("continuationToken", pets.NextContinuationToken));
             }
 
             return response;
