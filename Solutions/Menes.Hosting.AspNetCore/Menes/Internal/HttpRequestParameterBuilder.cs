@@ -322,11 +322,13 @@ namespace Menes.Internal
 
         private async Task<object> ConvertBodyAsync(OpenApiSchema schema, Stream body)
         {
+            string value;
             using (var reader = new StreamReader(body))
             {
-                string value = await reader.ReadToEndAsync().ConfigureAwait(false);
-                return this.ConvertValue(schema, value);
+                value = await reader.ReadToEndAsync().ConfigureAwait(false);
             }
+
+            return this.ConvertValue(schema, value);
         }
 
         private bool TryGetParameterFromHeader(IHeaderDictionary headers, OpenApiParameter parameter, out object result)
@@ -517,7 +519,8 @@ namespace Menes.Internal
             this.logger.LogError(
                 "Failed to convert value with [{schema}]",
                 schema.GetLoggingInformation());
-            throw new NotImplementedException();
+
+            throw new OpenApiServiceMismatchException($"Unable to convert value to match [{schema.GetLoggingInformation()}]");
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿@setupContainer
+﻿@perScenarioContainer
 
 Feature: OpenApiMisconfigurationDetection
 	In order to discover that I've made a mistake

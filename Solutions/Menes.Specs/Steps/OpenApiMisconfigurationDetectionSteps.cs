@@ -27,11 +27,11 @@ namespace Menes.Specs.Steps
         private OpenApiOperation operation;
         private OpenApiDocument document;
         private Exception exception;
-        private readonly FeatureContext featureContext;
+        private readonly ScenarioContext scenarioContext;
 
-        public OpenApiMisconfigurationDetectionSteps(FeatureContext featureContext)
+        public OpenApiMisconfigurationDetectionSteps(ScenarioContext scenarioContext)
         {
-            this.featureContext = featureContext;
+            this.scenarioContext = scenarioContext;
         }
 
         [Given("I have an OpenApiOperation with multiple 2xx responses")]
@@ -101,7 +101,7 @@ namespace Menes.Specs.Steps
             {
                 var outputBuilder = new PocoActionResultOutputBuilder(
                     Enumerable.Empty<IOpenApiConverter>(),
-                    ContainerBindings.GetServiceProvider(this.featureContext).GetRequiredService<ILogger<PocoActionResultOutputBuilder>>());
+                    ContainerBindings.GetServiceProvider(this.scenarioContext).GetRequiredService<ILogger<PocoActionResultOutputBuilder>>());
                 outputBuilder.CanBuildOutput(new object(), this.operation);
             }
             catch (Exception x)
@@ -131,7 +131,7 @@ namespace Menes.Specs.Steps
             this.exception = null;
             try
             {
-                var exceptionHandler = new OpenApiExceptionMapper(ContainerBindings.GetServiceProvider(this.featureContext), new Mock<ILogger<OpenApiExceptionMapper>>().Object);
+                var exceptionHandler = new OpenApiExceptionMapper(ContainerBindings.GetServiceProvider(this.scenarioContext), new Mock<ILogger<OpenApiExceptionMapper>>().Object);
                 exceptionHandler.GetResponse(new InvalidOperationException(), this.operation);
             }
             catch (Exception x)

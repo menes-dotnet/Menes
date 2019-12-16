@@ -31,7 +31,7 @@ namespace Menes
         {
             if (values?.Length > 0)
             {
-                openApiResult.AuditData = openApiResult.AuditData ?? new Dictionary<string, object>();
+                openApiResult.AuditData ??= new Dictionary<string, object>();
                 openApiResult.AuditData.AddRange(values.Select(x => new KeyValuePair<string, object>(x.Item1, x.Item2)));
             }
         }

@@ -176,7 +176,7 @@ namespace Menes.Specs.Steps
         {
             foreach ((_, CompletionSourceWithArgs<ShouldAllowArgs, IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> completion) in this.otherPolicies)
             {
-                Assert.AreEqual(path, completion.Arguments[0].Requests.First().Path);
+                Assert.AreEqual(path, completion.Arguments[0].Requests[0].Path);
             }
         }
 
@@ -185,7 +185,7 @@ namespace Menes.Specs.Steps
         {
             foreach ((_, CompletionSourceWithArgs<ShouldAllowArgs, IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> completion) in this.otherPolicies)
             {
-                Assert.AreEqual(operationId, completion.Arguments[0].Requests.First().OperationId);
+                Assert.AreEqual(operationId, completion.Arguments[0].Requests[0].OperationId);
             }
         }
 
@@ -194,7 +194,7 @@ namespace Menes.Specs.Steps
         {
             foreach ((_, CompletionSourceWithArgs<ShouldAllowArgs, IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> completion) in this.otherPolicies)
             {
-                Assert.AreEqual(method, completion.Arguments[0].Requests.First().Method);
+                Assert.AreEqual(method, completion.Arguments[0].Requests[0].Method);
             }
         }
 
@@ -230,7 +230,7 @@ namespace Menes.Specs.Steps
             Assert.AreEqual(explanation, result.Values.First().Explanation);
         }
 
-        [When(@"the first policy denies access")]
+        [When("the first policy denies access")]
         public void WhenTheFirstPolicyDeniesAccess()
         {
             var result = new Dictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>();
@@ -239,7 +239,7 @@ namespace Menes.Specs.Steps
             this.firstPolicyCompletion.SupplyResult(result);
         }
 
-        [Then(@"the adapter result type should be '(.*)'")]
+        [Then("the adapter result type should be '(.*)'")]
         public async Task ThenTheAdapterResultTypeShouldBeAsync(string resultTypeString)
         {
             AccessControlPolicyResultType resultType = Enum.Parse<AccessControlPolicyResultType>(resultTypeString);
@@ -247,7 +247,7 @@ namespace Menes.Specs.Steps
             Assert.AreEqual(resultType, result.Values.First().ResultType);
         }
 
-        [When(@"the other policy (.*) denies access with result '(.*)' and explanation '(.*)'")]
+        [When("the other policy (.*) denies access with result '(.*)' and explanation '(.*)'")]
         public void WhenTheOtherPolicyDeniesAccessWithResultAndExplanation(int policyIndex, string resultTypeString, string explanation)
         {
             AccessControlPolicyResultType resultType = Enum.Parse<AccessControlPolicyResultType>(resultTypeString);
@@ -263,7 +263,6 @@ namespace Menes.Specs.Steps
             public AccessCheckOperationDescriptor[] Requests { get; set; }
 
             public IOpenApiContext Context { get; set; }
-
         }
     }
 }

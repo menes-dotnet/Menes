@@ -14,7 +14,6 @@ namespace Menes
     /// <typeparam name="TResponse">The type of the repsonse.</typeparam>
     public class OpenApiHost<TRequest, TResponse> : IOpenApiHost<TRequest, TResponse>
     {
-        private readonly IOpenApiServiceOperationLocator operationLocator;
         private readonly IPathMatcher matcher;
         private readonly IOpenApiContextBuilder<TRequest> contextBuilder;
         private readonly IOpenApiOperationInvoker<TRequest, TResponse> operationInvoker;
@@ -23,14 +22,12 @@ namespace Menes
         /// <summary>
         /// Creates an instance of the <see cref="OpenApiHost{TRequest, TResponse}"/>.
         /// </summary>
-        /// <param name="operationLocator">The operation locator.</param>
         /// <param name="matcher">The path matcher.</param>
         /// <param name="contextBuilder">The OpenAPI context builder.</param>
         /// <param name="operationInvoker">The OpenAPI operation invoker.</param>
         /// <param name="resultBuilder">The OpenAPI result builder.</param>
-        public OpenApiHost(IOpenApiServiceOperationLocator operationLocator, IPathMatcher matcher, IOpenApiContextBuilder<TRequest> contextBuilder, IOpenApiOperationInvoker<TRequest, TResponse> operationInvoker, IOpenApiResultBuilder<TResponse> resultBuilder)
+        public OpenApiHost(IPathMatcher matcher, IOpenApiContextBuilder<TRequest> contextBuilder, IOpenApiOperationInvoker<TRequest, TResponse> operationInvoker, IOpenApiResultBuilder<TResponse> resultBuilder)
         {
-            this.operationLocator = operationLocator;
             this.matcher = matcher;
             this.contextBuilder = contextBuilder;
             this.operationInvoker = operationInvoker;

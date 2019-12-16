@@ -2,7 +2,7 @@
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
-namespace Microsoft.Extensions.DependencyInjection
+namespace Menes.Hosting.AspNetCore
 {
     using System.Threading.Tasks;
     using Menes;

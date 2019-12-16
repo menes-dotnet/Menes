@@ -4,5 +4,9 @@
     <!-- StyleCop's insistence that constructors' summaries must always start with exactly
          the same boilerplate text is not deeply helpful. -->
     <Rule Id="SA1642" Action="None" />
+    <!-- SA1025 makes it impossible to write decent-looking switch expressions because it
+         doesn't allow multiple whitespace characters in a row. And there seems to be no way
+         to disable it just inside switch expressions. So we reluctantly live without it. -->
+    <Rule Id="SA1025" Action="None" />
   </Rules>
 </RuleSet>

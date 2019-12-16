@@ -273,13 +273,11 @@ namespace Menes.Validation
 
         private string WriteToString(IOpenApiAny v)
         {
-            using (var textWriter = new StringWriter())
-            {
-                var openApiWriter = new OpenApiJsonWriter(textWriter);
-                openApiWriter.WriteAny(v);
-                textWriter.Flush();
-                return textWriter.ToString().Trim('"');
-            }
+            using var textWriter = new StringWriter();
+            var openApiWriter = new OpenApiJsonWriter(textWriter);
+            openApiWriter.WriteAny(v);
+            textWriter.Flush();
+            return textWriter.ToString().Trim('"');
         }
 
         private void ValidateString(JToken token, OpenApiSchema schema, JsonObjectType type, string propertyName, string propertyPath, List<ValidationError> errors)

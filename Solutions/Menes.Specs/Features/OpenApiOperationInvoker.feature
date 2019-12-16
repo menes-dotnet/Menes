@@ -1,4 +1,5 @@
-﻿@setupContainer
+﻿@perScenarioContainer
+@useZeroArgumentTestOperations
 
 Feature: OpenApiOperationInvoker
     In order to implement an Open API service

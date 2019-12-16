@@ -94,6 +94,8 @@ namespace Microsoft.Extensions.DependencyInjection
 
             services.AddJsonSerializerSettings();
 
+            services.AddInstrumentation();
+
             services.AddOpenApiAuditing();
             services.AddAuditLogSink<ConsoleAuditLogSink>();
 
@@ -115,7 +117,6 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddSingleton((Func<IServiceProvider, IOpenApiHost<TRequest, TResponse>>)(serviceProvider =>
             {
                 var result = new OpenApiHost<TRequest, TResponse>(
-                        serviceProvider.GetRequiredService<IOpenApiServiceOperationLocator>(),
                         serviceProvider.GetRequiredService<IPathMatcher>(),
                         serviceProvider.GetRequiredService<IOpenApiContextBuilder<TRequest>>(),
                         serviceProvider.GetRequiredService<IOpenApiOperationInvoker<TRequest, TResponse>>(),
@@ -154,7 +155,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// Add an <see cref="IHalDocumentMapper"/> to the service collection.
         /// </summary>
         /// <typeparam name="TResource">The type of the resource mapped by the HAL document mapper.</typeparam>
-        /// <typeparam name="TMapper">The type fo the mapper.</typeparam>
+        /// <typeparam name="TMapper">The type of the mapper.</typeparam>
         /// <param name="services">The service collection to which to add the mapper.</param>
         /// <returns>The service collection, configured with the HAL document mapper.</returns>
         public static IServiceCollection AddHalDocumentMapper<TResource, TMapper>(this IServiceCollection services)
@@ -163,6 +164,23 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddSingleton<TMapper>();
             services.AddSingleton<IHalDocumentMapper>(s => s.GetRequiredService<TMapper>());
             services.AddSingleton<IHalDocumentMapper<TResource>>(s => s.GetRequiredService<TMapper>());
+            return services;
+        }
+
+        /// <summary>
+        /// Add an <see cref="IHalDocumentMapper"/> to the service collection.
+        /// </summary>
+        /// <typeparam name="TResource">The type of the resource mapped by the HAL document mapper.</typeparam>
+        /// <typeparam name="TContext">The type of the additional context required by the HAL document mapper.</typeparam>
+        /// <typeparam name="TMapper">The type of the mapper.</typeparam>
+        /// <param name="services">The service collection to which to add the mapper.</param>
+        /// <returns>The service collection, configured with the HAL document mapper.</returns>
+        public static IServiceCollection AddHalDocumentMapper<TResource, TContext, TMapper>(this IServiceCollection services)
+            where TMapper : class, IHalDocumentMapper<TResource, TContext>
+        {
+            services.AddSingleton<TMapper>();
+            services.AddSingleton<IHalDocumentMapper>(s => s.GetRequiredService<TMapper>());
+            services.AddSingleton<IHalDocumentMapper<TResource, TContext>>(s => s.GetRequiredService<TMapper>());
             return services;
         }
 

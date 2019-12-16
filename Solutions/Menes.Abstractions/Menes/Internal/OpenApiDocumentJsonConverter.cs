@@ -46,17 +46,13 @@ namespace Menes.Internal
         {
             var document = (OpenApiDocument)value;
 
-            using (var stream = new MemoryStream())
-            {
-                document.SerializeAsJson(stream, OpenApiSpecVersion.OpenApi2_0);
-                stream.Seek(0, SeekOrigin.Begin);
+            using var stream = new MemoryStream();
+            document.SerializeAsJson(stream, OpenApiSpecVersion.OpenApi2_0);
+            stream.Seek(0, SeekOrigin.Begin);
 
-                using (var reader = new StreamReader(stream))
-                {
-                    string json = reader.ReadToEnd();
-                    writer.WriteRaw(json);
-                }
-            }
+            using var reader = new StreamReader(stream);
+            string json = reader.ReadToEnd();
+            writer.WriteRaw(json);
         }
     }
 }

@@ -102,7 +102,7 @@ namespace Menes.Specs.Steps
         {
             foreach ((Mock<IOpenApiAccessControlPolicy> policy, CompletionSourceWithArgs<ShouldAllowArgs, IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> completion) in this.policies)
             {
-                Assert.AreEqual(path, completion.Arguments[0].Requests.First().Path);
+                Assert.AreEqual(path, completion.Arguments[0].Requests[0].Path);
             }
         }
 
@@ -111,7 +111,7 @@ namespace Menes.Specs.Steps
         {
             foreach ((Mock<IOpenApiAccessControlPolicy> policy, CompletionSourceWithArgs<ShouldAllowArgs, IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> completion) in this.policies)
             {
-                Assert.AreEqual(operationId, completion.Arguments[0].Requests.First().OperationId);
+                Assert.AreEqual(operationId, completion.Arguments[0].Requests[0].OperationId);
             }
         }
 
@@ -120,7 +120,7 @@ namespace Menes.Specs.Steps
         {
             foreach ((Mock<IOpenApiAccessControlPolicy> policy, CompletionSourceWithArgs<ShouldAllowArgs, IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> completion) in this.policies)
             {
-                Assert.AreEqual(method, completion.Arguments[0].Requests.First().Method);
+                Assert.AreEqual(method, completion.Arguments[0].Requests[0].Method);
             }
         }
 

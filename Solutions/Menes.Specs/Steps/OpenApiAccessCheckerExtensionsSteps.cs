@@ -24,20 +24,18 @@ namespace Menes.Specs.Steps
     [Binding]
     public class OpenApiAccessCheckerExtensionsSteps
     {
-        private readonly FeatureContext featureContext;
         private readonly ScenarioContext scenarioContext;
         private List<(string Uri, string Method)> checksToDeny = new List<(string Uri, string Method)>();
 
-        public OpenApiAccessCheckerExtensionsSteps(FeatureContext featureContext, ScenarioContext scenarioContext)
+        public OpenApiAccessCheckerExtensionsSteps(ScenarioContext scenarioContext)
         {
-            this.featureContext = featureContext;
             this.scenarioContext = scenarioContext;
         }
 
         [Given("I have a HalDocument called '(.*)'")]
         public void GivenIHaveAHalDocumentCalled(string halDocumentName)
         {
-            IHalDocumentFactory halDocumentFactory = ContainerBindings.GetServiceProvider(this.featureContext).GetService<IHalDocumentFactory>();
+            IHalDocumentFactory halDocumentFactory = ContainerBindings.GetServiceProvider(this.scenarioContext).GetService<IHalDocumentFactory>();
 
             this.scenarioContext.Set(halDocumentFactory.CreateHalDocument(), halDocumentName);
         }
@@ -47,18 +45,23 @@ namespace Menes.Specs.Steps
         {
             HalDocument doc = this.scenarioContext.Get<HalDocument>(halDocumentName);
 
-            openApiWebLinkTable.Rows.ForEach(row =>
-            {
-                doc.AddLink(row["Rel"], new OpenApiWebLink(row["OperationId"], row["Href"], Enum.Parse<OperationType>(row["OperationType"], true)));
-            });
+            openApiWebLinkTable.Rows.ForEach(
+                row => doc.AddLink(
+                    row["Rel"],
+                    new OpenApiWebLink(
+                        row["OperationId"],
+                        row["Href"],
+                        Enum.Parse<OperationType>(row["OperationType"], true))));
         }
 
         [Given("the HalDocument called '(.*)' has embedded resources")]
         public void GivenTheHalDocumentCalledHasEmbeddedResources(string halDocumentName, Table embeddedResourceTable)
         {
-            IHalDocumentFactory halDocumentFactory = ContainerBindings.GetServiceProvider(this.featureContext).GetService<IHalDocumentFactory>();
+            IHalDocumentFactory halDocumentFactory =
+                ContainerBindings.GetServiceProvider(this.scenarioContext).GetService<IHalDocumentFactory>();
 
-            IEnumerable<(string Rel, object Object)> embeddedResources = embeddedResourceTable.CreateSet<(string Rel, object Object)>();
+            IEnumerable<(string Rel, object Object)> embeddedResources =
+                embeddedResourceTable.CreateSet<(string Rel, object Object)>();
             HalDocument doc = this.scenarioContext.Get<HalDocument>(halDocumentName);
             embeddedResources.ForEach(x => doc.AddEmbeddedResource(x.Rel, CreateHalDocument(x, halDocumentFactory)));
         }
@@ -86,12 +89,14 @@ namespace Menes.Specs.Steps
         {
             HalDocument doc = this.scenarioContext.Get<HalDocument>(halDocumentName);
             var mock = new Mock<IOpenApiAccessChecker>();
-            mock.Setup(x => x.CheckAccessPoliciesAsync(It.IsAny<IOpenApiContext>(), It.IsAny<AccessCheckOperationDescriptor[]>())).Returns((IOpenApiContext context, AccessCheckOperationDescriptor[] descriptors) => this.MockCheckAccessPoliciesAsync(descriptors));
+            mock.Setup(x => x.CheckAccessPoliciesAsync(It.IsAny<IOpenApiContext>(), It.IsAny<AccessCheckOperationDescriptor[]>())).Returns((IOpenApiContext _, AccessCheckOperationDescriptor[] descriptors) => this.MockCheckAccessPoliciesAsync(descriptors));
 
             // Normally this would be invoked as an extension method on mock.Object,
             // but it's invoked as a static method here as otherwise it looks like we're
             // running our test against a mock, which is misleading.
+#pragma warning disable RCS1196 // Call extension method as instance method.
             return OpenApiAccessCheckerExtensions.RemoveForbiddenLinksAsync(mock.Object, doc, new SimpleOpenApiContext(), Enum.Parse<HalDocumentLinkRemovalOptions>(optionsTable.Rows[0][0]));
+#pragma warning restore RCS1196 // Call extension method as instance method.
         }
 
         [Then("the HalDocument called '(.*)' should contain only the following link relations")]

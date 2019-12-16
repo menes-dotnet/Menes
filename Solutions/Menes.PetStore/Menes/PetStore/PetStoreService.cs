@@ -9,6 +9,7 @@ namespace Menes.PetStore
     using System.IO;
     using System.Linq;
     using System.Net;
+    using System.Net.Http;
     using System.Text.RegularExpressions;
     using System.Threading.Tasks;
     using System.Web;
@@ -26,6 +27,7 @@ namespace Menes.PetStore
         private readonly List<PetResource> pets;
         private readonly PetListResourceMapper petListMapper;
         private readonly PetResourceMapper petMapper;
+        private readonly IHttpClientFactory httpClientFactory;
         private readonly PetResource secretPet;
 
         /// <summary>
@@ -33,7 +35,11 @@ namespace Menes.PetStore
         /// </summary>
         /// <param name="petListMapper">Mapper for pet list responses.</param>
         /// <param name="petMapper">Mapper for pet responses.</param>
-        public PetStoreService(PetListResourceMapper petListMapper, PetResourceMapper petMapper)
+        /// <param name="httpClientFactory">Source of <c>HttpClient</c>s.</param>
+        public PetStoreService(
+            PetListResourceMapper petListMapper,
+            PetResourceMapper petMapper,
+            IHttpClientFactory httpClientFactory)
         {
             this.pets = new List<PetResource>
                             {
@@ -44,7 +50,7 @@ namespace Menes.PetStore
 
             this.petListMapper = petListMapper;
             this.petMapper = petMapper;
-
+            this.httpClientFactory = httpClientFactory;
             this.secretPet = new PetResource { Id = 0, Name = "Yogi", Tag = "Bear", Size = Size.Large, GlobalIdentifier = Guid.NewGuid() };
         }
 
@@ -66,11 +72,11 @@ namespace Menes.PetStore
             string nextContinuationToken = (skip + limit < this.pets.Count) ? BuildContinuationToken(limit + skip) : null;
             HalDocument response = this.petListMapper.Map(new PetListResource { Pets = pets, TotalCount = this.pets.Count, PageSize = limit, CurrentContinuationToken = continuationToken,  NextContinuationToken = nextContinuationToken });
 
-            OpenApiResult result = this.OkResult(response, "application/hal+hson");
+            OpenApiResult result = this.OkResult(response, "application/hal+json");
 
             // We also add the next page link to the header, just to demonstrate that it's possible
             // to use WebLink items in this way.
-            WebLink nextLink = response.GetLinksForRelation("next").First();
+            WebLink nextLink = response.GetLinksForRelation("next").FirstOrDefault();
             if (nextLink != default)
             {
                 result.Results.Add("x-next", nextLink.Href);
@@ -205,7 +211,7 @@ namespace Menes.PetStore
             long.TryParse(petId, out long idAsLong);
             PetResource pet = this.pets.SingleOrDefault(p => p.Id == idAsLong);
 
-            Stream result = await GetImageForPetAsync(pet).ConfigureAwait(false);
+            Stream result = await this.GetImageForPetAsync(pet).ConfigureAwait(false);
 
             return this.OkResult(result, "image/jpeg");
         }
@@ -225,17 +231,7 @@ namespace Menes.PetStore
             long.TryParse(petId, out long idAsLong);
             PetResource pet = this.pets.SingleOrDefault(p => p.Id == idAsLong);
 
-            return GetImageForPetAsync(pet);
-        }
-
-        private static async Task<Stream> GetImageForPetAsync(PetResource pet)
-        {
-            using (var client = new WebClient())
-            {
-                string uri = $"https://loremflickr.com/320/240/{HttpUtility.UrlEncode(pet.Tag)},{pet.Size}";
-                byte[] image = await client.DownloadDataTaskAsync(uri).ConfigureAwait(false);
-                return new MemoryStream(image);
-            }
+            return this.GetImageForPetAsync(pet);
         }
 
         private static string BuildContinuationToken(int skip)
@@ -280,6 +276,14 @@ namespace Menes.PetStore
             }
 
             return skip;
+        }
+
+        private async Task<Stream> GetImageForPetAsync(PetResource pet)
+        {
+            using HttpClient client = this.httpClientFactory.CreateClient();
+            string uri = $"https://loremflickr.com/320/240/{HttpUtility.UrlEncode(pet.Tag)},{pet.Size}";
+            byte[] image = await client.GetByteArrayAsync(uri).ConfigureAwait(false);
+            return new MemoryStream(image);
         }
 
         private OpenApiResult MapAndReturnPet(PetResource result)

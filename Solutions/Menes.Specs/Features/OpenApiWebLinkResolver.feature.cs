@@ -91,49 +91,49 @@ this.ScenarioInitialize(scenarioInfo);
 #line 6
 this.FeatureBackground();
 #line hidden
-            TechTalk.SpecFlow.Table table18 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table19 = new TechTalk.SpecFlow.Table(new string[] {
                         "RelationName",
                         "TargetType",
                         "OperationId"});
-            table18.AddRow(new string[] {
+            table19.AddRow(new string[] {
                         "image",
                         "Menes.Specs.Steps.TestClasses.Pet",
                         "getPetImage"});
 #line 10
- testRunner.Given("I have mapped link relations by type", ((string)(null)), table18, "Given ");
+ testRunner.Given("I have mapped link relations by type", ((string)(null)), table19, "Given ");
 #line hidden
-            TechTalk.SpecFlow.Table table19 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table20 = new TechTalk.SpecFlow.Table(new string[] {
                         "Id",
                         "Name",
                         "Tag"});
-            table19.AddRow(new string[] {
+            table20.AddRow(new string[] {
                         "1",
                         "Snowy",
                         "Dog"});
 #line 13
- testRunner.And("I have an object called \'target\' of type \'Menes.Specs.Steps.TestClasses.Pet\'", ((string)(null)), table19, "And ");
+ testRunner.And("I have an object called \'target\' of type \'Menes.Specs.Steps.TestClasses.Pet\'", ((string)(null)), table20, "And ");
 #line hidden
-            TechTalk.SpecFlow.Table table20 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table21 = new TechTalk.SpecFlow.Table(new string[] {
                         "Key",
                         "Value"});
-            table20.AddRow(new string[] {
+            table21.AddRow(new string[] {
                         "petId",
                         "1"});
 #line 16
- testRunner.When("I resolve the link relation \'image\' for object \'target\' with parameters", ((string)(null)), table20, "When ");
+ testRunner.When("I resolve the link relation \'image\' for object \'target\' with parameters", ((string)(null)), table21, "When ");
 #line hidden
-            TechTalk.SpecFlow.Table table21 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table22 = new TechTalk.SpecFlow.Table(new string[] {
                         "Rel",
                         "OperationId",
                         "Href",
                         "Method"});
-            table21.AddRow(new string[] {
+            table22.AddRow(new string[] {
                         "image",
                         "getPetImage",
                         "/pets/1/image",
                         "get"});
 #line 19
- testRunner.Then("the resulting link matches", ((string)(null)), table21, "Then ");
+ testRunner.Then("the resulting link matches", ((string)(null)), table22, "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -149,53 +149,53 @@ this.ScenarioInitialize(scenarioInfo);
 #line 6
 this.FeatureBackground();
 #line hidden
-            TechTalk.SpecFlow.Table table22 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table23 = new TechTalk.SpecFlow.Table(new string[] {
                         "RelationName",
                         "ContentType",
                         "OperationId"});
-            table22.AddRow(new string[] {
+            table23.AddRow(new string[] {
                         "image",
                         "menes/vnd.petstore.pet",
                         "getPetImage"});
-            table22.AddRow(new string[] {
+            table23.AddRow(new string[] {
                         "image",
                         "menes/vnd.petstore.pet.dog",
                         "getDogImage"});
 #line 24
- testRunner.Given("I have mapped link relations by content type", ((string)(null)), table22, "Given ");
+ testRunner.Given("I have mapped link relations by content type", ((string)(null)), table23, "Given ");
 #line hidden
-            TechTalk.SpecFlow.Table table23 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table24 = new TechTalk.SpecFlow.Table(new string[] {
                         "Id",
                         "Name",
                         "Tag"});
-            table23.AddRow(new string[] {
+            table24.AddRow(new string[] {
                         "1",
                         "Snowy",
                         "Dog"});
 #line 28
- testRunner.And("I have an object called \'target\' of type \'Menes.Specs.Steps.TestClasses.Pet\'", ((string)(null)), table23, "And ");
+ testRunner.And("I have an object called \'target\' of type \'Menes.Specs.Steps.TestClasses.Pet\'", ((string)(null)), table24, "And ");
 #line hidden
-            TechTalk.SpecFlow.Table table24 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table25 = new TechTalk.SpecFlow.Table(new string[] {
                         "Key",
                         "Value"});
-            table24.AddRow(new string[] {
+            table25.AddRow(new string[] {
                         "petId",
                         "1"});
 #line 31
- testRunner.When("I resolve the link relation \'image\' for object \'target\' with parameters", ((string)(null)), table24, "When ");
+ testRunner.When("I resolve the link relation \'image\' for object \'target\' with parameters", ((string)(null)), table25, "When ");
 #line hidden
-            TechTalk.SpecFlow.Table table25 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table26 = new TechTalk.SpecFlow.Table(new string[] {
                         "Rel",
                         "OperationId",
                         "Href",
                         "Method"});
-            table25.AddRow(new string[] {
+            table26.AddRow(new string[] {
                         "image",
                         "getDogImage",
                         "/pets/1/dogimage",
                         "get"});
 #line 34
- testRunner.Then("the resulting link matches", ((string)(null)), table25, "Then ");
+ testRunner.Then("the resulting link matches", ((string)(null)), table26, "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -211,53 +211,53 @@ this.ScenarioInitialize(scenarioInfo);
 #line 6
 this.FeatureBackground();
 #line hidden
-            TechTalk.SpecFlow.Table table26 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table27 = new TechTalk.SpecFlow.Table(new string[] {
                         "RelationName",
                         "ContentType",
                         "OperationId"});
-            table26.AddRow(new string[] {
+            table27.AddRow(new string[] {
                         "image",
                         "menes/vnd.petstore.pet",
                         "getPetImage"});
-            table26.AddRow(new string[] {
+            table27.AddRow(new string[] {
                         "image",
                         "menes/vnd.petstore.pet.dog",
                         "getDogImage"});
 #line 39
- testRunner.Given("I have mapped link relations by content type", ((string)(null)), table26, "Given ");
+ testRunner.Given("I have mapped link relations by content type", ((string)(null)), table27, "Given ");
 #line hidden
-            TechTalk.SpecFlow.Table table27 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table28 = new TechTalk.SpecFlow.Table(new string[] {
                         "Id",
                         "Name",
                         "Tag"});
-            table27.AddRow(new string[] {
+            table28.AddRow(new string[] {
                         "1",
                         "Snowy",
                         "Cat"});
 #line 43
- testRunner.And("I have an object called \'target\' of type \'Menes.Specs.Steps.TestClasses.Pet\'", ((string)(null)), table27, "And ");
+ testRunner.And("I have an object called \'target\' of type \'Menes.Specs.Steps.TestClasses.Pet\'", ((string)(null)), table28, "And ");
 #line hidden
-            TechTalk.SpecFlow.Table table28 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table29 = new TechTalk.SpecFlow.Table(new string[] {
                         "Key",
                         "Value"});
-            table28.AddRow(new string[] {
+            table29.AddRow(new string[] {
                         "petId",
                         "1"});
 #line 46
- testRunner.When("I resolve the link relation \'image\' for object \'target\' with parameters", ((string)(null)), table28, "When ");
+ testRunner.When("I resolve the link relation \'image\' for object \'target\' with parameters", ((string)(null)), table29, "When ");
 #line hidden
-            TechTalk.SpecFlow.Table table29 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table30 = new TechTalk.SpecFlow.Table(new string[] {
                         "Rel",
                         "OperationId",
                         "Href",
                         "Method"});
-            table29.AddRow(new string[] {
+            table30.AddRow(new string[] {
                         "image",
                         "getPetImage",
                         "/pets/1/image",
                         "get"});
 #line 49
- testRunner.Then("the resulting link matches", ((string)(null)), table29, "Then ");
+ testRunner.Then("the resulting link matches", ((string)(null)), table30, "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
