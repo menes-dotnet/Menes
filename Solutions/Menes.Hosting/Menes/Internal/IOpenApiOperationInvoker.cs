@@ -4,6 +4,7 @@
 
 namespace Menes.Internal
 {
+    using System;
     using System.Threading.Tasks;
 
     /// <summary>
@@ -16,11 +17,12 @@ namespace Menes.Internal
         /// <summary>
         /// Invoke the given operation.
         /// </summary>
+        /// <param name="serviceProvider">The service provider for the invokation context.</param>
         /// <param name="path">The operation path.</param>
         /// <param name="method">The operation method.</param>
         /// <param name="request">The request.</param>
         /// <param name="operationPathTemplate">The path template for the operation.</param>
         /// <returns>A <see cref="Task{T}"/> which, when complete, provides the response.</returns>
-        Task<TResponse> InvokeAsync(string path, string method, TRequest request, OpenApiOperationPathTemplate operationPathTemplate);
+        Task<TResponse> InvokeAsync(IServiceProvider serviceProvider, string path, string method, TRequest request, OpenApiOperationPathTemplate operationPathTemplate);
     }
 }

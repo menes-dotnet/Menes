@@ -95,6 +95,7 @@ namespace Menes.Specs.Steps
             this.InvokerContext.UseManualAccessChecks();
 
             this.invokerResultTask = this.Invoker.InvokeAsync(
+                ContainerBindings.GetServiceProvider(this.scenarioContext),
                 path,
                 method,
                 new object(),

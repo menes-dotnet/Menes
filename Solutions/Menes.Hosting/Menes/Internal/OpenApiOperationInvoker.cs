@@ -71,7 +71,7 @@ namespace Menes.Internal
         }
 
         /// <inheritdoc/>
-        public async Task<TResponse> InvokeAsync(string path, string method, TRequest request, OpenApiOperationPathTemplate operationPathTemplate)
+        public async Task<TResponse> InvokeAsync(IServiceProvider serviceProvider, string path, string method, TRequest request, OpenApiOperationPathTemplate operationPathTemplate)
         {
             string operationId = operationPathTemplate.Operation.OperationId;
             if (!this.operationLocator.TryGetOperation(operationId, out OpenApiServiceOperation openApiServiceOperation))
@@ -96,7 +96,7 @@ namespace Menes.Internal
                 IDictionary<string, object> namedParameters = await this.BuildRequestParametersAsync(request, operationPathTemplate).ConfigureAwait(false);
 
                 await this.CheckAccessPoliciesAsync(path, method, operationId).ConfigureAwait(false);
-                object result = openApiServiceOperation.Execute(namedParameters);
+                object result = openApiServiceOperation.Execute(serviceProvider, namedParameters);
 
                 if (this.logger.IsEnabled(LogLevel.Debug))
                 {

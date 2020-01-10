@@ -31,12 +31,13 @@ namespace Menes.PetStore.Hosting
             services.AddHalDocumentMapper<PetResource, PetResourceMapper>();
             services.AddHalDocumentMapper<PetListResource, PetListResourceMapper>();
 
-            _ = services.AddOpenApiHttpRequestHosting(LoadDocuments);
+            services.AddOpenApiHttpRequestHosting(LoadDocuments);
 
             // We can add all the services here
             // We will only actually *provide* services that are in the YAML file(s) we load below
             // So you can register everything, and use the yaml files you deploy to decide what is responded to by this instance
-            services.AddTransient<IOpenApiService, PetStoreService>();
+            // These services need to be scoped to the request.
+            services.AddOpenApiService<PetStoreService>();
         }
 
         private static void LoadDocuments(IOpenApiHostConfiguration hostConfig)

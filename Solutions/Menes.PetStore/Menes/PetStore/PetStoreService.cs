@@ -28,7 +28,7 @@ namespace Menes.PetStore
         private readonly PetListResourceMapper petListMapper;
         private readonly PetResourceMapper petMapper;
         private readonly IHttpClientFactory httpClientFactory;
-        private readonly PetResource secretPet;
+        ////private readonly PetResource secretPet;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PetStoreService"/> class.
@@ -51,7 +51,7 @@ namespace Menes.PetStore
             this.petListMapper = petListMapper;
             this.petMapper = petMapper;
             this.httpClientFactory = httpClientFactory;
-            this.secretPet = new PetResource { Id = 0, Name = "Yogi", Tag = "Bear", Size = Size.Large, GlobalIdentifier = Guid.NewGuid() };
+            ////this.secretPet = new PetResource { Id = 0, Name = "Yogi", Tag = "Bear", Size = Size.Large, GlobalIdentifier = Guid.NewGuid() };
         }
 
         /// <summary>

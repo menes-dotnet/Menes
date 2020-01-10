@@ -15,7 +15,8 @@ namespace Menes.Internal
     /// </summary>
     public class OpenApiServiceOperation
     {
-        private readonly IOpenApiService service;
+        private readonly Type serviceType;
+        private readonly object serviceInstance;
         private readonly MethodInfo operation;
         private readonly IOpenApiConfiguration configuration;
         private readonly object[] defaultValues;
@@ -25,12 +26,34 @@ namespace Menes.Internal
         /// <summary>
         /// Initializes a new instance of the <see cref="OpenApiServiceOperation"/> class.
         /// </summary>
-        /// <param name="service">The service hosting the operation.</param>
+        /// <param name="serviceType">The type of the service hosting the operation.</param>
         /// <param name="operation">The operation.</param>
         /// <param name="configuration">The OpenAPI configuration.</param>
-        public OpenApiServiceOperation(IOpenApiService service, MethodInfo operation, IOpenApiConfiguration configuration)
+        public OpenApiServiceOperation(Type serviceType, MethodInfo operation, IOpenApiConfiguration configuration)
+            : this(operation, configuration)
         {
-            this.service = service ?? throw new ArgumentNullException(nameof(service));
+            this.serviceType = serviceType ?? throw new ArgumentNullException(nameof(serviceType));
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="OpenApiServiceOperation"/> class.
+        /// </summary>
+        /// <param name="serviceInstance">The instance of the service hosting the operation.</param>
+        /// <param name="operation">The operation.</param>
+        /// <param name="configuration">The OpenAPI configuration.</param>
+        public OpenApiServiceOperation(object serviceInstance, MethodInfo operation, IOpenApiConfiguration configuration)
+            : this(operation, configuration)
+        {
+            this.serviceInstance = serviceInstance ?? throw new ArgumentNullException(nameof(serviceInstance));
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="OpenApiServiceOperation"/> class.
+        /// </summary>
+        /// <param name="operation">The operation.</param>
+        /// <param name="configuration">The OpenAPI configuration.</param>
+        private OpenApiServiceOperation(MethodInfo operation, IOpenApiConfiguration configuration)
+        {
             this.operation = operation ?? throw new ArgumentNullException(nameof(operation));
             this.configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
             ParameterInfo[] parameters = this.operation.GetParameters();
@@ -56,9 +79,11 @@ namespace Menes.Internal
         /// <summary>
         /// Execute the service operation.
         /// </summary>
+        /// <param name="serviceProvider">The service provider associated with the execution context.</param>
         /// <param name="inputParameters">The parameters for the operation.</param>
         /// <returns>The result.</returns>
         public object Execute(
+            IServiceProvider serviceProvider,
             IDictionary<string, object> inputParameters)
         {
             if (inputParameters is null)
@@ -117,7 +142,7 @@ namespace Menes.Internal
                 }
             }
 
-            return this.operation.Invoke(this.service, paramArray);
+            return this.operation.Invoke(this.serviceInstance ?? serviceProvider.GetService(this.serviceType), paramArray);
         }
 
         /// <summary>

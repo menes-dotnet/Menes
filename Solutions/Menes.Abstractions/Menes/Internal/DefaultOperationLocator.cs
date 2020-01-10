@@ -78,7 +78,7 @@ namespace Menes.Internal
                         continue;
                     }
 
-                    result.Add(attr.OperationId, new OpenApiServiceOperation(service, method, this.configuration));
+                    result.Add(attr.OperationId, new OpenApiServiceOperation(service.GetType(), method, this.configuration));
                 }
             }
 

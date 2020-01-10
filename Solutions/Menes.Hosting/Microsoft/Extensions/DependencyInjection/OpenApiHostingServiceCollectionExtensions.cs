@@ -106,7 +106,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddTransient<HalDocument>();
             services.AddSingleton<IOpenApiServiceOperationLocator, DefaultOperationLocator>();
             services.AddSingleton<IPathMatcher, PathMatcher>();
-            services.AddSingleton<IOpenApiService, SwaggerService>();
+            services.AddOpenApiService<SwaggerService>();
             services.AddSingleton<IOpenApiLinkOperationMapper, OpenApiLinkOperationMapper>();
             services.AddSingleton<IOpenApiAccessChecker, OpenApiAccessChecker>();
             services.AddSingleton<IOpenApiExceptionMapper, OpenApiExceptionMapper>();
@@ -117,6 +117,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddSingleton((Func<IServiceProvider, IOpenApiHost<TRequest, TResponse>>)(serviceProvider =>
             {
                 var result = new OpenApiHost<TRequest, TResponse>(
+                        serviceProvider,
                         serviceProvider.GetRequiredService<IPathMatcher>(),
                         serviceProvider.GetRequiredService<IOpenApiOperationInvoker<TRequest, TResponse>>(),
                         serviceProvider.GetRequiredService<IOpenApiResultBuilder<TResponse>>());
@@ -220,6 +221,20 @@ namespace Microsoft.Extensions.DependencyInjection
                 return result;
             });
 
+            return services;
+        }
+
+        /// <summary>
+        /// Adds an <see cref="IOpenApiService"/> to the container.
+        /// </summary>
+        /// <typeparam name="T">The type of the service to register.</typeparam>
+        /// <param name="services">The service collection in which to register the service.</param>
+        /// <returns>The service collection, with the service registered.</returns>
+        public static IServiceCollection AddOpenApiService<T>(this IServiceCollection services)
+            where T : class, IOpenApiService
+        {
+            services.AddScoped<T>();
+            services.AddScoped<IOpenApiService, T>(serviceProvider => serviceProvider.GetRequiredService<T>());
             return services;
         }
     }

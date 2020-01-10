@@ -5,6 +5,7 @@
 namespace Menes.Specs.Steps
 {
     using System.Threading.Tasks;
+    using Corvus.SpecFlow.Extensions;
     using Idg.AsyncTest.TaskExtensions;
     using Menes.Specs.Fakes;
     using Microsoft.OpenApi.Models;
@@ -25,7 +26,7 @@ namespace Menes.Specs.Steps
             var template = new OpenApiOperationPathTemplate(
                 new OpenApiOperation { OperationId = operationId },
                 new OpenApiPathTemplate(path, new OpenApiPathItem()));
-            this.InvokerContext.OperationInvocationTask = this.Invoker.InvokeAsync(method, path, null, template);
+            this.InvokerContext.OperationInvocationTask = this.Invoker.InvokeAsync(ContainerBindings.GetServiceProvider(this.ScenarioContext), method, path, null, template);
         }
 
         [When("the operation invoker has been invoked")]

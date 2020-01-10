@@ -8,6 +8,7 @@ namespace Marain.Claims.SpecFlow.Bindings
     using Corvus.SpecFlow.Extensions;
     using Menes;
     using Menes.Specs.Fakes;
+    using Menes.Specs.Steps;
     using Menes.Specs.Steps.TestClasses;
     using Microsoft.Extensions.DependencyInjection;
     using TechTalk.SpecFlow;
@@ -38,7 +39,7 @@ namespace Marain.Claims.SpecFlow.Bindings
                     serviceCollection.AddSingleton<IExceptionsInstrumentation>(instrumentationProvider);
                     serviceCollection.AddInstrumentation();
                     serviceCollection.AddInstrumentationSourceTagging();
-
+                    
                     OperationInvokerTestContext.AddServices(serviceCollection);
                 });
         }
