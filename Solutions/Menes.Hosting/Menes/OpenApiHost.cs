@@ -43,7 +43,7 @@ namespace Menes
             if (this.matcher.FindOperationPathTemplate(path, method, out OpenApiOperationPathTemplate operationPathTemplate))
             {
                 using IServiceScope newScope = this.serviceProvider.CreateScope();
-                await this.BuildScopeAsync(newScope.ServiceProvider).ConfigureAwait(false);
+                await this.BuildScopeAsync(newScope.ServiceProvider, path, method, request, parameters, operationPathTemplate).ConfigureAwait(false);
                 return await this.operationInvoker.InvokeAsync(newScope.ServiceProvider, path, method, request, operationPathTemplate).ConfigureAwait(false);
             }
 
@@ -51,7 +51,7 @@ namespace Menes
             return this.BuildServiceOperationNotFoundResult();
         }
 
-        private Task BuildScopeAsync(IServiceProvider serviceProvider)
+        private Task BuildScopeAsync(IServiceProvider serviceProvider, string path, string method, TRequest request, object parameters, OpenApiOperationPathTemplate operationPathTemplate)
         {
             // TODO: find the scope builders
             return Task.CompletedTask;
