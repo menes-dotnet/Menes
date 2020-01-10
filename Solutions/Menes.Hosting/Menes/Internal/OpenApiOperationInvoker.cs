@@ -71,7 +71,7 @@ namespace Menes.Internal
         }
 
         /// <inheritdoc/>
-        public async Task<TResponse> InvokeAsync(string path, string method, TRequest request, OpenApiOperationPathTemplate operationPathTemplate, IOpenApiContext context)
+        public async Task<TResponse> InvokeAsync(string path, string method, TRequest request, OpenApiOperationPathTemplate operationPathTemplate)
         {
             string operationId = operationPathTemplate.Operation.OperationId;
             if (!this.operationLocator.TryGetOperation(operationId, out OpenApiServiceOperation openApiServiceOperation))
@@ -95,14 +95,8 @@ namespace Menes.Internal
             {
                 IDictionary<string, object> namedParameters = await this.BuildRequestParametersAsync(request, operationPathTemplate).ConfigureAwait(false);
 
-                // Try to find the tenantID in the parameters, but before we check the access policies.
-                if (namedParameters.TryGetValue("tenantId", out object tenantIdObject) && tenantIdObject is string tenantId)
-                {
-                    context.CurrentTenantId = tenantId;
-                }
-
-                await this.CheckAccessPoliciesAsync(context, path, method, operationId).ConfigureAwait(false);
-                object result = openApiServiceOperation.Execute(context, namedParameters);
+                await this.CheckAccessPoliciesAsync(path, method, operationId).ConfigureAwait(false);
+                object result = openApiServiceOperation.Execute(namedParameters);
 
                 if (this.logger.IsEnabled(LogLevel.Debug))
                 {
@@ -148,7 +142,7 @@ namespace Menes.Internal
                         openApiServiceOperation.GetName());
                 }
 
-                await this.auditContext.AuditResultAsync(context, result, operationPathTemplate.Operation).ConfigureAwait(false);
+                await this.auditContext.AuditResultAsync(result, operationPathTemplate.Operation).ConfigureAwait(false);
 
                 return this.BuildResult(result, operationPathTemplate.Operation);
             }
@@ -156,7 +150,7 @@ namespace Menes.Internal
             {
                 // Something somewhere is misconfigured, so all bets are now off.
                 this.LogConfigurationError(ce);
-                await this.auditContext.AuditFailureAsync(context, 500, operationPathTemplate.Operation).ConfigureAwait(false);
+                await this.auditContext.AuditFailureAsync(500, operationPathTemplate.Operation).ConfigureAwait(false);
                 return this.BuildErrorResult(500);
             }
             catch (Exception ex)
@@ -173,25 +167,24 @@ namespace Menes.Internal
                         method);
 
                     OpenApiResult result = this.GetResultForException(ex, operationPathTemplate.Operation);
-                    await this.auditContext.AuditResultAsync(context, result, operationPathTemplate.Operation).ConfigureAwait(false);
+                    await this.auditContext.AuditResultAsync(result, operationPathTemplate.Operation).ConfigureAwait(false);
                     return this.BuildResult(result, operationPathTemplate.Operation);
                 }
                 catch (OpenApiServiceMismatchException ce)
                 {
                     this.LogConfigurationError(ce);
-                    await this.auditContext.AuditFailureAsync(context, 500, operationPathTemplate.Operation).ConfigureAwait(false);
+                    await this.auditContext.AuditFailureAsync(500, operationPathTemplate.Operation).ConfigureAwait(false);
                     return this.BuildErrorResult(500);
                 }
             }
         }
 
         private async Task CheckAccessPoliciesAsync(
-            IOpenApiContext context,
             string path,
             string method,
             string operationId)
         {
-            AccessControlPolicyResult result = await this.accessChecker.CheckAccessPolicyAsync(context, path, operationId, method).ConfigureAwait(false);
+            AccessControlPolicyResult result = await this.accessChecker.CheckAccessPolicyAsync(path, operationId, method).ConfigureAwait(false);
 
             if (result.ResultType == AccessControlPolicyResultType.NotAuthenticated)
             {

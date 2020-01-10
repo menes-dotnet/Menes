@@ -41,7 +41,7 @@ namespace Menes.Specs.Steps
             ServiceCollection collection = this.scenarioContext.Get<ServiceCollection>();
 
             collection.AddLogging();
-            collection.AddOpenApiHttpRequestHosting<SimpleOpenApiContext>(_ => { }, null);
+            collection.AddOpenApiHttpRequestHosting(_ => { }, null);
         }
 
         [Given("I have built the service provider from the service collection")]

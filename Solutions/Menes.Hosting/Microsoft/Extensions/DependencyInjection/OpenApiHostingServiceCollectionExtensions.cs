@@ -118,7 +118,6 @@ namespace Microsoft.Extensions.DependencyInjection
             {
                 var result = new OpenApiHost<TRequest, TResponse>(
                         serviceProvider.GetRequiredService<IPathMatcher>(),
-                        serviceProvider.GetRequiredService<IOpenApiContextBuilder<TRequest>>(),
                         serviceProvider.GetRequiredService<IOpenApiOperationInvoker<TRequest, TResponse>>(),
                         serviceProvider.GetRequiredService<IOpenApiResultBuilder<TResponse>>());
 

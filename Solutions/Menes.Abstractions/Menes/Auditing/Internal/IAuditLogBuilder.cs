@@ -25,19 +25,17 @@ namespace Menes.Auditing.Internal
         /// <summary>
         /// Indicates whether the builder can build a result for the given operation and result.
         /// </summary>
-        /// <param name="context">The current <see cref="IOpenApiContext"/>.</param>
         /// <param name="result">The result.</param>
         /// <param name="operation">The operation.</param>
         /// <returns>True if the builder can handle the operation and result.</returns>
-        bool CanBuildAuditLog(IOpenApiContext context, object result, OpenApiOperation operation);
+        bool CanBuildAuditLog(object result, OpenApiOperation operation);
 
         /// <summary>
         /// Build the result for the operation.
         /// </summary>
-        /// <param name="context">The current <see cref="IOpenApiContext"/>.</param>
         /// <param name="result">The result.</param>
         /// <param name="operation">The operation.</param>
         /// <returns>The <see cref="AuditLog"/> constructed from the operation and result.</returns>
-        AuditLog BuildAuditLog(IOpenApiContext context, object result, OpenApiOperation operation);
+        AuditLog BuildAuditLog(object result, OpenApiOperation operation);
     }
 }

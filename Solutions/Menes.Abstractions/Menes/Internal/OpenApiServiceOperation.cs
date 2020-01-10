@@ -56,18 +56,11 @@ namespace Menes.Internal
         /// <summary>
         /// Execute the service operation.
         /// </summary>
-        /// <param name="context">The Open API context.</param>
         /// <param name="inputParameters">The parameters for the operation.</param>
         /// <returns>The result.</returns>
         public object Execute(
-            IOpenApiContext context,
             IDictionary<string, object> inputParameters)
         {
-            if (context is null)
-            {
-                throw new ArgumentNullException(nameof(context));
-            }
-
             if (inputParameters is null)
             {
                 throw new ArgumentNullException(nameof(inputParameters));
@@ -80,11 +73,7 @@ namespace Menes.Internal
                 string parameterName = this.parameterNames[index];
                 Type targetType = this.operation.GetParameters()[index].ParameterType;
 
-                if (targetType == typeof(IOpenApiContext))
-                {
-                    paramArray[index] = context;
-                }
-                else if (inputParameters.TryGetValue(parameterName, out object value)
+                if (inputParameters.TryGetValue(parameterName, out object value)
                     || (this.configuration.EnableNonExactParameterMatching
                      && TryGetInputParameterWithNonExactMatch(inputParameters, parameterName, out value)))
                 {

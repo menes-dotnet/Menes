@@ -18,20 +18,18 @@ namespace Menes
         /// to check access for a single operation.
         /// </summary>
         /// <param name="checker">The underlying <see cref="IOpenApiAccessChecker"/> to use.</param>
-        /// <param name="context">The current <see cref="IOpenApiContext"/>.</param>
         /// <param name="path">The request path.</param>
         /// <param name="operationId">The request Operation Id.</param>
         /// <param name="httpMethod">The request Http method.</param>
         /// <returns>A task that resolves to the result of the access check.</returns>
         public static async Task<AccessControlPolicyResult> CheckAccessPolicyAsync(
             this IOpenApiAccessChecker checker,
-            IOpenApiContext context,
             string path,
             string operationId,
             string httpMethod)
         {
             var request = new AccessCheckOperationDescriptor(path, operationId, httpMethod);
-            IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult> result = await checker.CheckAccessPoliciesAsync(context, request).ConfigureAwait(false);
+            IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult> result = await checker.CheckAccessPoliciesAsync(request).ConfigureAwait(false);
 
             return result.Values.Single();
         }

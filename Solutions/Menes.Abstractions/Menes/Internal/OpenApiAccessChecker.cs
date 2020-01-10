@@ -29,11 +29,10 @@ namespace Menes.Internal
 
         /// <inheritdoc />
         public Task<IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> CheckAccessPoliciesAsync(
-            IOpenApiContext context,
             params AccessCheckOperationDescriptor[] requests)
         {
             return OpenApiAccessPolicyAggregator.EvaluteAccessPoliciesConcurrentlyAsync(
-                this.accessControlPolicies, context, requests);
+                this.accessControlPolicies, requests);
         }
     }
 }

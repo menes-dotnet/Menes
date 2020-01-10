@@ -54,7 +54,7 @@ namespace Menes.Auditing
         public bool IsAuditingEnabled { get; }
 
         /// <inheritdoc/>
-        public async Task AuditFailureAsync(IOpenApiContext context, int statusCode, OpenApiOperation operation)
+        public async Task AuditFailureAsync(int statusCode, OpenApiOperation operation)
         {
             if (this.IsAuditingEnabled)
             {
@@ -62,31 +62,29 @@ namespace Menes.Auditing
                 {
                     Operation = operation.OperationId,
                     Result = statusCode,
-                    UserId = context.CurrentPrincipal?.Identity?.Name,
                 };
 
-                await this.auditSinks.LogAsync(context, log).ConfigureAwait(false);
+                await this.auditSinks.LogAsync(log).ConfigureAwait(false);
             }
         }
 
         /// <inheritdoc/>
-        public async Task AuditResultAsync(IOpenApiContext context, object result, OpenApiOperation operation)
+        public async Task AuditResultAsync(object result, OpenApiOperation operation)
         {
             if (this.IsAuditingEnabled)
             {
-                AuditLog log = this.BuildAuditLog(context, result, operation);
-                await this.auditSinks.LogAsync(context, log).ConfigureAwait(false);
+                AuditLog log = this.BuildAuditLog(result, operation);
+                await this.auditSinks.LogAsync(log).ConfigureAwait(false);
             }
         }
 
         /// <summary>
         /// Build an audit log for a given result, operation, and context.
         /// </summary>
-        /// <param name="context">The OpenAPI context.</param>
         /// <param name="result">The result of the operation.</param>
         /// <param name="operation">The OpenAPI operation.</param>
         /// <returns>The audit log entry for the result, operation, and context.</returns>
-        private AuditLog BuildAuditLog(IOpenApiContext context, object result, OpenApiOperation operation)
+        private AuditLog BuildAuditLog(object result, OpenApiOperation operation)
         {
             if (this.logger.IsEnabled(LogLevel.Debug))
             {
@@ -97,9 +95,9 @@ namespace Menes.Auditing
 
             foreach (IAuditLogBuilder auditLogBuilder in this.auditLogBuilders)
             {
-                if (auditLogBuilder.CanBuildAuditLog(context, result, operation))
+                if (auditLogBuilder.CanBuildAuditLog(result, operation))
                 {
-                    return auditLogBuilder.BuildAuditLog(context, result, operation);
+                    return auditLogBuilder.BuildAuditLog(result, operation);
                 }
             }
 

@@ -15,7 +15,6 @@ namespace Menes
     public class OpenApiHost<TRequest, TResponse> : IOpenApiHost<TRequest, TResponse>
     {
         private readonly IPathMatcher matcher;
-        private readonly IOpenApiContextBuilder<TRequest> contextBuilder;
         private readonly IOpenApiOperationInvoker<TRequest, TResponse> operationInvoker;
         private readonly IOpenApiResultBuilder<TResponse> resultBuilder;
 
@@ -23,13 +22,11 @@ namespace Menes
         /// Creates an instance of the <see cref="OpenApiHost{TRequest, TResponse}"/>.
         /// </summary>
         /// <param name="matcher">The path matcher.</param>
-        /// <param name="contextBuilder">The OpenAPI context builder.</param>
         /// <param name="operationInvoker">The OpenAPI operation invoker.</param>
         /// <param name="resultBuilder">The OpenAPI result builder.</param>
-        public OpenApiHost(IPathMatcher matcher, IOpenApiContextBuilder<TRequest> contextBuilder, IOpenApiOperationInvoker<TRequest, TResponse> operationInvoker, IOpenApiResultBuilder<TResponse> resultBuilder)
+        public OpenApiHost(IPathMatcher matcher, IOpenApiOperationInvoker<TRequest, TResponse> operationInvoker, IOpenApiResultBuilder<TResponse> resultBuilder)
         {
             this.matcher = matcher;
-            this.contextBuilder = contextBuilder;
             this.operationInvoker = operationInvoker;
             this.resultBuilder = resultBuilder;
         }
@@ -37,13 +34,11 @@ namespace Menes
         /// <inheritdoc/>
         public async Task<TResponse> HandleRequestAsync(string path, string method, TRequest request, object parameters)
         {
-            IOpenApiContext context = await this.BuildContextAsync(request, parameters).ConfigureAwait(false);
-
             // Try to find an Open API operation which matches the incoming request.
             if (this.matcher.FindOperationPathTemplate(path, method, out OpenApiOperationPathTemplate operationPathTemplate))
             {
                 // Now execute the operation
-                return await this.operationInvoker.InvokeAsync(path, method, request, operationPathTemplate, context).ConfigureAwait(false);
+                return await this.operationInvoker.InvokeAsync(path, method, request, operationPathTemplate).ConfigureAwait(false);
             }
 
             // We didn't find an operation which correspons to the path and method in the OpenAPI document
@@ -57,17 +52,6 @@ namespace Menes
         private TResponse BuildServiceOperationNotFoundResult()
         {
             return this.resultBuilder.BuildServiceOperationNotFoundResult();
-        }
-
-        /// <summary>
-        /// Build an OpenAPI context from the request.
-        /// </summary>
-        /// <param name="request">The request from which to build the OpenAPI context.</param>
-        /// <param name="parameters">The dynamically built parameters from which to build the context.</param>
-        /// <returns>A <see cref="Task{TResult}"/> which, when complete, provides the <see cref="IOpenApiContext"/>.</returns>
-        private async Task<IOpenApiContext> BuildContextAsync(TRequest request, object parameters)
-        {
-            return await this.contextBuilder.BuildAsync(request, parameters).ConfigureAwait(false);
         }
     }
 }

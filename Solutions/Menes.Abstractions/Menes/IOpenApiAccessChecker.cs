@@ -16,10 +16,6 @@ namespace Menes
         /// Invoked prior to executing a service operation implementation. Determines whether
         /// access to the operation is permitted.
         /// </summary>
-        /// <param name="context">
-        /// The Open API context for the request. Checkers can use this to discover the caller
-        /// identity and tenant.
-        /// </param>
         /// <param name="requests">
         /// The list of operation descriptors to check.
         /// </param>
@@ -28,7 +24,6 @@ namespace Menes
         /// <see cref="AccessControlPolicyResult"/> indicating the outcome of the policy evaluation.
         /// </returns>
         Task<IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> CheckAccessPoliciesAsync(
-            IOpenApiContext context,
             params AccessCheckOperationDescriptor[] requests);
     }
 }

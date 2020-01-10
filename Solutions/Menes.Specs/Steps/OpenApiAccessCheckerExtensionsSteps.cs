@@ -89,13 +89,13 @@ namespace Menes.Specs.Steps
         {
             HalDocument doc = this.scenarioContext.Get<HalDocument>(halDocumentName);
             var mock = new Mock<IOpenApiAccessChecker>();
-            mock.Setup(x => x.CheckAccessPoliciesAsync(It.IsAny<IOpenApiContext>(), It.IsAny<AccessCheckOperationDescriptor[]>())).Returns((IOpenApiContext _, AccessCheckOperationDescriptor[] descriptors) => this.MockCheckAccessPoliciesAsync(descriptors));
+            mock.Setup(x => x.CheckAccessPoliciesAsync(It.IsAny<AccessCheckOperationDescriptor[]>())).Returns((AccessCheckOperationDescriptor[] descriptors) => this.MockCheckAccessPoliciesAsync(descriptors));
 
             // Normally this would be invoked as an extension method on mock.Object,
             // but it's invoked as a static method here as otherwise it looks like we're
             // running our test against a mock, which is misleading.
 #pragma warning disable RCS1196 // Call extension method as instance method.
-            return OpenApiAccessCheckerExtensions.RemoveForbiddenLinksAsync(mock.Object, doc, new SimpleOpenApiContext(), Enum.Parse<HalDocumentLinkRemovalOptions>(optionsTable.Rows[0][0]));
+            return OpenApiAccessCheckerExtensions.RemoveForbiddenLinksAsync(mock.Object, doc, Enum.Parse<HalDocumentLinkRemovalOptions>(optionsTable.Rows[0][0]));
 #pragma warning restore RCS1196 // Call extension method as instance method.
         }
 

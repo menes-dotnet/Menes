@@ -20,19 +20,17 @@ namespace Menes.Auditing
         /// <summary>
         /// Log a failure to a set of audit sinks.
         /// </summary>
-        /// <param name="context">The OpenAPI context.</param>
         /// <param name="statusCode">The (error) status code.</param>
         /// <param name="operation">The operation that failed.</param>
         /// <returns>A <see cref="Task"/> which completes when the audit failure record has been logged.</returns>
-        Task AuditFailureAsync(IOpenApiContext context, int statusCode, OpenApiOperation operation);
+        Task AuditFailureAsync(int statusCode, OpenApiOperation operation);
 
         /// <summary>
         /// Log a result to a set of audit sinks.
         /// </summary>
-        /// <param name="context">The OpenAPI context.</param>
         /// <param name="result">The result of the operation.</param>
         /// <param name="operation">The operation that produced the result.</param>
         /// <returns>A <see cref="Task"/> which completes when the audit record has been logged.</returns>
-        Task AuditResultAsync(IOpenApiContext context, object result, OpenApiOperation operation);
+        Task AuditResultAsync(object result, OpenApiOperation operation);
     }
 }

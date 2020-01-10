@@ -59,10 +59,9 @@ namespace Menes.AccessControlPolicies
 
         /// <inheritdoc/>
         public async Task<IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> ShouldAllowAsync(
-            IOpenApiContext context,
             params AccessCheckOperationDescriptor[] requests)
         {
-            IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult> firstPolicyResults = await this.firstPolicy.ShouldAllowAsync(context, requests).ConfigureAwait(false);
+            IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult> firstPolicyResults = await this.firstPolicy.ShouldAllowAsync(requests).ConfigureAwait(false);
 
             // Get the "denys" from the first policy results so we can feed them into the second.
             AccessCheckOperationDescriptor[] deniedByFirstPolicy = firstPolicyResults.Where(x => !x.Value.Allow).Select(x => x.Key).ToArray();
@@ -77,7 +76,6 @@ namespace Menes.AccessControlPolicies
             // Evaluate the remaining requests.
             IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult> otherPolicyResults = await OpenApiAccessPolicyAggregator.EvaluteAccessPoliciesConcurrentlyAsync(
                 this.otherPolicies,
-                context,
                 deniedByFirstPolicy).ConfigureAwait(false);
 
             // Merge the result from the other policies into that from the first.

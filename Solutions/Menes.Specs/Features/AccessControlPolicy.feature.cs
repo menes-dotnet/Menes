@@ -92,10 +92,6 @@ this.ScenarioInitialize(scenarioInfo);
     testRunner.And(string.Format("each policy should receive an operationId of \'{0}\'", operationId), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 11
     testRunner.And(string.Format("each policy should receive an HttpMethod of \'{0}\'", httpMethod), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 12
-    testRunner.And("each policy should receive the ClaimsPrincipal attached to the context", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 13
-    testRunner.And("each policy should receive the Tenant attached to the context", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -105,18 +101,18 @@ this.ScenarioInitialize(scenarioInfo);
         public virtual void TheOneAndOnlyAccessControlPolicyBlocksTheRequest()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("The one and only access control policy blocks the request", null, ((string[])(null)));
-#line 22
+#line 20
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
-#line 23
+#line 21
  testRunner.Given("I have configured 1 access control policy", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 24
+#line 22
     testRunner.When("I check access for a \'GET\' request for \'/test/1\' with an operationId of \'op1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 25
+#line 23
     testRunner.And("policy 0 blocks access without explanation", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 26
+#line 24
     testRunner.Then("the result should block the operation", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 27
+#line 25
     testRunner.And("the result should have no explanation", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -127,18 +123,18 @@ this.ScenarioInitialize(scenarioInfo);
         public virtual void TheOneAndOnlyAccessControlPolicyBlocksTheRequestWithAnExplanation()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("The one and only access control policy blocks the request with an explanation", null, ((string[])(null)));
-#line 29
+#line 27
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
-#line 30
+#line 28
  testRunner.Given("I have configured 1 access control policy", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 31
+#line 29
     testRunner.When("I check access for a \'GET\' request for \'/test/1\' with an operationId of \'op1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 32
+#line 30
     testRunner.And("policy 0 blocks access with explanation \'you need to be in the in-crowd group\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 33
+#line 31
  testRunner.Then("the result should block the operation", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 34
+#line 32
     testRunner.And("the result should have the explanation \'you need to be in the in-crowd group\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -149,18 +145,18 @@ this.ScenarioInitialize(scenarioInfo);
         public virtual void TheOneAndOnlyAccessControlPolicyAllowsTheRequest()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("The one and only access control policy allows the request", null, ((string[])(null)));
-#line 36
+#line 34
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
-#line 37
+#line 35
  testRunner.Given("I have configured 1 access control policy", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 38
+#line 36
     testRunner.When("I check access for a \'GET\' request for \'/test/1\' with an operationId of \'op1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 39
+#line 37
     testRunner.And("policy 0 allows access", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 40
+#line 38
     testRunner.Then("the result should allow the operation", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 41
+#line 39
     testRunner.And("the result should have no explanation", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -171,20 +167,20 @@ this.ScenarioInitialize(scenarioInfo);
         public virtual void TheFirstOfTwoAccessControlPoliciesBlocksTheRequest()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("The first of two access control policies blocks the request", null, ((string[])(null)));
-#line 43
+#line 41
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
-#line 44
+#line 42
     testRunner.Given("I have configured 2 access control policies", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 45
+#line 43
     testRunner.When("I check access for a \'GET\' request for \'/test/1\' with an operationId of \'op1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 46
+#line 44
     testRunner.And("policy 0 blocks access without explanation", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 47
+#line 45
     testRunner.And("policy 1 allows access", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 48
+#line 46
     testRunner.Then("the result should block the operation", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 49
+#line 47
     testRunner.And("the result should have no explanation", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -195,20 +191,20 @@ this.ScenarioInitialize(scenarioInfo);
         public virtual void TheFirstOfTwoAccessControlPoliciesBlocksTheRequestWithAnExplanation()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("The first of two access control policies blocks the request with an explanation", null, ((string[])(null)));
-#line 51
+#line 49
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
-#line 52
+#line 50
     testRunner.Given("I have configured 2 access control policies", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 53
+#line 51
     testRunner.When("I check access for a \'GET\' request for \'/test/1\' with an operationId of \'op1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 54
+#line 52
     testRunner.And("policy 0 blocks access with explanation \'you looked at me funny\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 55
+#line 53
     testRunner.And("policy 1 allows access", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 56
+#line 54
  testRunner.Then("the result should block the operation", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 57
+#line 55
     testRunner.And("the result should have the explanation \'you looked at me funny\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -219,20 +215,20 @@ this.ScenarioInitialize(scenarioInfo);
         public virtual void TheSecondOfTwoAccessControlPoliciesBlocksTheRequest()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("The second of two access control policies blocks the request", null, ((string[])(null)));
-#line 59
+#line 57
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
-#line 60
+#line 58
     testRunner.Given("I have configured 2 access control policies", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 61
+#line 59
     testRunner.When("I check access for a \'GET\' request for \'/test/1\' with an operationId of \'op1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 62
+#line 60
     testRunner.And("policy 0 allows access", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 63
+#line 61
     testRunner.And("policy 1 blocks access without explanation", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 64
+#line 62
     testRunner.Then("the result should block the operation", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 65
+#line 63
     testRunner.And("the result should have no explanation", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -243,20 +239,20 @@ this.ScenarioInitialize(scenarioInfo);
         public virtual void TheSecondOfTwoAccessControlPoliciesBlocksTheRequestWithAnExplanation()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("The second of two access control policies blocks the request with an explanation", null, ((string[])(null)));
-#line 67
+#line 65
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
-#line 68
+#line 66
     testRunner.Given("I have configured 2 access control policies", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 69
+#line 67
     testRunner.When("I check access for a \'GET\' request for \'/test/1\' with an operationId of \'op1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 70
+#line 68
     testRunner.And("policy 0 allows access", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 71
+#line 69
     testRunner.And("policy 1 blocks access with explanation \'not on my watch\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 72
+#line 70
  testRunner.Then("the result should block the operation", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 73
+#line 71
     testRunner.And("the result should have the explanation \'not on my watch\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -267,20 +263,20 @@ this.ScenarioInitialize(scenarioInfo);
         public virtual void BothAccessControlPoliciesBlockTheRequest()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Both access control policies block the request", null, ((string[])(null)));
-#line 75
+#line 73
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
-#line 76
+#line 74
     testRunner.Given("I have configured 2 access control policies", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 77
+#line 75
     testRunner.When("I check access for a \'GET\' request for \'/test/1\' with an operationId of \'op1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 78
+#line 76
     testRunner.And("policy 0 blocks access without explanation", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 79
+#line 77
     testRunner.And("policy 1 blocks access without explanation", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 80
+#line 78
     testRunner.Then("the result should block the operation", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 81
+#line 79
     testRunner.And("the result should have no explanation", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -293,20 +289,20 @@ this.ScenarioInitialize(scenarioInfo);
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Both access control policies block the request and the first provides an explanat" +
                     "ion", null, ((string[])(null)));
-#line 83
+#line 81
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
-#line 84
+#line 82
     testRunner.Given("I have configured 2 access control policies", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 85
+#line 83
     testRunner.When("I check access for a \'GET\' request for \'/test/1\' with an operationId of \'op1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 86
+#line 84
     testRunner.And("policy 0 blocks access with explanation \'token has incorrect polarity\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 87
+#line 85
     testRunner.And("policy 1 blocks access without explanation", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 88
+#line 86
  testRunner.Then("the result should block the operation", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 89
+#line 87
     testRunner.And("the result should have the explanation \'token has incorrect polarity\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -319,20 +315,20 @@ this.ScenarioInitialize(scenarioInfo);
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Both access control policies block the request and the second provides an explana" +
                     "tion", null, ((string[])(null)));
-#line 91
+#line 89
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
-#line 92
+#line 90
     testRunner.Given("I have configured 2 access control policies", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 93
+#line 91
     testRunner.When("I check access for a \'GET\' request for \'/test/1\' with an operationId of \'op1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 94
+#line 92
     testRunner.And("policy 0 blocks access without explanation", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 95
+#line 93
     testRunner.And("policy 1 blocks access with explanation \'computer says no\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 96
+#line 94
  testRunner.Then("the result should block the operation", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 97
+#line 95
     testRunner.And("the result should have the explanation \'computer says no\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -343,20 +339,20 @@ this.ScenarioInitialize(scenarioInfo);
         public virtual void BothAccessControlPoliciesBlockTheRequestAndBothProvideAnExplanation()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Both access control policies block the request and both provide an explanation", null, ((string[])(null)));
-#line 99
+#line 97
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
-#line 100
+#line 98
     testRunner.Given("I have configured 2 access control policies", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 101
+#line 99
     testRunner.When("I check access for a \'GET\' request for \'/test/1\' with an operationId of \'op1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 102
+#line 100
     testRunner.And("policy 0 blocks access with explanation \'token has incorrect polarity\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 103
+#line 101
     testRunner.And("policy 1 blocks access with explanation \'computer says no\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 104
+#line 102
  testRunner.Then("the result should block the operation", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 105
+#line 103
     testRunner.And("the result should have the explanation \'token has incorrect polarity; computer sa" +
                     "ys no\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
@@ -368,20 +364,20 @@ this.ScenarioInitialize(scenarioInfo);
         public virtual void BothAccessControlPoliciesAllowTheRequest()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Both access control policies allow the request", null, ((string[])(null)));
-#line 107
+#line 105
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
-#line 108
+#line 106
     testRunner.Given("I have configured 2 access control policies", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 109
+#line 107
     testRunner.When("I check access for a \'GET\' request for \'/test/1\' with an operationId of \'op1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 110
+#line 108
     testRunner.And("policy 0 allows access", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 111
+#line 109
     testRunner.And("policy 1 allows access", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 112
+#line 110
     testRunner.Then("the result should allow the operation", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 113
+#line 111
     testRunner.And("the result should have no explanation", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();

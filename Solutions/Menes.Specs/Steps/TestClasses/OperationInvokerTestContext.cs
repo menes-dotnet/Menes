@@ -57,8 +57,6 @@ namespace Menes.Specs.Steps.TestClasses
 
         public class CheckAccessArguments
         {
-            public IOpenApiContext Context { get; set; }
-
             public AccessCheckOperationDescriptor[] Requests { get; set; }
         }
 
@@ -73,12 +71,11 @@ namespace Menes.Specs.Steps.TestClasses
             }
 
             public Task<IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> CheckAccessPoliciesAsync(
-                IOpenApiContext context,
                 params AccessCheckOperationDescriptor[] descriptors)
             {
                 return this.context.AccessCheckCalls == null
                     ? Task.FromResult<IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>>(descriptors.ToDictionary(d => d, __ => Allowed))
-                    : this.context.AccessCheckCalls.GetTask(new CheckAccessArguments { Context = context, Requests = descriptors });
+                    : this.context.AccessCheckCalls.GetTask(new CheckAccessArguments { Requests = descriptors });
             }
         }
     }

@@ -93,10 +93,6 @@ this.ScenarioInitialize(scenarioInfo);
     testRunner.And(string.Format("the first policy should receive an operationId of \'{0}\'", operationId), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 11
     testRunner.And(string.Format("the first policy should receive an HttpMethod of \'{0}\'", httpMethod), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 12
-    testRunner.And("the first policy should receive the ClaimsPrincipal", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 13
-    testRunner.And("the first policy should receive the Tenant", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -106,20 +102,20 @@ this.ScenarioInitialize(scenarioInfo);
         public virtual void FirstPolicySaysAllow()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("First policy says allow", null, ((string[])(null)));
-#line 22
+#line 20
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
-#line 23
+#line 21
     testRunner.Given("I have configured 2 other access policies", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 24
+#line 22
     testRunner.When("I invoke the adapter for a \'GET\' request for \'/p/1\' with an operationId of \'op3\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 25
+#line 23
     testRunner.And("the first policy allows access", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 26
+#line 24
     testRunner.Then("the adapter result should allow the operation", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 27
+#line 25
     testRunner.And("the adapter result should have no explanation", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 28
+#line 26
     testRunner.And("none of the other policies should have been invoked", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -134,25 +130,21 @@ this.ScenarioInitialize(scenarioInfo);
         public virtual void WhenFirstPolicyBlocksTheRequest(string path, string operationId, string httpMethod, string[] exampleTags)
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("When first policy blocks the request", null, exampleTags);
-#line 30
+#line 28
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
-#line 31
+#line 29
     testRunner.Given("I have configured 2 other access policies", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 32
+#line 30
     testRunner.When(string.Format("I invoke the adapter for a \'{0}\' request for \'{1}\' with an operationId of \'{2}\'", httpMethod, path, operationId), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 33
+#line 31
     testRunner.And("the first policy denies access", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 34
+#line 32
     testRunner.Then(string.Format("the other policies should receive a path of \'{0}\'", path), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 35
+#line 33
     testRunner.And(string.Format("the other policies should receive an operationId of \'{0}\'", operationId), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 36
+#line 34
     testRunner.And(string.Format("the other policies should receive an HttpMethod of \'{0}\'", httpMethod), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 37
-    testRunner.And("the other policies should receive the ClaimsPrincipal", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 38
-    testRunner.And("the other policies should receive the Tenant", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -162,24 +154,24 @@ this.ScenarioInitialize(scenarioInfo);
         public virtual void TheFirstPolicyBlocksTheRequestAndAllOfTheOthersAllowsIt()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("The first policy blocks the request and all of the others allows it", null, ((string[])(null)));
-#line 47
+#line 43
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
-#line 48
+#line 44
     testRunner.Given("I have configured 2 other access policies", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 49
+#line 45
     testRunner.Given("I have configured 2 access control policies", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 50
+#line 46
     testRunner.When("I invoke the adapter for a \'GET\' request for \'/p/1\' with an operationId of \'op3\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 51
+#line 47
     testRunner.And("the first policy denies access", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 52
+#line 48
     testRunner.And("the other policy 0 allows access", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 53
+#line 49
     testRunner.And("the other policy 1 allows access", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 54
+#line 50
     testRunner.Then("the adapter result should allow the operation", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 55
+#line 51
     testRunner.And("the adapter result should have no explanation", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -190,26 +182,26 @@ this.ScenarioInitialize(scenarioInfo);
         public virtual void TheFirstPolicyBlocksTheRequestAndOneOfTheOthersAllowsIt()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("The first policy blocks the request and one of the others allows it", null, ((string[])(null)));
-#line 57
+#line 53
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
-#line 58
+#line 54
     testRunner.Given("I have configured 2 other access policies", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 59
+#line 55
     testRunner.Given("I have configured 2 access control policies", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 60
+#line 56
     testRunner.When("I invoke the adapter for a \'GET\' request for \'/p/1\' with an operationId of \'op3\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 61
+#line 57
     testRunner.And("the first policy denies access", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 62
+#line 58
     testRunner.And("the other policy 0 allows access", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 63
+#line 59
     testRunner.And("the other policy 1 denies access", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 64
+#line 60
     testRunner.Then("the adapter result should block the operation", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 65
+#line 61
     testRunner.And("the adapter result should have no explanation", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 66
+#line 62
     testRunner.And("the adapter result type should be \'NotAllowed\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -224,24 +216,24 @@ this.ScenarioInitialize(scenarioInfo);
         public virtual void TheFirstPolicyBlocksTheRequestAndAllOfTheOthersDenyIt(string firstPolicyResult, string otherPolicy0Result, string otherPolicy1Result, string adapterResult, string[] exampleTags)
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("The first policy blocks the request and all of the others deny it", null, exampleTags);
-#line 68
+#line 64
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
-#line 69
+#line 65
     testRunner.Given("I have configured 2 other access policies", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 70
+#line 66
     testRunner.When("I invoke the adapter for a \'GET\' request for \'/p/1\' with an operationId of \'op3\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 71
+#line 67
     testRunner.And(string.Format("the first policy denies access with result \'{0}\'", firstPolicyResult), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 72
+#line 68
     testRunner.And(string.Format("the other policy 0 denies access with result \'{0}\' and explanation \'stop that\'", otherPolicy0Result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 73
+#line 69
     testRunner.And(string.Format("the other policy 1 denies access with result \'{0}\' and explanation \'no no no\'", otherPolicy1Result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 74
+#line 70
     testRunner.Then("the adapter result should block the operation", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 75
+#line 71
     testRunner.And("the adapter result should have an explanation of \'stop that; no no no\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 76
+#line 72
     testRunner.And(string.Format("the adapter result type should be \'{0}\'", adapterResult), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();

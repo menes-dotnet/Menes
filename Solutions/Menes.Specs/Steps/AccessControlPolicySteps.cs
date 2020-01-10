@@ -27,8 +27,6 @@ namespace Menes.Specs.Steps
     public class AccessControlPolicySteps
     {
         private List<(Mock<IOpenApiAccessControlPolicy> policy, CompletionSourceWithArgs<ShouldAllowArgs, IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> completion)> policies;
-        private ClaimsPrincipal claimsPrincipal;
-        private string tenantId;
         private Task<IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> checkResultTask;
 
         [Given("I have configured (.*) access control policies")]
@@ -41,9 +39,9 @@ namespace Menes.Specs.Steps
                 {
                     var mock = new Mock<IOpenApiAccessControlPolicy>();
                     var args = new CompletionSourceWithArgs<ShouldAllowArgs, IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>>();
-                    mock.Setup(m => m.ShouldAllowAsync(It.IsAny<IOpenApiContext>(), It.IsAny<AccessCheckOperationDescriptor[]>()))
-                        .Returns((IOpenApiContext context, AccessCheckOperationDescriptor[] requests)
-                            => args.GetTask(new ShouldAllowArgs { Context = context, Requests = requests }));
+                    mock.Setup(m => m.ShouldAllowAsync(It.IsAny<AccessCheckOperationDescriptor[]>()))
+                        .Returns((AccessCheckOperationDescriptor[] requests)
+                            => args.GetTask(new ShouldAllowArgs { Requests = requests }));
 
                     return (mock, args);
                 })
@@ -59,14 +57,7 @@ namespace Menes.Specs.Steps
             var checker = new OpenApiAccessChecker(
                 this.policies.Select(m => m.policy.Object));
 
-            this.claimsPrincipal = new ClaimsPrincipal();
-            this.tenantId = Guid.NewGuid().ToString();
-            var openApiContext = new Mock<IOpenApiContext>();
-            openApiContext.SetupAllProperties();
-            openApiContext.Object.CurrentPrincipal = this.claimsPrincipal;
-            openApiContext.Object.CurrentTenantId = this.tenantId;
             this.checkResultTask = checker.CheckAccessPoliciesAsync(
-                openApiContext.Object,
                 new AccessCheckOperationDescriptor(path, operationId, method));
         }
 
@@ -100,7 +91,7 @@ namespace Menes.Specs.Steps
         [Then("each policy should receive a path of '(.*)'")]
         public void ThenEachPolicyShouldReceiveAPathOf(string path)
         {
-            foreach ((Mock<IOpenApiAccessControlPolicy> policy, CompletionSourceWithArgs<ShouldAllowArgs, IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> completion) in this.policies)
+            foreach ((Mock<IOpenApiAccessControlPolicy> _, CompletionSourceWithArgs<ShouldAllowArgs, IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> completion) in this.policies)
             {
                 Assert.AreEqual(path, completion.Arguments[0].Requests[0].Path);
             }
@@ -109,7 +100,7 @@ namespace Menes.Specs.Steps
         [Then("each policy should receive an operationId of '(.*)'")]
         public void ThenEachPolicyShouldReceiveAnOperationIdOf(string operationId)
         {
-            foreach ((Mock<IOpenApiAccessControlPolicy> policy, CompletionSourceWithArgs<ShouldAllowArgs, IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> completion) in this.policies)
+            foreach ((Mock<IOpenApiAccessControlPolicy> _, CompletionSourceWithArgs<ShouldAllowArgs, IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> completion) in this.policies)
             {
                 Assert.AreEqual(operationId, completion.Arguments[0].Requests[0].OperationId);
             }
@@ -118,27 +109,9 @@ namespace Menes.Specs.Steps
         [Then("each policy should receive an HttpMethod of '(.*)'")]
         public void ThenEachPolicyShouldReceiveAnHttpMethodOf(string method)
         {
-            foreach ((Mock<IOpenApiAccessControlPolicy> policy, CompletionSourceWithArgs<ShouldAllowArgs, IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> completion) in this.policies)
+            foreach ((Mock<IOpenApiAccessControlPolicy> _, CompletionSourceWithArgs<ShouldAllowArgs, IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> completion) in this.policies)
             {
                 Assert.AreEqual(method, completion.Arguments[0].Requests[0].Method);
-            }
-        }
-
-        [Then("each policy should receive the ClaimsPrincipal attached to the context")]
-        public void ThenEachPolicyShouldReceiveTheClaimsPrincipalAttachedToTheContext()
-        {
-            foreach ((Mock<IOpenApiAccessControlPolicy> policy, CompletionSourceWithArgs<ShouldAllowArgs, IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> completion) in this.policies)
-            {
-                Assert.AreSame(this.claimsPrincipal, completion.Arguments[0].Context.CurrentPrincipal);
-            }
-        }
-
-        [Then("each policy should receive the Tenant attached to the context")]
-        public void ThenEachPolicyShouldReceiveTheTenantAttachedToTheContext()
-        {
-            foreach ((Mock<IOpenApiAccessControlPolicy> policy, CompletionSourceWithArgs<ShouldAllowArgs, IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> completion) in this.policies)
-            {
-                Assert.AreSame(this.tenantId, completion.Arguments[0].Context.CurrentTenantId);
             }
         }
 
@@ -173,8 +146,6 @@ namespace Menes.Specs.Steps
         private class ShouldAllowArgs
         {
             public AccessCheckOperationDescriptor[] Requests { get; set; }
-
-            public IOpenApiContext Context { get; set; }
         }
     }
 }

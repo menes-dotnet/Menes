@@ -25,7 +25,7 @@ namespace Menes.Auditing.AuditLogSinks.Development
         }
 
         /// <inheritdoc />
-        public Task LogAsync(IOpenApiContext context, AuditLog log)
+        public Task LogAsync(AuditLog log)
         {
             string data = JsonConvert.SerializeObject(log, Formatting.Indented, this.openApiConfiguration.SerializerSettings);
             Console.WriteLine(data);

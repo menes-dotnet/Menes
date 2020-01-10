@@ -28,16 +28,6 @@ namespace Menes.Auditing
         public string ContentType => RegisteredContentType;
 
         /// <summary>
-        /// Gets or sets the Id of the tenant for the operation.
-        /// </summary>
-        public string TenantId { get; set; }
-
-        /// <summary>
-        /// Gets or sets the Id of the user who attempted the audited activity.
-        /// </summary>
-        public string UserId { get; set; }
-
-        /// <summary>
         /// Gets or sets the operation that is being audited.
         /// </summary>
         public string Operation { get; set; }

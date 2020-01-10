@@ -24,14 +24,11 @@ namespace Menes.Links
         /// <param name="target">
         /// The <see cref="HalDocument"/> to check.
         /// </param>
-        /// <param name="context">
-        /// The <see cref="IOpenApiContext"/> used to get information about the current principal.
-        /// </param>
         /// <param name="options">
         /// The <see cref="HalDocumentLinkRemovalOptions"/> to apply when checking links.
         /// </param>
         /// <returns>A task that completes when all links have been checked.</returns>
-        public static async Task RemoveForbiddenLinksAsync(this IOpenApiAccessChecker that, HalDocument target, IOpenApiContext context, HalDocumentLinkRemovalOptions options = default)
+        public static async Task RemoveForbiddenLinksAsync(this IOpenApiAccessChecker that, HalDocument target, HalDocumentLinkRemovalOptions options = default)
         {
             // First, we need to build a collection of all the links. For each one we need:
             // 1. The link itself.
@@ -55,7 +52,7 @@ namespace Menes.Links
             AccessCheckOperationDescriptor[] operationDescriptors = operationDescriptorMap.Keys.ToArray();
 
             // Perform the access policy check.
-            IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult> accessCheckResults = await that.CheckAccessPoliciesAsync(context, operationDescriptors).ConfigureAwait(false);
+            IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult> accessCheckResults = await that.CheckAccessPoliciesAsync(operationDescriptors).ConfigureAwait(false);
 
             // Now use the results of the access policy check to remove links/documents that don't belong because the access policy denies them.
             foreach (KeyValuePair<AccessCheckOperationDescriptor, AccessControlPolicyResult> accessCheckResult in accessCheckResults.Where(result => !result.Value.Allow))

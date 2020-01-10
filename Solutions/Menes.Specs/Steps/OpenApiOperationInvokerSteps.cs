@@ -28,7 +28,6 @@ namespace Menes.Specs.Steps
         private const string OperationInvokedScenarioContextKey = "OperationInvoked";
 
         private readonly Mock<IOpenApiConfiguration> openApiConfiguration = new Mock<IOpenApiConfiguration>();
-        private readonly Mock<IOpenApiContext> openApiContext = new Mock<IOpenApiContext>();
         private readonly OpenApiResult exceptionMapperResult = new OpenApiResult();
         private readonly object resultBuilderResult = new object();
         private readonly object resultBuilderErrorResult = new object();
@@ -99,8 +98,7 @@ namespace Menes.Specs.Steps
                 path,
                 method,
                 new object(),
-                this.operationPathTemplate,
-                this.openApiContext.Object);
+                this.operationPathTemplate);
 
             await this.InvokerContext.AccessCheckCalls.WaitAsync().WithTimeout().ConfigureAwait(false);
         }
@@ -154,12 +152,6 @@ namespace Menes.Specs.Steps
         public void ThenTheAccessCheckerShouldReceiveAnHttpMethodOf(string method)
         {
             Assert.AreEqual(method, this.InvokerContext.AccessCheckCalls.Arguments[0].Requests[0].Method);
-        }
-
-        [Then("the access checker should receive the Open API context")]
-        public void ThenTheAccessCheckerShouldReceiveTheOpenAPIContext()
-        {
-            Assert.AreSame(this.openApiContext.Object, this.InvokerContext.AccessCheckCalls.Arguments[0].Context);
         }
 
         [Then("the invoker should complete without exceptions")]
@@ -247,8 +239,6 @@ namespace Menes.Specs.Steps
 
         private class CheckAccessArguments
         {
-            public IOpenApiContext Context { get; set; }
-
             public AccessCheckOperationDescriptor[] Requests { get; set; }
         }
     }

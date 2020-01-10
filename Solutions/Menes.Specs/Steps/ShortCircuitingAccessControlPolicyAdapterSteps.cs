@@ -26,8 +26,6 @@ namespace Menes.Specs.Steps
         private Mock<IOpenApiAccessControlPolicy> firstPolicy;
         private CompletionSourceWithArgs<ShouldAllowArgs, IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> firstPolicyCompletion;
         private List<(Mock<IOpenApiAccessControlPolicy> policy, CompletionSourceWithArgs<ShouldAllowArgs, IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> completion)> otherPolicies;
-        private ClaimsPrincipal claimsPrincipal;
-        private string tenantId;
         private Task<IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> checkResultTask;
 
         [Given("I have configured (.*) other access policies")]
@@ -36,9 +34,9 @@ namespace Menes.Specs.Steps
             this.firstPolicy = new Mock<IOpenApiAccessControlPolicy>();
             this.firstPolicyCompletion = new CompletionSourceWithArgs<ShouldAllowArgs, IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>>();
             this.firstPolicy
-                .Setup(m => m.ShouldAllowAsync(It.IsAny<IOpenApiContext>(), It.IsAny<AccessCheckOperationDescriptor[]>()))
-                .Returns((IOpenApiContext context, AccessCheckOperationDescriptor[] requests)
-                => this.firstPolicyCompletion.GetTask(new ShouldAllowArgs { Context = context, Requests = requests }));
+                .Setup(m => m.ShouldAllowAsync(It.IsAny<AccessCheckOperationDescriptor[]>()))
+                .Returns((AccessCheckOperationDescriptor[] requests)
+                => this.firstPolicyCompletion.GetTask(new ShouldAllowArgs { Requests = requests }));
 
             this.otherPolicies = Enumerable
                 .Range(0, numberOfPolicies)
@@ -46,9 +44,9 @@ namespace Menes.Specs.Steps
                 {
                     var mock = new Mock<IOpenApiAccessControlPolicy>();
                     var args = new CompletionSourceWithArgs<ShouldAllowArgs, IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>>();
-                    mock.Setup(m => m.ShouldAllowAsync(It.IsAny<IOpenApiContext>(), It.IsAny<AccessCheckOperationDescriptor[]>()))
-                        .Returns((IOpenApiContext context, AccessCheckOperationDescriptor[] requests)
-                            => args.GetTask(new ShouldAllowArgs { Context = context, Requests = requests }));
+                    mock.Setup(m => m.ShouldAllowAsync(It.IsAny<AccessCheckOperationDescriptor[]>()))
+                        .Returns((AccessCheckOperationDescriptor[] requests)
+                            => args.GetTask(new ShouldAllowArgs { Requests = requests }));
 
                     return (mock, args);
                 })
@@ -65,10 +63,7 @@ namespace Menes.Specs.Steps
                 this.firstPolicy.Object,
                 this.otherPolicies.Select(op => op.policy.Object));
 
-            this.claimsPrincipal = new ClaimsPrincipal();
-            this.tenantId = Guid.NewGuid().ToString();
             this.checkResultTask = adapter.ShouldAllowAsync(
-                new SimpleOpenApiContext { CurrentPrincipal = this.claimsPrincipal, CurrentTenantId = this.tenantId },
                 new AccessCheckOperationDescriptor(path, operationId, httpMethod));
         }
 
@@ -135,18 +130,6 @@ namespace Menes.Specs.Steps
             Assert.AreEqual(method, this.firstPolicyCompletion.Arguments[0].Requests[0].Method);
         }
 
-        [Then("the first policy should receive the ClaimsPrincipal")]
-        public void ThenTheFirstPolicyShouldReceiveTheClaimsPrincipal()
-        {
-            Assert.AreSame(this.claimsPrincipal, this.firstPolicyCompletion.Arguments[0].Context.CurrentPrincipal);
-        }
-
-        [Then("the first policy should receive the Tenant")]
-        public void ThenTheFirstPolicyShouldReceiveTheTenant()
-        {
-            Assert.AreSame(this.tenantId, this.firstPolicyCompletion.Arguments[0].Context.CurrentTenantId);
-        }
-
         [Then("the adapter result should allow the operation")]
         public async Task ThenTheAdapterResultShouldAllowTheOperationAsync()
         {
@@ -198,24 +181,6 @@ namespace Menes.Specs.Steps
             }
         }
 
-        [Then("the other policies should receive the ClaimsPrincipal")]
-        public void ThenTheOtherPoliciesShouldReceiveTheClaimsPrincipal()
-        {
-            foreach ((_, CompletionSourceWithArgs<ShouldAllowArgs, IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> completion) in this.otherPolicies)
-            {
-                Assert.AreSame(this.claimsPrincipal, completion.Arguments[0].Context.CurrentPrincipal);
-            }
-        }
-
-        [Then("the other policies should receive the Tenant")]
-        public void ThenTheOtherPoliciesShouldReceiveTheTenant()
-        {
-            foreach ((_, CompletionSourceWithArgs<ShouldAllowArgs, IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> completion) in this.otherPolicies)
-            {
-                Assert.AreSame(this.tenantId, completion.Arguments[0].Context.CurrentTenantId);
-            }
-        }
-
         [Then("the adapter result should block the operation")]
         public async Task ThenTheAdapterResultShouldBlockTheOperationAsync()
         {
@@ -261,8 +226,6 @@ namespace Menes.Specs.Steps
         private class ShouldAllowArgs
         {
             public AccessCheckOperationDescriptor[] Requests { get; set; }
-
-            public IOpenApiContext Context { get; set; }
         }
     }
 }

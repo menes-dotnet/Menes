@@ -9,8 +9,6 @@ Scenario Outline: Passes arguments to first policy
     Then the first policy should receive a path of '<path>'
     And the first policy should receive an operationId of '<operationId>'
     And the first policy should receive an HttpMethod of '<httpMethod>'
-    And the first policy should receive the ClaimsPrincipal
-    And the first policy should receive the Tenant
 
     Examples:
     | path    | operationId | httpMethod |
@@ -34,8 +32,6 @@ Scenario Outline: When first policy blocks the request
     Then the other policies should receive a path of '<path>'
     And the other policies should receive an operationId of '<operationId>'
     And the other policies should receive an HttpMethod of '<httpMethod>'
-    And the other policies should receive the ClaimsPrincipal
-    And the other policies should receive the Tenant
 
     Examples:
     | path    | operationId | httpMethod |

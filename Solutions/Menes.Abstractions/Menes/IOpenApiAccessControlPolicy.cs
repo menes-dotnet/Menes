@@ -22,14 +22,12 @@ namespace Menes
         /// <summary>
         /// Invoked to determine whether the client is allowed to perform an operation.
         /// </summary>
-        /// <param name="openApiContext">The OpenAPI context for the request.</param>
         /// <param name="requests">The list of operation descriptors to check.</param>
         /// <returns>
         /// A task that produces a dictionary mapping the requests to their corresponding
         /// <see cref="AccessControlPolicyResult"/> indicating the outcome of the policy evaluation.
         /// </returns>
         Task<IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> ShouldAllowAsync(
-            IOpenApiContext openApiContext,
             params AccessCheckOperationDescriptor[] requests);
     }
 }

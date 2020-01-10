@@ -28,9 +28,6 @@ namespace Menes.Internal
         /// <param name="accessControlPolicies">
         /// The policies to evaluate and aggregate.
         /// </param>
-        /// <param name="context">
-        /// The context for which to perform the check.
-        /// </param>
         /// <param name="requests">
         /// The list of operation descriptors to check.
         /// </param>
@@ -40,14 +37,12 @@ namespace Menes.Internal
         /// </returns>
         internal static async Task<IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> EvaluteAccessPoliciesConcurrentlyAsync(
             IEnumerable<IOpenApiAccessControlPolicy> accessControlPolicies,
-            IOpenApiContext context,
             params AccessCheckOperationDescriptor[] requests)
         {
             // Evaluate the set of requests with all policies simultaneously.
             IEnumerable<Task<IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>>> policyEvaluationTasks =
                 accessControlPolicies.Select(
                     policy => policy.ShouldAllowAsync(
-                        context,
                         requests));
 
             // Wait for all policy evaluation to complete.

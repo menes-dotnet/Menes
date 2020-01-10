@@ -12,7 +12,6 @@ Scenario Outline: The request details are passed to the access checker
     Then the access checker should receive a path of '<path>'
     And the access checker should receive an operationId of '<operationId>'
     And the access checker should receive an HttpMethod of '<httpMethod>'
-    And the access checker should receive the Open API context
 
     Examples:
     | path    | operationId | httpMethod |

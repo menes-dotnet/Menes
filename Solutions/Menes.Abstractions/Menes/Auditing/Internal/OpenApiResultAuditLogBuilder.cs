@@ -18,7 +18,7 @@ namespace Menes.Auditing.Internal
         public int Priority => 100;
 
         /// <inheritdoc />
-        public AuditLog BuildAuditLog(IOpenApiContext context, object result, OpenApiOperation operation)
+        public AuditLog BuildAuditLog(object result, OpenApiOperation operation)
         {
             var openApiResult = result as OpenApiResult;
 
@@ -27,14 +27,12 @@ namespace Menes.Auditing.Internal
                 CreatedDateTimeUtc = DateTimeOffset.UtcNow,
                 Operation = operation.OperationId,
                 Result = openApiResult.StatusCode,
-                TenantId = context.CurrentTenantId,
-                UserId = context.CurrentPrincipal?.Identity?.Name,
                 Properties = openApiResult.AuditData,
             };
         }
 
         /// <inheritdoc />
-        public bool CanBuildAuditLog(IOpenApiContext context, object result, OpenApiOperation operation)
+        public bool CanBuildAuditLog(object result, OpenApiOperation operation)
         {
             return result is OpenApiResult;
         }

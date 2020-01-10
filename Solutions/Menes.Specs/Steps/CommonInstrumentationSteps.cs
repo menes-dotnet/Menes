@@ -8,7 +8,6 @@ namespace Menes.Specs.Steps
     using Idg.AsyncTest.TaskExtensions;
     using Menes.Specs.Fakes;
     using Microsoft.OpenApi.Models;
-    using Moq;
     using NUnit.Framework;
     using TechTalk.SpecFlow;
 
@@ -26,7 +25,7 @@ namespace Menes.Specs.Steps
             var template = new OpenApiOperationPathTemplate(
                 new OpenApiOperation { OperationId = operationId },
                 new OpenApiPathTemplate(path, new OpenApiPathItem()));
-            this.InvokerContext.OperationInvocationTask = this.Invoker.InvokeAsync(method, path, null, template, new Mock<IOpenApiContext>().Object);
+            this.InvokerContext.OperationInvocationTask = this.Invoker.InvokeAsync(method, path, null, template);
         }
 
         [When("the operation invoker has been invoked")]

@@ -9,8 +9,6 @@ Scenario Outline: The request details are passed to all policies
     Then each policy should receive a path of '<path>'
     And each policy should receive an operationId of '<operationId>'
     And each policy should receive an HttpMethod of '<httpMethod>'
-    And each policy should receive the ClaimsPrincipal attached to the context
-    And each policy should receive the Tenant attached to the context
 
     Examples:
     | path    | operationId | httpMethod |

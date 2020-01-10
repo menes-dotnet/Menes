@@ -46,7 +46,6 @@ namespace Menes.AccessControlPolicies
 
         /// <inheritdoc/>
         public Task<IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> ShouldAllowAsync(
-            IOpenApiContext context,
             params AccessCheckOperationDescriptor[] requests)
         {
             IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult> result = requests.ToDictionary(request => request, request => this.ShouldAllow(request.OperationId));

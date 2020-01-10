@@ -163,17 +163,17 @@ namespace Menes.PetStore
         /// <summary>
         /// The show secret pet endpoint.
         /// </summary>
-        /// <param name="openApiContext">The Open API context.</param>
         /// <returns>
         /// The <see cref="PetResource"/>.
         /// </returns>
         [OperationId("showSecretPet")]
-        public OpenApiResult ShowSecretPet(IOpenApiContext openApiContext)
+        public OpenApiResult ShowSecretPet()
         {
-            if (openApiContext.CurrentPrincipal?.IsInRole("admin") == true)
-            {
-                return this.MapAndReturnPet(this.secretPet);
-            }
+            // TODO: Need the new request-specific container stuff for this
+            ////if (openApiContext.CurrentPrincipal?.IsInRole("admin") == true)
+            ////{
+            ////    return this.MapAndReturnPet(this.secretPet);
+            ////}
 
             return new OpenApiResult { StatusCode = (int)HttpStatusCode.Unauthorized };
         }

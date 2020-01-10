@@ -7,10 +7,8 @@
 
 namespace Menes.Specs.Steps
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Security.Claims;
     using Idg.AsyncTest.TaskExtensions;
     using Menes;
     using Menes.AccessControlPolicies;
@@ -33,7 +31,6 @@ namespace Menes.Specs.Steps
         public async System.Threading.Tasks.Task WhenIEvaluateTheExemptionPolicyWithAnOperationIdOfAsync(string operationId)
         {
             this.result = await this.policy.ShouldAllowAsync(
-                new SimpleOpenApiContext {  CurrentPrincipal = new ClaimsPrincipal(), CurrentTenantId = Guid.NewGuid().ToString() },
                 new AccessCheckOperationDescriptor("/a/path", operationId, "GET"))
                 .WithTimeout()
                 .ConfigureAwait(false);

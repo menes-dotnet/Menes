@@ -20,8 +20,7 @@ namespace Menes.Internal
         /// <param name="method">The operation method.</param>
         /// <param name="request">The request.</param>
         /// <param name="operationPathTemplate">The path template for the operation.</param>
-        /// <param name="context">The Open API context.</param>
         /// <returns>A <see cref="Task{T}"/> which, when complete, provides the response.</returns>
-        Task<TResponse> InvokeAsync(string path, string method, TRequest request, OpenApiOperationPathTemplate operationPathTemplate, IOpenApiContext context);
+        Task<TResponse> InvokeAsync(string path, string method, TRequest request, OpenApiOperationPathTemplate operationPathTemplate);
     }
 }
