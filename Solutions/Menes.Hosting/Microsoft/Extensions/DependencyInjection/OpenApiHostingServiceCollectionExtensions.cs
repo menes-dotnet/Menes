@@ -99,6 +99,8 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddOpenApiAuditing();
             services.AddAuditLogSink<ConsoleAuditLogSink>();
 
+            services.AddRequestScopeFactory<TRequest>();
+
             services.AddSingleton<JsonConverter, OpenApiDocumentJsonConverter>();
             services.AddSingleton<JsonConverter, HalDocumentJsonConverter>();
             services.AddSingleton<IOpenApiDocumentProvider, OpenApiDocumentProvider>();
@@ -118,7 +120,7 @@ namespace Microsoft.Extensions.DependencyInjection
             {
                 var result = new OpenApiHost<TRequest, TResponse>(
                         serviceProvider,
-                        serviceProvider.GetServices<IOpenApiScopeBuilder<TRequest>>(),
+                        serviceProvider.GetRequiredService<IOpenApiRequestScopeFactory<TRequest>>(),
                         serviceProvider.GetRequiredService<IPathMatcher>(),
                         serviceProvider.GetRequiredService<IOpenApiOperationInvoker<TRequest, TResponse>>(),
                         serviceProvider.GetRequiredService<IOpenApiResultBuilder<TResponse>>());
@@ -148,6 +150,22 @@ namespace Microsoft.Extensions.DependencyInjection
 
             services.AddOpenApiJsonConverters();
             services.AddOpenApiExceptionMappers();
+
+            return services;
+        }
+
+        /// <summary>
+        /// Adds a standard request scope factory to the pipeline.
+        /// </summary>
+        /// <typeparam name="TRequest">The type of the request.</typeparam>
+        /// <param name="services">The service collection to which to add the factory.</param>
+        /// <returns>The service collection with the request scope factory added.</returns>
+        public static IServiceCollection AddRequestScopeFactory<TRequest>(this IServiceCollection services)
+        {
+            if (!services.Any(s => typeof(IOpenApiRequestScopeFactory<TRequest>).IsAssignableFrom(s.ServiceType)))
+            {
+                services.AddScoped<IOpenApiRequestScopeFactory<TRequest>, OpenApiRequestScopeFactory<TRequest>>();
+            }
 
             return services;
         }

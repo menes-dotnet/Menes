@@ -5,8 +5,6 @@
 namespace Menes
 {
     using System;
-    using System.Collections;
-    using System.Collections.Generic;
     using System.Threading.Tasks;
     using Menes.Internal;
     using Microsoft.Extensions.DependencyInjection;
@@ -22,23 +20,23 @@ namespace Menes
         private readonly IOpenApiOperationInvoker<TRequest, TResponse> operationInvoker;
         private readonly IOpenApiResultBuilder<TResponse> resultBuilder;
         private readonly IServiceProvider serviceProvider;
-        private readonly IEnumerable<IOpenApiScopeBuilder<TRequest>> scopeBuilders;
+        private readonly IOpenApiRequestScopeFactory<TRequest> scopeFactory;
 
         /// <summary>
         /// Creates an instance of the <see cref="OpenApiHost{TRequest, TResponse}"/>.
         /// </summary>
         /// <param name="serviceProvider">The service provider for the host.</param>
-        /// <param name="scopeBuilders">The types which can build the scope for the invocation context.</param>
+        /// <param name="scopeFactory">The factory for the request scope.</param>
         /// <param name="matcher">The path matcher.</param>
         /// <param name="operationInvoker">The OpenAPI operation invoker.</param>
         /// <param name="resultBuilder">The OpenAPI result builder.</param>
-        public OpenApiHost(IServiceProvider serviceProvider, IEnumerable<IOpenApiScopeBuilder<TRequest>> scopeBuilders, IPathMatcher matcher, IOpenApiOperationInvoker<TRequest, TResponse> operationInvoker, IOpenApiResultBuilder<TResponse> resultBuilder)
+        public OpenApiHost(IServiceProvider serviceProvider, IOpenApiRequestScopeFactory<TRequest> scopeFactory, IPathMatcher matcher, IOpenApiOperationInvoker<TRequest, TResponse> operationInvoker, IOpenApiResultBuilder<TResponse> resultBuilder)
         {
             this.matcher = matcher;
             this.operationInvoker = operationInvoker;
             this.resultBuilder = resultBuilder;
             this.serviceProvider = serviceProvider ?? throw new ArgumentNullException(nameof(serviceProvider));
-            this.scopeBuilders = scopeBuilders;
+            this.scopeFactory = scopeFactory;
         }
 
         /// <inheritdoc/>
@@ -47,21 +45,12 @@ namespace Menes
             // Try to find an Open API operation which matches the incoming request.
             if (this.matcher.FindOperationPathTemplate(path, method, out OpenApiOperationPathTemplate operationPathTemplate))
             {
-                using IServiceScope newScope = this.serviceProvider.CreateScope();
-                await this.BuildScopeAsync(newScope.ServiceProvider, path, method, request, parameters, operationPathTemplate).ConfigureAwait(false);
+                using IServiceScope newScope = await this.scopeFactory.BuildScopeAsync(this.serviceProvider, path, method, request, parameters, operationPathTemplate).ConfigureAwait(false);
                 return await this.operationInvoker.InvokeAsync(newScope.ServiceProvider, path, method, request, operationPathTemplate).ConfigureAwait(false);
             }
 
-            // We didn't find an operation which correspons to the path and method in the OpenAPI document
+            // We didn't find an operation which corresponds to the path and method in the OpenAPI document
             return this.BuildServiceOperationNotFoundResult();
-        }
-
-        private async Task BuildScopeAsync(IServiceProvider serviceProvider, string path, string method, TRequest request, object parameters, OpenApiOperationPathTemplate operationPathTemplate)
-        {
-            foreach (IOpenApiScopeBuilder<TRequest> scopeBuilder in this.scopeBuilders)
-            {
-                await scopeBuilder.BuildScope(serviceProvider, path, method, request, parameters, operationPathTemplate).ConfigureAwait(false);
-            }
         }
 
         /// <summary>
