@@ -39,7 +39,7 @@ namespace Marain.Claims.SpecFlow.Bindings
                     serviceCollection.AddSingleton<IExceptionsInstrumentation>(instrumentationProvider);
                     serviceCollection.AddInstrumentation();
                     serviceCollection.AddInstrumentationSourceTagging();
-                    
+
                     OperationInvokerTestContext.AddServices(serviceCollection);
                 });
         }
