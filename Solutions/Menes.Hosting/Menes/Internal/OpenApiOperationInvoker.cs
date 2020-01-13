@@ -12,6 +12,7 @@ namespace Menes.Internal
     using Corvus.Monitoring.Instrumentation;
     using Menes.Auditing;
     using Menes.Exceptions;
+    using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
     using Microsoft.OpenApi.Models;
 
@@ -32,10 +33,12 @@ namespace Menes.Internal
         private readonly IOpenApiConfiguration configuration;
         private readonly IOperationsInstrumentation<OpenApiOperationInvoker<TRequest, TResponse>> operationsInstrumentation;
         private readonly IExceptionsInstrumentation<OpenApiOperationInvoker<TRequest, TResponse>> exceptionsInstrumentation;
+        private readonly IOpenApiRequestScopeFactory<TRequest> scopeFactory;
 
         /// <summary>
         /// Creates an instance of the <see cref="OpenApiOperationInvoker{TRequest, TResponse}"/>.
         /// </summary>
+        /// <param name="scopeFactory">The factory for the request scope.</param>
         /// <param name="operationLocator">The operation locator.</param>
         /// <param name="parameterBuilder">The parameter builder.</param>
         /// <param name="accessChecker">The access checker.</param>
@@ -47,6 +50,7 @@ namespace Menes.Internal
         /// <param name="operationsInstrumentation">Operations instrumentation.</param>
         /// <param name="exceptionsInstrumentation">Exceptions instrumentation.</param>
         public OpenApiOperationInvoker(
+            IOpenApiRequestScopeFactory<TRequest> scopeFactory,
             IOpenApiServiceOperationLocator operationLocator,
             IOpenApiParameterBuilder<TRequest> parameterBuilder,
             IOpenApiAccessChecker accessChecker,
@@ -68,11 +72,14 @@ namespace Menes.Internal
             this.operationsInstrumentation = operationsInstrumentation;
             this.configuration = configuration;
             this.exceptionsInstrumentation = exceptionsInstrumentation;
+            this.scopeFactory = scopeFactory;
         }
 
         /// <inheritdoc/>
-        public async Task<TResponse> InvokeAsync(IServiceProvider serviceProvider, string path, string method, TRequest request, OpenApiOperationPathTemplate operationPathTemplate)
+        public async Task<TResponse> InvokeAsync(IServiceProvider serviceProvider, string path, string method, TRequest request, object parameters, OpenApiOperationPathTemplate operationPathTemplate)
         {
+            using IServiceScope newScope = await this.scopeFactory.BuildScopeAsync(serviceProvider, path, method, request, parameters, operationPathTemplate).ConfigureAwait(false);
+
             string operationId = operationPathTemplate.Operation.OperationId;
             if (!this.operationLocator.TryGetOperation(operationId, out OpenApiServiceOperation openApiServiceOperation))
             {
@@ -96,7 +103,7 @@ namespace Menes.Internal
                 IDictionary<string, object> namedParameters = await this.BuildRequestParametersAsync(request, operationPathTemplate).ConfigureAwait(false);
 
                 await this.CheckAccessPoliciesAsync(path, method, operationId).ConfigureAwait(false);
-                object result = openApiServiceOperation.Execute(serviceProvider, namedParameters);
+                object result = openApiServiceOperation.Execute(newScope.ServiceProvider, namedParameters);
 
                 if (this.logger.IsEnabled(LogLevel.Debug))
                 {

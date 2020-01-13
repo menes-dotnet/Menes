@@ -76,6 +76,32 @@ namespace Menes.Specs.Features
         }
         
         [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("The request details are passed to the scope builders")]
+        [NUnit.Framework.TestCaseAttribute("/test/1", "op1", "GET", null)]
+        [NUnit.Framework.TestCaseAttribute("/test/2", "op2", "GET", null)]
+        [NUnit.Framework.TestCaseAttribute("/test/1", "op1", "PUT", null)]
+        [NUnit.Framework.TestCaseAttribute("/test/2", "op2", "POST", null)]
+        public virtual void TheRequestDetailsArePassedToTheScopeBuilders(string path, string operationId, string httpMethod, string[] exampleTags)
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("The request details are passed to the scope builders", null, exampleTags);
+#line 9
+this.ScenarioInitialize(scenarioInfo);
+            this.ScenarioStart();
+#line 10
+    testRunner.Given(string.Format("the operation path template has an Operation with an operationId of \'{0}\'", operationId), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 11
+    testRunner.When(string.Format("I handle a \'{0}\' request for \'{1}\' with scope builders", httpMethod, path), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 12
+    testRunner.Then(string.Format("the scope builder should receive a path of \'{0}\'", path), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 13
+    testRunner.And(string.Format("the scope builder should receive an operationId of \'{0}\'", operationId), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 14
+    testRunner.And(string.Format("the scope builder should receive an HttpMethod of \'{0}\'", httpMethod), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("The request details are passed to the access checker")]
         [NUnit.Framework.TestCaseAttribute("/test/1", "op1", "GET", null)]
         [NUnit.Framework.TestCaseAttribute("/test/2", "op2", "GET", null)]
@@ -84,18 +110,18 @@ namespace Menes.Specs.Features
         public virtual void TheRequestDetailsArePassedToTheAccessChecker(string path, string operationId, string httpMethod, string[] exampleTags)
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("The request details are passed to the access checker", null, exampleTags);
-#line 9
+#line 23
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
-#line 10
+#line 24
     testRunner.Given(string.Format("the operation path template has an Operation with an operationId of \'{0}\'", operationId), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 11
+#line 25
     testRunner.When(string.Format("I handle a \'{0}\' request for \'{1}\'", httpMethod, path), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 12
+#line 26
     testRunner.Then(string.Format("the access checker should receive a path of \'{0}\'", path), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 13
+#line 27
     testRunner.And(string.Format("the access checker should receive an operationId of \'{0}\'", operationId), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 14
+#line 28
     testRunner.And(string.Format("the access checker should receive an HttpMethod of \'{0}\'", httpMethod), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -113,25 +139,25 @@ this.ScenarioInitialize(scenarioInfo);
         public virtual void TheAccessCheckerBlocksTheRequestWithoutAnExplanation(string configuredStatusWhenUnauthenticated, string resultType, string exceptionType, string[] exampleTags)
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("The access checker blocks the request without an explanation", null, exampleTags);
-#line 23
+#line 37
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
-#line 24
+#line 38
     testRunner.Given(string.Format("I have configured unauthenticated requests to produce {0}", configuredStatusWhenUnauthenticated), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 25
+#line 39
     testRunner.And("the operation path template has an Operation with an operationId of \'op1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 26
+#line 40
     testRunner.When("I handle a \'GET\' request for \'/test/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 27
+#line 41
     testRunner.And(string.Format("the access checker blocks access with \'{0}\'", resultType), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 28
+#line 42
     testRunner.Then("the operation method should not be invoked", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 29
+#line 43
     testRunner.And(string.Format("the invoker should map an \'{0}\' with no explanation", exceptionType), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 30
+#line 44
     testRunner.And("the invoker should pass the result from the exception mapper to the result builde" +
                     "r", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 31
+#line 45
     testRunner.And("the invoker should return the result from the result builder", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -144,22 +170,22 @@ this.ScenarioInitialize(scenarioInfo);
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("The access checker blocks the request without an explanation and unauthenticated " +
                     "requests should produce ServerError", null, ((string[])(null)));
-#line 43
+#line 57
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
-#line 44
+#line 58
     testRunner.Given("I have configured unauthenticated requests to produce ServerError", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 45
+#line 59
     testRunner.And("the operation path template has an Operation with an operationId of \'op1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 46
+#line 60
     testRunner.When("I handle a \'GET\' request for \'/test/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 47
+#line 61
     testRunner.And("the access checker blocks access with \'NotAuthenticated\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 48
+#line 62
     testRunner.Then("the operation method should not be invoked", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 49
+#line 63
     testRunner.And("the invoker should complete without exceptions", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 50
+#line 64
     testRunner.And("invoker should return a 500 error result", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -170,24 +196,24 @@ this.ScenarioInitialize(scenarioInfo);
         public virtual void TheAccessCheckerBlocksTheRequestWithAnExplanation()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("The access checker blocks the request with an explanation", null, ((string[])(null)));
-#line 52
+#line 66
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
-#line 53
+#line 67
     testRunner.Given("the operation path template has an Operation with an operationId of \'op1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 54
+#line 68
     testRunner.When("I handle a \'GET\' request for \'/test/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 55
+#line 69
     testRunner.And("the access checker blocks access with an explanation of \'no dice\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 56
+#line 70
     testRunner.Then("the operation method should not be invoked", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 57
+#line 71
     testRunner.And("the invoker should map an OpenApiForbiddenException with an explanation of \'no di" +
                     "ce\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 58
+#line 72
     testRunner.And("the invoker should pass the result from the exception mapper to the result builde" +
                     "r", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 59
+#line 73
     testRunner.And("the invoker should return the result from the result builder", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -198,22 +224,22 @@ this.ScenarioInitialize(scenarioInfo);
         public virtual void TheAccessCheckerDoesNotBlockTheRequest()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("The access checker does not block the request", null, ((string[])(null)));
-#line 61
+#line 75
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
-#line 62
+#line 76
     testRunner.Given("the operation path template has an Operation with an operationId of \'op1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 63
+#line 77
     testRunner.When("I handle a \'GET\' request for \'/test/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 64
+#line 78
     testRunner.And("the access checker allows access", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 65
+#line 79
     testRunner.Then("the invoker should complete without exceptions", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 66
+#line 80
     testRunner.And("the operation method should be invoked", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 67
+#line 81
     testRunner.And("the invoker should pass the method result to the result builder", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 68
+#line 82
     testRunner.And("the invoker should return the result from the result builder", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();

@@ -6,6 +6,20 @@ Feature: OpenApiOperationInvoker
     As a developer
     I want the OpenApiOperationInvoker to invoke my service implementation method, and all associated services
 
+Scenario Outline: The request details are passed to the scope builders
+    Given the operation path template has an Operation with an operationId of '<operationId>'
+    When I handle a '<httpMethod>' request for '<path>' with scope builders
+    Then the scope builder should receive a path of '<path>'
+    And the scope builder should receive an operationId of '<operationId>'
+    And the scope builder should receive an HttpMethod of '<httpMethod>'
+
+    Examples:
+    | path    | operationId | httpMethod |
+    | /test/1 | op1         | GET        |
+    | /test/2 | op2         | GET        |
+    | /test/1 | op1         | PUT        |
+    | /test/2 | op2         | POST       |
+
 Scenario Outline: The request details are passed to the access checker
     Given the operation path template has an Operation with an operationId of '<operationId>'
     When I handle a '<httpMethod>' request for '<path>'

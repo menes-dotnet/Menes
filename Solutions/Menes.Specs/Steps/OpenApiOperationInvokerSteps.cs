@@ -99,9 +99,42 @@ namespace Menes.Specs.Steps
                 path,
                 method,
                 new object(),
+                null,
                 this.operationPathTemplate);
 
             await this.InvokerContext.AccessCheckCalls.WaitAsync().WithTimeout().ConfigureAwait(false);
+        }
+
+        [When("I handle a '(.*)' request for '(.*)' with scope builders")]
+        public async Task WhenIHandleARequestWithScopeBuildersFor(string method, string path)
+        {
+            var parameterBuilder = new Mock<IOpenApiParameterBuilder<object>>();
+            parameterBuilder
+                .Setup(m => m.BuildParametersAsync(It.IsAny<object>(), this.operationPathTemplate))
+                .Returns(Task.FromResult<IDictionary<string, object>>(new Dictionary<string, object>()));
+
+            this.InvokerContext.ExceptionMapper
+                .Setup(m => m.GetResponse(It.IsAny<Exception>(), It.IsAny<OpenApiOperation>()))
+                .Returns(this.exceptionMapperResult);
+
+            this.InvokerContext.ResultBuilder
+                .Setup(m => m.BuildResult(It.IsAny<object>(), this.openApiOperation))
+                .Returns(this.resultBuilderResult);
+            this.InvokerContext.ResultBuilder
+                .Setup(m => m.BuildErrorResult(It.IsAny<int>()))
+                .Returns(this.resultBuilderErrorResult);
+
+            this.InvokerContext.UseScopeBuilder();
+
+            this.invokerResultTask = this.Invoker.InvokeAsync(
+                ContainerBindings.GetServiceProvider(this.scenarioContext),
+                path,
+                method,
+                new object(),
+                null,
+                this.operationPathTemplate);
+
+            await this.InvokerContext.ScopeBuilderCalls.WaitAsync().WithTimeout().ConfigureAwait(false);
         }
 
         [When("the access checker blocks access with '(.*)'")]
@@ -153,6 +186,24 @@ namespace Menes.Specs.Steps
         public void ThenTheAccessCheckerShouldReceiveAnHttpMethodOf(string method)
         {
             Assert.AreEqual(method, this.InvokerContext.AccessCheckCalls.Arguments[0].Requests[0].Method);
+        }
+
+        [Then(@"the scope builder should receive a path of '(.*)'")]
+        public void ThenTheScopeBuilderShouldReceiveAPathOf(string path)
+        {
+            Assert.AreEqual(path, this.InvokerContext.ScopeBuilderCalls.Arguments[0].Path);
+        }
+
+        [Then(@"the scope builder should receive an operationId of '(.*)'")]
+        public void ThenTheScopeBuilderShouldReceiveAnOperationIdOf(string operationId)
+        {
+            Assert.AreEqual(operationId, this.InvokerContext.ScopeBuilderCalls.Arguments[0].OperationPathTemplate.Operation.OperationId);
+        }
+
+        [Then(@"the scope builder should receive an HttpMethod of '(.*)'")]
+        public void ThenTheScopeBuilderShouldReceiveAnHttpMethodOf(string method)
+        {
+            Assert.AreEqual(method, this.InvokerContext.ScopeBuilderCalls.Arguments[0].Method);
         }
 
         [Then("the invoker should complete without exceptions")]

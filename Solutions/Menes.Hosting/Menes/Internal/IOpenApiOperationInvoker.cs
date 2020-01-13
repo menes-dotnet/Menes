@@ -21,8 +21,9 @@ namespace Menes.Internal
         /// <param name="path">The operation path.</param>
         /// <param name="method">The operation method.</param>
         /// <param name="request">The request.</param>
+        /// <param name="parameters">Parameters sent with the request.</param>
         /// <param name="operationPathTemplate">The path template for the operation.</param>
         /// <returns>A <see cref="Task{T}"/> which, when complete, provides the response.</returns>
-        Task<TResponse> InvokeAsync(IServiceProvider serviceProvider, string path, string method, TRequest request, OpenApiOperationPathTemplate operationPathTemplate);
+        Task<TResponse> InvokeAsync(IServiceProvider serviceProvider, string path, string method, TRequest request, object parameters, OpenApiOperationPathTemplate operationPathTemplate);
     }
 }

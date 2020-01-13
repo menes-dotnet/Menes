@@ -120,7 +120,6 @@ namespace Microsoft.Extensions.DependencyInjection
             {
                 var result = new OpenApiHost<TRequest, TResponse>(
                         serviceProvider,
-                        serviceProvider.GetRequiredService<IOpenApiRequestScopeFactory<TRequest>>(),
                         serviceProvider.GetRequiredService<IPathMatcher>(),
                         serviceProvider.GetRequiredService<IOpenApiOperationInvoker<TRequest, TResponse>>(),
                         serviceProvider.GetRequiredService<IOpenApiResultBuilder<TResponse>>());
@@ -268,6 +267,22 @@ namespace Microsoft.Extensions.DependencyInjection
             where T : class, IOpenApiScopeBuilder<TRequest>
         {
             services.AddScoped<T>();
+            services.AddScoped<IOpenApiScopeBuilder<TRequest>, T>(serviceProvider => serviceProvider.GetRequiredService<T>());
+            return services;
+        }
+
+        /// <summary>
+        /// Adds an <see cref="IOpenApiScopeBuilder{TRequest}"/> to the container.
+        /// </summary>
+        /// <typeparam name="T">The type of the service to register.</typeparam>
+        /// <typeparam name="TRequest">The type of the request with which the scope builder operates.</typeparam>
+        /// <param name="services">The service collection in which to register the service.</param>
+        /// <param name="instanceFactory">A factory for creating the instance of the builder.</param>
+        /// <returns>The service collection, with the service registered.</returns>
+        public static IServiceCollection AddOpenApiScopeBuilder<T, TRequest>(this IServiceCollection services, Func<IServiceProvider, T> instanceFactory)
+            where T : class, IOpenApiScopeBuilder<TRequest>
+        {
+            services.AddScoped(instanceFactory);
             services.AddScoped<IOpenApiScopeBuilder<TRequest>, T>(serviceProvider => serviceProvider.GetRequiredService<T>());
             return services;
         }
