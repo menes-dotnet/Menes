@@ -274,6 +274,32 @@ this.FeatureBackground();
 #line hidden
             this.ScenarioCleanup();
         }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Registering an OpenApiScopeBuilder adds it to the container with the concrete typ" +
+            "e, and the IOpenApiScopeBuilder{TRequest} as a scoped service")]
+        public virtual void RegisteringAnOpenApiScopeBuilderAddsItToTheContainerWithTheConcreteTypeAndTheIOpenApiScopeBuilderTRequestAsAScopedService()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Registering an OpenApiScopeBuilder adds it to the container with the concrete typ" +
+                    "e, and the IOpenApiScopeBuilder{TRequest} as a scoped service", null, ((string[])(null)));
+#line 64
+this.ScenarioInitialize(scenarioInfo);
+            this.ScenarioStart();
+#line 6
+this.FeatureBackground();
+#line 65
+ testRunner.When("I register an OpenApiScopeBuilder", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 66
+ testRunner.And("I build the service provider from the service collection", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 67
+ testRunner.Then("it should be available as a ScopedService with the service type matching the conc" +
+                    "rete type of the builder", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 68
+ testRunner.And("It should be available as a ScopeService with a service type of IOpenApiScopeBuid" +
+                    "er{TRequest}", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            this.ScenarioCleanup();
+        }
     }
 }
 #pragma warning restore

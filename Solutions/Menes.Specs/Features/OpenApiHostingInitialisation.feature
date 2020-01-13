@@ -60,3 +60,9 @@ Scenario: Registering an OpenApiService adds it to the container with the concre
 	And I build the service provider from the service collection
 	Then it should be available as a ScopedService with the service type matching the concrete type of the service
 	And It should be available as a ScopeService with a service type of IOpenApiService
+
+Scenario: Registering an OpenApiScopeBuilder adds it to the container with the concrete type, and the IOpenApiScopeBuilder{TRequest} as a scoped service
+	When I register an OpenApiScopeBuilder
+	And I build the service provider from the service collection
+	Then it should be available as a ScopedService with the service type matching the concrete type of the builder
+	And It should be available as a ScopeService with a service type of IOpenApiScopeBuider{TRequest}

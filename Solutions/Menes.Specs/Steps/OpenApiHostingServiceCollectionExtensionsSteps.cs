@@ -67,27 +67,47 @@ namespace Menes.Specs.Steps
                 .AddHalDocumentMapper<Pet, MappingContext, PetHalDocumentMapperWithContext>();
         }
 
-        [When(@"I register an OpenApiService")]
+        [When("I register an OpenApiService")]
         public void WhenIRegisterAnOpenApiService()
         {
             this.scenarioContext.Get<ServiceCollection>()
                 .AddOpenApiService<PetStore>();
         }
 
-        [Then(@"it should be available as a ScopedService with the service type matching the concrete type of the service")]
+        [Then("it should be available as a ScopedService with the service type matching the concrete type of the service")]
         public void ThenItShouldBeAvailableAsAScopedServiceWithTheServiceTypeMatchingTheConcreteTypeOfTheService()
         {
             this.AssertServiceIsAvailableFromServiceProvider<PetStore>();
             this.AssertServiceIsScoped<PetStore>();
         }
 
-        [Then(@"It should be available as a ScopeService with a service type of IOpenApiService")]
+        [Then("It should be available as a ScopeService with a service type of IOpenApiService")]
         public void ThenItShouldBeAvailableAsAScopeServiceWithAServiceTypeOfIOpenApiService()
         {
             this.AssertServiceIsAvailableFromServiceProvider<IOpenApiService>();
             this.AssertServiceIsScoped<IOpenApiService>();
         }
 
+        [When("I register an OpenApiScopeBuilder")]
+        public void WhenIRegisterAnOpenApiScopeBuilder()
+        {
+            this.scenarioContext.Get<ServiceCollection>()
+                .AddOpenApiScopeBuilder<TestScopeBuilder, HttpRequest>();
+        }
+
+        [Then("it should be available as a ScopedService with the service type matching the concrete type of the builder")]
+        public void ThenItShouldBeAvailableAsAScopedServiceWithTheServiceTypeMatchingTheConcreteTypeOfTheBuilder()
+        {
+            this.AssertServiceIsAvailableFromServiceProvider<TestScopeBuilder>();
+            this.AssertServiceIsScoped<TestScopeBuilder>();
+        }
+
+        [Then(@"It should be available as a ScopeService with a service type of IOpenApiScopeBuider\{TRequest}")]
+        public void ThenItShouldBeAvailableAsAScopeServiceWithAServiceTypeOfIOpenApiScopeBuiderTRequest()
+        {
+            this.AssertServiceIsAvailableFromServiceProvider<IOpenApiScopeBuilder<HttpRequest>>();
+            this.AssertServiceIsScoped<IOpenApiScopeBuilder<HttpRequest>>();
+        }
 
         [Then("a service is available as a Singleton for type IOpenApiHost{HttpRequest, IActionResult}")]
         public void ThenAServiceIsAddedAsASingletonForTypeIOpenApiHostHttpRequestIActionResult()
