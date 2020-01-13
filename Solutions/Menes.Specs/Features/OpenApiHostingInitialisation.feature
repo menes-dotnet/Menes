@@ -54,3 +54,9 @@ Scenario: Registering HAL document mappers with resource and context type parame
 	Then it should be available as a Singleton with the service type matching the concrete type of the mapper with context
 	And It should be available as a Singleton with a service type of IHalDocumentMapper
 	And it should be available as a Singleton with a service type of IHalDocumentMapper{TResource, TContext}
+
+Scenario: Registering an OpenApiService adds it to the container with the concrete type, and the IOpenApiService as a scoped service
+	When I register an OpenApiService
+	And I build the service provider from the service collection
+	Then it should be available as a ScopedService with the service type matching the concrete type of the service
+	And It should be available as a ScopeService with a service type of IOpenApiService

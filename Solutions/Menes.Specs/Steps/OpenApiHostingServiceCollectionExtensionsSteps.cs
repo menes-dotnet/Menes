@@ -67,6 +67,28 @@ namespace Menes.Specs.Steps
                 .AddHalDocumentMapper<Pet, MappingContext, PetHalDocumentMapperWithContext>();
         }
 
+        [When(@"I register an OpenApiService")]
+        public void WhenIRegisterAnOpenApiService()
+        {
+            this.scenarioContext.Get<ServiceCollection>()
+                .AddOpenApiService<PetStore>();
+        }
+
+        [Then(@"it should be available as a ScopedService with the service type matching the concrete type of the service")]
+        public void ThenItShouldBeAvailableAsAScopedServiceWithTheServiceTypeMatchingTheConcreteTypeOfTheService()
+        {
+            this.AssertServiceIsAvailableFromServiceProvider<PetStore>();
+            this.AssertServiceIsScoped<PetStore>();
+        }
+
+        [Then(@"It should be available as a ScopeService with a service type of IOpenApiService")]
+        public void ThenItShouldBeAvailableAsAScopeServiceWithAServiceTypeOfIOpenApiService()
+        {
+            this.AssertServiceIsAvailableFromServiceProvider<IOpenApiService>();
+            this.AssertServiceIsScoped<IOpenApiService>();
+        }
+
+
         [Then("a service is available as a Singleton for type IOpenApiHost{HttpRequest, IActionResult}")]
         public void ThenAServiceIsAddedAsASingletonForTypeIOpenApiHostHttpRequestIActionResult()
         {
@@ -215,6 +237,19 @@ namespace Menes.Specs.Steps
             TService serviceInScope2 = scope2.ServiceProvider.GetRequiredService<TService>();
 
             Assert.AreSame(serviceInScope1, serviceInScope2);
+        }
+
+        private void AssertServiceIsScoped<TService>()
+        {
+            ServiceProvider provider = this.scenarioContext.Get<ServiceProvider>();
+
+            using IServiceScope scope1 = provider.CreateScope();
+            using IServiceScope scope2 = provider.CreateScope();
+
+            TService serviceInScope1 = scope1.ServiceProvider.GetRequiredService<TService>();
+            TService serviceInScope2 = scope2.ServiceProvider.GetRequiredService<TService>();
+
+            Assert.AreNotSame(serviceInScope1, serviceInScope2);
         }
     }
 }

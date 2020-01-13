@@ -249,6 +249,31 @@ this.FeatureBackground();
 #line hidden
             this.ScenarioCleanup();
         }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Registering an OpenApiService adds it to the container with the concrete type, an" +
+            "d the IOpenApiService as a scoped service")]
+        public virtual void RegisteringAnOpenApiServiceAddsItToTheContainerWithTheConcreteTypeAndTheIOpenApiServiceAsAScopedService()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Registering an OpenApiService adds it to the container with the concrete type, an" +
+                    "d the IOpenApiService as a scoped service", null, ((string[])(null)));
+#line 58
+this.ScenarioInitialize(scenarioInfo);
+            this.ScenarioStart();
+#line 6
+this.FeatureBackground();
+#line 59
+ testRunner.When("I register an OpenApiService", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 60
+ testRunner.And("I build the service provider from the service collection", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 61
+ testRunner.Then("it should be available as a ScopedService with the service type matching the conc" +
+                    "rete type of the service", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 62
+ testRunner.And("It should be available as a ScopeService with a service type of IOpenApiService", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            this.ScenarioCleanup();
+        }
     }
 }
 #pragma warning restore
