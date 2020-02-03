@@ -100,7 +100,7 @@ namespace Menes.Specs.Steps
         [Then("each policy should receive a path of '(.*)'")]
         public void ThenEachPolicyShouldReceiveAPathOf(string path)
         {
-            foreach ((Mock<IOpenApiAccessControlPolicy> policy, CompletionSourceWithArgs<ShouldAllowArgs, IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> completion) in this.policies)
+            foreach ((Mock<IOpenApiAccessControlPolicy> _, CompletionSourceWithArgs<ShouldAllowArgs, IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> completion) in this.policies)
             {
                 Assert.AreEqual(path, completion.Arguments[0].Requests[0].Path);
             }
@@ -109,7 +109,7 @@ namespace Menes.Specs.Steps
         [Then("each policy should receive an operationId of '(.*)'")]
         public void ThenEachPolicyShouldReceiveAnOperationIdOf(string operationId)
         {
-            foreach ((Mock<IOpenApiAccessControlPolicy> policy, CompletionSourceWithArgs<ShouldAllowArgs, IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> completion) in this.policies)
+            foreach ((Mock<IOpenApiAccessControlPolicy> _, CompletionSourceWithArgs<ShouldAllowArgs, IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> completion) in this.policies)
             {
                 Assert.AreEqual(operationId, completion.Arguments[0].Requests[0].OperationId);
             }
@@ -118,7 +118,7 @@ namespace Menes.Specs.Steps
         [Then("each policy should receive an HttpMethod of '(.*)'")]
         public void ThenEachPolicyShouldReceiveAnHttpMethodOf(string method)
         {
-            foreach ((Mock<IOpenApiAccessControlPolicy> policy, CompletionSourceWithArgs<ShouldAllowArgs, IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> completion) in this.policies)
+            foreach ((Mock<IOpenApiAccessControlPolicy> _, CompletionSourceWithArgs<ShouldAllowArgs, IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> completion) in this.policies)
             {
                 Assert.AreEqual(method, completion.Arguments[0].Requests[0].Method);
             }
@@ -127,7 +127,7 @@ namespace Menes.Specs.Steps
         [Then("each policy should receive the ClaimsPrincipal attached to the context")]
         public void ThenEachPolicyShouldReceiveTheClaimsPrincipalAttachedToTheContext()
         {
-            foreach ((Mock<IOpenApiAccessControlPolicy> policy, CompletionSourceWithArgs<ShouldAllowArgs, IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> completion) in this.policies)
+            foreach ((Mock<IOpenApiAccessControlPolicy> _, CompletionSourceWithArgs<ShouldAllowArgs, IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> completion) in this.policies)
             {
                 Assert.AreSame(this.claimsPrincipal, completion.Arguments[0].Context.CurrentPrincipal);
             }
@@ -136,7 +136,7 @@ namespace Menes.Specs.Steps
         [Then("each policy should receive the Tenant attached to the context")]
         public void ThenEachPolicyShouldReceiveTheTenantAttachedToTheContext()
         {
-            foreach ((Mock<IOpenApiAccessControlPolicy> policy, CompletionSourceWithArgs<ShouldAllowArgs, IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> completion) in this.policies)
+            foreach ((Mock<IOpenApiAccessControlPolicy> _, CompletionSourceWithArgs<ShouldAllowArgs, IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> completion) in this.policies)
             {
                 Assert.AreSame(this.tenantId, completion.Arguments[0].Context.CurrentTenantId);
             }
