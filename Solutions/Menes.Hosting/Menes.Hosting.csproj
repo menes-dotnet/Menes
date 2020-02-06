@@ -2,16 +2,12 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-  </PropertyGroup>
-
-  <PropertyGroup>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-    <PackageDescription></PackageDescription>
-    <PackageTags></PackageTags>
-    <PackageReleaseNotes></PackageReleaseNotes>
   </PropertyGroup>
 
-  <Import Project="..\Common.NetStandard_2_0.proj" />
+  <ItemGroup>
+    <PackageReference Include="Endjin.RecommendedPractices" Version="0.1.0-azure-pipelines.2" />
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Menes.Abstractions\Menes.Abstractions.csproj" />
