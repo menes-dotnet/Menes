@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Endjin.RecommendedPractices" Version="0.1.0-azure-pipelines.8" />
+    <PackageReference Include="Endjin.RecommendedPractices" Version="0.1.0-azure-pipelines.11" />
   </ItemGroup>
 
   <ItemGroup>
