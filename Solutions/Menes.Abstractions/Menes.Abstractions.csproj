@@ -3,7 +3,8 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-
+    <PackageDescription>Menes is a framework for hosting Web APIs with OpenAPI-based service definitions. This library defines the common abstractions used throughout Menes.</PackageDescription>
+    
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
     <TreatSpecificWarningsAsErrors>false</TreatSpecificWarningsAsErrors>
     <WarningsAsErrors />

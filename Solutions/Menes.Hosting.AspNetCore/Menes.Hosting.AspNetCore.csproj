@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <PackageDescription>Menes is a framework for hosting Web APIs with OpenAPI-based service definitions. This library defines the ASP.NET-Core-specific aspects of hosting in Menes.</PackageDescription>
   </PropertyGroup>
 
   <ItemGroup>
