@@ -2,16 +2,16 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-  </PropertyGroup>
-
-  <PropertyGroup>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-    <PackageDescription></PackageDescription>
-    <PackageTags></PackageTags>
-    <PackageReleaseNotes></PackageReleaseNotes>
+    <PackageDescription>Menes is a framework for hosting Web APIs with OpenAPI-based service definitions. This library defines the non-technology-specific aspects of hosting in Menes.</PackageDescription>
   </PropertyGroup>
 
-  <Import Project="..\Common.NetStandard_2_0.proj" />
+  <ItemGroup>
+    <PackageReference Include="Endjin.RecommendedPractices" Version="0.1.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Menes.Abstractions\Menes.Abstractions.csproj" />
