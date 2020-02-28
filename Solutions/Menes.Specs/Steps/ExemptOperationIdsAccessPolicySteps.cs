@@ -20,8 +20,8 @@ namespace Menes.Specs.Steps
     [Binding]
     public class ExemptOperationIdsAccessPolicySteps
     {
-        private ExemptOperationIdsAccessPolicy policy;
-        private IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult> result;
+        private ExemptOperationIdsAccessPolicy? policy;
+        private IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>? result;
 
         [Given("I have a policy that exempts ids '(.*)' and '(.*)'")]
         public void GivenIHaveAPolicyThatExemptsIdsAnd(string opId1, string opId2)
@@ -32,7 +32,7 @@ namespace Menes.Specs.Steps
         [When("I evaluate the exemption policy with an operation id of '(.*)'")]
         public async System.Threading.Tasks.Task WhenIEvaluateTheExemptionPolicyWithAnOperationIdOfAsync(string operationId)
         {
-            this.result = await this.policy.ShouldAllowAsync(
+            this.result = await this.policy!.ShouldAllowAsync(
                 new SimpleOpenApiContext {  CurrentPrincipal = new ClaimsPrincipal(), CurrentTenantId = Guid.NewGuid().ToString() },
                 new AccessCheckOperationDescriptor("/a/path", operationId, "GET"))
                 .WithTimeout()
@@ -42,13 +42,13 @@ namespace Menes.Specs.Steps
         [Then("the policy should allow the operation")]
         public void ThenThePolicyShouldAllowTheOperation()
         {
-            Assert.IsTrue(this.result.Values.First().Allow);
+            Assert.IsTrue(this.result!.Values.First().Allow);
         }
 
         [Then("the policy should deny the operation")]
         public void ThenThePolicyShouldDenyTheOperation()
         {
-            Assert.IsFalse(this.result.Values.First().Allow);
+            Assert.IsFalse(this.result!.Values.First().Allow);
         }
     }
 }

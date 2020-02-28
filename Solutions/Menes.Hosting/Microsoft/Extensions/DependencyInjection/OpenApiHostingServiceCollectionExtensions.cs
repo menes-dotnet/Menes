@@ -87,7 +87,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// </remarks>
         public static IServiceCollection AddOpenApiHosting<TRequest, TResponse>(
             this IServiceCollection services,
-            Action<OpenApiHostConfiguration> configureHost,
+            Action<OpenApiHostConfiguration>? configureHost,
             Action<IOpenApiConfiguration>? configureEnvironment = null)
         {
             if (services.Any(s => typeof(IOpenApiHost<TRequest, TResponse>).IsAssignableFrom(s.ServiceType)))

@@ -23,13 +23,13 @@ namespace Menes.Specs.Steps.TestClasses
         /// Gets an object enabling the calls to the <see cref="IOpenApiAccessChecker"/> to be inspected and its
         /// responses determined. This is only available if you call <see cref="UseManualAccessChecks"/>.
         /// </summary>
-        public CompletionSourceWithArgs<CheckAccessArguments, IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> AccessCheckCalls { get; private set; }
+        public CompletionSourceWithArgs<CheckAccessArguments, IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>>? AccessCheckCalls { get; private set; }
         public Mock<IOpenApiServiceOperationLocator> OperationLocator { get; } = new Mock<IOpenApiServiceOperationLocator>();
         public Mock<IOpenApiExceptionMapper> ExceptionMapper { get; } = new Mock<IOpenApiExceptionMapper>();
         public Mock<IOpenApiResultBuilder<object>> ResultBuilder { get; } = new Mock<IOpenApiResultBuilder<object>>();
         public Mock<IOpenApiParameterBuilder<object>> ParameterBuilder { get; } = new Mock<IOpenApiParameterBuilder<object>>();
         public CompletionSource OperationCompletionSource { get; } = new CompletionSource();
-        public Task OperationInvocationTask { get; set; }
+        public Task? OperationInvocationTask { get; set; }
         public int ReportedOperationCountWhenOperationBodyInvoked { get; set; }
 
         public static void AddServices(IServiceCollection services)
@@ -57,6 +57,14 @@ namespace Menes.Specs.Steps.TestClasses
 
         public class CheckAccessArguments
         {
+            public CheckAccessArguments(
+                IOpenApiContext context,
+                AccessCheckOperationDescriptor[] requests)
+            {
+                this.Context = context;
+                this.Requests = requests;
+            }
+
             public IOpenApiContext Context { get; set; }
 
             public AccessCheckOperationDescriptor[] Requests { get; set; }
@@ -78,7 +86,7 @@ namespace Menes.Specs.Steps.TestClasses
             {
                 return this.context.AccessCheckCalls == null
                     ? Task.FromResult<IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>>(descriptors.ToDictionary(d => d, __ => Allowed))
-                    : this.context.AccessCheckCalls.GetTask(new CheckAccessArguments { Context = context, Requests = descriptors });
+                    : this.context.AccessCheckCalls.GetTask(new CheckAccessArguments(context, descriptors));
             }
         }
     }

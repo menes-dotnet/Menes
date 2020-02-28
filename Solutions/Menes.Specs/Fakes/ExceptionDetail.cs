@@ -15,7 +15,7 @@
     {
         public ExceptionDetail(
             Exception x,
-            AdditionalInstrumentationDetail additionalDetail,
+            AdditionalInstrumentationDetail? additionalDetail,
             OperationDetail operationInProgressAtTime)
         {
             this.Exception = x;
@@ -32,7 +32,7 @@
         /// Gets the additional instrumentation detail (if any) passed to the call to
         /// <see cref="IExceptionsInstrumentation.ReportException(Exception, AdditionalInstrumentationDetail)"/>.
         /// </summary>
-        public AdditionalInstrumentationDetail AdditionalDetail { get; }
+        public AdditionalInstrumentationDetail? AdditionalDetail { get; }
 
         /// <summary>
         /// Gets the <see cref="OperationDetail"/> that was in progress at the instant this exception was reported.

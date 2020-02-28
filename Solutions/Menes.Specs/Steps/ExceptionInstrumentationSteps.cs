@@ -9,7 +9,7 @@
     [Binding]
     public class ExceptionInstrumentationSteps : InstrumentationStepsBase
     {
-        private Exception operationException;
+        private Exception? operationException;
 
         public ExceptionInstrumentationSteps(ScenarioContext scenarioContext)
             : base(scenarioContext)

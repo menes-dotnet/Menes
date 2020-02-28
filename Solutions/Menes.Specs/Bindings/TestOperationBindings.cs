@@ -1,5 +1,6 @@
 ﻿namespace Menes.Specs.Bindings
 {
+    using System;
     using System.Collections.Generic;
     using System.Reflection;
     using System.Threading.Tasks;
@@ -30,7 +31,7 @@
     [Binding]
     public class TestOperationBindings : IOpenApiService
     {
-        private static readonly MethodInfo operationMethodInfo = typeof(TestOperationBindings).GetMethod(nameof(TestOperation), BindingFlags.NonPublic | BindingFlags.Instance);
+        private static readonly MethodInfo operationMethodInfo = typeof(TestOperationBindings).GetMethod(nameof(TestOperation), BindingFlags.NonPublic | BindingFlags.Instance) ?? throw new InvalidOperationException($"Couldn't load method info for {nameof(TestOperation)}");
         private readonly ScenarioContext scenarioContext;
 
         public TestOperationBindings(ScenarioContext scenarioContext)

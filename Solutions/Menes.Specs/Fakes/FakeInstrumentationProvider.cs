@@ -29,7 +29,7 @@ namespace Menes.Specs.Fakes
         public IReadOnlyList<ExceptionDetail> Exceptions => this.exceptions;
 
         /// <inheritdoc/>
-        public IOperationInstance StartOperation(string name, AdditionalInstrumentationDetail additionalDetail = null)
+        public IOperationInstance StartOperation(string name, AdditionalInstrumentationDetail? additionalDetail = null)
         {
             var result = new OperationDetail(
                 name,
@@ -45,7 +45,7 @@ namespace Menes.Specs.Fakes
         }
 
         /// <inheritdoc/>
-        public void ReportException(Exception x, AdditionalInstrumentationDetail additionalDetail = null)
+        public void ReportException(Exception x, AdditionalInstrumentationDetail? additionalDetail = null)
         {
             this.exceptions.Add(new ExceptionDetail(x, additionalDetail, this.operationsInProgress.Peek()));
         }

@@ -21,7 +21,7 @@ namespace Menes.Specs.Steps
         public async Task WhenTheOperationCompletes()
         {
             this.InvokerContext.OperationCompletionSource.Complete();
-            await this.InvokerContext.OperationInvocationTask.ConfigureAwait(false);
+            await this.InvokerContext.OperationInvocationTask!.ConfigureAwait(false);
         }
 
         [Then("instrumentation should have already reported the request by the time the operation implementation is invoked")]

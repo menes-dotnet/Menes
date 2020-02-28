@@ -25,7 +25,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <returns>The configured service collection.</returns>
         public static IServiceCollection AddOpenApiHttpRequestHosting<TContext>(
             this IServiceCollection services,
-            Action<IOpenApiHostConfiguration> configureHost,
+            Action<IOpenApiHostConfiguration>? configureHost,
             Action<IOpenApiConfiguration>? configureEnvironment = null)
             where TContext : class, IOpenApiContext, new()
         {

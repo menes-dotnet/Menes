@@ -24,9 +24,9 @@ namespace Menes.Specs.Steps
     [Binding]
     public class OpenApiMisconfigurationDetectionSteps
     {
-        private OpenApiOperation operation;
-        private OpenApiDocument document;
-        private Exception exception;
+        private OpenApiOperation? operation;
+        private OpenApiDocument? document;
+        private Exception? exception;
         private readonly ScenarioContext scenarioContext;
 
         public OpenApiMisconfigurationDetectionSteps(ScenarioContext scenarioContext)
@@ -102,7 +102,7 @@ namespace Menes.Specs.Steps
                 var outputBuilder = new PocoActionResultOutputBuilder(
                     Enumerable.Empty<IOpenApiConverter>(),
                     ContainerBindings.GetServiceProvider(this.scenarioContext).GetRequiredService<ILogger<PocoActionResultOutputBuilder>>());
-                outputBuilder.CanBuildOutput(new object(), this.operation);
+                outputBuilder.CanBuildOutput(new object(), this.operation!);
             }
             catch (Exception x)
             {
@@ -132,7 +132,7 @@ namespace Menes.Specs.Steps
             try
             {
                 var exceptionHandler = new OpenApiExceptionMapper(ContainerBindings.GetServiceProvider(this.scenarioContext), new Mock<ILogger<OpenApiExceptionMapper>>().Object);
-                exceptionHandler.GetResponse(new InvalidOperationException(), this.operation);
+                exceptionHandler.GetResponse(new InvalidOperationException(), this.operation!);
             }
             catch (Exception x)
             {
@@ -147,7 +147,7 @@ namespace Menes.Specs.Steps
             var doc = new OpenApiDocumentProvider(new Mock<ILogger<OpenApiDocumentProvider>>().Object);
             try
             {
-                doc.Add(this.document);
+                doc.Add(this.document!);
             }
             catch (Exception x)
             {

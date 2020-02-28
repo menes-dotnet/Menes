@@ -110,9 +110,9 @@ namespace Menes.Specs.Steps
         {
             HalDocument result = this.scenarioContext.Get<HalDocument>();
             TestDomainClass dtoIn = this.scenarioContext.Get<TestDomainClass>();
-            Assert.IsTrue(result.TryGetProperties(out TestDomainClass dtoOut));
+            Assert.IsTrue(result.TryGetProperties(out TestDomainClass? dtoOut));
 
-            Assert.AreEqual(dtoIn.Property1, dtoOut.Property1);
+            Assert.AreEqual(dtoIn.Property1, dtoOut!.Property1);
             Assert.AreEqual(dtoIn.Property2, dtoOut.Property2);
             Assert.AreEqual(dtoIn.Property3, dtoOut.Property3);
         }
@@ -153,7 +153,7 @@ namespace Menes.Specs.Steps
         {
             public int Property1 { get; set; }
 
-            public string Property2 { get; set; }
+            public string? Property2 { get; set; }
 
             public decimal Property3 { get; set; }
         }

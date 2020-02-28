@@ -23,12 +23,12 @@ namespace Menes.Specs.Steps
     [Binding]
     public class ShortCircuitingAccessControlPolicyAdapterSteps
     {
-        private Mock<IOpenApiAccessControlPolicy> firstPolicy;
-        private CompletionSourceWithArgs<ShouldAllowArgs, IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> firstPolicyCompletion;
-        private List<(Mock<IOpenApiAccessControlPolicy> policy, CompletionSourceWithArgs<ShouldAllowArgs, IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> completion)> otherPolicies;
-        private ClaimsPrincipal claimsPrincipal;
-        private string tenantId;
-        private Task<IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> checkResultTask;
+        private Mock<IOpenApiAccessControlPolicy>? firstPolicy;
+        private CompletionSourceWithArgs<ShouldAllowArgs, IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>>? firstPolicyCompletion;
+        private List<(Mock<IOpenApiAccessControlPolicy> policy, CompletionSourceWithArgs<ShouldAllowArgs, IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> completion)>? otherPolicies;
+        private ClaimsPrincipal? claimsPrincipal;
+        private string? tenantId;
+        private Task<IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>>? checkResultTask;
 
         [Given("I have configured (.*) other access policies")]
         public void GivenIHaveConfiguredOtherAccessPolicies(int numberOfPolicies)
@@ -38,7 +38,7 @@ namespace Menes.Specs.Steps
             this.firstPolicy
                 .Setup(m => m.ShouldAllowAsync(It.IsAny<IOpenApiContext>(), It.IsAny<AccessCheckOperationDescriptor[]>()))
                 .Returns((IOpenApiContext context, AccessCheckOperationDescriptor[] requests)
-                => this.firstPolicyCompletion.GetTask(new ShouldAllowArgs { Context = context, Requests = requests }));
+                => this.firstPolicyCompletion.GetTask(new ShouldAllowArgs(requests, context)));
 
             this.otherPolicies = Enumerable
                 .Range(0, numberOfPolicies)
@@ -48,7 +48,7 @@ namespace Menes.Specs.Steps
                     var args = new CompletionSourceWithArgs<ShouldAllowArgs, IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>>();
                     mock.Setup(m => m.ShouldAllowAsync(It.IsAny<IOpenApiContext>(), It.IsAny<AccessCheckOperationDescriptor[]>()))
                         .Returns((IOpenApiContext context, AccessCheckOperationDescriptor[] requests)
-                            => args.GetTask(new ShouldAllowArgs { Context = context, Requests = requests }));
+                            => args.GetTask(new ShouldAllowArgs(requests, context)));
 
                     return (mock, args);
                 })
@@ -62,7 +62,7 @@ namespace Menes.Specs.Steps
             string operationId)
         {
             var adapter = new ShortCircuitingAccessControlPolicyAdapter(
-                this.firstPolicy.Object,
+                this.firstPolicy!.Object,
                 this.otherPolicies.Select(op => op.policy.Object));
 
             this.claimsPrincipal = new ClaimsPrincipal();
@@ -76,75 +76,75 @@ namespace Menes.Specs.Steps
         public void WhenTheFirstPolicyAllowsAccess()
         {
             var result = new Dictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>();
-            CompletionSourceWithArgs<ShouldAllowArgs, IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> completion = this.firstPolicyCompletion;
+            CompletionSourceWithArgs<ShouldAllowArgs, IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> completion = this.firstPolicyCompletion!;
             result.Add(completion.Arguments[0].Requests[0], new AccessControlPolicyResult(AccessControlPolicyResultType.Allowed));
-            this.firstPolicyCompletion.SupplyResult(result);
+            completion.SupplyResult(result);
         }
 
         [When("the first policy denies access with result '(.*)'")]
         public void WhenTheFirstPolicyDeniesAccessWithResult(AccessControlPolicyResultType resultType)
         {
             var result = new Dictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>();
-            CompletionSourceWithArgs<ShouldAllowArgs, IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> completion = this.firstPolicyCompletion;
+            CompletionSourceWithArgs<ShouldAllowArgs, IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> completion = this.firstPolicyCompletion!;
             result.Add(completion.Arguments[0].Requests[0], new AccessControlPolicyResult(resultType));
-            this.firstPolicyCompletion.SupplyResult(result);
+            completion.SupplyResult(result);
         }
 
         [When("the other policy (.*) allows access")]
         public void WhenTheOtherPolicyAllowsAccess(int policyIndex)
         {
             var result = new Dictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>();
-            CompletionSourceWithArgs<ShouldAllowArgs, IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> completion = this.otherPolicies[policyIndex].completion;
+            CompletionSourceWithArgs<ShouldAllowArgs, IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> completion = this.otherPolicies![policyIndex].completion;
             result.Add(completion.Arguments[0].Requests[0], new AccessControlPolicyResult(AccessControlPolicyResultType.Allowed));
-            this.otherPolicies[policyIndex].completion.SupplyResult(result);
+            completion.SupplyResult(result);
         }
 
         [When("the other policy (.*) denies access")]
         public void WhenTheOtherPolicyDeniesAccess(int policyIndex)
         {
             var result = new Dictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>();
-            CompletionSourceWithArgs<ShouldAllowArgs, IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> completion = this.otherPolicies[policyIndex].completion;
+            CompletionSourceWithArgs<ShouldAllowArgs, IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> completion = this.otherPolicies![policyIndex].completion;
             result.Add(completion.Arguments[0].Requests[0], new AccessControlPolicyResult(AccessControlPolicyResultType.NotAllowed));
-            this.otherPolicies[policyIndex].completion.SupplyResult(result);
+            completion.SupplyResult(result);
         }
 
         [When("the other policy (.*) denies access with explanation '(.*)'")]
         public void WhenTheOtherPolicyDeniesAccessWithExplanation(int policyIndex, string explanation)
         {
             var result = new Dictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>();
-            CompletionSourceWithArgs<ShouldAllowArgs, IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> completion = this.otherPolicies[policyIndex].completion;
+            CompletionSourceWithArgs<ShouldAllowArgs, IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> completion = this.otherPolicies![policyIndex].completion;
             result.Add(completion.Arguments[0].Requests[0], new AccessControlPolicyResult(AccessControlPolicyResultType.NotAllowed, explanation));
-            this.otherPolicies[policyIndex].completion.SupplyResult(result);
+            completion.SupplyResult(result);
         }
 
         [Then("the first policy should receive a path of '(.*)'")]
         public void ThenTheFirstPolicyShouldReceiveAPathOf(string path)
         {
-            Assert.AreEqual(path, this.firstPolicyCompletion.Arguments[0].Requests[0].Path);
+            Assert.AreEqual(path, this.firstPolicyCompletion!.Arguments[0].Requests[0].Path);
         }
 
         [Then("the first policy should receive an operationId of '(.*)'")]
         public void ThenTheFirstPolicyShouldReceiveAnOperationIdOf(string operationId)
         {
-            Assert.AreEqual(operationId, this.firstPolicyCompletion.Arguments[0].Requests[0].OperationId);
+            Assert.AreEqual(operationId, this.firstPolicyCompletion!.Arguments[0].Requests[0].OperationId);
         }
 
         [Then("the first policy should receive an HttpMethod of '(.*)'")]
         public void ThenTheFirstPolicyShouldReceiveAnHttpMethodOf(string method)
         {
-            Assert.AreEqual(method, this.firstPolicyCompletion.Arguments[0].Requests[0].Method);
+            Assert.AreEqual(method, this.firstPolicyCompletion!.Arguments[0].Requests[0].Method);
         }
 
         [Then("the first policy should receive the ClaimsPrincipal")]
         public void ThenTheFirstPolicyShouldReceiveTheClaimsPrincipal()
         {
-            Assert.AreSame(this.claimsPrincipal, this.firstPolicyCompletion.Arguments[0].Context.CurrentPrincipal);
+            Assert.AreSame(this.claimsPrincipal, this.firstPolicyCompletion!.Arguments[0].Context.CurrentPrincipal);
         }
 
         [Then("the first policy should receive the Tenant")]
         public void ThenTheFirstPolicyShouldReceiveTheTenant()
         {
-            Assert.AreSame(this.tenantId, this.firstPolicyCompletion.Arguments[0].Context.CurrentTenantId);
+            Assert.AreSame(this.tenantId, this.firstPolicyCompletion!.Arguments[0].Context.CurrentTenantId);
         }
 
         [Then("the adapter result should allow the operation")]
@@ -165,7 +165,7 @@ namespace Menes.Specs.Steps
         public async Task ThenNoneOfTheOtherPoliciesShouldHaveBeenInvokedAsync()
         {
             await this.checkResultTask.WithTimeout().ConfigureAwait(false);
-            foreach ((_, CompletionSourceWithArgs<ShouldAllowArgs, IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> completion) in this.otherPolicies)
+            foreach ((_, CompletionSourceWithArgs<ShouldAllowArgs, IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> completion) in this.otherPolicies!)
             {
                 Assert.IsEmpty(completion.Arguments);
             }
@@ -174,7 +174,7 @@ namespace Menes.Specs.Steps
         [Then("the other policies should receive a path of '(.*)'")]
         public void ThenTheOtherPoliciesShouldReceiveAPathOf(string path)
         {
-            foreach ((_, CompletionSourceWithArgs<ShouldAllowArgs, IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> completion) in this.otherPolicies)
+            foreach ((_, CompletionSourceWithArgs<ShouldAllowArgs, IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> completion) in this.otherPolicies!)
             {
                 Assert.AreEqual(path, completion.Arguments[0].Requests[0].Path);
             }
@@ -183,7 +183,7 @@ namespace Menes.Specs.Steps
         [Then("the other policies should receive an operationId of '(.*)'")]
         public void ThenTheOtherPoliciesShouldReceiveAnOperationIdOf(string operationId)
         {
-            foreach ((_, CompletionSourceWithArgs<ShouldAllowArgs, IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> completion) in this.otherPolicies)
+            foreach ((_, CompletionSourceWithArgs<ShouldAllowArgs, IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> completion) in this.otherPolicies!)
             {
                 Assert.AreEqual(operationId, completion.Arguments[0].Requests[0].OperationId);
             }
@@ -192,7 +192,7 @@ namespace Menes.Specs.Steps
         [Then("the other policies should receive an HttpMethod of '(.*)'")]
         public void ThenTheOtherPoliciesShouldReceiveAnHttpMethodOf(string method)
         {
-            foreach ((_, CompletionSourceWithArgs<ShouldAllowArgs, IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> completion) in this.otherPolicies)
+            foreach ((_, CompletionSourceWithArgs<ShouldAllowArgs, IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> completion) in this.otherPolicies!)
             {
                 Assert.AreEqual(method, completion.Arguments[0].Requests[0].Method);
             }
@@ -201,7 +201,7 @@ namespace Menes.Specs.Steps
         [Then("the other policies should receive the ClaimsPrincipal")]
         public void ThenTheOtherPoliciesShouldReceiveTheClaimsPrincipal()
         {
-            foreach ((_, CompletionSourceWithArgs<ShouldAllowArgs, IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> completion) in this.otherPolicies)
+            foreach ((_, CompletionSourceWithArgs<ShouldAllowArgs, IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> completion) in this.otherPolicies!)
             {
                 Assert.AreSame(this.claimsPrincipal, completion.Arguments[0].Context.CurrentPrincipal);
             }
@@ -210,7 +210,7 @@ namespace Menes.Specs.Steps
         [Then("the other policies should receive the Tenant")]
         public void ThenTheOtherPoliciesShouldReceiveTheTenant()
         {
-            foreach ((_, CompletionSourceWithArgs<ShouldAllowArgs, IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> completion) in this.otherPolicies)
+            foreach ((_, CompletionSourceWithArgs<ShouldAllowArgs, IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> completion) in this.otherPolicies!)
             {
                 Assert.AreSame(this.tenantId, completion.Arguments[0].Context.CurrentTenantId);
             }
@@ -234,9 +234,9 @@ namespace Menes.Specs.Steps
         public void WhenTheFirstPolicyDeniesAccess()
         {
             var result = new Dictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>();
-            CompletionSourceWithArgs<ShouldAllowArgs, IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> completion = this.firstPolicyCompletion;
+            CompletionSourceWithArgs<ShouldAllowArgs, IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> completion = this.firstPolicyCompletion!;
             result.Add(completion.Arguments[0].Requests[0], new AccessControlPolicyResult(AccessControlPolicyResultType.NotAllowed));
-            this.firstPolicyCompletion.SupplyResult(result);
+            completion.SupplyResult(result);
         }
 
         [Then("the adapter result type should be '(.*)'")]
@@ -253,16 +253,24 @@ namespace Menes.Specs.Steps
             AccessControlPolicyResultType resultType = Enum.Parse<AccessControlPolicyResultType>(resultTypeString);
 
             var result = new Dictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>();
-            CompletionSourceWithArgs<ShouldAllowArgs, IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> completion = this.otherPolicies[policyIndex].completion;
+            CompletionSourceWithArgs<ShouldAllowArgs, IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> completion = this.otherPolicies![policyIndex].completion;
             result.Add(completion.Arguments[0].Requests[0], new AccessControlPolicyResult(resultType, explanation));
-            this.otherPolicies[policyIndex].completion.SupplyResult(result);
+            completion.SupplyResult(result);
         }
 
         private class ShouldAllowArgs
         {
-            public AccessCheckOperationDescriptor[] Requests { get; set; }
+            public ShouldAllowArgs(
+                AccessCheckOperationDescriptor[] requests,
+                IOpenApiContext context)
+            {
+                this.Requests = requests;
+                this.Context = context;
+            }
 
-            public IOpenApiContext Context { get; set; }
+            public AccessCheckOperationDescriptor[] Requests { get; }
+
+            public IOpenApiContext Context { get; }
         }
     }
 }
