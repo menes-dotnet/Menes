@@ -6,6 +6,7 @@
 
 namespace Menes
 {
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Net;
     using Corvus.ContentHandling;
@@ -24,7 +25,7 @@ namespace Menes
         /// <returns>The <see cref="OpenApiResult"/> with audit data added.</returns>
         public static OpenApiResult WithAuditData(this OpenApiResult result, params (string, object)[] auditData)
         {
-            result.AuditData = auditData?.ToDictionary(x => x.Item1, x => x.Item2);
+            result.AuditData = auditData.ToDictionary(x => x.Item1, x => x.Item2);
             return result;
         }
 
@@ -37,12 +38,12 @@ namespace Menes
         /// <param name="contentType">The content type of the response (defaults to application/json).</param>
         /// <returns>An OpenApi result with the OK status code and the object in the response body against the relevant content type.</returns>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "For symmetry with other extension methods")]
-        public static OpenApiResult OkResult<T>(this IOpenApiService service, T result, string contentType = null)
+        public static OpenApiResult OkResult<T>(this IOpenApiService service, [DisallowNull] T result, string? contentType = null)
         {
             return new OpenApiResult
             {
                 StatusCode = (int)HttpStatusCode.OK,
-                Results = { { GetContentType(result, contentType), result } },
+                Results = { { GetContentType(result, contentType), result! } },
             };
         }
 
@@ -161,12 +162,12 @@ namespace Menes
         /// <param name="contentType">The content type of the response (defaults to application/json).</param>
         /// <returns>An OpenApi result with the Created status code and the object in the response body against the relevant content type.</returns>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "For symmetry with other extension methods")]
-        public static OpenApiResult CreatedResult<T>(this IOpenApiService service, string location, T result, string contentType = null)
+        public static OpenApiResult CreatedResult<T>(this IOpenApiService service, string location, [DisallowNull] T result, string? contentType = null)
         {
             return new OpenApiResult
             {
                 StatusCode = (int)HttpStatusCode.Created,
-                Results = { { "Location", location }, { GetContentType(result, contentType), result } },
+                Results = { { "Location", location }, { GetContentType(result, contentType), result! } },
             };
         }
 
@@ -214,12 +215,12 @@ namespace Menes
             };
         }
 
-        private static string GetContentType<T>(T instance, string contentType)
+        private static string GetContentType<T>(T instance, string? contentType)
         {
             return contentType ?? GetContentTypeOrNull(instance) ?? "application/json";
         }
 
-        private static string GetContentTypeOrNull<T>(T instance)
+        private static string? GetContentTypeOrNull<T>(T instance)
         {
             return ContentFactory.TryGetContentType(instance, out string contentType) ? contentType : null;
         }

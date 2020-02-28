@@ -4,6 +4,7 @@
 
 namespace Menes
 {
+    using System.Diagnostics.CodeAnalysis;
     using Microsoft.OpenApi.Models;
     using Tavis.UriTemplates;
 
@@ -54,6 +55,6 @@ namespace Menes
         /// <param name="method">The HTTP method (e.g. get, post).</param>
         /// <param name="operationPathTemplate">The <see cref="OpenApiOperationPathTemplate"/>, or null if no match is found.</param>
         /// <returns>True if a match was found.</returns>
-        bool GetOperationPathTemplate(string requestPath, string method, out OpenApiOperationPathTemplate operationPathTemplate);
+        bool GetOperationPathTemplate(string requestPath, string method, [NotNullWhen(true)] out OpenApiOperationPathTemplate? operationPathTemplate);
     }
 }

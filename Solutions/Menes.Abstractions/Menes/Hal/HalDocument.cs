@@ -4,7 +4,9 @@
 
 namespace Menes.Hal
 {
+    using System;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using Corvus.Extensions.Json;
     using Menes.Links;
@@ -37,12 +39,12 @@ namespace Menes.Hal
         public JsonSerializerSettings SerializerSettings { get; }
 
         /// <summary>
-        /// Gets the properites for the HalDocument.
+        /// Gets the properties for the HalDocument.
         /// </summary>
         public JObject Properties
         {
-            get;
-            internal set;
+            get => this.PropertiesInternalNullable ??= new JObject();
+            internal set => this.PropertiesInternalNullable = value ?? throw new ArgumentNullException();
         }
 
         /// <inheritdoc/>
@@ -80,6 +82,18 @@ namespace Menes.Hal
                 }
             }
         }
+
+        /// <summary>
+        /// Gets or sets the underlying store for <see cref="Properties"/>, making it possible to
+        /// detect when it has not been set.
+        /// </summary>
+        /// <remarks>
+        /// The public <see cref="Properties"/> property's get accessor will construct a new
+        /// <see cref="JObject"/> if a value is not already present so as to avoid ever returning
+        /// null. In most cases this is what we want, but our seralization support code can handle
+        /// the case where this was never given a value more efficiently.
+        /// </remarks>
+        internal JObject? PropertiesInternalNullable { get; set; }
 
         /// <summary>
         /// Removes an embedded resource based on its href.
@@ -122,7 +136,7 @@ namespace Menes.Hal
         /// <typeparam name="T">The type of the properties object.</typeparam>
         /// <param name="result">The properties deserialized to the relevant type.</param>
         /// <returns>True if it was possible to get the properties as the given type.</returns>
-        public bool TryGetProperties<T>(out T result)
+        public bool TryGetProperties<T>([MaybeNullWhen(false)] out T result)
         {
             if (typeof(JObject).IsAssignableFrom(typeof(T)))
             {
@@ -138,7 +152,7 @@ namespace Menes.Hal
             }
             catch (JsonSerializationException)
             {
-                result = default;
+                result = default!;
                 return false;
             }
         }

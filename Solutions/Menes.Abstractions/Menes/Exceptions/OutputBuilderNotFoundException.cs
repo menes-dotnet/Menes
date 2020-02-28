@@ -4,7 +4,6 @@
 
 namespace Menes.Internal
 {
-    using System;
     using System.Collections.Generic;
     using System.Text;
     using Microsoft.OpenApi.Exceptions;
@@ -13,32 +12,6 @@ namespace Menes.Internal
     /// <inheritdoc/>
     public class OutputBuilderNotFoundException : OpenApiException
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="OutputBuilderNotFoundException"/> class.
-        /// </summary>
-        public OutputBuilderNotFoundException()
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="OutputBuilderNotFoundException"/> class.
-        /// </summary>
-        /// <param name="message">The message.</param>
-        public OutputBuilderNotFoundException(string message)
-            : base(message)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="OutputBuilderNotFoundException"/> class.
-        /// </summary>
-        /// <param name="message">The message. </param>
-        /// <param name="innerException">The inner exception.</param>
-        public OutputBuilderNotFoundException(string message, Exception innerException)
-            : base(message, innerException)
-        {
-        }
-
         /// <summary>
         /// Initializes a new instance of the <see cref="OutputBuilderNotFoundException"/> class.
         /// </summary>
@@ -93,7 +66,7 @@ namespace Menes.Internal
         /// <summary>
         /// Gets the OpenApiResult.
         /// </summary>
-        public OpenApiResult OpenApiResult { get; }
+        public OpenApiResult? OpenApiResult { get; }
 
         /// <summary>
         /// Gets the Operation.

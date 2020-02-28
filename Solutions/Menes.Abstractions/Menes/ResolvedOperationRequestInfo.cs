@@ -13,15 +13,28 @@ namespace Menes
     public class ResolvedOperationRequestInfo
     {
         /// <summary>
-        /// Gets or sets the resolved Uri of the operation. This is created from the path
-        /// template of the operation and any values needed to populate path and query parameters.
+        /// Creates a <see cref="ResolvedOperationRequestInfo"/>.
         /// </summary>
-        public string Uri { get; set; }
+        /// <param name="uri">The <see cref="Uri"/>.</param>
+        /// <param name="operationType">The <see cref="OperationType"/>.</param>
+        public ResolvedOperationRequestInfo(
+            string uri,
+            OperationType operationType)
+        {
+            this.Uri = uri;
+            this.OperationType = operationType;
+        }
 
         /// <summary>
-        /// Gets or sets the <see cref="OperationType"/> that should be used with the
+        /// Gets the resolved Uri of the operation. This is created from the path
+        /// template of the operation and any values needed to populate path and query parameters.
+        /// </summary>
+        public string Uri { get; }
+
+        /// <summary>
+        /// Gets the <see cref="OperationType"/> that should be used with the
         /// <see cref="Uri"/> to access the operation. This corresponds to an Http method.
         /// </summary>
-        public OperationType OperationType { get; set; }
+        public OperationType OperationType { get; }
     }
 }

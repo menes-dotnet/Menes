@@ -5,7 +5,6 @@
 namespace Menes.Exceptions
 {
     using System;
-    using System.Runtime.Serialization;
 
     /// <summary>
     /// An exception which, when thrown from an <see cref="IOpenApiService"/> operation method,
@@ -17,37 +16,8 @@ namespace Menes.Exceptions
     /// service has determined that the client is not allowed to do whatever it is trying to do.
     /// </para>
     /// </remarks>
-    public class OpenApiForbiddenException : Exception
+    public sealed class OpenApiForbiddenException : Exception
     {
-        /// <summary>
-        /// Standard constructor for any derived exceptions.
-        /// </summary>
-        protected OpenApiForbiddenException()
-        {
-        }
-
-        /// <summary>
-        /// Standard constructor for any derived exceptions.
-        /// </summary>
-        /// <param name="message">The exception message.</param>
-        /// <param name="innerException">The inner exception.</param>
-        protected OpenApiForbiddenException(string message, Exception innerException)
-            : base(message, innerException)
-        {
-        }
-
-        /// <summary>Constructor used by .NET serialization infrastructure..</summary>
-        /// <param name="info">The <see cref="SerializationInfo"></see> that holds the serialized object data about the exception being thrown.</param>
-        /// <param name="context">The <see cref="StreamingContext"></see> that contains contextual information about the source or destination.</param>
-        /// <exception cref="ArgumentNullException">The <paramref name="info">info</paramref> parameter is null.</exception>
-        /// <exception cref="SerializationException">The class name is null or <see cref="P:System.Exception.HResult"></see> is zero (0).</exception>
-        protected OpenApiForbiddenException(
-          SerializationInfo info,
-          StreamingContext context)
-            : base(info, context)
-        {
-        }
-
         /// <summary>Creates a <see cref="OpenApiForbiddenException"/> with a specified error message.</summary>
         /// <param name="message">The message that describes the error.</param>
         private OpenApiForbiddenException(string message)
@@ -80,7 +50,7 @@ namespace Menes.Exceptions
         /// <returns>A new <see cref="OpenApiForbiddenException"/>.</returns>
         public static OpenApiForbiddenException WithProblemDetails(
             string title,
-            string explanation = null)
+            string? explanation = null)
         {
             var result = new OpenApiForbiddenException(title);
             result.AddProblemDetailsTitle(title);

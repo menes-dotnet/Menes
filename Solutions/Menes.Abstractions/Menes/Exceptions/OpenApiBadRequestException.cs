@@ -5,7 +5,6 @@
 namespace Menes.Exceptions
 {
     using System;
-    using System.Runtime.Serialization;
 
     /// <summary>
     /// An exception which, when thrown from an <see cref="IOpenApiService"/> operation method,
@@ -73,8 +72,8 @@ namespace Menes.Exceptions
         public OpenApiBadRequestException(
             string title,
             string explanation,
-            string detailsType = null,
-            string detailsInstance = null)
+            string? detailsType = null,
+            string? detailsInstance = null)
             : base(title)
         {
             this.AddProblemDetailsTitle(title);
@@ -95,48 +94,19 @@ namespace Menes.Exceptions
             }
         }
 
-        /// <summary>Constructor used by .NET serialization infrastructure..</summary>
-        /// <param name="info">The <see cref="SerializationInfo"></see> that holds the serialized object data about the exception being thrown.</param>
-        /// <param name="context">The <see cref="StreamingContext"></see> that contains contextual information about the source or destination.</param>
-        /// <exception cref="ArgumentNullException">The <paramref name="info">info</paramref> parameter is null.</exception>
-        /// <exception cref="SerializationException">The class name is null or <see cref="P:System.Exception.HResult"></see> is zero (0).</exception>
-        protected OpenApiBadRequestException(
-          SerializationInfo info,
-          StreamingContext context)
-            : base(info, context)
-        {
-        }
-
-        /// <summary>
-        /// Standard constructor for any derived exceptions.
-        /// </summary>
-        protected OpenApiBadRequestException()
-        {
-        }
-
-        /// <summary>
-        /// Standard constructor for any derived exceptions.
-        /// </summary>
-        /// <param name="message">The exception message.</param>
-        /// <param name="innerException">The inner exception.</param>
-        protected OpenApiBadRequestException(string message, Exception innerException)
-            : base(message, innerException)
-        {
-        }
-
         /// <summary>
         /// Gets the detailed explanation of the problem, if present.
         /// </summary>
-        public string Explanation { get; }
+        public string? Explanation { get; }
 
         /// <summary>
         /// Gets the URI identifying the problem type, if present.
         /// </summary>
-        public string DetailsType { get; }
+        public string? DetailsType { get; }
 
         /// <summary>
         /// Gets the URI identifying the problem instance, if present.
         /// </summary>
-        public string DetailsInstance { get; }
+        public string? DetailsInstance { get; }
     }
 }

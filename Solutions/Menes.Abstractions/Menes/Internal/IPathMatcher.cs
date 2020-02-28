@@ -4,6 +4,8 @@
 
 namespace Menes.Internal
 {
+    using System.Diagnostics.CodeAnalysis;
+
     /// <summary>
     /// An interface implemented by components which attempt to
     /// match a URI against an OpenAPI document.
@@ -17,6 +19,6 @@ namespace Menes.Internal
         /// <param name="method">The original request method.</param>
         /// <param name="operationPathTemplate">The result of the match.</param>
         /// <returns>True if a match was found otherwise false.</returns>
-        bool FindOperationPathTemplate(string path, string method, out OpenApiOperationPathTemplate operationPathTemplate);
+        bool FindOperationPathTemplate(string path, string method, [NotNullWhen(true)] out OpenApiOperationPathTemplate? operationPathTemplate);
     }
 }

@@ -45,7 +45,7 @@ namespace Menes.Converters
             this.validator.ValidateAndThrow(content, schema);
 
             // Use the discriminator to look up the type, if it is available
-            string discriminator = schema.Discriminator?.PropertyName;
+            string? discriminator = schema.Discriminator?.PropertyName;
 
             string type;
             if (!string.IsNullOrEmpty(discriminator))

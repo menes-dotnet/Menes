@@ -6,6 +6,7 @@ namespace Menes.Internal
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Reflection;
     using Newtonsoft.Json;
@@ -84,7 +85,7 @@ namespace Menes.Internal
                 {
                     paramArray[index] = context;
                 }
-                else if (inputParameters.TryGetValue(parameterName, out object value)
+                else if (inputParameters.TryGetValue(parameterName, out object? value)
                     || (this.configuration.EnableNonExactParameterMatching
                      && TryGetInputParameterWithNonExactMatch(inputParameters, parameterName, out value)))
                 {
@@ -143,7 +144,7 @@ namespace Menes.Internal
         private static bool TryGetInputParameterWithNonExactMatch(
             IDictionary<string, object> inputParameters,
             string parameterName,
-            out object value)
+            [NotNullWhen(true)] out object? value)
         {
             value = null;
             string canonicalizedName = CanonicalizeParameterNameForMatching(parameterName);

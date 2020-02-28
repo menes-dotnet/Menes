@@ -69,12 +69,14 @@ namespace Menes.Validation
         /// <summary>Validates the given data, throwing an <see cref="OpenApiBadRequestException"/> augmented with <see cref="OpenApiProblemDetailsExtensions"/> detailing the errors.</summary>
         /// <param name="data">The data.</param>
         /// <param name="schema">The schema.</param>
-        public void ValidateAndThrow(JToken data, OpenApiSchema schema)
+        public void ValidateAndThrow(JToken? data, OpenApiSchema schema)
         {
             if (this.logger.IsEnabled(LogLevel.Debug))
             {
                 this.logger.LogDebug("Attempting to validate data to [{schema}]", schema.GetLoggingInformation());
             }
+
+            data ??= JValue.CreateNull();
 
             ICollection<ValidationError> errors = this.Validate(data, schema);
 
@@ -91,7 +93,7 @@ namespace Menes.Validation
         /// <param name="data">The data.</param>
         /// <param name="schema">The schema.</param>
         /// <returns>The list of validation errors.</returns>
-        public ICollection<ValidationError> Validate(string data, OpenApiSchema schema)
+        private ICollection<ValidationError> Validate(string data, OpenApiSchema schema)
         {
             bool dataShouldBeJson = schema.Type == "object" || schema.Type == "array" || schema.Type == null;
             JToken jsonObject = dataShouldBeJson ? JToken.Parse(data) : data;
@@ -103,7 +105,7 @@ namespace Menes.Validation
         /// <param name="token">The token.</param>
         /// <param name="schema">The schema.</param>
         /// <returns>The list of validation errors.</returns>
-        public ICollection<ValidationError> Validate(JToken token, OpenApiSchema schema)
+        private ICollection<ValidationError> Validate(JToken token, OpenApiSchema schema)
         {
             return this.Validate(token, schema, null, token.Path);
         }
@@ -114,7 +116,7 @@ namespace Menes.Validation
         /// <param name="propertyName">The current property name.</param>
         /// <param name="propertyPath">The current property path.</param>
         /// <returns>The list of validation errors.</returns>
-        protected virtual ICollection<ValidationError> Validate(JToken token, OpenApiSchema schema, string propertyName, string propertyPath)
+        private ICollection<ValidationError> Validate(JToken token, OpenApiSchema schema, string? propertyName, string propertyPath)
         {
             var errors = new List<ValidationError>();
 
@@ -129,7 +131,7 @@ namespace Menes.Validation
             return errors;
         }
 
-        private void ValidateType(JToken token, OpenApiSchema schema, string propertyName, string propertyPath, List<ValidationError> errors)
+        private void ValidateType(JToken token, OpenApiSchema schema, string? propertyName, string propertyPath, List<ValidationError> errors)
         {
             var types = this.GetTypes(schema).ToDictionary(t => t, _ => (ICollection<ValidationError>)new List<ValidationError>());
 
@@ -200,7 +202,7 @@ namespace Menes.Validation
             return JsonObjectTypes.Where(t => (jsonObjectType & t) != 0);
         }
 
-        private void ValidateAnyOf(JToken token, OpenApiSchema schema, string propertyName, string propertyPath, List<ValidationError> errors)
+        private void ValidateAnyOf(JToken token, OpenApiSchema schema, string? propertyName, string propertyPath, List<ValidationError> errors)
         {
             if (schema.AnyOf.Count > 0)
             {
@@ -212,7 +214,7 @@ namespace Menes.Validation
             }
         }
 
-        private void ValidateAllOf(JToken token, OpenApiSchema schema, string propertyName, string propertyPath, List<ValidationError> errors)
+        private void ValidateAllOf(JToken token, OpenApiSchema schema, string? propertyName, string propertyPath, List<ValidationError> errors)
         {
             if (schema.AllOf.Count > 0)
             {
@@ -224,7 +226,7 @@ namespace Menes.Validation
             }
         }
 
-        private void ValidateOneOf(JToken token, OpenApiSchema schema, string propertyName, string propertyPath, List<ValidationError> errors)
+        private void ValidateOneOf(JToken token, OpenApiSchema schema, string? propertyName, string propertyPath, List<ValidationError> errors)
         {
             if (schema.OneOf.Count > 0)
             {
@@ -236,7 +238,7 @@ namespace Menes.Validation
             }
         }
 
-        private void ValidateNot(JToken token, OpenApiSchema schema, string propertyName, string propertyPath, List<ValidationError> errors)
+        private void ValidateNot(JToken token, OpenApiSchema schema, string? propertyName, string propertyPath, List<ValidationError> errors)
         {
             if (schema.Not != null)
             {
@@ -247,7 +249,7 @@ namespace Menes.Validation
             }
         }
 
-        private void ValidateNull(JToken token, OpenApiSchema schema, JsonObjectType type, string propertyName, string propertyPath, List<ValidationError> errors)
+        private void ValidateNull(JToken token, OpenApiSchema schema, JsonObjectType type, string? propertyName, string propertyPath, List<ValidationError> errors)
         {
             if ((type & JsonObjectType.Null) != 0)
             {
@@ -258,14 +260,14 @@ namespace Menes.Validation
             }
         }
 
-        private void ValidateEnum(JToken token, OpenApiSchema schema, string propertyName, string propertyPath, List<ValidationError> errors)
+        private void ValidateEnum(JToken token, OpenApiSchema schema, string? propertyName, string propertyPath, List<ValidationError> errors)
         {
-            if (schema.Enum.Any(e => e.AnyType == AnyType.Null) && token?.Type == JTokenType.Null)
+            if (schema.Enum.Any(e => e.AnyType == AnyType.Null) && token.Type == JTokenType.Null)
             {
                 return;
             }
 
-            if (schema.Enum.Count > 0 && schema.Enum.All(v => this.WriteToString(v) != token?.ToString()))
+            if (schema.Enum.Count > 0 && schema.Enum.All(v => this.WriteToString(v) != token.ToString()))
             {
                 errors.Add(new ValidationError(ValidationErrorKind.NotInEnumeration, propertyName, propertyPath, token, schema));
             }
@@ -280,7 +282,7 @@ namespace Menes.Validation
             return textWriter.ToString().Trim('"');
         }
 
-        private void ValidateString(JToken token, OpenApiSchema schema, JsonObjectType type, string propertyName, string propertyPath, List<ValidationError> errors)
+        private void ValidateString(JToken token, OpenApiSchema schema, JsonObjectType type, string? propertyName, string propertyPath, List<ValidationError> errors)
         {
             if (this.IsNullableFieldAndValueIsNull(token, schema))
             {
@@ -293,7 +295,7 @@ namespace Menes.Validation
 
             if (isString)
             {
-                string value = token.Type == JTokenType.Date ? (token as JValue)?.ToString("yyyy-MM-ddTHH:mm:ssK") : (token as JValue)?.ToString();
+                string? value = token.Type == JTokenType.Date ? (token as JValue)?.ToString("yyyy-MM-ddTHH:mm:ssK") : (token as JValue)?.ToString();
                 if (value != null)
                 {
                     if (!string.IsNullOrEmpty(schema.Pattern))
@@ -454,7 +456,7 @@ namespace Menes.Validation
             }
         }
 
-        private void ValidateNumber(JToken token, OpenApiSchema schema, JsonObjectType type, string propertyName, string propertyPath, List<ValidationError> errors)
+        private void ValidateNumber(JToken token, OpenApiSchema schema, JsonObjectType type, string? propertyName, string propertyPath, List<ValidationError> errors)
         {
             if (this.IsNullableFieldAndValueIsNull(token, schema))
             {
@@ -512,7 +514,7 @@ namespace Menes.Validation
             }
         }
 
-        private void ValidateInteger(JToken token, OpenApiSchema schema, JsonObjectType type, string propertyName, string propertyPath, List<ValidationError> errors)
+        private void ValidateInteger(JToken token, OpenApiSchema schema, JsonObjectType type, string? propertyName, string propertyPath, List<ValidationError> errors)
         {
             if ((type & JsonObjectType.Integer) != 0)
             {
@@ -528,7 +530,7 @@ namespace Menes.Validation
             }
         }
 
-        private void ValidateBoolean(JToken token, OpenApiSchema schema, JsonObjectType type, string propertyName, string propertyPath, List<ValidationError> errors)
+        private void ValidateBoolean(JToken token, OpenApiSchema schema, JsonObjectType type, string? propertyName, string propertyPath, List<ValidationError> errors)
         {
             if ((type & JsonObjectType.Boolean) != 0)
             {
@@ -544,7 +546,7 @@ namespace Menes.Validation
             }
         }
 
-        private void ValidateObject(JToken token, OpenApiSchema schema, JsonObjectType type, string propertyName, string propertyPath, List<ValidationError> errors)
+        private void ValidateObject(JToken token, OpenApiSchema schema, JsonObjectType type, string? propertyName, string propertyPath, List<ValidationError> errors)
         {
             if ((type & JsonObjectType.Object) != 0)
             {
@@ -560,7 +562,7 @@ namespace Menes.Validation
             }
         }
 
-        private void ValidateProperties(JToken token, OpenApiSchema schema, string propertyName, string propertyPath, List<ValidationError> errors)
+        private void ValidateProperties(JToken token, OpenApiSchema schema, string? propertyName, string propertyPath, List<ValidationError> errors)
         {
             var jsonObjectType = this.ToJsonObjectType(schema.Type);
             var obj = token as JObject;
@@ -573,7 +575,7 @@ namespace Menes.Validation
             {
                 string newPropertyPath = !string.IsNullOrEmpty(propertyPath) ? propertyPath + "." + propertyInfo.Key : propertyInfo.Key;
 
-                JProperty property = obj?.Property(propertyInfo.Key);
+                JProperty? property = obj?.Property(propertyInfo.Key);
                 if (property != null)
                 {
                     ICollection<ValidationError> propertyErrors = this.Validate(property.Value, propertyInfo.Value, propertyInfo.Key, newPropertyPath);
@@ -598,7 +600,7 @@ namespace Menes.Validation
             }
         }
 
-        private void ValidateMaxProperties(JToken token, IList<JProperty> properties, OpenApiSchema schema, string propertyName, string propertyPath, List<ValidationError> errors)
+        private void ValidateMaxProperties(JToken token, IList<JProperty> properties, OpenApiSchema schema, string? propertyName, string propertyPath, List<ValidationError> errors)
         {
             if (schema.MaxProperties > 0 && properties.Count > schema.MaxProperties)
             {
@@ -606,7 +608,7 @@ namespace Menes.Validation
             }
         }
 
-        private void ValidateMinProperties(JToken token, IList<JProperty> properties, OpenApiSchema schema, string propertyName, string propertyPath, List<ValidationError> errors)
+        private void ValidateMinProperties(JToken token, IList<JProperty> properties, OpenApiSchema schema, string? propertyName, string propertyPath, List<ValidationError> errors)
         {
             if (schema.MinProperties > 0 && properties.Count < schema.MinProperties)
             {
@@ -624,7 +626,7 @@ namespace Menes.Validation
             {
                 foreach (JProperty property in additionalProperties)
                 {
-                    ChildSchemaValidationError error = this.TryCreateChildSchemaError(
+                    ChildSchemaValidationError? error = this.TryCreateChildSchemaError(
                         property.Value,
                         schema.AdditionalProperties,
                         ValidationErrorKind.AdditionalPropertiesNotValid,
@@ -654,7 +656,7 @@ namespace Menes.Validation
             return schema.Nullable && token?.Type == JTokenType.Null;
         }
 
-        private void ValidateArray(JToken token, OpenApiSchema schema, JsonObjectType type, string propertyName, string propertyPath, List<ValidationError> errors)
+        private void ValidateArray(JToken token, OpenApiSchema schema, JsonObjectType type, string? propertyName, string propertyPath, List<ValidationError> errors)
         {
             if (this.IsNullableFieldAndValueIsNull(token, schema))
             {
@@ -687,7 +689,7 @@ namespace Menes.Validation
 
                     if (schema.Items != null)
                     {
-                        ChildSchemaValidationError error = this.TryCreateChildSchemaError(item, schema.Items, ValidationErrorKind.ArrayItemNotValid, propertyIndex, itemPath);
+                        ChildSchemaValidationError? error = this.TryCreateChildSchemaError(item, schema.Items, ValidationErrorKind.ArrayItemNotValid, propertyIndex, itemPath);
                         if (error != null)
                         {
                             errors.Add(error);
@@ -701,8 +703,13 @@ namespace Menes.Validation
             }
         }
 
-        private ChildSchemaValidationError TryCreateChildSchemaError(JToken token, OpenApiSchema schema, ValidationErrorKind errorKind, string property, string path)
+        private ChildSchemaValidationError? TryCreateChildSchemaError(JToken token, OpenApiSchema schema, ValidationErrorKind errorKind, string propertyName, string path)
         {
+            // Note: we do not pass the property name through here, because from the child schema's
+            // perspective, we are starting at the root, so we don't want to confuse the validation
+            // process by supplying a property name that's meaningless from the perspective of the
+            // schema we're validating against.
+            // However, we do want to pass the path in so that any errors report the full location.
             ICollection<ValidationError> errors = this.Validate(token, schema, null, path);
             if (errors.Count == 0)
             {
@@ -714,7 +721,7 @@ namespace Menes.Validation
                 [schema] = errors,
             };
 
-            return new ChildSchemaValidationError(errorKind, property, path, errorDictionary, token, schema);
+            return new ChildSchemaValidationError(errorKind, propertyName, path, errorDictionary, token, schema);
         }
     }
 }

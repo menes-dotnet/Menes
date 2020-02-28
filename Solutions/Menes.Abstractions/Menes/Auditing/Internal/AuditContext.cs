@@ -58,9 +58,8 @@ namespace Menes.Auditing
         {
             if (this.IsAuditingEnabled)
             {
-                var log = new AuditLog
+                var log = new AuditLog(operation.OperationId)
                 {
-                    Operation = operation.OperationId,
                     Result = statusCode,
                     UserId = context.CurrentPrincipal?.Identity?.Name,
                 };
@@ -74,8 +73,11 @@ namespace Menes.Auditing
         {
             if (this.IsAuditingEnabled)
             {
-                AuditLog log = this.BuildAuditLog(context, result, operation);
-                await this.auditSinks.LogAsync(context, log).ConfigureAwait(false);
+                AuditLog? log = this.BuildAuditLog(context, result, operation);
+                if (log != null)
+                {
+                    await this.auditSinks.LogAsync(context, log).ConfigureAwait(false);
+                }
             }
         }
 
@@ -86,7 +88,7 @@ namespace Menes.Auditing
         /// <param name="result">The result of the operation.</param>
         /// <param name="operation">The OpenAPI operation.</param>
         /// <returns>The audit log entry for the result, operation, and context.</returns>
-        private AuditLog BuildAuditLog(IOpenApiContext context, object result, OpenApiOperation operation)
+        private AuditLog? BuildAuditLog(IOpenApiContext context, object result, OpenApiOperation operation)
         {
             if (this.logger.IsEnabled(LogLevel.Debug))
             {

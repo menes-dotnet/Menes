@@ -61,7 +61,7 @@ namespace Menes.Internal
                 request => request,
                 request =>
                 {
-                    (AccessControlPolicyResultType resultType, string explanation) = results.Aggregate(
+                    (AccessControlPolicyResultType resultType, string? explanation) = results.Aggregate(
                     (resultType: AccessControlPolicyResultType.Allowed, explanation: default(string)),
                     (acc, result) =>
                     (CombineResultTypes(acc.resultType, result[request].ResultType),

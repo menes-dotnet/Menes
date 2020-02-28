@@ -6,6 +6,7 @@ namespace Menes
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Text;
     using System.Text.Encodings.Web;
@@ -43,7 +44,7 @@ namespace Menes
         private readonly IList<OpenApiPathTemplate> pathTemplates = new List<OpenApiPathTemplate>();
         private readonly ILogger<OpenApiDocumentProvider> logger;
         private readonly List<OpenApiDocument> addedOpenApiDocuments;
-        private IDictionary<string, OpenApiPathTemplate> pathTemplatesByOperationId;
+        private IDictionary<string, OpenApiPathTemplate>? pathTemplatesByOperationId;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="OpenApiDocumentProvider"/> class.
@@ -61,10 +62,15 @@ namespace Menes
             get { return this.addedOpenApiDocuments; }
         }
 
+        private IDictionary<string, OpenApiPathTemplate> PathTemplatesByOperationId
+        {
+            get => this.pathTemplatesByOperationId ??= this.pathTemplates.SelectMany(t => t.PathItem.Operations.Select(o => new { o.Value.OperationId, PathTemplate = t })).ToDictionary(k => k.OperationId, v => v.PathTemplate);
+        }
+
         /// <inheritdoc/>
         public UriTemplate GetUriTemplateForOperation(string operationId)
         {
-            return new UriTemplate(this.pathTemplatesByOperationId[operationId]?.UriTemplate.ToString());
+            return new UriTemplate(this.PathTemplatesByOperationId[operationId]?.UriTemplate.ToString());
         }
 
         /// <inheritdoc/>
@@ -75,7 +81,7 @@ namespace Menes
                 this.logger.LogDebug("Getting URI for [{operation}]", operationId);
             }
 
-            OpenApiPathTemplate pathTemplate = this.pathTemplatesByOperationId[operationId];
+            OpenApiPathTemplate pathTemplate = this.PathTemplatesByOperationId[operationId];
             KeyValuePair<OperationType, OpenApiOperation> operation = pathTemplate.PathItem.Operations.First(x => x.Value.OperationId == operationId);
             UrlEncoder encoder = UrlEncoder.Default;
             var template = new UriTemplate(pathTemplate.UriTemplate.ToString());
@@ -112,11 +118,9 @@ namespace Menes
                 }
             }
 
-            return new ResolvedOperationRequestInfo
-            {
-                Uri = template.Resolve() + queryString.ToString(),
-                OperationType = operation.Key,
-            };
+            return new ResolvedOperationRequestInfo(
+                template.Resolve() + queryString.ToString(),
+                operation.Key);
         }
 
         /// <summary>
@@ -134,7 +138,7 @@ namespace Menes
 
             this.addedOpenApiDocuments.Add(document);
             this.pathTemplates.AddRange(document.Paths.Select(path => new OpenApiPathTemplate(path.Key, path.Value)));
-            this.pathTemplatesByOperationId = this.pathTemplates.SelectMany(t => t.PathItem.Operations.Select(o => new { o.Value.OperationId, PathTemplate = t })).ToDictionary(k => k.OperationId, v => v.PathTemplate);
+            this.pathTemplatesByOperationId = null;
             if (this.logger.IsEnabled(LogLevel.Trace))
             {
                 this.logger.LogTrace("Added Document [{document}] to template provider", document.Info?.Title ?? "No title provided.");
@@ -142,7 +146,7 @@ namespace Menes
         }
 
         /// <inheritdoc/>
-        public bool GetOperationPathTemplate(string requestPath, string method, out OpenApiOperationPathTemplate operationPathTemplate)
+        public bool GetOperationPathTemplate(string requestPath, string method, [NotNullWhen(true)] out OpenApiOperationPathTemplate? operationPathTemplate)
         {
             foreach (OpenApiPathTemplate template in this.pathTemplates)
             {
