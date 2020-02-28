@@ -39,7 +39,7 @@ namespace Menes
         /// <param name="parameters">The parameters with which to populate the template.</param>
         /// <returns>A string representing the URI for the operation with the supplied parameters.</returns>
         /// <remarks>This will also build any query string parameters.</remarks>
-        ResolvedOperationRequestInfo GetResolvedOperationRequestInfo(string operationId, params (string Name, object Value)[] parameters);
+        ResolvedOperationRequestInfo GetResolvedOperationRequestInfo(string operationId, params (string Name, object? Value)[] parameters);
 
         /// <summary>
         /// Get a URI template for an operation.

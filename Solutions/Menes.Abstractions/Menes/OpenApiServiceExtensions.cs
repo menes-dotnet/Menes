@@ -142,7 +142,11 @@ namespace Menes
         /// <param name="parameters">The parameters for the link.</param>
         /// <returns>An OpenApi result with the Created status code and Location header.</returns>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "For symmetry with other extension methods")]
-        public static OpenApiResult CreatedResult(this IOpenApiService service, IOpenApiWebLinkResolver linkResolver, string operationId, params (string, object)[] parameters)
+        public static OpenApiResult CreatedResult(
+            this IOpenApiService service,
+            IOpenApiWebLinkResolver linkResolver,
+            string operationId,
+            params (string, object?)[] parameters)
         {
             OpenApiWebLink link = linkResolver.ResolveByOperationIdAndRelationType(operationId, "self", parameters);
             return new OpenApiResult
@@ -162,7 +166,11 @@ namespace Menes
         /// <param name="contentType">The content type of the response (defaults to application/json).</param>
         /// <returns>An OpenApi result with the Created status code and the object in the response body against the relevant content type.</returns>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "For symmetry with other extension methods")]
-        public static OpenApiResult CreatedResult<T>(this IOpenApiService service, string location, [DisallowNull] T result, string? contentType = null)
+        public static OpenApiResult CreatedResult<T>(
+            this IOpenApiService service,
+            string location,
+            [DisallowNull] T result,
+            string? contentType = null)
         {
             return new OpenApiResult
             {

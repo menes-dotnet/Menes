@@ -12,6 +12,15 @@ namespace Menes.PetStore.Responses
     public class PetListResource
     {
         /// <summary>
+        /// Creates a <see cref="PetListResource"/>.
+        /// </summary>
+        /// <param name="pets">The <see cref="Pets"/>.</param>
+        public PetListResource(PetResource[] pets)
+        {
+            this.Pets = pets;
+        }
+
+        /// <summary>
         /// The registered content type for the pet list resource.
         /// </summary>
         public const string RegisteredContentType = "application/vnd.menes.demo.petlistresource";
@@ -38,13 +47,13 @@ namespace Menes.PetStore.Responses
         /// </summary>
         /// <remarks>The is serialized in the links.</remarks>
         [JsonIgnore]
-        public string CurrentContinuationToken { get; internal set; }
+        public string? CurrentContinuationToken { get; internal set; }
 
         /// <summary>
         /// Gets the current continuation token related to the resource.
         /// </summary>
         /// <remarks>The is serialized in the links.</remarks>
         [JsonIgnore]
-        public string NextContinuationToken { get; internal set; }
+        public string? NextContinuationToken { get; internal set; }
     }
 }

@@ -19,9 +19,14 @@ namespace Menes.PetStore.Responses
         /// <summary>
         /// Initializes a new instance of the <see cref="PetResource"/> class.
         /// </summary>
-        public PetResource()
+        /// <param name="name">The <see cref="Name"/>.</param>
+        /// <param name="tag">The <see cref="Tag"/>.</param>
+        public PetResource(
+            string name,
+            string tag)
         {
-            this.GlobalIdentifier = Guid.NewGuid();
+            this.Name = name;
+            this.Tag = tag;
         }
 
         /// <summary>

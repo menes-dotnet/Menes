@@ -79,10 +79,10 @@ namespace Menes.Specs.Steps
         public void WhenIResolveTheLinkRelationForObjectWithParameters(string relationName, string objectName, Table parameterTable)
         {
             object target = this.scenarioContext.Get<object>(objectName);
-            (string Key, string Value)[] parameters = parameterTable.CreateSet<(string Key, string Value)>().ToArray();
+            (string Key, string? Value)[] parameters = parameterTable.CreateSet<(string Key, string? Value)>().ToArray();
 
             var resolver = new OpenApiWebLinkResolver(this.scenarioContext.Get<IOpenApiDocumentProvider>(), this.scenarioContext.Get<IOpenApiLinkOperationMapper>());
-            OpenApiWebLink result = resolver.ResolveByOwnerAndRelationType(target, relationName, parameters.Select(x => (x.Key, (object)x.Value)).ToArray());
+            OpenApiWebLink result = resolver.ResolveByOwnerAndRelationType(target, relationName, parameters.Select(x => (x.Key, (object?)x.Value)).ToArray());
 
             this.scenarioContext.Set(result);
         }

@@ -43,15 +43,15 @@ namespace Menes.PetStore
         {
             this.pets = new List<PetResource>
                             {
-                                new PetResource { Id = 1, Name = "Suki", Tag = "Cat", Size = Size.Small, GlobalIdentifier = Guid.NewGuid() },
-                                new PetResource { Id = 2, Name = "Caspar", Tag = "Dog", Size = Size.Medium, GlobalIdentifier = Guid.NewGuid() },
-                                new PetResource { Id = 3, Name = "Tim", Tag = "Goldfish", Size = Size.Large, GlobalIdentifier = Guid.NewGuid() },
+                                new PetResource("Suki", "Cat") { Id = 1, Size = Size.Small, GlobalIdentifier = Guid.NewGuid() },
+                                new PetResource("Caspar", "Dog") { Id = 2, Size = Size.Medium, GlobalIdentifier = Guid.NewGuid() },
+                                new PetResource("Tim", "Goldfish") { Id = 3, Size = Size.Large, GlobalIdentifier = Guid.NewGuid() },
                             };
 
             this.petListMapper = petListMapper;
             this.petMapper = petMapper;
             this.httpClientFactory = httpClientFactory;
-            this.secretPet = new PetResource { Id = 0, Name = "Yogi", Tag = "Bear", Size = Size.Large, GlobalIdentifier = Guid.NewGuid() };
+            this.secretPet = new PetResource("Yogi", "Bear") { Id = 0, Size = Size.Large, GlobalIdentifier = Guid.NewGuid() };
         }
 
         /// <summary>
@@ -63,14 +63,14 @@ namespace Menes.PetStore
         /// An <see cref="IEnumerable{Pet}"/> containing all pets.
         /// </returns>
         [OperationId("listPets")]
-        public OpenApiResult ListPets(int limit = 10, string continuationToken = null)
+        public OpenApiResult ListPets(int limit = 10, string? continuationToken = null)
         {
             int skip = ParseContinuationToken(continuationToken);
 
             PetResource[] pets = this.pets.Skip(skip).Take(limit).ToArray();
 
-            string nextContinuationToken = (skip + limit < this.pets.Count) ? BuildContinuationToken(limit + skip) : null;
-            HalDocument response = this.petListMapper.Map(new PetListResource { Pets = pets, TotalCount = this.pets.Count, PageSize = limit, CurrentContinuationToken = continuationToken,  NextContinuationToken = nextContinuationToken });
+            string? nextContinuationToken = (skip + limit < this.pets.Count) ? BuildContinuationToken(limit + skip) : null;
+            HalDocument response = this.petListMapper.Map(new PetListResource(pets) { TotalCount = this.pets.Count, PageSize = limit, CurrentContinuationToken = continuationToken,  NextContinuationToken = nextContinuationToken });
 
             OpenApiResult result = this.OkResult(response, "application/hal+json");
 
@@ -239,7 +239,7 @@ namespace Menes.PetStore
             return $"skip={skip}".Base64UrlEncode();
         }
 
-        private static int ParseContinuationToken(string continuationToken)
+        private static int ParseContinuationToken(string? continuationToken)
         {
             if (continuationToken == null)
             {

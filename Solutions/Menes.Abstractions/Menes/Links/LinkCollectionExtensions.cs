@@ -23,7 +23,7 @@ namespace Menes.Links
             IOpenApiWebLinkResolver linkResolver,
             object owner,
             string relationType,
-            params (string, object)[] parameters)
+            params (string, object?)[] parameters)
         {
             OpenApiWebLink link = linkResolver.ResolveByOwnerAndRelationType(owner, relationType, parameters);
             linkCollection.AddLink(relationType, link);
@@ -46,7 +46,7 @@ namespace Menes.Links
             object owner,
             string relationType,
             string context,
-            params (string, object)[] parameters)
+            params (string, object?)[] parameters)
         {
             OpenApiWebLink link = linkResolver.ResolveByOwnerAndRelationTypeAndContext(owner, relationType, context, parameters);
             linkCollection.AddLink(relationType, link);
@@ -67,7 +67,7 @@ namespace Menes.Links
             IOpenApiWebLinkResolver linkResolver,
             string operationId,
             string relationType,
-            params (string, object)[] parameters)
+            params (string, object?)[] parameters)
         {
             OpenApiWebLink link = linkResolver.ResolveByOperationIdAndRelationType(operationId, relationType, parameters);
             linkCollection.AddLink(relationType, link);

@@ -55,7 +55,7 @@ namespace Menes.Internal
         }
 
         /// <inheritdoc />
-        public Uri ResolveUrl<TService>(string operationId, params (string Name, object Value)[] parameters)
+        public Uri ResolveUrl<TService>(string operationId, params (string Name, object? Value)[] parameters)
         {
             Type serviceType = typeof(TService);
             if (!this.uriTemplateProviders.TryGetValue(serviceType, out (OpenApiDocumentProvider Provider, string ConfigKey) providerAndKey))

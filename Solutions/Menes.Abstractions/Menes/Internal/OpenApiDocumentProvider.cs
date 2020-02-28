@@ -74,7 +74,7 @@ namespace Menes
         }
 
         /// <inheritdoc/>
-        public ResolvedOperationRequestInfo GetResolvedOperationRequestInfo(string operationId, params (string Name, object Value)[] parameters)
+        public ResolvedOperationRequestInfo GetResolvedOperationRequestInfo(string operationId, params (string Name, object? Value)[] parameters)
         {
             if (this.logger.IsEnabled(LogLevel.Debug))
             {
@@ -89,7 +89,7 @@ namespace Menes
             var queryString = new StringBuilder();
 
             // TODO: Validate all required parameters are present
-            foreach ((string name, object value) in parameters)
+            foreach ((string name, object? value) in parameters)
             {
                 if (this.logger.IsEnabled(LogLevel.Debug))
                 {
