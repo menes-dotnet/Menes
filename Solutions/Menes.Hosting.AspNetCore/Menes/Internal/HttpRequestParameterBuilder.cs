@@ -6,6 +6,7 @@ namespace Menes.Internal
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using System.IO;
     using System.Linq;
     using System.Threading.Tasks;
@@ -57,7 +58,7 @@ namespace Menes.Internal
                 switch (parameter.In)
                 {
                     case ParameterLocation.Cookie:
-                        if (this.TryGetParameterFromCookie(request.Cookies, parameter, out object cookieResult))
+                        if (this.TryGetParameterFromCookie(request.Cookies, parameter, out object? cookieResult))
                         {
                             if (this.logger.IsEnabled(LogLevel.Debug))
                             {
@@ -80,7 +81,7 @@ namespace Menes.Internal
 
                         break;
                     case ParameterLocation.Header:
-                        if (this.TryGetParameterFromHeader(request.Headers, parameter, out object headerResult))
+                        if (this.TryGetParameterFromHeader(request.Headers, parameter, out object? headerResult))
                         {
                             if (this.logger.IsEnabled(LogLevel.Debug))
                             {
@@ -103,7 +104,7 @@ namespace Menes.Internal
 
                         break;
                     case ParameterLocation.Path:
-                        if (this.TryGetParameterFromPath(templateParameterValues, parameter, out object pathResult))
+                        if (this.TryGetParameterFromPath(templateParameterValues, parameter, out object? pathResult))
                         {
                             if (this.logger.IsEnabled(LogLevel.Debug))
                             {
@@ -126,7 +127,7 @@ namespace Menes.Internal
 
                         break;
                     case ParameterLocation.Query:
-                        if (this.TryGetParameterFromQuery(request.Query, parameter, out object queryResult))
+                        if (this.TryGetParameterFromQuery(request.Query, parameter, out object? queryResult))
                         {
                             if (this.logger.IsEnabled(LogLevel.Debug))
                             {
@@ -220,7 +221,7 @@ namespace Menes.Internal
                 }
             }
 
-            string requestBaseContentType = this.GetBaseContentType(request.ContentType);
+            string? requestBaseContentType = this.GetBaseContentType(request.ContentType);
 
             if (string.IsNullOrEmpty(requestBaseContentType) || !operationPathTemplate.Operation.RequestBody.Content.TryGetValue(requestBaseContentType, out OpenApiMediaType openApiMediaType))
             {
@@ -262,7 +263,7 @@ namespace Menes.Internal
             }
         }
 
-        private string GetBaseContentType(string contentType)
+        private string? GetBaseContentType(string contentType)
         {
             if (string.IsNullOrEmpty(contentType))
             {
@@ -274,7 +275,10 @@ namespace Menes.Internal
             return separator != -1 ? contentType.Substring(0, separator) : contentType;
         }
 
-        private bool TryGetParameterFromCookie(IRequestCookieCollection cookies, OpenApiParameter parameter, out object result)
+        private bool TryGetParameterFromCookie(
+            IRequestCookieCollection cookies,
+            OpenApiParameter parameter,
+            [NotNullWhen(true)] out object? result)
         {
             if (this.logger.IsEnabled(LogLevel.Debug))
             {
@@ -331,7 +335,10 @@ namespace Menes.Internal
             return this.ConvertValue(schema, value);
         }
 
-        private bool TryGetParameterFromHeader(IHeaderDictionary headers, OpenApiParameter parameter, out object result)
+        private bool TryGetParameterFromHeader(
+            IHeaderDictionary headers,
+            OpenApiParameter parameter,
+            [NotNullWhen(true)] out object? result)
         {
             if (this.logger.IsEnabled(LogLevel.Debug))
             {
@@ -377,7 +384,10 @@ namespace Menes.Internal
             return false;
         }
 
-        private bool TryGetParameterFromPath(IDictionary<string, object> templateParameters, OpenApiParameter parameter, out object result)
+        private bool TryGetParameterFromPath(
+            IDictionary<string, object> templateParameters,
+            OpenApiParameter parameter,
+            [NotNullWhen(true)] out object? result)
         {
             if (this.logger.IsEnabled(LogLevel.Debug))
             {
@@ -423,7 +433,10 @@ namespace Menes.Internal
             return false;
         }
 
-        private bool TryGetParameterFromQuery(IQueryCollection query, OpenApiParameter parameter, out object result)
+        private bool TryGetParameterFromQuery(
+            IQueryCollection query,
+            OpenApiParameter parameter,
+            [NotNullWhen(true)] out object? result)
         {
             if (this.logger.IsEnabled(LogLevel.Debug))
             {

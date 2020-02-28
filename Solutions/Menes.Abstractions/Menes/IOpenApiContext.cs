@@ -14,16 +14,16 @@ namespace Menes
         /// <summary>
         /// Gets or sets the current principal for the request.
         /// </summary>
-        ClaimsPrincipal CurrentPrincipal { get; set; }
+        ClaimsPrincipal? CurrentPrincipal { get; set; }
 
         /// <summary>
         /// Gets or sets the current tenant ID for the request.
         /// </summary>
-        string CurrentTenantId { get; set;  }
+        string? CurrentTenantId { get; set;  }
 
         /// <summary>
         /// Gets or sets additional context for the request.
         /// </summary>
-        object AdditionalContext { get; set;  }
+        object? AdditionalContext { get; set;  }
     }
 }

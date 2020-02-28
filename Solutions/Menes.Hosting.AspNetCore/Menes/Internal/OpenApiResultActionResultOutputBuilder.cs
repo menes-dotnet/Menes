@@ -49,7 +49,7 @@ namespace Menes.Internal
 
             // This must have been called after CanBuildOutput(), so we know these casts
             // and lookups will succeed
-            var openApiResult = result as OpenApiResult;
+            var openApiResult = (OpenApiResult)result;
 
             var actionResult = OpenApiActionResult.FromOpenApiResult(openApiResult, operation, this.converters, this.logger);
 

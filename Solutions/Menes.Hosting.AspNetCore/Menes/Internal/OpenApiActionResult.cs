@@ -283,7 +283,7 @@ namespace Menes.Internal
 
                 if (this.openApiResult.Results.TryGetValue(header.Key, out object value))
                 {
-                    string convertedValue = null;
+                    string? convertedValue = null;
 
                     if (value is Func<string> valueAsFuncOfString)
                     {

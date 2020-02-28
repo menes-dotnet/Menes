@@ -1,9 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
+    <Nullable>enable</Nullable>
+
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <PackageDescription>Menes is a framework for hosting Web APIs with OpenAPI-based service definitions. This library defines the ASP.NET-Core-specific aspects of hosting in Menes.</PackageDescription>
+
+    <WarningsAsErrors />
   </PropertyGroup>
 
   <ItemGroup>
@@ -13,6 +17,10 @@
     </PackageReference>
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
+    <PackageReference Include="Nullable" Version="1.2.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Tavis.UriTemplates" Version="1.1.1" />
   </ItemGroup>
 
