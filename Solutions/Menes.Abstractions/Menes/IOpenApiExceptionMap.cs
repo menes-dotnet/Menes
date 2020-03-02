@@ -24,7 +24,7 @@ namespace Menes
         /// <typeparam name="TFormatter">
         ///     The type of formatter for the exception mapping.
         /// </typeparam>
-        void Map<TException, TFormatter>(int statusCode, string operationId = null)
+        void Map<TException, TFormatter>(int statusCode, string? operationId = null)
             where TException : Exception
             where TFormatter : IExceptionMapper;
 
@@ -56,7 +56,7 @@ namespace Menes
         ///         you are not allowed to map any exception type to the 500 status code.
         ///     </para>
         /// </remarks>
-        void Map<TException>(int statusCode, string operationId = null)
+        void Map<TException>(int statusCode, string? operationId = null)
             where TException : Exception;
     }
 }

@@ -13,43 +13,8 @@ namespace Menes.Exceptions
     /// to evaluate due for an unexpected reason - e.g. a configuration error, third party
     /// service unavailable or similar.
     /// </summary>
-    [Serializable]
     public class OpenApiAccessControlPolicyEvaluationFailedException : Exception
     {
-        /// <summary>
-        /// Creates a new instance of <see cref="OpenApiAccessControlPolicyEvaluationFailedException"/>.
-        /// </summary>
-        /// <remarks>
-        /// Avoid using this constructor; prefer a constructor that accepts details of the problem.
-        /// </remarks>
-        public OpenApiAccessControlPolicyEvaluationFailedException()
-        {
-            this.AddProblemDetails();
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="OpenApiAccessControlPolicyEvaluationFailedException"/> with
-        /// the specified error message.
-        /// </summary>
-        /// <param name="message">The exception message.</param>
-        public OpenApiAccessControlPolicyEvaluationFailedException(string message)
-            : base(message)
-        {
-            this.AddProblemDetails();
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="OpenApiAccessControlPolicyEvaluationFailedException"/> with
-        /// the specified error message.
-        /// </summary>
-        /// <param name="message">The exception message.</param>
-        /// <param name="innerException">The inner exception.</param>
-        public OpenApiAccessControlPolicyEvaluationFailedException(string message, Exception innerException)
-            : base(message, innerException)
-        {
-            this.AddProblemDetails();
-        }
-
         /// <summary>
         /// Creates a new instance of <see cref="OpenApiAccessControlPolicyEvaluationFailedException"/> with
         /// the specified error message.
@@ -65,18 +30,6 @@ namespace Menes.Exceptions
             this.Requests = requests;
 
             this.AddProblemDetails();
-        }
-
-        /// <summary>Constructor used by .NET serialization infrastructure..</summary>
-        /// <param name="info">The <see cref="SerializationInfo"></see> that holds the serialized object data about the exception being thrown.</param>
-        /// <param name="context">The <see cref="StreamingContext"></see> that contains contextual information about the source or destination.</param>
-        /// <exception cref="ArgumentNullException">The <paramref name="info">info</paramref> parameter is null.</exception>
-        /// <exception cref="SerializationException">The class name is null or <see cref="P:System.Exception.HResult"></see> is zero (0).</exception>
-        protected OpenApiAccessControlPolicyEvaluationFailedException(
-            SerializationInfo info,
-            StreamingContext context)
-            : base(info, context)
-        {
         }
 
         /// <summary>
@@ -97,7 +50,7 @@ namespace Menes.Exceptions
 
             if (!string.IsNullOrEmpty(this.PolicyName))
             {
-                this.AddProblemDetailsExtension("Policy Name", this.PolicyName);
+                this.AddProblemDetailsExtension("Policy Name", this.PolicyName!); // ! required as netstandard2.0 lacks nullable attributes
             }
 
             if (this.Requests?.Length > 0)

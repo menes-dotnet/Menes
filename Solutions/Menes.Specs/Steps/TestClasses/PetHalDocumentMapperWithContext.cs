@@ -4,6 +4,7 @@
 
 namespace Menes.Specs.Steps.TestClasses
 {
+    using System;
     using Menes.Hal;
 
     public class PetHalDocumentMapperWithContext : IHalDocumentMapper<Pet, MappingContext>
@@ -17,7 +18,7 @@ namespace Menes.Specs.Steps.TestClasses
 
         public HalDocument Map(Pet resource, MappingContext context)
         {
-            return null;
+            throw new NotSupportedException();
         }
     }
 }

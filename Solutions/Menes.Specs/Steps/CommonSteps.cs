@@ -21,8 +21,8 @@ namespace Menes.Specs.Steps
         [Given("I have an object called '(.*)' of type '(.*)'")]
         public void GivenIHaveAnObjectCalledOfType(string objectName, string typeName, Table properties)
         {
-            var targetType = Type.GetType(typeName);
-            object data = properties.CreateInstance(() => Activator.CreateInstance(targetType));
+            Type targetType = Type.GetType(typeName) ?? throw new InvalidOperationException($"Unable to get type info for {typeName}");
+            object data = properties.CreateInstance(() => Activator.CreateInstance(targetType)) ?? throw new InvalidOperationException($"Unable to create instance of {typeName}");
             this.scenarioContext.Set(data, objectName);
         }
     }

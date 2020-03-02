@@ -4,6 +4,8 @@
 
 namespace Menes.Internal
 {
+    using System.Diagnostics.CodeAnalysis;
+
     /// <summary>
     /// Default implementation of a path matcher.
     /// </summary>
@@ -21,7 +23,7 @@ namespace Menes.Internal
         }
 
         /// <inheritdoc/>
-        public bool FindOperationPathTemplate(string path, string method, out OpenApiOperationPathTemplate operationPathTemplate)
+        public bool FindOperationPathTemplate(string path, string method, [NotNullWhen(true)] out OpenApiOperationPathTemplate? operationPathTemplate)
         {
             return this.templateProvider.GetOperationPathTemplate(path, method, out operationPathTemplate);
         }

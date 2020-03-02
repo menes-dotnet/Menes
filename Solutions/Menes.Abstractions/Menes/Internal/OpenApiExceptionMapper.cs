@@ -38,24 +38,18 @@ namespace Menes.Internal
         }
 
         /// <inheritdoc />
-        public void Map<TException>(int statusCode, string operationId = null)
+        public void Map<TException>(int statusCode, string? operationId = null)
             where TException : Exception
         {
             Type type = typeof(TException);
 
             this.ValidateStatusCode(statusCode);
             this.ValidateMappingDoesNotExist(type, operationId);
-            this.exceptionMappings.Add(new OpenApiMappedException
-            {
-                ExceptionType = type,
-                FormatterType = null,
-                OperationId = operationId,
-                StatusCode = statusCode,
-            });
+            this.exceptionMappings.Add(new OpenApiMappedException(type, statusCode, operationId));
         }
 
         /// <inheritdoc cref="Map{TException}" />
-        public void Map<TException, TFormatter>(int statusCode, string operationId = null)
+        public void Map<TException, TFormatter>(int statusCode, string? operationId = null)
             where TException : Exception
             where TFormatter : IExceptionMapper
         {
@@ -63,13 +57,7 @@ namespace Menes.Internal
 
             this.ValidateStatusCode(statusCode);
             this.ValidateMappingDoesNotExist(type, operationId);
-            this.exceptionMappings.Add(new OpenApiMappedException
-            {
-                ExceptionType = type,
-                FormatterType = typeof(TFormatter),
-                OperationId = operationId,
-                StatusCode = statusCode,
-            });
+            this.exceptionMappings.Add(new OpenApiMappedException(type, statusCode, operationId, typeof(TFormatter)));
         }
 
         /// <inheritdoc/>
@@ -98,7 +86,7 @@ namespace Menes.Internal
                    this.exceptionMappings.FirstOrDefault(x => x.ExceptionType == exceptionType && string.IsNullOrEmpty(x.OperationId));
         }
 
-        private void ValidateMappingDoesNotExist(Type exceptionType, string operationId)
+        private void ValidateMappingDoesNotExist(Type exceptionType, string? operationId)
         {
             if (this.exceptionMappings.Any(x => x.ExceptionType == exceptionType && x.OperationId == operationId))
             {

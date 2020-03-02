@@ -1,7 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
+    <Nullable>enable</Nullable>
+
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <PackageDescription>Menes is a framework for hosting Web APIs with OpenAPI-based service definitions. This library defines the non-technology-specific aspects of hosting in Menes.</PackageDescription>
   </PropertyGroup>

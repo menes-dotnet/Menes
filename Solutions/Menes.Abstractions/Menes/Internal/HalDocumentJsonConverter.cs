@@ -31,7 +31,7 @@ namespace Menes.Internal
         }
 
         /// <inheritdoc/>
-        public override bool CanRead => false;
+        public override bool CanRead => true;
 
         /// <inheritdoc/>
         public override bool CanWrite => true;
@@ -46,7 +46,7 @@ namespace Menes.Internal
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
             var jobject = JObject.Load(reader);
-            HalDocument halDocument = this.halDocumentFactory.CreateHalDocument();
+            HalDocument halDocument = (existingValue as HalDocument) ?? this.Create(objectType);
 
             DeserializeLinks(serializer, jobject, halDocument);
             DeserializeEmbeddedResources(serializer, jobject, halDocument);
@@ -63,7 +63,7 @@ namespace Menes.Internal
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
             var halDocument = (HalDocument)value;
-            JObject result = (JObject)halDocument.Properties?.DeepClone() ?? new JObject();
+            JObject result = (JObject?)halDocument.PropertiesInternalNullable?.DeepClone() ?? new JObject();
 
             SerializeLinks(halDocument, result, serializer);
             SerializeEmbeddedResources(halDocument, result, serializer);
@@ -74,8 +74,22 @@ namespace Menes.Internal
         /// <inheritdoc/>
         public override HalDocument Create(Type objectType)
         {
-            // Do nothing
-            return null;
+            if (objectType != typeof(HalDocument))
+            {
+                // It's not entirely obvious how this should work once nullable references are enabled.
+                // Json.NET 12.0.3 adds nullability annotations, and it does not change the return
+                // type to HalDocument, which suggests that we shouldn't ever return null. On the
+                // other hand, the base implementation of ReadJson checks the return result of this
+                // for null. We don't know whether that's just for backwards compatibility.
+                // We've overridden ReadJson, so that doesn't expect this to return null. I think
+                // throwing this exception (which is what the base class ReadJson does if Create
+                // returns null) is the best option. In any case, we expect this never to occur
+                // in normal use, because it implies we're being asked to create something we've
+                // not offered to create.
+                throw new JsonSerializationException($"Unable to create new {objectType.Name} - only {nameof(HalDocument)} is supported");
+            }
+
+            return this.halDocumentFactory.CreateHalDocument();
         }
 
         private static void SerializeLinks(HalDocument halDocument, JObject result, JsonSerializer serializer)
@@ -140,38 +154,46 @@ namespace Menes.Internal
 
         private static void DeserializeLinks(JsonSerializer serializer, JObject jobject, HalDocument halDocument)
         {
-            foreach (KeyValuePair<string, JToken> link in (JObject)jobject["_links"])
+            var links = (JObject)jobject["_links"];
+            if (links != null)
             {
-                if (link.Value is JArray array)
+                foreach (KeyValuePair<string, JToken> link in links)
                 {
-                    foreach (JToken linkItem in array)
+                    if (link.Value is JArray array)
                     {
-                        WebLink weblink = linkItem.ToObject<WebLink>(serializer);
+                        foreach (JToken linkItem in array)
+                        {
+                            WebLink weblink = linkItem.ToObject<WebLink>(serializer);
+                            halDocument.AddLink(link.Key, weblink);
+                        }
+                    }
+                    else
+                    {
+                        WebLink weblink = link.Value.ToObject<WebLink>(serializer);
                         halDocument.AddLink(link.Key, weblink);
                     }
-                }
-                else
-                {
-                    WebLink weblink = link.Value.ToObject<WebLink>(serializer);
-                    halDocument.AddLink(link.Key, weblink);
                 }
             }
         }
 
         private static void DeserializeEmbeddedResources(JsonSerializer serializer, JObject jobject, HalDocument halDocument)
         {
-            foreach (KeyValuePair<string, JToken> resource in (JObject)jobject["_embedded"])
+            var resources = (JObject)jobject["_embedded"];
+            if (resources != null)
             {
-                if (resource.Value is JArray array)
+                foreach (KeyValuePair<string, JToken> resource in resources)
                 {
-                    foreach (JToken resourceItem in array)
+                    if (resource.Value is JArray array)
                     {
-                        halDocument.AddEmbeddedResource(resource.Key, serializer.Deserialize<HalDocument>(resourceItem.CreateReader()));
+                        foreach (JToken resourceItem in array)
+                        {
+                            halDocument.AddEmbeddedResource(resource.Key, serializer.Deserialize<HalDocument>(resourceItem.CreateReader()));
+                        }
                     }
-                }
-                else
-                {
-                    halDocument.AddEmbeddedResource(resource.Key, serializer.Deserialize<HalDocument>(resource.Value.CreateReader()));
+                    else
+                    {
+                        halDocument.AddEmbeddedResource(resource.Key, serializer.Deserialize<HalDocument>(resource.Value.CreateReader()));
+                    }
                 }
             }
         }

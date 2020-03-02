@@ -15,7 +15,7 @@ namespace Menes.Internal
     /// </summary>
     public class OpenApiConfiguration : IOpenApiConfiguration
     {
-        private Dictionary<string, Type> discriminators;
+        private Dictionary<string, Type>? discriminators;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="IOpenApiConfiguration"/> class.
@@ -35,7 +35,7 @@ namespace Menes.Internal
         public Formatting Formatting { get; set; }
 
         /// <inheritdoc/>
-        public JsonSerializerSettings SerializerSettings { get; set; }
+        public JsonSerializerSettings? SerializerSettings { get; set; }
 
         /// <inheritdoc/>
         public Dictionary<string, Type> DiscriminatedTypes

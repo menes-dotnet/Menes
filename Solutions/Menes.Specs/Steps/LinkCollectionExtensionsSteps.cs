@@ -27,7 +27,7 @@ namespace Menes.Specs.Steps
         {
             var link = new OpenApiWebLink("op", "l", OperationType.Get);
             this.resolver
-                .Setup(r => r.ResolveByOwnerAndRelationType(It.IsAny<object>(), It.IsAny<string>(), It.IsAny<(string, object)[]>()))
+                .Setup(r => r.ResolveByOwnerAndRelationType(It.IsAny<object>(), It.IsAny<string>(), It.IsAny<(string, object?)[]>()))
                 .Returns(link);
             this.scenarioContext.Set(link, linkName);
         }
@@ -37,7 +37,7 @@ namespace Menes.Specs.Steps
         {
             var link = new OpenApiWebLink("op", "l", OperationType.Get);
             this.resolver
-                .Setup(r => r.ResolveByOwnerAndRelationTypeAndContext(It.IsAny<object>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<(string, object)[]>()))
+                .Setup(r => r.ResolveByOwnerAndRelationTypeAndContext(It.IsAny<object>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<(string, object?)[]>()))
                 .Returns(link);
             this.scenarioContext.Set(link, linkName);
         }
@@ -47,7 +47,7 @@ namespace Menes.Specs.Steps
         {
             var link = new OpenApiWebLink("op", "l", OperationType.Get);
             this.resolver
-                .Setup(r => r.ResolveByOperationIdAndRelationType(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<(string, object)[]>()))
+                .Setup(r => r.ResolveByOperationIdAndRelationType(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<(string, object?)[]>()))
                 .Returns(link);
             this.scenarioContext.Set(link, linkName);
         }
@@ -77,7 +77,7 @@ namespace Menes.Specs.Steps
         {
             object target = this.scenarioContext.Get<object>(objectName);
             this.resolver
-                .Verify(r => r.ResolveByOwnerAndRelationType(target, relation, It.IsAny<(string, object)[]>()));
+                .Verify(r => r.ResolveByOwnerAndRelationType(target, relation, It.IsAny<(string, object?)[]>()));
         }
 
         [Then("the link resolver should have been asked to resolve for the owner '(.*)', the relation '(.*)', and the context '(.*)'")]
@@ -85,14 +85,14 @@ namespace Menes.Specs.Steps
         {
             object target = this.scenarioContext.Get<object>(objectName);
             this.resolver
-                .Verify(r => r.ResolveByOwnerAndRelationTypeAndContext(target, relation, context, It.IsAny<(string, object)[]>()));
+                .Verify(r => r.ResolveByOwnerAndRelationTypeAndContext(target, relation, context, It.IsAny<(string, object?)[]>()));
         }
 
         [Then("the link resolver should have been asked to resolve for the operation '(.*)' and the relation '(.*)'")]
         public void ThenTheLinkResolverShouldHaveBeenAskedToResolveForTheOperationAndTheRelation(string operationId, string relation)
         {
             this.resolver
-                .Verify(r => r.ResolveByOperationIdAndRelationType(operationId, relation, It.IsAny<(string, object)[]>()));
+                .Verify(r => r.ResolveByOperationIdAndRelationType(operationId, relation, It.IsAny<(string, object?)[]>()));
         }
 
         [Then("the link '(.*)' should have been added to the link collection with relation '(.*)'")]

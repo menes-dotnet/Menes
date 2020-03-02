@@ -12,12 +12,12 @@ namespace Menes
     public class SimpleOpenApiContext : IOpenApiContext
     {
         /// <inheritdoc/>
-        public ClaimsPrincipal CurrentPrincipal { get; set; }
+        public ClaimsPrincipal? CurrentPrincipal { get; set; }
 
         /// <inheritdoc/>
-        public string CurrentTenantId { get; set;  }
+        public string? CurrentTenantId { get; set; }
 
         /// <inheritdoc/>
-        public object AdditionalContext { get; set; }
+        public object? AdditionalContext { get; set; }
     }
 }

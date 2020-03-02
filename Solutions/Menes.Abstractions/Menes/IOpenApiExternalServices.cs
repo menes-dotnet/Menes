@@ -38,6 +38,6 @@ namespace Menes
         /// <returns>The URL.</returns>
         Uri ResolveUrl<TService>(
             string operationId,
-            params (string Name, object Value)[] parameters);
+            params (string Name, object? Value)[] parameters);
     }
 }

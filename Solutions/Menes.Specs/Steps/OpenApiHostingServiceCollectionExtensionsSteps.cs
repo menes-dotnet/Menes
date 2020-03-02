@@ -144,7 +144,7 @@ namespace Menes.Specs.Steps
             // The only way to tell if it's been mapped without reflecting into the guts of the mapper is to try and register
             // a new mapper for the given type/status code... even with this we need a little bit of reflection to invoke the
             // method.
-            var type = Type.GetType(exceptionType);
+            Type type = Type.GetType(exceptionType) ?? throw new InvalidOperationException($"Unable to find type {exceptionType}");
             MethodInfo mapMethod = exceptionMapper
                 .GetType()
                 .GetMethods()
@@ -154,7 +154,7 @@ namespace Menes.Specs.Steps
 
             try
             {
-                createdMapMethod.Invoke(exceptionMapper, new object[] { statusCode, null });
+                createdMapMethod.Invoke(exceptionMapper, new object?[] { statusCode, null });
 
                 Assert.Fail($"Exception of type '{exceptionType}' was not registered");
             }
@@ -197,6 +197,7 @@ namespace Menes.Specs.Steps
         }
 
         private void AssertServiceIsAvailableFromServiceProvider<TService, TExpectedConcreteType>()
+            where TService : notnull
         {
             TService[] services = this.scenarioContext.Get<ServiceProvider>().GetServices<TService>().ToArray();
 

@@ -4,6 +4,7 @@
 
 namespace Menes
 {
+    using System.Diagnostics.CodeAnalysis;
     using Microsoft.OpenApi.Models;
     using Tavis.UriTemplates;
 
@@ -38,7 +39,7 @@ namespace Menes
         /// <param name="parameters">The parameters with which to populate the template.</param>
         /// <returns>A string representing the URI for the operation with the supplied parameters.</returns>
         /// <remarks>This will also build any query string parameters.</remarks>
-        ResolvedOperationRequestInfo GetResolvedOperationRequestInfo(string operationId, params (string Name, object Value)[] parameters);
+        ResolvedOperationRequestInfo GetResolvedOperationRequestInfo(string operationId, params (string Name, object? Value)[] parameters);
 
         /// <summary>
         /// Get a URI template for an operation.
@@ -54,6 +55,6 @@ namespace Menes
         /// <param name="method">The HTTP method (e.g. get, post).</param>
         /// <param name="operationPathTemplate">The <see cref="OpenApiOperationPathTemplate"/>, or null if no match is found.</param>
         /// <returns>True if a match was found.</returns>
-        bool GetOperationPathTemplate(string requestPath, string method, out OpenApiOperationPathTemplate operationPathTemplate);
+        bool GetOperationPathTemplate(string requestPath, string method, [NotNullWhen(true)] out OpenApiOperationPathTemplate? operationPathTemplate);
     }
 }

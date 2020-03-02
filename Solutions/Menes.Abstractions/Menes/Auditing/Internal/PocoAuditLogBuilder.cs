@@ -19,10 +19,9 @@ namespace Menes.Auditing.Internal
         /// <inheritdoc />
         public AuditLog BuildAuditLog(IOpenApiContext context, object result, OpenApiOperation operation)
         {
-            return new AuditLog
+            return new AuditLog(operation.OperationId)
             {
                 CreatedDateTimeUtc = DateTimeOffset.UtcNow,
-                Operation = operation.OperationId,
                 Result = 200,
                 TenantId = context.CurrentTenantId,
                 UserId = context.CurrentPrincipal?.Identity?.Name,

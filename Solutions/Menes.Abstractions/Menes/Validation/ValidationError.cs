@@ -18,21 +18,20 @@ namespace Menes.Validation
     {
         /// <summary>Initializes a new instance of the <see cref="ValidationError"/> class. </summary>
         /// <param name="errorKind">The error kind. </param>
-        /// <param name="propertyName">The property name. </param>
+        /// <param name="propertyName">The property name, or null if the failure is at the root level.</param>
         /// <param name="propertyPath">The property path. </param>
         /// <param name="token">The token that failed to validate. </param>
         /// <param name="schema">The schema that contains the validation rule.</param>
-        public ValidationError(ValidationErrorKind errorKind, string propertyName, string propertyPath, JToken token, OpenApiSchema schema)
+        public ValidationError(ValidationErrorKind errorKind, string? propertyName, string propertyPath, JToken token, OpenApiSchema schema)
         {
             this.Kind = errorKind;
             this.Property = propertyName;
             this.Path = propertyPath != null ? "#/" + propertyPath : "#";
 
             var lineInfo = token as IJsonLineInfo;
-            this.HasLineInfo = lineInfo?.HasLineInfo() == true;
-
-            if (this.HasLineInfo)
+            if (lineInfo?.HasLineInfo() == true)
             {
+                this.HasLineInfo = true;
                 this.LineNumber = lineInfo.LineNumber;
                 this.LinePosition = lineInfo.LinePosition;
             }
@@ -50,7 +49,7 @@ namespace Menes.Validation
         public ValidationErrorKind Kind { get; }
 
         /// <summary>Gets the property name. </summary>
-        public string Property { get; }
+        public string? Property { get; }
 
         /// <summary>Gets the property path. </summary>
         public string Path { get; }

@@ -12,23 +12,42 @@ namespace Menes.Internal
     internal class OpenApiMappedException
     {
         /// <summary>
-        ///     Gets or sets the type of exception to map.
+        /// Creates a <see cref="OpenApiMappedException"/>.
         /// </summary>
-        public Type ExceptionType { get; set; }
+        /// <param name="exceptionType">The <see cref="ExceptionType"/>.</param>
+        /// <param name="statusCode">The <see cref="StatusCode"/>.</param>
+        /// <param name="operationId">The <see cref="OperationId"/>.</param>
+        /// <param name="formatterType">The <see cref="FormatterType"/>.</param>
+        internal OpenApiMappedException(
+            Type exceptionType,
+            int statusCode,
+            string? operationId = null,
+            Type? formatterType = null)
+        {
+            this.ExceptionType = exceptionType;
+            this.StatusCode = statusCode;
+            this.FormatterType = formatterType;
+            this.OperationId = operationId;
+        }
 
         /// <summary>
-        ///     Gets or sets the formatter to use to convert the exception to a response body.
+        ///     Gets the type of exception to map.
         /// </summary>
-        public Type FormatterType { get; set; }
+        public Type ExceptionType { get; }
 
         /// <summary>
-        ///     Gets or sets the operation id that this applies to.
+        ///     Gets the formatter to use to convert the exception to a response body.
         /// </summary>
-        public string OperationId { get; set; }
+        public Type? FormatterType { get; }
 
         /// <summary>
-        ///     Gets or sets the response code to return.
+        ///     Gets the operation id that this applies to.
         /// </summary>
-        public int StatusCode { get; set; }
+        public string? OperationId { get; }
+
+        /// <summary>
+        ///     Gets the response code to return.
+        /// </summary>
+        public int StatusCode { get; }
     }
 }

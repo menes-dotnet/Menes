@@ -34,9 +34,9 @@ namespace Menes.Specs.Steps
         private readonly object resultBuilderErrorResult = new object();
         private readonly ScenarioContext scenarioContext;
         private ResponseWhenUnauthenticated? responseWhenUnauthenticated;
-        private OpenApiOperation openApiOperation;
-        private OpenApiOperationPathTemplate operationPathTemplate;
-        private Task<object> invokerResultTask;
+        private OpenApiOperation? openApiOperation;
+        private OpenApiOperationPathTemplate? operationPathTemplate;
+        private Task<object>? invokerResultTask;
 
         public OpenApiOperationInvokerSteps(ScenarioContext scenarioContext)
         {
@@ -56,11 +56,12 @@ namespace Menes.Specs.Steps
         public void GivenTheOperationPathTemplateHasAnOperationWithAnOperationIdOf(string operationId)
         {
             this.openApiOperation = new OpenApiOperation { OperationId = operationId };
-            this.operationPathTemplate = new OpenApiOperationPathTemplate(this.openApiOperation, null);
+            this.operationPathTemplate = new OpenApiOperationPathTemplate(this.openApiOperation, new OpenApiPathTemplate("/", new OpenApiPathItem()));
 
             MethodInfo serviceMethod = typeof(OpenApiOperationInvokerSteps).GetMethod(
                 nameof(this.ServiceMethodImplementation),
-                BindingFlags.NonPublic|BindingFlags.Instance);
+                BindingFlags.NonPublic|BindingFlags.Instance)
+                ?? throw new InvalidOperationException($"Unable to get method info for {nameof(this.ServiceMethodImplementation)}");
 
             var openApiServiceOperation = new OpenApiServiceOperation(this, serviceMethod, this.openApiConfiguration.Object);
             this.InvokerContext.OperationLocator
@@ -73,7 +74,7 @@ namespace Menes.Specs.Steps
         {
             var parameterBuilder = new Mock<IOpenApiParameterBuilder<object>>();
             parameterBuilder
-                .Setup(m => m.BuildParametersAsync(It.IsAny<object>(), this.operationPathTemplate))
+                .Setup(m => m.BuildParametersAsync(It.IsAny<object>(), this.operationPathTemplate!))
                 .Returns(Task.FromResult<IDictionary<string, object>>(new Dictionary<string, object>()));
 
             this.InvokerContext.ExceptionMapper
@@ -81,7 +82,7 @@ namespace Menes.Specs.Steps
                 .Returns(this.exceptionMapperResult);
 
             this.InvokerContext.ResultBuilder
-                .Setup(m => m.BuildResult(It.IsAny<object>(), this.openApiOperation))
+                .Setup(m => m.BuildResult(It.IsAny<object>(), this.openApiOperation!))
                 .Returns(this.resultBuilderResult);
             this.InvokerContext.ResultBuilder
                 .Setup(m => m.BuildErrorResult(It.IsAny<int>()))
@@ -99,10 +100,10 @@ namespace Menes.Specs.Steps
                 path,
                 method,
                 new object(),
-                this.operationPathTemplate,
+                this.operationPathTemplate!,
                 this.openApiContext.Object);
 
-            await this.InvokerContext.AccessCheckCalls.WaitAsync().WithTimeout().ConfigureAwait(false);
+            await this.InvokerContext.AccessCheckCalls!.WaitAsync().WithTimeout().ConfigureAwait(false);
         }
 
         [When("the access checker blocks access with '(.*)'")]
@@ -110,9 +111,9 @@ namespace Menes.Specs.Steps
         {
             var result = new Dictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>
             {
-                { this.InvokerContext.AccessCheckCalls.Arguments[0].Requests[0], new AccessControlPolicyResult(resultType) }
+                { this.InvokerContext.AccessCheckCalls!.Arguments[0].Requests[0], new AccessControlPolicyResult(resultType) }
             };
-            this.InvokerContext.AccessCheckCalls.SupplyResult(result);
+            this.InvokerContext.AccessCheckCalls!.SupplyResult(result);
             await this.WaitForInvokerToFinishIgnoringErrors().ConfigureAwait(false);
         }
 
@@ -121,9 +122,9 @@ namespace Menes.Specs.Steps
         {
             var result = new Dictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>
             {
-                { this.InvokerContext.AccessCheckCalls.Arguments[0].Requests[0], new AccessControlPolicyResult(AccessControlPolicyResultType.NotAllowed, explanation) }
+                { this.InvokerContext.AccessCheckCalls!.Arguments[0].Requests[0], new AccessControlPolicyResult(AccessControlPolicyResultType.NotAllowed, explanation) }
             };
-            this.InvokerContext.AccessCheckCalls.SupplyResult(result);
+            this.InvokerContext.AccessCheckCalls!.SupplyResult(result);
             await this.WaitForInvokerToFinishIgnoringErrors().ConfigureAwait(false);
         }
 
@@ -132,40 +133,40 @@ namespace Menes.Specs.Steps
         {
             var result = new Dictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>
             {
-                { this.InvokerContext.AccessCheckCalls.Arguments[0].Requests[0], new AccessControlPolicyResult(AccessControlPolicyResultType.Allowed) }
+                { this.InvokerContext.AccessCheckCalls!.Arguments[0].Requests[0], new AccessControlPolicyResult(AccessControlPolicyResultType.Allowed) }
             };
-            this.InvokerContext.AccessCheckCalls.SupplyResult(result);
+            this.InvokerContext.AccessCheckCalls!.SupplyResult(result);
             await this.WaitForInvokerToFinishIgnoringErrors().ConfigureAwait(false);
         }
 
         [Then("the access checker should receive a path of '(.*)'")]
         public void ThenTheAccessCheckerShouldReceiveAPathOf(string path)
         {
-            Assert.AreEqual(path, this.InvokerContext.AccessCheckCalls.Arguments[0].Requests[0].Path);
+            Assert.AreEqual(path, this.InvokerContext.AccessCheckCalls!.Arguments[0].Requests[0].Path);
         }
 
         [Then("the access checker should receive an operationId of '(.*)'")]
         public void ThenTheAccessCheckerShouldReceiveAnOperationIdOf(string operationId)
         {
-            Assert.AreEqual(operationId, this.InvokerContext.AccessCheckCalls.Arguments[0].Requests[0].OperationId);
+            Assert.AreEqual(operationId, this.InvokerContext.AccessCheckCalls!.Arguments[0].Requests[0].OperationId);
         }
 
         [Then("the access checker should receive an HttpMethod of '(.*)'")]
         public void ThenTheAccessCheckerShouldReceiveAnHttpMethodOf(string method)
         {
-            Assert.AreEqual(method, this.InvokerContext.AccessCheckCalls.Arguments[0].Requests[0].Method);
+            Assert.AreEqual(method, this.InvokerContext.AccessCheckCalls!.Arguments[0].Requests[0].Method);
         }
 
         [Then("the access checker should receive the Open API context")]
         public void ThenTheAccessCheckerShouldReceiveTheOpenAPIContext()
         {
-            Assert.AreSame(this.openApiContext.Object, this.InvokerContext.AccessCheckCalls.Arguments[0].Context);
+            Assert.AreSame(this.openApiContext.Object, this.InvokerContext.AccessCheckCalls!.Arguments[0].Context);
         }
 
         [Then("the invoker should complete without exceptions")]
         public async Task ThenTheInvokerShouldCompleteWithoutExceptions()
         {
-            await this.invokerResultTask.ConfigureAwait(false);
+            await this.invokerResultTask!.ConfigureAwait(false);
         }
 
         [Then("the operation method should not be invoked")]
@@ -185,15 +186,15 @@ namespace Menes.Specs.Steps
         {
             this.InvokerContext.ExceptionMapper.Verify(m => m.GetResponse(
                 It.Is<Exception>(x => x.GetType().Name == exceptionType && !x.Data.Contains("detail")),
-                this.openApiOperation));
+                this.openApiOperation!));
         }
 
         [Then("the invoker should map an OpenApiForbiddenException with an explanation of '(.*)'")]
         public void ThenTheInvokerShouldMapAnOpenApiForbiddenExceptionWithAnExplanationOf(string explanation)
         {
             this.InvokerContext.ExceptionMapper.Verify(m => m.GetResponse(
-                It.Is<Exception>(x => x is OpenApiForbiddenException && ((string)x.Data["detail"]) == explanation),
-                this.openApiOperation));
+                It.Is<Exception>(x => x is OpenApiForbiddenException && ((string?)x.Data["detail"]) == explanation),
+                this.openApiOperation!));
         }
 
         [Then("the invoker should pass the method result to the result builder")]
@@ -201,26 +202,26 @@ namespace Menes.Specs.Steps
         {
             this.InvokerContext.ResultBuilder.Verify(m => m.BuildResult(
                 this.scenarioContext[OperationInvokedScenarioContextKey],
-                this.openApiOperation));
+                this.openApiOperation!));
         }
 
         [Then("the invoker should pass the result from the exception mapper to the result builder")]
         public void ThenTheInvokerShouldPassTheResultFromTheExceptionMapperToTheResultBuilder()
         {
-            this.InvokerContext.ResultBuilder.Verify(m => m.BuildResult(this.exceptionMapperResult, this.openApiOperation));
+            this.InvokerContext.ResultBuilder.Verify(m => m.BuildResult(this.exceptionMapperResult, this.openApiOperation!));
         }
 
         [Then("the invoker should return the result from the result builder")]
         public async Task ThenTheInvokerShouldReturnTheResultFromTheResultBuilder()
         {
-            object result = await this.invokerResultTask.ConfigureAwait(false);
+            object result = await this.invokerResultTask!.ConfigureAwait(false);
             Assert.AreSame(this.resultBuilderResult, result);
         }
 
         [Then("invoker should return a (.*) error result")]
         public async Task ThenInvokerShouldReturnAErrorResult(int statusCode)
         {
-            object result = await this.invokerResultTask.ConfigureAwait(false);
+            object result = await this.invokerResultTask!.ConfigureAwait(false);
             Assert.AreSame(this.resultBuilderErrorResult, result);
             this.InvokerContext.ResultBuilder.Verify(m => m.BuildErrorResult(statusCode));
         }
@@ -243,13 +244,6 @@ namespace Menes.Specs.Steps
         {
             // We ignore errors, because some tests expect exceptions.
             await this.invokerResultTask.WhenCompleteIgnoringErrors().WithTimeout().ConfigureAwait(false);
-        }
-
-        private class CheckAccessArguments
-        {
-            public IOpenApiContext Context { get; set; }
-
-            public AccessCheckOperationDescriptor[] Requests { get; set; }
         }
     }
 }

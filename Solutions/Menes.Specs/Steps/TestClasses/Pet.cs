@@ -22,12 +22,12 @@ namespace Menes.Specs.Steps.TestClasses
         /// <summary>
         /// Gets or sets the name.
         /// </summary>
-        public string Name { get; set; }
+        public string Name { get; set; } = "The Great Mysterio";
 
         /// <summary>
         /// Gets or sets the tag.
         /// </summary>
-        public string Tag { get; set; }
+        public string Tag { get; set; } = "Magic Cat";
 
         /// <summary>
         /// Gets the content type of this pet.

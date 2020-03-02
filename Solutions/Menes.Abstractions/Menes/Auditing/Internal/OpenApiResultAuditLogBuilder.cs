@@ -22,15 +22,19 @@ namespace Menes.Auditing.Internal
         {
             var openApiResult = result as OpenApiResult;
 
-            return new AuditLog
+            var auditLog = new AuditLog(operation.OperationId)
             {
                 CreatedDateTimeUtc = DateTimeOffset.UtcNow,
-                Operation = operation.OperationId,
-                Result = openApiResult.StatusCode,
+                Result = openApiResult?.StatusCode,
                 TenantId = context.CurrentTenantId,
                 UserId = context.CurrentPrincipal?.Identity?.Name,
-                Properties = openApiResult.AuditData,
             };
+            if (openApiResult != null)
+            {
+                auditLog.Properties = openApiResult.AuditData;
+            }
+
+            return auditLog;
         }
 
         /// <inheritdoc />

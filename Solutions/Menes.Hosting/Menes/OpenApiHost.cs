@@ -40,7 +40,7 @@ namespace Menes
             IOpenApiContext context = await this.BuildContextAsync(request, parameters).ConfigureAwait(false);
 
             // Try to find an Open API operation which matches the incoming request.
-            if (this.matcher.FindOperationPathTemplate(path, method, out OpenApiOperationPathTemplate operationPathTemplate))
+            if (this.matcher.FindOperationPathTemplate(path, method, out OpenApiOperationPathTemplate? operationPathTemplate))
             {
                 // Now execute the operation
                 return await this.operationInvoker.InvokeAsync(path, method, request, operationPathTemplate, context).ConfigureAwait(false);

@@ -48,12 +48,12 @@ namespace Menes.Specs.Steps
         public void GivenIHaveMappedLinkRelationsByType(Table table)
         {
             var mapper = new OpenApiLinkOperationMapper();
-            MethodInfo genericMapMethod = typeof(OpenApiLinkOperationMapper).GetMethod(nameof(IOpenApiLinkOperationMap.MapByContentTypeAndRelationTypeAndOperationId), new[] { typeof(string), typeof(string) });
+            MethodInfo genericMapMethod = typeof(OpenApiLinkOperationMapper).GetMethod(nameof(IOpenApiLinkOperationMap.MapByContentTypeAndRelationTypeAndOperationId), new[] { typeof(string), typeof(string) }) ?? throw new InvalidOperationException($"Unable to get method info for {nameof(IOpenApiLinkOperationMap.MapByContentTypeAndRelationTypeAndOperationId)}");
             IEnumerable<(string RelationName, string TargetType, string OperationId)> mappings = table.CreateSet<(string RelationName, string TargetType, string OperationId)>();
 
             foreach ((string RelationName, string TargetType, string OperationId) in mappings)
             {
-                var targetType = Type.GetType(TargetType);
+                Type targetType = Type.GetType(TargetType) ?? throw new InvalidOperationException($"Unable to get type info for {TargetType}");
                 MethodInfo mapMethod = genericMapMethod.MakeGenericMethod(targetType);
                 mapMethod.Invoke(mapper, new[] { RelationName, OperationId });
             }
@@ -79,10 +79,10 @@ namespace Menes.Specs.Steps
         public void WhenIResolveTheLinkRelationForObjectWithParameters(string relationName, string objectName, Table parameterTable)
         {
             object target = this.scenarioContext.Get<object>(objectName);
-            (string Key, string Value)[] parameters = parameterTable.CreateSet<(string Key, string Value)>().ToArray();
+            (string Key, string? Value)[] parameters = parameterTable.CreateSet<(string Key, string? Value)>().ToArray();
 
             var resolver = new OpenApiWebLinkResolver(this.scenarioContext.Get<IOpenApiDocumentProvider>(), this.scenarioContext.Get<IOpenApiLinkOperationMapper>());
-            OpenApiWebLink result = resolver.ResolveByOwnerAndRelationType(target, relationName, parameters.Select(x => (x.Key, (object)x.Value)).ToArray());
+            OpenApiWebLink result = resolver.ResolveByOwnerAndRelationType(target, relationName, parameters.Select(x => (x.Key, (object?)x.Value)).ToArray());
 
             this.scenarioContext.Set(result);
         }

@@ -26,7 +26,7 @@ namespace Menes.Specs.Steps
             var template = new OpenApiOperationPathTemplate(
                 new OpenApiOperation { OperationId = operationId },
                 new OpenApiPathTemplate(path, new OpenApiPathItem()));
-            this.InvokerContext.OperationInvocationTask = this.Invoker.InvokeAsync(method, path, null, template, new Mock<IOpenApiContext>().Object);
+            this.InvokerContext.OperationInvocationTask = this.Invoker.InvokeAsync(method, path, new object(), template, new Mock<IOpenApiContext>().Object);
         }
 
         [When("the operation invoker has been invoked")]

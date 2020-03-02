@@ -24,7 +24,7 @@ namespace Menes.Specs.Fakes
 
         public OperationDetail(
             string name,
-            AdditionalInstrumentationDetail additionalDetail,
+            AdditionalInstrumentationDetail? additionalDetail,
             Action<OperationDetail> onDisposed)
         {
             this.Name = name;
@@ -41,7 +41,7 @@ namespace Menes.Specs.Fakes
         /// Gets the additional instrumentation detail (if any) passed to the call to
         /// <see cref="IOperationsInstrumentation.StartOperation(string, AdditionalInstrumentationDetail)"/>.
         /// </summary>
-        public AdditionalInstrumentationDetail AdditionalDetail { get; }
+        public AdditionalInstrumentationDetail? AdditionalDetail { get; }
 
         /// <summary>
         /// Gets a list of any further instrumentation detail provided by calls to

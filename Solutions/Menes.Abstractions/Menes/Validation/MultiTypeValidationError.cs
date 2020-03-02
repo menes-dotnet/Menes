@@ -18,13 +18,13 @@ namespace Menes.Validation
         /// <summary>
         /// Initializes a new instance of the <see cref="MultiTypeValidationError"/> class.</summary>
         /// <param name="kind">The error kind. </param>
-        /// <param name="property">The property name. </param>
+        /// <param name="propertyName">The property name. </param>
         /// <param name="path">The property path. </param>
         /// <param name="errors">The error list. </param>
         /// <param name="token">The token that failed to validate. </param>
         /// <param name="schema">The schema that contains the validation rule.</param>
-        public MultiTypeValidationError(ValidationErrorKind kind, string property, string path, IReadOnlyDictionary<JsonObjectType, ICollection<ValidationError>> errors, JToken token, OpenApiSchema schema)
-            : base(kind, property, path, token, schema)
+        public MultiTypeValidationError(ValidationErrorKind kind, string? propertyName, string path, IReadOnlyDictionary<JsonObjectType, ICollection<ValidationError>> errors, JToken token, OpenApiSchema schema)
+            : base(kind, propertyName, path, token, schema)
         {
             this.Errors = errors;
         }

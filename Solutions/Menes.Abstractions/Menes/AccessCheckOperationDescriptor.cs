@@ -14,7 +14,7 @@ namespace Menes
     /// involved in that process.
     /// </summary>
     [DebuggerDisplay("{OperationId} - {Method} {Path}")]
-    public class AccessCheckOperationDescriptor : IEquatable<AccessCheckOperationDescriptor>
+    public class AccessCheckOperationDescriptor : IEquatable<AccessCheckOperationDescriptor?>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="AccessCheckOperationDescriptor"/> class.
@@ -50,7 +50,7 @@ namespace Menes
         /// <param name="left">The left hand side of the equality check.</param>
         /// <param name="right">The right hand side of the equality check.</param>
         /// <returns>True if the values are equal, false otherwise.</returns>
-        public static bool operator ==(AccessCheckOperationDescriptor left, AccessCheckOperationDescriptor right)
+        public static bool operator ==(AccessCheckOperationDescriptor? left, AccessCheckOperationDescriptor? right)
         {
             if (object.ReferenceEquals(left, right))
             {
@@ -72,13 +72,13 @@ namespace Menes
         /// <param name="left">The left hand side of the equality check.</param>
         /// <param name="right">The right hand side of the equality check.</param>
         /// <returns>False if the values are equal, true otherwise.</returns>
-        public static bool operator !=(AccessCheckOperationDescriptor left, AccessCheckOperationDescriptor right)
+        public static bool operator !=(AccessCheckOperationDescriptor? left, AccessCheckOperationDescriptor? right)
         {
             return !(left == right);
         }
 
         /// <inheritdoc/>
-        public bool Equals(AccessCheckOperationDescriptor other)
+        public bool Equals(AccessCheckOperationDescriptor? other)
         {
             if (other == null)
             {

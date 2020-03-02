@@ -7,6 +7,7 @@
 
 namespace Menes.Specs.Steps
 {
+    using System.Linq;
     using Corvus.Extensions.Json;
     using Corvus.SpecFlow.Extensions;
     using Menes.Hal;
@@ -62,6 +63,18 @@ namespace Menes.Specs.Steps
             this.scenarioContext.Set(result);
         }
 
+        [When("I deserialize the JSON back to a HalDocument")]
+        public void WhenIDeserializeTheJSONBackToAHalDocument()
+        {
+            JObject previouslySerializedHalDocument = this.scenarioContext.Get<JObject>();
+
+            IJsonSerializerSettingsProvider serializerSettingsProvider = ContainerBindings.GetServiceProvider(this.scenarioContext).GetRequiredService<IJsonSerializerSettingsProvider>();
+            var serializer = JsonSerializer.Create(serializerSettingsProvider.Instance);
+            HalDocument result = previouslySerializedHalDocument.ToObject<HalDocument>(serializer);
+
+            this.scenarioContext.Set(result);
+        }
+
         [Given(@"I add a link to the HalDocument\{T}")]
         public void GivenIAddALinkToTheHalDocumentT()
         {
@@ -92,11 +105,30 @@ namespace Menes.Specs.Steps
             Assert.AreEqual(dto.Property3, result["property3"].Value<decimal>());
         }
 
+        [Then("the properties of the original document should be present in the deserialized document")]
+        public void ThenThePropertiesOfTheOriginalDocumentShouldBePresentInTheDeserializedDocument()
+        {
+            HalDocument result = this.scenarioContext.Get<HalDocument>();
+            TestDomainClass dtoIn = this.scenarioContext.Get<TestDomainClass>();
+            Assert.IsTrue(result.TryGetProperties(out TestDomainClass? dtoOut));
+
+            Assert.AreEqual(dtoIn.Property1, dtoOut!.Property1);
+            Assert.AreEqual(dtoIn.Property2, dtoOut.Property2);
+            Assert.AreEqual(dtoIn.Property3, dtoOut.Property3);
+        }
+
         [Then("the _embedded collection should be serialized as a top level property of the JSON")]
         public void ThenThe_EmbeddedCollectionShouldBeSerializedAsATopLevelPropertyOfTheJSON()
         {
             JObject result = this.scenarioContext.Get<JObject>();
             Assert.NotNull(result["_embedded"]);
+        }
+
+        [Then("the _embedded collection should be present in the deserialized document")]
+        public void ThenThe_EmbeddedCollectionShouldBePresentInTheDeserializedDocument()
+        {
+            HalDocument result = this.scenarioContext.Get<HalDocument>();
+            Assert.AreEqual(1, result.EmbeddedResources.Count());
         }
 
         [Then("the _links collection should be serialized as a top level property of the JSON")]
@@ -106,11 +138,22 @@ namespace Menes.Specs.Steps
             Assert.NotNull(result["_links"]);
         }
 
+        [Then("the _links collection should be present in the deserialized document")]
+        public void ThenThe_LinksCollectionShouldBePresentInTheDeserializedDocument()
+        {
+            HalDocument result = this.scenarioContext.Get<HalDocument>();
+            Assert.AreEqual(1, result.Links.Count());
+
+            WebLink link = result.GetLinksForRelation("somrel").Single();
+
+            Assert.AreEqual("http://marain.io/examples/link", link.Href);
+        }
+
         private class TestDomainClass
         {
             public int Property1 { get; set; }
 
-            public string Property2 { get; set; }
+            public string? Property2 { get; set; }
 
             public decimal Property3 { get; set; }
         }

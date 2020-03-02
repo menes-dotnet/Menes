@@ -25,7 +25,7 @@ namespace Menes
         /// </param>
         public AccessControlPolicyResult(
             AccessControlPolicyResultType resultType,
-            string explanation = null)
+            string? explanation = null)
         {
             if (resultType == AccessControlPolicyResultType.Allowed && !string.IsNullOrEmpty(explanation))
             {
@@ -47,7 +47,7 @@ namespace Menes
         /// Gets an explanation of why the operation is blocked. May be returned in a Problem
         /// Details response body.
         /// </summary>
-        public string Explanation { get; }
+        public string? Explanation { get; }
 
         /// <summary>
         /// Gets a value describing whether the access policy was evaluated, and if so what the
