@@ -81,7 +81,7 @@ namespace Menes.Internal
         /// <inheritdoc/>
         public override IHalDocument Create(Type objectType)
         {
-            if (objectType != typeof(IHalDocument))
+            if (!typeof(IHalDocument).IsAssignableFrom(objectType))
             {
                 // It's not entirely obvious how this should work once nullable references are enabled.
                 // Json.NET 12.0.3 adds nullability annotations, and it does not change the return
@@ -93,10 +93,10 @@ namespace Menes.Internal
                 // returns null) is the best option. In any case, we expect this never to occur
                 // in normal use, because it implies we're being asked to create something we've
                 // not offered to create.
-                throw new JsonSerializationException($"Unable to create new {objectType.Name} - only {nameof(IHalDocument)} is supported");
+                throw new JsonSerializationException($"Unable to create new {objectType.Name} - only {nameof(IHalDocument)}-derived types registered with the service provider are supported");
             }
 
-            return this.halDocumentFactory.CreateHalDocument();
+            return this.halDocumentFactory.CreateHalDocument(objectType);
         }
 
         private static void SerializeLinks(IHalDocument halDocument, JObject result, JsonSerializer serializer)

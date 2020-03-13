@@ -26,13 +26,40 @@ namespace Menes.Hal.Internal
         /// <inheritdoc/>
         public IHalDocument CreateHalDocument()
         {
-            return this.serviceProvider.GetService<HalDocument>();
+            return this.serviceProvider.GetService<IHalDocument>();
+        }
+
+        /// <inheritdoc/>
+        public T CreateHalDocument<T>()
+            where T : IHalDocument
+        {
+            return this.serviceProvider.GetService<T>();
+        }
+
+        /// <inheritdoc/>
+        public IHalDocument CreateHalDocument(Type halDocumentType)
+        {
+            if (!typeof(IHalDocument).IsAssignableFrom(halDocumentType))
+            {
+                throw new ArgumentException($"Unable to cast {halDocumentType} to a {nameof(IHalDocument)}.", nameof(halDocumentType));
+            }
+
+            return (IHalDocument)this.serviceProvider.GetService(halDocumentType);
         }
 
         /// <inheritdoc/>
         public IHalDocument CreateHalDocumentFrom<T>(T entity)
         {
-            HalDocument halDocument = this.serviceProvider.GetService<HalDocument>();
+            IHalDocument halDocument = this.serviceProvider.GetService<IHalDocument>();
+            halDocument.SetProperties(entity);
+            return halDocument;
+        }
+
+        /// <inheritdoc/>
+        public THal CreateHalDocumentFrom<THal, T>(T entity)
+            where THal : IHalDocument
+        {
+            THal halDocument = this.serviceProvider.GetService<THal>();
             halDocument.SetProperties(entity);
             return halDocument;
         }

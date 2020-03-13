@@ -106,6 +106,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddSingleton<JsonConverter, HalDocumentJsonConverter>();
             services.AddSingleton<IOpenApiDocumentProvider, OpenApiDocumentProvider>();
             services.AddSingleton<IHalDocumentFactory, HalDocumentFactory>();
+            services.AddTransient<IHalDocument, HalDocument>();
             services.AddTransient<HalDocument>();
             services.AddSingleton<IOpenApiServiceOperationLocator, DefaultOperationLocator>();
             services.AddSingleton<IPathMatcher, PathMatcher>();

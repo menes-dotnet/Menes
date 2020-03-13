@@ -40,9 +40,9 @@ namespace Menes.PetStore.Responses.Mappers
         }
 
         /// <inheritdoc/>
-        public HalDocument Map(PetListResource pets)
+        public IHalDocument Map(PetListResource pets)
         {
-            HalDocument response = this.halDocumentFactory.CreateHalDocumentFrom(pets);
+            IHalDocument response = this.halDocumentFactory.CreateHalDocumentFrom(pets);
             response.AddEmbeddedResources(PetsRelation, pets.Pets.Select(this.petResourceMapper.Map));
 
             response.ResolveAndAddByOwnerAndRelationType(this.linkResolver, pets, "self", ("limit", pets.PageSize), ("continuationToken", pets.CurrentContinuationToken));

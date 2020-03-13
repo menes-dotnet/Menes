@@ -12,6 +12,7 @@ namespace Menes.Specs.Steps
     using Corvus.SpecFlow.Extensions;
     using Menes.Hal;
     using Menes.Links;
+    using Menes.Specs.Fakes;
     using Microsoft.Extensions.DependencyInjection;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Linq;
@@ -49,6 +50,14 @@ namespace Menes.Specs.Steps
             this.scenarioContext.Set(halDocument);
         }
 
+        [Given("I have created an instance of a custom IHalDocument from the domain class")]
+        public void GivenIHaveCreatedAnInstanceOfACustomIHalDocumentFromTheDomainClass()
+        {
+            IHalDocumentFactory halDocumentFactory = ContainerBindings.GetServiceProvider(this.scenarioContext).GetService<IHalDocumentFactory>();
+            CustomHalDocument halDocument = halDocumentFactory.CreateHalDocumentFrom<CustomHalDocument, TestDomainClass>(this.scenarioContext.Get<TestDomainClass>());
+            this.scenarioContext.Set<IHalDocument>(halDocument);
+        }
+
         [When("I serialize it to JSON")]
         public void WhenISerializeItToJSON()
         {
@@ -75,14 +84,26 @@ namespace Menes.Specs.Steps
             this.scenarioContext.Set(result);
         }
 
-        [Given(@"I add a link to the IHalDocument")]
+        [When("I deserialize the JSON back to a custom IHalDocument")]
+        public void WhenIDeserializeTheJSONBackToACustomIHalDocument()
+        {
+            JObject previouslySerializedIHalDocument = this.scenarioContext.Get<JObject>();
+
+            IJsonSerializerSettingsProvider serializerSettingsProvider = ContainerBindings.GetServiceProvider(this.scenarioContext).GetRequiredService<IJsonSerializerSettingsProvider>();
+            var serializer = JsonSerializer.Create(serializerSettingsProvider.Instance);
+            CustomHalDocument result = previouslySerializedIHalDocument.ToObject<CustomHalDocument>(serializer);
+
+            this.scenarioContext.Set<IHalDocument>(result);
+        }
+
+        [Given("I add a link to the IHalDocument")]
         public void GivenIAddALinkToTheIHalDocumentT()
         {
             IHalDocument document = this.scenarioContext.Get<IHalDocument>();
             document.AddLink("somrel", new WebLink("http://marain.io/examples/link"));
         }
 
-        [Given(@"I add an embedded resource to the IHalDocument")]
+        [Given("I add an embedded resource to the IHalDocument")]
         public void GivenIAddAnEmbeddedResourceToTheIHalDocumentT()
         {
             IHalDocument document = this.scenarioContext.Get<IHalDocument>();

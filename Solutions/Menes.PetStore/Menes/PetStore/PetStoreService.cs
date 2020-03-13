@@ -70,7 +70,7 @@ namespace Menes.PetStore
             PetResource[] pets = this.pets.Skip(skip).Take(limit).ToArray();
 
             string? nextContinuationToken = (skip + limit < this.pets.Count) ? BuildContinuationToken(limit + skip) : null;
-            HalDocument response = this.petListMapper.Map(new PetListResource(pets) { TotalCount = this.pets.Count, PageSize = limit, CurrentContinuationToken = continuationToken,  NextContinuationToken = nextContinuationToken });
+            IHalDocument response = this.petListMapper.Map(new PetListResource(pets) { TotalCount = this.pets.Count, PageSize = limit, CurrentContinuationToken = continuationToken,  NextContinuationToken = nextContinuationToken });
 
             OpenApiResult result = this.OkResult(response, "application/hal+json");
 
@@ -191,7 +191,7 @@ namespace Menes.PetStore
                 this.pets.Add(body);
             }
 
-            HalDocument response = this.petMapper.Map(body);
+            IHalDocument response = this.petMapper.Map(body);
             WebLink location = response.GetLinksForRelation("self").First();
             return this.CreatedResult(location.Href, response).WithAuditData(("id", (object)body.Id));
         }
@@ -293,7 +293,7 @@ namespace Menes.PetStore
                 throw new OpenApiNotFoundException();
             }
 
-            HalDocument response = this.petMapper.Map(result);
+            IHalDocument response = this.petMapper.Map(result);
 
             return this
                 .OkResult(response, "application/hal+json")

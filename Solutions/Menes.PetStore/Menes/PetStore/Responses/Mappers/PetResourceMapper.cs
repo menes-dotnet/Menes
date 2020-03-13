@@ -35,9 +35,9 @@ namespace Menes.PetStore.Responses.Mappers
         }
 
         /// <inheritdoc/>
-        public HalDocument Map(PetResource input)
+        public IHalDocument Map(PetResource input)
         {
-            HalDocument response = this.halDocumentFactory.CreateHalDocumentFrom(input);
+            IHalDocument response = this.halDocumentFactory.CreateHalDocumentFrom(input);
             response.ResolveAndAddByOwnerAndRelationType(this.linkResolver, input, "self", ("petId", input.Id));
             response.ResolveAndAddByOwnerAndRelationType(this.linkResolver, input, "image", ("petId", input.Id));
             response.ResolveAndAddByOwnerAndRelationType(this.linkResolver, input, "pocoimage", ("petId", input.Id));

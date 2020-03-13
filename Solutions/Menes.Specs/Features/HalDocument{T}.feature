@@ -13,6 +13,16 @@ Scenario: Serializing a HAL document with a domain class
 	Then the _embedded collection should be serialized as a top level property of the JSON
 	Then the _links collection should be serialized as a top level property of the JSON
 
+Scenario: Serializing a custom HAL document with a domain class
+	Given I have a domain class
+	And I have created an instance of a custom IHalDocument from the domain class
+	And I add a link to the IHalDocument
+	And I add an embedded resource to the IHalDocument
+	When I serialize it to JSON
+	Then the properties of the domain class should be serialized as top level properties in the JSON
+	Then the _embedded collection should be serialized as a top level property of the JSON
+	Then the _links collection should be serialized as a top level property of the JSON
+
 Scenario: Round tripping a HAL document with a domain class
 	Given I have a domain class
 	And I have created an instance of IHalDocument from the domain class
@@ -23,3 +33,15 @@ Scenario: Round tripping a HAL document with a domain class
 	Then the properties of the original document should be present in the deserialized document
 	Then the _embedded collection should be present in the deserialized document
 	Then the _links collection should be present in the deserialized document
+
+
+Scenario: Round tripping a custom HAL document with a domain class
+	Given I have a domain class
+	And I have created an instance of a custom IHalDocument from the domain class
+	And I add a link to the IHalDocument
+	And I add an embedded resource to the IHalDocument
+	When I serialize it to JSON
+	And I deserialize the JSON back to a custom IHalDocument
+	Then the properties of the original document should be present in the deserialized document
+	And the _embedded collection should be present in the deserialized document
+	And the _links collection should be present in the deserialized document
