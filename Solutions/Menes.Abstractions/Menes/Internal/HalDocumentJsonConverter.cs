@@ -14,10 +14,10 @@ namespace Menes.Internal
     using Newtonsoft.Json.Linq;
 
     /// <summary>
-    /// A type converter for serializing a <see cref="HalDocument"/> as a standard
+    /// A type converter for serializing a <see cref="IHalDocument"/> as a standard
     /// HAL document.
     /// </summary>
-    public class HalDocumentJsonConverter : CustomCreationConverter<HalDocument>
+    public class HalDocumentJsonConverter : CustomCreationConverter<IHalDocument>
     {
         private readonly IHalDocumentFactory halDocumentFactory;
 
@@ -39,14 +39,14 @@ namespace Menes.Internal
         /// <inheritdoc/>
         public override bool CanConvert(Type objectType)
         {
-            return typeof(HalDocument).IsAssignableFrom(objectType);
+            return typeof(IHalDocument).IsAssignableFrom(objectType);
         }
 
         /// <inheritdoc/>
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
             var jobject = JObject.Load(reader);
-            HalDocument halDocument = (existingValue as HalDocument) ?? this.Create(objectType);
+            IHalDocument halDocument = this.Create(objectType);
 
             DeserializeLinks(serializer, jobject, halDocument);
             DeserializeEmbeddedResources(serializer, jobject, halDocument);
@@ -54,7 +54,7 @@ namespace Menes.Internal
             jobject.Remove("_embedded");
             jobject.Remove("_links");
 
-            halDocument.Properties = jobject;
+            halDocument.SetProperties(jobject);
 
             return halDocument;
         }
@@ -62,8 +62,15 @@ namespace Menes.Internal
         /// <inheritdoc/>
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-            var halDocument = (HalDocument)value;
-            JObject result = (JObject?)halDocument.PropertiesInternalNullable?.DeepClone() ?? new JObject();
+            var halDocument = (IHalDocument)value;
+            if (halDocument.TryGetPropertiesAs(out JObject? result))
+            {
+                result = (JObject)result!.DeepClone();
+            }
+            else
+            {
+                result = new JObject();
+            }
 
             SerializeLinks(halDocument, result, serializer);
             SerializeEmbeddedResources(halDocument, result, serializer);
@@ -72,13 +79,13 @@ namespace Menes.Internal
         }
 
         /// <inheritdoc/>
-        public override HalDocument Create(Type objectType)
+        public override IHalDocument Create(Type objectType)
         {
-            if (objectType != typeof(HalDocument))
+            if (objectType != typeof(IHalDocument))
             {
                 // It's not entirely obvious how this should work once nullable references are enabled.
                 // Json.NET 12.0.3 adds nullability annotations, and it does not change the return
-                // type to HalDocument, which suggests that we shouldn't ever return null. On the
+                // type to IHalDocument, which suggests that we shouldn't ever return null. On the
                 // other hand, the base implementation of ReadJson checks the return result of this
                 // for null. We don't know whether that's just for backwards compatibility.
                 // We've overridden ReadJson, so that doesn't expect this to return null. I think
@@ -86,13 +93,13 @@ namespace Menes.Internal
                 // returns null) is the best option. In any case, we expect this never to occur
                 // in normal use, because it implies we're being asked to create something we've
                 // not offered to create.
-                throw new JsonSerializationException($"Unable to create new {objectType.Name} - only {nameof(HalDocument)} is supported");
+                throw new JsonSerializationException($"Unable to create new {objectType.Name} - only {nameof(IHalDocument)} is supported");
             }
 
             return this.halDocumentFactory.CreateHalDocument();
         }
 
-        private static void SerializeLinks(HalDocument halDocument, JObject result, JsonSerializer serializer)
+        private static void SerializeLinks(IHalDocument halDocument, JObject result, JsonSerializer serializer)
         {
             var linksObject = new JObject();
 
@@ -122,13 +129,13 @@ namespace Menes.Internal
             }
         }
 
-        private static void SerializeEmbeddedResources(HalDocument halDocument, JObject result, JsonSerializer serializer)
+        private static void SerializeEmbeddedResources(IHalDocument halDocument, JObject result, JsonSerializer serializer)
         {
             var embeddedResourcesObject = new JObject();
 
             foreach (string relation in halDocument.GetEmbeddedResourceRelations())
             {
-                HalDocument[] embeddedResources = halDocument.GetEmbeddedResourcesForRelation(relation).ToArray();
+                IHalDocument[] embeddedResources = halDocument.GetEmbeddedResourcesForRelation(relation).ToArray();
                 if (embeddedResources.Length == 0)
                 {
                     continue;
@@ -152,7 +159,7 @@ namespace Menes.Internal
             }
         }
 
-        private static void DeserializeLinks(JsonSerializer serializer, JObject jobject, HalDocument halDocument)
+        private static void DeserializeLinks(JsonSerializer serializer, JObject jobject, IHalDocument halDocument)
         {
             var links = (JObject)jobject["_links"];
             if (links != null)
@@ -176,7 +183,7 @@ namespace Menes.Internal
             }
         }
 
-        private static void DeserializeEmbeddedResources(JsonSerializer serializer, JObject jobject, HalDocument halDocument)
+        private static void DeserializeEmbeddedResources(JsonSerializer serializer, JObject jobject, IHalDocument halDocument)
         {
             var resources = (JObject)jobject["_embedded"];
             if (resources != null)
@@ -187,12 +194,12 @@ namespace Menes.Internal
                     {
                         foreach (JToken resourceItem in array)
                         {
-                            halDocument.AddEmbeddedResource(resource.Key, serializer.Deserialize<HalDocument>(resourceItem.CreateReader()));
+                            halDocument.AddEmbeddedResource(resource.Key, serializer.Deserialize<IHalDocument>(resourceItem.CreateReader()));
                         }
                     }
                     else
                     {
-                        halDocument.AddEmbeddedResource(resource.Key, serializer.Deserialize<HalDocument>(resource.Value.CreateReader()));
+                        halDocument.AddEmbeddedResource(resource.Key, serializer.Deserialize<IHalDocument>(resource.Value.CreateReader()));
                     }
                 }
             }

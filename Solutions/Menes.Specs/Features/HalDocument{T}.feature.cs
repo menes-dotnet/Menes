@@ -20,9 +20,9 @@ namespace Menes.Specs.Features
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.1.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("HalDocument{T} serialization")]
+    [NUnit.Framework.DescriptionAttribute("IHalDocument serialization")]
     [NUnit.Framework.CategoryAttribute("perScenarioContainer")]
-    public partial class HalDocumentTSerializationFeature
+    public partial class IHalDocumentSerializationFeature
     {
         
         private TechTalk.SpecFlow.ITestRunner testRunner;
@@ -37,7 +37,7 @@ namespace Menes.Specs.Features
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "HalDocument{T} serialization", "\tIn order avoid creating response classes that are very similar to my domain clas" +
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "IHalDocument serialization", "\tIn order avoid creating response classes that are very similar to my domain clas" +
                     "ses\r\n\tI want to be able to return a domain class as a HAL document", ProgrammingLanguage.CSharp, new string[] {
                         "perScenarioContainer"});
             testRunner.OnFeatureStart(featureInfo);
@@ -107,13 +107,13 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.Given("I have a domain class", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 8
- testRunner.And("I have created an instance of HalDocument{T} from the domain class", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("I have created an instance of IHalDocument from the domain class", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 9
- testRunner.And("I add a link to the HalDocument{T}", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("I add a link to the IHalDocument", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 10
- testRunner.And("I add an embedded resource to the HalDocument{T}", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("I add an embedded resource to the IHalDocument", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 11
  testRunner.When("I serialize it to JSON", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
@@ -163,19 +163,19 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.Given("I have a domain class", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 18
- testRunner.And("I have created an instance of HalDocument{T} from the domain class", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("I have created an instance of IHalDocument from the domain class", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 19
- testRunner.And("I add a link to the HalDocument{T}", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("I add a link to the IHalDocument", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 20
- testRunner.And("I add an embedded resource to the HalDocument{T}", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("I add an embedded resource to the IHalDocument", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 21
  testRunner.When("I serialize it to JSON", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 22
- testRunner.And("I deserialize the JSON back to a HalDocument", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("I deserialize the JSON back to a IHalDocument", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 23
  testRunner.Then("the properties of the original document should be present in the deserialized doc" +

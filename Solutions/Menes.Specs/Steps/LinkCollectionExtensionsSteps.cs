@@ -4,7 +4,6 @@
 
 namespace Menes.Specs.Steps
 {
-    using System;
     using Menes.Links;
     using Microsoft.OpenApi.Models;
     using Moq;

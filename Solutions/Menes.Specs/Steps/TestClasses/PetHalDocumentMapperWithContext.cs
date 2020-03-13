@@ -16,7 +16,7 @@ namespace Menes.Specs.Steps.TestClasses
             this.LinkMapConfigured = true;
         }
 
-        public HalDocument Map(Pet resource, MappingContext context)
+        public IHalDocument Map(Pet resource, MappingContext context)
         {
             throw new NotSupportedException();
         }

@@ -15,14 +15,14 @@ namespace Menes.Links
     public static class OpenApiAccessCheckerExtensions
     {
         /// <summary>
-        /// Searches through a <see cref="HalDocument"/> and removes any links that the current
+        /// Searches through a <see cref="IHalDocument"/> and removes any links that the current
         /// principal does not have access to.
         /// </summary>
         /// <param name="that">
         /// The <see cref="IOpenApiAccessChecker"/> that will be used to check the individual links.
         /// </param>
         /// <param name="target">
-        /// The <see cref="HalDocument"/> to check.
+        /// The <see cref="IHalDocument"/> to check.
         /// </param>
         /// <param name="context">
         /// The <see cref="IOpenApiContext"/> used to get information about the current principal.
@@ -31,13 +31,13 @@ namespace Menes.Links
         /// The <see cref="HalDocumentLinkRemovalOptions"/> to apply when checking links.
         /// </param>
         /// <returns>A task that completes when all links have been checked.</returns>
-        public static async Task RemoveForbiddenLinksAsync(this IOpenApiAccessChecker that, HalDocument target, IOpenApiContext context, HalDocumentLinkRemovalOptions options = default)
+        public static async Task RemoveForbiddenLinksAsync(this IOpenApiAccessChecker that, IHalDocument target, IOpenApiContext context, HalDocumentLinkRemovalOptions options = default)
         {
             // First, we need to build a collection of all the links. For each one we need:
             // 1. The link itself.
             // 2. The HalDocument(s) to which it belongs - it is possible that we may encounter the same link twice and we need to be able to deal with that
             // 3. The link relation name.
-            var linkMap = new Dictionary<(string, OpenApiWebLink), List<HalDocument>>();
+            var linkMap = new Dictionary<(string, OpenApiWebLink), List<IHalDocument>>();
 
             AddHalDocumentLinksToMap(
                 target,
@@ -62,7 +62,7 @@ namespace Menes.Links
             {
                 foreach ((string, OpenApiWebLink) link in operationDescriptorMap[accessCheckResult.Key])
                 {
-                    foreach (HalDocument document in linkMap[link])
+                    foreach (IHalDocument document in linkMap[link])
                     {
                         document.RemoveLink(link.Item1, link.Item2);
 
@@ -73,7 +73,7 @@ namespace Menes.Links
             }
         }
 
-        private static void AddHalDocumentLinksToMap(HalDocument target, Dictionary<(string, OpenApiWebLink), List<HalDocument>> linkMap, bool recursive, bool unsafeChecking)
+        private static void AddHalDocumentLinksToMap(IHalDocument target, Dictionary<(string, OpenApiWebLink), List<IHalDocument>> linkMap, bool recursive, bool unsafeChecking)
         {
             foreach (string rel in target.GetLinkRelations())
             {
@@ -84,9 +84,9 @@ namespace Menes.Links
                         continue;
                     }
 
-                    if (!linkMap.TryGetValue((rel, current), out List<HalDocument> documents))
+                    if (!linkMap.TryGetValue((rel, current), out List<IHalDocument> documents))
                     {
-                        documents = new List<HalDocument>();
+                        documents = new List<IHalDocument>();
                         linkMap.Add((rel, current), documents);
                     }
 
@@ -100,7 +100,7 @@ namespace Menes.Links
             }
         }
 
-        private static bool ShouldSkipInUnsafeMode(string rel, WebLink link, HalDocument target)
+        private static bool ShouldSkipInUnsafeMode(string rel, WebLink link, IHalDocument target)
         {
             return (rel == "self") || (target?.HasEmbeddedResourceForLink(rel, link) ?? false);
         }

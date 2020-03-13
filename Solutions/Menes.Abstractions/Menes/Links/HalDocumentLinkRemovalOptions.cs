@@ -27,8 +27,8 @@ namespace Menes.Links
         ///     </item>
         ///     <item>
         ///         recursively - meaning that in addition to checking the supplied document,
-        ///         the link check will also search the <see cref="HalDocument.EmbeddedResources"/>
-        ///         collection for child <see cref="HalDocument"/>s and remove any forbidden links
+        ///         the link check will also search the <see cref="IEmbeddedResourcesCollection.EmbeddedResources"/>
+        ///         collection for child <see cref="IHalDocument"/>s and remove any forbidden links
         ///         from them as well as the parent.
         ///     </item>
         /// </list>
@@ -36,14 +36,14 @@ namespace Menes.Links
         None = 0,
 
         /// <summary>
-        /// The link check should not search the <see cref="HalDocument.EmbeddedResources"/> collection for child
-        /// <see cref="HalDocument"/>s.
+        /// The link check should not search the <see cref="IEmbeddedResourcesCollection.EmbeddedResources"/> collection for child
+        /// <see cref="IHalDocument"/>s.
         /// </summary>
         NonRecursive = 1,
 
         /// <summary>
         /// Perform an unsafe check. With this options set, link checking will skip any <code>self</code> links
-        /// and will also not validate any links that have a corresponding document in the <see cref="HalDocument.EmbeddedResources"/>
+        /// and will also not validate any links that have a corresponding document in the <see cref="IEmbeddedResourcesCollection.EmbeddedResources"/>
         /// collection.
         /// </summary>
         Unsafe = 2,

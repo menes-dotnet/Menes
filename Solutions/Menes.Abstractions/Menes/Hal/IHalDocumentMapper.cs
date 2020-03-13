@@ -26,8 +26,8 @@ namespace Menes.Hal
         /// Map a resource to a HAL document.
         /// </summary>
         /// <param name="resource">The resource to map.</param>
-        /// <returns>The <see cref="HalDocument"/> for the resource.</returns>
-        HalDocument Map(T resource);
+        /// <returns>The <see cref="IHalDocument"/> for the resource.</returns>
+        IHalDocument Map(T resource);
     }
 
     /// <summary>
@@ -42,7 +42,7 @@ namespace Menes.Hal
         /// </summary>
         /// <param name="resource">The resource to map.</param>
         /// <param name="context">The additional context information.</param>
-        /// <returns>The <see cref="HalDocument"/> for the resource.</returns>
-        HalDocument Map(TResource resource, TContext context);
+        /// <returns>The <see cref="IHalDocument"/> for the resource.</returns>
+        IHalDocument Map(TResource resource, TContext context);
     }
 }

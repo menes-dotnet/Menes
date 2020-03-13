@@ -32,18 +32,18 @@ namespace Menes.Specs.Steps
             this.scenarioContext = scenarioContext;
         }
 
-        [Given("I have a HalDocument called '(.*)'")]
-        public void GivenIHaveAHalDocumentCalled(string halDocumentName)
+        [Given("I have a IHalDocument called '(.*)'")]
+        public void GivenIHaveAIHalDocumentCalled(string halDocumentName)
         {
             IHalDocumentFactory halDocumentFactory = ContainerBindings.GetServiceProvider(this.scenarioContext).GetService<IHalDocumentFactory>();
 
             this.scenarioContext.Set(halDocumentFactory.CreateHalDocument(), halDocumentName);
         }
 
-        [Given("the HalDocument called '(.*)' has internal links")]
-        public void GivenTheHalDocumentCalledHasInternalLinks(string halDocumentName, Table openApiWebLinkTable)
+        [Given("the IHalDocument called '(.*)' has internal links")]
+        public void GivenTheIHalDocumentCalledHasInternalLinks(string halDocumentName, Table openApiWebLinkTable)
         {
-            HalDocument doc = this.scenarioContext.Get<HalDocument>(halDocumentName);
+            IHalDocument doc = this.scenarioContext.Get<IHalDocument>(halDocumentName);
 
             openApiWebLinkTable.Rows.ForEach(
                 row => doc.AddLink(
@@ -54,26 +54,26 @@ namespace Menes.Specs.Steps
                         Enum.Parse<OperationType>(row["OperationType"], true))));
         }
 
-        [Given("the HalDocument called '(.*)' has embedded resources")]
-        public void GivenTheHalDocumentCalledHasEmbeddedResources(string halDocumentName, Table embeddedResourceTable)
+        [Given("the IHalDocument called '(.*)' has embedded resources")]
+        public void GivenTheIHalDocumentCalledHasEmbeddedResources(string halDocumentName, Table embeddedResourceTable)
         {
             IHalDocumentFactory halDocumentFactory =
                 ContainerBindings.GetServiceProvider(this.scenarioContext).GetService<IHalDocumentFactory>();
 
             IEnumerable<(string Rel, object Object)> embeddedResources =
                 embeddedResourceTable.CreateSet<(string Rel, object Object)>();
-            HalDocument doc = this.scenarioContext.Get<HalDocument>(halDocumentName);
-            embeddedResources.ForEach(x => doc.AddEmbeddedResource(x.Rel, CreateHalDocument(x, halDocumentFactory)));
+            IHalDocument doc = this.scenarioContext.Get<IHalDocument>(halDocumentName);
+            embeddedResources.ForEach(x => doc.AddEmbeddedResource(x.Rel, CreateIHalDocument(x, halDocumentFactory)));
         }
 
-        private static HalDocument CreateHalDocument((string Rel, object Object) x, IHalDocumentFactory halDocumentFactory)
+        private static IHalDocument CreateIHalDocument((string Rel, object Object) x, IHalDocumentFactory halDocumentFactory)
         {
-            if (x.Object is HalDocument hal)
+            if (x.Object is IHalDocument hal)
             {
                 return hal;
             }
 
-            HalDocument doc = halDocumentFactory.CreateHalDocumentFrom(x.Object ?? new object());
+            IHalDocument doc = halDocumentFactory.CreateHalDocumentFrom(x.Object ?? new object());
             doc.AddLink(x.Rel, new WebLink("/some/link"));
             return doc;
         }
@@ -84,10 +84,10 @@ namespace Menes.Specs.Steps
             this.checksToDeny = table.CreateSet<(string Url, string Method)>().ToList();
         }
 
-        [When("I ask the access checker to remove forbidden links from the HalDocument called '(.*)' with the following options")]
-        public Task WhenIRequestAnAccessCheckOnTheHalDocumentCalledWithTheFollowingOptions(string halDocumentName, Table optionsTable)
+        [When("I ask the access checker to remove forbidden links from the IHalDocument called '(.*)' with the following options")]
+        public Task WhenIRequestAnAccessCheckOnTheIHalDocumentCalledWithTheFollowingOptions(string halDocumentName, Table optionsTable)
         {
-            HalDocument doc = this.scenarioContext.Get<HalDocument>(halDocumentName);
+            IHalDocument doc = this.scenarioContext.Get<IHalDocument>(halDocumentName);
             var mock = new Mock<IOpenApiAccessChecker>();
             mock.Setup(x => x.CheckAccessPoliciesAsync(It.IsAny<IOpenApiContext>(), It.IsAny<AccessCheckOperationDescriptor[]>())).Returns((IOpenApiContext _, AccessCheckOperationDescriptor[] descriptors) => this.MockCheckAccessPoliciesAsync(descriptors));
 
@@ -99,37 +99,37 @@ namespace Menes.Specs.Steps
 #pragma warning restore RCS1196 // Call extension method as instance method.
         }
 
-        [Then("the HalDocument called '(.*)' should contain only the following link relations")]
-        public void ThenTheHalDocumentCalledShouldContainOnlyTheFollowingLinkRelations(string halDocumentName, Table expectedLinkRelationsTable)
+        [Then("the IHalDocument called '(.*)' should contain only the following link relations")]
+        public void ThenTheIHalDocumentCalledShouldContainOnlyTheFollowingLinkRelations(string halDocumentName, Table expectedLinkRelationsTable)
         {
             string[] expectedLinkRelations = expectedLinkRelationsTable.Rows.Select(x => x[0]).ToArray();
-            HalDocument doc = this.scenarioContext.Get<HalDocument>(halDocumentName);
+            IHalDocument doc = this.scenarioContext.Get<IHalDocument>(halDocumentName);
 
             expectedLinkRelations.ForEach(expected => Assert.IsTrue(doc.GetLinksForRelation(expected).Any()));
 
             (string, WebLink)[] unexpectedLinkRelations = doc.GetLinkRelations().Where(actualRel => !expectedLinkRelations.Any(rel => actualRel == rel)).SelectMany(rel => doc.GetLinksForRelation(rel).Select(d => (rel, d))).ToArray();
 
-            Assert.IsEmpty(unexpectedLinkRelations, $"HalDocument called \"{halDocumentName}\" contains unexpected link relations: {string.Join(", ", unexpectedLinkRelations.Select(l => l.Item1))}");
+            Assert.IsEmpty(unexpectedLinkRelations, $"IHalDocument called \"{halDocumentName}\" contains unexpected link relations: {string.Join(", ", unexpectedLinkRelations.Select(l => l.Item1))}");
         }
 
-        [Then("the HalDocument called '(.*)' should contain only the following embedded resources")]
-        public void ThenTheHalDocumentCalledShouldContainOnlyTheFollowingEmbeddedResources(string halDocumentName, Table expectedEmbeddedResourcesTable)
+        [Then("the IHalDocument called '(.*)' should contain only the following embedded resources")]
+        public void ThenTheIHalDocumentCalledShouldContainOnlyTheFollowingEmbeddedResources(string halDocumentName, Table expectedEmbeddedResourcesTable)
         {
             string[] expectedEmbeddedResources = expectedEmbeddedResourcesTable.Rows.Select(x => x[0]).ToArray();
-            HalDocument doc = this.scenarioContext.Get<HalDocument>(halDocumentName);
+            IHalDocument doc = this.scenarioContext.Get<IHalDocument>(halDocumentName);
 
             IEnumerable<string> relations = doc.GetEmbeddedResourceRelations().ToList();
             expectedEmbeddedResources.ForEach(expected => Assert.IsTrue(relations.Any(r => r == expected)));
 
             string[] unexpectedEmbeddedResources = relations.Where(r => !expectedEmbeddedResources.Any(rel => r == rel)).ToArray();
 
-            Assert.IsEmpty(unexpectedEmbeddedResources, $"HalDocument called \"{halDocumentName}\" contains unexpected embedded resources: {string.Join(", ", unexpectedEmbeddedResources)}");
+            Assert.IsEmpty(unexpectedEmbeddedResources, $"IHalDocument called \"{halDocumentName}\" contains unexpected embedded resources: {string.Join(", ", unexpectedEmbeddedResources)}");
         }
 
-        [Then("the HalDocument called '(.*)' should contain no embedded resources")]
-        public void ThenTheHalDocumentCalledShouldContainNoEmbeddedResources(string halDocumentName)
+        [Then("the IHalDocument called '(.*)' should contain no embedded resources")]
+        public void ThenTheIHalDocumentCalledShouldContainNoEmbeddedResources(string halDocumentName)
         {
-            HalDocument doc = this.scenarioContext.Get<HalDocument>(halDocumentName);
+            IHalDocument doc = this.scenarioContext.Get<IHalDocument>(halDocumentName);
             Assert.IsEmpty(doc.EmbeddedResources);
         }
 

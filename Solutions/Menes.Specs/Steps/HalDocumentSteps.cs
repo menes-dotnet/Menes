@@ -1,4 +1,4 @@
-﻿// <copyright file="HalDocumentSteps.cs" company="Endjin">
+﻿// <copyright file="IHalDocumentSteps.cs" company="Endjin">
 // Copyright (c) Endjin. All rights reserved.
 // </copyright>
 
@@ -19,11 +19,11 @@ namespace Menes.Specs.Steps
     using TechTalk.SpecFlow;
 
     [Binding]
-    public class HalDocumentSteps
+    public class IHalDocumentSteps
     {
         private readonly ScenarioContext scenarioContext;
 
-        public HalDocumentSteps(ScenarioContext scenarioContext)
+        public IHalDocumentSteps(ScenarioContext scenarioContext)
         {
             this.scenarioContext = scenarioContext;
         }
@@ -41,18 +41,18 @@ namespace Menes.Specs.Steps
             this.scenarioContext.Set(myDto);
         }
 
-        [Given("I have created an instance of HalDocument{T} from the domain class")]
-        public void GivenIHaveCreatedAnInstanceOfHalDocumentFromTheDomainClass()
+        [Given("I have created an instance of IHalDocument from the domain class")]
+        public void GivenIHaveCreatedAnInstanceOfIHalDocumentFromTheDomainClass()
         {
             IHalDocumentFactory halDocumentFactory = ContainerBindings.GetServiceProvider(this.scenarioContext).GetService<IHalDocumentFactory>();
-            HalDocument halDocument = halDocumentFactory.CreateHalDocumentFrom(this.scenarioContext.Get<TestDomainClass>());
+            IHalDocument halDocument = halDocumentFactory.CreateHalDocumentFrom(this.scenarioContext.Get<TestDomainClass>());
             this.scenarioContext.Set(halDocument);
         }
 
         [When("I serialize it to JSON")]
         public void WhenISerializeItToJSON()
         {
-            HalDocument document = this.scenarioContext.Get<HalDocument>();
+            IHalDocument document = this.scenarioContext.Get<IHalDocument>();
 
             // We're actually going to serialize to a JObject as this will make it easier to
             // check the results.
@@ -63,29 +63,29 @@ namespace Menes.Specs.Steps
             this.scenarioContext.Set(result);
         }
 
-        [When("I deserialize the JSON back to a HalDocument")]
-        public void WhenIDeserializeTheJSONBackToAHalDocument()
+        [When("I deserialize the JSON back to a IHalDocument")]
+        public void WhenIDeserializeTheJSONBackToAIHalDocument()
         {
-            JObject previouslySerializedHalDocument = this.scenarioContext.Get<JObject>();
+            JObject previouslySerializedIHalDocument = this.scenarioContext.Get<JObject>();
 
             IJsonSerializerSettingsProvider serializerSettingsProvider = ContainerBindings.GetServiceProvider(this.scenarioContext).GetRequiredService<IJsonSerializerSettingsProvider>();
             var serializer = JsonSerializer.Create(serializerSettingsProvider.Instance);
-            HalDocument result = previouslySerializedHalDocument.ToObject<HalDocument>(serializer);
+            IHalDocument result = previouslySerializedIHalDocument.ToObject<IHalDocument>(serializer);
 
             this.scenarioContext.Set(result);
         }
 
-        [Given(@"I add a link to the HalDocument\{T}")]
-        public void GivenIAddALinkToTheHalDocumentT()
+        [Given(@"I add a link to the IHalDocument")]
+        public void GivenIAddALinkToTheIHalDocumentT()
         {
-            HalDocument document = this.scenarioContext.Get<HalDocument>();
+            IHalDocument document = this.scenarioContext.Get<IHalDocument>();
             document.AddLink("somrel", new WebLink("http://marain.io/examples/link"));
         }
 
-        [Given(@"I add an embedded resource to the HalDocument\{T}")]
-        public void GivenIAddAnEmbeddedResourceToTheHalDocumentT()
+        [Given(@"I add an embedded resource to the IHalDocument")]
+        public void GivenIAddAnEmbeddedResourceToTheIHalDocumentT()
         {
-            HalDocument document = this.scenarioContext.Get<HalDocument>();
+            IHalDocument document = this.scenarioContext.Get<IHalDocument>();
             IHalDocumentFactory halDocumentFactory = ContainerBindings.GetServiceProvider(this.scenarioContext).GetService<IHalDocumentFactory>();
             document.AddEmbeddedResource("somerel", halDocumentFactory.CreateHalDocument());
         }
@@ -108,9 +108,9 @@ namespace Menes.Specs.Steps
         [Then("the properties of the original document should be present in the deserialized document")]
         public void ThenThePropertiesOfTheOriginalDocumentShouldBePresentInTheDeserializedDocument()
         {
-            HalDocument result = this.scenarioContext.Get<HalDocument>();
+            IHalDocument result = this.scenarioContext.Get<IHalDocument>();
             TestDomainClass dtoIn = this.scenarioContext.Get<TestDomainClass>();
-            Assert.IsTrue(result.TryGetProperties(out TestDomainClass? dtoOut));
+            Assert.IsTrue(result.TryGetPropertiesAs(out TestDomainClass? dtoOut));
 
             Assert.AreEqual(dtoIn.Property1, dtoOut!.Property1);
             Assert.AreEqual(dtoIn.Property2, dtoOut.Property2);
@@ -127,7 +127,7 @@ namespace Menes.Specs.Steps
         [Then("the _embedded collection should be present in the deserialized document")]
         public void ThenThe_EmbeddedCollectionShouldBePresentInTheDeserializedDocument()
         {
-            HalDocument result = this.scenarioContext.Get<HalDocument>();
+            IHalDocument result = this.scenarioContext.Get<IHalDocument>();
             Assert.AreEqual(1, result.EmbeddedResources.Count());
         }
 
@@ -141,7 +141,7 @@ namespace Menes.Specs.Steps
         [Then("the _links collection should be present in the deserialized document")]
         public void ThenThe_LinksCollectionShouldBePresentInTheDeserializedDocument()
         {
-            HalDocument result = this.scenarioContext.Get<HalDocument>();
+            IHalDocument result = this.scenarioContext.Get<IHalDocument>();
             Assert.AreEqual(1, result.Links.Count());
 
             WebLink link = result.GetLinksForRelation("somrel").Single();

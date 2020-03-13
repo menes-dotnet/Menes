@@ -2,7 +2,7 @@
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
-namespace Menes.Hal
+namespace Menes.Hal.Internal
 {
     using System;
     using System.Collections.Generic;
@@ -19,10 +19,10 @@ namespace Menes.Hal
     /// <remarks>
     /// You will typically create an instance of this type using the <see cref="IHalDocumentFactory"/>.
     /// </remarks>
-    public class HalDocument : ILinkCollection
+    public sealed class HalDocument : IHalDocument
     {
         private Dictionary<string, List<WebLink>> links = new Dictionary<string, List<WebLink>>();
-        private Dictionary<string, List<HalDocument>> embeddedResources = new Dictionary<string, List<HalDocument>>();
+        private Dictionary<string, List<IHalDocument>> embeddedResources = new Dictionary<string, List<IHalDocument>>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="HalDocument"/> class.
@@ -64,18 +64,16 @@ namespace Menes.Hal
             }
         }
 
-        /// <summary>
-        /// Gets all of the embedded resources in the document.
-        /// </summary>
-        public IEnumerable<HalDocument> EmbeddedResources
+        /// <inheritdoc/>
+        public IEnumerable<IHalDocument> EmbeddedResources
         {
             get
             {
                 this.EnsureEmbeddedResources();
 
-                foreach (List<HalDocument> halDocumentList in this.embeddedResources.Values)
+                foreach (List<IHalDocument> halDocumentList in this.embeddedResources.Values)
                 {
-                    foreach (HalDocument halDocument in halDocumentList)
+                    foreach (IHalDocument halDocument in halDocumentList)
                     {
                         yield return halDocument;
                     }
@@ -95,12 +93,7 @@ namespace Menes.Hal
         /// </remarks>
         internal JObject? PropertiesInternalNullable { get; set; }
 
-        /// <summary>
-        /// Removes an embedded resource based on its href.
-        /// </summary>
-        /// <param name="rel">The relation type of the link.</param>
-        /// <param name="resourceLink">The link for the embedded resource from the links collection.</param>
-        /// <remarks>This finds the embdedded resources that match the rel type of the resource link, whose self link href matches the href of the resource link.</remarks>
+        /// <inheritdoc/>
         public void RemoveEmbeddedResource(string rel, WebLink resourceLink)
         {
             this.GetEmbeddedResourcesForRelation(rel)
@@ -108,35 +101,28 @@ namespace Menes.Hal
                 .ForEach(r => this.RemoveEmbeddedResource(rel, r));
         }
 
-        /// <summary>
-        /// Sets the properties of the HalDocument using an object instance.
-        /// </summary>
-        /// <typeparam name="T">The type of the properties object.</typeparam>
-        /// <param name="properties">The object from which to derive the properties.</param>
+        /// <inheritdoc/>
         public void SetProperties<T>(T properties)
         {
-            this.Properties = JObject.FromObject(properties, JsonSerializer.Create(this.SerializerSettings));
+            if (properties is JObject jobject)
+            {
+                this.Properties = jobject;
+            }
+            else
+            {
+                this.Properties = JObject.FromObject(properties, JsonSerializer.Create(this.SerializerSettings));
+            }
         }
 
-        /// <summary>
-        /// Determine if the document contains an embedded resource for the provided link.
-        /// </summary>
-        /// <param name="rel">The relation type of the link.</param>
-        /// <param name="resourceLink">The link with which to compare.</param>
-        /// <returns>True if there is a resource whose self link matches the resource link.</returns>
+        /// <inheritdoc/>
         public bool HasEmbeddedResourceForLink(string rel, WebLink resourceLink)
         {
             return this.GetEmbeddedResourcesForRelation(rel)
                 .Any(r => r.GetLinksForRelation("self").Any(link => link.Href == resourceLink.Href));
         }
 
-        /// <summary>
-        /// Gets the properties of the HalDocument as an object instance.
-        /// </summary>
-        /// <typeparam name="T">The type of the properties object.</typeparam>
-        /// <param name="result">The properties deserialized to the relevant type.</param>
-        /// <returns>True if it was possible to get the properties as the given type.</returns>
-        public bool TryGetProperties<T>([MaybeNullWhen(false)] out T result)
+        /// <inheritdoc/>
+        public bool TryGetPropertiesAs<T>([MaybeNullWhen(false)] out T result)
         {
             if (typeof(JObject).IsAssignableFrom(typeof(T)))
             {
@@ -202,36 +188,24 @@ namespace Menes.Hal
             yield break;
         }
 
-        /// <summary>
-        /// Adds a embeddedResource to the <c>_embeddedResources</c> collection.
-        /// </summary>
-        /// <param name="rel">The relation for the embedded resource.</param>
-        /// <param name="embeddedResource">The embeddedResource to add.</param>
-        public void AddEmbeddedResource(string rel, HalDocument embeddedResource)
+        /// <inheritdoc/>
+        public void AddEmbeddedResource(string rel, IHalDocument embeddedResource)
         {
-            List<HalDocument> embeddedResourceList = this.EnsureListForEmbeddedResource(rel);
+            List<IHalDocument> embeddedResourceList = this.EnsureListForEmbeddedResource(rel);
             embeddedResourceList.Add(embeddedResource);
         }
 
-        /// <summary>
-        /// Adds a collection of embedded resources for a particular relation.
-        /// </summary>
-        /// <param name="rel">The relation type.</param>
-        /// <param name="resources">The resources to embed.</param>
-        public void AddEmbeddedResources(string rel, IEnumerable<HalDocument> resources)
+        /// <inheritdoc/>
+        public void AddEmbeddedResources(string rel, IEnumerable<IHalDocument> resources)
         {
-            List<HalDocument> embeddedResourceList = this.EnsureListForEmbeddedResource(rel);
+            List<IHalDocument> embeddedResourceList = this.EnsureListForEmbeddedResource(rel);
             embeddedResourceList.AddRange(resources);
         }
 
-        /// <summary>
-        /// Removes a embeddedResource from the <c>_embeddedResources</c> collection.
-        /// </summary>
-        /// <param name="rel">The relation for the embedded resource.</param>
-        /// <param name="embeddedResource">The embeddedResource to remove.</param>
-        public void RemoveEmbeddedResource(string rel, HalDocument embeddedResource)
+        /// <inheritdoc/>
+        public void RemoveEmbeddedResource(string rel, IHalDocument embeddedResource)
         {
-            List<HalDocument> embeddedResourceList = this.EnsureListForEmbeddedResource(rel);
+            List<IHalDocument> embeddedResourceList = this.EnsureListForEmbeddedResource(rel);
             embeddedResourceList.Remove(embeddedResource);
 
             if (embeddedResourceList.Count == 0)
@@ -240,10 +214,7 @@ namespace Menes.Hal
             }
         }
 
-        /// <summary>
-        /// Enumerate the rels in the embeddedResource collection.
-        /// </summary>
-        /// <returns>An enumerable collection of strings that represent the rels in the <c>_embeddedResources</c> collection.</returns>
+        /// <inheritdoc/>
         public IEnumerable<string> GetEmbeddedResourceRelations()
         {
             this.EnsureEmbeddedResources();
@@ -254,18 +225,14 @@ namespace Menes.Hal
             }
         }
 
-        /// <summary>
-        /// Enumerate the embeddedResources for a particular relation.
-        /// </summary>
-        /// <param name="rel">The relaltion for which to get the embeddedResource or embeddedResources.</param>
-        /// <returns>An enumerable collection of web embeddedResources that correspond to the given relation, or an empty enumerable if there are no such embeddedResources.</returns>
-        public IEnumerable<HalDocument> GetEmbeddedResourcesForRelation(string rel)
+        /// <inheritdoc/>
+        public IEnumerable<IHalDocument> GetEmbeddedResourcesForRelation(string rel)
         {
             this.EnsureEmbeddedResources();
 
-            if (this.embeddedResources.TryGetValue(rel, out List<HalDocument> embeddedResourceList))
+            if (this.embeddedResources.TryGetValue(rel, out List<IHalDocument> embeddedResourceList))
             {
-                foreach (HalDocument embeddedResource in embeddedResourceList)
+                foreach (IHalDocument embeddedResource in embeddedResourceList)
                 {
                     yield return embeddedResource;
                 }
@@ -295,13 +262,13 @@ namespace Menes.Hal
             }
         }
 
-        private List<HalDocument> EnsureListForEmbeddedResource(string rel)
+        private List<IHalDocument> EnsureListForEmbeddedResource(string rel)
         {
             this.EnsureLinks();
 
-            if (!this.embeddedResources.TryGetValue(rel, out List<HalDocument> halDocumentList))
+            if (!this.embeddedResources.TryGetValue(rel, out List<IHalDocument> halDocumentList))
             {
-                halDocumentList = new List<HalDocument>();
+                halDocumentList = new List<IHalDocument>();
                 this.embeddedResources.Add(rel, halDocumentList);
             }
 
@@ -312,7 +279,7 @@ namespace Menes.Hal
         {
             if (this.embeddedResources == null)
             {
-                this.embeddedResources = new Dictionary<string, List<HalDocument>>();
+                this.embeddedResources = new Dictionary<string, List<IHalDocument>>();
             }
         }
     }
