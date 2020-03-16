@@ -5,10 +5,7 @@
 namespace Microsoft.Extensions.DependencyInjection
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
-    using Menes;
-    using Menes.Auditing.Internal;
     using Menes.Internal;
 
     /// <summary>
@@ -28,13 +25,7 @@ namespace Microsoft.Extensions.DependencyInjection
             {
                 services.AddSingleton(_ =>
                 {
-                    var result = new TypeVisitorFactory();
-                    result.AppendVisitor(new AllOfTypeVisitor(result));
-                    result.AppendVisitor(new AnyOfTypeVisitor(result));
-                    result.AppendVisitor(new OneOfTypeVisitor(result));
-                    result.AppendVisitor(new ArrayTypeVisitor(result));
-                    result.AppendVisitor(new ObjectTypeVisitor(result));
-                    result.AppendVisitor(new BuiltInTypeVisitor());
+                    var result = TypeVisitorFactory.CreateDefaultInstance();
                     configure?.Invoke(result);
                     return result;
                 });

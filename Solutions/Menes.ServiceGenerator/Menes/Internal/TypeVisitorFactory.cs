@@ -42,6 +42,22 @@ namespace Menes.Internal
         public IEnumerable<ITypeVisitor> TypeVisitors => this.typeVisitors;
 
         /// <summary>
+        /// Create a type visitor factory with the default configuration.
+        /// </summary>
+        /// <returns>An instance of a <see cref="TypeVisitorFactory"/> configured with the default values.</returns>
+        public static TypeVisitorFactory CreateDefaultInstance()
+        {
+            var result = new TypeVisitorFactory();
+            result.AppendVisitor(new AllOfTypeVisitor(result));
+            result.AppendVisitor(new AnyOfTypeVisitor(result));
+            result.AppendVisitor(new OneOfTypeVisitor(result));
+            result.AppendVisitor(new ArrayTypeVisitor(result));
+            result.AppendVisitor(new ObjectTypeVisitor(result));
+            result.AppendVisitor(new BuiltInTypeVisitor());
+            return result;
+        }
+
+        /// <summary>
         /// Adds a visitor to the end of the list (i.e. lowest priority).
         /// </summary>
         /// <param name="visitor">The visitor to add.</param>
@@ -76,7 +92,7 @@ namespace Menes.Internal
             if (this.lastVisitorCriteria != (document, typeSchema))
             {
                 this.lastVisitorCriteria = (document, typeSchema);
-                this.lastVisitor = this.typeVisitors.FirstOrDefault(t => t.CanVisit(document, path, operation, typeSchema));
+                this.lastVisitor = this.typeVisitors.Find(t => t.CanVisit(document, path, operation, typeSchema));
             }
 
             return this.lastVisitor != null;
