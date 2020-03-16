@@ -178,7 +178,7 @@ namespace Menes.Specs.Fakes
         {
             this.EnsureLinks();
 
-            if (this.links.TryGetValue(rel, out List<WebLink> linkList))
+            if (this.links.TryGetValue(rel, out List<WebLink>? linkList))
             {
                 foreach (WebLink link in linkList)
                 {
@@ -231,7 +231,7 @@ namespace Menes.Specs.Fakes
         {
             this.EnsureEmbeddedResources();
 
-            if (this.embeddedResources.TryGetValue(rel, out List<IHalDocument> embeddedResourceList))
+            if (this.embeddedResources.TryGetValue(rel, out List<IHalDocument>? embeddedResourceList))
             {
                 foreach (IHalDocument embeddedResource in embeddedResourceList)
                 {
@@ -246,7 +246,7 @@ namespace Menes.Specs.Fakes
         {
             this.EnsureLinks();
 
-            if (!this.links.TryGetValue(rel, out List<WebLink> linkList))
+            if (!this.links.TryGetValue(rel, out List<WebLink>? linkList))
             {
                 linkList = new List<WebLink>();
                 this.links.Add(rel, linkList);
@@ -267,7 +267,7 @@ namespace Menes.Specs.Fakes
         {
             this.EnsureLinks();
 
-            if (!this.embeddedResources.TryGetValue(rel, out List<IHalDocument> halDocumentList))
+            if (!this.embeddedResources.TryGetValue(rel, out List<IHalDocument>? halDocumentList))
             {
                 halDocumentList = new List<IHalDocument>();
                 this.embeddedResources.Add(rel, halDocumentList);
