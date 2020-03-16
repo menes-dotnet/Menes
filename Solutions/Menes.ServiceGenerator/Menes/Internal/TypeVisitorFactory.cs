@@ -52,6 +52,7 @@ namespace Menes.Internal
             result.AppendVisitor(new OneOfTypeVisitor(result));
             result.AppendVisitor(new ArrayTypeVisitor(result));
             result.AppendVisitor(new ObjectTypeVisitor(result));
+            result.AppendVisitor(new NodatimeTypeVisitor());
             result.AppendVisitor(new BuiltInTypeVisitor());
             return result;
         }
@@ -63,6 +64,15 @@ namespace Menes.Internal
         public void AppendVisitor(ITypeVisitor visitor)
         {
             this.typeVisitors.Add(visitor);
+        }
+
+        /// <summary>
+        /// Removes the type visitor of the given type.
+        /// </summary>
+        /// <typeparam name="T">The type of visitor to remove.</typeparam>
+        public void RemoveVisitor<T>()
+        {
+            this.typeVisitors.RemoveAll(t => t.GetType() == typeof(T));
         }
 
         /// <summary>
