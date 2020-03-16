@@ -15,6 +15,7 @@ namespace Menes.Internal
     /// </summary>
     public class TypeVisitorFactory : ITypeVisitor
     {
+        private readonly List<ITypeVisitor> typeVisitors;
         private ITypeVisitor? lastVisitor;
         private (OpenApiDocument, OpenApiSchema) lastVisitorCriteria;
 
@@ -24,13 +25,39 @@ namespace Menes.Internal
         /// <param name="typeVisitors">An ordered list of type visitors that it will try in turn when visiting a type.</param>
         public TypeVisitorFactory(IEnumerable<ITypeVisitor> typeVisitors)
         {
-            this.TypeVisitors = new List<ITypeVisitor>(typeVisitors);
+            this.typeVisitors = new List<ITypeVisitor>(typeVisitors);
+        }
+
+        /// <summary>
+        /// Initializes a new instance of <see cref="TypeVisitorFactory"/> class.
+        /// </summary>
+        public TypeVisitorFactory()
+        {
+            this.typeVisitors = new List<ITypeVisitor>();
         }
 
         /// <summary>
         /// Gets the ordered list of type visitors.
         /// </summary>
-        public IList<ITypeVisitor> TypeVisitors { get; }
+        public IEnumerable<ITypeVisitor> TypeVisitors => this.typeVisitors;
+
+        /// <summary>
+        /// Adds a visitor to the end of the list (i.e. lowest priority).
+        /// </summary>
+        /// <param name="visitor">The visitor to add.</param>
+        public void AppendVisitor(ITypeVisitor visitor)
+        {
+            this.typeVisitors.Add(visitor);
+        }
+
+        /// <summary>
+        /// Adds a visitor to the start of the list (i.e. highest priority).
+        /// </summary>
+        /// <param name="visitor">The visitor to add.</param>
+        public void PrependVisitor(ITypeVisitor visitor)
+        {
+            this.typeVisitors.Insert(0, visitor);
+        }
 
         /// <inheritdoc/>
         public string BuildTypeDeclarationSyntax(OpenApiDocument document, OpenApiPathItem path, OpenApiOperation operation, OpenApiSchema typeSchema, IDictionary<string, TypeDeclarationSyntax> types, string fallbackNameContext)
@@ -49,7 +76,7 @@ namespace Menes.Internal
             if (this.lastVisitorCriteria != (document, typeSchema))
             {
                 this.lastVisitorCriteria = (document, typeSchema);
-                this.lastVisitor = this.TypeVisitors.FirstOrDefault(t => t.CanVisit(document, path, operation, typeSchema));
+                this.lastVisitor = this.typeVisitors.FirstOrDefault(t => t.CanVisit(document, path, operation, typeSchema));
             }
 
             return this.lastVisitor != null;
