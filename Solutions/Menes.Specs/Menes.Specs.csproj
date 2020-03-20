@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <SpecFlowObsoleteCodeBehindFiles Remove="Features\AccessControlPolicy.feature.cs" />
+    <SpecFlowObsoleteCodeBehindFiles Remove="Features\CreatePetStoreService.feature.cs" />
     <SpecFlowObsoleteCodeBehindFiles Remove="Features\ExemptOperationIdsAccessPolicy.feature.cs" />
     <SpecFlowObsoleteCodeBehindFiles Remove="Features\HalDocument{T}.feature.cs" />
     <SpecFlowObsoleteCodeBehindFiles Remove="Features\OpenApiAccessCheckerExtensions.feature.cs" />
@@ -40,11 +41,20 @@
   <ItemGroup>
     <ProjectReference Include="..\Menes.Abstractions\Menes.Abstractions.csproj" />
     <ProjectReference Include="..\Menes.Hosting.AspNetCore\Menes.Hosting.AspNetCore.csproj" />
+    <ProjectReference Include="..\Menes.ServiceGenerator\Menes.ServiceGenerator.csproj" />
   </ItemGroup>
 
 
   <ItemGroup>
     <None Remove="Steps\TestClasses\OpenApiWebLinkResolverTest.yaml" />
+    <None Remove="yaml\petstore.yaml" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Content Include="yaml\petstore.yaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>

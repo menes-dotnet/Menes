@@ -98,9 +98,12 @@ namespace Menes.Internal
                     contentIndex++;
                 }
 
-                TypeDeclarationSyntax sourceType = types[anyOfTypeName];
-                tds = tds.CopyUniquePropertiesFrom(sourceType);
-                tds = tds.AddMapperMethod(sourceType);
+                // TODO: I think "any of" may need to be dealt with by a discriminated union rather than a merging of types.
+                if (types.TryGetValue(anyOfTypeName, out TypeDeclarationSyntax sourceType))
+                {
+                    tds = tds.CopyUniquePropertiesFrom(sourceType);
+                    tds = tds.AddMapperMethod(sourceType);
+                }
             }
 
             return tds;

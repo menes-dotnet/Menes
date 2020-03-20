@@ -16,7 +16,7 @@ namespace Menes.Internal
     {
         private readonly List<ITypeVisitor> typeVisitors;
         private ITypeVisitor? lastVisitor;
-        private (OpenApiDocument, OpenApiSchema) lastVisitorCriteria;
+        private (OpenApiDocument document, OpenApiSchema schema) lastVisitorCriteria;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TypeVisitorFactory"/> class.
@@ -71,6 +71,7 @@ namespace Menes.Internal
         /// </summary>
         /// <typeparam name="T">The type of visitor to remove.</typeparam>
         public void RemoveVisitor<T>()
+            where T : ITypeVisitor
         {
             this.typeVisitors.RemoveAll(t => t.GetType() == typeof(T));
         }

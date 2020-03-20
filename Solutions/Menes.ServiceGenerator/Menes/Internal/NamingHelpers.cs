@@ -4,6 +4,8 @@
 
 namespace Menes.Internal
 {
+    using System;
+    using System.Globalization;
     using System.Text;
 
     /// <summary>
@@ -35,31 +37,59 @@ namespace Menes.Internal
         /// <returns>The string in the appropriate casing.</returns>
         internal static string ConvertCaseString(string phrase, Case casing)
         {
-            string[] splitPhrase = phrase.Split(' ', '-', '.', '_');
-            var sb = new StringBuilder();
+            if (string.IsNullOrEmpty(phrase))
+            {
+                return string.Empty;
+            }
+
+            var resultBuilder = new StringBuilder();
+
+            bool wasUpper = false;
+
+            foreach (char c in phrase)
+            {
+                // Replace anything, but letters and digits, with space
+                if (!char.IsLetterOrDigit(c))
+                {
+                    resultBuilder.Append(" ");
+                }
+                else
+                {
+                    if (char.IsUpper(c))
+                    {
+                        if (!wasUpper)
+                        {
+                            resultBuilder.Append(" ");
+                            wasUpper = true;
+                        }
+                    }
+                    else if (wasUpper)
+                    {
+                        wasUpper = false;
+                    }
+
+                    resultBuilder.Append(c);
+                }
+            }
+
+            string result = resultBuilder.ToString();
+
+            // Make result string all lowercase, because ToTitleCase does not change all uppercase correctly
+            result = result.ToLower();
+
+            TextInfo myTI = CultureInfo.CurrentCulture.TextInfo;
+
+            result = myTI.ToTitleCase(result).Replace(" ", string.Empty);
 
             if (casing == Case.CamelCase)
             {
-                sb.Append(splitPhrase[0].ToLower());
-                splitPhrase[0] = string.Empty;
-            }
-            else if (casing == Case.PascalCase)
-            {
-                sb = new StringBuilder();
+                char[] a = result.ToCharArray();
+                a[0] = char.ToLower(a[0]);
+
+                return new string(a);
             }
 
-            foreach (string s in splitPhrase)
-            {
-                char[] splitPhraseChars = s.ToCharArray();
-                if (splitPhraseChars.Length > 0)
-                {
-                    splitPhraseChars[0] = new string(splitPhraseChars[0], 1).ToUpper()[0];
-                }
-
-                sb.Append(new string(splitPhraseChars));
-            }
-
-            return sb.ToString();
+            return result;
         }
 
         /// <summary>

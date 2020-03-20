@@ -84,23 +84,22 @@ namespace Menes.Internal
                     .AddModifiers(SF.Token(SyntaxKind.PublicKeyword));
 
             string contentTypeName = $"{typeName}Content";
-            int contentIndex = 0;
 
             foreach (OpenApiSchema allofSchema in typeSchema.AllOf)
             {
-                string anonymousSchemaTypeName = NamingHelpers.BuildAnonymousSchemaTypeName(contentTypeName, contentIndex);
-                string allOfTypeName = this.typeVisitorFactory.BuildTypeDeclarationSyntax(document, path, operation, allofSchema, types, anonymousSchemaTypeName);
-
-                if (allOfTypeName == anonymousSchemaTypeName)
-                {
-                    // We've used an anonymous schema, so we need to increment a numeric identifier to distinguish the next one
-                    // We recommend not using multiple anonymous schema for this reason - prefer a referenced type.
-                    contentIndex++;
-                }
+                string allOfTypeName = this.typeVisitorFactory.BuildTypeDeclarationSyntax(document, path, operation, allofSchema, types, contentTypeName);
 
                 TypeDeclarationSyntax sourceType = types[allOfTypeName];
                 tds = tds.CopyUniquePropertiesFrom(sourceType);
-                tds = tds.AddMapperMethod(sourceType);
+
+                if (allOfTypeName != contentTypeName)
+                {
+                    tds = tds.AddMapperMethod(sourceType);
+                }
+                else
+                {
+                    types.Remove(contentTypeName);
+                }
             }
 
             return tds;

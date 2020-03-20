@@ -5,6 +5,7 @@
 namespace Menes
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Menes.Internal;
     using Microsoft.CodeAnalysis.CSharp;
     using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -12,7 +13,7 @@ namespace Menes
     using SF = Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
     /// <summary>
-    /// Standard implementation of <see cref="IOperationVisitor"/>.
+    /// An <see cref="IOperationVisitor"/> that generates services that return <see cref="Task{OpenApiResult}"/>.
     /// </summary>
     internal class AsyncOpenApiResultOperationVisitor : IOperationVisitor
     {
@@ -31,6 +32,9 @@ namespace Menes
         public MethodDeclarationSyntax BuildOperationSyntax(OpenApiDocument document, OpenApiPathItem path, OpenApiOperation operation, IDictionary<string, TypeDeclarationSyntax> types)
         {
             string methodName = NamingHelpers.ConvertCaseString(operation.OperationId, NamingHelpers.Case.PascalCase);
+
+            operation.CreateResponseTypes(document, path, this.typeVisitorFactory, types, methodName);
+
             return
                 CreateMethodDeclarationAndBody(methodName)
                 .AddOperationIdAttribute(operation)

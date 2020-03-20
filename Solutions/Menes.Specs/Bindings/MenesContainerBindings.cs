@@ -39,6 +39,7 @@ namespace Marain.Claims.SpecFlow.Bindings
                     serviceCollection.AddInstrumentation();
                     serviceCollection.AddInstrumentationSourceTagging();
                     serviceCollection.AddTransient<CustomHalDocument>();
+                    serviceCollection.AddServiceGeneratorVisitors();
 
                     OperationInvokerTestContext.AddServices(serviceCollection);
                 });

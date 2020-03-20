@@ -126,9 +126,7 @@ namespace Menes.Internal
                 SF.Parameter(SF.Identifier("body"))
                     .WithType(SF.ParseTypeName(typeName));
 
-            md.AddParameterListParameters(parameterSyntax);
-
-            return md;
+            return md.AddParameterListParameters(parameterSyntax);
         }
 
         /// <summary>
@@ -153,7 +151,7 @@ namespace Menes.Internal
                 SF.Parameter(SF.Identifier(parameterName))
                     .WithType(SF.ParseTypeName(typeName));
 
-            if (parameter.Name != parameter.Name)
+            if (parameter.Name != parameterName)
             {
                 parameterSyntax = parameterSyntax.AddOpenApiParameterAttribute(parameter);
             }
