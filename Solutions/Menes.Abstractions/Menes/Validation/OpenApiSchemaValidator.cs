@@ -557,6 +557,13 @@ namespace Menes.Validation
 
                 if (!(token is JObject))
                 {
+                    if (schema.OneOf.Count > 0 || schema.AnyOf.Count > 0 || schema.AllOf.Count > 0)
+                    {
+                        // This is potentially not an object at all, so we will rely on the anyof/allof validation
+                        // to valdate this type.
+                        return;
+                    }
+
                     errors.Add(new ValidationError(ValidationErrorKind.ObjectExpected, propertyName, propertyPath, token, schema));
                 }
             }
