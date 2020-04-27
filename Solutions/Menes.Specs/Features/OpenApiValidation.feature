@@ -27,5 +27,7 @@ Scenario Outline: Validate simple schema
 		| 12 | { "oneOf": [{"type": "object"}, {"type": "array"}, {"type": "boolean"}, {"type": "integer"}, {"type": "number"}] } | false                             | valid   |
 		| 13 | { "oneOf": [{"type": "object"}, {"type": "array"}, {"type": "boolean"}, {"type": "integer"}, {"type": "number"}] } | { "foo": "something", "bar": 14 } | valid   |
 		| 14 | { "oneOf": [{"type": "object"}, {"type": "array"}, {"type": "boolean"}, {"type": "integer"}, {"type": "number"}] } | "A string"                        | invalid |
-		| 15 | { "properties": {"foo": {type: "string"}, "bar": { type: "number" } } }                                            | { "foo": "something", "bar": 14 } | valid   |
-		| 16 | { "type": "object", "properties": {"foo": {type: "string"}, "bar": { type: "number" } } }                          | { "foo": "something", "bar": 14 } | valid   |
+		| 15 | { "allOf": [{"type": "integer"}, {"type": "number"}] }                                                             | 3                                 | valid   |
+		| 16 | { "allOf": [{"type": "integer"}, {"type": "number"}] }                                                             | 3.3                               | invalid |
+		| 18 | { "properties": {"foo": {type: "string"}, "bar": { type: "number" } } }                                            | { "foo": "something", "bar": 14 } | valid   |
+		| 19 | { "type": "object", "properties": {"foo": {type: "string"}, "bar": { type: "number" } } }                          | { "foo": "something", "bar": 14 } | valid   |

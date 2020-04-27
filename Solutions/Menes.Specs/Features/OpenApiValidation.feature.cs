@@ -105,8 +105,10 @@ namespace Menes.Specs.Features
             "\"integer\"}, {\"type\": \"number\"}] }", "{ \"foo\": \"something\", \"bar\": 14 }", "valid", null)]
         [NUnit.Framework.TestCaseAttribute("14", "{ \"oneOf\": [{\"type\": \"object\"}, {\"type\": \"array\"}, {\"type\": \"boolean\"}, {\"type\": " +
             "\"integer\"}, {\"type\": \"number\"}] }", "\"A string\"", "invalid", null)]
-        [NUnit.Framework.TestCaseAttribute("15", "{ \"properties\": {\"foo\": {type: \"string\"}, \"bar\": { type: \"number\" } } }", "{ \"foo\": \"something\", \"bar\": 14 }", "valid", null)]
-        [NUnit.Framework.TestCaseAttribute("16", "{ \"type\": \"object\", \"properties\": {\"foo\": {type: \"string\"}, \"bar\": { type: \"numbe" +
+        [NUnit.Framework.TestCaseAttribute("15", "{ \"allOf\": [{\"type\": \"integer\"}, {\"type\": \"number\"}] }", "3", "valid", null)]
+        [NUnit.Framework.TestCaseAttribute("16", "{ \"allOf\": [{\"type\": \"integer\"}, {\"type\": \"number\"}] }", "3.3", "invalid", null)]
+        [NUnit.Framework.TestCaseAttribute("18", "{ \"properties\": {\"foo\": {type: \"string\"}, \"bar\": { type: \"number\" } } }", "{ \"foo\": \"something\", \"bar\": 14 }", "valid", null)]
+        [NUnit.Framework.TestCaseAttribute("19", "{ \"type\": \"object\", \"properties\": {\"foo\": {type: \"string\"}, \"bar\": { type: \"numbe" +
             "r\" } } }", "{ \"foo\": \"something\", \"bar\": 14 }", "valid", null)]
         public virtual void ValidateSimpleSchema(string iD, string schemaFragment, string payloadJSON, string result, string[] exampleTags)
         {
