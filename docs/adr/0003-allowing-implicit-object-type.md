@@ -2,13 +2,13 @@
 
 ## Status
 
-Proposed.
+Accepted.
 
 ## Context
 
-In real-world OpenAPI schema, we have discovered that people frequently omit the `type: object` from their object definitions. THIS IS NOT VALID Open API schema.
+In real-world OpenAPI schema, we have discovered that people sometimes omit the `type: object` from their object definitions. We believe that this is valid Open API schema, if and only if the .
 
-```
+```yaml
 Pet:
     required:
     - id
@@ -25,7 +25,7 @@ Pet:
 
 However, there are other scenarios where you are *not* expected to supply the `type` property. Specifically, the `anyOf`, `oneOf`, `allOf` cases.
 
-```
+```yaml
 someEntity: 
   anyOf:
     - type: string
@@ -35,13 +35,10 @@ someEntity:
     - type: integer
     - type: number
 ```
-
-We need to distinguish between these two scenarios.
-
 ## Decision
 
-Menes will continue to support "implied object", despite it being an OpenAPI schema violation. We have updated our schema validation to support this.
+Menes will support these semantics. We have updated our schema validation to support this by translating the missing `type` element into the internal schema type `None`.
 
 ## Consequences
 
-We support all valid Open API schema, plus this common invalid case where the intention can be inferred. It is a true superset of valid schema.
+There should be no impact on existing code.

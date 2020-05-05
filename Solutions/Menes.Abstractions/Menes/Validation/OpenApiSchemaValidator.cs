@@ -170,30 +170,20 @@ namespace Menes.Validation
 
         private JsonObjectType ToJsonObjectType(string type)
         {
-            switch (type)
+            return type switch
             {
-                case "none":
-                    return JsonObjectType.None;
-                case "array":
-                    return JsonObjectType.Array;
-                case "boolean":
-                    return JsonObjectType.Boolean;
-                case "integer":
-                    return JsonObjectType.Integer;
-                case "null":
-                    return JsonObjectType.Null;
-                case "number":
-                    return JsonObjectType.Number;
-                case "object":
-                case null: // Lazy people don't say that they are an object
-                    return JsonObjectType.Object;
-                case "string":
-                    return JsonObjectType.String;
-                case "File":
-                    return JsonObjectType.File;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(type));
-            }
+                "none" => JsonObjectType.None,
+                "array" => JsonObjectType.Array,
+                "boolean" => JsonObjectType.Boolean,
+                "integer" => JsonObjectType.Integer,
+                "null" => JsonObjectType.Null,
+                "number" => JsonObjectType.Number,
+                "object" => JsonObjectType.Object,
+                null => JsonObjectType.None,
+                "string" => JsonObjectType.String,
+                "File" => JsonObjectType.File,
+                _ => throw new ArgumentOutOfRangeException(nameof(type)),
+            };
         }
 
         private IEnumerable<JsonObjectType> GetTypes(OpenApiSchema schema)
@@ -557,13 +547,6 @@ namespace Menes.Validation
 
                 if (!(token is JObject))
                 {
-                    if (schema.OneOf.Count > 0 || schema.AnyOf.Count > 0 || schema.AllOf.Count > 0)
-                    {
-                        // This is potentially not an object at all, so we will rely on the anyof/allof validation
-                        // to valdate this type.
-                        return;
-                    }
-
                     errors.Add(new ValidationError(ValidationErrorKind.ObjectExpected, propertyName, propertyPath, token, schema));
                 }
             }

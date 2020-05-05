@@ -15,6 +15,7 @@
     [Binding]
     public class OpenApiValidationSteps
     {
+        private const string ResultKey = "Result";
         private readonly ScenarioContext scenarioContext;
 
         public OpenApiValidationSteps(ScenarioContext scenarioContext)
@@ -52,11 +53,11 @@
             try
             {
                 validator.ValidateAndThrow(payload, schema);
-                this.scenarioContext.Set(true, "Result");
+                this.scenarioContext.Set(true, ResultKey);
             }
             catch(OpenApiBadRequestException ex)
             {
-                this.scenarioContext.Set(false, "Result");
+                this.scenarioContext.Set(false, ResultKey);
                 this.scenarioContext.Set(ex, "Exception");
             }
         }
@@ -64,13 +65,13 @@
         [Then("the result should be valid")]
         public void ThenTheResultShouldBeValid()
         {
-            Assert.IsTrue(this.scenarioContext.Get<bool>("Result"));
+            Assert.IsTrue(this.scenarioContext.Get<bool>(ResultKey));
         }
 
         [Then("the result should be invalid")]
         public void ThenTheResultShouldBeInvalid()
         {
-            Assert.IsFalse(this.scenarioContext.Get<bool>("Result"));
+            Assert.IsFalse(this.scenarioContext.Get<bool>(ResultKey));
         }
     }
 }

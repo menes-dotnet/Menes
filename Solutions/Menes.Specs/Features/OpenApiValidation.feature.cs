@@ -75,7 +75,59 @@ namespace Menes.Specs.Features
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Validate simple schema")]
+        [NUnit.Framework.DescriptionAttribute("Validate object definition")]
+        [NUnit.Framework.CategoryAttribute("perScenarioContainer")]
+        [NUnit.Framework.TestCaseAttribute("1", "{ \"properties\": {\"foo\": {type: \"string\"}, \"bar\": { type: \"number\" } } }", "{ \"foo\": \"something\", \"bar\": 14 }", "valid", null)]
+        [NUnit.Framework.TestCaseAttribute("2", "{ \"type\": \"object\", \"properties\": {\"foo\": {type: \"string\"}, \"bar\": { type: \"numbe" +
+            "r\" } } }", "{ \"foo\": \"something\", \"bar\": 14 }", "valid", null)]
+        public virtual void ValidateObjectDefinition(string iD, string schemaFragment, string payloadJSON, string result, string[] exampleTags)
+        {
+            string[] @__tags = new string[] {
+                    "perScenarioContainer"};
+            if ((exampleTags != null))
+            {
+                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
+            }
+            string[] tagsOfScenario = @__tags;
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Validate object definition", null, @__tags);
+#line 7
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 8
+ testRunner.Given(string.Format("the schema \'{0}\'", schemaFragment), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 9
+ testRunner.And(string.Format("the payload \'{0}\'", payloadJSON), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 10
+ testRunner.When("I validate the payload against the schema", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 11
+ testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Validate anyOf allOf and oneOf")]
         [NUnit.Framework.CategoryAttribute("perScenarioContainer")]
         [NUnit.Framework.TestCaseAttribute("1", "{ \"anyOf\": [{\"type\": \"object\"}, {\"type\": \"array\"}, {\"type\": \"boolean\"}, {\"type\": " +
             "\"integer\"}, {\"type\": \"number\"}] }", "3", "valid", null)]
@@ -107,10 +159,10 @@ namespace Menes.Specs.Features
             "\"integer\"}, {\"type\": \"number\"}] }", "\"A string\"", "invalid", null)]
         [NUnit.Framework.TestCaseAttribute("15", "{ \"allOf\": [{\"type\": \"integer\"}, {\"type\": \"number\"}] }", "3", "valid", null)]
         [NUnit.Framework.TestCaseAttribute("16", "{ \"allOf\": [{\"type\": \"integer\"}, {\"type\": \"number\"}] }", "3.3", "invalid", null)]
-        [NUnit.Framework.TestCaseAttribute("18", "{ \"properties\": {\"foo\": {type: \"string\"}, \"bar\": { type: \"number\" } } }", "{ \"foo\": \"something\", \"bar\": 14 }", "valid", null)]
-        [NUnit.Framework.TestCaseAttribute("19", "{ \"type\": \"object\", \"properties\": {\"foo\": {type: \"string\"}, \"bar\": { type: \"numbe" +
-            "r\" } } }", "{ \"foo\": \"something\", \"bar\": 14 }", "valid", null)]
-        public virtual void ValidateSimpleSchema(string iD, string schemaFragment, string payloadJSON, string result, string[] exampleTags)
+        [NUnit.Framework.TestCaseAttribute("17", "{ \"allOf\":[{\"type\":\"object\",\"required\":[\"petType\"],\"properties\":{\"petType\":{\"type" +
+            "\":\"string\"}},\"discriminator\":{\"propertyName\":\"petType\"}},{\"type\":\"object\",\"prope" +
+            "rties\":{\"name\":{\"type\":\"string\"}}}]}", "{ \"petType\": \"cat\", \"name\": \"misty\" }", "valid", null)]
+        public virtual void ValidateAnyOfAllOfAndOneOf(string iD, string schemaFragment, string payloadJSON, string result, string[] exampleTags)
         {
             string[] @__tags = new string[] {
                     "perScenarioContainer"};
@@ -119,8 +171,8 @@ namespace Menes.Specs.Features
                 @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
             }
             string[] tagsOfScenario = @__tags;
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Validate simple schema", null, @__tags);
-#line 7
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Validate anyOf allOf and oneOf", null, @__tags);
+#line 19
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -140,16 +192,16 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 8
+#line 20
  testRunner.Given(string.Format("the schema \'{0}\'", schemaFragment), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 9
+#line 21
  testRunner.And(string.Format("the payload \'{0}\'", payloadJSON), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 10
+#line 22
  testRunner.When("I validate the payload against the schema", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 11
+#line 23
  testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
