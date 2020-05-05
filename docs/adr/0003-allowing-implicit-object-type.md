@@ -6,7 +6,7 @@ Accepted.
 
 ## Context
 
-In real-world OpenAPI schema, we have discovered that people sometimes omit the `type: object` from their object definitions. We believe that this is valid Open API schema, if and only if the .
+In real-world OpenAPI schema, we have discovered that people sometimes omit the `type: object` from their object definitions. We believe that this *is* valid Open API schema.
 
 ```yaml
 Pet:
