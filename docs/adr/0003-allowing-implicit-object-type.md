@@ -37,7 +37,7 @@ someEntity:
 ```
 ## Decision
 
-Menes will support these semantics. We have updated our schema validation to support this by translating the missing `type` element into the internal schema type `None`.
+Menes will support these semantics. We have updated our schema validation to support this by translating the missing `type` element into the internal schema type `None`, rather than translating to `Object`.
 
 ## Consequences
 
