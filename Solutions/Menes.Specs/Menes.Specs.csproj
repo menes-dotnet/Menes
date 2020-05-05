@@ -8,17 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <SpecFlowObsoleteCodeBehindFiles Remove="Features\AccessControlPolicy.feature.cs" />
-    <SpecFlowObsoleteCodeBehindFiles Remove="Features\ExemptOperationIdsAccessPolicy.feature.cs" />
-    <SpecFlowObsoleteCodeBehindFiles Remove="Features\HalDocument{T}.feature.cs" />
-    <SpecFlowObsoleteCodeBehindFiles Remove="Features\OpenApiAccessCheckerExtensions.feature.cs" />
-    <SpecFlowObsoleteCodeBehindFiles Remove="Features\OpenApiMisconfigurationDetection.feature.cs" />
-    <SpecFlowObsoleteCodeBehindFiles Remove="Features\OpenApiOperationInvoker.feature.cs" />
-    <SpecFlowObsoleteCodeBehindFiles Remove="Features\OpenApiWebLinkResolver.feature.cs" />
-    <SpecFlowObsoleteCodeBehindFiles Remove="Features\ShortCircuitingAccessControlPolicyAdapter.feature.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Corvus.SpecFlow.Extensions" Version="0.7.0-preview.3" />
     <PackageReference Include="NUnit3TestAdapter" Version="3.16.1">
       <PrivateAssets>all</PrivateAssets>
