@@ -31,13 +31,19 @@
     [Binding]
     public class TestOperationBindings : IOpenApiService
     {
-        private static readonly MethodInfo operationMethodInfo = typeof(TestOperationBindings).GetMethod(nameof(TestOperation), BindingFlags.NonPublic | BindingFlags.Instance) ?? throw new InvalidOperationException($"Couldn't load method info for {nameof(TestOperation)}");
+        private static readonly MethodInfo OperationMethodInfo = typeof(TestOperationBindings).GetMethod(nameof(TestOperation), BindingFlags.NonPublic | BindingFlags.Instance) ?? throw new InvalidOperationException($"Couldn't load method info for {nameof(TestOperation)}");
         private readonly ScenarioContext scenarioContext;
 
         public TestOperationBindings(ScenarioContext scenarioContext)
         {
             this.scenarioContext = scenarioContext;
         }
+
+        private protected OperationInvokerTestContext InvokerContext
+            => ContainerBindings.GetServiceProvider(this.scenarioContext).GetRequiredService<OperationInvokerTestContext>();
+
+        private protected FakeInstrumentationProvider InstrumentationProvider
+            => ContainerBindings.GetServiceProvider(this.scenarioContext).GetRequiredService<FakeInstrumentationProvider>();
 
         [BeforeScenario("@useZeroArgumentTestOperations", Order = ContainerBeforeFeatureOrder.ServiceProviderAvailable)]
         public static void InitializeMocksToEnableInvocation(ScenarioContext scenarioContext)
@@ -52,22 +58,16 @@
         [Given("the operation locator maps the operation id '(.*)' to an operation named '(.*)'")]
         public void GivenTheOperationLocatorMapsTheOperationIdToAnOperationNamed(string operationId, string operationName)
         {
-            Assert.AreEqual(nameof(TestOperation), operationName, "Menes uses the method name as the operation name, so this test can only work if the operation specified in the spec matches the name of the operation method supplied");
+            Assert.AreEqual(nameof(this.TestOperation), operationName, "Menes uses the method name as the operation name, so this test can only work if the operation specified in the spec matches the name of the operation method supplied");
 
             var operation = new OpenApiServiceOperation(
                 this,
-                operationMethodInfo,
+                OperationMethodInfo,
                 new Mock<IOpenApiConfiguration>().Object);
             this.InvokerContext.OperationLocator
                 .Setup(m => m.TryGetOperation(operationId, out operation))
                 .Returns(true);
         }
-
-        protected private OperationInvokerTestContext InvokerContext
-            => ContainerBindings.GetServiceProvider(this.scenarioContext).GetRequiredService<OperationInvokerTestContext>();
-
-        protected private FakeInstrumentationProvider InstrumentationProvider
-            => ContainerBindings.GetServiceProvider(this.scenarioContext).GetRequiredService<FakeInstrumentationProvider>();
 
         private Task TestOperation()
         {

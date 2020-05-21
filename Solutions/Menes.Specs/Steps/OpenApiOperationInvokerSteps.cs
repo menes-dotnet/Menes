@@ -1,5 +1,5 @@
-﻿// <copyright file="OpenApiOperationInvokerSteps.cs" company="Endjin">
-// Copyright (c) Endjin. All rights reserved.
+﻿// <copyright file="OpenApiOperationInvokerSteps.cs" company="Endjin Limited">
+// Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
 #pragma warning disable SA1600 // Elements should be documented
@@ -43,6 +43,12 @@ namespace Menes.Specs.Steps
             this.scenarioContext = scenarioContext;
         }
 
+        private OpenApiOperationInvoker<object, object> Invoker
+            => ContainerBindings.GetServiceProvider(this.scenarioContext).GetRequiredService<OpenApiOperationInvoker<object, object>>();
+
+        private OperationInvokerTestContext InvokerContext
+            => ContainerBindings.GetServiceProvider(this.scenarioContext).GetRequiredService<OperationInvokerTestContext>();
+
         [Given("I have configured unauthenticated requests to produce (.*)")]
         public void GivenIAmHaveConfiguredTheUnauthenticatedStatusCodeToBe(string status)
         {
@@ -60,7 +66,7 @@ namespace Menes.Specs.Steps
 
             MethodInfo serviceMethod = typeof(OpenApiOperationInvokerSteps).GetMethod(
                 nameof(this.ServiceMethodImplementation),
-                BindingFlags.NonPublic|BindingFlags.Instance)
+                BindingFlags.NonPublic | BindingFlags.Instance)
                 ?? throw new InvalidOperationException($"Unable to get method info for {nameof(this.ServiceMethodImplementation)}");
 
             var openApiServiceOperation = new OpenApiServiceOperation(this, serviceMethod, this.openApiConfiguration.Object);
@@ -111,7 +117,7 @@ namespace Menes.Specs.Steps
         {
             var result = new Dictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>
             {
-                { this.InvokerContext.AccessCheckCalls!.Arguments[0].Requests[0], new AccessControlPolicyResult(resultType) }
+                { this.InvokerContext.AccessCheckCalls!.Arguments[0].Requests[0], new AccessControlPolicyResult(resultType) },
             };
             this.InvokerContext.AccessCheckCalls!.SupplyResult(result);
             await this.WaitForInvokerToFinishIgnoringErrors().ConfigureAwait(false);
@@ -122,7 +128,7 @@ namespace Menes.Specs.Steps
         {
             var result = new Dictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>
             {
-                { this.InvokerContext.AccessCheckCalls!.Arguments[0].Requests[0], new AccessControlPolicyResult(AccessControlPolicyResultType.NotAllowed, explanation) }
+                { this.InvokerContext.AccessCheckCalls!.Arguments[0].Requests[0], new AccessControlPolicyResult(AccessControlPolicyResultType.NotAllowed, explanation) },
             };
             this.InvokerContext.AccessCheckCalls!.SupplyResult(result);
             await this.WaitForInvokerToFinishIgnoringErrors().ConfigureAwait(false);
@@ -133,7 +139,7 @@ namespace Menes.Specs.Steps
         {
             var result = new Dictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>
             {
-                { this.InvokerContext.AccessCheckCalls!.Arguments[0].Requests[0], new AccessControlPolicyResult(AccessControlPolicyResultType.Allowed) }
+                { this.InvokerContext.AccessCheckCalls!.Arguments[0].Requests[0], new AccessControlPolicyResult(AccessControlPolicyResultType.Allowed) },
             };
             this.InvokerContext.AccessCheckCalls!.SupplyResult(result);
             await this.WaitForInvokerToFinishIgnoringErrors().ConfigureAwait(false);
@@ -225,12 +231,6 @@ namespace Menes.Specs.Steps
             Assert.AreSame(this.resultBuilderErrorResult, result);
             this.InvokerContext.ResultBuilder.Verify(m => m.BuildErrorResult(statusCode));
         }
-
-        private OpenApiOperationInvoker<object, object> Invoker
-            => ContainerBindings.GetServiceProvider(this.scenarioContext).GetRequiredService<OpenApiOperationInvoker<object, object>>();
-
-        private OperationInvokerTestContext InvokerContext
-            => ContainerBindings.GetServiceProvider(this.scenarioContext).GetRequiredService<OperationInvokerTestContext>();
 
         private Task<OpenApiResult> ServiceMethodImplementation()
         {

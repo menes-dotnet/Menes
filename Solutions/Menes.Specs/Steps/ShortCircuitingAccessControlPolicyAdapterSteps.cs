@@ -1,5 +1,5 @@
-﻿// <copyright file="ShortCircuitingAccessControlPolicyAdapterSteps.cs" company="Endjin">
-// Copyright (c) Endjin. All rights reserved.
+﻿// <copyright file="ShortCircuitingAccessControlPolicyAdapterSteps.cs" company="Endjin Limited">
+// Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
 #pragma warning disable SA1600 // Elements should be documented

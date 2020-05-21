@@ -55,7 +55,7 @@
                 validator.ValidateAndThrow(payload, schema);
                 this.scenarioContext.Set(true, ResultKey);
             }
-            catch(OpenApiBadRequestException ex)
+            catch (OpenApiBadRequestException ex)
             {
                 this.scenarioContext.Set(false, ResultKey);
                 this.scenarioContext.Set(ex, "Exception");

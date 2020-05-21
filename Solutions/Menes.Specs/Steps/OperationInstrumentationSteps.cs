@@ -1,5 +1,5 @@
-﻿// <copyright file="OperationInstrumentationSteps.cs" company="Endjin">
-// Copyright (c) Endjin. All rights reserved.
+﻿// <copyright file="OperationInstrumentationSteps.cs" company="Endjin Limited">
+// Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
 namespace Menes.Specs.Steps

@@ -12,6 +12,11 @@ namespace Menes.PetStore.Responses
     public class PetListResource
     {
         /// <summary>
+        /// The registered content type for the pet list resource.
+        /// </summary>
+        public const string RegisteredContentType = "application/vnd.menes.demo.petlistresource";
+
+        /// <summary>
         /// Creates a <see cref="PetListResource"/>.
         /// </summary>
         /// <param name="pets">The <see cref="Pets"/>.</param>
@@ -19,11 +24,6 @@ namespace Menes.PetStore.Responses
         {
             this.Pets = pets;
         }
-
-        /// <summary>
-        /// The registered content type for the pet list resource.
-        /// </summary>
-        public const string RegisteredContentType = "application/vnd.menes.demo.petlistresource";
 
         /// <summary>
         /// Gets the total number of available pets.

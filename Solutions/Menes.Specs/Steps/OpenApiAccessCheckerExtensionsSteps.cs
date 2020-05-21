@@ -1,5 +1,5 @@
-﻿// <copyright file="OpenApiAccessCheckerExtensionsSteps.cs" company="Endjin">
-// Copyright (c) Endjin. All rights reserved.
+﻿// <copyright file="OpenApiAccessCheckerExtensionsSteps.cs" company="Endjin Limited">
+// Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
 #pragma warning disable SA1600 // Elements should be documented
@@ -66,18 +66,6 @@ namespace Menes.Specs.Steps
             embeddedResources.ForEach(x => doc.AddEmbeddedResource(x.Rel, CreateHalDocument(x, halDocumentFactory)));
         }
 
-        private static HalDocument CreateHalDocument((string Rel, object Object) x, IHalDocumentFactory halDocumentFactory)
-        {
-            if (x.Object is HalDocument hal)
-            {
-                return hal;
-            }
-
-            HalDocument doc = halDocumentFactory.CreateHalDocumentFrom(x.Object ?? new object());
-            doc.AddLink(x.Rel, new WebLink("/some/link"));
-            return doc;
-        }
-
         [Given("the current user does not have permission to")]
         public void GivenTheCurrentUserDoesNotHavePermissionTo(Table table)
         {
@@ -131,6 +119,18 @@ namespace Menes.Specs.Steps
         {
             HalDocument doc = this.scenarioContext.Get<HalDocument>(halDocumentName);
             Assert.IsEmpty(doc.EmbeddedResources);
+        }
+
+        private static HalDocument CreateHalDocument((string Rel, object Object) x, IHalDocumentFactory halDocumentFactory)
+        {
+            if (x.Object is HalDocument hal)
+            {
+                return hal;
+            }
+
+            HalDocument doc = halDocumentFactory.CreateHalDocumentFrom(x.Object ?? new object());
+            doc.AddLink(x.Rel, new WebLink("/some/link"));
+            return doc;
         }
 
         private Task<IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> MockCheckAccessPoliciesAsync(AccessCheckOperationDescriptor[] operationDescriptors)

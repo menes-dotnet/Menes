@@ -1,5 +1,5 @@
-﻿// <copyright file="OpenApiMisconfigurationDetectionSteps.cs" company="Endjin">
-// Copyright (c) Endjin. All rights reserved.
+﻿// <copyright file="OpenApiMisconfigurationDetectionSteps.cs" company="Endjin Limited">
+// Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
 #pragma warning disable SA1600 // Elements should be documented
@@ -24,10 +24,10 @@ namespace Menes.Specs.Steps
     [Binding]
     public class OpenApiMisconfigurationDetectionSteps
     {
+        private readonly ScenarioContext scenarioContext;
         private OpenApiOperation? operation;
         private OpenApiDocument? document;
         private Exception? exception;
-        private readonly ScenarioContext scenarioContext;
 
         public OpenApiMisconfigurationDetectionSteps(ScenarioContext scenarioContext)
         {

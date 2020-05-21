@@ -1,5 +1,5 @@
-﻿// <copyright file="OpenApiWebLinkResolverSteps.cs" company="Endjin">
-// Copyright (c) Endjin. All rights reserved.
+﻿// <copyright file="OpenApiWebLinkResolverSteps.cs" company="Endjin Limited">
+// Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
 #pragma warning disable SA1600 // Elements should be documented
@@ -51,11 +51,11 @@ namespace Menes.Specs.Steps
             MethodInfo genericMapMethod = typeof(OpenApiLinkOperationMapper).GetMethod(nameof(IOpenApiLinkOperationMap.MapByContentTypeAndRelationTypeAndOperationId), new[] { typeof(string), typeof(string) }) ?? throw new InvalidOperationException($"Unable to get method info for {nameof(IOpenApiLinkOperationMap.MapByContentTypeAndRelationTypeAndOperationId)}");
             IEnumerable<(string RelationName, string TargetType, string OperationId)> mappings = table.CreateSet<(string RelationName, string TargetType, string OperationId)>();
 
-            foreach ((string RelationName, string TargetType, string OperationId) in mappings)
+            foreach ((string relationName, string targetTypeName, string operationId) in mappings)
             {
-                Type targetType = Type.GetType(TargetType) ?? throw new InvalidOperationException($"Unable to get type info for {TargetType}");
+                Type targetType = Type.GetType(targetTypeName) ?? throw new InvalidOperationException($"Unable to get type info for {targetTypeName}");
                 MethodInfo mapMethod = genericMapMethod.MakeGenericMethod(targetType);
-                mapMethod.Invoke(mapper, new[] { RelationName, OperationId });
+                mapMethod.Invoke(mapper, new[] { relationName, operationId });
             }
 
             this.scenarioContext.Set<IOpenApiLinkOperationMapper>(mapper);
@@ -67,9 +67,9 @@ namespace Menes.Specs.Steps
             var mapper = new OpenApiLinkOperationMapper();
             IEnumerable<(string RelationName, string ContentType, string OperationId)> mappings = table.CreateSet<(string RelationName, string TargetType, string OperationId)>();
 
-            foreach ((string RelationName, string ContentType, string OperationId) in mappings)
+            foreach ((string relationName, string contentType, string operationId) in mappings)
             {
-                mapper.MapByContentTypeAndRelationTypeAndOperationId(ContentType, RelationName, OperationId);
+                mapper.MapByContentTypeAndRelationTypeAndOperationId(contentType, relationName, operationId);
             }
 
             this.scenarioContext.Set<IOpenApiLinkOperationMapper>(mapper);
