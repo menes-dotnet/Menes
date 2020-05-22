@@ -1,5 +1,5 @@
-﻿// <copyright file="OperationInvokerTestContext.cs" company="Endjin">
-// Copyright (c) Endjin. All rights reserved.
+﻿// <copyright file="OperationInvokerTestContext.cs" company="Endjin Limited">
+// Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
 namespace Menes.Specs.Steps.TestClasses
@@ -24,12 +24,19 @@ namespace Menes.Specs.Steps.TestClasses
         /// responses determined. This is only available if you call <see cref="UseManualAccessChecks"/>.
         /// </summary>
         public CompletionSourceWithArgs<CheckAccessArguments, IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>>? AccessCheckCalls { get; private set; }
+
         public Mock<IOpenApiServiceOperationLocator> OperationLocator { get; } = new Mock<IOpenApiServiceOperationLocator>();
+
         public Mock<IOpenApiExceptionMapper> ExceptionMapper { get; } = new Mock<IOpenApiExceptionMapper>();
+
         public Mock<IOpenApiResultBuilder<object>> ResultBuilder { get; } = new Mock<IOpenApiResultBuilder<object>>();
+
         public Mock<IOpenApiParameterBuilder<object>> ParameterBuilder { get; } = new Mock<IOpenApiParameterBuilder<object>>();
+
         public CompletionSource OperationCompletionSource { get; } = new CompletionSource();
+
         public Task? OperationInvocationTask { get; set; }
+
         public int ReportedOperationCountWhenOperationBodyInvoked { get; set; }
 
         public static void AddServices(IServiceCollection services)

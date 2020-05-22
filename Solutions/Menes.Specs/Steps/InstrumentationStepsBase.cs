@@ -10,20 +10,20 @@
 
     public abstract class InstrumentationStepsBase
     {
-        protected ScenarioContext ScenarioContext { get; }
-
         protected InstrumentationStepsBase(ScenarioContext scenarioContext)
         {
             this.ScenarioContext = scenarioContext;
         }
 
+        protected ScenarioContext ScenarioContext { get; }
+
         protected OpenApiOperationInvoker<object, object> Invoker
             => ContainerBindings.GetServiceProvider(this.ScenarioContext).GetRequiredService<OpenApiOperationInvoker<object, object>>();
 
-        protected private OperationInvokerTestContext InvokerContext
+        private protected OperationInvokerTestContext InvokerContext
             => ContainerBindings.GetServiceProvider(this.ScenarioContext).GetRequiredService<OperationInvokerTestContext>();
 
-        protected private FakeInstrumentationProvider InstrumentationProvider
+        private protected FakeInstrumentationProvider InstrumentationProvider
             => ContainerBindings.GetServiceProvider(this.ScenarioContext).GetRequiredService<FakeInstrumentationProvider>();
 
         protected OperationDetail GetSingleOperationDetail()
