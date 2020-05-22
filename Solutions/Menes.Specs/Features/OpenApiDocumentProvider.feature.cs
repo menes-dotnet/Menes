@@ -119,12 +119,20 @@ this.ScenarioInitialize(scenarioInfo);
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Match requests to operation path templates - success")]
-        [NUnit.Framework.TestCaseAttribute("GET with path parameter", "/pet/65", "GET", "getPetById", null)]
-        [NUnit.Framework.TestCaseAttribute("POST without path parameter", "/pet", "POST", "addPet", null)]
-        [NUnit.Framework.TestCaseAttribute("PUT without path parameter", "/pet", "PUT", "updatePet", null)]
-        [NUnit.Framework.TestCaseAttribute("POST with path parameter", "/pet/65", "POST", "updatePetWithForm", null)]
-        [NUnit.Framework.TestCaseAttribute("DELETE with path parameter", "/pet/65", "DELETE", "deletePet", null)]
-        [NUnit.Framework.TestCaseAttribute("GET with query parameter", "/pet/findByStatus", "GET", "findPetsByStatus", null)]
+        [NUnit.Framework.TestCaseAttribute("GET with path parameter", "https://petstore.swagger.io/v2/pet/65", "GET", "getPetById", null)]
+        [NUnit.Framework.TestCaseAttribute("POST without path parameter", "https://petstore.swagger.io/v2/pet", "POST", "addPet", null)]
+        [NUnit.Framework.TestCaseAttribute("PUT without path parameter", "https://petstore.swagger.io/v2/pet", "PUT", "updatePet", null)]
+        [NUnit.Framework.TestCaseAttribute("POST with path parameter", "https://petstore.swagger.io/v2/pet/65", "POST", "updatePetWithForm", null)]
+        [NUnit.Framework.TestCaseAttribute("DELETE with path parameter", "https://petstore.swagger.io/v2/pet/65", "DELETE", "deletePet", null)]
+        [NUnit.Framework.TestCaseAttribute("GET with query parameter", "https://petstore.swagger.io/v2/pet/findByStatus", "GET", "findPetsByStatus", null)]
+        [NUnit.Framework.TestCaseAttribute("GET with path parameter value that does not match schema", "https://petstore.swagger.io/v2/pet/fenton", "GET", "getPetById", null)]
+        [NUnit.Framework.TestCaseAttribute("GET with path parameter second server", "https://petstore.swagger.io/v2/pet/65", "GET", "getPetById", null)]
+        [NUnit.Framework.TestCaseAttribute("POST without path parameter second server", "https://petstore.swagger.io/v2/pet", "POST", "addPet", null)]
+        [NUnit.Framework.TestCaseAttribute("PUT without path parameter second server", "https://petstore.swagger.io/v2/pet", "PUT", "updatePet", null)]
+        [NUnit.Framework.TestCaseAttribute("POST with path parameter second server", "https://petstore.swagger.io/v2/pet/65", "POST", "updatePetWithForm", null)]
+        [NUnit.Framework.TestCaseAttribute("DELETE with path parameter second server", "https://petstore.swagger.io/v2/pet/65", "DELETE", "deletePet", null)]
+        [NUnit.Framework.TestCaseAttribute("GET with query parameter second server", "https://petstore.swagger.io/v2/pet/findByStatus", "GET", "findPetsByStatus", null)]
+        [NUnit.Framework.TestCaseAttribute("GET with path parameter value that does not match schema second server", "https://petstore.swagger.io/v2/pet/fenton", "GET", "getPetById", null)]
         public virtual void MatchRequestsToOperationPathTemplates_Success(string description, string path, string method, string expectedOperationId, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
@@ -171,15 +179,15 @@ this.ScenarioInitialize(scenarioInfo);
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Match requests to operation path templates - failure")]
-        [NUnit.Framework.TestCaseAttribute("No matching path", "/dogs", "GET", null)]
-        [NUnit.Framework.TestCaseAttribute("Invalid method for the specified path", "/pet", "GET", null)]
-        [NUnit.Framework.TestCaseAttribute("GET with path parameter value that does not match schema", "/pet/fenton", "GET", null)]
-        [NUnit.Framework.TestCaseAttribute("End of request path matches a specified path", "/this/is/unexpected/pet/findByStatus", "GET", null)]
+        [NUnit.Framework.TestCaseAttribute("No matching path", "https://petstore.swagger.io/v2/dogs", "GET", null)]
+        [NUnit.Framework.TestCaseAttribute("Invalid method for the specified path", "https://petstore.swagger.io/v2/pet", "GET", null)]
+        [NUnit.Framework.TestCaseAttribute("End of request path matches a specified path", "https://petstore.swagger.io/v2/this/is/unexpected/pet/findByStatus", "GET", null)]
+        [NUnit.Framework.TestCaseAttribute("No matching path", "https://duff.server.io/v2/pet/65", "GET", null)]
         public virtual void MatchRequestsToOperationPathTemplates_Failure(string description, string path, string method, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Match requests to operation path templates - failure", null, exampleTags);
-#line 28
+#line 38
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -199,17 +207,17 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 29
+#line 39
  testRunner.Given("I load an OpenApi document from the embedded resource \'Menes.Specs.Data.PetStore." +
                         "yaml\' and call it \'PetStore\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 30
+#line 40
  testRunner.And("I add the OpenApi document called \'PetStore\' to the OpenApiDocumentProvider", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 31
+#line 41
  testRunner.When(string.Format("I get the operation path template for path \'{0}\' and method \'{1}\'", path, method), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 32
+#line 42
  testRunner.Then("no operation template is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }

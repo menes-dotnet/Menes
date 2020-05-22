@@ -56,7 +56,7 @@ namespace Menes.Specs.Steps
         public void GivenTheOperationPathTemplateHasAnOperationWithAnOperationIdOf(string operationId)
         {
             this.openApiOperation = new OpenApiOperation { OperationId = operationId };
-            this.operationPathTemplate = new OpenApiOperationPathTemplate(this.openApiOperation, new OpenApiPathTemplate("/", new OpenApiPathItem()));
+            this.operationPathTemplate = new OpenApiOperationPathTemplate(this.openApiOperation, new OpenApiPathTemplate("/", new OpenApiPathItem(), null), null);
 
             MethodInfo serviceMethod = typeof(OpenApiOperationInvokerSteps).GetMethod(
                 nameof(this.ServiceMethodImplementation),

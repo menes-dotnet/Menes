@@ -18,11 +18,13 @@ namespace Menes
         /// </summary>
         /// <param name="uriTemplate">The uri template.</param>
         /// <param name="item">The path item.</param>
-        public OpenApiPathTemplate(string uriTemplate, OpenApiPathItem item)
+        /// <param name="document">The Open API document in which this is a path template.</param>
+        public OpenApiPathTemplate(string uriTemplate, OpenApiPathItem item, OpenApiDocument? document)
         {
             this.UriTemplate = new UriTemplate(uriTemplate);
             this.PathItem = item;
-            this.Match = new Regex(UriTemplate.CreateMatchingRegex(uriTemplate), RegexOptions.Compiled);
+            this.Match = new Regex(UriTemplate.CreateMatchingRegex2(uriTemplate), RegexOptions.Compiled);
+            this.Document = document;
         }
 
         /// <summary>
@@ -39,5 +41,10 @@ namespace Menes
         /// Gets the <see cref="Regex"/> which provides a match.
         /// </summary>
         public Regex Match { get; }
+
+        /// <summary>
+        /// Gets the <see cref="OpenApiDocument"/> containing this path template.
+        /// </summary>
+        public OpenApiDocument? Document { get; }
     }
 }

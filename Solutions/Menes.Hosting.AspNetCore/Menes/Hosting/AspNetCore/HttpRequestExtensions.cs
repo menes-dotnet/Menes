@@ -7,6 +7,7 @@ namespace Menes.Hosting.AspNetCore
     using System.Threading.Tasks;
     using Menes;
     using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Http.Extensions;
     using Microsoft.AspNetCore.Mvc;
 
     /// <summary>
@@ -23,7 +24,7 @@ namespace Menes.Hosting.AspNetCore
         /// <returns>The result of the request.</returns>
         public static Task<IActionResult> HandleRequestAsync(this IOpenApiHost<HttpRequest, IActionResult> host, HttpRequest httpRequest, object parameters)
         {
-            return host.HandleRequestAsync(httpRequest.Path, httpRequest.Method, httpRequest, parameters);
+            return host.HandleRequestAsync(httpRequest.GetDisplayUrl(), httpRequest.Method, httpRequest, parameters);
         }
     }
 }

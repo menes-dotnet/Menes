@@ -5,15 +5,20 @@
 namespace Menes
 {
     using System;
+    using System.Collections.Concurrent;
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
+    using System.IO;
     using System.Linq;
+    using System.Reflection.Metadata;
     using System.Text;
     using System.Text.Encodings.Web;
+    using System.Text.RegularExpressions;
     using Corvus.Extensions;
     using Menes.Exceptions;
     using Menes.Internal;
     using Menes.Validation;
+    using Microsoft.CodeAnalysis.CSharp.Syntax;
     using Microsoft.Extensions.Logging;
     using Microsoft.OpenApi.Models;
     using Tavis.UriTemplates;
@@ -41,6 +46,8 @@ namespace Menes
     /// </remarks>
     public class OpenApiDocumentProvider : IOpenApiDocumentProvider
     {
+        private static readonly ConcurrentDictionary<OpenApiServer, Regex> RegexCache = new ConcurrentDictionary<OpenApiServer, Regex>();
+
         private readonly IList<OpenApiPathTemplate> pathTemplates = new List<OpenApiPathTemplate>();
         private readonly ILogger<OpenApiDocumentProvider> logger;
         private readonly List<OpenApiDocument> addedOpenApiDocuments;
@@ -137,7 +144,7 @@ namespace Menes
             }
 
             this.addedOpenApiDocuments.Add(document);
-            this.pathTemplates.AddRange(document.Paths.Select(path => new OpenApiPathTemplate(path.Key, path.Value)));
+            this.pathTemplates.AddRange(document.Paths.Select(path => new OpenApiPathTemplate(path.Key, path.Value, document)));
             this.pathTemplatesByOperationId = null;
             if (this.logger.IsEnabled(LogLevel.Trace))
             {
@@ -150,20 +157,27 @@ namespace Menes
         {
             foreach (OpenApiPathTemplate template in this.pathTemplates)
             {
-                if (template.Match.IsMatch(requestPath))
-                {
-                    if (template.PathItem.Operations.TryGetValue(method.ToOperationType(), out OpenApiOperation operation))
-                    {
-                        this.logger.LogInformation(
-                            "Matched request [{method}] [{requestPath}] with template [{template}] to [{operation}]",
-                            method,
-                            requestPath,
-                            template.UriTemplate,
-                            operation.GetOperationId());
+                Match match = template.Match.Match(requestPath);
 
-                        // This is the success path
-                        operationPathTemplate = new OpenApiOperationPathTemplate(operation, template);
-                        return true;
+                if (match.Success)
+                {
+                    OpenApiServer? server = MatchServer(match, requestPath, template);
+
+                    if (server != null)
+                    {
+                        if (template.PathItem.Operations.TryGetValue(method.ToOperationType(), out OpenApiOperation operation))
+                        {
+                            this.logger.LogInformation(
+                                "Matched request [{method}] [{requestPath}] with template [{template}] to [{operation}]",
+                                method,
+                                requestPath,
+                                template.UriTemplate,
+                                operation.GetOperationId());
+
+                            // This is the success path
+                            operationPathTemplate = new OpenApiOperationPathTemplate(operation, template, server);
+                            return true;
+                        }
                     }
                 }
             }
@@ -175,6 +189,32 @@ namespace Menes
 
             operationPathTemplate = null;
             return false;
+        }
+
+        private static OpenApiServer? MatchServer(Match match, string requestPath, OpenApiPathTemplate template)
+        {
+            string precursor = match.Index == 0 ? string.Empty : requestPath.Substring(0, match.Index);
+            if (template.PathItem.Servers.Count > 0)
+            {
+                return MatchPrecursor(precursor, template.PathItem.Servers);
+            }
+
+            if (template.Document?.Servers.Count > 0)
+            {
+                return MatchPrecursor(precursor, template.Document.Servers);
+            }
+
+            return null;
+        }
+
+        private static OpenApiServer? MatchPrecursor(string precursor, IList<OpenApiServer> servers)
+        {
+            return servers.FirstOrDefault(s =>
+            {
+                Regex regex = RegexCache.GetOrAdd(s, new Regex(UriTemplate.CreateMatchingRegex2(s.Url), RegexOptions.Compiled));
+                Match match = regex.Match(precursor);
+                return match.Success && match.Index == 0;
+            });
         }
     }
 }

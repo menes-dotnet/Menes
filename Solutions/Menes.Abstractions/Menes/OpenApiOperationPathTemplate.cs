@@ -9,6 +9,7 @@ namespace Menes
     using System.Linq;
     using Corvus.Extensions;
     using Microsoft.OpenApi.Models;
+    using Tavis.UriTemplates;
 
     /// <summary>
     /// A URI match for an operation.
@@ -20,10 +21,12 @@ namespace Menes
         /// </summary>
         /// <param name="operation">The matching OpenAPI operation.</param>
         /// <param name="openApiPathTemplate">The matching OpenAPI path template.</param>
-        public OpenApiOperationPathTemplate(OpenApiOperation operation, OpenApiPathTemplate openApiPathTemplate)
+        /// <param name="server">The server for this path template.</param>
+        public OpenApiOperationPathTemplate(OpenApiOperation operation, OpenApiPathTemplate openApiPathTemplate, OpenApiServer? server)
         {
             this.Operation = operation;
             this.OpenApiPathTemplate = openApiPathTemplate;
+            this.Server = server;
         }
 
         /// <summary>
@@ -35,6 +38,11 @@ namespace Menes
         /// Gets the OpenApi path template that matched.
         /// </summary>
         public OpenApiPathTemplate OpenApiPathTemplate { get; }
+
+        /// <summary>
+        /// Gets the server associated with this path template.
+        /// </summary>
+        public OpenApiServer? Server { get; }
 
         /// <summary>
         /// Builds the list of Open API parameters for this match.
@@ -58,7 +66,18 @@ namespace Menes
         /// <returns>A dictionary of parameter names to values.</returns>
         public IDictionary<string, object> BuildTemplateParameterValues(Uri requestUri)
         {
-            return this.OpenApiPathTemplate.UriTemplate.GetParameters(requestUri);
+            IDictionary<string, object> pathParameters = this.OpenApiPathTemplate.UriTemplate.GetParameters(requestUri);
+
+            if (this.Server != null)
+            {
+                IDictionary<string, object> serverParameters = new UriTemplate(this.Server.Url).GetParameters(requestUri);
+                if (serverParameters != null)
+                {
+                    pathParameters = pathParameters.Merge(serverParameters);
+                }
+            }
+
+            return pathParameters;
         }
     }
 }
