@@ -44,6 +44,10 @@ namespace Menes.PetStore.Responses.Mappers
         {
             HalDocument response = this.halDocumentFactory.CreateHalDocumentFrom(pets);
             response.AddEmbeddedResources(PetsRelation, pets.Pets.Select(this.petResourceMapper.Map));
+            foreach (HalDocument current in response.GetEmbeddedResourcesForRelation("pets"))
+            {
+                response.AddLink("pets", current.GetLinksForRelation("self").First());
+            }
 
             response.ResolveAndAddByOwnerAndRelationType(this.linkResolver, pets, "self", ("limit", pets.PageSize), ("continuationToken", pets.CurrentContinuationToken));
             response.ResolveAndAddByOwnerAndRelationType(this.linkResolver, pets, "create");

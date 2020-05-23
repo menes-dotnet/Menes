@@ -41,12 +41,22 @@ namespace Menes.PetStore
             PetResourceMapper petMapper,
             IHttpClientFactory httpClientFactory)
         {
+            // Initialise list with known items
             this.pets = new List<PetResource>
                             {
                                 new PetResource("Suki", "Cat") { Id = 1, Size = Size.Small, GlobalIdentifier = Guid.NewGuid() },
                                 new PetResource("Caspar", "Dog") { Id = 2, Size = Size.Medium, GlobalIdentifier = Guid.NewGuid() },
                                 new PetResource("Tim", "Goldfish") { Id = 3, Size = Size.Large, GlobalIdentifier = Guid.NewGuid() },
                             };
+
+            // Now add a load more random ones so it's possible to verify that limit/continuation on the list endpoint works.
+            this.pets.AddRange(Enumerable.Range(4, 100)
+                .Select(id => new PetResource(Guid.NewGuid().ToString(), Guid.NewGuid().ToString())
+                {
+                    Id = id,
+                    Size = Size.Medium,
+                    GlobalIdentifier = Guid.NewGuid(),
+                }));
 
             this.petListMapper = petListMapper;
             this.petMapper = petMapper;
