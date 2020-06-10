@@ -4,6 +4,8 @@
 
 namespace Menes.Hal
 {
+    using System.Threading.Tasks;
+
     /// <summary>
     /// Implemented by types which can map a resource to a HAL document.
     /// </summary>
@@ -27,7 +29,7 @@ namespace Menes.Hal
         /// </summary>
         /// <param name="resource">The resource to map.</param>
         /// <returns>The <see cref="HalDocument"/> for the resource.</returns>
-        HalDocument Map(T resource);
+        ValueTask<HalDocument> MapAsync(T resource);
     }
 
     /// <summary>
@@ -43,6 +45,6 @@ namespace Menes.Hal
         /// <param name="resource">The resource to map.</param>
         /// <param name="context">The additional context information.</param>
         /// <returns>The <see cref="HalDocument"/> for the resource.</returns>
-        HalDocument Map(TResource resource, TContext context);
+        ValueTask<HalDocument> MapAsync(TResource resource, TContext context);
     }
 }
