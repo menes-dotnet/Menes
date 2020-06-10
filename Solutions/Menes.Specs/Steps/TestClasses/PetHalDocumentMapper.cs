@@ -5,6 +5,7 @@
 namespace Menes.Specs.Steps.TestClasses
 {
     using System;
+    using System.Threading.Tasks;
     using Menes.Hal;
 
     public class PetHalDocumentMapper : IHalDocumentMapper<Pet>
@@ -16,7 +17,7 @@ namespace Menes.Specs.Steps.TestClasses
             this.LinkMapConfigured = true;
         }
 
-        public HalDocument Map(Pet resource)
+        public ValueTask<HalDocument> MapAsync(Pet resource)
         {
             throw new NotSupportedException();
         }

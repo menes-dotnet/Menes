@@ -63,14 +63,21 @@ namespace Menes.PetStore
         /// An <see cref="IEnumerable{Pet}"/> containing all pets.
         /// </returns>
         [OperationId("listPets")]
-        public OpenApiResult ListPets(int limit = 10, string? continuationToken = null)
+        public async Task<OpenApiResult> ListPets(int limit = 10, string? continuationToken = null)
         {
             int skip = ParseContinuationToken(continuationToken);
 
             PetResource[] pets = this.pets.Skip(skip).Take(limit).ToArray();
 
             string? nextContinuationToken = (skip + limit < this.pets.Count) ? BuildContinuationToken(limit + skip) : null;
-            HalDocument response = this.petListMapper.Map(new PetListResource(pets) { TotalCount = this.pets.Count, PageSize = limit, CurrentContinuationToken = continuationToken,  NextContinuationToken = nextContinuationToken });
+            HalDocument response = await this.petListMapper.MapAsync(
+                new PetListResource(pets)
+                {
+                    TotalCount = this.pets.Count,
+                    PageSize = limit,
+                    CurrentContinuationToken = continuationToken,
+                    NextContinuationToken = nextContinuationToken,
+                }).ConfigureAwait(false);
 
             OpenApiResult result = this.OkResult(response, "application/hal+json");
 
@@ -97,12 +104,12 @@ namespace Menes.PetStore
         /// The <see cref="PetResource"/>.
         /// </returns>
         [OperationId("showPetById")]
-        public OpenApiResult ShowPet(string petId)
+        public Task<OpenApiResult> ShowPet(string petId)
         {
             long.TryParse(petId, out long idAsLong);
             PetResource result = this.pets.SingleOrDefault(p => p.Id == idAsLong);
 
-            return this.MapAndReturnPet(result);
+            return this.MapAndReturnPetAsync(result);
         }
 
         /// <summary>
@@ -116,12 +123,12 @@ namespace Menes.PetStore
         /// The <see cref="PetResource"/>.
         /// </returns>
         [OperationId("showPetByLongId")]
-        public OpenApiResult ShowPet(
+        public Task<OpenApiResult> ShowPet(
             [OpenApiParameter("petId")] long petIdWithParameterNameSetByAttribute)
         {
             PetResource result = this.pets.SingleOrDefault(p => p.Id == petIdWithParameterNameSetByAttribute);
 
-            return this.MapAndReturnPet(result);
+            return this.MapAndReturnPetAsync(result);
         }
 
         /// <summary>
@@ -135,12 +142,12 @@ namespace Menes.PetStore
         /// The <see cref="PetResource"/>.
         /// </returns>
         [OperationId("showPetByLongIdInHeader")]
-        public OpenApiResult ShowPetWithIdInHeader(
+        public Task<OpenApiResult> ShowPetWithIdInHeader(
             long xPetId)
         {
             PetResource result = this.pets.SingleOrDefault(p => p.Id == xPetId);
 
-            return this.MapAndReturnPet(result);
+            return this.MapAndReturnPetAsync(result);
         }
 
         /// <summary>
@@ -153,11 +160,11 @@ namespace Menes.PetStore
         /// The <see cref="PetResource"/>.
         /// </returns>
         [OperationId("showPetByGlobalId")]
-        public OpenApiResult ShowPet(Guid petId)
+        public Task<OpenApiResult> ShowPet(Guid petId)
         {
             PetResource result = this.pets.SingleOrDefault(p => p.GlobalIdentifier == petId);
 
-            return this.MapAndReturnPet(result);
+            return this.MapAndReturnPetAsync(result);
         }
 
         /// <summary>
@@ -168,14 +175,14 @@ namespace Menes.PetStore
         /// The <see cref="PetResource"/>.
         /// </returns>
         [OperationId("showSecretPet")]
-        public OpenApiResult ShowSecretPet(IOpenApiContext openApiContext)
+        public Task<OpenApiResult> ShowSecretPet(IOpenApiContext openApiContext)
         {
             if (openApiContext.CurrentPrincipal?.IsInRole("admin") == true)
             {
-                return this.MapAndReturnPet(this.secretPet);
+                return this.MapAndReturnPetAsync(this.secretPet);
             }
 
-            return new OpenApiResult { StatusCode = (int)HttpStatusCode.Unauthorized };
+            return Task.FromResult(new OpenApiResult { StatusCode = (int)HttpStatusCode.Unauthorized });
         }
 
         /// <summary>
@@ -184,14 +191,14 @@ namespace Menes.PetStore
         /// <param name="body">The pet to create.</param>
         /// <returns>Created if the pet is created.</returns>
         [OperationId("createPets")]
-        public OpenApiResult CreatePets(PetResource body)
+        public async Task<OpenApiResult> CreatePets(PetResource body)
         {
             if (!this.pets.Any(p => p.Id == body.Id))
             {
                 this.pets.Add(body);
             }
 
-            HalDocument response = this.petMapper.Map(body);
+            HalDocument response = await this.petMapper.MapAsync(body).ConfigureAwait(false);
             WebLink location = response.GetLinksForRelation("self").First();
             return this.CreatedResult(location.Href, response).WithAuditData(("id", (object)body.Id));
         }
@@ -286,14 +293,14 @@ namespace Menes.PetStore
             return new MemoryStream(image);
         }
 
-        private OpenApiResult MapAndReturnPet(PetResource result)
+        private async Task<OpenApiResult> MapAndReturnPetAsync(PetResource result)
         {
             if (result == null)
             {
                 throw new OpenApiNotFoundException();
             }
 
-            HalDocument response = this.petMapper.Map(result);
+            HalDocument response = await this.petMapper.MapAsync(result).ConfigureAwait(false);
 
             return this
                 .OkResult(response, "application/hal+json")
