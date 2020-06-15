@@ -26,7 +26,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CodeGen", "CodeGen", "{5EA43889-6336-4252-8B36-B4BC995033B1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Menes.ServiceGenerator", "Menes.ServiceGenerator\Menes.ServiceGenerator.csproj", "{67ECAED7-81D5-424F-A8D0-ECE1060D92D4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Menes.ServiceGenerator", "Menes.ServiceGenerator\Menes.ServiceGenerator.csproj", "{67ECAED7-81D5-424F-A8D0-ECE1060D92D4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Menes.OpenApiBuild", "Menes.OpenApiBuild\Menes.OpenApiBuild.csproj", "{7A8D97CD-BC35-41C8-8D02-2E1AE36EC00A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -62,6 +64,10 @@ Global
 		{67ECAED7-81D5-424F-A8D0-ECE1060D92D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{67ECAED7-81D5-424F-A8D0-ECE1060D92D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{67ECAED7-81D5-424F-A8D0-ECE1060D92D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A8D97CD-BC35-41C8-8D02-2E1AE36EC00A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A8D97CD-BC35-41C8-8D02-2E1AE36EC00A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A8D97CD-BC35-41C8-8D02-2E1AE36EC00A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A8D97CD-BC35-41C8-8D02-2E1AE36EC00A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -70,6 +76,7 @@ Global
 		{587CC6F9-DAC0-42F2-8520-0B21FDCB013E} = {9F5741F1-1FC8-42FA-A44A-CDD91AEC4758}
 		{C5D7A4FA-88FB-4E7F-BB49-2B1F19323DD0} = {9F5741F1-1FC8-42FA-A44A-CDD91AEC4758}
 		{67ECAED7-81D5-424F-A8D0-ECE1060D92D4} = {5EA43889-6336-4252-8B36-B4BC995033B1}
+		{7A8D97CD-BC35-41C8-8D02-2E1AE36EC00A} = {5EA43889-6336-4252-8B36-B4BC995033B1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0B392B67-B21B-4AFD-BCC2-3EB2AF5E5D33}

@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(EndjinProjectPropsPath)" Condition="$(EndjinProjectPropsPath) != ''" />
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <Nullable>Enable</Nullable>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <PackAsTool>true</PackAsTool>
+    <ToolCommandName>openapibuild</ToolCommandName>
+    <PackageOutputPath>./nupkg</PackageOutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Endjin.RecommendedPractices" Version="0.3.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.FileSystemGlobbing" Version="3.1.5" />
+    <PackageReference Include="Microsoft.OpenApi" Version="1.2.0" />
+    <PackageReference Include="Microsoft.OpenApi.Readers" Version="1.2.0" />
+    <PackageReference Include="System.CommandLine.DragonFruit" Version="0.3.0-alpha.20303.1" />
+  </ItemGroup>
+</Project>
