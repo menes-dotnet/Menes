@@ -24,15 +24,15 @@ namespace Menes.OpenApiBuild
     {
 #pragma warning disable RCS1213 // Remove unused member declaration.
         /// <summary>
-        /// The main program entry point.
+        /// Merges external component references into OpenApi documents.
         /// </summary>
-        /// <param name="input">A glob to match the input OpenAPI document files which are to have their external referenced merged in.</param>
-        /// <param name="output">The ouptut directory into which the merged files are to be written.</param>
-        /// <param name="root">An optional root directory which to start the search. The default is the current directory.</param>
+        /// <param name="input">The input filespec.</param>
+        /// <param name="output">The output directory.</param>
+        /// <param name="root">The root folder in which to look for files (default: ./output).</param>
         /// <param name="console">The abstraction for the console.</param>
         /// <exception cref="ArgumentNullException"><paramref name="output"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="input"/> is <c>null</c>.</exception>
-        private static void Main(string input, DirectoryInfo output, DirectoryInfo? root = null, IConsole? console = null)
+        private static void Main(string input, DirectoryInfo output, DirectoryInfo? root, IConsole? console = null)
         {
             if (input == null)
             {
@@ -46,7 +46,7 @@ namespace Menes.OpenApiBuild
                 return;
             }
 
-            root ??= new DirectoryInfo(Environment.CurrentDirectory);
+            root ??= new DirectoryInfo("./output");
 
             try
             {

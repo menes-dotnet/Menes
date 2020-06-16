@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="$(EndjinProjectPropsPath)" Condition="$(EndjinProjectPropsPath) != ''" />
 
   <PropertyGroup>
@@ -7,9 +7,13 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <PackAsTool>true</PackAsTool>
     <ToolCommandName>openapibuild</ToolCommandName>
-    <PackageOutputPath>./nupkg</PackageOutputPath>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <AssemblyName>openapibuild</AssemblyName>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>bin\Debug\\openapibuild.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
