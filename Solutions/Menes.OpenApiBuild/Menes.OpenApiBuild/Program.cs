@@ -27,12 +27,12 @@ namespace Menes.OpenApiBuild
         /// Merges external component references into OpenApi documents.
         /// </summary>
         /// <param name="input">The input filespec.</param>
-        /// <param name="output">The output directory.</param>
-        /// <param name="root">The root folder in which to look for files (default: ./output).</param>
+        /// <param name="output">The output directory (default: [root]/output).</param>
+        /// <param name="root">The root folder in which to look for files (default: .).</param>
         /// <param name="console">The abstraction for the console.</param>
         /// <exception cref="ArgumentNullException"><paramref name="output"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="input"/> is <c>null</c>.</exception>
-        private static void Main(string input, DirectoryInfo output, DirectoryInfo? root, IConsole? console = null)
+        private static void Main(string input, DirectoryInfo? output, DirectoryInfo? root, IConsole? console = null)
         {
             if (input == null)
             {
@@ -40,13 +40,8 @@ namespace Menes.OpenApiBuild
                 return;
             }
 
-            if (output == null)
-            {
-                InvokeHelp();
-                return;
-            }
-
-            root ??= new DirectoryInfo("./output");
+            root ??= new DirectoryInfo(".");
+            output ??= new DirectoryInfo(Path.Combine(root.FullName, "./output"));
 
             try
             {
