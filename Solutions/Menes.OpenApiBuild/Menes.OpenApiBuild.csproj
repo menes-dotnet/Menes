@@ -8,6 +8,8 @@
     <PackAsTool>true</PackAsTool>
     <ToolCommandName>openapibuild</ToolCommandName>
     <PackageOutputPath>./nupkg</PackageOutputPath>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <AssemblyName>openapibuild</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
