@@ -1,5 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
+  <Import Project="$(EndjinProjectPropsPath)" Condition="$(EndjinProjectPropsPath) != ''" />
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
     <Nullable>enable</Nullable>
@@ -19,7 +19,7 @@
     <PackageReference Include="Corvus.Extensions" Version="0.7.0" />
     <PackageReference Include="Corvus.Extensions.Newtonsoft.Json" Version="0.9.0" />
     <PackageReference Include="Corvus.Monitoring.Instrumentation.Abstractions" Version="0.2.0-preview.7" />
-    <PackageReference Include="Endjin.RecommendedPractices" Version="0.1.0">
+    <PackageReference Include="Endjin.RecommendedPractices" Version="0.4.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
