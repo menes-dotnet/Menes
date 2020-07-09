@@ -47,6 +47,11 @@
     <None Remove="Steps\TestClasses\OpenApiWebLinkResolverTest.yaml" />
   </ItemGroup>
 
+
+  <ItemGroup>
+    <SpecFlowObsoleteCodeBehindFiles Remove="Features\OpenApiMisconfigurationDetection - Copy.feature.cs" />
+  </ItemGroup>
+
   <ItemGroup>
     <EmbeddedResource Include="Steps\TestClasses\OpenApiWebLinkResolverTest.yaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -54,9 +59,22 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Features\HttpResultBuilderErrorDetection.feature.cs">
+      <DependentUpon>HttpResultBuilderErrorDetection.feature</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="specflow.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <SpecFlowFeatureFiles Update="Features\HttpResultBuilderErrorDetection.feature">
+      <Visible>$(UsingMicrosoftNETSdk)</Visible>
+      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
+    </SpecFlowFeatureFiles>
   </ItemGroup>
 
 </Project>
