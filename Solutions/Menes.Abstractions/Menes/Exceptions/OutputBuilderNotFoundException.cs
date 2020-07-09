@@ -44,7 +44,7 @@ namespace Menes.Internal
         {
             var sb = new StringBuilder();
             bool appendComma = false;
-            sb.Append("Expecting a Response with a Status Code of: ");
+            sb.Append("Expecting a response with a status code of: ");
 
             foreach (KeyValuePair<string, OpenApiResponse> response in operation.Responses)
             {
@@ -68,7 +68,7 @@ namespace Menes.Internal
             if (result is OpenApiResult oaiResult)
             {
                 sb.AppendLine();
-                sb.Append("Recieved a Response with a Status Code of: ");
+                sb.Append("Received a response with a status code of: ");
                 sb.Append(oaiResult.StatusCode);
                 sb.Append(".");
 
@@ -128,12 +128,12 @@ namespace Menes.Internal
             else
             {
                 sb.AppendLine();
-                sb.Append("Recieved a Response with a type of ");
+                sb.Append("Received a response with a type of ");
                 sb.Append(result.GetType());
             }
 
             sb.AppendLine();
-            sb.Append("Check that your Operation implementation return value matches the OpenAPI operation response definition.");
+            sb.Append("Check that your service implementation return value matches the OpenAPI OperationResponse definition.");
             return sb.ToString();
         }
     }
