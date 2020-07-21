@@ -6,6 +6,7 @@ namespace Menes.PetStore.Specs.Bindings
 {
     using Corvus.Testing.SpecFlow;
     using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Logging;
     using TechTalk.SpecFlow;
 
     public static class PetStoreContainerBindings
@@ -17,6 +18,7 @@ namespace Menes.PetStore.Specs.Bindings
                 scenarioContext,
                 services =>
                 {
+                    services.AddLogging(builder => builder.SetMinimumLevel(LogLevel.Debug));
                     services.AddJsonSerializerSettings();
                 });
         }

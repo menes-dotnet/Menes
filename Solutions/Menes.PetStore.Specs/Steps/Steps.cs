@@ -5,7 +5,6 @@
 namespace Menes.PetStore.Specs.Steps
 {
     using System;
-    using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
     using System.Net;
@@ -31,6 +30,12 @@ namespace Menes.PetStore.Specs.Steps
         public Task WhenIRequestAListOfPets()
         {
             return this.SendGetRequest("/pets");
+        }
+
+        [When("I request the pet with Id (.*)")]
+        public Task WhenIRequestThePetWithId(int petId)
+        {
+            return this.SendGetRequest($"/pets/{petId}");
         }
 
         [Given("I have requested a list of pets with a limit of (.*)")]
@@ -111,9 +116,13 @@ namespace Menes.PetStore.Specs.Steps
             this.scenarioContext.Set(petListResponse);
 
             string content = await petListResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-            var data = JObject.Parse(content);
 
-            this.scenarioContext.Set(data);
+            if (!string.IsNullOrEmpty(content))
+            {
+                var data = JObject.Parse(content);
+
+                this.scenarioContext.Set(data);
+            }
         }
 
         private JToken GetExpectedTokenFromResponseObject(string propertyPath)

@@ -1,6 +1,6 @@
 ﻿@perScenarioContainer
 @useSelfHostedApi
-Feature: ListPets
+Feature: List Pets
 	In order to access the pets in the store
 	As an API consumer
 	I want to be able to request a list of pets

@@ -20,7 +20,7 @@ namespace Menes.PetStore.Specs.Features
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.1.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("ListPets")]
+    [NUnit.Framework.DescriptionAttribute("List Pets")]
     [NUnit.Framework.CategoryAttribute("perScenarioContainer")]
     [NUnit.Framework.CategoryAttribute("useSelfHostedApi")]
     public partial class ListPetsFeature
@@ -39,7 +39,7 @@ namespace Menes.PetStore.Specs.Features
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "ListPets", "\tIn order to access the pets in the store\r\n\tAs an API consumer\r\n\tI want to be abl" +
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "List Pets", "\tIn order to access the pets in the store\r\n\tAs an API consumer\r\n\tI want to be abl" +
                     "e to request a list of pets", ProgrammingLanguage.CSharp, new string[] {
                         "perScenarioContainer",
                         "useSelfHostedApi"});
