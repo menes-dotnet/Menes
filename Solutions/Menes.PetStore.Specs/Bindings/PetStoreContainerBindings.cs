@@ -2,7 +2,7 @@
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
-namespace Bindings
+namespace Menes.PetStore.Specs.Bindings
 {
     using Corvus.Testing.SpecFlow;
     using Microsoft.Extensions.DependencyInjection;

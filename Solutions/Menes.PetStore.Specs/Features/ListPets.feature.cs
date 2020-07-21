@@ -10,7 +10,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace Features
+namespace Menes.PetStore.Specs.Features
 {
     using TechTalk.SpecFlow;
     using System;

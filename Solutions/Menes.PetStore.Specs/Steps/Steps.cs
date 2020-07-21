@@ -2,7 +2,7 @@
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
-namespace Steps
+namespace Menes.PetStore.Specs.Steps
 {
     using System;
     using System.Collections;

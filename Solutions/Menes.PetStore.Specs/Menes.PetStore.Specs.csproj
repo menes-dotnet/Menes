@@ -12,6 +12,7 @@
          appropriate if they aid understanding within the project.
     -->
     <NoWarn>SA0001;SA1204;SA1600;SA1602;CS1591</NoWarn>
+    <RootNamespace>Menes.PetStore.Specs</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
