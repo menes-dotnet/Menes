@@ -466,11 +466,4 @@ components:
           format: url
         validationErrors: 
           type: array
-          items:
-            anyOf:
-              - type: array
-              - type: boolean
-              - type: integer
-              - type: number
-              - type: object
-              - type: string
+        additionalProperties: true
