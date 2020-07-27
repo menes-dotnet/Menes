@@ -5,6 +5,7 @@
 namespace Menes.PetStore.Specs.Stubs
 {
     using System;
+    using System.Threading.Tasks;
     using Menes.Hal;
     using Menes.PetStore.Responses;
     using Menes.PetStore.Responses.Mappers;
@@ -26,7 +27,7 @@ namespace Menes.PetStore.Specs.Stubs
         }
 
         [OperationId("showPetById")]
-        public OpenApiResult ShowPet(string petId)
+        public async Task<OpenApiResult> ShowPet(string petId)
         {
             var pet = new PetResource($"stub{petId}", "stub")
             {
@@ -35,7 +36,7 @@ namespace Menes.PetStore.Specs.Stubs
                 Size = Size.Small,
             };
 
-            HalDocument response = this.petResourceMapper.Map(pet);
+            HalDocument response = await this.petResourceMapper.MapAsync(pet).ConfigureAwait(false);
             return this.OkResult(response, "application/hal+json");
         }
 

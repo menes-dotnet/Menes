@@ -13,17 +13,12 @@ namespace Menes.Testing.AspNetCoreSelfHosting.Internal
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Abstractions;
     using Microsoft.AspNetCore.Routing;
-    using Microsoft.Azure.WebJobs.Hosting;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
 
     /// <summary>
-    /// Startup class used with <see cref="IWebHostBuilder"/> to initialise a webhost using an <see cref="IWebJobsStartup"/>
-    /// implementation from a functions app.
+    /// Startup class used with <see cref="IWebHostBuilder"/> to initialise a webhost.
     /// </summary>
-    /// <typeparam name="TWebJobStartup">
-    /// The type of the Startup class to use to configure the <see cref="IServiceCollection"/>.
-    /// </typeparam>
     internal class OpenApiWebHostStartup
     {
         /// <summary>

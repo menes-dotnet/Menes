@@ -4,13 +4,13 @@
 
 namespace Menes.Internal
 {
+    using System;
     using System.Collections.Generic;
     using System.Text;
-    using Microsoft.OpenApi.Exceptions;
     using Microsoft.OpenApi.Models;
 
     /// <inheritdoc/>
-    public class OutputBuilderNotFoundException : OpenApiException
+    public class OutputBuilderNotFoundException : Exception
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="OutputBuilderNotFoundException"/> class.
@@ -18,50 +18,12 @@ namespace Menes.Internal
         /// <param name="result">The result being processed.</param>
         /// <param name="operation">The operation being executed.</param>
         public OutputBuilderNotFoundException(object result, OpenApiOperation operation)
+            : base(BuildMessage(result, operation))
         {
             this.RawResult = result;
+            this.OpenApiResult = result as OpenApiResult;
             this.Operation = operation;
-
-            var sb = new StringBuilder();
-            bool firstTime = true;
-            sb.Append("Expecting a Response with a Status Code in the range of ");
-
-            foreach (KeyValuePair<string, OpenApiResponse> response in operation.Responses)
-            {
-                if (!firstTime)
-                {
-                    sb.Append(", ");
-                }
-
-                sb.Append(" ");
-                sb.Append(response.Key);
-                sb.Append(" - ");
-                sb.Append(response.Value.Description);
-                sb.Append(" ");
-
-                firstTime = false;
-            }
-
-            sb.Append(". Recieved a Response with Status Code of ");
-
-            if (this.RawResult is OpenApiResult oaiResult)
-            {
-                this.OpenApiResult = oaiResult;
-
-                sb.Append(oaiResult.StatusCode);
-            }
-            else
-            {
-                sb.Append(this.RawResult.GetType());
-            }
-
-            sb.Append(". Check that your Operation implementation return value matches the OpenAPI operation response definition.");
-
-            this.Message = sb.ToString();
         }
-
-        /// <inheritdoc cref="Message"/>
-        public new string Message { get; }
 
         /// <summary>
         /// Gets the OpenApiResult.
@@ -77,5 +39,102 @@ namespace Menes.Internal
         /// Gets the raw Result.
         /// </summary>
         public object RawResult { get; }
+
+        private static string BuildMessage(object result, OpenApiOperation operation)
+        {
+            var sb = new StringBuilder();
+            bool appendComma = false;
+            sb.Append("Expecting a response with a status code of: ");
+
+            foreach (KeyValuePair<string, OpenApiResponse> response in operation.Responses)
+            {
+                if (appendComma)
+                {
+                    sb.Append(", ");
+                }
+
+                sb.Append(response.Key);
+                if (!string.IsNullOrWhiteSpace(response.Value.Description))
+                {
+                    sb.Append(" - ");
+                    sb.Append(response.Value.Description);
+                }
+
+                appendComma = true;
+            }
+
+            sb.Append(".");
+
+            if (result is OpenApiResult oaiResult)
+            {
+                sb.AppendLine();
+                sb.Append("Received a response with a status code of: ");
+                sb.Append(oaiResult.StatusCode);
+                sb.Append(".");
+
+                sb.AppendLine();
+
+                if (oaiResult.Results.Count == 0)
+                {
+                    sb.Append("There were no content result media types provided.");
+                }
+                else
+                {
+                    sb.Append("The following content result media types were provided: ");
+                    appendComma = false;
+                    foreach (string item in oaiResult.Results.Keys)
+                    {
+                        if (appendComma)
+                        {
+                            sb.Append(", ");
+                        }
+
+                        appendComma = true;
+                        sb.Append(item);
+                    }
+                }
+
+                sb.AppendLine();
+
+                sb.Append("One of the following content result media types was expected: ");
+                sb.AppendLine();
+                foreach (KeyValuePair<string, OpenApiResponse> item in operation.Responses)
+                {
+                    sb.Append(item.Key);
+                    sb.Append(": ");
+
+                    if (item.Value.Content.Count == 0)
+                    {
+                        sb.Append("No content.");
+                        continue;
+                    }
+
+                    appendComma = false;
+
+                    foreach (string mediaType in item.Value.Content.Keys)
+                    {
+                        if (appendComma)
+                        {
+                            sb.Append(", ");
+                        }
+
+                        sb.Append(mediaType);
+                        appendComma = true;
+                    }
+
+                    sb.AppendLine();
+                }
+            }
+            else
+            {
+                sb.AppendLine();
+                sb.Append("Received a response with a type of ");
+                sb.Append(result.GetType());
+            }
+
+            sb.AppendLine();
+            sb.Append("Check that your service implementation return value matches the OpenAPI OperationResponse definition.");
+            return sb.ToString();
+        }
     }
 }

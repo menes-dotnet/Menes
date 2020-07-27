@@ -19,15 +19,17 @@ namespace Menes.Testing.AspNetCoreSelfHosting
     /// <remarks>
     /// <para>
     /// This class allows you to use the same Startup class that's used in an Azure function to run services in memory.
-    /// To run the same services in memory as your function, first obtain an instance of this class using the static
-    /// <see cref="GetInstance(SpecFlowContext)"/> method, supplying the current scenario or feature context. Then use the
-    /// <see cref="StartHostAsync"/> method to add services, supplying the Startup class from your function and the
-    /// base url (including port number where necessary) that the endpoints should be made available on.
+    /// To run the same services in memory as your function, obtain an instance of this class (if you wish to run multiple
+    /// services, you can create a single instance of this class to manage all services). Then use the
+    /// <see cref="StartHostAsync"/> method to add services, supplying the Startup class from your function and/or a
+    /// callback to configure the service collection and the base url (including port number where necessary) that the
+    /// endpoints should be made available on.
     /// </para>
     /// <para>
     /// Note that this assumes you're using an instance method in your function host rather than the older static method
     /// approach. This means that your initialisation will have been moved into a Startup class that implements
-    /// <c>IWebJobsStartup</c>; this is the class that should be supplied to <see cref="StartHostAsync"/>.
+    /// <c>IWebJobsStartup</c> or <c>FunctionsStartup</c>; this is the class that should be supplied to
+    /// <see cref="StartHostAsync"/>.
     /// </para>
     /// <para>
     /// You will normally make this call in a method tagged with either <c>BeforeScenario</c> or <c>BeforeFeature</c>. In the
@@ -40,8 +42,6 @@ namespace Menes.Testing.AspNetCoreSelfHosting
     public class OpenApiWebHostManager
     {
         private readonly List<IWebHost> webHosts = new List<IWebHost>();
-
-
 
         /// <summary>
         /// Starts a new function host using the given Uri and startup class.
@@ -56,7 +56,7 @@ namespace Menes.Testing.AspNetCoreSelfHosting
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         public Task StartHostAsync<TFunctionStartup>(
             string baseUrl,
-            Action<IServiceCollection> additionalServiceConfigurationCallback = null)
+            Action<IServiceCollection>? additionalServiceConfigurationCallback = null)
             where TFunctionStartup : IWebJobsStartup, new()
         {
             return this.StartHostAsync(baseUrl, s =>
@@ -98,7 +98,6 @@ namespace Menes.Testing.AspNetCoreSelfHosting
             builder.UseStartup<OpenApiWebHostStartup>();
 
             builder.ConfigureServices(serviceConfigurationCallback);
-
 
             IWebHost host = builder.Build();
 

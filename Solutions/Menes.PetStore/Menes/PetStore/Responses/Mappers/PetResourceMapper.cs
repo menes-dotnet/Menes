@@ -4,6 +4,7 @@
 
 namespace Menes.PetStore.Responses.Mappers
 {
+    using System.Threading.Tasks;
     using Menes.Hal;
     using Menes.Links;
 
@@ -35,14 +36,14 @@ namespace Menes.PetStore.Responses.Mappers
         }
 
         /// <inheritdoc/>
-        public HalDocument Map(PetResource input)
+        public ValueTask<HalDocument> MapAsync(PetResource input)
         {
             HalDocument response = this.halDocumentFactory.CreateHalDocumentFrom(input);
             response.ResolveAndAddByOwnerAndRelationType(this.linkResolver, input, "self", ("petId", input.Id));
             response.ResolveAndAddByOwnerAndRelationType(this.linkResolver, input, "image", ("petId", input.Id));
             response.ResolveAndAddByOwnerAndRelationType(this.linkResolver, input, "pocoimage", ("petId", input.Id));
 
-            return response;
+            return new ValueTask<HalDocument>(response);
         }
     }
 }

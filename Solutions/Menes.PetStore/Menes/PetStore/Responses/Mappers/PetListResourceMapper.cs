@@ -4,7 +4,9 @@
 
 namespace Menes.PetStore.Responses.Mappers
 {
+    using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using Menes.Hal;
     using Menes.Links;
 
@@ -40,10 +42,14 @@ namespace Menes.PetStore.Responses.Mappers
         }
 
         /// <inheritdoc/>
-        public HalDocument Map(PetListResource pets)
+        public async ValueTask<HalDocument> MapAsync(PetListResource pets)
         {
             HalDocument response = this.halDocumentFactory.CreateHalDocumentFrom(pets);
-            response.AddEmbeddedResources(PetsRelation, pets.Pets.Select(this.petResourceMapper.Map));
+
+            IEnumerable<Task<HalDocument>> petResourceTasks = pets.Pets.Select(pet => this.petResourceMapper.MapAsync(pet).AsTask());
+            HalDocument[] petResources = await Task.WhenAll(petResourceTasks).ConfigureAwait(false);
+
+            response.AddEmbeddedResources(PetsRelation, petResources);
             foreach (HalDocument current in response.GetEmbeddedResourcesForRelation("pets"))
             {
                 response.AddLink("pets", current.GetLinksForRelation("self").First());
