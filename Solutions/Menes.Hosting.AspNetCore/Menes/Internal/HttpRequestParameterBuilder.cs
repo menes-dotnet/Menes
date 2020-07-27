@@ -13,8 +13,11 @@ namespace Menes.Internal
     using Menes.Converters;
     using Menes.Exceptions;
     using Microsoft.AspNetCore.Http;
+    using Microsoft.CodeAnalysis.CSharp.Syntax;
     using Microsoft.Extensions.Logging;
+    using Microsoft.OpenApi.Any;
     using Microsoft.OpenApi.Models;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// An implementation of an <see cref="IOpenApiParameterBuilder{TRequest}"/>.
@@ -170,6 +173,62 @@ namespace Menes.Internal
             }
 
             return parameters;
+        }
+
+        private static object? TryGetDefaultValueFromSchema(OpenApiSchema schema, IOpenApiAny? defaultValue)
+        {
+            return defaultValue switch
+            {
+                OpenApiDate d       when schema.Format == "date"        => d.Value,
+                OpenApiDateTime dt  when schema.Format == "date-time"   => dt.Value,
+                OpenApiPassword p   when schema.Format == "password"    => p.Value,
+                OpenApiByte by      when schema.Format == "byte"        => by.Value,
+                OpenApiBinary bi    when schema.Format == "binary"      => bi.Value,
+                OpenApiString s     when schema.Type == "string"        => s.Value,
+                OpenApiBoolean b    when schema.Type == "boolean"       => b.Value,
+                OpenApiLong l       when schema.Format == "int64"       => l.Value,
+                OpenApiInteger i    when schema.Type == "integer"       => i.Value,
+                OpenApiFloat f      when schema.Format == "float"       => f.Value,
+                OpenApiDouble db    when schema.Format == "double"      => db.Value,
+                OpenApiArray a      when schema.Type == "array"         => HandleArray(schema.Items, a),
+                OpenApiObject o     when schema.Type == "object"        => HandleObject(schema.Properties, o),
+                OpenApiNull _                                           => null,
+                _ => throw new OpenApiSpecificationException($"Default value for parameter '{schema}' not valid.")
+            };
+
+            static object HandleArray(OpenApiSchema schema, OpenApiArray array)
+            {
+                var values = new List<object?>();
+
+                foreach (IOpenApiAny? item in array)
+                {
+                    object? obj = TryGetDefaultValueFromSchema(schema, item);
+
+                    values.Add(obj);
+                }
+
+                return JsonConvert.SerializeObject(values);
+            }
+
+            static object HandleObject(IDictionary<string, OpenApiSchema> properties, OpenApiObject inputObj)
+            {
+                var newObj = inputObj.ToDictionary(x => x.Key, x => x.Value);
+                var newProperties = properties.ToDictionary(x => x.Key, x => x.Value);
+
+                var kvps = new Dictionary<string, object?>();
+
+                foreach (string key in newObj.Keys)
+                {
+                    OpenApiSchema schemaForProperty = newProperties[key];
+                    IOpenApiAny valueForProperty = newObj[key];
+
+                    object? obj = TryGetDefaultValueFromSchema(schemaForProperty, valueForProperty);
+
+                    kvps.Add(key, obj);
+                }
+
+                return JsonConvert.SerializeObject(kvps);
+            }
         }
 
         private async Task TryAddBody(HttpRequest request, OpenApiOperationPathTemplate operationPathTemplate, Dictionary<string, object> parameters)
@@ -469,6 +528,20 @@ namespace Menes.Internal
 
                 result = this.ConvertValue(parameter.Schema, value.FirstOrDefault());
                 return true;
+            }
+
+            if (parameter.Schema.Default != null)
+            {
+                result = TryGetDefaultValueFromSchema(parameter.Schema, parameter.Schema.Default);
+
+                if (result != null)
+                {
+                    this.logger.LogDebug(
+                        "Got default value for parameter [{parameter}] from the OpenAPI specification.",
+                        parameter.Name);
+
+                    return true;
+                }
             }
 
             if (this.logger.IsEnabled(LogLevel.Debug))
