@@ -15,6 +15,7 @@ namespace Menes.Testing.AspNetCoreSelfHosting.Internal
     using Microsoft.AspNetCore.Routing;
     using Microsoft.Azure.WebJobs.Hosting;
     using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Logging;
 
     /// <summary>
     /// Startup class used with <see cref="IWebHostBuilder"/> to initialise a webhost using an <see cref="IWebJobsStartup"/>
@@ -54,7 +55,9 @@ namespace Menes.Testing.AspNetCoreSelfHosting.Internal
                     catch (Exception ex)
                     {
                         context.Response.StatusCode = 500;
-                        await context.Response.WriteAsync(ex.ToString()).ConfigureAwait(false);
+
+                        ILogger<OpenApiWebHostStartup> logger = context.RequestServices.GetService<ILogger<OpenApiWebHostStartup>>();
+                        logger?.LogError(ex, "An unexpected exception occurred when attempting to handle the request.");
                     }
                 });
 

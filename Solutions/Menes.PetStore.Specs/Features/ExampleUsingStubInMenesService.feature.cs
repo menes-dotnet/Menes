@@ -81,15 +81,15 @@ namespace Menes.PetStore.Specs.Features
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Stubbed service implementation")]
+        [NUnit.Framework.DescriptionAttribute("Use a stubbed service implementation")]
         [NUnit.Framework.CategoryAttribute("useStubServiceImplementation")]
-        public virtual void StubbedServiceImplementation()
+        public virtual void UseAStubbedServiceImplementation()
         {
             string[] tagsOfScenario = new string[] {
                     "useStubServiceImplementation"};
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Stubbed service implementation", null, new string[] {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Use a stubbed service implementation", null, new string[] {
                         "useStubServiceImplementation"});
-#line 14
+#line 13
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -109,30 +109,30 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 15
+#line 14
  testRunner.When("I request the pet with Id 5000", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 16
+#line 15
  testRunner.Then("the response status code should be \'OK\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
-#line 17
+#line 16
  testRunner.And("the response object should have a property called \'_links.self\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 18
+#line 17
  testRunner.And("the response object should have an integer property called \'id\' with value 5000", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 19
+#line 18
  testRunner.And("the response object should have a string property called \'name\' with value \'stub5" +
                         "000\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 20
+#line 19
  testRunner.And("the response object should have a string property called \'tag\' with value \'stub\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 21
+#line 20
  testRunner.And("the response object should have a string property called \'size\' with value \'small" +
                         "\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 22
+#line 21
  testRunner.And("the response object should have a string property called \'globalIdentifier\' with " +
                         "value \'00000000-0000-0000-0000-000000000000\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden

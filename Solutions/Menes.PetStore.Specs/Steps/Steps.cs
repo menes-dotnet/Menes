@@ -61,7 +61,7 @@ namespace Menes.PetStore.Specs.Steps
 
             var pet = new
             {
-                id = id,
+                id = this.ParseStringValue(petRow["Id"]),
                 name = this.ParseStringValue(petRow["Name"]),
                 tag = this.ParseStringValue(petRow["Tag"]),
                 size = this.ParseStringValue(petRow["Size"]),
