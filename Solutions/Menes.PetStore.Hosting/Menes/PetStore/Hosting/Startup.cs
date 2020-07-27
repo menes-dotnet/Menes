@@ -2,23 +2,22 @@
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
-[assembly: Microsoft.Azure.WebJobs.Hosting.WebJobsStartup(typeof(Menes.PetStore.Hosting.Startup))]
+[assembly: Microsoft.Azure.Functions.Extensions.DependencyInjection.FunctionsStartup(typeof(Menes.PetStore.Hosting.Startup))]
 
 namespace Menes.PetStore.Hosting
 {
     using Menes.PetStore.Responses;
     using Menes.PetStore.Responses.Mappers;
-    using Microsoft.Azure.WebJobs;
-    using Microsoft.Azure.WebJobs.Hosting;
+    using Microsoft.Azure.Functions.Extensions.DependencyInjection;
     using Microsoft.Extensions.DependencyInjection;
 
     /// <summary>
     /// Startup code for the Function.
     /// </summary>
-    public class Startup : IWebJobsStartup
+    public class Startup : FunctionsStartup
     {
         /// <inheritdoc/>
-        public void Configure(IWebJobsBuilder builder)
+        public override void Configure(IFunctionsHostBuilder builder)
         {
             IServiceCollection services = builder.Services;
 

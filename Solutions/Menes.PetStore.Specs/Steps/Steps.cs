@@ -55,8 +55,8 @@ namespace Menes.PetStore.Specs.Steps
             // We want to be able to send invalid values for Id to test that the validation is working correctly.
             // But if the value is a valid integer, we need to make sure it's passed correctly, so...
             string? idFieldValue = this.ParseStringValue(petRow["Id"]);
-            object? id = int.TryParse(idFieldValue, out int idAsInteger)
-                ? (object?)idAsInteger
+            object? id = long.TryParse(idFieldValue, out long idAsLong)
+                ? (object?)idAsLong
                 : idFieldValue;
 
             var pet = new

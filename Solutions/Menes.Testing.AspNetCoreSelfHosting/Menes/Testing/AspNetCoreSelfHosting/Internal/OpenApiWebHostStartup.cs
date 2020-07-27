@@ -23,8 +23,7 @@ namespace Menes.Testing.AspNetCoreSelfHosting.Internal
     /// <typeparam name="TWebJobStartup">
     /// The type of the Startup class to use to configure the <see cref="IServiceCollection"/>.
     /// </typeparam>
-    internal class OpenApiWebHostStartup<TWebJobStartup>
-        where TWebJobStartup : IWebJobsStartup, new()
+    internal class OpenApiWebHostStartup
     {
         /// <summary>
         /// Configures the <see cref="IServiceCollection"/>, adding MVC routing and then handing off to the specified
@@ -34,10 +33,6 @@ namespace Menes.Testing.AspNetCoreSelfHosting.Internal
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRouting();
-
-            var builder = new WebJobBuilder(services);
-            var targetStartup = new TWebJobStartup();
-            targetStartup.Configure(builder);
         }
 
         /// <summary>

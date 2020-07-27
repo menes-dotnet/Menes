@@ -41,6 +41,8 @@ namespace Menes.Testing.AspNetCoreSelfHosting
     {
         private readonly List<IWebHost> webHosts = new List<IWebHost>();
 
+
+
         /// <summary>
         /// Starts a new function host using the given Uri and startup class.
         /// </summary>
@@ -57,14 +59,46 @@ namespace Menes.Testing.AspNetCoreSelfHosting
             Action<IServiceCollection> additionalServiceConfigurationCallback = null)
             where TFunctionStartup : IWebJobsStartup, new()
         {
+            return this.StartHostAsync(baseUrl, s =>
+            {
+                // Shim to allow us to invoke the configuration method of the services startup class.
+                var webJobBuilder = new WebJobBuilder(s);
+                var targetStartup = new TFunctionStartup();
+                targetStartup.Configure(webJobBuilder);
+
+                // Invoke any extra container configuration.
+                additionalServiceConfigurationCallback?.Invoke(s);
+            });
+        }
+
+        /// <summary>
+        /// Starts a new function host using the given Uri and startup class.
+        /// </summary>
+        /// <param name="baseUrl">The url that the function will be exposed on.</param>
+        /// <param name="serviceConfigurationCallback">
+        /// A callback that will allow you to configure the <see cref="IServiceCollection"/> for your service.
+        /// </param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        public Task StartHostAsync(
+            string baseUrl,
+            Action<IServiceCollection> serviceConfigurationCallback)
+        {
+            if (string.IsNullOrEmpty(baseUrl))
+            {
+                throw new ArgumentNullException(nameof(baseUrl));
+            }
+
+            if (serviceConfigurationCallback is null)
+            {
+                throw new ArgumentNullException(nameof(serviceConfigurationCallback));
+            }
+
             IWebHostBuilder builder = WebHost.CreateDefaultBuilder();
             builder.UseUrls(baseUrl);
-            builder.UseStartup<OpenApiWebHostStartup<TFunctionStartup>>();
+            builder.UseStartup<OpenApiWebHostStartup>();
 
-            if (additionalServiceConfigurationCallback != null)
-            {
-                builder.ConfigureServices(additionalServiceConfigurationCallback);
-            }
+            builder.ConfigureServices(serviceConfigurationCallback);
+
 
             IWebHost host = builder.Build();
 
