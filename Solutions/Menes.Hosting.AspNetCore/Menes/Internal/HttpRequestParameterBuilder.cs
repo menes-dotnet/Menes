@@ -193,7 +193,7 @@ namespace Menes.Internal
                 OpenApiArray a      when schema.Type == "array"         => HandleArray(schema.Items, a),
                 OpenApiObject o     when schema.Type == "object"        => HandleObject(schema.Properties, o),
                 OpenApiNull _                                           => null,
-                _ => throw new OpenApiSpecificationException($"Default value for parameter '{schema}' not valid.")
+                _ => throw new OpenApiSpecificationException("Default value for parameter not valid.")
             };
 
             static object HandleArray(OpenApiSchema schema, OpenApiArray array)
