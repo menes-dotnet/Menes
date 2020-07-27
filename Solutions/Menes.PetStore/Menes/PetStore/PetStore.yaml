@@ -299,21 +299,18 @@ components:
         - id
         - name
         - size
+        - tag
       properties:
         id:
           type: integer
           format: int64
-        globalIdentifier:
-          type: string
-          format: guid
         name:
           type: string
         tag:
           type: string
-          nullable: true
         size:
           type: string
-          enum: ["Small", "Medium", "Large"]
+          enum: ["small", "medium", "large"]
 
     Pet:
       anyOf:
@@ -333,6 +330,7 @@ components:
             nullable: true
           size:
             type: string
+            enum: ["small", "medium", "large"]
           _links:
             type: object
             properties:

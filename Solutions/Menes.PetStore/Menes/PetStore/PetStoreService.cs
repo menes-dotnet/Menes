@@ -198,12 +198,14 @@ namespace Menes.PetStore
         {
             if (!this.pets.Any(p => p.Id == body.Id))
             {
+                body.GlobalIdentifier = Guid.NewGuid();
+
                 this.pets.Add(body);
             }
 
             HalDocument response = this.petMapper.Map(body);
             WebLink location = response.GetLinksForRelation("self").First();
-            return this.CreatedResult(location.Href, response).WithAuditData(("id", (object)body.Id));
+            return this.CreatedResult(location.Href, response, "application/hal+json").WithAuditData(("id", (object)body.Id));
         }
 
         /// <summary>

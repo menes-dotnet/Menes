@@ -9,7 +9,9 @@ namespace Menes.PetStore.Specs.Steps
     using System.Linq;
     using System.Net;
     using System.Net.Http;
+    using System.Text;
     using System.Threading.Tasks;
+    using Newtonsoft.Json;
     using Newtonsoft.Json.Linq;
     using NUnit.Framework;
     using TechTalk.SpecFlow;
@@ -17,6 +19,8 @@ namespace Menes.PetStore.Specs.Steps
     [Binding]
     public class Steps
     {
+        private static readonly HttpClient HttpClient = HttpClientFactory.Create();
+
         private static readonly Uri BaseUri = new Uri("http://localhost:7071");
 
         private readonly ScenarioContext scenarioContext;
@@ -36,6 +40,34 @@ namespace Menes.PetStore.Specs.Steps
         public Task WhenIRequestThePetWithId(int petId)
         {
             return this.SendGetRequest($"/pets/{petId}");
+        }
+
+        [When("I request that a new pet be created")]
+        public Task WhenIRequestThatANewPetBeCreated(Table table)
+        {
+            if (table.RowCount != 1)
+            {
+                Assert.Fail("Exactly one row of pet details must be supplied.");
+            }
+
+            TableRow petRow = table.Rows[0];
+
+            // We want to be able to send invalid values for Id to test that the validation is working correctly.
+            // But if the value is a valid integer, we need to make sure it's passed correctly, so...
+            string? idFieldValue = this.ParseStringValue(petRow["Id"]);
+            object? id = int.TryParse(idFieldValue, out int idAsInteger)
+                ? (object?)idAsInteger
+                : idFieldValue;
+
+            var pet = new
+            {
+                id = id,
+                name = this.ParseStringValue(petRow["Name"]),
+                tag = this.ParseStringValue(petRow["Tag"]),
+                size = this.ParseStringValue(petRow["Size"]),
+            };
+
+            return this.SendPostRequest("/pets", pet);
         }
 
         [Given("I have requested a list of pets with a limit of (.*)")]
@@ -92,6 +124,15 @@ namespace Menes.PetStore.Specs.Steps
             this.GetExpectedTokenFromResponseObject(propertyPath);
         }
 
+        [Then("the response object should have a string property called '(.*)' with value '(.*)'")]
+        public void ThenTheResponseObjectShouldHaveAStringPropertyCalledWithValue(string propertyPath, string expectedValue)
+        {
+            JToken actualToken = this.GetExpectedTokenFromResponseObject(propertyPath);
+
+            string actualValue = actualToken.Value<string>();
+            Assert.AreEqual(expectedValue, actualValue);
+        }
+
         [Then("the response object should not have a property called '(.*)'")]
         public void ThenTheResponseObjectShouldNotHaveAPropertyCalled(string propertyPath)
         {
@@ -110,16 +151,38 @@ namespace Menes.PetStore.Specs.Steps
 
         private async Task SendGetRequest(string path)
         {
-            using var client = new HttpClient();
-            HttpResponseMessage petListResponse = await client.GetAsync(new Uri(BaseUri, path)).ConfigureAwait(false);
+            HttpResponseMessage response = await HttpClient.GetAsync(new Uri(BaseUri, path)).ConfigureAwait(false);
 
-            this.scenarioContext.Set(petListResponse);
+            this.scenarioContext.Set(response);
 
-            string content = await petListResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+            string content = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 
             if (!string.IsNullOrEmpty(content))
             {
+                Console.WriteLine($"Read response content: '{content}'");
+
                 var data = JObject.Parse(content);
+
+                this.scenarioContext.Set(data);
+            }
+        }
+
+        private async Task SendPostRequest(string path, object body)
+        {
+            string requestContentString = JsonConvert.SerializeObject(body);
+            var requestContent = new StringContent(requestContentString, Encoding.UTF8, "application/json");
+
+            HttpResponseMessage response = await HttpClient.PostAsync(new Uri(BaseUri, path), requestContent).ConfigureAwait(false);
+
+            this.scenarioContext.Set(response);
+
+            string responseContent = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+
+            if (!string.IsNullOrEmpty(responseContent))
+            {
+                Console.WriteLine($"Read response content: '{responseContent}'");
+
+                var data = JObject.Parse(responseContent);
 
                 this.scenarioContext.Set(data);
             }
@@ -131,6 +194,16 @@ namespace Menes.PetStore.Specs.Steps
             JToken token = data.SelectToken(propertyPath);
             Assert.IsNotNull(token);
             return token;
+        }
+
+        private string? ParseStringValue(string input, string? valueIfEmpty = null)
+        {
+            if (string.IsNullOrEmpty(input))
+            {
+                return valueIfEmpty;
+            }
+
+            return input;
         }
     }
 }
