@@ -8,6 +8,8 @@ namespace Menes.PetStore.Specs.Bindings
     using Corvus.Testing.SpecFlow;
     using Menes.PetStore.Hosting;
     using Menes.Testing.AspNetCoreSelfHosting;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Logging;
     using TechTalk.SpecFlow;
 
     [Binding]
@@ -19,7 +21,13 @@ namespace Menes.PetStore.Specs.Bindings
             var hostManager = new OpenApiWebHostManager();
             scenarioContext.Set(hostManager);
 
-            return hostManager.StartHostAsync<Startup>("http://localhost:7071");
+            return hostManager.StartHostAsync<Startup>(
+                "http://localhost:7071",
+                services =>
+                {
+                    // Ensure log level for the service is set to debug.
+                    services.AddLogging(builder => builder.SetMinimumLevel(LogLevel.Debug));
+                });
         }
 
         [AfterScenario("useSelfHostedApi")]
