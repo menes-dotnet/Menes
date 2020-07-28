@@ -6,7 +6,7 @@
     <Nullable>enable</Nullable>
     
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-    <PackageDescription>Menes is a framework for hosting Web APIs with OpenAPI-based service definitions. This library provides a mechanism for hosting Menes services in-memory for testing purposes.</PackageDescription>
+    <PackageDescription>Menes is a framework for hosting Web APIs with OpenAPI-based service definitions. This library defines the common abstractions used throughout Menes.</PackageDescription>
     
     <!--
       RCS1194 - we don't want the standard ctor patterns, as they clash with nullable references
