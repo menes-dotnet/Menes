@@ -80,7 +80,7 @@ namespace Menes.PetStore.Specs.Steps
         [When("I request a list of pets using the value of '(.*)' from the previous response object")]
         public Task WhenIRequestAListOfPetsUsingTheValueOfFromThePreviousResponseObject(string propertyPath)
         {
-            JToken token = this.GetExpectedTokenFromResponseObject(propertyPath);
+            JToken token = this.GetRequiredTokenFromResponseObject(propertyPath);
             string value = token.Value<string>();
             return this.SendGetRequest(value);
         }
@@ -112,7 +112,7 @@ namespace Menes.PetStore.Specs.Steps
         [Then("the response object should have an integer property called '(.*)' with value (.*)")]
         public void ThenTheResponseShouldHaveSetTo(string propertyPath, int expectedValue)
         {
-            JToken actualToken = this.GetExpectedTokenFromResponseObject(propertyPath);
+            JToken actualToken = this.GetRequiredTokenFromResponseObject(propertyPath);
 
             int actualValue = actualToken.Value<int>();
             Assert.AreEqual(expectedValue, actualValue);
@@ -121,13 +121,13 @@ namespace Menes.PetStore.Specs.Steps
         [Then("the response object should have a property called '(.*)'")]
         public void ThenTheResponseObjectShouldHaveAPropertyCalled(string propertyPath)
         {
-            this.GetExpectedTokenFromResponseObject(propertyPath);
+            this.GetRequiredTokenFromResponseObject(propertyPath);
         }
 
         [Then("the response object should have a string property called '(.*)' with value '(.*)'")]
         public void ThenTheResponseObjectShouldHaveAStringPropertyCalledWithValue(string propertyPath, string expectedValue)
         {
-            JToken actualToken = this.GetExpectedTokenFromResponseObject(propertyPath);
+            JToken actualToken = this.GetRequiredTokenFromResponseObject(propertyPath);
 
             string actualValue = actualToken.Value<string>();
             Assert.AreEqual(expectedValue, actualValue);
@@ -144,7 +144,7 @@ namespace Menes.PetStore.Specs.Steps
         [Then(@"the response object should have an array property called '(.*)' containing (.*) entries")]
         public void ThenTheResponseObjectShouldHaveAnArrayPropertyCalledContainingEntries(string propertyPath, int expectedEntryCount)
         {
-            JToken actualToken = this.GetExpectedTokenFromResponseObject(propertyPath);
+            JToken actualToken = this.GetRequiredTokenFromResponseObject(propertyPath);
             JToken[] tokenArray = actualToken.ToArray();
             Assert.AreEqual(expectedEntryCount, tokenArray.Length);
         }
@@ -188,7 +188,7 @@ namespace Menes.PetStore.Specs.Steps
             }
         }
 
-        private JToken GetExpectedTokenFromResponseObject(string propertyPath)
+        private JToken GetRequiredTokenFromResponseObject(string propertyPath)
         {
             JObject data = this.scenarioContext.Get<JObject>();
             JToken token = data.SelectToken(propertyPath);
