@@ -159,8 +159,6 @@ namespace Menes.PetStore.Specs.Steps
 
             if (!string.IsNullOrEmpty(content))
             {
-                Console.WriteLine($"Read response content: '{content}'");
-
                 var data = JObject.Parse(content);
 
                 this.scenarioContext.Set(data);
@@ -180,8 +178,6 @@ namespace Menes.PetStore.Specs.Steps
 
             if (!string.IsNullOrEmpty(responseContent))
             {
-                Console.WriteLine($"Read response content: '{responseContent}'");
-
                 var data = JObject.Parse(responseContent);
 
                 this.scenarioContext.Set(data);
