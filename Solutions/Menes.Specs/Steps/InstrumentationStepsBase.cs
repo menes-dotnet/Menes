@@ -1,6 +1,6 @@
 ﻿namespace Menes.Specs.Steps
 {
-    using Corvus.SpecFlow.Extensions;
+    using Corvus.Testing.SpecFlow;
     using Menes.Internal;
     using Menes.Specs.Fakes;
     using Menes.Specs.Steps.TestClasses;

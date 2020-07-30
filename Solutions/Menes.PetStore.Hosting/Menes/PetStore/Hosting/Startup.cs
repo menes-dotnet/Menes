@@ -2,26 +2,22 @@
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
-[assembly: Microsoft.Azure.WebJobs.Hosting.WebJobsStartup(typeof(Menes.PetStore.Hosting.Startup))]
+[assembly: Microsoft.Azure.Functions.Extensions.DependencyInjection.FunctionsStartup(typeof(Menes.PetStore.Hosting.Startup))]
 
 namespace Menes.PetStore.Hosting
 {
-    using System.IO;
     using Menes.PetStore.Responses;
     using Menes.PetStore.Responses.Mappers;
-    using Microsoft.Azure.WebJobs;
-    using Microsoft.Azure.WebJobs.Hosting;
+    using Microsoft.Azure.Functions.Extensions.DependencyInjection;
     using Microsoft.Extensions.DependencyInjection;
-    using Microsoft.OpenApi.Models;
-    using Microsoft.OpenApi.Readers;
 
     /// <summary>
     /// Startup code for the Function.
     /// </summary>
-    public class Startup : IWebJobsStartup
+    public class Startup : FunctionsStartup
     {
         /// <inheritdoc/>
-        public void Configure(IWebJobsBuilder builder)
+        public override void Configure(IFunctionsHostBuilder builder)
         {
             IServiceCollection services = builder.Services;
 
@@ -31,7 +27,7 @@ namespace Menes.PetStore.Hosting
             services.AddHalDocumentMapper<PetResource, PetResourceMapper>();
             services.AddHalDocumentMapper<PetListResource, PetListResourceMapper>();
 
-            _ = services.AddOpenApiHttpRequestHosting<SimpleOpenApiContext>(LoadDocuments);
+            services.AddOpenApiHttpRequestHosting<SimpleOpenApiContext>(LoadDocuments);
 
             // We can add all the services here
             // We will only actually *provide* services that are in the YAML file(s) we load below
@@ -41,13 +37,10 @@ namespace Menes.PetStore.Hosting
 
         private static void LoadDocuments(IOpenApiHostConfiguration hostConfig)
         {
-            OpenApiDocument openApiDocument;
-            using (FileStream stream = File.OpenRead(".\\yaml\\petstore.yaml"))
-            {
-                openApiDocument = new OpenApiStreamReader().Read(stream, out _);
-            }
+            hostConfig.Documents.RegisterOpenApiServiceWithEmbeddedDefinition(
+                typeof(PetStoreService).Assembly,
+                "Menes.PetStore.PetStore.yaml");
 
-            hostConfig.Documents.Add(openApiDocument);
             hostConfig.Documents.AddSwaggerEndpoint();
         }
     }

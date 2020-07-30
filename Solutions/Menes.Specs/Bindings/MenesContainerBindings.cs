@@ -5,7 +5,7 @@
 namespace Marain.Claims.SpecFlow.Bindings
 {
     using Corvus.Monitoring.Instrumentation;
-    using Corvus.SpecFlow.Extensions;
+    using Corvus.Testing.SpecFlow;
     using Menes;
     using Menes.Specs.Fakes;
     using Menes.Specs.Steps.TestClasses;

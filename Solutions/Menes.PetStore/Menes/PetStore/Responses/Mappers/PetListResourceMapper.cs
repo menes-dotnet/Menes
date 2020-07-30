@@ -50,6 +50,10 @@ namespace Menes.PetStore.Responses.Mappers
             HalDocument[] petResources = await Task.WhenAll(petResourceTasks).ConfigureAwait(false);
 
             response.AddEmbeddedResources(PetsRelation, petResources);
+            foreach (HalDocument current in response.GetEmbeddedResourcesForRelation("pets"))
+            {
+                response.AddLink("pets", current.GetLinksForRelation("self").First());
+            }
 
             response.ResolveAndAddByOwnerAndRelationType(this.linkResolver, pets, "self", ("limit", pets.PageSize), ("continuationToken", pets.CurrentContinuationToken));
             response.ResolveAndAddByOwnerAndRelationType(this.linkResolver, pets, "create");

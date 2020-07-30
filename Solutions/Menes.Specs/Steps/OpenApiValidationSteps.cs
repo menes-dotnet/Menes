@@ -1,7 +1,11 @@
-﻿namespace Menes.Specs.Steps
+﻿// <copyright file="OpenApiValidationSteps.cs" company="Endjin Limited">
+// Copyright (c) Endjin Limited. All rights reserved.
+// </copyright>
+
+namespace Menes.Specs.Steps
 {
     using System;
-    using Corvus.SpecFlow.Extensions;
+    using Corvus.Testing.SpecFlow;
     using Menes.Exceptions;
     using Menes.Validation;
     using Microsoft.Extensions.DependencyInjection;
