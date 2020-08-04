@@ -32,11 +32,12 @@ jobs:
 
           $messageLines = @("The following packages have been published to nuget.org:")
 
-          $packages = gci -Recurse -Filter *.nupkg -Path "$($env:Build_ArtifactStagingDirectory)"
+          Write-Host "Build_ArtifactStagingDirectory: $($env:Build_ArtifactStagingDirectory)"
+          $packages = gci -Recurse -Filter *.nupkg -Path "$($env:Build_ArtifactStagingDirectory)/Release/NuGet/Packages"
           Write-Host $packages
           foreach ($p in $packages) {
-              $packgeName = [IO.Path]::GetFileNameWithoutExtension($p.Name) -replace ".$($env:GitVersion_SemVer)",""
-              $messageLines += "- [$packgeName](https://nuget.org/menes-dotnet/$packgeName/$($env:GitVersion_SemVer))"
+              $packageName = [IO.Path]::GetFileNameWithoutExtension($p.Name) -replace ".$($env:GitVersion_SemVer)",""
+              $messageLines += "- [$packageName](https://nuget.org/menes-dotnet/$packageName/$($env:GitVersion_SemVer))"
           }
           $messageLines += "`nThe GitHub release is here: https://github.com/menes-dotnet/Menes/releases/tag/$($env:GitVersion_SemVer)"
 
@@ -51,5 +52,6 @@ jobs:
           Endjin_Slack_ReleasesWebhookUri: $(Endjin_Slack_ReleasesWebhookUri)
           Endjin_Repository_Name: $(Endjin_Repository_Name)
           GitVersion_SemVer: $(GitVersion.SemVer)
+          Build_ArtifactStagingDirectory: $(Build.ArtifactStagingDirectory)
           
         #condition: and(succeeded(), or(variables['Endjin.ForcePublish'], eq(variables['GitVersion.PreReleaseTag'], '')))
