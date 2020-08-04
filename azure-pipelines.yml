@@ -29,11 +29,14 @@ jobs:
           {
              "username": "endjin-bot",
              "icon_emoji": ":mike:"
-             "text": "Package '${Endjin_Repository_Name}' with version '${GitVersion_SemVer}' was published to NuGet"
-          }"@
-          Invoke-RestMethod -uri "${Endjin_Slack_ReleasesWebhookUri}" -Method Post -body $body -ContentType 'application/json'
+             "text": "Package '$($env:Endjin_Repository_Name)' with version '$($env:GitVersion_SemVer)' was published to NuGet"
+          }
+          "@
+          Invoke-RestMethod -uri "$($env:Endjin_Slack_ReleasesWebhookUri)" -Method Post -body $body -ContentType 'application/json'
         displayName: Send notification to Slack channel
         env:
           Endjin_Slack_ReleasesWebhookUri: $(Endjin_Slack_ReleasesWebhookUri)
+          Endjin_Repository_Name: $(Endjin_Repository_Name)
+          GitVersion_SemVer: $(GitVersion.SemVer)
           
         #condition: and(succeeded(), or(variables['Endjin.ForcePublish'], eq(variables['GitVersion.PreReleaseTag'], '')))
