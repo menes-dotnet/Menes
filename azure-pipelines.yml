@@ -26,12 +26,11 @@ jobs:
     postPublishNugetPackages:
       - pwsh: |
           $body = @"
-              {
-                  "username": "endjin-bot",
-                  "icon_emoji": ":mike:"
-                  "text": "Package '{0}' with version '{1}' was published to NuGet"
-              }
-          "@ -f $env:Endjin_Repository_Name, $env:GitVersion_SemVer
+          {
+             "username": "endjin-bot",
+             "icon_emoji": ":mike:"
+             "text": "Package '$env:Endjin_Repository_Name' with version '$env:GitVersion_SemVer' was published to NuGet"
+          }"@
           Invoke-RestMethod -uri $env:Endjin_Slack_ReleasesWebhookUri -Method Post -body $body -ContentType 'application/json'
         displayName: Send notification to Slack channel
         env:
