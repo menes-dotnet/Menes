@@ -32,7 +32,7 @@ jobs:
 
           $messageLines = @("The following packages have been published to nuget.org:")
 
-          $packages = gci -Recurse -Filter *.nupkg -Path "$($env:Build.ArtifactStagingDirectory)"
+          $packages = gci -Recurse -Filter *.nupkg -Path "$($env:Build_ArtifactStagingDirectory)"
           Write-Host $packages
           foreach ($p in $packages) {
               $packgeName = [IO.Path]::GetFileNameWithoutExtension($p.Name) -replace ".$($env:GitVersion_SemVer)",""
