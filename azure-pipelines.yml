@@ -34,11 +34,6 @@ jobs:
           $packages = gci -Recurse -Filter *.nupkg -Path "$($env:Build_ArtifactStagingDirectory)/Release/NuGet/Packages"
           Write-Host $packages
 
-          $packages = @(
-              @{},
-              @{}
-          )
-
           $blocks = @()
           $blocks += @{ type = "header"; text = @{ type = "mrkdwn";  text = "New release for $($env:Endjin_Repository_Name) : $($env:GitVersion_SemVer)" } }
           $blocks += @{ type = "section"; text = @{ type = "mrkdwn";  text = "The following packages have been published to <https://nuget.org|NuGet>:" } }
