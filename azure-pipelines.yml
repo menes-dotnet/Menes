@@ -35,14 +35,14 @@ jobs:
           Write-Host $packages
 
           $blocks = @()
-          $blocks += @{ type = "header"; text = @{ type = "mrkdwn";  text = "New release for $($env:Endjin_Repository_Name) : $($env:GitVersion_SemVer)" } }
+          $blocks += @{ type = "header"; text = @{ type = "plain_text";  text = "New release for $($env:Endjin_Repository_Name) : $($env:GitVersion_SemVer)" } }
           $blocks += @{ type = "section"; text = @{ type = "mrkdwn";  text = "The following packages have been published to <https://nuget.org|NuGet>:" } }
 
           $packagesText = ""
 
           foreach ($p in $packages) {
               $packageName = [IO.Path]::GetFileNameWithoutExtension($p.Name) -replace ".$($env:GitVersion_SemVer)",""
-              $packagesText += "•  <https://nuget.org/packages/$packageName/$($env:GitVersion_SemVer)|$packageName>\n"
+              $packagesText += "•  <https://nuget.org/packages/$packageName/$($env:GitVersion_SemVer)|$packageName>`n"
           }
 
           $blocks += @{ type = "section"; text = @{ type = "mrkdwn";  text = $packagesText } }
