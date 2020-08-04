@@ -28,7 +28,7 @@ jobs:
           $body = @"
           {
              "username": "endjin-bot",
-             "icon_emoji": ":mike:"
+             "icon_emoji": ":mike:",
              "text": "Package '$($env:Endjin_Repository_Name)' with version '$($env:GitVersion_SemVer)' was published to NuGet"
           }
           "@
