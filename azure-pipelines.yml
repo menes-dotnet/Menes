@@ -37,7 +37,7 @@ jobs:
           Write-Host $packages
           foreach ($p in $packages) {
               $packageName = [IO.Path]::GetFileNameWithoutExtension($p.Name) -replace ".$($env:GitVersion_SemVer)",""
-              $messageLines += "- [$packageName](https://nuget.org/menes-dotnet/$packageName/$($env:GitVersion_SemVer))"
+              $messageLines += "- <https://nuget.org/menes-dotnet/$packageName/$($env:GitVersion_SemVer)|$packageName>"
           }
           $messageLines += "`nThe GitHub release is here: https://github.com/menes-dotnet/Menes/releases/tag/$($env:GitVersion_SemVer)"
 
