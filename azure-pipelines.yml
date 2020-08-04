@@ -13,6 +13,7 @@ resources:
       type: github
       name: endjin/Endjin.RecommendedPractices.AzureDevopsPipelines.GitHub
       endpoint: menes-dotnet-github
+      ref: refs/heads/feature/release-hooks
 
 jobs:
 - template: templates/build.and.release.yml@recommended_practices
@@ -22,3 +23,6 @@ jobs:
     service_connection_github: $(Endjin_Service_Connection_GitHub)
     solution_to_build: $(Endjin_Solution_To_Build)
     netSdkVersion: '3.x'
+    postPublishNugetPackages:
+      - script: echo Published!
+        #condition: and(succeeded(), or(variables['Endjin.ForcePublish'], eq(variables['GitVersion.PreReleaseTag'], '')))
