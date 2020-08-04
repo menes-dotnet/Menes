@@ -31,7 +31,7 @@ jobs:
              "icon_emoji": ":mike:"
              "text": "Package '${Endjin_Repository_Name}' with version '${GitVersion_SemVer}' was published to NuGet"
           }"@
-          Invoke-RestMethod -uri $env:Endjin_Slack_ReleasesWebhookUri -Method Post -body $body -ContentType 'application/json'
+          Invoke-RestMethod -uri "${Endjin_Slack_ReleasesWebhookUri}" -Method Post -body $body -ContentType 'application/json'
         displayName: Send notification to Slack channel
         env:
           Endjin_Slack_ReleasesWebhookUri: $(Endjin_Slack_ReleasesWebhookUri)
