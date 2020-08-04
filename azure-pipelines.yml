@@ -50,10 +50,10 @@ jobs:
           $blocks += @{ type = "section"; text = @{ type = "mrkdwn";  text = "The GitHub release can be found <https://github.com/$($env:Endjin_Repository_Name)/releases/tag/$($env:GitVersion_SemVer)|here>" } }
 
           $body += @{ blocks = $blocks }
-          Write-Host "body:`n$(ConvertTo-Json $body)"
+          Write-Host "body:`n$(ConvertTo-Json $body -Depth 99)"
           Invoke-RestMethod -uri "$($env:Endjin_Slack_ReleasesWebhookUri)" `
                             -Method Post `
-                            -body (ConvertTo-Json $body) `
+                            -body (ConvertTo-Json $body -Depth 99) `
                             -ContentType 'application/json'
         displayName: Send notification to Slack channel
         env:
