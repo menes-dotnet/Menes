@@ -24,8 +24,7 @@ jobs:
     solution_to_build: $(Endjin_Solution_To_Build)
     netSdkVersion: '3.x'
     postPublishNugetPackages:
-      - displayName: Send notification to Slack channel
-        pwsh: |
+      - pwsh: |
           $body = @"
               {
                   "username": "endjin-bot",
@@ -34,6 +33,7 @@ jobs:
               }
           "@ -f $env:Endjin_Repository_Name, $env:GitVersion_SemVer
           Invoke-RestMethod -uri $env:Endjin_Slack_ReleasesWebhookUri -Method Post -body $body -ContentType 'application/json'
+        displayName: Send notification to Slack channel
         env:
           Endjin_Slack_ReleasesWebhookUri: $(Endjin_Slack_ReleasesWebhookUri)
           
