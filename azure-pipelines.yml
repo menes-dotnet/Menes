@@ -32,14 +32,14 @@ jobs:
 
           $messageLines = @("The following packages have been published to nuget.org:")
 
-          $packages = gci -Recurse -Filter *.nupkg
+          $packages = gci -Recurse -Filter *.nupkg -Path "$($env:Build.ArtifactStagingDirectory)/Release/NuGet/Packages"
           foreach ($p in $packages) {
               $packgeName = [IO.Path]::GetFileNameWithoutExtension($p.Name) -replace ".$($env:GitVersion_SemVer)",""
               $messageLines += "- [$packgeName](https://nuget.org/menes-dotnet/$packgeName/$($env:GitVersion_SemVer))"
           }
           $messageLines += "`nThe GitHub release is here: https://github.com/menes-dotnet/Menes/releases/tag/$($env:GitVersion_SemVer)"
 
-          $body += @{ message = ($messageLines -join "`n") }
+          $body += @{ text = ($messageLines -join "`n") }
           Write-Host "body:`n$(ConvertTo-Json $body)"
           Invoke-RestMethod -uri "$($env:Endjin_Slack_ReleasesWebhookUri)" `
                             -Method Post `
