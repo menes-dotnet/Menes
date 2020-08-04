@@ -25,14 +25,26 @@ jobs:
     netSdkVersion: '3.x'
     postPublishNugetPackages:
       - pwsh: |
-          $body = @"
-          {
-             "username": "endjin-bot",
-             "icon_emoji": ":mike:",
-             "text": "Package '$($env:Endjin_Repository_Name)' with version '$($env:GitVersion_SemVer)' was published to NuGet"
+          $body = @{
+            username = "endjin-bot"
+            icon_emoji = ":mike:"
           }
-          "@
-          Invoke-RestMethod -uri "$($env:Endjin_Slack_ReleasesWebhookUri)" -Method Post -body $body -ContentType 'application/json'
+
+          $messageLines = @("The following packages have been published to nuget.org:")
+
+          $packages = gci -Recurse -Filter *.nupkg
+          foreach ($p in $packages) {
+              $packgeName = [IO.Path]::GetFileNameWithoutExtension($p.Name) -replace ".$($env:GitVersion_SemVer)",""
+              $messageLines += "- [$packgeName](https://nuget.org/menes-dotnet/$packgeName/$($env:GitVersion_SemVer))"
+          }
+          $messageLines += "`nThe GitHub release is here: https://github.com/menes-dotnet/Menes/releases/tag/$($env:GitVersion_SemVer)"
+
+          $body += @{ message = ($messageLines -join "`n") }
+          Write-Host "body:`n$(ConvertTo-Json $body)"
+          Invoke-RestMethod -uri "$($env:Endjin_Slack_ReleasesWebhookUri)" `
+                            -Method Post `
+                            -body (ConvertTo-Json $body) `
+                            -ContentType 'application/json'
         displayName: Send notification to Slack channel
         env:
           Endjin_Slack_ReleasesWebhookUri: $(Endjin_Slack_ReleasesWebhookUri)
