@@ -24,7 +24,7 @@ jobs:
     solution_to_build: $(Endjin_Solution_To_Build)
     netSdkVersion: '3.x'
     postPublishNugetPackages:
-      - name: Send notification to Slack channel
+      - displayName: Send notification to Slack channel
         pwsh: |
           $body = @"
               {
