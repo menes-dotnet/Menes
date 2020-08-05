@@ -25,7 +25,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: Parse Dependabot PR title
         id: parse_dependabot_pr
-        uses: endjin/pr-autoflow/actions/dependabot-pr-parser@v3
+        uses: endjin/pr-autoflow/actions/dependabot-pr-parser@v0.1.5
         with:
           pr_title: ${{ github.event.pull_request.title }}
           package_wildcard_expressions: ${{ env.AUTO_MERGE_PACKAGE_WILDCARD_EXPRESSIONS }}
