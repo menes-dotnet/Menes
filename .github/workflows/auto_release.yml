@@ -15,6 +15,7 @@ jobs:
       no_release: ${{ steps.check_for_norelease_label.outputs.result }}
     steps:
     - id: check_for_norelease_label
+      name: Check for 'no_release' label on PR
       uses: actions/github-script@v2
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -26,15 +27,19 @@ jobs:
             });
             core.info("labels: " + JSON.stringify(labels.data))
             if ( labels.data.map(l => l.name).includes("no_release") ) {
+              core.info("Label found")
               return true
             }
             return false
+    - name: Display 'no_release' status
+      run: |
+        echo "no_release: ${{ steps.check_for_norelease_label.outputs.result }}"
 
   check_for_open_prs:
     runs-on: ubuntu-latest
     needs: check_for_norelease_label
     if: |
-      !needs.check_for_norelease_label.outputs.no_release
+      needs.check_for_norelease_label.outputs.no_release == 'false'
     outputs:
       no_open_prs: ${{ steps.watch_dependabot_prs.outputs.is_complete }}
     steps:
