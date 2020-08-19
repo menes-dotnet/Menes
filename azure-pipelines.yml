@@ -27,7 +27,8 @@ jobs:
         displayName: 'Install nupkgversion global tool'
         inputs:
           command: custom
-          custom: tool install -g nupkgversion
+          custom: tool
+          arguments: install -g nupkgversion
 
       - script: 'nupkgversion "$(Build.ArtifactStagingDirectory)/Release/NuGet" https://api.nuget.org/v3/index.json'
         displayName: 'Run nupkgversion global tool'
