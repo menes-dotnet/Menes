@@ -1,4 +1,4 @@
-name: Autosquash
+name: auto_merge
 on:
   check_run:
     types:
@@ -24,8 +24,8 @@ on:
   status: {}
 
 jobs:
-  autosquash:
-    name: Autosquash
+  auto_merge:
+    name: Auto-squash the PR
     runs-on: ubuntu-18.04
     steps:
       - name: Generate token
