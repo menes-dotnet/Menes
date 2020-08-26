@@ -135,7 +135,7 @@ jobs:
     - name: Create SemVer tag
       uses: hole19/git-tag-action@master
       env:
-        TAG: ${{ steps.run_gitversion.outputs.semver }}
+        TAG: ${{ steps.run_gitversion.outputs.MajorMinorPatch }}
         GITHUB_TOKEN: '${{ steps.generate_token.outputs.token }}'
 
     - name: Remove 'release_pending' label from PRs
