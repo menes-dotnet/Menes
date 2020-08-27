@@ -3,3 +3,4 @@ branches:
   master:
     tag: preview
     increment: Patch
+next-version: 1.1
