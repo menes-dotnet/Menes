@@ -2,4 +2,4 @@ mode: "ContinuousDeployment"
 branches:
   master:
     tag: preview
-    increment: Minor
+    increment: Patch
