@@ -13,7 +13,6 @@ namespace Menes.Internal
     using Menes.Converters;
     using Menes.Exceptions;
     using Microsoft.AspNetCore.Http;
-    using Microsoft.CodeAnalysis.CSharp.Syntax;
     using Microsoft.Extensions.Logging;
     using Microsoft.OpenApi.Any;
     using Microsoft.OpenApi.Models;
@@ -179,11 +178,14 @@ namespace Menes.Internal
         {
             return defaultValue switch
             {
-                OpenApiDate d       when schema.Format == "date"        => d.Value,
-                OpenApiDateTime dt  when schema.Format == "date-time"   => dt.Value,
+                //// Convert to DateTimeOffset rather than use the DateTime supplied by default to be consistent with our converters.
+                OpenApiDate d       when schema.Format == "date"        => new DateTimeOffset(DateTime.SpecifyKind(d.Value, DateTimeKind.Utc)),
+                //// Convert to string rather than use the DateTimeOffset supplied by default to be consistent with our current (lack of) support for strings with format "date-time".
+                OpenApiDateTime dt  when schema.Format == "date-time"   => dt.Value.ToString("yyyy-MM-ddTHH:mm:ssK"),
                 OpenApiPassword p   when schema.Format == "password"    => p.Value,
                 OpenApiByte by      when schema.Format == "byte"        => by.Value,
-                OpenApiBinary bi    when schema.Format == "binary"      => bi.Value,
+                //// Convert to string rather than use the byte array supplied by default to be consistent with our current (lack of) support for string with format "binary".
+                OpenApiBinary bi    when schema.Format == "binary"      => System.Text.Encoding.Default.GetString(bi.Value),
                 OpenApiString s     when schema.Type == "string"        => s.Value,
                 OpenApiBoolean b    when schema.Type == "boolean"       => b.Value,
                 OpenApiLong l       when schema.Format == "int64"       => l.Value,
@@ -372,6 +374,32 @@ namespace Menes.Internal
                 return true;
             }
 
+            if (parameter.Schema.Default != null)
+            {
+                try
+                {
+                    result = TryGetDefaultValueFromSchema(parameter.Schema, parameter.Schema.Default);
+
+                    if (result != null)
+                    {
+                        this.logger.LogDebug(
+                            "Got default value for parameter [{parameter}] from the OpenAPI specification.",
+                            parameter.Name);
+
+                        return true;
+                    }
+                }
+                catch (OpenApiSpecificationException ex)
+                {
+                    this.logger.LogError(
+                        "Failed to parse default value for parameter [{parameter}] with [{schema}].",
+                        parameter.Name,
+                        parameter.Schema.GetLoggingInformation());
+
+                    throw ex;
+                }
+            }
+
             if (this.logger.IsEnabled(LogLevel.Debug))
             {
                 this.logger.LogDebug(
@@ -432,6 +460,32 @@ namespace Menes.Internal
                 return true;
             }
 
+            if (parameter.Schema.Default != null)
+            {
+                try
+                {
+                    result = TryGetDefaultValueFromSchema(parameter.Schema, parameter.Schema.Default);
+
+                    if (result != null)
+                    {
+                        this.logger.LogDebug(
+                            "Got default value for parameter [{parameter}] from the OpenAPI specification.",
+                            parameter.Name);
+
+                        return true;
+                    }
+                }
+                catch (OpenApiSpecificationException ex)
+                {
+                    this.logger.LogError(
+                        "Failed to parse default value for parameter [{parameter}] with [{schema}].",
+                        parameter.Name,
+                        parameter.Schema.GetLoggingInformation());
+
+                    throw ex;
+                }
+            }
+
             if (this.logger.IsEnabled(LogLevel.Debug))
             {
                 this.logger.LogDebug(
@@ -479,6 +533,32 @@ namespace Menes.Internal
 
                 result = this.ConvertValue(parameter.Schema, value.ToString());
                 return true;
+            }
+
+            if (parameter.Schema.Default != null)
+            {
+                try
+                {
+                    result = TryGetDefaultValueFromSchema(parameter.Schema, parameter.Schema.Default);
+
+                    if (result != null)
+                    {
+                        this.logger.LogDebug(
+                            "Got default value for parameter [{parameter}] from the OpenAPI specification.",
+                            parameter.Name);
+
+                        return true;
+                    }
+                }
+                catch (OpenApiSpecificationException ex)
+                {
+                    this.logger.LogError(
+                        "Failed to parse default value for parameter [{parameter}] with [{schema}].",
+                        parameter.Name,
+                        parameter.Schema.GetLoggingInformation());
+
+                    throw ex;
+                }
             }
 
             if (this.logger.IsEnabled(LogLevel.Debug))
@@ -532,15 +612,27 @@ namespace Menes.Internal
 
             if (parameter.Schema.Default != null)
             {
-                result = TryGetDefaultValueFromSchema(parameter.Schema, parameter.Schema.Default);
-
-                if (result != null)
+                try
                 {
-                    this.logger.LogDebug(
-                        "Got default value for parameter [{parameter}] from the OpenAPI specification.",
-                        parameter.Name);
+                    result = TryGetDefaultValueFromSchema(parameter.Schema, parameter.Schema.Default);
 
-                    return true;
+                    if (result != null)
+                    {
+                        this.logger.LogDebug(
+                            "Got default value for parameter [{parameter}] from the OpenAPI specification.",
+                            parameter.Name);
+
+                        return true;
+                    }
+                }
+                catch (OpenApiSpecificationException ex)
+                {
+                    this.logger.LogError(
+                        "Failed to parse default value for parameter [{parameter}] with [{schema}].",
+                        parameter.Name,
+                        parameter.Schema.GetLoggingInformation());
+
+                    throw ex;
                 }
             }
 
