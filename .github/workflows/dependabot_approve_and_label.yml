@@ -3,13 +3,6 @@ on:
   pull_request:
     types: [opened, reopened]
     
-env:
-  # Customise this variable to choose which dependencies can be auto-merged
-  AUTO_MERGE_PACKAGE_WILDCARD_EXPRESSIONS: |
-    ["Endjin.*","Corvus.*"]
-  AUTO_RELEASE_PACKAGE_WILDCARD_EXPRESSIONS: |
-    ["Corvus.*"]
-
 jobs:
   evaluate_dependabot_pr:
     runs-on: ubuntu-latest
@@ -26,18 +19,23 @@ jobs:
       github.event_name == 'pull_request'
     steps:
       - uses: actions/checkout@v2
+      - name: Read pr-autoflow configuration
+        id: get_pr_autoflow_config
+        uses: endjin/pr-autoflow/actions/read-configuration@v1
+        with:
+          config_file: .github/config/pr-autoflow.json
       - name: Dependabot PR - AutoMerge Candidate
         id: parse_dependabot_pr_automerge
         uses: endjin/pr-autoflow/actions/dependabot-pr-parser@v1
         with:
           pr_title: ${{ github.event.pull_request.title }}
-          package_wildcard_expressions: ${{ env.AUTO_MERGE_PACKAGE_WILDCARD_EXPRESSIONS }}
+          package_wildcard_expressions: ${{ steps.get_pr_autoflow_config.outputs.AUTO_MERGE_PACKAGE_WILDCARD_EXPRESSIONS }}
       - name: Dependabot PR - AutoRelease Candidate
         id: parse_dependabot_pr_autorelease
         uses: endjin/pr-autoflow/actions/dependabot-pr-parser@v1
         with:
           pr_title: ${{ github.event.pull_request.title }}
-          package_wildcard_expressions: ${{ env.AUTO_RELEASE_PACKAGE_WILDCARD_EXPRESSIONS }}
+          package_wildcard_expressions: ${{ steps.get_pr_autoflow_config.outputs.AUTO_RELEASE_PACKAGE_WILDCARD_EXPRESSIONS }}
       - name: debug
         run: |
           echo "dependency_name : ${{ steps.parse_dependabot_pr_automerge.outputs.dependency_name }}"

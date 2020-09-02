@@ -4,11 +4,6 @@ on:
     types: [closed]
   workflow_dispatch:
 
-env:
-  # Customise this variable to choose which dependencies can be auto-merged
-  AUTO_MERGE_PACKAGE_WILDCARD_EXPRESSIONS: |
-    ["Corvus.*"]
-
 jobs:
   check_for_norelease_label:
     runs-on: ubuntu-latest
@@ -87,12 +82,18 @@ jobs:
         echo "release_pending_pr_list : ${{ steps.get_release_pending_pr_list.outputs.result }}"
         echo "is_release_pending : ${{ steps.get_release_pending_pr_list.outputs.is_release_pending }}"
 
+    - name: Read pr-autoflow configuration
+      id: get_pr_autoflow_config
+      uses: endjin/pr-autoflow/actions/read-configuration@v1
+      with:
+        config_file: .github/config/pr-autoflow.json
+
     - name: Watch Dependabot PRs
       id: watch_dependabot_prs      
       uses: endjin/pr-autoflow/actions/dependabot-pr-watcher@v1
       with:
         pr_titles: ${{ steps.get_open_pr_list.outputs.result }}
-        package_wildcard_expressions: ${{ env.AUTO_MERGE_PACKAGE_WILDCARD_EXPRESSIONS }}
+        package_wildcard_expressions: ${{ steps.get_pr_autoflow_config.outputs.AUTO_MERGE_PACKAGE_WILDCARD_EXPRESSIONS }}
         max_semver_increment: minor
         verbose_mode: 'False'
 
