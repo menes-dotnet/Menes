@@ -1,7 +1,8 @@
 version: 2
 updates:
-- package-ecosystem: nuget
-  directory: "/Solutions"
+- directory: /Solutions
+  open-pull-requests-limit: 10
   schedule:
     interval: daily
-  open-pull-requests-limit: 10
+  package-ecosystem: nuget
+
