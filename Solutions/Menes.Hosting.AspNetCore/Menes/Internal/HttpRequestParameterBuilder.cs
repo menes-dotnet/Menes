@@ -17,6 +17,7 @@ namespace Menes.Internal
     using Microsoft.OpenApi.Any;
     using Microsoft.OpenApi.Models;
     using Newtonsoft.Json;
+    using Newtonsoft.Json.Linq;
 
     /// <summary>
     /// An implementation of an <see cref="IOpenApiParameterBuilder{TRequest}"/>.
@@ -184,8 +185,8 @@ namespace Menes.Internal
                 OpenApiDateTime dt  when schema.Format == "date-time"   => dt.Value.ToString("yyyy-MM-ddTHH:mm:ssK"),
                 OpenApiPassword p   when schema.Format == "password"    => p.Value,
                 OpenApiByte by      when schema.Format == "byte"        => by.Value,
-                //// Convert to string rather than use the byte array supplied by default to be consistent with our current (lack of) support for string with format "binary".
-                OpenApiBinary bi    when schema.Format == "binary"      => System.Text.Encoding.Default.GetString(bi.Value),
+                OpenApiString gu     when schema.Format == "uuid" || schema.Format == "guid" => new Guid(gu.Value),
+                OpenApiString uri     when schema.Format == "uri"        => new Uri(uri.Value),
                 OpenApiString s     when schema.Type == "string"        => s.Value,
                 OpenApiBoolean b    when schema.Type == "boolean"       => b.Value,
                 OpenApiLong l       when schema.Format == "int64"       => l.Value,
@@ -194,13 +195,12 @@ namespace Menes.Internal
                 OpenApiDouble db    when schema.Format == "double"      => db.Value,
                 OpenApiArray a      when schema.Type == "array"         => HandleArray(schema.Items, a),
                 OpenApiObject o     when schema.Type == "object"        => HandleObject(schema.Properties, o),
-                OpenApiNull _                                           => null,
                 _ => throw new OpenApiSpecificationException("Default value for parameter not valid.")
             };
 
             static object HandleArray(OpenApiSchema schema, OpenApiArray array)
             {
-                var values = new List<object?>();
+                var values = new JArray();
 
                 foreach (IOpenApiAny? item in array)
                 {
@@ -209,27 +209,21 @@ namespace Menes.Internal
                     values.Add(obj);
                 }
 
-                return JsonConvert.SerializeObject(values);
+                return values;
             }
 
             static object HandleObject(IDictionary<string, OpenApiSchema> properties, OpenApiObject inputObj)
             {
-                var newObj = inputObj.ToDictionary(x => x.Key, x => x.Value);
-                var newProperties = properties.ToDictionary(x => x.Key, x => x.Value);
+                var values = new JObject();
 
-                var kvps = new Dictionary<string, object?>();
-
-                foreach (string key in newObj.Keys)
+                foreach (string key in inputObj.Keys)
                 {
-                    OpenApiSchema schemaForProperty = newProperties[key];
-                    IOpenApiAny valueForProperty = newObj[key];
+                    object? obj = TryGetDefaultValueFromSchema(properties[key], inputObj[key]);
 
-                    object? obj = TryGetDefaultValueFromSchema(schemaForProperty, valueForProperty);
-
-                    kvps.Add(key, obj);
+                    values.Add(key, JToken.FromObject(obj));
                 }
 
-                return JsonConvert.SerializeObject(kvps);
+                return values;
             }
         }
 
@@ -535,31 +529,8 @@ namespace Menes.Internal
                 return true;
             }
 
-            if (parameter.Schema.Default != null)
-            {
-                try
-                {
-                    result = TryGetDefaultValueFromSchema(parameter.Schema, parameter.Schema.Default);
-
-                    if (result != null)
-                    {
-                        this.logger.LogDebug(
-                            "Got default value for parameter [{parameter}] from the OpenAPI specification.",
-                            parameter.Name);
-
-                        return true;
-                    }
-                }
-                catch (OpenApiSpecificationException ex)
-                {
-                    this.logger.LogError(
-                        "Failed to parse default value for parameter [{parameter}] with [{schema}].",
-                        parameter.Name,
-                        parameter.Schema.GetLoggingInformation());
-
-                    throw ex;
-                }
-            }
+            //// No default value handling since Path parameters aren't optional if they've been defined (and therefore default values are redundant).
+            //// This is as per the the Open API spec, as seen here: https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#parameterObject.
 
             if (this.logger.IsEnabled(LogLevel.Debug))
             {
@@ -616,11 +587,16 @@ namespace Menes.Internal
                 {
                     result = TryGetDefaultValueFromSchema(parameter.Schema, parameter.Schema.Default);
 
+                    if (parameter.Schema.Type == "array" || parameter.Schema.Type == "object")
+                    {
+                        result = JsonConvert.SerializeObject(result);
+                    }
+
                     if (result != null)
                     {
                         this.logger.LogDebug(
-                            "Got default value for parameter [{parameter}] from the OpenAPI specification.",
-                            parameter.Name);
+                        "Got default value for parameter [{parameter}] from the OpenAPI specification.",
+                        parameter.Name);
 
                         return true;
                     }
