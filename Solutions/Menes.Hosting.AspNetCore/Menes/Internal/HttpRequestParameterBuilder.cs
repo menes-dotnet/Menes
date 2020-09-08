@@ -175,7 +175,7 @@ namespace Menes.Internal
             return parameters;
         }
 
-        private static object? TryGetDefaultValueFromSchema(OpenApiSchema schema, IOpenApiAny? defaultValue)
+        private object? TryGetDefaultValueFromSchema(OpenApiSchema schema, IOpenApiAny? defaultValue)
         {
             return defaultValue switch
             {
@@ -185,9 +185,7 @@ namespace Menes.Internal
                 OpenApiDateTime dt  when schema.Format == "date-time"   => dt.Value.ToString("yyyy-MM-ddTHH:mm:ssK"),
                 OpenApiPassword p   when schema.Format == "password"    => p.Value,
                 OpenApiByte by      when schema.Format == "byte"        => by.Value,
-                OpenApiString gu     when schema.Format == "uuid" || schema.Format == "guid" => new Guid(gu.Value),
-                OpenApiString uri     when schema.Format == "uri"        => new Uri(uri.Value),
-                OpenApiString s     when schema.Type == "string"        => s.Value,
+                OpenApiString s     when schema.Type == "string"        => this.ConvertValue(schema, s.Value),
                 OpenApiBoolean b    when schema.Type == "boolean"       => b.Value,
                 OpenApiLong l       when schema.Format == "int64"       => l.Value,
                 OpenApiInteger i    when schema.Type == "integer"       => i.Value,
@@ -198,13 +196,13 @@ namespace Menes.Internal
                 _ => throw new OpenApiSpecificationException("Default value for parameter not valid.")
             };
 
-            static object HandleArray(OpenApiSchema schema, OpenApiArray array)
+            object HandleArray(OpenApiSchema schema, OpenApiArray array)
             {
                 var values = new JArray();
 
                 foreach (IOpenApiAny? item in array)
                 {
-                    object? obj = TryGetDefaultValueFromSchema(schema, item);
+                    object? obj = this.TryGetDefaultValueFromSchema(schema, item);
 
                     values.Add(obj);
                 }
@@ -212,13 +210,13 @@ namespace Menes.Internal
                 return values;
             }
 
-            static object HandleObject(IDictionary<string, OpenApiSchema> properties, OpenApiObject inputObj)
+            object HandleObject(IDictionary<string, OpenApiSchema> properties, OpenApiObject inputObj)
             {
                 var values = new JObject();
 
                 foreach (string key in inputObj.Keys)
                 {
-                    object? obj = TryGetDefaultValueFromSchema(properties[key], inputObj[key]);
+                    object? obj = this.TryGetDefaultValueFromSchema(properties[key], inputObj[key]);
 
                     values.Add(key, JToken.FromObject(obj));
                 }
@@ -372,7 +370,7 @@ namespace Menes.Internal
             {
                 try
                 {
-                    result = TryGetDefaultValueFromSchema(parameter.Schema, parameter.Schema.Default);
+                    result = this.TryGetDefaultValueFromSchema(parameter.Schema, parameter.Schema.Default);
 
                     if (result != null)
                     {
@@ -458,7 +456,7 @@ namespace Menes.Internal
             {
                 try
                 {
-                    result = TryGetDefaultValueFromSchema(parameter.Schema, parameter.Schema.Default);
+                    result = this.TryGetDefaultValueFromSchema(parameter.Schema, parameter.Schema.Default);
 
                     if (result != null)
                     {
@@ -585,7 +583,7 @@ namespace Menes.Internal
             {
                 try
                 {
-                    result = TryGetDefaultValueFromSchema(parameter.Schema, parameter.Schema.Default);
+                    result = this.TryGetDefaultValueFromSchema(parameter.Schema, parameter.Schema.Default);
 
                     if (parameter.Schema.Type == "array" || parameter.Schema.Type == "object")
                     {

@@ -79,4 +79,13 @@ Scenario: Any parameter with null default value
 	When I try to parse the default value
 	Then an 'OpenApiSpecificationException' should be thrown
 
-# Do we want to add incorrect combos?
+Scenario Outline: Incorrect parameter values
+	Given I have constructed the OpenAPI specification with a <ParameterLocation> parameter with name <ParameterName>, type <Type>, format <Format> and default value <DefaultValue>
+	When I try to parse the default value
+	Then an '<ExceptionType>' should be thrown
+
+	Examples:
+	| ParameterLocation | ParameterName   | Type    | Format    | DefaultValue                 | ExceptionType                 |
+	| query             | openApiDate     | string  | date      | This is certainly not a date | FormatException               |
+	| header            | openApiDateTime | string  | date-time | 20170721T173228Z             | OpenApiBadRequestException    |
+	| cookie            | openApiLong     | integer | int64     | 9223372036854775808123123123 | OpenApiSpecificationException |

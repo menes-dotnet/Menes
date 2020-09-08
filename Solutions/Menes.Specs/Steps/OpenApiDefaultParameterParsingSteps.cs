@@ -9,22 +9,15 @@ namespace Menes.Specs.Steps
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Reflection;
     using Corvus.SpecFlow.Extensions;
     using Menes.Internal;
-    using Menes.Links;
     using Microsoft.AspNetCore.Http;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
-    using Microsoft.OpenApi.Any;
     using Microsoft.OpenApi.Models;
     using Microsoft.OpenApi.Readers;
-    using Newtonsoft.Json;
-    using Newtonsoft.Json.Linq;
     using NUnit.Framework;
     using TechTalk.SpecFlow;
-    using TechTalk.SpecFlow.Assist;
 
     [Binding]
     public class OpenApiDefaultParameterParsingSteps
@@ -158,8 +151,6 @@ namespace Menes.Specs.Steps
         private void InitializeDocumentProviderAndPathMatcher(string openApiSpec)
         {
             OpenApiDocument document = new OpenApiStringReader().Read(openApiSpec, out OpenApiDiagnostic diagnostic);
-
-            Assert.IsEmpty(diagnostic.Errors);
 
             var documentProvider = new OpenApiDocumentProvider(new LoggerFactory().CreateLogger<OpenApiDocumentProvider>());
             documentProvider.Add(document);

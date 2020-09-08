@@ -96,6 +96,8 @@ namespace Menes.Specs.Features
         [NUnit.Framework.TestCaseAttribute("header", "openApiDateTime", "string", "date-time", "\"2017-07-21T17:32:28Z\"", "2017-07-21T17:32:28+00:00", "System.String", null)]
         [NUnit.Framework.TestCaseAttribute("header", "openApiPassword", "string", "password", "myVErySeCurePAsSworD123", "myVErySeCurePAsSworD123", "System.String", null)]
         [NUnit.Framework.TestCaseAttribute("header", "openApiByte", "string", "byte", "U3dhZ2dlciByb2Nrcw==", "U3dhZ2dlciByb2Nrcw==", "ByteArrayFromBase64String", null)]
+        [NUnit.Framework.TestCaseAttribute("header", "openApiString", "string", "uuid", "9b7d63fb-1689-4697-9571-00d10b873d78", "9b7d63fb-1689-4697-9571-00d10b873d78", "System.Guid", null)]
+        [NUnit.Framework.TestCaseAttribute("header", "openApiString", "string", "uri", "\"https://myuri.com\"", "https://myuri.com", "System.Uri", null)]
         [NUnit.Framework.TestCaseAttribute("header", "openApiString", "string", "", "\"I said \\\"What is a \'PC\'?\\\"\"", "I said \"What is a \'PC\'?\"", "System.String", null)]
         [NUnit.Framework.TestCaseAttribute("header", "openApiBoolean", "boolean", "", "true", "true", "System.Boolean", null)]
         [NUnit.Framework.TestCaseAttribute("header", "openApiLong", "integer", "int64", "9223372036854775807", "9223372036854775807", "System.Int64", null)]
@@ -106,6 +108,8 @@ namespace Menes.Specs.Features
         [NUnit.Framework.TestCaseAttribute("cookie", "openApiDateTime", "string", "date-time", "\"2017-07-21T17:32:28Z\"", "2017-07-21T17:32:28+00:00", "System.String", null)]
         [NUnit.Framework.TestCaseAttribute("cookie", "openApiPassword", "string", "password", "myVErySeCurePAsSworD123", "myVErySeCurePAsSworD123", "System.String", null)]
         [NUnit.Framework.TestCaseAttribute("cookie", "openApiByte", "string", "byte", "U3dhZ2dlciByb2Nrcw==", "U3dhZ2dlciByb2Nrcw==", "ByteArrayFromBase64String", null)]
+        [NUnit.Framework.TestCaseAttribute("cookie", "openApiString", "string", "uuid", "9b7d63fb-1689-4697-9571-00d10b873d78", "9b7d63fb-1689-4697-9571-00d10b873d78", "System.Guid", null)]
+        [NUnit.Framework.TestCaseAttribute("cookie", "openApiString", "string", "uri", "\"https://myuri.com\"", "https://myuri.com", "System.Uri", null)]
         [NUnit.Framework.TestCaseAttribute("cookie", "openApiString", "string", "", "\"I said \\\"What the ♻😟¥a is a \'PC\'?\\\"\"", "I said \"What the ♻😟¥a is a \'PC\'?\"", "System.String", null)]
         [NUnit.Framework.TestCaseAttribute("cookie", "openApiBoolean", "boolean", "", "true", "true", "System.Boolean", null)]
         [NUnit.Framework.TestCaseAttribute("cookie", "openApiLong", "integer", "int64", "9223372036854775807", "9223372036854775807", "System.Int64", null)]
@@ -165,7 +169,7 @@ this.ScenarioInitialize(scenarioInfo);
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Array parameter with items of simple type", null, tagsOfScenario, argumentsOfScenario);
-#line 48
+#line 52
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -185,15 +189,15 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 49
+#line 53
  testRunner.Given("I have constructed the OpenAPI specification with a parameter with name \'openApiA" +
                         "rray\', of type array, containing items of type \'integer\', and the default value " +
                         "for the parameter is \'[1,2,3,4,5]\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 50
+#line 54
  testRunner.When("I try to parse the default value", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 51
+#line 55
  testRunner.Then("the parameter openApiArray should be [1,2,3,4,5] of type System.String", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -207,7 +211,7 @@ this.ScenarioInitialize(scenarioInfo);
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Array parameter with items of array type", null, tagsOfScenario, argumentsOfScenario);
-#line 53
+#line 57
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -227,16 +231,16 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 54
+#line 58
  testRunner.Given("I have constructed the OpenAPI specification with a parameter with name \'openApiN" +
                         "estedArray\', of type array, containing items which are arrays themselves with it" +
                         "em type \'integer\', and the default value for the parameter is \'[[1],[2,3],[4,5,6" +
                         "]]\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 55
+#line 59
  testRunner.When("I try to parse the default value", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 56
+#line 60
  testRunner.Then("the parameter openApiNestedArray should be [[1],[2,3],[4,5,6]] of type System.Str" +
                         "ing", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
@@ -251,7 +255,7 @@ this.ScenarioInitialize(scenarioInfo);
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Array parameter with items of object type", null, tagsOfScenario, argumentsOfScenario);
-#line 58
+#line 62
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -271,13 +275,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 59
+#line 63
  testRunner.Given(@"I have constructed the OpenAPI specification with a parameter with name 'openApiArrayWithObjectItems', of type array, containing items which are objects which has the property structure '{ ""id"": { ""type"": ""integer"" }, ""name"": {""type"": ""string""} }', and the default value for the parameter is '[{""id"": 123, ""name"": ""Ed""}, {""id"": 456, ""name"": ""Ian""}]'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 60
+#line 64
  testRunner.When("I try to parse the default value", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 61
+#line 65
  testRunner.Then("the parameter openApiArrayWithObjectItems should be [{\"id\":123,\"name\":\"Ed\"},{\"id\"" +
                         ":456,\"name\":\"Ian\"}] of type System.String", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
@@ -292,7 +296,7 @@ this.ScenarioInitialize(scenarioInfo);
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Object parameter with properties of simple types", null, tagsOfScenario, argumentsOfScenario);
-#line 63
+#line 67
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -312,13 +316,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 64
+#line 68
  testRunner.Given(@"I have constructed the OpenAPI specification with a parameter with name 'openApiObject', of type object, containing properties in the structure '{ ""id"": { ""type"": ""integer"" }, ""name"": {""type"": ""string""} }', and the default value for the parameter is '{""id"":123, ""name"": ""Ed""}'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 65
+#line 69
  testRunner.When("I try to parse the default value", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 66
+#line 70
  testRunner.Then("the parameter openApiObject should be {\"id\":123,\"name\":\"Ed\"} of type System.Strin" +
                         "g", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
@@ -333,7 +337,7 @@ this.ScenarioInitialize(scenarioInfo);
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Object parameter with properties of complex types", null, tagsOfScenario, argumentsOfScenario);
-#line 68
+#line 72
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -353,13 +357,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 69
+#line 73
  testRunner.Given(@"I have constructed the OpenAPI specification with a parameter with name 'openApiObjectWithComplexProperties', of type object, containing properties in the structure '{ ""names"": { ""type"": ""array"", ""items"": { ""type"": ""string"" } }, ""details"": {""type"": ""object"", ""properties"": { ""age"": { ""type"": ""integer"" }, ""hairColour"": { ""type"": ""string"" } } } }', and the default value for the parameter is '{""names"": [""Ed"",""Ian""] , ""details"": {""age"": 24, ""hairColour"": ""Brown""} }'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 70
+#line 74
  testRunner.When("I try to parse the default value", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 71
+#line 75
  testRunner.Then("the parameter openApiObjectWithComplexProperties should be {\"names\":[\"Ed\",\"Ian\"]," +
                         "\"details\":{\"age\":24,\"hairColour\":\"Brown\"}} of type System.String", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
@@ -374,7 +378,7 @@ this.ScenarioInitialize(scenarioInfo);
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Any parameter with null default value", null, tagsOfScenario, argumentsOfScenario);
-#line 73
+#line 77
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -394,15 +398,65 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 74
+#line 78
  testRunner.Given("I have constructed the OpenAPI specification with a query parameter with name ope" +
                         "nApiNull, type string, format null and a null default value", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 75
+#line 79
  testRunner.When("I try to parse the default value", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 76
+#line 80
  testRunner.Then("an \'OpenApiSpecificationException\' should be thrown", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Incorrect parameter values")]
+        [NUnit.Framework.TestCaseAttribute("query", "openApiDate", "string", "date", "This is certainly not a date", "FormatException", null)]
+        [NUnit.Framework.TestCaseAttribute("header", "openApiDateTime", "string", "date-time", "20170721T173228Z", "OpenApiBadRequestException", null)]
+        [NUnit.Framework.TestCaseAttribute("cookie", "openApiLong", "integer", "int64", "9223372036854775808123123123", "OpenApiSpecificationException", null)]
+        public virtual void IncorrectParameterValues(string parameterLocation, string parameterName, string type, string format, string defaultValue, string exceptionType, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("ParameterLocation", parameterLocation);
+            argumentsOfScenario.Add("ParameterName", parameterName);
+            argumentsOfScenario.Add("Type", type);
+            argumentsOfScenario.Add("Format", format);
+            argumentsOfScenario.Add("DefaultValue", defaultValue);
+            argumentsOfScenario.Add("ExceptionType", exceptionType);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Incorrect parameter values", null, tagsOfScenario, argumentsOfScenario);
+#line 82
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 83
+ testRunner.Given(string.Format("I have constructed the OpenAPI specification with a {0} parameter with name {1}, " +
+                            "type {2}, format {3} and default value {4}", parameterLocation, parameterName, type, format, defaultValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 84
+ testRunner.When("I try to parse the default value", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 85
+ testRunner.Then(string.Format("an \'{0}\' should be thrown", exceptionType), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
