@@ -6,10 +6,13 @@
     <Nullable>enable</Nullable>
 
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-    <PackageDescription>Menes is a framework for hosting Web APIs with OpenAPI-based service definitions. This library defines the non-technology-specific aspects of hosting in Menes.</PackageDescription>
+    <PackageDescription>Menes is a framework for hosting Web APIs with OpenAPI-based service definitions. This library provides a mechanism for hosting Menes services in-memory for testing purposes.</PackageDescription>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Azure.WebJobs" Version="3.0.0" />
     <PackageReference Include="Endjin.RecommendedPractices" Version="1.2.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -17,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Menes.Abstractions\Menes.Abstractions.csproj" />
+    <ProjectReference Include="..\Menes.Hosting.AspNetCore\Menes.Hosting.AspNetCore.csproj" />
   </ItemGroup>
 
 </Project>

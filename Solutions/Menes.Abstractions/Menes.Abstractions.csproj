@@ -7,7 +7,6 @@
     
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <PackageDescription>Menes is a framework for hosting Web APIs with OpenAPI-based service definitions. This library defines the common abstractions used throughout Menes.</PackageDescription>
-    <WarningsAsErrors />
     
     <!--
       RCS1194 - we don't want the standard ctor patterns, as they clash with nullable references
@@ -19,8 +18,8 @@
     <PackageReference Include="Corvus.ContentHandling" Version="1.0.0" />
     <PackageReference Include="Corvus.Extensions" Version="1.0.0" />
     <PackageReference Include="Corvus.Extensions.Newtonsoft.Json" Version="0.9.0" />
-    <PackageReference Include="Corvus.Monitoring.Instrumentation.Abstractions" Version="0.2.0-preview.7" />
-    <PackageReference Include="Endjin.RecommendedPractices" Version="1.0.0">
+    <PackageReference Include="Corvus.Monitoring.Instrumentation.Abstractions" Version="1.0.0" />
+    <PackageReference Include="Endjin.RecommendedPractices" Version="1.2.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
