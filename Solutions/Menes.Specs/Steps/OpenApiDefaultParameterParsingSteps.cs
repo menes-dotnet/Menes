@@ -9,7 +9,7 @@ namespace Menes.Specs.Steps
 {
     using System;
     using System.Collections.Generic;
-    using Corvus.SpecFlow.Extensions;
+    using Corvus.Testing.SpecFlow;
     using Menes.Internal;
     using Microsoft.AspNetCore.Http;
     using Microsoft.Extensions.DependencyInjection;
