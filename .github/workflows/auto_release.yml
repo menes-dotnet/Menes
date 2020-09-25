@@ -2,7 +2,6 @@ name: auto_release
 on: 
   pull_request:
     types: [closed]
-  workflow_dispatch:
 
 jobs:
   check_for_norelease_label:
@@ -82,6 +81,7 @@ jobs:
         echo "release_pending_pr_list : ${{ steps.get_release_pending_pr_list.outputs.result }}"
         echo "is_release_pending : ${{ steps.get_release_pending_pr_list.outputs.is_release_pending }}"
 
+    - uses: actions/checkout@v2
     - name: Read pr-autoflow configuration
       id: get_pr_autoflow_config
       uses: endjin/pr-autoflow/actions/read-configuration@v1
