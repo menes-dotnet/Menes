@@ -15,7 +15,6 @@
     <RootNamespace>Menes.PetStore.Specs</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Corvus.Testing.SpecFlow" Version="0.7.0" />
     <PackageReference Include="Endjin.RecommendedPractices" Version="1.2.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
