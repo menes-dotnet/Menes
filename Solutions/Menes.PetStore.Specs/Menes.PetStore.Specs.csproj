@@ -1,6 +1,6 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="$(EndjinProjectPropsPath)" Condition="$(EndjinProjectPropsPath) != ''" />
-
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <Nullable>enable</Nullable>
@@ -14,37 +14,22 @@
     <NoWarn>SA0001;SA1204;SA1600;SA1602;CS1591</NoWarn>
     <RootNamespace>Menes.PetStore.Specs</RootNamespace>
   </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="Corvus.Testing.SpecFlow" Version="0.7.0" />
     <PackageReference Include="Endjin.RecommendedPractices" Version="1.2.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="SpecFlow.NUnit" Version="3.3.30" />
-    <PackageReference Include="SpecFlow.Tools.MsBuild.Generation" Version="3.3.30" />
-    <PackageReference Include="nunit" Version="3.12.0" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.6.1" />
-    <PackageReference Include="NUnit3TestAdapter" Version="3.16.1">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="coverlet.msbuild" Version="2.9.0">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-    </PackageReference>
     <PackageReference Include="Corvus.Extensions.Newtonsoft.Json" Version="0.9.0" />
+    <PackageReference Include="Corvus.Testing.SpecFlow.NUnit" Version="1.1.0" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\Menes.PetStore.Hosting\Menes.PetStore.Hosting.csproj" />
     <ProjectReference Include="..\Menes.Testing.AspNetCoreSelfHosting\Menes.Testing.AspNetCoreSelfHosting.csproj" />
   </ItemGroup>
-
   <ItemGroup>
     <None Update="specflow.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-
 </Project>
