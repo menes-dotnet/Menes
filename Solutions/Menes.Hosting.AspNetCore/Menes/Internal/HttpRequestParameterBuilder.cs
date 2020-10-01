@@ -190,7 +190,7 @@ namespace Menes.Internal
                 OpenApiLong l       when schema.Format == "int64"       => l.Value,
                 OpenApiInteger i    when schema.Type == "integer"       => i.Value,
                 OpenApiFloat f      when schema.Format == "float"       => f.Value,
-                OpenApiDouble db    when schema.Format == "double"      => db.Value,
+                OpenApiDouble db    when schema.Type == "number"        => db.Value,
                 OpenApiArray a      when schema.Type == "array"         => HandleArray(schema.Items, a),
                 OpenApiObject o     when schema.Type == "object"        => HandleObject(schema.Properties, o),
                 _ => throw new OpenApiSpecificationException("Default value for parameter not valid.")
@@ -381,14 +381,14 @@ namespace Menes.Internal
                         return true;
                     }
                 }
-                catch (OpenApiSpecificationException ex)
+                catch (OpenApiSpecificationException)
                 {
                     this.logger.LogError(
                         "Failed to parse default value for parameter [{parameter}] with [{schema}].",
                         parameter.Name,
                         parameter.Schema.GetLoggingInformation());
 
-                    throw ex;
+                    throw;
                 }
             }
 
@@ -467,14 +467,14 @@ namespace Menes.Internal
                         return true;
                     }
                 }
-                catch (OpenApiSpecificationException ex)
+                catch (OpenApiSpecificationException)
                 {
                     this.logger.LogError(
                         "Failed to parse default value for parameter [{parameter}] with [{schema}].",
                         parameter.Name,
                         parameter.Schema.GetLoggingInformation());
 
-                    throw ex;
+                    throw;
                 }
             }
 
@@ -527,9 +527,8 @@ namespace Menes.Internal
                 return true;
             }
 
-            //// No default value handling since Path parameters aren't optional if they've been defined (and therefore default values are redundant).
-            //// This is as per the the Open API spec, as seen here: https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#parameterObject.
-
+            // No default value handling since Path parameters aren't optional if they've been defined (and therefore default values are redundant).
+            // This is as per the the Open API spec, as seen here: https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#parameterObject.
             if (this.logger.IsEnabled(LogLevel.Debug))
             {
                 this.logger.LogDebug(
@@ -599,14 +598,14 @@ namespace Menes.Internal
                         return true;
                     }
                 }
-                catch (OpenApiSpecificationException ex)
+                catch (OpenApiSpecificationException)
                 {
                     this.logger.LogError(
                         "Failed to parse default value for parameter [{parameter}] with [{schema}].",
                         parameter.Name,
                         parameter.Schema.GetLoggingInformation());
 
-                    throw ex;
+                    throw;
                 }
             }
 

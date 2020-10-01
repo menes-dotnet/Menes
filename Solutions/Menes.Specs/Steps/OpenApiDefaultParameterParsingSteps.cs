@@ -115,9 +115,15 @@ namespace Menes.Specs.Steps
 
             var context = new DefaultHttpContext();
 
+            this.parameters = await builder.BuildParametersAsync(context.Request, operationPathTemplate!);
+        }
+
+        [When(@"I try to parse the default value and expect an error")]
+        public async System.Threading.Tasks.Task WhenITryToParseTheDefaultValueAndExpectAnErrorAsync()
+        {
             try
             {
-                this.parameters = await builder.BuildParametersAsync(context.Request, operationPathTemplate!);
+                await this.WhenITryToParseTheDefaultValueAsync();
             }
             catch (Exception ex)
             {
@@ -138,6 +144,7 @@ namespace Menes.Specs.Steps
             };
 
             Assert.AreEqual(expectedResult, this.parameters![parameterName]);
+            Assert.AreEqual(expectedResult.GetType(), this.parameters![parameterName].GetType());
         }
 
         [Then(@"an '(.*)' should be thrown")]

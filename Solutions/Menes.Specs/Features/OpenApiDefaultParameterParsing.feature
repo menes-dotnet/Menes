@@ -22,6 +22,7 @@ Scenario Outline: Parameters with valid values for simple types
 		| query             | openApiBoolean  | boolean |           | true                                   | true                                 | System.Boolean            |
 		| query             | openApiLong     | integer | int64     | 9223372036854775807                    | 9223372036854775807                  | System.Int64              |
 		| query             | openApiInteger  | integer |           | 1234                                   | 1234                                 | System.Int32              |
+		| query             | openApiNumber   | number  |           | 1234.5                                 | 1234.5                               | System.Double             |
 		| query             | openApiFloat    | number  | float     | 1234.5                                 | 1234.5                               | System.Single             |
 		| query             | openApiDouble   | number  | double    | 1234.5678                              | 1234.5678                            | System.Double             |
 		| header            | openApiDate     | string  | date      | 2017-07-21                             | 2017-07-21T00:00:00Z                 | System.DateTimeOffset     |
@@ -34,6 +35,7 @@ Scenario Outline: Parameters with valid values for simple types
 		| header            | openApiBoolean  | boolean |           | true                                   | true                                 | System.Boolean            |
 		| header            | openApiLong     | integer | int64     | 9223372036854775807                    | 9223372036854775807                  | System.Int64              |
 		| header            | openApiInteger  | integer |           | 1234                                   | 1234                                 | System.Int32              |
+		| header            | openApiNumber   | number  |           | 1234.5                                 | 1234.5                               | System.Double             |
 		| header            | openApiFloat    | number  | float     | 1234.5                                 | 1234.5                               | System.Single             |
 		| header            | openApiDouble   | number  | double    | 1234.5678                              | 1234.5678                            | System.Double             |
 		| cookie            | openApiDate     | string  | date      | 2017-07-21                             | 2017-07-21T00:00:00Z                 | System.DateTimeOffset     |
@@ -46,6 +48,7 @@ Scenario Outline: Parameters with valid values for simple types
 		| cookie            | openApiBoolean  | boolean |           | true                                   | true                                 | System.Boolean            |
 		| cookie            | openApiLong     | integer | int64     | 9223372036854775807                    | 9223372036854775807                  | System.Int64              |
 		| cookie            | openApiInteger  | integer |           | 1234                                   | 1234                                 | System.Int32              |
+		| cookie            | openApiNumber   | number  |           | 1234.5                                 | 1234.5                               | System.Double             |
 		| cookie            | openApiFloat    | number  | float     | 1234.5                                 | 1234.5                               | System.Single             |
 		| cookie            | openApiDouble   | number  | double    | 1234.5678                              | 1234.5678                            | System.Double             |
 
@@ -81,7 +84,7 @@ Scenario: Any parameter with null default value
 
 Scenario Outline: Incorrect parameter values
 	Given I have constructed the OpenAPI specification with a <ParameterLocation> parameter with name <ParameterName>, type <Type>, format <Format> and default value <DefaultValue>
-	When I try to parse the default value
+	When I try to parse the default value and expect an error
 	Then an '<ExceptionType>' should be thrown
 
 	Examples:
