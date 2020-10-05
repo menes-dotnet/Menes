@@ -483,6 +483,14 @@ namespace Menes.Examples
                     {
                         child.Write(writer);
                     }
+
+                    writer.WriteEndArray();
+                }
+
+                if (this.childrenJsonElement.ValueKind == JsonValueKind.Array)
+                {
+                    writer.WritePropertyName(EncodedChildrenPropertyName);
+                    this.childrenJsonElement.WriteTo(writer);
                 }
 
                 if (this.additionalProperties is ImmutableDictionary<ReadOnlyMemory<byte>, JsonString> additionalProperties)
