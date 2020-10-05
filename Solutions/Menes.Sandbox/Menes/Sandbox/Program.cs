@@ -35,6 +35,9 @@ namespace Menes.Sandbox
             Console.WriteLine(NameFormatter.ToCamelCase("_links"));
 
             var myValue = new JsonString("Hello");
+
+            Console.WriteLine(myValue);
+
             myValue = "Greetings";
 
             Console.WriteLine(myValue + " world!");

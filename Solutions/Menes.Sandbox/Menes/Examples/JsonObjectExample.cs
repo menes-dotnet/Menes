@@ -8,7 +8,6 @@ namespace Menes.Examples
     using System.Buffers;
     using System.Collections.Generic;
     using System.Collections.Immutable;
-    using System.Diagnostics.CodeAnalysis;
     using System.Text;
     using System.Text.Json;
     using Menes;
