@@ -29,7 +29,7 @@ namespace Menes
         public static readonly Func<JsonElement, JsonArray<TItem>> FromJsonElement = e => new JsonArray<TItem>(e);
 
         /// <summary>
-        /// A <see cref="JsonBoolean"/> representing a null value.
+        /// A <see cref="JsonArray{TItem}"/> representing a null value.
         /// </summary>
         public static readonly JsonArray<TItem> Null = new JsonArray<TItem>(default(JsonElement));
 
@@ -49,7 +49,7 @@ namespace Menes
         }
 
         /// <summary>
-        /// Creates a <see cref="JsonBoolean"/> wrapper around a .NET bool.
+        /// Creates a <see cref="JsonArray{TItem}"/> wrapper around a JsonElement.
         /// </summary>
         /// <param name="jsonElement">
         /// A JSON element containing the array value to represent.
@@ -193,7 +193,7 @@ namespace Menes
         /// Writes the array value to a <see cref="Utf8JsonWriter"/>.
         /// </summary>
         /// <param name="writer">The output to which to write the array.</param>
-        public void Write(Utf8JsonWriter writer)
+        public void WriteTo(Utf8JsonWriter writer)
         {
             if (this.clrItems is ImmutableList<ReferenceOf<TItem>> items)
             {
@@ -201,7 +201,7 @@ namespace Menes
 
                 foreach (ReferenceOf<TItem> item in items)
                 {
-                    item.Value.Write(writer);
+                    item.Value.WriteTo(writer);
                 }
 
                 writer.WriteEndArray();
@@ -219,7 +219,7 @@ namespace Menes
             {
                 var abw = new ArrayBufferWriter<byte>();
                 using var utfw = new Utf8JsonWriter(abw);
-                this.Write(utfw);
+                this.WriteTo(utfw);
                 utfw.Flush();
                 return new JsonAny(abw.WrittenMemory);
             }

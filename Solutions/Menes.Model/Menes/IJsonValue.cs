@@ -40,6 +40,6 @@ namespace Menes
         /// Writes the value to a <see cref="Utf8JsonWriter"/>.
         /// </summary>
         /// <param name="writer">The output to which to write the Any.</param>
-        public void Write(Utf8JsonWriter writer);
+        public void WriteTo(Utf8JsonWriter writer);
     }
 }

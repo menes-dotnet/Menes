@@ -24,6 +24,7 @@ namespace Menes
         private readonly JsonProperty jsonProperty;
         private readonly ReadOnlyMemory<byte>? propertyName;
         private readonly IJsonValue? value;
+        private readonly JsonElement valueElement;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="JsonProperty{TValue}"/> struct.
@@ -39,6 +40,7 @@ namespace Menes
             this.jsonProperty = jsonProperty;
             this.propertyName = null;
             this.value = null;
+            this.valueElement = default;
         }
 
         /// <summary>
@@ -51,10 +53,16 @@ namespace Menes
             this.jsonProperty = default;
             this.propertyName = Encoding.UTF8.GetBytes(name);
 
-            // We have to box the value through the interface
-            // to support nullability if we use the value directly,
-            // rather than through the JsonObject.
-            this.value = value;
+            if (value.HasJsonElement)
+            {
+                this.valueElement = value.JsonElement;
+                this.value = null;
+            }
+            else
+            {
+                this.value = value;
+                this.valueElement = default;
+            }
         }
 
         /// <summary>
@@ -66,7 +74,16 @@ namespace Menes
         {
             this.jsonProperty = default;
             this.propertyName = name;
-            this.value = value;
+            if (value.HasJsonElement)
+            {
+                this.valueElement = value.JsonElement;
+                this.value = null;
+            }
+            else
+            {
+                this.value = value;
+                this.valueElement = default;
+            }
         }
 
         /// <summary>
@@ -81,7 +98,16 @@ namespace Menes
             Span<byte> output = stackalloc byte[name.Length * 4];
             int bytesWritten = Encoding.UTF8.GetBytes(name, output);
             this.propertyName = output.Slice(0, bytesWritten).ToArray();
-            this.value = value;
+            if (value.HasJsonElement)
+            {
+                this.valueElement = value.JsonElement;
+                this.value = null;
+            }
+            else
+            {
+                this.value = value;
+                this.valueElement = default;
+            }
         }
 
         /// <summary>
@@ -110,6 +136,10 @@ namespace Menes
                 if (this.value is TValue value)
                 {
                     return value;
+                }
+                else if (this.valueElement.ValueKind != JsonValueKind.Undefined)
+                {
+                    return ValueFactory(this.valueElement);
                 }
 
                 return ValueFactory(this.jsonProperty.Value);
@@ -161,6 +191,30 @@ namespace Menes
             }
 
             return this.jsonProperty.NameEquals(utf8Text);
+        }
+
+        /// <summary>
+        /// Write the property.
+        /// </summary>
+        /// <param name="writer">The <see cref="Utf8JsonWriter"/> to which to write the property.</param>
+        public void Write(Utf8JsonWriter writer)
+        {
+            if (this.propertyName is ReadOnlyMemory<byte> pn)
+            {
+                writer.WritePropertyName(pn.Span);
+                if (this.valueElement.ValueKind != JsonValueKind.Undefined)
+                {
+                    this.valueElement.WriteTo(writer);
+                }
+                else
+                {
+                    this.value!.WriteTo(writer);
+                }
+            }
+            else
+            {
+                this.jsonProperty.WriteTo(writer);
+            }
         }
 
         private static Func<JsonElement, TValue> GetValueFactory()

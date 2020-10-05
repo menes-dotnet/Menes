@@ -6,7 +6,6 @@ namespace Menes.Sandbox
 {
     using System;
     using System.Buffers;
-    using System.Collections.Immutable;
     using System.Text;
     using System.Text.Json;
     using Menes.Examples;
@@ -48,28 +47,45 @@ namespace Menes.Sandbox
                 ("foo", "First"),
                 ("bar", "Second"));
 
-            var abw = new ArrayBufferWriter<byte>();
-            using var utf8JsonWriter = new Utf8JsonWriter(abw);
-            example.Write(utf8JsonWriter);
-            utf8JsonWriter.Flush();
-            Console.WriteLine(Encoding.UTF8.GetString(abw.WrittenSpan));
-
-            using var doc = JsonDocument.Parse(abw.WrittenMemory);
+            ReadOnlyMemory<byte> serialized = Serialize(example);
+            using var doc = JsonDocument.Parse(serialized);
             var roundtrip = new JsonObjectExample(doc.RootElement);
 
-            Console.WriteLine($"FirstProperty: {roundtrip.First}");
-            Console.WriteLine($"SecondProperty: {roundtrip.Second}");
-            Console.WriteLine($"OptionalThirdProperty: {roundtrip.Third}");
+            WriteExample(roundtrip);
 
-            foreach (JsonProperty<JsonString> property in roundtrip.AdditionalProperties)
-            {
-                Console.WriteLine($"{property.Name}: {property.Value}");
-            }
+            Console.WriteLine();
+
+            JsonObjectExample anotherOne = roundtrip.WithFirst("Not the first now");
+            WriteExample(anotherOne);
+
+            _ = Serialize(anotherOne);
 
             Console.WriteLine();
 
             JsonString defaultString = default;
             Console.WriteLine(defaultString.IsNull ? "null" : (string)defaultString);
+        }
+
+        private static ReadOnlyMemory<byte> Serialize(in JsonObjectExample example)
+        {
+            var abw = new ArrayBufferWriter<byte>();
+            using var utf8JsonWriter = new Utf8JsonWriter(abw);
+            example.WriteTo(utf8JsonWriter);
+            utf8JsonWriter.Flush();
+            Console.WriteLine(Encoding.UTF8.GetString(abw.WrittenSpan));
+            return abw.WrittenMemory;
+        }
+
+        private static void WriteExample(in JsonObjectExample example)
+        {
+            Console.WriteLine($"FirstProperty: {example.First}");
+            Console.WriteLine($"SecondProperty: {example.Second}");
+            Console.WriteLine($"OptionalThirdProperty: {example.Third}");
+
+            foreach (JsonProperty<JsonString> property in example.AdditionalProperties)
+            {
+                Console.WriteLine($"{property.Name}: {property.Value}");
+            }
         }
     }
 }

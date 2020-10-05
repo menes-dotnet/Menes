@@ -150,7 +150,7 @@ namespace Menes
         /// Writes the bool value to a <see cref="Utf8JsonWriter"/>.
         /// </summary>
         /// <param name="writer">The output to which to write the bool.</param>
-        public void Write(Utf8JsonWriter writer)
+        public void WriteTo(Utf8JsonWriter writer)
         {
             if (this.clrBoolean is bool boolean)
             {

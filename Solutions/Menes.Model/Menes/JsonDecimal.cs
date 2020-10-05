@@ -147,7 +147,7 @@ namespace Menes
         /// Writes the decimal value to a <see cref="Utf8JsonWriter"/>.
         /// </summary>
         /// <param name="writer">The output to which to write the decimal.</param>
-        public void Write(Utf8JsonWriter writer)
+        public void WriteTo(Utf8JsonWriter writer)
         {
             if (this.clrDecimal is decimal single)
             {
@@ -166,7 +166,7 @@ namespace Menes
             {
                 var abw = new ArrayBufferWriter<byte>();
                 using var utfw = new Utf8JsonWriter(abw);
-                this.Write(utfw);
+                this.WriteTo(utfw);
                 utfw.Flush();
                 return new JsonAny(abw.WrittenMemory);
             }

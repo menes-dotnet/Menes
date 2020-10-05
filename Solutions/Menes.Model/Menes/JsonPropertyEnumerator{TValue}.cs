@@ -9,8 +9,6 @@ namespace Menes
     using System.Collections.Generic;
     using System.Collections.Immutable;
     using System.Diagnostics;
-    using System.Runtime.InteropServices;
-    using System.Text;
     using System.Text.Json;
 
     /// <summary>
@@ -26,18 +24,28 @@ namespace Menes
         private readonly bool hasJsonEnumerator;
 
         private JsonElement.ObjectEnumerator jsonEnumerator;
-        private ImmutableDictionary<string, TValue>.Enumerator clrEnumerator;
+        private ImmutableList<JsonProperty<TValue>>.Enumerator clrEnumerator;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="JsonPropertyEnumerator{TValue}"/> struct.
         /// </summary>
         /// <param name="items">The target property values.</param>
         /// <param name="knownProperties">The names of the properties that we already know.</param>
-        public JsonPropertyEnumerator(ImmutableDictionary<string, TValue> items, in ImmutableArray<ReadOnlyMemory<byte>> knownProperties)
+        public JsonPropertyEnumerator(JsonProperties<TValue> items, in ImmutableArray<ReadOnlyMemory<byte>> knownProperties)
         {
-            this.clrEnumerator = items.GetEnumerator();
-            this.jsonEnumerator = default;
-            this.hasJsonEnumerator = false;
+            if (items.HasJsonElement)
+            {
+                this.hasJsonEnumerator = true;
+                this.jsonEnumerator = items.JsonElement.EnumerateObject();
+                this.clrEnumerator = default;
+            }
+            else
+            {
+                this.clrEnumerator = items.ClrItems!.GetEnumerator();
+                this.jsonEnumerator = default;
+                this.hasJsonEnumerator = false;
+            }
+
             this.knownProperties = knownProperties;
             this.seenProperties = new bool[knownProperties.Length];
         }
@@ -71,7 +79,7 @@ namespace Menes
                     return new JsonProperty<TValue>(this.jsonEnumerator.Current);
                 }
 
-                return new JsonProperty<TValue>(this.clrEnumerator.Current.Key, this.clrEnumerator.Current.Value);
+                return this.clrEnumerator.Current;
             }
         }
 
@@ -144,14 +152,11 @@ namespace Menes
             return result;
         }
 
-        private bool IsKnownProperty(in KeyValuePair<string, TValue> current)
+        private bool IsKnownProperty(in JsonProperty<TValue> current)
         {
-            Span<byte> currentKey = stackalloc byte[current.Key.Length * 4];
-            Encoding.UTF8.GetBytes(current.Key.AsSpan(), currentKey);
-
             for (int i = 0; i < this.knownProperties.Length; ++i)
             {
-                if (!this.seenProperties[i] && this.knownProperties[i].Span.SequenceEqual(currentKey))
+                if (!this.seenProperties[i] && current.NameEquals(this.knownProperties[i].Span))
                 {
                     this.seenProperties[i] = true;
                     return true;

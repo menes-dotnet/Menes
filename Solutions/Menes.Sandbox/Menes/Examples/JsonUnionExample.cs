@@ -227,19 +227,19 @@ namespace Menes.Examples
         /// Writes the bool value to a <see cref="Utf8JsonWriter"/>.
         /// </summary>
         /// <param name="writer">The output to which to write the bool.</param>
-        public void Write(Utf8JsonWriter writer)
+        public void WriteTo(Utf8JsonWriter writer)
         {
             if (this.firstInstance is JsonBoolean first)
             {
-                first.Write(writer);
+                first.WriteTo(writer);
             }
             else if (this.secondInstance is JsonInt64 second)
             {
-                second.Write(writer);
+                second.WriteTo(writer);
             }
             else if (this.thirdInstance is ReferenceOf<JsonObjectExample> third)
             {
-                third.Value.Write(writer);
+                third.Value.WriteTo(writer);
             }
             else
             {
@@ -273,7 +273,7 @@ namespace Menes.Examples
         {
             var abw = new ArrayBufferWriter<byte>();
             using var utfw = new Utf8JsonWriter(abw);
-            value.Write(utfw);
+            value.WriteTo(utfw);
             utfw.Flush();
             return new JsonAny(abw.WrittenMemory);
         }

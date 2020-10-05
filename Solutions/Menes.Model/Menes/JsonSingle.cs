@@ -155,7 +155,7 @@ namespace Menes
         /// Writes the float value to a <see cref="Utf8JsonWriter"/>.
         /// </summary>
         /// <param name="writer">The output to which to write the float.</param>
-        public void Write(Utf8JsonWriter writer)
+        public void WriteTo(Utf8JsonWriter writer)
         {
             if (this.clrSingle is float single)
             {
@@ -174,7 +174,7 @@ namespace Menes
             {
                 var abw = new ArrayBufferWriter<byte>();
                 using var utfw = new Utf8JsonWriter(abw);
-                this.Write(utfw);
+                this.WriteTo(utfw);
                 utfw.Flush();
                 return new JsonAny(abw.WrittenMemory);
             }
