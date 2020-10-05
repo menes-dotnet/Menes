@@ -400,7 +400,7 @@ namespace Menes.Examples
         /// <inheritdoc/>
         public bool TryGetAdditionalProperty(string propertyName, [NotNullWhen(true)] out JsonString value)
         {
-            throw new NotImplementedException();
+            return this.TryGetAdditionalProperty(propertyName.AsSpan(), out value);
         }
 
         /// <inheritdoc/>
@@ -412,7 +412,9 @@ namespace Menes.Examples
         /// <inheritdoc/>
         public bool TryGetAdditionalProperty(ReadOnlySpan<char> propertyName, [NotNullWhen(true)] out JsonString value)
         {
-            throw new NotImplementedException();
+            Span<byte> bytes = stackalloc byte[propertyName.Length * 4];
+            int written = Encoding.UTF8.GetBytes(propertyName, bytes);
+            return this.TryGetAdditionalProperty(bytes.Slice(0, written), out value);
         }
 
         private JsonProperties<JsonString>? GetAdditionalProperties()
