@@ -40,12 +40,12 @@ namespace Menes.Sandbox
             Console.WriteLine(myValue + " world!");
 
             var example = new JsonObjectExample(
-                "Hello",
-                42,
-                Duration.FromHours(3),
+                first: "Hello",
+                second: 42,
+                third: Duration.FromHours(3),
                 children: new[] { new JsonObjectExample("Child", 1), new JsonObjectExample("Child", 2) },
-                ("foo", "First"),
-                ("bar", "Second"));
+                ("foo", "Here's a foo"),
+                ("bar", "Here's a bar"));
 
             ReadOnlyMemory<byte> serialized = Serialize(example);
             using var doc = JsonDocument.Parse(serialized);
@@ -62,8 +62,10 @@ namespace Menes.Sandbox
 
             Console.WriteLine();
 
-            JsonString defaultString = default;
-            Console.WriteLine(defaultString.IsNull ? "null" : (string)defaultString);
+            if (anotherOne.TryGetAdditionalProperty("foo", out JsonString value))
+            {
+                Console.WriteLine($"Found foo: {value}");
+            }
         }
 
         private static ReadOnlyMemory<byte> Serialize(in JsonObjectExample example)

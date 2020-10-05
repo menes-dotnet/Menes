@@ -56,7 +56,7 @@ namespace Menes.Examples
         /// <param name="third">The optional third property.</param>
         /// <param name="children">The children of this object.</param>
         /// <param name="additionalProperties">Additional properties.</param>
-        public JsonObjectExample(JsonString first, JsonInt32 second, JsonDuration? third = null, IEnumerable<JsonObjectExample>? children = null, params (string, JsonString)[] additionalProperties)
+        public JsonObjectExample(JsonString first, JsonInt32 second, JsonDuration? third = null, in IEnumerable<JsonObjectExample>? children = null, params (string, JsonString)[] additionalProperties)
         {
             this.JsonElement = default;
             this.first = first;
@@ -398,19 +398,29 @@ namespace Menes.Examples
         }
 
         /// <inheritdoc/>
-        public bool TryGetAdditionalProperty(string propertyName, [NotNullWhen(true)] out JsonString value)
+        public bool TryGetAdditionalProperty(string propertyName, out JsonString value)
         {
             return this.TryGetAdditionalProperty(propertyName.AsSpan(), out value);
         }
 
         /// <inheritdoc/>
-        public bool TryGetAdditionalProperty(ReadOnlySpan<byte> utf8PropertyName, [NotNullWhen(true)] out JsonString value)
+        public bool TryGetAdditionalProperty(ReadOnlySpan<byte> utf8PropertyName, out JsonString value)
         {
-            throw new NotImplementedException();
+            foreach (JsonProperty<JsonString> property in this.AdditionalProperties)
+            {
+                if (property.NameEquals(utf8PropertyName))
+                {
+                    value = property.Value;
+                    return true;
+                }
+            }
+
+            value = default;
+            return false;
         }
 
         /// <inheritdoc/>
-        public bool TryGetAdditionalProperty(ReadOnlySpan<char> propertyName, [NotNullWhen(true)] out JsonString value)
+        public bool TryGetAdditionalProperty(ReadOnlySpan<char> propertyName, out JsonString value)
         {
             Span<byte> bytes = stackalloc byte[propertyName.Length * 4];
             int written = Encoding.UTF8.GetBytes(propertyName, bytes);
