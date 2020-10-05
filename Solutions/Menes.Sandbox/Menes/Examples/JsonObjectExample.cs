@@ -75,13 +75,13 @@ namespace Menes.Examples
         /// <param name="third">The optional third property.</param>
         /// <param name="children">The optional children of this object.</param>
         /// <param name="additionalProperties">Additional extension properties.</param>
-        public JsonObjectExample(JsonString first, JsonInt32 second, JsonDuration? third = null, ReferenceOf<JsonArray<JsonObjectExample>>? children = null, ImmutableDictionary<string, JsonString>? additionalProperties = null)
+        public JsonObjectExample(JsonString first, JsonInt32 second, JsonDuration? third = null, JsonArray<JsonObjectExample>? children = null, ImmutableDictionary<string, JsonString>? additionalProperties = null)
         {
             this.jsonElement = default;
             this.first = first;
             this.second = second;
             this.third = third;
-            this.children = children;
+            this.children = children is JsonArray<JsonObjectExample> c ? new ReferenceOf<JsonArray<JsonObjectExample>>(c) : null;
             this.additionalProperties = additionalProperties is ImmutableDictionary<string, JsonString> add ? BuildImmutableProperties(add) : null;
         }
 
@@ -93,13 +93,13 @@ namespace Menes.Examples
         /// <param name="third">The optional third property.</param>
         /// <param name="children">The optional children of this object.</param>
         /// <param name="additionalProperties">Additional extension properties.</param>
-        public JsonObjectExample(JsonString first, JsonInt32 second, JsonDuration? third = null, ReferenceOf<JsonArray<JsonObjectExample>>? children = null, params JsonProperty<JsonString>[] additionalProperties)
+        public JsonObjectExample(JsonString first, JsonInt32 second, JsonDuration? third = null, JsonArray<JsonObjectExample>? children = null, params JsonProperty<JsonString>[] additionalProperties)
         {
             this.jsonElement = default;
             this.first = first;
             this.second = second;
             this.third = third;
-            this.children = children;
+            this.children = children is JsonArray<JsonObjectExample> c ? new ReferenceOf<JsonArray<JsonObjectExample>>(c) : null;
             this.additionalProperties = BuildImmutableProperties(additionalProperties);
         }
 
@@ -111,13 +111,13 @@ namespace Menes.Examples
         /// <param name="third">The optional third property.</param>
         /// <param name="children">The optional children of this object.</param>
         /// <param name="additionalProperties">Additional extension properties.</param>
-        public JsonObjectExample(JsonString first, JsonInt32 second, JsonDuration? third = null, ReferenceOf<JsonArray<JsonObjectExample>>? children = null, params (string, JsonString)[] additionalProperties)
+        public JsonObjectExample(JsonString first, JsonInt32 second, JsonDuration? third = null, JsonArray<JsonObjectExample>? children = null, params (string, JsonString)[] additionalProperties)
         {
             this.jsonElement = default;
             this.first = first;
             this.second = second;
             this.third = third;
-            this.children = children;
+            this.children = children is JsonArray<JsonObjectExample> c ? new ReferenceOf<JsonArray<JsonObjectExample>>(c) : null;
             this.additionalProperties = BuildImmutableProperties(additionalProperties);
         }
 
