@@ -44,7 +44,9 @@ namespace Menes.Sandbox
                 "Hello",
                 42,
                 Duration.FromHours(3),
-                additionalProperties: new (string, JsonString)[] { ("Foo", "First"), ("Bar", "Second") });
+                children: new[] { new JsonObjectExample("Child", 1), new JsonObjectExample("Child", 2) },
+                ("foo", "First"),
+                ("bar", "Second"));
 
             var abw = new ArrayBufferWriter<byte>();
             using var utf8JsonWriter = new Utf8JsonWriter(abw);

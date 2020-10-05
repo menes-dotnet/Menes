@@ -43,16 +43,6 @@ namespace Menes
         /// Creates a <see cref="JsonArray{TItem}"/> wrapper around a .NET item array.
         /// </summary>
         /// <param name="clrItems">The .NET items.</param>
-        public JsonArray(ImmutableList<ReferenceOf<TItem>> clrItems)
-        {
-            this.clrItems = clrItems;
-            this.JsonElement = default;
-        }
-
-        /// <summary>
-        /// Creates a <see cref="JsonArray{TItem}"/> wrapper around a .NET item array.
-        /// </summary>
-        /// <param name="clrItems">The .NET items.</param>
         public JsonArray(IEnumerable<TItem> clrItems)
             : this(clrItems.Select(i => new ReferenceOf<TItem>(i)).ToImmutableList())
         {
@@ -73,6 +63,12 @@ namespace Menes
 
             this.clrItems = null;
             this.JsonElement = jsonElement;
+        }
+
+        private JsonArray(ImmutableList<ReferenceOf<TItem>> clrItems)
+        {
+            this.clrItems = clrItems;
+            this.JsonElement = default;
         }
 
         /// <inheritdoc/>

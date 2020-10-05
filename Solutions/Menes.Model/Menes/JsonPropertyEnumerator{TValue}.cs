@@ -9,6 +9,8 @@ namespace Menes
     using System.Collections.Generic;
     using System.Collections.Immutable;
     using System.Diagnostics;
+    using System.Runtime.InteropServices;
+    using System.Text;
     using System.Text.Json;
 
     /// <summary>
@@ -24,14 +26,14 @@ namespace Menes
         private readonly bool hasJsonEnumerator;
 
         private JsonElement.ObjectEnumerator jsonEnumerator;
-        private ImmutableDictionary<ReadOnlyMemory<byte>, TValue>.Enumerator clrEnumerator;
+        private ImmutableDictionary<string, TValue>.Enumerator clrEnumerator;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="JsonPropertyEnumerator{TValue}"/> struct.
         /// </summary>
         /// <param name="items">The target property values.</param>
         /// <param name="knownProperties">The names of the properties that we already know.</param>
-        public JsonPropertyEnumerator(ImmutableDictionary<ReadOnlyMemory<byte>, TValue> items, in ImmutableArray<ReadOnlyMemory<byte>> knownProperties)
+        public JsonPropertyEnumerator(ImmutableDictionary<string, TValue> items, in ImmutableArray<ReadOnlyMemory<byte>> knownProperties)
         {
             this.clrEnumerator = items.GetEnumerator();
             this.jsonEnumerator = default;
@@ -142,11 +144,14 @@ namespace Menes
             return result;
         }
 
-        private bool IsKnownProperty(in KeyValuePair<ReadOnlyMemory<byte>, TValue> current)
+        private bool IsKnownProperty(in KeyValuePair<string, TValue> current)
         {
+            Span<byte> currentKey = stackalloc byte[current.Key.Length * 4];
+            Encoding.UTF8.GetBytes(current.Key.AsSpan(), currentKey);
+
             for (int i = 0; i < this.knownProperties.Length; ++i)
             {
-                if (!this.seenProperties[i] && this.knownProperties[i].Span.SequenceEqual(current.Key.Span))
+                if (!this.seenProperties[i] && this.knownProperties[i].Span.SequenceEqual(currentKey))
                 {
                     this.seenProperties[i] = true;
                     return true;
