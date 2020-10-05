@@ -28,7 +28,6 @@ namespace Menes.Examples
 
         private readonly JsonDateTime? firstInstance;
         private readonly JsonGuid? secondInstance;
-        private readonly JsonElement jsonElement;
 
         /// <summary>
         /// Creates a <see cref="JsonBoolean"/> wrapper around a .NET boolean.
@@ -38,7 +37,7 @@ namespace Menes.Examples
         {
             this.firstInstance = clrInstance;
             this.secondInstance = null;
-            this.jsonElement = default;
+            this.JsonElement = default;
         }
 
         /// <summary>
@@ -49,7 +48,7 @@ namespace Menes.Examples
         {
             this.firstInstance = null;
             this.secondInstance = clrInstance;
-            this.jsonElement = default;
+            this.JsonElement = default;
         }
 
         /// <summary>
@@ -62,23 +61,29 @@ namespace Menes.Examples
         {
             this.firstInstance = null;
             this.secondInstance = null;
-            this.jsonElement = jsonElement;
+            this.JsonElement = jsonElement;
         }
 
         /// <summary>
         /// Gets a value indicating whether this represents a null value.
         /// </summary>
-        public bool IsNull => this.firstInstance is null && this.secondInstance is null && (this.jsonElement.ValueKind == JsonValueKind.Undefined || this.jsonElement.ValueKind == JsonValueKind.Null);
+        public bool IsNull => this.firstInstance is null && this.secondInstance is null && (this.JsonElement.ValueKind == JsonValueKind.Undefined || this.JsonElement.ValueKind == JsonValueKind.Null);
 
         /// <summary>
         /// Gets a value indicating whether this represents a JsonDateTime value.
         /// </summary>
-        public bool IsJsonDateTime => this.firstInstance is JsonDateTime || this.jsonElement.GetProperty(DiscriminatorPropertyName.Span).ValueEquals(JsonDateTimeDiscriminatorValue.Span);
+        public bool IsJsonDateTime => this.firstInstance is JsonDateTime || this.JsonElement.GetProperty(DiscriminatorPropertyName.Span).ValueEquals(JsonDateTimeDiscriminatorValue.Span);
 
         /// <summary>
         /// Gets a value indicating whether this represents a JsonDateTime value.
         /// </summary>
-        public bool IsJsonGuid => this.secondInstance is JsonGuid || this.jsonElement.GetProperty(DiscriminatorPropertyName.Span).ValueEquals(JsonGuidDiscriminatorValue.Span);
+        public bool IsJsonGuid => this.secondInstance is JsonGuid || this.JsonElement.GetProperty(DiscriminatorPropertyName.Span).ValueEquals(JsonGuidDiscriminatorValue.Span);
+
+        /// <inheritdoc/>
+        public bool HasJsonElement => this.JsonElement.ValueKind != JsonValueKind.Undefined;
+
+        /// <inheritdoc/>
+        public JsonElement JsonElement { get; }
 
         /// <summary>
         /// Gets this value as a nullable value type.
@@ -140,13 +145,13 @@ namespace Menes.Examples
         /// Gets the value as an instance of the first .NET type.
         /// </summary>
         /// <returns>The value as a <see cref="JsonDateTime"/>.</returns>
-        public JsonDateTime CreateOrGetClrFirst() => this.IsJsonDateTime ? this.firstInstance ?? new JsonDateTime(this.jsonElement) : throw new JsonException("The union value is not a JsonDateTime");
+        public JsonDateTime CreateOrGetClrFirst() => this.IsJsonDateTime ? this.firstInstance ?? new JsonDateTime(this.JsonElement) : throw new JsonException("The union value is not a JsonDateTime");
 
         /// <summary>
         /// Gets the value as an instance of the second .NET type.
         /// </summary>
         /// <returns>The value as a <see cref="JsonGuid"/>.</returns>
-        public JsonGuid CreateOrGetClrSecond() => this.IsJsonGuid ? this.secondInstance ?? new JsonGuid(this.jsonElement) : throw new JsonException("The union value is not a JsonGuid");
+        public JsonGuid CreateOrGetClrSecond() => this.IsJsonGuid ? this.secondInstance ?? new JsonGuid(this.JsonElement) : throw new JsonException("The union value is not a JsonGuid");
 
         /// <summary>
         /// Writes the bool value to a <see cref="Utf8JsonWriter"/>.
@@ -164,7 +169,7 @@ namespace Menes.Examples
             }
             else
             {
-                this.jsonElement.WriteTo(writer);
+                this.JsonElement.WriteTo(writer);
             }
         }
 
@@ -181,7 +186,7 @@ namespace Menes.Examples
                 return WriteToAny(second);
             }
 
-            return new JsonAny(this.jsonElement);
+            return new JsonAny(this.JsonElement);
         }
 
         private static JsonAny WriteToAny<T>(in T value)

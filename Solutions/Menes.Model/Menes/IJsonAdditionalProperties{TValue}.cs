@@ -13,7 +13,7 @@ namespace Menes
     /// </summary>
     /// <typeparam name="TValue">The type of <see cref="IJsonValue"/>.</typeparam>
     public interface IJsonAdditionalProperties<TValue>
-            where TValue : IJsonValue
+            where TValue : struct, IJsonValue
     {
         /// <summary>
         /// Gets the enumerator for the additional properties.

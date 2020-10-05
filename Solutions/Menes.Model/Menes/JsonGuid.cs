@@ -25,7 +25,6 @@ namespace Menes
         public static readonly JsonGuid Null = new JsonGuid(default(JsonElement));
 
         private readonly Guid? clrGuid;
-        private readonly JsonElement jsonElement;
 
         /// <summary>
         /// Creates a <see cref="JsonGuid"/> wrapper around a .NET Guid.
@@ -34,7 +33,7 @@ namespace Menes
         public JsonGuid(Guid clrGuid)
         {
             this.clrGuid = clrGuid;
-            this.jsonElement = default;
+            this.JsonElement = default;
         }
 
         /// <summary>
@@ -51,16 +50,22 @@ namespace Menes
             }
 
             this.clrGuid = null;
-            this.jsonElement = jsonElement;
+            this.JsonElement = jsonElement;
         }
 
         /// <inheritdoc/>
-        public bool IsNull => this.clrGuid == null && (this.jsonElement.ValueKind == JsonValueKind.Undefined || this.jsonElement.ValueKind == JsonValueKind.Null);
+        public bool IsNull => this.clrGuid == null && (this.JsonElement.ValueKind == JsonValueKind.Undefined || this.JsonElement.ValueKind == JsonValueKind.Null);
 
         /// <summary>
         /// Gets this Guid as a nullable value type.
         /// </summary>
         public JsonGuid? AsOptional => this.IsNull ? default(JsonGuid?) : this;
+
+        /// <inheritdoc/>
+        public bool HasJsonElement => this.JsonElement.ValueKind != JsonValueKind.Undefined;
+
+        /// <inheritdoc/>
+        public JsonElement JsonElement { get; }
 
         /// <summary>
         /// Implicit conversion to <see cref="Guid"/>.
@@ -144,7 +149,7 @@ namespace Menes
         /// Gets the Guid's value as a .NET Guid.
         /// </summary>
         /// <returns>The Guid value as a <see cref="Guid"/>.</returns>
-        public Guid CreateOrGetClrGuid() => this.clrGuid ?? this.jsonElement.GetGuid();
+        public Guid CreateOrGetClrGuid() => this.clrGuid ?? this.JsonElement.GetGuid();
 
         /// <summary>
         /// Writes the Guid value to a <see cref="Utf8JsonWriter"/>.
@@ -158,7 +163,7 @@ namespace Menes
             }
             else
             {
-                this.jsonElement.WriteTo(writer);
+                this.JsonElement.WriteTo(writer);
             }
         }
 
@@ -174,7 +179,7 @@ namespace Menes
                 return new JsonAny(abw.WrittenMemory);
             }
 
-            return new JsonAny(this.jsonElement);
+            return new JsonAny(this.JsonElement);
         }
 
         /// <inheritdoc/>

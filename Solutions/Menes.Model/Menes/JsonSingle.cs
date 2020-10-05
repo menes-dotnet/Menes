@@ -25,7 +25,6 @@ namespace Menes
         public static readonly JsonSingle Null = new JsonSingle(default(JsonElement));
 
         private readonly float? clrSingle;
-        private readonly JsonElement jsonElement;
 
         /// <summary>
         /// Creates a <see cref="JsonSingle"/> wrapper around a .NET float.
@@ -34,7 +33,7 @@ namespace Menes
         public JsonSingle(float clrSingle)
         {
             this.clrSingle = clrSingle;
-            this.jsonElement = default;
+            this.JsonElement = default;
         }
 
         /// <summary>
@@ -51,16 +50,22 @@ namespace Menes
             }
 
             this.clrSingle = null;
-            this.jsonElement = jsonElement;
+            this.JsonElement = jsonElement;
         }
 
         /// <inheritdoc/>
-        public bool IsNull => this.clrSingle == null && (this.jsonElement.ValueKind == JsonValueKind.Undefined || this.jsonElement.ValueKind == JsonValueKind.Null);
+        public bool IsNull => this.clrSingle == null && (this.JsonElement.ValueKind == JsonValueKind.Undefined || this.JsonElement.ValueKind == JsonValueKind.Null);
 
         /// <summary>
         /// Gets this float as a nullable value type.
         /// </summary>
         public JsonSingle? AsOptional => this.IsNull ? default(JsonSingle?) : this;
+
+        /// <inheritdoc/>
+        public bool HasJsonElement => this.JsonElement.ValueKind != JsonValueKind.Undefined;
+
+        /// <inheritdoc/>
+        public JsonElement JsonElement { get; }
 
         /// <summary>
         /// Implicit conversion to <see cref="float"/>.
@@ -144,7 +149,7 @@ namespace Menes
         /// Gets the float value as a .NET float.
         /// </summary>
         /// <returns>The float value as a <see cref="float"/>.</returns>
-        public float CreateOrGetClrSingle() => this.clrSingle ?? this.jsonElement.GetSingle();
+        public float CreateOrGetClrSingle() => this.clrSingle ?? this.JsonElement.GetSingle();
 
         /// <summary>
         /// Writes the float value to a <see cref="Utf8JsonWriter"/>.
@@ -158,7 +163,7 @@ namespace Menes
             }
             else
             {
-                this.jsonElement.WriteTo(writer);
+                this.JsonElement.WriteTo(writer);
             }
         }
 
@@ -174,7 +179,7 @@ namespace Menes
                 return new JsonAny(abw.WrittenMemory);
             }
 
-            return new JsonAny(this.jsonElement);
+            return new JsonAny(this.JsonElement);
         }
 
         /// <inheritdoc/>

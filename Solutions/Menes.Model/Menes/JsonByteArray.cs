@@ -25,7 +25,6 @@ namespace Menes
         public static readonly JsonByteArray Null = new JsonByteArray(default);
 
         private readonly ReadOnlyMemory<byte>? clrByteArray;
-        private readonly JsonElement jsonElement;
 
         /// <summary>
         /// Creates a <see cref="JsonByteArray"/> wrapper around a .NET byte array.
@@ -34,7 +33,7 @@ namespace Menes
         public JsonByteArray(in ReadOnlyMemory<byte> clrByteArray)
         {
             this.clrByteArray = clrByteArray;
-            this.jsonElement = default;
+            this.JsonElement = default;
         }
 
         /// <summary>
@@ -51,16 +50,22 @@ namespace Menes
             }
 
             this.clrByteArray = null;
-            this.jsonElement = jsonElement;
+            this.JsonElement = jsonElement;
         }
 
         /// <inheritdoc/>
-        public bool IsNull => this.clrByteArray == null && (this.jsonElement.ValueKind == JsonValueKind.Undefined || this.jsonElement.ValueKind == JsonValueKind.Null);
+        public bool IsNull => this.clrByteArray == null && (this.JsonElement.ValueKind == JsonValueKind.Undefined || this.JsonElement.ValueKind == JsonValueKind.Null);
 
         /// <summary>
         /// Gets this ByteArray as a nullable value type.
         /// </summary>
         public JsonByteArray? AsOptional => this.IsNull ? default(JsonByteArray?) : this;
+
+        /// <inheritdoc/>
+        public bool HasJsonElement => this.JsonElement.ValueKind != JsonValueKind.Undefined;
+
+        /// <inheritdoc/>
+        public JsonElement JsonElement { get; }
 
         /// <summary>
         /// Implicit conversion to <see cref="ReadOnlyMemory{T}"/> of <see cref="byte"/>.
@@ -147,7 +152,7 @@ namespace Menes
         /// Gets the ByteArray's value as a .NET byte array.
         /// </summary>
         /// <returns>The ByteArray value as a <see cref="ReadOnlyMemory{T}"/> of byte.</returns>
-        public ReadOnlyMemory<byte> CreateOrGetClrByteArray() => this.clrByteArray ?? this.jsonElement.GetBytesFromBase64();
+        public ReadOnlyMemory<byte> CreateOrGetClrByteArray() => this.clrByteArray ?? this.JsonElement.GetBytesFromBase64();
 
         /// <summary>
         /// Writes the ByteArray value to a <see cref="Utf8JsonWriter"/>.
@@ -155,13 +160,13 @@ namespace Menes
         /// <param name="writer">The output to which to write the ByteArray.</param>
         public void Write(Utf8JsonWriter writer)
         {
-            if (this.jsonElement.ValueKind == JsonValueKind.Undefined && this.clrByteArray is ReadOnlyMemory<byte> byteArray)
+            if (this.JsonElement.ValueKind == JsonValueKind.Undefined && this.clrByteArray is ReadOnlyMemory<byte> byteArray)
             {
                 writer.WriteBase64StringValue(byteArray.Span);
             }
             else
             {
-                this.jsonElement.WriteTo(writer);
+                this.JsonElement.WriteTo(writer);
             }
         }
 
@@ -177,7 +182,7 @@ namespace Menes
                 return new JsonAny(abw.WrittenMemory);
             }
 
-            return new JsonAny(this.jsonElement);
+            return new JsonAny(this.JsonElement);
         }
 
         /// <inheritdoc/>

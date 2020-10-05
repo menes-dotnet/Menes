@@ -17,7 +17,7 @@ namespace Menes
     /// <typeparam name="TValue">The type of <see cref="IJsonValue"/> being enumerated.</typeparam>
     [DebuggerDisplay("{Current,nq}")]
     public struct JsonPropertyEnumerator<TValue> : IEnumerable<JsonProperty<TValue>>, IEnumerable, IEnumerator<JsonProperty<TValue>>, IEnumerator, IDisposable
-        where TValue : IJsonValue
+        where TValue : struct, IJsonValue
     {
         private readonly ImmutableArray<ReadOnlyMemory<byte>> knownProperties;
         private readonly bool[] seenProperties;

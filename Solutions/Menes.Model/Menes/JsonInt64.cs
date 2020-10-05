@@ -25,7 +25,6 @@ namespace Menes
         public static readonly JsonInt64 Null = new JsonInt64(default(JsonElement));
 
         private readonly long? clrInt64;
-        private readonly JsonElement jsonElement;
 
         /// <summary>
         /// Creates a <see cref="JsonInt64"/> wrapper around a .NET long.
@@ -34,7 +33,7 @@ namespace Menes
         public JsonInt64(long clrInt64)
         {
             this.clrInt64 = clrInt64;
-            this.jsonElement = default;
+            this.JsonElement = default;
         }
 
         /// <summary>
@@ -51,16 +50,22 @@ namespace Menes
             }
 
             this.clrInt64 = null;
-            this.jsonElement = jsonElement;
+            this.JsonElement = jsonElement;
         }
 
         /// <inheritdoc/>
-        public bool IsNull => this.clrInt64 == null && (this.jsonElement.ValueKind == JsonValueKind.Undefined || this.jsonElement.ValueKind == JsonValueKind.Null);
+        public bool IsNull => this.clrInt64 == null && (this.JsonElement.ValueKind == JsonValueKind.Undefined || this.JsonElement.ValueKind == JsonValueKind.Null);
 
         /// <summary>
         /// Gets this long as a nullable value type.
         /// </summary>
         public JsonInt64? AsOptional => this.IsNull ? default(JsonInt64?) : this;
+
+        /// <inheritdoc/>
+        public bool HasJsonElement => this.JsonElement.ValueKind != JsonValueKind.Undefined;
+
+        /// <inheritdoc/>
+        public JsonElement JsonElement { get; }
 
         /// <summary>
         /// Implicit conversion to <see cref="long"/>.
@@ -142,7 +147,7 @@ namespace Menes
         /// Gets the long's value as a .NET long.
         /// </summary>
         /// <returns>The long value as a <see cref="long"/>.</returns>
-        public long CreateOrGetClrInt64() => this.clrInt64 ?? this.jsonElement.GetInt64();
+        public long CreateOrGetClrInt64() => this.clrInt64 ?? this.JsonElement.GetInt64();
 
         /// <summary>
         /// Writes the long value to a <see cref="Utf8JsonWriter"/>.
@@ -156,7 +161,7 @@ namespace Menes
             }
             else
             {
-                this.jsonElement.WriteTo(writer);
+                this.JsonElement.WriteTo(writer);
             }
         }
 
@@ -172,7 +177,7 @@ namespace Menes
                 return new JsonAny(abw.WrittenMemory);
             }
 
-            return new JsonAny(this.jsonElement);
+            return new JsonAny(this.JsonElement);
         }
 
         /// <inheritdoc/>

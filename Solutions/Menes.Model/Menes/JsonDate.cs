@@ -27,7 +27,6 @@ namespace Menes
         public static readonly JsonDate Null = new JsonDate(default(JsonElement));
 
         private readonly LocalDate? clrDate;
-        private readonly JsonElement jsonElement;
 
         /// <summary>
         /// Creates a <see cref="JsonDate"/> wrapper around a .NET Date.
@@ -36,7 +35,7 @@ namespace Menes
         public JsonDate(LocalDate clrDate)
         {
             this.clrDate = clrDate;
-            this.jsonElement = default;
+            this.JsonElement = default;
         }
 
         /// <summary>
@@ -53,16 +52,22 @@ namespace Menes
             }
 
             this.clrDate = null;
-            this.jsonElement = jsonElement;
+            this.JsonElement = jsonElement;
         }
 
         /// <inheritdoc/>
-        public bool IsNull => this.clrDate == null && (this.jsonElement.ValueKind == JsonValueKind.Undefined || this.jsonElement.ValueKind == JsonValueKind.Null);
+        public bool IsNull => this.clrDate == null && (this.JsonElement.ValueKind == JsonValueKind.Undefined || this.JsonElement.ValueKind == JsonValueKind.Null);
 
         /// <summary>
         /// Gets this Date as a nullable value type.
         /// </summary>
         public JsonDate? AsOptional => this.IsNull ? default(JsonDate?) : this;
+
+        /// <inheritdoc/>
+        public bool HasJsonElement => this.JsonElement.ValueKind != JsonValueKind.Undefined;
+
+        /// <inheritdoc/>
+        public JsonElement JsonElement { get; }
 
         /// <summary>
         /// Implicit conversion to <see cref="LocalDate"/>.
@@ -147,7 +152,7 @@ namespace Menes
         /// </summary>
         /// <returns>The Date value as a <see cref="LocalDate"/>.</returns>
         /// <remarks>This allocates an unnecessary string because it is not possible to get the span for the token directly. To avoid this allocation, we would have to use our own reader.</remarks>
-        public LocalDate CreateOrGetClrDate() => this.clrDate ?? ParseDate(this.jsonElement).GetValueOrThrow();
+        public LocalDate CreateOrGetClrDate() => this.clrDate ?? ParseDate(this.JsonElement).GetValueOrThrow();
 
         /// <summary>
         /// Writes the Date value to a <see cref="Utf8JsonWriter"/>.
@@ -162,7 +167,7 @@ namespace Menes
             }
             else
             {
-                this.jsonElement.WriteTo(writer);
+                this.JsonElement.WriteTo(writer);
             }
         }
 
@@ -178,7 +183,7 @@ namespace Menes
                 return new JsonAny(abw.WrittenMemory);
             }
 
-            return new JsonAny(this.jsonElement);
+            return new JsonAny(this.JsonElement);
         }
 
         /// <inheritdoc/>

@@ -27,7 +27,6 @@ namespace Menes
         public static readonly JsonTime Null = new JsonTime(default(JsonElement));
 
         private readonly OffsetTime? clrTime;
-        private readonly JsonElement jsonElement;
 
         /// <summary>
         /// Creates a <see cref="JsonTime"/> wrapper around a .NET time.
@@ -36,7 +35,7 @@ namespace Menes
         public JsonTime(OffsetTime clrTime)
         {
             this.clrTime = clrTime;
-            this.jsonElement = default;
+            this.JsonElement = default;
         }
 
         /// <summary>
@@ -53,16 +52,22 @@ namespace Menes
             }
 
             this.clrTime = null;
-            this.jsonElement = jsonElement;
+            this.JsonElement = jsonElement;
         }
 
         /// <inheritdoc/>
-        public bool IsNull => this.clrTime == null && (this.jsonElement.ValueKind == JsonValueKind.Undefined || this.jsonElement.ValueKind == JsonValueKind.Null);
+        public bool IsNull => this.clrTime == null && (this.JsonElement.ValueKind == JsonValueKind.Undefined || this.JsonElement.ValueKind == JsonValueKind.Null);
 
         /// <summary>
         /// Gets this Time as a nullable value type.
         /// </summary>
         public JsonTime? AsOptional => this.IsNull ? default(JsonTime?) : this;
+
+        /// <inheritdoc/>
+        public bool HasJsonElement => this.JsonElement.ValueKind != JsonValueKind.Undefined;
+
+        /// <inheritdoc/>
+        public JsonElement JsonElement { get; }
 
         /// <summary>
         /// Implicit conversion to <see cref="OffsetTime"/>.
@@ -145,7 +150,7 @@ namespace Menes
         /// </summary>
         /// <returns>The Time value as a <see cref="OffsetTime"/>.</returns>
         /// <remarks>This allocates an unnecessary string because it is not possible to get the span for the token directly. To avoid this allocation, we would have to use our own reader.</remarks>
-        public OffsetTime CreateOrGetClrTime() => this.clrTime ?? ParseTime(this.jsonElement).GetValueOrThrow();
+        public OffsetTime CreateOrGetClrTime() => this.clrTime ?? ParseTime(this.JsonElement).GetValueOrThrow();
 
         /// <summary>
         /// Writes the Time value to a <see cref="Utf8JsonWriter"/>.
@@ -160,7 +165,7 @@ namespace Menes
             }
             else
             {
-                this.jsonElement.WriteTo(writer);
+                this.JsonElement.WriteTo(writer);
             }
         }
 
@@ -176,7 +181,7 @@ namespace Menes
                 return new JsonAny(abw.WrittenMemory);
             }
 
-            return new JsonAny(this.jsonElement);
+            return new JsonAny(this.JsonElement);
         }
 
         /// <inheritdoc/>

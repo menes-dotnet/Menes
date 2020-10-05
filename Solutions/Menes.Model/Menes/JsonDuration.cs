@@ -27,7 +27,6 @@ namespace Menes
         public static readonly JsonDuration Null = new JsonDuration(default(JsonElement));
 
         private readonly Duration? clrTime;
-        private readonly JsonElement jsonElement;
 
         /// <summary>
         /// Creates a <see cref="JsonDuration"/> wrapper around a .NET duration.
@@ -36,7 +35,7 @@ namespace Menes
         public JsonDuration(Duration clrTime)
         {
             this.clrTime = clrTime;
-            this.jsonElement = default;
+            this.JsonElement = default;
         }
 
         /// <summary>
@@ -53,16 +52,22 @@ namespace Menes
             }
 
             this.clrTime = null;
-            this.jsonElement = jsonElement;
+            this.JsonElement = jsonElement;
         }
 
         /// <inheritdoc/>
-        public bool IsNull => this.clrTime == null && (this.jsonElement.ValueKind == JsonValueKind.Undefined || this.jsonElement.ValueKind == JsonValueKind.Null);
+        public bool IsNull => this.clrTime == null && (this.JsonElement.ValueKind == JsonValueKind.Undefined || this.JsonElement.ValueKind == JsonValueKind.Null);
 
         /// <summary>
         /// Gets this duration as a nullable value type.
         /// </summary>
         public JsonDuration? AsOptional => this.IsNull ? default(JsonDuration?) : this;
+
+        /// <inheritdoc/>
+        public bool HasJsonElement => this.JsonElement.ValueKind != JsonValueKind.Undefined;
+
+        /// <inheritdoc/>
+        public JsonElement JsonElement { get; }
 
         /// <summary>
         /// Implicit conversion to <see cref="Duration"/>.
@@ -145,7 +150,7 @@ namespace Menes
         /// </summary>
         /// <returns>The duration value as a <see cref="Duration"/>.</returns>
         /// <remarks>This allocates an unnecessary string because it is not possible to get the span for the token directly. To avoid this allocation, we would have to use our own reader.</remarks>
-        public Duration CreateOrGetClrDuration() => this.clrTime ?? ParseDuration(this.jsonElement).GetValueOrThrow();
+        public Duration CreateOrGetClrDuration() => this.clrTime ?? ParseDuration(this.JsonElement).GetValueOrThrow();
 
         /// <summary>
         /// Writes the Time value to a <see cref="Utf8JsonWriter"/>.
@@ -160,7 +165,7 @@ namespace Menes
             }
             else
             {
-                this.jsonElement.WriteTo(writer);
+                this.JsonElement.WriteTo(writer);
             }
         }
 
@@ -176,7 +181,7 @@ namespace Menes
                 return new JsonAny(abw.WrittenMemory);
             }
 
-            return new JsonAny(this.jsonElement);
+            return new JsonAny(this.JsonElement);
         }
 
         /// <inheritdoc/>

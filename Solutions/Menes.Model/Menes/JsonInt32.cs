@@ -25,7 +25,6 @@ namespace Menes
         public static readonly JsonInt32 Null = new JsonInt32(default(JsonElement));
 
         private readonly int? clrInt32;
-        private readonly JsonElement jsonElement;
 
         /// <summary>
         /// Creates a <see cref="JsonInt32"/> wrapper around a .NET int.
@@ -34,7 +33,7 @@ namespace Menes
         public JsonInt32(int clrInt32)
         {
             this.clrInt32 = clrInt32;
-            this.jsonElement = default;
+            this.JsonElement = default;
         }
 
         /// <summary>
@@ -51,16 +50,22 @@ namespace Menes
             }
 
             this.clrInt32 = null;
-            this.jsonElement = jsonElement;
+            this.JsonElement = jsonElement;
         }
 
         /// <inheritdoc/>
-        public bool IsNull => this.clrInt32 == null && (this.jsonElement.ValueKind == JsonValueKind.Undefined || this.jsonElement.ValueKind == JsonValueKind.Null);
+        public bool IsNull => this.clrInt32 == null && (this.JsonElement.ValueKind == JsonValueKind.Undefined || this.JsonElement.ValueKind == JsonValueKind.Null);
 
         /// <summary>
         /// Gets this int as a nullable value type.
         /// </summary>
         public JsonInt32? AsOptional => this.IsNull ? default(JsonInt32?) : this;
+
+        /// <inheritdoc/>
+        public bool HasJsonElement => this.JsonElement.ValueKind != JsonValueKind.Undefined;
+
+        /// <inheritdoc/>
+        public JsonElement JsonElement { get; }
 
         /// <summary>
         /// Implicit conversion to <see cref="int"/>.
@@ -142,7 +147,7 @@ namespace Menes
         /// Gets the int's value as a .NET int.
         /// </summary>
         /// <returns>The int value as a <see cref="int"/>.</returns>
-        public int CreateOrGetClrInt32() => this.clrInt32 ?? this.jsonElement.GetInt32();
+        public int CreateOrGetClrInt32() => this.clrInt32 ?? this.JsonElement.GetInt32();
 
         /// <summary>
         /// Writes the int value to a <see cref="Utf8JsonWriter"/>.
@@ -156,7 +161,7 @@ namespace Menes
             }
             else
             {
-                this.jsonElement.WriteTo(writer);
+                this.JsonElement.WriteTo(writer);
             }
         }
 
@@ -172,7 +177,7 @@ namespace Menes
                 return new JsonAny(abw.WrittenMemory);
             }
 
-            return new JsonAny(this.jsonElement);
+            return new JsonAny(this.JsonElement);
         }
 
         /// <inheritdoc/>

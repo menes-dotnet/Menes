@@ -27,8 +27,6 @@ namespace Menes
         public static readonly JsonAny Null = new JsonAny(default(JsonElement));
 
         private static readonly ConcurrentDictionary<Type, object> FuncCache = new ConcurrentDictionary<Type, object>();
-
-        private readonly JsonElement jsonElement;
         private readonly ReadOnlyMemory<byte>? utf8JsonText;
 
         /// <summary>
@@ -40,7 +38,7 @@ namespace Menes
         public JsonAny(ReadOnlyMemory<byte> utf8JsonText)
         {
             this.utf8JsonText = utf8JsonText;
-            this.jsonElement = default;
+            this.JsonElement = default;
         }
 
         /// <summary>
@@ -51,17 +49,23 @@ namespace Menes
         /// </param>
         public JsonAny(JsonElement jsonElement)
         {
-            this.jsonElement = jsonElement;
+            this.JsonElement = jsonElement;
             this.utf8JsonText = null;
         }
 
         /// <inheritdoc/>
-        public bool IsNull => this.jsonElement.ValueKind == JsonValueKind.Undefined;
+        public bool IsNull => this.JsonElement.ValueKind == JsonValueKind.Undefined;
 
         /// <summary>
         /// Gets this Any as a nullable value type.
         /// </summary>
         public JsonAny? AsOptional => this.IsNull ? default(JsonAny?) : this;
+
+        /// <inheritdoc/>
+        public bool HasJsonElement => this.JsonElement.ValueKind != JsonValueKind.Undefined;
+
+        /// <inheritdoc/>
+        public JsonElement JsonElement { get; }
 
         /// <summary>
         /// Gets a value indicating whether an instance is convertible from
@@ -128,7 +132,7 @@ namespace Menes
             }
             else
             {
-                this.jsonElement.WriteTo(writer);
+                this.JsonElement.WriteTo(writer);
             }
         }
 
@@ -164,7 +168,7 @@ namespace Menes
             }
             else
             {
-                return this.jsonElement.ToString();
+                return this.JsonElement.ToString();
             }
         }
 
@@ -176,7 +180,7 @@ namespace Menes
                 return doc.RootElement.Clone();
             }
 
-            return this.jsonElement;
+            return this.JsonElement;
         }
     }
 }

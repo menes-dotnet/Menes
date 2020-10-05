@@ -25,7 +25,6 @@ namespace Menes
         public static readonly JsonDecimal Null = new JsonDecimal(default(JsonElement));
 
         private readonly decimal? clrDecimal;
-        private readonly JsonElement jsonElement;
 
         /// <summary>
         /// Creates a <see cref="JsonDecimal"/> wrapper around a .NET decimal.
@@ -34,7 +33,7 @@ namespace Menes
         public JsonDecimal(decimal clrDecimal)
         {
             this.clrDecimal = clrDecimal;
-            this.jsonElement = default;
+            this.JsonElement = default;
         }
 
         /// <summary>
@@ -51,16 +50,22 @@ namespace Menes
             }
 
             this.clrDecimal = null;
-            this.jsonElement = jsonElement;
+            this.JsonElement = jsonElement;
         }
 
         /// <inheritdoc/>
-        public bool IsNull => this.clrDecimal == null && (this.jsonElement.ValueKind == JsonValueKind.Undefined || this.jsonElement.ValueKind == JsonValueKind.Null);
+        public bool IsNull => this.clrDecimal == null && (this.JsonElement.ValueKind == JsonValueKind.Undefined || this.JsonElement.ValueKind == JsonValueKind.Null);
 
         /// <summary>
         /// Gets this decimal as a nullable value type.
         /// </summary>
         public JsonDecimal? AsOptional => this.IsNull ? default(JsonDecimal?) : this;
+
+        /// <inheritdoc/>
+        public bool HasJsonElement => this.JsonElement.ValueKind != JsonValueKind.Undefined;
+
+        /// <inheritdoc/>
+        public JsonElement JsonElement { get; }
 
         /// <summary>
         /// Implicit conversion to <see cref="decimal"/>.
@@ -136,7 +141,7 @@ namespace Menes
         /// Gets the decimal's value as a .NET decimal.
         /// </summary>
         /// <returns>The decimal value as a <see cref="decimal"/>.</returns>
-        public decimal CreateOrGetClrDecimal() => this.clrDecimal ?? this.jsonElement.GetDecimal();
+        public decimal CreateOrGetClrDecimal() => this.clrDecimal ?? this.JsonElement.GetDecimal();
 
         /// <summary>
         /// Writes the decimal value to a <see cref="Utf8JsonWriter"/>.
@@ -150,7 +155,7 @@ namespace Menes
             }
             else
             {
-                this.jsonElement.WriteTo(writer);
+                this.JsonElement.WriteTo(writer);
             }
         }
 
@@ -166,7 +171,7 @@ namespace Menes
                 return new JsonAny(abw.WrittenMemory);
             }
 
-            return new JsonAny(this.jsonElement);
+            return new JsonAny(this.JsonElement);
         }
 
         /// <inheritdoc/>

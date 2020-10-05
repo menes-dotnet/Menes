@@ -38,7 +38,6 @@ namespace Menes
         private static readonly Func<JsonElement, bool, bool> IsItemConvertibleFrom = GetIsItemConvertibleFrom();
 
         private readonly ImmutableList<ReferenceOf<TItem>>? clrItems;
-        private readonly JsonElement jsonElement;
 
         /// <summary>
         /// Creates a <see cref="JsonArray{TItem}"/> wrapper around a .NET item array.
@@ -47,7 +46,7 @@ namespace Menes
         public JsonArray(ImmutableList<ReferenceOf<TItem>> clrItems)
         {
             this.clrItems = clrItems;
-            this.jsonElement = default;
+            this.JsonElement = default;
         }
 
         /// <summary>
@@ -73,25 +72,37 @@ namespace Menes
             }
 
             this.clrItems = null;
-            this.jsonElement = jsonElement;
+            this.JsonElement = jsonElement;
         }
 
         /// <inheritdoc/>
-        public bool IsNull => this.clrItems == null && (this.jsonElement.ValueKind == JsonValueKind.Undefined || this.jsonElement.ValueKind == JsonValueKind.Null);
+        public bool IsNull => this.clrItems == null && (this.JsonElement.ValueKind == JsonValueKind.Undefined || this.JsonElement.ValueKind == JsonValueKind.Null);
 
         /// <summary>
         /// Gets this boolean as a nullable value type.
         /// </summary>
         public JsonArray<TItem>? AsOptional => this.IsNull ? default(JsonArray<TItem>?) : this;
 
+        /// <inheritdoc/>
+        public bool HasJsonElement => this.JsonElement.ValueKind != JsonValueKind.Undefined;
+
+        /// <inheritdoc/>
+        public JsonElement JsonElement { get; }
+
         /// <summary>
-        /// Gets an enumerator for the property with the given name..
+        /// Gets an enumerator for the property with the given name.
         /// </summary>
+        /// <param name="arrayElement">The array element, or <see cref="JsonValueKind.Undefined"/> if not available.</param>
         /// <param name="jsonElement">The element for which to retrieve the property enumerator.</param>
         /// <param name="propertyName">The name of the property.</param>
         /// <returns>An enumerator for the property, or null if the property does not exist, or is not an array.</returns>
-        public static JsonArrayEnumerator? GetEnumerator(JsonElement jsonElement, ReadOnlySpan<byte> propertyName)
+        public static JsonArrayEnumerator? GetEnumerator(in JsonElement arrayElement, in JsonElement jsonElement, ReadOnlySpan<byte> propertyName)
         {
+            if (arrayElement.ValueKind == JsonValueKind.Array)
+            {
+                return new JsonArrayEnumerator(arrayElement);
+            }
+
             if (jsonElement.TryGetProperty(propertyName, out JsonElement value) && value.ValueKind == JsonValueKind.Array)
             {
                 return new JsonArrayEnumerator(value);
@@ -179,7 +190,7 @@ namespace Menes
                 return new JsonArrayEnumerator(clrItems);
             }
 
-            return new JsonArrayEnumerator(this.jsonElement);
+            return new JsonArrayEnumerator(this.JsonElement);
         }
 
         /// <summary>
@@ -201,7 +212,7 @@ namespace Menes
             }
             else
             {
-                this.jsonElement.WriteTo(writer);
+                this.JsonElement.WriteTo(writer);
             }
         }
 
@@ -217,7 +228,7 @@ namespace Menes
                 return new JsonAny(abw.WrittenMemory);
             }
 
-            return new JsonAny(this.jsonElement);
+            return new JsonAny(this.JsonElement);
         }
 
         /// <inheritdoc/>
@@ -229,7 +240,7 @@ namespace Menes
         /// <inheritdoc/>
         IEnumerator IEnumerable.GetEnumerator()
         {
-            throw new NotImplementedException();
+            return this.GetEnumerator();
         }
 
         private static Func<JsonElement, TItem> GetItemFactory()

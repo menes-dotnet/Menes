@@ -22,7 +22,7 @@ namespace Menes
         /// <returns><c>True</c> if the property was found, otherwise false.</returns>
         /// <exception cref="JsonException">The property could not be parsed to the requested type.</exception>
         bool TryGetAdditionalProperty<TValue>(string propertyName, [NotNullWhen(true)] out TValue value)
-            where TValue : IJsonValue;
+            where TValue : struct, IJsonValue;
 
         /// <summary>
         /// Try to get a property with the given name.
@@ -33,7 +33,7 @@ namespace Menes
         /// <returns><c>True</c> if the property was found, otherwise false.</returns>
         /// <exception cref="JsonException">The property could not be parsed to the requested type.</exception>
         bool TryGetAdditionalProperty<TValue>(ReadOnlySpan<byte> utf8PropertyName, [NotNullWhen(true)] out TValue value)
-            where TValue : IJsonValue;
+            where TValue : struct, IJsonValue;
 
         /// <summary>
         /// Try to get a property with the given name.
@@ -44,6 +44,6 @@ namespace Menes
         /// <returns><c>True</c> if the property was found, otherwise false.</returns>
         /// <exception cref="JsonException">The property could not be parsed to the requested type.</exception>
         bool TryGetAdditionalProperty<TValue>(ReadOnlySpan<char> propertyName, [NotNullWhen(true)] out TValue value)
-            where TValue : IJsonValue;
+            where TValue : struct, IJsonValue;
     }
 }

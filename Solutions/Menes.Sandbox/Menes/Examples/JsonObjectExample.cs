@@ -41,12 +41,11 @@ namespace Menes.Examples
         private static readonly ReadOnlyMemory<byte> ThirdPropertyNameBytes = Encoding.UTF8.GetBytes(ThirdPropertyName);
         private static readonly ReadOnlyMemory<byte> ChildrenPropertyNameBytes = Encoding.UTF8.GetBytes(ChildrenPropertyName);
         private static readonly ImmutableArray<ReadOnlyMemory<byte>> KnownProperties = ImmutableArray.Create(FirstPropertyNameBytes, SecondPropertyNameBytes, ThirdPropertyNameBytes, ChildrenPropertyNameBytes);
-
-        private readonly JsonElement jsonElement;
         private readonly JsonString? first;
         private readonly JsonInt32? second;
         private readonly JsonDuration? third;
         private readonly ReferenceOf<JsonArray<JsonObjectExample>>? children;
+        private readonly JsonElement childrenJsonElement;
         private readonly ImmutableDictionary<ReadOnlyMemory<byte>, JsonString>? additionalProperties;
 
         /// <summary>
@@ -57,13 +56,31 @@ namespace Menes.Examples
         /// <param name="third">The optional third property.</param>
         /// <param name="children">The children of this object.</param>
         /// <param name="additionalProperties">Additional extension properties.</param>
-        public JsonObjectExample(JsonString first, JsonInt32 second, JsonDuration? third = null, ReferenceOf<JsonArray<JsonObjectExample>>? children = null, ImmutableDictionary<ReadOnlyMemory<byte>, JsonString>? additionalProperties = null)
+        public JsonObjectExample(JsonString first, JsonInt32 second, JsonDuration? third = null, JsonArray<JsonObjectExample>? children = null, ImmutableDictionary<ReadOnlyMemory<byte>, JsonString>? additionalProperties = null)
         {
-            this.jsonElement = default;
+            this.JsonElement = default;
             this.first = first;
             this.second = second;
             this.third = third;
-            this.children = children;
+            if (children is JsonArray<JsonObjectExample> c)
+            {
+                if (c.HasJsonElement)
+                {
+                    this.children = null;
+                    this.childrenJsonElement = c.JsonElement;
+                }
+                else
+                {
+                    this.children = new ReferenceOf<JsonArray<JsonObjectExample>>(c);
+                    this.childrenJsonElement = default;
+                }
+            }
+            else
+            {
+                this.children = null;
+                this.childrenJsonElement = default;
+            }
+
             this.additionalProperties = additionalProperties;
         }
 
@@ -77,11 +94,29 @@ namespace Menes.Examples
         /// <param name="additionalProperties">Additional extension properties.</param>
         public JsonObjectExample(JsonString first, JsonInt32 second, JsonDuration? third = null, JsonArray<JsonObjectExample>? children = null, ImmutableDictionary<string, JsonString>? additionalProperties = null)
         {
-            this.jsonElement = default;
+            this.JsonElement = default;
             this.first = first;
             this.second = second;
             this.third = third;
-            this.children = children is JsonArray<JsonObjectExample> c ? new ReferenceOf<JsonArray<JsonObjectExample>>(c) : null;
+            if (children is JsonArray<JsonObjectExample> c)
+            {
+                if (c.HasJsonElement)
+                {
+                    this.children = null;
+                    this.childrenJsonElement = c.JsonElement;
+                }
+                else
+                {
+                    this.children = new ReferenceOf<JsonArray<JsonObjectExample>>(c);
+                    this.childrenJsonElement = default;
+                }
+            }
+            else
+            {
+                this.children = null;
+                this.childrenJsonElement = default;
+            }
+
             this.additionalProperties = additionalProperties is ImmutableDictionary<string, JsonString> add ? BuildImmutableProperties(add) : null;
         }
 
@@ -95,11 +130,29 @@ namespace Menes.Examples
         /// <param name="additionalProperties">Additional extension properties.</param>
         public JsonObjectExample(JsonString first, JsonInt32 second, JsonDuration? third = null, JsonArray<JsonObjectExample>? children = null, params JsonProperty<JsonString>[] additionalProperties)
         {
-            this.jsonElement = default;
+            this.JsonElement = default;
             this.first = first;
             this.second = second;
             this.third = third;
-            this.children = children is JsonArray<JsonObjectExample> c ? new ReferenceOf<JsonArray<JsonObjectExample>>(c) : null;
+            if (children is JsonArray<JsonObjectExample> c)
+            {
+                if (c.HasJsonElement)
+                {
+                    this.children = null;
+                    this.childrenJsonElement = c.JsonElement;
+                }
+                else
+                {
+                    this.children = new ReferenceOf<JsonArray<JsonObjectExample>>(c);
+                    this.childrenJsonElement = default;
+                }
+            }
+            else
+            {
+                this.children = null;
+                this.childrenJsonElement = default;
+            }
+
             this.additionalProperties = BuildImmutableProperties(additionalProperties);
         }
 
@@ -113,11 +166,29 @@ namespace Menes.Examples
         /// <param name="additionalProperties">Additional extension properties.</param>
         public JsonObjectExample(JsonString first, JsonInt32 second, JsonDuration? third = null, JsonArray<JsonObjectExample>? children = null, params (string, JsonString)[] additionalProperties)
         {
-            this.jsonElement = default;
+            this.JsonElement = default;
             this.first = first;
             this.second = second;
             this.third = third;
-            this.children = children is JsonArray<JsonObjectExample> c ? new ReferenceOf<JsonArray<JsonObjectExample>>(c) : null;
+            if (children is JsonArray<JsonObjectExample> c)
+            {
+                if (c.HasJsonElement)
+                {
+                    this.children = null;
+                    this.childrenJsonElement = c.JsonElement;
+                }
+                else
+                {
+                    this.children = new ReferenceOf<JsonArray<JsonObjectExample>>(c);
+                    this.childrenJsonElement = default;
+                }
+            }
+            else
+            {
+                this.children = null;
+                this.childrenJsonElement = default;
+            }
+
             this.additionalProperties = BuildImmutableProperties(additionalProperties);
         }
 
@@ -129,18 +200,30 @@ namespace Menes.Examples
         /// </param>
         public JsonObjectExample(JsonElement jsonElement)
         {
-            this.jsonElement = jsonElement;
+            this.JsonElement = jsonElement;
             this.first = null;
             this.second = null;
             this.third = null;
             this.children = null;
+            this.childrenJsonElement = default;
             this.additionalProperties = null;
+        }
+
+        private JsonObjectExample(JsonString first, JsonInt32 second, JsonDuration? third = null, ReferenceOf<JsonArray<JsonObjectExample>>? children = null, JsonElement childrenJsonElement = default, ImmutableDictionary<ReadOnlyMemory<byte>, JsonString>? additionalProperties = null)
+        {
+            this.JsonElement = default;
+            this.first = first;
+            this.second = second;
+            this.third = third;
+            this.children = children;
+            this.childrenJsonElement = childrenJsonElement;
+            this.additionalProperties = additionalProperties;
         }
 
         /// <summary>
         /// Gets a value indicating whether this represents a null value.
         /// </summary>
-        public bool IsNull => this.first is null && this.second is null && (this.jsonElement.ValueKind == JsonValueKind.Undefined || this.jsonElement.ValueKind == JsonValueKind.Null);
+        public bool IsNull => this.first is null && this.second is null && (this.JsonElement.ValueKind == JsonValueKind.Undefined || this.JsonElement.ValueKind == JsonValueKind.Null);
 
         /// <summary>
         /// Gets this value as a nullable value type.
@@ -150,22 +233,36 @@ namespace Menes.Examples
         /// <summary>
         /// Gets the first.
         /// </summary>
-        public JsonString First => this.first ?? JsonString.FromOptionalProperty(this.jsonElement, FirstPropertyNameBytes.Span);
+        public JsonString First => this.first ?? JsonString.FromOptionalProperty(this.JsonElement, FirstPropertyNameBytes.Span);
 
         /// <summary>
         /// Gets the second.
         /// </summary>
-        public JsonInt32 Second => this.second ?? JsonInt32.FromOptionalProperty(this.jsonElement, SecondPropertyNameBytes.Span);
+        public JsonInt32 Second => this.second ?? JsonInt32.FromOptionalProperty(this.JsonElement, SecondPropertyNameBytes.Span);
 
         /// <summary>
         /// Gets the third.
         /// </summary>
-        public JsonDuration? Third => this.third ?? JsonDuration.FromOptionalProperty(this.jsonElement, ThirdPropertyNameBytes.Span).AsOptional;
+        public JsonDuration? Third => this.third ?? JsonDuration.FromOptionalProperty(this.JsonElement, ThirdPropertyNameBytes.Span).AsOptional;
 
         /// <summary>
         /// Gets the children.
         /// </summary>
-        public JsonArray<JsonObjectExample>.JsonArrayEnumerator? Children => this.children?.Value.GetEnumerator() ?? JsonArray<JsonObjectExample>.GetEnumerator(this.jsonElement, ChildrenPropertyNameBytes.Span);
+        public JsonArray<JsonObjectExample>? Children => this.children?.Value ?? (this.childrenJsonElement.ValueKind == JsonValueKind.Array ? new JsonArray<JsonObjectExample>(this.childrenJsonElement) : JsonArray<JsonObjectExample>.FromOptionalProperty(this.JsonElement, ChildrenPropertyNameBytes.Span).AsOptional);
+
+        /// <summary>
+        /// Gets a value indicating whether this is backed by a <see cref="JsonElement"/>.
+        /// </summary>
+        public bool HasJsonElement => this.JsonElement.ValueKind != JsonValueKind.Undefined;
+
+        /// <summary>
+        /// Gets the backing <see cref="JsonElement"/>.
+        /// </summary>
+        /// <remarks>
+        /// This will be <see cref="JsonValueKind.Undefined"/> if it is not backed
+        /// by a <see cref="JsonElement"/>. See <see cref="HasJsonElement"/>.
+        /// </remarks>
+        public JsonElement JsonElement { get; }
 
         /// <inheritdoc/>
         public JsonPropertyEnumerator<JsonString> AdditionalProperties
@@ -177,9 +274,9 @@ namespace Menes.Examples
                     return new JsonPropertyEnumerator<JsonString>(ap, KnownProperties);
                 }
 
-                if (this.jsonElement.ValueKind == JsonValueKind.Object)
+                if (this.JsonElement.ValueKind == JsonValueKind.Object)
                 {
-                    return new JsonPropertyEnumerator<JsonString>(this.jsonElement, KnownProperties);
+                    return new JsonPropertyEnumerator<JsonString>(this.JsonElement, KnownProperties);
                 }
 
                 return new JsonPropertyEnumerator<JsonString>(ImmutableDictionary<ReadOnlyMemory<byte>, JsonString>.Empty, KnownProperties);
@@ -300,7 +397,7 @@ namespace Menes.Examples
         /// <returns>A new instance of the <see cref="JsonObjectExample"/> with the first property set.</returns>
         public JsonObjectExample WithFirst(JsonString newFirst)
         {
-            return new JsonObjectExample(newFirst, this.Second, this.Third, this.GetChildren(), this.GetAdditionalPropertiesAsImmutableDictionary());
+            return new JsonObjectExample(newFirst, this.Second, this.Third, this.children, this.childrenJsonElement, this.GetAdditionalPropertiesAsImmutableDictionary());
         }
 
         /// <summary>
@@ -310,7 +407,7 @@ namespace Menes.Examples
         /// <returns>A new instance of the <see cref="JsonObjectExample"/> with the second property set.</returns>
         public JsonObjectExample WithSecond(JsonInt32 newSecond)
         {
-            return new JsonObjectExample(this.First, newSecond, this.Third, this.GetChildren(), this.GetAdditionalPropertiesAsImmutableDictionary());
+            return new JsonObjectExample(this.First, newSecond, this.Third, this.children, this.childrenJsonElement, this.GetAdditionalPropertiesAsImmutableDictionary());
         }
 
         /// <summary>
@@ -320,7 +417,7 @@ namespace Menes.Examples
         /// <returns>A new instance of the <see cref="JsonObjectExample"/> with the second property set.</returns>
         public JsonObjectExample WithThird(JsonDuration? newThird)
         {
-            return new JsonObjectExample(this.First, this.Second, newThird, this.GetChildren(), this.GetAdditionalPropertiesAsImmutableDictionary());
+            return new JsonObjectExample(this.First, this.Second, newThird, this.children, this.childrenJsonElement, this.GetAdditionalPropertiesAsImmutableDictionary());
         }
 
         /// <summary>
@@ -330,7 +427,7 @@ namespace Menes.Examples
         /// <returns>A new instance of the <see cref="JsonObjectExample"/> with the second property set.</returns>
         public JsonObjectExample WithChildren(JsonArray<JsonObjectExample> newChildren)
         {
-            return new JsonObjectExample(this.First, this.Second, this.third, new ReferenceOf<JsonArray<JsonObjectExample>>(newChildren), this.GetAdditionalPropertiesAsImmutableDictionary());
+            return new JsonObjectExample(this.First, this.Second, this.third, newChildren.HasJsonElement ? null : new ReferenceOf<JsonArray<JsonObjectExample>>(newChildren), newChildren.JsonElement, this.GetAdditionalPropertiesAsImmutableDictionary());
         }
 
         /// <summary>
@@ -340,7 +437,7 @@ namespace Menes.Examples
         /// <returns>A new instance of the <see cref="JsonObjectExample"/> with the second property set.</returns>
         public JsonObjectExample WithAdditionalProperties(ImmutableDictionary<ReadOnlyMemory<byte>, JsonString>? newAdditional)
         {
-            return new JsonObjectExample(this.First, this.Second, this.Third, this.GetChildren(), newAdditional);
+            return new JsonObjectExample(this.First, this.Second, this.Third, this.children, this.childrenJsonElement, newAdditional);
         }
 
         /// <summary>
@@ -350,7 +447,7 @@ namespace Menes.Examples
         /// <returns>A new instance of the <see cref="JsonObjectExample"/> with the second property set.</returns>
         public JsonObjectExample WithAdditionalProperties(ImmutableDictionary<string, JsonString>? newAdditional)
         {
-            return new JsonObjectExample(this.First, this.Second, this.Third, this.GetChildren(), newAdditional is ImmutableDictionary<string, JsonString> na ? BuildImmutableProperties(na) : null);
+            return new JsonObjectExample(this.First, this.Second, this.Third, this.children, this.childrenJsonElement, newAdditional is ImmutableDictionary<string, JsonString> na ? BuildImmutableProperties(na) : null);
         }
 
         /// <summary>
@@ -401,7 +498,7 @@ namespace Menes.Examples
             }
             else
             {
-                this.jsonElement.WriteTo(writer);
+                this.JsonElement.WriteTo(writer);
             }
         }
 
@@ -417,7 +514,7 @@ namespace Menes.Examples
                 return new JsonAny(abw.WrittenMemory);
             }
 
-            return new JsonAny(this.jsonElement);
+            return new JsonAny(this.JsonElement);
         }
 
         /// <inheritdoc/>
@@ -509,11 +606,6 @@ namespace Menes.Examples
             return builder.ToImmutable();
         }
 
-        private ReferenceOf<JsonArray<JsonObjectExample>> GetChildren()
-        {
-            return this.children ?? new ReferenceOf<JsonArray<JsonObjectExample>>(JsonArray<JsonObjectExample>.FromOptionalProperty(this.jsonElement, ChildrenPropertyNameBytes.Span));
-        }
-
         private ImmutableDictionary<ReadOnlyMemory<byte>, JsonString>? GetAdditionalPropertiesAsImmutableDictionary()
         {
             if (this.additionalProperties is ImmutableDictionary<ReadOnlyMemory<byte>, JsonString> id)
@@ -521,7 +613,7 @@ namespace Menes.Examples
                 return id;
             }
 
-            return BuildImmutableProperties(this.jsonElement);
+            return BuildImmutableProperties(this.JsonElement);
         }
     }
 }

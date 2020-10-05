@@ -22,42 +22,67 @@ namespace Menes.Examples
         private readonly JsonBoolean? firstInstance;
         private readonly JsonInt64? secondInstance;
         private readonly ReferenceOf<JsonObjectExample>? thirdInstance;
-        private readonly JsonElement jsonElement;
 
         /// <summary>
-        /// Creates a <see cref="JsonBoolean"/> wrapper around a .NET boolean.
+        /// Creates a <see cref="JsonUnionExample"/> wrapper around a .NET boolean.
         /// </summary>
         /// <param name="clrInstance">The .NET instance.</param>
         public JsonUnionExample(JsonBoolean clrInstance)
         {
-            this.firstInstance = clrInstance;
+            if (clrInstance.HasJsonElement)
+            {
+                this.JsonElement = clrInstance.JsonElement;
+                this.firstInstance = null;
+            }
+            else
+            {
+                this.firstInstance = clrInstance;
+                this.JsonElement = default;
+            }
+
             this.secondInstance = null;
             this.thirdInstance = null;
-            this.jsonElement = default;
         }
 
         /// <summary>
-        /// Creates a <see cref="JsonBoolean"/> wrapper around a .NET boolean.
+        /// Creates a <see cref="JsonUnionExample"/> wrapper around a .NET int64.
         /// </summary>
         /// <param name="clrInstance">The .NET instance.</param>
         public JsonUnionExample(JsonInt64 clrInstance)
         {
             this.firstInstance = null;
-            this.secondInstance = clrInstance;
+            if (clrInstance.HasJsonElement)
+            {
+                this.JsonElement = clrInstance.JsonElement;
+                this.secondInstance = null;
+            }
+            else
+            {
+                this.secondInstance = clrInstance;
+                this.JsonElement = default;
+            }
+
             this.thirdInstance = null;
-            this.jsonElement = default;
         }
 
         /// <summary>
-        /// Creates a <see cref="JsonBoolean"/> wrapper around a .NET bool.
+        /// Creates a <see cref="JsonUnionExample"/> wrapper around a JsonObjectExample.
         /// </summary>
         /// <param name="clrInstance">The .NET instance.</param>
         public JsonUnionExample(JsonObjectExample clrInstance)
         {
             this.firstInstance = null;
             this.secondInstance = null;
-            this.thirdInstance = new ReferenceOf<JsonObjectExample>(clrInstance);
-            this.jsonElement = default;
+            if (clrInstance.HasJsonElement)
+            {
+                this.thirdInstance = null;
+                this.JsonElement = clrInstance.JsonElement;
+            }
+            else
+            {
+                this.thirdInstance = new ReferenceOf<JsonObjectExample>(clrInstance);
+                this.JsonElement = default;
+            }
         }
 
         /// <summary>
@@ -71,13 +96,13 @@ namespace Menes.Examples
             this.firstInstance = null;
             this.secondInstance = null;
             this.thirdInstance = null;
-            this.jsonElement = jsonElement;
+            this.JsonElement = jsonElement;
         }
 
         /// <summary>
         /// Gets a value indicating whether this represents a null value.
         /// </summary>
-        public bool IsNull => this.firstInstance is null && this.secondInstance is null && this.thirdInstance is null &&  (this.jsonElement.ValueKind == JsonValueKind.Undefined || this.jsonElement.ValueKind == JsonValueKind.Null);
+        public bool IsNull => this.firstInstance is null && this.secondInstance is null && this.thirdInstance is null && (this.JsonElement.ValueKind == JsonValueKind.Undefined || this.JsonElement.ValueKind == JsonValueKind.Null);
 
         /// <summary>
         /// Gets this value as a nullable value type.
@@ -87,17 +112,23 @@ namespace Menes.Examples
         /// <summary>
         /// Gets a value indicating whether this represents a JsonBoolean value.
         /// </summary>
-        public bool IsJsonBoolean => this.firstInstance is JsonBoolean || JsonBoolean.IsConvertibleFrom(this.jsonElement);
+        public bool IsJsonBoolean => this.firstInstance is JsonBoolean || JsonBoolean.IsConvertibleFrom(this.JsonElement);
 
         /// <summary>
         /// Gets a value indicating whether this represents a JsonInt64 value.
         /// </summary>
-        public bool IsJsonInt64 => this.secondInstance is JsonInt64 || JsonInt64.IsConvertibleFrom(this.jsonElement);
+        public bool IsJsonInt64 => this.secondInstance is JsonInt64 || JsonInt64.IsConvertibleFrom(this.JsonElement);
 
         /// <summary>
         /// Gets a value indicating whether this represents a JsonObjectExample value.
         /// </summary>
-        public bool IsJsonObjectExample => this.thirdInstance is ReferenceOf<JsonObjectExample> || JsonObjectExample.IsConvertibleFrom(this.jsonElement);
+        public bool IsJsonObjectExample => this.thirdInstance is ReferenceOf<JsonObjectExample> || JsonObjectExample.IsConvertibleFrom(this.JsonElement);
+
+        /// <inheritdoc/>
+        public bool HasJsonElement => this.JsonElement.ValueKind != JsonValueKind.Undefined;
+
+        /// <inheritdoc/>
+        public JsonElement JsonElement { get; }
 
         /// <summary>
         /// Explicit conversion to <see cref="JsonBoolean"/>.
@@ -178,19 +209,19 @@ namespace Menes.Examples
         /// Gets the value as an instance of the first type.
         /// </summary>
         /// <returns>The value as a <see cref="JsonBoolean"/>.</returns>
-        public JsonBoolean AsJsonBoolean() => this.firstInstance ?? new JsonBoolean(this.jsonElement);
+        public JsonBoolean AsJsonBoolean() => this.firstInstance ?? new JsonBoolean(this.JsonElement);
 
         /// <summary>
         /// Gets the value as an instance of the second type.
         /// </summary>
         /// <returns>The value as a <see cref="JsonInt64"/>.</returns>
-        public JsonInt64 AsJsonInt64() => this.secondInstance ?? new JsonInt64(this.jsonElement);
+        public JsonInt64 AsJsonInt64() => this.secondInstance ?? new JsonInt64(this.JsonElement);
 
         /// <summary>
         /// Gets the value as an instance of the second type.
         /// </summary>
         /// <returns>The value as a <see cref="JsonInt64"/>.</returns>
-        public JsonObjectExample AsJsonObjectExample() => this.thirdInstance?.Value ?? new JsonObjectExample(this.jsonElement);
+        public JsonObjectExample AsJsonObjectExample() => this.thirdInstance?.Value ?? new JsonObjectExample(this.JsonElement);
 
         /// <summary>
         /// Writes the bool value to a <see cref="Utf8JsonWriter"/>.
@@ -212,7 +243,7 @@ namespace Menes.Examples
             }
             else
             {
-                this.jsonElement.WriteTo(writer);
+                this.JsonElement.WriteTo(writer);
             }
         }
 
@@ -229,7 +260,12 @@ namespace Menes.Examples
                 return ToAny(second);
             }
 
-            return new JsonAny(this.jsonElement);
+            if (this.thirdInstance is ReferenceOf<JsonObjectExample> third)
+            {
+                return ToAny(third.Value);
+            }
+
+            return new JsonAny(this.JsonElement);
         }
 
         private static JsonAny ToAny<T>(T value)

@@ -25,7 +25,6 @@ namespace Menes
         public static readonly JsonUri Null = new JsonUri(default(JsonElement));
 
         private readonly string? clrUri;
-        private readonly JsonElement jsonElement;
 
         /// <summary>
         /// Creates a <see cref="JsonUri"/> wrapper around a .NET Uri.
@@ -34,7 +33,7 @@ namespace Menes
         public JsonUri(Uri clrUri)
         {
             this.clrUri = clrUri.ToString();
-            this.jsonElement = default;
+            this.JsonElement = default;
         }
 
         /// <summary>
@@ -44,7 +43,7 @@ namespace Menes
         public JsonUri(string clrUri)
         {
             this.clrUri = clrUri;
-            this.jsonElement = default;
+            this.JsonElement = default;
         }
 
         /// <summary>
@@ -61,16 +60,22 @@ namespace Menes
             }
 
             this.clrUri = null;
-            this.jsonElement = jsonElement;
+            this.JsonElement = jsonElement;
         }
 
         /// <inheritdoc/>
-        public bool IsNull => this.clrUri == null && (this.jsonElement.ValueKind == JsonValueKind.Undefined || this.jsonElement.ValueKind == JsonValueKind.Null);
+        public bool IsNull => this.clrUri == null && (this.JsonElement.ValueKind == JsonValueKind.Undefined || this.JsonElement.ValueKind == JsonValueKind.Null);
 
         /// <summary>
         /// Gets this Uri as a nullable value type.
         /// </summary>
         public JsonUri? AsOptional => this.IsNull ? default(JsonUri?) : this;
+
+        /// <inheritdoc/>
+        public bool HasJsonElement => this.JsonElement.ValueKind != JsonValueKind.Undefined;
+
+        /// <inheritdoc/>
+        public JsonElement JsonElement { get; }
 
         /// <summary>
         /// Implicit conversion to <see cref="Uri"/>.
@@ -168,7 +173,7 @@ namespace Menes
             }
             else
             {
-                this.jsonElement.WriteTo(writer);
+                this.JsonElement.WriteTo(writer);
             }
         }
 
@@ -184,7 +189,7 @@ namespace Menes
                 return new JsonAny(abw.WrittenMemory);
             }
 
-            return new JsonAny(this.jsonElement);
+            return new JsonAny(this.JsonElement);
         }
 
         /// <inheritdoc/>
@@ -197,7 +202,7 @@ namespace Menes
 
         private string CreateOrGetClrString()
         {
-            return this.clrUri ?? this.jsonElement.GetString();
+            return this.clrUri ?? this.JsonElement.GetString();
         }
     }
 }

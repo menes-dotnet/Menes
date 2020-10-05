@@ -17,6 +17,20 @@ namespace Menes
         public bool IsNull { get; }
 
         /// <summary>
+        /// Gets a value indicating whether this is backed by a <see cref="JsonElement"/>.
+        /// </summary>
+        bool HasJsonElement { get; }
+
+        /// <summary>
+        /// Gets the backing <see cref="JsonElement"/>.
+        /// </summary>
+        /// <remarks>
+        /// This will be <see cref="JsonValueKind.Undefined"/> if it is not backed
+        /// by a <see cref="JsonElement"/>. See <see cref="HasJsonElement"/>.
+        /// </remarks>
+        JsonElement JsonElement { get; }
+
+        /// <summary>
         /// Gets the value as a <see cref="JsonAny"/>.
         /// </summary>
         /// <returns>The element as a JsonAny.</returns>

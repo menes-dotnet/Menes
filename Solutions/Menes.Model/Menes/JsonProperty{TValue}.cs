@@ -16,7 +16,7 @@ namespace Menes
     /// </summary>
     /// <typeparam name="TValue">The type of the <see cref="IJsonValue"/> as a property.</typeparam>
     public readonly struct JsonProperty<TValue>
-        where TValue : IJsonValue
+        where TValue : struct, IJsonValue
     {
         private static readonly Func<JsonElement, TValue> ValueFactory = GetValueFactory();
         private static readonly Func<JsonElement, bool, bool> IsValueConvertibleFrom = GetIsValueConvertibleFrom();

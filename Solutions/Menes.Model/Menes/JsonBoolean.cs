@@ -28,7 +28,6 @@ namespace Menes
         private static readonly ReadOnlyMemory<byte> FalseBytes = Encoding.UTF8.GetBytes("false");
 
         private readonly bool? clrBoolean;
-        private readonly JsonElement jsonElement;
 
         /// <summary>
         /// Creates a <see cref="JsonBoolean"/> wrapper around a .NET boolean.
@@ -37,7 +36,7 @@ namespace Menes
         public JsonBoolean(bool clrBoolean)
         {
             this.clrBoolean = clrBoolean;
-            this.jsonElement = default;
+            this.JsonElement = default;
         }
 
         /// <summary>
@@ -54,16 +53,22 @@ namespace Menes
             }
 
             this.clrBoolean = null;
-            this.jsonElement = jsonElement;
+            this.JsonElement = jsonElement;
         }
 
         /// <inheritdoc/>
-        public bool IsNull => this.clrBoolean == null && (this.jsonElement.ValueKind == JsonValueKind.Undefined || this.jsonElement.ValueKind == JsonValueKind.Null);
+        public bool IsNull => this.clrBoolean == null && (this.JsonElement.ValueKind == JsonValueKind.Undefined || this.JsonElement.ValueKind == JsonValueKind.Null);
 
         /// <summary>
         /// Gets this boolean as a nullable value type.
         /// </summary>
         public JsonBoolean? AsOptional => this.IsNull ? default(JsonBoolean?) : this;
+
+        /// <inheritdoc/>
+        public bool HasJsonElement => this.JsonElement.ValueKind != JsonValueKind.Undefined;
+
+        /// <inheritdoc/>
+        public JsonElement JsonElement { get; }
 
         /// <summary>
         /// Implicit conversion to <see cref="bool"/>.
@@ -139,7 +144,7 @@ namespace Menes
         /// Gets the bool's value as a .NET bool.
         /// </summary>
         /// <returns>The bool value as a <see cref="bool"/>.</returns>
-        public bool CreateOrGetClrBoolean() => this.clrBoolean ?? this.jsonElement.GetBoolean();
+        public bool CreateOrGetClrBoolean() => this.clrBoolean ?? this.JsonElement.GetBoolean();
 
         /// <summary>
         /// Writes the bool value to a <see cref="Utf8JsonWriter"/>.
@@ -153,7 +158,7 @@ namespace Menes
             }
             else
             {
-                this.jsonElement.WriteTo(writer);
+                this.JsonElement.WriteTo(writer);
             }
         }
 
@@ -170,7 +175,7 @@ namespace Menes
                 return new JsonAny(FalseBytes);
             }
 
-            return new JsonAny(this.jsonElement);
+            return new JsonAny(this.JsonElement);
         }
 
         /// <inheritdoc/>

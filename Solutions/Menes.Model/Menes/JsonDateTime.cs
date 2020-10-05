@@ -27,7 +27,6 @@ namespace Menes
         public static readonly JsonDateTime Null = new JsonDateTime(default(JsonElement));
 
         private readonly OffsetDateTime? clrTime;
-        private readonly JsonElement jsonElement;
 
         /// <summary>
         /// Creates a <see cref="JsonDateTime"/> wrapper around a .NET date-time.
@@ -36,7 +35,7 @@ namespace Menes
         public JsonDateTime(OffsetDateTime clrTime)
         {
             this.clrTime = clrTime;
-            this.jsonElement = default;
+            this.JsonElement = default;
         }
 
         /// <summary>
@@ -53,16 +52,22 @@ namespace Menes
             }
 
             this.clrTime = null;
-            this.jsonElement = jsonElement;
+            this.JsonElement = jsonElement;
         }
 
         /// <inheritdoc/>
-        public bool IsNull => this.clrTime == null && (this.jsonElement.ValueKind == JsonValueKind.Undefined || this.jsonElement.ValueKind == JsonValueKind.Null);
+        public bool IsNull => this.clrTime == null && (this.JsonElement.ValueKind == JsonValueKind.Undefined || this.JsonElement.ValueKind == JsonValueKind.Null);
 
         /// <summary>
         /// Gets this date-time as a nullable value type.
         /// </summary>
         public JsonDateTime? AsOptional => this.IsNull ? default(JsonDateTime?) : this;
+
+        /// <inheritdoc/>
+        public bool HasJsonElement => this.JsonElement.ValueKind != JsonValueKind.Undefined;
+
+        /// <inheritdoc/>
+        public JsonElement JsonElement { get; }
 
         /// <summary>
         /// Implicit conversion to <see cref="OffsetDateTime"/>.
@@ -147,7 +152,7 @@ namespace Menes
         /// </summary>
         /// <returns>The date-time value as a <see cref="OffsetDateTime"/>.</returns>
         /// <remarks>This allocates an unnecessary string because it is not possible to get the span for the token directly. To avoid this allocation, we would have to use our own reader.</remarks>
-        public OffsetDateTime CreateOrGetClrDateTime() => this.clrTime ?? ParseDateTime(this.jsonElement).GetValueOrThrow();
+        public OffsetDateTime CreateOrGetClrDateTime() => this.clrTime ?? ParseDateTime(this.JsonElement).GetValueOrThrow();
 
         /// <summary>
         /// Writes the Time value to a <see cref="Utf8JsonWriter"/>.
@@ -162,7 +167,7 @@ namespace Menes
             }
             else
             {
-                this.jsonElement.WriteTo(writer);
+                this.JsonElement.WriteTo(writer);
             }
         }
 
@@ -178,7 +183,7 @@ namespace Menes
                 return new JsonAny(abw.WrittenMemory);
             }
 
-            return new JsonAny(this.jsonElement);
+            return new JsonAny(this.JsonElement);
         }
 
         /// <inheritdoc/>

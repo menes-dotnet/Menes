@@ -25,7 +25,6 @@ namespace Menes
         public static readonly JsonDouble Null = new JsonDouble(default(JsonElement));
 
         private readonly double? clrDouble;
-        private readonly JsonElement jsonElement;
 
         /// <summary>
         /// Creates a <see cref="JsonDouble"/> wrapper around a .NET double.
@@ -34,7 +33,7 @@ namespace Menes
         public JsonDouble(double clrDouble)
         {
             this.clrDouble = clrDouble;
-            this.jsonElement = default;
+            this.JsonElement = default;
         }
 
         /// <summary>
@@ -51,16 +50,22 @@ namespace Menes
             }
 
             this.clrDouble = null;
-            this.jsonElement = jsonElement;
+            this.JsonElement = jsonElement;
         }
 
         /// <inheritdoc/>
-        public bool IsNull => this.clrDouble == null && (this.jsonElement.ValueKind == JsonValueKind.Undefined || this.jsonElement.ValueKind == JsonValueKind.Null);
+        public bool IsNull => this.clrDouble == null && (this.JsonElement.ValueKind == JsonValueKind.Undefined || this.JsonElement.ValueKind == JsonValueKind.Null);
 
         /// <summary>
         /// Gets this double as a nullable value type.
         /// </summary>
         public JsonDouble? AsOptional => this.IsNull ? default(JsonDouble?) : this;
+
+        /// <inheritdoc/>
+        public bool HasJsonElement => this.JsonElement.ValueKind != JsonValueKind.Undefined;
+
+        /// <inheritdoc/>
+        public JsonElement JsonElement { get; }
 
         /// <summary>
         /// Implicit conversion to <see cref="double"/>.
@@ -136,7 +141,7 @@ namespace Menes
         /// Gets the double's value as a .NET double.
         /// </summary>
         /// <returns>The double value as a <see cref="double"/>.</returns>
-        public double CreateOrGetClrDouble() => this.clrDouble ?? this.jsonElement.GetDouble();
+        public double CreateOrGetClrDouble() => this.clrDouble ?? this.JsonElement.GetDouble();
 
         /// <summary>
         /// Writes the double value to a <see cref="Utf8JsonWriter"/>.
@@ -150,7 +155,7 @@ namespace Menes
             }
             else
             {
-                this.jsonElement.WriteTo(writer);
+                this.JsonElement.WriteTo(writer);
             }
         }
 
@@ -166,7 +171,7 @@ namespace Menes
                 return new JsonAny(abw.WrittenMemory);
             }
 
-            return new JsonAny(this.jsonElement);
+            return new JsonAny(this.JsonElement);
         }
 
         /// <inheritdoc/>

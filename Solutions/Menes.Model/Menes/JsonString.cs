@@ -25,7 +25,6 @@ namespace Menes
         public static readonly JsonString Null = new JsonString(default(JsonElement));
 
         private readonly string? clrString;
-        private readonly JsonElement jsonElement;
 
         /// <summary>
         /// Creates a <see cref="JsonString"/> wrapper around a .NET string.
@@ -34,7 +33,7 @@ namespace Menes
         public JsonString(string clrString)
         {
             this.clrString = clrString;
-            this.jsonElement = default;
+            this.JsonElement = default;
         }
 
         /// <summary>
@@ -51,16 +50,22 @@ namespace Menes
             }
 
             this.clrString = null;
-            this.jsonElement = jsonElement;
+            this.JsonElement = jsonElement;
         }
 
         /// <inheritdoc/>
-        public bool IsNull => this.clrString == null && (this.jsonElement.ValueKind == JsonValueKind.Undefined || this.jsonElement.ValueKind == JsonValueKind.Null);
+        public bool IsNull => this.clrString == null && (this.JsonElement.ValueKind == JsonValueKind.Undefined || this.JsonElement.ValueKind == JsonValueKind.Null);
 
         /// <summary>
         /// Gets this string as a nullable value type.
         /// </summary>
         public JsonString? AsOptional => this.IsNull ? default(JsonString?) : this;
+
+        /// <inheritdoc/>
+        public bool HasJsonElement => this.JsonElement.ValueKind != JsonValueKind.Undefined;
+
+        /// <inheritdoc/>
+        public JsonElement JsonElement { get; }
 
         /// <summary>
         /// Implicit conversion to string.
@@ -137,7 +142,7 @@ namespace Menes
         /// underlying representation was not already a .NET string.
         /// </summary>
         /// <returns>The string value as a <see cref="string"/>.</returns>
-        public string CreateOrGetClrString() => this.clrString ?? this.jsonElement.GetString();
+        public string CreateOrGetClrString() => this.clrString ?? this.JsonElement.GetString();
 
         /// <summary>
         /// Writes the string value to a <see cref="Utf8JsonWriter"/>.
@@ -151,7 +156,7 @@ namespace Menes
             }
             else
             {
-                this.jsonElement.WriteTo(writer);
+                this.JsonElement.WriteTo(writer);
             }
         }
 
@@ -167,7 +172,7 @@ namespace Menes
                 return new JsonAny(abw.WrittenMemory);
             }
 
-            return new JsonAny(this.jsonElement);
+            return new JsonAny(this.JsonElement);
         }
 
         /// <inheritdoc/>
