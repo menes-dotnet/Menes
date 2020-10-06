@@ -239,7 +239,7 @@ namespace Menes.Examples
             }
             else if (this.thirdInstance is JsonReference third)
             {
-                third.AsValue<JsonObjectExample>().WriteTo(writer);
+                third.WriteTo(writer);
             }
             else
             {
