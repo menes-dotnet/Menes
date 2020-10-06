@@ -171,8 +171,7 @@ namespace Menes.TypeGenerator
                 if (property.Type.IsCompoundType)
                 {
                     string fullyQualifiedTypeName = property.Type.GetFullyQualifiedName();
-                    builder.Append($"this.{parameterAndFieldName} = new Menes.ReferenceOf<{fullyQualifiedTypeName}>(new {fullyQualifiedTypeName}({parameterAndFieldName})); ");
-                    builder.Append($"this.{parameterAndFieldName}JsonElement = default;");
+                    builder.Append($"this.{parameterAndFieldName} = new Menes.JsonReference(new {fullyQualifiedTypeName}({parameterAndFieldName})); ");
                 }
                 else
                 {
@@ -314,7 +313,7 @@ namespace Menes.TypeGenerator
         {
             foreach (PropertyDeclaration property in this.Properties)
             {
-                this.BuildJsonElementAccessor(property, members);
+                this.BuildJsonReferenceAccessor(property, members);
             }
         }
 
@@ -397,7 +396,7 @@ namespace Menes.TypeGenerator
             members.Add(SF.ParseMemberDeclaration($"private static readonly System.Collections.Immutable.ImmutableArray<System.ReadOnlyMemory<byte>> KnownProperties = System.Collections.Immutable.ImmutableArray.Create({knownPropertiesList});"));
         }
 
-        private void BuildJsonElementAccessor(PropertyDeclaration property, List<MemberDeclarationSyntax> members)
+        private void BuildJsonReferenceAccessor(PropertyDeclaration property, List<MemberDeclarationSyntax> members)
         {
             if (!property.Type.IsCompoundType)
             {
@@ -407,16 +406,16 @@ namespace Menes.TypeGenerator
             string camelCasePropertyName = NameFormatter.ToCamelCase(property.JsonPropertyName);
 
             string declaration =
-            $"private System.Text.Json.JsonElement Get{NameFormatter.ToPascalCase(property.JsonPropertyName)}Element() " +
+            $"private Menes.JsonReference? Get{NameFormatter.ToPascalCase(property.JsonPropertyName)}() " +
             "{ " +
-            $"    if (this.{camelCasePropertyName}JsonElement.ValueKind != System.Text.Json.JsonValueKind.Undefined) " +
+            $"    if (this.{camelCasePropertyName} is Menes.JsonReference) " +
             "    { " +
-            $"        return this.{camelCasePropertyName}JsonElement; " +
+            $"        return this.{camelCasePropertyName}; " +
             "    } " +
             " " +
             $"    if (this.HasJsonElement && this.JsonElement.TryGetProperty({GetPropertyNameFieldName(property)}Bytes.Span, out System.Text.Json.JsonElement value)) " +
             "    { " +
-            "        return value; " +
+            "        return new Menes.JsonReference(value); " +
             "    } " +
             " " +
             "    return default; " +
@@ -512,8 +511,7 @@ $"    return new {this.GetFullyQualifiedName()}(" + this.BuildWithParameters(pro
             }
             else if (current.Type.IsCompoundType)
             {
-                builder.Append($"this.{NameFormatter.ToCamelCase(current.JsonPropertyName)}");
-                builder.Append($", this.Get{NameFormatter.ToPascalCase(current.JsonPropertyName)}Element()");
+                builder.Append($", this.Get{NameFormatter.ToPascalCase(current.JsonPropertyName)}()");
             }
             else
             {
@@ -526,7 +524,7 @@ $"    return new {this.GetFullyQualifiedName()}(" + this.BuildWithParameters(pro
             if (property.Type.IsCompoundType)
             {
                 string backingFieldName = NameFormatter.ToCamelCase(property.JsonPropertyName);
-                members.Add(SF.ParseMemberDeclaration($"public {property.Type.GetFullyQualifiedName()}? {NameFormatter.ToPascalCase(property.JsonPropertyName)} => this.{backingFieldName}?.Value ?? (this.{backingFieldName}JsonElement.ValueKind != System.Text.Json.JsonValueKind.Undefined ? new Menes.JsonArray<JsonObjectExample>(this.{backingFieldName}JsonElement) : {property.Type.GetFullyQualifiedName()}.FromOptionalProperty(this.JsonElement, {GetPropertyNameFieldName(property)}Bytes.Span).AsOptional);"));
+                members.Add(SF.ParseMemberDeclaration($"public {property.Type.GetFullyQualifiedName()}? {NameFormatter.ToPascalCase(property.JsonPropertyName)} => this.{backingFieldName}?.AsValue<{property.Type.GetFullyQualifiedName()}> ?? {property.Type.GetFullyQualifiedName()}.FromOptionalProperty(this.JsonElement, {GetPropertyNameFieldName(property)}Bytes.Span).AsOptional;"));
             }
             else
             {
@@ -538,8 +536,7 @@ $"    return new {this.GetFullyQualifiedName()}(" + this.BuildWithParameters(pro
         {
             if (property.Type.IsCompoundType)
             {
-                members.Add(SF.ParseMemberDeclaration($"private readonly Menes.ReferenceOf<{property.Type.GetFullyQualifiedName()}>? {NameFormatter.ToCamelCase(property.JsonPropertyName)};"));
-                members.Add(SF.ParseMemberDeclaration($"private readonly Menes.ReferenceOf<{property.Type.GetFullyQualifiedName()}>? {NameFormatter.ToCamelCase(property.JsonPropertyName)};"));
+                members.Add(SF.ParseMemberDeclaration($"private readonly Menes.JsonReference? {NameFormatter.ToCamelCase(property.JsonPropertyName)};"));
             }
             else
             {
