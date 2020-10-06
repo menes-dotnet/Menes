@@ -51,6 +51,7 @@ namespace Menes.Sandbox
                 ("bar", "Here's a bar"));
 
             ReadOnlyMemory<byte> serialized = Serialize(example);
+
             using var doc = JsonDocument.Parse(serialized);
             var roundtrip = new JsonObjectExample(doc.RootElement);
 

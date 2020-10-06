@@ -11,8 +11,9 @@ namespace Menes.Examples
     using Menes;
 
     /// <summary>
-    /// A union over a Json element.
+    /// A discriminated union over a Json element.
     /// </summary>
+    /// <remarks>Obviously this example wouldn't actually work - there is no such discriminator property on the basic types I'm using here...</remarks>
     public readonly struct JsonDiscriminatedUnionExample : IJsonValue
     {
         /// <summary>
