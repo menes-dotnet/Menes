@@ -39,7 +39,7 @@ namespace Menes
             }
             else
             {
-                this.clrEnumerator = items.ClrItems.HasValue ? items.ClrItems.Value.GetEnumerator() : throw new InvalidOperationException("The item was not enumerable.");
+                this.clrEnumerator = items.ClrItems.HasValue ? items.ClrItems.Value.GetEnumerator() : ImmutableArray<JsonPropertyReference>.Empty.GetEnumerator();
                 this.jsonEnumerator = default;
                 this.hasJsonEnumerator = false;
             }

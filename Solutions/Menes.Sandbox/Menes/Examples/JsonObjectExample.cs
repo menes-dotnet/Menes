@@ -53,8 +53,143 @@ namespace Menes.Examples
         /// <param name="second">The second property.</param>
         /// <param name="third">The optional third property.</param>
         /// <param name="children">The children of this object.</param>
+        public JsonObjectExample(JsonString first, JsonInt32 second, JsonDuration? third = null, JsonArray<JsonObjectExample>? children = null)
+        {
+            this.JsonElement = default;
+            this.first = first;
+            this.second = second;
+            this.third = third;
+            if (children is JsonArray<JsonObjectExample> c)
+            {
+                this.children = JsonReference.FromValue(c);
+            }
+            else
+            {
+                this.children = null;
+            }
+
+            this.additionalProperties = JsonProperties.Empty;
+        }
+
+        /// <summary>
+        /// Creates a <see cref="JsonObjectExample"/> wrapper around a .NET properties.
+        /// </summary>
+        /// <param name="first">The first property.</param>
+        /// <param name="second">The second property.</param>
+        /// <param name="third">The optional third property.</param>
+        /// <param name="children">The children of this object.</param>
+        /// <param name="additionalProperty1">First additional property.</param>
+        public JsonObjectExample(JsonString first, JsonInt32 second, JsonDuration? third, JsonArray<JsonObjectExample>? children, (string, JsonString) additionalProperty1)
+        {
+            this.JsonElement = default;
+            this.first = first;
+            this.second = second;
+            this.third = third;
+            if (children is JsonArray<JsonObjectExample> c)
+            {
+                this.children = JsonReference.FromValue(c);
+            }
+            else
+            {
+                this.children = null;
+            }
+
+            this.additionalProperties = JsonProperties.FromValues(additionalProperty1);
+        }
+
+        /// <summary>
+        /// Creates a <see cref="JsonObjectExample"/> wrapper around a .NET properties.
+        /// </summary>
+        /// <param name="first">The first property.</param>
+        /// <param name="second">The second property.</param>
+        /// <param name="third">The optional third property.</param>
+        /// <param name="children">The children of this object.</param>
+        /// <param name="additionalProperty1">First additional property.</param>
+        /// <param name="additionalProperty2">Second additional property.</param>
+        public JsonObjectExample(JsonString first, JsonInt32 second, JsonDuration? third, JsonArray<JsonObjectExample>? children, (string, JsonString) additionalProperty1, (string, JsonString) additionalProperty2)
+        {
+            this.JsonElement = default;
+            this.first = first;
+            this.second = second;
+            this.third = third;
+            if (children is JsonArray<JsonObjectExample> c)
+            {
+                this.children = JsonReference.FromValue(c);
+            }
+            else
+            {
+                this.children = null;
+            }
+
+            this.additionalProperties = JsonProperties.FromValues(additionalProperty1, additionalProperty2);
+        }
+
+        /// <summary>
+        /// Creates a <see cref="JsonObjectExample"/> wrapper around a .NET properties.
+        /// </summary>
+        /// <param name="first">The first property.</param>
+        /// <param name="second">The second property.</param>
+        /// <param name="third">The optional third property.</param>
+        /// <param name="children">The children of this object.</param>
+        /// <param name="additionalProperty1">First additional property.</param>
+        /// <param name="additionalProperty2">Second additional property.</param>
+        /// <param name="additionalProperty3">Third additional property.</param>
+        public JsonObjectExample(JsonString first, JsonInt32 second, JsonDuration? third, JsonArray<JsonObjectExample>? children, (string, JsonString) additionalProperty1, (string, JsonString) additionalProperty2, (string, JsonString) additionalProperty3)
+        {
+            this.JsonElement = default;
+            this.first = first;
+            this.second = second;
+            this.third = third;
+            if (children is JsonArray<JsonObjectExample> c)
+            {
+                this.children = JsonReference.FromValue(c);
+            }
+            else
+            {
+                this.children = null;
+            }
+
+            this.additionalProperties = JsonProperties.FromValues(additionalProperty1, additionalProperty2, additionalProperty3);
+        }
+
+        /// <summary>
+        /// Creates a <see cref="JsonObjectExample"/> wrapper around a .NET properties.
+        /// </summary>
+        /// <param name="first">The first property.</param>
+        /// <param name="second">The second property.</param>
+        /// <param name="third">The optional third property.</param>
+        /// <param name="children">The children of this object.</param>
+        /// <param name="additionalProperty1">First additional property.</param>
+        /// <param name="additionalProperty2">Second additional property.</param>
+        /// <param name="additionalProperty3">Third additional property.</param>
+        /// <param name="additionalProperty4">Fourth additional property.</param>
+        public JsonObjectExample(JsonString first, JsonInt32 second, JsonDuration? third, JsonArray<JsonObjectExample>? children, (string, JsonString) additionalProperty1, (string, JsonString) additionalProperty2, (string, JsonString) additionalProperty3, (string, JsonString) additionalProperty4)
+        {
+            this.JsonElement = default;
+            this.first = first;
+            this.second = second;
+            this.third = third;
+            if (children is JsonArray<JsonObjectExample> c)
+            {
+                this.children = JsonReference.FromValue(c);
+            }
+            else
+            {
+                this.children = null;
+            }
+
+            this.additionalProperties = JsonProperties.FromValues(additionalProperty1, additionalProperty2, additionalProperty3, additionalProperty4);
+        }
+
+        /// <summary>
+        /// Creates a <see cref="JsonObjectExample"/> wrapper around a .NET properties.
+        /// </summary>
+        /// <param name="first">The first property.</param>
+        /// <param name="second">The second property.</param>
+        /// <param name="third">The optional third property.</param>
+        /// <param name="children">The children of this object.</param>
         /// <param name="additionalProperties">Additional properties.</param>
-        public JsonObjectExample(JsonString first, JsonInt32 second, JsonDuration? third = null, JsonArray<JsonObjectExample>? children = null, params (string, JsonString)[] additionalProperties)
+        public JsonObjectExample(JsonString first, JsonInt32 second, JsonDuration? third, JsonArray<JsonObjectExample>? children, params (string, JsonString)[] additionalProperties)
         {
             this.JsonElement = default;
             this.first = first;
@@ -70,6 +205,32 @@ namespace Menes.Examples
             }
 
             this.additionalProperties = JsonProperties.FromValues(additionalProperties);
+        }
+
+        /// <summary>
+        /// Creates a <see cref="JsonObjectExample"/> wrapper around a .NET properties.
+        /// </summary>
+        /// <param name="first">The first property.</param>
+        /// <param name="second">The second property.</param>
+        /// <param name="third">The optional third property.</param>
+        /// <param name="children">The children of this object.</param>
+        /// <param name="additionalProperties">Additional properties.</param>
+        public JsonObjectExample(JsonString first, JsonInt32 second, JsonDuration? third, JsonArray<JsonObjectExample>? children, JsonProperties additionalProperties)
+        {
+            this.JsonElement = default;
+            this.first = first;
+            this.second = second;
+            this.third = third;
+            if (children is JsonArray<JsonObjectExample> c)
+            {
+                this.children = JsonReference.FromValue(c);
+            }
+            else
+            {
+                this.children = null;
+            }
+
+            this.additionalProperties = additionalProperties;
         }
 
         /// <summary>

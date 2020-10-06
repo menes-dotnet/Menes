@@ -28,13 +28,15 @@ namespace Menes.Sandbox
                 third: Duration.FromHours(3),
                 children: JsonArray.Create(new JsonObjectExample("Sibling A", 1), new JsonObjectExample("Sibling B", 2)),
                 //// You could also initialize this with array syntax as below. They both implicitly convert to JsonArray<TItem>.
+                //// However, they also allocate additional arrays; up to 4 items is optimized for ImmutableArray creation, so we
+                //// take advantage of that with our JsonArray.Create() overloads.
                 //// children: new [] { new JsonObjectExample("Sibling A", 1), new JsonObjectExample("Sibling B", 2) },
                 //// children: ImmutableArray.Create( new JsonObjectExample("Sibling A", 1), new JsonObjectExample("Sibling B", 2) ),
                 ("foo", "Here's a foo"),
                 ("bar", "Here's a bar"));
 
             //// At this point we have an object whose values are all CLR types.
-            //// THe children are boxed into the array as JsonReference objects.
+            //// THe 'children' are boxed into the array as JsonReference objects.
 
             ReadOnlyMemory<byte> serialized = Serialize(example);
 
