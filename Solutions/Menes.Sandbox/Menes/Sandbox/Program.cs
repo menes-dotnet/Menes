@@ -50,16 +50,27 @@ namespace Menes.Sandbox
                 ("foo", "Here's a foo"),
                 ("bar", "Here's a bar"));
 
+            //// At this point we have an object whose values are all CLR types.
+            //// THe children are boxed into the array as JsonReference objects.
+
             ReadOnlyMemory<byte> serialized = Serialize(example);
 
             using var doc = JsonDocument.Parse(serialized);
             var roundtrip = new JsonObjectExample(doc.RootElement);
+
+            //// At this point "roundtrip" is a JsonObjectExample backed by a single JsonElement.
 
             WriteExample(roundtrip);
 
             Console.WriteLine();
 
             JsonObjectExample anotherOne = roundtrip.WithFirst("Not the first now");
+
+            //// anotherOne has replaced a single value (the "First" property) with a string value.
+            //// All the remaining values have become stack-allocated wrappers around the original JsonElements
+            //// that were children of the original parent JsonELement referened by roundtrip, including the
+            //// JsonArray that is a stack allocated JsonReference.
+
             WriteExample(anotherOne);
 
             _ = Serialize(anotherOne);
