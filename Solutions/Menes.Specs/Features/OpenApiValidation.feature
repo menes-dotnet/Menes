@@ -42,3 +42,18 @@ Scenario Outline: Validate anyOf allOf and oneOf
 		| 15 | { "allOf": [{"type": "integer"}, {"type": "number"}] }                                                             | 3                                 | valid   |
 		| 16 | { "allOf": [{"type": "integer"}, {"type": "number"}] }                                                             | 3.3                               | invalid |
 		| 17 | { "allOf":[{"type":"object","required":["petType"],"properties":{"petType":{"type":"string"}},"discriminator":{"propertyName":"petType"}},{"type":"object","properties":{"name":{"type":"string"}}}]} | { "petType": "cat", "name": "misty" } | valid   |
+
+@perScenarioContainer
+Scenario Outline: Validate arrays where item schema is used by reference
+	Given an OpenApi document with the schemas section '<Schemas>'
+	And I am using the schema '<SchemaName>' from the OpenApi document
+	And the payload '<Payload JSON>'
+	When I validate the payload against the schema
+	Then the result should be <Result>
+
+	Examples:
+		| ID | Schemas                                                                                                      | SchemaName | Payload JSON | Result  |
+		| 1  | {"arrItem": {"type":"boolean" }, "arr": {"type": "array", "items": {"$ref":"#/components/schemas/arrItem"}}} | arr        | [1,2,3]      | valid   |
+		| 2  | {"arrItem": {"type":"boolean" }, "arr": {"type": "array", "items": {"$ref":"#/components/schemas/arrItem"}}} | arr        | ["a", "b"]   | invalid |
+		| 3  | {"arrItem": {"type":"boolean" }, "arr": {"type": "array", "items": {"$ref":"#/components/schemas/arrItem"}}} | arr        | true         | invalid |
+		| 4  | {"arrItem": {"type":"boolean" }, "arr": {"type": "array", "items": {"$ref":"#/components/schemas/arrItem"}}} | arr        | "hello"      | invalid |

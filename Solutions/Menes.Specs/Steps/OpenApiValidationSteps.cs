@@ -5,6 +5,10 @@
 namespace Menes.Specs.Steps
 {
     using System;
+    using System.IO;
+    using System.Linq;
+    using System.Text;
+
     using Corvus.Testing.SpecFlow;
     using Menes.Exceptions;
     using Menes.Validation;
@@ -21,6 +25,8 @@ namespace Menes.Specs.Steps
     {
         private const string ResultKey = "Result";
         private readonly ScenarioContext scenarioContext;
+
+        private OpenApiDocument? openApiDocument;
 
         public OpenApiValidationSteps(ScenarioContext scenarioContext)
         {
@@ -39,6 +45,29 @@ namespace Menes.Specs.Steps
             }
 
             this.scenarioContext.Set(openApiSchema);
+        }
+
+        [Given("an OpenApi document with the schemas section '(.*)'")]
+        public void GivenAnOpenApiDocumentWithTheSchemasSection(string schemas)
+        {
+            string doc = "{ "
+                + "'openapi': '3.0.0',"
+                + "'info': { 'version': '1.0.0', 'title': 'Career Canvas' },"
+                + "'paths': {},"
+                + "'components': {"
+                + "'schemas': " + schemas + " } }";
+            this.openApiDocument = new OpenApiStreamReader()
+                .Read(new MemoryStream(Encoding.UTF8.GetBytes(doc)), out OpenApiDiagnostic diagnostics);
+            Assert.AreEqual(
+                0,
+                diagnostics.Errors.Count,
+                $"Test OpenAPI document had errors: {string.Join(", ", diagnostics.Errors.Select(e => e.ToString()))}");
+        }
+
+        [Given("I am using the schema '(.*)' from the OpenApi document")]
+        public void GivenIAmUsingTheSchemaFromTheOpenApiDocument(string schemaName)
+        {
+            this.scenarioContext.Set(this.openApiDocument!.Components.Schemas[schemaName]);
         }
 
         [Given("the payload '(.*)'")]
