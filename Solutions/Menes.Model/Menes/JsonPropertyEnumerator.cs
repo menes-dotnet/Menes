@@ -22,7 +22,7 @@ namespace Menes
         private readonly bool hasJsonEnumerator;
 
         private JsonElement.ObjectEnumerator jsonEnumerator;
-        private ImmutableList<JsonPropertyReference>.Enumerator clrEnumerator;
+        private ImmutableArray<JsonPropertyReference>.Enumerator clrEnumerator;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="JsonPropertyEnumerator"/> struct.
@@ -39,7 +39,7 @@ namespace Menes
             }
             else
             {
-                this.clrEnumerator = items.ClrItems!.GetEnumerator();
+                this.clrEnumerator = items.ClrItems.HasValue ? items.ClrItems.Value.GetEnumerator() : throw new InvalidOperationException("The item was not enumerable.");
                 this.jsonEnumerator = default;
                 this.hasJsonEnumerator = false;
             }

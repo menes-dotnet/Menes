@@ -6,7 +6,6 @@ namespace Menes.Examples
 {
     using System;
     using System.Buffers;
-    using System.Collections.Generic;
     using System.Collections.Immutable;
     using System.Diagnostics.CodeAnalysis;
     using System.Text;
@@ -425,14 +424,14 @@ namespace Menes.Examples
             return this.TryGetAdditionalProperty(bytes.Slice(0, written), out value);
         }
 
-        private JsonProperties? GetAdditionalProperties()
+        private JsonProperties GetAdditionalProperties()
         {
             if (this.additionalProperties is JsonProperties props)
             {
                 return props;
             }
 
-            return new JsonProperties(this.AdditionalProperties);
+            return new JsonProperties(this.AdditionalProperties.ToImmutableArray());
         }
 
         private JsonReference? GetChildren()

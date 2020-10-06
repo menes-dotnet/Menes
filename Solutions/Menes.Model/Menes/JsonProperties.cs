@@ -4,9 +4,7 @@
 
 namespace Menes
 {
-    using System.Collections.Generic;
     using System.Collections.Immutable;
-    using System.Linq;
     using System.Text.Json;
 
     /// <summary>
@@ -18,25 +16,15 @@ namespace Menes
         /// <summary>
         /// An empty list of properties.
         /// </summary>
-        public static readonly JsonProperties Empty = new JsonProperties(new (string name, JsonReference value)[0]);
-
-        /// <summary>
-        /// Creates a <see cref="JsonProperties"/> wrapper around a .NET properties array.
-        /// </summary>
-        /// <param name="clrItems">The .NET items.</param>
-        public JsonProperties(params (string name, JsonReference value)[] clrItems)
-        {
-            this.ClrItems = clrItems.Select(i => new JsonPropertyReference(i.name, i.value)).ToImmutableList();
-            this.JsonElement = default;
-        }
+        public static readonly JsonProperties Empty = default;
 
         /// <summary>
         /// Creates a <see cref="JsonProperties"/> wrapper around a .NET item array.
         /// </summary>
         /// <param name="clrItems">The .NET items.</param>
-        public JsonProperties(IEnumerable<JsonPropertyReference> clrItems)
+        public JsonProperties(ImmutableArray<JsonPropertyReference> clrItems)
         {
-            this.ClrItems = clrItems.ToImmutableList();
+            this.ClrItems = clrItems;
             this.JsonElement = default;
         }
 
@@ -67,13 +55,13 @@ namespace Menes
         public JsonElement JsonElement { get; }
 
         /// <summary>
-        /// Gets the backing <see cref="ImmutableList{T}"/> of <see cref="JsonPropertyReference"/>.
+        /// Gets the backing <see cref="ImmutableArray{T}"/> of <see cref="JsonPropertyReference"/>.
         /// </summary>
         /// <remarks>
         /// This will be <see cref="JsonValueKind.Undefined"/> if it is not backed
         /// by a <see cref="JsonElement"/>. See <see cref="HasJsonElement"/>.
         /// </remarks>
-        public ImmutableList<JsonPropertyReference>? ClrItems { get; }
+        public ImmutableArray<JsonPropertyReference>? ClrItems { get; }
 
         /// <summary>
         /// Gets an instance of <see cref="JsonProperties"/> from a set of named <see cref="IJsonValue"/>.
@@ -84,7 +72,13 @@ namespace Menes
         public static JsonProperties FromValues<TValue>(params (string name, TValue value)[] clrItems)
             where TValue : struct, IJsonValue
         {
-            return new JsonProperties(clrItems.Select(i => JsonPropertyReference.From(i.name, i.value)));
+            ImmutableArray<JsonPropertyReference>.Builder array = ImmutableArray.CreateBuilder<JsonPropertyReference>();
+            foreach ((string name, TValue value) in clrItems)
+            {
+                array.Add(JsonPropertyReference.From(name, value));
+            }
+
+            return new JsonProperties(array.ToImmutable());
         }
     }
 }
