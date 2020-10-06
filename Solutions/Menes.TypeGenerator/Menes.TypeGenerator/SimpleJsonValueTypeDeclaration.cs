@@ -37,6 +37,9 @@ namespace Menes.TypeGenerator
         public bool ShouldGenerate => false;
 
         /// <inheritdoc/>
+        public bool IsCompoundType => false;
+
+        /// <inheritdoc/>
         public void AddMethodDeclaration(MethodDeclaration methodDeclaration)
         {
             throw new NotSupportedException();

@@ -6,6 +6,7 @@ namespace Menes.TypeGenerator
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using Microsoft.CodeAnalysis.CSharp.Syntax;
 
     /// <summary>
@@ -27,6 +28,12 @@ namespace Menes.TypeGenerator
         {
             this.discriminatorPropertyName = discriminatorPropertyName;
         }
+
+        /// <inheritdoc/>
+        /// <remarks>
+        /// The discriminated union type is a compound type if and only if any of its children is a compound type, Union type or Discriminated Union type.
+        /// </remarks>
+        public override bool IsCompoundType => this.typesInUnion.Any(t => t.Value.Item1 is UnionTypeDeclaration || t.Value.Item1 is DiscriminatedUnionTypeDeclaration || t.Value.Item1.IsCompoundType);
 
         /// <summary>
         /// Adds the given type to the union.

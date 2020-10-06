@@ -14,6 +14,7 @@ namespace Menes
     /// Enables the Json resources to work with strongly-typed properties in situ, whether they
     /// originated from JSON or are a .NET value.
     /// </summary>
+    /// <remarks>If the element is not backed by a JsonElement, this boxes the <see cref="IJsonValue"/>.</remarks>
     /// <typeparam name="TValue">The type of the <see cref="IJsonValue"/> as a property.</typeparam>
     public readonly struct JsonProperty<TValue>
         where TValue : struct, IJsonValue

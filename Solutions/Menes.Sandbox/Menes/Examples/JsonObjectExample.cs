@@ -43,8 +43,7 @@ namespace Menes.Examples
         private readonly JsonString? first;
         private readonly JsonInt32? second;
         private readonly JsonDuration? third;
-        private readonly ReferenceOf<JsonArray<JsonObjectExample>>? children;
-        private readonly JsonElement childrenJsonElement;
+        private readonly Reference? children;
         private readonly JsonProperties<JsonString>? additionalProperties;
 
         /// <summary>
@@ -63,13 +62,11 @@ namespace Menes.Examples
             this.third = third;
             if (children is IEnumerable<JsonObjectExample> c)
             {
-                this.children = new ReferenceOf<JsonArray<JsonObjectExample>>(new JsonArray<JsonObjectExample>(c));
-                this.childrenJsonElement = default;
+                this.children = new Reference(new JsonArray<JsonObjectExample>(c));
             }
             else
             {
                 this.children = null;
-                this.childrenJsonElement = default;
             }
 
             this.additionalProperties = new JsonProperties<JsonString>(additionalProperties);
@@ -88,18 +85,16 @@ namespace Menes.Examples
             this.second = null;
             this.third = null;
             this.children = null;
-            this.childrenJsonElement = default;
             this.additionalProperties = null;
         }
 
-        private JsonObjectExample(JsonString first, JsonInt32 second, JsonDuration? third, ReferenceOf<JsonArray<JsonObjectExample>>? children, JsonElement childrenJsonElement, JsonProperties<JsonString>? additionalProperties)
+        private JsonObjectExample(JsonString first, JsonInt32 second, JsonDuration? third, Reference? children, JsonProperties<JsonString>? additionalProperties)
         {
             this.JsonElement = default;
             this.first = first;
             this.second = second;
             this.third = third;
             this.children = children;
-            this.childrenJsonElement = childrenJsonElement;
             this.additionalProperties = additionalProperties;
         }
 
@@ -131,7 +126,7 @@ namespace Menes.Examples
         /// <summary>
         /// Gets the children.
         /// </summary>
-        public JsonArray<JsonObjectExample>? Children => this.children?.Value ?? (this.childrenJsonElement.ValueKind == JsonValueKind.Array ? new JsonArray<JsonObjectExample>(this.childrenJsonElement) : JsonArray<JsonObjectExample>.FromOptionalProperty(this.JsonElement, ChildrenPropertyNameBytes.Span).AsOptional);
+        public JsonArray<JsonObjectExample>? Children => this.children?.AsValue<JsonArray<JsonObjectExample>>() ?? JsonArray<JsonObjectExample>.FromOptionalProperty(this.JsonElement, ChildrenPropertyNameBytes.Span).AsOptional;
 
         /// <summary>
         /// Gets a value indicating whether this is backed by a <see cref="JsonElement"/>.
@@ -280,7 +275,7 @@ namespace Menes.Examples
         /// <returns>A new instance of the <see cref="JsonObjectExample"/> with the first property set.</returns>
         public JsonObjectExample WithFirst(JsonString newFirst)
         {
-            return new JsonObjectExample(newFirst, this.Second, this.Third, this.children, this.GetChildrenElement(), this.GetAdditionalProperties());
+            return new JsonObjectExample(newFirst, this.Second, this.Third, this.GetChildren(), this.GetAdditionalProperties());
         }
 
         /// <summary>
@@ -290,7 +285,7 @@ namespace Menes.Examples
         /// <returns>A new instance of the <see cref="JsonObjectExample"/> with the second property set.</returns>
         public JsonObjectExample WithSecond(JsonInt32 newSecond)
         {
-            return new JsonObjectExample(this.First, newSecond, this.Third, this.children, this.GetChildrenElement(), this.GetAdditionalProperties());
+            return new JsonObjectExample(this.First, newSecond, this.Third, this.GetChildren(), this.GetAdditionalProperties());
         }
 
         /// <summary>
@@ -300,7 +295,7 @@ namespace Menes.Examples
         /// <returns>A new instance of the <see cref="JsonObjectExample"/> with the second property set.</returns>
         public JsonObjectExample WithThird(JsonDuration? newThird)
         {
-            return new JsonObjectExample(this.First, this.Second, newThird, this.children, this.GetChildrenElement(), this.GetAdditionalProperties());
+            return new JsonObjectExample(this.First, this.Second, newThird, this.GetChildren(), this.GetAdditionalProperties());
         }
 
         /// <summary>
@@ -310,7 +305,7 @@ namespace Menes.Examples
         /// <returns>A new instance of the <see cref="JsonObjectExample"/> with the second property set.</returns>
         public JsonObjectExample WithChildren(JsonArray<JsonObjectExample> newChildren)
         {
-            return new JsonObjectExample(this.First, this.Second, this.third, newChildren.HasJsonElement ? null : new ReferenceOf<JsonArray<JsonObjectExample>>(newChildren), newChildren.JsonElement, this.GetAdditionalProperties());
+            return new JsonObjectExample(this.First, this.Second, this.third, new Reference(newChildren), this.GetAdditionalProperties());
         }
 
         /// <summary>
@@ -320,7 +315,7 @@ namespace Menes.Examples
         /// <returns>A new instance of the <see cref="JsonObjectExample"/> with the second property set.</returns>
         public JsonObjectExample WithAdditionalProperties(params (string, JsonString)[] newAdditional)
         {
-            return new JsonObjectExample(this.First, this.Second, this.Third, this.children, this.GetChildrenElement(), new JsonProperties<JsonString>(newAdditional));
+            return new JsonObjectExample(this.First, this.Second, this.Third, this.GetChildren(), new JsonProperties<JsonString>(newAdditional));
         }
 
         /// <summary>
@@ -348,22 +343,10 @@ namespace Menes.Examples
                     third.WriteTo(writer);
                 }
 
-                if (this.children is ReferenceOf<JsonArray<JsonObjectExample>> children)
+                if (this.children is Reference children)
                 {
                     writer.WritePropertyName(EncodedChildrenPropertyName);
-                    writer.WriteStartArray();
-                    foreach (JsonObjectExample child in children.Value)
-                    {
-                        child.WriteTo(writer);
-                    }
-
-                    writer.WriteEndArray();
-                }
-
-                if (this.childrenJsonElement.ValueKind == JsonValueKind.Array)
-                {
-                    writer.WritePropertyName(EncodedChildrenPropertyName);
-                    this.childrenJsonElement.WriteTo(writer);
+                    children.WriteTo(writer);
                 }
 
                 JsonPropertyEnumerator<JsonString> enumerator = this.AdditionalProperties;
@@ -436,16 +419,16 @@ namespace Menes.Examples
             return new JsonProperties<JsonString>(this.AdditionalProperties);
         }
 
-        private JsonElement GetChildrenElement()
+        private Reference? GetChildren()
         {
-            if (this.childrenJsonElement.ValueKind != JsonValueKind.Undefined)
+            if (this.children is Reference)
             {
-                return this.childrenJsonElement;
+                return this.children;
             }
 
             if (this.HasJsonElement && this.JsonElement.TryGetProperty(ChildrenPropertyNameBytes.Span, out JsonElement value))
             {
-                return value;
+                return new Reference(value);
             }
 
             return default;

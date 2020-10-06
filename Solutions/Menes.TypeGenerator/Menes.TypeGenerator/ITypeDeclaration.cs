@@ -34,6 +34,15 @@ namespace Menes.TypeGenerator
         bool ShouldGenerate { get; }
 
         /// <summary>
+        /// Gets a value indicating whether this is a compound type.
+        /// </summary>
+        /// <remarks>
+        /// If this is a compound type, it references other types in its declaration
+        /// and needs to be generated with the <see cref="Reference"/> wrapper pattern.
+        /// </remarks>
+        bool IsCompoundType { get; }
+
+        /// <summary>
         /// Determines if the type contains a property of a particular name.
         /// </summary>
         /// <param name="name">The name of the property.</param>

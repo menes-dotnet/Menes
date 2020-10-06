@@ -66,6 +66,9 @@ namespace Menes.TypeGenerator
         public bool ShouldGenerate => true;
 
         /// <inheritdoc/>
+        public virtual bool IsCompoundType => true;
+
+        /// <inheritdoc/>
         public virtual void AddMethodDeclaration(MethodDeclaration methodDeclaration)
         {
             if (methodDeclaration.Parent != this)

@@ -21,7 +21,7 @@ namespace Menes.Examples
 
         private readonly JsonBoolean? firstInstance;
         private readonly JsonInt64? secondInstance;
-        private readonly ReferenceOf<JsonObjectExample>? thirdInstance;
+        private readonly Reference? thirdInstance;
 
         /// <summary>
         /// Creates a <see cref="JsonUnionExample"/> wrapper around a .NET boolean.
@@ -80,7 +80,7 @@ namespace Menes.Examples
             }
             else
             {
-                this.thirdInstance = new ReferenceOf<JsonObjectExample>(clrInstance);
+                this.thirdInstance = new Reference(clrInstance);
                 this.JsonElement = default;
             }
         }
@@ -122,7 +122,7 @@ namespace Menes.Examples
         /// <summary>
         /// Gets a value indicating whether this represents a JsonObjectExample value.
         /// </summary>
-        public bool IsJsonObjectExample => this.thirdInstance is ReferenceOf<JsonObjectExample> || JsonObjectExample.IsConvertibleFrom(this.JsonElement);
+        public bool IsJsonObjectExample => this.thirdInstance is Reference || JsonObjectExample.IsConvertibleFrom(this.JsonElement);
 
         /// <inheritdoc/>
         public bool HasJsonElement => this.JsonElement.ValueKind != JsonValueKind.Undefined;
@@ -221,7 +221,7 @@ namespace Menes.Examples
         /// Gets the value as an instance of the second type.
         /// </summary>
         /// <returns>The value as a <see cref="JsonInt64"/>.</returns>
-        public JsonObjectExample AsJsonObjectExample() => this.thirdInstance?.Value ?? new JsonObjectExample(this.JsonElement);
+        public JsonObjectExample AsJsonObjectExample() => this.thirdInstance?.AsValue<JsonObjectExample>() ?? new JsonObjectExample(this.JsonElement);
 
         /// <summary>
         /// Writes the bool value to a <see cref="Utf8JsonWriter"/>.
@@ -237,9 +237,9 @@ namespace Menes.Examples
             {
                 second.WriteTo(writer);
             }
-            else if (this.thirdInstance is ReferenceOf<JsonObjectExample> third)
+            else if (this.thirdInstance is Reference third)
             {
-                third.Value.WriteTo(writer);
+                third.AsValue<JsonObjectExample>().WriteTo(writer);
             }
             else
             {
@@ -260,9 +260,9 @@ namespace Menes.Examples
                 return ToAny(second);
             }
 
-            if (this.thirdInstance is ReferenceOf<JsonObjectExample> third)
+            if (this.thirdInstance is Reference third)
             {
-                return ToAny(third.Value);
+                return ToAny(third.AsValue<JsonObjectExample>());
             }
 
             return new JsonAny(this.JsonElement);

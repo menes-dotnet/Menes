@@ -33,13 +33,16 @@ namespace Menes.TypeGenerator
         public IReadOnlyCollection<ITypeDeclaration> TypeDeclarations => this.typeDeclaration.TypeDeclarations;
 
         /// <inheritdoc/>
-        public string Name => this.typeDeclaration.Name + "?";
+        public string Name => this.typeDeclaration.Name;
 
         /// <inheritdoc/>
         public IDeclaration? Parent => this.typeDeclaration.Parent;
 
         /// <inheritdoc/>
         public bool ShouldGenerate => this.typeDeclaration.ShouldGenerate;
+
+        /// <inheritdoc/>
+        public bool IsCompoundType => this.typeDeclaration.IsCompoundType;
 
         /// <inheritdoc/>
         public void AddMethodDeclaration(MethodDeclaration methodDeclaration)

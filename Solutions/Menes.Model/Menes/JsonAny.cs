@@ -121,6 +121,19 @@ namespace Menes
                 : Null;
 
         /// <summary>
+        /// Get a json element as the given <see cref="IJsonValue"/> type.
+        /// </summary>
+        /// <typeparam name="T">The type of <see cref="IJsonValue"/> to get.</typeparam>
+        /// <param name="element">The <see cref="JsonElement"/> around which to create the instance.</param>
+        /// <returns>An instance of the given <see cref="IJsonValue"/>.</returns>
+        public static T As<T>(JsonElement element)
+            where T : IJsonValue
+        {
+            Func<JsonElement, T> func = CastTo<Func<JsonElement, T>>.From(FuncCache.GetOrAdd(typeof(T), t => t.GetField("FromJsonElement").GetValue(null)));
+            return func(element);
+        }
+
+        /// <summary>
         /// Writes the Any value to a <see cref="Utf8JsonWriter"/>.
         /// </summary>
         /// <param name="writer">The output to which to write the Any.</param>
@@ -155,8 +168,7 @@ namespace Menes
                 return that;
             }
 
-            Func<JsonElement, T> func = CastTo<Func<JsonElement, T>>.From(FuncCache.GetOrAdd(typeof(T), t => t.GetField("FromJsonElement").GetValue(null)));
-            return func(this.AsJsonElement());
+            return As<T>(this.AsJsonElement());
         }
 
         /// <inheritdoc/>

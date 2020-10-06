@@ -46,6 +46,13 @@ namespace Menes.TypeGenerator
         public ITypeDeclaration ItemType { get; }
 
         /// <inheritdoc/>
+        /// <remarks>
+        /// The array type is only compound if the elements in the array are compound, or it is an array of arrays.
+        /// If not, it is simple.
+        /// </remarks>
+        public bool IsCompoundType => this.ItemType.IsCompoundType || this.ItemType is ArrayTypeDeclaration;
+
+        /// <inheritdoc/>
         public void AddMethodDeclaration(MethodDeclaration methodDeclaration)
         {
             throw new NotSupportedException();
