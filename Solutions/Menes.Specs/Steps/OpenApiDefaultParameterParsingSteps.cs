@@ -31,7 +31,7 @@ namespace Menes.Specs.Steps
             this.scenarioContext = scenarioContext;
         }
 
-        [Given(@"I have constructed the OpenAPI specification with a (.*) parameter with name (.*), type (.*), format (.*) and default value (.*)")]
+        [Given("I have constructed the OpenAPI specification with a (.*) parameter with name (.*), type (.*), format (.*) and default value (.*)")]
         public void GivenIConstructASimpleParameter(
             string parameterLocation,
             string parameterName,
@@ -48,7 +48,7 @@ namespace Menes.Specs.Steps
             this.InitializeDocumentProviderAndPathMatcher(openApiSpec);
         }
 
-        [Given(@"I have constructed the OpenAPI specification with a parameter with name '(.*)', of type array, containing items of type '(.*)', and the default value for the parameter is '(.*)'")]
+        [Given("I have constructed the OpenAPI specification with a parameter with name '(.*)', of type array, containing items of type '(.*)', and the default value for the parameter is '(.*)'")]
         public void GivenIConstructAnArrayParameterWithSimpleItems(
             string parameterName,
             string arrayItemType,
@@ -59,7 +59,7 @@ namespace Menes.Specs.Steps
             this.InitializeDocumentProviderAndPathMatcher(openApiSpec);
         }
 
-        [Given(@"I have constructed the OpenAPI specification with a parameter with name '(.*)', of type array, containing items which are arrays themselves with item type '(.*)', and the default value for the parameter is '(.*)'")]
+        [Given("I have constructed the OpenAPI specification with a parameter with name '(.*)', of type array, containing items which are arrays themselves with item type '(.*)', and the default value for the parameter is '(.*)'")]
         public void GivenIConstructAnArrayParameterWithArrayItems(
             string parameterName,
             string nestedArrayItemType,
@@ -70,7 +70,7 @@ namespace Menes.Specs.Steps
             this.InitializeDocumentProviderAndPathMatcher(openApiSpec);
         }
 
-        [Given(@"I have constructed the OpenAPI specification with a parameter with name '(.*)', of type array, containing items which are objects which has the property structure '(.*)', and the default value for the parameter is '(.*)'")]
+        [Given("I have constructed the OpenAPI specification with a parameter with name '(.*)', of type array, containing items which are objects which has the property structure '(.*)', and the default value for the parameter is '(.*)'")]
         public void GivenIConstructAnArrayParameterWithObjectItems(
             string parameterName,
             string objectProperties,
@@ -81,7 +81,7 @@ namespace Menes.Specs.Steps
             this.InitializeDocumentProviderAndPathMatcher(openApiSpec);
         }
 
-        [Given(@"I have constructed the OpenAPI specification with a parameter with name '(.*)', of type object, containing properties in the structure '(.*)', and the default value for the parameter is '(.*)'")]
+        [Given("I have constructed the OpenAPI specification with a parameter with name '(.*)', of type object, containing properties in the structure '(.*)', and the default value for the parameter is '(.*)'")]
         public void GivenIConstructAnObjectParameterWithSimpleProperties(
             string parameterName,
             string objectProperties,
@@ -92,7 +92,7 @@ namespace Menes.Specs.Steps
             this.InitializeDocumentProviderAndPathMatcher(openApiSpec);
         }
 
-        [Given(@"I have constructed the OpenAPI specification with a (.*) parameter with name (.*), type (.*), format (.*) and a null default value")]
+        [Given("I have constructed the OpenAPI specification with a (.*) parameter with name (.*), type (.*), format (.*) and a null default value")]
         public void GivenIConstructAParameterWithANullDefaultValue(
             string parameterLocation,
             string parameterName,
@@ -104,7 +104,7 @@ namespace Menes.Specs.Steps
             this.InitializeDocumentProviderAndPathMatcher(openApiSpec);
         }
 
-        [When(@"I try to parse the default value")]
+        [When("I try to parse the default value")]
         public async System.Threading.Tasks.Task WhenITryToParseTheDefaultValueAsync()
         {
             IPathMatcher matcher = this.scenarioContext.Get<IPathMatcher>();
@@ -115,15 +115,15 @@ namespace Menes.Specs.Steps
 
             var context = new DefaultHttpContext();
 
-            this.parameters = await builder.BuildParametersAsync(context.Request, operationPathTemplate!);
+            this.parameters = await builder.BuildParametersAsync(context.Request, operationPathTemplate!).ConfigureAwait(false);
         }
 
-        [When(@"I try to parse the default value and expect an error")]
+        [When("I try to parse the default value and expect an error")]
         public async System.Threading.Tasks.Task WhenITryToParseTheDefaultValueAndExpectAnErrorAsync()
         {
             try
             {
-                await this.WhenITryToParseTheDefaultValueAsync();
+                await this.WhenITryToParseTheDefaultValueAsync().ConfigureAwait(false);
             }
             catch (Exception ex)
             {
@@ -131,7 +131,7 @@ namespace Menes.Specs.Steps
             }
         }
 
-        [Then(@"the parameter (.*) should be (.*) of type (.*)")]
+        [Then("the parameter (.*) should be (.*) of type (.*)")]
         public void ThenTheSerializedResultShouldBe(string parameterName, string expectedResultAsString, string expectedType)
         {
             object expectedResult = expectedType switch
@@ -147,7 +147,7 @@ namespace Menes.Specs.Steps
             Assert.AreEqual(expectedResult.GetType(), this.parameters![parameterName].GetType());
         }
 
-        [Then(@"an '(.*)' should be thrown")]
+        [Then("an '(.*)' should be thrown")]
         public void ThenAnShouldBeThrown(string exceptionType)
         {
             Assert.IsNotNull(this.exception);
