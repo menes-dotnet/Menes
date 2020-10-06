@@ -1,4 +1,4 @@
-﻿// <copyright file="Reference.cs" company="Endjin Limited">
+﻿// <copyright file="JsonReference.cs" company="Endjin Limited">
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
@@ -13,16 +13,16 @@ namespace Menes
     /// <remarks>
     /// This is used when a value is set on a complex JSON object, to avoid a recursive reference. It boxes the instance.
     /// </remarks>
-    public readonly struct Reference
+    public readonly struct JsonReference
     {
         private readonly IJsonValue? value;
         private readonly JsonElement jsonElement;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Reference"/> class.
+        /// Initializes a new instance of the <see cref="JsonReference"/> class.
         /// </summary>
         /// <param name="value">The value from which to construct the reference.</param>
-        public Reference(IJsonValue value)
+        public JsonReference(IJsonValue value)
         {
             if (value.HasJsonElement)
             {
@@ -37,10 +37,10 @@ namespace Menes
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Reference"/> struct.
+        /// Initializes a new instance of the <see cref="JsonReference"/> struct.
         /// </summary>
         /// <param name="jsonElement">The <see cref="JsonElement"/> from which to construct the reference.</param>
-        public Reference(JsonElement jsonElement)
+        public JsonReference(JsonElement jsonElement)
         {
             this.jsonElement = jsonElement;
             this.value = null;

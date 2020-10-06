@@ -65,7 +65,7 @@ namespace Menes.Sandbox
 
             Console.WriteLine();
 
-            if (anotherOne.TryGetAdditionalProperty("foo", out JsonString value))
+            if (anotherOne.TryGetAdditionalProperty("foo", out JsonString? value))
             {
                 Console.WriteLine($"Found foo: {value}");
             }
@@ -87,9 +87,9 @@ namespace Menes.Sandbox
             Console.WriteLine($"SecondProperty: {example.Second}");
             Console.WriteLine($"OptionalThirdProperty: {example.Third}");
 
-            foreach (JsonProperty<JsonString> property in example.AdditionalProperties)
+            foreach (JsonPropertyReference property in example.AdditionalProperties)
             {
-                Console.WriteLine($"{property.Name}: {property.Value}");
+                Console.WriteLine($"{property.Name}: {property.AsValue<JsonString>()}");
             }
         }
     }

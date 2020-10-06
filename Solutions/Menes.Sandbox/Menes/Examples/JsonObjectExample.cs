@@ -8,6 +8,7 @@ namespace Menes.Examples
     using System.Buffers;
     using System.Collections.Generic;
     using System.Collections.Immutable;
+    using System.Diagnostics.CodeAnalysis;
     using System.Text;
     using System.Text.Json;
     using Menes;
@@ -15,7 +16,7 @@ namespace Menes.Examples
     /// <summary>
     /// A Json object example, with additional properties of a specific type, two required values and an optional value.
     /// </summary>
-    public readonly struct JsonObjectExample : IJsonValue, IJsonAdditionalProperties<JsonString>
+    public readonly struct JsonObjectExample : IJsonValue, IJsonAdditionalProperties
     {
         /// <summary>
         /// A <see cref="JsonObjectExample"/> representing a null value.
@@ -43,8 +44,8 @@ namespace Menes.Examples
         private readonly JsonString? first;
         private readonly JsonInt32? second;
         private readonly JsonDuration? third;
-        private readonly Reference? children;
-        private readonly JsonProperties<JsonString>? additionalProperties;
+        private readonly JsonReference? children;
+        private readonly JsonProperties? additionalProperties;
 
         /// <summary>
         /// Creates a <see cref="JsonObjectExample"/> wrapper around a .NET properties.
@@ -62,14 +63,14 @@ namespace Menes.Examples
             this.third = third;
             if (children is IEnumerable<JsonObjectExample> c)
             {
-                this.children = new Reference(new JsonArray<JsonObjectExample>(c));
+                this.children = new JsonReference(new JsonArray<JsonObjectExample>(c));
             }
             else
             {
                 this.children = null;
             }
 
-            this.additionalProperties = new JsonProperties<JsonString>(additionalProperties);
+            this.additionalProperties = JsonProperties.FromValues(additionalProperties);
         }
 
         /// <summary>
@@ -88,7 +89,7 @@ namespace Menes.Examples
             this.additionalProperties = null;
         }
 
-        private JsonObjectExample(JsonString first, JsonInt32 second, JsonDuration? third, Reference? children, JsonProperties<JsonString>? additionalProperties)
+        private JsonObjectExample(JsonString first, JsonInt32 second, JsonDuration? third, JsonReference? children, JsonProperties? additionalProperties)
         {
             this.JsonElement = default;
             this.first = first;
@@ -143,21 +144,21 @@ namespace Menes.Examples
         public JsonElement JsonElement { get; }
 
         /// <inheritdoc/>
-        public JsonPropertyEnumerator<JsonString> AdditionalProperties
+        public JsonPropertyEnumerator AdditionalProperties
         {
             get
             {
-                if (this.additionalProperties is JsonProperties<JsonString> ap)
+                if (this.additionalProperties is JsonProperties ap)
                 {
-                    return new JsonPropertyEnumerator<JsonString>(ap, KnownProperties);
+                    return new JsonPropertyEnumerator(ap, KnownProperties);
                 }
 
                 if (this.JsonElement.ValueKind == JsonValueKind.Object)
                 {
-                    return new JsonPropertyEnumerator<JsonString>(this.JsonElement, KnownProperties);
+                    return new JsonPropertyEnumerator(this.JsonElement, KnownProperties);
                 }
 
-                return new JsonPropertyEnumerator<JsonString>(JsonProperties<JsonString>.Empty, KnownProperties);
+                return new JsonPropertyEnumerator(JsonProperties.Empty, KnownProperties);
             }
         }
 
@@ -305,7 +306,7 @@ namespace Menes.Examples
         /// <returns>A new instance of the <see cref="JsonObjectExample"/> with the second property set.</returns>
         public JsonObjectExample WithChildren(JsonArray<JsonObjectExample> newChildren)
         {
-            return new JsonObjectExample(this.First, this.Second, this.third, new Reference(newChildren), this.GetAdditionalProperties());
+            return new JsonObjectExample(this.First, this.Second, this.third, new JsonReference(newChildren), this.GetAdditionalProperties());
         }
 
         /// <summary>
@@ -315,7 +316,7 @@ namespace Menes.Examples
         /// <returns>A new instance of the <see cref="JsonObjectExample"/> with the second property set.</returns>
         public JsonObjectExample WithAdditionalProperties(params (string, JsonString)[] newAdditional)
         {
-            return new JsonObjectExample(this.First, this.Second, this.Third, this.GetChildren(), new JsonProperties<JsonString>(newAdditional));
+            return new JsonObjectExample(this.First, this.Second, this.Third, this.GetChildren(), JsonProperties.FromValues(newAdditional));
         }
 
         /// <summary>
@@ -343,13 +344,13 @@ namespace Menes.Examples
                     third.WriteTo(writer);
                 }
 
-                if (this.children is Reference children)
+                if (this.children is JsonReference children)
                 {
                     writer.WritePropertyName(EncodedChildrenPropertyName);
                     children.WriteTo(writer);
                 }
 
-                JsonPropertyEnumerator<JsonString> enumerator = this.AdditionalProperties;
+                JsonPropertyEnumerator enumerator = this.AdditionalProperties;
 
                 while (enumerator.MoveNext())
                 {
@@ -379,20 +380,30 @@ namespace Menes.Examples
             return new JsonAny(this.JsonElement);
         }
 
-        /// <inheritdoc/>
-        public bool TryGetAdditionalProperty(string propertyName, out JsonString value)
+        /// <summary>
+        /// Gets an additional property as a <see cref="JsonString"/>.
+        /// </summary>
+        /// <param name="propertyName">The property name.</param>
+        /// <param name="value">The property value as a <see cref="JsonString"/>.</param>
+        /// <returns><c>True</c> if the property was successfully retrieved.</returns>
+        public bool TryGetAdditionalProperty(string propertyName, [NotNullWhen(true)] out JsonString? value)
         {
             return this.TryGetAdditionalProperty(propertyName.AsSpan(), out value);
         }
 
-        /// <inheritdoc/>
-        public bool TryGetAdditionalProperty(ReadOnlySpan<byte> utf8PropertyName, out JsonString value)
+        /// <summary>
+        /// Gets an additional property as a <see cref="JsonString"/>.
+        /// </summary>
+        /// <param name="utf8PropertyName">The property name.</param>
+        /// <param name="value">The property value as a <see cref="JsonString"/>.</param>
+        /// <returns><c>True</c> if the property was successfully retrieved.</returns>
+        public bool TryGetAdditionalProperty(ReadOnlySpan<byte> utf8PropertyName, [NotNullWhen(true)] out JsonString? value)
         {
-            foreach (JsonProperty<JsonString> property in this.AdditionalProperties)
+            foreach (JsonPropertyReference property in this.AdditionalProperties)
             {
                 if (property.NameEquals(utf8PropertyName))
                 {
-                    value = property.Value;
+                    value = property.AsValue<JsonString>();
                     return true;
                 }
             }
@@ -401,34 +412,39 @@ namespace Menes.Examples
             return false;
         }
 
-        /// <inheritdoc/>
-        public bool TryGetAdditionalProperty(ReadOnlySpan<char> propertyName, out JsonString value)
+        /// <summary>
+        /// Gets an additional property as a <see cref="JsonString"/>.
+        /// </summary>
+        /// <param name="propertyName">The property name.</param>
+        /// <param name="value">The property value as a <see cref="JsonString"/>.</param>
+        /// <returns><c>True</c> if the property was successfully retrieved.</returns>
+        public bool TryGetAdditionalProperty(ReadOnlySpan<char> propertyName, [NotNullWhen(true)] out JsonString? value)
         {
             Span<byte> bytes = stackalloc byte[propertyName.Length * 4];
             int written = Encoding.UTF8.GetBytes(propertyName, bytes);
             return this.TryGetAdditionalProperty(bytes.Slice(0, written), out value);
         }
 
-        private JsonProperties<JsonString>? GetAdditionalProperties()
+        private JsonProperties? GetAdditionalProperties()
         {
-            if (this.additionalProperties is JsonProperties<JsonString> props)
+            if (this.additionalProperties is JsonProperties props)
             {
                 return props;
             }
 
-            return new JsonProperties<JsonString>(this.AdditionalProperties);
+            return new JsonProperties(this.AdditionalProperties);
         }
 
-        private Reference? GetChildren()
+        private JsonReference? GetChildren()
         {
-            if (this.children is Reference)
+            if (this.children is JsonReference)
             {
                 return this.children;
             }
 
             if (this.HasJsonElement && this.JsonElement.TryGetProperty(ChildrenPropertyNameBytes.Span, out JsonElement value))
             {
-                return new Reference(value);
+                return new JsonReference(value);
             }
 
             return default;

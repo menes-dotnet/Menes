@@ -21,7 +21,7 @@ namespace Menes.Examples
 
         private readonly JsonBoolean? firstInstance;
         private readonly JsonInt64? secondInstance;
-        private readonly Reference? thirdInstance;
+        private readonly JsonReference? thirdInstance;
 
         /// <summary>
         /// Creates a <see cref="JsonUnionExample"/> wrapper around a .NET boolean.
@@ -80,7 +80,7 @@ namespace Menes.Examples
             }
             else
             {
-                this.thirdInstance = new Reference(clrInstance);
+                this.thirdInstance = new JsonReference(clrInstance);
                 this.JsonElement = default;
             }
         }
@@ -122,7 +122,7 @@ namespace Menes.Examples
         /// <summary>
         /// Gets a value indicating whether this represents a JsonObjectExample value.
         /// </summary>
-        public bool IsJsonObjectExample => this.thirdInstance is Reference || JsonObjectExample.IsConvertibleFrom(this.JsonElement);
+        public bool IsJsonObjectExample => this.thirdInstance is JsonReference || JsonObjectExample.IsConvertibleFrom(this.JsonElement);
 
         /// <inheritdoc/>
         public bool HasJsonElement => this.JsonElement.ValueKind != JsonValueKind.Undefined;
@@ -237,7 +237,7 @@ namespace Menes.Examples
             {
                 second.WriteTo(writer);
             }
-            else if (this.thirdInstance is Reference third)
+            else if (this.thirdInstance is JsonReference third)
             {
                 third.AsValue<JsonObjectExample>().WriteTo(writer);
             }
@@ -260,7 +260,7 @@ namespace Menes.Examples
                 return ToAny(second);
             }
 
-            if (this.thirdInstance is Reference third)
+            if (this.thirdInstance is JsonReference third)
             {
                 return ToAny(third.AsValue<JsonObjectExample>());
             }

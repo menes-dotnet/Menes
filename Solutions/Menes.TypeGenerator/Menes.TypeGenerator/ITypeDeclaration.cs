@@ -38,7 +38,7 @@ namespace Menes.TypeGenerator
         /// </summary>
         /// <remarks>
         /// If this is a compound type, it references other types in its declaration
-        /// and needs to be generated with the <see cref="Reference"/> wrapper pattern.
+        /// and needs to be generated with the <see cref="JsonReference"/> wrapper pattern.
         /// </remarks>
         bool IsCompoundType { get; }
 

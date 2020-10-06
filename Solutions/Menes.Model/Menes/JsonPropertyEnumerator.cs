@@ -1,4 +1,4 @@
-﻿// <copyright file="JsonPropertyEnumerator{TValue}.cs" company="Endjin Limited">
+﻿// <copyright file="JsonPropertyEnumerator.cs" company="Endjin Limited">
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
@@ -14,24 +14,22 @@ namespace Menes
     /// <summary>
     /// Represents an enumerator for the properties of the resource.
     /// </summary>
-    /// <typeparam name="TValue">The type of <see cref="IJsonValue"/> being enumerated.</typeparam>
     [DebuggerDisplay("{Current,nq}")]
-    public struct JsonPropertyEnumerator<TValue> : IEnumerable<JsonProperty<TValue>>, IEnumerable, IEnumerator<JsonProperty<TValue>>, IEnumerator, IDisposable
-        where TValue : struct, IJsonValue
+    public struct JsonPropertyEnumerator : IEnumerable<JsonPropertyReference>, IEnumerable, IEnumerator<JsonPropertyReference>, IEnumerator, IDisposable
     {
         private readonly ImmutableArray<ReadOnlyMemory<byte>> knownProperties;
         private readonly bool[] seenProperties;
         private readonly bool hasJsonEnumerator;
 
         private JsonElement.ObjectEnumerator jsonEnumerator;
-        private ImmutableList<JsonProperty<TValue>>.Enumerator clrEnumerator;
+        private ImmutableList<JsonPropertyReference>.Enumerator clrEnumerator;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="JsonPropertyEnumerator{TValue}"/> struct.
+        /// Initializes a new instance of the <see cref="JsonPropertyEnumerator"/> struct.
         /// </summary>
         /// <param name="items">The target property values.</param>
         /// <param name="knownProperties">The names of the properties that we already know.</param>
-        public JsonPropertyEnumerator(JsonProperties<TValue> items, in ImmutableArray<ReadOnlyMemory<byte>> knownProperties)
+        public JsonPropertyEnumerator(JsonProperties items, in ImmutableArray<ReadOnlyMemory<byte>> knownProperties)
         {
             if (items.HasJsonElement)
             {
@@ -51,7 +49,7 @@ namespace Menes
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="JsonPropertyEnumerator{TValue}"/> struct.
+        /// Initializes a new instance of the <see cref="JsonPropertyEnumerator"/> struct.
         /// </summary>
         /// <param name="jsonElement">The <see cref="JsonElement"/> whose properties we are going to enumerate.</param>
         /// <param name="knownProperties">The names of the properties that we already know.</param>
@@ -70,13 +68,13 @@ namespace Menes
         }
 
         /// <inheritdoc/>
-        public JsonProperty<TValue> Current
+        public JsonPropertyReference Current
         {
             get
             {
                 if (this.hasJsonEnumerator)
                 {
-                    return new JsonProperty<TValue>(this.jsonEnumerator.Current);
+                    return new JsonPropertyReference(this.jsonEnumerator.Current);
                 }
 
                 return this.clrEnumerator.Current;
@@ -90,9 +88,9 @@ namespace Menes
         /// Returns an enumerator that iterates the links on the document for a particular relation.
         /// </summary>
         /// <returns>An enumerator that can be used to iterate through the links on the document for the relation.</returns>
-        public JsonPropertyEnumerator<TValue> GetEnumerator()
+        public JsonPropertyEnumerator GetEnumerator()
         {
-            JsonPropertyEnumerator<TValue> result = this;
+            JsonPropertyEnumerator result = this;
             result.Reset();
             return result;
         }
@@ -104,7 +102,7 @@ namespace Menes
         }
 
         /// <inheritdoc/>
-        IEnumerator<JsonProperty<TValue>> IEnumerable<JsonProperty<TValue>>.GetEnumerator()
+        IEnumerator<JsonPropertyReference> IEnumerable<JsonPropertyReference>.GetEnumerator()
         {
             return this.GetEnumerator();
         }
@@ -152,7 +150,7 @@ namespace Menes
             return result;
         }
 
-        private bool IsKnownProperty(in JsonProperty<TValue> current)
+        private bool IsKnownProperty(in JsonPropertyReference current)
         {
             for (int i = 0; i < this.knownProperties.Length; ++i)
             {

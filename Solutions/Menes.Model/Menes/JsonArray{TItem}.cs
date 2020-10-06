@@ -37,14 +37,14 @@ namespace Menes
 
         private static readonly Func<JsonElement, bool, bool> IsItemConvertibleFrom = GetIsItemConvertibleFrom();
 
-        private readonly ImmutableList<Reference>? clrItems;
+        private readonly ImmutableList<JsonReference>? clrItems;
 
         /// <summary>
         /// Creates a <see cref="JsonArray{TItem}"/> wrapper around a .NET item array.
         /// </summary>
         /// <param name="clrItems">The .NET items.</param>
         public JsonArray(IEnumerable<TItem> clrItems)
-            : this(clrItems.Select(i => new Reference(i)).ToImmutableList())
+            : this(clrItems.Select(i => new JsonReference(i)).ToImmutableList())
         {
         }
 
@@ -65,7 +65,7 @@ namespace Menes
             this.JsonElement = jsonElement;
         }
 
-        private JsonArray(ImmutableList<Reference> clrItems)
+        private JsonArray(ImmutableList<JsonReference> clrItems)
         {
             this.clrItems = clrItems;
             this.JsonElement = default;
@@ -181,7 +181,7 @@ namespace Menes
         /// <returns>The enumerator for the array.</returns>
         public JsonArrayEnumerator GetEnumerator()
         {
-            if (this.clrItems is ImmutableList<Reference> clrItems)
+            if (this.clrItems is ImmutableList<JsonReference> clrItems)
             {
                 return new JsonArrayEnumerator(clrItems);
             }
@@ -195,11 +195,11 @@ namespace Menes
         /// <param name="writer">The output to which to write the array.</param>
         public void WriteTo(Utf8JsonWriter writer)
         {
-            if (this.clrItems is ImmutableList<Reference> items)
+            if (this.clrItems is ImmutableList<JsonReference> items)
             {
                 writer.WriteStartArray();
 
-                foreach (Reference item in items)
+                foreach (JsonReference item in items)
                 {
                     item.AsValue<TItem>().WriteTo(writer);
                 }
@@ -215,7 +215,7 @@ namespace Menes
         /// <inheritdoc/>
         public JsonAny AsJsonAny()
         {
-            if (this.clrItems is ImmutableList<Reference> _)
+            if (this.clrItems is ImmutableList<JsonReference> _)
             {
                 var abw = new ArrayBufferWriter<byte>();
                 using var utfw = new Utf8JsonWriter(abw);
@@ -271,13 +271,13 @@ namespace Menes
             private readonly bool hasJsonEnumerator;
 
             private JsonElement.ArrayEnumerator jsonEnumerator;
-            private ImmutableList<Reference>.Enumerator clrEnumerator;
+            private ImmutableList<JsonReference>.Enumerator clrEnumerator;
 
             /// <summary>
             /// Initializes a new instance of the <see cref="JsonArrayEnumerator"/> struct.
             /// </summary>
             /// <param name="items">The target property values.</param>
-            internal JsonArrayEnumerator(ImmutableList<Reference> items)
+            internal JsonArrayEnumerator(ImmutableList<JsonReference> items)
             {
                 this.clrEnumerator = items.GetEnumerator();
                 this.jsonEnumerator = default;

@@ -1,114 +1,111 @@
-﻿// <copyright file="JsonProperty{TValue}.cs" company="Endjin Limited">
+﻿// <copyright file="JsonPropertyReference.cs" company="Endjin Limited">
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
 namespace Menes
 {
     using System;
-    using System.Reflection;
     using System.Text;
     using System.Text.Json;
-    using Corvus.Extensions;
 
     /// <summary>
     /// Enables the Json resources to work with strongly-typed properties in situ, whether they
     /// originated from JSON or are a .NET value.
     /// </summary>
     /// <remarks>If the element is not backed by a JsonElement, this boxes the <see cref="IJsonValue"/>.</remarks>
-    /// <typeparam name="TValue">The type of the <see cref="IJsonValue"/> as a property.</typeparam>
-    public readonly struct JsonProperty<TValue>
-        where TValue : struct, IJsonValue
+    public readonly struct JsonPropertyReference
     {
-        private static readonly Func<JsonElement, TValue> ValueFactory = GetValueFactory();
-        private static readonly Func<JsonElement, bool, bool> IsValueConvertibleFrom = GetIsValueConvertibleFrom();
-
         private readonly JsonProperty jsonProperty;
         private readonly ReadOnlyMemory<byte>? propertyName;
-        private readonly IJsonValue? value;
-        private readonly JsonElement valueElement;
+        private readonly JsonReference? reference;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="JsonProperty{TValue}"/> struct.
+        /// Initializes a new instance of the <see cref="JsonPropertyReference"/> struct.
         /// </summary>
         /// <param name="jsonProperty">The json property to wrap.</param>
-        public JsonProperty(JsonProperty jsonProperty)
+        public JsonPropertyReference(JsonProperty jsonProperty)
         {
-            if (!IsValueConvertibleFrom(jsonProperty.Value, true))
-            {
-                throw new JsonException($"The element must be a convertible to a {typeof(TValue).FullName}");
-            }
-
             this.jsonProperty = jsonProperty;
             this.propertyName = null;
-            this.value = null;
-            this.valueElement = default;
+            this.reference = null;
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="JsonProperty{TValue}"/> struct.
+        /// Initializes a new instance of the <see cref="JsonPropertyReference"/> struct.
         /// </summary>
         /// <param name="name">The name of the property.</param>
-        /// <param name="value">The value of the property.</param>
-        public JsonProperty(string name, TValue value)
+        /// <param name="reference">The JSON reference.</param>
+        public JsonPropertyReference(string name, JsonReference reference)
         {
             this.jsonProperty = default;
             this.propertyName = Encoding.UTF8.GetBytes(name);
-
-            if (value.HasJsonElement)
-            {
-                this.valueElement = value.JsonElement;
-                this.value = null;
-            }
-            else
-            {
-                this.value = value;
-                this.valueElement = default;
-            }
+            this.reference = reference;
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="JsonProperty{TValue}"/> struct.
+        /// Initializes a new instance of the <see cref="JsonPropertyReference"/> struct.
         /// </summary>
         /// <param name="name">The name of the property.</param>
-        /// <param name="value">The value of the property.</param>
-        public JsonProperty(ReadOnlyMemory<byte> name, TValue value)
+        /// <param name="reference">The JSON reference.</param>
+        public JsonPropertyReference(ReadOnlyMemory<byte> name, JsonReference reference)
         {
             this.jsonProperty = default;
             this.propertyName = name;
-            if (value.HasJsonElement)
-            {
-                this.valueElement = value.JsonElement;
-                this.value = null;
-            }
-            else
-            {
-                this.value = value;
-                this.valueElement = default;
-            }
+            this.reference = reference;
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="JsonProperty{TValue}"/> struct.
+        /// Initializes a new instance of the <see cref="JsonPropertyReference"/> struct.
         /// </summary>
         /// <param name="name">The name of the property.</param>
-        /// <param name="value">The value of the property.</param>
-        public JsonProperty(ReadOnlySpan<char> name, TValue value)
+        /// <param name="reference">The JSON reference.</param>
+        public JsonPropertyReference(ReadOnlySpan<char> name, JsonReference reference)
         {
             this.jsonProperty = default;
 
             Span<byte> output = stackalloc byte[name.Length * 4];
             int bytesWritten = Encoding.UTF8.GetBytes(name, output);
             this.propertyName = output.Slice(0, bytesWritten).ToArray();
-            if (value.HasJsonElement)
-            {
-                this.valueElement = value.JsonElement;
-                this.value = null;
-            }
-            else
-            {
-                this.value = value;
-                this.valueElement = default;
-            }
+            this.reference = reference;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="JsonPropertyReference"/> struct.
+        /// </summary>
+        /// <param name="name">The name of the property.</param>
+        /// <param name="value">The JSON value.</param>
+        public JsonPropertyReference(string name, IJsonValue value)
+        {
+            this.jsonProperty = default;
+            this.propertyName = Encoding.UTF8.GetBytes(name);
+            this.reference = new JsonReference(value);
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="JsonPropertyReference"/> struct.
+        /// </summary>
+        /// <param name="name">The name of the property.</param>
+        /// <param name="value">The value of the property.</param>
+        public JsonPropertyReference(ReadOnlyMemory<byte> name, IJsonValue value)
+        {
+            this.jsonProperty = default;
+            this.propertyName = name;
+            this.reference = new JsonReference(value);
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="JsonPropertyReference"/> struct.
+        /// </summary>
+        /// <param name="name">The name of the property.</param>
+        /// <param name="value">The value of the property.</param>
+        public JsonPropertyReference(ReadOnlySpan<char> name, IJsonValue value)
+        {
+            this.jsonProperty = default;
+
+            Span<byte> output = stackalloc byte[name.Length * 4];
+            int bytesWritten = Encoding.UTF8.GetBytes(name, output);
+            this.propertyName = output.Slice(0, bytesWritten).ToArray();
+            this.reference = new JsonReference(value);
         }
 
         /// <summary>
@@ -128,23 +125,19 @@ namespace Menes
         }
 
         /// <summary>
-        /// Gets the value of this property.
+        /// Gets the value.
         /// </summary>
-        public TValue Value
+        /// <typeparam name="TValue">The type of the <see cref="IJsonValue"/>.</typeparam>
+        /// <returns>The value.</returns>
+        public TValue AsValue<TValue>()
+            where TValue : struct, IJsonValue
         {
-            get
+            if (this.reference is JsonReference reference)
             {
-                if (this.value is TValue value)
-                {
-                    return value;
-                }
-                else if (this.valueElement.ValueKind != JsonValueKind.Undefined)
-                {
-                    return ValueFactory(this.valueElement);
-                }
-
-                return ValueFactory(this.jsonProperty.Value);
+                return reference.AsValue<TValue>();
             }
+
+            return JsonAny.As<TValue>(this.jsonProperty.Value);
         }
 
         /// <summary>
@@ -203,42 +196,12 @@ namespace Menes
             if (this.propertyName is ReadOnlyMemory<byte> pn)
             {
                 writer.WritePropertyName(pn.Span);
-                if (this.valueElement.ValueKind != JsonValueKind.Undefined)
-                {
-                    this.valueElement.WriteTo(writer);
-                }
-                else
-                {
-                    this.value!.WriteTo(writer);
-                }
+                this.reference!.Value.WriteTo(writer);
             }
             else
             {
                 this.jsonProperty.WriteTo(writer);
             }
-        }
-
-        private static Func<JsonElement, TValue> GetValueFactory()
-        {
-            FieldInfo? fieldInfo = typeof(TValue).GetField("FromJsonElement", BindingFlags.Static | BindingFlags.Public);
-            if (fieldInfo is null)
-            {
-                throw new Exception($"The value type {typeof(TValue).FullName} must provide a static public field: 'Func<JsonElement, TValue> FromJsonElement'");
-            }
-
-            return CastTo<Func<JsonElement, TValue>>.From(fieldInfo.GetValue(null));
-        }
-
-        private static Func<JsonElement, bool, bool> GetIsValueConvertibleFrom()
-        {
-            MethodInfo? method = typeof(TValue).GetMethod("IsConvertibleFrom", BindingFlags.Static | BindingFlags.Public);
-
-            if (method is null)
-            {
-                throw new Exception($"The value type {typeof(TValue).FullName} must provide a static public method: 'bool IsConvertibleFrom(JsonElement jsonElement, bool checkKindOnly)'");
-            }
-
-            return (Func<JsonElement, bool, bool>)Delegate.CreateDelegate(typeof(Func<JsonElement, bool, bool>), method);
         }
     }
 }
