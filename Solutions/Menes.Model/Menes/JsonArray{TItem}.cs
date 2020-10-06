@@ -11,9 +11,7 @@ namespace Menes
     using System.Collections.Immutable;
     using System.Diagnostics;
     using System.Linq;
-    using System.Reflection;
     using System.Text.Json;
-    using Corvus.Extensions;
 
     /// <summary>
     /// Enables the Json resources to work with arrays in situ, whether they
@@ -32,10 +30,6 @@ namespace Menes
         /// A <see cref="JsonArray{TItem}"/> representing a null value.
         /// </summary>
         public static readonly JsonArray<TItem> Null = new JsonArray<TItem>(default(JsonElement));
-
-        private static readonly Func<JsonElement, TItem> ItemFactory = GetItemFactory();
-
-        private static readonly Func<JsonElement, bool, bool> IsItemConvertibleFrom = GetIsItemConvertibleFrom();
 
         private readonly ImmutableList<JsonReference>? clrItems;
 
@@ -126,7 +120,7 @@ namespace Menes
                 JsonElement.ArrayEnumerator enumerator = jsonElement.EnumerateArray();
                 while (enumerator.MoveNext())
                 {
-                    if (!IsItemConvertibleFrom(enumerator.Current, checkKindOnly))
+                    if (!JsonAny.IsConvertibleFrom<TItem>(enumerator.Current, checkKindOnly))
                     {
                         return false;
                     }
@@ -239,29 +233,6 @@ namespace Menes
             return this.GetEnumerator();
         }
 
-        private static Func<JsonElement, TItem> GetItemFactory()
-        {
-            FieldInfo? fieldInfo = typeof(TItem).GetField("FromJsonElement", BindingFlags.Static | BindingFlags.Public);
-            if (fieldInfo is null)
-            {
-                throw new Exception($"The item type {typeof(TItem).FullName} must provide a static public field: 'Func<JsonElement, TItem> FromJsonElement'");
-            }
-
-            return CastTo<Func<JsonElement, TItem>>.From(fieldInfo.GetValue(null));
-        }
-
-        private static Func<JsonElement, bool, bool> GetIsItemConvertibleFrom()
-        {
-            MethodInfo? method = typeof(TItem).GetMethod("IsConvertibleFrom", BindingFlags.Static | BindingFlags.Public);
-
-            if (method is null)
-            {
-                throw new Exception($"The item type {typeof(TItem).FullName} must provide a static public method: 'bool IsConvertibleFrom(JsonElement jsonElement, bool checkKindOnly)'");
-            }
-
-            return (Func<JsonElement, bool, bool>)Delegate.CreateDelegate(typeof(Func<JsonElement, bool, bool>), method);
-        }
-
         /// <summary>
         /// An enumerator for a <see cref="JsonArray{TItem}"/>.
         /// </summary>
@@ -307,7 +278,7 @@ namespace Menes
                 {
                     if (this.hasJsonEnumerator)
                     {
-                        return ItemFactory(this.jsonEnumerator.Current);
+                        return JsonAny.As<TItem>(this.jsonEnumerator.Current);
                     }
 
                     return this.clrEnumerator.Current.AsValue<TItem>();

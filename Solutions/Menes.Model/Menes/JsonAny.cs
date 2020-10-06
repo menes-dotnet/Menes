@@ -6,6 +6,7 @@ namespace Menes
 {
     using System;
     using System.Collections.Concurrent;
+    using System.Reflection;
     using System.Text;
     using System.Text.Json;
     using Corvus.Extensions;
@@ -26,7 +27,9 @@ namespace Menes
         /// </summary>
         public static readonly JsonAny Null = new JsonAny(default(JsonElement));
 
-        private static readonly ConcurrentDictionary<Type, object> FuncCache = new ConcurrentDictionary<Type, object>();
+        private static readonly ConcurrentDictionary<Type, object> FactoryCache = new ConcurrentDictionary<Type, object>();
+        private static readonly ConcurrentDictionary<Type, Func<JsonElement, bool, bool>> IsConvertibleCache = new ConcurrentDictionary<Type, Func<JsonElement, bool, bool>>();
+
         private readonly ReadOnlyMemory<byte>? utf8JsonText;
 
         /// <summary>
@@ -129,8 +132,22 @@ namespace Menes
         public static T As<T>(JsonElement element)
             where T : IJsonValue
         {
-            Func<JsonElement, T> func = CastTo<Func<JsonElement, T>>.From(FuncCache.GetOrAdd(typeof(T), t => t.GetField("FromJsonElement").GetValue(null)));
+            Func<JsonElement, T> func = CastTo<Func<JsonElement, T>>.From(FactoryCache.GetOrAdd(typeof(T), t => t.GetField("FromJsonElement").GetValue(null)));
             return func(element);
+        }
+
+        /// <summary>
+        /// Get a a value which determines .
+        /// </summary>
+        /// <typeparam name="T">The type of <see cref="IJsonValue"/> to convert.</typeparam>
+        /// <param name="element">The <see cref="JsonElement"/> around which to create the instance.</param>
+        /// <param name="kindOnly">Whether to validate the <see cref="JsonElement.ValueKind"/> only.</param>
+        /// <returns><c>True</c> is the JsonElement can be converted, otherwise false.</returns>
+        public static bool IsConvertibleFrom<T>(JsonElement element, bool kindOnly)
+            where T : IJsonValue
+        {
+            Func<JsonElement, bool, bool> func = IsConvertibleCache.GetOrAdd(typeof(T), t => GetIsItemConvertibleFrom<T>());
+            return func(element, kindOnly);
         }
 
         /// <summary>
@@ -182,6 +199,18 @@ namespace Menes
             {
                 return this.JsonElement.ToString();
             }
+        }
+
+        private static Func<JsonElement, bool, bool> GetIsItemConvertibleFrom<T>()
+        {
+            MethodInfo? method = typeof(T).GetMethod("IsConvertibleFrom", BindingFlags.Static | BindingFlags.Public);
+
+            if (method is null)
+            {
+                throw new Exception($"The item type {typeof(T).FullName} must provide a static public method: 'bool IsConvertibleFrom(JsonElement jsonElement, bool checkKindOnly)'");
+            }
+
+            return (Func<JsonElement, bool, bool>)Delegate.CreateDelegate(typeof(Func<JsonElement, bool, bool>), method);
         }
 
         private JsonElement AsJsonElement()
