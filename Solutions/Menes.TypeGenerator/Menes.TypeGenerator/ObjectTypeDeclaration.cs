@@ -171,7 +171,7 @@ namespace Menes.TypeGenerator
                 if (property.Type.IsCompoundType)
                 {
                     string fullyQualifiedTypeName = property.Type.GetFullyQualifiedName();
-                    builder.Append($"this.{parameterAndFieldName} = new Menes.JsonReference(new {fullyQualifiedTypeName}({parameterAndFieldName})); ");
+                    builder.Append($"this.{parameterAndFieldName} = Menes.JsonReference.FromValue(new {fullyQualifiedTypeName}({parameterAndFieldName})); ");
                 }
                 else
                 {
@@ -415,7 +415,7 @@ namespace Menes.TypeGenerator
             " " +
             $"    if (this.HasJsonElement && this.JsonElement.TryGetProperty({GetPropertyNameFieldName(property)}Bytes.Span, out System.Text.Json.JsonElement value)) " +
             "    { " +
-            "        return new Menes.JsonReference(value); " +
+            "        return Menes.JsonReference.FromValue(value); " +
             "    } " +
             " " +
             "    return default; " +
@@ -435,12 +435,12 @@ namespace Menes.TypeGenerator
             string declaration =
             $"private Menes.JsonProperties<{fullyQualifiedPropertiesName}>? GetAdditionalProperties() " +
             "{ " +
-            $"    if (this.additionalProperties is MenesJsonProperties<{fullyQualifiedPropertiesName}> props) " +
+            $"    if (this.additionalProperties is Menes.JsonProperties<{fullyQualifiedPropertiesName}> props) " +
             "    { " +
             "        return props; " +
             "    } " +
             " " +
-            $"    return new MenesJsonProperties<{fullyQualifiedPropertiesName}>(this.AdditionalProperties); " +
+            $"    return new Menes.JsonProperties<{fullyQualifiedPropertiesName}>(this.AdditionalProperties); " +
             "} ";
 
             members.Add(SF.ParseMemberDeclaration(declaration));

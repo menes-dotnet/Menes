@@ -70,45 +70,6 @@ namespace Menes
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="JsonPropertyReference"/> struct.
-        /// </summary>
-        /// <param name="name">The name of the property.</param>
-        /// <param name="value">The JSON value.</param>
-        public JsonPropertyReference(string name, IJsonValue value)
-        {
-            this.jsonProperty = default;
-            this.propertyName = Encoding.UTF8.GetBytes(name);
-            this.reference = new JsonReference(value);
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="JsonPropertyReference"/> struct.
-        /// </summary>
-        /// <param name="name">The name of the property.</param>
-        /// <param name="value">The value of the property.</param>
-        public JsonPropertyReference(ReadOnlyMemory<byte> name, IJsonValue value)
-        {
-            this.jsonProperty = default;
-            this.propertyName = name;
-            this.reference = new JsonReference(value);
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="JsonPropertyReference"/> struct.
-        /// </summary>
-        /// <param name="name">The name of the property.</param>
-        /// <param name="value">The value of the property.</param>
-        public JsonPropertyReference(ReadOnlySpan<char> name, IJsonValue value)
-        {
-            this.jsonProperty = default;
-
-            Span<byte> output = stackalloc byte[name.Length * 4];
-            int bytesWritten = Encoding.UTF8.GetBytes(name, output);
-            this.propertyName = output.Slice(0, bytesWritten).ToArray();
-            this.reference = new JsonReference(value);
-        }
-
-        /// <summary>
         /// Gets the name of this property.
         /// </summary>
         public string Name
@@ -122,6 +83,45 @@ namespace Menes
 
                 return this.jsonProperty.Name;
             }
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="JsonPropertyReference"/> struct.
+        /// </summary>
+        /// <typeparam name="TValue">The type of the <see cref="IJsonValue"/>.</typeparam>
+        /// <param name="name">The name of the property.</param>
+        /// <param name="value">The JSON value.</param>
+        /// <returns>The property reference.</returns>
+        public static JsonPropertyReference From<TValue>(string name, TValue value)
+            where TValue : struct, IJsonValue
+        {
+            return new JsonPropertyReference(name, JsonReference.FromValue(value));
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="JsonPropertyReference"/> struct.
+        /// </summary>
+        /// <typeparam name="TValue">The type of the <see cref="IJsonValue"/>.</typeparam>
+        /// <param name="name">The name of the property.</param>
+        /// <param name="value">The value of the property.</param>
+        /// <returns>The property reference.</returns>
+        public static JsonPropertyReference From<TValue>(ReadOnlyMemory<byte> name, TValue value)
+            where TValue : struct, IJsonValue
+        {
+            return new JsonPropertyReference(name, JsonReference.FromValue(value));
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="JsonPropertyReference"/> struct.
+        /// </summary>
+        /// <typeparam name="TValue">The type of the <see cref="IJsonValue"/>.</typeparam>
+        /// <param name="name">The name of the property.</param>
+        /// <param name="value">The value of the property.</param>
+        /// <returns>The property reference.</returns>
+        public static JsonPropertyReference From<TValue>(ReadOnlySpan<char> name, TValue value)
+            where TValue : struct, IJsonValue
+        {
+            return new JsonPropertyReference(name, JsonReference.FromValue(value));
         }
 
         /// <summary>

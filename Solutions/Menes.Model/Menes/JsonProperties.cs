@@ -31,16 +31,6 @@ namespace Menes
         }
 
         /// <summary>
-        /// Creates a <see cref="JsonProperties"/> wrapper around a .NET properties array.
-        /// </summary>
-        /// <param name="clrItems">The .NET items.</param>
-        public JsonProperties(params (string name, IJsonValue value)[] clrItems)
-        {
-            this.ClrItems = clrItems.Select(i => new JsonPropertyReference(i.name, i.value)).ToImmutableList();
-            this.JsonElement = default;
-        }
-
-        /// <summary>
         /// Creates a <see cref="JsonProperties"/> wrapper around a .NET item array.
         /// </summary>
         /// <param name="clrItems">The .NET items.</param>
@@ -94,7 +84,7 @@ namespace Menes
         public static JsonProperties FromValues<TValue>(params (string name, TValue value)[] clrItems)
             where TValue : struct, IJsonValue
         {
-            return new JsonProperties(clrItems.Select(i => new JsonPropertyReference(i.name, i.value)));
+            return new JsonProperties(clrItems.Select(i => JsonPropertyReference.From(i.name, i.value)));
         }
     }
 }

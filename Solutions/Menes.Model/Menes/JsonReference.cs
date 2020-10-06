@@ -19,24 +19,6 @@ namespace Menes
         private readonly JsonElement jsonElement;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="JsonReference"/> class.
-        /// </summary>
-        /// <param name="value">The value from which to construct the reference.</param>
-        public JsonReference(IJsonValue value)
-        {
-            if (value.HasJsonElement)
-            {
-                this.jsonElement = value.JsonElement;
-                this.value = null;
-            }
-            else
-            {
-                this.value = value;
-                this.jsonElement = default;
-            }
-        }
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="JsonReference"/> struct.
         /// </summary>
         /// <param name="jsonElement">The <see cref="JsonElement"/> from which to construct the reference.</param>
@@ -44,6 +26,31 @@ namespace Menes
         {
             this.jsonElement = jsonElement;
             this.value = null;
+        }
+
+        private JsonReference(IJsonValue value)
+        {
+            this.value = value;
+            this.jsonElement = default;
+        }
+
+        /// <summary>
+        /// Construct a <see cref="JsonReference"/> from an <see cref="IJsonValue"/>.
+        /// </summary>
+        /// <typeparam name="TValue">The type of <see cref="IJsonValue"/> from which to construct the instance.</typeparam>
+        /// <param name="value">The <see cref="IJsonValue"/> from which to construct the reference.</param>
+        /// <returns>The reference.</returns>
+        public static JsonReference FromValue<TValue>(TValue value)
+            where TValue : struct, IJsonValue
+        {
+            if (value.HasJsonElement)
+            {
+                return new JsonReference(value.JsonElement);
+            }
+            else
+            {
+                return new JsonReference(value);
+            }
         }
 
         /// <summary>

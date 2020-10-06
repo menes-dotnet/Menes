@@ -38,7 +38,7 @@ namespace Menes
         /// </summary>
         /// <param name="clrItems">The .NET items.</param>
         public JsonArray(IEnumerable<TItem> clrItems)
-            : this(clrItems.Select(i => new JsonReference(i)).ToImmutableList())
+            : this(clrItems.Select(i => JsonReference.FromValue(i)).ToImmutableList())
         {
         }
 

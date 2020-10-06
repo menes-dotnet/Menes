@@ -63,7 +63,7 @@ namespace Menes.Examples
             this.third = third;
             if (children is IEnumerable<JsonObjectExample> c)
             {
-                this.children = new JsonReference(new JsonArray<JsonObjectExample>(c));
+                this.children = JsonReference.FromValue(new JsonArray<JsonObjectExample>(c));
             }
             else
             {
@@ -306,7 +306,7 @@ namespace Menes.Examples
         /// <returns>A new instance of the <see cref="JsonObjectExample"/> with the second property set.</returns>
         public JsonObjectExample WithChildren(JsonArray<JsonObjectExample> newChildren)
         {
-            return new JsonObjectExample(this.First, this.Second, this.third, new JsonReference(newChildren), this.GetAdditionalProperties());
+            return new JsonObjectExample(this.First, this.Second, this.third, JsonReference.FromValue(newChildren), this.GetAdditionalProperties());
         }
 
         /// <summary>

@@ -80,7 +80,7 @@ namespace Menes.Examples
             }
             else
             {
-                this.thirdInstance = new JsonReference(clrInstance);
+                this.thirdInstance = JsonReference.FromValue(clrInstance);
                 this.JsonElement = default;
             }
         }
