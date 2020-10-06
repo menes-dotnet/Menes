@@ -55,15 +55,15 @@ namespace Menes.Examples
         /// <param name="third">The optional third property.</param>
         /// <param name="children">The children of this object.</param>
         /// <param name="additionalProperties">Additional properties.</param>
-        public JsonObjectExample(JsonString first, JsonInt32 second, JsonDuration? third = null, in IEnumerable<JsonObjectExample>? children = null, params (string, JsonString)[] additionalProperties)
+        public JsonObjectExample(JsonString first, JsonInt32 second, JsonDuration? third = null, JsonArray<JsonObjectExample>? children = null, params (string, JsonString)[] additionalProperties)
         {
             this.JsonElement = default;
             this.first = first;
             this.second = second;
             this.third = third;
-            if (children is IEnumerable<JsonObjectExample> c)
+            if (children is JsonArray<JsonObjectExample> c)
             {
-                this.children = JsonReference.FromValue(new JsonArray<JsonObjectExample>(c));
+                this.children = JsonReference.FromValue(c);
             }
             else
             {

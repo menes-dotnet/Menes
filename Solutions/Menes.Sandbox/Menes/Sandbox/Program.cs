@@ -6,6 +6,7 @@ namespace Menes.Sandbox
 {
     using System;
     using System.Buffers;
+    using System.Collections.Immutable;
     using System.Linq;
     using System.Text;
     using System.Text.Json;
@@ -26,7 +27,10 @@ namespace Menes.Sandbox
                 first: "Hello",
                 second: 42,
                 third: Duration.FromHours(3),
-                children: new[] { new JsonObjectExample("Sibling A", 1), new JsonObjectExample("Sibling B", 2) },
+                children: JsonArray.Create(new JsonObjectExample("Sibling A", 1), new JsonObjectExample("Sibling B", 2)),
+                //// You could also initialize this with array syntax as below. They both implicitly convert to JsonArray<TItem>.
+                //// children: new [] { new JsonObjectExample("Sibling A", 1), new JsonObjectExample("Sibling B", 2) },
+                //// children: ImmutableArray.Create( new JsonObjectExample("Sibling A", 1), new JsonObjectExample("Sibling B", 2) ),
                 ("foo", "Here's a foo"),
                 ("bar", "Here's a bar"));
 
@@ -39,6 +43,17 @@ namespace Menes.Sandbox
             var roundtrip = new JsonObjectExample(doc.RootElement);
 
             //// At this point "roundtrip" is a JsonObjectExample backed by a single JsonElement.
+
+            var anotherExample = new JsonObjectExample(
+                first: "Goodbye",
+                second: example.Second,
+                third: Duration.FromHours(3),
+                children: roundtrip.Children,
+                ("daisy", "Here's a daisy"),
+                ("poppy", "Here's a poppy"));
+
+            //// This is an interesting case. anotherExample has its own CLR properties, plus a copy of the CLR value of Second from 'example'
+            //// plus a reference to the 'children' from roundtrip - it is literally the same block of memory backing a JsonElement.
 
             WriteExample(roundtrip);
 

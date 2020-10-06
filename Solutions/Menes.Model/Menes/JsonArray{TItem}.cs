@@ -31,16 +31,7 @@ namespace Menes
         /// </summary>
         public static readonly JsonArray<TItem> Null = new JsonArray<TItem>(default(JsonElement));
 
-        private readonly ImmutableList<JsonReference>? clrItems;
-
-        /// <summary>
-        /// Creates a <see cref="JsonArray{TItem}"/> wrapper around a .NET item array.
-        /// </summary>
-        /// <param name="clrItems">The .NET items.</param>
-        public JsonArray(IEnumerable<TItem> clrItems)
-            : this(clrItems.Select(i => JsonReference.FromValue(i)).ToImmutableList())
-        {
-        }
+        private readonly ImmutableArray<JsonReference>? clrItems;
 
         /// <summary>
         /// Creates a <see cref="JsonArray{TItem}"/> wrapper around a JsonElement.
@@ -59,7 +50,11 @@ namespace Menes
             this.JsonElement = jsonElement;
         }
 
-        private JsonArray(ImmutableList<JsonReference> clrItems)
+        /// <summary>
+        /// Construct from an array of <see cref="JsonReference"/>.
+        /// </summary>
+        /// <param name="clrItems">The json references to the items.</param>
+        internal JsonArray(ImmutableArray<JsonReference> clrItems)
         {
             this.clrItems = clrItems;
             this.JsonElement = default;
@@ -78,6 +73,18 @@ namespace Menes
 
         /// <inheritdoc/>
         public JsonElement JsonElement { get; }
+
+        /// <summary>
+        /// Create a JsonArray from an array of items.
+        /// </summary>
+        /// <param name="items">The items from which to create a JSON array.</param>
+        public static implicit operator JsonArray<TItem>(TItem[] items) => JsonArray.Create(items);
+
+        /// <summary>
+        /// Create a JsonArray from an immutable array of items.
+        /// </summary>
+        /// <param name="items">The items from which to create a JSON array.</param>
+        public static implicit operator JsonArray<TItem>(ImmutableArray<TItem> items) => JsonArray.Create(items);
 
         /// <summary>
         /// Gets an enumerator for the property with the given name.
@@ -175,7 +182,7 @@ namespace Menes
         /// <returns>The enumerator for the array.</returns>
         public JsonArrayEnumerator GetEnumerator()
         {
-            if (this.clrItems is ImmutableList<JsonReference> clrItems)
+            if (this.clrItems is ImmutableArray<JsonReference> clrItems)
             {
                 return new JsonArrayEnumerator(clrItems);
             }
@@ -189,7 +196,7 @@ namespace Menes
         /// <param name="writer">The output to which to write the array.</param>
         public void WriteTo(Utf8JsonWriter writer)
         {
-            if (this.clrItems is ImmutableList<JsonReference> items)
+            if (this.clrItems is ImmutableArray<JsonReference> items)
             {
                 writer.WriteStartArray();
 
@@ -209,7 +216,7 @@ namespace Menes
         /// <inheritdoc/>
         public JsonAny AsJsonAny()
         {
-            if (this.clrItems is ImmutableList<JsonReference> _)
+            if (this.clrItems is ImmutableArray<JsonReference> _)
             {
                 var abw = new ArrayBufferWriter<byte>();
                 using var utfw = new Utf8JsonWriter(abw);
@@ -242,13 +249,13 @@ namespace Menes
             private readonly bool hasJsonEnumerator;
 
             private JsonElement.ArrayEnumerator jsonEnumerator;
-            private ImmutableList<JsonReference>.Enumerator clrEnumerator;
+            private ImmutableArray<JsonReference>.Enumerator clrEnumerator;
 
             /// <summary>
             /// Initializes a new instance of the <see cref="JsonArrayEnumerator"/> struct.
             /// </summary>
             /// <param name="items">The target property values.</param>
-            internal JsonArrayEnumerator(ImmutableList<JsonReference> items)
+            internal JsonArrayEnumerator(ImmutableArray<JsonReference> items)
             {
                 this.clrEnumerator = items.GetEnumerator();
                 this.jsonEnumerator = default;
