@@ -6,13 +6,14 @@ namespace Menes
 {
     using System;
     using System.Buffers;
+    using System.Buffers.Text;
     using System.Text.Json;
 
     /// <summary>
     /// Enables the Json resources to work with ByteArrays in situ, whether they
     /// originated from JSON or are a .NET byte array.
     /// </summary>
-    public readonly struct JsonByteArray : IJsonValue
+    public readonly struct JsonByteArray : IJsonValue, IEquatable<JsonByteArray>
     {
         /// <summary>
         /// The function that constructs an instance from a JsonElement.
@@ -189,6 +190,35 @@ namespace Menes
         public override string ToString()
         {
             return this.CreateOrGetClrByteArray().ToString();
+        }
+
+        /// <inheritdoc/>
+        public bool Equals(JsonByteArray other)
+        {
+            if (this.clrByteArray is ReadOnlyMemory<byte> byteArrayA && other.clrByteArray is ReadOnlyMemory<byte> otherByteArrayA)
+            {
+                return byteArrayA.Span.SequenceEqual(otherByteArrayA.Span);
+            }
+
+            if (this.clrByteArray is ReadOnlyMemory<byte> byteArrayB && other.HasJsonElement)
+            {
+                // We should probably stackalloc a buffer here and do it by hand, if we can. May still need to fall back if large.
+                return byteArrayB.Span.SequenceEqual(other.CreateOrGetClrByteArray().Span);
+            }
+
+            if (other.clrByteArray is ReadOnlyMemory<byte> byteArrayC && this.HasJsonElement)
+            {
+                // Again with the stackalloc of a buffer
+                return byteArrayC.Span.SequenceEqual(this.CreateOrGetClrByteArray().Span);
+            }
+
+            if (other.HasJsonElement && this.HasJsonElement)
+            {
+                // Two stackalloc buffers?
+                return other.CreateOrGetClrByteArray().Span.SequenceEqual(this.CreateOrGetClrByteArray().Span);
+            }
+
+            return this.IsNull == other.IsNull;
         }
     }
 }

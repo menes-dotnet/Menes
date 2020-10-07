@@ -12,7 +12,7 @@ namespace Menes
     /// Enables the Json resources to work with Guids in situ, whether they
     /// originated from JSON or are a .NET Guid.
     /// </summary>
-    public readonly struct JsonGuid : IJsonValue
+    public readonly struct JsonGuid : IJsonValue, IEquatable<JsonGuid>
     {
         /// <summary>
         /// The function that constructs an instance from a JsonElement.
@@ -186,6 +186,17 @@ namespace Menes
         public override string ToString()
         {
             return this.CreateOrGetClrGuid().ToString();
+        }
+
+        /// <inheritdoc/>
+        public bool Equals(JsonGuid other)
+        {
+            if ((this.IsNull && !other.IsNull) || (!this.IsNull && other.IsNull))
+            {
+                return false;
+            }
+
+            return this.CreateOrGetClrGuid().Equals(other.CreateOrGetClrGuid());
         }
     }
 }

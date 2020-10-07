@@ -12,7 +12,7 @@ namespace Menes
     /// Enables the Json resources to work with booleans in situ, whether they
     /// originated from JSON or are a .NET boolean.
     /// </summary>
-    public readonly struct JsonBoolean : IJsonValue
+    public readonly struct JsonBoolean : IJsonValue, IEquatable<JsonBoolean>
     {
         /// <summary>
         /// The function that constructs an instance from a JsonElement.
@@ -139,6 +139,13 @@ namespace Menes
             parentDocument.TryGetProperty(utf8PropertyName, out JsonElement property)
                 ? new JsonBoolean(property)
                 : Null;
+
+        /// <inheritdoc/>
+        public bool Equals(JsonBoolean other)
+        {
+            // It's super cheap to create these booleans.
+            return this.CreateOrGetClrBoolean() == other.CreateOrGetClrBoolean();
+        }
 
         /// <summary>
         /// Gets the bool's value as a .NET bool.

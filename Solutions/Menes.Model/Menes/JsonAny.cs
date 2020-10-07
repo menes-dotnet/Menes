@@ -5,6 +5,7 @@
 namespace Menes
 {
     using System;
+    using System.Buffers;
     using System.Collections.Concurrent;
     using System.Reflection;
     using System.Text;
@@ -15,7 +16,7 @@ namespace Menes
     /// Enables the Json resources to work with "any" types in situ, whether they
     /// originated from JSON or are an arbitrary .NET type.
     /// </summary>
-    public readonly struct JsonAny : IJsonValue
+    public readonly struct JsonAny : IJsonValue, IEquatable<JsonAny>
     {
         /// <summary>
         /// The function that constructs an instance from a JsonElement.
@@ -170,6 +171,49 @@ namespace Menes
         public JsonAny AsJsonAny()
         {
             return this;
+        }
+
+        /// <inheritdoc/>
+        public bool Equals(JsonAny other)
+        {
+            if (this.utf8JsonText is ReadOnlyMemory<byte> utf8JsonTextA && other.utf8JsonText is ReadOnlyMemory<byte> otherUtf8JsonTextA)
+            {
+                return utf8JsonTextA.Span.SequenceEqual(otherUtf8JsonTextA.Span);
+            }
+
+            if (this.utf8JsonText is ReadOnlyMemory<byte> utf8JsonTextB && other.HasJsonElement)
+            {
+                var abw = new ArrayBufferWriter<byte>();
+                using var writer = new Utf8JsonWriter(abw);
+                other.WriteTo(writer);
+                writer.Flush();
+                return utf8JsonTextB.Span.SequenceEqual(abw.WrittenSpan);
+            }
+
+            if (other.utf8JsonText is ReadOnlyMemory<byte> utf8JsonTextC && this.HasJsonElement)
+            {
+                var abw = new ArrayBufferWriter<byte>();
+                using var writer = new Utf8JsonWriter(abw);
+                this.WriteTo(writer);
+                writer.Flush();
+                return utf8JsonTextC.Span.SequenceEqual(abw.WrittenSpan);
+            }
+
+            if (this.HasJsonElement && other.HasJsonElement)
+            {
+                var abw1 = new ArrayBufferWriter<byte>();
+                using var writer1 = new Utf8JsonWriter(abw1);
+                other.WriteTo(writer1);
+                writer1.Flush();
+
+                var abw2 = new ArrayBufferWriter<byte>();
+                using var writer2 = new Utf8JsonWriter(abw2);
+                other.WriteTo(writer2);
+                writer2.Flush();
+                return abw1.WrittenSpan.SequenceEqual(abw2.WrittenSpan);
+            }
+
+            return this.IsNull && other.IsNull;
         }
 
         /// <summary>

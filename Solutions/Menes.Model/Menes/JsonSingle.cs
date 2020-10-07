@@ -12,7 +12,7 @@ namespace Menes
     /// Enables the Json resources to work with floats in situ, whether they
     /// originated from JSON or are a .NET float.
     /// </summary>
-    public readonly struct JsonSingle : IJsonValue
+    public readonly struct JsonSingle : IJsonValue, IEquatable<JsonSingle>
     {
         /// <summary>
         /// The function that constructs an instance from a JsonElement.
@@ -186,6 +186,17 @@ namespace Menes
         public override string ToString()
         {
             return this.CreateOrGetClrSingle().ToString();
+        }
+
+        /// <inheritdoc/>
+        public bool Equals(JsonSingle other)
+        {
+            if ((this.IsNull && !other.IsNull) || (!this.IsNull && other.IsNull))
+            {
+                return false;
+            }
+
+            return this.CreateOrGetClrSingle().Equals(other.CreateOrGetClrSingle());
         }
     }
 }

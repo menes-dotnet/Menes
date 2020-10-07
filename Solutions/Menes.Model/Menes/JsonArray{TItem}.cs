@@ -10,6 +10,7 @@ namespace Menes
     using System.Collections.Generic;
     using System.Collections.Immutable;
     using System.Diagnostics;
+    using System.Linq;
     using System.Text.Json;
 
     /// <summary>
@@ -17,7 +18,7 @@ namespace Menes
     /// originated from JSON or are a .NET array.
     /// </summary>
     /// <typeparam name="TItem">The type of <see cref="IJsonValue"/> that represents the items.</typeparam>
-    public readonly struct JsonArray<TItem> : IJsonValue, IEnumerable<TItem>, IEnumerable
+    public readonly struct JsonArray<TItem> : IJsonValue, IEnumerable<TItem>, IEnumerable, IEquatable<JsonArray<TItem>>
         where TItem : struct, IJsonValue
     {
         /// <summary>
@@ -72,6 +73,27 @@ namespace Menes
 
         /// <inheritdoc/>
         public JsonElement JsonElement { get; }
+
+        /// <summary>
+        /// Gets the length of the array.
+        /// </summary>
+        public int Length
+        {
+            get
+            {
+                if (this.HasJsonElement)
+                {
+                    return this.JsonElement.GetArrayLength();
+                }
+
+                if (this.clrItems is ImmutableArray<JsonReference> items)
+                {
+                    return items.Length;
+                }
+
+                return 0;
+            }
+        }
 
         /// <summary>
         /// Create a JsonArray from an array of items.
@@ -227,6 +249,42 @@ namespace Menes
             return new JsonAny(this.JsonElement);
         }
 
+        /// <summary>
+        /// Validate the maximum number of items in the array.
+        /// </summary>
+        /// <param name="maxItems">The maximum permitted number of items.</param>
+        /// <returns><ct>True</ct> if the array has less than the given maximum number of items.</returns>
+        public bool ValidateMaxItems(long maxItems)
+        {
+            return this.Length <= maxItems;
+        }
+
+        /// <summary>
+        /// Validate the maximum number of items in the array.
+        /// </summary>
+        /// <param name="minItems">The minimum permitted number of items.</param>
+        /// <returns><ct>True</ct> if the array has less than the given maximum number of items.</returns>
+        public bool ValidateMinItems(long minItems)
+        {
+            return this.Length >= minItems;
+        }
+
+        /// <summary>
+        /// Determines if all the items in the array are unique.
+        /// </summary>
+        /// <returns><c>True</c> if all the items in the hashset are unique.</returns>
+        public bool ValidateUniqueItems()
+        {
+            ImmutableHashSet<TItem>.Builder items = ImmutableHashSet.CreateBuilder<TItem>();
+            JsonArray<TItem>.JsonArrayEnumerator enumerator = this.GetEnumerator();
+            while (enumerator.MoveNext())
+            {
+                items.Add(enumerator.Current);
+            }
+
+            return items.Count != this.Length;
+        }
+
         /// <inheritdoc/>
         IEnumerator<TItem> IEnumerable<TItem>.GetEnumerator()
         {
@@ -237,6 +295,34 @@ namespace Menes
         IEnumerator IEnumerable.GetEnumerator()
         {
             return this.GetEnumerator();
+        }
+
+        /// <inheritdoc/>
+        public bool Equals(JsonArray<TItem> other)
+        {
+            if (this.Length != other.Length)
+            {
+                return false;
+            }
+
+            if ((this.IsNull && !other.IsNull) || (!this.IsNull && other.IsNull))
+            {
+                return false;
+            }
+
+            JsonArray<TItem>.JsonArrayEnumerator first = this.GetEnumerator();
+            JsonArray<TItem>.JsonArrayEnumerator second = other.GetEnumerator();
+
+            EqualityComparer<TItem> comparer = EqualityComparer<TItem>.Default;
+            while (first.MoveNext() && second.MoveNext())
+            {
+                if (!comparer.Equals(first.Current, second.Current))
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
 
         /// <summary>

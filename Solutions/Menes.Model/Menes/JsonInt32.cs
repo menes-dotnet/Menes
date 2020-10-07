@@ -12,7 +12,7 @@ namespace Menes
     /// Enables the Json resources to work with ints in situ, whether they
     /// originated from JSON or are a .NET int.
     /// </summary>
-    public readonly struct JsonInt32 : IJsonValue
+    public readonly struct JsonInt32 : IJsonValue, IEquatable<JsonInt32>
     {
         /// <summary>
         /// The function that constructs an instance from a JsonElement.
@@ -184,6 +184,17 @@ namespace Menes
         public override string ToString()
         {
             return this.CreateOrGetClrInt32().ToString();
+        }
+
+        /// <inheritdoc/>
+        public bool Equals(JsonInt32 other)
+        {
+            if ((this.IsNull && !other.IsNull) || (!this.IsNull && other.IsNull))
+            {
+                return false;
+            }
+
+            return this.CreateOrGetClrInt32().Equals(other.CreateOrGetClrInt32());
         }
     }
 }

@@ -14,7 +14,7 @@ namespace Menes
     /// Enables the Json resources to work with date-times in situ, whether they
     /// originated from JSON or are a .NET duration.
     /// </summary>
-    public readonly struct JsonDuration : IJsonValue
+    public readonly struct JsonDuration : IJsonValue, IEquatable<JsonDuration>
     {
         /// <summary>
         /// The function that constructs an instance from a JsonElement.
@@ -188,6 +188,24 @@ namespace Menes
         public override string ToString()
         {
             return this.CreateOrGetClrDuration().ToString();
+        }
+
+        /// <inheritdoc/>
+        public bool Equals(JsonDuration other)
+        {
+            if ((this.IsNull && !other.IsNull) || (!this.IsNull && other.IsNull))
+            {
+                return false;
+            }
+
+            if (this.HasJsonElement && other.HasJsonElement)
+            {
+                // Faster just to write the JsonElement directly to a memory buffer and compare the sequences
+                // - it would be even better if we could just access the underlying buffer!
+                this.AsJsonAny().Equals(other.AsJsonAny());
+            }
+
+            return this.CreateOrGetClrDuration().Equals(other.CreateOrGetClrDuration());
         }
 
         private static ParseResult<Duration> ParseDuration(in JsonElement jsonElement)

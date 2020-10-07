@@ -12,7 +12,7 @@ namespace Menes
     /// Enables the Json resources to work with longs in situ, whether they
     /// originated from JSON or are a .NET long.
     /// </summary>
-    public readonly struct JsonInt64 : IJsonValue
+    public readonly struct JsonInt64 : IJsonValue, IEquatable<JsonInt64>
     {
         /// <summary>
         /// The function that constructs an instance from a JsonElement.
@@ -184,6 +184,17 @@ namespace Menes
         public override string ToString()
         {
             return this.CreateOrGetClrInt64().ToString();
+        }
+
+        /// <inheritdoc/>
+        public bool Equals(JsonInt64 other)
+        {
+            if ((this.IsNull && !other.IsNull) || (!this.IsNull && other.IsNull))
+            {
+                return false;
+            }
+
+            return this.CreateOrGetClrInt64().Equals(other.CreateOrGetClrInt64());
         }
     }
 }

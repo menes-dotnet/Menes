@@ -30,13 +30,17 @@ namespace Menes.Sandbox
                 //// You could also initialize this with array syntax as below. They both implicitly convert to JsonArray<TItem>.
                 //// However, they also allocate additional arrays; up to 4 items is optimized for ImmutableArray creation, so we
                 //// take advantage of that with our JsonArray.Create() overloads.
+                ////
                 //// children: new [] { new JsonObjectExample("Sibling A", 1), new JsonObjectExample("Sibling B", 2) },
                 //// children: ImmutableArray.Create( new JsonObjectExample("Sibling A", 1), new JsonObjectExample("Sibling B", 2) ),
+                ////
+                //// Similarly, the additionalProperties we add have
+                //// overloads to optimize the 1-4 values case.
                 ("foo", "Here's a foo"),
                 ("bar", "Here's a bar"));
 
             //// At this point we have an object whose values are all CLR types.
-            //// THe 'children' are boxed into the array as JsonReference objects.
+            //// The 'children' are boxed into the array as JsonReference objects.
 
             ReadOnlyMemory<byte> serialized = Serialize(example);
 
@@ -54,7 +58,7 @@ namespace Menes.Sandbox
                 ("poppy", "Here's a poppy"));
 
             //// This is an interesting case. anotherExample has its own CLR properties, plus a copy of the CLR value of Second from 'example'
-            //// plus a reference to the 'children' from roundtrip - it is literally the same block of memory backing a JsonElement.
+            //// plus a reference to the 'children' from roundtrip - it is literally a new wrapper for the same block of memory backing a JsonElement.
 
             WriteExample(roundtrip);
 

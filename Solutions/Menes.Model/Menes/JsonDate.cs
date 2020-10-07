@@ -14,7 +14,7 @@ namespace Menes
     /// Enables the Json resources to work with Dates in situ, whether they
     /// originated from JSON or are a .NET date.
     /// </summary>
-    public readonly struct JsonDate : IJsonValue
+    public readonly struct JsonDate : IJsonValue, IEquatable<JsonDate>
     {
         /// <summary>
         /// The function that constructs an instance from a JsonElement.
@@ -184,6 +184,24 @@ namespace Menes
             }
 
             return new JsonAny(this.JsonElement);
+        }
+
+        /// <inheritdoc/>
+        public bool Equals(JsonDate other)
+        {
+            if ((this.IsNull && !other.IsNull) || (!this.IsNull && other.IsNull))
+            {
+                return false;
+            }
+
+            if (this.HasJsonElement && other.HasJsonElement)
+            {
+                // Faster just to write the JsonElement directly to a memory buffer and compare the sequences
+                // - it would be even better if we could just access the underlying buffer!
+                this.AsJsonAny().Equals(other.AsJsonAny());
+            }
+
+            return this.CreateOrGetClrDate().Equals(other.CreateOrGetClrDate());
         }
 
         /// <inheritdoc/>

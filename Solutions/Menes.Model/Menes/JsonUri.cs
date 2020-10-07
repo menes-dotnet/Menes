@@ -12,7 +12,7 @@ namespace Menes
     /// Enables the Json resources to work with Uris in situ, whether they
     /// originated from JSON or are a .NET Uri.
     /// </summary>
-    public readonly struct JsonUri : IJsonValue
+    public readonly struct JsonUri : IJsonValue, IEquatable<JsonUri>
     {
         /// <summary>
         /// The function that constructs an instance from a JsonElement.
@@ -198,6 +198,32 @@ namespace Menes
             // We are ensuring we behave like Uri.ToString() but without the overhead
             // of creating the Uri instance.
             return this.CreateOrGetClrString();
+        }
+
+        /// <inheritdoc/>
+        public bool Equals(JsonUri other)
+        {
+            if ((this.IsNull && !other.IsNull) || (!this.IsNull && other.IsNull))
+            {
+                return false;
+            }
+
+            if (this.clrUri is string value && other.clrUri is string otherValue)
+            {
+                return value.Equals(otherValue);
+            }
+
+            if (this.clrUri is string && other.HasJsonElement)
+            {
+                return other.JsonElement.ValueEquals(this.clrUri);
+            }
+
+            if (other.clrUri is string && this.HasJsonElement)
+            {
+                return this.JsonElement.ValueEquals(other.clrUri);
+            }
+
+            return this.AsJsonAny().Equals(other.AsJsonAny());
         }
 
         private string CreateOrGetClrString()

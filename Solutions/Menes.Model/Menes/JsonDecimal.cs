@@ -12,7 +12,7 @@ namespace Menes
     /// Enables the Json resources to work with decimals in situ, whether they
     /// originated from JSON or are a .NET decimal.
     /// </summary>
-    public readonly struct JsonDecimal : IJsonValue
+    public readonly struct JsonDecimal : IJsonValue, IEquatable<JsonDecimal>
     {
         /// <summary>
         /// The function that constructs an instance from a JsonElement.
@@ -178,6 +178,17 @@ namespace Menes
         public override string ToString()
         {
             return this.CreateOrGetClrDecimal().ToString();
+        }
+
+        /// <inheritdoc/>
+        public bool Equals(JsonDecimal other)
+        {
+            if ((this.IsNull && !other.IsNull) || (!this.IsNull && other.IsNull))
+            {
+                return false;
+            }
+
+            return this.CreateOrGetClrDecimal().Equals(other.CreateOrGetClrDecimal());
         }
     }
 }

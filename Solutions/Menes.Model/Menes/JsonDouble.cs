@@ -12,7 +12,7 @@ namespace Menes
     /// Enables the Json resources to work with doubles in situ, whether they
     /// originated from JSON or are a .NET double.
     /// </summary>
-    public readonly struct JsonDouble : IJsonValue
+    public readonly struct JsonDouble : IJsonValue, IEquatable<JsonDouble>
     {
         /// <summary>
         /// The function that constructs an instance from a JsonElement.
@@ -178,6 +178,17 @@ namespace Menes
         public override string ToString()
         {
             return this.CreateOrGetClrDouble().ToString();
+        }
+
+        /// <inheritdoc/>
+        public bool Equals(JsonDouble other)
+        {
+            if ((this.IsNull && !other.IsNull) || (!this.IsNull && other.IsNull))
+            {
+                return false;
+            }
+
+            return this.CreateOrGetClrDouble().Equals(other.CreateOrGetClrDouble());
         }
     }
 }

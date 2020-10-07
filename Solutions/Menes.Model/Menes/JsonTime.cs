@@ -14,7 +14,7 @@ namespace Menes
     /// Enables the Json resources to work with Times in situ, whether they
     /// originated from JSON or are a .NET time.
     /// </summary>
-    public readonly struct JsonTime : IJsonValue
+    public readonly struct JsonTime : IJsonValue, IEquatable<JsonTime>
     {
         /// <summary>
         /// The function that constructs an instance from a JsonElement.
@@ -188,6 +188,24 @@ namespace Menes
         public override string ToString()
         {
             return this.CreateOrGetClrTime().ToString();
+        }
+
+        /// <inheritdoc/>
+        public bool Equals(JsonTime other)
+        {
+            if ((this.IsNull && !other.IsNull) || (!this.IsNull && other.IsNull))
+            {
+                return false;
+            }
+
+            if (this.HasJsonElement && other.HasJsonElement)
+            {
+                // Faster just to write the JsonElement directly to a memory buffer and compare the sequences
+                // - it would be even better if we could just access the underlying buffer!
+                this.AsJsonAny().Equals(other.AsJsonAny());
+            }
+
+            return this.CreateOrGetClrTime().Equals(other.CreateOrGetClrTime());
         }
 
         private static ParseResult<OffsetTime> ParseTime(in JsonElement jsonElement)

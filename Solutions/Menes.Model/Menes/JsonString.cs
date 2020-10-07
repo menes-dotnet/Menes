@@ -12,7 +12,7 @@ namespace Menes
     /// Enables the Json resources to work with strings in situ, whether they
     /// originated from JSON or are a .NET string.
     /// </summary>
-    public readonly struct JsonString : IJsonValue
+    public readonly struct JsonString : IJsonValue, IEquatable<JsonString>
     {
         /// <summary>
         /// The function that constructs an instance from a JsonElement.
@@ -179,6 +179,32 @@ namespace Menes
         public override string ToString()
         {
             return this.CreateOrGetClrString();
+        }
+
+        /// <inheritdoc/>
+        public bool Equals(JsonString other)
+        {
+            if ((this.IsNull && !other.IsNull) || (!this.IsNull && other.IsNull))
+            {
+                return false;
+            }
+
+            if (this.clrString is string value && other.clrString is string otherValue)
+            {
+                return value.Equals(otherValue);
+            }
+
+            if (this.clrString is string && other.HasJsonElement)
+            {
+                return other.JsonElement.ValueEquals(this.clrString);
+            }
+
+            if (other.clrString is string && this.HasJsonElement)
+            {
+                return this.JsonElement.ValueEquals(other.clrString);
+            }
+
+            return this.AsJsonAny().Equals(other.AsJsonAny());
         }
     }
 }
