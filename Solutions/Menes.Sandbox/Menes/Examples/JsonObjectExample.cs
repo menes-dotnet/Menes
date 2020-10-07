@@ -8,6 +8,7 @@ namespace Menes.Examples
     using System.Buffers;
     using System.Collections.Immutable;
     using System.Diagnostics.CodeAnalysis;
+    using System.Linq;
     using System.Text;
     using System.Text.Json;
     using Menes;
@@ -15,7 +16,7 @@ namespace Menes.Examples
     /// <summary>
     /// A Json object example, with additional properties of a specific type, two required values and an optional value.
     /// </summary>
-    public readonly struct JsonObjectExample : IJsonValue, IJsonAdditionalProperties
+    public readonly struct JsonObjectExample : IJsonValue, IJsonAdditionalProperties, IEquatable<JsonObjectExample>
     {
         /// <summary>
         /// A <see cref="JsonObjectExample"/> representing a null value.
@@ -538,6 +539,24 @@ namespace Menes.Examples
             }
 
             return new JsonAny(this.JsonElement);
+        }
+
+        /// <inheritdoc/>
+        public bool Equals(JsonObjectExample other)
+        {
+            if ((this.IsNull && !other.IsNull) || (!this.IsNull && other.IsNull))
+            {
+                return false;
+            }
+
+            if (this.HasJsonElement && other.HasJsonElement)
+            {
+                // Much quicker just to serialize the byte arrays and sequence compare
+                // It'd be even quicker if we could access them directly!
+                return this.AsJsonAny().Equals(other.AsJsonAny());
+            }
+
+            return this.First.Equals(other.First) && this.Second.Equals(other.Second) && this.Children.Equals(other.Children) && this.AdditionalProperties.SequenceEqual(other.AdditionalProperties);
         }
 
         /// <summary>

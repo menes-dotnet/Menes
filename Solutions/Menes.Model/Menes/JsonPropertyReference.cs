@@ -13,7 +13,7 @@ namespace Menes
     /// originated from JSON or are a .NET value.
     /// </summary>
     /// <remarks>If the element is not backed by a JsonElement, this boxes the <see cref="IJsonValue"/>.</remarks>
-    public readonly struct JsonPropertyReference
+    public readonly struct JsonPropertyReference : IEquatable<JsonPropertyReference>
     {
         private readonly JsonProperty jsonProperty;
         private readonly ReadOnlyMemory<byte>? propertyName;
@@ -138,6 +138,27 @@ namespace Menes
             }
 
             return JsonAny.As<TValue>(this.jsonProperty.Value);
+        }
+
+        /// <inheritdoc/>
+        public bool Equals(JsonPropertyReference other)
+        {
+            if (this.reference is JsonReference reference && other.reference is JsonReference otherReference && this.propertyName is ReadOnlyMemory<byte> name && other.propertyName is ReadOnlyMemory<byte> otherName)
+            {
+                return name.Span.SequenceEqual(otherName.Span) && reference.AsValue<JsonAny>().Equals(otherReference.AsValue<JsonAny>());
+            }
+
+            if (this.reference is JsonReference referenceB && this.propertyName is ReadOnlyMemory<byte> nameB)
+            {
+                return other.NameEquals(nameB.Span) && referenceB.AsValue<JsonAny>().Equals(new JsonAny(other.jsonProperty.Value));
+            }
+
+            if (other.reference is JsonReference referenceC && other.propertyName is ReadOnlyMemory<byte> nameC)
+            {
+                return this.NameEquals(nameC.Span) && referenceC.AsValue<JsonAny>().Equals(new JsonAny(this.jsonProperty.Value));
+            }
+
+            return this.jsonProperty.NameEquals(other.jsonProperty.Name) && JsonAny.FromJsonElement(this.jsonProperty.Value).Equals(JsonAny.FromJsonElement(other.jsonProperty.Value));
         }
 
         /// <summary>
