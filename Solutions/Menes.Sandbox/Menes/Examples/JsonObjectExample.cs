@@ -32,10 +32,10 @@ namespace Menes.Examples
         private const string SecondPropertyName = "second";
         private const string ThirdPropertyName = "third";
         private const string ChildrenPropertyName = "children";
-        private const string FirstPropertyNamePath = "/first";
-        private const string SecondPropertyNamePath = "/second";
-        private const string ThirdPropertyNamePath = "/third";
-        private const string ChildrenPropertyNamePath = "/children";
+        private const string FirstPropertyNamePath = ".first";
+        private const string SecondPropertyNamePath = ".second";
+        private const string ThirdPropertyNamePath = ".third";
+        private const string ChildrenPropertyNamePath = ".children";
         private static readonly JsonEncodedText EncodedFirstPropertyName = JsonEncodedText.Encode(FirstPropertyName);
         private static readonly JsonEncodedText EncodedSecondPropertyName = JsonEncodedText.Encode(SecondPropertyName);
         private static readonly JsonEncodedText EncodedThirdPropertyName = JsonEncodedText.Encode(ThirdPropertyName);
