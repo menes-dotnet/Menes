@@ -14,6 +14,34 @@ namespace Menes
     public static class Validation
     {
         /// <summary>
+        /// Validate an <see cref="IJsonObject"/>.
+        /// </summary>
+        /// <typeparam name="TObject">The type of the <see cref="IJsonObject"/> to validate.</typeparam>
+        /// <param name="validationContext">The validation context.</param>
+        /// <param name="value">The object to validate.</param>
+        /// <param name="maxProperties">The maximum number of properties on the object.</param>
+        /// <param name="minProperties">The minimum number of properties on the object.</param>
+        /// <returns>The validation context, updated with any validation errors.</returns>
+        public static ValidationContext ValidateObject<TObject>(in ValidationContext validationContext, in TObject value, int? maxProperties = null, int? minProperties = null)
+            where TObject : struct, IJsonObject
+        {
+            ValidationContext context = validationContext;
+            int propertiesCount = value.PropertiesCount;
+
+            if (maxProperties is int max && propertiesCount > max)
+            {
+                context = context.WithError($"6.5.1. maxProperties: The object should have had a maximum number of properties of '{max}', but actually had '{propertiesCount}'");
+            }
+
+            if (minProperties is int min && propertiesCount < min)
+            {
+                context = context.WithError($"6.5.2. minProperties: The object should have had a minimum number of properties of '{min}', but actually had '{propertiesCount}'");
+            }
+
+            return context;
+        }
+
+        /// <summary>
         /// Validate a json value against an enumeration.
         /// </summary>
         /// <typeparam name="TValue">The type of the value against which to validate.</typeparam>

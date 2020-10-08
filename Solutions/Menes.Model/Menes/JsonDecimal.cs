@@ -6,9 +6,7 @@ namespace Menes
 {
     using System;
     using System.Buffers;
-    using System.Collections.Generic;
     using System.Collections.Immutable;
-    using System.Net.Mime;
     using System.Text.Json;
 
     /// <summary>
@@ -47,11 +45,6 @@ namespace Menes
         /// </param>
         public JsonDecimal(JsonElement jsonElement)
         {
-            if (!IsConvertibleFrom(jsonElement))
-            {
-                throw new JsonException("The element must be a JSON number");
-            }
-
             this.clrDecimal = null;
             this.JsonElement = jsonElement;
         }
@@ -87,18 +80,12 @@ namespace Menes
         /// this value type.
         /// </summary>
         /// <param name="jsonElement">The element to convert.</param>
-        /// <param name="checkKindOnly">If <c>true</c>, check the <see cref="JsonElement.ValueKind"/> only.</param>
         /// <returns><c>True</c> if the element can be converted from the given JsonElement.</returns>
 #pragma warning disable IDE0060 // Remove unused parameter
-        public static bool IsConvertibleFrom(JsonElement jsonElement, bool checkKindOnly = true)
+        public static bool IsConvertibleFrom(JsonElement jsonElement)
 #pragma warning restore IDE0060 // Remove unused parameter
         {
-            if (jsonElement.ValueKind != JsonValueKind.Number && jsonElement.ValueKind != JsonValueKind.Null && jsonElement.ValueKind != JsonValueKind.Undefined)
-            {
-                return false;
-            }
-
-            return true;
+            return jsonElement.ValueKind == JsonValueKind.Number || jsonElement.ValueKind == JsonValueKind.Null;
         }
 
         /// <summary>
@@ -252,6 +239,11 @@ namespace Menes
         /// <inheritdoc/>
         public ValidationContext Validate(in ValidationContext validationContext)
         {
+            if (this.HasJsonElement && !IsConvertibleFrom(this.JsonElement))
+            {
+                return validationContext.WithError("6.1.1. type: the element is not convertible from the given type");
+            }
+
             return validationContext;
         }
     }

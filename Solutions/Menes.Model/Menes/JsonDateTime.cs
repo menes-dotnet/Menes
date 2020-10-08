@@ -48,11 +48,6 @@ namespace Menes
         /// </param>
         public JsonDateTime(JsonElement jsonElement)
         {
-            if (!IsConvertibleFrom(jsonElement))
-            {
-                throw new JsonException("The element must be a JSON string");
-            }
-
             this.clrTime = null;
             this.JsonElement = jsonElement;
         }
@@ -88,26 +83,10 @@ namespace Menes
         /// this value type.
         /// </summary>
         /// <param name="jsonElement">The element to convert.</param>
-        /// <param name="checkKindOnly">If <c>true</c>, check the <see cref="JsonElement.ValueKind"/> only.</param>
         /// <returns><c>True</c> if the element can be converted from the given JsonElement.</returns>
-        public static bool IsConvertibleFrom(JsonElement jsonElement, bool checkKindOnly = true)
+        public static bool IsConvertibleFrom(JsonElement jsonElement)
         {
-            if (jsonElement.ValueKind != JsonValueKind.String && jsonElement.ValueKind != JsonValueKind.Null && jsonElement.ValueKind != JsonValueKind.Undefined)
-            {
-                return false;
-            }
-
-            if (!checkKindOnly && jsonElement.ValueKind != JsonValueKind.Null && jsonElement.ValueKind != JsonValueKind.Undefined)
-            {
-                // TODO: This is very expensive while our parse allocates a string -
-                // it would be better to validate that it is parsable from the byte array
-                if (!ParseDateTime(in jsonElement).Success)
-                {
-                    return false;
-                }
-            }
-
-            return true;
+            return jsonElement.ValueKind == JsonValueKind.String || jsonElement.ValueKind == JsonValueKind.Null;
         }
 
         /// <summary>
@@ -236,6 +215,11 @@ namespace Menes
         /// <inheritdoc/>
         public ValidationContext Validate(in ValidationContext validationContext)
         {
+            if (this.HasJsonElement && !IsConvertibleFrom(this.JsonElement))
+            {
+                return validationContext.WithError("6.1.1. type: the element is not convertible from the given type");
+            }
+
             return validationContext;
         }
 

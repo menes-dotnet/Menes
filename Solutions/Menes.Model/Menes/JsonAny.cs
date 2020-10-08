@@ -29,7 +29,7 @@ namespace Menes
         public static readonly JsonAny Null = new JsonAny(default(JsonElement));
 
         private static readonly ConcurrentDictionary<Type, object> FactoryCache = new ConcurrentDictionary<Type, object>();
-        private static readonly ConcurrentDictionary<Type, Func<JsonElement, bool, bool>> IsConvertibleCache = new ConcurrentDictionary<Type, Func<JsonElement, bool, bool>>();
+        private static readonly ConcurrentDictionary<Type, Func<JsonElement, bool>> IsConvertibleCache = new ConcurrentDictionary<Type, Func<JsonElement, bool>>();
 
         private readonly ReadOnlyMemory<byte>? utf8JsonText;
 
@@ -76,10 +76,9 @@ namespace Menes
         /// this value type.
         /// </summary>
         /// <param name="jsonElement">The element to convert.</param>
-        /// <param name="checkKindOnly">If <c>true</c>, check the <see cref="JsonElement.ValueKind"/> only.</param>
         /// <returns><c>True</c> if the element can be converted from the given JsonElement.</returns>
 #pragma warning disable IDE0060 // Remove unused parameter
-        public static bool IsConvertibleFrom(JsonElement jsonElement, bool checkKindOnly = true)
+        public static bool IsConvertibleFrom(JsonElement jsonElement)
 #pragma warning restore IDE0060 // Remove unused parameter
         {
             return true;
@@ -142,13 +141,12 @@ namespace Menes
         /// </summary>
         /// <typeparam name="T">The type of <see cref="IJsonValue"/> to convert.</typeparam>
         /// <param name="element">The <see cref="JsonElement"/> around which to create the instance.</param>
-        /// <param name="kindOnly">Whether to validate the <see cref="JsonElement.ValueKind"/> only.</param>
         /// <returns><c>True</c> is the JsonElement can be converted, otherwise false.</returns>
-        public static bool IsConvertibleFrom<T>(JsonElement element, bool kindOnly)
+        public static bool IsConvertibleFrom<T>(JsonElement element)
             where T : IJsonValue
         {
-            Func<JsonElement, bool, bool> func = IsConvertibleCache.GetOrAdd(typeof(T), t => GetIsItemConvertibleFrom<T>());
-            return func(element, kindOnly);
+            Func<JsonElement, bool> func = IsConvertibleCache.GetOrAdd(typeof(T), t => GetIsItemConvertibleFrom<T>());
+            return func(element);
         }
 
         /// <summary>
@@ -251,16 +249,16 @@ namespace Menes
             return validationContext;
         }
 
-        private static Func<JsonElement, bool, bool> GetIsItemConvertibleFrom<T>()
+        private static Func<JsonElement, bool> GetIsItemConvertibleFrom<T>()
         {
             MethodInfo? method = typeof(T).GetMethod("IsConvertibleFrom", BindingFlags.Static | BindingFlags.Public);
 
             if (method is null)
             {
-                throw new Exception($"The item type {typeof(T).FullName} must provide a static public method: 'bool IsConvertibleFrom(JsonElement jsonElement, bool checkKindOnly)'");
+                throw new Exception($"The item type {typeof(T).FullName} must provide a static public method: 'bool IsConvertibleFrom(JsonElement jsonElement)'");
             }
 
-            return (Func<JsonElement, bool, bool>)Delegate.CreateDelegate(typeof(Func<JsonElement, bool, bool>), method);
+            return (Func<JsonElement, bool>)Delegate.CreateDelegate(typeof(Func<JsonElement, bool>), method);
         }
 
         private JsonElement AsJsonElement()

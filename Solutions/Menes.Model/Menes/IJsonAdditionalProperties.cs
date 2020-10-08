@@ -14,5 +14,10 @@ namespace Menes
         /// </summary>
         /// <returns>The enumerator for the additional properties.</returns>
         JsonPropertyEnumerator AdditionalProperties { get; }
+
+        /// <summary>
+        /// Gets the number of properties in the additional properties.
+        /// </summary>
+        int AdditionalPropertiesCount { get; }
     }
 }

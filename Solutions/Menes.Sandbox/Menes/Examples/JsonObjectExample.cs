@@ -16,7 +16,7 @@ namespace Menes.Examples
     /// <summary>
     /// A Json object example, with additional properties of a specific type, two required values and an optional value.
     /// </summary>
-    public readonly struct JsonObjectExample : IJsonValue, IJsonAdditionalProperties, IEquatable<JsonObjectExample>
+    public readonly struct JsonObjectExample : IJsonAdditionalProperties, IEquatable<JsonObjectExample>, IJsonObject
     {
         /// <summary>
         /// A <see cref="JsonObjectExample"/> representing a null value.
@@ -290,6 +290,30 @@ namespace Menes.Examples
         public JsonDuration? Third => this.third ?? JsonDuration.FromOptionalProperty(this.JsonElement, ThirdPropertyNameBytes.Span).AsOptional;
 
         /// <summary>
+        /// Gets the number of properties on this object.
+        /// </summary>
+        public int PropertiesCount => KnownProperties.Length + this.AdditionalPropertiesCount;
+
+        /// <summary>
+        /// Gets the number of properties in the additional properties.
+        /// </summary>
+        public int AdditionalPropertiesCount
+        {
+            get
+            {
+                JsonPropertyEnumerator enumerator = this.AdditionalProperties;
+                int count = 0;
+
+                while (enumerator.MoveNext())
+                {
+                    count++;
+                }
+
+                return count;
+            }
+        }
+
+        /// <summary>
         /// Gets the children.
         /// </summary>
         public ValidatedArrayOfJsonObjectExample? Children => this.children?.AsValue<ValidatedArrayOfJsonObjectExample>() ?? ValidatedArrayOfJsonObjectExample.FromOptionalProperty(this.JsonElement, ChildrenPropertyNameBytes.Span).AsOptional;
@@ -332,67 +356,10 @@ namespace Menes.Examples
         /// this value type.
         /// </summary>
         /// <param name="jsonElement">The element to convert.</param>
-        /// <param name="checkKindOnly">If <c>true</c>, check the <see cref="JsonElement.ValueKind"/> only.</param>
         /// <returns><c>True</c> if the element can be converted from the given JsonElement.</returns>
-        public static bool IsConvertibleFrom(JsonElement jsonElement, bool checkKindOnly = true)
+        public static bool IsConvertibleFrom(JsonElement jsonElement)
         {
-            if (jsonElement.ValueKind != JsonValueKind.Object && jsonElement.ValueKind != JsonValueKind.Null && jsonElement.ValueKind != JsonValueKind.Undefined)
-            {
-                return false;
-            }
-
-            if (!checkKindOnly && jsonElement.ValueKind != JsonValueKind.Null && jsonElement.ValueKind != JsonValueKind.Undefined)
-            {
-                JsonElement.ObjectEnumerator enumerator = jsonElement.EnumerateObject();
-
-                bool seenFirst = false;
-                bool seenSecond = false;
-                bool seenThird = false;
-                bool seenChildren = false;
-
-                while (enumerator.MoveNext())
-                {
-                    // Skip the properties we know about, and short-circuit checking names we've already seen.
-                    if (!seenFirst && enumerator.Current.NameEquals(FirstPropertyNameBytes.Span))
-                    {
-                        seenFirst = true;
-                        if (!JsonString.IsConvertibleFrom(enumerator.Current.Value, checkKindOnly) || enumerator.Current.Value.ValueKind == JsonValueKind.Null)
-                        {
-                            return false;
-                        }
-                    }
-                    else if (!seenSecond && enumerator.Current.NameEquals(SecondPropertyNameBytes.Span))
-                    {
-                        seenSecond = true;
-                        if (!JsonInt32.IsConvertibleFrom(enumerator.Current.Value, checkKindOnly) || enumerator.Current.Value.ValueKind == JsonValueKind.Null)
-                        {
-                            return false;
-                        }
-                    }
-                    else if (!seenThird && enumerator.Current.NameEquals(ThirdPropertyNameBytes.Span))
-                    {
-                        seenThird = true;
-                        if (!JsonDuration.IsConvertibleFrom(enumerator.Current.Value, checkKindOnly))
-                        {
-                            return false;
-                        }
-                    }
-                    else if (!seenChildren && enumerator.Current.NameEquals(ChildrenPropertyNameBytes.Span))
-                    {
-                        seenChildren = true;
-                        if (!IsConvertibleFrom(enumerator.Current.Value, checkKindOnly))
-                        {
-                            return false;
-                        }
-                    }
-                    else if (!JsonString.IsConvertibleFrom(enumerator.Current.Value, checkKindOnly))
-                    {
-                        return false;
-                    }
-                }
-            }
-
-            return true;
+            return jsonElement.ValueKind == JsonValueKind.Object || jsonElement.ValueKind == JsonValueKind.Null;
         }
 
         /// <summary>

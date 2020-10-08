@@ -100,11 +100,10 @@ namespace Menes.Examples
         /// this value type.
         /// </summary>
         /// <param name="jsonElement">The element to convert.</param>
-        /// <param name="checkKindOnly">If <c>true</c>, check the <see cref="JsonElement.ValueKind"/> only.</param>
         /// <returns><c>True</c> if the element can be converted from the given JsonElement.</returns>
-        public static bool IsConvertibleFrom(JsonElement jsonElement, bool checkKindOnly = true)
+        public static bool IsConvertibleFrom(JsonElement jsonElement)
         {
-            return JsonArray<JsonObjectExample>.IsConvertibleFrom(jsonElement, checkKindOnly);
+            return JsonArray<JsonObjectExample>.IsConvertibleFrom(jsonElement);
         }
 
         /// <summary>

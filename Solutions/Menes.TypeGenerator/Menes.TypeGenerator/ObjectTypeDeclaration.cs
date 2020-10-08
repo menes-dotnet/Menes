@@ -58,7 +58,7 @@ namespace Menes.TypeGenerator
 
         private BaseTypeSyntax[] BuildBaseListTypes()
         {
-            var bases = new List<BaseTypeSyntax> { SF.SimpleBaseType(SF.ParseTypeName(typeof(IJsonValue).FullName)), SF.SimpleBaseType(SF.ParseTypeName($"System.IEquatable<{this.GetFullyQualifiedName()}>")) };
+            var bases = new List<BaseTypeSyntax> { SF.SimpleBaseType(SF.ParseTypeName(typeof(IJsonObject).FullName)), SF.SimpleBaseType(SF.ParseTypeName($"System.IEquatable<{this.GetFullyQualifiedName()}>")) };
 
             if (this.AdditionalPropertiesType is ITypeDeclaration)
             {
@@ -338,9 +338,10 @@ namespace Menes.TypeGenerator
 
         private void BuildPropertyBackings(List<MemberDeclarationSyntax> members)
         {
-            var propertyNames = new List<string>();
+            var propertyNames = new List<(string, string)>();
 
             this.BuildPropertyNameDeclarations(members, propertyNames);
+            this.BuildPropertyNamePathDeclarations(propertyNames, members);
             this.BuildEncodedPropertyNameDeclarations(propertyNames, members);
             this.BuildPropertyNameBytesDeclarations(propertyNames, members);
 
@@ -357,35 +358,43 @@ namespace Menes.TypeGenerator
             }
         }
 
-        private void BuildPropertyNameDeclarations(List<MemberDeclarationSyntax> members, List<string> propertyNames)
+        private void BuildPropertyNameDeclarations(List<MemberDeclarationSyntax> members, List<(string fieldName, string jsonPropertyName)> propertyNames)
         {
             foreach (PropertyDeclaration property in this.Properties)
             {
                 string propertyNameFieldName = GetPropertyNameFieldName(property);
                 this.BuildPropertyNameDeclaration(propertyNameFieldName, property.JsonPropertyName, members);
-                propertyNames.Add(propertyNameFieldName);
+                propertyNames.Add((propertyNameFieldName, property.JsonPropertyName));
             }
         }
 
-        private void BuildEncodedPropertyNameDeclarations(List<string> propertyNameFieldNames, List<MemberDeclarationSyntax> members)
+        private void BuildPropertyNamePathDeclarations(List<(string, string)> propertyNameFieldNames, List<MemberDeclarationSyntax> members)
         {
-            foreach (string propertyNameFieldName in propertyNameFieldNames)
+            foreach ((string fieldName, string jsonPropertyName) in propertyNameFieldNames)
             {
-                this.BuildEncodedPropertyNameDeclaration(propertyNameFieldName, members);
+                this.BuildPropertyNamePathDeclaration(fieldName, jsonPropertyName, members);
             }
         }
 
-        private void BuildPropertyNameBytesDeclarations(List<string> propertyNameFieldNames, List<MemberDeclarationSyntax> members)
+        private void BuildEncodedPropertyNameDeclarations(List<(string, string)> propertyNameFieldNames, List<MemberDeclarationSyntax> members)
         {
-            foreach (string propertyNameFieldName in propertyNameFieldNames)
+            foreach ((string, string) propertyNameFieldName in propertyNameFieldNames)
             {
-                this.BuildPropertyNameBytesDeclaration(propertyNameFieldName, members);
+                this.BuildEncodedPropertyNameDeclaration(propertyNameFieldName.Item1, members);
             }
         }
 
-        private void AddKnownProperties(List<string> propertyNames, List<MemberDeclarationSyntax> members)
+        private void BuildPropertyNameBytesDeclarations(List<(string, string)> propertyNameFieldNames, List<MemberDeclarationSyntax> members)
         {
-            string knownPropertiesList = string.Join(", ", propertyNames.Select(n => $"{n}Bytes"));
+            foreach ((string, string) propertyNameFieldName in propertyNameFieldNames)
+            {
+                this.BuildPropertyNameBytesDeclaration(propertyNameFieldName.Item1, members);
+            }
+        }
+
+        private void AddKnownProperties(List<(string, string)> propertyNames, List<MemberDeclarationSyntax> members)
+        {
+            string knownPropertiesList = string.Join(", ", propertyNames.Select(n => $"{n.Item1}Bytes"));
             members.Add(SF.ParseMemberDeclaration($"private static readonly System.Collections.Immutable.ImmutableArray<System.ReadOnlyMemory<byte>> KnownProperties = System.Collections.Immutable.ImmutableArray.Create({knownPropertiesList});"));
         }
 
@@ -540,6 +549,11 @@ $"    return new {this.GetFullyQualifiedName()}(" + this.BuildWithParameters(pro
         private void BuildPropertyNameDeclaration(string propertyNameFieldName, string jsonPropertyName, List<MemberDeclarationSyntax> members)
         {
             members.Add(SF.ParseMemberDeclaration($"private const string {propertyNameFieldName} = \"{jsonPropertyName}\";"));
+        }
+
+        private void BuildPropertyNamePathDeclaration(string propertyNameFieldName, string jsonPropertyName, List<MemberDeclarationSyntax> members)
+        {
+            members.Add(SF.ParseMemberDeclaration($"private const string {propertyNameFieldName}Path = \".{jsonPropertyName}\";"));
         }
 
         private void BuildEncodedPropertyNameDeclaration(string propertyNameFieldName, List<MemberDeclarationSyntax> members)
