@@ -58,7 +58,7 @@ namespace Menes.TypeGenerator
 
         private BaseTypeSyntax[] BuildBaseListTypes()
         {
-            var bases = new List<BaseTypeSyntax> { SF.SimpleBaseType(SF.ParseTypeName(typeof(IJsonValue).FullName)) };
+            var bases = new List<BaseTypeSyntax> { SF.SimpleBaseType(SF.ParseTypeName(typeof(IJsonValue).FullName)), SF.SimpleBaseType(SF.ParseTypeName($"System.IEquatable<{this.GetFullyQualifiedName()}>")) };
 
             if (this.AdditionalPropertiesType is ITypeDeclaration)
             {
