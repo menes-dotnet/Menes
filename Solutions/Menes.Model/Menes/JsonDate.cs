@@ -210,6 +210,12 @@ namespace Menes
             return this.CreateOrGetClrDate().ToString();
         }
 
+        /// <inheritdoc/>
+        public ValidationContext Validate(in ValidationContext validationContext)
+        {
+            return validationContext;
+        }
+
         private static ParseResult<LocalDate> ParseDate(in JsonElement jsonElement)
         {
             return LocalDatePattern.Iso.Parse(jsonElement.GetString());

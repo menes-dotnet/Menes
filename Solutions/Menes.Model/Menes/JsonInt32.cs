@@ -196,5 +196,11 @@ namespace Menes
 
             return this.CreateOrGetClrInt32().Equals(other.CreateOrGetClrInt32());
         }
+
+        /// <inheritdoc/>
+        public ValidationContext Validate(in ValidationContext validationContext)
+        {
+            return validationContext;
+        }
     }
 }

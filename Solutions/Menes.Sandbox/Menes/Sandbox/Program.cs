@@ -81,6 +81,20 @@ namespace Menes.Sandbox
             {
                 Console.WriteLine($"Found foo: {value}");
             }
+
+            ValidationContext validationContext = anotherOne.Validate(ValidationContext.Root);
+
+            if (validationContext.IsValid)
+            {
+                Console.WriteLine("Validated succesfully.");
+            }
+            else
+            {
+                foreach ((string, string) error in validationContext.Errors)
+                {
+                    Console.WriteLine($"{error.Item1}: {error.Item2}");
+                }
+            }
         }
 
         private static ReadOnlyMemory<byte> Serialize(in JsonObjectExample example)
@@ -103,7 +117,7 @@ namespace Menes.Sandbox
             Console.WriteLine($"{tabString}\tSecond: {example.Second}");
             Console.WriteLine($"{tabString}\tThird: {example.Third?.ToString() ?? "null"}");
 
-            if (example.Children is JsonArray<JsonObjectExample> children)
+            if (example.Children is ValidatedArrayOfJsonObjectExample children)
             {
                 Console.WriteLine($"{tabString}\tChildren:");
 

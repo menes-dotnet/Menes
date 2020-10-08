@@ -190,5 +190,11 @@ namespace Menes
 
             return this.CreateOrGetClrDecimal().Equals(other.CreateOrGetClrDecimal());
         }
+
+        /// <inheritdoc/>
+        public ValidationContext Validate(in ValidationContext validationContext)
+        {
+            return validationContext;
+        }
     }
 }

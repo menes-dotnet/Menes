@@ -41,5 +41,12 @@ namespace Menes
         /// </summary>
         /// <param name="writer">The output to which to write the Any.</param>
         public void WriteTo(Utf8JsonWriter writer);
+
+        /// <summary>
+        /// Validate the element.
+        /// </summary>
+        /// <param name="validationContext">The current validation context.</param>
+        /// <returns>The validation context updated with the results of the validation.</returns>
+        ValidationContext Validate(in ValidationContext validationContext);
     }
 }

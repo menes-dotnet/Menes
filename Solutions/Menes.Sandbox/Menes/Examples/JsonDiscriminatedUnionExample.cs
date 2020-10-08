@@ -143,16 +143,16 @@ namespace Menes.Examples
                 : Null;
 
         /// <summary>
-        /// Gets the value as an instance of the first .NET type.
+        /// Gets the value as an instance of the JsonDateTime .NET type.
         /// </summary>
         /// <returns>The value as a <see cref="JsonDateTime"/>.</returns>
-        public JsonDateTime CreateOrGetClrFirst() => this.IsJsonDateTime ? this.firstInstance ?? new JsonDateTime(this.JsonElement) : throw new JsonException("The union value is not a JsonDateTime");
+        public JsonDateTime AsJsonDateTime() => this.IsJsonDateTime ? this.firstInstance ?? new JsonDateTime(this.JsonElement) : throw new JsonException("The union value is not a JsonDateTime");
 
         /// <summary>
-        /// Gets the value as an instance of the second .NET type.
+        /// Gets the value as an instance of the JsonGuid .NET type.
         /// </summary>
         /// <returns>The value as a <see cref="JsonGuid"/>.</returns>
-        public JsonGuid CreateOrGetClrSecond() => this.IsJsonGuid ? this.secondInstance ?? new JsonGuid(this.JsonElement) : throw new JsonException("The union value is not a JsonGuid");
+        public JsonGuid AsJsonGuid() => this.IsJsonGuid ? this.secondInstance ?? new JsonGuid(this.JsonElement) : throw new JsonException("The union value is not a JsonGuid");
 
         /// <summary>
         /// Writes the bool value to a <see cref="Utf8JsonWriter"/>.
@@ -188,6 +188,22 @@ namespace Menes.Examples
             }
 
             return new JsonAny(this.JsonElement);
+        }
+
+        /// <inheritdoc/>
+        public ValidationContext Validate(in ValidationContext validationContext)
+        {
+            if (this.IsNull)
+            {
+                return validationContext;
+            }
+
+            if (this.IsJsonGuid)
+            {
+                return this.AsJsonGuid().Validate(validationContext);
+            }
+
+            return this.AsJsonDateTime().Validate(validationContext);
         }
 
         private static JsonAny WriteToAny<T>(in T value)

@@ -252,14 +252,7 @@ namespace Menes.TypeGenerator
                 builder.Append(", ");
             }
 
-            if (property.Type is ArrayTypeDeclaration atd)
-            {
-                builder.Append($"System.Collections.Generic.Enumerable<{atd.ItemType.GetFullyQualifiedName()}>");
-            }
-            else
-            {
-                builder.Append(property.Type.GetFullyQualifiedName());
-            }
+            builder.Append(property.Type.GetFullyQualifiedName());
 
             if (isOptional)
             {

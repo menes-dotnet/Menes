@@ -251,37 +251,130 @@ namespace Menes
         /// <summary>
         /// Validate the maximum number of items in the array.
         /// </summary>
+        /// <param name="validationContext">The validation context for this item.</param>
         /// <param name="maxItems">The maximum permitted number of items.</param>
-        /// <returns><ct>True</ct> if the array has less than the given maximum number of items.</returns>
-        public bool ValidateMaxItems(long maxItems)
+        /// <returns>The validation context updated with the result of the check.</returns>
+        public ValidationContext ValidateMaxItems(in ValidationContext validationContext, long maxItems)
         {
-            return this.Length <= maxItems;
+            if (this.Length > maxItems)
+            {
+                return validationContext.WithError($"6.4.1. maxItems: Expected no more than {maxItems} in the array, but found {this.Length}.");
+            }
+
+            return validationContext;
         }
 
         /// <summary>
         /// Validate the maximum number of items in the array.
         /// </summary>
+        /// <param name="validationContext">The validation context for this item.</param>
         /// <param name="minItems">The minimum permitted number of items.</param>
-        /// <returns><ct>True</ct> if the array has less than the given maximum number of items.</returns>
-        public bool ValidateMinItems(long minItems)
+        /// <returns>The validation context updated with the result of the check.</returns>
+        public ValidationContext ValidateMinItems(in ValidationContext validationContext, long minItems)
         {
-            return this.Length >= minItems;
+            if (this.Length < minItems)
+            {
+                return validationContext.WithError($"6.4.2. minItems: Expected no fewer than {minItems} in the array, but found {this.Length}.");
+            }
+
+            return validationContext;
         }
 
         /// <summary>
         /// Determines if all the items in the array are unique.
         /// </summary>
-        /// <returns><c>True</c> if all the items in the hashset are unique.</returns>
-        public bool ValidateUniqueItems()
+        /// <param name="validationContext">The validation context for this item.</param>
+        /// <param name="validateItems">Whether to validate the items in the array during the iteration.</param>
+        /// <returns>The validation context updated with the result of the check.</returns>
+        public ValidationContext ValidateUniqueItems(in ValidationContext validationContext, bool validateItems)
         {
+            ValidationContext result = validationContext;
+            int index = 0;
             ImmutableHashSet<TItem>.Builder items = ImmutableHashSet.CreateBuilder<TItem>();
             JsonArray<TItem>.JsonArrayEnumerator enumerator = this.GetEnumerator();
             while (enumerator.MoveNext())
             {
                 items.Add(enumerator.Current);
+
+                if (validateItems)
+                {
+                    result = result.Validate(enumerator.Current, $"[{index}]");
+                }
+
+                index++;
             }
 
-            return items.Count != this.Length;
+            if (items.Count != this.Length)
+            {
+                result = result.WithError($"6.4.3. uniqueItems: Expected all items to be unique, but there were {this.Length - items.Count} duplicates.");
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Determines how many items there are that are convertible to the given item type.
+        /// </summary>
+        /// <typeparam name="TItemType">The type of the item.</typeparam>
+        /// <param name="validationContext">The validation context for this item.</param>
+        /// <param name="minItems">The minimum number of items that match the given schema.</param>
+        /// <param name="maxItems">The maximum number of items that match the given schema.</param>
+        /// <param name="requireUnique">Require the items to be unique.</param>
+        /// <param name="validateItems">Whether to validate the items in the array during the iteration.</param>
+        /// <returns>The validation context updated with the result of the check.</returns>
+        /// <remnarks>
+        /// This gives you the ability to validate uniqueness, min, and/or max, and the validity of the items contained within the array, in a single interation of the array.
+        /// </remnarks>
+        public ValidationContext ValidateRangeContains<TItemType>(in ValidationContext validationContext, int minItems, int maxItems, bool requireUnique, bool validateItems)
+            where TItemType : struct, IJsonValue
+        {
+            if (minItems > maxItems)
+            {
+                throw new ArgumentOutOfRangeException(nameof(maxItems), "The maxItems must be greater than or equal to the minItems");
+            }
+
+            ValidationContext result = validationContext;
+            ImmutableHashSet<TItem>.Builder items = ImmutableHashSet.CreateBuilder<TItem>();
+
+            int count = 0;
+            int index = 0;
+            JsonArray<TItem>.JsonArrayEnumerator enumerator = this.GetEnumerator();
+            while (enumerator.MoveNext())
+            {
+                if (enumerator.Current is TItemType ||
+                    JsonAny.IsConvertibleFrom<TItem>(enumerator.Current.AsJsonAny().JsonElement, false))
+                {
+                    count++;
+                    if (count == maxItems + 1)
+                    {
+                        result = result.WithError($"6.4.4. maxContains: Expected there to be no more than {maxItems} matching type {typeof(TItemType).FullName} in the array.");
+                    }
+                }
+
+                if (requireUnique)
+                {
+                    items.Add(enumerator.Current);
+                }
+
+                if (validateItems)
+                {
+                    result = result.Validate(enumerator.Current, $"[{index}]");
+                }
+
+                index++;
+            }
+
+            if (count < minItems)
+            {
+                result = result.WithError($"6.4.5. minContains: Expected there to be no fewer than {minItems} matching type {typeof(TItemType).FullName} in the array.");
+            }
+
+            if (requireUnique && items.Count != this.Length)
+            {
+                result = result.WithError($"6.4.3. uniqueItems: Expected all items to be unique, but there were {this.Length - items.Count} duplicates.");
+            }
+
+            return result;
         }
 
         /// <inheritdoc/>
@@ -322,6 +415,12 @@ namespace Menes
             }
 
             return true;
+        }
+
+        /// <inheritdoc/>
+        public ValidationContext Validate(in ValidationContext validationContext)
+        {
+            return validationContext;
         }
 
         /// <summary>

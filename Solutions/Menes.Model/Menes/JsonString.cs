@@ -206,5 +206,11 @@ namespace Menes
 
             return this.AsJsonAny().Equals(other.AsJsonAny());
         }
+
+        /// <inheritdoc/>
+        public ValidationContext Validate(in ValidationContext validationContext)
+        {
+            return validationContext;
+        }
     }
 }

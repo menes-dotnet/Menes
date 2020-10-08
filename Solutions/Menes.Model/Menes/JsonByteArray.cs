@@ -6,7 +6,6 @@ namespace Menes
 {
     using System;
     using System.Buffers;
-    using System.Buffers.Text;
     using System.Text.Json;
 
     /// <summary>
@@ -219,6 +218,12 @@ namespace Menes
             }
 
             return this.IsNull == other.IsNull;
+        }
+
+        /// <inheritdoc/>
+        public ValidationContext Validate(in ValidationContext validationContext)
+        {
+            return validationContext;
         }
     }
 }

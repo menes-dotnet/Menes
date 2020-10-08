@@ -245,6 +245,12 @@ namespace Menes
             }
         }
 
+        /// <inheritdoc/>
+        public ValidationContext Validate(in ValidationContext validationContext)
+        {
+            return validationContext;
+        }
+
         private static Func<JsonElement, bool, bool> GetIsItemConvertibleFrom<T>()
         {
             MethodInfo? method = typeof(T).GetMethod("IsConvertibleFrom", BindingFlags.Static | BindingFlags.Public);

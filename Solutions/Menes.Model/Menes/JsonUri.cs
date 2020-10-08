@@ -226,6 +226,12 @@ namespace Menes
             return this.AsJsonAny().Equals(other.AsJsonAny());
         }
 
+        /// <inheritdoc/>
+        public ValidationContext Validate(in ValidationContext validationContext)
+        {
+            return validationContext;
+        }
+
         private string CreateOrGetClrString()
         {
             return this.clrUri ?? this.JsonElement.GetString();

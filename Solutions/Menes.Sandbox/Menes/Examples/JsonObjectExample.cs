@@ -54,13 +54,13 @@ namespace Menes.Examples
         /// <param name="second">The second property.</param>
         /// <param name="third">The optional third property.</param>
         /// <param name="children">The children of this object.</param>
-        public JsonObjectExample(JsonString first, JsonInt32 second, JsonDuration? third = null, JsonArray<JsonObjectExample>? children = null)
+        public JsonObjectExample(JsonString first, JsonInt32 second, JsonDuration? third = null, ValidatedArrayOfJsonObjectExample? children = null)
         {
             this.JsonElement = default;
             this.first = first;
             this.second = second;
             this.third = third;
-            if (children is JsonArray<JsonObjectExample> c)
+            if (children is ValidatedArrayOfJsonObjectExample c)
             {
                 this.children = JsonReference.FromValue(c);
             }
@@ -80,13 +80,13 @@ namespace Menes.Examples
         /// <param name="third">The optional third property.</param>
         /// <param name="children">The children of this object.</param>
         /// <param name="additionalProperty1">First additional property.</param>
-        public JsonObjectExample(JsonString first, JsonInt32 second, JsonDuration? third, JsonArray<JsonObjectExample>? children, (string, JsonString) additionalProperty1)
+        public JsonObjectExample(JsonString first, JsonInt32 second, JsonDuration? third, ValidatedArrayOfJsonObjectExample? children, (string, JsonString) additionalProperty1)
         {
             this.JsonElement = default;
             this.first = first;
             this.second = second;
             this.third = third;
-            if (children is JsonArray<JsonObjectExample> c)
+            if (children is ValidatedArrayOfJsonObjectExample c)
             {
                 this.children = JsonReference.FromValue(c);
             }
@@ -107,13 +107,13 @@ namespace Menes.Examples
         /// <param name="children">The children of this object.</param>
         /// <param name="additionalProperty1">First additional property.</param>
         /// <param name="additionalProperty2">Second additional property.</param>
-        public JsonObjectExample(JsonString first, JsonInt32 second, JsonDuration? third, JsonArray<JsonObjectExample>? children, (string, JsonString) additionalProperty1, (string, JsonString) additionalProperty2)
+        public JsonObjectExample(JsonString first, JsonInt32 second, JsonDuration? third, ValidatedArrayOfJsonObjectExample? children, (string, JsonString) additionalProperty1, (string, JsonString) additionalProperty2)
         {
             this.JsonElement = default;
             this.first = first;
             this.second = second;
             this.third = third;
-            if (children is JsonArray<JsonObjectExample> c)
+            if (children is ValidatedArrayOfJsonObjectExample c)
             {
                 this.children = JsonReference.FromValue(c);
             }
@@ -135,13 +135,13 @@ namespace Menes.Examples
         /// <param name="additionalProperty1">First additional property.</param>
         /// <param name="additionalProperty2">Second additional property.</param>
         /// <param name="additionalProperty3">Third additional property.</param>
-        public JsonObjectExample(JsonString first, JsonInt32 second, JsonDuration? third, JsonArray<JsonObjectExample>? children, (string, JsonString) additionalProperty1, (string, JsonString) additionalProperty2, (string, JsonString) additionalProperty3)
+        public JsonObjectExample(JsonString first, JsonInt32 second, JsonDuration? third, ValidatedArrayOfJsonObjectExample? children, (string, JsonString) additionalProperty1, (string, JsonString) additionalProperty2, (string, JsonString) additionalProperty3)
         {
             this.JsonElement = default;
             this.first = first;
             this.second = second;
             this.third = third;
-            if (children is JsonArray<JsonObjectExample> c)
+            if (children is ValidatedArrayOfJsonObjectExample c)
             {
                 this.children = JsonReference.FromValue(c);
             }
@@ -164,13 +164,13 @@ namespace Menes.Examples
         /// <param name="additionalProperty2">Second additional property.</param>
         /// <param name="additionalProperty3">Third additional property.</param>
         /// <param name="additionalProperty4">Fourth additional property.</param>
-        public JsonObjectExample(JsonString first, JsonInt32 second, JsonDuration? third, JsonArray<JsonObjectExample>? children, (string, JsonString) additionalProperty1, (string, JsonString) additionalProperty2, (string, JsonString) additionalProperty3, (string, JsonString) additionalProperty4)
+        public JsonObjectExample(JsonString first, JsonInt32 second, JsonDuration? third, ValidatedArrayOfJsonObjectExample? children, (string, JsonString) additionalProperty1, (string, JsonString) additionalProperty2, (string, JsonString) additionalProperty3, (string, JsonString) additionalProperty4)
         {
             this.JsonElement = default;
             this.first = first;
             this.second = second;
             this.third = third;
-            if (children is JsonArray<JsonObjectExample> c)
+            if (children is ValidatedArrayOfJsonObjectExample c)
             {
                 this.children = JsonReference.FromValue(c);
             }
@@ -190,13 +190,13 @@ namespace Menes.Examples
         /// <param name="third">The optional third property.</param>
         /// <param name="children">The children of this object.</param>
         /// <param name="additionalProperties">Additional properties.</param>
-        public JsonObjectExample(JsonString first, JsonInt32 second, JsonDuration? third, JsonArray<JsonObjectExample>? children, params (string, JsonString)[] additionalProperties)
+        public JsonObjectExample(JsonString first, JsonInt32 second, JsonDuration? third, ValidatedArrayOfJsonObjectExample? children, params (string, JsonString)[] additionalProperties)
         {
             this.JsonElement = default;
             this.first = first;
             this.second = second;
             this.third = third;
-            if (children is JsonArray<JsonObjectExample> c)
+            if (children is ValidatedArrayOfJsonObjectExample c)
             {
                 this.children = JsonReference.FromValue(c);
             }
@@ -216,13 +216,13 @@ namespace Menes.Examples
         /// <param name="third">The optional third property.</param>
         /// <param name="children">The children of this object.</param>
         /// <param name="additionalProperties">Additional properties.</param>
-        public JsonObjectExample(JsonString first, JsonInt32 second, JsonDuration? third, JsonArray<JsonObjectExample>? children, JsonProperties additionalProperties)
+        public JsonObjectExample(JsonString first, JsonInt32 second, JsonDuration? third, ValidatedArrayOfJsonObjectExample? children, JsonProperties additionalProperties)
         {
             this.JsonElement = default;
             this.first = first;
             this.second = second;
             this.third = third;
-            if (children is JsonArray<JsonObjectExample> c)
+            if (children is ValidatedArrayOfJsonObjectExample c)
             {
                 this.children = JsonReference.FromValue(c);
             }
@@ -288,7 +288,7 @@ namespace Menes.Examples
         /// <summary>
         /// Gets the children.
         /// </summary>
-        public JsonArray<JsonObjectExample>? Children => this.children?.AsValue<JsonArray<JsonObjectExample>>() ?? JsonArray<JsonObjectExample>.FromOptionalProperty(this.JsonElement, ChildrenPropertyNameBytes.Span).AsOptional;
+        public ValidatedArrayOfJsonObjectExample? Children => this.children?.AsValue<ValidatedArrayOfJsonObjectExample>() ?? ValidatedArrayOfJsonObjectExample.FromOptionalProperty(this.JsonElement, ChildrenPropertyNameBytes.Span).AsOptional;
 
         /// <summary>
         /// Gets a value indicating whether this is backed by a <see cref="JsonElement"/>.
@@ -465,7 +465,7 @@ namespace Menes.Examples
         /// </summary>
         /// <param name="newChildren">The new value for the children.</param>
         /// <returns>A new instance of the <see cref="JsonObjectExample"/> with the second property set.</returns>
-        public JsonObjectExample WithChildren(JsonArray<JsonObjectExample> newChildren)
+        public JsonObjectExample WithChildren(ValidatedArrayOfJsonObjectExample newChildren)
         {
             return new JsonObjectExample(this.First, this.Second, this.third, JsonReference.FromValue(newChildren), this.GetAdditionalProperties());
         }
@@ -557,6 +557,26 @@ namespace Menes.Examples
             }
 
             return this.First.Equals(other.First) && this.Second.Equals(other.Second) && this.Children.Equals(other.Children) && this.AdditionalProperties.SequenceEqual(other.AdditionalProperties);
+        }
+
+        /// <inheritdoc/>
+        public ValidationContext Validate(in ValidationContext validationContext)
+        {
+            ValidationContext context = validationContext;
+            context = context.Validate(this.First, FirstPropertyName);
+            context = context.Validate(this.Second, SecondPropertyName);
+
+            if (this.Third is JsonDuration third)
+            {
+                context = context.Validate(third, ThirdPropertyName);
+            }
+
+            if (this.Children is ValidatedArrayOfJsonObjectExample children)
+            {
+                context = context.Validate(children, ChildrenPropertyName);
+            }
+
+            return context;
         }
 
         /// <summary>

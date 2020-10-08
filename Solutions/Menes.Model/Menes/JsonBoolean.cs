@@ -190,5 +190,11 @@ namespace Menes
         {
             return this.CreateOrGetClrBoolean().ToString();
         }
+
+        /// <inheritdoc/>
+        public ValidationContext Validate(in ValidationContext validationContext)
+        {
+            return validationContext;
+        }
     }
 }

@@ -268,6 +268,53 @@ namespace Menes.Examples
             return new JsonAny(this.JsonElement);
         }
 
+        /// <inheritdoc/>
+        public ValidationContext Validate(in ValidationContext validationContext)
+        {
+            if (this.IsNull)
+            {
+                return validationContext;
+            }
+
+            ValidationContext jsonBooleanValidationContext = ValidationContext.Root.WithPath(validationContext.Path);
+            ValidationContext jsonInt64ValidationContext = ValidationContext.Root.WithPath(validationContext.Path);
+            ValidationContext jsonObjectExampleValidationContext = ValidationContext.Root.WithPath(validationContext.Path);
+
+            if (this.IsJsonBoolean)
+            {
+                jsonBooleanValidationContext = this.AsJsonBoolean().Validate(jsonBooleanValidationContext);
+            }
+            else
+            {
+                jsonBooleanValidationContext = jsonBooleanValidationContext.WithError("The value is not convertible to a JsonBoolean.");
+            }
+
+            if (this.IsJsonInt64)
+            {
+                jsonInt64ValidationContext = this.AsJsonInt64().Validate(jsonInt64ValidationContext);
+            }
+            else
+            {
+                jsonInt64ValidationContext = jsonInt64ValidationContext.WithError("The value is not convertible to a JsonInt64.");
+            }
+
+            if (this.IsJsonObjectExample)
+            {
+                jsonObjectExampleValidationContext = this.AsJsonInt64().Validate(jsonObjectExampleValidationContext);
+            }
+            else
+            {
+                jsonObjectExampleValidationContext = jsonObjectExampleValidationContext.WithError("The value is not convertible to a JsonObjectExample.");
+            }
+
+            if (jsonBooleanValidationContext.IsValid || jsonInt64ValidationContext.IsValid || jsonObjectExampleValidationContext.IsValid)
+            {
+                return validationContext;
+            }
+
+            return validationContext.MergeErrors(jsonBooleanValidationContext, jsonInt64ValidationContext, jsonObjectExampleValidationContext);
+        }
+
         private static JsonAny ToAny<T>(T value)
             where T : IJsonValue
         {

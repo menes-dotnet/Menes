@@ -208,6 +208,12 @@ namespace Menes
             return this.CreateOrGetClrTime().Equals(other.CreateOrGetClrTime());
         }
 
+        /// <inheritdoc/>
+        public ValidationContext Validate(in ValidationContext validationContext)
+        {
+            return validationContext;
+        }
+
         private static ParseResult<OffsetTime> ParseTime(in JsonElement jsonElement)
         {
             return OffsetTimePattern.ExtendedIso.Parse(jsonElement.GetString());
