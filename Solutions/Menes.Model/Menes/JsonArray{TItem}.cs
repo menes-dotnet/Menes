@@ -313,6 +313,26 @@ namespace Menes
         }
 
         /// <summary>
+        /// Validate the items in the array.
+        /// </summary>
+        /// <param name="validationContext">The validation context.</param>
+        /// <returns>The validation context updated with the result of the check.</returns>
+        public ValidationContext ValidateItems(in ValidationContext validationContext)
+        {
+            ValidationContext result = validationContext;
+            JsonArray<TItem>.JsonArrayEnumerator enumerator = this.GetEnumerator();
+            int index = 0;
+
+            while (enumerator.MoveNext())
+            {
+                result = result.Validate(enumerator.Current, $"[{index}]");
+                index++;
+            }
+
+            return result;
+        }
+
+        /// <summary>
         /// Determines how many items there are that are convertible to the given item type.
         /// </summary>
         /// <typeparam name="TItemType">The type of the item.</typeparam>
@@ -326,7 +346,7 @@ namespace Menes
         /// This gives you the ability to validate uniqueness, min, and/or max, and the validity of the items contained within the array, in a single interation of the array.
         /// </remnarks>
         public ValidationContext ValidateRangeContains<TItemType>(in ValidationContext validationContext, int minItems, int maxItems, bool requireUnique, bool validateItems)
-            where TItemType : struct, IJsonValue
+        where TItemType : struct, IJsonValue
         {
             if (minItems > maxItems)
             {

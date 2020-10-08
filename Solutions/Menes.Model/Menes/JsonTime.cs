@@ -6,7 +6,9 @@ namespace Menes
 {
     using System;
     using System.Buffers;
+    using System.Collections.Immutable;
     using System.Text.Json;
+    using System.Text.RegularExpressions;
     using NodaTime;
     using NodaTime.Text;
 
@@ -161,7 +163,7 @@ namespace Menes
             if (this.clrTime is OffsetTime time)
             {
                 // TODO: convert this to a write which does not allocate a string
-                writer.WriteStringValue(OffsetTimePattern.ExtendedIso.Format(time));
+                writer.WriteStringValue(FormatTime(time));
             }
             else
             {
@@ -187,7 +189,12 @@ namespace Menes
         /// <inheritdoc/>
         public override string ToString()
         {
-            return this.CreateOrGetClrTime().ToString();
+            if (this.HasJsonElement)
+            {
+                return this.JsonElement.GetRawText();
+            }
+
+            return FormatTime(this.CreateOrGetClrTime());
         }
 
         /// <inheritdoc/>
@@ -212,6 +219,27 @@ namespace Menes
         public ValidationContext Validate(in ValidationContext validationContext)
         {
             return validationContext;
+        }
+
+        /// <summary>
+        /// Provides the string validations.
+        /// </summary>
+        /// <param name="validationContext">The validation context.</param>
+        /// <param name="maxLength">The maximum length of the string representation.</param>
+        /// <param name="minLength">The minimum length of the string representation.</param>
+        /// <param name="pattern">The pattern to which the string must conform.</param>
+        /// <param name="enumeration">The values which the string must match.</param>
+        /// <param name="constValue">A constant value against which the string must match.</param>
+        /// <returns>The validation context updated to reflect the results of the validation.</returns>
+        /// <remarks>These are rolled up into a single method to ensure string conversion occurs only once.</remarks>
+        public ValidationContext ValidateAsString(in ValidationContext validationContext, int? maxLength = null, int? minLength = null, Regex? pattern = null, in ImmutableArray<string>? enumeration = null, string? constValue = null)
+        {
+            return Validation.ValidateString(validationContext, this.ToString(), maxLength, minLength, pattern, enumeration, constValue);
+        }
+
+        private static string FormatTime(OffsetTime time)
+        {
+            return OffsetTimePattern.ExtendedIso.Format(time);
         }
 
         private static ParseResult<OffsetTime> ParseTime(in JsonElement jsonElement)

@@ -14,7 +14,7 @@ namespace Menes
         /// <summary>
         /// Gets the root validation context.
         /// </summary>
-        public static readonly ValidationContext Root = new ValidationContext("/", ImmutableArray<(string, string)>.Empty);
+        public static readonly ValidationContext Root = new ValidationContext(string.Empty, ImmutableArray<(string, string)>.Empty);
 
         private ValidationContext(string path, ImmutableArray<(string, string)> errors)
         {

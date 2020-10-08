@@ -181,6 +181,7 @@ namespace Menes.Examples
             ValidationContext context = validationContext;
             context = array.ValidateMinItems(context, 10);
             context = array.ValidateMaxItems(context, 100);
+            context = array.ValidateItems(context);
             return array.Validate(context);
         }
 

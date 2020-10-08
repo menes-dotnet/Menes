@@ -6,6 +6,7 @@ namespace Menes
 {
     using System;
     using System.Buffers;
+    using System.Collections.Immutable;
     using System.Text.Json;
 
     /// <summary>
@@ -201,6 +202,61 @@ namespace Menes
         public ValidationContext Validate(in ValidationContext validationContext)
         {
             return validationContext;
+        }
+
+        /// <summary>
+        /// Provides the numeric validations.
+        /// </summary>
+        /// <param name="validationContext">The validation context.</param>
+        /// <param name="multipleOf">A value which, when divided into the value, produces a remainder of zero.</param>
+        /// <param name="maximum">The value is less than or equal to the maximum value.</param>
+        /// <param name="exclusiveMaximum">The value is less than the exclusive maximum value.</param>
+        /// <param name="minimum">The value is greater than or equal to the minimum value.</param>
+        /// <param name="exclusiveMinimum">The value is greater than the exclusive minimum value.</param>
+        /// <param name="enumeration">The value must equal one of the values in the enumeration.</param>
+        /// <param name="constValue">The value must equal the constant value.</param>
+        /// <returns>The validation context updated to reflect the results of the validation.</returns>
+        /// <remarks>These are rolled up into a single method to ensure string conversion occurs only once.</remarks>
+        public ValidationContext ValidateNumeric(in ValidationContext validationContext, long? multipleOf = null, long? maximum = null, long? exclusiveMaximum = null, long? minimum = null, long? exclusiveMinimum = null, in ImmutableArray<long>? enumeration = null, in long? constValue = null)
+        {
+            ValidationContext context = validationContext;
+            long value = this.CreateOrGetClrInt64();
+            if (multipleOf is long mo && (value % mo != 0))
+            {
+                context = context.WithError($"6.2.1 multipleOf: The value should have been a multiple of '{mo}', but was '{value}' with remainder '{value % mo}'");
+            }
+
+            if (maximum is long max && (value > max))
+            {
+                context = context.WithError($"6.2.2 maximum: The value should have been <= '{max}', but was '{value}'");
+            }
+
+            if (exclusiveMaximum is long exMax && (value >= exMax))
+            {
+                context = context.WithError($"6.2.3 maximum: The value should have been < '{exMax}', but was '{value}'");
+            }
+
+            if (minimum is long min && (value < min))
+            {
+                context = context.WithError($"6.2.4 minimum: The value should have been >= '{min}', but was '{value}'");
+            }
+
+            if (exclusiveMinimum is long exMin && (value <= exMin))
+            {
+                context = context.WithError($"6.2.2 maximum: The value should have been > '{exMin}', but was '{value}'");
+            }
+
+            if (enumeration is ImmutableArray<long> values)
+            {
+                context = Validation.ValidateEnum(context, value, values);
+            }
+
+            if (constValue is long cv)
+            {
+                context = Validation.ValidateConst(context, value, cv);
+            }
+
+            return context;
         }
     }
 }

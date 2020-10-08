@@ -32,6 +32,10 @@ namespace Menes.Examples
         private const string SecondPropertyName = "second";
         private const string ThirdPropertyName = "third";
         private const string ChildrenPropertyName = "children";
+        private const string FirstPropertyNamePath = "/first";
+        private const string SecondPropertyNamePath = "/second";
+        private const string ThirdPropertyNamePath = "/third";
+        private const string ChildrenPropertyNamePath = "/children";
         private static readonly JsonEncodedText EncodedFirstPropertyName = JsonEncodedText.Encode(FirstPropertyName);
         private static readonly JsonEncodedText EncodedSecondPropertyName = JsonEncodedText.Encode(SecondPropertyName);
         private static readonly JsonEncodedText EncodedThirdPropertyName = JsonEncodedText.Encode(ThirdPropertyName);
@@ -563,17 +567,17 @@ namespace Menes.Examples
         public ValidationContext Validate(in ValidationContext validationContext)
         {
             ValidationContext context = validationContext;
-            context = context.Validate(this.First, FirstPropertyName);
-            context = context.Validate(this.Second, SecondPropertyName);
+            context = context.Validate(this.First, FirstPropertyNamePath);
+            context = context.Validate(this.Second, SecondPropertyNamePath);
 
             if (this.Third is JsonDuration third)
             {
-                context = context.Validate(third, ThirdPropertyName);
+                context = context.Validate(third, ThirdPropertyNamePath);
             }
 
             if (this.Children is ValidatedArrayOfJsonObjectExample children)
             {
-                context = context.Validate(children, ChildrenPropertyName);
+                context = context.Validate(children, ChildrenPropertyNamePath);
             }
 
             return context;
