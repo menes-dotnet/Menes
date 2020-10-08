@@ -534,17 +534,17 @@ namespace Menes.Examples
         public ValidationContext Validate(in ValidationContext validationContext)
         {
             ValidationContext context = validationContext;
-            context = context.Validate(this.First, FirstPropertyNamePath);
-            context = context.Validate(this.Second, SecondPropertyNamePath);
+            context = Validation.ValidateRequiredProperty(context, this.First, FirstPropertyNamePath);
+            context = Validation.ValidateRequiredProperty(context, this.Second, SecondPropertyNamePath);
 
             if (this.Third is JsonDuration third)
             {
-                context = context.Validate(third, ThirdPropertyNamePath);
+                context = Validation.ValidateProperty(context, third, ThirdPropertyNamePath);
             }
 
             if (this.Children is ValidatedArrayOfJsonObjectExample children)
             {
-                context = context.Validate(children, ChildrenPropertyNamePath);
+                context = Validation.ValidateProperty(context, children, ChildrenPropertyNamePath);
             }
 
             return context;

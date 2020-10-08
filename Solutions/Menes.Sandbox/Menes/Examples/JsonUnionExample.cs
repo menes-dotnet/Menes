@@ -307,12 +307,7 @@ namespace Menes.Examples
                 jsonObjectExampleValidationContext = jsonObjectExampleValidationContext.WithError("The value is not convertible to a JsonObjectExample.");
             }
 
-            if (jsonBooleanValidationContext.IsValid || jsonInt64ValidationContext.IsValid || jsonObjectExampleValidationContext.IsValid)
-            {
-                return validationContext;
-            }
-
-            return validationContext.MergeErrors(jsonBooleanValidationContext, jsonInt64ValidationContext, jsonObjectExampleValidationContext);
+            return Validation.ValidateOneOf(validationContext, ("JsonBoolean", jsonBooleanValidationContext), ("JsonInt64", jsonInt64ValidationContext), ("JsonObjectExample", jsonObjectExampleValidationContext));
         }
 
         private static JsonAny ToAny<T>(T value)

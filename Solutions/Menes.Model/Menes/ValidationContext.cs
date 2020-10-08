@@ -25,7 +25,7 @@ namespace Menes
         /// <summary>
         /// Gets the errors found during validation.
         /// </summary>
-        public ImmutableArray<(string, string)> Errors { get; }
+        public ImmutableArray<(string path, string error)> Errors { get; }
 
         /// <summary>
         /// Gets the path for the context.
@@ -55,20 +55,6 @@ namespace Menes
         public ValidationContext WithPath(string path)
         {
             return new ValidationContext(path, this.Errors);
-        }
-
-        /// <summary>
-        /// Validate the given item, appending the specified path
-        /// and restoring the path once the results have been returned.
-        /// </summary>
-        /// <typeparam name="TItem">The type of the item to validate.</typeparam>
-        /// <param name="item">The item to validate.</param>
-        /// <param name="pathToAppend">The path to append for the item.</param>
-        /// <returns>The updated validation context after validation has completed.</returns>
-        public ValidationContext Validate<TItem>(in TItem item, string pathToAppend)
-            where TItem : struct, IJsonValue
-        {
-            return item.Validate(this.WithPath(this.Path + pathToAppend)).WithPath(this.Path);
         }
 
         /// <summary>

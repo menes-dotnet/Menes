@@ -11,7 +11,7 @@ namespace Menes
     /// <summary>
     /// Valdation helpers.
     /// </summary>
-    public static class Validation
+    public static partial class Validation
     {
         /// <summary>
         /// Validate an <see cref="IJsonObject"/>.
@@ -124,6 +124,64 @@ namespace Menes
             }
 
             return context;
+        }
+
+        /// <summary>
+        /// Validate the given item, appending the specified path
+        /// and restoring the path once the results have been returned.
+        /// </summary>
+        /// <typeparam name="TItem">The type of the item to validate.</typeparam>
+        /// <param name="validationContext">The validation context.</param>
+        /// <param name="value">The item to validate.</param>
+        /// <param name="propertyPathToAppend">The path to append for the item.</param>
+        /// <returns>The updated validation context after validation has completed.</returns>
+        public static ValidationContext ValidateProperty<TItem>(in ValidationContext validationContext, in TItem value, string propertyPathToAppend)
+            where TItem : struct, IJsonValue
+        {
+            return value.Validate(validationContext.WithPath(validationContext.Path + propertyPathToAppend)).WithPath(validationContext.Path);
+        }
+
+        /// <summary>
+        /// Validate the given item, appending the specified path
+        /// and restoring the path once the results have been returned.
+        /// </summary>
+        /// <typeparam name="TItem">The type of the item to validate.</typeparam>
+        /// <param name="validationContext">The validation context.</param>
+        /// <param name="value">The item to validate.</param>
+        /// <param name="propertyPathToAppend">The path to append to the context for the item.</param>
+        /// <returns>The updated validation context after validation has completed.</returns>
+        public static ValidationContext ValidateRequiredProperty<TItem>(in ValidationContext validationContext, in TItem value, string propertyPathToAppend)
+            where TItem : struct, IJsonValue
+        {
+            ValidationContext context = validationContext.WithPath(validationContext.Path + propertyPathToAppend);
+            if (value.IsNull)
+            {
+                context = context.WithError($"6.5.3. required: The property was not present.");
+            }
+
+            return value.Validate(context).WithPath(validationContext.Path);
+        }
+
+        /// <summary>
+        /// Validates that the value is not the given schema.
+        /// </summary>
+        /// <typeparam name="TItem">The type of the value.</typeparam>
+        /// <typeparam name="TNot">The type of the schema to validate against.</typeparam>
+        /// <param name="validationContext">The validation context.</param>
+        /// <param name="value">The value to validate.</param>
+        /// <returns>The updated validation context after validation has completed.</returns>
+        public static ValidationContext ValidateNot<TItem, TNot>(in ValidationContext validationContext, in TItem value)
+            where TItem : struct, IJsonValue
+            where TNot : struct, IJsonValue
+        {
+            TNot notValue = value.AsJsonAny().As<TNot>();
+
+            if (notValue.Validate(ValidationContext.Root).IsValid)
+            {
+                return validationContext.WithError($"core 9.2.1.4. not: the value should not have validated against the type '{typeof(TNot).FullName}'");
+            }
+
+            return validationContext;
         }
     }
 }

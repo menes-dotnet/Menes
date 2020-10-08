@@ -275,7 +275,7 @@ namespace Menes
 
                 if (validateItems)
                 {
-                    result = result.Validate(enumerator.Current, $"[{index}]");
+                    result = Validation.ValidateProperty(result, enumerator.Current, $"[{index}]");
                 }
 
                 index++;
@@ -302,7 +302,7 @@ namespace Menes
 
             while (enumerator.MoveNext())
             {
-                result = result.Validate(enumerator.Current, $"[{index}]");
+                result = Validation.ValidateProperty(result, enumerator.Current, $"[{index}]");
                 index++;
             }
 
@@ -355,7 +355,7 @@ namespace Menes
 
                 if (validateItems)
                 {
-                    result = result.Validate(enumerator.Current, $"[{index}]");
+                    result = Validation.ValidateProperty(result, enumerator.Current, $"[{index}]");
                 }
 
                 index++;

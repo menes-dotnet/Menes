@@ -90,9 +90,9 @@ namespace Menes.Sandbox
             }
             else
             {
-                foreach ((string, string) error in validationContext.Errors)
+                foreach ((string path, string error) in validationContext.Errors)
                 {
-                    Console.WriteLine($"{error.Item1}: {error.Item2}");
+                    Console.WriteLine($"Path: \"{path}\" Error: \"{error}\"");
                 }
             }
         }
