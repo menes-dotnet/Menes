@@ -10,6 +10,12 @@ namespace Menes.Sandbox
     using System.Text;
     using System.Text.Json;
     using Menes.Examples;
+    using Menes.TypeGenerator;
+    using Microsoft.CodeAnalysis;
+    using Microsoft.CodeAnalysis.CSharp.Formatting;
+    using Microsoft.CodeAnalysis.CSharp.Syntax;
+    using Microsoft.CodeAnalysis.Formatting;
+    using Microsoft.CodeAnalysis.Options;
     using NodaTime;
 
     /// <summary>
@@ -115,6 +121,69 @@ namespace Menes.Sandbox
 
             Console.WriteLine();
             Serialize(array);
+
+            var exampleObjectType = new ObjectTypeDeclaration(new NamespaceDeclaration("Menes.Examples"), "JsonObjectExample2", SimpleJsonValueTypeDeclaration.String);
+
+            exampleObjectType.AddPropertyDeclaration(new PropertyDeclaration(exampleObjectType, "first", SimpleJsonValueTypeDeclaration.String));
+            exampleObjectType.AddPropertyDeclaration(new PropertyDeclaration(exampleObjectType, "second", SimpleJsonValueTypeDeclaration.Int32));
+            exampleObjectType.AddPropertyDeclaration(new PropertyDeclaration(exampleObjectType, "third", SimpleJsonValueTypeDeclaration.Duration.AsOptional()));
+            exampleObjectType.AddOptionalArrayProperty("children", exampleObjectType);
+
+            TypeDeclarationSyntax tds = exampleObjectType.GenerateType();
+            var workspace = new AdhocWorkspace();
+            OptionSet options = workspace.Options;
+            options = options.WithChangedOption(CSharpFormattingOptions.IndentBlock, true);
+            options = options.WithChangedOption(CSharpFormattingOptions.IndentBraces, false);
+            options = options.WithChangedOption(CSharpFormattingOptions.IndentSwitchCaseSection, true);
+            options = options.WithChangedOption(CSharpFormattingOptions.IndentSwitchCaseSectionWhenBlock, true);
+            options = options.WithChangedOption(CSharpFormattingOptions.IndentSwitchSection, true);
+            options = options.WithChangedOption(CSharpFormattingOptions.LabelPositioning, true);
+            options = options.WithChangedOption(CSharpFormattingOptions.NewLineForCatch, true);
+            options = options.WithChangedOption(CSharpFormattingOptions.NewLineForClausesInQuery, true);
+            options = options.WithChangedOption(CSharpFormattingOptions.NewLineForElse, true);
+            options = options.WithChangedOption(CSharpFormattingOptions.NewLineForFinally, true);
+            options = options.WithChangedOption(CSharpFormattingOptions.NewLineForMembersInAnonymousTypes, true);
+            options = options.WithChangedOption(CSharpFormattingOptions.NewLineForMembersInObjectInit, true);
+            options = options.WithChangedOption(CSharpFormattingOptions.NewLinesForBracesInAccessors, true);
+            options = options.WithChangedOption(CSharpFormattingOptions.NewLinesForBracesInAnonymousMethods, true);
+            options = options.WithChangedOption(CSharpFormattingOptions.NewLinesForBracesInAnonymousTypes, true);
+            options = options.WithChangedOption(CSharpFormattingOptions.NewLinesForBracesInControlBlocks, true);
+            options = options.WithChangedOption(CSharpFormattingOptions.NewLinesForBracesInLambdaExpressionBody, true);
+            options = options.WithChangedOption(CSharpFormattingOptions.NewLinesForBracesInMethods, true);
+            options = options.WithChangedOption(CSharpFormattingOptions.NewLinesForBracesInObjectCollectionArrayInitializers, true);
+            options = options.WithChangedOption(CSharpFormattingOptions.NewLinesForBracesInProperties, true);
+            options = options.WithChangedOption(CSharpFormattingOptions.NewLinesForBracesInTypes, true);
+            options = options.WithChangedOption(CSharpFormattingOptions.SpaceAfterCast, true);
+            options = options.WithChangedOption(CSharpFormattingOptions.SpaceAfterColonInBaseTypeDeclaration, true);
+            options = options.WithChangedOption(CSharpFormattingOptions.SpaceAfterComma, true);
+            options = options.WithChangedOption(CSharpFormattingOptions.SpaceAfterControlFlowStatementKeyword, true);
+            options = options.WithChangedOption(CSharpFormattingOptions.SpaceAfterDot, false);
+            options = options.WithChangedOption(CSharpFormattingOptions.SpaceAfterMethodCallName, true);
+            options = options.WithChangedOption(CSharpFormattingOptions.SpaceAfterSemicolonsInForStatement, true);
+            options = options.WithChangedOption(CSharpFormattingOptions.SpaceBeforeColonInBaseTypeDeclaration, true);
+            options = options.WithChangedOption(CSharpFormattingOptions.SpaceBeforeComma, true);
+            options = options.WithChangedOption(CSharpFormattingOptions.SpaceBeforeDot, false);
+            options = options.WithChangedOption(CSharpFormattingOptions.SpaceBeforeOpenSquareBracket, false);
+            options = options.WithChangedOption(CSharpFormattingOptions.SpaceBeforeSemicolonsInForStatement, true);
+            options = options.WithChangedOption(CSharpFormattingOptions.SpaceBetweenEmptyMethodCallParentheses, false);
+            options = options.WithChangedOption(CSharpFormattingOptions.SpaceBetweenEmptyMethodDeclarationParentheses, false);
+            options = options.WithChangedOption(CSharpFormattingOptions.SpaceBetweenEmptySquareBrackets, false);
+            options = options.WithChangedOption(CSharpFormattingOptions.SpacesIgnoreAroundVariableDeclaration, true);
+            options = options.WithChangedOption(CSharpFormattingOptions.SpaceWithinCastParentheses, false);
+            options = options.WithChangedOption(CSharpFormattingOptions.SpaceWithinExpressionParentheses, false);
+            options = options.WithChangedOption(CSharpFormattingOptions.SpaceWithinMethodCallParentheses, false);
+            options = options.WithChangedOption(CSharpFormattingOptions.SpaceWithinMethodDeclarationParenthesis, false);
+            options = options.WithChangedOption(CSharpFormattingOptions.SpaceWithinOtherParentheses, false);
+            options = options.WithChangedOption(CSharpFormattingOptions.SpaceWithinSquareBrackets, false);
+            options = options.WithChangedOption(CSharpFormattingOptions.SpacingAfterMethodDeclarationName, false);
+            options = options.WithChangedOption(CSharpFormattingOptions.SpacingAroundBinaryOperator, BinaryOperatorSpacingOptions.Single);
+            options = options.WithChangedOption(CSharpFormattingOptions.WrappingKeepStatementsOnSingleLine, true);
+            options = options.WithChangedOption(CSharpFormattingOptions.WrappingPreserveSingleLine, false);
+            workspace.TryApplyChanges(workspace.CurrentSolution.WithOptions(options));
+
+            SyntaxNode formattedNode = Formatter.Format(tds, workspace);
+            Console.WriteLine();
+            Console.WriteLine(formattedNode.ToFullString());
         }
 
         private static ReadOnlyMemory<byte> Serialize<T>(in T example)

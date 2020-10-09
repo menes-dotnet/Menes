@@ -35,6 +35,11 @@ namespace Menes
         }
 
         /// <summary>
+        /// Gets a value indicating whether the reference is null.
+        /// </summary>
+        public bool IsNull => (this.jsonElement.ValueKind == JsonValueKind.Null || this.jsonElement.ValueKind == JsonValueKind.Undefined) && this.value is null;
+
+        /// <summary>
         /// Construct a <see cref="JsonReference"/> from an <see cref="IJsonValue"/>.
         /// </summary>
         /// <typeparam name="TValue">The type of <see cref="IJsonValue"/> from which to construct the instance.</typeparam>
