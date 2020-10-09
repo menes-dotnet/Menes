@@ -5,6 +5,7 @@
 namespace Menes.Examples
 {
     using System;
+    using System.Buffers;
     using System.Text.Json;
     using Menes;
 

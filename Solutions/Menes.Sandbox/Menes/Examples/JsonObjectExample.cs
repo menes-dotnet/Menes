@@ -5,6 +5,7 @@
 namespace Menes.Examples
 {
     using System;
+    using System.Buffers;
     using System.Collections.Immutable;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
@@ -407,7 +408,7 @@ namespace Menes.Examples
         /// <returns>A new instance of the <see cref="JsonObjectExample"/> with the first property set.</returns>
         public JsonObjectExample WithFirst(JsonString newFirst)
         {
-            return new JsonObjectExample(newFirst, this.Second, this.Third, this.GetChildren(), this.GetAdditionalProperties());
+            return new JsonObjectExample(newFirst, this.Second, this.Third, this.GetChildren(), this.GetJsonProperties());
         }
 
         /// <summary>
@@ -417,7 +418,7 @@ namespace Menes.Examples
         /// <returns>A new instance of the <see cref="JsonObjectExample"/> with the second property set.</returns>
         public JsonObjectExample WithSecond(JsonInt32 newSecond)
         {
-            return new JsonObjectExample(this.First, newSecond, this.Third, this.GetChildren(), this.GetAdditionalProperties());
+            return new JsonObjectExample(this.First, newSecond, this.Third, this.GetChildren(), this.GetJsonProperties());
         }
 
         /// <summary>
@@ -427,7 +428,7 @@ namespace Menes.Examples
         /// <returns>A new instance of the <see cref="JsonObjectExample"/> with the second property set.</returns>
         public JsonObjectExample WithThird(JsonDuration? newThird)
         {
-            return new JsonObjectExample(this.First, this.Second, newThird, this.GetChildren(), this.GetAdditionalProperties());
+            return new JsonObjectExample(this.First, this.Second, newThird, this.GetChildren(), this.GetJsonProperties());
         }
 
         /// <summary>
@@ -437,7 +438,7 @@ namespace Menes.Examples
         /// <returns>A new instance of the <see cref="JsonObjectExample"/> with the second property set.</returns>
         public JsonObjectExample WithChildren(ValidatedArrayOfJsonObjectExample newChildren)
         {
-            return new JsonObjectExample(this.First, this.Second, this.third, JsonReference.FromValue(newChildren), this.GetAdditionalProperties());
+            return new JsonObjectExample(this.First, this.Second, this.third, JsonReference.FromValue(newChildren), this.GetJsonProperties());
         }
 
         /// <summary>
@@ -456,12 +457,19 @@ namespace Menes.Examples
         /// <param name="writer">The output to which to write the object.</param>
         public void WriteTo(Utf8JsonWriter writer)
         {
-            if (this.first is JsonString first)
+            if (this.HasJsonElement)
+            {
+                this.JsonElement.WriteTo(writer);
+            }
+            else
             {
                 writer.WriteStartObject();
 
-                writer.WritePropertyName(EncodedFirstPropertyName);
-                first.WriteTo(writer);
+                if (this.first is JsonString first)
+                {
+                    writer.WritePropertyName(EncodedFirstPropertyName);
+                    first.WriteTo(writer);
+                }
 
                 if (this.second is JsonInt32 second)
                 {
@@ -489,10 +497,6 @@ namespace Menes.Examples
                 }
 
                 writer.WriteEndObject();
-            }
-            else
-            {
-                this.JsonElement.WriteTo(writer);
             }
         }
 
@@ -579,7 +583,7 @@ namespace Menes.Examples
             return this.TryGetAdditionalProperty(bytes.Slice(0, written), out value);
         }
 
-        private JsonProperties GetAdditionalProperties()
+        private JsonProperties GetJsonProperties()
         {
             if (this.additionalProperties is JsonProperties props)
             {

@@ -5,6 +5,7 @@
 namespace Menes
 {
     using System;
+    using System.Buffers;
     using System.Collections.Immutable;
     using System.Text.Json;
     using System.Text.RegularExpressions;
