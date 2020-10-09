@@ -162,7 +162,15 @@ namespace Menes.TypeGenerator
 
         private void BuildWriteTo(List<MemberDeclarationSyntax> members)
         {
-            var builder = new StringBuilder("public void WriteTo(System.Text.Json.Utf8JsonWriter writer) { if (this.HasJsonElement) { this.JsonElement.WriteTo(writer); } else { writer.WriteStartObject(); ");
+            var builder = new StringBuilder("public void WriteTo(System.Text.Json.Utf8JsonWriter writer)");
+            builder.AppendLine("{");
+            builder.AppendLine("if (this.HasJsonElement)");
+            builder.AppendLine("{");
+            builder.AppendLine("this.JsonElement.WriteTo(writer);");
+            builder.AppendLine("}");
+            builder.AppendLine("else");
+            builder.AppendLine("{");
+            builder.AppendLine("writer.WriteStartObject();");
 
             foreach (PropertyDeclaration property in this.Properties)
             {
@@ -182,11 +190,16 @@ namespace Menes.TypeGenerator
 
             if (this.AdditionalPropertiesType is ITypeDeclaration)
             {
-                builder.Append("Menes.JsonPropertyEnumerator enumerator = this.AdditionalProperties; while (enumerator.MoveNext()) { enumerator.Current.Write(writer); }" + Environment.NewLine);
+                builder.AppendLine("Menes.JsonPropertyEnumerator enumerator = this.AdditionalProperties;");
+                builder.AppendLine("while (enumerator.MoveNext())");
+                builder.AppendLine("{");
+                builder.AppendLine("enumerator.Current.Write(writer);");
+                builder.AppendLine("}");
             }
 
-            builder.Append(" writer.WriteEndObject(); } }" + Environment.NewLine);
-
+            builder.AppendLine("writer.WriteEndObject();");
+            builder.AppendLine("}");
+            builder.AppendLine("}");
             members.Add(SF.ParseMemberDeclaration(builder.ToString()));
         }
 
@@ -371,41 +384,31 @@ namespace Menes.TypeGenerator
             int index = 1;
             foreach (PropertyDeclaration property in this.Properties)
             {
-                if (builder.Length > 0)
-                {
-                    builder.Append(Environment.NewLine);
-                }
-
                 string parameterAndFieldName = NameFormatter.ToCamelCase(property.JsonPropertyName);
 
                 if (property.Type.IsCompoundType)
                 {
-                    builder.Append($"if ({parameterAndFieldName} is Menes.JsonReference item{index}) {{ ");
-                    builder.Append($"this.{parameterAndFieldName} = item{index}; }} else {{ ");
-                    builder.Append($"this.{parameterAndFieldName} = null; }}");
+                    builder.AppendLine($"if ({parameterAndFieldName} is Menes.JsonReference item{index})");
+                    builder.AppendLine("{");
+                    builder.AppendLine($"this.{parameterAndFieldName} = item{index};");
+                    builder.AppendLine("}");
+                    builder.AppendLine("else");
+                    builder.AppendLine("{");
+                    builder.AppendLine($"this.{parameterAndFieldName} = null;");
+                    builder.AppendLine("}");
                     index++;
                 }
                 else
                 {
-                    builder.Append($"this.{parameterAndFieldName} = {parameterAndFieldName};");
+                    builder.AppendLine($"this.{parameterAndFieldName} = {parameterAndFieldName};");
                 }
             }
 
-            if (builder.Length > 0)
-            {
-                builder.Append(Environment.NewLine);
-            }
-
-            builder.Append("this.JsonElement = default;");
+            builder.AppendLine("this.JsonElement = default;");
 
             if (this.AdditionalPropertiesType is ITypeDeclaration)
             {
-                if (builder.Length > 0)
-                {
-                    builder.Append(Environment.NewLine);
-                }
-
-                builder.Append("this.additionalProperties = additionalProperties;");
+                builder.AppendLine("this.additionalProperties = additionalProperties;");
             }
 
             return builder.ToString();
@@ -458,7 +461,7 @@ namespace Menes.TypeGenerator
             $"public {this.Name}({this.BuildPropertiesConstructorParameterList(additionalPropertiesCount)})" + Environment.NewLine +
             "{" + Environment.NewLine +
             this.BuildPropertiesConstructorParameterSetters(additionalPropertiesCount) +
-            " }";
+            "}";
 
             members.Add(SF.ParseMemberDeclaration(declaration));
         }
@@ -469,52 +472,42 @@ namespace Menes.TypeGenerator
             int index = 1;
             foreach (PropertyDeclaration property in this.Properties)
             {
-                if (builder.Length > 0)
-                {
-                    builder.Append(Environment.NewLine);
-                }
-
                 string parameterAndFieldName = NameFormatter.ToCamelCase(property.JsonPropertyName);
 
                 if (property.Type.IsCompoundType)
                 {
                     string fullyQualifiedTypeName = property.Type.GetFullyQualifiedName();
-                    builder.Append($"if ({parameterAndFieldName} is {fullyQualifiedTypeName} item{index}) {{ ");
-                    builder.Append($"this.{parameterAndFieldName} = Menes.JsonReference.FromValue(item{index}); }} else {{ ");
-                    builder.Append($"this.{parameterAndFieldName} = null; }}");
+                    builder.AppendLine($"if ({parameterAndFieldName} is {fullyQualifiedTypeName} item{index})");
+                    builder.AppendLine("{");
+                    builder.AppendLine($"this.{parameterAndFieldName} = Menes.JsonReference.FromValue(item{index});");
+                    builder.AppendLine("}");
+                    builder.AppendLine("else");
+                    builder.AppendLine("{");
+                    builder.AppendLine($"this.{parameterAndFieldName} = null;");
+                    builder.AppendLine("}");
                     index++;
                 }
                 else
                 {
-                    builder.Append($"this.{parameterAndFieldName} = {parameterAndFieldName};");
+                    builder.AppendLine($"this.{parameterAndFieldName} = {parameterAndFieldName};");
                 }
             }
 
-            if (builder.Length > 0)
-            {
-                builder.Append(Environment.NewLine);
-            }
-
-            builder.Append("this.JsonElement = default;");
+            builder.AppendLine("this.JsonElement = default;");
 
             if (this.AdditionalPropertiesType is ITypeDeclaration)
             {
-                if (builder.Length > 0)
-                {
-                    builder.Append(Environment.NewLine);
-                }
-
                 if (additionalPropertiesCount is null)
                 {
-                    builder.Append("this.additionalProperties = additionalProperties;");
+                    builder.AppendLine("this.additionalProperties = additionalProperties;");
                 }
                 else if (additionalPropertiesCount == -1)
                 {
-                    builder.Append("this.additionalProperties = Menes.JsonProperties.FromValues(additionalProperties);");
+                    builder.AppendLine("this.additionalProperties = Menes.JsonProperties.FromValues(additionalProperties);");
                 }
                 else if (additionalPropertiesCount == 0)
                 {
-                    builder.Append("this.additionalProperties = null;");
+                    builder.AppendLine("this.additionalProperties = null;");
                 }
                 else
                 {
@@ -529,7 +522,7 @@ namespace Menes.TypeGenerator
                         builder.Append($"additionalProperty{i + 1}");
                     }
 
-                    builder.Append(");");
+                    builder.AppendLine(");");
                 }
             }
 
@@ -655,7 +648,7 @@ namespace Menes.TypeGenerator
             $"public {this.Name}(System.Text.Json.JsonElement jsonElement)" + Environment.NewLine +
             "{" + Environment.NewLine +
             "    this.JsonElement = jsonElement;" + Environment.NewLine +
-            this.BuildNullFieldAssignments() + Environment.NewLine +
+            this.BuildNullFieldAssignments() +
             "}" + Environment.NewLine;
 
             members.Add(SF.ParseMemberDeclaration(declaration));
@@ -667,22 +660,12 @@ namespace Menes.TypeGenerator
 
             foreach (PropertyDeclaration property in this.Properties)
             {
-                if (builder.Length > 0)
-                {
-                    builder.AppendLine();
-                }
-
-                builder.Append($"this.{NameFormatter.ToCamelCase(property.JsonPropertyName)} = null;");
+                builder.AppendLine($"this.{NameFormatter.ToCamelCase(property.JsonPropertyName)} = null;");
             }
 
             if (this.AdditionalPropertiesType is ITypeDeclaration)
             {
-                if (builder.Length > 0)
-                {
-                    builder.AppendLine();
-                }
-
-                builder.Append("this.additionalProperties = null;");
+                builder.AppendLine("this.additionalProperties = null;");
             }
 
             return builder.ToString();
@@ -726,15 +709,21 @@ namespace Menes.TypeGenerator
             var builder = new StringBuilder($"public {fullyQualifiedName} WithAdditionalProperties(");
             if (additionalPropertiesCount is null)
             {
-                builder.Append($"JsonProperties newAdditional) {{ return new {fullyQualifiedName}( ");
+                builder.AppendLine($"JsonProperties newAdditional)");
+                builder.AppendLine("{");
+                builder.Append($"return new {fullyQualifiedName}( ");
                 builder.Append(this.BuildWithParametersCore(null));
-                builder.Append(", newAdditional); }");
+                builder.AppendLine(", newAdditional);");
+                builder.AppendLine("}");
             }
             else if (additionalPropertiesCount == -1)
             {
-                builder.Append($"params (string, {fullyQualifiedAdditionalPropertiesName})[] newAdditional) {{ return new {fullyQualifiedName}( ");
+                builder.AppendLine($"params (string, {fullyQualifiedAdditionalPropertiesName})[] newAdditional)");
+                builder.AppendLine("{");
+                builder.AppendLine($"return new {fullyQualifiedName}( ");
                 builder.Append(this.BuildWithParametersCore(null));
-                builder.Append(", Menes.JsonProperties.FromValues(newAdditional)); }");
+                builder.AppendLine(", Menes.JsonProperties.FromValues(newAdditional));");
+                builder.AppendLine("}");
             }
             else
             {
@@ -748,7 +737,9 @@ namespace Menes.TypeGenerator
                     builder.Append($"(string, {fullyQualifiedAdditionalPropertiesName}) newAdditional{i + 1}");
                 }
 
-                builder.Append($") {{ return new {fullyQualifiedName}( ");
+                builder.AppendLine($")");
+                builder.AppendLine("{");
+                builder.Append($"return new {fullyQualifiedName}( ");
                 builder.Append(this.BuildWithParametersCore(null));
                 builder.Append(", Menes.JsonProperties.FromValues(");
                 for (int i = 0; i < additionalPropertiesCount; ++i)
@@ -761,7 +752,8 @@ namespace Menes.TypeGenerator
                     builder.Append($"newAdditional{i + 1}");
                 }
 
-                builder.Append(")); }" + Environment.NewLine);
+                builder.AppendLine("));");
+                builder.AppendLine("}");
             }
 
             members.Add(SF.ParseMemberDeclaration(builder.ToString()));
