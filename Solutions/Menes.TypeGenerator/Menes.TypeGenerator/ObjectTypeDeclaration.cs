@@ -8,6 +8,7 @@ namespace Menes.TypeGenerator
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
+    using System.Text.Json;
     using Microsoft.CodeAnalysis.CSharp;
     using Microsoft.CodeAnalysis.CSharp.Syntax;
 
@@ -34,6 +35,31 @@ namespace Menes.TypeGenerator
         /// Gets the type of any additional properties.
         /// </summary>
         public ITypeDeclaration? AdditionalPropertiesType { get; }
+
+        /// <summary>
+        /// Gets or sets the type of the not validation.
+        /// </summary>
+        public ITypeDeclaration? NotTypeValidation { get; set; }
+
+        /// <summary>
+        /// Gets or sets the max properties validation.
+        /// </summary>
+        public int? MaxPropertiesValidation { get; set; }
+
+        /// <summary>
+        /// Gets or sets the min properties validation.
+        /// </summary>
+        public int? MinPropertiesValidation { get; set; }
+
+        /// <summary>
+        /// Gets or sets the JSON array of objects for the enum validation.
+        /// </summary>
+        public string? EnumValidation { get; set; }
+
+        /// <summary>
+        /// Gets or sets the JSON object for the const validation.
+        /// </summary>
+        public string? ConstValidation { get; set; }
 
         /// <inheritdoc/>
         public override TypeDeclarationSyntax GenerateType()
@@ -103,12 +129,50 @@ namespace Menes.TypeGenerator
             this.BuildWithPropertyFactories(members);
             this.BuildWriteTo(members);
             this.BuildEquals(members);
+            this.BuildValidate(members);
 
             //// Private methods
             this.BuildJsonReferenceAccessors(members);
             this.BuildJsonPropertiesAccessor(members);
 
             return members.ToArray();
+        }
+
+        private void BuildValidate(List<MemberDeclarationSyntax> members)
+        {
+            var builder = new StringBuilder();
+            builder.AppendLine("public Menes.ValidationContext Validate(in Menes.ValidationContext validationContext)");
+            builder.AppendLine("{");
+            builder.AppendLine("    Menes.ValidationContext context = validationContext;");
+            foreach (PropertyDeclaration property in this.Properties)
+            {
+                string propertyName = NameFormatter.ToPascalCase(property.JsonPropertyName);
+
+                if (property.Type is OptionalTypeDeclaration)
+                {
+                    string fieldName = NameFormatter.ToCamelCase(property.JsonPropertyName);
+                    builder.AppendLine($"    if (this.{propertyName} is {property.Type.GetFullyQualifiedName()} {fieldName})");
+                    builder.AppendLine("    {");
+                    builder.AppendLine($"        context = Menes.Validation.ValidateProperty(context, {fieldName}, {propertyName}PropertyNamePath);");
+                    builder.AppendLine("    }");
+                }
+                else
+                {
+                    builder.AppendLine($"    context = Validation.ValidateRequiredProperty(context, this.{propertyName}, {propertyName}PropertyNamePath);");
+                }
+            }
+
+            if (this.AdditionalPropertiesType is ITypeDeclaration additionalProperties)
+            {
+                builder.AppendLine("foreach (JsonPropertyReference property in this.AdditionalProperties)");
+                builder.AppendLine("{");
+                builder.AppendLine($"    context = Validation.ValidateProperty(context, property.AsValue<{additionalProperties.GetFullyQualifiedName()}>(), \".\" + property.Name);");
+                builder.AppendLine("}");
+            }
+
+            builder.AppendLine("    return context;");
+            builder.AppendLine("}");
+            members.Add(SF.ParseMemberDeclaration(builder.ToString()));
         }
 
         private void BuildEquals(List<MemberDeclarationSyntax> members)
@@ -720,7 +784,7 @@ namespace Menes.TypeGenerator
             {
                 builder.AppendLine($"params (string, {fullyQualifiedAdditionalPropertiesName})[] newAdditional)");
                 builder.AppendLine("{");
-                builder.AppendLine($"return new {fullyQualifiedName}( ");
+                builder.Append($"return new {fullyQualifiedName}( ");
                 builder.Append(this.BuildWithParametersCore(null));
                 builder.AppendLine(", Menes.JsonProperties.FromValues(newAdditional));");
                 builder.AppendLine("}");

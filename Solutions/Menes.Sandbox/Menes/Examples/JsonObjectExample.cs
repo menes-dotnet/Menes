@@ -534,6 +534,11 @@ namespace Menes.Examples
                 context = Validation.ValidateProperty(context, children, ChildrenPropertyNamePath);
             }
 
+            foreach (JsonPropertyReference property in this.AdditionalProperties)
+            {
+                context = Validation.ValidateProperty(context, property.AsValue<JsonString>(), "." + property.Name);
+            }
+
             return context;
         }
 
