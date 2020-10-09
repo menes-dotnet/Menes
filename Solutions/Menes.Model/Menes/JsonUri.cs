@@ -5,7 +5,6 @@
 namespace Menes
 {
     using System;
-    using System.Buffers;
     using System.Collections.Immutable;
     using System.Text.Json;
     using System.Text.RegularExpressions;
@@ -87,6 +86,12 @@ namespace Menes
         public static implicit operator JsonUri(Uri value) => new JsonUri(value);
 
         /// <summary>
+        /// Create a JsonAny from the item.
+        /// </summary>
+        /// <param name="item">The value from which to create the <see cref="JsonAny"/>.</param>
+        public static implicit operator JsonAny(JsonUri item) => JsonAny.From(item);
+
+        /// <summary>
         /// Gets a value indicating whether an instance is convertible from
         /// this value type.
         /// </summary>
@@ -159,21 +164,6 @@ namespace Menes
         }
 
         /// <inheritdoc/>
-        public JsonAny AsJsonAny()
-        {
-            if (this.clrUri is string _)
-            {
-                var abw = new ArrayBufferWriter<byte>();
-                using var utfw = new Utf8JsonWriter(abw);
-                this.WriteTo(utfw);
-                utfw.Flush();
-                return new JsonAny(abw.WrittenMemory);
-            }
-
-            return new JsonAny(this.JsonElement);
-        }
-
-        /// <inheritdoc/>
         public override string ToString()
         {
             // We are ensuring we behave like Uri.ToString() but without the overhead
@@ -204,7 +194,7 @@ namespace Menes
                 return this.JsonElement.ValueEquals(other.clrUri);
             }
 
-            return this.AsJsonAny().Equals(other.AsJsonAny());
+            return JsonAny.From(this).Equals(JsonAny.From(other));
         }
 
         /// <inheritdoc/>

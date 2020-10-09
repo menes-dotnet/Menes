@@ -5,7 +5,6 @@
 namespace Menes
 {
     using System;
-    using System.Text;
     using System.Text.Json;
 
     /// <summary>
@@ -23,9 +22,6 @@ namespace Menes
         /// A <see cref="JsonBoolean"/> representing a null value.
         /// </summary>
         public static readonly JsonBoolean Null = new JsonBoolean(default(JsonElement));
-
-        private static readonly ReadOnlyMemory<byte> TrueBytes = Encoding.UTF8.GetBytes("true");
-        private static readonly ReadOnlyMemory<byte> FalseBytes = Encoding.UTF8.GetBytes("false");
 
         private readonly bool? clrBoolean;
 
@@ -76,6 +72,12 @@ namespace Menes
         /// </summary>
         /// <param name="value">The value to convert.</param>
         public static implicit operator JsonBoolean(bool value) => new JsonBoolean(value);
+
+        /// <summary>
+        /// Create a JsonAny from the item.
+        /// </summary>
+        /// <param name="item">The value from which to create the <see cref="JsonAny"/>.</param>
+        public static implicit operator JsonAny(JsonBoolean item) => JsonAny.From(item);
 
         /// <summary>
         /// Gets a value indicating whether an instance is convertible from
@@ -156,22 +158,6 @@ namespace Menes
             {
                 this.JsonElement.WriteTo(writer);
             }
-        }
-
-        /// <inheritdoc/>
-        public JsonAny AsJsonAny()
-        {
-            if (this.clrBoolean is bool boolean)
-            {
-                if (boolean)
-                {
-                    return new JsonAny(TrueBytes);
-                }
-
-                return new JsonAny(FalseBytes);
-            }
-
-            return new JsonAny(this.JsonElement);
         }
 
         /// <inheritdoc/>

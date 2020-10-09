@@ -8,7 +8,6 @@ namespace Menes
     using System.Buffers;
     using System.Collections.Concurrent;
     using System.Reflection;
-    using System.Text;
     using System.Text.Json;
     using Corvus.Extensions;
 
@@ -26,24 +25,10 @@ namespace Menes
         /// <summary>
         /// A <see cref="JsonAny"/> representing a null value.
         /// </summary>
-        public static readonly JsonAny Null = new JsonAny(default(JsonElement));
+        public static readonly JsonAny Null = new JsonAny(default);
 
         private static readonly ConcurrentDictionary<Type, object> FactoryCache = new ConcurrentDictionary<Type, object>();
         private static readonly ConcurrentDictionary<Type, Func<JsonElement, bool>> IsConvertibleCache = new ConcurrentDictionary<Type, Func<JsonElement, bool>>();
-
-        private readonly ReadOnlyMemory<byte>? utf8JsonText;
-
-        /// <summary>
-        /// Creates a <see cref="JsonAny"/> wrapper around a utf8 byte stream.
-        /// </summary>
-        /// <param name="utf8JsonText">
-        /// A utf8 bytes stream containing value to represent.
-        /// </param>
-        public JsonAny(ReadOnlyMemory<byte> utf8JsonText)
-        {
-            this.utf8JsonText = utf8JsonText;
-            this.JsonElement = default;
-        }
 
         /// <summary>
         /// Creates a <see cref="JsonAny"/> wrapper around a .NET Any.
@@ -54,7 +39,6 @@ namespace Menes
         public JsonAny(JsonElement jsonElement)
         {
             this.JsonElement = jsonElement;
-            this.utf8JsonText = null;
         }
 
         /// <inheritdoc/>
@@ -150,53 +134,44 @@ namespace Menes
         }
 
         /// <summary>
+        /// Gets a JsonAny from an <see cref="IJsonValue"/>.
+        /// </summary>
+        /// <typeparam name="TValue">The value to convert to a <see cref="JsonAny"/>.</typeparam>
+        /// <param name="value">The value to convert.</param>
+        /// <returns>A <see cref="JsonAny"/>.</returns>
+        public static JsonAny From<TValue>(TValue value)
+            where TValue : struct, IJsonValue
+        {
+            if (value.IsNull)
+            {
+                return Null;
+            }
+
+            if (value.HasJsonElement)
+            {
+                return new JsonAny(value.JsonElement);
+            }
+
+            var abw = new ArrayBufferWriter<byte>();
+            using var utfw = new Utf8JsonWriter(abw);
+            value.WriteTo(utfw);
+            utfw.Flush();
+            var reader = new Utf8JsonReader(abw.WrittenMemory.Span);
+            return new JsonAny(JsonDocument.ParseValue(ref reader).RootElement.Clone());
+        }
+
+        /// <summary>
         /// Writes the Any value to a <see cref="Utf8JsonWriter"/>.
         /// </summary>
         /// <param name="writer">The output to which to write the Any.</param>
         public void WriteTo(Utf8JsonWriter writer)
         {
-            if (this.utf8JsonText is ReadOnlyMemory<byte> utf8JsonText)
-            {
-                writer.WriteStringValue(utf8JsonText.Span);
-            }
-            else
-            {
-                this.JsonElement.WriteTo(writer);
-            }
-        }
-
-        /// <inheritdoc/>
-        public JsonAny AsJsonAny()
-        {
-            return this;
+            this.JsonElement.WriteTo(writer);
         }
 
         /// <inheritdoc/>
         public bool Equals(JsonAny other)
         {
-            if (this.utf8JsonText is ReadOnlyMemory<byte> utf8JsonTextA && other.utf8JsonText is ReadOnlyMemory<byte> otherUtf8JsonTextA)
-            {
-                return utf8JsonTextA.Span.SequenceEqual(otherUtf8JsonTextA.Span);
-            }
-
-            if (this.utf8JsonText is ReadOnlyMemory<byte> utf8JsonTextB && other.HasJsonElement)
-            {
-                var abw = new ArrayBufferWriter<byte>();
-                using var writer = new Utf8JsonWriter(abw);
-                other.WriteTo(writer);
-                writer.Flush();
-                return utf8JsonTextB.Span.SequenceEqual(abw.WrittenSpan);
-            }
-
-            if (other.utf8JsonText is ReadOnlyMemory<byte> utf8JsonTextC && this.HasJsonElement)
-            {
-                var abw = new ArrayBufferWriter<byte>();
-                using var writer = new Utf8JsonWriter(abw);
-                this.WriteTo(writer);
-                writer.Flush();
-                return utf8JsonTextC.Span.SequenceEqual(abw.WrittenSpan);
-            }
-
             if (this.HasJsonElement && other.HasJsonElement)
             {
                 var abw1 = new ArrayBufferWriter<byte>();
@@ -227,20 +202,13 @@ namespace Menes
                 return that;
             }
 
-            return As<T>(this.AsJsonElement());
+            return As<T>(this.JsonElement);
         }
 
         /// <inheritdoc/>
         public override string ToString()
         {
-            if (this.utf8JsonText is ReadOnlyMemory<byte> utf8JsonText)
-            {
-                return Encoding.UTF8.GetString(utf8JsonText.Span);
-            }
-            else
-            {
-                return this.JsonElement.ToString();
-            }
+            return this.JsonElement.ToString();
         }
 
         /// <inheritdoc/>
@@ -259,17 +227,6 @@ namespace Menes
             }
 
             return (Func<JsonElement, bool>)Delegate.CreateDelegate(typeof(Func<JsonElement, bool>), method);
-        }
-
-        private JsonElement AsJsonElement()
-        {
-            if (this.utf8JsonText is ReadOnlyMemory<byte> utf8JsonText)
-            {
-                using var doc = JsonDocument.Parse(utf8JsonText);
-                return doc.RootElement.Clone();
-            }
-
-            return this.JsonElement;
         }
     }
 }

@@ -5,7 +5,6 @@
 namespace Menes
 {
     using System;
-    using System.Buffers;
     using System.Collections.Immutable;
     using System.Text.Json;
     using System.Text.RegularExpressions;
@@ -75,6 +74,12 @@ namespace Menes
         /// </summary>
         /// <param name="value">The value to convert.</param>
         public static implicit operator JsonString(string value) => new JsonString(value);
+
+        /// <summary>
+        /// Create a JsonAny from the item.
+        /// </summary>
+        /// <param name="item">The value from which to create the <see cref="JsonAny"/>.</param>
+        public static implicit operator JsonAny(JsonString item) => JsonAny.From(item);
 
         /// <summary>
         /// Gets a value indicating whether an instance is convertible from
@@ -152,21 +157,6 @@ namespace Menes
         }
 
         /// <inheritdoc/>
-        public JsonAny AsJsonAny()
-        {
-            if (this.clrString is string _)
-            {
-                var abw = new ArrayBufferWriter<byte>();
-                using var utfw = new Utf8JsonWriter(abw);
-                this.WriteTo(utfw);
-                utfw.Flush();
-                return new JsonAny(abw.WrittenMemory);
-            }
-
-            return new JsonAny(this.JsonElement);
-        }
-
-        /// <inheritdoc/>
         public override string ToString()
         {
             return this.CreateOrGetClrString();
@@ -195,7 +185,7 @@ namespace Menes
                 return this.JsonElement.ValueEquals(other.clrString);
             }
 
-            return this.AsJsonAny().Equals(other.AsJsonAny());
+            return JsonAny.From(this).Equals(JsonAny.From(other));
         }
 
         /// <inheritdoc/>

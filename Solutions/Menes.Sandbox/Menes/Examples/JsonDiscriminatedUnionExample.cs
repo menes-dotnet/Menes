@@ -5,7 +5,6 @@
 namespace Menes.Examples
 {
     using System;
-    using System.Buffers;
     using System.Text;
     using System.Text.Json;
     using Menes;
@@ -175,22 +174,6 @@ namespace Menes.Examples
         }
 
         /// <inheritdoc/>
-        public JsonAny AsJsonAny()
-        {
-            if (this.firstInstance is JsonDateTime first)
-            {
-                return WriteToAny(first);
-            }
-
-            if (this.secondInstance is JsonGuid second)
-            {
-                return WriteToAny(second);
-            }
-
-            return new JsonAny(this.JsonElement);
-        }
-
-        /// <inheritdoc/>
         public ValidationContext Validate(in ValidationContext validationContext)
         {
             if (this.IsNull)
@@ -204,16 +187,6 @@ namespace Menes.Examples
             }
 
             return this.AsJsonDateTime().Validate(validationContext);
-        }
-
-        private static JsonAny WriteToAny<T>(in T value)
-            where T : IJsonValue
-        {
-            var abw = new ArrayBufferWriter<byte>();
-            using var utfw = new Utf8JsonWriter(abw);
-            value.WriteTo(utfw);
-            utfw.Flush();
-            return new JsonAny(abw.WrittenMemory);
         }
     }
 }

@@ -78,12 +78,14 @@ namespace Menes
         /// <summary>
         /// Gets an instance of <see cref="JsonProperties"/> from a set of named <see cref="IJsonValue"/>.
         /// </summary>
-        /// <typeparam name="TValue">The type of the <see cref="IJsonValue"/>.</typeparam>
+        /// <typeparam name="TValue1">The type of the first <see cref="IJsonValue"/>.</typeparam>
+        /// <typeparam name="TValue2">The type of the second <see cref="IJsonValue"/>.</typeparam>
         /// <param name="item1">The first <see cref="IJsonValue"/> instance.</param>
         /// <param name="item2">The second<see cref="IJsonValue"/> instance.</param>
         /// <returns>An instance of the <see cref="JsonProperties"/> initialized with the values.</returns>
-        public static JsonProperties FromValues<TValue>((string name, TValue value) item1, (string name, TValue value) item2)
-            where TValue : struct, IJsonValue
+        public static JsonProperties FromValues<TValue1, TValue2>((string name, TValue1 value) item1, (string name, TValue2 value) item2)
+            where TValue1 : struct, IJsonValue
+            where TValue2 : struct, IJsonValue
         {
             return new JsonProperties(ImmutableArray.Create(JsonPropertyReference.From(item1.name, item1.value), JsonPropertyReference.From(item2.name, item2.value)));
         }
@@ -91,13 +93,17 @@ namespace Menes
         /// <summary>
         /// Gets an instance of <see cref="JsonProperties"/> from a set of named <see cref="IJsonValue"/>.
         /// </summary>
-        /// <typeparam name="TValue">The type of the <see cref="IJsonValue"/>.</typeparam>
+        /// <typeparam name="TValue1">The type of the first <see cref="IJsonValue"/>.</typeparam>
+        /// <typeparam name="TValue2">The type of the second <see cref="IJsonValue"/>.</typeparam>
+        /// <typeparam name="TValue3">The type of the third <see cref="IJsonValue"/>.</typeparam>
         /// <param name="item1">The first <see cref="IJsonValue"/> instance.</param>
         /// <param name="item2">The second <see cref="IJsonValue"/> instance.</param>
         /// <param name="item3">The third <see cref="IJsonValue"/> instance.</param>
         /// <returns>An instance of the <see cref="JsonProperties"/> initialized with the values.</returns>
-        public static JsonProperties FromValues<TValue>((string name, TValue value) item1, (string name, TValue value) item2, (string name, TValue value) item3)
-            where TValue : struct, IJsonValue
+        public static JsonProperties FromValues<TValue1, TValue2, TValue3>((string name, TValue1 value) item1, (string name, TValue2 value) item2, (string name, TValue3 value) item3)
+            where TValue1 : struct, IJsonValue
+            where TValue2 : struct, IJsonValue
+            where TValue3 : struct, IJsonValue
         {
             return new JsonProperties(ImmutableArray.Create(JsonPropertyReference.From(item1.name, item1.value), JsonPropertyReference.From(item2.name, item2.value), JsonPropertyReference.From(item3.name, item3.value)));
         }
@@ -105,14 +111,20 @@ namespace Menes
         /// <summary>
         /// Gets an instance of <see cref="JsonProperties"/> from a set of named <see cref="IJsonValue"/>.
         /// </summary>
-        /// <typeparam name="TValue">The type of the <see cref="IJsonValue"/>.</typeparam>
+        /// <typeparam name="TValue1">The type of the first <see cref="IJsonValue"/>.</typeparam>
+        /// <typeparam name="TValue2">The type of the second <see cref="IJsonValue"/>.</typeparam>
+        /// <typeparam name="TValue3">The type of the third <see cref="IJsonValue"/>.</typeparam>
+        /// <typeparam name="TValue4">The type of the <see cref="IJsonValue"/>.</typeparam>
         /// <param name="item1">The first <see cref="IJsonValue"/> instance.</param>
         /// <param name="item2">The second <see cref="IJsonValue"/> instance.</param>
         /// <param name="item3">The third <see cref="IJsonValue"/> instance.</param>
         /// <param name="item4">The fourth <see cref="IJsonValue"/> instance.</param>
         /// <returns>An instance of the <see cref="JsonProperties"/> initialized with the values.</returns>
-        public static JsonProperties FromValues<TValue>((string name, TValue value) item1, (string name, TValue value) item2, (string name, TValue value) item3, (string name, TValue value) item4)
-            where TValue : struct, IJsonValue
+        public static JsonProperties FromValues<TValue1, TValue2, TValue3, TValue4>((string name, TValue1 value) item1, (string name, TValue2 value) item2, (string name, TValue3 value) item3, (string name, TValue4 value) item4)
+            where TValue1 : struct, IJsonValue
+            where TValue2 : struct, IJsonValue
+            where TValue3 : struct, IJsonValue
+            where TValue4 : struct, IJsonValue
         {
             return new JsonProperties(ImmutableArray.Create(JsonPropertyReference.From(item1.name, item1.value), JsonPropertyReference.From(item2.name, item2.value), JsonPropertyReference.From(item3.name, item3.value), JsonPropertyReference.From(item4.name, item4.value)));
         }

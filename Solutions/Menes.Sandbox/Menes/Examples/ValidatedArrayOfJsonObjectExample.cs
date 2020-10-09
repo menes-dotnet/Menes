@@ -146,22 +146,6 @@ namespace Menes.Examples
                 : Null;
 
         /// <inheritdoc/>
-        public JsonAny AsJsonAny()
-        {
-            if (this.HasJsonElement)
-            {
-                return JsonAny.FromJsonElement(this.JsonElement);
-            }
-
-            if (this.value is JsonArray<JsonObjectExample> clrArray)
-            {
-                return clrArray.AsJsonAny();
-            }
-
-            return JsonAny.Null;
-        }
-
-        /// <inheritdoc/>
         public bool Equals(ValidatedArrayOfJsonObjectExample other)
         {
             return this.Equals((JsonArray<JsonObjectExample>)other);

@@ -5,7 +5,6 @@
 namespace Menes
 {
     using System;
-    using System.Buffers;
     using System.Collections;
     using System.Collections.Generic;
     using System.Collections.Immutable;
@@ -100,6 +99,12 @@ namespace Menes
         /// </summary>
         /// <param name="items">The items from which to create a JSON array.</param>
         public static implicit operator JsonArray<TItem>(ImmutableArray<TItem> items) => JsonArray.Create(items);
+
+        /// <summary>
+        /// Create a JsonAny from the item.
+        /// </summary>
+        /// <param name="item">The value from which to create the <see cref="JsonAny"/>.</param>
+        public static implicit operator JsonAny(JsonArray<TItem> item) => JsonAny.From(item);
 
         /// <summary>
         /// Gets an enumerator for the property with the given name.
@@ -208,21 +213,6 @@ namespace Menes
             {
                 this.JsonElement.WriteTo(writer);
             }
-        }
-
-        /// <inheritdoc/>
-        public JsonAny AsJsonAny()
-        {
-            if (this.clrItems is ImmutableArray<JsonReference> _)
-            {
-                var abw = new ArrayBufferWriter<byte>();
-                using var utfw = new Utf8JsonWriter(abw);
-                this.WriteTo(utfw);
-                utfw.Flush();
-                return new JsonAny(abw.WrittenMemory);
-            }
-
-            return new JsonAny(this.JsonElement);
         }
 
         /// <summary>
@@ -339,7 +329,7 @@ namespace Menes
             while (enumerator.MoveNext())
             {
                 if (enumerator.Current is TItemType ||
-                    JsonAny.IsConvertibleFrom<TItem>(enumerator.Current.AsJsonAny().JsonElement))
+                    JsonAny.IsConvertibleFrom<TItem>(enumerator.Current.HasJsonElement ? enumerator.Current.JsonElement : JsonAny.From(enumerator.Current).JsonElement))
                 {
                     count++;
                     if (count == maxItems + 1)

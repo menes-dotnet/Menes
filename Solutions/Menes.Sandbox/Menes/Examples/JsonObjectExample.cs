@@ -5,7 +5,6 @@
 namespace Menes.Examples
 {
     using System;
-    using System.Buffers;
     using System.Collections.Immutable;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
@@ -498,21 +497,6 @@ namespace Menes.Examples
         }
 
         /// <inheritdoc/>
-        public JsonAny AsJsonAny()
-        {
-            if (this.first is JsonString _)
-            {
-                var abw = new ArrayBufferWriter<byte>();
-                using var utfw = new Utf8JsonWriter(abw);
-                this.WriteTo(utfw);
-                utfw.Flush();
-                return new JsonAny(abw.WrittenMemory);
-            }
-
-            return new JsonAny(this.JsonElement);
-        }
-
-        /// <inheritdoc/>
         public bool Equals(JsonObjectExample other)
         {
             if ((this.IsNull && !other.IsNull) || (!this.IsNull && other.IsNull))
@@ -524,7 +508,7 @@ namespace Menes.Examples
             {
                 // Much quicker just to serialize the byte arrays and sequence compare
                 // It'd be even quicker if we could access them directly!
-                return this.AsJsonAny().Equals(other.AsJsonAny());
+                return JsonAny.From(this).Equals(JsonAny.From(other));
             }
 
             return this.First.Equals(other.First) && this.Second.Equals(other.Second) && this.Children.Equals(other.Children) && this.AdditionalProperties.SequenceEqual(other.AdditionalProperties);

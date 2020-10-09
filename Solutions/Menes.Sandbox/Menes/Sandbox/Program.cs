@@ -95,9 +95,30 @@ namespace Menes.Sandbox
                     Console.WriteLine($"Path: \"{path}\" Error: \"{error}\"");
                 }
             }
+
+            //// We can build up arbitrary Json structures from the model
+            //// It's easy not to be super-efficient, but it is functional for those edge
+            //// cases where you don't have any schema but want the same programming model.
+            var idObject = new JsonObject(JsonProperties.FromValues(("id", new JsonGuid(Guid.NewGuid()))));
+
+            var greetingObject = new JsonObject(
+                                JsonProperties.FromValues(
+                                    ("greet", new JsonString("Hello!")),
+                                    ("frequency", new JsonInt32(100)),
+                                    ("child", idObject)));
+
+            var array = new JsonObject(
+                JsonProperties.FromValues(
+                    ("id", new JsonInt32(100)),
+                    ("date", new JsonDate(LocalDate.FromDateTime(DateTime.Today))),
+                    ("greeting", greetingObject)));
+
+            Console.WriteLine();
+            Serialize(array);
         }
 
-        private static ReadOnlyMemory<byte> Serialize(in JsonObjectExample example)
+        private static ReadOnlyMemory<byte> Serialize<T>(in T example)
+            where T : struct, IJsonValue
         {
             var abw = new ArrayBufferWriter<byte>();
             using var utf8JsonWriter = new Utf8JsonWriter(abw);

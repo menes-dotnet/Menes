@@ -5,7 +5,6 @@
 namespace Menes
 {
     using System;
-    using System.Buffers;
     using System.Collections.Immutable;
     using System.Text.Json;
     using System.Text.RegularExpressions;
@@ -77,6 +76,12 @@ namespace Menes
         public static implicit operator JsonByteArray(in ReadOnlyMemory<byte> value) => new JsonByteArray(value);
 
         /// <summary>
+        /// Create a JsonAny from the item.
+        /// </summary>
+        /// <param name="item">The value from which to create the <see cref="JsonAny"/>.</param>
+        public static implicit operator JsonAny(JsonByteArray item) => JsonAny.From(item);
+
+        /// <summary>
         /// Gets a value indicating whether an instance is convertible from
         /// this value type.
         /// </summary>
@@ -146,21 +151,6 @@ namespace Menes
             {
                 this.JsonElement.WriteTo(writer);
             }
-        }
-
-        /// <inheritdoc/>
-        public JsonAny AsJsonAny()
-        {
-            if (this.clrByteArray is ReadOnlyMemory<byte> byteArray)
-            {
-                var abw = new ArrayBufferWriter<byte>();
-                using var utfw = new Utf8JsonWriter(abw);
-                utfw.WriteBase64StringValue(byteArray.Span);
-                utfw.Flush();
-                return new JsonAny(abw.WrittenMemory);
-            }
-
-            return new JsonAny(this.JsonElement);
         }
 
         /// <inheritdoc/>

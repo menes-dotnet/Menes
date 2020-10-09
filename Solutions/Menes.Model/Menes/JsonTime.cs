@@ -5,7 +5,6 @@
 namespace Menes
 {
     using System;
-    using System.Buffers;
     using System.Collections.Immutable;
     using System.Text.Json;
     using System.Text.RegularExpressions;
@@ -77,6 +76,12 @@ namespace Menes
         /// </summary>
         /// <param name="value">The value to convert.</param>
         public static implicit operator JsonTime(OffsetTime value) => new JsonTime(value);
+
+        /// <summary>
+        /// Create a JsonAny from the item.
+        /// </summary>
+        /// <param name="item">The value from which to create the <see cref="JsonAny"/>.</param>
+        public static implicit operator JsonAny(JsonTime item) => JsonAny.From(item);
 
         /// <summary>
         /// Gets a value indicating whether an instance is convertible from
@@ -153,21 +158,6 @@ namespace Menes
         }
 
         /// <inheritdoc/>
-        public JsonAny AsJsonAny()
-        {
-            if (this.clrTime is OffsetTime _)
-            {
-                var abw = new ArrayBufferWriter<byte>();
-                using var utfw = new Utf8JsonWriter(abw);
-                this.WriteTo(utfw);
-                utfw.Flush();
-                return new JsonAny(abw.WrittenMemory);
-            }
-
-            return new JsonAny(this.JsonElement);
-        }
-
-        /// <inheritdoc/>
         public override string ToString()
         {
             if (this.HasJsonElement)
@@ -190,7 +180,7 @@ namespace Menes
             {
                 // Faster just to write the JsonElement directly to a memory buffer and compare the sequences
                 // - it would be even better if we could just access the underlying buffer!
-                this.AsJsonAny().Equals(other.AsJsonAny());
+                JsonAny.From(this).Equals(JsonAny.From(other));
             }
 
             return this.CreateOrGetClrTime().Equals(other.CreateOrGetClrTime());

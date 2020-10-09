@@ -5,7 +5,6 @@
 namespace Menes
 {
     using System;
-    using System.Buffers;
     using System.Collections.Immutable;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
@@ -28,62 +27,6 @@ namespace Menes
         public static readonly Func<JsonElement, JsonObject> FromJsonElement = e => new JsonObject(e);
 
         private readonly JsonProperties? additionalProperties;
-
-        /// <summary>
-        /// Creates a <see cref="JsonObject"/> wrapper around a .NET properties.
-        /// </summary>
-        /// <param name="additionalProperty1">First additional property.</param>
-        public JsonObject((string, JsonString) additionalProperty1)
-        {
-            this.JsonElement = default;
-            this.additionalProperties = JsonProperties.FromValues(additionalProperty1);
-        }
-
-        /// <summary>
-        /// Creates a <see cref="JsonObject"/> wrapper around a .NET properties.
-        /// </summary>
-        /// <param name="additionalProperty1">First additional property.</param>
-        /// <param name="additionalProperty2">Second additional property.</param>
-        public JsonObject((string, JsonString) additionalProperty1, (string, JsonString) additionalProperty2)
-        {
-            this.JsonElement = default;
-            this.additionalProperties = JsonProperties.FromValues(additionalProperty1, additionalProperty2);
-        }
-
-        /// <summary>
-        /// Creates a <see cref="JsonObject"/> wrapper around a .NET properties.
-        /// </summary>
-        /// <param name="additionalProperty1">First additional property.</param>
-        /// <param name="additionalProperty2">Second additional property.</param>
-        /// <param name="additionalProperty3">Third additional property.</param>
-        public JsonObject((string, JsonString) additionalProperty1, (string, JsonString) additionalProperty2, (string, JsonString) additionalProperty3)
-        {
-            this.JsonElement = default;
-            this.additionalProperties = JsonProperties.FromValues(additionalProperty1, additionalProperty2, additionalProperty3);
-        }
-
-        /// <summary>
-        /// Creates a <see cref="JsonObject"/> wrapper around a .NET properties.
-        /// </summary>
-        /// <param name="additionalProperty1">First additional property.</param>
-        /// <param name="additionalProperty2">Second additional property.</param>
-        /// <param name="additionalProperty3">Third additional property.</param>
-        /// <param name="additionalProperty4">Fourth additional property.</param>
-        public JsonObject((string, JsonString) additionalProperty1, (string, JsonString) additionalProperty2, (string, JsonString) additionalProperty3, (string, JsonString) additionalProperty4)
-        {
-            this.JsonElement = default;
-            this.additionalProperties = JsonProperties.FromValues(additionalProperty1, additionalProperty2, additionalProperty3, additionalProperty4);
-        }
-
-        /// <summary>
-        /// Creates a <see cref="JsonObject"/> wrapper around a .NET properties.
-        /// </summary>
-        /// <param name="additionalProperties">Additional properties.</param>
-        public JsonObject(params (string, JsonString)[] additionalProperties)
-        {
-            this.JsonElement = default;
-            this.additionalProperties = JsonProperties.FromValues(additionalProperties);
-        }
 
         /// <summary>
         /// Creates a <see cref="JsonObject"/> wrapper around a .NET properties.
@@ -175,6 +118,12 @@ namespace Menes
         }
 
         /// <summary>
+        /// Create a JsonAny from the item.
+        /// </summary>
+        /// <param name="item">The value from which to create the <see cref="JsonAny"/>.</param>
+        public static implicit operator JsonAny(JsonObject item) => JsonAny.From(item);
+
+        /// <summary>
         /// Gets a value indicating whether an instance is convertible from
         /// this value type.
         /// </summary>
@@ -229,7 +178,7 @@ namespace Menes
         /// </summary>
         /// <param name="newAdditional">The new value for the additionalProperties.</param>
         /// <returns>A new instance of the <see cref="JsonObject"/> with the second property set.</returns>
-        public JsonObject WithAdditionalProperties(params (string, JsonString)[] newAdditional)
+        public JsonObject WithAdditionalProperties(params (string, JsonAny)[] newAdditional)
         {
             return new JsonObject(JsonProperties.FromValues(newAdditional));
         }
@@ -260,23 +209,6 @@ namespace Menes
         }
 
         /// <inheritdoc/>
-        public JsonAny AsJsonAny()
-        {
-            if (this.HasJsonElement)
-            {
-                return new JsonAny(this.JsonElement);
-            }
-            else
-            {
-                var abw = new ArrayBufferWriter<byte>();
-                using var utfw = new Utf8JsonWriter(abw);
-                this.WriteTo(utfw);
-                utfw.Flush();
-                return new JsonAny(abw.WrittenMemory);
-            }
-        }
-
-        /// <inheritdoc/>
         public bool Equals(JsonObject other)
         {
             if ((this.IsNull && !other.IsNull) || (!this.IsNull && other.IsNull))
@@ -288,7 +220,7 @@ namespace Menes
             {
                 // Much quicker just to serialize the byte arrays and sequence compare
                 // It'd be even quicker if we could access them directly!
-                return this.AsJsonAny().Equals(other.AsJsonAny());
+                return JsonAny.From(this).Equals(JsonAny.From(other));
             }
 
             return this.AdditionalProperties.SequenceEqual(other.AdditionalProperties);
@@ -301,29 +233,29 @@ namespace Menes
         }
 
         /// <summary>
-        /// Gets an additional property as a <see cref="JsonString"/>.
+        /// Gets an additional property as a <see cref="JsonAny"/>.
         /// </summary>
         /// <param name="propertyName">The property name.</param>
-        /// <param name="value">The property value as a <see cref="JsonString"/>.</param>
+        /// <param name="value">The property value as a <see cref="JsonAny"/>.</param>
         /// <returns><c>True</c> if the property was successfully retrieved.</returns>
-        public bool TryGetAdditionalProperty(string propertyName, [NotNullWhen(true)] out JsonString? value)
+        public bool TryGetAdditionalProperty(string propertyName, [NotNullWhen(true)] out JsonAny? value)
         {
             return this.TryGetAdditionalProperty(propertyName.AsSpan(), out value);
         }
 
         /// <summary>
-        /// Gets an additional property as a <see cref="JsonString"/>.
+        /// Gets an additional property as a <see cref="JsonAny"/>.
         /// </summary>
         /// <param name="utf8PropertyName">The property name.</param>
-        /// <param name="value">The property value as a <see cref="JsonString"/>.</param>
+        /// <param name="value">The property value as a <see cref="JsonAny"/>.</param>
         /// <returns><c>True</c> if the property was successfully retrieved.</returns>
-        public bool TryGetAdditionalProperty(ReadOnlySpan<byte> utf8PropertyName, [NotNullWhen(true)] out JsonString? value)
+        public bool TryGetAdditionalProperty(ReadOnlySpan<byte> utf8PropertyName, [NotNullWhen(true)] out JsonAny? value)
         {
             foreach (JsonPropertyReference property in this.AdditionalProperties)
             {
                 if (property.NameEquals(utf8PropertyName))
                 {
-                    value = property.AsValue<JsonString>();
+                    value = property.AsValue<JsonAny>();
                     return true;
                 }
             }
@@ -333,12 +265,12 @@ namespace Menes
         }
 
         /// <summary>
-        /// Gets an additional property as a <see cref="JsonString"/>.
+        /// Gets an additional property as a <see cref="JsonAny"/>.
         /// </summary>
         /// <param name="propertyName">The property name.</param>
-        /// <param name="value">The property value as a <see cref="JsonString"/>.</param>
+        /// <param name="value">The property value as a <see cref="JsonAny"/>.</param>
         /// <returns><c>True</c> if the property was successfully retrieved.</returns>
-        public bool TryGetAdditionalProperty(ReadOnlySpan<char> propertyName, [NotNullWhen(true)] out JsonString? value)
+        public bool TryGetAdditionalProperty(ReadOnlySpan<char> propertyName, [NotNullWhen(true)] out JsonAny? value)
         {
             Span<byte> bytes = stackalloc byte[propertyName.Length * 4];
             int written = Encoding.UTF8.GetBytes(propertyName, bytes);

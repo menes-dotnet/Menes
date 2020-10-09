@@ -31,12 +31,6 @@ namespace Menes
         JsonElement JsonElement { get; }
 
         /// <summary>
-        /// Gets the value as a <see cref="JsonAny"/>.
-        /// </summary>
-        /// <returns>The element as a JsonAny.</returns>
-        JsonAny AsJsonAny();
-
-        /// <summary>
         /// Writes the value to a <see cref="Utf8JsonWriter"/>.
         /// </summary>
         /// <param name="writer">The output to which to write the Any.</param>

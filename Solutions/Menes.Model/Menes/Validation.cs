@@ -174,7 +174,7 @@ namespace Menes
             where TItem : struct, IJsonValue
             where TNot : struct, IJsonValue
         {
-            TNot notValue = value.AsJsonAny().As<TNot>();
+            TNot notValue = JsonAny.From(value).As<TNot>();
 
             if (notValue.Validate(ValidationContext.Root).IsValid)
             {
