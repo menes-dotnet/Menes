@@ -12,90 +12,93 @@ namespace Menes.TypeGenerator
     /// </summary>
     public class OptionalTypeDeclaration : ITypeDeclaration
     {
-        private readonly ITypeDeclaration typeDeclaration;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="OptionalTypeDeclaration"/> class.
         /// </summary>
         /// <param name="typeDeclaration">The type declaration to optionalize.</param>
         internal OptionalTypeDeclaration(ITypeDeclaration typeDeclaration)
         {
-            this.typeDeclaration = typeDeclaration;
+            this.TypeDeclaration = typeDeclaration;
         }
 
         /// <inheritdoc/>
-        public IReadOnlyCollection<PropertyDeclaration> Properties => this.typeDeclaration.Properties;
+        public IReadOnlyCollection<PropertyDeclaration> Properties => this.TypeDeclaration.Properties;
 
         /// <inheritdoc/>
-        public IReadOnlyCollection<MethodDeclaration> Methods => this.typeDeclaration.Methods;
+        public IReadOnlyCollection<MethodDeclaration> Methods => this.TypeDeclaration.Methods;
 
         /// <inheritdoc/>
-        public IReadOnlyCollection<ITypeDeclaration> TypeDeclarations => this.typeDeclaration.TypeDeclarations;
+        public IReadOnlyCollection<ITypeDeclaration> TypeDeclarations => this.TypeDeclaration.TypeDeclarations;
 
         /// <inheritdoc/>
-        public string Name => this.typeDeclaration.Name;
+        public string Name => this.TypeDeclaration.Name;
 
         /// <inheritdoc/>
-        public IDeclaration? Parent => this.typeDeclaration.Parent;
+        public IDeclaration? Parent => this.TypeDeclaration.Parent;
 
         /// <inheritdoc/>
-        public bool ShouldGenerate => this.typeDeclaration.ShouldGenerate;
+        public bool ShouldGenerate => this.TypeDeclaration.ShouldGenerate;
 
         /// <inheritdoc/>
-        public bool IsCompoundType => this.typeDeclaration.IsCompoundType;
+        public bool IsCompoundType => this.TypeDeclaration.IsCompoundType;
+
+        /// <summary>
+        /// Gets the type declaration for which this is optional.
+        /// </summary>
+        public ITypeDeclaration TypeDeclaration { get; }
 
         /// <inheritdoc/>
         public void AddMethodDeclaration(MethodDeclaration methodDeclaration)
         {
-            this.typeDeclaration.AddMethodDeclaration(methodDeclaration);
+            this.TypeDeclaration.AddMethodDeclaration(methodDeclaration);
         }
 
         /// <inheritdoc/>
         public void AddPropertyDeclaration(PropertyDeclaration propertyDeclaration)
         {
-            this.typeDeclaration.AddPropertyDeclaration(propertyDeclaration);
+            this.TypeDeclaration.AddPropertyDeclaration(propertyDeclaration);
         }
 
         /// <inheritdoc/>
         public void AddTypeDeclaration(ITypeDeclaration typeDeclaration)
         {
-            this.typeDeclaration.AddTypeDeclaration(typeDeclaration);
+            this.TypeDeclaration.AddTypeDeclaration(typeDeclaration);
         }
 
         /// <inheritdoc/>
         public bool ContainsMethod(string name)
         {
-            return this.typeDeclaration.ContainsMethod(name);
+            return this.TypeDeclaration.ContainsMethod(name);
         }
 
         /// <inheritdoc/>
         public bool ContainsProperty(string name)
         {
-            return this.typeDeclaration.ContainsProperty(name);
+            return this.TypeDeclaration.ContainsProperty(name);
         }
 
         /// <inheritdoc/>
         public bool ContainsTypeDeclaration(string name)
         {
-            return this.typeDeclaration.ContainsTypeDeclaration(name);
+            return this.TypeDeclaration.ContainsTypeDeclaration(name);
         }
 
         /// <inheritdoc/>
         public TypeDeclarationSyntax GenerateType()
         {
-            return this.typeDeclaration.GenerateType();
+            return this.TypeDeclaration.GenerateType();
         }
 
         /// <inheritdoc/>
         public IDeclaration GetTypeDeclaration(string name)
         {
-            return this.typeDeclaration.GetTypeDeclaration(name);
+            return this.TypeDeclaration.GetTypeDeclaration(name);
         }
 
         /// <inheritdoc/>
         public bool IsSpecializedBy(ITypeDeclaration type)
         {
-            return this.typeDeclaration.IsSpecializedBy(type);
+            return this.TypeDeclaration.IsSpecializedBy(type);
         }
     }
 }
