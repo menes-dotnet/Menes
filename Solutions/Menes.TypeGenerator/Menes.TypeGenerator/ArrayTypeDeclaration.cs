@@ -9,7 +9,7 @@ namespace Menes.TypeGenerator
     using Microsoft.CodeAnalysis.CSharp.Syntax;
 
     /// <summary>
-    /// Represents <c>any</c> type.
+    /// Represents a simple <c>array</c> type.
     /// </summary>
     public class ArrayTypeDeclaration : ITypeDeclaration
     {
@@ -35,7 +35,7 @@ namespace Menes.TypeGenerator
         public string Name => $"Menes.JsonArray<{this.ItemType.GetFullyQualifiedName()}>";
 
         /// <inheritdoc/>
-        public IDeclaration? Parent => null;
+        public IDeclaration? Parent { get; set; }
 
         /// <inheritdoc/>
         public bool ShouldGenerate => false;

@@ -19,10 +19,9 @@ namespace Menes.TypeGenerator
         /// <summary>
         /// Initializes a new instance of the <see cref="UnionTypeDeclaration"/> class.
         /// </summary>
-        /// <param name="parent">The parent declaration.</param>
         /// <param name="name">The name of this type.</param>
-        public UnionTypeDeclaration(IDeclaration parent, string name)
-            : base(parent, name)
+        public UnionTypeDeclaration(string name)
+            : base(name)
         {
         }
 

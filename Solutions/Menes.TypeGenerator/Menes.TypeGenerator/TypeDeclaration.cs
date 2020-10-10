@@ -36,14 +36,12 @@ namespace Menes.TypeGenerator
         /// <summary>
         /// Initializes a new instance of the <see cref="TypeDeclaration"/> class.
         /// </summary>
-        /// <param name="parent">The parent <see cref="IDeclaration"/>.</param>
         /// <param name="name">The name of the type.</param>
-        protected TypeDeclaration(IDeclaration parent, string name)
+        protected TypeDeclaration(string name)
         {
             this.typeDeclarations = new Dictionary<string, ITypeDeclaration>();
             this.propertyDeclarations = new Dictionary<string, PropertyDeclaration>();
             this.methodDeclarations = new Dictionary<string, MethodDeclaration>();
-            this.Parent = parent;
             this.Name = name;
         }
 
@@ -54,7 +52,7 @@ namespace Menes.TypeGenerator
         public string Name { get; }
 
         /// <inheritdoc/>
-        public IDeclaration Parent { get; }
+        public IDeclaration? Parent { get; set; }
 
         /// <inheritdoc/>
         public IReadOnlyCollection<PropertyDeclaration> Properties => this.propertyDeclarations.Values.ToList().AsReadOnly();
@@ -105,10 +103,12 @@ namespace Menes.TypeGenerator
         /// <inheritdoc/>
         public virtual void AddTypeDeclaration(ITypeDeclaration typeDeclaration)
         {
-            if (typeDeclaration.Parent != this)
+            if (typeDeclaration.Parent != this && typeDeclaration.Parent != null)
             {
                 throw new InvalidOperationException("Incorrect parent for typeDeclaration.");
             }
+
+            typeDeclaration.Parent = this;
 
             if (this.ContainsTypeDeclaration(typeDeclaration.Name))
             {

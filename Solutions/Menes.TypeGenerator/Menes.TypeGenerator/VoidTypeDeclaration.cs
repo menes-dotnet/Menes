@@ -35,7 +35,7 @@ namespace Menes.TypeGenerator
         public string Name => "void";
 
         /// <inheritdoc/>
-        public IDeclaration? Parent => null;
+        public IDeclaration? Parent { get; set; }
 
         /// <inheritdoc/>
         public bool ShouldGenerate => false;

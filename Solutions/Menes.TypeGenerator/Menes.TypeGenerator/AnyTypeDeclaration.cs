@@ -26,7 +26,7 @@ namespace Menes.TypeGenerator
         public string Name => typeof(JsonAny).FullName;
 
         /// <inheritdoc/>
-        public IDeclaration? Parent => null;
+        public IDeclaration? Parent { get; set; }
 
         /// <inheritdoc/>
         public bool ShouldGenerate => false;

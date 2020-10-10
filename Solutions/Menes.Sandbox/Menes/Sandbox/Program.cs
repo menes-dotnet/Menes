@@ -9,7 +9,7 @@ namespace Menes.Sandbox
     using System.Linq;
     using System.Text;
     using System.Text.Json;
-    using Menes.Examples;
+    using Examples;
     using Menes.TypeGenerator;
     using Microsoft.CodeAnalysis;
     using Microsoft.CodeAnalysis.CSharp.Formatting;
@@ -28,17 +28,17 @@ namespace Menes.Sandbox
         /// </summary>
         public static void Main()
         {
-            var example = new JsonObjectExample2(
+            var example = new JsonObjectExample(
                 first: "Hello",
                 second: 42,
                 third: Duration.FromHours(3),
-                children: JsonArray.Create(new JsonObjectExample2("Sibling A", 1), new JsonObjectExample2("Sibling B", 2)),
+                children: JsonArray.Create(new JsonObjectExample("Sibling A", 1), new JsonObjectExample("Sibling B", 2)),
                 //// You could also initialize this with array syntax as below. They both implicitly convert to JsonArray<TItem>.
                 //// However, they also allocate additional arrays; up to 4 items is optimized for ImmutableArray creation, so we
                 //// take advantage of that with our JsonArray.Create() overloads.
                 ////
-                //// children: new [] { new JsonObjectExample2("Sibling A", 1), new JsonObjectExample2("Sibling B", 2) },
-                //// children: ImmutableArray.Create( new JsonObjectExample2("Sibling A", 1), new JsonObjectExample2("Sibling B", 2) ),
+                //// children: new [] { new JsonObjectExample("Sibling A", 1), new JsonObjectExample("Sibling B", 2) },
+                //// children: ImmutableArray.Create( new JsonObjectExample("Sibling A", 1), new JsonObjectExample("Sibling B", 2) ),
                 ////
                 //// Similarly, the additionalProperties we add have
                 //// overloads to optimize the 1-4 values case.
@@ -51,11 +51,11 @@ namespace Menes.Sandbox
             ReadOnlyMemory<byte> serialized = Serialize(example);
 
             using var doc = JsonDocument.Parse(serialized);
-            var roundtrip = new JsonObjectExample2(doc.RootElement);
+            var roundtrip = new JsonObjectExample(doc.RootElement);
 
-            //// At this point "roundtrip" is a JsonObjectExample2 backed by a single JsonElement.
+            //// At this point "roundtrip" is a JsonObjectExample backed by a single JsonElement.
 
-            var anotherExample = new JsonObjectExample2(
+            var anotherExample = new JsonObjectExample(
                 first: "Goodbye",
                 second: example.Second,
                 third: Duration.FromHours(3),
@@ -70,7 +70,7 @@ namespace Menes.Sandbox
 
             Console.WriteLine();
 
-            JsonObjectExample2 anotherOne = roundtrip.WithFirst("Not the first now");
+            JsonObjectExample anotherOne = roundtrip.WithFirst("Not the first now");
 
             //// anotherOne has replaced a single value (the "First" property) with a string value.
             //// All the remaining values have become stack-allocated wrappers around the original JsonElements
@@ -122,15 +122,62 @@ namespace Menes.Sandbox
             Console.WriteLine();
             Serialize(array);
 
-            var exampleObjectType = new ObjectTypeDeclaration(new NamespaceDeclaration("Menes.Examples"), "JsonObjectExample2", JsonValueTypeDeclaration.String);
+            var workspace = new AdhocWorkspace();
+            SetWorkspaceOptions(workspace);
+
+            const string jsonObjectExampleName = "JsonObjectExample";
+
+            var arrayType = new ValidatedArrayTypeDeclaration()
+            {
+                MinItemsValidation = 10,
+            };
+
+            var exampleNamespace = new NamespaceDeclaration("Examples");
+
+            var exampleObjectType = new ObjectTypeDeclaration(jsonObjectExampleName, JsonValueTypeDeclaration.String)
+            {
+                Parent = exampleNamespace,
+            };
 
             exampleObjectType.AddPropertyDeclaration(new PropertyDeclaration(exampleObjectType, "first", JsonValueTypeDeclaration.String));
             exampleObjectType.AddPropertyDeclaration(new PropertyDeclaration(exampleObjectType, "second", JsonValueTypeDeclaration.Int32));
             exampleObjectType.AddPropertyDeclaration(new PropertyDeclaration(exampleObjectType, "third", JsonValueTypeDeclaration.Duration.AsOptional()));
-            exampleObjectType.AddOptionalArrayProperty("children", exampleObjectType);
+            exampleObjectType.AddOptionalPropertyDeclaration("children", arrayType);
+            exampleObjectType.AddTypeDeclaration(arrayType);
+
+            // We couldn't set the item type for the array until we had constructed the example object type, as they recurse. We support that now!
+            arrayType.ItemType = exampleObjectType;
 
             TypeDeclarationSyntax tds = exampleObjectType.GenerateType();
-            var workspace = new AdhocWorkspace();
+
+            SyntaxNode formattedNode = Formatter.Format(tds, workspace);
+            Console.WriteLine();
+            Console.WriteLine(formattedNode.ToFullString());
+
+            TryCreatingAMethod(exampleObjectType, workspace);
+        }
+
+        private static void TryCreatingAMethod(ObjectTypeDeclaration exampleObjectType, AdhocWorkspace workspace)
+        {
+            var methodBody = new StringBuilder();
+            methodBody.AppendLine("System.Console.WriteLine(\"Hello\");");
+            methodBody.AppendLine("if (global)");
+            methodBody.AppendLine("{");
+            methodBody.AppendLine("System.Console.WriteLine(\"world.\");");
+            methodBody.AppendLine("}");
+            methodBody.AppendLine("else");
+            methodBody.AppendLine("{");
+            methodBody.AppendLine("System.Console.WriteLine(\"Cambridge.\");");
+            methodBody.AppendLine("}");
+
+            var exampleMethod = new MethodDeclaration(exampleObjectType, "TestMethod", methodBody.ToString(), VoidTypeDeclaration.Instance, new ParameterDeclaration("global", "bool"));
+            SyntaxNode formattedMethod = Formatter.Format(exampleMethod.GenerateMethod(), workspace);
+            Console.WriteLine();
+            Console.WriteLine(formattedMethod.ToFullString());
+        }
+
+        private static void SetWorkspaceOptions(AdhocWorkspace workspace)
+        {
             OptionSet options = workspace.Options;
             options = options.WithChangedOption(CSharpFormattingOptions.IndentBlock, true);
             options = options.WithChangedOption(CSharpFormattingOptions.IndentBraces, false);
@@ -180,26 +227,6 @@ namespace Menes.Sandbox
             options = options.WithChangedOption(CSharpFormattingOptions.WrappingKeepStatementsOnSingleLine, true);
             options = options.WithChangedOption(CSharpFormattingOptions.WrappingPreserveSingleLine, false);
             workspace.TryApplyChanges(workspace.CurrentSolution.WithOptions(options));
-
-            SyntaxNode formattedNode = Formatter.Format(tds, workspace);
-            Console.WriteLine();
-            Console.WriteLine(formattedNode.ToFullString());
-
-            var methodBody = new StringBuilder();
-            methodBody.AppendLine("System.Console.WriteLine(\"Hello\");");
-            methodBody.AppendLine("if (global)");
-            methodBody.AppendLine("{");
-            methodBody.AppendLine("System.Console.WriteLine(\"world.\");");
-            methodBody.AppendLine("}");
-            methodBody.AppendLine("else");
-            methodBody.AppendLine("{");
-            methodBody.AppendLine("System.Console.WriteLine(\"Cambridge.\");");
-            methodBody.AppendLine("}");
-
-            var exampleMethod = new MethodDeclaration(exampleObjectType, "TestMethod", methodBody.ToString(), VoidTypeDeclaration.Instance, new ParameterDeclaration("global", "bool"));
-            SyntaxNode formattedMethod = Formatter.Format(exampleMethod.GenerateMethod(), workspace);
-            Console.WriteLine();
-            Console.WriteLine(formattedMethod.ToFullString());
         }
 
         private static ReadOnlyMemory<byte> Serialize<T>(in T example)
@@ -215,7 +242,7 @@ namespace Menes.Sandbox
             return abw.WrittenMemory;
         }
 
-        private static void WriteExample(in JsonObjectExample2 example, int tabs = 0)
+        private static void WriteExample(in JsonObjectExample example, int tabs = 0)
         {
             string tabString = tabs > 0 ? string.Concat(Enumerable.Repeat("\t", tabs)) : string.Empty;
 
@@ -223,11 +250,11 @@ namespace Menes.Sandbox
             Console.WriteLine($"{tabString}\tSecond: {example.Second}");
             Console.WriteLine($"{tabString}\tThird: {example.Third?.ToString() ?? "null"}");
 
-            if (example.Children is JsonArray<JsonObjectExample2> children)
+            if (example.Children is JsonObjectExample.ValidatedArrayOfJsonObjectExample children)
             {
                 Console.WriteLine($"{tabString}\tChildren:");
 
-                foreach (JsonObjectExample2 child in children)
+                foreach (JsonObjectExample child in children)
                 {
                     WriteExample(child, tabs + 2);
                 }

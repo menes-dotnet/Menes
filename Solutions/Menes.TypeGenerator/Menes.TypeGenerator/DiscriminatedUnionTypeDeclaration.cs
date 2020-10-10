@@ -15,18 +15,16 @@ namespace Menes.TypeGenerator
     public class DiscriminatedUnionTypeDeclaration : TypeDeclaration
     {
         private readonly Dictionary<string, (ITypeDeclaration, string)> typesInUnion = new Dictionary<string, (ITypeDeclaration, string)>();
-        private readonly string discriminatorPropertyName;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DiscriminatedUnionTypeDeclaration"/> class.
         /// </summary>
-        /// <param name="parent">The parent declaration.</param>
         /// <param name="name">The name of this type.</param>
         /// <param name="discriminatorPropertyName">The name of the common property that discriminates between the types.</param>
-        public DiscriminatedUnionTypeDeclaration(IDeclaration parent, string name, string discriminatorPropertyName)
-            : base(parent, name)
+        public DiscriminatedUnionTypeDeclaration(string name, string discriminatorPropertyName)
+            : base(name)
         {
-            this.discriminatorPropertyName = discriminatorPropertyName;
+            this.DiscriminatorPropertyName = discriminatorPropertyName;
         }
 
         /// <inheritdoc/>
@@ -34,6 +32,11 @@ namespace Menes.TypeGenerator
         /// The discriminated union type is a compound type if and only if any of its children is a compound type, Union type or Discriminated Union type.
         /// </remarks>
         public override bool IsCompoundType => this.typesInUnion.Any(t => t.Value.Item1 is UnionTypeDeclaration || t.Value.Item1 is DiscriminatedUnionTypeDeclaration || t.Value.Item1.IsCompoundType);
+
+        /// <summary>
+        /// Gets the discriminator property name.
+        /// </summary>
+        public string DiscriminatorPropertyName { get; }
 
         /// <summary>
         /// Adds the given type to the union.

@@ -314,7 +314,7 @@ namespace Menes
         /// This gives you the ability to validate uniqueness, min, and/or max, and the validity of the items contained within the array, in a single interation of the array.
         /// </remnarks>
         public ValidationContext ValidateRangeContains<TItemType>(in ValidationContext validationContext, int minItems, int maxItems, bool requireUnique, bool validateItems)
-        where TItemType : struct, IJsonValue
+            where TItemType : struct, IJsonValue
         {
             if (minItems > maxItems)
             {
@@ -413,6 +413,8 @@ namespace Menes
                 return validationContext.WithError("6.1.1. type: the element is not convertible from the given type");
             }
 
+            // Note that this doesn't validate the items. You call ValidateItems() explicitly if you want
+            // them to be validated. This allows you to avoid iterating the array more than once.
             return validationContext;
         }
 

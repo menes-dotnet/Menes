@@ -2,10 +2,9 @@
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
-namespace Menes.Examples
+namespace Examples
 {
     using System;
-    using System.Buffers;
     using System.Text.Json;
     using Menes;
 

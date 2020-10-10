@@ -15,7 +15,7 @@ namespace Menes.TypeGenerator
         /// <param name="typeDeclaration">The type declaration to which to add the property.</param>
         /// <param name="propertyName">The property name.</param>
         /// <param name="itemType">The type of the items in the array.</param>
-        public static void AddArrayProperty(this ITypeDeclaration typeDeclaration, string propertyName, ITypeDeclaration itemType)
+        public static void AddArrayPropertyDeclaration(this ITypeDeclaration typeDeclaration, string propertyName, ITypeDeclaration itemType)
         {
             typeDeclaration.AddPropertyDeclaration(new PropertyDeclaration(typeDeclaration, propertyName, new ArrayTypeDeclaration(itemType)));
         }
@@ -26,9 +26,20 @@ namespace Menes.TypeGenerator
         /// <param name="typeDeclaration">The type declaration to which to add the property.</param>
         /// <param name="propertyName">The property name.</param>
         /// <param name="itemType">The type of the items in the array.</param>
-        public static void AddOptionalArrayProperty(this ITypeDeclaration typeDeclaration, string propertyName, ITypeDeclaration itemType)
+        public static void AddOptionalArrayPropertyDeclaration(this ITypeDeclaration typeDeclaration, string propertyName, ITypeDeclaration itemType)
         {
             typeDeclaration.AddPropertyDeclaration(new PropertyDeclaration(typeDeclaration, propertyName, new ArrayTypeDeclaration(itemType).AsOptional()));
+        }
+
+        /// <summary>
+        /// Adds an array property for the given item type.
+        /// </summary>
+        /// <param name="typeDeclaration">The type declaration to which to add the property.</param>
+        /// <param name="propertyName">The property name.</param>
+        /// <param name="propertyType">The type of the property.</param>
+        public static void AddOptionalPropertyDeclaration(this ITypeDeclaration typeDeclaration, string propertyName, ITypeDeclaration propertyType)
+        {
+            typeDeclaration.AddPropertyDeclaration(new PropertyDeclaration(typeDeclaration, propertyName, propertyType.AsOptional()));
         }
     }
 }

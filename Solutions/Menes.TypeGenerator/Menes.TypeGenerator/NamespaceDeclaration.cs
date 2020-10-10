@@ -37,7 +37,7 @@ namespace Menes.TypeGenerator
         public string Name { get; }
 
         /// <inheritdoc/>
-        public IDeclaration? Parent => null;
+        public IDeclaration? Parent { get; set; }
 
         /// <summary>
         /// Adds a child declaration to this scope.
@@ -45,10 +45,12 @@ namespace Menes.TypeGenerator
         /// <param name="declaration">The declaration to add.</param>
         public void AddDeclaration(IDeclaration declaration)
         {
-            if (declaration.Parent != this)
+            if (declaration.Parent != this && declaration.Parent != null)
             {
                 throw new InvalidOperationException($"Incorrect parent for {nameof(declaration)}.");
             }
+
+            declaration.Parent = this;
 
             if (this.ContainsDeclaration(declaration.Name))
             {

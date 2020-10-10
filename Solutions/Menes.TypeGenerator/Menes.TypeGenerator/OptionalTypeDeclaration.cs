@@ -34,7 +34,11 @@ namespace Menes.TypeGenerator
         public string Name => this.TypeDeclaration.Name;
 
         /// <inheritdoc/>
-        public IDeclaration? Parent => this.TypeDeclaration.Parent;
+        public IDeclaration? Parent
+        {
+            get => this.TypeDeclaration.Parent;
+            set => this.TypeDeclaration.Parent = value;
+        }
 
         /// <inheritdoc/>
         public bool ShouldGenerate => this.TypeDeclaration.ShouldGenerate;

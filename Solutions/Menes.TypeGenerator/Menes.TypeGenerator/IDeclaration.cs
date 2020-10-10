@@ -20,8 +20,8 @@ namespace Menes.TypeGenerator
         string Name { get; }
 
         /// <summary>
-        /// Gets the parent declaration.
+        /// Gets or sets the parent declaration.
         /// </summary>
-        IDeclaration? Parent { get; }
+        IDeclaration? Parent { get; set; }
     }
 }

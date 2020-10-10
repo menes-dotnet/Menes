@@ -21,11 +21,10 @@ namespace Menes.TypeGenerator
         /// <summary>
         /// Initializes a new instance of the <see cref="ObjectTypeDeclaration"/> class.
         /// </summary>
-        /// <param name="parent">The parent scope.</param>
         /// <param name="name">The name of the type.</param>
         /// <param name="additionalPropertiesType">The type of any additional properties.</param>
-        public ObjectTypeDeclaration(IDeclaration parent, string name, ITypeDeclaration? additionalPropertiesType = null)
-            : base(parent, name)
+        public ObjectTypeDeclaration(string name, ITypeDeclaration? additionalPropertiesType = null)
+            : base(name)
         {
             this.AdditionalPropertiesType = additionalPropertiesType;
         }
@@ -36,11 +35,6 @@ namespace Menes.TypeGenerator
         public ITypeDeclaration? AdditionalPropertiesType { get; }
 
         /// <summary>
-        /// Gets or sets the type of the not validation.
-        /// </summary>
-        public ITypeDeclaration? NotTypeValidation { get; set; }
-
-        /// <summary>
         /// Gets or sets the max properties validation.
         /// </summary>
         public int? MaxPropertiesValidation { get; set; }
@@ -49,6 +43,11 @@ namespace Menes.TypeGenerator
         /// Gets or sets the min properties validation.
         /// </summary>
         public int? MinPropertiesValidation { get; set; }
+
+        /// <summary>
+        /// Gets or sets the type of the not validation.
+        /// </summary>
+        public ITypeDeclaration? NotTypeValidation { get; set; }
 
         /// <summary>
         /// Gets or sets the JSON array of objects for the enum validation.
@@ -150,7 +149,7 @@ namespace Menes.TypeGenerator
         {
             if (this.ConstValidation is string)
             {
-                members.Add(SF.ParseMemberDeclaration("private static readonly Menes.JsonReference? constantValue = BuildConstantValue();" + Environment.NewLine));
+                members.Add(SF.ParseMemberDeclaration("private static readonly Menes.JsonReference? ConstValue = BuildConstantValue();" + Environment.NewLine));
             }
         }
 
@@ -173,7 +172,7 @@ namespace Menes.TypeGenerator
         {
             if (this.ConstValidation is string)
             {
-                members.Add(SF.ParseMemberDeclaration("private static readonly Menes.JsonReference? enumValues = BuildEnumValues();" + Environment.NewLine));
+                members.Add(SF.ParseMemberDeclaration("private static readonly Menes.JsonReference? EnumValues = BuildEnumValues();" + Environment.NewLine));
             }
         }
 
@@ -270,15 +269,15 @@ namespace Menes.TypeGenerator
                 }
                 else
                 {
-                    builder.AppendLine($"    context = Validation.ValidateRequiredProperty(context, this.{propertyName}, {propertyName}PropertyNamePath);");
+                    builder.AppendLine($"    context = Menes.Validation.ValidateRequiredProperty(context, this.{propertyName}, {propertyName}PropertyNamePath);");
                 }
             }
 
             if (this.AdditionalPropertiesType is ITypeDeclaration additionalProperties)
             {
-                builder.AppendLine("foreach (JsonPropertyReference property in this.AdditionalProperties)");
+                builder.AppendLine("foreach (Menes.JsonPropertyReference property in this.AdditionalProperties)");
                 builder.AppendLine("{");
-                builder.AppendLine($"    context = Validation.ValidateProperty(context, property.AsValue<{additionalProperties.GetFullyQualifiedName()}>(), \".\" + property.Name);");
+                builder.AppendLine($"    context = Menes.Validation.ValidateProperty(context, property.AsValue<{additionalProperties.GetFullyQualifiedName()}>(), \".\" + property.Name);");
                 builder.AppendLine("}");
             }
 
@@ -294,12 +293,12 @@ namespace Menes.TypeGenerator
 
             if (this.ConstValidation is string)
             {
-                builder.AppendLine($"Menes.Validation.ValidateConst(context, this, this.constValue.AsValue<{this.GetFullyQualifiedName()}>());");
+                builder.AppendLine($"Menes.Validation.ValidateConst(context, this, this.ConstValue.AsValue<{this.GetFullyQualifiedName()}>());");
             }
 
             if (this.EnumValidation is string)
             {
-                builder.AppendLine($"Menes.Validation.ValidateEnum(context, this, this.constValue.AsValue<Menes.JsonArray<{this.GetFullyQualifiedName()}>>());");
+                builder.AppendLine($"Menes.Validation.ValidateEnum(context, this, this.EnumValues.AsValue<Menes.JsonArray<{this.GetFullyQualifiedName()}>>());");
             }
 
             builder.AppendLine("    return context;");
@@ -370,7 +369,7 @@ namespace Menes.TypeGenerator
             {
                 string fieldName = NameFormatter.ToCamelCase(property.JsonPropertyName);
 
-                string typename = property.Type.IsCompoundType ? "JsonReference" : property.Type.GetFullyQualifiedName();
+                string typename = property.Type.IsCompoundType ? "Menes.JsonReference" : property.Type.GetFullyQualifiedName();
 
                 builder.AppendLine($"if (this.{fieldName} is {typename} {fieldName})");
                 builder.AppendLine("{");
@@ -471,14 +470,14 @@ namespace Menes.TypeGenerator
         {
             if (this.AdditionalPropertiesType is ITypeDeclaration)
             {
-                members.Add(SF.ParseMemberDeclaration("public int PropertiesCount => KnownProperties.Length + this.AdditionalPropertiesCount;"));
+                members.Add(SF.ParseMemberDeclaration("public int PropertiesCount => KnownProperties.Length + this.AdditionalPropertiesCount;" + Environment.NewLine));
 
                 string declaration =
                     "public int AdditionalPropertiesCount" + Environment.NewLine +
                     "{" + Environment.NewLine +
                     "    get" + Environment.NewLine +
                     "    {" + Environment.NewLine +
-                    "        JsonPropertyEnumerator enumerator = this.AdditionalProperties;" + Environment.NewLine +
+                    "        Menes.JsonPropertyEnumerator enumerator = this.AdditionalProperties;" + Environment.NewLine +
                     "        int count = 0;" + Environment.NewLine +
                     Environment.NewLine +
                     "        while (enumerator.MoveNext())" + Environment.NewLine +
@@ -914,7 +913,7 @@ namespace Menes.TypeGenerator
             var builder = new StringBuilder($"public {fullyQualifiedName} WithAdditionalProperties(");
             if (additionalPropertiesCount is null)
             {
-                builder.AppendLine($"JsonProperties newAdditional)");
+                builder.AppendLine($"Menes.JsonProperties newAdditional)");
                 builder.AppendLine("{");
                 builder.Append($"return new {fullyQualifiedName}( ");
                 builder.Append(this.BuildWithParametersCore(null));
