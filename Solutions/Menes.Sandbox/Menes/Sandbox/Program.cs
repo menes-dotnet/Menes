@@ -125,18 +125,15 @@ namespace Menes.Sandbox
             var workspace = new AdhocWorkspace();
             SetWorkspaceOptions(workspace);
 
-            const string jsonObjectExampleName = "JsonObjectExample";
-
-            var arrayType = new ValidatedArrayTypeDeclaration()
-            {
-                MinItemsValidation = 10,
-            };
-
             var exampleNamespace = new NamespaceDeclaration("Examples");
 
-            var exampleObjectType = new ObjectTypeDeclaration(jsonObjectExampleName, JsonValueTypeDeclaration.String)
+            var exampleObjectType = new ObjectTypeDeclaration("JsonObjectExample", JsonValueTypeDeclaration.String);
+
+            exampleNamespace.AddDeclaration(exampleObjectType);
+
+            var arrayType = new ValidatedArrayTypeDeclaration(exampleObjectType)
             {
-                Parent = exampleNamespace,
+                MinItemsValidation = 10,
             };
 
             exampleObjectType.AddPropertyDeclaration(new PropertyDeclaration(exampleObjectType, "first", JsonValueTypeDeclaration.String));
@@ -144,9 +141,6 @@ namespace Menes.Sandbox
             exampleObjectType.AddPropertyDeclaration(new PropertyDeclaration(exampleObjectType, "third", JsonValueTypeDeclaration.Duration.AsOptional()));
             exampleObjectType.AddOptionalPropertyDeclaration("children", arrayType);
             exampleObjectType.AddTypeDeclaration(arrayType);
-
-            // We couldn't set the item type for the array until we had constructed the example object type, as they recurse. We support that now!
-            arrayType.ItemType = exampleObjectType;
 
             TypeDeclarationSyntax tds = exampleObjectType.GenerateType();
 
