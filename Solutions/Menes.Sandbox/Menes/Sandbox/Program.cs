@@ -122,11 +122,11 @@ namespace Menes.Sandbox
             Console.WriteLine();
             Serialize(array);
 
-            var exampleObjectType = new ObjectTypeDeclaration(new NamespaceDeclaration("Menes.Examples"), "JsonObjectExample2", SimpleJsonValueTypeDeclaration.String);
+            var exampleObjectType = new ObjectTypeDeclaration(new NamespaceDeclaration("Menes.Examples"), "JsonObjectExample2", JsonValueTypeDeclaration.String);
 
-            exampleObjectType.AddPropertyDeclaration(new PropertyDeclaration(exampleObjectType, "first", SimpleJsonValueTypeDeclaration.String));
-            exampleObjectType.AddPropertyDeclaration(new PropertyDeclaration(exampleObjectType, "second", SimpleJsonValueTypeDeclaration.Int32));
-            exampleObjectType.AddPropertyDeclaration(new PropertyDeclaration(exampleObjectType, "third", SimpleJsonValueTypeDeclaration.Duration.AsOptional()));
+            exampleObjectType.AddPropertyDeclaration(new PropertyDeclaration(exampleObjectType, "first", JsonValueTypeDeclaration.String));
+            exampleObjectType.AddPropertyDeclaration(new PropertyDeclaration(exampleObjectType, "second", JsonValueTypeDeclaration.Int32));
+            exampleObjectType.AddPropertyDeclaration(new PropertyDeclaration(exampleObjectType, "third", JsonValueTypeDeclaration.Duration.AsOptional()));
             exampleObjectType.AddOptionalArrayProperty("children", exampleObjectType);
 
             TypeDeclarationSyntax tds = exampleObjectType.GenerateType();

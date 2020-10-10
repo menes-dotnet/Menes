@@ -1,4 +1,4 @@
-﻿// <copyright file="SimpleJsonValueTypeDeclaration.cs" company="Endjin Limited">
+﻿// <copyright file="JsonValueTypeDeclaration.cs" company="Endjin Limited">
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
@@ -11,9 +11,9 @@ namespace Menes.TypeGenerator
     /// <summary>
     /// A simple type declaration for an <see cref="IJsonValue"/>-backed type.
     /// </summary>
-    public partial class SimpleJsonValueTypeDeclaration : ITypeDeclaration
+    public partial class JsonValueTypeDeclaration : ITypeDeclaration
     {
-        private SimpleJsonValueTypeDeclaration(string name)
+        private JsonValueTypeDeclaration(string name)
         {
             this.Name = name;
         }
