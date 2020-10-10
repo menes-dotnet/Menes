@@ -101,6 +101,8 @@ namespace Menes.TypeGenerator
 
             this.BuildNullAccessor(members);
             this.BuildJsonElementFactory(members);
+            this.BuildConstValue(members);
+            this.BuildEnumValues(members);
 
             //// private const, private static, private readonly (we may need to split these up)
 
@@ -120,7 +122,6 @@ namespace Menes.TypeGenerator
             this.BuildAdditionalPropertiesAccessor(members);
 
             //// Public static methods
-
             this.BuildIsConvertibleFrom(members);
             this.BuildFromOptionalFactories(members);
 
@@ -130,12 +131,81 @@ namespace Menes.TypeGenerator
             this.BuildEquals(members);
             this.BuildValidate(members);
             this.BuildTryGetAdditionalProperties(members);
+            this.BuildMethods(members);
+
+            //// Private static methods
+            this.BuildConstValueFactory(members);
+            this.BuildEnumValuesFactory(members);
 
             //// Private methods
             this.BuildJsonReferenceAccessors(members);
             this.BuildJsonPropertiesAccessor(members);
 
+            this.BuildNestedTypes(members);
+
             return members.ToArray();
+        }
+
+        private void BuildConstValue(List<MemberDeclarationSyntax> members)
+        {
+            if (this.ConstValidation is string)
+            {
+                members.Add(SF.ParseMemberDeclaration("private static readonly Menes.JsonReference? constantValue = BuildConstantValue();" + Environment.NewLine));
+            }
+        }
+
+        private void BuildConstValueFactory(List<MemberDeclarationSyntax> members)
+        {
+            if (this.ConstValidation is string constValue)
+            {
+                var builder = new StringBuilder();
+                builder.AppendLine("private static Menes.JsonReference BuildConstantValue()");
+                builder.AppendLine("{");
+                builder.AppendLine($"    using var document = System.Text.Json.JsonDocument.Parse(\"{constValue}\");");
+                builder.AppendLine("    return new Menes.JsonReference(document.RootElement.Clone());");
+                builder.AppendLine("}");
+
+                members.Add(SF.ParseMemberDeclaration(builder.ToString()));
+            }
+        }
+
+        private void BuildEnumValues(List<MemberDeclarationSyntax> members)
+        {
+            if (this.ConstValidation is string)
+            {
+                members.Add(SF.ParseMemberDeclaration("private static readonly Menes.JsonReference? enumValues = BuildEnumValues();" + Environment.NewLine));
+            }
+        }
+
+        private void BuildEnumValuesFactory(List<MemberDeclarationSyntax> members)
+        {
+            if (this.EnumValidation is string enumValidation)
+            {
+                var builder = new StringBuilder();
+                builder.AppendLine("private static Menes.JsonReference BuildEnumValues()");
+                builder.AppendLine("{");
+                builder.AppendLine($"    using var document = System.Text.Json.JsonDocument.Parse(\"{enumValidation}\");");
+                builder.AppendLine("    return new Menes.JsonReference(document.RootElement.Clone());");
+                builder.AppendLine("}");
+
+                members.Add(SF.ParseMemberDeclaration(builder.ToString()));
+            }
+        }
+
+        private void BuildMethods(List<MemberDeclarationSyntax> members)
+        {
+            foreach (MethodDeclaration method in this.Methods)
+            {
+                members.Add(method.GenerateMethod());
+            }
+        }
+
+        private void BuildNestedTypes(List<MemberDeclarationSyntax> members)
+        {
+            foreach (ITypeDeclaration declaration in this.TypeDeclarations)
+            {
+                members.Add(declaration.GenerateType());
+            }
         }
 
         private void BuildTryGetAdditionalProperties(List<MemberDeclarationSyntax> members)
@@ -210,6 +280,26 @@ namespace Menes.TypeGenerator
                 builder.AppendLine("{");
                 builder.AppendLine($"    context = Validation.ValidateProperty(context, property.AsValue<{additionalProperties.GetFullyQualifiedName()}>(), \".\" + property.Name);");
                 builder.AppendLine("}");
+            }
+
+            if (this.MinPropertiesValidation is int || this.MaxPropertiesValidation is int)
+            {
+                builder.AppendLine($"context = Menes.Validation.ValidateObject(context, this, {this.MinPropertiesValidation?.ToString() ?? "null"}, {this.MaxPropertiesValidation?.ToString() ?? "null"});");
+            }
+
+            if (this.NotTypeValidation is ITypeDeclaration notType)
+            {
+                builder.AppendLine($"context = Menes.Validation.ValidateNot<{this.GetFullyQualifiedName()}, {notType.GetFullyQualifiedName()}>(context, this);");
+            }
+
+            if (this.ConstValidation is string)
+            {
+                builder.AppendLine($"Menes.Validation.ValidateConst(context, this, this.constValue.AsValue<{this.GetFullyQualifiedName()}>());");
+            }
+
+            if (this.EnumValidation is string)
+            {
+                builder.AppendLine($"Menes.Validation.ValidateEnum(context, this, this.constValue.AsValue<Menes.JsonArray<{this.GetFullyQualifiedName()}>>());");
             }
 
             builder.AppendLine("    return context;");

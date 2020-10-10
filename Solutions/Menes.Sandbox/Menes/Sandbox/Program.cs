@@ -184,6 +184,22 @@ namespace Menes.Sandbox
             SyntaxNode formattedNode = Formatter.Format(tds, workspace);
             Console.WriteLine();
             Console.WriteLine(formattedNode.ToFullString());
+
+            var methodBody = new StringBuilder();
+            methodBody.AppendLine("System.Console.WriteLine(\"Hello\");");
+            methodBody.AppendLine("if (global)");
+            methodBody.AppendLine("{");
+            methodBody.AppendLine("System.Console.WriteLine(\"world.\");");
+            methodBody.AppendLine("}");
+            methodBody.AppendLine("else");
+            methodBody.AppendLine("{");
+            methodBody.AppendLine("System.Console.WriteLine(\"Cambridge.\");");
+            methodBody.AppendLine("}");
+
+            var exampleMethod = new MethodDeclaration(exampleObjectType, "TestMethod", methodBody.ToString(), VoidTypeDeclaration.Instance, new ParameterDeclaration("global", "bool"));
+            SyntaxNode formattedMethod = Formatter.Format(exampleMethod.GenerateMethod(), workspace);
+            Console.WriteLine();
+            Console.WriteLine(formattedMethod.ToFullString());
         }
 
         private static ReadOnlyMemory<byte> Serialize<T>(in T example)

@@ -13,11 +13,11 @@ namespace Menes.TypeGenerator
         /// Initializes a new instance of the <see cref="ParameterDeclaration"/> class.
         /// </summary>
         /// <param name="name">The name of the parameter.</param>
-        /// <param name="type">The type of the parameter.</param>
-        public ParameterDeclaration(string name, ITypeDeclaration type)
+        /// <param name="typeName">The name of the type of the parameter.</param>
+        public ParameterDeclaration(string name, string typeName)
         {
             this.Name = name;
-            this.Type = type;
+            this.TypeName = typeName;
         }
 
         /// <summary>
@@ -26,8 +26,8 @@ namespace Menes.TypeGenerator
         public string Name { get; }
 
         /// <summary>
-        /// Gets the type of the parameter.
+        /// Gets the type name of the parameter.
         /// </summary>
-        public ITypeDeclaration Type { get; }
+        public string TypeName { get; }
     }
 }

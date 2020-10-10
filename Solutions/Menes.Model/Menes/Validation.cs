@@ -45,11 +45,13 @@ namespace Menes
         /// Validate a json value against an enumeration.
         /// </summary>
         /// <typeparam name="TValue">The type of the value against which to validate.</typeparam>
+        /// <typeparam name="TEnumerable">The enumerable of items to be compared.</typeparam>
         /// <param name="validationContext">The validation context.</param>
         /// <param name="value">The value to validate.</param>
         /// <param name="enumeration">The array of values against which to validate.</param>
         /// <returns>The validation context, updated with any validation errors.</returns>
-        public static ValidationContext ValidateEnum<TValue>(in ValidationContext validationContext, in TValue value, in ImmutableArray<TValue> enumeration)
+        public static ValidationContext ValidateEnum<TValue, TEnumerable>(in ValidationContext validationContext, in TValue value, in TEnumerable enumeration)
+            where TEnumerable : IEnumerable<TValue>
         {
             EqualityComparer<TValue> comparer = EqualityComparer<TValue>.Default;
             foreach (TValue item in enumeration)
@@ -95,32 +97,39 @@ namespace Menes
         /// <param name="constValue">A constant value which the string must match.</param>
         /// <returns>The validation context updated to reflect the results of the validation.</returns>
         /// <remarks>These are rolled up into a single method to ensure string conversion occurs only once.</remarks>
-        public static ValidationContext ValidateString(in ValidationContext validationContext, string value, int? maxLength, int? minLength, Regex? pattern, in ImmutableArray<string>? enumeration, string? constValue)
+        public static ValidationContext ValidateString(in ValidationContext validationContext, in JsonString value, int? maxLength, int? minLength, Regex? pattern, in ImmutableArray<string>? enumeration, string? constValue)
         {
+            if (value.IsNull)
+            {
+                return validationContext;
+            }
+
             ValidationContext context = validationContext;
-            if (maxLength is int maxl && value.Length > maxl)
+            string valueString = value.CreateOrGetClrString();
+            int length = valueString.Length;
+            if (maxLength is int maxl && length > maxl)
             {
-                context = context.WithError($"6.3.1. maxLength: The string should have had a maximum length of {maxl} but was length {value.Length}.");
+                context = context.WithError($"6.3.1. maxLength: The string should have had a maximum length of {maxl} but was length {length}.");
             }
 
-            if (minLength is int minl && value.Length < minl)
+            if (minLength is int minl && length < minl)
             {
-                context = context.WithError($"6.3.2. minLength: The string should have had a minimum length of {minl} but was length {value.Length}.");
+                context = context.WithError($"6.3.2. minLength: The string should have had a minimum length of {minl} but was length {length}.");
             }
 
-            if (pattern is Regex p && !p.IsMatch(value))
+            if (pattern is Regex p && !p.IsMatch(valueString))
             {
                 context = context.WithError($"6.3.3. pattern: The string should match {p} but was {value}.");
             }
 
             if (enumeration is ImmutableArray<string> values)
             {
-                context = ValidateEnum(context, value, values);
+                context = ValidateEnum(context, valueString, values);
             }
 
             if (constValue is string cv)
             {
-                context = ValidateConst(context, value, cv);
+                context = ValidateConst<string>(context, valueString, cv);
             }
 
             return context;
