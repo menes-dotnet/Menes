@@ -8,7 +8,6 @@ namespace Menes.TypeGenerator
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
-    using System.Text.Json;
     using Microsoft.CodeAnalysis.CSharp;
     using Microsoft.CodeAnalysis.CSharp.Syntax;
 
@@ -130,12 +129,55 @@ namespace Menes.TypeGenerator
             this.BuildWriteTo(members);
             this.BuildEquals(members);
             this.BuildValidate(members);
+            this.BuildTryGetAdditionalProperties(members);
 
             //// Private methods
             this.BuildJsonReferenceAccessors(members);
             this.BuildJsonPropertiesAccessor(members);
 
             return members.ToArray();
+        }
+
+        private void BuildTryGetAdditionalProperties(List<MemberDeclarationSyntax> members)
+        {
+            if (!(this.AdditionalPropertiesType is ITypeDeclaration additionalProperties))
+            {
+                return;
+            }
+
+            var builder = new StringBuilder();
+            string typename = additionalProperties.GetFullyQualifiedName();
+
+            builder.AppendLine($"public bool TryGetAdditionalProperty(string propertyName, [System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out {typename}? value)");
+            builder.AppendLine("{");
+            builder.AppendLine("    return this.TryGetAdditionalProperty(System.MemoryExtensions.AsSpan(propertyName), out value);");
+            builder.AppendLine("}");
+            members.Add(SF.ParseMemberDeclaration(builder.ToString()));
+            builder.Clear();
+
+            builder.AppendLine($"public bool TryGetAdditionalProperty(System.ReadOnlySpan<byte> utf8PropertyName, [System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out {typename}? value)");
+            builder.AppendLine("{");
+            builder.AppendLine("    foreach (Menes.JsonPropertyReference property in this.AdditionalProperties)");
+            builder.AppendLine("    {");
+            builder.AppendLine("        if (property.NameEquals(utf8PropertyName))");
+            builder.AppendLine("        {");
+            builder.AppendLine($"            value = property.AsValue<{typename}>();");
+            builder.AppendLine("            return true;");
+            builder.AppendLine("        }");
+            builder.AppendLine("    }");
+            builder.AppendLine("    value = default;");
+            builder.AppendLine("    return false;");
+            builder.AppendLine("}");
+            members.Add(SF.ParseMemberDeclaration(builder.ToString()));
+            builder.Clear();
+
+            builder.AppendLine($"public bool TryGetAdditionalProperty(System.ReadOnlySpan<char> propertyName, [System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out {typename}? value)");
+            builder.AppendLine("{");
+            builder.AppendLine("    System.Span<byte> bytes = stackalloc byte[propertyName.Length * 4];");
+            builder.AppendLine("    int written = System.Text.Encoding.UTF8.GetBytes(propertyName, bytes);");
+            builder.AppendLine("    return this.TryGetAdditionalProperty(bytes.Slice(0, written), out value);");
+            builder.AppendLine("}");
+            members.Add(SF.ParseMemberDeclaration(builder.ToString()));
         }
 
         private void BuildValidate(List<MemberDeclarationSyntax> members)
@@ -177,23 +219,21 @@ namespace Menes.TypeGenerator
 
         private void BuildEquals(List<MemberDeclarationSyntax> members)
         {
-            string declaration =
-            $"public bool Equals({this.GetFullyQualifiedName()} other)" + Environment.NewLine +
-            "{" + Environment.NewLine +
-            "    if ((this.IsNull && !other.IsNull) || (!this.IsNull && other.IsNull))" + Environment.NewLine +
-            "    {" + Environment.NewLine +
-            "        return false;" + Environment.NewLine +
-            "    }" + Environment.NewLine +
-            Environment.NewLine +
-            "    if (this.HasJsonElement && other.HasJsonElement)" + Environment.NewLine +
-            "    {" + Environment.NewLine +
-            "        return Menes.JsonAny.From(this).Equals(Menes.JsonAny.From(other));" + Environment.NewLine +
-            "    }" + Environment.NewLine +
-            Environment.NewLine +
-            $"    return {this.BuildEqualsForProperties()};" + Environment.NewLine +
-            "}" + Environment.NewLine;
+            var builder = new StringBuilder();
+            builder.AppendLine($"public bool Equals({this.GetFullyQualifiedName()} other)");
+            builder.AppendLine("{");
+            builder.AppendLine("    if ((this.IsNull && !other.IsNull) || (!this.IsNull && other.IsNull))");
+            builder.AppendLine("    {");
+            builder.AppendLine("        return false;");
+            builder.AppendLine("    }");
+            builder.AppendLine("    if (this.HasJsonElement && other.HasJsonElement)");
+            builder.AppendLine("    {");
+            builder.AppendLine("        return Menes.JsonAny.From(this).Equals(Menes.JsonAny.From(other));");
+            builder.AppendLine("    }");
+            builder.AppendLine($"    return {this.BuildEqualsForProperties()};");
+            builder.AppendLine("}");
 
-            members.Add(SF.ParseMemberDeclaration(declaration));
+            members.Add(SF.ParseMemberDeclaration(builder.ToString()));
         }
 
         private string BuildEqualsForProperties()
@@ -242,14 +282,11 @@ namespace Menes.TypeGenerator
 
                 string typename = property.Type.IsCompoundType ? "JsonReference" : property.Type.GetFullyQualifiedName();
 
-                string declaration =
-                $"if (this.{fieldName} is {typename} {fieldName})" + Environment.NewLine +
-                "{" + Environment.NewLine +
-                $"    writer.WritePropertyName(Encoded{NameFormatter.ToPascalCase(property.JsonPropertyName)}PropertyName);" + Environment.NewLine +
-                $"    {fieldName}.WriteTo(writer);" + Environment.NewLine +
-                "}" + Environment.NewLine;
-
-                builder.Append(declaration);
+                builder.AppendLine($"if (this.{fieldName} is {typename} {fieldName})");
+                builder.AppendLine("{");
+                builder.AppendLine($"    writer.WritePropertyName(Encoded{NameFormatter.ToPascalCase(property.JsonPropertyName)}PropertyName);");
+                builder.AppendLine($"    {fieldName}.WriteTo(writer);");
+                builder.AppendLine("}");
             }
 
             if (this.AdditionalPropertiesType is ITypeDeclaration)
@@ -271,27 +308,27 @@ namespace Menes.TypeGenerator
         {
             string fullyQualifiedTypeName = this.GetFullyQualifiedName();
 
-            string declaration1 =
-            $"public static {fullyQualifiedTypeName} FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<char> propertyName) =>" + Environment.NewLine +
-            "    parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)" + Environment.NewLine +
-            $"        ? new {fullyQualifiedTypeName}(property)" + Environment.NewLine +
-            "        : Null;" + Environment.NewLine;
+            var builder = new StringBuilder();
 
-            string declaration2 =
-                $"public static {fullyQualifiedTypeName} FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, string propertyName) =>" + Environment.NewLine +
-                "    parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)" + Environment.NewLine +
-                $"        ? new {fullyQualifiedTypeName}(property)" + Environment.NewLine +
-                "        : Null;" + Environment.NewLine;
+            builder.AppendLine($"public static {fullyQualifiedTypeName} FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<char> propertyName) =>");
+            builder.AppendLine("    parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)");
+            builder.AppendLine($"        ? new {fullyQualifiedTypeName}(property)");
+            builder.AppendLine("        : Null;");
+            members.Add(SF.ParseMemberDeclaration(builder.ToString()));
+            builder.Clear();
 
-            string declaration3 =
-                $"public static {fullyQualifiedTypeName} FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<byte> utf8PropertyName) =>" + Environment.NewLine +
-                "    parentDocument.TryGetProperty(utf8PropertyName, out System.Text.Json.JsonElement property)" + Environment.NewLine +
-                $"        ? new {fullyQualifiedTypeName}(property)" + Environment.NewLine +
-                "        : Null;" + Environment.NewLine;
+            builder.AppendLine($"public static {fullyQualifiedTypeName} FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, string propertyName) =>");
+            builder.AppendLine("    parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)");
+            builder.AppendLine($"        ? new {fullyQualifiedTypeName}(property)");
+            builder.AppendLine("        : Null;");
+            members.Add(SF.ParseMemberDeclaration(builder.ToString()));
+            builder.Clear();
 
-            members.Add(SF.ParseMemberDeclaration(declaration1));
-            members.Add(SF.ParseMemberDeclaration(declaration2));
-            members.Add(SF.ParseMemberDeclaration(declaration3));
+            builder.AppendLine($"public static {fullyQualifiedTypeName} FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<byte> utf8PropertyName) =>");
+            builder.AppendLine("    parentDocument.TryGetProperty(utf8PropertyName, out System.Text.Json.JsonElement property)");
+            builder.AppendLine($"        ? new {fullyQualifiedTypeName}(property)");
+            builder.AppendLine("        : Null;");
+            members.Add(SF.ParseMemberDeclaration(builder.ToString()));
         }
 
         private void BuildIsConvertibleFrom(List<MemberDeclarationSyntax> members)
@@ -406,14 +443,16 @@ namespace Menes.TypeGenerator
             // public
             this.BuildJsonElementConstructor(members);
 
-            this.BuildPropertiesConstruct(members);
+            this.BuildPropertiesConstructors(members);
 
             // private
             this.BuildCloningConstructor(members);
         }
 
-        private void BuildPropertiesConstruct(List<MemberDeclarationSyntax> members)
+        private void BuildPropertiesConstructors(List<MemberDeclarationSyntax> members)
         {
+            this.BuildPropertiesConstructor(members, null, true);
+
             if (this.AdditionalPropertiesType is null)
             {
                 this.BuildPropertiesConstructor(members, null);
@@ -519,18 +558,18 @@ namespace Menes.TypeGenerator
             return builder.ToString();
         }
 
-        private void BuildPropertiesConstructor(List<MemberDeclarationSyntax> members, int? additionalPropertiesCount)
+        private void BuildPropertiesConstructor(List<MemberDeclarationSyntax> members, int? additionalPropertiesCount, bool requiredOnly = false)
         {
-            string declaration =
-            $"public {this.Name}({this.BuildPropertiesConstructorParameterList(additionalPropertiesCount)})" + Environment.NewLine +
-            "{" + Environment.NewLine +
-            this.BuildPropertiesConstructorParameterSetters(additionalPropertiesCount) +
-            "}";
+            var builder = new StringBuilder();
+            builder.AppendLine($"public {this.Name}({this.BuildPropertiesConstructorParameterList(additionalPropertiesCount, requiredOnly)})");
+            builder.AppendLine("{");
+            builder.Append(this.BuildPropertiesConstructorParameterSetters(additionalPropertiesCount, requiredOnly));
+            builder.AppendLine("}");
 
-            members.Add(SF.ParseMemberDeclaration(declaration));
+            members.Add(SF.ParseMemberDeclaration(builder.ToString()));
         }
 
-        private string BuildPropertiesConstructorParameterSetters(int? additionalPropertiesCount)
+        private string BuildPropertiesConstructorParameterSetters(int? additionalPropertiesCount, bool requiredOnly = false)
         {
             var builder = new StringBuilder();
             int index = 1;
@@ -538,7 +577,11 @@ namespace Menes.TypeGenerator
             {
                 string parameterAndFieldName = NameFormatter.ToCamelCase(property.JsonPropertyName);
 
-                if (property.Type.IsCompoundType)
+                if (property.Type is OptionalTypeDeclaration && requiredOnly)
+                {
+                    builder.AppendLine($"this.{parameterAndFieldName} = null;");
+                }
+                else if (property.Type.IsCompoundType)
                 {
                     string fullyQualifiedTypeName = property.Type.GetFullyQualifiedName();
                     builder.AppendLine($"if ({parameterAndFieldName} is {fullyQualifiedTypeName} item{index})");
@@ -561,7 +604,11 @@ namespace Menes.TypeGenerator
 
             if (this.AdditionalPropertiesType is ITypeDeclaration)
             {
-                if (additionalPropertiesCount is null)
+                if (requiredOnly)
+                {
+                    builder.AppendLine("this.additionalProperties = null;");
+                }
+                else if (additionalPropertiesCount is null)
                 {
                     builder.AppendLine("this.additionalProperties = additionalProperties;");
                 }
@@ -593,7 +640,7 @@ namespace Menes.TypeGenerator
             return builder.ToString();
         }
 
-        private string BuildPropertiesConstructorParameterList(int? additionalPropertiesCount)
+        private string BuildPropertiesConstructorParameterList(int? additionalPropertiesCount, bool requiredOnly = false)
         {
             var builder = new StringBuilder();
 
@@ -616,14 +663,17 @@ namespace Menes.TypeGenerator
                 this.BuildPropertiesConstructorParameter(property, builder, false);
             }
 
-            foreach (PropertyDeclaration property in optionalProperties)
+            if (!requiredOnly)
             {
-                this.BuildPropertiesConstructorParameter(property, builder, true);
-            }
+                foreach (PropertyDeclaration property in optionalProperties)
+                {
+                    this.BuildPropertiesConstructorParameter(property, builder, true);
+                }
 
-            if (this.AdditionalPropertiesType is ITypeDeclaration additionalPropertiesType)
-            {
-                this.BuildPropertiesConstructorAdditionalPropertiesParameter(additionalPropertiesType, builder, additionalPropertiesCount);
+                if (this.AdditionalPropertiesType is ITypeDeclaration additionalPropertiesType)
+                {
+                    this.BuildPropertiesConstructorAdditionalPropertiesParameter(additionalPropertiesType, builder, additionalPropertiesCount);
+                }
             }
 
             return builder.ToString();
@@ -708,14 +758,15 @@ namespace Menes.TypeGenerator
 
         private void BuildJsonElementConstructor(List<MemberDeclarationSyntax> members)
         {
-            string declaration =
-            $"public {this.Name}(System.Text.Json.JsonElement jsonElement)" + Environment.NewLine +
-            "{" + Environment.NewLine +
-            "    this.JsonElement = jsonElement;" + Environment.NewLine +
-            this.BuildNullFieldAssignments() +
-            "}" + Environment.NewLine;
+            var builder = new StringBuilder();
 
-            members.Add(SF.ParseMemberDeclaration(declaration));
+            builder.AppendLine($"public {this.Name}(System.Text.Json.JsonElement jsonElement)");
+            builder.AppendLine("{");
+            builder.AppendLine("    this.JsonElement = jsonElement;");
+            builder.Append(this.BuildNullFieldAssignments());
+            builder.AppendLine("}");
+
+            members.Add(SF.ParseMemberDeclaration(builder.ToString()));
         }
 
         private string BuildNullFieldAssignments()
@@ -912,23 +963,21 @@ namespace Menes.TypeGenerator
 
             string camelCasePropertyName = NameFormatter.ToCamelCase(property.JsonPropertyName);
 
-            string declaration =
-            $"private Menes.JsonReference? Get{NameFormatter.ToPascalCase(property.JsonPropertyName)}()" + Environment.NewLine +
-            "{" + Environment.NewLine +
-            $"    if (this.{camelCasePropertyName} is Menes.JsonReference)" + Environment.NewLine +
-            "    {" + Environment.NewLine +
-            $"        return this.{camelCasePropertyName};" + Environment.NewLine +
-            "    }" + Environment.NewLine +
-            Environment.NewLine +
-            $"    if (this.HasJsonElement && this.JsonElement.TryGetProperty({GetPropertyNameFieldName(property)}Bytes.Span, out System.Text.Json.JsonElement value))" + Environment.NewLine +
-            "    {" + Environment.NewLine +
-            "        return new Menes.JsonReference(value);" + Environment.NewLine +
-            "    }" + Environment.NewLine +
-            Environment.NewLine +
-            "    return default;" + Environment.NewLine +
-            "}" + Environment.NewLine;
+            var builder = new StringBuilder();
+            builder.AppendLine($"private Menes.JsonReference? Get{NameFormatter.ToPascalCase(property.JsonPropertyName)}()");
+            builder.AppendLine("{");
+            builder.AppendLine($"    if (this.{camelCasePropertyName} is Menes.JsonReference)");
+            builder.AppendLine("    {");
+            builder.AppendLine($"        return this.{camelCasePropertyName};");
+            builder.AppendLine("    }");
+            builder.AppendLine($"    if (this.HasJsonElement && this.JsonElement.TryGetProperty({GetPropertyNameFieldName(property)}Bytes.Span, out System.Text.Json.JsonElement value))");
+            builder.AppendLine("    {");
+            builder.AppendLine("        return new Menes.JsonReference(value);");
+            builder.AppendLine("    }");
+            builder.AppendLine("    return default;");
+            builder.AppendLine("}");
 
-            members.Add(SF.ParseMemberDeclaration(declaration));
+            members.Add(SF.ParseMemberDeclaration(builder.ToString()));
         }
 
         private void BuildJsonPropertiesAccessor(List<MemberDeclarationSyntax> members)
@@ -938,30 +987,29 @@ namespace Menes.TypeGenerator
                 return;
             }
 
-            string declaration =
-            "private Menes.JsonProperties GetJsonProperties()" + Environment.NewLine +
-            "{" + Environment.NewLine +
-            "    if (this.additionalProperties is Menes.JsonProperties props)" + Environment.NewLine +
-            "    {" + Environment.NewLine +
-            "        return props;" + Environment.NewLine +
-            "    }" + Environment.NewLine +
-            Environment.NewLine +
-            "    return new Menes.JsonProperties(System.Collections.Immutable.ImmutableArray.ToImmutableArray(this.AdditionalProperties));" + Environment.NewLine +
-            "} " + Environment.NewLine;
+            var builder = new StringBuilder();
+            builder.AppendLine("private Menes.JsonProperties GetJsonProperties()");
+            builder.AppendLine("{");
+            builder.AppendLine("    if (this.additionalProperties is Menes.JsonProperties props)");
+            builder.AppendLine("    {");
+            builder.AppendLine("        return props;");
+            builder.AppendLine("    }");
+            builder.AppendLine("    return new Menes.JsonProperties(System.Collections.Immutable.ImmutableArray.ToImmutableArray(this.AdditionalProperties));");
+            builder.AppendLine("}");
 
-            members.Add(SF.ParseMemberDeclaration(declaration));
+            members.Add(SF.ParseMemberDeclaration(builder.ToString()));
         }
 
         private void BuildWithPropertyFactory(PropertyDeclaration property, List<MemberDeclarationSyntax> members)
         {
             string optionalQualifier = property.Type is OptionalTypeDeclaration ? "?" : string.Empty;
             string fullyQualifiedName = this.GetFullyQualifiedName();
-            string declaration =
-$" public {fullyQualifiedName} With{NameFormatter.ToPascalCase(property.JsonPropertyName)}({property.Type.GetFullyQualifiedName()}{optionalQualifier} value)" + Environment.NewLine +
-" {" + Environment.NewLine +
-$"    return new {fullyQualifiedName}(" + this.BuildWithParameters(property) + ");" + Environment.NewLine +
-" }";
-            members.Add(SF.ParseMemberDeclaration(declaration));
+            var builder = new StringBuilder();
+            builder.AppendLine($" public {fullyQualifiedName} With{NameFormatter.ToPascalCase(property.JsonPropertyName)}({property.Type.GetFullyQualifiedName()}{optionalQualifier} value)");
+            builder.AppendLine("{");
+            builder.AppendLine($"    return new {fullyQualifiedName}(" + this.BuildWithParameters(property) + ");");
+            builder.AppendLine("}");
+            members.Add(SF.ParseMemberDeclaration(builder.ToString()));
         }
 
         private string BuildWithParameters(PropertyDeclaration property)

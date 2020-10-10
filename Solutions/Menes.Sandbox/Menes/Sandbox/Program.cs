@@ -28,17 +28,17 @@ namespace Menes.Sandbox
         /// </summary>
         public static void Main()
         {
-            var example = new JsonObjectExample(
+            var example = new JsonObjectExample2(
                 first: "Hello",
                 second: 42,
                 third: Duration.FromHours(3),
-                children: JsonArray.Create(new JsonObjectExample("Sibling A", 1), new JsonObjectExample("Sibling B", 2)),
+                children: JsonArray.Create(new JsonObjectExample2("Sibling A", 1), new JsonObjectExample2("Sibling B", 2)),
                 //// You could also initialize this with array syntax as below. They both implicitly convert to JsonArray<TItem>.
                 //// However, they also allocate additional arrays; up to 4 items is optimized for ImmutableArray creation, so we
                 //// take advantage of that with our JsonArray.Create() overloads.
                 ////
-                //// children: new [] { new JsonObjectExample("Sibling A", 1), new JsonObjectExample("Sibling B", 2) },
-                //// children: ImmutableArray.Create( new JsonObjectExample("Sibling A", 1), new JsonObjectExample("Sibling B", 2) ),
+                //// children: new [] { new JsonObjectExample2("Sibling A", 1), new JsonObjectExample2("Sibling B", 2) },
+                //// children: ImmutableArray.Create( new JsonObjectExample2("Sibling A", 1), new JsonObjectExample2("Sibling B", 2) ),
                 ////
                 //// Similarly, the additionalProperties we add have
                 //// overloads to optimize the 1-4 values case.
@@ -51,11 +51,11 @@ namespace Menes.Sandbox
             ReadOnlyMemory<byte> serialized = Serialize(example);
 
             using var doc = JsonDocument.Parse(serialized);
-            var roundtrip = new JsonObjectExample(doc.RootElement);
+            var roundtrip = new JsonObjectExample2(doc.RootElement);
 
-            //// At this point "roundtrip" is a JsonObjectExample backed by a single JsonElement.
+            //// At this point "roundtrip" is a JsonObjectExample2 backed by a single JsonElement.
 
-            var anotherExample = new JsonObjectExample(
+            var anotherExample = new JsonObjectExample2(
                 first: "Goodbye",
                 second: example.Second,
                 third: Duration.FromHours(3),
@@ -70,7 +70,7 @@ namespace Menes.Sandbox
 
             Console.WriteLine();
 
-            JsonObjectExample anotherOne = roundtrip.WithFirst("Not the first now");
+            JsonObjectExample2 anotherOne = roundtrip.WithFirst("Not the first now");
 
             //// anotherOne has replaced a single value (the "First" property) with a string value.
             //// All the remaining values have become stack-allocated wrappers around the original JsonElements
@@ -199,7 +199,7 @@ namespace Menes.Sandbox
             return abw.WrittenMemory;
         }
 
-        private static void WriteExample(in JsonObjectExample example, int tabs = 0)
+        private static void WriteExample(in JsonObjectExample2 example, int tabs = 0)
         {
             string tabString = tabs > 0 ? string.Concat(Enumerable.Repeat("\t", tabs)) : string.Empty;
 
@@ -207,11 +207,11 @@ namespace Menes.Sandbox
             Console.WriteLine($"{tabString}\tSecond: {example.Second}");
             Console.WriteLine($"{tabString}\tThird: {example.Third?.ToString() ?? "null"}");
 
-            if (example.Children is ValidatedArrayOfJsonObjectExample children)
+            if (example.Children is JsonArray<JsonObjectExample2> children)
             {
                 Console.WriteLine($"{tabString}\tChildren:");
 
-                foreach (JsonObjectExample child in children)
+                foreach (JsonObjectExample2 child in children)
                 {
                     WriteExample(child, tabs + 2);
                 }

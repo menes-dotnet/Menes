@@ -42,6 +42,15 @@ namespace Menes.Examples
             this.children = null;
             this.additionalProperties = null;
         }
+        public JsonObjectExample2(Menes.JsonString first, Menes.JsonInt32 second)
+        {
+            this.first = first;
+            this.second = second;
+            this.third = null;
+            this.children = null;
+            this.JsonElement = default;
+            this.additionalProperties = null;
+        }
         public JsonObjectExample2(Menes.JsonString first, Menes.JsonInt32 second, Menes.JsonDuration? third, Menes.JsonArray<Menes.Examples.JsonObjectExample2>? children, Menes.JsonProperties additionalProperties)
         {
             this.first = first;
@@ -251,8 +260,7 @@ namespace Menes.Examples
         }
         public Menes.Examples.JsonObjectExample2 WithAdditionalProperties(params (string, Menes.JsonString)[] newAdditional)
         {
-            return new Menes.Examples.JsonObjectExample2(
-            this.First, this.Second, this.Third, this.GetChildren(), Menes.JsonProperties.FromValues(newAdditional));
+            return new Menes.Examples.JsonObjectExample2(this.First, this.Second, this.Third, this.GetChildren(), Menes.JsonProperties.FromValues(newAdditional));
         }
         public Menes.Examples.JsonObjectExample2 WithAdditionalProperties((string, Menes.JsonString) newAdditional1)
         {
@@ -313,12 +321,10 @@ namespace Menes.Examples
             {
                 return false;
             }
-
             if (this.HasJsonElement && other.HasJsonElement)
             {
                 return Menes.JsonAny.From(this).Equals(Menes.JsonAny.From(other));
             }
-
             return this.First.Equals(other.First) && this.Second.Equals(other.Second) && this.Third.Equals(other.Third) && this.Children.Equals(other.Children) && System.Linq.Enumerable.SequenceEqual(this.AdditionalProperties, other.AdditionalProperties);
         }
         public Menes.ValidationContext Validate(in Menes.ValidationContext validationContext)
@@ -340,18 +346,39 @@ namespace Menes.Examples
             }
             return context;
         }
+        public bool TryGetAdditionalProperty(string propertyName, [System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out Menes.JsonString? value)
+        {
+            return this.TryGetAdditionalProperty(System.MemoryExtensions.AsSpan(propertyName), out value);
+        }
+        public bool TryGetAdditionalProperty(System.ReadOnlySpan<byte> utf8PropertyName, [System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out Menes.JsonString? value)
+        {
+            foreach (Menes.JsonPropertyReference property in this.AdditionalProperties)
+            {
+                if (property.NameEquals(utf8PropertyName))
+                {
+                    value = property.AsValue<Menes.JsonString>();
+                    return true;
+                }
+            }
+            value = default;
+            return false;
+        }
+        public bool TryGetAdditionalProperty(System.ReadOnlySpan<char> propertyName, [System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out Menes.JsonString? value)
+        {
+            System.Span<byte> bytes = stackalloc byte[propertyName.Length * 4];
+            int written = System.Text.Encoding.UTF8.GetBytes(propertyName, bytes);
+            return this.TryGetAdditionalProperty(bytes.Slice(0, written), out value);
+        }
         private Menes.JsonReference? GetChildren()
         {
             if (this.children is Menes.JsonReference)
             {
                 return this.children;
             }
-
             if (this.HasJsonElement && this.JsonElement.TryGetProperty(ChildrenPropertyNameBytes.Span, out System.Text.Json.JsonElement value))
             {
                 return new Menes.JsonReference(value);
             }
-
             return default;
         }
         private Menes.JsonProperties GetJsonProperties()
@@ -360,7 +387,6 @@ namespace Menes.Examples
             {
                 return props;
             }
-
             return new Menes.JsonProperties(System.Collections.Immutable.ImmutableArray.ToImmutableArray(this.AdditionalProperties));
         }
     }
