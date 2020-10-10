@@ -136,9 +136,9 @@ namespace Menes.Sandbox
                 MinItemsValidation = 10,
             };
 
-            exampleObjectType.AddPropertyDeclaration(new PropertyDeclaration(exampleObjectType, "first", JsonValueTypeDeclaration.String));
-            exampleObjectType.AddPropertyDeclaration(new PropertyDeclaration(exampleObjectType, "second", JsonValueTypeDeclaration.Int32));
-            exampleObjectType.AddPropertyDeclaration(new PropertyDeclaration(exampleObjectType, "third", JsonValueTypeDeclaration.Duration.AsOptional()));
+            exampleObjectType.AddPropertyDeclaration("first", JsonValueTypeDeclaration.String);
+            exampleObjectType.AddPropertyDeclaration("second", JsonValueTypeDeclaration.Int32);
+            exampleObjectType.AddOptionalPropertyDeclaration("third", JsonValueTypeDeclaration.Duration);
             exampleObjectType.AddOptionalPropertyDeclaration("children", arrayType);
             exampleObjectType.AddTypeDeclaration(arrayType);
 

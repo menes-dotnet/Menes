@@ -30,16 +30,5 @@ namespace Menes.TypeGenerator
         {
             typeDeclaration.AddPropertyDeclaration(new PropertyDeclaration(typeDeclaration, propertyName, new ArrayTypeDeclaration(itemType).AsOptional()));
         }
-
-        /// <summary>
-        /// Adds an array property for the given item type.
-        /// </summary>
-        /// <param name="typeDeclaration">The type declaration to which to add the property.</param>
-        /// <param name="propertyName">The property name.</param>
-        /// <param name="propertyType">The type of the property.</param>
-        public static void AddOptionalPropertyDeclaration(this ITypeDeclaration typeDeclaration, string propertyName, ITypeDeclaration propertyType)
-        {
-            typeDeclaration.AddPropertyDeclaration(new PropertyDeclaration(typeDeclaration, propertyName, propertyType.AsOptional()));
-        }
     }
 }
