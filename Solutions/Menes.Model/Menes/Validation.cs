@@ -97,16 +97,15 @@ namespace Menes
         /// <param name="constValue">A constant value which the string must match.</param>
         /// <returns>The validation context updated to reflect the results of the validation.</returns>
         /// <remarks>These are rolled up into a single method to ensure string conversion occurs only once.</remarks>
-        public static ValidationContext ValidateString(in ValidationContext validationContext, in JsonString value, int? maxLength, int? minLength, Regex? pattern, in ImmutableArray<string>? enumeration, string? constValue)
+        public static ValidationContext ValidateString(in ValidationContext validationContext, in string? value, int? maxLength, int? minLength, Regex? pattern, in ImmutableArray<string>? enumeration, string? constValue)
         {
-            if (value.IsNull)
+            if (value is null)
             {
                 return validationContext;
             }
 
             ValidationContext context = validationContext;
-            string valueString = value.CreateOrGetClrString();
-            int length = valueString.Length;
+            int length = value.Length;
             if (maxLength is int maxl && length > maxl)
             {
                 context = context.WithError($"6.3.1. maxLength: The string should have had a maximum length of {maxl} but was length {length}.");
@@ -117,19 +116,19 @@ namespace Menes
                 context = context.WithError($"6.3.2. minLength: The string should have had a minimum length of {minl} but was length {length}.");
             }
 
-            if (pattern is Regex p && !p.IsMatch(valueString))
+            if (pattern is Regex p && !p.IsMatch(value))
             {
                 context = context.WithError($"6.3.3. pattern: The string should match {p} but was {value}.");
             }
 
             if (enumeration is ImmutableArray<string> values)
             {
-                context = ValidateEnum(context, valueString, values);
+                context = ValidateEnum(context, value, values);
             }
 
             if (constValue is string cv)
             {
-                context = ValidateConst<string>(context, valueString, cv);
+                context = ValidateConst(context, value, cv);
             }
 
             return context;

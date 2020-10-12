@@ -5,7 +5,6 @@
 namespace Menes
 {
     using System;
-    using System.Text;
     using System.Text.Json;
 
     /// <summary>

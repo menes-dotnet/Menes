@@ -4,12 +4,9 @@
 
 namespace Menes.TypeGenerator
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
-    using Microsoft.CodeAnalysis;
-    using Microsoft.CodeAnalysis.CSharp;
     using Microsoft.CodeAnalysis.CSharp.Syntax;
 
     using SF = Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
@@ -88,7 +85,7 @@ namespace Menes.TypeGenerator
         {
             var builder = new StringBuilder();
             builder.Append($"public {this.ReturnTypeName} {this.Name}(");
-            builder.Append(string.Join(", ", this.Parameters.Select(p => $"{p.TypeName} {NameFormatter.ToCamelCase(p.Name)}")));
+            builder.Append(string.Join(", ", this.Parameters.Select(p => $"{p.TypeName} {StringFormatter.ToCamelCase(p.Name)}")));
             builder.AppendLine(")");
             builder.AppendLine("{");
             builder.AppendLine(this.Body.Trim());

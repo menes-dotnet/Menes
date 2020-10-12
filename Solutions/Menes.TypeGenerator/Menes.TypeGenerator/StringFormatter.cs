@@ -1,4 +1,4 @@
-﻿// <copyright file="NameFormatter.cs" company="Endjin Limited">
+﻿// <copyright file="StringFormatter.cs" company="Endjin Limited">
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
@@ -7,9 +7,9 @@ namespace Menes.TypeGenerator
     using System;
 
     /// <summary>
-    /// Methods to help format names.
+    /// Methods to help format strings.
     /// </summary>
-    public static class NameFormatter
+    public static class StringFormatter
     {
         /// <summary>
         /// Convert the given name to <c>camelCase</c>.
@@ -47,6 +47,17 @@ namespace Menes.TypeGenerator
             // of the string data, so I think this is a "reasonable" approach.
             ReadOnlySpan<char> result = FixCasing(name.ToCharArray(), true);
             return new string(result);
+        }
+
+        /// <summary>
+        /// Escapes a value for embeddeding into a quoted C# string.
+        /// </summary>
+        /// <param name="value">The value to escape.</param>
+        /// <returns>The escaped value. This can be inserted into a regular quoted C# string.</returns>
+        public static string? EscapeForCSharpString(string? value)
+        {
+            // TODO: actually implement this. Someone must have done so already
+            return value;
         }
 
         private static ReadOnlySpan<char> FixCasing(Span<char> chars, bool capitalizeFirst)

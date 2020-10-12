@@ -5,7 +5,6 @@
 namespace Menes
 {
     using System;
-    using System.Buffers;
     using System.Collections.Immutable;
     using System.Text.Json;
     using System.Text.RegularExpressions;
@@ -204,16 +203,16 @@ namespace Menes
         /// Provides the string validations.
         /// </summary>
         /// <param name="validationContext">The validation context.</param>
-        /// <param name="maxLength">The maximum length of the string representation.</param>
         /// <param name="minLength">The minimum length of the string representation.</param>
+        /// <param name="maxLength">The maximum length of the string representation.</param>
         /// <param name="pattern">The pattern to which the string must conform.</param>
         /// <param name="enumeration">The values which the string must match.</param>
         /// <param name="constValue">A constant value against which the string must match.</param>
         /// <returns>The validation context updated to reflect the results of the validation.</returns>
         /// <remarks>These are rolled up into a single method to ensure string conversion occurs only once.</remarks>
-        public ValidationContext ValidateAsString(in ValidationContext validationContext, int? maxLength = null, int? minLength = null, Regex? pattern = null, in ImmutableArray<string>? enumeration = null, string? constValue = null)
+        public ValidationContext ValidateAsString(in ValidationContext validationContext, int? minLength = null, int? maxLength = null, Regex? pattern = null, in ImmutableArray<string>? enumeration = null, string? constValue = null)
         {
-            return Validation.ValidateString(validationContext, this.ToString(), maxLength, minLength, pattern, enumeration, constValue);
+            return Validation.ValidateString(validationContext, this.ToString(), minLength, maxLength, pattern, enumeration, constValue);
         }
     }
 }

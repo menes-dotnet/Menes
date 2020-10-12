@@ -12,6 +12,6 @@ namespace Menes.TypeGenerator
         /// <summary>
         /// Get the <see cref="bool"/> type for JSON Schema Boolean.
         /// </summary>
-        public static readonly JsonValueTypeDeclaration Boolean = new JsonValueTypeDeclaration(typeof(JsonBoolean).FullName);
+        public static readonly JsonValueTypeDeclaration Boolean = new JsonValueTypeDeclaration(typeof(JsonBoolean).FullName, "bool", ValueKind.Boolean);
     }
 }

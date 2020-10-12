@@ -149,7 +149,7 @@ namespace Menes.TypeGenerator
             builder.AppendLine($"    public static readonly {name} Null = new {name}(default(System.Text.Json.JsonElement));");
             if (this.ConstValidation is string)
             {
-                builder.AppendLine("    private static readonly Menes.JsonReference? ConstantValue = BuildConstantValue();");
+                builder.AppendLine("    private static readonly Menes.JsonReference? ConstantValue = BuildConstValue();");
             }
 
             if (this.EnumValidation is string)
@@ -284,9 +284,9 @@ namespace Menes.TypeGenerator
 
             if (this.ConstValidation is string constValue)
             {
-                builder.AppendLine("private static Menes.JsonReference BuildConstantValue()");
+                builder.AppendLine("private static Menes.JsonReference BuildConstValue()");
                 builder.AppendLine("{");
-                builder.AppendLine($"    using var document = System.Text.Json.JsonDocument.Parse(\"{constValue}\");");
+                builder.AppendLine($"    using var document = System.Text.Json.JsonDocument.Parse(\"{StringFormatter.EscapeForCSharpString(constValue)}\");");
                 builder.AppendLine("    return new Menes.JsonReference(document.RootElement.Clone());");
                 builder.AppendLine("}");
             }
@@ -295,7 +295,7 @@ namespace Menes.TypeGenerator
             {
                 builder.AppendLine("    private static Menes.JsonReference BuildEnumValues()");
                 builder.AppendLine("    {");
-                builder.AppendLine($"        using var document = System.Text.Json.JsonDocument.Parse(\"{enumValidation}\");");
+                builder.AppendLine($"        using var document = System.Text.Json.JsonDocument.Parse(\"{StringFormatter.EscapeForCSharpString(enumValidation)}\");");
                 builder.AppendLine("        return new Menes.JsonReference(document.RootElement.Clone());");
                 builder.AppendLine("    }");
             }
