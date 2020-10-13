@@ -987,8 +987,8 @@ namespace Menes.TypeGenerator
 
             this.BuildPropertyNameDeclarations(members, propertyNames);
             this.BuildPropertyNamePathDeclarations(propertyNames, members);
-            this.BuildEncodedPropertyNameDeclarations(propertyNames, members);
             this.BuildPropertyNameBytesDeclarations(propertyNames, members);
+            this.BuildEncodedPropertyNameDeclarations(propertyNames, members);
 
             this.AddKnownProperties(propertyNames, members);
 
@@ -1008,7 +1008,7 @@ namespace Menes.TypeGenerator
             foreach (PropertyDeclaration property in this.Properties)
             {
                 string propertyNameFieldName = GetPropertyNameFieldName(property);
-                this.BuildPropertyNameDeclaration(propertyNameFieldName, property.JsonPropertyName, members);
+                ////this.BuildPropertyNameDeclaration(propertyNameFieldName, property.JsonPropertyName, members);
                 propertyNames.Add((propertyNameFieldName, property.JsonPropertyName));
             }
         }
@@ -1033,7 +1033,7 @@ namespace Menes.TypeGenerator
         {
             foreach ((string, string) propertyNameFieldName in propertyNameFieldNames)
             {
-                this.BuildPropertyNameBytesDeclaration(propertyNameFieldName.Item1, members);
+                this.BuildPropertyNameBytesDeclaration(propertyNameFieldName.Item1, propertyNameFieldName.Item2, members);
             }
         }
 
@@ -1201,10 +1201,10 @@ namespace Menes.TypeGenerator
             }
         }
 
-        private void BuildPropertyNameDeclaration(string propertyNameFieldName, string jsonPropertyName, List<MemberDeclarationSyntax> members)
-        {
-            members.Add(SF.ParseMemberDeclaration($"private const string {propertyNameFieldName} = \"{jsonPropertyName}\";" + Environment.NewLine));
-        }
+        ////private void BuildPropertyNameDeclaration(string propertyNameFieldName, string jsonPropertyName, List<MemberDeclarationSyntax> members)
+        ////{
+        ////    members.Add(SF.ParseMemberDeclaration($"private const string {propertyNameFieldName} = \"{jsonPropertyName}\";" + Environment.NewLine));
+        ////}
 
         private void BuildPropertyNamePathDeclaration(string propertyNameFieldName, string jsonPropertyName, List<MemberDeclarationSyntax> members)
         {
@@ -1213,12 +1213,29 @@ namespace Menes.TypeGenerator
 
         private void BuildEncodedPropertyNameDeclaration(string propertyNameFieldName, List<MemberDeclarationSyntax> members)
         {
-            members.Add(SF.ParseMemberDeclaration($"private static readonly System.Text.Json.JsonEncodedText Encoded{propertyNameFieldName} = System.Text.Json.JsonEncodedText.Encode({propertyNameFieldName});" + Environment.NewLine));
+            members.Add(SF.ParseMemberDeclaration($"private static readonly System.Text.Json.JsonEncodedText Encoded{propertyNameFieldName} = System.Text.Json.JsonEncodedText.Encode({propertyNameFieldName}Bytes.Span);" + Environment.NewLine));
         }
 
-        private void BuildPropertyNameBytesDeclaration(string propertyNameFieldName, List<MemberDeclarationSyntax> members)
+        private void BuildPropertyNameBytesDeclaration(string propertyNameFieldName, string jsonPropertyName, List<MemberDeclarationSyntax> members)
         {
-            members.Add(SF.ParseMemberDeclaration($"private static readonly System.ReadOnlyMemory<byte> {propertyNameFieldName}Bytes = System.Text.Encoding.UTF8.GetBytes({propertyNameFieldName});" + Environment.NewLine));
+            // The C# compiler handles constant byte array initialization like this by embedding the binary
+            // data directly into the compiled assembly, and uses that to initialize the array directly.
+            // This results in better startup times than putting the call to Encoding.UTF8.GetBytes into the
+            // generated code itself. It means that we do the string processing here at code-gen time, instead
+            // of during static initialization.
+            // It's possible we could go a step further, because most of places that use this data obtain a
+            // ReadOnlySpan<T>, and it turns out that the compiler can optimize the initialization of a span
+            // with a constant binary array even further: it doesn't need to allocate an array at all because
+            // it can produce a span that wraps the compiled byte stream directly. (Moreover, the code it
+            // generates to produce this span makes it possible for the JIT compiler to determine the span length,
+            // and there are scenarios where this can go on to improve performance by enabling the JIT to omit
+            // compile-time bounds checks. However, because of the limitations on span usage (it's a ref struct)
+            // we can't just make these properties return a ReadOnlySpan<byte>. In any case, there's currently one
+            // use of these properties that depends on hangs onto the Memory object: the list of all properties.
+            // It might be possible to create a more efficient formulation in which we have one great big binary
+            // array that contains all of the UTF8 data, but we'd need careful benchmarking to work out whether
+            // it did in fact produce an improvement.
+            members.Add(SF.ParseMemberDeclaration($"private static readonly System.ReadOnlyMemory<byte> {propertyNameFieldName}Bytes = new byte[] {{ {string.Join(", ", System.Text.Encoding.UTF8.GetBytes(jsonPropertyName).Select(b => b.ToString()))} }};" + Environment.NewLine));
         }
     }
 }
