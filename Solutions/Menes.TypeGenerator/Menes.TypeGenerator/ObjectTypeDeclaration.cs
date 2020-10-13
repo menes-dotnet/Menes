@@ -985,7 +985,7 @@ namespace Menes.TypeGenerator
         {
             var propertyNames = new List<(string, string)>();
 
-            this.BuildPropertyNameDeclarations(members, propertyNames);
+            this.BuildPropertyNameDeclarations(propertyNames);
             this.BuildPropertyNamePathDeclarations(propertyNames, members);
             this.BuildPropertyNameBytesDeclarations(propertyNames, members);
             this.BuildEncodedPropertyNameDeclarations(propertyNames, members);
@@ -1003,12 +1003,11 @@ namespace Menes.TypeGenerator
             }
         }
 
-        private void BuildPropertyNameDeclarations(List<MemberDeclarationSyntax> members, List<(string fieldName, string jsonPropertyName)> propertyNames)
+        private void BuildPropertyNameDeclarations(List<(string fieldName, string jsonPropertyName)> propertyNames)
         {
             foreach (PropertyDeclaration property in this.Properties)
             {
                 string propertyNameFieldName = GetPropertyNameFieldName(property);
-                ////this.BuildPropertyNameDeclaration(propertyNameFieldName, property.JsonPropertyName, members);
                 propertyNames.Add((propertyNameFieldName, property.JsonPropertyName));
             }
         }
@@ -1200,11 +1199,6 @@ namespace Menes.TypeGenerator
                 members.Add(SF.ParseMemberDeclaration($"private readonly {property.Type.GetFullyQualifiedName()}? {NameFormatter.ToCamelCase(property.JsonPropertyName)};" + Environment.NewLine));
             }
         }
-
-        ////private void BuildPropertyNameDeclaration(string propertyNameFieldName, string jsonPropertyName, List<MemberDeclarationSyntax> members)
-        ////{
-        ////    members.Add(SF.ParseMemberDeclaration($"private const string {propertyNameFieldName} = \"{jsonPropertyName}\";" + Environment.NewLine));
-        ////}
 
         private void BuildPropertyNamePathDeclaration(string propertyNameFieldName, string jsonPropertyName, List<MemberDeclarationSyntax> members)
         {
