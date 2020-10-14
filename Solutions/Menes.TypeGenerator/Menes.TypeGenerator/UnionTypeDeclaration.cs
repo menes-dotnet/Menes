@@ -145,7 +145,7 @@ namespace Menes.TypeGenerator
                 index++;
             }
 
-            builder.AppendLine("    public JsonUnionExample(System.Text.Json.JsonElement jsonElement)");
+            builder.AppendLine($"    public {this.Name}(System.Text.Json.JsonElement jsonElement)");
             builder.AppendLine("    {");
 
             for (int i = 0; i < this.typesInUnion.Count; ++i)

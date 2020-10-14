@@ -24,11 +24,34 @@ namespace Menes.TypeGenerator
         /// </summary>
         /// <param name="name">The name of this type.</param>
         /// <param name="discriminatorPropertyName">The name of the common property that discriminates between the types.</param>
-        public DiscriminatedUnionTypeDeclaration(string name, string discriminatorPropertyName)
+        /// <param name="kind">The type of union for the discriminated union.</param>
+        public DiscriminatedUnionTypeDeclaration(string name, string discriminatorPropertyName, UnionKind kind = UnionKind.AnyOf)
             : base(name)
         {
             this.DiscriminatorPropertyName = discriminatorPropertyName;
+            this.Kind = kind;
         }
+
+        /// <summary>
+        /// The type of union this type represents.
+        /// </summary>
+        public enum UnionKind
+        {
+            /// <summary>
+            /// An anyOf validation
+            /// </summary>
+            AnyOf,
+
+            /// <summary>
+            /// A oneOf validation
+            /// </summary>
+            OneOf,
+        }
+
+        /// <summary>
+        /// Gets the kind of union.
+        /// </summary>
+        public UnionKind Kind { get; }
 
         /// <inheritdoc/>
         /// <remarks>
@@ -44,12 +67,24 @@ namespace Menes.TypeGenerator
         /// <summary>
         /// Adds the given type to the union.
         /// </summary>
-        /// <param name="type">The type to add to the union.</param>
         /// <param name="discriminatorValue">The value of the discriminator for this type.</param>
-        public void AddTypeToUnion(ITypeDeclaration type, string discriminatorValue)
+        /// <param name="type">The type to add to the union.</param>
+        public void AddTypeToUnion(string discriminatorValue, ITypeDeclaration type)
         {
             // Idempotent based on the name of the type.
             this.typesInUnion.TryAdd(type.GetFullyQualifiedName(), (type, discriminatorValue));
+        }
+
+        /// <summary>
+        /// Add types to the union.
+        /// </summary>
+        /// <param name="types">The types to add.</param>
+        public void AddTypesToUnion(params (string, ITypeDeclaration)[] types)
+        {
+            foreach ((string, ITypeDeclaration) type in types)
+            {
+                this.AddTypeToUnion(type.Item1, type.Item2);
+            }
         }
 
         /// <summary>
@@ -69,6 +104,13 @@ namespace Menes.TypeGenerator
             builder.AppendLine($"public readonly struct {this.Name} : Menes.IJsonValue");
             builder.AppendLine("{");
             builder.AppendLine($"    public static readonly {this.Name} Null = new {this.Name}(default(System.Text.Json.JsonElement));");
+
+            builder.AppendLine($"        private static readonly System.ReadOnlyMemory<byte> DiscriminatorPropertyName = new byte[] {{ {string.Join(", ", Encoding.UTF8.GetBytes(this.DiscriminatorPropertyName).Select(b => b.ToString()))} }};");
+
+            foreach ((ITypeDeclaration unionType, string discriminatorValue) in this.typesInUnion.Values)
+            {
+                builder.AppendLine($"        private static readonly System.ReadOnlyMemory<byte> {unionType.Name}DiscriminatorValue = new byte[] {{ {string.Join(", ", Encoding.UTF8.GetBytes(discriminatorValue).Select(b => b.ToString()))} }};");
+            }
 
             int index = 0;
             foreach ((ITypeDeclaration unionType, string discriminatorValue) in this.typesInUnion.Values)
@@ -125,7 +167,7 @@ namespace Menes.TypeGenerator
                 index++;
             }
 
-            builder.AppendLine("    public JsonUnionExample(System.Text.Json.JsonElement jsonElement)");
+            builder.AppendLine($"    public {this.Name}(System.Text.Json.JsonElement jsonElement)");
             builder.AppendLine("    {");
 
             for (int i = 0; i < this.typesInUnion.Count; ++i)
@@ -158,7 +200,7 @@ namespace Menes.TypeGenerator
             {
                 string fullyQualifiedTypeName = unionType.GetFullyQualifiedName();
                 string fullyQualifiedTypeNameOrReference = unionType.IsCompoundType ? "Menes.JsonReference" : fullyQualifiedTypeName;
-                builder.AppendLine($"    public bool Is{unionType.Name} => this.item{index + 1} is {fullyQualifiedTypeNameOrReference} || {fullyQualifiedTypeName}.IsConvertibleFrom(this.JsonElement);");
+                builder.AppendLine($"    public bool Is{unionType.Name} => this.item{index + 1} is {fullyQualifiedTypeNameOrReference} || (this.JsonElement.TryGetProperty(DiscriminatorPropertyName.Span, out System.Text.Json.JsonElement propVal) && propVal.ValueEquals({unionType.Name}DiscriminatorValue.Span));");
                 index++;
             }
 
@@ -195,11 +237,11 @@ namespace Menes.TypeGenerator
 
                 if (unionType.IsCompoundType)
                 {
-                    builder.AppendLine($"    public {fullyQualifiedTypeName} As{unionType.Name}() => this.item{index + 1}?.AsValue<{fullyQualifiedTypeName}>() ?? new {fullyQualifiedTypeName}(this.JsonElement);");
+                    builder.AppendLine($"    public {fullyQualifiedTypeName} As{unionType.Name}() => this.Is{unionType.Name} ? this.item{index + 1}?.AsValue<{fullyQualifiedTypeName}>() ?? new {fullyQualifiedTypeName}(this.JsonElement) : throw new System.Text.Json.JsonException(\"The union value is not a {fullyQualifiedTypeName}\");");
                 }
                 else
                 {
-                    builder.AppendLine($"    public {fullyQualifiedTypeName} As{unionType.Name}() => this.item{index + 1} ?? new {fullyQualifiedTypeName}(this.JsonElement);");
+                    builder.AppendLine($"    public {fullyQualifiedTypeName} As{unionType.Name}() => this.Is{unionType.Name} ? this.item{index + 1} ?? new {fullyQualifiedTypeName}(this.JsonElement) : throw new System.Text.Json.JsonException(\"The union value is not a {fullyQualifiedTypeName}\");");
                 }
 
                 ++index;
@@ -263,37 +305,47 @@ namespace Menes.TypeGenerator
             builder.AppendLine("            return validationContext;");
             builder.AppendLine("        }");
 
-            for (int i = 0; i < this.typesInUnion.Count; ++i)
-            {
-                builder.AppendLine($"        Menes.ValidationContext validationContext{i + 1} = Menes.ValidationContext.Root.WithPath(validationContext.Path);");
-            }
+            builder.AppendLine("        Menes.ValidationContext context = validationContext;");
 
             index = 0;
             foreach ((ITypeDeclaration unionType, string discriminatorValue) in this.typesInUnion.Values)
             {
+                if (this.Kind == UnionKind.OneOf)
+                {
+                    builder.AppendLine("        int matchCount = 0;");
+                }
+
                 builder.AppendLine($"        if (this.Is{unionType.Name})");
                 builder.AppendLine("        {");
-                builder.AppendLine($"            validationContext{index + 1} = this.As{unionType.Name}().Validate(validationContext{index + 1});");
-                builder.AppendLine("        }");
-                builder.AppendLine("        else");
-                builder.AppendLine("        {");
-                builder.AppendLine($"            validationContext{index + 1} = validationContext{index + 1}.WithError(\"The value is not convertible to a {unionType.GetFullyQualifiedName()}.\");");
+                builder.AppendLine($"            context = this.As{unionType.Name}().Validate(context);");
+                if (this.Kind == UnionKind.OneOf)
+                {
+                    builder.AppendLine("            matchCount++;");
+                }
+
                 builder.AppendLine("        }");
                 index++;
             }
 
-            builder.Append("        return Menes.Validation.ValidateOneOf(validationContext");
-
-            index = 0;
-            foreach ((ITypeDeclaration unionType, string discriminatorValue) in this.typesInUnion.Values)
+            if (this.Kind == UnionKind.OneOf)
             {
-                builder.Append(", ");
-                builder.Append($"(\"{unionType.GetFullyQualifiedName()}\", validationContext{index + 1})");
-                index++;
+                builder.AppendLine("if (matchCount != 1)");
+                builder.AppendLine("{");
+                builder.AppendLine("var builder = new System.Text.StringBuilder();");
+                foreach ((ITypeDeclaration unionType, string discriminatorValue) in this.typesInUnion.Values)
+                {
+                    builder.AppendLine($"if (this.Is{unionType.Name})");
+                    builder.AppendLine("{");
+                    builder.AppendLine($"    builder.Append(builder.Length > 0 ? \", \" : string.Empty);");
+                    builder.AppendLine($"    builder.Append(\"{unionType.Name}\");");
+                    builder.AppendLine("}");
+                }
+
+                builder.AppendLine($"        context = context.WithError($\"core 9.2.1.3. oneOf: The type validated against {{matchCount}} items: {{builder.ToString()}}.\");");
+                builder.AppendLine("}");
             }
 
-            builder.AppendLine(");");
-
+            builder.Append("        return context;");
             builder.AppendLine("    }");
             builder.AppendLine("}");
 

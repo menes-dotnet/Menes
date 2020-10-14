@@ -2,191 +2,168 @@
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
+#pragma warning disable SA1600, CS1591, SA1028, SA1107, SA1516, SA1513, SA1501
+
 namespace Examples
 {
-    using System;
-    using System.Text;
-    using System.Text.Json;
-    using Menes;
-
-    /// <summary>
-    /// A discriminated union over a Json element.
-    /// </summary>
-    /// <remarks>Obviously this example wouldn't actually work - there is no such discriminator property on the basic types I'm using here...</remarks>
-    public readonly struct JsonDiscriminatedUnionExample : IJsonValue
+    public readonly struct JsonDiscriminatedUnionExample : Menes.IJsonValue
     {
-        /// <summary>
-        /// A <see cref="JsonDiscriminatedUnionExample"/> representing a null value.
-        /// </summary>
-        public static readonly JsonDiscriminatedUnionExample Null = new JsonDiscriminatedUnionExample(default(JsonElement));
-
-        private static readonly ReadOnlyMemory<byte> DiscriminatorPropertyName = Encoding.UTF8.GetBytes("DiscriminatorProperty");
-
-        private static readonly ReadOnlyMemory<byte> JsonDateTimeDiscriminatorValue = Encoding.UTF8.GetBytes("JsonDateTimeDiscriminatorValue");
-
-        private static readonly ReadOnlyMemory<byte> JsonGuidDiscriminatorValue = Encoding.UTF8.GetBytes("JsonGuidDiscriminatorValue");
-
-        private readonly JsonDateTime? firstInstance;
-        private readonly JsonGuid? secondInstance;
-
-        /// <summary>
-        /// Creates a <see cref="JsonBoolean"/> wrapper around a .NET boolean.
-        /// </summary>
-        /// <param name="clrInstance">The .NET instance.</param>
-        public JsonDiscriminatedUnionExample(JsonDateTime clrInstance)
+        public static readonly JsonDiscriminatedUnionExample Null = new JsonDiscriminatedUnionExample(default(System.Text.Json.JsonElement));
+        private static readonly System.ReadOnlyMemory<byte> DiscriminatorPropertyName = new byte[] { 99, 111, 110, 116, 101, 110, 116, 84, 121, 112, 101 };
+        private static readonly System.ReadOnlyMemory<byte> JsonBooleanDiscriminatorValue = new byte[] { 97, 98, 105, 116, 102, 97, 107, 101 };
+        private static readonly System.ReadOnlyMemory<byte> JsonInt64DiscriminatorValue = new byte[] { 115, 116, 105, 108, 108, 113, 117, 105, 116, 101, 102, 97, 107, 101 };
+        private static readonly System.ReadOnlyMemory<byte> JsonObjectExampleDiscriminatorValue = new byte[] { 116, 111, 116, 97, 108, 70, 97, 107, 101, 114, 121 };
+        private readonly Menes.JsonBoolean? item1;
+        private readonly Menes.JsonInt64? item2;
+        private readonly Menes.JsonReference? item3;
+        public JsonDiscriminatedUnionExample(Menes.JsonBoolean clrInstance)
         {
-            this.firstInstance = clrInstance;
-            this.secondInstance = null;
-            this.JsonElement = default;
+            if (clrInstance.HasJsonElement)
+            {
+                this.JsonElement = clrInstance.JsonElement;
+                this.item1 = null;
+            }
+            else
+            {
+                this.item1 = clrInstance;
+                this.JsonElement = default;
+            }
+            this.item2 = null;
+            this.item3 = null;
         }
-
-        /// <summary>
-        /// Creates a <see cref="JsonBoolean"/> wrapper around a .NET boolean.
-        /// </summary>
-        /// <param name="clrInstance">The .NET instance.</param>
-        public JsonDiscriminatedUnionExample(JsonGuid clrInstance)
+        public JsonDiscriminatedUnionExample(Menes.JsonInt64 clrInstance)
         {
-            this.firstInstance = null;
-            this.secondInstance = clrInstance;
-            this.JsonElement = default;
+            if (clrInstance.HasJsonElement)
+            {
+                this.JsonElement = clrInstance.JsonElement;
+                this.item2 = null;
+            }
+            else
+            {
+                this.item2 = clrInstance;
+                this.JsonElement = default;
+            }
+            this.item1 = null;
+            this.item3 = null;
         }
-
-        /// <summary>
-        /// Creates a <see cref="JsonBoolean"/> wrapper around a .NET bool.
-        /// </summary>
-        /// <param name="jsonElement">
-        /// A JSON element containing the bool value to represent.
-        /// </param>
-        public JsonDiscriminatedUnionExample(JsonElement jsonElement)
+        public JsonDiscriminatedUnionExample(Examples.JsonObjectExample clrInstance)
         {
-            this.firstInstance = null;
-            this.secondInstance = null;
+            if (clrInstance.HasJsonElement)
+            {
+                this.JsonElement = clrInstance.JsonElement;
+                this.item3 = null;
+            }
+            else
+            {
+                this.item3 = Menes.JsonReference.FromValue(clrInstance);
+                this.JsonElement = default;
+            }
+            this.item1 = null;
+            this.item2 = null;
+        }
+        public JsonDiscriminatedUnionExample(System.Text.Json.JsonElement jsonElement)
+        {
+            this.item1 = null;
+            this.item2 = null;
+            this.item3 = null;
             this.JsonElement = jsonElement;
         }
-
-        /// <summary>
-        /// Gets a value indicating whether this represents a null value.
-        /// </summary>
-        public bool IsNull => this.firstInstance is null && this.secondInstance is null && (this.JsonElement.ValueKind == JsonValueKind.Undefined || this.JsonElement.ValueKind == JsonValueKind.Null);
-
-        /// <summary>
-        /// Gets a value indicating whether this represents a JsonDateTime value.
-        /// </summary>
-        public bool IsJsonDateTime => this.firstInstance is JsonDateTime || this.JsonElement.GetProperty(DiscriminatorPropertyName.Span).ValueEquals(JsonDateTimeDiscriminatorValue.Span);
-
-        /// <summary>
-        /// Gets a value indicating whether this represents a JsonDateTime value.
-        /// </summary>
-        public bool IsJsonGuid => this.secondInstance is JsonGuid || this.JsonElement.GetProperty(DiscriminatorPropertyName.Span).ValueEquals(JsonGuidDiscriminatorValue.Span);
-
-        /// <inheritdoc/>
-        public bool HasJsonElement => this.JsonElement.ValueKind != JsonValueKind.Undefined;
-
-        /// <inheritdoc/>
-        public JsonElement JsonElement { get; }
-
-        /// <summary>
-        /// Gets this value as a nullable value type.
-        /// </summary>
+        public bool IsNull => this.item1 is null && this.item2 is null && this.item3 is null && (this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Undefined || this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Null);
         public JsonDiscriminatedUnionExample? AsOptional => this.IsNull ? default(JsonDiscriminatedUnionExample?) : this;
-
-        /// <summary>
-        /// Implicit conversion from <see cref="JsonDateTime"/>.
-        /// </summary>
-        /// <param name="value">The value to convert.</param>
-        public static implicit operator JsonDiscriminatedUnionExample(in JsonDateTime value) => new JsonDiscriminatedUnionExample(value);
-
-        /// <summary>
-        /// Implicit conversion from <see cref="JsonGuid"/>.
-        /// </summary>
-        /// <param name="value">The value to convert.</param>
-        public static implicit operator JsonDiscriminatedUnionExample(in JsonGuid value) => new JsonDiscriminatedUnionExample(value);
-
-        /// <summary>
-        /// Gets a <see cref="JsonDiscriminatedUnionExample"/> from a property in a JSON element, or <see cref="Null"/> if the property is not present.
-        /// </summary>
-        /// <param name="parentDocument">The parent JSON element.</param>
-        /// <param name="propertyName">
-        /// The property name.
-        /// </param>
-        /// <returns>A <see cref="JsonDiscriminatedUnionExample"/> or null.</returns>
-        public static JsonDiscriminatedUnionExample FromOptionalProperty(in JsonElement parentDocument, ReadOnlySpan<char> propertyName) =>
-            parentDocument.TryGetProperty(propertyName, out JsonElement property)
+        public bool IsJsonBoolean => this.item1 is Menes.JsonBoolean || (this.JsonElement.TryGetProperty(DiscriminatorPropertyName.Span, out System.Text.Json.JsonElement propVal) && propVal.ValueEquals(JsonBooleanDiscriminatorValue.Span));
+        public bool IsJsonInt64 => this.item2 is Menes.JsonInt64 || (this.JsonElement.TryGetProperty(DiscriminatorPropertyName.Span, out System.Text.Json.JsonElement propVal) && propVal.ValueEquals(JsonInt64DiscriminatorValue.Span));
+        public bool IsJsonObjectExample => this.item3 is Menes.JsonReference || (this.JsonElement.TryGetProperty(DiscriminatorPropertyName.Span, out System.Text.Json.JsonElement propVal) && propVal.ValueEquals(JsonObjectExampleDiscriminatorValue.Span));
+        public bool HasJsonElement => this.JsonElement.ValueKind != System.Text.Json.JsonValueKind.Undefined;
+        public System.Text.Json.JsonElement JsonElement { get; }
+        public static explicit operator Menes.JsonBoolean(JsonDiscriminatedUnionExample value) => value.AsJsonBoolean();
+        public static implicit operator JsonDiscriminatedUnionExample(Menes.JsonBoolean value) => new JsonDiscriminatedUnionExample(value);
+        public static explicit operator Menes.JsonInt64(JsonDiscriminatedUnionExample value) => value.AsJsonInt64();
+        public static implicit operator JsonDiscriminatedUnionExample(Menes.JsonInt64 value) => new JsonDiscriminatedUnionExample(value);
+        public static explicit operator Examples.JsonObjectExample(JsonDiscriminatedUnionExample value) => value.AsJsonObjectExample();
+        public static implicit operator JsonDiscriminatedUnionExample(Examples.JsonObjectExample value) => new JsonDiscriminatedUnionExample(value);
+        public static JsonDiscriminatedUnionExample FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<char> propertyName) =>
+            parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
                 ? new JsonDiscriminatedUnionExample(property)
                 : Null;
-
-        /// <summary>
-        /// Gets a <see cref="JsonDiscriminatedUnionExample"/> from a property in a JSON element, or <see cref="Null"/> if the property is not present.
-        /// </summary>
-        /// <param name="parentDocument">The parent JSON element.</param>
-        /// <param name="propertyName">
-        /// The property name.
-        /// </param>
-        /// <returns>A <see cref="JsonDiscriminatedUnionExample"/> or null.</returns>
-        public static JsonDiscriminatedUnionExample FromOptionalProperty(in JsonElement parentDocument, string propertyName) =>
-            parentDocument.TryGetProperty(propertyName, out JsonElement property)
+        public static JsonDiscriminatedUnionExample FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, string propertyName) =>
+            parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
                 ? new JsonDiscriminatedUnionExample(property)
                 : Null;
-
-        /// <summary>
-        /// Gets a <see cref="JsonDiscriminatedUnionExample"/> from a property in a JSON element, or <see cref="Null"/> if the property is not present.
-        /// </summary>
-        /// <param name="parentDocument">The parent JSON element.</param>
-        /// <param name="utf8PropertyName">
-        /// The property name as a UTF8 encoded string.
-        /// </param>
-        /// <returns>A <see cref="JsonDiscriminatedUnionExample"/> or null.</returns>
-        public static JsonDiscriminatedUnionExample FromOptionalProperty(in JsonElement parentDocument, ReadOnlySpan<byte> utf8PropertyName) =>
-            parentDocument.TryGetProperty(utf8PropertyName, out JsonElement property)
+        public static JsonDiscriminatedUnionExample FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<byte> utf8PropertyName) =>
+            parentDocument.TryGetProperty(utf8PropertyName, out System.Text.Json.JsonElement property)
                 ? new JsonDiscriminatedUnionExample(property)
                 : Null;
-
-        /// <summary>
-        /// Gets the value as an instance of the JsonDateTime .NET type.
-        /// </summary>
-        /// <returns>The value as a <see cref="JsonDateTime"/>.</returns>
-        public JsonDateTime AsJsonDateTime() => this.IsJsonDateTime ? this.firstInstance ?? new JsonDateTime(this.JsonElement) : throw new JsonException("The union value is not a JsonDateTime");
-
-        /// <summary>
-        /// Gets the value as an instance of the JsonGuid .NET type.
-        /// </summary>
-        /// <returns>The value as a <see cref="JsonGuid"/>.</returns>
-        public JsonGuid AsJsonGuid() => this.IsJsonGuid ? this.secondInstance ?? new JsonGuid(this.JsonElement) : throw new JsonException("The union value is not a JsonGuid");
-
-        /// <summary>
-        /// Writes the bool value to a <see cref="Utf8JsonWriter"/>.
-        /// </summary>
-        /// <param name="writer">The output to which to write the bool.</param>
-        public void WriteTo(Utf8JsonWriter writer)
+        public Menes.JsonBoolean AsJsonBoolean() => this.IsJsonBoolean ? this.item1 ?? new Menes.JsonBoolean(this.JsonElement) : throw new System.Text.Json.JsonException("The union value is not a Menes.JsonBoolean");
+        public Menes.JsonInt64 AsJsonInt64() => this.IsJsonInt64 ? this.item2 ?? new Menes.JsonInt64(this.JsonElement) : throw new System.Text.Json.JsonException("The union value is not a Menes.JsonInt64");
+        public Examples.JsonObjectExample AsJsonObjectExample() => this.IsJsonObjectExample ? this.item3?.AsValue<Examples.JsonObjectExample>() ?? new Examples.JsonObjectExample(this.JsonElement) : throw new System.Text.Json.JsonException("The union value is not a Examples.JsonObjectExample");
+        public void WriteTo(System.Text.Json.Utf8JsonWriter writer)
         {
-            if (this.firstInstance is JsonDateTime first)
+            if (this.item1 is Menes.JsonBoolean item1)
             {
-                first.WriteTo(writer);
+                item1.WriteTo(writer);
             }
-            else if (this.secondInstance is JsonGuid second)
+            else if (this.item2 is Menes.JsonInt64 item2)
             {
-                second.WriteTo(writer);
+                item2.WriteTo(writer);
+            }
+            else if (this.item3 is Menes.JsonReference item3)
+            {
+                item3.WriteTo(writer);
             }
             else
             {
                 this.JsonElement.WriteTo(writer);
             }
         }
-
-        /// <inheritdoc/>
-        public ValidationContext Validate(in ValidationContext validationContext)
+        public override string? ToString()
+        {
+            var builder = new System.Text.StringBuilder();
+            if (this.IsJsonBoolean)
+            {
+                builder.Append("{");
+                builder.Append("JsonBoolean");
+                builder.Append(", ");
+                builder.Append(this.AsJsonBoolean().ToString());
+                builder.AppendLine("}");
+            }
+            if (this.IsJsonInt64)
+            {
+                builder.Append("{");
+                builder.Append("JsonInt64");
+                builder.Append(", ");
+                builder.Append(this.AsJsonInt64().ToString());
+                builder.AppendLine("}");
+            }
+            if (this.IsJsonObjectExample)
+            {
+                builder.Append("{");
+                builder.Append("JsonObjectExample");
+                builder.Append(", ");
+                builder.Append(this.AsJsonObjectExample().ToString());
+                builder.AppendLine("}");
+            }
+            return builder.Length > 0 ? builder.ToString() : this.JsonElement.ToString();
+        }
+        public Menes.ValidationContext Validate(in Menes.ValidationContext validationContext)
         {
             if (this.IsNull)
             {
                 return validationContext;
             }
-
-            if (this.IsJsonGuid)
+            Menes.ValidationContext context = validationContext;
+            if (this.IsJsonBoolean)
             {
-                return this.AsJsonGuid().Validate(validationContext);
+                context = this.AsJsonBoolean().Validate(context);
             }
-
-            return this.AsJsonDateTime().Validate(validationContext);
+            if (this.IsJsonInt64)
+            {
+                context = this.AsJsonInt64().Validate(context);
+            }
+            if (this.IsJsonObjectExample)
+            {
+                context = this.AsJsonObjectExample().Validate(context);
+            }
+            return context;
         }
     }
 }

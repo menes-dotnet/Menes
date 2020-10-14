@@ -170,13 +170,6 @@ namespace Menes.Sandbox
 
             var exampleObjectType = new ObjectTypeDeclaration("JsonObjectExample", JsonValueTypeDeclaration.String);
 
-            var exampleUnionType = new UnionTypeDeclaration("JsonUnionExample", UnionTypeDeclaration.UnionKind.AnyOf);
-
-            exampleUnionType.AddTypesToUnion(
-                JsonValueTypeDeclaration.Boolean,
-                JsonValueTypeDeclaration.Int64,
-                exampleObjectType);
-
             exampleNamespace.AddDeclaration(exampleObjectType);
 
             var arrayType = new ValidatedArrayTypeDeclaration(exampleObjectType)
@@ -202,11 +195,29 @@ namespace Menes.Sandbox
             Console.WriteLine();
             Console.WriteLine(formattedNode.ToFullString());
 
+            var exampleUnionType = new UnionTypeDeclaration("JsonUnionExample");
+            exampleUnionType.AddTypesToUnion(
+                JsonValueTypeDeclaration.Boolean,
+                JsonValueTypeDeclaration.Int64,
+                exampleObjectType);
+
             TypeDeclarationSyntax utds = exampleUnionType.GenerateType();
 
             SyntaxNode formattedUnionNode = Formatter.Format(utds, workspace);
             Console.WriteLine();
             Console.WriteLine(formattedUnionNode.ToFullString());
+
+            var exampleDiscriminatedUnionType = new DiscriminatedUnionTypeDeclaration("JsonDiscriminatedUnionExample", "contentType");
+            exampleDiscriminatedUnionType.AddTypesToUnion(
+                ("abitfake", JsonValueTypeDeclaration.Boolean),
+                ("stillquitefake", JsonValueTypeDeclaration.Int64),
+                ("totalFakery", exampleObjectType));
+
+            TypeDeclarationSyntax dutds = exampleDiscriminatedUnionType.GenerateType();
+
+            SyntaxNode formattedDiscriminatedUnionNode = Formatter.Format(dutds, workspace);
+            Console.WriteLine();
+            Console.WriteLine(formattedDiscriminatedUnionNode.ToFullString());
 
             TryCreatingAMethod(exampleObjectType, workspace);
         }
