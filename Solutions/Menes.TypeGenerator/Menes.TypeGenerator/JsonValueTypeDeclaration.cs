@@ -15,6 +15,7 @@ namespace Menes.TypeGenerator
     {
         private JsonValueTypeDeclaration(string name, string clrType, ValueKind kind)
         {
+            this.Parent = MenesNamespace;
             this.Name = name;
             this.RawClrType = clrType;
             this.Kind = kind;
@@ -77,6 +78,8 @@ namespace Menes.TypeGenerator
         /// Gets the value kind of the JSON value.
         /// </summary>
         public ValueKind Kind { get; }
+
+        private static NamespaceDeclaration MenesNamespace => new NamespaceDeclaration("Menes");
 
         /// <inheritdoc/>
         public void AddMethodDeclaration(MethodDeclaration methodDeclaration)

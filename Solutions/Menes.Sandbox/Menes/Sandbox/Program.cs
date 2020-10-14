@@ -122,12 +122,33 @@ namespace Menes.Sandbox
             Console.WriteLine();
             Serialize(array);
 
+            //// Let's try a Union type
+
+            var unionInt = new JsonUnionExample(32);
+            var unionBool = new JsonUnionExample(true);
+            var unionJsonObject = new JsonUnionExample(roundtrip);
+
+            _ = Serialize(unionInt);
+            _ = Serialize(unionBool);
+            _ = Serialize(unionJsonObject);
+
+            Validate(unionInt);
+            Validate(unionBool);
+            Validate(unionJsonObject);
+
             var workspace = new AdhocWorkspace();
             SetWorkspaceOptions(workspace);
 
             var exampleNamespace = new NamespaceDeclaration("Examples");
 
             var exampleObjectType = new ObjectTypeDeclaration("JsonObjectExample", JsonValueTypeDeclaration.String);
+
+            var exampleUnionType = new UnionTypeDeclaration("JsonUnionExample", UnionTypeDeclaration.UnionKind.AnyOf);
+
+            exampleUnionType.AddTypesToUnion(
+                JsonValueTypeDeclaration.Boolean,
+                JsonValueTypeDeclaration.Int64,
+                exampleObjectType);
 
             exampleNamespace.AddDeclaration(exampleObjectType);
 
@@ -154,7 +175,31 @@ namespace Menes.Sandbox
             Console.WriteLine();
             Console.WriteLine(formattedNode.ToFullString());
 
+            TypeDeclarationSyntax utds = exampleUnionType.GenerateType();
+
+            SyntaxNode formattedUnionNode = Formatter.Format(utds, workspace);
+            Console.WriteLine();
+            Console.WriteLine(formattedUnionNode.ToFullString());
+
             TryCreatingAMethod(exampleObjectType, workspace);
+        }
+
+        private static void Validate<TValue>(TValue value)
+            where TValue : IJsonValue
+        {
+            ValidationContext validationContext = value.Validate(ValidationContext.Root);
+
+            if (validationContext.IsValid)
+            {
+                Console.WriteLine("Validated succesfully.");
+            }
+            else
+            {
+                foreach ((string path, string error) in validationContext.Errors)
+                {
+                    Console.WriteLine($"Path: \"{path}\" Error: \"{error}\"");
+                }
+            }
         }
 
         private static void TryCreatingAMethod(ObjectTypeDeclaration exampleObjectType, AdhocWorkspace workspace)
@@ -200,7 +245,7 @@ namespace Menes.Sandbox
             options = options.WithChangedOption(CSharpFormattingOptions.NewLinesForBracesInObjectCollectionArrayInitializers, true);
             options = options.WithChangedOption(CSharpFormattingOptions.NewLinesForBracesInProperties, true);
             options = options.WithChangedOption(CSharpFormattingOptions.NewLinesForBracesInTypes, true);
-            options = options.WithChangedOption(CSharpFormattingOptions.SpaceAfterCast, true);
+            options = options.WithChangedOption(CSharpFormattingOptions.SpaceAfterCast, false);
             options = options.WithChangedOption(CSharpFormattingOptions.SpaceAfterColonInBaseTypeDeclaration, true);
             options = options.WithChangedOption(CSharpFormattingOptions.SpaceAfterComma, true);
             options = options.WithChangedOption(CSharpFormattingOptions.SpaceAfterControlFlowStatementKeyword, true);
@@ -208,7 +253,7 @@ namespace Menes.Sandbox
             options = options.WithChangedOption(CSharpFormattingOptions.SpaceAfterMethodCallName, true);
             options = options.WithChangedOption(CSharpFormattingOptions.SpaceAfterSemicolonsInForStatement, true);
             options = options.WithChangedOption(CSharpFormattingOptions.SpaceBeforeColonInBaseTypeDeclaration, true);
-            options = options.WithChangedOption(CSharpFormattingOptions.SpaceBeforeComma, true);
+            options = options.WithChangedOption(CSharpFormattingOptions.SpaceBeforeComma, false);
             options = options.WithChangedOption(CSharpFormattingOptions.SpaceBeforeDot, false);
             options = options.WithChangedOption(CSharpFormattingOptions.SpaceBeforeOpenSquareBracket, false);
             options = options.WithChangedOption(CSharpFormattingOptions.SpaceBeforeSemicolonsInForStatement, true);

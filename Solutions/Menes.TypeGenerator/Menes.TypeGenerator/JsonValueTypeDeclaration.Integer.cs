@@ -12,11 +12,11 @@ namespace Menes.TypeGenerator
         /// <summary>
         /// Get the <see cref="long"/> type for JSON Schema int64.
         /// </summary>
-        public static readonly JsonValueTypeDeclaration Int64 = new JsonValueTypeDeclaration(typeof(JsonInt64).FullName, "long", ValueKind.Number);
+        public static readonly JsonValueTypeDeclaration Int64 = new JsonValueTypeDeclaration(typeof(JsonInt64).Name, "long", ValueKind.Number);
 
         /// <summary>
         /// Get the <see cref="int"/> type for JSON Schema int32.
         /// </summary>
-        public static readonly JsonValueTypeDeclaration Int32 = new JsonValueTypeDeclaration(typeof(JsonInt32).FullName, "int", ValueKind.Number);
+        public static readonly JsonValueTypeDeclaration Int32 = new JsonValueTypeDeclaration(typeof(JsonInt32).Name, "int", ValueKind.Number);
     }
 }
