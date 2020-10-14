@@ -265,6 +265,11 @@ namespace Menes.TypeGenerator
             builder.AppendLine("        Menes.ValidationContext context = validationContext;");
             builder.AppendLine("        context = value.Validate(context);");
 
+            if (this.NotTypeValidation is ITypeDeclaration notType)
+            {
+                builder.AppendLine($"context = Menes.Validation.ValidateNot<{validatedTypeFullyQualifiedName}, {notType.GetFullyQualifiedName()}>(context, this);");
+            }
+
             if (this.ValidatedType.Kind == JsonValueTypeDeclaration.ValueKind.String)
             {
                 builder.AppendLine($"context = value.ValidateAsString(context, MinLength, MaxLength, Pattern, EnumValues, ConstValue);");
