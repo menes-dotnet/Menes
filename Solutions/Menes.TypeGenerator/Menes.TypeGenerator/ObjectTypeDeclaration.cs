@@ -160,7 +160,7 @@ namespace Menes.TypeGenerator
                 var builder = new StringBuilder();
                 builder.AppendLine("private static Menes.JsonReference BuildConstValue()");
                 builder.AppendLine("{");
-                builder.AppendLine($"    using var document = System.Text.Json.JsonDocument.Parse(\"{StringFormatter.EscapeForCSharpString(constValue)}\");");
+                builder.AppendLine($"    using var document = System.Text.Json.JsonDocument.Parse({StringFormatter.EscapeForCSharpString(constValue, true)});");
                 builder.AppendLine("    return new Menes.JsonReference(document.RootElement.Clone());");
                 builder.AppendLine("}");
 
@@ -183,7 +183,7 @@ namespace Menes.TypeGenerator
                 var builder = new StringBuilder();
                 builder.AppendLine("private static Menes.JsonReference BuildEnumValues()");
                 builder.AppendLine("{");
-                builder.AppendLine($"    using var document = System.Text.Json.JsonDocument.Parse(\"{StringFormatter.EscapeForCSharpString(enumValidation)}\");");
+                builder.AppendLine($"    using var document = System.Text.Json.JsonDocument.Parse({StringFormatter.EscapeForCSharpString(enumValidation, true)});");
                 builder.AppendLine("    return new Menes.JsonReference(document.RootElement.Clone());");
                 builder.AppendLine("}");
 

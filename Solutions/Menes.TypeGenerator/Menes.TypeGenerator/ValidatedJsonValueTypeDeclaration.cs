@@ -172,7 +172,7 @@ namespace Menes.TypeGenerator
 
                 if (this.PatternValidation is string pattern)
                 {
-                    builder.AppendLine($"    private static readonly System.Text.RegularExpressions.Regex? Pattern = new System.Text.RegularExpressions.Regex(\"{StringFormatter.EscapeForCSharpString(pattern)}\", System.Text.RegularExpressions.RegexOptions.Compiled);");
+                    builder.AppendLine($"    private static readonly System.Text.RegularExpressions.Regex? Pattern = new System.Text.RegularExpressions.Regex({StringFormatter.EscapeForCSharpString(pattern, true)}, System.Text.RegularExpressions.RegexOptions.Compiled);");
                 }
                 else
                 {
@@ -298,11 +298,11 @@ namespace Menes.TypeGenerator
                 builder.AppendLine("{");
                 if (this.ValidatedType.Kind == JsonValueTypeDeclaration.ValueKind.Decimal)
                 {
-                    builder.AppendLine($"    return {StringFormatter.EscapeForCSharpString(constValue)}M;");
+                    builder.AppendLine($"    return {constValue}M;");
                 }
                 else
                 {
-                    builder.AppendLine($"    return {StringFormatter.EscapeForCSharpString(constValue)};");
+                    builder.AppendLine($"    return {constValue};");
                 }
 
                 builder.AppendLine("}");
@@ -327,11 +327,11 @@ namespace Menes.TypeGenerator
                 {
                     if (this.ValidatedType.Kind == JsonValueTypeDeclaration.ValueKind.Decimal)
                     {
-                        builder.AppendLine($"arrayBuilder.Add({StringFormatter.EscapeForCSharpString(enumerator.Current.GetRawText())}M);");
+                        builder.AppendLine($"arrayBuilder.Add({enumerator.Current.GetRawText()}M);");
                     }
                     else
                     {
-                        builder.AppendLine($"arrayBuilder.Add({StringFormatter.EscapeForCSharpString(enumerator.Current.GetRawText())});");
+                        builder.AppendLine($"arrayBuilder.Add({enumerator.Current.GetRawText()});");
                     }
                 }
 

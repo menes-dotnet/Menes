@@ -5,6 +5,7 @@
 namespace Menes.TypeGenerator
 {
     using System;
+    using Microsoft.CodeAnalysis.CSharp;
 
     /// <summary>
     /// Methods to help format strings.
@@ -53,11 +54,12 @@ namespace Menes.TypeGenerator
         /// Escapes a value for embeddeding into a quoted C# string.
         /// </summary>
         /// <param name="value">The value to escape.</param>
+        /// <param name="quote">Whether to quote the string.</param>
         /// <returns>The escaped value. This can be inserted into a regular quoted C# string.</returns>
-        public static string? EscapeForCSharpString(string? value)
+        public static string? EscapeForCSharpString(string? value, bool quote)
         {
             // TODO: actually implement this. Someone must have done so already
-            return value;
+            return value is null ? null : SymbolDisplay.FormatLiteral(value, quote);
         }
 
         private static ReadOnlySpan<char> FixCasing(Span<char> chars, bool capitalizeFirst)
