@@ -5,10 +5,12 @@
 namespace Menes
 {
     using System;
+    using System.Buffers;
     using System.Collections;
     using System.Collections.Generic;
     using System.Collections.Immutable;
     using System.Diagnostics;
+    using System.Text;
     using System.Text.Json;
 
     /// <summary>
@@ -415,6 +417,16 @@ namespace Menes
             // Note that this doesn't validate the items. You call ValidateItems() explicitly if you want
             // them to be validated. This allows you to avoid iterating the array more than once.
             return validationContext;
+        }
+
+        /// <inheritdoc/>
+        public override string ToString()
+        {
+            var abw = new ArrayBufferWriter<byte>();
+            using var writer = new Utf8JsonWriter(abw);
+            this.WriteTo(writer);
+            writer.Flush();
+            return Encoding.UTF8.GetString(abw.WrittenSpan);
         }
 
         /// <summary>

@@ -5,6 +5,7 @@
 namespace Menes
 {
     using System;
+    using System.Collections.Immutable;
     using System.Text.Json;
 
     /// <summary>
@@ -175,6 +176,32 @@ namespace Menes
             }
 
             return validationContext;
+        }
+
+        /// <summary>
+        /// Provides the boolan validation.
+        /// </summary>
+        /// <param name="validationContext">The validation context.</param>
+        /// <param name="enumeration">The value must equal one of the values in the enumeration.</param>
+        /// <param name="constValue">The value must equal the constant value.</param>
+        /// <returns>The validation context updated to reflect the results of the validation.</returns>
+        /// <remarks>These are rolled up into a single method to ensure string conversion occurs only once.</remarks>
+        public ValidationContext ValidateAsBoolean(in ValidationContext validationContext, in ImmutableArray<bool>? enumeration = null, in bool? constValue = null)
+        {
+            ValidationContext context = validationContext;
+            bool value = this.CreateOrGetClrBoolean();
+
+            if (enumeration is ImmutableArray<bool> values)
+            {
+                context = Validation.ValidateEnum(context, value, values);
+            }
+
+            if (constValue is bool cv)
+            {
+                context = Validation.ValidateConst(context, value, cv);
+            }
+
+            return context;
         }
     }
 }

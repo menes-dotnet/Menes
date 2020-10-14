@@ -20,9 +20,11 @@ namespace Menes.TypeGenerator
         /// <summary>
         /// Initializes a new instance of the <see cref="ValidatedJsonValueTypeDeclaration"/> class.
         /// </summary>
+        /// <param name="name">The name of the validated type.</param>
         /// <param name="validatedType">The name of the type of the item in the array.</param>
-        internal ValidatedJsonValueTypeDeclaration(JsonValueTypeDeclaration? validatedType = null)
+        public ValidatedJsonValueTypeDeclaration(string name, JsonValueTypeDeclaration? validatedType = null)
         {
+            this.Name = name;
             this.ValidatedType = validatedType;
         }
 
@@ -36,7 +38,7 @@ namespace Menes.TypeGenerator
         public IReadOnlyCollection<ITypeDeclaration> TypeDeclarations => TypeDeclaration.EmptyTypeDeclarations;
 
         /// <inheritdoc/>
-        public string Name => $"Validated{this.ValidatedType?.Name}";
+        public string Name { get; }
 
         /// <inheritdoc/>
         public IDeclaration? Parent { get; set; }
@@ -154,7 +156,7 @@ namespace Menes.TypeGenerator
             var builder = new StringBuilder();
             string validatedTypeFullyQualifiedName = this.ValidatedType.GetFullyQualifiedName();
             string name = this.Name;
-            builder.AppendLine($"public readonly struct {name} : Menes.IJsonValue, System.Collections.IEnumerable, System.IEquatable<{name}>, System.IEquatable<{validatedTypeFullyQualifiedName}>>");
+            builder.AppendLine($"public readonly struct {name} : Menes.IJsonValue, System.IEquatable<{name}>");
             builder.AppendLine("{");
 
             builder.AppendLine($"    public static readonly System.Func<System.Text.Json.JsonElement, {name}> FromJsonElement = e => new {name}(e);");
@@ -221,6 +223,10 @@ namespace Menes.TypeGenerator
             builder.AppendLine("    {");
             builder.AppendLine($"        return new {name}(value);");
             builder.AppendLine("    }");
+            builder.AppendLine($"    public static implicit operator {name}({this.ValidatedType.RawClrType} value)");
+            builder.AppendLine("    {");
+            builder.AppendLine($"        return new {name}(value);");
+            builder.AppendLine("    }");
             builder.AppendLine($"    public static implicit operator {validatedTypeFullyQualifiedName}({name} value)");
             builder.AppendLine("    {");
             builder.AppendLine($"        if (value.value is {validatedTypeFullyQualifiedName} clrValue)");
@@ -231,7 +237,7 @@ namespace Menes.TypeGenerator
             builder.AppendLine("    }");
             builder.AppendLine("    public static bool IsConvertibleFrom(System.Text.Json.JsonElement jsonElement)");
             builder.AppendLine("    {");
-            builder.AppendLine($"        return{validatedTypeFullyQualifiedName}.IsConvertibleFrom(jsonElement);");
+            builder.AppendLine($"        return {validatedTypeFullyQualifiedName}.IsConvertibleFrom(jsonElement);");
             builder.AppendLine("    }");
             builder.AppendLine($"    public static {name} FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<char> propertyName) =>");
             builder.AppendLine("        parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)");
@@ -261,13 +267,18 @@ namespace Menes.TypeGenerator
 
             if (this.ValidatedType.Kind == JsonValueTypeDeclaration.ValueKind.String)
             {
-                builder.AppendLine($"context = this.ValidateAsString(context, this, this.MinLength, this.MaxLength, this.Pattern, this.EnumValues, this.ConstValue);");
+                builder.AppendLine($"context = value.ValidateAsString(context, MinLength, MaxLength, Pattern, EnumValues, ConstValue);");
             }
             else if (this.ValidatedType.Kind == JsonValueTypeDeclaration.ValueKind.Decimal || this.ValidatedType.Kind == JsonValueTypeDeclaration.ValueKind.Number)
             {
-                // TODO: Append ValidateAsNumeric()
+                builder.AppendLine($"context = value.ValidateAsNumber(context, MultipleOf, Maximum, ExclusiveMaximum, Minimum, ExclusiveMinimum, EnumValues, ConstValue);");
+            }
+            else if (this.ValidatedType.Kind == JsonValueTypeDeclaration.ValueKind.Boolean)
+            {
+                builder.AppendLine($"context = value.ValidateAsBoolean(context, EnumValues, ConstValue);");
             }
 
+            builder.AppendLine("return context;");
             builder.AppendLine("    }");
             builder.AppendLine("    public void WriteTo(System.Text.Json.Utf8JsonWriter writer)");
             builder.AppendLine("    {");
@@ -308,7 +319,7 @@ namespace Menes.TypeGenerator
             {
                 builder.AppendLine($"    private static System.Collections.Immutable.ImmutableArray<{this.ValidatedType.RawClrType}>? BuildEnumValues()");
                 builder.AppendLine("    {");
-                builder.Append($"        var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<{this.ValidatedType.RawClrType}>(");
+                builder.AppendLine($"        System.Collections.Immutable.ImmutableArray<{this.ValidatedType.RawClrType}>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<{this.ValidatedType.RawClrType}>();");
 
                 using var document = JsonDocument.Parse(enumValidation);
                 JsonElement.ArrayEnumerator enumerator = document.RootElement.EnumerateArray();

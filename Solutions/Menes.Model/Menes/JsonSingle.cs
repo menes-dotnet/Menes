@@ -193,7 +193,7 @@ namespace Menes
         /// <param name="constValue">The value must equal the constant value.</param>
         /// <returns>The validation context updated to reflect the results of the validation.</returns>
         /// <remarks>These are rolled up into a single method to ensure string conversion occurs only once.</remarks>
-        public ValidationContext ValidateNumeric(in ValidationContext validationContext, float? multipleOf = null, float? maximum = null, float? exclusiveMaximum = null, float? minimum = null, float? exclusiveMinimum = null, in ImmutableArray<float>? enumeration = null, in float? constValue = null)
+        public ValidationContext ValidateAsNumber(in ValidationContext validationContext, float? multipleOf = null, float? maximum = null, float? exclusiveMaximum = null, float? minimum = null, float? exclusiveMinimum = null, in ImmutableArray<float>? enumeration = null, in float? constValue = null)
         {
             ValidationContext context = validationContext;
             float value = this.CreateOrGetClrSingle();

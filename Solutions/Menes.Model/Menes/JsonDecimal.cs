@@ -151,7 +151,7 @@ namespace Menes
         /// <param name="constValue">The value must equal the constant value.</param>
         /// <returns>The validation context updated to reflect the results of the validation.</returns>
         /// <remarks>These are rolled up into a single method to ensure string conversion occurs only once.</remarks>
-        public ValidationContext ValidateNumeric(in ValidationContext validationContext, decimal? multipleOf = null, decimal? maximum = null, decimal? exclusiveMaximum = null, decimal? minimum = null, decimal? exclusiveMinimum = null, in ImmutableArray<decimal>? enumeration = null, in decimal? constValue = null)
+        public ValidationContext ValidateAsNumber(in ValidationContext validationContext, decimal? multipleOf = null, decimal? maximum = null, decimal? exclusiveMaximum = null, decimal? minimum = null, decimal? exclusiveMinimum = null, in ImmutableArray<decimal>? enumeration = null, in decimal? constValue = null)
         {
             ValidationContext context = validationContext;
             decimal value = this.CreateOrGetClrDecimal();
