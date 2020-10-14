@@ -155,7 +155,7 @@ namespace Menes
         }
 
         /// <inheritdoc/>
-        public override string ToString()
+        public override string? ToString()
         {
             return this.CreateOrGetClrDouble().ToString();
         }

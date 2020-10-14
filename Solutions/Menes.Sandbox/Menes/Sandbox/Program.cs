@@ -128,13 +128,42 @@ namespace Menes.Sandbox
             var unionBool = new JsonUnionExample(true);
             var unionJsonObject = new JsonUnionExample(roundtrip);
 
-            _ = Serialize(unionInt);
-            _ = Serialize(unionBool);
-            _ = Serialize(unionJsonObject);
+            JsonUnionExample implicitCreation = (JsonInt64)32;
 
             Validate(unionInt);
             Validate(unionBool);
             Validate(unionJsonObject);
+
+            ReadOnlyMemory<byte> s1 = Serialize(unionInt);
+            ReadOnlyMemory<byte> s2 = Serialize(unionBool);
+            ReadOnlyMemory<byte> s3 = Serialize(unionJsonObject);
+
+            using var d1 = JsonDocument.Parse(s1);
+            var roundtrip1 = new JsonUnionExample(d1.RootElement);
+            using var d2 = JsonDocument.Parse(s2);
+            var roundtrip2 = new JsonUnionExample(d2.RootElement);
+            using var d3 = JsonDocument.Parse(s3);
+            var roundtrip3 = new JsonUnionExample(d3.RootElement);
+
+            Validate(roundtrip1);
+            Validate(roundtrip2);
+            Validate(roundtrip3);
+
+            Console.WriteLine(roundtrip1.ToString());
+            Console.WriteLine(roundtrip2.ToString());
+            Console.WriteLine(roundtrip3.ToString());
+
+            Console.WriteLine($"unionInt is a boolean: {roundtrip1.IsJsonBoolean}");
+            Console.WriteLine($"unionInt is a int64: {roundtrip1.IsJsonInt64}");
+            Console.WriteLine($"unionInt is a JsonObjectExample: {roundtrip1.IsJsonObjectExample}");
+
+            Console.WriteLine($"unionBool is a boolean: {roundtrip2.IsJsonBoolean}");
+            Console.WriteLine($"unionBool is a int64: {roundtrip2.IsJsonInt64}");
+            Console.WriteLine($"unionBool is a JsonObjectExample: {roundtrip2.IsJsonObjectExample}");
+
+            Console.WriteLine($"unionJsonObject is a boolean: {roundtrip3.IsJsonBoolean}");
+            Console.WriteLine($"unionJsonObject is a int64: {roundtrip3.IsJsonInt64}");
+            Console.WriteLine($"unionJsonObject is a JsonObjectExample: {roundtrip3.IsJsonObjectExample}");
 
             var workspace = new AdhocWorkspace();
             SetWorkspaceOptions(workspace);

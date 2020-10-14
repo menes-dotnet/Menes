@@ -164,7 +164,7 @@ namespace Menes
         }
 
         /// <inheritdoc/>
-        public override string ToString()
+        public override string? ToString()
         {
             // We are ensuring we behave like Uri.ToString() but without the overhead
             // of creating the Uri instance.

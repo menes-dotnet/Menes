@@ -420,7 +420,7 @@ namespace Menes
         }
 
         /// <inheritdoc/>
-        public override string ToString()
+        public override string? ToString()
         {
             var abw = new ArrayBufferWriter<byte>();
             using var writer = new Utf8JsonWriter(abw);

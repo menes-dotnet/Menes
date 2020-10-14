@@ -252,6 +252,30 @@ namespace Menes.TypeGenerator
             builder.AppendLine("        }");
             builder.AppendLine("    }");
 
+            builder.AppendLine("    public override string? ToString()");
+            builder.AppendLine("    {");
+            builder.AppendLine("        var builder = new System.Text.StringBuilder();");
+            index = 0;
+
+            foreach (ITypeDeclaration type in this.typesInUnion.Values)
+            {
+                string typeName = type.IsCompoundType ? "Menes.JsonReference" : type.GetFullyQualifiedName();
+
+                builder.AppendLine($"        if (this.Is{type.Name})");
+                builder.AppendLine("        {");
+                builder.AppendLine("            builder.Append(\"{\");");
+                builder.AppendLine($"            builder.Append(\"{type.Name}\");");
+                builder.AppendLine("            builder.Append(\", \");");
+                builder.AppendLine($"            builder.Append(this.As{type.Name}().ToString());");
+                builder.AppendLine("            builder.AppendLine(\"}\");");
+                builder.AppendLine("        }");
+                index++;
+            }
+
+            builder.AppendLine("        return builder.Length > 0 ? builder.ToString() : this.JsonElement.ToString();");
+
+            builder.AppendLine("    }");
+
             builder.AppendLine("    public Menes.ValidationContext Validate(in Menes.ValidationContext validationContext)");
             builder.AppendLine("    {");
             builder.AppendLine("        if (this.IsNull)");

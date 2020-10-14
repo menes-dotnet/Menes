@@ -192,7 +192,7 @@ namespace Menes
         }
 
         /// <inheritdoc/>
-        public override string ToString()
+        public override string? ToString()
         {
             if (this.HasJsonElement)
             {

@@ -88,7 +88,7 @@ namespace Menes
         /// <returns><c>True</c> if the element can be converted from the given JsonElement.</returns>
         public static bool IsConvertibleFrom(JsonElement jsonElement)
         {
-            return jsonElement.ValueKind == JsonValueKind.String || jsonElement.ValueKind == JsonValueKind.Null;
+            return jsonElement.ValueKind == JsonValueKind.Number || jsonElement.ValueKind == JsonValueKind.Null;
         }
 
         /// <summary>
@@ -153,7 +153,7 @@ namespace Menes
         }
 
         /// <inheritdoc/>
-        public override string ToString()
+        public override string? ToString()
         {
             return this.CreateOrGetClrInt64().ToString();
         }

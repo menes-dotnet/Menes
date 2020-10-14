@@ -114,6 +114,35 @@ namespace Examples
                 this.JsonElement.WriteTo(writer);
             }
         }
+        public override string? ToString()
+        {
+            var builder = new System.Text.StringBuilder();
+            if (this.IsJsonBoolean)
+            {
+                builder.Append("{");
+                builder.Append("JsonBoolean");
+                builder.Append(", ");
+                builder.Append(this.AsJsonBoolean().ToString());
+                builder.AppendLine("}");
+            }
+            if (this.IsJsonInt64)
+            {
+                builder.Append("{");
+                builder.Append("JsonInt64");
+                builder.Append(", ");
+                builder.Append(this.AsJsonInt64().ToString());
+                builder.AppendLine("}");
+            }
+            if (this.IsJsonObjectExample)
+            {
+                builder.Append("{");
+                builder.Append("JsonObjectExample");
+                builder.Append(", ");
+                builder.Append(this.AsJsonObjectExample().ToString());
+                builder.AppendLine("}");
+            }
+            return builder.Length > 0 ? builder.ToString() : this.JsonElement.ToString();
+        }
         public Menes.ValidationContext Validate(in Menes.ValidationContext validationContext)
         {
             if (this.IsNull)
