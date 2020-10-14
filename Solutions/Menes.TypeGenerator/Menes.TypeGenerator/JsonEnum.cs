@@ -20,7 +20,7 @@ namespace Menes.TypeGenerator
         public static string From<T>(params T[] values)
             where T : struct, IJsonValue
         {
-            return JsonArray.Create(values).ToString().ToString();
+            return JsonArray.Create(values).ToString();
         }
     }
 }
