@@ -136,11 +136,6 @@ namespace Menes.Sandbox
                 MinItemsValidation = 10,
             };
 
-            var intType = new ValidatedJsonValueTypeDeclaration("EnumeratedInt32", JsonValueTypeDeclaration.Int32)
-            {
-                EnumValidation = JsonEnum.From<JsonInt32>(100, 200, 300),
-            };
-
             exampleObjectType.AddPropertyDeclaration("first", JsonValueTypeDeclaration.String);
             exampleObjectType.AddPropertyDeclaration("second", intType);
             exampleObjectType.AddOptionalPropertyDeclaration("third", JsonValueTypeDeclaration.Duration);
