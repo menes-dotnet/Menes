@@ -5,6 +5,7 @@
 namespace Menes.TypeGenerator
 {
     using System;
+    using System.Linq;
     using Microsoft.CodeAnalysis.CSharp;
 
     /// <summary>
@@ -12,12 +13,36 @@ namespace Menes.TypeGenerator
     /// </summary>
     public static class StringFormatter
     {
+        private static readonly string[] Keywords = new string[]
+        {
+            "abstract", "as", "base", "bool",
+            "break", "byte", "case", "catch",
+            "char", "checked", "class", "const",
+            "continue", "decimal", "default", "delegate",
+            "do", "double  else", "enum",
+            "event", "explicit", "extern", "false",
+            "finally", "fixed", "float", "for",
+            "foreach", "goto", "if", "implicit",
+            "in", "int", "interface", "internal",
+            "is", "lock", "long", "namespace",
+            "new", "null", "object", "operator",
+            "out", "override", "params", "private",
+            "protected", "public", "readonly", "ref",
+            "return", "sbyte", "sealed", "short",
+            "sizeof", "stackalloc", "static", "string",
+            "struct", "switch", "this", "throw",
+            "true", "try", "typeof", "uint",
+            "ulong", "unchecked", "unsafe", "ushort",
+            "using", "virtual", "void", "volatile",
+            "while",
+        };
+
         /// <summary>
         /// Convert the given name to <c>camelCase</c>.
         /// </summary>
         /// <param name="name">The name to convert.</param>
         /// <returns>The name in <c>camelCase</c>.</returns>
-        public static string ToCamelCase(string name)
+        public static string ToCamelCaseWithReservedWords(string name)
         {
             if (string.IsNullOrEmpty(name))
             {
@@ -28,7 +53,7 @@ namespace Menes.TypeGenerator
             // string data; however, we'd still end up with a single buffer copy of at least the length
             // of the string data, so I think this is a "reasonable" approach.
             ReadOnlySpan<char> result = FixCasing(name.ToCharArray(), false);
-            return new string(result);
+            return SubstituteReservedWords(new string(result));
         }
 
         /// <summary>
@@ -36,7 +61,7 @@ namespace Menes.TypeGenerator
         /// </summary>
         /// <param name="name">The name to convert.</param>
         /// <returns>The name in <c>PascalCase</c>.</returns>
-        public static string ToPascalCase(string name)
+        public static string ToPascalCaseWithReservedWords(string name)
         {
             if (string.IsNullOrEmpty(name))
             {
@@ -47,7 +72,7 @@ namespace Menes.TypeGenerator
             // string data; however, we'd still end up with a single buffer copy of at least the length
             // of the string data, so I think this is a "reasonable" approach.
             ReadOnlySpan<char> result = FixCasing(name.ToCharArray(), true);
-            return new string(result);
+            return SubstituteReservedWords(new string(result));
         }
 
         /// <summary>
@@ -60,6 +85,16 @@ namespace Menes.TypeGenerator
         {
             // TODO: actually implement this. Someone must have done so already
             return value is null ? null : SymbolDisplay.FormatLiteral(value, quote);
+        }
+
+        private static string SubstituteReservedWords(string v)
+        {
+            if (Keywords.Contains(v))
+            {
+                return "@" + v;
+            }
+
+            return v;
         }
 
         private static ReadOnlySpan<char> FixCasing(Span<char> chars, bool capitalizeFirst)

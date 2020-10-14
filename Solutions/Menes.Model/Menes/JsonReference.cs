@@ -60,6 +60,31 @@ namespace Menes
         }
 
         /// <summary>
+        /// Construct a <see cref="JsonReference"/> from an <see cref="IJsonValue"/>.
+        /// </summary>
+        /// <typeparam name="TValue">The type of <see cref="IJsonValue"/> from which to construct the instance.</typeparam>
+        /// <param name="value">The <see cref="IJsonValue"/> from which to construct the reference.</param>
+        /// <returns>The reference.</returns>
+        /// <remarks>We offer this strongly typed factory rather than a constructor to avoid boxing the value if it is backed by a JSON element.</remarks>
+        public static JsonReference? FromValue<TValue>(in TValue? value)
+            where TValue : struct, IJsonValue
+        {
+            if (value is TValue val)
+            {
+                if (val.HasJsonElement)
+                {
+                    return new JsonReference(val.JsonElement);
+                }
+                else
+                {
+                    return new JsonReference(val);
+                }
+            }
+
+            return null;
+        }
+
+        /// <summary>
         /// Gets the value.
         /// </summary>
         /// <typeparam name="TValue">The type of the <see cref="IJsonValue"/>.</typeparam>

@@ -42,7 +42,7 @@ namespace Examples
             this.item1 = null;
             this.item3 = null;
         }
-        public JsonUnionExample(Examples.JsonObjectExample clrInstance)
+        public JsonUnionExample(JsonObjectExample clrInstance)
         {
             if (clrInstance.HasJsonElement)
             {
@@ -78,8 +78,8 @@ namespace Examples
         public static implicit operator JsonUnionExample(Menes.JsonBoolean value) => new JsonUnionExample(value);
         public static explicit operator Menes.JsonInt64(JsonUnionExample value) => value.AsJsonInt64();
         public static implicit operator JsonUnionExample(Menes.JsonInt64 value) => new JsonUnionExample(value);
-        public static explicit operator Examples.JsonObjectExample(JsonUnionExample value) => value.AsJsonObjectExample();
-        public static implicit operator JsonUnionExample(Examples.JsonObjectExample value) => new JsonUnionExample(value);
+        public static explicit operator JsonObjectExample(JsonUnionExample value) => value.AsJsonObjectExample();
+        public static implicit operator JsonUnionExample(JsonObjectExample value) => new JsonUnionExample(value);
         public static JsonUnionExample FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<char> propertyName) =>
             parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
                 ? new JsonUnionExample(property)
@@ -94,7 +94,7 @@ namespace Examples
                 : Null;
         public Menes.JsonBoolean AsJsonBoolean() => this.item1 ?? new Menes.JsonBoolean(this.JsonElement);
         public Menes.JsonInt64 AsJsonInt64() => this.item2 ?? new Menes.JsonInt64(this.JsonElement);
-        public Examples.JsonObjectExample AsJsonObjectExample() => this.item3?.AsValue<Examples.JsonObjectExample>() ?? new Examples.JsonObjectExample(this.JsonElement);
+        public JsonObjectExample AsJsonObjectExample() => this.item3?.AsValue<JsonObjectExample>() ?? new JsonObjectExample(this.JsonElement);
         public void WriteTo(System.Text.Json.Utf8JsonWriter writer)
         {
             if (this.item1 is Menes.JsonBoolean item1)

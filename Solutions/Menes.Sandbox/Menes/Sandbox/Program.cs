@@ -10,6 +10,7 @@ namespace Menes.Sandbox
     using System.Text;
     using System.Text.Json;
     using Examples;
+    using Menes.JsonSchema.Generator;
     using Menes.TypeGenerator;
     using Microsoft.CodeAnalysis;
     using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -220,6 +221,11 @@ namespace Menes.Sandbox
             Console.WriteLine(formattedDiscriminatedUnionNode.ToFullString());
 
             TryCreatingAMethod(exampleObjectType, workspace);
+
+            TypeDeclarationSyntax jsonSchema = JsonSchemaModelGenerator.BuildModelForJsonSchema();
+            SyntaxNode formattedJsonSchema = Formatter.Format(jsonSchema, workspace);
+            Console.WriteLine();
+            Console.WriteLine(formattedJsonSchema.ToFullString());
         }
 
         private static void Validate<TValue>(TValue value)
@@ -261,6 +267,7 @@ namespace Menes.Sandbox
 
         private static void SetWorkspaceOptions(AdhocWorkspace workspace)
         {
+            // NOP
         }
 
         private static ReadOnlyMemory<byte> Serialize<T>(in T example)

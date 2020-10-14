@@ -13,6 +13,16 @@ namespace Menes.TypeGenerator
     /// </summary>
     public class AnyTypeDeclaration : ITypeDeclaration
     {
+        /// <summary>
+        /// Gets the instance of the any type declaration.
+        /// </summary>
+        public static readonly AnyTypeDeclaration Instance = new AnyTypeDeclaration();
+
+        private AnyTypeDeclaration()
+        {
+            this.Parent = MenesNamespace;
+        }
+
         /// <inheritdoc/>
         public IReadOnlyCollection<MethodDeclaration> Methods => TypeDeclaration.EmptyMethodDeclarations;
 
@@ -23,7 +33,7 @@ namespace Menes.TypeGenerator
         public IReadOnlyCollection<ITypeDeclaration> TypeDeclarations => TypeDeclaration.EmptyTypeDeclarations;
 
         /// <inheritdoc/>
-        public string Name => typeof(JsonAny).FullName;
+        public string Name => typeof(JsonAny).Name;
 
         /// <inheritdoc/>
         public IDeclaration? Parent { get; set; }
@@ -33,6 +43,8 @@ namespace Menes.TypeGenerator
 
         /// <inheritdoc/>
         public bool IsCompoundType => false;
+
+        private static NamespaceDeclaration MenesNamespace => new NamespaceDeclaration("Menes");
 
         /// <inheritdoc/>
         public void AddMethodDeclaration(MethodDeclaration methodDeclaration)

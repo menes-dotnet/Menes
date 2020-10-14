@@ -85,7 +85,7 @@ namespace Menes.TypeGenerator
         {
             var builder = new StringBuilder();
             builder.Append($"public {this.ReturnTypeName} {this.Name}(");
-            builder.Append(string.Join(", ", this.Parameters.Select(p => $"{p.TypeName} {StringFormatter.ToCamelCase(p.Name)}")));
+            builder.Append(string.Join(", ", this.Parameters.Select(p => $"{p.TypeName} {StringFormatter.ToCamelCaseWithReservedWords(p.Name)}")));
             builder.AppendLine(")");
             builder.AppendLine("{");
             builder.AppendLine(this.Body.Trim());

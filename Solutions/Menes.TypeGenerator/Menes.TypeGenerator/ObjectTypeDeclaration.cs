@@ -77,7 +77,7 @@ namespace Menes.TypeGenerator
 
         private static string GetPropertyNameFieldName(PropertyDeclaration property)
         {
-            return $"{StringFormatter.ToPascalCase(property.JsonPropertyName)}PropertyName";
+            return $"{StringFormatter.ToPascalCaseWithReservedWords(property.JsonPropertyName)}PropertyName";
         }
 
         private BaseTypeSyntax[] BuildBaseListTypes()
@@ -257,11 +257,11 @@ namespace Menes.TypeGenerator
             builder.AppendLine("    Menes.ValidationContext context = validationContext;");
             foreach (PropertyDeclaration property in this.Properties)
             {
-                string propertyName = StringFormatter.ToPascalCase(property.JsonPropertyName);
+                string propertyName = StringFormatter.ToPascalCaseWithReservedWords(property.JsonPropertyName);
 
                 if (property.Type is OptionalTypeDeclaration)
                 {
-                    string fieldName = StringFormatter.ToCamelCase(property.JsonPropertyName);
+                    string fieldName = StringFormatter.ToCamelCaseWithReservedWords(property.JsonPropertyName);
                     builder.AppendLine($"    if (this.{propertyName} is {property.Type.GetFullyQualifiedName()} {fieldName})");
                     builder.AppendLine("    {");
                     builder.AppendLine($"        context = Menes.Validation.ValidateProperty(context, {fieldName}, {propertyName}PropertyNamePath);");
@@ -336,7 +336,7 @@ namespace Menes.TypeGenerator
                     builder.Append(" && ");
                 }
 
-                string name = StringFormatter.ToPascalCase(property.JsonPropertyName);
+                string name = StringFormatter.ToPascalCaseWithReservedWords(property.JsonPropertyName);
                 builder.Append($"this.{name}.Equals(other.{name})");
             }
 
@@ -367,13 +367,13 @@ namespace Menes.TypeGenerator
 
             foreach (PropertyDeclaration property in this.Properties)
             {
-                string fieldName = StringFormatter.ToCamelCase(property.JsonPropertyName);
+                string fieldName = StringFormatter.ToCamelCaseWithReservedWords(property.JsonPropertyName);
 
                 string typename = property.Type.IsCompoundType ? "Menes.JsonReference" : property.Type.GetFullyQualifiedName();
 
                 builder.AppendLine($"if (this.{fieldName} is {typename} {fieldName})");
                 builder.AppendLine("{");
-                builder.AppendLine($"    writer.WritePropertyName(Encoded{StringFormatter.ToPascalCase(property.JsonPropertyName)}PropertyName);");
+                builder.AppendLine($"    writer.WritePropertyName(Encoded{StringFormatter.ToPascalCaseWithReservedWords(property.JsonPropertyName)}PropertyName);");
                 builder.AppendLine($"    {fieldName}.WriteTo(writer);");
                 builder.AppendLine("}");
             }
@@ -509,7 +509,7 @@ namespace Menes.TypeGenerator
             foreach (PropertyDeclaration property in this.Properties)
             {
                 builder.Append(" && ");
-                string propertyName = StringFormatter.ToCamelCase(property.JsonPropertyName);
+                string propertyName = StringFormatter.ToCamelCaseWithReservedWords(property.JsonPropertyName);
                 builder.Append($"(this.{propertyName} is null || this.{propertyName}.Value.IsNull)");
             }
 
@@ -576,7 +576,7 @@ namespace Menes.TypeGenerator
             int index = 1;
             foreach (PropertyDeclaration property in this.Properties)
             {
-                string parameterAndFieldName = StringFormatter.ToCamelCase(property.JsonPropertyName);
+                string parameterAndFieldName = StringFormatter.ToCamelCaseWithReservedWords(property.JsonPropertyName);
 
                 if (property.Type.IsCompoundType)
                 {
@@ -664,7 +664,7 @@ namespace Menes.TypeGenerator
             int index = 1;
             foreach (PropertyDeclaration property in this.Properties)
             {
-                string parameterAndFieldName = StringFormatter.ToCamelCase(property.JsonPropertyName);
+                string parameterAndFieldName = StringFormatter.ToCamelCaseWithReservedWords(property.JsonPropertyName);
 
                 if (property.Type is OptionalTypeDeclaration && requiredOnly)
                 {
@@ -817,7 +817,7 @@ namespace Menes.TypeGenerator
             }
 
             builder.Append(" ");
-            builder.Append(StringFormatter.ToCamelCase(property.JsonPropertyName));
+            builder.Append(StringFormatter.ToCamelCaseWithReservedWords(property.JsonPropertyName));
         }
 
         private void BuildCloningConstructorParameter(PropertyDeclaration property, StringBuilder builder, bool isOptional)
@@ -842,7 +842,7 @@ namespace Menes.TypeGenerator
             }
 
             builder.Append(" ");
-            builder.Append(StringFormatter.ToCamelCase(property.JsonPropertyName));
+            builder.Append(StringFormatter.ToCamelCaseWithReservedWords(property.JsonPropertyName));
         }
 
         private void BuildJsonElementConstructor(List<MemberDeclarationSyntax> members)
@@ -864,7 +864,7 @@ namespace Menes.TypeGenerator
 
             foreach (PropertyDeclaration property in this.Properties)
             {
-                builder.AppendLine($"this.{StringFormatter.ToCamelCase(property.JsonPropertyName)} = null;");
+                builder.AppendLine($"this.{StringFormatter.ToCamelCaseWithReservedWords(property.JsonPropertyName)} = null;");
             }
 
             if (this.AdditionalPropertiesType is ITypeDeclaration)
@@ -1049,10 +1049,10 @@ namespace Menes.TypeGenerator
                 return;
             }
 
-            string camelCasePropertyName = StringFormatter.ToCamelCase(property.JsonPropertyName);
+            string camelCasePropertyName = StringFormatter.ToCamelCaseWithReservedWords(property.JsonPropertyName);
 
             var builder = new StringBuilder();
-            builder.AppendLine($"private Menes.JsonReference? Get{StringFormatter.ToPascalCase(property.JsonPropertyName)}()");
+            builder.AppendLine($"private Menes.JsonReference? Get{StringFormatter.ToPascalCaseWithReservedWords(property.JsonPropertyName)}()");
             builder.AppendLine("{");
             builder.AppendLine($"    if (this.{camelCasePropertyName} is Menes.JsonReference)");
             builder.AppendLine("    {");
@@ -1093,7 +1093,7 @@ namespace Menes.TypeGenerator
             string optionalQualifier = property.Type is OptionalTypeDeclaration ? "?" : string.Empty;
             string fullyQualifiedName = this.GetFullyQualifiedName();
             var builder = new StringBuilder();
-            builder.AppendLine($" public {fullyQualifiedName} With{StringFormatter.ToPascalCase(property.JsonPropertyName)}({property.Type.GetFullyQualifiedName()}{optionalQualifier} value)");
+            builder.AppendLine($" public {fullyQualifiedName} With{StringFormatter.ToPascalCaseWithReservedWords(property.JsonPropertyName)}({property.Type.GetFullyQualifiedName()}{optionalQualifier} value)");
             builder.AppendLine("{");
             builder.AppendLine($"    return new {fullyQualifiedName}(" + this.BuildWithParameters(property) + ");");
             builder.AppendLine("}");
@@ -1164,19 +1164,19 @@ namespace Menes.TypeGenerator
             }
             else if (current.Type.IsCompoundType)
             {
-                builder.Append($"this.Get{StringFormatter.ToPascalCase(current.JsonPropertyName)}()");
+                builder.Append($"this.Get{StringFormatter.ToPascalCaseWithReservedWords(current.JsonPropertyName)}()");
             }
             else
             {
-                builder.Append($"this.{StringFormatter.ToPascalCase(current.JsonPropertyName)}");
+                builder.Append($"this.{StringFormatter.ToPascalCaseWithReservedWords(current.JsonPropertyName)}");
             }
         }
 
         private void BuildPropertyAccessor(PropertyDeclaration property, List<MemberDeclarationSyntax> members)
         {
             string typeName = property.Type.GetFullyQualifiedName();
-            string propertyName = StringFormatter.ToPascalCase(property.JsonPropertyName);
-            string fieldNameAccessor = property.Type.IsCompoundType ? $"this.{StringFormatter.ToCamelCase(property.JsonPropertyName)}?.AsValue<{typeName}>()" : $"this.{StringFormatter.ToCamelCase(property.JsonPropertyName)}";
+            string propertyName = StringFormatter.ToPascalCaseWithReservedWords(property.JsonPropertyName);
+            string fieldNameAccessor = property.Type.IsCompoundType ? $"this.{StringFormatter.ToCamelCaseWithReservedWords(property.JsonPropertyName)}?.AsValue<{typeName}>()" : $"this.{StringFormatter.ToCamelCaseWithReservedWords(property.JsonPropertyName)}";
 
             if (property.Type is OptionalTypeDeclaration)
             {
@@ -1192,11 +1192,11 @@ namespace Menes.TypeGenerator
         {
             if (property.Type.IsCompoundType)
             {
-                members.Add(SF.ParseMemberDeclaration($"private readonly Menes.JsonReference? {StringFormatter.ToCamelCase(property.JsonPropertyName)};" + Environment.NewLine));
+                members.Add(SF.ParseMemberDeclaration($"private readonly Menes.JsonReference? {StringFormatter.ToCamelCaseWithReservedWords(property.JsonPropertyName)};" + Environment.NewLine));
             }
             else
             {
-                members.Add(SF.ParseMemberDeclaration($"private readonly {property.Type.GetFullyQualifiedName()}? {StringFormatter.ToCamelCase(property.JsonPropertyName)};" + Environment.NewLine));
+                members.Add(SF.ParseMemberDeclaration($"private readonly {property.Type.GetFullyQualifiedName()}? {StringFormatter.ToCamelCaseWithReservedWords(property.JsonPropertyName)};" + Environment.NewLine));
             }
         }
 

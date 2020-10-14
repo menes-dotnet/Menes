@@ -46,7 +46,7 @@ namespace Examples
             this.item1 = null;
             this.item3 = null;
         }
-        public JsonDiscriminatedUnionExample(Examples.JsonObjectExample clrInstance)
+        public JsonDiscriminatedUnionExample(JsonObjectExample clrInstance)
         {
             if (clrInstance.HasJsonElement)
             {
@@ -79,8 +79,8 @@ namespace Examples
         public static implicit operator JsonDiscriminatedUnionExample(Menes.JsonBoolean value) => new JsonDiscriminatedUnionExample(value);
         public static explicit operator Menes.JsonInt64(JsonDiscriminatedUnionExample value) => value.AsJsonInt64();
         public static implicit operator JsonDiscriminatedUnionExample(Menes.JsonInt64 value) => new JsonDiscriminatedUnionExample(value);
-        public static explicit operator Examples.JsonObjectExample(JsonDiscriminatedUnionExample value) => value.AsJsonObjectExample();
-        public static implicit operator JsonDiscriminatedUnionExample(Examples.JsonObjectExample value) => new JsonDiscriminatedUnionExample(value);
+        public static explicit operator JsonObjectExample(JsonDiscriminatedUnionExample value) => value.AsJsonObjectExample();
+        public static implicit operator JsonDiscriminatedUnionExample(JsonObjectExample value) => new JsonDiscriminatedUnionExample(value);
         public static JsonDiscriminatedUnionExample FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<char> propertyName) =>
             parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
                 ? new JsonDiscriminatedUnionExample(property)
@@ -95,7 +95,7 @@ namespace Examples
                 : Null;
         public Menes.JsonBoolean AsJsonBoolean() => this.IsJsonBoolean ? this.item1 ?? new Menes.JsonBoolean(this.JsonElement) : throw new System.Text.Json.JsonException("The union value is not a Menes.JsonBoolean");
         public Menes.JsonInt64 AsJsonInt64() => this.IsJsonInt64 ? this.item2 ?? new Menes.JsonInt64(this.JsonElement) : throw new System.Text.Json.JsonException("The union value is not a Menes.JsonInt64");
-        public Examples.JsonObjectExample AsJsonObjectExample() => this.IsJsonObjectExample ? this.item3?.AsValue<Examples.JsonObjectExample>() ?? new Examples.JsonObjectExample(this.JsonElement) : throw new System.Text.Json.JsonException("The union value is not a Examples.JsonObjectExample");
+        public JsonObjectExample AsJsonObjectExample() => this.IsJsonObjectExample ? this.item3?.AsValue<JsonObjectExample>() ?? new JsonObjectExample(this.JsonElement) : throw new System.Text.Json.JsonException("The union value is not a Examples.JsonObjectExample");
         public void WriteTo(System.Text.Json.Utf8JsonWriter writer)
         {
             if (this.item1 is Menes.JsonBoolean item1)
