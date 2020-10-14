@@ -4,8 +4,6 @@
 
 namespace Menes.TypeGenerator
 {
-    using System.Linq;
-
     /// <summary>
     /// An enumeration builder for json formatted values.
     /// </summary>
