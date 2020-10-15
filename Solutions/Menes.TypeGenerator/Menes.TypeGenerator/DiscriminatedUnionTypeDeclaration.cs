@@ -230,6 +230,21 @@ namespace Menes.TypeGenerator
             builder.AppendLine($"            ? new {this.Name}(property)");
             builder.AppendLine("            : Null;");
 
+            builder.AppendLine("public static bool IsConvertibleFrom(System.Text.Json.JsonElement jsonElement)");
+            builder.AppendLine("{");
+
+            foreach ((ITypeDeclaration unionType, string _) in this.typesInUnion.Values)
+            {
+                builder.AppendLine($"if ({unionType.GetFullyQualifiedName()}.IsConvertibleFrom(jsonElement))");
+                builder.AppendLine("{");
+                builder.AppendLine($"    return true;");
+                builder.AppendLine("}");
+            }
+
+            builder.AppendLine("return false;");
+
+            builder.AppendLine("}");
+
             index = 0;
             foreach ((ITypeDeclaration unionType, string discriminatorValue) in this.typesInUnion.Values)
             {

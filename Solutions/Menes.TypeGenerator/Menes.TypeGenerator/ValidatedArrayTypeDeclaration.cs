@@ -246,11 +246,11 @@ namespace Menes.TypeGenerator
             {
                 int minContains = this.MinContainsValidation ?? 1;
                 int maxContains = this.MaxContainsValidation ?? int.MaxValue;
-                builder.AppendLine($"        context = array.ValidateRangeContains<{contains.GetFullyQualifiedName()}>(context, {minContains}, {maxContains}, {this.UniqueValidation}, true);");
+                builder.AppendLine($"        return array.ValidateRangeContains<{contains.GetFullyQualifiedName()}>(context, {minContains}, {maxContains}, {this.UniqueValidation}, true);");
             }
             else if (this.UniqueValidation)
             {
-                builder.AppendLine("        context = array.ValidateUniqueItems(context, true);");
+                builder.AppendLine("        return array.ValidateUniqueItems(context, true);");
             }
             else
             {
