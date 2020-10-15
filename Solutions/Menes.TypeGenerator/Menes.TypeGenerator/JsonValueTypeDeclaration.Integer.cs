@@ -10,6 +10,11 @@ namespace Menes.TypeGenerator
     public partial class JsonValueTypeDeclaration : ITypeDeclaration
     {
         /// <summary>
+        /// Get the number type for JSON Schema Integer.
+        /// </summary>
+        public static readonly JsonValueTypeDeclaration Integer = new JsonValueTypeDeclaration(typeof(JsonInteger).Name, "Menes.JsonInteger", ValueKind.Number);
+
+        /// <summary>
         /// Get the <see cref="long"/> type for JSON Schema int64.
         /// </summary>
         public static readonly JsonValueTypeDeclaration Int64 = new JsonValueTypeDeclaration(typeof(JsonInt64).Name, "long", ValueKind.Number);

@@ -10,6 +10,11 @@ namespace Menes.TypeGenerator
     public partial class JsonValueTypeDeclaration : ITypeDeclaration
     {
         /// <summary>
+        /// Get the number type for JSON Schema number.
+        /// </summary>
+        public static readonly JsonValueTypeDeclaration Number = new JsonValueTypeDeclaration(typeof(JsonNumber).Name, "Menes.JsonNumber", ValueKind.Number);
+
+        /// <summary>
         /// Get the <see cref="float"/> type for JSON Schema float.
         /// </summary>
         public static readonly JsonValueTypeDeclaration Float = new JsonValueTypeDeclaration(typeof(JsonSingle).Name, "float", ValueKind.Number);

@@ -31,15 +31,15 @@ namespace Menes.JsonSchema.Generator
             };
             schema.AddTypeDeclaration(schemaType);
 
-            var schemaPositiveInteger = new ValidatedJsonValueTypeDeclaration("PositiveInteger", JsonValueTypeDeclaration.Int64)
+            var schemaPositiveInteger = new ValidatedJsonValueTypeDeclaration("PositiveInteger", JsonValueTypeDeclaration.Integer)
             {
-                ExclusiveMinimumValidation = "0",
+                ExclusiveMinimumValidation = 0,
             };
             schema.AddTypeDeclaration(schemaPositiveInteger);
 
-            var schemaNonNegativeInteger = new ValidatedJsonValueTypeDeclaration("NonNegativeInteger", JsonValueTypeDeclaration.Int64)
+            var schemaNonNegativeInteger = new ValidatedJsonValueTypeDeclaration("NonNegativeInteger", JsonValueTypeDeclaration.Integer)
             {
-                MinimumValidation = "0",
+                MinimumValidation = 0,
             };
             schema.AddTypeDeclaration(schemaNonNegativeInteger);
 
@@ -79,10 +79,10 @@ namespace Menes.JsonSchema.Generator
 
             // Number
             schema.AddOptionalPropertyDeclaration("multipleOf", schemaPositiveInteger);
-            schema.AddOptionalPropertyDeclaration("maximum", JsonValueTypeDeclaration.Int64);
-            schema.AddOptionalPropertyDeclaration("exclusiveMaximum", JsonValueTypeDeclaration.Int64);
-            schema.AddOptionalPropertyDeclaration("minimum", JsonValueTypeDeclaration.Int64);
-            schema.AddOptionalPropertyDeclaration("exclusiveMinimum", JsonValueTypeDeclaration.Int64);
+            schema.AddOptionalPropertyDeclaration("maximum", JsonValueTypeDeclaration.Integer);
+            schema.AddOptionalPropertyDeclaration("exclusiveMaximum", JsonValueTypeDeclaration.Integer);
+            schema.AddOptionalPropertyDeclaration("minimum", JsonValueTypeDeclaration.Integer);
+            schema.AddOptionalPropertyDeclaration("exclusiveMinimum", JsonValueTypeDeclaration.Integer);
 
             // String
             schema.AddOptionalPropertyDeclaration("maxLength", schemaNonNegativeInteger);

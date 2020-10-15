@@ -79,27 +79,27 @@ namespace Menes.TypeGenerator
         /// <summary>
         /// Gets or sets a numeric value for "multipleOf" as a string.
         /// </summary>
-        public string? MultipleOfValidation { get; set; }
+        public JsonNumber? MultipleOfValidation { get; set; }
 
         /// <summary>
         /// Gets or sets a numeric value for "maximum" as a string.
         /// </summary>
-        public string? MaximumValidation { get; set; }
+        public JsonNumber? MaximumValidation { get; set; }
 
         /// <summary>
         /// Gets or sets a numeric value for "exclusiveMaximum" as a string.
         /// </summary>
-        public string? ExclusiveMaximumValidation { get; set; }
+        public JsonNumber? ExclusiveMaximumValidation { get; set; }
 
         /// <summary>
         /// Gets or sets a numeric value for "minimum" as a string.
         /// </summary>
-        public string? MinimumValidation { get; set; }
+        public JsonNumber? MinimumValidation { get; set; }
 
         /// <summary>
         /// Gets or sets a numeric value for "exclusiveMinimum" as a string.
         /// </summary>
-        public string? ExclusiveMinimumValidation { get; set; }
+        public JsonNumber? ExclusiveMinimumValidation { get; set; }
 
         /// <summary>
         /// Gets or sets the Regular Expression pattern validation for a string.
@@ -181,19 +181,19 @@ namespace Menes.TypeGenerator
             }
             else if (this.ValidatedType.Kind == JsonValueTypeDeclaration.ValueKind.Number)
             {
-                builder.AppendLine($"    private static readonly {this.ValidatedType.RawClrType}? MultipleOf = {this.MultipleOfValidation ?? "null"};");
-                builder.AppendLine($"    private static readonly {this.ValidatedType.RawClrType}? Maximum = {this.MaximumValidation ?? "null"};");
-                builder.AppendLine($"    private static readonly {this.ValidatedType.RawClrType}? ExclusiveMaximum = {this.ExclusiveMaximumValidation ?? "null"};");
-                builder.AppendLine($"    private static readonly {this.ValidatedType.RawClrType}? Minimum = {this.MinimumValidation ?? "null"};");
-                builder.AppendLine($"    private static readonly {this.ValidatedType.RawClrType}? ExclusiveMinimum = {this.ExclusiveMinimumValidation ?? "null"};");
+                builder.AppendLine($"    private static readonly {this.ValidatedType.RawClrType}? MultipleOf = {this.MultipleOfValidation?.ToString() ?? "null"};");
+                builder.AppendLine($"    private static readonly {this.ValidatedType.RawClrType}? Maximum = {this.MaximumValidation?.ToString() ?? "null"};");
+                builder.AppendLine($"    private static readonly {this.ValidatedType.RawClrType}? ExclusiveMaximum = {this.ExclusiveMaximumValidation?.ToString() ?? "null"};");
+                builder.AppendLine($"    private static readonly {this.ValidatedType.RawClrType}? Minimum = {this.MinimumValidation?.ToString() ?? "null"};");
+                builder.AppendLine($"    private static readonly {this.ValidatedType.RawClrType}? ExclusiveMinimum = {this.ExclusiveMinimumValidation?.ToString() ?? "null"};");
             }
             else if (this.ValidatedType.Kind == JsonValueTypeDeclaration.ValueKind.Decimal)
             {
-                builder.AppendLine($"    private static readonly {this.ValidatedType.RawClrType}? MultipleOf = {GetDecimalFor(this.MultipleOfValidation)};");
-                builder.AppendLine($"    private static readonly {this.ValidatedType.RawClrType}? Maximum = {GetDecimalFor(this.MaximumValidation)};");
-                builder.AppendLine($"    private static readonly {this.ValidatedType.RawClrType}? ExclusiveMaximum = {GetDecimalFor(this.ExclusiveMaximumValidation)};");
-                builder.AppendLine($"    private static readonly {this.ValidatedType.RawClrType}? Minimum = {GetDecimalFor(this.MinimumValidation)};");
-                builder.AppendLine($"    private static readonly {this.ValidatedType.RawClrType}? ExclusiveMinimum = {GetDecimalFor(this.ExclusiveMinimumValidation)};");
+                builder.AppendLine($"    private static readonly {this.ValidatedType.RawClrType}? MultipleOf = {GetDecimalFor(this.MultipleOfValidation?.ToString())};");
+                builder.AppendLine($"    private static readonly {this.ValidatedType.RawClrType}? Maximum = {GetDecimalFor(this.MaximumValidation?.ToString())};");
+                builder.AppendLine($"    private static readonly {this.ValidatedType.RawClrType}? ExclusiveMaximum = {GetDecimalFor(this.ExclusiveMaximumValidation?.ToString())};");
+                builder.AppendLine($"    private static readonly {this.ValidatedType.RawClrType}? Minimum = {GetDecimalFor(this.MinimumValidation?.ToString())};");
+                builder.AppendLine($"    private static readonly {this.ValidatedType.RawClrType}? ExclusiveMinimum = {GetDecimalFor(this.ExclusiveMinimumValidation?.ToString())};");
             }
 
             builder.AppendLine($"    private readonly {validatedTypeFullyQualifiedName}? value;");
@@ -223,10 +223,15 @@ namespace Menes.TypeGenerator
             builder.AppendLine("    {");
             builder.AppendLine($"        return new {name}(value);");
             builder.AppendLine("    }");
-            builder.AppendLine($"    public static implicit operator {name}({this.ValidatedType.RawClrType} value)");
-            builder.AppendLine("    {");
-            builder.AppendLine($"        return new {name}(value);");
-            builder.AppendLine("    }");
+
+            if (this.ValidatedType.RawClrType != validatedTypeFullyQualifiedName)
+            {
+                builder.AppendLine($"    public static implicit operator {name}({this.ValidatedType.RawClrType} value)");
+                builder.AppendLine("    {");
+                builder.AppendLine($"        return new {name}(value);");
+                builder.AppendLine("    }");
+            }
+
             builder.AppendLine($"    public static implicit operator {validatedTypeFullyQualifiedName}({name} value)");
             builder.AppendLine("    {");
             builder.AppendLine($"        if (value.value is {validatedTypeFullyQualifiedName} clrValue)");
