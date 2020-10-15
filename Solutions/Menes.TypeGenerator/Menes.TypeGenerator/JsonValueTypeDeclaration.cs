@@ -13,11 +13,13 @@ namespace Menes.TypeGenerator
     /// </summary>
     public partial class JsonValueTypeDeclaration : ITypeDeclaration
     {
-        private JsonValueTypeDeclaration(string name, string clrType, ValueKind kind)
+        private JsonValueTypeDeclaration(string name, string[] clrTypes, ValueKind kind)
         {
             this.Parent = MenesNamespace;
             this.Name = name;
-            this.RawClrType = clrType;
+
+            // Note that the "primary" raw CLR type is the first in this list.
+            this.RawClrTypes = clrTypes;
             this.Kind = kind;
         }
 
@@ -61,9 +63,9 @@ namespace Menes.TypeGenerator
         public string Name { get; }
 
         /// <summary>
-        /// Gets the CLR type that corresponds to the underlying representation of this json type.
+        /// Gets the CLR types that corresponds to the underlying representation of this json type.
         /// </summary>
-        public string RawClrType { get; }
+        public string[] RawClrTypes { get; }
 
         /// <inheritdoc/>
         public IDeclaration? Parent { get; set; }

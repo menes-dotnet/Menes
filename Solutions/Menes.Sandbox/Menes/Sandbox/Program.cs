@@ -31,6 +31,7 @@ namespace Menes.Sandbox
                 first: "Hello",
                 second: 42,
                 third: Duration.FromHours(3),
+                age: 37,
                 children: JsonArray.Create(new JsonObjectExample("Sibling A", 1), new JsonObjectExample("Sibling B", 2)),
                 //// You could also initialize this with array syntax as below. They both implicitly convert to JsonArray<TItem>.
                 //// However, they also allocate additional arrays; up to 4 items is optimized for ImmutableArray creation, so we
@@ -58,6 +59,7 @@ namespace Menes.Sandbox
                 first: "Goodbye",
                 second: example.Second,
                 third: Duration.FromHours(3),
+                age: null,
                 children: roundtrip.Children,
                 ("daisy", "Here's a daisy"),
                 ("poppy", "Here's a poppy"));
@@ -178,17 +180,24 @@ namespace Menes.Sandbox
                 MinItemsValidation = 10,
             };
 
-            var intType = new ValidatedJsonValueTypeDeclaration("EnumeratedInt32", JsonValueTypeDeclaration.Int32)
+            var enumeratedInteger = new ValidatedJsonValueTypeDeclaration("EnumeratedInt32", JsonValueTypeDeclaration.Int32)
             {
                 EnumValidation = JsonEnum.From<JsonInt32>(100, 200, 300),
             };
 
+            var positiveInteger = new ValidatedJsonValueTypeDeclaration("PositiveInteger", JsonValueTypeDeclaration.Integer)
+            {
+                ExclusiveMinimumValidation = 0,
+            };
+
             exampleObjectType.AddPropertyDeclaration("first", JsonValueTypeDeclaration.String);
-            exampleObjectType.AddPropertyDeclaration("second", intType);
+            exampleObjectType.AddPropertyDeclaration("second", enumeratedInteger);
             exampleObjectType.AddOptionalPropertyDeclaration("third", JsonValueTypeDeclaration.Duration);
+            exampleObjectType.AddOptionalPropertyDeclaration("age", positiveInteger);
             exampleObjectType.AddOptionalPropertyDeclaration("children", arrayType);
             exampleObjectType.AddTypeDeclaration(arrayType);
-            exampleObjectType.AddTypeDeclaration(intType);
+            exampleObjectType.AddTypeDeclaration(enumeratedInteger);
+            exampleObjectType.AddTypeDeclaration(positiveInteger);
 
             TypeDeclarationSyntax tds = exampleObjectType.GenerateType();
 

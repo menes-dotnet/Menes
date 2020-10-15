@@ -162,8 +162,8 @@ namespace Menes.TypeGenerator
             builder.AppendLine($"    public static readonly System.Func<System.Text.Json.JsonElement, {name}> FromJsonElement = e => new {name}(e);");
             builder.AppendLine($"    public static readonly {name} Null = new {name}(default(System.Text.Json.JsonElement));");
 
-            builder.AppendLine($"    private static readonly {this.ValidatedType.RawClrType}? ConstValue = BuildConstValue();");
-            builder.AppendLine($"    private static readonly System.Collections.Immutable.ImmutableArray<{this.ValidatedType.RawClrType}>? EnumValues = BuildEnumValues();");
+            builder.AppendLine($"    private static readonly {this.ValidatedType.RawClrTypes[0]}? ConstValue = BuildConstValue();");
+            builder.AppendLine($"    private static readonly System.Collections.Immutable.ImmutableArray<{this.ValidatedType.RawClrTypes[0]}>? EnumValues = BuildEnumValues();");
 
             if (this.ValidatedType.Kind == JsonValueTypeDeclaration.ValueKind.String)
             {
@@ -181,19 +181,19 @@ namespace Menes.TypeGenerator
             }
             else if (this.ValidatedType.Kind == JsonValueTypeDeclaration.ValueKind.Number)
             {
-                builder.AppendLine($"    private static readonly {this.ValidatedType.RawClrType}? MultipleOf = {this.MultipleOfValidation?.ToString() ?? "null"};");
-                builder.AppendLine($"    private static readonly {this.ValidatedType.RawClrType}? Maximum = {this.MaximumValidation?.ToString() ?? "null"};");
-                builder.AppendLine($"    private static readonly {this.ValidatedType.RawClrType}? ExclusiveMaximum = {this.ExclusiveMaximumValidation?.ToString() ?? "null"};");
-                builder.AppendLine($"    private static readonly {this.ValidatedType.RawClrType}? Minimum = {this.MinimumValidation?.ToString() ?? "null"};");
-                builder.AppendLine($"    private static readonly {this.ValidatedType.RawClrType}? ExclusiveMinimum = {this.ExclusiveMinimumValidation?.ToString() ?? "null"};");
+                builder.AppendLine($"    private static readonly {this.ValidatedType.RawClrTypes[0]}? MultipleOf = {this.MultipleOfValidation?.ToString() ?? "null"};");
+                builder.AppendLine($"    private static readonly {this.ValidatedType.RawClrTypes[0]}? Maximum = {this.MaximumValidation?.ToString() ?? "null"};");
+                builder.AppendLine($"    private static readonly {this.ValidatedType.RawClrTypes[0]}? ExclusiveMaximum = {this.ExclusiveMaximumValidation?.ToString() ?? "null"};");
+                builder.AppendLine($"    private static readonly {this.ValidatedType.RawClrTypes[0]}? Minimum = {this.MinimumValidation?.ToString() ?? "null"};");
+                builder.AppendLine($"    private static readonly {this.ValidatedType.RawClrTypes[0]}? ExclusiveMinimum = {this.ExclusiveMinimumValidation?.ToString() ?? "null"};");
             }
             else if (this.ValidatedType.Kind == JsonValueTypeDeclaration.ValueKind.Decimal)
             {
-                builder.AppendLine($"    private static readonly {this.ValidatedType.RawClrType}? MultipleOf = {GetDecimalFor(this.MultipleOfValidation?.ToString())};");
-                builder.AppendLine($"    private static readonly {this.ValidatedType.RawClrType}? Maximum = {GetDecimalFor(this.MaximumValidation?.ToString())};");
-                builder.AppendLine($"    private static readonly {this.ValidatedType.RawClrType}? ExclusiveMaximum = {GetDecimalFor(this.ExclusiveMaximumValidation?.ToString())};");
-                builder.AppendLine($"    private static readonly {this.ValidatedType.RawClrType}? Minimum = {GetDecimalFor(this.MinimumValidation?.ToString())};");
-                builder.AppendLine($"    private static readonly {this.ValidatedType.RawClrType}? ExclusiveMinimum = {GetDecimalFor(this.ExclusiveMinimumValidation?.ToString())};");
+                builder.AppendLine($"    private static readonly {this.ValidatedType.RawClrTypes[0]}? MultipleOf = {GetDecimalFor(this.MultipleOfValidation?.ToString())};");
+                builder.AppendLine($"    private static readonly {this.ValidatedType.RawClrTypes[0]}? Maximum = {GetDecimalFor(this.MaximumValidation?.ToString())};");
+                builder.AppendLine($"    private static readonly {this.ValidatedType.RawClrTypes[0]}? ExclusiveMaximum = {GetDecimalFor(this.ExclusiveMaximumValidation?.ToString())};");
+                builder.AppendLine($"    private static readonly {this.ValidatedType.RawClrTypes[0]}? Minimum = {GetDecimalFor(this.MinimumValidation?.ToString())};");
+                builder.AppendLine($"    private static readonly {this.ValidatedType.RawClrTypes[0]}? ExclusiveMinimum = {GetDecimalFor(this.ExclusiveMinimumValidation?.ToString())};");
             }
 
             builder.AppendLine($"    private readonly {validatedTypeFullyQualifiedName}? value;");
@@ -224,12 +224,15 @@ namespace Menes.TypeGenerator
             builder.AppendLine($"        return new {name}(value);");
             builder.AppendLine("    }");
 
-            if (this.ValidatedType.RawClrType != validatedTypeFullyQualifiedName)
+            foreach (string clrType in this.ValidatedType.RawClrTypes)
             {
-                builder.AppendLine($"    public static implicit operator {name}({this.ValidatedType.RawClrType} value)");
-                builder.AppendLine("    {");
-                builder.AppendLine($"        return new {name}(value);");
-                builder.AppendLine("    }");
+                if (clrType != validatedTypeFullyQualifiedName)
+                {
+                    builder.AppendLine($"    public static implicit operator {name}({clrType} value)");
+                    builder.AppendLine("    {");
+                    builder.AppendLine($"        return new {name}(value);");
+                    builder.AppendLine("    }");
+                }
             }
 
             builder.AppendLine($"    public static implicit operator {validatedTypeFullyQualifiedName}({name} value)");
@@ -302,9 +305,21 @@ namespace Menes.TypeGenerator
             builder.AppendLine("        }");
             builder.AppendLine("    }");
 
+            builder.AppendLine("public override string? ToString()");
+            builder.AppendLine("{");
+            builder.AppendLine($"        if (this.value is {validatedTypeFullyQualifiedName} clrValue)");
+            builder.AppendLine("        {");
+            builder.AppendLine("            return clrValue.ToString();");
+            builder.AppendLine("        }");
+            builder.AppendLine("        else");
+            builder.AppendLine("        {");
+            builder.AppendLine("             return this.JsonElement.GetRawText();");
+            builder.AppendLine("        }");
+            builder.AppendLine("}");
+
             if (this.ConstValidation is string constValue)
             {
-                builder.AppendLine($"private static {this.ValidatedType.RawClrType}? BuildConstValue()");
+                builder.AppendLine($"private static {this.ValidatedType.RawClrTypes[0]}? BuildConstValue()");
                 builder.AppendLine("{");
                 if (this.ValidatedType.Kind == JsonValueTypeDeclaration.ValueKind.Decimal)
                 {
@@ -319,7 +334,7 @@ namespace Menes.TypeGenerator
             }
             else
             {
-                builder.AppendLine($"private static {this.ValidatedType.RawClrType}? BuildConstValue()");
+                builder.AppendLine($"private static {this.ValidatedType.RawClrTypes[0]}? BuildConstValue()");
                 builder.AppendLine("{");
                 builder.AppendLine("    return null;");
                 builder.AppendLine("}");
@@ -327,9 +342,9 @@ namespace Menes.TypeGenerator
 
             if (this.EnumValidation is string enumValidation)
             {
-                builder.AppendLine($"    private static System.Collections.Immutable.ImmutableArray<{this.ValidatedType.RawClrType}>? BuildEnumValues()");
+                builder.AppendLine($"    private static System.Collections.Immutable.ImmutableArray<{this.ValidatedType.RawClrTypes[0]}>? BuildEnumValues()");
                 builder.AppendLine("    {");
-                builder.AppendLine($"        System.Collections.Immutable.ImmutableArray<{this.ValidatedType.RawClrType}>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<{this.ValidatedType.RawClrType}>();");
+                builder.AppendLine($"        System.Collections.Immutable.ImmutableArray<{this.ValidatedType.RawClrTypes[0]}>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<{this.ValidatedType.RawClrTypes[0]}>();");
 
                 using var document = JsonDocument.Parse(enumValidation);
                 JsonElement.ArrayEnumerator enumerator = document.RootElement.EnumerateArray();
@@ -350,7 +365,7 @@ namespace Menes.TypeGenerator
             }
             else
             {
-                builder.AppendLine($"private static System.Collections.Immutable.ImmutableArray<{this.ValidatedType.RawClrType}>? BuildEnumValues()");
+                builder.AppendLine($"private static System.Collections.Immutable.ImmutableArray<{this.ValidatedType.RawClrTypes[0]}>? BuildEnumValues()");
                 builder.AppendLine("{");
                 builder.AppendLine("    return null;");
                 builder.AppendLine("}");
