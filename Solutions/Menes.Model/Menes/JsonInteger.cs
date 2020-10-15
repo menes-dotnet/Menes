@@ -277,71 +277,14 @@ namespace Menes
                 return false;
             }
 
-            if (!this.HasJsonElement)
+            if (this.TryGetInt64(out long lhs) && other.TryGetInt64(out long rhs))
             {
-                if (this.clrLong is long int64)
-                {
-                    if (other.clrLong is long int64o)
-                    {
-                        return int64.Equals(int64o);
-                    }
-
-                    if (other.clrInt is int int32o1)
-                    {
-                        return int64.Equals(int32o1);
-                    }
-
-                    if (other.HasJsonElement && other.JsonElement.TryGetInt64(out long o))
-                    {
-                        return int64.Equals(o);
-                    }
-                }
-
-                if (this.clrInt is int int32)
-                {
-                    if (other.clrInt is int int32o)
-                    {
-                        return int32.Equals(int32o);
-                    }
-
-                    if (other.HasJsonElement && other.JsonElement.TryGetInt32(out int o))
-                    {
-                        return int32.Equals(o);
-                    }
-                }
+                return lhs == rhs;
             }
-            else
+
+            if (this.TryGetInt32(out int lhs32) && other.TryGetInt32(out int rhs32))
             {
-                if (this.JsonElement.TryGetInt64(out long int64))
-                {
-                    if (other.clrLong is long int64o)
-                    {
-                        return int64.Equals(int64o);
-                    }
-
-                    if (other.clrInt is int int32o1)
-                    {
-                        return int64.Equals(int32o1);
-                    }
-
-                    if (other.HasJsonElement && other.JsonElement.TryGetInt64(out long o))
-                    {
-                        return int64.Equals(o);
-                    }
-                }
-
-                if (this.JsonElement.TryGetInt32(out int int32))
-                {
-                    if (other.clrInt is int int32o)
-                    {
-                        return int32.Equals(int32o);
-                    }
-
-                    if (other.HasJsonElement && other.JsonElement.TryGetInt32(out int o))
-                    {
-                        return int32.Equals(o);
-                    }
-                }
+                return lhs32 == rhs32;
             }
 
             return false;
@@ -424,71 +367,14 @@ namespace Menes
                 return false;
             }
 
-            if (!this.HasJsonElement)
+            if (this.TryGetInt64(out long lhs) && other.TryGetInt64(out long rhs))
             {
-                if (this.clrLong is long int64)
-                {
-                    if (other.clrLong is long int64o)
-                    {
-                        return int64 % int64o == 0;
-                    }
-
-                    if (other.clrInt is int int32o1)
-                    {
-                        return int64 % int32o1 == 0;
-                    }
-
-                    if (other.HasJsonElement && other.JsonElement.TryGetInt64(out long o))
-                    {
-                        return int64 % o == 0;
-                    }
-                }
-
-                if (this.clrInt is int int32)
-                {
-                    if (other.clrInt is int int32o)
-                    {
-                        return int32 % int32o == 0;
-                    }
-
-                    if (other.HasJsonElement && other.JsonElement.TryGetInt32(out int o))
-                    {
-                        return int32 % o == 0;
-                    }
-                }
+                return lhs % rhs == 0;
             }
-            else
+
+            if (this.TryGetInt32(out int lhs32) && other.TryGetInt32(out int rhs32))
             {
-                if (this.JsonElement.TryGetInt64(out long int64))
-                {
-                    if (other.clrLong is long int64o)
-                    {
-                        return int64 % int64o == 0;
-                    }
-
-                    if (other.clrInt is int int32o1)
-                    {
-                        return int64 % int32o1 == 0;
-                    }
-
-                    if (other.HasJsonElement && other.JsonElement.TryGetInt64(out long o))
-                    {
-                        return int64 % o == 0;
-                    }
-                }
-
-                if (this.JsonElement.TryGetInt32(out int int32))
-                {
-                    if (other.clrInt is int int32o)
-                    {
-                        return int32 % int32o == 0;
-                    }
-
-                    if (other.HasJsonElement && other.JsonElement.TryGetInt32(out int o))
-                    {
-                        return int32 % o == 0;
-                    }
-                }
+                return lhs32 % rhs32 == 0;
             }
 
             return false;
@@ -506,71 +392,14 @@ namespace Menes
                 return false;
             }
 
-            if (!this.HasJsonElement)
+            if (this.TryGetInt64(out long lhs) && other.TryGetInt64(out long rhs))
             {
-                if (this.clrLong is long int64)
-                {
-                    if (other.clrLong is long int64o)
-                    {
-                        return int64 > int64o;
-                    }
-
-                    if (other.clrInt is int int32o1)
-                    {
-                        return int64 > int32o1;
-                    }
-
-                    if (other.HasJsonElement && other.JsonElement.TryGetInt64(out long o))
-                    {
-                        return int64 > o;
-                    }
-                }
-
-                if (this.clrInt is int int32)
-                {
-                    if (other.clrInt is int int32o)
-                    {
-                        return int32 > int32o;
-                    }
-
-                    if (other.HasJsonElement && other.JsonElement.TryGetInt32(out int o))
-                    {
-                        return int32 > o;
-                    }
-                }
+                return lhs > rhs;
             }
-            else
+
+            if (this.TryGetInt32(out int lhs32) && other.TryGetInt32(out int rhs32))
             {
-                if (this.JsonElement.TryGetInt64(out long int64))
-                {
-                    if (other.clrLong is long int64o)
-                    {
-                        return int64 > int64o;
-                    }
-
-                    if (other.clrInt is int int32o1)
-                    {
-                        return int64 > int32o1;
-                    }
-
-                    if (other.HasJsonElement && other.JsonElement.TryGetInt64(out long o))
-                    {
-                        return int64 > o;
-                    }
-                }
-
-                if (this.JsonElement.TryGetInt32(out int int32))
-                {
-                    if (other.clrInt is int int32o)
-                    {
-                        return int32 > int32o;
-                    }
-
-                    if (other.HasJsonElement && other.JsonElement.TryGetInt32(out int o))
-                    {
-                        return int32 > o;
-                    }
-                }
+                return lhs32 > rhs32;
             }
 
             return false;
@@ -588,71 +417,14 @@ namespace Menes
                 return false;
             }
 
-            if (!this.HasJsonElement)
+            if (this.TryGetInt64(out long lhs) && other.TryGetInt64(out long rhs))
             {
-                if (this.clrLong is long int64)
-                {
-                    if (other.clrLong is long int64o)
-                    {
-                        return int64 >= int64o;
-                    }
-
-                    if (other.clrInt is int int32o1)
-                    {
-                        return int64 >= int32o1;
-                    }
-
-                    if (other.HasJsonElement && other.JsonElement.TryGetInt64(out long o))
-                    {
-                        return int64 >= o;
-                    }
-                }
-
-                if (this.clrInt is int int32)
-                {
-                    if (other.clrInt is int int32o)
-                    {
-                        return int32 >= int32o;
-                    }
-
-                    if (other.HasJsonElement && other.JsonElement.TryGetInt32(out int o))
-                    {
-                        return int32 >= o;
-                    }
-                }
+                return lhs >= rhs;
             }
-            else
+
+            if (this.TryGetInt32(out int lhs32) && other.TryGetInt32(out int rhs32))
             {
-                if (this.JsonElement.TryGetInt64(out long int64))
-                {
-                    if (other.clrLong is long int64o)
-                    {
-                        return int64 >= int64o;
-                    }
-
-                    if (other.clrInt is int int32o1)
-                    {
-                        return int64 >= int32o1;
-                    }
-
-                    if (other.HasJsonElement && other.JsonElement.TryGetInt64(out long o))
-                    {
-                        return int64 >= o;
-                    }
-                }
-
-                if (this.JsonElement.TryGetInt32(out int int32))
-                {
-                    if (other.clrInt is int int32o)
-                    {
-                        return int32 >= int32o;
-                    }
-
-                    if (other.HasJsonElement && other.JsonElement.TryGetInt32(out int o))
-                    {
-                        return int32 >= o;
-                    }
-                }
+                return lhs32 >= rhs32;
             }
 
             return false;
@@ -670,71 +442,14 @@ namespace Menes
                 return false;
             }
 
-            if (!this.HasJsonElement)
+            if (this.TryGetInt64(out long lhs) && other.TryGetInt64(out long rhs))
             {
-                if (this.clrLong is long int64)
-                {
-                    if (other.clrLong is long int64o)
-                    {
-                        return int64 > int64o;
-                    }
-
-                    if (other.clrInt is int int32o1)
-                    {
-                        return int64 > int32o1;
-                    }
-
-                    if (other.HasJsonElement && other.JsonElement.TryGetInt64(out long o))
-                    {
-                        return int64 > o;
-                    }
-                }
-
-                if (this.clrInt is int int32)
-                {
-                    if (other.clrInt is int int32o)
-                    {
-                        return int32 > int32o;
-                    }
-
-                    if (other.HasJsonElement && other.JsonElement.TryGetInt32(out int o))
-                    {
-                        return int32 > o;
-                    }
-                }
+                return lhs < rhs;
             }
-            else
+
+            if (this.TryGetInt32(out int lhs32) && other.TryGetInt32(out int rhs32))
             {
-                if (this.JsonElement.TryGetInt64(out long int64))
-                {
-                    if (other.clrLong is long int64o)
-                    {
-                        return int64 > int64o;
-                    }
-
-                    if (other.clrInt is int int32o1)
-                    {
-                        return int64 > int32o1;
-                    }
-
-                    if (other.HasJsonElement && other.JsonElement.TryGetInt64(out long o))
-                    {
-                        return int64 > o;
-                    }
-                }
-
-                if (this.JsonElement.TryGetInt32(out int int32))
-                {
-                    if (other.clrInt is int int32o)
-                    {
-                        return int32 > int32o;
-                    }
-
-                    if (other.HasJsonElement && other.JsonElement.TryGetInt32(out int o))
-                    {
-                        return int32 > o;
-                    }
-                }
+                return lhs32 < rhs32;
             }
 
             return false;
@@ -752,71 +467,14 @@ namespace Menes
                 return false;
             }
 
-            if (!this.HasJsonElement)
+            if (this.TryGetInt64(out long lhs) && other.TryGetInt64(out long rhs))
             {
-                if (this.clrLong is long int64)
-                {
-                    if (other.clrLong is long int64o)
-                    {
-                        return int64 <= int64o;
-                    }
-
-                    if (other.clrInt is int int32o1)
-                    {
-                        return int64 <= int32o1;
-                    }
-
-                    if (other.HasJsonElement && other.JsonElement.TryGetInt64(out long o))
-                    {
-                        return int64 <= o;
-                    }
-                }
-
-                if (this.clrInt is int int32)
-                {
-                    if (other.clrInt is int int32o)
-                    {
-                        return int32 <= int32o;
-                    }
-
-                    if (other.HasJsonElement && other.JsonElement.TryGetInt32(out int o))
-                    {
-                        return int32 <= o;
-                    }
-                }
+                return lhs <= rhs;
             }
-            else
+
+            if (this.TryGetInt32(out int lhs32) && other.TryGetInt32(out int rhs32))
             {
-                if (this.JsonElement.TryGetInt64(out long int64))
-                {
-                    if (other.clrLong is long int64o)
-                    {
-                        return int64 <= int64o;
-                    }
-
-                    if (other.clrInt is int int32o1)
-                    {
-                        return int64 <= int32o1;
-                    }
-
-                    if (other.HasJsonElement && other.JsonElement.TryGetInt64(out long o))
-                    {
-                        return int64 <= o;
-                    }
-                }
-
-                if (this.JsonElement.TryGetInt32(out int int32))
-                {
-                    if (other.clrInt is int int32o)
-                    {
-                        return int32 <= int32o;
-                    }
-
-                    if (other.HasJsonElement && other.JsonElement.TryGetInt32(out int o))
-                    {
-                        return int32 <= o;
-                    }
-                }
+                return lhs32 <= rhs32;
             }
 
             return false;

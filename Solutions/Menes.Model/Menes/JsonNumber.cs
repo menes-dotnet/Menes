@@ -458,179 +458,29 @@ namespace Menes
                 return false;
             }
 
-            if (!this.HasJsonElement)
+            if (this.TryGetInt64(out long lhs) && other.TryGetInt64(out long rhs))
             {
-                if (this.clrLong is long int64)
-                {
-                    if (other.clrLong is long int64o)
-                    {
-                        return int64.Equals(int64o);
-                    }
-
-                    if (other.clrInt is int int32o1)
-                    {
-                        return int64.Equals(int32o1);
-                    }
-
-                    if (other.HasJsonElement && other.JsonElement.TryGetInt64(out long o))
-                    {
-                        return int64.Equals(o);
-                    }
-                }
-
-                if (this.clrInt is int int32)
-                {
-                    if (other.clrInt is int int32o)
-                    {
-                        return int32.Equals(int32o);
-                    }
-
-                    if (other.HasJsonElement && other.JsonElement.TryGetInt32(out int o))
-                    {
-                        return int32.Equals(o);
-                    }
-                }
-
-                if (this.clrDecimal is decimal clrDecimal)
-                {
-                    if (other.clrDecimal is decimal clrDecimalo)
-                    {
-                        return clrDecimal.Equals(clrDecimalo);
-                    }
-
-                    if (other.clrDouble is double clrDoubleo)
-                    {
-                        return clrDecimal.Equals((decimal)clrDoubleo);
-                    }
-
-                    if (other.clrFloat is float clrSingleo1)
-                    {
-                        return clrDecimal.Equals((decimal)clrSingleo1);
-                    }
-
-                    if (other.HasJsonElement && other.JsonElement.TryGetDecimal(out decimal o))
-                    {
-                        return clrDecimal.Equals(o);
-                    }
-                }
-
-                if (this.clrDouble is double clrDouble)
-                {
-                    if (other.clrDouble is double clrDoubleo)
-                    {
-                        return clrDouble.Equals(clrDoubleo);
-                    }
-
-                    if (other.clrFloat is float clrSingleo1)
-                    {
-                        return clrDouble.Equals(clrSingleo1);
-                    }
-
-                    if (other.HasJsonElement && other.JsonElement.TryGetDouble(out double o))
-                    {
-                        return clrDouble.Equals(o);
-                    }
-                }
-
-                if (this.clrFloat is float single)
-                {
-                    if (other.clrFloat is float singleo)
-                    {
-                        return single.Equals(singleo);
-                    }
-
-                    if (other.HasJsonElement && other.JsonElement.TryGetSingle(out float o))
-                    {
-                        return single.Equals(o);
-                    }
-                }
+                return lhs == rhs;
             }
-            else
+
+            if (this.TryGetInt32(out int lhs32) && other.TryGetInt32(out int rhs32))
             {
-                if (this.JsonElement.TryGetInt64(out long int64))
-                {
-                    if (other.clrLong is long int64o)
-                    {
-                        return int64.Equals(int64o);
-                    }
+                return lhs32 == rhs32;
+            }
 
-                    if (other.clrInt is int int32o1)
-                    {
-                        return int64.Equals(int32o1);
-                    }
+            if (this.TryGetDouble(out double lhsd) && other.TryGetDouble(out double rhsd))
+            {
+                return lhsd == rhsd;
+            }
 
-                    if (other.HasJsonElement && other.JsonElement.TryGetInt64(out long o))
-                    {
-                        return int64.Equals(o);
-                    }
-                }
+            if (this.TryGetSingle(out float lhss) && other.TryGetSingle(out float rhss))
+            {
+                return lhss == rhss;
+            }
 
-                if (this.JsonElement.TryGetInt32(out int int32))
-                {
-                    if (other.clrInt is int int32o)
-                    {
-                        return int32.Equals(int32o);
-                    }
-
-                    if (other.HasJsonElement && other.JsonElement.TryGetInt32(out int o))
-                    {
-                        return int32.Equals(o);
-                    }
-                }
-
-                if (this.JsonElement.TryGetSingle(out float single))
-                {
-                    if (other.clrFloat is float singleo)
-                    {
-                        return single.Equals(singleo);
-                    }
-
-                    if (other.HasJsonElement && other.JsonElement.TryGetSingle(out float o))
-                    {
-                        return single.Equals(o);
-                    }
-                }
-
-                if (this.JsonElement.TryGetDouble(out double clrDouble))
-                {
-                    if (other.clrDouble is double clrDoubleo)
-                    {
-                        return clrDouble.Equals(clrDoubleo);
-                    }
-
-                    if (other.clrFloat is float clrSingleo1)
-                    {
-                        return clrDouble.Equals(clrSingleo1);
-                    }
-
-                    if (other.HasJsonElement && other.JsonElement.TryGetDouble(out double o))
-                    {
-                        return clrDouble.Equals(o);
-                    }
-                }
-
-                if (this.JsonElement.TryGetDecimal(out decimal clrDecimal))
-                {
-                    if (other.clrDecimal is decimal clrDecimalo)
-                    {
-                        return clrDecimal.Equals(clrDecimalo);
-                    }
-
-                    if (other.clrDouble is double clrDoubleo)
-                    {
-                        return clrDecimal.Equals((decimal)clrDoubleo);
-                    }
-
-                    if (other.clrFloat is float clrSingleo1)
-                    {
-                        return clrDecimal.Equals((decimal)clrSingleo1);
-                    }
-
-                    if (other.HasJsonElement && other.JsonElement.TryGetDecimal(out decimal o))
-                    {
-                        return clrDecimal.Equals(o);
-                    }
-                }
+            if (this.TryGetDecimal(out decimal lhsm) && other.TryGetDecimal(out decimal rhsm))
+            {
+                return lhsm == rhsm;
             }
 
             return false;
@@ -713,179 +563,29 @@ namespace Menes
                 return false;
             }
 
-            if (!this.HasJsonElement)
+            if (this.TryGetInt64(out long lhs) && other.TryGetInt64(out long rhs))
             {
-                if (this.clrLong is long int64)
-                {
-                    if (other.clrLong is long int64o)
-                    {
-                        return int64 % int64o == 0;
-                    }
-
-                    if (other.clrInt is int int32o1)
-                    {
-                        return int64 % int32o1 == 0;
-                    }
-
-                    if (other.HasJsonElement && other.JsonElement.TryGetInt64(out long o))
-                    {
-                        return int64 % o == 0;
-                    }
-                }
-
-                if (this.clrInt is int int32)
-                {
-                    if (other.clrInt is int int32o)
-                    {
-                        return int32 % int32o == 0;
-                    }
-
-                    if (other.HasJsonElement && other.JsonElement.TryGetInt32(out int o))
-                    {
-                        return int32 % o == 0;
-                    }
-                }
-
-                if (this.clrDecimal is decimal clrDecimal)
-                {
-                    if (other.clrDecimal is decimal clrDecimalo)
-                    {
-                        return clrDecimal % clrDecimalo == 0;
-                    }
-
-                    if (other.clrDouble is double clrDoubleo)
-                    {
-                        return clrDecimal % (decimal)clrDoubleo == 0;
-                    }
-
-                    if (other.clrFloat is float clrSingleo)
-                    {
-                        return clrDecimal % (decimal)clrSingleo == 0;
-                    }
-
-                    if (other.HasJsonElement && other.JsonElement.TryGetDecimal(out decimal o))
-                    {
-                        return clrDecimal % o == 0;
-                    }
-                }
-
-                if (this.clrDouble is double clrDouble)
-                {
-                    if (other.clrDouble is double clrDoubleo)
-                    {
-                        return clrDouble % clrDoubleo == 0;
-                    }
-
-                    if (other.clrFloat is float clrSingleo)
-                    {
-                        return clrDouble % clrSingleo == 0;
-                    }
-
-                    if (other.HasJsonElement && other.JsonElement.TryGetDouble(out double o))
-                    {
-                        return clrDouble % o == 0;
-                    }
-                }
-
-                if (this.clrFloat is float single)
-                {
-                    if (other.clrFloat is float singleo)
-                    {
-                        return single % singleo == 0;
-                    }
-
-                    if (other.HasJsonElement && other.JsonElement.TryGetSingle(out float o))
-                    {
-                        return single % o == 0;
-                    }
-                }
+                return lhs % rhs == 0;
             }
-            else
+
+            if (this.TryGetInt32(out int lhs32) && other.TryGetInt32(out int rhs32))
             {
-                if (this.JsonElement.TryGetInt64(out long int64))
-                {
-                    if (other.clrLong is long int64o)
-                    {
-                        return int64 % int64o == 0;
-                    }
+                return lhs32 % rhs32 == 0;
+            }
 
-                    if (other.clrInt is int int32o1)
-                    {
-                        return int64 % int32o1 == 0;
-                    }
+            if (this.TryGetDouble(out double lhsd) && other.TryGetDouble(out double rhsd))
+            {
+                return lhsd % rhsd == 0;
+            }
 
-                    if (other.HasJsonElement && other.JsonElement.TryGetInt64(out long o))
-                    {
-                        return int64 % o == 0;
-                    }
-                }
+            if (this.TryGetSingle(out float lhss) && other.TryGetSingle(out float rhss))
+            {
+                return lhss % rhss == 0;
+            }
 
-                if (this.JsonElement.TryGetInt32(out int int32))
-                {
-                    if (other.clrInt is int int32o)
-                    {
-                        return int32 % int32o == 0;
-                    }
-
-                    if (other.HasJsonElement && other.JsonElement.TryGetInt32(out int o))
-                    {
-                        return int32 % o == 0;
-                    }
-                }
-
-                if (this.JsonElement.TryGetSingle(out float single))
-                {
-                    if (other.clrFloat is float singleo)
-                    {
-                        return single % singleo == 0;
-                    }
-
-                    if (other.HasJsonElement && other.JsonElement.TryGetSingle(out float o))
-                    {
-                        return single % o == 0;
-                    }
-                }
-
-                if (this.JsonElement.TryGetDouble(out double clrDouble))
-                {
-                    if (other.clrDouble is double clrDoubleo)
-                    {
-                        return clrDouble % clrDoubleo == 0;
-                    }
-
-                    if (other.clrFloat is float clrSingleo)
-                    {
-                        return clrDouble % clrSingleo == 0;
-                    }
-
-                    if (other.HasJsonElement && other.JsonElement.TryGetDouble(out double o))
-                    {
-                        return clrDouble % o == 0;
-                    }
-                }
-
-                if (this.JsonElement.TryGetDecimal(out decimal clrDecimal))
-                {
-                    if (other.clrDecimal is decimal clrDecimalo)
-                    {
-                        return clrDecimal % clrDecimalo == 0;
-                    }
-
-                    if (other.clrDouble is double clrDoubleo)
-                    {
-                        return clrDecimal % (decimal)clrDoubleo == 0;
-                    }
-
-                    if (other.clrFloat is float clrSingleo)
-                    {
-                        return clrDecimal % (decimal)clrSingleo == 0;
-                    }
-
-                    if (other.HasJsonElement && other.JsonElement.TryGetDecimal(out decimal o))
-                    {
-                        return clrDecimal % o == 0;
-                    }
-                }
+            if (this.TryGetDecimal(out decimal lhsm) && other.TryGetDecimal(out decimal rhsm))
+            {
+                return lhsm % rhsm == 0;
             }
 
             return false;
@@ -903,179 +603,29 @@ namespace Menes
                 return false;
             }
 
-            if (!this.HasJsonElement)
+            if (this.TryGetInt64(out long lhs) && other.TryGetInt64(out long rhs))
             {
-                if (this.clrLong is long int64)
-                {
-                    if (other.clrLong is long int64o)
-                    {
-                        return int64 > int64o;
-                    }
-
-                    if (other.clrInt is int int32o1)
-                    {
-                        return int64 > int32o1;
-                    }
-
-                    if (other.HasJsonElement && other.JsonElement.TryGetInt64(out long o))
-                    {
-                        return int64 > o;
-                    }
-                }
-
-                if (this.clrInt is int int32)
-                {
-                    if (other.clrInt is int int32o)
-                    {
-                        return int32 > int32o;
-                    }
-
-                    if (other.HasJsonElement && other.JsonElement.TryGetInt32(out int o))
-                    {
-                        return int32 > o;
-                    }
-                }
-
-                if (this.clrDecimal is decimal clrDecimal)
-                {
-                    if (other.clrDecimal is decimal clrDecimalo)
-                    {
-                        return clrDecimal > clrDecimalo;
-                    }
-
-                    if (other.clrDouble is double clrDoubleo)
-                    {
-                        return clrDecimal > (decimal)clrDoubleo;
-                    }
-
-                    if (other.clrFloat is float clrSingleo)
-                    {
-                        return clrDecimal > (decimal)clrSingleo;
-                    }
-
-                    if (other.HasJsonElement && other.JsonElement.TryGetDecimal(out decimal o))
-                    {
-                        return clrDecimal > o;
-                    }
-                }
-
-                if (this.clrDouble is double clrDouble)
-                {
-                    if (other.clrDouble is double clrDoubleo)
-                    {
-                        return clrDouble > clrDoubleo;
-                    }
-
-                    if (other.clrFloat is float clrSingleo)
-                    {
-                        return clrDouble > clrSingleo;
-                    }
-
-                    if (other.HasJsonElement && other.JsonElement.TryGetDouble(out double o))
-                    {
-                        return clrDouble > o;
-                    }
-                }
-
-                if (this.clrFloat is float single)
-                {
-                    if (other.clrFloat is float singleo)
-                    {
-                        return single > singleo;
-                    }
-
-                    if (other.HasJsonElement && other.JsonElement.TryGetSingle(out float o))
-                    {
-                        return single > o;
-                    }
-                }
+                return lhs > rhs;
             }
-            else
+
+            if (this.TryGetInt32(out int lhs32) && other.TryGetInt32(out int rhs32))
             {
-                if (this.JsonElement.TryGetInt64(out long int64))
-                {
-                    if (other.clrLong is long int64o)
-                    {
-                        return int64 > int64o;
-                    }
+                return lhs32 > rhs32;
+            }
 
-                    if (other.clrInt is int int32o1)
-                    {
-                        return int64 > int32o1;
-                    }
+            if (this.TryGetDouble(out double lhsd) && other.TryGetDouble(out double rhsd))
+            {
+                return lhsd > rhsd;
+            }
 
-                    if (other.HasJsonElement && other.JsonElement.TryGetInt64(out long o))
-                    {
-                        return int64 > o;
-                    }
-                }
+            if (this.TryGetSingle(out float lhss) && other.TryGetSingle(out float rhss))
+            {
+                return lhss > rhss;
+            }
 
-                if (this.JsonElement.TryGetInt32(out int int32))
-                {
-                    if (other.clrInt is int int32o)
-                    {
-                        return int32 > int32o;
-                    }
-
-                    if (other.HasJsonElement && other.JsonElement.TryGetInt32(out int o))
-                    {
-                        return int32 > o;
-                    }
-                }
-
-                if (this.JsonElement.TryGetSingle(out float single))
-                {
-                    if (other.clrFloat is float singleo)
-                    {
-                        return single > singleo;
-                    }
-
-                    if (other.HasJsonElement && other.JsonElement.TryGetSingle(out float o))
-                    {
-                        return single > o;
-                    }
-                }
-
-                if (this.JsonElement.TryGetDouble(out double clrDouble))
-                {
-                    if (other.clrDouble is double clrDoubleo)
-                    {
-                        return clrDouble > clrDoubleo;
-                    }
-
-                    if (other.clrFloat is float clrSingleo)
-                    {
-                        return clrDouble > clrSingleo;
-                    }
-
-                    if (other.HasJsonElement && other.JsonElement.TryGetDouble(out double o))
-                    {
-                        return clrDouble > o;
-                    }
-                }
-
-                if (this.JsonElement.TryGetDecimal(out decimal clrDecimal))
-                {
-                    if (other.clrDecimal is decimal clrDecimalo)
-                    {
-                        return clrDecimal > clrDecimalo;
-                    }
-
-                    if (other.clrDouble is double clrDoubleo)
-                    {
-                        return clrDecimal > (decimal)clrDoubleo;
-                    }
-
-                    if (other.clrFloat is float clrSingleo)
-                    {
-                        return clrDecimal > (decimal)clrSingleo;
-                    }
-
-                    if (other.HasJsonElement && other.JsonElement.TryGetDecimal(out decimal o))
-                    {
-                        return clrDecimal > o;
-                    }
-                }
+            if (this.TryGetDecimal(out decimal lhsm) && other.TryGetDecimal(out decimal rhsm))
+            {
+                return lhsm > rhsm;
             }
 
             return false;
@@ -1093,179 +643,29 @@ namespace Menes
                 return false;
             }
 
-            if (!this.HasJsonElement)
+            if (this.TryGetInt64(out long lhs) && other.TryGetInt64(out long rhs))
             {
-                if (this.clrLong is long int64)
-                {
-                    if (other.clrLong is long int64o)
-                    {
-                        return int64 >= int64o;
-                    }
-
-                    if (other.clrInt is int int32o1)
-                    {
-                        return int64 >= int32o1;
-                    }
-
-                    if (other.HasJsonElement && other.JsonElement.TryGetInt64(out long o))
-                    {
-                        return int64 >= o;
-                    }
-                }
-
-                if (this.clrInt is int int32)
-                {
-                    if (other.clrInt is int int32o)
-                    {
-                        return int32 >= int32o;
-                    }
-
-                    if (other.HasJsonElement && other.JsonElement.TryGetInt32(out int o))
-                    {
-                        return int32 >= o;
-                    }
-                }
-
-                if (this.clrDecimal is decimal clrDecimal)
-                {
-                    if (other.clrDecimal is decimal clrDecimalo)
-                    {
-                        return clrDecimal >= clrDecimalo;
-                    }
-
-                    if (other.clrDouble is double clrDoubleo)
-                    {
-                        return clrDecimal >= (decimal)clrDoubleo;
-                    }
-
-                    if (other.clrFloat is float clrSingleo)
-                    {
-                        return clrDecimal >= (decimal)clrSingleo;
-                    }
-
-                    if (other.HasJsonElement && other.JsonElement.TryGetDecimal(out decimal o))
-                    {
-                        return clrDecimal >= o;
-                    }
-                }
-
-                if (this.clrDouble is double clrDouble)
-                {
-                    if (other.clrDouble is double clrDoubleo)
-                    {
-                        return clrDouble >= clrDoubleo;
-                    }
-
-                    if (other.clrFloat is float clrSingleo)
-                    {
-                        return clrDouble >= clrSingleo;
-                    }
-
-                    if (other.HasJsonElement && other.JsonElement.TryGetDouble(out double o))
-                    {
-                        return clrDouble >= o;
-                    }
-                }
-
-                if (this.clrFloat is float single)
-                {
-                    if (other.clrFloat is float singleo)
-                    {
-                        return single >= singleo;
-                    }
-
-                    if (other.HasJsonElement && other.JsonElement.TryGetSingle(out float o))
-                    {
-                        return single >= o;
-                    }
-                }
+                return lhs >= rhs;
             }
-            else
+
+            if (this.TryGetInt32(out int lhs32) && other.TryGetInt32(out int rhs32))
             {
-                if (this.JsonElement.TryGetInt64(out long int64))
-                {
-                    if (other.clrLong is long int64o)
-                    {
-                        return int64 >= int64o;
-                    }
+                return lhs32 >= rhs32;
+            }
 
-                    if (other.clrInt is int int32o1)
-                    {
-                        return int64 >= int32o1;
-                    }
+            if (this.TryGetDouble(out double lhsd) && other.TryGetDouble(out double rhsd))
+            {
+                return lhsd >= rhsd;
+            }
 
-                    if (other.HasJsonElement && other.JsonElement.TryGetInt64(out long o))
-                    {
-                        return int64 >= o;
-                    }
-                }
+            if (this.TryGetSingle(out float lhss) && other.TryGetSingle(out float rhss))
+            {
+                return lhss >= rhss;
+            }
 
-                if (this.JsonElement.TryGetInt32(out int int32))
-                {
-                    if (other.clrInt is int int32o)
-                    {
-                        return int32 >= int32o;
-                    }
-
-                    if (other.HasJsonElement && other.JsonElement.TryGetInt32(out int o))
-                    {
-                        return int32 >= o;
-                    }
-                }
-
-                if (this.JsonElement.TryGetSingle(out float single))
-                {
-                    if (other.clrFloat is float singleo)
-                    {
-                        return single >= singleo;
-                    }
-
-                    if (other.HasJsonElement && other.JsonElement.TryGetSingle(out float o))
-                    {
-                        return single >= o;
-                    }
-                }
-
-                if (this.JsonElement.TryGetDouble(out double clrDouble))
-                {
-                    if (other.clrDouble is double clrDoubleo)
-                    {
-                        return clrDouble >= clrDoubleo;
-                    }
-
-                    if (other.clrFloat is float clrSingleo)
-                    {
-                        return clrDouble >= clrSingleo;
-                    }
-
-                    if (other.HasJsonElement && other.JsonElement.TryGetDouble(out double o))
-                    {
-                        return clrDouble >= o;
-                    }
-                }
-
-                if (this.JsonElement.TryGetDecimal(out decimal clrDecimal))
-                {
-                    if (other.clrDecimal is decimal clrDecimalo)
-                    {
-                        return clrDecimal >= clrDecimalo;
-                    }
-
-                    if (other.clrDouble is double clrDoubleo)
-                    {
-                        return clrDecimal >= (decimal)clrDoubleo;
-                    }
-
-                    if (other.clrFloat is float clrSingleo)
-                    {
-                        return clrDecimal >= (decimal)clrSingleo;
-                    }
-
-                    if (other.HasJsonElement && other.JsonElement.TryGetDecimal(out decimal o))
-                    {
-                        return clrDecimal >= o;
-                    }
-                }
+            if (this.TryGetDecimal(out decimal lhsm) && other.TryGetDecimal(out decimal rhsm))
+            {
+                return lhsm >= rhsm;
             }
 
             return false;
@@ -1283,179 +683,29 @@ namespace Menes
                 return false;
             }
 
-            if (!this.HasJsonElement)
+            if (this.TryGetInt64(out long lhs) && other.TryGetInt64(out long rhs))
             {
-                if (this.clrLong is long int64)
-                {
-                    if (other.clrLong is long int64o)
-                    {
-                        return int64 > int64o;
-                    }
-
-                    if (other.clrInt is int int32o1)
-                    {
-                        return int64 > int32o1;
-                    }
-
-                    if (other.HasJsonElement && other.JsonElement.TryGetInt64(out long o))
-                    {
-                        return int64 > o;
-                    }
-                }
-
-                if (this.clrInt is int int32)
-                {
-                    if (other.clrInt is int int32o)
-                    {
-                        return int32 > int32o;
-                    }
-
-                    if (other.HasJsonElement && other.JsonElement.TryGetInt32(out int o))
-                    {
-                        return int32 > o;
-                    }
-                }
-
-                if (this.clrDecimal is decimal clrDecimal)
-                {
-                    if (other.clrDecimal is decimal clrDecimalo)
-                    {
-                        return clrDecimal > clrDecimalo;
-                    }
-
-                    if (other.clrDouble is double clrDoubleo)
-                    {
-                        return clrDecimal > (decimal)clrDoubleo;
-                    }
-
-                    if (other.clrFloat is float clrSingleo)
-                    {
-                        return clrDecimal > (decimal)clrSingleo;
-                    }
-
-                    if (other.HasJsonElement && other.JsonElement.TryGetDecimal(out decimal o))
-                    {
-                        return clrDecimal > o;
-                    }
-                }
-
-                if (this.clrDouble is double clrDouble)
-                {
-                    if (other.clrDouble is double clrDoubleo)
-                    {
-                        return clrDouble > clrDoubleo;
-                    }
-
-                    if (other.clrFloat is float clrSingleo)
-                    {
-                        return clrDouble > clrSingleo;
-                    }
-
-                    if (other.HasJsonElement && other.JsonElement.TryGetDouble(out double o))
-                    {
-                        return clrDouble > o;
-                    }
-                }
-
-                if (this.clrFloat is float single)
-                {
-                    if (other.clrFloat is float singleo)
-                    {
-                        return single > singleo;
-                    }
-
-                    if (other.HasJsonElement && other.JsonElement.TryGetSingle(out float o))
-                    {
-                        return single > o;
-                    }
-                }
+                return lhs < rhs;
             }
-            else
+
+            if (this.TryGetInt32(out int lhs32) && other.TryGetInt32(out int rhs32))
             {
-                if (this.JsonElement.TryGetInt64(out long int64))
-                {
-                    if (other.clrLong is long int64o)
-                    {
-                        return int64 > int64o;
-                    }
+                return lhs32 < rhs32;
+            }
 
-                    if (other.clrInt is int int32o1)
-                    {
-                        return int64 > int32o1;
-                    }
+            if (this.TryGetDouble(out double lhsd) && other.TryGetDouble(out double rhsd))
+            {
+                return lhsd < rhsd;
+            }
 
-                    if (other.HasJsonElement && other.JsonElement.TryGetInt64(out long o))
-                    {
-                        return int64 > o;
-                    }
-                }
+            if (this.TryGetSingle(out float lhss) && other.TryGetSingle(out float rhss))
+            {
+                return lhss < rhss;
+            }
 
-                if (this.JsonElement.TryGetInt32(out int int32))
-                {
-                    if (other.clrInt is int int32o)
-                    {
-                        return int32 > int32o;
-                    }
-
-                    if (other.HasJsonElement && other.JsonElement.TryGetInt32(out int o))
-                    {
-                        return int32 > o;
-                    }
-                }
-
-                if (this.JsonElement.TryGetSingle(out float single))
-                {
-                    if (other.clrFloat is float singleo)
-                    {
-                        return single > singleo;
-                    }
-
-                    if (other.HasJsonElement && other.JsonElement.TryGetSingle(out float o))
-                    {
-                        return single > o;
-                    }
-                }
-
-                if (this.JsonElement.TryGetDouble(out double clrDouble))
-                {
-                    if (other.clrDouble is double clrDoubleo)
-                    {
-                        return clrDouble > clrDoubleo;
-                    }
-
-                    if (other.clrFloat is float clrSingleo)
-                    {
-                        return clrDouble > clrSingleo;
-                    }
-
-                    if (other.HasJsonElement && other.JsonElement.TryGetDouble(out double o))
-                    {
-                        return clrDouble > o;
-                    }
-                }
-
-                if (this.JsonElement.TryGetDecimal(out decimal clrDecimal))
-                {
-                    if (other.clrDecimal is decimal clrDecimalo)
-                    {
-                        return clrDecimal > clrDecimalo;
-                    }
-
-                    if (other.clrDouble is double clrDoubleo)
-                    {
-                        return clrDecimal > (decimal)clrDoubleo;
-                    }
-
-                    if (other.clrFloat is float clrSingleo)
-                    {
-                        return clrDecimal > (decimal)clrSingleo;
-                    }
-
-                    if (other.HasJsonElement && other.JsonElement.TryGetDecimal(out decimal o))
-                    {
-                        return clrDecimal > o;
-                    }
-                }
+            if (this.TryGetDecimal(out decimal lhsm) && other.TryGetDecimal(out decimal rhsm))
+            {
+                return lhsm < rhsm;
             }
 
             return false;
@@ -1473,179 +723,29 @@ namespace Menes
                 return false;
             }
 
-            if (!this.HasJsonElement)
+            if (this.TryGetInt64(out long lhs) && other.TryGetInt64(out long rhs))
             {
-                if (this.clrLong is long int64)
-                {
-                    if (other.clrLong is long int64o)
-                    {
-                        return int64 <= int64o;
-                    }
-
-                    if (other.clrInt is int int32o1)
-                    {
-                        return int64 <= int32o1;
-                    }
-
-                    if (other.HasJsonElement && other.JsonElement.TryGetInt64(out long o))
-                    {
-                        return int64 <= o;
-                    }
-                }
-
-                if (this.clrInt is int int32)
-                {
-                    if (other.clrInt is int int32o)
-                    {
-                        return int32 <= int32o;
-                    }
-
-                    if (other.HasJsonElement && other.JsonElement.TryGetInt32(out int o))
-                    {
-                        return int32 <= o;
-                    }
-                }
-
-                if (this.clrDecimal is decimal clrDecimal)
-                {
-                    if (other.clrDecimal is decimal clrDecimalo)
-                    {
-                        return clrDecimal <= clrDecimalo;
-                    }
-
-                    if (other.clrDouble is double clrDoubleo)
-                    {
-                        return clrDecimal <= (decimal)clrDoubleo;
-                    }
-
-                    if (other.clrFloat is float clrSingleo)
-                    {
-                        return clrDecimal <= (decimal)clrSingleo;
-                    }
-
-                    if (other.HasJsonElement && other.JsonElement.TryGetDecimal(out decimal o))
-                    {
-                        return clrDecimal <= o;
-                    }
-                }
-
-                if (this.clrDouble is double clrDouble)
-                {
-                    if (other.clrDouble is double clrDoubleo)
-                    {
-                        return clrDouble <= clrDoubleo;
-                    }
-
-                    if (other.clrFloat is float clrSingleo)
-                    {
-                        return clrDouble <= clrSingleo;
-                    }
-
-                    if (other.HasJsonElement && other.JsonElement.TryGetDouble(out double o))
-                    {
-                        return clrDouble <= o;
-                    }
-                }
-
-                if (this.clrFloat is float single)
-                {
-                    if (other.clrFloat is float singleo)
-                    {
-                        return single <= singleo;
-                    }
-
-                    if (other.HasJsonElement && other.JsonElement.TryGetSingle(out float o))
-                    {
-                        return single <= o;
-                    }
-                }
+                return lhs <= rhs;
             }
-            else
+
+            if (this.TryGetInt32(out int lhs32) && other.TryGetInt32(out int rhs32))
             {
-                if (this.JsonElement.TryGetInt64(out long int64))
-                {
-                    if (other.clrLong is long int64o)
-                    {
-                        return int64 <= int64o;
-                    }
+                return lhs32 <= rhs32;
+            }
 
-                    if (other.clrInt is int int32o1)
-                    {
-                        return int64 <= int32o1;
-                    }
+            if (this.TryGetDouble(out double lhsd) && other.TryGetDouble(out double rhsd))
+            {
+                return lhsd <= rhsd;
+            }
 
-                    if (other.HasJsonElement && other.JsonElement.TryGetInt64(out long o))
-                    {
-                        return int64 <= o;
-                    }
-                }
+            if (this.TryGetSingle(out float lhss) && other.TryGetSingle(out float rhss))
+            {
+                return lhss <= rhss;
+            }
 
-                if (this.JsonElement.TryGetInt32(out int int32))
-                {
-                    if (other.clrInt is int int32o)
-                    {
-                        return int32 <= int32o;
-                    }
-
-                    if (other.HasJsonElement && other.JsonElement.TryGetInt32(out int o))
-                    {
-                        return int32 <= o;
-                    }
-                }
-
-                if (this.JsonElement.TryGetSingle(out float single))
-                {
-                    if (other.clrFloat is float singleo)
-                    {
-                        return single <= singleo;
-                    }
-
-                    if (other.HasJsonElement && other.JsonElement.TryGetSingle(out float o))
-                    {
-                        return single <= o;
-                    }
-                }
-
-                if (this.JsonElement.TryGetDouble(out double clrDouble))
-                {
-                    if (other.clrDouble is double clrDoubleo)
-                    {
-                        return clrDouble <= clrDoubleo;
-                    }
-
-                    if (other.clrFloat is float clrSingleo)
-                    {
-                        return clrDouble <= clrSingleo;
-                    }
-
-                    if (other.HasJsonElement && other.JsonElement.TryGetDouble(out double o))
-                    {
-                        return clrDouble <= o;
-                    }
-                }
-
-                if (this.JsonElement.TryGetDecimal(out decimal clrDecimal))
-                {
-                    if (other.clrDecimal is decimal clrDecimalo)
-                    {
-                        return clrDecimal <= clrDecimalo;
-                    }
-
-                    if (other.clrDouble is double clrDoubleo)
-                    {
-                        return clrDecimal <= (decimal)clrDoubleo;
-                    }
-
-                    if (other.clrFloat is float clrSingleo)
-                    {
-                        return clrDecimal <= (decimal)clrSingleo;
-                    }
-
-                    if (other.HasJsonElement && other.JsonElement.TryGetDecimal(out decimal o))
-                    {
-                        return clrDecimal <= o;
-                    }
-                }
+            if (this.TryGetDecimal(out decimal lhsm) && other.TryGetDecimal(out decimal rhsm))
+            {
+                return lhsm <= rhsm;
             }
 
             return false;
