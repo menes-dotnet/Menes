@@ -17,7 +17,7 @@ namespace Menes.JsonSchema
         /// </summary>
         /// <param name="schemaOrReferenceToUpdate">The <see cref="Schema.SchemaOrReference"/> to visit.</param>
         /// <returns><c>True</c> if the <see cref="Schema.SchemaOrReference"/> was updated.</returns>
-        public virtual async ValueTask<(bool, Schema.SchemaOrReference?)> VisitSchemaOrReference(Schema.SchemaOrReference? schemaOrReferenceToUpdate)
+        protected virtual async ValueTask<(bool, Schema.SchemaOrReference?)> VisitSchemaOrReference(Schema.SchemaOrReference? schemaOrReferenceToUpdate)
         {
             bool wasUpdated = false;
             bool pushedDocument = false;

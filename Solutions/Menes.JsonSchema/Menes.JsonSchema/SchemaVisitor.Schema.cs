@@ -43,6 +43,20 @@ namespace Menes.JsonSchema
                     wasUpdated = true;
                 }
 
+                (bool wasUpdatedConst, JsonAny? updatedConst) = await this.VisitConst(schema.Const).ConfigureAwait(false);
+                if (wasUpdatedConst)
+                {
+                    schema = schema.WithConst(updatedConst);
+                    wasUpdated = true;
+                }
+
+                (bool wasUpdatedContains, Schema.SchemaOrReference? updatedContains) = await this.VisitContains(schema.Contains).ConfigureAwait(false);
+                if (wasUpdatedContains)
+                {
+                    schema = schema.WithContains(updatedContains);
+                    wasUpdated = true;
+                }
+
                 updatedSchema = schema;
             }
 

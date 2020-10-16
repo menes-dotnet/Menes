@@ -17,7 +17,7 @@ namespace Menes.JsonSchema
         /// </summary>
         /// <param name="arrayOfSchemaOrReferenceToUpdate">The array of schema or reference to visit.</param>
         /// <returns>A tuple of <c>True</c> if the schema was updated, and the updated <see cref="Schema.ValidatedArrayOfSchemaOrReference"/>.</returns>
-        public virtual async ValueTask<(bool, Schema.ValidatedArrayOfSchemaOrReference?)> VisitAnyOf(Schema.ValidatedArrayOfSchemaOrReference? arrayOfSchemaOrReferenceToUpdate)
+        protected virtual async ValueTask<(bool, Schema.ValidatedArrayOfSchemaOrReference?)> VisitAnyOf(Schema.ValidatedArrayOfSchemaOrReference? arrayOfSchemaOrReferenceToUpdate)
         {
             bool wasUpdated = false;
             Schema.ValidatedArrayOfSchemaOrReference? updatedArrayOfSchemaOrReference = arrayOfSchemaOrReferenceToUpdate;

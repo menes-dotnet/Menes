@@ -38,7 +38,7 @@ namespace Menes.Sandbox
 
         private static async Task UseJsonSchemaModel()
         {
-            (JsonDocument root, Schema schema) = await SchemaParser.LoadSchema("exampleschema.json", DocumentResolver.Default).ConfigureAwait(false);
+            (JsonDocument root, Schema schema) = await DocumentResolver.Default.LoadSchema("exampleschema.json").ConfigureAwait(false);
 
             ValidationContext validationContext = ValidationContext.Root;
             validationContext = schema.Validate(validationContext);
