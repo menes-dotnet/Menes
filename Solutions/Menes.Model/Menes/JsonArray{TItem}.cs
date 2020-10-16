@@ -109,7 +109,7 @@ namespace Menes
         public static implicit operator JsonAny(JsonArray<TItem> item) => JsonAny.From(item);
 
         /// <summary>
-        /// Gets an enumerator for the property with the given name.
+        /// Gets an enumerator for the array.
         /// </summary>
         /// <param name="arrayElement">The array element, or <see cref="JsonValueKind.Undefined"/> if not available.</param>
         /// <param name="jsonElement">The element for which to retrieve the property enumerator.</param>
@@ -422,6 +422,11 @@ namespace Menes
         /// <inheritdoc/>
         public override string? ToString()
         {
+            if (this.IsNull)
+            {
+                return null;
+            }
+
             var abw = new ArrayBufferWriter<byte>();
             using var writer = new Utf8JsonWriter(abw);
             this.WriteTo(writer);

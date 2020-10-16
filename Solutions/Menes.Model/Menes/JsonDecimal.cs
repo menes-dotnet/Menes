@@ -212,7 +212,7 @@ namespace Menes
         /// <inheritdoc/>
         public override string? ToString()
         {
-            return this.CreateOrGetClrDecimal().ToString();
+            return this.IsNull ? null : this.CreateOrGetClrDecimal().ToString();
         }
 
         /// <inheritdoc/>

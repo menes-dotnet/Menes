@@ -208,7 +208,7 @@ namespace Menes
         /// <inheritdoc/>
         public override string? ToString()
         {
-            return this.JsonElement.ToString();
+            return this.IsNull ? null : this.JsonElement.ToString();
         }
 
         /// <inheritdoc/>

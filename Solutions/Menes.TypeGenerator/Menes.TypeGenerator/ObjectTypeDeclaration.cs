@@ -130,6 +130,7 @@ namespace Menes.TypeGenerator
             this.BuildEquals(members);
             this.BuildValidate(members);
             this.BuildTryGetAdditionalProperties(members);
+            this.BuildToString(members);
             this.BuildMethods(members);
 
             //// Private static methods
@@ -143,6 +144,16 @@ namespace Menes.TypeGenerator
             this.BuildNestedTypes(members);
 
             return members.ToArray();
+        }
+
+        private void BuildToString(List<MemberDeclarationSyntax> members)
+        {
+            var builder = new StringBuilder();
+            builder.AppendLine("public override string? ToString()");
+            builder.AppendLine("{");
+            builder.AppendLine("    return Menes.JsonAny.From(this).ToString();");
+            builder.AppendLine("}");
+            members.Add(SF.ParseMemberDeclaration(builder.ToString()));
         }
 
         private void BuildConstValue(List<MemberDeclarationSyntax> members)
@@ -561,13 +572,16 @@ namespace Menes.TypeGenerator
 
         private void BuildCloningConstructor(List<MemberDeclarationSyntax> members)
         {
-            string declaration =
-            $"private {this.Name}({this.BuildCloningConstructorParameterList()})" + Environment.NewLine +
-            "{" + Environment.NewLine +
-            this.BuildCloningConstructorParameterSetters() +
-            " }" + Environment.NewLine;
+            if (this.Properties.Any(p => p.Type.IsCompoundType) || (this.AdditionalPropertiesType is ITypeDeclaration t && t.IsCompoundType))
+            {
+                string declaration =
+                $"private {this.Name}({this.BuildCloningConstructorParameterList()})" + Environment.NewLine +
+                "{" + Environment.NewLine +
+                this.BuildCloningConstructorParameterSetters() +
+                " }" + Environment.NewLine;
 
-            members.Add(SF.ParseMemberDeclaration(declaration));
+                members.Add(SF.ParseMemberDeclaration(declaration));
+            }
         }
 
         private string BuildCloningConstructorParameterSetters()
@@ -664,6 +678,14 @@ namespace Menes.TypeGenerator
             this.BuildOptionalAndRequiredProperties(optionalProperties, requiredProperties);
 
             if (requiredOnly && requiredProperties.Count == 0)
+            {
+                if (!hasAdditionalProperties || (additionalPropertiesCount is int apc && apc == 0) || additionalPropertiesCount is null)
+                {
+                    return;
+                }
+            }
+
+            if (!requiredOnly && optionalProperties.Count == 0)
             {
                 if (!hasAdditionalProperties || (additionalPropertiesCount is int apc && apc == 0) || additionalPropertiesCount is null)
                 {

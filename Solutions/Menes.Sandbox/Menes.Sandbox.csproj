@@ -20,4 +20,10 @@
     <ProjectReference Include="..\Menes.Model\Menes.Model.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="exampleschema.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

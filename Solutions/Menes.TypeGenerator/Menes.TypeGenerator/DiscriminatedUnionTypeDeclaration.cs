@@ -104,6 +104,7 @@ namespace Menes.TypeGenerator
             builder.AppendLine($"public readonly struct {this.Name} : Menes.IJsonValue");
             builder.AppendLine("{");
             builder.AppendLine($"    public static readonly {this.Name} Null = new {this.Name}(default(System.Text.Json.JsonElement));");
+            builder.AppendLine($"    public static readonly System.Func<System.Text.Json.JsonElement, {this.GetFullyQualifiedName()}> FromJsonElement = e => new {this.GetFullyQualifiedName()}(e);");
 
             builder.AppendLine($"        private static readonly System.ReadOnlyMemory<byte> DiscriminatorPropertyName = new byte[] {{ {string.Join(", ", Encoding.UTF8.GetBytes(this.DiscriminatorPropertyName).Select(b => b.ToString()))} }};");
 

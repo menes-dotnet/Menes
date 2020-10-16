@@ -89,6 +89,7 @@ namespace Menes.TypeGenerator
             builder.AppendLine($"public readonly struct {this.Name} : Menes.IJsonValue");
             builder.AppendLine("{");
             builder.AppendLine($"    public static readonly {this.Name} Null = new {this.Name}(default(System.Text.Json.JsonElement));");
+            builder.AppendLine($"public static readonly System.Func<System.Text.Json.JsonElement, {this.GetFullyQualifiedName()}> FromJsonElement = e => new {this.GetFullyQualifiedName()}(e);");
 
             int index = 0;
             foreach (ITypeDeclaration unionType in this.typesInUnion.Values)

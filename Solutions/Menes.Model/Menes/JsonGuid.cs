@@ -156,6 +156,11 @@ namespace Menes
         /// <inheritdoc/>
         public override string? ToString()
         {
+            if (this.IsNull)
+            {
+                return null;
+            }
+
             if (this.HasJsonElement)
             {
                 return this.JsonElement.GetRawText();

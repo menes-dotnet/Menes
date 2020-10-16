@@ -266,7 +266,12 @@ namespace Menes
                 return int64.ToString();
             }
 
-            return this.JsonElement.GetString();
+            if (this.HasJsonElement)
+            {
+                return this.JsonElement.GetString();
+            }
+
+            return null;
         }
 
         /// <inheritdoc/>

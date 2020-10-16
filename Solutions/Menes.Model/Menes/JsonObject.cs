@@ -277,6 +277,12 @@ namespace Menes
             return this.TryGetAdditionalProperty(bytes.Slice(0, written), out value);
         }
 
+        /// <inheritdoc/>
+        public override string? ToString()
+        {
+            return JsonAny.From(this).ToString();
+        }
+
         private JsonProperties GetAdditionalProperties()
         {
             if (this.additionalProperties is JsonProperties props)

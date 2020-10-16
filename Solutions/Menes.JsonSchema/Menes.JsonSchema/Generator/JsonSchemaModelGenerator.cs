@@ -21,13 +21,17 @@ namespace Menes.JsonSchema.Generator
         {
             var schema = new ObjectTypeDeclaration("Schema", AnyTypeDeclaration.Instance);
 
+            var reference = new ObjectTypeDeclaration("SchemaReference");
+            reference.AddPropertyDeclaration("$ref", JsonValueTypeDeclaration.String);
+            schema.AddTypeDeclaration(reference);
+
             var subschema = new UnionTypeDeclaration("SchemaOrReference");
-            subschema.AddTypesToUnion(schema, JsonValueTypeDeclaration.String);
+            subschema.AddTypesToUnion(schema, reference);
             schema.AddTypeDeclaration(subschema);
 
             var schemaType = new ValidatedJsonValueTypeDeclaration("TypeEnum", JsonValueTypeDeclaration.String)
             {
-                EnumValidation = JsonEnum.From<JsonString>("null", "boolean", "object", "array", "number", "string"),
+                EnumValidation = JsonEnum.From<JsonString>("null", "boolean", "object", "array", "number", "string", "integer"),
             };
             schema.AddTypeDeclaration(schemaType);
 
@@ -57,10 +61,6 @@ namespace Menes.JsonSchema.Generator
 
             var schemaProperties = new ObjectTypeDeclaration("SchemaProperties", subschema);
             schema.AddTypeDeclaration(schemaProperties);
-
-            var schemaPropertiesOrReference = new UnionTypeDeclaration("SchemaPropertiesOrReference");
-            schemaPropertiesOrReference.AddTypesToUnion(schemaProperties, JsonValueTypeDeclaration.String);
-            schema.AddTypeDeclaration(schemaPropertiesOrReference);
 
             var schemaAdditionalProperties = new UnionTypeDeclaration("SchemaAdditionalProperties", UnionTypeDeclaration.UnionKind.OneOf);
             schemaAdditionalProperties.AddTypesToUnion(subschema, JsonValueTypeDeclaration.Boolean);
@@ -101,7 +101,7 @@ namespace Menes.JsonSchema.Generator
             schema.AddOptionalPropertyDeclaration("maxProperties", schemaNonNegativeInteger);
             schema.AddOptionalPropertyDeclaration("minProperties", schemaNonNegativeInteger);
             schema.AddOptionalPropertyDeclaration("required", schemaUniqueStringArray);
-            schema.AddOptionalPropertyDeclaration("properties", schemaPropertiesOrReference);
+            schema.AddOptionalPropertyDeclaration("properties", schemaProperties);
             schema.AddOptionalPropertyDeclaration("additionalProperties", schemaAdditionalProperties);
 
             return schema.GenerateType();
