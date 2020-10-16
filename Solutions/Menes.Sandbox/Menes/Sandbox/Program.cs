@@ -28,7 +28,15 @@ namespace Menes.Sandbox
         /// Main entry point.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public static async Task Main()
+        public static Task Main()
+        {
+            ////SimpleExamples();
+            ////GenerateJsonSchemaModel();
+            return UseJsonSchemaModel();
+            ////return Task.CompletedTask;
+        }
+
+        private static async Task UseJsonSchemaModel()
         {
             (JsonDocument root, Schema schema) = await SchemaParser.LoadSchema("exampleschema.json", DocumentResolver.Default).ConfigureAwait(false);
 
@@ -46,16 +54,17 @@ namespace Menes.Sandbox
             await RecursiveWriteSchema(root, schema, DocumentResolver.Default).ConfigureAwait(false);
 
             Serialize(schema);
+        }
 
-            Examples();
-
+        private static void GenerateJsonSchemaModel()
+        {
             TypeDeclarationSyntax jsonSchema = JsonSchemaModelGenerator.BuildModelForJsonSchema();
             SyntaxNode formattedJsonSchema = Formatter.Format(jsonSchema, new AdhocWorkspace());
             Console.WriteLine();
             Console.WriteLine(formattedJsonSchema.ToFullString());
         }
 
-        private static void Examples()
+        private static void SimpleExamples()
         {
             var example = new JsonObjectExample(
                 first: "Hello",
