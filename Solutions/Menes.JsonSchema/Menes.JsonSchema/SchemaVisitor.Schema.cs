@@ -4,7 +4,6 @@
 
 namespace Menes.JsonSchema
 {
-    using System;
     using System.Threading.Tasks;
 
     /// <summary>

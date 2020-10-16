@@ -7,7 +7,6 @@ namespace Menes.JsonSchema
     using System.Collections.Concurrent;
     using System.Text.Json;
     using System.Threading.Tasks;
-    using Microsoft.Extensions.Logging;
 
     /// <summary>
     /// Delegates <see cref="JsonDocument"/> resolution to one of a set of <see cref="IDocumentResolver"/> instances.
