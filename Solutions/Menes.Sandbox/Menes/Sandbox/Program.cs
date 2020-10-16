@@ -27,30 +27,32 @@ namespace Menes.Sandbox
         /// <summary>
         /// Main entry point.
         /// </summary>
-        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public static async Task Main()
+        /////// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        public static /*async Task*/ void Main()
         {
-            (JsonDocument root, Schema schema) = await SchemaParser.LoadSchema("exampleschema.json", DocumentResolver.Default).ConfigureAwait(false);
+            ////(JsonDocument root, Schema schema) = await SchemaParser.LoadSchema("exampleschema.json", DocumentResolver.Default).ConfigureAwait(false);
 
-            ValidationContext validationContext = ValidationContext.Root;
-            validationContext = schema.Validate(validationContext);
-            if (validationContext.IsValid)
-            {
-                Console.WriteLine("Valid schema!");
-            }
-            else
-            {
-                validationContext.Errors.ForEach(p => Console.WriteLine($"{p.path}: {p.error}"));
-            }
+            ////ValidationContext validationContext = ValidationContext.Root;
+            ////validationContext = schema.Validate(validationContext);
+            ////if (validationContext.IsValid)
+            ////{
+            ////    Console.WriteLine("Valid schema!");
+            ////}
+            ////else
+            ////{
+            ////    validationContext.Errors.ForEach(p => Console.WriteLine($"{p.path}: {p.error}"));
+            ////}
 
-            await RecursiveWriteSchema(root, schema, DocumentResolver.Default).ConfigureAwait(false);
+            ////await RecursiveWriteSchema(root, schema, DocumentResolver.Default).ConfigureAwait(false);
 
-            Serialize(schema);
+            ////Serialize(schema);
 
-            ////TypeDeclarationSyntax jsonSchema = JsonSchemaModelGenerator.BuildModelForJsonSchema();
-            ////SyntaxNode formattedJsonSchema = Formatter.Format(jsonSchema, new AdhocWorkspace());
-            ////Console.WriteLine();
-            ////Console.WriteLine(formattedJsonSchema.ToFullString());
+            string val = StringFormatter.ToPascalCaseWithReservedWords("allOf");
+
+            TypeDeclarationSyntax jsonSchema = JsonSchemaModelGenerator.BuildModelForJsonSchema();
+            SyntaxNode formattedJsonSchema = Formatter.Format(jsonSchema, new AdhocWorkspace());
+            Console.WriteLine();
+            Console.WriteLine(formattedJsonSchema.ToFullString());
         }
 
         private static ReadOnlyMemory<byte> Serialize<T>(in T example)
@@ -70,11 +72,11 @@ namespace Menes.Sandbox
         {
             Console.WriteLine($"type, {schema.Type}");
             Console.WriteLine($"required, {schema.Required}");
-            Console.WriteLine($"uniqueItems, {schema.Uniqueitems}");
+            Console.WriteLine($"uniqueItems, {schema.UniqueItems}");
 
             if (schema.Properties is Schema.SchemaProperties properties)
             {
-                JsonProperties<Schema.SchemaOrReference>.JsonPropertyEnumerator propertiesEnumerator = properties.AdditionalProperties;
+                JsonProperties<Schema.SchemaOrReference>.JsonPropertyEnumerator propertiesEnumerator = properties.JsonAdditionalProperties;
                 while (propertiesEnumerator.MoveNext())
                 {
                     Console.Write($"{propertiesEnumerator.Current.Name}, ");
@@ -83,7 +85,7 @@ namespace Menes.Sandbox
                 }
             }
 
-            JsonProperties<JsonAny>.JsonPropertyEnumerator additionalProperties = schema.AdditionalProperties.GetEnumerator();
+            JsonProperties<JsonAny>.JsonPropertyEnumerator additionalProperties = schema.JsonAdditionalProperties.GetEnumerator();
             while (additionalProperties.MoveNext())
             {
                 Console.WriteLine($"{additionalProperties.Current.Name}, {additionalProperties.Current.AsValue()}");

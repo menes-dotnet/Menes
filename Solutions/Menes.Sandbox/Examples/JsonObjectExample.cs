@@ -196,12 +196,12 @@ namespace Examples
         public Menes.JsonDuration? Third => this.third ?? Menes.JsonDuration.FromOptionalProperty(this.JsonElement, ThirdPropertyNameBytes.Span).AsOptional;
         public Examples.JsonObjectExample.PositiveInteger? Age => this.age ?? Examples.JsonObjectExample.PositiveInteger.FromOptionalProperty(this.JsonElement, AgePropertyNameBytes.Span).AsOptional;
         public Examples.JsonObjectExample.ValidatedArrayOfJsonObjectExample? Children => this.children?.AsValue<Examples.JsonObjectExample.ValidatedArrayOfJsonObjectExample>() ?? Examples.JsonObjectExample.ValidatedArrayOfJsonObjectExample.FromOptionalProperty(this.JsonElement, ChildrenPropertyNameBytes.Span).AsOptional;
-        public int PropertiesCount => KnownProperties.Length + this.AdditionalPropertiesCount;
-        public int AdditionalPropertiesCount
+        public int PropertiesCount => KnownProperties.Length + this.JsonAdditionalPropertiesCount;
+        public int JsonAdditionalPropertiesCount
         {
             get
             {
-                Menes.JsonProperties<Menes.JsonString>.JsonPropertyEnumerator enumerator = this.AdditionalProperties;
+                Menes.JsonProperties<Menes.JsonString>.JsonPropertyEnumerator enumerator = this.JsonAdditionalProperties;
                 int count = 0;
 
                 while (enumerator.MoveNext())
@@ -214,7 +214,7 @@ namespace Examples
         }
         public bool HasJsonElement => this.JsonElement.ValueKind != System.Text.Json.JsonValueKind.Undefined;
         public System.Text.Json.JsonElement JsonElement { get; }
-        public Menes.JsonProperties<Menes.JsonString>.JsonPropertyEnumerator AdditionalProperties
+        public Menes.JsonProperties<Menes.JsonString>.JsonPropertyEnumerator JsonAdditionalProperties
         {
             get
             {
@@ -325,7 +325,7 @@ namespace Examples
                     writer.WritePropertyName(EncodedChildrenPropertyName);
                     children.WriteTo(writer);
                 }
-                Menes.JsonProperties<Menes.JsonString>.JsonPropertyEnumerator enumerator = this.AdditionalProperties;
+                Menes.JsonProperties<Menes.JsonString>.JsonPropertyEnumerator enumerator = this.JsonAdditionalProperties;
                 while (enumerator.MoveNext())
                 {
                     enumerator.Current.Write(writer);
@@ -343,7 +343,7 @@ namespace Examples
             {
                 return Menes.JsonAny.From(this).Equals(Menes.JsonAny.From(other));
             }
-            return this.First.Equals(other.First) && this.Second.Equals(other.Second) && this.Third.Equals(other.Third) && this.Age.Equals(other.Age) && this.Children.Equals(other.Children) && System.Linq.Enumerable.SequenceEqual(this.AdditionalProperties, other.AdditionalProperties);
+            return this.First.Equals(other.First) && this.Second.Equals(other.Second) && this.Third.Equals(other.Third) && this.Age.Equals(other.Age) && this.Children.Equals(other.Children) && System.Linq.Enumerable.SequenceEqual(this.JsonAdditionalProperties, other.JsonAdditionalProperties);
         }
         public Menes.ValidationContext Validate(in Menes.ValidationContext validationContext)
         {
@@ -362,7 +362,7 @@ namespace Examples
             {
                 context = Menes.Validation.ValidateProperty(context, children, ChildrenPropertyNamePath);
             }
-            foreach (Menes.JsonPropertyReference<Menes.JsonString> property in this.AdditionalProperties)
+            foreach (Menes.JsonPropertyReference<Menes.JsonString> property in this.JsonAdditionalProperties)
             {
                 context = Menes.Validation.ValidateProperty(context, property.AsValue(), "." + property.Name);
             }
@@ -374,7 +374,7 @@ namespace Examples
         }
         public bool TryGetAdditionalProperty(System.ReadOnlySpan<byte> utf8PropertyName, [System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out Menes.JsonString? value)
         {
-            foreach (Menes.JsonPropertyReference<Menes.JsonString> property in this.AdditionalProperties)
+            foreach (Menes.JsonPropertyReference<Menes.JsonString> property in this.JsonAdditionalProperties)
             {
                 if (property.NameEquals(utf8PropertyName))
                 {
@@ -409,7 +409,7 @@ namespace Examples
             {
                 return props;
             }
-            return new Menes.JsonProperties<Menes.JsonString>(System.Collections.Immutable.ImmutableArray.ToImmutableArray(this.AdditionalProperties));
+            return new Menes.JsonProperties<Menes.JsonString>(System.Collections.Immutable.ImmutableArray.ToImmutableArray(this.JsonAdditionalProperties));
         }
         public readonly struct ValidatedArrayOfJsonObjectExample : Menes.IJsonValue, System.Collections.Generic.IEnumerable<Examples.JsonObjectExample>, System.Collections.IEnumerable, System.IEquatable<ValidatedArrayOfJsonObjectExample>, System.IEquatable<Menes.JsonArray<Examples.JsonObjectExample>>
         {

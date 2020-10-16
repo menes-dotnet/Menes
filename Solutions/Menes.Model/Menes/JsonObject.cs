@@ -63,16 +63,16 @@ namespace Menes
         /// <summary>
         /// Gets the number of properties on this object.
         /// </summary>
-        public int PropertiesCount => this.AdditionalPropertiesCount;
+        public int PropertiesCount => this.JsonAdditionalPropertiesCount;
 
         /// <summary>
         /// Gets the number of properties in the additional properties.
         /// </summary>
-        public int AdditionalPropertiesCount
+        public int JsonAdditionalPropertiesCount
         {
             get
             {
-                JsonProperties<JsonAny>.JsonPropertyEnumerator enumerator = this.AdditionalProperties;
+                JsonProperties<JsonAny>.JsonPropertyEnumerator enumerator = this.JsonAdditionalProperties;
                 int count = 0;
 
                 while (enumerator.MoveNext())
@@ -99,7 +99,7 @@ namespace Menes
         public JsonElement JsonElement { get; }
 
         /// <inheritdoc/>
-        public JsonProperties<JsonAny>.JsonPropertyEnumerator AdditionalProperties
+        public JsonProperties<JsonAny>.JsonPropertyEnumerator JsonAdditionalProperties
         {
             get
             {
@@ -197,7 +197,7 @@ namespace Menes
             {
                 writer.WriteStartObject();
 
-                JsonProperties<JsonAny>.JsonPropertyEnumerator enumerator = this.AdditionalProperties;
+                JsonProperties<JsonAny>.JsonPropertyEnumerator enumerator = this.JsonAdditionalProperties;
 
                 while (enumerator.MoveNext())
                 {
@@ -223,7 +223,7 @@ namespace Menes
                 return JsonAny.From(this).Equals(JsonAny.From(other));
             }
 
-            return this.AdditionalProperties.SequenceEqual(other.AdditionalProperties);
+            return this.JsonAdditionalProperties.SequenceEqual(other.JsonAdditionalProperties);
         }
 
         /// <inheritdoc/>
@@ -251,7 +251,7 @@ namespace Menes
         /// <returns><c>True</c> if the property was successfully retrieved.</returns>
         public bool TryGetAdditionalProperty(ReadOnlySpan<byte> utf8PropertyName, [NotNullWhen(true)] out JsonAny? value)
         {
-            foreach (JsonPropertyReference<JsonAny> property in this.AdditionalProperties)
+            foreach (JsonPropertyReference<JsonAny> property in this.JsonAdditionalProperties)
             {
                 if (property.NameEquals(utf8PropertyName))
                 {
@@ -290,7 +290,7 @@ namespace Menes
                 return props;
             }
 
-            return new JsonProperties<JsonAny>(this.AdditionalProperties.ToImmutableArray());
+            return new JsonProperties<JsonAny>(this.JsonAdditionalProperties.ToImmutableArray());
         }
     }
 }

@@ -15,11 +15,11 @@ namespace Menes
         /// Gets the enumerator for the additional properties.
         /// </summary>
         /// <returns>The enumerator for the additional properties.</returns>
-        JsonProperties<T>.JsonPropertyEnumerator AdditionalProperties { get; }
+        JsonProperties<T>.JsonPropertyEnumerator JsonAdditionalProperties { get; }
 
         /// <summary>
         /// Gets the number of properties in the additional properties.
         /// </summary>
-        int AdditionalPropertiesCount { get; }
+        int JsonAdditionalPropertiesCount { get; }
     }
 }

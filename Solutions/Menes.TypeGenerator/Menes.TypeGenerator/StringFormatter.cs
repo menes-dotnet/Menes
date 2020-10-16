@@ -52,7 +52,7 @@ namespace Menes.TypeGenerator
             // We could possibly do a better job here by using the "in place" access to the underlying
             // string data; however, we'd still end up with a single buffer copy of at least the length
             // of the string data, so I think this is a "reasonable" approach.
-            ReadOnlySpan<char> result = FixCasing(name.ToCharArray(), false);
+            ReadOnlySpan<char> result = FixCasing(name.ToCharArray(), false, true);
             return SubstituteReservedWords(new string(result));
         }
 
@@ -71,7 +71,7 @@ namespace Menes.TypeGenerator
             // We could possibly do a better job here by using the "in place" access to the underlying
             // string data; however, we'd still end up with a single buffer copy of at least the length
             // of the string data, so I think this is a "reasonable" approach.
-            ReadOnlySpan<char> result = FixCasing(name.ToCharArray(), true);
+            ReadOnlySpan<char> result = FixCasing(name.ToCharArray(), true, false);
             return SubstituteReservedWords(new string(result));
         }
 
@@ -97,10 +97,12 @@ namespace Menes.TypeGenerator
             return v;
         }
 
-        private static ReadOnlySpan<char> FixCasing(Span<char> chars, bool capitalizeFirst)
+        private static ReadOnlySpan<char> FixCasing(Span<char> chars, bool capitalizeFirst, bool lowerCaseFirst)
         {
             int setIndex = 0;
             bool capitalizeNext = capitalizeFirst;
+            bool lowercaseNext = lowerCaseFirst;
+            int uppercasedCount = 0;
 
             for (int readIndex = 0; readIndex < chars.Length; readIndex++)
             {
@@ -109,10 +111,32 @@ namespace Menes.TypeGenerator
                     if (capitalizeNext)
                     {
                         chars[setIndex] = char.ToUpperInvariant(chars[readIndex]);
+                        uppercasedCount += 1;
+                    }
+                    else if (lowercaseNext)
+                    {
+                        chars[setIndex] = char.ToLowerInvariant(chars[readIndex]);
+                        uppercasedCount = 0;
+                        lowercaseNext = false;
                     }
                     else
                     {
-                        chars[setIndex] = char.ToLowerInvariant(chars[readIndex]);
+                        if (char.ToUpperInvariant(chars[readIndex]) == chars[readIndex])
+                        {
+                            uppercasedCount += 1;
+                            if (uppercasedCount > 2)
+                            {
+                                chars[setIndex] = char.ToLowerInvariant(chars[readIndex]);
+                                uppercasedCount = 0;
+                                continue;
+                            }
+                        }
+                        else
+                        {
+                            uppercasedCount = 0;
+                        }
+
+                        chars[setIndex] = chars[readIndex];
                     }
 
                     capitalizeNext = false;
