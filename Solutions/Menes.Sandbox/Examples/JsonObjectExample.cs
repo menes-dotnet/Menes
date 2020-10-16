@@ -7,7 +7,7 @@
 
 namespace Examples
 {
-    public readonly struct JsonObjectExample : Menes.IJsonObject, System.IEquatable<Examples.JsonObjectExample>, Menes.IJsonAdditionalProperties
+    public readonly struct JsonObjectExample : Menes.IJsonObject, System.IEquatable<Examples.JsonObjectExample>, Menes.IJsonAdditionalProperties<Menes.JsonString>
     {
         public static readonly Examples.JsonObjectExample Null = new Examples.JsonObjectExample(default(System.Text.Json.JsonElement));
         public static readonly System.Func<System.Text.Json.JsonElement, Examples.JsonObjectExample> FromJsonElement = e => new Examples.JsonObjectExample(e);
@@ -32,7 +32,7 @@ namespace Examples
         private readonly Menes.JsonDuration? third;
         private readonly Examples.JsonObjectExample.PositiveInteger? age;
         private readonly Menes.JsonReference? children;
-        private readonly Menes.JsonProperties? additionalProperties;
+        private readonly Menes.JsonProperties<Menes.JsonString>? additionalProperties;
         public JsonObjectExample(System.Text.Json.JsonElement jsonElement)
         {
             this.JsonElement = jsonElement;
@@ -53,7 +53,7 @@ namespace Examples
             this.JsonElement = default;
             this.additionalProperties = null;
         }
-        public JsonObjectExample(Menes.JsonString first, Examples.JsonObjectExample.EnumeratedInt32 second, Menes.JsonDuration? third, Examples.JsonObjectExample.PositiveInteger? age, Examples.JsonObjectExample.ValidatedArrayOfJsonObjectExample? children, Menes.JsonProperties additionalProperties)
+        public JsonObjectExample(Menes.JsonString first, Examples.JsonObjectExample.EnumeratedInt32 second, Menes.JsonDuration? third, Examples.JsonObjectExample.PositiveInteger? age, Examples.JsonObjectExample.ValidatedArrayOfJsonObjectExample? children, Menes.JsonProperties<Menes.JsonString> additionalProperties)
         {
             this.first = first;
             this.second = second;
@@ -85,7 +85,7 @@ namespace Examples
                 this.children = null;
             }
             this.JsonElement = default;
-            this.additionalProperties = Menes.JsonProperties.FromValues(additionalProperties);
+            this.additionalProperties = Menes.JsonProperties<Menes.JsonString>.FromValues(additionalProperties);
         }
         public JsonObjectExample(Menes.JsonString first, Examples.JsonObjectExample.EnumeratedInt32 second, Menes.JsonDuration? third, Examples.JsonObjectExample.PositiveInteger? age, Examples.JsonObjectExample.ValidatedArrayOfJsonObjectExample? children)
         {
@@ -119,7 +119,7 @@ namespace Examples
                 this.children = null;
             }
             this.JsonElement = default;
-            this.additionalProperties = Menes.JsonProperties.FromValues(additionalProperty1);
+            this.additionalProperties = Menes.JsonProperties<Menes.JsonString>.FromValues(additionalProperty1);
         }
         public JsonObjectExample(Menes.JsonString first, Examples.JsonObjectExample.EnumeratedInt32 second, Menes.JsonDuration? third, Examples.JsonObjectExample.PositiveInteger? age, Examples.JsonObjectExample.ValidatedArrayOfJsonObjectExample? children, (string, Menes.JsonString) additionalProperty1, (string, Menes.JsonString) additionalProperty2)
         {
@@ -136,7 +136,7 @@ namespace Examples
                 this.children = null;
             }
             this.JsonElement = default;
-            this.additionalProperties = Menes.JsonProperties.FromValues(additionalProperty1, additionalProperty2);
+            this.additionalProperties = Menes.JsonProperties<Menes.JsonString>.FromValues(additionalProperty1, additionalProperty2);
         }
         public JsonObjectExample(Menes.JsonString first, Examples.JsonObjectExample.EnumeratedInt32 second, Menes.JsonDuration? third, Examples.JsonObjectExample.PositiveInteger? age, Examples.JsonObjectExample.ValidatedArrayOfJsonObjectExample? children, (string, Menes.JsonString) additionalProperty1, (string, Menes.JsonString) additionalProperty2, (string, Menes.JsonString) additionalProperty3)
         {
@@ -153,7 +153,7 @@ namespace Examples
                 this.children = null;
             }
             this.JsonElement = default;
-            this.additionalProperties = Menes.JsonProperties.FromValues(additionalProperty1, additionalProperty2, additionalProperty3);
+            this.additionalProperties = Menes.JsonProperties<Menes.JsonString>.FromValues(additionalProperty1, additionalProperty2, additionalProperty3);
         }
         public JsonObjectExample(Menes.JsonString first, Examples.JsonObjectExample.EnumeratedInt32 second, Menes.JsonDuration? third, Examples.JsonObjectExample.PositiveInteger? age, Examples.JsonObjectExample.ValidatedArrayOfJsonObjectExample? children, (string, Menes.JsonString) additionalProperty1, (string, Menes.JsonString) additionalProperty2, (string, Menes.JsonString) additionalProperty3, (string, Menes.JsonString) additionalProperty4)
         {
@@ -170,9 +170,9 @@ namespace Examples
                 this.children = null;
             }
             this.JsonElement = default;
-            this.additionalProperties = Menes.JsonProperties.FromValues(additionalProperty1, additionalProperty2, additionalProperty3, additionalProperty4);
+            this.additionalProperties = Menes.JsonProperties<Menes.JsonString>.FromValues(additionalProperty1, additionalProperty2, additionalProperty3, additionalProperty4);
         }
-        private JsonObjectExample(Menes.JsonString first, Examples.JsonObjectExample.EnumeratedInt32 second, Menes.JsonDuration? third, Examples.JsonObjectExample.PositiveInteger? age, Menes.JsonReference? children, Menes.JsonProperties? additionalProperties)
+        private JsonObjectExample(Menes.JsonString first, Examples.JsonObjectExample.EnumeratedInt32 second, Menes.JsonDuration? third, Examples.JsonObjectExample.PositiveInteger? age, Menes.JsonReference? children, Menes.JsonProperties<Menes.JsonString>? additionalProperties)
         {
             this.first = first;
             this.second = second;
@@ -201,7 +201,7 @@ namespace Examples
         {
             get
             {
-                Menes.JsonPropertyEnumerator enumerator = this.AdditionalProperties;
+                Menes.JsonProperties<Menes.JsonString>.JsonPropertyEnumerator enumerator = this.AdditionalProperties;
                 int count = 0;
 
                 while (enumerator.MoveNext())
@@ -214,21 +214,21 @@ namespace Examples
         }
         public bool HasJsonElement => this.JsonElement.ValueKind != System.Text.Json.JsonValueKind.Undefined;
         public System.Text.Json.JsonElement JsonElement { get; }
-        public Menes.JsonPropertyEnumerator AdditionalProperties
+        public Menes.JsonProperties<Menes.JsonString>.JsonPropertyEnumerator AdditionalProperties
         {
             get
             {
-                if (this.additionalProperties is Menes.JsonProperties ap)
+                if (this.additionalProperties is Menes.JsonProperties<Menes.JsonString> ap)
                 {
-                    return new Menes.JsonPropertyEnumerator(ap, KnownProperties);
+                    return new Menes.JsonProperties<Menes.JsonString>.JsonPropertyEnumerator(ap, KnownProperties);
                 }
 
                 if (this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Object)
                 {
-                    return new Menes.JsonPropertyEnumerator(this.JsonElement, KnownProperties);
+                    return new Menes.JsonProperties<Menes.JsonString>.JsonPropertyEnumerator(this.JsonElement, KnownProperties);
                 }
 
-                return new Menes.JsonPropertyEnumerator(Menes.JsonProperties.Empty, KnownProperties);
+                return new Menes.JsonProperties<Menes.JsonString>.JsonPropertyEnumerator(Menes.JsonProperties<Menes.JsonString>.Empty, KnownProperties);
             }
         }
         public static bool IsConvertibleFrom(System.Text.Json.JsonElement jsonElement)
@@ -267,29 +267,29 @@ namespace Examples
         {
             return new Examples.JsonObjectExample(this.First, this.Second, this.Third, this.Age, Menes.JsonReference.FromValue(value), this.GetJsonProperties());
         }
-        public Examples.JsonObjectExample WithAdditionalProperties(Menes.JsonProperties newAdditional)
+        public Examples.JsonObjectExample WithAdditionalProperties(Menes.JsonProperties<Menes.JsonString> newAdditional)
         {
             return new Examples.JsonObjectExample(this.First, this.Second, this.Third, this.Age, this.GetChildren(), newAdditional);
         }
         public Examples.JsonObjectExample WithAdditionalProperties(params (string, Menes.JsonString)[] newAdditional)
         {
-            return new Examples.JsonObjectExample(this.First, this.Second, this.Third, this.Age, this.GetChildren(), Menes.JsonProperties.FromValues(newAdditional));
+            return new Examples.JsonObjectExample(this.First, this.Second, this.Third, this.Age, this.GetChildren(), Menes.JsonProperties<Menes.JsonString>.FromValues(newAdditional));
         }
         public Examples.JsonObjectExample WithAdditionalProperties((string, Menes.JsonString) newAdditional1)
         {
-            return new Examples.JsonObjectExample(this.First, this.Second, this.Third, this.Age, this.GetChildren(), Menes.JsonProperties.FromValues(newAdditional1));
+            return new Examples.JsonObjectExample(this.First, this.Second, this.Third, this.Age, this.GetChildren(), Menes.JsonProperties<Menes.JsonString>.FromValues(newAdditional1));
         }
         public Examples.JsonObjectExample WithAdditionalProperties((string, Menes.JsonString) newAdditional1, (string, Menes.JsonString) newAdditional2)
         {
-            return new Examples.JsonObjectExample(this.First, this.Second, this.Third, this.Age, this.GetChildren(), Menes.JsonProperties.FromValues(newAdditional1, newAdditional2));
+            return new Examples.JsonObjectExample(this.First, this.Second, this.Third, this.Age, this.GetChildren(), Menes.JsonProperties<Menes.JsonString>.FromValues(newAdditional1, newAdditional2));
         }
         public Examples.JsonObjectExample WithAdditionalProperties((string, Menes.JsonString) newAdditional1, (string, Menes.JsonString) newAdditional2, (string, Menes.JsonString) newAdditional3)
         {
-            return new Examples.JsonObjectExample(this.First, this.Second, this.Third, this.Age, this.GetChildren(), Menes.JsonProperties.FromValues(newAdditional1, newAdditional2, newAdditional3));
+            return new Examples.JsonObjectExample(this.First, this.Second, this.Third, this.Age, this.GetChildren(), Menes.JsonProperties<Menes.JsonString>.FromValues(newAdditional1, newAdditional2, newAdditional3));
         }
         public Examples.JsonObjectExample WithAdditionalProperties((string, Menes.JsonString) newAdditional1, (string, Menes.JsonString) newAdditional2, (string, Menes.JsonString) newAdditional3, (string, Menes.JsonString) newAdditional4)
         {
-            return new Examples.JsonObjectExample(this.First, this.Second, this.Third, this.Age, this.GetChildren(), Menes.JsonProperties.FromValues(newAdditional1, newAdditional2, newAdditional3, newAdditional4));
+            return new Examples.JsonObjectExample(this.First, this.Second, this.Third, this.Age, this.GetChildren(), Menes.JsonProperties<Menes.JsonString>.FromValues(newAdditional1, newAdditional2, newAdditional3, newAdditional4));
         }
         public void WriteTo(System.Text.Json.Utf8JsonWriter writer)
         {
@@ -325,7 +325,7 @@ namespace Examples
                     writer.WritePropertyName(EncodedChildrenPropertyName);
                     children.WriteTo(writer);
                 }
-                Menes.JsonPropertyEnumerator enumerator = this.AdditionalProperties;
+                Menes.JsonProperties<Menes.JsonString>.JsonPropertyEnumerator enumerator = this.AdditionalProperties;
                 while (enumerator.MoveNext())
                 {
                     enumerator.Current.Write(writer);
@@ -362,9 +362,9 @@ namespace Examples
             {
                 context = Menes.Validation.ValidateProperty(context, children, ChildrenPropertyNamePath);
             }
-            foreach (Menes.JsonPropertyReference property in this.AdditionalProperties)
+            foreach (Menes.JsonPropertyReference<Menes.JsonString> property in this.AdditionalProperties)
             {
-                context = Menes.Validation.ValidateProperty(context, property.AsValue<Menes.JsonString>(), "." + property.Name);
+                context = Menes.Validation.ValidateProperty(context, property.AsValue(), "." + property.Name);
             }
             return context;
         }
@@ -374,11 +374,11 @@ namespace Examples
         }
         public bool TryGetAdditionalProperty(System.ReadOnlySpan<byte> utf8PropertyName, [System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out Menes.JsonString? value)
         {
-            foreach (Menes.JsonPropertyReference property in this.AdditionalProperties)
+            foreach (Menes.JsonPropertyReference<Menes.JsonString> property in this.AdditionalProperties)
             {
                 if (property.NameEquals(utf8PropertyName))
                 {
-                    value = property.AsValue<Menes.JsonString>();
+                    value = property.AsValue();
                     return true;
                 }
             }
@@ -403,13 +403,13 @@ namespace Examples
             }
             return default;
         }
-        private Menes.JsonProperties GetJsonProperties()
+        private Menes.JsonProperties<Menes.JsonString> GetJsonProperties()
         {
-            if (this.additionalProperties is Menes.JsonProperties props)
+            if (this.additionalProperties is Menes.JsonProperties<Menes.JsonString> props)
             {
                 return props;
             }
-            return new Menes.JsonProperties(System.Collections.Immutable.ImmutableArray.ToImmutableArray(this.AdditionalProperties));
+            return new Menes.JsonProperties<Menes.JsonString>(System.Collections.Immutable.ImmutableArray.ToImmutableArray(this.AdditionalProperties));
         }
         public readonly struct ValidatedArrayOfJsonObjectExample : Menes.IJsonValue, System.Collections.Generic.IEnumerable<Examples.JsonObjectExample>, System.Collections.IEnumerable, System.IEquatable<ValidatedArrayOfJsonObjectExample>, System.IEquatable<Menes.JsonArray<Examples.JsonObjectExample>>
         {

@@ -1,4 +1,4 @@
-﻿// <copyright file="JsonPropertyReference.cs" company="Endjin Limited">
+﻿// <copyright file="JsonPropertyReference{T}.cs" company="Endjin Limited">
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
@@ -12,15 +12,17 @@ namespace Menes
     /// Enables the Json resources to work with strongly-typed properties in situ, whether they
     /// originated from JSON or are a .NET value.
     /// </summary>
+    /// <typeparam name="T">The type of the <see cref="IJsonValue"/>.</typeparam>
     /// <remarks>If the element is not backed by a JsonElement, this boxes the <see cref="IJsonValue"/>.</remarks>
-    public readonly struct JsonPropertyReference : IEquatable<JsonPropertyReference>
+    public readonly struct JsonPropertyReference<T> : IEquatable<JsonPropertyReference<T>>
+        where T : struct, IJsonValue
     {
         private readonly JsonProperty jsonProperty;
         private readonly ReadOnlyMemory<byte>? propertyName;
         private readonly JsonReference? reference;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="JsonPropertyReference"/> struct.
+        /// Initializes a new instance of the <see cref="JsonPropertyReference{T}"/> struct.
         /// </summary>
         /// <param name="jsonProperty">The json property to wrap.</param>
         public JsonPropertyReference(JsonProperty jsonProperty)
@@ -31,7 +33,7 @@ namespace Menes
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="JsonPropertyReference"/> struct.
+        /// Initializes a new instance of the <see cref="JsonPropertyReference{T}"/> struct.
         /// </summary>
         /// <param name="name">The name of the property.</param>
         /// <param name="reference">The JSON reference.</param>
@@ -43,7 +45,7 @@ namespace Menes
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="JsonPropertyReference"/> struct.
+        /// Initializes a new instance of the <see cref="JsonPropertyReference{T}"/> struct.
         /// </summary>
         /// <param name="name">The name of the property.</param>
         /// <param name="reference">The JSON reference.</param>
@@ -55,7 +57,7 @@ namespace Menes
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="JsonPropertyReference"/> struct.
+        /// Initializes a new instance of the <see cref="JsonPropertyReference{T}"/> struct.
         /// </summary>
         /// <param name="name">The name of the property.</param>
         /// <param name="reference">The JSON reference.</param>
@@ -86,62 +88,58 @@ namespace Menes
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="JsonPropertyReference"/> struct.
+        /// Initializes a new instance of the <see cref="JsonPropertyReference{T}"/> struct.
         /// </summary>
-        /// <typeparam name="TValue">The type of the <see cref="IJsonValue"/>.</typeparam>
         /// <param name="name">The name of the property.</param>
         /// <param name="value">The JSON value.</param>
         /// <returns>The property reference.</returns>
-        public static JsonPropertyReference From<TValue>(string name, TValue value)
-            where TValue : struct, IJsonValue
+        public static JsonPropertyReference<T> From(string name, T value)
         {
-            return new JsonPropertyReference(name, JsonReference.FromValue(value));
+            return new JsonPropertyReference<T>(name, JsonReference.FromValue(value));
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="JsonPropertyReference"/> struct.
+        /// Initializes a new instance of the <see cref="JsonPropertyReference{T}"/> struct.
         /// </summary>
         /// <typeparam name="TValue">The type of the <see cref="IJsonValue"/>.</typeparam>
         /// <param name="name">The name of the property.</param>
         /// <param name="value">The value of the property.</param>
         /// <returns>The property reference.</returns>
-        public static JsonPropertyReference From<TValue>(ReadOnlyMemory<byte> name, TValue value)
+        public static JsonPropertyReference<T> From<TValue>(ReadOnlyMemory<byte> name, TValue value)
             where TValue : struct, IJsonValue
         {
-            return new JsonPropertyReference(name, JsonReference.FromValue(value));
+            return new JsonPropertyReference<T>(name, JsonReference.FromValue(value));
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="JsonPropertyReference"/> struct.
+        /// Initializes a new instance of the <see cref="JsonPropertyReference{T}"/> struct.
         /// </summary>
         /// <typeparam name="TValue">The type of the <see cref="IJsonValue"/>.</typeparam>
         /// <param name="name">The name of the property.</param>
         /// <param name="value">The value of the property.</param>
         /// <returns>The property reference.</returns>
-        public static JsonPropertyReference From<TValue>(ReadOnlySpan<char> name, TValue value)
+        public static JsonPropertyReference<T> From<TValue>(ReadOnlySpan<char> name, TValue value)
             where TValue : struct, IJsonValue
         {
-            return new JsonPropertyReference(name, JsonReference.FromValue(value));
+            return new JsonPropertyReference<T>(name, JsonReference.FromValue(value));
         }
 
         /// <summary>
         /// Gets the value.
         /// </summary>
-        /// <typeparam name="TValue">The type of the <see cref="IJsonValue"/>.</typeparam>
         /// <returns>The value.</returns>
-        public TValue AsValue<TValue>()
-            where TValue : struct, IJsonValue
+        public T AsValue()
         {
             if (this.reference is JsonReference reference)
             {
-                return reference.AsValue<TValue>();
+                return reference.AsValue<T>();
             }
 
-            return JsonAny.As<TValue>(this.jsonProperty.Value);
+            return JsonAny.As<T>(this.jsonProperty.Value);
         }
 
         /// <inheritdoc/>
-        public bool Equals(JsonPropertyReference other)
+        public bool Equals(JsonPropertyReference<T> other)
         {
             if (this.reference is JsonReference reference && other.reference is JsonReference otherReference && this.propertyName is ReadOnlyMemory<byte> name && other.propertyName is ReadOnlyMemory<byte> otherName)
             {

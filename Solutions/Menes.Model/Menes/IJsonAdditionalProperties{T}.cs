@@ -1,4 +1,4 @@
-﻿// <copyright file="IJsonAdditionalProperties.cs" company="Endjin Limited">
+﻿// <copyright file="IJsonAdditionalProperties{T}.cs" company="Endjin Limited">
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
@@ -7,13 +7,15 @@ namespace Menes
     /// <summary>
     /// Implemented by types which offer iterable <see cref="IJsonValue"/> properties.
     /// </summary>
-    public interface IJsonAdditionalProperties
+    /// <typeparam name="T">The type of <see cref="IJsonValue"/> in the additional properties.</typeparam>
+    public interface IJsonAdditionalProperties<T>
+        where T : struct, IJsonValue
     {
         /// <summary>
         /// Gets the enumerator for the additional properties.
         /// </summary>
         /// <returns>The enumerator for the additional properties.</returns>
-        JsonPropertyEnumerator AdditionalProperties { get; }
+        JsonProperties<T>.JsonPropertyEnumerator AdditionalProperties { get; }
 
         /// <summary>
         /// Gets the number of properties in the additional properties.

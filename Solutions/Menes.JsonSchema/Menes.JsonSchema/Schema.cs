@@ -6,7 +6,7 @@
 
 namespace Menes.JsonSchema
 {
-    public readonly struct Schema : Menes.IJsonObject, System.IEquatable<Schema>, Menes.IJsonAdditionalProperties
+    public readonly struct Schema : Menes.IJsonObject, System.IEquatable<Schema>, Menes.IJsonAdditionalProperties<Menes.JsonAny>
     {
         public static readonly Schema Null = new Schema(default(System.Text.Json.JsonElement));
         public static readonly System.Func<System.Text.Json.JsonElement, Schema> FromJsonElement = e => new Schema(e);
@@ -119,7 +119,7 @@ namespace Menes.JsonSchema
         private readonly Menes.JsonReference? required;
         private readonly Menes.JsonReference? properties;
         private readonly Menes.JsonReference? additionalproperties;
-        private readonly Menes.JsonProperties? additionalProperties;
+        private readonly Menes.JsonProperties<Menes.JsonAny>? additionalProperties;
         public Schema(System.Text.Json.JsonElement jsonElement)
         {
             this.JsonElement = jsonElement;
@@ -152,7 +152,7 @@ namespace Menes.JsonSchema
             this.additionalproperties = null;
             this.additionalProperties = null;
         }
-        public Schema(Schema.TypeEnum? type, Menes.JsonString? format, Menes.JsonArray<Menes.JsonAny>? @enum, Menes.JsonAny? @const, Schema.ValidatedArrayOfSchemaOrReference? allof, Schema.ValidatedArrayOfSchemaOrReference? anyof, Schema.ValidatedArrayOfSchemaOrReference? oneof, Schema.SchemaOrReference? not, Schema.PositiveInteger? multipleof, Menes.JsonInteger? maximum, Menes.JsonInteger? exclusivemaximum, Menes.JsonInteger? minimum, Menes.JsonInteger? exclusiveminimum, Schema.NonNegativeInteger? maxlength, Schema.NonNegativeInteger? minlength, Menes.JsonString? pattern, Schema.NonNegativeInteger? maxitems, Schema.NonNegativeInteger? minitems, Menes.JsonBoolean? uniqueitems, Schema.NonNegativeInteger? maxcontains, Schema.SchemaOrReference? items, Schema.SchemaOrReference? contains, Schema.NonNegativeInteger? maxproperties, Schema.NonNegativeInteger? minproperties, Schema.ValidatedArrayOfJsonString? required, Schema.SchemaProperties? properties, Schema.SchemaAdditionalProperties? additionalproperties, Menes.JsonProperties additionalProperties)
+        public Schema(Schema.TypeEnum? type, Menes.JsonString? format, Menes.JsonArray<Menes.JsonAny>? @enum, Menes.JsonAny? @const, Schema.ValidatedArrayOfSchemaOrReference? allof, Schema.ValidatedArrayOfSchemaOrReference? anyof, Schema.ValidatedArrayOfSchemaOrReference? oneof, Schema.SchemaOrReference? not, Schema.PositiveInteger? multipleof, Menes.JsonInteger? maximum, Menes.JsonInteger? exclusivemaximum, Menes.JsonInteger? minimum, Menes.JsonInteger? exclusiveminimum, Schema.NonNegativeInteger? maxlength, Schema.NonNegativeInteger? minlength, Menes.JsonString? pattern, Schema.NonNegativeInteger? maxitems, Schema.NonNegativeInteger? minitems, Menes.JsonBoolean? uniqueitems, Schema.NonNegativeInteger? maxcontains, Schema.SchemaOrReference? items, Schema.SchemaOrReference? contains, Schema.NonNegativeInteger? maxproperties, Schema.NonNegativeInteger? minproperties, Schema.ValidatedArrayOfJsonString? required, Schema.SchemaProperties? properties, Schema.SchemaAdditionalProperties? additionalproperties, Menes.JsonProperties<Menes.JsonAny> additionalProperties)
         {
             this.type = type;
             this.format = format;
@@ -340,7 +340,7 @@ namespace Menes.JsonSchema
                 this.additionalproperties = null;
             }
             this.JsonElement = default;
-            this.additionalProperties = Menes.JsonProperties.FromValues(additionalProperties);
+            this.additionalProperties = Menes.JsonProperties<Menes.JsonAny>.FromValues(additionalProperties);
         }
         public Schema(Schema.TypeEnum? type, Menes.JsonString? format, Menes.JsonArray<Menes.JsonAny>? @enum, Menes.JsonAny? @const, Schema.ValidatedArrayOfSchemaOrReference? allof, Schema.ValidatedArrayOfSchemaOrReference? anyof, Schema.ValidatedArrayOfSchemaOrReference? oneof, Schema.SchemaOrReference? not, Schema.PositiveInteger? multipleof, Menes.JsonInteger? maximum, Menes.JsonInteger? exclusivemaximum, Menes.JsonInteger? minimum, Menes.JsonInteger? exclusiveminimum, Schema.NonNegativeInteger? maxlength, Schema.NonNegativeInteger? minlength, Menes.JsonString? pattern, Schema.NonNegativeInteger? maxitems, Schema.NonNegativeInteger? minitems, Menes.JsonBoolean? uniqueitems, Schema.NonNegativeInteger? maxcontains, Schema.SchemaOrReference? items, Schema.SchemaOrReference? contains, Schema.NonNegativeInteger? maxproperties, Schema.NonNegativeInteger? minproperties, Schema.ValidatedArrayOfJsonString? required, Schema.SchemaProperties? properties, Schema.SchemaAdditionalProperties? additionalproperties)
         {
@@ -530,7 +530,7 @@ namespace Menes.JsonSchema
                 this.additionalproperties = null;
             }
             this.JsonElement = default;
-            this.additionalProperties = Menes.JsonProperties.FromValues(additionalProperty1);
+            this.additionalProperties = Menes.JsonProperties<Menes.JsonAny>.FromValues(additionalProperty1);
         }
         public Schema(Schema.TypeEnum? type, Menes.JsonString? format, Menes.JsonArray<Menes.JsonAny>? @enum, Menes.JsonAny? @const, Schema.ValidatedArrayOfSchemaOrReference? allof, Schema.ValidatedArrayOfSchemaOrReference? anyof, Schema.ValidatedArrayOfSchemaOrReference? oneof, Schema.SchemaOrReference? not, Schema.PositiveInteger? multipleof, Menes.JsonInteger? maximum, Menes.JsonInteger? exclusivemaximum, Menes.JsonInteger? minimum, Menes.JsonInteger? exclusiveminimum, Schema.NonNegativeInteger? maxlength, Schema.NonNegativeInteger? minlength, Menes.JsonString? pattern, Schema.NonNegativeInteger? maxitems, Schema.NonNegativeInteger? minitems, Menes.JsonBoolean? uniqueitems, Schema.NonNegativeInteger? maxcontains, Schema.SchemaOrReference? items, Schema.SchemaOrReference? contains, Schema.NonNegativeInteger? maxproperties, Schema.NonNegativeInteger? minproperties, Schema.ValidatedArrayOfJsonString? required, Schema.SchemaProperties? properties, Schema.SchemaAdditionalProperties? additionalproperties, (string, Menes.JsonAny) additionalProperty1, (string, Menes.JsonAny) additionalProperty2)
         {
@@ -625,7 +625,7 @@ namespace Menes.JsonSchema
                 this.additionalproperties = null;
             }
             this.JsonElement = default;
-            this.additionalProperties = Menes.JsonProperties.FromValues(additionalProperty1, additionalProperty2);
+            this.additionalProperties = Menes.JsonProperties<Menes.JsonAny>.FromValues(additionalProperty1, additionalProperty2);
         }
         public Schema(Schema.TypeEnum? type, Menes.JsonString? format, Menes.JsonArray<Menes.JsonAny>? @enum, Menes.JsonAny? @const, Schema.ValidatedArrayOfSchemaOrReference? allof, Schema.ValidatedArrayOfSchemaOrReference? anyof, Schema.ValidatedArrayOfSchemaOrReference? oneof, Schema.SchemaOrReference? not, Schema.PositiveInteger? multipleof, Menes.JsonInteger? maximum, Menes.JsonInteger? exclusivemaximum, Menes.JsonInteger? minimum, Menes.JsonInteger? exclusiveminimum, Schema.NonNegativeInteger? maxlength, Schema.NonNegativeInteger? minlength, Menes.JsonString? pattern, Schema.NonNegativeInteger? maxitems, Schema.NonNegativeInteger? minitems, Menes.JsonBoolean? uniqueitems, Schema.NonNegativeInteger? maxcontains, Schema.SchemaOrReference? items, Schema.SchemaOrReference? contains, Schema.NonNegativeInteger? maxproperties, Schema.NonNegativeInteger? minproperties, Schema.ValidatedArrayOfJsonString? required, Schema.SchemaProperties? properties, Schema.SchemaAdditionalProperties? additionalproperties, (string, Menes.JsonAny) additionalProperty1, (string, Menes.JsonAny) additionalProperty2, (string, Menes.JsonAny) additionalProperty3)
         {
@@ -720,7 +720,7 @@ namespace Menes.JsonSchema
                 this.additionalproperties = null;
             }
             this.JsonElement = default;
-            this.additionalProperties = Menes.JsonProperties.FromValues(additionalProperty1, additionalProperty2, additionalProperty3);
+            this.additionalProperties = Menes.JsonProperties<Menes.JsonAny>.FromValues(additionalProperty1, additionalProperty2, additionalProperty3);
         }
         public Schema(Schema.TypeEnum? type, Menes.JsonString? format, Menes.JsonArray<Menes.JsonAny>? @enum, Menes.JsonAny? @const, Schema.ValidatedArrayOfSchemaOrReference? allof, Schema.ValidatedArrayOfSchemaOrReference? anyof, Schema.ValidatedArrayOfSchemaOrReference? oneof, Schema.SchemaOrReference? not, Schema.PositiveInteger? multipleof, Menes.JsonInteger? maximum, Menes.JsonInteger? exclusivemaximum, Menes.JsonInteger? minimum, Menes.JsonInteger? exclusiveminimum, Schema.NonNegativeInteger? maxlength, Schema.NonNegativeInteger? minlength, Menes.JsonString? pattern, Schema.NonNegativeInteger? maxitems, Schema.NonNegativeInteger? minitems, Menes.JsonBoolean? uniqueitems, Schema.NonNegativeInteger? maxcontains, Schema.SchemaOrReference? items, Schema.SchemaOrReference? contains, Schema.NonNegativeInteger? maxproperties, Schema.NonNegativeInteger? minproperties, Schema.ValidatedArrayOfJsonString? required, Schema.SchemaProperties? properties, Schema.SchemaAdditionalProperties? additionalproperties, (string, Menes.JsonAny) additionalProperty1, (string, Menes.JsonAny) additionalProperty2, (string, Menes.JsonAny) additionalProperty3, (string, Menes.JsonAny) additionalProperty4)
         {
@@ -815,9 +815,9 @@ namespace Menes.JsonSchema
                 this.additionalproperties = null;
             }
             this.JsonElement = default;
-            this.additionalProperties = Menes.JsonProperties.FromValues(additionalProperty1, additionalProperty2, additionalProperty3, additionalProperty4);
+            this.additionalProperties = Menes.JsonProperties<Menes.JsonAny>.FromValues(additionalProperty1, additionalProperty2, additionalProperty3, additionalProperty4);
         }
-        private Schema(Schema.TypeEnum? type, Menes.JsonString? format, Menes.JsonArray<Menes.JsonAny>? @enum, Menes.JsonAny? @const, Menes.JsonReference? allof, Menes.JsonReference? anyof, Menes.JsonReference? oneof, Menes.JsonReference? not, Schema.PositiveInteger? multipleof, Menes.JsonInteger? maximum, Menes.JsonInteger? exclusivemaximum, Menes.JsonInteger? minimum, Menes.JsonInteger? exclusiveminimum, Schema.NonNegativeInteger? maxlength, Schema.NonNegativeInteger? minlength, Menes.JsonString? pattern, Schema.NonNegativeInteger? maxitems, Schema.NonNegativeInteger? minitems, Menes.JsonBoolean? uniqueitems, Schema.NonNegativeInteger? maxcontains, Menes.JsonReference? items, Menes.JsonReference? contains, Schema.NonNegativeInteger? maxproperties, Schema.NonNegativeInteger? minproperties, Menes.JsonReference? required, Menes.JsonReference? properties, Menes.JsonReference? additionalproperties, Menes.JsonProperties? additionalProperties)
+        private Schema(Schema.TypeEnum? type, Menes.JsonString? format, Menes.JsonArray<Menes.JsonAny>? @enum, Menes.JsonAny? @const, Menes.JsonReference? allof, Menes.JsonReference? anyof, Menes.JsonReference? oneof, Menes.JsonReference? not, Schema.PositiveInteger? multipleof, Menes.JsonInteger? maximum, Menes.JsonInteger? exclusivemaximum, Menes.JsonInteger? minimum, Menes.JsonInteger? exclusiveminimum, Schema.NonNegativeInteger? maxlength, Schema.NonNegativeInteger? minlength, Menes.JsonString? pattern, Schema.NonNegativeInteger? maxitems, Schema.NonNegativeInteger? minitems, Menes.JsonBoolean? uniqueitems, Schema.NonNegativeInteger? maxcontains, Menes.JsonReference? items, Menes.JsonReference? contains, Schema.NonNegativeInteger? maxproperties, Schema.NonNegativeInteger? minproperties, Menes.JsonReference? required, Menes.JsonReference? properties, Menes.JsonReference? additionalproperties, Menes.JsonProperties<Menes.JsonAny>? additionalProperties)
         {
             this.type = type;
             this.format = format;
@@ -946,7 +946,7 @@ namespace Menes.JsonSchema
         {
             get
             {
-                Menes.JsonPropertyEnumerator enumerator = this.AdditionalProperties;
+                Menes.JsonProperties<Menes.JsonAny>.JsonPropertyEnumerator enumerator = this.AdditionalProperties;
                 int count = 0;
 
                 while (enumerator.MoveNext())
@@ -959,21 +959,21 @@ namespace Menes.JsonSchema
         }
         public bool HasJsonElement => this.JsonElement.ValueKind != System.Text.Json.JsonValueKind.Undefined;
         public System.Text.Json.JsonElement JsonElement { get; }
-        public Menes.JsonPropertyEnumerator AdditionalProperties
+        public Menes.JsonProperties<Menes.JsonAny>.JsonPropertyEnumerator AdditionalProperties
         {
             get
             {
-                if (this.additionalProperties is Menes.JsonProperties ap)
+                if (this.additionalProperties is Menes.JsonProperties<Menes.JsonAny> ap)
                 {
-                    return new Menes.JsonPropertyEnumerator(ap, KnownProperties);
+                    return new Menes.JsonProperties<Menes.JsonAny>.JsonPropertyEnumerator(ap, KnownProperties);
                 }
 
                 if (this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Object)
                 {
-                    return new Menes.JsonPropertyEnumerator(this.JsonElement, KnownProperties);
+                    return new Menes.JsonProperties<Menes.JsonAny>.JsonPropertyEnumerator(this.JsonElement, KnownProperties);
                 }
 
-                return new Menes.JsonPropertyEnumerator(Menes.JsonProperties.Empty, KnownProperties);
+                return new Menes.JsonProperties<Menes.JsonAny>.JsonPropertyEnumerator(Menes.JsonProperties<Menes.JsonAny>.Empty, KnownProperties);
             }
         }
         public static bool IsConvertibleFrom(System.Text.Json.JsonElement jsonElement)
@@ -1100,29 +1100,29 @@ namespace Menes.JsonSchema
         {
             return new Schema(this.Type, this.Format, this.Enum, this.Const, this.GetAllof(), this.GetAnyof(), this.GetOneof(), this.GetNot(), this.Multipleof, this.Maximum, this.Exclusivemaximum, this.Minimum, this.Exclusiveminimum, this.Maxlength, this.Minlength, this.Pattern, this.Maxitems, this.Minitems, this.Uniqueitems, this.Maxcontains, this.GetItems(), this.GetContains(), this.Maxproperties, this.Minproperties, this.GetRequired(), this.GetProperties(), Menes.JsonReference.FromValue(value), this.GetJsonProperties());
         }
-        public Schema WithAdditionalProperties(Menes.JsonProperties newAdditional)
+        public Schema WithAdditionalProperties(Menes.JsonProperties<Menes.JsonAny> newAdditional)
         {
             return new Schema(this.Type, this.Format, this.Enum, this.Const, this.GetAllof(), this.GetAnyof(), this.GetOneof(), this.GetNot(), this.Multipleof, this.Maximum, this.Exclusivemaximum, this.Minimum, this.Exclusiveminimum, this.Maxlength, this.Minlength, this.Pattern, this.Maxitems, this.Minitems, this.Uniqueitems, this.Maxcontains, this.GetItems(), this.GetContains(), this.Maxproperties, this.Minproperties, this.GetRequired(), this.GetProperties(), this.GetAdditionalproperties(), newAdditional);
         }
         public Schema WithAdditionalProperties(params (string, Menes.JsonAny)[] newAdditional)
         {
-            return new Schema(this.Type, this.Format, this.Enum, this.Const, this.GetAllof(), this.GetAnyof(), this.GetOneof(), this.GetNot(), this.Multipleof, this.Maximum, this.Exclusivemaximum, this.Minimum, this.Exclusiveminimum, this.Maxlength, this.Minlength, this.Pattern, this.Maxitems, this.Minitems, this.Uniqueitems, this.Maxcontains, this.GetItems(), this.GetContains(), this.Maxproperties, this.Minproperties, this.GetRequired(), this.GetProperties(), this.GetAdditionalproperties(), Menes.JsonProperties.FromValues(newAdditional));
+            return new Schema(this.Type, this.Format, this.Enum, this.Const, this.GetAllof(), this.GetAnyof(), this.GetOneof(), this.GetNot(), this.Multipleof, this.Maximum, this.Exclusivemaximum, this.Minimum, this.Exclusiveminimum, this.Maxlength, this.Minlength, this.Pattern, this.Maxitems, this.Minitems, this.Uniqueitems, this.Maxcontains, this.GetItems(), this.GetContains(), this.Maxproperties, this.Minproperties, this.GetRequired(), this.GetProperties(), this.GetAdditionalproperties(), Menes.JsonProperties<Menes.JsonAny>.FromValues(newAdditional));
         }
         public Schema WithAdditionalProperties((string, Menes.JsonAny) newAdditional1)
         {
-            return new Schema(this.Type, this.Format, this.Enum, this.Const, this.GetAllof(), this.GetAnyof(), this.GetOneof(), this.GetNot(), this.Multipleof, this.Maximum, this.Exclusivemaximum, this.Minimum, this.Exclusiveminimum, this.Maxlength, this.Minlength, this.Pattern, this.Maxitems, this.Minitems, this.Uniqueitems, this.Maxcontains, this.GetItems(), this.GetContains(), this.Maxproperties, this.Minproperties, this.GetRequired(), this.GetProperties(), this.GetAdditionalproperties(), Menes.JsonProperties.FromValues(newAdditional1));
+            return new Schema(this.Type, this.Format, this.Enum, this.Const, this.GetAllof(), this.GetAnyof(), this.GetOneof(), this.GetNot(), this.Multipleof, this.Maximum, this.Exclusivemaximum, this.Minimum, this.Exclusiveminimum, this.Maxlength, this.Minlength, this.Pattern, this.Maxitems, this.Minitems, this.Uniqueitems, this.Maxcontains, this.GetItems(), this.GetContains(), this.Maxproperties, this.Minproperties, this.GetRequired(), this.GetProperties(), this.GetAdditionalproperties(), Menes.JsonProperties<Menes.JsonAny>.FromValues(newAdditional1));
         }
         public Schema WithAdditionalProperties((string, Menes.JsonAny) newAdditional1, (string, Menes.JsonAny) newAdditional2)
         {
-            return new Schema(this.Type, this.Format, this.Enum, this.Const, this.GetAllof(), this.GetAnyof(), this.GetOneof(), this.GetNot(), this.Multipleof, this.Maximum, this.Exclusivemaximum, this.Minimum, this.Exclusiveminimum, this.Maxlength, this.Minlength, this.Pattern, this.Maxitems, this.Minitems, this.Uniqueitems, this.Maxcontains, this.GetItems(), this.GetContains(), this.Maxproperties, this.Minproperties, this.GetRequired(), this.GetProperties(), this.GetAdditionalproperties(), Menes.JsonProperties.FromValues(newAdditional1, newAdditional2));
+            return new Schema(this.Type, this.Format, this.Enum, this.Const, this.GetAllof(), this.GetAnyof(), this.GetOneof(), this.GetNot(), this.Multipleof, this.Maximum, this.Exclusivemaximum, this.Minimum, this.Exclusiveminimum, this.Maxlength, this.Minlength, this.Pattern, this.Maxitems, this.Minitems, this.Uniqueitems, this.Maxcontains, this.GetItems(), this.GetContains(), this.Maxproperties, this.Minproperties, this.GetRequired(), this.GetProperties(), this.GetAdditionalproperties(), Menes.JsonProperties<Menes.JsonAny>.FromValues(newAdditional1, newAdditional2));
         }
         public Schema WithAdditionalProperties((string, Menes.JsonAny) newAdditional1, (string, Menes.JsonAny) newAdditional2, (string, Menes.JsonAny) newAdditional3)
         {
-            return new Schema(this.Type, this.Format, this.Enum, this.Const, this.GetAllof(), this.GetAnyof(), this.GetOneof(), this.GetNot(), this.Multipleof, this.Maximum, this.Exclusivemaximum, this.Minimum, this.Exclusiveminimum, this.Maxlength, this.Minlength, this.Pattern, this.Maxitems, this.Minitems, this.Uniqueitems, this.Maxcontains, this.GetItems(), this.GetContains(), this.Maxproperties, this.Minproperties, this.GetRequired(), this.GetProperties(), this.GetAdditionalproperties(), Menes.JsonProperties.FromValues(newAdditional1, newAdditional2, newAdditional3));
+            return new Schema(this.Type, this.Format, this.Enum, this.Const, this.GetAllof(), this.GetAnyof(), this.GetOneof(), this.GetNot(), this.Multipleof, this.Maximum, this.Exclusivemaximum, this.Minimum, this.Exclusiveminimum, this.Maxlength, this.Minlength, this.Pattern, this.Maxitems, this.Minitems, this.Uniqueitems, this.Maxcontains, this.GetItems(), this.GetContains(), this.Maxproperties, this.Minproperties, this.GetRequired(), this.GetProperties(), this.GetAdditionalproperties(), Menes.JsonProperties<Menes.JsonAny>.FromValues(newAdditional1, newAdditional2, newAdditional3));
         }
         public Schema WithAdditionalProperties((string, Menes.JsonAny) newAdditional1, (string, Menes.JsonAny) newAdditional2, (string, Menes.JsonAny) newAdditional3, (string, Menes.JsonAny) newAdditional4)
         {
-            return new Schema(this.Type, this.Format, this.Enum, this.Const, this.GetAllof(), this.GetAnyof(), this.GetOneof(), this.GetNot(), this.Multipleof, this.Maximum, this.Exclusivemaximum, this.Minimum, this.Exclusiveminimum, this.Maxlength, this.Minlength, this.Pattern, this.Maxitems, this.Minitems, this.Uniqueitems, this.Maxcontains, this.GetItems(), this.GetContains(), this.Maxproperties, this.Minproperties, this.GetRequired(), this.GetProperties(), this.GetAdditionalproperties(), Menes.JsonProperties.FromValues(newAdditional1, newAdditional2, newAdditional3, newAdditional4));
+            return new Schema(this.Type, this.Format, this.Enum, this.Const, this.GetAllof(), this.GetAnyof(), this.GetOneof(), this.GetNot(), this.Multipleof, this.Maximum, this.Exclusivemaximum, this.Minimum, this.Exclusiveminimum, this.Maxlength, this.Minlength, this.Pattern, this.Maxitems, this.Minitems, this.Uniqueitems, this.Maxcontains, this.GetItems(), this.GetContains(), this.Maxproperties, this.Minproperties, this.GetRequired(), this.GetProperties(), this.GetAdditionalproperties(), Menes.JsonProperties<Menes.JsonAny>.FromValues(newAdditional1, newAdditional2, newAdditional3, newAdditional4));
         }
         public void WriteTo(System.Text.Json.Utf8JsonWriter writer)
         {
@@ -1268,7 +1268,7 @@ namespace Menes.JsonSchema
                     writer.WritePropertyName(EncodedAdditionalpropertiesPropertyName);
                     additionalproperties.WriteTo(writer);
                 }
-                Menes.JsonPropertyEnumerator enumerator = this.AdditionalProperties;
+                Menes.JsonProperties<Menes.JsonAny>.JsonPropertyEnumerator enumerator = this.AdditionalProperties;
                 while (enumerator.MoveNext())
                 {
                     enumerator.Current.Write(writer);
@@ -1399,9 +1399,9 @@ namespace Menes.JsonSchema
             {
                 context = Menes.Validation.ValidateProperty(context, additionalproperties, AdditionalpropertiesPropertyNamePath);
             }
-            foreach (Menes.JsonPropertyReference property in this.AdditionalProperties)
+            foreach (Menes.JsonPropertyReference<Menes.JsonAny> property in this.AdditionalProperties)
             {
-                context = Menes.Validation.ValidateProperty(context, property.AsValue<Menes.JsonAny>(), "." + property.Name);
+                context = Menes.Validation.ValidateProperty(context, property.AsValue(), "." + property.Name);
             }
             return context;
         }
@@ -1411,11 +1411,11 @@ namespace Menes.JsonSchema
         }
         public bool TryGetAdditionalProperty(System.ReadOnlySpan<byte> utf8PropertyName, [System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out Menes.JsonAny? value)
         {
-            foreach (Menes.JsonPropertyReference property in this.AdditionalProperties)
+            foreach (Menes.JsonPropertyReference<Menes.JsonAny> property in this.AdditionalProperties)
             {
                 if (property.NameEquals(utf8PropertyName))
                 {
-                    value = property.AsValue<Menes.JsonAny>();
+                    value = property.AsValue();
                     return true;
                 }
             }
@@ -1540,13 +1540,13 @@ namespace Menes.JsonSchema
             }
             return default;
         }
-        private Menes.JsonProperties GetJsonProperties()
+        private Menes.JsonProperties<Menes.JsonAny> GetJsonProperties()
         {
-            if (this.additionalProperties is Menes.JsonProperties props)
+            if (this.additionalProperties is Menes.JsonProperties<Menes.JsonAny> props)
             {
                 return props;
             }
-            return new Menes.JsonProperties(System.Collections.Immutable.ImmutableArray.ToImmutableArray(this.AdditionalProperties));
+            return new Menes.JsonProperties<Menes.JsonAny>(System.Collections.Immutable.ImmutableArray.ToImmutableArray(this.AdditionalProperties));
         }
 
         public readonly struct SchemaReference : Menes.IJsonObject, System.IEquatable<Schema.SchemaReference>
@@ -2317,12 +2317,12 @@ namespace Menes.JsonSchema
             }
         }
 
-        public readonly struct SchemaProperties : Menes.IJsonObject, System.IEquatable<Schema.SchemaProperties>, Menes.IJsonAdditionalProperties
+        public readonly struct SchemaProperties : Menes.IJsonObject, System.IEquatable<Schema.SchemaProperties>, Menes.IJsonAdditionalProperties<Schema.SchemaOrReference>
         {
             public static readonly Schema.SchemaProperties Null = new Schema.SchemaProperties(default(System.Text.Json.JsonElement));
             public static readonly System.Func<System.Text.Json.JsonElement, Schema.SchemaProperties> FromJsonElement = e => new Schema.SchemaProperties(e);
             private static readonly System.Collections.Immutable.ImmutableArray<System.ReadOnlyMemory<byte>> KnownProperties = System.Collections.Immutable.ImmutableArray<System.ReadOnlyMemory<byte>>.Empty;
-            private readonly Menes.JsonProperties? additionalProperties;
+            private readonly Menes.JsonProperties<Schema.SchemaOrReference>? additionalProperties;
             public SchemaProperties(System.Text.Json.JsonElement jsonElement)
             {
                 this.JsonElement = jsonElement;
@@ -2331,29 +2331,29 @@ namespace Menes.JsonSchema
             public SchemaProperties(params (string, Schema.SchemaOrReference)[] additionalProperties)
             {
                 this.JsonElement = default;
-                this.additionalProperties = Menes.JsonProperties.FromValues(additionalProperties);
+                this.additionalProperties = Menes.JsonProperties<Schema.SchemaOrReference>.FromValues(additionalProperties);
             }
             public SchemaProperties((string, Schema.SchemaOrReference) additionalProperty1)
             {
                 this.JsonElement = default;
-                this.additionalProperties = Menes.JsonProperties.FromValues(additionalProperty1);
+                this.additionalProperties = Menes.JsonProperties<Schema.SchemaOrReference>.FromValues(additionalProperty1);
             }
             public SchemaProperties((string, Schema.SchemaOrReference) additionalProperty1, (string, Schema.SchemaOrReference) additionalProperty2)
             {
                 this.JsonElement = default;
-                this.additionalProperties = Menes.JsonProperties.FromValues(additionalProperty1, additionalProperty2);
+                this.additionalProperties = Menes.JsonProperties<Schema.SchemaOrReference>.FromValues(additionalProperty1, additionalProperty2);
             }
             public SchemaProperties((string, Schema.SchemaOrReference) additionalProperty1, (string, Schema.SchemaOrReference) additionalProperty2, (string, Schema.SchemaOrReference) additionalProperty3)
             {
                 this.JsonElement = default;
-                this.additionalProperties = Menes.JsonProperties.FromValues(additionalProperty1, additionalProperty2, additionalProperty3);
+                this.additionalProperties = Menes.JsonProperties<Schema.SchemaOrReference>.FromValues(additionalProperty1, additionalProperty2, additionalProperty3);
             }
             public SchemaProperties((string, Schema.SchemaOrReference) additionalProperty1, (string, Schema.SchemaOrReference) additionalProperty2, (string, Schema.SchemaOrReference) additionalProperty3, (string, Schema.SchemaOrReference) additionalProperty4)
             {
                 this.JsonElement = default;
-                this.additionalProperties = Menes.JsonProperties.FromValues(additionalProperty1, additionalProperty2, additionalProperty3, additionalProperty4);
+                this.additionalProperties = Menes.JsonProperties<Schema.SchemaOrReference>.FromValues(additionalProperty1, additionalProperty2, additionalProperty3, additionalProperty4);
             }
-            private SchemaProperties(Menes.JsonProperties? additionalProperties)
+            private SchemaProperties(Menes.JsonProperties<Schema.SchemaOrReference>? additionalProperties)
             {
                 this.JsonElement = default;
                 this.additionalProperties = additionalProperties;
@@ -2365,7 +2365,7 @@ namespace Menes.JsonSchema
             {
                 get
                 {
-                    Menes.JsonPropertyEnumerator enumerator = this.AdditionalProperties;
+                    Menes.JsonProperties<Schema.SchemaOrReference>.JsonPropertyEnumerator enumerator = this.AdditionalProperties;
                     int count = 0;
 
                     while (enumerator.MoveNext())
@@ -2378,21 +2378,21 @@ namespace Menes.JsonSchema
             }
             public bool HasJsonElement => this.JsonElement.ValueKind != System.Text.Json.JsonValueKind.Undefined;
             public System.Text.Json.JsonElement JsonElement { get; }
-            public Menes.JsonPropertyEnumerator AdditionalProperties
+            public Menes.JsonProperties<Schema.SchemaOrReference>.JsonPropertyEnumerator AdditionalProperties
             {
                 get
                 {
-                    if (this.additionalProperties is Menes.JsonProperties ap)
+                    if (this.additionalProperties is Menes.JsonProperties<Schema.SchemaOrReference> ap)
                     {
-                        return new Menes.JsonPropertyEnumerator(ap, KnownProperties);
+                        return new Menes.JsonProperties<Schema.SchemaOrReference>.JsonPropertyEnumerator(ap, KnownProperties);
                     }
 
                     if (this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Object)
                     {
-                        return new Menes.JsonPropertyEnumerator(this.JsonElement, KnownProperties);
+                        return new Menes.JsonProperties<Schema.SchemaOrReference>.JsonPropertyEnumerator(this.JsonElement, KnownProperties);
                     }
 
-                    return new Menes.JsonPropertyEnumerator(Menes.JsonProperties.Empty, KnownProperties);
+                    return new Menes.JsonProperties<Schema.SchemaOrReference>.JsonPropertyEnumerator(Menes.JsonProperties<Schema.SchemaOrReference>.Empty, KnownProperties);
                 }
             }
             public static bool IsConvertibleFrom(System.Text.Json.JsonElement jsonElement)
@@ -2411,29 +2411,29 @@ namespace Menes.JsonSchema
                 parentDocument.TryGetProperty(utf8PropertyName, out System.Text.Json.JsonElement property)
                     ? new Schema.SchemaProperties(property)
                     : Null;
-            public Schema.SchemaProperties WithAdditionalProperties(Menes.JsonProperties newAdditional)
+            public Schema.SchemaProperties WithAdditionalProperties(Menes.JsonProperties<Schema.SchemaOrReference> newAdditional)
             {
                 return new Schema.SchemaProperties(newAdditional);
             }
             public Schema.SchemaProperties WithAdditionalProperties(params (string, Schema.SchemaOrReference)[] newAdditional)
             {
-                return new Schema.SchemaProperties(Menes.JsonProperties.FromValues(newAdditional));
+                return new Schema.SchemaProperties(Menes.JsonProperties<Schema.SchemaOrReference>.FromValues(newAdditional));
             }
             public Schema.SchemaProperties WithAdditionalProperties((string, Schema.SchemaOrReference) newAdditional1)
             {
-                return new Schema.SchemaProperties(Menes.JsonProperties.FromValues(newAdditional1));
+                return new Schema.SchemaProperties(Menes.JsonProperties<Schema.SchemaOrReference>.FromValues(newAdditional1));
             }
             public Schema.SchemaProperties WithAdditionalProperties((string, Schema.SchemaOrReference) newAdditional1, (string, Schema.SchemaOrReference) newAdditional2)
             {
-                return new Schema.SchemaProperties(Menes.JsonProperties.FromValues(newAdditional1, newAdditional2));
+                return new Schema.SchemaProperties(Menes.JsonProperties<Schema.SchemaOrReference>.FromValues(newAdditional1, newAdditional2));
             }
             public Schema.SchemaProperties WithAdditionalProperties((string, Schema.SchemaOrReference) newAdditional1, (string, Schema.SchemaOrReference) newAdditional2, (string, Schema.SchemaOrReference) newAdditional3)
             {
-                return new Schema.SchemaProperties(Menes.JsonProperties.FromValues(newAdditional1, newAdditional2, newAdditional3));
+                return new Schema.SchemaProperties(Menes.JsonProperties<Schema.SchemaOrReference>.FromValues(newAdditional1, newAdditional2, newAdditional3));
             }
             public Schema.SchemaProperties WithAdditionalProperties((string, Schema.SchemaOrReference) newAdditional1, (string, Schema.SchemaOrReference) newAdditional2, (string, Schema.SchemaOrReference) newAdditional3, (string, Schema.SchemaOrReference) newAdditional4)
             {
-                return new Schema.SchemaProperties(Menes.JsonProperties.FromValues(newAdditional1, newAdditional2, newAdditional3, newAdditional4));
+                return new Schema.SchemaProperties(Menes.JsonProperties<Schema.SchemaOrReference>.FromValues(newAdditional1, newAdditional2, newAdditional3, newAdditional4));
             }
             public void WriteTo(System.Text.Json.Utf8JsonWriter writer)
             {
@@ -2444,7 +2444,7 @@ namespace Menes.JsonSchema
                 else
                 {
                     writer.WriteStartObject();
-                    Menes.JsonPropertyEnumerator enumerator = this.AdditionalProperties;
+                    Menes.JsonProperties<Schema.SchemaOrReference>.JsonPropertyEnumerator enumerator = this.AdditionalProperties;
                     while (enumerator.MoveNext())
                     {
                         enumerator.Current.Write(writer);
@@ -2467,9 +2467,9 @@ namespace Menes.JsonSchema
             public Menes.ValidationContext Validate(in Menes.ValidationContext validationContext)
             {
                 Menes.ValidationContext context = validationContext;
-                foreach (Menes.JsonPropertyReference property in this.AdditionalProperties)
+                foreach (Menes.JsonPropertyReference<Schema.SchemaOrReference> property in this.AdditionalProperties)
                 {
-                    context = Menes.Validation.ValidateProperty(context, property.AsValue<Schema.SchemaOrReference>(), "." + property.Name);
+                    context = Menes.Validation.ValidateProperty(context, property.AsValue(), "." + property.Name);
                 }
                 return context;
             }
@@ -2479,11 +2479,11 @@ namespace Menes.JsonSchema
             }
             public bool TryGetAdditionalProperty(System.ReadOnlySpan<byte> utf8PropertyName, [System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out Schema.SchemaOrReference? value)
             {
-                foreach (Menes.JsonPropertyReference property in this.AdditionalProperties)
+                foreach (Menes.JsonPropertyReference<Schema.SchemaOrReference> property in this.AdditionalProperties)
                 {
                     if (property.NameEquals(utf8PropertyName))
                     {
-                        value = property.AsValue<Schema.SchemaOrReference>();
+                        value = property.AsValue();
                         return true;
                     }
                 }
@@ -2500,13 +2500,13 @@ namespace Menes.JsonSchema
             {
                 return Menes.JsonAny.From(this).ToString();
             }
-            private Menes.JsonProperties GetJsonProperties()
+            private Menes.JsonProperties<Schema.SchemaOrReference> GetJsonProperties()
             {
-                if (this.additionalProperties is Menes.JsonProperties props)
+                if (this.additionalProperties is Menes.JsonProperties<Schema.SchemaOrReference> props)
                 {
                     return props;
                 }
-                return new Menes.JsonProperties(System.Collections.Immutable.ImmutableArray.ToImmutableArray(this.AdditionalProperties));
+                return new Menes.JsonProperties<Schema.SchemaOrReference>(System.Collections.Immutable.ImmutableArray.ToImmutableArray(this.AdditionalProperties));
             }
         }
 

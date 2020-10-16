@@ -14,7 +14,7 @@ namespace Menes
     /// <summary>
     /// A Json object which allows you to build an object with any properties..
     /// </summary>
-    public readonly struct JsonObject : IJsonAdditionalProperties, IEquatable<JsonObject>, IJsonObject
+    public readonly struct JsonObject : IJsonAdditionalProperties<JsonAny>, IEquatable<JsonObject>, IJsonObject
     {
         /// <summary>
         /// A <see cref="JsonObject"/> representing a null value.
@@ -26,13 +26,13 @@ namespace Menes
         /// </summary>
         public static readonly Func<JsonElement, JsonObject> FromJsonElement = e => new JsonObject(e);
 
-        private readonly JsonProperties? additionalProperties;
+        private readonly JsonProperties<JsonAny>? additionalProperties;
 
         /// <summary>
         /// Creates a <see cref="JsonObject"/> wrapper around a .NET properties.
         /// </summary>
         /// <param name="additionalProperties">Additional properties.</param>
-        public JsonObject(JsonProperties additionalProperties)
+        public JsonObject(JsonProperties<JsonAny> additionalProperties)
         {
             this.JsonElement = default;
             this.additionalProperties = additionalProperties;
@@ -72,7 +72,7 @@ namespace Menes
         {
             get
             {
-                JsonPropertyEnumerator enumerator = this.AdditionalProperties;
+                JsonProperties<JsonAny>.JsonPropertyEnumerator enumerator = this.AdditionalProperties;
                 int count = 0;
 
                 while (enumerator.MoveNext())
@@ -99,21 +99,21 @@ namespace Menes
         public JsonElement JsonElement { get; }
 
         /// <inheritdoc/>
-        public JsonPropertyEnumerator AdditionalProperties
+        public JsonProperties<JsonAny>.JsonPropertyEnumerator AdditionalProperties
         {
             get
             {
-                if (this.additionalProperties is JsonProperties ap)
+                if (this.additionalProperties is JsonProperties<JsonAny> ap)
                 {
-                    return new JsonPropertyEnumerator(ap, ImmutableArray<ReadOnlyMemory<byte>>.Empty);
+                    return new JsonProperties<JsonAny>.JsonPropertyEnumerator(ap, ImmutableArray<ReadOnlyMemory<byte>>.Empty);
                 }
 
                 if (this.JsonElement.ValueKind == JsonValueKind.Object)
                 {
-                    return new JsonPropertyEnumerator(this.JsonElement, ImmutableArray<ReadOnlyMemory<byte>>.Empty);
+                    return new JsonProperties<JsonAny>.JsonPropertyEnumerator(this.JsonElement, ImmutableArray<ReadOnlyMemory<byte>>.Empty);
                 }
 
-                return new JsonPropertyEnumerator(JsonProperties.Empty, ImmutableArray<ReadOnlyMemory<byte>>.Empty);
+                return new JsonProperties<JsonAny>.JsonPropertyEnumerator(JsonProperties<JsonAny>.Empty, ImmutableArray<ReadOnlyMemory<byte>>.Empty);
             }
         }
 
@@ -180,7 +180,7 @@ namespace Menes
         /// <returns>A new instance of the <see cref="JsonObject"/> with the second property set.</returns>
         public JsonObject WithAdditionalProperties(params (string, JsonAny)[] newAdditional)
         {
-            return new JsonObject(JsonProperties.FromValues(newAdditional));
+            return new JsonObject(JsonProperties<JsonAny>.FromValues(newAdditional));
         }
 
         /// <summary>
@@ -197,7 +197,7 @@ namespace Menes
             {
                 writer.WriteStartObject();
 
-                JsonPropertyEnumerator enumerator = this.AdditionalProperties;
+                JsonProperties<JsonAny>.JsonPropertyEnumerator enumerator = this.AdditionalProperties;
 
                 while (enumerator.MoveNext())
                 {
@@ -251,11 +251,11 @@ namespace Menes
         /// <returns><c>True</c> if the property was successfully retrieved.</returns>
         public bool TryGetAdditionalProperty(ReadOnlySpan<byte> utf8PropertyName, [NotNullWhen(true)] out JsonAny? value)
         {
-            foreach (JsonPropertyReference property in this.AdditionalProperties)
+            foreach (JsonPropertyReference<JsonAny> property in this.AdditionalProperties)
             {
                 if (property.NameEquals(utf8PropertyName))
                 {
-                    value = property.AsValue<JsonAny>();
+                    value = property.AsValue();
                     return true;
                 }
             }
@@ -283,14 +283,14 @@ namespace Menes
             return JsonAny.From(this).ToString();
         }
 
-        private JsonProperties GetAdditionalProperties()
+        private JsonProperties<JsonAny> GetAdditionalProperties()
         {
-            if (this.additionalProperties is JsonProperties props)
+            if (this.additionalProperties is JsonProperties<JsonAny> props)
             {
                 return props;
             }
 
-            return new JsonProperties(this.AdditionalProperties.ToImmutableArray());
+            return new JsonProperties<JsonAny>(this.AdditionalProperties.ToImmutableArray());
         }
     }
 }
