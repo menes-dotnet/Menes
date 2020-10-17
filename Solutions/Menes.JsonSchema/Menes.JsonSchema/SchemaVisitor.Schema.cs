@@ -92,19 +92,33 @@ namespace Menes.JsonSchema
                     wasUpdated = true;
                 }
 
-                ////(bool wasUpdatedMaxContains, JsonInteger? updatedMaxContains) = await this.VisitMaxContains(schema.MaxContains).ConfigureAwait(false);
-                ////if (wasUpdatedMaxContains)
-                ////{
-                ////    schema = schema.WithMaxContains(updatedMaxContains);
-                ////    wasUpdated = true;
-                ////}
+                (bool wasUpdatedMaxContains, Schema.NonNegativeInteger? updatedMaxContains) = await this.VisitMaxContains(schema.MaxContains).ConfigureAwait(false);
+                if (wasUpdatedMaxContains)
+                {
+                    schema = schema.WithMaxContains(updatedMaxContains);
+                    wasUpdated = true;
+                }
 
-                ////(bool wasUpdatedMinContains, JsonInteger? updatedMinContains) = await this.VisitMinContains(schema.MaxContains).ConfigureAwait(false);
-                ////if (wasUpdatedMinContains)
-                ////{
-                ////    schema = schema.WithMaxContains(updatedMinContains);
-                ////    wasUpdated = true;
-                ////}
+                (bool wasUpdatedMinContains, Schema.NonNegativeInteger? updatedMinContains) = await this.VisitMinContains(schema.MaxContains).ConfigureAwait(false);
+                if (wasUpdatedMinContains)
+                {
+                    schema = schema.WithMaxContains(updatedMinContains);
+                    wasUpdated = true;
+                }
+
+                (bool wasUpdatedMaximum, JsonNumber? updatedMaximum) = await this.VisitMaximum(schema.Maximum).ConfigureAwait(false);
+                if (wasUpdatedMaximum)
+                {
+                    schema = schema.WithMaximum(updatedMaximum);
+                    wasUpdated = true;
+                }
+
+                (bool wasUpdatedMinimum, JsonNumber? updatedMinimum) = await this.VisitMinimum(schema.Maximum).ConfigureAwait(false);
+                if (wasUpdatedMinimum)
+                {
+                    schema = schema.WithMaximum(updatedMinimum);
+                    wasUpdated = true;
+                }
 
                 updatedSchema = schema;
             }

@@ -59,8 +59,8 @@ namespace Menes.JsonSchema.Generator
             };
             schema.AddTypeDeclaration(nonEmptySubschemaArray);
 
-            var schemaProperties = new ObjectTypeDeclaration("SchemaProperties", subschema);
-            schema.AddTypeDeclaration(schemaProperties);
+            var objectWithSchemaProperties = new ObjectTypeDeclaration("SchemaProperties", subschema);
+            schema.AddTypeDeclaration(objectWithSchemaProperties);
 
             var schemaAdditionalProperties = new UnionTypeDeclaration("SchemaAdditionalProperties", UnionTypeDeclaration.UnionKind.OneOf);
             schemaAdditionalProperties.AddTypesToUnion(subschema, JsonValueTypeDeclaration.Boolean);
@@ -76,6 +76,10 @@ namespace Menes.JsonSchema.Generator
             schema.AddOptionalPropertyDeclaration("anyOf", nonEmptySubschemaArray);
             schema.AddOptionalPropertyDeclaration("oneOf", nonEmptySubschemaArray);
             schema.AddOptionalPropertyDeclaration("not", subschema);
+            schema.AddOptionalPropertyDeclaration("if", subschema);
+            schema.AddOptionalPropertyDeclaration("then", subschema);
+            schema.AddOptionalPropertyDeclaration("else", subschema);
+            schema.AddOptionalPropertyDeclaration("dependentSchemas", objectWithSchemaProperties);
 
             // Number
             schema.AddOptionalPropertyDeclaration("multipleOf", schemaPositiveNumber);
@@ -94,6 +98,7 @@ namespace Menes.JsonSchema.Generator
             schema.AddOptionalPropertyDeclaration("minItems", schemaNonNegativeInteger);
             schema.AddOptionalPropertyDeclaration("uniqueItems", JsonValueTypeDeclaration.Boolean);
             schema.AddOptionalPropertyDeclaration("maxContains", schemaNonNegativeInteger);
+            schema.AddOptionalPropertyDeclaration("minContains", schemaNonNegativeInteger);
             schema.AddOptionalPropertyDeclaration("items", subschema);
             schema.AddOptionalPropertyDeclaration("contains", subschema);
 
@@ -101,8 +106,10 @@ namespace Menes.JsonSchema.Generator
             schema.AddOptionalPropertyDeclaration("maxProperties", schemaNonNegativeInteger);
             schema.AddOptionalPropertyDeclaration("minProperties", schemaNonNegativeInteger);
             schema.AddOptionalPropertyDeclaration("required", schemaUniqueStringArray);
-            schema.AddOptionalPropertyDeclaration("properties", schemaProperties);
+            schema.AddOptionalPropertyDeclaration("properties", objectWithSchemaProperties);
             schema.AddOptionalPropertyDeclaration("additionalProperties", schemaAdditionalProperties);
+            schema.AddOptionalPropertyDeclaration("patternProperties", objectWithSchemaProperties);
+            schema.AddOptionalPropertyDeclaration("propertyNames", subschema);
 
             return schema.GenerateType();
         }

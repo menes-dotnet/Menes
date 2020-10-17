@@ -15,7 +15,7 @@ namespace Menes.JsonSchema
         /// Visit a schema node.
         /// </summary>
         /// <param name="exclusiveMinimumToUpdate">The exclusiveMinimum value to visit.</param>
-        /// <returns>A tuple of <c>True</c> if the schema was updated, and the updated <see cref="JsonInteger"/>.</returns>
+        /// <returns>A tuple of <c>True</c> if the schema was updated, and the updated <see cref="JsonNumber"/>.</returns>
         protected virtual ValueTask<(bool, JsonNumber?)> VisitExclusiveMinimum(JsonNumber? exclusiveMinimumToUpdate)
         {
             return new ValueTask<(bool, JsonNumber?)>((false, exclusiveMinimumToUpdate));
