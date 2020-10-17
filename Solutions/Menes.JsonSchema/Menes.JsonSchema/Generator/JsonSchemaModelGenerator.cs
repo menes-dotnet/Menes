@@ -35,11 +35,11 @@ namespace Menes.JsonSchema.Generator
             };
             schema.AddTypeDeclaration(schemaType);
 
-            var schemaPositiveInteger = new ValidatedJsonValueTypeDeclaration("PositiveInteger", JsonValueTypeDeclaration.Integer)
+            var schemaPositiveNumber = new ValidatedJsonValueTypeDeclaration("PositiveNumber", JsonValueTypeDeclaration.Number)
             {
                 ExclusiveMinimumValidation = 0,
             };
-            schema.AddTypeDeclaration(schemaPositiveInteger);
+            schema.AddTypeDeclaration(schemaPositiveNumber);
 
             var schemaNonNegativeInteger = new ValidatedJsonValueTypeDeclaration("NonNegativeInteger", JsonValueTypeDeclaration.Integer)
             {
@@ -78,11 +78,11 @@ namespace Menes.JsonSchema.Generator
             schema.AddOptionalPropertyDeclaration("not", subschema);
 
             // Number
-            schema.AddOptionalPropertyDeclaration("multipleOf", schemaPositiveInteger);
-            schema.AddOptionalPropertyDeclaration("maximum", JsonValueTypeDeclaration.Integer);
-            schema.AddOptionalPropertyDeclaration("exclusiveMaximum", JsonValueTypeDeclaration.Integer);
-            schema.AddOptionalPropertyDeclaration("minimum", JsonValueTypeDeclaration.Integer);
-            schema.AddOptionalPropertyDeclaration("exclusiveMinimum", JsonValueTypeDeclaration.Integer);
+            schema.AddOptionalPropertyDeclaration("multipleOf", schemaPositiveNumber);
+            schema.AddOptionalPropertyDeclaration("maximum", JsonValueTypeDeclaration.Number);
+            schema.AddOptionalPropertyDeclaration("exclusiveMaximum", JsonValueTypeDeclaration.Number);
+            schema.AddOptionalPropertyDeclaration("minimum", JsonValueTypeDeclaration.Number);
+            schema.AddOptionalPropertyDeclaration("exclusiveMinimum", JsonValueTypeDeclaration.Number);
 
             // String
             schema.AddOptionalPropertyDeclaration("maxLength", schemaNonNegativeInteger);

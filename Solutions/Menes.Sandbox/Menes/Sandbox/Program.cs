@@ -27,33 +27,33 @@ namespace Menes.Sandbox
         /// <summary>
         /// Main entry point.
         /// </summary>
-        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public static Task Main()
+        public static void Main()
         {
             ////SimpleExamples();
             ////GenerateJsonSchemaModel();
-            return UseJsonSchemaModel();
+            UseJsonSchemaModel();
             ////return Task.CompletedTask;
         }
 
-        private static async Task UseJsonSchemaModel()
+        private static void UseJsonSchemaModel()
         {
-            (JsonDocument root, Schema schema) = await DocumentResolver.Default.LoadSchema("exampleschema.json").ConfigureAwait(false);
+            ////(JsonDocument root, Schema schema) = await DocumentResolver.Default.LoadSchema("exampleschema.json").ConfigureAwait(false);
 
-            ValidationContext validationContext = ValidationContext.Root;
-            validationContext = schema.Validate(validationContext);
-            if (validationContext.IsValid)
-            {
-                Console.WriteLine("Valid schema!");
-            }
-            else
-            {
-                validationContext.Errors.ForEach(p => Console.WriteLine($"{p.path}: {p.error}"));
-            }
+            ////ValidationContext validationContext = ValidationContext.Root;
+            ////validationContext = schema.Validate(validationContext);
+            ////if (validationContext.IsValid)
+            ////{
+            ////    Console.WriteLine("Valid schema!");
+            ////}
+            ////else
+            ////{
+            ////    validationContext.Errors.ForEach(p => Console.WriteLine($"{p.path}: {p.error}"));
+            ////}
 
-            await RecursiveWriteSchema(root, schema, DocumentResolver.Default).ConfigureAwait(false);
+            ////await RecursiveWriteSchema(root, schema, DocumentResolver.Default).ConfigureAwait(false);
 
-            Serialize(schema);
+            ////Serialize(schema);
+            GenerateJsonSchemaModel();
         }
 
         private static void GenerateJsonSchemaModel()

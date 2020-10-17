@@ -57,6 +57,55 @@ namespace Menes.JsonSchema
                     wasUpdated = true;
                 }
 
+                (bool wasUpdatedEnum, JsonArray<JsonAny>? updatedEnum) = await this.VisitEnum(schema.Enum).ConfigureAwait(false);
+                if (wasUpdatedEnum)
+                {
+                    schema = schema.WithEnum(updatedEnum);
+                    wasUpdated = true;
+                }
+
+                (bool wasUpdatedExclusiveMaximum, JsonNumber? updatedExlusiveMaximum) = await this.VisitExclusiveMaximum(schema.ExclusiveMaximum).ConfigureAwait(false);
+                if (wasUpdatedExclusiveMaximum)
+                {
+                    schema = schema.WithExclusiveMaximum(updatedExlusiveMaximum);
+                    wasUpdated = true;
+                }
+
+                (bool wasUpdatedExclusiveMinimum, JsonNumber? updatedExlusiveMinimum) = await this.VisitExclusiveMinimum(schema.ExclusiveMinimum).ConfigureAwait(false);
+                if (wasUpdatedExclusiveMinimum)
+                {
+                    schema = schema.WithExclusiveMinimum(updatedExlusiveMinimum);
+                    wasUpdated = true;
+                }
+
+                (bool wasUpdatedFormat, JsonString? updatedFormat) = await this.VisitFormat(schema.Format).ConfigureAwait(false);
+                if (wasUpdatedFormat)
+                {
+                    schema = schema.WithFormat(updatedFormat);
+                    wasUpdated = true;
+                }
+
+                (bool wasUpdatedItems, Schema.SchemaOrReference? updatedItems) = await this.VisitItems(schema.Items).ConfigureAwait(false);
+                if (wasUpdatedItems)
+                {
+                    schema = schema.WithItems(updatedItems);
+                    wasUpdated = true;
+                }
+
+                ////(bool wasUpdatedMaxContains, JsonInteger? updatedMaxContains) = await this.VisitMaxContains(schema.MaxContains).ConfigureAwait(false);
+                ////if (wasUpdatedMaxContains)
+                ////{
+                ////    schema = schema.WithMaxContains(updatedMaxContains);
+                ////    wasUpdated = true;
+                ////}
+
+                ////(bool wasUpdatedMinContains, JsonInteger? updatedMinContains) = await this.VisitMinContains(schema.MaxContains).ConfigureAwait(false);
+                ////if (wasUpdatedMinContains)
+                ////{
+                ////    schema = schema.WithMaxContains(updatedMinContains);
+                ////    wasUpdated = true;
+                ////}
+
                 updatedSchema = schema;
             }
 
