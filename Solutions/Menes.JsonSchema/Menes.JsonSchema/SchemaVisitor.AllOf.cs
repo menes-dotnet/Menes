@@ -25,8 +25,11 @@ namespace Menes.JsonSchema
             if (arrayOfSchemaOrReferenceToUpdate is Schema.ValidatedArrayOfSchemaOrReference arrayOfSchemaOrReference)
             {
                 ImmutableArray<Schema.SchemaOrReference>.Builder builder = ImmutableArray.CreateBuilder<Schema.SchemaOrReference>();
+
+                int index = 0;
                 foreach (Schema.SchemaOrReference schemaOrReferenceToUpdate in arrayOfSchemaOrReference)
                 {
+                    this.PushPointerElement($"[i]");
                     (bool wasUpdatedSchemaOrReference, Schema.SchemaOrReference? updatedSchemaOrReference) = await this.VisitSchemaOrReference(schemaOrReferenceToUpdate).ConfigureAwait(false);
                     if (wasUpdatedSchemaOrReference)
                     {
@@ -44,6 +47,9 @@ namespace Menes.JsonSchema
                     {
                         builder.Add(schemaOrReferenceToUpdate);
                     }
+
+                    this.PopPointerElement();
+                    ++index;
                 }
 
                 if (wasUpdated)

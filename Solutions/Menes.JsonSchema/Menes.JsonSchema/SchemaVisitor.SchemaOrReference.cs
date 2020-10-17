@@ -20,14 +20,18 @@ namespace Menes.JsonSchema
         protected virtual async ValueTask<(bool, Schema.SchemaOrReference?)> VisitSchemaOrReference(Schema.SchemaOrReference? schemaOrReferenceToUpdate)
         {
             bool wasUpdated = false;
-            bool pushedDocument = false;
             Schema.SchemaOrReference? updatedSchemaOrReference = schemaOrReferenceToUpdate;
 
             if (schemaOrReferenceToUpdate is Schema.SchemaOrReference schemaOrReference)
             {
+                bool pushedDocument = false;
+
                 if (this.ResolveReferences)
                 {
                     JsonDocument document;
+
+                    this.PushPointerElementForSchemaOrReference(schemaOrReference);
+
                     (document, schemaOrReference) = await schemaOrReference.Resolve(this.DocumentStack.Peek(), this.DocumentResolver).ConfigureAwait(false);
                     if (this.DocumentStack.Peek() != document)
                     {
@@ -54,12 +58,16 @@ namespace Menes.JsonSchema
                     }
                 }
 
-                updatedSchemaOrReference = schemaOrReference;
-            }
+                if (this.ResolveReferences)
+                {
+                    this.PopPointerElement();
+                    if (pushedDocument)
+                    {
+                        this.DocumentStack.Pop();
+                    }
+                }
 
-            if (pushedDocument)
-            {
-                this.DocumentStack.Pop();
+                updatedSchemaOrReference = schemaOrReference;
             }
 
             return (wasUpdated, updatedSchemaOrReference);

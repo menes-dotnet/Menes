@@ -27,8 +27,10 @@ namespace Menes.JsonSchema
             bool wasUpdated = false;
             ImmutableArray<(string, Schema.SchemaOrReference)>.Builder builder = ImmutableArray.CreateBuilder<(string, Schema.SchemaOrReference)>();
 
+            int index = 0;
             foreach (JsonPropertyReference<Schema.SchemaOrReference> property in schemaProperties.JsonAdditionalProperties)
             {
+                this.PushPointerElement($"[{index}]");
                 (bool updatedSchema, Schema.SchemaOrReference? schemaOrReference) = await this.VisitSchemaOrReference(property.AsValue()).ConfigureAwait(false);
 
                 if (updatedSchema)
@@ -42,6 +44,9 @@ namespace Menes.JsonSchema
                 }
 
                 builder.Add((property.Name, sor));
+
+                this.PopPointerElement();
+                ++index;
             }
 
             if (wasUpdated)
