@@ -66,6 +66,8 @@ namespace Menes.JsonSchema.Generator
             schemaAdditionalProperties.AddTypesToUnion(subschema, JsonValueTypeDeclaration.Boolean);
             schema.AddTypeDeclaration(schemaAdditionalProperties);
 
+            schema.AddOptionalPropertyDeclaration("$id", JsonValueTypeDeclaration.String);
+
             // Common
             schema.AddOptionalPropertyDeclaration("type", schemaType);
             schema.AddOptionalPropertyDeclaration("format", JsonValueTypeDeclaration.String);

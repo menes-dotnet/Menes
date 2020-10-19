@@ -6,6 +6,8 @@ namespace Menes.JsonSchemaTypeGenerator
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
     using System.Text.Json;
     using System.Threading.Tasks;
     using Menes.JsonSchema;
@@ -17,15 +19,19 @@ namespace Menes.JsonSchemaTypeGenerator
     public class TypeGeneratorJsonSchemaVisitor : SchemaVisitor
     {
         private readonly Dictionary<string, ITypeDeclaration> typeDeclarations = new Dictionary<string, ITypeDeclaration>();
+        private readonly Dictionary<string, NamespaceDeclaration> namespaceDeclarations = new Dictionary<string, NamespaceDeclaration>();
+        private readonly List<(ReadOnlyMemory<char> uri, ReadOnlyMemory<char> name)> uriToNamespaceMap;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TypeGeneratorJsonSchemaVisitor"/> class.
         /// </summary>
         /// <param name="documentResolver">The document resolver to use.</param>
         /// <param name="root">The root json document.</param>
-        public TypeGeneratorJsonSchemaVisitor(IDocumentResolver documentResolver, JsonDocument root)
+        /// <param name="uriToNamespaceMap">A map of uri stems to typenames.</param>
+        public TypeGeneratorJsonSchemaVisitor(IDocumentResolver documentResolver, JsonDocument root, params (string, string)[] uriToNamespaceMap)
             : base(documentResolver, root)
         {
+            this.uriToNamespaceMap = uriToNamespaceMap.Select(k => (k.Item1.AsMemory(), k.Item2.AsMemory())).ToList();
         }
 
         /// <inheritdoc/>
@@ -36,8 +42,9 @@ namespace Menes.JsonSchemaTypeGenerator
                 throw new ArgumentNullException(nameof(schemaToVisit));
             }
 
-            IDeclaration parentDeclaration = this.GetParentDeclaration(schema);
-            string childName = this.GetTypeName(schema);
+            string childName = this.GetFullyQualifiedTypeName(schema);
+
+            IDeclaration parentDeclaration = this.GetParentDeclaration(childName);
 
             if (!this.typeDeclarations.ContainsKey(parentDeclaration.GetFullyQualifiedName(childName)))
             {
@@ -88,9 +95,53 @@ namespace Menes.JsonSchemaTypeGenerator
             }
         }
 
-        private IDeclaration GetParentDeclaration(Schema schema)
+        private IDeclaration GetParentDeclaration(string fullyQualifiedChildName)
         {
-            throw new NotImplementedException();
+            string parentName = fullyQualifiedChildName.Substring(0, fullyQualifiedChildName.LastIndexOf('.'));
+            if (this.typeDeclarations.TryGetValue(parentName, out ITypeDeclaration typeDeclaration))
+            {
+                return typeDeclaration;
+            }
+
+            if (this.namespaceDeclarations.TryGetValue(parentName, out NamespaceDeclaration namespaceDeclaration))
+            {
+                return namespaceDeclaration;
+            }
+
+            return this.CreateNamespaceDeclaration(parentName);
+        }
+
+        private NamespaceDeclaration CreateNamespaceDeclaration(string fullyQualifiedNamespace)
+        {
+            string[] segments = fullyQualifiedNamespace.Split('.', StringSplitOptions.RemoveEmptyEntries);
+
+            NamespaceDeclaration? currentNamespace = null;
+
+            if (segments.Length == 0)
+            {
+                throw new ArgumentException("The fully qualified namespace may not be empty.");
+            }
+
+            foreach (string segment in segments)
+            {
+                if (this.namespaceDeclarations.TryGetValue(fullyQualifiedNamespace, out NamespaceDeclaration namespaceDeclaration))
+                {
+                    currentNamespace = namespaceDeclaration;
+                }
+                else
+                {
+                    var newNamespace = new NamespaceDeclaration(segment);
+                    if (currentNamespace is NamespaceDeclaration current)
+                    {
+                        current.AddDeclaration(newNamespace);
+                    }
+
+                    currentNamespace = newNamespace;
+                    this.namespaceDeclarations.Add(currentNamespace.GetFullyQualifiedName(), currentNamespace);
+                }
+            }
+
+            return currentNamespace ?? throw new InvalidOperationException($"Unable to create a namespace for {fullyQualifiedNamespace}");
         }
 
         private ValueTask<(bool, Schema?)> BuildObject(string name, Schema schemam, IDeclaration parent)
@@ -162,9 +213,62 @@ namespace Menes.JsonSchemaTypeGenerator
             return result;
         }
 
-        private string GetTypeName(Schema schema)
+        private string GetFullyQualifiedTypeName(Schema schema)
         {
-            throw new NotImplementedException();
+            if (!(schema.Id is JsonString id))
+            {
+                throw new InvalidOperationException("Unable to build a type name for a schema without a $id.");
+            }
+
+            var jsonRef = new JsonRef(id);
+            var result = new StringBuilder();
+            if (jsonRef.HasUri)
+            {
+                this.GetFullyQualifiedNameFromUri(jsonRef.Uri, result);
+            }
+
+            if (jsonRef.HasPointer)
+            {
+                if (result.Length > 0)
+                {
+                    result.Append(".");
+                }
+
+                this.GetFullyQualifiedNameFromPointer(jsonRef.Pointer, result);
+            }
+
+            return result.ToString();
+        }
+
+        private void GetFullyQualifiedNameFromPointer(in ReadOnlySpan<char> pointer, StringBuilder builder)
+        {
+            StringFormatter.FormatFragmentAsFullyQualifiedName(pointer, builder);
+        }
+
+        private void GetFullyQualifiedNameFromUri(in ReadOnlySpan<char> uri, StringBuilder builder)
+        {
+            if (!this.FormatWithKnownUris(uri, builder))
+            {
+                StringFormatter.FormatUriAsFullyQualifiedName(uri, builder);
+            }
+        }
+
+        private bool FormatWithKnownUris(ReadOnlySpan<char> uri, StringBuilder builder)
+        {
+            foreach ((ReadOnlyMemory<char> key, ReadOnlyMemory<char> value) in this.uriToNamespaceMap)
+            {
+                if (uri.StartsWith(key.Span))
+                {
+                    builder.Append(value);
+                    if (key.Length < uri.Length)
+                    {
+                        StringFormatter.FormatFragmentAsFullyQualifiedName(uri.Slice(key.Length), builder);
+                        return true;
+                    }
+                }
+            }
+
+            return false;
         }
 
         private void BuildValidations(Schema schema, ValidatedJsonValueTypeDeclaration validatedJsonValueTypeDeclaration)
@@ -189,8 +293,7 @@ namespace Menes.JsonSchemaTypeGenerator
             }
 
             Schema schema = sor.AsSchema();
-
-            throw new NotImplementedException();
+            return this.typeDeclarations[this.GetFullyQualifiedTypeName(schema)];
         }
     }
 }

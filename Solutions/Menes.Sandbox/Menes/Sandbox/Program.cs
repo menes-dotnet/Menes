@@ -30,6 +30,19 @@ namespace Menes.Sandbox
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         public static Task Main()
         {
+            var builder = new StringBuilder();
+            StringFormatter.FormatUriAsFullyQualifiedName("c:\\some\\location\\myProperty.json", builder);
+            Console.WriteLine(builder.ToString());
+            builder.Clear();
+            StringFormatter.FormatUriAsFullyQualifiedName("https://endjin.com:8080/some/location/myProperty.json", builder);
+            Console.WriteLine(builder.ToString());
+            builder.Clear();
+            StringFormatter.FormatFragmentAsFullyQualifiedName("/components/schema/someType", builder);
+            Console.WriteLine(builder.ToString());
+            builder.Clear();
+            StringFormatter.FormatUriAsFullyQualifiedName("https://endjin.com/foo", builder);
+            Console.WriteLine(builder.ToString());
+
             ////SimpleExamples();
             ////GenerateJsonSchemaModel();
             return UseJsonSchemaModel();

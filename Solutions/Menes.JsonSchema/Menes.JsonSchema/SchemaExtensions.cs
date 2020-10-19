@@ -6,6 +6,7 @@ namespace Menes.JsonSchema
 {
     using System.Text.Json;
     using System.Threading.Tasks;
+    using Menes;
 
     /// <summary>
     /// Extension methods to manipulate JSON schema.
@@ -62,12 +63,27 @@ namespace Menes.JsonSchema
 
         private static Schema.SchemaOrReference ResolveSchema(JsonDocument document, JsonRef reference)
         {
+            Schema schema;
             if (reference.HasPointer)
             {
-                return new Schema.SchemaOrReference(JsonPointer.ResolvePointer(document.RootElement, reference.Pointer));
+                schema = new Schema(JsonPointer.ResolvePointer(document.RootElement, reference.Pointer));
+            }
+            else
+            {
+                schema = new Schema(document.RootElement);
             }
 
-            return new Schema.SchemaOrReference(document.RootElement);
+            if (schema.Id is null)
+            {
+                schema = schema.WithId(BuildId(reference));
+            }
+
+            return new Schema.SchemaOrReference(schema);
+        }
+
+        private static JsonString BuildId(JsonRef reference)
+        {
+            return reference.ToString();
         }
     }
 }

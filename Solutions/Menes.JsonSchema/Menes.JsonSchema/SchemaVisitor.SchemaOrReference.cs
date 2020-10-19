@@ -31,6 +31,7 @@ namespace Menes.JsonSchema
                     JsonDocument document;
 
                     (document, schemaOrReference) = await schemaOrReference.Resolve(this.DocumentStack.Peek(), this.DocumentResolver).ConfigureAwait(false);
+
                     if (this.DocumentStack.Peek() != document)
                     {
                         this.DocumentStack.Push(document);

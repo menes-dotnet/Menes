@@ -74,6 +74,12 @@ namespace Menes.JsonSchema
             return new JsonRef(reference);
         }
 
+        /// <inheritdoc/>
+        public override string ToString()
+        {
+            return this.reference.ToString();
+        }
+
         private static int FindHash(ReadOnlySpan<char> reference)
         {
             for (int i = 0; i < reference.Length; ++i)
