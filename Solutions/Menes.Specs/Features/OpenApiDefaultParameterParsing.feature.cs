@@ -406,7 +406,7 @@ this.ScenarioInitialize(scenarioInfo);
                         "nApiNull, type string, format null and a null default value", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 82
- testRunner.When("I try to parse the default value", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I try to parse the default value and expect an error", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 83
  testRunner.Then("an \'OpenApiSpecificationException\' should be thrown", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");

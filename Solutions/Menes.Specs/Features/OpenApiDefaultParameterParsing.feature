@@ -79,7 +79,7 @@ Scenario: Object parameter with properties of complex types
 
 Scenario: Any parameter with null default value
 	Given I have constructed the OpenAPI specification with a query parameter with name openApiNull, type string, format null and a null default value
-	When I try to parse the default value
+	When I try to parse the default value and expect an error
 	Then an 'OpenApiSpecificationException' should be thrown
 
 Scenario Outline: Incorrect parameter values
