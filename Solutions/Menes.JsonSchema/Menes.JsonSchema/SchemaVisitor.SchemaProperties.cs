@@ -51,24 +51,14 @@ namespace Menes.JsonSchema
 
             if (wasUpdated)
             {
-                switch (builder.Count)
+                schemaProperties = builder.Count switch
                 {
-                    case 1:
-                        schemaProperties = new Schema.SchemaProperties(builder[0]);
-                        break;
-                    case 2:
-                        schemaProperties = new Schema.SchemaProperties(builder[0], builder[1]);
-                        break;
-                    case 3:
-                        schemaProperties = new Schema.SchemaProperties(builder[0], builder[1], builder[2]);
-                        break;
-                    case 4:
-                        schemaProperties = new Schema.SchemaProperties(builder[0], builder[1], builder[2], builder[3]);
-                        break;
-                    default:
-                        schemaProperties = new Schema.SchemaProperties(builder.ToArray());
-                        break;
-                }
+                    1 => new Schema.SchemaProperties(builder[0]),
+                    2 => new Schema.SchemaProperties(builder[0], builder[1]),
+                    3 => new Schema.SchemaProperties(builder[0], builder[1], builder[2]),
+                    4 => new Schema.SchemaProperties(builder[0], builder[1], builder[2], builder[3]),
+                    _ => new Schema.SchemaProperties(builder.ToArray()),
+                };
             }
 
             return (wasUpdated, schemaProperties);
