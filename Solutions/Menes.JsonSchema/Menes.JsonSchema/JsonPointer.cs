@@ -10,6 +10,9 @@ namespace Menes.JsonSchema
     /// <summary>
     /// Utility function to resolve a json pointer from a json element.
     /// </summary>
+    /// <remarks>
+    /// Note that we don't support <c>$anchor</c> or <c>$id</c> with this implementation.
+    /// </remarks>
     public static class JsonPointer
     {
         private enum PointerState
