@@ -62,6 +62,21 @@ namespace Menes.TypeGenerator
         public string? EnumValidation { get; set; }
 
         /// <summary>
+        /// Gets or sets the allOf type validation.
+        /// </summary>
+        public List<ITypeDeclaration>? AllOfTypeValidation { get; set; }
+
+        /// <summary>
+        /// Gets or sets the anyOf type validation.
+        /// </summary>
+        public List<ITypeDeclaration>? AnyOfTypeValidation { get; set; }
+
+        /// <summary>
+        /// Gets or sets the oneOf type validation.
+        /// </summary>
+        public List<ITypeDeclaration>? OneOfTypeValidation { get; set; }
+
+        /// <summary>
         /// Gets or sets the JSON object for the const validation.
         /// </summary>
         public string? ConstValidation { get; set; }
@@ -165,7 +180,7 @@ namespace Menes.TypeGenerator
             builder.AppendLine($"    private static readonly {this.ValidatedType.RawClrTypes[0]}? ConstValue = BuildConstValue();");
             builder.AppendLine($"    private static readonly System.Collections.Immutable.ImmutableArray<{this.ValidatedType.RawClrTypes[0]}>? EnumValues = BuildEnumValues();");
 
-            if (this.ValidatedType.Kind == JsonValueTypeDeclaration.ValueKind.String)
+            if (this.ValidatedType.Kind == JsonValueTypeDeclaration.ValueKind.String || this.ValidatedType.Kind == JsonValueTypeDeclaration.ValueKind.Any)
             {
                 builder.AppendLine($"    private static readonly int? MaxLength = {this.MaxLengthValidation?.ToString() ?? "null"};");
                 builder.AppendLine($"    private static readonly int? MinLength = {this.MaxLengthValidation?.ToString() ?? "null"};");
@@ -179,7 +194,7 @@ namespace Menes.TypeGenerator
                     builder.AppendLine($"    private static readonly System.Text.RegularExpressions.Regex? Pattern = null;");
                 }
             }
-            else if (this.ValidatedType.Kind == JsonValueTypeDeclaration.ValueKind.Number)
+            else if (this.ValidatedType.Kind == JsonValueTypeDeclaration.ValueKind.Number || this.ValidatedType.Kind == JsonValueTypeDeclaration.ValueKind.Any)
             {
                 builder.AppendLine($"    private static readonly {this.ValidatedType.RawClrTypes[0]}? MultipleOf = {this.MultipleOfValidation?.ToString() ?? "null"};");
                 builder.AppendLine($"    private static readonly {this.ValidatedType.RawClrTypes[0]}? Maximum = {this.MaximumValidation?.ToString() ?? "null"};");
@@ -235,6 +250,17 @@ namespace Menes.TypeGenerator
                 }
             }
 
+            foreach (string clrType in this.ValidatedType.RawClrTypes)
+            {
+                if (clrType != validatedTypeFullyQualifiedName)
+                {
+                    builder.AppendLine($"    public static implicit operator {clrType}({name} value)");
+                    builder.AppendLine("    {");
+                    builder.AppendLine($"        return ({clrType})({validatedTypeFullyQualifiedName})value;");
+                    builder.AppendLine("    }");
+                }
+            }
+
             builder.AppendLine($"    public static implicit operator {validatedTypeFullyQualifiedName}({name} value)");
             builder.AppendLine("    {");
             builder.AppendLine($"        if (value.value is {validatedTypeFullyQualifiedName} clrValue)");
@@ -278,15 +304,105 @@ namespace Menes.TypeGenerator
                 builder.AppendLine($"context = Menes.Validation.ValidateNot<{validatedTypeFullyQualifiedName}, {notType.GetFullyQualifiedName()}>(context, this);");
             }
 
-            if (this.ValidatedType.Kind == JsonValueTypeDeclaration.ValueKind.String)
+            if (this.AllOfTypeValidation is List<ITypeDeclaration> allOf)
+            {
+                for (int i = 0; i < allOf.Count; ++i)
+                {
+                    builder.AppendLine($"        Menes.ValidationContext allOfValidationContext{i + 1} = Menes.ValidationContext.Root.WithPath(context.Path);");
+                }
+
+                int index = 0;
+                foreach (ITypeDeclaration allOfType in allOf)
+                {
+                    string allOfFullyQualifiedName = allOfType.GetFullyQualifiedName();
+                    string allOfTypeNameCamelCase = StringFormatter.ToCamelCaseWithReservedWords(allOfType.Name);
+                    builder.AppendLine($"{allOfFullyQualifiedName} {allOfTypeNameCamelCase}Value = JsonAny.From(value).As<{allOfFullyQualifiedName}>();");
+                    builder.AppendLine($"            allOfValidationContext{index + 1} = {allOfTypeNameCamelCase}Value.Validate(allOfValidationContext{index + 1});");
+                    index++;
+                }
+
+                builder.Append("        context = Menes.Validation.ValidateAllOf(context");
+
+                index = 0;
+                foreach (ITypeDeclaration allOfType in allOf)
+                {
+                    builder.Append(", ");
+                    builder.Append($"validationContext{index + 1}");
+                    index++;
+                }
+
+                builder.AppendLine(");");
+            }
+
+            if (this.AnyOfTypeValidation is List<ITypeDeclaration> anyOf)
+            {
+                for (int i = 0; i < anyOf.Count; ++i)
+                {
+                    builder.AppendLine($"        Menes.ValidationContext anyOfValidationContext{i + 1} = Menes.ValidationContext.Root.WithPath(context.Path);");
+                }
+
+                int index = 0;
+                foreach (ITypeDeclaration anyOfType in anyOf)
+                {
+                    string anyOfFullyQualifiedName = anyOfType.GetFullyQualifiedName();
+                    string anyOfTypeNameCamelCase = StringFormatter.ToCamelCaseWithReservedWords(anyOfType.Name);
+                    builder.AppendLine($"{anyOfFullyQualifiedName} {anyOfTypeNameCamelCase}Value = JsonAny.From(value).As<{anyOfFullyQualifiedName}>();");
+                    builder.AppendLine($"            anyOfValidationContext{index + 1} = {anyOfTypeNameCamelCase}Value.Validate(anyOfValidationContext{index + 1});");
+                    index++;
+                }
+
+                builder.Append("        context = Menes.Validation.ValidateAnyOf(context");
+
+                index = 0;
+                foreach (ITypeDeclaration anyOfType in anyOf)
+                {
+                    builder.Append(", ");
+                    builder.Append($"validationContext{index + 1}");
+                    index++;
+                }
+
+                builder.AppendLine(");");
+            }
+
+            if (this.OneOfTypeValidation is List<ITypeDeclaration> oneOf)
+            {
+                for (int i = 0; i < oneOf.Count; ++i)
+                {
+                    builder.AppendLine($"        Menes.ValidationContext oneOfValidationContext{i + 1} = Menes.ValidationContext.Root.WithPath(context.Path);");
+                }
+
+                int index = 0;
+                foreach (ITypeDeclaration oneOfType in oneOf)
+                {
+                    string oneOfFullyQualifiedName = oneOfType.GetFullyQualifiedName();
+                    string oneOfTypeNameCamelCase = StringFormatter.ToCamelCaseWithReservedWords(oneOfType.Name);
+                    builder.AppendLine($"{oneOfFullyQualifiedName} {oneOfTypeNameCamelCase}Value = JsonAny.From(value).As<{oneOfFullyQualifiedName}>();");
+                    builder.AppendLine($"            oneOfValidationContext{index + 1} = {oneOfTypeNameCamelCase}Value.Validate(oneOfValidationContext{index + 1});");
+                    index++;
+                }
+
+                builder.Append("        context = Menes.Validation.ValidateOneOf(context");
+
+                index = 0;
+                foreach (ITypeDeclaration oneOfType in oneOf)
+                {
+                    builder.Append(", ");
+                    builder.Append($"(\"{oneOfType.GetFullyQualifiedName()}\", oneOfValidationContext{index + 1})");
+                    index++;
+                }
+
+                builder.AppendLine(");");
+            }
+
+            if (this.ValidatedType.Kind == JsonValueTypeDeclaration.ValueKind.String || this.ValidatedType.Kind == JsonValueTypeDeclaration.ValueKind.Any)
             {
                 builder.AppendLine($"context = value.ValidateAsString(context, MinLength, MaxLength, Pattern, EnumValues, ConstValue);");
             }
-            else if (this.ValidatedType.Kind == JsonValueTypeDeclaration.ValueKind.Decimal || this.ValidatedType.Kind == JsonValueTypeDeclaration.ValueKind.Number)
+            else if (this.ValidatedType.Kind == JsonValueTypeDeclaration.ValueKind.Decimal || this.ValidatedType.Kind == JsonValueTypeDeclaration.ValueKind.Number || this.ValidatedType.Kind == JsonValueTypeDeclaration.ValueKind.Any)
             {
                 builder.AppendLine($"context = value.ValidateAsNumber(context, MultipleOf, Maximum, ExclusiveMaximum, Minimum, ExclusiveMinimum, EnumValues, ConstValue);");
             }
-            else if (this.ValidatedType.Kind == JsonValueTypeDeclaration.ValueKind.Boolean)
+            else if (this.ValidatedType.Kind == JsonValueTypeDeclaration.ValueKind.Boolean || this.ValidatedType.Kind == JsonValueTypeDeclaration.ValueKind.Any)
             {
                 builder.AppendLine($"context = value.ValidateAsBoolean(context, EnumValues, ConstValue);");
             }

@@ -2423,6 +2423,10 @@ namespace Menes.JsonSchema
             {
                 return new TypeEnum(value);
             }
+            public static implicit operator string(TypeEnum value)
+            {
+                return (string)(Menes.JsonString)value;
+            }
             public static implicit operator Menes.JsonString(TypeEnum value)
             {
                 if (value.value is Menes.JsonString clrValue)
@@ -2560,6 +2564,26 @@ namespace Menes.JsonSchema
             {
                 return new PositiveNumber(value);
             }
+            public static implicit operator float(PositiveNumber value)
+            {
+                return (float)(Menes.JsonNumber)value;
+            }
+            public static implicit operator double(PositiveNumber value)
+            {
+                return (double)(Menes.JsonNumber)value;
+            }
+            public static implicit operator decimal(PositiveNumber value)
+            {
+                return (decimal)(Menes.JsonNumber)value;
+            }
+            public static implicit operator int(PositiveNumber value)
+            {
+                return (int)(Menes.JsonNumber)value;
+            }
+            public static implicit operator long(PositiveNumber value)
+            {
+                return (long)(Menes.JsonNumber)value;
+            }
             public static implicit operator Menes.JsonNumber(PositiveNumber value)
             {
                 if (value.value is Menes.JsonNumber clrValue)
@@ -2676,6 +2700,14 @@ namespace Menes.JsonSchema
             public static implicit operator NonNegativeInteger(long value)
             {
                 return new NonNegativeInteger(value);
+            }
+            public static implicit operator int(NonNegativeInteger value)
+            {
+                return (int)(Menes.JsonInteger)value;
+            }
+            public static implicit operator long(NonNegativeInteger value)
+            {
+                return (long)(Menes.JsonInteger)value;
             }
             public static implicit operator Menes.JsonInteger(NonNegativeInteger value)
             {

@@ -48,6 +48,11 @@ namespace Menes.TypeGenerator
             /// A boolean type.
             /// </summary>
             Boolean,
+
+            /// <summary>
+            /// Any type.
+            /// </summary>
+            Any,
         }
 
         /// <inheritdoc/>
