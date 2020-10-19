@@ -179,7 +179,7 @@ namespace Menes.TypeGenerator
             {
                 string fullyQualifiedTypeName = type.GetFullyQualifiedName();
                 string fullyQualifiedTypeNameOrReference = type.IsCompoundType ? "Menes.JsonReference" : fullyQualifiedTypeName;
-                builder.AppendLine($"    public bool Is{type.Name} => this.item{index + 1} is {fullyQualifiedTypeNameOrReference} || {fullyQualifiedTypeName}.IsConvertibleFrom(this.JsonElement);");
+                builder.AppendLine($"    public bool Is{type.Name} => this.item{index + 1} is {fullyQualifiedTypeNameOrReference} || ({fullyQualifiedTypeName}.IsConvertibleFrom(this.JsonElement) && {fullyQualifiedTypeName}.FromJsonElement(this.JsonElement).Validate(Menes.ValidationContext.Root).IsValid);");
                 index++;
             }
 

@@ -30,8 +30,6 @@ namespace Menes.JsonSchema
                 {
                     JsonDocument document;
 
-                    this.PushPointerElementForSchemaOrReference(schemaOrReference);
-
                     (document, schemaOrReference) = await schemaOrReference.Resolve(this.DocumentStack.Peek(), this.DocumentResolver).ConfigureAwait(false);
                     if (this.DocumentStack.Peek() != document)
                     {
@@ -60,7 +58,6 @@ namespace Menes.JsonSchema
 
                 if (this.ResolveReferences)
                 {
-                    this.PopPointerElement();
                     if (pushedDocument)
                     {
                         this.DocumentStack.Pop();

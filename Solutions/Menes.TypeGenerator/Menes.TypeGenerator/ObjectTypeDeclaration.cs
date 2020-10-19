@@ -8,6 +8,7 @@ namespace Menes.TypeGenerator
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
+    using System.Text.Json;
     using Microsoft.CodeAnalysis.CSharp;
     using Microsoft.CodeAnalysis.CSharp.Syntax;
 
@@ -411,23 +412,29 @@ namespace Menes.TypeGenerator
             var builder = new StringBuilder();
 
             builder.AppendLine($"public static {fullyQualifiedTypeName} FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<char> propertyName) =>");
-            builder.AppendLine("    parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)");
-            builder.AppendLine($"        ? new {fullyQualifiedTypeName}(property)");
+            builder.AppendLine($"   parentDocument.ValueKind == System.Text.Json.JsonValueKind.Undefined ?");
+            builder.AppendLine("        (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)");
+            builder.AppendLine($"            ? new {fullyQualifiedTypeName}(property)");
+            builder.AppendLine("            : Null)");
             builder.AppendLine("        : Null;");
             members.Add(SF.ParseMemberDeclaration(builder.ToString()));
             builder.Clear();
 
             builder.AppendLine($"public static {fullyQualifiedTypeName} FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, string propertyName) =>");
-            builder.AppendLine("    parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)");
-            builder.AppendLine($"        ? new {fullyQualifiedTypeName}(property)");
+            builder.AppendLine($"   parentDocument.ValueKind == System.Text.Json.JsonValueKind.Undefined ?");
+            builder.AppendLine("        (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)");
+            builder.AppendLine($"            ? new {fullyQualifiedTypeName}(property)");
+            builder.AppendLine("            : Null)");
             builder.AppendLine("        : Null;");
             members.Add(SF.ParseMemberDeclaration(builder.ToString()));
             builder.Clear();
 
             builder.AppendLine($"public static {fullyQualifiedTypeName} FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<byte> utf8PropertyName) =>");
-            builder.AppendLine("    parentDocument.TryGetProperty(utf8PropertyName, out System.Text.Json.JsonElement property)");
-            builder.AppendLine($"        ? new {fullyQualifiedTypeName}(property)");
-            builder.AppendLine("        : Null;");
+            builder.AppendLine($"   parentDocument.ValueKind == System.Text.Json.JsonValueKind.Undefined ?");
+            builder.AppendLine("        (parentDocument.TryGetProperty(utf8PropertyName, out System.Text.Json.JsonElement property)");
+            builder.AppendLine($"            ? new {fullyQualifiedTypeName}(property)");
+            builder.AppendLine("            : Null)");
+            builder.AppendLine("    : Null;");
             members.Add(SF.ParseMemberDeclaration(builder.ToString()));
         }
 
