@@ -5,6 +5,7 @@
 namespace Menes.JsonSchema
 {
     using System;
+    using System.Buffers;
     using System.Text.Json;
 
     /// <summary>
@@ -51,13 +52,51 @@ namespace Menes.JsonSchema
                         continue;
                     }
 
-                    if (pointer[i] == '/')
+                    if (pointer[i] == '~')
+                    {
+                        // Skip over the next character is we have escaped
+                        i += 1;
+                    }
+                    else if (pointer[i] == '/')
                     {
                         if (i > stateMachine.StartRunIndex)
                         {
                             if (stateMachine.CurrentElement.ValueKind == JsonValueKind.Object)
                             {
-                                stateMachine.CurrentElement = stateMachine.CurrentElement.GetProperty(pointer[stateMachine.StartRunIndex..i]);
+                                int writtenCount = 0;
+                                char[] unescaped = ArrayPool<char>.Shared.Rent(i - stateMachine.StartRunIndex);
+                                try
+                                {
+                                    for (int e = stateMachine.StartRunIndex; e < i; ++e)
+                                    {
+                                        if (pointer[e] == '~')
+                                        {
+                                            if (e >= i - 1)
+                                            {
+                                                throw new JsonException($"Unexpected end of sequence in escape character. Expected '0' or '1' but found the end of the element.");
+                                            }
+
+                                            if (pointer[e + 1] == '0')
+                                            {
+                                                unescaped[writtenCount] = '~';
+                                            }
+                                            else if (pointer[e + 1] == '1')
+                                            {
+                                                unescaped[writtenCount] = '~';
+                                            }
+                                            else
+                                            {
+                                                throw new JsonException($"Unexpected escape character. Expected '0' or '1' but found '{pointer[e + 1]}'");
+                                            }
+                                        }
+                                    }
+
+                                    stateMachine.CurrentElement = stateMachine.CurrentElement.GetProperty(pointer[stateMachine.StartRunIndex..i]);
+                                }
+                                finally
+                                {
+                                    ArrayPool<char>.Shared.Return(unescaped);
+                                }
                             }
                             else if (stateMachine.CurrentElement.ValueKind == JsonValueKind.Array)
                             {
