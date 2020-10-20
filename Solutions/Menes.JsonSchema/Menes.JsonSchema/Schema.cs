@@ -1961,6 +1961,7 @@ namespace Menes.JsonSchema
             {
                 context = Menes.Validation.ValidateProperty(context, property.AsValue(), "." + property.Name);
             }
+            context = Menes.Validation.ValidateNot<Schema, Schema.SchemaReference>(context, this);
             return context;
         }
         public bool TryGetAdditionalProperty(string propertyName, [System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out Menes.JsonAny? value)

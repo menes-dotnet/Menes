@@ -113,6 +113,9 @@ namespace Menes.JsonSchema.Generator
             schema.AddOptionalPropertyDeclaration("patternProperties", objectWithSchemaProperties);
             schema.AddOptionalPropertyDeclaration("propertyNames", subschema);
 
+            // A schema is not a reference
+            schema.NotTypeValidation = reference;
+
             return schema.GenerateType();
         }
     }
