@@ -216,20 +216,24 @@ namespace Menes.TypeGenerator
                 builder.AppendLine($"    public static implicit operator {this.Name}({fullyQualifiedTypeName} value) => new {this.Name}(value);");
             }
 
-            builder.AppendLine($"    public static {this.Name} FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<char> propertyName) =>");
-            builder.AppendLine("        parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)");
+            builder.AppendLine($"public static {this.Name} FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<char> propertyName) =>");
+            builder.AppendLine($"   parentDocument.ValueKind != System.Text.Json.JsonValueKind.Undefined ?");
+            builder.AppendLine("        (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)");
             builder.AppendLine($"            ? new {this.Name}(property)");
-            builder.AppendLine("            : Null;");
-
-            builder.AppendLine($"    public static {this.Name} FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, string propertyName) =>");
-            builder.AppendLine("        parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)");
+            builder.AppendLine("            : Null)");
+            builder.AppendLine("        : Null;");
+            builder.AppendLine($"public static {this.Name} FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, string propertyName) =>");
+            builder.AppendLine($"   parentDocument.ValueKind != System.Text.Json.JsonValueKind.Undefined ?");
+            builder.AppendLine("        (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)");
             builder.AppendLine($"            ? new {this.Name}(property)");
-            builder.AppendLine("            : Null;");
-
-            builder.AppendLine($"    public static {this.Name} FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<byte> utf8PropertyName) =>");
-            builder.AppendLine("        parentDocument.TryGetProperty(utf8PropertyName, out System.Text.Json.JsonElement property)");
+            builder.AppendLine("            : Null)");
+            builder.AppendLine("        : Null;");
+            builder.AppendLine($"public static {this.Name} FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<byte> utf8PropertyName) =>");
+            builder.AppendLine($"   parentDocument.ValueKind != System.Text.Json.JsonValueKind.Undefined ?");
+            builder.AppendLine("        (parentDocument.TryGetProperty(utf8PropertyName, out System.Text.Json.JsonElement property)");
             builder.AppendLine($"            ? new {this.Name}(property)");
-            builder.AppendLine("            : Null;");
+            builder.AppendLine("            : Null)");
+            builder.AppendLine("        : Null;");
 
             builder.AppendLine("public static bool IsConvertibleFrom(System.Text.Json.JsonElement jsonElement)");
             builder.AppendLine("{");

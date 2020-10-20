@@ -14,7 +14,7 @@ namespace Menes.JsonSchema
     public partial class SchemaVisitor
     {
         private readonly IDocumentResolver? documentResolver;
-        private readonly Stack<JsonDocument>? documentStack;
+        private readonly Stack<(string, JsonDocument)>? documentStack;
         private readonly List<string> pathList;
 
         /// <summary>
@@ -32,16 +32,17 @@ namespace Menes.JsonSchema
         /// Initializes a new instance of the <see cref="SchemaVisitor"/> class.
         /// </summary>
         /// <param name="documentResolver">The document resolver.</param>
+        /// <param name="uri">The root uri.</param>
         /// <param name="root">The root json document for the schema.</param>
         /// <remarks>
         /// Using this constructor, the visitor will perform schema reference resolution.
         /// </remarks>
-        public SchemaVisitor(IDocumentResolver documentResolver, JsonDocument root)
+        public SchemaVisitor(IDocumentResolver documentResolver, string uri, JsonDocument root)
             : this()
         {
             this.documentResolver = documentResolver;
-            this.documentStack = new Stack<JsonDocument>();
-            this.documentStack.Push(root);
+            this.documentStack = new Stack<(string, JsonDocument)>();
+            this.documentStack.Push((uri, root));
         }
 
         /// <summary>
@@ -63,6 +64,16 @@ namespace Menes.JsonSchema
         }
 
         /// <summary>
+        /// Gets the current base URI.
+        /// </summary>
+        public string CurrentBaseUri => this.DocumentStack.Peek().uri;
+
+        /// <summary>
+        /// Gets the current document.
+        /// </summary>
+        public JsonDocument CurrentDocument => this.DocumentStack.Peek().document;
+
+        /// <summary>
         /// Gets the <see cref="IDocumentResolver"/>.
         /// </summary>
         protected IDocumentResolver DocumentResolver => this.documentResolver is IDocumentResolver dr ? dr : throw new InvalidOperationException("The document resolver was not set.");
@@ -70,7 +81,7 @@ namespace Menes.JsonSchema
         /// <summary>
         /// Gets the <see cref="Stack{T}"/> of <see cref="JsonDocument"/>.
         /// </summary>
-        protected Stack<JsonDocument> DocumentStack => this.documentStack is Stack<JsonDocument> stack ? stack : throw new InvalidOperationException("The document stack was not set.");
+        protected Stack<(string uri, JsonDocument document)> DocumentStack => this.documentStack is Stack<(string, JsonDocument)> stack ? stack : throw new InvalidOperationException("The document stack was not set.");
 
         /// <summary>
         /// Push the current path element onto the stack.
@@ -78,7 +89,14 @@ namespace Menes.JsonSchema
         /// <param name="path">The path element to add.</param>
         protected void PushPointerElement(string path)
         {
-            this.pathList.Add("/" + path);
+            if (path == "#")
+            {
+                this.pathList.Add(path);
+            }
+            else
+            {
+                this.pathList.Add("/" + path);
+            }
         }
 
         /// <summary>

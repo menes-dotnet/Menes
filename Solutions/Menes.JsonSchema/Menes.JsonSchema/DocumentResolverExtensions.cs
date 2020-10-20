@@ -19,14 +19,14 @@ namespace Menes.JsonSchema
         /// <param name="reference">The json reference at which to load the schema.</param>
         /// <param name="resolveReferences">Whether to resolve references on load.</param>
         /// <returns>A <see cref="ValueTask{TResult}"/> which produces the <see cref="Schema"/>.</returns>
-        public static async ValueTask<(JsonDocument, Schema)> LoadSchema(this IDocumentResolver resolver, JsonRef reference, bool resolveReferences = true)
+        public static async ValueTask<(string, JsonDocument, Schema)> LoadSchema(this IDocumentResolver resolver, JsonRef reference, bool resolveReferences = true)
         {
-            (JsonDocument document, Schema.SchemaOrReference schemaOrReference) = await reference.Resolve(resolver).ConfigureAwait(false);
+            (string baseUri, JsonDocument document, Schema.SchemaOrReference schemaOrReference) = await reference.Resolve(resolver).ConfigureAwait(false);
             Schema schema = schemaOrReference.AsSchema();
 
             if (resolveReferences)
             {
-                var visitor = new SchemaVisitor(resolver, document);
+                var visitor = new SchemaVisitor(resolver, reference.Uri.ToString(), document);
                 (bool wasModified, Schema? schema) result = await visitor.VisitSchema(schema).ConfigureAwait(false);
                 if (result.wasModified && result.schema is Schema s)
                 {
@@ -34,7 +34,7 @@ namespace Menes.JsonSchema
                 }
             }
 
-            return (document, schema);
+            return (baseUri, document, schema);
         }
     }
 }

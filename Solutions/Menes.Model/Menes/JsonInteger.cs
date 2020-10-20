@@ -147,8 +147,10 @@ namespace Menes
         /// </param>
         /// <returns>A <see cref="JsonInteger"/> or null.</returns>
         public static JsonInteger FromOptionalProperty(in JsonElement parentDocument, ReadOnlySpan<char> propertyName) =>
-            parentDocument.TryGetProperty(propertyName, out JsonElement property)
-                ? new JsonInteger(property)
+            parentDocument.ValueKind != JsonValueKind.Undefined ?
+                (parentDocument.TryGetProperty(propertyName, out JsonElement property)
+                    ? new JsonInteger(property)
+                    : Null)
                 : Null;
 
         /// <summary>
@@ -160,8 +162,10 @@ namespace Menes
         /// </param>
         /// <returns>A <see cref="JsonInteger"/> or null.</returns>
         public static JsonInteger FromOptionalProperty(in JsonElement parentDocument, string propertyName) =>
-            parentDocument.TryGetProperty(propertyName, out JsonElement property)
-                ? new JsonInteger(property)
+            parentDocument.ValueKind != JsonValueKind.Undefined ?
+                (parentDocument.TryGetProperty(propertyName, out JsonElement property)
+                    ? new JsonInteger(property)
+                    : Null)
                 : Null;
 
         /// <summary>
@@ -173,8 +177,10 @@ namespace Menes
         /// </param>
         /// <returns>A <see cref="JsonInteger"/> or null.</returns>
         public static JsonInteger FromOptionalProperty(in JsonElement parentDocument, ReadOnlySpan<byte> utf8PropertyName) =>
-            parentDocument.TryGetProperty(utf8PropertyName, out JsonElement property)
-                ? new JsonInteger(property)
+            parentDocument.ValueKind != JsonValueKind.Undefined ?
+                (parentDocument.TryGetProperty(utf8PropertyName, out JsonElement property)
+                    ? new JsonInteger(property)
+                    : Null)
                 : Null;
 
         /// <summary>

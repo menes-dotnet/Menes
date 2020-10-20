@@ -26,10 +26,11 @@ namespace Menes.JsonSchemaTypeGenerator
         /// Initializes a new instance of the <see cref="TypeGeneratorJsonSchemaVisitor"/> class.
         /// </summary>
         /// <param name="documentResolver">The document resolver to use.</param>
+        /// <param name="baseUri">The base URI.</param>
         /// <param name="root">The root json document.</param>
         /// <param name="uriToNamespaceMap">A map of uri stems to typenames.</param>
-        public TypeGeneratorJsonSchemaVisitor(IDocumentResolver documentResolver, JsonDocument root, params (string, string)[] uriToNamespaceMap)
-            : base(documentResolver, root)
+        public TypeGeneratorJsonSchemaVisitor(IDocumentResolver documentResolver, string baseUri, JsonDocument root, params (string, string)[] uriToNamespaceMap)
+            : base(documentResolver, baseUri, root)
         {
             this.uriToNamespaceMap = uriToNamespaceMap.Select(k => (k.Item1.AsMemory(), k.Item2.AsMemory())).ToList();
         }
@@ -283,6 +284,8 @@ namespace Menes.JsonSchemaTypeGenerator
             validatedJsonValueTypeDeclaration.MinLengthValidation = schema.MinLength;
             validatedJsonValueTypeDeclaration.MultipleOfValidation = schema.MultipleOf;
             validatedJsonValueTypeDeclaration.NotTypeValidation = this.GetTypeDeclarationFor(schema.Not);
+
+            // TODO: building an array of type delcarations for OneOf
         }
 
         private ITypeDeclaration GetTypeDeclarationFor(Schema.SchemaOrReference? schemaOrReference)

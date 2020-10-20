@@ -6,6 +6,7 @@ namespace Menes.Sandbox
 {
     using System;
     using System.Buffers;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Text;
     using System.Text.Json;
@@ -24,34 +25,36 @@ namespace Menes.Sandbox
     /// </summary>
     public static class Program
     {
+        private static HashSet<string> schemasBeingWritten = new HashSet<string>();
+
         /// <summary>
         /// Main entry point.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         public static Task Main()
         {
-            var builder = new StringBuilder();
-            StringFormatter.FormatUriAsFullyQualifiedName("c:\\some\\location\\myProperty.json", builder);
-            Console.WriteLine(builder.ToString());
-            builder.Clear();
-            StringFormatter.FormatUriAsFullyQualifiedName("https://endjin.com:8080/some/location/myProperty.json", builder);
-            Console.WriteLine(builder.ToString());
-            builder.Clear();
-            StringFormatter.FormatFragmentAsFullyQualifiedName("/components/schema/someType", builder);
-            Console.WriteLine(builder.ToString());
-            builder.Clear();
-            StringFormatter.FormatUriAsFullyQualifiedName("https://endjin.com/foo", builder);
-            Console.WriteLine(builder.ToString());
+            ////var builder = new StringBuilder();
+            ////StringFormatter.FormatUriAsFullyQualifiedName("c:\\some\\location\\myProperty.json", builder);
+            ////Console.WriteLine(builder.ToString());
+            ////builder.Clear();
+            ////StringFormatter.FormatUriAsFullyQualifiedName("https://endjin.com:8080/some/location/myProperty.json", builder);
+            ////Console.WriteLine(builder.ToString());
+            ////builder.Clear();
+            ////StringFormatter.FormatFragmentAsFullyQualifiedName("/components/schema/someType", builder);
+            ////Console.WriteLine(builder.ToString());
+            ////builder.Clear();
+            ////StringFormatter.FormatUriAsFullyQualifiedName("https://endjin.com/foo", builder);
+            ////Console.WriteLine(builder.ToString());
 
             ////SimpleExamples();
             ////GenerateJsonSchemaModel();
-            return UseJsonSchemaModel();
+            return UseJsonSchemaModel("exampleschema2.json");
             ////return Task.CompletedTask;
         }
 
-        private static async Task UseJsonSchemaModel()
+        private static async Task UseJsonSchemaModel(string uri)
         {
-            (JsonDocument root, Schema schema) = await DocumentResolver.Default.LoadSchema("exampleschema.json").ConfigureAwait(false);
+            (string baseUri, JsonDocument root, Schema schema) = await DocumentResolver.Default.LoadSchema(uri).ConfigureAwait(false);
 
             ValidationContext validationContext = ValidationContext.Root;
             validationContext = schema.Validate(validationContext);
@@ -64,7 +67,7 @@ namespace Menes.Sandbox
                 validationContext.Errors.ForEach(p => Console.WriteLine($"{p.path}: {p.error}"));
             }
 
-            await RecursiveWriteSchema(root, schema, DocumentResolver.Default).ConfigureAwait(false);
+            await RecursiveWriteSchema(baseUri, string.Empty, root, schema, DocumentResolver.Default).ConfigureAwait(false);
 
             Serialize(schema);
         }
@@ -255,27 +258,57 @@ namespace Menes.Sandbox
             }
         }
 
-        private static async Task RecursiveWriteSchema(JsonDocument root, Schema schema, IDocumentResolver resolver)
+        private static async Task RecursiveWriteSchema(string baseUri, string pointer, JsonDocument root, Schema schema, IDocumentResolver resolver)
         {
-            Console.WriteLine($"type, {schema.Type}");
-            Console.WriteLine($"required, {schema.Required}");
-            Console.WriteLine($"uniqueItems, {schema.UniqueItems}");
+            if (schemasBeingWritten.Contains(schema.Id ?? "unknown"))
+            {
+                Console.Write("{...}, ");
+                return;
+            }
+
+            if (schema.Id is JsonString id)
+            {
+                schemasBeingWritten.Add(id);
+            }
+
+            Console.Write("{");
+            if (schema.Type.HasValue)
+            {
+                Console.Write($"'type': {schema.Type}, ");
+            }
+
+            if (schema.Required.HasValue)
+            {
+                Console.Write($"'required': {schema.Required}, ");
+            }
+
+            if (schema.UniqueItems.HasValue)
+            {
+                Console.Write($"'uniqueItems': {schema.UniqueItems}, ");
+            }
 
             if (schema.Properties is Schema.SchemaProperties properties)
             {
                 JsonProperties<Schema.SchemaOrReference>.JsonPropertyEnumerator propertiesEnumerator = properties.JsonAdditionalProperties;
                 while (propertiesEnumerator.MoveNext())
                 {
-                    Console.Write($"{propertiesEnumerator.Current.Name}, ");
-                    (JsonDocument childDoc, Schema.SchemaOrReference childSchema) = await propertiesEnumerator.Current.AsValue().Resolve(root, resolver);
-                    await RecursiveWriteSchema(childDoc, childSchema.AsSchema(), resolver).ConfigureAwait(false);
+                    Console.Write($"'{propertiesEnumerator.Current.Name}': ");
+                    (string childBaseUri, JsonDocument childDoc, Schema.SchemaOrReference childSchema) = await propertiesEnumerator.Current.AsValue().Resolve(baseUri, pointer + "/" + propertiesEnumerator.Current.Name, root, resolver);
+                    await RecursiveWriteSchema(childBaseUri, pointer + "." + propertiesEnumerator.Current.Name, childDoc, childSchema.AsSchema(), resolver).ConfigureAwait(false);
                 }
             }
 
             JsonProperties<JsonAny>.JsonPropertyEnumerator additionalProperties = schema.JsonAdditionalProperties.GetEnumerator();
             while (additionalProperties.MoveNext())
             {
-                Console.WriteLine($"{additionalProperties.Current.Name}, {additionalProperties.Current.AsValue()}");
+                Console.Write($"'{additionalProperties.Current.Name}': {additionalProperties.Current.AsValue()}, ");
+            }
+
+            Console.Write("}, ");
+
+            if (schema.Id is JsonString id2)
+            {
+                schemasBeingWritten.Remove(id2);
             }
         }
     }

@@ -17,20 +17,38 @@ namespace Menes.JsonSchema
         /// Resolves the schema in a schema or reference.
         /// </summary>
         /// <param name="schemaToResolve">The schema or reference to resolve.</param>
+        /// <param name="baseUri">The current base URI.</param>
+        /// <param name="currentPointer">The current path in the document.</param>
         /// <param name="root">The root document for this schema instance.</param>
         /// <param name="documentResolver">The document resolver that can load a document from a json reference.</param>
         /// <returns>The resolved reference.</returns>
         /// <remarks>If any additional documents were loaded as part of this exercise, they will be added to the collection.</remarks>
-        public static async ValueTask<(JsonDocument, Schema.SchemaOrReference)> Resolve(this Schema.SchemaOrReference schemaToResolve, JsonDocument root, IDocumentResolver documentResolver)
+        public static async ValueTask<(string uri, JsonDocument document, Schema.SchemaOrReference reference)> Resolve(this Schema.SchemaOrReference schemaToResolve, string baseUri, string currentPointer, JsonDocument root, IDocumentResolver documentResolver)
         {
-            if (schemaToResolve.IsNull || schemaToResolve.IsSchema)
+            if (schemaToResolve.IsNull)
             {
-                return (root, schemaToResolve);
+                return (baseUri, root, schemaToResolve);
             }
 
-            var reference = new JsonRef(schemaToResolve.AsSchemaReference().Ref);
+            if (schemaToResolve.IsSchemaReference)
+            {
+                var reference = new JsonRef(schemaToResolve.AsSchemaReference().Ref);
+                if (!reference.HasUri)
+                {
+                    reference = reference.WithUri(baseUri);
+                }
 
-            return await ResolveReference(reference, root, documentResolver).ConfigureAwait(false);
+                return await ResolveReference(reference, root, documentResolver).ConfigureAwait(false);
+            }
+
+            Schema schema = schemaToResolve.AsSchema();
+
+            if (schema.Id is null)
+            {
+                return (baseUri, root, new Schema.SchemaOrReference(schema.WithId(new JsonRef(baseUri, currentPointer).ToString())));
+            }
+
+            return (baseUri, root, schemaToResolve);
         }
 
         /// <summary>
@@ -39,12 +57,12 @@ namespace Menes.JsonSchema
         /// <param name="reference">The JSON reference to resolve.</param>
         /// <param name="documentResolver">The document resolver.</param>
         /// <returns>A <see cref="ValueTask"/> that provides the <see cref="Schema.SchemaOrReference"/>.</returns>
-        public static ValueTask<(JsonDocument, Schema.SchemaOrReference)> Resolve(this JsonRef reference, IDocumentResolver documentResolver)
+        public static ValueTask<(string, JsonDocument, Schema.SchemaOrReference)> Resolve(this JsonRef reference, IDocumentResolver documentResolver)
         {
             return ResolveReference(reference, null, documentResolver);
         }
 
-        private static async ValueTask<(JsonDocument, Schema.SchemaOrReference)> ResolveReference(JsonRef reference, JsonDocument? root, IDocumentResolver documentResolver)
+        private static async ValueTask<(string, JsonDocument, Schema.SchemaOrReference)> ResolveReference(JsonRef reference, JsonDocument? root, IDocumentResolver documentResolver)
         {
             JsonDocument? document = root;
 
@@ -58,7 +76,7 @@ namespace Menes.JsonSchema
                 throw new JsonSchemaException($"Unable to resolve the document at URI {reference.Uri.ToString()}");
             }
 
-            return (document, ResolveSchema(document, reference));
+            return (reference.Uri.ToString(), document, ResolveSchema(document, reference));
         }
 
         private static Schema.SchemaOrReference ResolveSchema(JsonDocument document, JsonRef reference)

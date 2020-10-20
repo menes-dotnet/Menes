@@ -4,6 +4,7 @@
 
 namespace Menes.JsonSchema
 {
+    using System;
     using System.Text.Json;
     using System.Threading.Tasks;
 
@@ -28,20 +29,19 @@ namespace Menes.JsonSchema
 
                 if (this.ResolveReferences)
                 {
-                    JsonDocument document;
+                    (string uri, JsonDocument document) previous = this.DocumentStack.Peek();
+                    (string uri, JsonDocument document, Schema.SchemaOrReference schemaOrReference) result = await schemaOrReference.Resolve(previous.uri, this.Path, previous.document, this.DocumentResolver).ConfigureAwait(false);
 
-                    (document, schemaOrReference) = await schemaOrReference.Resolve(this.DocumentStack.Peek(), this.DocumentResolver).ConfigureAwait(false);
-
-                    if (this.DocumentStack.Peek() != document)
+                    if (result.document != previous.document)
                     {
-                        this.DocumentStack.Push(document);
+                        this.DocumentStack.Push((result.uri, result.document));
                         pushedDocument = true;
                     }
 
                     wasUpdated = true;
                 }
 
-                if (schemaOrReference.IsSchema)
+                if (!schemaOrReference.IsSchemaReference)
                 {
                     (bool wasSchemaUpdated, Schema? updatedSchema) = await this.VisitSchema(schemaOrReference.AsSchema()).ConfigureAwait(false);
 

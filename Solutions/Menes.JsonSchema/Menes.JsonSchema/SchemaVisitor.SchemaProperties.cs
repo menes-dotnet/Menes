@@ -30,7 +30,7 @@ namespace Menes.JsonSchema
             int index = 0;
             foreach (JsonPropertyReference<Schema.SchemaOrReference> property in schemaProperties.JsonAdditionalProperties)
             {
-                this.PushPointerElement($"[{index}]");
+                this.PushPointerElement($"{property.Name}");
                 (bool updatedSchema, Schema.SchemaOrReference? schemaOrReference) = await this.VisitSchemaOrReference(property.AsValue()).ConfigureAwait(false);
 
                 if (updatedSchema)

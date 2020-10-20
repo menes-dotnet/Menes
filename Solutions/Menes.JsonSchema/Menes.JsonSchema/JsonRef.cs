@@ -27,6 +27,50 @@ namespace Menes.JsonSchema
         /// <summary>
         /// Initializes a new instance of the <see cref="JsonRef"/> struct.
         /// </summary>
+        /// <param name="uri">The uri component of the reference.</param>
+        /// <param name="pointer">The pointer component of the reference.</param>
+        public JsonRef(string uri, string pointer)
+            : this(uri.AsMemory(), pointer.AsMemory())
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="JsonRef"/> struct.
+        /// </summary>
+        /// <param name="uri">The uri component of the reference.</param>
+        /// <param name="pointer">The pointer component of the reference.</param>
+        public JsonRef(ReadOnlyMemory<char> uri, ReadOnlyMemory<char> pointer)
+            : this(uri.Span, pointer.Span)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="JsonRef"/> struct.
+        /// </summary>
+        /// <param name="uri">The uri component of the reference.</param>
+        /// <param name="pointer">The pointer component of the reference.</param>
+        public JsonRef(ReadOnlySpan<char> uri, ReadOnlySpan<char> pointer)
+        {
+            int extra = (pointer.Length == 0 || pointer[0] == '#') ? 0 : 1;
+            Memory<char> result = new char[uri.Length + pointer.Length + extra];
+            this.hashIndex = pointer.Length == 0 ? -1 : uri.Length;
+            uri.CopyTo(result.Span);
+            if (extra == 1)
+            {
+                result.Span[this.hashIndex] = '#';
+            }
+
+            if (pointer.Length > 0)
+            {
+                pointer.CopyTo(result.Span.Slice(this.hashIndex + extra));
+            }
+
+            this.reference = result;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="JsonRef"/> struct.
+        /// </summary>
         /// <param name="reference">The reference as a string.</param>
         public JsonRef(ReadOnlyMemory<char> reference)
         {
@@ -72,6 +116,46 @@ namespace Menes.JsonSchema
         public static implicit operator JsonRef(ReadOnlyMemory<char> reference)
         {
             return new JsonRef(reference);
+        }
+
+        /// <summary>
+        /// Copy the reference with a different URI.
+        /// </summary>
+        /// <param name="baseUri">The new base URI.</param>
+        /// <returns>The updated reference.</returns>
+        public JsonRef WithUri(string baseUri)
+        {
+            return new JsonRef(baseUri.AsSpan(), this.Pointer);
+        }
+
+        /// <summary>
+        /// Copy the reference with a different URI.
+        /// </summary>
+        /// <param name="baseUri">The new base URI.</param>
+        /// <returns>The updated reference.</returns>
+        public JsonRef WithUri(ReadOnlySpan<char> baseUri)
+        {
+            return new JsonRef(baseUri, this.Pointer);
+        }
+
+        /// <summary>
+        /// Copy the reference with a different pointer.
+        /// </summary>
+        /// <param name="pointer">The new pointer.</param>
+        /// <returns>The updated reference.</returns>
+        public JsonRef WithPointer(string pointer)
+        {
+            return new JsonRef(this.Uri, pointer.AsSpan());
+        }
+
+        /// <summary>
+        /// Copy the reference with a different pointer.
+        /// </summary>
+        /// <param name="pointer">The new pointer.</param>
+        /// <returns>The updated reference.</returns>
+        public JsonRef WithPointer(ReadOnlySpan<char> pointer)
+        {
+            return new JsonRef(this.Uri, pointer);
         }
 
         /// <inheritdoc/>

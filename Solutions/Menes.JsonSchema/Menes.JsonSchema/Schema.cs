@@ -1429,19 +1429,19 @@ namespace Menes.JsonSchema
             return jsonElement.ValueKind == System.Text.Json.JsonValueKind.Object || jsonElement.ValueKind == System.Text.Json.JsonValueKind.Null;
         }
         public static Schema FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<char> propertyName) =>
-           parentDocument.ValueKind == System.Text.Json.JsonValueKind.Undefined ?
+           parentDocument.ValueKind != System.Text.Json.JsonValueKind.Undefined ?
                 (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
                     ? new Schema(property)
                     : Null)
                 : Null;
         public static Schema FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, string propertyName) =>
-           parentDocument.ValueKind == System.Text.Json.JsonValueKind.Undefined ?
+           parentDocument.ValueKind != System.Text.Json.JsonValueKind.Undefined ?
                 (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
                     ? new Schema(property)
                     : Null)
                 : Null;
         public static Schema FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<byte> utf8PropertyName) =>
-           parentDocument.ValueKind == System.Text.Json.JsonValueKind.Undefined ?
+           parentDocument.ValueKind != System.Text.Json.JsonValueKind.Undefined ?
                 (parentDocument.TryGetProperty(utf8PropertyName, out System.Text.Json.JsonElement property)
                     ? new Schema(property)
                     : Null)
@@ -2209,19 +2209,19 @@ namespace Menes.JsonSchema
                 return jsonElement.ValueKind == System.Text.Json.JsonValueKind.Object || jsonElement.ValueKind == System.Text.Json.JsonValueKind.Null;
             }
             public static Schema.SchemaReference FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<char> propertyName) =>
-               parentDocument.ValueKind == System.Text.Json.JsonValueKind.Undefined ?
+               parentDocument.ValueKind != System.Text.Json.JsonValueKind.Undefined ?
                     (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
                         ? new Schema.SchemaReference(property)
                         : Null)
                     : Null;
             public static Schema.SchemaReference FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, string propertyName) =>
-               parentDocument.ValueKind == System.Text.Json.JsonValueKind.Undefined ?
+               parentDocument.ValueKind != System.Text.Json.JsonValueKind.Undefined ?
                     (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
                         ? new Schema.SchemaReference(property)
                         : Null)
                     : Null;
             public static Schema.SchemaReference FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<byte> utf8PropertyName) =>
-               parentDocument.ValueKind == System.Text.Json.JsonValueKind.Undefined ?
+               parentDocument.ValueKind != System.Text.Json.JsonValueKind.Undefined ?
                     (parentDocument.TryGetProperty(utf8PropertyName, out System.Text.Json.JsonElement property)
                         ? new Schema.SchemaReference(property)
                         : Null)
@@ -2322,16 +2322,22 @@ namespace Menes.JsonSchema
             public static explicit operator Schema.SchemaReference(SchemaOrReference value) => value.AsSchemaReference();
             public static implicit operator SchemaOrReference(Schema.SchemaReference value) => new SchemaOrReference(value);
             public static SchemaOrReference FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<char> propertyName) =>
-                parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
-                    ? new SchemaOrReference(property)
+               parentDocument.ValueKind != System.Text.Json.JsonValueKind.Undefined ?
+                    (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
+                        ? new SchemaOrReference(property)
+                        : Null)
                     : Null;
             public static SchemaOrReference FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, string propertyName) =>
-                parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
-                    ? new SchemaOrReference(property)
+               parentDocument.ValueKind != System.Text.Json.JsonValueKind.Undefined ?
+                    (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
+                        ? new SchemaOrReference(property)
+                        : Null)
                     : Null;
             public static SchemaOrReference FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<byte> utf8PropertyName) =>
-                parentDocument.TryGetProperty(utf8PropertyName, out System.Text.Json.JsonElement property)
-                    ? new SchemaOrReference(property)
+               parentDocument.ValueKind != System.Text.Json.JsonValueKind.Undefined ?
+                    (parentDocument.TryGetProperty(utf8PropertyName, out System.Text.Json.JsonElement property)
+                        ? new SchemaOrReference(property)
+                        : Null)
                     : Null;
             public static bool IsConvertibleFrom(System.Text.Json.JsonElement jsonElement)
             {
@@ -2467,16 +2473,22 @@ namespace Menes.JsonSchema
                 return Menes.JsonString.IsConvertibleFrom(jsonElement);
             }
             public static TypeEnum FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<char> propertyName) =>
-                parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
-                    ? TypeEnum.FromJsonElement(property)
+               parentDocument.ValueKind != System.Text.Json.JsonValueKind.Undefined ?
+                    (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
+                        ? new TypeEnum(property)
+                        : Null)
                     : Null;
             public static TypeEnum FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, string propertyName) =>
-                parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
-                    ? TypeEnum.FromJsonElement(property)
+               parentDocument.ValueKind != System.Text.Json.JsonValueKind.Undefined ?
+                    (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
+                        ? new TypeEnum(property)
+                        : Null)
                     : Null;
             public static TypeEnum FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<byte> utf8PropertyName) =>
-                parentDocument.TryGetProperty(utf8PropertyName, out System.Text.Json.JsonElement property)
-                    ? TypeEnum.FromJsonElement(property)
+               parentDocument.ValueKind != System.Text.Json.JsonValueKind.Undefined ?
+                    (parentDocument.TryGetProperty(utf8PropertyName, out System.Text.Json.JsonElement property)
+                        ? new TypeEnum(property)
+                        : Null)
                     : Null;
             public bool Equals(TypeEnum other)
             {
@@ -2624,16 +2636,22 @@ namespace Menes.JsonSchema
                 return Menes.JsonNumber.IsConvertibleFrom(jsonElement);
             }
             public static PositiveNumber FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<char> propertyName) =>
-                parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
-                    ? PositiveNumber.FromJsonElement(property)
+               parentDocument.ValueKind != System.Text.Json.JsonValueKind.Undefined ?
+                    (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
+                        ? new PositiveNumber(property)
+                        : Null)
                     : Null;
             public static PositiveNumber FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, string propertyName) =>
-                parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
-                    ? PositiveNumber.FromJsonElement(property)
+               parentDocument.ValueKind != System.Text.Json.JsonValueKind.Undefined ?
+                    (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
+                        ? new PositiveNumber(property)
+                        : Null)
                     : Null;
             public static PositiveNumber FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<byte> utf8PropertyName) =>
-                parentDocument.TryGetProperty(utf8PropertyName, out System.Text.Json.JsonElement property)
-                    ? PositiveNumber.FromJsonElement(property)
+               parentDocument.ValueKind != System.Text.Json.JsonValueKind.Undefined ?
+                    (parentDocument.TryGetProperty(utf8PropertyName, out System.Text.Json.JsonElement property)
+                        ? new PositiveNumber(property)
+                        : Null)
                     : Null;
             public bool Equals(PositiveNumber other)
             {
@@ -2749,16 +2767,22 @@ namespace Menes.JsonSchema
                 return Menes.JsonInteger.IsConvertibleFrom(jsonElement);
             }
             public static NonNegativeInteger FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<char> propertyName) =>
-                parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
-                    ? NonNegativeInteger.FromJsonElement(property)
+               parentDocument.ValueKind != System.Text.Json.JsonValueKind.Undefined ?
+                    (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
+                        ? new NonNegativeInteger(property)
+                        : Null)
                     : Null;
             public static NonNegativeInteger FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, string propertyName) =>
-                parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
-                    ? NonNegativeInteger.FromJsonElement(property)
+               parentDocument.ValueKind != System.Text.Json.JsonValueKind.Undefined ?
+                    (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
+                        ? new NonNegativeInteger(property)
+                        : Null)
                     : Null;
             public static NonNegativeInteger FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<byte> utf8PropertyName) =>
-                parentDocument.TryGetProperty(utf8PropertyName, out System.Text.Json.JsonElement property)
-                    ? NonNegativeInteger.FromJsonElement(property)
+               parentDocument.ValueKind != System.Text.Json.JsonValueKind.Undefined ?
+                    (parentDocument.TryGetProperty(utf8PropertyName, out System.Text.Json.JsonElement property)
+                        ? new NonNegativeInteger(property)
+                        : Null)
                     : Null;
             public bool Equals(NonNegativeInteger other)
             {
@@ -2851,16 +2875,22 @@ namespace Menes.JsonSchema
                 return Menes.JsonArray<Menes.JsonString>.IsConvertibleFrom(jsonElement);
             }
             public static ValidatedArrayOfJsonString FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<char> propertyName) =>
-                parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
-                    ? ValidatedArrayOfJsonString.FromJsonElement(property)
+               parentDocument.ValueKind != System.Text.Json.JsonValueKind.Undefined ?
+                    (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
+                        ? new ValidatedArrayOfJsonString(property)
+                        : Null)
                     : Null;
             public static ValidatedArrayOfJsonString FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, string propertyName) =>
-                parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
-                    ? ValidatedArrayOfJsonString.FromJsonElement(property)
+               parentDocument.ValueKind != System.Text.Json.JsonValueKind.Undefined ?
+                    (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
+                        ? new ValidatedArrayOfJsonString(property)
+                        : Null)
                     : Null;
             public static ValidatedArrayOfJsonString FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<byte> utf8PropertyName) =>
-                parentDocument.TryGetProperty(utf8PropertyName, out System.Text.Json.JsonElement property)
-                    ? ValidatedArrayOfJsonString.FromJsonElement(property)
+               parentDocument.ValueKind != System.Text.Json.JsonValueKind.Undefined ?
+                    (parentDocument.TryGetProperty(utf8PropertyName, out System.Text.Json.JsonElement property)
+                        ? new ValidatedArrayOfJsonString(property)
+                        : Null)
                     : Null;
             public bool Equals(ValidatedArrayOfJsonString other)
             {
@@ -2945,16 +2975,22 @@ namespace Menes.JsonSchema
                 return Menes.JsonArray<Schema.SchemaOrReference>.IsConvertibleFrom(jsonElement);
             }
             public static ValidatedArrayOfSchemaOrReference FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<char> propertyName) =>
-                parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
-                    ? ValidatedArrayOfSchemaOrReference.FromJsonElement(property)
+               parentDocument.ValueKind != System.Text.Json.JsonValueKind.Undefined ?
+                    (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
+                        ? new ValidatedArrayOfSchemaOrReference(property)
+                        : Null)
                     : Null;
             public static ValidatedArrayOfSchemaOrReference FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, string propertyName) =>
-                parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
-                    ? ValidatedArrayOfSchemaOrReference.FromJsonElement(property)
+               parentDocument.ValueKind != System.Text.Json.JsonValueKind.Undefined ?
+                    (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
+                        ? new ValidatedArrayOfSchemaOrReference(property)
+                        : Null)
                     : Null;
             public static ValidatedArrayOfSchemaOrReference FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<byte> utf8PropertyName) =>
-                parentDocument.TryGetProperty(utf8PropertyName, out System.Text.Json.JsonElement property)
-                    ? ValidatedArrayOfSchemaOrReference.FromJsonElement(property)
+               parentDocument.ValueKind != System.Text.Json.JsonValueKind.Undefined ?
+                    (parentDocument.TryGetProperty(utf8PropertyName, out System.Text.Json.JsonElement property)
+                        ? new ValidatedArrayOfSchemaOrReference(property)
+                        : Null)
                     : Null;
             public bool Equals(ValidatedArrayOfSchemaOrReference other)
             {
@@ -3080,19 +3116,19 @@ namespace Menes.JsonSchema
                 return jsonElement.ValueKind == System.Text.Json.JsonValueKind.Object || jsonElement.ValueKind == System.Text.Json.JsonValueKind.Null;
             }
             public static Schema.SchemaProperties FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<char> propertyName) =>
-               parentDocument.ValueKind == System.Text.Json.JsonValueKind.Undefined ?
+               parentDocument.ValueKind != System.Text.Json.JsonValueKind.Undefined ?
                     (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
                         ? new Schema.SchemaProperties(property)
                         : Null)
                     : Null;
             public static Schema.SchemaProperties FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, string propertyName) =>
-               parentDocument.ValueKind == System.Text.Json.JsonValueKind.Undefined ?
+               parentDocument.ValueKind != System.Text.Json.JsonValueKind.Undefined ?
                     (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
                         ? new Schema.SchemaProperties(property)
                         : Null)
                     : Null;
             public static Schema.SchemaProperties FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<byte> utf8PropertyName) =>
-               parentDocument.ValueKind == System.Text.Json.JsonValueKind.Undefined ?
+               parentDocument.ValueKind != System.Text.Json.JsonValueKind.Undefined ?
                     (parentDocument.TryGetProperty(utf8PropertyName, out System.Text.Json.JsonElement property)
                         ? new Schema.SchemaProperties(property)
                         : Null)
@@ -3247,16 +3283,22 @@ namespace Menes.JsonSchema
             public static explicit operator Menes.JsonBoolean(SchemaAdditionalProperties value) => value.AsJsonBoolean();
             public static implicit operator SchemaAdditionalProperties(Menes.JsonBoolean value) => new SchemaAdditionalProperties(value);
             public static SchemaAdditionalProperties FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<char> propertyName) =>
-                parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
-                    ? new SchemaAdditionalProperties(property)
+               parentDocument.ValueKind != System.Text.Json.JsonValueKind.Undefined ?
+                    (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
+                        ? new SchemaAdditionalProperties(property)
+                        : Null)
                     : Null;
             public static SchemaAdditionalProperties FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, string propertyName) =>
-                parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
-                    ? new SchemaAdditionalProperties(property)
+               parentDocument.ValueKind != System.Text.Json.JsonValueKind.Undefined ?
+                    (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
+                        ? new SchemaAdditionalProperties(property)
+                        : Null)
                     : Null;
             public static SchemaAdditionalProperties FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<byte> utf8PropertyName) =>
-                parentDocument.TryGetProperty(utf8PropertyName, out System.Text.Json.JsonElement property)
-                    ? new SchemaAdditionalProperties(property)
+               parentDocument.ValueKind != System.Text.Json.JsonValueKind.Undefined ?
+                    (parentDocument.TryGetProperty(utf8PropertyName, out System.Text.Json.JsonElement property)
+                        ? new SchemaAdditionalProperties(property)
+                        : Null)
                     : Null;
             public static bool IsConvertibleFrom(System.Text.Json.JsonElement jsonElement)
             {

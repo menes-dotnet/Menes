@@ -150,8 +150,10 @@ namespace Menes
         /// </param>
         /// <returns>A <see cref="JsonArray{TItem}"/> or null.</returns>
         public static JsonArray<TItem> FromOptionalProperty(in JsonElement parentDocument, ReadOnlySpan<char> propertyName) =>
-            parentDocument.TryGetProperty(propertyName, out JsonElement property)
-                ? JsonArray<TItem>.FromJsonElement(property)
+            parentDocument.ValueKind != JsonValueKind.Undefined ?
+                (parentDocument.TryGetProperty(propertyName, out JsonElement property)
+                    ? new JsonArray<TItem>(property)
+                    : Null)
                 : Null;
 
         /// <summary>
@@ -163,8 +165,10 @@ namespace Menes
         /// </param>
         /// <returns>A <see cref="JsonArray{TItem}"/> or null.</returns>
         public static JsonArray<TItem> FromOptionalProperty(in JsonElement parentDocument, string propertyName) =>
-            parentDocument.TryGetProperty(propertyName, out JsonElement property)
-                ? JsonArray<TItem>.FromJsonElement(property)
+            parentDocument.ValueKind != JsonValueKind.Undefined ?
+                (parentDocument.TryGetProperty(propertyName, out JsonElement property)
+                    ? new JsonArray<TItem>(property)
+                    : Null)
                 : Null;
 
         /// <summary>
@@ -176,8 +180,10 @@ namespace Menes
         /// </param>
         /// <returns>A <see cref="JsonArray{TItem}"/> or null.</returns>
         public static JsonArray<TItem> FromOptionalProperty(in JsonElement parentDocument, ReadOnlySpan<byte> utf8PropertyName) =>
-            parentDocument.TryGetProperty(utf8PropertyName, out JsonElement property)
-                ? JsonArray<TItem>.FromJsonElement(property)
+            parentDocument.ValueKind != JsonValueKind.Undefined ?
+                (parentDocument.TryGetProperty(utf8PropertyName, out JsonElement property)
+                    ? new JsonArray<TItem>(property)
+                    : Null)
                 : Null;
 
         /// <summary>

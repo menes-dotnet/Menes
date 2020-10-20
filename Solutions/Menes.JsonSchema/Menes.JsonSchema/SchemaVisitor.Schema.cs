@@ -4,6 +4,7 @@
 
 namespace Menes.JsonSchema
 {
+    using System.Collections.Generic;
     using System.Threading.Tasks;
 
     /// <summary>
@@ -11,17 +12,32 @@ namespace Menes.JsonSchema
     /// </summary>
     public partial class SchemaVisitor
     {
+        private readonly HashSet<string> schemasBeingVisited = new HashSet<string>();
+
         /// <summary>
         /// Visit a schema node.
         /// </summary>
-        /// <param name="schemaToUpdate">The schema to visit.</param>
+        /// <param name="schemaToVisit">The schema to visit.</param>
         /// <returns>A tuple of <c>True</c> if the schema was updated, and the updated <see cref="Schema"/>.</returns>
-        public virtual async ValueTask<(bool, Schema?)> VisitSchema(Schema? schemaToUpdate)
+        public virtual async ValueTask<(bool, Schema?)> VisitSchema(Schema? schemaToVisit)
         {
-            Schema? updatedSchema = schemaToUpdate;
+            Schema? updatedSchema = schemaToVisit;
             bool wasUpdated = false;
             if (updatedSchema is Schema schema)
             {
+                string? pushedId = null;
+                if (schema.Id is JsonString id)
+                {
+                    // Prevent it recursing into a schema we are currently visiting.
+                    if (this.schemasBeingVisited.Contains(id))
+                    {
+                        return (false, schemaToVisit);
+                    }
+
+                    pushedId = id;
+                    this.schemasBeingVisited.Add(id);
+                }
+
                 this.PushPointerElement("#");
 
                 this.PushPointerElement("additionalProperties");
@@ -400,6 +416,11 @@ namespace Menes.JsonSchema
                 this.PopPointerElement();
 
                 updatedSchema = schema;
+
+                if (pushedId is string pid)
+                {
+                    this.schemasBeingVisited.Remove(pid);
+                }
             }
 
             return (wasUpdated, updatedSchema);

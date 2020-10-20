@@ -28,7 +28,7 @@ namespace Menes.JsonSchema
                 int index = 0;
                 foreach (Schema.SchemaOrReference schemaOrReferenceToUpdate in arrayOfSchemaOrReference)
                 {
-                    this.PushPointerElement($"[{index}]");
+                    this.PushPointerElement($"{index}");
                     (bool wasUpdatedSchemaOrReference, Schema.SchemaOrReference? updatedSchemaOrReference) = await this.VisitSchemaOrReference(schemaOrReferenceToUpdate).ConfigureAwait(false);
                     if (wasUpdatedSchemaOrReference)
                     {
