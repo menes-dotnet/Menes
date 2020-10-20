@@ -15,6 +15,7 @@ paths:
         description: The id of the pet to retrieve
         schema:
           type: string
+          default: "abcdefg"
     get:
       summary: Info for a specific pet
       operationId: showPetById
