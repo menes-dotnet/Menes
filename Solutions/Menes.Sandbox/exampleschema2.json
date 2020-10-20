@@ -1,10 +1,10 @@
 {
-  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$schema": "http://json-schema.org/draft/2019-09/#",
   "title": "Person",
   "type": "object",
   "properties": {
     "anotherPerson": {
-      "$ref":  "#"
+      "$ref": "#"
     },
     "firstName": {
       "type": "string",
