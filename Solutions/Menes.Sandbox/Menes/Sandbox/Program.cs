@@ -59,7 +59,7 @@ namespace Menes.Sandbox
         private static void UseGeneratedCode()
         {
             Person instance = default(Person).WithAge(21);
-            instance = instance.WithContact(JsonAny.From<JsonInt32>(42));
+            instance = instance.WithContact((JsonEmail)"matthew.adams@endjin.com");
             Validate(instance);
         }
 

@@ -15,6 +15,11 @@ namespace Menes.TypeGenerator
         public static readonly JsonValueTypeDeclaration String = new JsonValueTypeDeclaration(typeof(JsonString).Name, new[] { "string" }, ValueKind.String);
 
         /// <summary>
+        /// Get the email type for JSON Schema string.
+        /// </summary>
+        public static readonly JsonValueTypeDeclaration Email = new JsonValueTypeDeclaration(typeof(JsonEmail).Name, new[] { "string" }, ValueKind.String);
+
+        /// <summary>
         /// Get the <see cref="System.Guid"/> type for JSON Schema guid or uuid.
         /// </summary>
         public static readonly JsonValueTypeDeclaration Guid = new JsonValueTypeDeclaration(typeof(JsonGuid).Name, new[] { "string", "System.Guid" }, ValueKind.String);

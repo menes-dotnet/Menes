@@ -16,6 +16,7 @@
       "description": "The person's last name."
     },
     "contact": {
+      "type":  "object",
       "anyOf": [
         {
           "type": "string",
@@ -23,7 +24,7 @@
         },
         {
           "type": "string",
-          "format":  "telephone"
+          "format": "telephone"
         }
       ]
     },

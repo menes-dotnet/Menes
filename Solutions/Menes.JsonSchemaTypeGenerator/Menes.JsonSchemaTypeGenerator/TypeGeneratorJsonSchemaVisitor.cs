@@ -296,7 +296,7 @@ namespace Menes.Json.Schema.TypeGenerator
                         "date-time" => schema.IsValidated() ? new ValidatedJsonValueTypeDeclaration(name, JsonValueTypeDeclaration.DateTime) : (ITypeDeclaration)JsonValueTypeDeclaration.DateTime,
                         "time" => schema.IsValidated() ? new ValidatedJsonValueTypeDeclaration(name, JsonValueTypeDeclaration.Time) : (ITypeDeclaration)JsonValueTypeDeclaration.Time,
                         "date" => schema.IsValidated() ? new ValidatedJsonValueTypeDeclaration(name, JsonValueTypeDeclaration.Date) : (ITypeDeclaration)JsonValueTypeDeclaration.Date,
-                        "email" => schema.IsValidated() ? new ValidatedJsonValueTypeDeclaration(name, JsonValueTypeDeclaration.String) : (ITypeDeclaration)JsonValueTypeDeclaration.String,
+                        "email" => schema.IsValidated() ? new ValidatedJsonValueTypeDeclaration(name, JsonValueTypeDeclaration.Email) : (ITypeDeclaration)JsonValueTypeDeclaration.Email,
                         "idn-email" => schema.IsValidated() ? new ValidatedJsonValueTypeDeclaration(name, JsonValueTypeDeclaration.String) : (ITypeDeclaration)JsonValueTypeDeclaration.String,
                         "hostname" => schema.IsValidated() ? new ValidatedJsonValueTypeDeclaration(name, JsonValueTypeDeclaration.String) : (ITypeDeclaration)JsonValueTypeDeclaration.String,
                         "idn-hostname" => schema.IsValidated() ? new ValidatedJsonValueTypeDeclaration(name, JsonValueTypeDeclaration.String) : (ITypeDeclaration)JsonValueTypeDeclaration.String,

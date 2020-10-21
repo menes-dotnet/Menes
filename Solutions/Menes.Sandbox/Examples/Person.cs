@@ -29,7 +29,7 @@ namespace Examples
         private readonly Menes.JsonReference? anotherPerson;
         private readonly Menes.JsonString? firstName;
         private readonly Menes.JsonString? lastName;
-        private readonly Person.ContactValue? contact;
+        private readonly Person.ContactEntity? contact;
         private readonly Person.AgeValue? age;
         public Person(System.Text.Json.JsonElement jsonElement)
         {
@@ -40,7 +40,7 @@ namespace Examples
             this.contact = null;
             this.age = null;
         }
-        public Person(Person? anotherPerson, Menes.JsonString? firstName, Menes.JsonString? lastName, Person.ContactValue? contact, Person.AgeValue? age)
+        public Person(Person? anotherPerson, Menes.JsonString? firstName, Menes.JsonString? lastName, Person.ContactEntity? contact, Person.AgeValue? age)
         {
             if (anotherPerson is Person item1)
             {
@@ -56,7 +56,7 @@ namespace Examples
             this.age = age;
             this.JsonElement = default;
         }
-        private Person(Menes.JsonReference? anotherPerson, Menes.JsonString? firstName, Menes.JsonString? lastName, Person.ContactValue? contact, Person.AgeValue? age)
+        private Person(Menes.JsonReference? anotherPerson, Menes.JsonString? firstName, Menes.JsonString? lastName, Person.ContactEntity? contact, Person.AgeValue? age)
         {
             if (anotherPerson is Menes.JsonReference item1)
             {
@@ -77,7 +77,7 @@ namespace Examples
         public Person? AnotherPerson => this.anotherPerson?.AsValue<Person>() ?? Person.FromOptionalProperty(this.JsonElement, AnotherPersonPropertyNameBytes.Span).AsOptional;
         public Menes.JsonString? FirstName => this.firstName ?? Menes.JsonString.FromOptionalProperty(this.JsonElement, FirstNamePropertyNameBytes.Span).AsOptional;
         public Menes.JsonString? LastName => this.lastName ?? Menes.JsonString.FromOptionalProperty(this.JsonElement, LastNamePropertyNameBytes.Span).AsOptional;
-        public Person.ContactValue? Contact => this.contact ?? Person.ContactValue.FromOptionalProperty(this.JsonElement, ContactPropertyNameBytes.Span).AsOptional;
+        public Person.ContactEntity? Contact => this.contact ?? Person.ContactEntity.FromOptionalProperty(this.JsonElement, ContactPropertyNameBytes.Span).AsOptional;
         public Person.AgeValue? Age => this.age ?? Person.AgeValue.FromOptionalProperty(this.JsonElement, AgePropertyNameBytes.Span).AsOptional;
         public int PropertiesCount => KnownProperties.Length;
         public bool HasJsonElement => this.JsonElement.ValueKind != System.Text.Json.JsonValueKind.Undefined;
@@ -116,7 +116,7 @@ namespace Examples
         {
             return new Person(this.GetAnotherPerson(), this.FirstName, value, this.Contact, this.Age);
         }
-        public Person WithContact(Person.ContactValue? value)
+        public Person WithContact(Person.ContactEntity? value)
         {
             return new Person(this.GetAnotherPerson(), this.FirstName, this.LastName, value, this.Age);
         }
@@ -148,7 +148,7 @@ namespace Examples
                     writer.WritePropertyName(EncodedLastNamePropertyName);
                     lastName.WriteTo(writer);
                 }
-                if (this.contact is Person.ContactValue contact)
+                if (this.contact is Person.ContactEntity contact)
                 {
                     writer.WritePropertyName(EncodedContactPropertyName);
                     contact.WriteTo(writer);
@@ -188,7 +188,7 @@ namespace Examples
             {
                 context = Menes.Validation.ValidateProperty(context, lastName, LastNamePropertyNamePath);
             }
-            if (this.Contact is Person.ContactValue contact)
+            if (this.Contact is Person.ContactEntity contact)
             {
                 context = Menes.Validation.ValidateProperty(context, contact, ContactPropertyNamePath);
             }
@@ -214,120 +214,149 @@ namespace Examples
             }
             return default;
         }
-        public readonly struct ContactValue : Menes.IJsonValue, System.IEquatable<ContactValue>
+        public readonly struct ContactEntity : Menes.IJsonValue
         {
-            public static readonly System.Func<System.Text.Json.JsonElement, ContactValue> FromJsonElement = e => new ContactValue(e);
-            public static readonly ContactValue Null = new ContactValue(default(System.Text.Json.JsonElement));
-            private static readonly Menes.JsonAny? ConstValue = BuildConstValue();
-            private static readonly System.Collections.Immutable.ImmutableArray<Menes.JsonAny>? EnumValues = BuildEnumValues();
-            private readonly Menes.JsonAny? value;
-            public ContactValue(Menes.JsonAny value)
+            public static readonly ContactEntity Null = new ContactEntity(default(System.Text.Json.JsonElement));
+            public static readonly System.Func<System.Text.Json.JsonElement, Person.ContactEntity> FromJsonElement = e => new Person.ContactEntity(e);
+            private readonly Menes.JsonEmail? item1;
+            private readonly Menes.JsonString? item2;
+            public ContactEntity(Menes.JsonEmail clrInstance)
             {
-                if (value.HasJsonElement)
+                if (clrInstance.HasJsonElement)
                 {
-                    this.JsonElement = value.JsonElement;
-                    this.value = null;
+                    this.JsonElement = clrInstance.JsonElement;
+                    this.item1 = null;
                 }
                 else
                 {
-                    this.value = value;
+                    this.item1 = clrInstance;
                     this.JsonElement = default;
                 }
+                this.item2 = null;
             }
-            public ContactValue(System.Text.Json.JsonElement jsonElement)
+            public ContactEntity(Menes.JsonString clrInstance)
             {
-                this.value = null;
+                if (clrInstance.HasJsonElement)
+                {
+                    this.JsonElement = clrInstance.JsonElement;
+                    this.item2 = null;
+                }
+                else
+                {
+                    this.item2 = clrInstance;
+                    this.JsonElement = default;
+                }
+                this.item1 = null;
+            }
+            public ContactEntity(System.Text.Json.JsonElement jsonElement)
+            {
+                this.item1 = null;
+                this.item2 = null;
                 this.JsonElement = jsonElement;
             }
-            public bool IsNull => this.value == null && (this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Undefined || this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Null);
-            public ContactValue? AsOptional => this.IsNull ? default(ContactValue?) : this;
+            public bool IsNull => this.item1 is null && this.item2 is null && (this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Undefined || this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Null);
+            public ContactEntity? AsOptional => this.IsNull ? default(ContactEntity?) : this;
+            public bool IsJsonEmail => this.item1 is Menes.JsonEmail || (Menes.JsonEmail.IsConvertibleFrom(this.JsonElement) && Menes.JsonEmail.FromJsonElement(this.JsonElement).Validate(Menes.ValidationContext.Root).IsValid);
+            public bool IsJsonString => this.item2 is Menes.JsonString || (Menes.JsonString.IsConvertibleFrom(this.JsonElement) && Menes.JsonString.FromJsonElement(this.JsonElement).Validate(Menes.ValidationContext.Root).IsValid);
             public bool HasJsonElement => this.JsonElement.ValueKind != System.Text.Json.JsonValueKind.Undefined;
             public System.Text.Json.JsonElement JsonElement { get; }
-            public static implicit operator ContactValue(Menes.JsonAny value)
-            {
-                return new ContactValue(value);
-            }
-            public static implicit operator Menes.JsonAny(ContactValue value)
-            {
-                if (value.value is Menes.JsonAny clrValue)
-                {
-                    return clrValue;
-                }
-                return new Menes.JsonAny(value.JsonElement);
-            }
-            public static bool IsConvertibleFrom(System.Text.Json.JsonElement jsonElement)
-            {
-                return Menes.JsonAny.IsConvertibleFrom(jsonElement);
-            }
-            public static ContactValue FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<char> propertyName) =>
+            public static explicit operator Menes.JsonEmail(ContactEntity value) => value.AsJsonEmail();
+            public static implicit operator ContactEntity(Menes.JsonEmail value) => new ContactEntity(value);
+            public static explicit operator Menes.JsonString(ContactEntity value) => value.AsJsonString();
+            public static implicit operator ContactEntity(Menes.JsonString value) => new ContactEntity(value);
+            public static ContactEntity FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<char> propertyName) =>
                parentDocument.ValueKind != System.Text.Json.JsonValueKind.Undefined ?
                     (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
-                        ? new ContactValue(property)
+                        ? new ContactEntity(property)
                         : Null)
                     : Null;
-            public static ContactValue FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, string propertyName) =>
+            public static ContactEntity FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, string propertyName) =>
                parentDocument.ValueKind != System.Text.Json.JsonValueKind.Undefined ?
                     (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
-                        ? new ContactValue(property)
+                        ? new ContactEntity(property)
                         : Null)
                     : Null;
-            public static ContactValue FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<byte> utf8PropertyName) =>
+            public static ContactEntity FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<byte> utf8PropertyName) =>
                parentDocument.ValueKind != System.Text.Json.JsonValueKind.Undefined ?
                     (parentDocument.TryGetProperty(utf8PropertyName, out System.Text.Json.JsonElement property)
-                        ? new ContactValue(property)
+                        ? new ContactEntity(property)
                         : Null)
                     : Null;
-            public bool Equals(ContactValue other)
+            public static bool IsConvertibleFrom(System.Text.Json.JsonElement jsonElement)
             {
-                return this.Equals((Menes.JsonAny)other);
+                if (Menes.JsonEmail.IsConvertibleFrom(jsonElement))
+                {
+                    return true;
+                }
+                if (Menes.JsonString.IsConvertibleFrom(jsonElement))
+                {
+                    return true;
+                }
+                return false;
             }
-            public bool Equals(Menes.JsonAny other)
-            {
-                return ((Menes.JsonAny)this).Equals(other);
-            }
-            public Menes.ValidationContext Validate(in Menes.ValidationContext validationContext)
-            {
-                Menes.JsonAny value = this;
-                Menes.ValidationContext context = validationContext;
-                context = value.Validate(context);
-                Menes.ValidationContext anyOfValidationContext1 = Menes.ValidationContext.Root.WithPath(context.Path);
-                Menes.ValidationContext anyOfValidationContext2 = Menes.ValidationContext.Root.WithPath(context.Path);
-                Menes.JsonString item1 = Menes.JsonAny.From(value).As<Menes.JsonString>();
-                anyOfValidationContext1 = item1.Validate(anyOfValidationContext1);
-                Menes.JsonString item2 = Menes.JsonAny.From(value).As<Menes.JsonString>();
-                anyOfValidationContext2 = item2.Validate(anyOfValidationContext2);
-                context = Menes.Validation.ValidateAnyOf(context, anyOfValidationContext1, anyOfValidationContext2);
-                return context;
-            }
+            public Menes.JsonEmail AsJsonEmail() => this.item1 ?? new Menes.JsonEmail(this.JsonElement);
+            public Menes.JsonString AsJsonString() => this.item2 ?? new Menes.JsonString(this.JsonElement);
             public void WriteTo(System.Text.Json.Utf8JsonWriter writer)
             {
-                if (this.HasJsonElement)
+                if (this.item1 is Menes.JsonEmail item1)
+                {
+                    item1.WriteTo(writer);
+                }
+                else if (this.item2 is Menes.JsonString item2)
+                {
+                    item2.WriteTo(writer);
+                }
+                else
                 {
                     this.JsonElement.WriteTo(writer);
-                }
-                else if (this.value is Menes.JsonAny clrValue)
-                {
-                    clrValue.WriteTo(writer);
                 }
             }
             public override string? ToString()
             {
-                if (this.value is Menes.JsonAny clrValue)
+                var builder = new System.Text.StringBuilder();
+                if (this.IsJsonEmail)
                 {
-                    return clrValue.ToString();
+                    builder.Append("{");
+                    builder.Append("JsonEmail");
+                    builder.Append(", ");
+                    builder.Append(this.AsJsonEmail().ToString());
+                    builder.AppendLine("}");
+                }
+                if (this.IsJsonString)
+                {
+                    builder.Append("{");
+                    builder.Append("JsonString");
+                    builder.Append(", ");
+                    builder.Append(this.AsJsonString().ToString());
+                    builder.AppendLine("}");
+                }
+                return builder.Length > 0 ? builder.ToString() : this.JsonElement.ToString();
+            }
+            public Menes.ValidationContext Validate(in Menes.ValidationContext validationContext)
+            {
+                if (this.IsNull)
+                {
+                    return validationContext;
+                }
+                Menes.ValidationContext validationContext1 = Menes.ValidationContext.Root.WithPath(validationContext.Path);
+                Menes.ValidationContext validationContext2 = Menes.ValidationContext.Root.WithPath(validationContext.Path);
+                if (this.IsJsonEmail)
+                {
+                    validationContext1 = this.AsJsonEmail().Validate(validationContext1);
                 }
                 else
                 {
-                    return this.JsonElement.GetRawText();
+                    validationContext1 = validationContext1.WithError("The value is not convertible to a Menes.JsonEmail.");
                 }
-            }
-            private static Menes.JsonAny? BuildConstValue()
-            {
-                return null;
-            }
-            private static System.Collections.Immutable.ImmutableArray<Menes.JsonAny>? BuildEnumValues()
-            {
-                return null;
+                if (this.IsJsonString)
+                {
+                    validationContext2 = this.AsJsonString().Validate(validationContext2);
+                }
+                else
+                {
+                    validationContext2 = validationContext2.WithError("The value is not convertible to a Menes.JsonString.");
+                }
+                return Menes.Validation.ValidateAnyOf(validationContext, validationContext1, validationContext2);
             }
         }
         public readonly struct AgeValue : Menes.IJsonValue, System.IEquatable<AgeValue>
