@@ -20,6 +20,21 @@ namespace Menes.TypeGenerator
         public static readonly JsonValueTypeDeclaration Email = new JsonValueTypeDeclaration(typeof(JsonEmail).Name, new[] { "string" }, ValueKind.String);
 
         /// <summary>
+        /// Get the hostname type for JSON Schema string.
+        /// </summary>
+        public static readonly JsonValueTypeDeclaration HostName = new JsonValueTypeDeclaration(typeof(JsonHostName).Name, new[] { "string" }, ValueKind.String);
+
+        /// <summary>
+        /// Get the IPv4 type for JSON Schema string.
+        /// </summary>
+        public static readonly JsonValueTypeDeclaration IPv4 = new JsonValueTypeDeclaration(typeof(JsonIPv4).Name, new[] { "string" }, ValueKind.String);
+
+        /// <summary>
+        /// Get the IPv6 type for JSON Schema string.
+        /// </summary>
+        public static readonly JsonValueTypeDeclaration IPv6 = new JsonValueTypeDeclaration(typeof(JsonIPv6).Name, new[] { "string" }, ValueKind.String);
+
+        /// <summary>
         /// Get the <see cref="System.Guid"/> type for JSON Schema guid or uuid.
         /// </summary>
         public static readonly JsonValueTypeDeclaration Guid = new JsonValueTypeDeclaration(typeof(JsonGuid).Name, new[] { "string", "System.Guid" }, ValueKind.String);

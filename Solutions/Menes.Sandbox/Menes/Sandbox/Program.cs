@@ -50,10 +50,10 @@ namespace Menes.Sandbox
             ////SimpleExamples();
             ////GenerateJsonSchemaModel();
             ////return UseJsonSchemaModel("exampleschema2.json");
-            return GenerateTypesForSchema("exampleschema2.json");
+            ////return GenerateTypesForSchema("exampleschema2.json");
 
-            ////UseGeneratedCode();
-            ////return Task.CompletedTask;
+            UseGeneratedCode();
+            return Task.CompletedTask;
         }
 
         private static void UseGeneratedCode()
