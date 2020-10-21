@@ -51,27 +51,36 @@ namespace Menes.Sandbox
             ////GenerateJsonSchemaModel();
             ////return UseJsonSchemaModel("exampleschema2.json");
             return GenerateTypesForSchema("exampleschema2.json");
+
+            ////UseGeneratedCode();
             ////return Task.CompletedTask;
+        }
+
+        private static void UseGeneratedCode()
+        {
+            Person instance = default(Person).WithAge(-1);
+            Validate(instance);
         }
 
         private static async Task UseJsonSchemaModel(string uri)
         {
             (string baseUri, JsonDocument root, JsonSchema schema) = await DocumentResolver.Default.LoadSchema(uri).ConfigureAwait(false);
 
-            ValidateSchema(schema);
+            Validate(schema);
 
             await RecursiveWriteSchema(baseUri, string.Empty, root, schema, DocumentResolver.Default).ConfigureAwait(false);
 
             Serialize(schema);
         }
 
-        private static void ValidateSchema(JsonSchema schema)
+        private static void Validate<T>(T value)
+            where T : struct, IJsonValue
         {
             ValidationContext validationContext = ValidationContext.Root;
-            validationContext = schema.Validate(validationContext);
+            validationContext = value.Validate(validationContext);
             if (validationContext.IsValid)
             {
-                Console.WriteLine("Valid schema!");
+                Console.WriteLine($"Valid {typeof(T).Name}!");
             }
             else
             {
@@ -83,7 +92,7 @@ namespace Menes.Sandbox
         {
             (string baseUri, JsonDocument root, JsonSchema schema) = await DocumentResolver.Default.LoadSchema(uri).ConfigureAwait(false);
 
-            ValidateSchema(schema);
+            Validate(schema);
 
             var typeGenerator = new TypeGeneratorJsonSchemaVisitor(DocumentResolver.Default, baseUri, root);
             await typeGenerator.VisitSchema(schema).ConfigureAwait(false);
@@ -194,7 +203,7 @@ namespace Menes.Sandbox
 
             exampleNamespace.AddDeclaration(exampleObjectType);
 
-            var arrayType = new ValidatedArrayTypeDeclaration(exampleObjectType)
+            var arrayType = new ValidatedArrayTypeDeclaration("MinimumLengthArray", exampleObjectType)
             {
                 MinItemsValidation = 10,
             };

@@ -39,9 +39,10 @@ namespace Menes.Json.Schema
                     this.schemasBeingVisited.Add(id);
                 }
 
+                (bool wasUpdatedStart, JsonSchema updatedSchemaStart) = await this.BeginVisitSchema(schema).ConfigureAwait(false);
+
                 this.PushPointerElement("#");
 
-                (bool wasUpdatedStart, JsonSchema updatedSchemaStart) = await this.BeginVisitSchema(schema).ConfigureAwait(false);
                 if (wasUpdatedStart)
                 {
                     schema = updatedSchemaStart;

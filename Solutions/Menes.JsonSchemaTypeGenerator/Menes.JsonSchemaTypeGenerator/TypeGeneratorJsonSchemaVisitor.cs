@@ -22,11 +22,6 @@ namespace Menes.Json.Schema.TypeGenerator
         private readonly Stack<ITypeDeclaration> declarationStack = new Stack<ITypeDeclaration>();
 
         /// <summary>
-        /// Temporarily use a typecount for generating names.
-        /// </summary>
-        private int typeCount = 0;
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="TypeGeneratorJsonSchemaVisitor"/> class.
         /// </summary>
         /// <param name="documentResolver">The document resolver to use.</param>
@@ -92,7 +87,7 @@ namespace Menes.Json.Schema.TypeGenerator
 
         private ValueTask<ITypeDeclaration> CreateTypeDeclarationFor(JsonSchema schema)
         {
-            string name = $"SomeType{this.typeCount++}";
+            string name = this.GetName(schema);
 
             if (schema.Type is JsonSchema.TypeEnum type)
             {
@@ -103,7 +98,7 @@ namespace Menes.Json.Schema.TypeGenerator
                     "boolean" => this.CreateBoolean(schema, name),
                     "number" => this.CreateNumber(schema, name),
                     "string" => this.CreateString(schema, name),
-                    "array" => this.CreateArray(schema),
+                    "array" => this.CreateArray(schema, name),
                     _ => this.CreateAny(schema, name),
                 };
             }
@@ -196,6 +191,8 @@ namespace Menes.Json.Schema.TypeGenerator
                 throw new InvalidOperationException($"Expected an {typeof(ObjectTypeDeclaration).FullName} but found a {type.GetType().FullName}.");
             }
 
+            this.PushPointerElement(typeDeclaration.Name);
+
             ITypeDeclaration? additionalPropertiesType = await this.GetAdditionalPropertiesType(schema).ConfigureAwait(false);
 
             if (schema.Properties is JsonSchema.SchemaProperties properties)
@@ -209,6 +206,8 @@ namespace Menes.Json.Schema.TypeGenerator
 
                 foreach (JsonPropertyReference<JsonSchema.SchemaOrReference> property in properties.JsonAdditionalProperties)
                 {
+                    this.PushPointerElement(property.Name);
+
                     ITypeDeclaration? childType = await this.GetTypeDeclarationFor(property.AsValue()).ConfigureAwait(false);
 
                     if (!(childType is ITypeDeclaration ct))
@@ -224,8 +223,12 @@ namespace Menes.Json.Schema.TypeGenerator
                     {
                         typeDeclaration.AddPropertyDeclaration(property.Name, ct);
                     }
+
+                    this.PopPointerElement();
                 }
             }
+
+            this.PopPointerElement();
         }
 
         private ValueTask<ITypeDeclaration> CreateBoolean(JsonSchema schema, string name)
@@ -287,10 +290,10 @@ namespace Menes.Json.Schema.TypeGenerator
             return new ValueTask<ITypeDeclaration>(schema.IsValidated() ? new ValidatedJsonValueTypeDeclaration(name, JsonValueTypeDeclaration.String) : (ITypeDeclaration)JsonValueTypeDeclaration.String);
         }
 
-        private async ValueTask<ITypeDeclaration> CreateArray(JsonSchema schema)
+        private async ValueTask<ITypeDeclaration> CreateArray(JsonSchema schema, string name)
         {
             ITypeDeclaration itemTypeDeclaration = await this.GetTypeDeclarationFor(schema.Items).ConfigureAwait(false) ?? JsonValueTypeDeclaration.Any;
-            return schema.IsValidated() ? (ITypeDeclaration)new ValidatedArrayTypeDeclaration(itemTypeDeclaration) : new ArrayTypeDeclaration(itemTypeDeclaration);
+            return schema.IsValidated() ? (ITypeDeclaration)new ValidatedArrayTypeDeclaration(name, itemTypeDeclaration) : new ArrayTypeDeclaration(itemTypeDeclaration);
         }
 
         private Task PopulateArray(ITypeDeclaration type, JsonSchema schema)
@@ -435,6 +438,40 @@ namespace Menes.Json.Schema.TypeGenerator
         private string? GetKeyFor(JsonSchema schema)
         {
             return JsonAny.From(schema).ToString();
+        }
+
+        private string GetName(JsonSchema schema)
+        {
+            if (schema.Id is JsonString id)
+            {
+                var jsonRef = new JsonRef(id);
+                if (jsonRef.HasPointer)
+                {
+                    return this.GetName(jsonRef.Pointer);
+                }
+                else if (jsonRef.HasUri)
+                {
+                    string? name = this.GetName(jsonRef.Uri);
+                    if (name is string n)
+                    {
+                        return n;
+                    }
+                }
+            }
+
+            if (schema.IsValueType())
+            {
+                return this.GetName(this.Path) + "Value";
+            }
+            else
+            {
+                return this.GetName(this.Path) + "Entity";
+            }
+        }
+
+        private string GetName(ReadOnlySpan<char> pointer)
+        {
+            return StringFormatter.ToPascalCaseWithReservedWords(System.IO.Path.GetFileNameWithoutExtension(pointer).ToString());
         }
     }
 }

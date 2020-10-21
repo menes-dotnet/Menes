@@ -29,5 +29,15 @@ namespace Menes.Json.Schema
                 schema.Properties.HasValue || schema.PropertyNames.HasValue || schema.Required.HasValue ||
                 schema.Then.HasValue || schema.UniqueItems.HasValue;
         }
+
+        /// <summary>
+        /// Returns true if this represents a value-like entity, as opposed to an object-like entity.
+        /// </summary>
+        /// <param name="schema">The schema to test.</param>
+        /// <returns><c>True</c> is the entity is a string, integer, number, or boolean.</returns>
+        public static bool IsValueType(this JsonSchema schema)
+        {
+            return !(schema.Type is JsonSchema.TypeEnum type) || type == "integer" || type == "string" || type == "boolean" || type == "number";
+        }
     }
 }

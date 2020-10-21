@@ -47,13 +47,13 @@ namespace Menes.Json.Schema.Generator
             };
             schema.AddTypeDeclaration(schemaNonNegativeInteger);
 
-            var schemaUniqueStringArray = new ValidatedArrayTypeDeclaration(JsonValueTypeDeclaration.String)
+            var schemaUniqueStringArray = new ValidatedArrayTypeDeclaration("UniqueStringArray", JsonValueTypeDeclaration.String)
             {
                 UniqueValidation = true,
             };
             schema.AddTypeDeclaration(schemaUniqueStringArray);
 
-            var nonEmptySubschemaArray = new ValidatedArrayTypeDeclaration(subschema)
+            var nonEmptySubschemaArray = new ValidatedArrayTypeDeclaration("NonEmptySubschemaArray", subschema)
             {
                 MinItemsValidation = 1,
             };

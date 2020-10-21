@@ -1,4 +1,4 @@
-﻿// <copyright file="SomeType0.cs" company="Endjin Limited">
+﻿// <copyright file="Person.cs" company="Endjin Limited">
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
@@ -6,10 +6,10 @@
 
 namespace Examples
 {
-    public readonly struct SomeType0 : Menes.IJsonObject, System.IEquatable<SomeType0>
+    public readonly struct Person : Menes.IJsonObject, System.IEquatable<Person>
     {
-        public static readonly SomeType0 Null = new SomeType0(default(System.Text.Json.JsonElement));
-        public static readonly System.Func<System.Text.Json.JsonElement, SomeType0> FromJsonElement = e => new SomeType0(e);
+        public static readonly Person Null = new Person(default(System.Text.Json.JsonElement));
+        public static readonly System.Func<System.Text.Json.JsonElement, Person> FromJsonElement = e => new Person(e);
         private const string AnotherPersonPropertyNamePath = ".anotherPerson";
         private const string FirstNamePropertyNamePath = ".firstName";
         private const string LastNamePropertyNamePath = ".lastName";
@@ -26,8 +26,8 @@ namespace Examples
         private readonly Menes.JsonReference? anotherPerson;
         private readonly Menes.JsonString? firstName;
         private readonly Menes.JsonString? lastName;
-        private readonly SomeType0.SomeType3? age;
-        public SomeType0(System.Text.Json.JsonElement jsonElement)
+        private readonly Person.AgeValue? age;
+        public Person(System.Text.Json.JsonElement jsonElement)
         {
             this.JsonElement = jsonElement;
             this.anotherPerson = null;
@@ -35,9 +35,9 @@ namespace Examples
             this.lastName = null;
             this.age = null;
         }
-        public SomeType0(SomeType0? anotherPerson, Menes.JsonString? firstName, Menes.JsonString? lastName, SomeType0.SomeType3? age)
+        public Person(Person? anotherPerson, Menes.JsonString? firstName, Menes.JsonString? lastName, Person.AgeValue? age)
         {
-            if (anotherPerson is SomeType0 item1)
+            if (anotherPerson is Person item1)
             {
                 this.anotherPerson = Menes.JsonReference.FromValue(item1);
             }
@@ -50,7 +50,7 @@ namespace Examples
             this.age = age;
             this.JsonElement = default;
         }
-        private SomeType0(Menes.JsonReference? anotherPerson, Menes.JsonString? firstName, Menes.JsonString? lastName, SomeType0.SomeType3? age)
+        private Person(Menes.JsonReference? anotherPerson, Menes.JsonString? firstName, Menes.JsonString? lastName, Person.AgeValue? age)
         {
             if (anotherPerson is Menes.JsonReference item1)
             {
@@ -66,11 +66,11 @@ namespace Examples
             this.JsonElement = default;
         }
         public bool IsNull => (this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Undefined || this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Null) && (this.anotherPerson is null || this.anotherPerson.Value.IsNull) && (this.firstName is null || this.firstName.Value.IsNull) && (this.lastName is null || this.lastName.Value.IsNull) && (this.age is null || this.age.Value.IsNull);
-        public SomeType0? AsOptional => this.IsNull ? default(SomeType0?) : this;
-        public SomeType0? AnotherPerson => this.anotherPerson?.AsValue<SomeType0>() ?? SomeType0.FromOptionalProperty(this.JsonElement, AnotherPersonPropertyNameBytes.Span).AsOptional;
+        public Person? AsOptional => this.IsNull ? default(Person?) : this;
+        public Person? AnotherPerson => this.anotherPerson?.AsValue<Person>() ?? Person.FromOptionalProperty(this.JsonElement, AnotherPersonPropertyNameBytes.Span).AsOptional;
         public Menes.JsonString? FirstName => this.firstName ?? Menes.JsonString.FromOptionalProperty(this.JsonElement, FirstNamePropertyNameBytes.Span).AsOptional;
         public Menes.JsonString? LastName => this.lastName ?? Menes.JsonString.FromOptionalProperty(this.JsonElement, LastNamePropertyNameBytes.Span).AsOptional;
-        public SomeType0.SomeType3? Age => this.age ?? SomeType0.SomeType3.FromOptionalProperty(this.JsonElement, AgePropertyNameBytes.Span).AsOptional;
+        public Person.AgeValue? Age => this.age ?? Person.AgeValue.FromOptionalProperty(this.JsonElement, AgePropertyNameBytes.Span).AsOptional;
         public int PropertiesCount => KnownProperties.Length;
         public bool HasJsonElement => this.JsonElement.ValueKind != System.Text.Json.JsonValueKind.Undefined;
         public System.Text.Json.JsonElement JsonElement { get; }
@@ -78,39 +78,39 @@ namespace Examples
         {
             return jsonElement.ValueKind == System.Text.Json.JsonValueKind.Object || jsonElement.ValueKind == System.Text.Json.JsonValueKind.Null;
         }
-        public static SomeType0 FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<char> propertyName) =>
+        public static Person FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<char> propertyName) =>
            parentDocument.ValueKind != System.Text.Json.JsonValueKind.Undefined ?
                 (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
-                    ? new SomeType0(property)
+                    ? new Person(property)
                     : Null)
                 : Null;
-        public static SomeType0 FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, string propertyName) =>
+        public static Person FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, string propertyName) =>
            parentDocument.ValueKind != System.Text.Json.JsonValueKind.Undefined ?
                 (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
-                    ? new SomeType0(property)
+                    ? new Person(property)
                     : Null)
                 : Null;
-        public static SomeType0 FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<byte> utf8PropertyName) =>
+        public static Person FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<byte> utf8PropertyName) =>
            parentDocument.ValueKind != System.Text.Json.JsonValueKind.Undefined ?
                 (parentDocument.TryGetProperty(utf8PropertyName, out System.Text.Json.JsonElement property)
-                    ? new SomeType0(property)
+                    ? new Person(property)
                     : Null)
             : Null;
-        public SomeType0 WithAnotherPerson(SomeType0? value)
+        public Person WithAnotherPerson(Person? value)
         {
-            return new SomeType0(Menes.JsonReference.FromValue(value), this.FirstName, this.LastName, this.Age);
+            return new Person(Menes.JsonReference.FromValue(value), this.FirstName, this.LastName, this.Age);
         }
-        public SomeType0 WithFirstName(Menes.JsonString? value)
+        public Person WithFirstName(Menes.JsonString? value)
         {
-            return new SomeType0(this.GetAnotherPerson(), value, this.LastName, this.Age);
+            return new Person(this.GetAnotherPerson(), value, this.LastName, this.Age);
         }
-        public SomeType0 WithLastName(Menes.JsonString? value)
+        public Person WithLastName(Menes.JsonString? value)
         {
-            return new SomeType0(this.GetAnotherPerson(), this.FirstName, value, this.Age);
+            return new Person(this.GetAnotherPerson(), this.FirstName, value, this.Age);
         }
-        public SomeType0 WithAge(SomeType0.SomeType3? value)
+        public Person WithAge(Person.AgeValue? value)
         {
-            return new SomeType0(this.GetAnotherPerson(), this.FirstName, this.LastName, value);
+            return new Person(this.GetAnotherPerson(), this.FirstName, this.LastName, value);
         }
         public void WriteTo(System.Text.Json.Utf8JsonWriter writer)
         {
@@ -136,7 +136,7 @@ namespace Examples
                     writer.WritePropertyName(EncodedLastNamePropertyName);
                     lastName.WriteTo(writer);
                 }
-                if (this.age is SomeType0.SomeType3 age)
+                if (this.age is Person.AgeValue age)
                 {
                     writer.WritePropertyName(EncodedAgePropertyName);
                     age.WriteTo(writer);
@@ -144,7 +144,7 @@ namespace Examples
                 writer.WriteEndObject();
             }
         }
-        public bool Equals(SomeType0 other)
+        public bool Equals(Person other)
         {
             if ((this.IsNull && !other.IsNull) || (!this.IsNull && other.IsNull))
             {
@@ -159,7 +159,7 @@ namespace Examples
         public Menes.ValidationContext Validate(in Menes.ValidationContext validationContext)
         {
             Menes.ValidationContext context = validationContext;
-            if (this.AnotherPerson is SomeType0 anotherPerson)
+            if (this.AnotherPerson is Person anotherPerson)
             {
                 context = Menes.Validation.ValidateProperty(context, anotherPerson, AnotherPersonPropertyNamePath);
             }
@@ -171,7 +171,7 @@ namespace Examples
             {
                 context = Menes.Validation.ValidateProperty(context, lastName, LastNamePropertyNamePath);
             }
-            if (this.Age is SomeType0.SomeType3 age)
+            if (this.Age is Person.AgeValue age)
             {
                 context = Menes.Validation.ValidateProperty(context, age, AgePropertyNamePath);
             }
@@ -193,10 +193,10 @@ namespace Examples
             }
             return default;
         }
-        public readonly struct SomeType3 : Menes.IJsonValue, System.IEquatable<SomeType3>
+        public readonly struct AgeValue : Menes.IJsonValue, System.IEquatable<AgeValue>
         {
-            public static readonly System.Func<System.Text.Json.JsonElement, SomeType3> FromJsonElement = e => new SomeType3(e);
-            public static readonly SomeType3 Null = new SomeType3(default(System.Text.Json.JsonElement));
+            public static readonly System.Func<System.Text.Json.JsonElement, AgeValue> FromJsonElement = e => new AgeValue(e);
+            public static readonly AgeValue Null = new AgeValue(default(System.Text.Json.JsonElement));
             private static readonly Menes.JsonInteger? ConstValue = BuildConstValue();
             private static readonly System.Collections.Immutable.ImmutableArray<Menes.JsonInteger>? EnumValues = BuildEnumValues();
             private static readonly Menes.JsonInteger? MultipleOf = null;
@@ -205,7 +205,7 @@ namespace Examples
             private static readonly Menes.JsonInteger? Minimum = 0;
             private static readonly Menes.JsonInteger? ExclusiveMinimum = null;
             private readonly Menes.JsonInteger? value;
-            public SomeType3(Menes.JsonInteger value)
+            public AgeValue(Menes.JsonInteger value)
             {
                 if (value.HasJsonElement)
                 {
@@ -218,36 +218,36 @@ namespace Examples
                     this.JsonElement = default;
                 }
             }
-            public SomeType3(System.Text.Json.JsonElement jsonElement)
+            public AgeValue(System.Text.Json.JsonElement jsonElement)
             {
                 this.value = null;
                 this.JsonElement = jsonElement;
             }
             public bool IsNull => this.value == null && (this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Undefined || this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Null);
-            public SomeType3? AsOptional => this.IsNull ? default(SomeType3?) : this;
+            public AgeValue? AsOptional => this.IsNull ? default(AgeValue?) : this;
             public bool HasJsonElement => this.JsonElement.ValueKind != System.Text.Json.JsonValueKind.Undefined;
             public System.Text.Json.JsonElement JsonElement { get; }
-            public static implicit operator SomeType3(Menes.JsonInteger value)
+            public static implicit operator AgeValue(Menes.JsonInteger value)
             {
-                return new SomeType3(value);
+                return new AgeValue(value);
             }
-            public static implicit operator SomeType3(int value)
+            public static implicit operator AgeValue(int value)
             {
-                return new SomeType3(value);
+                return new AgeValue(value);
             }
-            public static implicit operator SomeType3(long value)
+            public static implicit operator AgeValue(long value)
             {
-                return new SomeType3(value);
+                return new AgeValue(value);
             }
-            public static implicit operator int(SomeType3 value)
+            public static implicit operator int(AgeValue value)
             {
                 return (int)(Menes.JsonInteger)value;
             }
-            public static implicit operator long(SomeType3 value)
+            public static implicit operator long(AgeValue value)
             {
                 return (long)(Menes.JsonInteger)value;
             }
-            public static implicit operator Menes.JsonInteger(SomeType3 value)
+            public static implicit operator Menes.JsonInteger(AgeValue value)
             {
                 if (value.value is Menes.JsonInteger clrValue)
                 {
@@ -259,25 +259,25 @@ namespace Examples
             {
                 return Menes.JsonInteger.IsConvertibleFrom(jsonElement);
             }
-            public static SomeType3 FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<char> propertyName) =>
+            public static AgeValue FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<char> propertyName) =>
                parentDocument.ValueKind != System.Text.Json.JsonValueKind.Undefined ?
                     (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
-                        ? new SomeType3(property)
+                        ? new AgeValue(property)
                         : Null)
                     : Null;
-            public static SomeType3 FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, string propertyName) =>
+            public static AgeValue FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, string propertyName) =>
                parentDocument.ValueKind != System.Text.Json.JsonValueKind.Undefined ?
                     (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
-                        ? new SomeType3(property)
+                        ? new AgeValue(property)
                         : Null)
                     : Null;
-            public static SomeType3 FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<byte> utf8PropertyName) =>
+            public static AgeValue FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<byte> utf8PropertyName) =>
                parentDocument.ValueKind != System.Text.Json.JsonValueKind.Undefined ?
                     (parentDocument.TryGetProperty(utf8PropertyName, out System.Text.Json.JsonElement property)
-                        ? new SomeType3(property)
+                        ? new AgeValue(property)
                         : Null)
                     : Null;
-            public bool Equals(SomeType3 other)
+            public bool Equals(AgeValue other)
             {
                 return this.Equals((Menes.JsonInteger)other);
             }

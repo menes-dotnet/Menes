@@ -19,9 +19,11 @@ namespace Menes.TypeGenerator
         /// <summary>
         /// Initializes a new instance of the <see cref="ValidatedArrayTypeDeclaration"/> class.
         /// </summary>
+        /// <param name="name">The name of the array.</param>
         /// <param name="itemType">The name of the type of the item in the array.</param>
-        public ValidatedArrayTypeDeclaration(ITypeDeclaration? itemType = null)
+        public ValidatedArrayTypeDeclaration(string name, ITypeDeclaration? itemType = null)
         {
+            this.Name = name;
             this.ItemType = itemType;
         }
 
@@ -35,7 +37,7 @@ namespace Menes.TypeGenerator
         public IReadOnlyCollection<ITypeDeclaration> TypeDeclarations => TypeDeclaration.EmptyTypeDeclarations;
 
         /// <inheritdoc/>
-        public string Name => $"ValidatedArrayOf{this.ItemType?.Name}";
+        public string Name { get; }
 
         /// <inheritdoc/>
         public IDeclaration? Parent { get; set; }
