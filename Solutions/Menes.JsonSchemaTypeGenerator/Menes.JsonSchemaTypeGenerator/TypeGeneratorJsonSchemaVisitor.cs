@@ -6,6 +6,7 @@ namespace Menes.Json.Schema.TypeGenerator
 {
     using System;
     using System.Collections.Generic;
+    using System.Collections.Immutable;
     using System.Linq;
     using System.Text.Json;
     using System.Threading.Tasks;
@@ -202,9 +203,34 @@ namespace Menes.Json.Schema.TypeGenerator
                 throw new InvalidOperationException($"Expected an {typeof(ObjectTypeDeclaration).FullName} or a {typeof(UnionTypeDeclaration).FullName} but found a {type.GetType().FullName}.");
             }
 
+            if (schema.AllOf is JsonSchema.ValidatedArrayOfSchemaOrReference allOf)
+            {
+                ImmutableArray<JsonSchema>? allOfSchemas = await this.GetSchemaFor(allOf).ConfigureAwait(false);
+                if (allOfSchemas is ImmutableArray<JsonSchema> aoses)
+                {
+                    foreach (JsonSchema aos in aoses)
+                    {
+                        if (aos.IsObjectType())
+                        {
+                            await this.PopulateObject(typeDeclaration, aos).ConfigureAwait(false);
+                        }
+                        else
+                        {
+                            ITypeDeclaration? aotd = await this.GetTypeDeclarationFor(aos).ConfigureAwait(false);
+                            if (!(aotd is ITypeDeclaration a))
+                            {
+                                throw new InvalidOperationException($"Unable to find a type declartion for {aos}");
+                            }
+
+                            typeDeclaration.AddAllOfType(a);
+                        }
+                    }
+                }
+            }
+
             this.PushPointerElement(typeDeclaration.Name);
 
-            ITypeDeclaration? additionalPropertiesType = await this.GetAdditionalPropertiesType(schema).ConfigureAwait(false);
+            typeDeclaration.AdditionalPropertiesType = await this.GetAdditionalPropertiesType(schema).ConfigureAwait(false);
 
             if (schema.Properties is JsonSchema.SchemaProperties properties)
             {
@@ -417,6 +443,41 @@ namespace Menes.Json.Schema.TypeGenerator
                 {
                     return await this.CreateTypeDeclarationFor(schema).ConfigureAwait(false);
                 }
+            }
+
+            return null;
+        }
+
+        private async ValueTask<ImmutableArray<JsonSchema>?> GetSchemaFor(JsonSchema.ValidatedArrayOfSchemaOrReference? validatedArray)
+        {
+            if (!(validatedArray is JsonSchema.ValidatedArrayOfSchemaOrReference vasor))
+            {
+                return null;
+            }
+
+            ImmutableArray<JsonSchema>.Builder result = ImmutableArray.CreateBuilder<JsonSchema>();
+
+            int index = 1;
+
+            foreach (JsonSchema.SchemaOrReference item in vasor)
+            {
+                if (item.IsJsonSchema)
+                {
+                    result.Add(item.AsJsonSchema());
+                }
+                else
+                {
+                    (string uri, JsonDocument document) = this.DocumentStack.Peek();
+                    (string uri, JsonDocument document, JsonSchema.SchemaOrReference schemaOrReference) resolved = await item.Resolve(uri, document, this.DocumentResolver).ConfigureAwait(false);
+                    result.Add(resolved.schemaOrReference.AsJsonSchema());
+                }
+
+                ++index;
+            }
+
+            if (result.Count > 0)
+            {
+                return result.ToImmutable();
             }
 
             return null;

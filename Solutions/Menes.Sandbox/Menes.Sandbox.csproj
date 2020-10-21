@@ -22,6 +22,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="resourcesAndLinks.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="exampleschema2.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

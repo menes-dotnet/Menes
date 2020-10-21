@@ -91,7 +91,7 @@ namespace Menes.Json.Schema
                                         }
                                     }
 
-                                    stateMachine.CurrentElement = stateMachine.CurrentElement.GetProperty(pointer[stateMachine.StartRunIndex..i]);
+                                    stateMachine.CurrentElement = stateMachine.CurrentElement.GetProperty(pointer[(stateMachine.StartRunIndex + 1) ..i]);
                                 }
                                 finally
                                 {
@@ -104,7 +104,7 @@ namespace Menes.Json.Schema
                                 {
                                     try
                                     {
-                                        int arrayIndex = int.Parse(pointer[stateMachine.StartRunIndex..i]);
+                                        int arrayIndex = int.Parse(pointer[(stateMachine.StartRunIndex + 1) ..i]);
                                         try
                                         {
                                             JsonElement.ArrayEnumerator enumerator = stateMachine.CurrentElement.EnumerateArray();
@@ -116,7 +116,7 @@ namespace Menes.Json.Schema
 
                                             if (index != arrayIndex)
                                             {
-                                                throw new FormatException($"The index in the array at position {i} for pointer {pointer.ToString()} was outside the bounds of the array. Expected '{arrayIndex}' but array length was '{index}'.");
+                                                throw new FormatException($"The index in the array at position {stateMachine.StartRunIndex} for pointer {pointer.ToString()} was outside the bounds of the array. Expected '{arrayIndex}' but array length was '{index}'.");
                                             }
 
                                             stateMachine.CurrentElement = enumerator.Current;
@@ -125,22 +125,54 @@ namespace Menes.Json.Schema
                                         }
                                         catch (InvalidOperationException ex)
                                         {
-                                            throw new FormatException($"Expected the current element to be an array at position {i} for pointer {pointer.ToString()}, but found a '{stateMachine.CurrentElement.ValueKind}'.", ex);
+                                            throw new FormatException($"Expected the current element to be an array at position {stateMachine.StartRunIndex} for pointer {pointer.ToString()}, but found a '{stateMachine.CurrentElement.ValueKind}'.", ex);
                                         }
                                     }
                                     catch (FormatException ex)
                                     {
-                                        throw new FormatException($"Expected to find an array index inside the array indexer at position {i} for pointer {pointer.ToString()}", ex);
+                                        throw new FormatException($"Expected to find an array index inside the array indexer at position {stateMachine.StartRunIndex} for pointer {pointer.ToString()}", ex);
                                     }
                                 }
                                 else
                                 {
-                                    throw new FormatException($"Expected to find an array index inside the array indexer at position {i} for pointer {pointer.ToString()}");
+                                    throw new FormatException($"Expected to find an array index inside the array indexer at position {stateMachine.StartRunIndex} for pointer {pointer.ToString()}");
                                 }
                             }
 
                             stateMachine.StartRunIndex = i + 1;
                         }
+                    }
+                }
+            }
+
+            if (stateMachine.StartRunIndex < pointer.Length)
+            {
+                if (stateMachine.CurrentElement.ValueKind == JsonValueKind.Object)
+                {
+                    stateMachine.CurrentElement = stateMachine.CurrentElement.GetProperty(pointer.Slice(stateMachine.StartRunIndex));
+                }
+                else if (stateMachine.CurrentElement.ValueKind == JsonValueKind.Array)
+                {
+                    int arrayIndex = int.Parse(pointer.Slice(stateMachine.StartRunIndex));
+                    try
+                    {
+                        JsonElement.ArrayEnumerator enumerator = stateMachine.CurrentElement.EnumerateArray();
+                        int index = 0;
+                        while (enumerator.MoveNext() && index < arrayIndex)
+                        {
+                            ++index;
+                        }
+
+                        if (index != arrayIndex)
+                        {
+                            throw new FormatException($"The index in the array at position {stateMachine.StartRunIndex} for pointer {pointer.ToString()} was outside the bounds of the array. Expected '{arrayIndex}' but array length was '{index}'.");
+                        }
+
+                        stateMachine.CurrentElement = enumerator.Current;
+                    }
+                    catch (InvalidOperationException ex)
+                    {
+                        throw new FormatException($"Expected the current element to be an array at position {stateMachine.StartRunIndex} for pointer {pointer.ToString()}, but found a '{stateMachine.CurrentElement.ValueKind}'.", ex);
                     }
                 }
             }

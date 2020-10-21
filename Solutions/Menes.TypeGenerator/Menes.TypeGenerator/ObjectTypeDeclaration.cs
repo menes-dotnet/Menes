@@ -31,9 +31,9 @@ namespace Menes.TypeGenerator
         }
 
         /// <summary>
-        /// Gets the type of any additional properties.
+        /// Gets or sets the type of any additional properties.
         /// </summary>
-        public ITypeDeclaration? AdditionalPropertiesType { get; }
+        public ITypeDeclaration? AdditionalPropertiesType { get; set; }
 
         /// <summary>
         /// Gets or sets the max properties validation.
@@ -49,6 +49,11 @@ namespace Menes.TypeGenerator
         /// Gets or sets the type of the not validation.
         /// </summary>
         public ITypeDeclaration? NotTypeValidation { get; set; }
+
+        /// <summary>
+        /// Gets or sets the allOf type validation.
+        /// </summary>
+        public List<ITypeDeclaration>? AllOfTypeValidation { get; set; }
 
         /// <summary>
         /// Gets or sets the JSON array of objects for the enum validation.
@@ -74,6 +79,20 @@ namespace Menes.TypeGenerator
         public override bool IsSpecializedBy(ITypeDeclaration type)
         {
             return false;
+        }
+
+        /// <summary>
+        /// Add an allOf type to the collection.
+        /// </summary>
+        /// <param name="typeDeclaration">The type declaration to add.</param>
+        public void AddAllOfType(ITypeDeclaration typeDeclaration)
+        {
+            if (!(this.AllOfTypeValidation is List<ITypeDeclaration> aot))
+            {
+                this.AllOfTypeValidation = aot = new List<ITypeDeclaration>();
+            }
+
+            aot.Add(typeDeclaration);
         }
 
         private static string GetPropertyNameFieldName(PropertyDeclaration property)
@@ -301,6 +320,36 @@ namespace Menes.TypeGenerator
             if (this.NotTypeValidation is ITypeDeclaration notType)
             {
                 builder.AppendLine($"context = Menes.Validation.ValidateNot<{this.GetFullyQualifiedName()}, {notType.GetFullyQualifiedName()}>(context, this);");
+            }
+
+            if (this.AllOfTypeValidation is List<ITypeDeclaration> allOf)
+            {
+                for (int i = 0; i < allOf.Count; ++i)
+                {
+                    builder.AppendLine($"        Menes.ValidationContext allOfValidationContext{i + 1} = Menes.ValidationContext.Root.WithPath(context.Path);");
+                }
+
+                int index = 0;
+                foreach (ITypeDeclaration allOfType in allOf)
+                {
+                    string allOfFullyQualifiedName = allOfType.GetFullyQualifiedName();
+                    string allOfTypeNameCamelCase = StringFormatter.ToCamelCaseWithReservedWords(allOfType.Name);
+                    builder.AppendLine($"{allOfFullyQualifiedName} {allOfTypeNameCamelCase}Value = Menes.JsonAny.From(value).As<{allOfFullyQualifiedName}>();");
+                    builder.AppendLine($"            allOfValidationContext{index + 1} = {allOfTypeNameCamelCase}Value.Validate(allOfValidationContext{index + 1});");
+                    index++;
+                }
+
+                builder.Append("        context = Menes.Validation.ValidateAllOf(context");
+
+                index = 0;
+                foreach (ITypeDeclaration allOfType in allOf)
+                {
+                    builder.Append(", ");
+                    builder.Append($"allOfValidationContext{index + 1}");
+                    index++;
+                }
+
+                builder.AppendLine(");");
             }
 
             if (this.ConstValidation is string)

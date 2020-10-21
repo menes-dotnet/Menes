@@ -31,13 +31,33 @@ namespace Menes.Json.Schema
         }
 
         /// <summary>
-        /// Returns true if this represents a value-like entity, as opposed to an object-like entity.
+        /// Returns true if this represents a value-like entity, as opposed to an object- or array- like entity.
         /// </summary>
         /// <param name="schema">The schema to test.</param>
         /// <returns><c>True</c> is the entity is a string, integer, number, or boolean.</returns>
         public static bool IsValueType(this JsonSchema schema)
         {
             return !(schema.Type is JsonSchema.TypeEnum type) || type == "integer" || type == "string" || type == "boolean" || type == "number";
+        }
+
+        /// <summary>
+        /// Returns true if this represents a object-like entity, as opposed to an value- or array- like entity.
+        /// </summary>
+        /// <param name="schema">The schema to test.</param>
+        /// <returns><c>True</c> is the entity is an object.</returns>
+        public static bool IsObjectType(this JsonSchema schema)
+        {
+            return (schema.Type is JsonSchema.TypeEnum type) && type == "object";
+        }
+
+        /// <summary>
+        /// Returns true if this represents a array-like entity, as opposed to an value- or object- like entity.
+        /// </summary>
+        /// <param name="schema">The schema to test.</param>
+        /// <returns><c>True</c> is the entity is an object.</returns>
+        public static bool IsArrayType(this JsonSchema schema)
+        {
+            return (schema.Type is JsonSchema.TypeEnum type) && type == "array";
         }
     }
 }
