@@ -12,8 +12,9 @@ namespace Menes.Sandbox
     using System.Text.Json;
     using System.Threading.Tasks;
     using Examples;
-    using Menes.JsonSchema;
-    using Menes.JsonSchema.Generator;
+    using Menes.Json.Schema;
+    using Menes.Json.Schema.Generator;
+    using Menes.Json.Schema.TypeGenerator;
     using Menes.TypeGenerator;
     using Microsoft.CodeAnalysis;
     using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -25,7 +26,7 @@ namespace Menes.Sandbox
     /// </summary>
     public static class Program
     {
-        private static HashSet<string> schemasBeingWritten = new HashSet<string>();
+        private static readonly HashSet<string> SchemasBeingWritten = new HashSet<string>();
 
         /// <summary>
         /// Main entry point.
@@ -48,14 +49,24 @@ namespace Menes.Sandbox
 
             ////SimpleExamples();
             ////GenerateJsonSchemaModel();
-            return UseJsonSchemaModel("exampleschema2.json");
+            ////return UseJsonSchemaModel("exampleschema2.json");
+            return GenerateTypesForSchema("exampleschema2.json");
             ////return Task.CompletedTask;
         }
 
         private static async Task UseJsonSchemaModel(string uri)
         {
-            (string baseUri, JsonDocument root, Schema schema) = await DocumentResolver.Default.LoadSchema(uri).ConfigureAwait(false);
+            (string baseUri, JsonDocument root, JsonSchema schema) = await DocumentResolver.Default.LoadSchema(uri).ConfigureAwait(false);
 
+            ValidateSchema(schema);
+
+            await RecursiveWriteSchema(baseUri, string.Empty, root, schema, DocumentResolver.Default).ConfigureAwait(false);
+
+            Serialize(schema);
+        }
+
+        private static void ValidateSchema(JsonSchema schema)
+        {
             ValidationContext validationContext = ValidationContext.Root;
             validationContext = schema.Validate(validationContext);
             if (validationContext.IsValid)
@@ -66,10 +77,26 @@ namespace Menes.Sandbox
             {
                 validationContext.Errors.ForEach(p => Console.WriteLine($"{p.path}: {p.error}"));
             }
+        }
 
-            await RecursiveWriteSchema(baseUri, string.Empty, root, schema, DocumentResolver.Default).ConfigureAwait(false);
+        private static async Task GenerateTypesForSchema(string uri)
+        {
+            (string baseUri, JsonDocument root, JsonSchema schema) = await DocumentResolver.Default.LoadSchema(uri).ConfigureAwait(false);
 
-            Serialize(schema);
+            ValidateSchema(schema);
+
+            var typeGenerator = new TypeGeneratorJsonSchemaVisitor(DocumentResolver.Default, baseUri, root);
+            await typeGenerator.VisitSchema(schema).ConfigureAwait(false);
+
+            TypeDeclarationSyntax[] tds = typeGenerator.GenerateTypes();
+            foreach (TypeDeclarationSyntax t in tds)
+            {
+                SyntaxNode formattedJsonSchema = Formatter.Format(t, new AdhocWorkspace());
+                Console.WriteLine();
+                Console.WriteLine("*****************************");
+                Console.WriteLine();
+                Console.WriteLine(formattedJsonSchema.ToFullString());
+            }
         }
 
         private static void GenerateJsonSchemaModel()
@@ -258,9 +285,9 @@ namespace Menes.Sandbox
             }
         }
 
-        private static async Task RecursiveWriteSchema(string baseUri, string pointer, JsonDocument root, Schema schema, IDocumentResolver resolver)
+        private static async Task RecursiveWriteSchema(string baseUri, string pointer, JsonDocument root, JsonSchema schema, IDocumentResolver resolver)
         {
-            if (schemasBeingWritten.Contains(schema.Id ?? "unknown"))
+            if (SchemasBeingWritten.Contains(schema.Id ?? "unknown"))
             {
                 Console.Write("{...}, ");
                 return;
@@ -268,7 +295,7 @@ namespace Menes.Sandbox
 
             if (schema.Id is JsonString id)
             {
-                schemasBeingWritten.Add(id);
+                SchemasBeingWritten.Add(id);
             }
 
             Console.Write("{");
@@ -287,14 +314,14 @@ namespace Menes.Sandbox
                 Console.Write($"'uniqueItems': {schema.UniqueItems}, ");
             }
 
-            if (schema.Properties is Schema.SchemaProperties properties)
+            if (schema.Properties is JsonSchema.SchemaProperties properties)
             {
-                JsonProperties<Schema.SchemaOrReference>.JsonPropertyEnumerator propertiesEnumerator = properties.JsonAdditionalProperties;
+                JsonProperties<JsonSchema.SchemaOrReference>.JsonPropertyEnumerator propertiesEnumerator = properties.JsonAdditionalProperties;
                 while (propertiesEnumerator.MoveNext())
                 {
                     Console.Write($"'{propertiesEnumerator.Current.Name}': ");
-                    (string childBaseUri, JsonDocument childDoc, Schema.SchemaOrReference childSchema) = await propertiesEnumerator.Current.AsValue().Resolve(baseUri, pointer + "/" + propertiesEnumerator.Current.Name, root, resolver);
-                    await RecursiveWriteSchema(childBaseUri, pointer + "." + propertiesEnumerator.Current.Name, childDoc, childSchema.AsSchema(), resolver).ConfigureAwait(false);
+                    (string childBaseUri, JsonDocument childDoc, JsonSchema.SchemaOrReference childSchema) = await propertiesEnumerator.Current.AsValue().Resolve(baseUri, pointer + "/" + propertiesEnumerator.Current.Name, root, resolver);
+                    await RecursiveWriteSchema(childBaseUri, pointer + "." + propertiesEnumerator.Current.Name, childDoc, childSchema.AsJsonSchema(), resolver).ConfigureAwait(false);
                 }
             }
 
@@ -308,7 +335,7 @@ namespace Menes.Sandbox
 
             if (schema.Id is JsonString id2)
             {
-                schemasBeingWritten.Remove(id2);
+                SchemasBeingWritten.Remove(id2);
             }
         }
     }

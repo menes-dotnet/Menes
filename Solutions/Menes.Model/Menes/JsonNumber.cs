@@ -455,7 +455,7 @@ namespace Menes
 
             if (this.HasJsonElement)
             {
-                return this.JsonElement.GetString();
+                return this.JsonElement.GetRawText();
             }
 
             return null;
@@ -503,6 +503,11 @@ namespace Menes
             if (this.HasJsonElement && !IsConvertibleFrom(this.JsonElement))
             {
                 return validationContext.WithError("6.1.1. type: the element is not convertible from the given type");
+            }
+
+            if (this.HasJsonElement && !this.JsonElement.TryGetDecimal(out _))
+            {
+                return validationContext.WithError("6.1.1. type: the element is not convertible to a number.");
             }
 
             return validationContext;

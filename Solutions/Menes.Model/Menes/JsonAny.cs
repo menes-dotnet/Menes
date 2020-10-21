@@ -8,6 +8,7 @@ namespace Menes
     using System.Buffers;
     using System.Collections.Concurrent;
     using System.Reflection;
+    using System.Text;
     using System.Text.Json;
     using Corvus.Extensions;
 
@@ -214,7 +215,17 @@ namespace Menes
         /// <inheritdoc/>
         public override string? ToString()
         {
-            return this.IsNull ? null : this.JsonElement.GetRawText();
+            if (this.IsNull)
+            {
+                return null;
+            }
+
+            // Normalise the write.
+            var abw1 = new ArrayBufferWriter<byte>();
+            using var writer1 = new Utf8JsonWriter(abw1);
+            this.WriteTo(writer1);
+            writer1.Flush();
+            return Encoding.UTF8.GetString(abw1.WrittenSpan);
         }
 
         /// <inheritdoc/>

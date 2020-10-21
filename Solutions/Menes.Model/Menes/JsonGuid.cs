@@ -194,6 +194,11 @@ namespace Menes
                 return validationContext.WithError("6.1.1. type: the element is not convertible from the given type");
             }
 
+            if (this.HasJsonElement && !this.JsonElement.TryGetGuid(out _))
+            {
+                return validationContext.WithError("RFC 4122 uuid: the element is not convertible to a uuid.");
+            }
+
             return validationContext;
         }
 

@@ -1252,6 +1252,7 @@ namespace Menes.TypeGenerator
         {
             string typeName = property.Type.GetFullyQualifiedName();
             string propertyName = StringFormatter.ToPascalCaseWithReservedWords(property.JsonPropertyName);
+
             string fieldNameAccessor = property.Type.IsCompoundType ? $"this.{StringFormatter.ToCamelCaseWithReservedWords(property.JsonPropertyName)}?.AsValue<{typeName}>()" : $"this.{StringFormatter.ToCamelCaseWithReservedWords(property.JsonPropertyName)}";
 
             if (property.Type is OptionalTypeDeclaration)

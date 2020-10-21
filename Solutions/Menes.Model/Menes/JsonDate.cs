@@ -221,6 +221,11 @@ namespace Menes
                 return validationContext.WithError("6.1.1. type: the element is not convertible from the given type");
             }
 
+            if (this.HasJsonElement && !ParseDate(this.JsonElement).Success)
+            {
+                return validationContext.WithError("RFC 3339 date: the element is not convertible to a date.");
+            }
+
             return validationContext;
         }
 

@@ -91,7 +91,7 @@ namespace Menes.TypeGenerator
         /// <summary>
         /// Gets or sets a value indicating whether we require unique values.
         /// </summary>
-        public bool UniqueValidation { get; set; }
+        public bool? UniqueValidation { get; set; }
 
         /// <inheritdoc/>
         public bool IsCompoundType => true;
@@ -254,7 +254,7 @@ namespace Menes.TypeGenerator
                 int maxContains = this.MaxContainsValidation ?? int.MaxValue;
                 builder.AppendLine($"        return array.ValidateRangeContains<{contains.GetFullyQualifiedName()}>(context, {minContains}, {maxContains}, {this.UniqueValidation}, true);");
             }
-            else if (this.UniqueValidation)
+            else if (this.UniqueValidation is bool unique && unique)
             {
                 builder.AppendLine("        return array.ValidateUniqueItems(context, true);");
             }

@@ -160,7 +160,9 @@ namespace Menes
         public ValidationContext ValidateAsNumber(in ValidationContext validationContext, decimal? multipleOf = null, decimal? maximum = null, decimal? exclusiveMaximum = null, decimal? minimum = null, decimal? exclusiveMinimum = null, in ImmutableArray<decimal>? enumeration = null, in decimal? constValue = null)
         {
             ValidationContext context = validationContext;
+
             decimal value = this.CreateOrGetClrDecimal();
+
             if (multipleOf is decimal mo && (value % mo != 0))
             {
                 context = context.WithError($"6.2.1 multipleOf: The value should have been a multiple of '{mo}', but was '{value}' with remainder '{value % mo}'");
@@ -238,6 +240,14 @@ namespace Menes
             if (this.HasJsonElement && !IsConvertibleFrom(this.JsonElement))
             {
                 return validationContext.WithError("6.1.1. type: the element is not convertible from the given type");
+            }
+
+            if (this.HasJsonElement)
+            {
+                if (!this.JsonElement.TryGetDecimal(out _))
+                {
+                    return validationContext.WithError($"6.1.1. type: the element is not convertible to a decimal.");
+                }
             }
 
             return validationContext;

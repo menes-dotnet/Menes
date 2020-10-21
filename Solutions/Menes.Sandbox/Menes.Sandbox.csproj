@@ -12,6 +12,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <ProjectReference Include="..\Menes.JsonSchemaTypeGenerator\Menes.JsonSchemaTypeGenerator.csproj" />
     <ProjectReference Include="..\Menes.JsonSchema\Menes.JsonSchema.csproj" />
       <ProjectReference Include="..\Menes.TypeGenerator\Menes.TypeGenerator.csproj" />
   </ItemGroup>

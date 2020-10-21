@@ -185,6 +185,14 @@ namespace Menes
                 return validationContext.WithError("6.1.1. type: the element is not convertible from the given type");
             }
 
+            if (this.HasJsonElement)
+            {
+                if (!this.JsonElement.TryGetDouble(out _))
+                {
+                    return validationContext.WithError($"6.1.1. type: the element is not convertible to a double.");
+                }
+            }
+
             return validationContext;
         }
 

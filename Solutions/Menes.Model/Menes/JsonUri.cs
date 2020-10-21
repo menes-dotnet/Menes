@@ -211,6 +211,11 @@ namespace Menes
                 return validationContext.WithError("6.1.1. type: the element is not convertible from the given type");
             }
 
+            if (this.HasJsonElement && !Uri.TryCreate(this.JsonElement.GetString(), UriKind.RelativeOrAbsolute, out _))
+            {
+                return validationContext.WithError("RFC 3986: the element is not convertible to an uri.");
+            }
+
             return validationContext;
         }
 

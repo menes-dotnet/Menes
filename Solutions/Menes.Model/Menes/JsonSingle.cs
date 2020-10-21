@@ -183,6 +183,11 @@ namespace Menes
                 return validationContext.WithError("6.1.1. type: the element is not convertible from the given type");
             }
 
+            if (this.HasJsonElement && !this.JsonElement.TryGetSingle(out _))
+            {
+                return validationContext.WithError("6.1.1. type: the element is not convertible to an float.");
+            }
+
             return validationContext;
         }
 

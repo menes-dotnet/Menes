@@ -200,6 +200,11 @@ namespace Menes
                 return validationContext.WithError("6.1.1. type: the element is not convertible from the given type");
             }
 
+            if (this.HasJsonElement && !ParseTime(this.JsonElement).Success)
+            {
+                return validationContext.WithError("RFC 3339 time: the element is not convertible to a time.");
+            }
+
             return validationContext;
         }
 
