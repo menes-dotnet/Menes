@@ -40,7 +40,16 @@ namespace Examples
             this.contact = null;
             this.age = null;
         }
-        public Person(Person? anotherPerson, Menes.JsonString? firstName, Menes.JsonString? lastName, Person.ContactEntity? contact, Person.AgeValue? age)
+        public Person(Menes.JsonString firstName, Menes.JsonString lastName)
+        {
+            this.anotherPerson = null;
+            this.firstName = firstName;
+            this.lastName = lastName;
+            this.contact = null;
+            this.age = null;
+            this.JsonElement = default;
+        }
+        public Person(Menes.JsonString firstName, Menes.JsonString lastName, Person? anotherPerson, Person.ContactEntity? contact, Person.AgeValue? age)
         {
             if (anotherPerson is Person item1)
             {
@@ -56,7 +65,7 @@ namespace Examples
             this.age = age;
             this.JsonElement = default;
         }
-        private Person(Menes.JsonReference? anotherPerson, Menes.JsonString? firstName, Menes.JsonString? lastName, Person.ContactEntity? contact, Person.AgeValue? age)
+        private Person(Menes.JsonString firstName, Menes.JsonString lastName, Menes.JsonReference? anotherPerson, Person.ContactEntity? contact, Person.AgeValue? age)
         {
             if (anotherPerson is Menes.JsonReference item1)
             {
@@ -75,8 +84,8 @@ namespace Examples
         public bool IsNull => (this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Undefined || this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Null) && (this.anotherPerson is null || this.anotherPerson.Value.IsNull) && (this.firstName is null || this.firstName.Value.IsNull) && (this.lastName is null || this.lastName.Value.IsNull) && (this.contact is null || this.contact.Value.IsNull) && (this.age is null || this.age.Value.IsNull);
         public Person? AsOptional => this.IsNull ? default(Person?) : this;
         public Person? AnotherPerson => this.anotherPerson?.AsValue<Person>() ?? Person.FromOptionalProperty(this.JsonElement, AnotherPersonPropertyNameBytes.Span).AsOptional;
-        public Menes.JsonString? FirstName => this.firstName ?? Menes.JsonString.FromOptionalProperty(this.JsonElement, FirstNamePropertyNameBytes.Span).AsOptional;
-        public Menes.JsonString? LastName => this.lastName ?? Menes.JsonString.FromOptionalProperty(this.JsonElement, LastNamePropertyNameBytes.Span).AsOptional;
+        public Menes.JsonString FirstName => this.firstName ?? Menes.JsonString.FromOptionalProperty(this.JsonElement, FirstNamePropertyNameBytes.Span);
+        public Menes.JsonString LastName => this.lastName ?? Menes.JsonString.FromOptionalProperty(this.JsonElement, LastNamePropertyNameBytes.Span);
         public Person.ContactEntity? Contact => this.contact ?? Person.ContactEntity.FromOptionalProperty(this.JsonElement, ContactPropertyNameBytes.Span).AsOptional;
         public Person.AgeValue? Age => this.age ?? Person.AgeValue.FromOptionalProperty(this.JsonElement, AgePropertyNameBytes.Span).AsOptional;
         public int PropertiesCount => KnownProperties.Length;
@@ -106,23 +115,23 @@ namespace Examples
             : Null;
         public Person WithAnotherPerson(Person? value)
         {
-            return new Person(Menes.JsonReference.FromValue(value), this.FirstName, this.LastName, this.Contact, this.Age);
+            return new Person(this.FirstName, this.LastName, Menes.JsonReference.FromValue(value), this.Contact, this.Age);
         }
-        public Person WithFirstName(Menes.JsonString? value)
+        public Person WithFirstName(Menes.JsonString value)
         {
-            return new Person(this.GetAnotherPerson(), value, this.LastName, this.Contact, this.Age);
+            return new Person(value, this.LastName, this.GetAnotherPerson(), this.Contact, this.Age);
         }
-        public Person WithLastName(Menes.JsonString? value)
+        public Person WithLastName(Menes.JsonString value)
         {
-            return new Person(this.GetAnotherPerson(), this.FirstName, value, this.Contact, this.Age);
+            return new Person(this.FirstName, value, this.GetAnotherPerson(), this.Contact, this.Age);
         }
         public Person WithContact(Person.ContactEntity? value)
         {
-            return new Person(this.GetAnotherPerson(), this.FirstName, this.LastName, value, this.Age);
+            return new Person(this.FirstName, this.LastName, this.GetAnotherPerson(), value, this.Age);
         }
         public Person WithAge(Person.AgeValue? value)
         {
-            return new Person(this.GetAnotherPerson(), this.FirstName, this.LastName, this.Contact, value);
+            return new Person(this.FirstName, this.LastName, this.GetAnotherPerson(), this.Contact, value);
         }
         public void WriteTo(System.Text.Json.Utf8JsonWriter writer)
         {
@@ -180,14 +189,8 @@ namespace Examples
             {
                 context = Menes.Validation.ValidateProperty(context, anotherPerson, AnotherPersonPropertyNamePath);
             }
-            if (this.FirstName is Menes.JsonString firstName)
-            {
-                context = Menes.Validation.ValidateProperty(context, firstName, FirstNamePropertyNamePath);
-            }
-            if (this.LastName is Menes.JsonString lastName)
-            {
-                context = Menes.Validation.ValidateProperty(context, lastName, LastNamePropertyNamePath);
-            }
+            context = Menes.Validation.ValidateRequiredProperty(context, this.FirstName, FirstNamePropertyNamePath);
+            context = Menes.Validation.ValidateRequiredProperty(context, this.LastName, LastNamePropertyNamePath);
             if (this.Contact is Person.ContactEntity contact)
             {
                 context = Menes.Validation.ValidateProperty(context, contact, ContactPropertyNamePath);

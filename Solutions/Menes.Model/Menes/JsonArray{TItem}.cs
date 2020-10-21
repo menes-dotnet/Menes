@@ -10,6 +10,7 @@ namespace Menes
     using System.Collections.Generic;
     using System.Collections.Immutable;
     using System.Diagnostics;
+    using System.Linq;
     using System.Text;
     using System.Text.Json;
 
@@ -265,11 +266,14 @@ namespace Menes
         {
             ValidationContext result = validationContext;
             int index = 0;
-            ImmutableHashSet<TItem>.Builder items = ImmutableHashSet.CreateBuilder<TItem>();
+            ImmutableArray<TItem>.Builder items = ImmutableArray.CreateBuilder<TItem>();
             JsonArray<TItem>.JsonArrayEnumerator enumerator = this.GetEnumerator();
             while (enumerator.MoveNext())
             {
-                items.Add(enumerator.Current);
+                if (!items.Any(i => i.Equals(enumerator.Current)))
+                {
+                    items.Add(enumerator.Current);
+                }
 
                 if (validateItems)
                 {
@@ -329,7 +333,7 @@ namespace Menes
             }
 
             ValidationContext result = validationContext;
-            ImmutableHashSet<TItem>.Builder items = ImmutableHashSet.CreateBuilder<TItem>();
+            ImmutableArray<TItem>.Builder items = ImmutableArray.CreateBuilder<TItem>();
 
             int count = 0;
             int index = 0;
@@ -348,7 +352,10 @@ namespace Menes
 
                 if (requireUnique)
                 {
-                    items.Add(enumerator.Current);
+                    if (!items.Any(i => i.Equals(enumerator.Current)))
+                    {
+                        items.Add(enumerator.Current);
+                    }
                 }
 
                 if (validateItems)

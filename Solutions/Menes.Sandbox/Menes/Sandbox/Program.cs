@@ -50,17 +50,21 @@ namespace Menes.Sandbox
             ////SimpleExamples();
             ////GenerateJsonSchemaModel();
             ////return UseJsonSchemaModel("exampleschema2.json");
-            ////return GenerateTypesForSchema("exampleschema2.json");
+            return GenerateTypesForSchema("exampleschema2.json");
 
-            UseGeneratedCode();
-            return Task.CompletedTask;
+            ////UseGeneratedCode();
+            ////return Task.CompletedTask;
         }
 
         private static void UseGeneratedCode()
         {
-            Person instance = default(Person).WithAge(21);
-            instance = instance.WithContact((JsonEmail)"matthew.adams@endjin.com");
+            Person instance =
+                new Person("Ian", "Griffiths")
+                    .WithAge(21)
+                    .WithContact((JsonEmail)"matthew.adams@endjin.com");
+
             Validate(instance);
+            Serialize(instance);
         }
 
         private static async Task UseJsonSchemaModel(string uri)
