@@ -437,6 +437,11 @@ namespace Menes.Json.Schema.TypeGenerator
 
         private string? GetKeyFor(JsonSchema schema)
         {
+            if (schema.Id is JsonString id)
+            {
+                return id;
+            }
+
             return JsonAny.From(schema).ToString();
         }
 
