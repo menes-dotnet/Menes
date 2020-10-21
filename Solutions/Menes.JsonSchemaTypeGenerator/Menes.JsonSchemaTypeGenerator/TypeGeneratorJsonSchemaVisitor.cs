@@ -181,14 +181,25 @@ namespace Menes.Json.Schema.TypeGenerator
                 return this.CreateAny(schema, name);
             }
 
+            if (schema.OneOf is JsonSchema.ValidatedArrayOfSchemaOrReference || schema.AnyOf is JsonSchema.ValidatedArrayOfSchemaOrReference)
+            {
+                return new ValueTask<ITypeDeclaration>(new UnionTypeDeclaration(name));
+            }
+
             return new ValueTask<ITypeDeclaration>(new ObjectTypeDeclaration(name));
         }
 
         private async Task PopulateObject(ITypeDeclaration type, JsonSchema schema)
         {
+            if (type is UnionTypeDeclaration union)
+            {
+                await this.PopulateUnion(union, schema).ConfigureAwait(false);
+                return;
+            }
+
             if (!(type is ObjectTypeDeclaration typeDeclaration))
             {
-                throw new InvalidOperationException($"Expected an {typeof(ObjectTypeDeclaration).FullName} but found a {type.GetType().FullName}.");
+                throw new InvalidOperationException($"Expected an {typeof(ObjectTypeDeclaration).FullName} or a {typeof(UnionTypeDeclaration).FullName} but found a {type.GetType().FullName}.");
             }
 
             this.PushPointerElement(typeDeclaration.Name);
@@ -212,7 +223,7 @@ namespace Menes.Json.Schema.TypeGenerator
 
                     if (!(childType is ITypeDeclaration ct))
                     {
-                        throw new InvalidOperationException($"Unable to find the type for {this.Path}/{property.Name}");
+                        throw new InvalidOperationException($"Unable to find the type for {this.Path}");
                     }
 
                     if (!requiredProperties.Contains(property.Name))
@@ -229,6 +240,23 @@ namespace Menes.Json.Schema.TypeGenerator
             }
 
             this.PopPointerElement();
+        }
+
+        private async Task PopulateUnion(UnionTypeDeclaration union, JsonSchema schema)
+        {
+            List<ITypeDeclaration>? anyOfTypes = await this.GetTypeDeclarationsFor(schema.AnyOf).ConfigureAwait(false);
+            if (anyOfTypes is List<ITypeDeclaration> any)
+            {
+                union.AddTypesToUnion(any.ToArray());
+                return;
+            }
+
+            List<ITypeDeclaration>? oneOfTypes = await this.GetTypeDeclarationsFor(schema.OneOf).ConfigureAwait(false);
+            if (oneOfTypes is List<ITypeDeclaration> one)
+            {
+                union.AddTypesToUnion(one.ToArray());
+                return;
+            }
         }
 
         private ValueTask<ITypeDeclaration> CreateBoolean(JsonSchema schema, string name)
@@ -290,20 +318,24 @@ namespace Menes.Json.Schema.TypeGenerator
             return new ValueTask<ITypeDeclaration>(schema.IsValidated() ? new ValidatedJsonValueTypeDeclaration(name, JsonValueTypeDeclaration.String) : (ITypeDeclaration)JsonValueTypeDeclaration.String);
         }
 
-        private async ValueTask<ITypeDeclaration> CreateArray(JsonSchema schema, string name)
+        private ValueTask<ITypeDeclaration> CreateArray(JsonSchema schema, string name)
         {
-            ITypeDeclaration itemTypeDeclaration = await this.GetTypeDeclarationFor(schema.Items).ConfigureAwait(false) ?? JsonValueTypeDeclaration.Any;
-            return schema.IsValidated() ? (ITypeDeclaration)new ValidatedArrayTypeDeclaration(name, itemTypeDeclaration) : new ArrayTypeDeclaration(itemTypeDeclaration);
+            return new ValueTask<ITypeDeclaration>(schema.IsValidated() ? (ITypeDeclaration)new ValidatedArrayTypeDeclaration(name) : new ArrayTypeDeclaration());
         }
 
-        private Task PopulateArray(ITypeDeclaration type, JsonSchema schema)
+        private async Task PopulateArray(ITypeDeclaration type, JsonSchema schema)
         {
-            if (type is ValidatedArrayTypeDeclaration typeDeclaration)
-            {
-                return this.BuildValidations(schema, typeDeclaration);
-            }
+            ITypeDeclaration itemTypeDeclaration = await this.GetTypeDeclarationFor(schema.Items).ConfigureAwait(false) ?? JsonValueTypeDeclaration.Any;
 
-            return Task.CompletedTask;
+            if (type is ValidatedArrayTypeDeclaration validatedArrayType)
+            {
+                validatedArrayType.ItemType = itemTypeDeclaration;
+                await this.BuildValidations(schema, validatedArrayType).ConfigureAwait(false);
+            }
+            else if (type is ArrayTypeDeclaration arrayType)
+            {
+                arrayType.ItemType = itemTypeDeclaration;
+            }
         }
 
         private ValueTask<ITypeDeclaration> CreateAny(JsonSchema schema, string name)
@@ -399,13 +431,21 @@ namespace Menes.Json.Schema.TypeGenerator
 
             var result = new List<ITypeDeclaration>();
 
+            int index = 1;
+
             foreach (JsonSchema.SchemaOrReference item in vasor)
             {
+                this.PushPointerElement($"item{index}");
+
                 ITypeDeclaration? td = await this.GetTypeDeclarationFor(item).ConfigureAwait(false);
                 if (td is ITypeDeclaration t)
                 {
                     result.Add(t);
                 }
+
+                this.PopPointerElement();
+
+                ++index;
             }
 
             if (result.Count > 0)
@@ -423,7 +463,7 @@ namespace Menes.Json.Schema.TypeGenerator
                 if (sor.IsSchemaReference)
                 {
                     (string uri, JsonDocument document) = this.DocumentStack.Peek();
-                    (string uri, JsonDocument document, JsonSchema.SchemaOrReference schemaOrReference) result = await sor.Resolve(uri, this.Path, document, this.DocumentResolver).ConfigureAwait(false);
+                    (string uri, JsonDocument document, JsonSchema.SchemaOrReference schemaOrReference) result = await sor.Resolve(uri, document, this.DocumentResolver).ConfigureAwait(false);
                     return this.GetKeyFor(result.schemaOrReference.AsJsonSchema());
                 }
                 else

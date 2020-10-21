@@ -180,7 +180,7 @@ namespace Menes
         {
             if (this.HasJsonElement && !IsConvertibleFrom(this.JsonElement))
             {
-                return validationContext.WithError("6.1.1. type: the element is not convertible from the given type");
+                return validationContext.WithError($"6.1.1. type: the element with type {this.JsonElement.ValueKind} is not convertible to {JsonValueKind.Number}");
             }
 
             if (this.HasJsonElement && !this.JsonElement.TryGetInt32(out _))

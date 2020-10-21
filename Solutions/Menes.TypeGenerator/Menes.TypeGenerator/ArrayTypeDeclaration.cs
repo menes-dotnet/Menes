@@ -17,9 +17,9 @@ namespace Menes.TypeGenerator
         /// Initializes a new instance of the <see cref="ArrayTypeDeclaration"/> class.
         /// </summary>
         /// <param name="itemType">The type of the item in the array.</param>
-        public ArrayTypeDeclaration(ITypeDeclaration itemType)
+        public ArrayTypeDeclaration(ITypeDeclaration? itemType = null)
         {
-            this.ItemType = itemType;
+            this.ItemType = itemType ?? JsonValueTypeDeclaration.Any;
         }
 
         /// <inheritdoc/>
@@ -41,9 +41,9 @@ namespace Menes.TypeGenerator
         public bool ShouldGenerate => false;
 
         /// <summary>
-        /// Gets the type of the item in the array.
+        /// Gets or sets the type of the item in the array.
         /// </summary>
-        public ITypeDeclaration ItemType { get; }
+        public ITypeDeclaration ItemType { get; set; }
 
         /// <inheritdoc/>
         /// <remarks>

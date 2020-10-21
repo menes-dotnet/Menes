@@ -15,10 +15,23 @@
       "type": "string",
       "description": "The person's last name."
     },
+    "contact": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "email"
+        },
+        {
+          "type": "string",
+          "format":  "telephone"
+        }
+      ]
+    },
     "age": {
       "description": "Age in years which must be equal to or greater than zero.",
       "type": "integer",
       "minimum": 0
     }
+
   }
 }

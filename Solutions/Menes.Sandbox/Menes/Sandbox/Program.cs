@@ -50,15 +50,16 @@ namespace Menes.Sandbox
             ////SimpleExamples();
             ////GenerateJsonSchemaModel();
             ////return UseJsonSchemaModel("exampleschema2.json");
-            return GenerateTypesForSchema("exampleschema2.json");
+            ////return GenerateTypesForSchema("exampleschema2.json");
 
-            ////UseGeneratedCode();
-            ////return Task.CompletedTask;
+            UseGeneratedCode();
+            return Task.CompletedTask;
         }
 
         private static void UseGeneratedCode()
         {
-            Person instance = default(Person).WithAge(-1);
+            Person instance = default(Person).WithAge(21);
+            instance = instance.WithContact(JsonAny.From<JsonInt32>(42));
             Validate(instance);
         }
 
@@ -329,7 +330,7 @@ namespace Menes.Sandbox
                 while (propertiesEnumerator.MoveNext())
                 {
                     Console.Write($"'{propertiesEnumerator.Current.Name}': ");
-                    (string childBaseUri, JsonDocument childDoc, JsonSchema.SchemaOrReference childSchema) = await propertiesEnumerator.Current.AsValue().Resolve(baseUri, pointer + "/" + propertiesEnumerator.Current.Name, root, resolver);
+                    (string childBaseUri, JsonDocument childDoc, JsonSchema.SchemaOrReference childSchema) = await propertiesEnumerator.Current.AsValue().Resolve(baseUri, root, resolver);
                     await RecursiveWriteSchema(childBaseUri, pointer + "." + propertiesEnumerator.Current.Name, childDoc, childSchema.AsJsonSchema(), resolver).ConfigureAwait(false);
                 }
             }

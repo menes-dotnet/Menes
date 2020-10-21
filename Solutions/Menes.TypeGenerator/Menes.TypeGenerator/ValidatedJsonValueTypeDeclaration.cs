@@ -180,27 +180,13 @@ namespace Menes.TypeGenerator
             builder.AppendLine($"    private static readonly {this.ValidatedType.RawClrTypes[0]}? ConstValue = BuildConstValue();");
             builder.AppendLine($"    private static readonly System.Collections.Immutable.ImmutableArray<{this.ValidatedType.RawClrTypes[0]}>? EnumValues = BuildEnumValues();");
 
-            if (this.ValidatedType.Kind == JsonValueTypeDeclaration.ValueKind.String || this.ValidatedType.Kind == JsonValueTypeDeclaration.ValueKind.Any)
+            if (this.ValidatedType.Kind == JsonValueTypeDeclaration.ValueKind.String)
             {
-                builder.AppendLine($"    private static readonly int? MaxLength = {this.MaxLengthValidation?.ToString() ?? "null"};");
-                builder.AppendLine($"    private static readonly int? MinLength = {this.MaxLengthValidation?.ToString() ?? "null"};");
-
-                if (this.PatternValidation is string pattern)
-                {
-                    builder.AppendLine($"    private static readonly System.Text.RegularExpressions.Regex? Pattern = new System.Text.RegularExpressions.Regex({StringFormatter.EscapeForCSharpString(pattern, true)}, System.Text.RegularExpressions.RegexOptions.Compiled);");
-                }
-                else
-                {
-                    builder.AppendLine($"    private static readonly System.Text.RegularExpressions.Regex? Pattern = null;");
-                }
+                this.AppendStringValidationProperties(builder);
             }
-            else if (this.ValidatedType.Kind == JsonValueTypeDeclaration.ValueKind.Number || this.ValidatedType.Kind == JsonValueTypeDeclaration.ValueKind.Any)
+            else if (this.ValidatedType.Kind == JsonValueTypeDeclaration.ValueKind.Number)
             {
-                builder.AppendLine($"    private static readonly {this.ValidatedType.RawClrTypes[0]}? MultipleOf = {this.MultipleOfValidation?.ToString() ?? "null"};");
-                builder.AppendLine($"    private static readonly {this.ValidatedType.RawClrTypes[0]}? Maximum = {this.MaximumValidation?.ToString() ?? "null"};");
-                builder.AppendLine($"    private static readonly {this.ValidatedType.RawClrTypes[0]}? ExclusiveMaximum = {this.ExclusiveMaximumValidation?.ToString() ?? "null"};");
-                builder.AppendLine($"    private static readonly {this.ValidatedType.RawClrTypes[0]}? Minimum = {this.MinimumValidation?.ToString() ?? "null"};");
-                builder.AppendLine($"    private static readonly {this.ValidatedType.RawClrTypes[0]}? ExclusiveMinimum = {this.ExclusiveMinimumValidation?.ToString() ?? "null"};");
+                this.AppendNumberValidationProperties(this.ValidatedType, builder);
             }
             else if (this.ValidatedType.Kind == JsonValueTypeDeclaration.ValueKind.Decimal)
             {
@@ -209,6 +195,28 @@ namespace Menes.TypeGenerator
                 builder.AppendLine($"    private static readonly {this.ValidatedType.RawClrTypes[0]}? ExclusiveMaximum = {GetDecimalFor(this.ExclusiveMaximumValidation?.ToString())};");
                 builder.AppendLine($"    private static readonly {this.ValidatedType.RawClrTypes[0]}? Minimum = {GetDecimalFor(this.MinimumValidation?.ToString())};");
                 builder.AppendLine($"    private static readonly {this.ValidatedType.RawClrTypes[0]}? ExclusiveMinimum = {GetDecimalFor(this.ExclusiveMinimumValidation?.ToString())};");
+            }
+            else if (this.ValidatedType.Kind == JsonValueTypeDeclaration.ValueKind.Any)
+            {
+                if (this.MinLengthValidation.HasValue || this.MaxLengthValidation.HasValue || !(this.PatternValidation is null))
+                {
+                    this.AppendStringValidationProperties(builder);
+                }
+
+                if (this.MultipleOfValidation.HasValue || this.MaximumValidation.HasValue || this.ExclusiveMaximumValidation.HasValue || this.MinimumValidation.HasValue || this.ExclusiveMinimumValidation.HasValue)
+                {
+                    this.AppendNumberValidationProperties(this.ValidatedType, builder);
+                }
+
+                if (!(this.EnumValidation is null))
+                {
+                    builder.AppendLine($"context = Menes.Validation.ValidateEnum(context, value, EnumValues);");
+                }
+
+                if (!(this.ConstValidation is null))
+                {
+                    builder.AppendLine($"context = Menes.Validation.ValidateEnum(context, value, ConstValue);");
+                }
             }
 
             builder.AppendLine($"    private readonly {validatedTypeFullyQualifiedName}? value;");
@@ -323,7 +331,7 @@ namespace Menes.TypeGenerator
                 {
                     string allOfFullyQualifiedName = allOfType.GetFullyQualifiedName();
                     string allOfTypeNameCamelCase = StringFormatter.ToCamelCaseWithReservedWords(allOfType.Name);
-                    builder.AppendLine($"{allOfFullyQualifiedName} {allOfTypeNameCamelCase}Value = JsonAny.From(value).As<{allOfFullyQualifiedName}>();");
+                    builder.AppendLine($"{allOfFullyQualifiedName} {allOfTypeNameCamelCase}Value = Menes.JsonAny.From(value).As<{allOfFullyQualifiedName}>();");
                     builder.AppendLine($"            allOfValidationContext{index + 1} = {allOfTypeNameCamelCase}Value.Validate(allOfValidationContext{index + 1});");
                     index++;
                 }
@@ -334,7 +342,7 @@ namespace Menes.TypeGenerator
                 foreach (ITypeDeclaration allOfType in allOf)
                 {
                     builder.Append(", ");
-                    builder.Append($"validationContext{index + 1}");
+                    builder.Append($"allOfValidationContext{index + 1}");
                     index++;
                 }
 
@@ -353,8 +361,8 @@ namespace Menes.TypeGenerator
                 {
                     string anyOfFullyQualifiedName = anyOfType.GetFullyQualifiedName();
                     string anyOfTypeNameCamelCase = StringFormatter.ToCamelCaseWithReservedWords(anyOfType.Name);
-                    builder.AppendLine($"{anyOfFullyQualifiedName} {anyOfTypeNameCamelCase}Value = JsonAny.From(value).As<{anyOfFullyQualifiedName}>();");
-                    builder.AppendLine($"            anyOfValidationContext{index + 1} = {anyOfTypeNameCamelCase}Value.Validate(anyOfValidationContext{index + 1});");
+                    builder.AppendLine($"{anyOfFullyQualifiedName} item{index + 1} = Menes.JsonAny.From(value).As<{anyOfFullyQualifiedName}>();");
+                    builder.AppendLine($"            anyOfValidationContext{index + 1} = item{index + 1}.Validate(anyOfValidationContext{index + 1});");
                     index++;
                 }
 
@@ -364,7 +372,7 @@ namespace Menes.TypeGenerator
                 foreach (ITypeDeclaration anyOfType in anyOf)
                 {
                     builder.Append(", ");
-                    builder.Append($"validationContext{index + 1}");
+                    builder.Append($"anyOfValidationContext{index + 1}");
                     index++;
                 }
 
@@ -383,7 +391,7 @@ namespace Menes.TypeGenerator
                 {
                     string oneOfFullyQualifiedName = oneOfType.GetFullyQualifiedName();
                     string oneOfTypeNameCamelCase = StringFormatter.ToCamelCaseWithReservedWords(oneOfType.Name);
-                    builder.AppendLine($"{oneOfFullyQualifiedName} {oneOfTypeNameCamelCase}Value = JsonAny.From(value).As<{oneOfFullyQualifiedName}>();");
+                    builder.AppendLine($"{oneOfFullyQualifiedName} {oneOfTypeNameCamelCase}Value = Menes.JsonAny.From(value).As<{oneOfFullyQualifiedName}>();");
                     builder.AppendLine($"            oneOfValidationContext{index + 1} = {oneOfTypeNameCamelCase}Value.Validate(oneOfValidationContext{index + 1});");
                     index++;
                 }
@@ -401,17 +409,39 @@ namespace Menes.TypeGenerator
                 builder.AppendLine(");");
             }
 
-            if (this.ValidatedType.Kind == JsonValueTypeDeclaration.ValueKind.String || this.ValidatedType.Kind == JsonValueTypeDeclaration.ValueKind.Any)
+            if (this.ValidatedType.Kind == JsonValueTypeDeclaration.ValueKind.String)
             {
                 builder.AppendLine($"context = value.ValidateAsString(context, MinLength, MaxLength, Pattern, EnumValues, ConstValue);");
             }
-            else if (this.ValidatedType.Kind == JsonValueTypeDeclaration.ValueKind.Decimal || this.ValidatedType.Kind == JsonValueTypeDeclaration.ValueKind.Number || this.ValidatedType.Kind == JsonValueTypeDeclaration.ValueKind.Any)
+            else if (this.ValidatedType.Kind == JsonValueTypeDeclaration.ValueKind.Decimal || this.ValidatedType.Kind == JsonValueTypeDeclaration.ValueKind.Number)
             {
                 builder.AppendLine($"context = value.ValidateAsNumber(context, MultipleOf, Maximum, ExclusiveMaximum, Minimum, ExclusiveMinimum, EnumValues, ConstValue);");
             }
-            else if (this.ValidatedType.Kind == JsonValueTypeDeclaration.ValueKind.Boolean || this.ValidatedType.Kind == JsonValueTypeDeclaration.ValueKind.Any)
+            else if (this.ValidatedType.Kind == JsonValueTypeDeclaration.ValueKind.Boolean)
             {
                 builder.AppendLine($"context = value.ValidateAsBoolean(context, EnumValues, ConstValue);");
+            }
+            else if (this.ValidatedType.Kind == JsonValueTypeDeclaration.ValueKind.Any)
+            {
+                if (this.MinLengthValidation.HasValue || this.MaxLengthValidation.HasValue || !(this.PatternValidation is null))
+                {
+                    builder.AppendLine($"context = value.As<Menes.JsonString>().ValidateAsString(context, MinLength, MaxLength, Pattern, null, null);");
+                }
+
+                if (this.MultipleOfValidation.HasValue || this.MaximumValidation.HasValue || this.ExclusiveMaximumValidation.HasValue || this.MinimumValidation.HasValue || this.ExclusiveMinimumValidation.HasValue)
+                {
+                    builder.AppendLine($"context = value.As<Menes.JsonNumber>().ValidateAsNumber(context, MultipleOf, Maximum, ExclusiveMaximum, Minimum, ExclusiveMinimum, EnumValues, ConstValue);");
+                }
+
+                if (!(this.EnumValidation is null))
+                {
+                    builder.AppendLine($"context = Menes.Validation.ValidateEnum(context, value, EnumValues);");
+                }
+
+                if (!(this.ConstValidation is null))
+                {
+                    builder.AppendLine($"context = Menes.Validation.ValidateConst(context, value, ConstValue);");
+                }
             }
 
             builder.AppendLine("return context;");
@@ -518,6 +548,30 @@ namespace Menes.TypeGenerator
         private static string GetDecimalFor(string? optionalValue)
         {
             return optionalValue is string value ? value + "M" : "null";
+        }
+
+        private void AppendNumberValidationProperties(JsonValueTypeDeclaration validatedType, StringBuilder builder)
+        {
+            builder.AppendLine($"    private static readonly {validatedType.RawClrTypes[0]}? MultipleOf = {this.MultipleOfValidation?.ToString() ?? "null"};");
+            builder.AppendLine($"    private static readonly {validatedType.RawClrTypes[0]}? Maximum = {this.MaximumValidation?.ToString() ?? "null"};");
+            builder.AppendLine($"    private static readonly {validatedType.RawClrTypes[0]}? ExclusiveMaximum = {this.ExclusiveMaximumValidation?.ToString() ?? "null"};");
+            builder.AppendLine($"    private static readonly {validatedType.RawClrTypes[0]}? Minimum = {this.MinimumValidation?.ToString() ?? "null"};");
+            builder.AppendLine($"    private static readonly {validatedType.RawClrTypes[0]}? ExclusiveMinimum = {this.ExclusiveMinimumValidation?.ToString() ?? "null"};");
+        }
+
+        private void AppendStringValidationProperties(StringBuilder builder)
+        {
+            builder.AppendLine($"    private static readonly int? MaxLength = {this.MaxLengthValidation?.ToString() ?? "null"};");
+            builder.AppendLine($"    private static readonly int? MinLength = {this.MaxLengthValidation?.ToString() ?? "null"};");
+
+            if (this.PatternValidation is string pattern)
+            {
+                builder.AppendLine($"    private static readonly System.Text.RegularExpressions.Regex? Pattern = new System.Text.RegularExpressions.Regex({StringFormatter.EscapeForCSharpString(pattern, true)}, System.Text.RegularExpressions.RegexOptions.Compiled);");
+            }
+            else
+            {
+                builder.AppendLine($"    private static readonly System.Text.RegularExpressions.Regex? Pattern = null;");
+            }
         }
     }
 }

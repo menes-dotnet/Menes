@@ -30,7 +30,7 @@ namespace Menes.Json.Schema
                 if (this.ResolveReferences)
                 {
                     (string uri, JsonDocument document) = this.DocumentStack.Peek();
-                    (string uri, JsonDocument document, JsonSchema.SchemaOrReference schemaOrReference) result = await schemaOrReference.Resolve(uri, this.Path, document, this.DocumentResolver).ConfigureAwait(false);
+                    (string uri, JsonDocument document, JsonSchema.SchemaOrReference schemaOrReference) result = await schemaOrReference.Resolve(uri, document, this.DocumentResolver).ConfigureAwait(false);
 
                     if (result.document != document)
                     {
