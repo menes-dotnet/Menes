@@ -426,7 +426,7 @@ namespace Menes
         }
 
         /// <inheritdoc/>
-        public override string? ToString()
+        public override string ToString()
         {
             if (this.clrInt is int int32)
             {
@@ -458,7 +458,7 @@ namespace Menes
                 return this.JsonElement.GetRawText();
             }
 
-            return null;
+            return string.Empty;
         }
 
         /// <inheritdoc/>

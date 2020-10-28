@@ -17,7 +17,7 @@ namespace Menes.Json.Schema
         /// </summary>
         /// <param name="arrayOfSchemaOrReferenceToUpdate">The array of schema or reference to visit.</param>
         /// <returns>A tuple of <c>True</c> if the schema was updated, and the updated <see cref="JsonSchema.ValidatedArrayOfSchemaOrReference"/>.</returns>
-        protected virtual async ValueTask<(bool, JsonSchema.ValidatedArrayOfSchemaOrReference?)> VisitAnyOf(JsonSchema.ValidatedArrayOfSchemaOrReference? arrayOfSchemaOrReferenceToUpdate)
+        protected virtual async Task<(bool, JsonSchema.ValidatedArrayOfSchemaOrReference?)> VisitAnyOf(JsonSchema.ValidatedArrayOfSchemaOrReference? arrayOfSchemaOrReferenceToUpdate)
         {
             bool wasUpdated = false;
             JsonSchema.ValidatedArrayOfSchemaOrReference? updatedArrayOfSchemaOrReference = arrayOfSchemaOrReferenceToUpdate;
@@ -28,7 +28,7 @@ namespace Menes.Json.Schema
                 int index = 0;
                 foreach (JsonSchema.SchemaOrReference schemaOrReferenceToUpdate in arrayOfSchemaOrReference)
                 {
-                    this.PushPointerElement($"{index}");
+                    ////this.PushPointerElement($"{index}");
                     (bool wasUpdatedSchemaOrReference, JsonSchema.SchemaOrReference? updatedSchemaOrReference) = await this.VisitSchemaOrReference(schemaOrReferenceToUpdate).ConfigureAwait(false);
                     if (wasUpdatedSchemaOrReference)
                     {
@@ -47,7 +47,7 @@ namespace Menes.Json.Schema
                         builder.Add(schemaOrReferenceToUpdate);
                     }
 
-                    this.PopPointerElement();
+                    ////this.PopPointerElement();
                     ++index;
                 }
 

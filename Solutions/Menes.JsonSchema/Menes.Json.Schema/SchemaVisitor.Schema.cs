@@ -20,7 +20,7 @@ namespace Menes.Json.Schema
         /// </summary>
         /// <param name="schemaToVisit">The schema to visit.</param>
         /// <returns>A tuple of <c>True</c> if the schema was updated, and the updated <see cref="JsonSchema"/>.</returns>
-        public virtual async ValueTask<(bool, JsonSchema?)> VisitSchema(JsonSchema? schemaToVisit)
+        public virtual async Task<(bool, JsonSchema?)> VisitSchema(JsonSchema? schemaToVisit)
         {
             JsonSchema? updatedSchema = schemaToVisit;
             bool wasUpdated = false;
@@ -448,9 +448,9 @@ namespace Menes.Json.Schema
         /// </summary>
         /// <param name="schema">The schema to visit.</param>
         /// <returns>A tuple of <c>True</c> if the schema was updated, and the updated <see cref="JsonSchema"/>.</returns>
-        protected virtual ValueTask<(bool wasUpdated, JsonSchema updatedSchema)> BeginVisitSchema(JsonSchema schema)
+        protected virtual Task<(bool wasUpdated, JsonSchema updatedSchema)> BeginVisitSchema(JsonSchema schema)
         {
-            return new ValueTask<(bool wasUpdated, JsonSchema updatedSchema)>((false, schema));
+            return Task.FromResult<(bool wasUpdated, JsonSchema updatedSchema)>((false, schema));
         }
 
         /// <summary>
@@ -458,9 +458,9 @@ namespace Menes.Json.Schema
         /// </summary>
         /// <param name="schema">The schema to visit.</param>
         /// <returns>A tuple of <c>True</c> if the schema was updated, and the updated <see cref="JsonSchema"/>.</returns>
-        protected virtual ValueTask<(bool wasUpdated, JsonSchema updatedSchema)> EndVisitSchema(JsonSchema schema)
+        protected virtual Task<(bool wasUpdated, JsonSchema updatedSchema)> EndVisitSchema(JsonSchema schema)
         {
-            return new ValueTask<(bool wasUpdated, JsonSchema updatedSchema)>((false, schema));
+            return Task.FromResult<(bool wasUpdated, JsonSchema updatedSchema)>((false, schema));
         }
     }
 }

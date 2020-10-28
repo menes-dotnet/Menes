@@ -16,7 +16,7 @@ namespace Menes.Json.Schema
         /// </summary>
         /// <param name="notToUpdate">The not value to visit.</param>
         /// <returns>A tuple of <c>True</c> if the schema was updated, and the updated <see cref="JsonSchema.SchemaOrReference"/>.</returns>
-        protected virtual ValueTask<(bool, JsonSchema.SchemaOrReference?)> VisitNot(JsonSchema.SchemaOrReference? notToUpdate)
+        protected virtual Task<(bool, JsonSchema.SchemaOrReference?)> VisitNot(JsonSchema.SchemaOrReference? notToUpdate)
         {
             return this.VisitSchemaOrReference(notToUpdate);
         }

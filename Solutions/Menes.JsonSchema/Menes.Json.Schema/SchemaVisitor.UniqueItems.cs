@@ -16,9 +16,9 @@ namespace Menes.Json.Schema
         /// </summary>
         /// <param name="uniqueItemsToUpdate">The uniqueItems value to visit.</param>
         /// <returns>A tuple of <c>True</c> if the schema was updated, and the updated <see cref="JsonBoolean"/>.</returns>
-        protected virtual ValueTask<(bool, JsonBoolean?)> VisitUniqueItems(JsonBoolean? uniqueItemsToUpdate)
+        protected virtual Task<(bool, JsonBoolean?)> VisitUniqueItems(JsonBoolean? uniqueItemsToUpdate)
         {
-            return new ValueTask<(bool, JsonBoolean?)>((false, uniqueItemsToUpdate));
+            return Task.FromResult<(bool, JsonBoolean?)>((false, uniqueItemsToUpdate));
         }
     }
 }

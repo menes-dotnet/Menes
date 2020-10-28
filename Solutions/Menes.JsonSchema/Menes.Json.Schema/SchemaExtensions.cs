@@ -22,7 +22,7 @@ namespace Menes.Json.Schema
         /// <param name="documentResolver">The document resolver that can load a document from a json reference.</param>
         /// <returns>The resolved reference.</returns>
         /// <remarks>If any additional documents were loaded as part of this exercise, they will be added to the collection.</remarks>
-        public static async ValueTask<(string uri, JsonDocument document, JsonSchema.SchemaOrReference reference)> Resolve(this JsonSchema.SchemaOrReference schemaToResolve, string baseUri, JsonDocument root, IDocumentResolver documentResolver)
+        public static async Task<(string uri, JsonDocument document, JsonSchema.SchemaOrReference reference)> Resolve(this JsonSchema.SchemaOrReference schemaToResolve, string baseUri, JsonDocument root, IDocumentResolver documentResolver)
         {
             if (schemaToResolve.IsNull)
             {
@@ -48,13 +48,13 @@ namespace Menes.Json.Schema
         /// </summary>
         /// <param name="reference">The JSON reference to resolve.</param>
         /// <param name="documentResolver">The document resolver.</param>
-        /// <returns>A <see cref="ValueTask"/> that provides the <see cref="JsonSchema.SchemaOrReference"/>.</returns>
-        public static ValueTask<(string, JsonDocument, JsonSchema.SchemaOrReference)> Resolve(this JsonRef reference, IDocumentResolver documentResolver)
+        /// <returns>A <see cref="Task"/> that provides the <see cref="JsonSchema.SchemaOrReference"/>.</returns>
+        public static Task<(string, JsonDocument, JsonSchema.SchemaOrReference)> Resolve(this JsonRef reference, IDocumentResolver documentResolver)
         {
             return ResolveReference(reference, null, documentResolver);
         }
 
-        private static async ValueTask<(string, JsonDocument, JsonSchema.SchemaOrReference)> ResolveReference(JsonRef reference, JsonDocument? root, IDocumentResolver documentResolver)
+        private static async Task<(string, JsonDocument, JsonSchema.SchemaOrReference)> ResolveReference(JsonRef reference, JsonDocument? root, IDocumentResolver documentResolver)
         {
             JsonDocument? document = root;
 

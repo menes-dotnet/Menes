@@ -16,9 +16,9 @@ namespace Menes.Json.Schema
         /// </summary>
         /// <param name="multipleOfToUpdate">The multipleOf value to visit.</param>
         /// <returns>A tuple of <c>True</c> if the schema was updated, and the updated <see cref="JsonSchema.PositiveNumber"/>.</returns>
-        protected virtual ValueTask<(bool, JsonSchema.PositiveNumber?)> VisitMultipleOf(JsonSchema.PositiveNumber? multipleOfToUpdate)
+        protected virtual Task<(bool, JsonSchema.PositiveNumber?)> VisitMultipleOf(JsonSchema.PositiveNumber? multipleOfToUpdate)
         {
-            return new ValueTask<(bool, JsonSchema.PositiveNumber?)>((false, multipleOfToUpdate));
+            return Task.FromResult<(bool, JsonSchema.PositiveNumber?)>((false, multipleOfToUpdate));
         }
     }
 }

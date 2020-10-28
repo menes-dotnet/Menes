@@ -59,6 +59,14 @@ namespace Menes.Sandbox
 
         private static void UseGeneratedCode()
         {
+            var resource =
+                new Resource(
+                    links: new Resource.LinksEntity(
+                        self: new Link("http://endjin.com/something"),
+                        ("foo", new Link("http://endjin.com/something")),
+                        ("bar", new Link("http://endjin.com/something")),
+                        ("baz",  (LinkCollection)JsonArray.Create(new Link("http://endjin.com/something"), new Link("http://endjin.com/somethingelse")))));
+
             Person instance =
                 new Person("Ian", "Griffiths")
                     .WithAge(21)
@@ -100,17 +108,21 @@ namespace Menes.Sandbox
 
             Validate(schema);
 
-            var typeGenerator = new TypeGeneratorJsonSchemaVisitor(DocumentResolver.Default, baseUri, root);
-            await typeGenerator.VisitSchema(schema).ConfigureAwait(false);
-
-            TypeDeclarationSyntax[] tds = typeGenerator.GenerateTypes();
-            foreach (TypeDeclarationSyntax t in tds)
+            var typeGenerator = new TypeGeneratorJsonSchemaVisitor(DocumentResolver.Default);
+            try
             {
-                SyntaxNode formattedJsonSchema = Formatter.Format(t, new AdhocWorkspace());
-                Console.WriteLine();
-                Console.WriteLine("*****************************");
-                Console.WriteLine();
-                Console.WriteLine(formattedJsonSchema.ToFullString());
+                await typeGenerator.BuildTypes(schema, root, baseUri).ConfigureAwait(false);
+
+                TypeDeclarationSyntax[] tds = typeGenerator.GenerateTypes();
+                foreach (TypeDeclarationSyntax t in tds)
+                {
+                    SyntaxNode formattedJsonSchema = Formatter.Format(t, new AdhocWorkspace());
+                    Console.WriteLine(formattedJsonSchema.ToFullString());
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
             }
         }
 

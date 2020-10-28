@@ -18,8 +18,8 @@ namespace Menes.Json.Schema
         /// <param name="resolver">The <see cref="IDocumentResolver"/> to load the document in the reference.</param>
         /// <param name="reference">The json reference at which to load the schema.</param>
         /// <param name="resolveReferences">Whether to resolve references on load.</param>
-        /// <returns>A <see cref="ValueTask{TResult}"/> which produces the <see cref="JsonSchema"/>.</returns>
-        public static async ValueTask<(string, JsonDocument, JsonSchema)> LoadSchema(this IDocumentResolver resolver, JsonRef reference, bool resolveReferences = true)
+        /// <returns>A <see cref="Task{TResult}"/> which produces the <see cref="JsonSchema"/>.</returns>
+        public static async Task<(string, JsonDocument, JsonSchema)> LoadSchema(this IDocumentResolver resolver, JsonRef reference, bool resolveReferences = true)
         {
             (string baseUri, JsonDocument document, JsonSchema.SchemaOrReference schemaOrReference) = await reference.Resolve(resolver).ConfigureAwait(false);
             JsonSchema schema = schemaOrReference.AsJsonSchema();

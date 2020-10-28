@@ -114,7 +114,7 @@ namespace Examples
                 this.JsonElement.WriteTo(writer);
             }
         }
-        public override string? ToString()
+        public override string ToString()
         {
             var builder = new System.Text.StringBuilder();
             if (this.IsJsonBoolean)

@@ -18,7 +18,7 @@ namespace Menes.Json.Schema
         /// </summary>
         /// <param name="schemaOrReferenceToUpdate">The <see cref="JsonSchema.SchemaOrReference"/> to visit.</param>
         /// <returns><c>True</c> if the <see cref="JsonSchema.SchemaOrReference"/> was updated.</returns>
-        protected virtual async ValueTask<(bool, JsonSchema.SchemaOrReference?)> VisitSchemaOrReference(JsonSchema.SchemaOrReference? schemaOrReferenceToUpdate)
+        protected virtual async Task<(bool, JsonSchema.SchemaOrReference?)> VisitSchemaOrReference(JsonSchema.SchemaOrReference? schemaOrReferenceToUpdate)
         {
             bool wasUpdated = false;
             JsonSchema.SchemaOrReference? updatedSchemaOrReference = schemaOrReferenceToUpdate;
@@ -29,12 +29,11 @@ namespace Menes.Json.Schema
 
                 if (this.ResolveReferences)
                 {
-                    (string uri, JsonDocument document) = this.DocumentStack.Peek();
-                    (string uri, JsonDocument document, JsonSchema.SchemaOrReference schemaOrReference) result = await schemaOrReference.Resolve(uri, document, this.DocumentResolver).ConfigureAwait(false);
+                    (string uri, JsonDocument document, JsonSchema.SchemaOrReference schemaOrReference) result = await schemaOrReference.Resolve(this.CurrentBaseUri, this.CurrentDocument, this.DocumentResolver).ConfigureAwait(false);
 
-                    if (result.document != document)
+                    if (result.document != this.CurrentDocument)
                     {
-                        this.DocumentStack.Push((result.uri, result.document));
+                        this.PushDocument(result.uri, result.document);
                         pushedDocument = true;
                     }
 
@@ -61,7 +60,7 @@ namespace Menes.Json.Schema
                 {
                     if (pushedDocument)
                     {
-                        this.DocumentStack.Pop();
+                        this.PopDocument();
                     }
                 }
 

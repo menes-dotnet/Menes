@@ -17,8 +17,8 @@ namespace Menes.Json.Schema
         /// Gets the document at the given <see cref="JsonRef.Uri"/> in the <paramref name="reference"/>.
         /// </summary>
         /// <param name="reference">The reference containing the document URI.</param>
-        /// <returns>A <see cref="ValueTask{TResult}"/> which provides the <see cref="JsonDocument"/>, or <c>null</c> if it could not be retrieved.</returns>
-        ValueTask<JsonDocument?> TryResolveDocument(JsonRef reference);
+        /// <returns>A <see cref="Task{TResult}"/> which provides the <see cref="JsonDocument"/>, or <c>null</c> if it could not be retrieved.</returns>
+        Task<JsonDocument?> TryResolveDocument(JsonRef reference);
 
         /// <summary>
         /// Add an existing document to the cache.

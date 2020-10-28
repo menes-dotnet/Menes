@@ -396,7 +396,7 @@ namespace Examples
             int written = System.Text.Encoding.UTF8.GetBytes(propertyName, bytes);
             return this.TryGetAdditionalProperty(bytes.Slice(0, written), out value);
         }
-        public override string? ToString()
+        public override string ToString()
         {
             return Menes.JsonAny.From(this).ToString();
         }
@@ -517,7 +517,7 @@ namespace Examples
                     this.JsonElement.WriteTo(writer);
                 }
             }
-            public override string? ToString()
+            public override string ToString()
             {
                 var builder = new System.Text.StringBuilder();
                 if (this.IsJsonEmail)
@@ -676,7 +676,7 @@ namespace Examples
                     clrValue.WriteTo(writer);
                 }
             }
-            public override string? ToString()
+            public override string ToString()
             {
                 if (this.value is Menes.JsonInteger clrValue)
                 {

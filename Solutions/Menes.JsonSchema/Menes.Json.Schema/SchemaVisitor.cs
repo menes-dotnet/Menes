@@ -6,6 +6,8 @@ namespace Menes.Json.Schema
 {
     using System;
     using System.Collections.Generic;
+    using System.Collections.Immutable;
+    using System.Linq;
     using System.Text.Json;
 
     /// <summary>
@@ -14,7 +16,8 @@ namespace Menes.Json.Schema
     public partial class SchemaVisitor
     {
         private readonly IDocumentResolver? documentResolver;
-        private readonly Stack<(string, JsonDocument)>? documentStack;
+
+        private readonly Stack<(string, JsonDocument)> documentStack;
         private readonly List<string> pathList;
 
         /// <summary>
@@ -26,6 +29,7 @@ namespace Menes.Json.Schema
         public SchemaVisitor()
         {
             this.pathList = new List<string>();
+            this.documentStack = new Stack<(string, JsonDocument)>();
         }
 
         /// <summary>
@@ -41,7 +45,6 @@ namespace Menes.Json.Schema
             : this()
         {
             this.documentResolver = documentResolver;
-            this.documentStack = new Stack<(string, JsonDocument)>();
             this.documentStack.Push((uri, root));
         }
 
@@ -59,19 +62,19 @@ namespace Menes.Json.Schema
             {
                 // Find the last root.
                 int index = this.pathList.LastIndexOf("#");
-                return string.Join(string.Empty, this.pathList.GetRange(index, this.pathList.Count - index));
+                return string.Join(string.Empty, this.pathList.Skip(index));
             }
         }
 
         /// <summary>
         /// Gets the current base URI.
         /// </summary>
-        public string CurrentBaseUri => this.DocumentStack.Peek().uri;
+        protected string CurrentBaseUri => this.documentStack.Peek().Item1;
 
         /// <summary>
         /// Gets the current document.
         /// </summary>
-        public JsonDocument CurrentDocument => this.DocumentStack.Peek().document;
+        protected JsonDocument CurrentDocument => this.documentStack.Peek().Item2;
 
         /// <summary>
         /// Gets the <see cref="IDocumentResolver"/>.
@@ -79,9 +82,22 @@ namespace Menes.Json.Schema
         protected IDocumentResolver DocumentResolver => this.documentResolver is IDocumentResolver dr ? dr : throw new InvalidOperationException("The document resolver was not set.");
 
         /// <summary>
-        /// Gets the <see cref="Stack{T}"/> of <see cref="JsonDocument"/>.
+        /// Push a document onto the document stack.
         /// </summary>
-        protected Stack<(string uri, JsonDocument document)> DocumentStack => this.documentStack is Stack<(string, JsonDocument)> stack ? stack : throw new InvalidOperationException("The document stack was not set.");
+        /// <param name="uri">The uri of the document to push.</param>
+        /// <param name="document">The document to push.</param>
+        protected void PushDocument(string uri, JsonDocument document)
+        {
+            this.documentStack.Push((uri, document));
+        }
+
+        /// <summary>
+        /// Pops a document from the document stack.
+        /// </summary>
+        protected void PopDocument()
+        {
+            this.documentStack.Pop();
+        }
 
         /// <summary>
         /// Push the current path element onto the stack.
@@ -104,22 +120,9 @@ namespace Menes.Json.Schema
         /// </summary>
         protected void PopPointerElement()
         {
-            this.pathList.RemoveAt(this.pathList.Count - 1);
-        }
-
-        /// <summary>
-        /// Pushes a pointer element for a schema reference.
-        /// </summary>
-        /// <param name="schemaOrReference">The schema or reference for which to push a pointer element.</param>
-        /// <remarks>
-        /// If the SchemaOrReference was a reference, this will push a pointer for the reference onto the stack.
-        /// </remarks>
-        protected void PushPointerElementForSchemaOrReference(JsonSchema.SchemaOrReference schemaOrReference)
-        {
-            if (schemaOrReference.IsSchemaReference)
+            if (this.pathList.Count > 0)
             {
-                var jsonref = new JsonRef(schemaOrReference.AsSchemaReference().Ref);
-                this.PushPointerElement(jsonref.HasPointer ? jsonref.Pointer.ToString() : "#");
+                this.pathList.RemoveAt(this.pathList.Count - 1);
             }
         }
     }

@@ -74,6 +74,18 @@ namespace Menes
         public JsonElement JsonElement { get; }
 
         /// <summary>
+        /// Implicit conversion to <see cref="string"/>.
+        /// </summary>
+        /// <param name="value">The value to convert.</param>
+        public static implicit operator string(JsonUri value) => value.CreateOrGetClrString();
+
+        /// <summary>
+        /// Implicit conversion from a <see cref="string"/>.
+        /// </summary>
+        /// <param name="value">The value to convert.</param>
+        public static implicit operator JsonUri(string value) => new JsonUri(value);
+
+        /// <summary>
         /// Implicit conversion to <see cref="Uri"/>.
         /// </summary>
         /// <param name="value">The value to convert.</param>
@@ -170,7 +182,7 @@ namespace Menes
         }
 
         /// <inheritdoc/>
-        public override string? ToString()
+        public override string ToString()
         {
             // We are ensuring we behave like Uri.ToString() but without the overhead
             // of creating the Uri instance.

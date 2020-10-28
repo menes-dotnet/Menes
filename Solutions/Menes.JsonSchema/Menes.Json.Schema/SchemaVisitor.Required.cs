@@ -16,9 +16,9 @@ namespace Menes.Json.Schema
         /// </summary>
         /// <param name="requiredToUpdate">The required value to visit.</param>
         /// <returns>A tuple of <c>True</c> if the schema was updated, and the updated <see cref="JsonSchema.ValidatedArrayOfJsonString"/>.</returns>
-        protected virtual ValueTask<(bool, JsonSchema.ValidatedArrayOfJsonString?)> VisitRequired(JsonSchema.ValidatedArrayOfJsonString? requiredToUpdate)
+        protected virtual Task<(bool, JsonSchema.ValidatedArrayOfJsonString?)> VisitRequired(JsonSchema.ValidatedArrayOfJsonString? requiredToUpdate)
         {
-            return new ValueTask<(bool, JsonSchema.ValidatedArrayOfJsonString?)>((false, requiredToUpdate));
+            return Task.FromResult<(bool, JsonSchema.ValidatedArrayOfJsonString?)>((false, requiredToUpdate));
         }
     }
 }

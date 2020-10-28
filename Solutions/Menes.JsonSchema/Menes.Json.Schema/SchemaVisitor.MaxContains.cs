@@ -16,9 +16,9 @@ namespace Menes.Json.Schema
         /// </summary>
         /// <param name="maxContainsToUpdate">The maxContains value to visit.</param>
         /// <returns>A tuple of <c>True</c> if the schema was updated, and the updated <see cref="JsonSchema.NonNegativeInteger"/>.</returns>
-        protected virtual ValueTask<(bool, JsonSchema.NonNegativeInteger?)> VisitMaxContains(JsonSchema.NonNegativeInteger? maxContainsToUpdate)
+        protected virtual Task<(bool, JsonSchema.NonNegativeInteger?)> VisitMaxContains(JsonSchema.NonNegativeInteger? maxContainsToUpdate)
         {
-            return new ValueTask<(bool, JsonSchema.NonNegativeInteger?)>((false, maxContainsToUpdate));
+            return Task.FromResult<(bool, JsonSchema.NonNegativeInteger?)>((false, maxContainsToUpdate));
         }
     }
 }

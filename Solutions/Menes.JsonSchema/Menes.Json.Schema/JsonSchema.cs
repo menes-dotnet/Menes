@@ -2095,7 +2095,7 @@ namespace Menes.Json.Schema
             int written = System.Text.Encoding.UTF8.GetBytes(propertyName, bytes);
             return this.TryGetAdditionalProperty(bytes.Slice(0, written), out value);
         }
-        public override string? ToString()
+        public override string ToString()
         {
             return Menes.JsonAny.From(this).ToString();
         }
@@ -2374,7 +2374,7 @@ namespace Menes.Json.Schema
                 context = Menes.Validation.ValidateRequiredProperty(context, this.Ref, RefPropertyNamePath);
                 return context;
             }
-            public override string? ToString()
+            public override string ToString()
             {
                 return Menes.JsonAny.From(this).ToString();
             }
@@ -2477,7 +2477,7 @@ namespace Menes.Json.Schema
                     this.JsonElement.WriteTo(writer);
                 }
             }
-            public override string? ToString()
+            public override string ToString()
             {
                 var builder = new System.Text.StringBuilder();
                 if (this.IsJsonSchema)
@@ -2626,7 +2626,7 @@ namespace Menes.Json.Schema
                     clrValue.WriteTo(writer);
                 }
             }
-            public override string? ToString()
+            public override string ToString()
             {
                 if (this.value is Menes.JsonString clrValue)
                 {
@@ -2789,7 +2789,7 @@ namespace Menes.Json.Schema
                     clrValue.WriteTo(writer);
                 }
             }
-            public override string? ToString()
+            public override string ToString()
             {
                 if (this.value is Menes.JsonNumber clrValue)
                 {
@@ -2920,7 +2920,7 @@ namespace Menes.Json.Schema
                     clrValue.WriteTo(writer);
                 }
             }
-            public override string? ToString()
+            public override string ToString()
             {
                 if (this.value is Menes.JsonInteger clrValue)
                 {
@@ -3327,7 +3327,7 @@ namespace Menes.Json.Schema
                 int written = System.Text.Encoding.UTF8.GetBytes(propertyName, bytes);
                 return this.TryGetAdditionalProperty(bytes.Slice(0, written), out value);
             }
-            public override string? ToString()
+            public override string ToString()
             {
                 return Menes.JsonAny.From(this).ToString();
             }
@@ -3438,7 +3438,7 @@ namespace Menes.Json.Schema
                     this.JsonElement.WriteTo(writer);
                 }
             }
-            public override string? ToString()
+            public override string ToString()
             {
                 var builder = new System.Text.StringBuilder();
                 if (this.IsSchemaOrReference)

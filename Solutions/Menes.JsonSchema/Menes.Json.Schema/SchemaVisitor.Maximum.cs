@@ -16,9 +16,9 @@ namespace Menes.Json.Schema
         /// </summary>
         /// <param name="maximumToUpdate">The maximum value to visit.</param>
         /// <returns>A tuple of <c>True</c> if the schema was updated, and the updated <see cref="JsonNumber"/>.</returns>
-        protected virtual ValueTask<(bool, JsonNumber?)> VisitMaximum(JsonNumber? maximumToUpdate)
+        protected virtual Task<(bool, JsonNumber?)> VisitMaximum(JsonNumber? maximumToUpdate)
         {
-            return new ValueTask<(bool, JsonNumber?)>((false, maximumToUpdate));
+            return Task.FromResult<(bool, JsonNumber?)>((false, maximumToUpdate));
         }
     }
 }

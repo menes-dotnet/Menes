@@ -458,7 +458,7 @@ namespace Menes.TypeGenerator
             builder.AppendLine("        }");
             builder.AppendLine("    }");
 
-            builder.AppendLine("public override string? ToString()");
+            builder.AppendLine("public override string ToString()");
             builder.AppendLine("{");
             builder.AppendLine($"        if (this.value is {validatedTypeFullyQualifiedName} clrValue)");
             builder.AppendLine("        {");

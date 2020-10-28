@@ -599,7 +599,7 @@ namespace Examples
                     clrValue.WriteTo(writer);
                 }
             }
-            public override string? ToString()
+            public override string ToString()
             {
                 if (this.value is Menes.JsonInt32 clrValue)
                 {
@@ -720,7 +720,7 @@ namespace Examples
                     clrValue.WriteTo(writer);
                 }
             }
-            public override string? ToString()
+            public override string ToString()
             {
                 if (this.value is Menes.JsonInteger clrValue)
                 {

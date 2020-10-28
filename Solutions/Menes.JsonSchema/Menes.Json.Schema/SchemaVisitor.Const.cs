@@ -16,9 +16,9 @@ namespace Menes.Json.Schema
         /// </summary>
         /// <param name="constToUpdate">The const value to visit.</param>
         /// <returns>A tuple of <c>True</c> if the schema was updated, and the updated <see cref="JsonAny"/>.</returns>
-        protected virtual ValueTask<(bool, JsonAny?)> VisitConst(JsonAny? constToUpdate)
+        protected virtual Task<(bool, JsonAny?)> VisitConst(JsonAny? constToUpdate)
         {
-            return new ValueTask<(bool, JsonAny?)>((false, constToUpdate));
+            return Task.FromResult<(bool, JsonAny?)>((false, constToUpdate));
         }
     }
 }

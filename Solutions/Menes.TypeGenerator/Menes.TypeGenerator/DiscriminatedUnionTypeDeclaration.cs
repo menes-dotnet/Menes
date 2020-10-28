@@ -294,7 +294,7 @@ namespace Menes.TypeGenerator
             builder.AppendLine("        }");
             builder.AppendLine("    }");
 
-            builder.AppendLine("    public override string? ToString()");
+            builder.AppendLine("    public override string ToString()");
             builder.AppendLine("    {");
             builder.AppendLine("        var builder = new System.Text.StringBuilder();");
             index = 0;

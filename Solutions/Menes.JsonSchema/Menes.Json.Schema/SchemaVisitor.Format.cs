@@ -16,9 +16,9 @@ namespace Menes.Json.Schema
         /// </summary>
         /// <param name="formatToUpdate">The format value to visit.</param>
         /// <returns>A tuple of <c>True</c> if the schema was updated, and the updated <see cref="JsonString"/>.</returns>
-        protected virtual ValueTask<(bool, JsonString?)> VisitFormat(JsonString? formatToUpdate)
+        protected virtual Task<(bool, JsonString?)> VisitFormat(JsonString? formatToUpdate)
         {
-            return new ValueTask<(bool, JsonString?)>((false, formatToUpdate));
+            return Task.FromResult<(bool, JsonString?)>((false, formatToUpdate));
         }
     }
 }

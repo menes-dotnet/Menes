@@ -16,7 +16,7 @@ namespace Menes.Json.Schema
         /// </summary>
         /// <param name="additionalPropertiesToUpdate">The AdditionalProperties to visit.</param>
         /// <returns><c>True</c> if the schema was updated.</returns>
-        protected virtual async ValueTask<(bool, JsonSchema.SchemaAdditionalProperties?)> VisitAdditionalProperties(JsonSchema.SchemaAdditionalProperties? additionalPropertiesToUpdate)
+        protected virtual async Task<(bool, JsonSchema.SchemaAdditionalProperties?)> VisitAdditionalProperties(JsonSchema.SchemaAdditionalProperties? additionalPropertiesToUpdate)
         {
             JsonSchema.SchemaAdditionalProperties? updatedAdditionalProperties = additionalPropertiesToUpdate;
 

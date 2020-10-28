@@ -32,7 +32,7 @@ namespace Menes.Json.Schema
         }
 
         /// <inheritdoc/>
-        public async ValueTask<JsonDocument?> TryResolveDocument(JsonRef reference)
+        public async Task<JsonDocument?> TryResolveDocument(JsonRef reference)
         {
             string uri = new string(reference.Uri);
             if (this.documents.TryGetValue(uri, out JsonDocument result))

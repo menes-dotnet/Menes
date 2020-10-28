@@ -16,9 +16,9 @@ namespace Menes.Json.Schema
         /// </summary>
         /// <param name="enumToUpdate">The enum value to visit.</param>
         /// <returns>A tuple of <c>True</c> if the schema was updated, and the updated <see cref="JsonAny"/>.</returns>
-        protected virtual ValueTask<(bool, JsonArray<JsonAny>?)> VisitEnum(JsonArray<JsonAny>? enumToUpdate)
+        protected virtual Task<(bool, JsonArray<JsonAny>?)> VisitEnum(JsonArray<JsonAny>? enumToUpdate)
         {
-            return new ValueTask<(bool, JsonArray<JsonAny>?)>((false, enumToUpdate));
+            return Task.FromResult<(bool, JsonArray<JsonAny>?)>((false, enumToUpdate));
         }
     }
 }

@@ -169,7 +169,7 @@ namespace Menes.TypeGenerator
         private void BuildToString(List<MemberDeclarationSyntax> members)
         {
             var builder = new StringBuilder();
-            builder.AppendLine("public override string? ToString()");
+            builder.AppendLine("public override string ToString()");
             builder.AppendLine("{");
             builder.AppendLine("    return Menes.JsonAny.From(this).ToString();");
             builder.AppendLine("}");
@@ -1170,11 +1170,20 @@ namespace Menes.TypeGenerator
             string camelCasePropertyName = StringFormatter.ToCamelCaseWithReservedWords(property.JsonPropertyName);
 
             var builder = new StringBuilder();
-            builder.AppendLine($"private Menes.JsonReference? Get{StringFormatter.ToPascalCaseWithReservedWords(property.JsonPropertyName)}()");
+
+            if (property.Type is OptionalTypeDeclaration)
+            {
+                builder.AppendLine($"private Menes.JsonReference? Get{StringFormatter.ToPascalCaseWithReservedWords(property.JsonPropertyName)}()");
+            }
+            else
+            {
+                builder.AppendLine($"private Menes.JsonReference Get{StringFormatter.ToPascalCaseWithReservedWords(property.JsonPropertyName)}()");
+            }
+
             builder.AppendLine("{");
-            builder.AppendLine($"    if (this.{camelCasePropertyName} is Menes.JsonReference)");
+            builder.AppendLine($"    if (this.{camelCasePropertyName} is Menes.JsonReference reference)");
             builder.AppendLine("    {");
-            builder.AppendLine($"        return this.{camelCasePropertyName};");
+            builder.AppendLine($"        return reference;");
             builder.AppendLine("    }");
             builder.AppendLine($"    if (this.HasJsonElement && this.JsonElement.TryGetProperty({GetPropertyNameFieldName(property)}Bytes.Span, out System.Text.Json.JsonElement value))");
             builder.AppendLine("    {");

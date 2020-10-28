@@ -218,9 +218,9 @@ namespace Menes
         }
 
         /// <inheritdoc/>
-        public override string? ToString()
+        public override string ToString()
         {
-            return this.IsNull ? null : this.CreateOrGetClrDecimal().ToString();
+            return this.IsNull ? string.Empty : this.CreateOrGetClrDecimal().ToString();
         }
 
         /// <inheritdoc/>

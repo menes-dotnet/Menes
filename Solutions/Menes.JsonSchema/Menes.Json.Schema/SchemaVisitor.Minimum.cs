@@ -16,9 +16,9 @@ namespace Menes.Json.Schema
         /// </summary>
         /// <param name="minimumToUpdate">The minimum value to visit.</param>
         /// <returns>A tuple of <c>True</c> if the schema was updated, and the updated <see cref="JsonNumber"/>.</returns>
-        protected virtual ValueTask<(bool, JsonNumber?)> VisitMinimum(JsonNumber? minimumToUpdate)
+        protected virtual Task<(bool, JsonNumber?)> VisitMinimum(JsonNumber? minimumToUpdate)
         {
-            return new ValueTask<(bool, JsonNumber?)>((false, minimumToUpdate));
+            return Task.FromResult<(bool, JsonNumber?)>((false, minimumToUpdate));
         }
     }
 }

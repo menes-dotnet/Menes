@@ -51,6 +51,7 @@
   },
   "schemas": {
     "Resource": {
+      "$id": "resourcesAndLinks.json#/schemas/Resource",
       "type": "object",
       "required": [
         "_links"
@@ -73,35 +74,44 @@
             }
           },
           "additionalProperties": {
-            "anyOf": [
-              {
-                "$ref": "#/schemas/Link"
-              },
-              {
-                "$ref": "#/schemas/LinkCollection"
-              }
-            ],
-            "uniqueItems": true
+            "$ref": "#/schemas/Links"
           }
         },
         "_embedded": {
           "type": "object",
           "additionalProperties": {
-            "anyOf": [
-              {
-                "$ref": "#/schemas/Resource"
-              },
-              {
-                "$ref": "#/schemas/ResourceCollection"
-              }
-            ],
-            "uniqueItems": true
+            "$ref": "#/schemas/EmbeddedResources"
           }
         }
       },
       "additionalProperties": true
     },
+    "Links": {
+      "type": "object",
+      "anyOf": [
+        {
+          "$ref": "#/schemas/Link"
+        },
+        {
+          "$ref": "#/schemas/LinkCollection"
+        }
+      ],
+      "uniqueItems": true
+    },
+    "EmbeddedResources": {
+      "type": "object",
+      "anyOf": [
+        {
+          "$ref": "#/schemas/Resource"
+        },
+        {
+          "$ref": "#/schemas/ResourceCollection"
+        }
+      ],
+      "uniqueItems": true
+    },
     "Link": {
+      "$id": "resourcesAndLinks.json#/schemas/Link",
       "type": "object",
       "required": [
         "href"
@@ -109,7 +119,7 @@
       "properties": {
         "href": {
           "type": "string",
-          "format":  "uri",
+          "format": "uri",
           "title": "URI of the target resource",
           "description": "Either a URI [RFC3986] or URI Template [RFC6570] of the target resource."
         },
@@ -150,6 +160,7 @@
       }
     },
     "LinkCollection": {
+      "$id": "resourcesAndLinks.json#/schemas/LinkCollection",
       "description": "a collection of links",
       "type": "array",
       "items": {
@@ -157,6 +168,7 @@
       }
     },
     "ResourceCollection": {
+      "$id": "resourcesAndLinks.json#/schemas/ResourceCollection",
       "description": "a collection of resources",
       "type": "array",
       "items": {
@@ -164,7 +176,9 @@
       }
     },
     "PagedListResource": {
+      "$id": "resourcesAndLinks.json#/schemas/PagedListResource",
       "description": "A resource representation of a paged list",
+      "type": "object",
       "allOf": [
         {
           "$ref": "#/schemas/Resource"
@@ -184,6 +198,7 @@
               ],
               "properties": {
                 "items": {
+                  "type": "object",
                   "anyOf": [
                     {
                       "$ref": "#/schemas/Link"
@@ -201,6 +216,7 @@
                 }
               },
               "additionalProperties": {
+                "type": "object",
                 "anyOf": [
                   {
                     "$ref": "#/schemas/Link"

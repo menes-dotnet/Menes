@@ -284,7 +284,7 @@ namespace Menes
         }
 
         /// <inheritdoc/>
-        public override string? ToString()
+        public override string ToString()
         {
             return JsonAny.From(this).ToString();
         }

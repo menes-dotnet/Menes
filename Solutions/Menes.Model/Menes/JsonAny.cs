@@ -213,11 +213,11 @@ namespace Menes
         }
 
         /// <inheritdoc/>
-        public override string? ToString()
+        public override string ToString()
         {
             if (this.IsNull)
             {
-                return null;
+                return string.Empty;
             }
 
             // Normalise the write.

@@ -16,9 +16,9 @@ namespace Menes.Json.Schema
         /// </summary>
         /// <param name="minPropertiesToUpdate">The minProperties value to visit.</param>
         /// <returns>A tuple of <c>True</c> if the schema was updated, and the updated <see cref="JsonSchema.NonNegativeInteger"/>.</returns>
-        protected virtual ValueTask<(bool, JsonSchema.NonNegativeInteger?)> VisitMinProperties(JsonSchema.NonNegativeInteger? minPropertiesToUpdate)
+        protected virtual Task<(bool, JsonSchema.NonNegativeInteger?)> VisitMinProperties(JsonSchema.NonNegativeInteger? minPropertiesToUpdate)
         {
-            return new ValueTask<(bool, JsonSchema.NonNegativeInteger?)>((false, minPropertiesToUpdate));
+            return Task.FromResult<(bool, JsonSchema.NonNegativeInteger?)>((false, minPropertiesToUpdate));
         }
     }
 }

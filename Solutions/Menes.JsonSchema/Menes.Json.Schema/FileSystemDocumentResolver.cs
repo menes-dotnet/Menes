@@ -54,7 +54,7 @@ namespace Menes.Json.Schema
         }
 
         /// <inheritdoc/>
-        public async ValueTask<JsonDocument?> TryResolveDocument(JsonRef reference)
+        public async Task<JsonDocument?> TryResolveDocument(JsonRef reference)
         {
             string path = Path.Combine(this.baseDirectory, new string(reference.Uri));
 

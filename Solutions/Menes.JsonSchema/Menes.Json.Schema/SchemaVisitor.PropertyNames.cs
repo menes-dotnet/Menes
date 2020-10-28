@@ -16,7 +16,7 @@ namespace Menes.Json.Schema
         /// </summary>
         /// <param name="propertyNamesToUpdate">The propertyNames value to visit.</param>
         /// <returns>A tuple of <c>True</c> if the schema was updated, and the updated <see cref="JsonSchema.SchemaOrReference"/>.</returns>
-        protected virtual ValueTask<(bool, JsonSchema.SchemaOrReference?)> VisitPropertyNames(JsonSchema.SchemaOrReference? propertyNamesToUpdate)
+        protected virtual Task<(bool, JsonSchema.SchemaOrReference?)> VisitPropertyNames(JsonSchema.SchemaOrReference? propertyNamesToUpdate)
         {
             return this.VisitSchemaOrReference(propertyNamesToUpdate);
         }
