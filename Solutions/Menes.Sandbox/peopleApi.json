@@ -1460,6 +1460,7 @@
           "href": {
             "title": "URI of the target resource",
             "type": "string",
+            "format":  "uri",
             "description": "Either a URI [RFC3986] or URI Template [RFC6570] of the target resource."
           },
           "templated": {
@@ -2072,7 +2073,6 @@
         ],
         "properties": {
           "address": {
-            "pattern": "^((?!\\.)[\\w-_.]*[^.])(@\\w+)(\\.\\w+(\\.\\w+)?[^.\\W])$",
             "type": "string",
             "format": "email"
           }

@@ -21,7 +21,6 @@ namespace Menes.Sandbox
     using Microsoft.CodeAnalysis.CSharp.Syntax;
     using Microsoft.CodeAnalysis.Formatting;
     using NodaTime;
-    using NodaTime.Text;
     using OtherExamples;
 
     /// <summary>
@@ -37,19 +36,6 @@ namespace Menes.Sandbox
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         public static Task Main()
         {
-            ////var builder = new StringBuilder();
-            ////StringFormatter.FormatUriAsFullyQualifiedName("c:\\some\\location\\myProperty.json", builder);
-            ////Console.WriteLine(builder.ToString());
-            ////builder.Clear();
-            ////StringFormatter.FormatUriAsFullyQualifiedName("https://endjin.com:8080/some/location/myProperty.json", builder);
-            ////Console.WriteLine(builder.ToString());
-            ////builder.Clear();
-            ////StringFormatter.FormatFragmentAsFullyQualifiedName("/components/schema/someType", builder);
-            ////Console.WriteLine(builder.ToString());
-            ////builder.Clear();
-            ////StringFormatter.FormatUriAsFullyQualifiedName("https://endjin.com/foo", builder);
-            ////Console.WriteLine(builder.ToString());
-
             ////SimpleExamples();
             ////return GenerateJsonSchemaModel();
             ////return UseJsonSchemaModel("exampleschema2.json");
@@ -63,6 +49,9 @@ namespace Menes.Sandbox
 
         private static Task UseGeneratedCode()
         {
+            var emailAddress = new EmailAddress("hello@endjin.com");
+            Validate(emailAddress);
+
             PersonName personName = new PersonName(
                 givenName: "Matthew",
                 familyName: "Adams",
@@ -70,10 +59,42 @@ namespace Menes.Sandbox
                 .Add(
                     ("fish", "Hello"),
                     ("cushion", "Goodbye"),
+                    ("number", 3.4),
                     ("someTime", OffsetDateTime.FromDateTimeOffset(DateTimeOffset.Now)));
 
             Validate(personName);
             Serialize(personName);
+            Validate(personName);
+
+            PersonNameResource personNameResource = new PersonNameResource(
+                links: new PersonNameResource.LinksEntity(
+                    self: new Link("http://endjin.com/examples/people/1/names/1")),
+                givenName: "Matthew",
+                familyName: "Adams",
+                otherNames: JsonArray.Create("William"))
+                .Add(
+                    ("fish", "Hello"),
+                    ("cushion", "Goodbye"),
+                    ("number", 3.4),
+                    ("someTime", OffsetDateTime.FromDateTimeOffset(DateTimeOffset.Now)));
+
+            Validate(personNameResource);
+
+            // Take a person name (which is not a person name resource)
+            // and cast it to PersonNameResource
+            PersonNameResource undecoratedPersonName =
+                JsonAny.From(personName).As<PersonNameResource>();
+
+            Validate(undecoratedPersonName);
+
+            // Take a person name (which is not a person name resource)
+            // and decorate it with the links (which makes it a person name resource)
+            PersonNameResource decoratedPersonName =
+                JsonAny.From(personName).As<PersonNameResource>()
+                .WithLinks(new PersonNameResource.LinksEntity(
+                    self: new Link("http://endjin.com/examples/people/1/names/1")));
+
+            Validate(decoratedPersonName);
 
             var personListResource = new PersonListResource(
                 contentType: "application/vnd.menes.personListResource",
@@ -85,9 +106,9 @@ namespace Menes.Sandbox
                                 self: new Link("http://endjin.com/examples/people/1"),
                                 primaryName: new Link("http://endjin.com/examples/people/1/names/1"))))),
                 links: new PersonListResource.LinksEntity(
-                    self: new Link("http:/endjin.com/examples/query/people/?id=1&id=2"),
+                    self: new Link("https://endjin.com/examples/query/people/?id=1&id=2"),
                     items: JsonArray.Create(new Link("http://endjin.com/examples/people/1"), new Link("http://endjin.com/examples/people/2")),
-                    next: new Link("http:/endjin.com/examples/query/people/?id=3&id=4"),
+                    next: new Link("https://endjin.com/examples/query/people/?id=3&id=4"),
                     prev: null));
 
             Validate(personListResource);

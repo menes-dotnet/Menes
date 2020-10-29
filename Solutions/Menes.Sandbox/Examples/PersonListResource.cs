@@ -8945,7 +8945,7 @@ namespace OtherExamples
         private static readonly System.Text.Json.JsonEncodedText EncodedDescriptionPropertyName = System.Text.Json.JsonEncodedText.Encode(DescriptionPropertyNameBytes.Span);
         private static readonly System.Text.Json.JsonEncodedText EncodedHreflangPropertyName = System.Text.Json.JsonEncodedText.Encode(HreflangPropertyNameBytes.Span);
         private static readonly System.Collections.Immutable.ImmutableArray<System.ReadOnlyMemory<byte>> KnownProperties = System.Collections.Immutable.ImmutableArray.Create(HrefPropertyNameBytes, TemplatedPropertyNameBytes, TypePropertyNameBytes, NamePropertyNameBytes, ProfilePropertyNameBytes, DescriptionPropertyNameBytes, HreflangPropertyNameBytes);
-        private readonly Menes.JsonString? href;
+        private readonly Menes.JsonUri? href;
         private readonly Menes.JsonBoolean? templated;
         private readonly Link.TypeValue? type;
         private readonly Menes.JsonString? name;
@@ -8965,7 +8965,7 @@ namespace OtherExamples
             this.hreflang = null;
             this.additionalPropertiesBacking = null;
         }
-        public Link(Menes.JsonString href)
+        public Link(Menes.JsonUri href)
         {
             this.href = href;
             this.templated = null;
@@ -8977,7 +8977,7 @@ namespace OtherExamples
             this.JsonElement = default;
             this.additionalPropertiesBacking = null;
         }
-        public Link(Menes.JsonString href, Menes.JsonBoolean? templated, Link.TypeValue? type, Menes.JsonString? name, Menes.JsonUri? profile, Menes.JsonString? description, Link.HreflangValue? hreflang, Menes.JsonProperties<Menes.JsonAny> additionalPropertiesBacking)
+        public Link(Menes.JsonUri href, Menes.JsonBoolean? templated, Link.TypeValue? type, Menes.JsonString? name, Menes.JsonUri? profile, Menes.JsonString? description, Link.HreflangValue? hreflang, Menes.JsonProperties<Menes.JsonAny> additionalPropertiesBacking)
         {
             this.href = href;
             this.templated = templated;
@@ -8989,7 +8989,7 @@ namespace OtherExamples
             this.JsonElement = default;
             this.additionalPropertiesBacking = additionalPropertiesBacking;
         }
-        public Link(Menes.JsonString href, Menes.JsonBoolean? templated, Link.TypeValue? type, Menes.JsonString? name, Menes.JsonUri? profile, Menes.JsonString? description, Link.HreflangValue? hreflang, params (string, Menes.JsonAny)[] additionalPropertiesBacking)
+        public Link(Menes.JsonUri href, Menes.JsonBoolean? templated, Link.TypeValue? type, Menes.JsonString? name, Menes.JsonUri? profile, Menes.JsonString? description, Link.HreflangValue? hreflang, params (string, Menes.JsonAny)[] additionalPropertiesBacking)
         {
             this.href = href;
             this.templated = templated;
@@ -9001,7 +9001,7 @@ namespace OtherExamples
             this.JsonElement = default;
             this.additionalPropertiesBacking = Menes.JsonProperties<Menes.JsonAny>.FromValues(additionalPropertiesBacking);
         }
-        public Link(Menes.JsonString href, Menes.JsonBoolean? templated = null, Link.TypeValue? type = null, Menes.JsonString? name = null, Menes.JsonUri? profile = null, Menes.JsonString? description = null, Link.HreflangValue? hreflang = null)
+        public Link(Menes.JsonUri href, Menes.JsonBoolean? templated = null, Link.TypeValue? type = null, Menes.JsonString? name = null, Menes.JsonUri? profile = null, Menes.JsonString? description = null, Link.HreflangValue? hreflang = null)
         {
             this.href = href;
             this.templated = templated;
@@ -9013,7 +9013,7 @@ namespace OtherExamples
             this.JsonElement = default;
             this.additionalPropertiesBacking = null;
         }
-        public Link(Menes.JsonString href, Menes.JsonBoolean? templated, Link.TypeValue? type, Menes.JsonString? name, Menes.JsonUri? profile, Menes.JsonString? description, Link.HreflangValue? hreflang, (string, Menes.JsonAny) additionalProperty1)
+        public Link(Menes.JsonUri href, Menes.JsonBoolean? templated, Link.TypeValue? type, Menes.JsonString? name, Menes.JsonUri? profile, Menes.JsonString? description, Link.HreflangValue? hreflang, (string, Menes.JsonAny) additionalProperty1)
         {
             this.href = href;
             this.templated = templated;
@@ -9025,7 +9025,7 @@ namespace OtherExamples
             this.JsonElement = default;
             this.additionalPropertiesBacking = Menes.JsonProperties<Menes.JsonAny>.FromValues(additionalProperty1);
         }
-        public Link(Menes.JsonString href, Menes.JsonBoolean? templated, Link.TypeValue? type, Menes.JsonString? name, Menes.JsonUri? profile, Menes.JsonString? description, Link.HreflangValue? hreflang, (string, Menes.JsonAny) additionalProperty1, (string, Menes.JsonAny) additionalProperty2)
+        public Link(Menes.JsonUri href, Menes.JsonBoolean? templated, Link.TypeValue? type, Menes.JsonString? name, Menes.JsonUri? profile, Menes.JsonString? description, Link.HreflangValue? hreflang, (string, Menes.JsonAny) additionalProperty1, (string, Menes.JsonAny) additionalProperty2)
         {
             this.href = href;
             this.templated = templated;
@@ -9037,7 +9037,7 @@ namespace OtherExamples
             this.JsonElement = default;
             this.additionalPropertiesBacking = Menes.JsonProperties<Menes.JsonAny>.FromValues(additionalProperty1, additionalProperty2);
         }
-        public Link(Menes.JsonString href, Menes.JsonBoolean? templated, Link.TypeValue? type, Menes.JsonString? name, Menes.JsonUri? profile, Menes.JsonString? description, Link.HreflangValue? hreflang, (string, Menes.JsonAny) additionalProperty1, (string, Menes.JsonAny) additionalProperty2, (string, Menes.JsonAny) additionalProperty3)
+        public Link(Menes.JsonUri href, Menes.JsonBoolean? templated, Link.TypeValue? type, Menes.JsonString? name, Menes.JsonUri? profile, Menes.JsonString? description, Link.HreflangValue? hreflang, (string, Menes.JsonAny) additionalProperty1, (string, Menes.JsonAny) additionalProperty2, (string, Menes.JsonAny) additionalProperty3)
         {
             this.href = href;
             this.templated = templated;
@@ -9049,7 +9049,7 @@ namespace OtherExamples
             this.JsonElement = default;
             this.additionalPropertiesBacking = Menes.JsonProperties<Menes.JsonAny>.FromValues(additionalProperty1, additionalProperty2, additionalProperty3);
         }
-        public Link(Menes.JsonString href, Menes.JsonBoolean? templated, Link.TypeValue? type, Menes.JsonString? name, Menes.JsonUri? profile, Menes.JsonString? description, Link.HreflangValue? hreflang, (string, Menes.JsonAny) additionalProperty1, (string, Menes.JsonAny) additionalProperty2, (string, Menes.JsonAny) additionalProperty3, (string, Menes.JsonAny) additionalProperty4)
+        public Link(Menes.JsonUri href, Menes.JsonBoolean? templated, Link.TypeValue? type, Menes.JsonString? name, Menes.JsonUri? profile, Menes.JsonString? description, Link.HreflangValue? hreflang, (string, Menes.JsonAny) additionalProperty1, (string, Menes.JsonAny) additionalProperty2, (string, Menes.JsonAny) additionalProperty3, (string, Menes.JsonAny) additionalProperty4)
         {
             this.href = href;
             this.templated = templated;
@@ -9061,7 +9061,7 @@ namespace OtherExamples
             this.JsonElement = default;
             this.additionalPropertiesBacking = Menes.JsonProperties<Menes.JsonAny>.FromValues(additionalProperty1, additionalProperty2, additionalProperty3, additionalProperty4);
         }
-        private Link(Menes.JsonString href, Menes.JsonBoolean? templated, Link.TypeValue? type, Menes.JsonString? name, Menes.JsonUri? profile, Menes.JsonString? description, Link.HreflangValue? hreflang, Menes.JsonProperties<Menes.JsonAny>? additionalPropertiesBacking)
+        private Link(Menes.JsonUri href, Menes.JsonBoolean? templated, Link.TypeValue? type, Menes.JsonString? name, Menes.JsonUri? profile, Menes.JsonString? description, Link.HreflangValue? hreflang, Menes.JsonProperties<Menes.JsonAny>? additionalPropertiesBacking)
         {
             this.href = href;
             this.templated = templated;
@@ -9075,7 +9075,7 @@ namespace OtherExamples
         }
         public bool IsNull => (this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Undefined || this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Null) && (this.href is null || this.href.Value.IsNull) && (this.templated is null || this.templated.Value.IsNull) && (this.type is null || this.type.Value.IsNull) && (this.name is null || this.name.Value.IsNull) && (this.profile is null || this.profile.Value.IsNull) && (this.description is null || this.description.Value.IsNull) && (this.hreflang is null || this.hreflang.Value.IsNull);
         public Link? AsOptional => this.IsNull ? default(Link?) : this;
-        public Menes.JsonString Href => this.href ?? Menes.JsonString.FromOptionalProperty(this.JsonElement, HrefPropertyNameBytes.Span);
+        public Menes.JsonUri Href => this.href ?? Menes.JsonUri.FromOptionalProperty(this.JsonElement, HrefPropertyNameBytes.Span);
         public Menes.JsonBoolean? Templated => this.templated ?? Menes.JsonBoolean.FromOptionalProperty(this.JsonElement, TemplatedPropertyNameBytes.Span).AsOptional;
         public Link.TypeValue? Type => this.type ?? Link.TypeValue.FromOptionalProperty(this.JsonElement, TypePropertyNameBytes.Span).AsOptional;
         public Menes.JsonString? Name => this.name ?? Menes.JsonString.FromOptionalProperty(this.JsonElement, NamePropertyNameBytes.Span).AsOptional;
@@ -9139,7 +9139,7 @@ namespace OtherExamples
                     ? new Link(property)
                     : Null)
             : Null;
-        public Link WithHref(Menes.JsonString value)
+        public Link WithHref(Menes.JsonUri value)
         {
             return new Link(value, this.Templated, this.Type, this.Name, this.Profile, this.Description, this.Hreflang, this.GetJsonProperties());
         }
@@ -9330,7 +9330,7 @@ namespace OtherExamples
             else
             {
                 writer.WriteStartObject();
-                if (this.href is Menes.JsonString href)
+                if (this.href is Menes.JsonUri href)
                 {
                     writer.WritePropertyName(EncodedHrefPropertyName);
                     href.WriteTo(writer);
@@ -23199,7 +23199,7 @@ namespace OtherExamples
         private readonly Menes.JsonString? contentType;
         private readonly Menes.JsonReference? links;
         private readonly Menes.JsonReference? embedded;
-        private readonly EmailAddressResource.AddressValue? address;
+        private readonly Menes.JsonEmail? address;
         private readonly Menes.JsonProperties<Menes.JsonAny>? additionalPropertiesBacking;
         public EmailAddressResource(System.Text.Json.JsonElement jsonElement)
         {
@@ -23210,7 +23210,7 @@ namespace OtherExamples
             this.address = null;
             this.additionalPropertiesBacking = null;
         }
-        public EmailAddressResource(EmailAddressResource.LinksEntity links, EmailAddressResource.AddressValue address)
+        public EmailAddressResource(EmailAddressResource.LinksEntity links, Menes.JsonEmail address)
         {
             this.contentType = null;
             if (links is EmailAddressResource.LinksEntity item1)
@@ -23226,7 +23226,7 @@ namespace OtherExamples
             this.JsonElement = default;
             this.additionalPropertiesBacking = null;
         }
-        public EmailAddressResource(EmailAddressResource.LinksEntity links, EmailAddressResource.AddressValue address, Menes.JsonString? contentType, EmailAddressResource.EmbeddedEntity? embedded, Menes.JsonProperties<Menes.JsonAny> additionalPropertiesBacking)
+        public EmailAddressResource(EmailAddressResource.LinksEntity links, Menes.JsonEmail address, Menes.JsonString? contentType, EmailAddressResource.EmbeddedEntity? embedded, Menes.JsonProperties<Menes.JsonAny> additionalPropertiesBacking)
         {
             this.contentType = contentType;
             if (links is EmailAddressResource.LinksEntity item1)
@@ -23249,7 +23249,7 @@ namespace OtherExamples
             this.JsonElement = default;
             this.additionalPropertiesBacking = additionalPropertiesBacking;
         }
-        public EmailAddressResource(EmailAddressResource.LinksEntity links, EmailAddressResource.AddressValue address, Menes.JsonString? contentType, EmailAddressResource.EmbeddedEntity? embedded, params (string, Menes.JsonAny)[] additionalPropertiesBacking)
+        public EmailAddressResource(EmailAddressResource.LinksEntity links, Menes.JsonEmail address, Menes.JsonString? contentType, EmailAddressResource.EmbeddedEntity? embedded, params (string, Menes.JsonAny)[] additionalPropertiesBacking)
         {
             this.contentType = contentType;
             if (links is EmailAddressResource.LinksEntity item1)
@@ -23272,7 +23272,7 @@ namespace OtherExamples
             this.JsonElement = default;
             this.additionalPropertiesBacking = Menes.JsonProperties<Menes.JsonAny>.FromValues(additionalPropertiesBacking);
         }
-        public EmailAddressResource(EmailAddressResource.LinksEntity links, EmailAddressResource.AddressValue address, Menes.JsonString? contentType = null, EmailAddressResource.EmbeddedEntity? embedded = null)
+        public EmailAddressResource(EmailAddressResource.LinksEntity links, Menes.JsonEmail address, Menes.JsonString? contentType = null, EmailAddressResource.EmbeddedEntity? embedded = null)
         {
             this.contentType = contentType;
             if (links is EmailAddressResource.LinksEntity item1)
@@ -23295,7 +23295,7 @@ namespace OtherExamples
             this.JsonElement = default;
             this.additionalPropertiesBacking = null;
         }
-        public EmailAddressResource(EmailAddressResource.LinksEntity links, EmailAddressResource.AddressValue address, Menes.JsonString? contentType, EmailAddressResource.EmbeddedEntity? embedded, (string, Menes.JsonAny) additionalProperty1)
+        public EmailAddressResource(EmailAddressResource.LinksEntity links, Menes.JsonEmail address, Menes.JsonString? contentType, EmailAddressResource.EmbeddedEntity? embedded, (string, Menes.JsonAny) additionalProperty1)
         {
             this.contentType = contentType;
             if (links is EmailAddressResource.LinksEntity item1)
@@ -23318,7 +23318,7 @@ namespace OtherExamples
             this.JsonElement = default;
             this.additionalPropertiesBacking = Menes.JsonProperties<Menes.JsonAny>.FromValues(additionalProperty1);
         }
-        public EmailAddressResource(EmailAddressResource.LinksEntity links, EmailAddressResource.AddressValue address, Menes.JsonString? contentType, EmailAddressResource.EmbeddedEntity? embedded, (string, Menes.JsonAny) additionalProperty1, (string, Menes.JsonAny) additionalProperty2)
+        public EmailAddressResource(EmailAddressResource.LinksEntity links, Menes.JsonEmail address, Menes.JsonString? contentType, EmailAddressResource.EmbeddedEntity? embedded, (string, Menes.JsonAny) additionalProperty1, (string, Menes.JsonAny) additionalProperty2)
         {
             this.contentType = contentType;
             if (links is EmailAddressResource.LinksEntity item1)
@@ -23341,7 +23341,7 @@ namespace OtherExamples
             this.JsonElement = default;
             this.additionalPropertiesBacking = Menes.JsonProperties<Menes.JsonAny>.FromValues(additionalProperty1, additionalProperty2);
         }
-        public EmailAddressResource(EmailAddressResource.LinksEntity links, EmailAddressResource.AddressValue address, Menes.JsonString? contentType, EmailAddressResource.EmbeddedEntity? embedded, (string, Menes.JsonAny) additionalProperty1, (string, Menes.JsonAny) additionalProperty2, (string, Menes.JsonAny) additionalProperty3)
+        public EmailAddressResource(EmailAddressResource.LinksEntity links, Menes.JsonEmail address, Menes.JsonString? contentType, EmailAddressResource.EmbeddedEntity? embedded, (string, Menes.JsonAny) additionalProperty1, (string, Menes.JsonAny) additionalProperty2, (string, Menes.JsonAny) additionalProperty3)
         {
             this.contentType = contentType;
             if (links is EmailAddressResource.LinksEntity item1)
@@ -23364,7 +23364,7 @@ namespace OtherExamples
             this.JsonElement = default;
             this.additionalPropertiesBacking = Menes.JsonProperties<Menes.JsonAny>.FromValues(additionalProperty1, additionalProperty2, additionalProperty3);
         }
-        public EmailAddressResource(EmailAddressResource.LinksEntity links, EmailAddressResource.AddressValue address, Menes.JsonString? contentType, EmailAddressResource.EmbeddedEntity? embedded, (string, Menes.JsonAny) additionalProperty1, (string, Menes.JsonAny) additionalProperty2, (string, Menes.JsonAny) additionalProperty3, (string, Menes.JsonAny) additionalProperty4)
+        public EmailAddressResource(EmailAddressResource.LinksEntity links, Menes.JsonEmail address, Menes.JsonString? contentType, EmailAddressResource.EmbeddedEntity? embedded, (string, Menes.JsonAny) additionalProperty1, (string, Menes.JsonAny) additionalProperty2, (string, Menes.JsonAny) additionalProperty3, (string, Menes.JsonAny) additionalProperty4)
         {
             this.contentType = contentType;
             if (links is EmailAddressResource.LinksEntity item1)
@@ -23387,7 +23387,7 @@ namespace OtherExamples
             this.JsonElement = default;
             this.additionalPropertiesBacking = Menes.JsonProperties<Menes.JsonAny>.FromValues(additionalProperty1, additionalProperty2, additionalProperty3, additionalProperty4);
         }
-        private EmailAddressResource(Menes.JsonReference links, EmailAddressResource.AddressValue address, Menes.JsonString? contentType, Menes.JsonReference? embedded, Menes.JsonProperties<Menes.JsonAny>? additionalPropertiesBacking)
+        private EmailAddressResource(Menes.JsonReference links, Menes.JsonEmail address, Menes.JsonString? contentType, Menes.JsonReference? embedded, Menes.JsonProperties<Menes.JsonAny>? additionalPropertiesBacking)
         {
             this.contentType = contentType;
             if (links is Menes.JsonReference item1)
@@ -23415,7 +23415,7 @@ namespace OtherExamples
         public Menes.JsonString? ContentType => this.contentType ?? Menes.JsonString.FromOptionalProperty(this.JsonElement, ContentTypePropertyNameBytes.Span).AsOptional;
         public EmailAddressResource.LinksEntity Links => this.links?.AsValue<EmailAddressResource.LinksEntity>() ?? EmailAddressResource.LinksEntity.FromOptionalProperty(this.JsonElement, LinksPropertyNameBytes.Span);
         public EmailAddressResource.EmbeddedEntity? Embedded => this.embedded?.AsValue<EmailAddressResource.EmbeddedEntity>() ?? EmailAddressResource.EmbeddedEntity.FromOptionalProperty(this.JsonElement, EmbeddedPropertyNameBytes.Span).AsOptional;
-        public EmailAddressResource.AddressValue Address => this.address ?? EmailAddressResource.AddressValue.FromOptionalProperty(this.JsonElement, AddressPropertyNameBytes.Span);
+        public Menes.JsonEmail Address => this.address ?? Menes.JsonEmail.FromOptionalProperty(this.JsonElement, AddressPropertyNameBytes.Span);
         public int PropertiesCount => KnownProperties.Length + this.JsonAdditionalPropertiesCount;
         public int JsonAdditionalPropertiesCount
         {
@@ -23485,7 +23485,7 @@ namespace OtherExamples
         {
             return new EmailAddressResource(this.GetLinks(), this.Address, this.ContentType, Menes.JsonReference.FromValue(value), this.GetJsonProperties());
         }
-        public EmailAddressResource WithAddress(EmailAddressResource.AddressValue value)
+        public EmailAddressResource WithAddress(Menes.JsonEmail value)
         {
             return new EmailAddressResource(this.GetLinks(), value, this.ContentType, this.GetEmbedded(), this.GetJsonProperties());
         }
@@ -23667,7 +23667,7 @@ namespace OtherExamples
                     writer.WritePropertyName(EncodedEmbeddedPropertyName);
                     embedded.WriteTo(writer);
                 }
-                if (this.address is EmailAddressResource.AddressValue address)
+                if (this.address is Menes.JsonEmail address)
                 {
                     writer.WritePropertyName(EncodedAddressPropertyName);
                     address.WriteTo(writer);
@@ -24823,128 +24823,6 @@ namespace OtherExamples
                 }
             }
         }
-
-        public readonly struct AddressValue : Menes.IJsonValue, System.IEquatable<AddressValue>
-        {
-            public static readonly System.Func<System.Text.Json.JsonElement, AddressValue> FromJsonElement = e => new AddressValue(e);
-            public static readonly AddressValue Null = new AddressValue(default(System.Text.Json.JsonElement));
-            private static readonly string? ConstValue = BuildConstValue();
-            private static readonly System.Collections.Immutable.ImmutableArray<string>? EnumValues = BuildEnumValues();
-            private static readonly int? MaxLength = null;
-            private static readonly int? MinLength = null;
-            private static readonly System.Text.RegularExpressions.Regex? Pattern = new System.Text.RegularExpressions.Regex("^((?!\\.)[\\w-_.]*[^.])(@\\w+)(\\.\\w+(\\.\\w+)?[^.\\W])$", System.Text.RegularExpressions.RegexOptions.Compiled);
-            private readonly Menes.JsonEmail? value;
-            public AddressValue(Menes.JsonEmail value)
-            {
-                if (value.HasJsonElement)
-                {
-                    this.JsonElement = value.JsonElement;
-                    this.value = null;
-                }
-                else
-                {
-                    this.value = value;
-                    this.JsonElement = default;
-                }
-            }
-            public AddressValue(System.Text.Json.JsonElement jsonElement)
-            {
-                this.value = null;
-                this.JsonElement = jsonElement;
-            }
-            public bool IsNull => this.value == null && (this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Undefined || this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Null);
-            public AddressValue? AsOptional => this.IsNull ? default(AddressValue?) : this;
-            public bool HasJsonElement => this.JsonElement.ValueKind != System.Text.Json.JsonValueKind.Undefined;
-            public System.Text.Json.JsonElement JsonElement { get; }
-            public static implicit operator AddressValue(Menes.JsonEmail value)
-            {
-                return new AddressValue(value);
-            }
-            public static implicit operator AddressValue(string value)
-            {
-                return new AddressValue(value);
-            }
-            public static implicit operator string(AddressValue value)
-            {
-                return (string)(Menes.JsonEmail)value;
-            }
-            public static implicit operator Menes.JsonEmail(AddressValue value)
-            {
-                if (value.value is Menes.JsonEmail clrValue)
-                {
-                    return clrValue;
-                }
-                return new Menes.JsonEmail(value.JsonElement);
-            }
-            public static bool IsConvertibleFrom(System.Text.Json.JsonElement jsonElement)
-            {
-                return Menes.JsonEmail.IsConvertibleFrom(jsonElement);
-            }
-            public static AddressValue FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<char> propertyName) =>
-               parentDocument.ValueKind != System.Text.Json.JsonValueKind.Undefined ?
-                    (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
-                        ? new AddressValue(property)
-                        : Null)
-                    : Null;
-            public static AddressValue FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, string propertyName) =>
-               parentDocument.ValueKind != System.Text.Json.JsonValueKind.Undefined ?
-                    (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
-                        ? new AddressValue(property)
-                        : Null)
-                    : Null;
-            public static AddressValue FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<byte> utf8PropertyName) =>
-               parentDocument.ValueKind != System.Text.Json.JsonValueKind.Undefined ?
-                    (parentDocument.TryGetProperty(utf8PropertyName, out System.Text.Json.JsonElement property)
-                        ? new AddressValue(property)
-                        : Null)
-                    : Null;
-            public bool Equals(AddressValue other)
-            {
-                return this.Equals((Menes.JsonEmail)other);
-            }
-            public bool Equals(Menes.JsonEmail other)
-            {
-                return ((Menes.JsonEmail)this).Equals(other);
-            }
-            public Menes.ValidationContext Validate(in Menes.ValidationContext validationContext)
-            {
-                Menes.JsonEmail value = this;
-                Menes.ValidationContext context = validationContext;
-                context = value.Validate(context);
-                context = value.ValidateAsString(context, MaxLength, MinLength, Pattern, EnumValues, ConstValue);
-                return context;
-            }
-            public void WriteTo(System.Text.Json.Utf8JsonWriter writer)
-            {
-                if (this.HasJsonElement)
-                {
-                    this.JsonElement.WriteTo(writer);
-                }
-                else if (this.value is Menes.JsonEmail clrValue)
-                {
-                    clrValue.WriteTo(writer);
-                }
-            }
-            public override string ToString()
-            {
-                if (this.value is Menes.JsonEmail clrValue)
-                {
-                    return clrValue.ToString();
-                }
-                else
-                {
-                    return this.JsonElement.GetRawText();
-                }
-            }
-            private static string? BuildConstValue()
-            {
-                return null;
-            }
-            private static System.Collections.Immutable.ImmutableArray<string>? BuildEnumValues()
-            {
-                return null;
-            }
-        }
     }
     public readonly struct EmailAddress : Menes.IJsonObject, System.IEquatable<EmailAddress>, Menes.IJsonAdditionalProperties<Menes.JsonAny>
     {
@@ -24954,7 +24832,7 @@ namespace OtherExamples
         private static readonly System.ReadOnlyMemory<byte> AddressPropertyNameBytes = new byte[] { 97, 100, 100, 114, 101, 115, 115 };
         private static readonly System.Text.Json.JsonEncodedText EncodedAddressPropertyName = System.Text.Json.JsonEncodedText.Encode(AddressPropertyNameBytes.Span);
         private static readonly System.Collections.Immutable.ImmutableArray<System.ReadOnlyMemory<byte>> KnownProperties = System.Collections.Immutable.ImmutableArray.Create(AddressPropertyNameBytes);
-        private readonly EmailAddress.AddressValue? address;
+        private readonly Menes.JsonEmail? address;
         private readonly Menes.JsonProperties<Menes.JsonAny>? additionalPropertiesBacking;
         public EmailAddress(System.Text.Json.JsonElement jsonElement)
         {
@@ -24962,43 +24840,43 @@ namespace OtherExamples
             this.address = null;
             this.additionalPropertiesBacking = null;
         }
-        public EmailAddress(EmailAddress.AddressValue address)
+        public EmailAddress(Menes.JsonEmail address)
         {
             this.address = address;
             this.JsonElement = default;
             this.additionalPropertiesBacking = null;
         }
-        public EmailAddress(EmailAddress.AddressValue address, params (string, Menes.JsonAny)[] additionalPropertiesBacking)
+        public EmailAddress(Menes.JsonEmail address, params (string, Menes.JsonAny)[] additionalPropertiesBacking)
         {
             this.address = address;
             this.JsonElement = default;
             this.additionalPropertiesBacking = Menes.JsonProperties<Menes.JsonAny>.FromValues(additionalPropertiesBacking);
         }
-        public EmailAddress(EmailAddress.AddressValue address, (string, Menes.JsonAny) additionalProperty1)
+        public EmailAddress(Menes.JsonEmail address, (string, Menes.JsonAny) additionalProperty1)
         {
             this.address = address;
             this.JsonElement = default;
             this.additionalPropertiesBacking = Menes.JsonProperties<Menes.JsonAny>.FromValues(additionalProperty1);
         }
-        public EmailAddress(EmailAddress.AddressValue address, (string, Menes.JsonAny) additionalProperty1, (string, Menes.JsonAny) additionalProperty2)
+        public EmailAddress(Menes.JsonEmail address, (string, Menes.JsonAny) additionalProperty1, (string, Menes.JsonAny) additionalProperty2)
         {
             this.address = address;
             this.JsonElement = default;
             this.additionalPropertiesBacking = Menes.JsonProperties<Menes.JsonAny>.FromValues(additionalProperty1, additionalProperty2);
         }
-        public EmailAddress(EmailAddress.AddressValue address, (string, Menes.JsonAny) additionalProperty1, (string, Menes.JsonAny) additionalProperty2, (string, Menes.JsonAny) additionalProperty3)
+        public EmailAddress(Menes.JsonEmail address, (string, Menes.JsonAny) additionalProperty1, (string, Menes.JsonAny) additionalProperty2, (string, Menes.JsonAny) additionalProperty3)
         {
             this.address = address;
             this.JsonElement = default;
             this.additionalPropertiesBacking = Menes.JsonProperties<Menes.JsonAny>.FromValues(additionalProperty1, additionalProperty2, additionalProperty3);
         }
-        public EmailAddress(EmailAddress.AddressValue address, (string, Menes.JsonAny) additionalProperty1, (string, Menes.JsonAny) additionalProperty2, (string, Menes.JsonAny) additionalProperty3, (string, Menes.JsonAny) additionalProperty4)
+        public EmailAddress(Menes.JsonEmail address, (string, Menes.JsonAny) additionalProperty1, (string, Menes.JsonAny) additionalProperty2, (string, Menes.JsonAny) additionalProperty3, (string, Menes.JsonAny) additionalProperty4)
         {
             this.address = address;
             this.JsonElement = default;
             this.additionalPropertiesBacking = Menes.JsonProperties<Menes.JsonAny>.FromValues(additionalProperty1, additionalProperty2, additionalProperty3, additionalProperty4);
         }
-        private EmailAddress(EmailAddress.AddressValue address, Menes.JsonProperties<Menes.JsonAny>? additionalPropertiesBacking)
+        private EmailAddress(Menes.JsonEmail address, Menes.JsonProperties<Menes.JsonAny>? additionalPropertiesBacking)
         {
             this.address = address;
             this.JsonElement = default;
@@ -25006,7 +24884,7 @@ namespace OtherExamples
         }
         public bool IsNull => (this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Undefined || this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Null) && (this.address is null || this.address.Value.IsNull);
         public EmailAddress? AsOptional => this.IsNull ? default(EmailAddress?) : this;
-        public EmailAddress.AddressValue Address => this.address ?? EmailAddress.AddressValue.FromOptionalProperty(this.JsonElement, AddressPropertyNameBytes.Span);
+        public Menes.JsonEmail Address => this.address ?? Menes.JsonEmail.FromOptionalProperty(this.JsonElement, AddressPropertyNameBytes.Span);
         public int PropertiesCount => KnownProperties.Length + this.JsonAdditionalPropertiesCount;
         public int JsonAdditionalPropertiesCount
         {
@@ -25064,7 +24942,7 @@ namespace OtherExamples
                     ? new EmailAddress(property)
                     : Null)
             : Null;
-        public EmailAddress WithAddress(EmailAddress.AddressValue value)
+        public EmailAddress WithAddress(Menes.JsonEmail value)
         {
             return new EmailAddress(value, this.GetJsonProperties());
         }
@@ -25231,7 +25109,7 @@ namespace OtherExamples
             else
             {
                 writer.WriteStartObject();
-                if (this.address is EmailAddress.AddressValue address)
+                if (this.address is Menes.JsonEmail address)
                 {
                     writer.WritePropertyName(EncodedAddressPropertyName);
                     address.WriteTo(writer);
@@ -25300,127 +25178,6 @@ namespace OtherExamples
                 return props;
             }
             return new Menes.JsonProperties<Menes.JsonAny>(System.Collections.Immutable.ImmutableArray.ToImmutableArray(this.JsonAdditionalProperties));
-        }
-        public readonly struct AddressValue : Menes.IJsonValue, System.IEquatable<AddressValue>
-        {
-            public static readonly System.Func<System.Text.Json.JsonElement, AddressValue> FromJsonElement = e => new AddressValue(e);
-            public static readonly AddressValue Null = new AddressValue(default(System.Text.Json.JsonElement));
-            private static readonly string? ConstValue = BuildConstValue();
-            private static readonly System.Collections.Immutable.ImmutableArray<string>? EnumValues = BuildEnumValues();
-            private static readonly int? MaxLength = null;
-            private static readonly int? MinLength = null;
-            private static readonly System.Text.RegularExpressions.Regex? Pattern = new System.Text.RegularExpressions.Regex("^((?!\\.)[\\w-_.]*[^.])(@\\w+)(\\.\\w+(\\.\\w+)?[^.\\W])$", System.Text.RegularExpressions.RegexOptions.Compiled);
-            private readonly Menes.JsonEmail? value;
-            public AddressValue(Menes.JsonEmail value)
-            {
-                if (value.HasJsonElement)
-                {
-                    this.JsonElement = value.JsonElement;
-                    this.value = null;
-                }
-                else
-                {
-                    this.value = value;
-                    this.JsonElement = default;
-                }
-            }
-            public AddressValue(System.Text.Json.JsonElement jsonElement)
-            {
-                this.value = null;
-                this.JsonElement = jsonElement;
-            }
-            public bool IsNull => this.value == null && (this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Undefined || this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Null);
-            public AddressValue? AsOptional => this.IsNull ? default(AddressValue?) : this;
-            public bool HasJsonElement => this.JsonElement.ValueKind != System.Text.Json.JsonValueKind.Undefined;
-            public System.Text.Json.JsonElement JsonElement { get; }
-            public static implicit operator AddressValue(Menes.JsonEmail value)
-            {
-                return new AddressValue(value);
-            }
-            public static implicit operator AddressValue(string value)
-            {
-                return new AddressValue(value);
-            }
-            public static implicit operator string(AddressValue value)
-            {
-                return (string)(Menes.JsonEmail)value;
-            }
-            public static implicit operator Menes.JsonEmail(AddressValue value)
-            {
-                if (value.value is Menes.JsonEmail clrValue)
-                {
-                    return clrValue;
-                }
-                return new Menes.JsonEmail(value.JsonElement);
-            }
-            public static bool IsConvertibleFrom(System.Text.Json.JsonElement jsonElement)
-            {
-                return Menes.JsonEmail.IsConvertibleFrom(jsonElement);
-            }
-            public static AddressValue FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<char> propertyName) =>
-               parentDocument.ValueKind != System.Text.Json.JsonValueKind.Undefined ?
-                    (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
-                        ? new AddressValue(property)
-                        : Null)
-                    : Null;
-            public static AddressValue FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, string propertyName) =>
-               parentDocument.ValueKind != System.Text.Json.JsonValueKind.Undefined ?
-                    (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
-                        ? new AddressValue(property)
-                        : Null)
-                    : Null;
-            public static AddressValue FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<byte> utf8PropertyName) =>
-               parentDocument.ValueKind != System.Text.Json.JsonValueKind.Undefined ?
-                    (parentDocument.TryGetProperty(utf8PropertyName, out System.Text.Json.JsonElement property)
-                        ? new AddressValue(property)
-                        : Null)
-                    : Null;
-            public bool Equals(AddressValue other)
-            {
-                return this.Equals((Menes.JsonEmail)other);
-            }
-            public bool Equals(Menes.JsonEmail other)
-            {
-                return ((Menes.JsonEmail)this).Equals(other);
-            }
-            public Menes.ValidationContext Validate(in Menes.ValidationContext validationContext)
-            {
-                Menes.JsonEmail value = this;
-                Menes.ValidationContext context = validationContext;
-                context = value.Validate(context);
-                context = value.ValidateAsString(context, MaxLength, MinLength, Pattern, EnumValues, ConstValue);
-                return context;
-            }
-            public void WriteTo(System.Text.Json.Utf8JsonWriter writer)
-            {
-                if (this.HasJsonElement)
-                {
-                    this.JsonElement.WriteTo(writer);
-                }
-                else if (this.value is Menes.JsonEmail clrValue)
-                {
-                    clrValue.WriteTo(writer);
-                }
-            }
-            public override string ToString()
-            {
-                if (this.value is Menes.JsonEmail clrValue)
-                {
-                    return clrValue.ToString();
-                }
-                else
-                {
-                    return this.JsonElement.GetRawText();
-                }
-            }
-            private static string? BuildConstValue()
-            {
-                return null;
-            }
-            private static System.Collections.Immutable.ImmutableArray<string>? BuildEnumValues()
-            {
-                return null;
-            }
         }
     }
     public readonly struct TelephoneNumberListResource : Menes.IJsonObject, System.IEquatable<TelephoneNumberListResource>, Menes.IJsonAdditionalProperties<Menes.JsonAny>
