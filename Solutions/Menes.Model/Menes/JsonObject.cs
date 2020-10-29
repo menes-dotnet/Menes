@@ -184,7 +184,7 @@ namespace Menes
         /// </summary>
         /// <param name="newAdditional">The new value for the additionalProperties.</param>
         /// <returns>A new instance of the <see cref="JsonObject"/> with the second property set.</returns>
-        public JsonObject WithAdditionalProperties(params (string, JsonAny)[] newAdditional)
+        public JsonObject ReplaceAll(params (string, JsonAny)[] newAdditional)
         {
             return new JsonObject(JsonProperties<JsonAny>.FromValues(newAdditional));
         }
@@ -244,7 +244,7 @@ namespace Menes
         /// <param name="propertyName">The property name.</param>
         /// <param name="value">The property value as a <see cref="JsonAny"/>.</param>
         /// <returns><c>True</c> if the property was successfully retrieved.</returns>
-        public bool TryGet(string propertyName, [NotNullWhen(true)] out JsonAny? value)
+        public bool TryGet(string propertyName, [NotNullWhen(true)] out JsonAny value)
         {
             return this.TryGet(propertyName.AsSpan(), out value);
         }
@@ -255,7 +255,7 @@ namespace Menes
         /// <param name="utf8PropertyName">The property name.</param>
         /// <param name="value">The property value as a <see cref="JsonAny"/>.</param>
         /// <returns><c>True</c> if the property was successfully retrieved.</returns>
-        public bool TryGet(ReadOnlySpan<byte> utf8PropertyName, [NotNullWhen(true)] out JsonAny? value)
+        public bool TryGet(ReadOnlySpan<byte> utf8PropertyName, [NotNullWhen(true)] out JsonAny value)
         {
             foreach (JsonPropertyReference<JsonAny> property in this.JsonAdditionalProperties)
             {
@@ -276,7 +276,7 @@ namespace Menes
         /// <param name="propertyName">The property name.</param>
         /// <param name="value">The property value as a <see cref="JsonAny"/>.</param>
         /// <returns><c>True</c> if the property was successfully retrieved.</returns>
-        public bool TryGet(ReadOnlySpan<char> propertyName, [NotNullWhen(true)] out JsonAny? value)
+        public bool TryGet(ReadOnlySpan<char> propertyName, [NotNullWhen(true)] out JsonAny value)
         {
             Span<byte> bytes = stackalloc byte[propertyName.Length * 4];
             int written = Encoding.UTF8.GetBytes(propertyName, bytes);

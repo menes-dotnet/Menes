@@ -74,6 +74,9 @@ namespace Menes.Sandbox
 
             Validate(person);
 
+            person = person.WithLinks(
+                person.Links.Add(("woz", new Link("http://apple.com"))));
+
             ReadOnlyMemory<byte> serializedPerson = Serialize(person);
             var document = JsonDocument.Parse(serializedPerson);
             var deserializedPerson = new GeneratedPerson(document.RootElement);

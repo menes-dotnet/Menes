@@ -267,27 +267,27 @@ namespace Examples
         {
             return new Examples.JsonObjectExample(this.First, this.Second, this.Third, this.Age, Menes.JsonReference.FromValue(value), this.GetJsonProperties());
         }
-        public Examples.JsonObjectExample WithAdditionalProperties(Menes.JsonProperties<Menes.JsonString> newAdditional)
+        public Examples.JsonObjectExample ReplaceAll(Menes.JsonProperties<Menes.JsonString> newAdditional)
         {
             return new Examples.JsonObjectExample(this.First, this.Second, this.Third, this.Age, this.GetChildren(), newAdditional);
         }
-        public Examples.JsonObjectExample WithAdditionalProperties(params (string, Menes.JsonString)[] newAdditional)
+        public Examples.JsonObjectExample ReplaceAll(params (string, Menes.JsonString)[] newAdditional)
         {
             return new Examples.JsonObjectExample(this.First, this.Second, this.Third, this.Age, this.GetChildren(), Menes.JsonProperties<Menes.JsonString>.FromValues(newAdditional));
         }
-        public Examples.JsonObjectExample WithAdditionalProperties((string, Menes.JsonString) newAdditional1)
+        public Examples.JsonObjectExample ReplaceAll((string, Menes.JsonString) newAdditional1)
         {
             return new Examples.JsonObjectExample(this.First, this.Second, this.Third, this.Age, this.GetChildren(), Menes.JsonProperties<Menes.JsonString>.FromValues(newAdditional1));
         }
-        public Examples.JsonObjectExample WithAdditionalProperties((string, Menes.JsonString) newAdditional1, (string, Menes.JsonString) newAdditional2)
+        public Examples.JsonObjectExample ReplaceAll((string, Menes.JsonString) newAdditional1, (string, Menes.JsonString) newAdditional2)
         {
             return new Examples.JsonObjectExample(this.First, this.Second, this.Third, this.Age, this.GetChildren(), Menes.JsonProperties<Menes.JsonString>.FromValues(newAdditional1, newAdditional2));
         }
-        public Examples.JsonObjectExample WithAdditionalProperties((string, Menes.JsonString) newAdditional1, (string, Menes.JsonString) newAdditional2, (string, Menes.JsonString) newAdditional3)
+        public Examples.JsonObjectExample ReplaceAll((string, Menes.JsonString) newAdditional1, (string, Menes.JsonString) newAdditional2, (string, Menes.JsonString) newAdditional3)
         {
             return new Examples.JsonObjectExample(this.First, this.Second, this.Third, this.Age, this.GetChildren(), Menes.JsonProperties<Menes.JsonString>.FromValues(newAdditional1, newAdditional2, newAdditional3));
         }
-        public Examples.JsonObjectExample WithAdditionalProperties((string, Menes.JsonString) newAdditional1, (string, Menes.JsonString) newAdditional2, (string, Menes.JsonString) newAdditional3, (string, Menes.JsonString) newAdditional4)
+        public Examples.JsonObjectExample ReplaceAll((string, Menes.JsonString) newAdditional1, (string, Menes.JsonString) newAdditional2, (string, Menes.JsonString) newAdditional3, (string, Menes.JsonString) newAdditional4)
         {
             return new Examples.JsonObjectExample(this.First, this.Second, this.Third, this.Age, this.GetChildren(), Menes.JsonProperties<Menes.JsonString>.FromValues(newAdditional1, newAdditional2, newAdditional3, newAdditional4));
         }

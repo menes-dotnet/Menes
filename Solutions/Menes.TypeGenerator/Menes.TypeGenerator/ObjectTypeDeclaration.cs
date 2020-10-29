@@ -6,6 +6,7 @@ namespace Menes.TypeGenerator
 {
     using System;
     using System.Collections.Generic;
+    using System.Collections.Immutable;
     using System.Linq;
     using System.Text;
     using System.Text.Json;
@@ -996,27 +997,58 @@ namespace Menes.TypeGenerator
                 this.BuildWithPropertyFactory(property, members);
             }
 
-            this.BuildWithAdditionalPropertiesFactories(members);
+            this.BuildReplaceAllAdditionalPropertiesFactories(members);
+            this.BuildAddAdditionalPropertiesFactories(members);
+            this.BuildRemoveAdditionalPropertiesFactories(members);
         }
 
-        private void BuildWithAdditionalPropertiesFactories(List<MemberDeclarationSyntax> members)
+        private void BuildReplaceAllAdditionalPropertiesFactories(List<MemberDeclarationSyntax> members)
         {
             if (this.AdditionalPropertiesType is ITypeDeclaration additionalPropertiesType)
             {
                 string fullyQualifiedAdditionalPropertiesName = additionalPropertiesType.GetFullyQualifiedName();
                 string fullyQualifiedName = this.GetFullyQualifiedName();
-                this.BuildWithAdditionalPropertiesFactory(fullyQualifiedName, fullyQualifiedAdditionalPropertiesName, members, null);
-                this.BuildWithAdditionalPropertiesFactory(fullyQualifiedName, fullyQualifiedAdditionalPropertiesName, members, -1);
-                this.BuildWithAdditionalPropertiesFactory(fullyQualifiedName, fullyQualifiedAdditionalPropertiesName, members, 1);
-                this.BuildWithAdditionalPropertiesFactory(fullyQualifiedName, fullyQualifiedAdditionalPropertiesName, members, 2);
-                this.BuildWithAdditionalPropertiesFactory(fullyQualifiedName, fullyQualifiedAdditionalPropertiesName, members, 3);
-                this.BuildWithAdditionalPropertiesFactory(fullyQualifiedName, fullyQualifiedAdditionalPropertiesName, members, 4);
+                this.BuildReplaceAllAdditionalPropertiesFactory(fullyQualifiedName, fullyQualifiedAdditionalPropertiesName, members, null);
+                this.BuildReplaceAllAdditionalPropertiesFactory(fullyQualifiedName, fullyQualifiedAdditionalPropertiesName, members, -1);
+                this.BuildReplaceAllAdditionalPropertiesFactory(fullyQualifiedName, fullyQualifiedAdditionalPropertiesName, members, 1);
+                this.BuildReplaceAllAdditionalPropertiesFactory(fullyQualifiedName, fullyQualifiedAdditionalPropertiesName, members, 2);
+                this.BuildReplaceAllAdditionalPropertiesFactory(fullyQualifiedName, fullyQualifiedAdditionalPropertiesName, members, 3);
+                this.BuildReplaceAllAdditionalPropertiesFactory(fullyQualifiedName, fullyQualifiedAdditionalPropertiesName, members, 4);
             }
         }
 
-        private void BuildWithAdditionalPropertiesFactory(string fullyQualifiedName, string fullyQualifiedAdditionalPropertiesName, List<MemberDeclarationSyntax> members, int? additionalPropertiesCount)
+        private void BuildAddAdditionalPropertiesFactories(List<MemberDeclarationSyntax> members)
         {
-            var builder = new StringBuilder($"public {fullyQualifiedName} WithAdditionalProperties(");
+            if (this.AdditionalPropertiesType is ITypeDeclaration additionalPropertiesType)
+            {
+                string fullyQualifiedAdditionalPropertiesName = additionalPropertiesType.GetFullyQualifiedName();
+                string fullyQualifiedName = this.GetFullyQualifiedName();
+                this.BuildAddAdditionalPropertiesFactory(fullyQualifiedName, fullyQualifiedAdditionalPropertiesName, members, -1);
+                this.BuildAddAdditionalPropertiesFactory(fullyQualifiedName, fullyQualifiedAdditionalPropertiesName, members, 1);
+                this.BuildAddAdditionalPropertiesFactory(fullyQualifiedName, fullyQualifiedAdditionalPropertiesName, members, 2);
+                this.BuildAddAdditionalPropertiesFactory(fullyQualifiedName, fullyQualifiedAdditionalPropertiesName, members, 3);
+                this.BuildAddAdditionalPropertiesFactory(fullyQualifiedName, fullyQualifiedAdditionalPropertiesName, members, 4);
+            }
+        }
+
+        private void BuildRemoveAdditionalPropertiesFactories(List<MemberDeclarationSyntax> members)
+        {
+            if (this.AdditionalPropertiesType is ITypeDeclaration additionalPropertiesType)
+            {
+                string fullyQualifiedAdditionalPropertiesName = additionalPropertiesType.GetFullyQualifiedName();
+                string fullyQualifiedName = this.GetFullyQualifiedName();
+                this.BuildRemoveAdditionalPropertiesFactory(fullyQualifiedName, fullyQualifiedAdditionalPropertiesName, members, -1);
+                this.BuildRemoveAdditionalPropertiesFactory(fullyQualifiedName, fullyQualifiedAdditionalPropertiesName, members, 1);
+                this.BuildRemoveAdditionalPropertiesFactory(fullyQualifiedName, fullyQualifiedAdditionalPropertiesName, members, 2);
+                this.BuildRemoveAdditionalPropertiesFactory(fullyQualifiedName, fullyQualifiedAdditionalPropertiesName, members, 3);
+                this.BuildRemoveAdditionalPropertiesFactory(fullyQualifiedName, fullyQualifiedAdditionalPropertiesName, members, 4);
+                this.BuildRemoveIfAdditionalPropertiesFactory(fullyQualifiedName, fullyQualifiedAdditionalPropertiesName, members);
+            }
+        }
+
+        private void BuildReplaceAllAdditionalPropertiesFactory(string fullyQualifiedName, string fullyQualifiedAdditionalPropertiesName, List<MemberDeclarationSyntax> members, int? additionalPropertiesCount)
+        {
+            var builder = new StringBuilder($"public {fullyQualifiedName} ReplaceAll(");
             if (additionalPropertiesCount is null)
             {
                 builder.AppendLine($"Menes.JsonProperties<{fullyQualifiedAdditionalPropertiesName}> newAdditional)");
@@ -1063,6 +1095,149 @@ namespace Menes.TypeGenerator
                 }
 
                 builder.AppendLine("));");
+                builder.AppendLine("}");
+            }
+
+            members.Add(SF.ParseMemberDeclaration(builder.ToString()));
+        }
+
+        private void BuildRemoveIfAdditionalPropertiesFactory(string fullyQualifiedName, string fullyQualifiedAdditionalPropertiesName, List<MemberDeclarationSyntax> members)
+        {
+            var builder = new StringBuilder($"public {fullyQualifiedName} Remove(");
+            builder.AppendLine($"System.Predicate<Menes.JsonPropertyReference<{fullyQualifiedAdditionalPropertiesName}>> removeIfTrue)");
+            builder.AppendLine("{");
+            builder.AppendLine($"System.Collections.Immutable.ImmutableArray<Menes.JsonPropertyReference<{fullyQualifiedAdditionalPropertiesName}>>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonPropertyReference<{fullyQualifiedAdditionalPropertiesName}>>();");
+            builder.AppendLine($"foreach (Menes.JsonPropertyReference<{fullyQualifiedAdditionalPropertiesName}> property in this.JsonAdditionalProperties)");
+            builder.AppendLine("{");
+            builder.AppendLine($"   if (!removeIfTrue(property))");
+            builder.AppendLine("    {");
+            builder.AppendLine($"       arrayBuilder.Add(property);");
+            builder.AppendLine("    }");
+            builder.AppendLine("}");
+
+            builder.Append($"return new {fullyQualifiedName}( ");
+            this.AppendWithParametersCoreForAdditionalProperties(builder);
+            builder.AppendLine($"new Menes.JsonProperties<{fullyQualifiedAdditionalPropertiesName}>(arrayBuilder.ToImmutable()));");
+            builder.AppendLine("}");
+            members.Add(SF.ParseMemberDeclaration(builder.ToString()));
+        }
+
+        private void BuildRemoveAdditionalPropertiesFactory(string fullyQualifiedName, string fullyQualifiedAdditionalPropertiesName, List<MemberDeclarationSyntax> members, int additionalPropertiesCount)
+        {
+            var builder = new StringBuilder($"public {fullyQualifiedName} Remove(");
+            if (additionalPropertiesCount == -1)
+            {
+                builder.AppendLine($"params string[] namesToRemove)");
+                builder.AppendLine("{");
+                builder.AppendLine("System.Collections.Immutable.ImmutableHashSet<string> ihs = System.Collections.Immutable.ImmutableHashSet.Create<string>(namesToRemove);");
+                builder.AppendLine($"System.Collections.Immutable.ImmutableArray<Menes.JsonPropertyReference<{fullyQualifiedAdditionalPropertiesName}>>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonPropertyReference<{fullyQualifiedAdditionalPropertiesName}>>();");
+                builder.AppendLine($"foreach (Menes.JsonPropertyReference<{fullyQualifiedAdditionalPropertiesName}> property in this.JsonAdditionalProperties)");
+                builder.AppendLine("{");
+                builder.AppendLine($"   if (!ihs.Contains(property.Name))");
+                builder.AppendLine("    {");
+                builder.AppendLine($"       arrayBuilder.Add(property);");
+                builder.AppendLine("    }");
+                builder.AppendLine("}");
+
+                builder.Append($"return new {fullyQualifiedName}( ");
+                this.AppendWithParametersCoreForAdditionalProperties(builder);
+                builder.AppendLine($"new Menes.JsonProperties<{fullyQualifiedAdditionalPropertiesName}>(arrayBuilder.ToImmutable()));");
+                builder.AppendLine("}");
+            }
+            else
+            {
+                for (int i = 0; i < additionalPropertiesCount; ++i)
+                {
+                    if (i > 0)
+                    {
+                        builder.Append(", ");
+                    }
+
+                    builder.Append($"string itemToRemove{i + 1}");
+                }
+
+                builder.AppendLine($")");
+                builder.AppendLine("{");
+
+                builder.AppendLine("System.Collections.Immutable.ImmutableHashSet<string>.Builder ihsBuilder = System.Collections.Immutable.ImmutableHashSet.CreateBuilder<string>();");
+
+                for (int i = 0; i < additionalPropertiesCount; ++i)
+                {
+                    builder.Append($"ihsBuilder.Add(itemToRemove{i + 1});");
+                }
+
+                builder.AppendLine("System.Collections.Immutable.ImmutableHashSet<string> ihs = ihsBuilder.ToImmutable();");
+
+                builder.AppendLine($"System.Collections.Immutable.ImmutableArray<Menes.JsonPropertyReference<{fullyQualifiedAdditionalPropertiesName}>>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonPropertyReference<{fullyQualifiedAdditionalPropertiesName}>>();");
+                builder.AppendLine($"foreach (Menes.JsonPropertyReference<{fullyQualifiedAdditionalPropertiesName}> property in this.JsonAdditionalProperties)");
+                builder.AppendLine("{");
+                builder.AppendLine($"   if (!ihs.Contains(property.Name))");
+                builder.AppendLine("    {");
+                builder.AppendLine($"       arrayBuilder.Add(property);");
+                builder.AppendLine("    }");
+                builder.AppendLine("}");
+
+                builder.Append($"return new {fullyQualifiedName}( ");
+                this.AppendWithParametersCoreForAdditionalProperties(builder);
+                builder.AppendLine($"new Menes.JsonProperties<{fullyQualifiedAdditionalPropertiesName}>(arrayBuilder.ToImmutable()));");
+                builder.AppendLine("}");
+            }
+
+            members.Add(SF.ParseMemberDeclaration(builder.ToString()));
+        }
+
+        private void BuildAddAdditionalPropertiesFactory(string fullyQualifiedName, string fullyQualifiedAdditionalPropertiesName, List<MemberDeclarationSyntax> members, int additionalPropertiesCount)
+        {
+            var builder = new StringBuilder($"public {fullyQualifiedName} Add(");
+            if (additionalPropertiesCount == -1)
+            {
+                builder.AppendLine($"params (string, {fullyQualifiedAdditionalPropertiesName})[] newAdditional)");
+                builder.AppendLine("{");
+
+                builder.AppendLine($"System.Collections.Immutable.ImmutableArray<Menes.JsonPropertyReference<{fullyQualifiedAdditionalPropertiesName}>>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonPropertyReference<{fullyQualifiedAdditionalPropertiesName}>>();");
+                builder.AppendLine($"foreach (Menes.JsonPropertyReference<{fullyQualifiedAdditionalPropertiesName}> property in this.JsonAdditionalProperties)");
+                builder.AppendLine("{");
+                builder.AppendLine($"   arrayBuilder.Add(property);");
+                builder.AppendLine("}");
+                builder.AppendLine($"foreach ((string name, {fullyQualifiedAdditionalPropertiesName} value) in newAdditional)");
+                builder.AppendLine("{");
+                builder.AppendLine($"   arrayBuilder.Add(Menes.JsonPropertyReference<{fullyQualifiedAdditionalPropertiesName}>.From(name, value));");
+                builder.AppendLine("}");
+
+                builder.Append($"return new {fullyQualifiedName}( ");
+                this.AppendWithParametersCoreForAdditionalProperties(builder);
+                builder.AppendLine($"new Menes.JsonProperties<{fullyQualifiedAdditionalPropertiesName}>(arrayBuilder.ToImmutable()));");
+                builder.AppendLine("}");
+            }
+            else
+            {
+                for (int i = 0; i < additionalPropertiesCount; ++i)
+                {
+                    if (i > 0)
+                    {
+                        builder.Append(", ");
+                    }
+
+                    builder.Append($"(string name, {fullyQualifiedAdditionalPropertiesName} value) newAdditional{i + 1}");
+                }
+
+                builder.AppendLine($")");
+                builder.AppendLine("{");
+
+                builder.AppendLine($"System.Collections.Immutable.ImmutableArray<Menes.JsonPropertyReference<{fullyQualifiedAdditionalPropertiesName}>>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonPropertyReference<{fullyQualifiedAdditionalPropertiesName}>>();");
+                builder.AppendLine($"foreach (Menes.JsonPropertyReference<{fullyQualifiedAdditionalPropertiesName}> property in this.JsonAdditionalProperties)");
+                builder.AppendLine("{");
+                builder.AppendLine($"   arrayBuilder.Add(property);");
+                builder.AppendLine("}");
+
+                for (int i = 0; i < additionalPropertiesCount; ++i)
+                {
+                    builder.Append($"arrayBuilder.Add(Menes.JsonPropertyReference<{fullyQualifiedAdditionalPropertiesName}>.From(newAdditional{i + 1}.name, newAdditional{i + 1}.value));");
+                }
+
+                builder.Append($"return new {fullyQualifiedName}( ");
+                this.AppendWithParametersCoreForAdditionalProperties(builder);
+                builder.AppendLine($"new Menes.JsonProperties<{fullyQualifiedAdditionalPropertiesName}>(arrayBuilder.ToImmutable()));");
                 builder.AppendLine("}");
             }
 

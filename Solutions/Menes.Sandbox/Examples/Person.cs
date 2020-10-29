@@ -272,27 +272,27 @@ namespace Examples
         {
             return new Person(this.FirstName, this.LastName, this.GetAnotherPerson(), this.Contact, value, this.GetJsonProperties());
         }
-        public Person WithAdditionalProperties(Menes.JsonProperties<Menes.JsonAny> newAdditional)
+        public Person ReplaceAll(Menes.JsonProperties<Menes.JsonAny> newAdditional)
         {
             return new Person(this.FirstName, this.LastName, this.GetAnotherPerson(), this.Contact, this.Age, newAdditional);
         }
-        public Person WithAdditionalProperties(params (string, Menes.JsonAny)[] newAdditional)
+        public Person ReplaceAll(params (string, Menes.JsonAny)[] newAdditional)
         {
             return new Person(this.FirstName, this.LastName, this.GetAnotherPerson(), this.Contact, this.Age, Menes.JsonProperties<Menes.JsonAny>.FromValues(newAdditional));
         }
-        public Person WithAdditionalProperties((string, Menes.JsonAny) newAdditional1)
+        public Person ReplaceAll((string, Menes.JsonAny) newAdditional1)
         {
             return new Person(this.FirstName, this.LastName, this.GetAnotherPerson(), this.Contact, this.Age, Menes.JsonProperties<Menes.JsonAny>.FromValues(newAdditional1));
         }
-        public Person WithAdditionalProperties((string, Menes.JsonAny) newAdditional1, (string, Menes.JsonAny) newAdditional2)
+        public Person ReplaceAll((string, Menes.JsonAny) newAdditional1, (string, Menes.JsonAny) newAdditional2)
         {
             return new Person(this.FirstName, this.LastName, this.GetAnotherPerson(), this.Contact, this.Age, Menes.JsonProperties<Menes.JsonAny>.FromValues(newAdditional1, newAdditional2));
         }
-        public Person WithAdditionalProperties((string, Menes.JsonAny) newAdditional1, (string, Menes.JsonAny) newAdditional2, (string, Menes.JsonAny) newAdditional3)
+        public Person ReplaceAll((string, Menes.JsonAny) newAdditional1, (string, Menes.JsonAny) newAdditional2, (string, Menes.JsonAny) newAdditional3)
         {
             return new Person(this.FirstName, this.LastName, this.GetAnotherPerson(), this.Contact, this.Age, Menes.JsonProperties<Menes.JsonAny>.FromValues(newAdditional1, newAdditional2, newAdditional3));
         }
-        public Person WithAdditionalProperties((string, Menes.JsonAny) newAdditional1, (string, Menes.JsonAny) newAdditional2, (string, Menes.JsonAny) newAdditional3, (string, Menes.JsonAny) newAdditional4)
+        public Person ReplaceAll((string, Menes.JsonAny) newAdditional1, (string, Menes.JsonAny) newAdditional2, (string, Menes.JsonAny) newAdditional3, (string, Menes.JsonAny) newAdditional4)
         {
             return new Person(this.FirstName, this.LastName, this.GetAnotherPerson(), this.Contact, this.Age, Menes.JsonProperties<Menes.JsonAny>.FromValues(newAdditional1, newAdditional2, newAdditional3, newAdditional4));
         }
