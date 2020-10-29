@@ -91,7 +91,12 @@ namespace Menes.Json.Schema
                                         }
                                     }
 
-                                    stateMachine.CurrentElement = stateMachine.CurrentElement.GetProperty(pointer[(stateMachine.StartRunIndex + 1) ..i]);
+                                    while (pointer[stateMachine.StartRunIndex] == '/')
+                                    {
+                                        stateMachine.StartRunIndex += 1;
+                                    }
+
+                                    stateMachine.CurrentElement = stateMachine.CurrentElement.GetProperty(pointer[stateMachine.StartRunIndex..i]);
                                 }
                                 finally
                                 {
@@ -104,7 +109,12 @@ namespace Menes.Json.Schema
                                 {
                                     try
                                     {
-                                        int arrayIndex = int.Parse(pointer[(stateMachine.StartRunIndex + 1) ..i]);
+                                        while (pointer[stateMachine.StartRunIndex] == '/')
+                                        {
+                                            stateMachine.StartRunIndex += 1;
+                                        }
+
+                                        int arrayIndex = int.Parse(pointer[stateMachine.StartRunIndex..i]);
                                         try
                                         {
                                             JsonElement.ArrayEnumerator enumerator = stateMachine.CurrentElement.EnumerateArray();
