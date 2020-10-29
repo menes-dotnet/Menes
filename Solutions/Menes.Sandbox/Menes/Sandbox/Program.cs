@@ -63,6 +63,8 @@ namespace Menes.Sandbox
         {
             var person =
                 new GeneratedPerson(
+                    contentType: "application/vnd.menes.person",
+                    embedded: null,
                     links: new GeneratedPerson.LinksEntity(
                         self: new Link("http://endjin.com/something"),
                         primaryName: new Link("http://endjin.com/somename"),
@@ -71,6 +73,11 @@ namespace Menes.Sandbox
                         ("baz", JsonArray.Create(new Link("http://endjin.com/something"), new Link("http://endjin.com/somethingelse")))));
 
             Validate(person);
+
+            ReadOnlyMemory<byte> serializedPerson = Serialize(person);
+            var document = JsonDocument.Parse(serializedPerson);
+            var deserializedPerson = new GeneratedPerson(document.RootElement);
+            Validate(deserializedPerson);
 
             var resource =
                 new Resource(
