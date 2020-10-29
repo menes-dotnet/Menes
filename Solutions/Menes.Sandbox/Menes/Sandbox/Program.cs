@@ -8,11 +8,11 @@ namespace Menes.Sandbox
     using System.Buffers;
     using System.Collections.Generic;
     using System.Diagnostics;
+    using System.IO;
     using System.Linq;
     using System.Text;
     using System.Text.Json;
     using System.Threading.Tasks;
-    using Examples;
     using Menes.Json.Schema;
     using Menes.Json.Schema.Generator;
     using Menes.Json.Schema.TypeGenerator;
@@ -21,6 +21,7 @@ namespace Menes.Sandbox
     using Microsoft.CodeAnalysis.CSharp.Syntax;
     using Microsoft.CodeAnalysis.Formatting;
     using NodaTime;
+    using OtherExamples;
 
     /// <summary>
     /// Main program.
@@ -54,23 +55,43 @@ namespace Menes.Sandbox
             ////return GenerateTypesForSchema("exampleschema2.json");
             ////return GenerateTypesForSchema("resourcesAndLinks.json#/schemas/Resource");
             ////return GenerateTypesForSchema("person.json#/schemas/Person");
+            return GenerateTypesForSchema("peopleApi.json#/components/schemas/PersonListResource", "./output/");
 
-            UseGeneratedCode();
-            return Task.CompletedTask;
+            ////UseGeneratedCode();
+            ////return Task.CompletedTask;
         }
 
         private static void UseGeneratedCode()
         {
+            var personListResource = new PersonListResource(
+                contentType: "application/vnd.menes.personListResource",
+                embedded: new PersonListResource.EmbeddedEntity(
+                    JsonArray.Create(
+                        new PersonResource(
+                            contentType: "application/vnd.menes.personResource",
+                            embedded: null,
+                            links: new PersonResource.LinksEntity(
+                                self: new Link("http://endjin.com/something"),
+                                primaryName: new Link("http://endjin.com/somename"))))),
+                links: new PersonListResource.LinksEntity(
+                    self: new Link("http:/endjin.com/something"),
+                    items: JsonArray.Create(new Link("http://endjin.com/something"), new Link("http://endjin.com/somethingelse")),
+                    next: new Link("/some/item"),
+                    prev: new Link("/last/item")));
+
+            Validate(personListResource);
+            Serialize(personListResource);
+
             var person =
-                new GeneratedPerson(
+                new Examples.GeneratedPerson(
                     contentType: "application/vnd.menes.person",
                     embedded: null,
-                    links: new GeneratedPerson.LinksEntity(
-                        self: new Link("http://endjin.com/something"),
-                        primaryName: new Link("http://endjin.com/somename"),
-                        ("foo", new Link("http://endjin.com/something/fooIsh")),
-                        ("bar", new Link("http://endjin.com/something")),
-                        ("baz", JsonArray.Create(new Link("http://endjin.com/something"), new Link("http://endjin.com/somethingelse")))));
+                    links: new Examples.GeneratedPerson.LinksEntity(
+                        self: new Examples.Link("http://endjin.com/something"),
+                        primaryName: new Examples.Link("http://endjin.com/somename"),
+                        ("foo", new Examples.Link("http://endjin.com/something/fooIsh")),
+                        ("bar", new Examples.Link("http://endjin.com/something")),
+                        ("baz", JsonArray.Create(new Examples.Link("http://endjin.com/something"), new Examples.Link("http://endjin.com/somethingelse")))));
 
             Validate(person);
 
@@ -78,11 +99,11 @@ namespace Menes.Sandbox
                 person.Links
                     .Remove(FilterFooIshLinks)
                     .Remove("baz")
-                    .Add(("woz", new Link("http://apple.com"))));
+                    .Add(("woz", new Examples.Link("http://apple.com"))));
 
-            static bool FilterFooIshLinks(JsonPropertyReference<Links> p)
+            static bool FilterFooIshLinks(JsonPropertyReference<Examples.Links> p)
             {
-                Links links = p.AsValue();
+                Examples.Links links = p.AsValue();
                 return links.IsLink && GetPath(links.AsLink().Href).EndsWith("fooIsh");
             }
 
@@ -93,7 +114,7 @@ namespace Menes.Sandbox
 
             ReadOnlyMemory<byte> serializedPerson = Serialize(person);
             var document = JsonDocument.Parse(serializedPerson);
-            var deserializedPerson = new GeneratedPerson(document.RootElement);
+            var deserializedPerson = new Examples.GeneratedPerson(document.RootElement);
             Validate(deserializedPerson);
 
             var resource =
@@ -106,7 +127,7 @@ namespace Menes.Sandbox
 
             Validate(resource);
 
-            if (resource.Links.TryGet("baz", out Links value))
+            if (resource.Links.TryGet("baz", out Resource.LinksEntity.PropertiesEntity value))
             {
                 if (value.IsLink)
                 {
@@ -121,7 +142,7 @@ namespace Menes.Sandbox
                 }
             }
 
-            GeneratedPerson personFromResource = JsonAny.From(resource).As<GeneratedPerson>();
+            Examples.GeneratedPerson personFromResource = JsonAny.From(resource).As<Examples.GeneratedPerson>();
 
             // Should be invalid, because we don't have a primaryName link
             Validate(personFromResource);
@@ -130,11 +151,11 @@ namespace Menes.Sandbox
                 resource.WithLinks(
                     resource.Links.Add(("primaryName", new Link("http://endjin.com/primaryName"))));
 
-            GeneratedPerson personFromResourceWithPrimaryName = JsonAny.From(resourceWithPrimaryNameLink).As<GeneratedPerson>();
+            Examples.GeneratedPerson personFromResourceWithPrimaryName = JsonAny.From(resourceWithPrimaryNameLink).As<Examples.GeneratedPerson>();
             Validate(personFromResourceWithPrimaryName);
 
-            Person instance =
-                new Person("Ian", "Griffiths")
+            Examples.Person instance =
+                new Examples.Person("Ian", "Griffiths")
                     .WithAge(21)
                     .WithContact((JsonEmail)"matthew.adams@endjin.com");
 
@@ -172,7 +193,7 @@ namespace Menes.Sandbox
             }
         }
 
-        private static async Task GenerateTypesForSchema(string uri)
+        private static async Task GenerateTypesForSchema(string uri, string? outputPath = null)
         {
             (string baseUri, JsonDocument root, JsonSchema schema) = await DocumentResolver.Default.LoadSchema(uri).ConfigureAwait(false);
 
@@ -184,10 +205,28 @@ namespace Menes.Sandbox
                 await typeGenerator.BuildTypes(schema, root, baseUri).ConfigureAwait(false);
 
                 TypeDeclarationSyntax[] tds = typeGenerator.GenerateTypes();
+
+                string? path = null;
+                if (outputPath is string op)
+                {
+                    path = Path.GetFullPath(op);
+                    Directory.CreateDirectory(path);
+                    path = Path.Combine(path, "output.cs");
+                    File.Delete(path);
+                    Console.WriteLine(path);
+                }
+
                 foreach (TypeDeclarationSyntax t in tds)
                 {
                     SyntaxNode formattedJsonSchema = Formatter.Format(t, new AdhocWorkspace());
-                    Console.WriteLine(formattedJsonSchema.ToFullString());
+                    if (path is string p)
+                    {
+                        File.AppendAllText(p, formattedJsonSchema.ToFullString());
+                    }
+                    else
+                    {
+                        Console.WriteLine(formattedJsonSchema.ToFullString());
+                    }
                 }
             }
             catch (Exception ex)
@@ -206,12 +245,12 @@ namespace Menes.Sandbox
 
         private static void SimpleExamples()
         {
-            var example = new JsonObjectExample(
+            var example = new Examples.JsonObjectExample(
                 first: "Hello",
                 second: 42,
                 third: Duration.FromHours(3),
                 age: 37,
-                children: JsonArray.Create(new JsonObjectExample("Sibling A", 1), new JsonObjectExample("Sibling B", 2)),
+                children: JsonArray.Create(new Examples.JsonObjectExample("Sibling A", 1), new Examples.JsonObjectExample("Sibling B", 2)),
                 //// You could also initialize this with array syntax as below. They both implicitly convert to JsonArray<TItem>.
                 //// However, they also allocate additional arrays; up to 4 items is optimized for ImmutableArray creation, so we
                 //// take advantage of that with our JsonArray.Create() overloads.
@@ -230,11 +269,11 @@ namespace Menes.Sandbox
             ReadOnlyMemory<byte> serialized = Serialize(example);
 
             using var doc = JsonDocument.Parse(serialized);
-            var roundtrip = new JsonObjectExample(doc.RootElement);
+            var roundtrip = new Examples.JsonObjectExample(doc.RootElement);
 
             //// At this point "roundtrip" is a JsonObjectExample backed by a single JsonElement.
 
-            var anotherExample = new JsonObjectExample(
+            var anotherExample = new Examples.JsonObjectExample(
                 first: "Goodbye",
                 second: example.Second,
                 third: Duration.FromHours(3),
@@ -250,7 +289,7 @@ namespace Menes.Sandbox
 
             Console.WriteLine();
 
-            JsonObjectExample anotherOne = roundtrip.WithFirst("Not the first now");
+            Examples.JsonObjectExample anotherOne = roundtrip.WithFirst("Not the first now");
 
             //// anotherOne has replaced a single value (the "First" property) with a string value.
             //// All the remaining values have become stack-allocated wrappers around the original JsonElements
@@ -358,7 +397,7 @@ namespace Menes.Sandbox
             return abw.WrittenMemory;
         }
 
-        private static void WriteExample(in JsonObjectExample example, int tabs = 0)
+        private static void WriteExample(in Examples.JsonObjectExample example, int tabs = 0)
         {
             string tabString = tabs > 0 ? string.Concat(Enumerable.Repeat("\t", tabs)) : string.Empty;
 
@@ -366,11 +405,11 @@ namespace Menes.Sandbox
             Console.WriteLine($"{tabString}\tSecond: {example.Second}");
             Console.WriteLine($"{tabString}\tThird: {example.Third?.ToString() ?? "null"}");
 
-            if (example.Children is JsonObjectExample.ValidatedArrayOfJsonObjectExample children)
+            if (example.Children is Examples.JsonObjectExample.ValidatedArrayOfJsonObjectExample children)
             {
                 Console.WriteLine($"{tabString}\tChildren:");
 
-                foreach (JsonObjectExample child in children)
+                foreach (Examples.JsonObjectExample child in children)
                 {
                     WriteExample(child, tabs + 2);
                 }

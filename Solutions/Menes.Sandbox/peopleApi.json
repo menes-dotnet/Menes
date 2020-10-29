@@ -1,0 +1,2162 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Marain Line of Business People API",
+    "description": "An API for storing information about people.",
+    "license": {
+      "name": "MIT"
+    },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "/"
+    }
+  ],
+  "paths": {
+    "/{tenantId}/marain/people/": {
+      "get": {
+        "summary": "Get a list of people, optionally expanding particular relationship types and embedding certain relationships.",
+        "operationId": "getPeople",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/tenantId"
+          },
+          {
+            "$ref": "#/components/parameters/rel"
+          },
+          {
+            "$ref": "#/components/parameters/embed"
+          },
+          {
+            "$ref": "#/components/parameters/continuationToken"
+          },
+          {
+            "$ref": "#/components/parameters/maxItems"
+          },
+          {
+            "$ref": "#/components/parameters/maxEmbedded"
+          },
+          {
+            "$ref": "#/components/parameters/ifNoneMatch"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "ETag": {
+                "$ref": "#/components/schemas/ETag"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PersonListResource"
+                }
+              }
+            }
+          },
+          "304": {
+            "description": "Not modified"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "default": {
+            "$ref": "#/components/responses/UnexpectedError"
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a person",
+        "operationId": "createPerson",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/tenantId"
+          }
+        ],
+        "requestBody": {
+          "description": "the details of the person to create",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreatePersonRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Accepted",
+            "headers": {
+              "Location": {
+                "description": "the URL of the Marain.OperationsStatus API for this operation.",
+                "schema": {
+                  "type": "string",
+                  "format": "url"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "default": {
+            "$ref": "#/components/responses/UnexpectedError"
+          }
+        }
+      }
+    },
+    "/{tenantId}/marain/people/{personId}": {
+      "get": {
+        "summary": "Get a person",
+        "operationId": "getPerson",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/tenantId"
+          },
+          {
+            "$ref": "#/components/parameters/personId"
+          },
+          {
+            "$ref": "#/components/parameters/rel"
+          },
+          {
+            "$ref": "#/components/parameters/embed"
+          },
+          {
+            "$ref": "#/components/parameters/maxEmbedded"
+          },
+          {
+            "$ref": "#/components/parameters/ifNoneMatch"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "ETag": {
+                "$ref": "#/components/schemas/ETag"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PersonResource"
+                }
+              }
+            }
+          },
+          "304": {
+            "description": "Not modified"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "default": {
+            "$ref": "#/components/responses/UnexpectedError"
+          }
+        }
+      }
+    },
+    "/{tenantId}/marain/people/{personId}/related/people": {
+      "get": {
+        "summary": "Get people related to this person, optionally filtering to particular relationship types, and/or particular target person hrefs.",
+        "operationId": "getPersonToPersonRelationships",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/tenantId"
+          },
+          {
+            "$ref": "#/components/parameters/personId"
+          },
+          {
+            "$ref": "#/components/parameters/rel"
+          },
+          {
+            "$ref": "#/components/parameters/href"
+          },
+          {
+            "$ref": "#/components/parameters/continuationToken"
+          },
+          {
+            "$ref": "#/components/parameters/maxItems"
+          },
+          {
+            "$ref": "#/components/parameters/ifNoneMatch"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "ETag": {
+                "$ref": "#/components/schemas/ETag"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RelatedPeopleListResource"
+                }
+              }
+            }
+          },
+          "304": {
+            "description": "Not modified"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "default": {
+            "$ref": "#/components/responses/UnexpectedError"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a specific relationship between two people",
+        "operationId": "deletePersonToPersonRelationship",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/tenantId"
+          },
+          {
+            "$ref": "#/components/parameters/personId"
+          },
+          {
+            "$ref": "#/components/parameters/requiredRel"
+          },
+          {
+            "$ref": "#/components/parameters/requiredHref"
+          },
+          {
+            "$ref": "#/components/parameters/ifNoneMatch"
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Accepted",
+            "headers": {
+              "Location": {
+                "description": "the URL of the Marain.OperationsStatus API for this operation.",
+                "schema": {
+                  "type": "string",
+                  "format": "url"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "default": {
+            "$ref": "#/components/responses/UnexpectedError"
+          }
+        }
+      },
+      "post": {
+        "summary": "Add a relationship to another person",
+        "operationId": "addPersonToPersonRelationship",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/tenantId"
+          },
+          {
+            "$ref": "#/components/parameters/personId"
+          },
+          {
+            "$ref": "#/components/parameters/requiredRel"
+          },
+          {
+            "$ref": "#/components/parameters/requiredHref"
+          }
+        ],
+        "requestBody": {
+          "description": "Additional properties for the relationship",
+          "content": {
+            "application/json": {
+              "schema": {
+                "uniqueItems": true,
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Accepted",
+            "headers": {
+              "Location": {
+                "description": "the URL of the Marain.OperationsStatus API for this operation.",
+                "schema": {
+                  "type": "string",
+                  "format": "url"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "default": {
+            "$ref": "#/components/responses/UnexpectedError"
+          }
+        }
+      }
+    },
+    "/{tenantId}/marain/people/{personId}/contactDetails/telephoneNumbers": {
+      "get": {
+        "summary": "Get a person's telephone numbers",
+        "operationId": "getPersonTelephoneNumbers",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/tenantId"
+          },
+          {
+            "$ref": "#/components/parameters/personId"
+          },
+          {
+            "$ref": "#/components/parameters/continuationToken"
+          },
+          {
+            "$ref": "#/components/parameters/maxItems"
+          },
+          {
+            "$ref": "#/components/parameters/ifNoneMatch"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "ETag": {
+                "$ref": "#/components/schemas/ETag"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TelephoneNumberListResource"
+                }
+              }
+            }
+          },
+          "304": {
+            "description": "Not modified"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "default": {
+            "$ref": "#/components/responses/UnexpectedError"
+          }
+        }
+      },
+      "post": {
+        "summary": "Add a telephone number for the person",
+        "operationId": "addPersonTelephoneNumber",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/tenantId"
+          },
+          {
+            "$ref": "#/components/parameters/personId"
+          }
+        ],
+        "requestBody": {
+          "description": "The telephone number to add",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddTelephoneNumberRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Accepted",
+            "headers": {
+              "Location": {
+                "description": "the URL of the Marain.OperationsStatus API for this operation.",
+                "schema": {
+                  "type": "string",
+                  "format": "url"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "default": {
+            "$ref": "#/components/responses/UnexpectedError"
+          }
+        }
+      }
+    },
+    "/{tenantId}/marain/people/{personId}/contactDetails/telephoneNumbers/{telephoneNumberId}": {
+      "get": {
+        "summary": "Get a particular telephone number",
+        "operationId": "getPersonTelephoneNumber",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/tenantId"
+          },
+          {
+            "$ref": "#/components/parameters/personId"
+          },
+          {
+            "$ref": "#/components/parameters/telephoneNumberId"
+          },
+          {
+            "$ref": "#/components/parameters/ifNoneMatch"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "ETag": {
+                "$ref": "#/components/schemas/ETag"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TelephoneNumberResource"
+                }
+              }
+            }
+          },
+          "304": {
+            "description": "Not modified"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "default": {
+            "$ref": "#/components/responses/UnexpectedError"
+          }
+        }
+      },
+      "put": {
+        "summary": "Replace a telephone number for the person",
+        "operationId": "replacePersonTelephoneNumber",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/tenantId"
+          },
+          {
+            "$ref": "#/components/parameters/personId"
+          },
+          {
+            "$ref": "#/components/parameters/telephoneNumberId"
+          },
+          {
+            "$ref": "#/components/parameters/ifMatch"
+          }
+        ],
+        "requestBody": {
+          "description": "The telephone number with which to replace the given number",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReplaceTelephoneNumberRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Accepted",
+            "headers": {
+              "Location": {
+                "description": "the URL of the Marain.OperationsStatus API for this operation.",
+                "schema": {
+                  "type": "string",
+                  "format": "url"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "default": {
+            "$ref": "#/components/responses/UnexpectedError"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a telephone number for the person",
+        "operationId": "deletePersonTelephoneNumber",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/tenantId"
+          },
+          {
+            "$ref": "#/components/parameters/personId"
+          },
+          {
+            "$ref": "#/components/parameters/telephoneNumberId"
+          },
+          {
+            "$ref": "#/components/parameters/ifMatch"
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Accepted",
+            "headers": {
+              "Location": {
+                "description": "the URL of the Marain.OperationsStatus API for this operation.",
+                "schema": {
+                  "type": "string",
+                  "format": "url"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "default": {
+            "$ref": "#/components/responses/UnexpectedError"
+          }
+        }
+      }
+    },
+    "/{tenantId}/marain/people/{personId}/contactDetails/names": {
+      "get": {
+        "summary": "Get a person's names",
+        "operationId": "getPersonNames",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/tenantId"
+          },
+          {
+            "$ref": "#/components/parameters/personId"
+          },
+          {
+            "$ref": "#/components/parameters/continuationToken"
+          },
+          {
+            "$ref": "#/components/parameters/maxItems"
+          },
+          {
+            "$ref": "#/components/parameters/ifNoneMatch"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "ETag": {
+                "$ref": "#/components/schemas/ETag"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PersonNameListResource"
+                }
+              }
+            }
+          },
+          "304": {
+            "description": "Not modified"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "default": {
+            "$ref": "#/components/responses/UnexpectedError"
+          }
+        }
+      },
+      "post": {
+        "summary": "Add a name for the person",
+        "operationId": "addPersonName",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/tenantId"
+          },
+          {
+            "$ref": "#/components/parameters/personId"
+          }
+        ],
+        "requestBody": {
+          "description": "The name to add",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddPersonNameRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Accepted",
+            "headers": {
+              "Location": {
+                "description": "the URL of the Marain.OperationsStatus API for this operation.",
+                "schema": {
+                  "type": "string",
+                  "format": "url"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "default": {
+            "$ref": "#/components/responses/UnexpectedError"
+          }
+        }
+      }
+    },
+    "/{tenantId}/marain/people/{personId}/contactDetails/names/{personNameId}": {
+      "get": {
+        "summary": "Get a particular name",
+        "operationId": "getPersonName",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/tenantId"
+          },
+          {
+            "$ref": "#/components/parameters/personId"
+          },
+          {
+            "$ref": "#/components/parameters/personNameId"
+          },
+          {
+            "$ref": "#/components/parameters/ifNoneMatch"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "ETag": {
+                "$ref": "#/components/schemas/ETag"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PersonNameResource"
+                }
+              }
+            }
+          },
+          "304": {
+            "description": "Not modified"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "default": {
+            "$ref": "#/components/responses/UnexpectedError"
+          }
+        }
+      },
+      "put": {
+        "summary": "Replace a name for the person",
+        "operationId": "replacePersonName",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/tenantId"
+          },
+          {
+            "$ref": "#/components/parameters/personId"
+          },
+          {
+            "$ref": "#/components/parameters/personNameId"
+          },
+          {
+            "$ref": "#/components/parameters/ifMatch"
+          }
+        ],
+        "requestBody": {
+          "description": "The name with which to replace the given name",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReplacePersonNameRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Accepted",
+            "headers": {
+              "Location": {
+                "description": "the URL of the Marain.OperationsStatus API for this operation.",
+                "schema": {
+                  "type": "string",
+                  "format": "url"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "default": {
+            "$ref": "#/components/responses/UnexpectedError"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a name for the person",
+        "operationId": "deletePersonName",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/tenantId"
+          },
+          {
+            "$ref": "#/components/parameters/personId"
+          },
+          {
+            "$ref": "#/components/parameters/personNameId"
+          },
+          {
+            "$ref": "#/components/parameters/ifMatch"
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Accepted",
+            "headers": {
+              "Location": {
+                "description": "the URL of the Marain.OperationsStatus API for this operation.",
+                "schema": {
+                  "type": "string",
+                  "format": "url"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "default": {
+            "$ref": "#/components/responses/UnexpectedError"
+          }
+        }
+      }
+    },
+    "/{tenantId}/marain/people/{personId}/contactDetails/addresses": {
+      "get": {
+        "summary": "Get a person's addresses",
+        "operationId": "getPersonAddresses",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/tenantId"
+          },
+          {
+            "$ref": "#/components/parameters/personId"
+          },
+          {
+            "$ref": "#/components/parameters/continuationToken"
+          },
+          {
+            "$ref": "#/components/parameters/maxItems"
+          },
+          {
+            "$ref": "#/components/parameters/ifNoneMatch"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "ETag": {
+                "$ref": "#/components/schemas/ETag"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddressListResource"
+                }
+              }
+            }
+          },
+          "304": {
+            "description": "Not modified"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "default": {
+            "$ref": "#/components/responses/UnexpectedError"
+          }
+        }
+      },
+      "post": {
+        "summary": "Add an address for the person",
+        "operationId": "addPersonAddress",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/tenantId"
+          },
+          {
+            "$ref": "#/components/parameters/personId"
+          }
+        ],
+        "requestBody": {
+          "description": "The address to add",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddAddressRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Accepted",
+            "headers": {
+              "Location": {
+                "description": "the URL of the Marain.OperationsStatus API for this operation.",
+                "schema": {
+                  "type": "string",
+                  "format": "url"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "default": {
+            "$ref": "#/components/responses/UnexpectedError"
+          }
+        }
+      }
+    },
+    "/{tenantId}/marain/people/{personId}/contactDetails/addresses/{addressId}": {
+      "get": {
+        "summary": "Get a particular address",
+        "operationId": "getPersonAddress",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/tenantId"
+          },
+          {
+            "$ref": "#/components/parameters/personId"
+          },
+          {
+            "$ref": "#/components/parameters/addressId"
+          },
+          {
+            "$ref": "#/components/parameters/ifNoneMatch"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "ETag": {
+                "$ref": "#/components/schemas/ETag"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddressResource"
+                }
+              }
+            }
+          },
+          "304": {
+            "description": "Not modified"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "default": {
+            "$ref": "#/components/responses/UnexpectedError"
+          }
+        }
+      },
+      "put": {
+        "summary": "Replace an address for the person",
+        "operationId": "replacePersonAddress",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/tenantId"
+          },
+          {
+            "$ref": "#/components/parameters/personId"
+          },
+          {
+            "$ref": "#/components/parameters/addressId"
+          },
+          {
+            "$ref": "#/components/parameters/ifMatch"
+          }
+        ],
+        "requestBody": {
+          "description": "The address with which to replace the given address",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReplaceAddressRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Accepted",
+            "headers": {
+              "Location": {
+                "description": "the URL of the Marain.OperationsStatus API for this operation.",
+                "schema": {
+                  "type": "string",
+                  "format": "url"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "default": {
+            "$ref": "#/components/responses/UnexpectedError"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete an address for the person",
+        "operationId": "deletePersonAddress",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/tenantId"
+          },
+          {
+            "$ref": "#/components/parameters/personId"
+          },
+          {
+            "$ref": "#/components/parameters/addressId"
+          },
+          {
+            "$ref": "#/components/parameters/ifMatch"
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Accepted",
+            "headers": {
+              "Location": {
+                "description": "the URL of the Marain.OperationsStatus API for this operation.",
+                "schema": {
+                  "type": "string",
+                  "format": "url"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "default": {
+            "$ref": "#/components/responses/UnexpectedError"
+          }
+        }
+      }
+    },
+    "/{tenantId}/marain/people/{personId}/contactDetails/emailAddresses": {
+      "get": {
+        "summary": "Get a person's email addresses",
+        "operationId": "getPersonEmailAddresses",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/tenantId"
+          },
+          {
+            "$ref": "#/components/parameters/personId"
+          },
+          {
+            "$ref": "#/components/parameters/continuationToken"
+          },
+          {
+            "$ref": "#/components/parameters/maxItems"
+          },
+          {
+            "$ref": "#/components/parameters/ifNoneMatch"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "ETag": {
+                "$ref": "#/components/schemas/ETag"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmailAddressListResource"
+                }
+              }
+            }
+          },
+          "304": {
+            "description": "Not modified"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "default": {
+            "$ref": "#/components/responses/UnexpectedError"
+          }
+        }
+      },
+      "post": {
+        "summary": "Add an email address for the person",
+        "operationId": "addPersonEmailAddress",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/tenantId"
+          },
+          {
+            "$ref": "#/components/parameters/personId"
+          }
+        ],
+        "requestBody": {
+          "description": "The email address to add",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddEmailAddressRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Accepted",
+            "headers": {
+              "Location": {
+                "description": "the URL of the Marain.OperationsStatus API for this operation.",
+                "schema": {
+                  "type": "string",
+                  "format": "url"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "default": {
+            "$ref": "#/components/responses/UnexpectedError"
+          }
+        }
+      }
+    },
+    "/{tenantId}/marain/people/{personId}/contactDetails/emailAddresses/{emailAddressId}": {
+      "get": {
+        "summary": "Get a particular email address",
+        "operationId": "getPersonEmailAddress",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/tenantId"
+          },
+          {
+            "$ref": "#/components/parameters/personId"
+          },
+          {
+            "$ref": "#/components/parameters/emailAddressId"
+          },
+          {
+            "$ref": "#/components/parameters/ifNoneMatch"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "ETag": {
+                "$ref": "#/components/schemas/ETag"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmailAddressResource"
+                }
+              }
+            }
+          },
+          "304": {
+            "description": "Not modified"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "default": {
+            "$ref": "#/components/responses/UnexpectedError"
+          }
+        }
+      },
+      "put": {
+        "summary": "Replace an email address for the person",
+        "operationId": "replacePersonEmailAddress",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/tenantId"
+          },
+          {
+            "$ref": "#/components/parameters/personId"
+          },
+          {
+            "$ref": "#/components/parameters/emailAddressId"
+          },
+          {
+            "$ref": "#/components/parameters/ifMatch"
+          }
+        ],
+        "requestBody": {
+          "description": "The email address with which to replace the given email address",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReplaceEmailAddressRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Accepted",
+            "headers": {
+              "Location": {
+                "description": "the URL of the Marain.OperationsStatus API for this operation.",
+                "schema": {
+                  "type": "string",
+                  "format": "url"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "default": {
+            "$ref": "#/components/responses/UnexpectedError"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete an email address for the person",
+        "operationId": "deletePersonEmailAddress",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/tenantId"
+          },
+          {
+            "$ref": "#/components/parameters/personId"
+          },
+          {
+            "$ref": "#/components/parameters/emailAddressId"
+          },
+          {
+            "$ref": "#/components/parameters/ifMatch"
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Accepted",
+            "headers": {
+              "Location": {
+                "description": "the URL of the Marain.OperationsStatus API for this operation.",
+                "schema": {
+                  "type": "string",
+                  "format": "url"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "default": {
+            "$ref": "#/components/responses/UnexpectedError"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AddPersonNameRequest": {
+        "type": "object",
+        "properties": {
+          "personName": {
+            "$ref": "#/components/schemas/PersonName"
+          }
+        },
+        "description": "A person name to add"
+      },
+      "ReplacePersonNameRequest": {
+        "type": "object",
+        "properties": {
+          "personName": {
+            "$ref": "#/components/schemas/PersonName"
+          }
+        },
+        "description": "A person name to replace"
+      },
+      "AddEmailAddressRequest": {
+        "type": "object",
+        "properties": {
+          "emailAddress": {
+            "$ref": "#/components/schemas/EmailAddress"
+          }
+        },
+        "description": "An email address to add"
+      },
+      "ReplaceEmailAddressRequest": {
+        "type": "object",
+        "properties": {
+          "emailAddress": {
+            "$ref": "#/components/schemas/EmailAddress"
+          }
+        },
+        "description": "An email address to replace"
+      },
+      "AddTelephoneNumberRequest": {
+        "type": "object",
+        "properties": {
+          "telephoneNumber": {
+            "$ref": "#/components/schemas/TelephoneNumber"
+          }
+        },
+        "description": "A telephone number to add"
+      },
+      "ReplaceTelephoneNumberRequest": {
+        "type": "object",
+        "properties": {
+          "telephoneNumber": {
+            "$ref": "#/components/schemas/TelephoneNumber"
+          }
+        },
+        "description": "A telephone number to replace"
+      },
+      "AddAddressRequest": {
+        "type": "object",
+        "properties": {
+          "address": {
+            "$ref": "#/components/schemas/Address"
+          }
+        },
+        "description": "An address to add"
+      },
+      "ReplaceAddressRequest": {
+        "type": "object",
+        "properties": {
+          "address": {
+            "$ref": "#/components/schemas/Address"
+          }
+        },
+        "description": "An address to replace"
+      },
+      "CreatePersonRequest": {
+        "required": [
+          "primaryName"
+        ],
+        "type": "object",
+        "properties": {
+          "wellKnownId": {
+            "maxLength": 100,
+            "minLength": 1,
+            "type": "string"
+          },
+          "primaryName": {
+            "$ref": "#/components/schemas/PersonName"
+          }
+        }
+      },
+      "Resource": {
+        "required": [
+          "_links"
+        ],
+        "type": "object",
+        "properties": {
+          "contentType": {
+            "type": "string",
+            "description": "The media type of the resource"
+          },
+          "_links": {
+            "title": "Hyperlinks",
+            "required": [
+              "self"
+            ],
+            "type": "object",
+            "properties": {
+              "self": {
+                "$ref": "#/components/schemas/Link"
+              }
+            },
+            "additionalProperties": {
+              "uniqueItems": true,
+              "type": "object",
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/Link"
+                },
+                {
+                  "$ref": "#/components/schemas/LinkCollection"
+                }
+              ]
+            },
+            "description": "Represents a hyperlink from the containing resource to a URI."
+          },
+          "_embedded": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "object",
+              "uniqueItems": true,
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/Resource"
+                },
+                {
+                  "$ref": "#/components/schemas/ResourceCollection"
+                }
+              ]
+            }
+          }
+        }
+      },
+      "Link": {
+        "required": [
+          "href"
+        ],
+        "type": "object",
+        "properties": {
+          "href": {
+            "title": "URI of the target resource",
+            "type": "string",
+            "description": "Either a URI [RFC3986] or URI Template [RFC6570] of the target resource."
+          },
+          "templated": {
+            "title": "URI Template",
+            "type": "boolean",
+            "description": "Is true when the link object's href property is a URI Template. Defaults to false.",
+            "default": false
+          },
+          "type": {
+            "title": "Media type indication of the target resource",
+            "pattern": "^(application|audio|example|image|message|model|multipart|text|video)\\\\/[a-zA-Z0-9!#\\\\$&\\\\.\\\\+-\\\\^_]{1,127}$",
+            "type": "string",
+            "description": "When present, used as a hint to indicate the media type expected when dereferencing the target resource."
+          },
+          "name": {
+            "title": "Secondary key",
+            "type": "string",
+            "description": "When present, may be used as a secondary key for selecting link objects that contain the same relation type."
+          },
+          "profile": {
+            "title": "Additional semantics of the target resource",
+            "type": "string",
+            "description": "A URI that, when dereferenced, results in a profile to allow clients to learn about additional semantics (constraints, conventions, extensions) that are associated with the target resource representation, in addition to those defined by the HAL media type and relations.",
+            "format": "uri"
+          },
+          "description": {
+            "title": "Human-readable identifier",
+            "type": "string",
+            "description": "When present, is used to label the destination of a link such that it can be used as a human-readable identifier (e.g. a menu entry) in the language indicated by the Content-Language header (if present)."
+          },
+          "hreflang": {
+            "title": "Language indication of the target resource [RFC5988]",
+            "pattern": "^([a-zA-Z]{2,3}(-[a-zA-Z]{3}(-[a-zA-Z]{3}){0,2})?(-[a-zA-Z]{4})?(-([a-zA-Z]{2}|[0-9]{3}))?(-([a-zA-Z0-9]{5,8}|[0-9][a-zA-Z0-9]{3}))*([0-9A-WY-Za-wy-z](-[a-zA-Z0-9]{2,8}){1,})*(x-[a-zA-Z0-9]{2,8})?)|(x-[a-zA-Z0-9]{2,8})|(en-GB-oed)|(i-ami)|(i-bnn)|(i-default)|(i-enochian)|(i-hak)|(i-klingon)|(i-lux)|(i-mingo)|(i-navajo)|(i-pwn)|(i-tao)|(i-tay)|(i-tsu)|(sgn-BE-FR)|(sgn-BE-NL)|(sgn-CH-DE)|(art-lojban)|(cel-gaulish)|(no-bok)|(no-nyn)|(zh-guoyu)|(zh-hakka)|(zh-min)|(zh-min-nan)|(zh-xiang)$",
+            "type": "string",
+            "description": "When present, is a hint in RFC5646 format indicating what the language of the result of dereferencing the link should be.  Note that this is only a hint; for example, it does not override the Content-Language header of a HTTP response obtained by actually following the link."
+          }
+        }
+      },
+      "LinkCollection": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Link"
+        },
+        "description": "a collection of links"
+      },
+      "ResourceCollection": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Resource"
+        },
+        "description": "a collection of resources"
+      },
+      "PagedListResource": {
+        "type": "object",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Resource"
+          },
+          {
+            "required": [
+              "_links"
+            ],
+            "type": "object",
+            "properties": {
+              "_links": {
+                "title": "Hyperlinks",
+                "required": [
+                  "items"
+                ],
+                "type": "object",
+                "properties": {
+                  "items": {
+                    "type":  "object",
+                    "anyOf": [
+                      {
+                        "$ref": "#/components/schemas/Link"
+                      },
+                      {
+                        "$ref": "#/components/schemas/LinkCollection"
+                      }
+                    ]
+                  },
+                  "next": {
+                    "$ref": "#/components/schemas/Link"
+                  },
+                  "prev": {
+                    "$ref": "#/components/schemas/Link"
+                  }
+                },
+                "additionalProperties": {
+                  "type": "object",
+                  "uniqueItems": true,
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/Link"
+                    },
+                    {
+                      "$ref": "#/components/schemas/LinkCollection"
+                    }
+                  ]
+                },
+                "description": "Represents a hyperlink from the containing resource to a URI."
+              }
+            }
+          }
+        ],
+        "description": "A resource representation of a paged list"
+      },
+      "ETag": {
+        "type": "string",
+        "description": "The ETAG for a response header",
+        "format": "ETAG"
+      },
+      "PersonName": {
+        "required": [
+          "givenName",
+          "familyName",
+          "otherNames"
+        ],
+        "type": "object",
+        "properties": {
+          "title": {
+            "maxLength": 50,
+            "minLength": 1,
+            "type": "string",
+            "description": "The person's title or honorific"
+          },
+          "givenName": {
+            "maxLength": 50,
+            "minLength": 1,
+            "type": "string",
+            "description": "The person's given or first name"
+          },
+          "familyName": {
+            "maxLength": 50,
+            "minLength": 1,
+            "type": "string",
+            "description": "The person's family or last name"
+          },
+          "suffix": {
+            "type": "string",
+            "description": "The suffix to the person's name"
+          },
+          "otherNames": {
+            "maxItems": 10,
+            "minItems": 0,
+            "type": "array",
+            "items": {
+              "maxLength": 50,
+              "minLength": 0,
+              "type": "string"
+            },
+            "description": "Middle/additional names for the person"
+          }
+        },
+        "description": "The name of a person"
+      },
+      "PersonNameListResource": {
+        "type": "object",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/PagedListResource"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "_embedded": {
+                "type": "object",
+                "properties": {
+                  "items": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/PersonNameResource"
+                    }
+                  }
+                },
+                "additionalProperties": {
+                  "type": "object",
+                  "uniqueItems": true,
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/Resource"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ResourceCollection"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        ],
+        "description": "A resource representation of a list of names related to some source entity."
+      },
+      "PersonNameResource": {
+        "type":  "object",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Resource"
+          },
+          {
+            "$ref": "#/components/schemas/PersonName"
+          }
+        ],
+        "description": "A person name"
+      },
+      "PersonListResource": {
+        "type":  "object",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/PagedListResource"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "_embedded": {
+                "type": "object",
+                "properties": {
+                  "items": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/PersonResource"
+                    }
+                  }
+                },
+                "additionalProperties": {
+                  "uniqueItems": true,
+                  "type": "object",
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/Resource"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ResourceCollection"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        ],
+        "description": "A resource representation of a list of people."
+      },
+      "RelatedPeopleListResource": {
+        "type": "object",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/PagedListResource"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "_embedded": {
+                "type": "object",
+                "properties": {
+                  "items": {
+                    "type": "object",
+                    "anyOf": [
+                      {
+                        "$ref": "#/components/schemas/RelatedPersonResource"
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/components/schemas/RelatedPersonResource"
+                        }
+                      }
+                    ]
+                  }
+                },
+                "additionalProperties": {
+                  "uniqueItems": true,
+                  "type": "object",
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/Resource"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ResourceCollection"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        ],
+        "description": "A resource representation of a list of people related to some source person."
+      },
+      "RelatedPersonResource": {
+        "type": "object",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/PersonResource"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "rel": {
+                "type": "string",
+                "description": "The relationship with the given person"
+              },
+              "properties": {
+                "uniqueItems": true,
+                "type": "object"
+              }
+            }
+          }
+        ]
+      },
+      "PersonResource": {
+        "type": "object",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Resource"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "_links": {
+                "title": "Hyperlinks",
+                "required": [
+                  "primaryName"
+                ],
+                "type": "object",
+                "properties": {
+                  "primaryName": {
+                    "$ref": "#/components/schemas/Link"
+                  },
+                  "names": {
+                    "$ref": "#/components/schemas/LinkCollection"
+                  },
+                  "addresses": {
+                    "$ref": "#/components/schemas/LinkCollection"
+                  },
+                  "telephoneNumbers": {
+                    "$ref": "#/components/schemas/LinkCollection"
+                  },
+                  "emailAddresses": {
+                    "$ref": "#/components/schemas/LinkCollection"
+                  }
+                },
+                "additionalProperties": {
+                  "uniqueItems": true,
+                  "type": "object",
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/Link"
+                    },
+                    {
+                      "$ref": "#/components/schemas/LinkCollection"
+                    }
+                  ]
+                },
+                "description": "Represents hyperlinks from the containing resource to a URI."
+              },
+              "_embedded": {
+                "required": [
+                  "primaryName"
+                ],
+                "type": "object",
+                "properties": {
+                  "primaryName": {
+                    "$ref": "#/components/schemas/PersonNameResource"
+                  }
+                },
+                "additionalProperties": {
+                  "uniqueItems": true,
+                  "type": "object",
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/Resource"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ResourceCollection"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      },
+      "ProblemDetails": {
+        "required": [
+          "status",
+          "detail"
+        ],
+        "properties": {
+          "status": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "detail": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "instance": {
+            "type": "string",
+            "format": "url"
+          },
+          "type": {
+            "type": "string",
+            "format": "url"
+          },
+          "validationErrors": {
+            "type": "array",
+            "items": {
+              "anyOf": [
+                {
+                  "type": "array"
+                },
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "object"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        }
+      },
+      "TelephoneNumber": {
+        "required": [
+          "countryCode",
+          "nationalDestinationCode",
+          "subscriberNumber"
+        ],
+        "type": "object",
+        "properties": {
+          "countryCode": {
+            "maxLength": 3,
+            "minLength": 1,
+            "pattern": "^[+]?\\d{1,2}$",
+            "type": "string"
+          },
+          "nationalDestinationCode": {
+            "maxLength": 4,
+            "minLength": 1,
+            "pattern": "^d{1,4}$",
+            "type": "string"
+          },
+          "subscriberNumber": {
+            "maxLength": 13,
+            "minLength": 8,
+            "pattern": "^d{8,13}$",
+            "type": "string"
+          },
+          "timeZone": {
+            "type": "string"
+          }
+        },
+        "description": "A telephone number compliant with the E.164 numbering plan"
+      },
+      "TelephoneNumberListResource": {
+        "type": "object",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/PagedListResource"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "_embedded": {
+                "type": "object",
+                "properties": {
+                  "items": {
+                    "type": "object",
+                    "anyOf": [
+                      {
+                        "$ref": "#/components/schemas/TelephoneNumberResource"
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/components/schemas/TelephoneNumberResource"
+                        }
+                      }
+                    ]
+                  }
+                },
+                "additionalProperties": {
+                  "uniqueItems": true,
+                  "type": "object",
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/Resource"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ResourceCollection"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        ],
+        "description": "A resource representation of a list of telephone numbers"
+      },
+      "TelephoneNumberResource": {
+        "type": "object",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Resource"
+          },
+          {
+            "$ref": "#/components/schemas/TelephoneNumber"
+          }
+        ],
+        "description": "A resource representation of a telephone number"
+      },
+      "Address": {
+        "required": [
+          "addressLine1",
+          "townOrCity",
+          "postalCode"
+        ],
+        "type": "object",
+        "properties": {
+          "addressLine1": {
+            "maxLength": 50,
+            "minLength": 1,
+            "type": "string"
+          },
+          "addressLine2": {
+            "maxLength": 50,
+            "minLength": 1,
+            "type": "string"
+          },
+          "townOrCity": {
+            "maxLength": 50,
+            "minLength": 1,
+            "type": "string"
+          },
+          "region": {
+            "maxLength": 50,
+            "minLength": 1,
+            "type": "string"
+          },
+          "timeZone": {
+            "type": "string"
+          },
+          "location": {
+            "$ref": "#/components/schemas/LatLongPoint"
+          }
+        },
+        "description": "A postal address"
+      },
+      "AddressListResource": {
+        "type": "object",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/PagedListResource"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "_embedded": {
+                "type": "object",
+                "properties": {
+                  "items": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/AddressResource"
+                    }
+                  }
+                },
+                "additionalProperties": {
+                  "uniqueItems": true,
+                  "type": "object",
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/Resource"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ResourceCollection"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        ],
+        "description": "A resource representation of a list of addresses"
+      },
+      "AddressResource": {
+        "type": "object",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Resource"
+          },
+          {
+            "$ref": "#/components/schemas/Address"
+          }
+        ],
+        "description": "A resource representation of an address"
+      },
+      "LatLongPoint": {
+        "properties": {
+          "type": {
+            "enum": [
+              "point"
+            ],
+            "type": "string"
+          },
+          "coordinates": {
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array",
+            "items": {
+              "type": "number"
+            }
+          }
+        },
+        "description": "A point defined by latitude and longitude in geojson format."
+      },
+      "EmailAddress": {
+        "required": [
+          "address"
+        ],
+        "properties": {
+          "address": {
+            "pattern": "^((?!\\.)[\\w-_.]*[^.])(@\\w+)(\\.\\w+(\\.\\w+)?[^.\\W])$",
+            "type": "string",
+            "format": "email"
+          }
+        },
+        "description": "An email address in standard foo@bar.com format."
+      },
+      "EmailAddressListResource": {
+        "type": "object",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/PagedListResource"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "_embedded": {
+                "type": "object",
+                "properties": {
+                  "items": {
+                    "type": "object",
+                    "anyOf": [
+                      {
+                        "$ref": "#/components/schemas/EmailAddressResource"
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/components/schemas/EmailAddressResource"
+                        }
+                      }
+                    ]
+                  }
+                },
+                "additionalProperties": {
+                  "uniqueItems": true,
+                  "type": "object",
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/Resource"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ResourceCollection"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        ],
+        "description": "A resource representation of a list of email addresses"
+      },
+      "EmailAddressResource": {
+        "type": "object",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Resource"
+          },
+          {
+            "$ref": "#/components/schemas/EmailAddress"
+          }
+        ],
+        "description": "A resource representation of an email address"
+      }
+    }
+  }
+}

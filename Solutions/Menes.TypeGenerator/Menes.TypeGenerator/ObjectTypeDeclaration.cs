@@ -6,10 +6,8 @@ namespace Menes.TypeGenerator
 {
     using System;
     using System.Collections.Generic;
-    using System.Collections.Immutable;
     using System.Linq;
     using System.Text;
-    using System.Text.Json;
     using Microsoft.CodeAnalysis.CSharp;
     using Microsoft.CodeAnalysis.CSharp.Syntax;
 
@@ -340,8 +338,8 @@ namespace Menes.TypeGenerator
                 {
                     string allOfFullyQualifiedName = allOfType.GetFullyQualifiedName();
                     string allOfTypeNameCamelCase = StringFormatter.ToCamelCaseWithReservedWords(allOfType.Name);
-                    builder.AppendLine($"{allOfFullyQualifiedName} {allOfTypeNameCamelCase}Value = thisAsAny.As<{allOfFullyQualifiedName}>();");
-                    builder.AppendLine($"            allOfValidationContext{index + 1} = {allOfTypeNameCamelCase}Value.Validate(allOfValidationContext{index + 1});");
+                    builder.AppendLine($"{allOfFullyQualifiedName} {allOfTypeNameCamelCase}Value{index} = thisAsAny.As<{allOfFullyQualifiedName}>();");
+                    builder.AppendLine($"            allOfValidationContext{index + 1} = {allOfTypeNameCamelCase}Value{index}.Validate(allOfValidationContext{index + 1});");
                     index++;
                 }
 

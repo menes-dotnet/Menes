@@ -14,7 +14,7 @@ namespace Menes.TypeGenerator
     /// <summary>
     /// Represents a validated <c>array</c> type.
     /// </summary>
-    public class ValidatedArrayTypeDeclaration : ITypeDeclaration
+    public class ValidatedArrayTypeDeclaration : TypeDeclaration
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ValidatedArrayTypeDeclaration"/> class.
@@ -22,28 +22,10 @@ namespace Menes.TypeGenerator
         /// <param name="name">The name of the array.</param>
         /// <param name="itemType">The name of the type of the item in the array.</param>
         public ValidatedArrayTypeDeclaration(string name, ITypeDeclaration? itemType = null)
+            : base(name)
         {
-            this.Name = name;
             this.ItemType = itemType;
         }
-
-        /// <inheritdoc/>
-        public IReadOnlyCollection<MethodDeclaration> Methods => TypeDeclaration.EmptyMethodDeclarations;
-
-        /// <inheritdoc/>
-        public IReadOnlyCollection<PropertyDeclaration> Properties => TypeDeclaration.EmptyPropertyDeclarations;
-
-        /// <inheritdoc/>
-        public IReadOnlyCollection<ITypeDeclaration> TypeDeclarations => TypeDeclaration.EmptyTypeDeclarations;
-
-        /// <inheritdoc/>
-        public string Name { get; }
-
-        /// <inheritdoc/>
-        public IDeclaration? Parent { get; set; }
-
-        /// <inheritdoc/>
-        public bool ShouldGenerate => true;
 
         /// <summary>
         /// Gets or sets the type of the item in the array.
@@ -96,46 +78,7 @@ namespace Menes.TypeGenerator
         public bool? UniqueValidation { get; set; }
 
         /// <inheritdoc/>
-        public bool IsCompoundType => true;
-
-        /// <inheritdoc/>
-        public void AddMethodDeclaration(MethodDeclaration methodDeclaration)
-        {
-            throw new NotSupportedException();
-        }
-
-        /// <inheritdoc/>
-        public void AddPropertyDeclaration(PropertyDeclaration propertyDeclaration)
-        {
-            throw new NotSupportedException();
-        }
-
-        /// <inheritdoc/>
-        public void AddTypeDeclaration(ITypeDeclaration typeDeclaration)
-        {
-            throw new NotSupportedException();
-        }
-
-        /// <inheritdoc/>
-        public bool ContainsMethod(string name)
-        {
-            return false;
-        }
-
-        /// <inheritdoc/>
-        public bool ContainsProperty(string name)
-        {
-            return false;
-        }
-
-        /// <inheritdoc/>
-        public bool ContainsTypeDeclaration(string name)
-        {
-            return false;
-        }
-
-        /// <inheritdoc/>
-        public TypeDeclarationSyntax GenerateType()
+        public override TypeDeclarationSyntax GenerateType()
         {
             if (this.ItemType is null)
             {
@@ -613,17 +556,12 @@ namespace Menes.TypeGenerator
             }
 
             builder.AppendLine("}");
-            return (TypeDeclarationSyntax)SF.ParseMemberDeclaration(builder.ToString());
+            var tds = (TypeDeclarationSyntax)SF.ParseMemberDeclaration(builder.ToString());
+            return this.BuildNestedTypes(tds);
         }
 
         /// <inheritdoc/>
-        public ITypeDeclaration GetTypeDeclaration(string name)
-        {
-            throw new NotSupportedException();
-        }
-
-        /// <inheritdoc/>
-        public bool IsSpecializedBy(ITypeDeclaration type)
+        public override bool IsSpecializedBy(ITypeDeclaration type)
         {
             if (this.ItemType is null)
             {
@@ -632,6 +570,16 @@ namespace Menes.TypeGenerator
 
             // The array is specialized by an array of a type which is a specialized version of this item type.
             return type is ValidatedArrayTypeDeclaration arrayType && !(arrayType.ItemType is null) && this.ItemType.IsSpecializedBy(arrayType.ItemType);
+        }
+
+        private TypeDeclarationSyntax BuildNestedTypes(TypeDeclarationSyntax tds)
+        {
+            foreach (ITypeDeclaration declaration in this.TypeDeclarations)
+            {
+                tds = tds.AddMembers((MemberDeclarationSyntax)declaration.GenerateType());
+            }
+
+            return tds;
         }
     }
 }

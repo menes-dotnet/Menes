@@ -3187,6 +3187,21 @@ namespace Examples
             this.value = null;
             this.JsonElement = jsonElement;
         }
+        public int Length
+        {
+            get
+            {
+                if (this.HasJsonElement)
+                {
+                    return this.JsonElement.GetArrayLength();
+                }
+                if (this.value is Menes.JsonArray<Link> value)
+                {
+                    return value.Length;
+                }
+                return 0;
+            }
+        }
         public bool IsNull => this.value == null && (this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Undefined || this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Null);
         public LinkCollection? AsOptional => this.IsNull ? default(LinkCollection?) : this;
         public bool HasJsonElement => this.JsonElement.ValueKind != System.Text.Json.JsonValueKind.Undefined;
@@ -3262,6 +3277,275 @@ namespace Examples
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
         {
             return this.GetEnumerator();
+        }
+        public LinkCollection Add(params Link[] items)
+        {
+            System.Collections.Immutable.ImmutableArray<Link>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Link>();
+            foreach (Link item in this)
+            {
+                arrayBuilder.Add(item);
+            }
+            foreach (Link item in items)
+            {
+                arrayBuilder.Add(item);
+            }
+            return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
+        }
+        public LinkCollection Add(in Link item1)
+        {
+            System.Collections.Immutable.ImmutableArray<Link>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Link>();
+            foreach (Link item in this)
+            {
+                arrayBuilder.Add(item);
+            }
+            arrayBuilder.Add(item1);
+            return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
+        }
+        public LinkCollection Add(in Link item1, in Link item2)
+        {
+            System.Collections.Immutable.ImmutableArray<Link>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Link>();
+            foreach (Link item in this)
+            {
+                arrayBuilder.Add(item);
+            }
+            arrayBuilder.Add(item1);
+            arrayBuilder.Add(item2);
+            return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
+        }
+        public LinkCollection Add(in Link item1, in Link item2, in Link item3)
+        {
+            System.Collections.Immutable.ImmutableArray<Link>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Link>();
+            foreach (Link item in this)
+            {
+                arrayBuilder.Add(item);
+            }
+            arrayBuilder.Add(item1);
+            arrayBuilder.Add(item2);
+            arrayBuilder.Add(item3);
+            return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
+        }
+        public LinkCollection Add(in Link item1, in Link item2, in Link item3, in Link item4)
+        {
+            System.Collections.Immutable.ImmutableArray<Link>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Link>();
+            foreach (Link item in this)
+            {
+                arrayBuilder.Add(item);
+            }
+            arrayBuilder.Add(item1);
+            arrayBuilder.Add(item2);
+            arrayBuilder.Add(item3);
+            arrayBuilder.Add(item4);
+            return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
+        }
+        public LinkCollection Insert(int indexToInsert, params Link[] items)
+        {
+            System.Collections.Immutable.ImmutableArray<Link>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Link>();
+            int index = 0;
+            foreach (Link item in this)
+            {
+                if (index == indexToInsert)
+                {
+                    foreach (Link itemToInsert in items)
+                    {
+                        arrayBuilder.Add(itemToInsert);
+                    }
+                }
+                arrayBuilder.Add(item);
+                ++index;
+            }
+            return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
+        }
+        public LinkCollection Insert(int indexToInsert, in Link item1)
+        {
+            System.Collections.Immutable.ImmutableArray<Link>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Link>();
+            int index = 0;
+            foreach (Link item in this)
+            {
+                if (index == indexToInsert)
+                {
+                    arrayBuilder.Add(item1);
+                }
+                arrayBuilder.Add(item);
+                ++index;
+            }
+            return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
+        }
+        public LinkCollection Insert(int indexToInsert, in Link item1, in Link item2)
+        {
+            System.Collections.Immutable.ImmutableArray<Link>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Link>();
+            int index = 0;
+            foreach (Link item in this)
+            {
+                if (index == indexToInsert)
+                {
+                    arrayBuilder.Add(item1);
+                    arrayBuilder.Add(item2);
+                }
+                arrayBuilder.Add(item);
+                ++index;
+            }
+            return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
+        }
+        public LinkCollection Insert(int indexToInsert, in Link item1, in Link item2, in Link item3)
+        {
+            System.Collections.Immutable.ImmutableArray<Link>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Link>();
+            int index = 0;
+            foreach (Link item in this)
+            {
+                if (index == indexToInsert)
+                {
+                    arrayBuilder.Add(item1);
+                    arrayBuilder.Add(item2);
+                    arrayBuilder.Add(item3);
+                }
+                arrayBuilder.Add(item);
+                ++index;
+            }
+            return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
+        }
+        public LinkCollection Insert(int indexToInsert, in Link item1, in Link item2, in Link item3, in Link item4)
+        {
+            System.Collections.Immutable.ImmutableArray<Link>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Link>();
+            int index = 0;
+            foreach (Link item in this)
+            {
+                if (index == indexToInsert)
+                {
+                    arrayBuilder.Add(item1);
+                    arrayBuilder.Add(item2);
+                    arrayBuilder.Add(item3);
+                    arrayBuilder.Add(item4);
+                }
+                arrayBuilder.Add(item);
+                ++index;
+            }
+            return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
+        }
+        public LinkCollection Remove(params Link[] items)
+        {
+            System.Collections.Immutable.ImmutableArray<Link>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Link>();
+            foreach (Link item in this)
+            {
+                bool found = false;
+                foreach (Link itemToRemove in items)
+                {
+                    if (itemToRemove.Equals(item))
+                    {
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found)
+                {
+                    arrayBuilder.Add(item);
+                }
+            }
+            return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
+        }
+        public LinkCollection Remove(Link item1)
+        {
+            System.Collections.Immutable.ImmutableArray<Link>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Link>();
+            foreach (Link item in this)
+            {
+                if (item1.Equals(item))
+                {
+                    break;
+                }
+                arrayBuilder.Add(item);
+            }
+            return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
+        }
+        public LinkCollection Remove(Link item1, Link item2)
+        {
+            System.Collections.Immutable.ImmutableArray<Link>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Link>();
+            foreach (Link item in this)
+            {
+                if (item1.Equals(item) || item2.Equals(item))
+                {
+                    break;
+                }
+                arrayBuilder.Add(item);
+            }
+            return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
+        }
+        public LinkCollection Remove(Link item1, Link item2, Link item3)
+        {
+            System.Collections.Immutable.ImmutableArray<Link>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Link>();
+            foreach (Link item in this)
+            {
+                if (item1.Equals(item) || item2.Equals(item) || item3.Equals(item))
+                {
+                    break;
+                }
+                arrayBuilder.Add(item);
+            }
+            return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
+        }
+        public LinkCollection Remove(Link item1, Link item2, Link item3, Link item4)
+        {
+            System.Collections.Immutable.ImmutableArray<Link>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Link>();
+            foreach (Link item in this)
+            {
+                if (item1.Equals(item) || item2.Equals(item) || item3.Equals(item) || item4.Equals(item))
+                {
+                    break;
+                }
+                arrayBuilder.Add(item);
+            }
+            return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
+        }
+        public LinkCollection RemoveAt(int indexToRemove)
+        {
+            System.Collections.Immutable.ImmutableArray<Link>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Link>();
+            int index = 0;
+            foreach (Link item in this)
+            {
+                if (index == indexToRemove)
+                {
+                    index++;
+                    continue;
+                }
+                arrayBuilder.Add(item);
+                index++;
+            }
+            return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
+        }
+        public LinkCollection RemoveRange(int startIndex, int length)
+        {
+            if (startIndex < 0 || startIndex > this.Length - 1)
+            {
+                throw new System.ArgumentOutOfRangeException(nameof(startIndex));
+            }
+            if (length < 1 || startIndex + length > this.Length - 1)
+            {
+                throw new System.ArgumentOutOfRangeException(nameof(length));
+            }
+            System.Collections.Immutable.ImmutableArray<Link>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Link>();
+            int index = 0;
+            foreach (Link item in this)
+            {
+                if (index >= startIndex && index < startIndex + length)
+                {
+                    index++;
+                    continue;
+                }
+                arrayBuilder.Add(item);
+                index++;
+            }
+            return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
+        }
+        public LinkCollection Remove(System.Predicate<Link> removeIfTrue)
+        {
+            System.Collections.Immutable.ImmutableArray<Link>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Link>();
+            foreach (Link item in this)
+            {
+                if (removeIfTrue(item))
+                {
+                    continue;
+                }
+                arrayBuilder.Add(item);
+            }
+            return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
         }
     }
 
@@ -4752,6 +5036,21 @@ namespace Examples
             this.value = null;
             this.JsonElement = jsonElement;
         }
+        public int Length
+        {
+            get
+            {
+                if (this.HasJsonElement)
+                {
+                    return this.JsonElement.GetArrayLength();
+                }
+                if (this.value is Menes.JsonArray<Resource> value)
+                {
+                    return value.Length;
+                }
+                return 0;
+            }
+        }
         public bool IsNull => this.value == null && (this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Undefined || this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Null);
         public ResourceCollection? AsOptional => this.IsNull ? default(ResourceCollection?) : this;
         public bool HasJsonElement => this.JsonElement.ValueKind != System.Text.Json.JsonValueKind.Undefined;
@@ -4827,6 +5126,275 @@ namespace Examples
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
         {
             return this.GetEnumerator();
+        }
+        public ResourceCollection Add(params Resource[] items)
+        {
+            System.Collections.Immutable.ImmutableArray<Resource>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Resource>();
+            foreach (Resource item in this)
+            {
+                arrayBuilder.Add(item);
+            }
+            foreach (Resource item in items)
+            {
+                arrayBuilder.Add(item);
+            }
+            return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
+        }
+        public ResourceCollection Add(in Resource item1)
+        {
+            System.Collections.Immutable.ImmutableArray<Resource>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Resource>();
+            foreach (Resource item in this)
+            {
+                arrayBuilder.Add(item);
+            }
+            arrayBuilder.Add(item1);
+            return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
+        }
+        public ResourceCollection Add(in Resource item1, in Resource item2)
+        {
+            System.Collections.Immutable.ImmutableArray<Resource>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Resource>();
+            foreach (Resource item in this)
+            {
+                arrayBuilder.Add(item);
+            }
+            arrayBuilder.Add(item1);
+            arrayBuilder.Add(item2);
+            return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
+        }
+        public ResourceCollection Add(in Resource item1, in Resource item2, in Resource item3)
+        {
+            System.Collections.Immutable.ImmutableArray<Resource>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Resource>();
+            foreach (Resource item in this)
+            {
+                arrayBuilder.Add(item);
+            }
+            arrayBuilder.Add(item1);
+            arrayBuilder.Add(item2);
+            arrayBuilder.Add(item3);
+            return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
+        }
+        public ResourceCollection Add(in Resource item1, in Resource item2, in Resource item3, in Resource item4)
+        {
+            System.Collections.Immutable.ImmutableArray<Resource>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Resource>();
+            foreach (Resource item in this)
+            {
+                arrayBuilder.Add(item);
+            }
+            arrayBuilder.Add(item1);
+            arrayBuilder.Add(item2);
+            arrayBuilder.Add(item3);
+            arrayBuilder.Add(item4);
+            return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
+        }
+        public ResourceCollection Insert(int indexToInsert, params Resource[] items)
+        {
+            System.Collections.Immutable.ImmutableArray<Resource>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Resource>();
+            int index = 0;
+            foreach (Resource item in this)
+            {
+                if (index == indexToInsert)
+                {
+                    foreach (Resource itemToInsert in items)
+                    {
+                        arrayBuilder.Add(itemToInsert);
+                    }
+                }
+                arrayBuilder.Add(item);
+                ++index;
+            }
+            return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
+        }
+        public ResourceCollection Insert(int indexToInsert, in Resource item1)
+        {
+            System.Collections.Immutable.ImmutableArray<Resource>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Resource>();
+            int index = 0;
+            foreach (Resource item in this)
+            {
+                if (index == indexToInsert)
+                {
+                    arrayBuilder.Add(item1);
+                }
+                arrayBuilder.Add(item);
+                ++index;
+            }
+            return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
+        }
+        public ResourceCollection Insert(int indexToInsert, in Resource item1, in Resource item2)
+        {
+            System.Collections.Immutable.ImmutableArray<Resource>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Resource>();
+            int index = 0;
+            foreach (Resource item in this)
+            {
+                if (index == indexToInsert)
+                {
+                    arrayBuilder.Add(item1);
+                    arrayBuilder.Add(item2);
+                }
+                arrayBuilder.Add(item);
+                ++index;
+            }
+            return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
+        }
+        public ResourceCollection Insert(int indexToInsert, in Resource item1, in Resource item2, in Resource item3)
+        {
+            System.Collections.Immutable.ImmutableArray<Resource>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Resource>();
+            int index = 0;
+            foreach (Resource item in this)
+            {
+                if (index == indexToInsert)
+                {
+                    arrayBuilder.Add(item1);
+                    arrayBuilder.Add(item2);
+                    arrayBuilder.Add(item3);
+                }
+                arrayBuilder.Add(item);
+                ++index;
+            }
+            return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
+        }
+        public ResourceCollection Insert(int indexToInsert, in Resource item1, in Resource item2, in Resource item3, in Resource item4)
+        {
+            System.Collections.Immutable.ImmutableArray<Resource>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Resource>();
+            int index = 0;
+            foreach (Resource item in this)
+            {
+                if (index == indexToInsert)
+                {
+                    arrayBuilder.Add(item1);
+                    arrayBuilder.Add(item2);
+                    arrayBuilder.Add(item3);
+                    arrayBuilder.Add(item4);
+                }
+                arrayBuilder.Add(item);
+                ++index;
+            }
+            return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
+        }
+        public ResourceCollection Remove(params Resource[] items)
+        {
+            System.Collections.Immutable.ImmutableArray<Resource>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Resource>();
+            foreach (Resource item in this)
+            {
+                bool found = false;
+                foreach (Resource itemToRemove in items)
+                {
+                    if (itemToRemove.Equals(item))
+                    {
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found)
+                {
+                    arrayBuilder.Add(item);
+                }
+            }
+            return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
+        }
+        public ResourceCollection Remove(Resource item1)
+        {
+            System.Collections.Immutable.ImmutableArray<Resource>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Resource>();
+            foreach (Resource item in this)
+            {
+                if (item1.Equals(item))
+                {
+                    break;
+                }
+                arrayBuilder.Add(item);
+            }
+            return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
+        }
+        public ResourceCollection Remove(Resource item1, Resource item2)
+        {
+            System.Collections.Immutable.ImmutableArray<Resource>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Resource>();
+            foreach (Resource item in this)
+            {
+                if (item1.Equals(item) || item2.Equals(item))
+                {
+                    break;
+                }
+                arrayBuilder.Add(item);
+            }
+            return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
+        }
+        public ResourceCollection Remove(Resource item1, Resource item2, Resource item3)
+        {
+            System.Collections.Immutable.ImmutableArray<Resource>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Resource>();
+            foreach (Resource item in this)
+            {
+                if (item1.Equals(item) || item2.Equals(item) || item3.Equals(item))
+                {
+                    break;
+                }
+                arrayBuilder.Add(item);
+            }
+            return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
+        }
+        public ResourceCollection Remove(Resource item1, Resource item2, Resource item3, Resource item4)
+        {
+            System.Collections.Immutable.ImmutableArray<Resource>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Resource>();
+            foreach (Resource item in this)
+            {
+                if (item1.Equals(item) || item2.Equals(item) || item3.Equals(item) || item4.Equals(item))
+                {
+                    break;
+                }
+                arrayBuilder.Add(item);
+            }
+            return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
+        }
+        public ResourceCollection RemoveAt(int indexToRemove)
+        {
+            System.Collections.Immutable.ImmutableArray<Resource>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Resource>();
+            int index = 0;
+            foreach (Resource item in this)
+            {
+                if (index == indexToRemove)
+                {
+                    index++;
+                    continue;
+                }
+                arrayBuilder.Add(item);
+                index++;
+            }
+            return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
+        }
+        public ResourceCollection RemoveRange(int startIndex, int length)
+        {
+            if (startIndex < 0 || startIndex > this.Length - 1)
+            {
+                throw new System.ArgumentOutOfRangeException(nameof(startIndex));
+            }
+            if (length < 1 || startIndex + length > this.Length - 1)
+            {
+                throw new System.ArgumentOutOfRangeException(nameof(length));
+            }
+            System.Collections.Immutable.ImmutableArray<Resource>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Resource>();
+            int index = 0;
+            foreach (Resource item in this)
+            {
+                if (index >= startIndex && index < startIndex + length)
+                {
+                    index++;
+                    continue;
+                }
+                arrayBuilder.Add(item);
+                index++;
+            }
+            return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
+        }
+        public ResourceCollection Remove(System.Predicate<Resource> removeIfTrue)
+        {
+            System.Collections.Immutable.ImmutableArray<Resource>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Resource>();
+            foreach (Resource item in this)
+            {
+                if (removeIfTrue(item))
+                {
+                    continue;
+                }
+                arrayBuilder.Add(item);
+            }
+            return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
         }
     }
 }

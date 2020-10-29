@@ -15,7 +15,7 @@ namespace Menes.TypeGenerator
     /// <summary>
     /// Represents a validated <see cref="JsonValueTypeDeclaration"/> type.
     /// </summary>
-    public class ValidatedJsonValueTypeDeclaration : ITypeDeclaration
+    public class ValidatedJsonValueTypeDeclaration : TypeDeclaration
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ValidatedJsonValueTypeDeclaration"/> class.
@@ -23,28 +23,10 @@ namespace Menes.TypeGenerator
         /// <param name="name">The name of the validated type.</param>
         /// <param name="validatedType">The name of the type of the item in the array.</param>
         public ValidatedJsonValueTypeDeclaration(string name, JsonValueTypeDeclaration? validatedType = null)
+            : base(name)
         {
-            this.Name = name;
             this.ValidatedType = validatedType;
         }
-
-        /// <inheritdoc/>
-        public IReadOnlyCollection<MethodDeclaration> Methods => TypeDeclaration.EmptyMethodDeclarations;
-
-        /// <inheritdoc/>
-        public IReadOnlyCollection<PropertyDeclaration> Properties => TypeDeclaration.EmptyPropertyDeclarations;
-
-        /// <inheritdoc/>
-        public IReadOnlyCollection<ITypeDeclaration> TypeDeclarations => TypeDeclaration.EmptyTypeDeclarations;
-
-        /// <inheritdoc/>
-        public string Name { get; }
-
-        /// <inheritdoc/>
-        public IDeclaration? Parent { get; set; }
-
-        /// <inheritdoc/>
-        public bool ShouldGenerate => true;
 
         /// <summary>
         /// Gets or sets the type of the validated type.
@@ -122,46 +104,10 @@ namespace Menes.TypeGenerator
         public string? PatternValidation { get; set; }
 
         /// <inheritdoc/>
-        public bool IsCompoundType => false;
+        public override bool IsCompoundType => false;
 
         /// <inheritdoc/>
-        public void AddMethodDeclaration(MethodDeclaration methodDeclaration)
-        {
-            throw new NotSupportedException();
-        }
-
-        /// <inheritdoc/>
-        public void AddPropertyDeclaration(PropertyDeclaration propertyDeclaration)
-        {
-            throw new NotSupportedException();
-        }
-
-        /// <inheritdoc/>
-        public void AddTypeDeclaration(ITypeDeclaration typeDeclaration)
-        {
-            throw new NotSupportedException();
-        }
-
-        /// <inheritdoc/>
-        public bool ContainsMethod(string name)
-        {
-            return false;
-        }
-
-        /// <inheritdoc/>
-        public bool ContainsProperty(string name)
-        {
-            return false;
-        }
-
-        /// <inheritdoc/>
-        public bool ContainsTypeDeclaration(string name)
-        {
-            return false;
-        }
-
-        /// <inheritdoc/>
-        public TypeDeclarationSyntax GenerateType()
+        public override TypeDeclarationSyntax GenerateType()
         {
             if (this.ValidatedType is null)
             {
@@ -331,8 +277,8 @@ namespace Menes.TypeGenerator
                 {
                     string allOfFullyQualifiedName = allOfType.GetFullyQualifiedName();
                     string allOfTypeNameCamelCase = StringFormatter.ToCamelCaseWithReservedWords(allOfType.Name);
-                    builder.AppendLine($"{allOfFullyQualifiedName} {allOfTypeNameCamelCase}Value = Menes.JsonAny.From(value).As<{allOfFullyQualifiedName}>();");
-                    builder.AppendLine($"            allOfValidationContext{index + 1} = {allOfTypeNameCamelCase}Value.Validate(allOfValidationContext{index + 1});");
+                    builder.AppendLine($"{allOfFullyQualifiedName} {allOfTypeNameCamelCase}Value{index} = Menes.JsonAny.From(value).As<{allOfFullyQualifiedName}>();");
+                    builder.AppendLine($"            allOfValidationContext{index + 1} = {allOfTypeNameCamelCase}Value{index}.Validate(allOfValidationContext{index + 1});");
                     index++;
                 }
 
@@ -391,8 +337,8 @@ namespace Menes.TypeGenerator
                 {
                     string oneOfFullyQualifiedName = oneOfType.GetFullyQualifiedName();
                     string oneOfTypeNameCamelCase = StringFormatter.ToCamelCaseWithReservedWords(oneOfType.Name);
-                    builder.AppendLine($"{oneOfFullyQualifiedName} {oneOfTypeNameCamelCase}Value = Menes.JsonAny.From(value).As<{oneOfFullyQualifiedName}>();");
-                    builder.AppendLine($"            oneOfValidationContext{index + 1} = {oneOfTypeNameCamelCase}Value.Validate(oneOfValidationContext{index + 1});");
+                    builder.AppendLine($"{oneOfFullyQualifiedName} {oneOfTypeNameCamelCase}Value{index} = Menes.JsonAny.From(value).As<{oneOfFullyQualifiedName}>();");
+                    builder.AppendLine($"            oneOfValidationContext{index + 1} = {oneOfTypeNameCamelCase}Value{index}.Validate(oneOfValidationContext{index + 1});");
                     index++;
                 }
 
@@ -525,17 +471,12 @@ namespace Menes.TypeGenerator
             }
 
             builder.AppendLine("}");
-            return (TypeDeclarationSyntax)SF.ParseMemberDeclaration(builder.ToString());
+            var tds = (TypeDeclarationSyntax)SF.ParseMemberDeclaration(builder.ToString());
+            return this.BuildNestedTypes(tds);
         }
 
         /// <inheritdoc/>
-        public ITypeDeclaration GetTypeDeclaration(string name)
-        {
-            throw new NotSupportedException();
-        }
-
-        /// <inheritdoc/>
-        public bool IsSpecializedBy(ITypeDeclaration type)
+        public override bool IsSpecializedBy(ITypeDeclaration type)
         {
             if (this.ValidatedType is null)
             {
@@ -572,6 +513,16 @@ namespace Menes.TypeGenerator
             {
                 builder.AppendLine($"    private static readonly System.Text.RegularExpressions.Regex? Pattern = null;");
             }
+        }
+
+        private TypeDeclarationSyntax BuildNestedTypes(TypeDeclarationSyntax tds)
+        {
+            foreach (ITypeDeclaration declaration in this.TypeDeclarations)
+            {
+                tds = tds.AddMembers((MemberDeclarationSyntax)declaration.GenerateType());
+            }
+
+            return tds;
         }
     }
 }

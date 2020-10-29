@@ -69,8 +69,9 @@ namespace Menes.Json.Schema.TypeGenerator
                 }
 
                 this.declarationStack.Push(declaration);
+                this.propertyNameStack.Push(declaration.Name);
                 await this.PopulateTypeDeclarationFor(declaration, schema, rootDocument, baseUri).ConfigureAwait(false);
-
+                this.propertyNameStack.Pop();
                 this.declarationStack.Pop();
             }
 
@@ -132,11 +133,11 @@ namespace Menes.Json.Schema.TypeGenerator
                 }
                 else
                 {
-                    this.propertyNameStack.Push("AdditionalProperties");
+                    this.propertyNameStack.Push("Properties");
 
                     additionalPropertiesType = await this.GetTypeDeclarationFor(additionalProperties.AsSchemaOrReference(), rootDocument, baseUri).ConfigureAwait(false);
 
-                    this.propertyNameStack.Push("AdditionalProperties");
+                    this.propertyNameStack.Pop();
                 }
             }
 
@@ -250,16 +251,18 @@ namespace Menes.Json.Schema.TypeGenerator
             if (schema.AllOf is JsonSchema.ValidatedArrayOfSchemaOrReference allOf)
             {
                 List<(string, JsonDocument, JsonSchema)>? allOfSchemas = await this.GetSchemasFor(allOf, rootDocument, baseUri).ConfigureAwait(false);
+
                 if (allOfSchemas is List<(string, JsonDocument, JsonSchema)> aoses)
                 {
                     foreach ((string uri, JsonDocument doc, JsonSchema aos) in aoses)
                     {
+                        ITypeDeclaration? aotd = await this.GetTypeDeclarationFor(aos, doc, uri).ConfigureAwait(false);
+
                         if (aos.IsObjectType())
                         {
                             await this.PopulateObject(typeDeclaration, aos, doc, uri).ConfigureAwait(false);
                         }
 
-                        ITypeDeclaration? aotd = await this.GetTypeDeclarationFor(aos, doc, uri).ConfigureAwait(false);
                         if (!(aotd is ITypeDeclaration a))
                         {
                             throw new InvalidOperationException($"Unable to find a type declartion for {aos}");
@@ -524,6 +527,40 @@ namespace Menes.Json.Schema.TypeGenerator
             if (schema.IsValueType())
             {
                 return this.GetName(this.propertyNameStack.Peek()) + "Value";
+            }
+            else if (schema.IsArrayType())
+            {
+                string itemsName;
+
+                if (schema.Items is JsonSchema.SchemaOrReference itemsRef)
+                {
+                    if (itemsRef.IsSchemaReference)
+                    {
+                        var jsonRef = new JsonRef(itemsRef.AsSchemaReference().Ref);
+                        if (jsonRef.HasPointer)
+                        {
+                            itemsName = this.GetName(jsonRef.Pointer);
+                        }
+                        else if (jsonRef.HasUri)
+                        {
+                            itemsName = this.GetName(jsonRef.Uri);
+                        }
+                        else
+                        {
+                            itemsName = string.Empty;
+                        }
+                    }
+                    else
+                    {
+                        itemsName = this.GetName(itemsRef.AsJsonSchema());
+                    }
+                }
+                else
+                {
+                    itemsName = "JsonAny";
+                }
+
+                return itemsName + this.GetName(this.propertyNameStack.Peek());
             }
             else
             {

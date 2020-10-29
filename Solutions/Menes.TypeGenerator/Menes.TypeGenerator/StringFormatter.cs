@@ -5,7 +5,6 @@
 namespace Menes.TypeGenerator
 {
     using System;
-    using System.Buffers;
     using System.IO;
     using System.Linq;
     using System.Text;
