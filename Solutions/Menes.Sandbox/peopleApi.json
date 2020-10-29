@@ -1532,15 +1532,7 @@
                 "type": "object",
                 "properties": {
                   "items": {
-                    "type":  "object",
-                    "anyOf": [
-                      {
-                        "$ref": "#/components/schemas/Link"
-                      },
-                      {
-                        "$ref": "#/components/schemas/LinkCollection"
-                      }
-                    ]
+                    "$ref": "#/components/schemas/LinkCollection"
                   },
                   "next": {
                     "$ref": "#/components/schemas/Link"
@@ -1655,7 +1647,7 @@
         "description": "A resource representation of a list of names related to some source entity."
       },
       "PersonNameResource": {
-        "type":  "object",
+        "type": "object",
         "allOf": [
           {
             "$ref": "#/components/schemas/Resource"
@@ -1667,7 +1659,7 @@
         "description": "A person name"
       },
       "PersonListResource": {
-        "type":  "object",
+        "type": "object",
         "allOf": [
           {
             "$ref": "#/components/schemas/PagedListResource"
@@ -1716,18 +1708,10 @@
                 "type": "object",
                 "properties": {
                   "items": {
-                    "type": "object",
-                    "anyOf": [
-                      {
-                        "$ref": "#/components/schemas/RelatedPersonResource"
-                      },
-                      {
-                        "type": "array",
-                        "items": {
-                          "$ref": "#/components/schemas/RelatedPersonResource"
-                        }
-                      }
-                    ]
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/RelatedPersonResource"
+                    }
                   }
                 },
                 "additionalProperties": {
@@ -1938,18 +1922,10 @@
                 "type": "object",
                 "properties": {
                   "items": {
-                    "type": "object",
-                    "anyOf": [
-                      {
-                        "$ref": "#/components/schemas/TelephoneNumberResource"
-                      },
-                      {
-                        "type": "array",
-                        "items": {
-                          "$ref": "#/components/schemas/TelephoneNumberResource"
-                        }
-                      }
-                    ]
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/TelephoneNumberResource"
+                    }
                   }
                 },
                 "additionalProperties": {
@@ -2113,18 +2089,10 @@
                 "type": "object",
                 "properties": {
                   "items": {
-                    "type": "object",
-                    "anyOf": [
-                      {
-                        "$ref": "#/components/schemas/EmailAddressResource"
-                      },
-                      {
-                        "type": "array",
-                        "items": {
-                          "$ref": "#/components/schemas/EmailAddressResource"
-                        }
-                      }
-                    ]
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/EmailAddressResource"
+                    }
                   }
                 },
                 "additionalProperties": {

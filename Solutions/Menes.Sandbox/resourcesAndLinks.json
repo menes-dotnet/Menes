@@ -198,15 +198,7 @@
               ],
               "properties": {
                 "items": {
-                  "type": "object",
-                  "anyOf": [
-                    {
-                      "$ref": "#/schemas/Link"
-                    },
-                    {
-                      "$ref": "#/schemas/LinkCollection"
-                    }
-                  ]
+                  "$ref": "#/schemas/LinkCollection"
                 },
                 "next": {
                   "$ref": "#/schemas/Link"

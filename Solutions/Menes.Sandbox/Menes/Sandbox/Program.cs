@@ -55,10 +55,10 @@ namespace Menes.Sandbox
             ////return GenerateTypesForSchema("exampleschema2.json");
             ////return GenerateTypesForSchema("resourcesAndLinks.json#/schemas/Resource");
             ////return GenerateTypesForSchema("person.json#/schemas/Person");
-            return GenerateTypesForSchema("peopleApi.json#/components/schemas/PersonListResource", "./output/");
+            ////return GenerateTypesForSchema("peopleApi.json#/components/schemas/PersonListResource", "./output/");
 
-            ////UseGeneratedCode();
-            ////return Task.CompletedTask;
+            UseGeneratedCode();
+            return Task.CompletedTask;
         }
 
         private static void UseGeneratedCode()
@@ -66,21 +66,22 @@ namespace Menes.Sandbox
             var personListResource = new PersonListResource(
                 contentType: "application/vnd.menes.personListResource",
                 embedded: new PersonListResource.EmbeddedEntity(
-                    JsonArray.Create(
+                    items: JsonArray.Create(
                         new PersonResource(
                             contentType: "application/vnd.menes.personResource",
                             embedded: null,
                             links: new PersonResource.LinksEntity(
-                                self: new Link("http://endjin.com/something"),
-                                primaryName: new Link("http://endjin.com/somename"))))),
+                                self: new Link("http://endjin.com/examples/people/1"),
+                                primaryName: new Link("http://endjin.com/examples/people/1/names/1"))))),
                 links: new PersonListResource.LinksEntity(
-                    self: new Link("http:/endjin.com/something"),
-                    items: JsonArray.Create(new Link("http://endjin.com/something"), new Link("http://endjin.com/somethingelse")),
-                    next: new Link("/some/item"),
-                    prev: new Link("/last/item")));
+                    self: new Link("http:/endjin.com/examples/query/people/?id=1&id=2"),
+                    items: JsonArray.Create(new Link("http://endjin.com/examples/people/1"), new Link("http://endjin.com/examples/people/2")),
+                    next: new Link("http:/endjin.com/examples/query/people/?id=3&id=4"),
+                    prev: null));
 
             Validate(personListResource);
             Serialize(personListResource);
+            Validate(personListResource);
 
             var person =
                 new Examples.GeneratedPerson(

@@ -618,7 +618,7 @@ namespace OtherExamples
                 this.prev = null;
                 this.additionalPropertiesBacking = null;
             }
-            public LinksEntity(Link self, PersonListResource.ItemsEntity items)
+            public LinksEntity(Link self, LinkCollection items)
             {
                 if (self is Link item1)
                 {
@@ -628,7 +628,7 @@ namespace OtherExamples
                 {
                     this.self = null;
                 }
-                if (items is PersonListResource.ItemsEntity item2)
+                if (items is LinkCollection item2)
                 {
                     this.items = Menes.JsonReference.FromValue(item2);
                 }
@@ -641,7 +641,7 @@ namespace OtherExamples
                 this.JsonElement = default;
                 this.additionalPropertiesBacking = null;
             }
-            public LinksEntity(Link self, PersonListResource.ItemsEntity items, Link? next, Link? prev, Menes.JsonProperties<PersonListResource.PropertiesEntity> additionalPropertiesBacking)
+            public LinksEntity(Link self, LinkCollection items, Link? next, Link? prev, Menes.JsonProperties<PersonListResource.PropertiesEntity> additionalPropertiesBacking)
             {
                 if (self is Link item1)
                 {
@@ -651,7 +651,7 @@ namespace OtherExamples
                 {
                     this.self = null;
                 }
-                if (items is PersonListResource.ItemsEntity item2)
+                if (items is LinkCollection item2)
                 {
                     this.items = Menes.JsonReference.FromValue(item2);
                 }
@@ -678,7 +678,7 @@ namespace OtherExamples
                 this.JsonElement = default;
                 this.additionalPropertiesBacking = additionalPropertiesBacking;
             }
-            public LinksEntity(Link self, PersonListResource.ItemsEntity items, Link? next, Link? prev, params (string, PersonListResource.PropertiesEntity)[] additionalPropertiesBacking)
+            public LinksEntity(Link self, LinkCollection items, Link? next, Link? prev, params (string, PersonListResource.PropertiesEntity)[] additionalPropertiesBacking)
             {
                 if (self is Link item1)
                 {
@@ -688,7 +688,7 @@ namespace OtherExamples
                 {
                     this.self = null;
                 }
-                if (items is PersonListResource.ItemsEntity item2)
+                if (items is LinkCollection item2)
                 {
                     this.items = Menes.JsonReference.FromValue(item2);
                 }
@@ -715,7 +715,7 @@ namespace OtherExamples
                 this.JsonElement = default;
                 this.additionalPropertiesBacking = Menes.JsonProperties<PersonListResource.PropertiesEntity>.FromValues(additionalPropertiesBacking);
             }
-            public LinksEntity(Link self, PersonListResource.ItemsEntity items, Link? next, Link? prev)
+            public LinksEntity(Link self, LinkCollection items, Link? next, Link? prev)
             {
                 if (self is Link item1)
                 {
@@ -725,7 +725,7 @@ namespace OtherExamples
                 {
                     this.self = null;
                 }
-                if (items is PersonListResource.ItemsEntity item2)
+                if (items is LinkCollection item2)
                 {
                     this.items = Menes.JsonReference.FromValue(item2);
                 }
@@ -752,7 +752,7 @@ namespace OtherExamples
                 this.JsonElement = default;
                 this.additionalPropertiesBacking = null;
             }
-            public LinksEntity(Link self, PersonListResource.ItemsEntity items, Link? next, Link? prev, (string, PersonListResource.PropertiesEntity) additionalProperty1)
+            public LinksEntity(Link self, LinkCollection items, Link? next, Link? prev, (string, PersonListResource.PropertiesEntity) additionalProperty1)
             {
                 if (self is Link item1)
                 {
@@ -762,7 +762,7 @@ namespace OtherExamples
                 {
                     this.self = null;
                 }
-                if (items is PersonListResource.ItemsEntity item2)
+                if (items is LinkCollection item2)
                 {
                     this.items = Menes.JsonReference.FromValue(item2);
                 }
@@ -789,7 +789,7 @@ namespace OtherExamples
                 this.JsonElement = default;
                 this.additionalPropertiesBacking = Menes.JsonProperties<PersonListResource.PropertiesEntity>.FromValues(additionalProperty1);
             }
-            public LinksEntity(Link self, PersonListResource.ItemsEntity items, Link? next, Link? prev, (string, PersonListResource.PropertiesEntity) additionalProperty1, (string, PersonListResource.PropertiesEntity) additionalProperty2)
+            public LinksEntity(Link self, LinkCollection items, Link? next, Link? prev, (string, PersonListResource.PropertiesEntity) additionalProperty1, (string, PersonListResource.PropertiesEntity) additionalProperty2)
             {
                 if (self is Link item1)
                 {
@@ -799,7 +799,7 @@ namespace OtherExamples
                 {
                     this.self = null;
                 }
-                if (items is PersonListResource.ItemsEntity item2)
+                if (items is LinkCollection item2)
                 {
                     this.items = Menes.JsonReference.FromValue(item2);
                 }
@@ -826,7 +826,7 @@ namespace OtherExamples
                 this.JsonElement = default;
                 this.additionalPropertiesBacking = Menes.JsonProperties<PersonListResource.PropertiesEntity>.FromValues(additionalProperty1, additionalProperty2);
             }
-            public LinksEntity(Link self, PersonListResource.ItemsEntity items, Link? next, Link? prev, (string, PersonListResource.PropertiesEntity) additionalProperty1, (string, PersonListResource.PropertiesEntity) additionalProperty2, (string, PersonListResource.PropertiesEntity) additionalProperty3)
+            public LinksEntity(Link self, LinkCollection items, Link? next, Link? prev, (string, PersonListResource.PropertiesEntity) additionalProperty1, (string, PersonListResource.PropertiesEntity) additionalProperty2, (string, PersonListResource.PropertiesEntity) additionalProperty3)
             {
                 if (self is Link item1)
                 {
@@ -836,7 +836,7 @@ namespace OtherExamples
                 {
                     this.self = null;
                 }
-                if (items is PersonListResource.ItemsEntity item2)
+                if (items is LinkCollection item2)
                 {
                     this.items = Menes.JsonReference.FromValue(item2);
                 }
@@ -863,7 +863,7 @@ namespace OtherExamples
                 this.JsonElement = default;
                 this.additionalPropertiesBacking = Menes.JsonProperties<PersonListResource.PropertiesEntity>.FromValues(additionalProperty1, additionalProperty2, additionalProperty3);
             }
-            public LinksEntity(Link self, PersonListResource.ItemsEntity items, Link? next, Link? prev, (string, PersonListResource.PropertiesEntity) additionalProperty1, (string, PersonListResource.PropertiesEntity) additionalProperty2, (string, PersonListResource.PropertiesEntity) additionalProperty3, (string, PersonListResource.PropertiesEntity) additionalProperty4)
+            public LinksEntity(Link self, LinkCollection items, Link? next, Link? prev, (string, PersonListResource.PropertiesEntity) additionalProperty1, (string, PersonListResource.PropertiesEntity) additionalProperty2, (string, PersonListResource.PropertiesEntity) additionalProperty3, (string, PersonListResource.PropertiesEntity) additionalProperty4)
             {
                 if (self is Link item1)
                 {
@@ -873,7 +873,7 @@ namespace OtherExamples
                 {
                     this.self = null;
                 }
-                if (items is PersonListResource.ItemsEntity item2)
+                if (items is LinkCollection item2)
                 {
                     this.items = Menes.JsonReference.FromValue(item2);
                 }
@@ -940,7 +940,7 @@ namespace OtherExamples
             public bool IsNull => (this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Undefined || this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Null) && (this.self is null || this.self.Value.IsNull) && (this.items is null || this.items.Value.IsNull) && (this.next is null || this.next.Value.IsNull) && (this.prev is null || this.prev.Value.IsNull);
             public PersonListResource.LinksEntity? AsOptional => this.IsNull ? default(PersonListResource.LinksEntity?) : this;
             public Link Self => this.self?.AsValue<Link>() ?? Link.FromOptionalProperty(this.JsonElement, SelfPropertyNameBytes.Span);
-            public PersonListResource.ItemsEntity Items => this.items?.AsValue<PersonListResource.ItemsEntity>() ?? PersonListResource.ItemsEntity.FromOptionalProperty(this.JsonElement, ItemsPropertyNameBytes.Span);
+            public LinkCollection Items => this.items?.AsValue<LinkCollection>() ?? LinkCollection.FromOptionalProperty(this.JsonElement, ItemsPropertyNameBytes.Span);
             public Link? Next => this.next?.AsValue<Link>() ?? Link.FromOptionalProperty(this.JsonElement, NextPropertyNameBytes.Span).AsOptional;
             public Link? Prev => this.prev?.AsValue<Link>() ?? Link.FromOptionalProperty(this.JsonElement, PrevPropertyNameBytes.Span).AsOptional;
             public int PropertiesCount => KnownProperties.Length + this.JsonAdditionalPropertiesCount;
@@ -1004,7 +1004,7 @@ namespace OtherExamples
             {
                 return new PersonListResource.LinksEntity(Menes.JsonReference.FromValue(value), this.GetItems(), this.GetNext(), this.GetPrev(), this.GetJsonProperties());
             }
-            public PersonListResource.LinksEntity WithItems(PersonListResource.ItemsEntity value)
+            public PersonListResource.LinksEntity WithItems(LinkCollection value)
             {
                 return new PersonListResource.LinksEntity(this.GetSelf(), Menes.JsonReference.FromValue(value), this.GetNext(), this.GetPrev(), this.GetJsonProperties());
             }
@@ -2620,9 +2620,9 @@ namespace OtherExamples
                     this.prev = null;
                     this.additionalPropertiesBacking = null;
                 }
-                public LinksEntity(PersonListResource.PersonListResourceEntity.LinksEntity.ItemsEntity items)
+                public LinksEntity(LinkCollection items)
                 {
-                    if (items is PersonListResource.PersonListResourceEntity.LinksEntity.ItemsEntity item1)
+                    if (items is LinkCollection item1)
                     {
                         this.items = Menes.JsonReference.FromValue(item1);
                     }
@@ -2635,9 +2635,9 @@ namespace OtherExamples
                     this.JsonElement = default;
                     this.additionalPropertiesBacking = null;
                 }
-                public LinksEntity(PersonListResource.PersonListResourceEntity.LinksEntity.ItemsEntity items, Link? next, Link? prev, Menes.JsonProperties<PersonListResource.PersonListResourceEntity.LinksEntity.PropertiesEntity> additionalPropertiesBacking)
+                public LinksEntity(LinkCollection items, Link? next, Link? prev, Menes.JsonProperties<PersonListResource.PersonListResourceEntity.LinksEntity.PropertiesEntity> additionalPropertiesBacking)
                 {
-                    if (items is PersonListResource.PersonListResourceEntity.LinksEntity.ItemsEntity item1)
+                    if (items is LinkCollection item1)
                     {
                         this.items = Menes.JsonReference.FromValue(item1);
                     }
@@ -2664,9 +2664,9 @@ namespace OtherExamples
                     this.JsonElement = default;
                     this.additionalPropertiesBacking = additionalPropertiesBacking;
                 }
-                public LinksEntity(PersonListResource.PersonListResourceEntity.LinksEntity.ItemsEntity items, Link? next, Link? prev, params (string, PersonListResource.PersonListResourceEntity.LinksEntity.PropertiesEntity)[] additionalPropertiesBacking)
+                public LinksEntity(LinkCollection items, Link? next, Link? prev, params (string, PersonListResource.PersonListResourceEntity.LinksEntity.PropertiesEntity)[] additionalPropertiesBacking)
                 {
-                    if (items is PersonListResource.PersonListResourceEntity.LinksEntity.ItemsEntity item1)
+                    if (items is LinkCollection item1)
                     {
                         this.items = Menes.JsonReference.FromValue(item1);
                     }
@@ -2693,9 +2693,9 @@ namespace OtherExamples
                     this.JsonElement = default;
                     this.additionalPropertiesBacking = Menes.JsonProperties<PersonListResource.PersonListResourceEntity.LinksEntity.PropertiesEntity>.FromValues(additionalPropertiesBacking);
                 }
-                public LinksEntity(PersonListResource.PersonListResourceEntity.LinksEntity.ItemsEntity items, Link? next, Link? prev)
+                public LinksEntity(LinkCollection items, Link? next, Link? prev)
                 {
-                    if (items is PersonListResource.PersonListResourceEntity.LinksEntity.ItemsEntity item1)
+                    if (items is LinkCollection item1)
                     {
                         this.items = Menes.JsonReference.FromValue(item1);
                     }
@@ -2722,9 +2722,9 @@ namespace OtherExamples
                     this.JsonElement = default;
                     this.additionalPropertiesBacking = null;
                 }
-                public LinksEntity(PersonListResource.PersonListResourceEntity.LinksEntity.ItemsEntity items, Link? next, Link? prev, (string, PersonListResource.PersonListResourceEntity.LinksEntity.PropertiesEntity) additionalProperty1)
+                public LinksEntity(LinkCollection items, Link? next, Link? prev, (string, PersonListResource.PersonListResourceEntity.LinksEntity.PropertiesEntity) additionalProperty1)
                 {
-                    if (items is PersonListResource.PersonListResourceEntity.LinksEntity.ItemsEntity item1)
+                    if (items is LinkCollection item1)
                     {
                         this.items = Menes.JsonReference.FromValue(item1);
                     }
@@ -2751,9 +2751,9 @@ namespace OtherExamples
                     this.JsonElement = default;
                     this.additionalPropertiesBacking = Menes.JsonProperties<PersonListResource.PersonListResourceEntity.LinksEntity.PropertiesEntity>.FromValues(additionalProperty1);
                 }
-                public LinksEntity(PersonListResource.PersonListResourceEntity.LinksEntity.ItemsEntity items, Link? next, Link? prev, (string, PersonListResource.PersonListResourceEntity.LinksEntity.PropertiesEntity) additionalProperty1, (string, PersonListResource.PersonListResourceEntity.LinksEntity.PropertiesEntity) additionalProperty2)
+                public LinksEntity(LinkCollection items, Link? next, Link? prev, (string, PersonListResource.PersonListResourceEntity.LinksEntity.PropertiesEntity) additionalProperty1, (string, PersonListResource.PersonListResourceEntity.LinksEntity.PropertiesEntity) additionalProperty2)
                 {
-                    if (items is PersonListResource.PersonListResourceEntity.LinksEntity.ItemsEntity item1)
+                    if (items is LinkCollection item1)
                     {
                         this.items = Menes.JsonReference.FromValue(item1);
                     }
@@ -2780,9 +2780,9 @@ namespace OtherExamples
                     this.JsonElement = default;
                     this.additionalPropertiesBacking = Menes.JsonProperties<PersonListResource.PersonListResourceEntity.LinksEntity.PropertiesEntity>.FromValues(additionalProperty1, additionalProperty2);
                 }
-                public LinksEntity(PersonListResource.PersonListResourceEntity.LinksEntity.ItemsEntity items, Link? next, Link? prev, (string, PersonListResource.PersonListResourceEntity.LinksEntity.PropertiesEntity) additionalProperty1, (string, PersonListResource.PersonListResourceEntity.LinksEntity.PropertiesEntity) additionalProperty2, (string, PersonListResource.PersonListResourceEntity.LinksEntity.PropertiesEntity) additionalProperty3)
+                public LinksEntity(LinkCollection items, Link? next, Link? prev, (string, PersonListResource.PersonListResourceEntity.LinksEntity.PropertiesEntity) additionalProperty1, (string, PersonListResource.PersonListResourceEntity.LinksEntity.PropertiesEntity) additionalProperty2, (string, PersonListResource.PersonListResourceEntity.LinksEntity.PropertiesEntity) additionalProperty3)
                 {
-                    if (items is PersonListResource.PersonListResourceEntity.LinksEntity.ItemsEntity item1)
+                    if (items is LinkCollection item1)
                     {
                         this.items = Menes.JsonReference.FromValue(item1);
                     }
@@ -2809,9 +2809,9 @@ namespace OtherExamples
                     this.JsonElement = default;
                     this.additionalPropertiesBacking = Menes.JsonProperties<PersonListResource.PersonListResourceEntity.LinksEntity.PropertiesEntity>.FromValues(additionalProperty1, additionalProperty2, additionalProperty3);
                 }
-                public LinksEntity(PersonListResource.PersonListResourceEntity.LinksEntity.ItemsEntity items, Link? next, Link? prev, (string, PersonListResource.PersonListResourceEntity.LinksEntity.PropertiesEntity) additionalProperty1, (string, PersonListResource.PersonListResourceEntity.LinksEntity.PropertiesEntity) additionalProperty2, (string, PersonListResource.PersonListResourceEntity.LinksEntity.PropertiesEntity) additionalProperty3, (string, PersonListResource.PersonListResourceEntity.LinksEntity.PropertiesEntity) additionalProperty4)
+                public LinksEntity(LinkCollection items, Link? next, Link? prev, (string, PersonListResource.PersonListResourceEntity.LinksEntity.PropertiesEntity) additionalProperty1, (string, PersonListResource.PersonListResourceEntity.LinksEntity.PropertiesEntity) additionalProperty2, (string, PersonListResource.PersonListResourceEntity.LinksEntity.PropertiesEntity) additionalProperty3, (string, PersonListResource.PersonListResourceEntity.LinksEntity.PropertiesEntity) additionalProperty4)
                 {
-                    if (items is PersonListResource.PersonListResourceEntity.LinksEntity.ItemsEntity item1)
+                    if (items is LinkCollection item1)
                     {
                         this.items = Menes.JsonReference.FromValue(item1);
                     }
@@ -2869,7 +2869,7 @@ namespace OtherExamples
                 }
                 public bool IsNull => (this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Undefined || this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Null) && (this.items is null || this.items.Value.IsNull) && (this.next is null || this.next.Value.IsNull) && (this.prev is null || this.prev.Value.IsNull);
                 public PersonListResource.PersonListResourceEntity.LinksEntity? AsOptional => this.IsNull ? default(PersonListResource.PersonListResourceEntity.LinksEntity?) : this;
-                public PersonListResource.PersonListResourceEntity.LinksEntity.ItemsEntity Items => this.items?.AsValue<PersonListResource.PersonListResourceEntity.LinksEntity.ItemsEntity>() ?? PersonListResource.PersonListResourceEntity.LinksEntity.ItemsEntity.FromOptionalProperty(this.JsonElement, ItemsPropertyNameBytes.Span);
+                public LinkCollection Items => this.items?.AsValue<LinkCollection>() ?? LinkCollection.FromOptionalProperty(this.JsonElement, ItemsPropertyNameBytes.Span);
                 public Link? Next => this.next?.AsValue<Link>() ?? Link.FromOptionalProperty(this.JsonElement, NextPropertyNameBytes.Span).AsOptional;
                 public Link? Prev => this.prev?.AsValue<Link>() ?? Link.FromOptionalProperty(this.JsonElement, PrevPropertyNameBytes.Span).AsOptional;
                 public int PropertiesCount => KnownProperties.Length + this.JsonAdditionalPropertiesCount;
@@ -2929,7 +2929,7 @@ namespace OtherExamples
                             ? new PersonListResource.PersonListResourceEntity.LinksEntity(property)
                             : Null)
                     : Null;
-                public PersonListResource.PersonListResourceEntity.LinksEntity WithItems(PersonListResource.PersonListResourceEntity.LinksEntity.ItemsEntity value)
+                public PersonListResource.PersonListResourceEntity.LinksEntity WithItems(LinkCollection value)
                 {
                     return new PersonListResource.PersonListResourceEntity.LinksEntity(Menes.JsonReference.FromValue(value), this.GetNext(), this.GetPrev(), this.GetJsonProperties());
                 }
@@ -3377,155 +3377,6 @@ namespace OtherExamples
                         return Menes.Validation.ValidateAnyOf(validationContext, validationContext1, validationContext2);
                     }
                 }
-                public readonly struct ItemsEntity : Menes.IJsonValue
-                {
-                    public static readonly ItemsEntity Null = new ItemsEntity(default(System.Text.Json.JsonElement));
-                    public static readonly System.Func<System.Text.Json.JsonElement, PersonListResource.PersonListResourceEntity.LinksEntity.ItemsEntity> FromJsonElement = e => new PersonListResource.PersonListResourceEntity.LinksEntity.ItemsEntity(e);
-                    private readonly Menes.JsonReference? item1;
-                    private readonly Menes.JsonReference? item2;
-                    public ItemsEntity(Link clrInstance)
-                    {
-                        if (clrInstance.HasJsonElement)
-                        {
-                            this.JsonElement = clrInstance.JsonElement;
-                            this.item1 = null;
-                        }
-                        else
-                        {
-                            this.item1 = Menes.JsonReference.FromValue(clrInstance);
-                            this.JsonElement = default;
-                        }
-                        this.item2 = null;
-                    }
-                    public ItemsEntity(LinkCollection clrInstance)
-                    {
-                        if (clrInstance.HasJsonElement)
-                        {
-                            this.JsonElement = clrInstance.JsonElement;
-                            this.item2 = null;
-                        }
-                        else
-                        {
-                            this.item2 = Menes.JsonReference.FromValue(clrInstance);
-                            this.JsonElement = default;
-                        }
-                        this.item1 = null;
-                    }
-                    public ItemsEntity(System.Text.Json.JsonElement jsonElement)
-                    {
-                        this.item1 = null;
-                        this.item2 = null;
-                        this.JsonElement = jsonElement;
-                    }
-                    public bool IsNull => this.item1 is null && this.item2 is null && (this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Undefined || this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Null);
-                    public ItemsEntity? AsOptional => this.IsNull ? default(ItemsEntity?) : this;
-                    public bool IsLink => this.item1 is Menes.JsonReference || (Link.IsConvertibleFrom(this.JsonElement) && Link.FromJsonElement(this.JsonElement).Validate(Menes.ValidationContext.Root).IsValid);
-                    public bool IsLinkCollection => this.item2 is Menes.JsonReference || (LinkCollection.IsConvertibleFrom(this.JsonElement) && LinkCollection.FromJsonElement(this.JsonElement).Validate(Menes.ValidationContext.Root).IsValid);
-                    public bool HasJsonElement => this.JsonElement.ValueKind != System.Text.Json.JsonValueKind.Undefined;
-                    public System.Text.Json.JsonElement JsonElement { get; }
-                    public static explicit operator Link(ItemsEntity value) => value.AsLink();
-                    public static implicit operator ItemsEntity(Link value) => new ItemsEntity(value);
-                    public static explicit operator LinkCollection(ItemsEntity value) => value.AsLinkCollection();
-                    public static implicit operator ItemsEntity(LinkCollection value) => new ItemsEntity(value);
-                    public static implicit operator ItemsEntity(Menes.JsonArray<Link> value)
-                    {
-                        return new ItemsEntity(value);
-                    }
-                    public static ItemsEntity FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<char> propertyName) =>
-                       parentDocument.ValueKind != System.Text.Json.JsonValueKind.Undefined ?
-                            (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
-                                ? new ItemsEntity(property)
-                                : Null)
-                            : Null;
-                    public static ItemsEntity FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, string propertyName) =>
-                       parentDocument.ValueKind != System.Text.Json.JsonValueKind.Undefined ?
-                            (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
-                                ? new ItemsEntity(property)
-                                : Null)
-                            : Null;
-                    public static ItemsEntity FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<byte> utf8PropertyName) =>
-                       parentDocument.ValueKind != System.Text.Json.JsonValueKind.Undefined ?
-                            (parentDocument.TryGetProperty(utf8PropertyName, out System.Text.Json.JsonElement property)
-                                ? new ItemsEntity(property)
-                                : Null)
-                            : Null;
-                    public static bool IsConvertibleFrom(System.Text.Json.JsonElement jsonElement)
-                    {
-                        if (Link.IsConvertibleFrom(jsonElement))
-                        {
-                            return true;
-                        }
-                        if (LinkCollection.IsConvertibleFrom(jsonElement))
-                        {
-                            return true;
-                        }
-                        return false;
-                    }
-                    public Link AsLink() => this.item1?.AsValue<Link>() ?? new Link(this.JsonElement);
-                    public LinkCollection AsLinkCollection() => this.item2?.AsValue<LinkCollection>() ?? new LinkCollection(this.JsonElement);
-                    public void WriteTo(System.Text.Json.Utf8JsonWriter writer)
-                    {
-                        if (this.item1 is Menes.JsonReference item1)
-                        {
-                            item1.WriteTo(writer);
-                        }
-                        else if (this.item2 is Menes.JsonReference item2)
-                        {
-                            item2.WriteTo(writer);
-                        }
-                        else
-                        {
-                            this.JsonElement.WriteTo(writer);
-                        }
-                    }
-                    public override string ToString()
-                    {
-                        var builder = new System.Text.StringBuilder();
-                        if (this.IsLink)
-                        {
-                            builder.Append("{");
-                            builder.Append("Link");
-                            builder.Append(", ");
-                            builder.Append(this.AsLink().ToString());
-                            builder.AppendLine("}");
-                        }
-                        if (this.IsLinkCollection)
-                        {
-                            builder.Append("{");
-                            builder.Append("LinkCollection");
-                            builder.Append(", ");
-                            builder.Append(this.AsLinkCollection().ToString());
-                            builder.AppendLine("}");
-                        }
-                        return builder.Length > 0 ? builder.ToString() : this.JsonElement.ToString();
-                    }
-                    public Menes.ValidationContext Validate(in Menes.ValidationContext validationContext)
-                    {
-                        if (this.IsNull)
-                        {
-                            return validationContext;
-                        }
-                        Menes.ValidationContext validationContext1 = Menes.ValidationContext.Root.WithPath(validationContext.Path);
-                        Menes.ValidationContext validationContext2 = Menes.ValidationContext.Root.WithPath(validationContext.Path);
-                        if (this.IsLink)
-                        {
-                            validationContext1 = this.AsLink().Validate(validationContext1);
-                        }
-                        else
-                        {
-                            validationContext1 = validationContext1.WithError("The value is not convertible to a Link.");
-                        }
-                        if (this.IsLinkCollection)
-                        {
-                            validationContext2 = this.AsLinkCollection().Validate(validationContext2);
-                        }
-                        else
-                        {
-                            validationContext2 = validationContext2.WithError("The value is not convertible to a LinkCollection.");
-                        }
-                        return Menes.Validation.ValidateAnyOf(validationContext, validationContext1, validationContext2);
-                    }
-                }
             }
         }
 
@@ -3778,155 +3629,6 @@ namespace OtherExamples
                     validationContext4 = validationContext4.WithError("The value is not convertible to a ResourceCollection.");
                 }
                 return Menes.Validation.ValidateAnyOf(validationContext, validationContext1, validationContext2, validationContext3, validationContext4);
-            }
-        }
-        public readonly struct ItemsEntity : Menes.IJsonValue
-        {
-            public static readonly ItemsEntity Null = new ItemsEntity(default(System.Text.Json.JsonElement));
-            public static readonly System.Func<System.Text.Json.JsonElement, PersonListResource.ItemsEntity> FromJsonElement = e => new PersonListResource.ItemsEntity(e);
-            private readonly Menes.JsonReference? item1;
-            private readonly Menes.JsonReference? item2;
-            public ItemsEntity(Link clrInstance)
-            {
-                if (clrInstance.HasJsonElement)
-                {
-                    this.JsonElement = clrInstance.JsonElement;
-                    this.item1 = null;
-                }
-                else
-                {
-                    this.item1 = Menes.JsonReference.FromValue(clrInstance);
-                    this.JsonElement = default;
-                }
-                this.item2 = null;
-            }
-            public ItemsEntity(LinkCollection clrInstance)
-            {
-                if (clrInstance.HasJsonElement)
-                {
-                    this.JsonElement = clrInstance.JsonElement;
-                    this.item2 = null;
-                }
-                else
-                {
-                    this.item2 = Menes.JsonReference.FromValue(clrInstance);
-                    this.JsonElement = default;
-                }
-                this.item1 = null;
-            }
-            public ItemsEntity(System.Text.Json.JsonElement jsonElement)
-            {
-                this.item1 = null;
-                this.item2 = null;
-                this.JsonElement = jsonElement;
-            }
-            public bool IsNull => this.item1 is null && this.item2 is null && (this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Undefined || this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Null);
-            public ItemsEntity? AsOptional => this.IsNull ? default(ItemsEntity?) : this;
-            public bool IsLink => this.item1 is Menes.JsonReference || (Link.IsConvertibleFrom(this.JsonElement) && Link.FromJsonElement(this.JsonElement).Validate(Menes.ValidationContext.Root).IsValid);
-            public bool IsLinkCollection => this.item2 is Menes.JsonReference || (LinkCollection.IsConvertibleFrom(this.JsonElement) && LinkCollection.FromJsonElement(this.JsonElement).Validate(Menes.ValidationContext.Root).IsValid);
-            public bool HasJsonElement => this.JsonElement.ValueKind != System.Text.Json.JsonValueKind.Undefined;
-            public System.Text.Json.JsonElement JsonElement { get; }
-            public static explicit operator Link(ItemsEntity value) => value.AsLink();
-            public static implicit operator ItemsEntity(Link value) => new ItemsEntity(value);
-            public static explicit operator LinkCollection(ItemsEntity value) => value.AsLinkCollection();
-            public static implicit operator ItemsEntity(LinkCollection value) => new ItemsEntity(value);
-            public static implicit operator ItemsEntity(Menes.JsonArray<Link> value)
-            {
-                return new ItemsEntity(value);
-            }
-            public static ItemsEntity FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<char> propertyName) =>
-               parentDocument.ValueKind != System.Text.Json.JsonValueKind.Undefined ?
-                    (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
-                        ? new ItemsEntity(property)
-                        : Null)
-                    : Null;
-            public static ItemsEntity FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, string propertyName) =>
-               parentDocument.ValueKind != System.Text.Json.JsonValueKind.Undefined ?
-                    (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
-                        ? new ItemsEntity(property)
-                        : Null)
-                    : Null;
-            public static ItemsEntity FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<byte> utf8PropertyName) =>
-               parentDocument.ValueKind != System.Text.Json.JsonValueKind.Undefined ?
-                    (parentDocument.TryGetProperty(utf8PropertyName, out System.Text.Json.JsonElement property)
-                        ? new ItemsEntity(property)
-                        : Null)
-                    : Null;
-            public static bool IsConvertibleFrom(System.Text.Json.JsonElement jsonElement)
-            {
-                if (Link.IsConvertibleFrom(jsonElement))
-                {
-                    return true;
-                }
-                if (LinkCollection.IsConvertibleFrom(jsonElement))
-                {
-                    return true;
-                }
-                return false;
-            }
-            public Link AsLink() => this.item1?.AsValue<Link>() ?? new Link(this.JsonElement);
-            public LinkCollection AsLinkCollection() => this.item2?.AsValue<LinkCollection>() ?? new LinkCollection(this.JsonElement);
-            public void WriteTo(System.Text.Json.Utf8JsonWriter writer)
-            {
-                if (this.item1 is Menes.JsonReference item1)
-                {
-                    item1.WriteTo(writer);
-                }
-                else if (this.item2 is Menes.JsonReference item2)
-                {
-                    item2.WriteTo(writer);
-                }
-                else
-                {
-                    this.JsonElement.WriteTo(writer);
-                }
-            }
-            public override string ToString()
-            {
-                var builder = new System.Text.StringBuilder();
-                if (this.IsLink)
-                {
-                    builder.Append("{");
-                    builder.Append("Link");
-                    builder.Append(", ");
-                    builder.Append(this.AsLink().ToString());
-                    builder.AppendLine("}");
-                }
-                if (this.IsLinkCollection)
-                {
-                    builder.Append("{");
-                    builder.Append("LinkCollection");
-                    builder.Append(", ");
-                    builder.Append(this.AsLinkCollection().ToString());
-                    builder.AppendLine("}");
-                }
-                return builder.Length > 0 ? builder.ToString() : this.JsonElement.ToString();
-            }
-            public Menes.ValidationContext Validate(in Menes.ValidationContext validationContext)
-            {
-                if (this.IsNull)
-                {
-                    return validationContext;
-                }
-                Menes.ValidationContext validationContext1 = Menes.ValidationContext.Root.WithPath(validationContext.Path);
-                Menes.ValidationContext validationContext2 = Menes.ValidationContext.Root.WithPath(validationContext.Path);
-                if (this.IsLink)
-                {
-                    validationContext1 = this.AsLink().Validate(validationContext1);
-                }
-                else
-                {
-                    validationContext1 = validationContext1.WithError("The value is not convertible to a Link.");
-                }
-                if (this.IsLinkCollection)
-                {
-                    validationContext2 = this.AsLinkCollection().Validate(validationContext2);
-                }
-                else
-                {
-                    validationContext2 = validationContext2.WithError("The value is not convertible to a LinkCollection.");
-                }
-                return Menes.Validation.ValidateAnyOf(validationContext, validationContext1, validationContext2);
             }
         }
         public readonly struct PersonResourceItems : Menes.IJsonValue, System.Collections.Generic.IEnumerable<PersonResource>, System.Collections.IEnumerable, System.IEquatable<PersonResourceItems>, System.IEquatable<Menes.JsonArray<PersonResource>>
@@ -4920,7 +4622,7 @@ namespace OtherExamples
                 this.prev = null;
                 this.additionalPropertiesBacking = null;
             }
-            public LinksEntity(Link self, PagedListResource.ItemsEntity items)
+            public LinksEntity(Link self, LinkCollection items)
             {
                 if (self is Link item1)
                 {
@@ -4930,7 +4632,7 @@ namespace OtherExamples
                 {
                     this.self = null;
                 }
-                if (items is PagedListResource.ItemsEntity item2)
+                if (items is LinkCollection item2)
                 {
                     this.items = Menes.JsonReference.FromValue(item2);
                 }
@@ -4943,7 +4645,7 @@ namespace OtherExamples
                 this.JsonElement = default;
                 this.additionalPropertiesBacking = null;
             }
-            public LinksEntity(Link self, PagedListResource.ItemsEntity items, Link? next, Link? prev, Menes.JsonProperties<PagedListResource.PropertiesEntity> additionalPropertiesBacking)
+            public LinksEntity(Link self, LinkCollection items, Link? next, Link? prev, Menes.JsonProperties<PagedListResource.PropertiesEntity> additionalPropertiesBacking)
             {
                 if (self is Link item1)
                 {
@@ -4953,7 +4655,7 @@ namespace OtherExamples
                 {
                     this.self = null;
                 }
-                if (items is PagedListResource.ItemsEntity item2)
+                if (items is LinkCollection item2)
                 {
                     this.items = Menes.JsonReference.FromValue(item2);
                 }
@@ -4980,7 +4682,7 @@ namespace OtherExamples
                 this.JsonElement = default;
                 this.additionalPropertiesBacking = additionalPropertiesBacking;
             }
-            public LinksEntity(Link self, PagedListResource.ItemsEntity items, Link? next, Link? prev, params (string, PagedListResource.PropertiesEntity)[] additionalPropertiesBacking)
+            public LinksEntity(Link self, LinkCollection items, Link? next, Link? prev, params (string, PagedListResource.PropertiesEntity)[] additionalPropertiesBacking)
             {
                 if (self is Link item1)
                 {
@@ -4990,7 +4692,7 @@ namespace OtherExamples
                 {
                     this.self = null;
                 }
-                if (items is PagedListResource.ItemsEntity item2)
+                if (items is LinkCollection item2)
                 {
                     this.items = Menes.JsonReference.FromValue(item2);
                 }
@@ -5017,7 +4719,7 @@ namespace OtherExamples
                 this.JsonElement = default;
                 this.additionalPropertiesBacking = Menes.JsonProperties<PagedListResource.PropertiesEntity>.FromValues(additionalPropertiesBacking);
             }
-            public LinksEntity(Link self, PagedListResource.ItemsEntity items, Link? next, Link? prev)
+            public LinksEntity(Link self, LinkCollection items, Link? next, Link? prev)
             {
                 if (self is Link item1)
                 {
@@ -5027,7 +4729,7 @@ namespace OtherExamples
                 {
                     this.self = null;
                 }
-                if (items is PagedListResource.ItemsEntity item2)
+                if (items is LinkCollection item2)
                 {
                     this.items = Menes.JsonReference.FromValue(item2);
                 }
@@ -5054,7 +4756,7 @@ namespace OtherExamples
                 this.JsonElement = default;
                 this.additionalPropertiesBacking = null;
             }
-            public LinksEntity(Link self, PagedListResource.ItemsEntity items, Link? next, Link? prev, (string, PagedListResource.PropertiesEntity) additionalProperty1)
+            public LinksEntity(Link self, LinkCollection items, Link? next, Link? prev, (string, PagedListResource.PropertiesEntity) additionalProperty1)
             {
                 if (self is Link item1)
                 {
@@ -5064,7 +4766,7 @@ namespace OtherExamples
                 {
                     this.self = null;
                 }
-                if (items is PagedListResource.ItemsEntity item2)
+                if (items is LinkCollection item2)
                 {
                     this.items = Menes.JsonReference.FromValue(item2);
                 }
@@ -5091,7 +4793,7 @@ namespace OtherExamples
                 this.JsonElement = default;
                 this.additionalPropertiesBacking = Menes.JsonProperties<PagedListResource.PropertiesEntity>.FromValues(additionalProperty1);
             }
-            public LinksEntity(Link self, PagedListResource.ItemsEntity items, Link? next, Link? prev, (string, PagedListResource.PropertiesEntity) additionalProperty1, (string, PagedListResource.PropertiesEntity) additionalProperty2)
+            public LinksEntity(Link self, LinkCollection items, Link? next, Link? prev, (string, PagedListResource.PropertiesEntity) additionalProperty1, (string, PagedListResource.PropertiesEntity) additionalProperty2)
             {
                 if (self is Link item1)
                 {
@@ -5101,7 +4803,7 @@ namespace OtherExamples
                 {
                     this.self = null;
                 }
-                if (items is PagedListResource.ItemsEntity item2)
+                if (items is LinkCollection item2)
                 {
                     this.items = Menes.JsonReference.FromValue(item2);
                 }
@@ -5128,7 +4830,7 @@ namespace OtherExamples
                 this.JsonElement = default;
                 this.additionalPropertiesBacking = Menes.JsonProperties<PagedListResource.PropertiesEntity>.FromValues(additionalProperty1, additionalProperty2);
             }
-            public LinksEntity(Link self, PagedListResource.ItemsEntity items, Link? next, Link? prev, (string, PagedListResource.PropertiesEntity) additionalProperty1, (string, PagedListResource.PropertiesEntity) additionalProperty2, (string, PagedListResource.PropertiesEntity) additionalProperty3)
+            public LinksEntity(Link self, LinkCollection items, Link? next, Link? prev, (string, PagedListResource.PropertiesEntity) additionalProperty1, (string, PagedListResource.PropertiesEntity) additionalProperty2, (string, PagedListResource.PropertiesEntity) additionalProperty3)
             {
                 if (self is Link item1)
                 {
@@ -5138,7 +4840,7 @@ namespace OtherExamples
                 {
                     this.self = null;
                 }
-                if (items is PagedListResource.ItemsEntity item2)
+                if (items is LinkCollection item2)
                 {
                     this.items = Menes.JsonReference.FromValue(item2);
                 }
@@ -5165,7 +4867,7 @@ namespace OtherExamples
                 this.JsonElement = default;
                 this.additionalPropertiesBacking = Menes.JsonProperties<PagedListResource.PropertiesEntity>.FromValues(additionalProperty1, additionalProperty2, additionalProperty3);
             }
-            public LinksEntity(Link self, PagedListResource.ItemsEntity items, Link? next, Link? prev, (string, PagedListResource.PropertiesEntity) additionalProperty1, (string, PagedListResource.PropertiesEntity) additionalProperty2, (string, PagedListResource.PropertiesEntity) additionalProperty3, (string, PagedListResource.PropertiesEntity) additionalProperty4)
+            public LinksEntity(Link self, LinkCollection items, Link? next, Link? prev, (string, PagedListResource.PropertiesEntity) additionalProperty1, (string, PagedListResource.PropertiesEntity) additionalProperty2, (string, PagedListResource.PropertiesEntity) additionalProperty3, (string, PagedListResource.PropertiesEntity) additionalProperty4)
             {
                 if (self is Link item1)
                 {
@@ -5175,7 +4877,7 @@ namespace OtherExamples
                 {
                     this.self = null;
                 }
-                if (items is PagedListResource.ItemsEntity item2)
+                if (items is LinkCollection item2)
                 {
                     this.items = Menes.JsonReference.FromValue(item2);
                 }
@@ -5242,7 +4944,7 @@ namespace OtherExamples
             public bool IsNull => (this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Undefined || this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Null) && (this.self is null || this.self.Value.IsNull) && (this.items is null || this.items.Value.IsNull) && (this.next is null || this.next.Value.IsNull) && (this.prev is null || this.prev.Value.IsNull);
             public PagedListResource.LinksEntity? AsOptional => this.IsNull ? default(PagedListResource.LinksEntity?) : this;
             public Link Self => this.self?.AsValue<Link>() ?? Link.FromOptionalProperty(this.JsonElement, SelfPropertyNameBytes.Span);
-            public PagedListResource.ItemsEntity Items => this.items?.AsValue<PagedListResource.ItemsEntity>() ?? PagedListResource.ItemsEntity.FromOptionalProperty(this.JsonElement, ItemsPropertyNameBytes.Span);
+            public LinkCollection Items => this.items?.AsValue<LinkCollection>() ?? LinkCollection.FromOptionalProperty(this.JsonElement, ItemsPropertyNameBytes.Span);
             public Link? Next => this.next?.AsValue<Link>() ?? Link.FromOptionalProperty(this.JsonElement, NextPropertyNameBytes.Span).AsOptional;
             public Link? Prev => this.prev?.AsValue<Link>() ?? Link.FromOptionalProperty(this.JsonElement, PrevPropertyNameBytes.Span).AsOptional;
             public int PropertiesCount => KnownProperties.Length + this.JsonAdditionalPropertiesCount;
@@ -5306,7 +5008,7 @@ namespace OtherExamples
             {
                 return new PagedListResource.LinksEntity(Menes.JsonReference.FromValue(value), this.GetItems(), this.GetNext(), this.GetPrev(), this.GetJsonProperties());
             }
-            public PagedListResource.LinksEntity WithItems(PagedListResource.ItemsEntity value)
+            public PagedListResource.LinksEntity WithItems(LinkCollection value)
             {
                 return new PagedListResource.LinksEntity(this.GetSelf(), Menes.JsonReference.FromValue(value), this.GetNext(), this.GetPrev(), this.GetJsonProperties());
             }
@@ -6695,9 +6397,9 @@ namespace OtherExamples
                     this.prev = null;
                     this.additionalPropertiesBacking = null;
                 }
-                public LinksEntity(PagedListResource.PagedListResourceEntity.LinksEntity.ItemsEntity items)
+                public LinksEntity(LinkCollection items)
                 {
-                    if (items is PagedListResource.PagedListResourceEntity.LinksEntity.ItemsEntity item1)
+                    if (items is LinkCollection item1)
                     {
                         this.items = Menes.JsonReference.FromValue(item1);
                     }
@@ -6710,9 +6412,9 @@ namespace OtherExamples
                     this.JsonElement = default;
                     this.additionalPropertiesBacking = null;
                 }
-                public LinksEntity(PagedListResource.PagedListResourceEntity.LinksEntity.ItemsEntity items, Link? next, Link? prev, Menes.JsonProperties<PagedListResource.PagedListResourceEntity.LinksEntity.PropertiesEntity> additionalPropertiesBacking)
+                public LinksEntity(LinkCollection items, Link? next, Link? prev, Menes.JsonProperties<PagedListResource.PagedListResourceEntity.LinksEntity.PropertiesEntity> additionalPropertiesBacking)
                 {
-                    if (items is PagedListResource.PagedListResourceEntity.LinksEntity.ItemsEntity item1)
+                    if (items is LinkCollection item1)
                     {
                         this.items = Menes.JsonReference.FromValue(item1);
                     }
@@ -6739,9 +6441,9 @@ namespace OtherExamples
                     this.JsonElement = default;
                     this.additionalPropertiesBacking = additionalPropertiesBacking;
                 }
-                public LinksEntity(PagedListResource.PagedListResourceEntity.LinksEntity.ItemsEntity items, Link? next, Link? prev, params (string, PagedListResource.PagedListResourceEntity.LinksEntity.PropertiesEntity)[] additionalPropertiesBacking)
+                public LinksEntity(LinkCollection items, Link? next, Link? prev, params (string, PagedListResource.PagedListResourceEntity.LinksEntity.PropertiesEntity)[] additionalPropertiesBacking)
                 {
-                    if (items is PagedListResource.PagedListResourceEntity.LinksEntity.ItemsEntity item1)
+                    if (items is LinkCollection item1)
                     {
                         this.items = Menes.JsonReference.FromValue(item1);
                     }
@@ -6768,9 +6470,9 @@ namespace OtherExamples
                     this.JsonElement = default;
                     this.additionalPropertiesBacking = Menes.JsonProperties<PagedListResource.PagedListResourceEntity.LinksEntity.PropertiesEntity>.FromValues(additionalPropertiesBacking);
                 }
-                public LinksEntity(PagedListResource.PagedListResourceEntity.LinksEntity.ItemsEntity items, Link? next, Link? prev)
+                public LinksEntity(LinkCollection items, Link? next, Link? prev)
                 {
-                    if (items is PagedListResource.PagedListResourceEntity.LinksEntity.ItemsEntity item1)
+                    if (items is LinkCollection item1)
                     {
                         this.items = Menes.JsonReference.FromValue(item1);
                     }
@@ -6797,9 +6499,9 @@ namespace OtherExamples
                     this.JsonElement = default;
                     this.additionalPropertiesBacking = null;
                 }
-                public LinksEntity(PagedListResource.PagedListResourceEntity.LinksEntity.ItemsEntity items, Link? next, Link? prev, (string, PagedListResource.PagedListResourceEntity.LinksEntity.PropertiesEntity) additionalProperty1)
+                public LinksEntity(LinkCollection items, Link? next, Link? prev, (string, PagedListResource.PagedListResourceEntity.LinksEntity.PropertiesEntity) additionalProperty1)
                 {
-                    if (items is PagedListResource.PagedListResourceEntity.LinksEntity.ItemsEntity item1)
+                    if (items is LinkCollection item1)
                     {
                         this.items = Menes.JsonReference.FromValue(item1);
                     }
@@ -6826,9 +6528,9 @@ namespace OtherExamples
                     this.JsonElement = default;
                     this.additionalPropertiesBacking = Menes.JsonProperties<PagedListResource.PagedListResourceEntity.LinksEntity.PropertiesEntity>.FromValues(additionalProperty1);
                 }
-                public LinksEntity(PagedListResource.PagedListResourceEntity.LinksEntity.ItemsEntity items, Link? next, Link? prev, (string, PagedListResource.PagedListResourceEntity.LinksEntity.PropertiesEntity) additionalProperty1, (string, PagedListResource.PagedListResourceEntity.LinksEntity.PropertiesEntity) additionalProperty2)
+                public LinksEntity(LinkCollection items, Link? next, Link? prev, (string, PagedListResource.PagedListResourceEntity.LinksEntity.PropertiesEntity) additionalProperty1, (string, PagedListResource.PagedListResourceEntity.LinksEntity.PropertiesEntity) additionalProperty2)
                 {
-                    if (items is PagedListResource.PagedListResourceEntity.LinksEntity.ItemsEntity item1)
+                    if (items is LinkCollection item1)
                     {
                         this.items = Menes.JsonReference.FromValue(item1);
                     }
@@ -6855,9 +6557,9 @@ namespace OtherExamples
                     this.JsonElement = default;
                     this.additionalPropertiesBacking = Menes.JsonProperties<PagedListResource.PagedListResourceEntity.LinksEntity.PropertiesEntity>.FromValues(additionalProperty1, additionalProperty2);
                 }
-                public LinksEntity(PagedListResource.PagedListResourceEntity.LinksEntity.ItemsEntity items, Link? next, Link? prev, (string, PagedListResource.PagedListResourceEntity.LinksEntity.PropertiesEntity) additionalProperty1, (string, PagedListResource.PagedListResourceEntity.LinksEntity.PropertiesEntity) additionalProperty2, (string, PagedListResource.PagedListResourceEntity.LinksEntity.PropertiesEntity) additionalProperty3)
+                public LinksEntity(LinkCollection items, Link? next, Link? prev, (string, PagedListResource.PagedListResourceEntity.LinksEntity.PropertiesEntity) additionalProperty1, (string, PagedListResource.PagedListResourceEntity.LinksEntity.PropertiesEntity) additionalProperty2, (string, PagedListResource.PagedListResourceEntity.LinksEntity.PropertiesEntity) additionalProperty3)
                 {
-                    if (items is PagedListResource.PagedListResourceEntity.LinksEntity.ItemsEntity item1)
+                    if (items is LinkCollection item1)
                     {
                         this.items = Menes.JsonReference.FromValue(item1);
                     }
@@ -6884,9 +6586,9 @@ namespace OtherExamples
                     this.JsonElement = default;
                     this.additionalPropertiesBacking = Menes.JsonProperties<PagedListResource.PagedListResourceEntity.LinksEntity.PropertiesEntity>.FromValues(additionalProperty1, additionalProperty2, additionalProperty3);
                 }
-                public LinksEntity(PagedListResource.PagedListResourceEntity.LinksEntity.ItemsEntity items, Link? next, Link? prev, (string, PagedListResource.PagedListResourceEntity.LinksEntity.PropertiesEntity) additionalProperty1, (string, PagedListResource.PagedListResourceEntity.LinksEntity.PropertiesEntity) additionalProperty2, (string, PagedListResource.PagedListResourceEntity.LinksEntity.PropertiesEntity) additionalProperty3, (string, PagedListResource.PagedListResourceEntity.LinksEntity.PropertiesEntity) additionalProperty4)
+                public LinksEntity(LinkCollection items, Link? next, Link? prev, (string, PagedListResource.PagedListResourceEntity.LinksEntity.PropertiesEntity) additionalProperty1, (string, PagedListResource.PagedListResourceEntity.LinksEntity.PropertiesEntity) additionalProperty2, (string, PagedListResource.PagedListResourceEntity.LinksEntity.PropertiesEntity) additionalProperty3, (string, PagedListResource.PagedListResourceEntity.LinksEntity.PropertiesEntity) additionalProperty4)
                 {
-                    if (items is PagedListResource.PagedListResourceEntity.LinksEntity.ItemsEntity item1)
+                    if (items is LinkCollection item1)
                     {
                         this.items = Menes.JsonReference.FromValue(item1);
                     }
@@ -6944,7 +6646,7 @@ namespace OtherExamples
                 }
                 public bool IsNull => (this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Undefined || this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Null) && (this.items is null || this.items.Value.IsNull) && (this.next is null || this.next.Value.IsNull) && (this.prev is null || this.prev.Value.IsNull);
                 public PagedListResource.PagedListResourceEntity.LinksEntity? AsOptional => this.IsNull ? default(PagedListResource.PagedListResourceEntity.LinksEntity?) : this;
-                public PagedListResource.PagedListResourceEntity.LinksEntity.ItemsEntity Items => this.items?.AsValue<PagedListResource.PagedListResourceEntity.LinksEntity.ItemsEntity>() ?? PagedListResource.PagedListResourceEntity.LinksEntity.ItemsEntity.FromOptionalProperty(this.JsonElement, ItemsPropertyNameBytes.Span);
+                public LinkCollection Items => this.items?.AsValue<LinkCollection>() ?? LinkCollection.FromOptionalProperty(this.JsonElement, ItemsPropertyNameBytes.Span);
                 public Link? Next => this.next?.AsValue<Link>() ?? Link.FromOptionalProperty(this.JsonElement, NextPropertyNameBytes.Span).AsOptional;
                 public Link? Prev => this.prev?.AsValue<Link>() ?? Link.FromOptionalProperty(this.JsonElement, PrevPropertyNameBytes.Span).AsOptional;
                 public int PropertiesCount => KnownProperties.Length + this.JsonAdditionalPropertiesCount;
@@ -7004,7 +6706,7 @@ namespace OtherExamples
                             ? new PagedListResource.PagedListResourceEntity.LinksEntity(property)
                             : Null)
                     : Null;
-                public PagedListResource.PagedListResourceEntity.LinksEntity WithItems(PagedListResource.PagedListResourceEntity.LinksEntity.ItemsEntity value)
+                public PagedListResource.PagedListResourceEntity.LinksEntity WithItems(LinkCollection value)
                 {
                     return new PagedListResource.PagedListResourceEntity.LinksEntity(Menes.JsonReference.FromValue(value), this.GetNext(), this.GetPrev(), this.GetJsonProperties());
                 }
@@ -7452,155 +7154,6 @@ namespace OtherExamples
                         return Menes.Validation.ValidateAnyOf(validationContext, validationContext1, validationContext2);
                     }
                 }
-                public readonly struct ItemsEntity : Menes.IJsonValue
-                {
-                    public static readonly ItemsEntity Null = new ItemsEntity(default(System.Text.Json.JsonElement));
-                    public static readonly System.Func<System.Text.Json.JsonElement, PagedListResource.PagedListResourceEntity.LinksEntity.ItemsEntity> FromJsonElement = e => new PagedListResource.PagedListResourceEntity.LinksEntity.ItemsEntity(e);
-                    private readonly Menes.JsonReference? item1;
-                    private readonly Menes.JsonReference? item2;
-                    public ItemsEntity(Link clrInstance)
-                    {
-                        if (clrInstance.HasJsonElement)
-                        {
-                            this.JsonElement = clrInstance.JsonElement;
-                            this.item1 = null;
-                        }
-                        else
-                        {
-                            this.item1 = Menes.JsonReference.FromValue(clrInstance);
-                            this.JsonElement = default;
-                        }
-                        this.item2 = null;
-                    }
-                    public ItemsEntity(LinkCollection clrInstance)
-                    {
-                        if (clrInstance.HasJsonElement)
-                        {
-                            this.JsonElement = clrInstance.JsonElement;
-                            this.item2 = null;
-                        }
-                        else
-                        {
-                            this.item2 = Menes.JsonReference.FromValue(clrInstance);
-                            this.JsonElement = default;
-                        }
-                        this.item1 = null;
-                    }
-                    public ItemsEntity(System.Text.Json.JsonElement jsonElement)
-                    {
-                        this.item1 = null;
-                        this.item2 = null;
-                        this.JsonElement = jsonElement;
-                    }
-                    public bool IsNull => this.item1 is null && this.item2 is null && (this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Undefined || this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Null);
-                    public ItemsEntity? AsOptional => this.IsNull ? default(ItemsEntity?) : this;
-                    public bool IsLink => this.item1 is Menes.JsonReference || (Link.IsConvertibleFrom(this.JsonElement) && Link.FromJsonElement(this.JsonElement).Validate(Menes.ValidationContext.Root).IsValid);
-                    public bool IsLinkCollection => this.item2 is Menes.JsonReference || (LinkCollection.IsConvertibleFrom(this.JsonElement) && LinkCollection.FromJsonElement(this.JsonElement).Validate(Menes.ValidationContext.Root).IsValid);
-                    public bool HasJsonElement => this.JsonElement.ValueKind != System.Text.Json.JsonValueKind.Undefined;
-                    public System.Text.Json.JsonElement JsonElement { get; }
-                    public static explicit operator Link(ItemsEntity value) => value.AsLink();
-                    public static implicit operator ItemsEntity(Link value) => new ItemsEntity(value);
-                    public static explicit operator LinkCollection(ItemsEntity value) => value.AsLinkCollection();
-                    public static implicit operator ItemsEntity(LinkCollection value) => new ItemsEntity(value);
-                    public static implicit operator ItemsEntity(Menes.JsonArray<Link> value)
-                    {
-                        return new ItemsEntity(value);
-                    }
-                    public static ItemsEntity FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<char> propertyName) =>
-                       parentDocument.ValueKind != System.Text.Json.JsonValueKind.Undefined ?
-                            (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
-                                ? new ItemsEntity(property)
-                                : Null)
-                            : Null;
-                    public static ItemsEntity FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, string propertyName) =>
-                       parentDocument.ValueKind != System.Text.Json.JsonValueKind.Undefined ?
-                            (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
-                                ? new ItemsEntity(property)
-                                : Null)
-                            : Null;
-                    public static ItemsEntity FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<byte> utf8PropertyName) =>
-                       parentDocument.ValueKind != System.Text.Json.JsonValueKind.Undefined ?
-                            (parentDocument.TryGetProperty(utf8PropertyName, out System.Text.Json.JsonElement property)
-                                ? new ItemsEntity(property)
-                                : Null)
-                            : Null;
-                    public static bool IsConvertibleFrom(System.Text.Json.JsonElement jsonElement)
-                    {
-                        if (Link.IsConvertibleFrom(jsonElement))
-                        {
-                            return true;
-                        }
-                        if (LinkCollection.IsConvertibleFrom(jsonElement))
-                        {
-                            return true;
-                        }
-                        return false;
-                    }
-                    public Link AsLink() => this.item1?.AsValue<Link>() ?? new Link(this.JsonElement);
-                    public LinkCollection AsLinkCollection() => this.item2?.AsValue<LinkCollection>() ?? new LinkCollection(this.JsonElement);
-                    public void WriteTo(System.Text.Json.Utf8JsonWriter writer)
-                    {
-                        if (this.item1 is Menes.JsonReference item1)
-                        {
-                            item1.WriteTo(writer);
-                        }
-                        else if (this.item2 is Menes.JsonReference item2)
-                        {
-                            item2.WriteTo(writer);
-                        }
-                        else
-                        {
-                            this.JsonElement.WriteTo(writer);
-                        }
-                    }
-                    public override string ToString()
-                    {
-                        var builder = new System.Text.StringBuilder();
-                        if (this.IsLink)
-                        {
-                            builder.Append("{");
-                            builder.Append("Link");
-                            builder.Append(", ");
-                            builder.Append(this.AsLink().ToString());
-                            builder.AppendLine("}");
-                        }
-                        if (this.IsLinkCollection)
-                        {
-                            builder.Append("{");
-                            builder.Append("LinkCollection");
-                            builder.Append(", ");
-                            builder.Append(this.AsLinkCollection().ToString());
-                            builder.AppendLine("}");
-                        }
-                        return builder.Length > 0 ? builder.ToString() : this.JsonElement.ToString();
-                    }
-                    public Menes.ValidationContext Validate(in Menes.ValidationContext validationContext)
-                    {
-                        if (this.IsNull)
-                        {
-                            return validationContext;
-                        }
-                        Menes.ValidationContext validationContext1 = Menes.ValidationContext.Root.WithPath(validationContext.Path);
-                        Menes.ValidationContext validationContext2 = Menes.ValidationContext.Root.WithPath(validationContext.Path);
-                        if (this.IsLink)
-                        {
-                            validationContext1 = this.AsLink().Validate(validationContext1);
-                        }
-                        else
-                        {
-                            validationContext1 = validationContext1.WithError("The value is not convertible to a Link.");
-                        }
-                        if (this.IsLinkCollection)
-                        {
-                            validationContext2 = this.AsLinkCollection().Validate(validationContext2);
-                        }
-                        else
-                        {
-                            validationContext2 = validationContext2.WithError("The value is not convertible to a LinkCollection.");
-                        }
-                        return Menes.Validation.ValidateAnyOf(validationContext, validationContext1, validationContext2);
-                    }
-                }
             }
         }
 
@@ -7674,155 +7227,6 @@ namespace OtherExamples
                parentDocument.ValueKind != System.Text.Json.JsonValueKind.Undefined ?
                     (parentDocument.TryGetProperty(utf8PropertyName, out System.Text.Json.JsonElement property)
                         ? new PropertiesEntity(property)
-                        : Null)
-                    : Null;
-            public static bool IsConvertibleFrom(System.Text.Json.JsonElement jsonElement)
-            {
-                if (Link.IsConvertibleFrom(jsonElement))
-                {
-                    return true;
-                }
-                if (LinkCollection.IsConvertibleFrom(jsonElement))
-                {
-                    return true;
-                }
-                return false;
-            }
-            public Link AsLink() => this.item1?.AsValue<Link>() ?? new Link(this.JsonElement);
-            public LinkCollection AsLinkCollection() => this.item2?.AsValue<LinkCollection>() ?? new LinkCollection(this.JsonElement);
-            public void WriteTo(System.Text.Json.Utf8JsonWriter writer)
-            {
-                if (this.item1 is Menes.JsonReference item1)
-                {
-                    item1.WriteTo(writer);
-                }
-                else if (this.item2 is Menes.JsonReference item2)
-                {
-                    item2.WriteTo(writer);
-                }
-                else
-                {
-                    this.JsonElement.WriteTo(writer);
-                }
-            }
-            public override string ToString()
-            {
-                var builder = new System.Text.StringBuilder();
-                if (this.IsLink)
-                {
-                    builder.Append("{");
-                    builder.Append("Link");
-                    builder.Append(", ");
-                    builder.Append(this.AsLink().ToString());
-                    builder.AppendLine("}");
-                }
-                if (this.IsLinkCollection)
-                {
-                    builder.Append("{");
-                    builder.Append("LinkCollection");
-                    builder.Append(", ");
-                    builder.Append(this.AsLinkCollection().ToString());
-                    builder.AppendLine("}");
-                }
-                return builder.Length > 0 ? builder.ToString() : this.JsonElement.ToString();
-            }
-            public Menes.ValidationContext Validate(in Menes.ValidationContext validationContext)
-            {
-                if (this.IsNull)
-                {
-                    return validationContext;
-                }
-                Menes.ValidationContext validationContext1 = Menes.ValidationContext.Root.WithPath(validationContext.Path);
-                Menes.ValidationContext validationContext2 = Menes.ValidationContext.Root.WithPath(validationContext.Path);
-                if (this.IsLink)
-                {
-                    validationContext1 = this.AsLink().Validate(validationContext1);
-                }
-                else
-                {
-                    validationContext1 = validationContext1.WithError("The value is not convertible to a Link.");
-                }
-                if (this.IsLinkCollection)
-                {
-                    validationContext2 = this.AsLinkCollection().Validate(validationContext2);
-                }
-                else
-                {
-                    validationContext2 = validationContext2.WithError("The value is not convertible to a LinkCollection.");
-                }
-                return Menes.Validation.ValidateAnyOf(validationContext, validationContext1, validationContext2);
-            }
-        }
-        public readonly struct ItemsEntity : Menes.IJsonValue
-        {
-            public static readonly ItemsEntity Null = new ItemsEntity(default(System.Text.Json.JsonElement));
-            public static readonly System.Func<System.Text.Json.JsonElement, PagedListResource.ItemsEntity> FromJsonElement = e => new PagedListResource.ItemsEntity(e);
-            private readonly Menes.JsonReference? item1;
-            private readonly Menes.JsonReference? item2;
-            public ItemsEntity(Link clrInstance)
-            {
-                if (clrInstance.HasJsonElement)
-                {
-                    this.JsonElement = clrInstance.JsonElement;
-                    this.item1 = null;
-                }
-                else
-                {
-                    this.item1 = Menes.JsonReference.FromValue(clrInstance);
-                    this.JsonElement = default;
-                }
-                this.item2 = null;
-            }
-            public ItemsEntity(LinkCollection clrInstance)
-            {
-                if (clrInstance.HasJsonElement)
-                {
-                    this.JsonElement = clrInstance.JsonElement;
-                    this.item2 = null;
-                }
-                else
-                {
-                    this.item2 = Menes.JsonReference.FromValue(clrInstance);
-                    this.JsonElement = default;
-                }
-                this.item1 = null;
-            }
-            public ItemsEntity(System.Text.Json.JsonElement jsonElement)
-            {
-                this.item1 = null;
-                this.item2 = null;
-                this.JsonElement = jsonElement;
-            }
-            public bool IsNull => this.item1 is null && this.item2 is null && (this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Undefined || this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Null);
-            public ItemsEntity? AsOptional => this.IsNull ? default(ItemsEntity?) : this;
-            public bool IsLink => this.item1 is Menes.JsonReference || (Link.IsConvertibleFrom(this.JsonElement) && Link.FromJsonElement(this.JsonElement).Validate(Menes.ValidationContext.Root).IsValid);
-            public bool IsLinkCollection => this.item2 is Menes.JsonReference || (LinkCollection.IsConvertibleFrom(this.JsonElement) && LinkCollection.FromJsonElement(this.JsonElement).Validate(Menes.ValidationContext.Root).IsValid);
-            public bool HasJsonElement => this.JsonElement.ValueKind != System.Text.Json.JsonValueKind.Undefined;
-            public System.Text.Json.JsonElement JsonElement { get; }
-            public static explicit operator Link(ItemsEntity value) => value.AsLink();
-            public static implicit operator ItemsEntity(Link value) => new ItemsEntity(value);
-            public static explicit operator LinkCollection(ItemsEntity value) => value.AsLinkCollection();
-            public static implicit operator ItemsEntity(LinkCollection value) => new ItemsEntity(value);
-            public static implicit operator ItemsEntity(Menes.JsonArray<Link> value)
-            {
-                return new ItemsEntity(value);
-            }
-            public static ItemsEntity FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<char> propertyName) =>
-               parentDocument.ValueKind != System.Text.Json.JsonValueKind.Undefined ?
-                    (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
-                        ? new ItemsEntity(property)
-                        : Null)
-                    : Null;
-            public static ItemsEntity FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, string propertyName) =>
-               parentDocument.ValueKind != System.Text.Json.JsonValueKind.Undefined ?
-                    (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
-                        ? new ItemsEntity(property)
-                        : Null)
-                    : Null;
-            public static ItemsEntity FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<byte> utf8PropertyName) =>
-               parentDocument.ValueKind != System.Text.Json.JsonValueKind.Undefined ?
-                    (parentDocument.TryGetProperty(utf8PropertyName, out System.Text.Json.JsonElement property)
-                        ? new ItemsEntity(property)
                         : Null)
                     : Null;
             public static bool IsConvertibleFrom(System.Text.Json.JsonElement jsonElement)
