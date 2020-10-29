@@ -68,14 +68,22 @@ namespace Menes.Sandbox
                     links: new GeneratedPerson.LinksEntity(
                         self: new Link("http://endjin.com/something"),
                         primaryName: new Link("http://endjin.com/somename"),
-                        ("foo", new Link("http://endjin.com/something")),
+                        ("foo", new Link("http://endjin.com/something/fooIsh")),
                         ("bar", new Link("http://endjin.com/something")),
                         ("baz", JsonArray.Create(new Link("http://endjin.com/something"), new Link("http://endjin.com/somethingelse")))));
 
             Validate(person);
 
             person = person.WithLinks(
-                person.Links.Add(("woz", new Link("http://apple.com"))));
+                person.Links
+                    .Remove(FilterFooIshLinks)
+                    .Remove("baz")
+                    .Add(("woz", new Link("http://apple.com"))));
+
+            static bool FilterFooIshLinks(JsonPropertyReference<Links> p)
+            {
+                return p.AsValue().IsLink && p.AsValue().AsLink().Href.CreateOrGetClrUri().GetLeftPart(UriPartial.Path).EndsWith("fooIsh");
+            }
 
             ReadOnlyMemory<byte> serializedPerson = Serialize(person);
             var document = JsonDocument.Parse(serializedPerson);
