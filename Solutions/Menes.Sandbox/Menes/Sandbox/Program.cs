@@ -7,6 +7,7 @@ namespace Menes.Sandbox
     using System;
     using System.Buffers;
     using System.Collections.Generic;
+    using System.Diagnostics;
     using System.Linq;
     using System.Text;
     using System.Text.Json;
@@ -119,8 +120,12 @@ namespace Menes.Sandbox
         private static void Validate<T>(T value)
             where T : struct, IJsonValue
         {
+            var sw = Stopwatch.StartNew();
             ValidationContext validationContext = ValidationContext.Root;
             validationContext = value.Validate(validationContext);
+            sw.Stop();
+            Console.WriteLine($"Took: {sw.ElapsedMilliseconds}ms");
+
             if (validationContext.IsValid)
             {
                 Console.WriteLine($"Valid {typeof(T).Name}!");

@@ -1013,5 +1013,581 @@ namespace Examples
                 return new Menes.JsonProperties<EmbeddedResources>(System.Collections.Immutable.ImmutableArray.ToImmutableArray(this.JsonAdditionalProperties));
             }
         }
+
+        public readonly struct AdditionalPropertiesEntity : Menes.IJsonObject, System.IEquatable<GeneratedPerson.AdditionalPropertiesEntity>, Menes.IJsonAdditionalProperties<Menes.JsonAny>
+        {
+            public static readonly GeneratedPerson.AdditionalPropertiesEntity Null = new GeneratedPerson.AdditionalPropertiesEntity(default(System.Text.Json.JsonElement));
+            public static readonly System.Func<System.Text.Json.JsonElement, GeneratedPerson.AdditionalPropertiesEntity> FromJsonElement = e => new GeneratedPerson.AdditionalPropertiesEntity(e);
+            private const string LinksPropertyNamePath = "._links";
+            private static readonly System.ReadOnlyMemory<byte> LinksPropertyNameBytes = new byte[] { 95, 108, 105, 110, 107, 115 };
+            private static readonly System.Text.Json.JsonEncodedText EncodedLinksPropertyName = System.Text.Json.JsonEncodedText.Encode(LinksPropertyNameBytes.Span);
+            private static readonly System.Collections.Immutable.ImmutableArray<System.ReadOnlyMemory<byte>> KnownProperties = System.Collections.Immutable.ImmutableArray.Create(LinksPropertyNameBytes);
+            private readonly Menes.JsonReference? links;
+            private readonly Menes.JsonProperties<Menes.JsonAny>? additionalPropertiesBacking;
+            public AdditionalPropertiesEntity(System.Text.Json.JsonElement jsonElement)
+            {
+                this.JsonElement = jsonElement;
+                this.links = null;
+                this.additionalPropertiesBacking = null;
+            }
+            public AdditionalPropertiesEntity(GeneratedPerson.AdditionalPropertiesEntity.LinksEntity links)
+            {
+                if (links is GeneratedPerson.AdditionalPropertiesEntity.LinksEntity item1)
+                {
+                    this.links = Menes.JsonReference.FromValue(item1);
+                }
+                else
+                {
+                    this.links = null;
+                }
+                this.JsonElement = default;
+                this.additionalPropertiesBacking = null;
+            }
+            public AdditionalPropertiesEntity(GeneratedPerson.AdditionalPropertiesEntity.LinksEntity links, params (string, Menes.JsonAny)[] additionalPropertiesBacking)
+            {
+                if (links is GeneratedPerson.AdditionalPropertiesEntity.LinksEntity item1)
+                {
+                    this.links = Menes.JsonReference.FromValue(item1);
+                }
+                else
+                {
+                    this.links = null;
+                }
+                this.JsonElement = default;
+                this.additionalPropertiesBacking = Menes.JsonProperties<Menes.JsonAny>.FromValues(additionalPropertiesBacking);
+            }
+            public AdditionalPropertiesEntity(GeneratedPerson.AdditionalPropertiesEntity.LinksEntity links, (string, Menes.JsonAny) additionalProperty1)
+            {
+                if (links is GeneratedPerson.AdditionalPropertiesEntity.LinksEntity item1)
+                {
+                    this.links = Menes.JsonReference.FromValue(item1);
+                }
+                else
+                {
+                    this.links = null;
+                }
+                this.JsonElement = default;
+                this.additionalPropertiesBacking = Menes.JsonProperties<Menes.JsonAny>.FromValues(additionalProperty1);
+            }
+            public AdditionalPropertiesEntity(GeneratedPerson.AdditionalPropertiesEntity.LinksEntity links, (string, Menes.JsonAny) additionalProperty1, (string, Menes.JsonAny) additionalProperty2)
+            {
+                if (links is GeneratedPerson.AdditionalPropertiesEntity.LinksEntity item1)
+                {
+                    this.links = Menes.JsonReference.FromValue(item1);
+                }
+                else
+                {
+                    this.links = null;
+                }
+                this.JsonElement = default;
+                this.additionalPropertiesBacking = Menes.JsonProperties<Menes.JsonAny>.FromValues(additionalProperty1, additionalProperty2);
+            }
+            public AdditionalPropertiesEntity(GeneratedPerson.AdditionalPropertiesEntity.LinksEntity links, (string, Menes.JsonAny) additionalProperty1, (string, Menes.JsonAny) additionalProperty2, (string, Menes.JsonAny) additionalProperty3)
+            {
+                if (links is GeneratedPerson.AdditionalPropertiesEntity.LinksEntity item1)
+                {
+                    this.links = Menes.JsonReference.FromValue(item1);
+                }
+                else
+                {
+                    this.links = null;
+                }
+                this.JsonElement = default;
+                this.additionalPropertiesBacking = Menes.JsonProperties<Menes.JsonAny>.FromValues(additionalProperty1, additionalProperty2, additionalProperty3);
+            }
+            public AdditionalPropertiesEntity(GeneratedPerson.AdditionalPropertiesEntity.LinksEntity links, (string, Menes.JsonAny) additionalProperty1, (string, Menes.JsonAny) additionalProperty2, (string, Menes.JsonAny) additionalProperty3, (string, Menes.JsonAny) additionalProperty4)
+            {
+                if (links is GeneratedPerson.AdditionalPropertiesEntity.LinksEntity item1)
+                {
+                    this.links = Menes.JsonReference.FromValue(item1);
+                }
+                else
+                {
+                    this.links = null;
+                }
+                this.JsonElement = default;
+                this.additionalPropertiesBacking = Menes.JsonProperties<Menes.JsonAny>.FromValues(additionalProperty1, additionalProperty2, additionalProperty3, additionalProperty4);
+            }
+            private AdditionalPropertiesEntity(Menes.JsonReference links, Menes.JsonProperties<Menes.JsonAny>? additionalPropertiesBacking)
+            {
+                if (links is Menes.JsonReference item1)
+                {
+                    this.links = item1;
+                }
+                else
+                {
+                    this.links = null;
+                }
+                this.JsonElement = default;
+                this.additionalPropertiesBacking = additionalPropertiesBacking;
+            }
+            public bool IsNull => (this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Undefined || this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Null) && (this.links is null || this.links.Value.IsNull);
+            public GeneratedPerson.AdditionalPropertiesEntity? AsOptional => this.IsNull ? default(GeneratedPerson.AdditionalPropertiesEntity?) : this;
+            public GeneratedPerson.AdditionalPropertiesEntity.LinksEntity Links => this.links?.AsValue<GeneratedPerson.AdditionalPropertiesEntity.LinksEntity>() ?? GeneratedPerson.AdditionalPropertiesEntity.LinksEntity.FromOptionalProperty(this.JsonElement, LinksPropertyNameBytes.Span);
+            public int PropertiesCount => KnownProperties.Length + this.JsonAdditionalPropertiesCount;
+            public int JsonAdditionalPropertiesCount
+            {
+                get
+                {
+                    Menes.JsonProperties<Menes.JsonAny>.JsonPropertyEnumerator enumerator = this.JsonAdditionalProperties;
+                    int count = 0;
+
+                    while (enumerator.MoveNext())
+                    {
+                        count++;
+                    }
+
+                    return count;
+                }
+            }
+            public bool HasJsonElement => this.JsonElement.ValueKind != System.Text.Json.JsonValueKind.Undefined;
+            public System.Text.Json.JsonElement JsonElement { get; }
+            public Menes.JsonProperties<Menes.JsonAny>.JsonPropertyEnumerator JsonAdditionalProperties
+            {
+                get
+                {
+                    if (this.additionalPropertiesBacking is Menes.JsonProperties<Menes.JsonAny> ap)
+                    {
+                        return new Menes.JsonProperties<Menes.JsonAny>.JsonPropertyEnumerator(ap, KnownProperties);
+                    }
+
+                    if (this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Object)
+                    {
+                        return new Menes.JsonProperties<Menes.JsonAny>.JsonPropertyEnumerator(this.JsonElement, KnownProperties);
+                    }
+
+                    return new Menes.JsonProperties<Menes.JsonAny>.JsonPropertyEnumerator(Menes.JsonProperties<Menes.JsonAny>.Empty, KnownProperties);
+                }
+            }
+            public static bool IsConvertibleFrom(System.Text.Json.JsonElement jsonElement)
+            {
+                return jsonElement.ValueKind == System.Text.Json.JsonValueKind.Object || jsonElement.ValueKind == System.Text.Json.JsonValueKind.Null;
+            }
+            public static GeneratedPerson.AdditionalPropertiesEntity FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<char> propertyName) =>
+               parentDocument.ValueKind != System.Text.Json.JsonValueKind.Undefined ?
+                    (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
+                        ? new GeneratedPerson.AdditionalPropertiesEntity(property)
+                        : Null)
+                    : Null;
+            public static GeneratedPerson.AdditionalPropertiesEntity FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, string propertyName) =>
+               parentDocument.ValueKind != System.Text.Json.JsonValueKind.Undefined ?
+                    (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
+                        ? new GeneratedPerson.AdditionalPropertiesEntity(property)
+                        : Null)
+                    : Null;
+            public static GeneratedPerson.AdditionalPropertiesEntity FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<byte> utf8PropertyName) =>
+               parentDocument.ValueKind != System.Text.Json.JsonValueKind.Undefined ?
+                    (parentDocument.TryGetProperty(utf8PropertyName, out System.Text.Json.JsonElement property)
+                        ? new GeneratedPerson.AdditionalPropertiesEntity(property)
+                        : Null)
+                : Null;
+            public GeneratedPerson.AdditionalPropertiesEntity WithLinks(GeneratedPerson.AdditionalPropertiesEntity.LinksEntity value)
+            {
+                return new GeneratedPerson.AdditionalPropertiesEntity(Menes.JsonReference.FromValue(value), this.GetJsonProperties());
+            }
+            public GeneratedPerson.AdditionalPropertiesEntity WithAdditionalProperties(Menes.JsonProperties<Menes.JsonAny> newAdditional)
+            {
+                return new GeneratedPerson.AdditionalPropertiesEntity(this.GetLinks(), newAdditional);
+            }
+            public GeneratedPerson.AdditionalPropertiesEntity WithAdditionalProperties(params (string, Menes.JsonAny)[] newAdditional)
+            {
+                return new GeneratedPerson.AdditionalPropertiesEntity(this.GetLinks(), Menes.JsonProperties<Menes.JsonAny>.FromValues(newAdditional));
+            }
+            public GeneratedPerson.AdditionalPropertiesEntity WithAdditionalProperties((string, Menes.JsonAny) newAdditional1)
+            {
+                return new GeneratedPerson.AdditionalPropertiesEntity(this.GetLinks(), Menes.JsonProperties<Menes.JsonAny>.FromValues(newAdditional1));
+            }
+            public GeneratedPerson.AdditionalPropertiesEntity WithAdditionalProperties((string, Menes.JsonAny) newAdditional1, (string, Menes.JsonAny) newAdditional2)
+            {
+                return new GeneratedPerson.AdditionalPropertiesEntity(this.GetLinks(), Menes.JsonProperties<Menes.JsonAny>.FromValues(newAdditional1, newAdditional2));
+            }
+            public GeneratedPerson.AdditionalPropertiesEntity WithAdditionalProperties((string, Menes.JsonAny) newAdditional1, (string, Menes.JsonAny) newAdditional2, (string, Menes.JsonAny) newAdditional3)
+            {
+                return new GeneratedPerson.AdditionalPropertiesEntity(this.GetLinks(), Menes.JsonProperties<Menes.JsonAny>.FromValues(newAdditional1, newAdditional2, newAdditional3));
+            }
+            public GeneratedPerson.AdditionalPropertiesEntity WithAdditionalProperties((string, Menes.JsonAny) newAdditional1, (string, Menes.JsonAny) newAdditional2, (string, Menes.JsonAny) newAdditional3, (string, Menes.JsonAny) newAdditional4)
+            {
+                return new GeneratedPerson.AdditionalPropertiesEntity(this.GetLinks(), Menes.JsonProperties<Menes.JsonAny>.FromValues(newAdditional1, newAdditional2, newAdditional3, newAdditional4));
+            }
+            public void WriteTo(System.Text.Json.Utf8JsonWriter writer)
+            {
+                if (this.HasJsonElement)
+                {
+                    this.JsonElement.WriteTo(writer);
+                }
+                else
+                {
+                    writer.WriteStartObject();
+                    if (this.links is Menes.JsonReference links)
+                    {
+                        writer.WritePropertyName(EncodedLinksPropertyName);
+                        links.WriteTo(writer);
+                    }
+                    Menes.JsonProperties<Menes.JsonAny>.JsonPropertyEnumerator enumerator = this.JsonAdditionalProperties;
+                    while (enumerator.MoveNext())
+                    {
+                        enumerator.Current.Write(writer);
+                    }
+                    writer.WriteEndObject();
+                }
+            }
+            public bool Equals(GeneratedPerson.AdditionalPropertiesEntity other)
+            {
+                if ((this.IsNull && !other.IsNull) || (!this.IsNull && other.IsNull))
+                {
+                    return false;
+                }
+                if (this.HasJsonElement && other.HasJsonElement)
+                {
+                    return Menes.JsonAny.From(this).Equals(Menes.JsonAny.From(other));
+                }
+                return this.Links.Equals(other.Links) && System.Linq.Enumerable.SequenceEqual(this.JsonAdditionalProperties, other.JsonAdditionalProperties);
+            }
+            public Menes.ValidationContext Validate(in Menes.ValidationContext validationContext)
+            {
+                Menes.ValidationContext context = validationContext;
+                context = Menes.Validation.ValidateRequiredProperty(context, this.Links, LinksPropertyNamePath);
+                foreach (Menes.JsonPropertyReference<Menes.JsonAny> property in this.JsonAdditionalProperties)
+                {
+                    context = Menes.Validation.ValidateProperty(context, property.AsValue(), "." + property.Name);
+                }
+                return context;
+            }
+            public bool TryGet(string propertyName, [System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out Menes.JsonAny value)
+            {
+                return this.TryGet(System.MemoryExtensions.AsSpan(propertyName), out value);
+            }
+            public bool TryGet(System.ReadOnlySpan<byte> utf8PropertyName, [System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out Menes.JsonAny value)
+            {
+                foreach (Menes.JsonPropertyReference<Menes.JsonAny> property in this.JsonAdditionalProperties)
+                {
+                    if (property.NameEquals(utf8PropertyName))
+                    {
+                        value = property.AsValue();
+                        return true;
+                    }
+                }
+                value = default;
+                return false;
+            }
+            public bool TryGet(System.ReadOnlySpan<char> propertyName, [System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out Menes.JsonAny value)
+            {
+                System.Span<byte> bytes = stackalloc byte[propertyName.Length * 4];
+                int written = System.Text.Encoding.UTF8.GetBytes(propertyName, bytes);
+                return this.TryGet(bytes.Slice(0, written), out value);
+            }
+            public override string ToString()
+            {
+                return Menes.JsonAny.From(this).ToString();
+            }
+            private Menes.JsonReference GetLinks()
+            {
+                if (this.links is Menes.JsonReference reference)
+                {
+                    return reference;
+                }
+                if (this.HasJsonElement && this.JsonElement.TryGetProperty(LinksPropertyNameBytes.Span, out System.Text.Json.JsonElement value))
+                {
+                    return new Menes.JsonReference(value);
+                }
+                return default;
+            }
+            private Menes.JsonProperties<Menes.JsonAny> GetJsonProperties()
+            {
+                if (this.additionalPropertiesBacking is Menes.JsonProperties<Menes.JsonAny> props)
+                {
+                    return props;
+                }
+                return new Menes.JsonProperties<Menes.JsonAny>(System.Collections.Immutable.ImmutableArray.ToImmutableArray(this.JsonAdditionalProperties));
+            }
+
+            public readonly struct LinksEntity : Menes.IJsonObject, System.IEquatable<GeneratedPerson.AdditionalPropertiesEntity.LinksEntity>, Menes.IJsonAdditionalProperties<Links>
+            {
+                public static readonly GeneratedPerson.AdditionalPropertiesEntity.LinksEntity Null = new GeneratedPerson.AdditionalPropertiesEntity.LinksEntity(default(System.Text.Json.JsonElement));
+                public static readonly System.Func<System.Text.Json.JsonElement, GeneratedPerson.AdditionalPropertiesEntity.LinksEntity> FromJsonElement = e => new GeneratedPerson.AdditionalPropertiesEntity.LinksEntity(e);
+                private const string PrimaryNamePropertyNamePath = ".primaryName";
+                private static readonly System.ReadOnlyMemory<byte> PrimaryNamePropertyNameBytes = new byte[] { 112, 114, 105, 109, 97, 114, 121, 78, 97, 109, 101 };
+                private static readonly System.Text.Json.JsonEncodedText EncodedPrimaryNamePropertyName = System.Text.Json.JsonEncodedText.Encode(PrimaryNamePropertyNameBytes.Span);
+                private static readonly System.Collections.Immutable.ImmutableArray<System.ReadOnlyMemory<byte>> KnownProperties = System.Collections.Immutable.ImmutableArray.Create(PrimaryNamePropertyNameBytes);
+                private readonly Menes.JsonReference? primaryName;
+                private readonly Menes.JsonProperties<Links>? additionalPropertiesBacking;
+                public LinksEntity(System.Text.Json.JsonElement jsonElement)
+                {
+                    this.JsonElement = jsonElement;
+                    this.primaryName = null;
+                    this.additionalPropertiesBacking = null;
+                }
+                public LinksEntity(Link primaryName)
+                {
+                    if (primaryName is Link item1)
+                    {
+                        this.primaryName = Menes.JsonReference.FromValue(item1);
+                    }
+                    else
+                    {
+                        this.primaryName = null;
+                    }
+                    this.JsonElement = default;
+                    this.additionalPropertiesBacking = null;
+                }
+                public LinksEntity(Link primaryName, params (string, Links)[] additionalPropertiesBacking)
+                {
+                    if (primaryName is Link item1)
+                    {
+                        this.primaryName = Menes.JsonReference.FromValue(item1);
+                    }
+                    else
+                    {
+                        this.primaryName = null;
+                    }
+                    this.JsonElement = default;
+                    this.additionalPropertiesBacking = Menes.JsonProperties<Links>.FromValues(additionalPropertiesBacking);
+                }
+                public LinksEntity(Link primaryName, (string, Links) additionalProperty1)
+                {
+                    if (primaryName is Link item1)
+                    {
+                        this.primaryName = Menes.JsonReference.FromValue(item1);
+                    }
+                    else
+                    {
+                        this.primaryName = null;
+                    }
+                    this.JsonElement = default;
+                    this.additionalPropertiesBacking = Menes.JsonProperties<Links>.FromValues(additionalProperty1);
+                }
+                public LinksEntity(Link primaryName, (string, Links) additionalProperty1, (string, Links) additionalProperty2)
+                {
+                    if (primaryName is Link item1)
+                    {
+                        this.primaryName = Menes.JsonReference.FromValue(item1);
+                    }
+                    else
+                    {
+                        this.primaryName = null;
+                    }
+                    this.JsonElement = default;
+                    this.additionalPropertiesBacking = Menes.JsonProperties<Links>.FromValues(additionalProperty1, additionalProperty2);
+                }
+                public LinksEntity(Link primaryName, (string, Links) additionalProperty1, (string, Links) additionalProperty2, (string, Links) additionalProperty3)
+                {
+                    if (primaryName is Link item1)
+                    {
+                        this.primaryName = Menes.JsonReference.FromValue(item1);
+                    }
+                    else
+                    {
+                        this.primaryName = null;
+                    }
+                    this.JsonElement = default;
+                    this.additionalPropertiesBacking = Menes.JsonProperties<Links>.FromValues(additionalProperty1, additionalProperty2, additionalProperty3);
+                }
+                public LinksEntity(Link primaryName, (string, Links) additionalProperty1, (string, Links) additionalProperty2, (string, Links) additionalProperty3, (string, Links) additionalProperty4)
+                {
+                    if (primaryName is Link item1)
+                    {
+                        this.primaryName = Menes.JsonReference.FromValue(item1);
+                    }
+                    else
+                    {
+                        this.primaryName = null;
+                    }
+                    this.JsonElement = default;
+                    this.additionalPropertiesBacking = Menes.JsonProperties<Links>.FromValues(additionalProperty1, additionalProperty2, additionalProperty3, additionalProperty4);
+                }
+                private LinksEntity(Menes.JsonReference primaryName, Menes.JsonProperties<Links>? additionalPropertiesBacking)
+                {
+                    if (primaryName is Menes.JsonReference item1)
+                    {
+                        this.primaryName = item1;
+                    }
+                    else
+                    {
+                        this.primaryName = null;
+                    }
+                    this.JsonElement = default;
+                    this.additionalPropertiesBacking = additionalPropertiesBacking;
+                }
+                public bool IsNull => (this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Undefined || this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Null) && (this.primaryName is null || this.primaryName.Value.IsNull);
+                public GeneratedPerson.AdditionalPropertiesEntity.LinksEntity? AsOptional => this.IsNull ? default(GeneratedPerson.AdditionalPropertiesEntity.LinksEntity?) : this;
+                public Link PrimaryName => this.primaryName?.AsValue<Link>() ?? Link.FromOptionalProperty(this.JsonElement, PrimaryNamePropertyNameBytes.Span);
+                public int PropertiesCount => KnownProperties.Length + this.JsonAdditionalPropertiesCount;
+                public int JsonAdditionalPropertiesCount
+                {
+                    get
+                    {
+                        Menes.JsonProperties<Links>.JsonPropertyEnumerator enumerator = this.JsonAdditionalProperties;
+                        int count = 0;
+
+                        while (enumerator.MoveNext())
+                        {
+                            count++;
+                        }
+
+                        return count;
+                    }
+                }
+                public bool HasJsonElement => this.JsonElement.ValueKind != System.Text.Json.JsonValueKind.Undefined;
+                public System.Text.Json.JsonElement JsonElement { get; }
+                public Menes.JsonProperties<Links>.JsonPropertyEnumerator JsonAdditionalProperties
+                {
+                    get
+                    {
+                        if (this.additionalPropertiesBacking is Menes.JsonProperties<Links> ap)
+                        {
+                            return new Menes.JsonProperties<Links>.JsonPropertyEnumerator(ap, KnownProperties);
+                        }
+
+                        if (this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Object)
+                        {
+                            return new Menes.JsonProperties<Links>.JsonPropertyEnumerator(this.JsonElement, KnownProperties);
+                        }
+
+                        return new Menes.JsonProperties<Links>.JsonPropertyEnumerator(Menes.JsonProperties<Links>.Empty, KnownProperties);
+                    }
+                }
+                public static bool IsConvertibleFrom(System.Text.Json.JsonElement jsonElement)
+                {
+                    return jsonElement.ValueKind == System.Text.Json.JsonValueKind.Object || jsonElement.ValueKind == System.Text.Json.JsonValueKind.Null;
+                }
+                public static GeneratedPerson.AdditionalPropertiesEntity.LinksEntity FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<char> propertyName) =>
+                   parentDocument.ValueKind != System.Text.Json.JsonValueKind.Undefined ?
+                        (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
+                            ? new GeneratedPerson.AdditionalPropertiesEntity.LinksEntity(property)
+                            : Null)
+                        : Null;
+                public static GeneratedPerson.AdditionalPropertiesEntity.LinksEntity FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, string propertyName) =>
+                   parentDocument.ValueKind != System.Text.Json.JsonValueKind.Undefined ?
+                        (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
+                            ? new GeneratedPerson.AdditionalPropertiesEntity.LinksEntity(property)
+                            : Null)
+                        : Null;
+                public static GeneratedPerson.AdditionalPropertiesEntity.LinksEntity FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<byte> utf8PropertyName) =>
+                   parentDocument.ValueKind != System.Text.Json.JsonValueKind.Undefined ?
+                        (parentDocument.TryGetProperty(utf8PropertyName, out System.Text.Json.JsonElement property)
+                            ? new GeneratedPerson.AdditionalPropertiesEntity.LinksEntity(property)
+                            : Null)
+                    : Null;
+                public GeneratedPerson.AdditionalPropertiesEntity.LinksEntity WithPrimaryName(Link value)
+                {
+                    return new GeneratedPerson.AdditionalPropertiesEntity.LinksEntity(Menes.JsonReference.FromValue(value), this.GetJsonProperties());
+                }
+                public GeneratedPerson.AdditionalPropertiesEntity.LinksEntity WithAdditionalProperties(Menes.JsonProperties<Links> newAdditional)
+                {
+                    return new GeneratedPerson.AdditionalPropertiesEntity.LinksEntity(this.GetPrimaryName(), newAdditional);
+                }
+                public GeneratedPerson.AdditionalPropertiesEntity.LinksEntity WithAdditionalProperties(params (string, Links)[] newAdditional)
+                {
+                    return new GeneratedPerson.AdditionalPropertiesEntity.LinksEntity(this.GetPrimaryName(), Menes.JsonProperties<Links>.FromValues(newAdditional));
+                }
+                public GeneratedPerson.AdditionalPropertiesEntity.LinksEntity WithAdditionalProperties((string, Links) newAdditional1)
+                {
+                    return new GeneratedPerson.AdditionalPropertiesEntity.LinksEntity(this.GetPrimaryName(), Menes.JsonProperties<Links>.FromValues(newAdditional1));
+                }
+                public GeneratedPerson.AdditionalPropertiesEntity.LinksEntity WithAdditionalProperties((string, Links) newAdditional1, (string, Links) newAdditional2)
+                {
+                    return new GeneratedPerson.AdditionalPropertiesEntity.LinksEntity(this.GetPrimaryName(), Menes.JsonProperties<Links>.FromValues(newAdditional1, newAdditional2));
+                }
+                public GeneratedPerson.AdditionalPropertiesEntity.LinksEntity WithAdditionalProperties((string, Links) newAdditional1, (string, Links) newAdditional2, (string, Links) newAdditional3)
+                {
+                    return new GeneratedPerson.AdditionalPropertiesEntity.LinksEntity(this.GetPrimaryName(), Menes.JsonProperties<Links>.FromValues(newAdditional1, newAdditional2, newAdditional3));
+                }
+                public GeneratedPerson.AdditionalPropertiesEntity.LinksEntity WithAdditionalProperties((string, Links) newAdditional1, (string, Links) newAdditional2, (string, Links) newAdditional3, (string, Links) newAdditional4)
+                {
+                    return new GeneratedPerson.AdditionalPropertiesEntity.LinksEntity(this.GetPrimaryName(), Menes.JsonProperties<Links>.FromValues(newAdditional1, newAdditional2, newAdditional3, newAdditional4));
+                }
+                public void WriteTo(System.Text.Json.Utf8JsonWriter writer)
+                {
+                    if (this.HasJsonElement)
+                    {
+                        this.JsonElement.WriteTo(writer);
+                    }
+                    else
+                    {
+                        writer.WriteStartObject();
+                        if (this.primaryName is Menes.JsonReference primaryName)
+                        {
+                            writer.WritePropertyName(EncodedPrimaryNamePropertyName);
+                            primaryName.WriteTo(writer);
+                        }
+                        Menes.JsonProperties<Links>.JsonPropertyEnumerator enumerator = this.JsonAdditionalProperties;
+                        while (enumerator.MoveNext())
+                        {
+                            enumerator.Current.Write(writer);
+                        }
+                        writer.WriteEndObject();
+                    }
+                }
+                public bool Equals(GeneratedPerson.AdditionalPropertiesEntity.LinksEntity other)
+                {
+                    if ((this.IsNull && !other.IsNull) || (!this.IsNull && other.IsNull))
+                    {
+                        return false;
+                    }
+                    if (this.HasJsonElement && other.HasJsonElement)
+                    {
+                        return Menes.JsonAny.From(this).Equals(Menes.JsonAny.From(other));
+                    }
+                    return this.PrimaryName.Equals(other.PrimaryName) && System.Linq.Enumerable.SequenceEqual(this.JsonAdditionalProperties, other.JsonAdditionalProperties);
+                }
+                public Menes.ValidationContext Validate(in Menes.ValidationContext validationContext)
+                {
+                    Menes.ValidationContext context = validationContext;
+                    context = Menes.Validation.ValidateRequiredProperty(context, this.PrimaryName, PrimaryNamePropertyNamePath);
+                    foreach (Menes.JsonPropertyReference<Links> property in this.JsonAdditionalProperties)
+                    {
+                        context = Menes.Validation.ValidateProperty(context, property.AsValue(), "." + property.Name);
+                    }
+                    return context;
+                }
+                public bool TryGet(string propertyName, [System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out Links value)
+                {
+                    return this.TryGet(System.MemoryExtensions.AsSpan(propertyName), out value);
+                }
+                public bool TryGet(System.ReadOnlySpan<byte> utf8PropertyName, [System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out Links value)
+                {
+                    foreach (Menes.JsonPropertyReference<Links> property in this.JsonAdditionalProperties)
+                    {
+                        if (property.NameEquals(utf8PropertyName))
+                        {
+                            value = property.AsValue();
+                            return true;
+                        }
+                    }
+                    value = default;
+                    return false;
+                }
+                public bool TryGet(System.ReadOnlySpan<char> propertyName, [System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out Links value)
+                {
+                    System.Span<byte> bytes = stackalloc byte[propertyName.Length * 4];
+                    int written = System.Text.Encoding.UTF8.GetBytes(propertyName, bytes);
+                    return this.TryGet(bytes.Slice(0, written), out value);
+                }
+                public override string ToString()
+                {
+                    return Menes.JsonAny.From(this).ToString();
+                }
+                private Menes.JsonReference GetPrimaryName()
+                {
+                    if (this.primaryName is Menes.JsonReference reference)
+                    {
+                        return reference;
+                    }
+                    if (this.HasJsonElement && this.JsonElement.TryGetProperty(PrimaryNamePropertyNameBytes.Span, out System.Text.Json.JsonElement value))
+                    {
+                        return new Menes.JsonReference(value);
+                    }
+                    return default;
+                }
+                private Menes.JsonProperties<Links> GetJsonProperties()
+                {
+                    if (this.additionalPropertiesBacking is Menes.JsonProperties<Links> props)
+                    {
+                        return props;
+                    }
+                    return new Menes.JsonProperties<Links>(System.Collections.Immutable.ImmutableArray.ToImmutableArray(this.JsonAdditionalProperties));
+                }
+            }
+        }
     }
 }

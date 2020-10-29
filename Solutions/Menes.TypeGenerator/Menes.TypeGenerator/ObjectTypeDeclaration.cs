@@ -330,11 +330,16 @@ namespace Menes.TypeGenerator
                 }
 
                 int index = 0;
+                if (allOf.Count > 0)
+                {
+                    builder.AppendLine($"Menes.JsonAny thisAsAny = Menes.JsonAny.From(this);");
+                }
+
                 foreach (ITypeDeclaration allOfType in allOf)
                 {
                     string allOfFullyQualifiedName = allOfType.GetFullyQualifiedName();
                     string allOfTypeNameCamelCase = StringFormatter.ToCamelCaseWithReservedWords(allOfType.Name);
-                    builder.AppendLine($"{allOfFullyQualifiedName} {allOfTypeNameCamelCase}Value = Menes.JsonAny.From(value).As<{allOfFullyQualifiedName}>();");
+                    builder.AppendLine($"{allOfFullyQualifiedName} {allOfTypeNameCamelCase}Value = thisAsAny.As<{allOfFullyQualifiedName}>();");
                     builder.AppendLine($"            allOfValidationContext{index + 1} = {allOfTypeNameCamelCase}Value.Validate(allOfValidationContext{index + 1});");
                     index++;
                 }

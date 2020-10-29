@@ -258,16 +258,14 @@ namespace Menes.Json.Schema.TypeGenerator
                         {
                             await this.PopulateObject(typeDeclaration, aos, doc, uri).ConfigureAwait(false);
                         }
-                        else
-                        {
-                            ITypeDeclaration? aotd = await this.GetTypeDeclarationFor(aos, doc, uri).ConfigureAwait(false);
-                            if (!(aotd is ITypeDeclaration a))
-                            {
-                                throw new InvalidOperationException($"Unable to find a type declartion for {aos}");
-                            }
 
-                            typeDeclaration.AddAllOfType(a);
+                        ITypeDeclaration? aotd = await this.GetTypeDeclarationFor(aos, doc, uri).ConfigureAwait(false);
+                        if (!(aotd is ITypeDeclaration a))
+                        {
+                            throw new InvalidOperationException($"Unable to find a type declartion for {aos}");
                         }
+
+                        typeDeclaration.AddAllOfType(a);
                     }
                 }
             }
