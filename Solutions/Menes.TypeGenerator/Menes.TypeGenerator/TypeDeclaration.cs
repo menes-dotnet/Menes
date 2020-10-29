@@ -141,7 +141,7 @@ namespace Menes.TypeGenerator
         public abstract TypeDeclarationSyntax GenerateType();
 
         /// <inheritdoc/>
-        public IDeclaration GetTypeDeclaration(string name)
+        public ITypeDeclaration GetTypeDeclaration(string name)
         {
             if (this.typeDeclarations.TryGetValue(name, out ITypeDeclaration declaration))
             {

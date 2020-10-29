@@ -83,7 +83,7 @@ namespace Menes.TypeGenerator
         }
 
         /// <inheritdoc/>
-        public IDeclaration GetTypeDeclaration(string name)
+        public ITypeDeclaration GetTypeDeclaration(string name)
         {
             throw new ArgumentException($"The {nameof(VoidTypeDeclaration)} does not contain child declarations.", nameof(name));
         }

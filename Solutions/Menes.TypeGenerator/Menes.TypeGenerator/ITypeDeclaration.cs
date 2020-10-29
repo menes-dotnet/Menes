@@ -81,7 +81,7 @@ namespace Menes.TypeGenerator
         /// <param name="name">The name of the declaration to get.</param>
         /// <returns>An instance of the type with that name.</returns>
         /// <exception cref="ArgumentException">The type with that name was not present in this scope.</exception>
-        IDeclaration GetTypeDeclaration(string name);
+        ITypeDeclaration GetTypeDeclaration(string name);
 
         /// <summary>
         /// Adds a child type declaration to this type.

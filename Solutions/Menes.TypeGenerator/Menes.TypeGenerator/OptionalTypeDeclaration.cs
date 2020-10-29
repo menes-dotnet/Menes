@@ -94,7 +94,7 @@ namespace Menes.TypeGenerator
         }
 
         /// <inheritdoc/>
-        public IDeclaration GetTypeDeclaration(string name)
+        public ITypeDeclaration GetTypeDeclaration(string name)
         {
             return this.TypeDeclaration.GetTypeDeclaration(name);
         }

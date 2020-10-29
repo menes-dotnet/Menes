@@ -313,7 +313,7 @@ namespace Menes.TypeGenerator
         }
 
         /// <inheritdoc/>
-        public IDeclaration GetTypeDeclaration(string name)
+        public ITypeDeclaration GetTypeDeclaration(string name)
         {
             throw new NotSupportedException();
         }

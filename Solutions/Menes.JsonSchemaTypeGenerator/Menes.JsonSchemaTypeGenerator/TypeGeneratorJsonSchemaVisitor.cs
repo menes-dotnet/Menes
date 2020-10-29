@@ -143,7 +143,7 @@ namespace Menes.Json.Schema.TypeGenerator
             return additionalPropertiesType;
         }
 
-        private async Task<JsonSchema?> GetSchemaFor(JsonSchema.SchemaOrReference? schemaOrReference, JsonDocument rootDocument, string baseUri)
+        private async Task<(string, JsonDocument, JsonSchema)?> GetSchemaFor(JsonSchema.SchemaOrReference? schemaOrReference, JsonDocument rootDocument, string baseUri)
         {
             if (!(schemaOrReference is JsonSchema.SchemaOrReference sor))
             {
@@ -152,10 +152,10 @@ namespace Menes.Json.Schema.TypeGenerator
 
             if (sor.IsSchemaReference)
             {
-                (_, _, sor) = await sor.Resolve(baseUri, rootDocument, this.documentResolver).ConfigureAwait(false);
+                (baseUri, rootDocument, sor) = await sor.Resolve(baseUri, rootDocument, this.documentResolver).ConfigureAwait(false);
             }
 
-            return sor.AsJsonSchema();
+            return (baseUri, rootDocument, sor.AsJsonSchema());
         }
 
         private async Task<ITypeDeclaration?> GetTypeDeclarationFor(JsonSchema.SchemaOrReference? schemaOrReference, JsonDocument rootDocument, string baseUri)
@@ -180,6 +180,13 @@ namespace Menes.Json.Schema.TypeGenerator
             if (this.typeDeclarations.TryGetValue(name, out ITypeDeclaration result))
             {
                 return result;
+            }
+
+            if (schema.Id is null && this.declarationStack.Peek().ContainsTypeDeclaration(name))
+            {
+                ITypeDeclaration td = this.declarationStack.Peek().GetTypeDeclaration(name);
+                await this.PopulateTypeDeclarationFor(td, schema, document, uri).ConfigureAwait(false);
+                return td;
             }
 
             return await this.BuildTypeCore(schema, document, uri).ConfigureAwait(false);
@@ -242,18 +249,18 @@ namespace Menes.Json.Schema.TypeGenerator
 
             if (schema.AllOf is JsonSchema.ValidatedArrayOfSchemaOrReference allOf)
             {
-                List<JsonSchema>? allOfSchemas = await this.GetSchemasFor(allOf, rootDocument, baseUri).ConfigureAwait(false);
-                if (allOfSchemas is List<JsonSchema> aoses)
+                List<(string, JsonDocument, JsonSchema)>? allOfSchemas = await this.GetSchemasFor(allOf, rootDocument, baseUri).ConfigureAwait(false);
+                if (allOfSchemas is List<(string, JsonDocument, JsonSchema)> aoses)
                 {
-                    foreach (JsonSchema aos in aoses)
+                    foreach ((string uri, JsonDocument doc, JsonSchema aos) in aoses)
                     {
                         if (aos.IsObjectType())
                         {
-                            await this.PopulateObject(typeDeclaration, aos, rootDocument, baseUri).ConfigureAwait(false);
+                            await this.PopulateObject(typeDeclaration, aos, doc, uri).ConfigureAwait(false);
                         }
                         else
                         {
-                            ITypeDeclaration? aotd = await this.GetTypeDeclarationFor(aos, rootDocument, baseUri).ConfigureAwait(false);
+                            ITypeDeclaration? aotd = await this.GetTypeDeclarationFor(aos, doc, uri).ConfigureAwait(false);
                             if (!(aotd is ITypeDeclaration a))
                             {
                                 throw new InvalidOperationException($"Unable to find a type declartion for {aos}");
@@ -453,25 +460,25 @@ namespace Menes.Json.Schema.TypeGenerator
             validatedJsonValueTypeDeclaration.PatternValidation = schema.Pattern;
         }
 
-        private async Task<List<JsonSchema>?> GetSchemasFor(JsonSchema.ValidatedArrayOfSchemaOrReference schemas, JsonDocument rootDocument, string baseUri)
+        private async Task<List<(string, JsonDocument, JsonSchema)>?> GetSchemasFor(JsonSchema.ValidatedArrayOfSchemaOrReference schemas, JsonDocument rootDocument, string baseUri)
         {
             if (!(schemas is JsonSchema.ValidatedArrayOfSchemaOrReference s))
             {
                 return null;
             }
 
-            var result = new List<JsonSchema>();
+            var result = new List<(string, JsonDocument, JsonSchema)>();
 
             foreach (JsonSchema.SchemaOrReference sor in s)
             {
-                JsonSchema? item = await this.GetSchemaFor(sor, rootDocument, baseUri).ConfigureAwait(false);
+                (string, JsonDocument, JsonSchema)? item = await this.GetSchemaFor(sor, rootDocument, baseUri).ConfigureAwait(false);
 
-                if (!(item is JsonSchema js))
+                if (item is null)
                 {
                     throw new InvalidOperationException($"Unable to find the schema for {sor}");
                 }
 
-                result.Add(js);
+                result.Add(item.Value!);
             }
 
             return result;

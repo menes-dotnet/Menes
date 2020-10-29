@@ -1,0 +1,36 @@
+{
+  "schemas": {
+    "Person": {
+      "$id": "person.json#/schemas/Person",
+      "type": "object",
+      "allOf": [
+        { "$ref": "resourcesAndLinks.json#/schemas/Resource" },
+        {
+          "type": "object",
+          "required": [
+            "_links"
+          ],
+          "properties": {
+            "_links": {
+              "type": "object",
+              "title": "Hyperlinks",
+              "description": "Represents a hyperlink from the containing resource to a URI.",
+              "required": [
+                "primaryName"
+              ],
+              "properties": {
+                "primaryName": {
+                  "$ref": "resourcesAndLinks.json#/schemas/Link"
+                }
+              },
+              "additionalProperties": {
+                "$ref": "resourcesAndLinks.json#/schemas/Links"
+              }
+            }
+          },
+          "additionalProperties": true
+        }
+      ]
+    }
+  }
+}

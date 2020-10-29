@@ -52,6 +52,7 @@ namespace Menes.Sandbox
             ////return UseJsonSchemaModel("exampleschema2.json");
             ////return GenerateTypesForSchema("exampleschema2.json");
             ////return GenerateTypesForSchema("resourcesAndLinks.json#/schemas/Resource");
+            ////return GenerateTypesForSchema("person.json#/schemas/Person");
 
             UseGeneratedCode();
             return Task.CompletedTask;
@@ -59,6 +60,17 @@ namespace Menes.Sandbox
 
         private static void UseGeneratedCode()
         {
+            var person =
+                new GeneratedPerson(
+                    links: new GeneratedPerson.LinksEntity(
+                        self: new Link("http://endjin.com/something"),
+                        primaryName: new Link("http://endjin.com/somename"),
+                        ("foo", new Link("http://endjin.com/something")),
+                        ("bar", new Link("http://endjin.com/something")),
+                        ("baz", JsonArray.Create(new Link("http://endjin.com/something"), new Link("http://endjin.com/somethingelse")))));
+
+            Validate(person);
+
             var resource =
                 new Resource(
                     links: new Resource.LinksEntity(
