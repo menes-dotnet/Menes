@@ -1596,9 +1596,9 @@
             "description": "The suffix to the person's name"
           },
           "otherNames": {
+            "type": "array",
             "maxItems": 10,
             "minItems": 0,
-            "type": "array",
             "items": {
               "maxLength": 50,
               "minLength": 0,
@@ -1831,6 +1831,7 @@
           "status",
           "detail"
         ],
+        "type":  "object",
         "properties": {
           "status": {
             "type": "integer",
@@ -2045,6 +2046,7 @@
         "description": "A resource representation of an address"
       },
       "LatLongPoint": {
+        "type":  "object",
         "properties": {
           "type": {
             "enum": [
@@ -2064,6 +2066,7 @@
         "description": "A point defined by latitude and longitude in geojson format."
       },
       "EmailAddress": {
+        "type":  "object",
         "required": [
           "address"
         ],

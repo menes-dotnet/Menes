@@ -96,6 +96,12 @@ namespace Menes.Json.Schema.TypeGenerator
                 };
             }
 
+            // If we have defined any properties, treat it as an object
+            if (schema.Properties.HasValue)
+            {
+                return this.CreateObject(schema, name);
+            }
+
             return this.CreateAny(schema, name);
         }
 
@@ -530,37 +536,7 @@ namespace Menes.Json.Schema.TypeGenerator
             }
             else if (schema.IsArrayType())
             {
-                string itemsName;
-
-                if (schema.Items is JsonSchema.SchemaOrReference itemsRef)
-                {
-                    if (itemsRef.IsSchemaReference)
-                    {
-                        var jsonRef = new JsonRef(itemsRef.AsSchemaReference().Ref);
-                        if (jsonRef.HasPointer)
-                        {
-                            itemsName = this.GetName(jsonRef.Pointer);
-                        }
-                        else if (jsonRef.HasUri)
-                        {
-                            itemsName = this.GetName(jsonRef.Uri);
-                        }
-                        else
-                        {
-                            itemsName = string.Empty;
-                        }
-                    }
-                    else
-                    {
-                        itemsName = this.GetName(itemsRef.AsJsonSchema());
-                    }
-                }
-                else
-                {
-                    itemsName = "JsonAny";
-                }
-
-                return itemsName + this.GetName(this.propertyNameStack.Peek());
+                return this.GetName(this.propertyNameStack.Peek()) + "Array";
             }
             else
             {

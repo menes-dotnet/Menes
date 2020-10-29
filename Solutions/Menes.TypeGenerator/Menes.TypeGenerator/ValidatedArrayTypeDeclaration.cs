@@ -103,6 +103,30 @@ namespace Menes.TypeGenerator
             }
 
             builder.AppendLine($"    private readonly Menes.JsonArray<{itemFullyQualifiedName}>? value;");
+
+            if (this.ItemType is ValidatedJsonValueTypeDeclaration vjvtd)
+            {
+                string validatedTypeName = vjvtd.ValidatedType!.GetFullyQualifiedName();
+                builder.AppendLine($"    public {name}(Menes.JsonArray<{validatedTypeName}> jsonArray)");
+                builder.AppendLine("    {");
+                builder.AppendLine($"        if (jsonArray.HasJsonElement)");
+                builder.AppendLine("        {");
+                builder.AppendLine("            this.JsonElement = jsonArray.JsonElement;");
+                builder.AppendLine("            this.value = null;");
+                builder.AppendLine("        }");
+                builder.AppendLine("        else");
+                builder.AppendLine("        {");
+                builder.AppendLine($"               System.Collections.Immutable.ImmutableArray<{itemFullyQualifiedName}>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<{itemFullyQualifiedName}>();");
+                builder.AppendLine($"               foreach ({vjvtd.ValidatedType!.GetFullyQualifiedName()} item in jsonArray)");
+                builder.AppendLine("               {");
+                builder.AppendLine($"                   arrayBuilder.Add(item);");
+                builder.AppendLine("               }");
+                builder.AppendLine("            this.value = Menes.JsonArray.Create(arrayBuilder.ToImmutable());");
+                builder.AppendLine("            this.JsonElement = default;");
+                builder.AppendLine("        }");
+                builder.AppendLine("    }");
+            }
+
             builder.AppendLine($"    public {name}(Menes.JsonArray<{itemFullyQualifiedName}> jsonArray)");
             builder.AppendLine("    {");
             builder.AppendLine($"        if (jsonArray.HasJsonElement)");
@@ -142,6 +166,17 @@ namespace Menes.TypeGenerator
             builder.AppendLine($"    public {name}? AsOptional => this.IsNull ? default({name}?) : this;");
             builder.AppendLine("    public bool HasJsonElement => this.JsonElement.ValueKind != System.Text.Json.JsonValueKind.Undefined;");
             builder.AppendLine("    public System.Text.Json.JsonElement JsonElement { get; }");
+
+            if (this.ItemType is ValidatedJsonValueTypeDeclaration vjvtd2)
+            {
+                string validatedTypeName = vjvtd2.ValidatedType!.GetFullyQualifiedName();
+
+                builder.AppendLine($"    public static implicit operator {name}(Menes.JsonArray<{validatedTypeName}> value)");
+                builder.AppendLine("    {");
+                builder.AppendLine($"        return new {name}(value);");
+                builder.AppendLine("    }");
+            }
+
             builder.AppendLine($"    public static implicit operator {name}(Menes.JsonArray<{itemFullyQualifiedName}> value)");
             builder.AppendLine("    {");
             builder.AppendLine($"        return new {name}(value);");

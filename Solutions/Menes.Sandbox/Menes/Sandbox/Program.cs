@@ -55,13 +55,18 @@ namespace Menes.Sandbox
             ////return GenerateTypesForSchema("exampleschema2.json");
             ////return GenerateTypesForSchema("resourcesAndLinks.json#/schemas/Resource");
             ////return GenerateTypesForSchema("person.json#/schemas/Person");
-            ////return GenerateTypesForSchema("peopleApi.json#/components/schemas/PersonListResource", "./output/");
+            return GenerateTypesForSchema(new[] { "peopleApi.json#/components/schemas/PersonListResource", "peopleApi.json#/components/schemas/EmailAddressListResource", "peopleApi.json#/components/schemas/TelephoneNumberListResource", "peopleApi.json#/components/schemas/RelatedPeopleListResource", "peopleApi.json#/components/schemas/PersonNameListResource" }, "./output/");
 
-            return UseGeneratedCode();
+            ////return UseGeneratedCode();
         }
 
         private static Task UseGeneratedCode()
         {
+            var personName = new PersonName(
+                givenName: "Matthew",
+                familyName: "Adams",
+                otherNames: JsonArray.Create("William"));
+
             var personListResource = new PersonListResource(
                 contentType: "application/vnd.menes.personListResource",
                 embedded: new PersonListResource.EmbeddedEntity(
@@ -192,19 +197,46 @@ namespace Menes.Sandbox
             }
         }
 
+        private static async Task GenerateTypesForSchema(string[] uris, string? outputPath = null)
+        {
+            var typeGenerator = new TypeGeneratorJsonSchemaVisitor(DocumentResolver.Default);
+
+            foreach (string uri in uris)
+            {
+                await GenerateTypesForSchema(uri, typeGenerator).ConfigureAwait(false);
+            }
+
+            WriteTypes(typeGenerator, outputPath);
+        }
+
         private static async Task GenerateTypesForSchema(string uri, string? outputPath = null)
+        {
+            var typeGenerator = new TypeGeneratorJsonSchemaVisitor(DocumentResolver.Default);
+
+            await GenerateTypesForSchema(uri, typeGenerator).ConfigureAwait(false);
+            WriteTypes(typeGenerator, outputPath);
+        }
+
+        private static async Task GenerateTypesForSchema(string uri, TypeGeneratorJsonSchemaVisitor typeGenerator)
         {
             (string baseUri, JsonDocument root, JsonSchema schema) = await DocumentResolver.Default.LoadSchema(uri).ConfigureAwait(false);
 
             Validate(schema);
 
-            var typeGenerator = new TypeGeneratorJsonSchemaVisitor(DocumentResolver.Default);
             try
             {
                 await typeGenerator.BuildTypes(schema, root, baseUri).ConfigureAwait(false);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+        }
 
-                TypeDeclarationSyntax[] tds = typeGenerator.GenerateTypes();
-
+        private static void WriteTypes(TypeGeneratorJsonSchemaVisitor typeGenerator, string? outputPath)
+        {
+            try
+            {
                 string? path = null;
                 if (outputPath is string op)
                 {
@@ -214,6 +246,8 @@ namespace Menes.Sandbox
                     File.Delete(path);
                     Console.WriteLine(path);
                 }
+
+                TypeDeclarationSyntax[] tds = typeGenerator.GenerateTypes();
 
                 foreach (TypeDeclarationSyntax t in tds)
                 {

@@ -632,7 +632,7 @@ namespace Menes.TypeGenerator
 
         private void BuildCloningConstructor(List<MemberDeclarationSyntax> members)
         {
-            if (this.Properties.Any(p => p.Type.IsCompoundType) || (this.AdditionalPropertiesType is ITypeDeclaration t && t.IsCompoundType))
+            if (this.Properties.Any(p => p.Type.IsCompoundType) || (this.AdditionalPropertiesType is ITypeDeclaration t))
             {
                 string declaration =
                 $"private {this.Name}({this.BuildCloningConstructorParameterList()})" + Environment.NewLine +
