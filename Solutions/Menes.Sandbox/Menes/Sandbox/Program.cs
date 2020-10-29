@@ -121,6 +121,18 @@ namespace Menes.Sandbox
                 }
             }
 
+            GeneratedPerson personFromResource = JsonAny.From(resource).As<GeneratedPerson>();
+
+            // Should be invalid, because we don't have a primaryName link
+            Validate(personFromResource);
+
+            Resource resourceWithPrimaryNameLink =
+                resource.WithLinks(
+                    resource.Links.Add(("primaryName", new Link("http://endjin.com/primaryName"))));
+
+            GeneratedPerson personFromResourceWithPrimaryName = JsonAny.From(resourceWithPrimaryNameLink).As<GeneratedPerson>();
+            Validate(personFromResourceWithPrimaryName);
+
             Person instance =
                 new Person("Ian", "Griffiths")
                     .WithAge(21)

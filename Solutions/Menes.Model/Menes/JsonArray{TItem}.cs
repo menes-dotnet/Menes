@@ -448,6 +448,441 @@ namespace Menes
         }
 
         /// <summary>
+        /// Add items to the array.
+        /// </summary>
+        /// <param name="items">The items to add.</param>
+        /// <returns>A new array instance, with the added items.</returns>
+        public JsonArray<TItem> Add(params TItem[] items)
+        {
+            System.Collections.Immutable.ImmutableArray<TItem>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<TItem>();
+            foreach (TItem item in this)
+            {
+                arrayBuilder.Add(item);
+            }
+
+            foreach (TItem item in items)
+            {
+                arrayBuilder.Add(item);
+            }
+
+            return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
+        }
+
+        /// <summary>
+        /// Add items to the array.
+        /// </summary>
+        /// <param name="item1">The item to add.</param>
+        /// <returns>A new array instance, with the added item.</returns>
+        public JsonArray<TItem> Add(in TItem item1)
+        {
+            System.Collections.Immutable.ImmutableArray<TItem>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<TItem>();
+            foreach (TItem item in this)
+            {
+                arrayBuilder.Add(item);
+            }
+
+            arrayBuilder.Add(item1);
+            return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
+        }
+
+        /// <summary>
+        /// Add items to the array.
+        /// </summary>
+        /// <param name="item1">The first item to add.</param>
+        /// <param name="item2">The second item to add.</param>
+        /// <returns>A new array instance, with the added items.</returns>
+        public JsonArray<TItem> Add(in TItem item1, in TItem item2)
+        {
+            System.Collections.Immutable.ImmutableArray<TItem>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<TItem>();
+            foreach (TItem item in this)
+            {
+                arrayBuilder.Add(item);
+            }
+
+            arrayBuilder.Add(item1);
+            arrayBuilder.Add(item2);
+            return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
+        }
+
+        /// <summary>
+        /// Add items to the array.
+        /// </summary>
+        /// <param name="item1">The first item to add.</param>
+        /// <param name="item2">The second item to add.</param>
+        /// <param name="item3">The third item to add.</param>
+        /// <returns>A new array instance, with the added items.</returns>
+        public JsonArray<TItem> Add(in TItem item1, in TItem item2, in TItem item3)
+        {
+            System.Collections.Immutable.ImmutableArray<TItem>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<TItem>();
+            foreach (TItem item in this)
+            {
+                arrayBuilder.Add(item);
+            }
+
+            arrayBuilder.Add(item1);
+            arrayBuilder.Add(item2);
+            arrayBuilder.Add(item3);
+            return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
+        }
+
+        /// <summary>
+        /// Add items to the array.
+        /// </summary>
+        /// <param name="item1">The first item to add.</param>
+        /// <param name="item2">The second item to add.</param>
+        /// <param name="item3">The third item to add.</param>
+        /// <param name="item4">The fourth item to add.</param>
+        /// <returns>A new array instance, with the added items.</returns>
+        public JsonArray<TItem> Add(in TItem item1, in TItem item2, in TItem item3, in TItem item4)
+        {
+            System.Collections.Immutable.ImmutableArray<TItem>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<TItem>();
+            foreach (TItem item in this)
+            {
+                arrayBuilder.Add(item);
+            }
+
+            arrayBuilder.Add(item1);
+            arrayBuilder.Add(item2);
+            arrayBuilder.Add(item3);
+            arrayBuilder.Add(item4);
+            return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
+        }
+
+        /// <summary>
+        /// Insert items into the array.
+        /// </summary>
+        /// <param name="indexToInsert">The index at which to insert the items.</param>
+        /// <param name="items">The items to insert.</param>
+        /// <returns>A new array instance, with the inserted items.</returns>
+        public JsonArray<TItem> Insert(int indexToInsert, params TItem[] items)
+        {
+            System.Collections.Immutable.ImmutableArray<TItem>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<TItem>();
+            int index = 0;
+            foreach (TItem item in this)
+            {
+                if (index == indexToInsert)
+                {
+                    foreach (TItem itemToInsert in items)
+                    {
+                        arrayBuilder.Add(itemToInsert);
+                    }
+                }
+
+                arrayBuilder.Add(item);
+                ++index;
+            }
+
+            return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
+        }
+
+        /// <summary>
+        /// insert an item into the array.
+        /// </summary>
+        /// <param name="indexToInsert">The index at which to insert the item.</param>
+        /// <param name="item1">The item to insert.</param>
+        /// <returns>A new array instance, with the inserted item.</returns>
+        public JsonArray<TItem> Insert(int indexToInsert, in TItem item1)
+        {
+            System.Collections.Immutable.ImmutableArray<TItem>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<TItem>();
+            int index = 0;
+            foreach (TItem item in this)
+            {
+                if (index == indexToInsert)
+                {
+                    arrayBuilder.Add(item1);
+                }
+
+                arrayBuilder.Add(item);
+                ++index;
+            }
+
+            return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
+        }
+
+        /// <summary>
+        /// Insert items into the array.
+        /// </summary>
+        /// <param name="indexToInsert">The index at which to insert the items.</param>
+        /// <param name="item1">The first item to insert.</param>
+        /// <param name="item2">The second item to insert.</param>
+        /// <returns>A new array instance, with the inserted items.</returns>
+        public JsonArray<TItem> Insert(int indexToInsert, in TItem item1, in TItem item2)
+        {
+            System.Collections.Immutable.ImmutableArray<TItem>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<TItem>();
+            int index = 0;
+            foreach (TItem item in this)
+            {
+                if (index == indexToInsert)
+                {
+                    arrayBuilder.Add(item1);
+                    arrayBuilder.Add(item2);
+                }
+
+                arrayBuilder.Add(item);
+                ++index;
+            }
+
+            return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
+        }
+
+        /// <summary>
+        /// Insert items into the array.
+        /// </summary>
+        /// <param name="indexToInsert">The index at which to insert the items.</param>
+        /// <param name="item1">The first item to insert.</param>
+        /// <param name="item2">The second item to insert.</param>
+        /// <param name="item3">The third item to insert.</param>
+        /// <returns>A new array instance, with the inserted items.</returns>
+        public JsonArray<TItem> Insert(int indexToInsert, in TItem item1, in TItem item2, in TItem item3)
+        {
+            System.Collections.Immutable.ImmutableArray<TItem>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<TItem>();
+            int index = 0;
+            foreach (TItem item in this)
+            {
+                if (index == indexToInsert)
+                {
+                    arrayBuilder.Add(item1);
+                    arrayBuilder.Add(item2);
+                    arrayBuilder.Add(item3);
+                }
+
+                arrayBuilder.Add(item);
+                ++index;
+            }
+
+            return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
+        }
+
+        /// <summary>
+        /// Insert items into the array.
+        /// </summary>
+        /// <param name="indexToInsert">The index at which to insert the items.</param>
+        /// <param name="item1">The first item to insert.</param>
+        /// <param name="item2">The second item to insert.</param>
+        /// <param name="item3">The third item to insert.</param>
+        /// <param name="item4">The fourth item to insert.</param>
+        /// <returns>A new array instance, with the inserted items.</returns>
+        public JsonArray<TItem> Insert(int indexToInsert, in TItem item1, in TItem item2, in TItem item3, in TItem item4)
+        {
+            System.Collections.Immutable.ImmutableArray<TItem>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<TItem>();
+            int index = 0;
+            foreach (TItem item in this)
+            {
+                if (index == indexToInsert)
+                {
+                    arrayBuilder.Add(item1);
+                    arrayBuilder.Add(item2);
+                    arrayBuilder.Add(item3);
+                    arrayBuilder.Add(item4);
+                }
+
+                arrayBuilder.Add(item);
+                ++index;
+            }
+
+            return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
+        }
+
+        /// <summary>
+        /// Remove items from the array.
+        /// </summary>
+        /// <param name="items">The items to remove.</param>
+        /// <returns>A new array instance, with the items removed.</returns>
+        public JsonArray<TItem> Remove(params TItem[] items)
+        {
+            System.Collections.Immutable.ImmutableArray<TItem>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<TItem>();
+            foreach (TItem item in this)
+            {
+                bool found = false;
+                foreach (TItem itemToRemove in items)
+                {
+                    if (itemToRemove.Equals(item))
+                    {
+                        found = true;
+                        break;
+                    }
+                }
+
+                if (!found)
+                {
+                    arrayBuilder.Add(item);
+                }
+            }
+
+            return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
+        }
+
+        /// <summary>
+        /// Remove items from the array.
+        /// </summary>
+        /// <param name="item1">The item to remove.</param>
+        /// <returns>A new array instance, with the item removed.</returns>
+        public JsonArray<TItem> Remove(TItem item1)
+        {
+            System.Collections.Immutable.ImmutableArray<TItem>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<TItem>();
+            foreach (TItem item in this)
+            {
+                if (item1.Equals(item))
+                {
+                    break;
+                }
+
+                arrayBuilder.Add(item);
+            }
+
+            return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
+        }
+
+        /// <summary>
+        /// Remove items from the array.
+        /// </summary>
+        /// <param name="item1">The first item to remove.</param>
+        /// <param name="item2">The second item to remove.</param>
+        /// <returns>A new array instance, with the items removed.</returns>
+        public JsonArray<TItem> Remove(TItem item1, TItem item2)
+        {
+            System.Collections.Immutable.ImmutableArray<TItem>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<TItem>();
+            foreach (TItem item in this)
+            {
+                if (item1.Equals(item) || item2.Equals(item))
+                {
+                    break;
+                }
+
+                arrayBuilder.Add(item);
+            }
+
+            return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
+        }
+
+        /// <summary>
+        /// Remove items from the array.
+        /// </summary>
+        /// <param name="item1">The first item to remove.</param>
+        /// <param name="item2">The second item to remove.</param>
+        /// <param name="item3">The third item to remove.</param>
+        /// <returns>A new array instance, with the items removed.</returns>
+        public JsonArray<TItem> Remove(TItem item1, TItem item2, TItem item3)
+        {
+            System.Collections.Immutable.ImmutableArray<TItem>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<TItem>();
+            foreach (TItem item in this)
+            {
+                if (item1.Equals(item) || item2.Equals(item) || item3.Equals(item))
+                {
+                    break;
+                }
+
+                arrayBuilder.Add(item);
+            }
+
+            return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
+        }
+
+        /// <summary>
+        /// Remove items from the array.
+        /// </summary>
+        /// <param name="item1">The first item to remove.</param>
+        /// <param name="item2">The second item to remove.</param>
+        /// <param name="item3">The third item to remove.</param>
+        /// <param name="item4">The fourth item to remove.</param>
+        /// <returns>A new array instance, with the items removed.</returns>
+        public JsonArray<TItem> Remove(TItem item1, TItem item2, TItem item3, TItem item4)
+        {
+            System.Collections.Immutable.ImmutableArray<TItem>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<TItem>();
+            foreach (TItem item in this)
+            {
+                if (item1.Equals(item) || item2.Equals(item) || item3.Equals(item) || item4.Equals(item))
+                {
+                    break;
+                }
+
+                arrayBuilder.Add(item);
+            }
+
+            return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
+        }
+
+        /// <summary>
+        /// Remove an item from the array at the given index.
+        /// </summary>
+        /// <param name="indexToRemove">The index of the item to remove.</param>
+        /// <returns>A new array instance, with the item removed.</returns>
+        public JsonArray<TItem> RemoveAt(int indexToRemove)
+        {
+            System.Collections.Immutable.ImmutableArray<TItem>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<TItem>();
+            int index = 0;
+            foreach (TItem item in this)
+            {
+                if (index == indexToRemove)
+                {
+                    index++;
+                    continue;
+                }
+
+                arrayBuilder.Add(item);
+                index++;
+            }
+
+            return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
+        }
+
+        /// <summary>
+        /// Remove an item from the array at the given index.
+        /// </summary>
+        /// <param name="startIndex">The start index of the range to remove.</param>
+        /// <param name="length">The length of the range to remove.</param>
+        /// <returns>A new array instance, with the item removed.</returns>
+        public JsonArray<TItem> RemoveRange(int startIndex, int length)
+        {
+            if (startIndex < 0 || startIndex > this.Length - 1)
+            {
+                throw new ArgumentOutOfRangeException(nameof(startIndex));
+            }
+
+            if (length < 1 || startIndex + length > this.Length - 1)
+            {
+                throw new ArgumentOutOfRangeException(nameof(length));
+            }
+
+            System.Collections.Immutable.ImmutableArray<TItem>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<TItem>();
+            int index = 0;
+            foreach (TItem item in this)
+            {
+                if (index >= startIndex && index < startIndex + length)
+                {
+                    index++;
+                    continue;
+                }
+
+                arrayBuilder.Add(item);
+                index++;
+            }
+
+            return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
+        }
+
+        /// <summary>
+        /// Remove items from the array if they match a given predicate.
+        /// </summary>
+        /// <param name="removeIfTrue">A predicate which, if true, will cause the item to be removed.</param>
+        /// <returns>A new array instance, with the matching items removed.</returns>
+        public JsonArray<TItem> Remove(Predicate<TItem> removeIfTrue)
+        {
+            System.Collections.Immutable.ImmutableArray<TItem>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<TItem>();
+            foreach (TItem item in this)
+            {
+                if (removeIfTrue(item))
+                {
+                    continue;
+                }
+
+                arrayBuilder.Add(item);
+            }
+
+            return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
+        }
+
+        /// <summary>
         /// An enumerator for a <see cref="JsonArray{TItem}"/>.
         /// </summary>
         [DebuggerDisplay("{Current,nq}")]
