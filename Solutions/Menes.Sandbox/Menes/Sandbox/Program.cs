@@ -82,7 +82,13 @@ namespace Menes.Sandbox
 
             static bool FilterFooIshLinks(JsonPropertyReference<Links> p)
             {
-                return p.AsValue().IsLink && p.AsValue().AsLink().Href.CreateOrGetClrUri().GetLeftPart(UriPartial.Path).EndsWith("fooIsh");
+                Links links = p.AsValue();
+                return links.IsLink && GetPath(links.AsLink().Href).EndsWith("fooIsh");
+            }
+
+            static string GetPath(Uri uri)
+            {
+                return uri.GetLeftPart(UriPartial.Path);
             }
 
             ReadOnlyMemory<byte> serializedPerson = Serialize(person);
