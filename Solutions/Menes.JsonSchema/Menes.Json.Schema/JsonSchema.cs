@@ -2742,7 +2742,7 @@ namespace Menes.Json.Schema
                 Menes.JsonString value = this;
                 Menes.ValidationContext context = validationContext;
                 context = value.Validate(context);
-                context = value.ValidateAsString(context, MinLength, MaxLength, Pattern, EnumValues, ConstValue);
+                context = value.ValidateAsString(context, MaxLength, MinLength, Pattern, EnumValues, ConstValue);
                 return context;
             }
             public void WriteTo(System.Text.Json.Utf8JsonWriter writer)

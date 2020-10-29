@@ -357,7 +357,7 @@ namespace Menes.TypeGenerator
 
             if (this.ValidatedType.Kind == JsonValueTypeDeclaration.ValueKind.String)
             {
-                builder.AppendLine($"context = value.ValidateAsString(context, MinLength, MaxLength, Pattern, EnumValues, ConstValue);");
+                builder.AppendLine($"context = value.ValidateAsString(context, MaxLength, MinLength, Pattern, EnumValues, ConstValue);");
             }
             else if (this.ValidatedType.Kind == JsonValueTypeDeclaration.ValueKind.Decimal || this.ValidatedType.Kind == JsonValueTypeDeclaration.ValueKind.Number)
             {
@@ -371,7 +371,7 @@ namespace Menes.TypeGenerator
             {
                 if (this.MinLengthValidation.HasValue || this.MaxLengthValidation.HasValue || !(this.PatternValidation is null))
                 {
-                    builder.AppendLine($"context = value.As<Menes.JsonString>().ValidateAsString(context, MinLength, MaxLength, Pattern, null, null);");
+                    builder.AppendLine($"context = value.As<Menes.JsonString>().ValidateAsString(context, MaxLength, MinLength, Pattern, null, null);");
                 }
 
                 if (this.MultipleOfValidation.HasValue || this.MaximumValidation.HasValue || this.ExclusiveMaximumValidation.HasValue || this.MinimumValidation.HasValue || this.ExclusiveMinimumValidation.HasValue)
@@ -503,7 +503,7 @@ namespace Menes.TypeGenerator
         private void AppendStringValidationProperties(StringBuilder builder)
         {
             builder.AppendLine($"    private static readonly int? MaxLength = {this.MaxLengthValidation?.ToString() ?? "null"};");
-            builder.AppendLine($"    private static readonly int? MinLength = {this.MaxLengthValidation?.ToString() ?? "null"};");
+            builder.AppendLine($"    private static readonly int? MinLength = {this.MinLengthValidation?.ToString() ?? "null"};");
 
             if (this.PatternValidation is string pattern)
             {

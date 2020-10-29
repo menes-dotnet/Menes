@@ -231,12 +231,12 @@ namespace Menes
 
         private static string FormatDateToString(LocalDate date)
         {
-            return LocalDatePattern.Iso.Format(date);
+            return LocalDatePattern.FullRoundtrip.Format(date);
         }
 
         private static ParseResult<LocalDate> ParseDate(in JsonElement jsonElement)
         {
-            return LocalDatePattern.Iso.Parse(jsonElement.GetString());
+            return LocalDatePattern.FullRoundtrip.Parse(jsonElement.GetString());
         }
     }
 }

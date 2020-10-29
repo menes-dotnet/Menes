@@ -9541,7 +9541,7 @@ namespace OtherExamples
                 Menes.JsonString value = this;
                 Menes.ValidationContext context = validationContext;
                 context = value.Validate(context);
-                context = value.ValidateAsString(context, MinLength, MaxLength, Pattern, EnumValues, ConstValue);
+                context = value.ValidateAsString(context, MaxLength, MinLength, Pattern, EnumValues, ConstValue);
                 return context;
             }
             public void WriteTo(System.Text.Json.Utf8JsonWriter writer)
@@ -9662,7 +9662,7 @@ namespace OtherExamples
                 Menes.JsonString value = this;
                 Menes.ValidationContext context = validationContext;
                 context = value.Validate(context);
-                context = value.ValidateAsString(context, MinLength, MaxLength, Pattern, EnumValues, ConstValue);
+                context = value.ValidateAsString(context, MaxLength, MinLength, Pattern, EnumValues, ConstValue);
                 return context;
             }
             public void WriteTo(System.Text.Json.Utf8JsonWriter writer)
@@ -16842,7 +16842,7 @@ namespace OtherExamples
             private static readonly string? ConstValue = BuildConstValue();
             private static readonly System.Collections.Immutable.ImmutableArray<string>? EnumValues = BuildEnumValues();
             private static readonly int? MaxLength = 50;
-            private static readonly int? MinLength = 50;
+            private static readonly int? MinLength = 1;
             private static readonly System.Text.RegularExpressions.Regex? Pattern = null;
             private readonly Menes.JsonString? value;
             public TitleValue(Menes.JsonString value)
@@ -16922,7 +16922,7 @@ namespace OtherExamples
                 Menes.JsonString value = this;
                 Menes.ValidationContext context = validationContext;
                 context = value.Validate(context);
-                context = value.ValidateAsString(context, MinLength, MaxLength, Pattern, EnumValues, ConstValue);
+                context = value.ValidateAsString(context, MaxLength, MinLength, Pattern, EnumValues, ConstValue);
                 return context;
             }
             public void WriteTo(System.Text.Json.Utf8JsonWriter writer)
@@ -16963,7 +16963,7 @@ namespace OtherExamples
             private static readonly string? ConstValue = BuildConstValue();
             private static readonly System.Collections.Immutable.ImmutableArray<string>? EnumValues = BuildEnumValues();
             private static readonly int? MaxLength = 50;
-            private static readonly int? MinLength = 50;
+            private static readonly int? MinLength = 1;
             private static readonly System.Text.RegularExpressions.Regex? Pattern = null;
             private readonly Menes.JsonString? value;
             public GivenNameValue(Menes.JsonString value)
@@ -17043,7 +17043,7 @@ namespace OtherExamples
                 Menes.JsonString value = this;
                 Menes.ValidationContext context = validationContext;
                 context = value.Validate(context);
-                context = value.ValidateAsString(context, MinLength, MaxLength, Pattern, EnumValues, ConstValue);
+                context = value.ValidateAsString(context, MaxLength, MinLength, Pattern, EnumValues, ConstValue);
                 return context;
             }
             public void WriteTo(System.Text.Json.Utf8JsonWriter writer)
@@ -17084,7 +17084,7 @@ namespace OtherExamples
             private static readonly string? ConstValue = BuildConstValue();
             private static readonly System.Collections.Immutable.ImmutableArray<string>? EnumValues = BuildEnumValues();
             private static readonly int? MaxLength = 50;
-            private static readonly int? MinLength = 50;
+            private static readonly int? MinLength = 1;
             private static readonly System.Text.RegularExpressions.Regex? Pattern = null;
             private readonly Menes.JsonString? value;
             public FamilyNameValue(Menes.JsonString value)
@@ -17164,7 +17164,7 @@ namespace OtherExamples
                 Menes.JsonString value = this;
                 Menes.ValidationContext context = validationContext;
                 context = value.Validate(context);
-                context = value.ValidateAsString(context, MinLength, MaxLength, Pattern, EnumValues, ConstValue);
+                context = value.ValidateAsString(context, MaxLength, MinLength, Pattern, EnumValues, ConstValue);
                 return context;
             }
             public void WriteTo(System.Text.Json.Utf8JsonWriter writer)
@@ -17612,7 +17612,7 @@ namespace OtherExamples
                 private static readonly string? ConstValue = BuildConstValue();
                 private static readonly System.Collections.Immutable.ImmutableArray<string>? EnumValues = BuildEnumValues();
                 private static readonly int? MaxLength = 50;
-                private static readonly int? MinLength = 50;
+                private static readonly int? MinLength = 0;
                 private static readonly System.Text.RegularExpressions.Regex? Pattern = null;
                 private readonly Menes.JsonString? value;
                 public OtherNamesArrayValue(Menes.JsonString value)
@@ -17692,7 +17692,7 @@ namespace OtherExamples
                     Menes.JsonString value = this;
                     Menes.ValidationContext context = validationContext;
                     context = value.Validate(context);
-                    context = value.ValidateAsString(context, MinLength, MaxLength, Pattern, EnumValues, ConstValue);
+                    context = value.ValidateAsString(context, MaxLength, MinLength, Pattern, EnumValues, ConstValue);
                     return context;
                 }
                 public void WriteTo(System.Text.Json.Utf8JsonWriter writer)
@@ -18283,7 +18283,7 @@ namespace OtherExamples
             private static readonly string? ConstValue = BuildConstValue();
             private static readonly System.Collections.Immutable.ImmutableArray<string>? EnumValues = BuildEnumValues();
             private static readonly int? MaxLength = 50;
-            private static readonly int? MinLength = 50;
+            private static readonly int? MinLength = 1;
             private static readonly System.Text.RegularExpressions.Regex? Pattern = null;
             private readonly Menes.JsonString? value;
             public TitleValue(Menes.JsonString value)
@@ -18363,7 +18363,7 @@ namespace OtherExamples
                 Menes.JsonString value = this;
                 Menes.ValidationContext context = validationContext;
                 context = value.Validate(context);
-                context = value.ValidateAsString(context, MinLength, MaxLength, Pattern, EnumValues, ConstValue);
+                context = value.ValidateAsString(context, MaxLength, MinLength, Pattern, EnumValues, ConstValue);
                 return context;
             }
             public void WriteTo(System.Text.Json.Utf8JsonWriter writer)
@@ -18404,7 +18404,7 @@ namespace OtherExamples
             private static readonly string? ConstValue = BuildConstValue();
             private static readonly System.Collections.Immutable.ImmutableArray<string>? EnumValues = BuildEnumValues();
             private static readonly int? MaxLength = 50;
-            private static readonly int? MinLength = 50;
+            private static readonly int? MinLength = 1;
             private static readonly System.Text.RegularExpressions.Regex? Pattern = null;
             private readonly Menes.JsonString? value;
             public GivenNameValue(Menes.JsonString value)
@@ -18484,7 +18484,7 @@ namespace OtherExamples
                 Menes.JsonString value = this;
                 Menes.ValidationContext context = validationContext;
                 context = value.Validate(context);
-                context = value.ValidateAsString(context, MinLength, MaxLength, Pattern, EnumValues, ConstValue);
+                context = value.ValidateAsString(context, MaxLength, MinLength, Pattern, EnumValues, ConstValue);
                 return context;
             }
             public void WriteTo(System.Text.Json.Utf8JsonWriter writer)
@@ -18525,7 +18525,7 @@ namespace OtherExamples
             private static readonly string? ConstValue = BuildConstValue();
             private static readonly System.Collections.Immutable.ImmutableArray<string>? EnumValues = BuildEnumValues();
             private static readonly int? MaxLength = 50;
-            private static readonly int? MinLength = 50;
+            private static readonly int? MinLength = 1;
             private static readonly System.Text.RegularExpressions.Regex? Pattern = null;
             private readonly Menes.JsonString? value;
             public FamilyNameValue(Menes.JsonString value)
@@ -18605,7 +18605,7 @@ namespace OtherExamples
                 Menes.JsonString value = this;
                 Menes.ValidationContext context = validationContext;
                 context = value.Validate(context);
-                context = value.ValidateAsString(context, MinLength, MaxLength, Pattern, EnumValues, ConstValue);
+                context = value.ValidateAsString(context, MaxLength, MinLength, Pattern, EnumValues, ConstValue);
                 return context;
             }
             public void WriteTo(System.Text.Json.Utf8JsonWriter writer)
@@ -19053,7 +19053,7 @@ namespace OtherExamples
                 private static readonly string? ConstValue = BuildConstValue();
                 private static readonly System.Collections.Immutable.ImmutableArray<string>? EnumValues = BuildEnumValues();
                 private static readonly int? MaxLength = 50;
-                private static readonly int? MinLength = 50;
+                private static readonly int? MinLength = 0;
                 private static readonly System.Text.RegularExpressions.Regex? Pattern = null;
                 private readonly Menes.JsonString? value;
                 public OtherNamesArrayValue(Menes.JsonString value)
@@ -19133,7 +19133,7 @@ namespace OtherExamples
                     Menes.JsonString value = this;
                     Menes.ValidationContext context = validationContext;
                     context = value.Validate(context);
-                    context = value.ValidateAsString(context, MinLength, MaxLength, Pattern, EnumValues, ConstValue);
+                    context = value.ValidateAsString(context, MaxLength, MinLength, Pattern, EnumValues, ConstValue);
                     return context;
                 }
                 public void WriteTo(System.Text.Json.Utf8JsonWriter writer)
@@ -24911,7 +24911,7 @@ namespace OtherExamples
                 Menes.JsonEmail value = this;
                 Menes.ValidationContext context = validationContext;
                 context = value.Validate(context);
-                context = value.ValidateAsString(context, MinLength, MaxLength, Pattern, EnumValues, ConstValue);
+                context = value.ValidateAsString(context, MaxLength, MinLength, Pattern, EnumValues, ConstValue);
                 return context;
             }
             public void WriteTo(System.Text.Json.Utf8JsonWriter writer)
@@ -25388,7 +25388,7 @@ namespace OtherExamples
                 Menes.JsonEmail value = this;
                 Menes.ValidationContext context = validationContext;
                 context = value.Validate(context);
-                context = value.ValidateAsString(context, MinLength, MaxLength, Pattern, EnumValues, ConstValue);
+                context = value.ValidateAsString(context, MaxLength, MinLength, Pattern, EnumValues, ConstValue);
                 return context;
             }
             public void WriteTo(System.Text.Json.Utf8JsonWriter writer)
@@ -31163,7 +31163,7 @@ namespace OtherExamples
             private static readonly string? ConstValue = BuildConstValue();
             private static readonly System.Collections.Immutable.ImmutableArray<string>? EnumValues = BuildEnumValues();
             private static readonly int? MaxLength = 3;
-            private static readonly int? MinLength = 3;
+            private static readonly int? MinLength = 1;
             private static readonly System.Text.RegularExpressions.Regex? Pattern = new System.Text.RegularExpressions.Regex("^[+]?\\d{1,2}$", System.Text.RegularExpressions.RegexOptions.Compiled);
             private readonly Menes.JsonString? value;
             public CountryCodeValue(Menes.JsonString value)
@@ -31243,7 +31243,7 @@ namespace OtherExamples
                 Menes.JsonString value = this;
                 Menes.ValidationContext context = validationContext;
                 context = value.Validate(context);
-                context = value.ValidateAsString(context, MinLength, MaxLength, Pattern, EnumValues, ConstValue);
+                context = value.ValidateAsString(context, MaxLength, MinLength, Pattern, EnumValues, ConstValue);
                 return context;
             }
             public void WriteTo(System.Text.Json.Utf8JsonWriter writer)
@@ -31284,7 +31284,7 @@ namespace OtherExamples
             private static readonly string? ConstValue = BuildConstValue();
             private static readonly System.Collections.Immutable.ImmutableArray<string>? EnumValues = BuildEnumValues();
             private static readonly int? MaxLength = 4;
-            private static readonly int? MinLength = 4;
+            private static readonly int? MinLength = 1;
             private static readonly System.Text.RegularExpressions.Regex? Pattern = new System.Text.RegularExpressions.Regex("^d{1,4}$", System.Text.RegularExpressions.RegexOptions.Compiled);
             private readonly Menes.JsonString? value;
             public NationalDestinationCodeValue(Menes.JsonString value)
@@ -31364,7 +31364,7 @@ namespace OtherExamples
                 Menes.JsonString value = this;
                 Menes.ValidationContext context = validationContext;
                 context = value.Validate(context);
-                context = value.ValidateAsString(context, MinLength, MaxLength, Pattern, EnumValues, ConstValue);
+                context = value.ValidateAsString(context, MaxLength, MinLength, Pattern, EnumValues, ConstValue);
                 return context;
             }
             public void WriteTo(System.Text.Json.Utf8JsonWriter writer)
@@ -31405,7 +31405,7 @@ namespace OtherExamples
             private static readonly string? ConstValue = BuildConstValue();
             private static readonly System.Collections.Immutable.ImmutableArray<string>? EnumValues = BuildEnumValues();
             private static readonly int? MaxLength = 13;
-            private static readonly int? MinLength = 13;
+            private static readonly int? MinLength = 8;
             private static readonly System.Text.RegularExpressions.Regex? Pattern = new System.Text.RegularExpressions.Regex("^d{8,13}$", System.Text.RegularExpressions.RegexOptions.Compiled);
             private readonly Menes.JsonString? value;
             public SubscriberNumberValue(Menes.JsonString value)
@@ -31485,7 +31485,7 @@ namespace OtherExamples
                 Menes.JsonString value = this;
                 Menes.ValidationContext context = validationContext;
                 context = value.Validate(context);
-                context = value.ValidateAsString(context, MinLength, MaxLength, Pattern, EnumValues, ConstValue);
+                context = value.ValidateAsString(context, MaxLength, MinLength, Pattern, EnumValues, ConstValue);
                 return context;
             }
             public void WriteTo(System.Text.Json.Utf8JsonWriter writer)
@@ -31972,7 +31972,7 @@ namespace OtherExamples
             private static readonly string? ConstValue = BuildConstValue();
             private static readonly System.Collections.Immutable.ImmutableArray<string>? EnumValues = BuildEnumValues();
             private static readonly int? MaxLength = 3;
-            private static readonly int? MinLength = 3;
+            private static readonly int? MinLength = 1;
             private static readonly System.Text.RegularExpressions.Regex? Pattern = new System.Text.RegularExpressions.Regex("^[+]?\\d{1,2}$", System.Text.RegularExpressions.RegexOptions.Compiled);
             private readonly Menes.JsonString? value;
             public CountryCodeValue(Menes.JsonString value)
@@ -32052,7 +32052,7 @@ namespace OtherExamples
                 Menes.JsonString value = this;
                 Menes.ValidationContext context = validationContext;
                 context = value.Validate(context);
-                context = value.ValidateAsString(context, MinLength, MaxLength, Pattern, EnumValues, ConstValue);
+                context = value.ValidateAsString(context, MaxLength, MinLength, Pattern, EnumValues, ConstValue);
                 return context;
             }
             public void WriteTo(System.Text.Json.Utf8JsonWriter writer)
@@ -32093,7 +32093,7 @@ namespace OtherExamples
             private static readonly string? ConstValue = BuildConstValue();
             private static readonly System.Collections.Immutable.ImmutableArray<string>? EnumValues = BuildEnumValues();
             private static readonly int? MaxLength = 4;
-            private static readonly int? MinLength = 4;
+            private static readonly int? MinLength = 1;
             private static readonly System.Text.RegularExpressions.Regex? Pattern = new System.Text.RegularExpressions.Regex("^d{1,4}$", System.Text.RegularExpressions.RegexOptions.Compiled);
             private readonly Menes.JsonString? value;
             public NationalDestinationCodeValue(Menes.JsonString value)
@@ -32173,7 +32173,7 @@ namespace OtherExamples
                 Menes.JsonString value = this;
                 Menes.ValidationContext context = validationContext;
                 context = value.Validate(context);
-                context = value.ValidateAsString(context, MinLength, MaxLength, Pattern, EnumValues, ConstValue);
+                context = value.ValidateAsString(context, MaxLength, MinLength, Pattern, EnumValues, ConstValue);
                 return context;
             }
             public void WriteTo(System.Text.Json.Utf8JsonWriter writer)
@@ -32214,7 +32214,7 @@ namespace OtherExamples
             private static readonly string? ConstValue = BuildConstValue();
             private static readonly System.Collections.Immutable.ImmutableArray<string>? EnumValues = BuildEnumValues();
             private static readonly int? MaxLength = 13;
-            private static readonly int? MinLength = 13;
+            private static readonly int? MinLength = 8;
             private static readonly System.Text.RegularExpressions.Regex? Pattern = new System.Text.RegularExpressions.Regex("^d{8,13}$", System.Text.RegularExpressions.RegexOptions.Compiled);
             private readonly Menes.JsonString? value;
             public SubscriberNumberValue(Menes.JsonString value)
@@ -32294,7 +32294,7 @@ namespace OtherExamples
                 Menes.JsonString value = this;
                 Menes.ValidationContext context = validationContext;
                 context = value.Validate(context);
-                context = value.ValidateAsString(context, MinLength, MaxLength, Pattern, EnumValues, ConstValue);
+                context = value.ValidateAsString(context, MaxLength, MinLength, Pattern, EnumValues, ConstValue);
                 return context;
             }
             public void WriteTo(System.Text.Json.Utf8JsonWriter writer)

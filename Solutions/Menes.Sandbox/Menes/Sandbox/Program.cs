@@ -21,6 +21,7 @@ namespace Menes.Sandbox
     using Microsoft.CodeAnalysis.CSharp.Syntax;
     using Microsoft.CodeAnalysis.Formatting;
     using NodaTime;
+    using NodaTime.Text;
     using OtherExamples;
 
     /// <summary>
@@ -55,17 +56,24 @@ namespace Menes.Sandbox
             ////return GenerateTypesForSchema("exampleschema2.json");
             ////return GenerateTypesForSchema("resourcesAndLinks.json#/schemas/Resource");
             ////return GenerateTypesForSchema("person.json#/schemas/Person");
-            return GenerateTypesForSchema(new[] { "peopleApi.json#/components/schemas/PersonListResource", "peopleApi.json#/components/schemas/EmailAddressListResource", "peopleApi.json#/components/schemas/TelephoneNumberListResource", "peopleApi.json#/components/schemas/RelatedPeopleListResource", "peopleApi.json#/components/schemas/PersonNameListResource" }, "./output/");
+            ////return GenerateTypesForSchema(new[] { "peopleApi.json#/components/schemas/PersonListResource", "peopleApi.json#/components/schemas/EmailAddressListResource", "peopleApi.json#/components/schemas/TelephoneNumberListResource", "peopleApi.json#/components/schemas/RelatedPeopleListResource", "peopleApi.json#/components/schemas/PersonNameListResource" }, "./output/");
 
-            ////return UseGeneratedCode();
+            return UseGeneratedCode();
         }
 
         private static Task UseGeneratedCode()
         {
-            var personName = new PersonName(
+            PersonName personName = new PersonName(
                 givenName: "Matthew",
                 familyName: "Adams",
-                otherNames: JsonArray.Create("William"));
+                otherNames: JsonArray.Create("William"))
+                .Add(
+                    ("fish", "Hello"),
+                    ("cushion", "Goodbye"),
+                    ("someTime", OffsetDateTime.FromDateTimeOffset(DateTimeOffset.Now)));
+
+            Validate(personName);
+            Serialize(personName);
 
             var personListResource = new PersonListResource(
                 contentType: "application/vnd.menes.personListResource",

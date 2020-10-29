@@ -11,6 +11,7 @@ namespace Menes
     using System.Text;
     using System.Text.Json;
     using Corvus.Extensions;
+    using NodaTime;
 
     /// <summary>
     /// Enables the Json resources to work with "any" types in situ, whether they
@@ -55,6 +56,123 @@ namespace Menes
 
         /// <inheritdoc/>
         public JsonElement JsonElement { get; }
+
+        /// <summary>
+        /// Implicit conversion from string.
+        /// </summary>
+        /// <param name="value">The string value.</param>
+        public static implicit operator JsonAny(string value)
+        {
+            return From<JsonString>(value);
+        }
+
+        /// <summary>
+        /// Implicit conversion from double.
+        /// </summary>
+        /// <param name="value">The double value.</param>
+        public static implicit operator JsonAny(double value)
+        {
+            return From<JsonDouble>(value);
+        }
+
+        /// <summary>
+        /// Implicit conversion from float.
+        /// </summary>
+        /// <param name="value">The float value.</param>
+        public static implicit operator JsonAny(float value)
+        {
+            return From<JsonSingle>(value);
+        }
+
+        /// <summary>
+        /// Implicit conversion from int.
+        /// </summary>
+        /// <param name="value">The int value.</param>
+        public static implicit operator JsonAny(int value)
+        {
+            return From<JsonInt32>(value);
+        }
+
+        /// <summary>
+        /// Implicit conversion from long.
+        /// </summary>
+        /// <param name="value">The long value.</param>
+        public static implicit operator JsonAny(long value)
+        {
+            return From<JsonInt64>(value);
+        }
+
+        /// <summary>
+        /// Implicit conversion from uri.
+        /// </summary>
+        /// <param name="value">The uri value.</param>
+        public static implicit operator JsonAny(Uri value)
+        {
+            return From<JsonUri>(value);
+        }
+
+        /// <summary>
+        /// Implicit conversion from guid.
+        /// </summary>
+        /// <param name="value">The guid value.</param>
+        public static implicit operator JsonAny(Guid value)
+        {
+            return From<JsonGuid>(value);
+        }
+
+        /// <summary>
+        /// Implicit conversion from bool.
+        /// </summary>
+        /// <param name="value">The guid value.</param>
+        public static implicit operator JsonAny(bool value)
+        {
+            return From<JsonBoolean>(value);
+        }
+
+        /// <summary>
+        /// Implicit conversion from LocalDate.
+        /// </summary>
+        /// <param name="value">The LocalDate value.</param>
+        public static implicit operator JsonAny(LocalDate value)
+        {
+            return From<JsonDate>(value);
+        }
+
+        /// <summary>
+        /// Implicit conversion from OffsetDateTime.
+        /// </summary>
+        /// <param name="value">The OffsetDateTime value.</param>
+        public static implicit operator JsonAny(OffsetDateTime value)
+        {
+            return From<JsonDateTime>(value);
+        }
+
+        /// <summary>
+        /// Implicit conversion from decimal.
+        /// </summary>
+        /// <param name="value">The decimal value.</param>
+        public static implicit operator JsonAny(decimal value)
+        {
+            return From<JsonDecimal>(value);
+        }
+
+        /// <summary>
+        /// Implicit conversion from Duration.
+        /// </summary>
+        /// <param name="value">The Duration value.</param>
+        public static implicit operator JsonAny(Duration value)
+        {
+            return From<JsonDuration>(value);
+        }
+
+        /// <summary>
+        /// Implicit conversion from OffsetTime.
+        /// </summary>
+        /// <param name="value">The OffsetTime value.</param>
+        public static implicit operator JsonAny(OffsetTime value)
+        {
+            return From<JsonTime>(value);
+        }
 
         /// <summary>
         /// Gets a value indicating whether an instance is convertible from
