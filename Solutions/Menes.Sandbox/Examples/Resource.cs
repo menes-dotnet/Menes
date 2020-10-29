@@ -383,11 +383,11 @@ namespace Examples
             }
             return context;
         }
-        public bool TryGetAdditionalProperty(string propertyName, [System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out Menes.JsonAny? value)
+        public bool TryGet(string propertyName, [System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out Menes.JsonAny value)
         {
-            return this.TryGetAdditionalProperty(System.MemoryExtensions.AsSpan(propertyName), out value);
+            return this.TryGet(System.MemoryExtensions.AsSpan(propertyName), out value);
         }
-        public bool TryGetAdditionalProperty(System.ReadOnlySpan<byte> utf8PropertyName, [System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out Menes.JsonAny? value)
+        public bool TryGet(System.ReadOnlySpan<byte> utf8PropertyName, [System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out Menes.JsonAny value)
         {
             foreach (Menes.JsonPropertyReference<Menes.JsonAny> property in this.JsonAdditionalProperties)
             {
@@ -400,11 +400,11 @@ namespace Examples
             value = default;
             return false;
         }
-        public bool TryGetAdditionalProperty(System.ReadOnlySpan<char> propertyName, [System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out Menes.JsonAny? value)
+        public bool TryGet(System.ReadOnlySpan<char> propertyName, [System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out Menes.JsonAny value)
         {
             System.Span<byte> bytes = stackalloc byte[propertyName.Length * 4];
             int written = System.Text.Encoding.UTF8.GetBytes(propertyName, bytes);
-            return this.TryGetAdditionalProperty(bytes.Slice(0, written), out value);
+            return this.TryGet(bytes.Slice(0, written), out value);
         }
         public override string ToString()
         {
@@ -682,11 +682,11 @@ namespace Examples
                 }
                 return context;
             }
-            public bool TryGetAdditionalProperty(string propertyName, [System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out Links? value)
+            public bool TryGet(string propertyName, [System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out Links value)
             {
-                return this.TryGetAdditionalProperty(System.MemoryExtensions.AsSpan(propertyName), out value);
+                return this.TryGet(System.MemoryExtensions.AsSpan(propertyName), out value);
             }
-            public bool TryGetAdditionalProperty(System.ReadOnlySpan<byte> utf8PropertyName, [System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out Links? value)
+            public bool TryGet(System.ReadOnlySpan<byte> utf8PropertyName, [System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out Links value)
             {
                 foreach (Menes.JsonPropertyReference<Links> property in this.JsonAdditionalProperties)
                 {
@@ -699,11 +699,11 @@ namespace Examples
                 value = default;
                 return false;
             }
-            public bool TryGetAdditionalProperty(System.ReadOnlySpan<char> propertyName, [System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out Links? value)
+            public bool TryGet(System.ReadOnlySpan<char> propertyName, [System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out Links value)
             {
                 System.Span<byte> bytes = stackalloc byte[propertyName.Length * 4];
                 int written = System.Text.Encoding.UTF8.GetBytes(propertyName, bytes);
-                return this.TryGetAdditionalProperty(bytes.Slice(0, written), out value);
+                return this.TryGet(bytes.Slice(0, written), out value);
             }
             public override string ToString()
             {
@@ -893,11 +893,11 @@ namespace Examples
                 }
                 return context;
             }
-            public bool TryGetAdditionalProperty(string propertyName, [System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out EmbeddedResources? value)
+            public bool TryGet(string propertyName, [System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out EmbeddedResources value)
             {
-                return this.TryGetAdditionalProperty(System.MemoryExtensions.AsSpan(propertyName), out value);
+                return this.TryGet(System.MemoryExtensions.AsSpan(propertyName), out value);
             }
-            public bool TryGetAdditionalProperty(System.ReadOnlySpan<byte> utf8PropertyName, [System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out EmbeddedResources? value)
+            public bool TryGet(System.ReadOnlySpan<byte> utf8PropertyName, [System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out EmbeddedResources value)
             {
                 foreach (Menes.JsonPropertyReference<EmbeddedResources> property in this.JsonAdditionalProperties)
                 {
@@ -910,11 +910,11 @@ namespace Examples
                 value = default;
                 return false;
             }
-            public bool TryGetAdditionalProperty(System.ReadOnlySpan<char> propertyName, [System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out EmbeddedResources? value)
+            public bool TryGet(System.ReadOnlySpan<char> propertyName, [System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out EmbeddedResources value)
             {
                 System.Span<byte> bytes = stackalloc byte[propertyName.Length * 4];
                 int written = System.Text.Encoding.UTF8.GetBytes(propertyName, bytes);
-                return this.TryGetAdditionalProperty(bytes.Slice(0, written), out value);
+                return this.TryGet(bytes.Slice(0, written), out value);
             }
             public override string ToString()
             {
@@ -930,7 +930,6 @@ namespace Examples
             }
         }
     }
-
     public readonly struct Links : Menes.IJsonValue
     {
         public static readonly Links Null = new Links(default(System.Text.Json.JsonElement));
@@ -981,6 +980,10 @@ namespace Examples
         public static implicit operator Links(Link value) => new Links(value);
         public static explicit operator LinkCollection(Links value) => value.AsLinkCollection();
         public static implicit operator Links(LinkCollection value) => new Links(value);
+        public static implicit operator Links(Menes.JsonArray<Link> value)
+        {
+            return new Links(value);
+        }
         public static Links FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<char> propertyName) =>
            parentDocument.ValueKind != System.Text.Json.JsonValueKind.Undefined ?
                 (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
@@ -1435,11 +1438,11 @@ namespace Examples
             }
             return context;
         }
-        public bool TryGetAdditionalProperty(string propertyName, [System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out Menes.JsonAny? value)
+        public bool TryGet(string propertyName, [System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out Menes.JsonAny value)
         {
-            return this.TryGetAdditionalProperty(System.MemoryExtensions.AsSpan(propertyName), out value);
+            return this.TryGet(System.MemoryExtensions.AsSpan(propertyName), out value);
         }
-        public bool TryGetAdditionalProperty(System.ReadOnlySpan<byte> utf8PropertyName, [System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out Menes.JsonAny? value)
+        public bool TryGet(System.ReadOnlySpan<byte> utf8PropertyName, [System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out Menes.JsonAny value)
         {
             foreach (Menes.JsonPropertyReference<Menes.JsonAny> property in this.JsonAdditionalProperties)
             {
@@ -1452,11 +1455,11 @@ namespace Examples
             value = default;
             return false;
         }
-        public bool TryGetAdditionalProperty(System.ReadOnlySpan<char> propertyName, [System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out Menes.JsonAny? value)
+        public bool TryGet(System.ReadOnlySpan<char> propertyName, [System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out Menes.JsonAny value)
         {
             System.Span<byte> bytes = stackalloc byte[propertyName.Length * 4];
             int written = System.Text.Encoding.UTF8.GetBytes(propertyName, bytes);
-            return this.TryGetAdditionalProperty(bytes.Slice(0, written), out value);
+            return this.TryGet(bytes.Slice(0, written), out value);
         }
         public override string ToString()
         {
@@ -1713,7 +1716,6 @@ namespace Examples
             }
         }
     }
-
     public readonly struct LinkCollection : Menes.IJsonValue, System.Collections.Generic.IEnumerable<Link>, System.Collections.IEnumerable, System.IEquatable<LinkCollection>, System.IEquatable<Menes.JsonArray<Link>>
     {
         public static readonly System.Func<System.Text.Json.JsonElement, LinkCollection> FromJsonElement = e => new LinkCollection(e);
@@ -1865,6 +1867,10 @@ namespace Examples
         public static implicit operator EmbeddedResources(Resource value) => new EmbeddedResources(value);
         public static explicit operator ResourceCollection(EmbeddedResources value) => value.AsResourceCollection();
         public static implicit operator EmbeddedResources(ResourceCollection value) => new EmbeddedResources(value);
+        public static implicit operator EmbeddedResources(Menes.JsonArray<Resource> value)
+        {
+            return new EmbeddedResources(value);
+        }
         public static EmbeddedResources FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<char> propertyName) =>
            parentDocument.ValueKind != System.Text.Json.JsonValueKind.Undefined ?
                 (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)

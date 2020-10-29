@@ -51,10 +51,10 @@ namespace Menes.Sandbox
             ////GenerateJsonSchemaModel();
             ////return UseJsonSchemaModel("exampleschema2.json");
             ////return GenerateTypesForSchema("exampleschema2.json");
-            return GenerateTypesForSchema("resourcesAndLinks.json#/schemas/Resource");
+            ////return GenerateTypesForSchema("resourcesAndLinks.json#/schemas/Resource");
 
-            ////UseGeneratedCode();
-            ////return Task.CompletedTask;
+            UseGeneratedCode();
+            return Task.CompletedTask;
         }
 
         private static void UseGeneratedCode()
@@ -65,7 +65,24 @@ namespace Menes.Sandbox
                         self: new Link("http://endjin.com/something"),
                         ("foo", new Link("http://endjin.com/something")),
                         ("bar", new Link("http://endjin.com/something")),
-                        ("baz",  (LinkCollection)JsonArray.Create(new Link("http://endjin.com/something"), new Link("http://endjin.com/somethingelse")))));
+                        ("baz", JsonArray.Create(new Link("http://endjin.com/something"), new Link("http://endjin.com/somethingelse")))));
+
+            Validate(resource);
+
+            if (resource.Links.TryGet("baz", out Links value))
+            {
+                if (value.IsLink)
+                {
+                    Console.WriteLine(value.AsLink().Href);
+                }
+                else
+                {
+                    foreach (Link link in value.AsLinkCollection())
+                    {
+                        Console.WriteLine(link.Href);
+                    }
+                }
+            }
 
             Person instance =
                 new Person("Ian", "Griffiths")
@@ -193,7 +210,7 @@ namespace Menes.Sandbox
 
             Console.WriteLine();
 
-            if (anotherOne.TryGetAdditionalProperty("foo", out JsonString? value))
+            if (anotherOne.TryGet("foo", out JsonString value))
             {
                 Console.WriteLine($"Found foo: {value}");
             }

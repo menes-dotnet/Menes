@@ -248,14 +248,14 @@ namespace Menes.TypeGenerator
             var builder = new StringBuilder();
             string typename = additionalProperties.GetFullyQualifiedName();
 
-            builder.AppendLine($"public bool TryGetAdditionalProperty(string propertyName, [System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out {typename}? value)");
+            builder.AppendLine($"public bool TryGet(string propertyName, [System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out {typename} value)");
             builder.AppendLine("{");
-            builder.AppendLine("    return this.TryGetAdditionalProperty(System.MemoryExtensions.AsSpan(propertyName), out value);");
+            builder.AppendLine("    return this.TryGet(System.MemoryExtensions.AsSpan(propertyName), out value);");
             builder.AppendLine("}");
             members.Add(SF.ParseMemberDeclaration(builder.ToString()));
             builder.Clear();
 
-            builder.AppendLine($"public bool TryGetAdditionalProperty(System.ReadOnlySpan<byte> utf8PropertyName, [System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out {typename}? value)");
+            builder.AppendLine($"public bool TryGet(System.ReadOnlySpan<byte> utf8PropertyName, [System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out {typename} value)");
             builder.AppendLine("{");
             builder.AppendLine($"    foreach (Menes.JsonPropertyReference<{typename}> property in this.JsonAdditionalProperties)");
             builder.AppendLine("    {");
@@ -271,11 +271,11 @@ namespace Menes.TypeGenerator
             members.Add(SF.ParseMemberDeclaration(builder.ToString()));
             builder.Clear();
 
-            builder.AppendLine($"public bool TryGetAdditionalProperty(System.ReadOnlySpan<char> propertyName, [System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out {typename}? value)");
+            builder.AppendLine($"public bool TryGet(System.ReadOnlySpan<char> propertyName, [System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out {typename} value)");
             builder.AppendLine("{");
             builder.AppendLine("    System.Span<byte> bytes = stackalloc byte[propertyName.Length * 4];");
             builder.AppendLine("    int written = System.Text.Encoding.UTF8.GetBytes(propertyName, bytes);");
-            builder.AppendLine("    return this.TryGetAdditionalProperty(bytes.Slice(0, written), out value);");
+            builder.AppendLine("    return this.TryGet(bytes.Slice(0, written), out value);");
             builder.AppendLine("}");
             members.Add(SF.ParseMemberDeclaration(builder.ToString()));
         }

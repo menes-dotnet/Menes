@@ -244,9 +244,9 @@ namespace Menes
         /// <param name="propertyName">The property name.</param>
         /// <param name="value">The property value as a <see cref="JsonAny"/>.</param>
         /// <returns><c>True</c> if the property was successfully retrieved.</returns>
-        public bool TryGetAdditionalProperty(string propertyName, [NotNullWhen(true)] out JsonAny? value)
+        public bool TryGet(string propertyName, [NotNullWhen(true)] out JsonAny? value)
         {
-            return this.TryGetAdditionalProperty(propertyName.AsSpan(), out value);
+            return this.TryGet(propertyName.AsSpan(), out value);
         }
 
         /// <summary>
@@ -255,7 +255,7 @@ namespace Menes
         /// <param name="utf8PropertyName">The property name.</param>
         /// <param name="value">The property value as a <see cref="JsonAny"/>.</param>
         /// <returns><c>True</c> if the property was successfully retrieved.</returns>
-        public bool TryGetAdditionalProperty(ReadOnlySpan<byte> utf8PropertyName, [NotNullWhen(true)] out JsonAny? value)
+        public bool TryGet(ReadOnlySpan<byte> utf8PropertyName, [NotNullWhen(true)] out JsonAny? value)
         {
             foreach (JsonPropertyReference<JsonAny> property in this.JsonAdditionalProperties)
             {
@@ -276,11 +276,11 @@ namespace Menes
         /// <param name="propertyName">The property name.</param>
         /// <param name="value">The property value as a <see cref="JsonAny"/>.</param>
         /// <returns><c>True</c> if the property was successfully retrieved.</returns>
-        public bool TryGetAdditionalProperty(ReadOnlySpan<char> propertyName, [NotNullWhen(true)] out JsonAny? value)
+        public bool TryGet(ReadOnlySpan<char> propertyName, [NotNullWhen(true)] out JsonAny? value)
         {
             Span<byte> bytes = stackalloc byte[propertyName.Length * 4];
             int written = Encoding.UTF8.GetBytes(propertyName, bytes);
-            return this.TryGetAdditionalProperty(bytes.Slice(0, written), out value);
+            return this.TryGet(bytes.Slice(0, written), out value);
         }
 
         /// <inheritdoc/>

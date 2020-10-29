@@ -209,11 +209,39 @@ namespace Menes.TypeGenerator
 
             builder.AppendLine("    public System.Text.Json.JsonElement JsonElement { get; }");
 
+            var existingConversions = new HashSet<string>();
+
             foreach ((ITypeDeclaration unionType, string discriminatorValue) in this.typesInUnion.Values)
             {
                 string fullyQualifiedTypeName = unionType.GetFullyQualifiedName();
                 builder.AppendLine($"    public static explicit operator {fullyQualifiedTypeName}({this.Name} value) => value.As{unionType.Name}();");
                 builder.AppendLine($"    public static implicit operator {this.Name}({fullyQualifiedTypeName} value) => new {this.Name}(value);");
+
+                if (unionType is ValidatedArrayTypeDeclaration vdat)
+                {
+                    string itemFullyQualifiedName = vdat.ItemType!.GetFullyQualifiedName();
+                    if (!existingConversions.Contains(itemFullyQualifiedName))
+                    {
+                        existingConversions.Add(itemFullyQualifiedName);
+                        builder.AppendLine($"    public static implicit operator {this.Name}(Menes.JsonArray<{itemFullyQualifiedName}> value)");
+                        builder.AppendLine("    {");
+                        builder.AppendLine($"        return new {this.Name}(value);");
+                        builder.AppendLine("    }");
+                    }
+                }
+
+                if (unionType is ArrayTypeDeclaration atd)
+                {
+                    string itemFullyQualifiedName = atd.ItemType!.GetFullyQualifiedName();
+                    if (!existingConversions.Contains(itemFullyQualifiedName))
+                    {
+                        existingConversions.Add(itemFullyQualifiedName);
+                        builder.AppendLine($"    public static implicit operator {this.Name}(Menes.JsonArray<{itemFullyQualifiedName}> value)");
+                        builder.AppendLine("    {");
+                        builder.AppendLine($"        return new {this.Name}(value);");
+                        builder.AppendLine("    }");
+                    }
+                }
             }
 
             builder.AppendLine($"public static {this.Name} FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<char> propertyName) =>");
