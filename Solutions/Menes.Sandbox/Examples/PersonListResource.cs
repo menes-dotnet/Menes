@@ -91,7 +91,7 @@ namespace OtherExamples
             this.JsonElement = default;
             this.additionalPropertiesBacking = Menes.JsonProperties<Menes.JsonAny>.FromValues(additionalPropertiesBacking);
         }
-        public PersonListResource(PersonListResource.LinksEntity links, Menes.JsonString? contentType, PersonListResource.EmbeddedEntity? embedded)
+        public PersonListResource(PersonListResource.LinksEntity links, Menes.JsonString? contentType = null, PersonListResource.EmbeddedEntity? embedded = null)
         {
             this.contentType = contentType;
             if (links is PersonListResource.LinksEntity item1)
@@ -715,7 +715,7 @@ namespace OtherExamples
                 this.JsonElement = default;
                 this.additionalPropertiesBacking = Menes.JsonProperties<PersonListResource.PropertiesEntity>.FromValues(additionalPropertiesBacking);
             }
-            public LinksEntity(Link self, LinkCollection items, Link? next, Link? prev)
+            public LinksEntity(Link self, LinkCollection items, Link? next = null, Link? prev = null)
             {
                 if (self is Link item1)
                 {
@@ -1514,7 +1514,7 @@ namespace OtherExamples
                 this.JsonElement = default;
                 this.additionalPropertiesBacking = Menes.JsonProperties<PersonListResource.PropertiesEntity>.FromValues(additionalPropertiesBacking);
             }
-            public EmbeddedEntity(PersonListResource.PersonResourceItems? items)
+            public EmbeddedEntity(PersonListResource.PersonResourceItems? items = null)
             {
                 if (items is PersonListResource.PersonResourceItems item1)
                 {
@@ -2132,7 +2132,7 @@ namespace OtherExamples
                 this.JsonElement = default;
                 this.additionalPropertiesBacking = Menes.JsonProperties<Menes.JsonAny>.FromValues(additionalPropertiesBacking);
             }
-            public PersonListResourceEntity(PersonListResource.PersonListResourceEntity.LinksEntity links, PersonListResource.EmbeddedEntity? embedded)
+            public PersonListResourceEntity(PersonListResource.PersonListResourceEntity.LinksEntity links, PersonListResource.EmbeddedEntity? embedded = null)
             {
                 if (links is PersonListResource.PersonListResourceEntity.LinksEntity item1)
                 {
@@ -2693,7 +2693,7 @@ namespace OtherExamples
                     this.JsonElement = default;
                     this.additionalPropertiesBacking = Menes.JsonProperties<PersonListResource.PersonListResourceEntity.LinksEntity.PropertiesEntity>.FromValues(additionalPropertiesBacking);
                 }
-                public LinksEntity(LinkCollection items, Link? next, Link? prev)
+                public LinksEntity(LinkCollection items, Link? next = null, Link? prev = null)
                 {
                     if (items is LinkCollection item1)
                     {
@@ -4101,7 +4101,7 @@ namespace OtherExamples
             this.JsonElement = default;
             this.additionalPropertiesBacking = Menes.JsonProperties<Menes.JsonAny>.FromValues(additionalPropertiesBacking);
         }
-        public PagedListResource(PagedListResource.LinksEntity links, Menes.JsonString? contentType, PagedListResource.EmbeddedEntity? embedded)
+        public PagedListResource(PagedListResource.LinksEntity links, Menes.JsonString? contentType = null, PagedListResource.EmbeddedEntity? embedded = null)
         {
             this.contentType = contentType;
             if (links is PagedListResource.LinksEntity item1)
@@ -4719,7 +4719,7 @@ namespace OtherExamples
                 this.JsonElement = default;
                 this.additionalPropertiesBacking = Menes.JsonProperties<PagedListResource.PropertiesEntity>.FromValues(additionalPropertiesBacking);
             }
-            public LinksEntity(Link self, LinkCollection items, Link? next, Link? prev)
+            public LinksEntity(Link self, LinkCollection items, Link? next = null, Link? prev = null)
             {
                 if (self is Link item1)
                 {
@@ -6470,7 +6470,7 @@ namespace OtherExamples
                     this.JsonElement = default;
                     this.additionalPropertiesBacking = Menes.JsonProperties<PagedListResource.PagedListResourceEntity.LinksEntity.PropertiesEntity>.FromValues(additionalPropertiesBacking);
                 }
-                public LinksEntity(LinkCollection items, Link? next, Link? prev)
+                public LinksEntity(LinkCollection items, Link? next = null, Link? prev = null)
                 {
                     if (items is LinkCollection item1)
                     {
@@ -7392,7 +7392,7 @@ namespace OtherExamples
             this.JsonElement = default;
             this.additionalPropertiesBacking = Menes.JsonProperties<Menes.JsonAny>.FromValues(additionalPropertiesBacking);
         }
-        public Resource(Resource.LinksEntity links, Menes.JsonString? contentType, Resource.EmbeddedEntity? embedded)
+        public Resource(Resource.LinksEntity links, Menes.JsonString? contentType = null, Resource.EmbeddedEntity? embedded = null)
         {
             this.contentType = contentType;
             if (links is Resource.LinksEntity item1)
@@ -9001,7 +9001,7 @@ namespace OtherExamples
             this.JsonElement = default;
             this.additionalPropertiesBacking = Menes.JsonProperties<Menes.JsonAny>.FromValues(additionalPropertiesBacking);
         }
-        public Link(Menes.JsonString href, Menes.JsonBoolean? templated, Link.TypeValue? type, Menes.JsonString? name, Menes.JsonUri? profile, Menes.JsonString? description, Link.HreflangValue? hreflang)
+        public Link(Menes.JsonString href, Menes.JsonBoolean? templated = null, Link.TypeValue? type = null, Menes.JsonString? name = null, Menes.JsonUri? profile = null, Menes.JsonString? description = null, Link.HreflangValue? hreflang = null)
         {
             this.href = href;
             this.templated = templated;
@@ -10538,7 +10538,7 @@ namespace OtherExamples
             this.JsonElement = default;
             this.additionalPropertiesBacking = Menes.JsonProperties<Menes.JsonAny>.FromValues(additionalPropertiesBacking);
         }
-        public PersonResource(PersonResource.LinksEntity links, Menes.JsonString? contentType, PersonResource.EmbeddedEntity? embedded)
+        public PersonResource(PersonResource.LinksEntity links, Menes.JsonString? contentType = null, PersonResource.EmbeddedEntity? embedded = null)
         {
             this.contentType = contentType;
             if (links is PersonResource.LinksEntity item1)
@@ -11200,7 +11200,7 @@ namespace OtherExamples
                 this.JsonElement = default;
                 this.additionalPropertiesBacking = Menes.JsonProperties<PersonResource.PropertiesEntity>.FromValues(additionalPropertiesBacking);
             }
-            public LinksEntity(Link self, Link primaryName, LinkCollection? names, LinkCollection? addresses, LinkCollection? telephoneNumbers, LinkCollection? emailAddresses)
+            public LinksEntity(Link self, Link primaryName, LinkCollection? names = null, LinkCollection? addresses = null, LinkCollection? telephoneNumbers = null, LinkCollection? emailAddresses = null)
             {
                 if (self is Link item1)
                 {
@@ -12735,7 +12735,7 @@ namespace OtherExamples
                 this.JsonElement = default;
                 this.additionalPropertiesBacking = Menes.JsonProperties<Menes.JsonAny>.FromValues(additionalPropertiesBacking);
             }
-            public PersonResourceEntity(PersonResource.PersonResourceEntity.LinksEntity? links, PersonResource.PersonResourceEntity.EmbeddedEntity? embedded)
+            public PersonResourceEntity(PersonResource.PersonResourceEntity.LinksEntity? links = null, PersonResource.PersonResourceEntity.EmbeddedEntity? embedded = null)
             {
                 if (links is PersonResource.PersonResourceEntity.LinksEntity item1)
                 {
@@ -13343,7 +13343,7 @@ namespace OtherExamples
                     this.JsonElement = default;
                     this.additionalPropertiesBacking = Menes.JsonProperties<PersonResource.PersonResourceEntity.LinksEntity.PropertiesEntity>.FromValues(additionalPropertiesBacking);
                 }
-                public LinksEntity(Link primaryName, LinkCollection? names, LinkCollection? addresses, LinkCollection? telephoneNumbers, LinkCollection? emailAddresses)
+                public LinksEntity(Link primaryName, LinkCollection? names = null, LinkCollection? addresses = null, LinkCollection? telephoneNumbers = null, LinkCollection? emailAddresses = null)
                 {
                     if (primaryName is Link item1)
                     {
@@ -15143,7 +15143,7 @@ namespace OtherExamples
             this.JsonElement = default;
             this.additionalPropertiesBacking = Menes.JsonProperties<Menes.JsonAny>.FromValues(additionalPropertiesBacking);
         }
-        public PersonNameResource(PersonNameResource.LinksEntity links, PersonNameResource.GivenNameValue givenName, PersonNameResource.FamilyNameValue familyName, PersonNameResource.OtherNamesValueOtherNames otherNames, Menes.JsonString? contentType, PersonNameResource.EmbeddedEntity? embedded, PersonNameResource.TitleValue? title, Menes.JsonString? suffix)
+        public PersonNameResource(PersonNameResource.LinksEntity links, PersonNameResource.GivenNameValue givenName, PersonNameResource.FamilyNameValue familyName, PersonNameResource.OtherNamesValueOtherNames otherNames, Menes.JsonString? contentType = null, PersonNameResource.EmbeddedEntity? embedded = null, PersonNameResource.TitleValue? title = null, Menes.JsonString? suffix = null)
         {
             this.contentType = contentType;
             if (links is PersonNameResource.LinksEntity item1)
@@ -17781,7 +17781,7 @@ namespace OtherExamples
             this.JsonElement = default;
             this.additionalPropertiesBacking = Menes.JsonProperties<Menes.JsonAny>.FromValues(additionalPropertiesBacking);
         }
-        public PersonName(PersonName.GivenNameValue givenName, PersonName.FamilyNameValue familyName, PersonName.OtherNamesValueOtherNames otherNames, PersonName.TitleValue? title, Menes.JsonString? suffix)
+        public PersonName(PersonName.GivenNameValue givenName, PersonName.FamilyNameValue familyName, PersonName.OtherNamesValueOtherNames otherNames, PersonName.TitleValue? title = null, Menes.JsonString? suffix = null)
         {
             this.title = title;
             this.givenName = givenName;

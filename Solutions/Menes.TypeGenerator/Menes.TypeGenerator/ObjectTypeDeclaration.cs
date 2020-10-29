@@ -839,14 +839,21 @@ namespace Menes.TypeGenerator
 
             foreach (PropertyDeclaration property in requiredProperties)
             {
-                this.BuildPropertiesConstructorParameter(property, builder, false);
+                this.BuildPropertiesConstructorParameter(property, builder, false, false);
             }
 
             if (!requiredOnly)
             {
+                bool allowDefaultNull = false;
+
+                if (this.AdditionalPropertiesType is null || (additionalPropertiesCount.HasValue && additionalPropertiesCount.Value == 0))
+                {
+                    allowDefaultNull = true;
+                }
+
                 foreach (PropertyDeclaration property in optionalProperties)
                 {
-                    this.BuildPropertiesConstructorParameter(property, builder, true);
+                    this.BuildPropertiesConstructorParameter(property, builder, true, allowDefaultNull);
                 }
 
                 if (this.AdditionalPropertiesType is ITypeDeclaration additionalPropertiesType)
@@ -907,7 +914,7 @@ namespace Menes.TypeGenerator
             }
         }
 
-        private void BuildPropertiesConstructorParameter(PropertyDeclaration property, StringBuilder builder, bool isOptional)
+        private void BuildPropertiesConstructorParameter(PropertyDeclaration property, StringBuilder builder, bool isOptional, bool allowDefaultNull)
         {
             if (builder.Length > 0)
             {
@@ -923,6 +930,13 @@ namespace Menes.TypeGenerator
 
             builder.Append(" ");
             builder.Append(StringFormatter.ToCamelCaseWithReservedWords(property.JsonPropertyName));
+            if (isOptional)
+            {
+                if (allowDefaultNull)
+                {
+                    builder.Append(" = null");
+                }
+            }
         }
 
         private void BuildCloningConstructorParameter(PropertyDeclaration property, StringBuilder builder, bool isOptional)

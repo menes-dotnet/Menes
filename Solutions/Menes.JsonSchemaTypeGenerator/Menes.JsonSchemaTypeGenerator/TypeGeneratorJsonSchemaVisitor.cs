@@ -206,17 +206,17 @@ namespace Menes.Json.Schema.TypeGenerator
         private Task<ITypeDeclaration> CreateObject(JsonSchema schema, string name)
         {
             int booleanSubschemaCount = 0;
-            if (schema.OneOf is JsonSchema.ValidatedArrayOfSchemaOrReference)
+            if (schema.OneOf is JsonSchema.NonEmptySubschemaArray)
             {
                 booleanSubschemaCount += 1;
             }
 
-            if (schema.AnyOf is JsonSchema.ValidatedArrayOfSchemaOrReference)
+            if (schema.AnyOf is JsonSchema.NonEmptySubschemaArray)
             {
                 booleanSubschemaCount += 1;
             }
 
-            if (schema.AllOf is JsonSchema.ValidatedArrayOfSchemaOrReference)
+            if (schema.AllOf is JsonSchema.NonEmptySubschemaArray)
             {
                 booleanSubschemaCount += 1;
             }
@@ -227,7 +227,7 @@ namespace Menes.Json.Schema.TypeGenerator
                 return this.CreateAny(schema, name);
             }
 
-            if (schema.OneOf is JsonSchema.ValidatedArrayOfSchemaOrReference || schema.AnyOf is JsonSchema.ValidatedArrayOfSchemaOrReference)
+            if (schema.OneOf is JsonSchema.NonEmptySubschemaArray || schema.AnyOf is JsonSchema.NonEmptySubschemaArray)
             {
                 return Task.FromResult<ITypeDeclaration>(new UnionTypeDeclaration(name));
             }
@@ -248,7 +248,7 @@ namespace Menes.Json.Schema.TypeGenerator
                 throw new InvalidOperationException($"Expected an {typeof(ObjectTypeDeclaration).FullName} or a {typeof(UnionTypeDeclaration).FullName} but found a {type.GetType().FullName}.");
             }
 
-            if (schema.AllOf is JsonSchema.ValidatedArrayOfSchemaOrReference allOf)
+            if (schema.AllOf is JsonSchema.NonEmptySubschemaArray allOf)
             {
                 List<(string, JsonDocument, JsonSchema)>? allOfSchemas = await this.GetSchemasFor(allOf, rootDocument, baseUri).ConfigureAwait(false);
 
@@ -279,7 +279,7 @@ namespace Menes.Json.Schema.TypeGenerator
             {
                 var requiredProperties = new List<string>();
 
-                if (schema.Required is JsonSchema.ValidatedArrayOfJsonString required)
+                if (schema.Required is JsonSchema.UniqueStringArray required)
                 {
                     requiredProperties.AddRange(required.Select(s => s.CreateOrGetClrString()));
                 }
@@ -461,9 +461,9 @@ namespace Menes.Json.Schema.TypeGenerator
             validatedJsonValueTypeDeclaration.PatternValidation = schema.Pattern;
         }
 
-        private async Task<List<(string, JsonDocument, JsonSchema)>?> GetSchemasFor(JsonSchema.ValidatedArrayOfSchemaOrReference schemas, JsonDocument rootDocument, string baseUri)
+        private async Task<List<(string, JsonDocument, JsonSchema)>?> GetSchemasFor(JsonSchema.NonEmptySubschemaArray schemas, JsonDocument rootDocument, string baseUri)
         {
-            if (!(schemas is JsonSchema.ValidatedArrayOfSchemaOrReference s))
+            if (!(schemas is JsonSchema.NonEmptySubschemaArray s))
             {
                 return null;
             }
@@ -485,9 +485,9 @@ namespace Menes.Json.Schema.TypeGenerator
             return result;
         }
 
-        private async Task<List<ITypeDeclaration>?> GetTypeDeclarationsFor(JsonSchema.ValidatedArrayOfSchemaOrReference? schemas, JsonDocument rootDocument, string baseUri)
+        private async Task<List<ITypeDeclaration>?> GetTypeDeclarationsFor(JsonSchema.NonEmptySubschemaArray? schemas, JsonDocument rootDocument, string baseUri)
         {
-            if (!(schemas is JsonSchema.ValidatedArrayOfSchemaOrReference s))
+            if (!(schemas is JsonSchema.NonEmptySubschemaArray s))
             {
                 return null;
             }

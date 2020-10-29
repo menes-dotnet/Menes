@@ -50,18 +50,17 @@ namespace Menes.Sandbox
             ////Console.WriteLine(builder.ToString());
 
             ////SimpleExamples();
-            ////GenerateJsonSchemaModel();
+            ////return GenerateJsonSchemaModel();
             ////return UseJsonSchemaModel("exampleschema2.json");
             ////return GenerateTypesForSchema("exampleschema2.json");
             ////return GenerateTypesForSchema("resourcesAndLinks.json#/schemas/Resource");
             ////return GenerateTypesForSchema("person.json#/schemas/Person");
             ////return GenerateTypesForSchema("peopleApi.json#/components/schemas/PersonListResource", "./output/");
 
-            UseGeneratedCode();
-            return Task.CompletedTask;
+            return UseGeneratedCode();
         }
 
-        private static void UseGeneratedCode()
+        private static Task UseGeneratedCode()
         {
             var personListResource = new PersonListResource(
                 contentType: "application/vnd.menes.personListResource",
@@ -69,7 +68,6 @@ namespace Menes.Sandbox
                     items: JsonArray.Create(
                         new PersonResource(
                             contentType: "application/vnd.menes.personResource",
-                            embedded: null,
                             links: new PersonResource.LinksEntity(
                                 self: new Link("http://endjin.com/examples/people/1"),
                                 primaryName: new Link("http://endjin.com/examples/people/1/names/1"))))),
@@ -86,7 +84,6 @@ namespace Menes.Sandbox
             var person =
                 new Examples.GeneratedPerson(
                     contentType: "application/vnd.menes.person",
-                    embedded: null,
                     links: new Examples.GeneratedPerson.LinksEntity(
                         self: new Examples.Link("http://endjin.com/something"),
                         primaryName: new Examples.Link("http://endjin.com/somename"),
@@ -162,6 +159,7 @@ namespace Menes.Sandbox
 
             Validate(instance);
             Serialize(instance);
+            return Task.CompletedTask;
         }
 
         private static async Task UseJsonSchemaModel(string uri)
@@ -236,12 +234,13 @@ namespace Menes.Sandbox
             }
         }
 
-        private static void GenerateJsonSchemaModel()
+        private static Task GenerateJsonSchemaModel()
         {
             TypeDeclarationSyntax jsonSchema = JsonSchemaModelGenerator.BuildModelForJsonSchema();
             SyntaxNode formattedJsonSchema = Formatter.Format(jsonSchema, new AdhocWorkspace());
             Console.WriteLine();
             Console.WriteLine(formattedJsonSchema.ToFullString());
+            return Task.CompletedTask;
         }
 
         private static void SimpleExamples()
