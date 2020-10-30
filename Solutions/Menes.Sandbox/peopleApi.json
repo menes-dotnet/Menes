@@ -1460,7 +1460,7 @@
           "href": {
             "title": "URI of the target resource",
             "type": "string",
-            "format":  "uri",
+            "format": "uri",
             "description": "Either a URI [RFC3986] or URI Template [RFC6570] of the target resource."
           },
           "templated": {
@@ -1832,7 +1832,7 @@
           "status",
           "detail"
         ],
-        "type":  "object",
+        "type": "object",
         "properties": {
           "status": {
             "type": "integer",
@@ -1988,6 +1988,11 @@
             "minLength": 1,
             "type": "string"
           },
+          "postalCode": {
+            "maxLength": 50,
+            "minLength": 1,
+            "type": "string"
+          },
           "timeZone": {
             "type": "string"
           },
@@ -2047,7 +2052,7 @@
         "description": "A resource representation of an address"
       },
       "LatLongPoint": {
-        "type":  "object",
+        "type": "object",
         "properties": {
           "type": {
             "enum": [
@@ -2067,7 +2072,7 @@
         "description": "A point defined by latitude and longitude in geojson format."
       },
       "EmailAddress": {
-        "type":  "object",
+        "type": "object",
         "required": [
           "address"
         ],
@@ -2127,6 +2132,351 @@
           }
         ],
         "description": "A resource representation of an email address"
+      },
+      "OrganizationalUnitListResource": {
+        "type": "object",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/PagedListResource"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "_embedded": {
+                "type": "object",
+                "properties": {
+                  "items": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/OrganizationalUnitResource"
+                    }
+                  }
+                },
+                "additionalProperties": {
+                  "uniqueItems": true,
+                  "type": "object",
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/Resource"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ResourceCollection"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        ],
+        "description": "A resource representation of a list of organizational units."
+      },
+      "RelatedOrganizationalUnitsListResource": {
+        "type": "object",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/PagedListResource"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "_embedded": {
+                "type": "object",
+                "properties": {
+                  "items": {
+                    "type": "object",
+                    "anyOf": [
+                      {
+                        "$ref": "#/components/schemas/RelatedOrganizationalUnitResource"
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/components/schemas/RelatedOrganizationalUnitResource"
+                        }
+                      }
+                    ]
+                  }
+                },
+                "additionalProperties": {
+                  "uniqueItems": true,
+                  "type": "object",
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/Resource"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ResourceCollection"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        ],
+        "description": "A resource representation of a list of organizational units related to some source person."
+      },
+      "OrganizationalUnit": {
+        "required": [
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "hierarchicalType": {
+            "enum": [
+              "Group",
+              "Company",
+              "Division",
+              "Department",
+              "Workgroup",
+              "Team"
+            ],
+            "type": "string"
+          },
+          "legalType": {
+            "enum": [
+              "Government",
+              "GuaranteedLimitedCompany",
+              "PublicLimitedCompany",
+              "PrivateLimitedCompany",
+              "CharitableLimitedCompany",
+              "LimitedLiabilityPartnership",
+              "Partnership",
+              "SoleTrader"
+            ],
+            "type": "string"
+          },
+          "legalName": {
+            "type": "string"
+          },
+          "registeredNumber": {
+            "type": "string"
+          },
+          "registeredJurisdication": {
+            "type": "string"
+          },
+          "sicCode": {
+            "type": "string"
+          }
+        }
+      },
+      "RelatedOrganizationalUnitResource": {
+        "type": "object",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/OrganizationalUnitResource"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "rel": {
+                "type": "string",
+                "description": "The relationship type"
+              },
+              "properties": {
+                "uniqueItems": true,
+                "type": "object"
+              }
+            }
+          }
+        ]
+      },
+      "OrganizationalUnitResource": {
+        "type": "object",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/OrganizationalUnit"
+          },
+          {
+            "$ref": "#/components/schemas/Resource"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "_links": {
+                "title": "Hyperlinks",
+                "type": "object",
+                "properties": {
+                  "legalAddress": {
+                    "$ref": "#/components/schemas/Link"
+                  },
+                  "addresses": {
+                    "type": "object",
+                    "anyOf": [
+                      {
+                        "$ref": "#/components/schemas/Link"
+                      },
+                      {
+                        "$ref": "#/components/schemas/LinkCollection"
+                      }
+                    ]
+                  },
+                  "telephoneNumbers": {
+                    "type": "object",
+                    "anyOf": [
+                      {
+                        "$ref": "#/components/schemas/Link"
+                      },
+                      {
+                        "$ref": "#/components/schemas/LinkCollection"
+                      }
+                    ]
+                  },
+                  "emailAddresses": {
+                    "type": "object",
+                    "anyOf": [
+                      {
+                        "$ref": "#/components/schemas/Link"
+                      },
+                      {
+                        "$ref": "#/components/schemas/LinkCollection"
+                      }
+                    ]
+                  }
+                },
+                "additionalProperties": {
+                  "uniqueItems": true,
+                  "type": "object",
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/Link"
+                    },
+                    {
+                      "$ref": "#/components/schemas/LinkCollection"
+                    }
+                  ]
+                },
+                "description": "Represents hyperlinks from the containing resource to a URI."
+              }
+            }
+          }
+        ]
+      },
+      "OrganizationalUnitContactDetailsResource": {
+        "type": "object",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Resource"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "_links": {
+                "title": "Hyperlinks",
+                "type": "object",
+                "properties": {
+                  "address": {
+                    "type": "object",
+                    "anyOf": [
+                      {
+                        "$ref": "#/components/schemas/Link"
+                      },
+                      {
+                        "$ref": "#/components/schemas/LinkCollection"
+                      }
+                    ]
+                  },
+                  "telephoneNumber": {
+                    "type": "object",
+                    "anyOf": [
+                      {
+                        "$ref": "#/components/schemas/Link"
+                      },
+                      {
+                        "$ref": "#/components/schemas/LinkCollection"
+                      }
+                    ]
+                  },
+                  "emailAddress": {
+                    "type": "object",
+                    "anyOf": [
+                      {
+                        "$ref": "#/components/schemas/Link"
+                      },
+                      {
+                        "$ref": "#/components/schemas/LinkCollection"
+                      }
+                    ]
+                  }
+                },
+                "additionalProperties": {
+                  "uniqueItems": true,
+                  "type": "object",
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/Link"
+                    },
+                    {
+                      "$ref": "#/components/schemas/LinkCollection"
+                    }
+                  ]
+                },
+                "description": "Represents hyperlinks from the containing resource to a URI."
+              },
+              "_embedded": {
+                "type": "object",
+                "properties": {
+                  "address": {
+                    "type": "object",
+                    "anyOf": [
+                      {
+                        "$ref": "#/components/schemas/AddressResource"
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/components/schemas/AddressResource"
+                        }
+                      }
+                    ]
+                  },
+                  "telephoneNumber": {
+                    "type": "object",
+                    "anyOf": [
+                      {
+                        "$ref": "#/components/schemas/TelephoneNumberResource"
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/components/schemas/TelephoneNumberResource"
+                        }
+                      }
+                    ]
+                  },
+                  "emailAddress": {
+                    "type": "object",
+                    "anyOf": [
+                      {
+                        "$ref": "#/components/schemas/EmailAddressResource"
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/components/schemas/EmailAddressResource"
+                        }
+                      }
+                    ]
+                  }
+                },
+                "additionalProperties": {
+                  "uniqueItems": true,
+                  "type": "object",
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/Resource"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ResourceCollection"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        ]
       }
     }
   }

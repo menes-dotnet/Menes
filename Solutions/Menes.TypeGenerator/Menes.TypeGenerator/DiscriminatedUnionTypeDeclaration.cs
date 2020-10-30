@@ -397,7 +397,8 @@ namespace Menes.TypeGenerator
             builder.AppendLine("    }");
             builder.AppendLine("}");
 
-            return (TypeDeclarationSyntax)SF.ParseMemberDeclaration(builder.ToString());
+            var tds = (TypeDeclarationSyntax)SF.ParseMemberDeclaration(builder.ToString());
+            return this.BuildNestedTypes(tds);
         }
 
         /// <inheritdoc/>
@@ -416,6 +417,16 @@ namespace Menes.TypeGenerator
         public override void AddMethodDeclaration(MethodDeclaration methodDeclaration)
         {
             throw new NotSupportedException();
+        }
+
+        private TypeDeclarationSyntax BuildNestedTypes(TypeDeclarationSyntax tds)
+        {
+            foreach (ITypeDeclaration declaration in this.TypeDeclarations)
+            {
+                tds = tds.AddMembers((MemberDeclarationSyntax)declaration.GenerateType());
+            }
+
+            return tds;
         }
     }
 }

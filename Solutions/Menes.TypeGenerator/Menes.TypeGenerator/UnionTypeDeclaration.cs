@@ -203,7 +203,7 @@ namespace Menes.TypeGenerator
                         existingConversions.Add(itemFullyQualifiedName);
                         builder.AppendLine($"    public static implicit operator {this.Name}(Menes.JsonArray<{itemFullyQualifiedName}> value)");
                         builder.AppendLine("    {");
-                        builder.AppendLine($"        return new {this.Name}(value);");
+                        builder.AppendLine($"        return new {this.Name}(({fullyQualifiedTypeName})value);");
                         builder.AppendLine("    }");
                     }
                 }
@@ -216,7 +216,7 @@ namespace Menes.TypeGenerator
                         existingConversions.Add(itemFullyQualifiedName);
                         builder.AppendLine($"    public static implicit operator {this.Name}(Menes.JsonArray<{itemFullyQualifiedName}> value)");
                         builder.AppendLine("    {");
-                        builder.AppendLine($"        return new {this.Name}(value);");
+                        builder.AppendLine($"        return new {this.Name}(({fullyQualifiedTypeName})value);");
                         builder.AppendLine("    }");
                     }
                 }
@@ -383,7 +383,8 @@ namespace Menes.TypeGenerator
             builder.AppendLine("    }");
             builder.AppendLine("}");
 
-            return (TypeDeclarationSyntax)SF.ParseMemberDeclaration(builder.ToString());
+            var tds = (TypeDeclarationSyntax)SF.ParseMemberDeclaration(builder.ToString());
+            return this.BuildNestedTypes(tds);
         }
 
         /// <summary>
@@ -414,6 +415,16 @@ namespace Menes.TypeGenerator
         public override void AddMethodDeclaration(MethodDeclaration methodDeclaration)
         {
             throw new NotSupportedException();
+        }
+
+        private TypeDeclarationSyntax BuildNestedTypes(TypeDeclarationSyntax tds)
+        {
+            foreach (ITypeDeclaration declaration in this.TypeDeclarations)
+            {
+                tds = tds.AddMembers((MemberDeclarationSyntax)declaration.GenerateType());
+            }
+
+            return tds;
         }
     }
 }
