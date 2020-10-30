@@ -279,7 +279,9 @@ namespace Menes.Json.Schema.TypeGenerator
                 }
             }
 
+            this.declarationStack.Push(typeDeclaration);
             typeDeclaration.AdditionalPropertiesType = await this.GetAdditionalPropertiesType(schema, rootDocument, baseUri).ConfigureAwait(false);
+            this.declarationStack.Pop();
 
             if (schema.Properties is JsonSchema.SchemaProperties properties)
             {
