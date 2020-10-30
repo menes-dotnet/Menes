@@ -58,6 +58,13 @@ namespace Menes.Sandbox
             Validate(organizationalUnit);
             Serialize(organizationalUnit);
 
+            OrganizationalUnitResource organizationalUnitResource =
+                JsonAny.From(organizationalUnit).As<OrganizationalUnitResource>()
+                .WithLinks(new OrganizationalUnitResource.LinksEntity(
+                    self: new Link("http://endjin.com/examples/organizationalUnits/1/names/1")));
+            Validate(organizationalUnitResource);
+            Serialize(organizationalUnitResource);
+
             if (organizationalUnit.LegalType == OrganizationalUnit.LegalTypeValue.PrivateLimitedCompany)
             {
                 Console.WriteLine("It is a private limited company!");
