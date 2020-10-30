@@ -123,6 +123,23 @@ namespace Menes.TypeGenerator
             builder.AppendLine($"    public static readonly System.Func<System.Text.Json.JsonElement, {name}> FromJsonElement = e => new {name}(e);");
             builder.AppendLine($"    public static readonly {name} Null = new {name}(default(System.Text.Json.JsonElement));");
 
+            if (this.EnumValidation is string enumValidation1)
+            {
+                using var document = JsonDocument.Parse(enumValidation1);
+                JsonElement.ArrayEnumerator enumerator = document.RootElement.EnumerateArray();
+                while (enumerator.MoveNext())
+                {
+                    if (this.ValidatedType.Kind == JsonValueTypeDeclaration.ValueKind.Decimal)
+                    {
+                        builder.AppendLine($"    public static readonly {name} {StringFormatter.ToPascalCaseWithReservedWords(enumerator.Current.GetRawText())} = new {name}({enumerator.Current.GetRawText()}M);");
+                    }
+                    else
+                    {
+                        builder.AppendLine($"    public static readonly {name} {StringFormatter.ToPascalCaseWithReservedWords(enumerator.Current.GetRawText())} = new {name}({enumerator.Current.GetRawText()});");
+                    }
+                }
+            }
+
             builder.AppendLine($"    private static readonly {this.ValidatedType.RawClrTypes[0]}? ConstValue = BuildConstValue();");
             builder.AppendLine($"    private static readonly System.Collections.Immutable.ImmutableArray<{this.ValidatedType.RawClrTypes[0]}>? EnumValues = BuildEnumValues();");
 

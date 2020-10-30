@@ -49,6 +49,24 @@ namespace Menes.Sandbox
 
         private static Task UseGeneratedCode()
         {
+            var organizationalUnit = new OrganizationalUnit(
+                name: "endjin",
+                hierarchicalType: OrganizationalUnit.HierarchicalTypeValue.Company,
+                legalType: OrganizationalUnit.LegalTypeValue.PrivateLimitedCompany,
+                registeredNumber: "07351560",
+                registeredJurisdication: "England & Wales");
+            Validate(organizationalUnit);
+            Serialize(organizationalUnit);
+
+            if (organizationalUnit.LegalType == OrganizationalUnit.LegalTypeValue.PrivateLimitedCompany)
+            {
+                Console.WriteLine("It is a private limited company!");
+            }
+            else
+            {
+                Console.WriteLine("It doesn't seem to be a private limited company!");
+            }
+
             var address = new Address(
                 addressLine1: "Flat 51, The Belvedere",
                 addressLine2: "Homerton Street",
