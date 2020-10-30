@@ -51,12 +51,6 @@ namespace Menes.TypeGenerator
             AllOf,
         }
 
-        /// <inheritdoc/>
-        /// <remarks>
-        /// The union type is a compound type if and only if any of its children is a compound type, Union type or Discriminated Union type.
-        /// </remarks>
-        public override bool IsCompoundType => this.typesInUnion.Any(t => t.Value is UnionTypeDeclaration || t.Value is DiscriminatedUnionTypeDeclaration || t.Value.IsCompoundType);
-
         /// <summary>
         /// Gets the kind of union.
         /// </summary>
@@ -415,6 +409,20 @@ namespace Menes.TypeGenerator
         public override void AddMethodDeclaration(MethodDeclaration methodDeclaration)
         {
             throw new NotSupportedException();
+        }
+
+        /// <inheritdoc/>
+        public override bool ContainsReference(ITypeDeclaration typeDeclaration, IList<ITypeDeclaration> visitedDeclarations)
+        {
+            foreach (ITypeDeclaration itemType in this.typesInUnion.Values)
+            {
+                if (CheckType(typeDeclaration, visitedDeclarations, itemType))
+                {
+                    return true;
+                }
+            }
+
+            return base.ContainsReference(typeDeclaration, visitedDeclarations);
         }
 
         private TypeDeclarationSyntax BuildNestedTypes(TypeDeclarationSyntax tds)

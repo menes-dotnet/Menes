@@ -607,6 +607,17 @@ namespace Menes.TypeGenerator
             return type is ValidatedArrayTypeDeclaration arrayType && !(arrayType.ItemType is null) && this.ItemType.IsSpecializedBy(arrayType.ItemType);
         }
 
+        /// <inheritdoc/>
+        public override bool ContainsReference(ITypeDeclaration typeDeclaration, IList<ITypeDeclaration> visitedDeclarations)
+        {
+            if (this.ItemType is ITypeDeclaration itemType && CheckType(typeDeclaration, visitedDeclarations, itemType))
+            {
+                return true;
+            }
+
+            return base.ContainsReference(typeDeclaration, visitedDeclarations);
+        }
+
         private TypeDeclarationSyntax BuildNestedTypes(TypeDeclarationSyntax tds)
         {
             foreach (ITypeDeclaration declaration in this.TypeDeclarations)

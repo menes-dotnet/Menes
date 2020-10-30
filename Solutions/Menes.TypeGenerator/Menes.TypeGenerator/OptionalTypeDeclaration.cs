@@ -82,6 +82,12 @@ namespace Menes.TypeGenerator
         }
 
         /// <inheritdoc/>
+        public bool ContainsReference(ITypeDeclaration typeDeclaration, IList<ITypeDeclaration> visitedDeclarations)
+        {
+            return this.TypeDeclaration.ContainsReference(typeDeclaration, visitedDeclarations);
+        }
+
+        /// <inheritdoc/>
         public bool ContainsTypeDeclaration(string name)
         {
             return this.TypeDeclaration.ContainsTypeDeclaration(name);

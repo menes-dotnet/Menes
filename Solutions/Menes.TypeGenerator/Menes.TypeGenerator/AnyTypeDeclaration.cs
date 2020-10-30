@@ -100,5 +100,11 @@ namespace Menes.TypeGenerator
             // Every type is a more specialized version of the Any type.
             return true;
         }
+
+        /// <inheritdoc/>
+        public bool ContainsReference(ITypeDeclaration typeDeclaration, IList<ITypeDeclaration> visitedDeclarations)
+        {
+            return false;
+        }
     }
 }

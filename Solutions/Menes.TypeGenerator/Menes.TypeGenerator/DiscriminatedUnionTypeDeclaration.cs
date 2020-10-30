@@ -419,6 +419,20 @@ namespace Menes.TypeGenerator
             throw new NotSupportedException();
         }
 
+        /// <inheritdoc/>
+        public override bool ContainsReference(ITypeDeclaration typeDeclaration, IList<ITypeDeclaration> visitedDeclarations)
+        {
+            foreach ((ITypeDeclaration itemType, _) in this.typesInUnion.Values)
+            {
+                if (CheckType(typeDeclaration, visitedDeclarations, itemType))
+                {
+                    return true;
+                }
+            }
+
+            return base.ContainsReference(typeDeclaration, visitedDeclarations);
+        }
+
         private TypeDeclarationSyntax BuildNestedTypes(TypeDeclarationSyntax tds)
         {
             foreach (ITypeDeclaration declaration in this.TypeDeclarations)

@@ -80,6 +80,17 @@ namespace Menes.TypeGenerator
             return false;
         }
 
+        /// <inheritdoc/>
+        public override bool ContainsReference(ITypeDeclaration typeDeclaration, IList<ITypeDeclaration> visitedDeclarations)
+        {
+            if (this.AdditionalPropertiesType is ITypeDeclaration itemType && CheckType(typeDeclaration, visitedDeclarations, itemType))
+            {
+                return true;
+            }
+
+            return base.ContainsReference(typeDeclaration, visitedDeclarations);
+        }
+
         /// <summary>
         /// Add an allOf type to the collection.
         /// </summary>

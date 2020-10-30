@@ -503,6 +503,17 @@ namespace Menes.TypeGenerator
             return false;
         }
 
+        /// <inheritdoc/>
+        public override bool ContainsReference(ITypeDeclaration typeDeclaration, IList<ITypeDeclaration> visitedDeclarations)
+        {
+            if (this.ValidatedType is ITypeDeclaration itemType && CheckType(typeDeclaration, visitedDeclarations, itemType))
+            {
+                return true;
+            }
+
+            return base.ContainsReference(typeDeclaration, visitedDeclarations);
+        }
+
         private static string GetDecimalFor(string? optionalValue)
         {
             return optionalValue is string value ? value + "M" : "null";

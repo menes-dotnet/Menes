@@ -43,6 +43,14 @@ namespace Menes.TypeGenerator
         bool IsCompoundType { get; }
 
         /// <summary>
+        /// Gets a value indicating whether this type contains the given declaration.
+        /// </summary>
+        /// <param name="typeDeclaration">The type declaration to validate.</param>
+        /// <param name="visitedDeclarations">Declarations we have already visited.</param>
+        /// <returns>True if we contain a reference to the given type declaration.</returns>
+        bool ContainsReference(ITypeDeclaration typeDeclaration, IList<ITypeDeclaration> visitedDeclarations);
+
+        /// <summary>
         /// Determines if the type contains a property of a particular name.
         /// </summary>
         /// <param name="name">The name of the property.</param>

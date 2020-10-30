@@ -64,7 +64,7 @@ namespace Menes.TypeGenerator
         public bool ShouldGenerate => true;
 
         /// <inheritdoc/>
-        public virtual bool IsCompoundType => true;
+        public virtual bool IsCompoundType => this.ContainsReference(this, new List<ITypeDeclaration>());
 
         /// <inheritdoc/>
         public virtual void AddMethodDeclaration(MethodDeclaration methodDeclaration)
@@ -132,6 +132,20 @@ namespace Menes.TypeGenerator
         }
 
         /// <inheritdoc/>
+        public virtual bool ContainsReference(ITypeDeclaration typeDeclaration, IList<ITypeDeclaration> visitedDeclarations)
+        {
+            foreach (PropertyDeclaration property in this.Properties)
+            {
+                if (CheckType(typeDeclaration, visitedDeclarations, property.Type))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        /// <inheritdoc/>
         public bool ContainsTypeDeclaration(string name)
         {
             return this.typeDeclarations.ContainsKey(name);
@@ -153,6 +167,35 @@ namespace Menes.TypeGenerator
 
         /// <inheritdoc/>
         public abstract bool IsSpecializedBy(ITypeDeclaration type);
+
+        /// <summary>
+        /// Check a type against a type declaration.
+        /// </summary>
+        /// <param name="typeDeclaration">The type declaration to check against.</param>
+        /// <param name="visitedDeclarations">The declarations we have already visited.</param>
+        /// <param name="typeToCheck">The type to check.</param>
+        /// <returns>True if the type contains a reference to the given type.</returns>
+        internal static bool CheckType(ITypeDeclaration typeDeclaration, IList<ITypeDeclaration> visitedDeclarations, ITypeDeclaration typeToCheck)
+        {
+            if (visitedDeclarations.Contains(typeToCheck))
+            {
+                return false;
+            }
+
+            visitedDeclarations.Add(typeToCheck);
+
+            if (typeToCheck == typeDeclaration)
+            {
+                return true;
+            }
+
+            if (typeToCheck.ContainsReference(typeDeclaration, visitedDeclarations))
+            {
+                return true;
+            }
+
+            return false;
+        }
 
         private void TryReplacePropertyIfPermitted(PropertyDeclaration propertyDeclaration)
         {
