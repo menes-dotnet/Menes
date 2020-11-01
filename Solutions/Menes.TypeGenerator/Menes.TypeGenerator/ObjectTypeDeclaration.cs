@@ -8,6 +8,7 @@ namespace Menes.TypeGenerator
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
+    using System.Text.Json;
     using Microsoft.CodeAnalysis.CSharp;
     using Microsoft.CodeAnalysis.CSharp.Syntax;
 
@@ -211,9 +212,18 @@ namespace Menes.TypeGenerator
 
         private void BuildEnumValues(List<MemberDeclarationSyntax> members)
         {
-            if (this.ConstValidation is string)
+            if (this.EnumValidation is string enumValidation)
             {
                 members.Add(SF.ParseMemberDeclaration("private static readonly Menes.JsonReference? EnumValues = BuildEnumValues();" + Environment.NewLine));
+                int enumIndex = 0;
+                using var document = JsonDocument.Parse(enumValidation);
+                JsonElement.ArrayEnumerator enumerator = document.RootElement.EnumerateArray();
+                string name = this.Name;
+                while (enumerator.MoveNext())
+                {
+                    members.Add(SF.ParseMemberDeclaration($"    public static readonly {name} {StringFormatter.ToPascalCaseWithReservedWords(enumerator.Current.GetRawText())} = new {name}(EnumValues[{enumIndex}]);"));
+                    enumIndex++;
+                }
             }
         }
 
@@ -1546,7 +1556,7 @@ namespace Menes.TypeGenerator
 
         private void BuildPropertyNamePathDeclaration(string propertyNameFieldName, string jsonPropertyName, List<MemberDeclarationSyntax> members)
         {
-            members.Add(SF.ParseMemberDeclaration($"private const string {propertyNameFieldName}Path = \".{jsonPropertyName}\";" + Environment.NewLine));
+            members.Add(SF.ParseMemberDeclaration($"private const string {propertyNameFieldName}Path = {StringFormatter.EscapeForCSharpString("." + jsonPropertyName, true)};" + Environment.NewLine));
         }
 
         private void BuildEncodedPropertyNameDeclaration(string propertyNameFieldName, List<MemberDeclarationSyntax> members)

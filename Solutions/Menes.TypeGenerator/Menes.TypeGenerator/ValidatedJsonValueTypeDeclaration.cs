@@ -123,25 +123,20 @@ namespace Menes.TypeGenerator
             builder.AppendLine($"    public static readonly System.Func<System.Text.Json.JsonElement, {name}> FromJsonElement = e => new {name}(e);");
             builder.AppendLine($"    public static readonly {name} Null = new {name}(default(System.Text.Json.JsonElement));");
 
+            builder.AppendLine($"    private static readonly {this.ValidatedType.RawClrTypes[0]}? ConstValue = BuildConstValue();");
+            builder.AppendLine($"    private static readonly System.Collections.Immutable.ImmutableArray<{this.ValidatedType.RawClrTypes[0]}>? EnumValues = BuildEnumValues();");
+
             if (this.EnumValidation is string enumValidation1)
             {
+                int enumIndex = 0;
                 using var document = JsonDocument.Parse(enumValidation1);
                 JsonElement.ArrayEnumerator enumerator = document.RootElement.EnumerateArray();
                 while (enumerator.MoveNext())
                 {
-                    if (this.ValidatedType.Kind == JsonValueTypeDeclaration.ValueKind.Decimal)
-                    {
-                        builder.AppendLine($"    public static readonly {name} {StringFormatter.ToPascalCaseWithReservedWords(enumerator.Current.GetRawText())} = new {name}({enumerator.Current.GetRawText()}M);");
-                    }
-                    else
-                    {
-                        builder.AppendLine($"    public static readonly {name} {StringFormatter.ToPascalCaseWithReservedWords(enumerator.Current.GetRawText())} = new {name}({enumerator.Current.GetRawText()});");
-                    }
+                    builder.AppendLine($"    public static readonly {name} {StringFormatter.ToPascalCaseWithReservedWords(enumerator.Current.GetRawText())} = new {name}(EnumValues.Value[{enumIndex}]);");
+                    enumIndex++;
                 }
             }
-
-            builder.AppendLine($"    private static readonly {this.ValidatedType.RawClrTypes[0]}? ConstValue = BuildConstValue();");
-            builder.AppendLine($"    private static readonly System.Collections.Immutable.ImmutableArray<{this.ValidatedType.RawClrTypes[0]}>? EnumValues = BuildEnumValues();");
 
             if (this.ValidatedType.Kind == JsonValueTypeDeclaration.ValueKind.String)
             {
@@ -459,17 +454,29 @@ namespace Menes.TypeGenerator
                 builder.AppendLine("    {");
                 builder.AppendLine($"        System.Collections.Immutable.ImmutableArray<{this.ValidatedType.RawClrTypes[0]}>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<{this.ValidatedType.RawClrTypes[0]}>();");
 
-                using var document = JsonDocument.Parse(enumValidation);
-                JsonElement.ArrayEnumerator enumerator = document.RootElement.EnumerateArray();
-                while (enumerator.MoveNext())
+                if (this.ValidatedType.Kind == JsonValueTypeDeclaration.ValueKind.Any)
                 {
-                    if (this.ValidatedType.Kind == JsonValueTypeDeclaration.ValueKind.Decimal)
+                    builder.AppendLine($"using var document = System.Text.Json.JsonDocument.Parse({StringFormatter.EscapeForCSharpString(enumValidation, true)});");
+                    builder.AppendLine("System.Text.Json.JsonElement.ArrayEnumerator enumerator = document.RootElement.EnumerateArray();");
+                    builder.AppendLine("while (enumerator.MoveNext())");
+                    builder.AppendLine("{");
+                    builder.AppendLine("    arrayBuilder.Add(new Menes.JsonAny(enumerator.Current));");
+                    builder.AppendLine("}");
+                }
+                else
+                {
+                    using var document = JsonDocument.Parse(enumValidation);
+                    JsonElement.ArrayEnumerator enumerator = document.RootElement.EnumerateArray();
+                    while (enumerator.MoveNext())
                     {
-                        builder.AppendLine($"arrayBuilder.Add({enumerator.Current.GetRawText()}M);");
-                    }
-                    else
-                    {
-                        builder.AppendLine($"arrayBuilder.Add({enumerator.Current.GetRawText()});");
+                        if (this.ValidatedType.Kind == JsonValueTypeDeclaration.ValueKind.Decimal)
+                        {
+                            builder.AppendLine($"arrayBuilder.Add({enumerator.Current.GetRawText()}M);");
+                        }
+                        else
+                        {
+                            builder.AppendLine($"arrayBuilder.Add({enumerator.Current.GetRawText()});");
+                        }
                     }
                 }
 
