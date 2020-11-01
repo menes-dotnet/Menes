@@ -235,19 +235,19 @@ namespace Examples
             return jsonElement.ValueKind == System.Text.Json.JsonValueKind.Object || jsonElement.ValueKind == System.Text.Json.JsonValueKind.Null;
         }
         public static Person FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<char> propertyName) =>
-           parentDocument.ValueKind != System.Text.Json.JsonValueKind.Undefined ?
+           parentDocument.ValueKind == System.Text.Json.JsonValueKind.Object ?
                 (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
                     ? new Person(property)
                     : Null)
                 : Null;
         public static Person FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, string propertyName) =>
-           parentDocument.ValueKind != System.Text.Json.JsonValueKind.Undefined ?
+           parentDocument.ValueKind == System.Text.Json.JsonValueKind.Object ?
                 (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
                     ? new Person(property)
                     : Null)
                 : Null;
         public static Person FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<byte> utf8PropertyName) =>
-           parentDocument.ValueKind != System.Text.Json.JsonValueKind.Undefined ?
+           parentDocument.ValueKind == System.Text.Json.JsonValueKind.Object ?
                 (parentDocument.TryGetProperty(utf8PropertyName, out System.Text.Json.JsonElement property)
                     ? new Person(property)
                     : Null)
@@ -406,7 +406,7 @@ namespace Examples
             {
                 return this.anotherPerson;
             }
-            if (this.HasJsonElement && this.JsonElement.TryGetProperty(AnotherPersonPropertyNameBytes.Span, out System.Text.Json.JsonElement value))
+            if (this.HasJsonElement && this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Object && this.JsonElement.TryGetProperty(AnotherPersonPropertyNameBytes.Span, out System.Text.Json.JsonElement value))
             {
                 return new Menes.JsonReference(value);
             }
@@ -471,19 +471,19 @@ namespace Examples
             public static explicit operator Menes.JsonString(ContactEntity value) => value.AsJsonString();
             public static implicit operator ContactEntity(Menes.JsonString value) => new ContactEntity(value);
             public static ContactEntity FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<char> propertyName) =>
-               parentDocument.ValueKind != System.Text.Json.JsonValueKind.Undefined ?
+               parentDocument.ValueKind == System.Text.Json.JsonValueKind.Object ?
                     (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
                         ? new ContactEntity(property)
                         : Null)
                     : Null;
             public static ContactEntity FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, string propertyName) =>
-               parentDocument.ValueKind != System.Text.Json.JsonValueKind.Undefined ?
+               parentDocument.ValueKind == System.Text.Json.JsonValueKind.Object ?
                     (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
                         ? new ContactEntity(property)
                         : Null)
                     : Null;
             public static ContactEntity FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<byte> utf8PropertyName) =>
-               parentDocument.ValueKind != System.Text.Json.JsonValueKind.Undefined ?
+               parentDocument.ValueKind == System.Text.Json.JsonValueKind.Object ?
                     (parentDocument.TryGetProperty(utf8PropertyName, out System.Text.Json.JsonElement property)
                         ? new ContactEntity(property)
                         : Null)
@@ -632,19 +632,19 @@ namespace Examples
                 return Menes.JsonInteger.IsConvertibleFrom(jsonElement);
             }
             public static AgeValue FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<char> propertyName) =>
-               parentDocument.ValueKind != System.Text.Json.JsonValueKind.Undefined ?
+               parentDocument.ValueKind == System.Text.Json.JsonValueKind.Object ?
                     (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
                         ? new AgeValue(property)
                         : Null)
                     : Null;
             public static AgeValue FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, string propertyName) =>
-               parentDocument.ValueKind != System.Text.Json.JsonValueKind.Undefined ?
+               parentDocument.ValueKind == System.Text.Json.JsonValueKind.Object ?
                     (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
                         ? new AgeValue(property)
                         : Null)
                     : Null;
             public static AgeValue FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<byte> utf8PropertyName) =>
-               parentDocument.ValueKind != System.Text.Json.JsonValueKind.Undefined ?
+               parentDocument.ValueKind == System.Text.Json.JsonValueKind.Object ?
                     (parentDocument.TryGetProperty(utf8PropertyName, out System.Text.Json.JsonElement property)
                         ? new AgeValue(property)
                         : Null)

@@ -96,10 +96,15 @@ namespace Menes.Json.Schema.TypeGenerator
                 };
             }
 
-            // If we have defined any properties, treat it as an object
-            if (schema.Properties.HasValue)
+            // If we have defined any properties, or this is a root, treat it as an object
+            if (schema.IsInferredObject())
             {
                 return this.CreateObject(schema, name);
+            }
+
+            if (schema.IsInferredArray())
+            {
+                return this.CreateArray(schema, name);
             }
 
             return this.CreateAny(schema, name);
@@ -119,6 +124,17 @@ namespace Menes.Json.Schema.TypeGenerator
                     "array" => this.PopulateArray(typeDeclaration, schema, rootDocument, baseUri),
                     _ => this.PopulateJsonValue(typeDeclaration, schema, rootDocument, baseUri),
                 };
+            }
+
+            // If we have defined any properties, or this is a root, treat it as an object
+            if (schema.IsInferredObject())
+            {
+                return this.PopulateObject(typeDeclaration, schema, rootDocument, baseUri);
+            }
+
+            if (schema.IsInferredArray())
+            {
+                return this.PopulateArray(typeDeclaration, schema, rootDocument, baseUri);
             }
 
             return this.PopulateJsonValue(typeDeclaration, schema, rootDocument, baseUri);
@@ -524,11 +540,19 @@ namespace Menes.Json.Schema.TypeGenerator
                 var jsonRef = new JsonRef(id);
                 if (jsonRef.HasPointer)
                 {
-                    return this.GetName(jsonRef.Pointer);
+                    string name = this.GetName(jsonRef.Pointer);
+                    if (!string.IsNullOrEmpty(name))
+                    {
+                        return name;
+                    }
                 }
                 else if (jsonRef.HasUri)
                 {
-                    return this.GetName(jsonRef.Uri);
+                    string name = this.GetName(jsonRef.Uri);
+                    if (!string.IsNullOrEmpty(name))
+                    {
+                        return name;
+                    }
                 }
             }
 

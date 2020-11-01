@@ -349,8 +349,8 @@ namespace Menes.TypeGenerator
                 {
                     string allOfFullyQualifiedName = allOfType.GetFullyQualifiedName();
                     string allOfTypeNameCamelCase = StringFormatter.ToCamelCaseWithReservedWords(allOfType.Name);
-                    builder.AppendLine($"{allOfFullyQualifiedName} {allOfTypeNameCamelCase}Value{index} = thisAsAny.As<{allOfFullyQualifiedName}>();");
-                    builder.AppendLine($"            allOfValidationContext{index + 1} = {allOfTypeNameCamelCase}Value{index}.Validate(allOfValidationContext{index + 1});");
+                    builder.AppendLine($"{allOfFullyQualifiedName} {allOfTypeNameCamelCase}AllOfValue{index} = thisAsAny.As<{allOfFullyQualifiedName}>();");
+                    builder.AppendLine($"            allOfValidationContext{index + 1} = {allOfTypeNameCamelCase}AllOfValue{index}.Validate(allOfValidationContext{index + 1});");
                     index++;
                 }
 
@@ -426,6 +426,12 @@ namespace Menes.TypeGenerator
                 builder.Append("System.Linq.Enumerable.SequenceEqual(this.JsonAdditionalProperties, other.JsonAdditionalProperties)");
             }
 
+            if (builder.Length == 0)
+            {
+                // There are no properties, so just compare true.
+                builder.Append("true");
+            }
+
             return builder.ToString();
         }
 
@@ -476,7 +482,7 @@ namespace Menes.TypeGenerator
             var builder = new StringBuilder();
 
             builder.AppendLine($"public static {fullyQualifiedTypeName} FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<char> propertyName) =>");
-            builder.AppendLine($"   parentDocument.ValueKind != System.Text.Json.JsonValueKind.Undefined ?");
+            builder.AppendLine($"   parentDocument.ValueKind == System.Text.Json.JsonValueKind.Object ?");
             builder.AppendLine("        (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)");
             builder.AppendLine($"            ? new {fullyQualifiedTypeName}(property)");
             builder.AppendLine("            : Null)");
@@ -485,7 +491,7 @@ namespace Menes.TypeGenerator
             builder.Clear();
 
             builder.AppendLine($"public static {fullyQualifiedTypeName} FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, string propertyName) =>");
-            builder.AppendLine($"   parentDocument.ValueKind != System.Text.Json.JsonValueKind.Undefined ?");
+            builder.AppendLine($"   parentDocument.ValueKind == System.Text.Json.JsonValueKind.Object ?");
             builder.AppendLine("        (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)");
             builder.AppendLine($"            ? new {fullyQualifiedTypeName}(property)");
             builder.AppendLine("            : Null)");
@@ -494,7 +500,7 @@ namespace Menes.TypeGenerator
             builder.Clear();
 
             builder.AppendLine($"public static {fullyQualifiedTypeName} FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<byte> utf8PropertyName) =>");
-            builder.AppendLine($"   parentDocument.ValueKind != System.Text.Json.JsonValueKind.Undefined ?");
+            builder.AppendLine($"   parentDocument.ValueKind == System.Text.Json.JsonValueKind.Object ?");
             builder.AppendLine("        (parentDocument.TryGetProperty(utf8PropertyName, out System.Text.Json.JsonElement property)");
             builder.AppendLine($"            ? new {fullyQualifiedTypeName}(property)");
             builder.AppendLine("            : Null)");
@@ -1388,7 +1394,7 @@ namespace Menes.TypeGenerator
             builder.AppendLine("    {");
             builder.AppendLine($"        return reference;");
             builder.AppendLine("    }");
-            builder.AppendLine($"    if (this.HasJsonElement && this.JsonElement.TryGetProperty({GetPropertyNameFieldName(property)}Bytes.Span, out System.Text.Json.JsonElement value))");
+            builder.AppendLine($"    if (this.HasJsonElement && this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Object && this.JsonElement.TryGetProperty({GetPropertyNameFieldName(property)}Bytes.Span, out System.Text.Json.JsonElement value))");
             builder.AppendLine("    {");
             builder.AppendLine("        return new Menes.JsonReference(value);");
             builder.AppendLine("    }");

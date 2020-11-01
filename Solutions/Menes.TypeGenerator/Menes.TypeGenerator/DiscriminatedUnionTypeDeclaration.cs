@@ -191,7 +191,12 @@ namespace Menes.TypeGenerator
                 builder.Append($" this.item{i + 1} is null");
             }
 
-            builder.AppendLine(" && (this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Undefined || this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Null);");
+            if (this.typesInUnion.Count > 0)
+            {
+                builder.Append(" && ");
+            }
+
+            builder.AppendLine("(this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Undefined || this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Null);");
 
             builder.AppendLine($"    public {this.Name}? AsOptional => this.IsNull ? default({this.Name}?) : this;");
 
@@ -245,19 +250,19 @@ namespace Menes.TypeGenerator
             }
 
             builder.AppendLine($"public static {this.Name} FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<char> propertyName) =>");
-            builder.AppendLine($"   parentDocument.ValueKind != System.Text.Json.JsonValueKind.Undefined ?");
+            builder.AppendLine($"   parentDocument.ValueKind == System.Text.Json.JsonValueKind.Object ?");
             builder.AppendLine("        (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)");
             builder.AppendLine($"            ? new {this.Name}(property)");
             builder.AppendLine("            : Null)");
             builder.AppendLine("        : Null;");
             builder.AppendLine($"public static {this.Name} FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, string propertyName) =>");
-            builder.AppendLine($"   parentDocument.ValueKind != System.Text.Json.JsonValueKind.Undefined ?");
+            builder.AppendLine($"   parentDocument.ValueKind == System.Text.Json.JsonValueKind.Object ?");
             builder.AppendLine("        (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)");
             builder.AppendLine($"            ? new {this.Name}(property)");
             builder.AppendLine("            : Null)");
             builder.AppendLine("        : Null;");
             builder.AppendLine($"public static {this.Name} FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<byte> utf8PropertyName) =>");
-            builder.AppendLine($"   parentDocument.ValueKind != System.Text.Json.JsonValueKind.Undefined ?");
+            builder.AppendLine($"   parentDocument.ValueKind == System.Text.Json.JsonValueKind.Object ?");
             builder.AppendLine("        (parentDocument.TryGetProperty(utf8PropertyName, out System.Text.Json.JsonElement property)");
             builder.AppendLine($"            ? new {this.Name}(property)");
             builder.AppendLine("            : Null)");
@@ -316,10 +321,18 @@ namespace Menes.TypeGenerator
                 index++;
             }
 
-            builder.AppendLine("        else");
-            builder.AppendLine("        {");
+            if (this.typesInUnion.Count > 0)
+            {
+                builder.AppendLine("        else");
+                builder.AppendLine("        {");
+            }
+
             builder.AppendLine("            this.JsonElement.WriteTo(writer);");
-            builder.AppendLine("        }");
+            if (this.typesInUnion.Count > 0)
+            {
+                builder.AppendLine("        }");
+            }
+
             builder.AppendLine("    }");
 
             builder.AppendLine("    public override string ToString()");

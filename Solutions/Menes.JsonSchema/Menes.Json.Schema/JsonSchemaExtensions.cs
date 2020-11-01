@@ -31,6 +31,35 @@ namespace Menes.Json.Schema
         }
 
         /// <summary>
+        /// Gets a value indicating whether the schema is inferred to be an array.
+        /// </summary>
+        /// <param name="schema">The schema to test.</param>
+        /// <returns><c>True</c> if the schema has any array-like validations.</returns>
+        public static bool IsInferredObject(this JsonSchema schema)
+        {
+            return
+                schema.MaxProperties.HasValue ||
+                schema.MinProperties.HasValue ||
+                schema.PatternProperties.HasValue ||
+                schema.Properties.HasValue || schema.PropertyNames.HasValue || schema.Required.HasValue;
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether the schema is inferred to be an array.
+        /// </summary>
+        /// <param name="schema">The schema to test.</param>
+        /// <returns><c>True</c> if the schema has any array-like validations.</returns>
+        public static bool IsInferredArray(this JsonSchema schema)
+        {
+            return
+                schema.Contains.HasValue ||
+                schema.Items.HasValue ||
+                schema.MaxContains.HasValue ||
+                schema.MinContains.HasValue ||
+                schema.MinItems.HasValue;
+        }
+
+        /// <summary>
         /// Returns true if this represents a value-like entity, as opposed to an object- or array- like entity.
         /// </summary>
         /// <param name="schema">The schema to test.</param>

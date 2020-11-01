@@ -170,16 +170,6 @@ namespace Menes.TypeGenerator
                 {
                     this.AppendNumberValidationProperties(this.ValidatedType, builder);
                 }
-
-                if (!(this.EnumValidation is null))
-                {
-                    builder.AppendLine($"context = Menes.Validation.ValidateEnum(context, value, EnumValues);");
-                }
-
-                if (!(this.ConstValidation is null))
-                {
-                    builder.AppendLine($"context = Menes.Validation.ValidateEnum(context, value, ConstValue);");
-                }
             }
 
             builder.AppendLine($"    private readonly {validatedTypeFullyQualifiedName}? value;");
@@ -245,19 +235,19 @@ namespace Menes.TypeGenerator
             builder.AppendLine($"        return {validatedTypeFullyQualifiedName}.IsConvertibleFrom(jsonElement);");
             builder.AppendLine("    }");
             builder.AppendLine($"   public static {name} FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<char> propertyName) =>");
-            builder.AppendLine($"      parentDocument.ValueKind != System.Text.Json.JsonValueKind.Undefined ?");
+            builder.AppendLine($"      parentDocument.ValueKind == System.Text.Json.JsonValueKind.Object ?");
             builder.AppendLine("           (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)");
             builder.AppendLine($"               ? new {name}(property)");
             builder.AppendLine("               : Null)");
             builder.AppendLine("           : Null;");
             builder.AppendLine($"   public static {name} FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, string propertyName) =>");
-            builder.AppendLine($"      parentDocument.ValueKind != System.Text.Json.JsonValueKind.Undefined ?");
+            builder.AppendLine($"      parentDocument.ValueKind == System.Text.Json.JsonValueKind.Object ?");
             builder.AppendLine("           (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)");
             builder.AppendLine($"               ? new {name}(property)");
             builder.AppendLine("               : Null)");
             builder.AppendLine("           : Null;");
             builder.AppendLine($"   public static {name} FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<byte> utf8PropertyName) =>");
-            builder.AppendLine($"      parentDocument.ValueKind != System.Text.Json.JsonValueKind.Undefined ?");
+            builder.AppendLine($"      parentDocument.ValueKind == System.Text.Json.JsonValueKind.Object ?");
             builder.AppendLine("           (parentDocument.TryGetProperty(utf8PropertyName, out System.Text.Json.JsonElement property)");
             builder.AppendLine($"               ? new {name}(property)");
             builder.AppendLine("               : Null)");
@@ -294,8 +284,8 @@ namespace Menes.TypeGenerator
                 {
                     string allOfFullyQualifiedName = allOfType.GetFullyQualifiedName();
                     string allOfTypeNameCamelCase = StringFormatter.ToCamelCaseWithReservedWords(allOfType.Name);
-                    builder.AppendLine($"{allOfFullyQualifiedName} {allOfTypeNameCamelCase}Value{index} = Menes.JsonAny.From(value).As<{allOfFullyQualifiedName}>();");
-                    builder.AppendLine($"            allOfValidationContext{index + 1} = {allOfTypeNameCamelCase}Value{index}.Validate(allOfValidationContext{index + 1});");
+                    builder.AppendLine($"{allOfFullyQualifiedName} {allOfTypeNameCamelCase}AllOfValue{index} = Menes.JsonAny.From(value).As<{allOfFullyQualifiedName}>();");
+                    builder.AppendLine($"            allOfValidationContext{index + 1} = {allOfTypeNameCamelCase}AllOfValue{index}.Validate(allOfValidationContext{index + 1});");
                     index++;
                 }
 
@@ -324,8 +314,8 @@ namespace Menes.TypeGenerator
                 {
                     string anyOfFullyQualifiedName = anyOfType.GetFullyQualifiedName();
                     string anyOfTypeNameCamelCase = StringFormatter.ToCamelCaseWithReservedWords(anyOfType.Name);
-                    builder.AppendLine($"{anyOfFullyQualifiedName} item{index + 1} = Menes.JsonAny.From(value).As<{anyOfFullyQualifiedName}>();");
-                    builder.AppendLine($"            anyOfValidationContext{index + 1} = item{index + 1}.Validate(anyOfValidationContext{index + 1});");
+                    builder.AppendLine($"{anyOfFullyQualifiedName} anyOfitem{index + 1} = Menes.JsonAny.From(value).As<{anyOfFullyQualifiedName}>();");
+                    builder.AppendLine($"            anyOfValidationContext{index + 1} = anyOfitem{index + 1}.Validate(anyOfValidationContext{index + 1});");
                     index++;
                 }
 
@@ -354,8 +344,8 @@ namespace Menes.TypeGenerator
                 {
                     string oneOfFullyQualifiedName = oneOfType.GetFullyQualifiedName();
                     string oneOfTypeNameCamelCase = StringFormatter.ToCamelCaseWithReservedWords(oneOfType.Name);
-                    builder.AppendLine($"{oneOfFullyQualifiedName} {oneOfTypeNameCamelCase}Value{index} = Menes.JsonAny.From(value).As<{oneOfFullyQualifiedName}>();");
-                    builder.AppendLine($"            oneOfValidationContext{index + 1} = {oneOfTypeNameCamelCase}Value{index}.Validate(oneOfValidationContext{index + 1});");
+                    builder.AppendLine($"{oneOfFullyQualifiedName} {oneOfTypeNameCamelCase}OneOfValue{index} = Menes.JsonAny.From(value).As<{oneOfFullyQualifiedName}>();");
+                    builder.AppendLine($"            oneOfValidationContext{index + 1} = {oneOfTypeNameCamelCase}OneOfValue{index}.Validate(oneOfValidationContext{index + 1});");
                     index++;
                 }
 
@@ -395,15 +385,17 @@ namespace Menes.TypeGenerator
                 {
                     builder.AppendLine($"context = value.As<Menes.JsonNumber>().ValidateAsNumber(context, MultipleOf, Maximum, ExclusiveMaximum, Minimum, ExclusiveMinimum, EnumValues, ConstValue);");
                 }
-
-                if (!(this.EnumValidation is null))
+                else
                 {
-                    builder.AppendLine($"context = Menes.Validation.ValidateEnum(context, value, EnumValues);");
-                }
+                    if (!(this.EnumValidation is null))
+                    {
+                        builder.AppendLine($"context = Menes.Validation.ValidateEnum(context, value, EnumValues.Value);");
+                    }
 
-                if (!(this.ConstValidation is null))
-                {
-                    builder.AppendLine($"context = Menes.Validation.ValidateConst(context, value, ConstValue);");
+                    if (!(this.ConstValidation is null))
+                    {
+                        builder.AppendLine($"context = Menes.Validation.ValidateConst(context, value, ConstValue.Value);");
+                    }
                 }
             }
 
@@ -440,6 +432,11 @@ namespace Menes.TypeGenerator
                 if (this.ValidatedType.Kind == JsonValueTypeDeclaration.ValueKind.Decimal)
                 {
                     builder.AppendLine($"    return {constValue}M;");
+                }
+                else if (this.ValidatedType.Kind == JsonValueTypeDeclaration.ValueKind.Any)
+                {
+                    builder.AppendLine($"    using var document = System.Text.Json.JsonDocument.Parse({StringFormatter.EscapeForCSharpString(constValue, true)});");
+                    builder.AppendLine("    return new Menes.JsonReference(document.RootElement.Clone());");
                 }
                 else
                 {

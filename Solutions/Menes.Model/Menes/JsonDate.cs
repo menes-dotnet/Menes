@@ -103,7 +103,7 @@ namespace Menes
         /// </param>
         /// <returns>A <see cref="JsonDate"/> or null.</returns>
         public static JsonDate FromOptionalProperty(in JsonElement parentDocument, ReadOnlySpan<char> propertyName) =>
-            parentDocument.ValueKind != JsonValueKind.Undefined ?
+            parentDocument.ValueKind == JsonValueKind.Object ?
                 (parentDocument.TryGetProperty(propertyName, out JsonElement property)
                     ? new JsonDate(property)
                     : Null)
@@ -118,7 +118,7 @@ namespace Menes
         /// </param>
         /// <returns>A <see cref="JsonDate"/> or null.</returns>
         public static JsonDate FromOptionalProperty(in JsonElement parentDocument, string propertyName) =>
-            parentDocument.ValueKind != JsonValueKind.Undefined ?
+            parentDocument.ValueKind == JsonValueKind.Object ?
                 (parentDocument.TryGetProperty(propertyName, out JsonElement property)
                     ? new JsonDate(property)
                     : Null)
@@ -133,7 +133,7 @@ namespace Menes
         /// </param>
         /// <returns>A <see cref="JsonDate"/> or null.</returns>
         public static JsonDate FromOptionalProperty(in JsonElement parentDocument, ReadOnlySpan<byte> utf8PropertyName) =>
-                    parentDocument.ValueKind != JsonValueKind.Undefined ?
+                    parentDocument.ValueKind == JsonValueKind.Object ?
                 (parentDocument.TryGetProperty(utf8PropertyName, out JsonElement property)
                     ? new JsonDate(property)
                     : Null)

@@ -102,7 +102,7 @@ namespace Menes
         /// </param>
         /// <returns>A <see cref="JsonDecimal"/> or null.</returns>
         public static JsonDecimal FromOptionalProperty(in JsonElement parentDocument, ReadOnlySpan<char> propertyName) =>
-            parentDocument.ValueKind != JsonValueKind.Undefined ?
+            parentDocument.ValueKind == JsonValueKind.Object ?
                 (parentDocument.TryGetProperty(propertyName, out JsonElement property)
                     ? new JsonDecimal(property)
                     : Null)
@@ -117,7 +117,7 @@ namespace Menes
         /// </param>
         /// <returns>A <see cref="JsonDecimal"/> or null.</returns>
         public static JsonDecimal FromOptionalProperty(in JsonElement parentDocument, string propertyName) =>
-            parentDocument.ValueKind != JsonValueKind.Undefined ?
+            parentDocument.ValueKind == JsonValueKind.Object ?
                 (parentDocument.TryGetProperty(propertyName, out JsonElement property)
                     ? new JsonDecimal(property)
                     : Null)
@@ -132,7 +132,7 @@ namespace Menes
         /// </param>
         /// <returns>A <see cref="JsonDecimal"/> or null.</returns>
         public static JsonDecimal FromOptionalProperty(in JsonElement parentDocument, ReadOnlySpan<byte> utf8PropertyName) =>
-            parentDocument.ValueKind != JsonValueKind.Undefined ?
+            parentDocument.ValueKind == JsonValueKind.Object ?
                 (parentDocument.TryGetProperty(utf8PropertyName, out JsonElement property)
                     ? new JsonDecimal(property)
                     : Null)

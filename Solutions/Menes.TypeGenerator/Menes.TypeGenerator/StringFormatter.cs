@@ -18,6 +18,7 @@ namespace Menes.TypeGenerator
         private static readonly ReadOnlyMemory<char> HttpsScheme = "https://".AsMemory();
         private static readonly ReadOnlyMemory<char> HttpScheme = "http://".AsMemory();
         private static readonly ReadOnlyMemory<char> FileScheme = "file://".AsMemory();
+        private static readonly ReadOnlyMemory<char> Value = "Value".AsMemory();
 
         private static readonly ReadOnlyMemory<char>[] Keywords = new ReadOnlyMemory<char>[]
         {
@@ -349,6 +350,19 @@ namespace Menes.TypeGenerator
                     v.CopyTo(buffer.Slice(1));
                     return new string(buffer);
                 }
+            }
+
+            if (v.Length == 0)
+            {
+                return "EmptyValue";
+            }
+
+            if (char.IsDigit(v[0]))
+            {
+                Span<char> buffer2 = stackalloc char[v.Length + 5];
+                Value.Span.CopyTo(buffer2);
+                v.CopyTo(buffer2.Slice(5));
+                return new string(buffer2);
             }
 
             return new string(v);

@@ -217,7 +217,7 @@ namespace Menes
         /// </param>
         /// <returns>A <see cref="JsonNumber"/> or null.</returns>
         public static JsonNumber FromOptionalProperty(in JsonElement parentDocument, ReadOnlySpan<char> propertyName) =>
-            parentDocument.ValueKind != JsonValueKind.Undefined ?
+            parentDocument.ValueKind == JsonValueKind.Object ?
                 (parentDocument.TryGetProperty(propertyName, out JsonElement property)
                     ? new JsonNumber(property)
                     : Null)
@@ -232,7 +232,7 @@ namespace Menes
         /// </param>
         /// <returns>A <see cref="JsonNumber"/> or null.</returns>
         public static JsonNumber FromOptionalProperty(in JsonElement parentDocument, string propertyName) =>
-            parentDocument.ValueKind != JsonValueKind.Undefined ?
+            parentDocument.ValueKind == JsonValueKind.Object ?
                 (parentDocument.TryGetProperty(propertyName, out JsonElement property)
                     ? new JsonNumber(property)
                     : Null)
@@ -247,7 +247,7 @@ namespace Menes
         /// </param>
         /// <returns>A <see cref="JsonNumber"/> or null.</returns>
         public static JsonNumber FromOptionalProperty(in JsonElement parentDocument, ReadOnlySpan<byte> utf8PropertyName) =>
-            parentDocument.ValueKind != JsonValueKind.Undefined ?
+            parentDocument.ValueKind == JsonValueKind.Object ?
                 (parentDocument.TryGetProperty(utf8PropertyName, out JsonElement property)
                     ? new JsonNumber(property)
                     : Null)
@@ -393,7 +393,7 @@ namespace Menes
         /// <returns>The value as a <see cref="decimal"/>.</returns>
         public decimal CreateOrGetClrDecimal() => this.clrDecimal ?? this.JsonElement.GetDecimal();
 
-       /// <summary>
+        /// <summary>
         /// Writes the int value to a <see cref="Utf8JsonWriter"/>.
         /// </summary>
         /// <param name="writer">The output to which to write the int.</param>
@@ -526,33 +526,39 @@ namespace Menes
         /// <param name="constValue">The value must equal the constant value.</param>
         /// <returns>The validation context updated to reflect the results of the validation.</returns>
         /// <remarks>These are rolled up into a single method to ensure string conversion occurs only once.</remarks>
+        public ValidationContext ValidateAsNumber(in ValidationContext validationContext, JsonNumber? multipleOf = null, JsonNumber? maximum = null, JsonNumber? exclusiveMaximum = null, JsonNumber? minimum = null, JsonNumber? exclusiveMinimum = null, in ImmutableArray<JsonAny>? enumeration = null, in JsonNumber? constValue = null)
+        {
+            ValidationContext context = this.ValidateAsNumberCore(validationContext, multipleOf, maximum, exclusiveMaximum, minimum, exclusiveMinimum);
+
+            if (enumeration is ImmutableArray<JsonAny> values)
+            {
+                context = Validation.ValidateEnum(context, JsonAny.From(this), values);
+            }
+
+            if (constValue is JsonNumber cv)
+            {
+                context = Validation.ValidateConst(context, this, cv);
+            }
+
+            return context;
+        }
+
+        /// <summary>
+        /// Provides the numeric validations.
+        /// </summary>
+        /// <param name="validationContext">The validation context.</param>
+        /// <param name="multipleOf">A value which, when divided into the value, produces a remainder of zero.</param>
+        /// <param name="maximum">The value is less than or equal to the maximum value.</param>
+        /// <param name="exclusiveMaximum">The value is less than the exclusive maximum value.</param>
+        /// <param name="minimum">The value is greater than or equal to the minimum value.</param>
+        /// <param name="exclusiveMinimum">The value is greater than the exclusive minimum value.</param>
+        /// <param name="enumeration">The value must equal one of the values in the enumeration.</param>
+        /// <param name="constValue">The value must equal the constant value.</param>
+        /// <returns>The validation context updated to reflect the results of the validation.</returns>
+        /// <remarks>These are rolled up into a single method to ensure string conversion occurs only once.</remarks>
         public ValidationContext ValidateAsNumber(in ValidationContext validationContext, JsonNumber? multipleOf = null, JsonNumber? maximum = null, JsonNumber? exclusiveMaximum = null, JsonNumber? minimum = null, JsonNumber? exclusiveMinimum = null, in ImmutableArray<JsonNumber>? enumeration = null, in JsonNumber? constValue = null)
         {
-            ValidationContext context = validationContext;
-            if (multipleOf is JsonNumber mo && !this.IsMultipleOf(mo))
-            {
-                context = context.WithError($"6.2.1 multipleOf: The value should have been a multiple of '{mo}', but was '{this}'.");
-            }
-
-            if (maximum is JsonNumber max && this.IsGreaterThan(max))
-            {
-                context = context.WithError($"6.2.2 maximum: The value should have been <= '{max}', but was '{this}'");
-            }
-
-            if (exclusiveMaximum is JsonNumber exMax && this.IsGreaterThanOrEqualTo(exMax))
-            {
-                context = context.WithError($"6.2.3 maximum: The value should have been < '{exMax}', but was '{this}'");
-            }
-
-            if (minimum is JsonNumber min && this.IsLessThan(min))
-            {
-                context = context.WithError($"6.2.4 minimum: The value should have been >= '{min}', but was '{this}'");
-            }
-
-            if (exclusiveMinimum is JsonNumber exMin && this.IsLessThanOrEqualTo(exMin))
-            {
-                context = context.WithError($"6.2.2 maximum: The value should have been > '{exMin}', but was '{this}'");
-            }
+            ValidationContext context = this.ValidateAsNumberCore(validationContext, multipleOf, maximum, exclusiveMaximum, minimum, exclusiveMinimum);
 
             if (enumeration is ImmutableArray<JsonNumber> values)
             {
@@ -765,6 +771,37 @@ namespace Menes
             }
 
             return false;
+        }
+
+        private ValidationContext ValidateAsNumberCore(ValidationContext validationContext, JsonNumber? multipleOf, JsonNumber? maximum, JsonNumber? exclusiveMaximum, JsonNumber? minimum, JsonNumber? exclusiveMinimum)
+        {
+            ValidationContext context = validationContext;
+            if (multipleOf is JsonNumber mo && !this.IsMultipleOf(mo))
+            {
+                context = context.WithError($"6.2.1 multipleOf: The value should have been a multiple of '{mo}', but was '{this}'.");
+            }
+
+            if (maximum is JsonNumber max && this.IsGreaterThan(max))
+            {
+                context = context.WithError($"6.2.2 maximum: The value should have been <= '{max}', but was '{this}'");
+            }
+
+            if (exclusiveMaximum is JsonNumber exMax && this.IsGreaterThanOrEqualTo(exMax))
+            {
+                context = context.WithError($"6.2.3 maximum: The value should have been < '{exMax}', but was '{this}'");
+            }
+
+            if (minimum is JsonNumber min && this.IsLessThan(min))
+            {
+                context = context.WithError($"6.2.4 minimum: The value should have been >= '{min}', but was '{this}'");
+            }
+
+            if (exclusiveMinimum is JsonNumber exMin && this.IsLessThanOrEqualTo(exMin))
+            {
+                context = context.WithError($"6.2.2 maximum: The value should have been > '{exMin}', but was '{this}'");
+            }
+
+            return context;
         }
     }
 }

@@ -175,6 +175,195 @@ namespace Menes
         }
 
         /// <summary>
+        /// Implicit conversion to standard types.
+        /// </summary>
+        /// <param name="value">The value to convert.</param>
+        public static implicit operator JsonNumber(JsonAny value)
+        {
+            return value.As<JsonNumber>();
+        }
+
+        /// <summary>
+        /// Implicit conversion to standard types.
+        /// </summary>
+        /// <param name="value">The value to convert.</param>
+        public static implicit operator JsonBoolean(JsonAny value)
+        {
+            return value.As<JsonBoolean>();
+        }
+
+        /// <summary>
+        /// Implicit conversion to standard types.
+        /// </summary>
+        /// <param name="value">The value to convert.</param>
+        public static implicit operator JsonByteArray(JsonAny value)
+        {
+            return value.As<JsonByteArray>();
+        }
+
+        /// <summary>
+        /// Implicit conversion to standard types.
+        /// </summary>
+        /// <param name="value">The value to convert.</param>
+        public static implicit operator JsonDate(JsonAny value)
+        {
+            return value.As<JsonDate>();
+        }
+
+        /// <summary>
+        /// Implicit conversion to standard types.
+        /// </summary>
+        /// <param name="value">The value to convert.</param>
+        public static implicit operator JsonDateTime(JsonAny value)
+        {
+            return value.As<JsonDateTime>();
+        }
+
+        /// <summary>
+        /// Implicit conversion to standard types.
+        /// </summary>
+        /// <param name="value">The value to convert.</param>
+        public static implicit operator JsonDecimal(JsonAny value)
+        {
+            return value.As<JsonDecimal>();
+        }
+
+        /// <summary>
+        /// Implicit conversion to standard types.
+        /// </summary>
+        /// <param name="value">The value to convert.</param>
+        public static implicit operator JsonDouble(JsonAny value)
+        {
+            return value.As<JsonDouble>();
+        }
+
+        /// <summary>
+        /// Implicit conversion to standard types.
+        /// </summary>
+        /// <param name="value">The value to convert.</param>
+        public static implicit operator JsonDuration(JsonAny value)
+        {
+            return value.As<JsonDuration>();
+        }
+
+        /// <summary>
+        /// Implicit conversion to standard types.
+        /// </summary>
+        /// <param name="value">The value to convert.</param>
+        public static implicit operator JsonEmail(JsonAny value)
+        {
+            return value.As<JsonEmail>();
+        }
+
+        /// <summary>
+        /// Implicit conversion to standard types.
+        /// </summary>
+        /// <param name="value">The value to convert.</param>
+        public static implicit operator JsonGuid(JsonAny value)
+        {
+            return value.As<JsonGuid>();
+        }
+
+        /// <summary>
+        /// Implicit conversion to standard types.
+        /// </summary>
+        /// <param name="value">The value to convert.</param>
+        public static implicit operator JsonHostName(JsonAny value)
+        {
+            return value.As<JsonHostName>();
+        }
+
+        /// <summary>
+        /// Implicit conversion to standard types.
+        /// </summary>
+        /// <param name="value">The value to convert.</param>
+        public static implicit operator JsonInt32(JsonAny value)
+        {
+            return value.As<JsonInt32>();
+        }
+
+        /// <summary>
+        /// Implicit conversion to standard types.
+        /// </summary>
+        /// <param name="value">The value to convert.</param>
+        public static implicit operator JsonInt64(JsonAny value)
+        {
+            return value.As<JsonInt64>();
+        }
+
+        /// <summary>
+        /// Implicit conversion to standard types.
+        /// </summary>
+        /// <param name="value">The value to convert.</param>
+        public static implicit operator JsonInteger(JsonAny value)
+        {
+            return value.As<JsonInteger>();
+        }
+
+        /// <summary>
+        /// Implicit conversion to standard types.
+        /// </summary>
+        /// <param name="value">The value to convert.</param>
+        public static implicit operator JsonIPv4(JsonAny value)
+        {
+            return value.As<JsonIPv4>();
+        }
+
+        /// <summary>
+        /// Implicit conversion to standard types.
+        /// </summary>
+        /// <param name="value">The value to convert.</param>
+        public static implicit operator JsonIPv6(JsonAny value)
+        {
+            return value.As<JsonIPv6>();
+        }
+
+        /// <summary>
+        /// Implicit conversion to standard types.
+        /// </summary>
+        /// <param name="value">The value to convert.</param>
+        public static implicit operator JsonObject(JsonAny value)
+        {
+            return value.As<JsonObject>();
+        }
+
+        /// <summary>
+        /// Implicit conversion to standard types.
+        /// </summary>
+        /// <param name="value">The value to convert.</param>
+        public static implicit operator JsonSingle(JsonAny value)
+        {
+            return value.As<JsonSingle>();
+        }
+
+        /// <summary>
+        /// Implicit conversion to standard types.
+        /// </summary>
+        /// <param name="value">The value to convert.</param>
+        public static implicit operator JsonString(JsonAny value)
+        {
+            return value.As<JsonString>();
+        }
+
+        /// <summary>
+        /// Implicit conversion to standard types.
+        /// </summary>
+        /// <param name="value">The value to convert.</param>
+        public static implicit operator JsonTime(JsonAny value)
+        {
+            return value.As<JsonTime>();
+        }
+
+        /// <summary>
+        /// Implicit conversion to standard types.
+        /// </summary>
+        /// <param name="value">The value to convert.</param>
+        public static implicit operator JsonUri(JsonAny value)
+        {
+            return value.As<JsonUri>();
+        }
+
+        /// <summary>
         /// Gets a value indicating whether an instance is convertible from
         /// this value type.
         /// </summary>
@@ -196,7 +385,7 @@ namespace Menes
         /// </param>
         /// <returns>A <see cref="JsonAny"/> or null.</returns>
         public static JsonAny FromOptionalProperty(in JsonElement parentDocument, ReadOnlySpan<char> propertyName) =>
-            parentDocument.ValueKind != JsonValueKind.Undefined ?
+            parentDocument.ValueKind == JsonValueKind.Object ?
                 (parentDocument.TryGetProperty(propertyName, out JsonElement property)
                     ? new JsonAny(property)
                     : Null)
@@ -211,7 +400,7 @@ namespace Menes
         /// </param>
         /// <returns>A <see cref="JsonAny"/> or null.</returns>
         public static JsonAny FromOptionalProperty(in JsonElement parentDocument, string propertyName) =>
-            parentDocument.ValueKind != JsonValueKind.Undefined ?
+            parentDocument.ValueKind == JsonValueKind.Object ?
                 (parentDocument.TryGetProperty(propertyName, out JsonElement property)
                     ? new JsonAny(property)
                     : Null)
@@ -226,7 +415,7 @@ namespace Menes
         /// </param>
         /// <returns>A <see cref="JsonAny"/> or null.</returns>
         public static JsonAny FromOptionalProperty(in JsonElement parentDocument, ReadOnlySpan<byte> utf8PropertyName) =>
-            parentDocument.ValueKind != JsonValueKind.Undefined ?
+            parentDocument.ValueKind == JsonValueKind.Object ?
                 (parentDocument.TryGetProperty(utf8PropertyName, out JsonElement property)
                     ? new JsonAny(property)
                     : Null)

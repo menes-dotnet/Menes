@@ -105,7 +105,7 @@ namespace Menes
         /// </param>
         /// <returns>A <see cref="JsonEmail"/> or null.</returns>
         public static JsonEmail FromOptionalProperty(in JsonElement parentDocument, ReadOnlySpan<char> propertyName) =>
-            parentDocument.ValueKind != JsonValueKind.Undefined ?
+            parentDocument.ValueKind == JsonValueKind.Object ?
                 (parentDocument.TryGetProperty(propertyName, out JsonElement property)
                     ? new JsonEmail(property)
                     : Null)
@@ -120,7 +120,7 @@ namespace Menes
         /// </param>
         /// <returns>A <see cref="JsonEmail"/> or null.</returns>
         public static JsonEmail FromOptionalProperty(in JsonElement parentDocument, string propertyName) =>
-            parentDocument.ValueKind != JsonValueKind.Undefined ?
+            parentDocument.ValueKind == JsonValueKind.Object ?
                 (parentDocument.TryGetProperty(propertyName, out JsonElement property)
                     ? new JsonEmail(property)
                     : Null)
@@ -135,7 +135,7 @@ namespace Menes
         /// </param>
         /// <returns>A <see cref="JsonEmail"/> or null.</returns>
         public static JsonEmail FromOptionalProperty(in JsonElement parentDocument, ReadOnlySpan<byte> utf8PropertyName) =>
-            parentDocument.ValueKind != JsonValueKind.Undefined ?
+            parentDocument.ValueKind == JsonValueKind.Object ?
                 (parentDocument.TryGetProperty(utf8PropertyName, out JsonElement property)
                     ? new JsonEmail(property)
                     : Null)
