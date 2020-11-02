@@ -123,19 +123,26 @@ namespace Menes.TypeGenerator
             builder.AppendLine($"    public static readonly System.Func<System.Text.Json.JsonElement, {name}> FromJsonElement = e => new {name}(e);");
             builder.AppendLine($"    public static readonly {name} Null = new {name}(default(System.Text.Json.JsonElement));");
 
-            builder.AppendLine($"    private static readonly {this.ValidatedType.RawClrTypes[0]}? ConstValue = BuildConstValue();");
-            builder.AppendLine($"    private static readonly System.Collections.Immutable.ImmutableArray<{this.ValidatedType.RawClrTypes[0]}>? EnumValues = BuildEnumValues();");
-
-            if (this.EnumValidation is string enumValidation1)
+            if (this.EnumValidation is string enumValidation)
             {
                 int enumIndex = 0;
-                using var document = JsonDocument.Parse(enumValidation1);
+                using var document = JsonDocument.Parse(enumValidation);
                 JsonElement.ArrayEnumerator enumerator = document.RootElement.EnumerateArray();
                 while (enumerator.MoveNext())
                 {
-                    builder.AppendLine($"    public static readonly {name} {StringFormatter.ToPascalCaseWithReservedWords(enumerator.Current.GetRawText())} = new {name}(EnumValues.Value[{enumIndex}]);");
+                    builder.AppendLine($"    public static readonly {name} {StringFormatter.ToPascalCaseWithReservedWords(enumerator.Current.GetRawText())} = new {name}(EnumValues[{enumIndex}]);");
                     enumIndex++;
                 }
+            }
+
+            if (this.ConstValidation is string)
+            {
+                builder.AppendLine($"    private static readonly {this.ValidatedType.RawClrTypes[0]} ConstValue = BuildConstValue();");
+            }
+
+            if (this.EnumValidation is string)
+            {
+                builder.AppendLine($"    private static readonly System.Collections.Immutable.ImmutableArray<{this.ValidatedType.RawClrTypes[0]}> EnumValues = BuildEnumValues();");
             }
 
             if (this.ValidatedType.Kind == JsonValueTypeDeclaration.ValueKind.String)
@@ -357,17 +364,20 @@ namespace Menes.TypeGenerator
                 builder.AppendLine(");");
             }
 
+            string enumValuesAccessor = this.EnumValidation is null ? "null" : "EnumValues";
+            string constValueAccessor = this.ConstValidation is null ? "null" : "ConstValue";
+
             if (this.ValidatedType.Kind == JsonValueTypeDeclaration.ValueKind.String)
             {
-                builder.AppendLine($"context = value.ValidateAsString(context, MaxLength, MinLength, Pattern, EnumValues, ConstValue);");
+                builder.AppendLine($"context = value.ValidateAsString(context, MaxLength, MinLength, Pattern, {enumValuesAccessor}, {constValueAccessor});");
             }
             else if (this.ValidatedType.Kind == JsonValueTypeDeclaration.ValueKind.Decimal || this.ValidatedType.Kind == JsonValueTypeDeclaration.ValueKind.Number)
             {
-                builder.AppendLine($"context = value.ValidateAsNumber(context, MultipleOf, Maximum, ExclusiveMaximum, Minimum, ExclusiveMinimum, EnumValues, ConstValue);");
+                builder.AppendLine($"context = value.ValidateAsNumber(context, MultipleOf, Maximum, ExclusiveMaximum, Minimum, ExclusiveMinimum, {enumValuesAccessor}, {constValueAccessor});");
             }
             else if (this.ValidatedType.Kind == JsonValueTypeDeclaration.ValueKind.Boolean)
             {
-                builder.AppendLine($"context = value.ValidateAsBoolean(context, EnumValues, ConstValue);");
+                builder.AppendLine($"context = value.ValidateAsBoolean(context, {enumValuesAccessor}, {constValueAccessor});");
             }
             else if (this.ValidatedType.Kind == JsonValueTypeDeclaration.ValueKind.Any)
             {
@@ -378,18 +388,18 @@ namespace Menes.TypeGenerator
 
                 if (this.MultipleOfValidation.HasValue || this.MaximumValidation.HasValue || this.ExclusiveMaximumValidation.HasValue || this.MinimumValidation.HasValue || this.ExclusiveMinimumValidation.HasValue)
                 {
-                    builder.AppendLine($"context = value.As<Menes.JsonNumber>().ValidateAsNumber(context, MultipleOf, Maximum, ExclusiveMaximum, Minimum, ExclusiveMinimum, EnumValues, ConstValue);");
+                    builder.AppendLine($"context = value.As<Menes.JsonNumber>().ValidateAsNumber(context, MultipleOf, Maximum, ExclusiveMaximum, Minimum, ExclusiveMinimum, {enumValuesAccessor}, {constValueAccessor});");
                 }
                 else
                 {
                     if (!(this.EnumValidation is null))
                     {
-                        builder.AppendLine($"context = Menes.Validation.ValidateEnum(context, value, EnumValues.Value);");
+                        builder.AppendLine($"context = Menes.Validation.ValidateEnum(context, value, {enumValuesAccessor});");
                     }
 
                     if (!(this.ConstValidation is null))
                     {
-                        builder.AppendLine($"context = Menes.Validation.ValidateConst(context, value, ConstValue.Value);");
+                        builder.AppendLine($"context = Menes.Validation.ValidateConst(context, value, {constValueAccessor});");
                     }
                 }
             }
@@ -422,7 +432,7 @@ namespace Menes.TypeGenerator
 
             if (this.ConstValidation is string constValue)
             {
-                builder.AppendLine($"private static {this.ValidatedType.RawClrTypes[0]}? BuildConstValue()");
+                builder.AppendLine($"private static {this.ValidatedType.RawClrTypes[0]} BuildConstValue()");
                 builder.AppendLine("{");
                 if (this.ValidatedType.Kind == JsonValueTypeDeclaration.ValueKind.Decimal)
                 {
@@ -440,23 +450,16 @@ namespace Menes.TypeGenerator
 
                 builder.AppendLine("}");
             }
-            else
-            {
-                builder.AppendLine($"private static {this.ValidatedType.RawClrTypes[0]}? BuildConstValue()");
-                builder.AppendLine("{");
-                builder.AppendLine("    return null;");
-                builder.AppendLine("}");
-            }
 
-            if (this.EnumValidation is string enumValidation)
+            if (this.EnumValidation is string enumValidation1)
             {
-                builder.AppendLine($"    private static System.Collections.Immutable.ImmutableArray<{this.ValidatedType.RawClrTypes[0]}>? BuildEnumValues()");
+                builder.AppendLine($"    private static System.Collections.Immutable.ImmutableArray<{this.ValidatedType.RawClrTypes[0]}> BuildEnumValues()");
                 builder.AppendLine("    {");
                 builder.AppendLine($"        System.Collections.Immutable.ImmutableArray<{this.ValidatedType.RawClrTypes[0]}>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<{this.ValidatedType.RawClrTypes[0]}>();");
 
                 if (this.ValidatedType.Kind == JsonValueTypeDeclaration.ValueKind.Any)
                 {
-                    builder.AppendLine($"using var document = System.Text.Json.JsonDocument.Parse({StringFormatter.EscapeForCSharpString(enumValidation, true)});");
+                    builder.AppendLine($"using var document = System.Text.Json.JsonDocument.Parse({StringFormatter.EscapeForCSharpString(enumValidation1, true)});");
                     builder.AppendLine("System.Text.Json.JsonElement.ArrayEnumerator enumerator = document.RootElement.EnumerateArray();");
                     builder.AppendLine("while (enumerator.MoveNext())");
                     builder.AppendLine("{");
@@ -465,7 +468,7 @@ namespace Menes.TypeGenerator
                 }
                 else
                 {
-                    using var document = JsonDocument.Parse(enumValidation);
+                    using var document = JsonDocument.Parse(enumValidation1);
                     JsonElement.ArrayEnumerator enumerator = document.RootElement.EnumerateArray();
                     while (enumerator.MoveNext())
                     {
@@ -482,13 +485,6 @@ namespace Menes.TypeGenerator
 
                 builder.AppendLine("        return arrayBuilder.ToImmutable();");
                 builder.AppendLine("    }");
-            }
-            else
-            {
-                builder.AppendLine($"private static System.Collections.Immutable.ImmutableArray<{this.ValidatedType.RawClrTypes[0]}>? BuildEnumValues()");
-                builder.AppendLine("{");
-                builder.AppendLine("    return null;");
-                builder.AppendLine("}");
             }
 
             builder.AppendLine("}");
