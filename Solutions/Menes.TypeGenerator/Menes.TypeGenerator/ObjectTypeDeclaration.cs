@@ -1310,6 +1310,7 @@ namespace Menes.TypeGenerator
                 while (fieldNames.Contains(fieldName))
                 {
                     fieldName = baseFieldName + index;
+                    ++index;
                 }
 
                 fieldNames.Add(fieldName);

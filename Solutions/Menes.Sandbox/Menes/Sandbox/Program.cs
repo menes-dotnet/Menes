@@ -42,9 +42,9 @@ namespace Menes.Sandbox
             ////return GenerateTypesForSchema("exampleschema2.json");
             ////return GenerateTypesForSchema("resourcesAndLinks.json#/schemas/Resource");
             ////return GenerateTypesForSchema("person.json#/schemas/Person");
-            return GenerateTypesForSchema(new[] { "peopleApi.json#/components/schemas/PersonListResource", "peopleApi.json#/components/schemas/EmailAddressListResource", "peopleApi.json#/components/schemas/TelephoneNumberListResource", "peopleApi.json#/components/schemas/RelatedPeopleListResource", "peopleApi.json#/components/schemas/PersonNameListResource", "peopleApi.json#/components/schemas/AddressListResource", "peopleApi.json#/components/schemas/OrganizationalUnitListResource", "peopleApi.json#/components/schemas/RelatedOrganizationalUnitsListResource", "peopleApi.json#/components/schemas/OrganizationalUnitContactDetailsResource" }, "./output/");
+            ////return GenerateTypesForSchema(new[] { "peopleApi.json#/components/schemas/PersonListResource", "peopleApi.json#/components/schemas/EmailAddressListResource", "peopleApi.json#/components/schemas/TelephoneNumberListResource", "peopleApi.json#/components/schemas/RelatedPeopleListResource", "peopleApi.json#/components/schemas/PersonNameListResource", "peopleApi.json#/components/schemas/AddressListResource", "peopleApi.json#/components/schemas/OrganizationalUnitListResource", "peopleApi.json#/components/schemas/RelatedOrganizationalUnitsListResource", "peopleApi.json#/components/schemas/OrganizationalUnitContactDetailsResource" }, "./output/");
 
-            ////return UseGeneratedCode();
+            return UseGeneratedCode();
         }
 
         private static Task UseGeneratedCode()
