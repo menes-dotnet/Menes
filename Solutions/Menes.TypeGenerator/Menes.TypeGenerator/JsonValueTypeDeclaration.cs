@@ -86,7 +86,10 @@ namespace Menes.TypeGenerator
         /// </summary>
         public ValueKind Kind { get; }
 
-        private static NamespaceDeclaration MenesNamespace => new NamespaceDeclaration("Menes");
+        /// <summary>
+        /// Gets the Menes namepsace.
+        /// </summary>
+        internal static NamespaceDeclaration MenesNamespace => new NamespaceDeclaration("Menes");
 
         /// <inheritdoc/>
         public void AddMethodDeclaration(MethodDeclaration methodDeclaration)

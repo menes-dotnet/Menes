@@ -249,7 +249,7 @@ namespace Menes.Json.Schema.TypeGenerator
                 return this.CreateAny(schema, name);
             }
 
-            if (schema.OneOf is JsonSchema.NonEmptySubschemaArray || schema.AnyOf is JsonSchema.NonEmptySubschemaArray)
+            if (schema.OneOf is JsonSchema.NonEmptySubschemaArray || schema.AnyOf is JsonSchema.NonEmptySubschemaArray || (schema.Type is JsonSchema.TypeEnumOrArrayOfTypeEnum type && type.IsArrayOfTypeEnum))
             {
                 return Task.FromResult<ITypeDeclaration>(new UnionTypeDeclaration(name));
             }
@@ -347,6 +347,21 @@ namespace Menes.Json.Schema.TypeGenerator
             {
                 union.AddTypesToUnion(one.ToArray());
                 return;
+            }
+
+            if (schema.Type is JsonSchema.TypeEnumOrArrayOfTypeEnum type && type.IsArrayOfTypeEnum)
+            {
+                foreach (JsonSchema.TypeEnum typeEnum in type.AsArrayOfTypeEnum())
+                {
+                    var typeSchema = new JsonSchema(type: typeEnum);
+                    ITypeDeclaration? td = await this.GetTypeDeclarationFor(typeSchema, rootDocument, baseUri).ConfigureAwait(false);
+                    if (!(td is ITypeDeclaration typd))
+                    {
+                        throw new InvalidOperationException($"Unable to create type declaration for Type Enumeration {typeEnum}");
+                    }
+
+                    union.AddTypeToUnion(typd);
+                }
             }
         }
 

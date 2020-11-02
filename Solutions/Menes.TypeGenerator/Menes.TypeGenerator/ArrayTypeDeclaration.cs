@@ -19,6 +19,7 @@ namespace Menes.TypeGenerator
         /// <param name="itemType">The type of the item in the array.</param>
         public ArrayTypeDeclaration(ITypeDeclaration? itemType = null)
         {
+            this.Parent = JsonValueTypeDeclaration.MenesNamespace;
             this.ItemType = itemType ?? JsonValueTypeDeclaration.Any;
         }
 
@@ -32,7 +33,7 @@ namespace Menes.TypeGenerator
         public IReadOnlyCollection<ITypeDeclaration> TypeDeclarations => TypeDeclaration.EmptyTypeDeclarations;
 
         /// <inheritdoc/>
-        public string Name => $"Menes.JsonArray<{this.ItemType.GetFullyQualifiedName()}>";
+        public string Name => $"JsonArray<{this.ItemType.GetFullyQualifiedName()}>";
 
         /// <inheritdoc/>
         public IDeclaration? Parent { get; set; }

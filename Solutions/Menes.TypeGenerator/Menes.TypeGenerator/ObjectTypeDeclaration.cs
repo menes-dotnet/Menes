@@ -211,7 +211,7 @@ namespace Menes.TypeGenerator
         {
             if (this.EnumValidation is string enumValidation)
             {
-                members.Add(SF.ParseMemberDeclaration("private static readonly Menes.JsonReference EnumValues = BuildEnumValues();" + Environment.NewLine));
+                members.Add(SF.ParseMemberDeclaration("public static readonly Menes.JsonReference EnumValues = BuildEnumValues();" + Environment.NewLine));
                 int enumIndex = 0;
                 using var document = JsonDocument.Parse(enumValidation);
                 JsonElement.ArrayEnumerator enumerator = document.RootElement.EnumerateArray();

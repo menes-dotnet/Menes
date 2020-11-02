@@ -2115,6 +2115,7 @@ namespace Menes.Json.Schema
         {
             public static readonly System.Func<System.Text.Json.JsonElement, TypeEnum> FromJsonElement = e => new TypeEnum(e);
             public static readonly TypeEnum Null = new TypeEnum(default(System.Text.Json.JsonElement));
+            public static readonly System.Collections.Immutable.ImmutableArray<string> EnumValues = BuildEnumValues();
             public static readonly TypeEnum Null1 = new TypeEnum(EnumValues[0]);
             public static readonly TypeEnum Boolean = new TypeEnum(EnumValues[1]);
             public static readonly TypeEnum Object = new TypeEnum(EnumValues[2]);
@@ -2122,7 +2123,6 @@ namespace Menes.Json.Schema
             public static readonly TypeEnum Number = new TypeEnum(EnumValues[4]);
             public static readonly TypeEnum String = new TypeEnum(EnumValues[5]);
             public static readonly TypeEnum Integer = new TypeEnum(EnumValues[6]);
-            private static readonly System.Collections.Immutable.ImmutableArray<string> EnumValues = BuildEnumValues();
             private static readonly int? MaxLength = null;
             private static readonly int? MinLength = null;
             private static readonly System.Text.RegularExpressions.Regex? Pattern = null;
@@ -2285,12 +2285,12 @@ namespace Menes.Json.Schema
             public bool IsNull => this.item1 is null && this.item2 is null && (this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Undefined || this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Null);
             public TypeEnumOrArrayOfTypeEnum? AsOptional => this.IsNull ? default(TypeEnumOrArrayOfTypeEnum?) : this;
             public bool IsTypeEnum => this.item1 is JsonSchema.TypeEnum || (JsonSchema.TypeEnum.IsConvertibleFrom(this.JsonElement) && JsonSchema.TypeEnum.FromJsonElement(this.JsonElement).Validate(Menes.ValidationContext.Root).IsValid);
-            public bool IsMenesJsonArrayJsonSchemaTypeEnum => this.item2 is Menes.JsonArray<JsonSchema.TypeEnum> || (Menes.JsonArray<JsonSchema.TypeEnum>.IsConvertibleFrom(this.JsonElement) && Menes.JsonArray<JsonSchema.TypeEnum>.FromJsonElement(this.JsonElement).Validate(Menes.ValidationContext.Root).IsValid);
+            public bool IsArrayOfTypeEnum => this.item2 is Menes.JsonArray<JsonSchema.TypeEnum> || (Menes.JsonArray<JsonSchema.TypeEnum>.IsConvertibleFrom(this.JsonElement) && Menes.JsonArray<JsonSchema.TypeEnum>.FromJsonElement(this.JsonElement).Validate(Menes.ValidationContext.Root).IsValid);
             public bool HasJsonElement => this.JsonElement.ValueKind != System.Text.Json.JsonValueKind.Undefined;
             public System.Text.Json.JsonElement JsonElement { get; }
             public static explicit operator JsonSchema.TypeEnum(TypeEnumOrArrayOfTypeEnum value) => value.AsTypeEnum();
             public static implicit operator TypeEnumOrArrayOfTypeEnum(JsonSchema.TypeEnum value) => new TypeEnumOrArrayOfTypeEnum(value);
-            public static explicit operator Menes.JsonArray<JsonSchema.TypeEnum>(TypeEnumOrArrayOfTypeEnum value) => value.AsMenesJsonArrayJsonSchemaTypeEnum();
+            public static explicit operator Menes.JsonArray<JsonSchema.TypeEnum>(TypeEnumOrArrayOfTypeEnum value) => value.AsArrayOfTypeEnum();
             public static implicit operator TypeEnumOrArrayOfTypeEnum(Menes.JsonArray<JsonSchema.TypeEnum> value) => new TypeEnumOrArrayOfTypeEnum(value);
             public static TypeEnumOrArrayOfTypeEnum FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<char> propertyName) =>
                parentDocument.ValueKind == System.Text.Json.JsonValueKind.Object ?
@@ -2323,7 +2323,7 @@ namespace Menes.Json.Schema
                 return false;
             }
             public JsonSchema.TypeEnum AsTypeEnum() => this.item1 ?? new JsonSchema.TypeEnum(this.JsonElement);
-            public Menes.JsonArray<JsonSchema.TypeEnum> AsMenesJsonArrayJsonSchemaTypeEnum() => this.item2 ?? new Menes.JsonArray<JsonSchema.TypeEnum>(this.JsonElement);
+            public Menes.JsonArray<JsonSchema.TypeEnum> AsArrayOfTypeEnum() => this.item2 ?? new Menes.JsonArray<JsonSchema.TypeEnum>(this.JsonElement);
             public void WriteTo(System.Text.Json.Utf8JsonWriter writer)
             {
                 if (this.item1 is JsonSchema.TypeEnum item1)
@@ -2350,12 +2350,12 @@ namespace Menes.Json.Schema
                     builder.Append(this.AsTypeEnum().ToString());
                     builder.AppendLine("}");
                 }
-                if (this.IsMenesJsonArrayJsonSchemaTypeEnum)
+                if (this.IsArrayOfTypeEnum)
                 {
                     builder.Append("{");
-                    builder.Append("MenesJsonArrayJsonSchemaTypeEnum");
+                    builder.Append("JsonArrayJsonSchemaTypeEnum");
                     builder.Append(", ");
-                    builder.Append(this.AsMenesJsonArrayJsonSchemaTypeEnum().ToString());
+                    builder.Append(this.AsArrayOfTypeEnum().ToString());
                     builder.AppendLine("}");
                 }
                 return builder.Length > 0 ? builder.ToString() : this.JsonElement.ToString();
@@ -2376,9 +2376,9 @@ namespace Menes.Json.Schema
                 {
                     validationContext1 = validationContext1.WithError("The value is not convertible to a JsonSchema.TypeEnum.");
                 }
-                if (this.IsMenesJsonArrayJsonSchemaTypeEnum)
+                if (this.IsArrayOfTypeEnum)
                 {
-                    validationContext2 = this.AsMenesJsonArrayJsonSchemaTypeEnum().Validate(validationContext2);
+                    validationContext2 = this.AsArrayOfTypeEnum().Validate(validationContext2);
                 }
                 else
                 {

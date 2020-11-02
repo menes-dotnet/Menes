@@ -38,6 +38,7 @@ namespace Menes.Json.Schema
         public static bool IsInferredObject(this JsonSchema schema)
         {
             return
+                (schema.Type is JsonSchema.TypeEnumOrArrayOfTypeEnum type && type.IsArrayOfTypeEnum) ||
                 schema.MaxProperties.HasValue ||
                 schema.MinProperties.HasValue ||
                 schema.PatternProperties.HasValue ||

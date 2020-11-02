@@ -123,6 +123,11 @@ namespace Menes.TypeGenerator
             builder.AppendLine($"    public static readonly System.Func<System.Text.Json.JsonElement, {name}> FromJsonElement = e => new {name}(e);");
             builder.AppendLine($"    public static readonly {name} Null = new {name}(default(System.Text.Json.JsonElement));");
 
+            if (this.EnumValidation is string)
+            {
+                builder.AppendLine($"    public static readonly System.Collections.Immutable.ImmutableArray<{this.ValidatedType.RawClrTypes[0]}> EnumValues = BuildEnumValues();");
+            }
+
             if (this.EnumValidation is string enumValidation)
             {
                 int enumIndex = 0;
@@ -148,11 +153,6 @@ namespace Menes.TypeGenerator
             if (this.ConstValidation is string)
             {
                 builder.AppendLine($"    private static readonly {this.ValidatedType.RawClrTypes[0]} ConstValue = BuildConstValue();");
-            }
-
-            if (this.EnumValidation is string)
-            {
-                builder.AppendLine($"    private static readonly System.Collections.Immutable.ImmutableArray<{this.ValidatedType.RawClrTypes[0]}> EnumValues = BuildEnumValues();");
             }
 
             if (this.ValidatedType.Kind == JsonValueTypeDeclaration.ValueKind.String)
