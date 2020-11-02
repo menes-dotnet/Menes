@@ -48,7 +48,7 @@ namespace Menes.Json.Schema.Tests
                 int length = doc.RootElement.GetArrayLength();
                 for (int i = 0; i < length; ++i)
                 {
-                    uris.Add(($"{file}#/{i}/schema", Path.GetFileNameWithoutExtension(file)));
+                    uris.Add(($"{file}#/{i}/schema", Path.GetFileNameWithoutExtension(file) + $"{i:D3}"));
                 }
             }
 
@@ -57,13 +57,11 @@ namespace Menes.Json.Schema.Tests
 
         private static async Task GenerateTypesForSchema((string, string)[] uris, string outputPath)
         {
-            int index = 0;
             foreach ((string, string) uri in uris)
             {
                 var typeGenerator = new TypeGeneratorJsonSchemaVisitor(DocumentResolver.Default);
                 await GenerateTypesForSchema(uri.Item1, typeGenerator).ConfigureAwait(false);
-                WriteTypes(typeGenerator, Path.ChangeExtension(Path.Combine(outputPath, uri.Item2 + index), ".cs"), StringFormatter.ToPascalCaseWithReservedWords(uri.Item2 + index));
-                ++index;
+                WriteTypes(typeGenerator, Path.ChangeExtension(Path.Combine(outputPath, uri.Item2), ".cs"), StringFormatter.ToPascalCaseWithReservedWords(uri.Item2));
             }
         }
 
@@ -86,6 +84,7 @@ namespace Menes.Json.Schema.Tests
             try
             {
                 Directory.CreateDirectory(Path.GetDirectoryName(outputPath));
+                File.Delete(outputPath);
                 Console.WriteLine(outputPath);
 
                 TypeDeclarationSyntax[] tds = typeGenerator.GenerateTypes();

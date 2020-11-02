@@ -6,6 +6,7 @@ namespace Menes.TypeGenerator
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.Linq;
     using System.Text;
     using System.Text.Json;
@@ -121,17 +122,16 @@ namespace Menes.TypeGenerator
         private MemberDeclarationSyntax[] BuildMembers()
         {
             var members = new List<MemberDeclarationSyntax>();
+            List<NamedPropertyDeclaration> properties = this.BuildNamedPropertyDeclarations();
 
             //// Public static readonly fields
 
             this.BuildNullAccessor(members);
             this.BuildJsonElementFactory(members);
             this.BuildConstValue(members);
-            this.BuildEnumValues(members);
+            this.BuildEnumValues(properties, members);
 
             //// private const, private static, private readonly (we may need to split these up)
-
-            List<NamedPropertyDeclaration> properties = this.BuildNamedPropertyDeclarations();
 
             this.BuildPropertyBackings(properties, members);
             this.BuildAdditionalPropertiesBacking(members);
@@ -207,7 +207,7 @@ namespace Menes.TypeGenerator
             }
         }
 
-        private void BuildEnumValues(List<MemberDeclarationSyntax> members)
+        private void BuildEnumValues(List<NamedPropertyDeclaration> properties, List<MemberDeclarationSyntax> members)
         {
             if (this.EnumValidation is string enumValidation)
             {
@@ -218,7 +218,17 @@ namespace Menes.TypeGenerator
                 string name = this.Name;
                 while (enumerator.MoveNext())
                 {
-                    members.Add(SF.ParseMemberDeclaration($"    public static readonly {name} {StringFormatter.ToPascalCaseWithReservedWords(enumerator.Current.GetRawText())} = new {name}(EnumValues[{enumIndex}]);"));
+                    string baseEnumPropertyName = StringFormatter.ToPascalCaseWithReservedWords(enumerator.Current.GetRawText());
+                    string enumPropertyName = baseEnumPropertyName;
+                    int enumNameIndex = 1;
+
+                    while (enumPropertyName == "Null" || properties.Any(p => p.PropertyName == enumPropertyName))
+                    {
+                        enumPropertyName = baseEnumPropertyName + enumNameIndex;
+                        enumNameIndex++;
+                    }
+
+                    members.Add(SF.ParseMemberDeclaration($"    public static readonly {name} {enumPropertyName} = new {name}(EnumValues[{enumIndex}]);"));
                     enumIndex++;
                 }
             }

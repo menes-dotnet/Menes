@@ -526,36 +526,6 @@ namespace Menes
         /// <param name="constValue">The value must equal the constant value.</param>
         /// <returns>The validation context updated to reflect the results of the validation.</returns>
         /// <remarks>These are rolled up into a single method to ensure string conversion occurs only once.</remarks>
-        public ValidationContext ValidateAsNumber(in ValidationContext validationContext, JsonNumber? multipleOf = null, JsonNumber? maximum = null, JsonNumber? exclusiveMaximum = null, JsonNumber? minimum = null, JsonNumber? exclusiveMinimum = null, in ImmutableArray<JsonAny>? enumeration = null, in JsonNumber? constValue = null)
-        {
-            ValidationContext context = this.ValidateAsNumberCore(validationContext, multipleOf, maximum, exclusiveMaximum, minimum, exclusiveMinimum);
-
-            if (enumeration is ImmutableArray<JsonAny> values)
-            {
-                context = Validation.ValidateEnum(context, JsonAny.From(this), values);
-            }
-
-            if (constValue is JsonNumber cv)
-            {
-                context = Validation.ValidateConst(context, this, cv);
-            }
-
-            return context;
-        }
-
-        /// <summary>
-        /// Provides the numeric validations.
-        /// </summary>
-        /// <param name="validationContext">The validation context.</param>
-        /// <param name="multipleOf">A value which, when divided into the value, produces a remainder of zero.</param>
-        /// <param name="maximum">The value is less than or equal to the maximum value.</param>
-        /// <param name="exclusiveMaximum">The value is less than the exclusive maximum value.</param>
-        /// <param name="minimum">The value is greater than or equal to the minimum value.</param>
-        /// <param name="exclusiveMinimum">The value is greater than the exclusive minimum value.</param>
-        /// <param name="enumeration">The value must equal one of the values in the enumeration.</param>
-        /// <param name="constValue">The value must equal the constant value.</param>
-        /// <returns>The validation context updated to reflect the results of the validation.</returns>
-        /// <remarks>These are rolled up into a single method to ensure string conversion occurs only once.</remarks>
         public ValidationContext ValidateAsNumber(in ValidationContext validationContext, JsonNumber? multipleOf = null, JsonNumber? maximum = null, JsonNumber? exclusiveMaximum = null, JsonNumber? minimum = null, JsonNumber? exclusiveMinimum = null, in ImmutableArray<JsonNumber>? enumeration = null, in JsonNumber? constValue = null)
         {
             ValidationContext context = this.ValidateAsNumberCore(validationContext, multipleOf, maximum, exclusiveMaximum, minimum, exclusiveMinimum);

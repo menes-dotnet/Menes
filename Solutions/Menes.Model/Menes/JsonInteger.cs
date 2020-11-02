@@ -330,30 +330,30 @@ namespace Menes
         /// <param name="constValue">The value must equal the constant value.</param>
         /// <returns>The validation context updated to reflect the results of the validation.</returns>
         /// <remarks>These are rolled up into a single method to ensure string conversion occurs only once.</remarks>
-        public ValidationContext ValidateAsNumber(in ValidationContext validationContext, JsonInteger? multipleOf = null, JsonInteger? maximum = null, JsonInteger? exclusiveMaximum = null, JsonInteger? minimum = null, JsonInteger? exclusiveMinimum = null, in ImmutableArray<JsonInteger>? enumeration = null, in JsonInteger? constValue = null)
+        public ValidationContext ValidateAsNumber(in ValidationContext validationContext, JsonNumber? multipleOf = null, JsonNumber? maximum = null, JsonNumber? exclusiveMaximum = null, JsonNumber? minimum = null, JsonNumber? exclusiveMinimum = null, in ImmutableArray<JsonInteger>? enumeration = null, in JsonInteger? constValue = null)
         {
             ValidationContext context = validationContext;
-            if (multipleOf is JsonInteger mo && !this.IsMultipleOf(mo))
+            if (multipleOf is JsonNumber mo && !this.IsMultipleOf(mo))
             {
                 context = context.WithError($"6.2.1 multipleOf: The value should have been a multiple of '{mo}', but was '{this}'.");
             }
 
-            if (maximum is JsonInteger max && this.IsGreaterThan(max))
+            if (maximum is JsonNumber max && this.IsGreaterThan(max))
             {
                 context = context.WithError($"6.2.2 maximum: The value should have been <= '{max}', but was '{this}'");
             }
 
-            if (exclusiveMaximum is JsonInteger exMax && this.IsGreaterThanOrEqualTo(exMax))
+            if (exclusiveMaximum is JsonNumber exMax && this.IsGreaterThanOrEqualTo(exMax))
             {
                 context = context.WithError($"6.2.3 maximum: The value should have been < '{exMax}', but was '{this}'");
             }
 
-            if (minimum is JsonInteger min && this.IsLessThan(min))
+            if (minimum is JsonNumber min && this.IsLessThan(min))
             {
                 context = context.WithError($"6.2.4 minimum: The value should have been >= '{min}', but was '{this}'");
             }
 
-            if (exclusiveMinimum is JsonInteger exMin && this.IsLessThanOrEqualTo(exMin))
+            if (exclusiveMinimum is JsonNumber exMin && this.IsLessThanOrEqualTo(exMin))
             {
                 context = context.WithError($"6.2.2 maximum: The value should have been > '{exMin}', but was '{this}'");
             }
@@ -376,7 +376,7 @@ namespace Menes
         /// </summary>
         /// <param name="other">The value to compare.</param>
         /// <returns><c>True</c> if this number is a multiple of the other number.</returns>
-        public bool IsMultipleOf(JsonInteger other)
+        public bool IsMultipleOf(JsonNumber other)
         {
             if ((this.IsNull && !other.IsNull) || (!this.IsNull && other.IsNull))
             {
@@ -401,7 +401,7 @@ namespace Menes
         /// </summary>
         /// <param name="other">The value to compare.</param>
         /// <returns><c>True</c> if this number is greater than the other number.</returns>
-        public bool IsGreaterThan(JsonInteger other)
+        public bool IsGreaterThan(JsonNumber other)
         {
             if ((this.IsNull && !other.IsNull) || (!this.IsNull && other.IsNull))
             {
@@ -426,7 +426,7 @@ namespace Menes
         /// </summary>
         /// <param name="other">The value to compare.</param>
         /// <returns><c>True</c> if this number is greater than or equal to the other number.</returns>
-        public bool IsGreaterThanOrEqualTo(JsonInteger other)
+        public bool IsGreaterThanOrEqualTo(JsonNumber other)
         {
             if ((this.IsNull && !other.IsNull) || (!this.IsNull && other.IsNull))
             {
@@ -451,7 +451,7 @@ namespace Menes
         /// </summary>
         /// <param name="other">The value to compare.</param>
         /// <returns><c>True</c> if this number is less than the other number.</returns>
-        public bool IsLessThan(JsonInteger other)
+        public bool IsLessThan(JsonNumber other)
         {
             if ((this.IsNull && !other.IsNull) || (!this.IsNull && other.IsNull))
             {
@@ -476,7 +476,7 @@ namespace Menes
         /// </summary>
         /// <param name="other">The value to compare.</param>
         /// <returns><c>True</c> if this number is less than or equal to the other number.</returns>
-        public bool IsLessThanOrEqualTo(JsonInteger other)
+        public bool IsLessThanOrEqualTo(JsonNumber other)
         {
             if ((this.IsNull && !other.IsNull) || (!this.IsNull && other.IsNull))
             {

@@ -24,7 +24,7 @@ namespace Menes.TypeGenerator
         public ValidatedArrayTypeDeclaration(string name, ITypeDeclaration? itemType = null)
             : base(name)
         {
-            this.ItemType = itemType;
+            this.ItemType = itemType ?? JsonValueTypeDeclaration.Any;
         }
 
         /// <summary>
@@ -249,7 +249,8 @@ namespace Menes.TypeGenerator
             {
                 int minContains = this.MinContainsValidation ?? 1;
                 int maxContains = this.MaxContainsValidation ?? int.MaxValue;
-                builder.AppendLine($"        return array.ValidateRangeContains<{contains.GetFullyQualifiedName()}>(context, {minContains}, {maxContains}, {this.UniqueValidation}, true);");
+                string unique = (this.UniqueValidation ?? false) ? "true" : "false";
+                builder.AppendLine($"        return array.ValidateRangeContains<{contains.GetFullyQualifiedName()}>(context, {minContains}, {maxContains}, {unique}, true);");
             }
             else if (this.UniqueValidation is bool unique && unique)
             {
