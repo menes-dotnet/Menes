@@ -66,7 +66,7 @@ namespace Menes.Json.Schema
         /// <returns><c>True</c> is the entity is a string, integer, number, or boolean.</returns>
         public static bool IsValueType(this JsonSchema schema)
         {
-            return !(schema.Type is JsonSchema.TypeEnum type) || type == "integer" || type == "string" || type == "boolean" || type == "number";
+            return !(schema.Type is JsonSchema.TypeEnumOrArrayOfTypeEnum type && type.IsTypeEnum) || type.AsTypeEnum() == "integer" || type.AsTypeEnum() == "string" || type.AsTypeEnum() == "boolean" || type.AsTypeEnum() == "number";
         }
 
         /// <summary>
@@ -76,7 +76,7 @@ namespace Menes.Json.Schema
         /// <returns><c>True</c> is the entity is an object.</returns>
         public static bool IsObjectType(this JsonSchema schema)
         {
-            return (schema.Type is JsonSchema.TypeEnum type) && type == "object";
+            return (schema.Type is JsonSchema.TypeEnumOrArrayOfTypeEnum type) && type.IsTypeEnum && type.AsTypeEnum() == "object";
         }
 
         /// <summary>
@@ -86,7 +86,7 @@ namespace Menes.Json.Schema
         /// <returns><c>True</c> is the entity is an object.</returns>
         public static bool IsArrayType(this JsonSchema schema)
         {
-            return (schema.Type is JsonSchema.TypeEnum type) && type == "array";
+            return (schema.Type is JsonSchema.TypeEnumOrArrayOfTypeEnum type) && type.IsTypeEnum && type.AsTypeEnum() == "array";
         }
     }
 }

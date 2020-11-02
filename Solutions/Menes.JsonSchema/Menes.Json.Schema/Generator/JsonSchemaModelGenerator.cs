@@ -35,6 +35,11 @@ namespace Menes.Json.Schema.Generator
             };
             schema.AddTypeDeclaration(schemaType);
 
+            var schemaTypeOrArrayOfSchemaType = new UnionTypeDeclaration("TypeEnumOrArrayOfTypeEnum", UnionTypeDeclaration.UnionKind.OneOf);
+            schemaTypeOrArrayOfSchemaType.AddTypesToUnion(schemaType);
+            schemaTypeOrArrayOfSchemaType.AddTypesToUnion(new ArrayTypeDeclaration(schemaType));
+            schema.AddTypeDeclaration(schemaTypeOrArrayOfSchemaType);
+
             var schemaPositiveNumber = new ValidatedJsonValueTypeDeclaration("PositiveNumber", JsonValueTypeDeclaration.Number)
             {
                 ExclusiveMinimumValidation = 0,
@@ -73,7 +78,7 @@ namespace Menes.Json.Schema.Generator
             schema.AddOptionalPropertyDeclaration("title", JsonValueTypeDeclaration.String);
             schema.AddOptionalPropertyDeclaration("description", JsonValueTypeDeclaration.String);
             schema.AddOptionalPropertyDeclaration("$comment", JsonValueTypeDeclaration.String);
-            schema.AddOptionalPropertyDeclaration("type", schemaType);
+            schema.AddOptionalPropertyDeclaration("type", schemaTypeOrArrayOfSchemaType);
             schema.AddOptionalPropertyDeclaration("format", JsonValueTypeDeclaration.String);
             schema.AddOptionalArrayPropertyDeclaration("enum", AnyTypeDeclaration.Instance);
             schema.AddOptionalPropertyDeclaration("const", AnyTypeDeclaration.Instance);

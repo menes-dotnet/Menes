@@ -82,9 +82,9 @@ namespace Menes.Json.Schema.TypeGenerator
         {
             string name = this.GetName(schema);
 
-            if (schema.Type is JsonSchema.TypeEnum type)
+            if (schema.Type is JsonSchema.TypeEnumOrArrayOfTypeEnum type && type.IsTypeEnum)
             {
-                return (string)type switch
+                return (string)type.AsTypeEnum() switch
                 {
                     "integer" => this.CreateInteger(schema, name),
                     "object" => this.CreateObject(schema, name),
@@ -112,9 +112,9 @@ namespace Menes.Json.Schema.TypeGenerator
 
         private Task PopulateTypeDeclarationFor(ITypeDeclaration typeDeclaration, JsonSchema schema, JsonDocument rootDocument, string baseUri)
         {
-            if (schema.Type is JsonSchema.TypeEnum type)
+            if (schema.Type is JsonSchema.TypeEnumOrArrayOfTypeEnum type && type.IsTypeEnum)
             {
-                return (string)type switch
+                return (string)type.AsTypeEnum() switch
                 {
                     "integer" => this.PopulateJsonValue(typeDeclaration, schema, rootDocument, baseUri),
                     "object" => this.PopulateObject(typeDeclaration, schema, rootDocument, baseUri),

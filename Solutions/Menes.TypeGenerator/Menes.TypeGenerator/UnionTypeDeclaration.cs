@@ -178,7 +178,7 @@ namespace Menes.TypeGenerator
             {
                 string fullyQualifiedTypeName = type.GetFullyQualifiedName();
                 string fullyQualifiedTypeNameOrReference = type.IsCompoundType ? "Menes.JsonReference" : fullyQualifiedTypeName;
-                builder.AppendLine($"    public bool Is{type.Name} => this.item{index + 1} is {fullyQualifiedTypeNameOrReference} || ({fullyQualifiedTypeName}.IsConvertibleFrom(this.JsonElement) && {fullyQualifiedTypeName}.FromJsonElement(this.JsonElement).Validate(Menes.ValidationContext.Root).IsValid);");
+                builder.AppendLine($"    public bool Is{StringFormatter.ToPascalCaseWithReservedWords(type.Name)} => this.item{index + 1} is {fullyQualifiedTypeNameOrReference} || ({fullyQualifiedTypeName}.IsConvertibleFrom(this.JsonElement) && {fullyQualifiedTypeName}.FromJsonElement(this.JsonElement).Validate(Menes.ValidationContext.Root).IsValid);");
                 index++;
             }
 
@@ -191,16 +191,18 @@ namespace Menes.TypeGenerator
             foreach (ITypeDeclaration type in this.typesInUnion.Values)
             {
                 string fullyQualifiedTypeName = type.GetFullyQualifiedName();
-                builder.AppendLine($"    public static explicit operator {fullyQualifiedTypeName}({this.Name} value) => value.As{type.Name}();");
+                builder.AppendLine($"    public static explicit operator {fullyQualifiedTypeName}({this.Name} value) => value.As{StringFormatter.ToPascalCaseWithReservedWords(type.Name)}();");
                 builder.AppendLine($"    public static implicit operator {this.Name}({fullyQualifiedTypeName} value) => new {this.Name}(value);");
+                existingConversions.Add(fullyQualifiedTypeName);
 
                 if (type is ValidatedArrayTypeDeclaration vdat)
                 {
                     string itemFullyQualifiedName = vdat.ItemType!.GetFullyQualifiedName();
-                    if (!existingConversions.Contains(itemFullyQualifiedName))
+                    string arrayName = $"Menes.JsonArray<{itemFullyQualifiedName}>";
+                    if (!existingConversions.Contains(arrayName))
                     {
                         existingConversions.Add(itemFullyQualifiedName);
-                        builder.AppendLine($"    public static implicit operator {this.Name}(Menes.JsonArray<{itemFullyQualifiedName}> value)");
+                        builder.AppendLine($"    public static implicit operator {this.Name}({arrayName} value)");
                         builder.AppendLine("    {");
                         builder.AppendLine($"        return new {this.Name}(({fullyQualifiedTypeName})value);");
                         builder.AppendLine("    }");
@@ -210,10 +212,11 @@ namespace Menes.TypeGenerator
                 if (type is ArrayTypeDeclaration atd)
                 {
                     string itemFullyQualifiedName = atd.ItemType!.GetFullyQualifiedName();
-                    if (!existingConversions.Contains(itemFullyQualifiedName))
+                    string arrayName = $"Menes.JsonArray<{itemFullyQualifiedName}>";
+                    if (!existingConversions.Contains(arrayName))
                     {
                         existingConversions.Add(itemFullyQualifiedName);
-                        builder.AppendLine($"    public static implicit operator {this.Name}(Menes.JsonArray<{itemFullyQualifiedName}> value)");
+                        builder.AppendLine($"    public static implicit operator {this.Name}({arrayName} value)");
                         builder.AppendLine("    {");
                         builder.AppendLine($"        return new {this.Name}(({fullyQualifiedTypeName})value);");
                         builder.AppendLine("    }");
@@ -259,13 +262,15 @@ namespace Menes.TypeGenerator
             {
                 string fullyQualifiedTypeName = type.GetFullyQualifiedName();
 
+                string typeName = StringFormatter.ToPascalCaseWithReservedWords(type.Name);
+
                 if (type.IsCompoundType)
                 {
-                    builder.AppendLine($"    public {fullyQualifiedTypeName} As{type.Name}() => this.item{index + 1}?.AsValue<{fullyQualifiedTypeName}>() ?? new {fullyQualifiedTypeName}(this.JsonElement);");
+                    builder.AppendLine($"    public {fullyQualifiedTypeName} As{typeName}() => this.item{index + 1}?.AsValue<{fullyQualifiedTypeName}>() ?? new {fullyQualifiedTypeName}(this.JsonElement);");
                 }
                 else
                 {
-                    builder.AppendLine($"    public {fullyQualifiedTypeName} As{type.Name}() => this.item{index + 1} ?? new {fullyQualifiedTypeName}(this.JsonElement);");
+                    builder.AppendLine($"    public {fullyQualifiedTypeName} As{typeName}() => this.item{index + 1} ?? new {fullyQualifiedTypeName}(this.JsonElement);");
                 }
 
                 ++index;
@@ -313,14 +318,13 @@ namespace Menes.TypeGenerator
 
             foreach (ITypeDeclaration type in this.typesInUnion.Values)
             {
-                string typeName = type.IsCompoundType ? "Menes.JsonReference" : type.GetFullyQualifiedName();
-
-                builder.AppendLine($"        if (this.Is{type.Name})");
+                string formattedTypeName = StringFormatter.ToPascalCaseWithReservedWords(type.Name);
+                builder.AppendLine($"        if (this.Is{formattedTypeName})");
                 builder.AppendLine("        {");
                 builder.AppendLine("            builder.Append(\"{\");");
-                builder.AppendLine($"            builder.Append(\"{type.Name}\");");
+                builder.AppendLine($"            builder.Append(\"{formattedTypeName}\");");
                 builder.AppendLine("            builder.Append(\", \");");
-                builder.AppendLine($"            builder.Append(this.As{type.Name}().ToString());");
+                builder.AppendLine($"            builder.Append(this.As{formattedTypeName}().ToString());");
                 builder.AppendLine("            builder.AppendLine(\"}\");");
                 builder.AppendLine("        }");
                 index++;
@@ -345,9 +349,9 @@ namespace Menes.TypeGenerator
             index = 0;
             foreach (ITypeDeclaration unionType in this.typesInUnion.Values)
             {
-                builder.AppendLine($"        if (this.Is{unionType.Name})");
+                builder.AppendLine($"        if (this.Is{StringFormatter.ToPascalCaseWithReservedWords(unionType.Name)})");
                 builder.AppendLine("        {");
-                builder.AppendLine($"            validationContext{index + 1} = this.As{unionType.Name}().Validate(validationContext{index + 1});");
+                builder.AppendLine($"            validationContext{index + 1} = this.As{StringFormatter.ToPascalCaseWithReservedWords(unionType.Name)}().Validate(validationContext{index + 1});");
                 builder.AppendLine("        }");
                 builder.AppendLine("        else");
                 builder.AppendLine("        {");
