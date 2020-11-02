@@ -75,7 +75,9 @@ namespace Menes.Json.Schema.Tests
             }
             catch (Exception ex)
             {
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine(uri);
+                Console.ResetColor();
                 Console.WriteLine(ex.ToString());
             }
         }
@@ -102,7 +104,9 @@ namespace Menes.Json.Schema.Tests
             }
             catch (Exception ex)
             {
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine(outputPath);
+                Console.ResetColor();
                 Console.WriteLine(ex.ToString());
             }
         }
