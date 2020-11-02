@@ -75,6 +75,7 @@ namespace Menes.Json.Schema.Tests
             }
             catch (Exception ex)
             {
+                Console.WriteLine(uri);
                 Console.WriteLine(ex.ToString());
             }
         }
@@ -85,7 +86,6 @@ namespace Menes.Json.Schema.Tests
             {
                 Directory.CreateDirectory(Path.GetDirectoryName(outputPath));
                 File.Delete(outputPath);
-                Console.WriteLine(outputPath);
 
                 TypeDeclarationSyntax[] tds = typeGenerator.GenerateTypes();
 
@@ -102,6 +102,7 @@ namespace Menes.Json.Schema.Tests
             }
             catch (Exception ex)
             {
+                Console.WriteLine(outputPath);
                 Console.WriteLine(ex.ToString());
             }
         }
