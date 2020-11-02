@@ -889,6 +889,7 @@ namespace Menes
         public struct JsonArrayEnumerator : IEnumerable<TItem>, IEnumerable, IEnumerator<TItem>, IEnumerator, IDisposable
         {
             private readonly bool hasJsonEnumerator;
+            private readonly bool hasClrEnumerator;
 
             private JsonElement.ArrayEnumerator jsonEnumerator;
             private ImmutableArray<JsonReference>.Enumerator clrEnumerator;
@@ -902,6 +903,7 @@ namespace Menes
                 this.clrEnumerator = items.GetEnumerator();
                 this.jsonEnumerator = default;
                 this.hasJsonEnumerator = false;
+                this.hasClrEnumerator = true;
             }
 
             /// <summary>
@@ -912,12 +914,18 @@ namespace Menes
             {
                 if (jsonElement.ValueKind != JsonValueKind.Array)
                 {
-                    throw new JsonException("Unable to enumerate a non-array");
+                    this.clrEnumerator = default;
+                    this.jsonEnumerator = default;
+                    this.hasJsonEnumerator = false;
+                    this.hasClrEnumerator = false;
                 }
-
-                this.clrEnumerator = default;
-                this.jsonEnumerator = jsonElement.EnumerateArray();
-                this.hasJsonEnumerator = true;
+                else
+                {
+                    this.clrEnumerator = default;
+                    this.hasClrEnumerator = false;
+                    this.jsonEnumerator = jsonElement.EnumerateArray();
+                    this.hasJsonEnumerator = true;
+                }
             }
 
             /// <inheritdoc/>
@@ -929,8 +937,12 @@ namespace Menes
                     {
                         return JsonAny.As<TItem>(this.jsonEnumerator.Current);
                     }
+                    else if (this.hasClrEnumerator)
+                    {
+                        return this.clrEnumerator.Current.AsValue<TItem>();
+                    }
 
-                    return this.clrEnumerator.Current.AsValue<TItem>();
+                    return default;
                 }
             }
 
@@ -985,8 +997,12 @@ namespace Menes
                 {
                     return this.jsonEnumerator.MoveNext();
                 }
+                else if (this.hasClrEnumerator)
+                {
+                    return this.clrEnumerator.MoveNext();
+                }
 
-                return this.clrEnumerator.MoveNext();
+                return false;
             }
         }
     }

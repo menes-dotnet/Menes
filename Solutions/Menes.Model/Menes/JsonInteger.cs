@@ -274,7 +274,7 @@ namespace Menes
 
             if (this.HasJsonElement)
             {
-                return this.JsonElement.GetString();
+                return this.JsonElement.GetRawText();
             }
 
             return string.Empty;
@@ -332,7 +332,7 @@ namespace Menes
         /// <remarks>These are rolled up into a single method to ensure string conversion occurs only once.</remarks>
         public ValidationContext ValidateAsNumber(in ValidationContext validationContext, JsonNumber? multipleOf = null, JsonNumber? maximum = null, JsonNumber? exclusiveMaximum = null, JsonNumber? minimum = null, JsonNumber? exclusiveMinimum = null, in ImmutableArray<JsonInteger>? enumeration = null, in JsonInteger? constValue = null)
         {
-            ValidationContext context = validationContext;
+            ValidationContext context = this.Validate(validationContext);
             if (multipleOf is JsonNumber mo && !this.IsMultipleOf(mo))
             {
                 context = context.WithError($"6.2.1 multipleOf: The value should have been a multiple of '{mo}', but was '{this}'.");

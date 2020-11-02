@@ -471,7 +471,7 @@ namespace Menes.TypeGenerator
                     builder.AppendLine("System.Text.Json.JsonElement.ArrayEnumerator enumerator = document.RootElement.EnumerateArray();");
                     builder.AppendLine("while (enumerator.MoveNext())");
                     builder.AppendLine("{");
-                    builder.AppendLine("    arrayBuilder.Add(new Menes.JsonAny(enumerator.Current));");
+                    builder.AppendLine("    arrayBuilder.Add(new Menes.JsonAny(enumerator.Current.Clone()));");
                     builder.AppendLine("}");
                 }
                 else

@@ -266,13 +266,31 @@ namespace Menes
                 return true;
             }
 
-            if (this.clrLong is long clrLong && clrLong <= int.MaxValue && clrLong >= int.MinValue)
+            if (this.clrLong is long clrLong)
             {
                 result = (int)clrLong;
                 return true;
             }
 
-            return this.JsonElement.TryGetInt32(out result);
+            if (this.clrFloat is float clrFloat)
+            {
+                result = (int)clrFloat;
+                return true;
+            }
+
+            if (this.clrDouble is double clrDouble)
+            {
+                result = (int)clrDouble;
+                return true;
+            }
+
+            if (this.JsonElement.ValueKind == JsonValueKind.Number)
+            {
+                return this.JsonElement.TryGetInt32(out result);
+            }
+
+            result = default;
+            return false;
         }
 
         /// <summary>
@@ -294,7 +312,25 @@ namespace Menes
                 return true;
             }
 
-            return this.JsonElement.TryGetInt64(out result);
+            if (this.clrFloat is float clrFloat)
+            {
+                result = (long)clrFloat;
+                return true;
+            }
+
+            if (this.clrDouble is double clrDouble)
+            {
+                result = (long)clrDouble;
+                return true;
+            }
+
+            if (this.JsonElement.ValueKind == JsonValueKind.Number)
+            {
+                return this.JsonElement.TryGetInt64(out result);
+            }
+
+            result = default;
+            return false;
         }
 
         /// <summary>
@@ -310,7 +346,31 @@ namespace Menes
                 return true;
             }
 
-            return this.JsonElement.TryGetSingle(out result);
+            if (this.clrDouble is double clrDouble)
+            {
+                result = (float)clrDouble;
+                return true;
+            }
+
+            if (this.clrInt is int clrInt)
+            {
+                result = clrInt;
+                return true;
+            }
+
+            if (this.clrLong is long clrLong)
+            {
+                result = clrLong;
+                return true;
+            }
+
+            if (this.JsonElement.ValueKind == JsonValueKind.Number)
+            {
+                return this.JsonElement.TryGetSingle(out result);
+            }
+
+            result = default;
+            return false;
         }
 
         /// <summary>
@@ -332,7 +392,25 @@ namespace Menes
                 return true;
             }
 
-            return this.JsonElement.TryGetDouble(out result);
+            if (this.clrInt is int clrInt)
+            {
+                result = clrInt;
+                return true;
+            }
+
+            if (this.clrLong is long clrLong)
+            {
+                result = clrLong;
+                return true;
+            }
+
+            if (this.JsonElement.ValueKind == JsonValueKind.Number)
+            {
+                return this.JsonElement.TryGetDouble(out result);
+            }
+
+            result = default;
+            return false;
         }
 
         /// <summary>
@@ -360,7 +438,13 @@ namespace Menes
                 return true;
             }
 
-            return this.JsonElement.TryGetDecimal(out result);
+            if (this.JsonElement.ValueKind == JsonValueKind.Number)
+            {
+                return this.JsonElement.TryGetDecimal(out result);
+            }
+
+            result = default;
+            return false;
         }
 
         /// <summary>
@@ -745,7 +829,7 @@ namespace Menes
 
         private ValidationContext ValidateAsNumberCore(ValidationContext validationContext, JsonNumber? multipleOf, JsonNumber? maximum, JsonNumber? exclusiveMaximum, JsonNumber? minimum, JsonNumber? exclusiveMinimum)
         {
-            ValidationContext context = validationContext;
+            ValidationContext context = this.Validate(validationContext);
             if (multipleOf is JsonNumber mo && !this.IsMultipleOf(mo))
             {
                 context = context.WithError($"6.2.1 multipleOf: The value should have been a multiple of '{mo}', but was '{this}'.");

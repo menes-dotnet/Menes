@@ -7,6 +7,8 @@ namespace Menes.Json.Schema.Tests
     using System;
     using System.Collections.Generic;
     using System.IO;
+    using System.Linq;
+    using System.Text;
     using System.Text.Json;
     using System.Threading.Tasks;
     using Menes.Json.Schema.TypeGenerator;
@@ -30,17 +32,23 @@ namespace Menes.Json.Schema.Tests
         /// </summary>
         /// <param name="args">Program arguments.</param>
         /// <returns>A <see cref="Task"/> which completes once program execution is complete.</returns>
-        private static Task Main(string[] args)
+        private static async Task Main(string[] args)
         {
-            if (args.Length != 1)
+            if (args.Length == 0)
             {
                 Console.WriteLine("You must provide the path to the tests.");
-                return Task.CompletedTask;
+                return;
+            }
+
+            if (args[0] == "run")
+            {
+                TestExecutor.ExecuteTests();
+                return;
             }
 
             string output = Path.Combine(args[0], "../tests");
 
-            var uris = new List<(string, string)>();
+            var uris = new List<(string, string, string, int)>();
 
             foreach (string file in Directory.EnumerateFiles(args[0]))
             {
@@ -48,20 +56,160 @@ namespace Menes.Json.Schema.Tests
                 int length = doc.RootElement.GetArrayLength();
                 for (int i = 0; i < length; ++i)
                 {
-                    uris.Add(($"{file}#/{i}/schema", Path.GetFileNameWithoutExtension(file) + $"{i:D3}"));
+                    uris.Add(($"{file}#/{i}/schema", Path.GetFileNameWithoutExtension(file) + $"{i:D3}", file, i));
                 }
             }
 
-            return GenerateTypesForSchema(uris.ToArray(), output);
+            var testsToExecute = new List<string?>();
+
+            await GenerateTypesForSchema(uris.ToArray(), output, testsToExecute).ConfigureAwait(false);
+
+            WriteTestExecutor(Path.Combine(output, "TestExecutor.cs"), testsToExecute);
         }
 
-        private static async Task GenerateTypesForSchema((string, string)[] uris, string outputPath)
+        private static void WriteTestExecutor(string outputFile, List<string?> testsToExecute)
         {
-            foreach ((string, string) uri in uris)
+            var builder = new StringBuilder();
+            builder.AppendLine(FileHeader.Replace(".<NS>", string.Empty).Replace("<FN>", Path.GetFileName(outputFile)));
+
+            builder.AppendLine("public static class TestExecutor");
+            builder.AppendLine("{");
+            builder.AppendLine("    public static int executedCount = 0;");
+            builder.AppendLine("    public static int ignoredCount = 0;");
+            builder.AppendLine("    public static int passedCount = 0;");
+            builder.AppendLine("    public static int failedCount = 0;");
+            builder.AppendLine("    public static void ExecuteTests()");
+            builder.AppendLine("    {");
+
+            foreach (string? t in testsToExecute)
+            {
+                if (t is string test)
+                {
+                    builder.AppendLine("executedCount++;");
+                    builder.Append("if(");
+                    builder.Append(test);
+                    builder.AppendLine(")");
+                    builder.AppendLine("{");
+                    builder.AppendLine("    passedCount++;");
+                    builder.AppendLine("}");
+                    builder.AppendLine("else");
+                    builder.AppendLine("{");
+                    builder.AppendLine("    failedCount++;");
+                    builder.AppendLine("}");
+                }
+                else
+                {
+                    builder.AppendLine("ignoredCount++;");
+                }
+            }
+
+            builder.AppendLine("System.Console.WriteLine($\"Total: {executedCount + ignoredCount} Executed: {executedCount} Passed: {passedCount} Failed: {failedCount} Ignored: {ignoredCount}\");");
+
+            builder.AppendLine("    }");
+            builder.AppendLine("}");
+
+            builder.AppendLine(FileFooter);
+
+            File.WriteAllText(outputFile, builder.ToString());
+        }
+
+        private static async Task GenerateTypesForSchema((string, string, string, int)[] uris, string outputPath, List<string?> testsToExecute)
+        {
+            foreach ((string, string, string, int) uri in uris)
             {
                 var typeGenerator = new TypeGeneratorJsonSchemaVisitor(DocumentResolver.Default);
                 await GenerateTypesForSchema(uri.Item1, typeGenerator).ConfigureAwait(false);
-                WriteTypes(typeGenerator, Path.ChangeExtension(Path.Combine(outputPath, uri.Item2), ".cs"), StringFormatter.ToPascalCaseWithReservedWords(uri.Item2));
+                string outputFile = Path.ChangeExtension(Path.Combine(outputPath, uri.Item2), ".cs");
+
+                string ns = StringFormatter.ToPascalCaseWithReservedWords(uri.Item2);
+                Directory.CreateDirectory(Path.GetDirectoryName(outputFile));
+
+                File.Delete(outputFile);
+                File.AppendAllText(outputFile, FileHeader.Replace("<NS>", ns).Replace("<FN>", Path.GetFileName(outputFile)));
+
+                try
+                {
+                    string rootTypeName = WriteTypes(typeGenerator, outputFile);
+                    WriteTests(outputFile, uri.Item3, uri.Item4, ns, testsToExecute, rootTypeName);
+                }
+                catch (Exception ex)
+                {
+                    WriteTests(outputFile, uri.Item3, uri.Item4, ns, testsToExecute);
+
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine(outputFile);
+                    Console.ResetColor();
+                    Console.WriteLine(ex.ToString());
+                }
+
+                File.AppendAllText(outputFile, FileFooter);
+            }
+        }
+
+        private static void WriteTests(string outputFile, string inputFile, int index, string ns, List<string?> testsToExecute, string? typeName = null)
+        {
+            using var document = JsonDocument.Parse(File.ReadAllText(inputFile));
+            JsonElement spec = document.RootElement.EnumerateArray().Skip(index).Take(1).Single();
+            var builder = new StringBuilder();
+
+            if (typeName is string)
+            {
+                builder.AppendLine("/// <summary>");
+                builder.AppendLine($"/// {spec.GetProperty("description").GetString()}");
+                builder.AppendLine("/// </summary>");
+                builder.AppendLine("public static class Tests");
+                builder.AppendLine("{");
+            }
+
+            int testIndex = 0;
+
+            foreach (JsonElement test in spec.GetProperty("tests").EnumerateArray())
+            {
+                if (typeName is string)
+                {
+                    builder.AppendLine("/// <summary>");
+                    string description = test.GetProperty("description").GetString();
+                    builder.AppendLine($"/// {description}");
+                    builder.AppendLine("/// </summary>");
+                    builder.AppendLine($"    public static bool Test{testIndex}()");
+                    builder.AppendLine("    {");
+                    builder.AppendLine($"        using var doc = System.Text.Json.JsonDocument.Parse({StringFormatter.EscapeForCSharpString(test.GetProperty("data").GetRawText(), true)});");
+                    builder.AppendLine($"        var schema = new {typeName}(doc.RootElement);");
+                    builder.AppendLine("        var context = schema.Validate(Menes.ValidationContext.Root);");
+                    bool expectValid = test.GetProperty("valid").GetBoolean();
+                    if (expectValid)
+                    {
+                        builder.AppendLine("        if (!context.IsValid)");
+                    }
+                    else
+                    {
+                        builder.AppendLine("        if (context.IsValid)");
+                    }
+
+                    string expected = expectValid ? "valid" : "invalid";
+                    string actual = expectValid ? "invalid" : "valid";
+
+                    builder.AppendLine("        {");
+                    builder.AppendLine($"            System.Console.WriteLine(\"Failed {ns}.Tests.Test{testIndex}: {StringFormatter.EscapeForCSharpString(description, true)?.Trim('"')}\");");
+                    builder.AppendLine($"            System.Console.WriteLine(\"Expected: {expected} but was {actual}\");");
+                    builder.AppendLine("            return false;");
+                    builder.AppendLine("        }");
+                    builder.AppendLine("            return true;");
+                    builder.AppendLine("    }");
+                    testsToExecute.Add($"{ns}.Tests.Test{testIndex}()");
+                }
+                else
+                {
+                    testsToExecute.Add(null);
+                }
+
+                testIndex++;
+            }
+
+            if (typeName is string)
+            {
+                builder.AppendLine("}");
+                File.AppendAllText(outputFile, builder.ToString());
             }
         }
 
@@ -82,33 +230,22 @@ namespace Menes.Json.Schema.Tests
             }
         }
 
-        private static void WriteTypes(TypeGeneratorJsonSchemaVisitor typeGenerator, string outputPath, string ns)
+        private static string WriteTypes(TypeGeneratorJsonSchemaVisitor typeGenerator, string outputFile)
         {
-            try
+            TypeDeclarationSyntax[] tds = typeGenerator.GenerateTypes();
+
+            if (tds.Length == 0)
             {
-                Directory.CreateDirectory(Path.GetDirectoryName(outputPath));
-                File.Delete(outputPath);
-
-                TypeDeclarationSyntax[] tds = typeGenerator.GenerateTypes();
-
-                File.AppendAllText(outputPath, FileHeader.Replace("<NS>", ns).Replace("<FN>", Path.GetFileName(outputPath)));
-
-                foreach (TypeDeclarationSyntax t in tds)
-                {
-                    SyntaxNode formattedJsonSchema = Formatter.Format(t, new AdhocWorkspace());
-
-                    File.AppendAllText(outputPath, formattedJsonSchema.ToFullString());
-                }
-
-                File.AppendAllText(outputPath, FileFooter);
+                throw new InvalidOperationException("No types generated.");
             }
-            catch (Exception ex)
+
+            foreach (TypeDeclarationSyntax t in tds)
             {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine(outputPath);
-                Console.ResetColor();
-                Console.WriteLine(ex.ToString());
+                SyntaxNode formattedJsonSchema = Formatter.Format(t, new AdhocWorkspace());
+                File.AppendAllText(outputFile, formattedJsonSchema.ToFullString());
             }
+
+            return tds[0].Identifier.ToString();
         }
     }
 }
