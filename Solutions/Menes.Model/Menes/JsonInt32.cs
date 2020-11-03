@@ -206,7 +206,14 @@ namespace Menes
         /// <remarks>These are rolled up into a single method to ensure string conversion occurs only once.</remarks>
         public ValidationContext ValidateAsNumber(in ValidationContext validationContext, int? multipleOf = null, int? maximum = null, int? exclusiveMaximum = null, int? minimum = null, int? exclusiveMinimum = null, in ImmutableArray<int>? enumeration = null, in int? constValue = null)
         {
+            ValidationContext schemaValidation = this.Validate(ValidationContext.Root);
+            if (!schemaValidation.IsValid)
+            {
+                return validationContext;
+            }
+
             ValidationContext context = validationContext;
+
             int value = this.CreateOrGetClrInt32();
             if (multipleOf is int mo && (value % mo != 0))
             {

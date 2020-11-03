@@ -218,14 +218,14 @@ namespace Menes
         /// <remarks>These are rolled up into a single method to ensure string conversion occurs only once.</remarks>
         public ValidationContext ValidateAsString(in ValidationContext validationContext, int? maxLength = null, int? minLength = null, Regex? pattern = null, in ImmutableArray<string>? enumeration = null, string? constValue = null)
         {
-            ValidationContext context = this.Validate(validationContext);
+            ValidationContext isStringContext = this.Validate(ValidationContext.Root);
 
-            if (context.IsValid)
+            if (isStringContext.IsValid)
             {
-                context = Validation.ValidateString(context, this.ToString(), maxLength, minLength, pattern, enumeration, constValue);
+                return Validation.ValidateString(validationContext, this.ToString(), maxLength, minLength, pattern, enumeration, constValue);
             }
 
-            return context;
+            return validationContext;
         }
     }
 }

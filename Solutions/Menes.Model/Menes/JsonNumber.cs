@@ -612,6 +612,12 @@ namespace Menes
         /// <remarks>These are rolled up into a single method to ensure string conversion occurs only once.</remarks>
         public ValidationContext ValidateAsNumber(in ValidationContext validationContext, JsonNumber? multipleOf = null, JsonNumber? maximum = null, JsonNumber? exclusiveMaximum = null, JsonNumber? minimum = null, JsonNumber? exclusiveMinimum = null, in ImmutableArray<JsonNumber>? enumeration = null, in JsonNumber? constValue = null)
         {
+            ValidationContext schemaValidation = this.Validate(ValidationContext.Root);
+            if (!schemaValidation.IsValid)
+            {
+                return validationContext;
+            }
+
             ValidationContext context = this.ValidateAsNumberCore(validationContext, multipleOf, maximum, exclusiveMaximum, minimum, exclusiveMinimum);
 
             if (enumeration is ImmutableArray<JsonNumber> values)
@@ -829,7 +835,8 @@ namespace Menes
 
         private ValidationContext ValidateAsNumberCore(ValidationContext validationContext, JsonNumber? multipleOf, JsonNumber? maximum, JsonNumber? exclusiveMaximum, JsonNumber? minimum, JsonNumber? exclusiveMinimum)
         {
-            ValidationContext context = this.Validate(validationContext);
+            ValidationContext context = validationContext;
+
             if (multipleOf is JsonNumber mo && !this.IsMultipleOf(mo))
             {
                 context = context.WithError($"6.2.1 multipleOf: The value should have been a multiple of '{mo}', but was '{this}'.");

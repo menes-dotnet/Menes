@@ -159,7 +159,13 @@ namespace Menes
         /// <remarks>These are rolled up into a single method to ensure string conversion occurs only once.</remarks>
         public ValidationContext ValidateAsNumber(in ValidationContext validationContext, decimal? multipleOf = null, decimal? maximum = null, decimal? exclusiveMaximum = null, decimal? minimum = null, decimal? exclusiveMinimum = null, in ImmutableArray<decimal>? enumeration = null, in decimal? constValue = null)
         {
-            ValidationContext context = this.Validate(validationContext);
+            ValidationContext schemaValidation = this.Validate(ValidationContext.Root);
+            if (!schemaValidation.IsValid)
+            {
+                return validationContext;
+            }
+
+            ValidationContext context = validationContext;
 
             decimal value = this.CreateOrGetClrDecimal();
 
