@@ -234,7 +234,7 @@ namespace Menes
                     return false;
                 }
 
-                if (!value.Equals(this))
+                if (!value.Equals(property.AsValue()))
                 {
                     return false;
                 }
