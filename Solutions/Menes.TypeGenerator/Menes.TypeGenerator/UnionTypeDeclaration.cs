@@ -371,14 +371,7 @@ namespace Menes.TypeGenerator
             foreach (ITypeDeclaration? unionType in this.typesInUnion.Values)
             {
                 builder.Append(", ");
-                if (this.Kind == UnionKind.OneOf)
-                {
-                    builder.Append($"(\"{unionType.GetFullyQualifiedName()}\", validationContext{index + 1})");
-                }
-                else
-                {
-                    builder.Append($"validationContext{index + 1}");
-                }
+                builder.Append($"validationContext{index + 1}");
 
                 index++;
             }

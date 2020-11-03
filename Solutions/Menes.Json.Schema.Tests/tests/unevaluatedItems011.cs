@@ -100,7 +100,7 @@ public readonly struct Schema : Menes.IJsonValue, System.Collections.Generic.IEn
         var itemsValidationEnumerator = array.GetEnumerator();
         if (itemsValidationEnumerator.MoveNext())
         {
-            context = Menes.Validation.ValidateProperty(context, Menes.JsonAny.From(itemsValidationEnumerator.Current).As<Schema.Item1Value>(), $"[0]");
+            context = Menes.Validation.ValidateProperty(context, Menes.JsonAny.From(itemsValidationEnumerator.Current).As<Schema.SchemaItem1Value>(), $"[0]");
         }
         int extraIndex = 0;
         while (itemsValidationEnumerator.MoveNext())
@@ -476,7 +476,7 @@ public readonly struct Schema : Menes.IJsonValue, System.Collections.Generic.IEn
             Menes.JsonAny value = this;
             Menes.ValidationContext context = validationContext;
             context = value.Validate(context);
-            context = Menes.Validation.ValidateNot<Menes.JsonAny, Schema.SchemaValue.SchemaValueValue>(context, this);
+            context = Menes.Validation.ValidateNot<Menes.JsonAny, Schema.SchemaValue.NotValidationValue>(context, this);
             return context;
         }
         public void WriteTo(System.Text.Json.Utf8JsonWriter writer)
@@ -501,12 +501,12 @@ public readonly struct Schema : Menes.IJsonValue, System.Collections.Generic.IEn
                 return this.JsonElement.GetRawText();
             }
         }
-        public readonly struct SchemaValueValue : Menes.IJsonValue, System.Collections.Generic.IEnumerable<Menes.JsonAny>, System.Collections.IEnumerable, System.IEquatable<SchemaValueValue>, System.IEquatable<Menes.JsonArray<Menes.JsonAny>>
+        public readonly struct NotValidationValue : Menes.IJsonValue, System.Collections.Generic.IEnumerable<Menes.JsonAny>, System.Collections.IEnumerable, System.IEquatable<NotValidationValue>, System.IEquatable<Menes.JsonArray<Menes.JsonAny>>
         {
-            public static readonly System.Func<System.Text.Json.JsonElement, SchemaValueValue> FromJsonElement = e => new SchemaValueValue(e);
-            public static readonly SchemaValueValue Null = new SchemaValueValue(default(System.Text.Json.JsonElement));
+            public static readonly System.Func<System.Text.Json.JsonElement, NotValidationValue> FromJsonElement = e => new NotValidationValue(e);
+            public static readonly NotValidationValue Null = new NotValidationValue(default(System.Text.Json.JsonElement));
             private readonly Menes.JsonArray<Menes.JsonAny>? value;
-            public SchemaValueValue(Menes.JsonArray<Menes.JsonAny> jsonArray)
+            public NotValidationValue(Menes.JsonArray<Menes.JsonAny> jsonArray)
             {
                 if (jsonArray.HasJsonElement)
                 {
@@ -519,7 +519,7 @@ public readonly struct Schema : Menes.IJsonValue, System.Collections.Generic.IEn
                     this.JsonElement = default;
                 }
             }
-            public SchemaValueValue(System.Text.Json.JsonElement jsonElement)
+            public NotValidationValue(System.Text.Json.JsonElement jsonElement)
             {
                 this.value = null;
                 this.JsonElement = jsonElement;
@@ -540,14 +540,14 @@ public readonly struct Schema : Menes.IJsonValue, System.Collections.Generic.IEn
                 }
             }
             public bool IsNull => this.value == null && (this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Undefined || this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Null);
-            public SchemaValueValue? AsOptional => this.IsNull ? default(SchemaValueValue?) : this;
+            public NotValidationValue? AsOptional => this.IsNull ? default(NotValidationValue?) : this;
             public bool HasJsonElement => this.JsonElement.ValueKind != System.Text.Json.JsonValueKind.Undefined;
             public System.Text.Json.JsonElement JsonElement { get; }
-            public static implicit operator SchemaValueValue(Menes.JsonArray<Menes.JsonAny> value)
+            public static implicit operator NotValidationValue(Menes.JsonArray<Menes.JsonAny> value)
             {
-                return new SchemaValueValue(value);
+                return new NotValidationValue(value);
             }
-            public static implicit operator Menes.JsonArray<Menes.JsonAny>(SchemaValueValue value)
+            public static implicit operator Menes.JsonArray<Menes.JsonAny>(NotValidationValue value)
             {
                 if (value.value is Menes.JsonArray<Menes.JsonAny> clrValue)
                 {
@@ -559,25 +559,25 @@ public readonly struct Schema : Menes.IJsonValue, System.Collections.Generic.IEn
             {
                 return Menes.JsonArray<Menes.JsonAny>.IsConvertibleFrom(jsonElement);
             }
-            public static SchemaValueValue FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<char> propertyName) =>
+            public static NotValidationValue FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<char> propertyName) =>
                parentDocument.ValueKind == System.Text.Json.JsonValueKind.Object ?
                     (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
-                        ? new SchemaValueValue(property)
+                        ? new NotValidationValue(property)
                         : Null)
                     : Null;
-            public static SchemaValueValue FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, string propertyName) =>
+            public static NotValidationValue FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, string propertyName) =>
                parentDocument.ValueKind == System.Text.Json.JsonValueKind.Object ?
                     (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
-                        ? new SchemaValueValue(property)
+                        ? new NotValidationValue(property)
                         : Null)
                     : Null;
-            public static SchemaValueValue FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<byte> utf8PropertyName) =>
+            public static NotValidationValue FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<byte> utf8PropertyName) =>
                parentDocument.ValueKind == System.Text.Json.JsonValueKind.Object ?
                     (parentDocument.TryGetProperty(utf8PropertyName, out System.Text.Json.JsonElement property)
-                        ? new SchemaValueValue(property)
+                        ? new NotValidationValue(property)
                         : Null)
                     : Null;
-            public bool Equals(SchemaValueValue other)
+            public bool Equals(NotValidationValue other)
             {
                 return this.Equals((Menes.JsonArray<Menes.JsonAny>)other);
             }
@@ -619,7 +619,7 @@ public readonly struct Schema : Menes.IJsonValue, System.Collections.Generic.IEn
             {
                 return this.GetEnumerator();
             }
-            public SchemaValueValue Add(params Menes.JsonAny[] items)
+            public NotValidationValue Add(params Menes.JsonAny[] items)
             {
                 System.Collections.Immutable.ImmutableArray<Menes.JsonAny>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonAny>();
                 foreach (Menes.JsonAny item in this)
@@ -632,7 +632,7 @@ public readonly struct Schema : Menes.IJsonValue, System.Collections.Generic.IEn
                 }
                 return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
             }
-            public SchemaValueValue Add(in Menes.JsonAny item1)
+            public NotValidationValue Add(in Menes.JsonAny item1)
             {
                 System.Collections.Immutable.ImmutableArray<Menes.JsonAny>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonAny>();
                 foreach (Menes.JsonAny item in this)
@@ -642,7 +642,7 @@ public readonly struct Schema : Menes.IJsonValue, System.Collections.Generic.IEn
                 arrayBuilder.Add(item1);
                 return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
             }
-            public SchemaValueValue Add(in Menes.JsonAny item1, in Menes.JsonAny item2)
+            public NotValidationValue Add(in Menes.JsonAny item1, in Menes.JsonAny item2)
             {
                 System.Collections.Immutable.ImmutableArray<Menes.JsonAny>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonAny>();
                 foreach (Menes.JsonAny item in this)
@@ -653,7 +653,7 @@ public readonly struct Schema : Menes.IJsonValue, System.Collections.Generic.IEn
                 arrayBuilder.Add(item2);
                 return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
             }
-            public SchemaValueValue Add(in Menes.JsonAny item1, in Menes.JsonAny item2, in Menes.JsonAny item3)
+            public NotValidationValue Add(in Menes.JsonAny item1, in Menes.JsonAny item2, in Menes.JsonAny item3)
             {
                 System.Collections.Immutable.ImmutableArray<Menes.JsonAny>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonAny>();
                 foreach (Menes.JsonAny item in this)
@@ -665,7 +665,7 @@ public readonly struct Schema : Menes.IJsonValue, System.Collections.Generic.IEn
                 arrayBuilder.Add(item3);
                 return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
             }
-            public SchemaValueValue Add(in Menes.JsonAny item1, in Menes.JsonAny item2, in Menes.JsonAny item3, in Menes.JsonAny item4)
+            public NotValidationValue Add(in Menes.JsonAny item1, in Menes.JsonAny item2, in Menes.JsonAny item3, in Menes.JsonAny item4)
             {
                 System.Collections.Immutable.ImmutableArray<Menes.JsonAny>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonAny>();
                 foreach (Menes.JsonAny item in this)
@@ -678,7 +678,7 @@ public readonly struct Schema : Menes.IJsonValue, System.Collections.Generic.IEn
                 arrayBuilder.Add(item4);
                 return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
             }
-            public SchemaValueValue Insert(int indexToInsert, params Menes.JsonAny[] items)
+            public NotValidationValue Insert(int indexToInsert, params Menes.JsonAny[] items)
             {
                 System.Collections.Immutable.ImmutableArray<Menes.JsonAny>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonAny>();
                 int index = 0;
@@ -696,7 +696,7 @@ public readonly struct Schema : Menes.IJsonValue, System.Collections.Generic.IEn
                 }
                 return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
             }
-            public SchemaValueValue Insert(int indexToInsert, in Menes.JsonAny item1)
+            public NotValidationValue Insert(int indexToInsert, in Menes.JsonAny item1)
             {
                 System.Collections.Immutable.ImmutableArray<Menes.JsonAny>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonAny>();
                 int index = 0;
@@ -711,7 +711,7 @@ public readonly struct Schema : Menes.IJsonValue, System.Collections.Generic.IEn
                 }
                 return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
             }
-            public SchemaValueValue Insert(int indexToInsert, in Menes.JsonAny item1, in Menes.JsonAny item2)
+            public NotValidationValue Insert(int indexToInsert, in Menes.JsonAny item1, in Menes.JsonAny item2)
             {
                 System.Collections.Immutable.ImmutableArray<Menes.JsonAny>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonAny>();
                 int index = 0;
@@ -727,7 +727,7 @@ public readonly struct Schema : Menes.IJsonValue, System.Collections.Generic.IEn
                 }
                 return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
             }
-            public SchemaValueValue Insert(int indexToInsert, in Menes.JsonAny item1, in Menes.JsonAny item2, in Menes.JsonAny item3)
+            public NotValidationValue Insert(int indexToInsert, in Menes.JsonAny item1, in Menes.JsonAny item2, in Menes.JsonAny item3)
             {
                 System.Collections.Immutable.ImmutableArray<Menes.JsonAny>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonAny>();
                 int index = 0;
@@ -744,7 +744,7 @@ public readonly struct Schema : Menes.IJsonValue, System.Collections.Generic.IEn
                 }
                 return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
             }
-            public SchemaValueValue Insert(int indexToInsert, in Menes.JsonAny item1, in Menes.JsonAny item2, in Menes.JsonAny item3, in Menes.JsonAny item4)
+            public NotValidationValue Insert(int indexToInsert, in Menes.JsonAny item1, in Menes.JsonAny item2, in Menes.JsonAny item3, in Menes.JsonAny item4)
             {
                 System.Collections.Immutable.ImmutableArray<Menes.JsonAny>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonAny>();
                 int index = 0;
@@ -762,7 +762,7 @@ public readonly struct Schema : Menes.IJsonValue, System.Collections.Generic.IEn
                 }
                 return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
             }
-            public SchemaValueValue Remove(params Menes.JsonAny[] items)
+            public NotValidationValue Remove(params Menes.JsonAny[] items)
             {
                 System.Collections.Immutable.ImmutableArray<Menes.JsonAny>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonAny>();
                 foreach (Menes.JsonAny item in this)
@@ -783,7 +783,7 @@ public readonly struct Schema : Menes.IJsonValue, System.Collections.Generic.IEn
                 }
                 return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
             }
-            public SchemaValueValue Remove(Menes.JsonAny item1)
+            public NotValidationValue Remove(Menes.JsonAny item1)
             {
                 System.Collections.Immutable.ImmutableArray<Menes.JsonAny>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonAny>();
                 foreach (Menes.JsonAny item in this)
@@ -796,7 +796,7 @@ public readonly struct Schema : Menes.IJsonValue, System.Collections.Generic.IEn
                 }
                 return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
             }
-            public SchemaValueValue Remove(Menes.JsonAny item1, Menes.JsonAny item2)
+            public NotValidationValue Remove(Menes.JsonAny item1, Menes.JsonAny item2)
             {
                 System.Collections.Immutable.ImmutableArray<Menes.JsonAny>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonAny>();
                 foreach (Menes.JsonAny item in this)
@@ -809,7 +809,7 @@ public readonly struct Schema : Menes.IJsonValue, System.Collections.Generic.IEn
                 }
                 return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
             }
-            public SchemaValueValue Remove(Menes.JsonAny item1, Menes.JsonAny item2, Menes.JsonAny item3)
+            public NotValidationValue Remove(Menes.JsonAny item1, Menes.JsonAny item2, Menes.JsonAny item3)
             {
                 System.Collections.Immutable.ImmutableArray<Menes.JsonAny>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonAny>();
                 foreach (Menes.JsonAny item in this)
@@ -822,7 +822,7 @@ public readonly struct Schema : Menes.IJsonValue, System.Collections.Generic.IEn
                 }
                 return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
             }
-            public SchemaValueValue Remove(Menes.JsonAny item1, Menes.JsonAny item2, Menes.JsonAny item3, Menes.JsonAny item4)
+            public NotValidationValue Remove(Menes.JsonAny item1, Menes.JsonAny item2, Menes.JsonAny item3, Menes.JsonAny item4)
             {
                 System.Collections.Immutable.ImmutableArray<Menes.JsonAny>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonAny>();
                 foreach (Menes.JsonAny item in this)
@@ -835,7 +835,7 @@ public readonly struct Schema : Menes.IJsonValue, System.Collections.Generic.IEn
                 }
                 return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
             }
-            public SchemaValueValue RemoveAt(int indexToRemove)
+            public NotValidationValue RemoveAt(int indexToRemove)
             {
                 System.Collections.Immutable.ImmutableArray<Menes.JsonAny>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonAny>();
                 int index = 0;
@@ -851,7 +851,7 @@ public readonly struct Schema : Menes.IJsonValue, System.Collections.Generic.IEn
                 }
                 return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
             }
-            public SchemaValueValue RemoveRange(int startIndex, int length)
+            public NotValidationValue RemoveRange(int startIndex, int length)
             {
                 if (startIndex < 0 || startIndex > this.Length - 1)
                 {
@@ -875,7 +875,7 @@ public readonly struct Schema : Menes.IJsonValue, System.Collections.Generic.IEn
                 }
                 return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
             }
-            public SchemaValueValue Remove(System.Predicate<Menes.JsonAny> removeIfTrue)
+            public NotValidationValue Remove(System.Predicate<Menes.JsonAny> removeIfTrue)
             {
                 System.Collections.Immutable.ImmutableArray<Menes.JsonAny>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonAny>();
                 foreach (Menes.JsonAny item in this)
@@ -890,13 +890,13 @@ public readonly struct Schema : Menes.IJsonValue, System.Collections.Generic.IEn
             }
         }
     }
-    public readonly struct Item1Value : Menes.IJsonValue, System.IEquatable<Item1Value>
+    public readonly struct SchemaItem1Value : Menes.IJsonValue, System.IEquatable<SchemaItem1Value>
     {
-        public static readonly System.Func<System.Text.Json.JsonElement, Item1Value> FromJsonElement = e => new Item1Value(e);
-        public static readonly Item1Value Null = new Item1Value(default(System.Text.Json.JsonElement));
+        public static readonly System.Func<System.Text.Json.JsonElement, SchemaItem1Value> FromJsonElement = e => new SchemaItem1Value(e);
+        public static readonly SchemaItem1Value Null = new SchemaItem1Value(default(System.Text.Json.JsonElement));
         private static readonly Menes.JsonAny ConstValue = BuildConstValue();
         private readonly Menes.JsonAny? value;
-        public Item1Value(Menes.JsonAny value)
+        public SchemaItem1Value(Menes.JsonAny value)
         {
             if (value.HasJsonElement)
             {
@@ -909,20 +909,20 @@ public readonly struct Schema : Menes.IJsonValue, System.Collections.Generic.IEn
                 this.JsonElement = default;
             }
         }
-        public Item1Value(System.Text.Json.JsonElement jsonElement)
+        public SchemaItem1Value(System.Text.Json.JsonElement jsonElement)
         {
             this.value = null;
             this.JsonElement = jsonElement;
         }
         public bool IsNull => this.value == null && (this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Undefined || this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Null);
-        public Item1Value? AsOptional => this.IsNull ? default(Item1Value?) : this;
+        public SchemaItem1Value? AsOptional => this.IsNull ? default(SchemaItem1Value?) : this;
         public bool HasJsonElement => this.JsonElement.ValueKind != System.Text.Json.JsonValueKind.Undefined;
         public System.Text.Json.JsonElement JsonElement { get; }
-        public static implicit operator Item1Value(Menes.JsonAny value)
+        public static implicit operator SchemaItem1Value(Menes.JsonAny value)
         {
-            return new Item1Value(value);
+            return new SchemaItem1Value(value);
         }
-        public static implicit operator Menes.JsonAny(Item1Value value)
+        public static implicit operator Menes.JsonAny(SchemaItem1Value value)
         {
             if (value.value is Menes.JsonAny clrValue)
             {
@@ -934,25 +934,25 @@ public readonly struct Schema : Menes.IJsonValue, System.Collections.Generic.IEn
         {
             return Menes.JsonAny.IsConvertibleFrom(jsonElement);
         }
-        public static Item1Value FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<char> propertyName) =>
+        public static SchemaItem1Value FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<char> propertyName) =>
            parentDocument.ValueKind == System.Text.Json.JsonValueKind.Object ?
                 (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
-                    ? new Item1Value(property)
+                    ? new SchemaItem1Value(property)
                     : Null)
                 : Null;
-        public static Item1Value FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, string propertyName) =>
+        public static SchemaItem1Value FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, string propertyName) =>
            parentDocument.ValueKind == System.Text.Json.JsonValueKind.Object ?
                 (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
-                    ? new Item1Value(property)
+                    ? new SchemaItem1Value(property)
                     : Null)
                 : Null;
-        public static Item1Value FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<byte> utf8PropertyName) =>
+        public static SchemaItem1Value FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<byte> utf8PropertyName) =>
            parentDocument.ValueKind == System.Text.Json.JsonValueKind.Object ?
                 (parentDocument.TryGetProperty(utf8PropertyName, out System.Text.Json.JsonElement property)
-                    ? new Item1Value(property)
+                    ? new SchemaItem1Value(property)
                     : Null)
                 : Null;
-        public bool Equals(Item1Value other)
+        public bool Equals(SchemaItem1Value other)
         {
             return this.Equals((Menes.JsonAny)other);
         }

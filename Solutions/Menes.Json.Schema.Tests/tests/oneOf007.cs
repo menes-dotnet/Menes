@@ -84,7 +84,7 @@ public readonly struct Schema : Menes.IJsonValue, System.IEquatable<Schema>
         oneOfValidationContext1 = jsonNumberOneOfValue0.Validate(oneOfValidationContext1);
         Menes.JsonAny jsonAnyOneOfValue1 = Menes.JsonAny.From(value).As<Menes.JsonAny>();
         oneOfValidationContext2 = jsonAnyOneOfValue1.Validate(oneOfValidationContext2);
-        context = Menes.Validation.ValidateOneOf(context, ("Menes.JsonNumber", oneOfValidationContext1), ("Menes.JsonAny", oneOfValidationContext2));
+        context = Menes.Validation.ValidateOneOf(context, oneOfValidationContext1, oneOfValidationContext2);
         return context;
     }
     public void WriteTo(System.Text.Json.Utf8JsonWriter writer)

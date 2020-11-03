@@ -4,52 +4,34 @@
 
 namespace Menes
 {
-    using System.Linq;
-    using System.Text;
-
     /// <summary>
     /// Valdation helpers.
     /// </summary>
     public static partial class Validation
     {
+        private const string OneOfStartMessageWithNoMatches = "core 9.2.1.3. oneOf: The element did not match any of the expected types.";
+        private const string OneOfStartMessageWithMultipleMatches = "core 9.2.1.3. oneOf: The element matched several of the expected types.";
+        private const string OneOfEndErrorMessage = "core 9.2.1.3. oneOf: (see above)";
+
         /// <summary>
-        /// Validates that exactly one type was correctly validated.
+        /// Validates that one or more types were correctly validated.
         /// </summary>
         /// <param name="validationContext">The validation context.</param>
         /// <param name="children">The validated contexts.</param>
         /// <returns>The updated validation context after validation has completed.</returns>
-        public static ValidationContext ValidateOneOf(in ValidationContext validationContext, params (string, ValidationContext)[] children)
+        public static ValidationContext ValidateOneOf(in ValidationContext validationContext, params ValidationContext[] children)
         {
-            StringBuilder? builder = null;
-            bool isValid = false;
+            int isValid = 0;
 
-            for (int i = 0; i < children.Length - 1; ++i)
+            for (int i = 0; i < children.Length; ++i)
             {
-                (string type1, ValidationContext child1) = children[i];
-
-                if (child1.IsValid)
+                if (children[i].IsValid)
                 {
-                    isValid = true;
-                    for (int j = i + 1; j < children.Length; ++j)
-                    {
-                        (string type2, ValidationContext child2) = children[j];
-
-                        if (child2.IsValid)
-                        {
-                            builder = EnsureBuilderForOneOf(type1, builder);
-                            builder.Append(", ");
-                            builder.Append(type2);
-                        }
-                    }
-
-                    if (builder is StringBuilder result)
-                    {
-                        return validationContext.WithError(result.ToString());
-                    }
+                    isValid++;
                 }
             }
 
-            return isValid ? validationContext : validationContext.MergeErrors(children.Select(c => c.Item2).ToArray());
+            return isValid == 1 ? validationContext : isValid == 0 ? validationContext.WithError(OneOfStartMessageWithNoMatches).MergeErrors(children).WithError(OneOfEndErrorMessage) : validationContext.WithError(OneOfStartMessageWithMultipleMatches).MergeErrors(children).WithError(OneOfEndErrorMessage);
         }
 
         /// <summary>
@@ -59,32 +41,20 @@ namespace Menes
         /// <param name="child1">The results of validating the element against the first type.</param>
         /// <param name="child2">The results of validating the element against the second type.</param>
         /// <returns>The updated validation context after validation has completed.</returns>
-        public static ValidationContext ValidateOneOf(in ValidationContext validationContext, in (string type, ValidationContext context) child1, in (string type, ValidationContext context) child2)
+        public static ValidationContext ValidateOneOf(in ValidationContext validationContext, in ValidationContext child1, in ValidationContext child2)
         {
-            StringBuilder? builder = null;
-            bool isValid = false;
-
-            if (child1.context.IsValid)
+            int isValid = 0;
+            if (child1.IsValid)
             {
-                isValid = true;
-                if (child2.context.IsValid)
-                {
-                    builder = EnsureBuilderForOneOf(child1.type, builder);
-                    builder.Append(", ");
-                    builder.Append(child2.type);
-                }
-            }
-            else if (child2.context.IsValid)
-            {
-                isValid = true;
+                isValid++;
             }
 
-            if (builder is StringBuilder result)
+            if (child2.IsValid)
             {
-                return validationContext.WithError(result.ToString());
+                isValid++;
             }
 
-            return isValid ? validationContext : validationContext.MergeErrors(child1.context, child2.context);
+            return isValid == 1 ? validationContext : isValid == 0 ? validationContext.WithError(OneOfStartMessageWithNoMatches).MergeErrors(child1, child2).WithError(OneOfEndErrorMessage) : validationContext.WithError(OneOfStartMessageWithMultipleMatches).MergeErrors(child1, child2).WithError(OneOfEndErrorMessage);
         }
 
         /// <summary>
@@ -95,50 +65,25 @@ namespace Menes
         /// <param name="child2">The results of validating the element against the second type.</param>
         /// <param name="child3">The results of validating the element against the third type.</param>
         /// <returns>The updated validation context after validation has completed.</returns>
-        public static ValidationContext ValidateOneOf(in ValidationContext validationContext, in (string type, ValidationContext context) child1, in (string type, ValidationContext context) child2, in (string type, ValidationContext context) child3)
+        public static ValidationContext ValidateOneOf(in ValidationContext validationContext, in ValidationContext child1, in ValidationContext child2, in ValidationContext child3)
         {
-            StringBuilder? builder = null;
-            bool isValid = false;
-
-            if (child1.context.IsValid)
+            int isValid = 0;
+            if (child1.IsValid)
             {
-                isValid = true;
-                if (child2.context.IsValid)
-                {
-                    builder = EnsureBuilderForOneOf(child1.type, builder);
-                    builder.Append(", ");
-                    builder.Append(child2.type);
-                }
-
-                if (child3.context.IsValid)
-                {
-                    builder = EnsureBuilderForOneOf(child1.type, builder);
-                    builder.Append(", ");
-                    builder.Append(child3.type);
-                }
-            }
-            else if (child2.context.IsValid)
-            {
-                isValid = true;
-
-                if (child3.context.IsValid)
-                {
-                    builder = EnsureBuilderForOneOf(child2.type, builder);
-                    builder.Append(", ");
-                    builder.Append(child3.type);
-                }
-            }
-            else if (child3.context.IsValid)
-            {
-                isValid = true;
+                isValid++;
             }
 
-            if (builder is StringBuilder result)
+            if (child2.IsValid)
             {
-                return validationContext.WithError(result.ToString());
+                isValid++;
             }
 
-            return isValid ? validationContext : validationContext.MergeErrors(child1.context, child2.context, child3.context);
+            if (child3.IsValid)
+            {
+                isValid++;
+            }
+
+            return isValid == 1 ? validationContext : isValid == 0 ? validationContext.WithError(OneOfStartMessageWithNoMatches).MergeErrors(child1, child2, child3).WithError(OneOfEndErrorMessage) : validationContext.WithError(OneOfStartMessageWithMultipleMatches).MergeErrors(child1, child2, child3).WithError(OneOfEndErrorMessage);
         }
 
         /// <summary>
@@ -150,80 +95,30 @@ namespace Menes
         /// <param name="child3">The results of validating the element against the third type.</param>
         /// <param name="child4">The results of validating the element against the fourth type.</param>
         /// <returns>The updated validation context after validation has completed.</returns>
-        public static ValidationContext ValidateOneOf(in ValidationContext validationContext, in (string type, ValidationContext context) child1, in (string type, ValidationContext context) child2, in (string type, ValidationContext context) child3, in (string type, ValidationContext context) child4)
+        public static ValidationContext ValidateOneOf(in ValidationContext validationContext, in ValidationContext child1, in ValidationContext child2, in ValidationContext child3, in ValidationContext child4)
         {
-            StringBuilder? builder = null;
-            bool isValid = false;
-
-            if (child1.context.IsValid)
+            int isValid = 0;
+            if (child1.IsValid)
             {
-                isValid = true;
-                if (child2.context.IsValid)
-                {
-                    builder = EnsureBuilderForOneOf(child1.type, builder);
-                    builder.Append(", ");
-                    builder.Append(child2.type);
-                }
-
-                if (child3.context.IsValid)
-                {
-                    builder = EnsureBuilderForOneOf(child1.type, builder);
-                    builder.Append(", ");
-                    builder.Append(child3.type);
-                }
-
-                if (child4.context.IsValid)
-                {
-                    builder = EnsureBuilderForOneOf(child1.type, builder);
-                    builder.Append(", ");
-                    builder.Append(child4.type);
-                }
-            }
-            else if (child2.context.IsValid)
-            {
-                isValid = true;
-
-                if (child3.context.IsValid)
-                {
-                    builder = EnsureBuilderForOneOf(child2.type, builder);
-                    builder.Append(", ");
-                    builder.Append(child3.type);
-                }
-
-                if (child4.context.IsValid)
-                {
-                    builder = EnsureBuilderForOneOf(child2.type, builder);
-                    builder.Append(", ");
-                    builder.Append(child4.type);
-                }
-            }
-            else if (child3.context.IsValid)
-            {
-                isValid = true;
-
-                if (child4.context.IsValid)
-                {
-                    builder = EnsureBuilderForOneOf(child3.type, builder);
-                    builder.Append(", ");
-                    builder.Append(child4.type);
-                }
-            }
-            else if (child4.context.IsValid)
-            {
-                isValid = true;
+                isValid++;
             }
 
-            if (builder is StringBuilder result)
+            if (child2.IsValid)
             {
-                return validationContext.WithError(result.ToString());
+                isValid++;
             }
 
-            return isValid ? validationContext : validationContext.MergeErrors(child1.context, child2.context, child3.context, child4.context);
-        }
+            if (child3.IsValid)
+            {
+                isValid++;
+            }
 
-        private static StringBuilder EnsureBuilderForOneOf(string firstType, StringBuilder? builder)
-        {
-            return builder ?? new StringBuilder($"core 9.2.1.3. oneOf: The type validated against {firstType}");
+            if (child4.IsValid)
+            {
+                isValid++;
+            }
+
+            return isValid == 1 ? validationContext : isValid == 0 ? validationContext.WithError(OneOfStartMessageWithNoMatches).MergeErrors(child1, child2, child3, child4).WithError(OneOfEndErrorMessage) : validationContext.WithError(OneOfStartMessageWithMultipleMatches).MergeErrors(child1, child2, child3, child4).WithError(OneOfEndErrorMessage);
         }
     }
 }

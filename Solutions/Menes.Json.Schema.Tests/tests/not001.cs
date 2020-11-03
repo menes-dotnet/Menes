@@ -78,7 +78,7 @@ public readonly struct Schema : Menes.IJsonValue, System.IEquatable<Schema>
         Menes.JsonAny value = this;
         Menes.ValidationContext context = validationContext;
         context = value.Validate(context);
-        context = Menes.Validation.ValidateNot<Menes.JsonAny, Schema.SchemaValue>(context, this);
+        context = Menes.Validation.ValidateNot<Menes.JsonAny, Schema.NotValidationValue>(context, this);
         return context;
     }
     public void WriteTo(System.Text.Json.Utf8JsonWriter writer)
@@ -103,13 +103,13 @@ public readonly struct Schema : Menes.IJsonValue, System.IEquatable<Schema>
             return this.JsonElement.GetRawText();
         }
     }
-    public readonly struct SchemaValue : Menes.IJsonValue
+    public readonly struct NotValidationValue : Menes.IJsonValue
     {
-        public static readonly SchemaValue Null = new SchemaValue(default(System.Text.Json.JsonElement));
-        public static readonly System.Func<System.Text.Json.JsonElement, Schema.SchemaValue> FromJsonElement = e => new Schema.SchemaValue(e);
+        public static readonly NotValidationValue Null = new NotValidationValue(default(System.Text.Json.JsonElement));
+        public static readonly System.Func<System.Text.Json.JsonElement, Schema.NotValidationValue> FromJsonElement = e => new Schema.NotValidationValue(e);
         private readonly Menes.JsonInteger? item1;
         private readonly Menes.JsonBoolean? item2;
-        public SchemaValue(Menes.JsonInteger clrInstance)
+        public NotValidationValue(Menes.JsonInteger clrInstance)
         {
             if (clrInstance.HasJsonElement)
             {
@@ -123,7 +123,7 @@ public readonly struct Schema : Menes.IJsonValue, System.IEquatable<Schema>
             }
             this.item2 = null;
         }
-        public SchemaValue(Menes.JsonBoolean clrInstance)
+        public NotValidationValue(Menes.JsonBoolean clrInstance)
         {
             if (clrInstance.HasJsonElement)
             {
@@ -137,38 +137,38 @@ public readonly struct Schema : Menes.IJsonValue, System.IEquatable<Schema>
             }
             this.item1 = null;
         }
-        public SchemaValue(System.Text.Json.JsonElement jsonElement)
+        public NotValidationValue(System.Text.Json.JsonElement jsonElement)
         {
             this.item1 = null;
             this.item2 = null;
             this.JsonElement = jsonElement;
         }
         public bool IsNull => this.item1 is null && this.item2 is null && (this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Undefined || this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Null);
-        public SchemaValue? AsOptional => this.IsNull ? default(SchemaValue?) : this;
+        public NotValidationValue? AsOptional => this.IsNull ? default(NotValidationValue?) : this;
         public bool IsJsonInteger => this.item1 is Menes.JsonInteger || (Menes.JsonInteger.IsConvertibleFrom(this.JsonElement) && Menes.JsonInteger.FromJsonElement(this.JsonElement).Validate(Menes.ValidationContext.Root).IsValid);
         public bool IsJsonBoolean => this.item2 is Menes.JsonBoolean || (Menes.JsonBoolean.IsConvertibleFrom(this.JsonElement) && Menes.JsonBoolean.FromJsonElement(this.JsonElement).Validate(Menes.ValidationContext.Root).IsValid);
         public bool HasJsonElement => this.JsonElement.ValueKind != System.Text.Json.JsonValueKind.Undefined;
         public System.Text.Json.JsonElement JsonElement { get; }
-        public static explicit operator Menes.JsonInteger(SchemaValue value) => value.AsJsonInteger();
-        public static implicit operator SchemaValue(Menes.JsonInteger value) => new SchemaValue(value);
-        public static explicit operator Menes.JsonBoolean(SchemaValue value) => value.AsJsonBoolean();
-        public static implicit operator SchemaValue(Menes.JsonBoolean value) => new SchemaValue(value);
-        public static SchemaValue FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<char> propertyName) =>
+        public static explicit operator Menes.JsonInteger(NotValidationValue value) => value.AsJsonInteger();
+        public static implicit operator NotValidationValue(Menes.JsonInteger value) => new NotValidationValue(value);
+        public static explicit operator Menes.JsonBoolean(NotValidationValue value) => value.AsJsonBoolean();
+        public static implicit operator NotValidationValue(Menes.JsonBoolean value) => new NotValidationValue(value);
+        public static NotValidationValue FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<char> propertyName) =>
            parentDocument.ValueKind == System.Text.Json.JsonValueKind.Object ?
                 (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
-                    ? new SchemaValue(property)
+                    ? new NotValidationValue(property)
                     : Null)
                 : Null;
-        public static SchemaValue FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, string propertyName) =>
+        public static NotValidationValue FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, string propertyName) =>
            parentDocument.ValueKind == System.Text.Json.JsonValueKind.Object ?
                 (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
-                    ? new SchemaValue(property)
+                    ? new NotValidationValue(property)
                     : Null)
                 : Null;
-        public static SchemaValue FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<byte> utf8PropertyName) =>
+        public static NotValidationValue FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<byte> utf8PropertyName) =>
            parentDocument.ValueKind == System.Text.Json.JsonValueKind.Object ?
                 (parentDocument.TryGetProperty(utf8PropertyName, out System.Text.Json.JsonElement property)
-                    ? new SchemaValue(property)
+                    ? new NotValidationValue(property)
                     : Null)
                 : Null;
         public static bool IsConvertibleFrom(System.Text.Json.JsonElement jsonElement)

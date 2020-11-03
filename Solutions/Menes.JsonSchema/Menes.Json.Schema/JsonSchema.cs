@@ -2547,7 +2547,7 @@ namespace Menes.Json.Schema
                 {
                     validationContext2 = validationContext2.WithError("The value is not convertible to a Menes.JsonArray<JsonSchema.TypeEnum>.");
                 }
-                return Menes.Validation.ValidateOneOf(validationContext, ("JsonSchema.TypeEnum", validationContext1), ("Menes.JsonArray<JsonSchema.TypeEnum>", validationContext2));
+                return Menes.Validation.ValidateOneOf(validationContext, validationContext1, validationContext2);
             }
         }
         public readonly struct PositiveNumber : Menes.IJsonValue, System.IEquatable<PositiveNumber>
@@ -4057,7 +4057,7 @@ namespace Menes.Json.Schema
                 {
                     validationContext2 = validationContext2.WithError("The value is not convertible to a Menes.JsonBoolean.");
                 }
-                return Menes.Validation.ValidateOneOf(validationContext, ("JsonSchema.SchemaOrReference", validationContext1), ("Menes.JsonBoolean", validationContext2));
+                return Menes.Validation.ValidateOneOf(validationContext, validationContext1, validationContext2);
             }
         }
         public readonly struct SchemaAdditionalItems : Menes.IJsonValue
@@ -4202,7 +4202,7 @@ namespace Menes.Json.Schema
                 {
                     validationContext2 = validationContext2.WithError("The value is not convertible to a Menes.JsonBoolean.");
                 }
-                return Menes.Validation.ValidateOneOf(validationContext, ("JsonSchema.SchemaOrReference", validationContext1), ("Menes.JsonBoolean", validationContext2));
+                return Menes.Validation.ValidateOneOf(validationContext, validationContext1, validationContext2);
             }
         }
         public readonly struct SchemaItems : Menes.IJsonValue
@@ -4351,7 +4351,7 @@ namespace Menes.Json.Schema
                 {
                     validationContext2 = validationContext2.WithError("The value is not convertible to a JsonSchema.NonEmptySubschemaArray.");
                 }
-                return Menes.Validation.ValidateOneOf(validationContext, ("JsonSchema.SchemaOrReference", validationContext1), ("JsonSchema.NonEmptySubschemaArray", validationContext2));
+                return Menes.Validation.ValidateOneOf(validationContext, validationContext1, validationContext2);
             }
         }
     }

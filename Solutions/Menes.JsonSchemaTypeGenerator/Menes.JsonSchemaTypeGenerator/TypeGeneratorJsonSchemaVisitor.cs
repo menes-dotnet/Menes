@@ -110,7 +110,7 @@ namespace Menes.Json.Schema.TypeGenerator
                     "number" => this.CreateNumber(schema, name),
                     "string" => this.CreateString(schema, name),
                     "array" => this.CreateArray(schema, name),
-                    "null" => this.CreateNull(schema, name),
+                    "null" => this.CreateNull(),
                     _ => this.CreateAny(schema, name),
                 };
             }
@@ -521,7 +521,7 @@ namespace Menes.Json.Schema.TypeGenerator
             return Task.FromResult(schema.IsValidated() ? (ITypeDeclaration)new ValidatedJsonValueTypeDeclaration(name, JsonValueTypeDeclaration.Any) : JsonValueTypeDeclaration.Any);
         }
 
-        private Task<ITypeDeclaration> CreateNull(JsonSchema schema, string name)
+        private Task<ITypeDeclaration> CreateNull()
         {
             return Task.FromResult((ITypeDeclaration)JsonValueTypeDeclaration.Null);
         }
@@ -606,10 +606,18 @@ namespace Menes.Json.Schema.TypeGenerator
             validatedJsonValueTypeDeclaration.MinimumValidation = schema.Minimum;
             validatedJsonValueTypeDeclaration.MinLengthValidation = schema.MinLength;
             validatedJsonValueTypeDeclaration.MultipleOfValidation = schema.MultipleOf;
+            this.propertyNameStack.Push("NotValidation");
             validatedJsonValueTypeDeclaration.NotTypeValidation = await this.GetTypeDeclarationFor(schema.Not, rootDocument, baseUri).ConfigureAwait(false);
+            this.propertyNameStack.Pop();
+            this.propertyNameStack.Push("OneOfValidation");
             validatedJsonValueTypeDeclaration.OneOfTypeValidation = await this.GetTypeDeclarationsFor(schema.OneOf, rootDocument, baseUri).ConfigureAwait(false);
+            this.propertyNameStack.Pop();
+            this.propertyNameStack.Push("AnyOfValidation");
             validatedJsonValueTypeDeclaration.AnyOfTypeValidation = await this.GetTypeDeclarationsFor(schema.AnyOf, rootDocument, baseUri).ConfigureAwait(false);
+            this.propertyNameStack.Pop();
+            this.propertyNameStack.Push("AllOfValidation");
             validatedJsonValueTypeDeclaration.AllOfTypeValidation = await this.GetTypeDeclarationsFor(schema.AllOf, rootDocument, baseUri).ConfigureAwait(false);
+            this.propertyNameStack.Pop();
             validatedJsonValueTypeDeclaration.PatternValidation = schema.Pattern;
         }
 
@@ -649,7 +657,7 @@ namespace Menes.Json.Schema.TypeGenerator
             int itemIndex = 1;
             foreach (JsonSchema.SchemaOrReference sor in s)
             {
-                this.propertyNameStack.Push($"Item{itemIndex}");
+                this.propertyNameStack.Push($"{this.propertyNameStack.Peek()}Item{itemIndex}");
 
                 try
                 {

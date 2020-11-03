@@ -91,9 +91,9 @@ public readonly struct Schema : Menes.IJsonValue, System.IEquatable<Schema>
         context = value.Validate(context);
         Menes.ValidationContext anyOfValidationContext1 = Menes.ValidationContext.Root.WithPath(context.Path);
         Menes.ValidationContext anyOfValidationContext2 = Menes.ValidationContext.Root.WithPath(context.Path);
-        Schema.Item1Value anyOfitem1 = Menes.JsonAny.From(value).As<Schema.Item1Value>();
+        Schema.AnyOfValidationItem1Value anyOfitem1 = Menes.JsonAny.From(value).As<Schema.AnyOfValidationItem1Value>();
         anyOfValidationContext1 = anyOfitem1.Validate(anyOfValidationContext1);
-        Schema.Item2Value anyOfitem2 = Menes.JsonAny.From(value).As<Schema.Item2Value>();
+        Schema.AnyOfValidationItem2Value anyOfitem2 = Menes.JsonAny.From(value).As<Schema.AnyOfValidationItem2Value>();
         anyOfValidationContext2 = anyOfitem2.Validate(anyOfValidationContext2);
         context = Menes.Validation.ValidateAnyOf(context, anyOfValidationContext1, anyOfValidationContext2);
         context = value.ValidateAsString(context, MaxLength, MinLength, Pattern, (System.Collections.Immutable.ImmutableArray<string>?)null, (string?)null);
@@ -121,15 +121,15 @@ public readonly struct Schema : Menes.IJsonValue, System.IEquatable<Schema>
             return this.JsonElement.GetRawText();
         }
     }
-    public readonly struct Item1Value : Menes.IJsonValue, System.IEquatable<Item1Value>
+    public readonly struct AnyOfValidationItem1Value : Menes.IJsonValue, System.IEquatable<AnyOfValidationItem1Value>
     {
-        public static readonly System.Func<System.Text.Json.JsonElement, Item1Value> FromJsonElement = e => new Item1Value(e);
-        public static readonly Item1Value Null = new Item1Value(default(System.Text.Json.JsonElement));
+        public static readonly System.Func<System.Text.Json.JsonElement, AnyOfValidationItem1Value> FromJsonElement = e => new AnyOfValidationItem1Value(e);
+        public static readonly AnyOfValidationItem1Value Null = new AnyOfValidationItem1Value(default(System.Text.Json.JsonElement));
         private static readonly int? MaxLength = 2;
         private static readonly int? MinLength = null;
         private static readonly System.Text.RegularExpressions.Regex? Pattern = null;
         private readonly Menes.JsonAny? value;
-        public Item1Value(Menes.JsonAny value)
+        public AnyOfValidationItem1Value(Menes.JsonAny value)
         {
             if (value.HasJsonElement)
             {
@@ -142,20 +142,20 @@ public readonly struct Schema : Menes.IJsonValue, System.IEquatable<Schema>
                 this.JsonElement = default;
             }
         }
-        public Item1Value(System.Text.Json.JsonElement jsonElement)
+        public AnyOfValidationItem1Value(System.Text.Json.JsonElement jsonElement)
         {
             this.value = null;
             this.JsonElement = jsonElement;
         }
         public bool IsNull => this.value == null && (this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Undefined || this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Null);
-        public Item1Value? AsOptional => this.IsNull ? default(Item1Value?) : this;
+        public AnyOfValidationItem1Value? AsOptional => this.IsNull ? default(AnyOfValidationItem1Value?) : this;
         public bool HasJsonElement => this.JsonElement.ValueKind != System.Text.Json.JsonValueKind.Undefined;
         public System.Text.Json.JsonElement JsonElement { get; }
-        public static implicit operator Item1Value(Menes.JsonAny value)
+        public static implicit operator AnyOfValidationItem1Value(Menes.JsonAny value)
         {
-            return new Item1Value(value);
+            return new AnyOfValidationItem1Value(value);
         }
-        public static implicit operator Menes.JsonAny(Item1Value value)
+        public static implicit operator Menes.JsonAny(AnyOfValidationItem1Value value)
         {
             if (value.value is Menes.JsonAny clrValue)
             {
@@ -167,25 +167,25 @@ public readonly struct Schema : Menes.IJsonValue, System.IEquatable<Schema>
         {
             return Menes.JsonAny.IsConvertibleFrom(jsonElement);
         }
-        public static Item1Value FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<char> propertyName) =>
+        public static AnyOfValidationItem1Value FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<char> propertyName) =>
            parentDocument.ValueKind == System.Text.Json.JsonValueKind.Object ?
                 (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
-                    ? new Item1Value(property)
+                    ? new AnyOfValidationItem1Value(property)
                     : Null)
                 : Null;
-        public static Item1Value FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, string propertyName) =>
+        public static AnyOfValidationItem1Value FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, string propertyName) =>
            parentDocument.ValueKind == System.Text.Json.JsonValueKind.Object ?
                 (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
-                    ? new Item1Value(property)
+                    ? new AnyOfValidationItem1Value(property)
                     : Null)
                 : Null;
-        public static Item1Value FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<byte> utf8PropertyName) =>
+        public static AnyOfValidationItem1Value FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<byte> utf8PropertyName) =>
            parentDocument.ValueKind == System.Text.Json.JsonValueKind.Object ?
                 (parentDocument.TryGetProperty(utf8PropertyName, out System.Text.Json.JsonElement property)
-                    ? new Item1Value(property)
+                    ? new AnyOfValidationItem1Value(property)
                     : Null)
                 : Null;
-        public bool Equals(Item1Value other)
+        public bool Equals(AnyOfValidationItem1Value other)
         {
             return this.Equals((Menes.JsonAny)other);
         }
@@ -224,15 +224,15 @@ public readonly struct Schema : Menes.IJsonValue, System.IEquatable<Schema>
             }
         }
     }
-    public readonly struct Item2Value : Menes.IJsonValue, System.IEquatable<Item2Value>
+    public readonly struct AnyOfValidationItem2Value : Menes.IJsonValue, System.IEquatable<AnyOfValidationItem2Value>
     {
-        public static readonly System.Func<System.Text.Json.JsonElement, Item2Value> FromJsonElement = e => new Item2Value(e);
-        public static readonly Item2Value Null = new Item2Value(default(System.Text.Json.JsonElement));
+        public static readonly System.Func<System.Text.Json.JsonElement, AnyOfValidationItem2Value> FromJsonElement = e => new AnyOfValidationItem2Value(e);
+        public static readonly AnyOfValidationItem2Value Null = new AnyOfValidationItem2Value(default(System.Text.Json.JsonElement));
         private static readonly int? MaxLength = null;
         private static readonly int? MinLength = 4;
         private static readonly System.Text.RegularExpressions.Regex? Pattern = null;
         private readonly Menes.JsonAny? value;
-        public Item2Value(Menes.JsonAny value)
+        public AnyOfValidationItem2Value(Menes.JsonAny value)
         {
             if (value.HasJsonElement)
             {
@@ -245,20 +245,20 @@ public readonly struct Schema : Menes.IJsonValue, System.IEquatable<Schema>
                 this.JsonElement = default;
             }
         }
-        public Item2Value(System.Text.Json.JsonElement jsonElement)
+        public AnyOfValidationItem2Value(System.Text.Json.JsonElement jsonElement)
         {
             this.value = null;
             this.JsonElement = jsonElement;
         }
         public bool IsNull => this.value == null && (this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Undefined || this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Null);
-        public Item2Value? AsOptional => this.IsNull ? default(Item2Value?) : this;
+        public AnyOfValidationItem2Value? AsOptional => this.IsNull ? default(AnyOfValidationItem2Value?) : this;
         public bool HasJsonElement => this.JsonElement.ValueKind != System.Text.Json.JsonValueKind.Undefined;
         public System.Text.Json.JsonElement JsonElement { get; }
-        public static implicit operator Item2Value(Menes.JsonAny value)
+        public static implicit operator AnyOfValidationItem2Value(Menes.JsonAny value)
         {
-            return new Item2Value(value);
+            return new AnyOfValidationItem2Value(value);
         }
-        public static implicit operator Menes.JsonAny(Item2Value value)
+        public static implicit operator Menes.JsonAny(AnyOfValidationItem2Value value)
         {
             if (value.value is Menes.JsonAny clrValue)
             {
@@ -270,25 +270,25 @@ public readonly struct Schema : Menes.IJsonValue, System.IEquatable<Schema>
         {
             return Menes.JsonAny.IsConvertibleFrom(jsonElement);
         }
-        public static Item2Value FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<char> propertyName) =>
+        public static AnyOfValidationItem2Value FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<char> propertyName) =>
            parentDocument.ValueKind == System.Text.Json.JsonValueKind.Object ?
                 (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
-                    ? new Item2Value(property)
+                    ? new AnyOfValidationItem2Value(property)
                     : Null)
                 : Null;
-        public static Item2Value FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, string propertyName) =>
+        public static AnyOfValidationItem2Value FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, string propertyName) =>
            parentDocument.ValueKind == System.Text.Json.JsonValueKind.Object ?
                 (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
-                    ? new Item2Value(property)
+                    ? new AnyOfValidationItem2Value(property)
                     : Null)
                 : Null;
-        public static Item2Value FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<byte> utf8PropertyName) =>
+        public static AnyOfValidationItem2Value FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<byte> utf8PropertyName) =>
            parentDocument.ValueKind == System.Text.Json.JsonValueKind.Object ?
                 (parentDocument.TryGetProperty(utf8PropertyName, out System.Text.Json.JsonElement property)
-                    ? new Item2Value(property)
+                    ? new AnyOfValidationItem2Value(property)
                     : Null)
                 : Null;
-        public bool Equals(Item2Value other)
+        public bool Equals(AnyOfValidationItem2Value other)
         {
             return this.Equals((Menes.JsonAny)other);
         }

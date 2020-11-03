@@ -161,7 +161,7 @@ namespace Menes.TypeGenerator
             }
             else if (this.ValidatedType.Kind == JsonValueTypeDeclaration.ValueKind.Number)
             {
-                this.AppendNumberValidationProperties(this.ValidatedType, builder);
+                this.AppendNumberValidationProperties(builder);
             }
             else if (this.ValidatedType.Kind == JsonValueTypeDeclaration.ValueKind.Decimal)
             {
@@ -180,7 +180,7 @@ namespace Menes.TypeGenerator
 
                 if (this.MultipleOfValidation.HasValue || this.MaximumValidation.HasValue || this.ExclusiveMaximumValidation.HasValue || this.MinimumValidation.HasValue || this.ExclusiveMinimumValidation.HasValue)
                 {
-                    this.AppendNumberValidationProperties(this.ValidatedType, builder);
+                    this.AppendNumberValidationProperties(builder);
                 }
             }
 
@@ -367,7 +367,7 @@ namespace Menes.TypeGenerator
                 foreach (ITypeDeclaration oneOfType in oneOf)
                 {
                     builder.Append(", ");
-                    builder.Append($"(\"{oneOfType.GetFullyQualifiedName()}\", oneOfValidationContext{index + 1})");
+                    builder.Append($"oneOfValidationContext{index + 1}");
                     index++;
                 }
 
@@ -527,7 +527,7 @@ namespace Menes.TypeGenerator
             return optionalValue is string value ? value + "M" : "null";
         }
 
-        private void AppendNumberValidationProperties(JsonValueTypeDeclaration validatedType, StringBuilder builder)
+        private void AppendNumberValidationProperties(StringBuilder builder)
         {
             builder.AppendLine($"    private static readonly Menes.JsonNumber? MultipleOf = {this.MultipleOfValidation?.ToString() ?? "null"};");
             builder.AppendLine($"    private static readonly Menes.JsonNumber? Maximum = {this.MaximumValidation?.ToString() ?? "null"};");
