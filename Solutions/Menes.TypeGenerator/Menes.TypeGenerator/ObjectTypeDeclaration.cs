@@ -329,14 +329,14 @@ namespace Menes.TypeGenerator
 
             builder.AppendLine("if (this.IsNull)");
             builder.AppendLine("{");
-            builder.AppendLine("    return validationContext.WithError($\"6.1.1. type: the element with type {this.JsonElement.ValueKind} is not convertible to {{JsonValueKind.Object}}\");");
+            builder.AppendLine("    return validationContext.WithError($\"6.1.1. type: the element with type {this.JsonElement.ValueKind} is not convertible to {System.Text.Json.JsonValueKind.Object}\");");
             builder.AppendLine("}");
 
             if (this.ValidateAsObject)
             {
                 builder.AppendLine("if (this.HasJsonElement && !IsConvertibleFrom(this.JsonElement))");
                 builder.AppendLine("{");
-                builder.AppendLine("    return validationContext.WithError($\"6.1.1. type: the element with type {this.JsonElement.ValueKind} is not convertible to {{JsonValueKind.Object}}\");");
+                builder.AppendLine("    return validationContext.WithError($\"6.1.1. type: the element with type {this.JsonElement.ValueKind} is not convertible to {System.Text.Json.JsonValueKind.Object}\");");
                 builder.AppendLine("}");
             }
 

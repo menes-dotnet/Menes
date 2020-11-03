@@ -92,11 +92,7 @@ public readonly struct Schema : Menes.IJsonValue, System.Collections.Generic.IEn
     {
         Menes.JsonArray<Menes.JsonAny> array = this;
         Menes.ValidationContext context = validationContext;
-        var newContext = array.Validate(context.ResetLastWasValid());
-        if (!newContext.LastWasValid)
-        {
-            return newContext;
-        }
+        context = array.Validate(context);
         var itemsValidationEnumerator = array.GetEnumerator();
         if (itemsValidationEnumerator.MoveNext())
         {
@@ -497,11 +493,7 @@ public readonly struct Item : Menes.IJsonValue, System.Collections.Generic.IEnum
     {
         Menes.JsonArray<Menes.JsonAny> array = this;
         Menes.ValidationContext context = validationContext;
-        var newContext = array.Validate(context.ResetLastWasValid());
-        if (!newContext.LastWasValid)
-        {
-            return newContext;
-        }
+        context = array.Validate(context);
         var itemsValidationEnumerator = array.GetEnumerator();
         if (itemsValidationEnumerator.MoveNext())
         {
@@ -1097,11 +1089,11 @@ public readonly struct SubItem : Menes.IJsonObject, System.IEquatable<SubItem>, 
     {
         if (this.IsNull)
         {
-            return validationContext.WithError($"6.1.1. type: the element with type {this.JsonElement.ValueKind} is not convertible to {{JsonValueKind.Object}}");
+            return validationContext.WithError($"6.1.1. type: the element with type {this.JsonElement.ValueKind} is not convertible to {System.Text.Json.JsonValueKind.Object}");
         }
         if (this.HasJsonElement && !IsConvertibleFrom(this.JsonElement))
         {
-            return validationContext.WithError($"6.1.1. type: the element with type {this.JsonElement.ValueKind} is not convertible to {{JsonValueKind.Object}}");
+            return validationContext.WithError($"6.1.1. type: the element with type {this.JsonElement.ValueKind} is not convertible to {System.Text.Json.JsonValueKind.Object}");
         }
         Menes.ValidationContext context = validationContext;
         foreach (Menes.JsonPropertyReference<Menes.JsonAny> property in this.JsonAdditionalProperties)

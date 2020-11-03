@@ -318,11 +318,11 @@ public readonly struct Tree : Menes.IJsonObject, System.IEquatable<Tree>, Menes.
     {
         if (this.IsNull)
         {
-            return validationContext.WithError($"6.1.1. type: the element with type {this.JsonElement.ValueKind} is not convertible to {{JsonValueKind.Object}}");
+            return validationContext.WithError($"6.1.1. type: the element with type {this.JsonElement.ValueKind} is not convertible to {System.Text.Json.JsonValueKind.Object}");
         }
         if (this.HasJsonElement && !IsConvertibleFrom(this.JsonElement))
         {
-            return validationContext.WithError($"6.1.1. type: the element with type {this.JsonElement.ValueKind} is not convertible to {{JsonValueKind.Object}}");
+            return validationContext.WithError($"6.1.1. type: the element with type {this.JsonElement.ValueKind} is not convertible to {System.Text.Json.JsonValueKind.Object}");
         }
         Menes.ValidationContext context = validationContext;
         context = Menes.Validation.ValidateRequiredProperty(context, this.Meta, MetaPropertyNamePath);
@@ -456,11 +456,7 @@ public readonly struct Tree : Menes.IJsonObject, System.IEquatable<Tree>, Menes.
         {
             Menes.JsonArray<Menes.JsonAny> array = this;
             Menes.ValidationContext context = validationContext;
-            var newContext = array.Validate(context.ResetLastWasValid());
-            if (!newContext.LastWasValid)
-            {
-                return context;
-            }
+            context = array.Validate(context);
             return array.ValidateItems(context);
         }
         public void WriteTo(System.Text.Json.Utf8JsonWriter writer)

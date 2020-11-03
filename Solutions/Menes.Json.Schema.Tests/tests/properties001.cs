@@ -348,7 +348,7 @@ public readonly struct Schema : Menes.IJsonObject, System.IEquatable<Schema>, Me
     {
         if (this.IsNull)
         {
-            return validationContext.WithError($"6.1.1. type: the element with type {this.JsonElement.ValueKind} is not convertible to {{JsonValueKind.Object}}");
+            return validationContext.WithError($"6.1.1. type: the element with type {this.JsonElement.ValueKind} is not convertible to {System.Text.Json.JsonValueKind.Object}");
         }
         Menes.ValidationContext context = validationContext;
         System.Collections.Generic.HashSet<string> matchedProperties = new System.Collections.Generic.HashSet<string>(this.PropertiesCount);
@@ -505,11 +505,6 @@ public readonly struct Schema : Menes.IJsonObject, System.IEquatable<Schema>, Me
         {
             Menes.JsonArray<Menes.JsonAny> array = this;
             Menes.ValidationContext context = validationContext;
-            var newContext = array.Validate(context.ResetLastWasValid());
-            if (!newContext.LastWasValid)
-            {
-                return context;
-            }
             return array.ValidateItems(context);
         }
         public void WriteTo(System.Text.Json.Utf8JsonWriter writer)
@@ -893,11 +888,7 @@ public readonly struct Schema : Menes.IJsonObject, System.IEquatable<Schema>, Me
         {
             Menes.JsonArray<Menes.JsonAny> array = this;
             Menes.ValidationContext context = validationContext;
-            var newContext = array.Validate(context.ResetLastWasValid());
-            if (!newContext.LastWasValid)
-            {
-                return context;
-            }
+            context = array.Validate(context);
             return array.ValidateItems(context);
         }
         public void WriteTo(System.Text.Json.Utf8JsonWriter writer)

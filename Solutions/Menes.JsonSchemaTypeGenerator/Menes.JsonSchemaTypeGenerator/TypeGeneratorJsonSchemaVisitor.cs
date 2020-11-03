@@ -491,6 +491,14 @@ namespace Menes.Json.Schema.TypeGenerator
 
         private async Task PopulateArray(ITypeDeclaration type, JsonSchema schema, JsonDocument rootDocument, string baseUri)
         {
+            if (schema.Type is JsonSchema.TypeEnumOrArrayOfTypeEnum schemaType && schemaType.IsTypeEnum && schemaType.AsTypeEnum() == JsonSchema.TypeEnum.Array)
+            {
+                if (type is ValidatedArrayTypeDeclaration vat)
+                {
+                    vat.ValidateAsArray = true;
+                }
+            }
+
             if (schema.Items is JsonSchema.SchemaItems schemaItems)
             {
                 ITypeDeclaration itemTypeDeclaration;

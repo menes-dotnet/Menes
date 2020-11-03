@@ -87,6 +87,12 @@ namespace Menes.TypeGenerator
         /// </summary>
         public bool? UniqueValidation { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether to explicitly
+        /// validate this as an array.
+        /// </summary>
+        public bool ValidateAsArray { get; set; }
+
         /// <inheritdoc/>
         public override TypeDeclarationSyntax GenerateType()
         {
@@ -228,20 +234,11 @@ namespace Menes.TypeGenerator
             builder.AppendLine("    {");
             builder.AppendLine($"        Menes.JsonArray<{itemFullyQualifiedName}> array = this;");
             builder.AppendLine("        Menes.ValidationContext context = validationContext;");
-            builder.AppendLine("        var newContext = array.Validate(context.ResetLastWasValid());");
-            builder.AppendLine("if (!newContext.LastWasValid)");
-            builder.AppendLine("{");
 
-            if (!(this.ItemType is null))
+            if (this.ValidateAsArray)
             {
-                builder.AppendLine("    return newContext;");
+                builder.AppendLine("    context = array.Validate(context);");
             }
-            else
-            {
-                builder.AppendLine("    return context;");
-            }
-
-            builder.AppendLine("}");
 
             if (this.MinItemsValidation is int minItems)
             {

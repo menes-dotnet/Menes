@@ -507,7 +507,7 @@ public readonly struct Schema : Menes.IJsonValue
         {
             if (this.IsNull)
             {
-                return validationContext.WithError($"6.1.1. type: the element with type {this.JsonElement.ValueKind} is not convertible to {{JsonValueKind.Object}}");
+                return validationContext.WithError($"6.1.1. type: the element with type {this.JsonElement.ValueKind} is not convertible to {System.Text.Json.JsonValueKind.Object}");
             }
             Menes.ValidationContext context = validationContext;
             context = Menes.Validation.ValidateRequiredProperty(context, this.Bar, BarPropertyNamePath);
@@ -975,7 +975,7 @@ public readonly struct Schema : Menes.IJsonValue
         {
             if (this.IsNull)
             {
-                return validationContext.WithError($"6.1.1. type: the element with type {this.JsonElement.ValueKind} is not convertible to {{JsonValueKind.Object}}");
+                return validationContext.WithError($"6.1.1. type: the element with type {this.JsonElement.ValueKind} is not convertible to {System.Text.Json.JsonValueKind.Object}");
             }
             Menes.ValidationContext context = validationContext;
             context = Menes.Validation.ValidateRequiredProperty(context, this.Baz, BazPropertyNamePath);
@@ -1443,7 +1443,7 @@ public readonly struct Schema : Menes.IJsonValue
         {
             if (this.IsNull)
             {
-                return validationContext.WithError($"6.1.1. type: the element with type {this.JsonElement.ValueKind} is not convertible to {{JsonValueKind.Object}}");
+                return validationContext.WithError($"6.1.1. type: the element with type {this.JsonElement.ValueKind} is not convertible to {System.Text.Json.JsonValueKind.Object}");
             }
             Menes.ValidationContext context = validationContext;
             context = Menes.Validation.ValidateRequiredProperty(context, this.Quux, QuuxPropertyNamePath);
