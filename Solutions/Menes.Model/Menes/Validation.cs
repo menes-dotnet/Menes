@@ -162,7 +162,7 @@ namespace Menes
             where TItem : struct, IJsonValue
         {
             ValidationContext context = validationContext.WithPath(validationContext.Path + propertyPathToAppend);
-            if (value.IsNull)
+            if (value.IsNull && !(value.HasJsonElement && value.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Null))
             {
                 context = context.WithError($"6.5.3. required: The property was not present.");
             }

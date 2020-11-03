@@ -82,9 +82,9 @@ public readonly struct Schema : Menes.IJsonValue, System.IEquatable<Schema>
         Menes.ValidationContext oneOfValidationContext2 = Menes.ValidationContext.Root.WithPath(context.Path);
         Menes.JsonInteger jsonIntegerOneOfValue0 = Menes.JsonAny.From(value).As<Menes.JsonInteger>();
         oneOfValidationContext1 = jsonIntegerOneOfValue0.Validate(oneOfValidationContext1);
-        Schema.SchemaValue schemaValueOneOfValue1 = Menes.JsonAny.From(value).As<Schema.SchemaValue>();
-        oneOfValidationContext2 = schemaValueOneOfValue1.Validate(oneOfValidationContext2);
-        context = Menes.Validation.ValidateOneOf(context, ("Menes.JsonInteger", oneOfValidationContext1), ("Schema.SchemaValue", oneOfValidationContext2));
+        Schema.Item2Value item2ValueOneOfValue1 = Menes.JsonAny.From(value).As<Schema.Item2Value>();
+        oneOfValidationContext2 = item2ValueOneOfValue1.Validate(oneOfValidationContext2);
+        context = Menes.Validation.ValidateOneOf(context, ("Menes.JsonInteger", oneOfValidationContext1), ("Schema.Item2Value", oneOfValidationContext2));
         return context;
     }
     public void WriteTo(System.Text.Json.Utf8JsonWriter writer)
@@ -109,17 +109,17 @@ public readonly struct Schema : Menes.IJsonValue, System.IEquatable<Schema>
             return this.JsonElement.GetRawText();
         }
     }
-    public readonly struct SchemaValue : Menes.IJsonValue, System.IEquatable<SchemaValue>
+    public readonly struct Item2Value : Menes.IJsonValue, System.IEquatable<Item2Value>
     {
-        public static readonly System.Func<System.Text.Json.JsonElement, SchemaValue> FromJsonElement = e => new SchemaValue(e);
-        public static readonly SchemaValue Null = new SchemaValue(default(System.Text.Json.JsonElement));
+        public static readonly System.Func<System.Text.Json.JsonElement, Item2Value> FromJsonElement = e => new Item2Value(e);
+        public static readonly Item2Value Null = new Item2Value(default(System.Text.Json.JsonElement));
         private static readonly Menes.JsonNumber? MultipleOf = null;
         private static readonly Menes.JsonNumber? Maximum = null;
         private static readonly Menes.JsonNumber? ExclusiveMaximum = null;
         private static readonly Menes.JsonNumber? Minimum = 2;
         private static readonly Menes.JsonNumber? ExclusiveMinimum = null;
         private readonly Menes.JsonAny? value;
-        public SchemaValue(Menes.JsonAny value)
+        public Item2Value(Menes.JsonAny value)
         {
             if (value.HasJsonElement)
             {
@@ -132,20 +132,20 @@ public readonly struct Schema : Menes.IJsonValue, System.IEquatable<Schema>
                 this.JsonElement = default;
             }
         }
-        public SchemaValue(System.Text.Json.JsonElement jsonElement)
+        public Item2Value(System.Text.Json.JsonElement jsonElement)
         {
             this.value = null;
             this.JsonElement = jsonElement;
         }
         public bool IsNull => this.value == null && (this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Undefined || this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Null);
-        public SchemaValue? AsOptional => this.IsNull ? default(SchemaValue?) : this;
+        public Item2Value? AsOptional => this.IsNull ? default(Item2Value?) : this;
         public bool HasJsonElement => this.JsonElement.ValueKind != System.Text.Json.JsonValueKind.Undefined;
         public System.Text.Json.JsonElement JsonElement { get; }
-        public static implicit operator SchemaValue(Menes.JsonAny value)
+        public static implicit operator Item2Value(Menes.JsonAny value)
         {
-            return new SchemaValue(value);
+            return new Item2Value(value);
         }
-        public static implicit operator Menes.JsonAny(SchemaValue value)
+        public static implicit operator Menes.JsonAny(Item2Value value)
         {
             if (value.value is Menes.JsonAny clrValue)
             {
@@ -157,25 +157,25 @@ public readonly struct Schema : Menes.IJsonValue, System.IEquatable<Schema>
         {
             return Menes.JsonAny.IsConvertibleFrom(jsonElement);
         }
-        public static SchemaValue FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<char> propertyName) =>
+        public static Item2Value FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<char> propertyName) =>
            parentDocument.ValueKind == System.Text.Json.JsonValueKind.Object ?
                 (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
-                    ? new SchemaValue(property)
+                    ? new Item2Value(property)
                     : Null)
                 : Null;
-        public static SchemaValue FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, string propertyName) =>
+        public static Item2Value FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, string propertyName) =>
            parentDocument.ValueKind == System.Text.Json.JsonValueKind.Object ?
                 (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
-                    ? new SchemaValue(property)
+                    ? new Item2Value(property)
                     : Null)
                 : Null;
-        public static SchemaValue FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<byte> utf8PropertyName) =>
+        public static Item2Value FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<byte> utf8PropertyName) =>
            parentDocument.ValueKind == System.Text.Json.JsonValueKind.Object ?
                 (parentDocument.TryGetProperty(utf8PropertyName, out System.Text.Json.JsonElement property)
-                    ? new SchemaValue(property)
+                    ? new Item2Value(property)
                     : Null)
                 : Null;
-        public bool Equals(SchemaValue other)
+        public bool Equals(Item2Value other)
         {
             return this.Equals((Menes.JsonAny)other);
         }

@@ -258,9 +258,19 @@ namespace Menes.Json.Schema.TypeGenerator
                 return this.CreateAny(schema, name);
             }
 
-            if (schema.OneOf is JsonSchema.NonEmptySubschemaArray || schema.AnyOf is JsonSchema.NonEmptySubschemaArray || (schema.Type is JsonSchema.TypeEnumOrArrayOfTypeEnum type && type.IsArrayOfTypeEnum))
+            if (schema.OneOf is JsonSchema.NonEmptySubschemaArray)
             {
-                return Task.FromResult<ITypeDeclaration>(new UnionTypeDeclaration(name));
+                return Task.FromResult<ITypeDeclaration>(new UnionTypeDeclaration(name, UnionTypeDeclaration.UnionKind.OneOf));
+            }
+
+            if (schema.AnyOf is JsonSchema.NonEmptySubschemaArray)
+            {
+                return Task.FromResult<ITypeDeclaration>(new UnionTypeDeclaration(name, UnionTypeDeclaration.UnionKind.AnyOf));
+            }
+
+            if (schema.Type is JsonSchema.TypeEnumOrArrayOfTypeEnum type && type.IsArrayOfTypeEnum)
+            {
+                return Task.FromResult<ITypeDeclaration>(new UnionTypeDeclaration(name, UnionTypeDeclaration.UnionKind.AnyOf));
             }
 
             return Task.FromResult<ITypeDeclaration>(new ObjectTypeDeclaration(name));
@@ -615,16 +625,27 @@ namespace Menes.Json.Schema.TypeGenerator
 
             var result = new List<ITypeDeclaration>();
 
+            int itemIndex = 1;
             foreach (JsonSchema.SchemaOrReference sor in s)
             {
-                ITypeDeclaration? item = await this.GetTypeDeclarationFor(sor, rootDocument, baseUri).ConfigureAwait(false);
+                this.propertyNameStack.Push($"Item{itemIndex}");
 
-                if (item is null)
+                try
                 {
-                    throw new InvalidOperationException($"Unable to find the type declaration for {sor}");
-                }
+                    ITypeDeclaration? item = await this.GetTypeDeclarationFor(sor, rootDocument, baseUri).ConfigureAwait(false);
 
-                result.Add(item);
+                    if (item is null)
+                    {
+                        throw new InvalidOperationException($"Unable to find the type declaration for {sor}");
+                    }
+
+                    result.Add(item);
+                }
+                finally
+                {
+                    ++itemIndex;
+                    this.propertyNameStack.Pop();
+                }
             }
 
             return result;

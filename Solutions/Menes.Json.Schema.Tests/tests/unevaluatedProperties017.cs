@@ -80,10 +80,10 @@ public readonly struct Schema : Menes.IJsonValue, System.IEquatable<Schema>
         context = value.Validate(context);
         Menes.ValidationContext allOfValidationContext1 = Menes.ValidationContext.Root.WithPath(context.Path);
         Menes.ValidationContext allOfValidationContext2 = Menes.ValidationContext.Root.WithPath(context.Path);
-        Schema.SchemaValue schemaValueAllOfValue0 = Menes.JsonAny.From(value).As<Schema.SchemaValue>();
-        allOfValidationContext1 = schemaValueAllOfValue0.Validate(allOfValidationContext1);
-        Schema.SchemaValue schemaValueAllOfValue1 = Menes.JsonAny.From(value).As<Schema.SchemaValue>();
-        allOfValidationContext2 = schemaValueAllOfValue1.Validate(allOfValidationContext2);
+        Schema.Item1Value item1ValueAllOfValue0 = Menes.JsonAny.From(value).As<Schema.Item1Value>();
+        allOfValidationContext1 = item1ValueAllOfValue0.Validate(allOfValidationContext1);
+        Menes.JsonAny jsonAnyAllOfValue1 = Menes.JsonAny.From(value).As<Menes.JsonAny>();
+        allOfValidationContext2 = jsonAnyAllOfValue1.Validate(allOfValidationContext2);
         context = Menes.Validation.ValidateAllOf(context, allOfValidationContext1, allOfValidationContext2);
         return context;
     }
@@ -110,72 +110,72 @@ public readonly struct Schema : Menes.IJsonValue, System.IEquatable<Schema>
         }
     }
 
-    public readonly struct SchemaValue : Menes.IJsonObject, System.IEquatable<Schema.SchemaValue>, Menes.IJsonAdditionalProperties<Menes.JsonAny>
+    public readonly struct Item1Value : Menes.IJsonObject, System.IEquatable<Schema.Item1Value>, Menes.IJsonAdditionalProperties<Menes.JsonAny>
     {
-        public static readonly Schema.SchemaValue Null = new Schema.SchemaValue(default(System.Text.Json.JsonElement));
-        public static readonly System.Func<System.Text.Json.JsonElement, Schema.SchemaValue> FromJsonElement = e => new Schema.SchemaValue(e);
+        public static readonly Schema.Item1Value Null = new Schema.Item1Value(default(System.Text.Json.JsonElement));
+        public static readonly System.Func<System.Text.Json.JsonElement, Schema.Item1Value> FromJsonElement = e => new Schema.Item1Value(e);
         private const string FooPropertyNamePath = ".foo";
         private static readonly System.ReadOnlyMemory<byte> FooPropertyNameBytes = new byte[] { 102, 111, 111 };
         private static readonly System.Text.Json.JsonEncodedText EncodedFooPropertyName = System.Text.Json.JsonEncodedText.Encode(FooPropertyNameBytes.Span);
         private static readonly System.Collections.Immutable.ImmutableArray<System.ReadOnlyMemory<byte>> KnownProperties = System.Collections.Immutable.ImmutableArray.Create(FooPropertyNameBytes);
         private readonly Menes.JsonAny? foo;
         private readonly Menes.JsonProperties<Menes.JsonAny>? additionalPropertiesBacking;
-        public SchemaValue(System.Text.Json.JsonElement jsonElement)
+        public Item1Value(System.Text.Json.JsonElement jsonElement)
         {
             this.JsonElement = jsonElement;
             this.foo = null;
             this.additionalPropertiesBacking = null;
         }
-        public SchemaValue(Menes.JsonAny? foo, Menes.JsonProperties<Menes.JsonAny> additionalPropertiesBacking)
+        public Item1Value(Menes.JsonAny? foo, Menes.JsonProperties<Menes.JsonAny> additionalPropertiesBacking)
         {
             this.foo = foo;
             this.JsonElement = default;
             this.additionalPropertiesBacking = additionalPropertiesBacking;
         }
-        public SchemaValue(Menes.JsonAny? foo, params (string, Menes.JsonAny)[] additionalPropertiesBacking)
+        public Item1Value(Menes.JsonAny? foo, params (string, Menes.JsonAny)[] additionalPropertiesBacking)
         {
             this.foo = foo;
             this.JsonElement = default;
             this.additionalPropertiesBacking = Menes.JsonProperties<Menes.JsonAny>.FromValues(additionalPropertiesBacking);
         }
-        public SchemaValue(Menes.JsonAny? foo = null)
+        public Item1Value(Menes.JsonAny? foo = null)
         {
             this.foo = foo;
             this.JsonElement = default;
             this.additionalPropertiesBacking = null;
         }
-        public SchemaValue(Menes.JsonAny? foo, (string, Menes.JsonAny) additionalProperty1)
+        public Item1Value(Menes.JsonAny? foo, (string, Menes.JsonAny) additionalProperty1)
         {
             this.foo = foo;
             this.JsonElement = default;
             this.additionalPropertiesBacking = Menes.JsonProperties<Menes.JsonAny>.FromValues(additionalProperty1);
         }
-        public SchemaValue(Menes.JsonAny? foo, (string, Menes.JsonAny) additionalProperty1, (string, Menes.JsonAny) additionalProperty2)
+        public Item1Value(Menes.JsonAny? foo, (string, Menes.JsonAny) additionalProperty1, (string, Menes.JsonAny) additionalProperty2)
         {
             this.foo = foo;
             this.JsonElement = default;
             this.additionalPropertiesBacking = Menes.JsonProperties<Menes.JsonAny>.FromValues(additionalProperty1, additionalProperty2);
         }
-        public SchemaValue(Menes.JsonAny? foo, (string, Menes.JsonAny) additionalProperty1, (string, Menes.JsonAny) additionalProperty2, (string, Menes.JsonAny) additionalProperty3)
+        public Item1Value(Menes.JsonAny? foo, (string, Menes.JsonAny) additionalProperty1, (string, Menes.JsonAny) additionalProperty2, (string, Menes.JsonAny) additionalProperty3)
         {
             this.foo = foo;
             this.JsonElement = default;
             this.additionalPropertiesBacking = Menes.JsonProperties<Menes.JsonAny>.FromValues(additionalProperty1, additionalProperty2, additionalProperty3);
         }
-        public SchemaValue(Menes.JsonAny? foo, (string, Menes.JsonAny) additionalProperty1, (string, Menes.JsonAny) additionalProperty2, (string, Menes.JsonAny) additionalProperty3, (string, Menes.JsonAny) additionalProperty4)
+        public Item1Value(Menes.JsonAny? foo, (string, Menes.JsonAny) additionalProperty1, (string, Menes.JsonAny) additionalProperty2, (string, Menes.JsonAny) additionalProperty3, (string, Menes.JsonAny) additionalProperty4)
         {
             this.foo = foo;
             this.JsonElement = default;
             this.additionalPropertiesBacking = Menes.JsonProperties<Menes.JsonAny>.FromValues(additionalProperty1, additionalProperty2, additionalProperty3, additionalProperty4);
         }
-        private SchemaValue(Menes.JsonAny? foo, Menes.JsonProperties<Menes.JsonAny>? additionalPropertiesBacking)
+        private Item1Value(Menes.JsonAny? foo, Menes.JsonProperties<Menes.JsonAny>? additionalPropertiesBacking)
         {
             this.foo = foo;
             this.JsonElement = default;
             this.additionalPropertiesBacking = additionalPropertiesBacking;
         }
         public bool IsNull => (this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Undefined || this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Null) && (this.foo is null || this.foo.Value.IsNull);
-        public Schema.SchemaValue? AsOptional => this.IsNull ? default(Schema.SchemaValue?) : this;
+        public Schema.Item1Value? AsOptional => this.IsNull ? default(Schema.Item1Value?) : this;
         public Menes.JsonAny? Foo => this.foo ?? Menes.JsonAny.FromOptionalProperty(this.JsonElement, FooPropertyNameBytes.Span).AsOptional;
         public int PropertiesCount => KnownProperties.Length + this.JsonAdditionalPropertiesCount;
         public int JsonAdditionalPropertiesCount
@@ -216,53 +216,53 @@ public readonly struct Schema : Menes.IJsonValue, System.IEquatable<Schema>
         {
             return jsonElement.ValueKind == System.Text.Json.JsonValueKind.Object || jsonElement.ValueKind == System.Text.Json.JsonValueKind.Null;
         }
-        public static Schema.SchemaValue FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<char> propertyName) =>
+        public static Schema.Item1Value FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<char> propertyName) =>
            parentDocument.ValueKind == System.Text.Json.JsonValueKind.Object ?
                 (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
-                    ? new Schema.SchemaValue(property)
+                    ? new Schema.Item1Value(property)
                     : Null)
                 : Null;
-        public static Schema.SchemaValue FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, string propertyName) =>
+        public static Schema.Item1Value FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, string propertyName) =>
            parentDocument.ValueKind == System.Text.Json.JsonValueKind.Object ?
                 (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
-                    ? new Schema.SchemaValue(property)
+                    ? new Schema.Item1Value(property)
                     : Null)
                 : Null;
-        public static Schema.SchemaValue FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<byte> utf8PropertyName) =>
+        public static Schema.Item1Value FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<byte> utf8PropertyName) =>
            parentDocument.ValueKind == System.Text.Json.JsonValueKind.Object ?
                 (parentDocument.TryGetProperty(utf8PropertyName, out System.Text.Json.JsonElement property)
-                    ? new Schema.SchemaValue(property)
+                    ? new Schema.Item1Value(property)
                     : Null)
             : Null;
-        public Schema.SchemaValue WithFoo(Menes.JsonAny? value)
+        public Schema.Item1Value WithFoo(Menes.JsonAny? value)
         {
-            return new Schema.SchemaValue(value, this.GetJsonProperties());
+            return new Schema.Item1Value(value, this.GetJsonProperties());
         }
-        public Schema.SchemaValue ReplaceAll(Menes.JsonProperties<Menes.JsonAny> newAdditional)
+        public Schema.Item1Value ReplaceAll(Menes.JsonProperties<Menes.JsonAny> newAdditional)
         {
-            return new Schema.SchemaValue(this.Foo, newAdditional);
+            return new Schema.Item1Value(this.Foo, newAdditional);
         }
-        public Schema.SchemaValue ReplaceAll(params (string, Menes.JsonAny)[] newAdditional)
+        public Schema.Item1Value ReplaceAll(params (string, Menes.JsonAny)[] newAdditional)
         {
-            return new Schema.SchemaValue(this.Foo, Menes.JsonProperties<Menes.JsonAny>.FromValues(newAdditional));
+            return new Schema.Item1Value(this.Foo, Menes.JsonProperties<Menes.JsonAny>.FromValues(newAdditional));
         }
-        public Schema.SchemaValue ReplaceAll((string, Menes.JsonAny) newAdditional1)
+        public Schema.Item1Value ReplaceAll((string, Menes.JsonAny) newAdditional1)
         {
-            return new Schema.SchemaValue(this.Foo, Menes.JsonProperties<Menes.JsonAny>.FromValues(newAdditional1));
+            return new Schema.Item1Value(this.Foo, Menes.JsonProperties<Menes.JsonAny>.FromValues(newAdditional1));
         }
-        public Schema.SchemaValue ReplaceAll((string, Menes.JsonAny) newAdditional1, (string, Menes.JsonAny) newAdditional2)
+        public Schema.Item1Value ReplaceAll((string, Menes.JsonAny) newAdditional1, (string, Menes.JsonAny) newAdditional2)
         {
-            return new Schema.SchemaValue(this.Foo, Menes.JsonProperties<Menes.JsonAny>.FromValues(newAdditional1, newAdditional2));
+            return new Schema.Item1Value(this.Foo, Menes.JsonProperties<Menes.JsonAny>.FromValues(newAdditional1, newAdditional2));
         }
-        public Schema.SchemaValue ReplaceAll((string, Menes.JsonAny) newAdditional1, (string, Menes.JsonAny) newAdditional2, (string, Menes.JsonAny) newAdditional3)
+        public Schema.Item1Value ReplaceAll((string, Menes.JsonAny) newAdditional1, (string, Menes.JsonAny) newAdditional2, (string, Menes.JsonAny) newAdditional3)
         {
-            return new Schema.SchemaValue(this.Foo, Menes.JsonProperties<Menes.JsonAny>.FromValues(newAdditional1, newAdditional2, newAdditional3));
+            return new Schema.Item1Value(this.Foo, Menes.JsonProperties<Menes.JsonAny>.FromValues(newAdditional1, newAdditional2, newAdditional3));
         }
-        public Schema.SchemaValue ReplaceAll((string, Menes.JsonAny) newAdditional1, (string, Menes.JsonAny) newAdditional2, (string, Menes.JsonAny) newAdditional3, (string, Menes.JsonAny) newAdditional4)
+        public Schema.Item1Value ReplaceAll((string, Menes.JsonAny) newAdditional1, (string, Menes.JsonAny) newAdditional2, (string, Menes.JsonAny) newAdditional3, (string, Menes.JsonAny) newAdditional4)
         {
-            return new Schema.SchemaValue(this.Foo, Menes.JsonProperties<Menes.JsonAny>.FromValues(newAdditional1, newAdditional2, newAdditional3, newAdditional4));
+            return new Schema.Item1Value(this.Foo, Menes.JsonProperties<Menes.JsonAny>.FromValues(newAdditional1, newAdditional2, newAdditional3, newAdditional4));
         }
-        public Schema.SchemaValue Add(params (string, Menes.JsonAny)[] newAdditional)
+        public Schema.Item1Value Add(params (string, Menes.JsonAny)[] newAdditional)
         {
             System.Collections.Immutable.ImmutableArray<Menes.JsonPropertyReference<Menes.JsonAny>>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonPropertyReference<Menes.JsonAny>>();
             foreach (Menes.JsonPropertyReference<Menes.JsonAny> property in this.JsonAdditionalProperties)
@@ -273,45 +273,45 @@ public readonly struct Schema : Menes.IJsonValue, System.IEquatable<Schema>
             {
                 arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(name, value));
             }
-            return new Schema.SchemaValue(this.Foo, new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
+            return new Schema.Item1Value(this.Foo, new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
         }
-        public Schema.SchemaValue Add((string name, Menes.JsonAny value) newAdditional1)
+        public Schema.Item1Value Add((string name, Menes.JsonAny value) newAdditional1)
         {
             System.Collections.Immutable.ImmutableArray<Menes.JsonPropertyReference<Menes.JsonAny>>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonPropertyReference<Menes.JsonAny>>();
             foreach (Menes.JsonPropertyReference<Menes.JsonAny> property in this.JsonAdditionalProperties)
             {
                 arrayBuilder.Add(property);
             }
-            arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional1.name, newAdditional1.value)); return new Schema.SchemaValue(this.Foo, new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
+            arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional1.name, newAdditional1.value)); return new Schema.Item1Value(this.Foo, new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
         }
-        public Schema.SchemaValue Add((string name, Menes.JsonAny value) newAdditional1, (string name, Menes.JsonAny value) newAdditional2)
+        public Schema.Item1Value Add((string name, Menes.JsonAny value) newAdditional1, (string name, Menes.JsonAny value) newAdditional2)
         {
             System.Collections.Immutable.ImmutableArray<Menes.JsonPropertyReference<Menes.JsonAny>>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonPropertyReference<Menes.JsonAny>>();
             foreach (Menes.JsonPropertyReference<Menes.JsonAny> property in this.JsonAdditionalProperties)
             {
                 arrayBuilder.Add(property);
             }
-            arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional1.name, newAdditional1.value)); arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional2.name, newAdditional2.value)); return new Schema.SchemaValue(this.Foo, new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
+            arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional1.name, newAdditional1.value)); arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional2.name, newAdditional2.value)); return new Schema.Item1Value(this.Foo, new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
         }
-        public Schema.SchemaValue Add((string name, Menes.JsonAny value) newAdditional1, (string name, Menes.JsonAny value) newAdditional2, (string name, Menes.JsonAny value) newAdditional3)
+        public Schema.Item1Value Add((string name, Menes.JsonAny value) newAdditional1, (string name, Menes.JsonAny value) newAdditional2, (string name, Menes.JsonAny value) newAdditional3)
         {
             System.Collections.Immutable.ImmutableArray<Menes.JsonPropertyReference<Menes.JsonAny>>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonPropertyReference<Menes.JsonAny>>();
             foreach (Menes.JsonPropertyReference<Menes.JsonAny> property in this.JsonAdditionalProperties)
             {
                 arrayBuilder.Add(property);
             }
-            arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional1.name, newAdditional1.value)); arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional2.name, newAdditional2.value)); arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional3.name, newAdditional3.value)); return new Schema.SchemaValue(this.Foo, new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
+            arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional1.name, newAdditional1.value)); arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional2.name, newAdditional2.value)); arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional3.name, newAdditional3.value)); return new Schema.Item1Value(this.Foo, new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
         }
-        public Schema.SchemaValue Add((string name, Menes.JsonAny value) newAdditional1, (string name, Menes.JsonAny value) newAdditional2, (string name, Menes.JsonAny value) newAdditional3, (string name, Menes.JsonAny value) newAdditional4)
+        public Schema.Item1Value Add((string name, Menes.JsonAny value) newAdditional1, (string name, Menes.JsonAny value) newAdditional2, (string name, Menes.JsonAny value) newAdditional3, (string name, Menes.JsonAny value) newAdditional4)
         {
             System.Collections.Immutable.ImmutableArray<Menes.JsonPropertyReference<Menes.JsonAny>>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonPropertyReference<Menes.JsonAny>>();
             foreach (Menes.JsonPropertyReference<Menes.JsonAny> property in this.JsonAdditionalProperties)
             {
                 arrayBuilder.Add(property);
             }
-            arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional1.name, newAdditional1.value)); arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional2.name, newAdditional2.value)); arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional3.name, newAdditional3.value)); arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional4.name, newAdditional4.value)); return new Schema.SchemaValue(this.Foo, new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
+            arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional1.name, newAdditional1.value)); arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional2.name, newAdditional2.value)); arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional3.name, newAdditional3.value)); arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional4.name, newAdditional4.value)); return new Schema.Item1Value(this.Foo, new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
         }
-        public Schema.SchemaValue Remove(params string[] namesToRemove)
+        public Schema.Item1Value Remove(params string[] namesToRemove)
         {
             System.Collections.Immutable.ImmutableHashSet<string> ihs = System.Collections.Immutable.ImmutableHashSet.Create<string>(namesToRemove);
             System.Collections.Immutable.ImmutableArray<Menes.JsonPropertyReference<Menes.JsonAny>>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonPropertyReference<Menes.JsonAny>>();
@@ -322,9 +322,9 @@ public readonly struct Schema : Menes.IJsonValue, System.IEquatable<Schema>
                     arrayBuilder.Add(property);
                 }
             }
-            return new Schema.SchemaValue(this.Foo, new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
+            return new Schema.Item1Value(this.Foo, new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
         }
-        public Schema.SchemaValue Remove(string itemToRemove1)
+        public Schema.Item1Value Remove(string itemToRemove1)
         {
             System.Collections.Immutable.ImmutableHashSet<string>.Builder ihsBuilder = System.Collections.Immutable.ImmutableHashSet.CreateBuilder<string>();
             ihsBuilder.Add(itemToRemove1); System.Collections.Immutable.ImmutableHashSet<string> ihs = ihsBuilder.ToImmutable();
@@ -336,9 +336,9 @@ public readonly struct Schema : Menes.IJsonValue, System.IEquatable<Schema>
                     arrayBuilder.Add(property);
                 }
             }
-            return new Schema.SchemaValue(this.Foo, new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
+            return new Schema.Item1Value(this.Foo, new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
         }
-        public Schema.SchemaValue Remove(string itemToRemove1, string itemToRemove2)
+        public Schema.Item1Value Remove(string itemToRemove1, string itemToRemove2)
         {
             System.Collections.Immutable.ImmutableHashSet<string>.Builder ihsBuilder = System.Collections.Immutable.ImmutableHashSet.CreateBuilder<string>();
             ihsBuilder.Add(itemToRemove1); ihsBuilder.Add(itemToRemove2); System.Collections.Immutable.ImmutableHashSet<string> ihs = ihsBuilder.ToImmutable();
@@ -350,9 +350,9 @@ public readonly struct Schema : Menes.IJsonValue, System.IEquatable<Schema>
                     arrayBuilder.Add(property);
                 }
             }
-            return new Schema.SchemaValue(this.Foo, new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
+            return new Schema.Item1Value(this.Foo, new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
         }
-        public Schema.SchemaValue Remove(string itemToRemove1, string itemToRemove2, string itemToRemove3)
+        public Schema.Item1Value Remove(string itemToRemove1, string itemToRemove2, string itemToRemove3)
         {
             System.Collections.Immutable.ImmutableHashSet<string>.Builder ihsBuilder = System.Collections.Immutable.ImmutableHashSet.CreateBuilder<string>();
             ihsBuilder.Add(itemToRemove1); ihsBuilder.Add(itemToRemove2); ihsBuilder.Add(itemToRemove3); System.Collections.Immutable.ImmutableHashSet<string> ihs = ihsBuilder.ToImmutable();
@@ -364,9 +364,9 @@ public readonly struct Schema : Menes.IJsonValue, System.IEquatable<Schema>
                     arrayBuilder.Add(property);
                 }
             }
-            return new Schema.SchemaValue(this.Foo, new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
+            return new Schema.Item1Value(this.Foo, new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
         }
-        public Schema.SchemaValue Remove(string itemToRemove1, string itemToRemove2, string itemToRemove3, string itemToRemove4)
+        public Schema.Item1Value Remove(string itemToRemove1, string itemToRemove2, string itemToRemove3, string itemToRemove4)
         {
             System.Collections.Immutable.ImmutableHashSet<string>.Builder ihsBuilder = System.Collections.Immutable.ImmutableHashSet.CreateBuilder<string>();
             ihsBuilder.Add(itemToRemove1); ihsBuilder.Add(itemToRemove2); ihsBuilder.Add(itemToRemove3); ihsBuilder.Add(itemToRemove4); System.Collections.Immutable.ImmutableHashSet<string> ihs = ihsBuilder.ToImmutable();
@@ -378,9 +378,9 @@ public readonly struct Schema : Menes.IJsonValue, System.IEquatable<Schema>
                     arrayBuilder.Add(property);
                 }
             }
-            return new Schema.SchemaValue(this.Foo, new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
+            return new Schema.Item1Value(this.Foo, new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
         }
-        public Schema.SchemaValue Remove(System.Predicate<Menes.JsonPropertyReference<Menes.JsonAny>> removeIfTrue)
+        public Schema.Item1Value Remove(System.Predicate<Menes.JsonPropertyReference<Menes.JsonAny>> removeIfTrue)
         {
             System.Collections.Immutable.ImmutableArray<Menes.JsonPropertyReference<Menes.JsonAny>>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonPropertyReference<Menes.JsonAny>>();
             foreach (Menes.JsonPropertyReference<Menes.JsonAny> property in this.JsonAdditionalProperties)
@@ -390,7 +390,7 @@ public readonly struct Schema : Menes.IJsonValue, System.IEquatable<Schema>
                     arrayBuilder.Add(property);
                 }
             }
-            return new Schema.SchemaValue(this.Foo, new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
+            return new Schema.Item1Value(this.Foo, new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
         }
         public void WriteTo(System.Text.Json.Utf8JsonWriter writer)
         {
@@ -414,7 +414,7 @@ public readonly struct Schema : Menes.IJsonValue, System.IEquatable<Schema>
                 writer.WriteEndObject();
             }
         }
-        public bool Equals(Schema.SchemaValue other)
+        public bool Equals(Schema.Item1Value other)
         {
             if ((this.IsNull && !other.IsNull) || (!this.IsNull && other.IsNull))
             {

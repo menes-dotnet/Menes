@@ -100,7 +100,7 @@ public readonly struct Schema : Menes.IJsonValue, System.Collections.Generic.IEn
         var itemsValidationEnumerator = array.GetEnumerator();
         if (itemsValidationEnumerator.MoveNext())
         {
-            context = Menes.Validation.ValidateProperty(context, Menes.JsonAny.From(itemsValidationEnumerator.Current).As<Schema.SchemaValue>(), $"[0]");
+            context = Menes.Validation.ValidateProperty(context, Menes.JsonAny.From(itemsValidationEnumerator.Current).As<Schema.Item1Value>(), $"[0]");
         }
         int extraIndex = 0;
         while (itemsValidationEnumerator.MoveNext())
@@ -402,13 +402,13 @@ public readonly struct Schema : Menes.IJsonValue, System.Collections.Generic.IEn
         }
         return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
     }
-    public readonly struct SchemaValue : Menes.IJsonValue, System.IEquatable<SchemaValue>
+    public readonly struct Item1Value : Menes.IJsonValue, System.IEquatable<Item1Value>
     {
-        public static readonly System.Func<System.Text.Json.JsonElement, SchemaValue> FromJsonElement = e => new SchemaValue(e);
-        public static readonly SchemaValue Null = new SchemaValue(default(System.Text.Json.JsonElement));
+        public static readonly System.Func<System.Text.Json.JsonElement, Item1Value> FromJsonElement = e => new Item1Value(e);
+        public static readonly Item1Value Null = new Item1Value(default(System.Text.Json.JsonElement));
         private static readonly Menes.JsonAny ConstValue = BuildConstValue();
         private readonly Menes.JsonAny? value;
-        public SchemaValue(Menes.JsonAny value)
+        public Item1Value(Menes.JsonAny value)
         {
             if (value.HasJsonElement)
             {
@@ -421,20 +421,20 @@ public readonly struct Schema : Menes.IJsonValue, System.Collections.Generic.IEn
                 this.JsonElement = default;
             }
         }
-        public SchemaValue(System.Text.Json.JsonElement jsonElement)
+        public Item1Value(System.Text.Json.JsonElement jsonElement)
         {
             this.value = null;
             this.JsonElement = jsonElement;
         }
         public bool IsNull => this.value == null && (this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Undefined || this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Null);
-        public SchemaValue? AsOptional => this.IsNull ? default(SchemaValue?) : this;
+        public Item1Value? AsOptional => this.IsNull ? default(Item1Value?) : this;
         public bool HasJsonElement => this.JsonElement.ValueKind != System.Text.Json.JsonValueKind.Undefined;
         public System.Text.Json.JsonElement JsonElement { get; }
-        public static implicit operator SchemaValue(Menes.JsonAny value)
+        public static implicit operator Item1Value(Menes.JsonAny value)
         {
-            return new SchemaValue(value);
+            return new Item1Value(value);
         }
-        public static implicit operator Menes.JsonAny(SchemaValue value)
+        public static implicit operator Menes.JsonAny(Item1Value value)
         {
             if (value.value is Menes.JsonAny clrValue)
             {
@@ -446,25 +446,25 @@ public readonly struct Schema : Menes.IJsonValue, System.Collections.Generic.IEn
         {
             return Menes.JsonAny.IsConvertibleFrom(jsonElement);
         }
-        public static SchemaValue FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<char> propertyName) =>
+        public static Item1Value FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<char> propertyName) =>
            parentDocument.ValueKind == System.Text.Json.JsonValueKind.Object ?
                 (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
-                    ? new SchemaValue(property)
+                    ? new Item1Value(property)
                     : Null)
                 : Null;
-        public static SchemaValue FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, string propertyName) =>
+        public static Item1Value FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, string propertyName) =>
            parentDocument.ValueKind == System.Text.Json.JsonValueKind.Object ?
                 (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
-                    ? new SchemaValue(property)
+                    ? new Item1Value(property)
                     : Null)
                 : Null;
-        public static SchemaValue FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<byte> utf8PropertyName) =>
+        public static Item1Value FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<byte> utf8PropertyName) =>
            parentDocument.ValueKind == System.Text.Json.JsonValueKind.Object ?
                 (parentDocument.TryGetProperty(utf8PropertyName, out System.Text.Json.JsonElement property)
-                    ? new SchemaValue(property)
+                    ? new Item1Value(property)
                     : Null)
                 : Null;
-        public bool Equals(SchemaValue other)
+        public bool Equals(Item1Value other)
         {
             return this.Equals((Menes.JsonAny)other);
         }
