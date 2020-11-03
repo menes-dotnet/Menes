@@ -4,7 +4,6 @@
 
 namespace Menes
 {
-    using System;
     using System.Collections.Immutable;
 
     /// <summary>

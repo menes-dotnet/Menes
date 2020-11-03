@@ -6,7 +6,6 @@ namespace Menes.TypeGenerator
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
     using System.Linq;
     using System.Text;
     using System.Text.Json;
@@ -65,6 +64,11 @@ namespace Menes.TypeGenerator
         /// Gets or sets the JSON object for the const validation.
         /// </summary>
         public string? ConstValidation { get; set; }
+
+        /// <summary>
+        /// Gets or sets the property patterns validation.
+        /// </summary>
+        public List<(string regex, ITypeDeclaration typeDeclaration)>? PatternPropertiesValidation { get; set; }
 
         /// <inheritdoc/>
         public override TypeDeclarationSyntax GenerateType()
@@ -135,6 +139,7 @@ namespace Menes.TypeGenerator
 
             this.BuildPropertyBackings(properties, members);
             this.BuildAdditionalPropertiesBacking(members);
+            this.BuildValidatePatternPropertyRegularExpressions(members);
 
             //// Constructors (public then private)
 
@@ -168,6 +173,7 @@ namespace Menes.TypeGenerator
             //// Private methods
             this.BuildJsonReferenceAccessors(properties, members);
             this.BuildJsonPropertiesAccessor(members);
+            this.BuildValidatePatternProperty(members);
 
             this.BuildNestedTypes(members);
 
@@ -309,17 +315,27 @@ namespace Menes.TypeGenerator
 
         private void BuildValidate(List<NamedPropertyDeclaration> properties, List<MemberDeclarationSyntax> members)
         {
+            bool hasPatternProperties = this.PatternPropertiesValidation is List<(string pattern, ITypeDeclaration declaration)>;
+
             var builder = new StringBuilder();
             builder.AppendLine("public Menes.ValidationContext Validate(in Menes.ValidationContext validationContext)");
             builder.AppendLine("{");
             builder.AppendLine("    Menes.ValidationContext context = validationContext;");
+
+            if (hasPatternProperties)
+            {
+                builder.AppendLine($"    System.Collections.Generic.HashSet<string> matchedProperties = new System.Collections.Generic.HashSet<string>(this.PropertiesCount);");
+            }
+
             foreach (NamedPropertyDeclaration property in properties)
             {
                 if (property.Type is OptionalTypeDeclaration)
                 {
                     builder.AppendLine($"    if (this.{property.PropertyName} is {property.Type.GetFullyQualifiedName()} {property.FieldName})");
                     builder.AppendLine("    {");
+
                     builder.AppendLine($"        context = Menes.Validation.ValidateProperty(context, {property.FieldName}, {property.PathPropertyName});");
+
                     builder.AppendLine("    }");
                 }
                 else
@@ -332,6 +348,17 @@ namespace Menes.TypeGenerator
             {
                 builder.AppendLine($"foreach (Menes.JsonPropertyReference<{additionalProperties.GetFullyQualifiedName()}> property in this.JsonAdditionalProperties)");
                 builder.AppendLine("{");
+                builder.AppendLine("string propertyName = property.Name;");
+
+                if (hasPatternProperties)
+                {
+                    builder.AppendLine($"       var patternContext = this.ValidatePatternProperty(Menes.ValidationContext.Root, property.Name, property.AsValue(), \".\" + property.Name);");
+                    builder.AppendLine("        if (patternContext.LastWasValid)");
+                    builder.AppendLine("        {");
+                    builder.AppendLine("            continue;");
+                    builder.AppendLine("        }");
+                }
+
                 builder.AppendLine($"    context = Menes.Validation.ValidateProperty(context, property.AsValue(), \".\" + property.Name);");
                 builder.AppendLine("}");
             }
@@ -340,11 +367,23 @@ namespace Menes.TypeGenerator
                 builder.AppendLine("if (this.HasJsonElement && this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Object)");
                 builder.AppendLine("{");
                 builder.AppendLine("int propCount = 0;");
+                builder.AppendLine("int targetPropCount = KnownProperties.Length;");
+
                 builder.AppendLine("var additionalPropertyEnumerator = this.JsonElement.EnumerateObject();");
                 builder.AppendLine("while (additionalPropertyEnumerator.MoveNext())");
                 builder.AppendLine("{");
+
+                if (hasPatternProperties)
+                {
+                    builder.AppendLine($"       var patternContext = this.ValidatePatternProperty(Menes.ValidationContext.Root, additionalPropertyEnumerator.Current.Name, Menes.JsonAny.FromJsonElement(additionalPropertyEnumerator.Current.Value), \".\" + additionalPropertyEnumerator.Current.Name);");
+                    builder.AppendLine("        if (patternContext.LastWasValid)");
+                    builder.AppendLine("        {");
+                    builder.AppendLine("            continue;");
+                    builder.AppendLine("        }");
+                }
+
                 builder.AppendLine("    propCount++;");
-                builder.AppendLine("    if (propCount > KnownProperties.Length)");
+                builder.AppendLine("    if (propCount > targetPropCount)");
                 builder.AppendLine("    {");
                 builder.AppendLine("        context = context.WithError(\"core 9.3.2.3. No additional properties were expected.\");");
                 builder.AppendLine("        break;");
@@ -1451,6 +1490,52 @@ namespace Menes.TypeGenerator
             builder.AppendLine("        return props;");
             builder.AppendLine("    }");
             builder.AppendLine($"    return new Menes.JsonProperties<{additionalProperties.GetFullyQualifiedName()}>(System.Collections.Immutable.ImmutableArray.ToImmutableArray(this.JsonAdditionalProperties));");
+            builder.AppendLine("}");
+
+            members.Add(SF.ParseMemberDeclaration(builder.ToString()));
+        }
+
+        private void BuildValidatePatternPropertyRegularExpressions(List<MemberDeclarationSyntax> members)
+        {
+            if (!(this.PatternPropertiesValidation is List<(string regex, ITypeDeclaration typeDeclaration)> patternProperties))
+            {
+                return;
+            }
+
+            int patternIndex = 0;
+            foreach ((string regex, ITypeDeclaration typeDeclaration) in patternProperties)
+            {
+                var builder = new StringBuilder();
+                builder.AppendLine($"private static readonly System.Text.RegularExpressions.Regex PatternPropertyRegex{patternIndex} = new System.Text.RegularExpressions.Regex({StringFormatter.EscapeForCSharpString(regex, true)}, System.Text.RegularExpressions.RegexOptions.Compiled);");
+                patternIndex++;
+                members.Add(SF.ParseMemberDeclaration(builder.ToString()));
+            }
+        }
+
+        private void BuildValidatePatternProperty(List<MemberDeclarationSyntax> members)
+        {
+            if (!(this.PatternPropertiesValidation is List<(string regex, ITypeDeclaration typeDeclaration)> patternProperties))
+            {
+                return;
+            }
+
+            var builder = new StringBuilder();
+            builder.AppendLine($"private Menes.ValidationContext ValidatePatternProperty<TItem>(in Menes.ValidationContext validationContext, string propertyName, in TItem value, string propertyPathToAppend)");
+            builder.AppendLine($"   where TItem : struct, IJsonValue");
+            builder.AppendLine("{");
+            builder.AppendLine("    var anyValue = Menes.JsonAny.From(value);");
+
+            int patternIndex = 0;
+            foreach ((string _, ITypeDeclaration typeDeclaration) in patternProperties)
+            {
+                builder.AppendLine($"if (PatternPropertyRegex{patternIndex}.IsMatch(propertyName) && anyValue.As<{typeDeclaration.GetFullyQualifiedName()}>().Validate(Menes.ValidationContext.Root).IsValid)");
+                builder.AppendLine("{");
+                builder.AppendLine("    return validationContext;");
+                builder.AppendLine("}");
+            }
+
+            builder.AppendLine("return validationContext.WithError(\"core 9.3.2.2. patternProperties: Unable to match any of the provided patternProperties.\");");
+
             builder.AppendLine("}");
 
             members.Add(SF.ParseMemberDeclaration(builder.ToString()));

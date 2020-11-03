@@ -6,7 +6,6 @@ namespace Menes.Json.Schema.TypeGenerator
 {
     using System;
     using System.Collections.Generic;
-    using System.Collections.Immutable;
     using System.Linq;
     using System.Text.Json;
     using System.Threading.Tasks;
@@ -299,6 +298,21 @@ namespace Menes.Json.Schema.TypeGenerator
             this.declarationStack.Push(typeDeclaration);
             typeDeclaration.AdditionalPropertiesType = await this.GetAdditionalPropertiesType(schema, rootDocument, baseUri).ConfigureAwait(false);
             this.declarationStack.Pop();
+
+            if (schema.PatternProperties is JsonSchema.SchemaProperties patternProperties)
+            {
+                var patternPropertyValidation = new List<(string, ITypeDeclaration)>();
+                foreach (JsonPropertyReference<JsonSchema.SchemaOrReference> patternProperty in patternProperties.JsonAdditionalProperties)
+                {
+                    ITypeDeclaration patternType = await this.GetTypeDeclarationFor(patternProperty.AsValue(), rootDocument, baseUri).ConfigureAwait(false) ?? AnyTypeDeclaration.Instance;
+                    patternPropertyValidation.Add((patternProperty.Name, patternType));
+                }
+
+                if (patternPropertyValidation.Count > 0)
+                {
+                    typeDeclaration.PatternPropertiesValidation = patternPropertyValidation;
+                }
+            }
 
             if (schema.Properties is JsonSchema.SchemaProperties properties)
             {
