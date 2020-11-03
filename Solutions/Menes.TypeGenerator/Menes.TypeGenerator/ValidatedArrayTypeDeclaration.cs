@@ -6,6 +6,7 @@ namespace Menes.TypeGenerator
 {
     using System;
     using System.Collections.Generic;
+    using System.Collections.Immutable;
     using System.Text;
     using Microsoft.CodeAnalysis.CSharp.Syntax;
 
@@ -24,7 +25,7 @@ namespace Menes.TypeGenerator
         public ValidatedArrayTypeDeclaration(string name, ITypeDeclaration? itemType = null)
             : base(name)
         {
-            this.ItemType = itemType ?? JsonValueTypeDeclaration.Any;
+            this.ItemType = itemType;
         }
 
         /// <summary>
@@ -41,6 +42,16 @@ namespace Menes.TypeGenerator
         /// Gets or sets the maximum items validation.
         /// </summary>
         public int? MaxItemsValidation { get; set; }
+
+        /// <summary>
+        /// Gets or sets the ordered item schema of the items in the array.
+        /// </summary>
+        public List<ITypeDeclaration>? ItemsValidation { get; set; }
+
+        /// <summary>
+        /// Gets or sets the type declaration for additional items in the array.
+        /// </summary>
+        public ITypeDeclaration? AdditionalItemsValidation { get; set; }
 
         /// <summary>
         /// Gets or sets the type for the contains validation.
@@ -80,13 +91,8 @@ namespace Menes.TypeGenerator
         /// <inheritdoc/>
         public override TypeDeclarationSyntax GenerateType()
         {
-            if (this.ItemType is null)
-            {
-                throw new InvalidOperationException("You must set the item type before generating the type.");
-            }
-
             var builder = new StringBuilder();
-            string itemFullyQualifiedName = this.ItemType.GetFullyQualifiedName();
+            string itemFullyQualifiedName = (this.ItemType ?? AnyTypeDeclaration.Instance).GetFullyQualifiedName();
             string name = this.Name;
             builder.AppendLine($"public readonly struct {name} : Menes.IJsonValue, System.Collections.Generic.IEnumerable<{itemFullyQualifiedName}>, System.Collections.IEnumerable, System.IEquatable<{name}>, System.IEquatable<Menes.JsonArray<{itemFullyQualifiedName}>>");
             builder.AppendLine("{");
@@ -223,7 +229,20 @@ namespace Menes.TypeGenerator
             builder.AppendLine("    {");
             builder.AppendLine($"        Menes.JsonArray<{itemFullyQualifiedName}> array = this;");
             builder.AppendLine("        Menes.ValidationContext context = validationContext;");
-            builder.AppendLine("        context = array.Validate(context);");
+            builder.AppendLine("        var newContext = array.Validate(context.ResetLastWasValid());");
+            builder.AppendLine("if (!newContext.LastWasValid)");
+            builder.AppendLine("{");
+
+            if (!(this.ItemType is null))
+            {
+                builder.AppendLine("    return newContext;");
+            }
+            else
+            {
+                builder.AppendLine("    return context;");
+            }
+
+            builder.AppendLine("}");
 
             if (this.MinItemsValidation is int minItems)
             {
@@ -243,6 +262,40 @@ namespace Menes.TypeGenerator
             if (this.EnumValidation is string)
             {
                 builder.AppendLine($"Menes.Validation.ValidateEnum(context, this, this.EnumValues.AsValue<Menes.JsonArray<{name}>>());");
+            }
+
+            if (this.ItemsValidation is List<ITypeDeclaration> itemsValidation)
+            {
+                builder.AppendLine("var itemsValidationEnumerator = array.GetEnumerator();");
+
+                int itemIndex = 0;
+
+                foreach (ITypeDeclaration item in itemsValidation)
+                {
+                    builder.AppendLine("if (itemsValidationEnumerator.MoveNext())");
+                    builder.AppendLine("{");
+                    builder.AppendLine($"    context = Menes.Validation.ValidateProperty(context, Menes.JsonAny.From(itemsValidationEnumerator.Current).As<{item.GetFullyQualifiedName()}>(), $\"[{itemIndex}]\");");
+                    builder.AppendLine("}");
+                    itemIndex++;
+                }
+
+                if (this.AdditionalItemsValidation is ITypeDeclaration additionalItemsValidation)
+                {
+                    string fqtn = additionalItemsValidation.GetFullyQualifiedName();
+                    builder.AppendLine("    int extraIndex = 0;");
+                    builder.AppendLine("    while (itemsValidationEnumerator.MoveNext())");
+                    builder.AppendLine("    {");
+                    builder.AppendLine($"        context = Menes.Validation.ValidateProperty(context, Menes.JsonAny.From(itemsValidationEnumerator.Current).As<{fqtn}>(), $\"[{{extraIndex + {itemIndex}}}]\");");
+                    builder.AppendLine("        extraIndex++;");
+                    builder.AppendLine("    }");
+                }
+                else
+                {
+                    builder.AppendLine("if (itemsValidationEnumerator.MoveNext())");
+                    builder.AppendLine("{");
+                    builder.AppendLine($"    context = context.WithError($\"core 9.3.1.1. items: The array should have contained {itemsValidation.Count} items but actually contained {{array.Length}} items.\");");
+                    builder.AppendLine("}");
+                }
             }
 
             if (this.ContainsValidation is ITypeDeclaration contains)

@@ -6,6 +6,7 @@ namespace Menes.Json.Schema.TypeGenerator
 {
     using System;
     using System.Collections.Generic;
+    using System.Collections.Immutable;
     using System.Linq;
     using System.Text.Json;
     using System.Threading.Tasks;
@@ -431,9 +432,18 @@ namespace Menes.Json.Schema.TypeGenerator
 
         private async Task PopulateArray(ITypeDeclaration type, JsonSchema schema, JsonDocument rootDocument, string baseUri)
         {
-            if (schema.Items is JsonSchema.SchemaOrReference items)
+            if (schema.Items is JsonSchema.SchemaItems schemaItems)
             {
-                ITypeDeclaration itemTypeDeclaration = await this.GetTypeDeclarationFor(items, rootDocument, baseUri).ConfigureAwait(false) ?? JsonValueTypeDeclaration.Any;
+                ITypeDeclaration itemTypeDeclaration;
+
+                if (schemaItems.IsSchemaOrReference)
+                {
+                    itemTypeDeclaration = await this.GetTypeDeclarationFor(schemaItems.AsSchemaOrReference(), rootDocument, baseUri).ConfigureAwait(false) ?? JsonValueTypeDeclaration.Any;
+                }
+                else
+                {
+                    itemTypeDeclaration = JsonValueTypeDeclaration.Any;
+                }
 
                 if (type is ValidatedArrayTypeDeclaration validatedArrayType)
                 {
@@ -480,6 +490,45 @@ namespace Menes.Json.Schema.TypeGenerator
             validatedJsonArrayTypeDeclaration.MinItemsValidation = schema.MinItems;
             validatedJsonArrayTypeDeclaration.NotTypeValidation = await this.GetTypeDeclarationFor(schema.Not, rootDocument, baseUri).ConfigureAwait(false);
             validatedJsonArrayTypeDeclaration.UniqueValidation = schema.UniqueItems;
+            validatedJsonArrayTypeDeclaration.ItemsValidation = await this.GetTypeDeclarationsFor(schema.Items, rootDocument, baseUri).ConfigureAwait(false);
+            validatedJsonArrayTypeDeclaration.AdditionalItemsValidation = await this.GetTypeDeclarationFor(schema.AdditionalItems, rootDocument, baseUri).ConfigureAwait(false);
+        }
+
+        private async Task<ITypeDeclaration?> GetTypeDeclarationFor(JsonSchema.SchemaAdditionalItems? additionalItems, JsonDocument rootDocument, string baseUri)
+        {
+            if (additionalItems is JsonSchema.SchemaAdditionalItems ai)
+            {
+                if (ai.IsJsonBoolean)
+                {
+                    if (ai.AsJsonBoolean())
+                    {
+                        return AnyTypeDeclaration.Instance;
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+                else if (ai.IsSchemaOrReference)
+                {
+                    return await this.GetTypeDeclarationFor(ai.AsSchemaOrReference(), rootDocument, baseUri).ConfigureAwait(false);
+                }
+            }
+
+            return AnyTypeDeclaration.Instance;
+        }
+
+        private async Task<List<ITypeDeclaration>?> GetTypeDeclarationsFor(JsonSchema.SchemaItems? items, JsonDocument rootDocument, string baseUri)
+        {
+            if (items is JsonSchema.SchemaItems schemaItems)
+            {
+                if (schemaItems.IsNonEmptySubschemaArray)
+                {
+                    return await this.GetTypeDeclarationsFor(schemaItems.AsNonEmptySubschemaArray(), rootDocument, baseUri).ConfigureAwait(false);
+                }
+            }
+
+            return null;
         }
 
         private async Task BuildValidations(JsonSchema schema, ValidatedJsonValueTypeDeclaration validatedJsonValueTypeDeclaration, JsonDocument rootDocument, string baseUri)

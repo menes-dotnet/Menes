@@ -21,6 +21,7 @@ namespace Menes.Json.Schema
                 schema.Const.HasValue || schema.Contains.HasValue || schema.DependentSchemas.HasValue ||
                 schema.Else.HasValue || schema.Enum.HasValue || schema.ExclusiveMaximum.HasValue ||
                 schema.ExclusiveMinimum.HasValue || schema.If.HasValue || schema.Items.HasValue ||
+                schema.AdditionalItems.HasValue ||
                 schema.MaxContains.HasValue || schema.Maximum.HasValue || schema.MaxItems.HasValue ||
                 schema.MaxLength.HasValue || schema.MaxProperties.HasValue || schema.MinContains.HasValue ||
                 schema.Minimum.HasValue || schema.MinItems.HasValue || schema.MinLength.HasValue ||
@@ -55,6 +56,7 @@ namespace Menes.Json.Schema
             return
                 schema.Contains.HasValue ||
                 schema.Items.HasValue ||
+                schema.AdditionalItems.HasValue ||
                 schema.MaxContains.HasValue ||
                 schema.MinContains.HasValue ||
                 schema.MinItems.HasValue;

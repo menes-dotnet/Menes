@@ -71,6 +71,14 @@ namespace Menes.Json.Schema.Generator
             schemaAdditionalProperties.AddTypesToUnion(subschema, JsonValueTypeDeclaration.Boolean);
             schema.AddTypeDeclaration(schemaAdditionalProperties);
 
+            var schemaAdditionalItems = new UnionTypeDeclaration("SchemaAdditionalItems", UnionTypeDeclaration.UnionKind.OneOf);
+            schemaAdditionalItems.AddTypesToUnion(subschema, JsonValueTypeDeclaration.Boolean);
+            schema.AddTypeDeclaration(schemaAdditionalItems);
+
+            var schemaItems = new UnionTypeDeclaration("SchemaItems", UnionTypeDeclaration.UnionKind.OneOf);
+            schemaItems.AddTypesToUnion(subschema, nonEmptySubschemaArray);
+            schema.AddTypeDeclaration(schemaItems);
+
             schema.AddOptionalPropertyDeclaration("$id", JsonValueTypeDeclaration.String);
 
             // Common
@@ -110,7 +118,8 @@ namespace Menes.Json.Schema.Generator
             schema.AddOptionalPropertyDeclaration("uniqueItems", JsonValueTypeDeclaration.Boolean);
             schema.AddOptionalPropertyDeclaration("maxContains", schemaNonNegativeInteger);
             schema.AddOptionalPropertyDeclaration("minContains", schemaNonNegativeInteger);
-            schema.AddOptionalPropertyDeclaration("items", subschema);
+            schema.AddOptionalPropertyDeclaration("items", schemaItems);
+            schema.AddOptionalPropertyDeclaration("additionalItems", schemaAdditionalItems);
             schema.AddOptionalPropertyDeclaration("contains", subschema);
 
             // Object

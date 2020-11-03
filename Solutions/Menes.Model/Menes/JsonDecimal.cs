@@ -242,7 +242,7 @@ namespace Menes
                 return validationContext.WithError($"6.1.1. type: the element with type {this.JsonElement.ValueKind} is not convertible to {JsonValueKind.Number}");
             }
 
-            if (this.HasJsonElement)
+            if (this.HasJsonElement && this.JsonElement.ValueKind == JsonValueKind.Number)
             {
                 if (!this.JsonElement.TryGetDecimal(out _))
                 {

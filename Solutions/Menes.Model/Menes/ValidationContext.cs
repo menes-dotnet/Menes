@@ -4,6 +4,7 @@
 
 namespace Menes
 {
+    using System;
     using System.Collections.Immutable;
 
     /// <summary>
@@ -14,12 +15,13 @@ namespace Menes
         /// <summary>
         /// Gets the root validation context.
         /// </summary>
-        public static readonly ValidationContext Root = new ValidationContext("$", ImmutableArray<(string, string)>.Empty);
+        public static readonly ValidationContext Root = new ValidationContext("$", ImmutableArray<(string, string)>.Empty, true);
 
-        private ValidationContext(string path, ImmutableArray<(string, string)> errors)
+        private ValidationContext(string path, ImmutableArray<(string, string)> errors, bool lastWasValid)
         {
             this.Path = path;
             this.Errors = errors;
+            this.LastWasValid = lastWasValid;
         }
 
         /// <summary>
@@ -38,13 +40,18 @@ namespace Menes
         public bool IsValid => this.Errors.Length == 0;
 
         /// <summary>
+        /// Gets a value indicating whether the last validation to be added was valid.
+        /// </summary>
+        public bool LastWasValid { get; }
+
+        /// <summary>
         /// Adds an error to the validation context.
         /// </summary>
         /// <param name="errorMessage">The error message.</param>
         /// <returns>The updated <see cref="ValidationContext"/>.</returns>
         public ValidationContext WithError(string errorMessage)
         {
-            return new ValidationContext(this.Path, this.Errors.Add((this.Path, errorMessage)));
+            return new ValidationContext(this.Path, this.Errors.Add((this.Path, errorMessage)), false);
         }
 
         /// <summary>
@@ -54,7 +61,7 @@ namespace Menes
         /// <returns>The updated <see cref="ValidationContext"/>.</returns>
         public ValidationContext WithPath(string path)
         {
-            return new ValidationContext(path, this.Errors);
+            return new ValidationContext(path, this.Errors, true);
         }
 
         /// <summary>
@@ -83,7 +90,7 @@ namespace Menes
             ValidationContext context = this;
             foreach ((string, string) error in context1.Errors)
             {
-                context = new ValidationContext(this.Path, this.Errors.Add(error));
+                context = new ValidationContext(this.Path, this.Errors.Add(error), true);
             }
 
             return context;
@@ -110,6 +117,15 @@ namespace Menes
         public ValidationContext MergeErrors(in ValidationContext context1, in ValidationContext context2, in ValidationContext context3)
         {
             return this.MergeErrors(context1).MergeErrors(context2).MergeErrors(context3);
+        }
+
+        /// <summary>
+        /// Resets the <see cref="LastWasValid"/> value.
+        /// </summary>
+        /// <returns>The updated validation context.</returns>
+        public ValidationContext ResetLastWasValid()
+        {
+            return new ValidationContext(this.Path, this.Errors, true);
         }
 
         /// <summary>
