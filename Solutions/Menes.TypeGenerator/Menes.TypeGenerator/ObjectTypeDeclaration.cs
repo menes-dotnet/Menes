@@ -51,6 +51,12 @@ namespace Menes.TypeGenerator
         public ITypeDeclaration? NotTypeValidation { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether to explicitly
+        /// validate this as an object.
+        /// </summary>
+        public bool ValidateAsObject { get; set; }
+
+        /// <summary>
         /// Gets or sets the allOf type validation.
         /// </summary>
         public List<ITypeDeclaration>? AllOfTypeValidation { get; set; }
@@ -325,10 +331,15 @@ namespace Menes.TypeGenerator
             builder.AppendLine("{");
             builder.AppendLine("    return validationContext.WithError($\"6.1.1. type: the element with type {{this.JsonElement.ValueKind}} is not convertible to {{JsonValueKind.Object}}\");");
             builder.AppendLine("}");
-            builder.AppendLine("if (this.HasJsonElement && !IsConvertibleFrom(this.JsonElement))");
-            builder.AppendLine("{");
-            builder.AppendLine("    return validationContext.WithError($\"6.1.1. type: the element with type {{this.JsonElement.ValueKind}} is not convertible to {{JsonValueKind.Object}}\");");
-            builder.AppendLine("}");
+
+            if (this.ValidateAsObject)
+            {
+                builder.AppendLine("if (this.HasJsonElement && !IsConvertibleFrom(this.JsonElement))");
+                builder.AppendLine("{");
+                builder.AppendLine("    return validationContext.WithError($\"6.1.1. type: the element with type {{this.JsonElement.ValueKind}} is not convertible to {{JsonValueKind.Object}}\");");
+                builder.AppendLine("}");
+            }
+
             builder.AppendLine("    Menes.ValidationContext context = validationContext;");
 
             if (hasPatternProperties)

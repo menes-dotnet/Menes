@@ -9,8 +9,8 @@ namespace Menes
     /// </summary>
     public static partial class Validation
     {
-        private const string OneOfStartErrorMessage = "core 9.2.1.2. anyOf: The element did not match any of the expected types.";
-        private const string OneOfEndErrorMessage = "core 9.2.1.2. anyOf: (see above)";
+        private const string AnyOfStartMessage = "core 9.2.1.2. anyOf: The element did not match any of the expected types.";
+        private const string AnyOfEndErrorMessage = "core 9.2.1.2. anyOf: (see above)";
 
         /// <summary>
         /// Validates that one or more types were correctly validated.
@@ -31,7 +31,7 @@ namespace Menes
                 }
             }
 
-            return isValid ? validationContext : validationContext.WithError(OneOfStartErrorMessage).MergeErrors(children).WithError(OneOfEndErrorMessage);
+            return isValid ? validationContext : validationContext.WithError(AnyOfStartMessage).MergeErrors(children).WithError(AnyOfEndErrorMessage);
         }
 
         /// <summary>
@@ -43,7 +43,7 @@ namespace Menes
         /// <returns>The updated validation context after validation has completed.</returns>
         public static ValidationContext ValidateAnyOf(in ValidationContext validationContext, in ValidationContext child1, in ValidationContext child2)
         {
-            return (child1.IsValid || child2.IsValid) ? validationContext : validationContext.WithError(OneOfStartErrorMessage).MergeErrors(child1, child2).WithError(OneOfEndErrorMessage);
+            return (child1.IsValid || child2.IsValid) ? validationContext : validationContext.WithError(AnyOfStartMessage).MergeErrors(child1, child2).WithError(AnyOfEndErrorMessage);
         }
 
         /// <summary>
@@ -56,7 +56,7 @@ namespace Menes
         /// <returns>The updated validation context after validation has completed.</returns>
         public static ValidationContext ValidateAnyOf(in ValidationContext validationContext, in ValidationContext child1, in ValidationContext child2, in ValidationContext child3)
         {
-            return (child1.IsValid || child2.IsValid || child3.IsValid) ? validationContext : validationContext.WithError(OneOfStartErrorMessage).MergeErrors(child1, child2, child3).WithError(OneOfEndErrorMessage);
+            return (child1.IsValid || child2.IsValid || child3.IsValid) ? validationContext : validationContext.WithError(AnyOfStartMessage).MergeErrors(child1, child2, child3).WithError(AnyOfEndErrorMessage);
         }
 
         /// <summary>
@@ -70,7 +70,7 @@ namespace Menes
         /// <returns>The updated validation context after validation has completed.</returns>
         public static ValidationContext ValidateAnyOf(in ValidationContext validationContext, in ValidationContext child1, in ValidationContext child2, in ValidationContext child3, in ValidationContext child4)
         {
-            return (child1.IsValid || child2.IsValid || child3.IsValid || child4.IsValid) ? validationContext : validationContext.WithError(OneOfStartErrorMessage).MergeErrors(child1, child2, child3, child4).WithError(OneOfEndErrorMessage);
+            return (child1.IsValid || child2.IsValid || child3.IsValid || child4.IsValid) ? validationContext : validationContext.WithError(AnyOfStartMessage).MergeErrors(child1, child2, child3, child4).WithError(AnyOfEndErrorMessage);
         }
     }
 }

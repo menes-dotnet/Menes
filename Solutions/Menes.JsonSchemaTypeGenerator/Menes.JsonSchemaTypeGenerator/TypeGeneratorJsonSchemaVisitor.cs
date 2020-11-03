@@ -279,6 +279,11 @@ namespace Menes.Json.Schema.TypeGenerator
                 throw new InvalidOperationException($"Expected an {typeof(ObjectTypeDeclaration).FullName} or a {typeof(UnionTypeDeclaration).FullName} but found a {type.GetType().FullName}.");
             }
 
+            if (schema.Type is JsonSchema.TypeEnumOrArrayOfTypeEnum schemaType && schemaType.IsTypeEnum && schemaType.AsTypeEnum() == JsonSchema.TypeEnum.Object)
+            {
+                typeDeclaration.ValidateAsObject = true;
+            }
+
             if (schema.AllOf is JsonSchema.NonEmptySubschemaArray allOf)
             {
                 List<(string, JsonDocument, JsonSchema)>? allOfSchemas = await this.GetSchemasFor(allOf, rootDocument, baseUri).ConfigureAwait(false);

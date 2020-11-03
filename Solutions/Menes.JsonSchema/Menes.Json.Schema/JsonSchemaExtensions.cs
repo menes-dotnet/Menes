@@ -43,6 +43,7 @@ namespace Menes.Json.Schema
                 schema.MaxProperties.HasValue ||
                 schema.MinProperties.HasValue ||
                 schema.PatternProperties.HasValue ||
+                schema.AdditionalProperties.HasValue ||
                 schema.Properties.HasValue || schema.PropertyNames.HasValue || schema.Required.HasValue;
         }
 
