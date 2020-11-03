@@ -430,7 +430,7 @@ public readonly struct Schema : Menes.IJsonValue, System.IEquatable<Schema>
         {
             if (this.IsNull)
             {
-                return validationContext.WithError($"6.1.1. type: the element with type {{this.JsonElement.ValueKind}} is not convertible to {{JsonValueKind.Object}}");
+                return validationContext.WithError($"6.1.1. type: the element with type {this.JsonElement.ValueKind} is not convertible to {{JsonValueKind.Object}}");
             }
             Menes.ValidationContext context = validationContext;
             if (this.Foo is Menes.JsonAny foo)

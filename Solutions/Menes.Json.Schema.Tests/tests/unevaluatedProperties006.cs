@@ -324,11 +324,11 @@ public readonly struct Schema : Menes.IJsonObject, System.IEquatable<Schema>, Me
     {
         if (this.IsNull)
         {
-            return validationContext.WithError($"6.1.1. type: the element with type {{this.JsonElement.ValueKind}} is not convertible to {{JsonValueKind.Object}}");
+            return validationContext.WithError($"6.1.1. type: the element with type {this.JsonElement.ValueKind} is not convertible to {{JsonValueKind.Object}}");
         }
         if (this.HasJsonElement && !IsConvertibleFrom(this.JsonElement))
         {
-            return validationContext.WithError($"6.1.1. type: the element with type {{this.JsonElement.ValueKind}} is not convertible to {{JsonValueKind.Object}}");
+            return validationContext.WithError($"6.1.1. type: the element with type {this.JsonElement.ValueKind} is not convertible to {{JsonValueKind.Object}}");
         }
         Menes.ValidationContext context = validationContext;
         if (this.Foo is Menes.JsonString foo)
@@ -703,7 +703,7 @@ public readonly struct Schema : Menes.IJsonObject, System.IEquatable<Schema>, Me
         {
             if (this.IsNull)
             {
-                return validationContext.WithError($"6.1.1. type: the element with type {{this.JsonElement.ValueKind}} is not convertible to {{JsonValueKind.Object}}");
+                return validationContext.WithError($"6.1.1. type: the element with type {this.JsonElement.ValueKind} is not convertible to {{JsonValueKind.Object}}");
             }
             Menes.ValidationContext context = validationContext;
             if (this.Bar is Menes.JsonString bar)
