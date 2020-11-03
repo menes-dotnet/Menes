@@ -69,7 +69,7 @@ namespace Menes.Json.Schema
         /// <returns><c>True</c> is the entity is a string, integer, number, or boolean.</returns>
         public static bool IsValueType(this JsonSchema schema)
         {
-            return !(schema.Type is JsonSchema.TypeEnumOrArrayOfTypeEnum type && type.IsTypeEnum) || type.AsTypeEnum() == "integer" || type.AsTypeEnum() == "string" || type.AsTypeEnum() == "boolean" || type.AsTypeEnum() == "number";
+            return !(schema.Type is JsonSchema.TypeEnumOrArrayOfTypeEnum type && type.IsTypeEnum) || type.AsTypeEnum() == "integer" || type.AsTypeEnum() == "string" || type.AsTypeEnum() == "boolean" || type.AsTypeEnum() == "number" || type.AsTypeEnum() == "null";
         }
 
         /// <summary>

@@ -584,6 +584,11 @@ namespace Menes
         /// <inheritdoc/>
         public ValidationContext Validate(in ValidationContext validationContext)
         {
+            if (this.IsNull)
+            {
+                return validationContext.WithError($"6.1.1. type: the element with type {this.JsonElement.ValueKind} is not convertible to {JsonValueKind.Number}");
+            }
+
             if (this.HasJsonElement && !IsConvertibleFrom(this.JsonElement))
             {
                 return validationContext.WithError($"6.1.1. type: the element with type {this.JsonElement.ValueKind} is not convertible to {JsonValueKind.Number}");
@@ -647,27 +652,27 @@ namespace Menes
 
             if (this.TryGetInt64(out long lhs) && other.TryGetInt64(out long rhs))
             {
-                return lhs % rhs == 0;
+                return rhs != 0 && (lhs % rhs == 0);
             }
 
             if (this.TryGetInt32(out int lhs32) && other.TryGetInt32(out int rhs32))
             {
-                return lhs32 % rhs32 == 0;
+                return rhs32 != 0 && (lhs32 % rhs32 == 0);
             }
 
             if (this.TryGetDouble(out double lhsd) && other.TryGetDouble(out double rhsd))
             {
-                return lhsd % rhsd == 0;
+                return rhsd != 0 && (lhsd % rhsd == 0);
             }
 
             if (this.TryGetSingle(out float lhss) && other.TryGetSingle(out float rhss))
             {
-                return lhss % rhss == 0;
+                return rhss != 0 && (lhss % rhss == 0);
             }
 
             if (this.TryGetDecimal(out decimal lhsm) && other.TryGetDecimal(out decimal rhsm))
             {
-                return lhsm % rhsm == 0;
+                return rhsm != 0 && (lhsm % rhsm == 0);
             }
 
             return false;

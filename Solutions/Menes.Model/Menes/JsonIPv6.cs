@@ -199,18 +199,15 @@ namespace Menes
         /// <inheritdoc/>
         public ValidationContext Validate(in ValidationContext validationContext)
         {
-            if (this.HasJsonElement && !IsConvertibleFrom(this.JsonElement))
+            if (this.IsNull || (this.HasJsonElement && !IsConvertibleFrom(this.JsonElement)))
             {
                 return validationContext.WithError($"6.1.1. type: the element with type {this.JsonElement.ValueKind} is not convertible to {JsonValueKind.String}");
             }
 
-            if (!this.IsNull)
+            string value = this.CreateOrGetClrString();
+            if (!ValidateIPv6.IsMatch(value))
             {
-                string value = this.CreateOrGetClrString();
-                if (!ValidateIPv6.IsMatch(value))
-                {
-                    return validationContext.WithError($"6.3.3. pattern: The string should match {ValidateIPv6} but was {value}.");
-                }
+                return validationContext.WithError($"6.3.3. pattern: The string should match {ValidateIPv6} but was {value}.");
             }
 
             return validationContext;

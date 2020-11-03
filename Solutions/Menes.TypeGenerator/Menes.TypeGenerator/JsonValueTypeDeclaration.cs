@@ -53,6 +53,11 @@ namespace Menes.TypeGenerator
             /// Any type.
             /// </summary>
             Any,
+
+            /// <summary>
+            /// Null type.
+            /// </summary>
+            Null,
         }
 
         /// <inheritdoc/>

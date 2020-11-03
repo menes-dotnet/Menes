@@ -5,6 +5,7 @@
 namespace Menes.Json.Schema.Tests
 {
     using System;
+    using System.Buffers;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
@@ -117,11 +118,12 @@ namespace Menes.Json.Schema.Tests
         {
             foreach ((string, string, string, int) uri in uris)
             {
+                string ns = StringFormatter.ToPascalCaseWithReservedWords(uri.Item2);
+
                 var typeGenerator = new TypeGeneratorJsonSchemaVisitor(DocumentResolver.Default);
                 await GenerateTypesForSchema(uri.Item1, typeGenerator).ConfigureAwait(false);
                 string outputFile = Path.ChangeExtension(Path.Combine(outputPath, uri.Item2), ".cs");
 
-                string ns = StringFormatter.ToPascalCaseWithReservedWords(uri.Item2);
                 Directory.CreateDirectory(Path.GetDirectoryName(outputFile));
 
                 File.Delete(outputFile);
@@ -129,6 +131,11 @@ namespace Menes.Json.Schema.Tests
 
                 try
                 {
+                    if (ns == "Ref000")
+                    {
+                        throw new InvalidOperationException("Temporarily unable to generate Ref000");
+                    }
+
                     string rootTypeName = WriteTypes(typeGenerator, outputFile);
                     WriteTests(outputFile, uri.Item3, uri.Item4, ns, testsToExecute, rootTypeName);
                 }
@@ -152,9 +159,9 @@ namespace Menes.Json.Schema.Tests
             JsonElement spec = document.RootElement.EnumerateArray().Skip(index).Take(1).Single();
             var builder = new StringBuilder();
 
-            if (typeName is string)
+            if (!string.IsNullOrEmpty(typeName))
             {
-                builder.AppendLine("/// <summary>");
+                builder.AppendLine("///  <summary>");
                 builder.AppendLine($"/// {spec.GetProperty("description").GetString()}");
                 builder.AppendLine("/// </summary>");
                 builder.AppendLine("public static class Tests");
@@ -165,7 +172,7 @@ namespace Menes.Json.Schema.Tests
 
             foreach (JsonElement test in spec.GetProperty("tests").EnumerateArray())
             {
-                if (typeName is string)
+                if (!string.IsNullOrEmpty(typeName))
                 {
                     builder.AppendLine("/// <summary>");
                     string description = test.GetProperty("description").GetString();
@@ -206,7 +213,7 @@ namespace Menes.Json.Schema.Tests
                 testIndex++;
             }
 
-            if (typeName is string)
+            if (!string.IsNullOrEmpty(typeName))
             {
                 builder.AppendLine("}");
                 File.AppendAllText(outputFile, builder.ToString());
@@ -215,7 +222,17 @@ namespace Menes.Json.Schema.Tests
 
         private static async Task GenerateTypesForSchema(string uri, TypeGeneratorJsonSchemaVisitor typeGenerator)
         {
-            (string baseUri, JsonDocument root, JsonSchema schema) = await DocumentResolver.Default.LoadSchema(uri).ConfigureAwait(false);
+            (string baseUri, JsonDocument root, JsonSchema schema) resolved = await DocumentResolver.Default.LoadSchema(uri).ConfigureAwait(false);
+
+            var abf = new ArrayBufferWriter<byte>();
+            using var writer = new Utf8JsonWriter(abf);
+            resolved.schema.WriteTo(writer);
+            writer.Flush();
+
+            var root = JsonDocument.Parse(abf.WrittenMemory);
+            string baseUri = resolved.baseUri + "/" + Guid.NewGuid().ToString();
+            JsonSchema schema = JsonSchema.FromJsonElement(root.RootElement);
+            DocumentResolver.Default.AddDocument(baseUri, root);
 
             try
             {
@@ -234,18 +251,13 @@ namespace Menes.Json.Schema.Tests
         {
             TypeDeclarationSyntax[] tds = typeGenerator.GenerateTypes();
 
-            if (tds.Length == 0)
-            {
-                throw new InvalidOperationException("No types generated.");
-            }
-
             foreach (TypeDeclarationSyntax t in tds)
             {
                 SyntaxNode formattedJsonSchema = Formatter.Format(t, new AdhocWorkspace());
                 File.AppendAllText(outputFile, formattedJsonSchema.ToFullString());
             }
 
-            return tds[0].Identifier.ToString();
+            return typeGenerator.RootTypeName;
         }
     }
 }

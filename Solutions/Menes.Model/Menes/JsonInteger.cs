@@ -224,7 +224,22 @@ namespace Menes
                 return true;
             }
 
-            return this.JsonElement.TryGetInt64(out result);
+            if (this.JsonElement.TryGetInt64(out result))
+            {
+                return true;
+            }
+
+            if (this.JsonElement.TryGetSingle(out float asFloat))
+            {
+                if (Math.Floor(asFloat) == asFloat)
+                {
+                    result = (long)asFloat;
+                    return true;
+                }
+            }
+
+            result = default;
+            return false;
         }
 
         /// <summary>
@@ -304,12 +319,17 @@ namespace Menes
         /// <inheritdoc/>
         public ValidationContext Validate(in ValidationContext validationContext)
         {
+            if (this.IsNull)
+            {
+                return validationContext.WithError($"6.1.1. type: the element with type {this.JsonElement.ValueKind} is not convertible to {JsonValueKind.Number}");
+            }
+
             if (this.HasJsonElement && !IsConvertibleFrom(this.JsonElement))
             {
                 return validationContext.WithError($"6.1.1. type: the element with type {this.JsonElement.ValueKind} is not convertible to {JsonValueKind.Number}");
             }
 
-            if (this.HasJsonElement && this.JsonElement.ValueKind == JsonValueKind.Number && !this.JsonElement.TryGetInt64(out _))
+            if (this.HasJsonElement && this.JsonElement.ValueKind == JsonValueKind.Number && !this.TryGetInt64(out _))
             {
                 return validationContext.WithError("6.1.1. type: the element is not convertible to an int64.");
             }
@@ -392,12 +412,12 @@ namespace Menes
 
             if (this.TryGetInt64(out long lhs) && other.TryGetInt64(out long rhs))
             {
-                return lhs % rhs == 0;
+                return rhs != 0 && (lhs % rhs == 0);
             }
 
             if (this.TryGetInt32(out int lhs32) && other.TryGetInt32(out int rhs32))
             {
-                return lhs32 % rhs32 == 0;
+                return rhs32 != 0 && (lhs32 % rhs32 == 0);
             }
 
             return false;

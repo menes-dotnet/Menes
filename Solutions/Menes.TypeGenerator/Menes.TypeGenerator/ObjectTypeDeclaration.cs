@@ -320,6 +320,15 @@ namespace Menes.TypeGenerator
             var builder = new StringBuilder();
             builder.AppendLine("public Menes.ValidationContext Validate(in Menes.ValidationContext validationContext)");
             builder.AppendLine("{");
+
+            builder.AppendLine("if (this.IsNull)");
+            builder.AppendLine("{");
+            builder.AppendLine("    return validationContext.WithError($\"6.1.1. type: the element with type {{this.JsonElement.ValueKind}} is not convertible to {{JsonValueKind.Object}}\");");
+            builder.AppendLine("}");
+            builder.AppendLine("if (this.HasJsonElement && !IsConvertibleFrom(this.JsonElement))");
+            builder.AppendLine("{");
+            builder.AppendLine("    return validationContext.WithError($\"6.1.1. type: the element with type {{this.JsonElement.ValueKind}} is not convertible to {{JsonValueKind.Object}}\");");
+            builder.AppendLine("}");
             builder.AppendLine("    Menes.ValidationContext context = validationContext;");
 
             if (hasPatternProperties)
@@ -518,7 +527,7 @@ namespace Menes.TypeGenerator
 
             foreach (NamedPropertyDeclaration property in properties)
             {
-                string typename = property.Type.IsCompoundType ? "Menes.JsonReference" : property.Type.GetFullyQualifiedName();
+                string typename = property.Type == this || property.Type.IsCompoundType ? "Menes.JsonReference" : property.Type.GetFullyQualifiedName();
 
                 builder.AppendLine($"if (this.{property.FieldName} is {typename} {property.FieldName})");
                 builder.AppendLine("{");
@@ -715,7 +724,7 @@ namespace Menes.TypeGenerator
 
         private void BuildCloningConstructor(List<NamedPropertyDeclaration> properties, List<MemberDeclarationSyntax> members)
         {
-            if (properties.Any(p => p.Type.IsCompoundType) || (this.AdditionalPropertiesType is ITypeDeclaration t))
+            if (properties.Any(p => p.Type == this || p.Type.IsCompoundType) || (this.AdditionalPropertiesType is ITypeDeclaration t))
             {
                 string declaration =
                 $"private {this.Name}({this.BuildCloningConstructorParameterList(properties)})" + Environment.NewLine +
@@ -733,7 +742,7 @@ namespace Menes.TypeGenerator
             int index = 1;
             foreach (NamedPropertyDeclaration property in properties)
             {
-                if (property.Type.IsCompoundType)
+                if (property.Type == this || property.Type.IsCompoundType)
                 {
                     builder.AppendLine($"if ({property.FieldName} is Menes.JsonReference item{index})");
                     builder.AppendLine("{");
@@ -853,7 +862,7 @@ namespace Menes.TypeGenerator
                 {
                     builder.AppendLine($"this.{property.FieldName} = null;");
                 }
-                else if (property.Type.IsCompoundType)
+                else if (property.Type == this || property.Type.IsCompoundType)
                 {
                     string fullyQualifiedTypeName = property.Type.GetFullyQualifiedName();
                     builder.AppendLine($"if ({property.FieldName} is {fullyQualifiedTypeName} item{index})");
@@ -1025,7 +1034,7 @@ namespace Menes.TypeGenerator
                 builder.Append(", ");
             }
 
-            if (property.Type.IsCompoundType)
+            if (property.Type == this || property.Type.IsCompoundType)
             {
                 builder.Append("Menes.JsonReference");
             }
@@ -1444,7 +1453,7 @@ namespace Menes.TypeGenerator
 
         private void BuildJsonReferenceAccessor(NamedPropertyDeclaration property, List<MemberDeclarationSyntax> members)
         {
-            if (!property.Type.IsCompoundType)
+            if (!(property.Type == this || property.Type.IsCompoundType))
             {
                 return;
             }
@@ -1603,7 +1612,7 @@ namespace Menes.TypeGenerator
 
             if (property is NamedPropertyDeclaration prop && prop.PropertyDeclaration == current.PropertyDeclaration)
             {
-                if (current.Type.IsCompoundType)
+                if (current.Type == this || current.Type.IsCompoundType)
                 {
                     builder.Append("Menes.JsonReference.FromValue(value)");
                 }
@@ -1612,7 +1621,7 @@ namespace Menes.TypeGenerator
                     builder.Append("value");
                 }
             }
-            else if (current.Type.IsCompoundType)
+            else if (current.Type == this || current.Type.IsCompoundType)
             {
                 builder.Append($"this.Get{current.PropertyName}()");
             }
@@ -1626,7 +1635,7 @@ namespace Menes.TypeGenerator
         {
             string typeName = property.Type.GetFullyQualifiedName();
 
-            string fieldNameAccessor = property.Type.IsCompoundType ? $"this.{property.FieldName}?.AsValue<{typeName}>()" : $"this.{property.FieldName}";
+            string fieldNameAccessor = (property.Type == this || property.Type.IsCompoundType) ? $"this.{property.FieldName}?.AsValue<{typeName}>()" : $"this.{property.FieldName}";
 
             if (property.Type is OptionalTypeDeclaration)
             {
@@ -1640,7 +1649,7 @@ namespace Menes.TypeGenerator
 
         private void BuildPropertyBackingDeclaration(NamedPropertyDeclaration property, List<MemberDeclarationSyntax> members)
         {
-            if (property.Type.IsCompoundType)
+            if (property.Type == this || property.Type.IsCompoundType)
             {
                 members.Add(SF.ParseMemberDeclaration($"private readonly Menes.JsonReference? {property.FieldName};" + Environment.NewLine));
             }

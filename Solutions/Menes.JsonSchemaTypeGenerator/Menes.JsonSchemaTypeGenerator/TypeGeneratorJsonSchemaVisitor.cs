@@ -30,7 +30,13 @@ namespace Menes.Json.Schema.TypeGenerator
         public TypeGeneratorJsonSchemaVisitor(IDocumentResolver documentResolver)
         {
             this.documentResolver = documentResolver;
+            this.RootTypeName = string.Empty;
         }
+
+        /// <summary>
+        /// Gets the name of the root type in the schema.
+        /// </summary>
+        public string RootTypeName { get; private set; }
 
         /// <summary>
         /// Generate the types we have found.
@@ -50,7 +56,8 @@ namespace Menes.Json.Schema.TypeGenerator
         /// <returns>A task which completes when the types are built for the given schema.</returns>
         public async Task BuildTypes(JsonSchema schema, JsonDocument rootDocument, string baseUri)
         {
-            await this.BuildTypeCore(schema, rootDocument, baseUri).ConfigureAwait(false);
+            ITypeDeclaration rootType = await this.BuildTypeCore(schema, rootDocument, baseUri).ConfigureAwait(false);
+            this.RootTypeName = rootType.GetFullyQualifiedName();
         }
 
         private async Task<ITypeDeclaration> BuildTypeCore(JsonSchema schema, JsonDocument rootDocument, string baseUri)
@@ -92,6 +99,7 @@ namespace Menes.Json.Schema.TypeGenerator
                     "number" => this.CreateNumber(schema, name),
                     "string" => this.CreateString(schema, name),
                     "array" => this.CreateArray(schema, name),
+                    "null" => this.CreateNull(schema, name),
                     _ => this.CreateAny(schema, name),
                 };
             }
@@ -121,6 +129,7 @@ namespace Menes.Json.Schema.TypeGenerator
                     "boolean" => this.PopulateJsonValue(typeDeclaration, schema, rootDocument, baseUri),
                     "number" => this.PopulateJsonValue(typeDeclaration, schema, rootDocument, baseUri),
                     "string" => this.PopulateJsonValue(typeDeclaration, schema, rootDocument, baseUri),
+                    "null" => this.PopulateJsonValue(typeDeclaration, schema, rootDocument, baseUri),
                     "array" => this.PopulateArray(typeDeclaration, schema, rootDocument, baseUri),
                     _ => this.PopulateJsonValue(typeDeclaration, schema, rootDocument, baseUri),
                 };
@@ -474,6 +483,11 @@ namespace Menes.Json.Schema.TypeGenerator
         private Task<ITypeDeclaration> CreateAny(JsonSchema schema, string name)
         {
             return Task.FromResult(schema.IsValidated() ? (ITypeDeclaration)new ValidatedJsonValueTypeDeclaration(name, JsonValueTypeDeclaration.Any) : JsonValueTypeDeclaration.Any);
+        }
+
+        private Task<ITypeDeclaration> CreateNull(JsonSchema schema, string name)
+        {
+            return Task.FromResult((ITypeDeclaration)JsonValueTypeDeclaration.Null);
         }
 
         private Task<ITypeDeclaration> CreateInteger(JsonSchema schema, string name)

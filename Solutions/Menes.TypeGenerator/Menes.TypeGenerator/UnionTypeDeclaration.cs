@@ -335,11 +335,6 @@ namespace Menes.TypeGenerator
 
             builder.AppendLine("    public Menes.ValidationContext Validate(in Menes.ValidationContext validationContext)");
             builder.AppendLine("    {");
-            builder.AppendLine("        if (this.IsNull)");
-            builder.AppendLine("        {");
-            builder.AppendLine("            return validationContext;");
-            builder.AppendLine("        }");
-
             for (int i = 0; i < this.typesInUnion.Count; ++i)
             {
                 builder.AppendLine($"        Menes.ValidationContext validationContext{i + 1} = Menes.ValidationContext.Root.WithPath(validationContext.Path);");

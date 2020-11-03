@@ -422,7 +422,7 @@ namespace Menes
         /// <inheritdoc/>
         public ValidationContext Validate(in ValidationContext validationContext)
         {
-            if (this.HasJsonElement && !IsConvertibleFrom(this.JsonElement))
+            if (this.IsNull || (this.HasJsonElement && !IsConvertibleFrom(this.JsonElement)))
             {
                 return validationContext.WithError($"6.1.1. type: the element with type {this.JsonElement.ValueKind}  is not convertible to the type {typeof(TItem).FullName}");
             }
