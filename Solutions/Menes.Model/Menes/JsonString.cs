@@ -50,7 +50,7 @@ namespace Menes
         }
 
         /// <inheritdoc/>
-        public bool IsNull => this.clrString == null && (this.JsonElement.ValueKind == JsonValueKind.Undefined || this.JsonElement.ValueKind == JsonValueKind.Null);
+        public bool IsNull => this.clrString is null && (this.JsonElement.ValueKind == JsonValueKind.Undefined || this.JsonElement.ValueKind == JsonValueKind.Null);
 
         /// <summary>
         /// Gets this string as a nullable value type.
@@ -191,7 +191,12 @@ namespace Menes
                 return this.JsonElement.ValueEquals(other.clrString);
             }
 
-            return JsonAny.From(this).Equals(JsonAny.From(other));
+            if (this.HasJsonElement && other.HasJsonElement)
+            {
+                return this.JsonElement.ValueEquals(other.JsonElement.GetString());
+            }
+
+            return false;
         }
 
         /// <inheritdoc/>

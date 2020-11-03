@@ -488,16 +488,50 @@ namespace Menes
         {
             if (this.HasJsonElement && other.HasJsonElement)
             {
-                var abw1 = new ArrayBufferWriter<byte>();
-                using var writer1 = new Utf8JsonWriter(abw1);
-                other.WriteTo(writer1);
-                writer1.Flush();
+                if (this.JsonElement.ValueKind != other.JsonElement.ValueKind)
+                {
+                    return false;
+                }
 
-                var abw2 = new ArrayBufferWriter<byte>();
-                using var writer2 = new Utf8JsonWriter(abw2);
-                other.WriteTo(writer2);
-                writer2.Flush();
-                return abw1.WrittenSpan.SequenceEqual(abw2.WrittenSpan);
+                if (this.JsonElement.ValueKind == JsonValueKind.Array)
+                {
+                    return JsonArray<JsonAny>.FromJsonElement(this.JsonElement).Equals(JsonArray<JsonAny>.FromJsonElement(other.JsonElement));
+                }
+
+                if (this.JsonElement.ValueKind == JsonValueKind.False)
+                {
+                    return true;
+                }
+
+                if (this.JsonElement.ValueKind == JsonValueKind.True)
+                {
+                    return true;
+                }
+
+                if (this.JsonElement.ValueKind == JsonValueKind.Null)
+                {
+                    return true;
+                }
+
+                if (this.JsonElement.ValueKind == JsonValueKind.Undefined)
+                {
+                    return true;
+                }
+
+                if (this.JsonElement.ValueKind == JsonValueKind.String)
+                {
+                    return JsonString.FromJsonElement(this.JsonElement).Equals(JsonString.FromJsonElement(other.JsonElement));
+                }
+
+                if (this.JsonElement.ValueKind == JsonValueKind.Number)
+                {
+                    return JsonNumber.FromJsonElement(this.JsonElement).Equals(JsonNumber.FromJsonElement(other.JsonElement));
+                }
+
+                if (this.JsonElement.ValueKind == JsonValueKind.Object)
+                {
+                    return JsonObject.FromJsonElement(this.JsonElement).Equals(JsonObject.FromJsonElement(other.JsonElement));
+                }
             }
 
             return this.IsNull && other.IsNull;

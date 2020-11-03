@@ -212,7 +212,12 @@ namespace Menes
                 return this.JsonElement.ValueEquals(other.clrUri);
             }
 
-            return JsonAny.From(this).Equals(JsonAny.From(other));
+            if (this.HasJsonElement && other.HasJsonElement)
+            {
+                return this.JsonElement.ValueEquals(other.JsonElement.GetString());
+            }
+
+            return false;
         }
 
         /// <inheritdoc/>

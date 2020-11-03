@@ -222,14 +222,25 @@ namespace Menes
                 return false;
             }
 
-            if (this.HasJsonElement && other.HasJsonElement)
+            if (this.JsonAdditionalPropertiesCount != other.JsonAdditionalPropertiesCount)
             {
-                // Much quicker just to serialize the byte arrays and sequence compare
-                // It'd be even quicker if we could access them directly!
-                return JsonAny.From(this).Equals(JsonAny.From(other));
+                return false;
             }
 
-            return this.JsonAdditionalProperties.SequenceEqual(other.JsonAdditionalProperties);
+            foreach (JsonPropertyReference<JsonAny> property in this.JsonAdditionalProperties)
+            {
+                if (!other.TryGet(property.Name, out JsonAny value))
+                {
+                    return false;
+                }
+
+                if (!value.Equals(this))
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
 
         /// <inheritdoc/>
