@@ -650,14 +650,9 @@ namespace Menes
                 return false;
             }
 
-            if (this.TryGetInt64(out long lhs) && other.TryGetInt64(out long rhs))
+            if (this.TryGetDecimal(out decimal lhsm) && other.TryGetDecimal(out decimal rhsm))
             {
-                return rhs != 0 && (lhs % rhs == 0);
-            }
-
-            if (this.TryGetInt32(out int lhs32) && other.TryGetInt32(out int rhs32))
-            {
-                return rhs32 != 0 && (lhs32 % rhs32 == 0);
+                return rhsm != 0 && (lhsm % rhsm == 0);
             }
 
             if (this.TryGetDouble(out double lhsd) && other.TryGetDouble(out double rhsd))
@@ -670,9 +665,14 @@ namespace Menes
                 return rhss != 0 && (lhss % rhss == 0);
             }
 
-            if (this.TryGetDecimal(out decimal lhsm) && other.TryGetDecimal(out decimal rhsm))
+            if (this.TryGetInt64(out long lhs) && other.TryGetInt64(out long rhs))
             {
-                return rhsm != 0 && (lhsm % rhsm == 0);
+                return rhs != 0 && (lhs % rhs == 0);
+            }
+
+            if (this.TryGetInt32(out int lhs32) && other.TryGetInt32(out int rhs32))
+            {
+                return rhs32 != 0 && (lhs32 % rhs32 == 0);
             }
 
             return false;
@@ -690,14 +690,9 @@ namespace Menes
                 return false;
             }
 
-            if (this.TryGetInt64(out long lhs) && other.TryGetInt64(out long rhs))
+            if (this.TryGetDecimal(out decimal lhsm) && other.TryGetDecimal(out decimal rhsm))
             {
-                return lhs > rhs;
-            }
-
-            if (this.TryGetInt32(out int lhs32) && other.TryGetInt32(out int rhs32))
-            {
-                return lhs32 > rhs32;
+                return lhsm > rhsm;
             }
 
             if (this.TryGetDouble(out double lhsd) && other.TryGetDouble(out double rhsd))
@@ -710,9 +705,14 @@ namespace Menes
                 return lhss > rhss;
             }
 
-            if (this.TryGetDecimal(out decimal lhsm) && other.TryGetDecimal(out decimal rhsm))
+            if (this.TryGetInt64(out long lhs) && other.TryGetInt64(out long rhs))
             {
-                return lhsm > rhsm;
+                return lhs > rhs;
+            }
+
+            if (this.TryGetInt32(out int lhs32) && other.TryGetInt32(out int rhs32))
+            {
+                return lhs32 > rhs32;
             }
 
             return false;
@@ -730,14 +730,9 @@ namespace Menes
                 return false;
             }
 
-            if (this.TryGetInt64(out long lhs) && other.TryGetInt64(out long rhs))
+            if (this.TryGetDecimal(out decimal lhsm) && other.TryGetDecimal(out decimal rhsm))
             {
-                return lhs >= rhs;
-            }
-
-            if (this.TryGetInt32(out int lhs32) && other.TryGetInt32(out int rhs32))
-            {
-                return lhs32 >= rhs32;
+                return lhsm >= rhsm;
             }
 
             if (this.TryGetDouble(out double lhsd) && other.TryGetDouble(out double rhsd))
@@ -750,9 +745,14 @@ namespace Menes
                 return lhss >= rhss;
             }
 
-            if (this.TryGetDecimal(out decimal lhsm) && other.TryGetDecimal(out decimal rhsm))
+            if (this.TryGetInt64(out long lhs) && other.TryGetInt64(out long rhs))
             {
-                return lhsm >= rhsm;
+                return lhs >= rhs;
+            }
+
+            if (this.TryGetInt32(out int lhs32) && other.TryGetInt32(out int rhs32))
+            {
+                return lhs32 >= rhs32;
             }
 
             return false;
@@ -770,14 +770,9 @@ namespace Menes
                 return false;
             }
 
-            if (this.TryGetInt64(out long lhs) && other.TryGetInt64(out long rhs))
+            if (this.TryGetDecimal(out decimal lhsm) && other.TryGetDecimal(out decimal rhsm))
             {
-                return lhs < rhs;
-            }
-
-            if (this.TryGetInt32(out int lhs32) && other.TryGetInt32(out int rhs32))
-            {
-                return lhs32 < rhs32;
+                return lhsm < rhsm;
             }
 
             if (this.TryGetDouble(out double lhsd) && other.TryGetDouble(out double rhsd))
@@ -790,9 +785,14 @@ namespace Menes
                 return lhss < rhss;
             }
 
-            if (this.TryGetDecimal(out decimal lhsm) && other.TryGetDecimal(out decimal rhsm))
+            if (this.TryGetInt64(out long lhs) && other.TryGetInt64(out long rhs))
             {
-                return lhsm < rhsm;
+                return lhs < rhs;
+            }
+
+            if (this.TryGetInt32(out int lhs32) && other.TryGetInt32(out int rhs32))
+            {
+                return lhs32 < rhs32;
             }
 
             return false;
@@ -810,14 +810,9 @@ namespace Menes
                 return false;
             }
 
-            if (this.TryGetInt64(out long lhs) && other.TryGetInt64(out long rhs))
+            if (this.TryGetDecimal(out decimal lhsm) && other.TryGetDecimal(out decimal rhsm))
             {
-                return lhs <= rhs;
-            }
-
-            if (this.TryGetInt32(out int lhs32) && other.TryGetInt32(out int rhs32))
-            {
-                return lhs32 <= rhs32;
+                return lhsm <= rhsm;
             }
 
             if (this.TryGetDouble(out double lhsd) && other.TryGetDouble(out double rhsd))
@@ -830,9 +825,14 @@ namespace Menes
                 return lhss <= rhss;
             }
 
-            if (this.TryGetDecimal(out decimal lhsm) && other.TryGetDecimal(out decimal rhsm))
+            if (this.TryGetInt64(out long lhs) && other.TryGetInt64(out long rhs))
             {
-                return lhsm <= rhsm;
+                return lhs <= rhs;
+            }
+
+            if (this.TryGetInt32(out int lhs32) && other.TryGetInt32(out int rhs32))
+            {
+                return lhs32 <= rhs32;
             }
 
             return false;
