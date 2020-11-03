@@ -87,6 +87,17 @@ namespace Menes.Json.Schema.TypeGenerator
 
         private Task<ITypeDeclaration> CreateTypeDeclarationFor(JsonSchema schema)
         {
+            // Special case boolean schema
+            if (schema.HasJsonElement && schema.JsonElement.ValueKind == JsonValueKind.True)
+            {
+                return Task.FromResult((ITypeDeclaration)JsonValueTypeDeclaration.Any);
+            }
+
+            if (schema.HasJsonElement && schema.JsonElement.ValueKind == JsonValueKind.False)
+            {
+                return Task.FromResult((ITypeDeclaration)JsonValueTypeDeclaration.NotAny);
+            }
+
             string name = this.GetName(schema);
 
             if (schema.Type is JsonSchema.TypeEnumOrArrayOfTypeEnum type && type.IsTypeEnum)
@@ -120,6 +131,16 @@ namespace Menes.Json.Schema.TypeGenerator
 
         private Task PopulateTypeDeclarationFor(ITypeDeclaration typeDeclaration, JsonSchema schema, JsonDocument rootDocument, string baseUri)
         {
+            if (schema.HasJsonElement && schema.JsonElement.ValueKind == JsonValueKind.True)
+            {
+                return Task.CompletedTask;
+            }
+
+            if (schema.HasJsonElement && schema.JsonElement.ValueKind == JsonValueKind.False)
+            {
+                return Task.CompletedTask;
+            }
+
             if (schema.Type is JsonSchema.TypeEnumOrArrayOfTypeEnum type && type.IsTypeEnum)
             {
                 return (string)type.AsTypeEnum() switch

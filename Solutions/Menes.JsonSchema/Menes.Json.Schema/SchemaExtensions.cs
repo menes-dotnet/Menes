@@ -83,7 +83,7 @@ namespace Menes.Json.Schema
                 schema = new JsonSchema(document.RootElement);
             }
 
-            if (schema.Id is null)
+            if (schema.Id is null && !schema.IsBooleanSchema())
             {
                 schema = schema.WithId(BuildId(reference));
             }

@@ -10,6 +10,16 @@ namespace Menes.Json.Schema
     public static class JsonSchemaExtensions
     {
         /// <summary>
+        /// Gets a value indicating whether this is a Boolean schema, rather than a structured schema.
+        /// </summary>
+        /// <param name="schema">The schema.</param>
+        /// <returns>True if this is a boolean value, rather than a structured schema.</returns>
+        public static bool IsBooleanSchema(this JsonSchema schema)
+        {
+            return schema.HasJsonElement && (schema.JsonElement.ValueKind == System.Text.Json.JsonValueKind.True || schema.JsonElement.ValueKind == System.Text.Json.JsonValueKind.False);
+        }
+
+        /// <summary>
         /// Gets a value indicating whether the schema has validations.
         /// </summary>
         /// <param name="schema">The schema to test.</param>

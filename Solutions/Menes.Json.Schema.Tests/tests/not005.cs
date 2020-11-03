@@ -78,7 +78,7 @@ public readonly struct Schema : Menes.IJsonValue, System.IEquatable<Schema>
         Menes.JsonAny value = this;
         Menes.ValidationContext context = validationContext;
         context = value.Validate(context);
-        context = Menes.Validation.ValidateNot<Menes.JsonAny, Menes.JsonAny>(context, this);
+        context = Menes.Validation.ValidateNot<Menes.JsonAny, Menes.JsonNotAny>(context, this);
         return context;
     }
     public void WriteTo(System.Text.Json.Utf8JsonWriter writer)

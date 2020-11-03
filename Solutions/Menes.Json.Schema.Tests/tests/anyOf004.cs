@@ -80,9 +80,9 @@ public readonly struct Schema : Menes.IJsonValue, System.IEquatable<Schema>
         context = value.Validate(context);
         Menes.ValidationContext anyOfValidationContext1 = Menes.ValidationContext.Root.WithPath(context.Path);
         Menes.ValidationContext anyOfValidationContext2 = Menes.ValidationContext.Root.WithPath(context.Path);
-        Menes.JsonAny anyOfitem1 = Menes.JsonAny.From(value).As<Menes.JsonAny>();
+        Menes.JsonNotAny anyOfitem1 = Menes.JsonAny.From(value).As<Menes.JsonNotAny>();
         anyOfValidationContext1 = anyOfitem1.Validate(anyOfValidationContext1);
-        Menes.JsonAny anyOfitem2 = Menes.JsonAny.From(value).As<Menes.JsonAny>();
+        Menes.JsonNotAny anyOfitem2 = Menes.JsonAny.From(value).As<Menes.JsonNotAny>();
         anyOfValidationContext2 = anyOfitem2.Validate(anyOfValidationContext2);
         context = Menes.Validation.ValidateAnyOf(context, anyOfValidationContext1, anyOfValidationContext2);
         return context;

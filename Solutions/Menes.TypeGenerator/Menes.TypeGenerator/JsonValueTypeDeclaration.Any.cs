@@ -10,8 +10,13 @@ namespace Menes.TypeGenerator
     public partial class JsonValueTypeDeclaration : ITypeDeclaration
     {
         /// <summary>
-        /// Get the <see cref="bool"/> type for JSON Schema Boolean.
+        /// Get the type for JSON Schema Any (or 'true').
         /// </summary>
         public static readonly JsonValueTypeDeclaration Any = new JsonValueTypeDeclaration(typeof(JsonAny).Name, new[] { "Menes.JsonAny" }, ValueKind.Any);
+
+        /// <summary>
+        /// Get the type for JSON Schema Menes.JsonNotAny (or 'false').
+        /// </summary>
+        public static readonly JsonValueTypeDeclaration NotAny = new JsonValueTypeDeclaration(typeof(JsonNotAny).Name, new[] { "Menes.JsonNotAny" }, ValueKind.Any);
     }
 }

@@ -16,7 +16,7 @@ public readonly struct Schema : Menes.IJsonObject, System.IEquatable<Schema>, Me
     private static readonly System.Text.Json.JsonEncodedText EncodedBarPropertyName = System.Text.Json.JsonEncodedText.Encode(BarPropertyNameBytes.Span);
     private static readonly System.Collections.Immutable.ImmutableArray<System.ReadOnlyMemory<byte>> KnownProperties = System.Collections.Immutable.ImmutableArray.Create(FooPropertyNameBytes, BarPropertyNameBytes);
     private readonly Menes.JsonAny? foo;
-    private readonly Menes.JsonAny? bar;
+    private readonly Menes.JsonNotAny? bar;
     private readonly Menes.JsonProperties<Menes.JsonAny>? additionalPropertiesBacking;
     public Schema(System.Text.Json.JsonElement jsonElement)
     {
@@ -25,56 +25,56 @@ public readonly struct Schema : Menes.IJsonObject, System.IEquatable<Schema>, Me
         this.bar = null;
         this.additionalPropertiesBacking = null;
     }
-    public Schema(Menes.JsonAny? foo, Menes.JsonAny? bar, Menes.JsonProperties<Menes.JsonAny> additionalPropertiesBacking)
+    public Schema(Menes.JsonAny? foo, Menes.JsonNotAny? bar, Menes.JsonProperties<Menes.JsonAny> additionalPropertiesBacking)
     {
         this.foo = foo;
         this.bar = bar;
         this.JsonElement = default;
         this.additionalPropertiesBacking = additionalPropertiesBacking;
     }
-    public Schema(Menes.JsonAny? foo, Menes.JsonAny? bar, params (string, Menes.JsonAny)[] additionalPropertiesBacking)
+    public Schema(Menes.JsonAny? foo, Menes.JsonNotAny? bar, params (string, Menes.JsonAny)[] additionalPropertiesBacking)
     {
         this.foo = foo;
         this.bar = bar;
         this.JsonElement = default;
         this.additionalPropertiesBacking = Menes.JsonProperties<Menes.JsonAny>.FromValues(additionalPropertiesBacking);
     }
-    public Schema(Menes.JsonAny? foo = null, Menes.JsonAny? bar = null)
+    public Schema(Menes.JsonAny? foo = null, Menes.JsonNotAny? bar = null)
     {
         this.foo = foo;
         this.bar = bar;
         this.JsonElement = default;
         this.additionalPropertiesBacking = null;
     }
-    public Schema(Menes.JsonAny? foo, Menes.JsonAny? bar, (string, Menes.JsonAny) additionalProperty1)
+    public Schema(Menes.JsonAny? foo, Menes.JsonNotAny? bar, (string, Menes.JsonAny) additionalProperty1)
     {
         this.foo = foo;
         this.bar = bar;
         this.JsonElement = default;
         this.additionalPropertiesBacking = Menes.JsonProperties<Menes.JsonAny>.FromValues(additionalProperty1);
     }
-    public Schema(Menes.JsonAny? foo, Menes.JsonAny? bar, (string, Menes.JsonAny) additionalProperty1, (string, Menes.JsonAny) additionalProperty2)
+    public Schema(Menes.JsonAny? foo, Menes.JsonNotAny? bar, (string, Menes.JsonAny) additionalProperty1, (string, Menes.JsonAny) additionalProperty2)
     {
         this.foo = foo;
         this.bar = bar;
         this.JsonElement = default;
         this.additionalPropertiesBacking = Menes.JsonProperties<Menes.JsonAny>.FromValues(additionalProperty1, additionalProperty2);
     }
-    public Schema(Menes.JsonAny? foo, Menes.JsonAny? bar, (string, Menes.JsonAny) additionalProperty1, (string, Menes.JsonAny) additionalProperty2, (string, Menes.JsonAny) additionalProperty3)
+    public Schema(Menes.JsonAny? foo, Menes.JsonNotAny? bar, (string, Menes.JsonAny) additionalProperty1, (string, Menes.JsonAny) additionalProperty2, (string, Menes.JsonAny) additionalProperty3)
     {
         this.foo = foo;
         this.bar = bar;
         this.JsonElement = default;
         this.additionalPropertiesBacking = Menes.JsonProperties<Menes.JsonAny>.FromValues(additionalProperty1, additionalProperty2, additionalProperty3);
     }
-    public Schema(Menes.JsonAny? foo, Menes.JsonAny? bar, (string, Menes.JsonAny) additionalProperty1, (string, Menes.JsonAny) additionalProperty2, (string, Menes.JsonAny) additionalProperty3, (string, Menes.JsonAny) additionalProperty4)
+    public Schema(Menes.JsonAny? foo, Menes.JsonNotAny? bar, (string, Menes.JsonAny) additionalProperty1, (string, Menes.JsonAny) additionalProperty2, (string, Menes.JsonAny) additionalProperty3, (string, Menes.JsonAny) additionalProperty4)
     {
         this.foo = foo;
         this.bar = bar;
         this.JsonElement = default;
         this.additionalPropertiesBacking = Menes.JsonProperties<Menes.JsonAny>.FromValues(additionalProperty1, additionalProperty2, additionalProperty3, additionalProperty4);
     }
-    private Schema(Menes.JsonAny? foo, Menes.JsonAny? bar, Menes.JsonProperties<Menes.JsonAny>? additionalPropertiesBacking)
+    private Schema(Menes.JsonAny? foo, Menes.JsonNotAny? bar, Menes.JsonProperties<Menes.JsonAny>? additionalPropertiesBacking)
     {
         this.foo = foo;
         this.bar = bar;
@@ -84,7 +84,7 @@ public readonly struct Schema : Menes.IJsonObject, System.IEquatable<Schema>, Me
     public bool IsNull => (this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Undefined || this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Null) && (this.foo is null || this.foo.Value.IsNull) && (this.bar is null || this.bar.Value.IsNull);
     public Schema? AsOptional => this.IsNull ? default(Schema?) : this;
     public Menes.JsonAny? Foo => this.foo ?? Menes.JsonAny.FromOptionalProperty(this.JsonElement, FooPropertyNameBytes.Span).AsOptional;
-    public Menes.JsonAny? Bar => this.bar ?? Menes.JsonAny.FromOptionalProperty(this.JsonElement, BarPropertyNameBytes.Span).AsOptional;
+    public Menes.JsonNotAny? Bar => this.bar ?? Menes.JsonNotAny.FromOptionalProperty(this.JsonElement, BarPropertyNameBytes.Span).AsOptional;
     public int PropertiesCount => KnownProperties.Length + this.JsonAdditionalPropertiesCount;
     public int JsonAdditionalPropertiesCount
     {
@@ -146,7 +146,7 @@ public readonly struct Schema : Menes.IJsonObject, System.IEquatable<Schema>, Me
     {
         return new Schema(value, this.Bar, this.GetJsonProperties());
     }
-    public Schema WithBar(Menes.JsonAny? value)
+    public Schema WithBar(Menes.JsonNotAny? value)
     {
         return new Schema(this.Foo, value, this.GetJsonProperties());
     }
@@ -318,7 +318,7 @@ public readonly struct Schema : Menes.IJsonObject, System.IEquatable<Schema>, Me
                 writer.WritePropertyName(EncodedFooPropertyName);
                 foo.WriteTo(writer);
             }
-            if (this.bar is Menes.JsonAny bar)
+            if (this.bar is Menes.JsonNotAny bar)
             {
                 writer.WritePropertyName(EncodedBarPropertyName);
                 bar.WriteTo(writer);
@@ -354,7 +354,7 @@ public readonly struct Schema : Menes.IJsonObject, System.IEquatable<Schema>, Me
         {
             context = Menes.Validation.ValidateProperty(context, foo, FooPropertyNamePath);
         }
-        if (this.Bar is Menes.JsonAny bar)
+        if (this.Bar is Menes.JsonNotAny bar)
         {
             context = Menes.Validation.ValidateProperty(context, bar, BarPropertyNamePath);
         }

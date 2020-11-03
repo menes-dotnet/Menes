@@ -15,7 +15,7 @@ public static class Tests
     public static bool Test0()
     {
         using var doc = System.Text.Json.JsonDocument.Parse("1");
-        var schema = new Menes.JsonAny(doc.RootElement);
+        var schema = new Menes.JsonNotAny(doc.RootElement);
         var context = schema.Validate(Menes.ValidationContext.Root);
         if (context.IsValid)
         {
@@ -31,7 +31,7 @@ public static class Tests
     public static bool Test1()
     {
         using var doc = System.Text.Json.JsonDocument.Parse("\"foo\"");
-        var schema = new Menes.JsonAny(doc.RootElement);
+        var schema = new Menes.JsonNotAny(doc.RootElement);
         var context = schema.Validate(Menes.ValidationContext.Root);
         if (context.IsValid)
         {
@@ -47,7 +47,7 @@ public static class Tests
     public static bool Test2()
     {
         using var doc = System.Text.Json.JsonDocument.Parse("true");
-        var schema = new Menes.JsonAny(doc.RootElement);
+        var schema = new Menes.JsonNotAny(doc.RootElement);
         var context = schema.Validate(Menes.ValidationContext.Root);
         if (context.IsValid)
         {
@@ -63,7 +63,7 @@ public static class Tests
     public static bool Test3()
     {
         using var doc = System.Text.Json.JsonDocument.Parse("false");
-        var schema = new Menes.JsonAny(doc.RootElement);
+        var schema = new Menes.JsonNotAny(doc.RootElement);
         var context = schema.Validate(Menes.ValidationContext.Root);
         if (context.IsValid)
         {
@@ -79,7 +79,7 @@ public static class Tests
     public static bool Test4()
     {
         using var doc = System.Text.Json.JsonDocument.Parse("null");
-        var schema = new Menes.JsonAny(doc.RootElement);
+        var schema = new Menes.JsonNotAny(doc.RootElement);
         var context = schema.Validate(Menes.ValidationContext.Root);
         if (context.IsValid)
         {
@@ -95,7 +95,7 @@ public static class Tests
     public static bool Test5()
     {
         using var doc = System.Text.Json.JsonDocument.Parse("{\"foo\": \"bar\"}");
-        var schema = new Menes.JsonAny(doc.RootElement);
+        var schema = new Menes.JsonNotAny(doc.RootElement);
         var context = schema.Validate(Menes.ValidationContext.Root);
         if (context.IsValid)
         {
@@ -111,7 +111,7 @@ public static class Tests
     public static bool Test6()
     {
         using var doc = System.Text.Json.JsonDocument.Parse("{}");
-        var schema = new Menes.JsonAny(doc.RootElement);
+        var schema = new Menes.JsonNotAny(doc.RootElement);
         var context = schema.Validate(Menes.ValidationContext.Root);
         if (context.IsValid)
         {
@@ -127,7 +127,7 @@ public static class Tests
     public static bool Test7()
     {
         using var doc = System.Text.Json.JsonDocument.Parse("[\"foo\"]");
-        var schema = new Menes.JsonAny(doc.RootElement);
+        var schema = new Menes.JsonNotAny(doc.RootElement);
         var context = schema.Validate(Menes.ValidationContext.Root);
         if (context.IsValid)
         {
@@ -143,7 +143,7 @@ public static class Tests
     public static bool Test8()
     {
         using var doc = System.Text.Json.JsonDocument.Parse("[]");
-        var schema = new Menes.JsonAny(doc.RootElement);
+        var schema = new Menes.JsonNotAny(doc.RootElement);
         var context = schema.Validate(Menes.ValidationContext.Root);
         if (context.IsValid)
         {

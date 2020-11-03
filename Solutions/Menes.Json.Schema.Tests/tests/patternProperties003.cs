@@ -352,7 +352,7 @@ public readonly struct Schema : Menes.IJsonObject, System.IEquatable<Schema>, Me
         {
             return validationContext;
         }
-        if (PatternPropertyRegex0.IsMatch(propertyName) && anyValue.As<Menes.JsonAny>().Validate(Menes.ValidationContext.Root).IsValid)
+        if (PatternPropertyRegex0.IsMatch(propertyName) && anyValue.As<Menes.JsonNotAny>().Validate(Menes.ValidationContext.Root).IsValid)
         {
             return validationContext;
         }
