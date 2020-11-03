@@ -335,6 +335,23 @@ namespace Menes.TypeGenerator
                 builder.AppendLine($"    context = Menes.Validation.ValidateProperty(context, property.AsValue(), \".\" + property.Name);");
                 builder.AppendLine("}");
             }
+            else
+            {
+                builder.AppendLine("if (this.HasJsonElement && this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Object)");
+                builder.AppendLine("{");
+                builder.AppendLine("int propCount = 0;");
+                builder.AppendLine("var additionalPropertyEnumerator = this.JsonElement.EnumerateObject();");
+                builder.AppendLine("while (additionalPropertyEnumerator.MoveNext())");
+                builder.AppendLine("{");
+                builder.AppendLine("    propCount++;");
+                builder.AppendLine("    if (propCount > KnownProperties.Length)");
+                builder.AppendLine("    {");
+                builder.AppendLine("        context = context.WithError(\"core 9.3.2.3. No additional properties were expected.\");");
+                builder.AppendLine("        break;");
+                builder.AppendLine("    }");
+                builder.AppendLine("}");
+                builder.AppendLine("}");
+            }
 
             if (this.MinPropertiesValidation is int || this.MaxPropertiesValidation is int)
             {
