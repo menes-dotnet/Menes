@@ -131,11 +131,6 @@ namespace Menes.Json.Schema.Tests
 
                 try
                 {
-                    if (ns == "Ref000")
-                    {
-                        throw new InvalidOperationException("Temporarily unable to generate Ref000");
-                    }
-
                     string rootTypeName = WriteTypes(typeGenerator, outputFile);
                     WriteTests(outputFile, uri.Item3, uri.Item4, ns, testsToExecute, rootTypeName);
                 }

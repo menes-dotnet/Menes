@@ -5593,10 +5593,42 @@ else
 {
     failedCount++;
 }
-ignoredCount++;
-ignoredCount++;
-ignoredCount++;
-ignoredCount++;
+executedCount++;
+if(Ref000.Tests.Test0())
+{
+    passedCount++;
+}
+else
+{
+    failedCount++;
+}
+executedCount++;
+if(Ref000.Tests.Test1())
+{
+    passedCount++;
+}
+else
+{
+    failedCount++;
+}
+executedCount++;
+if(Ref000.Tests.Test2())
+{
+    passedCount++;
+}
+else
+{
+    failedCount++;
+}
+executedCount++;
+if(Ref000.Tests.Test3())
+{
+    passedCount++;
+}
+else
+{
+    failedCount++;
+}
 executedCount++;
 if(Ref001.Tests.Test0())
 {
