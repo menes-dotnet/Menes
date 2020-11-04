@@ -47,7 +47,8 @@ namespace Menes.Json.Schema.Tests
                 return;
             }
 
-            string output = Path.Combine(args[0], "../tests");
+            string output = Path.Combine(args[0], "..\\tests");
+            string remotes = Path.Combine(args[0], "..\\remotes");
 
             var uris = new List<(string, string, string, int)>();
 
@@ -63,7 +64,7 @@ namespace Menes.Json.Schema.Tests
 
             var testsToExecute = new List<string?>();
 
-            await GenerateTypesForSchema(uris.ToArray(), output, testsToExecute).ConfigureAwait(false);
+            await GenerateTypesForSchema(uris.ToArray(), output, remotes, testsToExecute).ConfigureAwait(false);
 
             WriteTestExecutor(Path.Combine(output, "TestExecutor.cs"), testsToExecute);
         }
@@ -114,15 +115,19 @@ namespace Menes.Json.Schema.Tests
             File.WriteAllText(outputFile, builder.ToString());
         }
 
-        private static async Task GenerateTypesForSchema((string, string, string, int)[] uris, string outputPath, List<string?> testsToExecute)
+        private static async Task GenerateTypesForSchema((string, string, string, int)[] uris, string outputPath, string remotes, List<string?> testsToExecute)
         {
+            IDocumentResolver documentResolver = new CompoundDocumentResolver(new FakeWebDocumentResolver(remotes), new FileSystemDocumentResolver());
+            ISchemaResolver schemaResolver = new SchemaResolver(documentResolver);
+
             foreach ((string, string, string, int) uri in uris)
             {
                 string ns = StringFormatter.ToPascalCaseWithReservedWords(uri.Item2);
 
-                SchemaResolver.Default.Reset();
-                var typeGenerator = new TypeGeneratorJsonSchemaVisitor(SchemaResolver.Default);
-                await GenerateTypesForSchema(uri.Item1, typeGenerator).ConfigureAwait(false);
+                schemaResolver.Reset();
+
+                var typeGenerator = new TypeGeneratorJsonSchemaVisitor(schemaResolver);
+                await GenerateTypesForSchema(uri.Item1, typeGenerator, schemaResolver).ConfigureAwait(false);
                 string outputFile = Path.ChangeExtension(Path.Combine(outputPath, uri.Item2), ".cs");
 
                 Directory.CreateDirectory(Path.GetDirectoryName(outputFile));
@@ -216,9 +221,9 @@ namespace Menes.Json.Schema.Tests
             }
         }
 
-        private static async Task GenerateTypesForSchema(string uri, TypeGeneratorJsonSchemaVisitor typeGenerator)
+        private static async Task GenerateTypesForSchema(string uri, TypeGeneratorJsonSchemaVisitor typeGenerator, ISchemaResolver schemaResolver)
         {
-            (string baseUri, JsonDocument root, JsonSchema schema) resolved = await SchemaResolver.Default.LoadSchema(uri).ConfigureAwait(false);
+            (string baseUri, JsonDocument root, JsonSchema schema) resolved = await schemaResolver.LoadSchema(uri).ConfigureAwait(false);
 
             var abf = new ArrayBufferWriter<byte>();
             using var writer = new Utf8JsonWriter(abf);
@@ -241,7 +246,7 @@ namespace Menes.Json.Schema.Tests
                 }
             }
 
-            SchemaResolver.Default.AddSchema(baseUri, root, schema);
+            schemaResolver.AddSchema(baseUri, root, schema);
 
             try
             {

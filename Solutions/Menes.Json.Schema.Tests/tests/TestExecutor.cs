@@ -5957,9 +5957,33 @@ else
 }
 ignoredCount++;
 ignoredCount++;
-ignoredCount++;
-ignoredCount++;
-ignoredCount++;
+executedCount++;
+if(RefRemote006.Tests.Test0())
+{
+    passedCount++;
+}
+else
+{
+    failedCount++;
+}
+executedCount++;
+if(RefRemote006.Tests.Test1())
+{
+    passedCount++;
+}
+else
+{
+    failedCount++;
+}
+executedCount++;
+if(RefRemote006.Tests.Test2())
+{
+    passedCount++;
+}
+else
+{
+    failedCount++;
+}
 executedCount++;
 if(Required000.Tests.Test0())
 {
