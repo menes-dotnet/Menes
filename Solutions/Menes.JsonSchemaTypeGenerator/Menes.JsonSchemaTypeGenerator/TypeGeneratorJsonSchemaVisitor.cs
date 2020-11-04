@@ -19,6 +19,7 @@ namespace Menes.Json.Schema.TypeGenerator
     {
         // Type declarations keyed by the form of the declaration.
         private readonly Dictionary<string, ITypeDeclaration> typeDeclarations = new Dictionary<string, ITypeDeclaration>();
+        private readonly Dictionary<string, ITypeDeclaration> anchors = new Dictionary<string, ITypeDeclaration>();
         private readonly Stack<ITypeDeclaration> declarationStack = new Stack<ITypeDeclaration>();
         private readonly Stack<string> propertyNameStack = new Stack<string>();
         private readonly IDocumentResolver documentResolver;
@@ -63,6 +64,11 @@ namespace Menes.Json.Schema.TypeGenerator
         private async Task<ITypeDeclaration> BuildTypeCore(JsonSchema schema, JsonDocument rootDocument, string baseUri)
         {
             ITypeDeclaration declaration = await this.CreateTypeDeclarationFor(schema).ConfigureAwait(false);
+
+            if (schema.Anchor is JsonString anchor)
+            {
+                this.anchors.Add(anchor, declaration);
+            }
 
             if (declaration.ShouldGenerate)
             {
@@ -187,7 +193,7 @@ namespace Menes.Json.Schema.TypeGenerator
                 {
                     this.propertyNameStack.Push("Properties");
 
-                    additionalPropertiesType = await this.GetTypeDeclarationFor(additionalProperties.AsSchemaOrReference(), rootDocument, baseUri).ConfigureAwait(false);
+                    additionalPropertiesType = await this.GetTypeDeclarationFor(additionalProperties.AsJsonSchema(), rootDocument, baseUri).ConfigureAwait(false);
 
                     this.propertyNameStack.Pop();
                 }
@@ -196,38 +202,49 @@ namespace Menes.Json.Schema.TypeGenerator
             return additionalPropertiesType;
         }
 
-        private async Task<(string, JsonDocument, JsonSchema)?> GetSchemaFor(JsonSchema.SchemaOrReference? schemaOrReference, JsonDocument rootDocument, string baseUri)
+        private async Task<(string, JsonDocument, JsonSchema)?> GetSchemaFor(JsonSchema? schemaOrReference, JsonDocument rootDocument, string baseUri)
         {
-            if (!(schemaOrReference is JsonSchema.SchemaOrReference sor))
+            if (!(schemaOrReference is JsonSchema sor))
             {
                 return null;
             }
 
-            if (sor.IsSchemaReference)
+            if (sor.IsSchemaReference())
             {
                 (baseUri, rootDocument, sor) = await sor.Resolve(baseUri, rootDocument, this.documentResolver).ConfigureAwait(false);
             }
 
-            return (baseUri, rootDocument, sor.AsJsonSchema());
+            return (baseUri, rootDocument, sor);
         }
 
-        private async Task<ITypeDeclaration?> GetTypeDeclarationFor(JsonSchema.SchemaOrReference? schemaOrReference, JsonDocument rootDocument, string baseUri)
+        private async Task<ITypeDeclaration?> GetTypeDeclarationFor(JsonSchema? schemaOrReference, JsonDocument rootDocument, string baseUri)
         {
-            if (!(schemaOrReference is JsonSchema.SchemaOrReference sor))
+            if (!(schemaOrReference is JsonSchema sor))
             {
                 return null;
             }
 
             string uri = baseUri;
             JsonDocument document = rootDocument;
-            JsonSchema.SchemaOrReference reference = sor;
+            JsonSchema reference = sor;
 
-            if (sor.IsSchemaReference)
+            if (sor.Ref is JsonString jsonRef)
             {
+                var anchor = new JsonRef(jsonRef);
+                if (!anchor.HasUri)
+                {
+                    anchor = anchor.WithUri(baseUri);
+                }
+
+                if (this.anchors.TryGetValue(anchor.ToString(), out ITypeDeclaration anchoredType))
+                {
+                    return anchoredType;
+                }
+
                 (uri, document, reference) = await sor.Resolve(baseUri, rootDocument, this.documentResolver).ConfigureAwait(false);
             }
 
-            JsonSchema schema = reference.AsJsonSchema();
+            JsonSchema schema = reference;
 
             string name = this.GetName(schema);
             if (this.typeDeclarations.TryGetValue(name, out ITypeDeclaration result))
@@ -346,7 +363,7 @@ namespace Menes.Json.Schema.TypeGenerator
             if (schema.PatternProperties is JsonSchema.SchemaProperties patternProperties)
             {
                 var patternPropertyValidation = new List<(string, ITypeDeclaration)>();
-                foreach (JsonPropertyReference<JsonSchema.SchemaOrReference> patternProperty in patternProperties.JsonAdditionalProperties)
+                foreach (JsonPropertyReference<JsonSchema> patternProperty in patternProperties.JsonAdditionalProperties)
                 {
                     ITypeDeclaration patternType = await this.GetTypeDeclarationFor(patternProperty.AsValue(), rootDocument, baseUri).ConfigureAwait(false) ?? AnyTypeDeclaration.Instance;
                     patternPropertyValidation.Add((patternProperty.Name, patternType));
@@ -367,7 +384,7 @@ namespace Menes.Json.Schema.TypeGenerator
 
             if (schema.Properties is JsonSchema.SchemaProperties properties)
             {
-                foreach (JsonPropertyReference<JsonSchema.SchemaOrReference> property in properties.JsonAdditionalProperties)
+                foreach (JsonPropertyReference<JsonSchema> property in properties.JsonAdditionalProperties)
                 {
                     this.propertyNameStack.Push(property.Name);
 
@@ -520,9 +537,9 @@ namespace Menes.Json.Schema.TypeGenerator
                 {
                     itemTypeDeclaration = JsonValueTypeDeclaration.NotAny;
                 }
-                else if (schemaItems.IsSchemaOrReference)
+                else if (schemaItems.IsJsonSchema)
                 {
-                    itemTypeDeclaration = await this.GetTypeDeclarationFor(schemaItems.AsSchemaOrReference(), rootDocument, baseUri).ConfigureAwait(false) ?? JsonValueTypeDeclaration.Any;
+                    itemTypeDeclaration = await this.GetTypeDeclarationFor(schemaItems.AsJsonSchema(), rootDocument, baseUri).ConfigureAwait(false) ?? JsonValueTypeDeclaration.Any;
                 }
                 else
                 {
@@ -612,9 +629,9 @@ namespace Menes.Json.Schema.TypeGenerator
                         return null;
                     }
                 }
-                else if (ai.IsSchemaOrReference)
+                else if (ai.IsJsonSchema)
                 {
-                    return await this.GetTypeDeclarationFor(ai.AsSchemaOrReference(), rootDocument, baseUri).ConfigureAwait(false);
+                    return await this.GetTypeDeclarationFor(ai.AsJsonSchema(), rootDocument, baseUri).ConfigureAwait(false);
                 }
             }
 
@@ -674,7 +691,7 @@ namespace Menes.Json.Schema.TypeGenerator
 
             var result = new List<(string, JsonDocument, JsonSchema)>();
 
-            foreach (JsonSchema.SchemaOrReference sor in s)
+            foreach (JsonSchema sor in s)
             {
                 (string, JsonDocument, JsonSchema)? item = await this.GetSchemaFor(sor, rootDocument, baseUri).ConfigureAwait(false);
 
@@ -723,7 +740,7 @@ namespace Menes.Json.Schema.TypeGenerator
             var result = new List<ITypeDeclaration>();
 
             int itemIndex = 1;
-            foreach (JsonSchema.SchemaOrReference sor in s)
+            foreach (JsonSchema sor in s)
             {
                 if (sor.IsBooleanTrueSchema())
                 {
@@ -751,7 +768,6 @@ namespace Menes.Json.Schema.TypeGenerator
                 }
                 finally
                 {
-                    ++itemIndex;
                     this.propertyNameStack.Pop();
                 }
             }

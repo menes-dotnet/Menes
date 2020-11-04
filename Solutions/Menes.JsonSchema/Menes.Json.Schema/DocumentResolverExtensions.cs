@@ -20,9 +20,8 @@ namespace Menes.Json.Schema
         /// <returns>A <see cref="Task{TResult}"/> which produces the <see cref="JsonSchema"/>.</returns>
         public static async Task<(string, JsonDocument, JsonSchema)> LoadSchema(this IDocumentResolver resolver, JsonRef reference)
         {
-            (string baseUri, JsonDocument document, JsonSchema.SchemaOrReference schemaOrReference) = await reference.Resolve(resolver).ConfigureAwait(false);
-            JsonSchema schema = schemaOrReference.AsJsonSchema();
-            return (baseUri, document, schema);
+            (string baseUri, JsonDocument document, JsonSchema schemaOrReference) = await reference.Resolve(resolver).ConfigureAwait(false);
+            return (baseUri, document, schemaOrReference);
         }
     }
 }

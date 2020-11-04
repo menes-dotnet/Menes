@@ -21,13 +21,8 @@ namespace Menes.Json.Schema.Generator
         {
             var schema = new ObjectTypeDeclaration("JsonSchema", AnyTypeDeclaration.Instance);
 
-            var reference = new ObjectTypeDeclaration("SchemaReference");
-            reference.AddPropertyDeclaration("$ref", JsonValueTypeDeclaration.String);
-            schema.AddTypeDeclaration(reference);
-
-            var subschema = new UnionTypeDeclaration("SchemaOrReference");
-            subschema.AddTypesToUnion(schema, reference);
-            schema.AddTypeDeclaration(subschema);
+            schema.AddOptionalPropertyDeclaration("$ref", JsonValueTypeDeclaration.String);
+            schema.AddOptionalPropertyDeclaration("$defs", JsonValueTypeDeclaration.Any);
 
             var schemaType = new ValidatedJsonValueTypeDeclaration("TypeEnum", JsonValueTypeDeclaration.String)
             {
@@ -64,28 +59,29 @@ namespace Menes.Json.Schema.Generator
             };
             schema.AddTypeDeclaration(nonEmptyBooleanArray);
 
-            var nonEmptySubschemaArray = new ValidatedArrayTypeDeclaration("NonEmptySubschemaArray", subschema)
+            var nonEmptySubschemaArray = new ValidatedArrayTypeDeclaration("NonEmptySubschemaArray", schema)
             {
                 MinItemsValidation = 1,
             };
             schema.AddTypeDeclaration(nonEmptySubschemaArray);
 
-            var objectWithSchemaProperties = new ObjectTypeDeclaration("SchemaProperties", subschema);
+            var objectWithSchemaProperties = new ObjectTypeDeclaration("SchemaProperties", schema);
             schema.AddTypeDeclaration(objectWithSchemaProperties);
 
             var schemaAdditionalProperties = new UnionTypeDeclaration("SchemaAdditionalProperties", UnionTypeDeclaration.UnionKind.OneOf);
-            schemaAdditionalProperties.AddTypesToUnion(subschema, JsonValueTypeDeclaration.Boolean);
+            schemaAdditionalProperties.AddTypesToUnion(schema, JsonValueTypeDeclaration.Boolean);
             schema.AddTypeDeclaration(schemaAdditionalProperties);
 
             var schemaAdditionalItems = new UnionTypeDeclaration("SchemaAdditionalItems", UnionTypeDeclaration.UnionKind.OneOf);
-            schemaAdditionalItems.AddTypesToUnion(subschema, JsonValueTypeDeclaration.Boolean);
+            schemaAdditionalItems.AddTypesToUnion(schema, JsonValueTypeDeclaration.Boolean);
             schema.AddTypeDeclaration(schemaAdditionalItems);
 
             var schemaItems = new UnionTypeDeclaration("SchemaItems", UnionTypeDeclaration.UnionKind.OneOf);
-            schemaItems.AddTypesToUnion(subschema, nonEmptySubschemaArray, nonEmptyBooleanArray);
+            schemaItems.AddTypesToUnion(schema, nonEmptySubschemaArray, nonEmptyBooleanArray);
             schema.AddTypeDeclaration(schemaItems);
 
             schema.AddOptionalPropertyDeclaration("$id", JsonValueTypeDeclaration.String);
+            schema.AddOptionalPropertyDeclaration("$anchor", JsonValueTypeDeclaration.String);
 
             // Common
             schema.AddOptionalPropertyDeclaration("$schema", JsonValueTypeDeclaration.String);
@@ -100,10 +96,10 @@ namespace Menes.Json.Schema.Generator
             schema.AddOptionalPropertyDeclaration("allOf", nonEmptySubschemaArray);
             schema.AddOptionalPropertyDeclaration("anyOf", nonEmptySubschemaArray);
             schema.AddOptionalPropertyDeclaration("oneOf", nonEmptySubschemaArray);
-            schema.AddOptionalPropertyDeclaration("not", subschema);
-            schema.AddOptionalPropertyDeclaration("if", subschema);
-            schema.AddOptionalPropertyDeclaration("then", subschema);
-            schema.AddOptionalPropertyDeclaration("else", subschema);
+            schema.AddOptionalPropertyDeclaration("not", schema);
+            schema.AddOptionalPropertyDeclaration("if", schema);
+            schema.AddOptionalPropertyDeclaration("then", schema);
+            schema.AddOptionalPropertyDeclaration("else", schema);
             schema.AddOptionalPropertyDeclaration("dependentSchemas", objectWithSchemaProperties);
 
             // Number
@@ -126,7 +122,7 @@ namespace Menes.Json.Schema.Generator
             schema.AddOptionalPropertyDeclaration("minContains", schemaNonNegativeInteger);
             schema.AddOptionalPropertyDeclaration("items", schemaItems);
             schema.AddOptionalPropertyDeclaration("additionalItems", schemaAdditionalItems);
-            schema.AddOptionalPropertyDeclaration("contains", subschema);
+            schema.AddOptionalPropertyDeclaration("contains", schema);
 
             // Object
             schema.AddOptionalPropertyDeclaration("maxProperties", schemaNonNegativeInteger);
@@ -135,10 +131,10 @@ namespace Menes.Json.Schema.Generator
             schema.AddOptionalPropertyDeclaration("properties", objectWithSchemaProperties);
             schema.AddOptionalPropertyDeclaration("additionalProperties", schemaAdditionalProperties);
             schema.AddOptionalPropertyDeclaration("patternProperties", objectWithSchemaProperties);
-            schema.AddOptionalPropertyDeclaration("propertyNames", subschema);
+            schema.AddOptionalPropertyDeclaration("propertyNames", schema);
 
             // A schema is not a reference
-            schema.NotTypeValidation = reference;
+            schema.NotTypeValidation = schema;
 
             return schema.GenerateType();
         }

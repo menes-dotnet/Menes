@@ -548,12 +548,12 @@ namespace Menes.Sandbox
 
             if (schema.Properties is JsonSchema.SchemaProperties properties)
             {
-                JsonProperties<JsonSchema.SchemaOrReference>.JsonPropertyEnumerator propertiesEnumerator = properties.JsonAdditionalProperties;
+                JsonProperties<JsonSchema>.JsonPropertyEnumerator propertiesEnumerator = properties.JsonAdditionalProperties;
                 while (propertiesEnumerator.MoveNext())
                 {
                     Console.Write($"'{propertiesEnumerator.Current.Name}': ");
-                    (string childBaseUri, JsonDocument childDoc, JsonSchema.SchemaOrReference childSchema) = await propertiesEnumerator.Current.AsValue().Resolve(baseUri, root, resolver);
-                    await RecursiveWriteSchema(childBaseUri, pointer + "." + propertiesEnumerator.Current.Name, childDoc, childSchema.AsJsonSchema(), resolver).ConfigureAwait(false);
+                    (string childBaseUri, JsonDocument childDoc, JsonSchema childSchema) = await propertiesEnumerator.Current.AsValue().Resolve(baseUri, root, resolver);
+                    await RecursiveWriteSchema(childBaseUri, pointer + "." + propertiesEnumerator.Current.Name, childDoc, childSchema, resolver).ConfigureAwait(false);
                 }
             }
 

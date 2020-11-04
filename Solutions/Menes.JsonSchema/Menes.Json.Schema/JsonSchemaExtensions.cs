@@ -10,6 +10,16 @@ namespace Menes.Json.Schema
     public static class JsonSchemaExtensions
     {
         /// <summary>
+        /// Gets a value indicating whether this is a reference schema, rather than a structured schema.
+        /// </summary>
+        /// <param name="schema">The schema.</param>
+        /// <returns>True if this is a boolean value, rather than a structured schema.</returns>
+        public static bool IsSchemaReference(this JsonSchema schema)
+        {
+            return schema.Ref is JsonString;
+        }
+
+        /// <summary>
         /// Gets a value indicating whether this is a Boolean schema, rather than a structured schema.
         /// </summary>
         /// <param name="schema">The schema.</param>
@@ -17,36 +27,6 @@ namespace Menes.Json.Schema
         public static bool IsBooleanSchema(this JsonSchema schema)
         {
             return schema.HasJsonElement && (schema.JsonElement.ValueKind == System.Text.Json.JsonValueKind.True || schema.JsonElement.ValueKind == System.Text.Json.JsonValueKind.False);
-        }
-
-        /// <summary>
-        /// Gets a value indicating whether this is a Boolean schema, rather than a structured schema.
-        /// </summary>
-        /// <param name="schema">The schema.</param>
-        /// <returns>True if this is a boolean value, rather than a structured schema.</returns>
-        public static bool IsBooleanSchema(this JsonSchema.SchemaOrReference schema)
-        {
-            return schema.HasJsonElement && (schema.JsonElement.ValueKind == System.Text.Json.JsonValueKind.True || schema.JsonElement.ValueKind == System.Text.Json.JsonValueKind.False);
-        }
-
-        /// <summary>
-        /// Gets a value indicating whether this is a Boolean schema, rather than a structured schema.
-        /// </summary>
-        /// <param name="schema">The schema.</param>
-        /// <returns>True if this is a boolean value, rather than a structured schema.</returns>
-        public static bool IsBooleanTrueSchema(this JsonSchema.SchemaOrReference schema)
-        {
-            return schema.HasJsonElement && (schema.JsonElement.ValueKind == System.Text.Json.JsonValueKind.True);
-        }
-
-        /// <summary>
-        /// Gets a value indicating whether this is a Boolean schema, rather than a structured schema.
-        /// </summary>
-        /// <param name="schema">The schema.</param>
-        /// <returns>True if this is a boolean value, rather than a structured schema.</returns>
-        public static bool IsBooleanFalseSchema(this JsonSchema.SchemaOrReference schema)
-        {
-            return schema.HasJsonElement && (schema.JsonElement.ValueKind == System.Text.Json.JsonValueKind.False);
         }
 
         /// <summary>
