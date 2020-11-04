@@ -4,12 +4,12 @@
 #pragma warning disable
 namespace Menes.Json.Schema.Tests.Not002
 {
-public readonly struct Schema : Menes.IJsonValue, System.IEquatable<Schema>
+public readonly struct TestSchema : Menes.IJsonValue, System.IEquatable<TestSchema>
 {
-    public static readonly System.Func<System.Text.Json.JsonElement, Schema> FromJsonElement = e => new Schema(e);
-    public static readonly Schema Null = new Schema(default(System.Text.Json.JsonElement));
+    public static readonly System.Func<System.Text.Json.JsonElement, TestSchema> FromJsonElement = e => new TestSchema(e);
+    public static readonly TestSchema Null = new TestSchema(default(System.Text.Json.JsonElement));
     private readonly Menes.JsonAny? value;
-    public Schema(Menes.JsonAny value)
+    public TestSchema(Menes.JsonAny value)
     {
         if (value.HasJsonElement)
         {
@@ -22,20 +22,20 @@ public readonly struct Schema : Menes.IJsonValue, System.IEquatable<Schema>
             this.JsonElement = default;
         }
     }
-    public Schema(System.Text.Json.JsonElement jsonElement)
+    public TestSchema(System.Text.Json.JsonElement jsonElement)
     {
         this.value = null;
         this.JsonElement = jsonElement;
     }
     public bool IsNull => this.value == null && (this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Undefined || this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Null);
-    public Schema? AsOptional => this.IsNull ? default(Schema?) : this;
+    public TestSchema? AsOptional => this.IsNull ? default(TestSchema?) : this;
     public bool HasJsonElement => this.JsonElement.ValueKind != System.Text.Json.JsonValueKind.Undefined;
     public System.Text.Json.JsonElement JsonElement { get; }
-    public static implicit operator Schema(Menes.JsonAny value)
+    public static implicit operator TestSchema(Menes.JsonAny value)
     {
-        return new Schema(value);
+        return new TestSchema(value);
     }
-    public static implicit operator Menes.JsonAny(Schema value)
+    public static implicit operator Menes.JsonAny(TestSchema value)
     {
         if (value.value is Menes.JsonAny clrValue)
         {
@@ -47,25 +47,25 @@ public readonly struct Schema : Menes.IJsonValue, System.IEquatable<Schema>
     {
         return Menes.JsonAny.IsConvertibleFrom(jsonElement);
     }
-    public static Schema FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<char> propertyName) =>
+    public static TestSchema FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<char> propertyName) =>
        parentDocument.ValueKind == System.Text.Json.JsonValueKind.Object ?
             (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
-                ? new Schema(property)
+                ? new TestSchema(property)
                 : Null)
             : Null;
-    public static Schema FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, string propertyName) =>
+    public static TestSchema FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, string propertyName) =>
        parentDocument.ValueKind == System.Text.Json.JsonValueKind.Object ?
             (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
-                ? new Schema(property)
+                ? new TestSchema(property)
                 : Null)
             : Null;
-    public static Schema FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<byte> utf8PropertyName) =>
+    public static TestSchema FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<byte> utf8PropertyName) =>
        parentDocument.ValueKind == System.Text.Json.JsonValueKind.Object ?
             (parentDocument.TryGetProperty(utf8PropertyName, out System.Text.Json.JsonElement property)
-                ? new Schema(property)
+                ? new TestSchema(property)
                 : Null)
             : Null;
-    public bool Equals(Schema other)
+    public bool Equals(TestSchema other)
     {
         return this.Equals((Menes.JsonAny)other);
     }
@@ -78,7 +78,7 @@ public readonly struct Schema : Menes.IJsonValue, System.IEquatable<Schema>
         Menes.JsonAny value = this;
         Menes.ValidationContext context = validationContext;
         context = value.Validate(context);
-        context = Menes.Validation.ValidateNot<Menes.JsonAny, Schema.NotTypeValidationEntity>(context, this);
+        context = Menes.Validation.ValidateNot<Menes.JsonAny, TestSchema.NotTypeValidationEntity>(context, this);
         return context;
     }
     public void WriteTo(System.Text.Json.Utf8JsonWriter writer)
@@ -104,10 +104,10 @@ public readonly struct Schema : Menes.IJsonValue, System.IEquatable<Schema>
         }
     }
 
-    public readonly struct NotTypeValidationEntity : Menes.IJsonObject, System.IEquatable<Schema.NotTypeValidationEntity>, Menes.IJsonAdditionalProperties<Menes.JsonAny>
+    public readonly struct NotTypeValidationEntity : Menes.IJsonObject, System.IEquatable<TestSchema.NotTypeValidationEntity>, Menes.IJsonAdditionalProperties<Menes.JsonAny>
     {
-        public static readonly Schema.NotTypeValidationEntity Null = new Schema.NotTypeValidationEntity(default(System.Text.Json.JsonElement));
-        public static readonly System.Func<System.Text.Json.JsonElement, Schema.NotTypeValidationEntity> FromJsonElement = e => new Schema.NotTypeValidationEntity(e);
+        public static readonly TestSchema.NotTypeValidationEntity Null = new TestSchema.NotTypeValidationEntity(default(System.Text.Json.JsonElement));
+        public static readonly System.Func<System.Text.Json.JsonElement, TestSchema.NotTypeValidationEntity> FromJsonElement = e => new TestSchema.NotTypeValidationEntity(e);
         private const string FooPropertyNamePath = ".foo";
         private static readonly System.ReadOnlyMemory<byte> FooPropertyNameBytes = new byte[] { 102, 111, 111 };
         private static readonly System.Text.Json.JsonEncodedText EncodedFooPropertyName = System.Text.Json.JsonEncodedText.Encode(FooPropertyNameBytes.Span);
@@ -169,7 +169,7 @@ public readonly struct Schema : Menes.IJsonValue, System.IEquatable<Schema>
             this.additionalPropertiesBacking = additionalPropertiesBacking;
         }
         public bool IsNull => (this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Undefined || this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Null) && (this.foo is null || this.foo.Value.IsNull);
-        public Schema.NotTypeValidationEntity? AsOptional => this.IsNull ? default(Schema.NotTypeValidationEntity?) : this;
+        public TestSchema.NotTypeValidationEntity? AsOptional => this.IsNull ? default(TestSchema.NotTypeValidationEntity?) : this;
         public Menes.JsonString? Foo => this.foo ?? Menes.JsonString.FromOptionalProperty(this.JsonElement, FooPropertyNameBytes.Span).AsOptional;
         public int PropertiesCount => KnownProperties.Length + this.JsonAdditionalPropertiesCount;
         public int JsonAdditionalPropertiesCount
@@ -210,53 +210,53 @@ public readonly struct Schema : Menes.IJsonValue, System.IEquatable<Schema>
         {
             return jsonElement.ValueKind == System.Text.Json.JsonValueKind.Object || jsonElement.ValueKind == System.Text.Json.JsonValueKind.Null;
         }
-        public static Schema.NotTypeValidationEntity FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<char> propertyName) =>
+        public static TestSchema.NotTypeValidationEntity FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<char> propertyName) =>
            parentDocument.ValueKind == System.Text.Json.JsonValueKind.Object ?
                 (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
-                    ? new Schema.NotTypeValidationEntity(property)
+                    ? new TestSchema.NotTypeValidationEntity(property)
                     : Null)
                 : Null;
-        public static Schema.NotTypeValidationEntity FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, string propertyName) =>
+        public static TestSchema.NotTypeValidationEntity FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, string propertyName) =>
            parentDocument.ValueKind == System.Text.Json.JsonValueKind.Object ?
                 (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
-                    ? new Schema.NotTypeValidationEntity(property)
+                    ? new TestSchema.NotTypeValidationEntity(property)
                     : Null)
                 : Null;
-        public static Schema.NotTypeValidationEntity FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<byte> utf8PropertyName) =>
+        public static TestSchema.NotTypeValidationEntity FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<byte> utf8PropertyName) =>
            parentDocument.ValueKind == System.Text.Json.JsonValueKind.Object ?
                 (parentDocument.TryGetProperty(utf8PropertyName, out System.Text.Json.JsonElement property)
-                    ? new Schema.NotTypeValidationEntity(property)
+                    ? new TestSchema.NotTypeValidationEntity(property)
                     : Null)
             : Null;
-        public Schema.NotTypeValidationEntity WithFoo(Menes.JsonString? value)
+        public TestSchema.NotTypeValidationEntity WithFoo(Menes.JsonString? value)
         {
-            return new Schema.NotTypeValidationEntity(value, this.GetJsonProperties());
+            return new TestSchema.NotTypeValidationEntity(value, this.GetJsonProperties());
         }
-        public Schema.NotTypeValidationEntity ReplaceAll(Menes.JsonProperties<Menes.JsonAny> newAdditional)
+        public TestSchema.NotTypeValidationEntity ReplaceAll(Menes.JsonProperties<Menes.JsonAny> newAdditional)
         {
-            return new Schema.NotTypeValidationEntity(this.Foo, newAdditional);
+            return new TestSchema.NotTypeValidationEntity(this.Foo, newAdditional);
         }
-        public Schema.NotTypeValidationEntity ReplaceAll(params (string, Menes.JsonAny)[] newAdditional)
+        public TestSchema.NotTypeValidationEntity ReplaceAll(params (string, Menes.JsonAny)[] newAdditional)
         {
-            return new Schema.NotTypeValidationEntity(this.Foo, Menes.JsonProperties<Menes.JsonAny>.FromValues(newAdditional));
+            return new TestSchema.NotTypeValidationEntity(this.Foo, Menes.JsonProperties<Menes.JsonAny>.FromValues(newAdditional));
         }
-        public Schema.NotTypeValidationEntity ReplaceAll((string, Menes.JsonAny) newAdditional1)
+        public TestSchema.NotTypeValidationEntity ReplaceAll((string, Menes.JsonAny) newAdditional1)
         {
-            return new Schema.NotTypeValidationEntity(this.Foo, Menes.JsonProperties<Menes.JsonAny>.FromValues(newAdditional1));
+            return new TestSchema.NotTypeValidationEntity(this.Foo, Menes.JsonProperties<Menes.JsonAny>.FromValues(newAdditional1));
         }
-        public Schema.NotTypeValidationEntity ReplaceAll((string, Menes.JsonAny) newAdditional1, (string, Menes.JsonAny) newAdditional2)
+        public TestSchema.NotTypeValidationEntity ReplaceAll((string, Menes.JsonAny) newAdditional1, (string, Menes.JsonAny) newAdditional2)
         {
-            return new Schema.NotTypeValidationEntity(this.Foo, Menes.JsonProperties<Menes.JsonAny>.FromValues(newAdditional1, newAdditional2));
+            return new TestSchema.NotTypeValidationEntity(this.Foo, Menes.JsonProperties<Menes.JsonAny>.FromValues(newAdditional1, newAdditional2));
         }
-        public Schema.NotTypeValidationEntity ReplaceAll((string, Menes.JsonAny) newAdditional1, (string, Menes.JsonAny) newAdditional2, (string, Menes.JsonAny) newAdditional3)
+        public TestSchema.NotTypeValidationEntity ReplaceAll((string, Menes.JsonAny) newAdditional1, (string, Menes.JsonAny) newAdditional2, (string, Menes.JsonAny) newAdditional3)
         {
-            return new Schema.NotTypeValidationEntity(this.Foo, Menes.JsonProperties<Menes.JsonAny>.FromValues(newAdditional1, newAdditional2, newAdditional3));
+            return new TestSchema.NotTypeValidationEntity(this.Foo, Menes.JsonProperties<Menes.JsonAny>.FromValues(newAdditional1, newAdditional2, newAdditional3));
         }
-        public Schema.NotTypeValidationEntity ReplaceAll((string, Menes.JsonAny) newAdditional1, (string, Menes.JsonAny) newAdditional2, (string, Menes.JsonAny) newAdditional3, (string, Menes.JsonAny) newAdditional4)
+        public TestSchema.NotTypeValidationEntity ReplaceAll((string, Menes.JsonAny) newAdditional1, (string, Menes.JsonAny) newAdditional2, (string, Menes.JsonAny) newAdditional3, (string, Menes.JsonAny) newAdditional4)
         {
-            return new Schema.NotTypeValidationEntity(this.Foo, Menes.JsonProperties<Menes.JsonAny>.FromValues(newAdditional1, newAdditional2, newAdditional3, newAdditional4));
+            return new TestSchema.NotTypeValidationEntity(this.Foo, Menes.JsonProperties<Menes.JsonAny>.FromValues(newAdditional1, newAdditional2, newAdditional3, newAdditional4));
         }
-        public Schema.NotTypeValidationEntity Add(params (string, Menes.JsonAny)[] newAdditional)
+        public TestSchema.NotTypeValidationEntity Add(params (string, Menes.JsonAny)[] newAdditional)
         {
             System.Collections.Immutable.ImmutableArray<Menes.JsonPropertyReference<Menes.JsonAny>>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonPropertyReference<Menes.JsonAny>>();
             foreach (Menes.JsonPropertyReference<Menes.JsonAny> property in this.JsonAdditionalProperties)
@@ -267,45 +267,45 @@ public readonly struct Schema : Menes.IJsonValue, System.IEquatable<Schema>
             {
                 arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(name, value));
             }
-            return new Schema.NotTypeValidationEntity(this.Foo, new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
+            return new TestSchema.NotTypeValidationEntity(this.Foo, new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
         }
-        public Schema.NotTypeValidationEntity Add((string name, Menes.JsonAny value) newAdditional1)
+        public TestSchema.NotTypeValidationEntity Add((string name, Menes.JsonAny value) newAdditional1)
         {
             System.Collections.Immutable.ImmutableArray<Menes.JsonPropertyReference<Menes.JsonAny>>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonPropertyReference<Menes.JsonAny>>();
             foreach (Menes.JsonPropertyReference<Menes.JsonAny> property in this.JsonAdditionalProperties)
             {
                 arrayBuilder.Add(property);
             }
-            arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional1.name, newAdditional1.value)); return new Schema.NotTypeValidationEntity(this.Foo, new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
+            arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional1.name, newAdditional1.value)); return new TestSchema.NotTypeValidationEntity(this.Foo, new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
         }
-        public Schema.NotTypeValidationEntity Add((string name, Menes.JsonAny value) newAdditional1, (string name, Menes.JsonAny value) newAdditional2)
+        public TestSchema.NotTypeValidationEntity Add((string name, Menes.JsonAny value) newAdditional1, (string name, Menes.JsonAny value) newAdditional2)
         {
             System.Collections.Immutable.ImmutableArray<Menes.JsonPropertyReference<Menes.JsonAny>>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonPropertyReference<Menes.JsonAny>>();
             foreach (Menes.JsonPropertyReference<Menes.JsonAny> property in this.JsonAdditionalProperties)
             {
                 arrayBuilder.Add(property);
             }
-            arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional1.name, newAdditional1.value)); arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional2.name, newAdditional2.value)); return new Schema.NotTypeValidationEntity(this.Foo, new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
+            arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional1.name, newAdditional1.value)); arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional2.name, newAdditional2.value)); return new TestSchema.NotTypeValidationEntity(this.Foo, new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
         }
-        public Schema.NotTypeValidationEntity Add((string name, Menes.JsonAny value) newAdditional1, (string name, Menes.JsonAny value) newAdditional2, (string name, Menes.JsonAny value) newAdditional3)
+        public TestSchema.NotTypeValidationEntity Add((string name, Menes.JsonAny value) newAdditional1, (string name, Menes.JsonAny value) newAdditional2, (string name, Menes.JsonAny value) newAdditional3)
         {
             System.Collections.Immutable.ImmutableArray<Menes.JsonPropertyReference<Menes.JsonAny>>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonPropertyReference<Menes.JsonAny>>();
             foreach (Menes.JsonPropertyReference<Menes.JsonAny> property in this.JsonAdditionalProperties)
             {
                 arrayBuilder.Add(property);
             }
-            arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional1.name, newAdditional1.value)); arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional2.name, newAdditional2.value)); arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional3.name, newAdditional3.value)); return new Schema.NotTypeValidationEntity(this.Foo, new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
+            arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional1.name, newAdditional1.value)); arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional2.name, newAdditional2.value)); arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional3.name, newAdditional3.value)); return new TestSchema.NotTypeValidationEntity(this.Foo, new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
         }
-        public Schema.NotTypeValidationEntity Add((string name, Menes.JsonAny value) newAdditional1, (string name, Menes.JsonAny value) newAdditional2, (string name, Menes.JsonAny value) newAdditional3, (string name, Menes.JsonAny value) newAdditional4)
+        public TestSchema.NotTypeValidationEntity Add((string name, Menes.JsonAny value) newAdditional1, (string name, Menes.JsonAny value) newAdditional2, (string name, Menes.JsonAny value) newAdditional3, (string name, Menes.JsonAny value) newAdditional4)
         {
             System.Collections.Immutable.ImmutableArray<Menes.JsonPropertyReference<Menes.JsonAny>>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonPropertyReference<Menes.JsonAny>>();
             foreach (Menes.JsonPropertyReference<Menes.JsonAny> property in this.JsonAdditionalProperties)
             {
                 arrayBuilder.Add(property);
             }
-            arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional1.name, newAdditional1.value)); arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional2.name, newAdditional2.value)); arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional3.name, newAdditional3.value)); arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional4.name, newAdditional4.value)); return new Schema.NotTypeValidationEntity(this.Foo, new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
+            arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional1.name, newAdditional1.value)); arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional2.name, newAdditional2.value)); arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional3.name, newAdditional3.value)); arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional4.name, newAdditional4.value)); return new TestSchema.NotTypeValidationEntity(this.Foo, new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
         }
-        public Schema.NotTypeValidationEntity Remove(params string[] namesToRemove)
+        public TestSchema.NotTypeValidationEntity Remove(params string[] namesToRemove)
         {
             System.Collections.Immutable.ImmutableHashSet<string> ihs = System.Collections.Immutable.ImmutableHashSet.Create<string>(namesToRemove);
             System.Collections.Immutable.ImmutableArray<Menes.JsonPropertyReference<Menes.JsonAny>>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonPropertyReference<Menes.JsonAny>>();
@@ -316,9 +316,9 @@ public readonly struct Schema : Menes.IJsonValue, System.IEquatable<Schema>
                     arrayBuilder.Add(property);
                 }
             }
-            return new Schema.NotTypeValidationEntity(this.Foo, new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
+            return new TestSchema.NotTypeValidationEntity(this.Foo, new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
         }
-        public Schema.NotTypeValidationEntity Remove(string itemToRemove1)
+        public TestSchema.NotTypeValidationEntity Remove(string itemToRemove1)
         {
             System.Collections.Immutable.ImmutableHashSet<string>.Builder ihsBuilder = System.Collections.Immutable.ImmutableHashSet.CreateBuilder<string>();
             ihsBuilder.Add(itemToRemove1); System.Collections.Immutable.ImmutableHashSet<string> ihs = ihsBuilder.ToImmutable();
@@ -330,9 +330,9 @@ public readonly struct Schema : Menes.IJsonValue, System.IEquatable<Schema>
                     arrayBuilder.Add(property);
                 }
             }
-            return new Schema.NotTypeValidationEntity(this.Foo, new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
+            return new TestSchema.NotTypeValidationEntity(this.Foo, new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
         }
-        public Schema.NotTypeValidationEntity Remove(string itemToRemove1, string itemToRemove2)
+        public TestSchema.NotTypeValidationEntity Remove(string itemToRemove1, string itemToRemove2)
         {
             System.Collections.Immutable.ImmutableHashSet<string>.Builder ihsBuilder = System.Collections.Immutable.ImmutableHashSet.CreateBuilder<string>();
             ihsBuilder.Add(itemToRemove1); ihsBuilder.Add(itemToRemove2); System.Collections.Immutable.ImmutableHashSet<string> ihs = ihsBuilder.ToImmutable();
@@ -344,9 +344,9 @@ public readonly struct Schema : Menes.IJsonValue, System.IEquatable<Schema>
                     arrayBuilder.Add(property);
                 }
             }
-            return new Schema.NotTypeValidationEntity(this.Foo, new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
+            return new TestSchema.NotTypeValidationEntity(this.Foo, new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
         }
-        public Schema.NotTypeValidationEntity Remove(string itemToRemove1, string itemToRemove2, string itemToRemove3)
+        public TestSchema.NotTypeValidationEntity Remove(string itemToRemove1, string itemToRemove2, string itemToRemove3)
         {
             System.Collections.Immutable.ImmutableHashSet<string>.Builder ihsBuilder = System.Collections.Immutable.ImmutableHashSet.CreateBuilder<string>();
             ihsBuilder.Add(itemToRemove1); ihsBuilder.Add(itemToRemove2); ihsBuilder.Add(itemToRemove3); System.Collections.Immutable.ImmutableHashSet<string> ihs = ihsBuilder.ToImmutable();
@@ -358,9 +358,9 @@ public readonly struct Schema : Menes.IJsonValue, System.IEquatable<Schema>
                     arrayBuilder.Add(property);
                 }
             }
-            return new Schema.NotTypeValidationEntity(this.Foo, new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
+            return new TestSchema.NotTypeValidationEntity(this.Foo, new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
         }
-        public Schema.NotTypeValidationEntity Remove(string itemToRemove1, string itemToRemove2, string itemToRemove3, string itemToRemove4)
+        public TestSchema.NotTypeValidationEntity Remove(string itemToRemove1, string itemToRemove2, string itemToRemove3, string itemToRemove4)
         {
             System.Collections.Immutable.ImmutableHashSet<string>.Builder ihsBuilder = System.Collections.Immutable.ImmutableHashSet.CreateBuilder<string>();
             ihsBuilder.Add(itemToRemove1); ihsBuilder.Add(itemToRemove2); ihsBuilder.Add(itemToRemove3); ihsBuilder.Add(itemToRemove4); System.Collections.Immutable.ImmutableHashSet<string> ihs = ihsBuilder.ToImmutable();
@@ -372,9 +372,9 @@ public readonly struct Schema : Menes.IJsonValue, System.IEquatable<Schema>
                     arrayBuilder.Add(property);
                 }
             }
-            return new Schema.NotTypeValidationEntity(this.Foo, new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
+            return new TestSchema.NotTypeValidationEntity(this.Foo, new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
         }
-        public Schema.NotTypeValidationEntity Remove(System.Predicate<Menes.JsonPropertyReference<Menes.JsonAny>> removeIfTrue)
+        public TestSchema.NotTypeValidationEntity Remove(System.Predicate<Menes.JsonPropertyReference<Menes.JsonAny>> removeIfTrue)
         {
             System.Collections.Immutable.ImmutableArray<Menes.JsonPropertyReference<Menes.JsonAny>>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonPropertyReference<Menes.JsonAny>>();
             foreach (Menes.JsonPropertyReference<Menes.JsonAny> property in this.JsonAdditionalProperties)
@@ -384,7 +384,7 @@ public readonly struct Schema : Menes.IJsonValue, System.IEquatable<Schema>
                     arrayBuilder.Add(property);
                 }
             }
-            return new Schema.NotTypeValidationEntity(this.Foo, new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
+            return new TestSchema.NotTypeValidationEntity(this.Foo, new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
         }
         public void WriteTo(System.Text.Json.Utf8JsonWriter writer)
         {
@@ -408,7 +408,7 @@ public readonly struct Schema : Menes.IJsonValue, System.IEquatable<Schema>
                 writer.WriteEndObject();
             }
         }
-        public bool Equals(Schema.NotTypeValidationEntity other)
+        public bool Equals(TestSchema.NotTypeValidationEntity other)
         {
             if ((this.IsNull && !other.IsNull) || (!this.IsNull && other.IsNull))
             {
@@ -490,7 +490,7 @@ public static class Tests
     public static bool Test0()
     {
         using var doc = System.Text.Json.JsonDocument.Parse("1");
-        var schema = new Schema(doc.RootElement);
+        var schema = new TestSchema(doc.RootElement);
         var context = schema.Validate(Menes.ValidationContext.Root);
         if (!context.IsValid)
         {
@@ -506,7 +506,7 @@ public static class Tests
     public static bool Test1()
     {
         using var doc = System.Text.Json.JsonDocument.Parse("{\"foo\": 1}");
-        var schema = new Schema(doc.RootElement);
+        var schema = new TestSchema(doc.RootElement);
         var context = schema.Validate(Menes.ValidationContext.Root);
         if (!context.IsValid)
         {
@@ -522,7 +522,7 @@ public static class Tests
     public static bool Test2()
     {
         using var doc = System.Text.Json.JsonDocument.Parse("{\"foo\": \"bar\"}");
-        var schema = new Schema(doc.RootElement);
+        var schema = new TestSchema(doc.RootElement);
         var context = schema.Validate(Menes.ValidationContext.Root);
         if (context.IsValid)
         {

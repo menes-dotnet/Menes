@@ -120,7 +120,8 @@ namespace Menes.Json.Schema.Tests
             {
                 string ns = StringFormatter.ToPascalCaseWithReservedWords(uri.Item2);
 
-                var typeGenerator = new TypeGeneratorJsonSchemaVisitor(DocumentResolver.Default);
+                SchemaResolver.Default.Reset();
+                var typeGenerator = new TypeGeneratorJsonSchemaVisitor(SchemaResolver.Default);
                 await GenerateTypesForSchema(uri.Item1, typeGenerator).ConfigureAwait(false);
                 string outputFile = Path.ChangeExtension(Path.Combine(outputPath, uri.Item2), ".cs");
 
@@ -217,7 +218,7 @@ namespace Menes.Json.Schema.Tests
 
         private static async Task GenerateTypesForSchema(string uri, TypeGeneratorJsonSchemaVisitor typeGenerator)
         {
-            (string baseUri, JsonDocument root, JsonSchema schema) resolved = await DocumentResolver.Default.LoadSchema(uri).ConfigureAwait(false);
+            (string baseUri, JsonDocument root, JsonSchema schema) resolved = await SchemaResolver.Default.LoadSchema(uri).ConfigureAwait(false);
 
             var abf = new ArrayBufferWriter<byte>();
             using var writer = new Utf8JsonWriter(abf);
@@ -225,9 +226,22 @@ namespace Menes.Json.Schema.Tests
             writer.Flush();
 
             var root = JsonDocument.Parse(abf.WrittenMemory);
-            string baseUri = resolved.baseUri + "/" + Guid.NewGuid().ToString();
+            string baseUri = resolved.baseUri + "\\" + Guid.NewGuid().ToString();
             JsonSchema schema = JsonSchema.FromJsonElement(root.RootElement);
-            DocumentResolver.Default.AddDocument(baseUri, root);
+            if (!schema.IsBooleanSchema())
+            {
+                if (schema.Id is JsonString id)
+                {
+                    baseUri = schema.Id;
+                }
+                else
+                {
+                    schema = schema.WithId(baseUri + "#TestSchema");
+                    schema = schema.WithRef(baseUri);
+                }
+            }
+
+            SchemaResolver.Default.AddSchema(baseUri, root, schema);
 
             try
             {

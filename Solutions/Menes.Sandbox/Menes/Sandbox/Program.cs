@@ -231,11 +231,11 @@ namespace Menes.Sandbox
 
         private static async Task UseJsonSchemaModel(string uri)
         {
-            (string baseUri, JsonDocument root, JsonSchema schema) = await DocumentResolver.Default.LoadSchema(uri).ConfigureAwait(false);
+            (string baseUri, JsonDocument root, JsonSchema schema) = await SchemaResolver.Default.LoadSchema(uri).ConfigureAwait(false);
 
             Validate(schema);
 
-            await RecursiveWriteSchema(baseUri, string.Empty, root, schema, DocumentResolver.Default).ConfigureAwait(false);
+            await RecursiveWriteSchema(baseUri, string.Empty, root, schema, SchemaResolver.Default).ConfigureAwait(false);
 
             Serialize(schema);
         }
@@ -261,7 +261,7 @@ namespace Menes.Sandbox
 
         private static async Task GenerateTypesForSchema(string[] uris, string? outputPath = null)
         {
-            var typeGenerator = new TypeGeneratorJsonSchemaVisitor(DocumentResolver.Default);
+            var typeGenerator = new TypeGeneratorJsonSchemaVisitor(SchemaResolver.Default);
 
             foreach (string uri in uris)
             {
@@ -273,7 +273,7 @@ namespace Menes.Sandbox
 
         private static async Task GenerateTypesForSchema(string uri, string? outputPath = null)
         {
-            var typeGenerator = new TypeGeneratorJsonSchemaVisitor(DocumentResolver.Default);
+            var typeGenerator = new TypeGeneratorJsonSchemaVisitor(SchemaResolver.Default);
 
             await GenerateTypesForSchema(uri, typeGenerator).ConfigureAwait(false);
             WriteTypes(typeGenerator, outputPath);
@@ -281,7 +281,7 @@ namespace Menes.Sandbox
 
         private static async Task GenerateTypesForSchema(string uri, TypeGeneratorJsonSchemaVisitor typeGenerator)
         {
-            (string baseUri, JsonDocument root, JsonSchema schema) = await DocumentResolver.Default.LoadSchema(uri).ConfigureAwait(false);
+            (string baseUri, JsonDocument root, JsonSchema schema) = await SchemaResolver.Default.LoadSchema(uri).ConfigureAwait(false);
 
             Validate(schema);
 
@@ -517,7 +517,7 @@ namespace Menes.Sandbox
             }
         }
 
-        private static async Task RecursiveWriteSchema(string baseUri, string pointer, JsonDocument root, JsonSchema schema, IDocumentResolver resolver)
+        private static async Task RecursiveWriteSchema(string baseUri, string pointer, JsonDocument root, JsonSchema schema, ISchemaResolver resolver)
         {
             if (SchemasBeingWritten.Contains(schema.Id ?? "unknown"))
             {
@@ -552,7 +552,7 @@ namespace Menes.Sandbox
                 while (propertiesEnumerator.MoveNext())
                 {
                     Console.Write($"'{propertiesEnumerator.Current.Name}': ");
-                    (string childBaseUri, JsonDocument childDoc, JsonSchema childSchema) = await propertiesEnumerator.Current.AsValue().Resolve(baseUri, root, resolver);
+                    (string childBaseUri, JsonDocument childDoc, JsonSchema childSchema) =  await resolver.Resolve(baseUri, root, propertiesEnumerator.Current.AsValue());
                     await RecursiveWriteSchema(childBaseUri, pointer + "." + propertiesEnumerator.Current.Name, childDoc, childSchema, resolver).ConfigureAwait(false);
                 }
             }

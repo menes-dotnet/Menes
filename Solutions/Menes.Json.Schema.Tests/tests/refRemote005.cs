@@ -4,49 +4,49 @@
 #pragma warning disable
 namespace Menes.Json.Schema.Tests.RefRemote005
 {
-public readonly struct ScopeChangeDefs2 : Menes.IJsonObject, System.IEquatable<ScopeChangeDefs2>, Menes.IJsonAdditionalProperties<Menes.JsonAny>
+public readonly struct HttpLocalhost1234ScopeChangeDefs2Json : Menes.IJsonObject, System.IEquatable<HttpLocalhost1234ScopeChangeDefs2Json>, Menes.IJsonAdditionalProperties<Menes.JsonAny>
 {
-    public static readonly ScopeChangeDefs2 Null = new ScopeChangeDefs2(default(System.Text.Json.JsonElement));
-    public static readonly System.Func<System.Text.Json.JsonElement, ScopeChangeDefs2> FromJsonElement = e => new ScopeChangeDefs2(e);
+    public static readonly HttpLocalhost1234ScopeChangeDefs2Json Null = new HttpLocalhost1234ScopeChangeDefs2Json(default(System.Text.Json.JsonElement));
+    public static readonly System.Func<System.Text.Json.JsonElement, HttpLocalhost1234ScopeChangeDefs2Json> FromJsonElement = e => new HttpLocalhost1234ScopeChangeDefs2Json(e);
     private static readonly System.Collections.Immutable.ImmutableArray<System.ReadOnlyMemory<byte>> KnownProperties = System.Collections.Immutable.ImmutableArray<System.ReadOnlyMemory<byte>>.Empty;
     private readonly Menes.JsonProperties<Menes.JsonAny>? additionalPropertiesBacking;
-    public ScopeChangeDefs2(System.Text.Json.JsonElement jsonElement)
+    public HttpLocalhost1234ScopeChangeDefs2Json(System.Text.Json.JsonElement jsonElement)
     {
         this.JsonElement = jsonElement;
         this.additionalPropertiesBacking = null;
     }
-    public ScopeChangeDefs2(params (string, Menes.JsonAny)[] additionalPropertiesBacking)
+    public HttpLocalhost1234ScopeChangeDefs2Json(params (string, Menes.JsonAny)[] additionalPropertiesBacking)
     {
         this.JsonElement = default;
         this.additionalPropertiesBacking = Menes.JsonProperties<Menes.JsonAny>.FromValues(additionalPropertiesBacking);
     }
-    public ScopeChangeDefs2((string, Menes.JsonAny) additionalProperty1)
+    public HttpLocalhost1234ScopeChangeDefs2Json((string, Menes.JsonAny) additionalProperty1)
     {
         this.JsonElement = default;
         this.additionalPropertiesBacking = Menes.JsonProperties<Menes.JsonAny>.FromValues(additionalProperty1);
     }
-    public ScopeChangeDefs2((string, Menes.JsonAny) additionalProperty1, (string, Menes.JsonAny) additionalProperty2)
+    public HttpLocalhost1234ScopeChangeDefs2Json((string, Menes.JsonAny) additionalProperty1, (string, Menes.JsonAny) additionalProperty2)
     {
         this.JsonElement = default;
         this.additionalPropertiesBacking = Menes.JsonProperties<Menes.JsonAny>.FromValues(additionalProperty1, additionalProperty2);
     }
-    public ScopeChangeDefs2((string, Menes.JsonAny) additionalProperty1, (string, Menes.JsonAny) additionalProperty2, (string, Menes.JsonAny) additionalProperty3)
+    public HttpLocalhost1234ScopeChangeDefs2Json((string, Menes.JsonAny) additionalProperty1, (string, Menes.JsonAny) additionalProperty2, (string, Menes.JsonAny) additionalProperty3)
     {
         this.JsonElement = default;
         this.additionalPropertiesBacking = Menes.JsonProperties<Menes.JsonAny>.FromValues(additionalProperty1, additionalProperty2, additionalProperty3);
     }
-    public ScopeChangeDefs2((string, Menes.JsonAny) additionalProperty1, (string, Menes.JsonAny) additionalProperty2, (string, Menes.JsonAny) additionalProperty3, (string, Menes.JsonAny) additionalProperty4)
+    public HttpLocalhost1234ScopeChangeDefs2Json((string, Menes.JsonAny) additionalProperty1, (string, Menes.JsonAny) additionalProperty2, (string, Menes.JsonAny) additionalProperty3, (string, Menes.JsonAny) additionalProperty4)
     {
         this.JsonElement = default;
         this.additionalPropertiesBacking = Menes.JsonProperties<Menes.JsonAny>.FromValues(additionalProperty1, additionalProperty2, additionalProperty3, additionalProperty4);
     }
-    private ScopeChangeDefs2(Menes.JsonProperties<Menes.JsonAny>? additionalPropertiesBacking)
+    private HttpLocalhost1234ScopeChangeDefs2Json(Menes.JsonProperties<Menes.JsonAny>? additionalPropertiesBacking)
     {
         this.JsonElement = default;
         this.additionalPropertiesBacking = additionalPropertiesBacking;
     }
     public bool IsNull => (this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Undefined || this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Null);
-    public ScopeChangeDefs2? AsOptional => this.IsNull ? default(ScopeChangeDefs2?) : this;
+    public HttpLocalhost1234ScopeChangeDefs2Json? AsOptional => this.IsNull ? default(HttpLocalhost1234ScopeChangeDefs2Json?) : this;
     public int PropertiesCount => KnownProperties.Length + this.JsonAdditionalPropertiesCount;
     public int JsonAdditionalPropertiesCount
     {
@@ -86,49 +86,49 @@ public readonly struct ScopeChangeDefs2 : Menes.IJsonObject, System.IEquatable<S
     {
         return jsonElement.ValueKind == System.Text.Json.JsonValueKind.Object || jsonElement.ValueKind == System.Text.Json.JsonValueKind.Null;
     }
-    public static ScopeChangeDefs2 FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<char> propertyName) =>
+    public static HttpLocalhost1234ScopeChangeDefs2Json FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<char> propertyName) =>
        parentDocument.ValueKind == System.Text.Json.JsonValueKind.Object ?
             (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
-                ? new ScopeChangeDefs2(property)
+                ? new HttpLocalhost1234ScopeChangeDefs2Json(property)
                 : Null)
             : Null;
-    public static ScopeChangeDefs2 FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, string propertyName) =>
+    public static HttpLocalhost1234ScopeChangeDefs2Json FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, string propertyName) =>
        parentDocument.ValueKind == System.Text.Json.JsonValueKind.Object ?
             (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
-                ? new ScopeChangeDefs2(property)
+                ? new HttpLocalhost1234ScopeChangeDefs2Json(property)
                 : Null)
             : Null;
-    public static ScopeChangeDefs2 FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<byte> utf8PropertyName) =>
+    public static HttpLocalhost1234ScopeChangeDefs2Json FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<byte> utf8PropertyName) =>
        parentDocument.ValueKind == System.Text.Json.JsonValueKind.Object ?
             (parentDocument.TryGetProperty(utf8PropertyName, out System.Text.Json.JsonElement property)
-                ? new ScopeChangeDefs2(property)
+                ? new HttpLocalhost1234ScopeChangeDefs2Json(property)
                 : Null)
         : Null;
-    public ScopeChangeDefs2 ReplaceAll(Menes.JsonProperties<Menes.JsonAny> newAdditional)
+    public HttpLocalhost1234ScopeChangeDefs2Json ReplaceAll(Menes.JsonProperties<Menes.JsonAny> newAdditional)
     {
-        return new ScopeChangeDefs2(newAdditional);
+        return new HttpLocalhost1234ScopeChangeDefs2Json(newAdditional);
     }
-    public ScopeChangeDefs2 ReplaceAll(params (string, Menes.JsonAny)[] newAdditional)
+    public HttpLocalhost1234ScopeChangeDefs2Json ReplaceAll(params (string, Menes.JsonAny)[] newAdditional)
     {
-        return new ScopeChangeDefs2(Menes.JsonProperties<Menes.JsonAny>.FromValues(newAdditional));
+        return new HttpLocalhost1234ScopeChangeDefs2Json(Menes.JsonProperties<Menes.JsonAny>.FromValues(newAdditional));
     }
-    public ScopeChangeDefs2 ReplaceAll((string, Menes.JsonAny) newAdditional1)
+    public HttpLocalhost1234ScopeChangeDefs2Json ReplaceAll((string, Menes.JsonAny) newAdditional1)
     {
-        return new ScopeChangeDefs2(Menes.JsonProperties<Menes.JsonAny>.FromValues(newAdditional1));
+        return new HttpLocalhost1234ScopeChangeDefs2Json(Menes.JsonProperties<Menes.JsonAny>.FromValues(newAdditional1));
     }
-    public ScopeChangeDefs2 ReplaceAll((string, Menes.JsonAny) newAdditional1, (string, Menes.JsonAny) newAdditional2)
+    public HttpLocalhost1234ScopeChangeDefs2Json ReplaceAll((string, Menes.JsonAny) newAdditional1, (string, Menes.JsonAny) newAdditional2)
     {
-        return new ScopeChangeDefs2(Menes.JsonProperties<Menes.JsonAny>.FromValues(newAdditional1, newAdditional2));
+        return new HttpLocalhost1234ScopeChangeDefs2Json(Menes.JsonProperties<Menes.JsonAny>.FromValues(newAdditional1, newAdditional2));
     }
-    public ScopeChangeDefs2 ReplaceAll((string, Menes.JsonAny) newAdditional1, (string, Menes.JsonAny) newAdditional2, (string, Menes.JsonAny) newAdditional3)
+    public HttpLocalhost1234ScopeChangeDefs2Json ReplaceAll((string, Menes.JsonAny) newAdditional1, (string, Menes.JsonAny) newAdditional2, (string, Menes.JsonAny) newAdditional3)
     {
-        return new ScopeChangeDefs2(Menes.JsonProperties<Menes.JsonAny>.FromValues(newAdditional1, newAdditional2, newAdditional3));
+        return new HttpLocalhost1234ScopeChangeDefs2Json(Menes.JsonProperties<Menes.JsonAny>.FromValues(newAdditional1, newAdditional2, newAdditional3));
     }
-    public ScopeChangeDefs2 ReplaceAll((string, Menes.JsonAny) newAdditional1, (string, Menes.JsonAny) newAdditional2, (string, Menes.JsonAny) newAdditional3, (string, Menes.JsonAny) newAdditional4)
+    public HttpLocalhost1234ScopeChangeDefs2Json ReplaceAll((string, Menes.JsonAny) newAdditional1, (string, Menes.JsonAny) newAdditional2, (string, Menes.JsonAny) newAdditional3, (string, Menes.JsonAny) newAdditional4)
     {
-        return new ScopeChangeDefs2(Menes.JsonProperties<Menes.JsonAny>.FromValues(newAdditional1, newAdditional2, newAdditional3, newAdditional4));
+        return new HttpLocalhost1234ScopeChangeDefs2Json(Menes.JsonProperties<Menes.JsonAny>.FromValues(newAdditional1, newAdditional2, newAdditional3, newAdditional4));
     }
-    public ScopeChangeDefs2 Add(params (string, Menes.JsonAny)[] newAdditional)
+    public HttpLocalhost1234ScopeChangeDefs2Json Add(params (string, Menes.JsonAny)[] newAdditional)
     {
         System.Collections.Immutable.ImmutableArray<Menes.JsonPropertyReference<Menes.JsonAny>>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonPropertyReference<Menes.JsonAny>>();
         foreach (Menes.JsonPropertyReference<Menes.JsonAny> property in this.JsonAdditionalProperties)
@@ -139,45 +139,45 @@ public readonly struct ScopeChangeDefs2 : Menes.IJsonObject, System.IEquatable<S
         {
             arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(name, value));
         }
-        return new ScopeChangeDefs2(new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
+        return new HttpLocalhost1234ScopeChangeDefs2Json(new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
     }
-    public ScopeChangeDefs2 Add((string name, Menes.JsonAny value) newAdditional1)
+    public HttpLocalhost1234ScopeChangeDefs2Json Add((string name, Menes.JsonAny value) newAdditional1)
     {
         System.Collections.Immutable.ImmutableArray<Menes.JsonPropertyReference<Menes.JsonAny>>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonPropertyReference<Menes.JsonAny>>();
         foreach (Menes.JsonPropertyReference<Menes.JsonAny> property in this.JsonAdditionalProperties)
         {
             arrayBuilder.Add(property);
         }
-        arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional1.name, newAdditional1.value)); return new ScopeChangeDefs2(new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
+        arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional1.name, newAdditional1.value)); return new HttpLocalhost1234ScopeChangeDefs2Json(new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
     }
-    public ScopeChangeDefs2 Add((string name, Menes.JsonAny value) newAdditional1, (string name, Menes.JsonAny value) newAdditional2)
+    public HttpLocalhost1234ScopeChangeDefs2Json Add((string name, Menes.JsonAny value) newAdditional1, (string name, Menes.JsonAny value) newAdditional2)
     {
         System.Collections.Immutable.ImmutableArray<Menes.JsonPropertyReference<Menes.JsonAny>>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonPropertyReference<Menes.JsonAny>>();
         foreach (Menes.JsonPropertyReference<Menes.JsonAny> property in this.JsonAdditionalProperties)
         {
             arrayBuilder.Add(property);
         }
-        arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional1.name, newAdditional1.value)); arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional2.name, newAdditional2.value)); return new ScopeChangeDefs2(new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
+        arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional1.name, newAdditional1.value)); arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional2.name, newAdditional2.value)); return new HttpLocalhost1234ScopeChangeDefs2Json(new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
     }
-    public ScopeChangeDefs2 Add((string name, Menes.JsonAny value) newAdditional1, (string name, Menes.JsonAny value) newAdditional2, (string name, Menes.JsonAny value) newAdditional3)
+    public HttpLocalhost1234ScopeChangeDefs2Json Add((string name, Menes.JsonAny value) newAdditional1, (string name, Menes.JsonAny value) newAdditional2, (string name, Menes.JsonAny value) newAdditional3)
     {
         System.Collections.Immutable.ImmutableArray<Menes.JsonPropertyReference<Menes.JsonAny>>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonPropertyReference<Menes.JsonAny>>();
         foreach (Menes.JsonPropertyReference<Menes.JsonAny> property in this.JsonAdditionalProperties)
         {
             arrayBuilder.Add(property);
         }
-        arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional1.name, newAdditional1.value)); arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional2.name, newAdditional2.value)); arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional3.name, newAdditional3.value)); return new ScopeChangeDefs2(new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
+        arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional1.name, newAdditional1.value)); arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional2.name, newAdditional2.value)); arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional3.name, newAdditional3.value)); return new HttpLocalhost1234ScopeChangeDefs2Json(new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
     }
-    public ScopeChangeDefs2 Add((string name, Menes.JsonAny value) newAdditional1, (string name, Menes.JsonAny value) newAdditional2, (string name, Menes.JsonAny value) newAdditional3, (string name, Menes.JsonAny value) newAdditional4)
+    public HttpLocalhost1234ScopeChangeDefs2Json Add((string name, Menes.JsonAny value) newAdditional1, (string name, Menes.JsonAny value) newAdditional2, (string name, Menes.JsonAny value) newAdditional3, (string name, Menes.JsonAny value) newAdditional4)
     {
         System.Collections.Immutable.ImmutableArray<Menes.JsonPropertyReference<Menes.JsonAny>>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonPropertyReference<Menes.JsonAny>>();
         foreach (Menes.JsonPropertyReference<Menes.JsonAny> property in this.JsonAdditionalProperties)
         {
             arrayBuilder.Add(property);
         }
-        arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional1.name, newAdditional1.value)); arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional2.name, newAdditional2.value)); arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional3.name, newAdditional3.value)); arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional4.name, newAdditional4.value)); return new ScopeChangeDefs2(new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
+        arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional1.name, newAdditional1.value)); arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional2.name, newAdditional2.value)); arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional3.name, newAdditional3.value)); arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional4.name, newAdditional4.value)); return new HttpLocalhost1234ScopeChangeDefs2Json(new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
     }
-    public ScopeChangeDefs2 Remove(params string[] namesToRemove)
+    public HttpLocalhost1234ScopeChangeDefs2Json Remove(params string[] namesToRemove)
     {
         System.Collections.Immutable.ImmutableHashSet<string> ihs = System.Collections.Immutable.ImmutableHashSet.Create<string>(namesToRemove);
         System.Collections.Immutable.ImmutableArray<Menes.JsonPropertyReference<Menes.JsonAny>>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonPropertyReference<Menes.JsonAny>>();
@@ -188,9 +188,9 @@ public readonly struct ScopeChangeDefs2 : Menes.IJsonObject, System.IEquatable<S
                 arrayBuilder.Add(property);
             }
         }
-        return new ScopeChangeDefs2(new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
+        return new HttpLocalhost1234ScopeChangeDefs2Json(new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
     }
-    public ScopeChangeDefs2 Remove(string itemToRemove1)
+    public HttpLocalhost1234ScopeChangeDefs2Json Remove(string itemToRemove1)
     {
         System.Collections.Immutable.ImmutableHashSet<string>.Builder ihsBuilder = System.Collections.Immutable.ImmutableHashSet.CreateBuilder<string>();
         ihsBuilder.Add(itemToRemove1); System.Collections.Immutable.ImmutableHashSet<string> ihs = ihsBuilder.ToImmutable();
@@ -202,9 +202,9 @@ public readonly struct ScopeChangeDefs2 : Menes.IJsonObject, System.IEquatable<S
                 arrayBuilder.Add(property);
             }
         }
-        return new ScopeChangeDefs2(new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
+        return new HttpLocalhost1234ScopeChangeDefs2Json(new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
     }
-    public ScopeChangeDefs2 Remove(string itemToRemove1, string itemToRemove2)
+    public HttpLocalhost1234ScopeChangeDefs2Json Remove(string itemToRemove1, string itemToRemove2)
     {
         System.Collections.Immutable.ImmutableHashSet<string>.Builder ihsBuilder = System.Collections.Immutable.ImmutableHashSet.CreateBuilder<string>();
         ihsBuilder.Add(itemToRemove1); ihsBuilder.Add(itemToRemove2); System.Collections.Immutable.ImmutableHashSet<string> ihs = ihsBuilder.ToImmutable();
@@ -216,9 +216,9 @@ public readonly struct ScopeChangeDefs2 : Menes.IJsonObject, System.IEquatable<S
                 arrayBuilder.Add(property);
             }
         }
-        return new ScopeChangeDefs2(new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
+        return new HttpLocalhost1234ScopeChangeDefs2Json(new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
     }
-    public ScopeChangeDefs2 Remove(string itemToRemove1, string itemToRemove2, string itemToRemove3)
+    public HttpLocalhost1234ScopeChangeDefs2Json Remove(string itemToRemove1, string itemToRemove2, string itemToRemove3)
     {
         System.Collections.Immutable.ImmutableHashSet<string>.Builder ihsBuilder = System.Collections.Immutable.ImmutableHashSet.CreateBuilder<string>();
         ihsBuilder.Add(itemToRemove1); ihsBuilder.Add(itemToRemove2); ihsBuilder.Add(itemToRemove3); System.Collections.Immutable.ImmutableHashSet<string> ihs = ihsBuilder.ToImmutable();
@@ -230,9 +230,9 @@ public readonly struct ScopeChangeDefs2 : Menes.IJsonObject, System.IEquatable<S
                 arrayBuilder.Add(property);
             }
         }
-        return new ScopeChangeDefs2(new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
+        return new HttpLocalhost1234ScopeChangeDefs2Json(new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
     }
-    public ScopeChangeDefs2 Remove(string itemToRemove1, string itemToRemove2, string itemToRemove3, string itemToRemove4)
+    public HttpLocalhost1234ScopeChangeDefs2Json Remove(string itemToRemove1, string itemToRemove2, string itemToRemove3, string itemToRemove4)
     {
         System.Collections.Immutable.ImmutableHashSet<string>.Builder ihsBuilder = System.Collections.Immutable.ImmutableHashSet.CreateBuilder<string>();
         ihsBuilder.Add(itemToRemove1); ihsBuilder.Add(itemToRemove2); ihsBuilder.Add(itemToRemove3); ihsBuilder.Add(itemToRemove4); System.Collections.Immutable.ImmutableHashSet<string> ihs = ihsBuilder.ToImmutable();
@@ -244,9 +244,9 @@ public readonly struct ScopeChangeDefs2 : Menes.IJsonObject, System.IEquatable<S
                 arrayBuilder.Add(property);
             }
         }
-        return new ScopeChangeDefs2(new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
+        return new HttpLocalhost1234ScopeChangeDefs2Json(new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
     }
-    public ScopeChangeDefs2 Remove(System.Predicate<Menes.JsonPropertyReference<Menes.JsonAny>> removeIfTrue)
+    public HttpLocalhost1234ScopeChangeDefs2Json Remove(System.Predicate<Menes.JsonPropertyReference<Menes.JsonAny>> removeIfTrue)
     {
         System.Collections.Immutable.ImmutableArray<Menes.JsonPropertyReference<Menes.JsonAny>>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonPropertyReference<Menes.JsonAny>>();
         foreach (Menes.JsonPropertyReference<Menes.JsonAny> property in this.JsonAdditionalProperties)
@@ -256,7 +256,7 @@ public readonly struct ScopeChangeDefs2 : Menes.IJsonObject, System.IEquatable<S
                 arrayBuilder.Add(property);
             }
         }
-        return new ScopeChangeDefs2(new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
+        return new HttpLocalhost1234ScopeChangeDefs2Json(new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
     }
     public void WriteTo(System.Text.Json.Utf8JsonWriter writer)
     {
@@ -275,7 +275,7 @@ public readonly struct ScopeChangeDefs2 : Menes.IJsonObject, System.IEquatable<S
             writer.WriteEndObject();
         }
     }
-    public bool Equals(ScopeChangeDefs2 other)
+    public bool Equals(HttpLocalhost1234ScopeChangeDefs2Json other)
     {
         if ((this.IsNull && !other.IsNull) || (!this.IsNull && other.IsNull))
         {

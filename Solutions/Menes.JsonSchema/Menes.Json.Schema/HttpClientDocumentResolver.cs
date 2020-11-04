@@ -70,5 +70,16 @@ namespace Menes.Json.Schema
                 return default;
             }
         }
+
+        /// <inheritdoc/>
+        public void Reset()
+        {
+            foreach (System.Collections.Generic.KeyValuePair<string, JsonDocument> document in this.documents)
+            {
+                document.Value.Dispose();
+            }
+
+            this.documents.Clear();
+        }
     }
 }

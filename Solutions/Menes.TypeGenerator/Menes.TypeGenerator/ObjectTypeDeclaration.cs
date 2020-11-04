@@ -1422,21 +1422,21 @@ namespace Menes.TypeGenerator
         private List<NamedPropertyDeclaration> BuildNamedPropertyDeclarations()
         {
             var result = new List<NamedPropertyDeclaration>();
-            var fieldNames = new HashSet<string>();
+            var propertyNames = new HashSet<string>();
 
             foreach (PropertyDeclaration property in this.Properties)
             {
-                string baseFieldName = StringFormatter.ToCamelCaseWithReservedWords(property.JsonPropertyName);
-                string fieldName = baseFieldName;
+                string basePropertyName = StringFormatter.ToPascalCaseWithReservedWords(property.JsonPropertyName);
+                string propertyName = basePropertyName;
                 int index = 1;
-                while (fieldNames.Contains(fieldName))
+                while (propertyNames.Contains(propertyName) || propertyName == this.Name)
                 {
-                    fieldName = baseFieldName + index;
+                    propertyName = basePropertyName + index;
                     ++index;
                 }
 
-                fieldNames.Add(fieldName);
-                result.Add(new NamedPropertyDeclaration(fieldName, property));
+                propertyNames.Add(propertyName);
+                result.Add(new NamedPropertyDeclaration(propertyName, property));
             }
 
             return result;
@@ -1740,11 +1740,11 @@ namespace Menes.TypeGenerator
 
         private readonly struct NamedPropertyDeclaration
         {
-            public NamedPropertyDeclaration(string fieldName, PropertyDeclaration propertyDeclaration)
+            public NamedPropertyDeclaration(string propertyName, PropertyDeclaration propertyDeclaration)
             {
-                this.FieldName = fieldName;
                 this.PropertyDeclaration = propertyDeclaration;
-                string propertyName = StringFormatter.ToPascalCaseWithReservedWords(fieldName);
+                string fieldName = StringFormatter.ToCamelCaseWithReservedWords(propertyName);
+                this.FieldName = fieldName;
                 this.PropertyName = propertyName;
                 this.BytesPropertyName = propertyName + "PropertyNameBytes";
                 this.EncodedPropertyName = "Encoded" + propertyName + "PropertyName";

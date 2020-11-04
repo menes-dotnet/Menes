@@ -27,5 +27,10 @@ namespace Menes.Json.Schema
         /// <param name="document">The document to add.</param>
         /// <returns><c>True</c> if the document was added, otherwise false.</returns>
         bool AddDocument(string uri, JsonDocument document);
+
+        /// <summary>
+        /// Reset the document resolver.
+        /// </summary>
+        void Reset();
     }
 }

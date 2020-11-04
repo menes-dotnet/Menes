@@ -4,17 +4,17 @@
 #pragma warning disable
 namespace Menes.Json.Schema.Tests.MultipleOf003
 {
-public readonly struct Schema : Menes.IJsonValue, System.IEquatable<Schema>
+public readonly struct TestSchema : Menes.IJsonValue, System.IEquatable<TestSchema>
 {
-    public static readonly System.Func<System.Text.Json.JsonElement, Schema> FromJsonElement = e => new Schema(e);
-    public static readonly Schema Null = new Schema(default(System.Text.Json.JsonElement));
+    public static readonly System.Func<System.Text.Json.JsonElement, TestSchema> FromJsonElement = e => new TestSchema(e);
+    public static readonly TestSchema Null = new TestSchema(default(System.Text.Json.JsonElement));
     private static readonly Menes.JsonNumber? MultipleOf = 0.123456789;
     private static readonly Menes.JsonNumber? Maximum = null;
     private static readonly Menes.JsonNumber? ExclusiveMaximum = null;
     private static readonly Menes.JsonNumber? Minimum = null;
     private static readonly Menes.JsonNumber? ExclusiveMinimum = null;
     private readonly Menes.JsonInteger? value;
-    public Schema(Menes.JsonInteger value)
+    public TestSchema(Menes.JsonInteger value)
     {
         if (value.HasJsonElement)
         {
@@ -27,36 +27,36 @@ public readonly struct Schema : Menes.IJsonValue, System.IEquatable<Schema>
             this.JsonElement = default;
         }
     }
-    public Schema(System.Text.Json.JsonElement jsonElement)
+    public TestSchema(System.Text.Json.JsonElement jsonElement)
     {
         this.value = null;
         this.JsonElement = jsonElement;
     }
     public bool IsNull => this.value == null && (this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Undefined || this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Null);
-    public Schema? AsOptional => this.IsNull ? default(Schema?) : this;
+    public TestSchema? AsOptional => this.IsNull ? default(TestSchema?) : this;
     public bool HasJsonElement => this.JsonElement.ValueKind != System.Text.Json.JsonValueKind.Undefined;
     public System.Text.Json.JsonElement JsonElement { get; }
-    public static implicit operator Schema(Menes.JsonInteger value)
+    public static implicit operator TestSchema(Menes.JsonInteger value)
     {
-        return new Schema(value);
+        return new TestSchema(value);
     }
-    public static implicit operator Schema(int value)
+    public static implicit operator TestSchema(int value)
     {
-        return new Schema(value);
+        return new TestSchema(value);
     }
-    public static implicit operator Schema(long value)
+    public static implicit operator TestSchema(long value)
     {
-        return new Schema(value);
+        return new TestSchema(value);
     }
-    public static implicit operator int(Schema value)
+    public static implicit operator int(TestSchema value)
     {
         return (int)(Menes.JsonInteger)value;
     }
-    public static implicit operator long(Schema value)
+    public static implicit operator long(TestSchema value)
     {
         return (long)(Menes.JsonInteger)value;
     }
-    public static implicit operator Menes.JsonInteger(Schema value)
+    public static implicit operator Menes.JsonInteger(TestSchema value)
     {
         if (value.value is Menes.JsonInteger clrValue)
         {
@@ -68,25 +68,25 @@ public readonly struct Schema : Menes.IJsonValue, System.IEquatable<Schema>
     {
         return Menes.JsonInteger.IsConvertibleFrom(jsonElement);
     }
-    public static Schema FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<char> propertyName) =>
+    public static TestSchema FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<char> propertyName) =>
        parentDocument.ValueKind == System.Text.Json.JsonValueKind.Object ?
             (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
-                ? new Schema(property)
+                ? new TestSchema(property)
                 : Null)
             : Null;
-    public static Schema FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, string propertyName) =>
+    public static TestSchema FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, string propertyName) =>
        parentDocument.ValueKind == System.Text.Json.JsonValueKind.Object ?
             (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
-                ? new Schema(property)
+                ? new TestSchema(property)
                 : Null)
             : Null;
-    public static Schema FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<byte> utf8PropertyName) =>
+    public static TestSchema FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<byte> utf8PropertyName) =>
        parentDocument.ValueKind == System.Text.Json.JsonValueKind.Object ?
             (parentDocument.TryGetProperty(utf8PropertyName, out System.Text.Json.JsonElement property)
-                ? new Schema(property)
+                ? new TestSchema(property)
                 : Null)
             : Null;
-    public bool Equals(Schema other)
+    public bool Equals(TestSchema other)
     {
         return this.Equals((Menes.JsonInteger)other);
     }
@@ -136,7 +136,7 @@ public static class Tests
     public static bool Test0()
     {
         using var doc = System.Text.Json.JsonDocument.Parse("1e308");
-        var schema = new Schema(doc.RootElement);
+        var schema = new TestSchema(doc.RootElement);
         var context = schema.Validate(Menes.ValidationContext.Root);
         if (context.IsValid)
         {

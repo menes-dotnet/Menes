@@ -4,49 +4,49 @@
 #pragma warning disable
 namespace Menes.Json.Schema.Tests.RefRemote006
 {
-public readonly struct Object : Menes.IJsonObject, System.IEquatable<Object>, Menes.IJsonAdditionalProperties<Menes.JsonAny>
+public readonly struct HttpLocalhost1234Object : Menes.IJsonObject, System.IEquatable<HttpLocalhost1234Object>, Menes.IJsonAdditionalProperties<Menes.JsonAny>
 {
-    public static readonly Object Null = new Object(default(System.Text.Json.JsonElement));
-    public static readonly System.Func<System.Text.Json.JsonElement, Object> FromJsonElement = e => new Object(e);
+    public static readonly HttpLocalhost1234Object Null = new HttpLocalhost1234Object(default(System.Text.Json.JsonElement));
+    public static readonly System.Func<System.Text.Json.JsonElement, HttpLocalhost1234Object> FromJsonElement = e => new HttpLocalhost1234Object(e);
     private static readonly System.Collections.Immutable.ImmutableArray<System.ReadOnlyMemory<byte>> KnownProperties = System.Collections.Immutable.ImmutableArray<System.ReadOnlyMemory<byte>>.Empty;
     private readonly Menes.JsonProperties<Menes.JsonAny>? additionalPropertiesBacking;
-    public Object(System.Text.Json.JsonElement jsonElement)
+    public HttpLocalhost1234Object(System.Text.Json.JsonElement jsonElement)
     {
         this.JsonElement = jsonElement;
         this.additionalPropertiesBacking = null;
     }
-    public Object(params (string, Menes.JsonAny)[] additionalPropertiesBacking)
+    public HttpLocalhost1234Object(params (string, Menes.JsonAny)[] additionalPropertiesBacking)
     {
         this.JsonElement = default;
         this.additionalPropertiesBacking = Menes.JsonProperties<Menes.JsonAny>.FromValues(additionalPropertiesBacking);
     }
-    public Object((string, Menes.JsonAny) additionalProperty1)
+    public HttpLocalhost1234Object((string, Menes.JsonAny) additionalProperty1)
     {
         this.JsonElement = default;
         this.additionalPropertiesBacking = Menes.JsonProperties<Menes.JsonAny>.FromValues(additionalProperty1);
     }
-    public Object((string, Menes.JsonAny) additionalProperty1, (string, Menes.JsonAny) additionalProperty2)
+    public HttpLocalhost1234Object((string, Menes.JsonAny) additionalProperty1, (string, Menes.JsonAny) additionalProperty2)
     {
         this.JsonElement = default;
         this.additionalPropertiesBacking = Menes.JsonProperties<Menes.JsonAny>.FromValues(additionalProperty1, additionalProperty2);
     }
-    public Object((string, Menes.JsonAny) additionalProperty1, (string, Menes.JsonAny) additionalProperty2, (string, Menes.JsonAny) additionalProperty3)
+    public HttpLocalhost1234Object((string, Menes.JsonAny) additionalProperty1, (string, Menes.JsonAny) additionalProperty2, (string, Menes.JsonAny) additionalProperty3)
     {
         this.JsonElement = default;
         this.additionalPropertiesBacking = Menes.JsonProperties<Menes.JsonAny>.FromValues(additionalProperty1, additionalProperty2, additionalProperty3);
     }
-    public Object((string, Menes.JsonAny) additionalProperty1, (string, Menes.JsonAny) additionalProperty2, (string, Menes.JsonAny) additionalProperty3, (string, Menes.JsonAny) additionalProperty4)
+    public HttpLocalhost1234Object((string, Menes.JsonAny) additionalProperty1, (string, Menes.JsonAny) additionalProperty2, (string, Menes.JsonAny) additionalProperty3, (string, Menes.JsonAny) additionalProperty4)
     {
         this.JsonElement = default;
         this.additionalPropertiesBacking = Menes.JsonProperties<Menes.JsonAny>.FromValues(additionalProperty1, additionalProperty2, additionalProperty3, additionalProperty4);
     }
-    private Object(Menes.JsonProperties<Menes.JsonAny>? additionalPropertiesBacking)
+    private HttpLocalhost1234Object(Menes.JsonProperties<Menes.JsonAny>? additionalPropertiesBacking)
     {
         this.JsonElement = default;
         this.additionalPropertiesBacking = additionalPropertiesBacking;
     }
     public bool IsNull => (this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Undefined || this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Null);
-    public Object? AsOptional => this.IsNull ? default(Object?) : this;
+    public HttpLocalhost1234Object? AsOptional => this.IsNull ? default(HttpLocalhost1234Object?) : this;
     public int PropertiesCount => KnownProperties.Length + this.JsonAdditionalPropertiesCount;
     public int JsonAdditionalPropertiesCount
     {
@@ -86,49 +86,49 @@ public readonly struct Object : Menes.IJsonObject, System.IEquatable<Object>, Me
     {
         return jsonElement.ValueKind == System.Text.Json.JsonValueKind.Object || jsonElement.ValueKind == System.Text.Json.JsonValueKind.Null;
     }
-    public static Object FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<char> propertyName) =>
+    public static HttpLocalhost1234Object FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<char> propertyName) =>
        parentDocument.ValueKind == System.Text.Json.JsonValueKind.Object ?
             (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
-                ? new Object(property)
+                ? new HttpLocalhost1234Object(property)
                 : Null)
             : Null;
-    public static Object FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, string propertyName) =>
+    public static HttpLocalhost1234Object FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, string propertyName) =>
        parentDocument.ValueKind == System.Text.Json.JsonValueKind.Object ?
             (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
-                ? new Object(property)
+                ? new HttpLocalhost1234Object(property)
                 : Null)
             : Null;
-    public static Object FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<byte> utf8PropertyName) =>
+    public static HttpLocalhost1234Object FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<byte> utf8PropertyName) =>
        parentDocument.ValueKind == System.Text.Json.JsonValueKind.Object ?
             (parentDocument.TryGetProperty(utf8PropertyName, out System.Text.Json.JsonElement property)
-                ? new Object(property)
+                ? new HttpLocalhost1234Object(property)
                 : Null)
         : Null;
-    public Object ReplaceAll(Menes.JsonProperties<Menes.JsonAny> newAdditional)
+    public HttpLocalhost1234Object ReplaceAll(Menes.JsonProperties<Menes.JsonAny> newAdditional)
     {
-        return new Object(newAdditional);
+        return new HttpLocalhost1234Object(newAdditional);
     }
-    public Object ReplaceAll(params (string, Menes.JsonAny)[] newAdditional)
+    public HttpLocalhost1234Object ReplaceAll(params (string, Menes.JsonAny)[] newAdditional)
     {
-        return new Object(Menes.JsonProperties<Menes.JsonAny>.FromValues(newAdditional));
+        return new HttpLocalhost1234Object(Menes.JsonProperties<Menes.JsonAny>.FromValues(newAdditional));
     }
-    public Object ReplaceAll((string, Menes.JsonAny) newAdditional1)
+    public HttpLocalhost1234Object ReplaceAll((string, Menes.JsonAny) newAdditional1)
     {
-        return new Object(Menes.JsonProperties<Menes.JsonAny>.FromValues(newAdditional1));
+        return new HttpLocalhost1234Object(Menes.JsonProperties<Menes.JsonAny>.FromValues(newAdditional1));
     }
-    public Object ReplaceAll((string, Menes.JsonAny) newAdditional1, (string, Menes.JsonAny) newAdditional2)
+    public HttpLocalhost1234Object ReplaceAll((string, Menes.JsonAny) newAdditional1, (string, Menes.JsonAny) newAdditional2)
     {
-        return new Object(Menes.JsonProperties<Menes.JsonAny>.FromValues(newAdditional1, newAdditional2));
+        return new HttpLocalhost1234Object(Menes.JsonProperties<Menes.JsonAny>.FromValues(newAdditional1, newAdditional2));
     }
-    public Object ReplaceAll((string, Menes.JsonAny) newAdditional1, (string, Menes.JsonAny) newAdditional2, (string, Menes.JsonAny) newAdditional3)
+    public HttpLocalhost1234Object ReplaceAll((string, Menes.JsonAny) newAdditional1, (string, Menes.JsonAny) newAdditional2, (string, Menes.JsonAny) newAdditional3)
     {
-        return new Object(Menes.JsonProperties<Menes.JsonAny>.FromValues(newAdditional1, newAdditional2, newAdditional3));
+        return new HttpLocalhost1234Object(Menes.JsonProperties<Menes.JsonAny>.FromValues(newAdditional1, newAdditional2, newAdditional3));
     }
-    public Object ReplaceAll((string, Menes.JsonAny) newAdditional1, (string, Menes.JsonAny) newAdditional2, (string, Menes.JsonAny) newAdditional3, (string, Menes.JsonAny) newAdditional4)
+    public HttpLocalhost1234Object ReplaceAll((string, Menes.JsonAny) newAdditional1, (string, Menes.JsonAny) newAdditional2, (string, Menes.JsonAny) newAdditional3, (string, Menes.JsonAny) newAdditional4)
     {
-        return new Object(Menes.JsonProperties<Menes.JsonAny>.FromValues(newAdditional1, newAdditional2, newAdditional3, newAdditional4));
+        return new HttpLocalhost1234Object(Menes.JsonProperties<Menes.JsonAny>.FromValues(newAdditional1, newAdditional2, newAdditional3, newAdditional4));
     }
-    public Object Add(params (string, Menes.JsonAny)[] newAdditional)
+    public HttpLocalhost1234Object Add(params (string, Menes.JsonAny)[] newAdditional)
     {
         System.Collections.Immutable.ImmutableArray<Menes.JsonPropertyReference<Menes.JsonAny>>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonPropertyReference<Menes.JsonAny>>();
         foreach (Menes.JsonPropertyReference<Menes.JsonAny> property in this.JsonAdditionalProperties)
@@ -139,45 +139,45 @@ public readonly struct Object : Menes.IJsonObject, System.IEquatable<Object>, Me
         {
             arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(name, value));
         }
-        return new Object(new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
+        return new HttpLocalhost1234Object(new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
     }
-    public Object Add((string name, Menes.JsonAny value) newAdditional1)
+    public HttpLocalhost1234Object Add((string name, Menes.JsonAny value) newAdditional1)
     {
         System.Collections.Immutable.ImmutableArray<Menes.JsonPropertyReference<Menes.JsonAny>>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonPropertyReference<Menes.JsonAny>>();
         foreach (Menes.JsonPropertyReference<Menes.JsonAny> property in this.JsonAdditionalProperties)
         {
             arrayBuilder.Add(property);
         }
-        arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional1.name, newAdditional1.value)); return new Object(new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
+        arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional1.name, newAdditional1.value)); return new HttpLocalhost1234Object(new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
     }
-    public Object Add((string name, Menes.JsonAny value) newAdditional1, (string name, Menes.JsonAny value) newAdditional2)
+    public HttpLocalhost1234Object Add((string name, Menes.JsonAny value) newAdditional1, (string name, Menes.JsonAny value) newAdditional2)
     {
         System.Collections.Immutable.ImmutableArray<Menes.JsonPropertyReference<Menes.JsonAny>>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonPropertyReference<Menes.JsonAny>>();
         foreach (Menes.JsonPropertyReference<Menes.JsonAny> property in this.JsonAdditionalProperties)
         {
             arrayBuilder.Add(property);
         }
-        arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional1.name, newAdditional1.value)); arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional2.name, newAdditional2.value)); return new Object(new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
+        arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional1.name, newAdditional1.value)); arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional2.name, newAdditional2.value)); return new HttpLocalhost1234Object(new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
     }
-    public Object Add((string name, Menes.JsonAny value) newAdditional1, (string name, Menes.JsonAny value) newAdditional2, (string name, Menes.JsonAny value) newAdditional3)
+    public HttpLocalhost1234Object Add((string name, Menes.JsonAny value) newAdditional1, (string name, Menes.JsonAny value) newAdditional2, (string name, Menes.JsonAny value) newAdditional3)
     {
         System.Collections.Immutable.ImmutableArray<Menes.JsonPropertyReference<Menes.JsonAny>>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonPropertyReference<Menes.JsonAny>>();
         foreach (Menes.JsonPropertyReference<Menes.JsonAny> property in this.JsonAdditionalProperties)
         {
             arrayBuilder.Add(property);
         }
-        arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional1.name, newAdditional1.value)); arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional2.name, newAdditional2.value)); arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional3.name, newAdditional3.value)); return new Object(new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
+        arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional1.name, newAdditional1.value)); arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional2.name, newAdditional2.value)); arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional3.name, newAdditional3.value)); return new HttpLocalhost1234Object(new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
     }
-    public Object Add((string name, Menes.JsonAny value) newAdditional1, (string name, Menes.JsonAny value) newAdditional2, (string name, Menes.JsonAny value) newAdditional3, (string name, Menes.JsonAny value) newAdditional4)
+    public HttpLocalhost1234Object Add((string name, Menes.JsonAny value) newAdditional1, (string name, Menes.JsonAny value) newAdditional2, (string name, Menes.JsonAny value) newAdditional3, (string name, Menes.JsonAny value) newAdditional4)
     {
         System.Collections.Immutable.ImmutableArray<Menes.JsonPropertyReference<Menes.JsonAny>>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonPropertyReference<Menes.JsonAny>>();
         foreach (Menes.JsonPropertyReference<Menes.JsonAny> property in this.JsonAdditionalProperties)
         {
             arrayBuilder.Add(property);
         }
-        arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional1.name, newAdditional1.value)); arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional2.name, newAdditional2.value)); arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional3.name, newAdditional3.value)); arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional4.name, newAdditional4.value)); return new Object(new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
+        arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional1.name, newAdditional1.value)); arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional2.name, newAdditional2.value)); arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional3.name, newAdditional3.value)); arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional4.name, newAdditional4.value)); return new HttpLocalhost1234Object(new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
     }
-    public Object Remove(params string[] namesToRemove)
+    public HttpLocalhost1234Object Remove(params string[] namesToRemove)
     {
         System.Collections.Immutable.ImmutableHashSet<string> ihs = System.Collections.Immutable.ImmutableHashSet.Create<string>(namesToRemove);
         System.Collections.Immutable.ImmutableArray<Menes.JsonPropertyReference<Menes.JsonAny>>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonPropertyReference<Menes.JsonAny>>();
@@ -188,9 +188,9 @@ public readonly struct Object : Menes.IJsonObject, System.IEquatable<Object>, Me
                 arrayBuilder.Add(property);
             }
         }
-        return new Object(new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
+        return new HttpLocalhost1234Object(new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
     }
-    public Object Remove(string itemToRemove1)
+    public HttpLocalhost1234Object Remove(string itemToRemove1)
     {
         System.Collections.Immutable.ImmutableHashSet<string>.Builder ihsBuilder = System.Collections.Immutable.ImmutableHashSet.CreateBuilder<string>();
         ihsBuilder.Add(itemToRemove1); System.Collections.Immutable.ImmutableHashSet<string> ihs = ihsBuilder.ToImmutable();
@@ -202,9 +202,9 @@ public readonly struct Object : Menes.IJsonObject, System.IEquatable<Object>, Me
                 arrayBuilder.Add(property);
             }
         }
-        return new Object(new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
+        return new HttpLocalhost1234Object(new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
     }
-    public Object Remove(string itemToRemove1, string itemToRemove2)
+    public HttpLocalhost1234Object Remove(string itemToRemove1, string itemToRemove2)
     {
         System.Collections.Immutable.ImmutableHashSet<string>.Builder ihsBuilder = System.Collections.Immutable.ImmutableHashSet.CreateBuilder<string>();
         ihsBuilder.Add(itemToRemove1); ihsBuilder.Add(itemToRemove2); System.Collections.Immutable.ImmutableHashSet<string> ihs = ihsBuilder.ToImmutable();
@@ -216,9 +216,9 @@ public readonly struct Object : Menes.IJsonObject, System.IEquatable<Object>, Me
                 arrayBuilder.Add(property);
             }
         }
-        return new Object(new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
+        return new HttpLocalhost1234Object(new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
     }
-    public Object Remove(string itemToRemove1, string itemToRemove2, string itemToRemove3)
+    public HttpLocalhost1234Object Remove(string itemToRemove1, string itemToRemove2, string itemToRemove3)
     {
         System.Collections.Immutable.ImmutableHashSet<string>.Builder ihsBuilder = System.Collections.Immutable.ImmutableHashSet.CreateBuilder<string>();
         ihsBuilder.Add(itemToRemove1); ihsBuilder.Add(itemToRemove2); ihsBuilder.Add(itemToRemove3); System.Collections.Immutable.ImmutableHashSet<string> ihs = ihsBuilder.ToImmutable();
@@ -230,9 +230,9 @@ public readonly struct Object : Menes.IJsonObject, System.IEquatable<Object>, Me
                 arrayBuilder.Add(property);
             }
         }
-        return new Object(new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
+        return new HttpLocalhost1234Object(new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
     }
-    public Object Remove(string itemToRemove1, string itemToRemove2, string itemToRemove3, string itemToRemove4)
+    public HttpLocalhost1234Object Remove(string itemToRemove1, string itemToRemove2, string itemToRemove3, string itemToRemove4)
     {
         System.Collections.Immutable.ImmutableHashSet<string>.Builder ihsBuilder = System.Collections.Immutable.ImmutableHashSet.CreateBuilder<string>();
         ihsBuilder.Add(itemToRemove1); ihsBuilder.Add(itemToRemove2); ihsBuilder.Add(itemToRemove3); ihsBuilder.Add(itemToRemove4); System.Collections.Immutable.ImmutableHashSet<string> ihs = ihsBuilder.ToImmutable();
@@ -244,9 +244,9 @@ public readonly struct Object : Menes.IJsonObject, System.IEquatable<Object>, Me
                 arrayBuilder.Add(property);
             }
         }
-        return new Object(new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
+        return new HttpLocalhost1234Object(new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
     }
-    public Object Remove(System.Predicate<Menes.JsonPropertyReference<Menes.JsonAny>> removeIfTrue)
+    public HttpLocalhost1234Object Remove(System.Predicate<Menes.JsonPropertyReference<Menes.JsonAny>> removeIfTrue)
     {
         System.Collections.Immutable.ImmutableArray<Menes.JsonPropertyReference<Menes.JsonAny>>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonPropertyReference<Menes.JsonAny>>();
         foreach (Menes.JsonPropertyReference<Menes.JsonAny> property in this.JsonAdditionalProperties)
@@ -256,7 +256,7 @@ public readonly struct Object : Menes.IJsonObject, System.IEquatable<Object>, Me
                 arrayBuilder.Add(property);
             }
         }
-        return new Object(new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
+        return new HttpLocalhost1234Object(new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
     }
     public void WriteTo(System.Text.Json.Utf8JsonWriter writer)
     {
@@ -275,7 +275,7 @@ public readonly struct Object : Menes.IJsonObject, System.IEquatable<Object>, Me
             writer.WriteEndObject();
         }
     }
-    public bool Equals(Object other)
+    public bool Equals(HttpLocalhost1234Object other)
     {
         if ((this.IsNull && !other.IsNull) || (!this.IsNull && other.IsNull))
         {

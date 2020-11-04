@@ -4,13 +4,13 @@
 #pragma warning disable
 namespace Menes.Json.Schema.Tests.Type007
 {
-public readonly struct Schema : Menes.IJsonValue
+public readonly struct TestSchema : Menes.IJsonValue
 {
-    public static readonly Schema Null = new Schema(default(System.Text.Json.JsonElement));
-    public static readonly System.Func<System.Text.Json.JsonElement, Schema> FromJsonElement = e => new Schema(e);
+    public static readonly TestSchema Null = new TestSchema(default(System.Text.Json.JsonElement));
+    public static readonly System.Func<System.Text.Json.JsonElement, TestSchema> FromJsonElement = e => new TestSchema(e);
     private readonly Menes.JsonInteger? item1;
     private readonly Menes.JsonString? item2;
-    public Schema(Menes.JsonInteger clrInstance)
+    public TestSchema(Menes.JsonInteger clrInstance)
     {
         if (clrInstance.HasJsonElement)
         {
@@ -24,7 +24,7 @@ public readonly struct Schema : Menes.IJsonValue
         }
         this.item2 = null;
     }
-    public Schema(Menes.JsonString clrInstance)
+    public TestSchema(Menes.JsonString clrInstance)
     {
         if (clrInstance.HasJsonElement)
         {
@@ -38,38 +38,38 @@ public readonly struct Schema : Menes.IJsonValue
         }
         this.item1 = null;
     }
-    public Schema(System.Text.Json.JsonElement jsonElement)
+    public TestSchema(System.Text.Json.JsonElement jsonElement)
     {
         this.item1 = null;
         this.item2 = null;
         this.JsonElement = jsonElement;
     }
     public bool IsNull => this.item1 is null && this.item2 is null && (this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Undefined || this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Null);
-    public Schema? AsOptional => this.IsNull ? default(Schema?) : this;
+    public TestSchema? AsOptional => this.IsNull ? default(TestSchema?) : this;
     public bool IsJsonInteger => this.item1 is Menes.JsonInteger || (Menes.JsonInteger.IsConvertibleFrom(this.JsonElement) && Menes.JsonInteger.FromJsonElement(this.JsonElement).Validate(Menes.ValidationContext.Root).IsValid);
     public bool IsJsonString => this.item2 is Menes.JsonString || (Menes.JsonString.IsConvertibleFrom(this.JsonElement) && Menes.JsonString.FromJsonElement(this.JsonElement).Validate(Menes.ValidationContext.Root).IsValid);
     public bool HasJsonElement => this.JsonElement.ValueKind != System.Text.Json.JsonValueKind.Undefined;
     public System.Text.Json.JsonElement JsonElement { get; }
-    public static explicit operator Menes.JsonInteger(Schema value) => value.AsJsonInteger();
-    public static implicit operator Schema(Menes.JsonInteger value) => new Schema(value);
-    public static explicit operator Menes.JsonString(Schema value) => value.AsJsonString();
-    public static implicit operator Schema(Menes.JsonString value) => new Schema(value);
-    public static Schema FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<char> propertyName) =>
+    public static explicit operator Menes.JsonInteger(TestSchema value) => value.AsJsonInteger();
+    public static implicit operator TestSchema(Menes.JsonInteger value) => new TestSchema(value);
+    public static explicit operator Menes.JsonString(TestSchema value) => value.AsJsonString();
+    public static implicit operator TestSchema(Menes.JsonString value) => new TestSchema(value);
+    public static TestSchema FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<char> propertyName) =>
        parentDocument.ValueKind == System.Text.Json.JsonValueKind.Object ?
             (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
-                ? new Schema(property)
+                ? new TestSchema(property)
                 : Null)
             : Null;
-    public static Schema FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, string propertyName) =>
+    public static TestSchema FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, string propertyName) =>
        parentDocument.ValueKind == System.Text.Json.JsonValueKind.Object ?
             (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
-                ? new Schema(property)
+                ? new TestSchema(property)
                 : Null)
             : Null;
-    public static Schema FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<byte> utf8PropertyName) =>
+    public static TestSchema FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<byte> utf8PropertyName) =>
        parentDocument.ValueKind == System.Text.Json.JsonValueKind.Object ?
             (parentDocument.TryGetProperty(utf8PropertyName, out System.Text.Json.JsonElement property)
-                ? new Schema(property)
+                ? new TestSchema(property)
                 : Null)
             : Null;
     public static bool IsConvertibleFrom(System.Text.Json.JsonElement jsonElement)
@@ -156,7 +156,7 @@ public static class Tests
     public static bool Test0()
     {
         using var doc = System.Text.Json.JsonDocument.Parse("1");
-        var schema = new Schema(doc.RootElement);
+        var schema = new TestSchema(doc.RootElement);
         var context = schema.Validate(Menes.ValidationContext.Root);
         if (!context.IsValid)
         {
@@ -172,7 +172,7 @@ public static class Tests
     public static bool Test1()
     {
         using var doc = System.Text.Json.JsonDocument.Parse("\"foo\"");
-        var schema = new Schema(doc.RootElement);
+        var schema = new TestSchema(doc.RootElement);
         var context = schema.Validate(Menes.ValidationContext.Root);
         if (!context.IsValid)
         {
@@ -188,7 +188,7 @@ public static class Tests
     public static bool Test2()
     {
         using var doc = System.Text.Json.JsonDocument.Parse("1.1");
-        var schema = new Schema(doc.RootElement);
+        var schema = new TestSchema(doc.RootElement);
         var context = schema.Validate(Menes.ValidationContext.Root);
         if (context.IsValid)
         {
@@ -204,7 +204,7 @@ public static class Tests
     public static bool Test3()
     {
         using var doc = System.Text.Json.JsonDocument.Parse("{}");
-        var schema = new Schema(doc.RootElement);
+        var schema = new TestSchema(doc.RootElement);
         var context = schema.Validate(Menes.ValidationContext.Root);
         if (context.IsValid)
         {
@@ -220,7 +220,7 @@ public static class Tests
     public static bool Test4()
     {
         using var doc = System.Text.Json.JsonDocument.Parse("[]");
-        var schema = new Schema(doc.RootElement);
+        var schema = new TestSchema(doc.RootElement);
         var context = schema.Validate(Menes.ValidationContext.Root);
         if (context.IsValid)
         {
@@ -236,7 +236,7 @@ public static class Tests
     public static bool Test5()
     {
         using var doc = System.Text.Json.JsonDocument.Parse("true");
-        var schema = new Schema(doc.RootElement);
+        var schema = new TestSchema(doc.RootElement);
         var context = schema.Validate(Menes.ValidationContext.Root);
         if (context.IsValid)
         {
@@ -252,7 +252,7 @@ public static class Tests
     public static bool Test6()
     {
         using var doc = System.Text.Json.JsonDocument.Parse("null");
-        var schema = new Schema(doc.RootElement);
+        var schema = new TestSchema(doc.RootElement);
         var context = schema.Validate(Menes.ValidationContext.Root);
         if (context.IsValid)
         {

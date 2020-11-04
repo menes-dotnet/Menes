@@ -6,6 +6,8 @@ namespace Menes.Json.Schema
 {
     using System;
     using System.Buffers;
+    using System.Globalization;
+    using System.Text;
     using System.Text.Json;
 
     /// <summary>
@@ -63,45 +65,7 @@ namespace Menes.Json.Schema
                         {
                             if (stateMachine.CurrentElement.ValueKind == JsonValueKind.Object)
                             {
-                                int writtenCount = 0;
-                                char[] unescaped = ArrayPool<char>.Shared.Rent(i - stateMachine.StartRunIndex);
-                                try
-                                {
-                                    for (int e = stateMachine.StartRunIndex; e < i; ++e)
-                                    {
-                                        if (pointer[e] == '~')
-                                        {
-                                            if (e >= i - 1)
-                                            {
-                                                throw new JsonException($"Unexpected end of sequence in escape character. Expected '0' or '1' but found the end of the element.");
-                                            }
-
-                                            if (pointer[e + 1] == '0')
-                                            {
-                                                unescaped[writtenCount] = '~';
-                                            }
-                                            else if (pointer[e + 1] == '1')
-                                            {
-                                                unescaped[writtenCount] = '~';
-                                            }
-                                            else
-                                            {
-                                                throw new JsonException($"Unexpected escape character. Expected '0' or '1' but found '{pointer[e + 1]}'");
-                                            }
-                                        }
-                                    }
-
-                                    while (pointer[stateMachine.StartRunIndex] == '/')
-                                    {
-                                        stateMachine.StartRunIndex += 1;
-                                    }
-
-                                    stateMachine.CurrentElement = stateMachine.CurrentElement.GetProperty(pointer[stateMachine.StartRunIndex..i]);
-                                }
-                                finally
-                                {
-                                    ArrayPool<char>.Shared.Return(unescaped);
-                                }
+                                stateMachine = GetPropertyFromEscapedValue(pointer, stateMachine, i);
                             }
                             else if (stateMachine.CurrentElement.ValueKind == JsonValueKind.Array)
                             {
@@ -159,7 +123,7 @@ namespace Menes.Json.Schema
             {
                 if (stateMachine.CurrentElement.ValueKind == JsonValueKind.Object)
                 {
-                    stateMachine.CurrentElement = stateMachine.CurrentElement.GetProperty(pointer.Slice(stateMachine.StartRunIndex));
+                    stateMachine = GetPropertyFromEscapedValue(pointer, stateMachine, pointer.Length);
                 }
                 else if (stateMachine.CurrentElement.ValueKind == JsonValueKind.Array)
                 {
@@ -188,6 +152,92 @@ namespace Menes.Json.Schema
             }
 
             return stateMachine.CurrentElement;
+        }
+
+        private static PointerStateMachine GetPropertyFromEscapedValue(ReadOnlySpan<char> pointer, PointerStateMachine stateMachine, int i)
+        {
+            int writtenCount = 0;
+            char[] unescaped = ArrayPool<char>.Shared.Rent(i - stateMachine.StartRunIndex);
+            try
+            {
+                for (int e = stateMachine.StartRunIndex; e < i; ++e)
+                {
+                    if (pointer[e] == '%')
+                    {
+                        int writtenBytes = 0;
+                        Span<byte> utf8bytes = stackalloc byte[i - e];
+
+                        while (pointer[e] == '%')
+                        {
+                            if (e >= i - 2)
+                            {
+                                throw new JsonException($"Unexpected end of sequence in escaped %. Expected two digits but found the end of the element.");
+                            }
+
+                            if (int.TryParse(pointer.Slice(e + 1, 2), NumberStyles.HexNumber, CultureInfo.InvariantCulture, out int characterCode))
+                            {
+                                utf8bytes[writtenBytes] = (byte)characterCode;
+                                writtenBytes += 1;
+                            }
+                            else
+                            {
+                                throw new JsonException($"Unexpected end of sequence in escaped %. Expected two digits but could not parse.");
+                            }
+
+                            e += 3;
+                        }
+
+                        Encoding.UTF8.GetChars(utf8bytes.Slice(0, writtenBytes), unescaped.AsSpan(writtenCount));
+
+                        // We're going to add it on again in a second when we go around the loop
+                        e -= 1;
+                        writtenCount += writtenBytes;
+                    }
+                    else if (pointer[e] == '~')
+                    {
+                        if (e >= i - 1)
+                        {
+                            throw new JsonException($"Unexpected end of sequence in escape character. Expected '0' or '1' but found the end of the element.");
+                        }
+
+                        if (pointer[e + 1] == '0')
+                        {
+                            unescaped[writtenCount] = '~';
+                        }
+                        else if (pointer[e + 1] == '1')
+                        {
+                            unescaped[writtenCount] = '/';
+                        }
+                        else
+                        {
+                            throw new JsonException($"Unexpected escape character. Expected '0' or '1' but found '{pointer[e + 1]}'");
+                        }
+
+                        e += 1;
+                        writtenCount++;
+                    }
+                    else
+                    {
+                        unescaped[writtenCount] = pointer[e];
+                        writtenCount++;
+                    }
+                }
+
+                int offset = 0;
+
+                while (unescaped[offset] == '/')
+                {
+                    offset += 1;
+                }
+
+                stateMachine.CurrentElement = stateMachine.CurrentElement.GetProperty(unescaped.AsSpan()[offset..writtenCount]);
+            }
+            finally
+            {
+                ArrayPool<char>.Shared.Return(unescaped);
+            }
+
+            return stateMachine;
         }
 
         private struct PointerStateMachine
