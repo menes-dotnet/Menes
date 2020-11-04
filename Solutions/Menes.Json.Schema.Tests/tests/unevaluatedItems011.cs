@@ -588,6 +588,21 @@ public readonly struct Schema : Menes.IJsonValue, System.Collections.Generic.IEn
                 Menes.ValidationContext context = validationContext;
                 if (this.HasJsonElement && IsConvertibleFrom(this.JsonElement))
                 {
+                    var itemsValidationEnumerator = array.GetEnumerator();
+                    if (itemsValidationEnumerator.MoveNext())
+                    {
+                        context = Menes.Validation.ValidateProperty(context, Menes.JsonAny.From(itemsValidationEnumerator.Current).As<Menes.JsonAny>(), $"[0]");
+                    }
+                    if (itemsValidationEnumerator.MoveNext())
+                    {
+                        context = Menes.Validation.ValidateProperty(context, Menes.JsonAny.From(itemsValidationEnumerator.Current).As<Schema.NotTypeValidationValue.NotTypeValidationValueChild.ItemsValidationItem1Value>(), $"[1]");
+                    }
+                    int extraIndex = 0;
+                    while (itemsValidationEnumerator.MoveNext())
+                    {
+                        context = Menes.Validation.ValidateProperty(context, Menes.JsonAny.From(itemsValidationEnumerator.Current).As<Menes.JsonAny>(), $"[{extraIndex + 2}]");
+                        extraIndex++;
+                    }
                     context = array.ValidateItems(context);
                 }
                 return context;
@@ -883,6 +898,112 @@ public readonly struct Schema : Menes.IJsonValue, System.Collections.Generic.IEn
                     arrayBuilder.Add(item);
                 }
                 return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
+            }
+            public readonly struct ItemsValidationItem1Value : Menes.IJsonValue, System.IEquatable<ItemsValidationItem1Value>
+            {
+                public static readonly System.Func<System.Text.Json.JsonElement, ItemsValidationItem1Value> FromJsonElement = e => new ItemsValidationItem1Value(e);
+                public static readonly ItemsValidationItem1Value Null = new ItemsValidationItem1Value(default(System.Text.Json.JsonElement));
+                private static readonly Menes.JsonAny ConstValue = BuildConstValue();
+                private readonly Menes.JsonAny? value;
+                public ItemsValidationItem1Value(Menes.JsonAny value)
+                {
+                    if (value.HasJsonElement)
+                    {
+                        this.JsonElement = value.JsonElement;
+                        this.value = null;
+                    }
+                    else
+                    {
+                        this.value = value;
+                        this.JsonElement = default;
+                    }
+                }
+                public ItemsValidationItem1Value(System.Text.Json.JsonElement jsonElement)
+                {
+                    this.value = null;
+                    this.JsonElement = jsonElement;
+                }
+                public bool IsNull => this.value == null && (this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Undefined || this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Null);
+                public ItemsValidationItem1Value? AsOptional => this.IsNull ? default(ItemsValidationItem1Value?) : this;
+                public bool HasJsonElement => this.JsonElement.ValueKind != System.Text.Json.JsonValueKind.Undefined;
+                public System.Text.Json.JsonElement JsonElement { get; }
+                public static implicit operator ItemsValidationItem1Value(Menes.JsonAny value)
+                {
+                    return new ItemsValidationItem1Value(value);
+                }
+                public static implicit operator Menes.JsonAny(ItemsValidationItem1Value value)
+                {
+                    if (value.value is Menes.JsonAny clrValue)
+                    {
+                        return clrValue;
+                    }
+                    return new Menes.JsonAny(value.JsonElement);
+                }
+                public static bool IsConvertibleFrom(System.Text.Json.JsonElement jsonElement)
+                {
+                    return Menes.JsonAny.IsConvertibleFrom(jsonElement);
+                }
+                public static ItemsValidationItem1Value FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<char> propertyName) =>
+                   parentDocument.ValueKind == System.Text.Json.JsonValueKind.Object ?
+                        (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
+                            ? new ItemsValidationItem1Value(property)
+                            : Null)
+                        : Null;
+                public static ItemsValidationItem1Value FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, string propertyName) =>
+                   parentDocument.ValueKind == System.Text.Json.JsonValueKind.Object ?
+                        (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
+                            ? new ItemsValidationItem1Value(property)
+                            : Null)
+                        : Null;
+                public static ItemsValidationItem1Value FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<byte> utf8PropertyName) =>
+                   parentDocument.ValueKind == System.Text.Json.JsonValueKind.Object ?
+                        (parentDocument.TryGetProperty(utf8PropertyName, out System.Text.Json.JsonElement property)
+                            ? new ItemsValidationItem1Value(property)
+                            : Null)
+                        : Null;
+                public bool Equals(ItemsValidationItem1Value other)
+                {
+                    return this.Equals((Menes.JsonAny)other);
+                }
+                public bool Equals(Menes.JsonAny other)
+                {
+                    return ((Menes.JsonAny)this).Equals(other);
+                }
+                public Menes.ValidationContext Validate(in Menes.ValidationContext validationContext)
+                {
+                    Menes.JsonAny value = this;
+                    Menes.ValidationContext context = validationContext;
+                    context = value.Validate(context);
+                    context = Menes.Validation.ValidateConst(context, value, ConstValue);
+                    return context;
+                }
+                public void WriteTo(System.Text.Json.Utf8JsonWriter writer)
+                {
+                    if (this.HasJsonElement)
+                    {
+                        this.JsonElement.WriteTo(writer);
+                    }
+                    else if (this.value is Menes.JsonAny clrValue)
+                    {
+                        clrValue.WriteTo(writer);
+                    }
+                }
+                public override string ToString()
+                {
+                    if (this.value is Menes.JsonAny clrValue)
+                    {
+                        return clrValue.ToString();
+                    }
+                    else
+                    {
+                        return this.JsonElement.GetRawText();
+                    }
+                }
+                private static Menes.JsonAny BuildConstValue()
+                {
+                    using var document = System.Text.Json.JsonDocument.Parse("\"bar\"");
+                    return new Menes.JsonAny(document.RootElement.Clone());
+                }
             }
         }
     }

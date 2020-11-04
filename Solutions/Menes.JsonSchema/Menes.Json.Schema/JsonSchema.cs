@@ -2315,7 +2315,6 @@ namespace Menes.Json.Schema
                     context = Menes.Validation.ValidateProperty(context, property.AsValue(), "." + property.Name);
                 }
             }
-            context = Menes.Validation.ValidateNot<JsonSchema, JsonSchema>(context, this);
             return context;
         }
         public bool TryGet(string propertyName, [System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out Menes.JsonAny value)

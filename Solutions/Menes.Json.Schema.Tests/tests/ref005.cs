@@ -12,7 +12,7 @@ public readonly struct Schema : Menes.IJsonObject, System.IEquatable<Schema>, Me
     private static readonly System.ReadOnlyMemory<byte> FooPropertyNameBytes = new byte[] { 102, 111, 111 };
     private static readonly System.Text.Json.JsonEncodedText EncodedFooPropertyName = System.Text.Json.JsonEncodedText.Encode(FooPropertyNameBytes.Span);
     private static readonly System.Collections.Immutable.ImmutableArray<System.ReadOnlyMemory<byte>> KnownProperties = System.Collections.Immutable.ImmutableArray.Create(FooPropertyNameBytes);
-    private readonly Schema.FooValue? foo;
+    private readonly Menes.JsonArray<Menes.JsonAny>? foo;
     private readonly Menes.JsonProperties<Menes.JsonAny>? additionalPropertiesBacking;
     public Schema(System.Text.Json.JsonElement jsonElement)
     {
@@ -20,49 +20,49 @@ public readonly struct Schema : Menes.IJsonObject, System.IEquatable<Schema>, Me
         this.foo = null;
         this.additionalPropertiesBacking = null;
     }
-    public Schema(Schema.FooValue? foo, Menes.JsonProperties<Menes.JsonAny> additionalPropertiesBacking)
+    public Schema(Menes.JsonArray<Menes.JsonAny>? foo, Menes.JsonProperties<Menes.JsonAny> additionalPropertiesBacking)
     {
         this.foo = foo;
         this.JsonElement = default;
         this.additionalPropertiesBacking = additionalPropertiesBacking;
     }
-    public Schema(Schema.FooValue? foo, params (string, Menes.JsonAny)[] additionalPropertiesBacking)
+    public Schema(Menes.JsonArray<Menes.JsonAny>? foo, params (string, Menes.JsonAny)[] additionalPropertiesBacking)
     {
         this.foo = foo;
         this.JsonElement = default;
         this.additionalPropertiesBacking = Menes.JsonProperties<Menes.JsonAny>.FromValues(additionalPropertiesBacking);
     }
-    public Schema(Schema.FooValue? foo = null)
+    public Schema(Menes.JsonArray<Menes.JsonAny>? foo = null)
     {
         this.foo = foo;
         this.JsonElement = default;
         this.additionalPropertiesBacking = null;
     }
-    public Schema(Schema.FooValue? foo, (string, Menes.JsonAny) additionalProperty1)
+    public Schema(Menes.JsonArray<Menes.JsonAny>? foo, (string, Menes.JsonAny) additionalProperty1)
     {
         this.foo = foo;
         this.JsonElement = default;
         this.additionalPropertiesBacking = Menes.JsonProperties<Menes.JsonAny>.FromValues(additionalProperty1);
     }
-    public Schema(Schema.FooValue? foo, (string, Menes.JsonAny) additionalProperty1, (string, Menes.JsonAny) additionalProperty2)
+    public Schema(Menes.JsonArray<Menes.JsonAny>? foo, (string, Menes.JsonAny) additionalProperty1, (string, Menes.JsonAny) additionalProperty2)
     {
         this.foo = foo;
         this.JsonElement = default;
         this.additionalPropertiesBacking = Menes.JsonProperties<Menes.JsonAny>.FromValues(additionalProperty1, additionalProperty2);
     }
-    public Schema(Schema.FooValue? foo, (string, Menes.JsonAny) additionalProperty1, (string, Menes.JsonAny) additionalProperty2, (string, Menes.JsonAny) additionalProperty3)
+    public Schema(Menes.JsonArray<Menes.JsonAny>? foo, (string, Menes.JsonAny) additionalProperty1, (string, Menes.JsonAny) additionalProperty2, (string, Menes.JsonAny) additionalProperty3)
     {
         this.foo = foo;
         this.JsonElement = default;
         this.additionalPropertiesBacking = Menes.JsonProperties<Menes.JsonAny>.FromValues(additionalProperty1, additionalProperty2, additionalProperty3);
     }
-    public Schema(Schema.FooValue? foo, (string, Menes.JsonAny) additionalProperty1, (string, Menes.JsonAny) additionalProperty2, (string, Menes.JsonAny) additionalProperty3, (string, Menes.JsonAny) additionalProperty4)
+    public Schema(Menes.JsonArray<Menes.JsonAny>? foo, (string, Menes.JsonAny) additionalProperty1, (string, Menes.JsonAny) additionalProperty2, (string, Menes.JsonAny) additionalProperty3, (string, Menes.JsonAny) additionalProperty4)
     {
         this.foo = foo;
         this.JsonElement = default;
         this.additionalPropertiesBacking = Menes.JsonProperties<Menes.JsonAny>.FromValues(additionalProperty1, additionalProperty2, additionalProperty3, additionalProperty4);
     }
-    private Schema(Schema.FooValue? foo, Menes.JsonProperties<Menes.JsonAny>? additionalPropertiesBacking)
+    private Schema(Menes.JsonArray<Menes.JsonAny>? foo, Menes.JsonProperties<Menes.JsonAny>? additionalPropertiesBacking)
     {
         this.foo = foo;
         this.JsonElement = default;
@@ -70,7 +70,7 @@ public readonly struct Schema : Menes.IJsonObject, System.IEquatable<Schema>, Me
     }
     public bool IsNull => (this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Undefined || this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Null) && (this.foo is null || this.foo.Value.IsNull);
     public Schema? AsOptional => this.IsNull ? default(Schema?) : this;
-    public Schema.FooValue? Foo => this.foo ?? Schema.FooValue.FromOptionalProperty(this.JsonElement, FooPropertyNameBytes.Span).AsOptional;
+    public Menes.JsonArray<Menes.JsonAny>? Foo => this.foo ?? Menes.JsonArray<Menes.JsonAny>.FromOptionalProperty(this.JsonElement, FooPropertyNameBytes.Span).AsOptional;
     public int PropertiesCount => KnownProperties.Length + this.JsonAdditionalPropertiesCount;
     public int JsonAdditionalPropertiesCount
     {
@@ -128,7 +128,7 @@ public readonly struct Schema : Menes.IJsonObject, System.IEquatable<Schema>, Me
                 ? new Schema(property)
                 : Null)
         : Null;
-    public Schema WithFoo(Schema.FooValue? value)
+    public Schema WithFoo(Menes.JsonArray<Menes.JsonAny>? value)
     {
         return new Schema(value, this.GetJsonProperties());
     }
@@ -295,7 +295,7 @@ public readonly struct Schema : Menes.IJsonObject, System.IEquatable<Schema>, Me
         else
         {
             writer.WriteStartObject();
-            if (this.foo is Schema.FooValue foo)
+            if (this.foo is Menes.JsonArray<Menes.JsonAny> foo)
             {
                 writer.WritePropertyName(EncodedFooPropertyName);
                 foo.WriteTo(writer);
@@ -329,7 +329,7 @@ public readonly struct Schema : Menes.IJsonObject, System.IEquatable<Schema>, Me
         Menes.ValidationContext context = validationContext;
         if (this.HasJsonElement && IsConvertibleFrom(this.JsonElement))
         {
-            if (this.Foo is Schema.FooValue foo)
+            if (this.Foo is Menes.JsonArray<Menes.JsonAny> foo)
             {
                 context = Menes.Validation.ValidateProperty(context, foo, FooPropertyNamePath);
             }
@@ -375,394 +375,6 @@ public readonly struct Schema : Menes.IJsonObject, System.IEquatable<Schema>, Me
             return props;
         }
         return new Menes.JsonProperties<Menes.JsonAny>(System.Collections.Immutable.ImmutableArray.ToImmutableArray(this.JsonAdditionalProperties));
-    }
-    public readonly struct FooValue : Menes.IJsonValue, System.Collections.Generic.IEnumerable<Menes.JsonAny>, System.Collections.IEnumerable, System.IEquatable<FooValue>, System.IEquatable<Menes.JsonArray<Menes.JsonAny>>
-    {
-        public static readonly System.Func<System.Text.Json.JsonElement, FooValue> FromJsonElement = e => new FooValue(e);
-        public static readonly FooValue Null = new FooValue(default(System.Text.Json.JsonElement));
-        private readonly Menes.JsonArray<Menes.JsonAny>? value;
-        public FooValue(Menes.JsonArray<Menes.JsonAny> jsonArray)
-        {
-            if (jsonArray.HasJsonElement)
-            {
-                this.JsonElement = jsonArray.JsonElement;
-                this.value = null;
-            }
-            else
-            {
-                this.value = jsonArray;
-                this.JsonElement = default;
-            }
-        }
-        public FooValue(System.Text.Json.JsonElement jsonElement)
-        {
-            this.value = null;
-            this.JsonElement = jsonElement;
-        }
-        public int Length
-        {
-            get
-            {
-                if (this.HasJsonElement)
-                {
-                    return this.JsonElement.GetArrayLength();
-                }
-                if (this.value is Menes.JsonArray<Menes.JsonAny> value)
-                {
-                    return value.Length;
-                }
-                return 0;
-            }
-        }
-        public bool IsNull => this.value == null && (this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Undefined || this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Null);
-        public FooValue? AsOptional => this.IsNull ? default(FooValue?) : this;
-        public bool HasJsonElement => this.JsonElement.ValueKind != System.Text.Json.JsonValueKind.Undefined;
-        public System.Text.Json.JsonElement JsonElement { get; }
-        public static implicit operator FooValue(Menes.JsonArray<Menes.JsonAny> value)
-        {
-            return new FooValue(value);
-        }
-        public static implicit operator Menes.JsonArray<Menes.JsonAny>(FooValue value)
-        {
-            if (value.value is Menes.JsonArray<Menes.JsonAny> clrValue)
-            {
-                return clrValue;
-            }
-            return new Menes.JsonArray<Menes.JsonAny>(value.JsonElement);
-        }
-        public static bool IsConvertibleFrom(System.Text.Json.JsonElement jsonElement)
-        {
-            return Menes.JsonArray<Menes.JsonAny>.IsConvertibleFrom(jsonElement);
-        }
-        public static FooValue FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<char> propertyName) =>
-           parentDocument.ValueKind == System.Text.Json.JsonValueKind.Object ?
-                (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
-                    ? new FooValue(property)
-                    : Null)
-                : Null;
-        public static FooValue FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, string propertyName) =>
-           parentDocument.ValueKind == System.Text.Json.JsonValueKind.Object ?
-                (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
-                    ? new FooValue(property)
-                    : Null)
-                : Null;
-        public static FooValue FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<byte> utf8PropertyName) =>
-           parentDocument.ValueKind == System.Text.Json.JsonValueKind.Object ?
-                (parentDocument.TryGetProperty(utf8PropertyName, out System.Text.Json.JsonElement property)
-                    ? new FooValue(property)
-                    : Null)
-                : Null;
-        public bool Equals(FooValue other)
-        {
-            return this.Equals((Menes.JsonArray<Menes.JsonAny>)other);
-        }
-        public bool Equals(Menes.JsonArray<Menes.JsonAny> other)
-        {
-            return ((Menes.JsonArray<Menes.JsonAny>)this).Equals(other);
-        }
-        public Menes.ValidationContext Validate(in Menes.ValidationContext validationContext)
-        {
-            Menes.JsonArray<Menes.JsonAny> array = this;
-            Menes.ValidationContext context = validationContext;
-            if (this.HasJsonElement && IsConvertibleFrom(this.JsonElement))
-            {
-                context = array.ValidateMaxItems(context, 2);
-                context = array.ValidateItems(context);
-            }
-            return context;
-        }
-        public void WriteTo(System.Text.Json.Utf8JsonWriter writer)
-        {
-            if (this.HasJsonElement)
-            {
-                this.JsonElement.WriteTo(writer);
-            }
-            if (this.value is Menes.JsonArray<Menes.JsonAny> clrValue)
-            {
-                clrValue.WriteTo(writer);
-            }
-        }
-        public Menes.JsonArray<Menes.JsonAny>.JsonArrayEnumerator GetEnumerator()
-        {
-            return ((Menes.JsonArray<Menes.JsonAny>)this).GetEnumerator();
-        }
-        System.Collections.Generic.IEnumerator<Menes.JsonAny> System.Collections.Generic.IEnumerable<Menes.JsonAny>.GetEnumerator()
-        {
-            return this.GetEnumerator();
-        }
-        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-        {
-            return this.GetEnumerator();
-        }
-        public FooValue Add(params Menes.JsonAny[] items)
-        {
-            System.Collections.Immutable.ImmutableArray<Menes.JsonAny>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonAny>();
-            foreach (Menes.JsonAny item in this)
-            {
-                arrayBuilder.Add(item);
-            }
-            foreach (Menes.JsonAny item in items)
-            {
-                arrayBuilder.Add(item);
-            }
-            return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
-        }
-        public FooValue Add(in Menes.JsonAny item1)
-        {
-            System.Collections.Immutable.ImmutableArray<Menes.JsonAny>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonAny>();
-            foreach (Menes.JsonAny item in this)
-            {
-                arrayBuilder.Add(item);
-            }
-            arrayBuilder.Add(item1);
-            return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
-        }
-        public FooValue Add(in Menes.JsonAny item1, in Menes.JsonAny item2)
-        {
-            System.Collections.Immutable.ImmutableArray<Menes.JsonAny>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonAny>();
-            foreach (Menes.JsonAny item in this)
-            {
-                arrayBuilder.Add(item);
-            }
-            arrayBuilder.Add(item1);
-            arrayBuilder.Add(item2);
-            return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
-        }
-        public FooValue Add(in Menes.JsonAny item1, in Menes.JsonAny item2, in Menes.JsonAny item3)
-        {
-            System.Collections.Immutable.ImmutableArray<Menes.JsonAny>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonAny>();
-            foreach (Menes.JsonAny item in this)
-            {
-                arrayBuilder.Add(item);
-            }
-            arrayBuilder.Add(item1);
-            arrayBuilder.Add(item2);
-            arrayBuilder.Add(item3);
-            return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
-        }
-        public FooValue Add(in Menes.JsonAny item1, in Menes.JsonAny item2, in Menes.JsonAny item3, in Menes.JsonAny item4)
-        {
-            System.Collections.Immutable.ImmutableArray<Menes.JsonAny>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonAny>();
-            foreach (Menes.JsonAny item in this)
-            {
-                arrayBuilder.Add(item);
-            }
-            arrayBuilder.Add(item1);
-            arrayBuilder.Add(item2);
-            arrayBuilder.Add(item3);
-            arrayBuilder.Add(item4);
-            return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
-        }
-        public FooValue Insert(int indexToInsert, params Menes.JsonAny[] items)
-        {
-            System.Collections.Immutable.ImmutableArray<Menes.JsonAny>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonAny>();
-            int index = 0;
-            foreach (Menes.JsonAny item in this)
-            {
-                if (index == indexToInsert)
-                {
-                    foreach (Menes.JsonAny itemToInsert in items)
-                    {
-                        arrayBuilder.Add(itemToInsert);
-                    }
-                }
-                arrayBuilder.Add(item);
-                ++index;
-            }
-            return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
-        }
-        public FooValue Insert(int indexToInsert, in Menes.JsonAny item1)
-        {
-            System.Collections.Immutable.ImmutableArray<Menes.JsonAny>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonAny>();
-            int index = 0;
-            foreach (Menes.JsonAny item in this)
-            {
-                if (index == indexToInsert)
-                {
-                    arrayBuilder.Add(item1);
-                }
-                arrayBuilder.Add(item);
-                ++index;
-            }
-            return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
-        }
-        public FooValue Insert(int indexToInsert, in Menes.JsonAny item1, in Menes.JsonAny item2)
-        {
-            System.Collections.Immutable.ImmutableArray<Menes.JsonAny>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonAny>();
-            int index = 0;
-            foreach (Menes.JsonAny item in this)
-            {
-                if (index == indexToInsert)
-                {
-                    arrayBuilder.Add(item1);
-                    arrayBuilder.Add(item2);
-                }
-                arrayBuilder.Add(item);
-                ++index;
-            }
-            return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
-        }
-        public FooValue Insert(int indexToInsert, in Menes.JsonAny item1, in Menes.JsonAny item2, in Menes.JsonAny item3)
-        {
-            System.Collections.Immutable.ImmutableArray<Menes.JsonAny>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonAny>();
-            int index = 0;
-            foreach (Menes.JsonAny item in this)
-            {
-                if (index == indexToInsert)
-                {
-                    arrayBuilder.Add(item1);
-                    arrayBuilder.Add(item2);
-                    arrayBuilder.Add(item3);
-                }
-                arrayBuilder.Add(item);
-                ++index;
-            }
-            return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
-        }
-        public FooValue Insert(int indexToInsert, in Menes.JsonAny item1, in Menes.JsonAny item2, in Menes.JsonAny item3, in Menes.JsonAny item4)
-        {
-            System.Collections.Immutable.ImmutableArray<Menes.JsonAny>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonAny>();
-            int index = 0;
-            foreach (Menes.JsonAny item in this)
-            {
-                if (index == indexToInsert)
-                {
-                    arrayBuilder.Add(item1);
-                    arrayBuilder.Add(item2);
-                    arrayBuilder.Add(item3);
-                    arrayBuilder.Add(item4);
-                }
-                arrayBuilder.Add(item);
-                ++index;
-            }
-            return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
-        }
-        public FooValue Remove(params Menes.JsonAny[] items)
-        {
-            System.Collections.Immutable.ImmutableArray<Menes.JsonAny>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonAny>();
-            foreach (Menes.JsonAny item in this)
-            {
-                bool found = false;
-                foreach (Menes.JsonAny itemToRemove in items)
-                {
-                    if (itemToRemove.Equals(item))
-                    {
-                        found = true;
-                        break;
-                    }
-                }
-                if (!found)
-                {
-                    arrayBuilder.Add(item);
-                }
-            }
-            return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
-        }
-        public FooValue Remove(Menes.JsonAny item1)
-        {
-            System.Collections.Immutable.ImmutableArray<Menes.JsonAny>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonAny>();
-            foreach (Menes.JsonAny item in this)
-            {
-                if (item1.Equals(item))
-                {
-                    break;
-                }
-                arrayBuilder.Add(item);
-            }
-            return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
-        }
-        public FooValue Remove(Menes.JsonAny item1, Menes.JsonAny item2)
-        {
-            System.Collections.Immutable.ImmutableArray<Menes.JsonAny>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonAny>();
-            foreach (Menes.JsonAny item in this)
-            {
-                if (item1.Equals(item) || item2.Equals(item))
-                {
-                    break;
-                }
-                arrayBuilder.Add(item);
-            }
-            return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
-        }
-        public FooValue Remove(Menes.JsonAny item1, Menes.JsonAny item2, Menes.JsonAny item3)
-        {
-            System.Collections.Immutable.ImmutableArray<Menes.JsonAny>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonAny>();
-            foreach (Menes.JsonAny item in this)
-            {
-                if (item1.Equals(item) || item2.Equals(item) || item3.Equals(item))
-                {
-                    break;
-                }
-                arrayBuilder.Add(item);
-            }
-            return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
-        }
-        public FooValue Remove(Menes.JsonAny item1, Menes.JsonAny item2, Menes.JsonAny item3, Menes.JsonAny item4)
-        {
-            System.Collections.Immutable.ImmutableArray<Menes.JsonAny>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonAny>();
-            foreach (Menes.JsonAny item in this)
-            {
-                if (item1.Equals(item) || item2.Equals(item) || item3.Equals(item) || item4.Equals(item))
-                {
-                    break;
-                }
-                arrayBuilder.Add(item);
-            }
-            return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
-        }
-        public FooValue RemoveAt(int indexToRemove)
-        {
-            System.Collections.Immutable.ImmutableArray<Menes.JsonAny>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonAny>();
-            int index = 0;
-            foreach (Menes.JsonAny item in this)
-            {
-                if (index == indexToRemove)
-                {
-                    index++;
-                    continue;
-                }
-                arrayBuilder.Add(item);
-                index++;
-            }
-            return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
-        }
-        public FooValue RemoveRange(int startIndex, int length)
-        {
-            if (startIndex < 0 || startIndex > this.Length - 1)
-            {
-                throw new System.ArgumentOutOfRangeException(nameof(startIndex));
-            }
-            if (length < 1 || startIndex + length > this.Length - 1)
-            {
-                throw new System.ArgumentOutOfRangeException(nameof(length));
-            }
-            System.Collections.Immutable.ImmutableArray<Menes.JsonAny>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonAny>();
-            int index = 0;
-            foreach (Menes.JsonAny item in this)
-            {
-                if (index >= startIndex && index < startIndex + length)
-                {
-                    index++;
-                    continue;
-                }
-                arrayBuilder.Add(item);
-                index++;
-            }
-            return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
-        }
-        public FooValue Remove(System.Predicate<Menes.JsonAny> removeIfTrue)
-        {
-            System.Collections.Immutable.ImmutableArray<Menes.JsonAny>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonAny>();
-            foreach (Menes.JsonAny item in this)
-            {
-                if (removeIfTrue(item))
-                {
-                    continue;
-                }
-                arrayBuilder.Add(item);
-            }
-            return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
-        }
     }
 }///  <summary>
 /// ref applies alongside sibling keywords

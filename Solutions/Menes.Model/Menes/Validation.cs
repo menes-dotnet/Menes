@@ -184,6 +184,11 @@ namespace Menes
             where TItem : struct, IJsonValue
             where TNot : struct, IJsonValue
         {
+            if (typeof(TItem) == typeof(TNot))
+            {
+                return validationContext.WithError($"core 9.2.1.4. not: the value should not have validated against the type '{typeof(TNot).FullName}'");
+            }
+
             TNot notValue = JsonAny.From(value).As<TNot>();
 
             if (notValue.Validate(ValidationContext.Root).IsValid)

@@ -770,6 +770,8 @@ namespace Menes.Json.Schema.TypeGenerator
                 {
                     this.propertyNameStack.Pop();
                 }
+
+                itemIndex++;
             }
 
             return result;
