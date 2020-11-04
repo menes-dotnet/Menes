@@ -4,8 +4,10 @@
 
 namespace Menes
 {
+    using System;
     using System.Collections.Generic;
     using System.Collections.Immutable;
+    using System.Globalization;
     using System.Text.RegularExpressions;
 
     /// <summary>
@@ -105,7 +107,7 @@ namespace Menes
             }
 
             ValidationContext context = validationContext;
-            int length = value.Length;
+            int length = GetLength(value);
             if (maxLength is int maxl && length > maxl)
             {
                 context = context.WithError($"6.3.1. maxLength: The string should have had a maximum length of {maxl} but was length {length}.");
@@ -190,6 +192,19 @@ namespace Menes
             }
 
             return validationContext;
+        }
+
+        private static int GetLength(string value)
+        {
+            int count = 0;
+            TextElementEnumerator enumerator = StringInfo.GetTextElementEnumerator(value);
+
+            while (enumerator.MoveNext())
+            {
+                count++;
+            }
+
+            return count;
         }
     }
 }
