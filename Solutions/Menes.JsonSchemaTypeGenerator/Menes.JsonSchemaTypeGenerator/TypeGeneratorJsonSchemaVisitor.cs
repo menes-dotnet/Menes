@@ -342,7 +342,6 @@ namespace Menes.Json.Schema.TypeGenerator
 
             this.declarationStack.Push(typeDeclaration);
             typeDeclaration.AdditionalPropertiesType = await this.GetAdditionalPropertiesType(schema, rootDocument, baseUri).ConfigureAwait(false);
-            this.declarationStack.Pop();
 
             if (schema.PatternProperties is JsonSchema.SchemaProperties patternProperties)
             {
@@ -397,6 +396,8 @@ namespace Menes.Json.Schema.TypeGenerator
             {
                 typeDeclaration.RequiredPropertiesValidation = requiredProperties;
             }
+
+            this.declarationStack.Pop();
         }
 
         private async Task PopulateUnion(UnionTypeDeclaration union, JsonSchema schema, JsonDocument rootDocument, string baseUri)
@@ -505,6 +506,8 @@ namespace Menes.Json.Schema.TypeGenerator
                 }
             }
 
+            this.declarationStack.Push(type);
+
             if (schema.Items is JsonSchema.SchemaItems schemaItems)
             {
                 ITypeDeclaration itemTypeDeclaration;
@@ -540,6 +543,8 @@ namespace Menes.Json.Schema.TypeGenerator
             {
                 await this.BuildValidations(schema, validatedArrayType2, rootDocument, baseUri).ConfigureAwait(false);
             }
+
+            this.declarationStack.Pop();
         }
 
         private Task<ITypeDeclaration> CreateAny(JsonSchema schema, string name)
@@ -572,16 +577,24 @@ namespace Menes.Json.Schema.TypeGenerator
         private async Task BuildValidations(JsonSchema schema, ValidatedArrayTypeDeclaration validatedJsonArrayTypeDeclaration, JsonDocument rootDocument, string baseUri)
         {
             validatedJsonArrayTypeDeclaration.ConstValidation = schema.Const?.ToString();
+            this.propertyNameStack.Push("ContainsValidation");
             validatedJsonArrayTypeDeclaration.ContainsValidation = await this.GetTypeDeclarationFor(schema.Contains, rootDocument, baseUri).ConfigureAwait(false);
+            this.propertyNameStack.Pop();
             validatedJsonArrayTypeDeclaration.EnumValidation = schema.Enum?.ToString();
             validatedJsonArrayTypeDeclaration.MaxContainsValidation = schema.MaxContains;
             validatedJsonArrayTypeDeclaration.MaxItemsValidation = schema.MaxItems;
             validatedJsonArrayTypeDeclaration.MinContainsValidation = schema.MinContains;
             validatedJsonArrayTypeDeclaration.MinItemsValidation = schema.MinItems;
+            this.propertyNameStack.Push("NotTypeValidation");
             validatedJsonArrayTypeDeclaration.NotTypeValidation = await this.GetTypeDeclarationFor(schema.Not, rootDocument, baseUri).ConfigureAwait(false);
+            this.propertyNameStack.Pop();
             validatedJsonArrayTypeDeclaration.UniqueValidation = schema.UniqueItems;
+            this.propertyNameStack.Push("ItemsValidation");
             validatedJsonArrayTypeDeclaration.ItemsValidation = await this.GetTypeDeclarationsFor(schema.Items, rootDocument, baseUri).ConfigureAwait(false);
+            this.propertyNameStack.Pop();
+            this.propertyNameStack.Push("AdditionalItemsValidation");
             validatedJsonArrayTypeDeclaration.AdditionalItemsValidation = await this.GetTypeDeclarationFor(schema.AdditionalItems, rootDocument, baseUri).ConfigureAwait(false);
+            this.propertyNameStack.Pop();
         }
 
         private async Task<ITypeDeclaration?> GetTypeDeclarationFor(JsonSchema.SchemaAdditionalItems? additionalItems, JsonDocument rootDocument, string baseUri)
@@ -637,7 +650,7 @@ namespace Menes.Json.Schema.TypeGenerator
             validatedJsonValueTypeDeclaration.MinimumValidation = schema.Minimum;
             validatedJsonValueTypeDeclaration.MinLengthValidation = schema.MinLength;
             validatedJsonValueTypeDeclaration.MultipleOfValidation = schema.MultipleOf;
-            this.propertyNameStack.Push("NotValidation");
+            this.propertyNameStack.Push("NotTypeValidation");
             validatedJsonValueTypeDeclaration.NotTypeValidation = await this.GetTypeDeclarationFor(schema.Not, rootDocument, baseUri).ConfigureAwait(false);
             this.propertyNameStack.Pop();
             this.propertyNameStack.Push("OneOfValidation");
@@ -753,34 +766,43 @@ namespace Menes.Json.Schema.TypeGenerator
                 var jsonRef = new JsonRef(id);
                 if (jsonRef.HasPointer)
                 {
-                    string name = this.GetName(jsonRef.Pointer);
-                    if (!string.IsNullOrEmpty(name))
+                    string n = this.GetName(jsonRef.Pointer);
+                    if (!string.IsNullOrEmpty(n))
                     {
-                        return name;
+                        return n;
                     }
                 }
                 else if (jsonRef.HasUri)
                 {
-                    string name = this.GetName(jsonRef.Uri);
-                    if (!string.IsNullOrEmpty(name))
+                    string n = this.GetName(jsonRef.Uri);
+                    if (!string.IsNullOrEmpty(n))
                     {
-                        return name;
+                        return n;
                     }
                 }
             }
 
+            string name;
+
             if (schema.IsValueType())
             {
-                return this.GetName(this.propertyNameStack.Peek()) + "Value";
+                name = this.GetName(this.propertyNameStack.Peek()) + "Value";
             }
             else if (schema.IsArrayType())
             {
-                return this.GetName(this.propertyNameStack.Peek()) + "Array";
+                name = this.GetName(this.propertyNameStack.Peek()) + "Array";
             }
             else
             {
-                return this.GetName(this.propertyNameStack.Peek()) + "Entity";
+                name = this.GetName(this.propertyNameStack.Peek()) + "Entity";
             }
+
+            if (name == this.declarationStack.Peek().Name)
+            {
+                name += "Child";
+            }
+
+            return name;
         }
 
         private string GetName(ReadOnlySpan<char> pointer)

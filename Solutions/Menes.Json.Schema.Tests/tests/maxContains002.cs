@@ -94,7 +94,7 @@ public readonly struct Schema : Menes.IJsonValue, System.Collections.Generic.IEn
         Menes.ValidationContext context = validationContext;
         if (this.HasJsonElement && IsConvertibleFrom(this.JsonElement))
         {
-            context = array.ValidateRangeContains<Schema.SchemaValue>(context, 1, 3, false, true);
+            context = array.ValidateRangeContains<Schema.ContainsValidationValue>(context, 1, 3, false, true);
         }
         return context;
     }
@@ -390,13 +390,13 @@ public readonly struct Schema : Menes.IJsonValue, System.Collections.Generic.IEn
         }
         return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
     }
-    public readonly struct SchemaValue : Menes.IJsonValue, System.IEquatable<SchemaValue>
+    public readonly struct ContainsValidationValue : Menes.IJsonValue, System.IEquatable<ContainsValidationValue>
     {
-        public static readonly System.Func<System.Text.Json.JsonElement, SchemaValue> FromJsonElement = e => new SchemaValue(e);
-        public static readonly SchemaValue Null = new SchemaValue(default(System.Text.Json.JsonElement));
+        public static readonly System.Func<System.Text.Json.JsonElement, ContainsValidationValue> FromJsonElement = e => new ContainsValidationValue(e);
+        public static readonly ContainsValidationValue Null = new ContainsValidationValue(default(System.Text.Json.JsonElement));
         private static readonly Menes.JsonAny ConstValue = BuildConstValue();
         private readonly Menes.JsonAny? value;
-        public SchemaValue(Menes.JsonAny value)
+        public ContainsValidationValue(Menes.JsonAny value)
         {
             if (value.HasJsonElement)
             {
@@ -409,20 +409,20 @@ public readonly struct Schema : Menes.IJsonValue, System.Collections.Generic.IEn
                 this.JsonElement = default;
             }
         }
-        public SchemaValue(System.Text.Json.JsonElement jsonElement)
+        public ContainsValidationValue(System.Text.Json.JsonElement jsonElement)
         {
             this.value = null;
             this.JsonElement = jsonElement;
         }
         public bool IsNull => this.value == null && (this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Undefined || this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Null);
-        public SchemaValue? AsOptional => this.IsNull ? default(SchemaValue?) : this;
+        public ContainsValidationValue? AsOptional => this.IsNull ? default(ContainsValidationValue?) : this;
         public bool HasJsonElement => this.JsonElement.ValueKind != System.Text.Json.JsonValueKind.Undefined;
         public System.Text.Json.JsonElement JsonElement { get; }
-        public static implicit operator SchemaValue(Menes.JsonAny value)
+        public static implicit operator ContainsValidationValue(Menes.JsonAny value)
         {
-            return new SchemaValue(value);
+            return new ContainsValidationValue(value);
         }
-        public static implicit operator Menes.JsonAny(SchemaValue value)
+        public static implicit operator Menes.JsonAny(ContainsValidationValue value)
         {
             if (value.value is Menes.JsonAny clrValue)
             {
@@ -434,25 +434,25 @@ public readonly struct Schema : Menes.IJsonValue, System.Collections.Generic.IEn
         {
             return Menes.JsonAny.IsConvertibleFrom(jsonElement);
         }
-        public static SchemaValue FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<char> propertyName) =>
+        public static ContainsValidationValue FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<char> propertyName) =>
            parentDocument.ValueKind == System.Text.Json.JsonValueKind.Object ?
                 (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
-                    ? new SchemaValue(property)
+                    ? new ContainsValidationValue(property)
                     : Null)
                 : Null;
-        public static SchemaValue FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, string propertyName) =>
+        public static ContainsValidationValue FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, string propertyName) =>
            parentDocument.ValueKind == System.Text.Json.JsonValueKind.Object ?
                 (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
-                    ? new SchemaValue(property)
+                    ? new ContainsValidationValue(property)
                     : Null)
                 : Null;
-        public static SchemaValue FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<byte> utf8PropertyName) =>
+        public static ContainsValidationValue FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<byte> utf8PropertyName) =>
            parentDocument.ValueKind == System.Text.Json.JsonValueKind.Object ?
                 (parentDocument.TryGetProperty(utf8PropertyName, out System.Text.Json.JsonElement property)
-                    ? new SchemaValue(property)
+                    ? new ContainsValidationValue(property)
                     : Null)
                 : Null;
-        public bool Equals(SchemaValue other)
+        public bool Equals(ContainsValidationValue other)
         {
             return this.Equals((Menes.JsonAny)other);
         }
