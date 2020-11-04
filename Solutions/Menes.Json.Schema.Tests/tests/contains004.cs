@@ -114,7 +114,11 @@ public readonly struct Schema : Menes.IJsonValue, System.Collections.Generic.IEn
     {
         Menes.JsonArray<Schema.SchemaValue> array = this;
         Menes.ValidationContext context = validationContext;
-        return array.ValidateRangeContains<Schema.SchemaValue>(context, 1, 2147483647, false, true);
+        if (this.HasJsonElement && IsConvertibleFrom(this.JsonElement))
+        {
+            context = array.ValidateRangeContains<Schema.SchemaValue>(context, 1, 2147483647, false, true);
+        }
+        return context;
     }
     public void WriteTo(System.Text.Json.Utf8JsonWriter writer)
     {

@@ -92,20 +92,24 @@ public readonly struct Schema : Menes.IJsonValue, System.Collections.Generic.IEn
     {
         Menes.JsonArray<Menes.JsonAny> array = this;
         Menes.ValidationContext context = validationContext;
-        var itemsValidationEnumerator = array.GetEnumerator();
-        if (itemsValidationEnumerator.MoveNext())
+        if (this.HasJsonElement && IsConvertibleFrom(this.JsonElement))
         {
-            context = Menes.Validation.ValidateProperty(context, Menes.JsonAny.From(itemsValidationEnumerator.Current).As<Menes.JsonBoolean>(), $"[0]");
+            var itemsValidationEnumerator = array.GetEnumerator();
+            if (itemsValidationEnumerator.MoveNext())
+            {
+                context = Menes.Validation.ValidateProperty(context, Menes.JsonAny.From(itemsValidationEnumerator.Current).As<Menes.JsonBoolean>(), $"[0]");
+            }
+            if (itemsValidationEnumerator.MoveNext())
+            {
+                context = Menes.Validation.ValidateProperty(context, Menes.JsonAny.From(itemsValidationEnumerator.Current).As<Menes.JsonBoolean>(), $"[1]");
+            }
+            if (itemsValidationEnumerator.MoveNext())
+            {
+                context = context.WithError($"core 9.3.1.1. items: The array should have contained 2 items but actually contained {array.Length} items.");
+            }
+            context = array.ValidateUniqueItems(context, true);
         }
-        if (itemsValidationEnumerator.MoveNext())
-        {
-            context = Menes.Validation.ValidateProperty(context, Menes.JsonAny.From(itemsValidationEnumerator.Current).As<Menes.JsonBoolean>(), $"[1]");
-        }
-        if (itemsValidationEnumerator.MoveNext())
-        {
-            context = context.WithError($"core 9.3.1.1. items: The array should have contained 2 items but actually contained {array.Length} items.");
-        }
-        return array.ValidateUniqueItems(context, true);
+        return context;
     }
     public void WriteTo(System.Text.Json.Utf8JsonWriter writer)
     {

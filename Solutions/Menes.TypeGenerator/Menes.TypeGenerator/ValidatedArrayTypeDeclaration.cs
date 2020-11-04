@@ -240,6 +240,12 @@ namespace Menes.TypeGenerator
                 builder.AppendLine("    context = array.Validate(context);");
             }
 
+            if (!this.ValidateAsArray)
+            {
+                builder.AppendLine("if (this.HasJsonElement && IsConvertibleFrom(this.JsonElement))");
+                builder.AppendLine("{");
+            }
+
             if (this.MinItemsValidation is int minItems)
             {
                 builder.AppendLine($"        context = array.ValidateMinItems(context, {minItems});");
@@ -248,16 +254,6 @@ namespace Menes.TypeGenerator
             if (this.MaxItemsValidation is int maxItems)
             {
                 builder.AppendLine($"        context = array.ValidateMaxItems(context, {maxItems});");
-            }
-
-            if (this.ConstValidation is string)
-            {
-                builder.AppendLine($"Menes.Validation.ValidateConst(context, this, this.ConstValue.AsValue<{name}>());");
-            }
-
-            if (this.EnumValidation is string)
-            {
-                builder.AppendLine($"Menes.Validation.ValidateEnum(context, this, this.EnumValues.AsValue<Menes.JsonArray<{name}>>());");
             }
 
             if (this.ItemsValidation is List<ITypeDeclaration> itemsValidation)
@@ -299,16 +295,33 @@ namespace Menes.TypeGenerator
                 int minContains = this.MinContainsValidation ?? 1;
                 int maxContains = this.MaxContainsValidation ?? int.MaxValue;
                 string unique = (this.UniqueValidation ?? false) ? "true" : "false";
-                builder.AppendLine($"        return array.ValidateRangeContains<{contains.GetFullyQualifiedName()}>(context, {minContains}, {maxContains}, {unique}, true);");
+                builder.AppendLine($"        context = array.ValidateRangeContains<{contains.GetFullyQualifiedName()}>(context, {minContains}, {maxContains}, {unique}, true);");
             }
             else if (this.UniqueValidation is bool unique && unique)
             {
-                builder.AppendLine("        return array.ValidateUniqueItems(context, true);");
+                builder.AppendLine("        context = array.ValidateUniqueItems(context, true);");
             }
             else
             {
-                builder.AppendLine("        return array.ValidateItems(context);");
+                builder.AppendLine("        context = array.ValidateItems(context);");
             }
+
+            if (!this.ValidateAsArray)
+            {
+                builder.AppendLine("}");
+            }
+
+            if (this.ConstValidation is string)
+            {
+                builder.AppendLine($"Menes.Validation.ValidateConst(context, this, this.ConstValue.AsValue<{name}>());");
+            }
+
+            if (this.EnumValidation is string)
+            {
+                builder.AppendLine($"Menes.Validation.ValidateEnum(context, this, this.EnumValues.AsValue<Menes.JsonArray<{name}>>());");
+            }
+
+            builder.AppendLine("return context;");
 
             builder.AppendLine("    }");
             builder.AppendLine("    public void WriteTo(System.Text.Json.Utf8JsonWriter writer)");

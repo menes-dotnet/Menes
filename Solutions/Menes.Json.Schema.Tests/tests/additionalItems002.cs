@@ -92,24 +92,28 @@ public readonly struct Schema : Menes.IJsonValue, System.Collections.Generic.IEn
     {
         Menes.JsonArray<Menes.JsonAny> array = this;
         Menes.ValidationContext context = validationContext;
-        var itemsValidationEnumerator = array.GetEnumerator();
-        if (itemsValidationEnumerator.MoveNext())
+        if (this.HasJsonElement && IsConvertibleFrom(this.JsonElement))
         {
-            context = Menes.Validation.ValidateProperty(context, Menes.JsonAny.From(itemsValidationEnumerator.Current).As<Menes.JsonAny>(), $"[0]");
+            var itemsValidationEnumerator = array.GetEnumerator();
+            if (itemsValidationEnumerator.MoveNext())
+            {
+                context = Menes.Validation.ValidateProperty(context, Menes.JsonAny.From(itemsValidationEnumerator.Current).As<Menes.JsonAny>(), $"[0]");
+            }
+            if (itemsValidationEnumerator.MoveNext())
+            {
+                context = Menes.Validation.ValidateProperty(context, Menes.JsonAny.From(itemsValidationEnumerator.Current).As<Menes.JsonAny>(), $"[1]");
+            }
+            if (itemsValidationEnumerator.MoveNext())
+            {
+                context = Menes.Validation.ValidateProperty(context, Menes.JsonAny.From(itemsValidationEnumerator.Current).As<Menes.JsonAny>(), $"[2]");
+            }
+            if (itemsValidationEnumerator.MoveNext())
+            {
+                context = context.WithError($"core 9.3.1.1. items: The array should have contained 3 items but actually contained {array.Length} items.");
+            }
+            context = array.ValidateItems(context);
         }
-        if (itemsValidationEnumerator.MoveNext())
-        {
-            context = Menes.Validation.ValidateProperty(context, Menes.JsonAny.From(itemsValidationEnumerator.Current).As<Menes.JsonAny>(), $"[1]");
-        }
-        if (itemsValidationEnumerator.MoveNext())
-        {
-            context = Menes.Validation.ValidateProperty(context, Menes.JsonAny.From(itemsValidationEnumerator.Current).As<Menes.JsonAny>(), $"[2]");
-        }
-        if (itemsValidationEnumerator.MoveNext())
-        {
-            context = context.WithError($"core 9.3.1.1. items: The array should have contained 3 items but actually contained {array.Length} items.");
-        }
-        return array.ValidateItems(context);
+        return context;
     }
     public void WriteTo(System.Text.Json.Utf8JsonWriter writer)
     {

@@ -529,12 +529,16 @@ namespace Menes.Json.Schema.TypeGenerator
                 if (type is ValidatedArrayTypeDeclaration validatedArrayType)
                 {
                     validatedArrayType.ItemType = itemTypeDeclaration;
-                    await this.BuildValidations(schema, validatedArrayType, rootDocument, baseUri).ConfigureAwait(false);
                 }
                 else if (type is ArrayTypeDeclaration arrayType)
                 {
                     arrayType.ItemType = itemTypeDeclaration;
                 }
+            }
+
+            if (type is ValidatedArrayTypeDeclaration validatedArrayType2)
+            {
+                await this.BuildValidations(schema, validatedArrayType2, rootDocument, baseUri).ConfigureAwait(false);
             }
         }
 

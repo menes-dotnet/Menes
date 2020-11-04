@@ -197,18 +197,22 @@ public readonly struct Schema : Menes.IJsonValue, System.IEquatable<Schema>
         {
             Menes.JsonArray<Menes.JsonAny> array = this;
             Menes.ValidationContext context = validationContext;
-            var itemsValidationEnumerator = array.GetEnumerator();
-            if (itemsValidationEnumerator.MoveNext())
+            if (this.HasJsonElement && IsConvertibleFrom(this.JsonElement))
             {
-                context = Menes.Validation.ValidateProperty(context, Menes.JsonAny.From(itemsValidationEnumerator.Current).As<Menes.JsonAny>(), $"[0]");
+                var itemsValidationEnumerator = array.GetEnumerator();
+                if (itemsValidationEnumerator.MoveNext())
+                {
+                    context = Menes.Validation.ValidateProperty(context, Menes.JsonAny.From(itemsValidationEnumerator.Current).As<Menes.JsonAny>(), $"[0]");
+                }
+                int extraIndex = 0;
+                while (itemsValidationEnumerator.MoveNext())
+                {
+                    context = Menes.Validation.ValidateProperty(context, Menes.JsonAny.From(itemsValidationEnumerator.Current).As<Menes.JsonAny>(), $"[{extraIndex + 1}]");
+                    extraIndex++;
+                }
+                context = array.ValidateItems(context);
             }
-            int extraIndex = 0;
-            while (itemsValidationEnumerator.MoveNext())
-            {
-                context = Menes.Validation.ValidateProperty(context, Menes.JsonAny.From(itemsValidationEnumerator.Current).As<Menes.JsonAny>(), $"[{extraIndex + 1}]");
-                extraIndex++;
-            }
-            return array.ValidateItems(context);
+            return context;
         }
         public void WriteTo(System.Text.Json.Utf8JsonWriter writer)
         {

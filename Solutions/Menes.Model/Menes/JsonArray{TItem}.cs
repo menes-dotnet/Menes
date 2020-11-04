@@ -327,11 +327,6 @@ namespace Menes
         public ValidationContext ValidateRangeContains<TItemType>(in ValidationContext validationContext, int minItems, int maxItems, bool requireUnique, bool validateItems)
             where TItemType : struct, IJsonValue
         {
-            if (minItems > maxItems)
-            {
-                throw new ArgumentOutOfRangeException(nameof(maxItems), "The maxItems must be greater than or equal to the minItems");
-            }
-
             ValidationContext result = validationContext;
             ImmutableArray<TItem>.Builder items = ImmutableArray.CreateBuilder<TItem>();
 
@@ -340,8 +335,7 @@ namespace Menes
             JsonArray<TItem>.JsonArrayEnumerator enumerator = this.GetEnumerator();
             while (enumerator.MoveNext())
             {
-                if (enumerator.Current is TItemType ||
-                    JsonAny.IsConvertibleFrom<TItem>(enumerator.Current.HasJsonElement ? enumerator.Current.JsonElement : JsonAny.From(enumerator.Current).JsonElement))
+                if (JsonAny.From(enumerator.Current).As<TItemType>().Validate(ValidationContext.Root).IsValid)
                 {
                     count++;
                     if (count == maxItems + 1)

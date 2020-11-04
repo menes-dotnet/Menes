@@ -508,7 +508,12 @@ public readonly struct Schema : Menes.IJsonObject, System.IEquatable<Schema>, Me
         {
             Menes.JsonArray<Menes.JsonAny> array = this;
             Menes.ValidationContext context = validationContext;
-            return array.ValidateItems(context);
+            if (this.HasJsonElement && IsConvertibleFrom(this.JsonElement))
+            {
+                context = array.ValidateMinItems(context, 2);
+                context = array.ValidateItems(context);
+            }
+            return context;
         }
         public void WriteTo(System.Text.Json.Utf8JsonWriter writer)
         {
@@ -892,7 +897,9 @@ public readonly struct Schema : Menes.IJsonObject, System.IEquatable<Schema>, Me
             Menes.JsonArray<Menes.JsonAny> array = this;
             Menes.ValidationContext context = validationContext;
             context = array.Validate(context);
-            return array.ValidateItems(context);
+            context = array.ValidateMaxItems(context, 3);
+            context = array.ValidateItems(context);
+            return context;
         }
         public void WriteTo(System.Text.Json.Utf8JsonWriter writer)
         {

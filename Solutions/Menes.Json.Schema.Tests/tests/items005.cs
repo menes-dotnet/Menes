@@ -110,7 +110,8 @@ public readonly struct Schema : Menes.IJsonValue, System.Collections.Generic.IEn
         {
             context = context.WithError($"core 9.3.1.1. items: The array should have contained 3 items but actually contained {array.Length} items.");
         }
-        return array.ValidateItems(context);
+        context = array.ValidateItems(context);
+        return context;
     }
     public void WriteTo(System.Text.Json.Utf8JsonWriter writer)
     {
@@ -507,7 +508,8 @@ public readonly struct Item : Menes.IJsonValue, System.Collections.Generic.IEnum
         {
             context = context.WithError($"core 9.3.1.1. items: The array should have contained 2 items but actually contained {array.Length} items.");
         }
-        return array.ValidateItems(context);
+        context = array.ValidateItems(context);
+        return context;
     }
     public void WriteTo(System.Text.Json.Utf8JsonWriter writer)
     {

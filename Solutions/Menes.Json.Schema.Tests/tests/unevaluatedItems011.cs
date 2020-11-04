@@ -104,7 +104,8 @@ public readonly struct Schema : Menes.IJsonValue, System.Collections.Generic.IEn
             context = Menes.Validation.ValidateProperty(context, Menes.JsonAny.From(itemsValidationEnumerator.Current).As<Menes.JsonAny>(), $"[{extraIndex + 1}]");
             extraIndex++;
         }
-        return array.ValidateItems(context);
+        context = array.ValidateItems(context);
+        return context;
     }
     public void WriteTo(System.Text.Json.Utf8JsonWriter writer)
     {
@@ -585,7 +586,11 @@ public readonly struct Schema : Menes.IJsonValue, System.Collections.Generic.IEn
             {
                 Menes.JsonArray<Menes.JsonAny> array = this;
                 Menes.ValidationContext context = validationContext;
-                return array.ValidateItems(context);
+                if (this.HasJsonElement && IsConvertibleFrom(this.JsonElement))
+                {
+                    context = array.ValidateItems(context);
+                }
+                return context;
             }
             public void WriteTo(System.Text.Json.Utf8JsonWriter writer)
             {

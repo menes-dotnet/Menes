@@ -457,7 +457,8 @@ public readonly struct Tree : Menes.IJsonObject, System.IEquatable<Tree>, Menes.
             Menes.JsonArray<Menes.JsonAny> array = this;
             Menes.ValidationContext context = validationContext;
             context = array.Validate(context);
-            return array.ValidateItems(context);
+            context = array.ValidateItems(context);
+            return context;
         }
         public void WriteTo(System.Text.Json.Utf8JsonWriter writer)
         {

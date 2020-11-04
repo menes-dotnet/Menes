@@ -92,7 +92,11 @@ public readonly struct Schema : Menes.IJsonValue, System.Collections.Generic.IEn
     {
         Menes.JsonArray<Menes.JsonInteger> array = this;
         Menes.ValidationContext context = validationContext;
-        return array.ValidateItems(context);
+        if (this.HasJsonElement && IsConvertibleFrom(this.JsonElement))
+        {
+            context = array.ValidateItems(context);
+        }
+        return context;
     }
     public void WriteTo(System.Text.Json.Utf8JsonWriter writer)
     {
