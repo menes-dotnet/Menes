@@ -51,11 +51,11 @@ namespace Menes.Json.Schema.TypeGenerator
         /// <summary>
         /// Build the types for a given schema.
         /// </summary>
-        /// <param name="schema">The schema for which to build the type.</param>
-        /// <param name="rootDocument">The root document containing the schema.</param>
         /// <param name="baseUri">The base URI for the document.</param>
+        /// <param name="rootDocument">The root document containing the schema.</param>
+        /// <param name="schema">The schema for which to build the type.</param>
         /// <returns>A task which completes when the types are built for the given schema.</returns>
-        public async Task BuildTypes(JsonSchema schema, JsonDocument rootDocument, string baseUri)
+        public async Task BuildTypes(string baseUri, JsonDocument rootDocument, JsonSchema schema)
         {
             (string baseUri, JsonDocument rootDocument, JsonSchema schema) result = (baseUri, rootDocument, schema);
 
@@ -64,11 +64,11 @@ namespace Menes.Json.Schema.TypeGenerator
                 result = await this.ResolveSchemaReference(schema, rootDocument, baseUri).ConfigureAwait(false);
             }
 
-            ITypeDeclaration rootType = await this.BuildTypeCore(result.schema, result.rootDocument, result.baseUri).ConfigureAwait(false);
+            ITypeDeclaration rootType = await this.BuildTypeCore(result.baseUri, result.rootDocument, result.schema).ConfigureAwait(false);
             this.RootTypeName = rootType.GetFullyQualifiedName();
         }
 
-        private async Task<ITypeDeclaration> BuildTypeCore(JsonSchema schema, JsonDocument rootDocument, string baseUri)
+        private async Task<ITypeDeclaration> BuildTypeCore(string baseUri, JsonDocument rootDocument, JsonSchema schema)
         {
             ITypeDeclaration declaration = await this.CreateTypeDeclarationFor(schema).ConfigureAwait(false);
 
@@ -231,15 +231,12 @@ namespace Menes.Json.Schema.TypeGenerator
             JsonSchema reference = sor;
             string name = this.GetName(sor);
 
-            if (sor.IsSchemaReference())
+            if (this.typeDeclarations.TryGetValue(name, out ITypeDeclaration result))
             {
-                if (this.typeDeclarations.TryGetValue(name, out ITypeDeclaration result))
-                {
-                    return result;
-                }
-
-                (uri, document, reference) = await this.schemaResolver.Resolve(baseUri, rootDocument, sor).ConfigureAwait(false);
+                return result;
             }
+
+            (uri, document, reference) = await this.schemaResolver.Resolve(baseUri, rootDocument, sor).ConfigureAwait(false);
 
             JsonSchema schema = reference;
 
@@ -250,7 +247,7 @@ namespace Menes.Json.Schema.TypeGenerator
                 return td;
             }
 
-            return await this.BuildTypeCore(schema, document, uri).ConfigureAwait(false);
+            return await this.BuildTypeCore(uri, document, schema).ConfigureAwait(false);
         }
 
         private Task PopulateJsonValue(ITypeDeclaration type, JsonSchema schema, JsonDocument rootDocument, string baseUri)

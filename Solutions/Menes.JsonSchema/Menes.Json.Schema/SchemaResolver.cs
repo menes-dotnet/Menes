@@ -69,6 +69,15 @@ namespace Menes.Json.Schema
         {
             if (!(schema.Ref is JsonString jsonRef))
             {
+                if (schema.Id is JsonString id)
+                {
+                    string combiningUri = new JsonRef(id).Uri.ToString();
+                    if (baseUri != combiningUri)
+                    {
+                        baseUri = CombineUris(baseUri, combiningUri);
+                    }
+                }
+
                 return (baseUri, rootDocument, schema);
             }
 
@@ -79,7 +88,11 @@ namespace Menes.Json.Schema
             }
             else
             {
-                reference = reference.WithUri(CombineUris(baseUri, reference.Uri.ToString()));
+                string combiningUri = reference.Uri.ToString();
+                if (baseUri != combiningUri)
+                {
+                    reference = reference.WithUri(CombineUris(baseUri, combiningUri));
+                }
             }
 
             if (this.resolvedSchemas.TryGetValue(jsonRef, out (string, JsonDocument, JsonSchema) result))
@@ -106,11 +119,7 @@ namespace Menes.Json.Schema
 
             if (originalUri.IsAbsoluteUri && !newUri.IsAbsoluteUri)
             {
-                var builder = new UriBuilder(originalUri.Scheme, originalUri.Host, originalUri.Port)
-                {
-                    Path = newUri.ToString(),
-                };
-                return builder.ToString();
+                return new Uri(originalUri, newUri).ToString();
             }
 
             return combiningUri;
@@ -172,9 +181,14 @@ namespace Menes.Json.Schema
                     var jsonRef = new JsonRef(id.GetString());
                     if (jsonRef.HasUri)
                     {
-                        baseUri = CombineUris(baseUri, jsonRef.Uri.ToString());
-                        this.DocumentResolver.AddDocument(baseUri, root);
-                        this.resolvedDocuments.TryAdd(baseUri, root);
+                        string combiningUri = jsonRef.Uri.ToString();
+
+                        if (baseUri != combiningUri)
+                        {
+                            baseUri = CombineUris(baseUri, combiningUri);
+                            this.DocumentResolver.AddDocument(baseUri, root);
+                            this.resolvedDocuments.TryAdd(baseUri, root);
+                        }
                     }
                 }
 

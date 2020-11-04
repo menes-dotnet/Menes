@@ -250,7 +250,7 @@ namespace Menes.Json.Schema.Tests
 
             try
             {
-                await typeGenerator.BuildTypes(schema, root, baseUri).ConfigureAwait(false);
+                await typeGenerator.BuildTypes(baseUri, root, schema).ConfigureAwait(false);
             }
             catch (Exception ex)
             {
