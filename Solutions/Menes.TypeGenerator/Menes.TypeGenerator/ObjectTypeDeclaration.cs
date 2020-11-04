@@ -46,6 +46,15 @@ namespace Menes.TypeGenerator
         public int? MinPropertiesValidation { get; set; }
 
         /// <summary>
+        /// Gets or sets the required properties validation.
+        /// </summary>
+        /// <remarks>
+        /// This is used to provide required properties that are not
+        /// exposed as properties on the object itself.
+        /// </remarks>
+        public List<string>? RequiredPropertiesValidation { get; set; }
+
+        /// <summary>
         /// Gets or sets the type of the not validation.
         /// </summary>
         public ITypeDeclaration? NotTypeValidation { get; set; }
@@ -342,6 +351,12 @@ namespace Menes.TypeGenerator
 
             builder.AppendLine("    Menes.ValidationContext context = validationContext;");
 
+            if (!this.ValidateAsObject)
+            {
+                builder.AppendLine("if (this.HasJsonElement && IsConvertibleFrom(this.JsonElement))");
+                builder.AppendLine("{");
+            }
+
             if (hasPatternProperties)
             {
                 builder.AppendLine($"    System.Collections.Generic.HashSet<string> matchedProperties = new System.Collections.Generic.HashSet<string>(this.PropertiesCount);");
@@ -417,6 +432,27 @@ namespace Menes.TypeGenerator
                 builder.AppendLine($"context = Menes.Validation.ValidateObject(context, this, {this.MinPropertiesValidation?.ToString() ?? "null"}, {this.MaxPropertiesValidation?.ToString() ?? "null"});");
             }
 
+            if (this.RequiredPropertiesValidation is List<string> requiredPropertiesValidation)
+            {
+                builder.AppendLine("if (this.HasJsonElement && IsConvertibleFrom(this.JsonElement))");
+                builder.AppendLine("{");
+
+                foreach (string requiredProperty in requiredPropertiesValidation)
+                {
+                    builder.AppendLine($"if(!this.TryGet({StringFormatter.EscapeForCSharpString(requiredProperty, true)}, out var _))");
+                    builder.AppendLine("{");
+                    builder.AppendLine("    context = context.WithError(\"6.5.3.required: The property was not present.\");");
+                    builder.AppendLine("}");
+                }
+
+                builder.AppendLine("}");
+            }
+
+            if (!this.ValidateAsObject)
+            {
+                builder.AppendLine("}");
+            }
+
             if (this.NotTypeValidation is ITypeDeclaration notType)
             {
                 builder.AppendLine($"context = Menes.Validation.ValidateNot<{this.GetFullyQualifiedName()}, {notType.GetFullyQualifiedName()}>(context, this);");
@@ -459,12 +495,12 @@ namespace Menes.TypeGenerator
 
             if (this.ConstValidation is string)
             {
-                builder.AppendLine($"Menes.Validation.ValidateConst(context, this, this.ConstValue.AsValue<{this.GetFullyQualifiedName()}>());");
+                builder.AppendLine($"context = Menes.Validation.ValidateConst(context, this, this.ConstValue.AsValue<{this.GetFullyQualifiedName()}>());");
             }
 
             if (this.EnumValidation is string)
             {
-                builder.AppendLine($"Menes.Validation.ValidateEnum(context, this, this.EnumValues.AsValue<Menes.JsonArray<{this.GetFullyQualifiedName()}>>());");
+                builder.AppendLine($"context = Menes.Validation.ValidateEnum(context, this, this.EnumValues.AsValue<Menes.JsonArray<{this.GetFullyQualifiedName()}>>());");
             }
 
             builder.AppendLine("    return context;");

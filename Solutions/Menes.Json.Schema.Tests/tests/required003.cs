@@ -294,10 +294,40 @@ public readonly struct Schema : Menes.IJsonObject, System.IEquatable<Schema>, Me
             return validationContext.WithError($"6.1.1. type: the element with type {this.JsonElement.ValueKind} is not convertible to {System.Text.Json.JsonValueKind.Object}");
         }
         Menes.ValidationContext context = validationContext;
-        foreach (Menes.JsonPropertyReference<Menes.JsonAny> property in this.JsonAdditionalProperties)
+        if (this.HasJsonElement && IsConvertibleFrom(this.JsonElement))
         {
-            string propertyName = property.Name;
-            context = Menes.Validation.ValidateProperty(context, property.AsValue(), "." + property.Name);
+            foreach (Menes.JsonPropertyReference<Menes.JsonAny> property in this.JsonAdditionalProperties)
+            {
+                string propertyName = property.Name;
+                context = Menes.Validation.ValidateProperty(context, property.AsValue(), "." + property.Name);
+            }
+            if (this.HasJsonElement && IsConvertibleFrom(this.JsonElement))
+            {
+                if (!this.TryGet("foo\nbar", out var _))
+                {
+                    context = context.WithError("6.5.3.required: The property was not present.");
+                }
+                if (!this.TryGet("foo\"bar", out var _))
+                {
+                    context = context.WithError("6.5.3.required: The property was not present.");
+                }
+                if (!this.TryGet("foo\\bar", out var _))
+                {
+                    context = context.WithError("6.5.3.required: The property was not present.");
+                }
+                if (!this.TryGet("foo\rbar", out var _))
+                {
+                    context = context.WithError("6.5.3.required: The property was not present.");
+                }
+                if (!this.TryGet("foo\tbar", out var _))
+                {
+                    context = context.WithError("6.5.3.required: The property was not present.");
+                }
+                if (!this.TryGet("foo\fbar", out var _))
+                {
+                    context = context.WithError("6.5.3.required: The property was not present.");
+                }
+            }
         }
         return context;
     }

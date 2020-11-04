@@ -327,14 +327,17 @@ public readonly struct Schema : Menes.IJsonObject, System.IEquatable<Schema>, Me
             return validationContext.WithError($"6.1.1. type: the element with type {this.JsonElement.ValueKind} is not convertible to {System.Text.Json.JsonValueKind.Object}");
         }
         Menes.ValidationContext context = validationContext;
-        if (this.Prop1 is Menes.JsonString prop1)
+        if (this.HasJsonElement && IsConvertibleFrom(this.JsonElement))
         {
-            context = Menes.Validation.ValidateProperty(context, prop1, Prop1PropertyNamePath);
-        }
-        foreach (Menes.JsonPropertyReference<Menes.JsonAny> property in this.JsonAdditionalProperties)
-        {
-            string propertyName = property.Name;
-            context = Menes.Validation.ValidateProperty(context, property.AsValue(), "." + property.Name);
+            if (this.Prop1 is Menes.JsonString prop1)
+            {
+                context = Menes.Validation.ValidateProperty(context, prop1, Prop1PropertyNamePath);
+            }
+            foreach (Menes.JsonPropertyReference<Menes.JsonAny> property in this.JsonAdditionalProperties)
+            {
+                string propertyName = property.Name;
+                context = Menes.Validation.ValidateProperty(context, property.AsValue(), "." + property.Name);
+            }
         }
         return context;
     }

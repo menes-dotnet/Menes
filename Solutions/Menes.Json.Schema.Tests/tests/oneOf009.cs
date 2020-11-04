@@ -463,15 +463,18 @@ public readonly struct Schema : Menes.IJsonValue, System.IEquatable<Schema>
                 return validationContext.WithError($"6.1.1. type: the element with type {this.JsonElement.ValueKind} is not convertible to {System.Text.Json.JsonValueKind.Object}");
             }
             Menes.ValidationContext context = validationContext;
-            context = Menes.Validation.ValidateRequiredProperty(context, this.Bar, BarPropertyNamePath);
-            if (this.Baz is Menes.JsonAny baz)
+            if (this.HasJsonElement && IsConvertibleFrom(this.JsonElement))
             {
-                context = Menes.Validation.ValidateProperty(context, baz, BazPropertyNamePath);
-            }
-            foreach (Menes.JsonPropertyReference<Menes.JsonAny> property in this.JsonAdditionalProperties)
-            {
-                string propertyName = property.Name;
-                context = Menes.Validation.ValidateProperty(context, property.AsValue(), "." + property.Name);
+                context = Menes.Validation.ValidateRequiredProperty(context, this.Bar, BarPropertyNamePath);
+                if (this.Baz is Menes.JsonAny baz)
+                {
+                    context = Menes.Validation.ValidateProperty(context, baz, BazPropertyNamePath);
+                }
+                foreach (Menes.JsonPropertyReference<Menes.JsonAny> property in this.JsonAdditionalProperties)
+                {
+                    string propertyName = property.Name;
+                    context = Menes.Validation.ValidateProperty(context, property.AsValue(), "." + property.Name);
+                }
             }
             return context;
         }
@@ -829,11 +832,14 @@ public readonly struct Schema : Menes.IJsonValue, System.IEquatable<Schema>
                 return validationContext.WithError($"6.1.1. type: the element with type {this.JsonElement.ValueKind} is not convertible to {System.Text.Json.JsonValueKind.Object}");
             }
             Menes.ValidationContext context = validationContext;
-            context = Menes.Validation.ValidateRequiredProperty(context, this.Foo, FooPropertyNamePath);
-            foreach (Menes.JsonPropertyReference<Menes.JsonAny> property in this.JsonAdditionalProperties)
+            if (this.HasJsonElement && IsConvertibleFrom(this.JsonElement))
             {
-                string propertyName = property.Name;
-                context = Menes.Validation.ValidateProperty(context, property.AsValue(), "." + property.Name);
+                context = Menes.Validation.ValidateRequiredProperty(context, this.Foo, FooPropertyNamePath);
+                foreach (Menes.JsonPropertyReference<Menes.JsonAny> property in this.JsonAdditionalProperties)
+                {
+                    string propertyName = property.Name;
+                    context = Menes.Validation.ValidateProperty(context, property.AsValue(), "." + property.Name);
+                }
             }
             return context;
         }

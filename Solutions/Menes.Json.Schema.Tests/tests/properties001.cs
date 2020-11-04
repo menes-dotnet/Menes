@@ -351,24 +351,27 @@ public readonly struct Schema : Menes.IJsonObject, System.IEquatable<Schema>, Me
             return validationContext.WithError($"6.1.1. type: the element with type {this.JsonElement.ValueKind} is not convertible to {System.Text.Json.JsonValueKind.Object}");
         }
         Menes.ValidationContext context = validationContext;
-        System.Collections.Generic.HashSet<string> matchedProperties = new System.Collections.Generic.HashSet<string>(this.PropertiesCount);
-        if (this.Foo is Schema.FooArray foo)
+        if (this.HasJsonElement && IsConvertibleFrom(this.JsonElement))
         {
-            context = Menes.Validation.ValidateProperty(context, foo, FooPropertyNamePath);
-        }
-        if (this.Bar is Menes.JsonArray<Menes.JsonAny> bar)
-        {
-            context = Menes.Validation.ValidateProperty(context, bar, BarPropertyNamePath);
-        }
-        foreach (Menes.JsonPropertyReference<Menes.JsonInteger> property in this.JsonAdditionalProperties)
-        {
-            string propertyName = property.Name;
-            var patternContext = this.ValidatePatternProperty(Menes.ValidationContext.Root, property.Name, property.AsValue(), "." + property.Name);
-            if (patternContext.LastWasValid)
+            System.Collections.Generic.HashSet<string> matchedProperties = new System.Collections.Generic.HashSet<string>(this.PropertiesCount);
+            if (this.Foo is Schema.FooArray foo)
             {
-                continue;
+                context = Menes.Validation.ValidateProperty(context, foo, FooPropertyNamePath);
             }
-            context = Menes.Validation.ValidateProperty(context, property.AsValue(), "." + property.Name);
+            if (this.Bar is Menes.JsonArray<Menes.JsonAny> bar)
+            {
+                context = Menes.Validation.ValidateProperty(context, bar, BarPropertyNamePath);
+            }
+            foreach (Menes.JsonPropertyReference<Menes.JsonInteger> property in this.JsonAdditionalProperties)
+            {
+                string propertyName = property.Name;
+                var patternContext = this.ValidatePatternProperty(Menes.ValidationContext.Root, property.Name, property.AsValue(), "." + property.Name);
+                if (patternContext.LastWasValid)
+                {
+                    continue;
+                }
+                context = Menes.Validation.ValidateProperty(context, property.AsValue(), "." + property.Name);
+            }
         }
         return context;
     }

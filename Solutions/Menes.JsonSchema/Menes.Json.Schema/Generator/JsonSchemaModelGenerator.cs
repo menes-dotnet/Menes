@@ -58,6 +58,12 @@ namespace Menes.Json.Schema.Generator
             };
             schema.AddTypeDeclaration(schemaUniqueStringArray);
 
+            var nonEmptyBooleanArray = new ValidatedArrayTypeDeclaration("NonEmptyBooleanArray", JsonValueTypeDeclaration.Boolean)
+            {
+                MinItemsValidation = 1,
+            };
+            schema.AddTypeDeclaration(nonEmptyBooleanArray);
+
             var nonEmptySubschemaArray = new ValidatedArrayTypeDeclaration("NonEmptySubschemaArray", subschema)
             {
                 MinItemsValidation = 1,
@@ -76,7 +82,7 @@ namespace Menes.Json.Schema.Generator
             schema.AddTypeDeclaration(schemaAdditionalItems);
 
             var schemaItems = new UnionTypeDeclaration("SchemaItems", UnionTypeDeclaration.UnionKind.OneOf);
-            schemaItems.AddTypesToUnion(subschema, nonEmptySubschemaArray);
+            schemaItems.AddTypesToUnion(subschema, nonEmptySubschemaArray, nonEmptyBooleanArray);
             schema.AddTypeDeclaration(schemaItems);
 
             schema.AddOptionalPropertyDeclaration("$id", JsonValueTypeDeclaration.String);

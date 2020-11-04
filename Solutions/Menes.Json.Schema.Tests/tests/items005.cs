@@ -1101,6 +1101,13 @@ public readonly struct SubItem : Menes.IJsonObject, System.IEquatable<SubItem>, 
             string propertyName = property.Name;
             context = Menes.Validation.ValidateProperty(context, property.AsValue(), "." + property.Name);
         }
+        if (this.HasJsonElement && IsConvertibleFrom(this.JsonElement))
+        {
+            if (!this.TryGet("foo", out var _))
+            {
+                context = context.WithError("6.5.3.required: The property was not present.");
+            }
+        }
         return context;
     }
     public bool TryGet(string propertyName, [System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out Menes.JsonAny value)

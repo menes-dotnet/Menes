@@ -110,22 +110,25 @@ public readonly struct Schema : Menes.IJsonObject, System.IEquatable<Schema>
             return validationContext.WithError($"6.1.1. type: the element with type {this.JsonElement.ValueKind} is not convertible to {System.Text.Json.JsonValueKind.Object}");
         }
         Menes.ValidationContext context = validationContext;
-        if (this.Foo is Schema foo)
+        if (this.HasJsonElement && IsConvertibleFrom(this.JsonElement))
         {
-            context = Menes.Validation.ValidateProperty(context, foo, FooPropertyNamePath);
-        }
-        if (this.HasJsonElement && this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Object)
-        {
-            int propCount = 0;
-            int targetPropCount = KnownProperties.Length;
-            var additionalPropertyEnumerator = this.JsonElement.EnumerateObject();
-            while (additionalPropertyEnumerator.MoveNext())
+            if (this.Foo is Schema foo)
             {
-                propCount++;
-                if (propCount > targetPropCount)
+                context = Menes.Validation.ValidateProperty(context, foo, FooPropertyNamePath);
+            }
+            if (this.HasJsonElement && this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Object)
+            {
+                int propCount = 0;
+                int targetPropCount = KnownProperties.Length;
+                var additionalPropertyEnumerator = this.JsonElement.EnumerateObject();
+                while (additionalPropertyEnumerator.MoveNext())
                 {
-                    context = context.WithError("core 9.3.2.3. No additional properties were expected.");
-                    break;
+                    propCount++;
+                    if (propCount > targetPropCount)
+                    {
+                        context = context.WithError("core 9.3.2.3. No additional properties were expected.");
+                        break;
+                    }
                 }
             }
         }

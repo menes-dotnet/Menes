@@ -12,7 +12,7 @@ public readonly struct Schema : Menes.IJsonObject, System.IEquatable<Schema>, Me
     private static readonly System.ReadOnlyMemory<byte> FooPropertyNameBytes = new byte[] { 102, 111, 111 };
     private static readonly System.Text.Json.JsonEncodedText EncodedFooPropertyName = System.Text.Json.JsonEncodedText.Encode(FooPropertyNameBytes.Span);
     private static readonly System.Collections.Immutable.ImmutableArray<System.ReadOnlyMemory<byte>> KnownProperties = System.Collections.Immutable.ImmutableArray.Create(FooPropertyNameBytes);
-    private readonly Menes.JsonArray<Menes.JsonAny>? foo;
+    private readonly Schema.FooValue? foo;
     private readonly Menes.JsonProperties<Menes.JsonAny>? additionalPropertiesBacking;
     public Schema(System.Text.Json.JsonElement jsonElement)
     {
@@ -20,49 +20,49 @@ public readonly struct Schema : Menes.IJsonObject, System.IEquatable<Schema>, Me
         this.foo = null;
         this.additionalPropertiesBacking = null;
     }
-    public Schema(Menes.JsonArray<Menes.JsonAny>? foo, Menes.JsonProperties<Menes.JsonAny> additionalPropertiesBacking)
+    public Schema(Schema.FooValue? foo, Menes.JsonProperties<Menes.JsonAny> additionalPropertiesBacking)
     {
         this.foo = foo;
         this.JsonElement = default;
         this.additionalPropertiesBacking = additionalPropertiesBacking;
     }
-    public Schema(Menes.JsonArray<Menes.JsonAny>? foo, params (string, Menes.JsonAny)[] additionalPropertiesBacking)
+    public Schema(Schema.FooValue? foo, params (string, Menes.JsonAny)[] additionalPropertiesBacking)
     {
         this.foo = foo;
         this.JsonElement = default;
         this.additionalPropertiesBacking = Menes.JsonProperties<Menes.JsonAny>.FromValues(additionalPropertiesBacking);
     }
-    public Schema(Menes.JsonArray<Menes.JsonAny>? foo = null)
+    public Schema(Schema.FooValue? foo = null)
     {
         this.foo = foo;
         this.JsonElement = default;
         this.additionalPropertiesBacking = null;
     }
-    public Schema(Menes.JsonArray<Menes.JsonAny>? foo, (string, Menes.JsonAny) additionalProperty1)
+    public Schema(Schema.FooValue? foo, (string, Menes.JsonAny) additionalProperty1)
     {
         this.foo = foo;
         this.JsonElement = default;
         this.additionalPropertiesBacking = Menes.JsonProperties<Menes.JsonAny>.FromValues(additionalProperty1);
     }
-    public Schema(Menes.JsonArray<Menes.JsonAny>? foo, (string, Menes.JsonAny) additionalProperty1, (string, Menes.JsonAny) additionalProperty2)
+    public Schema(Schema.FooValue? foo, (string, Menes.JsonAny) additionalProperty1, (string, Menes.JsonAny) additionalProperty2)
     {
         this.foo = foo;
         this.JsonElement = default;
         this.additionalPropertiesBacking = Menes.JsonProperties<Menes.JsonAny>.FromValues(additionalProperty1, additionalProperty2);
     }
-    public Schema(Menes.JsonArray<Menes.JsonAny>? foo, (string, Menes.JsonAny) additionalProperty1, (string, Menes.JsonAny) additionalProperty2, (string, Menes.JsonAny) additionalProperty3)
+    public Schema(Schema.FooValue? foo, (string, Menes.JsonAny) additionalProperty1, (string, Menes.JsonAny) additionalProperty2, (string, Menes.JsonAny) additionalProperty3)
     {
         this.foo = foo;
         this.JsonElement = default;
         this.additionalPropertiesBacking = Menes.JsonProperties<Menes.JsonAny>.FromValues(additionalProperty1, additionalProperty2, additionalProperty3);
     }
-    public Schema(Menes.JsonArray<Menes.JsonAny>? foo, (string, Menes.JsonAny) additionalProperty1, (string, Menes.JsonAny) additionalProperty2, (string, Menes.JsonAny) additionalProperty3, (string, Menes.JsonAny) additionalProperty4)
+    public Schema(Schema.FooValue? foo, (string, Menes.JsonAny) additionalProperty1, (string, Menes.JsonAny) additionalProperty2, (string, Menes.JsonAny) additionalProperty3, (string, Menes.JsonAny) additionalProperty4)
     {
         this.foo = foo;
         this.JsonElement = default;
         this.additionalPropertiesBacking = Menes.JsonProperties<Menes.JsonAny>.FromValues(additionalProperty1, additionalProperty2, additionalProperty3, additionalProperty4);
     }
-    private Schema(Menes.JsonArray<Menes.JsonAny>? foo, Menes.JsonProperties<Menes.JsonAny>? additionalPropertiesBacking)
+    private Schema(Schema.FooValue? foo, Menes.JsonProperties<Menes.JsonAny>? additionalPropertiesBacking)
     {
         this.foo = foo;
         this.JsonElement = default;
@@ -70,7 +70,7 @@ public readonly struct Schema : Menes.IJsonObject, System.IEquatable<Schema>, Me
     }
     public bool IsNull => (this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Undefined || this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Null) && (this.foo is null || this.foo.Value.IsNull);
     public Schema? AsOptional => this.IsNull ? default(Schema?) : this;
-    public Menes.JsonArray<Menes.JsonAny>? Foo => this.foo ?? Menes.JsonArray<Menes.JsonAny>.FromOptionalProperty(this.JsonElement, FooPropertyNameBytes.Span).AsOptional;
+    public Schema.FooValue? Foo => this.foo ?? Schema.FooValue.FromOptionalProperty(this.JsonElement, FooPropertyNameBytes.Span).AsOptional;
     public int PropertiesCount => KnownProperties.Length + this.JsonAdditionalPropertiesCount;
     public int JsonAdditionalPropertiesCount
     {
@@ -128,7 +128,7 @@ public readonly struct Schema : Menes.IJsonObject, System.IEquatable<Schema>, Me
                 ? new Schema(property)
                 : Null)
         : Null;
-    public Schema WithFoo(Menes.JsonArray<Menes.JsonAny>? value)
+    public Schema WithFoo(Schema.FooValue? value)
     {
         return new Schema(value, this.GetJsonProperties());
     }
@@ -295,7 +295,7 @@ public readonly struct Schema : Menes.IJsonObject, System.IEquatable<Schema>, Me
         else
         {
             writer.WriteStartObject();
-            if (this.foo is Menes.JsonArray<Menes.JsonAny> foo)
+            if (this.foo is Schema.FooValue foo)
             {
                 writer.WritePropertyName(EncodedFooPropertyName);
                 foo.WriteTo(writer);
@@ -327,14 +327,17 @@ public readonly struct Schema : Menes.IJsonObject, System.IEquatable<Schema>, Me
             return validationContext.WithError($"6.1.1. type: the element with type {this.JsonElement.ValueKind} is not convertible to {System.Text.Json.JsonValueKind.Object}");
         }
         Menes.ValidationContext context = validationContext;
-        if (this.Foo is Menes.JsonArray<Menes.JsonAny> foo)
+        if (this.HasJsonElement && IsConvertibleFrom(this.JsonElement))
         {
-            context = Menes.Validation.ValidateProperty(context, foo, FooPropertyNamePath);
-        }
-        foreach (Menes.JsonPropertyReference<Menes.JsonAny> property in this.JsonAdditionalProperties)
-        {
-            string propertyName = property.Name;
-            context = Menes.Validation.ValidateProperty(context, property.AsValue(), "." + property.Name);
+            if (this.Foo is Schema.FooValue foo)
+            {
+                context = Menes.Validation.ValidateProperty(context, foo, FooPropertyNamePath);
+            }
+            foreach (Menes.JsonPropertyReference<Menes.JsonAny> property in this.JsonAdditionalProperties)
+            {
+                string propertyName = property.Name;
+                context = Menes.Validation.ValidateProperty(context, property.AsValue(), "." + property.Name);
+            }
         }
         return context;
     }
@@ -372,6 +375,105 @@ public readonly struct Schema : Menes.IJsonObject, System.IEquatable<Schema>, Me
             return props;
         }
         return new Menes.JsonProperties<Menes.JsonAny>(System.Collections.Immutable.ImmutableArray.ToImmutableArray(this.JsonAdditionalProperties));
+    }
+    public readonly struct FooValue : Menes.IJsonValue, System.IEquatable<FooValue>
+    {
+        public static readonly System.Func<System.Text.Json.JsonElement, FooValue> FromJsonElement = e => new FooValue(e);
+        public static readonly FooValue Null = new FooValue(default(System.Text.Json.JsonElement));
+        private readonly Menes.JsonAny? value;
+        public FooValue(Menes.JsonAny value)
+        {
+            if (value.HasJsonElement)
+            {
+                this.JsonElement = value.JsonElement;
+                this.value = null;
+            }
+            else
+            {
+                this.value = value;
+                this.JsonElement = default;
+            }
+        }
+        public FooValue(System.Text.Json.JsonElement jsonElement)
+        {
+            this.value = null;
+            this.JsonElement = jsonElement;
+        }
+        public bool IsNull => this.value == null && (this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Undefined || this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Null);
+        public FooValue? AsOptional => this.IsNull ? default(FooValue?) : this;
+        public bool HasJsonElement => this.JsonElement.ValueKind != System.Text.Json.JsonValueKind.Undefined;
+        public System.Text.Json.JsonElement JsonElement { get; }
+        public static implicit operator FooValue(Menes.JsonAny value)
+        {
+            return new FooValue(value);
+        }
+        public static implicit operator Menes.JsonAny(FooValue value)
+        {
+            if (value.value is Menes.JsonAny clrValue)
+            {
+                return clrValue;
+            }
+            return new Menes.JsonAny(value.JsonElement);
+        }
+        public static bool IsConvertibleFrom(System.Text.Json.JsonElement jsonElement)
+        {
+            return Menes.JsonAny.IsConvertibleFrom(jsonElement);
+        }
+        public static FooValue FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<char> propertyName) =>
+           parentDocument.ValueKind == System.Text.Json.JsonValueKind.Object ?
+                (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
+                    ? new FooValue(property)
+                    : Null)
+                : Null;
+        public static FooValue FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, string propertyName) =>
+           parentDocument.ValueKind == System.Text.Json.JsonValueKind.Object ?
+                (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
+                    ? new FooValue(property)
+                    : Null)
+                : Null;
+        public static FooValue FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<byte> utf8PropertyName) =>
+           parentDocument.ValueKind == System.Text.Json.JsonValueKind.Object ?
+                (parentDocument.TryGetProperty(utf8PropertyName, out System.Text.Json.JsonElement property)
+                    ? new FooValue(property)
+                    : Null)
+                : Null;
+        public bool Equals(FooValue other)
+        {
+            return this.Equals((Menes.JsonAny)other);
+        }
+        public bool Equals(Menes.JsonAny other)
+        {
+            return ((Menes.JsonAny)this).Equals(other);
+        }
+        public Menes.ValidationContext Validate(in Menes.ValidationContext validationContext)
+        {
+            Menes.JsonAny value = this;
+            Menes.ValidationContext context = validationContext;
+            context = value.Validate(context);
+            return context;
+        }
+        public void WriteTo(System.Text.Json.Utf8JsonWriter writer)
+        {
+            if (this.HasJsonElement)
+            {
+                this.JsonElement.WriteTo(writer);
+            }
+            else if (this.value is Menes.JsonAny clrValue)
+            {
+                clrValue.WriteTo(writer);
+            }
+        }
+        public override string ToString()
+        {
+            if (this.value is Menes.JsonAny clrValue)
+            {
+                return clrValue.ToString();
+            }
+            else
+            {
+                return this.JsonElement.GetRawText();
+            }
+        }
     }
 }///  <summary>
 /// ref applies alongside sibling keywords

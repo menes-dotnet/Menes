@@ -442,34 +442,37 @@ public readonly struct Schema : Menes.IJsonObject, System.IEquatable<Schema>, Me
             return validationContext.WithError($"6.1.1. type: the element with type {this.JsonElement.ValueKind} is not convertible to {System.Text.Json.JsonValueKind.Object}");
         }
         Menes.ValidationContext context = validationContext;
-        if (this.FooBar is Menes.JsonNumber fooBar)
+        if (this.HasJsonElement && IsConvertibleFrom(this.JsonElement))
         {
-            context = Menes.Validation.ValidateProperty(context, fooBar, FooBarPropertyNamePath);
-        }
-        if (this.FooBar1 is Menes.JsonNumber fooBar1)
-        {
-            context = Menes.Validation.ValidateProperty(context, fooBar1, FooBar1PropertyNamePath);
-        }
-        if (this.FooBar2 is Menes.JsonNumber fooBar2)
-        {
-            context = Menes.Validation.ValidateProperty(context, fooBar2, FooBar2PropertyNamePath);
-        }
-        if (this.FooBar3 is Menes.JsonNumber fooBar3)
-        {
-            context = Menes.Validation.ValidateProperty(context, fooBar3, FooBar3PropertyNamePath);
-        }
-        if (this.FooBar4 is Menes.JsonNumber fooBar4)
-        {
-            context = Menes.Validation.ValidateProperty(context, fooBar4, FooBar4PropertyNamePath);
-        }
-        if (this.FooBar5 is Menes.JsonNumber fooBar5)
-        {
-            context = Menes.Validation.ValidateProperty(context, fooBar5, FooBar5PropertyNamePath);
-        }
-        foreach (Menes.JsonPropertyReference<Menes.JsonAny> property in this.JsonAdditionalProperties)
-        {
-            string propertyName = property.Name;
-            context = Menes.Validation.ValidateProperty(context, property.AsValue(), "." + property.Name);
+            if (this.FooBar is Menes.JsonNumber fooBar)
+            {
+                context = Menes.Validation.ValidateProperty(context, fooBar, FooBarPropertyNamePath);
+            }
+            if (this.FooBar1 is Menes.JsonNumber fooBar1)
+            {
+                context = Menes.Validation.ValidateProperty(context, fooBar1, FooBar1PropertyNamePath);
+            }
+            if (this.FooBar2 is Menes.JsonNumber fooBar2)
+            {
+                context = Menes.Validation.ValidateProperty(context, fooBar2, FooBar2PropertyNamePath);
+            }
+            if (this.FooBar3 is Menes.JsonNumber fooBar3)
+            {
+                context = Menes.Validation.ValidateProperty(context, fooBar3, FooBar3PropertyNamePath);
+            }
+            if (this.FooBar4 is Menes.JsonNumber fooBar4)
+            {
+                context = Menes.Validation.ValidateProperty(context, fooBar4, FooBar4PropertyNamePath);
+            }
+            if (this.FooBar5 is Menes.JsonNumber fooBar5)
+            {
+                context = Menes.Validation.ValidateProperty(context, fooBar5, FooBar5PropertyNamePath);
+            }
+            foreach (Menes.JsonPropertyReference<Menes.JsonAny> property in this.JsonAdditionalProperties)
+            {
+                string propertyName = property.Name;
+                context = Menes.Validation.ValidateProperty(context, property.AsValue(), "." + property.Name);
+            }
         }
         return context;
     }

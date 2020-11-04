@@ -72,24 +72,27 @@ public readonly struct Schema : Menes.IJsonObject, System.IEquatable<Schema>
             return validationContext.WithError($"6.1.1. type: the element with type {this.JsonElement.ValueKind} is not convertible to {System.Text.Json.JsonValueKind.Object}");
         }
         Menes.ValidationContext context = validationContext;
-        System.Collections.Generic.HashSet<string> matchedProperties = new System.Collections.Generic.HashSet<string>(this.PropertiesCount);
-        if (this.HasJsonElement && this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Object)
+        if (this.HasJsonElement && IsConvertibleFrom(this.JsonElement))
         {
-            int propCount = 0;
-            int targetPropCount = KnownProperties.Length;
-            var additionalPropertyEnumerator = this.JsonElement.EnumerateObject();
-            while (additionalPropertyEnumerator.MoveNext())
+            System.Collections.Generic.HashSet<string> matchedProperties = new System.Collections.Generic.HashSet<string>(this.PropertiesCount);
+            if (this.HasJsonElement && this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Object)
             {
-                var patternContext = this.ValidatePatternProperty(Menes.ValidationContext.Root, additionalPropertyEnumerator.Current.Name, Menes.JsonAny.FromJsonElement(additionalPropertyEnumerator.Current.Value), "." + additionalPropertyEnumerator.Current.Name);
-                if (patternContext.LastWasValid)
+                int propCount = 0;
+                int targetPropCount = KnownProperties.Length;
+                var additionalPropertyEnumerator = this.JsonElement.EnumerateObject();
+                while (additionalPropertyEnumerator.MoveNext())
                 {
-                    continue;
-                }
-                propCount++;
-                if (propCount > targetPropCount)
-                {
-                    context = context.WithError("core 9.3.2.3. No additional properties were expected.");
-                    break;
+                    var patternContext = this.ValidatePatternProperty(Menes.ValidationContext.Root, additionalPropertyEnumerator.Current.Name, Menes.JsonAny.FromJsonElement(additionalPropertyEnumerator.Current.Value), "." + additionalPropertyEnumerator.Current.Name);
+                    if (patternContext.LastWasValid)
+                    {
+                        continue;
+                    }
+                    propCount++;
+                    if (propCount > targetPropCount)
+                    {
+                        context = context.WithError("core 9.3.2.3. No additional properties were expected.");
+                        break;
+                    }
                 }
             }
         }

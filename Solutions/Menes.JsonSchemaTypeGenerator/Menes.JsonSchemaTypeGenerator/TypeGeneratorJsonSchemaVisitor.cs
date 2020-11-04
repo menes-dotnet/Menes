@@ -359,15 +359,15 @@ namespace Menes.Json.Schema.TypeGenerator
                 }
             }
 
+            var requiredProperties = new List<string>();
+
+            if (schema.Required is JsonSchema.UniqueStringArray required)
+            {
+                requiredProperties.AddRange(required.Select(s => s.CreateOrGetClrString()));
+            }
+
             if (schema.Properties is JsonSchema.SchemaProperties properties)
             {
-                var requiredProperties = new List<string>();
-
-                if (schema.Required is JsonSchema.UniqueStringArray required)
-                {
-                    requiredProperties.AddRange(required.Select(s => s.CreateOrGetClrString()));
-                }
-
                 foreach (JsonPropertyReference<JsonSchema.SchemaOrReference> property in properties.JsonAdditionalProperties)
                 {
                     this.propertyNameStack.Push(property.Name);
@@ -386,10 +386,16 @@ namespace Menes.Json.Schema.TypeGenerator
                     else
                     {
                         typeDeclaration.AddPropertyDeclaration(property.Name, ct);
+                        requiredProperties.Remove(property.Name);
                     }
 
                     this.propertyNameStack.Pop();
                 }
+            }
+
+            if (requiredProperties.Count > 0)
+            {
+                typeDeclaration.RequiredPropertiesValidation = requiredProperties;
             }
         }
 
@@ -503,7 +509,15 @@ namespace Menes.Json.Schema.TypeGenerator
             {
                 ITypeDeclaration itemTypeDeclaration;
 
-                if (schemaItems.IsSchemaOrReference)
+                if (schemaItems.IsBooleanTrueSchema())
+                {
+                    itemTypeDeclaration = JsonValueTypeDeclaration.Any;
+                }
+                else if (schemaItems.IsBooleanFalseSchema())
+                {
+                    itemTypeDeclaration = JsonValueTypeDeclaration.NotAny;
+                }
+                else if (schemaItems.IsSchemaOrReference)
                 {
                     itemTypeDeclaration = await this.GetTypeDeclarationFor(schemaItems.AsSchemaOrReference(), rootDocument, baseUri).ConfigureAwait(false) ?? JsonValueTypeDeclaration.Any;
                 }
@@ -594,6 +608,11 @@ namespace Menes.Json.Schema.TypeGenerator
         {
             if (items is JsonSchema.SchemaItems schemaItems)
             {
+                if (schemaItems.IsNonEmptyBooleanArray)
+                {
+                    return this.GetTypeDeclarationsFor(schemaItems.AsNonEmptyBooleanArray());
+                }
+
                 if (schemaItems.IsNonEmptySubschemaArray)
                 {
                     return await this.GetTypeDeclarationsFor(schemaItems.AsNonEmptySubschemaArray(), rootDocument, baseUri).ConfigureAwait(false);
@@ -653,6 +672,30 @@ namespace Menes.Json.Schema.TypeGenerator
             return result;
         }
 
+        private List<ITypeDeclaration>? GetTypeDeclarationsFor(JsonSchema.NonEmptyBooleanArray? schemas)
+        {
+            if (!(schemas is JsonSchema.NonEmptyBooleanArray s))
+            {
+                return null;
+            }
+
+            var result = new List<ITypeDeclaration>();
+
+            foreach (JsonBoolean b in s)
+            {
+                if (b)
+                {
+                    result.Add(JsonValueTypeDeclaration.Any);
+                }
+                else
+                {
+                    result.Add(JsonValueTypeDeclaration.NotAny);
+                }
+            }
+
+            return result;
+        }
+
         private async Task<List<ITypeDeclaration>?> GetTypeDeclarationsFor(JsonSchema.NonEmptySubschemaArray? schemas, JsonDocument rootDocument, string baseUri)
         {
             if (!(schemas is JsonSchema.NonEmptySubschemaArray s))
@@ -665,6 +708,17 @@ namespace Menes.Json.Schema.TypeGenerator
             int itemIndex = 1;
             foreach (JsonSchema.SchemaOrReference sor in s)
             {
+                if (sor.IsBooleanTrueSchema())
+                {
+                    result.Add(JsonValueTypeDeclaration.Any);
+                    continue;
+                }
+                else if (sor.IsBooleanFalseSchema())
+                {
+                    result.Add(JsonValueTypeDeclaration.NotAny);
+                    continue;
+                }
+
                 this.propertyNameStack.Push($"{this.propertyNameStack.Peek()}Item{itemIndex}");
 
                 try
