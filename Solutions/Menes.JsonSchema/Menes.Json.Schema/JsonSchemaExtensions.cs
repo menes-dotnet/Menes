@@ -139,6 +139,7 @@ namespace Menes.Json.Schema
                 schema.Items.HasValue ||
                 schema.AdditionalItems.HasValue ||
                 schema.MaxContains.HasValue ||
+                schema.MaxItems.HasValue ||
                 schema.MinContains.HasValue ||
                 schema.MinItems.HasValue;
         }
