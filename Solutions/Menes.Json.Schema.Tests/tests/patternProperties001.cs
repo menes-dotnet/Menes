@@ -364,22 +364,22 @@ public readonly struct TestSchema : Menes.IJsonObject, System.IEquatable<TestSch
         bool isMatch1 = PatternPropertyRegex1.IsMatch(propertyName);
         if (isMatch1)
         {
-            context = anyValue.As<TestSchema.TestSchemaValue>().Validate(context);
+            context = anyValue.As<TestSchema.PatternProperty2Value>().Validate(context);
         }
         isMatch = isMatch || isMatch1;
         return (isMatch, context);
     }
-    public readonly struct TestSchemaValue : Menes.IJsonValue, System.IEquatable<TestSchemaValue>
+    public readonly struct PatternProperty2Value : Menes.IJsonValue, System.IEquatable<PatternProperty2Value>
     {
-        public static readonly System.Func<System.Text.Json.JsonElement, TestSchemaValue> FromJsonElement = e => new TestSchemaValue(e);
-        public static readonly TestSchemaValue Null = new TestSchemaValue(default(System.Text.Json.JsonElement));
+        public static readonly System.Func<System.Text.Json.JsonElement, PatternProperty2Value> FromJsonElement = e => new PatternProperty2Value(e);
+        public static readonly PatternProperty2Value Null = new PatternProperty2Value(default(System.Text.Json.JsonElement));
         private static readonly Menes.JsonNumber? MultipleOf = null;
         private static readonly Menes.JsonNumber? Maximum = 20;
         private static readonly Menes.JsonNumber? ExclusiveMaximum = null;
         private static readonly Menes.JsonNumber? Minimum = null;
         private static readonly Menes.JsonNumber? ExclusiveMinimum = null;
         private readonly Menes.JsonAny? value;
-        public TestSchemaValue(Menes.JsonAny value)
+        public PatternProperty2Value(Menes.JsonAny value)
         {
             if (value.HasJsonElement)
             {
@@ -392,20 +392,20 @@ public readonly struct TestSchema : Menes.IJsonObject, System.IEquatable<TestSch
                 this.JsonElement = default;
             }
         }
-        public TestSchemaValue(System.Text.Json.JsonElement jsonElement)
+        public PatternProperty2Value(System.Text.Json.JsonElement jsonElement)
         {
             this.value = null;
             this.JsonElement = jsonElement;
         }
         public bool IsNull => this.value == null && (this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Undefined || this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Null);
-        public TestSchemaValue? AsOptional => this.IsNull ? default(TestSchemaValue?) : this;
+        public PatternProperty2Value? AsOptional => this.IsNull ? default(PatternProperty2Value?) : this;
         public bool HasJsonElement => this.JsonElement.ValueKind != System.Text.Json.JsonValueKind.Undefined;
         public System.Text.Json.JsonElement JsonElement { get; }
-        public static implicit operator TestSchemaValue(Menes.JsonAny value)
+        public static implicit operator PatternProperty2Value(Menes.JsonAny value)
         {
-            return new TestSchemaValue(value);
+            return new PatternProperty2Value(value);
         }
-        public static implicit operator Menes.JsonAny(TestSchemaValue value)
+        public static implicit operator Menes.JsonAny(PatternProperty2Value value)
         {
             if (value.value is Menes.JsonAny clrValue)
             {
@@ -417,25 +417,25 @@ public readonly struct TestSchema : Menes.IJsonObject, System.IEquatable<TestSch
         {
             return Menes.JsonAny.IsConvertibleFrom(jsonElement);
         }
-        public static TestSchemaValue FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<char> propertyName) =>
+        public static PatternProperty2Value FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<char> propertyName) =>
            parentDocument.ValueKind == System.Text.Json.JsonValueKind.Object ?
                 (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
-                    ? new TestSchemaValue(property)
+                    ? new PatternProperty2Value(property)
                     : Null)
                 : Null;
-        public static TestSchemaValue FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, string propertyName) =>
+        public static PatternProperty2Value FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, string propertyName) =>
            parentDocument.ValueKind == System.Text.Json.JsonValueKind.Object ?
                 (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
-                    ? new TestSchemaValue(property)
+                    ? new PatternProperty2Value(property)
                     : Null)
                 : Null;
-        public static TestSchemaValue FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<byte> utf8PropertyName) =>
+        public static PatternProperty2Value FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<byte> utf8PropertyName) =>
            parentDocument.ValueKind == System.Text.Json.JsonValueKind.Object ?
                 (parentDocument.TryGetProperty(utf8PropertyName, out System.Text.Json.JsonElement property)
-                    ? new TestSchemaValue(property)
+                    ? new PatternProperty2Value(property)
                     : Null)
                 : Null;
-        public bool Equals(TestSchemaValue other)
+        public bool Equals(PatternProperty2Value other)
         {
             return this.Equals((Menes.JsonAny)other);
         }

@@ -115,11 +115,13 @@ public readonly struct TestSchema : Menes.IJsonObject, System.IEquatable<TestSch
             if (this.Foo is Menes.JsonAny foo)
             {
                 context = Menes.Validation.ValidateProperty(context, foo, FooPropertyNamePath);
+                context = this.ValidatePatternProperty(context, "foo", foo, FooPropertyNamePath).Item2;
             }
             matchedProperties.Add("bar");
             if (this.Bar is Menes.JsonAny bar)
             {
                 context = Menes.Validation.ValidateProperty(context, bar, BarPropertyNamePath);
+                context = this.ValidatePatternProperty(context, "bar", bar, BarPropertyNamePath).Item2;
             }
             if (this.HasJsonElement && this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Object)
             {

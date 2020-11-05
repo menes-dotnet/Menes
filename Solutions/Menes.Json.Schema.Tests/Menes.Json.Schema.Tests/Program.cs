@@ -106,7 +106,7 @@ namespace Menes.Json.Schema.Tests
                 }
             }
 
-            builder.AppendLine("System.Console.WriteLine($\"Total: {executedCount + ignoredCount} Executed: {executedCount} Passed: {passedCount} Failed: {failedCount} Ignored: {ignoredCount}\");");
+            builder.AppendLine("System.Console.WriteLine($\"||> Total: {executedCount + ignoredCount} <||> Executed: {executedCount} <||> Passed: {passedCount} <||> Failed: {failedCount} <||> Ignored: {ignoredCount} <||\");");
 
             builder.AppendLine("    }");
             builder.AppendLine("}");

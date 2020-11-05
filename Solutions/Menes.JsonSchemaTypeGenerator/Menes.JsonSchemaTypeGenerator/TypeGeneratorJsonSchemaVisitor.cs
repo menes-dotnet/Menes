@@ -384,7 +384,9 @@ namespace Menes.Json.Schema.TypeGenerator
                 var patternPropertyValidation = new List<(string, ITypeDeclaration)>();
                 foreach (JsonPropertyReference<JsonSchema> patternProperty in patternProperties.JsonAdditionalProperties)
                 {
+                    this.propertyNameStack.Push($"PatternProperty{patternPropertyValidation.Count + 1}");
                     ITypeDeclaration patternType = await this.GetTypeDeclarationFor(patternProperty.AsValue(), rootDocument, baseUri).ConfigureAwait(false) ?? AnyTypeDeclaration.Instance;
+                    this.propertyNameStack.Pop();
                     patternPropertyValidation.Add((patternProperty.Name, patternType));
                 }
 

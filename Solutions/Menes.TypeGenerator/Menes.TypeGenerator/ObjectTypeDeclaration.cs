@@ -375,18 +375,28 @@ namespace Menes.TypeGenerator
                     builder.AppendLine($"    matchedProperties.Add({StringFormatter.EscapeForCSharpString(property.FieldName, true)});");
                 }
 
+                string propertyTypeName = property.Type.GetFullyQualifiedName();
+
                 if (property.Type is OptionalTypeDeclaration)
                 {
-                    builder.AppendLine($"    if (this.{property.PropertyName} is {property.Type.GetFullyQualifiedName()} {property.FieldName})");
+                    builder.AppendLine($"    if (this.{property.PropertyName} is {propertyTypeName} {property.FieldName})");
                     builder.AppendLine("    {");
 
                     builder.AppendLine($"        context = Menes.Validation.ValidateProperty(context, {property.FieldName}, {property.PathPropertyName});");
+                    if (hasPatternProperties)
+                    {
+                        builder.AppendLine($"       context = this.ValidatePatternProperty(context, {StringFormatter.EscapeForCSharpString(property.JsonPropertyName, true)}, {property.FieldName}, {property.PathPropertyName}).Item2;");
+                    }
 
                     builder.AppendLine("    }");
                 }
                 else
                 {
                     builder.AppendLine($"    context = Menes.Validation.ValidateRequiredProperty(context, this.{property.PropertyName}, {property.PathPropertyName});");
+                    if (hasPatternProperties)
+                    {
+                        builder.AppendLine($"       context = this.ValidatePatternProperty(context, {StringFormatter.EscapeForCSharpString(property.JsonPropertyName, true)}, this.{property.PropertyName}, {property.PathPropertyName}).Item2;");
+                    }
                 }
             }
 

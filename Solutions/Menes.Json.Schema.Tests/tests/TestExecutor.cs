@@ -8133,7 +8133,7 @@ else
 {
     failedCount++;
 }
-System.Console.WriteLine($"Total: {executedCount + ignoredCount} Executed: {executedCount} Passed: {passedCount} Failed: {failedCount} Ignored: {ignoredCount}");
+System.Console.WriteLine($"||> Total: {executedCount + ignoredCount} <||> Executed: {executedCount} <||> Passed: {passedCount} <||> Failed: {failedCount} <||> Ignored: {ignoredCount} <||");
     }
 }
 }
