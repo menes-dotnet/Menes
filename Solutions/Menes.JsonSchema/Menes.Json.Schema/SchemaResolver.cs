@@ -165,7 +165,7 @@ namespace Menes.Json.Schema
 
             if (resolveReferences && result.Item3.Ref is JsonString childRef && !this.referencesBeingResolved.Contains(childRef))
             {
-                result = await this.Resolve(result.Item1, result.Item2, result.Item3).ConfigureAwait(false);
+                result = await this.Resolve(result.Item1, result.document, result.Item3).ConfigureAwait(false);
             }
 
             return result;
