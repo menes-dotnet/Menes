@@ -9,6 +9,7 @@ namespace Menes.Json.Schema.Tests
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
+    using System.Net.Http;
     using System.Text;
     using System.Text.Json;
     using System.Threading.Tasks;
@@ -117,7 +118,7 @@ namespace Menes.Json.Schema.Tests
 
         private static async Task GenerateTypesForSchema((string, string, string, int)[] uris, string outputPath, string remotes, List<string?> testsToExecute)
         {
-            IDocumentResolver documentResolver = new CompoundDocumentResolver(new FakeWebDocumentResolver(remotes), new FileSystemDocumentResolver());
+            IDocumentResolver documentResolver = new CompoundDocumentResolver(new FakeWebDocumentResolver(remotes), new FileSystemDocumentResolver(), new HttpClientDocumentResolver(new HttpClient()));
             ISchemaResolver schemaResolver = new SchemaResolver(documentResolver);
 
             foreach ((string, string, string, int) uri in uris)
@@ -246,12 +247,10 @@ namespace Menes.Json.Schema.Tests
                 else if (schema.Ref is JsonString reference)
                 {
                     var jsonRef = new JsonRef(reference);
-                    if (jsonRef.HasUri)
+                    if (jsonRef.HasUri && !new Uri(jsonRef.Uri.ToString(), UriKind.RelativeOrAbsolute).IsAbsoluteUri)
                     {
                         baseUri = jsonRef.Uri.ToString();
                     }
-
-                    schema = schema.WithId(baseUri + "#TestSchema");
                 }
                 else
                 {
