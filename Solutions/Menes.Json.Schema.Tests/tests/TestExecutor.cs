@@ -5836,24 +5836,8 @@ else
 {
     failedCount++;
 }
-executedCount++;
-if(Ref011.Tests.Test0())
-{
-    passedCount++;
-}
-else
-{
-    failedCount++;
-}
-executedCount++;
-if(Ref011.Tests.Test1())
-{
-    passedCount++;
-}
-else
-{
-    failedCount++;
-}
+ignoredCount++;
+ignoredCount++;
 executedCount++;
 if(Ref012.Tests.Test0())
 {
@@ -5899,42 +5883,10 @@ else
 {
     failedCount++;
 }
-executedCount++;
-if(RefRemote001.Tests.Test0())
-{
-    passedCount++;
-}
-else
-{
-    failedCount++;
-}
-executedCount++;
-if(RefRemote001.Tests.Test1())
-{
-    passedCount++;
-}
-else
-{
-    failedCount++;
-}
-executedCount++;
-if(RefRemote002.Tests.Test0())
-{
-    passedCount++;
-}
-else
-{
-    failedCount++;
-}
-executedCount++;
-if(RefRemote002.Tests.Test1())
-{
-    passedCount++;
-}
-else
-{
-    failedCount++;
-}
+ignoredCount++;
+ignoredCount++;
+ignoredCount++;
+ignoredCount++;
 executedCount++;
 if(RefRemote003.Tests.Test0())
 {
@@ -5953,24 +5905,8 @@ else
 {
     failedCount++;
 }
-executedCount++;
-if(RefRemote004.Tests.Test0())
-{
-    passedCount++;
-}
-else
-{
-    failedCount++;
-}
-executedCount++;
-if(RefRemote004.Tests.Test1())
-{
-    passedCount++;
-}
-else
-{
-    failedCount++;
-}
+ignoredCount++;
+ignoredCount++;
 ignoredCount++;
 ignoredCount++;
 executedCount++;

@@ -9,75 +9,62 @@ public readonly struct HttpLocalhost1234Tree : Menes.IJsonObject, System.IEquata
     public static readonly HttpLocalhost1234Tree Null = new HttpLocalhost1234Tree(default(System.Text.Json.JsonElement));
     public static readonly System.Func<System.Text.Json.JsonElement, HttpLocalhost1234Tree> FromJsonElement = e => new HttpLocalhost1234Tree(e);
     private const string MetaPropertyNamePath = ".meta";
-    private const string NodesPropertyNamePath = ".nodes";
     private static readonly System.ReadOnlyMemory<byte> MetaPropertyNameBytes = new byte[] { 109, 101, 116, 97 };
-    private static readonly System.ReadOnlyMemory<byte> NodesPropertyNameBytes = new byte[] { 110, 111, 100, 101, 115 };
     private static readonly System.Text.Json.JsonEncodedText EncodedMetaPropertyName = System.Text.Json.JsonEncodedText.Encode(MetaPropertyNameBytes.Span);
-    private static readonly System.Text.Json.JsonEncodedText EncodedNodesPropertyName = System.Text.Json.JsonEncodedText.Encode(NodesPropertyNameBytes.Span);
-    private static readonly System.Collections.Immutable.ImmutableArray<System.ReadOnlyMemory<byte>> KnownProperties = System.Collections.Immutable.ImmutableArray.Create(MetaPropertyNameBytes, NodesPropertyNameBytes);
+    private static readonly System.Collections.Immutable.ImmutableArray<System.ReadOnlyMemory<byte>> KnownProperties = System.Collections.Immutable.ImmutableArray.Create(MetaPropertyNameBytes);
     private readonly Menes.JsonString? meta;
-    private readonly HttpLocalhost1234Tree.NodesArray? nodes;
     private readonly Menes.JsonProperties<Menes.JsonAny>? additionalPropertiesBacking;
     public HttpLocalhost1234Tree(System.Text.Json.JsonElement jsonElement)
     {
         this.JsonElement = jsonElement;
         this.meta = null;
-        this.nodes = null;
         this.additionalPropertiesBacking = null;
     }
-    public HttpLocalhost1234Tree(Menes.JsonString meta, HttpLocalhost1234Tree.NodesArray nodes)
+    public HttpLocalhost1234Tree(Menes.JsonString meta)
     {
         this.meta = meta;
-        this.nodes = nodes;
         this.JsonElement = default;
         this.additionalPropertiesBacking = null;
     }
-    public HttpLocalhost1234Tree(Menes.JsonString meta, HttpLocalhost1234Tree.NodesArray nodes, params (string, Menes.JsonAny)[] additionalPropertiesBacking)
+    public HttpLocalhost1234Tree(Menes.JsonString meta, params (string, Menes.JsonAny)[] additionalPropertiesBacking)
     {
         this.meta = meta;
-        this.nodes = nodes;
         this.JsonElement = default;
         this.additionalPropertiesBacking = Menes.JsonProperties<Menes.JsonAny>.FromValues(additionalPropertiesBacking);
     }
-    public HttpLocalhost1234Tree(Menes.JsonString meta, HttpLocalhost1234Tree.NodesArray nodes, (string, Menes.JsonAny) additionalProperty1)
+    public HttpLocalhost1234Tree(Menes.JsonString meta, (string, Menes.JsonAny) additionalProperty1)
     {
         this.meta = meta;
-        this.nodes = nodes;
         this.JsonElement = default;
         this.additionalPropertiesBacking = Menes.JsonProperties<Menes.JsonAny>.FromValues(additionalProperty1);
     }
-    public HttpLocalhost1234Tree(Menes.JsonString meta, HttpLocalhost1234Tree.NodesArray nodes, (string, Menes.JsonAny) additionalProperty1, (string, Menes.JsonAny) additionalProperty2)
+    public HttpLocalhost1234Tree(Menes.JsonString meta, (string, Menes.JsonAny) additionalProperty1, (string, Menes.JsonAny) additionalProperty2)
     {
         this.meta = meta;
-        this.nodes = nodes;
         this.JsonElement = default;
         this.additionalPropertiesBacking = Menes.JsonProperties<Menes.JsonAny>.FromValues(additionalProperty1, additionalProperty2);
     }
-    public HttpLocalhost1234Tree(Menes.JsonString meta, HttpLocalhost1234Tree.NodesArray nodes, (string, Menes.JsonAny) additionalProperty1, (string, Menes.JsonAny) additionalProperty2, (string, Menes.JsonAny) additionalProperty3)
+    public HttpLocalhost1234Tree(Menes.JsonString meta, (string, Menes.JsonAny) additionalProperty1, (string, Menes.JsonAny) additionalProperty2, (string, Menes.JsonAny) additionalProperty3)
     {
         this.meta = meta;
-        this.nodes = nodes;
         this.JsonElement = default;
         this.additionalPropertiesBacking = Menes.JsonProperties<Menes.JsonAny>.FromValues(additionalProperty1, additionalProperty2, additionalProperty3);
     }
-    public HttpLocalhost1234Tree(Menes.JsonString meta, HttpLocalhost1234Tree.NodesArray nodes, (string, Menes.JsonAny) additionalProperty1, (string, Menes.JsonAny) additionalProperty2, (string, Menes.JsonAny) additionalProperty3, (string, Menes.JsonAny) additionalProperty4)
+    public HttpLocalhost1234Tree(Menes.JsonString meta, (string, Menes.JsonAny) additionalProperty1, (string, Menes.JsonAny) additionalProperty2, (string, Menes.JsonAny) additionalProperty3, (string, Menes.JsonAny) additionalProperty4)
     {
         this.meta = meta;
-        this.nodes = nodes;
         this.JsonElement = default;
         this.additionalPropertiesBacking = Menes.JsonProperties<Menes.JsonAny>.FromValues(additionalProperty1, additionalProperty2, additionalProperty3, additionalProperty4);
     }
-    private HttpLocalhost1234Tree(Menes.JsonString meta, HttpLocalhost1234Tree.NodesArray nodes, Menes.JsonProperties<Menes.JsonAny>? additionalPropertiesBacking)
+    private HttpLocalhost1234Tree(Menes.JsonString meta, Menes.JsonProperties<Menes.JsonAny>? additionalPropertiesBacking)
     {
         this.meta = meta;
-        this.nodes = nodes;
         this.JsonElement = default;
         this.additionalPropertiesBacking = additionalPropertiesBacking;
     }
-    public bool IsNull => (this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Undefined || this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Null) && (this.meta is null || this.meta.Value.IsNull) && (this.nodes is null || this.nodes.Value.IsNull);
+    public bool IsNull => (this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Undefined || this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Null) && (this.meta is null || this.meta.Value.IsNull);
     public HttpLocalhost1234Tree? AsOptional => this.IsNull ? default(HttpLocalhost1234Tree?) : this;
     public Menes.JsonString Meta => this.meta ?? Menes.JsonString.FromOptionalProperty(this.JsonElement, MetaPropertyNameBytes.Span);
-    public HttpLocalhost1234Tree.NodesArray Nodes => this.nodes ?? HttpLocalhost1234Tree.NodesArray.FromOptionalProperty(this.JsonElement, NodesPropertyNameBytes.Span);
     public int PropertiesCount => KnownProperties.Length + this.JsonAdditionalPropertiesCount;
     public int JsonAdditionalPropertiesCount
     {
@@ -137,35 +124,31 @@ public readonly struct HttpLocalhost1234Tree : Menes.IJsonObject, System.IEquata
         : Null;
     public HttpLocalhost1234Tree WithMeta(Menes.JsonString value)
     {
-        return new HttpLocalhost1234Tree(value, this.Nodes, this.GetJsonProperties());
-    }
-    public HttpLocalhost1234Tree WithNodes(HttpLocalhost1234Tree.NodesArray value)
-    {
-        return new HttpLocalhost1234Tree(this.Meta, value, this.GetJsonProperties());
+        return new HttpLocalhost1234Tree(value, this.GetJsonProperties());
     }
     public HttpLocalhost1234Tree ReplaceAll(Menes.JsonProperties<Menes.JsonAny> newAdditional)
     {
-        return new HttpLocalhost1234Tree(this.Meta, this.Nodes, newAdditional);
+        return new HttpLocalhost1234Tree(this.Meta, newAdditional);
     }
     public HttpLocalhost1234Tree ReplaceAll(params (string, Menes.JsonAny)[] newAdditional)
     {
-        return new HttpLocalhost1234Tree(this.Meta, this.Nodes, Menes.JsonProperties<Menes.JsonAny>.FromValues(newAdditional));
+        return new HttpLocalhost1234Tree(this.Meta, Menes.JsonProperties<Menes.JsonAny>.FromValues(newAdditional));
     }
     public HttpLocalhost1234Tree ReplaceAll((string, Menes.JsonAny) newAdditional1)
     {
-        return new HttpLocalhost1234Tree(this.Meta, this.Nodes, Menes.JsonProperties<Menes.JsonAny>.FromValues(newAdditional1));
+        return new HttpLocalhost1234Tree(this.Meta, Menes.JsonProperties<Menes.JsonAny>.FromValues(newAdditional1));
     }
     public HttpLocalhost1234Tree ReplaceAll((string, Menes.JsonAny) newAdditional1, (string, Menes.JsonAny) newAdditional2)
     {
-        return new HttpLocalhost1234Tree(this.Meta, this.Nodes, Menes.JsonProperties<Menes.JsonAny>.FromValues(newAdditional1, newAdditional2));
+        return new HttpLocalhost1234Tree(this.Meta, Menes.JsonProperties<Menes.JsonAny>.FromValues(newAdditional1, newAdditional2));
     }
     public HttpLocalhost1234Tree ReplaceAll((string, Menes.JsonAny) newAdditional1, (string, Menes.JsonAny) newAdditional2, (string, Menes.JsonAny) newAdditional3)
     {
-        return new HttpLocalhost1234Tree(this.Meta, this.Nodes, Menes.JsonProperties<Menes.JsonAny>.FromValues(newAdditional1, newAdditional2, newAdditional3));
+        return new HttpLocalhost1234Tree(this.Meta, Menes.JsonProperties<Menes.JsonAny>.FromValues(newAdditional1, newAdditional2, newAdditional3));
     }
     public HttpLocalhost1234Tree ReplaceAll((string, Menes.JsonAny) newAdditional1, (string, Menes.JsonAny) newAdditional2, (string, Menes.JsonAny) newAdditional3, (string, Menes.JsonAny) newAdditional4)
     {
-        return new HttpLocalhost1234Tree(this.Meta, this.Nodes, Menes.JsonProperties<Menes.JsonAny>.FromValues(newAdditional1, newAdditional2, newAdditional3, newAdditional4));
+        return new HttpLocalhost1234Tree(this.Meta, Menes.JsonProperties<Menes.JsonAny>.FromValues(newAdditional1, newAdditional2, newAdditional3, newAdditional4));
     }
     public HttpLocalhost1234Tree Add(params (string, Menes.JsonAny)[] newAdditional)
     {
@@ -178,7 +161,7 @@ public readonly struct HttpLocalhost1234Tree : Menes.IJsonObject, System.IEquata
         {
             arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(name, value));
         }
-        return new HttpLocalhost1234Tree(this.Meta, this.Nodes, new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
+        return new HttpLocalhost1234Tree(this.Meta, new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
     }
     public HttpLocalhost1234Tree Add((string name, Menes.JsonAny value) newAdditional1)
     {
@@ -187,7 +170,7 @@ public readonly struct HttpLocalhost1234Tree : Menes.IJsonObject, System.IEquata
         {
             arrayBuilder.Add(property);
         }
-        arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional1.name, newAdditional1.value)); return new HttpLocalhost1234Tree(this.Meta, this.Nodes, new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
+        arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional1.name, newAdditional1.value)); return new HttpLocalhost1234Tree(this.Meta, new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
     }
     public HttpLocalhost1234Tree Add((string name, Menes.JsonAny value) newAdditional1, (string name, Menes.JsonAny value) newAdditional2)
     {
@@ -196,7 +179,7 @@ public readonly struct HttpLocalhost1234Tree : Menes.IJsonObject, System.IEquata
         {
             arrayBuilder.Add(property);
         }
-        arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional1.name, newAdditional1.value)); arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional2.name, newAdditional2.value)); return new HttpLocalhost1234Tree(this.Meta, this.Nodes, new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
+        arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional1.name, newAdditional1.value)); arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional2.name, newAdditional2.value)); return new HttpLocalhost1234Tree(this.Meta, new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
     }
     public HttpLocalhost1234Tree Add((string name, Menes.JsonAny value) newAdditional1, (string name, Menes.JsonAny value) newAdditional2, (string name, Menes.JsonAny value) newAdditional3)
     {
@@ -205,7 +188,7 @@ public readonly struct HttpLocalhost1234Tree : Menes.IJsonObject, System.IEquata
         {
             arrayBuilder.Add(property);
         }
-        arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional1.name, newAdditional1.value)); arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional2.name, newAdditional2.value)); arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional3.name, newAdditional3.value)); return new HttpLocalhost1234Tree(this.Meta, this.Nodes, new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
+        arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional1.name, newAdditional1.value)); arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional2.name, newAdditional2.value)); arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional3.name, newAdditional3.value)); return new HttpLocalhost1234Tree(this.Meta, new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
     }
     public HttpLocalhost1234Tree Add((string name, Menes.JsonAny value) newAdditional1, (string name, Menes.JsonAny value) newAdditional2, (string name, Menes.JsonAny value) newAdditional3, (string name, Menes.JsonAny value) newAdditional4)
     {
@@ -214,7 +197,7 @@ public readonly struct HttpLocalhost1234Tree : Menes.IJsonObject, System.IEquata
         {
             arrayBuilder.Add(property);
         }
-        arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional1.name, newAdditional1.value)); arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional2.name, newAdditional2.value)); arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional3.name, newAdditional3.value)); arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional4.name, newAdditional4.value)); return new HttpLocalhost1234Tree(this.Meta, this.Nodes, new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
+        arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional1.name, newAdditional1.value)); arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional2.name, newAdditional2.value)); arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional3.name, newAdditional3.value)); arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional4.name, newAdditional4.value)); return new HttpLocalhost1234Tree(this.Meta, new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
     }
     public HttpLocalhost1234Tree Remove(params string[] namesToRemove)
     {
@@ -227,7 +210,7 @@ public readonly struct HttpLocalhost1234Tree : Menes.IJsonObject, System.IEquata
                 arrayBuilder.Add(property);
             }
         }
-        return new HttpLocalhost1234Tree(this.Meta, this.Nodes, new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
+        return new HttpLocalhost1234Tree(this.Meta, new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
     }
     public HttpLocalhost1234Tree Remove(string itemToRemove1)
     {
@@ -241,7 +224,7 @@ public readonly struct HttpLocalhost1234Tree : Menes.IJsonObject, System.IEquata
                 arrayBuilder.Add(property);
             }
         }
-        return new HttpLocalhost1234Tree(this.Meta, this.Nodes, new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
+        return new HttpLocalhost1234Tree(this.Meta, new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
     }
     public HttpLocalhost1234Tree Remove(string itemToRemove1, string itemToRemove2)
     {
@@ -255,7 +238,7 @@ public readonly struct HttpLocalhost1234Tree : Menes.IJsonObject, System.IEquata
                 arrayBuilder.Add(property);
             }
         }
-        return new HttpLocalhost1234Tree(this.Meta, this.Nodes, new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
+        return new HttpLocalhost1234Tree(this.Meta, new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
     }
     public HttpLocalhost1234Tree Remove(string itemToRemove1, string itemToRemove2, string itemToRemove3)
     {
@@ -269,7 +252,7 @@ public readonly struct HttpLocalhost1234Tree : Menes.IJsonObject, System.IEquata
                 arrayBuilder.Add(property);
             }
         }
-        return new HttpLocalhost1234Tree(this.Meta, this.Nodes, new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
+        return new HttpLocalhost1234Tree(this.Meta, new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
     }
     public HttpLocalhost1234Tree Remove(string itemToRemove1, string itemToRemove2, string itemToRemove3, string itemToRemove4)
     {
@@ -283,7 +266,7 @@ public readonly struct HttpLocalhost1234Tree : Menes.IJsonObject, System.IEquata
                 arrayBuilder.Add(property);
             }
         }
-        return new HttpLocalhost1234Tree(this.Meta, this.Nodes, new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
+        return new HttpLocalhost1234Tree(this.Meta, new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
     }
     public HttpLocalhost1234Tree Remove(System.Predicate<Menes.JsonPropertyReference<Menes.JsonAny>> removeIfTrue)
     {
@@ -295,7 +278,7 @@ public readonly struct HttpLocalhost1234Tree : Menes.IJsonObject, System.IEquata
                 arrayBuilder.Add(property);
             }
         }
-        return new HttpLocalhost1234Tree(this.Meta, this.Nodes, new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
+        return new HttpLocalhost1234Tree(this.Meta, new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
     }
     public void WriteTo(System.Text.Json.Utf8JsonWriter writer)
     {
@@ -310,11 +293,6 @@ public readonly struct HttpLocalhost1234Tree : Menes.IJsonObject, System.IEquata
             {
                 writer.WritePropertyName(EncodedMetaPropertyName);
                 meta.WriteTo(writer);
-            }
-            if (this.nodes is HttpLocalhost1234Tree.NodesArray nodes)
-            {
-                writer.WritePropertyName(EncodedNodesPropertyName);
-                nodes.WriteTo(writer);
             }
             Menes.JsonProperties<Menes.JsonAny>.JsonPropertyEnumerator enumerator = this.JsonAdditionalProperties;
             while (enumerator.MoveNext())
@@ -334,7 +312,7 @@ public readonly struct HttpLocalhost1234Tree : Menes.IJsonObject, System.IEquata
         {
             return Menes.JsonAny.From(this).Equals(Menes.JsonAny.From(other));
         }
-        return this.Meta.Equals(other.Meta) && this.Nodes.Equals(other.Nodes) && System.Linq.Enumerable.SequenceEqual(this.JsonAdditionalProperties, other.JsonAdditionalProperties);
+        return this.Meta.Equals(other.Meta) && System.Linq.Enumerable.SequenceEqual(this.JsonAdditionalProperties, other.JsonAdditionalProperties);
     }
     public Menes.ValidationContext Validate(in Menes.ValidationContext validationContext)
     {
@@ -348,7 +326,6 @@ public readonly struct HttpLocalhost1234Tree : Menes.IJsonObject, System.IEquata
         }
         Menes.ValidationContext context = validationContext;
         context = Menes.Validation.ValidateRequiredProperty(context, this.Meta, MetaPropertyNamePath);
-        context = Menes.Validation.ValidateRequiredProperty(context, this.Nodes, NodesPropertyNamePath);
         foreach (Menes.JsonPropertyReference<Menes.JsonAny> property in this.JsonAdditionalProperties)
         {
             string propertyName = property.Name;
@@ -776,42 +753,4 @@ public readonly struct HttpLocalhost1234Tree : Menes.IJsonObject, System.IEquata
             return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
         }
     }
-}///  <summary>
-/// Recursive references between schemas
-/// </summary>
-public static class Tests
-{
-/// <summary>
-/// valid tree
-/// </summary>
-    public static bool Test0()
-    {
-        using var doc = System.Text.Json.JsonDocument.Parse("{ \r\n                    \"meta\": \"root\",\r\n                    \"nodes\": [\r\n                        {\r\n                            \"value\": 1,\r\n                            \"subtree\": {\r\n                                \"meta\": \"child\",\r\n                                \"nodes\": [\r\n                                    {\"value\": 1.1},\r\n                                    {\"value\": 1.2}\r\n                                ]\r\n                            }\r\n                        },\r\n                        {\r\n                            \"value\": 2,\r\n                            \"subtree\": {\r\n                                \"meta\": \"child\",\r\n                                \"nodes\": [\r\n                                    {\"value\": 2.1},\r\n                                    {\"value\": 2.2}\r\n                                ]\r\n                            }\r\n                        }\r\n                    ]\r\n                }");
-        var schema = new HttpLocalhost1234Tree(doc.RootElement);
-        var context = schema.Validate(Menes.ValidationContext.Root);
-        if (!context.IsValid)
-        {
-            System.Console.WriteLine("Failed Ref011.Tests.Test0: valid tree");
-            System.Console.WriteLine("Expected: valid but was invalid");
-            return false;
-        }
-            return true;
-    }
-/// <summary>
-/// invalid tree
-/// </summary>
-    public static bool Test1()
-    {
-        using var doc = System.Text.Json.JsonDocument.Parse("{ \r\n                    \"meta\": \"root\",\r\n                    \"nodes\": [\r\n                        {\r\n                            \"value\": 1,\r\n                            \"subtree\": {\r\n                                \"meta\": \"child\",\r\n                                \"nodes\": [\r\n                                    {\"value\": \"string is invalid\"},\r\n                                    {\"value\": 1.2}\r\n                                ]\r\n                            }\r\n                        },\r\n                        {\r\n                            \"value\": 2,\r\n                            \"subtree\": {\r\n                                \"meta\": \"child\",\r\n                                \"nodes\": [\r\n                                    {\"value\": 2.1},\r\n                                    {\"value\": 2.2}\r\n                                ]\r\n                            }\r\n                        }\r\n                    ]\r\n                }");
-        var schema = new HttpLocalhost1234Tree(doc.RootElement);
-        var context = schema.Validate(Menes.ValidationContext.Root);
-        if (context.IsValid)
-        {
-            System.Console.WriteLine("Failed Ref011.Tests.Test1: invalid tree");
-            System.Console.WriteLine("Expected: invalid but was valid");
-            return false;
-        }
-            return true;
-    }
-}
-}
+}}

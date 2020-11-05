@@ -15,7 +15,7 @@ public static class Tests
     public static bool Test0()
     {
         using var doc = System.Text.Json.JsonDocument.Parse("\"foo\"");
-        var schema = new Menes.JsonAny(doc.RootElement);
+        var schema = new Menes.JsonNotAny(doc.RootElement);
         var context = schema.Validate(Menes.ValidationContext.Root);
         if (context.IsValid)
         {
