@@ -301,16 +301,13 @@ public readonly struct TestSchema : Menes.IJsonObject, System.IEquatable<TestSch
             foreach (Menes.JsonPropertyReference<Menes.JsonAny> property in this.JsonAdditionalProperties)
             {
                 string propertyName = property.Name;
-                var patternContext = this.ValidatePatternProperty(Menes.ValidationContext.Root, property.Name, property.AsValue(), "." + property.Name);
+                var patternContext = this.ValidatePatternProperty(context, property.Name, property.AsValue(), "." + property.Name);
+                context = patternContext.Item2;
                 if (patternContext.Item1)
                 {
                     matchedProperties.Add(propertyName);
-                }
-                if (patternContext.Item2.LastWasValid)
-                {
                     continue;
                 }
-                    context = patternContext.Item2;
                 context = Menes.Validation.ValidateProperty(context, property.AsValue(), "." + property.Name);
             }
         }
@@ -356,13 +353,14 @@ public readonly struct TestSchema : Menes.IJsonObject, System.IEquatable<TestSch
     {
         var anyValue = Menes.JsonAny.From(value);
         bool isMatch = false;
+        ValidationContext context = validationContext;
         bool isMatch0 = PatternPropertyRegex0.IsMatch(propertyName);
-        if (isMatch0 && anyValue.As<Menes.JsonInteger>().Validate(Menes.ValidationContext.Root).IsValid)
+        if (isMatch0)
         {
-            return (true, validationContext);
+            context = anyValue.As<Menes.JsonInteger>().Validate(context);
         }
         isMatch = isMatch || isMatch0;
-        return (isMatch, validationContext.WithError("core 9.3.2.2. patternProperties: Unable to match any of the provided patternProperties."));
+        return (isMatch, context);
     }
 }///  <summary>
 /// patternProperties validates properties matching a regex

@@ -128,13 +128,11 @@ public readonly struct TestSchema : Menes.IJsonObject, System.IEquatable<TestSch
                 while (additionalPropertyEnumerator.MoveNext())
                 {
                     string propertyName = additionalPropertyEnumerator.Current.Name;
-                    var patternContext = this.ValidatePatternProperty(Menes.ValidationContext.Root, propertyName, Menes.JsonAny.FromJsonElement(additionalPropertyEnumerator.Current.Value), "." + propertyName);
+                    var patternContext = this.ValidatePatternProperty(context, propertyName, Menes.JsonAny.FromJsonElement(additionalPropertyEnumerator.Current.Value), "." + propertyName);
+                    context = patternContext.Item2;
                     if (patternContext.Item1)
                     {
                         matchedProperties.Add(propertyName);
-                    }
-                    if (patternContext.Item2.LastWasValid)
-                    {
                         continue;
                     }
                     int increment = 1;
@@ -166,13 +164,14 @@ public readonly struct TestSchema : Menes.IJsonObject, System.IEquatable<TestSch
     {
         var anyValue = Menes.JsonAny.From(value);
         bool isMatch = false;
+        ValidationContext context = validationContext;
         bool isMatch0 = PatternPropertyRegex0.IsMatch(propertyName);
-        if (isMatch0 && anyValue.As<Menes.JsonAny>().Validate(Menes.ValidationContext.Root).IsValid)
+        if (isMatch0)
         {
-            return (true, validationContext);
+            context = anyValue.As<Menes.JsonAny>().Validate(context);
         }
         isMatch = isMatch || isMatch0;
-        return (isMatch, validationContext.WithError("core 9.3.2.2. patternProperties: Unable to match any of the provided patternProperties."));
+        return (isMatch, context);
     }
 }///  <summary>
 /// additionalProperties being false does not allow other properties

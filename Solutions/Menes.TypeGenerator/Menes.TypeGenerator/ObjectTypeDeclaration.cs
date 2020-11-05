@@ -398,17 +398,15 @@ namespace Menes.TypeGenerator
 
                 if (hasPatternProperties)
                 {
-                    builder.AppendLine($"       var patternContext = this.ValidatePatternProperty(Menes.ValidationContext.Root, property.Name, property.AsValue(), \".\" + property.Name);");
+                    builder.AppendLine($"       var patternContext = this.ValidatePatternProperty(context, property.Name, property.AsValue(), \".\" + property.Name);");
+                    builder.AppendLine("        context = patternContext.Item2;");
                     builder.AppendLine("        if (patternContext.Item1)");
                     builder.AppendLine("        {");
-                    builder.AppendLine("            matchedProperties.Add(propertyName);");
-                    builder.AppendLine("        }");
 
-                    builder.AppendLine("        if (patternContext.Item2.LastWasValid)");
-                    builder.AppendLine("        {");
+                    // Pattern properties are not additional properties
+                    builder.AppendLine("            matchedProperties.Add(propertyName);");
                     builder.AppendLine("            continue;");
                     builder.AppendLine("        }");
-                    builder.AppendLine("        context = patternContext.Item2;");
                 }
 
                 builder.AppendLine($"    context = Menes.Validation.ValidateProperty(context, property.AsValue(), \".\" + property.Name);");
@@ -427,17 +425,13 @@ namespace Menes.TypeGenerator
                 if (hasPatternProperties)
                 {
                     builder.AppendLine("        string propertyName = additionalPropertyEnumerator.Current.Name;");
-                    builder.AppendLine($"       var patternContext =  this.ValidatePatternProperty(Menes.ValidationContext.Root, propertyName, Menes.JsonAny.FromJsonElement(additionalPropertyEnumerator.Current.Value), \".\" + propertyName);");
+                    builder.AppendLine($"       var patternContext =  this.ValidatePatternProperty(context, propertyName, Menes.JsonAny.FromJsonElement(additionalPropertyEnumerator.Current.Value), \".\" + propertyName);");
+                    builder.AppendLine("        context = patternContext.Item2;");
                     builder.AppendLine("        if (patternContext.Item1)");
                     builder.AppendLine("        {");
                     builder.AppendLine("            matchedProperties.Add(propertyName);");
-                    builder.AppendLine("        }");
-
-                    builder.AppendLine("        if (patternContext.Item2.LastWasValid)");
-                    builder.AppendLine("        {");
                     builder.AppendLine("            continue;");
                     builder.AppendLine("        }");
-                    builder.AppendLine("        context = patternContext.Item2;");
                 }
 
                 builder.AppendLine("    int increment = 1;");
@@ -1647,19 +1641,20 @@ namespace Menes.TypeGenerator
             int patternIndex = 0;
 
             builder.AppendLine($"bool isMatch = false;");
+            builder.AppendLine($"ValidationContext context = validationContext;");
 
             foreach ((string _, ITypeDeclaration typeDeclaration) in patternProperties)
             {
                 builder.AppendLine($"bool isMatch{patternIndex} = PatternPropertyRegex{patternIndex}.IsMatch(propertyName);");
-                builder.AppendLine($"if (isMatch{patternIndex} && anyValue.As<{typeDeclaration.GetFullyQualifiedName()}>().Validate(Menes.ValidationContext.Root).IsValid)");
+                builder.AppendLine($"if (isMatch{patternIndex})");
                 builder.AppendLine("{");
-                builder.AppendLine("    return (true, validationContext);");
+                builder.AppendLine($"   context = anyValue.As<{typeDeclaration.GetFullyQualifiedName()}>().Validate(context);");
                 builder.AppendLine("}");
                 builder.AppendLine($"isMatch = isMatch || isMatch{patternIndex};");
                 patternIndex++;
             }
 
-            builder.AppendLine("return (isMatch, validationContext.WithError(\"core 9.3.2.2. patternProperties: Unable to match any of the provided patternProperties.\"));");
+            builder.AppendLine("return (isMatch, context);");
 
             builder.AppendLine("}");
 
