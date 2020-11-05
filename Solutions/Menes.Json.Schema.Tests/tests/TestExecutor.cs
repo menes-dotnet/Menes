@@ -5836,8 +5836,24 @@ else
 {
     failedCount++;
 }
-ignoredCount++;
-ignoredCount++;
+executedCount++;
+if(Ref011.Tests.Test0())
+{
+    passedCount++;
+}
+else
+{
+    failedCount++;
+}
+executedCount++;
+if(Ref011.Tests.Test1())
+{
+    passedCount++;
+}
+else
+{
+    failedCount++;
+}
 executedCount++;
 if(Ref012.Tests.Test0())
 {
@@ -5905,8 +5921,24 @@ else
 {
     failedCount++;
 }
-ignoredCount++;
-ignoredCount++;
+executedCount++;
+if(RefRemote004.Tests.Test0())
+{
+    passedCount++;
+}
+else
+{
+    failedCount++;
+}
+executedCount++;
+if(RefRemote004.Tests.Test1())
+{
+    passedCount++;
+}
+else
+{
+    failedCount++;
+}
 ignoredCount++;
 ignoredCount++;
 executedCount++;

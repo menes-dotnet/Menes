@@ -8,45 +8,125 @@ public readonly struct HttpLocalhost1234ScopeChangeDefs1Json : Menes.IJsonObject
 {
     public static readonly HttpLocalhost1234ScopeChangeDefs1Json Null = new HttpLocalhost1234ScopeChangeDefs1Json(default(System.Text.Json.JsonElement));
     public static readonly System.Func<System.Text.Json.JsonElement, HttpLocalhost1234ScopeChangeDefs1Json> FromJsonElement = e => new HttpLocalhost1234ScopeChangeDefs1Json(e);
-    private static readonly System.Collections.Immutable.ImmutableArray<System.ReadOnlyMemory<byte>> KnownProperties = System.Collections.Immutable.ImmutableArray<System.ReadOnlyMemory<byte>>.Empty;
+    private const string ListPropertyNamePath = ".list";
+    private static readonly System.ReadOnlyMemory<byte> ListPropertyNameBytes = new byte[] { 108, 105, 115, 116 };
+    private static readonly System.Text.Json.JsonEncodedText EncodedListPropertyName = System.Text.Json.JsonEncodedText.Encode(ListPropertyNameBytes.Span);
+    private static readonly System.Collections.Immutable.ImmutableArray<System.ReadOnlyMemory<byte>> KnownProperties = System.Collections.Immutable.ImmutableArray.Create(ListPropertyNameBytes);
+    private readonly Menes.JsonReference? list;
     private readonly Menes.JsonProperties<Menes.JsonAny>? additionalPropertiesBacking;
     public HttpLocalhost1234ScopeChangeDefs1Json(System.Text.Json.JsonElement jsonElement)
     {
         this.JsonElement = jsonElement;
+        this.list = null;
         this.additionalPropertiesBacking = null;
     }
-    public HttpLocalhost1234ScopeChangeDefs1Json(params (string, Menes.JsonAny)[] additionalPropertiesBacking)
+    public HttpLocalhost1234ScopeChangeDefs1Json(HttpLocalhost1234ScopeChangeDefs1Json? list, Menes.JsonProperties<Menes.JsonAny> additionalPropertiesBacking)
     {
-        this.JsonElement = default;
-        this.additionalPropertiesBacking = Menes.JsonProperties<Menes.JsonAny>.FromValues(additionalPropertiesBacking);
-    }
-    public HttpLocalhost1234ScopeChangeDefs1Json((string, Menes.JsonAny) additionalProperty1)
-    {
-        this.JsonElement = default;
-        this.additionalPropertiesBacking = Menes.JsonProperties<Menes.JsonAny>.FromValues(additionalProperty1);
-    }
-    public HttpLocalhost1234ScopeChangeDefs1Json((string, Menes.JsonAny) additionalProperty1, (string, Menes.JsonAny) additionalProperty2)
-    {
-        this.JsonElement = default;
-        this.additionalPropertiesBacking = Menes.JsonProperties<Menes.JsonAny>.FromValues(additionalProperty1, additionalProperty2);
-    }
-    public HttpLocalhost1234ScopeChangeDefs1Json((string, Menes.JsonAny) additionalProperty1, (string, Menes.JsonAny) additionalProperty2, (string, Menes.JsonAny) additionalProperty3)
-    {
-        this.JsonElement = default;
-        this.additionalPropertiesBacking = Menes.JsonProperties<Menes.JsonAny>.FromValues(additionalProperty1, additionalProperty2, additionalProperty3);
-    }
-    public HttpLocalhost1234ScopeChangeDefs1Json((string, Menes.JsonAny) additionalProperty1, (string, Menes.JsonAny) additionalProperty2, (string, Menes.JsonAny) additionalProperty3, (string, Menes.JsonAny) additionalProperty4)
-    {
-        this.JsonElement = default;
-        this.additionalPropertiesBacking = Menes.JsonProperties<Menes.JsonAny>.FromValues(additionalProperty1, additionalProperty2, additionalProperty3, additionalProperty4);
-    }
-    private HttpLocalhost1234ScopeChangeDefs1Json(Menes.JsonProperties<Menes.JsonAny>? additionalPropertiesBacking)
-    {
+        if (list is HttpLocalhost1234ScopeChangeDefs1Json item1)
+        {
+            this.list = Menes.JsonReference.FromValue(item1);
+        }
+        else
+        {
+            this.list = null;
+        }
         this.JsonElement = default;
         this.additionalPropertiesBacking = additionalPropertiesBacking;
     }
-    public bool IsNull => (this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Undefined || this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Null);
+    public HttpLocalhost1234ScopeChangeDefs1Json(HttpLocalhost1234ScopeChangeDefs1Json? list, params (string, Menes.JsonAny)[] additionalPropertiesBacking)
+    {
+        if (list is HttpLocalhost1234ScopeChangeDefs1Json item1)
+        {
+            this.list = Menes.JsonReference.FromValue(item1);
+        }
+        else
+        {
+            this.list = null;
+        }
+        this.JsonElement = default;
+        this.additionalPropertiesBacking = Menes.JsonProperties<Menes.JsonAny>.FromValues(additionalPropertiesBacking);
+    }
+    public HttpLocalhost1234ScopeChangeDefs1Json(HttpLocalhost1234ScopeChangeDefs1Json? list = null)
+    {
+        if (list is HttpLocalhost1234ScopeChangeDefs1Json item1)
+        {
+            this.list = Menes.JsonReference.FromValue(item1);
+        }
+        else
+        {
+            this.list = null;
+        }
+        this.JsonElement = default;
+        this.additionalPropertiesBacking = null;
+    }
+    public HttpLocalhost1234ScopeChangeDefs1Json(HttpLocalhost1234ScopeChangeDefs1Json? list, (string, Menes.JsonAny) additionalProperty1)
+    {
+        if (list is HttpLocalhost1234ScopeChangeDefs1Json item1)
+        {
+            this.list = Menes.JsonReference.FromValue(item1);
+        }
+        else
+        {
+            this.list = null;
+        }
+        this.JsonElement = default;
+        this.additionalPropertiesBacking = Menes.JsonProperties<Menes.JsonAny>.FromValues(additionalProperty1);
+    }
+    public HttpLocalhost1234ScopeChangeDefs1Json(HttpLocalhost1234ScopeChangeDefs1Json? list, (string, Menes.JsonAny) additionalProperty1, (string, Menes.JsonAny) additionalProperty2)
+    {
+        if (list is HttpLocalhost1234ScopeChangeDefs1Json item1)
+        {
+            this.list = Menes.JsonReference.FromValue(item1);
+        }
+        else
+        {
+            this.list = null;
+        }
+        this.JsonElement = default;
+        this.additionalPropertiesBacking = Menes.JsonProperties<Menes.JsonAny>.FromValues(additionalProperty1, additionalProperty2);
+    }
+    public HttpLocalhost1234ScopeChangeDefs1Json(HttpLocalhost1234ScopeChangeDefs1Json? list, (string, Menes.JsonAny) additionalProperty1, (string, Menes.JsonAny) additionalProperty2, (string, Menes.JsonAny) additionalProperty3)
+    {
+        if (list is HttpLocalhost1234ScopeChangeDefs1Json item1)
+        {
+            this.list = Menes.JsonReference.FromValue(item1);
+        }
+        else
+        {
+            this.list = null;
+        }
+        this.JsonElement = default;
+        this.additionalPropertiesBacking = Menes.JsonProperties<Menes.JsonAny>.FromValues(additionalProperty1, additionalProperty2, additionalProperty3);
+    }
+    public HttpLocalhost1234ScopeChangeDefs1Json(HttpLocalhost1234ScopeChangeDefs1Json? list, (string, Menes.JsonAny) additionalProperty1, (string, Menes.JsonAny) additionalProperty2, (string, Menes.JsonAny) additionalProperty3, (string, Menes.JsonAny) additionalProperty4)
+    {
+        if (list is HttpLocalhost1234ScopeChangeDefs1Json item1)
+        {
+            this.list = Menes.JsonReference.FromValue(item1);
+        }
+        else
+        {
+            this.list = null;
+        }
+        this.JsonElement = default;
+        this.additionalPropertiesBacking = Menes.JsonProperties<Menes.JsonAny>.FromValues(additionalProperty1, additionalProperty2, additionalProperty3, additionalProperty4);
+    }
+    private HttpLocalhost1234ScopeChangeDefs1Json(Menes.JsonReference? list, Menes.JsonProperties<Menes.JsonAny>? additionalPropertiesBacking)
+    {
+        if (list is Menes.JsonReference item1)
+        {
+            this.list = item1;
+        }
+        else
+        {
+            this.list = null;
+        }
+        this.JsonElement = default;
+        this.additionalPropertiesBacking = additionalPropertiesBacking;
+    }
+    public bool IsNull => (this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Undefined || this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Null) && (this.list is null || this.list.Value.IsNull);
     public HttpLocalhost1234ScopeChangeDefs1Json? AsOptional => this.IsNull ? default(HttpLocalhost1234ScopeChangeDefs1Json?) : this;
+    public HttpLocalhost1234ScopeChangeDefs1Json? List => this.list?.AsValue<HttpLocalhost1234ScopeChangeDefs1Json>() ?? HttpLocalhost1234ScopeChangeDefs1Json.FromOptionalProperty(this.JsonElement, ListPropertyNameBytes.Span).AsOptional;
     public int PropertiesCount => KnownProperties.Length + this.JsonAdditionalPropertiesCount;
     public int JsonAdditionalPropertiesCount
     {
@@ -104,29 +184,33 @@ public readonly struct HttpLocalhost1234ScopeChangeDefs1Json : Menes.IJsonObject
                 ? new HttpLocalhost1234ScopeChangeDefs1Json(property)
                 : Null)
         : Null;
+    public HttpLocalhost1234ScopeChangeDefs1Json WithList(HttpLocalhost1234ScopeChangeDefs1Json? value)
+    {
+        return new HttpLocalhost1234ScopeChangeDefs1Json(Menes.JsonReference.FromValue(value), this.GetJsonProperties());
+    }
     public HttpLocalhost1234ScopeChangeDefs1Json ReplaceAll(Menes.JsonProperties<Menes.JsonAny> newAdditional)
     {
-        return new HttpLocalhost1234ScopeChangeDefs1Json(newAdditional);
+        return new HttpLocalhost1234ScopeChangeDefs1Json(this.GetList(), newAdditional);
     }
     public HttpLocalhost1234ScopeChangeDefs1Json ReplaceAll(params (string, Menes.JsonAny)[] newAdditional)
     {
-        return new HttpLocalhost1234ScopeChangeDefs1Json(Menes.JsonProperties<Menes.JsonAny>.FromValues(newAdditional));
+        return new HttpLocalhost1234ScopeChangeDefs1Json(this.GetList(), Menes.JsonProperties<Menes.JsonAny>.FromValues(newAdditional));
     }
     public HttpLocalhost1234ScopeChangeDefs1Json ReplaceAll((string, Menes.JsonAny) newAdditional1)
     {
-        return new HttpLocalhost1234ScopeChangeDefs1Json(Menes.JsonProperties<Menes.JsonAny>.FromValues(newAdditional1));
+        return new HttpLocalhost1234ScopeChangeDefs1Json(this.GetList(), Menes.JsonProperties<Menes.JsonAny>.FromValues(newAdditional1));
     }
     public HttpLocalhost1234ScopeChangeDefs1Json ReplaceAll((string, Menes.JsonAny) newAdditional1, (string, Menes.JsonAny) newAdditional2)
     {
-        return new HttpLocalhost1234ScopeChangeDefs1Json(Menes.JsonProperties<Menes.JsonAny>.FromValues(newAdditional1, newAdditional2));
+        return new HttpLocalhost1234ScopeChangeDefs1Json(this.GetList(), Menes.JsonProperties<Menes.JsonAny>.FromValues(newAdditional1, newAdditional2));
     }
     public HttpLocalhost1234ScopeChangeDefs1Json ReplaceAll((string, Menes.JsonAny) newAdditional1, (string, Menes.JsonAny) newAdditional2, (string, Menes.JsonAny) newAdditional3)
     {
-        return new HttpLocalhost1234ScopeChangeDefs1Json(Menes.JsonProperties<Menes.JsonAny>.FromValues(newAdditional1, newAdditional2, newAdditional3));
+        return new HttpLocalhost1234ScopeChangeDefs1Json(this.GetList(), Menes.JsonProperties<Menes.JsonAny>.FromValues(newAdditional1, newAdditional2, newAdditional3));
     }
     public HttpLocalhost1234ScopeChangeDefs1Json ReplaceAll((string, Menes.JsonAny) newAdditional1, (string, Menes.JsonAny) newAdditional2, (string, Menes.JsonAny) newAdditional3, (string, Menes.JsonAny) newAdditional4)
     {
-        return new HttpLocalhost1234ScopeChangeDefs1Json(Menes.JsonProperties<Menes.JsonAny>.FromValues(newAdditional1, newAdditional2, newAdditional3, newAdditional4));
+        return new HttpLocalhost1234ScopeChangeDefs1Json(this.GetList(), Menes.JsonProperties<Menes.JsonAny>.FromValues(newAdditional1, newAdditional2, newAdditional3, newAdditional4));
     }
     public HttpLocalhost1234ScopeChangeDefs1Json Add(params (string, Menes.JsonAny)[] newAdditional)
     {
@@ -139,7 +223,7 @@ public readonly struct HttpLocalhost1234ScopeChangeDefs1Json : Menes.IJsonObject
         {
             arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(name, value));
         }
-        return new HttpLocalhost1234ScopeChangeDefs1Json(new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
+        return new HttpLocalhost1234ScopeChangeDefs1Json(this.GetList(), new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
     }
     public HttpLocalhost1234ScopeChangeDefs1Json Add((string name, Menes.JsonAny value) newAdditional1)
     {
@@ -148,7 +232,7 @@ public readonly struct HttpLocalhost1234ScopeChangeDefs1Json : Menes.IJsonObject
         {
             arrayBuilder.Add(property);
         }
-        arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional1.name, newAdditional1.value)); return new HttpLocalhost1234ScopeChangeDefs1Json(new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
+        arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional1.name, newAdditional1.value)); return new HttpLocalhost1234ScopeChangeDefs1Json(this.GetList(), new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
     }
     public HttpLocalhost1234ScopeChangeDefs1Json Add((string name, Menes.JsonAny value) newAdditional1, (string name, Menes.JsonAny value) newAdditional2)
     {
@@ -157,7 +241,7 @@ public readonly struct HttpLocalhost1234ScopeChangeDefs1Json : Menes.IJsonObject
         {
             arrayBuilder.Add(property);
         }
-        arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional1.name, newAdditional1.value)); arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional2.name, newAdditional2.value)); return new HttpLocalhost1234ScopeChangeDefs1Json(new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
+        arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional1.name, newAdditional1.value)); arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional2.name, newAdditional2.value)); return new HttpLocalhost1234ScopeChangeDefs1Json(this.GetList(), new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
     }
     public HttpLocalhost1234ScopeChangeDefs1Json Add((string name, Menes.JsonAny value) newAdditional1, (string name, Menes.JsonAny value) newAdditional2, (string name, Menes.JsonAny value) newAdditional3)
     {
@@ -166,7 +250,7 @@ public readonly struct HttpLocalhost1234ScopeChangeDefs1Json : Menes.IJsonObject
         {
             arrayBuilder.Add(property);
         }
-        arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional1.name, newAdditional1.value)); arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional2.name, newAdditional2.value)); arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional3.name, newAdditional3.value)); return new HttpLocalhost1234ScopeChangeDefs1Json(new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
+        arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional1.name, newAdditional1.value)); arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional2.name, newAdditional2.value)); arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional3.name, newAdditional3.value)); return new HttpLocalhost1234ScopeChangeDefs1Json(this.GetList(), new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
     }
     public HttpLocalhost1234ScopeChangeDefs1Json Add((string name, Menes.JsonAny value) newAdditional1, (string name, Menes.JsonAny value) newAdditional2, (string name, Menes.JsonAny value) newAdditional3, (string name, Menes.JsonAny value) newAdditional4)
     {
@@ -175,7 +259,7 @@ public readonly struct HttpLocalhost1234ScopeChangeDefs1Json : Menes.IJsonObject
         {
             arrayBuilder.Add(property);
         }
-        arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional1.name, newAdditional1.value)); arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional2.name, newAdditional2.value)); arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional3.name, newAdditional3.value)); arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional4.name, newAdditional4.value)); return new HttpLocalhost1234ScopeChangeDefs1Json(new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
+        arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional1.name, newAdditional1.value)); arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional2.name, newAdditional2.value)); arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional3.name, newAdditional3.value)); arrayBuilder.Add(Menes.JsonPropertyReference<Menes.JsonAny>.From(newAdditional4.name, newAdditional4.value)); return new HttpLocalhost1234ScopeChangeDefs1Json(this.GetList(), new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
     }
     public HttpLocalhost1234ScopeChangeDefs1Json Remove(params string[] namesToRemove)
     {
@@ -188,7 +272,7 @@ public readonly struct HttpLocalhost1234ScopeChangeDefs1Json : Menes.IJsonObject
                 arrayBuilder.Add(property);
             }
         }
-        return new HttpLocalhost1234ScopeChangeDefs1Json(new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
+        return new HttpLocalhost1234ScopeChangeDefs1Json(this.GetList(), new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
     }
     public HttpLocalhost1234ScopeChangeDefs1Json Remove(string itemToRemove1)
     {
@@ -202,7 +286,7 @@ public readonly struct HttpLocalhost1234ScopeChangeDefs1Json : Menes.IJsonObject
                 arrayBuilder.Add(property);
             }
         }
-        return new HttpLocalhost1234ScopeChangeDefs1Json(new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
+        return new HttpLocalhost1234ScopeChangeDefs1Json(this.GetList(), new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
     }
     public HttpLocalhost1234ScopeChangeDefs1Json Remove(string itemToRemove1, string itemToRemove2)
     {
@@ -216,7 +300,7 @@ public readonly struct HttpLocalhost1234ScopeChangeDefs1Json : Menes.IJsonObject
                 arrayBuilder.Add(property);
             }
         }
-        return new HttpLocalhost1234ScopeChangeDefs1Json(new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
+        return new HttpLocalhost1234ScopeChangeDefs1Json(this.GetList(), new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
     }
     public HttpLocalhost1234ScopeChangeDefs1Json Remove(string itemToRemove1, string itemToRemove2, string itemToRemove3)
     {
@@ -230,7 +314,7 @@ public readonly struct HttpLocalhost1234ScopeChangeDefs1Json : Menes.IJsonObject
                 arrayBuilder.Add(property);
             }
         }
-        return new HttpLocalhost1234ScopeChangeDefs1Json(new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
+        return new HttpLocalhost1234ScopeChangeDefs1Json(this.GetList(), new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
     }
     public HttpLocalhost1234ScopeChangeDefs1Json Remove(string itemToRemove1, string itemToRemove2, string itemToRemove3, string itemToRemove4)
     {
@@ -244,7 +328,7 @@ public readonly struct HttpLocalhost1234ScopeChangeDefs1Json : Menes.IJsonObject
                 arrayBuilder.Add(property);
             }
         }
-        return new HttpLocalhost1234ScopeChangeDefs1Json(new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
+        return new HttpLocalhost1234ScopeChangeDefs1Json(this.GetList(), new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
     }
     public HttpLocalhost1234ScopeChangeDefs1Json Remove(System.Predicate<Menes.JsonPropertyReference<Menes.JsonAny>> removeIfTrue)
     {
@@ -256,7 +340,7 @@ public readonly struct HttpLocalhost1234ScopeChangeDefs1Json : Menes.IJsonObject
                 arrayBuilder.Add(property);
             }
         }
-        return new HttpLocalhost1234ScopeChangeDefs1Json(new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
+        return new HttpLocalhost1234ScopeChangeDefs1Json(this.GetList(), new Menes.JsonProperties<Menes.JsonAny>(arrayBuilder.ToImmutable()));
     }
     public void WriteTo(System.Text.Json.Utf8JsonWriter writer)
     {
@@ -267,6 +351,11 @@ public readonly struct HttpLocalhost1234ScopeChangeDefs1Json : Menes.IJsonObject
         else
         {
             writer.WriteStartObject();
+            if (this.list is Menes.JsonReference list)
+            {
+                writer.WritePropertyName(EncodedListPropertyName);
+                list.WriteTo(writer);
+            }
             Menes.JsonProperties<Menes.JsonAny>.JsonPropertyEnumerator enumerator = this.JsonAdditionalProperties;
             while (enumerator.MoveNext())
             {
@@ -285,7 +374,7 @@ public readonly struct HttpLocalhost1234ScopeChangeDefs1Json : Menes.IJsonObject
         {
             return Menes.JsonAny.From(this).Equals(Menes.JsonAny.From(other));
         }
-        return System.Linq.Enumerable.SequenceEqual(this.JsonAdditionalProperties, other.JsonAdditionalProperties);
+        return this.List.Equals(other.List) && System.Linq.Enumerable.SequenceEqual(this.JsonAdditionalProperties, other.JsonAdditionalProperties);
     }
     public Menes.ValidationContext Validate(in Menes.ValidationContext validationContext)
     {
@@ -298,6 +387,10 @@ public readonly struct HttpLocalhost1234ScopeChangeDefs1Json : Menes.IJsonObject
             return validationContext.WithError($"6.1.1. type: the element with type {this.JsonElement.ValueKind} is not convertible to {System.Text.Json.JsonValueKind.Object}");
         }
         Menes.ValidationContext context = validationContext;
+        if (this.List is HttpLocalhost1234ScopeChangeDefs1Json list)
+        {
+            context = Menes.Validation.ValidateProperty(context, list, ListPropertyNamePath);
+        }
         foreach (Menes.JsonPropertyReference<Menes.JsonAny> property in this.JsonAdditionalProperties)
         {
             string propertyName = property.Name;
@@ -332,6 +425,18 @@ public readonly struct HttpLocalhost1234ScopeChangeDefs1Json : Menes.IJsonObject
     {
         return Menes.JsonAny.From(this).ToString();
     }
+    private Menes.JsonReference? GetList()
+    {
+        if (this.list is Menes.JsonReference reference)
+        {
+            return reference;
+        }
+        if (this.HasJsonElement && this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Object && this.JsonElement.TryGetProperty(ListPropertyNameBytes.Span, out System.Text.Json.JsonElement value))
+        {
+            return new Menes.JsonReference(value);
+        }
+        return default;
+    }
     private Menes.JsonProperties<Menes.JsonAny> GetJsonProperties()
     {
         if (this.additionalPropertiesBacking is Menes.JsonProperties<Menes.JsonAny> props)
@@ -340,4 +445,42 @@ public readonly struct HttpLocalhost1234ScopeChangeDefs1Json : Menes.IJsonObject
         }
         return new Menes.JsonProperties<Menes.JsonAny>(System.Collections.Immutable.ImmutableArray.ToImmutableArray(this.JsonAdditionalProperties));
     }
-}}
+}///  <summary>
+/// base URI change - change folder
+/// </summary>
+public static class Tests
+{
+/// <summary>
+/// number is valid
+/// </summary>
+    public static bool Test0()
+    {
+        using var doc = System.Text.Json.JsonDocument.Parse("{\"list\": [1]}");
+        var schema = new HttpLocalhost1234ScopeChangeDefs1Json(doc.RootElement);
+        var context = schema.Validate(Menes.ValidationContext.Root);
+        if (!context.IsValid)
+        {
+            System.Console.WriteLine("Failed RefRemote004.Tests.Test0: number is valid");
+            System.Console.WriteLine("Expected: valid but was invalid");
+            return false;
+        }
+            return true;
+    }
+/// <summary>
+/// string is invalid
+/// </summary>
+    public static bool Test1()
+    {
+        using var doc = System.Text.Json.JsonDocument.Parse("{\"list\": [\"a\"]}");
+        var schema = new HttpLocalhost1234ScopeChangeDefs1Json(doc.RootElement);
+        var context = schema.Validate(Menes.ValidationContext.Root);
+        if (context.IsValid)
+        {
+            System.Console.WriteLine("Failed RefRemote004.Tests.Test1: string is invalid");
+            System.Console.WriteLine("Expected: invalid but was valid");
+            return false;
+        }
+            return true;
+    }
+}
+}

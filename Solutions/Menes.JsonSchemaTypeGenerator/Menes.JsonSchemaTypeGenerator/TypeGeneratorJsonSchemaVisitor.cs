@@ -79,7 +79,7 @@ namespace Menes.Json.Schema.TypeGenerator
 
             if (declaration.ShouldGenerate)
             {
-                if (schema.Ref is JsonString || schema.Id is JsonString || this.declarationStack.Count == 0)
+                if (schema.Id is JsonString || this.declarationStack.Count == 0)
                 {
                     this.typeDeclarations.Add(declaration.Name, declaration);
                 }
@@ -239,6 +239,13 @@ namespace Menes.Json.Schema.TypeGenerator
             (uri, document, reference) = await this.schemaResolver.Resolve(baseUri, rootDocument, sor).ConfigureAwait(false);
 
             JsonSchema schema = reference;
+
+            name = this.GetName(schema);
+
+            if (this.typeDeclarations.TryGetValue(name, out ITypeDeclaration result2))
+            {
+                return result2;
+            }
 
             if (schema.Id is null && schema.Ref is null && this.declarationStack.Peek().ContainsTypeDeclaration(name))
             {
