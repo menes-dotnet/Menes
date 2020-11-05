@@ -81,8 +81,13 @@ public readonly struct TestSchema : Menes.IJsonObject, System.IEquatable<TestSch
                 var additionalPropertyEnumerator = this.JsonElement.EnumerateObject();
                 while (additionalPropertyEnumerator.MoveNext())
                 {
-                    var patternContext = this.ValidatePatternProperty(Menes.ValidationContext.Root, additionalPropertyEnumerator.Current.Name, Menes.JsonAny.FromJsonElement(additionalPropertyEnumerator.Current.Value), "." + additionalPropertyEnumerator.Current.Name);
-                    if (patternContext.LastWasValid)
+                    string propertyName = additionalPropertyEnumerator.Current.Name;
+                    var patternContext = this.ValidatePatternProperty(Menes.ValidationContext.Root, propertyName, Menes.JsonAny.FromJsonElement(additionalPropertyEnumerator.Current.Value), "." + propertyName);
+                    if (patternContext.Item1)
+                    {
+                        matchedProperties.Add(propertyName);
+                    }
+                    if (patternContext.Item2.LastWasValid)
                     {
                         continue;
                     }
@@ -110,15 +115,18 @@ public readonly struct TestSchema : Menes.IJsonObject, System.IEquatable<TestSch
     {
         return Menes.JsonAny.From(this).ToString();
     }
-    private Menes.ValidationContext ValidatePatternProperty<TItem>(in Menes.ValidationContext validationContext, string propertyName, in TItem value, string propertyPathToAppend)
+    private (bool, Menes.ValidationContext) ValidatePatternProperty<TItem>(in Menes.ValidationContext validationContext, string propertyName, in TItem value, string propertyPathToAppend)
        where TItem : struct, IJsonValue
     {
         var anyValue = Menes.JsonAny.From(value);
-        if (PatternPropertyRegex0.IsMatch(propertyName) && anyValue.As<Menes.JsonAny>().Validate(Menes.ValidationContext.Root).IsValid)
+        bool isMatch = false;
+        bool isMatch0 = PatternPropertyRegex0.IsMatch(propertyName);
+        if (isMatch0 && anyValue.As<Menes.JsonAny>().Validate(Menes.ValidationContext.Root).IsValid)
         {
-            return validationContext;
+            return (true, validationContext);
         }
-        return validationContext.WithError("core 9.3.2.2. patternProperties: Unable to match any of the provided patternProperties.");
+        isMatch = isMatch || isMatch0;
+        return (isMatch, validationContext.WithError("core 9.3.2.2. patternProperties: Unable to match any of the provided patternProperties."));
     }
 }///  <summary>
 /// non-ASCII pattern with additionalProperties

@@ -302,10 +302,15 @@ public readonly struct TestSchema : Menes.IJsonObject, System.IEquatable<TestSch
             {
                 string propertyName = property.Name;
                 var patternContext = this.ValidatePatternProperty(Menes.ValidationContext.Root, property.Name, property.AsValue(), "." + property.Name);
-                if (patternContext.LastWasValid)
+                if (patternContext.Item1)
+                {
+                    matchedProperties.Add(propertyName);
+                }
+                if (patternContext.Item2.LastWasValid)
                 {
                     continue;
                 }
+                    context = patternContext.Item2;
                 context = Menes.Validation.ValidateProperty(context, property.AsValue(), "." + property.Name);
             }
         }
@@ -346,15 +351,18 @@ public readonly struct TestSchema : Menes.IJsonObject, System.IEquatable<TestSch
         }
         return new Menes.JsonProperties<Menes.JsonAny>(System.Collections.Immutable.ImmutableArray.ToImmutableArray(this.JsonAdditionalProperties));
     }
-    private Menes.ValidationContext ValidatePatternProperty<TItem>(in Menes.ValidationContext validationContext, string propertyName, in TItem value, string propertyPathToAppend)
+    private (bool, Menes.ValidationContext) ValidatePatternProperty<TItem>(in Menes.ValidationContext validationContext, string propertyName, in TItem value, string propertyPathToAppend)
        where TItem : struct, IJsonValue
     {
         var anyValue = Menes.JsonAny.From(value);
-        if (PatternPropertyRegex0.IsMatch(propertyName) && anyValue.As<Menes.JsonInteger>().Validate(Menes.ValidationContext.Root).IsValid)
+        bool isMatch = false;
+        bool isMatch0 = PatternPropertyRegex0.IsMatch(propertyName);
+        if (isMatch0 && anyValue.As<Menes.JsonInteger>().Validate(Menes.ValidationContext.Root).IsValid)
         {
-            return validationContext;
+            return (true, validationContext);
         }
-        return validationContext.WithError("core 9.3.2.2. patternProperties: Unable to match any of the provided patternProperties.");
+        isMatch = isMatch || isMatch0;
+        return (isMatch, validationContext.WithError("core 9.3.2.2. patternProperties: Unable to match any of the provided patternProperties."));
     }
 }///  <summary>
 /// patternProperties validates properties matching a regex

@@ -298,6 +298,7 @@ public readonly struct TestSchema : Menes.IJsonObject, System.IEquatable<TestSch
             return validationContext.WithError($"6.1.1. type: the element with type {this.JsonElement.ValueKind} is not convertible to {System.Text.Json.JsonValueKind.Object}");
         }
         Menes.ValidationContext context = validationContext;
+        System.Collections.Generic.HashSet<string> matchedProperties = new System.Collections.Generic.HashSet<string>(this.PropertiesCount);
         foreach (Menes.JsonPropertyReference<Menes.JsonAny> property in this.JsonAdditionalProperties)
         {
             string propertyName = property.Name;
@@ -309,19 +310,6 @@ public readonly struct TestSchema : Menes.IJsonObject, System.IEquatable<TestSch
             while (unevaluatedPropertyEnumerator.MoveNext())
             {
                 string unevaluatedPropertyName = unevaluatedPropertyEnumerator.Current.Name;
-                bool isKnown = false;
-                for (int i = 0; i < KnownProperties.Length; ++i)
-                {
-                    if (unevaluatedPropertyEnumerator.Current.NameEquals(KnownProperties[i].Span))
-                    {
-                        isKnown = true;
-                        break;
-                    }
-                }
-                if (isKnown)
-                {
-                    continue;
-                }
                 if (!Menes.JsonNotAny.FromJsonElement(unevaluatedPropertyEnumerator.Current.Value).Validate(Menes.ValidationContext.Root).IsValid)
                 {
                     context = context.WithPath($".{unevaluatedPropertyName}").WithError("core 9.3.2.4.unevaluatedProperties: Property does not match unevaluated property validation");

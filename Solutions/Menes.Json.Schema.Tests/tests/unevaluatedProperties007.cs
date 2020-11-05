@@ -331,6 +331,8 @@ public readonly struct TestSchema : Menes.IJsonObject, System.IEquatable<TestSch
             return validationContext.WithError($"6.1.1. type: the element with type {this.JsonElement.ValueKind} is not convertible to {System.Text.Json.JsonValueKind.Object}");
         }
         Menes.ValidationContext context = validationContext;
+        System.Collections.Generic.HashSet<string> matchedProperties = new System.Collections.Generic.HashSet<string>(this.PropertiesCount);
+        matchedProperties.Add("foo");
         if (this.Foo is Menes.JsonString foo)
         {
             context = Menes.Validation.ValidateProperty(context, foo, FooPropertyNamePath);
@@ -351,19 +353,6 @@ public readonly struct TestSchema : Menes.IJsonObject, System.IEquatable<TestSch
             while (unevaluatedPropertyEnumerator.MoveNext())
             {
                 string unevaluatedPropertyName = unevaluatedPropertyEnumerator.Current.Name;
-                bool isKnown = false;
-                for (int i = 0; i < KnownProperties.Length; ++i)
-                {
-                    if (unevaluatedPropertyEnumerator.Current.NameEquals(KnownProperties[i].Span))
-                    {
-                        isKnown = true;
-                        break;
-                    }
-                }
-                if (isKnown)
-                {
-                    continue;
-                }
                 if (!Menes.JsonNotAny.FromJsonElement(unevaluatedPropertyEnumerator.Current.Value).Validate(Menes.ValidationContext.Root).IsValid)
                 {
                     context = context.WithPath($".{unevaluatedPropertyName}").WithError("core 9.3.2.4.unevaluatedProperties: Property does not match unevaluated property validation");
@@ -706,7 +695,11 @@ public readonly struct TestSchema : Menes.IJsonObject, System.IEquatable<TestSch
                 {
                     string propertyName = property.Name;
                     var patternContext = this.ValidatePatternProperty(Menes.ValidationContext.Root, property.Name, property.AsValue(), "." + property.Name);
-                    if (patternContext.LastWasValid)
+                    if (patternContext.Item1)
+                    {
+                        matchedProperties.Add(propertyName);
+                    }
+                    if (patternContext.Item2.LastWasValid)
                     {
                         continue;
                     }
@@ -750,15 +743,18 @@ public readonly struct TestSchema : Menes.IJsonObject, System.IEquatable<TestSch
             }
             return new Menes.JsonProperties<Menes.JsonAny>(System.Collections.Immutable.ImmutableArray.ToImmutableArray(this.JsonAdditionalProperties));
         }
-        private Menes.ValidationContext ValidatePatternProperty<TItem>(in Menes.ValidationContext validationContext, string propertyName, in TItem value, string propertyPathToAppend)
+        private (bool, Menes.ValidationContext) ValidatePatternProperty<TItem>(in Menes.ValidationContext validationContext, string propertyName, in TItem value, string propertyPathToAppend)
            where TItem : struct, IJsonValue
         {
             var anyValue = Menes.JsonAny.From(value);
-            if (PatternPropertyRegex0.IsMatch(propertyName) && anyValue.As<Menes.JsonString>().Validate(Menes.ValidationContext.Root).IsValid)
+            bool isMatch = false;
+            bool isMatch0 = PatternPropertyRegex0.IsMatch(propertyName);
+            if (isMatch0 && anyValue.As<Menes.JsonString>().Validate(Menes.ValidationContext.Root).IsValid)
             {
-                return validationContext;
+                return (true, validationContext);
             }
-            return validationContext.WithError("core 9.3.2.2. patternProperties: Unable to match any of the provided patternProperties.");
+            isMatch = isMatch || isMatch0;
+            return (isMatch, validationContext.WithError("core 9.3.2.2. patternProperties: Unable to match any of the provided patternProperties."));
         }
     }
 }///  <summary>
