@@ -303,6 +303,31 @@ public readonly struct TestSchema : Menes.IJsonObject, System.IEquatable<TestSch
             string propertyName = property.Name;
             context = Menes.Validation.ValidateProperty(context, property.AsValue(), "." + property.Name);
         }
+        if (this.HasJsonElement)
+        {
+            var unevaluatedPropertyEnumerator = this.JsonElement.EnumerateObject();
+            while (unevaluatedPropertyEnumerator.MoveNext())
+            {
+                string unevaluatedPropertyName = unevaluatedPropertyEnumerator.Current.Name;
+                bool isKnown = false;
+                for (int i = 0; i < KnownProperties.Length; ++i)
+                {
+                    if (unevaluatedPropertyEnumerator.Current.NameEquals(KnownProperties[i].Span))
+                    {
+                        isKnown = true;
+                        break;
+                    }
+                }
+                if (isKnown)
+                {
+                    continue;
+                }
+                if (!TestSchema.UnevaluatedPropertiesValue.FromJsonElement(unevaluatedPropertyEnumerator.Current.Value).Validate(Menes.ValidationContext.Root).IsValid)
+                {
+                    context = context.WithPath($".{unevaluatedPropertyName}").WithError("core 9.3.2.4.unevaluatedProperties: Property does not match unevaluated property validation");
+                }
+            }
+        }
         return context;
     }
     public bool TryGet(string propertyName, [System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out Menes.JsonAny value)
@@ -339,6 +364,117 @@ public readonly struct TestSchema : Menes.IJsonObject, System.IEquatable<TestSch
             return props;
         }
         return new Menes.JsonProperties<Menes.JsonAny>(System.Collections.Immutable.ImmutableArray.ToImmutableArray(this.JsonAdditionalProperties));
+    }
+    public readonly struct UnevaluatedPropertiesValue : Menes.IJsonValue, System.IEquatable<UnevaluatedPropertiesValue>
+    {
+        public static readonly System.Func<System.Text.Json.JsonElement, UnevaluatedPropertiesValue> FromJsonElement = e => new UnevaluatedPropertiesValue(e);
+        public static readonly UnevaluatedPropertiesValue Null = new UnevaluatedPropertiesValue(default(System.Text.Json.JsonElement));
+        private static readonly int? MaxLength = null;
+        private static readonly int? MinLength = 3;
+        private static readonly System.Text.RegularExpressions.Regex? Pattern = null;
+        private readonly Menes.JsonString? value;
+        public UnevaluatedPropertiesValue(Menes.JsonString value)
+        {
+            if (value.HasJsonElement)
+            {
+                this.JsonElement = value.JsonElement;
+                this.value = null;
+            }
+            else
+            {
+                this.value = value;
+                this.JsonElement = default;
+            }
+        }
+        public UnevaluatedPropertiesValue(System.Text.Json.JsonElement jsonElement)
+        {
+            this.value = null;
+            this.JsonElement = jsonElement;
+        }
+        public bool IsNull => this.value == null && (this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Undefined || this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Null);
+        public UnevaluatedPropertiesValue? AsOptional => this.IsNull ? default(UnevaluatedPropertiesValue?) : this;
+        public bool HasJsonElement => this.JsonElement.ValueKind != System.Text.Json.JsonValueKind.Undefined;
+        public System.Text.Json.JsonElement JsonElement { get; }
+        public static implicit operator UnevaluatedPropertiesValue(Menes.JsonString value)
+        {
+            return new UnevaluatedPropertiesValue(value);
+        }
+        public static implicit operator UnevaluatedPropertiesValue(string value)
+        {
+            return new UnevaluatedPropertiesValue(value);
+        }
+        public static implicit operator string(UnevaluatedPropertiesValue value)
+        {
+            return (string)(Menes.JsonString)value;
+        }
+        public static implicit operator Menes.JsonString(UnevaluatedPropertiesValue value)
+        {
+            if (value.value is Menes.JsonString clrValue)
+            {
+                return clrValue;
+            }
+            return new Menes.JsonString(value.JsonElement);
+        }
+        public static bool IsConvertibleFrom(System.Text.Json.JsonElement jsonElement)
+        {
+            return Menes.JsonString.IsConvertibleFrom(jsonElement);
+        }
+        public static UnevaluatedPropertiesValue FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<char> propertyName) =>
+           parentDocument.ValueKind == System.Text.Json.JsonValueKind.Object ?
+                (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
+                    ? new UnevaluatedPropertiesValue(property)
+                    : Null)
+                : Null;
+        public static UnevaluatedPropertiesValue FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, string propertyName) =>
+           parentDocument.ValueKind == System.Text.Json.JsonValueKind.Object ?
+                (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
+                    ? new UnevaluatedPropertiesValue(property)
+                    : Null)
+                : Null;
+        public static UnevaluatedPropertiesValue FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<byte> utf8PropertyName) =>
+           parentDocument.ValueKind == System.Text.Json.JsonValueKind.Object ?
+                (parentDocument.TryGetProperty(utf8PropertyName, out System.Text.Json.JsonElement property)
+                    ? new UnevaluatedPropertiesValue(property)
+                    : Null)
+                : Null;
+        public bool Equals(UnevaluatedPropertiesValue other)
+        {
+            return this.Equals((Menes.JsonString)other);
+        }
+        public bool Equals(Menes.JsonString other)
+        {
+            return ((Menes.JsonString)this).Equals(other);
+        }
+        public Menes.ValidationContext Validate(in Menes.ValidationContext validationContext)
+        {
+            Menes.JsonString value = this;
+            Menes.ValidationContext context = validationContext;
+            context = value.Validate(context);
+            context = value.ValidateAsString(context, MaxLength, MinLength, Pattern, (System.Collections.Immutable.ImmutableArray<string>?)null, (string?)null);
+            return context;
+        }
+        public void WriteTo(System.Text.Json.Utf8JsonWriter writer)
+        {
+            if (this.HasJsonElement)
+            {
+                this.JsonElement.WriteTo(writer);
+            }
+            else if (this.value is Menes.JsonString clrValue)
+            {
+                clrValue.WriteTo(writer);
+            }
+        }
+        public override string ToString()
+        {
+            if (this.value is Menes.JsonString clrValue)
+            {
+                return clrValue.ToString();
+            }
+            else
+            {
+                return this.JsonElement.GetRawText();
+            }
+        }
     }
 }///  <summary>
 /// unevaluatedProperties schema

@@ -36,6 +36,11 @@ namespace Menes.TypeGenerator
         public ITypeDeclaration? AdditionalPropertiesType { get; set; }
 
         /// <summary>
+        /// Gets or sets the type of any unevaluated properties.
+        /// </summary>
+        public ITypeDeclaration? UnevaluatedPropertiesType { get; set; }
+
+        /// <summary>
         /// Gets or sets the max properties validation.
         /// </summary>
         public int? MaxPropertiesValidation { get; set; }
@@ -500,6 +505,50 @@ namespace Menes.TypeGenerator
                 }
 
                 builder.AppendLine(");");
+            }
+
+            // If we have specified an explicit type for additional properties (including "JsonAny") then we must have visited all
+            // of our properties already, so there won't be any unevaluated properties.
+            // Further, if we don't have a JsonElement, there won't be any unevaluated properties.
+            if ((this.UnevaluatedPropertiesType is ITypeDeclaration unevaluatedProperties) && (this.AdditionalPropertiesType is null || this.AdditionalPropertiesType is AnyTypeDeclaration || this.AdditionalPropertiesType == JsonValueTypeDeclaration.Any))
+            {
+                string unevaluatedFullyQualifiedName = unevaluatedProperties.GetFullyQualifiedName();
+
+                builder.AppendLine("if (this.HasJsonElement)");
+                builder.AppendLine("{");
+                builder.AppendLine("    var unevaluatedPropertyEnumerator = this.JsonElement.EnumerateObject();");
+                builder.AppendLine("    while (unevaluatedPropertyEnumerator.MoveNext())");
+                builder.AppendLine("    {");
+                builder.AppendLine("        string unevaluatedPropertyName = unevaluatedPropertyEnumerator.Current.Name;");
+
+                if (hasPatternProperties)
+                {
+                    builder.AppendLine("        if (matchedProperties.Contains(unevaluatedPropertyName))");
+                    builder.AppendLine("        {");
+                    builder.AppendLine("            continue;");
+                    builder.AppendLine("        }");
+                }
+
+                builder.AppendLine("    bool isKnown = false;");
+                builder.AppendLine("    for (int i = 0; i < KnownProperties.Length; ++i)");
+                builder.AppendLine("    {");
+                builder.AppendLine("        if (unevaluatedPropertyEnumerator.Current.NameEquals(KnownProperties[i].Span))");
+                builder.AppendLine("        {");
+                builder.AppendLine("            isKnown = true;");
+                builder.AppendLine("            break;");
+                builder.AppendLine("        }");
+                builder.AppendLine("    }");
+                builder.AppendLine("    if (isKnown)");
+                builder.AppendLine("    {");
+                builder.AppendLine("        continue;");
+                builder.AppendLine("    }");
+
+                builder.AppendLine($"        if (!{unevaluatedFullyQualifiedName}.FromJsonElement(unevaluatedPropertyEnumerator.Current.Value).Validate(Menes.ValidationContext.Root).IsValid)");
+                builder.AppendLine("        {");
+                builder.AppendLine("            context = context.WithPath($\".{unevaluatedPropertyName}\").WithError(\"core 9.3.2.4.unevaluatedProperties: Property does not match unevaluated property validation\");");
+                builder.AppendLine("        }");
+                builder.AppendLine("    }");
+                builder.AppendLine("}");
             }
 
             if (this.ConstValidation is string)

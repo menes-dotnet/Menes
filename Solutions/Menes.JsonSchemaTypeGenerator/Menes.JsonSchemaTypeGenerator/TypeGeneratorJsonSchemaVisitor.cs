@@ -183,6 +183,32 @@ namespace Menes.Json.Schema.TypeGenerator
             return this.PopulateJsonValue(typeDeclaration, schema, rootDocument, baseUri);
         }
 
+        private async Task<ITypeDeclaration?> GetUnevaluatedPropertiesType(JsonSchema schema, JsonDocument rootDocument, string baseUri)
+        {
+            ITypeDeclaration? unevaluatedPropertiesType = null;
+
+            if (schema.UnevaluatedProperties is JsonSchema.SchemaAdditionalProperties unevaluatedProperties)
+            {
+                if (unevaluatedProperties.IsJsonBoolean)
+                {
+                    if (!unevaluatedProperties.AsJsonBoolean())
+                    {
+                        unevaluatedPropertiesType = JsonValueTypeDeclaration.NotAny;
+                    }
+                }
+                else
+                {
+                    this.propertyNameStack.Push("UnevaluatedProperties");
+
+                    unevaluatedPropertiesType = await this.GetTypeDeclarationFor(unevaluatedProperties.AsJsonSchema(), rootDocument, baseUri).ConfigureAwait(false);
+
+                    this.propertyNameStack.Pop();
+                }
+            }
+
+            return unevaluatedPropertiesType;
+        }
+
         private async Task<ITypeDeclaration?> GetAdditionalPropertiesType(JsonSchema schema, JsonDocument rootDocument, string baseUri)
         {
             ITypeDeclaration? additionalPropertiesType = AnyTypeDeclaration.Instance;
@@ -226,9 +252,6 @@ namespace Menes.Json.Schema.TypeGenerator
                 return null;
             }
 
-            string uri = baseUri;
-            JsonDocument document = rootDocument;
-            JsonSchema reference = sor;
             string name = this.GetName(sor);
 
             if (this.typeDeclarations.TryGetValue(name, out ITypeDeclaration result))
@@ -236,7 +259,7 @@ namespace Menes.Json.Schema.TypeGenerator
                 return result;
             }
 
-            (uri, document, reference) = await this.schemaResolver.Resolve(baseUri, rootDocument, sor).ConfigureAwait(false);
+            (string uri, JsonDocument document, JsonSchema reference) = await this.schemaResolver.Resolve(baseUri, rootDocument, sor).ConfigureAwait(false);
 
             JsonSchema schema = reference;
 
@@ -354,6 +377,7 @@ namespace Menes.Json.Schema.TypeGenerator
 
             this.declarationStack.Push(typeDeclaration);
             typeDeclaration.AdditionalPropertiesType = await this.GetAdditionalPropertiesType(schema, rootDocument, baseUri).ConfigureAwait(false);
+            typeDeclaration.UnevaluatedPropertiesType = await this.GetUnevaluatedPropertiesType(schema, rootDocument, baseUri).ConfigureAwait(false);
 
             if (schema.PatternProperties is JsonSchema.SchemaProperties patternProperties)
             {

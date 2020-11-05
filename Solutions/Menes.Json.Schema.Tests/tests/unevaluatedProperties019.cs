@@ -308,6 +308,31 @@ public readonly struct TestSchema : Menes.IJsonObject, System.IEquatable<TestSch
         TestSchema.TestSchemaValue testSchemaValueAllOfValue0 = thisAsAny.As<TestSchema.TestSchemaValue>();
         allOfValidationContext1 = testSchemaValueAllOfValue0.Validate(allOfValidationContext1);
         context = Menes.Validation.ValidateAllOf(context, allOfValidationContext1);
+        if (this.HasJsonElement)
+        {
+            var unevaluatedPropertyEnumerator = this.JsonElement.EnumerateObject();
+            while (unevaluatedPropertyEnumerator.MoveNext())
+            {
+                string unevaluatedPropertyName = unevaluatedPropertyEnumerator.Current.Name;
+                bool isKnown = false;
+                for (int i = 0; i < KnownProperties.Length; ++i)
+                {
+                    if (unevaluatedPropertyEnumerator.Current.NameEquals(KnownProperties[i].Span))
+                    {
+                        isKnown = true;
+                        break;
+                    }
+                }
+                if (isKnown)
+                {
+                    continue;
+                }
+                if (!Menes.JsonNotAny.FromJsonElement(unevaluatedPropertyEnumerator.Current.Value).Validate(Menes.ValidationContext.Root).IsValid)
+                {
+                    context = context.WithPath($".{unevaluatedPropertyName}").WithError("core 9.3.2.4.unevaluatedProperties: Property does not match unevaluated property validation");
+                }
+            }
+        }
         return context;
     }
     public bool TryGet(string propertyName, [System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out Menes.JsonAny value)

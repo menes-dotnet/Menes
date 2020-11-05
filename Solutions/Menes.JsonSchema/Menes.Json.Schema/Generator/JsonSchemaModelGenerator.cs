@@ -122,6 +122,7 @@ namespace Menes.Json.Schema.Generator
             schema.AddOptionalPropertyDeclaration("minContains", schemaNonNegativeInteger);
             schema.AddOptionalPropertyDeclaration("items", schemaItems);
             schema.AddOptionalPropertyDeclaration("additionalItems", schemaAdditionalItems);
+            schema.AddOptionalPropertyDeclaration("unevaluatedItems", schemaAdditionalProperties);
             schema.AddOptionalPropertyDeclaration("contains", schema);
 
             // Object
@@ -130,6 +131,7 @@ namespace Menes.Json.Schema.Generator
             schema.AddOptionalPropertyDeclaration("required", schemaUniqueStringArray);
             schema.AddOptionalPropertyDeclaration("properties", objectWithSchemaProperties);
             schema.AddOptionalPropertyDeclaration("additionalProperties", schemaAdditionalProperties);
+            schema.AddOptionalPropertyDeclaration("unevaluatedProperties", schemaAdditionalProperties);
             schema.AddOptionalPropertyDeclaration("patternProperties", objectWithSchemaProperties);
             schema.AddOptionalPropertyDeclaration("propertyNames", schema);
 
