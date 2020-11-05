@@ -508,7 +508,7 @@ public readonly struct TestSchema : Menes.IJsonObject, System.IEquatable<TestSch
         {
             Menes.JsonArray<Menes.JsonAny> array = this;
             Menes.ValidationContext context = validationContext;
-            if (this.HasJsonElement && IsConvertibleFrom(this.JsonElement))
+            if (!this.HasJsonElement || IsConvertibleFrom(this.JsonElement))
             {
                 context = array.ValidateMinItems(context, 2);
                 context = array.ValidateItems(context);

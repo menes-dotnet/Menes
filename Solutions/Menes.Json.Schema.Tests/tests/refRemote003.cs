@@ -92,7 +92,7 @@ public readonly struct HttpLocalhost1234 : Menes.IJsonValue, System.Collections.
     {
         Menes.JsonArray<BaseUriChange> array = this;
         Menes.ValidationContext context = validationContext;
-        if (this.HasJsonElement && IsConvertibleFrom(this.JsonElement))
+        if (!this.HasJsonElement || IsConvertibleFrom(this.JsonElement))
         {
             context = array.ValidateItems(context);
         }
@@ -479,7 +479,7 @@ public readonly struct BaseUriChange : Menes.IJsonValue, System.Collections.Gene
     {
         Menes.JsonArray<Menes.JsonInteger> array = this;
         Menes.ValidationContext context = validationContext;
-        if (this.HasJsonElement && IsConvertibleFrom(this.JsonElement))
+        if (!this.HasJsonElement || IsConvertibleFrom(this.JsonElement))
         {
             context = array.ValidateItems(context);
         }

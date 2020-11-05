@@ -242,7 +242,7 @@ namespace Menes.TypeGenerator
 
             if (!this.ValidateAsArray)
             {
-                builder.AppendLine("if (this.HasJsonElement && IsConvertibleFrom(this.JsonElement))");
+                builder.AppendLine("if (!this.HasJsonElement || IsConvertibleFrom(this.JsonElement))");
                 builder.AppendLine("{");
             }
 

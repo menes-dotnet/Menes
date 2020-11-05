@@ -4,21 +4,21 @@
 #pragma warning disable
 namespace Menes.Json.Schema.Tests.UniqueItems003
 {
-public readonly struct TestSchema : Menes.IJsonValue, System.IEquatable<TestSchema>
+public readonly struct TestSchema : Menes.IJsonValue, System.Collections.Generic.IEnumerable<Menes.JsonAny>, System.Collections.IEnumerable, System.IEquatable<TestSchema>, System.IEquatable<Menes.JsonArray<Menes.JsonAny>>
 {
     public static readonly System.Func<System.Text.Json.JsonElement, TestSchema> FromJsonElement = e => new TestSchema(e);
     public static readonly TestSchema Null = new TestSchema(default(System.Text.Json.JsonElement));
-    private readonly Menes.JsonAny? value;
-    public TestSchema(Menes.JsonAny value)
+    private readonly Menes.JsonArray<Menes.JsonAny>? value;
+    public TestSchema(Menes.JsonArray<Menes.JsonAny> jsonArray)
     {
-        if (value.HasJsonElement)
+        if (jsonArray.HasJsonElement)
         {
-            this.JsonElement = value.JsonElement;
+            this.JsonElement = jsonArray.JsonElement;
             this.value = null;
         }
         else
         {
-            this.value = value;
+            this.value = jsonArray;
             this.JsonElement = default;
         }
     }
@@ -27,25 +27,40 @@ public readonly struct TestSchema : Menes.IJsonValue, System.IEquatable<TestSche
         this.value = null;
         this.JsonElement = jsonElement;
     }
+    public int Length
+    {
+        get
+        {
+            if (this.HasJsonElement)
+            {
+                return this.JsonElement.GetArrayLength();
+            }
+            if (this.value is Menes.JsonArray<Menes.JsonAny> value)
+            {
+                return value.Length;
+            }
+            return 0;
+        }
+    }
     public bool IsNull => this.value == null && (this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Undefined || this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Null);
     public TestSchema? AsOptional => this.IsNull ? default(TestSchema?) : this;
     public bool HasJsonElement => this.JsonElement.ValueKind != System.Text.Json.JsonValueKind.Undefined;
     public System.Text.Json.JsonElement JsonElement { get; }
-    public static implicit operator TestSchema(Menes.JsonAny value)
+    public static implicit operator TestSchema(Menes.JsonArray<Menes.JsonAny> value)
     {
         return new TestSchema(value);
     }
-    public static implicit operator Menes.JsonAny(TestSchema value)
+    public static implicit operator Menes.JsonArray<Menes.JsonAny>(TestSchema value)
     {
-        if (value.value is Menes.JsonAny clrValue)
+        if (value.value is Menes.JsonArray<Menes.JsonAny> clrValue)
         {
             return clrValue;
         }
-        return new Menes.JsonAny(value.JsonElement);
+        return new Menes.JsonArray<Menes.JsonAny>(value.JsonElement);
     }
     public static bool IsConvertibleFrom(System.Text.Json.JsonElement jsonElement)
     {
-        return Menes.JsonAny.IsConvertibleFrom(jsonElement);
+        return Menes.JsonArray<Menes.JsonAny>.IsConvertibleFrom(jsonElement);
     }
     public static TestSchema FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<char> propertyName) =>
        parentDocument.ValueKind == System.Text.Json.JsonValueKind.Object ?
@@ -67,17 +82,20 @@ public readonly struct TestSchema : Menes.IJsonValue, System.IEquatable<TestSche
             : Null;
     public bool Equals(TestSchema other)
     {
-        return this.Equals((Menes.JsonAny)other);
+        return this.Equals((Menes.JsonArray<Menes.JsonAny>)other);
     }
-    public bool Equals(Menes.JsonAny other)
+    public bool Equals(Menes.JsonArray<Menes.JsonAny> other)
     {
-        return ((Menes.JsonAny)this).Equals(other);
+        return ((Menes.JsonArray<Menes.JsonAny>)this).Equals(other);
     }
     public Menes.ValidationContext Validate(in Menes.ValidationContext validationContext)
     {
-        Menes.JsonAny value = this;
+        Menes.JsonArray<Menes.JsonAny> array = this;
         Menes.ValidationContext context = validationContext;
-        context = value.Validate(context);
+        if (!this.HasJsonElement || IsConvertibleFrom(this.JsonElement))
+        {
+            context = array.ValidateItems(context);
+        }
         return context;
     }
     public void WriteTo(System.Text.Json.Utf8JsonWriter writer)
@@ -86,21 +104,291 @@ public readonly struct TestSchema : Menes.IJsonValue, System.IEquatable<TestSche
         {
             this.JsonElement.WriteTo(writer);
         }
-        else if (this.value is Menes.JsonAny clrValue)
+        if (this.value is Menes.JsonArray<Menes.JsonAny> clrValue)
         {
             clrValue.WriteTo(writer);
         }
     }
-    public override string ToString()
+    public Menes.JsonArray<Menes.JsonAny>.JsonArrayEnumerator GetEnumerator()
     {
-        if (this.value is Menes.JsonAny clrValue)
+        return ((Menes.JsonArray<Menes.JsonAny>)this).GetEnumerator();
+    }
+    System.Collections.Generic.IEnumerator<Menes.JsonAny> System.Collections.Generic.IEnumerable<Menes.JsonAny>.GetEnumerator()
+    {
+        return this.GetEnumerator();
+    }
+    System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+    {
+        return this.GetEnumerator();
+    }
+    public TestSchema Add(params Menes.JsonAny[] items)
+    {
+        System.Collections.Immutable.ImmutableArray<Menes.JsonAny>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonAny>();
+        foreach (Menes.JsonAny item in this)
         {
-            return clrValue.ToString();
+            arrayBuilder.Add(item);
         }
-        else
+        foreach (Menes.JsonAny item in items)
         {
-            return this.JsonElement.GetRawText();
+            arrayBuilder.Add(item);
         }
+        return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
+    }
+    public TestSchema Add(in Menes.JsonAny item1)
+    {
+        System.Collections.Immutable.ImmutableArray<Menes.JsonAny>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonAny>();
+        foreach (Menes.JsonAny item in this)
+        {
+            arrayBuilder.Add(item);
+        }
+        arrayBuilder.Add(item1);
+        return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
+    }
+    public TestSchema Add(in Menes.JsonAny item1, in Menes.JsonAny item2)
+    {
+        System.Collections.Immutable.ImmutableArray<Menes.JsonAny>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonAny>();
+        foreach (Menes.JsonAny item in this)
+        {
+            arrayBuilder.Add(item);
+        }
+        arrayBuilder.Add(item1);
+        arrayBuilder.Add(item2);
+        return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
+    }
+    public TestSchema Add(in Menes.JsonAny item1, in Menes.JsonAny item2, in Menes.JsonAny item3)
+    {
+        System.Collections.Immutable.ImmutableArray<Menes.JsonAny>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonAny>();
+        foreach (Menes.JsonAny item in this)
+        {
+            arrayBuilder.Add(item);
+        }
+        arrayBuilder.Add(item1);
+        arrayBuilder.Add(item2);
+        arrayBuilder.Add(item3);
+        return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
+    }
+    public TestSchema Add(in Menes.JsonAny item1, in Menes.JsonAny item2, in Menes.JsonAny item3, in Menes.JsonAny item4)
+    {
+        System.Collections.Immutable.ImmutableArray<Menes.JsonAny>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonAny>();
+        foreach (Menes.JsonAny item in this)
+        {
+            arrayBuilder.Add(item);
+        }
+        arrayBuilder.Add(item1);
+        arrayBuilder.Add(item2);
+        arrayBuilder.Add(item3);
+        arrayBuilder.Add(item4);
+        return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
+    }
+    public TestSchema Insert(int indexToInsert, params Menes.JsonAny[] items)
+    {
+        System.Collections.Immutable.ImmutableArray<Menes.JsonAny>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonAny>();
+        int index = 0;
+        foreach (Menes.JsonAny item in this)
+        {
+            if (index == indexToInsert)
+            {
+                foreach (Menes.JsonAny itemToInsert in items)
+                {
+                    arrayBuilder.Add(itemToInsert);
+                }
+            }
+            arrayBuilder.Add(item);
+            ++index;
+        }
+        return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
+    }
+    public TestSchema Insert(int indexToInsert, in Menes.JsonAny item1)
+    {
+        System.Collections.Immutable.ImmutableArray<Menes.JsonAny>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonAny>();
+        int index = 0;
+        foreach (Menes.JsonAny item in this)
+        {
+            if (index == indexToInsert)
+            {
+                arrayBuilder.Add(item1);
+            }
+            arrayBuilder.Add(item);
+            ++index;
+        }
+        return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
+    }
+    public TestSchema Insert(int indexToInsert, in Menes.JsonAny item1, in Menes.JsonAny item2)
+    {
+        System.Collections.Immutable.ImmutableArray<Menes.JsonAny>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonAny>();
+        int index = 0;
+        foreach (Menes.JsonAny item in this)
+        {
+            if (index == indexToInsert)
+            {
+                arrayBuilder.Add(item1);
+                arrayBuilder.Add(item2);
+            }
+            arrayBuilder.Add(item);
+            ++index;
+        }
+        return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
+    }
+    public TestSchema Insert(int indexToInsert, in Menes.JsonAny item1, in Menes.JsonAny item2, in Menes.JsonAny item3)
+    {
+        System.Collections.Immutable.ImmutableArray<Menes.JsonAny>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonAny>();
+        int index = 0;
+        foreach (Menes.JsonAny item in this)
+        {
+            if (index == indexToInsert)
+            {
+                arrayBuilder.Add(item1);
+                arrayBuilder.Add(item2);
+                arrayBuilder.Add(item3);
+            }
+            arrayBuilder.Add(item);
+            ++index;
+        }
+        return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
+    }
+    public TestSchema Insert(int indexToInsert, in Menes.JsonAny item1, in Menes.JsonAny item2, in Menes.JsonAny item3, in Menes.JsonAny item4)
+    {
+        System.Collections.Immutable.ImmutableArray<Menes.JsonAny>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonAny>();
+        int index = 0;
+        foreach (Menes.JsonAny item in this)
+        {
+            if (index == indexToInsert)
+            {
+                arrayBuilder.Add(item1);
+                arrayBuilder.Add(item2);
+                arrayBuilder.Add(item3);
+                arrayBuilder.Add(item4);
+            }
+            arrayBuilder.Add(item);
+            ++index;
+        }
+        return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
+    }
+    public TestSchema Remove(params Menes.JsonAny[] items)
+    {
+        System.Collections.Immutable.ImmutableArray<Menes.JsonAny>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonAny>();
+        foreach (Menes.JsonAny item in this)
+        {
+            bool found = false;
+            foreach (Menes.JsonAny itemToRemove in items)
+            {
+                if (itemToRemove.Equals(item))
+                {
+                    found = true;
+                    break;
+                }
+            }
+            if (!found)
+            {
+                arrayBuilder.Add(item);
+            }
+        }
+        return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
+    }
+    public TestSchema Remove(Menes.JsonAny item1)
+    {
+        System.Collections.Immutable.ImmutableArray<Menes.JsonAny>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonAny>();
+        foreach (Menes.JsonAny item in this)
+        {
+            if (item1.Equals(item))
+            {
+                break;
+            }
+            arrayBuilder.Add(item);
+        }
+        return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
+    }
+    public TestSchema Remove(Menes.JsonAny item1, Menes.JsonAny item2)
+    {
+        System.Collections.Immutable.ImmutableArray<Menes.JsonAny>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonAny>();
+        foreach (Menes.JsonAny item in this)
+        {
+            if (item1.Equals(item) || item2.Equals(item))
+            {
+                break;
+            }
+            arrayBuilder.Add(item);
+        }
+        return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
+    }
+    public TestSchema Remove(Menes.JsonAny item1, Menes.JsonAny item2, Menes.JsonAny item3)
+    {
+        System.Collections.Immutable.ImmutableArray<Menes.JsonAny>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonAny>();
+        foreach (Menes.JsonAny item in this)
+        {
+            if (item1.Equals(item) || item2.Equals(item) || item3.Equals(item))
+            {
+                break;
+            }
+            arrayBuilder.Add(item);
+        }
+        return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
+    }
+    public TestSchema Remove(Menes.JsonAny item1, Menes.JsonAny item2, Menes.JsonAny item3, Menes.JsonAny item4)
+    {
+        System.Collections.Immutable.ImmutableArray<Menes.JsonAny>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonAny>();
+        foreach (Menes.JsonAny item in this)
+        {
+            if (item1.Equals(item) || item2.Equals(item) || item3.Equals(item) || item4.Equals(item))
+            {
+                break;
+            }
+            arrayBuilder.Add(item);
+        }
+        return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
+    }
+    public TestSchema RemoveAt(int indexToRemove)
+    {
+        System.Collections.Immutable.ImmutableArray<Menes.JsonAny>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonAny>();
+        int index = 0;
+        foreach (Menes.JsonAny item in this)
+        {
+            if (index == indexToRemove)
+            {
+                index++;
+                continue;
+            }
+            arrayBuilder.Add(item);
+            index++;
+        }
+        return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
+    }
+    public TestSchema RemoveRange(int startIndex, int length)
+    {
+        if (startIndex < 0 || startIndex > this.Length - 1)
+        {
+            throw new System.ArgumentOutOfRangeException(nameof(startIndex));
+        }
+        if (length < 1 || startIndex + length > this.Length - 1)
+        {
+            throw new System.ArgumentOutOfRangeException(nameof(length));
+        }
+        System.Collections.Immutable.ImmutableArray<Menes.JsonAny>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonAny>();
+        int index = 0;
+        foreach (Menes.JsonAny item in this)
+        {
+            if (index >= startIndex && index < startIndex + length)
+            {
+                index++;
+                continue;
+            }
+            arrayBuilder.Add(item);
+            index++;
+        }
+        return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
+    }
+    public TestSchema Remove(System.Predicate<Menes.JsonAny> removeIfTrue)
+    {
+        System.Collections.Immutable.ImmutableArray<Menes.JsonAny>.Builder arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonAny>();
+        foreach (Menes.JsonAny item in this)
+        {
+            if (removeIfTrue(item))
+            {
+                continue;
+            }
+            arrayBuilder.Add(item);
+        }
+        return Menes.JsonArray.Create(arrayBuilder.ToImmutable());
     }
 }
 ///  <summary>

@@ -268,9 +268,19 @@ namespace Menes
             int index = 0;
             ImmutableArray<TItem>.Builder items = ImmutableArray.CreateBuilder<TItem>();
             JsonArray<TItem>.JsonArrayEnumerator enumerator = this.GetEnumerator();
+            EqualityComparer<TItem> comparer = EqualityComparer<TItem>.Default;
             while (enumerator.MoveNext())
             {
-                if (!items.Any(i => i.Equals(enumerator.Current)))
+                bool found = false;
+                for (int j = 0; j < items.Count; ++j)
+                {
+                    if (comparer.Equals(items[j], enumerator.Current))
+                    {
+                        found = true;
+                    }
+                }
+
+                if (!found)
                 {
                     items.Add(enumerator.Current);
                 }
@@ -329,6 +339,7 @@ namespace Menes
         {
             ValidationContext result = validationContext;
             ImmutableArray<TItem>.Builder items = ImmutableArray.CreateBuilder<TItem>();
+            EqualityComparer<TItem> comparer = EqualityComparer<TItem>.Default;
 
             int count = 0;
             int index = 0;
@@ -346,7 +357,16 @@ namespace Menes
 
                 if (requireUnique)
                 {
-                    if (!items.Any(i => i.Equals(enumerator.Current)))
+                    bool found = false;
+                    for (int j = 0; j < items.Count; ++j)
+                    {
+                        if (comparer.Equals(items[j], enumerator.Current))
+                        {
+                            found = true;
+                        }
+                    }
+
+                    if (!found)
                     {
                         items.Add(enumerator.Current);
                     }

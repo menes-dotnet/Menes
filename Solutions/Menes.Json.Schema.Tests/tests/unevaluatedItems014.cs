@@ -92,7 +92,7 @@ public readonly struct Entity : Menes.IJsonValue, System.Collections.Generic.IEn
     {
         Menes.JsonArray<Menes.JsonAny> array = this;
         Menes.ValidationContext context = validationContext;
-        if (this.HasJsonElement && IsConvertibleFrom(this.JsonElement))
+        if (!this.HasJsonElement || IsConvertibleFrom(this.JsonElement))
         {
             var itemsValidationEnumerator = array.GetEnumerator();
             if (itemsValidationEnumerator.MoveNext())

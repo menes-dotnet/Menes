@@ -114,7 +114,7 @@ public readonly struct TestSchema : Menes.IJsonValue, System.Collections.Generic
     {
         Menes.JsonArray<TestSchema.TestSchemaValue> array = this;
         Menes.ValidationContext context = validationContext;
-        if (this.HasJsonElement && IsConvertibleFrom(this.JsonElement))
+        if (!this.HasJsonElement || IsConvertibleFrom(this.JsonElement))
         {
             context = array.ValidateRangeContains<TestSchema.ContainsValidationValue>(context, 1, 2147483647, false, true);
         }
