@@ -299,6 +299,7 @@ public readonly struct TestSchema : Menes.IJsonObject, System.IEquatable<TestSch
             foreach (Menes.JsonPropertyReference<Menes.JsonAny> property in this.JsonAdditionalProperties)
             {
                 string propertyName = property.Name;
+                context = ((Menes.JsonAny)propertyName).As<Menes.JsonNotAny>().Validate(context);
                 context = Menes.Validation.ValidateProperty(context, property.AsValue(), "." + property.Name);
             }
         }

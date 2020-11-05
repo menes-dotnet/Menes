@@ -299,6 +299,7 @@ public readonly struct TestSchema : Menes.IJsonObject, System.IEquatable<TestSch
             foreach (Menes.JsonPropertyReference<Menes.JsonAny> property in this.JsonAdditionalProperties)
             {
                 string propertyName = property.Name;
+                context = ((Menes.JsonAny)propertyName).As<TestSchema.PropertyNamesValue>().Validate(context);
                 context = Menes.Validation.ValidateProperty(context, property.AsValue(), "." + property.Name);
             }
         }
@@ -338,6 +339,109 @@ public readonly struct TestSchema : Menes.IJsonObject, System.IEquatable<TestSch
             return props;
         }
         return new Menes.JsonProperties<Menes.JsonAny>(System.Collections.Immutable.ImmutableArray.ToImmutableArray(this.JsonAdditionalProperties));
+    }
+    public readonly struct PropertyNamesValue : Menes.IJsonValue, System.IEquatable<PropertyNamesValue>
+    {
+        public static readonly System.Func<System.Text.Json.JsonElement, PropertyNamesValue> FromJsonElement = e => new PropertyNamesValue(e);
+        public static readonly PropertyNamesValue Null = new PropertyNamesValue(default(System.Text.Json.JsonElement));
+        private static readonly int? MaxLength = 3;
+        private static readonly int? MinLength = null;
+        private static readonly System.Text.RegularExpressions.Regex? Pattern = null;
+        private readonly Menes.JsonAny? value;
+        public PropertyNamesValue(Menes.JsonAny value)
+        {
+            if (value.HasJsonElement)
+            {
+                this.JsonElement = value.JsonElement;
+                this.value = null;
+            }
+            else
+            {
+                this.value = value;
+                this.JsonElement = default;
+            }
+        }
+        public PropertyNamesValue(System.Text.Json.JsonElement jsonElement)
+        {
+            this.value = null;
+            this.JsonElement = jsonElement;
+        }
+        public bool IsNull => this.value == null && (this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Undefined || this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Null);
+        public PropertyNamesValue? AsOptional => this.IsNull ? default(PropertyNamesValue?) : this;
+        public bool HasJsonElement => this.JsonElement.ValueKind != System.Text.Json.JsonValueKind.Undefined;
+        public System.Text.Json.JsonElement JsonElement { get; }
+        public static implicit operator PropertyNamesValue(Menes.JsonAny value)
+        {
+            return new PropertyNamesValue(value);
+        }
+        public static implicit operator Menes.JsonAny(PropertyNamesValue value)
+        {
+            if (value.value is Menes.JsonAny clrValue)
+            {
+                return clrValue;
+            }
+            return new Menes.JsonAny(value.JsonElement);
+        }
+        public static bool IsConvertibleFrom(System.Text.Json.JsonElement jsonElement)
+        {
+            return Menes.JsonAny.IsConvertibleFrom(jsonElement);
+        }
+        public static PropertyNamesValue FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<char> propertyName) =>
+           parentDocument.ValueKind == System.Text.Json.JsonValueKind.Object ?
+                (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
+                    ? new PropertyNamesValue(property)
+                    : Null)
+                : Null;
+        public static PropertyNamesValue FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, string propertyName) =>
+           parentDocument.ValueKind == System.Text.Json.JsonValueKind.Object ?
+                (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
+                    ? new PropertyNamesValue(property)
+                    : Null)
+                : Null;
+        public static PropertyNamesValue FromOptionalProperty(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<byte> utf8PropertyName) =>
+           parentDocument.ValueKind == System.Text.Json.JsonValueKind.Object ?
+                (parentDocument.TryGetProperty(utf8PropertyName, out System.Text.Json.JsonElement property)
+                    ? new PropertyNamesValue(property)
+                    : Null)
+                : Null;
+        public bool Equals(PropertyNamesValue other)
+        {
+            return this.Equals((Menes.JsonAny)other);
+        }
+        public bool Equals(Menes.JsonAny other)
+        {
+            return ((Menes.JsonAny)this).Equals(other);
+        }
+        public Menes.ValidationContext Validate(in Menes.ValidationContext validationContext)
+        {
+            Menes.JsonAny value = this;
+            Menes.ValidationContext context = validationContext;
+            context = value.Validate(context);
+            context = value.As<Menes.JsonString>().ValidateAsString(context, MaxLength, MinLength, Pattern, null, null);
+            return context;
+        }
+        public void WriteTo(System.Text.Json.Utf8JsonWriter writer)
+        {
+            if (this.HasJsonElement)
+            {
+                this.JsonElement.WriteTo(writer);
+            }
+            else if (this.value is Menes.JsonAny clrValue)
+            {
+                clrValue.WriteTo(writer);
+            }
+        }
+        public override string ToString()
+        {
+            if (this.value is Menes.JsonAny clrValue)
+            {
+                return clrValue.ToString();
+            }
+            else
+            {
+                return this.JsonElement.GetRawText();
+            }
+        }
     }
 }///  <summary>
 /// propertyNames validation

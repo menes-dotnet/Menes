@@ -137,12 +137,14 @@ public readonly struct TestSchema : Menes.IJsonObject, System.IEquatable<TestSch
                         matchedProperties.Add(propertyName);
                         continue;
                     }
+                    bool wasKnown = false;
                     int increment = 1;
                     for (int i = 0; i < KnownProperties.Length; ++i)
                     {
                         if (additionalPropertyEnumerator.Current.NameEquals(KnownProperties[i].Span))
                         {
                             increment = 0;
+                            wasKnown = true;
                             break;
                         }
                     }

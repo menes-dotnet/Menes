@@ -235,6 +235,32 @@ namespace Menes.Json.Schema.TypeGenerator
             return additionalPropertiesType;
         }
 
+        private async Task<ITypeDeclaration?> GetPropertyNamesType(JsonSchema schema, JsonDocument rootDocument, string baseUri)
+        {
+            ITypeDeclaration? propertyNamesType = null;
+
+            if (schema.PropertyNames is JsonSchema.SchemaOrBoolean propertyNames)
+            {
+                if (propertyNames.IsJsonBoolean)
+                {
+                    if (!propertyNames.AsJsonBoolean())
+                    {
+                        propertyNamesType = JsonValueTypeDeclaration.NotAny;
+                    }
+                }
+                else
+                {
+                    this.propertyNameStack.Push("PropertyNames");
+
+                    propertyNamesType = await this.GetTypeDeclarationFor(propertyNames.AsJsonSchema(), rootDocument, baseUri).ConfigureAwait(false);
+
+                    this.propertyNameStack.Pop();
+                }
+            }
+
+            return propertyNamesType;
+        }
+
         private async Task<(string, JsonDocument, JsonSchema)> ResolveSchemaReference(JsonSchema schemaOrReference, JsonDocument rootDocument, string baseUri)
         {
             if (schemaOrReference.IsSchemaReference())
@@ -439,6 +465,8 @@ namespace Menes.Json.Schema.TypeGenerator
                     this.propertyNameStack.Pop();
                 }
             }
+
+            typeDeclaration.PropertyNamesValidation = await this.GetPropertyNamesType(schema, rootDocument, baseUri).ConfigureAwait(false);
 
             if (requiredProperties.Count > 0)
             {

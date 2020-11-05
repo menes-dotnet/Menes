@@ -7,6 +7,7 @@ namespace Menes.TypeGenerator
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Security.Cryptography.X509Certificates;
     using System.Text;
     using System.Text.Json;
     using Microsoft.CodeAnalysis.CSharp;
@@ -342,6 +343,7 @@ namespace Menes.TypeGenerator
         {
             bool hasPatternProperties = this.PatternPropertiesValidation is List<(string pattern, ITypeDeclaration declaration)>;
             bool hasUnevaluatedProperties = !(this.UnevaluatedPropertiesType is null);
+            bool hasPropertyNames = !(this.PropertyNamesValidation is null);
 
             var builder = new StringBuilder();
             builder.AppendLine("public Menes.ValidationContext Validate(in Menes.ValidationContext validationContext)");
@@ -373,6 +375,8 @@ namespace Menes.TypeGenerator
                 builder.AppendLine($"    System.Collections.Generic.HashSet<string> matchedProperties = new System.Collections.Generic.HashSet<string>(this.PropertiesCount);");
             }
 
+            string? propertyNameTypeName =  this.PropertyNamesValidation?.GetFullyQualifiedName();
+
             foreach (NamedPropertyDeclaration property in properties)
             {
                 if (hasPatternProperties || hasUnevaluatedProperties)
@@ -393,6 +397,11 @@ namespace Menes.TypeGenerator
                         builder.AppendLine($"       context = this.ValidatePatternProperty(context, {StringFormatter.EscapeForCSharpString(property.JsonPropertyName, true)}, {property.FieldName}, {property.PathPropertyName}).Item2;");
                     }
 
+                    if (hasPropertyNames)
+                    {
+                        builder.AppendLine($"       context = ((Menes.JsonAny){StringFormatter.EscapeForCSharpString(property.FieldName, true)}).As<{propertyNameTypeName}>().Validate(context);");
+                    }
+
                     builder.AppendLine("    }");
                 }
                 else
@@ -402,6 +411,11 @@ namespace Menes.TypeGenerator
                     {
                         builder.AppendLine($"       context = this.ValidatePatternProperty(context, {StringFormatter.EscapeForCSharpString(property.JsonPropertyName, true)}, this.{property.PropertyName}, {property.PathPropertyName}).Item2;");
                     }
+
+                    if (hasPropertyNames)
+                    {
+                        builder.AppendLine($"       context = ((Menes.JsonAny){StringFormatter.EscapeForCSharpString(property.PropertyName, true)}).As<{propertyNameTypeName}>().Validate(context);");
+                    }
                 }
             }
 
@@ -410,6 +424,11 @@ namespace Menes.TypeGenerator
                 builder.AppendLine($"foreach (Menes.JsonPropertyReference<{additionalProperties.GetFullyQualifiedName()}> property in this.JsonAdditionalProperties)");
                 builder.AppendLine("{");
                 builder.AppendLine("string propertyName = property.Name;");
+
+                if (hasPropertyNames)
+                {
+                    builder.AppendLine($"       context = ((Menes.JsonAny)propertyName).As<{propertyNameTypeName}>().Validate(context);");
+                }
 
                 if (hasPatternProperties)
                 {
@@ -449,15 +468,25 @@ namespace Menes.TypeGenerator
                     builder.AppendLine("        }");
                 }
 
+                builder.AppendLine("    bool wasKnown = false;");
                 builder.AppendLine("    int increment = 1;");
                 builder.AppendLine("    for (int i = 0; i < KnownProperties.Length; ++i)");
                 builder.AppendLine("    {");
                 builder.AppendLine("        if (additionalPropertyEnumerator.Current.NameEquals(KnownProperties[i].Span))");
                 builder.AppendLine("        {");
                 builder.AppendLine("            increment = 0;");
+                builder.AppendLine("            wasKnown = true;");
                 builder.AppendLine("            break;");
                 builder.AppendLine("        }");
                 builder.AppendLine("    }");
+
+                if (hasPropertyNames)
+                {
+                    builder.AppendLine("        if (!wasKnown)");
+                    builder.AppendLine("        {");
+                    builder.AppendLine($"           context = ((Menes.JsonAny)additionalPropertyEnumerator.Current.Name).As<{propertyNameTypeName}>().Validate(context);");
+                    builder.AppendLine("        }");
+                }
 
                 builder.AppendLine("    propCount += increment;");
                 builder.AppendLine("    if (propCount > 0)");
