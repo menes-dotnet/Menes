@@ -15,7 +15,7 @@ public static class Tests
     public static bool Test0()
     {
         using var doc = System.Text.Json.JsonDocument.Parse("5");
-        var schema = new Menes.JsonAny(doc.RootElement);
+        var schema = new Menes.JsonInteger(doc.RootElement);
         var context = schema.Validate(Menes.ValidationContext.Root);
         if (!context.IsValid)
         {
@@ -31,7 +31,7 @@ public static class Tests
     public static bool Test1()
     {
         using var doc = System.Text.Json.JsonDocument.Parse("\"a\"");
-        var schema = new Menes.JsonAny(doc.RootElement);
+        var schema = new Menes.JsonInteger(doc.RootElement);
         var context = schema.Validate(Menes.ValidationContext.Root);
         if (context.IsValid)
         {

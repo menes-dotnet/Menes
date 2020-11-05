@@ -6,6 +6,7 @@ namespace Menes.Json.Schema
 {
     using System;
     using System.Collections.Concurrent;
+    using System.Collections.Generic;
     using System.Text.Json;
     using System.Threading.Tasks;
 
@@ -20,6 +21,7 @@ namespace Menes.Json.Schema
         public static readonly ISchemaResolver Default = new SchemaResolver(Schema.DocumentResolver.Default);
         private readonly ConcurrentDictionary<string, JsonDocument> resolvedDocuments = new ConcurrentDictionary<string, JsonDocument>();
         private readonly ConcurrentDictionary<string, (string, JsonDocument, JsonSchema)> resolvedSchemas = new ConcurrentDictionary<string, (string, JsonDocument, JsonSchema)>();
+        private readonly Stack<string> referencesBeingResolved = new Stack<string>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SchemaResolver"/> class.
@@ -61,7 +63,7 @@ namespace Menes.Json.Schema
                 return result2;
             }
 
-            return await this.Resolve(jsonRef, rootDocument).ConfigureAwait(false);
+            return await this.Resolve(jsonRef, rootDocument, resolveReferences: false).ConfigureAwait(false);
         }
 
         /// <inheritdoc/>
@@ -97,10 +99,18 @@ namespace Menes.Json.Schema
 
             if (this.resolvedSchemas.TryGetValue(jsonRef, out (string, JsonDocument, JsonSchema) result))
             {
+                if (result.Item3.Ref is JsonString cachedChildRef && !this.referencesBeingResolved.Contains(cachedChildRef))
+                {
+                    result = await this.Resolve(result.Item1, result.Item2, result.Item3).ConfigureAwait(false);
+                }
+
                 return result;
             }
 
-            return await this.Resolve(reference, rootDocument).ConfigureAwait(false);
+            this.referencesBeingResolved.Push(reference.ToString());
+            result = await this.Resolve(reference, rootDocument).ConfigureAwait(false);
+            this.referencesBeingResolved.Pop();
+            return result;
         }
 
         /// <inheritdoc/>
@@ -125,10 +135,9 @@ namespace Menes.Json.Schema
             return combiningUri;
         }
 
-        private async Task<(string, JsonDocument, JsonSchema)> Resolve(JsonRef reference, JsonDocument rootDocument)
+        private async Task<(string, JsonDocument, JsonSchema)> Resolve(JsonRef reference, JsonDocument rootDocument, bool resolveReferences = true)
         {
             JsonDocument? document = rootDocument;
-
             if (reference.HasUri)
             {
                 document = await this.ResolveDocumentAndFindAnchors(reference).ConfigureAwait(false);
@@ -139,13 +148,26 @@ namespace Menes.Json.Schema
                 throw new JsonSchemaException($"Unable to resolve the document at URI {reference.Uri.ToString()}");
             }
 
-            if (this.resolvedSchemas.TryGetValue(reference.ToString(), out (string, JsonDocument, JsonSchema) cachedResult))
+            string referenceString = reference.ToString();
+
+            if (this.resolvedSchemas.TryGetValue(referenceString, out (string, JsonDocument, JsonSchema) cachedResult))
             {
+                if (resolveReferences && cachedResult.Item3.Ref is JsonString cachedChildRef && !this.referencesBeingResolved.Contains(cachedChildRef))
+                {
+                    cachedResult = await this.Resolve(cachedResult.Item1, cachedResult.Item2, cachedResult.Item3).ConfigureAwait(false);
+                }
+
                 return cachedResult;
             }
 
             (string, JsonDocument document, JsonSchema) result = (reference.Uri.ToString(), document, this.ResolveSchema(document, reference));
             this.resolvedSchemas.TryAdd(reference.ToString(), result);
+
+            if (resolveReferences && result.Item3.Ref is JsonString childRef && !this.referencesBeingResolved.Contains(childRef))
+            {
+                result = await this.Resolve(result.Item1, result.Item2, result.Item3).ConfigureAwait(false);
+            }
+
             return result;
         }
 
