@@ -108,7 +108,7 @@ public readonly struct TestSchema : Menes.IJsonObject, System.IEquatable<TestSch
             return validationContext.WithError($"6.1.1. type: the element with type {this.JsonElement.ValueKind} is not convertible to {System.Text.Json.JsonValueKind.Object}");
         }
         Menes.ValidationContext context = validationContext;
-        if (this.HasJsonElement && IsConvertibleFrom(this.JsonElement))
+        if (!this.HasJsonElement || IsConvertibleFrom(this.JsonElement))
         {
             System.Collections.Generic.HashSet<string> matchedProperties = new System.Collections.Generic.HashSet<string>(this.PropertiesCount);
             if (this.Foo is Menes.JsonAny foo)
@@ -122,7 +122,6 @@ public readonly struct TestSchema : Menes.IJsonObject, System.IEquatable<TestSch
             if (this.HasJsonElement && this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Object)
             {
                 int propCount = 0;
-                int targetPropCount = KnownProperties.Length;
                 var additionalPropertyEnumerator = this.JsonElement.EnumerateObject();
                 while (additionalPropertyEnumerator.MoveNext())
                 {
@@ -131,8 +130,17 @@ public readonly struct TestSchema : Menes.IJsonObject, System.IEquatable<TestSch
                     {
                         continue;
                     }
-                    propCount++;
-                    if (propCount > targetPropCount)
+                    int increment = 1;
+                    for (int i = 0; i < KnownProperties.Length; ++i)
+                    {
+                        if (additionalPropertyEnumerator.Current.NameEquals(KnownProperties[i].Span))
+                        {
+                            increment = 0;
+                            break;
+                        }
+                    }
+                    propCount += increment;
+                    if (propCount > 0)
                     {
                         context = context.WithError("core 9.3.2.3. No additional properties were expected.");
                         break;

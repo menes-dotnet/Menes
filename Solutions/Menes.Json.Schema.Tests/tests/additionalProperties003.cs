@@ -294,7 +294,7 @@ public readonly struct TestSchema : Menes.IJsonObject, System.IEquatable<TestSch
             return validationContext.WithError($"6.1.1. type: the element with type {this.JsonElement.ValueKind} is not convertible to {System.Text.Json.JsonValueKind.Object}");
         }
         Menes.ValidationContext context = validationContext;
-        if (this.HasJsonElement && IsConvertibleFrom(this.JsonElement))
+        if (!this.HasJsonElement || IsConvertibleFrom(this.JsonElement))
         {
             foreach (Menes.JsonPropertyReference<Menes.JsonBoolean> property in this.JsonAdditionalProperties)
             {

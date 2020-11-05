@@ -353,7 +353,7 @@ namespace Menes.TypeGenerator
 
             if (!this.ValidateAsObject)
             {
-                builder.AppendLine("if (this.HasJsonElement && IsConvertibleFrom(this.JsonElement))");
+                builder.AppendLine("if (!this.HasJsonElement || IsConvertibleFrom(this.JsonElement))");
                 builder.AppendLine("{");
             }
 
@@ -402,7 +402,6 @@ namespace Menes.TypeGenerator
                 builder.AppendLine("if (this.HasJsonElement && this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Object)");
                 builder.AppendLine("{");
                 builder.AppendLine("int propCount = 0;");
-                builder.AppendLine("int targetPropCount = KnownProperties.Length;");
 
                 builder.AppendLine("var additionalPropertyEnumerator = this.JsonElement.EnumerateObject();");
                 builder.AppendLine("while (additionalPropertyEnumerator.MoveNext())");
@@ -417,8 +416,18 @@ namespace Menes.TypeGenerator
                     builder.AppendLine("        }");
                 }
 
-                builder.AppendLine("    propCount++;");
-                builder.AppendLine("    if (propCount > targetPropCount)");
+                builder.AppendLine("    int increment = 1;");
+                builder.AppendLine("    for (int i = 0; i < KnownProperties.Length; ++i)");
+                builder.AppendLine("    {");
+                builder.AppendLine("        if (additionalPropertyEnumerator.Current.NameEquals(KnownProperties[i].Span))");
+                builder.AppendLine("        {");
+                builder.AppendLine("            increment = 0;");
+                builder.AppendLine("            break;");
+                builder.AppendLine("        }");
+                builder.AppendLine("    }");
+
+                builder.AppendLine("    propCount += increment;");
+                builder.AppendLine("    if (propCount > 0)");
                 builder.AppendLine("    {");
                 builder.AppendLine("        context = context.WithError(\"core 9.3.2.3. No additional properties were expected.\");");
                 builder.AppendLine("        break;");
@@ -434,7 +443,7 @@ namespace Menes.TypeGenerator
 
             if (this.RequiredPropertiesValidation is List<string> requiredPropertiesValidation)
             {
-                builder.AppendLine("if (this.HasJsonElement && IsConvertibleFrom(this.JsonElement))");
+                builder.AppendLine("if (!this.HasJsonElement || IsConvertibleFrom(this.JsonElement))");
                 builder.AppendLine("{");
 
                 foreach (string requiredProperty in requiredPropertiesValidation)

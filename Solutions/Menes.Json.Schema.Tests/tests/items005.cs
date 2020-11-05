@@ -1102,7 +1102,7 @@ public readonly struct TestSchema : Menes.IJsonValue, System.Collections.Generic
                     string propertyName = property.Name;
                     context = Menes.Validation.ValidateProperty(context, property.AsValue(), "." + property.Name);
                 }
-                if (this.HasJsonElement && IsConvertibleFrom(this.JsonElement))
+                if (!this.HasJsonElement || IsConvertibleFrom(this.JsonElement))
                 {
                     if (!this.TryGet("foo", out var _))
                     {
@@ -1447,7 +1447,7 @@ public readonly struct TestSchema : Menes.IJsonValue, System.Collections.Generic
                     string propertyName = property.Name;
                     context = Menes.Validation.ValidateProperty(context, property.AsValue(), "." + property.Name);
                 }
-                if (this.HasJsonElement && IsConvertibleFrom(this.JsonElement))
+                if (!this.HasJsonElement || IsConvertibleFrom(this.JsonElement))
                 {
                     if (!this.TryGet("foo", out var _))
                     {
@@ -2190,7 +2190,7 @@ public readonly struct TestSchema : Menes.IJsonValue, System.Collections.Generic
                     string propertyName = property.Name;
                     context = Menes.Validation.ValidateProperty(context, property.AsValue(), "." + property.Name);
                 }
-                if (this.HasJsonElement && IsConvertibleFrom(this.JsonElement))
+                if (!this.HasJsonElement || IsConvertibleFrom(this.JsonElement))
                 {
                     if (!this.TryGet("foo", out var _))
                     {
@@ -2535,7 +2535,7 @@ public readonly struct TestSchema : Menes.IJsonValue, System.Collections.Generic
                     string propertyName = property.Name;
                     context = Menes.Validation.ValidateProperty(context, property.AsValue(), "." + property.Name);
                 }
-                if (this.HasJsonElement && IsConvertibleFrom(this.JsonElement))
+                if (!this.HasJsonElement || IsConvertibleFrom(this.JsonElement))
                 {
                     if (!this.TryGet("foo", out var _))
                     {
@@ -3278,7 +3278,7 @@ public readonly struct TestSchema : Menes.IJsonValue, System.Collections.Generic
                     string propertyName = property.Name;
                     context = Menes.Validation.ValidateProperty(context, property.AsValue(), "." + property.Name);
                 }
-                if (this.HasJsonElement && IsConvertibleFrom(this.JsonElement))
+                if (!this.HasJsonElement || IsConvertibleFrom(this.JsonElement))
                 {
                     if (!this.TryGet("foo", out var _))
                     {
@@ -3623,7 +3623,7 @@ public readonly struct TestSchema : Menes.IJsonValue, System.Collections.Generic
                     string propertyName = property.Name;
                     context = Menes.Validation.ValidateProperty(context, property.AsValue(), "." + property.Name);
                 }
-                if (this.HasJsonElement && IsConvertibleFrom(this.JsonElement))
+                if (!this.HasJsonElement || IsConvertibleFrom(this.JsonElement))
                 {
                     if (!this.TryGet("foo", out var _))
                     {

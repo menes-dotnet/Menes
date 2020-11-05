@@ -327,7 +327,7 @@ public readonly struct Entity : Menes.IJsonObject, System.IEquatable<Entity>, Me
             return validationContext.WithError($"6.1.1. type: the element with type {this.JsonElement.ValueKind} is not convertible to {System.Text.Json.JsonValueKind.Object}");
         }
         Menes.ValidationContext context = validationContext;
-        if (this.HasJsonElement && IsConvertibleFrom(this.JsonElement))
+        if (!this.HasJsonElement || IsConvertibleFrom(this.JsonElement))
         {
             if (this.Bar is Menes.JsonString bar)
             {

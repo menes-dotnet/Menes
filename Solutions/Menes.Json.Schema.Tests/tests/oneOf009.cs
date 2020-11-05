@@ -463,7 +463,7 @@ public readonly struct TestSchema : Menes.IJsonValue, System.IEquatable<TestSche
                 return validationContext.WithError($"6.1.1. type: the element with type {this.JsonElement.ValueKind} is not convertible to {System.Text.Json.JsonValueKind.Object}");
             }
             Menes.ValidationContext context = validationContext;
-            if (this.HasJsonElement && IsConvertibleFrom(this.JsonElement))
+            if (!this.HasJsonElement || IsConvertibleFrom(this.JsonElement))
             {
                 context = Menes.Validation.ValidateRequiredProperty(context, this.Bar, BarPropertyNamePath);
                 if (this.Baz is Menes.JsonAny baz)
@@ -832,7 +832,7 @@ public readonly struct TestSchema : Menes.IJsonValue, System.IEquatable<TestSche
                 return validationContext.WithError($"6.1.1. type: the element with type {this.JsonElement.ValueKind} is not convertible to {System.Text.Json.JsonValueKind.Object}");
             }
             Menes.ValidationContext context = validationContext;
-            if (this.HasJsonElement && IsConvertibleFrom(this.JsonElement))
+            if (!this.HasJsonElement || IsConvertibleFrom(this.JsonElement))
             {
                 context = Menes.Validation.ValidateRequiredProperty(context, this.Foo, FooPropertyNamePath);
                 foreach (Menes.JsonPropertyReference<Menes.JsonAny> property in this.JsonAdditionalProperties)

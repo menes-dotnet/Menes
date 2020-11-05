@@ -435,14 +435,14 @@ public readonly struct TestSchema : Menes.IJsonValue
                 return validationContext.WithError($"6.1.1. type: the element with type {this.JsonElement.ValueKind} is not convertible to {System.Text.Json.JsonValueKind.Object}");
             }
             Menes.ValidationContext context = validationContext;
-            if (this.HasJsonElement && IsConvertibleFrom(this.JsonElement))
+            if (!this.HasJsonElement || IsConvertibleFrom(this.JsonElement))
             {
                 foreach (Menes.JsonPropertyReference<Menes.JsonAny> property in this.JsonAdditionalProperties)
                 {
                     string propertyName = property.Name;
                     context = Menes.Validation.ValidateProperty(context, property.AsValue(), "." + property.Name);
                 }
-                if (this.HasJsonElement && IsConvertibleFrom(this.JsonElement))
+                if (!this.HasJsonElement || IsConvertibleFrom(this.JsonElement))
                 {
                     if (!this.TryGet("foo", out var _))
                     {
@@ -783,14 +783,14 @@ public readonly struct TestSchema : Menes.IJsonValue
                 return validationContext.WithError($"6.1.1. type: the element with type {this.JsonElement.ValueKind} is not convertible to {System.Text.Json.JsonValueKind.Object}");
             }
             Menes.ValidationContext context = validationContext;
-            if (this.HasJsonElement && IsConvertibleFrom(this.JsonElement))
+            if (!this.HasJsonElement || IsConvertibleFrom(this.JsonElement))
             {
                 foreach (Menes.JsonPropertyReference<Menes.JsonAny> property in this.JsonAdditionalProperties)
                 {
                     string propertyName = property.Name;
                     context = Menes.Validation.ValidateProperty(context, property.AsValue(), "." + property.Name);
                 }
-                if (this.HasJsonElement && IsConvertibleFrom(this.JsonElement))
+                if (!this.HasJsonElement || IsConvertibleFrom(this.JsonElement))
                 {
                     if (!this.TryGet("foo", out var _))
                     {
