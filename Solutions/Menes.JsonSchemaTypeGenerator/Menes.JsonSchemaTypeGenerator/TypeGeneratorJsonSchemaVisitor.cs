@@ -377,6 +377,16 @@ namespace Menes.Json.Schema.TypeGenerator
                 requiredProperties.AddRange(required.Select(s => s.CreateOrGetClrString()));
             }
 
+            if (schema.MaxProperties is JsonSchema.NonNegativeInteger maxProperties)
+            {
+                typeDeclaration.MaxPropertiesValidation = maxProperties;
+            }
+
+            if (schema.MinProperties is JsonSchema.NonNegativeInteger minProperties)
+            {
+                typeDeclaration.MinPropertiesValidation = minProperties;
+            }
+
             if (schema.Properties is JsonSchema.SchemaProperties properties)
             {
                 foreach (JsonPropertyReference<JsonSchema> property in properties.JsonAdditionalProperties)

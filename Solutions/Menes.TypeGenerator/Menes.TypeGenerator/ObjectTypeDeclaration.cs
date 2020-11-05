@@ -438,7 +438,7 @@ namespace Menes.TypeGenerator
 
             if (this.MinPropertiesValidation is int || this.MaxPropertiesValidation is int)
             {
-                builder.AppendLine($"context = Menes.Validation.ValidateObject(context, this, {this.MinPropertiesValidation?.ToString() ?? "null"}, {this.MaxPropertiesValidation?.ToString() ?? "null"});");
+                builder.AppendLine($"context = Menes.Validation.ValidateObject(context, this, {this.MaxPropertiesValidation?.ToString() ?? "null"}, {this.MinPropertiesValidation?.ToString() ?? "null"});");
             }
 
             if (this.RequiredPropertiesValidation is List<string> requiredPropertiesValidation)

@@ -301,6 +301,7 @@ public readonly struct TestSchema : Menes.IJsonObject, System.IEquatable<TestSch
                 string propertyName = property.Name;
                 context = Menes.Validation.ValidateProperty(context, property.AsValue(), "." + property.Name);
             }
+            context = Menes.Validation.ValidateObject(context, this, null, 1);
         }
         return context;
     }
