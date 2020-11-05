@@ -235,26 +235,23 @@ namespace Menes.Json.Schema.Tests
             JsonSchema schema = JsonSchema.FromJsonElement(root.RootElement);
             if (!schema.IsBooleanSchema())
             {
-                if (schema.Ref is JsonString reference)
-                {
-                    var jsonRef = new JsonRef(reference);
-                    if (jsonRef.HasUri)
-                    {
-                       baseUri = jsonRef.Uri.ToString();
-                    }
-
-                    if (schema.Id is null)
-                    {
-                        schema = schema.WithId(baseUri + "#TestSchema");
-                    }
-                }
-                else if (schema.Id is JsonString id)
+                if (schema.Id is JsonString id)
                 {
                     var jsonRef = new JsonRef(id);
                     if (jsonRef.HasUri)
                     {
                         baseUri = jsonRef.Uri.ToString();
                     }
+                }
+                else if (schema.Ref is JsonString reference)
+                {
+                    var jsonRef = new JsonRef(reference);
+                    if (jsonRef.HasUri)
+                    {
+                        baseUri = jsonRef.Uri.ToString();
+                    }
+
+                    schema = schema.WithId(baseUri + "#TestSchema");
                 }
                 else
                 {

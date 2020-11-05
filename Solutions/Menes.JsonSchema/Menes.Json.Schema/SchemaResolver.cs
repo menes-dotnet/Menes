@@ -187,6 +187,7 @@ namespace Menes.Json.Schema
                         {
                             baseUri = CombineUris(baseUri, combiningUri);
                             this.DocumentResolver.AddDocument(baseUri, root);
+                            this.resolvedSchemas.TryAdd(new JsonRef(baseUri, jsonRef.Pointer).ToString(), (baseUri, root, new JsonSchema(element)));
                             this.resolvedDocuments.TryAdd(baseUri, root);
                         }
                     }

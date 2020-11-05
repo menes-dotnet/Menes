@@ -785,7 +785,19 @@ namespace Menes.Json.Schema.TypeGenerator
                         return this.declarationStack.Peek().Name;
                     }
 
-                    idMatch = reference;
+                    var jsonRef = new JsonRef(reference);
+                    if (jsonRef.HasPointer)
+                    {
+                        idMatch = jsonRef.Pointer.ToString();
+                    }
+                    else if (new Uri(jsonRef.Uri.ToString(), UriKind.RelativeOrAbsolute).IsAbsoluteUri)
+                    {
+                        idMatch = jsonRef.Uri.ToString();
+                    }
+                    else
+                    {
+                        idMatch = null;
+                    }
                 }
             }
 
@@ -814,7 +826,7 @@ namespace Menes.Json.Schema.TypeGenerator
 
             if (this.propertyNameStack.Count == 0)
             {
-                return "Schema";
+                return "Entity";
             }
 
             if (schema.IsValueType())
