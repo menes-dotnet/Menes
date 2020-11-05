@@ -187,7 +187,7 @@ namespace Menes.Json.Schema.TypeGenerator
         {
             ITypeDeclaration? unevaluatedPropertiesType = null;
 
-            if (schema.UnevaluatedProperties is JsonSchema.SchemaAdditionalProperties unevaluatedProperties)
+            if (schema.UnevaluatedProperties is JsonSchema.SchemaOrBoolean unevaluatedProperties)
             {
                 if (unevaluatedProperties.IsJsonBoolean)
                 {
@@ -213,7 +213,7 @@ namespace Menes.Json.Schema.TypeGenerator
         {
             ITypeDeclaration? additionalPropertiesType = AnyTypeDeclaration.Instance;
 
-            if (schema.AdditionalProperties is JsonSchema.SchemaAdditionalProperties additionalProperties)
+            if (schema.AdditionalProperties is JsonSchema.SchemaOrBoolean additionalProperties)
             {
                 if (additionalProperties.IsJsonBoolean)
                 {
@@ -645,9 +645,9 @@ namespace Menes.Json.Schema.TypeGenerator
             this.propertyNameStack.Pop();
         }
 
-        private async Task<ITypeDeclaration?> GetTypeDeclarationFor(JsonSchema.SchemaAdditionalItems? additionalItems, JsonDocument rootDocument, string baseUri)
+        private async Task<ITypeDeclaration?> GetTypeDeclarationFor(JsonSchema.SchemaOrBoolean? additionalItems, JsonDocument rootDocument, string baseUri)
         {
-            if (additionalItems is JsonSchema.SchemaAdditionalItems ai)
+            if (additionalItems is JsonSchema.SchemaOrBoolean ai)
             {
                 if (ai.IsJsonBoolean)
                 {

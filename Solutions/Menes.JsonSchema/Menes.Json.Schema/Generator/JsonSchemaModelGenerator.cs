@@ -68,13 +68,9 @@ namespace Menes.Json.Schema.Generator
             var objectWithSchemaProperties = new ObjectTypeDeclaration("SchemaProperties", schema);
             schema.AddTypeDeclaration(objectWithSchemaProperties);
 
-            var schemaAdditionalProperties = new UnionTypeDeclaration("SchemaAdditionalProperties", UnionTypeDeclaration.UnionKind.OneOf);
-            schemaAdditionalProperties.AddTypesToUnion(schema, JsonValueTypeDeclaration.Boolean);
-            schema.AddTypeDeclaration(schemaAdditionalProperties);
-
-            var schemaAdditionalItems = new UnionTypeDeclaration("SchemaAdditionalItems", UnionTypeDeclaration.UnionKind.OneOf);
-            schemaAdditionalItems.AddTypesToUnion(schema, JsonValueTypeDeclaration.Boolean);
-            schema.AddTypeDeclaration(schemaAdditionalItems);
+            var schemaOrBoolean = new UnionTypeDeclaration("SchemaOrBoolean", UnionTypeDeclaration.UnionKind.OneOf);
+            schemaOrBoolean.AddTypesToUnion(schema, JsonValueTypeDeclaration.Boolean);
+            schema.AddTypeDeclaration(schemaOrBoolean);
 
             var schemaItems = new UnionTypeDeclaration("SchemaItems", UnionTypeDeclaration.UnionKind.OneOf);
             schemaItems.AddTypesToUnion(schema, nonEmptySubschemaArray, nonEmptyBooleanArray);
@@ -121,8 +117,8 @@ namespace Menes.Json.Schema.Generator
             schema.AddOptionalPropertyDeclaration("maxContains", schemaNonNegativeInteger);
             schema.AddOptionalPropertyDeclaration("minContains", schemaNonNegativeInteger);
             schema.AddOptionalPropertyDeclaration("items", schemaItems);
-            schema.AddOptionalPropertyDeclaration("additionalItems", schemaAdditionalItems);
-            schema.AddOptionalPropertyDeclaration("unevaluatedItems", schemaAdditionalProperties);
+            schema.AddOptionalPropertyDeclaration("additionalItems", schemaOrBoolean);
+            schema.AddOptionalPropertyDeclaration("unevaluatedItems", schemaOrBoolean);
             schema.AddOptionalPropertyDeclaration("contains", schema);
 
             // Object
@@ -130,10 +126,10 @@ namespace Menes.Json.Schema.Generator
             schema.AddOptionalPropertyDeclaration("minProperties", schemaNonNegativeInteger);
             schema.AddOptionalPropertyDeclaration("required", schemaUniqueStringArray);
             schema.AddOptionalPropertyDeclaration("properties", objectWithSchemaProperties);
-            schema.AddOptionalPropertyDeclaration("additionalProperties", schemaAdditionalProperties);
-            schema.AddOptionalPropertyDeclaration("unevaluatedProperties", schemaAdditionalProperties);
+            schema.AddOptionalPropertyDeclaration("additionalProperties", schemaOrBoolean);
+            schema.AddOptionalPropertyDeclaration("unevaluatedProperties", schemaOrBoolean);
             schema.AddOptionalPropertyDeclaration("patternProperties", objectWithSchemaProperties);
-            schema.AddOptionalPropertyDeclaration("propertyNames", schema);
+            schema.AddOptionalPropertyDeclaration("propertyNames", schemaOrBoolean);
 
             return schema.GenerateType();
         }

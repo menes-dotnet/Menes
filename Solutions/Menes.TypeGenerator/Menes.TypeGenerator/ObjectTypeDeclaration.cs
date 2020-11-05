@@ -41,6 +41,11 @@ namespace Menes.TypeGenerator
         public ITypeDeclaration? UnevaluatedPropertiesType { get; set; }
 
         /// <summary>
+        /// Gets or sets the type of any property names validation.
+        /// </summary>
+        public ITypeDeclaration? PropertyNamesValidation { get; set; }
+
+        /// <summary>
         /// Gets or sets the max properties validation.
         /// </summary>
         public int? MaxPropertiesValidation { get; set; }
