@@ -222,7 +222,7 @@ namespace Menes.Json
         /// <param name="other">The reference with which to combine.</param>
         /// <param name="strict">Whether to be 'strict' in the sense of rc3986.</param>
         /// <returns>The combined reference.</returns>
-        public JsonReference Combine(JsonReference other, bool strict = false)
+        public JsonReference Apply(JsonReference other, bool strict = true)
         {
             JsonReferenceBuilder baseReference = this.AsBuilder();
             JsonReferenceBuilder reference = other.AsBuilder();
@@ -409,7 +409,10 @@ namespace Menes.Json
                                             // Wind back to the previous segment
                                             do
                                             {
-                                                writeIndex--;
+                                                if (writeIndex > 0)
+                                                {
+                                                    writeIndex--;
+                                                }
                                             }
                                             while (writeIndex > 0 && mergedPath.Span[writeIndex] != '/');
 
@@ -426,31 +429,32 @@ namespace Menes.Json
                                             // (unlike the '/..' case, we can use our real trailing slash)
                                             hasLeadingSlash = false;
                                         }
+                                        else
+                                        {
+                                            WritePath(path, mergedPath, ref readIndex, ref writeIndex, ref hasLeadingSlash);
+                                        }
                                     }
                                     else
                                     {
                                         // Wind back to the previous segment
                                         do
                                         {
-                                            writeIndex--;
+                                            if (writeIndex > 0)
+                                            {
+                                                writeIndex--;
+                                            }
                                         }
                                         while (writeIndex > 0 && mergedPath.Span[writeIndex] != '/');
 
-                                        // Skip '/..' leaving us at the trailing '/' as required.
-                                        if (hasLeadingSlash)
-                                        {
-                                            readIndex += 3;
-                                        }
-                                        else
-                                        {
-                                            hasLeadingSlash = true;
-                                            readIndex += 2;
-                                        }
+                                        // Skip the '/..' and give us a virtual trailing slash, then write the path.
+                                        readIndex += 3;
+                                        hasLeadingSlash = true;
+                                        WritePath(path, mergedPath, ref readIndex, ref writeIndex, ref hasLeadingSlash);
                                     }
                                 }
                                 else
                                 {
-                                    // Skip the '/.' and give us a virutal trailing slash
+                                    // Skip the '/.' and give us a virtual trailing slash
                                     if (!hasLeadingSlash)
                                     {
                                         readIndex += 1;
@@ -461,12 +465,10 @@ namespace Menes.Json
                             }
                             else
                             {
-                                if (!hasLeadingSlash)
-                                {
-                                    readIndex += 1;
-                                }
-
+                                // Skip the '/.' and give us a virtual trailing slash, then write the path.
+                                readIndex += 2;
                                 hasLeadingSlash = true;
+                                WritePath(path, mergedPath, ref readIndex, ref writeIndex, ref hasLeadingSlash);
                             }
                         }
                         else
@@ -476,9 +478,7 @@ namespace Menes.Json
                     }
                     else
                     {
-                        // Skip to the end
-                        readIndex += 1;
-                        continue;
+                        WritePath(path, mergedPath, ref readIndex, ref writeIndex, ref hasLeadingSlash);
                     }
                 }
                 else

@@ -24,7 +24,7 @@ namespace Menes.JsonSchema.TypeBuilder
         {
             if (this.absoluteKeywordLocationStack.TryPeek(out JsonReference current))
             {
-                return current.Combine(reference);
+                return current.Apply(reference);
             }
 
             return reference;

@@ -92,7 +92,7 @@ namespace Menes.JsonSchema.TypeBuilder
 
             if (dollarid is JsonReference did)
             {
-                newLocation = currentLocation.Combine(did);
+                newLocation = currentLocation.Apply(did);
             }
 
             this.keywordLocationStack.Push("#");

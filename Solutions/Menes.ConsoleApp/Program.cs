@@ -19,27 +19,27 @@ namespace Menes.ConsoleApp
         {
             var baseRef = new JsonReference(string.Empty);
             var reference = new JsonReference("/a/b/c/./../../g");
-            JsonReference result = baseRef.Combine(reference);
+            JsonReference result = baseRef.Apply(reference);
             Console.WriteLine($"'{baseRef}' + '{reference}' => '{result}'");
 
             baseRef = new JsonReference("http://endjin.com/foo/bar");
             reference = new JsonReference("/a/b/c/./../../g");
-            result = baseRef.Combine(reference);
+            result = baseRef.Apply(reference);
             Console.WriteLine($"'{baseRef}' + '{reference}' => '{result}'");
 
             baseRef = new JsonReference("http://endjin.com/foo/bar#baz");
             reference = new JsonReference("/a/b/c/./../../g#wizzo");
-            result = baseRef.Combine(reference);
+            result = baseRef.Apply(reference);
             Console.WriteLine($"'{baseRef}' + '{reference}' => '{result}'");
 
             baseRef = new JsonReference("http://endjin.com/foo/bar#baz");
             reference = new JsonReference("#wizzo");
-            result = baseRef.Combine(reference);
+            result = baseRef.Apply(reference);
             Console.WriteLine($"'{baseRef}' + '{reference}' => '{result}'");
 
             baseRef = new JsonReference("http://endjin.com/foo/bar#baz");
             reference = new JsonReference("metabits/but");
-            result = baseRef.Combine(reference);
+            result = baseRef.Apply(reference);
             Console.WriteLine($"'{baseRef}' + '{reference}' => '{result}'");
         }
     }
