@@ -5,8 +5,10 @@
 namespace Steps
 {
     using System.Text.Json;
+    using System.Threading.Tasks;
     using Drivers;
     using Menes;
+    using NUnit.Framework;
     using TechTalk.SpecFlow;
 
     /// <summary>
@@ -50,11 +52,13 @@ namespace Steps
         /// Uses the reference fragment to provide the schema JsonElement as a scenario property called <see cref="Schema"/>.
         /// </summary>
         /// <param name="referenceFragment">The reference fragment pointing to the relevant schema element in the <see cref="InputJsonFileName"/>.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         [Given(@"the schema at ""(.*)""")]
-        public void GivenTheSchemaAt(string referenceFragment)
+        public async Task GivenTheSchemaAt(string referenceFragment)
         {
-            JsonElement element = this.driver.GetElement(this.scenarioContext.Get<string>(InputJsonFileName), referenceFragment);
-            this.scenarioContext.Set(element, Schema);
+            JsonElement? element = await this.driver.GetElement(this.scenarioContext.Get<string>(InputJsonFileName), referenceFragment).ConfigureAwait(false);
+            Assert.NotNull(element);
+            this.scenarioContext.Set(element.Value, Schema);
         }
 
         /// <summary>

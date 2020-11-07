@@ -74,7 +74,7 @@ namespace Menes.Json
         /// <summary>
         /// Gets a value indicating whether the ref has an absolute uri.
         /// </summary>
-        public bool HasAboluteUri => this.FindScheme().Length > 0;
+        public bool HasAbsoluteUri => this.FindScheme().Length > 0;
 
         /// <summary>
         /// Gets the URI without the fragment.
@@ -536,7 +536,12 @@ namespace Menes.Json
                 index++;
             }
 
-            return this.reference.Span.Slice(0, index - 1);
+            if (this.reference.Span[index] == '#')
+            {
+                index--;
+            }
+
+            return this.reference.Span.Slice(0, index + 1);
         }
 
         private ReadOnlySpan<char> FindFragment()
@@ -565,14 +570,7 @@ namespace Menes.Json
                 return ReadOnlySpan<char>.Empty;
             }
 
-            index++;
-
-            while (index < this.reference.Length)
-            {
-                ++index;
-            }
-
-            return this.reference.Span[start..index];
+            return this.reference.Span.Slice(index + 1);
         }
 
         private ReadOnlySpan<char> FindQuery(int start)
