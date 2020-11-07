@@ -63,6 +63,6 @@ Scenario Outline: Apply references to an absolute base (backwards compatibility)
 	Then the applied reference will be "<applied>"
 
 	Examples:
-		| base               | ref    | applied       | strict |
-		| http://a/b/c/d;p?q | http:g | http:g        | true   |
+		| base               | ref    | applied        | strict |
+		| http://a/b/c/d;p?q | http:g | http:g         | true   |
 		| http://a/b/c/d;p?q | http:g | http://a/b/c/g | false  |

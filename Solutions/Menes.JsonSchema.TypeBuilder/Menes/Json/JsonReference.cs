@@ -26,10 +26,10 @@ namespace Menes.Json
         /// <summary>
         /// Initializes a new instance of the <see cref="JsonReference"/> struct.
         /// </summary>
-        /// <param name="uri">The uri component of the reference.</param>
-        /// <param name="pointer">The pointer component of the reference.</param>
-        public JsonReference(string uri, string pointer)
-            : this(uri.AsMemory(), pointer.AsMemory())
+        /// <param name="uri">The uri component of the reference without a fragment.</param>
+        /// <param name="fragment">The fragment component of the reference.</param>
+        public JsonReference(string uri, string fragment)
+            : this(uri.AsMemory(), fragment.AsMemory())
         {
         }
 

@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
+    <PackageReference Include="SolidToken.SpecFlow.DependencyInjection" Version="0.4.1" />
     <PackageReference Include="SpecFlow.Plus.LivingDocPlugin" Version="3.4.211" />
 
     <PackageReference Include="Endjin.RecommendedPractices" Version="1.2.0">
@@ -35,11 +36,6 @@
 
     <PackageReference Include="FluentAssertions" Version="5.10.3" />
 
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Drivers\" />
-    <Folder Include="Hooks\" />
   </ItemGroup>
 
   <ItemGroup>
