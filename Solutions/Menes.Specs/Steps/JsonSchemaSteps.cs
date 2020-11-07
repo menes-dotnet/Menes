@@ -65,9 +65,13 @@ namespace Steps
         /// Uses the reference fragment to provide the data <see cref="JsonElement"/> as a scenario property called <see cref="InputData"/>.
         /// </summary>
         /// <param name="referenceFragment">The reference fragment pointing to the relevant data element in the <see cref="InputJsonFileName"/>.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         [Given(@"the input data at ""(.*)""")]
-        public void GivenTheInputDataAt(string referenceFragment)
+        public async Task GivenTheInputDataAt(string referenceFragment)
         {
+            JsonElement? element = await this.driver.GetElement(this.scenarioContext.Get<string>(InputJsonFileName), referenceFragment).ConfigureAwait(false);
+            Assert.NotNull(element);
+            this.scenarioContext.Set(element.Value, InputData);
         }
 
         /// <summary>

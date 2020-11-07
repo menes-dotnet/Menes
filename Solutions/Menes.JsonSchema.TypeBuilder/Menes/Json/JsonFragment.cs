@@ -90,14 +90,14 @@ namespace Menes.Json
                 if (index == 0 && fragment[index] == '#')
                 {
                     ++index;
-                    startRun = index;
                 }
 
                 if (fragment[index] == '/')
                 {
                     ++index;
-                    startRun = index;
                 }
+
+                startRun = index;
 
                 if (index >= fragment.Length)
                 {
@@ -119,7 +119,6 @@ namespace Menes.Json
                     if (current.TryGetProperty(component, out JsonElement next))
                     {
                         current = next;
-                        ++index;
                     }
                     else
                     {
