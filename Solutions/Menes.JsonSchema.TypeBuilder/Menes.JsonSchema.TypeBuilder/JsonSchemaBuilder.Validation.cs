@@ -55,47 +55,25 @@ namespace Menes.JsonSchema.TypeBuilder
             return memberBuilder.ToString();
         }
 
-        private Task BuildSchemaValidation(in LocatedElement namedElement, StringBuilder memberBuilder)
+        private string WriteKeywordLocation()
         {
-            bool pushedKeyword = false;
-
-            try
-            {
-                if (namedElement.JsonElement.TryGetProperty("$schema", out JsonElement dollarschema))
-                {
-                    ValidateDollarSchema(dollarschema);
-                }
-
-                if (namedElement.JsonElement.TryGetProperty("$id", out JsonElement dollarid))
-                {
-                    ValidateDollarId(dollarid);
-
-                    string dollaridValue = dollarid.GetString();
-                    this.absoluteKeywordLocationStack.Push(dollaridValue);
-                    pushedKeyword = true;
-                    this.ids.Add(dollaridValue, namedElement);
-                }
-            }
-            finally
-            {
-                if (pushedKeyword)
-                {
-                    this.absoluteKeywordLocationStack.Pop();
-                }
-            }
-
-            return Task.CompletedTask;
+            return Formatting.FormatLiteralOrNull(this.keywordLocationStack.Peek(), true);
         }
 
-        private void BuildFalseValidation(StringBuilder memberBuilder)
+        /// <summary>
+        /// Write an error message to the validation result.
+        /// </summary>
+        /// <param name="message">The message to write.</param>
+        /// <param name="memberBuilder">The string builder to which to write the error.</param>
+        private void WriteError(string message, StringBuilder memberBuilder)
         {
             memberBuilder.AppendLine("  if (Menes.ValidationContext.Level >= Menes.ValidationLevel.Detailed)");
             memberBuilder.AppendLine("  {");
-            memberBuilder.AppendLine($"      result = result.AddError(valid: false, keywordLocation: {this.WriteKeywordLocation()}, instanceLocation: this.instanceLocation, Error: \"core 4.3.2.Boolean JSON Schemas - false\");");
+            memberBuilder.AppendLine($"      result = result.AddError(valid: false, keywordLocation: {this.WriteKeywordLocation()}, instanceLocation: this.instanceLocation, Error: \"{message}\");");
             memberBuilder.AppendLine("  }");
             memberBuilder.AppendLine("  else if (Menes.ValidationContext.Level == Menes.ValidationLevel.Basic)");
             memberBuilder.AppendLine("  {");
-            memberBuilder.AppendLine($"      result.AddError(valid: false, keywordLocation: {this.WriteKeywordLocation()}, instanceLocation: this.instanceLocation, Error: \"core 4.3.2.Boolean JSON Schemas - false\");");
+            memberBuilder.AppendLine($"      result.AddError(valid: false, keywordLocation: {this.WriteKeywordLocation()}, instanceLocation: this.instanceLocation, Error: \"{message}\");");
             memberBuilder.AppendLine("  }");
             memberBuilder.AppendLine("  else");
             memberBuilder.AppendLine("  {");
@@ -103,17 +81,17 @@ namespace Menes.JsonSchema.TypeBuilder
             memberBuilder.AppendLine("  }");
         }
 
-        private void BuildTrueValidation(StringBuilder memberBuilder)
+        /// <summary>
+        /// Write a success message to the validation result.
+        /// </summary>
+        /// <param name="message">The message to write.</param>
+        /// <param name="memberBuilder">The string builder to which to write the success.</param>
+        private void WriteSuccess(string message, StringBuilder memberBuilder)
         {
             memberBuilder.AppendLine("  if (Menes.ValidationContext.Level == Menes.ValidationLevel.Verbose)");
             memberBuilder.AppendLine("  {");
-            memberBuilder.AppendLine($"      result = result.AddError(valid: true, keywordLocation: {this.WriteKeywordLocation()}, instanceLocation: this.instanceLocation, Error: \"core 4.3.2.Boolean JSON Schemas - true\");");
+            memberBuilder.AppendLine($"      result = result.AddError(valid: true, keywordLocation: {this.WriteKeywordLocation()}, instanceLocation: this.instanceLocation, Error: \"{message}\");");
             memberBuilder.AppendLine("  }");
-        }
-
-        private string WriteKeywordLocation()
-        {
-            return Formatting.FormatLiteralOrNull(this.keywordLocationStack.Peek(), true);
         }
     }
 }
