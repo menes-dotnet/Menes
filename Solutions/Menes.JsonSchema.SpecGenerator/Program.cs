@@ -5,7 +5,6 @@
 namespace Menes.JsonSchema.SpecGenerator
 {
     using System;
-    using System.IO;
 
     /// <summary>
     /// This program generates feature files for the Json Schema specs.

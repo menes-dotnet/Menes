@@ -5,7 +5,6 @@
 namespace Steps
 {
     using System.Text.Json;
-    using System.Threading.Tasks;
     using Drivers;
     using Menes;
     using TechTalk.SpecFlow;
@@ -44,18 +43,18 @@ namespace Steps
         [Given(@"the input JSON file ""(.*)""")]
         public void GivenTheInputJSONFile(string inputFileName)
         {
-            this.scenarioContext.Add(InputJsonFileName, inputFileName);
+            this.scenarioContext.Set(inputFileName, InputJsonFileName);
         }
 
         /// <summary>
         /// Uses the reference fragment to provide the schema JsonElement as a scenario property called <see cref="Schema"/>.
         /// </summary>
         /// <param name="referenceFragment">The reference fragment pointing to the relevant schema element in the <see cref="InputJsonFileName"/>.</param>
-        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         [Given(@"the schema at ""(.*)""")]
-        public Task GivenTheSchemaAt(string referenceFragment)
+        public void GivenTheSchemaAt(string referenceFragment)
         {
-            return Task.CompletedTask;
+            JsonElement element = this.driver.GetElement(this.scenarioContext.Get<string>(InputJsonFileName), referenceFragment);
+            this.scenarioContext.Set(element, Schema);
         }
 
         /// <summary>
@@ -98,7 +97,6 @@ namespace Steps
         [Then(@"the result will be (.*)")]
         public void ThenTheResultWillBe(bool expectedValidity)
         {
-            this.driver.Ping();
         }
     }
 }

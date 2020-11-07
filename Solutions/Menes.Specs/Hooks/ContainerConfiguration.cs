@@ -9,6 +9,7 @@ namespace Hooks
     using Menes.Json;
     using Menes.Json.Schema;
     using Menes.JsonSchema.TypeBuilder;
+    using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using SolidToken.SpecFlow.DependencyInjection;
 
@@ -30,6 +31,13 @@ namespace Hooks
             services.AddTransient<IDocumentResolver>(serviceProvider => new CompoundDocumentResolver(new FileSystemDocumentResolver(), new HttpClientDocumentResolver(new HttpClient())));
             services.AddTransient<JsonSchemaBuilder>();
             services.AddTransient<JsonSchemaBuilderDriver>();
+            services.AddTransient<IConfiguration>(sp =>
+            {
+                IConfigurationBuilder configurationBuilder = new ConfigurationBuilder();
+                configurationBuilder.AddJsonFile("appsettings.json", true);
+                configurationBuilder.AddJsonFile("appsettings.local.json", true);
+                return configurationBuilder.Build();
+            });
 
             return services;
         }

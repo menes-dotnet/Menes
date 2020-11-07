@@ -5,7 +5,6 @@
 namespace Menes.Json
 {
     using System;
-    using System.Diagnostics;
     using System.Diagnostics.CodeAnalysis;
     using System.Text.Json;
 
@@ -91,42 +90,73 @@ namespace Menes.Json
                 if (index == 0 && fragment[index] == '#')
                 {
                     ++index;
-                    continue;
+                    startRun = index;
                 }
 
-                if (index == '/')
+                if (fragment[index] == '/')
                 {
                     ++index;
-
                     startRun = index;
-                    if (index >= fragment.Length)
-                    {
-                        break;
-                    }
+                }
 
-                    while (index < fragment.Length && fragment[index] != '/')
+                if (index >= fragment.Length)
+                {
+                    break;
+                }
+
+                while (index < fragment.Length && fragment[index] != '/')
+                {
+                    ++index;
+                }
+
+                // We've either reached the fragment.Length (so have to go 1 back from the end)
+                // or we're sitting on the terminating '/'
+                int endRun = index;
+                ReadOnlySpan<char> component = fragment[startRun..endRun];
+
+                if (current.ValueKind == JsonValueKind.Object)
+                {
+                    if (current.TryGetProperty(component, out JsonElement next))
                     {
+                        current = next;
                         ++index;
                     }
-
-                    // We've either reached the fragment.Length (so have to go 1 back from the end)
-                    // or we're sitting on the terminating '/'
-                    int endRun = index - 1;
-                    ReadOnlySpan<char> component = fragment[startRun..endRun];
-
-                    if (current.ValueKind == JsonValueKind.Object)
+                    else
                     {
-                        if (current.TryGetProperty(component, out JsonElement next))
+                        // We were unable to find the element at that location.
+                        if (throwOnFailure)
                         {
-                            current = next;
-                            ++index;
+                            throw new JsonException($"Unable to find the element at path {fragment[0..endRun].ToString()}.");
                         }
                         else
                         {
-                            // We were unable to find the element at that location.
+                            element = default;
+                            return false;
+                        }
+                    }
+                }
+                else if (current.ValueKind == JsonValueKind.Array)
+                {
+                    if (int.TryParse(component, out int targetArrayIndex))
+                    {
+                        int arrayIndex = 0;
+                        JsonElement.ArrayEnumerator enumerator = current.EnumerateArray();
+                        while (enumerator.MoveNext() && arrayIndex < targetArrayIndex)
+                        {
+                            arrayIndex++;
+                        }
+
+                        // Check to see if we reached the target, and didn't go off the end of the enumeration.
+                        if (arrayIndex == targetArrayIndex && enumerator.Current.ValueKind != JsonValueKind.Undefined)
+                        {
+                            current = enumerator.Current;
+                        }
+                        else
+                        {
+                            // We were unable to find the element at that index in the array.
                             if (throwOnFailure)
                             {
-                                throw new JsonException($"Unable to find the element at path {fragment[0..endRun].ToString()}.");
+                                throw new JsonException($"Unable to find the array element at path {fragment[0..endRun].ToString()}.");
                             }
                             else
                             {
@@ -135,48 +165,17 @@ namespace Menes.Json
                             }
                         }
                     }
-                    else if (current.ValueKind == JsonValueKind.Array)
+                    else
                     {
-                        if (int.TryParse(component, out int targetArrayIndex))
+                        // We couldn't parse the integer of the index
+                        if (throwOnFailure)
                         {
-                            int arrayIndex = 0;
-                            JsonElement.ArrayEnumerator enumerator = current.EnumerateArray();
-                            while (enumerator.MoveNext() && arrayIndex < targetArrayIndex)
-                            {
-                                arrayIndex++;
-                            }
-
-                            // Check to see if we reached the target, and didn't go off the end of the enumeration.
-                            if (arrayIndex == targetArrayIndex && enumerator.Current.ValueKind != JsonValueKind.Undefined)
-                            {
-                                current = enumerator.Current;
-                            }
-                            else
-                            {
-                                // We were unable to find the element at that index in the array.
-                                if (throwOnFailure)
-                                {
-                                    throw new JsonException($"Unable to find the array element at path {fragment[0..endRun].ToString()}.");
-                                }
-                                else
-                                {
-                                    element = default;
-                                    return false;
-                                }
-                            }
+                            throw new JsonException($"Expected to find an integer array index at path {fragment[0..endRun].ToString()}, but found {fragment[startRun..endRun].ToString()}.");
                         }
                         else
                         {
-                            // We couldn't parse the integer of the index
-                            if (throwOnFailure)
-                            {
-                                throw new JsonException($"Expected to find an integer array index at path {fragment[0..endRun].ToString()}, but found {fragment[startRun..endRun].ToString()}.");
-                            }
-                            else
-                            {
-                                element = default;
-                                return false;
-                            }
+                            element = default;
+                            return false;
                         }
                     }
                 }

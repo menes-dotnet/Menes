@@ -7,7 +7,6 @@ namespace Menes.JsonSchema.SpecGenerator
     using System;
     using System.Collections.Generic;
     using System.IO;
-    using System.Runtime.CompilerServices;
 
     /// <summary>
     /// Directories for spec generation.
