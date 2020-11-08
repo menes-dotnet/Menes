@@ -75,11 +75,14 @@ namespace Steps
         }
 
         /// <summary>
-        /// Generates the code for the schema, compiles it, and loads the assembly. The fully qualified type name is stored in a scenario property called <see cref="SchemaTypeName"/>.
+        /// Generates the code for the schema in the scenario property <see cref="Schema"/>, compiles it, and loads the assembly. The fully qualified type name is stored in a scenario property called <see cref="SchemaTypeName"/>.
         /// </summary>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         [Given(@"I generate a type for the schema")]
-        public void GivenIGenerateATypeForTheSchema()
+        public async Task GivenIGenerateATypeForTheSchema()
         {
+            string fqtn = await this.driver.GenerateTypeFor(this.scenarioContext.Get<JsonElement>(Schema)).ConfigureAwait(false);
+            this.scenarioContext.Set(fqtn, SchemaTypeName);
         }
 
         /// <summary>

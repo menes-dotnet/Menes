@@ -51,5 +51,16 @@ namespace Drivers
             string path = Path.Combine(baseDirectory, filename);
             return this.documentResolver.TryResolve(new JsonReference(path, referenceFragment));
         }
+
+        /// <summary>
+        /// Generates a type for the given root schema element.
+        /// </summary>
+        /// <param name="schema">The schema for which to generate the type.</param>
+        /// <returns>The fully qualified type name of the entity we have generated.</returns>
+        internal async Task<string> GenerateTypeFor(JsonElement schema)
+        {
+            await this.builder.BuildEntity(schema).ConfigureAwait(false);
+            return "SomeType";
+        }
     }
 }

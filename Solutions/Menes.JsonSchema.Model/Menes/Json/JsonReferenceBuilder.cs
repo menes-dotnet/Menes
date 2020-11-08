@@ -90,6 +90,16 @@ namespace Menes.Json
         public bool HasFragment => this.Fragment.Length > 0;
 
         /// <summary>
+        /// Gets the host.
+        /// </summary>
+        public ReadOnlySpan<char> Host => this.FindHost();
+
+        /// <summary>
+        /// Gets the port.
+        /// </summary>
+        public ReadOnlySpan<char> Port => this.FindPort();
+
+        /// <summary>
         /// Gets the JsonReference corresponding to this builder.
         /// </summary>
         /// <returns>The <see cref="JsonReference"/> built from this builder.</returns>
@@ -163,6 +173,43 @@ namespace Menes.Json
             }
 
             return new JsonReference(reference);
+        }
+
+        private ReadOnlySpan<char> FindHost()
+        {
+            if (!this.HasAuthority)
+            {
+                return ReadOnlySpan<char>.Empty;
+            }
+
+            int index = 0;
+            while (index < this.Authority.Length && this.Authority[index] != ':')
+            {
+                index++;
+            }
+
+            return this.Authority[0..index];
+        }
+
+        private ReadOnlySpan<char> FindPort()
+        {
+            if (!this.HasAuthority)
+            {
+                return ReadOnlySpan<char>.Empty;
+            }
+
+            int index = 0;
+            while (index < this.Authority.Length && this.Authority[index] != ':')
+            {
+                index++;
+            }
+
+            if (index == this.Authority.Length)
+            {
+                return ReadOnlySpan<char>.Empty;
+            }
+
+            return this.Authority.Slice(index + 1);
         }
     }
 }

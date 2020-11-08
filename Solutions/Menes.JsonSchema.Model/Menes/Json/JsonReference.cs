@@ -6,10 +6,12 @@ namespace Menes.Json
 {
     using System;
     using System.Buffers;
+    using System.Diagnostics;
 
     /// <summary>
     /// A JSON $ref as a URI or JsonPointer.
     /// </summary>
+    [DebuggerDisplay("{reference}")]
     public readonly struct JsonReference : IEquatable<JsonReference>
     {
         private readonly ReadOnlyMemory<char> reference;
@@ -151,6 +153,16 @@ namespace Menes.Json
         public static bool operator !=(JsonReference left, JsonReference right)
         {
             return !(left == right);
+        }
+
+        /// <summary>
+        /// Replace the fragment in the reference.
+        /// </summary>
+        /// <param name="fragment">The fragment to replace.</param>
+        /// <returns>A JSON reference with the same uri up to and including path and query, but with a different fragment.</returns>
+        public JsonReference WithFragment(string fragment)
+        {
+            return new JsonReference(this.Uri, fragment);
         }
 
         /// <summary>
@@ -530,29 +542,24 @@ namespace Menes.Json
 
         private ReadOnlySpan<char> FindUri()
         {
-            int index = 0;
-            while (index < this.reference.Length && this.reference.Span[index] != '#')
+            int? hashIndex = FindHash(this.reference.Span);
+            if (hashIndex is int hi)
             {
-                index++;
+                return this.reference.Span.Slice(0, hi);
             }
 
-            if (this.reference.Span[index] == '#')
-            {
-                index--;
-            }
-
-            return this.reference.Span.Slice(0, index + 1);
+            return this.reference.Span;
         }
 
         private ReadOnlySpan<char> FindFragment()
         {
-            int index = 0;
-            while (index < this.reference.Length && this.reference.Span[index] != '#')
+            int? hashIndex = FindHash(this.reference.Span);
+            if (hashIndex is int hi)
             {
-                index++;
+                return this.reference.Span.Slice(hi);
             }
 
-            return this.reference.Span.Slice(index);
+            return ReadOnlySpan<char>.Empty;
         }
 
         private ReadOnlySpan<char> FindFragment(int start)

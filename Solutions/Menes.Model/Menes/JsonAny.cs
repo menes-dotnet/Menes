@@ -19,6 +19,9 @@ namespace Menes
     /// </summary>
     public readonly struct JsonAny : IJsonValue, IEquatable<JsonAny>
     {
+        private static readonly ConcurrentDictionary<Type, object> FactoryCache = new ConcurrentDictionary<Type, object>();
+
+
         /// <summary>
         /// The function that constructs an instance from a JsonElement.
         /// </summary>

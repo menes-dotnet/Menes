@@ -2,14 +2,14 @@
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
-namespace Menes.JsonSchema.TypeBuilder
+namespace Menes.JsonSchema.TypeBuilder.Model
 {
     using System;
     using System.Text.Json;
     using Menes.Json;
 
     /// <summary>
-    /// A named Element.
+    /// A <see cref="JsonElement"/> annotated with its absolute keyword location, and the absolute keyword location of its parent.
     /// </summary>
     public readonly struct LocatedElement : IEquatable<LocatedElement>
     {

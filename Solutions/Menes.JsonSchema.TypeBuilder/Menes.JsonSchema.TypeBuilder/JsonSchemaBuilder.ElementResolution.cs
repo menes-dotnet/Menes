@@ -9,6 +9,7 @@ namespace Menes.JsonSchema.TypeBuilder
     using System.Text.Json;
     using System.Threading.Tasks;
     using Menes.Json;
+    using Menes.JsonSchema.TypeBuilder.Model;
 
     /// <summary>
     /// Builds types from a Json Schema document.
@@ -16,7 +17,7 @@ namespace Menes.JsonSchema.TypeBuilder
     public partial class JsonSchemaBuilder
     {
         /// <summary>
-        /// Given a dollarref value, get the absolute keyword location for the current context.
+        /// Given a reference, get the absolute keyword location for the current context.
         /// </summary>
         /// <param name="reference">The <c>$ref</c> or <c>$recursiveRef</c> value.</param>
         /// <returns>An absolute keyword location as a <see cref="JsonReference"/> formed by combining the given reference with the current absolute keyword location.</returns>
@@ -41,9 +42,7 @@ namespace Menes.JsonSchema.TypeBuilder
                 return Task.FromResult(elementById.JsonElement);
             }
 
-            JsonReferenceBuilder location = absoluteLocation.AsBuilder();
-
-            if (location.HasFragment && this.anchors.TryGetValue(location.Fragment.ToString(), out LocatedElement elementByAnchor))
+            if (this.anchors.TryGetValue(absoluteLocation.ToString(), out LocatedElement elementByAnchor))
             {
                 return Task.FromResult(elementByAnchor.JsonElement);
             }

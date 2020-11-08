@@ -8,6 +8,7 @@ namespace Menes.JsonSchema.TypeBuilder
     using System.Text;
     using System.Text.Json;
     using System.Threading.Tasks;
+    using Menes.JsonSchema.TypeBuilder.Model;
 
     /// <summary>
     /// Builds types from a Json Schema document.
@@ -17,22 +18,19 @@ namespace Menes.JsonSchema.TypeBuilder
         /// <summary>
         /// Builds the validation method for the type.
         /// </summary>
-        /// <param name="namedElement">The element for which to build the validation method.</param>
+        /// <param name="typeDeclaration">The type declaration for which to build the validation method.</param>
+        /// <param name="memberBuilder">The output builder.</param>
         /// <returns>The content for the Validate() member.</returns>
-        private async Task<string> BuildValidate(LocatedElement namedElement)
+        private async Task BuildValidate(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
         {
-            var memberBuilder = new StringBuilder();
-
-            memberBuilder.AppendLine("/// <summary>");
-            memberBuilder.AppendLine("/// Builds the validation annotations for the type.");
-            memberBuilder.AppendLine("/// </summary>");
-            memberBuilder.AppendLine("public Menes.ValidatationResult Validate(in Menes.ValidationResult validationResult)");
+            memberBuilder.AppendLine("/// <inheritdoc />");
+            memberBuilder.AppendLine("public Menes.ValidatationResult Validate(in Menes.ValidationResult validationResult, Menes.ValidationLevel level = Menes.ValidationLevel.Flag)");
             memberBuilder.AppendLine("{");
             memberBuilder.AppendLine("  Menes.ValidationResult result = validationResult;");
 
             try
             {
-                switch (namedElement.JsonElement.ValueKind)
+                switch (typeDeclaration.TypeSchema.JsonElement.ValueKind)
                 {
                     case JsonValueKind.True:
                         this.BuildTrueValidation(memberBuilder);
@@ -41,18 +39,16 @@ namespace Menes.JsonSchema.TypeBuilder
                         this.BuildFalseValidation(memberBuilder);
                         break;
                     case JsonValueKind.Object:
-                        await this.BuildSchemaValidation(namedElement, memberBuilder).ConfigureAwait(false);
+                        await this.BuildSchemaValidation(typeDeclaration, memberBuilder).ConfigureAwait(false);
                         break;
                     default:
-                        throw new InvalidOperationException("The schema is not valid.");
+                        throw new InvalidOperationException("The schema is not valid. Expected to find [true, false, {}].");
                 }
             }
             finally
             {
                 memberBuilder.AppendLine("}");
             }
-
-            return memberBuilder.ToString();
         }
 
         private string WriteKeywordLocation()

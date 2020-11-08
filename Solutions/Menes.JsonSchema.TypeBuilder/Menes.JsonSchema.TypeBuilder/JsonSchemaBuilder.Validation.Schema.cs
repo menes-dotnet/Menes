@@ -8,31 +8,32 @@ namespace Menes.JsonSchema.TypeBuilder
     using System.Text;
     using System.Text.Json;
     using System.Threading.Tasks;
+    using Menes.JsonSchema.TypeBuilder.Model;
 
     /// <summary>
     /// Builds types from a Json Schema document.
     /// </summary>
     public partial class JsonSchemaBuilder
     {
-        private Task BuildSchemaValidation(in LocatedElement namedElement, StringBuilder memberBuilder)
+        private Task BuildSchemaValidation(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
         {
             bool pushedKeyword = false;
 
             try
             {
-                if (namedElement.JsonElement.TryGetProperty("$schema", out JsonElement dollarschema))
+                if (typeDeclaration.TypeSchema.JsonElement.TryGetProperty("$schema", out JsonElement dollarschema))
                 {
                     ValidateDollarSchema(dollarschema);
                 }
 
-                if (namedElement.JsonElement.TryGetProperty("$id", out JsonElement dollarid))
+                if (typeDeclaration.TypeSchema.JsonElement.TryGetProperty("$id", out JsonElement dollarid))
                 {
                     ValidateDollarId(dollarid);
 
                     string dollaridValue = dollarid.GetString();
                     this.absoluteKeywordLocationStack.Push(dollaridValue);
                     pushedKeyword = true;
-                    this.ids.Add(dollaridValue, namedElement);
+                    this.ids.Add(dollaridValue, typeDeclaration.TypeSchema);
                 }
             }
             finally

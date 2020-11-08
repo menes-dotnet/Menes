@@ -9,6 +9,7 @@ namespace Menes.JsonSchema.TypeBuilder
     using System.Text.Json;
     using System.Threading.Tasks;
     using Menes.Json;
+    using Menes.JsonSchema.TypeBuilder.Model;
 
     /// <summary>
     /// Builds types from a Json Schema document.
@@ -16,68 +17,105 @@ namespace Menes.JsonSchema.TypeBuilder
     public partial class JsonSchemaBuilder
     {
         /// <summary>
-        /// Build a named element, and update the relevant stacks, and the <see cref="locatedElements"/> list.
+        /// Build a named element, update the relevant location stacks, and the <see cref="locatedElements"/> list.
         /// </summary>
         private async Task<LocatedElement> GetOrCreateLocatedElement(JsonElement schema)
         {
-            // TODO: We also need to walk the tree here and build all the anchors and IDs
-            // in this element. If we find the element in the anchors and ids already
-            // we can stop looking inside, as it must have been done by a parent.
             int propertyCount = 0;
-            JsonReference? inPlacereference = null;
-            JsonReference? dollarid = null;
-            foreach (JsonProperty property in schema.EnumerateObject())
+            JsonReference? inplaceReference = null;
+            string? dollaranchor = null;
+
+            if (schema.ValueKind == JsonValueKind.Object)
             {
-                // We treat all refs as if they could be recursive.
-                // However, an actuall $recursiveRef lets us shortcut
-                // that decision making.
-                if (property.NameEquals("$ref"))
+                string? dollarid = null;
+                if (schema.TryGetProperty("$id", out JsonElement dollaridElement))
                 {
-                    ValidateDollarRef(property);
-
-                    inPlacereference = property.Value.GetString();
-                }
-                else if (property.NameEquals("$recursiveRef"))
-                {
-                    ValidateDollarRecursiveRef(property);
-
-                    inPlacereference = property.Value.GetString();
-                }
-                else if (property.NameEquals("$defs") || property.NameEquals("title") || property.NameEquals("decription"))
-                {
-                    continue;
-                }
-                else if (property.NameEquals("$id"))
-                {
-                    ValidateDollarId(property);
-                    dollarid = property.Value.GetString();
+                    dollarid = dollaridElement.GetString();
                 }
 
-                propertyCount++;
+                this.UpdateKeywordLocationStacks(dollarid);
+                bool recursiveReference = false;
+
+                foreach (JsonProperty property in schema.EnumerateObject())
+                {
+                    this.keywordLocationStack.Push(property.Name);
+                    this.PushPropertyToAbsoluteKeywordLocationStack(property);
+
+                    // We treat all refs as if they could be recursive.
+                    if (property.NameEquals("$ref"))
+                    {
+                        ValidateDollarRef(property);
+
+                        inplaceReference = property.Value.GetString();
+                    }
+                    else if (property.NameEquals("$recursiveRef"))
+                    {
+                        ValidateDollarRecursiveRef(property);
+                        recursiveReference = true;
+                        inplaceReference = property.Value.GetString();
+                    }
+                    else if (property.NameEquals("$anchor"))
+                    {
+                        ValidateDollarAnchor(property);
+                        dollaranchor = property.Value.GetString();
+                    }
+
+                    propertyCount++;
+
+                    if (property.Value.ValueKind == JsonValueKind.Object)
+                    {
+                        await this.GetOrCreateLocatedElement(property.Value).ConfigureAwait(false);
+                    }
+
+                    this.keywordLocationStack.Pop();
+                    this.absoluteKeywordLocationStack.Pop();
+                }
+
+                // If this is "just" a reference, with no other composing
+                // content, then just follow the reference.
+                if (!recursiveReference && propertyCount == 1 && inplaceReference is JsonReference reference)
+                {
+                    return await this.GetOrCreateLocatedElement(reference).ConfigureAwait(false);
+                }
+            }
+            else
+            {
+                this.UpdateKeywordLocationStacks(null);
             }
 
-            this.UpdateKeywordLocationStacks(dollarid);
+            return this.CreateLocatedElement(schema, dollaranchor);
+        }
 
-            // If this is "just" a reference, with no other composing
-            // content, then just follow the reference.
-            if (propertyCount == 1 && inPlacereference is JsonReference reference)
+        private void PushPropertyToAbsoluteKeywordLocationStack(JsonProperty property)
+        {
+            if (this.absoluteKeywordLocationStack.TryPeek(out JsonReference current))
             {
-                return await this.GetOrCreateLocatedElement(reference).ConfigureAwait(false);
+                this.absoluteKeywordLocationStack.Push(current + "/" + property.Name);
             }
-
-            return this.CreateLocatedELement(schema);
+            else
+            {
+                this.absoluteKeywordLocationStack.Push("#" + property.Name);
+            }
         }
 
         /// <summary>
         /// Creates a located element using the location on the <see cref="absoluteKeywordLocationStack"/>,
         /// and adds it to the <see cref="locatedElementsByLocation"/> map.
         /// </summary>
-        private LocatedElement CreateLocatedELement(JsonElement schema)
+        private LocatedElement CreateLocatedElement(JsonElement schema, string? anchor)
         {
             JsonReference? parentLocation = this.FindParentEntityLocation();
             var result = new LocatedElement(parentLocation, this.absoluteKeywordLocationStack.Peek(), schema);
             this.locatedElements.Add(result);
             this.locatedElementsByLocation.Add(result.AbsoluteKeywordLocation, result);
+            if (anchor is string anchorFragment)
+            {
+                // Turn the anchor into a fragment for a URI based on the current absolute URI
+                // to distinguish fragments anchors with the same name in different contexts.
+                JsonReference absoluteAnchor = result.AbsoluteKeywordLocation.WithFragment(anchorFragment);
+                this.anchors.Add(absoluteAnchor, result);
+            }
+
             return result;
         }
 
@@ -87,22 +125,22 @@ namespace Menes.JsonSchema.TypeBuilder
         /// </summary>
         private void UpdateKeywordLocationStacks(JsonReference? dollarid)
         {
-            JsonReference currentLocation = this.absoluteKeywordLocationStack.Peek();
-            JsonReference newLocation = currentLocation;
-
-            if (dollarid is JsonReference did)
+            if (this.absoluteKeywordLocationStack.TryPeek(out JsonReference currentLocation) && dollarid is JsonReference did)
             {
-                newLocation = currentLocation.Apply(did);
+                this.absoluteKeywordLocationStack.Push(currentLocation.Apply(did));
+            }
+            else
+            {
+                this.absoluteKeywordLocationStack.Push(currentLocation + "/#");
             }
 
             this.keywordLocationStack.Push("#");
-            this.absoluteKeywordLocationStack.Push(newLocation);
         }
 
         /// <summary>
         /// <para>
-        /// In this method we push to the keyword location stack and the absolute keyword location
-        /// stack for this locale, then either make a nested call into GetOrCreateLocatedElement
+        /// In this method we push the fact we are following the refernce reference to the keyword location stack,
+        /// using the required #/$ref/[ref/er/ence] syntax,, then either make a nested call into <see cref="GetOrCreateLocatedElement(JsonElement)"/>
         /// to follow our reference (which will, of course, push more onto the stack, then pop back up), or retrieve
         /// the existing item from the cache (which will not require us to go down the stack further).
         /// </para>
@@ -113,6 +151,21 @@ namespace Menes.JsonSchema.TypeBuilder
         /// </summary>
         private Task<LocatedElement> GetOrCreateLocatedElement(JsonReference reference)
         {
+            JsonReference absoluteLocation = this.GetAbsoluteKeywordLocation(reference);
+
+            if (reference == "#")
+            {
+                // Self referential, so peek the item off the stack
+                if (this.locatedElementsByLocation.TryGetValue(absoluteLocation, out LocatedElement locatedElement))
+                {
+                    return Task.FromResult(locatedElement);
+                }
+                else
+                {
+                    throw new InvalidOperationException("The root element cannot be an in-place self reference.");
+                }
+            }
+
             try
             {
                 var keywordPath = new StringBuilder("#");
@@ -127,22 +180,6 @@ namespace Menes.JsonSchema.TypeBuilder
                 }
 
                 this.keywordLocationStack.Push(keywordPath.ToString());
-
-                JsonReference absoluteLocation = this.GetAbsoluteKeywordLocation(reference);
-                this.absoluteKeywordLocationStack.Push(absoluteLocation);
-
-                if (reference == "#")
-                {
-                    // Self referential, so peek the item off the stack
-                    if (this.locatedElementsByLocation.TryGetValue(absoluteLocation, out LocatedElement locatedElement))
-                    {
-                        return Task.FromResult(locatedElement);
-                    }
-                    else
-                    {
-                        throw new InvalidOperationException("The root element cannot be an in-place self reference.");
-                    }
-                }
 
                 if (this.locatedElementsByLocation.TryGetValue(absoluteLocation, out LocatedElement referencedElement))
                 {

@@ -8,6 +8,7 @@ namespace Menes.JsonSchema.TypeBuilder
     using System.Text.Json;
     using System.Threading.Tasks;
     using Menes.Json;
+    using Menes.JsonSchema.TypeBuilder.Model;
 
     /// <summary>
     /// Builds types from a Json Schema document.
@@ -30,14 +31,14 @@ namespace Menes.JsonSchema.TypeBuilder
         /// <summary>
         /// Initializes a new instance of the <see cref="JsonSchemaBuilder"/> class.
         /// </summary>
-        /// <param name="documentResolver">The <see cref="IDocumentResolver"/> to use to pull down schema.</param>
+        /// <param name="documentResolver">The <see cref="IDocumentResolver"/> to use to pull down referenced schema.</param>
         public JsonSchemaBuilder(IDocumentResolver documentResolver)
         {
             this.documentResolver = documentResolver;
         }
 
         /// <summary>
-        /// Attempts to build an entity for a JsonSchema element.
+        /// Attempts to build an entity for a <see cref="JsonElement"/> containing a schema.
         /// </summary>
         /// <param name="schema">The root schema for which to build the entity.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
@@ -45,7 +46,7 @@ namespace Menes.JsonSchema.TypeBuilder
         {
             LocatedElement namedElement = await this.GetOrCreateLocatedElement(schema).ConfigureAwait(false);
 
-            // Nothing for us to do if the named element has already been built.
+            // Nothing for us to do if the named element has already been built (or we are currently building it).
             if (this.builtElements.Contains(namedElement))
             {
                 return;
@@ -57,8 +58,6 @@ namespace Menes.JsonSchema.TypeBuilder
 
             try
             {
-                // Build the members
-                string validateMember = await this.BuildValidate(namedElement).ConfigureAwait(false);
             }
             finally
             {

@@ -38,6 +38,19 @@ namespace Menes.JsonSchema.TypeBuilder
             }
         }
 
+        private static void ValidateDollarAnchor(JsonProperty dollaranchor)
+        {
+            ValidateDollarAnchor(dollaranchor.Value);
+        }
+
+        private static void ValidateDollarAnchor(JsonElement dollaranchor)
+        {
+            if (dollaranchor.ValueKind != JsonValueKind.String)
+            {
+                throw new InvalidOperationException($"Unsuppported $anchor: {dollaranchor.ValueKind}");
+            }
+        }
+
         private static void ValidateDollarId(JsonProperty dollarid)
         {
             ValidateDollarId(dollarid.Value);
