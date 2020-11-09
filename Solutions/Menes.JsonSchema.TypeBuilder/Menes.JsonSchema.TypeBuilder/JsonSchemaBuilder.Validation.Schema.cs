@@ -8,6 +8,7 @@ namespace Menes.JsonSchema.TypeBuilder
     using System.Text;
     using System.Text.Json;
     using System.Threading.Tasks;
+    using Menes.Json;
     using Menes.JsonSchema.TypeBuilder.Model;
 
     /// <summary>
@@ -31,7 +32,7 @@ namespace Menes.JsonSchema.TypeBuilder
                     ValidateDollarId(dollarid);
 
                     string dollaridValue = dollarid.GetString();
-                    this.absoluteKeywordLocationStack.Push(dollaridValue);
+                    this.absoluteKeywordLocationStack.Push(JsonReference.FromEncodedJsonString(dollaridValue).Value);
                     pushedKeyword = true;
                     this.ids.Add(dollaridValue, typeDeclaration.TypeSchema);
                 }

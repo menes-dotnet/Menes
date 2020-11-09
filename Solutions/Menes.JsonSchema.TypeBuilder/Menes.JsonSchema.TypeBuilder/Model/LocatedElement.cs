@@ -19,7 +19,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         /// <param name="absoluteParentKeywordLocation">The absolute location of the parent element.</param>
         /// <param name="absoluteKeywordLocation">The absolute keyword location of this element.</param>
         /// <param name="jsonElement">The corresponding JsonElement containing the related schema.</param>
-        public LocatedElement(JsonReference? absoluteParentKeywordLocation, string absoluteKeywordLocation, JsonElement jsonElement)
+        public LocatedElement(JsonReference? absoluteParentKeywordLocation, JsonReference absoluteKeywordLocation, JsonElement jsonElement)
         {
             this.AbsoluteParentKeywordLocation = absoluteParentKeywordLocation;
             this.AbsoluteKeywordLocation = absoluteKeywordLocation;

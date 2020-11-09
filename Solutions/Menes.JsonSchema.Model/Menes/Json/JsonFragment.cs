@@ -91,21 +91,7 @@ namespace Menes.Json
 
             while (readIndex < unencodedFragment.Length)
             {
-                if (ReservedCharacters.Contains(unencodedFragment[readIndex]))
-                {
-                    Span<byte> utf8Bytes = stackalloc byte[4];
-                    int writtenBytes = Encoding.UTF8.GetBytes(unencodedFragment.Slice(readIndex, 1), utf8Bytes);
-                    for (int i = 0; i < writtenBytes; ++i)
-                    {
-                        fragment[writeIndex] = '%';
-                        fragment[writeIndex + 1] = HexDigits[utf8Bytes[i] >> 4];
-                        fragment[writeIndex + 2] = HexDigits[utf8Bytes[i] & 0xF];
-                        writeIndex += 3;
-                    }
-
-                    readIndex += 1;
-                }
-                else if (unencodedFragment[readIndex] == '~')
+                if (unencodedFragment[readIndex] == '~')
                 {
                     fragment[writeIndex] = '~';
                     fragment[writeIndex + 1] = '0';
@@ -131,19 +117,25 @@ namespace Menes.Json
         }
 
         /// <summary>
-        /// Decodes the ~ encoding in a reference.
+        /// Decodes the hex encoding in a reference.
         /// </summary>
         /// <param name="encodedFragment">The encoded reference.</param>
         /// <param name="fragment">The span into which to write the result.</param>
         /// <returns>The length of the decoded reference.</returns>
-        internal static int DecodeFragment(in ReadOnlySpan<char> encodedFragment, ref Span<char> fragment)
+        internal static int DecodeHexFragment(ReadOnlySpan<char> encodedFragment, Span<char> fragment)
         {
             int readIndex = 0;
             int writeIndex = 0;
 
             while (readIndex < encodedFragment.Length)
             {
-                if (encodedFragment[readIndex] == '%')
+                if (encodedFragment[readIndex] != '%')
+                {
+                    fragment[writeIndex] = encodedFragment[readIndex];
+                    readIndex++;
+                    writeIndex++;
+                }
+                else
                 {
                     int writtenBytes = 0;
                     Span<byte> utf8bytes = stackalloc byte[encodedFragment.Length - readIndex];
@@ -171,7 +163,25 @@ namespace Menes.Json
                     Encoding.UTF8.GetChars(utf8bytes.Slice(0, writtenBytes), fragment.Slice(writeIndex, writtenBytes));
                     writeIndex += writtenBytes;
                 }
-                else if (encodedFragment[readIndex] != '~')
+            }
+
+            return writeIndex;
+        }
+
+        /// <summary>
+        /// Decodes the ~ encoding in a reference.
+        /// </summary>
+        /// <param name="encodedFragment">The encoded reference.</param>
+        /// <param name="fragment">The span into which to write the result.</param>
+        /// <returns>The length of the decoded reference.</returns>
+        internal static int DecodeFragment(ReadOnlySpan<char> encodedFragment, Span<char> fragment)
+        {
+            int readIndex = 0;
+            int writeIndex = 0;
+
+            while (readIndex < encodedFragment.Length)
+            {
+                if (encodedFragment[readIndex] != '~')
                 {
                     fragment[writeIndex] = encodedFragment[readIndex];
                     readIndex++;
@@ -247,7 +257,7 @@ namespace Menes.Json
                 int endRun = index;
                 ReadOnlySpan<char> encodedComponent = fragment[startRun..endRun];
                 Span<char> decodedComponent = stackalloc char[encodedComponent.Length];
-                int decodedWritten = DecodeFragment(encodedComponent, ref decodedComponent);
+                int decodedWritten = DecodeFragment(encodedComponent, decodedComponent);
                 ReadOnlySpan<char> component = decodedComponent.Slice(0, decodedWritten);
                 if (current.ValueKind == JsonValueKind.Object)
                 {

@@ -51,9 +51,9 @@ namespace Menes.JsonSchema.TypeBuilder
             }
         }
 
-        private string WriteKeywordLocation()
+        private string WriteAbsoluteKeywordLocation()
         {
-            return Formatting.FormatLiteralOrNull(this.keywordLocationStack.Peek(), true);
+            return Formatting.FormatLiteralOrNull(this.absoluteKeywordLocationStack.Peek(), true);
         }
 
         /// <summary>
@@ -65,11 +65,11 @@ namespace Menes.JsonSchema.TypeBuilder
         {
             memberBuilder.AppendLine("  if (Menes.ValidationContext.Level >= Menes.ValidationLevel.Detailed)");
             memberBuilder.AppendLine("  {");
-            memberBuilder.AppendLine($"      result = result.AddError(valid: false, keywordLocation: {this.WriteKeywordLocation()}, instanceLocation: this.instanceLocation, Error: \"{message}\");");
+            memberBuilder.AppendLine($"      result = result.AddError(valid: false, absoluteKeywordLocation: {this.WriteAbsoluteKeywordLocation()}, instanceLocation: this.instanceLocation, Error: \"{message}\");");
             memberBuilder.AppendLine("  }");
             memberBuilder.AppendLine("  else if (Menes.ValidationContext.Level == Menes.ValidationLevel.Basic)");
             memberBuilder.AppendLine("  {");
-            memberBuilder.AppendLine($"      result.AddError(valid: false, keywordLocation: {this.WriteKeywordLocation()}, instanceLocation: this.instanceLocation, Error: \"{message}\");");
+            memberBuilder.AppendLine($"      result.AddError(valid: false, absoluteKeywordLocation: {this.WriteAbsoluteKeywordLocation()}, instanceLocation: this.instanceLocation, Error: \"{message}\");");
             memberBuilder.AppendLine("  }");
             memberBuilder.AppendLine("  else");
             memberBuilder.AppendLine("  {");
@@ -86,7 +86,7 @@ namespace Menes.JsonSchema.TypeBuilder
         {
             memberBuilder.AppendLine("  if (Menes.ValidationContext.Level == Menes.ValidationLevel.Verbose)");
             memberBuilder.AppendLine("  {");
-            memberBuilder.AppendLine($"      result = result.AddError(valid: true, keywordLocation: {this.WriteKeywordLocation()}, instanceLocation: this.instanceLocation, Error: \"{message}\");");
+            memberBuilder.AppendLine($"      result = result.AddError(valid: true, absoluteKeywordLocation: {this.WriteAbsoluteKeywordLocation()}, instanceLocation: this.instanceLocation, Error: \"{message}\");");
             memberBuilder.AppendLine("  }");
         }
     }

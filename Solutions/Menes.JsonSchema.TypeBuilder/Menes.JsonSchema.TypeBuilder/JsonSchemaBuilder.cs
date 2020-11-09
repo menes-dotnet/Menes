@@ -15,9 +15,7 @@ namespace Menes.JsonSchema.TypeBuilder
     /// </summary>
     public partial class JsonSchemaBuilder
     {
-        private readonly Dictionary<string, LocatedElement> locatedElements = new Dictionary<string, LocatedElement>();
         private readonly Dictionary<string, LocatedElement> builtElements = new Dictionary<string, LocatedElement>();
-        private readonly Stack<string> keywordLocationStack = new Stack<string>();
         private readonly Stack<JsonReference> absoluteKeywordLocationStack = new Stack<JsonReference>();
 
         // Note that anchors are stored as a full reference, with the base uri of the root document combined with the anchor name.

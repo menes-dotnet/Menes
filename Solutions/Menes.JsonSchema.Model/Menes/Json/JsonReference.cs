@@ -7,6 +7,7 @@ namespace Menes.Json
     using System;
     using System.Buffers;
     using System.Diagnostics;
+    using System.Diagnostics.CodeAnalysis;
 
     /// <summary>
     /// A JSON $ref as a URI or JsonPointer.
@@ -92,24 +93,6 @@ namespace Menes.Json
         /// Implicit conversion from a string.
         /// </summary>
         /// <param name="reference">The reference as a string.</param>
-        public static implicit operator JsonReference?(string? reference)
-        {
-            return reference is string ? (JsonReference?)new JsonReference(reference) : null;
-        }
-
-        /// <summary>
-        /// Implicit conversion from a string.
-        /// </summary>
-        /// <param name="reference">The reference as a string.</param>
-        public static implicit operator JsonReference(string reference)
-        {
-            return new JsonReference(reference);
-        }
-
-        /// <summary>
-        /// Implicit conversion from a string.
-        /// </summary>
-        /// <param name="reference">The reference as a string.</param>
         public static implicit operator string(JsonReference reference)
         {
             return reference.ToString();
@@ -122,15 +105,6 @@ namespace Menes.Json
         public static implicit operator string?(JsonReference? reference)
         {
             return reference?.ToString();
-        }
-
-        /// <summary>
-        /// Implicit conversion from a string.
-        /// </summary>
-        /// <param name="reference">The reference as a string.</param>
-        public static implicit operator JsonReference(ReadOnlyMemory<char> reference)
-        {
-            return new JsonReference(reference);
         }
 
         /// <summary>
@@ -168,6 +142,26 @@ namespace Menes.Json
         }
 
         /// <summary>
+        /// Create a reference from a potentially encoded source (such as an external JSON document).
+        /// </summary>
+        /// <param name="referenceOrNull">The string from which to construct <see cref="JsonReference"/>.</param>
+        /// <returns>The new <see cref="JsonReference"/>.</returns>
+        [return: NotNullIfNotNull("referenceOrNull")]
+        public static JsonReference? FromEncodedJsonString(string? referenceOrNull)
+        {
+            if (referenceOrNull is string reference)
+            {
+                Span<char> decodedReference = stackalloc char[reference.Length];
+                int writtenBytes = JsonFragment.DecodeHexFragment(reference, decodedReference);
+                var output = new Memory<char>(new char[writtenBytes]);
+                decodedReference.Slice(0, writtenBytes).CopyTo(output.Span);
+                return new JsonReference(output);
+            }
+
+            return null;
+        }
+
+        /// <summary>
         /// Replace the fragment in the reference.
         /// </summary>
         /// <param name="fragment">The fragment to replace.</param>
@@ -185,7 +179,7 @@ namespace Menes.Json
         public JsonReference AppendUnencodedPropertyNameToFragment(string unencodedPropertyName)
         {
             int? hi = FindHash(this.reference.Span);
-            int requiredLength = this.reference.Length + (unencodedPropertyName.Length * 3) + 1;
+            int requiredLength = this.reference.Length + (unencodedPropertyName.Length * 2) + 1;
             bool hasHash = !(hi is null);
             if (!hasHash)
             {
