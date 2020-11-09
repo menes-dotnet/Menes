@@ -17,28 +17,43 @@ namespace Menes.JsonSchema.TypeBuilder
         private static readonly ReadOnlyMemory<char> ValueSuffix = "Value".AsMemory();
         private static readonly ReadOnlyMemory<char> EntitySuffix = "Entity".AsMemory();
 
-        private static ReadOnlyMemory<char> MakeMemberNameUnique(TypeDeclaration typeDeclaration, ReadOnlyMemory<char> baseName)
+        private static ReadOnlyMemory<char> MakeMemberNameUnique(TypeDeclaration typeDeclaration, ReadOnlyMemory<char> baseName, ReadOnlyMemory<char>? suffix = null)
         {
             if (typeDeclaration.Parent is TypeDeclaration parent)
             {
+                int baseLength = baseName.Length + 3 + (suffix?.Length ?? 0);
+
                 // You can have up to 999 items with the same name before we blow up!
-                Memory<char> nameMemory = new char[baseName.Length + 3];
+                Memory<char> nameMemory = new char[baseLength];
                 Span<char> name = nameMemory.Span;
                 baseName.Span.CopyTo(name);
+                if (suffix is ReadOnlyMemory<char>)
+                {
+                    suffix.Value.Span.CopyTo(name.Slice(baseName.Length));
+                }
+
                 int index = 1;
-                int length = baseName.Length;
-                while (parent.ContainsMemberNamed(name.Slice(0, length)))
+                int length = baseName.Length + (suffix?.Length ?? 0);
+                while (parent.ContainsMemberName(name.Slice(0, length)))
                 {
                     if (index < 10)
                     {
                         name[baseName.Length] = Convert.ToChar(0x30 + index);
                         length = baseName.Length + 1;
+                        if (suffix is ReadOnlyMemory<char>)
+                        {
+                            suffix.Value.Span.CopyTo(name.Slice(baseName.Length + 1));
+                        }
                     }
                     else if (index < 100)
                     {
                         name[baseName.Length] = Convert.ToChar(0x30 + (index % 10));
                         name[baseName.Length + 1] = Convert.ToChar(0x30 + index);
                         length = baseName.Length + 2;
+                        if (suffix is ReadOnlyMemory<char>)
+                        {
+                            suffix.Value.Span.CopyTo(name.Slice(baseName.Length + 2));
+                        }
                     }
                     else if (index < 1000)
                     {
@@ -46,6 +61,10 @@ namespace Menes.JsonSchema.TypeBuilder
                         name[baseName.Length + 1] = Convert.ToChar(0x30 + (index % 10));
                         name[baseName.Length + 2] = Convert.ToChar(0x30 + index);
                         length = baseName.Length + 3;
+                        if (suffix is ReadOnlyMemory<char>)
+                        {
+                            suffix.Value.Span.CopyTo(name.Slice(baseName.Length + 3));
+                        }
                     }
                     else
                     {
@@ -61,18 +80,6 @@ namespace Menes.JsonSchema.TypeBuilder
             {
                 return baseName;
             }
-        }
-
-        private static void SetTypeNameWithSuffix(TypeDeclaration typeDeclaration, ReadOnlyMemory<char> uniqueName, ReadOnlyMemory<char> suffix)
-        {
-            typeDeclaration.DotnetTypeName = string.Create(
-                                    uniqueName.Length + suffix.Length,
-                                    (name: uniqueName, suffix),
-                                    (chars, state) =>
-                                    {
-                                        state.name.Span.CopyTo(chars);
-                                        state.suffix.Span.CopyTo(chars.Slice(state.name.Length));
-                                    });
         }
 
         private static ReadOnlyMemory<char> GetTypeSuffixFor(LocatedElement schema)
@@ -100,16 +107,15 @@ namespace Menes.JsonSchema.TypeBuilder
         private void SetTypeName(LocatedElement schema, TypeDeclaration typeDeclaration)
         {
             ReadOnlyMemory<char> baseName = Formatting.FormatReferenceAsName(schema.AbsoluteKeywordLocation);
-            ReadOnlyMemory<char> uniqueName = MakeMemberNameUnique(typeDeclaration, baseName);
 
             // If we named from the fragment, then we need to add a suffix
             if (schema.AbsoluteKeywordLocation.HasFragment)
             {
-                SetTypeNameWithSuffix(typeDeclaration, uniqueName, GetTypeSuffixFor(schema));
+                typeDeclaration.DotnetTypeName = MakeMemberNameUnique(typeDeclaration, baseName, GetTypeSuffixFor(schema)).ToString();
             }
             else
             {
-                typeDeclaration.DotnetTypeName = uniqueName.ToString();
+                typeDeclaration.DotnetTypeName = MakeMemberNameUnique(typeDeclaration, baseName).ToString();
             }
         }
     }

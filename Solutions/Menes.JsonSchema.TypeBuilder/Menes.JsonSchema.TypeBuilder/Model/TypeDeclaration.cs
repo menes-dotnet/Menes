@@ -119,7 +119,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         /// </summary>
         /// <param name="span">The name to match.</param>
         /// <returns>True if we match the name.</returns>
-        public bool ContainsMemberNamed(Span<char> span)
+        public bool ContainsMemberName(Span<char> span)
         {
             foreach (string name in this.memberNames)
             {
