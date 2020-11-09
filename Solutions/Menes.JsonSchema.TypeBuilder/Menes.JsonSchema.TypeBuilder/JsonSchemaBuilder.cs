@@ -18,7 +18,7 @@ namespace Menes.JsonSchema.TypeBuilder
     /// </summary>
     public partial class JsonSchemaBuilder
     {
-        private readonly Dictionary<string, LocatedElement> builtElements = new Dictionary<string, LocatedElement>();
+        private readonly Dictionary<string, TypeDeclaration> builtDeclarationsByLocation = new Dictionary<string, TypeDeclaration>();
         private readonly Stack<JsonReference> absoluteKeywordLocationStack = new Stack<JsonReference>();
         private readonly HashSet<string> unresolvedElements = new HashSet<string>();
 
@@ -48,17 +48,16 @@ namespace Menes.JsonSchema.TypeBuilder
         {
             LocatedElement namedElement = await this.GetOrCreateLocatedElement(schema).ConfigureAwait(false);
 
+            // Verify that our schema walk and loading did not lead to any unresolved references.
             this.ValidateUnresolvedElements();
 
             // Nothing for us to do if the named element has already been built (or we are currently building it).
-            if (this.builtElements.ContainsKey(namedElement.AbsoluteKeywordLocation))
+            if (this.builtDeclarationsByLocation.ContainsKey(namedElement.AbsoluteKeywordLocation))
             {
                 return;
             }
 
-            // Add ourselves to the built element list,
-            // and push ourselves onto the located
-            this.builtElements.Add(namedElement.AbsoluteKeywordLocation, namedElement);
+            TypeDeclaration builtElement = await this.BuildTypeDeclaration(namedElement).ConfigureAwait(false);
         }
 
         private void ValidateUnresolvedElements()

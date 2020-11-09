@@ -4,10 +4,7 @@
 
 namespace Menes.JsonSchema.TypeBuilder
 {
-    using System;
     using System.Text;
-    using System.Text.Json;
-    using System.Threading.Tasks;
 
     /// <summary>
     /// Builds types from a Json Schema document.

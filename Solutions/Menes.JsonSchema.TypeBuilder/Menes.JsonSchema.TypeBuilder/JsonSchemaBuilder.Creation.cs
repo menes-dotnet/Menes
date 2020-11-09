@@ -17,8 +17,13 @@ namespace Menes.JsonSchema.TypeBuilder
     public partial class JsonSchemaBuilder
     {
         /// <summary>
-        /// Build a named element, update the relevant location stacks, and the <see cref="locatedElementsByLocation"/> list.
+        /// Build a <see cref="LocatedElement"/> from the given schema, update the relevant location stacks, and the <see cref="locatedElementsByLocation"/> list.
         /// </summary>
+        /// <remarks>
+        /// <para>
+        /// This makes a depth-first walk of the element to find all its contained elements, follows and resolves references (loading external schema if appropriate).
+        /// </para>
+        /// </remarks>
         private async Task<LocatedElement> GetOrCreateLocatedElement(JsonElement schema)
         {
             JsonReference? inplaceReference = null;
@@ -116,6 +121,18 @@ namespace Menes.JsonSchema.TypeBuilder
 
             JsonReference stack = this.absoluteKeywordLocationStack.Skip(1).Take(1).Single();
             return stack.Fragment.EndsWith("#/properties");
+        }
+
+        private void PushPropertyToAbsoluteKeywordLocationStack(string unencodedPropertyName)
+        {
+            if (this.absoluteKeywordLocationStack.TryPeek(out JsonReference current))
+            {
+                this.absoluteKeywordLocationStack.Push(current.AppendUnencodedPropertyNameToFragment(unencodedPropertyName));
+            }
+            else
+            {
+                this.absoluteKeywordLocationStack.Push(JsonReference.FromUriAndUnencodedPropertyName("/", unencodedPropertyName));
+            }
         }
 
         private void PushPropertyToAbsoluteKeywordLocationStack(JsonProperty property)

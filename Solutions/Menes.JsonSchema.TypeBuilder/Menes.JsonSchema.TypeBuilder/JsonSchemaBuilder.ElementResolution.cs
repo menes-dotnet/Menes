@@ -4,7 +4,6 @@
 
 namespace Menes.JsonSchema.TypeBuilder
 {
-    using System;
     using System.Linq;
     using System.Text.Json;
     using System.Threading.Tasks;
@@ -35,6 +34,18 @@ namespace Menes.JsonSchema.TypeBuilder
         /// Find the element at the given absolute location, loading it using the <see cref="IDocumentResolver"/>
         /// if it is not already resolved.
         /// </summary>
+        /// <remarks>
+        /// <para>
+        /// If the reference cannot be resolved, it is pushed onto teh <see cref="unresolvedElements"/> stack.
+        /// </para>
+        /// <para>
+        /// If the reference is resolved, it is removed from the <see cref="unresolvedElements"/> stack, if it was present.
+        /// </para>
+        /// <para>
+        /// The caller can examine the <see cref="unresolvedElements"/> when the whole tree has been walked to determine if any
+        /// elements remained unresolved.
+        /// </para>
+        /// </remarks>
         private async Task<JsonElement?> TryResolveElement(JsonReference absoluteLocation)
         {
             if (this.ids.TryGetValue(absoluteLocation, out LocatedElement elementById))
