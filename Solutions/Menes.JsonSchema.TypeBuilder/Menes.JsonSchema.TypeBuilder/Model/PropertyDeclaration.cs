@@ -20,6 +20,11 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         public string? DotnetPropertyName { get; set; }
 
         /// <summary>
+        /// Gets or sets the dotnet field name of the property.
+        /// </summary>
+        public string? DotnetFieldName { get; set; }
+
+        /// <summary>
         /// Gets or sets the type declaration for the property.
         /// </summary>
         public TypeDeclaration? TypeDeclaration { get; set; }

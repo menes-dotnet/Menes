@@ -50,11 +50,9 @@ namespace Menes.JsonSchema.TypeBuilder
 
         private async Task CreatePropertyDeclarationFor(TypeDeclaration typeDeclaration, JsonProperty property)
         {
-            var propertyDeclaration = new PropertyDeclaration
-            {
-                JsonPropertyName = property.Name,
-                DotnetPropertyName = Formatting.ToPascalCaseWithReservedWords(property.Name).ToString(),
-            };
+            var propertyDeclaration = new PropertyDeclaration();
+
+            this.SetPropertyName(typeDeclaration, property, propertyDeclaration);
 
             JsonReference location = this.absoluteKeywordLocationStack.Peek();
             if (this.locatedElementsByLocation.TryGetValue(location, out LocatedElement propertyTypeElement))
@@ -66,6 +64,8 @@ namespace Menes.JsonSchema.TypeBuilder
                 throw new InvalidOperationException($"Unable to find element for property type at location: '{location}'");
             }
 
+            // We always add all properties (as we may have non-unique properties)
+            // and deal with the consequences when we come to generate the code.
             typeDeclaration.AddPropertyDeclaration(propertyDeclaration);
         }
     }

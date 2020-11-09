@@ -14,6 +14,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
     public class TypeDeclaration
     {
         private readonly List<string> memberNames = new List<string>();
+        private readonly HashSet<string> jsonPropertyNames = new HashSet<string>();
 
         /// <summary>
         /// Gets or sets the parent declaration containing this type declaration.
@@ -110,7 +111,9 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         /// <param name="propertyDeclaration">The property declaration to add.</param>
         public void AddPropertyDeclaration(PropertyDeclaration propertyDeclaration)
         {
-            // TODO: implement the property specialization/hiding
+            this.ValidatePropertyName(propertyDeclaration.DotnetPropertyName);
+            this.jsonPropertyNames.Add(propertyDeclaration.JsonPropertyName!);
+            this.memberNames.Add(propertyDeclaration.DotnetPropertyName!);
             this.EnsureProperties().Add(propertyDeclaration);
         }
 
@@ -132,6 +135,27 @@ namespace Menes.JsonSchema.TypeBuilder.Model
             return false;
         }
 
+        /// <summary>
+        /// Determines whether the type contains at least one JSON property
+        /// of the given name.
+        /// </summary>
+        /// <param name="name">The JSON property name to check.</param>
+        /// <returns><c>True</c> if there is at least one property declared with that JSON property name.</returns>
+        public bool ContainsJsonProperty(string name)
+        {
+            return this.jsonPropertyNames.Contains(name);
+        }
+
+        /// <summary>
+        /// Returns true if this type specializes the other type declaration.
+        /// </summary>
+        /// <param name="other">The other type delaration.</param>
+        /// <returns><c>true</c> if this type represents a more constrained version of the other type.</returns>
+        public bool Specializes(TypeDeclaration other)
+        {
+            return false;
+        }
+
         private List<TypeDeclaration> EnsureNestedTypes()
         {
             return this.NestedTypes ??= new List<TypeDeclaration>();
@@ -140,6 +164,14 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         private List<PropertyDeclaration> EnsureProperties()
         {
             return this.Properties ??= new List<PropertyDeclaration>();
+        }
+
+        private void ValidatePropertyName(string? name)
+        {
+            if (name is null)
+            {
+                throw new InvalidOperationException($"You must set the name of the property before adding it to its parent.");
+            }
         }
 
         private void ValidateMemberName(string? name)

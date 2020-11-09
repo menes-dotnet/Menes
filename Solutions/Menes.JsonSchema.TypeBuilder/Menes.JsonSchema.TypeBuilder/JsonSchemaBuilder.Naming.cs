@@ -82,6 +82,71 @@ namespace Menes.JsonSchema.TypeBuilder
             }
         }
 
+        private static ReadOnlySpan<char> MakeMemberNameUnique(TypeDeclaration typeDeclaration, ReadOnlySpan<char> baseName, ReadOnlyMemory<char>? suffix = null)
+        {
+            if (typeDeclaration.Parent is TypeDeclaration parent)
+            {
+                int baseLength = baseName.Length + 3 + (suffix?.Length ?? 0);
+
+                // You can have up to 999 items with the same name before we blow up!
+                Memory<char> nameMemory = new char[baseLength];
+                Span<char> name = nameMemory.Span;
+                baseName.CopyTo(name);
+                if (suffix is ReadOnlyMemory<char>)
+                {
+                    suffix.Value.Span.CopyTo(name.Slice(baseName.Length));
+                }
+
+                int index = 1;
+                int length = baseName.Length + (suffix?.Length ?? 0);
+                while (parent.ContainsMemberName(name.Slice(0, length)))
+                {
+                    if (index < 10)
+                    {
+                        name[baseName.Length] = Convert.ToChar(0x30 + index);
+                        length = baseName.Length + 1;
+                        if (suffix is ReadOnlyMemory<char>)
+                        {
+                            suffix.Value.Span.CopyTo(name.Slice(baseName.Length + 1));
+                        }
+                    }
+                    else if (index < 100)
+                    {
+                        name[baseName.Length] = Convert.ToChar(0x30 + (index % 10));
+                        name[baseName.Length + 1] = Convert.ToChar(0x30 + index);
+                        length = baseName.Length + 2;
+                        if (suffix is ReadOnlyMemory<char>)
+                        {
+                            suffix.Value.Span.CopyTo(name.Slice(baseName.Length + 2));
+                        }
+                    }
+                    else if (index < 1000)
+                    {
+                        name[baseName.Length] = Convert.ToChar(0x30 + (index % 100));
+                        name[baseName.Length + 1] = Convert.ToChar(0x30 + (index % 10));
+                        name[baseName.Length + 2] = Convert.ToChar(0x30 + index);
+                        length = baseName.Length + 3;
+                        if (suffix is ReadOnlyMemory<char>)
+                        {
+                            suffix.Value.Span.CopyTo(name.Slice(baseName.Length + 3));
+                        }
+                    }
+                    else
+                    {
+                        throw new InvalidOperationException($"Unsupported schema: more than 999 members have been defined which resolve to the name '{baseName.ToString()}'");
+                    }
+
+                    index++;
+                }
+
+                return nameMemory.Span.Slice(0, length);
+            }
+            else
+            {
+                return baseName;
+            }
+        }
+
         private static ReadOnlyMemory<char> GetTypeSuffixFor(LocatedElement schema)
         {
             // If we have an explicit type and it is a string we can determine a better type name
@@ -117,6 +182,19 @@ namespace Menes.JsonSchema.TypeBuilder
             {
                 typeDeclaration.DotnetTypeName = MakeMemberNameUnique(typeDeclaration, baseName).ToString();
             }
+        }
+
+        private void SetPropertyName(TypeDeclaration typeDeclaration, JsonProperty property, PropertyDeclaration propertyDeclaration)
+        {
+            string name = property.Name;
+
+            propertyDeclaration.JsonPropertyName = name;
+
+            ReadOnlySpan<char> basePropertyName = Formatting.ToPascalCaseWithReservedWords(name);
+            propertyDeclaration.DotnetPropertyName = MakeMemberNameUnique(typeDeclaration, basePropertyName).ToString();
+
+            ReadOnlySpan<char> baseFieldName = Formatting.ToCamelCaseWithReservedWords(name);
+            propertyDeclaration.DotnetPropertyName = MakeMemberNameUnique(typeDeclaration, baseFieldName).ToString();
         }
     }
 }
