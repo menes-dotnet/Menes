@@ -5,6 +5,7 @@
 namespace Menes.JsonSchema.TypeBuilder
 {
     using System;
+    using System.Linq;
     using System.Text;
     using System.Text.Json;
     using System.Threading.Tasks;
@@ -21,7 +22,6 @@ namespace Menes.JsonSchema.TypeBuilder
         /// </summary>
         private async Task<LocatedElement> GetOrCreateLocatedElement(JsonElement schema)
         {
-            int propertyCount = 0;
             JsonReference? inplaceReference = null;
             string? dollaranchor = null;
             string? dollarid = null;
@@ -42,7 +42,7 @@ namespace Menes.JsonSchema.TypeBuilder
                     this.PushPropertyToAbsoluteKeywordLocationStack(property);
 
                     // We treat all refs as if they could be recursive.
-                    if (property.NameEquals("$ref"))
+                    if (property.NameEquals("$ref") && !this.IsInSchemaProperties())
                     {
                         ValidateDollarRef(property);
 
@@ -58,11 +58,6 @@ namespace Menes.JsonSchema.TypeBuilder
                     {
                         ValidateDollarAnchor(property);
                         dollaranchor = property.Value.GetString();
-                    }
-
-                    if (!property.NameEquals("$defs"))
-                    {
-                        propertyCount++;
                     }
 
                     if (property.Value.ValueKind == JsonValueKind.Object)
@@ -85,8 +80,8 @@ namespace Menes.JsonSchema.TypeBuilder
                 }
 
                 // If this is "just" a reference, with no other composing
-                // content, then just follow the reference.
-                if (!recursiveReference && propertyCount == 1 && inplaceReference is JsonReference reference)
+                // content, then just follow the reference, unless there aren't yet any references and we're trying to get the root element
+                if (!recursiveReference && inplaceReference is JsonReference reference && ((reference != "#" && !reference.Fragment.StartsWith("#/")) || this.locatedElementsByLocation.Count > 0))
                 {
                     return await this.GetOrCreateLocatedElement(reference).ConfigureAwait(false);
                 }
@@ -107,6 +102,17 @@ namespace Menes.JsonSchema.TypeBuilder
                     this.absoluteKeywordLocationStack.Pop();
                 }
             }
+        }
+
+        private bool IsInSchemaProperties()
+        {
+            if (this.absoluteKeywordLocationStack.Count < 2)
+            {
+                return false;
+            }
+
+            JsonReference stack = this.absoluteKeywordLocationStack.Skip(1).Take(1).Single();
+            return stack.Fragment.EndsWith("#/properties");
         }
 
         private void PushPropertyToAbsoluteKeywordLocationStack(JsonProperty property)
@@ -209,17 +215,6 @@ namespace Menes.JsonSchema.TypeBuilder
 
             try
             {
-                var keywordPath = new StringBuilder("#");
-                keywordPath.Append("/$ref");
-
-                ReadOnlySpan<char> fragment = reference.Fragment;
-
-                if (fragment.Length > 0)
-                {
-                    keywordPath.Append("/");
-                    keywordPath.Append(fragment);
-                }
-
                 if (this.anchors.TryGetValue(absoluteLocation, out LocatedElement anchoredElement))
                 {
                     return Task.FromResult(anchoredElement);
