@@ -6,7 +6,6 @@ namespace Menes.JsonSchema.TypeBuilder
 {
     using System;
     using System.Linq;
-    using System.Text;
     using System.Text.Json;
     using System.Threading.Tasks;
     using Menes.Json;
@@ -75,15 +74,19 @@ namespace Menes.JsonSchema.TypeBuilder
                             arrayIndex++;
                         }
                     }
+                    else if (property.Value.ValueKind == JsonValueKind.True || property.Value.ValueKind == JsonValueKind.False)
+                    {
+                        await this.GetOrCreateLocatedElement(property.Value).ConfigureAwait(false);
+                    }
 
                     this.absoluteKeywordLocationStack.Pop();
                 }
 
                 // If this is "just" a reference, with no other composing
                 // content, then just follow the reference, unless there aren't yet any references and we're trying to get the root element
-                if (!recursiveReference && inplaceReference is JsonReference reference && ((reference != "#" && !reference.Fragment.StartsWith("#/")) || this.locatedElementsByLocation.Count > 0))
+                if (!recursiveReference && inplaceReference is JsonReference reference && (reference != "#" || this.locatedElementsByLocation.Count > 0))
                 {
-                    return await this.GetOrCreateLocatedElement(reference).ConfigureAwait(false);
+                    await this.GetOrCreateLocatedElement(reference).ConfigureAwait(false);
                 }
             }
             else
@@ -175,6 +178,11 @@ namespace Menes.JsonSchema.TypeBuilder
                     updated = true;
                 }
             }
+            else if (dollarid is JsonReference did)
+            {
+                this.absoluteKeywordLocationStack.Push(did);
+                updated = true;
+            }
             else
             {
                 this.absoluteKeywordLocationStack.Push(new JsonReference("#"));
@@ -196,7 +204,7 @@ namespace Menes.JsonSchema.TypeBuilder
         /// as been pushed onto the stack (as is the case when called from <see cref="GetOrCreateLocatedElement(JsonElement)"/>.
         /// </para>
         /// </summary>
-        private Task<LocatedElement> GetOrCreateLocatedElement(JsonReference reference)
+        private async Task<LocatedElement?> GetOrCreateLocatedElement(JsonReference reference)
         {
             JsonReference absoluteLocation = this.GetAbsoluteKeywordLocation(reference);
 
@@ -205,32 +213,31 @@ namespace Menes.JsonSchema.TypeBuilder
                 // Self referential, so peek the item off the stack
                 if (this.locatedElementsByLocation.TryGetValue(absoluteLocation, out LocatedElement locatedElement))
                 {
-                    return Task.FromResult(locatedElement);
+                    return locatedElement;
                 }
                 else
                 {
-                    throw new InvalidOperationException("The root element cannot be an in-place self reference.");
+                    return null;
                 }
             }
 
-            try
+            if (this.anchors.TryGetValue(absoluteLocation, out LocatedElement anchoredElement))
             {
-                if (this.anchors.TryGetValue(absoluteLocation, out LocatedElement anchoredElement))
-                {
-                    return Task.FromResult(anchoredElement);
-                }
-
-                if (this.locatedElementsByLocation.TryGetValue(absoluteLocation, out LocatedElement referencedElement))
-                {
-                    return Task.FromResult(referencedElement);
-                }
-
-                return this.ResolveElement(absoluteLocation).ContinueWith(t => this.GetOrCreateLocatedElement(t.Result)).Unwrap();
+                return anchoredElement;
             }
-            catch (Exception ex)
+
+            if (this.locatedElementsByLocation.TryGetValue(absoluteLocation, out LocatedElement referencedElement))
             {
-                return Task.FromException<LocatedElement>(ex);
+                return referencedElement;
             }
+
+            JsonElement? resolvedElementOrNull = await this.TryResolveElement(absoluteLocation).ConfigureAwait(false);
+            if (!(resolvedElementOrNull is JsonElement resolvedElement))
+            {
+                return null;
+            }
+
+            return await this.GetOrCreateLocatedElement(resolvedElement).ConfigureAwait(false);
         }
     }
 }

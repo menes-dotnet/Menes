@@ -118,7 +118,14 @@ namespace Menes.Json
                 totalLength += this.Authority.Length + 2;
             }
 
-            totalLength += this.Path.Length;
+            if (this.Path.Length > 0 && this.Path[0] != '/' && this.Authority.Length > 0)
+            {
+                totalLength += this.Path.Length + 1;
+            }
+            else
+            {
+                totalLength += this.Path.Length;
+            }
 
             if (this.Query.Length > 0)
             {
@@ -153,6 +160,12 @@ namespace Menes.Json
 
             if (this.Path.Length > 0)
             {
+                if (this.Path[0] != '/' && this.Authority.Length > 0)
+                {
+                    reference.Span[index] = '/';
+                    index++;
+                }
+
                 this.Path.CopyTo(reference.Span.Slice(index, this.Path.Length));
                 index += this.Path.Length;
             }

@@ -35,25 +35,35 @@ namespace Menes.JsonSchema.TypeBuilder
         /// Find the element at the given absolute location, loading it using the <see cref="IDocumentResolver"/>
         /// if it is not already resolved.
         /// </summary>
-        private Task<JsonElement> ResolveElement(JsonReference absoluteLocation)
+        private async Task<JsonElement?> TryResolveElement(JsonReference absoluteLocation)
         {
             if (this.ids.TryGetValue(absoluteLocation, out LocatedElement elementById))
             {
-                return Task.FromResult(elementById.JsonElement);
+                return elementById.JsonElement;
             }
 
             if (this.anchors.TryGetValue(absoluteLocation, out LocatedElement elementByAnchor))
             {
-                return Task.FromResult(elementByAnchor.JsonElement);
+                return elementByAnchor.JsonElement;
             }
 
             if (this.locatedElementsByLocation.TryGetValue(absoluteLocation, out LocatedElement elementByLocation))
             {
-                return Task.FromResult(elementByLocation.JsonElement);
+                return elementByLocation.JsonElement;
             }
 
             // We need to load the element from the relevant document.
-            return this.documentResolver.TryResolve(absoluteLocation).ContinueWith(t => t.Result ?? throw new ArgumentException("Unable to resolve the schema."));
+            JsonElement? element = await this.documentResolver.TryResolve(absoluteLocation).ConfigureAwait(false);
+            if (element is null)
+            {
+                this.unresolvedElements.Add(absoluteLocation.ToString());
+            }
+            else
+            {
+                this.unresolvedElements.Remove(absoluteLocation.ToString());
+            }
+
+            return element;
         }
 
         /// <summary>
@@ -73,7 +83,7 @@ namespace Menes.JsonSchema.TypeBuilder
             // Work up the stack, skipping the first one.
             foreach (JsonReference reference in this.absoluteKeywordLocationStack.Skip(1))
             {
-                if (this.locatedElementsByLocation.TryGetValue(reference, out LocatedElement _))
+                if (!reference.HasFragment)
                 {
                     return reference;
                 }

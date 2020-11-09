@@ -80,6 +80,11 @@ namespace Menes.Json
         public bool HasAbsoluteUri => this.FindScheme().Length > 0;
 
         /// <summary>
+        /// Gets a value indicating whether the ref has an absolute uri.
+        /// </summary>
+        public bool HasFragment => FindHash(this.reference.Span) >= 0;
+
+        /// <summary>
         /// Gets the URI without the fragment.
         /// </summary>
         public ReadOnlySpan<char> Uri => this.FindUri();
@@ -377,11 +382,12 @@ namespace Menes.Json
             if (lastSlash > 0)
             {
                 basePath.Slice(0, lastSlash + 1).CopyTo(pathMemory.Span);
+                path.CopyTo(pathMemory.Span.Slice(lastSlash + 1));
+                return lastSlash + 1 + path.Length;
             }
 
-            path.CopyTo(pathMemory.Span.Slice(lastSlash + 1));
-
-            return lastSlash + 1 + path.Length;
+            path.CopyTo(pathMemory.Span);
+            return path.Length;
         }
 
         private static ReadOnlySpan<char> RemoveDotSegments(ref ReadOnlySpan<char> path, in Memory<char> mergedPath)

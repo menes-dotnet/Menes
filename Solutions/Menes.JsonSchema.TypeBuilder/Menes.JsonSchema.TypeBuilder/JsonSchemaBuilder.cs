@@ -4,7 +4,10 @@
 
 namespace Menes.JsonSchema.TypeBuilder
 {
+    using System;
     using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
     using System.Text.Json;
     using System.Threading.Tasks;
     using Menes.Json;
@@ -17,6 +20,7 @@ namespace Menes.JsonSchema.TypeBuilder
     {
         private readonly Dictionary<string, LocatedElement> builtElements = new Dictionary<string, LocatedElement>();
         private readonly Stack<JsonReference> absoluteKeywordLocationStack = new Stack<JsonReference>();
+        private readonly HashSet<string> unresolvedElements = new HashSet<string>();
 
         // Note that anchors are stored as a full reference, with the base uri of the root document combined with the anchor name.
         private readonly Dictionary<string, LocatedElement> anchors = new Dictionary<string, LocatedElement>();
@@ -44,6 +48,8 @@ namespace Menes.JsonSchema.TypeBuilder
         {
             LocatedElement namedElement = await this.GetOrCreateLocatedElement(schema).ConfigureAwait(false);
 
+            this.ValidateUnresolvedElements();
+
             // Nothing for us to do if the named element has already been built (or we are currently building it).
             if (this.builtElements.ContainsKey(namedElement.AbsoluteKeywordLocation))
             {
@@ -53,6 +59,35 @@ namespace Menes.JsonSchema.TypeBuilder
             // Add ourselves to the built element list,
             // and push ourselves onto the located
             this.builtElements.Add(namedElement.AbsoluteKeywordLocation, namedElement);
+        }
+
+        private void ValidateUnresolvedElements()
+        {
+            // Strip out any that have been subsequentyl identified by anchor or ID.
+            foreach (string reference in this.unresolvedElements.ToList())
+            {
+                if (this.ids.ContainsKey(reference) || this.anchors.ContainsKey(reference) || this.locatedElementsByLocation.ContainsKey(reference))
+                {
+                    this.unresolvedElements.Remove(reference);
+                }
+            }
+
+            if (this.unresolvedElements.Count > 0)
+            {
+                throw new InvalidOperationException(this.BuildUnresolvedElementsError());
+            }
+        }
+
+        private string BuildUnresolvedElementsError()
+        {
+            var builder = new StringBuilder();
+            builder.AppendLine("The schema has unresolved references:");
+            foreach (string reference in this.unresolvedElements)
+            {
+                builder.AppendLine(reference);
+            }
+
+            return builder.ToString();
         }
     }
 }
