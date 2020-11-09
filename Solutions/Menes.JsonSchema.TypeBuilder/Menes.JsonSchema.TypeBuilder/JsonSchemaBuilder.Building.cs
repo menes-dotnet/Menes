@@ -5,6 +5,8 @@
 namespace Menes.JsonSchema.TypeBuilder
 {
     using System;
+    using System.Buffers;
+    using System.Text.Json;
     using System.Threading.Tasks;
     using Menes.Json;
     using Menes.JsonSchema.TypeBuilder.Model;
@@ -67,7 +69,7 @@ namespace Menes.JsonSchema.TypeBuilder
         private void SetNameAndParent(LocatedElement schema, TypeDeclaration typeDeclaration)
         {
             this.SetParent(schema, typeDeclaration);
-            this.SetName(schema, typeDeclaration);
+            this.SetTypeName(schema, typeDeclaration);
             this.AddToParent(typeDeclaration);
         }
 
@@ -89,11 +91,5 @@ namespace Menes.JsonSchema.TypeBuilder
                 throw new InvalidOperationException($"Expected to find a type declaration for: {reference}");
             }
         }
-
-        private void SetName(LocatedElement schema, TypeDeclaration typeDeclaration)
-        {
-            ReadOnlyMemory<char> baseName = Formatting.FormatReferenceAsFullyQualifiedName(schema.AbsoluteKeywordLocation);
-            typeDeclaration.DotnetTypeName = MakeMemberNameUnique(typeDeclaration, baseName.Span).ToString();
-        }
-     }
+    }
 }

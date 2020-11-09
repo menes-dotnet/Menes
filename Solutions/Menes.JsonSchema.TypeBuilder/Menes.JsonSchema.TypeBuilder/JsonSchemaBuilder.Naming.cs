@@ -5,6 +5,7 @@
 namespace Menes.JsonSchema.TypeBuilder
 {
     using System;
+    using System.Text.Json;
     using Menes.JsonSchema.TypeBuilder.Model;
 
     /// <summary>
@@ -12,13 +13,18 @@ namespace Menes.JsonSchema.TypeBuilder
     /// </summary>
     public partial class JsonSchemaBuilder
     {
-        private static ReadOnlySpan<char> MakeMemberNameUnique(TypeDeclaration typeDeclaration, ReadOnlySpan<char> baseName)
+        private static readonly ReadOnlyMemory<char> ArraySuffix = "Array".AsMemory();
+        private static readonly ReadOnlyMemory<char> ValueSuffix = "Value".AsMemory();
+        private static readonly ReadOnlyMemory<char> EntitySuffix = "Entity".AsMemory();
+
+        private static ReadOnlyMemory<char> MakeMemberNameUnique(TypeDeclaration typeDeclaration, ReadOnlyMemory<char> baseName)
         {
             if (typeDeclaration.Parent is TypeDeclaration parent)
             {
                 // You can have up to 999 items with the same name before we blow up!
-                Span<char> name = new char[baseName.Length + 3];
-                baseName.CopyTo(name);
+                Memory<char> nameMemory = new char[baseName.Length + 3];
+                Span<char> name = nameMemory.Span;
+                baseName.Span.CopyTo(name);
                 int index = 1;
                 int length = baseName.Length;
                 while (parent.ContainsMemberNamed(name.Slice(0, length)))
@@ -43,17 +49,67 @@ namespace Menes.JsonSchema.TypeBuilder
                     }
                     else
                     {
-                        throw new InvalidOperationException($"Unsupported schema: more than 999 members have been defined which resolve to the name '{baseName.ToString()}'");
+                        throw new InvalidOperationException($"Unsupported schema: more than 999 members have been defined which resolve to the name '{baseName}'");
                     }
 
                     index++;
                 }
 
-                return name.Slice(0, length);
+                return nameMemory.Slice(0, length);
             }
             else
             {
                 return baseName;
+            }
+        }
+
+        private static void SetTypeNameWithSuffix(TypeDeclaration typeDeclaration, ReadOnlyMemory<char> uniqueName, ReadOnlyMemory<char> suffix)
+        {
+            typeDeclaration.DotnetTypeName = string.Create(
+                                    uniqueName.Length + suffix.Length,
+                                    (name: uniqueName, suffix),
+                                    (chars, state) =>
+                                    {
+                                        state.name.Span.CopyTo(chars);
+                                        state.suffix.Span.CopyTo(chars.Slice(state.name.Length));
+                                    });
+        }
+
+        private static ReadOnlyMemory<char> GetTypeSuffixFor(LocatedElement schema)
+        {
+            // If we have an explicit type and it is a string we can determine a better type name
+            if (schema.JsonElement.ValueKind == JsonValueKind.Object && schema.JsonElement.TryGetProperty("type", out JsonElement type) && type.ValueKind == JsonValueKind.String)
+            {
+                if (type.ValueEquals("object"))
+                {
+                    return EntitySuffix;
+                }
+                else if (type.ValueEquals("array"))
+                {
+                    return ArraySuffix;
+                }
+                else
+                {
+                    return ValueSuffix;
+                }
+            }
+
+            return EntitySuffix;
+        }
+
+        private void SetTypeName(LocatedElement schema, TypeDeclaration typeDeclaration)
+        {
+            ReadOnlyMemory<char> baseName = Formatting.FormatReferenceAsName(schema.AbsoluteKeywordLocation);
+            ReadOnlyMemory<char> uniqueName = MakeMemberNameUnique(typeDeclaration, baseName);
+
+            // If we named from the fragment, then we need to add a suffix
+            if (schema.AbsoluteKeywordLocation.HasFragment)
+            {
+                SetTypeNameWithSuffix(typeDeclaration, uniqueName, GetTypeSuffixFor(schema));
+            }
+            else
+            {
+                typeDeclaration.DotnetTypeName = uniqueName.ToString();
             }
         }
     }

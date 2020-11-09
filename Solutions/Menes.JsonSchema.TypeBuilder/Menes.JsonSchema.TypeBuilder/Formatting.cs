@@ -98,7 +98,7 @@ namespace Menes.JsonSchema.TypeBuilder
         /// </summary>
         /// <param name="reference">The reference to format.</param>
         /// <returns>The reference formateted as a name.</returns>
-        public static ReadOnlyMemory<char> FormatReferenceAsFullyQualifiedName(JsonReference reference)
+        public static ReadOnlyMemory<char> FormatReferenceAsName(JsonReference reference)
         {
             JsonReferenceBuilder refBuilder = reference.AsBuilder();
             if (refBuilder.HasFragment)

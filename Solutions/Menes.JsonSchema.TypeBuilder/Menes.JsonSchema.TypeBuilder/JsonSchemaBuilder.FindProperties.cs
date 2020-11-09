@@ -65,6 +65,8 @@ namespace Menes.JsonSchema.TypeBuilder
             {
                 throw new InvalidOperationException($"Unable to find element for property type at location: '{location}'");
             }
+
+            typeDeclaration.AddPropertyDeclaration(propertyDeclaration);
         }
     }
 }

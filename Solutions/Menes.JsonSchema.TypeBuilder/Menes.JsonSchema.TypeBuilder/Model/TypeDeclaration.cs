@@ -59,24 +59,24 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         public LocatedElement TypeSchema { get; set; }
 
         /// <summary>
-        /// Gets or sets the non-optional properties exposed by the type.
+        /// Gets the non-optional properties exposed by the type.
         /// </summary>
-        public List<PropertyDeclaration>? Properties { get; set; }
+        public List<PropertyDeclaration>? Properties { get; private set; }
 
         /// <summary>
-        /// Gets or sets the list of conversion operators for the type.
+        /// Gets the list of conversion operators for the type.
         /// </summary>
-        public List<ConversionDeclaration>? ConversionOperators { get; set; }
+        public List<ConversionDeclaration>? ConversionOperators { get; private set; }
 
         /// <summary>
-        /// Gets or sets the list of explicit AsSomeType() and IsSomeType() validation methods for the type.
+        /// Gets the list of explicit AsSomeType() and IsSomeType() validation methods for the type.
         /// </summary>
-        public List<AsConversionDeclaration>? AsConversionMethods { get; set; }
+        public List<AsConversionDeclaration>? AsConversionMethods { get; private set; }
 
         /// <summary>
-        /// Gets or sets the list of nested types in this declaration.
+        /// Gets the list of nested types in this declaration.
         /// </summary>
-        public List<TypeDeclaration>? NestedTypes { get; set; }
+        public List<TypeDeclaration>? NestedTypes { get; private set; }
 
         /// <summary>
         /// Gets a value which determines whether this type contains a reference to a given type.
@@ -105,6 +105,16 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         }
 
         /// <summary>
+        /// Add a property declaration to this type.
+        /// </summary>
+        /// <param name="propertyDeclaration">The property declaration to add.</param>
+        public void AddPropertyDeclaration(PropertyDeclaration propertyDeclaration)
+        {
+            // TODO: implement the property specialization/hiding
+            this.EnsureProperties().Add(propertyDeclaration);
+        }
+
+        /// <summary>
         /// Determines if we contain a member matching the given name.
         /// </summary>
         /// <param name="span">The name to match.</param>
@@ -125,6 +135,11 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         private List<TypeDeclaration> EnsureNestedTypes()
         {
             return this.NestedTypes ??= new List<TypeDeclaration>();
+        }
+
+        private List<PropertyDeclaration> EnsureProperties()
+        {
+            return this.Properties ??= new List<PropertyDeclaration>();
         }
 
         private void ValidateMemberName(string? name)
