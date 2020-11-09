@@ -237,7 +237,16 @@ namespace Menes.JsonSchema.TypeBuilder
                 return null;
             }
 
-            return await this.GetOrCreateLocatedElement(resolvedElement).ConfigureAwait(false);
+            this.absoluteKeywordLocationStack.Push(absoluteLocation);
+
+            try
+            {
+                return await this.GetOrCreateLocatedElement(resolvedElement).ConfigureAwait(false);
+            }
+            finally
+            {
+                this.absoluteKeywordLocationStack.Pop();
+            }
         }
     }
 }
