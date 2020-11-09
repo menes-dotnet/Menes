@@ -4,6 +4,9 @@ Feature: refRemote
     I want to support refRemote
 
 Scenario Outline: remote ref
+/* Schema: 
+{"$ref": "http://localhost:1234/integer.json"}
+*/
     Given the input JSON file "refRemote.json"
     And the schema at "#/0/schema"
     And the input data at "<inputDataReference>"
@@ -18,6 +21,9 @@ Scenario Outline: remote ref
         | #/000/tests/001/data | false | remote ref invalid                                                               |
 
 Scenario Outline: fragment within remote ref
+/* Schema: 
+{"$ref": "http://localhost:1234/subSchemas-defs.json#/$defs/integer"}
+*/
     Given the input JSON file "refRemote.json"
     And the schema at "#/1/schema"
     And the input data at "<inputDataReference>"
@@ -32,6 +38,11 @@ Scenario Outline: fragment within remote ref
         | #/001/tests/001/data | false | remote fragment invalid                                                          |
 
 Scenario Outline: ref within remote ref
+/* Schema: 
+{
+            "$ref": "http://localhost:1234/subSchemas-defs.json#/$defs/refToInteger"
+        }
+*/
     Given the input JSON file "refRemote.json"
     And the schema at "#/2/schema"
     And the input data at "<inputDataReference>"
@@ -46,6 +57,15 @@ Scenario Outline: ref within remote ref
         | #/002/tests/001/data | false | ref within ref invalid                                                           |
 
 Scenario Outline: base URI change
+/* Schema: 
+{
+            "$id": "http://localhost:1234/",
+            "items": {
+                "$id": "baseUriChange/",
+                "items": {"$ref": "folderInteger.json"}
+            }
+        }
+*/
     Given the input JSON file "refRemote.json"
     And the schema at "#/3/schema"
     And the input data at "<inputDataReference>"
@@ -60,6 +80,20 @@ Scenario Outline: base URI change
         | #/003/tests/001/data | false | base URI change ref invalid                                                      |
 
 Scenario Outline: base URI change - change folder
+/* Schema: 
+{
+            "$id": "http://localhost:1234/scope_change_defs1.json",
+            "type" : "object",
+            "properties": {"list": {"$ref": "baseUriChangeFolder/"}},
+            "$defs": {
+                "baz": {
+                    "$id": "baseUriChangeFolder/",
+                    "type": "array",
+                    "items": {"$ref": "folderInteger.json"}
+                }
+            }
+        }
+*/
     Given the input JSON file "refRemote.json"
     And the schema at "#/4/schema"
     And the input data at "<inputDataReference>"
@@ -74,6 +108,24 @@ Scenario Outline: base URI change - change folder
         | #/004/tests/001/data | false | string is invalid                                                                |
 
 Scenario Outline: base URI change - change folder in subschema
+/* Schema: 
+{
+            "$id": "http://localhost:1234/scope_change_defs2.json",
+            "type" : "object",
+            "properties": {"list": {"$ref": "baseUriChangeFolderInSubschema/#/$defs/bar"}},
+            "$defs": {
+                "baz": {
+                    "$id": "baseUriChangeFolderInSubschema/",
+                    "$defs": {
+                        "bar": {
+                            "type": "array",
+                            "items": {"$ref": "folderInteger.json"}
+                        }
+                    }
+                }
+            }
+        }
+*/
     Given the input JSON file "refRemote.json"
     And the schema at "#/5/schema"
     And the input data at "<inputDataReference>"
@@ -88,6 +140,15 @@ Scenario Outline: base URI change - change folder in subschema
         | #/005/tests/001/data | false | string is invalid                                                                |
 
 Scenario Outline: root ref in remote ref
+/* Schema: 
+{
+            "$id": "http://localhost:1234/object",
+            "type": "object",
+            "properties": {
+                "name": {"$ref": "name-defs.json#/$defs/orNull"}
+            }
+        }
+*/
     Given the input JSON file "refRemote.json"
     And the schema at "#/6/schema"
     And the input data at "<inputDataReference>"

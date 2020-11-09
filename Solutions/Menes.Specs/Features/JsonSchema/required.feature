@@ -4,6 +4,15 @@ Feature: required
     I want to support required
 
 Scenario Outline: required validation
+/* Schema: 
+{
+            "properties": {
+                "foo": {},
+                "bar": {}
+            },
+            "required": ["foo"]
+        }
+*/
     Given the input JSON file "required.json"
     And the schema at "#/0/schema"
     And the input data at "<inputDataReference>"
@@ -21,6 +30,13 @@ Scenario Outline: required validation
         | #/000/tests/004/data | true  | ignores other non-objects                                                        |
 
 Scenario Outline: required default validation
+/* Schema: 
+{
+            "properties": {
+                "foo": {}
+            }
+        }
+*/
     Given the input JSON file "required.json"
     And the schema at "#/1/schema"
     And the input data at "<inputDataReference>"
@@ -34,6 +50,14 @@ Scenario Outline: required default validation
         | #/001/tests/000/data | true  | not required by default                                                          |
 
 Scenario Outline: required with empty array
+/* Schema: 
+{
+            "properties": {
+                "foo": {}
+            },
+            "required": []
+        }
+*/
     Given the input JSON file "required.json"
     And the schema at "#/2/schema"
     And the input data at "<inputDataReference>"
@@ -47,6 +71,18 @@ Scenario Outline: required with empty array
         | #/002/tests/000/data | true  | property not required                                                            |
 
 Scenario Outline: required with escaped characters
+/* Schema: 
+{
+            "required": [
+                "foo\nbar",
+                "foo\"bar",
+                "foo\\bar",
+                "foo\rbar",
+                "foo\tbar",
+                "foo\fbar"
+            ]
+        }
+*/
     Given the input JSON file "required.json"
     And the schema at "#/3/schema"
     And the input data at "<inputDataReference>"

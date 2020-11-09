@@ -4,6 +4,18 @@ Feature: oneOf
     I want to support oneOf
 
 Scenario Outline: oneOf
+/* Schema: 
+{
+            "oneOf": [
+                {
+                    "type": "integer"
+                },
+                {
+                    "minimum": 2
+                }
+            ]
+        }
+*/
     Given the input JSON file "oneOf.json"
     And the schema at "#/0/schema"
     And the input data at "<inputDataReference>"
@@ -20,6 +32,19 @@ Scenario Outline: oneOf
         | #/000/tests/003/data | false | neither oneOf valid                                                              |
 
 Scenario Outline: oneOf with base schema
+/* Schema: 
+{
+            "type": "string",
+            "oneOf" : [
+                {
+                    "minLength": 2
+                },
+                {
+                    "maxLength": 4
+                }
+            ]
+        }
+*/
     Given the input JSON file "oneOf.json"
     And the schema at "#/1/schema"
     And the input data at "<inputDataReference>"
@@ -35,6 +60,9 @@ Scenario Outline: oneOf with base schema
         | #/001/tests/002/data | false | both oneOf valid                                                                 |
 
 Scenario Outline: oneOf with boolean schemas, all true
+/* Schema: 
+{"oneOf": [true, true, true]}
+*/
     Given the input JSON file "oneOf.json"
     And the schema at "#/2/schema"
     And the input data at "<inputDataReference>"
@@ -48,6 +76,9 @@ Scenario Outline: oneOf with boolean schemas, all true
         | #/002/tests/000/data | false | any value is invalid                                                             |
 
 Scenario Outline: oneOf with boolean schemas, one true
+/* Schema: 
+{"oneOf": [true, false, false]}
+*/
     Given the input JSON file "oneOf.json"
     And the schema at "#/3/schema"
     And the input data at "<inputDataReference>"
@@ -61,6 +92,9 @@ Scenario Outline: oneOf with boolean schemas, one true
         | #/003/tests/000/data | true  | any value is valid                                                               |
 
 Scenario Outline: oneOf with boolean schemas, more than one true
+/* Schema: 
+{"oneOf": [true, true, false]}
+*/
     Given the input JSON file "oneOf.json"
     And the schema at "#/4/schema"
     And the input data at "<inputDataReference>"
@@ -74,6 +108,9 @@ Scenario Outline: oneOf with boolean schemas, more than one true
         | #/004/tests/000/data | false | any value is invalid                                                             |
 
 Scenario Outline: oneOf with boolean schemas, all false
+/* Schema: 
+{"oneOf": [false, false, false]}
+*/
     Given the input JSON file "oneOf.json"
     And the schema at "#/5/schema"
     And the input data at "<inputDataReference>"
@@ -87,6 +124,24 @@ Scenario Outline: oneOf with boolean schemas, all false
         | #/005/tests/000/data | false | any value is invalid                                                             |
 
 Scenario Outline: oneOf complex types
+/* Schema: 
+{
+            "oneOf": [
+                {
+                    "properties": {
+                        "bar": {"type": "integer"}
+                    },
+                    "required": ["bar"]
+                },
+                {
+                    "properties": {
+                        "foo": {"type": "string"}
+                    },
+                    "required": ["foo"]
+                }
+            ]
+        }
+*/
     Given the input JSON file "oneOf.json"
     And the schema at "#/6/schema"
     And the input data at "<inputDataReference>"
@@ -103,6 +158,14 @@ Scenario Outline: oneOf complex types
         | #/006/tests/003/data | false | neither oneOf valid (complex)                                                    |
 
 Scenario Outline: oneOf with empty schema
+/* Schema: 
+{
+            "oneOf": [
+                { "type": "number" },
+                {}
+            ]
+        }
+*/
     Given the input JSON file "oneOf.json"
     And the schema at "#/7/schema"
     And the input data at "<inputDataReference>"
@@ -117,6 +180,15 @@ Scenario Outline: oneOf with empty schema
         | #/007/tests/001/data | false | both valid - invalid                                                             |
 
 Scenario Outline: oneOf with required
+/* Schema: 
+{
+            "type": "object",
+            "oneOf": [
+                { "required": ["foo", "bar"] },
+                { "required": ["foo", "baz"] }
+            ]
+        }
+*/
     Given the input JSON file "oneOf.json"
     And the schema at "#/8/schema"
     And the input data at "<inputDataReference>"
@@ -133,6 +205,25 @@ Scenario Outline: oneOf with required
         | #/008/tests/003/data | false | both valid - invalid                                                             |
 
 Scenario Outline: oneOf with missing optional property
+/* Schema: 
+{
+            "oneOf": [
+                {
+                    "properties": {
+                        "bar": true,
+                        "baz": true
+                    },
+                    "required": ["bar"]
+                },
+                {
+                    "properties": {
+                        "foo": true
+                    },
+                    "required": ["foo"]
+                }
+            ]
+        }
+*/
     Given the input JSON file "oneOf.json"
     And the schema at "#/9/schema"
     And the input data at "<inputDataReference>"
@@ -149,6 +240,19 @@ Scenario Outline: oneOf with missing optional property
         | #/009/tests/003/data | false | neither oneOf valid                                                              |
 
 Scenario Outline: nested oneOf, to check validation semantics
+/* Schema: 
+{
+            "oneOf": [
+                {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        }
+                    ]
+                }
+            ]
+        }
+*/
     Given the input JSON file "oneOf.json"
     And the schema at "#/10/schema"
     And the input data at "<inputDataReference>"

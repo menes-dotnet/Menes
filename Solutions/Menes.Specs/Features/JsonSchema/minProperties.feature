@@ -4,6 +4,9 @@ Feature: minProperties
     I want to support minProperties
 
 Scenario Outline: minProperties validation
+/* Schema: 
+{"minProperties": 1}
+*/
     Given the input JSON file "minProperties.json"
     And the schema at "#/0/schema"
     And the input data at "<inputDataReference>"

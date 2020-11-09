@@ -4,6 +4,9 @@ Feature: format
     I want to support format
 
 Scenario Outline: validation of e-mail addresses
+/* Schema: 
+{"format": "email"}
+*/
     Given the input JSON file "format.json"
     And the schema at "#/0/schema"
     And the input data at "<inputDataReference>"
@@ -22,6 +25,9 @@ Scenario Outline: validation of e-mail addresses
         | #/000/tests/005/data | true  | ignores null                                                                     |
 
 Scenario Outline: validation of IDN e-mail addresses
+/* Schema: 
+{"format": "idn-email"}
+*/
     Given the input JSON file "format.json"
     And the schema at "#/1/schema"
     And the input data at "<inputDataReference>"
@@ -40,6 +46,9 @@ Scenario Outline: validation of IDN e-mail addresses
         | #/001/tests/005/data | true  | ignores null                                                                     |
 
 Scenario Outline: validation of regexes
+/* Schema: 
+{"format": "regex"}
+*/
     Given the input JSON file "format.json"
     And the schema at "#/2/schema"
     And the input data at "<inputDataReference>"
@@ -58,6 +67,9 @@ Scenario Outline: validation of regexes
         | #/002/tests/005/data | true  | ignores null                                                                     |
 
 Scenario Outline: validation of IP addresses
+/* Schema: 
+{"format": "ipv4"}
+*/
     Given the input JSON file "format.json"
     And the schema at "#/3/schema"
     And the input data at "<inputDataReference>"
@@ -76,6 +88,9 @@ Scenario Outline: validation of IP addresses
         | #/003/tests/005/data | true  | ignores null                                                                     |
 
 Scenario Outline: validation of IPv6 addresses
+/* Schema: 
+{"format": "ipv6"}
+*/
     Given the input JSON file "format.json"
     And the schema at "#/4/schema"
     And the input data at "<inputDataReference>"
@@ -94,6 +109,9 @@ Scenario Outline: validation of IPv6 addresses
         | #/004/tests/005/data | true  | ignores null                                                                     |
 
 Scenario Outline: validation of IDN hostnames
+/* Schema: 
+{"format": "idn-hostname"}
+*/
     Given the input JSON file "format.json"
     And the schema at "#/5/schema"
     And the input data at "<inputDataReference>"
@@ -112,6 +130,9 @@ Scenario Outline: validation of IDN hostnames
         | #/005/tests/005/data | true  | ignores null                                                                     |
 
 Scenario Outline: validation of hostnames
+/* Schema: 
+{"format": "hostname"}
+*/
     Given the input JSON file "format.json"
     And the schema at "#/6/schema"
     And the input data at "<inputDataReference>"
@@ -130,6 +151,9 @@ Scenario Outline: validation of hostnames
         | #/006/tests/005/data | true  | ignores null                                                                     |
 
 Scenario Outline: validation of date strings
+/* Schema: 
+{"format": "date"}
+*/
     Given the input JSON file "format.json"
     And the schema at "#/7/schema"
     And the input data at "<inputDataReference>"
@@ -148,6 +172,9 @@ Scenario Outline: validation of date strings
         | #/007/tests/005/data | true  | ignores null                                                                     |
 
 Scenario Outline: validation of date-time strings
+/* Schema: 
+{"format": "date-time"}
+*/
     Given the input JSON file "format.json"
     And the schema at "#/8/schema"
     And the input data at "<inputDataReference>"
@@ -166,6 +193,9 @@ Scenario Outline: validation of date-time strings
         | #/008/tests/005/data | true  | ignores null                                                                     |
 
 Scenario Outline: validation of time strings
+/* Schema: 
+{"format": "time"}
+*/
     Given the input JSON file "format.json"
     And the schema at "#/9/schema"
     And the input data at "<inputDataReference>"
@@ -184,6 +214,9 @@ Scenario Outline: validation of time strings
         | #/009/tests/005/data | true  | ignores null                                                                     |
 
 Scenario Outline: validation of JSON pointers
+/* Schema: 
+{"format": "json-pointer"}
+*/
     Given the input JSON file "format.json"
     And the schema at "#/10/schema"
     And the input data at "<inputDataReference>"
@@ -202,6 +235,9 @@ Scenario Outline: validation of JSON pointers
         | #/010/tests/005/data | true  | ignores null                                                                     |
 
 Scenario Outline: validation of relative JSON pointers
+/* Schema: 
+{"format": "relative-json-pointer"}
+*/
     Given the input JSON file "format.json"
     And the schema at "#/11/schema"
     And the input data at "<inputDataReference>"
@@ -220,6 +256,9 @@ Scenario Outline: validation of relative JSON pointers
         | #/011/tests/005/data | true  | ignores null                                                                     |
 
 Scenario Outline: validation of IRIs
+/* Schema: 
+{"format": "iri"}
+*/
     Given the input JSON file "format.json"
     And the schema at "#/12/schema"
     And the input data at "<inputDataReference>"
@@ -238,6 +277,9 @@ Scenario Outline: validation of IRIs
         | #/012/tests/005/data | true  | ignores null                                                                     |
 
 Scenario Outline: validation of IRI references
+/* Schema: 
+{"format": "iri-reference"}
+*/
     Given the input JSON file "format.json"
     And the schema at "#/13/schema"
     And the input data at "<inputDataReference>"
@@ -256,6 +298,9 @@ Scenario Outline: validation of IRI references
         | #/013/tests/005/data | true  | ignores null                                                                     |
 
 Scenario Outline: validation of URIs
+/* Schema: 
+{"format": "uri"}
+*/
     Given the input JSON file "format.json"
     And the schema at "#/14/schema"
     And the input data at "<inputDataReference>"
@@ -274,6 +319,9 @@ Scenario Outline: validation of URIs
         | #/014/tests/005/data | true  | ignores null                                                                     |
 
 Scenario Outline: validation of URI references
+/* Schema: 
+{"format": "uri-reference"}
+*/
     Given the input JSON file "format.json"
     And the schema at "#/15/schema"
     And the input data at "<inputDataReference>"
@@ -292,6 +340,9 @@ Scenario Outline: validation of URI references
         | #/015/tests/005/data | true  | ignores null                                                                     |
 
 Scenario Outline: validation of URI templates
+/* Schema: 
+{"format": "uri-template"}
+*/
     Given the input JSON file "format.json"
     And the schema at "#/16/schema"
     And the input data at "<inputDataReference>"
@@ -310,6 +361,9 @@ Scenario Outline: validation of URI templates
         | #/016/tests/005/data | true  | ignores null                                                                     |
 
 Scenario Outline: validation of UUIDs
+/* Schema: 
+{ "format": "uuid" }
+*/
     Given the input JSON file "format.json"
     And the schema at "#/17/schema"
     And the input data at "<inputDataReference>"
@@ -328,6 +382,9 @@ Scenario Outline: validation of UUIDs
         | #/017/tests/005/data | true  | ignores null                                                                     |
 
 Scenario Outline: validation of durations
+/* Schema: 
+{ "format": "duration" }
+*/
     Given the input JSON file "format.json"
     And the schema at "#/18/schema"
     And the input data at "<inputDataReference>"

@@ -4,6 +4,9 @@ Feature: minItems
     I want to support minItems
 
 Scenario Outline: minItems validation
+/* Schema: 
+{"minItems": 1}
+*/
     Given the input JSON file "minItems.json"
     And the schema at "#/0/schema"
     And the input data at "<inputDataReference>"

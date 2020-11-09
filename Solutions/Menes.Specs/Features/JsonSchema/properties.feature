@@ -4,6 +4,14 @@ Feature: properties
     I want to support properties
 
 Scenario Outline: object properties validation
+/* Schema: 
+{
+            "properties": {
+                "foo": {"type": "integer"},
+                "bar": {"type": "string"}
+            }
+        }
+*/
     Given the input JSON file "properties.json"
     And the schema at "#/0/schema"
     And the input data at "<inputDataReference>"
@@ -22,6 +30,16 @@ Scenario Outline: object properties validation
         | #/000/tests/005/data | true  | ignores other non-objects                                                        |
 
 Scenario Outline: properties, patternProperties, additionalProperties interaction
+/* Schema: 
+{
+            "properties": {
+                "foo": {"type": "array", "maxItems": 3},
+                "bar": {"type": "array"}
+            },
+            "patternProperties": {"f.o": {"minItems": 2}},
+            "additionalProperties": {"type": "integer"}
+        }
+*/
     Given the input JSON file "properties.json"
     And the schema at "#/1/schema"
     And the input data at "<inputDataReference>"
@@ -42,6 +60,14 @@ Scenario Outline: properties, patternProperties, additionalProperties interactio
         | #/001/tests/007/data | false | additionalProperty invalidates others                                            |
 
 Scenario Outline: properties with boolean schema
+/* Schema: 
+{
+            "properties": {
+                "foo": true,
+                "bar": false
+            }
+        }
+*/
     Given the input JSON file "properties.json"
     And the schema at "#/2/schema"
     And the input data at "<inputDataReference>"
@@ -58,6 +84,18 @@ Scenario Outline: properties with boolean schema
         | #/002/tests/003/data | false | both properties present is invalid                                               |
 
 Scenario Outline: properties with escaped characters
+/* Schema: 
+{
+            "properties": {
+                "foo\nbar": {"type": "number"},
+                "foo\"bar": {"type": "number"},
+                "foo\\bar": {"type": "number"},
+                "foo\rbar": {"type": "number"},
+                "foo\tbar": {"type": "number"},
+                "foo\fbar": {"type": "number"}
+            }
+        }
+*/
     Given the input JSON file "properties.json"
     And the schema at "#/3/schema"
     And the input data at "<inputDataReference>"

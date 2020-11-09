@@ -60,6 +60,9 @@ namespace Menes.JsonSchema.SpecGenerator
 
             builder.AppendLine();
             builder.AppendLine($"Scenario Outline: {scenarioTitle}");
+            builder.AppendLine("/* Schema: ");
+            builder.AppendLine(scenarioDefinition.GetProperty("schema").ToString());
+            builder.AppendLine("*/");
             builder.AppendLine($"    Given the input JSON file \"{inputFileUri}\"");
             builder.AppendLine($"    And the schema at \"{inputSchemaReference}\"");
             builder.AppendLine("    And the input data at \"<inputDataReference>\"");

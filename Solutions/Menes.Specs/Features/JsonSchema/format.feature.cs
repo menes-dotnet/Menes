@@ -89,7 +89,7 @@ namespace Features.JsonSchema
             argumentsOfScenario.Add("inputDataReference", inputDataReference);
             argumentsOfScenario.Add("valid", valid);
             argumentsOfScenario.Add("description", description);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("validation of e-mail addresses", null, tagsOfScenario, argumentsOfScenario);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("validation of e-mail addresses", "/* Schema: \r\n{\"format\": \"email\"}\r\n*/", tagsOfScenario, argumentsOfScenario);
 #line 6
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -110,25 +110,25 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 7
+#line 10
     testRunner.Given("the input JSON file \"format.json\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 8
+#line 11
     testRunner.And("the schema at \"#/0/schema\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 9
+#line 12
     testRunner.And(string.Format("the input data at \"{0}\"", inputDataReference), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 10
+#line 13
     testRunner.And("I generate a type for the schema", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 11
+#line 14
     testRunner.And("I construct an instance of the schema type from the data", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 12
+#line 15
     testRunner.When("I validate the instance", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 13
+#line 16
     testRunner.Then(string.Format("the result will be {0}", valid), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -150,8 +150,8 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("inputDataReference", inputDataReference);
             argumentsOfScenario.Add("valid", valid);
             argumentsOfScenario.Add("description", description);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("validation of IDN e-mail addresses", null, tagsOfScenario, argumentsOfScenario);
-#line 24
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("validation of IDN e-mail addresses", "/* Schema: \r\n{\"format\": \"idn-email\"}\r\n*/", tagsOfScenario, argumentsOfScenario);
+#line 27
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -171,25 +171,25 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 25
+#line 31
     testRunner.Given("the input JSON file \"format.json\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 26
+#line 32
     testRunner.And("the schema at \"#/1/schema\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 27
+#line 33
     testRunner.And(string.Format("the input data at \"{0}\"", inputDataReference), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 28
+#line 34
     testRunner.And("I generate a type for the schema", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 29
+#line 35
     testRunner.And("I construct an instance of the schema type from the data", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 30
+#line 36
     testRunner.When("I validate the instance", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 31
+#line 37
     testRunner.Then(string.Format("the result will be {0}", valid), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -211,8 +211,8 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("inputDataReference", inputDataReference);
             argumentsOfScenario.Add("valid", valid);
             argumentsOfScenario.Add("description", description);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("validation of regexes", null, tagsOfScenario, argumentsOfScenario);
-#line 42
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("validation of regexes", "/* Schema: \r\n{\"format\": \"regex\"}\r\n*/", tagsOfScenario, argumentsOfScenario);
+#line 48
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -232,25 +232,25 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 43
+#line 52
     testRunner.Given("the input JSON file \"format.json\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 44
+#line 53
     testRunner.And("the schema at \"#/2/schema\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 45
+#line 54
     testRunner.And(string.Format("the input data at \"{0}\"", inputDataReference), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 46
+#line 55
     testRunner.And("I generate a type for the schema", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 47
+#line 56
     testRunner.And("I construct an instance of the schema type from the data", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 48
+#line 57
     testRunner.When("I validate the instance", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 49
+#line 58
     testRunner.Then(string.Format("the result will be {0}", valid), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -272,8 +272,8 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("inputDataReference", inputDataReference);
             argumentsOfScenario.Add("valid", valid);
             argumentsOfScenario.Add("description", description);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("validation of IP addresses", null, tagsOfScenario, argumentsOfScenario);
-#line 60
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("validation of IP addresses", "/* Schema: \r\n{\"format\": \"ipv4\"}\r\n*/", tagsOfScenario, argumentsOfScenario);
+#line 69
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -293,25 +293,25 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 61
+#line 73
     testRunner.Given("the input JSON file \"format.json\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 62
+#line 74
     testRunner.And("the schema at \"#/3/schema\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 63
+#line 75
     testRunner.And(string.Format("the input data at \"{0}\"", inputDataReference), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 64
+#line 76
     testRunner.And("I generate a type for the schema", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 65
+#line 77
     testRunner.And("I construct an instance of the schema type from the data", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 66
+#line 78
     testRunner.When("I validate the instance", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 67
+#line 79
     testRunner.Then(string.Format("the result will be {0}", valid), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -333,8 +333,8 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("inputDataReference", inputDataReference);
             argumentsOfScenario.Add("valid", valid);
             argumentsOfScenario.Add("description", description);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("validation of IPv6 addresses", null, tagsOfScenario, argumentsOfScenario);
-#line 78
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("validation of IPv6 addresses", "/* Schema: \r\n{\"format\": \"ipv6\"}\r\n*/", tagsOfScenario, argumentsOfScenario);
+#line 90
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -354,25 +354,25 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 79
+#line 94
     testRunner.Given("the input JSON file \"format.json\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 80
+#line 95
     testRunner.And("the schema at \"#/4/schema\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 81
+#line 96
     testRunner.And(string.Format("the input data at \"{0}\"", inputDataReference), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 82
+#line 97
     testRunner.And("I generate a type for the schema", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 83
+#line 98
     testRunner.And("I construct an instance of the schema type from the data", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 84
+#line 99
     testRunner.When("I validate the instance", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 85
+#line 100
     testRunner.Then(string.Format("the result will be {0}", valid), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -394,69 +394,8 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("inputDataReference", inputDataReference);
             argumentsOfScenario.Add("valid", valid);
             argumentsOfScenario.Add("description", description);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("validation of IDN hostnames", null, tagsOfScenario, argumentsOfScenario);
-#line 96
-this.ScenarioInitialize(scenarioInfo);
-#line hidden
-            bool isScenarioIgnored = default(bool);
-            bool isFeatureIgnored = default(bool);
-            if ((tagsOfScenario != null))
-            {
-                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((this._featureTags != null))
-            {
-                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((isScenarioIgnored || isFeatureIgnored))
-            {
-                testRunner.SkipScenario();
-            }
-            else
-            {
-                this.ScenarioStart();
-#line 97
-    testRunner.Given("the input JSON file \"format.json\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
-#line 98
-    testRunner.And("the schema at \"#/5/schema\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-#line 99
-    testRunner.And(string.Format("the input data at \"{0}\"", inputDataReference), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-#line 100
-    testRunner.And("I generate a type for the schema", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-#line 101
-    testRunner.And("I construct an instance of the schema type from the data", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-#line 102
-    testRunner.When("I validate the instance", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
-#line 103
-    testRunner.Then(string.Format("the result will be {0}", valid), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-            }
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("validation of hostnames")]
-        [NUnit.Framework.TestCaseAttribute("#/006/tests/000/data", "true", "ignores integers", null)]
-        [NUnit.Framework.TestCaseAttribute("#/006/tests/001/data", "true", "ignores floats", null)]
-        [NUnit.Framework.TestCaseAttribute("#/006/tests/002/data", "true", "ignores objects", null)]
-        [NUnit.Framework.TestCaseAttribute("#/006/tests/003/data", "true", "ignores arrays", null)]
-        [NUnit.Framework.TestCaseAttribute("#/006/tests/004/data", "true", "ignores booleans", null)]
-        [NUnit.Framework.TestCaseAttribute("#/006/tests/005/data", "true", "ignores null", null)]
-        public virtual void ValidationOfHostnames(string inputDataReference, string valid, string description, string[] exampleTags)
-        {
-            string[] tagsOfScenario = exampleTags;
-            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            argumentsOfScenario.Add("inputDataReference", inputDataReference);
-            argumentsOfScenario.Add("valid", valid);
-            argumentsOfScenario.Add("description", description);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("validation of hostnames", null, tagsOfScenario, argumentsOfScenario);
-#line 114
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("validation of IDN hostnames", "/* Schema: \r\n{\"format\": \"idn-hostname\"}\r\n*/", tagsOfScenario, argumentsOfScenario);
+#line 111
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -480,7 +419,7 @@ this.ScenarioInitialize(scenarioInfo);
     testRunner.Given("the input JSON file \"format.json\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 116
-    testRunner.And("the schema at \"#/6/schema\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+    testRunner.And("the schema at \"#/5/schema\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 117
     testRunner.And(string.Format("the input data at \"{0}\"", inputDataReference), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
@@ -502,21 +441,21 @@ this.ScenarioInitialize(scenarioInfo);
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("validation of date strings")]
-        [NUnit.Framework.TestCaseAttribute("#/007/tests/000/data", "true", "ignores integers", null)]
-        [NUnit.Framework.TestCaseAttribute("#/007/tests/001/data", "true", "ignores floats", null)]
-        [NUnit.Framework.TestCaseAttribute("#/007/tests/002/data", "true", "ignores objects", null)]
-        [NUnit.Framework.TestCaseAttribute("#/007/tests/003/data", "true", "ignores arrays", null)]
-        [NUnit.Framework.TestCaseAttribute("#/007/tests/004/data", "true", "ignores booleans", null)]
-        [NUnit.Framework.TestCaseAttribute("#/007/tests/005/data", "true", "ignores null", null)]
-        public virtual void ValidationOfDateStrings(string inputDataReference, string valid, string description, string[] exampleTags)
+        [NUnit.Framework.DescriptionAttribute("validation of hostnames")]
+        [NUnit.Framework.TestCaseAttribute("#/006/tests/000/data", "true", "ignores integers", null)]
+        [NUnit.Framework.TestCaseAttribute("#/006/tests/001/data", "true", "ignores floats", null)]
+        [NUnit.Framework.TestCaseAttribute("#/006/tests/002/data", "true", "ignores objects", null)]
+        [NUnit.Framework.TestCaseAttribute("#/006/tests/003/data", "true", "ignores arrays", null)]
+        [NUnit.Framework.TestCaseAttribute("#/006/tests/004/data", "true", "ignores booleans", null)]
+        [NUnit.Framework.TestCaseAttribute("#/006/tests/005/data", "true", "ignores null", null)]
+        public virtual void ValidationOfHostnames(string inputDataReference, string valid, string description, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("inputDataReference", inputDataReference);
             argumentsOfScenario.Add("valid", valid);
             argumentsOfScenario.Add("description", description);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("validation of date strings", null, tagsOfScenario, argumentsOfScenario);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("validation of hostnames", "/* Schema: \r\n{\"format\": \"hostname\"}\r\n*/", tagsOfScenario, argumentsOfScenario);
 #line 132
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -537,25 +476,86 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 133
+#line 136
     testRunner.Given("the input JSON file \"format.json\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 134
-    testRunner.And("the schema at \"#/7/schema\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-#line 135
-    testRunner.And(string.Format("the input data at \"{0}\"", inputDataReference), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-#line 136
-    testRunner.And("I generate a type for the schema", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
 #line 137
-    testRunner.And("I construct an instance of the schema type from the data", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+    testRunner.And("the schema at \"#/6/schema\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 138
-    testRunner.When("I validate the instance", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+    testRunner.And(string.Format("the input data at \"{0}\"", inputDataReference), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 139
+    testRunner.And("I generate a type for the schema", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 140
+    testRunner.And("I construct an instance of the schema type from the data", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 141
+    testRunner.When("I validate the instance", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 142
+    testRunner.Then(string.Format("the result will be {0}", valid), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("validation of date strings")]
+        [NUnit.Framework.TestCaseAttribute("#/007/tests/000/data", "true", "ignores integers", null)]
+        [NUnit.Framework.TestCaseAttribute("#/007/tests/001/data", "true", "ignores floats", null)]
+        [NUnit.Framework.TestCaseAttribute("#/007/tests/002/data", "true", "ignores objects", null)]
+        [NUnit.Framework.TestCaseAttribute("#/007/tests/003/data", "true", "ignores arrays", null)]
+        [NUnit.Framework.TestCaseAttribute("#/007/tests/004/data", "true", "ignores booleans", null)]
+        [NUnit.Framework.TestCaseAttribute("#/007/tests/005/data", "true", "ignores null", null)]
+        public virtual void ValidationOfDateStrings(string inputDataReference, string valid, string description, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("inputDataReference", inputDataReference);
+            argumentsOfScenario.Add("valid", valid);
+            argumentsOfScenario.Add("description", description);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("validation of date strings", "/* Schema: \r\n{\"format\": \"date\"}\r\n*/", tagsOfScenario, argumentsOfScenario);
+#line 153
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 157
+    testRunner.Given("the input JSON file \"format.json\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 158
+    testRunner.And("the schema at \"#/7/schema\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 159
+    testRunner.And(string.Format("the input data at \"{0}\"", inputDataReference), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 160
+    testRunner.And("I generate a type for the schema", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 161
+    testRunner.And("I construct an instance of the schema type from the data", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 162
+    testRunner.When("I validate the instance", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 163
     testRunner.Then(string.Format("the result will be {0}", valid), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -577,8 +577,8 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("inputDataReference", inputDataReference);
             argumentsOfScenario.Add("valid", valid);
             argumentsOfScenario.Add("description", description);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("validation of date-time strings", null, tagsOfScenario, argumentsOfScenario);
-#line 150
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("validation of date-time strings", "/* Schema: \r\n{\"format\": \"date-time\"}\r\n*/", tagsOfScenario, argumentsOfScenario);
+#line 174
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -598,25 +598,25 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 151
+#line 178
     testRunner.Given("the input JSON file \"format.json\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 152
+#line 179
     testRunner.And("the schema at \"#/8/schema\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 153
+#line 180
     testRunner.And(string.Format("the input data at \"{0}\"", inputDataReference), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 154
+#line 181
     testRunner.And("I generate a type for the schema", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 155
+#line 182
     testRunner.And("I construct an instance of the schema type from the data", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 156
+#line 183
     testRunner.When("I validate the instance", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 157
+#line 184
     testRunner.Then(string.Format("the result will be {0}", valid), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -638,8 +638,8 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("inputDataReference", inputDataReference);
             argumentsOfScenario.Add("valid", valid);
             argumentsOfScenario.Add("description", description);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("validation of time strings", null, tagsOfScenario, argumentsOfScenario);
-#line 168
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("validation of time strings", "/* Schema: \r\n{\"format\": \"time\"}\r\n*/", tagsOfScenario, argumentsOfScenario);
+#line 195
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -659,25 +659,25 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 169
+#line 199
     testRunner.Given("the input JSON file \"format.json\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 170
+#line 200
     testRunner.And("the schema at \"#/9/schema\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 171
+#line 201
     testRunner.And(string.Format("the input data at \"{0}\"", inputDataReference), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 172
+#line 202
     testRunner.And("I generate a type for the schema", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 173
+#line 203
     testRunner.And("I construct an instance of the schema type from the data", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 174
+#line 204
     testRunner.When("I validate the instance", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 175
+#line 205
     testRunner.Then(string.Format("the result will be {0}", valid), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -699,8 +699,8 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("inputDataReference", inputDataReference);
             argumentsOfScenario.Add("valid", valid);
             argumentsOfScenario.Add("description", description);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("validation of JSON pointers", null, tagsOfScenario, argumentsOfScenario);
-#line 186
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("validation of JSON pointers", "/* Schema: \r\n{\"format\": \"json-pointer\"}\r\n*/", tagsOfScenario, argumentsOfScenario);
+#line 216
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -720,25 +720,25 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 187
+#line 220
     testRunner.Given("the input JSON file \"format.json\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 188
+#line 221
     testRunner.And("the schema at \"#/10/schema\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 189
+#line 222
     testRunner.And(string.Format("the input data at \"{0}\"", inputDataReference), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 190
+#line 223
     testRunner.And("I generate a type for the schema", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 191
+#line 224
     testRunner.And("I construct an instance of the schema type from the data", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 192
+#line 225
     testRunner.When("I validate the instance", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 193
+#line 226
     testRunner.Then(string.Format("the result will be {0}", valid), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -760,130 +760,8 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("inputDataReference", inputDataReference);
             argumentsOfScenario.Add("valid", valid);
             argumentsOfScenario.Add("description", description);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("validation of relative JSON pointers", null, tagsOfScenario, argumentsOfScenario);
-#line 204
-this.ScenarioInitialize(scenarioInfo);
-#line hidden
-            bool isScenarioIgnored = default(bool);
-            bool isFeatureIgnored = default(bool);
-            if ((tagsOfScenario != null))
-            {
-                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((this._featureTags != null))
-            {
-                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((isScenarioIgnored || isFeatureIgnored))
-            {
-                testRunner.SkipScenario();
-            }
-            else
-            {
-                this.ScenarioStart();
-#line 205
-    testRunner.Given("the input JSON file \"format.json\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
-#line 206
-    testRunner.And("the schema at \"#/11/schema\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-#line 207
-    testRunner.And(string.Format("the input data at \"{0}\"", inputDataReference), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-#line 208
-    testRunner.And("I generate a type for the schema", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-#line 209
-    testRunner.And("I construct an instance of the schema type from the data", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-#line 210
-    testRunner.When("I validate the instance", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
-#line 211
-    testRunner.Then(string.Format("the result will be {0}", valid), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-            }
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("validation of IRIs")]
-        [NUnit.Framework.TestCaseAttribute("#/012/tests/000/data", "true", "ignores integers", null)]
-        [NUnit.Framework.TestCaseAttribute("#/012/tests/001/data", "true", "ignores floats", null)]
-        [NUnit.Framework.TestCaseAttribute("#/012/tests/002/data", "true", "ignores objects", null)]
-        [NUnit.Framework.TestCaseAttribute("#/012/tests/003/data", "true", "ignores arrays", null)]
-        [NUnit.Framework.TestCaseAttribute("#/012/tests/004/data", "true", "ignores booleans", null)]
-        [NUnit.Framework.TestCaseAttribute("#/012/tests/005/data", "true", "ignores null", null)]
-        public virtual void ValidationOfIRIs(string inputDataReference, string valid, string description, string[] exampleTags)
-        {
-            string[] tagsOfScenario = exampleTags;
-            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            argumentsOfScenario.Add("inputDataReference", inputDataReference);
-            argumentsOfScenario.Add("valid", valid);
-            argumentsOfScenario.Add("description", description);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("validation of IRIs", null, tagsOfScenario, argumentsOfScenario);
-#line 222
-this.ScenarioInitialize(scenarioInfo);
-#line hidden
-            bool isScenarioIgnored = default(bool);
-            bool isFeatureIgnored = default(bool);
-            if ((tagsOfScenario != null))
-            {
-                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((this._featureTags != null))
-            {
-                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((isScenarioIgnored || isFeatureIgnored))
-            {
-                testRunner.SkipScenario();
-            }
-            else
-            {
-                this.ScenarioStart();
-#line 223
-    testRunner.Given("the input JSON file \"format.json\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
-#line 224
-    testRunner.And("the schema at \"#/12/schema\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-#line 225
-    testRunner.And(string.Format("the input data at \"{0}\"", inputDataReference), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-#line 226
-    testRunner.And("I generate a type for the schema", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-#line 227
-    testRunner.And("I construct an instance of the schema type from the data", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-#line 228
-    testRunner.When("I validate the instance", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
-#line 229
-    testRunner.Then(string.Format("the result will be {0}", valid), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-            }
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("validation of IRI references")]
-        [NUnit.Framework.TestCaseAttribute("#/013/tests/000/data", "true", "ignores integers", null)]
-        [NUnit.Framework.TestCaseAttribute("#/013/tests/001/data", "true", "ignores floats", null)]
-        [NUnit.Framework.TestCaseAttribute("#/013/tests/002/data", "true", "ignores objects", null)]
-        [NUnit.Framework.TestCaseAttribute("#/013/tests/003/data", "true", "ignores arrays", null)]
-        [NUnit.Framework.TestCaseAttribute("#/013/tests/004/data", "true", "ignores booleans", null)]
-        [NUnit.Framework.TestCaseAttribute("#/013/tests/005/data", "true", "ignores null", null)]
-        public virtual void ValidationOfIRIReferences(string inputDataReference, string valid, string description, string[] exampleTags)
-        {
-            string[] tagsOfScenario = exampleTags;
-            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            argumentsOfScenario.Add("inputDataReference", inputDataReference);
-            argumentsOfScenario.Add("valid", valid);
-            argumentsOfScenario.Add("description", description);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("validation of IRI references", null, tagsOfScenario, argumentsOfScenario);
-#line 240
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("validation of relative JSON pointers", "/* Schema: \r\n{\"format\": \"relative-json-pointer\"}\r\n*/", tagsOfScenario, argumentsOfScenario);
+#line 237
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -907,7 +785,7 @@ this.ScenarioInitialize(scenarioInfo);
     testRunner.Given("the input JSON file \"format.json\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 242
-    testRunner.And("the schema at \"#/13/schema\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+    testRunner.And("the schema at \"#/11/schema\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 243
     testRunner.And(string.Format("the input data at \"{0}\"", inputDataReference), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
@@ -929,21 +807,21 @@ this.ScenarioInitialize(scenarioInfo);
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("validation of URIs")]
-        [NUnit.Framework.TestCaseAttribute("#/014/tests/000/data", "true", "ignores integers", null)]
-        [NUnit.Framework.TestCaseAttribute("#/014/tests/001/data", "true", "ignores floats", null)]
-        [NUnit.Framework.TestCaseAttribute("#/014/tests/002/data", "true", "ignores objects", null)]
-        [NUnit.Framework.TestCaseAttribute("#/014/tests/003/data", "true", "ignores arrays", null)]
-        [NUnit.Framework.TestCaseAttribute("#/014/tests/004/data", "true", "ignores booleans", null)]
-        [NUnit.Framework.TestCaseAttribute("#/014/tests/005/data", "true", "ignores null", null)]
-        public virtual void ValidationOfURIs(string inputDataReference, string valid, string description, string[] exampleTags)
+        [NUnit.Framework.DescriptionAttribute("validation of IRIs")]
+        [NUnit.Framework.TestCaseAttribute("#/012/tests/000/data", "true", "ignores integers", null)]
+        [NUnit.Framework.TestCaseAttribute("#/012/tests/001/data", "true", "ignores floats", null)]
+        [NUnit.Framework.TestCaseAttribute("#/012/tests/002/data", "true", "ignores objects", null)]
+        [NUnit.Framework.TestCaseAttribute("#/012/tests/003/data", "true", "ignores arrays", null)]
+        [NUnit.Framework.TestCaseAttribute("#/012/tests/004/data", "true", "ignores booleans", null)]
+        [NUnit.Framework.TestCaseAttribute("#/012/tests/005/data", "true", "ignores null", null)]
+        public virtual void ValidationOfIRIs(string inputDataReference, string valid, string description, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("inputDataReference", inputDataReference);
             argumentsOfScenario.Add("valid", valid);
             argumentsOfScenario.Add("description", description);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("validation of URIs", null, tagsOfScenario, argumentsOfScenario);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("validation of IRIs", "/* Schema: \r\n{\"format\": \"iri\"}\r\n*/", tagsOfScenario, argumentsOfScenario);
 #line 258
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -964,25 +842,147 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 259
+#line 262
     testRunner.Given("the input JSON file \"format.json\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 260
-    testRunner.And("the schema at \"#/14/schema\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-#line 261
-    testRunner.And(string.Format("the input data at \"{0}\"", inputDataReference), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-#line 262
-    testRunner.And("I generate a type for the schema", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
 #line 263
-    testRunner.And("I construct an instance of the schema type from the data", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+    testRunner.And("the schema at \"#/12/schema\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 264
-    testRunner.When("I validate the instance", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+    testRunner.And(string.Format("the input data at \"{0}\"", inputDataReference), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 265
+    testRunner.And("I generate a type for the schema", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 266
+    testRunner.And("I construct an instance of the schema type from the data", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 267
+    testRunner.When("I validate the instance", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 268
+    testRunner.Then(string.Format("the result will be {0}", valid), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("validation of IRI references")]
+        [NUnit.Framework.TestCaseAttribute("#/013/tests/000/data", "true", "ignores integers", null)]
+        [NUnit.Framework.TestCaseAttribute("#/013/tests/001/data", "true", "ignores floats", null)]
+        [NUnit.Framework.TestCaseAttribute("#/013/tests/002/data", "true", "ignores objects", null)]
+        [NUnit.Framework.TestCaseAttribute("#/013/tests/003/data", "true", "ignores arrays", null)]
+        [NUnit.Framework.TestCaseAttribute("#/013/tests/004/data", "true", "ignores booleans", null)]
+        [NUnit.Framework.TestCaseAttribute("#/013/tests/005/data", "true", "ignores null", null)]
+        public virtual void ValidationOfIRIReferences(string inputDataReference, string valid, string description, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("inputDataReference", inputDataReference);
+            argumentsOfScenario.Add("valid", valid);
+            argumentsOfScenario.Add("description", description);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("validation of IRI references", "/* Schema: \r\n{\"format\": \"iri-reference\"}\r\n*/", tagsOfScenario, argumentsOfScenario);
+#line 279
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 283
+    testRunner.Given("the input JSON file \"format.json\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 284
+    testRunner.And("the schema at \"#/13/schema\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 285
+    testRunner.And(string.Format("the input data at \"{0}\"", inputDataReference), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 286
+    testRunner.And("I generate a type for the schema", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 287
+    testRunner.And("I construct an instance of the schema type from the data", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 288
+    testRunner.When("I validate the instance", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 289
+    testRunner.Then(string.Format("the result will be {0}", valid), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("validation of URIs")]
+        [NUnit.Framework.TestCaseAttribute("#/014/tests/000/data", "true", "ignores integers", null)]
+        [NUnit.Framework.TestCaseAttribute("#/014/tests/001/data", "true", "ignores floats", null)]
+        [NUnit.Framework.TestCaseAttribute("#/014/tests/002/data", "true", "ignores objects", null)]
+        [NUnit.Framework.TestCaseAttribute("#/014/tests/003/data", "true", "ignores arrays", null)]
+        [NUnit.Framework.TestCaseAttribute("#/014/tests/004/data", "true", "ignores booleans", null)]
+        [NUnit.Framework.TestCaseAttribute("#/014/tests/005/data", "true", "ignores null", null)]
+        public virtual void ValidationOfURIs(string inputDataReference, string valid, string description, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("inputDataReference", inputDataReference);
+            argumentsOfScenario.Add("valid", valid);
+            argumentsOfScenario.Add("description", description);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("validation of URIs", "/* Schema: \r\n{\"format\": \"uri\"}\r\n*/", tagsOfScenario, argumentsOfScenario);
+#line 300
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 304
+    testRunner.Given("the input JSON file \"format.json\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 305
+    testRunner.And("the schema at \"#/14/schema\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 306
+    testRunner.And(string.Format("the input data at \"{0}\"", inputDataReference), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 307
+    testRunner.And("I generate a type for the schema", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 308
+    testRunner.And("I construct an instance of the schema type from the data", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 309
+    testRunner.When("I validate the instance", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 310
     testRunner.Then(string.Format("the result will be {0}", valid), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -1004,8 +1004,8 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("inputDataReference", inputDataReference);
             argumentsOfScenario.Add("valid", valid);
             argumentsOfScenario.Add("description", description);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("validation of URI references", null, tagsOfScenario, argumentsOfScenario);
-#line 276
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("validation of URI references", "/* Schema: \r\n{\"format\": \"uri-reference\"}\r\n*/", tagsOfScenario, argumentsOfScenario);
+#line 321
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -1025,25 +1025,25 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 277
+#line 325
     testRunner.Given("the input JSON file \"format.json\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 278
+#line 326
     testRunner.And("the schema at \"#/15/schema\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 279
+#line 327
     testRunner.And(string.Format("the input data at \"{0}\"", inputDataReference), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 280
+#line 328
     testRunner.And("I generate a type for the schema", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 281
+#line 329
     testRunner.And("I construct an instance of the schema type from the data", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 282
+#line 330
     testRunner.When("I validate the instance", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 283
+#line 331
     testRunner.Then(string.Format("the result will be {0}", valid), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -1065,8 +1065,8 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("inputDataReference", inputDataReference);
             argumentsOfScenario.Add("valid", valid);
             argumentsOfScenario.Add("description", description);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("validation of URI templates", null, tagsOfScenario, argumentsOfScenario);
-#line 294
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("validation of URI templates", "/* Schema: \r\n{\"format\": \"uri-template\"}\r\n*/", tagsOfScenario, argumentsOfScenario);
+#line 342
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -1086,25 +1086,25 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 295
+#line 346
     testRunner.Given("the input JSON file \"format.json\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 296
+#line 347
     testRunner.And("the schema at \"#/16/schema\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 297
+#line 348
     testRunner.And(string.Format("the input data at \"{0}\"", inputDataReference), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 298
+#line 349
     testRunner.And("I generate a type for the schema", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 299
+#line 350
     testRunner.And("I construct an instance of the schema type from the data", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 300
+#line 351
     testRunner.When("I validate the instance", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 301
+#line 352
     testRunner.Then(string.Format("the result will be {0}", valid), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -1126,8 +1126,8 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("inputDataReference", inputDataReference);
             argumentsOfScenario.Add("valid", valid);
             argumentsOfScenario.Add("description", description);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("validation of UUIDs", null, tagsOfScenario, argumentsOfScenario);
-#line 312
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("validation of UUIDs", "/* Schema: \r\n{ \"format\": \"uuid\" }\r\n*/", tagsOfScenario, argumentsOfScenario);
+#line 363
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -1147,25 +1147,25 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 313
+#line 367
     testRunner.Given("the input JSON file \"format.json\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 314
+#line 368
     testRunner.And("the schema at \"#/17/schema\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 315
+#line 369
     testRunner.And(string.Format("the input data at \"{0}\"", inputDataReference), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 316
+#line 370
     testRunner.And("I generate a type for the schema", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 317
+#line 371
     testRunner.And("I construct an instance of the schema type from the data", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 318
+#line 372
     testRunner.When("I validate the instance", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 319
+#line 373
     testRunner.Then(string.Format("the result will be {0}", valid), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -1187,8 +1187,8 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("inputDataReference", inputDataReference);
             argumentsOfScenario.Add("valid", valid);
             argumentsOfScenario.Add("description", description);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("validation of durations", null, tagsOfScenario, argumentsOfScenario);
-#line 330
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("validation of durations", "/* Schema: \r\n{ \"format\": \"duration\" }\r\n*/", tagsOfScenario, argumentsOfScenario);
+#line 384
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -1208,25 +1208,25 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 331
+#line 388
     testRunner.Given("the input JSON file \"format.json\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 332
+#line 389
     testRunner.And("the schema at \"#/18/schema\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 333
+#line 390
     testRunner.And(string.Format("the input data at \"{0}\"", inputDataReference), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 334
+#line 391
     testRunner.And("I generate a type for the schema", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 335
+#line 392
     testRunner.And("I construct an instance of the schema type from the data", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 336
+#line 393
     testRunner.When("I validate the instance", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 337
+#line 394
     testRunner.Then(string.Format("the result will be {0}", valid), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }

@@ -76,7 +76,7 @@ namespace Menes.Json.Schema
                 return null;
             }
 
-            string path = Path.Combine(this.baseDirectory, new string(reference.Uri));
+            string path = GetPath(reference);
 
             if (this.documents.TryGetValue(path, out JsonDocument? result))
             {
@@ -103,12 +103,24 @@ namespace Menes.Json.Schema
             {
                 JsonReferenceBuilder builder = reference.AsBuilder();
 
-                if (builder.Host != "localhost" || builder.Port != "1234")
+                if (!builder.Host.SequenceEqual("localhost".AsSpan()) || !builder.Port.SequenceEqual("1234".AsSpan()))
                 {
                     return false;
                 }
 
                 return true;
+            }
+
+            string GetPath(JsonReference reference)
+            {
+                JsonReferenceBuilder builder = reference.AsBuilder();
+
+                if (builder.Path[0] == '/')
+                {
+                    return Path.Combine(this.baseDirectory, builder.Path.Slice(1).ToString());
+                }
+
+                return Path.Combine(this.baseDirectory, builder.Path.ToString());
             }
         }
 

@@ -4,6 +4,9 @@ Feature: pattern
     I want to support pattern
 
 Scenario Outline: pattern validation
+/* Schema: 
+{"pattern": "^a*$"}
+*/
     Given the input JSON file "pattern.json"
     And the schema at "#/0/schema"
     And the input data at "<inputDataReference>"
@@ -24,6 +27,9 @@ Scenario Outline: pattern validation
         | #/000/tests/007/data | true  | ignores null                                                                     |
 
 Scenario Outline: pattern is not anchored
+/* Schema: 
+{"pattern": "a+"}
+*/
     Given the input JSON file "pattern.json"
     And the schema at "#/1/schema"
     And the input data at "<inputDataReference>"

@@ -4,6 +4,9 @@ Feature: multipleOf
     I want to support multipleOf
 
 Scenario Outline: by int
+/* Schema: 
+{"multipleOf": 2}
+*/
     Given the input JSON file "multipleOf.json"
     And the schema at "#/0/schema"
     And the input data at "<inputDataReference>"
@@ -19,6 +22,9 @@ Scenario Outline: by int
         | #/000/tests/002/data | true  | ignores non-numbers                                                              |
 
 Scenario Outline: by number
+/* Schema: 
+{"multipleOf": 1.5}
+*/
     Given the input JSON file "multipleOf.json"
     And the schema at "#/1/schema"
     And the input data at "<inputDataReference>"
@@ -34,6 +40,9 @@ Scenario Outline: by number
         | #/001/tests/002/data | false | 35 is not multiple of 1.5                                                        |
 
 Scenario Outline: by small number
+/* Schema: 
+{"multipleOf": 0.0001}
+*/
     Given the input JSON file "multipleOf.json"
     And the schema at "#/2/schema"
     And the input data at "<inputDataReference>"
@@ -48,6 +57,9 @@ Scenario Outline: by small number
         | #/002/tests/001/data | false | 0.00751 is not multiple of 0.0001                                                |
 
 Scenario Outline: invalid instance should not raise error when float division  equals  inf
+/* Schema: 
+{"type": "integer", "multipleOf": 0.123456789}
+*/
     Given the input JSON file "multipleOf.json"
     And the schema at "#/3/schema"
     And the input data at "<inputDataReference>"

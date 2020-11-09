@@ -4,6 +4,14 @@ Feature: ref
     I want to support ref
 
 Scenario Outline: root pointer ref
+/* Schema: 
+{
+            "properties": {
+                "foo": {"$ref": "#"}
+            },
+            "additionalProperties": false
+        }
+*/
     Given the input JSON file "ref.json"
     And the schema at "#/0/schema"
     And the input data at "<inputDataReference>"
@@ -20,6 +28,14 @@ Scenario Outline: root pointer ref
         | #/000/tests/003/data | false | recursive mismatch                                                               |
 
 Scenario Outline: relative pointer ref to object
+/* Schema: 
+{
+            "properties": {
+                "foo": {"type": "integer"},
+                "bar": {"$ref": "#/properties/foo"}
+            }
+        }
+*/
     Given the input JSON file "ref.json"
     And the schema at "#/1/schema"
     And the input data at "<inputDataReference>"
@@ -34,6 +50,14 @@ Scenario Outline: relative pointer ref to object
         | #/001/tests/001/data | false | mismatch                                                                         |
 
 Scenario Outline: relative pointer ref to array
+/* Schema: 
+{
+            "items": [
+                {"type": "integer"},
+                {"$ref": "#/items/0"}
+            ]
+        }
+*/
     Given the input JSON file "ref.json"
     And the schema at "#/2/schema"
     And the input data at "<inputDataReference>"
@@ -48,6 +72,20 @@ Scenario Outline: relative pointer ref to array
         | #/002/tests/001/data | false | mismatch array                                                                   |
 
 Scenario Outline: escaped pointer ref
+/* Schema: 
+{
+            "$defs": {
+                "tilde~field": {"type": "integer"},
+                "slash/field": {"type": "integer"},
+                "percent%field": {"type": "integer"}
+            },
+            "properties": {
+                "tilde": {"$ref": "#/$defs/tilde~0field"},
+                "slash": {"$ref": "#/$defs/slash~1field"},
+                "percent": {"$ref": "#/$defs/percent%25field"}
+            }
+        }
+*/
     Given the input JSON file "ref.json"
     And the schema at "#/3/schema"
     And the input data at "<inputDataReference>"
@@ -66,6 +104,16 @@ Scenario Outline: escaped pointer ref
         | #/003/tests/005/data | true  | percent valid                                                                    |
 
 Scenario Outline: nested refs
+/* Schema: 
+{
+            "$defs": {
+                "a": {"type": "integer"},
+                "b": {"$ref": "#/$defs/a"},
+                "c": {"$ref": "#/$defs/b"}
+            },
+            "$ref": "#/$defs/c"
+        }
+*/
     Given the input JSON file "ref.json"
     And the schema at "#/4/schema"
     And the input data at "<inputDataReference>"
@@ -80,6 +128,21 @@ Scenario Outline: nested refs
         | #/004/tests/001/data | false | nested ref invalid                                                               |
 
 Scenario Outline: ref applies alongside sibling keywords
+/* Schema: 
+{
+            "$defs": {
+                "reffed": {
+                    "type": "array"
+                }
+            },
+            "properties": {
+                "foo": {
+                    "$ref": "#/$defs/reffed",
+                    "maxItems": 2
+                }
+            }
+        }
+*/
     Given the input JSON file "ref.json"
     And the schema at "#/5/schema"
     And the input data at "<inputDataReference>"
@@ -95,6 +158,9 @@ Scenario Outline: ref applies alongside sibling keywords
         | #/005/tests/002/data | false | ref invalid                                                                      |
 
 Scenario Outline: remote ref, containing refs itself
+/* Schema: 
+{"$ref": "https://json-schema.org/draft/2019-09/schema"}
+*/
     Given the input JSON file "ref.json"
     And the schema at "#/6/schema"
     And the input data at "<inputDataReference>"
@@ -109,6 +175,13 @@ Scenario Outline: remote ref, containing refs itself
         | #/006/tests/001/data | false | remote ref invalid                                                               |
 
 Scenario Outline: property named $ref that is not a reference
+/* Schema: 
+{
+            "properties": {
+                "$ref": {"type": "string"}
+            }
+        }
+*/
     Given the input JSON file "ref.json"
     And the schema at "#/7/schema"
     And the input data at "<inputDataReference>"
@@ -123,6 +196,18 @@ Scenario Outline: property named $ref that is not a reference
         | #/007/tests/001/data | false | property named $ref invalid                                                      |
 
 Scenario Outline: property named $ref, containing an actual $ref
+/* Schema: 
+{
+            "properties": {
+                "$ref": {"$ref": "#/$defs/is-string"}
+            },
+            "$defs": {
+                "is-string": {
+                    "type": "string"
+                }
+            }
+        }
+*/
     Given the input JSON file "ref.json"
     And the schema at "#/8/schema"
     And the input data at "<inputDataReference>"
@@ -137,6 +222,14 @@ Scenario Outline: property named $ref, containing an actual $ref
         | #/008/tests/001/data | false | property named $ref invalid                                                      |
 
 Scenario Outline: $ref to boolean schema true
+/* Schema: 
+{
+            "$ref": "#/$defs/bool",
+            "$defs": {
+                "bool": true
+            }
+        }
+*/
     Given the input JSON file "ref.json"
     And the schema at "#/9/schema"
     And the input data at "<inputDataReference>"
@@ -150,6 +243,14 @@ Scenario Outline: $ref to boolean schema true
         | #/009/tests/000/data | true  | any value is valid                                                               |
 
 Scenario Outline: $ref to boolean schema false
+/* Schema: 
+{
+            "$ref": "#/$defs/bool",
+            "$defs": {
+                "bool": false
+            }
+        }
+*/
     Given the input JSON file "ref.json"
     And the schema at "#/10/schema"
     And the input data at "<inputDataReference>"
@@ -163,6 +264,33 @@ Scenario Outline: $ref to boolean schema false
         | #/010/tests/000/data | false | any value is invalid                                                             |
 
 Scenario Outline: Recursive references between schemas
+/* Schema: 
+{
+            "$id": "http://localhost:1234/tree",
+            "description": "tree of nodes",
+            "type": "object",
+            "properties": {
+                "meta": {"type": "string"},
+                "nodes": {
+                    "type": "array",
+                    "items": {"$ref": "node"}
+                }
+            },
+            "required": ["meta", "nodes"],
+            "$defs": {
+                "node": {
+                    "$id": "http://localhost:1234/node",
+                    "description": "node",
+                    "type": "object",
+                    "properties": {
+                        "value": {"type": "number"},
+                        "subtree": {"$ref": "tree"}
+                    },
+                    "required": ["value"]
+                }
+            }
+        }
+*/
     Given the input JSON file "ref.json"
     And the schema at "#/11/schema"
     And the input data at "<inputDataReference>"
@@ -177,6 +305,16 @@ Scenario Outline: Recursive references between schemas
         | #/011/tests/001/data | false | invalid tree                                                                     |
 
 Scenario Outline: refs with quote
+/* Schema: 
+{
+            "properties": {
+                "foo\"bar": {"$ref": "#/$defs/foo%22bar"}
+            },
+            "$defs": {
+                "foo\"bar": {"type": "number"}
+            }
+        }
+*/
     Given the input JSON file "ref.json"
     And the schema at "#/12/schema"
     And the input data at "<inputDataReference>"
@@ -191,6 +329,21 @@ Scenario Outline: refs with quote
         | #/012/tests/001/data | false | object with strings is invalid                                                   |
 
 Scenario Outline: ref creates new scope when adjacent to keywords
+/* Schema: 
+{
+            "$defs": {
+                "A": {
+                    "unevaluatedProperties": false
+                }
+            },
+            "properties": {
+                "prop1": {
+                    "type": "string"
+                }
+            },
+            "$ref": "#/$defs/A"
+        }
+*/
     Given the input JSON file "ref.json"
     And the schema at "#/13/schema"
     And the input data at "<inputDataReference>"

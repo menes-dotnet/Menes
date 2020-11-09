@@ -42,7 +42,7 @@ namespace Menes.JsonSchema.TypeBuilder
                 return Task.FromResult(elementById.JsonElement);
             }
 
-            if (this.anchors.TryGetValue(absoluteLocation.ToString(), out LocatedElement elementByAnchor))
+            if (this.anchors.TryGetValue(absoluteLocation, out LocatedElement elementByAnchor))
             {
                 return Task.FromResult(elementByAnchor.JsonElement);
             }

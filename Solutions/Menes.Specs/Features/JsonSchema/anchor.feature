@@ -4,6 +4,17 @@ Feature: anchor
     I want to support anchor
 
 Scenario Outline: Location-independent identifier
+/* Schema: 
+{
+            "$ref": "#foo",
+            "$defs": {
+                "A": {
+                    "$anchor": "foo",
+                    "type": "integer"
+                }
+            }
+        }
+*/
     Given the input JSON file "anchor.json"
     And the schema at "#/0/schema"
     And the input data at "<inputDataReference>"
@@ -18,6 +29,18 @@ Scenario Outline: Location-independent identifier
         | #/000/tests/001/data | false | mismatch                                                                         |
 
 Scenario Outline: Location-independent identifier with absolute URI
+/* Schema: 
+{
+            "$ref": "http://localhost:1234/bar#foo",
+            "$defs": {
+                "A": {
+                    "$id": "http://localhost:1234/bar",
+                    "$anchor": "foo",
+                    "type": "integer"
+                }
+            }
+        }
+*/
     Given the input JSON file "anchor.json"
     And the schema at "#/1/schema"
     And the input data at "<inputDataReference>"
@@ -32,6 +55,23 @@ Scenario Outline: Location-independent identifier with absolute URI
         | #/001/tests/001/data | false | mismatch                                                                         |
 
 Scenario Outline: Location-independent identifier with base URI change in subschema
+/* Schema: 
+{
+            "$id": "http://localhost:1234/root",
+            "$ref": "http://localhost:1234/nested.json#foo",
+            "$defs": {
+                "A": {
+                    "$id": "nested.json",
+                    "$defs": {
+                        "B": {
+                            "$anchor": "foo",
+                            "type": "integer"
+                        }
+                    }
+                }
+            }
+        }
+*/
     Given the input JSON file "anchor.json"
     And the schema at "#/2/schema"
     And the input data at "<inputDataReference>"

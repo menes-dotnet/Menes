@@ -4,6 +4,9 @@ Feature: type
     I want to support type
 
 Scenario Outline: integer type matches integers
+/* Schema: 
+{"type": "integer"}
+*/
     Given the input JSON file "type.json"
     And the schema at "#/0/schema"
     And the input data at "<inputDataReference>"
@@ -25,6 +28,9 @@ Scenario Outline: integer type matches integers
         | #/000/tests/008/data | false | null is not an integer                                                           |
 
 Scenario Outline: number type matches numbers
+/* Schema: 
+{"type": "number"}
+*/
     Given the input JSON file "type.json"
     And the schema at "#/1/schema"
     And the input data at "<inputDataReference>"
@@ -46,6 +52,9 @@ Scenario Outline: number type matches numbers
         | #/001/tests/008/data | false | null is not a number                                                             |
 
 Scenario Outline: string type matches strings
+/* Schema: 
+{"type": "string"}
+*/
     Given the input JSON file "type.json"
     And the schema at "#/2/schema"
     And the input data at "<inputDataReference>"
@@ -67,6 +76,9 @@ Scenario Outline: string type matches strings
         | #/002/tests/008/data | false | null is not a string                                                             |
 
 Scenario Outline: object type matches objects
+/* Schema: 
+{"type": "object"}
+*/
     Given the input JSON file "type.json"
     And the schema at "#/3/schema"
     And the input data at "<inputDataReference>"
@@ -86,6 +98,9 @@ Scenario Outline: object type matches objects
         | #/003/tests/006/data | false | null is not an object                                                            |
 
 Scenario Outline: array type matches arrays
+/* Schema: 
+{"type": "array"}
+*/
     Given the input JSON file "type.json"
     And the schema at "#/4/schema"
     And the input data at "<inputDataReference>"
@@ -105,6 +120,9 @@ Scenario Outline: array type matches arrays
         | #/004/tests/006/data | false | null is not an array                                                             |
 
 Scenario Outline: boolean type matches booleans
+/* Schema: 
+{"type": "boolean"}
+*/
     Given the input JSON file "type.json"
     And the schema at "#/5/schema"
     And the input data at "<inputDataReference>"
@@ -127,6 +145,9 @@ Scenario Outline: boolean type matches booleans
         | #/005/tests/009/data | false | null is not a boolean                                                            |
 
 Scenario Outline: null type matches only the null object
+/* Schema: 
+{"type": "null"}
+*/
     Given the input JSON file "type.json"
     And the schema at "#/6/schema"
     And the input data at "<inputDataReference>"
@@ -149,6 +170,9 @@ Scenario Outline: null type matches only the null object
         | #/006/tests/009/data | true  | null is null                                                                     |
 
 Scenario Outline: multiple types can be specified in an array
+/* Schema: 
+{"type": ["integer", "string"]}
+*/
     Given the input JSON file "type.json"
     And the schema at "#/7/schema"
     And the input data at "<inputDataReference>"
@@ -168,6 +192,11 @@ Scenario Outline: multiple types can be specified in an array
         | #/007/tests/006/data | false | null is invalid                                                                  |
 
 Scenario Outline: type as array with one item
+/* Schema: 
+{
+            "type": ["string"]
+        }
+*/
     Given the input JSON file "type.json"
     And the schema at "#/8/schema"
     And the input data at "<inputDataReference>"
@@ -182,6 +211,11 @@ Scenario Outline: type as array with one item
         | #/008/tests/001/data | false | number is invalid                                                                |
 
 Scenario Outline: type: array or object
+/* Schema: 
+{
+            "type": ["array", "object"]
+        }
+*/
     Given the input JSON file "type.json"
     And the schema at "#/9/schema"
     And the input data at "<inputDataReference>"
@@ -199,6 +233,11 @@ Scenario Outline: type: array or object
         | #/009/tests/004/data | false | null is invalid                                                                  |
 
 Scenario Outline: type: array, object or null
+/* Schema: 
+{
+            "type": ["array", "object", "null"]
+        }
+*/
     Given the input JSON file "type.json"
     And the schema at "#/10/schema"
     And the input data at "<inputDataReference>"

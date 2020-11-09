@@ -4,6 +4,9 @@ Feature: id
     I want to support id
 
 Scenario Outline: Invalid use of fragments in location-independent $id
+/* Schema: 
+{"$ref": "https://json-schema.org/draft/2019-09/schema"}
+*/
     Given the input JSON file "id.json"
     And the schema at "#/0/schema"
     And the input data at "<inputDataReference>"
@@ -23,6 +26,11 @@ Scenario Outline: Invalid use of fragments in location-independent $id
         | #/000/tests/006/data | false | Identifier path with base URI change in subschema                                |
 
 Scenario Outline: Valid use of empty fragments in location-independent $id
+/* Schema: 
+{
+            "$ref": "https://json-schema.org/draft/2019-09/schema"
+        }
+*/
     Given the input JSON file "id.json"
     And the schema at "#/1/schema"
     And the input data at "<inputDataReference>"
@@ -37,6 +45,11 @@ Scenario Outline: Valid use of empty fragments in location-independent $id
         | #/001/tests/001/data | true  | Identifier name with base URI change in subschema                                |
 
 Scenario Outline: Unnormalized $ids are allowed but discouraged
+/* Schema: 
+{
+            "$ref": "https://json-schema.org/draft/2019-09/schema"
+        }
+*/
     Given the input JSON file "id.json"
     And the schema at "#/2/schema"
     And the input data at "<inputDataReference>"

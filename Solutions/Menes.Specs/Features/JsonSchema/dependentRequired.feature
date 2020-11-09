@@ -4,6 +4,9 @@ Feature: dependentRequired
     I want to support dependentRequired
 
 Scenario Outline: single dependency
+/* Schema: 
+{"dependentRequired": {"bar": ["foo"]}}
+*/
     Given the input JSON file "dependentRequired.json"
     And the schema at "#/0/schema"
     And the input data at "<inputDataReference>"
@@ -23,6 +26,9 @@ Scenario Outline: single dependency
         | #/000/tests/006/data | true  | ignores other non-objects                                                        |
 
 Scenario Outline: empty dependents
+/* Schema: 
+{"dependentRequired": {"bar": []}}
+*/
     Given the input JSON file "dependentRequired.json"
     And the schema at "#/1/schema"
     And the input data at "<inputDataReference>"
@@ -38,6 +44,9 @@ Scenario Outline: empty dependents
         | #/001/tests/002/data | true  | non-object is valid                                                              |
 
 Scenario Outline: multiple dependents required
+/* Schema: 
+{"dependentRequired": {"quux": ["foo", "bar"]}}
+*/
     Given the input JSON file "dependentRequired.json"
     And the schema at "#/2/schema"
     And the input data at "<inputDataReference>"
@@ -56,6 +65,14 @@ Scenario Outline: multiple dependents required
         | #/002/tests/005/data | false | missing both dependencies                                                        |
 
 Scenario Outline: dependencies with escaped characters
+/* Schema: 
+{
+            "dependentRequired": {
+                "foo\nbar": ["foo\rbar"],
+                "foo\"bar": ["foo'bar"]
+            }
+        }
+*/
     Given the input JSON file "dependentRequired.json"
     And the schema at "#/3/schema"
     And the input data at "<inputDataReference>"

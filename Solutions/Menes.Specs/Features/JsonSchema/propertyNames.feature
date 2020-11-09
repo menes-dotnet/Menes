@@ -4,6 +4,11 @@ Feature: propertyNames
     I want to support propertyNames
 
 Scenario Outline: propertyNames validation
+/* Schema: 
+{
+            "propertyNames": {"maxLength": 3}
+        }
+*/
     Given the input JSON file "propertyNames.json"
     And the schema at "#/0/schema"
     And the input data at "<inputDataReference>"
@@ -22,6 +27,9 @@ Scenario Outline: propertyNames validation
         | #/000/tests/005/data | true  | ignores other non-objects                                                        |
 
 Scenario Outline: propertyNames with boolean schema true
+/* Schema: 
+{"propertyNames": true}
+*/
     Given the input JSON file "propertyNames.json"
     And the schema at "#/1/schema"
     And the input data at "<inputDataReference>"
@@ -36,6 +44,9 @@ Scenario Outline: propertyNames with boolean schema true
         | #/001/tests/001/data | true  | empty object is valid                                                            |
 
 Scenario Outline: propertyNames with boolean schema false
+/* Schema: 
+{"propertyNames": false}
+*/
     Given the input JSON file "propertyNames.json"
     And the schema at "#/2/schema"
     And the input data at "<inputDataReference>"

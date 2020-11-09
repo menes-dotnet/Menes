@@ -4,6 +4,13 @@ Feature: additionalProperties
     I want to support additionalProperties
 
 Scenario Outline: additionalProperties being false does not allow other properties
+/* Schema: 
+{
+            "properties": {"foo": {}, "bar": {}},
+            "patternProperties": { "^v": {} },
+            "additionalProperties": false
+        }
+*/
     Given the input JSON file "additionalProperties.json"
     And the schema at "#/0/schema"
     And the input data at "<inputDataReference>"
@@ -22,6 +29,12 @@ Scenario Outline: additionalProperties being false does not allow other properti
         | #/000/tests/005/data | true  | patternProperties are not additional properties                                  |
 
 Scenario Outline: non-ASCII pattern with additionalProperties
+/* Schema: 
+{
+            "patternProperties": {"^á": {}},
+            "additionalProperties": false
+        }
+*/
     Given the input JSON file "additionalProperties.json"
     And the schema at "#/1/schema"
     And the input data at "<inputDataReference>"
@@ -36,6 +49,12 @@ Scenario Outline: non-ASCII pattern with additionalProperties
         | #/001/tests/001/data | false | not matching the pattern is invalid                                              |
 
 Scenario Outline: additionalProperties allows a schema which should validate
+/* Schema: 
+{
+            "properties": {"foo": {}, "bar": {}},
+            "additionalProperties": {"type": "boolean"}
+        }
+*/
     Given the input JSON file "additionalProperties.json"
     And the schema at "#/2/schema"
     And the input data at "<inputDataReference>"
@@ -51,6 +70,11 @@ Scenario Outline: additionalProperties allows a schema which should validate
         | #/002/tests/002/data | false | an additional invalid property is invalid                                        |
 
 Scenario Outline: additionalProperties can exist by itself
+/* Schema: 
+{
+            "additionalProperties": {"type": "boolean"}
+        }
+*/
     Given the input JSON file "additionalProperties.json"
     And the schema at "#/3/schema"
     And the input data at "<inputDataReference>"
@@ -65,6 +89,9 @@ Scenario Outline: additionalProperties can exist by itself
         | #/003/tests/001/data | false | an additional invalid property is invalid                                        |
 
 Scenario Outline: additionalProperties are allowed by default
+/* Schema: 
+{"properties": {"foo": {}, "bar": {}}}
+*/
     Given the input JSON file "additionalProperties.json"
     And the schema at "#/4/schema"
     And the input data at "<inputDataReference>"
@@ -78,6 +105,14 @@ Scenario Outline: additionalProperties are allowed by default
         | #/004/tests/000/data | true  | additional properties are allowed                                                |
 
 Scenario Outline: additionalProperties should not look in applicators
+/* Schema: 
+{
+            "allOf": [
+                {"properties": {"foo": {}}}
+            ],
+            "additionalProperties": {"type": "boolean"}
+        }
+*/
     Given the input JSON file "additionalProperties.json"
     And the schema at "#/5/schema"
     And the input data at "<inputDataReference>"

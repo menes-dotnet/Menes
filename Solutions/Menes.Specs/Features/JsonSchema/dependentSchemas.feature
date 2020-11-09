@@ -4,6 +4,18 @@ Feature: dependentSchemas
     I want to support dependentSchemas
 
 Scenario Outline: single dependency
+/* Schema: 
+{
+            "dependentSchemas": {
+                "bar": {
+                    "properties": {
+                        "foo": {"type": "integer"},
+                        "bar": {"type": "integer"}
+                    }
+                }
+            }
+        }
+*/
     Given the input JSON file "dependentSchemas.json"
     And the schema at "#/0/schema"
     And the input data at "<inputDataReference>"
@@ -21,6 +33,14 @@ Scenario Outline: single dependency
         | #/000/tests/004/data | false | wrong type both                                                                  |
 
 Scenario Outline: boolean subschemas
+/* Schema: 
+{
+            "dependentSchemas": {
+                "foo": true,
+                "bar": false
+            }
+        }
+*/
     Given the input JSON file "dependentSchemas.json"
     And the schema at "#/1/schema"
     And the input data at "<inputDataReference>"
@@ -37,6 +57,14 @@ Scenario Outline: boolean subschemas
         | #/001/tests/003/data | true  | empty object is valid                                                            |
 
 Scenario Outline: dependencies with escaped characters
+/* Schema: 
+{
+            "dependentSchemas": {
+                "foo\tbar": {"minProperties": 4},
+                "foo'bar": {"required": ["foo\"bar"]}
+            }
+        }
+*/
     Given the input JSON file "dependentSchemas.json"
     And the schema at "#/2/schema"
     And the input data at "<inputDataReference>"

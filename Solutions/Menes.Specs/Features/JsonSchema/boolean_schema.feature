@@ -4,6 +4,9 @@ Feature: boolean_schema
     I want to support boolean_schema
 
 Scenario Outline: boolean schema 'true'
+/* Schema: 
+True
+*/
     Given the input JSON file "boolean_schema.json"
     And the schema at "#/0/schema"
     And the input data at "<inputDataReference>"
@@ -25,6 +28,9 @@ Scenario Outline: boolean schema 'true'
         | #/000/tests/008/data | true  | empty array is valid                                                             |
 
 Scenario Outline: boolean schema 'false'
+/* Schema: 
+False
+*/
     Given the input JSON file "boolean_schema.json"
     And the schema at "#/1/schema"
     And the input data at "<inputDataReference>"

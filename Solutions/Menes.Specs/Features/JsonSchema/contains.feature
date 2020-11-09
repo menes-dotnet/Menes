@@ -4,6 +4,11 @@ Feature: contains
     I want to support contains
 
 Scenario Outline: contains keyword validation
+/* Schema: 
+{
+            "contains": {"minimum": 5}
+        }
+*/
     Given the input JSON file "contains.json"
     And the schema at "#/0/schema"
     And the input data at "<inputDataReference>"
@@ -22,6 +27,11 @@ Scenario Outline: contains keyword validation
         | #/000/tests/005/data | true  | not array is valid                                                               |
 
 Scenario Outline: contains keyword with const keyword
+/* Schema: 
+{
+            "contains": { "const": 5 }
+        }
+*/
     Given the input JSON file "contains.json"
     And the schema at "#/1/schema"
     And the input data at "<inputDataReference>"
@@ -37,6 +47,9 @@ Scenario Outline: contains keyword with const keyword
         | #/001/tests/002/data | false | array without item 5 is invalid                                                  |
 
 Scenario Outline: contains keyword with boolean schema true
+/* Schema: 
+{"contains": true}
+*/
     Given the input JSON file "contains.json"
     And the schema at "#/2/schema"
     And the input data at "<inputDataReference>"
@@ -51,6 +64,9 @@ Scenario Outline: contains keyword with boolean schema true
         | #/002/tests/001/data | false | empty array is invalid                                                           |
 
 Scenario Outline: contains keyword with boolean schema false
+/* Schema: 
+{"contains": false}
+*/
     Given the input JSON file "contains.json"
     And the schema at "#/3/schema"
     And the input data at "<inputDataReference>"
@@ -66,6 +82,12 @@ Scenario Outline: contains keyword with boolean schema false
         | #/003/tests/002/data | true  | non-arrays are valid                                                             |
 
 Scenario Outline: items + contains
+/* Schema: 
+{
+            "items": { "multipleOf": 2 },
+            "contains": { "multipleOf": 3 }
+        }
+*/
     Given the input JSON file "contains.json"
     And the schema at "#/4/schema"
     And the input data at "<inputDataReference>"

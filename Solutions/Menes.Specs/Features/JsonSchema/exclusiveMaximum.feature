@@ -4,6 +4,11 @@ Feature: exclusiveMaximum
     I want to support exclusiveMaximum
 
 Scenario Outline: exclusiveMaximum validation
+/* Schema: 
+{
+            "exclusiveMaximum": 3.0
+        }
+*/
     Given the input JSON file "exclusiveMaximum.json"
     And the schema at "#/0/schema"
     And the input data at "<inputDataReference>"

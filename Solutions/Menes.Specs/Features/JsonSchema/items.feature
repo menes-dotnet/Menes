@@ -4,6 +4,11 @@ Feature: items
     I want to support items
 
 Scenario Outline: a schema given for items
+/* Schema: 
+{
+            "items": {"type": "integer"}
+        }
+*/
     Given the input JSON file "items.json"
     And the schema at "#/0/schema"
     And the input data at "<inputDataReference>"
@@ -20,6 +25,14 @@ Scenario Outline: a schema given for items
         | #/000/tests/003/data | true  | JavaScript pseudo-array is valid                                                 |
 
 Scenario Outline: an array of schemas for items
+/* Schema: 
+{
+            "items": [
+                {"type": "integer"},
+                {"type": "string"}
+            ]
+        }
+*/
     Given the input JSON file "items.json"
     And the schema at "#/1/schema"
     And the input data at "<inputDataReference>"
@@ -38,6 +51,9 @@ Scenario Outline: an array of schemas for items
         | #/001/tests/005/data | true  | JavaScript pseudo-array is valid                                                 |
 
 Scenario Outline: items with boolean schema (true)
+/* Schema: 
+{"items": true}
+*/
     Given the input JSON file "items.json"
     And the schema at "#/2/schema"
     And the input data at "<inputDataReference>"
@@ -52,6 +68,9 @@ Scenario Outline: items with boolean schema (true)
         | #/002/tests/001/data | true  | empty array is valid                                                             |
 
 Scenario Outline: items with boolean schema (false)
+/* Schema: 
+{"items": false}
+*/
     Given the input JSON file "items.json"
     And the schema at "#/3/schema"
     And the input data at "<inputDataReference>"
@@ -66,6 +85,11 @@ Scenario Outline: items with boolean schema (false)
         | #/003/tests/001/data | true  | empty array is valid                                                             |
 
 Scenario Outline: items with boolean schemas
+/* Schema: 
+{
+            "items": [true, false]
+        }
+*/
     Given the input JSON file "items.json"
     And the schema at "#/4/schema"
     And the input data at "<inputDataReference>"
@@ -81,6 +105,31 @@ Scenario Outline: items with boolean schemas
         | #/004/tests/002/data | true  | empty array is valid                                                             |
 
 Scenario Outline: items and subitems
+/* Schema: 
+{
+            "$defs": {
+                "item": {
+                    "type": "array",
+                    "additionalItems": false,
+                    "items": [
+                        { "$ref": "#/$defs/sub-item" },
+                        { "$ref": "#/$defs/sub-item" }
+                    ]
+                },
+                "sub-item": {
+                    "type": "object",
+                    "required": ["foo"]
+                }
+            },
+            "type": "array",
+            "additionalItems": false,
+            "items": [
+                { "$ref": "#/$defs/item" },
+                { "$ref": "#/$defs/item" },
+                { "$ref": "#/$defs/item" }
+            ]
+        }
+*/
     Given the input JSON file "items.json"
     And the schema at "#/5/schema"
     And the input data at "<inputDataReference>"
@@ -99,6 +148,23 @@ Scenario Outline: items and subitems
         | #/005/tests/005/data | true  | fewer items is valid                                                             |
 
 Scenario Outline: nested items
+/* Schema: 
+{
+            "type": "array",
+            "items": {
+                "type": "array",
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "type": "number"
+                        }
+                    }
+                }
+            }
+        }
+*/
     Given the input JSON file "items.json"
     And the schema at "#/6/schema"
     And the input data at "<inputDataReference>"

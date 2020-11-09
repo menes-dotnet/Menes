@@ -4,6 +4,9 @@ Feature: enum
     I want to support enum
 
 Scenario Outline: simple enum validation
+/* Schema: 
+{"enum": [1, 2, 3]}
+*/
     Given the input JSON file "enum.json"
     And the schema at "#/0/schema"
     And the input data at "<inputDataReference>"
@@ -18,6 +21,9 @@ Scenario Outline: simple enum validation
         | #/000/tests/001/data | false | something else is invalid                                                        |
 
 Scenario Outline: heterogeneous enum validation
+/* Schema: 
+{"enum": [6, "foo", [], true, {"foo": 12}]}
+*/
     Given the input JSON file "enum.json"
     And the schema at "#/1/schema"
     And the input data at "<inputDataReference>"
@@ -35,6 +41,9 @@ Scenario Outline: heterogeneous enum validation
         | #/001/tests/004/data | false | extra properties in object is invalid                                            |
 
 Scenario Outline: heterogeneous enum-with-null validation
+/* Schema: 
+{ "enum": [6, null] }
+*/
     Given the input JSON file "enum.json"
     And the schema at "#/2/schema"
     And the input data at "<inputDataReference>"
@@ -50,6 +59,16 @@ Scenario Outline: heterogeneous enum-with-null validation
         | #/002/tests/002/data | false | something else is invalid                                                        |
 
 Scenario Outline: enums in properties
+/* Schema: 
+{
+            "type":"object",
+            "properties": {
+                "foo": {"enum":["foo"]},
+                "bar": {"enum":["bar"]}
+            },
+            "required": ["bar"]
+        }
+*/
     Given the input JSON file "enum.json"
     And the schema at "#/3/schema"
     And the input data at "<inputDataReference>"
@@ -68,6 +87,11 @@ Scenario Outline: enums in properties
         | #/003/tests/005/data | false | missing all properties is invalid                                                |
 
 Scenario Outline: enum with escaped characters
+/* Schema: 
+{
+            "enum": ["foo\nbar", "foo\rbar"]
+        }
+*/
     Given the input JSON file "enum.json"
     And the schema at "#/4/schema"
     And the input data at "<inputDataReference>"
@@ -83,6 +107,9 @@ Scenario Outline: enum with escaped characters
         | #/004/tests/002/data | false | another string is invalid                                                        |
 
 Scenario Outline: enum with false does not match 0
+/* Schema: 
+{"enum": [false]}
+*/
     Given the input JSON file "enum.json"
     And the schema at "#/5/schema"
     And the input data at "<inputDataReference>"
@@ -98,6 +125,9 @@ Scenario Outline: enum with false does not match 0
         | #/005/tests/002/data | false | float zero is invalid                                                            |
 
 Scenario Outline: enum with true does not match 1
+/* Schema: 
+{"enum": [true]}
+*/
     Given the input JSON file "enum.json"
     And the schema at "#/6/schema"
     And the input data at "<inputDataReference>"
@@ -113,6 +143,9 @@ Scenario Outline: enum with true does not match 1
         | #/006/tests/002/data | false | float one is invalid                                                             |
 
 Scenario Outline: enum with 0 does not match false
+/* Schema: 
+{"enum": [0]}
+*/
     Given the input JSON file "enum.json"
     And the schema at "#/7/schema"
     And the input data at "<inputDataReference>"
@@ -128,6 +161,9 @@ Scenario Outline: enum with 0 does not match false
         | #/007/tests/002/data | true  | float zero is valid                                                              |
 
 Scenario Outline: enum with 1 does not match true
+/* Schema: 
+{"enum": [1]}
+*/
     Given the input JSON file "enum.json"
     And the schema at "#/8/schema"
     And the input data at "<inputDataReference>"
@@ -143,6 +179,9 @@ Scenario Outline: enum with 1 does not match true
         | #/008/tests/002/data | true  | float one is valid                                                               |
 
 Scenario Outline: nul characters in strings
+/* Schema: 
+{ "enum": [ "hello\u0000there" ] }
+*/
     Given the input JSON file "enum.json"
     And the schema at "#/9/schema"
     And the input data at "<inputDataReference>"

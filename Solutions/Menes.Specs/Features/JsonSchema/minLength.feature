@@ -4,6 +4,9 @@ Feature: minLength
     I want to support minLength
 
 Scenario Outline: minLength validation
+/* Schema: 
+{"minLength": 2}
+*/
     Given the input JSON file "minLength.json"
     And the schema at "#/0/schema"
     And the input data at "<inputDataReference>"

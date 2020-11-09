@@ -4,6 +4,9 @@ Feature: uniqueItems
     I want to support uniqueItems
 
 Scenario Outline: uniqueItems validation
+/* Schema: 
+{"uniqueItems": true}
+*/
     Given the input JSON file "uniqueItems.json"
     And the schema at "#/0/schema"
     And the input data at "<inputDataReference>"
@@ -39,6 +42,12 @@ Scenario Outline: uniqueItems validation
         | #/000/tests/022/data | true  | {"a": true} and {"a": 1} are unique                                              |
 
 Scenario Outline: uniqueItems with an array of items
+/* Schema: 
+{
+            "items": [{"type": "boolean"}, {"type": "boolean"}],
+            "uniqueItems": true
+        }
+*/
     Given the input JSON file "uniqueItems.json"
     And the schema at "#/1/schema"
     And the input data at "<inputDataReference>"
@@ -59,6 +68,13 @@ Scenario Outline: uniqueItems with an array of items
         | #/001/tests/007/data | false | non-unique array extended from [true, false] is not valid                        |
 
 Scenario Outline: uniqueItems with an array of items and additionalItems equals false
+/* Schema: 
+{
+            "items": [{"type": "boolean"}, {"type": "boolean"}],
+            "uniqueItems": true,
+            "additionalItems": false
+        }
+*/
     Given the input JSON file "uniqueItems.json"
     And the schema at "#/2/schema"
     And the input data at "<inputDataReference>"
@@ -76,6 +92,9 @@ Scenario Outline: uniqueItems with an array of items and additionalItems equals 
         | #/002/tests/004/data | false | extra items are invalid even if unique                                           |
 
 Scenario Outline: uniqueItems equals false validation
+/* Schema: 
+{ "uniqueItems": false }
+*/
     Given the input JSON file "uniqueItems.json"
     And the schema at "#/3/schema"
     And the input data at "<inputDataReference>"
@@ -103,6 +122,12 @@ Scenario Outline: uniqueItems equals false validation
         | #/003/tests/014/data | true  | non-unique heterogeneous types are valid                                         |
 
 Scenario Outline: uniqueItems equals false with an array of items
+/* Schema: 
+{
+            "items": [{"type": "boolean"}, {"type": "boolean"}],
+            "uniqueItems": false
+        }
+*/
     Given the input JSON file "uniqueItems.json"
     And the schema at "#/4/schema"
     And the input data at "<inputDataReference>"
@@ -123,6 +148,13 @@ Scenario Outline: uniqueItems equals false with an array of items
         | #/004/tests/007/data | true  | non-unique array extended from [true, false] is valid                            |
 
 Scenario Outline: uniqueItems equals false with an array of items and additionalItems equals false
+/* Schema: 
+{
+            "items": [{"type": "boolean"}, {"type": "boolean"}],
+            "uniqueItems": false,
+            "additionalItems": false
+        }
+*/
     Given the input JSON file "uniqueItems.json"
     And the schema at "#/5/schema"
     And the input data at "<inputDataReference>"

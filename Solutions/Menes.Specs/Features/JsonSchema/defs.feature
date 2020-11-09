@@ -4,6 +4,9 @@ Feature: defs
     I want to support defs
 
 Scenario Outline: valid definition
+/* Schema: 
+{"$ref": "https://json-schema.org/draft/2019-09/schema"}
+*/
     Given the input JSON file "defs.json"
     And the schema at "#/0/schema"
     And the input data at "<inputDataReference>"
@@ -17,6 +20,9 @@ Scenario Outline: valid definition
         | #/000/tests/000/data | true  | valid definition schema                                                          |
 
 Scenario Outline: invalid definition
+/* Schema: 
+{"$ref": "https://json-schema.org/draft/2019-09/schema"}
+*/
     Given the input JSON file "defs.json"
     And the schema at "#/1/schema"
     And the input data at "<inputDataReference>"

@@ -4,6 +4,13 @@ Feature: if-then-else
     I want to support if-then-else
 
 Scenario Outline: ignore if without then or else
+/* Schema: 
+{
+            "if": {
+                "const": 0
+            }
+        }
+*/
     Given the input JSON file "if-then-else.json"
     And the schema at "#/0/schema"
     And the input data at "<inputDataReference>"
@@ -18,6 +25,13 @@ Scenario Outline: ignore if without then or else
         | #/000/tests/001/data | true  | valid when invalid against lone if                                               |
 
 Scenario Outline: ignore then without if
+/* Schema: 
+{
+            "then": {
+                "const": 0
+            }
+        }
+*/
     Given the input JSON file "if-then-else.json"
     And the schema at "#/1/schema"
     And the input data at "<inputDataReference>"
@@ -32,6 +46,13 @@ Scenario Outline: ignore then without if
         | #/001/tests/001/data | true  | valid when invalid against lone then                                             |
 
 Scenario Outline: ignore else without if
+/* Schema: 
+{
+            "else": {
+                "const": 0
+            }
+        }
+*/
     Given the input JSON file "if-then-else.json"
     And the schema at "#/2/schema"
     And the input data at "<inputDataReference>"
@@ -46,6 +67,16 @@ Scenario Outline: ignore else without if
         | #/002/tests/001/data | true  | valid when invalid against lone else                                             |
 
 Scenario Outline: if and then without else
+/* Schema: 
+{
+            "if": {
+                "exclusiveMaximum": 0
+            },
+            "then": {
+                "minimum": -10
+            }
+        }
+*/
     Given the input JSON file "if-then-else.json"
     And the schema at "#/3/schema"
     And the input data at "<inputDataReference>"
@@ -61,6 +92,16 @@ Scenario Outline: if and then without else
         | #/003/tests/002/data | true  | valid when if test fails                                                         |
 
 Scenario Outline: if and else without then
+/* Schema: 
+{
+            "if": {
+                "exclusiveMaximum": 0
+            },
+            "else": {
+                "multipleOf": 2
+            }
+        }
+*/
     Given the input JSON file "if-then-else.json"
     And the schema at "#/4/schema"
     And the input data at "<inputDataReference>"
@@ -76,6 +117,19 @@ Scenario Outline: if and else without then
         | #/004/tests/002/data | false | invalid through else                                                             |
 
 Scenario Outline: validate against correct branch, then vs else
+/* Schema: 
+{
+            "if": {
+                "exclusiveMaximum": 0
+            },
+            "then": {
+                "minimum": -10
+            },
+            "else": {
+                "multipleOf": 2
+            }
+        }
+*/
     Given the input JSON file "if-then-else.json"
     And the schema at "#/5/schema"
     And the input data at "<inputDataReference>"
@@ -92,6 +146,27 @@ Scenario Outline: validate against correct branch, then vs else
         | #/005/tests/003/data | false | invalid through else                                                             |
 
 Scenario Outline: non-interference across combined schemas
+/* Schema: 
+{
+            "allOf": [
+                {
+                    "if": {
+                        "exclusiveMaximum": 0
+                    }
+                },
+                {
+                    "then": {
+                        "minimum": -10
+                    }
+                },
+                {
+                    "else": {
+                        "multipleOf": 2
+                    }
+                }
+            ]
+        }
+*/
     Given the input JSON file "if-then-else.json"
     And the schema at "#/6/schema"
     And the input data at "<inputDataReference>"
@@ -106,6 +181,13 @@ Scenario Outline: non-interference across combined schemas
         | #/006/tests/001/data | true  | valid, but would have been invalid through else                                  |
 
 Scenario Outline: if with boolean schema true
+/* Schema: 
+{
+            "if": true,
+            "then": { "const": "then" },
+            "else": { "const": "else" }
+        }
+*/
     Given the input JSON file "if-then-else.json"
     And the schema at "#/7/schema"
     And the input data at "<inputDataReference>"
@@ -120,6 +202,13 @@ Scenario Outline: if with boolean schema true
         | #/007/tests/001/data | false | boolean schema true in if always chooses the then path (invalid)                 |
 
 Scenario Outline: if with boolean schema false
+/* Schema: 
+{
+            "if": false,
+            "then": { "const": "then" },
+            "else": { "const": "else" }
+        }
+*/
     Given the input JSON file "if-then-else.json"
     And the schema at "#/8/schema"
     And the input data at "<inputDataReference>"
@@ -134,6 +223,13 @@ Scenario Outline: if with boolean schema false
         | #/008/tests/001/data | true  | boolean schema false in if always chooses the else path (valid)                  |
 
 Scenario Outline: if appears at the end when serialized (keyword processing sequence)
+/* Schema: 
+{
+            "then": { "const": "yes" },
+            "else": { "const": "other" },
+            "if": { "maxLength": 4 }
+        }
+*/
     Given the input JSON file "if-then-else.json"
     And the schema at "#/9/schema"
     And the input data at "<inputDataReference>"

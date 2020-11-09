@@ -4,6 +4,9 @@ Feature: maxProperties
     I want to support maxProperties
 
 Scenario Outline: maxProperties validation
+/* Schema: 
+{"maxProperties": 2}
+*/
     Given the input JSON file "maxProperties.json"
     And the schema at "#/0/schema"
     And the input data at "<inputDataReference>"
@@ -22,6 +25,9 @@ Scenario Outline: maxProperties validation
         | #/000/tests/005/data | true  | ignores other non-objects                                                        |
 
 Scenario Outline: maxProperties  equals  0 means the object is empty
+/* Schema: 
+{ "maxProperties": 0 }
+*/
     Given the input JSON file "maxProperties.json"
     And the schema at "#/1/schema"
     And the input data at "<inputDataReference>"

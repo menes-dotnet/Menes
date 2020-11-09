@@ -4,6 +4,13 @@ Feature: patternProperties
     I want to support patternProperties
 
 Scenario Outline: patternProperties validates properties matching a regex
+/* Schema: 
+{
+            "patternProperties": {
+                "f.*o": {"type": "integer"}
+            }
+        }
+*/
     Given the input JSON file "patternProperties.json"
     And the schema at "#/0/schema"
     And the input data at "<inputDataReference>"
@@ -23,6 +30,14 @@ Scenario Outline: patternProperties validates properties matching a regex
         | #/000/tests/006/data | true  | ignores other non-objects                                                        |
 
 Scenario Outline: multiple simultaneous patternProperties are validated
+/* Schema: 
+{
+            "patternProperties": {
+                "a*": {"type": "integer"},
+                "aaa*": {"maximum": 20}
+            }
+        }
+*/
     Given the input JSON file "patternProperties.json"
     And the schema at "#/1/schema"
     And the input data at "<inputDataReference>"
@@ -41,6 +56,14 @@ Scenario Outline: multiple simultaneous patternProperties are validated
         | #/001/tests/005/data | false | an invalid due to both is invalid                                                |
 
 Scenario Outline: regexes are not anchored by default and are case sensitive
+/* Schema: 
+{
+            "patternProperties": {
+                "[0-9]{2,}": { "type": "boolean" },
+                "X_": { "type": "string" }
+            }
+        }
+*/
     Given the input JSON file "patternProperties.json"
     And the schema at "#/2/schema"
     And the input data at "<inputDataReference>"
@@ -57,6 +80,14 @@ Scenario Outline: regexes are not anchored by default and are case sensitive
         | #/002/tests/003/data | false | regexes are case sensitive, 2                                                    |
 
 Scenario Outline: patternProperties with boolean schemas
+/* Schema: 
+{
+            "patternProperties": {
+                "f.*": true,
+                "b.*": false
+            }
+        }
+*/
     Given the input JSON file "patternProperties.json"
     And the schema at "#/3/schema"
     And the input data at "<inputDataReference>"

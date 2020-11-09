@@ -4,6 +4,12 @@ Feature: additionalItems
     I want to support additionalItems
 
 Scenario Outline: additionalItems as schema
+/* Schema: 
+{
+            "items": [{}],
+            "additionalItems": {"type": "integer"}
+        }
+*/
     Given the input JSON file "additionalItems.json"
     And the schema at "#/0/schema"
     And the input data at "<inputDataReference>"
@@ -18,6 +24,12 @@ Scenario Outline: additionalItems as schema
         | #/000/tests/001/data | false | additional items do not match schema                                             |
 
 Scenario Outline: items is schema, no additionalItems
+/* Schema: 
+{
+            "items": {},
+            "additionalItems": false
+        }
+*/
     Given the input JSON file "additionalItems.json"
     And the schema at "#/1/schema"
     And the input data at "<inputDataReference>"
@@ -31,6 +43,12 @@ Scenario Outline: items is schema, no additionalItems
         | #/001/tests/000/data | true  | all items match schema                                                           |
 
 Scenario Outline: array of items with no additionalItems
+/* Schema: 
+{
+            "items": [{}, {}, {}],
+            "additionalItems": false
+        }
+*/
     Given the input JSON file "additionalItems.json"
     And the schema at "#/2/schema"
     And the input data at "<inputDataReference>"
@@ -48,6 +66,9 @@ Scenario Outline: array of items with no additionalItems
         | #/002/tests/004/data | false | additional items are not permitted                                               |
 
 Scenario Outline: additionalItems as false without items
+/* Schema: 
+{"additionalItems": false}
+*/
     Given the input JSON file "additionalItems.json"
     And the schema at "#/3/schema"
     And the input data at "<inputDataReference>"
@@ -62,6 +83,9 @@ Scenario Outline: additionalItems as false without items
         | #/003/tests/001/data | true  | ignores non-arrays                                                               |
 
 Scenario Outline: additionalItems are allowed by default
+/* Schema: 
+{"items": [{"type": "integer"}]}
+*/
     Given the input JSON file "additionalItems.json"
     And the schema at "#/4/schema"
     And the input data at "<inputDataReference>"
@@ -75,6 +99,14 @@ Scenario Outline: additionalItems are allowed by default
         | #/004/tests/000/data | true  | only the first item is validated                                                 |
 
 Scenario Outline: additionalItems should not look in applicators, valid case
+/* Schema: 
+{
+            "allOf": [
+                { "items": [ { "type": "integer" } ] }
+            ],
+            "additionalItems": { "type": "boolean" }
+        }
+*/
     Given the input JSON file "additionalItems.json"
     And the schema at "#/5/schema"
     And the input data at "<inputDataReference>"
@@ -88,6 +120,15 @@ Scenario Outline: additionalItems should not look in applicators, valid case
         | #/005/tests/000/data | true  | items defined in allOf are not examined                                          |
 
 Scenario Outline: additionalItems should not look in applicators, invalid case
+/* Schema: 
+{
+            "allOf": [
+                { "items": [ { "type": "integer" }, { "type": "string" } ] }
+            ],
+            "items": [ {"type": "integer" } ],
+            "additionalItems": { "type": "boolean" }
+        }
+*/
     Given the input JSON file "additionalItems.json"
     And the schema at "#/6/schema"
     And the input data at "<inputDataReference>"

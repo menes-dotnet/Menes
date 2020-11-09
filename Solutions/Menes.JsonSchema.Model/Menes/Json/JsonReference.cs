@@ -156,6 +156,18 @@ namespace Menes.Json
         }
 
         /// <summary>
+        /// Create a reference from a URI and an unencoded property name.
+        /// </summary>
+        /// <param name="uri">The base URI.</param>
+        /// <param name="unencodedPropertyName">The unencoded property name.</param>
+        /// <returns>The new <see cref="JsonReference"/>.</returns>
+        public static JsonReference FromUriAndUnencodedPropertyName(string uri, string unencodedPropertyName)
+        {
+            var reference = new JsonReference(uri);
+            return reference.AppendUnencodedPropertyNameToFragment(unencodedPropertyName);
+        }
+
+        /// <summary>
         /// Replace the fragment in the reference.
         /// </summary>
         /// <param name="fragment">The fragment to replace.</param>
@@ -163,6 +175,42 @@ namespace Menes.Json
         public JsonReference WithFragment(string fragment)
         {
             return new JsonReference(this.Uri, fragment);
+        }
+
+        /// <summary>
+        /// Append an unencoded JSON property name to the fragment in the reference.
+        /// </summary>
+        /// <param name="unencodedPropertyName">The name to append.</param>
+        /// <returns>A JSON reference with the encoded fragment appended.</returns>
+        public JsonReference AppendUnencodedPropertyNameToFragment(string unencodedPropertyName)
+        {
+            int? hi = FindHash(this.reference.Span);
+            int requiredLength = this.reference.Length + (unencodedPropertyName.Length * 3) + 1;
+            bool hasHash = !(hi is null);
+            if (!hasHash)
+            {
+                requiredLength += 1;
+            }
+
+            Span<char> encodedValue = stackalloc char[requiredLength];
+            this.reference.Span.CopyTo(encodedValue);
+            int writeIndex = this.reference.Length;
+            if (!hasHash)
+            {
+                encodedValue[writeIndex] = '#';
+                writeIndex++;
+            }
+
+            encodedValue[writeIndex] = '/';
+            writeIndex++;
+            int copiedByteCount = writeIndex;
+
+            Span<char> target = encodedValue.Slice(writeIndex);
+            int writtenBytes = JsonFragment.EncodeFragment(unencodedPropertyName.AsSpan(), ref target);
+            int totalWritten = copiedByteCount + writtenBytes;
+            var output = new Memory<char>(new char[totalWritten]);
+            encodedValue.Slice(0, totalWritten).CopyTo(output.Span);
+            return new JsonReference(output);
         }
 
         /// <summary>
@@ -219,7 +267,7 @@ namespace Menes.Json
         /// <inheritdoc/>
         public override int GetHashCode()
         {
-            return HashCode.Combine(this.reference);
+            return this.reference.GetHashCode();
         }
 
         /// <inheritdoc/>

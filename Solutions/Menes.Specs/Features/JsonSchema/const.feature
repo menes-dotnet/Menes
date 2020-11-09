@@ -4,6 +4,9 @@ Feature: const
     I want to support const
 
 Scenario Outline: const validation
+/* Schema: 
+{"const": 2}
+*/
     Given the input JSON file "const.json"
     And the schema at "#/0/schema"
     And the input data at "<inputDataReference>"
@@ -19,6 +22,9 @@ Scenario Outline: const validation
         | #/000/tests/002/data | false | another type is invalid                                                          |
 
 Scenario Outline: const with object
+/* Schema: 
+{"const": {"foo": "bar", "baz": "bax"}}
+*/
     Given the input JSON file "const.json"
     And the schema at "#/1/schema"
     And the input data at "<inputDataReference>"
@@ -35,6 +41,9 @@ Scenario Outline: const with object
         | #/001/tests/003/data | false | another type is invalid                                                          |
 
 Scenario Outline: const with array
+/* Schema: 
+{"const": [{ "foo": "bar" }]}
+*/
     Given the input JSON file "const.json"
     And the schema at "#/2/schema"
     And the input data at "<inputDataReference>"
@@ -50,6 +59,9 @@ Scenario Outline: const with array
         | #/002/tests/002/data | false | array with additional items is invalid                                           |
 
 Scenario Outline: const with null
+/* Schema: 
+{"const": null}
+*/
     Given the input JSON file "const.json"
     And the schema at "#/3/schema"
     And the input data at "<inputDataReference>"
@@ -64,6 +76,9 @@ Scenario Outline: const with null
         | #/003/tests/001/data | false | not null is invalid                                                              |
 
 Scenario Outline: const with false does not match 0
+/* Schema: 
+{"const": false}
+*/
     Given the input JSON file "const.json"
     And the schema at "#/4/schema"
     And the input data at "<inputDataReference>"
@@ -79,6 +94,9 @@ Scenario Outline: const with false does not match 0
         | #/004/tests/002/data | false | float zero is invalid                                                            |
 
 Scenario Outline: const with true does not match 1
+/* Schema: 
+{"const": true}
+*/
     Given the input JSON file "const.json"
     And the schema at "#/5/schema"
     And the input data at "<inputDataReference>"
@@ -94,6 +112,9 @@ Scenario Outline: const with true does not match 1
         | #/005/tests/002/data | false | float one is invalid                                                             |
 
 Scenario Outline: const with array[false] does not match array[0]
+/* Schema: 
+{"const": [false]}
+*/
     Given the input JSON file "const.json"
     And the schema at "#/6/schema"
     And the input data at "<inputDataReference>"
@@ -109,6 +130,9 @@ Scenario Outline: const with array[false] does not match array[0]
         | #/006/tests/002/data | false | [0.0] is invalid                                                                 |
 
 Scenario Outline: const with array[true] does not match array[1]
+/* Schema: 
+{"const": [true]}
+*/
     Given the input JSON file "const.json"
     And the schema at "#/7/schema"
     And the input data at "<inputDataReference>"
@@ -124,6 +148,9 @@ Scenario Outline: const with array[true] does not match array[1]
         | #/007/tests/002/data | false | [1.0] is invalid                                                                 |
 
 Scenario Outline: const with {"a": false} does not match {"a": 0}
+/* Schema: 
+{"const": {"a": false}}
+*/
     Given the input JSON file "const.json"
     And the schema at "#/8/schema"
     And the input data at "<inputDataReference>"
@@ -139,6 +166,9 @@ Scenario Outline: const with {"a": false} does not match {"a": 0}
         | #/008/tests/002/data | false | {"a": 0.0} is invalid                                                            |
 
 Scenario Outline: const with {"a": true} does not match {"a": 1}
+/* Schema: 
+{"const": {"a": true}}
+*/
     Given the input JSON file "const.json"
     And the schema at "#/9/schema"
     And the input data at "<inputDataReference>"
@@ -154,6 +184,9 @@ Scenario Outline: const with {"a": true} does not match {"a": 1}
         | #/009/tests/002/data | false | {"a": 1.0} is invalid                                                            |
 
 Scenario Outline: const with 0 does not match other zero-like types
+/* Schema: 
+{"const": 0}
+*/
     Given the input JSON file "const.json"
     And the schema at "#/10/schema"
     And the input data at "<inputDataReference>"
@@ -172,6 +205,9 @@ Scenario Outline: const with 0 does not match other zero-like types
         | #/010/tests/005/data | false | empty string is invalid                                                          |
 
 Scenario Outline: const with 1 does not match true
+/* Schema: 
+{"const": 1}
+*/
     Given the input JSON file "const.json"
     And the schema at "#/11/schema"
     And the input data at "<inputDataReference>"
@@ -187,6 +223,9 @@ Scenario Outline: const with 1 does not match true
         | #/011/tests/002/data | true  | float one is valid                                                               |
 
 Scenario Outline: const with -2.0 matches integer and float types
+/* Schema: 
+{"const": -2.0}
+*/
     Given the input JSON file "const.json"
     And the schema at "#/12/schema"
     And the input data at "<inputDataReference>"
@@ -204,6 +243,9 @@ Scenario Outline: const with -2.0 matches integer and float types
         | #/012/tests/004/data | false | float -2.00001 is invalid                                                        |
 
 Scenario Outline: float and integers are equal up to 64-bit representation limits
+/* Schema: 
+{"const": 9007199254740992}
+*/
     Given the input JSON file "const.json"
     And the schema at "#/13/schema"
     And the input data at "<inputDataReference>"
@@ -220,6 +262,9 @@ Scenario Outline: float and integers are equal up to 64-bit representation limit
         | #/013/tests/003/data | false | float minus one is invalid                                                       |
 
 Scenario Outline: nul characters in strings
+/* Schema: 
+{ "const": "hello\u0000there" }
+*/
     Given the input JSON file "const.json"
     And the schema at "#/14/schema"
     And the input data at "<inputDataReference>"

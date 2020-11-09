@@ -24,16 +24,16 @@ namespace Menes.JsonSchema.TypeBuilder
             int propertyCount = 0;
             JsonReference? inplaceReference = null;
             string? dollaranchor = null;
-
+            string? dollarid = null;
+            bool updatedAbsoluteKeywordLocationStack;
             if (schema.ValueKind == JsonValueKind.Object)
             {
-                string? dollarid = null;
                 if (schema.TryGetProperty("$id", out JsonElement dollaridElement))
                 {
                     dollarid = dollaridElement.GetString();
                 }
 
-                this.UpdateKeywordLocationStacks(dollarid);
+                updatedAbsoluteKeywordLocationStack = this.UpdateKeywordLocationStacks(dollarid);
                 bool recursiveReference = false;
 
                 foreach (JsonProperty property in schema.EnumerateObject())
@@ -60,7 +60,10 @@ namespace Menes.JsonSchema.TypeBuilder
                         dollaranchor = property.Value.GetString();
                     }
 
-                    propertyCount++;
+                    if (!property.NameEquals("$defs"))
+                    {
+                        propertyCount++;
+                    }
 
                     if (property.Value.ValueKind == JsonValueKind.Object)
                     {
@@ -80,21 +83,31 @@ namespace Menes.JsonSchema.TypeBuilder
             }
             else
             {
-                this.UpdateKeywordLocationStacks(null);
+                updatedAbsoluteKeywordLocationStack = this.UpdateKeywordLocationStacks(null);
             }
 
-            return this.CreateLocatedElement(schema, dollaranchor);
+            try
+            {
+                return this.CreateLocatedElement(schema, dollarid, dollaranchor);
+            }
+            finally
+            {
+                if (updatedAbsoluteKeywordLocationStack)
+                {
+                    this.absoluteKeywordLocationStack.Pop();
+                }
+            }
         }
 
         private void PushPropertyToAbsoluteKeywordLocationStack(JsonProperty property)
         {
             if (this.absoluteKeywordLocationStack.TryPeek(out JsonReference current))
             {
-                this.absoluteKeywordLocationStack.Push(current + "/" + property.Name);
+                this.absoluteKeywordLocationStack.Push(current.AppendUnencodedPropertyNameToFragment(property.Name));
             }
             else
             {
-                this.absoluteKeywordLocationStack.Push("#" + property.Name);
+                this.absoluteKeywordLocationStack.Push(JsonReference.FromUriAndUnencodedPropertyName("/", property.Name));
             }
         }
 
@@ -102,17 +115,17 @@ namespace Menes.JsonSchema.TypeBuilder
         /// Creates a located element using the location on the <see cref="absoluteKeywordLocationStack"/>,
         /// and adds it to the <see cref="locatedElementsByLocation"/> map.
         /// </summary>
-        private LocatedElement CreateLocatedElement(JsonElement schema, string? anchor)
+        private LocatedElement CreateLocatedElement(JsonElement schema, string? id, string? anchor)
         {
             JsonReference? parentLocation = this.FindParentEntityLocation();
             var result = new LocatedElement(parentLocation, this.absoluteKeywordLocationStack.Peek(), schema);
-            this.locatedElements.Add(result);
+            this.locatedElements.Add(result.AbsoluteKeywordLocation, result);
             this.locatedElementsByLocation.Add(result.AbsoluteKeywordLocation, result);
             if (anchor is string anchorFragment)
             {
                 // Turn the anchor into a fragment for a URI based on the current absolute URI
                 // to distinguish fragments anchors with the same name in different contexts.
-                JsonReference absoluteAnchor = result.AbsoluteKeywordLocation.WithFragment(anchorFragment);
+                JsonReference absoluteAnchor = (id ?? (parentLocation is JsonReference pl ? pl.Uri.ToString() : null) ?? string.Empty) + "#" + anchorFragment;
                 this.anchors.Add(absoluteAnchor, result);
             }
 
@@ -123,18 +136,26 @@ namespace Menes.JsonSchema.TypeBuilder
         /// Updates the <see cref="keywordLocationStack"/> and the <see cref="absoluteKeywordLocationStack"/>
         /// using the optional relative or absolute reference.
         /// </summary>
-        private void UpdateKeywordLocationStacks(JsonReference? dollarid)
+        /// <returns>True if we updated the absolute keyword location stack.</returns>
+        private bool UpdateKeywordLocationStacks(JsonReference? dollarid)
         {
-            if (this.absoluteKeywordLocationStack.TryPeek(out JsonReference currentLocation) && dollarid is JsonReference did)
+            bool updated = false;
+            if (this.absoluteKeywordLocationStack.TryPeek(out JsonReference currentLocation))
             {
-                this.absoluteKeywordLocationStack.Push(currentLocation.Apply(did));
+                if (dollarid is JsonReference did)
+                {
+                    this.absoluteKeywordLocationStack.Push(currentLocation.Apply(did));
+                    updated = true;
+                }
             }
             else
             {
-                this.absoluteKeywordLocationStack.Push(currentLocation + "/#");
+                this.absoluteKeywordLocationStack.Push("#");
+                updated = true;
             }
 
             this.keywordLocationStack.Push("#");
+            return updated;
         }
 
         /// <summary>
@@ -180,6 +201,11 @@ namespace Menes.JsonSchema.TypeBuilder
                 }
 
                 this.keywordLocationStack.Push(keywordPath.ToString());
+
+                if (this.anchors.TryGetValue(absoluteLocation, out LocatedElement anchoredElement))
+                {
+                    return Task.FromResult(anchoredElement);
+                }
 
                 if (this.locatedElementsByLocation.TryGetValue(absoluteLocation, out LocatedElement referencedElement))
                 {

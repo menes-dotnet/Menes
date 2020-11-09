@@ -4,6 +4,11 @@ Feature: not
     I want to support not
 
 Scenario Outline: not
+/* Schema: 
+{
+            "not": {"type": "integer"}
+        }
+*/
     Given the input JSON file "not.json"
     And the schema at "#/0/schema"
     And the input data at "<inputDataReference>"
@@ -18,6 +23,11 @@ Scenario Outline: not
         | #/000/tests/001/data | false | disallowed                                                                       |
 
 Scenario Outline: not multiple types
+/* Schema: 
+{
+            "not": {"type": ["integer", "boolean"]}
+        }
+*/
     Given the input JSON file "not.json"
     And the schema at "#/1/schema"
     And the input data at "<inputDataReference>"
@@ -33,6 +43,18 @@ Scenario Outline: not multiple types
         | #/001/tests/002/data | false | other mismatch                                                                   |
 
 Scenario Outline: not more complex schema
+/* Schema: 
+{
+            "not": {
+                "type": "object",
+                "properties": {
+                    "foo": {
+                        "type": "string"
+                    }
+                }
+             }
+        }
+*/
     Given the input JSON file "not.json"
     And the schema at "#/2/schema"
     And the input data at "<inputDataReference>"
@@ -48,6 +70,15 @@ Scenario Outline: not more complex schema
         | #/002/tests/002/data | false | mismatch                                                                         |
 
 Scenario Outline: forbidden property
+/* Schema: 
+{
+            "properties": {
+                "foo": { 
+                    "not": {}
+                }
+            }
+        }
+*/
     Given the input JSON file "not.json"
     And the schema at "#/3/schema"
     And the input data at "<inputDataReference>"
@@ -62,6 +93,9 @@ Scenario Outline: forbidden property
         | #/003/tests/001/data | true  | property absent                                                                  |
 
 Scenario Outline: not with boolean schema true
+/* Schema: 
+{"not": true}
+*/
     Given the input JSON file "not.json"
     And the schema at "#/4/schema"
     And the input data at "<inputDataReference>"
@@ -75,6 +109,9 @@ Scenario Outline: not with boolean schema true
         | #/004/tests/000/data | false | any value is invalid                                                             |
 
 Scenario Outline: not with boolean schema false
+/* Schema: 
+{"not": false}
+*/
     Given the input JSON file "not.json"
     And the schema at "#/5/schema"
     And the input data at "<inputDataReference>"

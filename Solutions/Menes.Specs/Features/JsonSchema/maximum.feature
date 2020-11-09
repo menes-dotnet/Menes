@@ -4,6 +4,9 @@ Feature: maximum
     I want to support maximum
 
 Scenario Outline: maximum validation
+/* Schema: 
+{"maximum": 3.0}
+*/
     Given the input JSON file "maximum.json"
     And the schema at "#/0/schema"
     And the input data at "<inputDataReference>"
@@ -20,6 +23,9 @@ Scenario Outline: maximum validation
         | #/000/tests/003/data | true  | ignores non-numbers                                                              |
 
 Scenario Outline: maximum validation with unsigned integer
+/* Schema: 
+{"maximum": 300}
+*/
     Given the input JSON file "maximum.json"
     And the schema at "#/1/schema"
     And the input data at "<inputDataReference>"

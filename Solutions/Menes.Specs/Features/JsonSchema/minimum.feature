@@ -4,6 +4,9 @@ Feature: minimum
     I want to support minimum
 
 Scenario Outline: minimum validation
+/* Schema: 
+{"minimum": 1.1}
+*/
     Given the input JSON file "minimum.json"
     And the schema at "#/0/schema"
     And the input data at "<inputDataReference>"
@@ -20,6 +23,9 @@ Scenario Outline: minimum validation
         | #/000/tests/003/data | true  | ignores non-numbers                                                              |
 
 Scenario Outline: minimum validation with signed integer
+/* Schema: 
+{"minimum": -2}
+*/
     Given the input JSON file "minimum.json"
     And the schema at "#/1/schema"
     And the input data at "<inputDataReference>"

@@ -4,6 +4,11 @@ Feature: maxContains
     I want to support maxContains
 
 Scenario Outline: maxContains without contains is ignored
+/* Schema: 
+{
+            "maxContains": 1
+        }
+*/
     Given the input JSON file "maxContains.json"
     And the schema at "#/0/schema"
     And the input data at "<inputDataReference>"
@@ -18,6 +23,12 @@ Scenario Outline: maxContains without contains is ignored
         | #/000/tests/001/data | true  | two items still valid against lone maxContains                                   |
 
 Scenario Outline: maxContains with contains
+/* Schema: 
+{
+            "contains": {"const": 1},
+            "maxContains": 1
+        }
+*/
     Given the input JSON file "maxContains.json"
     And the schema at "#/1/schema"
     And the input data at "<inputDataReference>"
@@ -35,6 +46,13 @@ Scenario Outline: maxContains with contains
         | #/001/tests/004/data | false | some elements match, invalid maxContains                                         |
 
 Scenario Outline: minContains  less than  maxContains
+/* Schema: 
+{
+            "contains": {"const": 1},
+            "minContains": 1,
+            "maxContains": 3
+        }
+*/
     Given the input JSON file "maxContains.json"
     And the schema at "#/2/schema"
     And the input data at "<inputDataReference>"

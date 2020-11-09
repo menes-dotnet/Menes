@@ -4,6 +4,9 @@ Feature: maxItems
     I want to support maxItems
 
 Scenario Outline: maxItems validation
+/* Schema: 
+{"maxItems": 2}
+*/
     Given the input JSON file "maxItems.json"
     And the schema at "#/0/schema"
     And the input data at "<inputDataReference>"

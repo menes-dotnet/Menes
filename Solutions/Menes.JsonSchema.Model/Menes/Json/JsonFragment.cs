@@ -5,7 +5,10 @@
 namespace Menes.Json
 {
     using System;
+    using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
+    using System.Globalization;
+    using System.Text;
     using System.Text.Json;
 
     /// <summary>
@@ -16,6 +19,9 @@ namespace Menes.Json
     /// </remarks>
     public static class JsonFragment
     {
+        private static readonly HashSet<char> ReservedCharacters = new HashSet<char> { '%', '"' };
+        private static readonly char[] HexDigits = new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
+
         /// <summary>
         /// Resolve a json element from a fragment pointer into a json document.
         /// </summary>
@@ -73,6 +79,133 @@ namespace Menes.Json
         }
 
         /// <summary>
+        /// Encodes the ~ encoding in a fragment.
+        /// </summary>
+        /// <param name="unencodedFragment">The encoded fragment.</param>
+        /// <param name="fragment">The span into which to write the result.</param>
+        /// <returns>The length of the decoded fragment.</returns>
+        internal static int EncodeFragment(in ReadOnlySpan<char> unencodedFragment, ref Span<char> fragment)
+        {
+            int readIndex = 0;
+            int writeIndex = 0;
+
+            while (readIndex < unencodedFragment.Length)
+            {
+                if (ReservedCharacters.Contains(unencodedFragment[readIndex]))
+                {
+                    Span<byte> utf8Bytes = stackalloc byte[4];
+                    int writtenBytes = Encoding.UTF8.GetBytes(unencodedFragment.Slice(readIndex, 1), utf8Bytes);
+                    for (int i = 0; i < writtenBytes; ++i)
+                    {
+                        fragment[writeIndex] = '%';
+                        fragment[writeIndex + 1] = HexDigits[utf8Bytes[i] >> 4];
+                        fragment[writeIndex + 2] = HexDigits[utf8Bytes[i] & 0xF];
+                        writeIndex += 3;
+                    }
+
+                    readIndex += 1;
+                }
+                else if (unencodedFragment[readIndex] == '~')
+                {
+                    fragment[writeIndex] = '~';
+                    fragment[writeIndex + 1] = '0';
+                    readIndex += 1;
+                    writeIndex += 2;
+                }
+                else if (unencodedFragment[readIndex] == '/')
+                {
+                    fragment[writeIndex] = '~';
+                    fragment[writeIndex + 1] = '1';
+                    readIndex += 1;
+                    writeIndex += 2;
+                }
+                else
+                {
+                    fragment[writeIndex] = unencodedFragment[readIndex];
+                    readIndex++;
+                    writeIndex++;
+                }
+            }
+
+            return writeIndex;
+        }
+
+        /// <summary>
+        /// Decodes the ~ encoding in a reference.
+        /// </summary>
+        /// <param name="encodedFragment">The encoded reference.</param>
+        /// <param name="fragment">The span into which to write the result.</param>
+        /// <returns>The length of the decoded reference.</returns>
+        internal static int DecodeFragment(in ReadOnlySpan<char> encodedFragment, ref Span<char> fragment)
+        {
+            int readIndex = 0;
+            int writeIndex = 0;
+
+            while (readIndex < encodedFragment.Length)
+            {
+                if (encodedFragment[readIndex] == '%')
+                {
+                    int writtenBytes = 0;
+                    Span<byte> utf8bytes = stackalloc byte[encodedFragment.Length - readIndex];
+
+                    while (encodedFragment[readIndex] == '%')
+                    {
+                        if (readIndex >= encodedFragment.Length - 2)
+                        {
+                            throw new JsonException($"Unexpected end of sequence in escaped %. Expected two digits but found the end of the element: {fragment.ToString()}");
+                        }
+
+                        if (int.TryParse(encodedFragment.Slice(readIndex + 1, 2), NumberStyles.HexNumber, CultureInfo.InvariantCulture, out int characterCode))
+                        {
+                            utf8bytes[writtenBytes] = (byte)characterCode;
+                            writtenBytes += 1;
+                        }
+                        else
+                        {
+                            throw new JsonException($"Unexpected end of sequence in escaped %. Expected two digits but could not parse.");
+                        }
+
+                        readIndex += 3;
+                    }
+
+                    Encoding.UTF8.GetChars(utf8bytes.Slice(0, writtenBytes), fragment.Slice(writeIndex, writtenBytes));
+                    writeIndex += writtenBytes;
+                }
+                else if (encodedFragment[readIndex] != '~')
+                {
+                    fragment[writeIndex] = encodedFragment[readIndex];
+                    readIndex++;
+                    writeIndex++;
+                }
+                else
+                {
+                    if (readIndex >= encodedFragment.Length - 1)
+                    {
+                        throw new JsonException($"Expected to find 0, 1 or 2 after '~' in the component {encodedFragment.ToString()} at index {readIndex}, but found the end of the component.");
+                    }
+
+                    if (encodedFragment[readIndex + 1] == '0')
+                    {
+                        fragment[writeIndex] = '~';
+                    }
+                    else if (encodedFragment[readIndex + 1] == '1')
+                    {
+                        fragment[writeIndex] = '/';
+                    }
+                    else
+                    {
+                        throw new JsonException($"Expected to find 0, or 2 after '~' in the component {encodedFragment.ToString()} at index {readIndex}, but found {encodedFragment[readIndex + 1]}");
+                    }
+
+                    readIndex += 2;
+                    writeIndex += 1;
+                }
+            }
+
+            return writeIndex;
+        }
+
+        /// <summary>
         /// Resolve a json element from a fragment pointer into a json document.
         /// </summary>
         /// <param name="root">The root eleement from which to start resolving the pointer.</param>
@@ -112,8 +245,10 @@ namespace Menes.Json
                 // We've either reached the fragment.Length (so have to go 1 back from the end)
                 // or we're sitting on the terminating '/'
                 int endRun = index;
-                ReadOnlySpan<char> component = fragment[startRun..endRun];
-
+                ReadOnlySpan<char> encodedComponent = fragment[startRun..endRun];
+                Span<char> decodedComponent = stackalloc char[encodedComponent.Length];
+                int decodedWritten = DecodeFragment(encodedComponent, ref decodedComponent);
+                ReadOnlySpan<char> component = decodedComponent.Slice(0, decodedWritten);
                 if (current.ValueKind == JsonValueKind.Object)
                 {
                     if (current.TryGetProperty(component, out JsonElement next))

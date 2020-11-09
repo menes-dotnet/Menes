@@ -4,6 +4,9 @@ Feature: maxLength
     I want to support maxLength
 
 Scenario Outline: maxLength validation
+/* Schema: 
+{"maxLength": 2}
+*/
     Given the input JSON file "maxLength.json"
     And the schema at "#/0/schema"
     And the input data at "<inputDataReference>"

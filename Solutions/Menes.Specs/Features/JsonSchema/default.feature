@@ -4,6 +4,16 @@ Feature: default
     I want to support default
 
 Scenario Outline: invalid type for default
+/* Schema: 
+{
+            "properties": {
+                "foo": {
+                    "type": "integer",
+                    "default": []
+                }
+            }
+        }
+*/
     Given the input JSON file "default.json"
     And the schema at "#/0/schema"
     And the input data at "<inputDataReference>"
@@ -18,6 +28,17 @@ Scenario Outline: invalid type for default
         | #/000/tests/001/data | true  | still valid when the invalid default is used                                     |
 
 Scenario Outline: invalid string value for default
+/* Schema: 
+{
+            "properties": {
+                "bar": {
+                    "type": "string",
+                    "minLength": 4,
+                    "default": "bad"
+                }
+            }
+        }
+*/
     Given the input JSON file "default.json"
     And the schema at "#/1/schema"
     And the input data at "<inputDataReference>"

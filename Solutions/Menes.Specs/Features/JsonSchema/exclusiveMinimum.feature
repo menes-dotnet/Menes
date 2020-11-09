@@ -4,6 +4,11 @@ Feature: exclusiveMinimum
     I want to support exclusiveMinimum
 
 Scenario Outline: exclusiveMinimum validation
+/* Schema: 
+{
+            "exclusiveMinimum": 1.1
+        }
+*/
     Given the input JSON file "exclusiveMinimum.json"
     And the schema at "#/0/schema"
     And the input data at "<inputDataReference>"
