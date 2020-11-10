@@ -46,47 +46,18 @@ namespace Menes.JsonSchema.TypeBuilder
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task BuildEntity(JsonElement schema)
         {
-            LocatedElement namedElement = await this.WalkTreeAndLocateElementsFrom(schema).ConfigureAwait(false);
+            LocatedElement rootElement = await this.WalkTreeAndLocateElementsFrom(schema).ConfigureAwait(false);
 
             // Verify that our schema walk and loading did not lead to any unresolved references.
             this.ValidateUnresolvedElements();
 
             // Nothing for us to do if the named element has already been built (or we are currently building it).
-            if (this.builtDeclarationsByLocation.ContainsKey(namedElement.AbsoluteKeywordLocation))
+            if (this.builtDeclarationsByLocation.ContainsKey(rootElement.AbsoluteKeywordLocation))
             {
                 return;
             }
 
-            TypeDeclaration builtElement = await this.CreateTypeDeclarations(namedElement).ConfigureAwait(false);
-        }
-
-        private void ValidateUnresolvedElements()
-        {
-            // Strip out any that have been subsequentyl identified by anchor or ID.
-            foreach (string reference in this.unresolvedElements.ToList())
-            {
-                if (this.ids.ContainsKey(reference) || this.anchors.ContainsKey(reference) || this.locatedElementsByLocation.ContainsKey(reference))
-                {
-                    this.unresolvedElements.Remove(reference);
-                }
-            }
-
-            if (this.unresolvedElements.Count > 0)
-            {
-                throw new InvalidOperationException(this.BuildUnresolvedElementsError());
-            }
-        }
-
-        private string BuildUnresolvedElementsError()
-        {
-            var builder = new StringBuilder();
-            builder.AppendLine("The schema has unresolved references:");
-            foreach (string reference in this.unresolvedElements)
-            {
-                builder.AppendLine(reference);
-            }
-
-            return builder.ToString();
+            TypeDeclaration builtElement = await this.CreateTypeDeclarations(rootElement).ConfigureAwait(false);
         }
     }
 }

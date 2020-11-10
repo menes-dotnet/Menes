@@ -4,8 +4,10 @@
 
 namespace Menes.JsonSchema.TypeBuilder
 {
+    using System;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
+    using System.Text;
     using System.Text.Json;
     using System.Threading.Tasks;
     using Menes.Json;
@@ -113,6 +115,35 @@ namespace Menes.JsonSchema.TypeBuilder
             }
 
             return null;
+        }
+
+        private void ValidateUnresolvedElements()
+        {
+            // Strip out any that have been subsequentyl identified by anchor or ID.
+            foreach (string reference in this.unresolvedElements.ToList())
+            {
+                if (this.ids.ContainsKey(reference) || this.anchors.ContainsKey(reference) || this.locatedElementsByLocation.ContainsKey(reference))
+                {
+                    this.unresolvedElements.Remove(reference);
+                }
+            }
+
+            if (this.unresolvedElements.Count > 0)
+            {
+                throw new InvalidOperationException(this.BuildUnresolvedElementsError());
+            }
+        }
+
+        private string BuildUnresolvedElementsError()
+        {
+            var builder = new StringBuilder();
+            builder.AppendLine("The schema has unresolved references:");
+            foreach (string reference in this.unresolvedElements)
+            {
+                builder.AppendLine(reference);
+            }
+
+            return builder.ToString();
         }
     }
 }
