@@ -77,6 +77,8 @@ namespace Menes.JsonSchema.TypeBuilder
                     {
                         throw new InvalidOperationException($"Unable to find element for not type at location: '{location}'");
                     }
+
+                    this.absoluteKeywordLocationStack.Pop();
                 }
             }
         }
