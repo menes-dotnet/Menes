@@ -4,6 +4,7 @@
 
 namespace Hooks
 {
+    using System;
     using System.Net.Http;
     using Drivers;
     using Menes.Json;

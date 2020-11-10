@@ -30,16 +30,30 @@ namespace Menes.JsonSchema.TypeBuilder
             string? dollaranchor = null;
             string? dollarid = null;
             bool updatedAbsoluteKeywordLocationStack;
+            LocatedElement createdElement;
 
             if (schema.ValueKind == JsonValueKind.Object)
             {
                 if (schema.TryGetProperty("$id", out JsonElement dollaridElement))
                 {
+                    ValidateDollarId(dollaridElement);
                     dollarid = dollaridElement.GetString();
+                }
+
+                if (schema.TryGetProperty("$anchor", out JsonElement dollaranchorElement))
+                {
+                    dollaranchor = dollaranchorElement.GetString();
                 }
 
                 updatedAbsoluteKeywordLocationStack = this.UpdateKeywordLocationStacks(JsonReference.FromEncodedJsonString(dollarid));
                 bool recursiveReference = false;
+
+                if (this.absoluteKeywordLocationStack.TryPeek(out JsonReference peekedLocation) && this.locatedElementsByLocation.TryGetValue(peekedLocation, out LocatedElement previousInstance))
+                {
+                    return previousInstance;
+                }
+
+                createdElement = this.CreateLocatedElement(schema, dollarid, dollaranchor);
 
                 foreach (JsonProperty property in schema.EnumerateObject())
                 {
@@ -57,11 +71,6 @@ namespace Menes.JsonSchema.TypeBuilder
                         ValidateDollarRecursiveRef(property);
                         recursiveReference = true;
                         inplaceReference = JsonReference.FromEncodedJsonString(property.Value.GetString());
-                    }
-                    else if (property.NameEquals("$anchor"))
-                    {
-                        ValidateDollarAnchor(property);
-                        dollaranchor = property.Value.GetString();
                     }
 
                     if (property.Value.ValueKind == JsonValueKind.Object)
@@ -97,11 +106,12 @@ namespace Menes.JsonSchema.TypeBuilder
             else
             {
                 updatedAbsoluteKeywordLocationStack = this.UpdateKeywordLocationStacks(null);
+                createdElement = this.CreateLocatedElement(schema, dollarid, dollaranchor);
             }
 
             try
             {
-                return this.CreateLocatedElement(schema, dollarid, dollaranchor);
+                return createdElement;
             }
             finally
             {

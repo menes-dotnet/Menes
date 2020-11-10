@@ -16,17 +16,22 @@ namespace Menes.Json.Schema
     /// </summary>
     public class HttpClientDocumentResolver : IDocumentResolver
     {
+        private static readonly ReadOnlyMemory<char> LocalHost = "localhost".AsMemory();
+
         private readonly HttpClient httpClient;
         private readonly Dictionary<string, JsonDocument> documents = new Dictionary<string, JsonDocument>();
+        private readonly bool supportLocalhost;
         private bool disposedValue;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="HttpClientDocumentResolver"/> class.
         /// </summary>
         /// <param name="httpClientFactory">The <see cref="IHttpClientFactory"/> to use to resolve the uri.</param>
-        public HttpClientDocumentResolver(IHttpClientFactory httpClientFactory)
+        /// <param name="supportLocalhost">If true, we support resolving from localhost, otherwise false.</param>
+        public HttpClientDocumentResolver(IHttpClientFactory httpClientFactory, bool supportLocalhost = false)
         {
             this.httpClient = httpClientFactory.CreateClient();
+            this.supportLocalhost = supportLocalhost;
         }
 
         /// <summary>
@@ -51,6 +56,14 @@ namespace Menes.Json.Schema
         {
             this.CheckDisposed();
 
+            if (!this.supportLocalhost)
+            {
+                if (IsLocalHost(reference))
+                {
+                    return default;
+                }
+            }
+
             string uri = new string(reference.Uri);
             if (this.documents.TryGetValue(uri, out JsonDocument? result))
             {
@@ -71,6 +84,22 @@ namespace Menes.Json.Schema
             catch (Exception)
             {
                 return default;
+            }
+
+            static bool IsLocalHost(JsonReference reference)
+            {
+                bool isLocalHost;
+                JsonReferenceBuilder builder = reference.AsBuilder();
+                if (builder.Host.SequenceEqual(LocalHost.Span))
+                {
+                    isLocalHost = true;
+                }
+                else
+                {
+                    isLocalHost = false;
+                }
+
+                return isLocalHost;
             }
         }
 
