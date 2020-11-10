@@ -103,7 +103,7 @@ namespace Menes.JsonSchema.TypeBuilder
             JsonReference location = this.absoluteKeywordLocationStack.Peek();
             if (this.TryGetResolvedElement(location, out LocatedElement propertyTypeElement))
             {
-                TypeDeclaration newTypeDeclaration = await this.BuildTypeDeclaration(propertyTypeElement).ConfigureAwait(false);
+                TypeDeclaration newTypeDeclaration = await this.CreateTypeDeclarations(propertyTypeElement).ConfigureAwait(false);
                 if (typeDeclaration.TryGetPropertyDeclaration(jsonPropertyName, out PropertyDeclaration? propertyDeclaration))
                 {
                     propertyDeclaration.TypeDeclaration!.Merge(newTypeDeclaration);

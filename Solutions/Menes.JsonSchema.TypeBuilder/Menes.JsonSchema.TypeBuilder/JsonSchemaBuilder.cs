@@ -46,7 +46,7 @@ namespace Menes.JsonSchema.TypeBuilder
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task BuildEntity(JsonElement schema)
         {
-            LocatedElement namedElement = await this.GetOrCreateLocatedElement(schema).ConfigureAwait(false);
+            LocatedElement namedElement = await this.WalkTreeAndLocateElementsFrom(schema).ConfigureAwait(false);
 
             // Verify that our schema walk and loading did not lead to any unresolved references.
             this.ValidateUnresolvedElements();
@@ -57,7 +57,7 @@ namespace Menes.JsonSchema.TypeBuilder
                 return;
             }
 
-            TypeDeclaration builtElement = await this.BuildTypeDeclaration(namedElement).ConfigureAwait(false);
+            TypeDeclaration builtElement = await this.CreateTypeDeclarations(namedElement).ConfigureAwait(false);
         }
 
         private void ValidateUnresolvedElements()

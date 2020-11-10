@@ -28,7 +28,7 @@ namespace Menes.JsonSchema.TypeBuilder
                     JsonReference location = this.GetAbsoluteKeywordLocation(JsonReference.FromEncodedJsonString(dollarref.GetString()).Value);
                     if (this.TryGetResolvedElement(location, out LocatedElement dollarRefTypeElement))
                     {
-                        TypeDeclaration dollarrefTypeDeclaration = await this.BuildTypeDeclaration(dollarRefTypeElement).ConfigureAwait(false);
+                        TypeDeclaration dollarrefTypeDeclaration = await this.CreateTypeDeclarations(dollarRefTypeElement).ConfigureAwait(false);
                         typeDeclaration.Merge(dollarrefTypeDeclaration);
                     }
                     else
@@ -73,7 +73,7 @@ namespace Menes.JsonSchema.TypeBuilder
                         JsonReference location = this.absoluteKeywordLocationStack.Peek();
                         if (this.TryGetResolvedElement(location, out LocatedElement allOfTypeElement))
                         {
-                            TypeDeclaration allOfTypeDeclaration = await this.BuildTypeDeclaration(allOfTypeElement).ConfigureAwait(false);
+                            TypeDeclaration allOfTypeDeclaration = await this.CreateTypeDeclarations(allOfTypeElement).ConfigureAwait(false);
                             add(typeDeclaration, allOfTypeDeclaration);
                         }
                         else

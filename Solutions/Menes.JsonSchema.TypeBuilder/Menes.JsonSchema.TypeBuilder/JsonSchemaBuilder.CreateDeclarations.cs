@@ -1,4 +1,4 @@
-﻿// <copyright file="JsonSchemaBuilder.Building.cs" company="Endjin Limited">
+﻿// <copyright file="JsonSchemaBuilder.CreateDeclarations.cs" company="Endjin Limited">
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
@@ -16,9 +16,9 @@ namespace Menes.JsonSchema.TypeBuilder
     {
         /// <summary>
         /// Build a <see cref="TypeDeclaration"/> from a <see cref="LocatedElement"/> produced
-        /// by calling <see cref="GetOrCreateLocatedElement(System.Text.Json.JsonElement)"/>.
+        /// by calling <see cref="WalkTreeAndLocateElementsFrom(System.Text.Json.JsonElement)"/>.
         /// </summary>
-        private async Task<TypeDeclaration> BuildTypeDeclaration(LocatedElement schema)
+        private async Task<TypeDeclaration> CreateTypeDeclarations(LocatedElement schema)
         {
             // We create the type declaration and immediately add it to the built declarations
             // collection so that we will be able to bomb out if we have already started building
@@ -86,7 +86,7 @@ namespace Menes.JsonSchema.TypeBuilder
                 {
                     if (this.TryGetResolvedElement(reference, out LocatedElement parentElement))
                     {
-                        parent = await this.BuildTypeDeclaration(parentElement).ConfigureAwait(false);
+                        parent = await this.CreateTypeDeclarations(parentElement).ConfigureAwait(false);
                     }
                     else
                     {

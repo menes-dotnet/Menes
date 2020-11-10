@@ -1,11 +1,9 @@
-﻿// <copyright file="JsonSchemaBuilder.Creation.cs" company="Endjin Limited">
+﻿// <copyright file="JsonSchemaBuilder.LocateElements.cs" company="Endjin Limited">
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
 namespace Menes.JsonSchema.TypeBuilder
 {
-    using System;
-    using System.Linq;
     using System.Text.Json;
     using System.Threading.Tasks;
     using Menes.Json;
@@ -17,14 +15,14 @@ namespace Menes.JsonSchema.TypeBuilder
     public partial class JsonSchemaBuilder
     {
         /// <summary>
-        /// Build a <see cref="LocatedElement"/> from the given schema, update the relevant location stacks, and the <see cref="locatedElementsByLocation"/> list.
+        /// Walk the tree from the given schema, creating <see cref="LocatedElement"/> instances from that schema.
         /// </summary>
         /// <remarks>
         /// <para>
         /// This makes a depth-first walk of the element to find all its contained elements, follows and resolves references (loading external schema if appropriate).
         /// </para>
         /// </remarks>
-        private async Task<LocatedElement> GetOrCreateLocatedElement(JsonElement schema)
+        private async Task<LocatedElement> WalkTreeAndLocateElementsFrom(JsonElement schema)
         {
             JsonReference? inplaceReference = null;
             string? dollaranchor = null;
@@ -79,7 +77,7 @@ namespace Menes.JsonSchema.TypeBuilder
                         {
                             this.PushPropertyToAbsoluteKeywordLocationStack(schemaProperty);
                             ValidateSchema(schemaProperty);
-                            await this.GetOrCreateLocatedElement(schemaProperty.Value).ConfigureAwait(false);
+                            await this.WalkTreeAndLocateElementsFrom(schemaProperty.Value).ConfigureAwait(false);
                             this.absoluteKeywordLocationStack.Pop();
                         }
                     }
@@ -97,7 +95,7 @@ namespace Menes.JsonSchema.TypeBuilder
                         }
                         else if (property.Value.ValueKind == JsonValueKind.Object || property.Value.ValueKind == JsonValueKind.True || property.Value.ValueKind == JsonValueKind.False)
                         {
-                            await this.GetOrCreateLocatedElement(property.Value).ConfigureAwait(false);
+                            await this.WalkTreeAndLocateElementsFrom(property.Value).ConfigureAwait(false);
                         }
                     }
                     else if (property.NameEquals("not") ||
@@ -106,7 +104,7 @@ namespace Menes.JsonSchema.TypeBuilder
                         property.NameEquals("additionalProperties") || property.NameEquals("unevaluatedProperties") || property.NameEquals("propertyNames"))
                     {
                         ValidateSchema(property);
-                        await this.GetOrCreateLocatedElement(property.Value).ConfigureAwait(false);
+                        await this.WalkTreeAndLocateElementsFrom(property.Value).ConfigureAwait(false);
                     }
 
                     this.absoluteKeywordLocationStack.Pop();
@@ -144,7 +142,7 @@ namespace Menes.JsonSchema.TypeBuilder
                 {
                     this.PushArrayIndexToAbsoluteKeywordLocationStack(arrayIndex);
                     ValidateSchema(element);
-                    await this.GetOrCreateLocatedElement(element).ConfigureAwait(false);
+                    await this.WalkTreeAndLocateElementsFrom(element).ConfigureAwait(false);
                     this.absoluteKeywordLocationStack.Pop();
                     arrayIndex++;
                 }
@@ -240,13 +238,13 @@ namespace Menes.JsonSchema.TypeBuilder
         /// <summary>
         /// <para>
         /// In this method we push the fact we are following the refernce reference to the keyword location stack,
-        /// using the required #/$ref/[ref/er/ence] syntax,, then either make a nested call into <see cref="GetOrCreateLocatedElement(JsonElement)"/>
+        /// using the required #/$ref/[ref/er/ence] syntax,, then either make a nested call into <see cref="WalkTreeAndLocateElementsFrom(JsonElement)"/>
         /// to follow our reference (which will, of course, push more onto the stack, then pop back up), or retrieve
         /// the existing item from the cache (which will not require us to go down the stack further).
         /// </para>
         /// <para>
         /// This method must be called *after* the absolute keyword location for the current reference
-        /// as been pushed onto the stack (as is the case when called from <see cref="GetOrCreateLocatedElement(JsonElement)"/>.
+        /// as been pushed onto the stack (as is the case when called from <see cref="WalkTreeAndLocateElementsFrom(JsonElement)"/>.
         /// </para>
         /// </summary>
         private async Task<LocatedElement?> GetOrCreateLocatedElement(JsonReference reference)
@@ -286,7 +284,7 @@ namespace Menes.JsonSchema.TypeBuilder
 
             try
             {
-                return await this.GetOrCreateLocatedElement(resolvedElement).ConfigureAwait(false);
+                return await this.WalkTreeAndLocateElementsFrom(resolvedElement).ConfigureAwait(false);
             }
             finally
             {
