@@ -102,14 +102,14 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         public List<TypeDeclaration>? AllOfTypes { get; private set; }
 
         /// <summary>
-        /// Gets the Not type.
+        /// Gets or sets the Not type.
         /// </summary>
-        public TypeDeclaration? NotType { get; private set; }
+        public TypeDeclaration? NotType { get; set; }
 
         /// <summary>
-        /// Gets the Not type.
+        /// Gets or sets the If Then and Else types.
         /// </summary>
-        public IfThenElse? IfThenElseTypes { get; private set; }
+        public IfThenElse? IfThenElseTypes { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this type allows additional properties.

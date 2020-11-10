@@ -38,6 +38,46 @@ namespace Menes.JsonSchema.TypeBuilder
 
                     this.absoluteKeywordLocationStack.Pop();
                 }
+                else if (schema.JsonElement.TryGetProperty("$recursiveRef", out JsonElement dollarrecursiveRef))
+                {
+                    this.PushPropertyToAbsoluteKeywordLocationStack("$recursiveRef");
+
+                    ValidateDollarRef(dollarrecursiveRef);
+
+                    JsonReference location = this.GetAbsoluteKeywordLocation(JsonReference.FromEncodedJsonString(dollarrecursiveRef.GetString()).Value);
+                    if (this.TryGetResolvedElement(location, out LocatedElement dollarrecursiveRefTypeElement))
+                    {
+                        TypeDeclaration dollarrecursiveRefTypeDeclaration = await this.CreateTypeDeclarations(dollarrecursiveRefTypeElement).ConfigureAwait(false);
+                        typeDeclaration.Merge(dollarrecursiveRefTypeDeclaration);
+                    }
+                    else
+                    {
+                        throw new InvalidOperationException($"Unable to find element for $recursiveRef type at location: '{location}'");
+                    }
+
+                    this.absoluteKeywordLocationStack.Pop();
+                }
+            }
+        }
+
+        private async Task AddNot(LocatedElement schema, TypeDeclaration typeDeclaration)
+        {
+            if (schema.JsonElement.ValueKind == JsonValueKind.Object)
+            {
+                if (schema.JsonElement.TryGetProperty("not", out JsonElement not))
+                {
+                    this.PushPropertyToAbsoluteKeywordLocationStack("not");
+                    JsonReference location = this.absoluteKeywordLocationStack.Peek();
+                    if (this.TryGetResolvedElement(location, out LocatedElement propertyTypeElement))
+                    {
+                        TypeDeclaration notDeclaration = await this.CreateTypeDeclarations(propertyTypeElement).ConfigureAwait(false);
+                        typeDeclaration.NotType = notDeclaration;
+                    }
+                    else
+                    {
+                        throw new InvalidOperationException($"Unable to find element for not type at location: '{location}'");
+                    }
+                }
             }
         }
 

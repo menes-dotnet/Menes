@@ -57,7 +57,7 @@ namespace Menes.JsonSchema.TypeBuilder
                 return;
             }
 
-            TypeDeclaration builtElement = await this.CreateTypeDeclarations(rootElement).ConfigureAwait(false);
+            await this.CreateTypeDeclarations(rootElement).ConfigureAwait(false);
         }
     }
 }
