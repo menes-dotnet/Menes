@@ -83,8 +83,38 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         /// <summary>
         /// Gets the list of merged types in this declaration.
         /// </summary>
-        /// <remarks>These will have been merged as a result of compounding property types through an allOf declaration.</remarks>
+        /// <remarks>These will have been merged as a result of compounding property types through an <c>allOf</c> declaration, or an array-based <c>type</c> property.</remarks>
         public List<TypeDeclaration>? MergedTypes { get; private set; }
+
+        /// <summary>
+        /// Gets the list of types that form a oneOf set.
+        /// </summary>
+        public List<TypeDeclaration>? AnyOfTypes { get; private set; }
+
+        /// <summary>
+        /// Gets the list of types that form a oneOf set.
+        /// </summary>
+        public List<TypeDeclaration>? OneOfTypes { get; private set; }
+
+        /// <summary>
+        /// Gets the list of types that form an allOf set.
+        /// </summary>
+        public List<TypeDeclaration>? AllOfTypes { get; private set; }
+
+        /// <summary>
+        /// Gets the Not type.
+        /// </summary>
+        public TypeDeclaration? NotType { get; private set; }
+
+        /// <summary>
+        /// Gets the Not type.
+        /// </summary>
+        public IfThenElse? IfThenElseTypes { get; private set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this type allows additional properties.
+        /// </summary>
+        public bool AllowsAdditionalProperties { get; set; } = true;
 
         /// <summary>
         /// Gets a value which determines whether this type contains a reference to a given type.
@@ -145,6 +175,57 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         /// <summary>
         /// Merge the given type declartion into this type.
         /// </summary>
+        /// <param name="allOfType">Add the given allOf type declaration into this type.</param>
+        /// <remarks>
+        /// The all of type will be merged with this type, and added to the allOf list for validation.
+        /// </remarks>
+        public void AddAllOfType(TypeDeclaration allOfType)
+        {
+            this.Merge(allOfType);
+            List<TypeDeclaration> allOfTypes = this.EnsureAllOfTypes();
+            if (!allOfTypes.Contains(allOfType))
+            {
+                allOfTypes.Insert(0, allOfType);
+            }
+        }
+
+        /// <summary>
+        /// Merge the given type declartion into this type.
+        /// </summary>
+        /// <param name="anyOfType">Add the given anyOf type declaration into this type.</param>
+        /// <remarks>
+        /// The all of type will not be merged with this type, but is added to the anyOf list for validation.
+        /// </remarks>
+        public void AddAnyOfType(TypeDeclaration anyOfType)
+        {
+            List<TypeDeclaration> anyOfTypes = this.EnsureAnyOfTypes();
+            if (!anyOfTypes.Contains(anyOfType))
+            {
+                anyOfTypes.Insert(0, anyOfType);
+                this.AddConversionOperator(
+                    new ConversionDeclaration { Conversion = ConversionDeclaration.ConversionType.GenericAs, ToTypeName = anyOfType.FullyQualifiedDotNetTypeName });
+            }
+        }
+
+        /// <summary>
+        /// Merge the given type declartion into this type.
+        /// </summary>
+        /// <param name="oneOfType">Add the given oneOf type declaration into this type.</param>
+        /// <remarks>
+        /// The all of type will not be merged with this type, but is added to the oneOf list for validation.
+        /// </remarks>
+        public void AddOneOfType(TypeDeclaration oneOfType)
+        {
+            List<TypeDeclaration> oneOfTypes = this.EnsureOneOfTypes();
+            if (!oneOfTypes.Contains(oneOfType))
+            {
+                oneOfTypes.Insert(0, oneOfType);
+            }
+        }
+
+        /// <summary>
+        /// Merge the given type declartion into this type.
+        /// </summary>
         /// <param name="typeToMerge">Merge the given type declaration into this type.</param>
         /// <remarks>
         /// The order in which you merge types is important.
@@ -154,7 +235,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
             List<TypeDeclaration> mergedTypes = this.EnsureMergedTypes();
             if (!mergedTypes.Contains(typeToMerge))
             {
-                mergedTypes.Add(typeToMerge);
+                mergedTypes.Insert(0, typeToMerge);
             }
         }
 
@@ -203,12 +284,53 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         /// <returns><c>true</c> if this type represents a more constrained version of the other type.</returns>
         public bool Specializes(TypeDeclaration other)
         {
-            return false;
+            // We can short circuit the longer check, by looking at all of types directly.
+            // If we must match this, then we are indeed a specialized version of that
+            if (this.EnsureAllOfTypes().Contains(other))
+            {
+                return true;
+            }
+
+            // The other merged types are more interesting. We are a specialized version of that type if
+            // either we don't declare any additional properties, or if it allows additional properties.
+            foreach (TypeDeclaration type in this.EnsureMergedTypes())
+            {
+                if (!type.AllowsAdditionalProperties)
+                {
+                    if (type.EnsureProperties().Count != this.EnsureProperties().Count)
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        }
+
+        private void AddConversionOperator(ConversionDeclaration conversionDeclaration)
+        {
+            List<ConversionDeclaration> conversionOperators = this.EnsureConversionOperators();
+            conversionOperators.Add(conversionDeclaration);
         }
 
         private List<TypeDeclaration> EnsureMergedTypes()
         {
             return this.MergedTypes ??= new List<TypeDeclaration>();
+        }
+
+        private List<TypeDeclaration> EnsureAnyOfTypes()
+        {
+            return this.AnyOfTypes ??= new List<TypeDeclaration>();
+        }
+
+        private List<TypeDeclaration> EnsureOneOfTypes()
+        {
+            return this.OneOfTypes ??= new List<TypeDeclaration>();
+        }
+
+        private List<TypeDeclaration> EnsureAllOfTypes()
+        {
+            return this.AllOfTypes ??= new List<TypeDeclaration>();
         }
 
         private List<TypeDeclaration> EnsureNestedTypes()
@@ -219,6 +341,11 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         private List<PropertyDeclaration> EnsureProperties()
         {
             return this.Properties ??= new List<PropertyDeclaration>();
+        }
+
+        private List<ConversionDeclaration> EnsureConversionOperators()
+        {
+            return this.ConversionOperators ??= new List<ConversionDeclaration>();
         }
 
         private void ValidateMemberName(string? name)

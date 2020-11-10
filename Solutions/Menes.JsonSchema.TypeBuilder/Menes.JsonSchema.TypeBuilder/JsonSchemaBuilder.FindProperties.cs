@@ -24,7 +24,7 @@ namespace Menes.JsonSchema.TypeBuilder
         private async Task FindProperties(LocatedElement schema, TypeDeclaration typeDeclaration)
         {
             // We can find properties in the following ways:
-            // 1. Accumulated from an 'allOf'
+            // 1. Accumulated from an 'allOf' (dealt with elsewhere)
             // 1. Declared in the 'properties' element
             // 1. Declared in the 'required' element but not specified in the properties element, or accumulated from the 'allOf' element
             // No doubt I'll think of some more later.
@@ -88,6 +88,10 @@ namespace Menes.JsonSchema.TypeBuilder
             {
                 var propertyDeclaration = new PropertyDeclaration();
                 this.SetPropertyName(typeDeclaration, jsonPropertyName, propertyDeclaration);
+                propertyDeclaration.TypeDeclaration = new TypeDeclaration
+                {
+                    DotnetTypeName = "Menes.JsonAny",
+                };
                 typeDeclaration.AddPropertyDeclaration(propertyDeclaration);
             }
         }
@@ -97,7 +101,7 @@ namespace Menes.JsonSchema.TypeBuilder
             string jsonPropertyName = property.Name;
 
             JsonReference location = this.absoluteKeywordLocationStack.Peek();
-            if (this.locatedElementsByLocation.TryGetValue(location, out LocatedElement propertyTypeElement))
+            if (this.TryGetResolvedElement(location, out LocatedElement propertyTypeElement))
             {
                 TypeDeclaration newTypeDeclaration = await this.BuildTypeDeclaration(propertyTypeElement).ConfigureAwait(false);
                 if (typeDeclaration.TryGetPropertyDeclaration(jsonPropertyName, out PropertyDeclaration? propertyDeclaration))
@@ -107,6 +111,7 @@ namespace Menes.JsonSchema.TypeBuilder
                 else
                 {
                     var newPropertyDeclaration = new PropertyDeclaration();
+                    newPropertyDeclaration.TypeDeclaration = newTypeDeclaration;
                     this.SetPropertyName(typeDeclaration, jsonPropertyName, newPropertyDeclaration);
                     typeDeclaration.AddPropertyDeclaration(newPropertyDeclaration);
                 }

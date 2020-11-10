@@ -36,7 +36,11 @@ namespace Menes.JsonSchema.TypeBuilder
 
             try
             {
-                this.SetNameAndParent(schema, typeDeclaration);
+                await this.SetNameAndParent(schema, typeDeclaration).ConfigureAwait(false);
+                await this.AddRef(schema, typeDeclaration).ConfigureAwait(false);
+                await this.AddAllOf(schema, typeDeclaration).ConfigureAwait(false);
+                await this.AddAnyOf(schema, typeDeclaration).ConfigureAwait(false);
+                await this.AddOneOf(schema, typeDeclaration).ConfigureAwait(false);
                 await this.FindProperties(schema, typeDeclaration).ConfigureAwait(false);
                 return typeDeclaration;
             }
@@ -62,9 +66,9 @@ namespace Menes.JsonSchema.TypeBuilder
         /// of our parent's unique name validation constraints.
         /// </para>
         /// </summary>
-        private void SetNameAndParent(LocatedElement schema, TypeDeclaration typeDeclaration)
+        private async Task SetNameAndParent(LocatedElement schema, TypeDeclaration typeDeclaration)
         {
-            this.SetParent(schema, typeDeclaration);
+            await this.SetParent(schema, typeDeclaration).ConfigureAwait(false);
             this.SetTypeName(schema, typeDeclaration);
             this.AddToParent(typeDeclaration);
         }
@@ -74,17 +78,24 @@ namespace Menes.JsonSchema.TypeBuilder
             typeDeclaration.Parent?.AddTypeDeclaration(typeDeclaration);
         }
 
-        private void SetParent(LocatedElement schema, TypeDeclaration typeDeclaration)
+        private async Task SetParent(LocatedElement schema, TypeDeclaration typeDeclaration)
         {
             if (schema.AbsoluteParentKeywordLocation is JsonReference reference)
             {
-                if (this.builtDeclarationsByLocation.TryGetValue(reference, out TypeDeclaration parent))
+                if (!this.builtDeclarationsByLocation.TryGetValue(reference, out TypeDeclaration parent))
                 {
-                    typeDeclaration.Parent = parent;
-                    return;
+                    if (this.TryGetResolvedElement(reference, out LocatedElement parentElement))
+                    {
+                        parent = await this.BuildTypeDeclaration(parentElement).ConfigureAwait(false);
+                    }
+                    else
+                    {
+                        throw new InvalidOperationException($"Unable to find element for parent at location: '{reference}'");
+                    }
                 }
 
-                throw new InvalidOperationException($"Expected to find a type declaration for: {reference}");
+                typeDeclaration.Parent = parent;
+                return;
             }
         }
     }

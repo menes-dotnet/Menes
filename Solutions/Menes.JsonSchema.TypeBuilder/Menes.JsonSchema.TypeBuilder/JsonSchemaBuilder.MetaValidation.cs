@@ -12,6 +12,30 @@ namespace Menes.JsonSchema.TypeBuilder
     /// </summary>
     public partial class JsonSchemaBuilder
     {
+        private static void ValidateAllOf(JsonElement allOf)
+        {
+            if (allOf.ValueKind != JsonValueKind.Array)
+            {
+                throw new InvalidOperationException($"Unsuppported allOf: {allOf.ValueKind}.");
+            }
+        }
+
+        private static void ValidateAnyOf(JsonElement anyOf)
+        {
+            if (anyOf.ValueKind != JsonValueKind.Array)
+            {
+                throw new InvalidOperationException($"Unsuppported anyOf: {anyOf.ValueKind}.");
+            }
+        }
+
+        private static void ValidateOneOf(JsonElement oneOf)
+        {
+            if (oneOf.ValueKind != JsonValueKind.Array)
+            {
+                throw new InvalidOperationException($"Unsuppported anyOf: {oneOf.ValueKind}.");
+            }
+        }
+
         private static void ValidateDollarRef(JsonProperty dollarref)
         {
             ValidateDollarRef(dollarref.Value);

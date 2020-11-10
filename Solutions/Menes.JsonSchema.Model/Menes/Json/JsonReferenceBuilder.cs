@@ -139,6 +139,11 @@ namespace Menes.Json
                 totalLength += this.Fragment.Length + 1;
             }
 
+            if (totalLength == 0)
+            {
+                return JsonReference.RootFragment;
+            }
+
             var reference = new Memory<char>(new char[totalLength]);
             int index = 0;
             if (this.Scheme.Length > 0)

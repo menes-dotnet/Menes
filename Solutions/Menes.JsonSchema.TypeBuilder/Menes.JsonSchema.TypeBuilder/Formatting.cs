@@ -18,6 +18,7 @@ namespace Menes.JsonSchema.TypeBuilder
         private static readonly ReadOnlyMemory<char> HttpScheme = "http://".AsMemory();
         private static readonly ReadOnlyMemory<char> FileScheme = "file://".AsMemory();
         private static readonly ReadOnlyMemory<char> Value = "Value".AsMemory();
+        private static readonly ReadOnlyMemory<char> Root = "RootEntity".AsMemory();
 
         private static readonly ReadOnlyMemory<char>[] Keywords = new ReadOnlyMemory<char>[]
         {
@@ -111,22 +112,35 @@ namespace Menes.JsonSchema.TypeBuilder
                 }
 
                 Span<char> output = stackalloc char[refBuilder.Fragment.Length - startCopy];
-
                 refBuilder.Fragment.Slice(startCopy).CopyTo(output);
                 ReadOnlySpan<char> result = FixCasing(output, true, false);
+                if (result.Length == 0)
+                {
+                    return Root;
+                }
+
+                var memory = new Memory<char>(new char[result.Length]);
+                result.CopyTo(memory.Span);
+                return memory;
+            }
+            else if (refBuilder.HasPath)
+            {
+                ReadOnlySpan<char> trimmedSpan = TrimFileExtension(refBuilder.Path);
+                Span<char> output = stackalloc char[trimmedSpan.Length];
+                trimmedSpan.CopyTo(output);
+                ReadOnlySpan<char> result = FixCasing(output, true, false);
+                if (result.Length == 0)
+                {
+                    return Root;
+                }
+
                 var memory = new Memory<char>(new char[result.Length]);
                 result.CopyTo(memory.Span);
                 return memory;
             }
             else
             {
-                ReadOnlySpan<char> trimmedSpan = TrimFileExtension(refBuilder.Path);
-                Span<char> output = stackalloc char[trimmedSpan.Length];
-                trimmedSpan.CopyTo(output);
-                ReadOnlySpan<char> result = FixCasing(output, true, false);
-                var memory = new Memory<char>(new char[result.Length]);
-                result.CopyTo(memory.Span);
-                return memory;
+                return Root;
             }
         }
 

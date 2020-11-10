@@ -182,12 +182,11 @@ namespace Menes.JsonSchema.TypeBuilder
             {
                 typeDeclaration.DotnetTypeName = MakeMemberNameUnique(typeDeclaration.Parent, baseName).ToString();
             }
-        }
 
-        private void SetPropertyName(TypeDeclaration typeDeclaration, JsonProperty property, PropertyDeclaration propertyDeclaration)
-        {
-            string name = property.Name;
-            this.SetPropertyName(typeDeclaration, name, propertyDeclaration);
+            if (string.IsNullOrEmpty(typeDeclaration.DotnetTypeName))
+            {
+                throw new InvalidOperationException("DotNetTypeName cannot be null or empty.");
+            }
         }
 
         private void SetPropertyName(TypeDeclaration typeDeclaration, string name, PropertyDeclaration propertyDeclaration)

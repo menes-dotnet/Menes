@@ -4,6 +4,7 @@
 
 namespace Menes.JsonSchema.TypeBuilder
 {
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Text.Json;
     using System.Threading.Tasks;
@@ -48,19 +49,9 @@ namespace Menes.JsonSchema.TypeBuilder
         /// </remarks>
         private async Task<JsonElement?> TryResolveElement(JsonReference absoluteLocation)
         {
-            if (this.ids.TryGetValue(absoluteLocation, out LocatedElement elementById))
+            if (this.TryGetResolvedElement(absoluteLocation, out LocatedElement resolvedElement))
             {
-                return elementById.JsonElement;
-            }
-
-            if (this.anchors.TryGetValue(absoluteLocation, out LocatedElement elementByAnchor))
-            {
-                return elementByAnchor.JsonElement;
-            }
-
-            if (this.locatedElementsByLocation.TryGetValue(absoluteLocation, out LocatedElement elementByLocation))
-            {
-                return elementByLocation.JsonElement;
+                return resolvedElement.JsonElement;
             }
 
             // We need to load the element from the relevant document.
@@ -75,6 +66,27 @@ namespace Menes.JsonSchema.TypeBuilder
             }
 
             return element;
+        }
+
+        private bool TryGetResolvedElement(JsonReference absoluteLocation, [NotNullWhen(true)]out LocatedElement element)
+        {
+            if (this.ids.TryGetValue(absoluteLocation, out element))
+            {
+                return true;
+            }
+
+            if (this.anchors.TryGetValue(absoluteLocation, out element))
+            {
+                return true;
+            }
+
+            if (this.locatedElementsByLocation.TryGetValue(absoluteLocation, out element))
+            {
+                return true;
+            }
+
+            element = default;
+            return false;
         }
 
         /// <summary>

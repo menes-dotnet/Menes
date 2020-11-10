@@ -15,6 +15,11 @@ namespace Menes.Json
     [DebuggerDisplay("{reference}")]
     public readonly struct JsonReference : IEquatable<JsonReference>
     {
+        /// <summary>
+        /// Gets a reference to the root fragment.
+        /// </summary>
+        public static readonly JsonReference RootFragment = new JsonReference("#");
+
         private readonly ReadOnlyMemory<char> reference;
 
         /// <summary>
@@ -80,9 +85,14 @@ namespace Menes.Json
         public bool HasAbsoluteUri => this.FindScheme().Length > 0;
 
         /// <summary>
-        /// Gets a value indicating whether the ref has an absolute uri.
+        /// Gets a value indicating whether the ref has a fragment.
         /// </summary>
         public bool HasFragment => FindHash(this.reference.Span) >= 0;
+
+        /// <summary>
+        /// Gets a value indicating whether the ref has a uri.
+        /// </summary>
+        public bool HasUri => this.FindUri().Length > 0;
 
         /// <summary>
         /// Gets the URI without the fragment.
