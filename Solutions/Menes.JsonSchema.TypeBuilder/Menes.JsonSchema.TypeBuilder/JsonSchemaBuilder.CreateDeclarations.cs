@@ -42,6 +42,7 @@ namespace Menes.JsonSchema.TypeBuilder
                 await this.AddAnyOf(schema, typeDeclaration).ConfigureAwait(false);
                 await this.AddOneOf(schema, typeDeclaration).ConfigureAwait(false);
                 await this.AddNot(schema, typeDeclaration).ConfigureAwait(false);
+                await this.AddIfThenElse(schema, typeDeclaration).ConfigureAwait(false);
 
                 //// Next, try if..then..else
 

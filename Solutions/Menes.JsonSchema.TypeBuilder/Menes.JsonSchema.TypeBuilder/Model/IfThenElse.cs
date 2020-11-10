@@ -26,7 +26,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         /// <param name="ifType">The <see cref="If"/> type.</param>
         /// <param name="thenType">The <see cref="Then"/> type.</param>
         /// <param name="elseType">The <see cref="Else"/> type.</param>
-        public IfThenElse(TypeDeclaration ifType, TypeDeclaration thenType, TypeDeclaration elseType)
+        public IfThenElse(TypeDeclaration ifType, TypeDeclaration? thenType, TypeDeclaration? elseType)
         {
             this.If = ifType;
             this.Then = thenType;
@@ -41,7 +41,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         /// <summary>
         /// Gets the Then type declaration.
         /// </summary>
-        public TypeDeclaration Then { get; }
+        public TypeDeclaration? Then { get; }
 
         /// <summary>
         /// Gets the Else type declaration.

@@ -83,6 +83,69 @@ namespace Menes.JsonSchema.TypeBuilder
             }
         }
 
+        private async Task AddIfThenElse(LocatedElement schema, TypeDeclaration typeDeclaration)
+        {
+            if (schema.JsonElement.ValueKind == JsonValueKind.Object)
+            {
+                TypeDeclaration? ifType = null;
+                TypeDeclaration? thenType = null;
+                TypeDeclaration? elseType = null;
+
+                if (schema.JsonElement.TryGetProperty("if", out JsonElement _))
+                {
+                    this.PushPropertyToAbsoluteKeywordLocationStack("if");
+                    JsonReference location = this.absoluteKeywordLocationStack.Peek();
+                    if (this.TryGetResolvedElement(location, out LocatedElement propertyTypeElement))
+                    {
+                        ifType = await this.CreateTypeDeclarations(propertyTypeElement).ConfigureAwait(false);
+                    }
+                    else
+                    {
+                        throw new InvalidOperationException($"Unable to find element for if type at location: '{location}'");
+                    }
+
+                    this.absoluteKeywordLocationStack.Pop();
+                }
+
+                if (schema.JsonElement.TryGetProperty("then", out JsonElement _))
+                {
+                    this.PushPropertyToAbsoluteKeywordLocationStack("then");
+                    JsonReference location = this.absoluteKeywordLocationStack.Peek();
+                    if (this.TryGetResolvedElement(location, out LocatedElement propertyTypeElement))
+                    {
+                        thenType = await this.CreateTypeDeclarations(propertyTypeElement).ConfigureAwait(false);
+                    }
+                    else
+                    {
+                        throw new InvalidOperationException($"Unable to find element for if type at location: '{location}'");
+                    }
+
+                    this.absoluteKeywordLocationStack.Pop();
+                }
+
+                if (schema.JsonElement.TryGetProperty("else", out JsonElement _))
+                {
+                    this.PushPropertyToAbsoluteKeywordLocationStack("else");
+                    JsonReference location = this.absoluteKeywordLocationStack.Peek();
+                    if (this.TryGetResolvedElement(location, out LocatedElement propertyTypeElement))
+                    {
+                        elseType = await this.CreateTypeDeclarations(propertyTypeElement).ConfigureAwait(false);
+                    }
+                    else
+                    {
+                        throw new InvalidOperationException($"Unable to find element for if type at location: '{location}'");
+                    }
+
+                    this.absoluteKeywordLocationStack.Pop();
+                }
+
+                if (ifType is not null && (thenType is not null || elseType is not null))
+                {
+                    typeDeclaration.IfThenElseTypes = new IfThenElse(ifType, thenType, elseType);
+                }
+            }
+        }
+
         private Task AddAllOf(LocatedElement schema, TypeDeclaration typeDeclaration)
         {
             return this.AddAllAnyOneCore(schema, typeDeclaration, "allOf", e => ValidateAllOf(e), (parent, aot) => parent.AddAllOfType(aot));
