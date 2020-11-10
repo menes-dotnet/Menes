@@ -293,6 +293,8 @@ namespace Menes.JsonSchema.TypeBuilder.Model
 
             // The other merged types are more interesting. We are a specialized version of that type if
             // either we don't declare any additional properties, or if it allows additional properties.
+            // Our merged properties must, themselves, be specializations of the other property
+            // or we wouldn't have been able to add them in the first place.
             foreach (TypeDeclaration type in this.EnsureMergedTypes())
             {
                 if (!type.AllowsAdditionalProperties)

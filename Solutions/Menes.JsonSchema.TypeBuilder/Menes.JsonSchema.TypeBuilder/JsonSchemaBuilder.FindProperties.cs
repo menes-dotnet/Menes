@@ -110,8 +110,10 @@ namespace Menes.JsonSchema.TypeBuilder
                 }
                 else
                 {
-                    var newPropertyDeclaration = new PropertyDeclaration();
-                    newPropertyDeclaration.TypeDeclaration = newTypeDeclaration;
+                    var newPropertyDeclaration = new PropertyDeclaration
+                    {
+                        TypeDeclaration = newTypeDeclaration,
+                    };
                     this.SetPropertyName(typeDeclaration, jsonPropertyName, newPropertyDeclaration);
                     typeDeclaration.AddPropertyDeclaration(newPropertyDeclaration);
                 }
