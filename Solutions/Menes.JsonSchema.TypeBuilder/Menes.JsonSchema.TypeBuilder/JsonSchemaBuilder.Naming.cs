@@ -17,9 +17,9 @@ namespace Menes.JsonSchema.TypeBuilder
         private static readonly ReadOnlyMemory<char> ValueSuffix = "Value".AsMemory();
         private static readonly ReadOnlyMemory<char> EntitySuffix = "Entity".AsMemory();
 
-        private static ReadOnlyMemory<char> MakeMemberNameUnique(TypeDeclaration typeDeclaration, ReadOnlyMemory<char> baseName, ReadOnlyMemory<char>? suffix = null)
+        private static ReadOnlyMemory<char> MakeMemberNameUnique(TypeDeclaration? typeDeclaration, ReadOnlyMemory<char> baseName, ReadOnlyMemory<char>? suffix = null)
         {
-            if (typeDeclaration.Parent is TypeDeclaration parent)
+            if (typeDeclaration is TypeDeclaration owner)
             {
                 int baseLength = baseName.Length + 3 + (suffix?.Length ?? 0);
 
@@ -34,7 +34,7 @@ namespace Menes.JsonSchema.TypeBuilder
 
                 int index = 1;
                 int length = baseName.Length + (suffix?.Length ?? 0);
-                while (parent.ContainsMemberName(name.Slice(0, length)))
+                while (owner.ContainsMemberName(name.Slice(0, length)))
                 {
                     if (index < 10)
                     {
@@ -82,9 +82,9 @@ namespace Menes.JsonSchema.TypeBuilder
             }
         }
 
-        private static ReadOnlySpan<char> MakeMemberNameUnique(TypeDeclaration typeDeclaration, ReadOnlySpan<char> baseName, ReadOnlyMemory<char>? suffix = null)
+        private static ReadOnlySpan<char> MakeMemberNameUnique(TypeDeclaration? typeDeclaration, ReadOnlySpan<char> baseName, ReadOnlyMemory<char>? suffix = null)
         {
-            if (typeDeclaration.Parent is TypeDeclaration parent)
+            if (typeDeclaration is TypeDeclaration owner)
             {
                 int baseLength = baseName.Length + 3 + (suffix?.Length ?? 0);
 
@@ -99,7 +99,7 @@ namespace Menes.JsonSchema.TypeBuilder
 
                 int index = 1;
                 int length = baseName.Length + (suffix?.Length ?? 0);
-                while (parent.ContainsMemberName(name.Slice(0, length)))
+                while (owner.ContainsMemberName(name.Slice(0, length)))
                 {
                     if (index < 10)
                     {
@@ -176,25 +176,29 @@ namespace Menes.JsonSchema.TypeBuilder
             // If we named from the fragment, then we need to add a suffix
             if (schema.AbsoluteKeywordLocation.HasFragment)
             {
-                typeDeclaration.DotnetTypeName = MakeMemberNameUnique(typeDeclaration, baseName, GetTypeSuffixFor(schema)).ToString();
+                typeDeclaration.DotnetTypeName = MakeMemberNameUnique(typeDeclaration.Parent, baseName, GetTypeSuffixFor(schema)).ToString();
             }
             else
             {
-                typeDeclaration.DotnetTypeName = MakeMemberNameUnique(typeDeclaration, baseName).ToString();
+                typeDeclaration.DotnetTypeName = MakeMemberNameUnique(typeDeclaration.Parent, baseName).ToString();
             }
         }
 
         private void SetPropertyName(TypeDeclaration typeDeclaration, JsonProperty property, PropertyDeclaration propertyDeclaration)
         {
             string name = property.Name;
+            this.SetPropertyName(typeDeclaration, name, propertyDeclaration);
+        }
 
+        private void SetPropertyName(TypeDeclaration typeDeclaration, string name, PropertyDeclaration propertyDeclaration)
+        {
             propertyDeclaration.JsonPropertyName = name;
 
             ReadOnlySpan<char> basePropertyName = Formatting.ToPascalCaseWithReservedWords(name);
             propertyDeclaration.DotnetPropertyName = MakeMemberNameUnique(typeDeclaration, basePropertyName).ToString();
 
             ReadOnlySpan<char> baseFieldName = Formatting.ToCamelCaseWithReservedWords(name);
-            propertyDeclaration.DotnetPropertyName = MakeMemberNameUnique(typeDeclaration, baseFieldName).ToString();
+            propertyDeclaration.DotnetFieldName = MakeMemberNameUnique(typeDeclaration, baseFieldName).ToString();
         }
     }
 }

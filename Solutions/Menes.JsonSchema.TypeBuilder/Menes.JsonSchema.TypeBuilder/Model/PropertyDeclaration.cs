@@ -28,5 +28,10 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         /// Gets or sets the type declaration for the property.
         /// </summary>
         public TypeDeclaration? TypeDeclaration { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this property is optional.
+        /// </summary>
+        public bool IsRequired { get; set; }
     }
 }

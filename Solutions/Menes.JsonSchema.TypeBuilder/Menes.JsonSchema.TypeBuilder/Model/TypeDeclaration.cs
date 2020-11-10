@@ -6,6 +6,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
 
     /// <summary>
@@ -80,6 +81,12 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         public List<TypeDeclaration>? NestedTypes { get; private set; }
 
         /// <summary>
+        /// Gets the list of merged types in this declaration.
+        /// </summary>
+        /// <remarks>These will have been merged as a result of compounding property types through an allOf declaration.</remarks>
+        public List<TypeDeclaration>? MergedTypes { get; private set; }
+
+        /// <summary>
         /// Gets a value which determines whether this type contains a reference to a given type.
         /// </summary>
         /// <param name="typeDeclaration">The type declaration to compare.</param>
@@ -111,7 +118,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         /// <param name="propertyDeclaration">The property declaration to add.</param>
         public void AddPropertyDeclaration(PropertyDeclaration propertyDeclaration)
         {
-            this.ValidatePropertyName(propertyDeclaration.DotnetPropertyName);
+            this.ValidateMemberName(propertyDeclaration.DotnetPropertyName);
             this.jsonPropertyNames.Add(propertyDeclaration.JsonPropertyName!);
             this.memberNames.Add(propertyDeclaration.DotnetPropertyName!);
             this.EnsureProperties().Add(propertyDeclaration);
@@ -126,12 +133,55 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         {
             foreach (string name in this.memberNames)
             {
-                if (span.SequenceEqual(name))
+                if (span.SequenceEqual(name.AsSpan()))
                 {
                     return true;
                 }
             }
 
+            return false;
+        }
+
+        /// <summary>
+        /// Merge the given type declartion into this type.
+        /// </summary>
+        /// <param name="typeToMerge">Merge the given type declaration into this type.</param>
+        /// <remarks>
+        /// The order in which you merge types is important.
+        /// </remarks>
+        public void Merge(TypeDeclaration typeToMerge)
+        {
+            List<TypeDeclaration> mergedTypes = this.EnsureMergedTypes();
+            if (!mergedTypes.Contains(typeToMerge))
+            {
+                mergedTypes.Add(typeToMerge);
+            }
+        }
+
+        /// <summary>
+        /// Try to get the property declaration with the given JSON property name.
+        /// </summary>
+        /// <param name="jsonPropertyName">The JSON property name of the property.</param>
+        /// <param name="propertyDeclaration">The property declaration.</param>
+        /// <returns><c>true</c> if the type declaration contained a property with the specified name.</returns>
+        public bool TryGetPropertyDeclaration(string jsonPropertyName, [NotNullWhen(true)] out PropertyDeclaration? propertyDeclaration)
+        {
+            if (this.Properties is null)
+            {
+                propertyDeclaration = default;
+                return false;
+            }
+
+            foreach (PropertyDeclaration property in this.Properties)
+            {
+                if (property.JsonPropertyName == jsonPropertyName)
+                {
+                    propertyDeclaration = property;
+                    return true;
+                }
+            }
+
+            propertyDeclaration = default;
             return false;
         }
 
@@ -156,6 +206,11 @@ namespace Menes.JsonSchema.TypeBuilder.Model
             return false;
         }
 
+        private List<TypeDeclaration> EnsureMergedTypes()
+        {
+            return this.MergedTypes ??= new List<TypeDeclaration>();
+        }
+
         private List<TypeDeclaration> EnsureNestedTypes()
         {
             return this.NestedTypes ??= new List<TypeDeclaration>();
@@ -164,14 +219,6 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         private List<PropertyDeclaration> EnsureProperties()
         {
             return this.Properties ??= new List<PropertyDeclaration>();
-        }
-
-        private void ValidatePropertyName(string? name)
-        {
-            if (name is null)
-            {
-                throw new InvalidOperationException($"You must set the name of the property before adding it to its parent.");
-            }
         }
 
         private void ValidateMemberName(string? name)

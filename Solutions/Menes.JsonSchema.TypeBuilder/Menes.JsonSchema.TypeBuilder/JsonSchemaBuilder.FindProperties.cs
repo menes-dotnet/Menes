@@ -30,43 +30,91 @@ namespace Menes.JsonSchema.TypeBuilder
             // No doubt I'll think of some more later.
             if (schema.JsonElement.ValueKind == JsonValueKind.Object)
             {
-                if (schema.JsonElement.TryGetProperty("properties", out JsonElement properties))
+                await this.AddProperties(schema, typeDeclaration).ConfigureAwait(false);
+                this.AddRequiredProperties(schema, typeDeclaration);
+            }
+        }
+
+        /// <summary>
+        /// Enumerate the required properties list to update the corresponding property declaration, or
+        /// to add it if it was not declared previously.
+        /// </summary>
+        private void AddRequiredProperties(LocatedElement schema, TypeDeclaration typeDeclaration)
+        {
+            if (schema.JsonElement.TryGetProperty("required", out JsonElement required))
+            {
+                foreach (JsonElement jsonPropertyName in required.EnumerateArray())
                 {
-                    this.PushPropertyToAbsoluteKeywordLocationStack("properties");
+                    string name = jsonPropertyName.GetString();
+                    this.PushPropertyToAbsoluteKeywordLocationStack(name);
 
-                    foreach (JsonProperty property in properties.EnumerateObject())
-                    {
-                        this.PushPropertyToAbsoluteKeywordLocationStack(property);
-
-                        await this.CreatePropertyDeclarationFor(typeDeclaration, property).ConfigureAwait(false);
-
-                        this.absoluteKeywordLocationStack.Pop();
-                    }
+                    this.CreateOrUpdateRequiredPropertyDeclarationFor(typeDeclaration, name);
 
                     this.absoluteKeywordLocationStack.Pop();
                 }
             }
         }
 
-        private async Task CreatePropertyDeclarationFor(TypeDeclaration typeDeclaration, JsonProperty property)
+        /// <summary>
+        /// Enumerate the "properties" value, and add or update <see cref="PropertyDeclaration"/> instances
+        /// for each that we find.
+        /// </summary>
+        private async Task AddProperties(LocatedElement schema, TypeDeclaration typeDeclaration)
         {
-            var propertyDeclaration = new PropertyDeclaration();
+            if (schema.JsonElement.TryGetProperty("properties", out JsonElement properties))
+            {
+                this.PushPropertyToAbsoluteKeywordLocationStack("properties");
 
-            this.SetPropertyName(typeDeclaration, property, propertyDeclaration);
+                foreach (JsonProperty property in properties.EnumerateObject())
+                {
+                    this.PushPropertyToAbsoluteKeywordLocationStack(property);
+
+                    await this.CreateOrUpdatePropertyDeclarationFor(typeDeclaration, property).ConfigureAwait(false);
+
+                    this.absoluteKeywordLocationStack.Pop();
+                }
+
+                this.absoluteKeywordLocationStack.Pop();
+            }
+        }
+
+        private void CreateOrUpdateRequiredPropertyDeclarationFor(TypeDeclaration typeDeclaration, string jsonPropertyName)
+        {
+            if (typeDeclaration.TryGetPropertyDeclaration(jsonPropertyName, out PropertyDeclaration? declaration))
+            {
+                declaration.IsRequired = true;
+            }
+            else
+            {
+                var propertyDeclaration = new PropertyDeclaration();
+                this.SetPropertyName(typeDeclaration, jsonPropertyName, propertyDeclaration);
+                typeDeclaration.AddPropertyDeclaration(propertyDeclaration);
+            }
+        }
+
+        private async Task CreateOrUpdatePropertyDeclarationFor(TypeDeclaration typeDeclaration, JsonProperty property)
+        {
+            string jsonPropertyName = property.Name;
 
             JsonReference location = this.absoluteKeywordLocationStack.Peek();
             if (this.locatedElementsByLocation.TryGetValue(location, out LocatedElement propertyTypeElement))
             {
-                propertyDeclaration.TypeDeclaration = await this.BuildTypeDeclaration(propertyTypeElement).ConfigureAwait(false);
+                TypeDeclaration newTypeDeclaration = await this.BuildTypeDeclaration(propertyTypeElement).ConfigureAwait(false);
+                if (typeDeclaration.TryGetPropertyDeclaration(jsonPropertyName, out PropertyDeclaration? propertyDeclaration))
+                {
+                    propertyDeclaration.TypeDeclaration!.Merge(newTypeDeclaration);
+                }
+                else
+                {
+                    var newPropertyDeclaration = new PropertyDeclaration();
+                    this.SetPropertyName(typeDeclaration, jsonPropertyName, newPropertyDeclaration);
+                    typeDeclaration.AddPropertyDeclaration(newPropertyDeclaration);
+                }
             }
             else
             {
                 throw new InvalidOperationException($"Unable to find element for property type at location: '{location}'");
             }
-
-            // We always add all properties (as we may have non-unique properties)
-            // and deal with the consequences when we come to generate the code.
-            typeDeclaration.AddPropertyDeclaration(propertyDeclaration);
         }
     }
 }

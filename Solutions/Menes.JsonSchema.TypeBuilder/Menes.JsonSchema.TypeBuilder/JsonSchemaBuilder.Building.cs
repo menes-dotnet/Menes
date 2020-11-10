@@ -5,8 +5,6 @@
 namespace Menes.JsonSchema.TypeBuilder
 {
     using System;
-    using System.Buffers;
-    using System.Text.Json;
     using System.Threading.Tasks;
     using Menes.Json;
     using Menes.JsonSchema.TypeBuilder.Model;
@@ -20,9 +18,7 @@ namespace Menes.JsonSchema.TypeBuilder
         /// Build a <see cref="TypeDeclaration"/> from a <see cref="LocatedElement"/> produced
         /// by calling <see cref="GetOrCreateLocatedElement(System.Text.Json.JsonElement)"/>.
         /// </summary>
-#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
         private async Task<TypeDeclaration> BuildTypeDeclaration(LocatedElement schema)
-#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
         {
             // We create the type declaration and immediately add it to the built declarations
             // collection so that we will be able to bomb out if we have already started building
