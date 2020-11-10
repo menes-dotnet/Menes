@@ -94,7 +94,12 @@ namespace Menes.JsonSchema.TypeBuilder
                     }
                 }
 
-                typeDeclaration.Parent = parent;
+                // Don't set a self-referential parent.
+                if (parent != typeDeclaration)
+                {
+                    typeDeclaration.Parent = parent;
+                }
+
                 return;
             }
         }
