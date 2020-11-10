@@ -64,7 +64,7 @@ namespace Menes.Json
             if (pointer.Length > 0)
             {
                 result.Span[uri.Length] = '#';
-                pointer.CopyTo(result.Span.Slice(uri.Length + extra));
+                pointer.CopyTo(result.Span[(uri.Length + extra) ..]);
             }
 
             this.reference = result;
@@ -214,7 +214,7 @@ namespace Menes.Json
             writeIndex++;
             int copiedByteCount = writeIndex;
 
-            Span<char> target = encodedValue.Slice(writeIndex);
+            Span<char> target = encodedValue[writeIndex..];
             int writtenBytes = JsonFragment.EncodeFragment(unencodedPropertyName.AsSpan(), ref target);
             int totalWritten = copiedByteCount + writtenBytes;
             var output = new Memory<char>(new char[totalWritten]);
@@ -243,19 +243,19 @@ namespace Menes.Json
             // Trim the leading '//'
             if (authority.Length > 2 && authority[0] == '/' && authority[1] == '/')
             {
-                authority = authority.Slice(2);
+                authority = authority[2..];
             }
 
             // Trim the leading '?'
             if (query.Length > 1 && query[0] == '?')
             {
-                query = query.Slice(1);
+                query = query[1..];
             }
 
             // Trim the leading '#'
             if (fragment.Length > 1 && fragment[0] == '#')
             {
-                fragment = fragment.Slice(1);
+                fragment = fragment[1..];
             }
 
             return new JsonReferenceBuilder(scheme, authority, path, query, fragment);
@@ -384,7 +384,7 @@ namespace Menes.Json
             if (baseHasAuthority && basePath.Length == 0)
             {
                 pathMemory.Span[0] = '/';
-                path.CopyTo(pathMemory.Span.Slice(1));
+                path.CopyTo(pathMemory.Span[1..]);
                 return path.Length + 1;
             }
 
@@ -392,7 +392,7 @@ namespace Menes.Json
             if (lastSlash > 0)
             {
                 basePath.Slice(0, lastSlash + 1).CopyTo(pathMemory.Span);
-                path.CopyTo(pathMemory.Span.Slice(lastSlash + 1));
+                path.CopyTo(pathMemory.Span[(lastSlash + 1) ..]);
                 return lastSlash + 1 + path.Length;
             }
 
@@ -614,7 +614,7 @@ namespace Menes.Json
             int? hashIndex = FindHash(this.reference.Span);
             if (hashIndex is int hi)
             {
-                return this.reference.Span.Slice(hi);
+                return this.reference.Span[hi..];
             }
 
             return ReadOnlySpan<char>.Empty;
@@ -635,7 +635,7 @@ namespace Menes.Json
                 return ReadOnlySpan<char>.Empty;
             }
 
-            return this.reference.Span.Slice(index + 1);
+            return this.reference.Span[(index + 1) ..];
         }
 
         private ReadOnlySpan<char> FindQuery(int start)

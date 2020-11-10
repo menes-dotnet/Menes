@@ -18,6 +18,7 @@ namespace Menes.JsonSchema.TypeBuilder
         private static readonly ReadOnlyMemory<char> HttpScheme = "http://".AsMemory();
         private static readonly ReadOnlyMemory<char> FileScheme = "file://".AsMemory();
         private static readonly ReadOnlyMemory<char> Value = "Value".AsMemory();
+        private static readonly ReadOnlyMemory<char> Item = "Item".AsMemory();
         private static readonly ReadOnlyMemory<char> Root = "RootEntity".AsMemory();
 
         private static readonly ReadOnlyMemory<char>[] Keywords = new ReadOnlyMemory<char>[]
@@ -102,25 +103,42 @@ namespace Menes.JsonSchema.TypeBuilder
         public static ReadOnlyMemory<char> FormatReferenceAsName(JsonReference reference)
         {
             JsonReferenceBuilder refBuilder = reference.AsBuilder();
+
             if (refBuilder.HasFragment)
             {
+                bool isArrayIndex = false;
                 int startCopy = 0;
-                int lastSlash = refBuilder.Fragment.LastIndexOf('/');
+                int lastSlash = 0;
+                lastSlash = refBuilder.Fragment.LastIndexOf('/');
                 if (lastSlash > 0)
                 {
                     startCopy = lastSlash;
+                    isArrayIndex = char.IsDigit(refBuilder.Fragment[lastSlash + 1]);
                 }
 
                 Span<char> output = stackalloc char[refBuilder.Fragment.Length - startCopy];
-                refBuilder.Fragment.Slice(startCopy).CopyTo(output);
+                refBuilder.Fragment[startCopy..].CopyTo(output);
                 ReadOnlySpan<char> result = FixCasing(output, true, false);
                 if (result.Length == 0)
                 {
                     return Root;
                 }
 
-                var memory = new Memory<char>(new char[result.Length]);
-                result.CopyTo(memory.Span);
+                int length = result.Length;
+                int offset = 0;
+                if (isArrayIndex)
+                {
+                    length += Item.Length;
+                    offset += Item.Length;
+                }
+
+                var memory = new Memory<char>(new char[length]);
+                if (isArrayIndex)
+                {
+                    Item.CopyTo(memory);
+                }
+
+                result.CopyTo(memory.Span[offset..]);
                 return memory;
             }
             else if (refBuilder.HasPath)
@@ -180,7 +198,7 @@ namespace Menes.JsonSchema.TypeBuilder
                 {
                     Span<char> buffer = new char[v.Length + 1];
                     buffer[0] = '@';
-                    v.CopyTo(buffer.Slice(1));
+                    v.CopyTo(buffer[1..]);
                     return buffer;
                 }
             }
@@ -194,7 +212,7 @@ namespace Menes.JsonSchema.TypeBuilder
             {
                 Span<char> buffer2 = new char[v.Length + 5];
                 Value.Span.CopyTo(buffer2);
-                v.CopyTo(buffer2.Slice(5));
+                v.CopyTo(buffer2[5..]);
                 return buffer2;
             }
 

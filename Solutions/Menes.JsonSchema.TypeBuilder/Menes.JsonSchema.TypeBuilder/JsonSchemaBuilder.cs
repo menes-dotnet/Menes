@@ -58,7 +58,6 @@ namespace Menes.JsonSchema.TypeBuilder
             }
 
             TypeDeclaration builtElement = await this.BuildTypeDeclaration(namedElement).ConfigureAwait(false);
-            string? typeName = builtElement.FullyQualifiedDotNetTypeName;
         }
 
         private void ValidateUnresolvedElements()

@@ -117,7 +117,7 @@ namespace Menes.Json.Schema
 
                 if (builder.Path[0] == '/')
                 {
-                    return Path.Combine(this.baseDirectory, builder.Path.Slice(1).ToString());
+                    return Path.Combine(this.baseDirectory, builder.Path[1..].ToString());
                 }
 
                 return Path.Combine(this.baseDirectory, builder.Path.ToString());

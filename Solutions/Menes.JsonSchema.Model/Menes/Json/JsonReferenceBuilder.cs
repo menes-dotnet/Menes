@@ -227,7 +227,7 @@ namespace Menes.Json
                 return ReadOnlySpan<char>.Empty;
             }
 
-            return this.Authority.Slice(index + 1);
+            return this.Authority[(index + 1) ..];
         }
     }
 }

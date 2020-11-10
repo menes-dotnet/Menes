@@ -29,7 +29,7 @@ namespace Menes.JsonSchema.TypeBuilder
                 baseName.Span.CopyTo(name);
                 if (suffix is ReadOnlyMemory<char>)
                 {
-                    suffix.Value.Span.CopyTo(name.Slice(baseName.Length));
+                    suffix.Value.Span.CopyTo(name[baseName.Length..]);
                 }
 
                 int index = 1;
@@ -42,7 +42,7 @@ namespace Menes.JsonSchema.TypeBuilder
                         length = baseName.Length + 1;
                         if (suffix is ReadOnlyMemory<char>)
                         {
-                            suffix.Value.Span.CopyTo(name.Slice(baseName.Length + 1));
+                            suffix.Value.Span.CopyTo(name[(baseName.Length + 1) ..]);
                         }
                     }
                     else if (index < 100)
@@ -52,7 +52,7 @@ namespace Menes.JsonSchema.TypeBuilder
                         length = baseName.Length + 2;
                         if (suffix is ReadOnlyMemory<char>)
                         {
-                            suffix.Value.Span.CopyTo(name.Slice(baseName.Length + 2));
+                            suffix.Value.Span.CopyTo(name[(baseName.Length + 2) ..]);
                         }
                     }
                     else if (index < 1000)
@@ -63,7 +63,7 @@ namespace Menes.JsonSchema.TypeBuilder
                         length = baseName.Length + 3;
                         if (suffix is ReadOnlyMemory<char>)
                         {
-                            suffix.Value.Span.CopyTo(name.Slice(baseName.Length + 3));
+                            suffix.Value.Span.CopyTo(name[(baseName.Length + 3) ..]);
                         }
                     }
                     else
@@ -94,7 +94,7 @@ namespace Menes.JsonSchema.TypeBuilder
                 baseName.CopyTo(name);
                 if (suffix is ReadOnlyMemory<char>)
                 {
-                    suffix.Value.Span.CopyTo(name.Slice(baseName.Length));
+                    suffix.Value.Span.CopyTo(name[baseName.Length..]);
                 }
 
                 int index = 1;
@@ -107,7 +107,7 @@ namespace Menes.JsonSchema.TypeBuilder
                         length = baseName.Length + 1;
                         if (suffix is ReadOnlyMemory<char>)
                         {
-                            suffix.Value.Span.CopyTo(name.Slice(baseName.Length + 1));
+                            suffix.Value.Span.CopyTo(name[(baseName.Length + 1) ..]);
                         }
                     }
                     else if (index < 100)
@@ -117,7 +117,7 @@ namespace Menes.JsonSchema.TypeBuilder
                         length = baseName.Length + 2;
                         if (suffix is ReadOnlyMemory<char>)
                         {
-                            suffix.Value.Span.CopyTo(name.Slice(baseName.Length + 2));
+                            suffix.Value.Span.CopyTo(name[(baseName.Length + 2) ..]);
                         }
                     }
                     else if (index < 1000)
@@ -128,7 +128,7 @@ namespace Menes.JsonSchema.TypeBuilder
                         length = baseName.Length + 3;
                         if (suffix is ReadOnlyMemory<char>)
                         {
-                            suffix.Value.Span.CopyTo(name.Slice(baseName.Length + 3));
+                            suffix.Value.Span.CopyTo(name[(baseName.Length + 3) ..]);
                         }
                     }
                     else

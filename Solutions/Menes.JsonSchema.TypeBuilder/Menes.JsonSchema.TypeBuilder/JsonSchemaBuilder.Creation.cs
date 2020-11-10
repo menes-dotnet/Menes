@@ -60,7 +60,7 @@ namespace Menes.JsonSchema.TypeBuilder
                     this.PushPropertyToAbsoluteKeywordLocationStack(property);
 
                     // We treat all refs as if they could be recursive.
-                    if (property.NameEquals("$ref") && !this.IsInSchemaProperties())
+                    if (property.NameEquals("$ref"))
                     {
                         ValidateDollarRef(property);
 
@@ -72,24 +72,40 @@ namespace Menes.JsonSchema.TypeBuilder
                         recursiveReference = true;
                         inplaceReference = JsonReference.FromEncodedJsonString(property.Value.GetString());
                     }
-
-                    if (property.Value.ValueKind == JsonValueKind.Object)
+                    else if (property.NameEquals("properties") || property.NameEquals("patternProperties") || property.NameEquals("dependentSchemas") || property.NameEquals("$defs"))
                     {
-                        await this.GetOrCreateLocatedElement(property.Value).ConfigureAwait(false);
-                    }
-                    else if (property.Value.ValueKind == JsonValueKind.Array)
-                    {
-                        int arrayIndex = 0;
-                        foreach (JsonElement element in property.Value.EnumerateArray())
+                        ValidateObjectWithSchemaProperties(property);
+                        foreach (JsonProperty schemaProperty in property.Value.EnumerateObject())
                         {
-                            this.PushArrayIndexToAbsoluteKeywordLocationStack(arrayIndex);
-                            await this.GetOrCreateLocatedElement(property.Value).ConfigureAwait(false);
+                            this.PushPropertyToAbsoluteKeywordLocationStack(schemaProperty);
+                            ValidateSchema(schemaProperty);
+                            await this.GetOrCreateLocatedElement(schemaProperty.Value).ConfigureAwait(false);
                             this.absoluteKeywordLocationStack.Pop();
-                            arrayIndex++;
                         }
                     }
-                    else if (property.Value.ValueKind == JsonValueKind.True || property.Value.ValueKind == JsonValueKind.False)
+                    else if (property.NameEquals("anyOf") || property.NameEquals("allOf") || property.NameEquals("oneOf"))
                     {
+                        ValidateSchemaArray(property);
+                        await EnumerateSchemaArray(property).ConfigureAwait(false);
+                    }
+                    else if (property.NameEquals("items"))
+                    {
+                        ValidateSchemaOrArrayOfSchema(property);
+                        if (property.Value.ValueKind == JsonValueKind.Array)
+                        {
+                            await EnumerateSchemaArray(property).ConfigureAwait(false);
+                        }
+                        else if (property.Value.ValueKind == JsonValueKind.Object || property.Value.ValueKind == JsonValueKind.True || property.Value.ValueKind == JsonValueKind.False)
+                        {
+                            await this.GetOrCreateLocatedElement(property.Value).ConfigureAwait(false);
+                        }
+                    }
+                    else if (property.NameEquals("not") ||
+                        property.NameEquals("if") || property.NameEquals("then") || property.NameEquals("else") ||
+                        property.NameEquals("additionalItems") || property.NameEquals("unevaluatedItems") || property.NameEquals("contains") ||
+                        property.NameEquals("additionalProperties") || property.NameEquals("unevaluatedProperties") || property.NameEquals("propertyNames"))
+                    {
+                        ValidateSchema(property);
                         await this.GetOrCreateLocatedElement(property.Value).ConfigureAwait(false);
                     }
 
@@ -98,7 +114,7 @@ namespace Menes.JsonSchema.TypeBuilder
 
                 // If this is "just" a reference, with no other composing
                 // content, then just follow the reference, unless there aren't yet any references and we're trying to get the root element
-                if (!recursiveReference && inplaceReference is JsonReference reference && (reference != "#" || this.locatedElementsByLocation.Count > 0))
+                if (!recursiveReference && inplaceReference is JsonReference reference)
                 {
                     await this.GetOrCreateLocatedElement(reference).ConfigureAwait(false);
                 }
@@ -120,17 +136,19 @@ namespace Menes.JsonSchema.TypeBuilder
                     this.absoluteKeywordLocationStack.Pop();
                 }
             }
-        }
 
-        private bool IsInSchemaProperties()
-        {
-            if (this.absoluteKeywordLocationStack.Count < 2)
+            async Task EnumerateSchemaArray(JsonProperty property)
             {
-                return false;
+                int arrayIndex = 0;
+                foreach (JsonElement element in property.Value.EnumerateArray())
+                {
+                    this.PushArrayIndexToAbsoluteKeywordLocationStack(arrayIndex);
+                    ValidateSchema(element);
+                    await this.GetOrCreateLocatedElement(element).ConfigureAwait(false);
+                    this.absoluteKeywordLocationStack.Pop();
+                    arrayIndex++;
+                }
             }
-
-            JsonReference stack = this.absoluteKeywordLocationStack.Skip(1).Take(1).Single();
-            return stack.Fragment.EndsWith("#/properties");
         }
 
         private void PushPropertyToAbsoluteKeywordLocationStack(string unencodedPropertyName)
@@ -235,18 +253,18 @@ namespace Menes.JsonSchema.TypeBuilder
         {
             JsonReference absoluteLocation = this.GetAbsoluteKeywordLocation(reference);
 
-            if (reference == "#")
-            {
-                // Self referential, so peek the item off the stack
-                if (this.locatedElementsByLocation.TryGetValue(absoluteLocation, out LocatedElement locatedElement))
-                {
-                    return locatedElement;
-                }
-                else
-                {
-                    return null;
-                }
-            }
+            ////if (absoluteLocation == "#")
+            ////{
+            ////    // Self referential, so peek the item off the stack
+            ////    if (this.locatedElementsByLocation.TryGetValue(absoluteLocation, out LocatedElement locatedElement))
+            ////    {
+            ////        return locatedElement;
+            ////    }
+            ////    else
+            ////    {
+            ////        return null;
+            ////    }
+            ////}
 
             if (this.anchors.TryGetValue(absoluteLocation, out LocatedElement anchoredElement))
             {
@@ -259,7 +277,7 @@ namespace Menes.JsonSchema.TypeBuilder
             }
 
             JsonElement? resolvedElementOrNull = await this.TryResolveElement(absoluteLocation).ConfigureAwait(false);
-            if (!(resolvedElementOrNull is JsonElement resolvedElement))
+            if (resolvedElementOrNull is not JsonElement resolvedElement)
             {
                 return null;
             }

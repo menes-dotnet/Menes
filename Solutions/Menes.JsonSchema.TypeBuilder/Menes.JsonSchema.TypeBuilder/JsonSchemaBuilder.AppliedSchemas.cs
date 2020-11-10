@@ -69,7 +69,7 @@ namespace Menes.JsonSchema.TypeBuilder
                     int index = 0;
                     foreach (JsonElement element in subschema.EnumerateArray())
                     {
-                        this.PushArrayIndexToAbsoluteKeywordLocationStack(0);
+                        this.PushArrayIndexToAbsoluteKeywordLocationStack(index);
                         JsonReference location = this.absoluteKeywordLocationStack.Peek();
                         if (this.TryGetResolvedElement(location, out LocatedElement allOfTypeElement))
                         {

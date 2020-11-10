@@ -36,6 +36,58 @@ namespace Menes.JsonSchema.TypeBuilder
             }
         }
 
+        private static void ValidateObjectWithSchemaProperties(JsonProperty properties)
+        {
+            ValidateObjectWithSchemaProperties(properties.Value);
+        }
+
+        private static void ValidateObjectWithSchemaProperties(JsonElement properties)
+        {
+            if (properties.ValueKind != JsonValueKind.Object)
+            {
+                throw new InvalidOperationException($"Unsuppported properties: {properties.ValueKind}.");
+            }
+        }
+
+        private static void ValidateSchemaOrArrayOfSchema(JsonProperty property)
+        {
+            ValidateSchemaOrArrayOfSchema(property.Value);
+        }
+
+        private static void ValidateSchemaOrArrayOfSchema(JsonElement property)
+        {
+            if (property.ValueKind != JsonValueKind.Object && property.ValueKind != JsonValueKind.True && property.ValueKind != JsonValueKind.False && property.ValueKind != JsonValueKind.Array)
+            {
+                throw new InvalidOperationException($"Unsuppported schema or array of schema: {property.ValueKind}.");
+            }
+        }
+
+        private static void ValidateSchemaArray(JsonProperty properties)
+        {
+            ValidateSchemaArray(properties.Value);
+        }
+
+        private static void ValidateSchemaArray(JsonElement properties)
+        {
+            if (properties.ValueKind != JsonValueKind.Array)
+            {
+                throw new InvalidOperationException($"Unsuppported schema array: {properties.ValueKind}.");
+            }
+        }
+
+        private static void ValidateSchema(JsonProperty property)
+        {
+            ValidateSchema(property.Value);
+        }
+
+        private static void ValidateSchema(JsonElement property)
+        {
+            if (property.ValueKind != JsonValueKind.Object && property.ValueKind != JsonValueKind.True && property.ValueKind != JsonValueKind.False)
+            {
+                throw new InvalidOperationException($"Unsuppported property: {property.ValueKind}.");
+            }
+        }
+
         private static void ValidateDollarRef(JsonProperty dollarref)
         {
             ValidateDollarRef(dollarref.Value);
