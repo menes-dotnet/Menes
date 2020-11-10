@@ -64,7 +64,7 @@ namespace Menes.JsonSchema.TypeBuilder
         {
             if (schema.JsonElement.ValueKind == JsonValueKind.Object)
             {
-                if (schema.JsonElement.TryGetProperty("not", out JsonElement not))
+                if (schema.JsonElement.TryGetProperty("not", out JsonElement _))
                 {
                     this.PushPropertyToAbsoluteKeywordLocationStack("not");
                     JsonReference location = this.absoluteKeywordLocationStack.Peek();
