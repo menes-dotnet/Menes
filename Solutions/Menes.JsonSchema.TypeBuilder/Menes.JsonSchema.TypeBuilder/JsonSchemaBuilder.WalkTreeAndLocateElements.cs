@@ -21,6 +21,9 @@ namespace Menes.JsonSchema.TypeBuilder
         /// <para>
         /// This makes a depth-first walk of the element to find all its contained elements, follows and resolves references (loading external schema if appropriate).
         /// </para>
+        /// <para>
+        /// At the end of this we know we have a referentially sound schema, with canonical resolution of all the references, via anchors and IDs.
+        /// </para>
         /// </remarks>
         private async Task<LocatedElement> WalkTreeAndLocateElementsFrom(JsonElement schema)
         {
