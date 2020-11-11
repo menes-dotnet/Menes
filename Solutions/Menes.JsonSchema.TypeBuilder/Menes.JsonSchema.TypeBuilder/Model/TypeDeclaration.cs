@@ -171,6 +171,11 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         public bool IsBooleanSchema => this.IsBooleanFalseType || this.IsBooleanTrueType;
 
         /// <summary>
+        /// Gets a value indicating whether this type has been lowered.
+        /// </summary>
+        public bool IsLowered => this.lowered is not null;
+
+        /// <summary>
         /// Gets a value which determines whether this type contains a reference to a given type.
         /// </summary>
         /// <param name="typeDeclaration">The type declaration to compare.</param>
@@ -510,13 +515,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
                 return this.lowered;
             }
 
-            if (this.MergedTypes is null || this.MergedTypes.Count == 0)
-            {
-                this.lowered = this;
-                return this;
-            }
-
-            if (this.MergedTypes.Count == 1)
+            if (this.MergedTypes is not null && this.MergedTypes.Count == 1)
             {
                 // If we are empty apart from a single merged type,
                 // then treat us as that merged type.
@@ -557,45 +556,89 @@ namespace Menes.JsonSchema.TypeBuilder.Model
             // lowering, so that the lowered result is available to recursive calls.
             this.lowered = result;
 
-            // Lower the types to merge.
-            IEnumerable<TypeDeclaration> loweredTypes = this.MergedTypes.Select(m => m.Lower()).ToList();
-
-            // Iterate the types to merge and merge them in
-            foreach (TypeDeclaration typeToMerge in loweredTypes)
+            if (this.MergedTypes is not null)
             {
-                MergeTypes(result, typeToMerge);
+                // Lower the types to merge.
+                IEnumerable<TypeDeclaration> loweredTypes = this.MergedTypes.Select(m => m.Lower()).ToList();
+
+                // Iterate the types to merge and merge them in
+                foreach (TypeDeclaration typeToMerge in loweredTypes)
+                {
+                    MergeTypes(result, typeToMerge);
+                }
             }
 
-            // Finally, merge ourselves in at the end.
-            MergeTypes(result, this);
+            // Then merge in lowered versions of our own items
+            MergeAdditionalItems(this.AdditionalItems?.Lower(), result);
+            MergeAdditionalProperties(this.AdditionalProperties?.Lower(), result);
+            MergeAllOfTypes(Lower(this.AllOfTypes), result);
+            MergeAsConversionMethods(Lower(this.AsConversionMethods), result);
+            MergeAnyOfTypes(Lower(this.AnyOfTypes), result);
+            MergeConversionOperators(Lower(this.ConversionOperators), result);
+            MergeIfThenElseTypes(Lower(this.IfThenElseTypes), result);
+            MergeNotType(this.NotType?.Lower(), result);
+            MergeOneOfTypes(Lower(this.OneOfTypes), result);
+            MergeProperties(Lower(this.Properties), result);
 
-            this.lowered = result;
             return this.lowered;
         }
 
         private static void MergeTypes(TypeDeclaration result, TypeDeclaration typeToMerge)
         {
-            MergeAdditionalItems(typeToMerge, result);
-            MergeAdditionalProperties(typeToMerge, result);
-            MergeAllOfTypes(typeToMerge, result);
-            MergeAsConversionMethods(typeToMerge, result);
-            MergeAnyOfTypes(typeToMerge, result);
-            MergeConversionOperators(typeToMerge, result);
-            MergeIfThenElseTypes(typeToMerge, result);
-            MergeNotType(typeToMerge, result);
-            MergeOneOfTypes(typeToMerge, result);
-            MergeProperties(typeToMerge, result);
+            MergeAdditionalItems(typeToMerge.AdditionalItems, result);
+            MergeAdditionalProperties(typeToMerge.AdditionalProperties, result);
+            MergeAllOfTypes(typeToMerge.AllOfTypes, result);
+            MergeAsConversionMethods(typeToMerge.AsConversionMethods, result);
+            MergeAnyOfTypes(typeToMerge.AnyOfTypes, result);
+            MergeConversionOperators(typeToMerge.ConversionOperators, result);
+            MergeIfThenElseTypes(typeToMerge.IfThenElseTypes, result);
+            MergeNotType(typeToMerge.NotType, result);
+            MergeOneOfTypes(typeToMerge.OneOfTypes, result);
+            MergeProperties(typeToMerge.Properties, result);
         }
 
-        private static void MergeConversionOperators(TypeDeclaration typeToMerge, TypeDeclaration result)
+        private static IfThenElse? Lower(IfThenElse? ifThenElseTypes)
         {
-            if (typeToMerge.ConversionOperators is null)
+            if (ifThenElseTypes is null ||
+               (ifThenElseTypes.If.IsLowered &&
+               (ifThenElseTypes.Then?.IsLowered ?? true) &&
+               (ifThenElseTypes.Else?.IsLowered ?? true)))
+            {
+                return ifThenElseTypes;
+            }
+
+            return new IfThenElse(ifThenElseTypes.If.Lower(), ifThenElseTypes.Then?.Lower(), ifThenElseTypes.Else?.Lower());
+        }
+
+        private static List<PropertyDeclaration>? Lower(List<PropertyDeclaration>? properties)
+        {
+            return properties?.Select(p => (p.TypeDeclaration?.IsLowered ?? true) ? p : new PropertyDeclaration { DotnetFieldName = p.DotnetFieldName, DotnetPropertyName = p.DotnetPropertyName, IsRequired = p.IsRequired, JsonPropertyName = p.JsonPropertyName, TypeDeclaration = p.TypeDeclaration?.Lower() }).ToList();
+        }
+
+        private static List<ConversionOperatorDeclaration>? Lower(List<ConversionOperatorDeclaration>? conversionOperators)
+        {
+            return conversionOperators?.Select(c => (c.ToType?.IsLowered ?? true) ? c : new ConversionOperatorDeclaration { Conversion = c.Conversion, ToType = c.ToType?.Lower() }).ToList();
+        }
+
+        private static List<AsConversionMethodDeclaration>? Lower(List<AsConversionMethodDeclaration>? asConversionMethods)
+        {
+            return asConversionMethods?.Select(c => (c.ToType?.IsLowered ?? true) ? c : new AsConversionMethodDeclaration { Conversion = c.Conversion, DotnetMethodTypeSuffix = c.DotnetMethodTypeSuffix, ToType = c.ToType?.Lower() }).ToList();
+        }
+
+        private static List<TypeDeclaration>? Lower(List<TypeDeclaration>? typeDeclarations)
+        {
+            return typeDeclarations?.Select(t => t.Lower()).ToList();
+        }
+
+        private static void MergeConversionOperators(List<ConversionOperatorDeclaration>? conversionOperatorsToMerge, TypeDeclaration result)
+        {
+            if (conversionOperatorsToMerge is null)
             {
                 return;
             }
 
             List<ConversionOperatorDeclaration>? conversionOperators = result.EnsureConversionOperators();
-            foreach (ConversionOperatorDeclaration conversion in typeToMerge.ConversionOperators)
+            foreach (ConversionOperatorDeclaration conversion in conversionOperatorsToMerge)
             {
                 if (!conversionOperators.Any(c => c.ToType == conversion.ToType))
                 {
@@ -606,15 +649,15 @@ namespace Menes.JsonSchema.TypeBuilder.Model
             result.ConversionOperators = conversionOperators;
         }
 
-        private static void MergeAsConversionMethods(TypeDeclaration typeToMerge, TypeDeclaration result)
+        private static void MergeAsConversionMethods(List<AsConversionMethodDeclaration>? asConversionMethodsToMerge, TypeDeclaration result)
         {
-            if (typeToMerge.AsConversionMethods is null)
+            if (asConversionMethodsToMerge is null)
             {
                 return;
             }
 
             List<AsConversionMethodDeclaration>? conversionMethods = result.EnsureAsConversionMethods();
-            foreach (AsConversionMethodDeclaration conversion in typeToMerge.AsConversionMethods)
+            foreach (AsConversionMethodDeclaration conversion in asConversionMethodsToMerge)
             {
                 if (!conversionMethods.Any(c => c.ToType == conversion.ToType))
                 {
@@ -625,16 +668,16 @@ namespace Menes.JsonSchema.TypeBuilder.Model
             result.AsConversionMethods = conversionMethods;
         }
 
-        private static void MergeProperties(TypeDeclaration typeToMerge, TypeDeclaration result)
+        private static void MergeProperties(List<PropertyDeclaration>? propertiesToMerge, TypeDeclaration result)
         {
-            if (typeToMerge.Properties is null)
+            if (propertiesToMerge is null)
             {
                 return;
             }
 
             List<PropertyDeclaration> properties = result.EnsureProperties();
 
-            foreach (PropertyDeclaration property in typeToMerge.Properties)
+            foreach (PropertyDeclaration property in propertiesToMerge)
             {
                 if (property.JsonPropertyName is null)
                 {
@@ -666,25 +709,25 @@ namespace Menes.JsonSchema.TypeBuilder.Model
             }
         }
 
-        private static void MergeNotType(TypeDeclaration typeToMerge, TypeDeclaration result)
+        private static void MergeNotType(TypeDeclaration? typeToMerge, TypeDeclaration result)
         {
-            result.NotType = PickMostDerivedTypeWithOptionals(typeToMerge.NotType, result.NotType);
+            result.NotType = PickMostDerivedTypeWithOptionals(typeToMerge, result.NotType);
         }
 
-        private static void MergeIfThenElseTypes(TypeDeclaration typeToMerge, TypeDeclaration result)
+        private static void MergeIfThenElseTypes(IfThenElse? typeToMerge, TypeDeclaration result)
         {
-            if (typeToMerge.IfThenElseTypes is not null)
+            if (typeToMerge is not null)
             {
                 if (result.IfThenElseTypes is null)
                 {
-                    result.IfThenElseTypes = typeToMerge.IfThenElseTypes;
+                    result.IfThenElseTypes = typeToMerge;
                     return;
                 }
 
                 result.IfThenElseTypes = new IfThenElse(
-                    PickMostDerivedType(typeToMerge.IfThenElseTypes.If, result.IfThenElseTypes.If),
-                    PickMostDerivedTypeWithOptionals(typeToMerge.IfThenElseTypes.Then, result.IfThenElseTypes.Then),
-                    PickMostDerivedTypeWithOptionals(typeToMerge.IfThenElseTypes.Else, result.IfThenElseTypes.Else));
+                    PickMostDerivedType(typeToMerge.If, result.IfThenElseTypes.If),
+                    PickMostDerivedTypeWithOptionals(typeToMerge.Then, result.IfThenElseTypes.Then),
+                    PickMostDerivedTypeWithOptionals(typeToMerge.Else, result.IfThenElseTypes.Else));
             }
         }
 
@@ -718,13 +761,13 @@ namespace Menes.JsonSchema.TypeBuilder.Model
             return second;
         }
 
-        private static void MergeAllOfTypes(TypeDeclaration typeToMerge, TypeDeclaration result)
+        private static void MergeAllOfTypes(List<TypeDeclaration>? allOfTypes, TypeDeclaration result)
         {
-            if (typeToMerge.AllOfTypes is not null)
+            if (allOfTypes is not null)
             {
                 List<TypeDeclaration> resultTypes = result.EnsureAllOfTypes();
 
-                foreach (TypeDeclaration type in typeToMerge.AllOfTypes)
+                foreach (TypeDeclaration type in allOfTypes)
                 {
                     if (type != result && !resultTypes.Contains(type))
                     {
@@ -736,13 +779,13 @@ namespace Menes.JsonSchema.TypeBuilder.Model
             }
         }
 
-        private static void MergeAnyOfTypes(TypeDeclaration typeToMerge, TypeDeclaration result)
+        private static void MergeAnyOfTypes(List<TypeDeclaration>? anyOfTypes, TypeDeclaration result)
         {
-            if (typeToMerge.AnyOfTypes is not null)
+            if (anyOfTypes is not null)
             {
                 List<TypeDeclaration> resultTypes = result.EnsureAnyOfTypes();
 
-                foreach (TypeDeclaration type in typeToMerge.AnyOfTypes)
+                foreach (TypeDeclaration type in anyOfTypes)
                 {
                     if (type != result && !resultTypes.Contains(type))
                     {
@@ -754,13 +797,13 @@ namespace Menes.JsonSchema.TypeBuilder.Model
             }
         }
 
-        private static void MergeOneOfTypes(TypeDeclaration typeToMerge, TypeDeclaration result)
+        private static void MergeOneOfTypes(List<TypeDeclaration>? oneOfTypes, TypeDeclaration result)
         {
-            if (typeToMerge.OneOfTypes is not null)
+            if (oneOfTypes is not null)
             {
                 List<TypeDeclaration> resultTypes = result.EnsureOneOfTypes();
 
-                foreach (TypeDeclaration type in typeToMerge.OneOfTypes)
+                foreach (TypeDeclaration type in oneOfTypes)
                 {
                     if (type != result && !resultTypes.Contains(type))
                     {
@@ -772,14 +815,14 @@ namespace Menes.JsonSchema.TypeBuilder.Model
             }
         }
 
-        private static void MergeAdditionalProperties(TypeDeclaration typeToMerge, TypeDeclaration result)
+        private static void MergeAdditionalProperties(TypeDeclaration? additionalProperties, TypeDeclaration result)
         {
-            result.AdditionalProperties = PickMostDerivedTypeWithOptionals(typeToMerge.AdditionalProperties, result.AdditionalProperties);
+            result.AdditionalProperties = PickMostDerivedTypeWithOptionals(additionalProperties, result.AdditionalProperties);
         }
 
-        private static void MergeAdditionalItems(TypeDeclaration typeToMerge, TypeDeclaration result)
+        private static void MergeAdditionalItems(TypeDeclaration? additionalItems, TypeDeclaration result)
         {
-            result.AdditionalItems = PickMostDerivedTypeWithOptionals(typeToMerge.AdditionalItems, result.AdditionalItems);
+            result.AdditionalItems = PickMostDerivedTypeWithOptionals(additionalItems, result.AdditionalItems);
         }
 
         private void AddConversionOperator(ConversionOperatorDeclaration conversionDeclaration)
