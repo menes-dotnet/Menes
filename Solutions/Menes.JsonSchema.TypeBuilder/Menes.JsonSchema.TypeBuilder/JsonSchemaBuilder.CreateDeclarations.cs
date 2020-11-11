@@ -45,12 +45,12 @@ namespace Menes.JsonSchema.TypeBuilder
                 {
                     await this.AddRef(schema, typeDeclaration).ConfigureAwait(false);
                     this.AddType(schema, typeDeclaration);
+                    await this.AddAdditionalProperties(schema, typeDeclaration).ConfigureAwait(false);
                     await this.AddAllOf(schema, typeDeclaration).ConfigureAwait(false);
                     await this.AddAnyOf(schema, typeDeclaration).ConfigureAwait(false);
                     await this.AddOneOf(schema, typeDeclaration).ConfigureAwait(false);
                     await this.AddNot(schema, typeDeclaration).ConfigureAwait(false);
                     await this.AddIfThenElse(schema, typeDeclaration).ConfigureAwait(false);
-
                     await this.FindProperties(schema, typeDeclaration).ConfigureAwait(false);
                 }
 
@@ -59,6 +59,37 @@ namespace Menes.JsonSchema.TypeBuilder
             finally
             {
                 this.absoluteKeywordLocationStack.Pop();
+            }
+        }
+
+        private async Task AddAdditionalProperties(LocatedElement schema, TypeDeclaration typeDeclaration)
+        {
+            if (schema.JsonElement.ValueKind == JsonValueKind.Object)
+            {
+                if (schema.JsonElement.TryGetProperty("additionalProperties", out JsonElement not))
+                {
+                    ValidateSchema(not);
+                    this.PushPropertyToAbsoluteKeywordLocationStack("additionalProperties");
+                    JsonReference location = this.absoluteKeywordLocationStack.Peek();
+                    if (this.TryGetResolvedElement(location, out LocatedElement propertyTypeElement))
+                    {
+                        if (propertyTypeElement.JsonElement.ValueKind == JsonValueKind.Object)
+                        {
+                            TypeDeclaration additionalPropertiesDeclaration = await this.CreateTypeDeclarations(propertyTypeElement).ConfigureAwait(false);
+                            typeDeclaration.AdditionalProperties = additionalPropertiesDeclaration;
+                        }
+                        else if (propertyTypeElement.JsonElement.ValueKind == JsonValueKind.False)
+                        {
+                            typeDeclaration.AdditionalProperties = CommonTypeDeclarations.NotTypeDeclaration;
+                        }
+                    }
+                    else
+                    {
+                        throw new InvalidOperationException($"Unable to find element for additionalProperties type at location: '{location}'");
+                    }
+
+                    this.absoluteKeywordLocationStack.Pop();
+                }
             }
         }
 

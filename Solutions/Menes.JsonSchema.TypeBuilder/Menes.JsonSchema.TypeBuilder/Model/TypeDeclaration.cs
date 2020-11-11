@@ -9,6 +9,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
     using System.ComponentModel;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
+    using System.Threading.Tasks;
 
     /// <summary>
     /// A declaration of a type built from schema.
@@ -364,12 +365,14 @@ namespace Menes.JsonSchema.TypeBuilder.Model
             // We always specialise the {} type.
             if (loweredOther.IsBooleanTrueType)
             {
+                this.lowered = this;
                 return true;
             }
 
             // Can never specialise the not type
             if (loweredOther.IsBooleanFalseType)
             {
+                this.lowered = this;
                 return false;
             }
 
