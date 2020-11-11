@@ -535,7 +535,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
                     // Note that we lose our ref context here, as we are
                     // literally reusing the reffed type, rather than creating
                     // a new type with the ref context.
-                    this.lowered = this.MergedTypes[1].Lower();
+                    this.lowered = this.MergedTypes[0].Lower();
                     return this.lowered;
                 }
             }
@@ -549,6 +549,9 @@ namespace Menes.JsonSchema.TypeBuilder.Model
                 Type = this.Type,
                 Parent = this.Parent,
             };
+
+            // The lowered type is already lowered by itself, so cache that fact.
+            result.lowered = result;
 
             // Ensure we have set the result early, before we start potentially recursively
             // lowering, so that the lowered result is available to recursive calls.
