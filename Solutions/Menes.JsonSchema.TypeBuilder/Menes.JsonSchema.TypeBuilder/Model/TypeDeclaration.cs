@@ -9,7 +9,6 @@ namespace Menes.JsonSchema.TypeBuilder.Model
     using System.ComponentModel;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
-    using System.Threading.Tasks;
 
     /// <summary>
     /// A declaration of a type built from schema.
@@ -38,6 +37,15 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         /// Gets or sets the dotnet name of the type.
         /// </summary>
         public string? DotnetTypeName { get; set; }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a lowered reference type.
+        /// </summary>
+        /// <remarks>
+        /// If <c>true</c> you will not need to generate this instance of the type, but just use
+        /// its type name.
+        /// </remarks>
+        public bool IsRef { get; private set; }
 
         /// <summary>
         /// Gets the fully qualified dotnet name of the type.
@@ -174,7 +182,24 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         /// <summary>
         /// Gets a value indicating whether this type has been lowered.
         /// </summary>
-        public bool IsLowered => this.lowered is not null;
+        public bool IsLowered { get; private set; }
+
+        /// <summary>
+        /// Gets the fully lowered version of this type.
+        /// </summary>
+        public TypeDeclaration Lowered
+        {
+            get
+            {
+                TypeDeclaration current = this.Lower();
+                while (current.lowered != null)
+                {
+                    current = current.lowered;
+                }
+
+                return current;
+            }
+        }
 
         /// <summary>
         /// Gets a value which determines whether this type contains a reference to a given type.
@@ -353,8 +378,8 @@ namespace Menes.JsonSchema.TypeBuilder.Model
             //// (There are existing tests which validate this)
 
             // Lower the types and work off those
-            TypeDeclaration lowered = this.Lower();
-            TypeDeclaration loweredOther = other.Lower();
+            TypeDeclaration lowered = this.Lowered;
+            TypeDeclaration loweredOther = other.Lowered;
 
             // If we are the lowered version of this type, just return true
             if (loweredOther == lowered)
@@ -365,14 +390,12 @@ namespace Menes.JsonSchema.TypeBuilder.Model
             // We always specialise the {} type.
             if (loweredOther.IsBooleanTrueType)
             {
-                this.lowered = this;
                 return true;
             }
 
             // Can never specialise the not type
             if (loweredOther.IsBooleanFalseType)
             {
-                this.lowered = this;
                 return false;
             }
 
@@ -518,30 +541,6 @@ namespace Menes.JsonSchema.TypeBuilder.Model
                 return this.lowered;
             }
 
-            if (this.MergedTypes is not null && this.MergedTypes.Count == 1)
-            {
-                // If we are empty apart from a single merged type,
-                // then treat us as that merged type.
-                if (this.AdditionalItems is null &&
-                    this.AdditionalProperties is null &&
-                    this.AllOfTypes is null &&
-                    this.AnyOfTypes is null &&
-                    this.AsConversionMethods is null &&
-                    this.ConversionOperators is null &&
-                    this.IfThenElseTypes is null &&
-                    this.NotType is null &&
-                    this.OneOfTypes is null &&
-                    this.Properties is null &&
-                    this.Type is null)
-                {
-                    // Note that we lose our ref context here, as we are
-                    // literally reusing the reffed type, rather than creating
-                    // a new type with the ref context.
-                    this.lowered = this.MergedTypes[0].Lower();
-                    return this.lowered;
-                }
-            }
-
             // First - we don't change our type schema; we are still the same type, however we got here...
             // Our typename and the "type" of the item comes from us, and we will still parent into the existing
             // parent type
@@ -550,10 +549,8 @@ namespace Menes.JsonSchema.TypeBuilder.Model
                 DotnetTypeName = this.DotnetTypeName,
                 Type = this.Type,
                 Parent = this.Parent,
+                IsLowered = true,
             };
-
-            // The lowered type is already lowered by itself, so cache that fact.
-            result.lowered = result;
 
             // Ensure we have set the result early, before we start potentially recursively
             // lowering, so that the lowered result is available to recursive calls.
@@ -562,7 +559,34 @@ namespace Menes.JsonSchema.TypeBuilder.Model
             if (this.MergedTypes is not null)
             {
                 // Lower the types to merge.
-                IEnumerable<TypeDeclaration> loweredTypes = this.MergedTypes.Select(m => m.Lower()).ToList();
+                var loweredTypes = this.MergedTypes.Select(m => m.Lowered).ToList();
+
+                if (loweredTypes.Count == 1)
+                {
+                    // If we are empty apart from a single merged type,
+                    // then treat us as that merged type.
+                    // Note that the IsRef = true means this instance won't be generated,
+                    // and we are just taking on its properties for inspection purposes.
+                    // If we used the original type directly, we would lose our referential
+                    // scope in the absoluteKeywordLocation hierarchy, and also get into trouble
+                    // with recursive references.
+                    if (this.AdditionalItems is null &&
+                        this.AdditionalProperties is null &&
+                        this.AllOfTypes is null &&
+                        this.AnyOfTypes is null &&
+                        this.AsConversionMethods is null &&
+                        this.ConversionOperators is null &&
+                        this.IfThenElseTypes is null &&
+                        this.NotType is null &&
+                        this.OneOfTypes is null &&
+                        this.Properties is null &&
+                        this.Type is null)
+                    {
+                        result.DotnetTypeName = loweredTypes[0].DotnetTypeName;
+                        result.Type = loweredTypes[0].Type;
+                        result.IsRef = true;
+                    }
+                }
 
                 // Iterate the types to merge and merge them in
                 foreach (TypeDeclaration typeToMerge in loweredTypes)
@@ -572,14 +596,14 @@ namespace Menes.JsonSchema.TypeBuilder.Model
             }
 
             // Then merge in lowered versions of our own items
-            MergeAdditionalItems(this.AdditionalItems?.Lower(), result);
-            MergeAdditionalProperties(this.AdditionalProperties?.Lower(), result);
+            MergeAdditionalItems(this.AdditionalItems?.Lowered, result);
+            MergeAdditionalProperties(this.AdditionalProperties?.Lowered, result);
             MergeAllOfTypes(Lower(this.AllOfTypes), result);
             MergeAsConversionMethods(Lower(this.AsConversionMethods), result);
             MergeAnyOfTypes(Lower(this.AnyOfTypes), result);
             MergeConversionOperators(Lower(this.ConversionOperators), result);
             MergeIfThenElseTypes(Lower(this.IfThenElseTypes), result);
-            MergeNotType(this.NotType?.Lower(), result);
+            MergeNotType(this.NotType?.Lowered, result);
             MergeOneOfTypes(Lower(this.OneOfTypes), result);
             MergeProperties(Lower(this.Properties), result);
 
@@ -610,27 +634,27 @@ namespace Menes.JsonSchema.TypeBuilder.Model
                 return ifThenElseTypes;
             }
 
-            return new IfThenElse(ifThenElseTypes.If.Lower(), ifThenElseTypes.Then?.Lower(), ifThenElseTypes.Else?.Lower());
+            return new IfThenElse(ifThenElseTypes.If.Lowered, ifThenElseTypes.Then?.Lowered, ifThenElseTypes.Else?.Lowered);
         }
 
         private static List<PropertyDeclaration>? Lower(List<PropertyDeclaration>? properties)
         {
-            return properties?.Select(p => (p.TypeDeclaration?.IsLowered ?? true) ? p : new PropertyDeclaration { DotnetFieldName = p.DotnetFieldName, DotnetPropertyName = p.DotnetPropertyName, IsRequired = p.IsRequired, JsonPropertyName = p.JsonPropertyName, TypeDeclaration = p.TypeDeclaration?.Lower() }).ToList();
+            return properties?.Select(p => (p.TypeDeclaration?.IsLowered ?? true) ? p : new PropertyDeclaration { DotnetFieldName = p.DotnetFieldName, DotnetPropertyName = p.DotnetPropertyName, IsRequired = p.IsRequired, JsonPropertyName = p.JsonPropertyName, TypeDeclaration = p.TypeDeclaration?.Lowered }).ToList();
         }
 
         private static List<ConversionOperatorDeclaration>? Lower(List<ConversionOperatorDeclaration>? conversionOperators)
         {
-            return conversionOperators?.Select(c => (c.ToType?.IsLowered ?? true) ? c : new ConversionOperatorDeclaration { Conversion = c.Conversion, ToType = c.ToType?.Lower() }).ToList();
+            return conversionOperators?.Select(c => (c.ToType?.IsLowered ?? true) ? c : new ConversionOperatorDeclaration { Conversion = c.Conversion, ToType = c.ToType?.Lowered }).ToList();
         }
 
         private static List<AsConversionMethodDeclaration>? Lower(List<AsConversionMethodDeclaration>? asConversionMethods)
         {
-            return asConversionMethods?.Select(c => (c.ToType?.IsLowered ?? true) ? c : new AsConversionMethodDeclaration { Conversion = c.Conversion, DotnetMethodTypeSuffix = c.DotnetMethodTypeSuffix, ToType = c.ToType?.Lower() }).ToList();
+            return asConversionMethods?.Select(c => (c.ToType?.IsLowered ?? true) ? c : new AsConversionMethodDeclaration { Conversion = c.Conversion, DotnetMethodTypeSuffix = c.DotnetMethodTypeSuffix, ToType = c.ToType?.Lowered }).ToList();
         }
 
         private static List<TypeDeclaration>? Lower(List<TypeDeclaration>? typeDeclarations)
         {
-            return typeDeclarations?.Select(t => t.Lower()).ToList();
+            return typeDeclarations?.Select(t => t.Lowered).ToList();
         }
 
         private static void MergeConversionOperators(List<ConversionOperatorDeclaration>? conversionOperatorsToMerge, TypeDeclaration result)

@@ -86,7 +86,7 @@ namespace Menes.JsonSchema.TypeBuilder
             }
 
             TypeDeclaration root = await this.CreateTypeDeclarations(rootElement).ConfigureAwait(false);
-            TypeDeclaration loweredResult = root.Lower();
+            TypeDeclaration loweredResult = root.Lowered;
         }
     }
 }
