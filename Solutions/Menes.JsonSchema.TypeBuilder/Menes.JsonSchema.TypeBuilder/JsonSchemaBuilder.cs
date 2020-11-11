@@ -43,7 +43,35 @@ namespace Menes.JsonSchema.TypeBuilder
         /// Attempts to build an entity for a <see cref="JsonElement"/> containing a schema.
         /// </summary>
         /// <param name="schema">The root schema for which to build the entity.</param>
+        /// <param name="baseAbsoluteKeywordLocation">A base absolute keyword locatoin for the schema.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        /// <remarks>
+        /// <para>
+        /// Use this overload when your base schema is not the root of a document, and you need to treat it
+        /// as if it is located in place. Relative references may therefore be applied outside the scope
+        /// of this element into its parent document.
+        /// </para>
+        /// <para>
+        /// You may use this, for example, when referencing a schema element from an OpenAPI document.
+        /// </para>
+        /// </remarks>
+        public async Task BuildEntity(JsonElement schema, JsonReference baseAbsoluteKeywordLocation)
+        {
+            this.absoluteKeywordLocationStack.Push(baseAbsoluteKeywordLocation);
+            await this.BuildEntity(schema);
+            this.absoluteKeywordLocationStack.Pop();
+        }
+
+        /// <summary>
+        /// Attempts to build an entity for a <see cref="JsonElement"/> containing a schema.
+        /// </summary>
+        /// <param name="schema">The root schema for which to build the entity.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        /// <remarks>
+        /// Use this overload when your base schema is not the root of a document, and you need to treat it
+        /// as if it is located at the root of a document. Relative references may not, therefore be applied outside the scope
+        /// of this element into its parent document, as it is as if that document does not exist.
+        /// </remarks>
         public async Task BuildEntity(JsonElement schema)
         {
             LocatedElement rootElement = await this.WalkTreeAndLocateElementsFrom(schema).ConfigureAwait(false);
