@@ -6,7 +6,6 @@ namespace Menes.JsonSchema.TypeBuilder.Model
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
 
