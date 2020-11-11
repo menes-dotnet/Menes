@@ -105,6 +105,7 @@ namespace Menes.JsonSchema.TypeBuilder
                         var typeList = new List<string>();
                         string typeString = ValidateTypeString(type);
                         typeList.Add(typeString);
+                        typeDeclaration.Type = typeList;
                     }
 
                     this.absoluteKeywordLocationStack.Pop();
