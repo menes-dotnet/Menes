@@ -64,8 +64,9 @@ namespace Menes.JsonSchema.TypeBuilder
         {
             if (schema.JsonElement.ValueKind == JsonValueKind.Object)
             {
-                if (schema.JsonElement.TryGetProperty("not", out JsonElement _))
+                if (schema.JsonElement.TryGetProperty("not", out JsonElement not))
                 {
+                    ValidateSchema(not);
                     this.PushPropertyToAbsoluteKeywordLocationStack("not");
                     JsonReference location = this.absoluteKeywordLocationStack.Peek();
                     if (this.TryGetResolvedElement(location, out LocatedElement propertyTypeElement))
@@ -91,8 +92,9 @@ namespace Menes.JsonSchema.TypeBuilder
                 TypeDeclaration? thenType = null;
                 TypeDeclaration? elseType = null;
 
-                if (schema.JsonElement.TryGetProperty("if", out JsonElement _))
+                if (schema.JsonElement.TryGetProperty("if", out JsonElement @if))
                 {
+                    ValidateSchema(@if);
                     this.PushPropertyToAbsoluteKeywordLocationStack("if");
                     JsonReference location = this.absoluteKeywordLocationStack.Peek();
                     if (this.TryGetResolvedElement(location, out LocatedElement propertyTypeElement))
@@ -107,8 +109,10 @@ namespace Menes.JsonSchema.TypeBuilder
                     this.absoluteKeywordLocationStack.Pop();
                 }
 
-                if (schema.JsonElement.TryGetProperty("then", out JsonElement _))
+                if (schema.JsonElement.TryGetProperty("then", out JsonElement then))
                 {
+                    ValidateSchema(then);
+
                     this.PushPropertyToAbsoluteKeywordLocationStack("then");
                     JsonReference location = this.absoluteKeywordLocationStack.Peek();
                     if (this.TryGetResolvedElement(location, out LocatedElement propertyTypeElement))
@@ -123,8 +127,9 @@ namespace Menes.JsonSchema.TypeBuilder
                     this.absoluteKeywordLocationStack.Pop();
                 }
 
-                if (schema.JsonElement.TryGetProperty("else", out JsonElement _))
+                if (schema.JsonElement.TryGetProperty("else", out JsonElement @else))
                 {
+                    ValidateSchema(@else);
                     this.PushPropertyToAbsoluteKeywordLocationStack("else");
                     JsonReference location = this.absoluteKeywordLocationStack.Peek();
                     if (this.TryGetResolvedElement(location, out LocatedElement propertyTypeElement))

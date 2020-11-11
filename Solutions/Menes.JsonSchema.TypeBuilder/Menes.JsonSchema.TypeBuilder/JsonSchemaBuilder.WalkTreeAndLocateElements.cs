@@ -75,7 +75,7 @@ namespace Menes.JsonSchema.TypeBuilder
                     }
                     else if (property.NameEquals("properties") || property.NameEquals("patternProperties") || property.NameEquals("dependentSchemas") || property.NameEquals("$defs"))
                     {
-                        ValidateObjectWithSchemaProperties(property);
+                        ValidateObject(property);
                         foreach (JsonProperty schemaProperty in property.Value.EnumerateObject())
                         {
                             this.PushPropertyToAbsoluteKeywordLocationStack(schemaProperty);
@@ -91,7 +91,7 @@ namespace Menes.JsonSchema.TypeBuilder
                     }
                     else if (property.NameEquals("items"))
                     {
-                        ValidateSchemaOrArrayOfSchema(property);
+                        ValidateSchemaOrArray(property);
                         if (property.Value.ValueKind == JsonValueKind.Array)
                         {
                             await EnumerateSchemaArray(property).ConfigureAwait(false);

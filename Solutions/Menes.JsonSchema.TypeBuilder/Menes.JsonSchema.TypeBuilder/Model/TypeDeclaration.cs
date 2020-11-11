@@ -18,6 +18,15 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         private readonly HashSet<string> jsonPropertyNames = new HashSet<string>();
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="TypeDeclaration"/> class.
+        /// </summary>
+        /// <param name="typeSchema">The schema element related to the type.</param>
+        public TypeDeclaration(LocatedElement typeSchema = default)
+        {
+            this.TypeSchema = typeSchema;
+        }
+
+        /// <summary>
         /// Gets or sets the parent declaration containing this type declaration.
         /// </summary>
         public TypeDeclaration? Parent { get; set; }
@@ -54,6 +63,21 @@ namespace Menes.JsonSchema.TypeBuilder.Model
                 return string.Join('.', nameSegments);
             }
         }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this is a boolean true type.
+        /// </summary>
+        public bool IsBooleanTrueType { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this is a boolean false type.
+        /// </summary>
+        public bool IsBooleanFalseType { get; set; }
+
+        /// <summary>
+        /// Gets or sets the type array for this type declaration.
+        /// </summary>
+        public List<string>? Type { get; set; }
 
         /// <summary>
         /// Gets or sets the schema from which the type was built.
@@ -112,9 +136,37 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         public IfThenElse? IfThenElseTypes { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether this type allows additional properties.
+        /// Gets or sets the additional items type.
         /// </summary>
-        public bool AllowsAdditionalProperties { get; set; } = true;
+        public TypeDeclaration? AdditionalItems { get; set; }
+
+        /// <summary>
+        /// Gets or sets the additional items type.
+        /// </summary>
+        public TypeDeclaration? AdditionalProperties { get; set; }
+
+        /// <summary>
+        /// Gets a value indicating whether this type allows additional properties.
+        /// </summary>
+        public bool AllowsAdditionalProperties
+        {
+            get
+            {
+                // The only case where we don't allow additional properties
+                if (this.AdditionalProperties is not null &&
+                    this.AdditionalProperties.IsBooleanFalseType)
+                {
+                    return false;
+                }
+
+                return true;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a boolean schema.
+        /// </summary>
+        public bool IsBooleanSchema => this.IsBooleanFalseType || this.IsBooleanTrueType;
 
         /// <summary>
         /// Gets a value which determines whether this type contains a reference to a given type.
@@ -284,6 +336,18 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         /// <returns><c>true</c> if this type represents a more constrained version of the other type.</returns>
         public bool Specializes(TypeDeclaration other)
         {
+            // We always specialise the {} type.
+            if (other.IsBooleanTrueType)
+            {
+                return true;
+            }
+
+            // Can never specialise the not type
+            if (other.IsBooleanFalseType)
+            {
+                return false;
+            }
+
             // We can short circuit the longer check, by looking at all of types directly.
             // If we must match this, then we are indeed a specialized version of that
             if (this.EnsureAllOfTypes().Contains(other))
@@ -299,6 +363,11 @@ namespace Menes.JsonSchema.TypeBuilder.Model
             {
                 if (!type.AllowsAdditionalProperties)
                 {
+                    if (type.Properties is null)
+                    {
+                        return this.Properties is null || this.Properties.Count == 0;
+                    }
+
                     if (type.EnsureProperties().Count != this.EnsureProperties().Count)
                     {
                         return false;

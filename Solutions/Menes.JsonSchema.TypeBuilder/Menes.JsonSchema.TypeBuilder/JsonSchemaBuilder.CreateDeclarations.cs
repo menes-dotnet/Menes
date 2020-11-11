@@ -5,6 +5,8 @@
 namespace Menes.JsonSchema.TypeBuilder
 {
     using System;
+    using System.Collections.Generic;
+    using System.Text.Json;
     using System.Threading.Tasks;
     using Menes.Json;
     using Menes.JsonSchema.TypeBuilder.Model;
@@ -28,7 +30,7 @@ namespace Menes.JsonSchema.TypeBuilder
                 return prebuilt;
             }
 
-            var typeDeclaration = new TypeDeclaration();
+            var typeDeclaration = new TypeDeclaration(schema);
             this.builtDeclarationsByLocation.Add(schema.AbsoluteKeywordLocation, typeDeclaration);
 
             // Update the stack with the current absolute keyword location.
@@ -37,21 +39,76 @@ namespace Menes.JsonSchema.TypeBuilder
             try
             {
                 await this.SetNameAndParent(schema, typeDeclaration).ConfigureAwait(false);
-                await this.AddRef(schema, typeDeclaration).ConfigureAwait(false);
-                await this.AddAllOf(schema, typeDeclaration).ConfigureAwait(false);
-                await this.AddAnyOf(schema, typeDeclaration).ConfigureAwait(false);
-                await this.AddOneOf(schema, typeDeclaration).ConfigureAwait(false);
-                await this.AddNot(schema, typeDeclaration).ConfigureAwait(false);
-                await this.AddIfThenElse(schema, typeDeclaration).ConfigureAwait(false);
+                this.SetBooleanSchema(schema, typeDeclaration);
 
-                //// Next, try if..then..else
+                if (!typeDeclaration.IsBooleanSchema)
+                {
+                    await this.AddRef(schema, typeDeclaration).ConfigureAwait(false);
+                    this.AddType(schema, typeDeclaration);
+                    await this.AddAllOf(schema, typeDeclaration).ConfigureAwait(false);
+                    await this.AddAnyOf(schema, typeDeclaration).ConfigureAwait(false);
+                    await this.AddOneOf(schema, typeDeclaration).ConfigureAwait(false);
+                    await this.AddNot(schema, typeDeclaration).ConfigureAwait(false);
+                    await this.AddIfThenElse(schema, typeDeclaration).ConfigureAwait(false);
 
-                await this.FindProperties(schema, typeDeclaration).ConfigureAwait(false);
+                    await this.FindProperties(schema, typeDeclaration).ConfigureAwait(false);
+                }
+
                 return typeDeclaration;
             }
             finally
             {
                 this.absoluteKeywordLocationStack.Pop();
+            }
+        }
+
+        /// <summary>
+        /// Sets a value indicating whether this is a boolean schema.
+        /// </summary>
+        private void SetBooleanSchema(LocatedElement schema, TypeDeclaration typeDeclaration)
+        {
+            if (schema.JsonElement.ValueKind == JsonValueKind.True)
+            {
+                typeDeclaration.IsBooleanTrueType = true;
+            }
+            else if (schema.JsonElement.ValueKind == JsonValueKind.False)
+            {
+                typeDeclaration.IsBooleanFalseType = true;
+            }
+        }
+
+        /// <summary>
+        /// Adds the type array to the declaration.
+        /// </summary>
+        private void AddType(LocatedElement schema, TypeDeclaration typeDeclaration)
+        {
+            if (schema.JsonElement.ValueKind == JsonValueKind.Object)
+            {
+                if (schema.JsonElement.TryGetProperty("type", out JsonElement type))
+                {
+                    ValidateStringOrArray(type);
+
+                    this.PushPropertyToAbsoluteKeywordLocationStack("type");
+                    if (type.ValueKind == JsonValueKind.Array)
+                    {
+                        var typeList = new List<string>();
+                        foreach (JsonElement element in type.EnumerateArray())
+                        {
+                            string typeString = ValidateTypeString(element);
+                            typeList.Add(typeString);
+                        }
+
+                        typeDeclaration.Type = typeList;
+                    }
+                    else
+                    {
+                        var typeList = new List<string>();
+                        string typeString = ValidateTypeString(type);
+                        typeList.Add(typeString);
+                    }
+
+                    this.absoluteKeywordLocationStack.Pop();
+                }
             }
         }
 

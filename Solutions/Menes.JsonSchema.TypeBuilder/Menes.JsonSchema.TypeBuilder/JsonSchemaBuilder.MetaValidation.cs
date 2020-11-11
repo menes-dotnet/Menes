@@ -36,25 +36,68 @@ namespace Menes.JsonSchema.TypeBuilder
             }
         }
 
-        private static void ValidateObjectWithSchemaProperties(JsonProperty properties)
+        private static void ValidateObject(JsonProperty properties)
         {
-            ValidateObjectWithSchemaProperties(properties.Value);
+            ValidateObject(properties.Value);
         }
 
-        private static void ValidateObjectWithSchemaProperties(JsonElement properties)
+        private static void ValidateObject(JsonElement properties)
         {
             if (properties.ValueKind != JsonValueKind.Object)
             {
-                throw new InvalidOperationException($"Unsuppported properties: {properties.ValueKind}.");
+                throw new InvalidOperationException($"Unsuppported object: {properties.ValueKind}.");
             }
         }
 
-        private static void ValidateSchemaOrArrayOfSchema(JsonProperty property)
+        private static void ValidateStringOrArray(JsonProperty property)
         {
-            ValidateSchemaOrArrayOfSchema(property.Value);
+            ValidateStringOrArray(property.Value);
         }
 
-        private static void ValidateSchemaOrArrayOfSchema(JsonElement property)
+        private static void ValidateStringOrArray(JsonElement property)
+        {
+            if (property.ValueKind != JsonValueKind.String && property.ValueKind != JsonValueKind.Array)
+            {
+                throw new InvalidOperationException($"Unsuppported string or array: {property.ValueKind}.");
+            }
+        }
+
+        private static void ValidateString(JsonProperty property)
+        {
+            ValidateString(property.Value);
+        }
+
+        private static void ValidateString(JsonElement property)
+        {
+            if (property.ValueKind != JsonValueKind.String)
+            {
+                throw new InvalidOperationException($"Unsuppported string: {property.ValueKind}.");
+            }
+        }
+
+        private static string ValidateTypeString(JsonElement property)
+        {
+            if (property.ValueKind != JsonValueKind.String)
+            {
+                throw new InvalidOperationException($"Unsuppported type string: {property.ValueKind}.");
+            }
+
+            string typeString = property.GetString();
+            if (typeString == "null" || typeString == "boolean" || typeString == "object" ||
+                typeString == "array" || typeString == "number" || typeString == "string" || typeString == "integer")
+            {
+                return typeString;
+            }
+
+            throw new InvalidOperationException($"Unsuppported type string value: '{typeString}'.");
+        }
+
+        private static void ValidateSchemaOrArray(JsonProperty property)
+        {
+            ValidateSchemaOrArray(property.Value);
+        }
+
+        private static void ValidateSchemaOrArray(JsonElement property)
         {
             if (property.ValueKind != JsonValueKind.Object && property.ValueKind != JsonValueKind.True && property.ValueKind != JsonValueKind.False && property.ValueKind != JsonValueKind.Array)
             {
@@ -84,7 +127,7 @@ namespace Menes.JsonSchema.TypeBuilder
         {
             if (property.ValueKind != JsonValueKind.Object && property.ValueKind != JsonValueKind.True && property.ValueKind != JsonValueKind.False)
             {
-                throw new InvalidOperationException($"Unsuppported property: {property.ValueKind}.");
+                throw new InvalidOperationException($"Unsuppported schema: {property.ValueKind}.");
             }
         }
 

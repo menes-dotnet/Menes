@@ -88,9 +88,9 @@ namespace Menes.JsonSchema.TypeBuilder
             {
                 var propertyDeclaration = new PropertyDeclaration();
                 this.SetPropertyName(typeDeclaration, jsonPropertyName, propertyDeclaration);
-                propertyDeclaration.TypeDeclaration = new TypeDeclaration
+                propertyDeclaration.TypeDeclaration = new TypeDeclaration()
                 {
-                    DotnetTypeName = "Menes.JsonAny",
+                    IsBooleanTrueType = true,
                 };
                 typeDeclaration.AddPropertyDeclaration(propertyDeclaration);
             }
