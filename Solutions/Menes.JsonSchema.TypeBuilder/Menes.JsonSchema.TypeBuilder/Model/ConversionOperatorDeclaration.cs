@@ -1,13 +1,13 @@
-﻿// <copyright file="ConversionDeclaration.cs" company="Endjin Limited">
+﻿// <copyright file="ConversionOperatorDeclaration.cs" company="Endjin Limited">
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
 namespace Menes.JsonSchema.TypeBuilder.Model
 {
     /// <summary>
-    /// Declaration of a conversion operator/method.
+    /// Declaration of a conversion operator.
     /// </summary>
-    public class ConversionDeclaration
+    public class ConversionOperatorDeclaration
     {
         /// <summary>
         /// The type of converter to generator.
@@ -57,7 +57,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         /// <summary>
         /// Gets or sets the target type of the conversion.
         /// </summary>
-        public string? ToTypeName { get; set; }
+        public TypeDeclaration? ToType { get; set; }
 
         /// <summary>
         /// Gets or sets the type of conversion to use in the implementation.
