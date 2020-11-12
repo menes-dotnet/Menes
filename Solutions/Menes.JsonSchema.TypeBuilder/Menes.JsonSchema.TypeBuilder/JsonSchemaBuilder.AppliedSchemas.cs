@@ -153,17 +153,41 @@ namespace Menes.JsonSchema.TypeBuilder
 
         private Task AddAllOf(LocatedElement schema, TypeDeclaration typeDeclaration)
         {
-            return this.AddAllAnyOneCore(schema, typeDeclaration, "allOf", e => ValidateAllOf(e), (parent, aot) => parent.AddAllOfType(aot));
+            return this.AddAllAnyOneCore(
+                schema,
+                typeDeclaration,
+                "allOf",
+                e => ValidateAllOf(e),
+                (parent, aot) =>
+                {
+                    parent.AddAllOfType(aot);
+                });
         }
 
         private Task AddAnyOf(LocatedElement schema, TypeDeclaration typeDeclaration)
         {
-            return this.AddAllAnyOneCore(schema, typeDeclaration, "anyOf", e => ValidateAnyOf(e), (parent, aot) => parent.AddAnyOfType(aot));
+            return this.AddAllAnyOneCore(
+                schema,
+                typeDeclaration,
+                "anyOf",
+                e => ValidateAnyOf(e),
+                (parent, aot) =>
+                {
+                    parent.AddAnyOfType(aot);
+                });
         }
 
         private Task AddOneOf(LocatedElement schema, TypeDeclaration typeDeclaration)
         {
-            return this.AddAllAnyOneCore(schema, typeDeclaration, "oneOf", e => ValidateOneOf(e), (parent, oot) => parent.AddOneOfType(oot));
+            return this.AddAllAnyOneCore(
+                schema,
+                typeDeclaration,
+                "oneOf",
+                e => ValidateOneOf(e),
+                (parent, oot) =>
+                {
+                    parent.AddOneOfType(oot);
+                });
         }
 
         private async Task AddAllAnyOneCore(LocatedElement schema, TypeDeclaration typeDeclaration, string propertyName, Action<JsonElement> validate, Action<TypeDeclaration, TypeDeclaration> add)

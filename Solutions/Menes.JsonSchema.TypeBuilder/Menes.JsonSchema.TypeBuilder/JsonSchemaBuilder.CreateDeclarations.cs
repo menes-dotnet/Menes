@@ -45,6 +45,7 @@ namespace Menes.JsonSchema.TypeBuilder
                 {
                     await this.AddRef(schema, typeDeclaration).ConfigureAwait(false);
                     this.AddType(schema, typeDeclaration);
+
                     await this.AddAdditionalProperties(schema, typeDeclaration).ConfigureAwait(false);
                     await this.AddAllOf(schema, typeDeclaration).ConfigureAwait(false);
                     await this.AddAnyOf(schema, typeDeclaration).ConfigureAwait(false);

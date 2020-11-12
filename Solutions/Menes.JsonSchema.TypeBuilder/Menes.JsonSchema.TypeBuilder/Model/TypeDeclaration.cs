@@ -270,8 +270,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
             if (!allOfTypes.Contains(allOfType))
             {
                 allOfTypes.Add(allOfType);
-                this.AddConversionOperator(
-                    new ConversionOperatorDeclaration { Conversion = ConversionOperatorDeclaration.ConversionType.GenericAs, ToType = allOfType });
+                this.AddConversionOperatorsFor(allOfType, false);
             }
         }
 
@@ -288,8 +287,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
             if (!anyOfTypes.Contains(anyOfType))
             {
                 anyOfTypes.Add(anyOfType);
-                this.AddConversionOperator(
-                    new ConversionOperatorDeclaration { Conversion = ConversionOperatorDeclaration.ConversionType.GenericAs, ToType = anyOfType });
+                this.AddConversionOperatorsFor(anyOfType, true);
             }
         }
 
@@ -306,8 +304,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
             if (!oneOfTypes.Contains(oneOfType))
             {
                 oneOfTypes.Add(oneOfType);
-                this.AddConversionOperator(
-                    new ConversionOperatorDeclaration { Conversion = ConversionOperatorDeclaration.ConversionType.GenericAs, ToType = oneOfType });
+                this.AddConversionOperatorsFor(oneOfType, true);
             }
         }
 
@@ -643,12 +640,12 @@ namespace Menes.JsonSchema.TypeBuilder.Model
 
         private static List<ConversionOperatorDeclaration>? Lower(List<ConversionOperatorDeclaration>? conversionOperators)
         {
-            return conversionOperators?.Select(c => (c.ToType?.IsLowered ?? true) ? c : new ConversionOperatorDeclaration { Conversion = c.Conversion, ToType = c.ToType?.Lowered }).ToList();
+            return conversionOperators?.Select(c => (c.TargetType?.IsLowered ?? true) ? c : new ConversionOperatorDeclaration { Conversion = c.Conversion, TargetType = c.TargetType?.Lowered }).ToList();
         }
 
         private static List<AsConversionMethodDeclaration>? Lower(List<AsConversionMethodDeclaration>? asConversionMethods)
         {
-            return asConversionMethods?.Select(c => (c.ToType?.IsLowered ?? true) ? c : new AsConversionMethodDeclaration { Conversion = c.Conversion, DotnetMethodTypeSuffix = c.DotnetMethodTypeSuffix, ToType = c.ToType?.Lowered }).ToList();
+            return asConversionMethods?.Select(c => (c.TargetType?.IsLowered ?? true) ? c : new AsConversionMethodDeclaration { Conversion = c.Conversion, DotnetMethodTypeSuffix = c.DotnetMethodTypeSuffix, TargetType = c.TargetType?.Lowered }).ToList();
         }
 
         private static List<TypeDeclaration>? Lower(List<TypeDeclaration>? typeDeclarations)
@@ -666,7 +663,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
             List<ConversionOperatorDeclaration>? conversionOperators = result.EnsureConversionOperators();
             foreach (ConversionOperatorDeclaration conversion in conversionOperatorsToMerge)
             {
-                if (!conversionOperators.Any(c => c.ToType == conversion.ToType))
+                if (!conversionOperators.Any(c => c.TargetType == conversion.TargetType))
                 {
                     conversionOperators.Add(conversion);
                 }
@@ -685,7 +682,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
             List<AsConversionMethodDeclaration>? conversionMethods = result.EnsureAsConversionMethods();
             foreach (AsConversionMethodDeclaration conversion in asConversionMethodsToMerge)
             {
-                if (!conversionMethods.Any(c => c.ToType == conversion.ToType))
+                if (!conversionMethods.Any(c => c.TargetType == conversion.TargetType))
                 {
                     conversionMethods.Add(conversion);
                 }
@@ -855,6 +852,48 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         {
             List<ConversionOperatorDeclaration> conversionOperators = this.EnsureConversionOperators();
             conversionOperators.Add(conversionDeclaration);
+        }
+
+        private void AddAsConversionMethod(AsConversionMethodDeclaration asConversionMethodDeclaration)
+        {
+            List<AsConversionMethodDeclaration> conversionOperators = this.EnsureAsConversionMethods();
+            conversionOperators.Add(asConversionMethodDeclaration);
+        }
+
+        private void AddConversionOperatorsFor(TypeDeclaration targetType, bool includeTargetConversions)
+        {
+            // Add implicit bidirectional conversion from the all/any/oneOf type.
+            this.AddConversionOperator(
+                new ConversionOperatorDeclaration
+                {
+                    Conversion = ConversionOperatorDeclaration.ConversionType.GenericAs,
+                    Direction = ConversionOperatorDeclaration.ConversionDirection.BidirectionalImplicit,
+                    TargetType = targetType,
+                });
+
+            // Add an As{Typename} method
+            this.AddAsConversionMethod(
+                new AsConversionMethodDeclaration
+                {
+                    Conversion = ConversionOperatorDeclaration.ConversionType.GenericAs,
+                    TargetType = targetType,
+                });
+
+            if (includeTargetConversions)
+            {
+                if (targetType.ConversionOperators is not null)
+                {
+                    foreach (ConversionOperatorDeclaration conversion in targetType.ConversionOperators)
+                    {
+                        this.AddChildConversionOperator(targetType, conversion);
+                    }
+                }
+            }
+        }
+
+        private void AddChildConversionOperator(TypeDeclaration targetType, ConversionOperatorDeclaration childConversion)
+        {
+            this.AddConversionOperator(childConversion.CreateViaTo(targetType));
         }
 
         private List<TypeDeclaration> EnsureMergedTypes()
