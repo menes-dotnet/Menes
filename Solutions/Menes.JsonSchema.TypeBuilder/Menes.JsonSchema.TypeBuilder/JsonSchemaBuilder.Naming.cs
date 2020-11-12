@@ -27,13 +27,15 @@ namespace Menes.JsonSchema.TypeBuilder
                 Memory<char> nameMemory = new char[baseLength];
                 Span<char> name = nameMemory.Span;
                 baseName.Span.CopyTo(name);
+                int length = baseName.Length;
+
                 if (suffix is ReadOnlyMemory<char>)
                 {
                     suffix.Value.Span.CopyTo(name[baseName.Length..]);
                 }
 
                 int index = 1;
-                int length = baseName.Length + (suffix?.Length ?? 0);
+                length = baseName.Length + (suffix?.Length ?? 0);
                 while (owner.ContainsMemberName(name.Slice(0, length)))
                 {
                     if (index < 10)
@@ -42,7 +44,8 @@ namespace Menes.JsonSchema.TypeBuilder
                         length = baseName.Length + 1;
                         if (suffix is ReadOnlyMemory<char>)
                         {
-                            suffix.Value.Span.CopyTo(name[(baseName.Length + 1) ..]);
+                            int start = baseName.Length + 1;
+                            suffix.Value.Span.CopyTo(name[start..]);
                         }
                     }
                     else if (index < 100)
@@ -52,7 +55,8 @@ namespace Menes.JsonSchema.TypeBuilder
                         length = baseName.Length + 2;
                         if (suffix is ReadOnlyMemory<char>)
                         {
-                            suffix.Value.Span.CopyTo(name[(baseName.Length + 2) ..]);
+                            int start = baseName.Length + 2;
+                            suffix.Value.Span.CopyTo(name[start..]);
                         }
                     }
                     else if (index < 1000)
@@ -63,7 +67,8 @@ namespace Menes.JsonSchema.TypeBuilder
                         length = baseName.Length + 3;
                         if (suffix is ReadOnlyMemory<char>)
                         {
-                            suffix.Value.Span.CopyTo(name[(baseName.Length + 3) ..]);
+                            int start = baseName.Length + 3;
+                            suffix.Value.Span.CopyTo(name[start..]);
                         }
                     }
                     else
@@ -107,7 +112,8 @@ namespace Menes.JsonSchema.TypeBuilder
                         length = baseName.Length + 1;
                         if (suffix is ReadOnlyMemory<char>)
                         {
-                            suffix.Value.Span.CopyTo(name[(baseName.Length + 1) ..]);
+                            int start = baseName.Length + 1;
+                            suffix.Value.Span.CopyTo(name[start..]);
                         }
                     }
                     else if (index < 100)
@@ -117,7 +123,8 @@ namespace Menes.JsonSchema.TypeBuilder
                         length = baseName.Length + 2;
                         if (suffix is ReadOnlyMemory<char>)
                         {
-                            suffix.Value.Span.CopyTo(name[(baseName.Length + 2) ..]);
+                            int start = baseName.Length + 2;
+                            suffix.Value.Span.CopyTo(name[start..]);
                         }
                     }
                     else if (index < 1000)
@@ -128,7 +135,8 @@ namespace Menes.JsonSchema.TypeBuilder
                         length = baseName.Length + 3;
                         if (suffix is ReadOnlyMemory<char>)
                         {
-                            suffix.Value.Span.CopyTo(name[(baseName.Length + 3) ..]);
+                            int start = baseName.Length + 3;
+                            suffix.Value.Span.CopyTo(name[start..]);
                         }
                     }
                     else
@@ -147,21 +155,36 @@ namespace Menes.JsonSchema.TypeBuilder
             }
         }
 
-        private static ReadOnlyMemory<char> GetTypeSuffixFor(LocatedElement schema)
+        private static ReadOnlyMemory<char> GetTypeSuffixFor(ReadOnlyMemory<char> baseName, LocatedElement schema)
         {
             // If we have an explicit type and it is a string we can determine a better type name
             if (schema.JsonElement.ValueKind == JsonValueKind.Object && schema.JsonElement.TryGetProperty("type", out JsonElement type) && type.ValueKind == JsonValueKind.String)
             {
                 if (type.ValueEquals("object"))
                 {
+                    if (baseName.Length >= EntitySuffix.Length && baseName[^EntitySuffix.Length..].Span.SequenceEqual(EntitySuffix.Span))
+                    {
+                        return ValueSuffix;
+                    }
+
                     return EntitySuffix;
                 }
                 else if (type.ValueEquals("array"))
                 {
+                    if (baseName.Length >= ArraySuffix.Length && baseName[^ArraySuffix.Length..].Span.SequenceEqual(ArraySuffix.Span))
+                    {
+                        return EntitySuffix;
+                    }
+
                     return ArraySuffix;
                 }
                 else
                 {
+                    if (baseName.Length >= ValueSuffix.Length && baseName[^ValueSuffix.Length..].Span.SequenceEqual(ValueSuffix.Span))
+                    {
+                        return EntitySuffix;
+                    }
+
                     return ValueSuffix;
                 }
             }
@@ -173,14 +196,14 @@ namespace Menes.JsonSchema.TypeBuilder
         {
             ReadOnlyMemory<char> baseName = Formatting.FormatReferenceAsName(schema.AbsoluteKeywordLocation);
 
-            // If we named from the fragment, then we need to add a suffix
-            if (schema.AbsoluteKeywordLocation.HasFragment)
+            // If we named from the fragment, then we may need to add a suffix
+            if (schema.AbsoluteKeywordLocation.HasFragment && this.absoluteKeywordLocationStack.Peek().Equals(schema.AbsoluteKeywordLocation))
             {
-                typeDeclaration.DotnetTypeName = MakeMemberNameUnique(typeDeclaration.Parent, baseName, GetTypeSuffixFor(schema)).ToString();
+                typeDeclaration.DotnetTypeName = MakeMemberNameUnique(typeDeclaration.Parent, baseName, GetTypeSuffixFor(baseName, schema)).ToString();
             }
             else
             {
-                typeDeclaration.DotnetTypeName = MakeMemberNameUnique(typeDeclaration.Parent, baseName).ToString();
+                typeDeclaration.DotnetTypeName = MakeMemberNameUnique(typeDeclaration.Parent, baseName, GetTypeSuffixFor(baseName, schema)).ToString();
             }
 
             if (string.IsNullOrEmpty(typeDeclaration.DotnetTypeName))

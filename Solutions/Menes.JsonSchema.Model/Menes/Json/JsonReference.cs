@@ -270,7 +270,7 @@ namespace Menes.Json
         /// <inheritdoc/>
         public bool Equals(JsonReference other)
         {
-            return this.reference.Equals(other.reference);
+            return this.reference.Span.SequenceEqual(other.reference.Span);
         }
 
         /// <inheritdoc/>

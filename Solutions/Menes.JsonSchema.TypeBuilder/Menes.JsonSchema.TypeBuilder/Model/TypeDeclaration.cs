@@ -184,7 +184,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         public bool IsLowered { get; private set; }
 
         /// <summary>
-        /// Gets the fully lowered version of this type.
+        /// Gets the fully lowered version of this type and its entire graph.
         /// </summary>
         public TypeDeclaration Lowered
         {
