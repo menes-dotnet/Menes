@@ -201,6 +201,24 @@ namespace Menes.JsonSchema.TypeBuilder
 
                     this.absoluteKeywordLocationStack.Pop();
                 }
+
+                if (schema.JsonElement.TryGetProperty("unevaluatedProperties", out JsonElement unevaluatedProperties))
+                {
+                    ValidateSchema(unevaluatedProperties);
+                    this.PushPropertyToAbsoluteKeywordLocationStack("unevaluatedProperties");
+                    JsonReference location = this.absoluteKeywordLocationStack.Peek();
+                    if (this.TryGetResolvedElement(location, out LocatedElement propertyTypeElement))
+                    {
+                        TypeDeclaration unevaluatedPropertiesDeclaration = await this.CreateTypeDeclarations(propertyTypeElement).ConfigureAwait(false);
+                        typeDeclaration.UnevaluatedProperties = unevaluatedPropertiesDeclaration;
+                    }
+                    else
+                    {
+                        throw new InvalidOperationException($"Unable to find element for unevaluatedProperties type at location: '{location}'");
+                    }
+
+                    this.absoluteKeywordLocationStack.Pop();
+                }
             }
         }
 

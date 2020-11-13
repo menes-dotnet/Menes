@@ -153,6 +153,11 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         public TypeDeclaration? Not { get; set; }
 
         /// <summary>
+        /// Gets or sets the UnevaluatedProperties type.
+        /// </summary>
+        public TypeDeclaration? UnevaluatedProperties { get; set; }
+
+        /// <summary>
         /// Gets or sets the propertyNames type.
         /// </summary>
         public TypeDeclaration? PropertyNames { get; set; }
@@ -608,6 +613,13 @@ namespace Menes.JsonSchema.TypeBuilder.Model
                 return false;
             }
 
+            if (loweredOther.UnevaluatedProperties is not null &&
+                lowered.UnevaluatedProperties is not null &&
+                !lowered.UnevaluatedProperties.Specializes(loweredOther.UnevaluatedProperties))
+            {
+                return false;
+            }
+
             if (loweredOther.Contains is not null &&
                 lowered.Contains is not null &&
                 !lowered.Contains.Specializes(loweredOther.Contains))
@@ -794,6 +806,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
             MergeContains(typeToMerge.Contains?.Lowered, result);
             MergeIfThenElse(Lower(typeToMerge.IfThenElse), result);
             MergeNot(typeToMerge.Not?.Lowered, result);
+            MergeUnevaluatedProperties(typeToMerge.UnevaluatedProperties?.Lowered, result);
             MergePropertyNames(typeToMerge.PropertyNames?.Lowered, result);
             MergeAdditionalProperties(typeToMerge.AdditionalProperties?.Lowered, result);
             MergeAllOf(Lower(typeToMerge.AllOf), result);
@@ -1074,6 +1087,11 @@ namespace Menes.JsonSchema.TypeBuilder.Model
             result.Not = PickMostDerivedTypeWithOptionals(typeToMerge, result.Not);
         }
 
+        private static void MergeUnevaluatedProperties(TypeDeclaration? typeToMerge, TypeDeclaration result)
+        {
+            result.UnevaluatedProperties = PickMostDerivedTypeWithOptionals(typeToMerge, result.UnevaluatedProperties);
+        }
+
         private static void MergePropertyNames(TypeDeclaration? typeToMerge, TypeDeclaration result)
         {
             result.PropertyNames = PickMostDerivedTypeWithOptionals(typeToMerge, result.PropertyNames);
@@ -1232,6 +1250,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
                                     this.Properties is null &&
                                     this.PropertyNames is null &&
                                     this.UnevaluatedItems is null &&
+                                    this.UnevaluatedProperties is null &&
                                     this.UniqueItems is null &&
                                     this.Type is null;
         }
