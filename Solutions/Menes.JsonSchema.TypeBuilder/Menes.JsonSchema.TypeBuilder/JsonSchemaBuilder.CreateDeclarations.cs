@@ -293,6 +293,24 @@ namespace Menes.JsonSchema.TypeBuilder
                     typeDeclaration.MinContains = minContains.GetInt32();
                 }
 
+                if (schema.JsonElement.TryGetProperty("additionalItems", out JsonElement additionalItems))
+                {
+                    ValidateSchema(additionalItems);
+                    this.PushPropertyToAbsoluteKeywordLocationStack("additionalItems");
+                    JsonReference location = this.absoluteKeywordLocationStack.Peek();
+                    if (this.TryGetResolvedElement(location, out LocatedElement propertyTypeElement))
+                    {
+                        TypeDeclaration additionalItemsDeclaration = await this.CreateTypeDeclarations(propertyTypeElement).ConfigureAwait(false);
+                        typeDeclaration.AdditionalItems = additionalItemsDeclaration;
+                    }
+                    else
+                    {
+                        throw new InvalidOperationException($"Unable to find element for additionalItems type at location: '{location}'");
+                    }
+
+                    this.absoluteKeywordLocationStack.Pop();
+                }
+
                 if (schema.JsonElement.TryGetProperty("contains", out JsonElement contains))
                 {
                     ValidateSchema(contains);
