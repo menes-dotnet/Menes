@@ -178,6 +178,11 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         public TypeDeclaration? AdditionalProperties { get; set; }
 
         /// <summary>
+        /// Gets or sets the pattern properties.
+        /// </summary>
+        public List<PatternProperty>? PatternProperties { get; set; }
+
+        /// <summary>
         /// Gets a value indicating whether this type allows additional properties.
         /// </summary>
         public bool AllowsAdditionalProperties
@@ -767,6 +772,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
             MergeOneOfTypes(Lower(typeToMerge.OneOfTypes), result);
             MergeDependentRequired(typeToMerge, result);
             MergeAdditionalProperties(typeToMerge.AdditionalProperties?.Lowered, result);
+            MergePatternProperties(typeToMerge.PatternProperties, result);
 
             if (typeToMerge.ExclusiveMaximum is not null)
             {
@@ -841,6 +847,21 @@ namespace Menes.JsonSchema.TypeBuilder.Model
             if (typeToMerge.UniqueItems is not null)
             {
                 result.UniqueItems = typeToMerge.UniqueItems;
+            }
+        }
+
+        private static void MergePatternProperties(List<PatternProperty>? patternProperties, TypeDeclaration result)
+        {
+            if (patternProperties is null)
+            {
+                return;
+            }
+
+            List<PatternProperty> resultProperties = result.EnsurePatternProperties();
+
+            foreach (PatternProperty property in patternProperties)
+            {
+                resultProperties.Add(new PatternProperty(property.Pattern, property.Schema.Lowered));
             }
         }
 
@@ -1156,6 +1177,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
                                     this.NotType is null &&
                                     this.OneOfTypes is null &&
                                     this.Pattern is null &&
+                                    this.PatternProperties is null &&
                                     this.Properties is null &&
                                     this.UnevaluatedItems is null &&
                                     this.UniqueItems is null &&
@@ -1212,6 +1234,11 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         private List<TypeDeclaration> EnsureAnyOfTypes()
         {
             return this.AnyOfTypes ??= new List<TypeDeclaration>();
+        }
+
+        private List<PatternProperty> EnsurePatternProperties()
+        {
+            return this.PatternProperties ??= new List<PatternProperty>();
         }
 
         private List<TypeDeclaration> EnsureOneOfTypes()
