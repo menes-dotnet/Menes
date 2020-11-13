@@ -6,13 +6,14 @@ namespace Menes.JsonSchema.TypeBuilder.Model
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
-    using Corvus.Extensions;
 
     /// <summary>
     /// A declaration of a type built from schema.
     /// </summary>
+    [DebuggerDisplay("{FullyQualifiedDotNetTypeName}")]
     public class TypeDeclaration
     {
         private readonly List<string> memberNames = new List<string>();
@@ -387,7 +388,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         {
             this.Merge(allOfType);
             List<TypeDeclaration> allOfTypes = this.EnsureAllOfTypes();
-            if (!allOfTypes.Contains(allOfType))
+            if (!allOfTypes.Any(t => t.FullyQualifiedDotNetTypeName == allOfType.FullyQualifiedDotNetTypeName))
             {
                 allOfTypes.Add(allOfType);
                 this.AddConversionOperatorsFor(allOfType, false);
@@ -404,7 +405,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         public void AddAnyOfType(TypeDeclaration anyOfType)
         {
             List<TypeDeclaration> anyOfTypes = this.EnsureAnyOfTypes();
-            if (!anyOfTypes.Contains(anyOfType))
+            if (!anyOfTypes.Any(t => t.FullyQualifiedDotNetTypeName == anyOfType.FullyQualifiedDotNetTypeName))
             {
                 anyOfTypes.Add(anyOfType);
                 this.AddConversionOperatorsFor(anyOfType, true);
@@ -421,7 +422,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         public void AddOneOfType(TypeDeclaration oneOfType)
         {
             List<TypeDeclaration> oneOfTypes = this.EnsureOneOfTypes();
-            if (!oneOfTypes.Contains(oneOfType))
+            if (!oneOfTypes.Any(t => t.FullyQualifiedDotNetTypeName == oneOfType.FullyQualifiedDotNetTypeName))
             {
                 oneOfTypes.Add(oneOfType);
                 this.AddConversionOperatorsFor(oneOfType, true);
@@ -438,7 +439,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         public void Merge(TypeDeclaration typeToMerge)
         {
             List<TypeDeclaration> mergedTypes = this.EnsureMergedTypes();
-            if (!mergedTypes.Contains(typeToMerge))
+            if (!mergedTypes.Any(t => t.FullyQualifiedDotNetTypeName == typeToMerge.FullyQualifiedDotNetTypeName))
             {
                 mergedTypes.Add(typeToMerge);
             }
@@ -533,7 +534,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
             // We can short circuit the longer check, by looking at all of types directly.
             // If we must match this, then we are indeed a specialized version of that
             // type
-            if (lowered.AllOfTypes is not null && lowered.AllOfTypes.Contains(loweredOther))
+            if (lowered.AllOfTypes is not null && lowered.AllOfTypes.Any(t => t.FullyQualifiedDotNetTypeName == loweredOther.FullyQualifiedDotNetTypeName))
             {
                 return true;
             }
@@ -682,6 +683,8 @@ namespace Menes.JsonSchema.TypeBuilder.Model
                 IsLowered = true,
             };
 
+            TypeDeclaration baseType = this;
+
             // Ensure we have set the result early, before we start potentially recursively
             // lowering, so that the lowered result is available to recursive calls.
             this.lowered = result;
@@ -700,38 +703,14 @@ namespace Menes.JsonSchema.TypeBuilder.Model
                     // If we used the original type directly, we would lose our referential
                     // scope in the absoluteKeywordLocation hierarchy, and also get into trouble
                     // with recursive references.
-                    if (this.AdditionalItems is null &&
-                        this.AdditionalProperties is null &&
-                        this.AllOfTypes is null &&
-                        this.AnyOfTypes is null &&
-                        this.AsConversionMethods is null &&
-                        this.Contains is null &&
-                        this.ConversionOperators is null &&
-                        this.DependentRequired is null &&
-                        this.ExclusiveMaximum is null &&
-                        this.ExclusiveMinimum is null &&
-                        this.IfThenElseTypes is null &&
-                        this.MaxContains is null &&
-                        this.Maximum is null &&
-                        this.MaxItems is null &&
-                        this.MaxLength is null &&
-                        this.MaxProperties is null &&
-                        this.MinContains is null &&
-                        this.Minimum is null &&
-                        this.MinItems is null &&
-                        this.MinLength is null &&
-                        this.MinProperties is null &&
-                        this.MultipleOf is null &&
-                        this.NotType is null &&
-                        this.OneOfTypes is null &&
-                        this.Pattern is null &&
-                        this.Properties is null &&
-                        this.UnevaluatedItems is null &&
-                        this.UniqueItems is null &&
-                        this.Type is null)
+                    if (this.IsNakedReference())
                     {
-                        result.DotnetTypeName = loweredTypes[0].DotnetTypeName;
-                        result.Type = loweredTypes[0].Type;
+                        // Switch the base type to the reference.
+                        baseType = loweredTypes[0];
+
+                        // Update the things that can only come from the reference.
+                        result.DotnetTypeName = baseType.DotnetTypeName;
+                        result.Type = baseType.Type;
                         result.IsRef = true;
                     }
                 }
@@ -739,48 +718,56 @@ namespace Menes.JsonSchema.TypeBuilder.Model
                 // Iterate the types to merge and merge them in
                 foreach (TypeDeclaration typeToMerge in loweredTypes)
                 {
-                    MergeTypes(result, typeToMerge);
+                    MergeTypesToBase(result, typeToMerge);
                 }
             }
 
-            // Then merge in lowered versions of our own items
-            MergeAdditionalItems(this.AdditionalItems?.Lowered, result);
-            MergeUnevaluatedItems(this.UnevaluatedItems?.Lowered, result);
-            MergeContains(this.Contains?.Lowered, result);
-            MergeAdditionalProperties(this.AdditionalProperties?.Lowered, result);
-            MergeAllOfTypes(Lower(this.AllOfTypes), result);
-            MergeAsConversionMethods(Lower(this.AsConversionMethods), result);
-            MergeAnyOfTypes(Lower(this.AnyOfTypes), result);
-            MergeConversionOperators(Lower(this.ConversionOperators), result);
-            MergeIfThenElseTypes(Lower(this.IfThenElseTypes), result);
-            MergeNotType(this.NotType?.Lowered, result);
-            MergeOneOfTypes(Lower(this.OneOfTypes), result);
-            MergeProperties(Lower(this.Properties), result);
-            MergeValidations(this, result);
+            // Then merge in our own base type to the target.
+            MergeProperties(Lower(baseType.Properties), result);
+            MergeValidations(baseType, result);
+            MergeConversions(baseType, result);
 
             return this.lowered;
         }
 
-        private static void MergeTypes(TypeDeclaration result, TypeDeclaration typeToMerge)
+        /// <summary>
+        /// Lowers and merges all the validations.
+        /// </summary>
+        /// <remarks>
+        /// This is used to merge the base type's conversion methods into the target type when
+        /// merging multiple types together. It is not used for the types being merged into
+        /// the base, as their conversions are dealt with by adding <see cref="ConversionOperatorDeclaration.Via"/>
+        /// conversions when they are added to the base.
+        /// </remarks>
+        private static void MergeConversions(TypeDeclaration typeToMerge, TypeDeclaration result)
         {
-            MergeAdditionalItems(typeToMerge.AdditionalItems, result);
-            MergeUnevaluatedItems(typeToMerge.UnevaluatedItems, result);
-            MergeContains(typeToMerge.Contains, result);
-            MergeAdditionalProperties(typeToMerge.AdditionalProperties, result);
-            MergeAllOfTypes(typeToMerge.AllOfTypes, result);
-            MergeAsConversionMethods(typeToMerge.AsConversionMethods, result);
-            MergeAnyOfTypes(typeToMerge.AnyOfTypes, result);
-            MergeConversionOperators(typeToMerge.ConversionOperators, result);
-            MergeIfThenElseTypes(typeToMerge.IfThenElseTypes, result);
-            MergeNotType(typeToMerge.NotType, result);
-            MergeOneOfTypes(typeToMerge.OneOfTypes, result);
-            MergeProperties(typeToMerge.Properties, result);
-            MergeValidations(typeToMerge, result);
+            MergeAsConversionMethods(Lower(typeToMerge.AsConversionMethods), result);
+            MergeConversionOperators(Lower(typeToMerge.ConversionOperators), result);
         }
 
+        /// <summary>
+        /// Lowers and merges all the validations.
+        /// </summary>
+        /// <remarks>
+        /// This is used to merge the base type's validations into the target type when
+        /// merging multiple types together. It is not used for the types being merged into
+        /// the base, as their validation is carried out by calling their own <see cref="IJsonValue.Validate"/> method.
+        /// in order to maintain the keyword location stack correctly.
+        /// </remarks>
         private static void MergeValidations(TypeDeclaration typeToMerge, TypeDeclaration result)
         {
+            MergeAdditionalItems(typeToMerge.AdditionalItems?.Lowered, result);
+            MergeUnevaluatedItems(typeToMerge.UnevaluatedItems?.Lowered, result);
+            MergeContains(typeToMerge.Contains?.Lowered, result);
+            MergeIfThenElseTypes(Lower(typeToMerge.IfThenElseTypes), result);
+            MergeNotType(typeToMerge.NotType?.Lowered, result);
+            MergeAdditionalProperties(typeToMerge.AdditionalProperties?.Lowered, result);
+            MergeAllOfTypes(Lower(typeToMerge.AllOfTypes), result);
+            MergeAnyOfTypes(Lower(typeToMerge.AnyOfTypes), result);
+            MergeOneOfTypes(Lower(typeToMerge.OneOfTypes), result);
             MergeDependentRequired(typeToMerge, result);
+            MergeAdditionalProperties(typeToMerge.AdditionalProperties?.Lowered, result);
+
             if (typeToMerge.ExclusiveMaximum is not null)
             {
                 result.ExclusiveMaximum = typeToMerge.ExclusiveMaximum;
@@ -855,6 +842,21 @@ namespace Menes.JsonSchema.TypeBuilder.Model
             {
                 result.UniqueItems = typeToMerge.UniqueItems;
             }
+        }
+
+        private static void MergeTypesToBase(TypeDeclaration result, TypeDeclaration typeToMerge)
+        {
+            MergeAllOfTypes(typeToMerge.AllOfTypes, result);
+            MergeAnyOfTypes(typeToMerge.AnyOfTypes, result);
+            MergeOneOfTypes(typeToMerge.OneOfTypes, result);
+            MergeProperties(typeToMerge.Properties, result);
+
+            // Note that we don't merge validations on the merged types
+            // These will be dealt with by running the validations of the actual allOf, anyOf, oneOf
+            // types. This must be done in order to ensure that the keyword context is maintained correctly.
+
+            // We also don't merge conversion methods as these are dealt with when the types are added to the
+            // allOf, oneOf, anyOf properties using the 'Vias'
         }
 
         private static void MergeDependentRequired(TypeDeclaration typeToMerge, TypeDeclaration result)
@@ -1061,7 +1063,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
 
                 foreach (TypeDeclaration type in allOfTypes)
                 {
-                    if (type != result && !resultTypes.Contains(type))
+                    if (type != result && !resultTypes.Any(t => t.FullyQualifiedDotNetTypeName == type.FullyQualifiedDotNetTypeName))
                     {
                         resultTypes.Add(type);
                     }
@@ -1079,7 +1081,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
 
                 foreach (TypeDeclaration type in anyOfTypes)
                 {
-                    if (type != result && !resultTypes.Contains(type))
+                    if (type != result && !resultTypes.Any(t => t.FullyQualifiedDotNetTypeName == type.FullyQualifiedDotNetTypeName))
                     {
                         resultTypes.Add(type);
                     }
@@ -1097,7 +1099,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
 
                 foreach (TypeDeclaration type in oneOfTypes)
                 {
-                    if (type != result && !resultTypes.Contains(type))
+                    if (type != result && !resultTypes.Any(t => t.FullyQualifiedDotNetTypeName == type.FullyQualifiedDotNetTypeName))
                     {
                         resultTypes.Add(type);
                     }
@@ -1125,6 +1127,39 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         private static void MergeContains(TypeDeclaration? contains, TypeDeclaration result)
         {
             result.Contains = PickMostDerivedTypeWithOptionals(contains, result.Contains);
+        }
+
+        private bool IsNakedReference()
+        {
+            return this.AdditionalItems is null &&
+                                    this.AdditionalProperties is null &&
+                                    this.AllOfTypes is null &&
+                                    this.AnyOfTypes is null &&
+                                    this.AsConversionMethods is null &&
+                                    this.Contains is null &&
+                                    this.ConversionOperators is null &&
+                                    this.DependentRequired is null &&
+                                    this.ExclusiveMaximum is null &&
+                                    this.ExclusiveMinimum is null &&
+                                    this.IfThenElseTypes is null &&
+                                    this.MaxContains is null &&
+                                    this.Maximum is null &&
+                                    this.MaxItems is null &&
+                                    this.MaxLength is null &&
+                                    this.MaxProperties is null &&
+                                    this.MinContains is null &&
+                                    this.Minimum is null &&
+                                    this.MinItems is null &&
+                                    this.MinLength is null &&
+                                    this.MinProperties is null &&
+                                    this.MultipleOf is null &&
+                                    this.NotType is null &&
+                                    this.OneOfTypes is null &&
+                                    this.Pattern is null &&
+                                    this.Properties is null &&
+                                    this.UnevaluatedItems is null &&
+                                    this.UniqueItems is null &&
+                                    this.Type is null;
         }
 
         private void AddAsConversionMethod(AsConversionMethodDeclaration asConversionMethodDeclaration)

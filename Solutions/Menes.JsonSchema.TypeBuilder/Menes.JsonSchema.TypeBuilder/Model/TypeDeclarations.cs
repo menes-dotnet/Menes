@@ -47,7 +47,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         /// <summary>
         /// A clr <see cref="string"/> type.
         /// </summary>
-        public static readonly TypeDeclaration ClrStringTypeDeclaration = new TypeDeclaration(builtInType: true) { DotnetTypeName = "double" };
+        public static readonly TypeDeclaration ClrStringTypeDeclaration = new TypeDeclaration(builtInType: true) { DotnetTypeName = "string" };
 
         /// <summary>
         /// A clr <see cref="bool"/> type.

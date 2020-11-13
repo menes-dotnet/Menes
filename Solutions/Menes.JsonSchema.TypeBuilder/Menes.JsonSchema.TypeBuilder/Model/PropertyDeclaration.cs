@@ -4,9 +4,12 @@
 
 namespace Menes.JsonSchema.TypeBuilder.Model
 {
+    using System.Diagnostics;
+
     /// <summary>
     /// A property that will be exposed on the entity.
     /// </summary>
+    [DebuggerDisplay("{JsonPropertyName}, {TypeDeclaration.DotnetTypeName}, required: {IsRequired}")]
     public class PropertyDeclaration
     {
         /// <summary>

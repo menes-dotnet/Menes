@@ -5,10 +5,12 @@
 namespace Menes.JsonSchema.TypeBuilder.Model
 {
     using System;
+    using System.Diagnostics;
 
     /// <summary>
     /// Declaration of a conversion operator.
     /// </summary>
+    [DebuggerDisplay("Target: {TargetType}, Via: {Via}, {Conversion}")]
     public class ConversionOperatorDeclaration
     {
         /// <summary>
