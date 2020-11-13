@@ -259,7 +259,7 @@ namespace Menes.JsonSchema.TypeBuilder
         /// <summary>
         /// Add the array-based validations.
         /// </summary>
-        private void AddArrayValidations(LocatedElement schema, TypeDeclaration typeDeclaration)
+        private async Task AddArrayValidations(LocatedElement schema, TypeDeclaration typeDeclaration)
         {
             if (schema.JsonElement.ValueKind == JsonValueKind.Object)
             {
@@ -291,6 +291,24 @@ namespace Menes.JsonSchema.TypeBuilder
                 {
                     ValidateNumber(minContains);
                     typeDeclaration.MinContains = minContains.GetInt32();
+                }
+
+                if (schema.JsonElement.TryGetProperty("contains", out JsonElement contains))
+                {
+                    ValidateSchema(contains);
+                    this.PushPropertyToAbsoluteKeywordLocationStack("contains");
+                    JsonReference location = this.absoluteKeywordLocationStack.Peek();
+                    if (this.TryGetResolvedElement(location, out LocatedElement propertyTypeElement))
+                    {
+                        TypeDeclaration containsDeclaration = await this.CreateTypeDeclarations(propertyTypeElement).ConfigureAwait(false);
+                        typeDeclaration.Contains = containsDeclaration;
+                    }
+                    else
+                    {
+                        throw new InvalidOperationException($"Unable to find element for contains type at location: '{location}'");
+                    }
+
+                    this.absoluteKeywordLocationStack.Pop();
                 }
             }
         }
