@@ -40,7 +40,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
             /// ]]>
             /// </code>
             /// </remarks>
-            GenericAs,
+            GenericAsAndStaticFrom,
 
             /// <summary>
             /// Convert by using an explicit cast.

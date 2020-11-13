@@ -44,14 +44,16 @@ namespace Menes.JsonSchema.TypeBuilder
                 if (!typeDeclaration.IsBooleanSchema)
                 {
                     await this.AddRef(schema, typeDeclaration).ConfigureAwait(false);
-                    this.AddType(schema, typeDeclaration);
-
+                    this.AddTypeAndFormat(schema, typeDeclaration);
                     await this.AddAdditionalProperties(schema, typeDeclaration).ConfigureAwait(false);
                     await this.AddAllOf(schema, typeDeclaration).ConfigureAwait(false);
                     await this.AddAnyOf(schema, typeDeclaration).ConfigureAwait(false);
                     await this.AddOneOf(schema, typeDeclaration).ConfigureAwait(false);
                     await this.AddNot(schema, typeDeclaration).ConfigureAwait(false);
                     await this.AddIfThenElse(schema, typeDeclaration).ConfigureAwait(false);
+                    this.AddStringValidations(schema, typeDeclaration);
+                    this.AddNumericValidations(schema, typeDeclaration);
+                    this.AddObjectValidations(schema, typeDeclaration);
                     await this.FindProperties(schema, typeDeclaration).ConfigureAwait(false);
                 }
 
@@ -63,33 +65,128 @@ namespace Menes.JsonSchema.TypeBuilder
             }
         }
 
-        private async Task AddAdditionalProperties(LocatedElement schema, TypeDeclaration typeDeclaration)
+        /// <summary>
+        /// Adds the string-based validations pattern, maxLength and minLength.
+        /// </summary>
+        private void AddStringValidations(LocatedElement schema, TypeDeclaration typeDeclaration)
         {
             if (schema.JsonElement.ValueKind == JsonValueKind.Object)
             {
-                if (schema.JsonElement.TryGetProperty("additionalProperties", out JsonElement not))
+                if (schema.JsonElement.TryGetProperty("pattern", out JsonElement pattern))
                 {
-                    ValidateSchema(not);
-                    this.PushPropertyToAbsoluteKeywordLocationStack("additionalProperties");
-                    JsonReference location = this.absoluteKeywordLocationStack.Peek();
-                    if (this.TryGetResolvedElement(location, out LocatedElement propertyTypeElement))
-                    {
-                        if (propertyTypeElement.JsonElement.ValueKind == JsonValueKind.Object)
-                        {
-                            TypeDeclaration additionalPropertiesDeclaration = await this.CreateTypeDeclarations(propertyTypeElement).ConfigureAwait(false);
-                            typeDeclaration.AdditionalProperties = additionalPropertiesDeclaration;
-                        }
-                        else if (propertyTypeElement.JsonElement.ValueKind == JsonValueKind.False)
-                        {
-                            typeDeclaration.AdditionalProperties = CommonTypeDeclarations.NotTypeDeclaration;
-                        }
-                    }
-                    else
-                    {
-                        throw new InvalidOperationException($"Unable to find element for additionalProperties type at location: '{location}'");
-                    }
+                    ValidateString(pattern);
+                    typeDeclaration.Pattern = pattern.GetString();
+                }
 
-                    this.absoluteKeywordLocationStack.Pop();
+                if (schema.JsonElement.TryGetProperty("maxLength", out JsonElement maxLength))
+                {
+                    ValidateNumber(maxLength);
+                    typeDeclaration.MaxLength = maxLength.GetInt32();
+                }
+
+                if (schema.JsonElement.TryGetProperty("minLength", out JsonElement minLength))
+                {
+                    ValidateNumber(minLength);
+                    typeDeclaration.MinLength = minLength.GetInt32();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Adds the numeric-based validations.
+        /// </summary>
+        private void AddNumericValidations(LocatedElement schema, TypeDeclaration typeDeclaration)
+        {
+            if (schema.JsonElement.ValueKind == JsonValueKind.Object)
+            {
+                if (schema.JsonElement.TryGetProperty("multipleOf", out JsonElement multipleOf))
+                {
+                    ValidateNumber(multipleOf);
+                    typeDeclaration.MultipleOf = multipleOf.GetDouble();
+                }
+
+                if (schema.JsonElement.TryGetProperty("maximum", out JsonElement maximum))
+                {
+                    ValidateNumber(maximum);
+                    typeDeclaration.Maximum = maximum.GetDouble();
+                }
+
+                if (schema.JsonElement.TryGetProperty("exclusiveMaximum", out JsonElement exclusiveMaximum))
+                {
+                    ValidateNumber(exclusiveMaximum);
+                    typeDeclaration.ExclusiveMaximum = exclusiveMaximum.GetDouble();
+                }
+
+                if (schema.JsonElement.TryGetProperty("minimum", out JsonElement minimum))
+                {
+                    ValidateNumber(minimum);
+                    typeDeclaration.Minimum = minimum.GetDouble();
+                }
+
+                if (schema.JsonElement.TryGetProperty("exclusiveMinimum", out JsonElement exclusiveMinimum))
+                {
+                    ValidateNumber(exclusiveMinimum);
+                    typeDeclaration.ExclusiveMinimum = exclusiveMinimum.GetDouble();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Adds the numeric-based validations.
+        /// </summary>
+        private void AddObjectValidations(LocatedElement schema, TypeDeclaration typeDeclaration)
+        {
+            if (schema.JsonElement.ValueKind == JsonValueKind.Object)
+            {
+                if (schema.JsonElement.TryGetProperty("maxProperties", out JsonElement maxProperties))
+                {
+                    ValidateNumber(maxProperties);
+                    typeDeclaration.MaxProperties = maxProperties.GetInt32();
+                }
+
+                if (schema.JsonElement.TryGetProperty("minProperties", out JsonElement minProperties))
+                {
+                    ValidateNumber(minProperties);
+                    typeDeclaration.MinProperties = minProperties.GetInt32();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Add the array-based validations.
+        /// </summary>
+        private void AddArrayValidations(LocatedElement schema, TypeDeclaration typeDeclaration)
+        {
+            if (schema.JsonElement.ValueKind == JsonValueKind.Object)
+            {
+                if (schema.JsonElement.TryGetProperty("maxItems", out JsonElement maxItems))
+                {
+                    ValidateNumber(maxItems);
+                    typeDeclaration.MaxItems = maxItems.GetInt32();
+                }
+
+                if (schema.JsonElement.TryGetProperty("minItems", out JsonElement minItems))
+                {
+                    ValidateNumber(minItems);
+                    typeDeclaration.MinItems = minItems.GetInt32();
+                }
+
+                if (schema.JsonElement.TryGetProperty("uniqueItems", out JsonElement uniqueItems))
+                {
+                    ValidateBoolean(uniqueItems);
+                    typeDeclaration.UniqueItems = uniqueItems.GetBoolean();
+                }
+
+                if (schema.JsonElement.TryGetProperty("maxContains", out JsonElement maxContains))
+                {
+                    ValidateNumber(maxContains);
+                    typeDeclaration.MaxContains = maxContains.GetInt32();
+                }
+
+                if (schema.JsonElement.TryGetProperty("minContains", out JsonElement minContains))
+                {
+                    ValidateNumber(minContains);
+                    typeDeclaration.MinContains = minContains.GetInt32();
                 }
             }
         }
@@ -112,7 +209,7 @@ namespace Menes.JsonSchema.TypeBuilder
         /// <summary>
         /// Adds the type array to the declaration.
         /// </summary>
-        private void AddType(LocatedElement schema, TypeDeclaration typeDeclaration)
+        private void AddTypeAndFormat(LocatedElement schema, TypeDeclaration typeDeclaration)
         {
             if (schema.JsonElement.ValueKind == JsonValueKind.Object)
             {
@@ -120,7 +217,11 @@ namespace Menes.JsonSchema.TypeBuilder
                 {
                     ValidateStringOrArray(type);
 
-                    this.PushPropertyToAbsoluteKeywordLocationStack("type");
+                    if (schema.JsonElement.TryGetProperty("format", out JsonElement format))
+                    {
+                        ValidateString(format);
+                    }
+
                     if (type.ValueKind == JsonValueKind.Array)
                     {
                         var typeList = new List<string>();
@@ -128,6 +229,7 @@ namespace Menes.JsonSchema.TypeBuilder
                         {
                             string typeString = ValidateTypeString(element);
                             typeList.Add(typeString);
+                            this.AddConversionOperatorsFor(typeString, format, typeDeclaration);
                         }
 
                         typeDeclaration.Type = typeList;
@@ -138,9 +240,8 @@ namespace Menes.JsonSchema.TypeBuilder
                         string typeString = ValidateTypeString(type);
                         typeList.Add(typeString);
                         typeDeclaration.Type = typeList;
+                        this.AddConversionOperatorsFor(typeString, format, typeDeclaration);
                     }
-
-                    this.absoluteKeywordLocationStack.Pop();
                 }
             }
         }

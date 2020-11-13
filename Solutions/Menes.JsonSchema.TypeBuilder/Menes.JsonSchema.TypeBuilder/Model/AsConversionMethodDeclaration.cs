@@ -5,7 +5,7 @@
 namespace Menes.JsonSchema.TypeBuilder.Model
 {
     /// <summary>
-    /// A conversion declaration for an <c>As{SomeTypeName}()</c> method.
+    /// A conversion declaration for an <c>As{SomeTypeName}()</c> method and a <c>static {ThisTypeName} From({SomeTypeName} someTypeInstance)</c>.
     /// </summary>
     public class AsConversionMethodDeclaration : ConversionOperatorDeclaration
     {

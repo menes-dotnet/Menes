@@ -5,6 +5,8 @@
 namespace Menes.JsonSchema.TypeBuilder
 {
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Text.Json;
     using System.Threading.Tasks;
     using Menes.Json;
@@ -56,6 +58,26 @@ namespace Menes.JsonSchema.TypeBuilder
         }
 
         /// <summary>
+        /// Enumerate the required properties list to update the corresponding property declaration, or
+        /// to add it if it was not declared previously.
+        /// </summary>
+        private void AddDependentRequiredProperties(LocatedElement schema, TypeDeclaration typeDeclaration)
+        {
+            if (schema.JsonElement.TryGetProperty("dependentRequired", out JsonElement required))
+            {
+                ValidateObject(required);
+                var result = new Dictionary<string, List<string>>();
+                foreach (JsonProperty property in required.EnumerateObject())
+                {
+                    ValidateArray(property.Value);
+                    result.Add(property.Name, property.Value.EnumerateArray().Select(s => s.GetString()).ToList());
+                }
+
+                typeDeclaration.DependendentRequired = result;
+            }
+        }
+
+        /// <summary>
         /// Enumerate the "properties" value, and add or update <see cref="PropertyDeclaration"/> instances
         /// for each that we find.
         /// </summary>
@@ -75,6 +97,37 @@ namespace Menes.JsonSchema.TypeBuilder
                 }
 
                 this.absoluteKeywordLocationStack.Pop();
+            }
+        }
+
+        private async Task AddAdditionalProperties(LocatedElement schema, TypeDeclaration typeDeclaration)
+        {
+            if (schema.JsonElement.ValueKind == JsonValueKind.Object)
+            {
+                if (schema.JsonElement.TryGetProperty("additionalProperties", out JsonElement not))
+                {
+                    ValidateSchema(not);
+                    this.PushPropertyToAbsoluteKeywordLocationStack("additionalProperties");
+                    JsonReference location = this.absoluteKeywordLocationStack.Peek();
+                    if (this.TryGetResolvedElement(location, out LocatedElement propertyTypeElement))
+                    {
+                        if (propertyTypeElement.JsonElement.ValueKind == JsonValueKind.Object)
+                        {
+                            TypeDeclaration additionalPropertiesDeclaration = await this.CreateTypeDeclarations(propertyTypeElement).ConfigureAwait(false);
+                            typeDeclaration.AdditionalProperties = additionalPropertiesDeclaration;
+                        }
+                        else if (propertyTypeElement.JsonElement.ValueKind == JsonValueKind.False)
+                        {
+                            typeDeclaration.AdditionalProperties = TypeDeclarations.NotTypeDeclaration;
+                        }
+                    }
+                    else
+                    {
+                        throw new InvalidOperationException($"Unable to find element for additionalProperties type at location: '{location}'");
+                    }
+
+                    this.absoluteKeywordLocationStack.Pop();
+                }
             }
         }
 

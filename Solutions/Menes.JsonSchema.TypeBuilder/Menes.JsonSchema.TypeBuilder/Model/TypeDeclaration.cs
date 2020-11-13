@@ -22,9 +22,11 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         /// Initializes a new instance of the <see cref="TypeDeclaration"/> class.
         /// </summary>
         /// <param name="typeSchema">The schema element related to the type.</param>
-        public TypeDeclaration(LocatedElement typeSchema = default)
+        /// <param name="builtInType">Determines whether this is a built-in type.</param>
+        public TypeDeclaration(LocatedElement typeSchema = default, bool builtInType = false)
         {
             this.TypeSchema = typeSchema;
+            this.BuiltInType = builtInType;
         }
 
         /// <summary>
@@ -95,6 +97,14 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         public LocatedElement TypeSchema { get; set; }
 
         /// <summary>
+        /// Gets a value indicating whether this is a built-in type or not.
+        /// </summary>
+        /// <remarks>
+        /// Built-in types do not need generation, and may not be decorated.
+        /// </remarks>
+        public bool BuiltInType { get; }
+
+        /// <summary>
         /// Gets the non-optional properties exposed by the type.
         /// </summary>
         public List<PropertyDeclaration>? Properties { get; private set; }
@@ -151,6 +161,16 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         public TypeDeclaration? AdditionalItems { get; set; }
 
         /// <summary>
+        /// Gets or sets the unevaluated items type.
+        /// </summary>
+        public TypeDeclaration? UnevaluatedItems { get; set; }
+
+        /// <summary>
+        /// Gets or sets the contains type.
+        /// </summary>
+        public TypeDeclaration? Contains { get; set; }
+
+        /// <summary>
         /// Gets or sets the additional items type.
         /// </summary>
         public TypeDeclaration? AdditionalProperties { get; set; }
@@ -198,6 +218,105 @@ namespace Menes.JsonSchema.TypeBuilder.Model
 
                 return current;
             }
+        }
+
+        /// <summary>
+        /// Gets or sets the pattern for a string value.
+        /// </summary>
+        public string? Pattern { get; set; }
+
+        /// <summary>
+        /// Gets or sets the maximum length of a string.
+        /// </summary>
+        public int? MaxLength { get; set; }
+
+        /// <summary>
+        /// Gets or sets the minimum length of a string.
+        /// </summary>
+        public int? MinLength { get; set; }
+
+        /// <summary>
+        /// Gets or sets the multiple-of numeric validation.
+        /// </summary>
+        public double? MultipleOf { get; set; }
+
+        /// <summary>
+        /// Gets or sets the maximum numeric validation.
+        /// </summary>
+        public double? Maximum { get; set; }
+
+        /// <summary>
+        /// Gets or sets the exclusive maximum numeric validation.
+        /// </summary>
+        public double? ExclusiveMaximum { get; set; }
+
+        /// <summary>
+        /// Gets or sets the minimum numeric validation.
+        /// </summary>
+        public double? Minimum { get; set; }
+
+        /// <summary>
+        /// Gets or sets the exclusive minimum numeric validation.
+        /// </summary>
+        public double? ExclusiveMinimum { get; set; }
+
+        /// <summary>
+        /// Gets or sets the maximum number of items in the array.
+        /// </summary>
+        public int? MaxItems { get; set; }
+
+        /// <summary>
+        /// Gets or sets the minimum number of items in the array.
+        /// </summary>
+        public int? MinItems { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the items in the array should be unique.
+        /// </summary>
+        public bool? UniqueItems { get; set; }
+
+        /// <summary>
+        /// Gets or sets the maximum number of items in the array that match the contains type.
+        /// </summary>
+        public int? MaxContains { get; set; }
+
+        /// <summary>
+        /// Gets or sets the minimum number of items in the array that match the contains type.
+        /// </summary>
+        public int? MinContains { get; set; }
+
+        /// <summary>
+        /// Gets or sets the maximum number of properties in the object.
+        /// </summary>
+        public int? MaxProperties { get; set; }
+
+        /// <summary>
+        /// Gets or sets the minimum number of properties in the object.
+        /// </summary>
+        public int? MinProperties { get; set; }
+
+        /// <summary>
+        /// Gets or sets the set of dependent required properties in the object.
+        /// </summary>
+        public Dictionary<string, List<string>>? DependendentRequired { get; set; }
+
+        /// <summary>
+        /// Add a conversion operator.
+        /// </summary>
+        /// <param name="conversionOperatorDeclaration">The operator to add.</param>
+        /// <remarks>
+        /// This will not add a conversion operator if it already existing in the type.
+        /// </remarks>
+        public void AddConversionOperator(ConversionOperatorDeclaration conversionOperatorDeclaration)
+        {
+            List<ConversionOperatorDeclaration> operators = this.EnsureConversionOperators();
+
+            if (operators.Any(o => o.TargetType == conversionOperatorDeclaration.TargetType))
+            {
+                return;
+            }
+
+            operators.Add(conversionOperatorDeclaration);
         }
 
         /// <summary>
@@ -447,6 +566,20 @@ namespace Menes.JsonSchema.TypeBuilder.Model
                 return false;
             }
 
+            if (loweredOther.UnevaluatedItems is not null &&
+                lowered.UnevaluatedItems is not null &&
+                !lowered.UnevaluatedItems.Specializes(loweredOther.UnevaluatedItems))
+            {
+                return false;
+            }
+
+            if (loweredOther.Contains is not null &&
+                lowered.Contains is not null &&
+                !lowered.Contains.Specializes(loweredOther.Contains))
+            {
+                return false;
+            }
+
             if (loweredOther.AdditionalProperties is not null &&
                 lowered.AdditionalProperties is not null &&
                 !lowered.AdditionalProperties.Specializes(loweredOther.AdditionalProperties))
@@ -571,11 +704,29 @@ namespace Menes.JsonSchema.TypeBuilder.Model
                         this.AllOfTypes is null &&
                         this.AnyOfTypes is null &&
                         this.AsConversionMethods is null &&
+                        this.Contains is null &&
                         this.ConversionOperators is null &&
+                        this.DependendentRequired is null &&
+                        this.ExclusiveMaximum is null &&
+                        this.ExclusiveMinimum is null &&
                         this.IfThenElseTypes is null &&
+                        this.MaxContains is null &&
+                        this.Maximum is null &&
+                        this.MaxItems is null &&
+                        this.MaxLength is null &&
+                        this.MaxProperties is null &&
+                        this.MinContains is null &&
+                        this.Minimum is null &&
+                        this.MinItems is null &&
+                        this.MinLength is null &&
+                        this.MinProperties is null &&
+                        this.MultipleOf is null &&
                         this.NotType is null &&
                         this.OneOfTypes is null &&
+                        this.Pattern is null &&
                         this.Properties is null &&
+                        this.UnevaluatedItems is null &&
+                        this.UniqueItems is null &&
                         this.Type is null)
                     {
                         result.DotnetTypeName = loweredTypes[0].DotnetTypeName;
@@ -593,6 +744,8 @@ namespace Menes.JsonSchema.TypeBuilder.Model
 
             // Then merge in lowered versions of our own items
             MergeAdditionalItems(this.AdditionalItems?.Lowered, result);
+            MergeUnevaluatedItems(this.UnevaluatedItems?.Lowered, result);
+            MergeContains(this.Contains?.Lowered, result);
             MergeAdditionalProperties(this.AdditionalProperties?.Lowered, result);
             MergeAllOfTypes(Lower(this.AllOfTypes), result);
             MergeAsConversionMethods(Lower(this.AsConversionMethods), result);
@@ -609,6 +762,8 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         private static void MergeTypes(TypeDeclaration result, TypeDeclaration typeToMerge)
         {
             MergeAdditionalItems(typeToMerge.AdditionalItems, result);
+            MergeUnevaluatedItems(typeToMerge.UnevaluatedItems, result);
+            MergeContains(typeToMerge.Contains, result);
             MergeAdditionalProperties(typeToMerge.AdditionalProperties, result);
             MergeAllOfTypes(typeToMerge.AllOfTypes, result);
             MergeAsConversionMethods(typeToMerge.AsConversionMethods, result);
@@ -848,10 +1003,14 @@ namespace Menes.JsonSchema.TypeBuilder.Model
             result.AdditionalItems = PickMostDerivedTypeWithOptionals(additionalItems, result.AdditionalItems);
         }
 
-        private void AddConversionOperator(ConversionOperatorDeclaration conversionDeclaration)
+        private static void MergeUnevaluatedItems(TypeDeclaration? unevaluatedItems, TypeDeclaration result)
         {
-            List<ConversionOperatorDeclaration> conversionOperators = this.EnsureConversionOperators();
-            conversionOperators.Add(conversionDeclaration);
+            result.UnevaluatedItems = PickMostDerivedTypeWithOptionals(unevaluatedItems, result.UnevaluatedItems);
+        }
+
+        private static void MergeContains(TypeDeclaration? contains, TypeDeclaration result)
+        {
+            result.Contains = PickMostDerivedTypeWithOptionals(contains, result.Contains);
         }
 
         private void AddAsConversionMethod(AsConversionMethodDeclaration asConversionMethodDeclaration)
@@ -866,7 +1025,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
             this.AddConversionOperator(
                 new ConversionOperatorDeclaration
                 {
-                    Conversion = ConversionOperatorDeclaration.ConversionType.GenericAs,
+                    Conversion = ConversionOperatorDeclaration.ConversionType.GenericAsAndStaticFrom,
                     Direction = ConversionOperatorDeclaration.ConversionDirection.BidirectionalImplicit,
                     TargetType = targetType,
                 });
@@ -875,7 +1034,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
             this.AddAsConversionMethod(
                 new AsConversionMethodDeclaration
                 {
-                    Conversion = ConversionOperatorDeclaration.ConversionType.GenericAs,
+                    Conversion = ConversionOperatorDeclaration.ConversionType.GenericAsAndStaticFrom,
                     TargetType = targetType,
                 });
 

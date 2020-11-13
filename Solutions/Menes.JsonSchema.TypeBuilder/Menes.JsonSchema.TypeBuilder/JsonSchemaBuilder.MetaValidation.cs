@@ -12,6 +12,30 @@ namespace Menes.JsonSchema.TypeBuilder
     /// </summary>
     public partial class JsonSchemaBuilder
     {
+        private static void ValidateBoolean(JsonElement boolean)
+        {
+            if (boolean.ValueKind != JsonValueKind.True && boolean.ValueKind != JsonValueKind.False)
+            {
+                throw new InvalidOperationException($"Unsuppported boolean: {boolean.ValueKind}.");
+            }
+        }
+
+        private static void ValidateNumber(JsonElement number)
+        {
+            if (number.ValueKind != JsonValueKind.Number)
+            {
+                throw new InvalidOperationException($"Unsuppported positive integer: {number.ValueKind}.");
+            }
+        }
+
+        private static void ValidateArray(JsonElement array)
+        {
+            if (array.ValueKind != JsonValueKind.Array)
+            {
+                throw new InvalidOperationException($"Unsuppported array: {array.ValueKind}.");
+            }
+        }
+
         private static void ValidateAllOf(JsonElement allOf)
         {
             if (allOf.ValueKind != JsonValueKind.Array)
