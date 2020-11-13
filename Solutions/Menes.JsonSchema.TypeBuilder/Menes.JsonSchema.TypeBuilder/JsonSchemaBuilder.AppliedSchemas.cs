@@ -72,7 +72,7 @@ namespace Menes.JsonSchema.TypeBuilder
                     if (this.TryGetResolvedElement(location, out LocatedElement propertyTypeElement))
                     {
                         TypeDeclaration notDeclaration = await this.CreateTypeDeclarations(propertyTypeElement).ConfigureAwait(false);
-                        typeDeclaration.NotType = notDeclaration;
+                        typeDeclaration.Not = notDeclaration;
                     }
                     else
                     {
@@ -146,7 +146,7 @@ namespace Menes.JsonSchema.TypeBuilder
 
                 if (ifType is not null && (thenType is not null || elseType is not null))
                 {
-                    typeDeclaration.IfThenElseTypes = new IfThenElse(ifType, thenType, elseType);
+                    typeDeclaration.IfThenElse = new IfThenElse(ifType, thenType, elseType);
                 }
             }
         }

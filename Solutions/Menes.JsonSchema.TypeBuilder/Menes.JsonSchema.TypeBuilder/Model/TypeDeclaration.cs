@@ -28,7 +28,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         public TypeDeclaration(LocatedElement typeSchema = default, bool builtInType = false)
         {
             this.TypeSchema = typeSchema;
-            this.BuiltInType = builtInType;
+            this.IsBuiltInType = builtInType;
         }
 
         /// <summary>
@@ -104,7 +104,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         /// <remarks>
         /// Built-in types do not need generation, and may not be decorated.
         /// </remarks>
-        public bool BuiltInType { get; }
+        public bool IsBuiltInType { get; }
 
         /// <summary>
         /// Gets the non-optional properties exposed by the type.
@@ -135,27 +135,32 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         /// <summary>
         /// Gets the list of types that form a oneOf set.
         /// </summary>
-        public List<TypeDeclaration>? AnyOfTypes { get; private set; }
+        public List<TypeDeclaration>? AnyOf { get; private set; }
 
         /// <summary>
         /// Gets the list of types that form a oneOf set.
         /// </summary>
-        public List<TypeDeclaration>? OneOfTypes { get; private set; }
+        public List<TypeDeclaration>? OneOf { get; private set; }
 
         /// <summary>
         /// Gets the list of types that form an allOf set.
         /// </summary>
-        public List<TypeDeclaration>? AllOfTypes { get; private set; }
+        public List<TypeDeclaration>? AllOf { get; private set; }
 
         /// <summary>
         /// Gets or sets the Not type.
         /// </summary>
-        public TypeDeclaration? NotType { get; set; }
+        public TypeDeclaration? Not { get; set; }
+
+        /// <summary>
+        /// Gets or sets the propertyNames type.
+        /// </summary>
+        public TypeDeclaration? PropertyNames { get; set; }
 
         /// <summary>
         /// Gets or sets the If Then and Else types.
         /// </summary>
-        public IfThenElse? IfThenElseTypes { get; set; }
+        public IfThenElse? IfThenElse { get; set; }
 
         /// <summary>
         /// Gets or sets the additional items type.
@@ -539,17 +544,17 @@ namespace Menes.JsonSchema.TypeBuilder.Model
             // We can short circuit the longer check, by looking at all of types directly.
             // If we must match this, then we are indeed a specialized version of that
             // type
-            if (lowered.AllOfTypes is not null && lowered.AllOfTypes.Any(t => t.FullyQualifiedDotNetTypeName == loweredOther.FullyQualifiedDotNetTypeName))
+            if (lowered.AllOf is not null && lowered.AllOf.Any(t => t.FullyQualifiedDotNetTypeName == loweredOther.FullyQualifiedDotNetTypeName))
             {
                 return true;
             }
 
-            if (loweredOther.AnyOfTypes is not null && loweredOther.AnyOfTypes.Any(t => lowered.Specializes(t)))
+            if (loweredOther.AnyOf is not null && loweredOther.AnyOf.Any(t => lowered.Specializes(t)))
             {
                 return true;
             }
 
-            if (loweredOther.OneOfTypes is not null && loweredOther.OneOfTypes.Any(t => lowered.Specializes(t)))
+            if (loweredOther.OneOf is not null && loweredOther.OneOf.Any(t => lowered.Specializes(t)))
             {
                 return true;
             }
@@ -559,9 +564,9 @@ namespace Menes.JsonSchema.TypeBuilder.Model
             // Consider if they are Not {} and we are not {type: boolean} - we cannot specialize because they are denying
             // everything and we are denying just booleans so we are more relaxed about the range of values we would support
             // and yet normally {type: boolean} would specialise {} as it is more constrained.
-            if (loweredOther.NotType is not null &&
-                lowered.NotType is not null &&
-                !loweredOther.NotType.Specializes(lowered.NotType))
+            if (loweredOther.Not is not null &&
+                lowered.Not is not null &&
+                !loweredOther.Not.Specializes(lowered.Not))
             {
                 return false;
             }
@@ -764,12 +769,13 @@ namespace Menes.JsonSchema.TypeBuilder.Model
             MergeAdditionalItems(typeToMerge.AdditionalItems?.Lowered, result);
             MergeUnevaluatedItems(typeToMerge.UnevaluatedItems?.Lowered, result);
             MergeContains(typeToMerge.Contains?.Lowered, result);
-            MergeIfThenElseTypes(Lower(typeToMerge.IfThenElseTypes), result);
-            MergeNotType(typeToMerge.NotType?.Lowered, result);
+            MergeIfThenElse(Lower(typeToMerge.IfThenElse), result);
+            MergeNot(typeToMerge.Not?.Lowered, result);
+            MergePropertyNames(typeToMerge.PropertyNames?.Lowered, result);
             MergeAdditionalProperties(typeToMerge.AdditionalProperties?.Lowered, result);
-            MergeAllOfTypes(Lower(typeToMerge.AllOfTypes), result);
-            MergeAnyOfTypes(Lower(typeToMerge.AnyOfTypes), result);
-            MergeOneOfTypes(Lower(typeToMerge.OneOfTypes), result);
+            MergeAllOf(Lower(typeToMerge.AllOf), result);
+            MergeAnyOf(Lower(typeToMerge.AnyOf), result);
+            MergeOneOf(Lower(typeToMerge.OneOf), result);
             MergeDependentRequired(typeToMerge, result);
             MergeAdditionalProperties(typeToMerge.AdditionalProperties?.Lowered, result);
             MergePatternProperties(typeToMerge.PatternProperties, result);
@@ -867,9 +873,9 @@ namespace Menes.JsonSchema.TypeBuilder.Model
 
         private static void MergeTypesToBase(TypeDeclaration result, TypeDeclaration typeToMerge)
         {
-            MergeAllOfTypes(typeToMerge.AllOfTypes, result);
-            MergeAnyOfTypes(typeToMerge.AnyOfTypes, result);
-            MergeOneOfTypes(typeToMerge.OneOfTypes, result);
+            MergeAllOf(typeToMerge.AllOf, result);
+            MergeAnyOf(typeToMerge.AnyOf, result);
+            MergeOneOf(typeToMerge.OneOf, result);
             MergeProperties(typeToMerge.Properties, result);
 
             // Note that we don't merge validations on the merged types
@@ -1024,25 +1030,30 @@ namespace Menes.JsonSchema.TypeBuilder.Model
             }
         }
 
-        private static void MergeNotType(TypeDeclaration? typeToMerge, TypeDeclaration result)
+        private static void MergeNot(TypeDeclaration? typeToMerge, TypeDeclaration result)
         {
-            result.NotType = PickMostDerivedTypeWithOptionals(typeToMerge, result.NotType);
+            result.Not = PickMostDerivedTypeWithOptionals(typeToMerge, result.Not);
         }
 
-        private static void MergeIfThenElseTypes(IfThenElse? typeToMerge, TypeDeclaration result)
+        private static void MergePropertyNames(TypeDeclaration? typeToMerge, TypeDeclaration result)
+        {
+            result.PropertyNames = PickMostDerivedTypeWithOptionals(typeToMerge, result.PropertyNames);
+        }
+
+        private static void MergeIfThenElse(IfThenElse? typeToMerge, TypeDeclaration result)
         {
             if (typeToMerge is not null)
             {
-                if (result.IfThenElseTypes is null)
+                if (result.IfThenElse is null)
                 {
-                    result.IfThenElseTypes = typeToMerge;
+                    result.IfThenElse = typeToMerge;
                     return;
                 }
 
-                result.IfThenElseTypes = new IfThenElse(
-                    PickMostDerivedType(typeToMerge.If, result.IfThenElseTypes.If),
-                    PickMostDerivedTypeWithOptionals(typeToMerge.Then, result.IfThenElseTypes.Then),
-                    PickMostDerivedTypeWithOptionals(typeToMerge.Else, result.IfThenElseTypes.Else));
+                result.IfThenElse = new IfThenElse(
+                    PickMostDerivedType(typeToMerge.If, result.IfThenElse.If),
+                    PickMostDerivedTypeWithOptionals(typeToMerge.Then, result.IfThenElse.Then),
+                    PickMostDerivedTypeWithOptionals(typeToMerge.Else, result.IfThenElse.Else));
             }
         }
 
@@ -1076,7 +1087,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
             return second;
         }
 
-        private static void MergeAllOfTypes(List<TypeDeclaration>? allOfTypes, TypeDeclaration result)
+        private static void MergeAllOf(List<TypeDeclaration>? allOfTypes, TypeDeclaration result)
         {
             if (allOfTypes is not null)
             {
@@ -1090,11 +1101,11 @@ namespace Menes.JsonSchema.TypeBuilder.Model
                     }
                 }
 
-                result.AllOfTypes = resultTypes;
+                result.AllOf = resultTypes;
             }
         }
 
-        private static void MergeAnyOfTypes(List<TypeDeclaration>? anyOfTypes, TypeDeclaration result)
+        private static void MergeAnyOf(List<TypeDeclaration>? anyOfTypes, TypeDeclaration result)
         {
             if (anyOfTypes is not null)
             {
@@ -1108,11 +1119,11 @@ namespace Menes.JsonSchema.TypeBuilder.Model
                     }
                 }
 
-                result.AnyOfTypes = resultTypes;
+                result.AnyOf = resultTypes;
             }
         }
 
-        private static void MergeOneOfTypes(List<TypeDeclaration>? oneOfTypes, TypeDeclaration result)
+        private static void MergeOneOf(List<TypeDeclaration>? oneOfTypes, TypeDeclaration result)
         {
             if (oneOfTypes is not null)
             {
@@ -1126,7 +1137,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
                     }
                 }
 
-                result.OneOfTypes = resultTypes;
+                result.OneOf = resultTypes;
             }
         }
 
@@ -1154,15 +1165,15 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         {
             return this.AdditionalItems is null &&
                                     this.AdditionalProperties is null &&
-                                    this.AllOfTypes is null &&
-                                    this.AnyOfTypes is null &&
+                                    this.AllOf is null &&
+                                    this.AnyOf is null &&
                                     this.AsConversionMethods is null &&
                                     this.Contains is null &&
                                     this.ConversionOperators is null &&
                                     this.DependentRequired is null &&
                                     this.ExclusiveMaximum is null &&
                                     this.ExclusiveMinimum is null &&
-                                    this.IfThenElseTypes is null &&
+                                    this.IfThenElse is null &&
                                     this.MaxContains is null &&
                                     this.Maximum is null &&
                                     this.MaxItems is null &&
@@ -1174,11 +1185,12 @@ namespace Menes.JsonSchema.TypeBuilder.Model
                                     this.MinLength is null &&
                                     this.MinProperties is null &&
                                     this.MultipleOf is null &&
-                                    this.NotType is null &&
-                                    this.OneOfTypes is null &&
+                                    this.Not is null &&
+                                    this.OneOf is null &&
                                     this.Pattern is null &&
                                     this.PatternProperties is null &&
                                     this.Properties is null &&
+                                    this.PropertyNames is null &&
                                     this.UnevaluatedItems is null &&
                                     this.UniqueItems is null &&
                                     this.Type is null;
@@ -1233,7 +1245,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
 
         private List<TypeDeclaration> EnsureAnyOfTypes()
         {
-            return this.AnyOfTypes ??= new List<TypeDeclaration>();
+            return this.AnyOf ??= new List<TypeDeclaration>();
         }
 
         private List<PatternProperty> EnsurePatternProperties()
@@ -1243,12 +1255,12 @@ namespace Menes.JsonSchema.TypeBuilder.Model
 
         private List<TypeDeclaration> EnsureOneOfTypes()
         {
-            return this.OneOfTypes ??= new List<TypeDeclaration>();
+            return this.OneOf ??= new List<TypeDeclaration>();
         }
 
         private List<TypeDeclaration> EnsureAllOfTypes()
         {
-            return this.AllOfTypes ??= new List<TypeDeclaration>();
+            return this.AllOf ??= new List<TypeDeclaration>();
         }
 
         private List<TypeDeclaration> EnsureNestedTypes()
