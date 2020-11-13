@@ -804,18 +804,19 @@ namespace Menes.JsonSchema.TypeBuilder.Model
             MergeAdditionalItems(typeToMerge.AdditionalItems?.Lowered, result);
             MergeUnevaluatedItems(typeToMerge.UnevaluatedItems?.Lowered, result);
             MergeContains(typeToMerge.Contains?.Lowered, result);
+
             MergeIfThenElse(Lower(typeToMerge.IfThenElse), result);
             MergeNot(typeToMerge.Not?.Lowered, result);
-            MergeUnevaluatedProperties(typeToMerge.UnevaluatedProperties?.Lowered, result);
-            MergePropertyNames(typeToMerge.PropertyNames?.Lowered, result);
-            MergeAdditionalProperties(typeToMerge.AdditionalProperties?.Lowered, result);
             MergeAllOf(Lower(typeToMerge.AllOf), result);
             MergeAnyOf(Lower(typeToMerge.AnyOf), result);
             MergeOneOf(Lower(typeToMerge.OneOf), result);
+            MergeDependentSchemas(typeToMerge.DependentSchemas, result);
+
             MergeDependentRequired(typeToMerge, result);
+            MergeUnevaluatedProperties(typeToMerge.UnevaluatedProperties?.Lowered, result);
             MergeAdditionalProperties(typeToMerge.AdditionalProperties?.Lowered, result);
             MergePatternProperties(typeToMerge.PatternProperties, result);
-            MergeDependentSchemas(typeToMerge.DependentSchemas, result);
+            MergePropertyNames(typeToMerge.PropertyNames, result);
 
             if (typeToMerge.ExclusiveMaximum is not null)
             {
@@ -908,16 +909,16 @@ namespace Menes.JsonSchema.TypeBuilder.Model
             }
         }
 
-        private static void MergeDependentSchemas(List<DependentSchema>? patternProperties, TypeDeclaration result)
+        private static void MergeDependentSchemas(List<DependentSchema>? dependentSchemas, TypeDeclaration result)
         {
-            if (patternProperties is null)
+            if (dependentSchemas is null)
             {
                 return;
             }
 
             List<DependentSchema> resultProperties = result.EnsureDependentSchemas();
 
-            foreach (DependentSchema property in patternProperties)
+            foreach (DependentSchema property in dependentSchemas)
             {
                 resultProperties.Add(new DependentSchema(property.PropertyName, property.Schema.Lowered));
             }
