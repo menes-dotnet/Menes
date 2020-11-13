@@ -8,6 +8,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
+    using Corvus.Extensions;
 
     /// <summary>
     /// A declaration of a type built from schema.
@@ -298,7 +299,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         /// <summary>
         /// Gets or sets the set of dependent required properties in the object.
         /// </summary>
-        public Dictionary<string, List<string>>? DependendentRequired { get; set; }
+        public Dictionary<string, List<string>>? DependentRequired { get; set; }
 
         /// <summary>
         /// Add a conversion operator.
@@ -706,7 +707,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
                         this.AsConversionMethods is null &&
                         this.Contains is null &&
                         this.ConversionOperators is null &&
-                        this.DependendentRequired is null &&
+                        this.DependentRequired is null &&
                         this.ExclusiveMaximum is null &&
                         this.ExclusiveMinimum is null &&
                         this.IfThenElseTypes is null &&
@@ -755,6 +756,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
             MergeNotType(this.NotType?.Lowered, result);
             MergeOneOfTypes(Lower(this.OneOfTypes), result);
             MergeProperties(Lower(this.Properties), result);
+            MergeValidations(this, result);
 
             return this.lowered;
         }
@@ -773,6 +775,118 @@ namespace Menes.JsonSchema.TypeBuilder.Model
             MergeNotType(typeToMerge.NotType, result);
             MergeOneOfTypes(typeToMerge.OneOfTypes, result);
             MergeProperties(typeToMerge.Properties, result);
+            MergeValidations(typeToMerge, result);
+        }
+
+        private static void MergeValidations(TypeDeclaration typeToMerge, TypeDeclaration result)
+        {
+            MergeDependentRequired(typeToMerge, result);
+            if (typeToMerge.ExclusiveMaximum is not null)
+            {
+                result.ExclusiveMaximum = typeToMerge.ExclusiveMaximum;
+            }
+
+            if (typeToMerge.ExclusiveMinimum is not null)
+            {
+                result.ExclusiveMinimum = typeToMerge.ExclusiveMinimum;
+            }
+
+            if (typeToMerge.MaxContains is not null)
+            {
+                result.MaxContains = typeToMerge.MaxContains;
+            }
+
+            if (typeToMerge.Maximum is not null)
+            {
+                result.Maximum = typeToMerge.Maximum;
+            }
+
+            if (typeToMerge.MaxItems is not null)
+            {
+                result.MaxItems = typeToMerge.MaxItems;
+            }
+
+            if (typeToMerge.MaxLength is not null)
+            {
+                result.MaxLength = typeToMerge.MaxLength;
+            }
+
+            if (typeToMerge.MaxProperties is not null)
+            {
+                result.MaxProperties = typeToMerge.MaxProperties;
+            }
+
+            if (typeToMerge.MinContains is not null)
+            {
+                result.MinContains = typeToMerge.MinContains;
+            }
+
+            if (typeToMerge.Minimum is not null)
+            {
+                result.Minimum = typeToMerge.Minimum;
+            }
+
+            if (typeToMerge.MinItems is not null)
+            {
+                result.MinItems = typeToMerge.MinItems;
+            }
+
+            if (typeToMerge.MinLength is not null)
+            {
+                result.MinLength = typeToMerge.MinLength;
+            }
+
+            if (typeToMerge.MinProperties is not null)
+            {
+                result.MinProperties = typeToMerge.MinProperties;
+            }
+
+            if (typeToMerge.MultipleOf is not null)
+            {
+                result.MultipleOf = typeToMerge.MultipleOf;
+            }
+
+            if (typeToMerge.Pattern is not null)
+            {
+                result.Pattern = typeToMerge.Pattern;
+            }
+
+            if (typeToMerge.UniqueItems is not null)
+            {
+                result.UniqueItems = typeToMerge.UniqueItems;
+            }
+        }
+
+        private static void MergeDependentRequired(TypeDeclaration typeToMerge, TypeDeclaration result)
+        {
+            if (typeToMerge.DependentRequired is null)
+            {
+                return;
+            }
+
+            if (result.DependentRequired is null)
+            {
+                result.DependentRequired = typeToMerge.DependentRequired;
+                return;
+            }
+
+            foreach (KeyValuePair<string, List<string>> entry in typeToMerge.DependentRequired)
+            {
+                if (result.DependentRequired.TryGetValue(entry.Key, out List<string> resultList))
+                {
+                    foreach (string item in entry.Value)
+                    {
+                        if (!resultList.Contains(item))
+                        {
+                            resultList.Add(item);
+                        }
+                    }
+                }
+                else
+                {
+                    typeToMerge.DependentRequired.Add(entry.Key, entry.Value);
+                }
+            }
         }
 
         private static IfThenElse? Lower(IfThenElse? ifThenElseTypes)
@@ -1093,6 +1207,11 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         private List<AsConversionMethodDeclaration> EnsureAsConversionMethods()
         {
             return this.AsConversionMethods ??= new List<AsConversionMethodDeclaration>();
+        }
+
+        private Dictionary<string, List<string>> EnsureDependentRequired()
+        {
+            return this.DependentRequired ?? (this.DependentRequired = new Dictionary<string, List<string>>());
         }
 
         private void ValidateMemberName(string? name)

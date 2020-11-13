@@ -73,7 +73,7 @@ namespace Menes.JsonSchema.TypeBuilder
                     result.Add(property.Name, property.Value.EnumerateArray().Select(s => s.GetString()).ToList());
                 }
 
-                typeDeclaration.DependendentRequired = result;
+                typeDeclaration.DependentRequired = result;
             }
         }
 
