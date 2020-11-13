@@ -53,7 +53,7 @@ namespace Menes.JsonSchema.TypeBuilder
                     await this.AddIfThenElse(schema, typeDeclaration).ConfigureAwait(false);
                     this.AddStringValidations(schema, typeDeclaration);
                     this.AddNumericValidations(schema, typeDeclaration);
-                    this.AddObjectValidations(schema, typeDeclaration);
+                    await this.AddObjectValidations(schema, typeDeclaration).ConfigureAwait(false);
                     await this.FindProperties(schema, typeDeclaration).ConfigureAwait(false);
                 }
 
@@ -134,7 +134,7 @@ namespace Menes.JsonSchema.TypeBuilder
         /// <summary>
         /// Adds the numeric-based validations.
         /// </summary>
-        private void AddObjectValidations(LocatedElement schema, TypeDeclaration typeDeclaration)
+        private async Task AddObjectValidations(LocatedElement schema, TypeDeclaration typeDeclaration)
         {
             if (schema.JsonElement.ValueKind == JsonValueKind.Object)
             {
@@ -149,6 +149,92 @@ namespace Menes.JsonSchema.TypeBuilder
                     ValidateNumber(minProperties);
                     typeDeclaration.MinProperties = minProperties.GetInt32();
                 }
+
+                if (schema.JsonElement.TryGetProperty("patternProperties", out JsonElement patternProperties))
+                {
+                    ValidateObject(patternProperties);
+                    this.PushPropertyToAbsoluteKeywordLocationStack("patternProperties");
+
+                    foreach (JsonProperty property in patternProperties.EnumerateObject())
+                    {
+                        this.PushPropertyToAbsoluteKeywordLocationStack(property);
+
+                        await this.CreateOrUpdatePatternPropertyDeclarationFor(typeDeclaration, property).ConfigureAwait(false);
+
+                        this.absoluteKeywordLocationStack.Pop();
+                    }
+
+                    this.absoluteKeywordLocationStack.Pop();
+                }
+
+                if (schema.JsonElement.TryGetProperty("dependentSchemas", out JsonElement dependentSchemas))
+                {
+                    ValidateObject(dependentSchemas);
+                    this.PushPropertyToAbsoluteKeywordLocationStack("dependentSchemas");
+
+                    foreach (JsonProperty property in dependentSchemas.EnumerateObject())
+                    {
+                        this.PushPropertyToAbsoluteKeywordLocationStack(property);
+
+                        await this.CreateOrUpdateDependentSchemaDeclarationFor(typeDeclaration, property).ConfigureAwait(false);
+
+                        this.absoluteKeywordLocationStack.Pop();
+                    }
+
+                    this.absoluteKeywordLocationStack.Pop();
+                }
+
+                if (schema.JsonElement.TryGetProperty("propertyNames", out JsonElement propertyNames))
+                {
+                    ValidateSchema(propertyNames);
+                    this.PushPropertyToAbsoluteKeywordLocationStack("propertyNames");
+                    JsonReference location = this.absoluteKeywordLocationStack.Peek();
+                    if (this.TryGetResolvedElement(location, out LocatedElement propertyTypeElement))
+                    {
+                        TypeDeclaration propertyNamesDeclaration = await this.CreateTypeDeclarations(propertyTypeElement).ConfigureAwait(false);
+                        typeDeclaration.PropertyNames = propertyNamesDeclaration;
+                    }
+                    else
+                    {
+                        throw new InvalidOperationException($"Unable to find element for propertyNames type at location: '{location}'");
+                    }
+
+                    this.absoluteKeywordLocationStack.Pop();
+                }
+            }
+        }
+
+        private async Task CreateOrUpdatePatternPropertyDeclarationFor(TypeDeclaration typeDeclaration, JsonProperty property)
+        {
+            string jsonPropertyName = property.Name;
+
+            JsonReference location = this.absoluteKeywordLocationStack.Peek();
+            if (this.TryGetResolvedElement(location, out LocatedElement propertyTypeElement))
+            {
+                TypeDeclaration newTypeDeclaration = await this.CreateTypeDeclarations(propertyTypeElement).ConfigureAwait(false);
+                var newPatternPropertyDeclaration = new PatternProperty(jsonPropertyName, newTypeDeclaration);
+                typeDeclaration.AddPatternProperty(newPatternPropertyDeclaration);
+            }
+            else
+            {
+                throw new InvalidOperationException($"Unable to find element for pattern property type at location: '{location}'");
+            }
+        }
+
+        private async Task CreateOrUpdateDependentSchemaDeclarationFor(TypeDeclaration typeDeclaration, JsonProperty property)
+        {
+            string jsonPropertyName = property.Name;
+
+            JsonReference location = this.absoluteKeywordLocationStack.Peek();
+            if (this.TryGetResolvedElement(location, out LocatedElement propertyTypeElement))
+            {
+                TypeDeclaration newTypeDeclaration = await this.CreateTypeDeclarations(propertyTypeElement).ConfigureAwait(false);
+                var newDependentSchemaDeclaration = new DependentSchema(jsonPropertyName, newTypeDeclaration);
+                typeDeclaration.AddDependentSchema(newDependentSchemaDeclaration);
+            }
+            else
+            {
+                throw new InvalidOperationException($"Unable to find element for pattern property type at location: '{location}'");
             }
         }
 

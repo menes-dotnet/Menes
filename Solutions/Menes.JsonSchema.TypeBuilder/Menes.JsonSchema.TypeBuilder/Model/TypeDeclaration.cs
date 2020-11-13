@@ -188,6 +188,11 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         public List<PatternProperty>? PatternProperties { get; set; }
 
         /// <summary>
+        /// Gets or sets the dependent schemas.
+        /// </summary>
+        public List<DependentSchema>? DependentSchemas { get; set; }
+
+        /// <summary>
         /// Gets a value indicating whether this type allows additional properties.
         /// </summary>
         public bool AllowsAdditionalProperties
@@ -329,6 +334,24 @@ namespace Menes.JsonSchema.TypeBuilder.Model
             }
 
             operators.Add(conversionOperatorDeclaration);
+        }
+
+        /// <summary>
+        /// Add a pattern property to the collection.
+        /// </summary>
+        /// <param name="patternProperty">The pattern property to add.</param>
+        public void AddPatternProperty(PatternProperty patternProperty)
+        {
+            this.EnsurePatternProperties().Add(patternProperty);
+        }
+
+        /// <summary>
+        /// Add a dependent schema to the collection.
+        /// </summary>
+        /// <param name="dependentSchema">The dependent schema to add.</param>
+        public void AddDependentSchema(DependentSchema dependentSchema)
+        {
+            this.EnsureDependentSchemas().Add(dependentSchema);
         }
 
         /// <summary>
@@ -779,6 +802,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
             MergeDependentRequired(typeToMerge, result);
             MergeAdditionalProperties(typeToMerge.AdditionalProperties?.Lowered, result);
             MergePatternProperties(typeToMerge.PatternProperties, result);
+            MergeDependentSchemas(typeToMerge.DependentSchemas, result);
 
             if (typeToMerge.ExclusiveMaximum is not null)
             {
@@ -868,6 +892,21 @@ namespace Menes.JsonSchema.TypeBuilder.Model
             foreach (PatternProperty property in patternProperties)
             {
                 resultProperties.Add(new PatternProperty(property.Pattern, property.Schema.Lowered));
+            }
+        }
+
+        private static void MergeDependentSchemas(List<DependentSchema>? patternProperties, TypeDeclaration result)
+        {
+            if (patternProperties is null)
+            {
+                return;
+            }
+
+            List<DependentSchema> resultProperties = result.EnsureDependentSchemas();
+
+            foreach (DependentSchema property in patternProperties)
+            {
+                resultProperties.Add(new DependentSchema(property.PropertyName, property.Schema.Lowered));
             }
         }
 
@@ -1189,6 +1228,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
                                     this.OneOf is null &&
                                     this.Pattern is null &&
                                     this.PatternProperties is null &&
+                                    this.DependentSchemas is null &&
                                     this.Properties is null &&
                                     this.PropertyNames is null &&
                                     this.UnevaluatedItems is null &&
@@ -1253,6 +1293,11 @@ namespace Menes.JsonSchema.TypeBuilder.Model
             return this.PatternProperties ??= new List<PatternProperty>();
         }
 
+        private List<DependentSchema> EnsureDependentSchemas()
+        {
+            return this.DependentSchemas ??= new List<DependentSchema>();
+        }
+
         private List<TypeDeclaration> EnsureOneOfTypes()
         {
             return this.OneOf ??= new List<TypeDeclaration>();
@@ -1285,7 +1330,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
 
         private Dictionary<string, List<string>> EnsureDependentRequired()
         {
-            return this.DependentRequired ?? (this.DependentRequired = new Dictionary<string, List<string>>());
+            return this.DependentRequired ??= new Dictionary<string, List<string>>();
         }
 
         private void ValidateMemberName(string? name)
