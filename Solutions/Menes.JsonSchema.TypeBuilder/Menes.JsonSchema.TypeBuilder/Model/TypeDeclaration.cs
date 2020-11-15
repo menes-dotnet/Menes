@@ -9,6 +9,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
     using System.Diagnostics;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
+    using System.Text.Json;
 
     /// <summary>
     /// A declaration of a type built from schema.
@@ -196,6 +197,16 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         /// Gets or sets the dependent schemas.
         /// </summary>
         public List<DependentSchema>? DependentSchemas { get; set; }
+
+        /// <summary>
+        /// Gets or sets an enum value.
+        /// </summary>
+        public List<JsonElement>? Enum { get; set; }
+
+        /// <summary>
+        /// Gets or sets a constant value.
+        /// </summary>
+        public JsonElement? Const { get; set; }
 
         /// <summary>
         /// Gets a value indicating whether this type allows additional properties.
@@ -771,6 +782,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
             MergeProperties(Lower(baseType.Properties), result);
             MergeValidations(baseType, result);
             MergeConversions(baseType, result);
+            MergeConstAndEnum(baseType, result);
 
             return this.lowered;
         }
@@ -788,6 +800,27 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         {
             MergeAsConversionMethods(Lower(typeToMerge.AsConversionMethods), result);
             MergeConversionOperators(Lower(typeToMerge.ConversionOperators), result);
+        }
+
+        /// <summary>
+        /// Merge the const and enum values.
+        /// </summary>
+        /// <remarks>
+        /// We merge const and enum down the stack, overwriting in order, so that
+        /// we can present a sensible set of values if we have one from an allOf
+        /// type we are composing in.
+        /// </remarks>
+        private static void MergeConstAndEnum(TypeDeclaration typeToMerge, TypeDeclaration result)
+        {
+            if (typeToMerge.Const is not null)
+            {
+                result.Const = typeToMerge.Const;
+            }
+
+            if (typeToMerge.Enum is not null)
+            {
+                result.Enum = typeToMerge.Enum;
+            }
         }
 
         /// <summary>
@@ -930,6 +963,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
             MergeAnyOf(typeToMerge.AnyOf, result);
             MergeOneOf(typeToMerge.OneOf, result);
             MergeProperties(typeToMerge.Properties, result);
+            MergeConstAndEnum(typeToMerge, result);
 
             // Note that we don't merge validations on the merged types
             // These will be dealt with by running the validations of the actual allOf, anyOf, oneOf
@@ -1253,7 +1287,9 @@ namespace Menes.JsonSchema.TypeBuilder.Model
                                     this.UnevaluatedItems is null &&
                                     this.UnevaluatedProperties is null &&
                                     this.UniqueItems is null &&
-                                    this.Type is null;
+                                    this.Type is null &&
+                                    this.Const is null &&
+                                    this.Enum is null;
         }
 
         private void AddAsConversionMethod(AsConversionMethodDeclaration asConversionMethodDeclaration)

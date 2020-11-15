@@ -219,6 +219,23 @@ namespace Menes.JsonSchema.TypeBuilder
 
                     this.absoluteKeywordLocationStack.Pop();
                 }
+
+                if (schema.JsonElement.TryGetProperty("const", out JsonElement constPropertyValue))
+                {
+                    typeDeclaration.Const = constPropertyValue;
+                }
+
+                if (schema.JsonElement.TryGetProperty("enum", out JsonElement enumPropertyValue))
+                {
+                    ValidateArray(enumPropertyValue);
+                    var result = new List<JsonElement>();
+                    foreach (JsonElement enumValue in enumPropertyValue.EnumerateArray())
+                    {
+                        result.Add(enumValue);
+                    }
+
+                    typeDeclaration.Enum = result;
+                }
             }
         }
 
