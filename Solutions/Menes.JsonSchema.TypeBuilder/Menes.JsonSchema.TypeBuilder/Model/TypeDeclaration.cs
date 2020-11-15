@@ -479,6 +479,26 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         }
 
         /// <summary>
+        /// Adds a dependency to the dependent required list, if not already present.
+        /// </summary>
+        /// <param name="key">The key for the dependency.</param>
+        /// <param name="value">The value of the dependency.</param>
+        public void AddDependentRequired(string key, string value)
+        {
+            Dictionary<string, List<string>> dr = this.EnsureDependentRequired();
+            if (!dr.TryGetValue(key, out List<string> required))
+            {
+                required = new List<string>();
+                dr.Add(key, required);
+            }
+
+            if (!required.Contains(value))
+            {
+                required.Add(value);
+            }
+        }
+
+        /// <summary>
         /// Merge the given type declartion into this type.
         /// </summary>
         /// <param name="typeToMerge">Merge the given type declaration into this type.</param>

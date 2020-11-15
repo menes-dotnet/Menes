@@ -184,6 +184,22 @@ namespace Menes.JsonSchema.TypeBuilder
                     this.absoluteKeywordLocationStack.Pop();
                 }
 
+                if (schema.JsonElement.TryGetProperty("dependentRequired", out JsonElement dependentRequired))
+                {
+                    ValidateObject(dependentRequired);
+
+                    foreach (JsonProperty property in dependentRequired.EnumerateObject())
+                    {
+                        string key = property.Name;
+                        ValidateArray(property.Value);
+                        foreach (JsonElement required in property.Value.EnumerateArray())
+                        {
+                            ValidateString(required);
+                            typeDeclaration.AddDependentRequired(key, required.GetString());
+                        }
+                    }
+                }
+
                 if (schema.JsonElement.TryGetProperty("propertyNames", out JsonElement propertyNames))
                 {
                     ValidateSchema(propertyNames);
