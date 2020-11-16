@@ -5,9 +5,6 @@
 namespace Menes.JsonSchema.TypeBuilder
 {
     using System.Text;
-    using System.Text.Json;
-    using System.Threading.Tasks;
-    using Menes.Json;
     using Menes.JsonSchema.TypeBuilder.Model;
 
     /// <summary>
@@ -15,9 +12,31 @@ namespace Menes.JsonSchema.TypeBuilder
     /// </summary>
     public partial class JsonSchemaBuilder
     {
-        private Task BuildSchemaValidation(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
+        /// <summary>
+        /// Build the validation code for schema validation and add it to the body of the validation member.
+        /// </summary>
+        private void BuildSchemaValidation(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
         {
-            return Task.CompletedTask;
+            memberBuilder.AppendLine("Menes.ValidationResult result = validationResult;");
+
+            AddLocalEvaluatedProperties(typeDeclaration, memberBuilder);
+
+            this.BuildAllOfValidation(typeDeclaration, memberBuilder);
+            this.BuildOneOfValidation(typeDeclaration, memberBuilder);
+            this.BuildAnyOfValidation(typeDeclaration, memberBuilder);
+
+            MergeLocalEvaluatedProperties(typeDeclaration, memberBuilder);
+
+            memberBuilder.AppendLine("return result;");
+
+            this.BuildValidationLocalFunctions(typeDeclaration, memberBuilder);
+        }
+
+        private void BuildValidationLocalFunctions(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
+        {
+            this.BuildAllOfValidationLocalFunction(typeDeclaration, memberBuilder);
+            this.BuildAnyOfValidationLocalFunction(typeDeclaration, memberBuilder);
+            this.BuildOneOfValidationLocalFunction(typeDeclaration, memberBuilder);
         }
     }
 }

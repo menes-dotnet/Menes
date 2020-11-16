@@ -20,7 +20,7 @@ namespace Menes.JsonSchema.TypeBuilder
                     this.AddStringConversionOperators(format, typeDeclaration);
                     break;
                 case "boolean":
-                    this.AddBooleanConversionOperators(format, typeDeclaration);
+                    this.AddBooleanConversionOperators(typeDeclaration);
                     break;
                 case "number":
                     this.AddNumberConversionOperators(format, typeDeclaration);
@@ -120,7 +120,7 @@ namespace Menes.JsonSchema.TypeBuilder
             }
         }
 
-        private void AddBooleanConversionOperators(JsonElement format, TypeDeclaration typeDeclaration)
+        private void AddBooleanConversionOperators(TypeDeclaration typeDeclaration)
         {
             typeDeclaration.AddConversionOperator(
                 new ConversionOperatorDeclaration

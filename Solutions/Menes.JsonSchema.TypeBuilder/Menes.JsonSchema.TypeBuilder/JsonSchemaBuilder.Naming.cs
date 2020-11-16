@@ -5,6 +5,7 @@
 namespace Menes.JsonSchema.TypeBuilder
 {
     using System;
+    using System.Collections.Generic;
     using System.Text.Json;
     using Menes.JsonSchema.TypeBuilder.Model;
 
@@ -16,6 +17,8 @@ namespace Menes.JsonSchema.TypeBuilder
         private static readonly ReadOnlyMemory<char> ArraySuffix = "Array".AsMemory();
         private static readonly ReadOnlyMemory<char> ValueSuffix = "Value".AsMemory();
         private static readonly ReadOnlyMemory<char> EntitySuffix = "Entity".AsMemory();
+
+        private Dictionary<string, string> fullyQualifiedTypeNameToAsMethodName = new Dictionary<string, string>();
 
         private static ReadOnlyMemory<char> MakeMemberNameUnique(TypeDeclaration? typeDeclaration, ReadOnlyMemory<char> baseName, ReadOnlyMemory<char>? suffix = null)
         {
@@ -190,6 +193,40 @@ namespace Menes.JsonSchema.TypeBuilder
             }
 
             return EntitySuffix;
+        }
+
+        /// <summary>
+        /// Gets the As{TypeName}() method name for the given type
+        /// declaration.
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// This looks the name up in the map of FQTNs to method names, and builds one if it
+        /// isn't.
+        /// </para>
+        /// </remarks>
+        private string GetAsMethodNameFor(TypeDeclaration typeDeclaration)
+        {
+            if (typeDeclaration.FullyQualifiedDotNetTypeName is not string)
+            {
+                throw new InvalidOperationException("You must set the type name for an entity before generating code.");
+            }
+
+            if (!this.fullyQualifiedTypeNameToAsMethodName.TryGetValue(typeDeclaration.FullyQualifiedDotNetTypeName, out string asMethodName))
+            {
+                int nameIndex = 1;
+                string baseAsMethodName = $"As{typeDeclaration.DotnetTypeName}";
+                asMethodName = baseAsMethodName;
+                while (this.fullyQualifiedTypeNameToAsMethodName.ContainsKey(asMethodName))
+                {
+                    asMethodName = $"{baseAsMethodName}{nameIndex}";
+                    nameIndex++;
+                }
+
+                this.fullyQualifiedTypeNameToAsMethodName.Add(typeDeclaration.FullyQualifiedDotNetTypeName, asMethodName);
+            }
+
+            return asMethodName;
         }
 
         private void SetTypeName(LocatedElement schema, TypeDeclaration typeDeclaration)

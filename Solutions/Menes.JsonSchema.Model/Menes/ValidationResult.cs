@@ -127,5 +127,33 @@ namespace Menes
         {
             return HashCode.Combine(this.Error);
         }
+
+        /// <summary>
+        /// Adds a child result to this validation result.
+        /// </summary>
+        /// <param name="valid">Indicates that the result is invalid.</param>
+        /// <param name="message">The message.</param>
+        /// <param name="instanceLocation">The instance location.</param>
+        /// <param name="keywordLocation">The keyword location.</param>
+        /// <param name="absoluteKeywordLocation">The absolute keyword location.</param>
+        /// <returns>The updated validation result.</returns>
+        public ValidationResult AddResult(bool valid, string message, string? instanceLocation = null, string? keywordLocation = null, string? absoluteKeywordLocation = null)
+        {
+            ImmutableArray<ValidationResult> errors =
+                this.Errors?.Add(new ValidationResult(message, instanceLocation, keywordLocation, absoluteKeywordLocation, ImmutableArray<ValidationResult>.Empty))
+                ?? ImmutableArray.Create(new ValidationResult(message, instanceLocation, keywordLocation, absoluteKeywordLocation, ImmutableArray<ValidationResult>.Empty));
+
+            return new ValidationResult(valid, this.InstanceLocation, this.KeywordLocation, this.AbsoluteKeywordLocation, errors);
+        }
+
+        /// <summary>
+        /// Sets the validity of the validation result.
+        /// </summary>
+        /// <param name="valid"><c>True</c> if valid, otherwise false.</param>
+        /// <returns>The validation result with the updated validity.</returns>
+        public ValidationResult SetValid(bool valid)
+        {
+            return new ValidationResult(valid, this.InstanceLocation, this.KeywordLocation, this.AbsoluteKeywordLocation, this.Errors);
+        }
     }
 }

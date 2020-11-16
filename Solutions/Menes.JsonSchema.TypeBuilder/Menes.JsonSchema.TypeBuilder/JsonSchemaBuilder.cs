@@ -83,6 +83,8 @@ namespace Menes.JsonSchema.TypeBuilder
 
             TypeDeclaration root = await this.CreateTypeDeclarations(rootElement).ConfigureAwait(false);
             TypeDeclaration loweredResult = root.Lowered;
+            var memberBuilder = new System.Text.StringBuilder();
+            this.BuildValidate(loweredResult, memberBuilder);
         }
     }
 }

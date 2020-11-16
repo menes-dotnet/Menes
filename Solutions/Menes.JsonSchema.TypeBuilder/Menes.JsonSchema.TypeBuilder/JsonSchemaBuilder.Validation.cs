@@ -7,7 +7,6 @@ namespace Menes.JsonSchema.TypeBuilder
     using System;
     using System.Text;
     using System.Text.Json;
-    using System.Threading.Tasks;
     using Menes.JsonSchema.TypeBuilder.Model;
 
     /// <summary>
@@ -20,13 +19,13 @@ namespace Menes.JsonSchema.TypeBuilder
         /// </summary>
         /// <param name="typeDeclaration">The type declaration for which to build the validation method.</param>
         /// <param name="memberBuilder">The output builder.</param>
-        /// <returns>The content for the Validate() member.</returns>
-        private async Task BuildValidate(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
+        private void BuildValidate(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
         {
+            this.absoluteKeywordLocationStack.Push(typeDeclaration.TypeSchema.AbsoluteKeywordLocation);
+
             memberBuilder.AppendLine("/// <inheritdoc />");
-            memberBuilder.AppendLine("public Menes.ValidatationResult Validate(in Menes.ValidationResult validationResult, Menes.ValidationLevel level = Menes.ValidationLevel.Flag)");
+            memberBuilder.AppendLine("public Menes.ValidatationResult Validate(in Menes.ValidationResult validationResult, Menes.ValidationLevel level = Menes.ValidationLevel.Flag, System.Collections.Generic.HashSet<string>? evaluatedProperties = null)");
             memberBuilder.AppendLine("{");
-            memberBuilder.AppendLine("  Menes.ValidationResult result = validationResult;");
 
             try
             {
@@ -39,7 +38,7 @@ namespace Menes.JsonSchema.TypeBuilder
                         this.BuildFalseValidation(memberBuilder);
                         break;
                     case JsonValueKind.Object:
-                        await this.BuildSchemaValidation(typeDeclaration, memberBuilder).ConfigureAwait(false);
+                        this.BuildSchemaValidation(typeDeclaration, memberBuilder);
                         break;
                     default:
                         throw new InvalidOperationException("The schema is not valid. Expected to find [true, false, {}].");
@@ -48,6 +47,7 @@ namespace Menes.JsonSchema.TypeBuilder
             finally
             {
                 memberBuilder.AppendLine("}");
+                this.absoluteKeywordLocationStack.Pop();
             }
         }
 
@@ -63,17 +63,17 @@ namespace Menes.JsonSchema.TypeBuilder
         /// <param name="memberBuilder">The string builder to which to write the error.</param>
         private void WriteError(string message, StringBuilder memberBuilder)
         {
-            memberBuilder.AppendLine("  if (Menes.ValidationContext.Level >= Menes.ValidationLevel.Detailed)");
+            memberBuilder.AppendLine("  if (level >= Menes.ValidationLevel.Detailed)");
             memberBuilder.AppendLine("  {");
-            memberBuilder.AppendLine($"      result = result.AddError(valid: false, absoluteKeywordLocation: {this.WriteAbsoluteKeywordLocation()}, instanceLocation: this.instanceLocation, Error: \"{message}\");");
+            memberBuilder.AppendLine($"      result = result.AddResult(valid: false, absoluteKeywordLocation: {this.WriteAbsoluteKeywordLocation()}, instanceLocation: this.instanceLocation, error: \"{message}\");");
             memberBuilder.AppendLine("  }");
-            memberBuilder.AppendLine("  else if (Menes.ValidationContext.Level == Menes.ValidationLevel.Basic)");
+            memberBuilder.AppendLine("  else if (level == Menes.ValidationLevel.Basic)");
             memberBuilder.AppendLine("  {");
-            memberBuilder.AppendLine($"      result.AddError(valid: false, absoluteKeywordLocation: {this.WriteAbsoluteKeywordLocation()}, instanceLocation: this.instanceLocation, Error: \"{message}\");");
+            memberBuilder.AppendLine($"      result.AddResult(valid: false, absoluteKeywordLocation: {this.WriteAbsoluteKeywordLocation()}, instanceLocation: this.instanceLocation, error: \"{message}\");");
             memberBuilder.AppendLine("  }");
             memberBuilder.AppendLine("  else");
             memberBuilder.AppendLine("  {");
-            memberBuilder.AppendLine($"      result.Valid = false;");
+            memberBuilder.AppendLine($"      result = result.SetValid(false);");
             memberBuilder.AppendLine("  }");
         }
 
@@ -84,9 +84,9 @@ namespace Menes.JsonSchema.TypeBuilder
         /// <param name="memberBuilder">The string builder to which to write the success.</param>
         private void WriteSuccess(string message, StringBuilder memberBuilder)
         {
-            memberBuilder.AppendLine("  if (Menes.ValidationContext.Level == Menes.ValidationLevel.Verbose)");
+            memberBuilder.AppendLine("  if (level == Menes.ValidationLevel.Verbose)");
             memberBuilder.AppendLine("  {");
-            memberBuilder.AppendLine($"      result = result.AddError(valid: true, absoluteKeywordLocation: {this.WriteAbsoluteKeywordLocation()}, instanceLocation: this.instanceLocation, Error: \"{message}\");");
+            memberBuilder.AppendLine($"      result = result.AddResult(valid: true, absoluteKeywordLocation: {this.WriteAbsoluteKeywordLocation()}, instanceLocation: this.instanceLocation, error: \"{message}\");");
             memberBuilder.AppendLine("  }");
         }
     }
