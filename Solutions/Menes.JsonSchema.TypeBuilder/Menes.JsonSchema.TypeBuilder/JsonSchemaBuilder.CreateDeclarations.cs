@@ -51,6 +51,7 @@ namespace Menes.JsonSchema.TypeBuilder
                     await this.AddOneOf(schema, typeDeclaration).ConfigureAwait(false);
                     await this.AddNot(schema, typeDeclaration).ConfigureAwait(false);
                     await this.AddIfThenElse(schema, typeDeclaration).ConfigureAwait(false);
+                    this.AddConstAndEnumValidations(schema, typeDeclaration);
                     this.AddStringValidations(schema, typeDeclaration);
                     this.AddNumericValidations(schema, typeDeclaration);
                     await this.AddObjectValidations(schema, typeDeclaration).ConfigureAwait(false);
@@ -63,6 +64,32 @@ namespace Menes.JsonSchema.TypeBuilder
             finally
             {
                 this.absoluteKeywordLocationStack.Pop();
+            }
+        }
+
+        /// <summary>
+        /// Adds the const and enum validations.
+        /// </summary>
+        private void AddConstAndEnumValidations(LocatedElement schema, TypeDeclaration typeDeclaration)
+        {
+            if (schema.JsonElement.ValueKind == JsonValueKind.Object)
+            {
+                if (schema.JsonElement.TryGetProperty("const", out JsonElement constPropertyValue))
+                {
+                    typeDeclaration.Const = constPropertyValue;
+                }
+
+                if (schema.JsonElement.TryGetProperty("enum", out JsonElement enumPropertyValue))
+                {
+                    ValidateArray(enumPropertyValue);
+                    var result = new List<JsonElement>();
+                    foreach (JsonElement enumValue in enumPropertyValue.EnumerateArray())
+                    {
+                        result.Add(enumValue);
+                    }
+
+                    typeDeclaration.Enum = result;
+                }
             }
         }
 
@@ -133,7 +160,7 @@ namespace Menes.JsonSchema.TypeBuilder
         }
 
         /// <summary>
-        /// Adds the numeric-based validations.
+        /// Adds the object-based validations, except "properties".
         /// </summary>
         private async Task AddObjectValidations(LocatedElement schema, TypeDeclaration typeDeclaration)
         {
@@ -235,23 +262,6 @@ namespace Menes.JsonSchema.TypeBuilder
                     }
 
                     this.absoluteKeywordLocationStack.Pop();
-                }
-
-                if (schema.JsonElement.TryGetProperty("const", out JsonElement constPropertyValue))
-                {
-                    typeDeclaration.Const = constPropertyValue;
-                }
-
-                if (schema.JsonElement.TryGetProperty("enum", out JsonElement enumPropertyValue))
-                {
-                    ValidateArray(enumPropertyValue);
-                    var result = new List<JsonElement>();
-                    foreach (JsonElement enumValue in enumPropertyValue.EnumerateArray())
-                    {
-                        result.Add(enumValue);
-                    }
-
-                    typeDeclaration.Enum = result;
                 }
             }
         }
