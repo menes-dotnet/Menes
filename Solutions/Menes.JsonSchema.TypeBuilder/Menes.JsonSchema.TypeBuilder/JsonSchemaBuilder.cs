@@ -4,6 +4,7 @@
 
 namespace Menes.JsonSchema.TypeBuilder
 {
+    using System;
     using System.Collections.Generic;
     using System.Text.Json;
     using System.Threading.Tasks;
@@ -64,9 +65,7 @@ namespace Menes.JsonSchema.TypeBuilder
         /// <param name="schema">The root schema for which to build the entity.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         /// <remarks>
-        /// Use this overload when your base schema is not the root of a document, and you need to treat it
-        /// as if it is located at the root of a document. Relative references may not, therefore be applied outside the scope
-        /// of this element into its parent document, as it is as if that document does not exist.
+        /// Use this overload when your base schema is the root of a document.
         /// </remarks>
         public async Task BuildEntity(JsonElement schema)
         {
@@ -84,7 +83,7 @@ namespace Menes.JsonSchema.TypeBuilder
             TypeDeclaration root = await this.CreateTypeDeclarations(rootElement).ConfigureAwait(false);
             TypeDeclaration loweredResult = root.Lowered;
             var memberBuilder = new System.Text.StringBuilder();
-            this.BuildValidate(loweredResult, memberBuilder);
+            this.BuildCode(loweredResult, memberBuilder);
         }
     }
 }

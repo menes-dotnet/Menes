@@ -31,7 +31,7 @@ namespace Menes.JsonSchema.TypeBuilder
                 memberBuilder.AppendLine("{");
                 memberBuilder.AppendLine("  Menes.ValidationResult result = validationResult;");
 
-                memberBuilder.Append("int oneOfCount = 0;");
+                memberBuilder.AppendLine("int oneOfCount = 0;");
                 int oneOfIndex = 0;
                 foreach (TypeDeclaration oneOfType in typeDeclaration.OneOf)
                 {
@@ -51,11 +51,17 @@ namespace Menes.JsonSchema.TypeBuilder
                     memberBuilder.AppendLine("{");
                     memberBuilder.AppendLine("    oneOfCount++;");
 
-                    // We can short circuit if we are at "flag" level as soon as we find a valid result.
-                    memberBuilder.AppendLine($"if (level == Menes.ValidationLevel.Flag && oneOfCount > 1)");
-                    memberBuilder.AppendLine("{");
-                    this.WriteError("9.2.1.3. oneOf - multiple schema matched", memberBuilder);
-                    memberBuilder.AppendLine("}");
+                    // We can short circuit if we are at "flag" level if we have found multiple valid items
+                    // (there's no point checking on the first one, because we can't possibly have already
+                    // validated 2!)
+                    if (oneOfIndex > 0)
+                    {
+                        memberBuilder.AppendLine($"if (level == Menes.ValidationLevel.Flag && oneOfCount > 1)");
+                        memberBuilder.AppendLine("{");
+                        this.WriteError("9.2.1.3. oneOf - multiple schema matched", memberBuilder);
+                        memberBuilder.AppendLine("}");
+                    }
+
                     memberBuilder.AppendLine("}");
 
                     ++oneOfIndex;
