@@ -286,7 +286,7 @@ namespace Menes.JsonSchema.TypeBuilder
             }
             else
             {
-                throw new InvalidOperationException($"Unable to find element for pattern property type at location: '{location}'");
+                throw new InvalidOperationException($"Unable to find element for pattern dependent schema type at location: '{location}'");
             }
         }
 
