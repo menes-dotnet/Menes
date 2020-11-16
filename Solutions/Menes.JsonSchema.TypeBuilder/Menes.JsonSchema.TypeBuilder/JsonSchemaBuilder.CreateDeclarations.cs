@@ -54,6 +54,7 @@ namespace Menes.JsonSchema.TypeBuilder
                     this.AddStringValidations(schema, typeDeclaration);
                     this.AddNumericValidations(schema, typeDeclaration);
                     await this.AddObjectValidations(schema, typeDeclaration).ConfigureAwait(false);
+                    await this.AddArrayValidations(schema, typeDeclaration).ConfigureAwait(false);
                     await this.FindProperties(schema, typeDeclaration).ConfigureAwait(false);
                 }
 
@@ -204,7 +205,7 @@ namespace Menes.JsonSchema.TypeBuilder
                 {
                     ValidateSchema(propertyNames);
                     this.PushPropertyToAbsoluteKeywordLocationStack("propertyNames");
-                    JsonReference location = this.absoluteKeywordLocationStack.Peek();
+                    JsonReference location = this.GetLocationForType(propertyNames);
                     if (this.TryGetResolvedElement(location, out LocatedElement propertyTypeElement))
                     {
                         TypeDeclaration propertyNamesDeclaration = await this.CreateTypeDeclarations(propertyTypeElement).ConfigureAwait(false);
@@ -222,7 +223,7 @@ namespace Menes.JsonSchema.TypeBuilder
                 {
                     ValidateSchema(unevaluatedProperties);
                     this.PushPropertyToAbsoluteKeywordLocationStack("unevaluatedProperties");
-                    JsonReference location = this.absoluteKeywordLocationStack.Peek();
+                    JsonReference location = this.GetLocationForType(unevaluatedProperties);
                     if (this.TryGetResolvedElement(location, out LocatedElement propertyTypeElement))
                     {
                         TypeDeclaration unevaluatedPropertiesDeclaration = await this.CreateTypeDeclarations(propertyTypeElement).ConfigureAwait(false);
@@ -259,7 +260,7 @@ namespace Menes.JsonSchema.TypeBuilder
         {
             string jsonPropertyName = property.Name;
 
-            JsonReference location = this.absoluteKeywordLocationStack.Peek();
+            JsonReference location = this.GetLocationForType(property.Value);
             if (this.TryGetResolvedElement(location, out LocatedElement propertyTypeElement))
             {
                 TypeDeclaration newTypeDeclaration = await this.CreateTypeDeclarations(propertyTypeElement).ConfigureAwait(false);
@@ -276,7 +277,7 @@ namespace Menes.JsonSchema.TypeBuilder
         {
             string jsonPropertyName = property.Name;
 
-            JsonReference location = this.absoluteKeywordLocationStack.Peek();
+            JsonReference location = this.GetLocationForType(property.Value);
             if (this.TryGetResolvedElement(location, out LocatedElement propertyTypeElement))
             {
                 TypeDeclaration newTypeDeclaration = await this.CreateTypeDeclarations(propertyTypeElement).ConfigureAwait(false);
@@ -330,7 +331,7 @@ namespace Menes.JsonSchema.TypeBuilder
                 {
                     ValidateSchema(additionalItems);
                     this.PushPropertyToAbsoluteKeywordLocationStack("additionalItems");
-                    JsonReference location = this.absoluteKeywordLocationStack.Peek();
+                    JsonReference location = this.GetLocationForType(additionalItems);
                     if (this.TryGetResolvedElement(location, out LocatedElement propertyTypeElement))
                     {
                         TypeDeclaration additionalItemsDeclaration = await this.CreateTypeDeclarations(propertyTypeElement).ConfigureAwait(false);
@@ -344,11 +345,55 @@ namespace Menes.JsonSchema.TypeBuilder
                     this.absoluteKeywordLocationStack.Pop();
                 }
 
+                if (schema.JsonElement.TryGetProperty("items", out JsonElement items))
+                {
+                    ValidateSchemaOrArray(items);
+                    this.PushPropertyToAbsoluteKeywordLocationStack("items");
+
+                    JsonReference location = this.GetLocationForType(items);
+                    if (items.ValueKind == JsonValueKind.Object || items.ValueKind == JsonValueKind.True || items.ValueKind == JsonValueKind.False)
+                    {
+                        if (this.TryGetResolvedElement(location, out LocatedElement propertyTypeElement))
+                        {
+                            TypeDeclaration itemsDeclaration = await this.CreateTypeDeclarations(propertyTypeElement).ConfigureAwait(false);
+                            typeDeclaration.AddItem(itemsDeclaration);
+                        }
+                        else
+                        {
+                            throw new InvalidOperationException($"Unable to find element for items type at location: '{location}'");
+                        }
+                    }
+                    else if (items.ValueKind == JsonValueKind.Array)
+                    {
+                        int index = 0;
+                        foreach (JsonElement itemSchema in items.EnumerateArray())
+                        {
+                            this.PushArrayIndexToAbsoluteKeywordLocationStack(index);
+                            JsonReference childLocation = this.GetLocationForType(itemSchema);
+                            if (this.TryGetResolvedElement(childLocation, out LocatedElement childElement))
+                            {
+                                ValidateSchema(itemSchema);
+                                TypeDeclaration itemsDeclaration = await this.CreateTypeDeclarations(childElement).ConfigureAwait(false);
+                                typeDeclaration.AddItem(itemsDeclaration);
+                            }
+                            else
+                            {
+                                throw new InvalidOperationException($"Unable to find element for items type at location: '{childLocation}'");
+                            }
+
+                            ++index;
+                            this.absoluteKeywordLocationStack.Pop();
+                        }
+                    }
+
+                    this.absoluteKeywordLocationStack.Pop();
+                }
+
                 if (schema.JsonElement.TryGetProperty("contains", out JsonElement contains))
                 {
                     ValidateSchema(contains);
                     this.PushPropertyToAbsoluteKeywordLocationStack("contains");
-                    JsonReference location = this.absoluteKeywordLocationStack.Peek();
+                    JsonReference location = this.GetLocationForType(contains);
                     if (this.TryGetResolvedElement(location, out LocatedElement propertyTypeElement))
                     {
                         TypeDeclaration containsDeclaration = await this.CreateTypeDeclarations(propertyTypeElement).ConfigureAwait(false);

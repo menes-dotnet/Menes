@@ -104,11 +104,11 @@ namespace Menes.JsonSchema.TypeBuilder
         {
             if (schema.JsonElement.ValueKind == JsonValueKind.Object)
             {
-                if (schema.JsonElement.TryGetProperty("additionalProperties", out JsonElement not))
+                if (schema.JsonElement.TryGetProperty("additionalProperties", out JsonElement additionalProperties))
                 {
-                    ValidateSchema(not);
+                    ValidateSchema(additionalProperties);
                     this.PushPropertyToAbsoluteKeywordLocationStack("additionalProperties");
-                    JsonReference location = this.absoluteKeywordLocationStack.Peek();
+                    JsonReference location = this.GetLocationForType(additionalProperties);
                     if (this.TryGetResolvedElement(location, out LocatedElement propertyTypeElement))
                     {
                         if (propertyTypeElement.JsonElement.ValueKind == JsonValueKind.Object)
@@ -153,7 +153,7 @@ namespace Menes.JsonSchema.TypeBuilder
         {
             string jsonPropertyName = property.Name;
 
-            JsonReference location = this.absoluteKeywordLocationStack.Peek();
+            JsonReference location = this.GetLocationForType(property.Value);
             if (this.TryGetResolvedElement(location, out LocatedElement propertyTypeElement))
             {
                 TypeDeclaration newTypeDeclaration = await this.CreateTypeDeclarations(propertyTypeElement).ConfigureAwait(false);

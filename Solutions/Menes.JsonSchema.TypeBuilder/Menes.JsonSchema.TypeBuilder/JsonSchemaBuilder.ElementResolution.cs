@@ -33,6 +33,17 @@ namespace Menes.JsonSchema.TypeBuilder
             return reference;
         }
 
+        private JsonReference GetLocationForType(JsonElement schema)
+        {
+            JsonReference baseReference = this.absoluteKeywordLocationStack.Peek();
+            if (schema.ValueKind == JsonValueKind.Object && schema.TryGetProperty("$id", out JsonElement dollarid) && dollarid.ValueKind == JsonValueKind.String)
+            {
+                return baseReference.Apply(new JsonReference(dollarid.GetString()));
+            }
+
+            return baseReference;
+        }
+
         /// <summary>
         /// Find the element at the given absolute location, loading it using the <see cref="IDocumentResolver"/>
         /// if it is not already resolved.

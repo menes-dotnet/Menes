@@ -169,6 +169,11 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         public IfThenElse? IfThenElse { get; set; }
 
         /// <summary>
+        /// Gets or sets the items type.
+        /// </summary>
+        public List<TypeDeclaration>? Items { get; set; }
+
+        /// <summary>
         /// Gets or sets the additional items type.
         /// </summary>
         public TypeDeclaration? AdditionalItems { get; set; }
@@ -499,6 +504,16 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         }
 
         /// <summary>
+        /// Add the item to the items list.
+        /// </summary>
+        /// <param name="itemsDeclaration">The items declaration to add.</param>
+        public void AddItem(TypeDeclaration itemsDeclaration)
+        {
+            List<TypeDeclaration> items = this.EnsureItems();
+            items.Add(itemsDeclaration);
+        }
+
+        /// <summary>
         /// Merge the given type declartion into this type.
         /// </summary>
         /// <param name="typeToMerge">Merge the given type declaration into this type.</param>
@@ -799,12 +814,31 @@ namespace Menes.JsonSchema.TypeBuilder.Model
             }
 
             // Then merge in our own base type to the target.
+            MergeItems(Lower(baseType.Items), result);
             MergeProperties(Lower(baseType.Properties), result);
             MergeValidations(baseType, result);
             MergeConversions(baseType, result);
             MergeConstAndEnum(baseType, result);
 
             return this.lowered;
+        }
+
+        private static void MergeItems(List<TypeDeclaration>? items, TypeDeclaration result)
+        {
+            if (items is null)
+            {
+                return;
+            }
+
+            List<TypeDeclaration> resultItems = result.EnsureItems();
+
+            foreach (TypeDeclaration item in items)
+            {
+                if (!resultItems.Any(i => i.FullyQualifiedDotNetTypeName == item.FullyQualifiedDotNetTypeName))
+                {
+                    resultItems.Add(item);
+                }
+            }
         }
 
         /// <summary>
@@ -983,6 +1017,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
             MergeAnyOf(typeToMerge.AnyOf, result);
             MergeOneOf(typeToMerge.OneOf, result);
             MergeProperties(typeToMerge.Properties, result);
+            MergeItems(typeToMerge.Items, result);
             MergeConstAndEnum(typeToMerge, result);
 
             // Note that we don't merge validations on the merged types
@@ -1276,40 +1311,41 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         private bool IsNakedReference()
         {
             return this.AdditionalItems is null &&
-                                    this.AdditionalProperties is null &&
-                                    this.AllOf is null &&
-                                    this.AnyOf is null &&
-                                    this.AsConversionMethods is null &&
-                                    this.Contains is null &&
-                                    this.ConversionOperators is null &&
-                                    this.DependentRequired is null &&
-                                    this.ExclusiveMaximum is null &&
-                                    this.ExclusiveMinimum is null &&
-                                    this.IfThenElse is null &&
-                                    this.MaxContains is null &&
-                                    this.Maximum is null &&
-                                    this.MaxItems is null &&
-                                    this.MaxLength is null &&
-                                    this.MaxProperties is null &&
-                                    this.MinContains is null &&
-                                    this.Minimum is null &&
-                                    this.MinItems is null &&
-                                    this.MinLength is null &&
-                                    this.MinProperties is null &&
-                                    this.MultipleOf is null &&
-                                    this.Not is null &&
-                                    this.OneOf is null &&
-                                    this.Pattern is null &&
-                                    this.PatternProperties is null &&
-                                    this.DependentSchemas is null &&
-                                    this.Properties is null &&
-                                    this.PropertyNames is null &&
-                                    this.UnevaluatedItems is null &&
-                                    this.UnevaluatedProperties is null &&
-                                    this.UniqueItems is null &&
-                                    this.Type is null &&
-                                    this.Const is null &&
-                                    this.Enum is null;
+                   this.AdditionalProperties is null &&
+                   this.AllOf is null &&
+                   this.AnyOf is null &&
+                   this.AsConversionMethods is null &&
+                   this.Const is null &&
+                   this.Contains is null &&
+                   this.ConversionOperators is null &&
+                   this.DependentRequired is null &&
+                   this.Enum is null &&
+                   this.ExclusiveMaximum is null &&
+                   this.ExclusiveMinimum is null &&
+                   this.IfThenElse is null &&
+                   this.Items is null &&
+                   this.MaxContains is null &&
+                   this.Maximum is null &&
+                   this.MaxItems is null &&
+                   this.MaxLength is null &&
+                   this.MaxProperties is null &&
+                   this.MinContains is null &&
+                   this.Minimum is null &&
+                   this.MinItems is null &&
+                   this.MinLength is null &&
+                   this.MinProperties is null &&
+                   this.MultipleOf is null &&
+                   this.Not is null &&
+                   this.OneOf is null &&
+                   this.Pattern is null &&
+                   this.PatternProperties is null &&
+                   this.DependentSchemas is null &&
+                   this.Properties is null &&
+                   this.PropertyNames is null &&
+                   this.Type is null &&
+                   this.UnevaluatedItems is null &&
+                   this.UnevaluatedProperties is null &&
+                   this.UniqueItems is null;
         }
 
         private void AddAsConversionMethod(AsConversionMethodDeclaration asConversionMethodDeclaration)
@@ -1392,6 +1428,11 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         private List<PropertyDeclaration> EnsureProperties()
         {
             return this.Properties ??= new List<PropertyDeclaration>();
+        }
+
+        private List<TypeDeclaration> EnsureItems()
+        {
+            return this.Items ??= new List<TypeDeclaration>();
         }
 
         private List<ConversionOperatorDeclaration> EnsureConversionOperators()
