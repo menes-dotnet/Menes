@@ -22,7 +22,6 @@ namespace Menes.JsonSchema.TypeBuilder
         // Note that anchors are stored as a full reference, with the base uri of the root document combined with the anchor name.
         private readonly Dictionary<string, LocatedElement> anchors = new Dictionary<string, LocatedElement>();
 
-        private readonly Dictionary<string, LocatedElement> ids = new Dictionary<string, LocatedElement>();
         private readonly Dictionary<string, LocatedElement> locatedElementsByLocation = new Dictionary<string, LocatedElement>();
 
         private readonly IDocumentResolver documentResolver;

@@ -83,11 +83,6 @@ namespace Menes.JsonSchema.TypeBuilder
 
         private bool TryGetResolvedElement(JsonReference absoluteLocation, [NotNullWhen(true)]out LocatedElement element)
         {
-            if (this.ids.TryGetValue(absoluteLocation, out element))
-            {
-                return true;
-            }
-
             if (this.anchors.TryGetValue(absoluteLocation, out element))
             {
                 return true;
@@ -133,7 +128,7 @@ namespace Menes.JsonSchema.TypeBuilder
             // Strip out any that have been subsequentyl identified by anchor or ID.
             foreach (string reference in this.unresolvedElements.ToList())
             {
-                if (this.ids.ContainsKey(reference) || this.anchors.ContainsKey(reference) || this.locatedElementsByLocation.ContainsKey(reference))
+                if (this.anchors.ContainsKey(reference) || this.locatedElementsByLocation.ContainsKey(reference))
                 {
                     this.unresolvedElements.Remove(reference);
                 }
