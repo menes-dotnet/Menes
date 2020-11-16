@@ -4,6 +4,8 @@
 
 namespace Menes.JsonSchema.TypeBuilder.Model
 {
+    using System;
+
     /// <summary>
     /// Gets common type declarations.
     /// </summary>
@@ -12,12 +14,12 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         /// <summary>
         /// The {}/true type declaration.
         /// </summary>
-        public static readonly TypeDeclaration AnyTypeDeclaration = new TypeDeclaration() { IsBooleanTrueType = true };
+        public static readonly TypeDeclaration AnyTypeDeclaration = new TypeDeclaration(builtInType: true) { IsBooleanTrueType = true, DotnetTypeName = "Menes.JsonAny" };
 
         /// <summary>
         /// The not {}/false type declaration.
         /// </summary>
-        public static readonly TypeDeclaration NotTypeDeclaration = new TypeDeclaration() { IsBooleanFalseType = true };
+        public static readonly TypeDeclaration NotTypeDeclaration = new TypeDeclaration(builtInType: true) { IsBooleanFalseType = true, DotnetTypeName = "Menes.JsonNotAny" };
 
         /// <summary>
         /// A clr <see cref="int"/> type.
@@ -124,5 +126,22 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         /// </summary>
         // language=regex
         public static readonly TypeDeclaration IpV6TypeDeclaration = new TypeDeclaration(builtInType: true) { DotnetTypeName = "string", Pattern = "^(?=.{1,255}$)[0-9a-z](([0-9a-z]|\\b-){0,61}[0-9a-z])?(\\.[0-9a-z](([0-9a-z]|\\b-){0,61}[0-9a-z])?)*\\.?$" };
+
+        /// <summary>
+        /// Gets the Menes type name for the given json-schema type.
+        /// </summary>
+        /// <param name="type">One of "integer", "number", "boolean", "string".</param>
+        /// <returns>The corresponding fully qualified type name.</returns>
+        public static string GetTypeNameFor(string type)
+        {
+            return type switch
+            {
+                "integer" => "Menes.JsonInteger",
+                "number" => "Menes.JsonNumber",
+                "boolean" => "Menes.JsonBoolean",
+                "string" => "Menes.JsonString",
+                _ => throw new InvalidOperationException($"Unsupported type name: '{type}'"),
+            };
+        }
     }
 }

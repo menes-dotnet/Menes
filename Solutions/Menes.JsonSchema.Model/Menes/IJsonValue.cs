@@ -5,6 +5,7 @@
 namespace Menes
 {
     using System;
+    using System.Collections.Generic;
     using System.Text.Json;
 
     /// <summary>
@@ -63,8 +64,9 @@ namespace Menes
         /// </summary>
         /// <param name="validationContext">The current validation context.</param>
         /// <param name="level">The required validation level.</param>
+        /// <param name="evaluatedProperties">The properties that have been evaluated.</param>
         /// <returns>The validation context updated with the results of the validation.</returns>
-        ValidationContext Validate(in ValidationContext validationContext, ValidationLevel level = ValidationLevel.Flag);
+        ValidationContext Validate(in ValidationContext validationContext, ValidationLevel level = ValidationLevel.Flag, HashSet<string> evaluatedProperties = null);
 
         /// <summary>
         /// Try to get a named property.

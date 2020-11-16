@@ -19,7 +19,7 @@ namespace Menes.JsonSchema.TypeBuilder
         /// </summary>
         /// <param name="typeDeclaration">The type declaration for which to build the validation method.</param>
         /// <param name="memberBuilder">The output builder.</param>
-        private void BuildValidate(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
+        private void BuildValidateMethod(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
         {
             this.absoluteKeywordLocationStack.Push(typeDeclaration.TypeSchema.AbsoluteKeywordLocation);
 

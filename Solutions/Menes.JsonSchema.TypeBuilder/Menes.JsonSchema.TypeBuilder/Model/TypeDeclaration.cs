@@ -227,7 +227,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
                     return false;
                 }
 
-                return true;
+                return this.IsObjectTypeDeclaration;
             }
         }
 
@@ -337,6 +337,11 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         /// Gets or sets the set of dependent required properties in the object.
         /// </summary>
         public Dictionary<string, List<string>>? DependentRequired { get; set; }
+
+        /// <summary>
+        /// Gets a value indicating whether this is an object-type declaration.
+        /// </summary>
+        public bool IsObjectTypeDeclaration => (this.Type is not null && this.Type.Contains("object")) || this.AdditionalProperties is not null || this.DependentRequired is not null || this.DependentSchemas is not null || this.MaxProperties is not null || this.MinProperties is not null || this.PatternProperties is not null || this.Properties is not null || this.PropertyNames is not null || this.UnevaluatedProperties is not null;
 
         /// <summary>
         /// Add a conversion operator.
