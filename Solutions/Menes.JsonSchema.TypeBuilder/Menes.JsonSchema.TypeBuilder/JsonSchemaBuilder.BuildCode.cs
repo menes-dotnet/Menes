@@ -4,6 +4,7 @@
 
 namespace Menes.JsonSchema.TypeBuilder
 {
+    using System;
     using System.Text;
     using Menes.JsonSchema.TypeBuilder.Model;
 
@@ -24,10 +25,12 @@ namespace Menes.JsonSchema.TypeBuilder
             this.BuildJsonElementBackingField(memberBuilder);
             this.BuildAdditionalPropertiesBackingField(typeDeclaration, memberBuilder);
             this.BuildTypeBackingFields(typeDeclaration, memberBuilder);
+            this.BuildPropertyBackingFields(typeDeclaration, memberBuilder);
 
             // Public properties
             this.BuildUndefinedAndNullProperties(memberBuilder);
             this.BuildJsonElementProperties(memberBuilder);
+            this.BuildProperties(typeDeclaration, memberBuilder);
 
             // Public methods
             this.BuildValidateMethod(typeDeclaration, memberBuilder);
@@ -36,6 +39,66 @@ namespace Menes.JsonSchema.TypeBuilder
             // Private methods
             this.BuildAllBackingFieldsAreNullMethod(typeDeclaration, memberBuilder);
             memberBuilder.AppendLine("}");
+        }
+
+        private void BuildProperties(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
+        {
+            if (typeDeclaration.Properties is not null)
+            {
+                foreach (PropertyDeclaration property in typeDeclaration.Properties)
+                {
+                    if (property.TypeDeclaration is null)
+                    {
+                        throw new InvalidOperationException("You must set the type declaration for all properties before generating code.");
+                    }
+
+                    if (!property.TypeDeclaration.ContainsReferenceTo(typeDeclaration))
+                    {
+                        if (property.IsRequired)
+                        {
+                            memberBuilder.AppendLine($"public {property.TypeDeclaration.FullyQualifiedDotNetTypeName} {property.DotnetPropertyName} => this.HasJsonElement ? this.GetPropertyFromJsonElement<{property.TypeDeclaration.FullyQualifiedDotNetTypeName}>(_Menes{property.DotnetPropertyName}ByteArray) : this.{property.DotnetFieldName}.Value!;");
+                        }
+                        else
+                        {
+                            memberBuilder.AppendLine($"public {property.TypeDeclaration.FullyQualifiedDotNetTypeName}? {property.DotnetPropertyName} => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<{property.TypeDeclaration.FullyQualifiedDotNetTypeName}>(_Menes{property.DotnetPropertyName}ByteArray) : this.{property.DotnetFieldName}.Value!;");
+                        }
+                    }
+                    else
+                    {
+                        if (property.IsRequired)
+                        {
+                            memberBuilder.AppendLine($"public {property.TypeDeclaration.FullyQualifiedDotNetTypeName} {property.DotnetPropertyName} => this.HasJsonElement ? this.GetPropertyFromJsonElement<{property.TypeDeclaration.FullyQualifiedDotNetTypeName}>(_Menes{property.DotnetPropertyName}ByteArray) : this.{property.DotnetFieldName}.Value<{property.TypeDeclaration.FullyQualifiedDotNetTypeName}>()!;");
+                        }
+                        else
+                        {
+                            memberBuilder.AppendLine($"public {property.TypeDeclaration.FullyQualifiedDotNetTypeName}? {property.DotnetPropertyName} => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<{property.TypeDeclaration.FullyQualifiedDotNetTypeName}>(_Menes{property.DotnetPropertyName}ByteArray) : this.{property.DotnetFieldName}.Value<{property.TypeDeclaration.FullyQualifiedDotNetTypeName}>();");
+                        }
+                    }
+                }
+            }
+        }
+
+        private void BuildPropertyBackingFields(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
+        {
+            if (typeDeclaration.Properties is not null)
+            {
+                foreach (PropertyDeclaration property in typeDeclaration.Properties)
+                {
+                    if (property.TypeDeclaration is null)
+                    {
+                        throw new InvalidOperationException("You must set the type declaration for all properties before generating code.");
+                    }
+
+                    if (property.TypeDeclaration.ContainsReferenceTo(typeDeclaration))
+                    {
+                        memberBuilder.AppendLine($"private readonly Menes.JsonValueBacking {property.DotnetFieldName};");
+                    }
+                    else
+                    {
+                        memberBuilder.AppendLine($"private readonly {property.TypeDeclaration.FullyQualifiedDotNetTypeName}? {property.DotnetFieldName};");
+                    }
+                }
+            }
         }
 
         private void BuildWriteToMethod(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
@@ -186,6 +249,7 @@ namespace Menes.JsonSchema.TypeBuilder
 
             this.BuildTypeBackingFieldsAreNull(typeDeclaration, memberBuilder);
 
+            memberBuilder.AppendLine("return true;");
             memberBuilder.AppendLine("}");
         }
 
@@ -220,10 +284,10 @@ namespace Menes.JsonSchema.TypeBuilder
         private void BuildUndefinedAndNullProperties(StringBuilder memberBuilder)
         {
             memberBuilder.AppendLine("/// <inheritdoc />");
-            memberBuilder.AppendLine("bool IsUndefined => this._menesBackingElement.ValueKind == System.Text.Json.JsonValueKind.Undefined && this.AllBackingFieldsAreNull();");
+            memberBuilder.AppendLine("bool IsUndefined => !this.HasJsonElement && this.AllBackingFieldsAreNull();");
 
             memberBuilder.AppendLine("/// <inheritdoc />");
-            memberBuilder.AppendLine("bool IsNull => this._menesBackingElement.ValueKind == System.Text.Json.JsonValueKind.Null || this.AllBackingFieldsAreNull();");
+            memberBuilder.AppendLine("bool IsNull => this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Null || (!this.HasJsonElement && this.AllBackingFieldsAreNull());");
         }
 
         private void BuildJsonElementProperties(StringBuilder memberBuilder)

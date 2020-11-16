@@ -62,11 +62,11 @@ namespace Menes
         /// <summary>
         /// Validate the element.
         /// </summary>
-        /// <param name="validationContext">The current validation context.</param>
+        /// <param name="validationResult">The current validation result.</param>
         /// <param name="level">The required validation level.</param>
         /// <param name="evaluatedProperties">The properties that have been evaluated.</param>
         /// <returns>The validation context updated with the results of the validation.</returns>
-        ValidationContext Validate(in ValidationContext validationContext, ValidationLevel level = ValidationLevel.Flag, HashSet<string> evaluatedProperties = null);
+        ValidationResult Validate(in ValidationResult validationResult, ValidationLevel level = ValidationLevel.Flag, HashSet<string>? evaluatedProperties = null);
 
         /// <summary>
         /// Try to get a named property.
