@@ -33,7 +33,18 @@ namespace Menes.JsonSchema.TypeBuilder
             return reference;
         }
 
-        private JsonReference GetLocationForType(JsonElement schema)
+        /// <summary>
+        /// Gets the absolute location for a given schema element.
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// This peeks the absolute keyword location off the stack, and applies the $id for the schema if present.
+        /// </para>
+        /// <para>
+        /// It is used by the Type building when looking for schema in properties.
+        /// </para>
+        /// </remarks>
+        private JsonReference GetLocationForSchemaElement(JsonElement schema)
         {
             JsonReference baseReference = this.absoluteKeywordLocationStack.Peek();
             if (schema.ValueKind == JsonValueKind.Object && schema.TryGetProperty("$id", out JsonElement dollarid) && dollarid.ValueKind == JsonValueKind.String)
@@ -49,8 +60,9 @@ namespace Menes.JsonSchema.TypeBuilder
         /// if it is not already resolved.
         /// </summary>
         /// <remarks>
+        /// <para>This is used by the schema walker to find referenced elements by their absolute location.</para>
         /// <para>
-        /// If the reference cannot be resolved, it is pushed onto teh <see cref="unresolvedElements"/> stack.
+        /// If the reference cannot be resolved, it is pushed onto the <see cref="unresolvedElements"/> stack.
         /// </para>
         /// <para>
         /// If the reference is resolved, it is removed from the <see cref="unresolvedElements"/> stack, if it was present.
@@ -81,6 +93,10 @@ namespace Menes.JsonSchema.TypeBuilder
             return element;
         }
 
+        /// <summary>
+        /// This is used by both the schema resolution and the type building to find
+        /// a previously located element by its absolute location.
+        /// </summary>
         private bool TryGetResolvedElement(JsonReference absoluteLocation, [NotNullWhen(true)]out LocatedElement element)
         {
             if (this.anchors.TryGetValue(absoluteLocation, out element))
@@ -123,6 +139,10 @@ namespace Menes.JsonSchema.TypeBuilder
             return null;
         }
 
+        /// <summary>
+        /// This looks through the unresolved elements list that was created during the walk of the schema,
+        /// and removes any that were resolved later.
+        /// </summary>
         private void ValidateUnresolvedElements()
         {
             // Strip out any that have been subsequentyl identified by anchor or ID.
