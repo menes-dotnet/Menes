@@ -42,7 +42,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         /// <summary>
         /// A clr <see cref="decimal"/> type.
         /// </summary>
-        public static readonly TypeDeclaration ClrDecimalTypeDeclaration = new TypeDeclaration(builtInType: true) { DotnetTypeName = "double" };
+        public static readonly TypeDeclaration ClrDecimalTypeDeclaration = new TypeDeclaration(builtInType: true) { DotnetTypeName = "decimal" };
 
         /// <summary>
         /// A clr <see cref="string"/> type.
