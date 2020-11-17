@@ -97,7 +97,7 @@ namespace Menes.JsonSchema.TypeBuilder
         /// This is used by both the schema resolution and the type building to find
         /// a previously located element by its absolute location.
         /// </summary>
-        private bool TryGetResolvedElement(JsonReference absoluteLocation, [NotNullWhen(true)]out LocatedElement element)
+        private bool TryGetResolvedElement(JsonReference absoluteLocation, [NotNullWhen(true)] out LocatedElement element)
         {
             if (this.anchors.TryGetValue(absoluteLocation, out element))
             {
@@ -127,12 +127,19 @@ namespace Menes.JsonSchema.TypeBuilder
         /// </summary>
         private JsonReference? FindParentEntityLocation()
         {
+            JsonReference current = this.absoluteKeywordLocationStack.Peek();
+
             // Work up the stack, skipping the first one.
             foreach (JsonReference reference in this.absoluteKeywordLocationStack.Skip(1))
             {
                 if (!reference.HasFragment)
                 {
-                    return reference;
+                    if (reference != current)
+                    {
+                        return reference;
+                    }
+
+                    return null;
                 }
             }
 

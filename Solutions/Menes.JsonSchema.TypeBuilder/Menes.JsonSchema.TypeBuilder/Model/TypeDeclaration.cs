@@ -249,7 +249,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
             get
             {
                 TypeDeclaration current = this.Lower();
-                while (current.lowered != null)
+                while (current.lowered != null && current != current.lowered)
                 {
                     current = current.lowered;
                 }
@@ -384,18 +384,35 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         /// Gets a value which determines whether this type contains a reference to a given type.
         /// </summary>
         /// <param name="typeDeclaration">The type declaration to compare.</param>
+        /// <param name="typeNamesVisited">The types we've already visited in this inspection.</param>
         /// <returns><c>true</c> if this object is itself an instance of the type, or if any of its properties are instances of that type.</returns>
-        public bool ContainsReferenceTo(TypeDeclaration typeDeclaration)
+        public bool ContainsReferenceTo(TypeDeclaration typeDeclaration, List<string>? typeNamesVisited = null)
         {
-            if (this == typeDeclaration)
+            if (this.FullyQualifiedDotNetTypeName is null)
+            {
+                throw new InvalidOperationException("You must set the DotNetTypeName before calling ContainsReferenceTo().");
+            }
+
+            if (typeNamesVisited is null)
+            {
+                typeNamesVisited = new List<string>();
+            }
+            else if (typeNamesVisited.Contains(this.FullyQualifiedDotNetTypeName))
+            {
+                return false;
+            }
+
+            typeNamesVisited.Add(this.FullyQualifiedDotNetTypeName);
+
+            if (this.FullyQualifiedDotNetTypeName == typeDeclaration.FullyQualifiedDotNetTypeName)
             {
                 return true;
             }
 
-            return (this.Properties is not null && this.Properties.Any(p => p.TypeDeclaration?.ContainsReferenceTo(typeDeclaration) ?? false)) ||
-                (this.Items is not null && this.Items.Any(i => i.ContainsReferenceTo(typeDeclaration))) ||
-                (this.AnyOf is not null && this.AnyOf.Any(ao => ao.ContainsReferenceTo(typeDeclaration))) ||
-                (this.OneOf is not null && this.OneOf.Any(oo => oo.ContainsReferenceTo(typeDeclaration)));
+            return (this.Properties is not null && this.Properties.Any(p => p.TypeDeclaration?.ContainsReferenceTo(typeDeclaration, typeNamesVisited) ?? false)) ||
+                (this.Items is not null && this.Items.Any(i => i.ContainsReferenceTo(typeDeclaration, typeNamesVisited))) ||
+                (this.AnyOf is not null && this.AnyOf.Any(ao => ao.ContainsReferenceTo(typeDeclaration, typeNamesVisited))) ||
+                (this.OneOf is not null && this.OneOf.Any(oo => oo.ContainsReferenceTo(typeDeclaration, typeNamesVisited)));
         }
 
         /// <summary>
@@ -793,7 +810,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
                 // Lower the types to merge.
                 var loweredTypes = this.MergedTypes.Select(m => m.Lowered).ToList();
 
-                if (loweredTypes.Count == 1)
+                if (loweredTypes.Count == 1 && this.IsNakedReference())
                 {
                     // If we are empty apart from a single merged type,
                     // then treat us as that merged type.
@@ -802,22 +819,24 @@ namespace Menes.JsonSchema.TypeBuilder.Model
                     // If we used the original type directly, we would lose our referential
                     // scope in the absoluteKeywordLocation hierarchy, and also get into trouble
                     // with recursive references.
-                    if (this.IsNakedReference())
-                    {
-                        // Switch the base type to the reference.
-                        baseType = loweredTypes[0];
+                    // Switch the base type to the reference.
+                    this.lowered = loweredTypes[0];
+                    return this.lowered;
+                    ////baseType = loweredTypes[0];
 
-                        // Update the things that can only come from the reference.
-                        result.DotnetTypeName = baseType.DotnetTypeName;
-                        result.Type = baseType.Type;
-                        result.IsRef = true;
-                    }
+                    ////// Update the things that can only come from the reference.
+                    ////result.DotnetTypeName = baseType.DotnetTypeName;
+                    ////result.Type = baseType.Type;
+                    ////result.IsRef = true;
+                    ////result.TypeSchema = baseType.TypeSchema;
                 }
-
-                // Iterate the types to merge and merge them in
-                foreach (TypeDeclaration typeToMerge in loweredTypes)
+                else
                 {
-                    MergeTypesToBase(result, typeToMerge);
+                    // Iterate the types to merge and merge them in
+                    foreach (TypeDeclaration typeToMerge in loweredTypes)
+                    {
+                        MergeTypesToBase(result, typeToMerge);
+                    }
                 }
             }
 
