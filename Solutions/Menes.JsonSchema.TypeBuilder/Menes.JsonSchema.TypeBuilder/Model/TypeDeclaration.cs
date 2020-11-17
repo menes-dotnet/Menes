@@ -125,7 +125,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         /// <summary>
         /// Gets the list of nested types in this declaration.
         /// </summary>
-        public List<TypeDeclaration>? NestedTypes { get; private set; }
+        public List<TypeDeclaration>? EmbeddedTypes { get; private set; }
 
         /// <summary>
         /// Gets the list of merged types in this declaration.
@@ -419,11 +419,11 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         /// Add a child type declaration to this type.
         /// </summary>
         /// <param name="typeDeclaration">The type declaration to add.</param>
-        public void AddTypeDeclaration(TypeDeclaration typeDeclaration)
+        public void AddEmbeddedTypeDeclaration(TypeDeclaration typeDeclaration)
         {
             this.ValidateMemberName(typeDeclaration.DotnetTypeName);
             this.memberNames.Add(typeDeclaration.DotnetTypeName!);
-            this.EnsureNestedTypes().Add(typeDeclaration);
+            this.EnsureEmbeddedTypes().Add(typeDeclaration);
         }
 
         /// <summary>
@@ -798,6 +798,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
                 Type = this.Type,
                 Parent = this.Parent,
                 IsLowered = true,
+                EmbeddedTypes = this.EmbeddedTypes,
             };
 
             TypeDeclaration baseType = this;
@@ -1448,9 +1449,9 @@ namespace Menes.JsonSchema.TypeBuilder.Model
             return this.AllOf ??= new List<TypeDeclaration>();
         }
 
-        private List<TypeDeclaration> EnsureNestedTypes()
+        private List<TypeDeclaration> EnsureEmbeddedTypes()
         {
-            return this.NestedTypes ??= new List<TypeDeclaration>();
+            return this.EmbeddedTypes ??= new List<TypeDeclaration>();
         }
 
         private List<PropertyDeclaration> EnsureProperties()

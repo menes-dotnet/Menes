@@ -24,7 +24,7 @@ namespace Menes.JsonSchema.TypeBuilder
             this.absoluteKeywordLocationStack.Push(typeDeclaration.TypeSchema.AbsoluteKeywordLocation);
 
             memberBuilder.AppendLine("/// <inheritdoc />");
-            memberBuilder.AppendLine("public Menes.ValidatationResult Validate(in Menes.ValidationResult validationResult, Menes.ValidationLevel level = Menes.ValidationLevel.Flag, System.Collections.Generic.HashSet<string>? evaluatedProperties = null)");
+            memberBuilder.AppendLine("public Menes.ValidationResult Validate(in Menes.ValidationResult validationResult, Menes.ValidationLevel level = Menes.ValidationLevel.Flag, System.Collections.Generic.HashSet<string>? evaluatedProperties = null)");
             memberBuilder.AppendLine("{");
 
             try

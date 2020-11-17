@@ -37,7 +37,42 @@ namespace Menes.JsonSchema.TypeBuilder
             this.BuildWriteToMethod(typeDeclaration, memberBuilder);
 
             // Private methods
+            this.BuildJsonPropertyGetMethods(typeDeclaration, memberBuilder);
             this.BuildAllBackingFieldsAreNullMethod(typeDeclaration, memberBuilder);
+
+            // Embedded types
+            this.BuildEmbeddedTypes(typeDeclaration, memberBuilder);
+            memberBuilder.AppendLine("}");
+        }
+
+        private void BuildEmbeddedTypes(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
+        {
+            if (typeDeclaration.EmbeddedTypes is null)
+            {
+                return;
+            }
+
+            foreach (TypeDeclaration t in typeDeclaration.EmbeddedTypes)
+            {
+                this.BuildCode(t, memberBuilder);
+            }
+        }
+
+        private void BuildJsonPropertyGetMethods(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
+        {
+            memberBuilder.AppendLine("private TPropertyValue GetPropertyFromJsonElement<TPropertyValue>(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<char> propertyName)");
+            memberBuilder.AppendLine("    where TPropertyValue : struct, Menes.IJsonValue");
+            memberBuilder.AppendLine("{");
+            memberBuilder.AppendLine("    return this.GetOptionalPropertyFromJsonElement<TPropertyValue>(parentDocument, propertyName) ?? throw new System.InvalidOperationException($\"The required property {propertyName.ToString()} was not found.\");");
+            memberBuilder.AppendLine("}");
+            memberBuilder.AppendLine("private TPropertyValue? GetOptionalPropertyFromJsonElement<TPropertyValue>(in System.Text.Json.JsonElement parentDocument, System.ReadOnlySpan<char> propertyName)");
+            memberBuilder.AppendLine("    where TPropertyValue : struct, Menes.IJsonValue");
+            memberBuilder.AppendLine("{");
+            memberBuilder.AppendLine("    return parentDocument.ValueKind == System.Text.Json.JsonValueKind.Object ?");
+            memberBuilder.AppendLine("         (parentDocument.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)");
+            memberBuilder.AppendLine("             ? Menes.JsonValue.As<TPropertyValue>(property)");
+            memberBuilder.AppendLine("             : null)");
+            memberBuilder.AppendLine("         : null;");
             memberBuilder.AppendLine("}");
         }
 
@@ -145,7 +180,7 @@ namespace Menes.JsonSchema.TypeBuilder
                     {
                         string typeAsPascalCase = Formatting.ToPascalCaseWithReservedWords(type).ToString();
 
-                        memberBuilder.AppendLine($"if _menes{typeAsPascalCase}TypeBacking is not null)");
+                        memberBuilder.AppendLine($"if (this._menes{typeAsPascalCase}TypeBacking is not null)");
                         memberBuilder.AppendLine("{");
                         memberBuilder.AppendLine("    return false;");
                         memberBuilder.AppendLine("}");
@@ -206,17 +241,25 @@ namespace Menes.JsonSchema.TypeBuilder
             {
                 foreach (PropertyDeclaration property in typeDeclaration.Properties)
                 {
-                    memberBuilder.AppendLine($"    if (this.{property.DotnetFieldName} is not null)");
+                    if (!property.TypeDeclaration!.ContainsReferenceTo(typeDeclaration))
+                    {
+                        memberBuilder.AppendLine($"    if (this.{property.DotnetFieldName} is {property.TypeDeclaration!.FullyQualifiedDotNetTypeName} {property.DotnetFieldName})");
+                    }
+                    else
+                    {
+                        memberBuilder.AppendLine($"    if (this.{property.DotnetFieldName} is Menes.JsonValueBacking {property.DotnetFieldName})");
+                    }
+
                     memberBuilder.AppendLine("    {");
                     memberBuilder.AppendLine($"        writer.WritePropertyName(\"{property.JsonPropertyName}\");");
-                    memberBuilder.AppendLine($"        this.{property.DotnetFieldName}.WriteTo(writer);");
+                    memberBuilder.AppendLine($"        {property.DotnetFieldName}.WriteTo(writer);");
                     memberBuilder.AppendLine("    }");
                 }
             }
 
             if (typeDeclaration.AllowsAdditionalProperties)
             {
-                memberBuilder.AppendLine($"    foreach (var kvp in this._menesBackingElement)");
+                memberBuilder.AppendLine($"    foreach (var kvp in this._menesAdditionalPropertiesBacking)");
                 memberBuilder.AppendLine("    {");
                 memberBuilder.AppendLine("        writer.WritePropertyName(kvp.Key);");
                 memberBuilder.AppendLine("        kvp.Value.WriteTo(writer);");
@@ -226,7 +269,7 @@ namespace Menes.JsonSchema.TypeBuilder
 
         private void BuildJsonElementBackingField(StringBuilder memberBuilder)
         {
-            memberBuilder.AppendLine("private readonly System.Text.Json.JsonElement _menesBackingElement;");
+            memberBuilder.AppendLine("private readonly System.Text.Json.JsonElement _menesJsonElementBacking;");
         }
 
         private void BuildAdditionalPropertiesBackingField(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
@@ -234,7 +277,7 @@ namespace Menes.JsonSchema.TypeBuilder
             if (typeDeclaration.AllowsAdditionalProperties)
             {
                 string additionalPropertyTypeName = typeDeclaration.AdditionalProperties?.FullyQualifiedDotNetTypeName ?? TypeDeclarations.AnyTypeDeclaration.FullyQualifiedDotNetTypeName!;
-                memberBuilder.AppendLine($"private readonly System.Collections.Immutable.ImmutableDictionary<string, {additionalPropertyTypeName}> _menesBackingElement;");
+                memberBuilder.AppendLine($"private readonly System.Collections.Immutable.ImmutableDictionary<string, {additionalPropertyTypeName}> _menesAdditionalPropertiesBacking;");
             }
         }
 
@@ -284,19 +327,17 @@ namespace Menes.JsonSchema.TypeBuilder
         private void BuildUndefinedAndNullProperties(StringBuilder memberBuilder)
         {
             memberBuilder.AppendLine("/// <inheritdoc />");
-            memberBuilder.AppendLine("bool IsUndefined => !this.HasJsonElement && this.AllBackingFieldsAreNull();");
-
+            memberBuilder.AppendLine("public bool IsUndefined => !this.HasJsonElement && this.AllBackingFieldsAreNull();");
             memberBuilder.AppendLine("/// <inheritdoc />");
-            memberBuilder.AppendLine("bool IsNull => this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Null || (!this.HasJsonElement && this.AllBackingFieldsAreNull());");
+            memberBuilder.AppendLine("public bool IsNull => this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Null || (!this.HasJsonElement && this.AllBackingFieldsAreNull());");
         }
 
         private void BuildJsonElementProperties(StringBuilder memberBuilder)
         {
             memberBuilder.AppendLine("/// <inheritdoc />");
-            memberBuilder.AppendLine("bool HasJsonElement => this._menesBackingElement.ValueKind != System.Text.Json.JsonValueKind.Undefined;");
-
+            memberBuilder.AppendLine("public bool HasJsonElement => this._menesJsonElementBacking.ValueKind != System.Text.Json.JsonValueKind.Undefined;");
             memberBuilder.AppendLine("/// <inheritdoc />");
-            memberBuilder.AppendLine("System.Text.Json.JsonElement JsonElement => this._menesBackingElement;");
+            memberBuilder.AppendLine("public System.Text.Json.JsonElement JsonElement => this._menesJsonElementBacking;");
         }
     }
 }

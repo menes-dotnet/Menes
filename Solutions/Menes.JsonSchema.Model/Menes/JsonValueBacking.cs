@@ -61,6 +61,24 @@ namespace Menes
             return new JsonValueBacking(source);
         }
 
+
+        /// <summary>
+        /// Write the element to a <see cref="Utf8JsonWriter"/>.
+        /// </summary>
+        /// <param name="writer">The writer to which to write the element this is backing.</param>
+        public void WriteTo(Utf8JsonWriter writer)
+        {
+            if (this.jsonElement.ValueKind != JsonValueKind.Undefined)
+            {
+                this.jsonElement.WriteTo(writer);
+            }
+
+            if (this.value is IJsonValue value)
+            {
+                value.WriteTo(writer);
+            }
+        }
+
         /// <summary>
         /// Gets the value.
         /// </summary>

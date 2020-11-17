@@ -499,7 +499,7 @@ namespace Menes.JsonSchema.TypeBuilder
 
         private void AddToParent(TypeDeclaration typeDeclaration)
         {
-            typeDeclaration.Parent?.AddTypeDeclaration(typeDeclaration);
+            typeDeclaration.Parent?.AddEmbeddedTypeDeclaration(typeDeclaration);
         }
 
         private async Task SetParent(LocatedElement schema, TypeDeclaration typeDeclaration)
