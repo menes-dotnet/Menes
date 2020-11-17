@@ -7,6 +7,8 @@ namespace Menes
     using System;
     using System.Buffers;
     using System.Collections.Concurrent;
+    using System.Reflection;
+    using System.Reflection.Emit;
     using System.Text.Json;
     using Corvus.Extensions;
 
@@ -27,7 +29,30 @@ namespace Menes
         public static T As<T>(this JsonElement element)
             where T : struct, IJsonValue
         {
-            Func<JsonElement, T> func = CastTo<Func<JsonElement, T>>.From(FactoryCache.GetOrAdd(typeof(T), t => t.GetField("FromJsonElement").GetValue(null)));
+            Func<JsonElement, T> func = CastTo<Func<JsonElement, T>>.From(FactoryCache.GetOrAdd(typeof(T), t =>
+            {
+                Type returnType = typeof(T);
+                Type[] argumentTypes = new[] { typeof(JsonElement) };
+                ConstructorInfo ctor = returnType.GetConstructor(argumentTypes);
+                if (ctor == null)
+                {
+                    throw new MissingMethodException("There is no constructor that takes a JsonElement for this IJsonValue.");
+                }
+
+                var dynamic = new DynamicMethod(
+                    $"${returnType.Name}_FromJsonElement",
+                    returnType,
+                    argumentTypes,
+                    returnType);
+                ILGenerator il = dynamic.GetILGenerator();
+
+                il.DeclareLocal(returnType);
+                il.Emit(OpCodes.Ldarg, 0);
+                il.Emit(OpCodes.Newobj, ctor);
+                il.Emit(OpCodes.Ret);
+
+                return (Func<JsonElement, T>)dynamic.CreateDelegate(typeof(Func<JsonElement, T>));
+            }));
             return func(element);
         }
 
