@@ -16,12 +16,12 @@ namespace Menes
         /// <summary>
         /// Gets a value indicating whether this represents an undefined value.
         /// </summary>
-        public bool IsUndefined { get; }
+        bool IsUndefined { get; }
 
         /// <summary>
         /// Gets a value indicating whether this represents a null value.
         /// </summary>
-        public bool IsNull { get; }
+        bool IsNull { get; }
 
         /// <summary>
         /// Gets a value indicating whether this is backed by a <see cref="JsonElement"/>.
@@ -42,7 +42,7 @@ namespace Menes
         /// </summary>
         /// <typeparam name="T">The <see cref="IJsonValue"/> type to which to cast this value.</typeparam>
         /// <returns>An instance of the specified type, initialized from this type's backing data.</returns>
-        public T As<T>()
+        T As<T>()
             where T : struct, IJsonValue;
 
         /// <summary>
@@ -50,14 +50,14 @@ namespace Menes
         /// </summary>
         /// <typeparam name="T">The <see cref="IJsonValue"/> type to test.</typeparam>
         /// <returns><c>true</c> if an instance of the specified type, initialized from this type's backing data, would be valid.</returns>
-        public bool Is<T>()
+        bool Is<T>()
             where T : struct, IJsonValue;
 
         /// <summary>
         /// Writes the value to a <see cref="Utf8JsonWriter"/>.
         /// </summary>
         /// <param name="writer">The output to which to write the Any.</param>
-        public void WriteTo(Utf8JsonWriter writer);
+        void WriteTo(Utf8JsonWriter writer);
 
         /// <summary>
         /// Validate the element.

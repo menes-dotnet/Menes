@@ -35,6 +35,7 @@ namespace Menes.JsonSchema.TypeBuilder
             // Public methods
             this.BuildValidateMethod(typeDeclaration, memberBuilder);
             this.BuildWriteToMethod(typeDeclaration, memberBuilder);
+            this.BuildIsAndAsMethods(typeDeclaration, memberBuilder);
 
             // Private methods
             this.BuildJsonPropertyGetMethods(typeDeclaration, memberBuilder);
@@ -42,6 +43,24 @@ namespace Menes.JsonSchema.TypeBuilder
 
             // Embedded types
             this.BuildEmbeddedTypes(typeDeclaration, memberBuilder);
+            memberBuilder.AppendLine("}");
+        }
+
+        private void BuildIsAndAsMethods(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
+        {
+            memberBuilder.AppendLine("/// <inheritdoc />");
+            memberBuilder.AppendLine("public T As<T>()");
+            memberBuilder.AppendLine("    where T : struct, Menes.IJsonValue");
+            memberBuilder.AppendLine("{");
+            memberBuilder.AppendLine("    return Menes.JsonValue.As<T>(Menes.JsonValue.FlattenToJsonElementBacking(this).JsonElement);");
+            memberBuilder.AppendLine("}");
+
+            memberBuilder.AppendLine("/// <inheritdoc />");
+            memberBuilder.AppendLine("public bool Is<T>()");
+            memberBuilder.AppendLine("    where T : struct, Menes.IJsonValue");
+            memberBuilder.AppendLine("{");
+            memberBuilder.AppendLine("    T item = this.As<T>();");
+            memberBuilder.AppendLine("    return item.Validate(Menes.ValidationResult.ValidResult, Menes.ValidationLevel.Flag).Valid;");
             memberBuilder.AppendLine("}");
         }
 

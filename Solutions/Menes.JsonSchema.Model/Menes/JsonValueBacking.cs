@@ -61,7 +61,6 @@ namespace Menes
             return new JsonValueBacking(source);
         }
 
-
         /// <summary>
         /// Write the element to a <see cref="Utf8JsonWriter"/>.
         /// </summary>
