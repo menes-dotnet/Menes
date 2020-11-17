@@ -141,10 +141,7 @@ namespace Menes.JsonSchema.TypeBuilder
             {
                 var propertyDeclaration = new PropertyDeclaration();
                 this.SetPropertyName(typeDeclaration, jsonPropertyName, propertyDeclaration);
-                propertyDeclaration.TypeDeclaration = new TypeDeclaration()
-                {
-                    IsBooleanTrueType = true,
-                };
+                propertyDeclaration.TypeDeclaration = TypeDeclarations.AnyTypeDeclaration;
                 typeDeclaration.AddPropertyDeclaration(propertyDeclaration);
             }
         }

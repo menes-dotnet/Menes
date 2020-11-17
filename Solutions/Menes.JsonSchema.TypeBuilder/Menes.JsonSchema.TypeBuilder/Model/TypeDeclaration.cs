@@ -435,6 +435,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
             this.ValidateMemberName(propertyDeclaration.DotnetPropertyName);
             this.jsonPropertyNames.Add(propertyDeclaration.JsonPropertyName!);
             this.memberNames.Add(propertyDeclaration.DotnetPropertyName!);
+            this.memberNames.Add(propertyDeclaration.DotnetFieldName!);
             this.EnsureProperties().Add(propertyDeclaration);
         }
 
