@@ -32,7 +32,7 @@ namespace Menes.JsonSchema.TypeBuilder
         {
             if (typeDeclaration.OneOf is List<TypeDeclaration>)
             {
-                memberBuilder.AppendLine("result = ValidateOneOf(this, result, level, evaluatedProperties, absoluteKeywordLocation, instanceLocation);");
+                memberBuilder.AppendLine("result = ValidateOneOf(flattened, result, level, evaluatedProperties, absoluteKeywordLocation, instanceLocation);");
             }
         }
 

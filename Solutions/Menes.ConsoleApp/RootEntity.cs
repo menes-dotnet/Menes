@@ -24,9 +24,10 @@ namespace TestSpace
         public Menes.ValidationResult Validate(Menes.ValidationResult? validationResult = null, Menes.ValidationLevel level = Menes.ValidationLevel.Flag, System.Collections.Generic.HashSet<string>? evaluatedProperties = null, System.Collections.Generic.Stack<string>? absoluteKeywordLocation = null, System.Collections.Generic.Stack<string>? instanceLocation = null)
         {
             Menes.ValidationResult result = validationResult ?? Menes.ValidationResult.ValidResult;
-            result = ValidateAllOf(this, result, level, evaluatedProperties, absoluteKeywordLocation, instanceLocation);
-            result = ValidateOneOf(this, result, level, evaluatedProperties, absoluteKeywordLocation, instanceLocation);
-            result = ValidateAnyOf(this, result, level, evaluatedProperties, absoluteKeywordLocation, instanceLocation);
+            RootEntity flattened = Menes.JsonValue.FlattenToJsonElementBacking(this);
+            result = ValidateAllOf(flattened, result, level, evaluatedProperties, absoluteKeywordLocation, instanceLocation);
+            result = ValidateOneOf(flattened, result, level, evaluatedProperties, absoluteKeywordLocation, instanceLocation);
+            result = ValidateAnyOf(flattened, result, level, evaluatedProperties, absoluteKeywordLocation, instanceLocation);
             return result;
             Menes.ValidationResult ValidateAllOf(in RootEntity that, Menes.ValidationResult validationResult, Menes.ValidationLevel level = Menes.ValidationLevel.Flag, System.Collections.Generic.HashSet<string>? evaluatedProperties = null, System.Collections.Generic.Stack<string>? absoluteKeywordLocation = null, System.Collections.Generic.Stack<string>? instanceLocation = null)
             {

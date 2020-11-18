@@ -21,9 +21,15 @@ namespace Menes.JsonSchema.TypeBuilder
 
             AddLocalEvaluatedProperties(typeDeclaration, memberBuilder);
 
-            this.BuildAllOfValidation(typeDeclaration, memberBuilder);
-            this.BuildOneOfValidation(typeDeclaration, memberBuilder);
-            this.BuildAnyOfValidation(typeDeclaration, memberBuilder);
+            if (typeDeclaration.AllOf is not null || typeDeclaration.AnyOf is not null || typeDeclaration.OneOf is not null)
+            {
+                // If we have allOf, anyOf or oneOf validation, it is more efficient to flatten to a JsonElement once, and run the validations against
+                // that. If we were already flattened, this is basically zero cost.
+                memberBuilder.AppendLine($"{typeDeclaration.DotnetTypeName} flattened = Menes.JsonValue.FlattenToJsonElementBacking(this);");
+                this.BuildAllOfValidation(typeDeclaration, memberBuilder);
+                this.BuildOneOfValidation(typeDeclaration, memberBuilder);
+                this.BuildAnyOfValidation(typeDeclaration, memberBuilder);
+            }
 
             MergeLocalEvaluatedProperties(typeDeclaration, memberBuilder);
 
