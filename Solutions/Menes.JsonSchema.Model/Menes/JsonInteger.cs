@@ -253,7 +253,20 @@ namespace Menes
         /// <inheritdoc />
         public void WriteTo(Utf8JsonWriter writer)
         {
-            this.JsonElement.WriteTo(writer);
+            if (this.HasJsonElement)
+            {
+                this.JsonElement.WriteTo(writer);
+                return;
+            }
+
+            if (this.valueAsInt64 is long v64)
+            {
+                writer.WriteNumberValue(v64);
+            }
+            else
+            {
+                writer.WriteNullValue();
+            }
         }
     }
 }

@@ -49,7 +49,7 @@ namespace Menes.JsonSchema.TypeBuilder
                 foreach (TypeDeclaration anyOfType in typeDeclaration.AnyOf)
                 {
                     this.PushArrayIndexToAbsoluteKeywordLocationStack(anyOfIndex);
-                    this.BuildPushAbsoluteKeywordLocation(memberBuilder);
+                    this.BuildPushAbsoluteKeywordLocation(memberBuilder, anyOfIndex);
 
                     memberBuilder.AppendLine($"var anyOf{anyOfIndex} = that.{this.GetAsMethodNameFor(anyOfType)}();");
 
@@ -68,9 +68,9 @@ namespace Menes.JsonSchema.TypeBuilder
                     memberBuilder.AppendLine("    return result;");
                     memberBuilder.AppendLine("}");
 
-                    ++anyOfIndex;
-                    this.BuildPopAbsoluteKeywordLocation(memberBuilder);
+                    this.BuildPopAbsoluteKeywordLocation(memberBuilder, anyOfIndex);
                     this.absoluteKeywordLocationStack.Pop();
+                    ++anyOfIndex;
                 }
 
                 memberBuilder.Append("if (");

@@ -19,6 +19,11 @@ namespace Menes.JsonSchema.TypeBuilder
         /// </summary>
         private void BuildCode(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
         {
+            if (typeDeclaration.IsBuiltInType || typeDeclaration.IsRef)
+            {
+                return;
+            }
+
             memberBuilder.AppendLine($"public readonly struct {typeDeclaration.DotnetTypeName} : Menes.IJsonValue");
             memberBuilder.AppendLine("{");
 
@@ -203,7 +208,7 @@ namespace Menes.JsonSchema.TypeBuilder
                 }
                 else
                 {
-                    memberBuilder.AppendLine($"            property = property.Value<{additionalPropertiesType.FullyQualifiedDotNetTypeName}>().As<T>();");
+                    memberBuilder.AppendLine($"            property = additionalProperty.Value<{additionalPropertiesType.FullyQualifiedDotNetTypeName}>()?.As<T>() ?? default;");
                 }
 
                 memberBuilder.AppendLine("            return true;");

@@ -51,7 +51,7 @@ namespace Menes.JsonSchema.TypeBuilder
                 {
                     this.PushArrayIndexToAbsoluteKeywordLocationStack(allOfIndex);
 
-                    this.BuildPushAbsoluteKeywordLocation(memberBuilder);
+                    this.BuildPushAbsoluteKeywordLocation(memberBuilder, allOfIndex);
 
                     memberBuilder.AppendLine($"var allOf{allOfIndex} = that.{this.GetAsMethodNameFor(allOfType)}();");
 
@@ -69,10 +69,9 @@ namespace Menes.JsonSchema.TypeBuilder
                     memberBuilder.AppendLine("    return result;");
                     memberBuilder.AppendLine("}");
 
-                    ++allOfIndex;
-
-                    this.BuildPopAbsoluteKeywordLocation(memberBuilder);
+                    this.BuildPopAbsoluteKeywordLocation(memberBuilder, allOfIndex);
                     this.absoluteKeywordLocationStack.Pop();
+                    ++allOfIndex;
                 }
 
                 memberBuilder.AppendLine("    return result;");

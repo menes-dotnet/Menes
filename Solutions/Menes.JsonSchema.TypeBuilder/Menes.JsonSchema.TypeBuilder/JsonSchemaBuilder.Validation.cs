@@ -93,25 +93,25 @@ namespace Menes.JsonSchema.TypeBuilder
             memberBuilder.AppendLine("}");
         }
 
-        private void BuildPopAbsoluteKeywordLocation(StringBuilder memberBuilder)
+        private void BuildPopAbsoluteKeywordLocation(StringBuilder memberBuilder, int index)
         {
-            memberBuilder.AppendLine("if (absoluteKeywordLocation is System.Collections.Generic.Stack<string> aklPop)");
+            memberBuilder.AppendLine($"if (absoluteKeywordLocation is System.Collections.Generic.Stack<string> aklPop{index})");
             memberBuilder.AppendLine("{");
-            memberBuilder.AppendLine("    aklPop.Pop();");
+            memberBuilder.AppendLine($"    aklPop{index}.Pop();");
             memberBuilder.AppendLine("}");
         }
 
-        private void BuildPushAbsoluteKeywordLocation(JsonReference jsonReference, StringBuilder memberBuilder)
+        private void BuildPushAbsoluteKeywordLocation(JsonReference jsonReference, StringBuilder memberBuilder, int index)
         {
-            memberBuilder.AppendLine("if (absoluteKeywordLocation is System.Collections.Generic.Stack<string> aklPush)");
+            memberBuilder.AppendLine($"if (absoluteKeywordLocation is System.Collections.Generic.Stack<string> aklPush{index})");
             memberBuilder.AppendLine("{");
-            memberBuilder.AppendLine($"    aklPush.Push({Formatting.FormatLiteralOrNull(jsonReference, true)});");
+            memberBuilder.AppendLine($"    aklPush{index}.Push({Formatting.FormatLiteralOrNull(jsonReference, true)});");
             memberBuilder.AppendLine("}");
         }
 
-        private void BuildPushAbsoluteKeywordLocation(StringBuilder memberBuilder)
+        private void BuildPushAbsoluteKeywordLocation(StringBuilder memberBuilder, int index)
         {
-            this.BuildPushAbsoluteKeywordLocation(this.absoluteKeywordLocationStack.Peek(), memberBuilder);
+            this.BuildPushAbsoluteKeywordLocation(this.absoluteKeywordLocationStack.Peek(), memberBuilder, index);
         }
     }
 }

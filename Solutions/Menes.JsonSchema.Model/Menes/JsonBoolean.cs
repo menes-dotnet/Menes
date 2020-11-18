@@ -1,4 +1,4 @@
-﻿// <copyright file="JsonString.cs" company="Endjin Limited">
+﻿// <copyright file="JsonBoolean.cs" company="Endjin Limited">
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
@@ -11,40 +11,30 @@ namespace Menes
     /// <summary>
     /// Represents the {}/true json type.
     /// </summary>
-    public readonly struct JsonString : IJsonValue
+    public readonly struct JsonBoolean : IJsonValue
     {
         /// <summary>
         /// The null value.
         /// </summary>
-        public static readonly JsonString Null = default;
+        public static readonly JsonBoolean Null = default;
 
-        private readonly ReadOnlyMemory<char>? value;
+        private readonly bool? value;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="JsonString"/> struct.
+        /// Initializes a new instance of the <see cref="JsonBoolean"/> struct.
         /// </summary>
         /// <param name="jsonElement">The backing json element.</param>
-        public JsonString(JsonElement jsonElement)
+        public JsonBoolean(JsonElement jsonElement)
         {
             this.JsonElement = jsonElement;
             this.value = null;
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="JsonString"/> struct.
+        /// Initializes a new instance of the <see cref="JsonBoolean"/> struct.
         /// </summary>
-        /// <param name="value">The backing string value.</param>
-        public JsonString(string value)
-        {
-            this.value = value.AsMemory();
-            this.JsonElement = default;
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="JsonString"/> struct.
-        /// </summary>
-        /// <param name="value">The backing string value.</param>
-        public JsonString(ReadOnlyMemory<char> value)
+        /// <param name="value">The backing bool value.</param>
+        public JsonBoolean(bool value)
         {
             this.value = value;
             this.JsonElement = default;
@@ -63,66 +53,24 @@ namespace Menes
         public JsonElement JsonElement { get; }
 
         /// <summary>
-        /// Implicit conversion from <see cref="string"/>.
+        /// Implicit conversion from <see cref="bool"/>.
         /// </summary>
-        /// <param name="value">The string value from which to convert.</param>
-        public static implicit operator JsonString(string value) => new JsonString(value);
+        /// <param name="value">The bool value from which to convert.</param>
+        public static implicit operator JsonBoolean(bool value) => new JsonBoolean(value);
 
         /// <summary>
-        /// Implicit conversion to <see cref="string"/>.
+        /// Implicit conversion to <see cref="bool"/>.
         /// </summary>
-        /// <param name="value">The string value from which to convert.</param>
-        public static implicit operator string(JsonString value) => value.GetString();
+        /// <param name="value">The bool value from which to convert.</param>
+        public static implicit operator bool(JsonBoolean value) => value.GetBoolean();
 
         /// <summary>
-        /// Implicit conversion from <see cref="ReadOnlyMemory{T}"/>.
+        /// Gets the <see cref="JsonBoolean"/> as a <see cref="bool"/>.
         /// </summary>
-        /// <param name="value">The string value from which to convert.</param>
-        public static implicit operator JsonString(ReadOnlyMemory<char> value) => new JsonString(value);
-
-        /// <summary>
-        /// Implicit conversion to <see cref="ReadOnlyMemory{T}"/>.
-        /// </summary>
-        /// <param name="value">The string value from which to convert.</param>
-        public static implicit operator ReadOnlyMemory<char>(JsonString value) => value.AsMemory();
-
-        /// <summary>
-        /// Implicit conversion from <see cref="ReadOnlyMemory{T}"/>.
-        /// </summary>
-        /// <param name="value">The string value from which to convert.</param>
-        public static implicit operator JsonString(ReadOnlySpan<char> value) => new JsonString(value.ToArray());
-
-        /// <summary>
-        /// Implicit conversion from <see cref="ReadOnlyMemory{T}"/>.
-        /// </summary>
-        /// <param name="value">The string value from which to convert.</param>
-        public static implicit operator ReadOnlySpan<char>(JsonString value) => value.AsSpan();
-
-        /// <summary>
-        /// Gets the <see cref="JsonString"/> as a <see cref="string"/>.
-        /// </summary>
-        /// <returns>The <see cref="string"/>.</returns>
-        public string GetString()
+        /// <returns>The <see cref="bool"/>.</returns>
+        public bool GetBoolean()
         {
-            return this.HasJsonElement ? this.JsonElement.GetString() : (this.value ?? ReadOnlyMemory<char>.Empty).ToString();
-        }
-
-        /// <summary>
-        /// Gets the <see cref="JsonString"/> as a <see cref="ReadOnlyMemory{T}"/> of <see cref="char"/>.
-        /// </summary>
-        /// <returns>The <see cref="string"/>.</returns>
-        public ReadOnlyMemory<char> AsMemory()
-        {
-            return this.HasJsonElement ? this.JsonElement.GetString().AsMemory() : this.value ?? ReadOnlyMemory<char>.Empty;
-        }
-
-        /// <summary>
-        /// Gets the <see cref="JsonString"/> as a <see cref="ReadOnlySpan{T}"/> of char.
-        /// </summary>
-        /// <returns>The <see cref="string"/>.</returns>
-        public ReadOnlySpan<char> AsSpan()
-        {
-            return this.AsMemory().Span;
+            return this.HasJsonElement ? this.JsonElement.GetBoolean() : (this.value ?? false);
         }
 
         /// <inheritdoc />
@@ -136,7 +84,7 @@ namespace Menes
         public bool Is<T>()
             where T : struct, IJsonValue
         {
-            if (typeof(T) == typeof(JsonString))
+            if (typeof(T) == typeof(JsonBoolean))
             {
                 return this.Validate().Valid;
             }
@@ -191,7 +139,7 @@ namespace Menes
         {
             ValidationResult result = validationResult ?? ValidationResult.ValidResult;
 
-            if (this.HasJsonElement && this.JsonElement.ValueKind != JsonValueKind.String)
+            if (this.HasJsonElement && this.JsonElement.ValueKind != JsonValueKind.True && this.JsonElement.ValueKind != JsonValueKind.False)
             {
                 if (level >= ValidationLevel.Basic)
                 {
@@ -200,7 +148,7 @@ namespace Menes
 
                     instanceLocation?.TryPeek(out il);
                     absoluteKeywordLocation?.TryPeek(out akl);
-                    result.AddResult(valid: false, message: $"6.1.1.  type - should have been 'string' but was '{this.JsonElement.ValueKind}'.", instanceLocation: il, absoluteKeywordLocation: akl);
+                    result.AddResult(valid: false, message: $"6.1.1.  type - should have been 'True' or 'False' but was '{this.JsonElement.ValueKind}'.", instanceLocation: il, absoluteKeywordLocation: akl);
                 }
                 else
                 {
@@ -233,9 +181,9 @@ namespace Menes
                 return;
             }
 
-            if (this.value is ReadOnlyMemory<char> v)
+            if (this.value is bool v)
             {
-                writer.WriteStringValue(v.Span);
+                writer.WriteBooleanValue(v);
             }
             else
             {

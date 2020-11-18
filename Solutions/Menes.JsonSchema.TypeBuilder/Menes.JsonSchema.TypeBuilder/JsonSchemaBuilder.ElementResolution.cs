@@ -146,6 +146,14 @@ namespace Menes.JsonSchema.TypeBuilder
 
                     return null;
                 }
+
+                if (this.TryGetResolvedElement(reference, out LocatedElement locatedElement))
+                {
+                    if (reference != current)
+                    {
+                        return reference;
+                    }
+                }
             }
 
             return null;

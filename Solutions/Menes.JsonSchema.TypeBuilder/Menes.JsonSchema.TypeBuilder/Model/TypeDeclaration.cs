@@ -798,7 +798,6 @@ namespace Menes.JsonSchema.TypeBuilder.Model
                 Type = this.Type,
                 Parent = this.Parent,
                 IsLowered = true,
-                EmbeddedTypes = this.EmbeddedTypes,
             };
 
             TypeDeclaration baseType = this;
@@ -824,13 +823,6 @@ namespace Menes.JsonSchema.TypeBuilder.Model
                     // Switch the base type to the reference.
                     this.lowered = loweredTypes[0];
                     return this.lowered;
-                    ////baseType = loweredTypes[0];
-
-                    ////// Update the things that can only come from the reference.
-                    ////result.DotnetTypeName = baseType.DotnetTypeName;
-                    ////result.Type = baseType.Type;
-                    ////result.IsRef = true;
-                    ////result.TypeSchema = baseType.TypeSchema;
                 }
                 else
                 {
@@ -848,8 +840,26 @@ namespace Menes.JsonSchema.TypeBuilder.Model
             MergeValidations(baseType, result);
             MergeConversions(baseType, result);
             MergeConstAndEnum(baseType, result);
-
+            MergeEmbeddedTypes(baseType, result);
             return this.lowered;
+        }
+
+        private static void MergeEmbeddedTypes(TypeDeclaration baseType, TypeDeclaration result)
+        {
+            if (baseType.EmbeddedTypes is null)
+            {
+                return;
+            }
+
+            List<TypeDeclaration> types = result.EnsureEmbeddedTypes();
+            foreach (TypeDeclaration type in baseType.EmbeddedTypes)
+            {
+                TypeDeclaration lowered = type.Lowered;
+                if (lowered.Parent?.FullyQualifiedDotNetTypeName == result.FullyQualifiedDotNetTypeName && !types.Any(t => t.FullyQualifiedDotNetTypeName == lowered.FullyQualifiedDotNetTypeName))
+                {
+                    types.Add(lowered);
+                }
+            }
         }
 
         private static void MergeItems(List<TypeDeclaration>? items, TypeDeclaration result)

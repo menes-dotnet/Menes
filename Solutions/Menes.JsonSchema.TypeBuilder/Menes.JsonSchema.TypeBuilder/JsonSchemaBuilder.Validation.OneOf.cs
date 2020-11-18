@@ -51,7 +51,7 @@ namespace Menes.JsonSchema.TypeBuilder
                 foreach (TypeDeclaration oneOfType in typeDeclaration.OneOf)
                 {
                     this.PushArrayIndexToAbsoluteKeywordLocationStack(oneOfIndex);
-                    this.BuildPushAbsoluteKeywordLocation(memberBuilder);
+                    this.BuildPushAbsoluteKeywordLocation(memberBuilder, oneOfIndex);
 
                     memberBuilder.AppendLine($"var oneOf{oneOfIndex} = that.{this.GetAsMethodNameFor(oneOfType)}();");
 
@@ -81,9 +81,9 @@ namespace Menes.JsonSchema.TypeBuilder
 
                     memberBuilder.AppendLine("}");
 
-                    ++oneOfIndex;
-                    this.BuildPopAbsoluteKeywordLocation(memberBuilder);
+                    this.BuildPopAbsoluteKeywordLocation(memberBuilder, oneOfIndex);
                     this.absoluteKeywordLocationStack.Pop();
+                    ++oneOfIndex;
                 }
 
                 memberBuilder.AppendLine("if (oneOfCount == 0)");
