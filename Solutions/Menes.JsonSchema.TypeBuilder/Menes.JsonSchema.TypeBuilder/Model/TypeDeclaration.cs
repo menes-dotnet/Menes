@@ -778,72 +778,6 @@ namespace Menes.JsonSchema.TypeBuilder.Model
             return true;
         }
 
-        /// <summary>
-        /// Collapses the merged type declarations into a single type declaration for use in generation.
-        /// </summary>
-        /// <returns>The lowered type declaration.</returns>
-        public TypeDeclaration Lower()
-        {
-            if (this.lowered is TypeDeclaration)
-            {
-                return this.lowered;
-            }
-
-            // First - we don't change our type schema; we are still the same type, however we got here...
-            // Our typename and the "type" of the item comes from us, and we will still parent into the existing
-            // parent type
-            var result = new TypeDeclaration(this.TypeSchema)
-            {
-                DotnetTypeName = this.DotnetTypeName,
-                Type = this.Type,
-                Parent = this.Parent,
-                IsLowered = true,
-            };
-
-            TypeDeclaration baseType = this;
-
-            // Ensure we have set the result early, before we start potentially recursively
-            // lowering, so that the lowered result is available to recursive calls.
-            this.lowered = result;
-
-            if (this.MergedTypes is not null)
-            {
-                // Lower the types to merge.
-                var loweredTypes = this.MergedTypes.Select(m => m.Lowered).ToList();
-
-                if (loweredTypes.Count == 1 && this.IsNakedReference())
-                {
-                    // If we are empty apart from a single merged type,
-                    // then treat us as that merged type.
-                    // Note that the IsRef = true means this instance won't be generated,
-                    // and we are just taking on its properties for inspection purposes.
-                    // If we used the original type directly, we would lose our referential
-                    // scope in the absoluteKeywordLocation hierarchy, and also get into trouble
-                    // with recursive references.
-                    // Switch the base type to the reference.
-                    this.lowered = loweredTypes[0];
-                    return this.lowered;
-                }
-                else
-                {
-                    // Iterate the types to merge and merge them in
-                    foreach (TypeDeclaration typeToMerge in loweredTypes)
-                    {
-                        MergeTypesToBase(result, typeToMerge);
-                    }
-                }
-            }
-
-            // Then merge in our own base type to the target.
-            MergeItems(Lower(baseType.Items), result);
-            MergeProperties(Lower(baseType.Properties), result);
-            MergeValidations(baseType, result);
-            MergeConversions(baseType, result);
-            MergeConstAndEnum(baseType, result);
-            MergeEmbeddedTypes(baseType, result);
-            return this.lowered;
-        }
-
         private static void MergeEmbeddedTypes(TypeDeclaration baseType, TypeDeclaration result)
         {
             if (baseType.EmbeddedTypes is null)
@@ -1127,6 +1061,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
             return asConversionMethods?.Select(c => (c.TargetType?.IsLowered ?? true) ? c : new AsConversionMethodDeclaration { Conversion = c.Conversion, DotnetMethodTypeSuffix = c.DotnetMethodTypeSuffix, TargetType = c.TargetType?.Lowered }).ToList();
         }
 
+        [return: NotNullIfNotNull("typeDeclarations")]
         private static List<TypeDeclaration>? Lower(List<TypeDeclaration>? typeDeclarations)
         {
             return typeDeclarations?.Select(t => t.Lowered).ToList();
@@ -1345,6 +1280,78 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         private static void MergeContains(TypeDeclaration? contains, TypeDeclaration result)
         {
             result.Contains = PickMostDerivedTypeWithOptionals(contains, result.Contains);
+        }
+
+        /// <summary>
+        /// Collapses the merged type declarations into a single type declaration for use in generation.
+        /// </summary>
+        /// <returns>The lowered type declaration.</returns>
+        private TypeDeclaration Lower()
+        {
+            if (this.lowered is TypeDeclaration)
+            {
+                return this.lowered;
+            }
+
+            // First - we don't change our type schema; we are still the same type, however we got here...
+            // Our typename and the "type" of the item comes from us, and we will still parent into the existing
+            // parent type
+            var result = new TypeDeclaration(this.TypeSchema)
+            {
+                DotnetTypeName = this.DotnetTypeName,
+                Type = this.Type,
+                Parent = this.Parent,
+                IsLowered = true,
+            };
+
+            // Move back up our lowered stack looking for an unreferenced parent to which to add ourselves
+            while (result.Parent is not null && result.Parent.IsNakedReference())
+            {
+                result.Parent = result.Parent.Parent;
+            }
+
+            TypeDeclaration baseType = this;
+
+            // Ensure we have set the result early, before we start potentially recursively
+            // lowering, so that the lowered result is available to recursive calls.
+            this.lowered = result;
+
+            if (this.MergedTypes is List<TypeDeclaration> mergedTypes)
+            {
+                if (mergedTypes.Count == 1 && this.IsNakedReference())
+                {
+                    // If we are empty apart from a single merged type,
+                    // then treat us as that merged type.
+                    // Note that the IsRef = true means this instance won't be generated,
+                    // and we are just taking on its properties for inspection purposes.
+                    // If we used the original type directly, we would lose our referential
+                    // scope in the absoluteKeywordLocation hierarchy, and also get into trouble
+                    // with recursive references.
+                    // Switch the base type to the reference.
+                    this.lowered = mergedTypes[0].Lowered;
+
+                    return this.lowered;
+                }
+                else
+                {
+                    List<TypeDeclaration>? lowered = Lower(mergedTypes);
+
+                    // Iterate the types to merge and merge them in
+                    foreach (TypeDeclaration typeToMerge in lowered!)
+                    {
+                        MergeTypesToBase(result, typeToMerge);
+                    }
+                }
+            }
+
+            // Then merge in our own base type to the target.
+            MergeItems(Lower(baseType.Items), result);
+            MergeProperties(Lower(baseType.Properties), result);
+            MergeValidations(baseType, result);
+            MergeConversions(baseType, result);
+            MergeConstAndEnum(baseType, result);
+            MergeEmbeddedTypes(baseType, result);
+            return this.lowered;
         }
 
         private bool IsNakedReference()

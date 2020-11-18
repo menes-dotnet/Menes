@@ -1,0 +1,1765 @@
+// <copyright file="Draft201909MetaApplicator.cs" company="Endjin Limited">
+// Copyright (c) Endjin Limited. All rights reserved.
+// </copyright>
+
+#pragma warning disable
+
+using System;
+
+namespace TestSpace
+{
+    public readonly struct Draft201909MetaApplicator : Menes.IJsonValue
+    {
+        public static readonly Draft201909MetaApplicator Null = default(Draft201909MetaApplicator);
+        private static readonly System.ReadOnlyMemory<char> _MenesAdditionalItemsJsonPropertyName = System.MemoryExtensions.AsMemory("additionalItems");
+        private static readonly System.ReadOnlyMemory<char> _MenesUnevaluatedItemsJsonPropertyName = System.MemoryExtensions.AsMemory("unevaluatedItems");
+        private static readonly System.ReadOnlyMemory<char> _MenesItemsJsonPropertyName = System.MemoryExtensions.AsMemory("items");
+        private static readonly System.ReadOnlyMemory<char> _MenesContainsJsonPropertyName = System.MemoryExtensions.AsMemory("contains");
+        private static readonly System.ReadOnlyMemory<char> _MenesAdditionalPropertiesJsonPropertyName = System.MemoryExtensions.AsMemory("additionalProperties");
+        private static readonly System.ReadOnlyMemory<char> _MenesUnevaluatedPropertiesJsonPropertyName = System.MemoryExtensions.AsMemory("unevaluatedProperties");
+        private static readonly System.ReadOnlyMemory<char> _MenesPropertiesJsonPropertyName = System.MemoryExtensions.AsMemory("properties");
+        private static readonly System.ReadOnlyMemory<char> _MenesPatternPropertiesJsonPropertyName = System.MemoryExtensions.AsMemory("patternProperties");
+        private static readonly System.ReadOnlyMemory<char> _MenesDependentSchemasJsonPropertyName = System.MemoryExtensions.AsMemory("dependentSchemas");
+        private static readonly System.ReadOnlyMemory<char> _MenesPropertyNamesJsonPropertyName = System.MemoryExtensions.AsMemory("propertyNames");
+        private static readonly System.ReadOnlyMemory<char> _MenesIfJsonPropertyName = System.MemoryExtensions.AsMemory("@if");
+        private static readonly System.ReadOnlyMemory<char> _MenesThenJsonPropertyName = System.MemoryExtensions.AsMemory("then");
+        private static readonly System.ReadOnlyMemory<char> _MenesElseJsonPropertyName = System.MemoryExtensions.AsMemory("@else");
+        private static readonly System.ReadOnlyMemory<char> _MenesAllOfJsonPropertyName = System.MemoryExtensions.AsMemory("allOf");
+        private static readonly System.ReadOnlyMemory<char> _MenesAnyOfJsonPropertyName = System.MemoryExtensions.AsMemory("anyOf");
+        private static readonly System.ReadOnlyMemory<char> _MenesOneOfJsonPropertyName = System.MemoryExtensions.AsMemory("oneOf");
+        private static readonly System.ReadOnlyMemory<char> _MenesNotJsonPropertyName = System.MemoryExtensions.AsMemory("not");
+        private static readonly System.ReadOnlyMemory<byte> _MenesAdditionalItemsUtf8JsonPropertyName = new byte[] { 97, 100, 100, 105, 116, 105, 111, 110, 97, 108, 73, 116, 101, 109, 115 };
+        private static readonly System.ReadOnlyMemory<byte> _MenesUnevaluatedItemsUtf8JsonPropertyName = new byte[] { 117, 110, 101, 118, 97, 108, 117, 97, 116, 101, 100, 73, 116, 101, 109, 115 };
+        private static readonly System.ReadOnlyMemory<byte> _MenesItemsUtf8JsonPropertyName = new byte[] { 105, 116, 101, 109, 115 };
+        private static readonly System.ReadOnlyMemory<byte> _MenesContainsUtf8JsonPropertyName = new byte[] { 99, 111, 110, 116, 97, 105, 110, 115 };
+        private static readonly System.ReadOnlyMemory<byte> _MenesAdditionalPropertiesUtf8JsonPropertyName = new byte[] { 97, 100, 100, 105, 116, 105, 111, 110, 97, 108, 80, 114, 111, 112, 101, 114, 116, 105, 101, 115 };
+        private static readonly System.ReadOnlyMemory<byte> _MenesUnevaluatedPropertiesUtf8JsonPropertyName = new byte[] { 117, 110, 101, 118, 97, 108, 117, 97, 116, 101, 100, 80, 114, 111, 112, 101, 114, 116, 105, 101, 115 };
+        private static readonly System.ReadOnlyMemory<byte> _MenesPropertiesUtf8JsonPropertyName = new byte[] { 112, 114, 111, 112, 101, 114, 116, 105, 101, 115 };
+        private static readonly System.ReadOnlyMemory<byte> _MenesPatternPropertiesUtf8JsonPropertyName = new byte[] { 112, 97, 116, 116, 101, 114, 110, 80, 114, 111, 112, 101, 114, 116, 105, 101, 115 };
+        private static readonly System.ReadOnlyMemory<byte> _MenesDependentSchemasUtf8JsonPropertyName = new byte[] { 100, 101, 112, 101, 110, 100, 101, 110, 116, 83, 99, 104, 101, 109, 97, 115 };
+        private static readonly System.ReadOnlyMemory<byte> _MenesPropertyNamesUtf8JsonPropertyName = new byte[] { 112, 114, 111, 112, 101, 114, 116, 121, 78, 97, 109, 101, 115 };
+        private static readonly System.ReadOnlyMemory<byte> _MenesIfUtf8JsonPropertyName = new byte[] { 105, 102 };
+        private static readonly System.ReadOnlyMemory<byte> _MenesThenUtf8JsonPropertyName = new byte[] { 116, 104, 101, 110 };
+        private static readonly System.ReadOnlyMemory<byte> _MenesElseUtf8JsonPropertyName = new byte[] { 101, 108, 115, 101 };
+        private static readonly System.ReadOnlyMemory<byte> _MenesAllOfUtf8JsonPropertyName = new byte[] { 97, 108, 108, 79, 102 };
+        private static readonly System.ReadOnlyMemory<byte> _MenesAnyOfUtf8JsonPropertyName = new byte[] { 97, 110, 121, 79, 102 };
+        private static readonly System.ReadOnlyMemory<byte> _MenesOneOfUtf8JsonPropertyName = new byte[] { 111, 110, 101, 79, 102 };
+        private static readonly System.ReadOnlyMemory<byte> _MenesNotUtf8JsonPropertyName = new byte[] { 110, 111, 116 };
+        private static readonly System.Text.Json.JsonEncodedText _MenesAdditionalItemsEncodedJsonPropertyName = System.Text.Json.JsonEncodedText.Encode(_MenesAdditionalItemsUtf8JsonPropertyName.Span);
+        private static readonly System.Text.Json.JsonEncodedText _MenesUnevaluatedItemsEncodedJsonPropertyName = System.Text.Json.JsonEncodedText.Encode(_MenesUnevaluatedItemsUtf8JsonPropertyName.Span);
+        private static readonly System.Text.Json.JsonEncodedText _MenesItemsEncodedJsonPropertyName = System.Text.Json.JsonEncodedText.Encode(_MenesItemsUtf8JsonPropertyName.Span);
+        private static readonly System.Text.Json.JsonEncodedText _MenesContainsEncodedJsonPropertyName = System.Text.Json.JsonEncodedText.Encode(_MenesContainsUtf8JsonPropertyName.Span);
+        private static readonly System.Text.Json.JsonEncodedText _MenesAdditionalPropertiesEncodedJsonPropertyName = System.Text.Json.JsonEncodedText.Encode(_MenesAdditionalPropertiesUtf8JsonPropertyName.Span);
+        private static readonly System.Text.Json.JsonEncodedText _MenesUnevaluatedPropertiesEncodedJsonPropertyName = System.Text.Json.JsonEncodedText.Encode(_MenesUnevaluatedPropertiesUtf8JsonPropertyName.Span);
+        private static readonly System.Text.Json.JsonEncodedText _MenesPropertiesEncodedJsonPropertyName = System.Text.Json.JsonEncodedText.Encode(_MenesPropertiesUtf8JsonPropertyName.Span);
+        private static readonly System.Text.Json.JsonEncodedText _MenesPatternPropertiesEncodedJsonPropertyName = System.Text.Json.JsonEncodedText.Encode(_MenesPatternPropertiesUtf8JsonPropertyName.Span);
+        private static readonly System.Text.Json.JsonEncodedText _MenesDependentSchemasEncodedJsonPropertyName = System.Text.Json.JsonEncodedText.Encode(_MenesDependentSchemasUtf8JsonPropertyName.Span);
+        private static readonly System.Text.Json.JsonEncodedText _MenesPropertyNamesEncodedJsonPropertyName = System.Text.Json.JsonEncodedText.Encode(_MenesPropertyNamesUtf8JsonPropertyName.Span);
+        private static readonly System.Text.Json.JsonEncodedText _MenesIfEncodedJsonPropertyName = System.Text.Json.JsonEncodedText.Encode(_MenesIfUtf8JsonPropertyName.Span);
+        private static readonly System.Text.Json.JsonEncodedText _MenesThenEncodedJsonPropertyName = System.Text.Json.JsonEncodedText.Encode(_MenesThenUtf8JsonPropertyName.Span);
+        private static readonly System.Text.Json.JsonEncodedText _MenesElseEncodedJsonPropertyName = System.Text.Json.JsonEncodedText.Encode(_MenesElseUtf8JsonPropertyName.Span);
+        private static readonly System.Text.Json.JsonEncodedText _MenesAllOfEncodedJsonPropertyName = System.Text.Json.JsonEncodedText.Encode(_MenesAllOfUtf8JsonPropertyName.Span);
+        private static readonly System.Text.Json.JsonEncodedText _MenesAnyOfEncodedJsonPropertyName = System.Text.Json.JsonEncodedText.Encode(_MenesAnyOfUtf8JsonPropertyName.Span);
+        private static readonly System.Text.Json.JsonEncodedText _MenesOneOfEncodedJsonPropertyName = System.Text.Json.JsonEncodedText.Encode(_MenesOneOfUtf8JsonPropertyName.Span);
+        private static readonly System.Text.Json.JsonEncodedText _MenesNotEncodedJsonPropertyName = System.Text.Json.JsonEncodedText.Encode(_MenesNotUtf8JsonPropertyName.Span);
+        private readonly System.Text.Json.JsonElement _menesJsonElementBacking;
+        private readonly System.Collections.Immutable.ImmutableArray<Menes.AdditionalProperty<Menes.JsonAny>> _menesAdditionalPropertiesBacking;
+        private readonly Menes.JsonBoolean? _menesBooleanTypeBacking;
+        private readonly Menes.JsonValueBacking additionalItems;
+        private readonly Menes.JsonValueBacking unevaluatedItems;
+        private readonly Menes.JsonValueBacking items;
+        private readonly Menes.JsonValueBacking contains;
+        private readonly Menes.JsonValueBacking additionalProperties;
+        private readonly Menes.JsonValueBacking unevaluatedProperties;
+        private readonly Draft201909MetaApplicator.PropertiesEntity? properties;
+        private readonly Draft201909MetaApplicator.PatternPropertiesEntity? patternProperties;
+        private readonly Draft201909MetaApplicator.DependentSchemasEntity? dependentSchemas;
+        private readonly Menes.JsonValueBacking propertyNames;
+        private readonly Menes.JsonValueBacking @if;
+        private readonly Menes.JsonValueBacking then;
+        private readonly Menes.JsonValueBacking @else;
+        private readonly Menes.JsonValueBacking allOf;
+        private readonly Menes.JsonValueBacking anyOf;
+        private readonly Menes.JsonValueBacking oneOf;
+        private readonly Menes.JsonValueBacking not;
+        /// <inheritdoc />
+        public bool IsUndefined => !this.HasJsonElement && this.AllBackingFieldsAreNull();
+        /// <inheritdoc />
+        public bool IsNull => this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Null || (!this.HasJsonElement && this.AllBackingFieldsAreNull());
+        /// <inheritdoc />
+        public bool HasJsonElement => this._menesJsonElementBacking.ValueKind != System.Text.Json.JsonValueKind.Undefined;
+        /// <inheritdoc />
+        public System.Text.Json.JsonElement JsonElement => this._menesJsonElementBacking;
+        public Draft201909MetaApplicator? AdditionalItems => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator>(_MenesAdditionalItemsUtf8JsonPropertyName.Span) : this.additionalItems.Value<Draft201909MetaApplicator>();
+        public Draft201909MetaApplicator? UnevaluatedItems => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator>(_MenesUnevaluatedItemsUtf8JsonPropertyName.Span) : this.unevaluatedItems.Value<Draft201909MetaApplicator>();
+        public Draft201909MetaApplicator.ItemsEntity? Items => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator.ItemsEntity>(_MenesItemsUtf8JsonPropertyName.Span) : this.items.Value<Draft201909MetaApplicator.ItemsEntity>();
+        public Draft201909MetaApplicator? Contains => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator>(_MenesContainsUtf8JsonPropertyName.Span) : this.contains.Value<Draft201909MetaApplicator>();
+        public Draft201909MetaApplicator? AdditionalProperties => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator>(_MenesAdditionalPropertiesUtf8JsonPropertyName.Span) : this.additionalProperties.Value<Draft201909MetaApplicator>();
+        public Draft201909MetaApplicator? UnevaluatedProperties => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator>(_MenesUnevaluatedPropertiesUtf8JsonPropertyName.Span) : this.unevaluatedProperties.Value<Draft201909MetaApplicator>();
+        public Draft201909MetaApplicator.PropertiesEntity? Properties => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator.PropertiesEntity>(_MenesPropertiesUtf8JsonPropertyName.Span) : this.properties;
+        public Draft201909MetaApplicator.PatternPropertiesEntity? PatternProperties => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator.PatternPropertiesEntity>(_MenesPatternPropertiesUtf8JsonPropertyName.Span) : this.patternProperties;
+        public Draft201909MetaApplicator.DependentSchemasEntity? DependentSchemas => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator.DependentSchemasEntity>(_MenesDependentSchemasUtf8JsonPropertyName.Span) : this.dependentSchemas;
+        public Draft201909MetaApplicator? PropertyNames => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator>(_MenesPropertyNamesUtf8JsonPropertyName.Span) : this.propertyNames.Value<Draft201909MetaApplicator>();
+        public Draft201909MetaApplicator? If => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator>(_MenesIfUtf8JsonPropertyName.Span) : this.@if.Value<Draft201909MetaApplicator>();
+        public Draft201909MetaApplicator? Then => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator>(_MenesThenUtf8JsonPropertyName.Span) : this.then.Value<Draft201909MetaApplicator>();
+        public Draft201909MetaApplicator? Else => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator>(_MenesElseUtf8JsonPropertyName.Span) : this.@else.Value<Draft201909MetaApplicator>();
+        public Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity? AllOf => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity>(_MenesAllOfUtf8JsonPropertyName.Span) : this.allOf.Value<Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity>();
+        public Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity? AnyOf => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity>(_MenesAnyOfUtf8JsonPropertyName.Span) : this.anyOf.Value<Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity>();
+        public Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity? OneOf => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity>(_MenesOneOfUtf8JsonPropertyName.Span) : this.oneOf.Value<Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity>();
+        public Draft201909MetaApplicator? Not => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator>(_MenesNotUtf8JsonPropertyName.Span) : this.not.Value<Draft201909MetaApplicator>();
+        /// <inheritdoc />
+        public Menes.ValidationResult Validate(Menes.ValidationResult? validationResult = null, Menes.ValidationLevel level = Menes.ValidationLevel.Flag, System.Collections.Generic.HashSet<string>? evaluatedProperties = null, System.Collections.Generic.Stack<string>? absoluteKeywordLocation = null, System.Collections.Generic.Stack<string>? instanceLocation = null)
+        {
+            Menes.ValidationResult result = validationResult ?? Menes.ValidationResult.ValidResult;
+            return result;
+        }
+        /// <inheritdoc />
+        public void WriteTo(System.Text.Json.Utf8JsonWriter writer)
+        {
+            if (this.HasJsonElement)
+            {
+                this.JsonElement.WriteTo(writer);
+                return;
+            }
+            if (this.additionalItems is Menes.JsonValueBacking additionalItems)
+            {
+                writer.WritePropertyName(_MenesAdditionalItemsEncodedJsonPropertyName);
+                additionalItems.WriteTo(writer);
+            }
+            if (this.unevaluatedItems is Menes.JsonValueBacking unevaluatedItems)
+            {
+                writer.WritePropertyName(_MenesUnevaluatedItemsEncodedJsonPropertyName);
+                unevaluatedItems.WriteTo(writer);
+            }
+            if (this.items is Menes.JsonValueBacking items)
+            {
+                writer.WritePropertyName(_MenesItemsEncodedJsonPropertyName);
+                items.WriteTo(writer);
+            }
+            if (this.contains is Menes.JsonValueBacking contains)
+            {
+                writer.WritePropertyName(_MenesContainsEncodedJsonPropertyName);
+                contains.WriteTo(writer);
+            }
+            if (this.additionalProperties is Menes.JsonValueBacking additionalProperties)
+            {
+                writer.WritePropertyName(_MenesAdditionalPropertiesEncodedJsonPropertyName);
+                additionalProperties.WriteTo(writer);
+            }
+            if (this.unevaluatedProperties is Menes.JsonValueBacking unevaluatedProperties)
+            {
+                writer.WritePropertyName(_MenesUnevaluatedPropertiesEncodedJsonPropertyName);
+                unevaluatedProperties.WriteTo(writer);
+            }
+            if (this.properties is Draft201909MetaApplicator.PropertiesEntity properties)
+            {
+                writer.WritePropertyName(_MenesPropertiesEncodedJsonPropertyName);
+                properties.WriteTo(writer);
+            }
+            if (this.patternProperties is Draft201909MetaApplicator.PatternPropertiesEntity patternProperties)
+            {
+                writer.WritePropertyName(_MenesPatternPropertiesEncodedJsonPropertyName);
+                patternProperties.WriteTo(writer);
+            }
+            if (this.dependentSchemas is Draft201909MetaApplicator.DependentSchemasEntity dependentSchemas)
+            {
+                writer.WritePropertyName(_MenesDependentSchemasEncodedJsonPropertyName);
+                dependentSchemas.WriteTo(writer);
+            }
+            if (this.propertyNames is Menes.JsonValueBacking propertyNames)
+            {
+                writer.WritePropertyName(_MenesPropertyNamesEncodedJsonPropertyName);
+                propertyNames.WriteTo(writer);
+            }
+            if (this.@if is Menes.JsonValueBacking @if)
+            {
+                writer.WritePropertyName(_MenesIfEncodedJsonPropertyName);
+                @if.WriteTo(writer);
+            }
+            if (this.then is Menes.JsonValueBacking then)
+            {
+                writer.WritePropertyName(_MenesThenEncodedJsonPropertyName);
+                then.WriteTo(writer);
+            }
+            if (this.@else is Menes.JsonValueBacking @else)
+            {
+                writer.WritePropertyName(_MenesElseEncodedJsonPropertyName);
+                @else.WriteTo(writer);
+            }
+            if (this.allOf is Menes.JsonValueBacking allOf)
+            {
+                writer.WritePropertyName(_MenesAllOfEncodedJsonPropertyName);
+                allOf.WriteTo(writer);
+            }
+            if (this.anyOf is Menes.JsonValueBacking anyOf)
+            {
+                writer.WritePropertyName(_MenesAnyOfEncodedJsonPropertyName);
+                anyOf.WriteTo(writer);
+            }
+            if (this.oneOf is Menes.JsonValueBacking oneOf)
+            {
+                writer.WritePropertyName(_MenesOneOfEncodedJsonPropertyName);
+                oneOf.WriteTo(writer);
+            }
+            if (this.not is Menes.JsonValueBacking not)
+            {
+                writer.WritePropertyName(_MenesNotEncodedJsonPropertyName);
+                not.WriteTo(writer);
+            }
+            foreach (var property in this._menesAdditionalPropertiesBacking)
+            {
+                property.WriteTo(writer);
+            }
+            this._menesBooleanTypeBacking?.WriteTo(writer);
+        }
+        /// <inheritdoc />
+        public T As<T>()
+            where T : struct, Menes.IJsonValue
+        {
+            return Menes.JsonValue.As<T>(Menes.JsonValue.FlattenToJsonElementBacking(this).JsonElement);
+        }
+        /// <inheritdoc />
+        public bool Is<T>()
+            where T : struct, Menes.IJsonValue
+        {
+            if (typeof(T) == typeof(Draft201909MetaApplicator))
+            {
+                return this.Validate().Valid;
+            }
+            return this.As<T>().Validate().Valid;
+        }
+        /// <inheritdoc />
+        public bool TryGetProperty<T>(System.ReadOnlySpan<char> propertyName, out T property)
+            where T : struct, Menes.IJsonValue
+        {
+            if (this.HasJsonElement)
+            {
+                if (this.JsonElement.TryGetProperty(propertyName, out System.Text.Json.JsonElement value))
+                {
+                    property = Menes.JsonValue.As<T>(value);
+                    return true;
+                }
+                property = default;
+                return false;
+            }
+            if (propertyName.SequenceEqual(_MenesAdditionalItemsJsonPropertyName.Span))
+            {
+                if (!(this.AdditionalItems?.As<T>() is T result))
+                {
+                    property = default;
+                    return false;
+                }
+                property = result;
+                return true;
+                return true;
+            }
+            if (propertyName.SequenceEqual(_MenesUnevaluatedItemsJsonPropertyName.Span))
+            {
+                if (!(this.UnevaluatedItems?.As<T>() is T result))
+                {
+                    property = default;
+                    return false;
+                }
+                property = result;
+                return true;
+                return true;
+            }
+            if (propertyName.SequenceEqual(_MenesItemsJsonPropertyName.Span))
+            {
+                if (!(this.Items?.As<T>() is T result))
+                {
+                    property = default;
+                    return false;
+                }
+                property = result;
+                return true;
+                return true;
+            }
+            if (propertyName.SequenceEqual(_MenesContainsJsonPropertyName.Span))
+            {
+                if (!(this.Contains?.As<T>() is T result))
+                {
+                    property = default;
+                    return false;
+                }
+                property = result;
+                return true;
+                return true;
+            }
+            if (propertyName.SequenceEqual(_MenesAdditionalPropertiesJsonPropertyName.Span))
+            {
+                if (!(this.AdditionalProperties?.As<T>() is T result))
+                {
+                    property = default;
+                    return false;
+                }
+                property = result;
+                return true;
+                return true;
+            }
+            if (propertyName.SequenceEqual(_MenesUnevaluatedPropertiesJsonPropertyName.Span))
+            {
+                if (!(this.UnevaluatedProperties?.As<T>() is T result))
+                {
+                    property = default;
+                    return false;
+                }
+                property = result;
+                return true;
+                return true;
+            }
+            if (propertyName.SequenceEqual(_MenesPropertiesJsonPropertyName.Span))
+            {
+                if (!(this.Properties?.As<T>() is T result))
+                {
+                    property = default;
+                    return false;
+                }
+                property = result;
+                return true;
+                return true;
+            }
+            if (propertyName.SequenceEqual(_MenesPatternPropertiesJsonPropertyName.Span))
+            {
+                if (!(this.PatternProperties?.As<T>() is T result))
+                {
+                    property = default;
+                    return false;
+                }
+                property = result;
+                return true;
+                return true;
+            }
+            if (propertyName.SequenceEqual(_MenesDependentSchemasJsonPropertyName.Span))
+            {
+                if (!(this.DependentSchemas?.As<T>() is T result))
+                {
+                    property = default;
+                    return false;
+                }
+                property = result;
+                return true;
+                return true;
+            }
+            if (propertyName.SequenceEqual(_MenesPropertyNamesJsonPropertyName.Span))
+            {
+                if (!(this.PropertyNames?.As<T>() is T result))
+                {
+                    property = default;
+                    return false;
+                }
+                property = result;
+                return true;
+                return true;
+            }
+            if (propertyName.SequenceEqual(_MenesIfJsonPropertyName.Span))
+            {
+                if (!(this.If?.As<T>() is T result))
+                {
+                    property = default;
+                    return false;
+                }
+                property = result;
+                return true;
+                return true;
+            }
+            if (propertyName.SequenceEqual(_MenesThenJsonPropertyName.Span))
+            {
+                if (!(this.Then?.As<T>() is T result))
+                {
+                    property = default;
+                    return false;
+                }
+                property = result;
+                return true;
+                return true;
+            }
+            if (propertyName.SequenceEqual(_MenesElseJsonPropertyName.Span))
+            {
+                if (!(this.Else?.As<T>() is T result))
+                {
+                    property = default;
+                    return false;
+                }
+                property = result;
+                return true;
+                return true;
+            }
+            if (propertyName.SequenceEqual(_MenesAllOfJsonPropertyName.Span))
+            {
+                if (!(this.AllOf?.As<T>() is T result))
+                {
+                    property = default;
+                    return false;
+                }
+                property = result;
+                return true;
+                return true;
+            }
+            if (propertyName.SequenceEqual(_MenesAnyOfJsonPropertyName.Span))
+            {
+                if (!(this.AnyOf?.As<T>() is T result))
+                {
+                    property = default;
+                    return false;
+                }
+                property = result;
+                return true;
+                return true;
+            }
+            if (propertyName.SequenceEqual(_MenesOneOfJsonPropertyName.Span))
+            {
+                if (!(this.OneOf?.As<T>() is T result))
+                {
+                    property = default;
+                    return false;
+                }
+                property = result;
+                return true;
+                return true;
+            }
+            if (propertyName.SequenceEqual(_MenesNotJsonPropertyName.Span))
+            {
+                if (!(this.Not?.As<T>() is T result))
+                {
+                    property = default;
+                    return false;
+                }
+                property = result;
+                return true;
+                return true;
+            }
+            foreach (var additionalProperty in this._menesAdditionalPropertiesBacking)
+            {
+                if (additionalProperty.NameEquals(propertyName))
+                {
+                    property = additionalProperty.Value.As<T>();
+                    return true;
+                }
+            }
+            property = default;
+            return false;
+        }
+        /// <inheritdoc />
+        public bool TryGetProperty<T>(string propertyName, out T property)
+            where T : struct, Menes.IJsonValue
+        {
+            if (this.HasJsonElement)
+            {
+                if (this.JsonElement.TryGetProperty(propertyName, out System.Text.Json.JsonElement value))
+                {
+                    property = Menes.JsonValue.As<T>(value);
+                    return true;
+                }
+                property = default;
+                return false;
+            }
+            if (System.MemoryExtensions.AsSpan(propertyName).SequenceEqual(_MenesAdditionalItemsJsonPropertyName.Span))
+            {
+                if (!(this.AdditionalItems?.As<T>() is T result))
+                {
+                    property = default;
+                    return false;
+                }
+                property = result;
+                return true;
+                return true;
+            }
+            if (System.MemoryExtensions.AsSpan(propertyName).SequenceEqual(_MenesUnevaluatedItemsJsonPropertyName.Span))
+            {
+                if (!(this.UnevaluatedItems?.As<T>() is T result))
+                {
+                    property = default;
+                    return false;
+                }
+                property = result;
+                return true;
+                return true;
+            }
+            if (System.MemoryExtensions.AsSpan(propertyName).SequenceEqual(_MenesItemsJsonPropertyName.Span))
+            {
+                if (!(this.Items?.As<T>() is T result))
+                {
+                    property = default;
+                    return false;
+                }
+                property = result;
+                return true;
+                return true;
+            }
+            if (System.MemoryExtensions.AsSpan(propertyName).SequenceEqual(_MenesContainsJsonPropertyName.Span))
+            {
+                if (!(this.Contains?.As<T>() is T result))
+                {
+                    property = default;
+                    return false;
+                }
+                property = result;
+                return true;
+                return true;
+            }
+            if (System.MemoryExtensions.AsSpan(propertyName).SequenceEqual(_MenesAdditionalPropertiesJsonPropertyName.Span))
+            {
+                if (!(this.AdditionalProperties?.As<T>() is T result))
+                {
+                    property = default;
+                    return false;
+                }
+                property = result;
+                return true;
+                return true;
+            }
+            if (System.MemoryExtensions.AsSpan(propertyName).SequenceEqual(_MenesUnevaluatedPropertiesJsonPropertyName.Span))
+            {
+                if (!(this.UnevaluatedProperties?.As<T>() is T result))
+                {
+                    property = default;
+                    return false;
+                }
+                property = result;
+                return true;
+                return true;
+            }
+            if (System.MemoryExtensions.AsSpan(propertyName).SequenceEqual(_MenesPropertiesJsonPropertyName.Span))
+            {
+                if (!(this.Properties?.As<T>() is T result))
+                {
+                    property = default;
+                    return false;
+                }
+                property = result;
+                return true;
+                return true;
+            }
+            if (System.MemoryExtensions.AsSpan(propertyName).SequenceEqual(_MenesPatternPropertiesJsonPropertyName.Span))
+            {
+                if (!(this.PatternProperties?.As<T>() is T result))
+                {
+                    property = default;
+                    return false;
+                }
+                property = result;
+                return true;
+                return true;
+            }
+            if (System.MemoryExtensions.AsSpan(propertyName).SequenceEqual(_MenesDependentSchemasJsonPropertyName.Span))
+            {
+                if (!(this.DependentSchemas?.As<T>() is T result))
+                {
+                    property = default;
+                    return false;
+                }
+                property = result;
+                return true;
+                return true;
+            }
+            if (System.MemoryExtensions.AsSpan(propertyName).SequenceEqual(_MenesPropertyNamesJsonPropertyName.Span))
+            {
+                if (!(this.PropertyNames?.As<T>() is T result))
+                {
+                    property = default;
+                    return false;
+                }
+                property = result;
+                return true;
+                return true;
+            }
+            if (System.MemoryExtensions.AsSpan(propertyName).SequenceEqual(_MenesIfJsonPropertyName.Span))
+            {
+                if (!(this.If?.As<T>() is T result))
+                {
+                    property = default;
+                    return false;
+                }
+                property = result;
+                return true;
+                return true;
+            }
+            if (System.MemoryExtensions.AsSpan(propertyName).SequenceEqual(_MenesThenJsonPropertyName.Span))
+            {
+                if (!(this.Then?.As<T>() is T result))
+                {
+                    property = default;
+                    return false;
+                }
+                property = result;
+                return true;
+                return true;
+            }
+            if (System.MemoryExtensions.AsSpan(propertyName).SequenceEqual(_MenesElseJsonPropertyName.Span))
+            {
+                if (!(this.Else?.As<T>() is T result))
+                {
+                    property = default;
+                    return false;
+                }
+                property = result;
+                return true;
+                return true;
+            }
+            if (System.MemoryExtensions.AsSpan(propertyName).SequenceEqual(_MenesAllOfJsonPropertyName.Span))
+            {
+                if (!(this.AllOf?.As<T>() is T result))
+                {
+                    property = default;
+                    return false;
+                }
+                property = result;
+                return true;
+                return true;
+            }
+            if (System.MemoryExtensions.AsSpan(propertyName).SequenceEqual(_MenesAnyOfJsonPropertyName.Span))
+            {
+                if (!(this.AnyOf?.As<T>() is T result))
+                {
+                    property = default;
+                    return false;
+                }
+                property = result;
+                return true;
+                return true;
+            }
+            if (System.MemoryExtensions.AsSpan(propertyName).SequenceEqual(_MenesOneOfJsonPropertyName.Span))
+            {
+                if (!(this.OneOf?.As<T>() is T result))
+                {
+                    property = default;
+                    return false;
+                }
+                property = result;
+                return true;
+                return true;
+            }
+            if (System.MemoryExtensions.AsSpan(propertyName).SequenceEqual(_MenesNotJsonPropertyName.Span))
+            {
+                if (!(this.Not?.As<T>() is T result))
+                {
+                    property = default;
+                    return false;
+                }
+                property = result;
+                return true;
+                return true;
+            }
+            foreach (var additionalProperty in this._menesAdditionalPropertiesBacking)
+            {
+                if (additionalProperty.NameEquals(propertyName))
+                {
+                    property = additionalProperty.Value.As<T>();
+                    return true;
+                }
+            }
+            property = default;
+            return false;
+        }
+        /// <inheritdoc />
+        public bool TryGetProperty<T>(System.ReadOnlySpan<byte> propertyName, out T property)
+            where T : struct, Menes.IJsonValue
+        {
+            if (this.HasJsonElement)
+            {
+                if (this.JsonElement.TryGetProperty(propertyName, out System.Text.Json.JsonElement value))
+                {
+                    property = Menes.JsonValue.As<T>(value);
+                    return true;
+                }
+                property = default;
+                return false;
+            }
+            if (propertyName.SequenceEqual(_MenesAdditionalItemsUtf8JsonPropertyName.Span))
+            {
+                if (!(this.AdditionalItems?.As<T>() is T result))
+                {
+                    property = default;
+                    return false;
+                }
+                property = result;
+                return true;
+                return true;
+            }
+            if (propertyName.SequenceEqual(_MenesUnevaluatedItemsUtf8JsonPropertyName.Span))
+            {
+                if (!(this.UnevaluatedItems?.As<T>() is T result))
+                {
+                    property = default;
+                    return false;
+                }
+                property = result;
+                return true;
+                return true;
+            }
+            if (propertyName.SequenceEqual(_MenesItemsUtf8JsonPropertyName.Span))
+            {
+                if (!(this.Items?.As<T>() is T result))
+                {
+                    property = default;
+                    return false;
+                }
+                property = result;
+                return true;
+                return true;
+            }
+            if (propertyName.SequenceEqual(_MenesContainsUtf8JsonPropertyName.Span))
+            {
+                if (!(this.Contains?.As<T>() is T result))
+                {
+                    property = default;
+                    return false;
+                }
+                property = result;
+                return true;
+                return true;
+            }
+            if (propertyName.SequenceEqual(_MenesAdditionalPropertiesUtf8JsonPropertyName.Span))
+            {
+                if (!(this.AdditionalProperties?.As<T>() is T result))
+                {
+                    property = default;
+                    return false;
+                }
+                property = result;
+                return true;
+                return true;
+            }
+            if (propertyName.SequenceEqual(_MenesUnevaluatedPropertiesUtf8JsonPropertyName.Span))
+            {
+                if (!(this.UnevaluatedProperties?.As<T>() is T result))
+                {
+                    property = default;
+                    return false;
+                }
+                property = result;
+                return true;
+                return true;
+            }
+            if (propertyName.SequenceEqual(_MenesPropertiesUtf8JsonPropertyName.Span))
+            {
+                if (!(this.Properties?.As<T>() is T result))
+                {
+                    property = default;
+                    return false;
+                }
+                property = result;
+                return true;
+                return true;
+            }
+            if (propertyName.SequenceEqual(_MenesPatternPropertiesUtf8JsonPropertyName.Span))
+            {
+                if (!(this.PatternProperties?.As<T>() is T result))
+                {
+                    property = default;
+                    return false;
+                }
+                property = result;
+                return true;
+                return true;
+            }
+            if (propertyName.SequenceEqual(_MenesDependentSchemasUtf8JsonPropertyName.Span))
+            {
+                if (!(this.DependentSchemas?.As<T>() is T result))
+                {
+                    property = default;
+                    return false;
+                }
+                property = result;
+                return true;
+                return true;
+            }
+            if (propertyName.SequenceEqual(_MenesPropertyNamesUtf8JsonPropertyName.Span))
+            {
+                if (!(this.PropertyNames?.As<T>() is T result))
+                {
+                    property = default;
+                    return false;
+                }
+                property = result;
+                return true;
+                return true;
+            }
+            if (propertyName.SequenceEqual(_MenesIfUtf8JsonPropertyName.Span))
+            {
+                if (!(this.If?.As<T>() is T result))
+                {
+                    property = default;
+                    return false;
+                }
+                property = result;
+                return true;
+                return true;
+            }
+            if (propertyName.SequenceEqual(_MenesThenUtf8JsonPropertyName.Span))
+            {
+                if (!(this.Then?.As<T>() is T result))
+                {
+                    property = default;
+                    return false;
+                }
+                property = result;
+                return true;
+                return true;
+            }
+            if (propertyName.SequenceEqual(_MenesElseUtf8JsonPropertyName.Span))
+            {
+                if (!(this.Else?.As<T>() is T result))
+                {
+                    property = default;
+                    return false;
+                }
+                property = result;
+                return true;
+                return true;
+            }
+            if (propertyName.SequenceEqual(_MenesAllOfUtf8JsonPropertyName.Span))
+            {
+                if (!(this.AllOf?.As<T>() is T result))
+                {
+                    property = default;
+                    return false;
+                }
+                property = result;
+                return true;
+                return true;
+            }
+            if (propertyName.SequenceEqual(_MenesAnyOfUtf8JsonPropertyName.Span))
+            {
+                if (!(this.AnyOf?.As<T>() is T result))
+                {
+                    property = default;
+                    return false;
+                }
+                property = result;
+                return true;
+                return true;
+            }
+            if (propertyName.SequenceEqual(_MenesOneOfUtf8JsonPropertyName.Span))
+            {
+                if (!(this.OneOf?.As<T>() is T result))
+                {
+                    property = default;
+                    return false;
+                }
+                property = result;
+                return true;
+                return true;
+            }
+            if (propertyName.SequenceEqual(_MenesNotUtf8JsonPropertyName.Span))
+            {
+                if (!(this.Not?.As<T>() is T result))
+                {
+                    property = default;
+                    return false;
+                }
+                property = result;
+                return true;
+                return true;
+            }
+            foreach (var additionalProperty in this._menesAdditionalPropertiesBacking)
+            {
+                if (additionalProperty.NameEquals(propertyName))
+                {
+                    property = additionalProperty.Value.As<T>();
+                    return true;
+                }
+            }
+            property = default;
+            return false;
+        }
+        private TPropertyValue GetPropertyFromJsonElement<TPropertyValue>(System.ReadOnlySpan<byte> propertyName)
+            where TPropertyValue : struct, Menes.IJsonValue
+        {
+            return this.GetOptionalPropertyFromJsonElement<TPropertyValue>(propertyName) ?? default;
+        }
+        private TPropertyValue? GetOptionalPropertyFromJsonElement<TPropertyValue>(System.ReadOnlySpan<byte> propertyName)
+            where TPropertyValue : struct, Menes.IJsonValue
+        {
+            return this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Object ?
+                 (this.JsonElement.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
+                     ? Menes.JsonValue.As<TPropertyValue>(property)
+                     : null)
+                 : null;
+        }
+        private bool AllBackingFieldsAreNull()
+        {
+            if (!this.additionalItems.IsNull)
+            {
+                return false;
+            }
+            if (!this.unevaluatedItems.IsNull)
+            {
+                return false;
+            }
+            if (!this.items.IsNull)
+            {
+                return false;
+            }
+            if (!this.contains.IsNull)
+            {
+                return false;
+            }
+            if (!this.additionalProperties.IsNull)
+            {
+                return false;
+            }
+            if (!this.unevaluatedProperties.IsNull)
+            {
+                return false;
+            }
+            if (this.properties is not null)
+            {
+                return false;
+            }
+            if (this.patternProperties is not null)
+            {
+                return false;
+            }
+            if (this.dependentSchemas is not null)
+            {
+                return false;
+            }
+            if (!this.propertyNames.IsNull)
+            {
+                return false;
+            }
+            if (!this.@if.IsNull)
+            {
+                return false;
+            }
+            if (!this.then.IsNull)
+            {
+                return false;
+            }
+            if (!this.@else.IsNull)
+            {
+                return false;
+            }
+            if (!this.allOf.IsNull)
+            {
+                return false;
+            }
+            if (!this.anyOf.IsNull)
+            {
+                return false;
+            }
+            if (!this.oneOf.IsNull)
+            {
+                return false;
+            }
+            if (!this.not.IsNull)
+            {
+                return false;
+            }
+            if (this._menesAdditionalPropertiesBacking.Length > 0)
+            {
+                return false;
+            }
+            if (this._menesBooleanTypeBacking is not null)
+            {
+                return false;
+            }
+            return true;
+        }
+        public readonly struct ItemsEntity : Menes.IJsonValue
+        {
+            public static readonly ItemsEntity Null = default(ItemsEntity);
+            private readonly System.Text.Json.JsonElement _menesJsonElementBacking;
+            /// <inheritdoc />
+            public bool IsUndefined => !this.HasJsonElement && this.AllBackingFieldsAreNull();
+            /// <inheritdoc />
+            public bool IsNull => this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Null || (!this.HasJsonElement && this.AllBackingFieldsAreNull());
+            /// <inheritdoc />
+            public bool HasJsonElement => this._menesJsonElementBacking.ValueKind != System.Text.Json.JsonValueKind.Undefined;
+            /// <inheritdoc />
+            public System.Text.Json.JsonElement JsonElement => this._menesJsonElementBacking;
+            /// <inheritdoc />
+            public Menes.ValidationResult Validate(Menes.ValidationResult? validationResult = null, Menes.ValidationLevel level = Menes.ValidationLevel.Flag, System.Collections.Generic.HashSet<string>? evaluatedProperties = null, System.Collections.Generic.Stack<string>? absoluteKeywordLocation = null, System.Collections.Generic.Stack<string>? instanceLocation = null)
+            {
+                Menes.ValidationResult result = validationResult ?? Menes.ValidationResult.ValidResult;
+                ItemsEntity flattened = Menes.JsonValue.FlattenToJsonElementBacking(this);
+                result = ValidateAnyOf(flattened, result, level, evaluatedProperties, absoluteKeywordLocation, instanceLocation);
+                return result;
+                Menes.ValidationResult ValidateAnyOf(in Draft201909MetaApplicator.ItemsEntity that, Menes.ValidationResult validationResult, Menes.ValidationLevel level = Menes.ValidationLevel.Flag, System.Collections.Generic.HashSet<string>? evaluatedProperties = null, System.Collections.Generic.Stack<string>? absoluteKeywordLocation = null, System.Collections.Generic.Stack<string>? instanceLocation = null)
+                {
+                    if (absoluteKeywordLocation is System.Collections.Generic.Stack<string> aklPush0)
+                    {
+                        aklPush0.Push("https://json-schema.org/draft/2019-09/meta/applicator#/properties/items/anyOf/0");
+                    }
+                    var anyOf0 = that.AsDraft201909MetaApplicator();
+                    var anyOfResult0 = anyOf0.Validate(result, level, absoluteKeywordLocation: absoluteKeywordLocation, instanceLocation: instanceLocation);
+                    if (level == Menes.ValidationLevel.Flag && anyOfResult0.Valid)
+                    {
+                        return result;
+                    }
+                    if (absoluteKeywordLocation is System.Collections.Generic.Stack<string> aklPop0)
+                    {
+                        aklPop0.Pop();
+                    }
+                    if (absoluteKeywordLocation is System.Collections.Generic.Stack<string> aklPush1)
+                    {
+                        aklPush1.Push("https://json-schema.org/draft/2019-09/meta/applicator#/properties/items/anyOf/1");
+                    }
+                    var anyOf1 = that.AsSchemaArrayEntity();
+                    var anyOfResult1 = anyOf1.Validate(result, level, absoluteKeywordLocation: absoluteKeywordLocation, instanceLocation: instanceLocation);
+                    if (level == Menes.ValidationLevel.Flag && anyOfResult1.Valid)
+                    {
+                        return result;
+                    }
+                    if (absoluteKeywordLocation is System.Collections.Generic.Stack<string> aklPop1)
+                    {
+                        aklPop1.Pop();
+                    }
+                    if (!anyOfResult0.Valid && !anyOfResult1.Valid)
+                    {
+                        if (level >= Menes.ValidationLevel.Basic)
+                        {
+                            string? il = null;
+                            string? akl = null;
+                            instanceLocation?.TryPeek(out il);
+                            absoluteKeywordLocation?.TryPeek(out akl);
+                            result.AddResult(valid: false, message: "9.2.1.2. anyOf", instanceLocation: il, absoluteKeywordLocation: akl);
+                        }
+                        else
+                        {
+                            result.SetValid(false);
+                        }
+                    }
+                    else
+                    {
+                        if (level == Menes.ValidationLevel.Verbose)
+                        {
+                            string? il = null;
+                            string? akl = null;
+                            instanceLocation?.TryPeek(out il);
+                            absoluteKeywordLocation?.TryPeek(out akl);
+                            result.AddResult(valid: true, instanceLocation: il, absoluteKeywordLocation: akl);
+                        }
+                    }
+                    return result;
+                }
+            }
+            /// <inheritdoc />
+            public void WriteTo(System.Text.Json.Utf8JsonWriter writer)
+            {
+                if (this.HasJsonElement)
+                {
+                    this.JsonElement.WriteTo(writer);
+                    return;
+                }
+            }
+            /// <inheritdoc />
+            public T As<T>()
+                where T : struct, Menes.IJsonValue
+            {
+                return Menes.JsonValue.As<T>(Menes.JsonValue.FlattenToJsonElementBacking(this).JsonElement);
+            }
+            /// <inheritdoc />
+            public bool Is<T>()
+                where T : struct, Menes.IJsonValue
+            {
+                if (typeof(T) == typeof(Draft201909MetaApplicator.ItemsEntity))
+                {
+                    return this.Validate().Valid;
+                }
+                return this.As<T>().Validate().Valid;
+            }
+            private readonly Draft201909MetaApplicator AsDraft201909MetaApplicator()
+            {
+                return this.As<Draft201909MetaApplicator>();
+            }
+            private readonly Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity AsSchemaArrayEntity()
+            {
+                return this.As<Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity>();
+            }
+            /// <inheritdoc />
+            public bool TryGetProperty<T>(System.ReadOnlySpan<char> propertyName, out T property)
+                where T : struct, Menes.IJsonValue
+            {
+                if (this.HasJsonElement)
+                {
+                    if (this.JsonElement.TryGetProperty(propertyName, out System.Text.Json.JsonElement value))
+                    {
+                        property = Menes.JsonValue.As<T>(value);
+                        return true;
+                    }
+                    property = default;
+                    return false;
+                }
+                property = default;
+                return false;
+            }
+            /// <inheritdoc />
+            public bool TryGetProperty<T>(string propertyName, out T property)
+                where T : struct, Menes.IJsonValue
+            {
+                if (this.HasJsonElement)
+                {
+                    if (this.JsonElement.TryGetProperty(propertyName, out System.Text.Json.JsonElement value))
+                    {
+                        property = Menes.JsonValue.As<T>(value);
+                        return true;
+                    }
+                    property = default;
+                    return false;
+                }
+                property = default;
+                return false;
+            }
+            /// <inheritdoc />
+            public bool TryGetProperty<T>(System.ReadOnlySpan<byte> propertyName, out T property)
+                where T : struct, Menes.IJsonValue
+            {
+                if (this.HasJsonElement)
+                {
+                    if (this.JsonElement.TryGetProperty(propertyName, out System.Text.Json.JsonElement value))
+                    {
+                        property = Menes.JsonValue.As<T>(value);
+                        return true;
+                    }
+                    property = default;
+                    return false;
+                }
+                property = default;
+                return false;
+            }
+            private bool AllBackingFieldsAreNull()
+            {
+                return true;
+            }
+            public readonly struct SchemaArrayEntity : Menes.IJsonValue
+            {
+                public static readonly SchemaArrayEntity Null = default(SchemaArrayEntity);
+                private readonly System.Text.Json.JsonElement _menesJsonElementBacking;
+                /// <inheritdoc />
+                public bool IsUndefined => !this.HasJsonElement && this.AllBackingFieldsAreNull();
+                /// <inheritdoc />
+                public bool IsNull => this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Null || (!this.HasJsonElement && this.AllBackingFieldsAreNull());
+                /// <inheritdoc />
+                public bool HasJsonElement => this._menesJsonElementBacking.ValueKind != System.Text.Json.JsonValueKind.Undefined;
+                /// <inheritdoc />
+                public System.Text.Json.JsonElement JsonElement => this._menesJsonElementBacking;
+                /// <inheritdoc />
+                public Menes.ValidationResult Validate(Menes.ValidationResult? validationResult = null, Menes.ValidationLevel level = Menes.ValidationLevel.Flag, System.Collections.Generic.HashSet<string>? evaluatedProperties = null, System.Collections.Generic.Stack<string>? absoluteKeywordLocation = null, System.Collections.Generic.Stack<string>? instanceLocation = null)
+                {
+                    Menes.ValidationResult result = validationResult ?? Menes.ValidationResult.ValidResult;
+                    return result;
+                }
+                /// <inheritdoc />
+                public void WriteTo(System.Text.Json.Utf8JsonWriter writer)
+                {
+                    if (this.HasJsonElement)
+                    {
+                        this.JsonElement.WriteTo(writer);
+                        return;
+                    }
+                }
+                /// <inheritdoc />
+                public T As<T>()
+                    where T : struct, Menes.IJsonValue
+                {
+                    return Menes.JsonValue.As<T>(Menes.JsonValue.FlattenToJsonElementBacking(this).JsonElement);
+                }
+                /// <inheritdoc />
+                public bool Is<T>()
+                    where T : struct, Menes.IJsonValue
+                {
+                    if (typeof(T) == typeof(Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity))
+                    {
+                        return this.Validate().Valid;
+                    }
+                    return this.As<T>().Validate().Valid;
+                }
+                /// <inheritdoc />
+                public bool TryGetProperty<T>(System.ReadOnlySpan<char> propertyName, out T property)
+                    where T : struct, Menes.IJsonValue
+                {
+                    if (this.HasJsonElement)
+                    {
+                        if (this.JsonElement.TryGetProperty(propertyName, out System.Text.Json.JsonElement value))
+                        {
+                            property = Menes.JsonValue.As<T>(value);
+                            return true;
+                        }
+                        property = default;
+                        return false;
+                    }
+                    property = default;
+                    return false;
+                }
+                /// <inheritdoc />
+                public bool TryGetProperty<T>(string propertyName, out T property)
+                    where T : struct, Menes.IJsonValue
+                {
+                    if (this.HasJsonElement)
+                    {
+                        if (this.JsonElement.TryGetProperty(propertyName, out System.Text.Json.JsonElement value))
+                        {
+                            property = Menes.JsonValue.As<T>(value);
+                            return true;
+                        }
+                        property = default;
+                        return false;
+                    }
+                    property = default;
+                    return false;
+                }
+                /// <inheritdoc />
+                public bool TryGetProperty<T>(System.ReadOnlySpan<byte> propertyName, out T property)
+                    where T : struct, Menes.IJsonValue
+                {
+                    if (this.HasJsonElement)
+                    {
+                        if (this.JsonElement.TryGetProperty(propertyName, out System.Text.Json.JsonElement value))
+                        {
+                            property = Menes.JsonValue.As<T>(value);
+                            return true;
+                        }
+                        property = default;
+                        return false;
+                    }
+                    property = default;
+                    return false;
+                }
+                private bool AllBackingFieldsAreNull()
+                {
+                    return true;
+                }
+            }
+        }
+        public readonly struct PropertiesEntity : Menes.IJsonValue
+        {
+            public static readonly PropertiesEntity Null = default(PropertiesEntity);
+            private readonly System.Text.Json.JsonElement _menesJsonElementBacking;
+            private readonly System.Collections.Immutable.ImmutableArray<Menes.AdditionalProperty> _menesAdditionalPropertiesBacking;
+            /// <inheritdoc />
+            public bool IsUndefined => !this.HasJsonElement && this.AllBackingFieldsAreNull();
+            /// <inheritdoc />
+            public bool IsNull => this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Null || (!this.HasJsonElement && this.AllBackingFieldsAreNull());
+            /// <inheritdoc />
+            public bool HasJsonElement => this._menesJsonElementBacking.ValueKind != System.Text.Json.JsonValueKind.Undefined;
+            /// <inheritdoc />
+            public System.Text.Json.JsonElement JsonElement => this._menesJsonElementBacking;
+            /// <inheritdoc />
+            public Menes.ValidationResult Validate(Menes.ValidationResult? validationResult = null, Menes.ValidationLevel level = Menes.ValidationLevel.Flag, System.Collections.Generic.HashSet<string>? evaluatedProperties = null, System.Collections.Generic.Stack<string>? absoluteKeywordLocation = null, System.Collections.Generic.Stack<string>? instanceLocation = null)
+            {
+                Menes.ValidationResult result = validationResult ?? Menes.ValidationResult.ValidResult;
+                return result;
+            }
+            /// <inheritdoc />
+            public void WriteTo(System.Text.Json.Utf8JsonWriter writer)
+            {
+                if (this.HasJsonElement)
+                {
+                    this.JsonElement.WriteTo(writer);
+                    return;
+                }
+                foreach (var property in this._menesAdditionalPropertiesBacking)
+                {
+                    property.WriteTo(writer);
+                }
+            }
+            /// <inheritdoc />
+            public T As<T>()
+                where T : struct, Menes.IJsonValue
+            {
+                return Menes.JsonValue.As<T>(Menes.JsonValue.FlattenToJsonElementBacking(this).JsonElement);
+            }
+            /// <inheritdoc />
+            public bool Is<T>()
+                where T : struct, Menes.IJsonValue
+            {
+                if (typeof(T) == typeof(Draft201909MetaApplicator.PropertiesEntity))
+                {
+                    return this.Validate().Valid;
+                }
+                return this.As<T>().Validate().Valid;
+            }
+            /// <inheritdoc />
+            public bool TryGetProperty<T>(System.ReadOnlySpan<char> propertyName, out T property)
+                where T : struct, Menes.IJsonValue
+            {
+                if (this.HasJsonElement)
+                {
+                    if (this.JsonElement.TryGetProperty(propertyName, out System.Text.Json.JsonElement value))
+                    {
+                        property = Menes.JsonValue.As<T>(value);
+                        return true;
+                    }
+                    property = default;
+                    return false;
+                }
+                foreach (var additionalProperty in this._menesAdditionalPropertiesBacking)
+                {
+                    if (additionalProperty.NameEquals(propertyName))
+                    {
+                        property = additionalProperty.Value<Draft201909MetaApplicator>()?.As<T>() ?? default;
+                        return true;
+                    }
+                }
+                property = default;
+                return false;
+            }
+            /// <inheritdoc />
+            public bool TryGetProperty<T>(string propertyName, out T property)
+                where T : struct, Menes.IJsonValue
+            {
+                if (this.HasJsonElement)
+                {
+                    if (this.JsonElement.TryGetProperty(propertyName, out System.Text.Json.JsonElement value))
+                    {
+                        property = Menes.JsonValue.As<T>(value);
+                        return true;
+                    }
+                    property = default;
+                    return false;
+                }
+                foreach (var additionalProperty in this._menesAdditionalPropertiesBacking)
+                {
+                    if (additionalProperty.NameEquals(propertyName))
+                    {
+                        property = additionalProperty.Value<Draft201909MetaApplicator>()?.As<T>() ?? default;
+                        return true;
+                    }
+                }
+                property = default;
+                return false;
+            }
+            /// <inheritdoc />
+            public bool TryGetProperty<T>(System.ReadOnlySpan<byte> propertyName, out T property)
+                where T : struct, Menes.IJsonValue
+            {
+                if (this.HasJsonElement)
+                {
+                    if (this.JsonElement.TryGetProperty(propertyName, out System.Text.Json.JsonElement value))
+                    {
+                        property = Menes.JsonValue.As<T>(value);
+                        return true;
+                    }
+                    property = default;
+                    return false;
+                }
+                foreach (var additionalProperty in this._menesAdditionalPropertiesBacking)
+                {
+                    if (additionalProperty.NameEquals(propertyName))
+                    {
+                        property = additionalProperty.Value<Draft201909MetaApplicator>()?.As<T>() ?? default;
+                        return true;
+                    }
+                }
+                property = default;
+                return false;
+            }
+            private TPropertyValue GetPropertyFromJsonElement<TPropertyValue>(System.ReadOnlySpan<byte> propertyName)
+                where TPropertyValue : struct, Menes.IJsonValue
+            {
+                return this.GetOptionalPropertyFromJsonElement<TPropertyValue>(propertyName) ?? default;
+            }
+            private TPropertyValue? GetOptionalPropertyFromJsonElement<TPropertyValue>(System.ReadOnlySpan<byte> propertyName)
+                where TPropertyValue : struct, Menes.IJsonValue
+            {
+                return this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Object ?
+                     (this.JsonElement.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
+                         ? Menes.JsonValue.As<TPropertyValue>(property)
+                         : null)
+                     : null;
+            }
+            private bool AllBackingFieldsAreNull()
+            {
+                if (this._menesAdditionalPropertiesBacking.Length > 0)
+                {
+                    return false;
+                }
+                return true;
+            }
+        }
+        public readonly struct PatternPropertiesEntity : Menes.IJsonValue
+        {
+            public static readonly PatternPropertiesEntity Null = default(PatternPropertiesEntity);
+            private readonly System.Text.Json.JsonElement _menesJsonElementBacking;
+            private readonly System.Collections.Immutable.ImmutableArray<Menes.AdditionalProperty> _menesAdditionalPropertiesBacking;
+            /// <inheritdoc />
+            public bool IsUndefined => !this.HasJsonElement && this.AllBackingFieldsAreNull();
+            /// <inheritdoc />
+            public bool IsNull => this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Null || (!this.HasJsonElement && this.AllBackingFieldsAreNull());
+            /// <inheritdoc />
+            public bool HasJsonElement => this._menesJsonElementBacking.ValueKind != System.Text.Json.JsonValueKind.Undefined;
+            /// <inheritdoc />
+            public System.Text.Json.JsonElement JsonElement => this._menesJsonElementBacking;
+            /// <inheritdoc />
+            public Menes.ValidationResult Validate(Menes.ValidationResult? validationResult = null, Menes.ValidationLevel level = Menes.ValidationLevel.Flag, System.Collections.Generic.HashSet<string>? evaluatedProperties = null, System.Collections.Generic.Stack<string>? absoluteKeywordLocation = null, System.Collections.Generic.Stack<string>? instanceLocation = null)
+            {
+                Menes.ValidationResult result = validationResult ?? Menes.ValidationResult.ValidResult;
+                return result;
+            }
+            /// <inheritdoc />
+            public void WriteTo(System.Text.Json.Utf8JsonWriter writer)
+            {
+                if (this.HasJsonElement)
+                {
+                    this.JsonElement.WriteTo(writer);
+                    return;
+                }
+                foreach (var property in this._menesAdditionalPropertiesBacking)
+                {
+                    property.WriteTo(writer);
+                }
+            }
+            /// <inheritdoc />
+            public T As<T>()
+                where T : struct, Menes.IJsonValue
+            {
+                return Menes.JsonValue.As<T>(Menes.JsonValue.FlattenToJsonElementBacking(this).JsonElement);
+            }
+            /// <inheritdoc />
+            public bool Is<T>()
+                where T : struct, Menes.IJsonValue
+            {
+                if (typeof(T) == typeof(Draft201909MetaApplicator.PatternPropertiesEntity))
+                {
+                    return this.Validate().Valid;
+                }
+                return this.As<T>().Validate().Valid;
+            }
+            /// <inheritdoc />
+            public bool TryGetProperty<T>(System.ReadOnlySpan<char> propertyName, out T property)
+                where T : struct, Menes.IJsonValue
+            {
+                if (this.HasJsonElement)
+                {
+                    if (this.JsonElement.TryGetProperty(propertyName, out System.Text.Json.JsonElement value))
+                    {
+                        property = Menes.JsonValue.As<T>(value);
+                        return true;
+                    }
+                    property = default;
+                    return false;
+                }
+                foreach (var additionalProperty in this._menesAdditionalPropertiesBacking)
+                {
+                    if (additionalProperty.NameEquals(propertyName))
+                    {
+                        property = additionalProperty.Value<Draft201909MetaApplicator>()?.As<T>() ?? default;
+                        return true;
+                    }
+                }
+                property = default;
+                return false;
+            }
+            /// <inheritdoc />
+            public bool TryGetProperty<T>(string propertyName, out T property)
+                where T : struct, Menes.IJsonValue
+            {
+                if (this.HasJsonElement)
+                {
+                    if (this.JsonElement.TryGetProperty(propertyName, out System.Text.Json.JsonElement value))
+                    {
+                        property = Menes.JsonValue.As<T>(value);
+                        return true;
+                    }
+                    property = default;
+                    return false;
+                }
+                foreach (var additionalProperty in this._menesAdditionalPropertiesBacking)
+                {
+                    if (additionalProperty.NameEquals(propertyName))
+                    {
+                        property = additionalProperty.Value<Draft201909MetaApplicator>()?.As<T>() ?? default;
+                        return true;
+                    }
+                }
+                property = default;
+                return false;
+            }
+            /// <inheritdoc />
+            public bool TryGetProperty<T>(System.ReadOnlySpan<byte> propertyName, out T property)
+                where T : struct, Menes.IJsonValue
+            {
+                if (this.HasJsonElement)
+                {
+                    if (this.JsonElement.TryGetProperty(propertyName, out System.Text.Json.JsonElement value))
+                    {
+                        property = Menes.JsonValue.As<T>(value);
+                        return true;
+                    }
+                    property = default;
+                    return false;
+                }
+                foreach (var additionalProperty in this._menesAdditionalPropertiesBacking)
+                {
+                    if (additionalProperty.NameEquals(propertyName))
+                    {
+                        property = additionalProperty.Value<Draft201909MetaApplicator>()?.As<T>() ?? default;
+                        return true;
+                    }
+                }
+                property = default;
+                return false;
+            }
+            private TPropertyValue GetPropertyFromJsonElement<TPropertyValue>(System.ReadOnlySpan<byte> propertyName)
+                where TPropertyValue : struct, Menes.IJsonValue
+            {
+                return this.GetOptionalPropertyFromJsonElement<TPropertyValue>(propertyName) ?? default;
+            }
+            private TPropertyValue? GetOptionalPropertyFromJsonElement<TPropertyValue>(System.ReadOnlySpan<byte> propertyName)
+                where TPropertyValue : struct, Menes.IJsonValue
+            {
+                return this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Object ?
+                     (this.JsonElement.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
+                         ? Menes.JsonValue.As<TPropertyValue>(property)
+                         : null)
+                     : null;
+            }
+            private bool AllBackingFieldsAreNull()
+            {
+                if (this._menesAdditionalPropertiesBacking.Length > 0)
+                {
+                    return false;
+                }
+                return true;
+            }
+            public readonly struct PropertyNamesEntity : Menes.IJsonValue
+            {
+                public static readonly PropertyNamesEntity Null = default(PropertyNamesEntity);
+                private readonly System.Text.Json.JsonElement _menesJsonElementBacking;
+                /// <inheritdoc />
+                public bool IsUndefined => !this.HasJsonElement && this.AllBackingFieldsAreNull();
+                /// <inheritdoc />
+                public bool IsNull => this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Null || (!this.HasJsonElement && this.AllBackingFieldsAreNull());
+                /// <inheritdoc />
+                public bool HasJsonElement => this._menesJsonElementBacking.ValueKind != System.Text.Json.JsonValueKind.Undefined;
+                /// <inheritdoc />
+                public System.Text.Json.JsonElement JsonElement => this._menesJsonElementBacking;
+                /// <inheritdoc />
+                public Menes.ValidationResult Validate(Menes.ValidationResult? validationResult = null, Menes.ValidationLevel level = Menes.ValidationLevel.Flag, System.Collections.Generic.HashSet<string>? evaluatedProperties = null, System.Collections.Generic.Stack<string>? absoluteKeywordLocation = null, System.Collections.Generic.Stack<string>? instanceLocation = null)
+                {
+                    Menes.ValidationResult result = validationResult ?? Menes.ValidationResult.ValidResult;
+                    return result;
+                }
+                /// <inheritdoc />
+                public void WriteTo(System.Text.Json.Utf8JsonWriter writer)
+                {
+                    if (this.HasJsonElement)
+                    {
+                        this.JsonElement.WriteTo(writer);
+                        return;
+                    }
+                }
+                /// <inheritdoc />
+                public T As<T>()
+                    where T : struct, Menes.IJsonValue
+                {
+                    return Menes.JsonValue.As<T>(Menes.JsonValue.FlattenToJsonElementBacking(this).JsonElement);
+                }
+                /// <inheritdoc />
+                public bool Is<T>()
+                    where T : struct, Menes.IJsonValue
+                {
+                    if (typeof(T) == typeof(Draft201909MetaApplicator.PatternPropertiesEntity.PropertyNamesEntity))
+                    {
+                        return this.Validate().Valid;
+                    }
+                    return this.As<T>().Validate().Valid;
+                }
+                /// <inheritdoc />
+                public bool TryGetProperty<T>(System.ReadOnlySpan<char> propertyName, out T property)
+                    where T : struct, Menes.IJsonValue
+                {
+                    if (this.HasJsonElement)
+                    {
+                        if (this.JsonElement.TryGetProperty(propertyName, out System.Text.Json.JsonElement value))
+                        {
+                            property = Menes.JsonValue.As<T>(value);
+                            return true;
+                        }
+                        property = default;
+                        return false;
+                    }
+                    property = default;
+                    return false;
+                }
+                /// <inheritdoc />
+                public bool TryGetProperty<T>(string propertyName, out T property)
+                    where T : struct, Menes.IJsonValue
+                {
+                    if (this.HasJsonElement)
+                    {
+                        if (this.JsonElement.TryGetProperty(propertyName, out System.Text.Json.JsonElement value))
+                        {
+                            property = Menes.JsonValue.As<T>(value);
+                            return true;
+                        }
+                        property = default;
+                        return false;
+                    }
+                    property = default;
+                    return false;
+                }
+                /// <inheritdoc />
+                public bool TryGetProperty<T>(System.ReadOnlySpan<byte> propertyName, out T property)
+                    where T : struct, Menes.IJsonValue
+                {
+                    if (this.HasJsonElement)
+                    {
+                        if (this.JsonElement.TryGetProperty(propertyName, out System.Text.Json.JsonElement value))
+                        {
+                            property = Menes.JsonValue.As<T>(value);
+                            return true;
+                        }
+                        property = default;
+                        return false;
+                    }
+                    property = default;
+                    return false;
+                }
+                private bool AllBackingFieldsAreNull()
+                {
+                    return true;
+                }
+            }
+        }
+        public readonly struct DependentSchemasEntity : Menes.IJsonValue
+        {
+            public static readonly DependentSchemasEntity Null = default(DependentSchemasEntity);
+            private readonly System.Text.Json.JsonElement _menesJsonElementBacking;
+            private readonly System.Collections.Immutable.ImmutableArray<Menes.AdditionalProperty> _menesAdditionalPropertiesBacking;
+            /// <inheritdoc />
+            public bool IsUndefined => !this.HasJsonElement && this.AllBackingFieldsAreNull();
+            /// <inheritdoc />
+            public bool IsNull => this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Null || (!this.HasJsonElement && this.AllBackingFieldsAreNull());
+            /// <inheritdoc />
+            public bool HasJsonElement => this._menesJsonElementBacking.ValueKind != System.Text.Json.JsonValueKind.Undefined;
+            /// <inheritdoc />
+            public System.Text.Json.JsonElement JsonElement => this._menesJsonElementBacking;
+            /// <inheritdoc />
+            public Menes.ValidationResult Validate(Menes.ValidationResult? validationResult = null, Menes.ValidationLevel level = Menes.ValidationLevel.Flag, System.Collections.Generic.HashSet<string>? evaluatedProperties = null, System.Collections.Generic.Stack<string>? absoluteKeywordLocation = null, System.Collections.Generic.Stack<string>? instanceLocation = null)
+            {
+                Menes.ValidationResult result = validationResult ?? Menes.ValidationResult.ValidResult;
+                return result;
+            }
+            /// <inheritdoc />
+            public void WriteTo(System.Text.Json.Utf8JsonWriter writer)
+            {
+                if (this.HasJsonElement)
+                {
+                    this.JsonElement.WriteTo(writer);
+                    return;
+                }
+                foreach (var property in this._menesAdditionalPropertiesBacking)
+                {
+                    property.WriteTo(writer);
+                }
+            }
+            /// <inheritdoc />
+            public T As<T>()
+                where T : struct, Menes.IJsonValue
+            {
+                return Menes.JsonValue.As<T>(Menes.JsonValue.FlattenToJsonElementBacking(this).JsonElement);
+            }
+            /// <inheritdoc />
+            public bool Is<T>()
+                where T : struct, Menes.IJsonValue
+            {
+                if (typeof(T) == typeof(Draft201909MetaApplicator.DependentSchemasEntity))
+                {
+                    return this.Validate().Valid;
+                }
+                return this.As<T>().Validate().Valid;
+            }
+            /// <inheritdoc />
+            public bool TryGetProperty<T>(System.ReadOnlySpan<char> propertyName, out T property)
+                where T : struct, Menes.IJsonValue
+            {
+                if (this.HasJsonElement)
+                {
+                    if (this.JsonElement.TryGetProperty(propertyName, out System.Text.Json.JsonElement value))
+                    {
+                        property = Menes.JsonValue.As<T>(value);
+                        return true;
+                    }
+                    property = default;
+                    return false;
+                }
+                foreach (var additionalProperty in this._menesAdditionalPropertiesBacking)
+                {
+                    if (additionalProperty.NameEquals(propertyName))
+                    {
+                        property = additionalProperty.Value<Draft201909MetaApplicator>()?.As<T>() ?? default;
+                        return true;
+                    }
+                }
+                property = default;
+                return false;
+            }
+            /// <inheritdoc />
+            public bool TryGetProperty<T>(string propertyName, out T property)
+                where T : struct, Menes.IJsonValue
+            {
+                if (this.HasJsonElement)
+                {
+                    if (this.JsonElement.TryGetProperty(propertyName, out System.Text.Json.JsonElement value))
+                    {
+                        property = Menes.JsonValue.As<T>(value);
+                        return true;
+                    }
+                    property = default;
+                    return false;
+                }
+                foreach (var additionalProperty in this._menesAdditionalPropertiesBacking)
+                {
+                    if (additionalProperty.NameEquals(propertyName))
+                    {
+                        property = additionalProperty.Value<Draft201909MetaApplicator>()?.As<T>() ?? default;
+                        return true;
+                    }
+                }
+                property = default;
+                return false;
+            }
+            /// <inheritdoc />
+            public bool TryGetProperty<T>(System.ReadOnlySpan<byte> propertyName, out T property)
+                where T : struct, Menes.IJsonValue
+            {
+                if (this.HasJsonElement)
+                {
+                    if (this.JsonElement.TryGetProperty(propertyName, out System.Text.Json.JsonElement value))
+                    {
+                        property = Menes.JsonValue.As<T>(value);
+                        return true;
+                    }
+                    property = default;
+                    return false;
+                }
+                foreach (var additionalProperty in this._menesAdditionalPropertiesBacking)
+                {
+                    if (additionalProperty.NameEquals(propertyName))
+                    {
+                        property = additionalProperty.Value<Draft201909MetaApplicator>()?.As<T>() ?? default;
+                        return true;
+                    }
+                }
+                property = default;
+                return false;
+            }
+            private TPropertyValue GetPropertyFromJsonElement<TPropertyValue>(System.ReadOnlySpan<byte> propertyName)
+                where TPropertyValue : struct, Menes.IJsonValue
+            {
+                return this.GetOptionalPropertyFromJsonElement<TPropertyValue>(propertyName) ?? default;
+            }
+            private TPropertyValue? GetOptionalPropertyFromJsonElement<TPropertyValue>(System.ReadOnlySpan<byte> propertyName)
+                where TPropertyValue : struct, Menes.IJsonValue
+            {
+                return this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Object ?
+                     (this.JsonElement.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
+                         ? Menes.JsonValue.As<TPropertyValue>(property)
+                         : null)
+                     : null;
+            }
+            private bool AllBackingFieldsAreNull()
+            {
+                if (this._menesAdditionalPropertiesBacking.Length > 0)
+                {
+                    return false;
+                }
+                return true;
+            }
+        }
+    }
+}

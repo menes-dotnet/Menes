@@ -79,10 +79,19 @@ namespace Menes.JsonSchema.TypeBuilder
                 return;
             }
 
-            TypeDeclaration root = await this.CreateTypeDeclarations(rootElement).ConfigureAwait(false);
-            TypeDeclaration loweredResult = root.Lowered;
+            var generatedTypeNames = new HashSet<string>();
+            _ = await this.CreateTypeDeclarations(rootElement).ConfigureAwait(false);
             var memberBuilder = new System.Text.StringBuilder();
-            this.BuildCode(loweredResult, memberBuilder);
+            foreach (TypeDeclaration type in this.builtDeclarationsByLocation.Values)
+            {
+                TypeDeclaration loweredType = type.Lowered;
+                if (loweredType.Parent is null && !generatedTypeNames.Contains(loweredType.FullyQualifiedDotNetTypeName!))
+                {
+                    memberBuilder.Clear();
+                    this.BuildCode(loweredType, memberBuilder);
+                    generatedTypeNames.Add(loweredType.FullyQualifiedDotNetTypeName!);
+                }
+            }
         }
     }
 }
