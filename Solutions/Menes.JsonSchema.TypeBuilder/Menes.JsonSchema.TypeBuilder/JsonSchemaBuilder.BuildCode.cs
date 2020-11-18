@@ -80,7 +80,16 @@ namespace Menes.JsonSchema.TypeBuilder
                 {
                     memberBuilder.AppendLine($"public static implicit operator {op.TargetType.FullyQualifiedDotNetTypeName}({typeDeclaration.DotnetTypeName} value)");
                     memberBuilder.AppendLine("{");
-                    this.BuildConversionOperator(op.Conversion, op.TargetType, memberBuilder);
+
+                    if (op.Via is TypeDeclaration via)
+                    {
+                        this.BuildConversionOperator(op.Conversion, op.TargetType, via, memberBuilder);
+                    }
+                    else
+                    {
+                        this.BuildConversionOperator(op.Conversion, op.TargetType, memberBuilder);
+                    }
+
                     memberBuilder.AppendLine("}");
                 }
 
@@ -88,7 +97,15 @@ namespace Menes.JsonSchema.TypeBuilder
                 {
                     memberBuilder.AppendLine($"public static explicit operator {op.TargetType.FullyQualifiedDotNetTypeName}({typeDeclaration.DotnetTypeName} value)");
                     memberBuilder.AppendLine("{");
-                    this.BuildConversionOperator(op.Conversion, op.TargetType, memberBuilder);
+                    if (op.Via is TypeDeclaration via)
+                    {
+                        this.BuildConversionOperator(op.Conversion, op.TargetType, via, memberBuilder);
+                    }
+                    else
+                    {
+                        this.BuildConversionOperator(op.Conversion, op.TargetType, memberBuilder);
+                    }
+
                     memberBuilder.AppendLine("}");
                 }
 
@@ -96,7 +113,15 @@ namespace Menes.JsonSchema.TypeBuilder
                 {
                     memberBuilder.AppendLine($"public static implicit operator {typeDeclaration.DotnetTypeName}({op.TargetType.FullyQualifiedDotNetTypeName} value)");
                     memberBuilder.AppendLine("{");
-                    this.BuildConversionOperator(op.Conversion, typeDeclaration, memberBuilder);
+                    if (op.Via is TypeDeclaration via)
+                    {
+                        this.BuildConversionOperator(op.Conversion, typeDeclaration, via, memberBuilder);
+                    }
+                    else
+                    {
+                        this.BuildConversionOperator(op.Conversion, typeDeclaration, memberBuilder);
+                    }
+
                     memberBuilder.AppendLine("}");
                 }
 
@@ -104,7 +129,15 @@ namespace Menes.JsonSchema.TypeBuilder
                 {
                     memberBuilder.AppendLine($"public static explicit operator {typeDeclaration.DotnetTypeName}({op.TargetType.FullyQualifiedDotNetTypeName} value)");
                     memberBuilder.AppendLine("{");
-                    this.BuildConversionOperator(op.Conversion, typeDeclaration, memberBuilder);
+                    if (op.Via is TypeDeclaration via)
+                    {
+                        this.BuildConversionOperator(op.Conversion, typeDeclaration, via, memberBuilder);
+                    }
+                    else
+                    {
+                        this.BuildConversionOperator(op.Conversion, typeDeclaration, memberBuilder);
+                    }
+
                     memberBuilder.AppendLine("}");
                 }
             }
@@ -121,7 +154,23 @@ namespace Menes.JsonSchema.TypeBuilder
                     memberBuilder.AppendLine($"    return new {targetType.FullyQualifiedDotNetTypeName}(value);");
                     break;
                 case ConversionOperatorDeclaration.ConversionType.GenericAsAndStaticFrom:
-                    memberBuilder.AppendLine($"    return Menes.JsonValue.As<{targetType.FullyQualifiedDotNetTypeName}>(value);");
+                    memberBuilder.AppendLine($"    return value.As<{targetType.FullyQualifiedDotNetTypeName}>();");
+                    break;
+            }
+        }
+
+        private void BuildConversionOperator(ConversionOperatorDeclaration.ConversionType conversion, TypeDeclaration targetType, TypeDeclaration via, StringBuilder memberBuilder)
+        {
+            switch (conversion)
+            {
+                case ConversionOperatorDeclaration.ConversionType.Cast:
+                    memberBuilder.AppendLine($"    return ({targetType.FullyQualifiedDotNetTypeName})({via.FullyQualifiedDotNetTypeName})value;");
+                    break;
+                case ConversionOperatorDeclaration.ConversionType.Constructor:
+                    memberBuilder.AppendLine($"    return new {targetType.FullyQualifiedDotNetTypeName}(new {via.FullyQualifiedDotNetTypeName}(value));");
+                    break;
+                case ConversionOperatorDeclaration.ConversionType.GenericAsAndStaticFrom:
+                    memberBuilder.AppendLine($"    return value.As<{via.FullyQualifiedDotNetTypeName}>().As<{targetType.FullyQualifiedDotNetTypeName}>();");
                     break;
             }
         }
@@ -166,7 +215,7 @@ namespace Menes.JsonSchema.TypeBuilder
             {
                 foreach (PropertyDeclaration property in typeDeclaration.Properties)
                 {
-                    memberBuilder.AppendLine($"    if (propertyName.SequenceEqual(_Menes{property.DotnetPropertyName}JsonPropertyName.Span))");
+                    memberBuilder.AppendLine($"    if (System.MemoryExtensions.SequenceEqual(propertyName, _Menes{property.DotnetPropertyName}JsonPropertyName.Span))");
                     memberBuilder.AppendLine("    {");
                     this.BuildPropertyResultAssignment(memberBuilder, property);
                     memberBuilder.AppendLine($"        return true;");
@@ -189,7 +238,7 @@ namespace Menes.JsonSchema.TypeBuilder
             {
                 foreach (PropertyDeclaration property in typeDeclaration.Properties)
                 {
-                    memberBuilder.AppendLine($"    if (System.MemoryExtensions.AsSpan(propertyName).SequenceEqual(_Menes{property.DotnetPropertyName}JsonPropertyName.Span))");
+                    memberBuilder.AppendLine($"    if (System.MemoryExtensions.SequenceEqual(System.MemoryExtensions.AsSpan(propertyName), _Menes{property.DotnetPropertyName}JsonPropertyName.Span))");
                     memberBuilder.AppendLine("    {");
                     this.BuildPropertyResultAssignment(memberBuilder, property);
                     memberBuilder.AppendLine($"        return true;");
@@ -212,7 +261,7 @@ namespace Menes.JsonSchema.TypeBuilder
             {
                 foreach (PropertyDeclaration property in typeDeclaration.Properties)
                 {
-                    memberBuilder.AppendLine($"    if (propertyName.SequenceEqual(_Menes{property.DotnetPropertyName}Utf8JsonPropertyName.Span))");
+                    memberBuilder.AppendLine($"    if (System.MemoryExtensions.SequenceEqual(propertyName, _Menes{property.DotnetPropertyName}Utf8JsonPropertyName.Span))");
                     memberBuilder.AppendLine("    {");
                     this.BuildPropertyResultAssignment(memberBuilder, property);
                     memberBuilder.AppendLine($"        return true;");

@@ -2,8 +2,6 @@
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 #pragma warning disable
-using System;
-
 namespace TestSpace
 {
     public readonly struct Draft201909MetaContent : Menes.IJsonValue
@@ -24,6 +22,22 @@ namespace TestSpace
         private readonly Draft201909MetaContent.ContentMediaTypeValue? contentMediaType;
         private readonly Draft201909MetaContent.ContentEncodingValue? contentEncoding;
         private readonly Menes.JsonValueBacking contentSchema;
+        public static implicit operator Menes.JsonBoolean(Draft201909MetaContent value)
+        {
+            return value.As<Menes.JsonBoolean>();
+        }
+        public static implicit operator Draft201909MetaContent(Menes.JsonBoolean value)
+        {
+            return value.As<Draft201909MetaContent>();
+        }
+        public static implicit operator bool(Draft201909MetaContent value)
+        {
+            return (bool)(Menes.JsonBoolean)value;
+        }
+        public static implicit operator Draft201909MetaContent(bool value)
+        {
+            return (Draft201909MetaContent)(Menes.JsonBoolean)value;
+        }
         /// <inheritdoc />
         public bool IsUndefined => !this.HasJsonElement && this.AllBackingFieldsAreNull();
         /// <inheritdoc />
@@ -100,7 +114,7 @@ namespace TestSpace
                 property = default;
                 return false;
             }
-            if (propertyName.SequenceEqual(_MenesContentMediaTypeJsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesContentMediaTypeJsonPropertyName.Span))
             {
                 if (!(this.ContentMediaType?.As<T>() is T result))
                 {
@@ -111,7 +125,7 @@ namespace TestSpace
                 return true;
                 return true;
             }
-            if (propertyName.SequenceEqual(_MenesContentEncodingJsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesContentEncodingJsonPropertyName.Span))
             {
                 if (!(this.ContentEncoding?.As<T>() is T result))
                 {
@@ -122,7 +136,7 @@ namespace TestSpace
                 return true;
                 return true;
             }
-            if (propertyName.SequenceEqual(_MenesContentSchemaJsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesContentSchemaJsonPropertyName.Span))
             {
                 if (!(this.ContentSchema?.As<T>() is T result))
                 {
@@ -158,7 +172,7 @@ namespace TestSpace
                 property = default;
                 return false;
             }
-            if (System.MemoryExtensions.AsSpan(propertyName).SequenceEqual(_MenesContentMediaTypeJsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(System.MemoryExtensions.AsSpan(propertyName), _MenesContentMediaTypeJsonPropertyName.Span))
             {
                 if (!(this.ContentMediaType?.As<T>() is T result))
                 {
@@ -169,7 +183,7 @@ namespace TestSpace
                 return true;
                 return true;
             }
-            if (System.MemoryExtensions.AsSpan(propertyName).SequenceEqual(_MenesContentEncodingJsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(System.MemoryExtensions.AsSpan(propertyName), _MenesContentEncodingJsonPropertyName.Span))
             {
                 if (!(this.ContentEncoding?.As<T>() is T result))
                 {
@@ -180,7 +194,7 @@ namespace TestSpace
                 return true;
                 return true;
             }
-            if (System.MemoryExtensions.AsSpan(propertyName).SequenceEqual(_MenesContentSchemaJsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(System.MemoryExtensions.AsSpan(propertyName), _MenesContentSchemaJsonPropertyName.Span))
             {
                 if (!(this.ContentSchema?.As<T>() is T result))
                 {
@@ -216,7 +230,7 @@ namespace TestSpace
                 property = default;
                 return false;
             }
-            if (propertyName.SequenceEqual(_MenesContentMediaTypeUtf8JsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesContentMediaTypeUtf8JsonPropertyName.Span))
             {
                 if (!(this.ContentMediaType?.As<T>() is T result))
                 {
@@ -227,7 +241,7 @@ namespace TestSpace
                 return true;
                 return true;
             }
-            if (propertyName.SequenceEqual(_MenesContentEncodingUtf8JsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesContentEncodingUtf8JsonPropertyName.Span))
             {
                 if (!(this.ContentEncoding?.As<T>() is T result))
                 {
@@ -238,7 +252,7 @@ namespace TestSpace
                 return true;
                 return true;
             }
-            if (propertyName.SequenceEqual(_MenesContentSchemaUtf8JsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesContentSchemaUtf8JsonPropertyName.Span))
             {
                 if (!(this.ContentSchema?.As<T>() is T result))
                 {
@@ -303,6 +317,22 @@ namespace TestSpace
             public static readonly ContentMediaTypeValue Null = default(ContentMediaTypeValue);
             private readonly System.Text.Json.JsonElement _menesJsonElementBacking;
             private readonly Menes.JsonString? _menesStringTypeBacking;
+            public static implicit operator Menes.JsonString(ContentMediaTypeValue value)
+            {
+                return value.As<Menes.JsonString>();
+            }
+            public static implicit operator ContentMediaTypeValue(Menes.JsonString value)
+            {
+                return value.As<Draft201909MetaContent.ContentMediaTypeValue>();
+            }
+            public static implicit operator string(ContentMediaTypeValue value)
+            {
+                return (string)(Menes.JsonString)value;
+            }
+            public static implicit operator ContentMediaTypeValue(string value)
+            {
+                return (Draft201909MetaContent.ContentMediaTypeValue)(Menes.JsonString)value;
+            }
             /// <inheritdoc />
             public bool IsUndefined => !this.HasJsonElement && this.AllBackingFieldsAreNull();
             /// <inheritdoc />
@@ -408,6 +438,22 @@ namespace TestSpace
             public static readonly ContentEncodingValue Null = default(ContentEncodingValue);
             private readonly System.Text.Json.JsonElement _menesJsonElementBacking;
             private readonly Menes.JsonString? _menesStringTypeBacking;
+            public static implicit operator Menes.JsonString(ContentEncodingValue value)
+            {
+                return value.As<Menes.JsonString>();
+            }
+            public static implicit operator ContentEncodingValue(Menes.JsonString value)
+            {
+                return value.As<Draft201909MetaContent.ContentEncodingValue>();
+            }
+            public static implicit operator string(ContentEncodingValue value)
+            {
+                return (string)(Menes.JsonString)value;
+            }
+            public static implicit operator ContentEncodingValue(string value)
+            {
+                return (Draft201909MetaContent.ContentEncodingValue)(Menes.JsonString)value;
+            }
             /// <inheritdoc />
             public bool IsUndefined => !this.HasJsonElement && this.AllBackingFieldsAreNull();
             /// <inheritdoc />

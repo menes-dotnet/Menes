@@ -354,7 +354,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         {
             List<ConversionOperatorDeclaration> operators = this.EnsureConversionOperators();
 
-            if (operators.Any(o => o.TargetType == conversionOperatorDeclaration.TargetType))
+            if (operators.Any(o => o.TargetType?.FullyQualifiedDotNetTypeName == conversionOperatorDeclaration.TargetType?.FullyQualifiedDotNetTypeName))
             {
                 return;
             }
@@ -471,7 +471,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
             if (!allOfTypes.Any(t => t.FullyQualifiedDotNetTypeName == allOfType.FullyQualifiedDotNetTypeName))
             {
                 allOfTypes.Add(allOfType);
-                this.AddConversionOperatorsFor(allOfType, false);
+                this.AddConversionOperatorsFor(allOfType);
             }
         }
 
@@ -488,7 +488,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
             if (!anyOfTypes.Any(t => t.FullyQualifiedDotNetTypeName == anyOfType.FullyQualifiedDotNetTypeName))
             {
                 anyOfTypes.Add(anyOfType);
-                this.AddConversionOperatorsFor(anyOfType, true);
+                this.AddConversionOperatorsFor(anyOfType);
             }
         }
 
@@ -505,7 +505,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
             if (!oneOfTypes.Any(t => t.FullyQualifiedDotNetTypeName == oneOfType.FullyQualifiedDotNetTypeName))
             {
                 oneOfTypes.Add(oneOfType);
-                this.AddConversionOperatorsFor(oneOfType, true);
+                this.AddConversionOperatorsFor(oneOfType);
             }
         }
 
@@ -819,9 +819,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         /// </summary>
         /// <remarks>
         /// This is used to merge the base type's conversion methods into the target type when
-        /// merging multiple types together. It is not used for the types being merged into
-        /// the base, as their conversions are dealt with by adding <see cref="ConversionOperatorDeclaration.Via"/>
-        /// conversions when they are added to the base.
+        /// merging multiple types together.
         /// </remarks>
         private static void MergeConversions(TypeDeclaration typeToMerge, TypeDeclaration result)
         {
@@ -1053,12 +1051,12 @@ namespace Menes.JsonSchema.TypeBuilder.Model
 
         private static List<ConversionOperatorDeclaration>? Lower(List<ConversionOperatorDeclaration>? conversionOperators)
         {
-            return conversionOperators?.Select(c => (c.TargetType?.IsLowered ?? true) ? c : new ConversionOperatorDeclaration { Conversion = c.Conversion, TargetType = c.TargetType?.Lowered }).ToList();
+            return conversionOperators?.Select(c => new ConversionOperatorDeclaration { Conversion = c.Conversion, TargetType = c.TargetType?.Lowered, Direction = c.Direction, Via = c.Via }).ToList();
         }
 
         private static List<AsConversionMethodDeclaration>? Lower(List<AsConversionMethodDeclaration>? asConversionMethods)
         {
-            return asConversionMethods?.Select(c => (c.TargetType?.IsLowered ?? true) ? c : new AsConversionMethodDeclaration { Conversion = c.Conversion, DotnetMethodTypeSuffix = c.DotnetMethodTypeSuffix, TargetType = c.TargetType?.Lowered }).ToList();
+            return asConversionMethods?.Select(c => new AsConversionMethodDeclaration { Conversion = c.Conversion, Direction = c.Direction, DotnetMethodTypeSuffix = c.DotnetMethodTypeSuffix, TargetType = c.TargetType?.Lowered, Via = c.Via }).ToList();
         }
 
         [return: NotNullIfNotNull("typeDeclarations")]
@@ -1400,7 +1398,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
             conversionOperators.Add(asConversionMethodDeclaration);
         }
 
-        private void AddConversionOperatorsFor(TypeDeclaration targetType, bool includeTargetConversions)
+        private void AddConversionOperatorsFor(TypeDeclaration targetType)
         {
             // Add implicit bidirectional conversion from the all/any/oneOf type.
             this.AddConversionOperator(
@@ -1418,22 +1416,6 @@ namespace Menes.JsonSchema.TypeBuilder.Model
                     Conversion = ConversionOperatorDeclaration.ConversionType.GenericAsAndStaticFrom,
                     TargetType = targetType,
                 });
-
-            if (includeTargetConversions)
-            {
-                if (targetType.ConversionOperators is not null)
-                {
-                    foreach (ConversionOperatorDeclaration conversion in targetType.ConversionOperators)
-                    {
-                        this.AddChildConversionOperator(targetType, conversion);
-                    }
-                }
-            }
-        }
-
-        private void AddChildConversionOperator(TypeDeclaration targetType, ConversionOperatorDeclaration childConversion)
-        {
-            this.AddConversionOperator(childConversion.CreateViaTo(targetType));
         }
 
         private List<TypeDeclaration> EnsureMergedTypes()

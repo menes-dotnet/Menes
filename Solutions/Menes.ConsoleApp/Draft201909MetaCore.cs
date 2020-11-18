@@ -2,8 +2,6 @@
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 #pragma warning disable
-using System;
-
 namespace TestSpace
 {
     public readonly struct Draft201909MetaCore : Menes.IJsonValue
@@ -48,6 +46,22 @@ namespace TestSpace
         private readonly Draft201909MetaCore.VocabularyEntity? vocabulary;
         private readonly Draft201909MetaCore.CommentValue? comment;
         private readonly Draft201909MetaCore.DefsEntity? defs;
+        public static implicit operator Menes.JsonBoolean(Draft201909MetaCore value)
+        {
+            return value.As<Menes.JsonBoolean>();
+        }
+        public static implicit operator Draft201909MetaCore(Menes.JsonBoolean value)
+        {
+            return value.As<Draft201909MetaCore>();
+        }
+        public static implicit operator bool(Draft201909MetaCore value)
+        {
+            return (bool)(Menes.JsonBoolean)value;
+        }
+        public static implicit operator Draft201909MetaCore(bool value)
+        {
+            return (Draft201909MetaCore)(Menes.JsonBoolean)value;
+        }
         /// <inheritdoc />
         public bool IsUndefined => !this.HasJsonElement && this.AllBackingFieldsAreNull();
         /// <inheritdoc />
@@ -160,7 +174,7 @@ namespace TestSpace
                 property = default;
                 return false;
             }
-            if (propertyName.SequenceEqual(_MenesIdJsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesIdJsonPropertyName.Span))
             {
                 if (!(this.Id?.As<T>() is T result))
                 {
@@ -171,7 +185,7 @@ namespace TestSpace
                 return true;
                 return true;
             }
-            if (propertyName.SequenceEqual(_MenesSchemaJsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesSchemaJsonPropertyName.Span))
             {
                 if (!(this.Schema?.As<T>() is T result))
                 {
@@ -182,7 +196,7 @@ namespace TestSpace
                 return true;
                 return true;
             }
-            if (propertyName.SequenceEqual(_MenesAnchorJsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesAnchorJsonPropertyName.Span))
             {
                 if (!(this.Anchor?.As<T>() is T result))
                 {
@@ -193,7 +207,7 @@ namespace TestSpace
                 return true;
                 return true;
             }
-            if (propertyName.SequenceEqual(_MenesRefJsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesRefJsonPropertyName.Span))
             {
                 if (!(this.Ref?.As<T>() is T result))
                 {
@@ -204,7 +218,7 @@ namespace TestSpace
                 return true;
                 return true;
             }
-            if (propertyName.SequenceEqual(_MenesRecursiveRefJsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesRecursiveRefJsonPropertyName.Span))
             {
                 if (!(this.RecursiveRef?.As<T>() is T result))
                 {
@@ -215,7 +229,7 @@ namespace TestSpace
                 return true;
                 return true;
             }
-            if (propertyName.SequenceEqual(_MenesRecursiveAnchorJsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesRecursiveAnchorJsonPropertyName.Span))
             {
                 if (!(this.RecursiveAnchor?.As<T>() is T result))
                 {
@@ -226,7 +240,7 @@ namespace TestSpace
                 return true;
                 return true;
             }
-            if (propertyName.SequenceEqual(_MenesVocabularyJsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesVocabularyJsonPropertyName.Span))
             {
                 if (!(this.Vocabulary?.As<T>() is T result))
                 {
@@ -237,7 +251,7 @@ namespace TestSpace
                 return true;
                 return true;
             }
-            if (propertyName.SequenceEqual(_MenesCommentJsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesCommentJsonPropertyName.Span))
             {
                 if (!(this.Comment?.As<T>() is T result))
                 {
@@ -248,7 +262,7 @@ namespace TestSpace
                 return true;
                 return true;
             }
-            if (propertyName.SequenceEqual(_MenesDefsJsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesDefsJsonPropertyName.Span))
             {
                 if (!(this.Defs?.As<T>() is T result))
                 {
@@ -284,7 +298,7 @@ namespace TestSpace
                 property = default;
                 return false;
             }
-            if (System.MemoryExtensions.AsSpan(propertyName).SequenceEqual(_MenesIdJsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(System.MemoryExtensions.AsSpan(propertyName), _MenesIdJsonPropertyName.Span))
             {
                 if (!(this.Id?.As<T>() is T result))
                 {
@@ -295,7 +309,7 @@ namespace TestSpace
                 return true;
                 return true;
             }
-            if (System.MemoryExtensions.AsSpan(propertyName).SequenceEqual(_MenesSchemaJsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(System.MemoryExtensions.AsSpan(propertyName), _MenesSchemaJsonPropertyName.Span))
             {
                 if (!(this.Schema?.As<T>() is T result))
                 {
@@ -306,7 +320,7 @@ namespace TestSpace
                 return true;
                 return true;
             }
-            if (System.MemoryExtensions.AsSpan(propertyName).SequenceEqual(_MenesAnchorJsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(System.MemoryExtensions.AsSpan(propertyName), _MenesAnchorJsonPropertyName.Span))
             {
                 if (!(this.Anchor?.As<T>() is T result))
                 {
@@ -317,7 +331,7 @@ namespace TestSpace
                 return true;
                 return true;
             }
-            if (System.MemoryExtensions.AsSpan(propertyName).SequenceEqual(_MenesRefJsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(System.MemoryExtensions.AsSpan(propertyName), _MenesRefJsonPropertyName.Span))
             {
                 if (!(this.Ref?.As<T>() is T result))
                 {
@@ -328,7 +342,7 @@ namespace TestSpace
                 return true;
                 return true;
             }
-            if (System.MemoryExtensions.AsSpan(propertyName).SequenceEqual(_MenesRecursiveRefJsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(System.MemoryExtensions.AsSpan(propertyName), _MenesRecursiveRefJsonPropertyName.Span))
             {
                 if (!(this.RecursiveRef?.As<T>() is T result))
                 {
@@ -339,7 +353,7 @@ namespace TestSpace
                 return true;
                 return true;
             }
-            if (System.MemoryExtensions.AsSpan(propertyName).SequenceEqual(_MenesRecursiveAnchorJsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(System.MemoryExtensions.AsSpan(propertyName), _MenesRecursiveAnchorJsonPropertyName.Span))
             {
                 if (!(this.RecursiveAnchor?.As<T>() is T result))
                 {
@@ -350,7 +364,7 @@ namespace TestSpace
                 return true;
                 return true;
             }
-            if (System.MemoryExtensions.AsSpan(propertyName).SequenceEqual(_MenesVocabularyJsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(System.MemoryExtensions.AsSpan(propertyName), _MenesVocabularyJsonPropertyName.Span))
             {
                 if (!(this.Vocabulary?.As<T>() is T result))
                 {
@@ -361,7 +375,7 @@ namespace TestSpace
                 return true;
                 return true;
             }
-            if (System.MemoryExtensions.AsSpan(propertyName).SequenceEqual(_MenesCommentJsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(System.MemoryExtensions.AsSpan(propertyName), _MenesCommentJsonPropertyName.Span))
             {
                 if (!(this.Comment?.As<T>() is T result))
                 {
@@ -372,7 +386,7 @@ namespace TestSpace
                 return true;
                 return true;
             }
-            if (System.MemoryExtensions.AsSpan(propertyName).SequenceEqual(_MenesDefsJsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(System.MemoryExtensions.AsSpan(propertyName), _MenesDefsJsonPropertyName.Span))
             {
                 if (!(this.Defs?.As<T>() is T result))
                 {
@@ -408,7 +422,7 @@ namespace TestSpace
                 property = default;
                 return false;
             }
-            if (propertyName.SequenceEqual(_MenesIdUtf8JsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesIdUtf8JsonPropertyName.Span))
             {
                 if (!(this.Id?.As<T>() is T result))
                 {
@@ -419,7 +433,7 @@ namespace TestSpace
                 return true;
                 return true;
             }
-            if (propertyName.SequenceEqual(_MenesSchemaUtf8JsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesSchemaUtf8JsonPropertyName.Span))
             {
                 if (!(this.Schema?.As<T>() is T result))
                 {
@@ -430,7 +444,7 @@ namespace TestSpace
                 return true;
                 return true;
             }
-            if (propertyName.SequenceEqual(_MenesAnchorUtf8JsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesAnchorUtf8JsonPropertyName.Span))
             {
                 if (!(this.Anchor?.As<T>() is T result))
                 {
@@ -441,7 +455,7 @@ namespace TestSpace
                 return true;
                 return true;
             }
-            if (propertyName.SequenceEqual(_MenesRefUtf8JsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesRefUtf8JsonPropertyName.Span))
             {
                 if (!(this.Ref?.As<T>() is T result))
                 {
@@ -452,7 +466,7 @@ namespace TestSpace
                 return true;
                 return true;
             }
-            if (propertyName.SequenceEqual(_MenesRecursiveRefUtf8JsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesRecursiveRefUtf8JsonPropertyName.Span))
             {
                 if (!(this.RecursiveRef?.As<T>() is T result))
                 {
@@ -463,7 +477,7 @@ namespace TestSpace
                 return true;
                 return true;
             }
-            if (propertyName.SequenceEqual(_MenesRecursiveAnchorUtf8JsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesRecursiveAnchorUtf8JsonPropertyName.Span))
             {
                 if (!(this.RecursiveAnchor?.As<T>() is T result))
                 {
@@ -474,7 +488,7 @@ namespace TestSpace
                 return true;
                 return true;
             }
-            if (propertyName.SequenceEqual(_MenesVocabularyUtf8JsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesVocabularyUtf8JsonPropertyName.Span))
             {
                 if (!(this.Vocabulary?.As<T>() is T result))
                 {
@@ -485,7 +499,7 @@ namespace TestSpace
                 return true;
                 return true;
             }
-            if (propertyName.SequenceEqual(_MenesCommentUtf8JsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesCommentUtf8JsonPropertyName.Span))
             {
                 if (!(this.Comment?.As<T>() is T result))
                 {
@@ -496,7 +510,7 @@ namespace TestSpace
                 return true;
                 return true;
             }
-            if (propertyName.SequenceEqual(_MenesDefsUtf8JsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesDefsUtf8JsonPropertyName.Span))
             {
                 if (!(this.Defs?.As<T>() is T result))
                 {
@@ -585,6 +599,22 @@ namespace TestSpace
             public static readonly IdValue Null = default(IdValue);
             private readonly System.Text.Json.JsonElement _menesJsonElementBacking;
             private readonly Menes.JsonString? _menesStringTypeBacking;
+            public static implicit operator Menes.JsonString(IdValue value)
+            {
+                return value.As<Menes.JsonString>();
+            }
+            public static implicit operator IdValue(Menes.JsonString value)
+            {
+                return value.As<Draft201909MetaCore.IdValue>();
+            }
+            public static implicit operator string(IdValue value)
+            {
+                return (string)(Menes.JsonString)value;
+            }
+            public static implicit operator IdValue(string value)
+            {
+                return (Draft201909MetaCore.IdValue)(Menes.JsonString)value;
+            }
             /// <inheritdoc />
             public bool IsUndefined => !this.HasJsonElement && this.AllBackingFieldsAreNull();
             /// <inheritdoc />
@@ -690,6 +720,22 @@ namespace TestSpace
             public static readonly SchemaValue Null = default(SchemaValue);
             private readonly System.Text.Json.JsonElement _menesJsonElementBacking;
             private readonly Menes.JsonString? _menesStringTypeBacking;
+            public static implicit operator Menes.JsonString(SchemaValue value)
+            {
+                return value.As<Menes.JsonString>();
+            }
+            public static implicit operator SchemaValue(Menes.JsonString value)
+            {
+                return value.As<Draft201909MetaCore.SchemaValue>();
+            }
+            public static implicit operator string(SchemaValue value)
+            {
+                return (string)(Menes.JsonString)value;
+            }
+            public static implicit operator SchemaValue(string value)
+            {
+                return (Draft201909MetaCore.SchemaValue)(Menes.JsonString)value;
+            }
             /// <inheritdoc />
             public bool IsUndefined => !this.HasJsonElement && this.AllBackingFieldsAreNull();
             /// <inheritdoc />
@@ -795,6 +841,22 @@ namespace TestSpace
             public static readonly AnchorValue Null = default(AnchorValue);
             private readonly System.Text.Json.JsonElement _menesJsonElementBacking;
             private readonly Menes.JsonString? _menesStringTypeBacking;
+            public static implicit operator Menes.JsonString(AnchorValue value)
+            {
+                return value.As<Menes.JsonString>();
+            }
+            public static implicit operator AnchorValue(Menes.JsonString value)
+            {
+                return value.As<Draft201909MetaCore.AnchorValue>();
+            }
+            public static implicit operator string(AnchorValue value)
+            {
+                return (string)(Menes.JsonString)value;
+            }
+            public static implicit operator AnchorValue(string value)
+            {
+                return (Draft201909MetaCore.AnchorValue)(Menes.JsonString)value;
+            }
             /// <inheritdoc />
             public bool IsUndefined => !this.HasJsonElement && this.AllBackingFieldsAreNull();
             /// <inheritdoc />
@@ -900,6 +962,22 @@ namespace TestSpace
             public static readonly RefValue Null = default(RefValue);
             private readonly System.Text.Json.JsonElement _menesJsonElementBacking;
             private readonly Menes.JsonString? _menesStringTypeBacking;
+            public static implicit operator Menes.JsonString(RefValue value)
+            {
+                return value.As<Menes.JsonString>();
+            }
+            public static implicit operator RefValue(Menes.JsonString value)
+            {
+                return value.As<Draft201909MetaCore.RefValue>();
+            }
+            public static implicit operator string(RefValue value)
+            {
+                return (string)(Menes.JsonString)value;
+            }
+            public static implicit operator RefValue(string value)
+            {
+                return (Draft201909MetaCore.RefValue)(Menes.JsonString)value;
+            }
             /// <inheritdoc />
             public bool IsUndefined => !this.HasJsonElement && this.AllBackingFieldsAreNull();
             /// <inheritdoc />
@@ -1005,6 +1083,22 @@ namespace TestSpace
             public static readonly RecursiveRefValue Null = default(RecursiveRefValue);
             private readonly System.Text.Json.JsonElement _menesJsonElementBacking;
             private readonly Menes.JsonString? _menesStringTypeBacking;
+            public static implicit operator Menes.JsonString(RecursiveRefValue value)
+            {
+                return value.As<Menes.JsonString>();
+            }
+            public static implicit operator RecursiveRefValue(Menes.JsonString value)
+            {
+                return value.As<Draft201909MetaCore.RecursiveRefValue>();
+            }
+            public static implicit operator string(RecursiveRefValue value)
+            {
+                return (string)(Menes.JsonString)value;
+            }
+            public static implicit operator RecursiveRefValue(string value)
+            {
+                return (Draft201909MetaCore.RecursiveRefValue)(Menes.JsonString)value;
+            }
             /// <inheritdoc />
             public bool IsUndefined => !this.HasJsonElement && this.AllBackingFieldsAreNull();
             /// <inheritdoc />
@@ -1110,6 +1204,22 @@ namespace TestSpace
             public static readonly RecursiveAnchorValue Null = default(RecursiveAnchorValue);
             private readonly System.Text.Json.JsonElement _menesJsonElementBacking;
             private readonly Menes.JsonBoolean? _menesBooleanTypeBacking;
+            public static implicit operator Menes.JsonBoolean(RecursiveAnchorValue value)
+            {
+                return value.As<Menes.JsonBoolean>();
+            }
+            public static implicit operator RecursiveAnchorValue(Menes.JsonBoolean value)
+            {
+                return value.As<Draft201909MetaCore.RecursiveAnchorValue>();
+            }
+            public static implicit operator bool(RecursiveAnchorValue value)
+            {
+                return (bool)(Menes.JsonBoolean)value;
+            }
+            public static implicit operator RecursiveAnchorValue(bool value)
+            {
+                return (Draft201909MetaCore.RecursiveAnchorValue)(Menes.JsonBoolean)value;
+            }
             /// <inheritdoc />
             public bool IsUndefined => !this.HasJsonElement && this.AllBackingFieldsAreNull();
             /// <inheritdoc />
@@ -1360,6 +1470,22 @@ namespace TestSpace
                 public static readonly AdditionalPropertiesValue Null = default(AdditionalPropertiesValue);
                 private readonly System.Text.Json.JsonElement _menesJsonElementBacking;
                 private readonly Menes.JsonBoolean? _menesBooleanTypeBacking;
+                public static implicit operator Menes.JsonBoolean(AdditionalPropertiesValue value)
+                {
+                    return value.As<Menes.JsonBoolean>();
+                }
+                public static implicit operator AdditionalPropertiesValue(Menes.JsonBoolean value)
+                {
+                    return value.As<Draft201909MetaCore.VocabularyEntity.AdditionalPropertiesValue>();
+                }
+                public static implicit operator bool(AdditionalPropertiesValue value)
+                {
+                    return (bool)(Menes.JsonBoolean)value;
+                }
+                public static implicit operator AdditionalPropertiesValue(bool value)
+                {
+                    return (Draft201909MetaCore.VocabularyEntity.AdditionalPropertiesValue)(Menes.JsonBoolean)value;
+                }
                 /// <inheritdoc />
                 public bool IsUndefined => !this.HasJsonElement && this.AllBackingFieldsAreNull();
                 /// <inheritdoc />
@@ -1465,6 +1591,22 @@ namespace TestSpace
                 public static readonly PropertyNamesValue Null = default(PropertyNamesValue);
                 private readonly System.Text.Json.JsonElement _menesJsonElementBacking;
                 private readonly Menes.JsonString? _menesStringTypeBacking;
+                public static implicit operator Menes.JsonString(PropertyNamesValue value)
+                {
+                    return value.As<Menes.JsonString>();
+                }
+                public static implicit operator PropertyNamesValue(Menes.JsonString value)
+                {
+                    return value.As<Draft201909MetaCore.VocabularyEntity.PropertyNamesValue>();
+                }
+                public static implicit operator string(PropertyNamesValue value)
+                {
+                    return (string)(Menes.JsonString)value;
+                }
+                public static implicit operator PropertyNamesValue(string value)
+                {
+                    return (Draft201909MetaCore.VocabularyEntity.PropertyNamesValue)(Menes.JsonString)value;
+                }
                 /// <inheritdoc />
                 public bool IsUndefined => !this.HasJsonElement && this.AllBackingFieldsAreNull();
                 /// <inheritdoc />
@@ -1571,6 +1713,22 @@ namespace TestSpace
             public static readonly CommentValue Null = default(CommentValue);
             private readonly System.Text.Json.JsonElement _menesJsonElementBacking;
             private readonly Menes.JsonString? _menesStringTypeBacking;
+            public static implicit operator Menes.JsonString(CommentValue value)
+            {
+                return value.As<Menes.JsonString>();
+            }
+            public static implicit operator CommentValue(Menes.JsonString value)
+            {
+                return value.As<Draft201909MetaCore.CommentValue>();
+            }
+            public static implicit operator string(CommentValue value)
+            {
+                return (string)(Menes.JsonString)value;
+            }
+            public static implicit operator CommentValue(string value)
+            {
+                return (Draft201909MetaCore.CommentValue)(Menes.JsonString)value;
+            }
             /// <inheritdoc />
             public bool IsUndefined => !this.HasJsonElement && this.AllBackingFieldsAreNull();
             /// <inheritdoc />

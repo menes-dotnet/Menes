@@ -37,6 +37,40 @@ namespace Menes.JsonSchema.TypeBuilder
         {
             string? formatString = format.ValueKind == JsonValueKind.String ? format.GetString() : null;
 
+            typeDeclaration.AddConversionOperator(
+                new ConversionOperatorDeclaration
+                {
+                    Conversion = ConversionOperatorDeclaration.ConversionType.GenericAsAndStaticFrom,
+                    Direction = ConversionOperatorDeclaration.ConversionDirection.BidirectionalImplicit,
+                    TargetType = TypeDeclarations.IntegerTypeDeclaration,
+                });
+
+            typeDeclaration.AddConversionOperator(
+                new ConversionOperatorDeclaration
+                {
+                    Conversion = ConversionOperatorDeclaration.ConversionType.GenericAsAndStaticFrom,
+                    Direction = ConversionOperatorDeclaration.ConversionDirection.BidirectionalImplicit,
+                    TargetType = TypeDeclarations.NumberTypeDeclaration,
+                });
+
+            typeDeclaration.AddConversionOperator(
+                new ConversionOperatorDeclaration
+                {
+                    Conversion = ConversionOperatorDeclaration.ConversionType.Cast,
+                    Direction = ConversionOperatorDeclaration.ConversionDirection.BidirectionalImplicit,
+                    TargetType = TypeDeclarations.ClrInt64RawTypeDeclaration,
+                    Via = TypeDeclarations.IntegerTypeDeclaration,
+                });
+
+            typeDeclaration.AddConversionOperator(
+                new ConversionOperatorDeclaration
+                {
+                    Conversion = ConversionOperatorDeclaration.ConversionType.Cast,
+                    Direction = ConversionOperatorDeclaration.ConversionDirection.BidirectionalImplicit,
+                    TargetType = TypeDeclarations.ClrInt32RawTypeDeclaration,
+                    Via = TypeDeclarations.IntegerTypeDeclaration,
+                });
+
             if (formatString is not string || formatString == "int32")
             {
                 typeDeclaration.AddConversionOperator(
@@ -54,7 +88,7 @@ namespace Menes.JsonSchema.TypeBuilder
                 new ConversionOperatorDeclaration
                 {
                     Conversion = ConversionOperatorDeclaration.ConversionType.GenericAsAndStaticFrom,
-                    Direction = ConversionOperatorDeclaration.ConversionDirection.FromImplicit,
+                    Direction = ConversionOperatorDeclaration.ConversionDirection.BidirectionalImplicit,
                     TargetType = TypeDeclarations.ClrInt64TypeDeclaration,
                 });
             }
@@ -81,10 +115,36 @@ namespace Menes.JsonSchema.TypeBuilder
                 new ConversionOperatorDeclaration
                 {
                     Conversion = ConversionOperatorDeclaration.ConversionType.GenericAsAndStaticFrom,
-                    Direction = ConversionOperatorDeclaration.ConversionDirection.FromImplicit,
+                    Direction = ConversionOperatorDeclaration.ConversionDirection.BidirectionalImplicit,
                     TargetType = TypeDeclarations.ClrInt64TypeDeclaration,
                 });
             }
+
+            typeDeclaration.AddConversionOperator(
+                new ConversionOperatorDeclaration
+                {
+                    Conversion = ConversionOperatorDeclaration.ConversionType.Cast,
+                    Direction = ConversionOperatorDeclaration.ConversionDirection.BidirectionalImplicit,
+                    TargetType = TypeDeclarations.NumberTypeDeclaration,
+                });
+
+            typeDeclaration.AddConversionOperator(
+                new ConversionOperatorDeclaration
+                {
+                    Conversion = ConversionOperatorDeclaration.ConversionType.Cast,
+                    Direction = ConversionOperatorDeclaration.ConversionDirection.BidirectionalImplicit,
+                    TargetType = TypeDeclarations.ClrInt32RawTypeDeclaration,
+                    Via = TypeDeclarations.NumberTypeDeclaration,
+                });
+
+            typeDeclaration.AddConversionOperator(
+                new ConversionOperatorDeclaration
+                {
+                    Conversion = ConversionOperatorDeclaration.ConversionType.Cast,
+                    Direction = ConversionOperatorDeclaration.ConversionDirection.BidirectionalImplicit,
+                    TargetType = TypeDeclarations.ClrInt64RawTypeDeclaration,
+                    Via = TypeDeclarations.NumberTypeDeclaration,
+                });
 
             if (formatString is not string || formatString == "double")
             {
@@ -95,6 +155,24 @@ namespace Menes.JsonSchema.TypeBuilder
                     Direction = ConversionOperatorDeclaration.ConversionDirection.BidirectionalImplicit,
                     TargetType = TypeDeclarations.ClrDoubleTypeDeclaration,
                 });
+
+                typeDeclaration.AddConversionOperator(
+                    new ConversionOperatorDeclaration
+                    {
+                        Conversion = ConversionOperatorDeclaration.ConversionType.Cast,
+                        Direction = ConversionOperatorDeclaration.ConversionDirection.BidirectionalImplicit,
+                        TargetType = TypeDeclarations.ClrDoubleRawTypeDeclaration,
+                        Via = TypeDeclarations.NumberTypeDeclaration,
+                    });
+
+                typeDeclaration.AddConversionOperator(
+                    new ConversionOperatorDeclaration
+                    {
+                        Conversion = ConversionOperatorDeclaration.ConversionType.Cast,
+                        Direction = ConversionOperatorDeclaration.ConversionDirection.BidirectionalImplicit,
+                        TargetType = TypeDeclarations.ClrFloatRawTypeDeclaration,
+                        Via = TypeDeclarations.NumberTypeDeclaration,
+                    });
             }
 
             if (formatString is not string || formatString == "single")
@@ -103,20 +181,27 @@ namespace Menes.JsonSchema.TypeBuilder
                 new ConversionOperatorDeclaration
                 {
                     Conversion = ConversionOperatorDeclaration.ConversionType.GenericAsAndStaticFrom,
-                    Direction = ConversionOperatorDeclaration.ConversionDirection.FromImplicit,
+                    Direction = ConversionOperatorDeclaration.ConversionDirection.BidirectionalImplicit,
                     TargetType = TypeDeclarations.ClrFloatTypeDeclaration,
                 });
-            }
 
-            if (formatString is not string || formatString == "decimal")
-            {
                 typeDeclaration.AddConversionOperator(
-                new ConversionOperatorDeclaration
-                {
-                    Conversion = ConversionOperatorDeclaration.ConversionType.GenericAsAndStaticFrom,
-                    Direction = ConversionOperatorDeclaration.ConversionDirection.FromImplicit,
-                    TargetType = TypeDeclarations.ClrDecimalTypeDeclaration,
-                });
+                    new ConversionOperatorDeclaration
+                    {
+                        Conversion = ConversionOperatorDeclaration.ConversionType.Cast,
+                        Direction = ConversionOperatorDeclaration.ConversionDirection.BidirectionalImplicit,
+                        TargetType = TypeDeclarations.ClrDoubleRawTypeDeclaration,
+                        Via = TypeDeclarations.NumberTypeDeclaration,
+                    });
+
+                typeDeclaration.AddConversionOperator(
+                    new ConversionOperatorDeclaration
+                    {
+                        Conversion = ConversionOperatorDeclaration.ConversionType.Cast,
+                        Direction = ConversionOperatorDeclaration.ConversionDirection.BidirectionalImplicit,
+                        TargetType = TypeDeclarations.ClrFloatRawTypeDeclaration,
+                        Via = TypeDeclarations.NumberTypeDeclaration,
+                    });
             }
         }
 
@@ -126,8 +211,17 @@ namespace Menes.JsonSchema.TypeBuilder
                 new ConversionOperatorDeclaration
                 {
                     Conversion = ConversionOperatorDeclaration.ConversionType.GenericAsAndStaticFrom,
-                    Direction = ConversionOperatorDeclaration.ConversionDirection.FromImplicit,
+                    Direction = ConversionOperatorDeclaration.ConversionDirection.BidirectionalImplicit,
                     TargetType = TypeDeclarations.ClrBoolTypeDeclaration,
+                });
+
+            typeDeclaration.AddConversionOperator(
+                new ConversionOperatorDeclaration
+                {
+                    Conversion = ConversionOperatorDeclaration.ConversionType.Cast,
+                    Direction = ConversionOperatorDeclaration.ConversionDirection.BidirectionalImplicit,
+                    TargetType = TypeDeclarations.ClrBoolRawTypeDeclaration,
+                    Via = TypeDeclarations.ClrBoolTypeDeclaration,
                 });
         }
 
@@ -141,7 +235,7 @@ namespace Menes.JsonSchema.TypeBuilder
                     new ConversionOperatorDeclaration
                     {
                         Conversion = ConversionOperatorDeclaration.ConversionType.GenericAsAndStaticFrom,
-                        Direction = ConversionOperatorDeclaration.ConversionDirection.FromImplicit,
+                        Direction = ConversionOperatorDeclaration.ConversionDirection.BidirectionalImplicit,
                         TargetType = TypeDeclarations.ClrDateTypeDeclaration,
                     });
             }
@@ -151,7 +245,7 @@ namespace Menes.JsonSchema.TypeBuilder
                     new ConversionOperatorDeclaration
                     {
                         Conversion = ConversionOperatorDeclaration.ConversionType.GenericAsAndStaticFrom,
-                        Direction = ConversionOperatorDeclaration.ConversionDirection.FromImplicit,
+                        Direction = ConversionOperatorDeclaration.ConversionDirection.BidirectionalImplicit,
                         TargetType = TypeDeclarations.ClrDateTimeTypeDeclaration,
                     });
             }
@@ -161,7 +255,7 @@ namespace Menes.JsonSchema.TypeBuilder
                     new ConversionOperatorDeclaration
                     {
                         Conversion = ConversionOperatorDeclaration.ConversionType.GenericAsAndStaticFrom,
-                        Direction = ConversionOperatorDeclaration.ConversionDirection.FromImplicit,
+                        Direction = ConversionOperatorDeclaration.ConversionDirection.BidirectionalImplicit,
                         TargetType = TypeDeclarations.ClrDateTypeDeclaration,
                     });
             }
@@ -171,7 +265,7 @@ namespace Menes.JsonSchema.TypeBuilder
                     new ConversionOperatorDeclaration
                     {
                         Conversion = ConversionOperatorDeclaration.ConversionType.GenericAsAndStaticFrom,
-                        Direction = ConversionOperatorDeclaration.ConversionDirection.FromImplicit,
+                        Direction = ConversionOperatorDeclaration.ConversionDirection.BidirectionalImplicit,
                         TargetType = TypeDeclarations.ClrTimeTypeDeclaration,
                     });
             }
@@ -181,7 +275,7 @@ namespace Menes.JsonSchema.TypeBuilder
                     new ConversionOperatorDeclaration
                     {
                         Conversion = ConversionOperatorDeclaration.ConversionType.GenericAsAndStaticFrom,
-                        Direction = ConversionOperatorDeclaration.ConversionDirection.FromImplicit,
+                        Direction = ConversionOperatorDeclaration.ConversionDirection.BidirectionalImplicit,
                         TargetType = TypeDeclarations.ClrDurationTypeDeclaration,
                     });
             }
@@ -191,7 +285,7 @@ namespace Menes.JsonSchema.TypeBuilder
                     new ConversionOperatorDeclaration
                     {
                         Conversion = ConversionOperatorDeclaration.ConversionType.GenericAsAndStaticFrom,
-                        Direction = ConversionOperatorDeclaration.ConversionDirection.FromImplicit,
+                        Direction = ConversionOperatorDeclaration.ConversionDirection.BidirectionalImplicit,
                         TargetType = TypeDeclarations.EmailTypeDeclaration,
                     });
             }
@@ -201,7 +295,7 @@ namespace Menes.JsonSchema.TypeBuilder
                     new ConversionOperatorDeclaration
                     {
                         Conversion = ConversionOperatorDeclaration.ConversionType.GenericAsAndStaticFrom,
-                        Direction = ConversionOperatorDeclaration.ConversionDirection.FromImplicit,
+                        Direction = ConversionOperatorDeclaration.ConversionDirection.BidirectionalImplicit,
                         TargetType = TypeDeclarations.EmailTypeDeclaration,
                     });
             }
@@ -211,7 +305,7 @@ namespace Menes.JsonSchema.TypeBuilder
                     new ConversionOperatorDeclaration
                     {
                         Conversion = ConversionOperatorDeclaration.ConversionType.GenericAsAndStaticFrom,
-                        Direction = ConversionOperatorDeclaration.ConversionDirection.FromImplicit,
+                        Direction = ConversionOperatorDeclaration.ConversionDirection.BidirectionalImplicit,
                         TargetType = TypeDeclarations.HostnameTypeDeclaration,
                     });
             }
@@ -221,7 +315,7 @@ namespace Menes.JsonSchema.TypeBuilder
                     new ConversionOperatorDeclaration
                     {
                         Conversion = ConversionOperatorDeclaration.ConversionType.GenericAsAndStaticFrom,
-                        Direction = ConversionOperatorDeclaration.ConversionDirection.FromImplicit,
+                        Direction = ConversionOperatorDeclaration.ConversionDirection.BidirectionalImplicit,
                         TargetType = TypeDeclarations.HostnameTypeDeclaration,
                     });
             }
@@ -231,7 +325,7 @@ namespace Menes.JsonSchema.TypeBuilder
                     new ConversionOperatorDeclaration
                     {
                         Conversion = ConversionOperatorDeclaration.ConversionType.GenericAsAndStaticFrom,
-                        Direction = ConversionOperatorDeclaration.ConversionDirection.FromImplicit,
+                        Direction = ConversionOperatorDeclaration.ConversionDirection.BidirectionalImplicit,
                         TargetType = TypeDeclarations.IpV4TypeDeclaration,
                     });
             }
@@ -241,7 +335,7 @@ namespace Menes.JsonSchema.TypeBuilder
                     new ConversionOperatorDeclaration
                     {
                         Conversion = ConversionOperatorDeclaration.ConversionType.GenericAsAndStaticFrom,
-                        Direction = ConversionOperatorDeclaration.ConversionDirection.FromImplicit,
+                        Direction = ConversionOperatorDeclaration.ConversionDirection.BidirectionalImplicit,
                         TargetType = TypeDeclarations.IpV6TypeDeclaration,
                     });
             }
@@ -251,10 +345,19 @@ namespace Menes.JsonSchema.TypeBuilder
                     new ConversionOperatorDeclaration
                     {
                         Conversion = ConversionOperatorDeclaration.ConversionType.GenericAsAndStaticFrom,
-                        Direction = ConversionOperatorDeclaration.ConversionDirection.FromImplicit,
+                        Direction = ConversionOperatorDeclaration.ConversionDirection.BidirectionalImplicit,
                         TargetType = TypeDeclarations.ClrStringTypeDeclaration,
                     });
             }
+
+            typeDeclaration.AddConversionOperator(
+                new ConversionOperatorDeclaration
+                {
+                    Conversion = ConversionOperatorDeclaration.ConversionType.Cast,
+                    Direction = ConversionOperatorDeclaration.ConversionDirection.BidirectionalImplicit,
+                    TargetType = TypeDeclarations.ClrStringRawTypeDeclaration,
+                    Via = TypeDeclarations.ClrStringTypeDeclaration,
+                });
         }
     }
 }

@@ -2,8 +2,6 @@
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 #pragma warning disable
-using System;
-
 namespace TestSpace
 {
     public readonly struct Draft201909MetaFormat : Menes.IJsonValue
@@ -16,6 +14,22 @@ namespace TestSpace
         private readonly System.Collections.Immutable.ImmutableArray<Menes.AdditionalProperty<Menes.JsonAny>> _menesAdditionalPropertiesBacking;
         private readonly Menes.JsonBoolean? _menesBooleanTypeBacking;
         private readonly Draft201909MetaFormat.FormatValue? format;
+        public static implicit operator Menes.JsonBoolean(Draft201909MetaFormat value)
+        {
+            return value.As<Menes.JsonBoolean>();
+        }
+        public static implicit operator Draft201909MetaFormat(Menes.JsonBoolean value)
+        {
+            return value.As<Draft201909MetaFormat>();
+        }
+        public static implicit operator bool(Draft201909MetaFormat value)
+        {
+            return (bool)(Menes.JsonBoolean)value;
+        }
+        public static implicit operator Draft201909MetaFormat(bool value)
+        {
+            return (Draft201909MetaFormat)(Menes.JsonBoolean)value;
+        }
         /// <inheritdoc />
         public bool IsUndefined => !this.HasJsonElement && this.AllBackingFieldsAreNull();
         /// <inheritdoc />
@@ -80,7 +94,7 @@ namespace TestSpace
                 property = default;
                 return false;
             }
-            if (propertyName.SequenceEqual(_MenesFormatJsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesFormatJsonPropertyName.Span))
             {
                 if (!(this.Format?.As<T>() is T result))
                 {
@@ -116,7 +130,7 @@ namespace TestSpace
                 property = default;
                 return false;
             }
-            if (System.MemoryExtensions.AsSpan(propertyName).SequenceEqual(_MenesFormatJsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(System.MemoryExtensions.AsSpan(propertyName), _MenesFormatJsonPropertyName.Span))
             {
                 if (!(this.Format?.As<T>() is T result))
                 {
@@ -152,7 +166,7 @@ namespace TestSpace
                 property = default;
                 return false;
             }
-            if (propertyName.SequenceEqual(_MenesFormatUtf8JsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesFormatUtf8JsonPropertyName.Span))
             {
                 if (!(this.Format?.As<T>() is T result))
                 {
@@ -209,6 +223,22 @@ namespace TestSpace
             public static readonly FormatValue Null = default(FormatValue);
             private readonly System.Text.Json.JsonElement _menesJsonElementBacking;
             private readonly Menes.JsonString? _menesStringTypeBacking;
+            public static implicit operator Menes.JsonString(FormatValue value)
+            {
+                return value.As<Menes.JsonString>();
+            }
+            public static implicit operator FormatValue(Menes.JsonString value)
+            {
+                return value.As<Draft201909MetaFormat.FormatValue>();
+            }
+            public static implicit operator string(FormatValue value)
+            {
+                return (string)(Menes.JsonString)value;
+            }
+            public static implicit operator FormatValue(string value)
+            {
+                return (Draft201909MetaFormat.FormatValue)(Menes.JsonString)value;
+            }
             /// <inheritdoc />
             public bool IsUndefined => !this.HasJsonElement && this.AllBackingFieldsAreNull();
             /// <inheritdoc />

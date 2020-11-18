@@ -22,9 +22,24 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         public static readonly TypeDeclaration NotTypeDeclaration = new TypeDeclaration(builtInType: true) { IsBooleanFalseType = true, DotnetTypeName = "Menes.JsonNotAny" };
 
         /// <summary>
+        /// The not {}/false type declaration.
+        /// </summary>
+        public static readonly TypeDeclaration NumberTypeDeclaration = new TypeDeclaration(builtInType: true) { DotnetTypeName = "Menes.JsonNumber" };
+
+        /// <summary>
+        /// The not {}/false type declaration.
+        /// </summary>
+        public static readonly TypeDeclaration IntegerTypeDeclaration = new TypeDeclaration(builtInType: true) { DotnetTypeName = "Menes.JsonInteger" };
+
+        /// <summary>
         /// A clr <see cref="int"/> type.
         /// </summary>
         public static readonly TypeDeclaration ClrInt32TypeDeclaration = new TypeDeclaration(builtInType: true) { DotnetTypeName = "Menes.JsonInteger" };
+
+        /// <summary>
+        /// A clr <see cref="int"/> type.
+        /// </summary>
+        public static readonly TypeDeclaration ClrInt32RawTypeDeclaration = new TypeDeclaration(builtInType: true) { DotnetTypeName = "int" };
 
         /// <summary>
         /// A clr <see cref="long"/> type.
@@ -32,9 +47,19 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         public static readonly TypeDeclaration ClrInt64TypeDeclaration = new TypeDeclaration(builtInType: true) { DotnetTypeName = "Menes.JsonInteger" };
 
         /// <summary>
+        /// A clr <see cref="long"/> type.
+        /// </summary>
+        public static readonly TypeDeclaration ClrInt64RawTypeDeclaration = new TypeDeclaration(builtInType: true) { DotnetTypeName = "long" };
+
+        /// <summary>
         /// A clr <see cref="float"/> type.
         /// </summary>
         public static readonly TypeDeclaration ClrFloatTypeDeclaration = new TypeDeclaration(builtInType: true) { DotnetTypeName = "Menes.JsonNumber" };
+
+        /// <summary>
+        /// A clr <see cref="float"/> type.
+        /// </summary>
+        public static readonly TypeDeclaration ClrFloatRawTypeDeclaration = new TypeDeclaration(builtInType: true) { DotnetTypeName = "float" };
 
         /// <summary>
         /// A clr <see cref="double"/> type.
@@ -42,9 +67,9 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         public static readonly TypeDeclaration ClrDoubleTypeDeclaration = new TypeDeclaration(builtInType: true) { DotnetTypeName = "Menes.JsonNumber" };
 
         /// <summary>
-        /// A clr <see cref="decimal"/> type.
+        /// A clr <see cref="double"/> type.
         /// </summary>
-        public static readonly TypeDeclaration ClrDecimalTypeDeclaration = new TypeDeclaration(builtInType: true) { DotnetTypeName = "Menes.JsonNumber" };
+        public static readonly TypeDeclaration ClrDoubleRawTypeDeclaration = new TypeDeclaration(builtInType: true) { DotnetTypeName = "double" };
 
         /// <summary>
         /// A clr <see cref="string"/> type.
@@ -52,9 +77,19 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         public static readonly TypeDeclaration ClrStringTypeDeclaration = new TypeDeclaration(builtInType: true) { DotnetTypeName = "Menes.JsonString" };
 
         /// <summary>
+        /// A clr <see cref="string"/> type.
+        /// </summary>
+        public static readonly TypeDeclaration ClrStringRawTypeDeclaration = new TypeDeclaration(builtInType: true) { DotnetTypeName = "string" };
+
+        /// <summary>
         /// A clr <see cref="bool"/> type.
         /// </summary>
         public static readonly TypeDeclaration ClrBoolTypeDeclaration = new TypeDeclaration(builtInType: true) { DotnetTypeName = "Menes.JsonBoolean" };
+
+        /// <summary>
+        /// A clr <see cref="bool"/> type.
+        /// </summary>
+        public static readonly TypeDeclaration ClrBoolRawTypeDeclaration = new TypeDeclaration(builtInType: true) { DotnetTypeName = "bool" };
 
         /// <summary>
         /// A clr <see cref="System.Guid"/> type.
@@ -62,9 +97,19 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         public static readonly TypeDeclaration ClrGuidTypeDeclaration = new TypeDeclaration(builtInType: true) { DotnetTypeName = "Menes.JsonGuid" };
 
         /// <summary>
+        /// A clr <see cref="System.Guid"/> type.
+        /// </summary>
+        public static readonly TypeDeclaration ClrGuidRawTypeDeclaration = new TypeDeclaration(builtInType: true) { DotnetTypeName = "System.Guid" };
+
+        /// <summary>
         /// A clr <see cref="System.Uri"/> type.
         /// </summary>
         public static readonly TypeDeclaration ClrUriTypeDeclaration = new TypeDeclaration(builtInType: true) { DotnetTypeName = "Menes.JsonUri" };
+
+        /// <summary>
+        /// A clr <see cref="System.Uri"/> type.
+        /// </summary>
+        public static readonly TypeDeclaration ClrUriRawTypeDeclaration = new TypeDeclaration(builtInType: true) { DotnetTypeName = "System.Uri" };
 
         /// <summary>
         /// A clr <see cref="System.Memory{T}"/> of <see cref="byte"/> type.
@@ -72,9 +117,19 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         public static readonly TypeDeclaration ClrByteArrayTypeDeclaration = new TypeDeclaration(builtInType: true) { DotnetTypeName = "Menes.JsonByteArray" };
 
         /// <summary>
+        /// A clr <see cref="System.Memory{T}"/> of <see cref="byte"/> type.
+        /// </summary>
+        public static readonly TypeDeclaration ClrByteArrayRawTypeDeclaration = new TypeDeclaration(builtInType: true) { DotnetTypeName = "System.Memory<byte>" };
+
+        /// <summary>
         /// A clr <see cref="NodaTime.LocalDate"/> type.
         /// </summary>
         public static readonly TypeDeclaration ClrDateTypeDeclaration = new TypeDeclaration(builtInType: true) { DotnetTypeName = "Menes.JsonDate" };
+
+        /// <summary>
+        /// A clr <see cref="NodaTime.LocalDate"/> type.
+        /// </summary>
+        public static readonly TypeDeclaration ClrDateRawTypeDeclaration = new TypeDeclaration(builtInType: true) { DotnetTypeName = "NodaTime.LocalDate" };
 
         /// <summary>
         /// A clr <see cref="NodaTime.OffsetDateTime"/> type.
@@ -82,14 +137,29 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         public static readonly TypeDeclaration ClrDateTimeTypeDeclaration = new TypeDeclaration(builtInType: true) { DotnetTypeName = "Menes.JsonDateTime" };
 
         /// <summary>
+        /// A clr <see cref="NodaTime.OffsetDateTime"/> type.
+        /// </summary>
+        public static readonly TypeDeclaration ClrDateTimeRawTypeDeclaration = new TypeDeclaration(builtInType: true) { DotnetTypeName = "NodaTime.OffsetDateTime" };
+
+        /// <summary>
         /// A clr <see cref="NodaTime.Duration"/> type.
         /// </summary>
         public static readonly TypeDeclaration ClrDurationTypeDeclaration = new TypeDeclaration(builtInType: true) { DotnetTypeName = "Menes.JsonDuration" };
 
         /// <summary>
+        /// A clr <see cref="NodaTime.Duration"/> type.
+        /// </summary>
+        public static readonly TypeDeclaration ClrDurationRawTypeDeclaration = new TypeDeclaration(builtInType: true) { DotnetTypeName = "NodaTime.Duration" };
+
+        /// <summary>
         /// A clr <see cref="NodaTime.OffsetTime"/> type.
         /// </summary>
         public static readonly TypeDeclaration ClrTimeTypeDeclaration = new TypeDeclaration(builtInType: true) { DotnetTypeName = "Menes.JsonTime" };
+
+        /// <summary>
+        /// A clr <see cref="NodaTime.OffsetTime"/> type.
+        /// </summary>
+        public static readonly TypeDeclaration ClrTimeRawTypeDeclaration = new TypeDeclaration(builtInType: true) { DotnetTypeName = "NodaTime.OffsetTime" };
 
         /// <summary>
         /// A clr <see cref="string"/> type that matches an email address.

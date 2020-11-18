@@ -20,6 +20,9 @@ namespace Menes.ConsoleApp
         public static void Main()
         {
             var test = new Test(default(Test));
+            var schema = default(TestSpace.Draft201909Schema);
+            TestSpace.Draft201909Schema? ap = schema.AdditionalProperties;
+            string? comment = ap?.Comment;
         }
 
         /// <summary>

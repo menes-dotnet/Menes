@@ -2,8 +2,6 @@
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 #pragma warning disable
-using System;
-
 namespace TestSpace
 {
     public readonly struct Draft201909MetaApplicator : Menes.IJsonValue
@@ -80,6 +78,22 @@ namespace TestSpace
         private readonly Menes.JsonValueBacking anyOf;
         private readonly Menes.JsonValueBacking oneOf;
         private readonly Menes.JsonValueBacking not;
+        public static implicit operator Menes.JsonBoolean(Draft201909MetaApplicator value)
+        {
+            return value.As<Menes.JsonBoolean>();
+        }
+        public static implicit operator Draft201909MetaApplicator(Menes.JsonBoolean value)
+        {
+            return value.As<Draft201909MetaApplicator>();
+        }
+        public static implicit operator bool(Draft201909MetaApplicator value)
+        {
+            return (bool)(Menes.JsonBoolean)value;
+        }
+        public static implicit operator Draft201909MetaApplicator(bool value)
+        {
+            return (Draft201909MetaApplicator)(Menes.JsonBoolean)value;
+        }
         /// <inheritdoc />
         public bool IsUndefined => !this.HasJsonElement && this.AllBackingFieldsAreNull();
         /// <inheritdoc />
@@ -240,7 +254,7 @@ namespace TestSpace
                 property = default;
                 return false;
             }
-            if (propertyName.SequenceEqual(_MenesAdditionalItemsJsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesAdditionalItemsJsonPropertyName.Span))
             {
                 if (!(this.AdditionalItems?.As<T>() is T result))
                 {
@@ -251,7 +265,7 @@ namespace TestSpace
                 return true;
                 return true;
             }
-            if (propertyName.SequenceEqual(_MenesUnevaluatedItemsJsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesUnevaluatedItemsJsonPropertyName.Span))
             {
                 if (!(this.UnevaluatedItems?.As<T>() is T result))
                 {
@@ -262,7 +276,7 @@ namespace TestSpace
                 return true;
                 return true;
             }
-            if (propertyName.SequenceEqual(_MenesItemsJsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesItemsJsonPropertyName.Span))
             {
                 if (!(this.Items?.As<T>() is T result))
                 {
@@ -273,7 +287,7 @@ namespace TestSpace
                 return true;
                 return true;
             }
-            if (propertyName.SequenceEqual(_MenesContainsJsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesContainsJsonPropertyName.Span))
             {
                 if (!(this.Contains?.As<T>() is T result))
                 {
@@ -284,7 +298,7 @@ namespace TestSpace
                 return true;
                 return true;
             }
-            if (propertyName.SequenceEqual(_MenesAdditionalPropertiesJsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesAdditionalPropertiesJsonPropertyName.Span))
             {
                 if (!(this.AdditionalProperties?.As<T>() is T result))
                 {
@@ -295,7 +309,7 @@ namespace TestSpace
                 return true;
                 return true;
             }
-            if (propertyName.SequenceEqual(_MenesUnevaluatedPropertiesJsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesUnevaluatedPropertiesJsonPropertyName.Span))
             {
                 if (!(this.UnevaluatedProperties?.As<T>() is T result))
                 {
@@ -306,7 +320,7 @@ namespace TestSpace
                 return true;
                 return true;
             }
-            if (propertyName.SequenceEqual(_MenesPropertiesJsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesPropertiesJsonPropertyName.Span))
             {
                 if (!(this.Properties?.As<T>() is T result))
                 {
@@ -317,7 +331,7 @@ namespace TestSpace
                 return true;
                 return true;
             }
-            if (propertyName.SequenceEqual(_MenesPatternPropertiesJsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesPatternPropertiesJsonPropertyName.Span))
             {
                 if (!(this.PatternProperties?.As<T>() is T result))
                 {
@@ -328,7 +342,7 @@ namespace TestSpace
                 return true;
                 return true;
             }
-            if (propertyName.SequenceEqual(_MenesDependentSchemasJsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesDependentSchemasJsonPropertyName.Span))
             {
                 if (!(this.DependentSchemas?.As<T>() is T result))
                 {
@@ -339,7 +353,7 @@ namespace TestSpace
                 return true;
                 return true;
             }
-            if (propertyName.SequenceEqual(_MenesPropertyNamesJsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesPropertyNamesJsonPropertyName.Span))
             {
                 if (!(this.PropertyNames?.As<T>() is T result))
                 {
@@ -350,7 +364,7 @@ namespace TestSpace
                 return true;
                 return true;
             }
-            if (propertyName.SequenceEqual(_MenesIfJsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesIfJsonPropertyName.Span))
             {
                 if (!(this.If?.As<T>() is T result))
                 {
@@ -361,7 +375,7 @@ namespace TestSpace
                 return true;
                 return true;
             }
-            if (propertyName.SequenceEqual(_MenesThenJsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesThenJsonPropertyName.Span))
             {
                 if (!(this.Then?.As<T>() is T result))
                 {
@@ -372,7 +386,7 @@ namespace TestSpace
                 return true;
                 return true;
             }
-            if (propertyName.SequenceEqual(_MenesElseJsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesElseJsonPropertyName.Span))
             {
                 if (!(this.Else?.As<T>() is T result))
                 {
@@ -383,7 +397,7 @@ namespace TestSpace
                 return true;
                 return true;
             }
-            if (propertyName.SequenceEqual(_MenesAllOfJsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesAllOfJsonPropertyName.Span))
             {
                 if (!(this.AllOf?.As<T>() is T result))
                 {
@@ -394,7 +408,7 @@ namespace TestSpace
                 return true;
                 return true;
             }
-            if (propertyName.SequenceEqual(_MenesAnyOfJsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesAnyOfJsonPropertyName.Span))
             {
                 if (!(this.AnyOf?.As<T>() is T result))
                 {
@@ -405,7 +419,7 @@ namespace TestSpace
                 return true;
                 return true;
             }
-            if (propertyName.SequenceEqual(_MenesOneOfJsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesOneOfJsonPropertyName.Span))
             {
                 if (!(this.OneOf?.As<T>() is T result))
                 {
@@ -416,7 +430,7 @@ namespace TestSpace
                 return true;
                 return true;
             }
-            if (propertyName.SequenceEqual(_MenesNotJsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesNotJsonPropertyName.Span))
             {
                 if (!(this.Not?.As<T>() is T result))
                 {
@@ -452,7 +466,7 @@ namespace TestSpace
                 property = default;
                 return false;
             }
-            if (System.MemoryExtensions.AsSpan(propertyName).SequenceEqual(_MenesAdditionalItemsJsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(System.MemoryExtensions.AsSpan(propertyName), _MenesAdditionalItemsJsonPropertyName.Span))
             {
                 if (!(this.AdditionalItems?.As<T>() is T result))
                 {
@@ -463,7 +477,7 @@ namespace TestSpace
                 return true;
                 return true;
             }
-            if (System.MemoryExtensions.AsSpan(propertyName).SequenceEqual(_MenesUnevaluatedItemsJsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(System.MemoryExtensions.AsSpan(propertyName), _MenesUnevaluatedItemsJsonPropertyName.Span))
             {
                 if (!(this.UnevaluatedItems?.As<T>() is T result))
                 {
@@ -474,7 +488,7 @@ namespace TestSpace
                 return true;
                 return true;
             }
-            if (System.MemoryExtensions.AsSpan(propertyName).SequenceEqual(_MenesItemsJsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(System.MemoryExtensions.AsSpan(propertyName), _MenesItemsJsonPropertyName.Span))
             {
                 if (!(this.Items?.As<T>() is T result))
                 {
@@ -485,7 +499,7 @@ namespace TestSpace
                 return true;
                 return true;
             }
-            if (System.MemoryExtensions.AsSpan(propertyName).SequenceEqual(_MenesContainsJsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(System.MemoryExtensions.AsSpan(propertyName), _MenesContainsJsonPropertyName.Span))
             {
                 if (!(this.Contains?.As<T>() is T result))
                 {
@@ -496,7 +510,7 @@ namespace TestSpace
                 return true;
                 return true;
             }
-            if (System.MemoryExtensions.AsSpan(propertyName).SequenceEqual(_MenesAdditionalPropertiesJsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(System.MemoryExtensions.AsSpan(propertyName), _MenesAdditionalPropertiesJsonPropertyName.Span))
             {
                 if (!(this.AdditionalProperties?.As<T>() is T result))
                 {
@@ -507,7 +521,7 @@ namespace TestSpace
                 return true;
                 return true;
             }
-            if (System.MemoryExtensions.AsSpan(propertyName).SequenceEqual(_MenesUnevaluatedPropertiesJsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(System.MemoryExtensions.AsSpan(propertyName), _MenesUnevaluatedPropertiesJsonPropertyName.Span))
             {
                 if (!(this.UnevaluatedProperties?.As<T>() is T result))
                 {
@@ -518,7 +532,7 @@ namespace TestSpace
                 return true;
                 return true;
             }
-            if (System.MemoryExtensions.AsSpan(propertyName).SequenceEqual(_MenesPropertiesJsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(System.MemoryExtensions.AsSpan(propertyName), _MenesPropertiesJsonPropertyName.Span))
             {
                 if (!(this.Properties?.As<T>() is T result))
                 {
@@ -529,7 +543,7 @@ namespace TestSpace
                 return true;
                 return true;
             }
-            if (System.MemoryExtensions.AsSpan(propertyName).SequenceEqual(_MenesPatternPropertiesJsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(System.MemoryExtensions.AsSpan(propertyName), _MenesPatternPropertiesJsonPropertyName.Span))
             {
                 if (!(this.PatternProperties?.As<T>() is T result))
                 {
@@ -540,7 +554,7 @@ namespace TestSpace
                 return true;
                 return true;
             }
-            if (System.MemoryExtensions.AsSpan(propertyName).SequenceEqual(_MenesDependentSchemasJsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(System.MemoryExtensions.AsSpan(propertyName), _MenesDependentSchemasJsonPropertyName.Span))
             {
                 if (!(this.DependentSchemas?.As<T>() is T result))
                 {
@@ -551,7 +565,7 @@ namespace TestSpace
                 return true;
                 return true;
             }
-            if (System.MemoryExtensions.AsSpan(propertyName).SequenceEqual(_MenesPropertyNamesJsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(System.MemoryExtensions.AsSpan(propertyName), _MenesPropertyNamesJsonPropertyName.Span))
             {
                 if (!(this.PropertyNames?.As<T>() is T result))
                 {
@@ -562,7 +576,7 @@ namespace TestSpace
                 return true;
                 return true;
             }
-            if (System.MemoryExtensions.AsSpan(propertyName).SequenceEqual(_MenesIfJsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(System.MemoryExtensions.AsSpan(propertyName), _MenesIfJsonPropertyName.Span))
             {
                 if (!(this.If?.As<T>() is T result))
                 {
@@ -573,7 +587,7 @@ namespace TestSpace
                 return true;
                 return true;
             }
-            if (System.MemoryExtensions.AsSpan(propertyName).SequenceEqual(_MenesThenJsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(System.MemoryExtensions.AsSpan(propertyName), _MenesThenJsonPropertyName.Span))
             {
                 if (!(this.Then?.As<T>() is T result))
                 {
@@ -584,7 +598,7 @@ namespace TestSpace
                 return true;
                 return true;
             }
-            if (System.MemoryExtensions.AsSpan(propertyName).SequenceEqual(_MenesElseJsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(System.MemoryExtensions.AsSpan(propertyName), _MenesElseJsonPropertyName.Span))
             {
                 if (!(this.Else?.As<T>() is T result))
                 {
@@ -595,7 +609,7 @@ namespace TestSpace
                 return true;
                 return true;
             }
-            if (System.MemoryExtensions.AsSpan(propertyName).SequenceEqual(_MenesAllOfJsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(System.MemoryExtensions.AsSpan(propertyName), _MenesAllOfJsonPropertyName.Span))
             {
                 if (!(this.AllOf?.As<T>() is T result))
                 {
@@ -606,7 +620,7 @@ namespace TestSpace
                 return true;
                 return true;
             }
-            if (System.MemoryExtensions.AsSpan(propertyName).SequenceEqual(_MenesAnyOfJsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(System.MemoryExtensions.AsSpan(propertyName), _MenesAnyOfJsonPropertyName.Span))
             {
                 if (!(this.AnyOf?.As<T>() is T result))
                 {
@@ -617,7 +631,7 @@ namespace TestSpace
                 return true;
                 return true;
             }
-            if (System.MemoryExtensions.AsSpan(propertyName).SequenceEqual(_MenesOneOfJsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(System.MemoryExtensions.AsSpan(propertyName), _MenesOneOfJsonPropertyName.Span))
             {
                 if (!(this.OneOf?.As<T>() is T result))
                 {
@@ -628,7 +642,7 @@ namespace TestSpace
                 return true;
                 return true;
             }
-            if (System.MemoryExtensions.AsSpan(propertyName).SequenceEqual(_MenesNotJsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(System.MemoryExtensions.AsSpan(propertyName), _MenesNotJsonPropertyName.Span))
             {
                 if (!(this.Not?.As<T>() is T result))
                 {
@@ -664,7 +678,7 @@ namespace TestSpace
                 property = default;
                 return false;
             }
-            if (propertyName.SequenceEqual(_MenesAdditionalItemsUtf8JsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesAdditionalItemsUtf8JsonPropertyName.Span))
             {
                 if (!(this.AdditionalItems?.As<T>() is T result))
                 {
@@ -675,7 +689,7 @@ namespace TestSpace
                 return true;
                 return true;
             }
-            if (propertyName.SequenceEqual(_MenesUnevaluatedItemsUtf8JsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesUnevaluatedItemsUtf8JsonPropertyName.Span))
             {
                 if (!(this.UnevaluatedItems?.As<T>() is T result))
                 {
@@ -686,7 +700,7 @@ namespace TestSpace
                 return true;
                 return true;
             }
-            if (propertyName.SequenceEqual(_MenesItemsUtf8JsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesItemsUtf8JsonPropertyName.Span))
             {
                 if (!(this.Items?.As<T>() is T result))
                 {
@@ -697,7 +711,7 @@ namespace TestSpace
                 return true;
                 return true;
             }
-            if (propertyName.SequenceEqual(_MenesContainsUtf8JsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesContainsUtf8JsonPropertyName.Span))
             {
                 if (!(this.Contains?.As<T>() is T result))
                 {
@@ -708,7 +722,7 @@ namespace TestSpace
                 return true;
                 return true;
             }
-            if (propertyName.SequenceEqual(_MenesAdditionalPropertiesUtf8JsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesAdditionalPropertiesUtf8JsonPropertyName.Span))
             {
                 if (!(this.AdditionalProperties?.As<T>() is T result))
                 {
@@ -719,7 +733,7 @@ namespace TestSpace
                 return true;
                 return true;
             }
-            if (propertyName.SequenceEqual(_MenesUnevaluatedPropertiesUtf8JsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesUnevaluatedPropertiesUtf8JsonPropertyName.Span))
             {
                 if (!(this.UnevaluatedProperties?.As<T>() is T result))
                 {
@@ -730,7 +744,7 @@ namespace TestSpace
                 return true;
                 return true;
             }
-            if (propertyName.SequenceEqual(_MenesPropertiesUtf8JsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesPropertiesUtf8JsonPropertyName.Span))
             {
                 if (!(this.Properties?.As<T>() is T result))
                 {
@@ -741,7 +755,7 @@ namespace TestSpace
                 return true;
                 return true;
             }
-            if (propertyName.SequenceEqual(_MenesPatternPropertiesUtf8JsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesPatternPropertiesUtf8JsonPropertyName.Span))
             {
                 if (!(this.PatternProperties?.As<T>() is T result))
                 {
@@ -752,7 +766,7 @@ namespace TestSpace
                 return true;
                 return true;
             }
-            if (propertyName.SequenceEqual(_MenesDependentSchemasUtf8JsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesDependentSchemasUtf8JsonPropertyName.Span))
             {
                 if (!(this.DependentSchemas?.As<T>() is T result))
                 {
@@ -763,7 +777,7 @@ namespace TestSpace
                 return true;
                 return true;
             }
-            if (propertyName.SequenceEqual(_MenesPropertyNamesUtf8JsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesPropertyNamesUtf8JsonPropertyName.Span))
             {
                 if (!(this.PropertyNames?.As<T>() is T result))
                 {
@@ -774,7 +788,7 @@ namespace TestSpace
                 return true;
                 return true;
             }
-            if (propertyName.SequenceEqual(_MenesIfUtf8JsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesIfUtf8JsonPropertyName.Span))
             {
                 if (!(this.If?.As<T>() is T result))
                 {
@@ -785,7 +799,7 @@ namespace TestSpace
                 return true;
                 return true;
             }
-            if (propertyName.SequenceEqual(_MenesThenUtf8JsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesThenUtf8JsonPropertyName.Span))
             {
                 if (!(this.Then?.As<T>() is T result))
                 {
@@ -796,7 +810,7 @@ namespace TestSpace
                 return true;
                 return true;
             }
-            if (propertyName.SequenceEqual(_MenesElseUtf8JsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesElseUtf8JsonPropertyName.Span))
             {
                 if (!(this.Else?.As<T>() is T result))
                 {
@@ -807,7 +821,7 @@ namespace TestSpace
                 return true;
                 return true;
             }
-            if (propertyName.SequenceEqual(_MenesAllOfUtf8JsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesAllOfUtf8JsonPropertyName.Span))
             {
                 if (!(this.AllOf?.As<T>() is T result))
                 {
@@ -818,7 +832,7 @@ namespace TestSpace
                 return true;
                 return true;
             }
-            if (propertyName.SequenceEqual(_MenesAnyOfUtf8JsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesAnyOfUtf8JsonPropertyName.Span))
             {
                 if (!(this.AnyOf?.As<T>() is T result))
                 {
@@ -829,7 +843,7 @@ namespace TestSpace
                 return true;
                 return true;
             }
-            if (propertyName.SequenceEqual(_MenesOneOfUtf8JsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesOneOfUtf8JsonPropertyName.Span))
             {
                 if (!(this.OneOf?.As<T>() is T result))
                 {
@@ -840,7 +854,7 @@ namespace TestSpace
                 return true;
                 return true;
             }
-            if (propertyName.SequenceEqual(_MenesNotUtf8JsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesNotUtf8JsonPropertyName.Span))
             {
                 if (!(this.Not?.As<T>() is T result))
                 {
@@ -960,6 +974,22 @@ namespace TestSpace
         {
             public static readonly ItemsEntity Null = default(ItemsEntity);
             private readonly System.Text.Json.JsonElement _menesJsonElementBacking;
+            public static implicit operator Draft201909MetaApplicator(ItemsEntity value)
+            {
+                return value.As<Draft201909MetaApplicator>();
+            }
+            public static implicit operator ItemsEntity(Draft201909MetaApplicator value)
+            {
+                return value.As<Draft201909MetaApplicator.ItemsEntity>();
+            }
+            public static implicit operator Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity(ItemsEntity value)
+            {
+                return value.As<Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity>();
+            }
+            public static implicit operator ItemsEntity(Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity value)
+            {
+                return value.As<Draft201909MetaApplicator.ItemsEntity>();
+            }
             /// <inheritdoc />
             public bool IsUndefined => !this.HasJsonElement && this.AllBackingFieldsAreNull();
             /// <inheritdoc />
