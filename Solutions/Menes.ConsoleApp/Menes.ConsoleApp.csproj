@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Menes.JsonSchema.Model\Menes.JsonSchema.Model.csproj" />
     <ProjectReference Include="..\Menes.JsonSchema.TypeBuilder\Menes.JsonSchema.TypeBuilder.csproj" />
   </ItemGroup>
 

@@ -105,7 +105,7 @@ namespace Menes.ConsoleApp
             }
 
             /// <inheritdoc/>
-            public ValidationResult Validate(in ValidationResult validationContext, ValidationLevel level = ValidationLevel.Flag, HashSet<string>? evaluatedProperties = null)
+            public ValidationResult Validate(ValidationResult? validationContext = null, ValidationLevel level = ValidationLevel.Flag, HashSet<string>? evaluatedProperties = null, System.Collections.Generic.Stack<string>? absoluteKeywordLocation = null, System.Collections.Generic.Stack<string>? instanceLocation = null)
             {
                 throw new NotImplementedException();
             }

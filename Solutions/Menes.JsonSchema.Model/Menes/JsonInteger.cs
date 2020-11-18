@@ -1,4 +1,4 @@
-﻿// <copyright file="JsonString.cs" company="Endjin Limited">
+﻿// <copyright file="JsonInteger.cs" company="Endjin Limited">
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
@@ -11,50 +11,40 @@ namespace Menes
     /// <summary>
     /// Represents the {}/true json type.
     /// </summary>
-    public readonly struct JsonString : IJsonValue
+    public readonly struct JsonInteger : IJsonValue
     {
         /// <summary>
         /// The null value.
         /// </summary>
-        public static readonly JsonString Null = default;
+        public static readonly JsonInteger Null = default;
 
-        private readonly ReadOnlyMemory<char>? value;
+        private readonly long? valueAsInt64;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="JsonString"/> struct.
+        /// Initializes a new instance of the <see cref="JsonInteger"/> struct.
         /// </summary>
         /// <param name="jsonElement">The backing json element.</param>
-        public JsonString(JsonElement jsonElement)
+        public JsonInteger(JsonElement jsonElement)
         {
             this.JsonElement = jsonElement;
-            this.value = null;
+            this.valueAsInt64 = null;
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="JsonString"/> struct.
+        /// Initializes a new instance of the <see cref="JsonInteger"/> struct.
         /// </summary>
-        /// <param name="value">The backing string value.</param>
-        public JsonString(string value)
+        /// <param name="value">The backing long value.</param>
+        public JsonInteger(long value)
         {
-            this.value = value.AsMemory();
-            this.JsonElement = default;
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="JsonString"/> struct.
-        /// </summary>
-        /// <param name="value">The backing string value.</param>
-        public JsonString(ReadOnlyMemory<char> value)
-        {
-            this.value = value;
+            this.valueAsInt64 = value;
             this.JsonElement = default;
         }
 
         /// <inheritdoc />
-        public bool IsUndefined => this.JsonElement.ValueKind == JsonValueKind.Undefined;
+        public bool IsUndefined => this.JsonElement.ValueKind == JsonValueKind.Undefined && this.valueAsInt64 is null;
 
         /// <inheritdoc />
-        public bool IsNull => (this.JsonElement.ValueKind == JsonValueKind.Undefined || this.JsonElement.ValueKind == JsonValueKind.Null) && this.value is null;
+        public bool IsNull => (this.JsonElement.ValueKind == JsonValueKind.Undefined || this.JsonElement.ValueKind == JsonValueKind.Null) && this.valueAsInt64 is null;
 
         /// <inheritdoc />
         public bool HasJsonElement => this.JsonElement.ValueKind != JsonValueKind.Undefined;
@@ -63,73 +53,109 @@ namespace Menes
         public JsonElement JsonElement { get; }
 
         /// <summary>
-        /// Implicit conversion from <see cref="string"/>.
+        /// Implicit conversion from <see cref="int"/>.
         /// </summary>
-        /// <param name="value">The string value from which to convert.</param>
-        public static implicit operator JsonString(string value) => new JsonString(value);
+        /// <param name="value">The value to convert.</param>
+        public static implicit operator JsonInteger(int value) => new JsonInteger(value);
 
         /// <summary>
-        /// Implicit conversion to <see cref="string"/>.
+        /// Implicit conversion to <see cref="int"/>.
         /// </summary>
-        /// <param name="value">The string value from which to convert.</param>
-        public static implicit operator string(JsonString value) => value.GetString();
+        /// <param name="value">The <see cref="JsonInteger"/> to convert.</param>
+        public static implicit operator int(JsonInteger value) => value.GetInt32();
 
         /// <summary>
-        /// Implicit conversion from <see cref="ReadOnlyMemory{T}"/>.
+        /// Implicit conversion from <see cref="long"/>.
         /// </summary>
-        /// <param name="value">The string value from which to convert.</param>
-        public static implicit operator JsonString(ReadOnlyMemory<char> value) => new JsonString(value);
+        /// <param name="value">The value to convert.</param>
+        public static implicit operator JsonInteger(long value) => new JsonInteger(value);
 
         /// <summary>
-        /// Implicit conversion to <see cref="ReadOnlyMemory{T}"/>.
+        /// Implicit conversion to <see cref="long"/>.
         /// </summary>
-        /// <param name="value">The string value from which to convert.</param>
-        public static implicit operator ReadOnlyMemory<char>(JsonString value) => value.AsMemory();
+        /// <param name="value">The <see cref="JsonInteger"/> to convert.</param>
+        public static implicit operator long(JsonInteger value) => value.GetInt64();
 
         /// <summary>
-        /// Implicit conversion from <see cref="ReadOnlyMemory{T}"/>.
+        /// Gets the <see cref="JsonInteger"/> as a <see cref="long"/>.
         /// </summary>
-        /// <param name="value">The string value from which to convert.</param>
-        public static implicit operator JsonString(ReadOnlySpan<char> value) => new JsonString(value.ToArray());
-
-        /// <summary>
-        /// Implicit conversion from <see cref="ReadOnlyMemory{T}"/>.
-        /// </summary>
-        /// <param name="value">The string value from which to convert.</param>
-        public static implicit operator ReadOnlySpan<char>(JsonString value) => value.AsSpan();
-
-        /// <summary>
-        /// Gets the <see cref="JsonString"/> as a <see cref="string"/>.
-        /// </summary>
-        /// <returns>The <see cref="string"/>.</returns>
-        public string GetString()
+        /// <returns>The <see cref="long"/>.</returns>
+        public long GetInt64()
         {
-            return this.HasJsonElement ? this.JsonElement.GetString() : (this.value ?? ReadOnlyMemory<char>.Empty).ToString();
+            if (this.TryGetInt64(out long value))
+            {
+                return value;
+            }
+
+            throw new InvalidOperationException("Unable to get the JsonInteger as an int64.");
         }
 
         /// <summary>
-        /// Gets the <see cref="JsonString"/> as a <see cref="ReadOnlyMemory{T}"/> of <see cref="char"/>.
+        /// Try to get a <see cref="long"/> value from this <see cref="JsonInteger"/>.
         /// </summary>
-        /// <returns>The <see cref="string"/>.</returns>
-        public ReadOnlyMemory<char> AsMemory()
+        /// <param name="value">The <see cref="JsonInteger"/> as a <see cref="long"/>.</param>
+        /// <returns><c>True</c> if we were able to get the value.</returns>
+        public bool TryGetInt64(out long value)
         {
-            return this.HasJsonElement ? this.JsonElement.GetString().AsMemory() : this.value ?? ReadOnlyMemory<char>.Empty;
+            if (this.HasJsonElement)
+            {
+                return this.JsonElement.TryGetInt64(out value);
+            }
+
+            if (this.valueAsInt64 is long val)
+            {
+                value = val;
+                return true;
+            }
+
+            value = default;
+            return false;
         }
 
         /// <summary>
-        /// Gets the <see cref="JsonString"/> as a <see cref="ReadOnlySpan{T}"/> of char.
+        /// Gets the <see cref="JsonInteger"/> as an <see cref="int"/>.
         /// </summary>
-        /// <returns>The <see cref="string"/>.</returns>
-        public ReadOnlySpan<char> AsSpan()
+        /// <returns>The <see cref="int"/>.</returns>
+        public int GetInt32()
         {
-            return this.AsMemory().Span;
+            if (this.TryGetInt32(out int value))
+            {
+                return value;
+            }
+
+            throw new InvalidOperationException("Unable to get the JsonInteger as an int32.");
+        }
+
+        /// <summary>
+        /// Try to get a <see cref="int"/> value from this <see cref="JsonInteger"/>.
+        /// </summary>
+        /// <param name="value">The <see cref="JsonInteger"/> as a <see cref="int"/>.</param>
+        /// <returns><c>True</c> if we were able to get the value.</returns>
+        public bool TryGetInt32(out int value)
+        {
+            if (this.HasJsonElement)
+            {
+                return this.JsonElement.TryGetInt32(out value);
+            }
+
+            if (this.valueAsInt64 is long val)
+            {
+                if (val >= int.MinValue && val <= int.MaxValue)
+                {
+                    value = (int)val;
+                    return true;
+                }
+            }
+
+            value = default;
+            return false;
         }
 
         /// <inheritdoc />
         public T As<T>()
             where T : struct, IJsonValue
         {
-            return this.FlattenToJsonElementBacking().JsonElement.As<T>();
+            return this.JsonElement.As<T>();
         }
 
         /// <inheritdoc />
@@ -141,7 +167,7 @@ namespace Menes
                 return this.Validate().Valid;
             }
 
-            return this.FlattenToJsonElementBacking().As<T>().Validate().Valid;
+            return this.JsonElement.As<T>().Validate(ValidationResult.ValidResult, ValidationLevel.Flag).Valid;
         }
 
         /// <inheritdoc />
@@ -191,7 +217,7 @@ namespace Menes
         {
             ValidationResult result = validationResult ?? ValidationResult.ValidResult;
 
-            if (this.HasJsonElement && this.JsonElement.ValueKind != JsonValueKind.String)
+            if (this.HasJsonElement && this.JsonElement.ValueKind != JsonValueKind.Number)
             {
                 if (level >= ValidationLevel.Basic)
                 {
@@ -200,7 +226,7 @@ namespace Menes
 
                     instanceLocation?.TryPeek(out il);
                     absoluteKeywordLocation?.TryPeek(out akl);
-                    result.AddResult(valid: false, message: $"6.1.1.  type - should have been 'string' but was '{this.JsonElement.ValueKind}'.", instanceLocation: il, absoluteKeywordLocation: akl);
+                    result.AddResult(valid: false, message: $"6.1.1.  type - should have been 'number' but was '{this.JsonElement.ValueKind}'.", instanceLocation: il, absoluteKeywordLocation: akl);
                 }
                 else
                 {

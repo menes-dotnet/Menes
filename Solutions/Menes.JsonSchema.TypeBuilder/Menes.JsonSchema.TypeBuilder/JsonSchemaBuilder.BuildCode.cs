@@ -225,8 +225,11 @@ namespace Menes.JsonSchema.TypeBuilder
             memberBuilder.AppendLine("public bool Is<T>()");
             memberBuilder.AppendLine("    where T : struct, Menes.IJsonValue");
             memberBuilder.AppendLine("{");
-            memberBuilder.AppendLine("    T item = this.As<T>();");
-            memberBuilder.AppendLine("    return item.Validate().Valid;");
+            memberBuilder.AppendLine($"if (typeof(T) == typeof({typeDeclaration.FullyQualifiedDotNetTypeName}))");
+            memberBuilder.AppendLine("{");
+            memberBuilder.AppendLine("    return this.Validate().Valid;");
+            memberBuilder.AppendLine("}");
+            memberBuilder.AppendLine("    return this.As<T>().Validate().Valid;");
             memberBuilder.AppendLine("}");
         }
 
@@ -388,10 +391,7 @@ namespace Menes.JsonSchema.TypeBuilder
                     if (type != "object" && type != "array")
                     {
                         string typeAsPascalCase = Formatting.ToPascalCaseWithReservedWords(type).ToString();
-                        memberBuilder.AppendLine($"    if (this._menes{typeAsPascalCase}TypeBacking is not null)");
-                        memberBuilder.AppendLine("    {");
-                        memberBuilder.AppendLine($"        this._menes{typeAsPascalCase}TypeBacking.WriteTo(writer);");
-                        memberBuilder.AppendLine("    }");
+                        memberBuilder.AppendLine($"        this._menes{typeAsPascalCase}TypeBacking?.WriteTo(writer);");
                     }
                 }
             }
@@ -403,10 +403,7 @@ namespace Menes.JsonSchema.TypeBuilder
             {
                 for (int i = 0; i < typeDeclaration.AnyOf.Count; ++i)
                 {
-                    memberBuilder.AppendLine($"    if (this._menesAnyOf{i}Backing is not null)");
-                    memberBuilder.AppendLine("    {");
-                    memberBuilder.AppendLine($"        this._menesAnyOf{i}Backing.WriteTo(writer);");
-                    memberBuilder.AppendLine("    }");
+                    memberBuilder.AppendLine($"        this._menesAnyOf{i}Backing?.WriteTo(writer);");
                 }
             }
         }
@@ -417,10 +414,7 @@ namespace Menes.JsonSchema.TypeBuilder
             {
                 for (int i = 0; i < typeDeclaration.OneOf.Count; ++i)
                 {
-                    memberBuilder.AppendLine($"    if (this._menesOneOf{i}Backing is not null)");
-                    memberBuilder.AppendLine("    {");
-                    memberBuilder.AppendLine($"        this._menesOneOf{i}Backing.WriteTo(writer);");
-                    memberBuilder.AppendLine("    }");
+                    memberBuilder.AppendLine($"        this._menesOneOf{i}Backing?.WriteTo(writer);");
                 }
             }
         }
