@@ -13,11 +13,26 @@ namespace Menes.JsonSchema.TypeBuilder
     /// </summary>
     public partial class JsonSchemaBuilder
     {
+        private void BuildAnyOfAsMethods(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
+        {
+            if (typeDeclaration.AnyOf is not null)
+            {
+                for (int i = 0; i < typeDeclaration.AnyOf.Count; ++i)
+                {
+                    TypeDeclaration anyOf = typeDeclaration.AnyOf[i];
+                    memberBuilder.AppendLine($"private readonly {anyOf.FullyQualifiedDotNetTypeName} {this.GetAsMethodNameFor(anyOf)}()");
+                    memberBuilder.AppendLine("{");
+                    memberBuilder.AppendLine($"    return this.As<{anyOf.FullyQualifiedDotNetTypeName}>();");
+                    memberBuilder.AppendLine("}");
+                }
+            }
+        }
+
         private void BuildAnyOfValidation(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
         {
             if (typeDeclaration.AnyOf is List<TypeDeclaration>)
             {
-                memberBuilder.AppendLine("result = ValidateAnyOf(result, level, evaluatedProperties, absoluteKeywordLocation, instanceLocation);");
+                memberBuilder.AppendLine("result = ValidateAnyOf(this, result, level, evaluatedProperties, absoluteKeywordLocation, instanceLocation);");
             }
         }
 
@@ -25,7 +40,7 @@ namespace Menes.JsonSchema.TypeBuilder
         {
             if (typeDeclaration.AnyOf is List<TypeDeclaration>)
             {
-                memberBuilder.AppendLine("Menes.ValidatationResult ValidateAnyOf(in Menes.ValidationResult validationResult, Menes.ValidationLevel level = Menes.ValidationLevel.Flag, System.Collections.Generic.HashSet<string>? evaluatedProperties = null, System.Collections.Generic.Stack<string>? absoluteKeywordLocation = null, System.Collections.Generic.Stack<string>? instanceLocation = null)");
+                memberBuilder.AppendLine($"Menes.ValidationResult ValidateAnyOf(in {typeDeclaration.FullyQualifiedDotNetTypeName} that, Menes.ValidationResult validationResult, Menes.ValidationLevel level = Menes.ValidationLevel.Flag, System.Collections.Generic.HashSet<string>? evaluatedProperties = null, System.Collections.Generic.Stack<string>? absoluteKeywordLocation = null, System.Collections.Generic.Stack<string>? instanceLocation = null)");
                 memberBuilder.AppendLine("{");
 
                 this.PushPropertyToAbsoluteKeywordLocationStack("anyOf");
@@ -34,7 +49,9 @@ namespace Menes.JsonSchema.TypeBuilder
                 foreach (TypeDeclaration anyOfType in typeDeclaration.AnyOf)
                 {
                     this.PushArrayIndexToAbsoluteKeywordLocationStack(anyOfIndex);
-                    memberBuilder.AppendLine($"var anyOf{anyOfIndex} = this.{this.GetAsMethodNameFor(anyOfType)}();");
+                    this.BuildPushAbsoluteKeywordLocation(memberBuilder);
+
+                    memberBuilder.AppendLine($"var anyOf{anyOfIndex} = that.{this.GetAsMethodNameFor(anyOfType)}();");
 
                     if (typeDeclaration.UnevaluatedProperties is not null)
                     {

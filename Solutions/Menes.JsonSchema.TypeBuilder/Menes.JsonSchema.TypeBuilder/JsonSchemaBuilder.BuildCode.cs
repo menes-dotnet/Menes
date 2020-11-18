@@ -231,6 +231,10 @@ namespace Menes.JsonSchema.TypeBuilder
             memberBuilder.AppendLine("}");
             memberBuilder.AppendLine("    return this.As<T>().Validate().Valid;");
             memberBuilder.AppendLine("}");
+
+            this.BuildAllOfAsMethods(typeDeclaration, memberBuilder);
+            this.BuildAnyOfAsMethods(typeDeclaration, memberBuilder);
+            this.BuildOneOfAsMethods(typeDeclaration, memberBuilder);
         }
 
         private void BuildEmbeddedTypes(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
@@ -340,8 +344,6 @@ namespace Menes.JsonSchema.TypeBuilder
             memberBuilder.AppendLine("        return;");
             memberBuilder.AppendLine("    }");
             this.BuildWritePropertyBackingValues(typeDeclaration, memberBuilder);
-            this.BuildWriteAnyOfBackingValues(typeDeclaration, memberBuilder);
-            this.BuildWriteOneOfBackingValues(typeDeclaration, memberBuilder);
             this.BuildWriteTypeBackingValues(typeDeclaration, memberBuilder);
             memberBuilder.AppendLine("}");
         }
@@ -393,28 +395,6 @@ namespace Menes.JsonSchema.TypeBuilder
                         string typeAsPascalCase = Formatting.ToPascalCaseWithReservedWords(type).ToString();
                         memberBuilder.AppendLine($"        this._menes{typeAsPascalCase}TypeBacking?.WriteTo(writer);");
                     }
-                }
-            }
-        }
-
-        private void BuildWriteAnyOfBackingValues(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
-        {
-            if (typeDeclaration.AnyOf is not null)
-            {
-                for (int i = 0; i < typeDeclaration.AnyOf.Count; ++i)
-                {
-                    memberBuilder.AppendLine($"        this._menesAnyOf{i}Backing?.WriteTo(writer);");
-                }
-            }
-        }
-
-        private void BuildWriteOneOfBackingValues(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
-        {
-            if (typeDeclaration.OneOf is not null)
-            {
-                for (int i = 0; i < typeDeclaration.OneOf.Count; ++i)
-                {
-                    memberBuilder.AppendLine($"        this._menesOneOf{i}Backing?.WriteTo(writer);");
                 }
             }
         }

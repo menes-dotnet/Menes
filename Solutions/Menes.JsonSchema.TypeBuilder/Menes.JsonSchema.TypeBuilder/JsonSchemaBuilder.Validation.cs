@@ -83,7 +83,7 @@ namespace Menes.JsonSchema.TypeBuilder
         /// <param name="memberBuilder">The string builder to which to write the success.</param>
         private void WriteSuccess(StringBuilder memberBuilder)
         {
-            memberBuilder.AppendLine("if (level == ValidationLevel.Verbose)");
+            memberBuilder.AppendLine("if (level == Menes.ValidationLevel.Verbose)");
             memberBuilder.AppendLine("{");
             memberBuilder.AppendLine("    string? il = null;");
             memberBuilder.AppendLine("    string? akl = null;");
@@ -95,17 +95,17 @@ namespace Menes.JsonSchema.TypeBuilder
 
         private void BuildPopAbsoluteKeywordLocation(StringBuilder memberBuilder)
         {
-            memberBuilder.AppendLine("if (absoluteKeywordLocation is System.Collections.Generic.Stack<string> akl)");
+            memberBuilder.AppendLine("if (absoluteKeywordLocation is System.Collections.Generic.Stack<string> aklPop)");
             memberBuilder.AppendLine("{");
-            memberBuilder.AppendLine("    akl.Pop();");
+            memberBuilder.AppendLine("    aklPop.Pop();");
             memberBuilder.AppendLine("}");
         }
 
         private void BuildPushAbsoluteKeywordLocation(JsonReference jsonReference, StringBuilder memberBuilder)
         {
-            memberBuilder.AppendLine("if (absoluteKeywordLocation is System.Collections.Generic.Stack<string> akl)");
+            memberBuilder.AppendLine("if (absoluteKeywordLocation is System.Collections.Generic.Stack<string> aklPush)");
             memberBuilder.AppendLine("{");
-            memberBuilder.AppendLine($"    akl.Push({Formatting.FormatLiteralOrNull(jsonReference, true)});");
+            memberBuilder.AppendLine($"    aklPush.Push({Formatting.FormatLiteralOrNull(jsonReference, true)});");
             memberBuilder.AppendLine("}");
         }
 

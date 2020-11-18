@@ -106,14 +106,19 @@ namespace Menes.JsonSchema.TypeBuilder
 
             if (refBuilder.HasFragment)
             {
-                bool isArrayIndex = false;
                 int startCopy = 0;
                 int lastSlash = 0;
                 lastSlash = refBuilder.Fragment.LastIndexOf('/');
                 if (lastSlash > 0)
                 {
-                    startCopy = lastSlash;
-                    isArrayIndex = char.IsDigit(refBuilder.Fragment[lastSlash + 1]);
+                    if (char.IsDigit(refBuilder.Fragment[lastSlash + 1]))
+                    {
+                        startCopy = refBuilder.Fragment.Slice(0, lastSlash).LastIndexOf('/');
+                    }
+                    else
+                    {
+                        startCopy = lastSlash;
+                    }
                 }
 
                 Span<char> output = stackalloc char[refBuilder.Fragment.Length - startCopy];
@@ -124,21 +129,8 @@ namespace Menes.JsonSchema.TypeBuilder
                     return Root;
                 }
 
-                int length = result.Length;
-                int offset = 0;
-                if (isArrayIndex)
-                {
-                    length += Item.Length;
-                    offset += Item.Length;
-                }
-
-                var memory = new Memory<char>(new char[length]);
-                if (isArrayIndex)
-                {
-                    Item.CopyTo(memory);
-                }
-
-                result.CopyTo(memory.Span[offset..]);
+                var memory = new Memory<char>(new char[result.Length]);
+                result.CopyTo(memory.Span);
                 return memory;
             }
             else if (refBuilder.HasPath)

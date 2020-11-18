@@ -132,6 +132,11 @@ namespace Menes.JsonSchema.TypeBuilder
             // Work up the stack, skipping the first one.
             foreach (JsonReference reference in this.absoluteKeywordLocationStack.Skip(1))
             {
+                if (reference == "#")
+                {
+                    return reference;
+                }
+
                 if (!reference.HasFragment)
                 {
                     if (reference != current)
