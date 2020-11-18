@@ -415,7 +415,7 @@ namespace Menes.JsonSchema.TypeBuilder
                     }
 
                     memberBuilder.AppendLine("    {");
-                    memberBuilder.AppendLine($"        writer.WritePropertyName(\"_Menes{property.DotnetPropertyName}EncodedJsonPropertyName\");");
+                    memberBuilder.AppendLine($"        writer.WritePropertyName(_Menes{property.DotnetPropertyName}EncodedJsonPropertyName);");
                     memberBuilder.AppendLine($"        {property.DotnetFieldName}.WriteTo(writer);");
                     memberBuilder.AppendLine("    }");
                 }
