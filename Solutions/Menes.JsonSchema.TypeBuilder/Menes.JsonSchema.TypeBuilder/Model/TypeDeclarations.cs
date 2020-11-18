@@ -24,6 +24,11 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         /// <summary>
         /// The not {}/false type declaration.
         /// </summary>
+        public static readonly TypeDeclaration NullTypeDeclaration = new TypeDeclaration(builtInType: true) { DotnetTypeName = "Menes.JsonNull" };
+
+        /// <summary>
+        /// The not {}/false type declaration.
+        /// </summary>
         public static readonly TypeDeclaration NumberTypeDeclaration = new TypeDeclaration(builtInType: true) { DotnetTypeName = "Menes.JsonNumber" };
 
         /// <summary>
@@ -105,6 +110,16 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         /// A clr <see cref="System.Uri"/> type.
         /// </summary>
         public static readonly TypeDeclaration ClrUriTypeDeclaration = new TypeDeclaration(builtInType: true) { DotnetTypeName = "Menes.JsonUri" };
+
+        /// <summary>
+        /// A clr IRI type.
+        /// </summary>
+        public static readonly TypeDeclaration ClrIriTypeDeclaration = new TypeDeclaration(builtInType: true) { DotnetTypeName = "Menes.JsonIri" };
+
+        /// <summary>
+        /// A clr IRI-Reference type.
+        /// </summary>
+        public static readonly TypeDeclaration ClrIriReferenceTypeDeclaration = new TypeDeclaration(builtInType: true) { DotnetTypeName = "Menes.JsonIriReference" };
 
         /// <summary>
         /// A clr <see cref="System.Uri"/> type.
@@ -200,17 +215,72 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         /// <summary>
         /// Gets the Menes type name for the given json-schema type.
         /// </summary>
-        /// <param name="type">One of "integer", "number", "boolean", "string".</param>
+        /// <param name="type">One of "integer", "number", "boolean", "string" or "null".</param>
+        /// <param name="format">THe supported formats.</param>
         /// <returns>The corresponding fully qualified type name.</returns>
-        public static string GetTypeNameFor(string type)
+        public static string GetTypeNameFor(string type, string? format)
+        {
+            return GetTypeFor(type, format).FullyQualifiedDotNetTypeName!;
+        }
+
+        /// <summary>
+        /// Gets the TypeDeclaration for the given type and optional format.
+        /// </summary>
+        /// <param name="type">The type for which to get the type declaration.</param>
+        /// <param name="format">The format for which to get the type declaration.</param>
+        /// <returns>The <see cref="TypeDeclaration"/> corresponding to the type and optional format.</returns>
+        public static TypeDeclaration GetTypeFor(string type, string? format)
         {
             return type switch
             {
-                "integer" => "Menes.JsonInteger",
-                "number" => "Menes.JsonNumber",
-                "boolean" => "Menes.JsonBoolean",
-                "string" => "Menes.JsonString",
-                _ => throw new InvalidOperationException($"Unsupported type name: '{type}'"),
+                "null" => NullTypeDeclaration,
+                "integer" => GetIntegerFor(format),
+                "number" => GetNumberFor(format),
+                "boolean" => ClrBoolTypeDeclaration,
+                "string" => GetStringFor(format),
+                _ => throw new InvalidOperationException($"Unsupported type declaration {type}."),
+            };
+        }
+
+        private static TypeDeclaration GetStringFor(string? format)
+        {
+            return format switch
+            {
+                "date" => ClrDateTypeDeclaration,
+                "datetime" => ClrDateTimeTypeDeclaration,
+                "time" => ClrTimeTypeDeclaration,
+                "duration" => ClrDurationTypeDeclaration,
+                "email" => EmailTypeDeclaration,
+                "idn-email" => IdnEmailTypeDeclaration,
+                "hostname" => HostnameTypeDeclaration,
+                "idn-hostname" => IdnHostnameTypeDeclaration,
+                "ipv4" => IpV4TypeDeclaration,
+                "ipv6" => IpV6TypeDeclaration,
+                "guid" => ClrGuidTypeDeclaration,
+                "uri" => ClrUriTypeDeclaration,
+                "iri" => ClrIriTypeDeclaration,
+                "iri-reference" => ClrIriReferenceTypeDeclaration,
+                _ => ClrStringTypeDeclaration,
+            };
+        }
+
+        private static TypeDeclaration GetNumberFor(string? format)
+        {
+            return format switch
+            {
+                "single" => ClrFloatTypeDeclaration,
+                "double" => ClrDoubleTypeDeclaration,
+                _ => NumberTypeDeclaration,
+            };
+        }
+
+        private static TypeDeclaration GetIntegerFor(string? format)
+        {
+            return format switch
+            {
+                "int32" => ClrInt32TypeDeclaration,
+                "int64" => ClrInt64TypeDeclaration,
+                _ => IntegerTypeDeclaration,
             };
         }
     }

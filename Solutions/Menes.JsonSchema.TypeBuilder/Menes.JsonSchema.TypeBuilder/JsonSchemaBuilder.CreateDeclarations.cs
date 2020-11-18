@@ -448,6 +448,7 @@ namespace Menes.JsonSchema.TypeBuilder
                     if (schema.JsonElement.TryGetProperty("format", out JsonElement format))
                     {
                         ValidateString(format);
+                        typeDeclaration.Format = format.GetString();
                     }
 
                     if (type.ValueKind == JsonValueKind.Array)

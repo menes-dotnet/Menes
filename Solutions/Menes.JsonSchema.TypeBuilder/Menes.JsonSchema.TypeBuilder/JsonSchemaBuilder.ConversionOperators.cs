@@ -339,16 +339,70 @@ namespace Menes.JsonSchema.TypeBuilder
                         TargetType = TypeDeclarations.IpV6TypeDeclaration,
                     });
             }
-            else
+            else if (formatString is string && formatString == "uuid")
             {
                 typeDeclaration.AddConversionOperator(
                     new ConversionOperatorDeclaration
                     {
                         Conversion = ConversionOperatorDeclaration.ConversionType.GenericAsAndStaticFrom,
                         Direction = ConversionOperatorDeclaration.ConversionDirection.BidirectionalImplicit,
-                        TargetType = TypeDeclarations.ClrStringTypeDeclaration,
+                        TargetType = TypeDeclarations.ClrGuidTypeDeclaration,
+                    });
+                typeDeclaration.AddConversionOperator(
+                    new ConversionOperatorDeclaration
+                    {
+                        Conversion = ConversionOperatorDeclaration.ConversionType.Cast,
+                        Direction = ConversionOperatorDeclaration.ConversionDirection.BidirectionalImplicit,
+                        TargetType = TypeDeclarations.ClrGuidRawTypeDeclaration,
+                        Via = TypeDeclarations.ClrGuidTypeDeclaration,
                     });
             }
+            else if (formatString is string && formatString == "uri")
+            {
+                typeDeclaration.AddConversionOperator(
+                    new ConversionOperatorDeclaration
+                    {
+                        Conversion = ConversionOperatorDeclaration.ConversionType.GenericAsAndStaticFrom,
+                        Direction = ConversionOperatorDeclaration.ConversionDirection.BidirectionalImplicit,
+                        TargetType = TypeDeclarations.ClrUriTypeDeclaration,
+                    });
+                typeDeclaration.AddConversionOperator(
+                    new ConversionOperatorDeclaration
+                    {
+                        Conversion = ConversionOperatorDeclaration.ConversionType.Cast,
+                        Direction = ConversionOperatorDeclaration.ConversionDirection.BidirectionalImplicit,
+                        TargetType = TypeDeclarations.ClrUriRawTypeDeclaration,
+                        Via = TypeDeclarations.ClrUriTypeDeclaration,
+                    });
+            }
+            else if (formatString is string && formatString == "iri")
+            {
+                typeDeclaration.AddConversionOperator(
+                    new ConversionOperatorDeclaration
+                    {
+                        Conversion = ConversionOperatorDeclaration.ConversionType.GenericAsAndStaticFrom,
+                        Direction = ConversionOperatorDeclaration.ConversionDirection.BidirectionalImplicit,
+                        TargetType = TypeDeclarations.ClrIriTypeDeclaration,
+                    });
+            }
+            else if (formatString is string && formatString == "iri-reference")
+            {
+                typeDeclaration.AddConversionOperator(
+                    new ConversionOperatorDeclaration
+                    {
+                        Conversion = ConversionOperatorDeclaration.ConversionType.GenericAsAndStaticFrom,
+                        Direction = ConversionOperatorDeclaration.ConversionDirection.BidirectionalImplicit,
+                        TargetType = TypeDeclarations.ClrIriReferenceTypeDeclaration,
+                    });
+            }
+
+            typeDeclaration.AddConversionOperator(
+                new ConversionOperatorDeclaration
+                {
+                    Conversion = ConversionOperatorDeclaration.ConversionType.GenericAsAndStaticFrom,
+                    Direction = ConversionOperatorDeclaration.ConversionDirection.BidirectionalImplicit,
+                    TargetType = TypeDeclarations.ClrStringTypeDeclaration,
+                });
 
             typeDeclaration.AddConversionOperator(
                 new ConversionOperatorDeclaration

@@ -344,6 +344,16 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         public bool IsObjectTypeDeclaration => (this.Type is not null && this.Type.Contains("object")) || this.AdditionalProperties is not null || this.DependentRequired is not null || this.DependentSchemas is not null || this.MaxProperties is not null || this.MinProperties is not null || this.PatternProperties is not null || this.Properties is not null || this.PropertyNames is not null || this.UnevaluatedProperties is not null;
 
         /// <summary>
+        /// Gets a value indicating whether this is an array-type declaration.
+        /// </summary>
+        public bool IsArrayTypeDeclaration => (this.Type is not null && this.Type.Contains("array")) || this.AdditionalItems is not null || this.Items is not null || this.UnevaluatedItems is not null || this.Contains is not null || this.MaxContains is not null || this.MaxItems is not null || this.MinContains is not null || this.MinItems is not null || this.UniqueItems is not null;
+
+        /// <summary>
+        /// Gets or sets the type format.
+        /// </summary>
+        public string? Format { get; set; }
+
+        /// <summary>
         /// Add a conversion operator.
         /// </summary>
         /// <param name="conversionOperatorDeclaration">The operator to add.</param>
@@ -1291,6 +1301,18 @@ namespace Menes.JsonSchema.TypeBuilder.Model
                 return this.lowered;
             }
 
+            if (this.IsNakedType() && this.Type?.Count == 1)
+            {
+                string nakedType = this.Type[0];
+                if (nakedType != "object" && nakedType != "array")
+                {
+                    // If we are empty apart from a single merged type, that is a naked type of a non-compound kind
+                    this.lowered = TypeDeclarations.GetTypeFor(nakedType, this.Format);
+
+                    return this.lowered;
+                }
+            }
+
             // First - we don't change our type schema; we are still the same type, however we got here...
             // Our typename and the "type" of the item comes from us, and we will still parent into the existing
             // parent type
@@ -1318,14 +1340,8 @@ namespace Menes.JsonSchema.TypeBuilder.Model
             {
                 if (mergedTypes.Count == 1 && this.IsNakedReference())
                 {
-                    // If we are empty apart from a single merged type,
+                    // If we are empty apart from a single merged type, that is a reference to another type
                     // then treat us as that merged type.
-                    // Note that the IsRef = true means this instance won't be generated,
-                    // and we are just taking on its properties for inspection purposes.
-                    // If we used the original type directly, we would lose our referential
-                    // scope in the absoluteKeywordLocation hierarchy, and also get into trouble
-                    // with recursive references.
-                    // Switch the base type to the reference.
                     this.lowered = mergedTypes[0].Lowered;
 
                     return this.lowered;
@@ -1366,6 +1382,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
                    this.Enum is null &&
                    this.ExclusiveMaximum is null &&
                    this.ExclusiveMinimum is null &&
+                   this.Format is null &&
                    this.IfThenElse is null &&
                    this.Items is null &&
                    this.MaxContains is null &&
@@ -1387,6 +1404,47 @@ namespace Menes.JsonSchema.TypeBuilder.Model
                    this.Properties is null &&
                    this.PropertyNames is null &&
                    this.Type is null &&
+                   this.UnevaluatedItems is null &&
+                   this.UnevaluatedProperties is null &&
+                   this.UniqueItems is null;
+        }
+
+        private bool IsNakedType()
+        {
+            return
+                   !this.IsRef &&
+                   this.AdditionalItems is null &&
+                   this.AdditionalProperties is null &&
+                   this.AllOf is null &&
+                   this.AnyOf is null &&
+                   this.AsConversionMethods is null &&
+                   this.Const is null &&
+                   this.Contains is null &&
+                   this.ConversionOperators is null &&
+                   this.DependentRequired is null &&
+                   this.Enum is null &&
+                   this.ExclusiveMaximum is null &&
+                   this.ExclusiveMinimum is null &&
+                   this.IfThenElse is null &&
+                   this.Items is null &&
+                   this.MaxContains is null &&
+                   this.Maximum is null &&
+                   this.MaxItems is null &&
+                   this.MaxLength is null &&
+                   this.MaxProperties is null &&
+                   this.MinContains is null &&
+                   this.Minimum is null &&
+                   this.MinItems is null &&
+                   this.MinLength is null &&
+                   this.MinProperties is null &&
+                   this.MultipleOf is null &&
+                   this.Not is null &&
+                   this.OneOf is null &&
+                   this.Pattern is null &&
+                   this.PatternProperties is null &&
+                   this.DependentSchemas is null &&
+                   this.Properties is null &&
+                   this.PropertyNames is null &&
                    this.UnevaluatedItems is null &&
                    this.UnevaluatedProperties is null &&
                    this.UniqueItems is null;

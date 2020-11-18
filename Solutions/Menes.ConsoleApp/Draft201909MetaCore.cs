@@ -720,6 +720,22 @@ namespace TestSpace
             public static readonly SchemaValue Null = default(SchemaValue);
             private readonly System.Text.Json.JsonElement _menesJsonElementBacking;
             private readonly Menes.JsonString? _menesStringTypeBacking;
+            public static implicit operator Menes.JsonUri(SchemaValue value)
+            {
+                return value.As<Menes.JsonUri>();
+            }
+            public static implicit operator SchemaValue(Menes.JsonUri value)
+            {
+                return value.As<Draft201909MetaCore.SchemaValue>();
+            }
+            public static implicit operator System.Uri(SchemaValue value)
+            {
+                return (System.Uri)(Menes.JsonUri)value;
+            }
+            public static implicit operator SchemaValue(System.Uri value)
+            {
+                return (Draft201909MetaCore.SchemaValue)(Menes.JsonUri)value;
+            }
             public static implicit operator Menes.JsonString(SchemaValue value)
             {
                 return value.As<Menes.JsonString>();
@@ -1591,6 +1607,22 @@ namespace TestSpace
                 public static readonly PropertyNamesValue Null = default(PropertyNamesValue);
                 private readonly System.Text.Json.JsonElement _menesJsonElementBacking;
                 private readonly Menes.JsonString? _menesStringTypeBacking;
+                public static implicit operator Menes.JsonUri(PropertyNamesValue value)
+                {
+                    return value.As<Menes.JsonUri>();
+                }
+                public static implicit operator PropertyNamesValue(Menes.JsonUri value)
+                {
+                    return value.As<Draft201909MetaCore.VocabularyEntity.PropertyNamesValue>();
+                }
+                public static implicit operator System.Uri(PropertyNamesValue value)
+                {
+                    return (System.Uri)(Menes.JsonUri)value;
+                }
+                public static implicit operator PropertyNamesValue(System.Uri value)
+                {
+                    return (Draft201909MetaCore.VocabularyEntity.PropertyNamesValue)(Menes.JsonUri)value;
+                }
                 public static implicit operator Menes.JsonString(PropertyNamesValue value)
                 {
                     return value.As<Menes.JsonString>();

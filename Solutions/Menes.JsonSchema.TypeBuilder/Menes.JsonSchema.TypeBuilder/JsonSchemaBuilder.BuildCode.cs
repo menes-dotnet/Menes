@@ -478,7 +478,7 @@ namespace Menes.JsonSchema.TypeBuilder
                     if (type != "object" && type != "array" && type != "null")
                     {
                         string typeAsPascalCase = Formatting.ToPascalCaseWithReservedWords(type).ToString();
-                        string typeName = TypeDeclarations.GetTypeNameFor(type);
+                        string typeName = TypeDeclarations.GetTypeNameFor(type, typeDeclaration.Format);
 
                         memberBuilder.AppendLine($"private readonly {typeName}? _menes{typeAsPascalCase}TypeBacking;");
                     }
