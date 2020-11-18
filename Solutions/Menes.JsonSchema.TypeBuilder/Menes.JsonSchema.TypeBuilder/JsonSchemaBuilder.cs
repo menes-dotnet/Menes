@@ -88,8 +88,16 @@ namespace Menes.JsonSchema.TypeBuilder
                 if (loweredType.Parent is null && !generatedTypeNames.Contains(loweredType.FullyQualifiedDotNetTypeName!))
                 {
                     memberBuilder.Clear();
+                    memberBuilder.AppendLine($"// <copyright file=\"{loweredType.DotnetTypeName}.cs\" company=\"Endjin Limited\">");
+                    memberBuilder.AppendLine("// Copyright (c) Endjin Limited. All rights reserved.");
+                    memberBuilder.AppendLine("// </copyright>");
+                    memberBuilder.AppendLine("#pragma warning disable");
+                    memberBuilder.AppendLine("namespace TestSpace");
+                    memberBuilder.AppendLine("{");
                     this.BuildCode(loweredType, memberBuilder);
                     generatedTypeNames.Add(loweredType.FullyQualifiedDotNetTypeName!);
+                    memberBuilder.AppendLine("}");
+                    System.IO.File.WriteAllText($"C:\\Users\\matth\\OneDrive\\Desktop\\{loweredType.DotnetTypeName}.cs", memberBuilder.ToString());
                 }
             }
         }

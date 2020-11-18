@@ -1,9 +1,7 @@
 // <copyright file="Draft201909MetaValidation.cs" company="Endjin Limited">
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
-
 #pragma warning disable
-
 using System;
 
 namespace TestSpace

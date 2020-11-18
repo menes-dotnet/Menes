@@ -39,6 +39,9 @@ namespace Menes.JsonSchema.TypeBuilder
             this.BuildTypeBackingFields(typeDeclaration, memberBuilder);
             this.BuildPropertyBackingFields(typeDeclaration, memberBuilder);
 
+            // Conversion operators
+            this.BuildConversionOperators(typeDeclaration, memberBuilder);
+
             // Public properties
             this.BuildUndefinedAndNullProperties(memberBuilder);
             this.BuildJsonElementProperties(memberBuilder);
@@ -57,6 +60,70 @@ namespace Menes.JsonSchema.TypeBuilder
             // Embedded types
             this.BuildEmbeddedTypes(typeDeclaration, memberBuilder);
             memberBuilder.AppendLine("}");
+        }
+
+        private void BuildConversionOperators(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
+        {
+            if (typeDeclaration.ConversionOperators is null)
+            {
+                return;
+            }
+
+            foreach (ConversionOperatorDeclaration op in typeDeclaration.ConversionOperators)
+            {
+                if (op.TargetType is null)
+                {
+                    throw new InvalidOperationException("You must set the conversion operator target type before use.");
+                }
+
+                if (op.Direction.HasFlag(ConversionOperatorDeclaration.ConversionDirection.FromImplicit))
+                {
+                    memberBuilder.AppendLine($"public static implicit operator {op.TargetType.FullyQualifiedDotNetTypeName}({typeDeclaration.DotnetTypeName} value)");
+                    memberBuilder.AppendLine("{");
+                    this.BuildConversionOperator(op.Conversion, op.TargetType, memberBuilder);
+                    memberBuilder.AppendLine("}");
+                }
+
+                if (op.Direction.HasFlag(ConversionOperatorDeclaration.ConversionDirection.FromExplicit))
+                {
+                    memberBuilder.AppendLine($"public static explicit operator {op.TargetType.FullyQualifiedDotNetTypeName}({typeDeclaration.DotnetTypeName} value)");
+                    memberBuilder.AppendLine("{");
+                    this.BuildConversionOperator(op.Conversion, op.TargetType, memberBuilder);
+                    memberBuilder.AppendLine("}");
+                }
+
+                if (op.Direction.HasFlag(ConversionOperatorDeclaration.ConversionDirection.ToImplicit))
+                {
+                    memberBuilder.AppendLine($"public static implicit operator {typeDeclaration.DotnetTypeName}({op.TargetType.FullyQualifiedDotNetTypeName} value)");
+                    memberBuilder.AppendLine("{");
+                    this.BuildConversionOperator(op.Conversion, typeDeclaration, memberBuilder);
+                    memberBuilder.AppendLine("}");
+                }
+
+                if (op.Direction.HasFlag(ConversionOperatorDeclaration.ConversionDirection.ToExplicit))
+                {
+                    memberBuilder.AppendLine($"public static explicit operator {typeDeclaration.DotnetTypeName}({op.TargetType.FullyQualifiedDotNetTypeName} value)");
+                    memberBuilder.AppendLine("{");
+                    this.BuildConversionOperator(op.Conversion, typeDeclaration, memberBuilder);
+                    memberBuilder.AppendLine("}");
+                }
+            }
+        }
+
+        private void BuildConversionOperator(ConversionOperatorDeclaration.ConversionType conversion, TypeDeclaration targetType, StringBuilder memberBuilder)
+        {
+            switch (conversion)
+            {
+                case ConversionOperatorDeclaration.ConversionType.Cast:
+                    memberBuilder.AppendLine($"    return ({targetType.FullyQualifiedDotNetTypeName})value;");
+                    break;
+                case ConversionOperatorDeclaration.ConversionType.Constructor:
+                    memberBuilder.AppendLine($"    return new {targetType.FullyQualifiedDotNetTypeName}(value);");
+                    break;
+                case ConversionOperatorDeclaration.ConversionType.GenericAsAndStaticFrom:
+                    memberBuilder.AppendLine($"    return Menes.JsonValue.As<{targetType.FullyQualifiedDotNetTypeName}>(value);");
+                    break;
+            }
         }
 
         private void BuildNull(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
