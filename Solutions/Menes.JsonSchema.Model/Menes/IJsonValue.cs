@@ -65,8 +65,10 @@ namespace Menes
         /// <param name="validationResult">The current validation result.</param>
         /// <param name="level">The required validation level.</param>
         /// <param name="evaluatedProperties">The properties that have been evaluated.</param>
-        /// <returns>The validation context updated with the results of the validation.</returns>
-        ValidationResult Validate(in ValidationResult validationResult, ValidationLevel level = ValidationLevel.Flag, HashSet<string>? evaluatedProperties = null);
+        /// <param name="absoluteKeywordLocation">The stack of absolute keyword locations in the validation.</param>
+        /// <param name="instanceLocation">The stack of instance locations for the validation.</param>
+        /// <returns>The validation updated with the results of the validation.</returns>
+        ValidationResult Validate(ValidationResult? validationResult = null, ValidationLevel level = ValidationLevel.Flag, HashSet<string>? evaluatedProperties = null, Stack<string>? absoluteKeywordLocation = null, Stack<string>? instanceLocation = null);
 
         /// <summary>
         /// Try to get a named property.

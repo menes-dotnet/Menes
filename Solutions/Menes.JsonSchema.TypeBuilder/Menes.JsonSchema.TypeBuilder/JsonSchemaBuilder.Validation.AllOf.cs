@@ -17,7 +17,7 @@ namespace Menes.JsonSchema.TypeBuilder
         {
             if (typeDeclaration.AllOf is List<TypeDeclaration>)
             {
-                memberBuilder.AppendLine("result = ValidateAllOf(result, level, evaluatedProperties);");
+                memberBuilder.AppendLine("result = ValidateAllOf(result, level, evaluatedProperties, absoluteKeywordLocation, instanceLocation);");
             }
         }
 
@@ -27,7 +27,7 @@ namespace Menes.JsonSchema.TypeBuilder
             {
                 this.PushPropertyToAbsoluteKeywordLocationStack("allOf");
 
-                memberBuilder.AppendLine("Menes.ValidatationResult ValidateAllOf(in Menes.ValidationResult validationResult, Menes.ValidationLevel level = Menes.ValidationLevel.Flag, System.Collections.Generic.HashSet<string>? evaluatedProperties = null)");
+                memberBuilder.AppendLine("Menes.ValidatationResult ValidateAllOf(Menes.ValidationResult validationResult, Menes.ValidationLevel level = Menes.ValidationLevel.Flag, System.Collections.Generic.HashSet<string>? evaluatedProperties = null, System.Collections.Generic.Stack<string>? absoluteKeywordLocation = null, System.Collections.Generic.Stack<string>? instanceLocation = null)");
                 memberBuilder.AppendLine("{");
                 memberBuilder.AppendLine("  Menes.ValidationResult result = validationResult;");
 
@@ -35,15 +35,18 @@ namespace Menes.JsonSchema.TypeBuilder
                 foreach (TypeDeclaration allOfType in typeDeclaration.AllOf)
                 {
                     this.PushArrayIndexToAbsoluteKeywordLocationStack(allOfIndex);
+
+                    this.BuildPushAbsoluteKeywordLocation(memberBuilder);
+
                     memberBuilder.AppendLine($"var allOf{allOfIndex} = this.{this.GetAsMethodNameFor(allOfType)}();");
 
                     if (typeDeclaration.UnevaluatedProperties is not null)
                     {
-                        memberBuilder.AppendLine($"result = allOf{allOfIndex}.Validate(result, level, localEvaluatedProperties);");
+                        memberBuilder.AppendLine($"result = allOf{allOfIndex}.Validate(result, level, localEvaluatedProperties, absoluteKeywordLocation, instanceLocation);");
                     }
                     else
                     {
-                        memberBuilder.AppendLine($"result = allOf{allOfIndex}.Validate(result, level);");
+                        memberBuilder.AppendLine($"result = allOf{allOfIndex}.Validate(result, level, absoluteKeywordLocation: absoluteKeywordLocation, instanceLocation: instanceLocation);");
                     }
 
                     memberBuilder.AppendLine("if (level == Menes.ValidationLevel.Flag && !result.Valid)");
@@ -52,6 +55,8 @@ namespace Menes.JsonSchema.TypeBuilder
                     memberBuilder.AppendLine("}");
 
                     ++allOfIndex;
+
+                    this.BuildPopAbsoluteKeywordLocation(memberBuilder);
                     this.absoluteKeywordLocationStack.Pop();
                 }
 

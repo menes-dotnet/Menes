@@ -226,7 +226,7 @@ namespace Menes.JsonSchema.TypeBuilder
             memberBuilder.AppendLine("    where T : struct, Menes.IJsonValue");
             memberBuilder.AppendLine("{");
             memberBuilder.AppendLine("    T item = this.As<T>();");
-            memberBuilder.AppendLine("    return item.Validate(Menes.ValidationResult.ValidResult, Menes.ValidationLevel.Flag).Valid;");
+            memberBuilder.AppendLine("    return item.Validate().Valid;");
             memberBuilder.AppendLine("}");
         }
 

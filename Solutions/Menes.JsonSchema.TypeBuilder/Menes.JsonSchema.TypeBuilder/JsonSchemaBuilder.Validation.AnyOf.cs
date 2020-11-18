@@ -17,7 +17,7 @@ namespace Menes.JsonSchema.TypeBuilder
         {
             if (typeDeclaration.AnyOf is List<TypeDeclaration>)
             {
-                memberBuilder.AppendLine("result = ValidateAnyOf(result, level, evaluatedProperties);");
+                memberBuilder.AppendLine("result = ValidateAnyOf(result, level, evaluatedProperties, absoluteKeywordLocation, instanceLocation);");
             }
         }
 
@@ -25,7 +25,7 @@ namespace Menes.JsonSchema.TypeBuilder
         {
             if (typeDeclaration.AnyOf is List<TypeDeclaration>)
             {
-                memberBuilder.AppendLine("Menes.ValidatationResult ValidateAnyOf(in Menes.ValidationResult validationResult, Menes.ValidationLevel level = Menes.ValidationLevel.Flag, System.Collections.Generic.HashSet<string>? evaluatedProperties = null)");
+                memberBuilder.AppendLine("Menes.ValidatationResult ValidateAnyOf(in Menes.ValidationResult validationResult, Menes.ValidationLevel level = Menes.ValidationLevel.Flag, System.Collections.Generic.HashSet<string>? evaluatedProperties = null, System.Collections.Generic.Stack<string>? absoluteKeywordLocation = null, System.Collections.Generic.Stack<string>? instanceLocation = null)");
                 memberBuilder.AppendLine("{");
 
                 this.PushPropertyToAbsoluteKeywordLocationStack("anyOf");
@@ -38,11 +38,11 @@ namespace Menes.JsonSchema.TypeBuilder
 
                     if (typeDeclaration.UnevaluatedProperties is not null)
                     {
-                        memberBuilder.AppendLine($"var anyOfResult{anyOfIndex} = anyOf{anyOfIndex}.Validate(result, level, localEvaluatedProperties);");
+                        memberBuilder.AppendLine($"var anyOfResult{anyOfIndex} = anyOf{anyOfIndex}.Validate(result, level, localEvaluatedProperties, absoluteKeywordLocation, instanceLocation);");
                     }
                     else
                     {
-                        memberBuilder.AppendLine($"var anyOfResult{anyOfIndex} = anyOf{anyOfIndex}.Validate(result, level);");
+                        memberBuilder.AppendLine($"var anyOfResult{anyOfIndex} = anyOf{anyOfIndex}.Validate(result, level, absoluteKeywordLocation: absoluteKeywordLocation, instanceLocation: instanceLocation);");
                     }
 
                     // We can short circuit if we are at "flag" level as soon as we find a valid result.
@@ -52,6 +52,7 @@ namespace Menes.JsonSchema.TypeBuilder
                     memberBuilder.AppendLine("}");
 
                     ++anyOfIndex;
+                    this.BuildPopAbsoluteKeywordLocation(memberBuilder);
                     this.absoluteKeywordLocationStack.Pop();
                 }
 
@@ -72,7 +73,7 @@ namespace Menes.JsonSchema.TypeBuilder
                 memberBuilder.AppendLine("}");
                 memberBuilder.AppendLine("else");
                 memberBuilder.AppendLine("{");
-                this.WriteSuccess("9.2.1.2. anyOf", memberBuilder);
+                this.WriteSuccess(memberBuilder);
                 memberBuilder.AppendLine("}");
 
                 memberBuilder.AppendLine("    return result;");

@@ -17,7 +17,7 @@ namespace Menes.JsonSchema.TypeBuilder
         /// </summary>
         private void BuildSchemaValidation(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
         {
-            memberBuilder.AppendLine("Menes.ValidationResult result = validationResult;");
+            memberBuilder.AppendLine("Menes.ValidationResult result = validationResult ?? Menes.ValidationResult.ValidResult;");
 
             AddLocalEvaluatedProperties(typeDeclaration, memberBuilder);
 

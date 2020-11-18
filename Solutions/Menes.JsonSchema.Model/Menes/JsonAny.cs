@@ -96,12 +96,19 @@ namespace Menes
         }
 
         /// <inheritdoc />
-        public ValidationResult Validate(in ValidationResult validationResult, ValidationLevel level = ValidationLevel.Flag, HashSet<string>? evaluatedProperties = null)
+        public ValidationResult Validate(ValidationResult? validationResult = null, ValidationLevel level = ValidationLevel.Flag, HashSet<string>? evaluatedProperties = null, Stack<string>? absoluteKeywordLocation = null, Stack<string>? instanceLocation = null)
         {
-            ValidationResult result = validationResult;
+            ValidationResult result = validationResult ?? ValidationResult.ValidResult;
+
             if (level == Menes.ValidationLevel.Verbose)
             {
-                result = result.AddResult(valid: true, message: "{}/true validation");
+                string? il = null;
+                string? akl = null;
+
+                instanceLocation?.TryPeek(out il);
+                absoluteKeywordLocation?.TryPeek(out akl);
+
+                result.AddResult(valid: true, message: "6.1.1.  type is '{}'", instanceLocation: il, absoluteKeywordLocation: akl);
             }
 
             return result;

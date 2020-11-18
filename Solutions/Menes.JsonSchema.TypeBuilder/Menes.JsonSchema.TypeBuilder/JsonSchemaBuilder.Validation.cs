@@ -7,6 +7,7 @@ namespace Menes.JsonSchema.TypeBuilder
     using System;
     using System.Text;
     using System.Text.Json;
+    using Menes.Json;
     using Menes.JsonSchema.TypeBuilder.Model;
 
     /// <summary>
@@ -24,9 +25,8 @@ namespace Menes.JsonSchema.TypeBuilder
             this.absoluteKeywordLocationStack.Push(typeDeclaration.TypeSchema.AbsoluteKeywordLocation);
 
             memberBuilder.AppendLine("/// <inheritdoc />");
-            memberBuilder.AppendLine("public Menes.ValidationResult Validate(in Menes.ValidationResult validationResult, Menes.ValidationLevel level = Menes.ValidationLevel.Flag, System.Collections.Generic.HashSet<string>? evaluatedProperties = null)");
+            memberBuilder.AppendLine("public Menes.ValidationResult Validate(Menes.ValidationResult? validationResult = null, Menes.ValidationLevel level = Menes.ValidationLevel.Flag, System.Collections.Generic.HashSet<string>? evaluatedProperties = null, System.Collections.Generic.Stack<string>? absoluteKeywordLocation = null, System.Collections.Generic.Stack<string>? instanceLocation = null)");
             memberBuilder.AppendLine("{");
-
             try
             {
                 switch (typeDeclaration.TypeSchema.JsonElement.ValueKind)
@@ -63,31 +63,55 @@ namespace Menes.JsonSchema.TypeBuilder
         /// <param name="memberBuilder">The string builder to which to write the error.</param>
         private void WriteError(string message, StringBuilder memberBuilder)
         {
-            memberBuilder.AppendLine("  if (level >= Menes.ValidationLevel.Detailed)");
-            memberBuilder.AppendLine("  {");
-            memberBuilder.AppendLine($"      result = result.AddResult(valid: false, absoluteKeywordLocation: {this.WriteAbsoluteKeywordLocation()}, instanceLocation: this.instanceLocation, error: \"{message}\");");
-            memberBuilder.AppendLine("  }");
-            memberBuilder.AppendLine("  else if (level == Menes.ValidationLevel.Basic)");
-            memberBuilder.AppendLine("  {");
-            memberBuilder.AppendLine($"      result.AddResult(valid: false, absoluteKeywordLocation: {this.WriteAbsoluteKeywordLocation()}, instanceLocation: this.instanceLocation, error: \"{message}\");");
-            memberBuilder.AppendLine("  }");
-            memberBuilder.AppendLine("  else");
-            memberBuilder.AppendLine("  {");
-            memberBuilder.AppendLine($"      result = result.SetValid(false);");
-            memberBuilder.AppendLine("  }");
+            memberBuilder.AppendLine("if (level >= Menes.ValidationLevel.Basic)");
+            memberBuilder.AppendLine("{");
+            memberBuilder.AppendLine("    string? il = null;");
+            memberBuilder.AppendLine("    string? akl = null;");
+            memberBuilder.AppendLine("    instanceLocation?.TryPeek(out il);");
+            memberBuilder.AppendLine("    absoluteKeywordLocation?.TryPeek(out akl);");
+            memberBuilder.AppendLine($"    result.AddResult(valid: false, message: {Formatting.FormatLiteralOrNull(message, true)}, instanceLocation: il, absoluteKeywordLocation: akl);");
+            memberBuilder.AppendLine("}");
+            memberBuilder.AppendLine("else");
+            memberBuilder.AppendLine("{");
+            memberBuilder.AppendLine("    result.SetValid(false);");
+            memberBuilder.AppendLine("}");
         }
 
         /// <summary>
         /// Write a success message to the validation result.
         /// </summary>
-        /// <param name="message">The message to write.</param>
         /// <param name="memberBuilder">The string builder to which to write the success.</param>
-        private void WriteSuccess(string message, StringBuilder memberBuilder)
+        private void WriteSuccess(StringBuilder memberBuilder)
         {
-            memberBuilder.AppendLine("  if (level == Menes.ValidationLevel.Verbose)");
-            memberBuilder.AppendLine("  {");
-            memberBuilder.AppendLine($"      result = result.AddResult(valid: true, absoluteKeywordLocation: {this.WriteAbsoluteKeywordLocation()}, instanceLocation: this.instanceLocation, error: \"{message}\");");
-            memberBuilder.AppendLine("  }");
+            memberBuilder.AppendLine("if (level == ValidationLevel.Verbose)");
+            memberBuilder.AppendLine("{");
+            memberBuilder.AppendLine("    string? il = null;");
+            memberBuilder.AppendLine("    string? akl = null;");
+            memberBuilder.AppendLine("    instanceLocation?.TryPeek(out il);");
+            memberBuilder.AppendLine("    absoluteKeywordLocation?.TryPeek(out akl);");
+            memberBuilder.AppendLine("    result.AddResult(valid: true, instanceLocation: il, absoluteKeywordLocation: akl);");
+            memberBuilder.AppendLine("}");
+        }
+
+        private void BuildPopAbsoluteKeywordLocation(StringBuilder memberBuilder)
+        {
+            memberBuilder.AppendLine("if (absoluteKeywordLocation is System.Collections.Generic.Stack<string> akl)");
+            memberBuilder.AppendLine("{");
+            memberBuilder.AppendLine("    akl.Pop();");
+            memberBuilder.AppendLine("}");
+        }
+
+        private void BuildPushAbsoluteKeywordLocation(JsonReference jsonReference, StringBuilder memberBuilder)
+        {
+            memberBuilder.AppendLine("if (absoluteKeywordLocation is System.Collections.Generic.Stack<string> akl)");
+            memberBuilder.AppendLine("{");
+            memberBuilder.AppendLine($"    akl.Push({Formatting.FormatLiteralOrNull(jsonReference, true)});");
+            memberBuilder.AppendLine("}");
+        }
+
+        private void BuildPushAbsoluteKeywordLocation(StringBuilder memberBuilder)
+        {
+            this.BuildPushAbsoluteKeywordLocation(this.absoluteKeywordLocationStack.Peek(), memberBuilder);
         }
     }
 }

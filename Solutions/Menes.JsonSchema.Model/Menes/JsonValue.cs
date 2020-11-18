@@ -25,7 +25,7 @@ namespace Menes
         /// <typeparam name="T">The type of <see cref="IJsonValue"/> to get.</typeparam>
         /// <param name="element">The <see cref="JsonElement"/> around which to create the instance.</param>
         /// <returns>An instance of the given <see cref="IJsonValue"/>.</returns>
-        /// <remarks>This may not be a valid instance. Call <see cref="IJsonValue.Validate(in ValidationResult, ValidationLevel, System.Collections.Generic.HashSet{string})"/> to determine whether it is or not, after construction.</remarks>
+        /// <remarks>This may not be a valid instance. Call <see cref="IJsonValue.Validate(ValidationResult?, ValidationLevel, System.Collections.Generic.HashSet{string}?, System.Collections.Generic.Stack{string}?, System.Collections.Generic.Stack{string}?)"/> to determine whether it is or not, after construction.</remarks>
         public static T As<T>(this JsonElement element)
             where T : struct, IJsonValue
         {
