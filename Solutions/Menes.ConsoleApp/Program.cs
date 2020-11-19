@@ -37,6 +37,21 @@ namespace Menes.ConsoleApp
                     Console.WriteLine(item);
                 }
             }
+
+            var schema2 = new Draft201909Schema(type: "string");
+            if (schema2.Validate().Valid)
+            {
+                Console.WriteLine("Hooray!");
+            }
+            else
+            {
+                Console.WriteLine("Boo!");
+            }
+
+            if (schema2.Type is Draft201909MetaValidation.TypeEntity type2)
+            {
+                Console.WriteLine(type2);
+            }
         }
 
         /// <summary>
