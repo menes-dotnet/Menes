@@ -188,13 +188,13 @@ namespace TestSpace
         private readonly System.Collections.Immutable.ImmutableArray<Menes.AdditionalProperty<Menes.JsonAny>> _menesAdditionalPropertiesBacking;
         private readonly Menes.JsonBoolean? _menesBooleanTypeBacking;
         private readonly Draft201909MetaCore.IdValue? id;
-        private readonly Draft201909MetaCore.SchemaValue? schema;
+        private readonly Menes.JsonUri? schema;
         private readonly Draft201909MetaCore.AnchorValue? anchor;
-        private readonly Draft201909MetaCore.RefValue? @ref;
-        private readonly Draft201909MetaCore.RecursiveRefValue? recursiveRef;
-        private readonly Draft201909MetaCore.RecursiveAnchorValue? recursiveAnchor;
+        private readonly Menes.JsonString? @ref;
+        private readonly Menes.JsonString? recursiveRef;
+        private readonly Menes.JsonBoolean? recursiveAnchor;
         private readonly Draft201909MetaCore.VocabularyEntity? vocabulary;
-        private readonly Draft201909MetaCore.CommentValue? comment;
+        private readonly Menes.JsonString? comment;
         private readonly Draft201909MetaCore.DefsEntity? defs;
         private readonly Draft201909MetaApplicator? additionalItems;
         private readonly Draft201909MetaApplicator? unevaluatedItems;
@@ -214,16 +214,16 @@ namespace TestSpace
         private readonly Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity? oneOf;
         private readonly Draft201909MetaApplicator? not;
         private readonly Draft201909MetaValidation.MultipleOfValue? multipleOf;
-        private readonly Draft201909MetaValidation.MaximumValue? maximum;
-        private readonly Draft201909MetaValidation.ExclusiveMaximumValue? exclusiveMaximum;
-        private readonly Draft201909MetaValidation.MinimumValue? minimum;
-        private readonly Draft201909MetaValidation.ExclusiveMinimumValue? exclusiveMinimum;
+        private readonly Menes.JsonNumber? maximum;
+        private readonly Menes.JsonNumber? exclusiveMaximum;
+        private readonly Menes.JsonNumber? minimum;
+        private readonly Menes.JsonNumber? exclusiveMinimum;
         private readonly Draft201909MetaValidation.NonNegativeIntegerValue? maxLength;
         private readonly Draft201909MetaValidation.NonNegativeIntegerValue? minLength;
-        private readonly Draft201909MetaValidation.PatternValue? pattern;
+        private readonly Menes.JsonString? pattern;
         private readonly Draft201909MetaValidation.NonNegativeIntegerValue? maxItems;
         private readonly Draft201909MetaValidation.NonNegativeIntegerValue? minItems;
-        private readonly Draft201909MetaValidation.UniqueItemsValue? uniqueItems;
+        private readonly Menes.JsonBoolean? uniqueItems;
         private readonly Draft201909MetaValidation.NonNegativeIntegerValue? maxContains;
         private readonly Draft201909MetaValidation.NonNegativeIntegerValue? minContains;
         private readonly Draft201909MetaValidation.NonNegativeIntegerValue? maxProperties;
@@ -233,16 +233,16 @@ namespace TestSpace
         private readonly Draft201909MetaValidation.ConstEntity? @const;
         private readonly Draft201909MetaValidation.EnumArray? @enum;
         private readonly Draft201909MetaValidation.TypeEntity? type;
-        private readonly Draft201909MetaMetaData.TitleValue? title;
-        private readonly Draft201909MetaMetaData.DescriptionValue? description;
+        private readonly Menes.JsonString? title;
+        private readonly Menes.JsonString? description;
         private readonly Draft201909MetaMetaData.DefaultEntity? @default;
-        private readonly Draft201909MetaMetaData.DeprecatedValue? deprecated;
-        private readonly Draft201909MetaMetaData.ReadOnlyValue? readOnly;
-        private readonly Draft201909MetaMetaData.WriteOnlyValue? writeOnly;
+        private readonly Menes.JsonBoolean? deprecated;
+        private readonly Menes.JsonBoolean? readOnly;
+        private readonly Menes.JsonBoolean? writeOnly;
         private readonly Draft201909MetaMetaData.ExamplesArray? examples;
-        private readonly Draft201909MetaFormat.FormatValue? format;
-        private readonly Draft201909MetaContent.ContentMediaTypeValue? contentMediaType;
-        private readonly Draft201909MetaContent.ContentEncodingValue? contentEncoding;
+        private readonly Menes.JsonString? format;
+        private readonly Menes.JsonString? contentMediaType;
+        private readonly Menes.JsonString? contentEncoding;
         private readonly Draft201909MetaContent? contentSchema;
         private readonly Draft201909Schema.DefinitionsEntity? definitions;
         private readonly Draft201909Schema.DependenciesEntity? dependencies;
@@ -319,13 +319,13 @@ namespace TestSpace
         /// <inheritdoc />
         public System.Text.Json.JsonElement JsonElement => this._menesJsonElementBacking;
         public Draft201909MetaCore.IdValue? Id => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaCore.IdValue>(_MenesIdUtf8JsonPropertyName.Span) : this.id;
-        public Draft201909MetaCore.SchemaValue? Schema => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaCore.SchemaValue>(_MenesSchemaUtf8JsonPropertyName.Span) : this.schema;
+        public Menes.JsonUri? Schema => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Menes.JsonUri>(_MenesSchemaUtf8JsonPropertyName.Span) : this.schema;
         public Draft201909MetaCore.AnchorValue? Anchor => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaCore.AnchorValue>(_MenesAnchorUtf8JsonPropertyName.Span) : this.anchor;
-        public Draft201909MetaCore.RefValue? Ref => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaCore.RefValue>(_MenesRefUtf8JsonPropertyName.Span) : this.@ref;
-        public Draft201909MetaCore.RecursiveRefValue? RecursiveRef => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaCore.RecursiveRefValue>(_MenesRecursiveRefUtf8JsonPropertyName.Span) : this.recursiveRef;
-        public Draft201909MetaCore.RecursiveAnchorValue? RecursiveAnchor => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaCore.RecursiveAnchorValue>(_MenesRecursiveAnchorUtf8JsonPropertyName.Span) : this.recursiveAnchor;
+        public Menes.JsonString? Ref => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Menes.JsonString>(_MenesRefUtf8JsonPropertyName.Span) : this.@ref;
+        public Menes.JsonString? RecursiveRef => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Menes.JsonString>(_MenesRecursiveRefUtf8JsonPropertyName.Span) : this.recursiveRef;
+        public Menes.JsonBoolean? RecursiveAnchor => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Menes.JsonBoolean>(_MenesRecursiveAnchorUtf8JsonPropertyName.Span) : this.recursiveAnchor;
         public Draft201909MetaCore.VocabularyEntity? Vocabulary => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaCore.VocabularyEntity>(_MenesVocabularyUtf8JsonPropertyName.Span) : this.vocabulary;
-        public Draft201909MetaCore.CommentValue? Comment => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaCore.CommentValue>(_MenesCommentUtf8JsonPropertyName.Span) : this.comment;
+        public Menes.JsonString? Comment => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Menes.JsonString>(_MenesCommentUtf8JsonPropertyName.Span) : this.comment;
         public Draft201909MetaCore.DefsEntity? Defs => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaCore.DefsEntity>(_MenesDefsUtf8JsonPropertyName.Span) : this.defs;
         public Draft201909MetaApplicator? AdditionalItems => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator>(_MenesAdditionalItemsUtf8JsonPropertyName.Span) : this.additionalItems;
         public Draft201909MetaApplicator? UnevaluatedItems => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator>(_MenesUnevaluatedItemsUtf8JsonPropertyName.Span) : this.unevaluatedItems;
@@ -345,16 +345,16 @@ namespace TestSpace
         public Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity? OneOf => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity>(_MenesOneOfUtf8JsonPropertyName.Span) : this.oneOf;
         public Draft201909MetaApplicator? Not => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator>(_MenesNotUtf8JsonPropertyName.Span) : this.not;
         public Draft201909MetaValidation.MultipleOfValue? MultipleOf => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaValidation.MultipleOfValue>(_MenesMultipleOfUtf8JsonPropertyName.Span) : this.multipleOf;
-        public Draft201909MetaValidation.MaximumValue? Maximum => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaValidation.MaximumValue>(_MenesMaximumUtf8JsonPropertyName.Span) : this.maximum;
-        public Draft201909MetaValidation.ExclusiveMaximumValue? ExclusiveMaximum => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaValidation.ExclusiveMaximumValue>(_MenesExclusiveMaximumUtf8JsonPropertyName.Span) : this.exclusiveMaximum;
-        public Draft201909MetaValidation.MinimumValue? Minimum => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaValidation.MinimumValue>(_MenesMinimumUtf8JsonPropertyName.Span) : this.minimum;
-        public Draft201909MetaValidation.ExclusiveMinimumValue? ExclusiveMinimum => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaValidation.ExclusiveMinimumValue>(_MenesExclusiveMinimumUtf8JsonPropertyName.Span) : this.exclusiveMinimum;
+        public Menes.JsonNumber? Maximum => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Menes.JsonNumber>(_MenesMaximumUtf8JsonPropertyName.Span) : this.maximum;
+        public Menes.JsonNumber? ExclusiveMaximum => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Menes.JsonNumber>(_MenesExclusiveMaximumUtf8JsonPropertyName.Span) : this.exclusiveMaximum;
+        public Menes.JsonNumber? Minimum => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Menes.JsonNumber>(_MenesMinimumUtf8JsonPropertyName.Span) : this.minimum;
+        public Menes.JsonNumber? ExclusiveMinimum => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Menes.JsonNumber>(_MenesExclusiveMinimumUtf8JsonPropertyName.Span) : this.exclusiveMinimum;
         public Draft201909MetaValidation.NonNegativeIntegerValue? MaxLength => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaValidation.NonNegativeIntegerValue>(_MenesMaxLengthUtf8JsonPropertyName.Span) : this.maxLength;
         public Draft201909MetaValidation.NonNegativeIntegerValue? MinLength => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaValidation.NonNegativeIntegerValue>(_MenesMinLengthUtf8JsonPropertyName.Span) : this.minLength;
-        public Draft201909MetaValidation.PatternValue? Pattern => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaValidation.PatternValue>(_MenesPatternUtf8JsonPropertyName.Span) : this.pattern;
+        public Menes.JsonString? Pattern => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Menes.JsonString>(_MenesPatternUtf8JsonPropertyName.Span) : this.pattern;
         public Draft201909MetaValidation.NonNegativeIntegerValue? MaxItems => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaValidation.NonNegativeIntegerValue>(_MenesMaxItemsUtf8JsonPropertyName.Span) : this.maxItems;
         public Draft201909MetaValidation.NonNegativeIntegerValue? MinItems => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaValidation.NonNegativeIntegerValue>(_MenesMinItemsUtf8JsonPropertyName.Span) : this.minItems;
-        public Draft201909MetaValidation.UniqueItemsValue? UniqueItems => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaValidation.UniqueItemsValue>(_MenesUniqueItemsUtf8JsonPropertyName.Span) : this.uniqueItems;
+        public Menes.JsonBoolean? UniqueItems => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Menes.JsonBoolean>(_MenesUniqueItemsUtf8JsonPropertyName.Span) : this.uniqueItems;
         public Draft201909MetaValidation.NonNegativeIntegerValue? MaxContains => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaValidation.NonNegativeIntegerValue>(_MenesMaxContainsUtf8JsonPropertyName.Span) : this.maxContains;
         public Draft201909MetaValidation.NonNegativeIntegerValue? MinContains => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaValidation.NonNegativeIntegerValue>(_MenesMinContainsUtf8JsonPropertyName.Span) : this.minContains;
         public Draft201909MetaValidation.NonNegativeIntegerValue? MaxProperties => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaValidation.NonNegativeIntegerValue>(_MenesMaxPropertiesUtf8JsonPropertyName.Span) : this.maxProperties;
@@ -364,16 +364,16 @@ namespace TestSpace
         public Draft201909MetaValidation.ConstEntity? Const => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaValidation.ConstEntity>(_MenesConstUtf8JsonPropertyName.Span) : this.@const;
         public Draft201909MetaValidation.EnumArray? Enum => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaValidation.EnumArray>(_MenesEnumUtf8JsonPropertyName.Span) : this.@enum;
         public Draft201909MetaValidation.TypeEntity? Type => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaValidation.TypeEntity>(_MenesTypeUtf8JsonPropertyName.Span) : this.type;
-        public Draft201909MetaMetaData.TitleValue? Title => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaMetaData.TitleValue>(_MenesTitleUtf8JsonPropertyName.Span) : this.title;
-        public Draft201909MetaMetaData.DescriptionValue? Description => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaMetaData.DescriptionValue>(_MenesDescriptionUtf8JsonPropertyName.Span) : this.description;
+        public Menes.JsonString? Title => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Menes.JsonString>(_MenesTitleUtf8JsonPropertyName.Span) : this.title;
+        public Menes.JsonString? Description => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Menes.JsonString>(_MenesDescriptionUtf8JsonPropertyName.Span) : this.description;
         public Draft201909MetaMetaData.DefaultEntity? Default => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaMetaData.DefaultEntity>(_MenesDefaultUtf8JsonPropertyName.Span) : this.@default;
-        public Draft201909MetaMetaData.DeprecatedValue? Deprecated => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaMetaData.DeprecatedValue>(_MenesDeprecatedUtf8JsonPropertyName.Span) : this.deprecated;
-        public Draft201909MetaMetaData.ReadOnlyValue? ReadOnly => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaMetaData.ReadOnlyValue>(_MenesReadOnlyUtf8JsonPropertyName.Span) : this.readOnly;
-        public Draft201909MetaMetaData.WriteOnlyValue? WriteOnly => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaMetaData.WriteOnlyValue>(_MenesWriteOnlyUtf8JsonPropertyName.Span) : this.writeOnly;
+        public Menes.JsonBoolean? Deprecated => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Menes.JsonBoolean>(_MenesDeprecatedUtf8JsonPropertyName.Span) : this.deprecated;
+        public Menes.JsonBoolean? ReadOnly => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Menes.JsonBoolean>(_MenesReadOnlyUtf8JsonPropertyName.Span) : this.readOnly;
+        public Menes.JsonBoolean? WriteOnly => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Menes.JsonBoolean>(_MenesWriteOnlyUtf8JsonPropertyName.Span) : this.writeOnly;
         public Draft201909MetaMetaData.ExamplesArray? Examples => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaMetaData.ExamplesArray>(_MenesExamplesUtf8JsonPropertyName.Span) : this.examples;
-        public Draft201909MetaFormat.FormatValue? Format => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaFormat.FormatValue>(_MenesFormatUtf8JsonPropertyName.Span) : this.format;
-        public Draft201909MetaContent.ContentMediaTypeValue? ContentMediaType => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaContent.ContentMediaTypeValue>(_MenesContentMediaTypeUtf8JsonPropertyName.Span) : this.contentMediaType;
-        public Draft201909MetaContent.ContentEncodingValue? ContentEncoding => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaContent.ContentEncodingValue>(_MenesContentEncodingUtf8JsonPropertyName.Span) : this.contentEncoding;
+        public Menes.JsonString? Format => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Menes.JsonString>(_MenesFormatUtf8JsonPropertyName.Span) : this.format;
+        public Menes.JsonString? ContentMediaType => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Menes.JsonString>(_MenesContentMediaTypeUtf8JsonPropertyName.Span) : this.contentMediaType;
+        public Menes.JsonString? ContentEncoding => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Menes.JsonString>(_MenesContentEncodingUtf8JsonPropertyName.Span) : this.contentEncoding;
         public Draft201909MetaContent? ContentSchema => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaContent>(_MenesContentSchemaUtf8JsonPropertyName.Span) : this.contentSchema;
         public Draft201909Schema.DefinitionsEntity? Definitions => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909Schema.DefinitionsEntity>(_MenesDefinitionsUtf8JsonPropertyName.Span) : this.definitions;
         public Draft201909Schema.DependenciesEntity? Dependencies => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909Schema.DependenciesEntity>(_MenesDependenciesUtf8JsonPropertyName.Span) : this.dependencies;
@@ -487,7 +487,7 @@ namespace TestSpace
                 writer.WritePropertyName(_MenesIdEncodedJsonPropertyName);
                 id.WriteTo(writer);
             }
-            if (this.schema is Draft201909MetaCore.SchemaValue schema)
+            if (this.schema is Menes.JsonUri schema)
             {
                 writer.WritePropertyName(_MenesSchemaEncodedJsonPropertyName);
                 schema.WriteTo(writer);
@@ -497,17 +497,17 @@ namespace TestSpace
                 writer.WritePropertyName(_MenesAnchorEncodedJsonPropertyName);
                 anchor.WriteTo(writer);
             }
-            if (this.@ref is Draft201909MetaCore.RefValue @ref)
+            if (this.@ref is Menes.JsonString @ref)
             {
                 writer.WritePropertyName(_MenesRefEncodedJsonPropertyName);
                 @ref.WriteTo(writer);
             }
-            if (this.recursiveRef is Draft201909MetaCore.RecursiveRefValue recursiveRef)
+            if (this.recursiveRef is Menes.JsonString recursiveRef)
             {
                 writer.WritePropertyName(_MenesRecursiveRefEncodedJsonPropertyName);
                 recursiveRef.WriteTo(writer);
             }
-            if (this.recursiveAnchor is Draft201909MetaCore.RecursiveAnchorValue recursiveAnchor)
+            if (this.recursiveAnchor is Menes.JsonBoolean recursiveAnchor)
             {
                 writer.WritePropertyName(_MenesRecursiveAnchorEncodedJsonPropertyName);
                 recursiveAnchor.WriteTo(writer);
@@ -517,7 +517,7 @@ namespace TestSpace
                 writer.WritePropertyName(_MenesVocabularyEncodedJsonPropertyName);
                 vocabulary.WriteTo(writer);
             }
-            if (this.comment is Draft201909MetaCore.CommentValue comment)
+            if (this.comment is Menes.JsonString comment)
             {
                 writer.WritePropertyName(_MenesCommentEncodedJsonPropertyName);
                 comment.WriteTo(writer);
@@ -617,22 +617,22 @@ namespace TestSpace
                 writer.WritePropertyName(_MenesMultipleOfEncodedJsonPropertyName);
                 multipleOf.WriteTo(writer);
             }
-            if (this.maximum is Draft201909MetaValidation.MaximumValue maximum)
+            if (this.maximum is Menes.JsonNumber maximum)
             {
                 writer.WritePropertyName(_MenesMaximumEncodedJsonPropertyName);
                 maximum.WriteTo(writer);
             }
-            if (this.exclusiveMaximum is Draft201909MetaValidation.ExclusiveMaximumValue exclusiveMaximum)
+            if (this.exclusiveMaximum is Menes.JsonNumber exclusiveMaximum)
             {
                 writer.WritePropertyName(_MenesExclusiveMaximumEncodedJsonPropertyName);
                 exclusiveMaximum.WriteTo(writer);
             }
-            if (this.minimum is Draft201909MetaValidation.MinimumValue minimum)
+            if (this.minimum is Menes.JsonNumber minimum)
             {
                 writer.WritePropertyName(_MenesMinimumEncodedJsonPropertyName);
                 minimum.WriteTo(writer);
             }
-            if (this.exclusiveMinimum is Draft201909MetaValidation.ExclusiveMinimumValue exclusiveMinimum)
+            if (this.exclusiveMinimum is Menes.JsonNumber exclusiveMinimum)
             {
                 writer.WritePropertyName(_MenesExclusiveMinimumEncodedJsonPropertyName);
                 exclusiveMinimum.WriteTo(writer);
@@ -647,7 +647,7 @@ namespace TestSpace
                 writer.WritePropertyName(_MenesMinLengthEncodedJsonPropertyName);
                 minLength.WriteTo(writer);
             }
-            if (this.pattern is Draft201909MetaValidation.PatternValue pattern)
+            if (this.pattern is Menes.JsonString pattern)
             {
                 writer.WritePropertyName(_MenesPatternEncodedJsonPropertyName);
                 pattern.WriteTo(writer);
@@ -662,7 +662,7 @@ namespace TestSpace
                 writer.WritePropertyName(_MenesMinItemsEncodedJsonPropertyName);
                 minItems.WriteTo(writer);
             }
-            if (this.uniqueItems is Draft201909MetaValidation.UniqueItemsValue uniqueItems)
+            if (this.uniqueItems is Menes.JsonBoolean uniqueItems)
             {
                 writer.WritePropertyName(_MenesUniqueItemsEncodedJsonPropertyName);
                 uniqueItems.WriteTo(writer);
@@ -712,12 +712,12 @@ namespace TestSpace
                 writer.WritePropertyName(_MenesTypeEncodedJsonPropertyName);
                 type.WriteTo(writer);
             }
-            if (this.title is Draft201909MetaMetaData.TitleValue title)
+            if (this.title is Menes.JsonString title)
             {
                 writer.WritePropertyName(_MenesTitleEncodedJsonPropertyName);
                 title.WriteTo(writer);
             }
-            if (this.description is Draft201909MetaMetaData.DescriptionValue description)
+            if (this.description is Menes.JsonString description)
             {
                 writer.WritePropertyName(_MenesDescriptionEncodedJsonPropertyName);
                 description.WriteTo(writer);
@@ -727,17 +727,17 @@ namespace TestSpace
                 writer.WritePropertyName(_MenesDefaultEncodedJsonPropertyName);
                 @default.WriteTo(writer);
             }
-            if (this.deprecated is Draft201909MetaMetaData.DeprecatedValue deprecated)
+            if (this.deprecated is Menes.JsonBoolean deprecated)
             {
                 writer.WritePropertyName(_MenesDeprecatedEncodedJsonPropertyName);
                 deprecated.WriteTo(writer);
             }
-            if (this.readOnly is Draft201909MetaMetaData.ReadOnlyValue readOnly)
+            if (this.readOnly is Menes.JsonBoolean readOnly)
             {
                 writer.WritePropertyName(_MenesReadOnlyEncodedJsonPropertyName);
                 readOnly.WriteTo(writer);
             }
-            if (this.writeOnly is Draft201909MetaMetaData.WriteOnlyValue writeOnly)
+            if (this.writeOnly is Menes.JsonBoolean writeOnly)
             {
                 writer.WritePropertyName(_MenesWriteOnlyEncodedJsonPropertyName);
                 writeOnly.WriteTo(writer);
@@ -747,17 +747,17 @@ namespace TestSpace
                 writer.WritePropertyName(_MenesExamplesEncodedJsonPropertyName);
                 examples.WriteTo(writer);
             }
-            if (this.format is Draft201909MetaFormat.FormatValue format)
+            if (this.format is Menes.JsonString format)
             {
                 writer.WritePropertyName(_MenesFormatEncodedJsonPropertyName);
                 format.WriteTo(writer);
             }
-            if (this.contentMediaType is Draft201909MetaContent.ContentMediaTypeValue contentMediaType)
+            if (this.contentMediaType is Menes.JsonString contentMediaType)
             {
                 writer.WritePropertyName(_MenesContentMediaTypeEncodedJsonPropertyName);
                 contentMediaType.WriteTo(writer);
             }
-            if (this.contentEncoding is Draft201909MetaContent.ContentEncodingValue contentEncoding)
+            if (this.contentEncoding is Menes.JsonString contentEncoding)
             {
                 writer.WritePropertyName(_MenesContentEncodingEncodedJsonPropertyName);
                 contentEncoding.WriteTo(writer);

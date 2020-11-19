@@ -610,10 +610,6 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         /// <returns><c>true</c> if this type represents a more constrained version of the other type.</returns>
         public bool Specializes(TypeDeclaration other)
         {
-            //// TODO - consider recursive definitions here - do we need to break out of this if we see a deeper recursive loop?
-            //// I believe we are OK as we have already dealt with that scenario...but we will have to confirm by testing.
-            //// (There are existing tests which validate this)
-
             // Lower the types and work off those
             TypeDeclaration lowered = this.Lowered;
             TypeDeclaration loweredOther = other.Lowered;
@@ -1316,7 +1312,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
             // First - we don't change our type schema; we are still the same type, however we got here...
             // Our typename and the "type" of the item comes from us, and we will still parent into the existing
             // parent type
-            var result = new TypeDeclaration(this.TypeSchema)
+            var result = new TypeDeclaration(this.TypeSchema, this.IsBuiltInType)
             {
                 DotnetTypeName = this.DotnetTypeName,
                 Type = this.Type,
@@ -1417,10 +1413,8 @@ namespace Menes.JsonSchema.TypeBuilder.Model
                    this.AdditionalProperties is null &&
                    this.AllOf is null &&
                    this.AnyOf is null &&
-                   this.AsConversionMethods is null &&
                    this.Const is null &&
                    this.Contains is null &&
-                   this.ConversionOperators is null &&
                    this.DependentRequired is null &&
                    this.Enum is null &&
                    this.ExclusiveMaximum is null &&

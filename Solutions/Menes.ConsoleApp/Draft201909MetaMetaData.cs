@@ -31,12 +31,12 @@ namespace TestSpace
         private readonly System.Text.Json.JsonElement _menesJsonElementBacking;
         private readonly System.Collections.Immutable.ImmutableArray<Menes.AdditionalProperty<Menes.JsonAny>> _menesAdditionalPropertiesBacking;
         private readonly Menes.JsonBoolean? _menesBooleanTypeBacking;
-        private readonly Draft201909MetaMetaData.TitleValue? title;
-        private readonly Draft201909MetaMetaData.DescriptionValue? description;
+        private readonly Menes.JsonString? title;
+        private readonly Menes.JsonString? description;
         private readonly Draft201909MetaMetaData.DefaultEntity? @default;
-        private readonly Draft201909MetaMetaData.DeprecatedValue? deprecated;
-        private readonly Draft201909MetaMetaData.ReadOnlyValue? readOnly;
-        private readonly Draft201909MetaMetaData.WriteOnlyValue? writeOnly;
+        private readonly Menes.JsonBoolean? deprecated;
+        private readonly Menes.JsonBoolean? readOnly;
+        private readonly Menes.JsonBoolean? writeOnly;
         private readonly Draft201909MetaMetaData.ExamplesArray? examples;
         public static implicit operator Menes.JsonBoolean(Draft201909MetaMetaData value)
         {
@@ -62,12 +62,12 @@ namespace TestSpace
         public bool HasJsonElement => this._menesJsonElementBacking.ValueKind != System.Text.Json.JsonValueKind.Undefined;
         /// <inheritdoc />
         public System.Text.Json.JsonElement JsonElement => this._menesJsonElementBacking;
-        public Draft201909MetaMetaData.TitleValue? Title => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaMetaData.TitleValue>(_MenesTitleUtf8JsonPropertyName.Span) : this.title;
-        public Draft201909MetaMetaData.DescriptionValue? Description => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaMetaData.DescriptionValue>(_MenesDescriptionUtf8JsonPropertyName.Span) : this.description;
+        public Menes.JsonString? Title => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Menes.JsonString>(_MenesTitleUtf8JsonPropertyName.Span) : this.title;
+        public Menes.JsonString? Description => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Menes.JsonString>(_MenesDescriptionUtf8JsonPropertyName.Span) : this.description;
         public Draft201909MetaMetaData.DefaultEntity? Default => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaMetaData.DefaultEntity>(_MenesDefaultUtf8JsonPropertyName.Span) : this.@default;
-        public Draft201909MetaMetaData.DeprecatedValue? Deprecated => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaMetaData.DeprecatedValue>(_MenesDeprecatedUtf8JsonPropertyName.Span) : this.deprecated;
-        public Draft201909MetaMetaData.ReadOnlyValue? ReadOnly => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaMetaData.ReadOnlyValue>(_MenesReadOnlyUtf8JsonPropertyName.Span) : this.readOnly;
-        public Draft201909MetaMetaData.WriteOnlyValue? WriteOnly => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaMetaData.WriteOnlyValue>(_MenesWriteOnlyUtf8JsonPropertyName.Span) : this.writeOnly;
+        public Menes.JsonBoolean? Deprecated => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Menes.JsonBoolean>(_MenesDeprecatedUtf8JsonPropertyName.Span) : this.deprecated;
+        public Menes.JsonBoolean? ReadOnly => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Menes.JsonBoolean>(_MenesReadOnlyUtf8JsonPropertyName.Span) : this.readOnly;
+        public Menes.JsonBoolean? WriteOnly => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Menes.JsonBoolean>(_MenesWriteOnlyUtf8JsonPropertyName.Span) : this.writeOnly;
         public Draft201909MetaMetaData.ExamplesArray? Examples => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaMetaData.ExamplesArray>(_MenesExamplesUtf8JsonPropertyName.Span) : this.examples;
         /// <inheritdoc />
         public Menes.ValidationResult Validate(Menes.ValidationResult? validationResult = null, Menes.ValidationLevel level = Menes.ValidationLevel.Flag, System.Collections.Generic.HashSet<string>? evaluatedProperties = null, System.Collections.Generic.Stack<string>? absoluteKeywordLocation = null, System.Collections.Generic.Stack<string>? instanceLocation = null)
@@ -83,12 +83,12 @@ namespace TestSpace
                 this.JsonElement.WriteTo(writer);
                 return;
             }
-            if (this.title is Draft201909MetaMetaData.TitleValue title)
+            if (this.title is Menes.JsonString title)
             {
                 writer.WritePropertyName(_MenesTitleEncodedJsonPropertyName);
                 title.WriteTo(writer);
             }
-            if (this.description is Draft201909MetaMetaData.DescriptionValue description)
+            if (this.description is Menes.JsonString description)
             {
                 writer.WritePropertyName(_MenesDescriptionEncodedJsonPropertyName);
                 description.WriteTo(writer);
@@ -98,17 +98,17 @@ namespace TestSpace
                 writer.WritePropertyName(_MenesDefaultEncodedJsonPropertyName);
                 @default.WriteTo(writer);
             }
-            if (this.deprecated is Draft201909MetaMetaData.DeprecatedValue deprecated)
+            if (this.deprecated is Menes.JsonBoolean deprecated)
             {
                 writer.WritePropertyName(_MenesDeprecatedEncodedJsonPropertyName);
                 deprecated.WriteTo(writer);
             }
-            if (this.readOnly is Draft201909MetaMetaData.ReadOnlyValue readOnly)
+            if (this.readOnly is Menes.JsonBoolean readOnly)
             {
                 writer.WritePropertyName(_MenesReadOnlyEncodedJsonPropertyName);
                 readOnly.WriteTo(writer);
             }
-            if (this.writeOnly is Draft201909MetaMetaData.WriteOnlyValue writeOnly)
+            if (this.writeOnly is Menes.JsonBoolean writeOnly)
             {
                 writer.WritePropertyName(_MenesWriteOnlyEncodedJsonPropertyName);
                 writeOnly.WriteTo(writer);
@@ -500,248 +500,6 @@ namespace TestSpace
             }
             return true;
         }
-        public readonly struct TitleValue : Menes.IJsonValue
-        {
-            public static readonly TitleValue Null = default(TitleValue);
-            private readonly System.Text.Json.JsonElement _menesJsonElementBacking;
-            private readonly Menes.JsonString? _menesStringTypeBacking;
-            public static implicit operator Menes.JsonString(TitleValue value)
-            {
-                return value.As<Menes.JsonString>();
-            }
-            public static implicit operator TitleValue(Menes.JsonString value)
-            {
-                return value.As<Draft201909MetaMetaData.TitleValue>();
-            }
-            public static implicit operator string(TitleValue value)
-            {
-                return (string)(Menes.JsonString)value;
-            }
-            public static implicit operator TitleValue(string value)
-            {
-                return (Draft201909MetaMetaData.TitleValue)(Menes.JsonString)value;
-            }
-            /// <inheritdoc />
-            public bool IsUndefined => !this.HasJsonElement && this.AllBackingFieldsAreNull();
-            /// <inheritdoc />
-            public bool IsNull => this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Null || (!this.HasJsonElement && this.AllBackingFieldsAreNull());
-            /// <inheritdoc />
-            public bool HasJsonElement => this._menesJsonElementBacking.ValueKind != System.Text.Json.JsonValueKind.Undefined;
-            /// <inheritdoc />
-            public System.Text.Json.JsonElement JsonElement => this._menesJsonElementBacking;
-            /// <inheritdoc />
-            public Menes.ValidationResult Validate(Menes.ValidationResult? validationResult = null, Menes.ValidationLevel level = Menes.ValidationLevel.Flag, System.Collections.Generic.HashSet<string>? evaluatedProperties = null, System.Collections.Generic.Stack<string>? absoluteKeywordLocation = null, System.Collections.Generic.Stack<string>? instanceLocation = null)
-            {
-                Menes.ValidationResult result = validationResult ?? Menes.ValidationResult.ValidResult;
-                return result;
-            }
-            /// <inheritdoc />
-            public void WriteTo(System.Text.Json.Utf8JsonWriter writer)
-            {
-                if (this.HasJsonElement)
-                {
-                    this.JsonElement.WriteTo(writer);
-                    return;
-                }
-                this._menesStringTypeBacking?.WriteTo(writer);
-            }
-            /// <inheritdoc />
-            public T As<T>()
-                where T : struct, Menes.IJsonValue
-            {
-                return Menes.JsonValue.As<T>(Menes.JsonValue.FlattenToJsonElementBacking(this).JsonElement);
-            }
-            /// <inheritdoc />
-            public bool Is<T>()
-                where T : struct, Menes.IJsonValue
-            {
-                if (typeof(T) == typeof(Draft201909MetaMetaData.TitleValue))
-                {
-                    return this.Validate().Valid;
-                }
-                return this.As<T>().Validate().Valid;
-            }
-            /// <inheritdoc />
-            public bool TryGetProperty<T>(System.ReadOnlySpan<char> propertyName, out T property)
-                where T : struct, Menes.IJsonValue
-            {
-                if (this.HasJsonElement)
-                {
-                    if (this.JsonElement.TryGetProperty(propertyName, out System.Text.Json.JsonElement value))
-                    {
-                        property = Menes.JsonValue.As<T>(value);
-                        return true;
-                    }
-                    property = default;
-                    return false;
-                }
-                property = default;
-                return false;
-            }
-            /// <inheritdoc />
-            public bool TryGetProperty<T>(string propertyName, out T property)
-                where T : struct, Menes.IJsonValue
-            {
-                if (this.HasJsonElement)
-                {
-                    if (this.JsonElement.TryGetProperty(propertyName, out System.Text.Json.JsonElement value))
-                    {
-                        property = Menes.JsonValue.As<T>(value);
-                        return true;
-                    }
-                    property = default;
-                    return false;
-                }
-                property = default;
-                return false;
-            }
-            /// <inheritdoc />
-            public bool TryGetProperty<T>(System.ReadOnlySpan<byte> propertyName, out T property)
-                where T : struct, Menes.IJsonValue
-            {
-                if (this.HasJsonElement)
-                {
-                    if (this.JsonElement.TryGetProperty(propertyName, out System.Text.Json.JsonElement value))
-                    {
-                        property = Menes.JsonValue.As<T>(value);
-                        return true;
-                    }
-                    property = default;
-                    return false;
-                }
-                property = default;
-                return false;
-            }
-            private bool AllBackingFieldsAreNull()
-            {
-                if (this._menesStringTypeBacking is not null)
-                {
-                    return false;
-                }
-                return true;
-            }
-        }
-        public readonly struct DescriptionValue : Menes.IJsonValue
-        {
-            public static readonly DescriptionValue Null = default(DescriptionValue);
-            private readonly System.Text.Json.JsonElement _menesJsonElementBacking;
-            private readonly Menes.JsonString? _menesStringTypeBacking;
-            public static implicit operator Menes.JsonString(DescriptionValue value)
-            {
-                return value.As<Menes.JsonString>();
-            }
-            public static implicit operator DescriptionValue(Menes.JsonString value)
-            {
-                return value.As<Draft201909MetaMetaData.DescriptionValue>();
-            }
-            public static implicit operator string(DescriptionValue value)
-            {
-                return (string)(Menes.JsonString)value;
-            }
-            public static implicit operator DescriptionValue(string value)
-            {
-                return (Draft201909MetaMetaData.DescriptionValue)(Menes.JsonString)value;
-            }
-            /// <inheritdoc />
-            public bool IsUndefined => !this.HasJsonElement && this.AllBackingFieldsAreNull();
-            /// <inheritdoc />
-            public bool IsNull => this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Null || (!this.HasJsonElement && this.AllBackingFieldsAreNull());
-            /// <inheritdoc />
-            public bool HasJsonElement => this._menesJsonElementBacking.ValueKind != System.Text.Json.JsonValueKind.Undefined;
-            /// <inheritdoc />
-            public System.Text.Json.JsonElement JsonElement => this._menesJsonElementBacking;
-            /// <inheritdoc />
-            public Menes.ValidationResult Validate(Menes.ValidationResult? validationResult = null, Menes.ValidationLevel level = Menes.ValidationLevel.Flag, System.Collections.Generic.HashSet<string>? evaluatedProperties = null, System.Collections.Generic.Stack<string>? absoluteKeywordLocation = null, System.Collections.Generic.Stack<string>? instanceLocation = null)
-            {
-                Menes.ValidationResult result = validationResult ?? Menes.ValidationResult.ValidResult;
-                return result;
-            }
-            /// <inheritdoc />
-            public void WriteTo(System.Text.Json.Utf8JsonWriter writer)
-            {
-                if (this.HasJsonElement)
-                {
-                    this.JsonElement.WriteTo(writer);
-                    return;
-                }
-                this._menesStringTypeBacking?.WriteTo(writer);
-            }
-            /// <inheritdoc />
-            public T As<T>()
-                where T : struct, Menes.IJsonValue
-            {
-                return Menes.JsonValue.As<T>(Menes.JsonValue.FlattenToJsonElementBacking(this).JsonElement);
-            }
-            /// <inheritdoc />
-            public bool Is<T>()
-                where T : struct, Menes.IJsonValue
-            {
-                if (typeof(T) == typeof(Draft201909MetaMetaData.DescriptionValue))
-                {
-                    return this.Validate().Valid;
-                }
-                return this.As<T>().Validate().Valid;
-            }
-            /// <inheritdoc />
-            public bool TryGetProperty<T>(System.ReadOnlySpan<char> propertyName, out T property)
-                where T : struct, Menes.IJsonValue
-            {
-                if (this.HasJsonElement)
-                {
-                    if (this.JsonElement.TryGetProperty(propertyName, out System.Text.Json.JsonElement value))
-                    {
-                        property = Menes.JsonValue.As<T>(value);
-                        return true;
-                    }
-                    property = default;
-                    return false;
-                }
-                property = default;
-                return false;
-            }
-            /// <inheritdoc />
-            public bool TryGetProperty<T>(string propertyName, out T property)
-                where T : struct, Menes.IJsonValue
-            {
-                if (this.HasJsonElement)
-                {
-                    if (this.JsonElement.TryGetProperty(propertyName, out System.Text.Json.JsonElement value))
-                    {
-                        property = Menes.JsonValue.As<T>(value);
-                        return true;
-                    }
-                    property = default;
-                    return false;
-                }
-                property = default;
-                return false;
-            }
-            /// <inheritdoc />
-            public bool TryGetProperty<T>(System.ReadOnlySpan<byte> propertyName, out T property)
-                where T : struct, Menes.IJsonValue
-            {
-                if (this.HasJsonElement)
-                {
-                    if (this.JsonElement.TryGetProperty(propertyName, out System.Text.Json.JsonElement value))
-                    {
-                        property = Menes.JsonValue.As<T>(value);
-                        return true;
-                    }
-                    property = default;
-                    return false;
-                }
-                property = default;
-                return false;
-            }
-            private bool AllBackingFieldsAreNull()
-            {
-                if (this._menesStringTypeBacking is not null)
-                {
-                    return false;
-                }
-                return true;
-            }
-        }
         public readonly struct DefaultEntity : Menes.IJsonValue
         {
             public static readonly DefaultEntity Null = default(DefaultEntity);
@@ -846,369 +604,6 @@ namespace TestSpace
             }
             private bool AllBackingFieldsAreNull()
             {
-                return true;
-            }
-        }
-        public readonly struct DeprecatedValue : Menes.IJsonValue
-        {
-            public static readonly DeprecatedValue Null = default(DeprecatedValue);
-            private readonly System.Text.Json.JsonElement _menesJsonElementBacking;
-            private readonly Menes.JsonBoolean? _menesBooleanTypeBacking;
-            public static implicit operator Menes.JsonBoolean(DeprecatedValue value)
-            {
-                return value.As<Menes.JsonBoolean>();
-            }
-            public static implicit operator DeprecatedValue(Menes.JsonBoolean value)
-            {
-                return value.As<Draft201909MetaMetaData.DeprecatedValue>();
-            }
-            public static implicit operator bool(DeprecatedValue value)
-            {
-                return (bool)(Menes.JsonBoolean)value;
-            }
-            public static implicit operator DeprecatedValue(bool value)
-            {
-                return (Draft201909MetaMetaData.DeprecatedValue)(Menes.JsonBoolean)value;
-            }
-            /// <inheritdoc />
-            public bool IsUndefined => !this.HasJsonElement && this.AllBackingFieldsAreNull();
-            /// <inheritdoc />
-            public bool IsNull => this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Null || (!this.HasJsonElement && this.AllBackingFieldsAreNull());
-            /// <inheritdoc />
-            public bool HasJsonElement => this._menesJsonElementBacking.ValueKind != System.Text.Json.JsonValueKind.Undefined;
-            /// <inheritdoc />
-            public System.Text.Json.JsonElement JsonElement => this._menesJsonElementBacking;
-            /// <inheritdoc />
-            public Menes.ValidationResult Validate(Menes.ValidationResult? validationResult = null, Menes.ValidationLevel level = Menes.ValidationLevel.Flag, System.Collections.Generic.HashSet<string>? evaluatedProperties = null, System.Collections.Generic.Stack<string>? absoluteKeywordLocation = null, System.Collections.Generic.Stack<string>? instanceLocation = null)
-            {
-                Menes.ValidationResult result = validationResult ?? Menes.ValidationResult.ValidResult;
-                return result;
-            }
-            /// <inheritdoc />
-            public void WriteTo(System.Text.Json.Utf8JsonWriter writer)
-            {
-                if (this.HasJsonElement)
-                {
-                    this.JsonElement.WriteTo(writer);
-                    return;
-                }
-                this._menesBooleanTypeBacking?.WriteTo(writer);
-            }
-            /// <inheritdoc />
-            public T As<T>()
-                where T : struct, Menes.IJsonValue
-            {
-                return Menes.JsonValue.As<T>(Menes.JsonValue.FlattenToJsonElementBacking(this).JsonElement);
-            }
-            /// <inheritdoc />
-            public bool Is<T>()
-                where T : struct, Menes.IJsonValue
-            {
-                if (typeof(T) == typeof(Draft201909MetaMetaData.DeprecatedValue))
-                {
-                    return this.Validate().Valid;
-                }
-                return this.As<T>().Validate().Valid;
-            }
-            /// <inheritdoc />
-            public bool TryGetProperty<T>(System.ReadOnlySpan<char> propertyName, out T property)
-                where T : struct, Menes.IJsonValue
-            {
-                if (this.HasJsonElement)
-                {
-                    if (this.JsonElement.TryGetProperty(propertyName, out System.Text.Json.JsonElement value))
-                    {
-                        property = Menes.JsonValue.As<T>(value);
-                        return true;
-                    }
-                    property = default;
-                    return false;
-                }
-                property = default;
-                return false;
-            }
-            /// <inheritdoc />
-            public bool TryGetProperty<T>(string propertyName, out T property)
-                where T : struct, Menes.IJsonValue
-            {
-                if (this.HasJsonElement)
-                {
-                    if (this.JsonElement.TryGetProperty(propertyName, out System.Text.Json.JsonElement value))
-                    {
-                        property = Menes.JsonValue.As<T>(value);
-                        return true;
-                    }
-                    property = default;
-                    return false;
-                }
-                property = default;
-                return false;
-            }
-            /// <inheritdoc />
-            public bool TryGetProperty<T>(System.ReadOnlySpan<byte> propertyName, out T property)
-                where T : struct, Menes.IJsonValue
-            {
-                if (this.HasJsonElement)
-                {
-                    if (this.JsonElement.TryGetProperty(propertyName, out System.Text.Json.JsonElement value))
-                    {
-                        property = Menes.JsonValue.As<T>(value);
-                        return true;
-                    }
-                    property = default;
-                    return false;
-                }
-                property = default;
-                return false;
-            }
-            private bool AllBackingFieldsAreNull()
-            {
-                if (this._menesBooleanTypeBacking is not null)
-                {
-                    return false;
-                }
-                return true;
-            }
-        }
-        public readonly struct ReadOnlyValue : Menes.IJsonValue
-        {
-            public static readonly ReadOnlyValue Null = default(ReadOnlyValue);
-            private readonly System.Text.Json.JsonElement _menesJsonElementBacking;
-            private readonly Menes.JsonBoolean? _menesBooleanTypeBacking;
-            public static implicit operator Menes.JsonBoolean(ReadOnlyValue value)
-            {
-                return value.As<Menes.JsonBoolean>();
-            }
-            public static implicit operator ReadOnlyValue(Menes.JsonBoolean value)
-            {
-                return value.As<Draft201909MetaMetaData.ReadOnlyValue>();
-            }
-            public static implicit operator bool(ReadOnlyValue value)
-            {
-                return (bool)(Menes.JsonBoolean)value;
-            }
-            public static implicit operator ReadOnlyValue(bool value)
-            {
-                return (Draft201909MetaMetaData.ReadOnlyValue)(Menes.JsonBoolean)value;
-            }
-            /// <inheritdoc />
-            public bool IsUndefined => !this.HasJsonElement && this.AllBackingFieldsAreNull();
-            /// <inheritdoc />
-            public bool IsNull => this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Null || (!this.HasJsonElement && this.AllBackingFieldsAreNull());
-            /// <inheritdoc />
-            public bool HasJsonElement => this._menesJsonElementBacking.ValueKind != System.Text.Json.JsonValueKind.Undefined;
-            /// <inheritdoc />
-            public System.Text.Json.JsonElement JsonElement => this._menesJsonElementBacking;
-            /// <inheritdoc />
-            public Menes.ValidationResult Validate(Menes.ValidationResult? validationResult = null, Menes.ValidationLevel level = Menes.ValidationLevel.Flag, System.Collections.Generic.HashSet<string>? evaluatedProperties = null, System.Collections.Generic.Stack<string>? absoluteKeywordLocation = null, System.Collections.Generic.Stack<string>? instanceLocation = null)
-            {
-                Menes.ValidationResult result = validationResult ?? Menes.ValidationResult.ValidResult;
-                return result;
-            }
-            /// <inheritdoc />
-            public void WriteTo(System.Text.Json.Utf8JsonWriter writer)
-            {
-                if (this.HasJsonElement)
-                {
-                    this.JsonElement.WriteTo(writer);
-                    return;
-                }
-                this._menesBooleanTypeBacking?.WriteTo(writer);
-            }
-            /// <inheritdoc />
-            public T As<T>()
-                where T : struct, Menes.IJsonValue
-            {
-                return Menes.JsonValue.As<T>(Menes.JsonValue.FlattenToJsonElementBacking(this).JsonElement);
-            }
-            /// <inheritdoc />
-            public bool Is<T>()
-                where T : struct, Menes.IJsonValue
-            {
-                if (typeof(T) == typeof(Draft201909MetaMetaData.ReadOnlyValue))
-                {
-                    return this.Validate().Valid;
-                }
-                return this.As<T>().Validate().Valid;
-            }
-            /// <inheritdoc />
-            public bool TryGetProperty<T>(System.ReadOnlySpan<char> propertyName, out T property)
-                where T : struct, Menes.IJsonValue
-            {
-                if (this.HasJsonElement)
-                {
-                    if (this.JsonElement.TryGetProperty(propertyName, out System.Text.Json.JsonElement value))
-                    {
-                        property = Menes.JsonValue.As<T>(value);
-                        return true;
-                    }
-                    property = default;
-                    return false;
-                }
-                property = default;
-                return false;
-            }
-            /// <inheritdoc />
-            public bool TryGetProperty<T>(string propertyName, out T property)
-                where T : struct, Menes.IJsonValue
-            {
-                if (this.HasJsonElement)
-                {
-                    if (this.JsonElement.TryGetProperty(propertyName, out System.Text.Json.JsonElement value))
-                    {
-                        property = Menes.JsonValue.As<T>(value);
-                        return true;
-                    }
-                    property = default;
-                    return false;
-                }
-                property = default;
-                return false;
-            }
-            /// <inheritdoc />
-            public bool TryGetProperty<T>(System.ReadOnlySpan<byte> propertyName, out T property)
-                where T : struct, Menes.IJsonValue
-            {
-                if (this.HasJsonElement)
-                {
-                    if (this.JsonElement.TryGetProperty(propertyName, out System.Text.Json.JsonElement value))
-                    {
-                        property = Menes.JsonValue.As<T>(value);
-                        return true;
-                    }
-                    property = default;
-                    return false;
-                }
-                property = default;
-                return false;
-            }
-            private bool AllBackingFieldsAreNull()
-            {
-                if (this._menesBooleanTypeBacking is not null)
-                {
-                    return false;
-                }
-                return true;
-            }
-        }
-        public readonly struct WriteOnlyValue : Menes.IJsonValue
-        {
-            public static readonly WriteOnlyValue Null = default(WriteOnlyValue);
-            private readonly System.Text.Json.JsonElement _menesJsonElementBacking;
-            private readonly Menes.JsonBoolean? _menesBooleanTypeBacking;
-            public static implicit operator Menes.JsonBoolean(WriteOnlyValue value)
-            {
-                return value.As<Menes.JsonBoolean>();
-            }
-            public static implicit operator WriteOnlyValue(Menes.JsonBoolean value)
-            {
-                return value.As<Draft201909MetaMetaData.WriteOnlyValue>();
-            }
-            public static implicit operator bool(WriteOnlyValue value)
-            {
-                return (bool)(Menes.JsonBoolean)value;
-            }
-            public static implicit operator WriteOnlyValue(bool value)
-            {
-                return (Draft201909MetaMetaData.WriteOnlyValue)(Menes.JsonBoolean)value;
-            }
-            /// <inheritdoc />
-            public bool IsUndefined => !this.HasJsonElement && this.AllBackingFieldsAreNull();
-            /// <inheritdoc />
-            public bool IsNull => this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Null || (!this.HasJsonElement && this.AllBackingFieldsAreNull());
-            /// <inheritdoc />
-            public bool HasJsonElement => this._menesJsonElementBacking.ValueKind != System.Text.Json.JsonValueKind.Undefined;
-            /// <inheritdoc />
-            public System.Text.Json.JsonElement JsonElement => this._menesJsonElementBacking;
-            /// <inheritdoc />
-            public Menes.ValidationResult Validate(Menes.ValidationResult? validationResult = null, Menes.ValidationLevel level = Menes.ValidationLevel.Flag, System.Collections.Generic.HashSet<string>? evaluatedProperties = null, System.Collections.Generic.Stack<string>? absoluteKeywordLocation = null, System.Collections.Generic.Stack<string>? instanceLocation = null)
-            {
-                Menes.ValidationResult result = validationResult ?? Menes.ValidationResult.ValidResult;
-                return result;
-            }
-            /// <inheritdoc />
-            public void WriteTo(System.Text.Json.Utf8JsonWriter writer)
-            {
-                if (this.HasJsonElement)
-                {
-                    this.JsonElement.WriteTo(writer);
-                    return;
-                }
-                this._menesBooleanTypeBacking?.WriteTo(writer);
-            }
-            /// <inheritdoc />
-            public T As<T>()
-                where T : struct, Menes.IJsonValue
-            {
-                return Menes.JsonValue.As<T>(Menes.JsonValue.FlattenToJsonElementBacking(this).JsonElement);
-            }
-            /// <inheritdoc />
-            public bool Is<T>()
-                where T : struct, Menes.IJsonValue
-            {
-                if (typeof(T) == typeof(Draft201909MetaMetaData.WriteOnlyValue))
-                {
-                    return this.Validate().Valid;
-                }
-                return this.As<T>().Validate().Valid;
-            }
-            /// <inheritdoc />
-            public bool TryGetProperty<T>(System.ReadOnlySpan<char> propertyName, out T property)
-                where T : struct, Menes.IJsonValue
-            {
-                if (this.HasJsonElement)
-                {
-                    if (this.JsonElement.TryGetProperty(propertyName, out System.Text.Json.JsonElement value))
-                    {
-                        property = Menes.JsonValue.As<T>(value);
-                        return true;
-                    }
-                    property = default;
-                    return false;
-                }
-                property = default;
-                return false;
-            }
-            /// <inheritdoc />
-            public bool TryGetProperty<T>(string propertyName, out T property)
-                where T : struct, Menes.IJsonValue
-            {
-                if (this.HasJsonElement)
-                {
-                    if (this.JsonElement.TryGetProperty(propertyName, out System.Text.Json.JsonElement value))
-                    {
-                        property = Menes.JsonValue.As<T>(value);
-                        return true;
-                    }
-                    property = default;
-                    return false;
-                }
-                property = default;
-                return false;
-            }
-            /// <inheritdoc />
-            public bool TryGetProperty<T>(System.ReadOnlySpan<byte> propertyName, out T property)
-                where T : struct, Menes.IJsonValue
-            {
-                if (this.HasJsonElement)
-                {
-                    if (this.JsonElement.TryGetProperty(propertyName, out System.Text.Json.JsonElement value))
-                    {
-                        property = Menes.JsonValue.As<T>(value);
-                        return true;
-                    }
-                    property = default;
-                    return false;
-                }
-                property = default;
-                return false;
-            }
-            private bool AllBackingFieldsAreNull()
-            {
-                if (this._menesBooleanTypeBacking is not null)
-                {
-                    return false;
-                }
                 return true;
             }
         }

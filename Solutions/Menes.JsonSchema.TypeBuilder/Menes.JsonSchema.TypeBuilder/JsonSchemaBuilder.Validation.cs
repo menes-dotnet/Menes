@@ -41,7 +41,7 @@ namespace Menes.JsonSchema.TypeBuilder
                         this.BuildSchemaValidation(typeDeclaration, memberBuilder);
                         break;
                     default:
-                        throw new InvalidOperationException("The schema is not valid. Expected to find [true, false, {}].");
+                        throw new InvalidOperationException($"The schema is not valid. Expected to find [true, false, {{}}] but was {typeDeclaration.TypeSchema.JsonElement.ValueKind}.");
                 }
             }
             finally

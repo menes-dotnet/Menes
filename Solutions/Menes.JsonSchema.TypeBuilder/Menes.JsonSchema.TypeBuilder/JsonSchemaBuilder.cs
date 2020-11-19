@@ -85,7 +85,8 @@ namespace Menes.JsonSchema.TypeBuilder
             foreach (TypeDeclaration type in this.builtDeclarationsByLocation.Values)
             {
                 TypeDeclaration loweredType = type.Lowered;
-                if (loweredType.Parent is null && !generatedTypeNames.Contains(loweredType.FullyQualifiedDotNetTypeName!))
+
+                if (!loweredType.IsBuiltInType && loweredType.Parent is null && !generatedTypeNames.Contains(loweredType.FullyQualifiedDotNetTypeName!))
                 {
                     memberBuilder.Clear();
                     memberBuilder.AppendLine($"// <copyright file=\"{loweredType.DotnetTypeName}.cs\" company=\"Endjin Limited\">");

@@ -7,7 +7,6 @@ namespace Menes.ConsoleApp
     using System;
     using System.Collections.Generic;
     using System.Text.Json;
-    using Menes.Json;
 
     /// <summary>
     /// Console app for the Menes type generator.
