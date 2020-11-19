@@ -5,7 +5,9 @@
 namespace Menes.ConsoleApp
 {
     using System;
+    using System.Buffers;
     using System.Collections.Generic;
+    using System.Text;
     using System.Text.Json;
     using TestSpace;
 
@@ -38,8 +40,19 @@ namespace Menes.ConsoleApp
                 }
             }
 
-            var schema2 = new Draft201909Schema(type: "string");
-            if (schema2.Validate().Valid)
+            schema = schema.WithTitle("Hello dolly!");
+
+            var abw = new ArrayBufferWriter<byte>();
+            var utf8JsonWriter = new Utf8JsonWriter(abw);
+            schema.WriteTo(utf8JsonWriter);
+            utf8JsonWriter.Flush();
+            string serializedSchema = Encoding.UTF8.GetString(abw.WrittenSpan);
+            Console.WriteLine(serializedSchema);
+
+            using var doc = JsonDocument.Parse(serializedSchema);
+            var deserializedSchema = new Draft201909Schema(doc.RootElement);
+
+            if (deserializedSchema.Validate().Valid)
             {
                 Console.WriteLine("Hooray!");
             }
@@ -48,9 +61,12 @@ namespace Menes.ConsoleApp
                 Console.WriteLine("Boo!");
             }
 
-            if (schema2.Type is Draft201909MetaValidation.TypeEntity type2)
+            if (deserializedSchema.Type is Draft201909MetaValidation.TypeEntity type2)
             {
-                Console.WriteLine(type2);
+                foreach (string item in type2.AsAnyOf1Array())
+                {
+                    Console.WriteLine(item);
+                }
             }
         }
 

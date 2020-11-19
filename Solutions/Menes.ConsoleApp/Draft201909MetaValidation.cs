@@ -1110,6 +1110,86 @@ namespace TestSpace
             property = default;
             return false;
         }
+        public Draft201909MetaValidation WithMultipleOf(Draft201909MetaValidation.MultipleOfValue value)
+        {
+            return new Draft201909MetaValidation(value, this.maximum, this.exclusiveMaximum, this.minimum, this.exclusiveMinimum, this.maxLength, this.minLength, this.pattern, this.maxItems, this.minItems, this.uniqueItems, this.maxContains, this.minContains, this.maxProperties, this.minProperties, this.required, this.dependentRequired, this.@const, this.@enum, this.type, this._menesBooleanTypeBacking, this._menesAdditionalPropertiesBacking);
+        }
+        public Draft201909MetaValidation WithMaximum(Menes.JsonNumber value)
+        {
+            return new Draft201909MetaValidation(this.multipleOf, value, this.exclusiveMaximum, this.minimum, this.exclusiveMinimum, this.maxLength, this.minLength, this.pattern, this.maxItems, this.minItems, this.uniqueItems, this.maxContains, this.minContains, this.maxProperties, this.minProperties, this.required, this.dependentRequired, this.@const, this.@enum, this.type, this._menesBooleanTypeBacking, this._menesAdditionalPropertiesBacking);
+        }
+        public Draft201909MetaValidation WithExclusiveMaximum(Menes.JsonNumber value)
+        {
+            return new Draft201909MetaValidation(this.multipleOf, this.maximum, value, this.minimum, this.exclusiveMinimum, this.maxLength, this.minLength, this.pattern, this.maxItems, this.minItems, this.uniqueItems, this.maxContains, this.minContains, this.maxProperties, this.minProperties, this.required, this.dependentRequired, this.@const, this.@enum, this.type, this._menesBooleanTypeBacking, this._menesAdditionalPropertiesBacking);
+        }
+        public Draft201909MetaValidation WithMinimum(Menes.JsonNumber value)
+        {
+            return new Draft201909MetaValidation(this.multipleOf, this.maximum, this.exclusiveMaximum, value, this.exclusiveMinimum, this.maxLength, this.minLength, this.pattern, this.maxItems, this.minItems, this.uniqueItems, this.maxContains, this.minContains, this.maxProperties, this.minProperties, this.required, this.dependentRequired, this.@const, this.@enum, this.type, this._menesBooleanTypeBacking, this._menesAdditionalPropertiesBacking);
+        }
+        public Draft201909MetaValidation WithExclusiveMinimum(Menes.JsonNumber value)
+        {
+            return new Draft201909MetaValidation(this.multipleOf, this.maximum, this.exclusiveMaximum, this.minimum, value, this.maxLength, this.minLength, this.pattern, this.maxItems, this.minItems, this.uniqueItems, this.maxContains, this.minContains, this.maxProperties, this.minProperties, this.required, this.dependentRequired, this.@const, this.@enum, this.type, this._menesBooleanTypeBacking, this._menesAdditionalPropertiesBacking);
+        }
+        public Draft201909MetaValidation WithMaxLength(Draft201909MetaValidation.NonNegativeIntegerValue value)
+        {
+            return new Draft201909MetaValidation(this.multipleOf, this.maximum, this.exclusiveMaximum, this.minimum, this.exclusiveMinimum, value, this.minLength, this.pattern, this.maxItems, this.minItems, this.uniqueItems, this.maxContains, this.minContains, this.maxProperties, this.minProperties, this.required, this.dependentRequired, this.@const, this.@enum, this.type, this._menesBooleanTypeBacking, this._menesAdditionalPropertiesBacking);
+        }
+        public Draft201909MetaValidation WithMinLength(Draft201909MetaValidation.NonNegativeIntegerValue value)
+        {
+            return new Draft201909MetaValidation(this.multipleOf, this.maximum, this.exclusiveMaximum, this.minimum, this.exclusiveMinimum, this.maxLength, value, this.pattern, this.maxItems, this.minItems, this.uniqueItems, this.maxContains, this.minContains, this.maxProperties, this.minProperties, this.required, this.dependentRequired, this.@const, this.@enum, this.type, this._menesBooleanTypeBacking, this._menesAdditionalPropertiesBacking);
+        }
+        public Draft201909MetaValidation WithPattern(Menes.JsonString value)
+        {
+            return new Draft201909MetaValidation(this.multipleOf, this.maximum, this.exclusiveMaximum, this.minimum, this.exclusiveMinimum, this.maxLength, this.minLength, value, this.maxItems, this.minItems, this.uniqueItems, this.maxContains, this.minContains, this.maxProperties, this.minProperties, this.required, this.dependentRequired, this.@const, this.@enum, this.type, this._menesBooleanTypeBacking, this._menesAdditionalPropertiesBacking);
+        }
+        public Draft201909MetaValidation WithMaxItems(Draft201909MetaValidation.NonNegativeIntegerValue value)
+        {
+            return new Draft201909MetaValidation(this.multipleOf, this.maximum, this.exclusiveMaximum, this.minimum, this.exclusiveMinimum, this.maxLength, this.minLength, this.pattern, value, this.minItems, this.uniqueItems, this.maxContains, this.minContains, this.maxProperties, this.minProperties, this.required, this.dependentRequired, this.@const, this.@enum, this.type, this._menesBooleanTypeBacking, this._menesAdditionalPropertiesBacking);
+        }
+        public Draft201909MetaValidation WithMinItems(Draft201909MetaValidation.NonNegativeIntegerValue value)
+        {
+            return new Draft201909MetaValidation(this.multipleOf, this.maximum, this.exclusiveMaximum, this.minimum, this.exclusiveMinimum, this.maxLength, this.minLength, this.pattern, this.maxItems, value, this.uniqueItems, this.maxContains, this.minContains, this.maxProperties, this.minProperties, this.required, this.dependentRequired, this.@const, this.@enum, this.type, this._menesBooleanTypeBacking, this._menesAdditionalPropertiesBacking);
+        }
+        public Draft201909MetaValidation WithUniqueItems(Menes.JsonBoolean value)
+        {
+            return new Draft201909MetaValidation(this.multipleOf, this.maximum, this.exclusiveMaximum, this.minimum, this.exclusiveMinimum, this.maxLength, this.minLength, this.pattern, this.maxItems, this.minItems, value, this.maxContains, this.minContains, this.maxProperties, this.minProperties, this.required, this.dependentRequired, this.@const, this.@enum, this.type, this._menesBooleanTypeBacking, this._menesAdditionalPropertiesBacking);
+        }
+        public Draft201909MetaValidation WithMaxContains(Draft201909MetaValidation.NonNegativeIntegerValue value)
+        {
+            return new Draft201909MetaValidation(this.multipleOf, this.maximum, this.exclusiveMaximum, this.minimum, this.exclusiveMinimum, this.maxLength, this.minLength, this.pattern, this.maxItems, this.minItems, this.uniqueItems, value, this.minContains, this.maxProperties, this.minProperties, this.required, this.dependentRequired, this.@const, this.@enum, this.type, this._menesBooleanTypeBacking, this._menesAdditionalPropertiesBacking);
+        }
+        public Draft201909MetaValidation WithMinContains(Draft201909MetaValidation.NonNegativeIntegerValue value)
+        {
+            return new Draft201909MetaValidation(this.multipleOf, this.maximum, this.exclusiveMaximum, this.minimum, this.exclusiveMinimum, this.maxLength, this.minLength, this.pattern, this.maxItems, this.minItems, this.uniqueItems, this.maxContains, value, this.maxProperties, this.minProperties, this.required, this.dependentRequired, this.@const, this.@enum, this.type, this._menesBooleanTypeBacking, this._menesAdditionalPropertiesBacking);
+        }
+        public Draft201909MetaValidation WithMaxProperties(Draft201909MetaValidation.NonNegativeIntegerValue value)
+        {
+            return new Draft201909MetaValidation(this.multipleOf, this.maximum, this.exclusiveMaximum, this.minimum, this.exclusiveMinimum, this.maxLength, this.minLength, this.pattern, this.maxItems, this.minItems, this.uniqueItems, this.maxContains, this.minContains, value, this.minProperties, this.required, this.dependentRequired, this.@const, this.@enum, this.type, this._menesBooleanTypeBacking, this._menesAdditionalPropertiesBacking);
+        }
+        public Draft201909MetaValidation WithMinProperties(Draft201909MetaValidation.NonNegativeIntegerValue value)
+        {
+            return new Draft201909MetaValidation(this.multipleOf, this.maximum, this.exclusiveMaximum, this.minimum, this.exclusiveMinimum, this.maxLength, this.minLength, this.pattern, this.maxItems, this.minItems, this.uniqueItems, this.maxContains, this.minContains, this.maxProperties, value, this.required, this.dependentRequired, this.@const, this.@enum, this.type, this._menesBooleanTypeBacking, this._menesAdditionalPropertiesBacking);
+        }
+        public Draft201909MetaValidation WithRequired(Draft201909MetaValidation.StringArrayEntity value)
+        {
+            return new Draft201909MetaValidation(this.multipleOf, this.maximum, this.exclusiveMaximum, this.minimum, this.exclusiveMinimum, this.maxLength, this.minLength, this.pattern, this.maxItems, this.minItems, this.uniqueItems, this.maxContains, this.minContains, this.maxProperties, this.minProperties, value, this.dependentRequired, this.@const, this.@enum, this.type, this._menesBooleanTypeBacking, this._menesAdditionalPropertiesBacking);
+        }
+        public Draft201909MetaValidation WithDependentRequired(Draft201909MetaValidation.DependentRequiredEntity value)
+        {
+            return new Draft201909MetaValidation(this.multipleOf, this.maximum, this.exclusiveMaximum, this.minimum, this.exclusiveMinimum, this.maxLength, this.minLength, this.pattern, this.maxItems, this.minItems, this.uniqueItems, this.maxContains, this.minContains, this.maxProperties, this.minProperties, this.required, value, this.@const, this.@enum, this.type, this._menesBooleanTypeBacking, this._menesAdditionalPropertiesBacking);
+        }
+        public Draft201909MetaValidation WithConst(Draft201909MetaValidation.ConstEntity value)
+        {
+            return new Draft201909MetaValidation(this.multipleOf, this.maximum, this.exclusiveMaximum, this.minimum, this.exclusiveMinimum, this.maxLength, this.minLength, this.pattern, this.maxItems, this.minItems, this.uniqueItems, this.maxContains, this.minContains, this.maxProperties, this.minProperties, this.required, this.dependentRequired, value, this.@enum, this.type, this._menesBooleanTypeBacking, this._menesAdditionalPropertiesBacking);
+        }
+        public Draft201909MetaValidation WithEnum(Draft201909MetaValidation.EnumArray value)
+        {
+            return new Draft201909MetaValidation(this.multipleOf, this.maximum, this.exclusiveMaximum, this.minimum, this.exclusiveMinimum, this.maxLength, this.minLength, this.pattern, this.maxItems, this.minItems, this.uniqueItems, this.maxContains, this.minContains, this.maxProperties, this.minProperties, this.required, this.dependentRequired, this.@const, value, this.type, this._menesBooleanTypeBacking, this._menesAdditionalPropertiesBacking);
+        }
+        public Draft201909MetaValidation WithType(Draft201909MetaValidation.TypeEntity value)
+        {
+            return new Draft201909MetaValidation(this.multipleOf, this.maximum, this.exclusiveMaximum, this.minimum, this.exclusiveMinimum, this.maxLength, this.minLength, this.pattern, this.maxItems, this.minItems, this.uniqueItems, this.maxContains, this.minContains, this.maxProperties, this.minProperties, this.required, this.dependentRequired, this.@const, this.@enum, value, this._menesBooleanTypeBacking, this._menesAdditionalPropertiesBacking);
+        }
         private TPropertyValue GetPropertyFromJsonElement<TPropertyValue>(System.ReadOnlySpan<byte> propertyName)
             where TPropertyValue : struct, Menes.IJsonValue
         {
