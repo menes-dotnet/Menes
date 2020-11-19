@@ -42,12 +42,7 @@ namespace Menes.ConsoleApp
 
             schema = schema.WithTitle("Hello dolly!");
 
-            var abw = new ArrayBufferWriter<byte>();
-            var utf8JsonWriter = new Utf8JsonWriter(abw);
-            schema.WriteTo(utf8JsonWriter);
-            utf8JsonWriter.Flush();
-            string serializedSchema = Encoding.UTF8.GetString(abw.WrittenSpan);
-            Console.WriteLine(serializedSchema);
+            string serializedSchema = Serialize(schema);
 
             using var doc = JsonDocument.Parse(serializedSchema);
             var deserializedSchema = new Draft201909Schema(doc.RootElement);
@@ -68,6 +63,38 @@ namespace Menes.ConsoleApp
                     Console.WriteLine(item);
                 }
             }
+
+            var tree =
+                new Tree(
+                    "Root",
+                    JsonArray.From(
+                        new Tree.NodeEntity(
+                            3,
+                            new Tree(
+                                "Subtree 1",
+                                JsonArray.From(
+                                    new Tree.NodeEntity(4),
+                                    new Tree.NodeEntity(5)))),
+                        new Tree.NodeEntity(
+                            6,
+                            new Tree(
+                                "Subtree 2",
+                                JsonArray.From(
+                                    new Tree.NodeEntity(7),
+                                    new Tree.NodeEntity(8))))));
+
+            Serialize(tree);
+        }
+
+        private static string Serialize(IJsonValue value)
+        {
+            var abw = new ArrayBufferWriter<byte>();
+            var utf8JsonWriter = new Utf8JsonWriter(abw);
+            value.WriteTo(utf8JsonWriter);
+            utf8JsonWriter.Flush();
+            string serializedValue = Encoding.UTF8.GetString(abw.WrittenSpan);
+            Console.WriteLine(serializedValue);
+            return serializedValue;
         }
 
         /// <summary>
