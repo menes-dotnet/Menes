@@ -141,9 +141,7 @@ namespace Menes
 
             if (this.value is Guid v)
             {
-                Span<char> g = stackalloc char[38];
-                v.TryFormat(g, out int charsWritter);
-                writer.WriteStringValue(g);
+                writer.WriteStringValue(v);
             }
             else
             {
