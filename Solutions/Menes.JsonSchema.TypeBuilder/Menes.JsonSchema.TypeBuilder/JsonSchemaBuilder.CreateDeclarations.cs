@@ -77,6 +77,10 @@ namespace Menes.JsonSchema.TypeBuilder
                 if (schema.JsonElement.TryGetProperty("const", out JsonElement constPropertyValue))
                 {
                     typeDeclaration.Const = constPropertyValue;
+                    if (typeDeclaration.Type is null)
+                    {
+                        this.SetTypeFromElementValueKind(typeDeclaration, constPropertyValue, default);
+                    }
                 }
 
                 if (schema.JsonElement.TryGetProperty("enum", out JsonElement enumPropertyValue))
@@ -89,6 +93,10 @@ namespace Menes.JsonSchema.TypeBuilder
                     }
 
                     typeDeclaration.Enum = result;
+                    if (typeDeclaration.Type is null && result.Count > 0)
+                    {
+                        this.SetTypeFromElementValueKind(typeDeclaration, result[0], default);
+                    }
                 }
             }
         }
@@ -465,14 +473,28 @@ namespace Menes.JsonSchema.TypeBuilder
                     }
                     else
                     {
-                        var typeList = new List<string>();
-                        string typeString = ValidateTypeString(type);
-                        typeList.Add(typeString);
-                        typeDeclaration.Type = typeList;
-                        this.AddConversionOperatorsFor(typeString, format, typeDeclaration);
+                        this.SetType(typeDeclaration, type, format);
                     }
                 }
             }
+        }
+
+        private void SetType(TypeDeclaration typeDeclaration, JsonElement type, JsonElement format)
+        {
+            var typeList = new List<string>();
+            string typeString = ValidateTypeString(type);
+            typeList.Add(typeString);
+            typeDeclaration.Type = typeList;
+            this.AddConversionOperatorsFor(typeString, format, typeDeclaration);
+        }
+
+        private void SetTypeFromElementValueKind(TypeDeclaration typeDeclaration, JsonElement type, JsonElement format)
+        {
+            var typeList = new List<string>();
+            string typeString = GetTypeStringForValueKind(type);
+            typeList.Add(typeString);
+            typeDeclaration.Type = typeList;
+            this.AddConversionOperatorsFor(typeString, format, typeDeclaration);
         }
 
         /// <summary>

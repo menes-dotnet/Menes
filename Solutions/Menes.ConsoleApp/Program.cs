@@ -7,6 +7,7 @@ namespace Menes.ConsoleApp
     using System;
     using System.Collections.Generic;
     using System.Text.Json;
+    using TestSpace;
 
     /// <summary>
     /// Console app for the Menes type generator.
@@ -19,8 +20,8 @@ namespace Menes.ConsoleApp
         public static void Main()
         {
             var test = new Test(default(Test));
-            var schema = default(TestSpace.Draft201909Schema);
-            TestSpace.Draft201909Schema? ap = schema.AdditionalProperties;
+            var schema = new Draft201909Schema(type: (Draft201909MetaValidation.TypeEntity.SimpleTypesEntity)"string");
+            Draft201909Schema? ap = schema.AdditionalProperties;
             string? title = schema.Title;
         }
 

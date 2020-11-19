@@ -2309,9 +2309,37 @@ namespace TestSpace
             {
                 public static readonly SimpleTypesEntity Null = default(SimpleTypesEntity);
                 private readonly System.Text.Json.JsonElement _menesJsonElementBacking;
+                private readonly Menes.JsonString? _menesStringTypeBacking;
                 public SimpleTypesEntity(System.Text.Json.JsonElement jsonElement)
                 {
                     this._menesJsonElementBacking = jsonElement;
+                    this._menesStringTypeBacking = default;
+                }
+                public SimpleTypesEntity(Menes.JsonString value)
+                {
+                    this._menesJsonElementBacking = default;
+                    this._menesStringTypeBacking = value;
+                }
+                private SimpleTypesEntity(Menes.JsonString? _menesStringTypeBacking)
+                {
+                    this._menesJsonElementBacking = default;
+                    this._menesStringTypeBacking = _menesStringTypeBacking;
+                }
+                public static implicit operator Menes.JsonString(SimpleTypesEntity value)
+                {
+                    return value.As<Menes.JsonString>();
+                }
+                public static implicit operator SimpleTypesEntity(Menes.JsonString value)
+                {
+                    return value.As<Draft201909MetaValidation.TypeEntity.SimpleTypesEntity>();
+                }
+                public static implicit operator string(SimpleTypesEntity value)
+                {
+                    return (string)(Menes.JsonString)value;
+                }
+                public static implicit operator SimpleTypesEntity(string value)
+                {
+                    return (Draft201909MetaValidation.TypeEntity.SimpleTypesEntity)(Menes.JsonString)value;
                 }
                 /// <inheritdoc />
                 public bool IsUndefined => !this.HasJsonElement && this.AllBackingFieldsAreNull();
@@ -2335,6 +2363,7 @@ namespace TestSpace
                         this.JsonElement.WriteTo(writer);
                         return;
                     }
+                    this._menesStringTypeBacking?.WriteTo(writer);
                 }
                 /// <inheritdoc />
                 public T As<T>()
@@ -2405,6 +2434,10 @@ namespace TestSpace
                 }
                 private bool AllBackingFieldsAreNull()
                 {
+                    if (this._menesStringTypeBacking is not null)
+                    {
+                        return false;
+                    }
                     return true;
                 }
             }

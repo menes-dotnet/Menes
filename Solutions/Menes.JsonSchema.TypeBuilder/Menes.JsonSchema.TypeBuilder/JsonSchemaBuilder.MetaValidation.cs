@@ -116,6 +116,21 @@ namespace Menes.JsonSchema.TypeBuilder
             throw new InvalidOperationException($"Unsuppported type string value: '{typeString}'.");
         }
 
+        private static string GetTypeStringForValueKind(JsonElement property)
+        {
+            return property.ValueKind switch
+            {
+                JsonValueKind.Array => "array",
+                JsonValueKind.False => "boolean",
+                JsonValueKind.True => "boolean",
+                JsonValueKind.Null => "null",
+                JsonValueKind.Number => "number",
+                JsonValueKind.Object => "object",
+                JsonValueKind.String => "string",
+                _ => throw new InvalidOperationException($"Unsuppported type value: '{property.ValueKind}'.")
+            };
+        }
+
         private static void ValidateSchemaOrArray(JsonProperty property)
         {
             ValidateSchemaOrArray(property.Value);
