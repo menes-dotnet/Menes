@@ -11,7 +11,7 @@ namespace Menes
     /// <summary>
     /// A validation error.
     /// </summary>
-    public struct ValidationResult : IEquatable<ValidationResult>
+    public class ValidationResult : IEquatable<ValidationResult>
     {
         /// <summary>
         /// Gets a valid validation result.

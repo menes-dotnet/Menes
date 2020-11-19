@@ -21,6 +21,14 @@ namespace Menes.ConsoleApp
         {
             var test = new Test(default(Test));
             var schema = new Draft201909Schema(type: "string");
+            if (schema.Validate().Valid)
+            {
+                Console.WriteLine("Hooray!");
+            }
+            else
+            {
+                Console.WriteLine("Boo!");
+            }
         }
 
         /// <summary>
