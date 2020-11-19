@@ -4,7 +4,7 @@
 #pragma warning disable
 namespace TestSpace
 {
-    public readonly struct Draft201909MetaApplicator : Menes.IJsonValue
+    public readonly struct Draft201909MetaApplicator : Menes.IJsonObject
     {
         public static readonly Draft201909MetaApplicator Null = default(Draft201909MetaApplicator);
         private static readonly System.ReadOnlyMemory<char> _MenesAdditionalItemsJsonPropertyName = System.MemoryExtensions.AsMemory("additionalItems");
@@ -63,13 +63,13 @@ namespace TestSpace
         private readonly Menes.JsonBoolean? _menesBooleanTypeBacking;
         private readonly Menes.JsonValueBacking additionalItems;
         private readonly Menes.JsonValueBacking unevaluatedItems;
-        private readonly Menes.JsonValueBacking items;
+        private readonly Draft201909MetaApplicator.ItemsEntity? items;
         private readonly Menes.JsonValueBacking contains;
         private readonly Menes.JsonValueBacking additionalProperties;
         private readonly Menes.JsonValueBacking unevaluatedProperties;
-        private readonly Draft201909MetaApplicator.PropertiesEntity? properties;
-        private readonly Draft201909MetaApplicator.PatternPropertiesEntity? patternProperties;
-        private readonly Draft201909MetaApplicator.DependentSchemasEntity? dependentSchemas;
+        private readonly Menes.JsonValueBacking properties;
+        private readonly Menes.JsonValueBacking patternProperties;
+        private readonly Menes.JsonValueBacking dependentSchemas;
         private readonly Menes.JsonValueBacking propertyNames;
         private readonly Menes.JsonValueBacking @if;
         private readonly Menes.JsonValueBacking then;
@@ -106,13 +106,13 @@ namespace TestSpace
             this._menesJsonElementBacking = default;
             this.additionalItems = Menes.JsonValueBacking.From(additionalItems);
             this.unevaluatedItems = Menes.JsonValueBacking.From(unevaluatedItems);
-            this.items = Menes.JsonValueBacking.From(items);
+            this.items = items;
             this.contains = Menes.JsonValueBacking.From(contains);
             this.additionalProperties = Menes.JsonValueBacking.From(additionalProperties);
             this.unevaluatedProperties = Menes.JsonValueBacking.From(unevaluatedProperties);
-            this.properties = properties;
-            this.patternProperties = patternProperties;
-            this.dependentSchemas = dependentSchemas;
+            this.properties = Menes.JsonValueBacking.From(properties);
+            this.patternProperties = Menes.JsonValueBacking.From(patternProperties);
+            this.dependentSchemas = Menes.JsonValueBacking.From(dependentSchemas);
             this.propertyNames = Menes.JsonValueBacking.From(propertyNames);
             this.@if = Menes.JsonValueBacking.From(@if);
             this.then = Menes.JsonValueBacking.From(then);
@@ -147,7 +147,7 @@ namespace TestSpace
             this.oneOf = default;
             this.not = default;
         }
-        private Draft201909MetaApplicator(Menes.JsonValueBacking additionalItems, Menes.JsonValueBacking unevaluatedItems, Menes.JsonValueBacking items, Menes.JsonValueBacking contains, Menes.JsonValueBacking additionalProperties, Menes.JsonValueBacking unevaluatedProperties, Draft201909MetaApplicator.PropertiesEntity? properties, Draft201909MetaApplicator.PatternPropertiesEntity? patternProperties, Draft201909MetaApplicator.DependentSchemasEntity? dependentSchemas, Menes.JsonValueBacking propertyNames, Menes.JsonValueBacking @if, Menes.JsonValueBacking then, Menes.JsonValueBacking @else, Menes.JsonValueBacking allOf, Menes.JsonValueBacking anyOf, Menes.JsonValueBacking oneOf, Menes.JsonValueBacking not, Menes.JsonBoolean? _menesBooleanTypeBacking, in System.Collections.Immutable.ImmutableArray<Menes.AdditionalProperty<Menes.JsonAny>> _menesAdditionalPropertiesBacking)
+        private Draft201909MetaApplicator(Menes.JsonValueBacking additionalItems, Menes.JsonValueBacking unevaluatedItems, Draft201909MetaApplicator.ItemsEntity? items, Menes.JsonValueBacking contains, Menes.JsonValueBacking additionalProperties, Menes.JsonValueBacking unevaluatedProperties, Menes.JsonValueBacking properties, Menes.JsonValueBacking patternProperties, Menes.JsonValueBacking dependentSchemas, Menes.JsonValueBacking propertyNames, Menes.JsonValueBacking @if, Menes.JsonValueBacking then, Menes.JsonValueBacking @else, Menes.JsonValueBacking allOf, Menes.JsonValueBacking anyOf, Menes.JsonValueBacking oneOf, Menes.JsonValueBacking not, Menes.JsonBoolean? _menesBooleanTypeBacking, in System.Collections.Immutable.ImmutableArray<Menes.AdditionalProperty<Menes.JsonAny>> _menesAdditionalPropertiesBacking)
         {
             this._menesJsonElementBacking = default;
             this.additionalItems = additionalItems;
@@ -196,13 +196,13 @@ namespace TestSpace
         public System.Text.Json.JsonElement JsonElement => this._menesJsonElementBacking;
         public Draft201909MetaApplicator? AdditionalItems => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator>(_MenesAdditionalItemsUtf8JsonPropertyName.Span) : this.additionalItems.Value<Draft201909MetaApplicator>();
         public Draft201909MetaApplicator? UnevaluatedItems => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator>(_MenesUnevaluatedItemsUtf8JsonPropertyName.Span) : this.unevaluatedItems.Value<Draft201909MetaApplicator>();
-        public Draft201909MetaApplicator.ItemsEntity? Items => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator.ItemsEntity>(_MenesItemsUtf8JsonPropertyName.Span) : this.items.Value<Draft201909MetaApplicator.ItemsEntity>();
+        public Draft201909MetaApplicator.ItemsEntity? Items => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator.ItemsEntity>(_MenesItemsUtf8JsonPropertyName.Span) : this.items;
         public Draft201909MetaApplicator? Contains => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator>(_MenesContainsUtf8JsonPropertyName.Span) : this.contains.Value<Draft201909MetaApplicator>();
         public Draft201909MetaApplicator? AdditionalProperties => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator>(_MenesAdditionalPropertiesUtf8JsonPropertyName.Span) : this.additionalProperties.Value<Draft201909MetaApplicator>();
         public Draft201909MetaApplicator? UnevaluatedProperties => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator>(_MenesUnevaluatedPropertiesUtf8JsonPropertyName.Span) : this.unevaluatedProperties.Value<Draft201909MetaApplicator>();
-        public Draft201909MetaApplicator.PropertiesEntity? Properties => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator.PropertiesEntity>(_MenesPropertiesUtf8JsonPropertyName.Span) : this.properties;
-        public Draft201909MetaApplicator.PatternPropertiesEntity? PatternProperties => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator.PatternPropertiesEntity>(_MenesPatternPropertiesUtf8JsonPropertyName.Span) : this.patternProperties;
-        public Draft201909MetaApplicator.DependentSchemasEntity? DependentSchemas => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator.DependentSchemasEntity>(_MenesDependentSchemasUtf8JsonPropertyName.Span) : this.dependentSchemas;
+        public Draft201909MetaApplicator.PropertiesEntity? Properties => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator.PropertiesEntity>(_MenesPropertiesUtf8JsonPropertyName.Span) : this.properties.Value<Draft201909MetaApplicator.PropertiesEntity>();
+        public Draft201909MetaApplicator.PatternPropertiesEntity? PatternProperties => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator.PatternPropertiesEntity>(_MenesPatternPropertiesUtf8JsonPropertyName.Span) : this.patternProperties.Value<Draft201909MetaApplicator.PatternPropertiesEntity>();
+        public Draft201909MetaApplicator.DependentSchemasEntity? DependentSchemas => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator.DependentSchemasEntity>(_MenesDependentSchemasUtf8JsonPropertyName.Span) : this.dependentSchemas.Value<Draft201909MetaApplicator.DependentSchemasEntity>();
         public Draft201909MetaApplicator? PropertyNames => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator>(_MenesPropertyNamesUtf8JsonPropertyName.Span) : this.propertyNames.Value<Draft201909MetaApplicator>();
         public Draft201909MetaApplicator? If => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator>(_MenesIfUtf8JsonPropertyName.Span) : this.@if.Value<Draft201909MetaApplicator>();
         public Draft201909MetaApplicator? Then => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator>(_MenesThenUtf8JsonPropertyName.Span) : this.then.Value<Draft201909MetaApplicator>();
@@ -226,87 +226,87 @@ namespace TestSpace
                 return;
             }
             writer.WriteStartObject();
-            if (this.additionalItems is Menes.JsonValueBacking additionalItems)
+            if (this.additionalItems is Menes.JsonValueBacking additionalItems && !additionalItems.IsNull)
             {
                 writer.WritePropertyName(_MenesAdditionalItemsEncodedJsonPropertyName);
                 additionalItems.WriteTo(writer);
             }
-            if (this.unevaluatedItems is Menes.JsonValueBacking unevaluatedItems)
+            if (this.unevaluatedItems is Menes.JsonValueBacking unevaluatedItems && !unevaluatedItems.IsNull)
             {
                 writer.WritePropertyName(_MenesUnevaluatedItemsEncodedJsonPropertyName);
                 unevaluatedItems.WriteTo(writer);
             }
-            if (this.items is Menes.JsonValueBacking items)
+            if (this.items is Draft201909MetaApplicator.ItemsEntity items)
             {
                 writer.WritePropertyName(_MenesItemsEncodedJsonPropertyName);
                 items.WriteTo(writer);
             }
-            if (this.contains is Menes.JsonValueBacking contains)
+            if (this.contains is Menes.JsonValueBacking contains && !contains.IsNull)
             {
                 writer.WritePropertyName(_MenesContainsEncodedJsonPropertyName);
                 contains.WriteTo(writer);
             }
-            if (this.additionalProperties is Menes.JsonValueBacking additionalProperties)
+            if (this.additionalProperties is Menes.JsonValueBacking additionalProperties && !additionalProperties.IsNull)
             {
                 writer.WritePropertyName(_MenesAdditionalPropertiesEncodedJsonPropertyName);
                 additionalProperties.WriteTo(writer);
             }
-            if (this.unevaluatedProperties is Menes.JsonValueBacking unevaluatedProperties)
+            if (this.unevaluatedProperties is Menes.JsonValueBacking unevaluatedProperties && !unevaluatedProperties.IsNull)
             {
                 writer.WritePropertyName(_MenesUnevaluatedPropertiesEncodedJsonPropertyName);
                 unevaluatedProperties.WriteTo(writer);
             }
-            if (this.properties is Draft201909MetaApplicator.PropertiesEntity properties)
+            if (this.properties is Menes.JsonValueBacking properties && !properties.IsNull)
             {
                 writer.WritePropertyName(_MenesPropertiesEncodedJsonPropertyName);
                 properties.WriteTo(writer);
             }
-            if (this.patternProperties is Draft201909MetaApplicator.PatternPropertiesEntity patternProperties)
+            if (this.patternProperties is Menes.JsonValueBacking patternProperties && !patternProperties.IsNull)
             {
                 writer.WritePropertyName(_MenesPatternPropertiesEncodedJsonPropertyName);
                 patternProperties.WriteTo(writer);
             }
-            if (this.dependentSchemas is Draft201909MetaApplicator.DependentSchemasEntity dependentSchemas)
+            if (this.dependentSchemas is Menes.JsonValueBacking dependentSchemas && !dependentSchemas.IsNull)
             {
                 writer.WritePropertyName(_MenesDependentSchemasEncodedJsonPropertyName);
                 dependentSchemas.WriteTo(writer);
             }
-            if (this.propertyNames is Menes.JsonValueBacking propertyNames)
+            if (this.propertyNames is Menes.JsonValueBacking propertyNames && !propertyNames.IsNull)
             {
                 writer.WritePropertyName(_MenesPropertyNamesEncodedJsonPropertyName);
                 propertyNames.WriteTo(writer);
             }
-            if (this.@if is Menes.JsonValueBacking @if)
+            if (this.@if is Menes.JsonValueBacking @if && !@if.IsNull)
             {
                 writer.WritePropertyName(_MenesIfEncodedJsonPropertyName);
                 @if.WriteTo(writer);
             }
-            if (this.then is Menes.JsonValueBacking then)
+            if (this.then is Menes.JsonValueBacking then && !then.IsNull)
             {
                 writer.WritePropertyName(_MenesThenEncodedJsonPropertyName);
                 then.WriteTo(writer);
             }
-            if (this.@else is Menes.JsonValueBacking @else)
+            if (this.@else is Menes.JsonValueBacking @else && !@else.IsNull)
             {
                 writer.WritePropertyName(_MenesElseEncodedJsonPropertyName);
                 @else.WriteTo(writer);
             }
-            if (this.allOf is Menes.JsonValueBacking allOf)
+            if (this.allOf is Menes.JsonValueBacking allOf && !allOf.IsNull)
             {
                 writer.WritePropertyName(_MenesAllOfEncodedJsonPropertyName);
                 allOf.WriteTo(writer);
             }
-            if (this.anyOf is Menes.JsonValueBacking anyOf)
+            if (this.anyOf is Menes.JsonValueBacking anyOf && !anyOf.IsNull)
             {
                 writer.WritePropertyName(_MenesAnyOfEncodedJsonPropertyName);
                 anyOf.WriteTo(writer);
             }
-            if (this.oneOf is Menes.JsonValueBacking oneOf)
+            if (this.oneOf is Menes.JsonValueBacking oneOf && !oneOf.IsNull)
             {
                 writer.WritePropertyName(_MenesOneOfEncodedJsonPropertyName);
                 oneOf.WriteTo(writer);
             }
-            if (this.not is Menes.JsonValueBacking not)
+            if (this.not is Menes.JsonValueBacking not && !not.IsNull)
             {
                 writer.WritePropertyName(_MenesNotEncodedJsonPropertyName);
                 not.WriteTo(writer);
@@ -993,7 +993,7 @@ namespace TestSpace
             {
                 return false;
             }
-            if (!this.items.IsNull)
+            if (this.items is not null)
             {
                 return false;
             }
@@ -1009,15 +1009,15 @@ namespace TestSpace
             {
                 return false;
             }
-            if (this.properties is not null)
+            if (!this.properties.IsNull)
             {
                 return false;
             }
-            if (this.patternProperties is not null)
+            if (!this.patternProperties.IsNull)
             {
                 return false;
             }
-            if (this.dependentSchemas is not null)
+            if (!this.dependentSchemas.IsNull)
             {
                 return false;
             }
@@ -1194,68 +1194,33 @@ namespace TestSpace
             {
                 return this.As<Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity>();
             }
-            /// <inheritdoc />
-            public bool TryGetProperty<T>(System.ReadOnlySpan<char> propertyName, out T property)
-                where T : struct, Menes.IJsonValue
-            {
-                if (this.HasJsonElement)
-                {
-                    if (this.JsonElement.TryGetProperty(propertyName, out System.Text.Json.JsonElement value))
-                    {
-                        property = Menes.JsonValue.As<T>(value);
-                        return true;
-                    }
-                    property = default;
-                    return false;
-                }
-                property = default;
-                return false;
-            }
-            /// <inheritdoc />
-            public bool TryGetProperty<T>(string propertyName, out T property)
-                where T : struct, Menes.IJsonValue
-            {
-                if (this.HasJsonElement)
-                {
-                    if (this.JsonElement.TryGetProperty(propertyName, out System.Text.Json.JsonElement value))
-                    {
-                        property = Menes.JsonValue.As<T>(value);
-                        return true;
-                    }
-                    property = default;
-                    return false;
-                }
-                property = default;
-                return false;
-            }
-            /// <inheritdoc />
-            public bool TryGetProperty<T>(System.ReadOnlySpan<byte> propertyName, out T property)
-                where T : struct, Menes.IJsonValue
-            {
-                if (this.HasJsonElement)
-                {
-                    if (this.JsonElement.TryGetProperty(propertyName, out System.Text.Json.JsonElement value))
-                    {
-                        property = Menes.JsonValue.As<T>(value);
-                        return true;
-                    }
-                    property = default;
-                    return false;
-                }
-                property = default;
-                return false;
-            }
             private bool AllBackingFieldsAreNull()
             {
                 return true;
             }
-            public readonly struct SchemaArrayEntity : Menes.IJsonValue
+            public readonly struct SchemaArrayEntity : Menes.IJsonValue, System.Collections.IEnumerable
             {
                 public static readonly SchemaArrayEntity Null = default(SchemaArrayEntity);
                 private readonly System.Text.Json.JsonElement _menesJsonElementBacking;
+                private readonly System.Collections.Immutable.ImmutableArray<Menes.JsonValueBacking>? _menesArrayValueBacking;
                 public SchemaArrayEntity(System.Text.Json.JsonElement jsonElement)
                 {
                     this._menesJsonElementBacking = jsonElement;
+                    this._menesArrayValueBacking = default;
+                }
+                public SchemaArrayEntity(System.Collections.Immutable.ImmutableArray<Draft201909MetaApplicator> value)
+                {
+                    var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonValueBacking>();
+                    foreach (var item in value)
+                    {
+                        arrayBuilder.Add(Menes.JsonValueBacking.From<Draft201909MetaApplicator>(item));
+                    }
+                    this._menesArrayValueBacking = arrayBuilder.ToImmutable();
+                    this._menesJsonElementBacking = default;
+                }
+                public static implicit operator SchemaArrayEntity(System.Collections.Immutable.ImmutableArray<Draft201909MetaApplicator> items)
+                {
+                    return new SchemaArrayEntity(items);
                 }
                 /// <inheritdoc />
                 public bool IsUndefined => !this.HasJsonElement && this.AllBackingFieldsAreNull();
@@ -1280,6 +1245,10 @@ namespace TestSpace
                         return;
                     }
                     writer.WriteStartArray();
+                    foreach (var item in this._menesArrayValueBacking)
+                    {
+                        item.WriteTo(writer);
+                    }
                     writer.WriteEndArray();
                 }
                 /// <inheritdoc />
@@ -1298,64 +1267,117 @@ namespace TestSpace
                     }
                     return this.As<T>().Validate().Valid;
                 }
-                /// <inheritdoc />
-                public bool TryGetProperty<T>(System.ReadOnlySpan<char> propertyName, out T property)
-                    where T : struct, Menes.IJsonValue
-                {
-                    if (this.HasJsonElement)
-                    {
-                        if (this.JsonElement.TryGetProperty(propertyName, out System.Text.Json.JsonElement value))
-                        {
-                            property = Menes.JsonValue.As<T>(value);
-                            return true;
-                        }
-                        property = default;
-                        return false;
-                    }
-                    property = default;
-                    return false;
-                }
-                /// <inheritdoc />
-                public bool TryGetProperty<T>(string propertyName, out T property)
-                    where T : struct, Menes.IJsonValue
-                {
-                    if (this.HasJsonElement)
-                    {
-                        if (this.JsonElement.TryGetProperty(propertyName, out System.Text.Json.JsonElement value))
-                        {
-                            property = Menes.JsonValue.As<T>(value);
-                            return true;
-                        }
-                        property = default;
-                        return false;
-                    }
-                    property = default;
-                    return false;
-                }
-                /// <inheritdoc />
-                public bool TryGetProperty<T>(System.ReadOnlySpan<byte> propertyName, out T property)
-                    where T : struct, Menes.IJsonValue
-                {
-                    if (this.HasJsonElement)
-                    {
-                        if (this.JsonElement.TryGetProperty(propertyName, out System.Text.Json.JsonElement value))
-                        {
-                            property = Menes.JsonValue.As<T>(value);
-                            return true;
-                        }
-                        property = default;
-                        return false;
-                    }
-                    property = default;
-                    return false;
-                }
+                public Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity.MenesArrayEnumerator GetEnumerator() { return new Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity.MenesArrayEnumerator(this); }
+                System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() { return this.GetEnumerator(); }
                 private bool AllBackingFieldsAreNull()
                 {
+                    if (this._menesArrayValueBacking is not null)
+                    {
+                        return false;
+                    }
                     return true;
+                }
+                /// <summary>
+                /// An enumerator for the array values in a <see cref="SchemaArrayEntity"/>.
+                /// </summary>
+                public struct MenesArrayEnumerator : System.Collections.Generic.IEnumerable<Draft201909MetaApplicator>, System.Collections.IEnumerable, System.Collections.Generic.IEnumerator<Draft201909MetaApplicator>, System.Collections.IEnumerator
+                {
+                    private SchemaArrayEntity instance;
+                    private System.Text.Json.JsonElement.ArrayEnumerator jsonEnumerator;
+                    private bool hasJsonEnumerator;
+                    private int index;
+                    internal MenesArrayEnumerator(SchemaArrayEntity instance)
+                    {
+                        this.instance = instance;
+                        if (this.instance.HasJsonElement)
+                        {
+                            this.index = -2;
+                            this.hasJsonEnumerator = true;
+                            this.jsonEnumerator = this.instance.JsonElement.EnumerateArray();
+                        }
+                        else
+                        {
+                            this.index = -1;
+                            this.hasJsonEnumerator = false;
+                            this.jsonEnumerator = default;
+                        }
+                    }
+                    /// <inheritdoc/>
+                    public Draft201909MetaApplicator Current
+                    {
+                        get
+                        {
+                            if (this.hasJsonEnumerator)
+                            {
+                                return new Draft201909MetaApplicator(this.jsonEnumerator.Current);
+                            }
+                            else if (this.instance._menesArrayValueBacking is System.Collections.Immutable.ImmutableArray<Menes.JsonValueBacking> array && this.index >= 0 && this.index < array.Length)
+                            {
+                                return array[this.index].Value<Draft201909MetaApplicator>() ?? default;
+                            }
+                            return default;
+                        }
+                    }
+                    /// <inheritdoc/>
+                    object System.Collections.IEnumerator.Current => this.Current;
+                    /// <summary>
+                    /// Returns a fresh copy of the enumerator
+                    /// </summary>
+                    /// <returns>An enumerator for the array values in a <see cref="SchemaArrayEntity"/>.</returns>
+                    public MenesArrayEnumerator GetEnumerator()
+                    {
+                        MenesArrayEnumerator result = this;
+                        result.Reset();
+                        return result;
+                    }
+                    /// <inheritdoc/>
+                    System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+                    {
+                        return this.GetEnumerator();
+                    }
+                    /// <inheritdoc/>
+                    System.Collections.Generic.IEnumerator<Draft201909MetaApplicator> System.Collections.Generic.IEnumerable<Draft201909MetaApplicator>.GetEnumerator()
+                    {
+                        return this.GetEnumerator();
+                    }
+                    /// <inheritdoc/>
+                    public void Dispose()
+                    {
+                        if (this.hasJsonEnumerator)
+                        {
+                            this.jsonEnumerator.Dispose();
+                        }
+                    }
+                    /// <inheritdoc/>
+                    public void Reset()
+                    {
+                        if (this.hasJsonEnumerator)
+                        {
+                            this.jsonEnumerator.Reset();
+                        }
+                        else
+                        {
+                            this.index = -1;
+                        }
+                    }
+                    /// <inheritdoc/>
+                    public bool MoveNext()
+                    {
+                        if (this.hasJsonEnumerator)
+                        {
+                            return this.jsonEnumerator.MoveNext();
+                        }
+                        else if (this.instance._menesArrayValueBacking is System.Collections.Immutable.ImmutableArray<Menes.JsonValueBacking> array && this.index < array.Length)
+                        {
+                            this.index++;
+                            return true;
+                        }
+                        return false;
+                    }
                 }
             }
         }
-        public readonly struct PropertiesEntity : Menes.IJsonValue
+        public readonly struct PropertiesEntity : Menes.IJsonObject
         {
             public static readonly PropertiesEntity Null = default(PropertiesEntity);
             private readonly System.Text.Json.JsonElement _menesJsonElementBacking;
@@ -1513,7 +1535,7 @@ namespace TestSpace
                 return true;
             }
         }
-        public readonly struct PatternPropertiesEntity : Menes.IJsonValue
+        public readonly struct PatternPropertiesEntity : Menes.IJsonObject
         {
             public static readonly PatternPropertiesEntity Null = default(PatternPropertiesEntity);
             private readonly System.Text.Json.JsonElement _menesJsonElementBacking;
@@ -1717,64 +1739,13 @@ namespace TestSpace
                     }
                     return this.As<T>().Validate().Valid;
                 }
-                /// <inheritdoc />
-                public bool TryGetProperty<T>(System.ReadOnlySpan<char> propertyName, out T property)
-                    where T : struct, Menes.IJsonValue
-                {
-                    if (this.HasJsonElement)
-                    {
-                        if (this.JsonElement.TryGetProperty(propertyName, out System.Text.Json.JsonElement value))
-                        {
-                            property = Menes.JsonValue.As<T>(value);
-                            return true;
-                        }
-                        property = default;
-                        return false;
-                    }
-                    property = default;
-                    return false;
-                }
-                /// <inheritdoc />
-                public bool TryGetProperty<T>(string propertyName, out T property)
-                    where T : struct, Menes.IJsonValue
-                {
-                    if (this.HasJsonElement)
-                    {
-                        if (this.JsonElement.TryGetProperty(propertyName, out System.Text.Json.JsonElement value))
-                        {
-                            property = Menes.JsonValue.As<T>(value);
-                            return true;
-                        }
-                        property = default;
-                        return false;
-                    }
-                    property = default;
-                    return false;
-                }
-                /// <inheritdoc />
-                public bool TryGetProperty<T>(System.ReadOnlySpan<byte> propertyName, out T property)
-                    where T : struct, Menes.IJsonValue
-                {
-                    if (this.HasJsonElement)
-                    {
-                        if (this.JsonElement.TryGetProperty(propertyName, out System.Text.Json.JsonElement value))
-                        {
-                            property = Menes.JsonValue.As<T>(value);
-                            return true;
-                        }
-                        property = default;
-                        return false;
-                    }
-                    property = default;
-                    return false;
-                }
                 private bool AllBackingFieldsAreNull()
                 {
                     return true;
                 }
             }
         }
-        public readonly struct DependentSchemasEntity : Menes.IJsonValue
+        public readonly struct DependentSchemasEntity : Menes.IJsonObject
         {
             public static readonly DependentSchemasEntity Null = default(DependentSchemasEntity);
             private readonly System.Text.Json.JsonElement _menesJsonElementBacking;

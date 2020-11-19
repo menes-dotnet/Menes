@@ -13,7 +13,7 @@ namespace Menes
     /// </summary>
     /// <typeparam name="T">The type of <see cref="IJsonValue"/> that owns this property.</typeparam>
     public readonly struct Property<T>
-        where T : struct, IJsonValue
+        where T : struct, IJsonObject
     {
         private readonly ReadOnlyMemory<char>? name;
         private readonly T owner;

@@ -420,9 +420,8 @@ namespace Menes.JsonSchema.TypeBuilder.Model
             }
 
             return (this.Properties is not null && this.Properties.Any(p => p.TypeDeclaration?.ContainsReferenceTo(typeDeclaration, typeNamesVisited) ?? false)) ||
-                (this.Items is not null && this.Items.Any(i => i.ContainsReferenceTo(typeDeclaration, typeNamesVisited))) ||
-                (this.AnyOf is not null && this.AnyOf.Any(ao => ao.ContainsReferenceTo(typeDeclaration, typeNamesVisited))) ||
-                (this.OneOf is not null && this.OneOf.Any(oo => oo.ContainsReferenceTo(typeDeclaration, typeNamesVisited)));
+                (this.AdditionalProperties is not null && this.AdditionalProperties.ContainsReferenceTo(typeDeclaration, typeNamesVisited)) ||
+                (this.Items is not null && this.Items.Count == 1 && this.Items[0].ContainsReferenceTo(typeDeclaration, typeNamesVisited));
         }
 
         /// <summary>

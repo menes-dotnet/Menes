@@ -4,7 +4,7 @@
 #pragma warning disable
 namespace TestSpace
 {
-    public readonly struct Draft201909MetaContent : Menes.IJsonValue
+    public readonly struct Draft201909MetaContent : Menes.IJsonObject
     {
         public static readonly Draft201909MetaContent Null = default(Draft201909MetaContent);
         private static readonly System.ReadOnlyMemory<char> _MenesContentMediaTypeJsonPropertyName = System.MemoryExtensions.AsMemory("contentMediaType");
@@ -110,7 +110,7 @@ namespace TestSpace
                 writer.WritePropertyName(_MenesContentEncodingEncodedJsonPropertyName);
                 contentEncoding.WriteTo(writer);
             }
-            if (this.contentSchema is Menes.JsonValueBacking contentSchema)
+            if (this.contentSchema is Menes.JsonValueBacking contentSchema && !contentSchema.IsNull)
             {
                 writer.WritePropertyName(_MenesContentSchemaEncodedJsonPropertyName);
                 contentSchema.WriteTo(writer);

@@ -145,48 +145,6 @@ namespace Menes
         }
 
         /// <inheritdoc />
-        public bool TryGetProperty<T>(ReadOnlySpan<char> propertyName, out T property)
-            where T : struct, IJsonValue
-        {
-            if (this.JsonElement.TryGetProperty(propertyName, out System.Text.Json.JsonElement value))
-            {
-                property = value.As<T>();
-                return true;
-            }
-
-            property = default;
-            return false;
-        }
-
-        /// <inheritdoc />
-        public bool TryGetProperty<T>(string propertyName, out T property)
-            where T : struct, IJsonValue
-        {
-            if (this.JsonElement.TryGetProperty(propertyName, out System.Text.Json.JsonElement value))
-            {
-                property = value.As<T>();
-                return true;
-            }
-
-            property = default;
-            return false;
-        }
-
-        /// <inheritdoc />
-        public bool TryGetProperty<T>(ReadOnlySpan<byte> utf8PropertyName, out T property)
-            where T : struct, IJsonValue
-        {
-            if (this.JsonElement.TryGetProperty(utf8PropertyName, out System.Text.Json.JsonElement value))
-            {
-                property = value.As<T>();
-                return true;
-            }
-
-            property = default;
-            return false;
-        }
-
-        /// <inheritdoc />
         public ValidationResult Validate(ValidationResult? validationResult = null, ValidationLevel level = ValidationLevel.Flag, HashSet<string>? evaluatedProperties = null, Stack<string>? absoluteKeywordLocation = null, Stack<string>? instanceLocation = null)
         {
             ValidationResult result = validationResult ?? ValidationResult.ValidResult;

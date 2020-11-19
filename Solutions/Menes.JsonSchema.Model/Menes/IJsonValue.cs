@@ -69,35 +69,5 @@ namespace Menes
         /// <param name="instanceLocation">The stack of instance locations for the validation.</param>
         /// <returns>The validation updated with the results of the validation.</returns>
         ValidationResult Validate(ValidationResult? validationResult = null, ValidationLevel level = ValidationLevel.Flag, HashSet<string>? evaluatedProperties = null, Stack<string>? absoluteKeywordLocation = null, Stack<string>? instanceLocation = null);
-
-        /// <summary>
-        /// Try to get a named property.
-        /// </summary>
-        /// <typeparam name="T">The type of the property to get.</typeparam>
-        /// <param name="propertyName">The name of the property.</param>
-        /// <param name="property">The resulting property.</param>
-        /// <returns><c>True</c> if there was a property with the given name.</returns>
-        bool TryGetProperty<T>(ReadOnlySpan<char> propertyName, out T property)
-            where T : struct, IJsonValue;
-
-        /// <summary>
-        /// Try to get a named property.
-        /// </summary>
-        /// <typeparam name="T">The type of the property to get.</typeparam>
-        /// <param name="propertyName">The name of the property.</param>
-        /// <param name="property">The resulting property.</param>
-        /// <returns><c>True</c> if there was a property with the given name.</returns>
-        bool TryGetProperty<T>(string propertyName, out T property)
-            where T : struct, IJsonValue;
-
-        /// <summary>
-        /// Try to get a named property.
-        /// </summary>
-        /// <typeparam name="T">The type of the property to get.</typeparam>
-        /// <param name="utf8PropertyName">The utf8 encoded name of the property.</param>
-        /// <param name="property">The resulting property.</param>
-        /// <returns><c>True</c> if there was a property with the given name.</returns>
-        bool TryGetProperty<T>(ReadOnlySpan<byte> utf8PropertyName, out T property)
-            where T : struct, IJsonValue;
     }
 }

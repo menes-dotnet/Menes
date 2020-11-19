@@ -20,7 +20,7 @@ namespace Menes.ConsoleApp
         public static void Main()
         {
             var test = new Test(default(Test));
-            var schema = new Draft201909Schema(type: "string");
+            var schema = new Draft201909Schema(type: (Draft201909MetaValidation.TypeEntity.AnyOf1Array)JsonArray.From<Draft201909MetaValidation.TypeEntity.SimpleTypesEntity>("string", "array"));
             if (schema.Validate().Valid)
             {
                 Console.WriteLine("Hooray!");
@@ -28,6 +28,14 @@ namespace Menes.ConsoleApp
             else
             {
                 Console.WriteLine("Boo!");
+            }
+
+            if (schema.Type is Draft201909MetaValidation.TypeEntity type)
+            {
+                foreach (string item in type.AsAnyOf1Array())
+                {
+                    Console.WriteLine(item);
+                }
             }
         }
 
@@ -87,27 +95,6 @@ namespace Menes.ConsoleApp
 
             /// <inheritdoc/>
             public bool Is<T>()
-                where T : struct, IJsonValue
-            {
-                throw new NotImplementedException();
-            }
-
-            /// <inheritdoc/>
-            public bool TryGetProperty<T>(ReadOnlySpan<char> propertyName, out T property)
-                where T : struct, IJsonValue
-            {
-                throw new NotImplementedException();
-            }
-
-            /// <inheritdoc/>
-            public bool TryGetProperty<T>(string propertyName, out T property)
-                where T : struct, IJsonValue
-            {
-                throw new NotImplementedException();
-            }
-
-            /// <inheritdoc/>
-            public bool TryGetProperty<T>(ReadOnlySpan<byte> utf8PropertyName, out T property)
                 where T : struct, IJsonValue
             {
                 throw new NotImplementedException();

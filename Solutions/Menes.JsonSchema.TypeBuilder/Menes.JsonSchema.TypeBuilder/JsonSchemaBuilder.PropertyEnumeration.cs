@@ -33,9 +33,9 @@ namespace Menes.JsonSchema.TypeBuilder
             memberBuilder.AppendLine("/// </summary>");
             memberBuilder.AppendLine($"public struct PropertyEnumerator : System.Collections.Generic.IEnumerable<Menes.Property<{parentTypeDeclaration.DotnetTypeName}>>, System.Collections.IEnumerable, System.Collections.Generic.IEnumerator<Menes.Property<{parentTypeDeclaration.DotnetTypeName}>>, System.Collections.IEnumerator");
             memberBuilder.AppendLine("{");
-            memberBuilder.AppendLine($"    private readonly {parentTypeDeclaration.DotnetTypeName} instance;");
-            memberBuilder.AppendLine($"    private readonly System.Text.Json.JsonElement.ObjectEnumerator? jsonEnumerator;");
-            memberBuilder.AppendLine($"    private readonly bool hasJsonEnumerator;");
+            memberBuilder.AppendLine($"    private {parentTypeDeclaration.DotnetTypeName} instance;");
+            memberBuilder.AppendLine($"    private System.Text.Json.JsonElement.ObjectEnumerator? jsonEnumerator;");
+            memberBuilder.AppendLine($"    private bool hasJsonEnumerator;");
             memberBuilder.AppendLine($"    private int index;");
 
             memberBuilder.AppendLine($"    internal PropertyEnumerator({parentTypeDeclaration.DotnetTypeName} instance)");
@@ -45,7 +45,7 @@ namespace Menes.JsonSchema.TypeBuilder
             memberBuilder.AppendLine("        {");
             memberBuilder.AppendLine("            this.index = -2;");
             memberBuilder.AppendLine("            this.hasJsonEnumerator = true;");
-            memberBuilder.AppendLine("            this.jsonEnumerator = this.instance.JsonElement.EnumeratorObject();");
+            memberBuilder.AppendLine("            this.jsonEnumerator = this.instance.JsonElement.EnumerateObject();");
             memberBuilder.AppendLine("        }");
             memberBuilder.AppendLine("        else");
             memberBuilder.AppendLine("        {");

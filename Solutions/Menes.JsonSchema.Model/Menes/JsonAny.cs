@@ -11,7 +11,7 @@ namespace Menes
     /// <summary>
     /// Represents the {}/true json type.
     /// </summary>
-    public readonly struct JsonAny : IJsonValue
+    public readonly struct JsonAny : IJsonObject
     {
         /// <summary>
         /// The null value.

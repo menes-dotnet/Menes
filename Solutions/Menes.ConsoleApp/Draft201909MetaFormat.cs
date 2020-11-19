@@ -4,7 +4,7 @@
 #pragma warning disable
 namespace TestSpace
 {
-    public readonly struct Draft201909MetaFormat : Menes.IJsonValue
+    public readonly struct Draft201909MetaFormat : Menes.IJsonObject
     {
         public static readonly Draft201909MetaFormat Null = default(Draft201909MetaFormat);
         private static readonly System.ReadOnlyMemory<char> _MenesFormatJsonPropertyName = System.MemoryExtensions.AsMemory("format");

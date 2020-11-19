@@ -25,7 +25,13 @@ namespace Menes.JsonSchema.TypeBuilder
                 return;
             }
 
-            memberBuilder.AppendLine($"public readonly struct {typeDeclaration.DotnetTypeName} : Menes.IJsonValue");
+            memberBuilder.Append($"public readonly struct {typeDeclaration.DotnetTypeName} : ");
+            this.BuildInterfaces(typeDeclaration, memberBuilder);
+
+            this.BuildArrayInterfaces(typeDeclaration, memberBuilder);
+
+            memberBuilder.AppendLine();
+
             memberBuilder.AppendLine("{");
 
             // Public static readonly fields
@@ -38,6 +44,7 @@ namespace Menes.JsonSchema.TypeBuilder
             this.BuildJsonElementBackingField(memberBuilder);
             this.BuildAdditionalPropertiesBackingField(typeDeclaration, memberBuilder);
             this.BuildTypeBackingFields(typeDeclaration, memberBuilder);
+            this.BuildArrayBackingField(typeDeclaration, memberBuilder);
             this.BuildPropertyBackingFields(typeDeclaration, memberBuilder);
 
             // Public and private constructors
@@ -45,6 +52,7 @@ namespace Menes.JsonSchema.TypeBuilder
 
             // Conversion operators
             this.BuildConversionOperators(typeDeclaration, memberBuilder);
+            this.BuildArrayConversionOperators(typeDeclaration, memberBuilder);
 
             // Public properties
             this.BuildUndefinedAndNullProperties(memberBuilder);
@@ -56,6 +64,7 @@ namespace Menes.JsonSchema.TypeBuilder
             this.BuildWriteToMethod(typeDeclaration, memberBuilder);
             this.BuildIsAndAsMethods(typeDeclaration, memberBuilder);
             this.BuildTryGetProperty(typeDeclaration, memberBuilder);
+            this.BuildArrayEnumerators(typeDeclaration, memberBuilder);
 
             // Private methods
             this.BuildJsonPropertyGetMethods(typeDeclaration, memberBuilder);
@@ -63,7 +72,215 @@ namespace Menes.JsonSchema.TypeBuilder
 
             // Embedded types
             this.BuildEmbeddedTypes(typeDeclaration, memberBuilder);
+            this.BuildArrayEnumerator(typeDeclaration, memberBuilder);
             memberBuilder.AppendLine("}");
+        }
+
+        private void BuildArrayEnumerator(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
+        {
+            if (!typeDeclaration.IsArrayTypeDeclaration)
+            {
+                return;
+            }
+
+            TypeDeclaration itemsType = this.GetItemsTypeFor(typeDeclaration);
+
+            memberBuilder.AppendLine("/// <summary>");
+            memberBuilder.AppendLine($"/// An enumerator for the array values in a <see cref=\"{typeDeclaration.DotnetTypeName}\"/>.");
+            memberBuilder.AppendLine("/// </summary>");
+            memberBuilder.AppendLine($"public struct MenesArrayEnumerator : System.Collections.Generic.IEnumerable<{itemsType.FullyQualifiedDotNetTypeName}>, System.Collections.IEnumerable, System.Collections.Generic.IEnumerator<{itemsType.FullyQualifiedDotNetTypeName}>, System.Collections.IEnumerator");
+            memberBuilder.AppendLine("{");
+            memberBuilder.AppendLine($"    private {typeDeclaration.DotnetTypeName} instance;");
+            memberBuilder.AppendLine($"    private System.Text.Json.JsonElement.ArrayEnumerator jsonEnumerator;");
+            memberBuilder.AppendLine($"    private bool hasJsonEnumerator;");
+            memberBuilder.AppendLine($"    private int index;");
+
+            memberBuilder.AppendLine($"    internal MenesArrayEnumerator({typeDeclaration.DotnetTypeName} instance)");
+            memberBuilder.AppendLine("    {");
+            memberBuilder.AppendLine("        this.instance = instance;");
+            memberBuilder.AppendLine("        if (this.instance.HasJsonElement)");
+            memberBuilder.AppendLine("        {");
+            memberBuilder.AppendLine("            this.index = -2;");
+            memberBuilder.AppendLine("            this.hasJsonEnumerator = true;");
+            memberBuilder.AppendLine("            this.jsonEnumerator = this.instance.JsonElement.EnumerateArray();");
+            memberBuilder.AppendLine("        }");
+            memberBuilder.AppendLine("        else");
+            memberBuilder.AppendLine("        {");
+            memberBuilder.AppendLine("            this.index = -1;");
+            memberBuilder.AppendLine("            this.hasJsonEnumerator = false;");
+            memberBuilder.AppendLine("            this.jsonEnumerator = default;");
+            memberBuilder.AppendLine("        }");
+            memberBuilder.AppendLine("    }");
+
+            memberBuilder.AppendLine("    /// <inheritdoc/>");
+            memberBuilder.AppendLine($"    public {itemsType.FullyQualifiedDotNetTypeName} Current");
+            memberBuilder.AppendLine("    {");
+            memberBuilder.AppendLine("        get");
+            memberBuilder.AppendLine("        {");
+            memberBuilder.AppendLine("            if (this.hasJsonEnumerator)");
+            memberBuilder.AppendLine("            {");
+            memberBuilder.AppendLine($"                return new {itemsType.FullyQualifiedDotNetTypeName}(this.jsonEnumerator.Current);");
+            memberBuilder.AppendLine("            }");
+
+            if (itemsType.ContainsReferenceTo(typeDeclaration))
+            {
+                memberBuilder.AppendLine("            else if (this.instance._menesArrayValueBacking is System.Collections.Immutable.ImmutableArray<Menes.JsonValueBacking> array && this.index >= 0 && this.index < array.Length)");
+                memberBuilder.AppendLine("            {");
+                memberBuilder.AppendLine($"                return array[this.index].Value<{itemsType.FullyQualifiedDotNetTypeName}>() ?? default;");
+                memberBuilder.AppendLine("            }");
+            }
+            else
+            {
+                memberBuilder.AppendLine($"            else if (this.instance._menesArrayValueBacking is System.Collections.Immutable.ImmutableArray<{itemsType.FullyQualifiedDotNetTypeName}> array && this.index >= 0 && this.index < array.Length)");
+                memberBuilder.AppendLine("            {");
+                memberBuilder.AppendLine("                return array[this.index];");
+                memberBuilder.AppendLine("            }");
+            }
+
+            memberBuilder.AppendLine($"            return default;");
+            memberBuilder.AppendLine("        }");
+            memberBuilder.AppendLine("    }");
+
+            memberBuilder.AppendLine("    /// <inheritdoc/>");
+            memberBuilder.AppendLine("    object System.Collections.IEnumerator.Current => this.Current;");
+
+            memberBuilder.AppendLine("    /// <summary>");
+            memberBuilder.AppendLine("    /// Returns a fresh copy of the enumerator");
+            memberBuilder.AppendLine("    /// </summary>");
+            memberBuilder.AppendLine($"    /// <returns>An enumerator for the array values in a <see cref=\"{typeDeclaration.DotnetTypeName}\"/>.</returns>");
+            memberBuilder.AppendLine("    public MenesArrayEnumerator GetEnumerator()");
+            memberBuilder.AppendLine("    {");
+            memberBuilder.AppendLine("        MenesArrayEnumerator result = this;");
+            memberBuilder.AppendLine("        result.Reset();");
+            memberBuilder.AppendLine("        return result;");
+            memberBuilder.AppendLine("    }");
+
+            memberBuilder.AppendLine("    /// <inheritdoc/>");
+            memberBuilder.AppendLine("    System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()");
+            memberBuilder.AppendLine("    {");
+            memberBuilder.AppendLine("        return this.GetEnumerator();");
+            memberBuilder.AppendLine("    }");
+
+            memberBuilder.AppendLine("    /// <inheritdoc/>");
+            memberBuilder.AppendLine($"    System.Collections.Generic.IEnumerator<{itemsType.FullyQualifiedDotNetTypeName}> System.Collections.Generic.IEnumerable<{itemsType.FullyQualifiedDotNetTypeName}>.GetEnumerator()");
+            memberBuilder.AppendLine("    {");
+            memberBuilder.AppendLine("        return this.GetEnumerator();");
+            memberBuilder.AppendLine("    }");
+
+            memberBuilder.AppendLine("    /// <inheritdoc/>");
+            memberBuilder.AppendLine("    public void Dispose()");
+            memberBuilder.AppendLine("    {");
+            memberBuilder.AppendLine("        if (this.hasJsonEnumerator)");
+            memberBuilder.AppendLine("        {");
+            memberBuilder.AppendLine("            this.jsonEnumerator.Dispose();");
+            memberBuilder.AppendLine("        }");
+            memberBuilder.AppendLine("    }");
+
+            memberBuilder.AppendLine("    /// <inheritdoc/>");
+            memberBuilder.AppendLine("    public void Reset()");
+            memberBuilder.AppendLine("    {");
+            memberBuilder.AppendLine("        if (this.hasJsonEnumerator)");
+            memberBuilder.AppendLine("        {");
+            memberBuilder.AppendLine("            this.jsonEnumerator.Reset();");
+            memberBuilder.AppendLine("        }");
+            memberBuilder.AppendLine("        else");
+            memberBuilder.AppendLine("        {");
+            memberBuilder.AppendLine("            this.index = -1;");
+            memberBuilder.AppendLine("        }");
+            memberBuilder.AppendLine("    }");
+
+            memberBuilder.AppendLine("    /// <inheritdoc/>");
+            memberBuilder.AppendLine("    public bool MoveNext()");
+            memberBuilder.AppendLine("    {");
+            memberBuilder.AppendLine("        if (this.hasJsonEnumerator)");
+            memberBuilder.AppendLine("        {");
+            memberBuilder.AppendLine("            return this.jsonEnumerator.MoveNext();");
+            memberBuilder.AppendLine("        }");
+            if (itemsType.ContainsReferenceTo(typeDeclaration))
+            {
+                memberBuilder.AppendLine("        else if (this.instance._menesArrayValueBacking is System.Collections.Immutable.ImmutableArray<Menes.JsonValueBacking> array && this.index < array.Length)");
+            }
+            else
+            {
+                memberBuilder.AppendLine($"        else if (this.instance._menesArrayValueBacking is System.Collections.Immutable.ImmutableArray<{itemsType.FullyQualifiedDotNetTypeName}> array && this.index < array.Length)");
+            }
+
+            memberBuilder.AppendLine("        {");
+            memberBuilder.AppendLine("            this.index++;");
+            memberBuilder.AppendLine("            return true;");
+            memberBuilder.AppendLine("        }");
+            memberBuilder.AppendLine("        return false;");
+            memberBuilder.AppendLine("    }");
+            memberBuilder.AppendLine("}");
+        }
+
+        private void BuildInterfaces(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
+        {
+            if (typeDeclaration.IsObjectTypeDeclaration)
+            {
+                memberBuilder.Append("Menes.IJsonObject");
+            }
+            else
+            {
+                memberBuilder.Append("Menes.IJsonValue");
+            }
+        }
+
+        private void BuildArrayEnumerators(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
+        {
+            if (!typeDeclaration.IsArrayTypeDeclaration)
+            {
+                return;
+            }
+
+            TypeDeclaration itemsType = this.GetItemsTypeFor(typeDeclaration);
+
+            memberBuilder.Append($"public {typeDeclaration.FullyQualifiedDotNetTypeName}.MenesArrayEnumerator GetEnumerator()");
+            memberBuilder.Append("{");
+            memberBuilder.Append($"    return new {typeDeclaration.FullyQualifiedDotNetTypeName}.MenesArrayEnumerator(this);");
+            memberBuilder.Append("}");
+
+            memberBuilder.Append("System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()");
+            memberBuilder.Append("{");
+            memberBuilder.Append("    return this.GetEnumerator();");
+            memberBuilder.Append("}");
+
+            if (!itemsType.ContainsReferenceTo(typeDeclaration))
+            {
+                memberBuilder.Append($"System.Collections.Generic.IEnumerator<{itemsType.FullyQualifiedDotNetTypeName}> System.Collections.Generic.IEnumerable<{itemsType.FullyQualifiedDotNetTypeName}>.GetEnumerator()");
+                memberBuilder.Append("{");
+                memberBuilder.Append("    return this.GetEnumerator();");
+                memberBuilder.Append("}");
+            }
+        }
+
+        private void BuildArrayInterfaces(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
+        {
+            if (!typeDeclaration.IsArrayTypeDeclaration)
+            {
+                return;
+            }
+
+            TypeDeclaration itemsType = this.GetItemsTypeFor(typeDeclaration);
+            if (!itemsType.ContainsReferenceTo(typeDeclaration))
+            {
+                // If we are not recursively defined, we can explicitly implement IEnumerable<T>.
+                memberBuilder.Append($", System.Collections.Generic.IEnumerable<{itemsType.FullyQualifiedDotNetTypeName}>, System.Collections.IEnumerable");
+            }
+            else
+            {
+                memberBuilder.Append($", System.Collections.IEnumerable");
+            }
+        }
+
+        private TypeDeclaration GetItemsTypeFor(TypeDeclaration typeDeclaration)
+        {
+            if (typeDeclaration.Items is not null && typeDeclaration.Items.Count == 1)
+            {
+                return typeDeclaration.Items[0];
+            }
+
+            return TypeDeclarations.AnyTypeDeclaration;
         }
 
         private void BuildConstructors(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
@@ -80,8 +297,52 @@ namespace Menes.JsonSchema.TypeBuilder
 
             this.BuildTypeConstructors(typeDeclaration, memberBuilder, constructorParameterDeclarations);
 
+            this.BuildArrayConstructors(typeDeclaration, memberBuilder, constructorParameterDeclarations);
+
             // Private constructors
             this.BuildRawEntityConstructor(typeDeclaration, memberBuilder, constructorParameterDeclarations);
+        }
+
+        private void BuildArrayConstructors(TypeDeclaration typeDeclaration, StringBuilder memberBuilder, HashSet<string> constructorParameterDeclarations)
+        {
+            if (!typeDeclaration.IsArrayTypeDeclaration)
+            {
+                return;
+            }
+
+            var parameterDeclarations = new StringBuilder();
+
+            TypeDeclaration itemsType = this.GetItemsTypeFor(typeDeclaration);
+            parameterDeclarations.Append($"System.Collections.Immutable.ImmutableArray<{itemsType.FullyQualifiedDotNetTypeName}> value");
+
+            string parameterDeclaration = parameterDeclarations.ToString();
+            if (!constructorParameterDeclarations.Contains(parameterDeclaration) && !string.IsNullOrEmpty(parameterDeclaration))
+            {
+                constructorParameterDeclarations.Add(parameterDeclaration);
+                memberBuilder.AppendLine($"public {typeDeclaration.DotnetTypeName}({parameterDeclaration})");
+                memberBuilder.AppendLine("{");
+
+                if (itemsType.ContainsReferenceTo(typeDeclaration))
+                {
+                    memberBuilder.AppendLine("    var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonValueBacking>();");
+                    memberBuilder.AppendLine("    foreach (var item in value)");
+                    memberBuilder.AppendLine("    {");
+                    memberBuilder.AppendLine($"        arrayBuilder.Add(Menes.JsonValueBacking.From<{itemsType.FullyQualifiedDotNetTypeName}>(item));");
+                    memberBuilder.AppendLine("    }");
+                    memberBuilder.AppendLine("    this._menesArrayValueBacking = arrayBuilder.ToImmutable();");
+                }
+                else
+                {
+                    memberBuilder.AppendLine("    this._menesArrayValueBacking = value;");
+                }
+
+                memberBuilder.AppendLine("    this._menesJsonElementBacking = default;");
+                this.BuildAssignNullOrDefaultAdditionalPropertiesBackingField(typeDeclaration, memberBuilder);
+                this.BuildAssignNullOrDefaultPropertyBackingFields(typeDeclaration, memberBuilder);
+                this.BuildAssignNullOrDefaultTypeBackingFields(typeDeclaration, memberBuilder);
+
+                memberBuilder.AppendLine("}");
+            }
         }
 
         private void BuildTypeConstructors(TypeDeclaration typeDeclaration, StringBuilder memberBuilder, HashSet<string> constructorParameterDeclarations)
@@ -114,6 +375,7 @@ namespace Menes.JsonSchema.TypeBuilder
 
                         this.BuildAssignNullOrDefaultAdditionalPropertiesBackingField(typeDeclaration, memberBuilder);
                         this.BuildAssignNullOrDefaultPropertyBackingFields(typeDeclaration, memberBuilder);
+                        this.BuildAssignNullOrDefaultArrayBackingField(typeDeclaration, memberBuilder);
                         this.BuildAssignNullOrDefaultTypeBackingFields(typeDeclaration, memberBuilder, type);
                         memberBuilder.AppendLine("}");
                     }
@@ -140,6 +402,7 @@ namespace Menes.JsonSchema.TypeBuilder
             memberBuilder.AppendLine("    this._menesJsonElementBacking = default;");
             this.BuildPropertyConstructorAssignment(typeDeclaration, memberBuilder);
             this.BuildAssignNullOrDefaultAdditionalPropertiesBackingField(typeDeclaration, memberBuilder);
+            this.BuildAssignNullOrDefaultArrayBackingField(typeDeclaration, memberBuilder);
             this.BuildAssignNullOrDefaultTypeBackingFields(typeDeclaration, memberBuilder);
             memberBuilder.AppendLine("}");
         }
@@ -362,6 +625,7 @@ namespace Menes.JsonSchema.TypeBuilder
             this.BuildAssignNullOrDefaultAdditionalPropertiesBackingField(typeDeclaration, memberBuilder);
             this.BuildAssignNullOrDefaultTypeBackingFields(typeDeclaration, memberBuilder);
             this.BuildAssignNullOrDefaultPropertyBackingFields(typeDeclaration, memberBuilder);
+            this.BuildAssignNullOrDefaultArrayBackingField(typeDeclaration, memberBuilder);
         }
 
         private void BuildAssignNullOrDefaultPropertyBackingFields(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
@@ -372,6 +636,14 @@ namespace Menes.JsonSchema.TypeBuilder
                 {
                     memberBuilder.AppendLine($"this.{property.DotnetFieldName} = default;");
                 }
+            }
+        }
+
+        private void BuildAssignNullOrDefaultArrayBackingField(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
+        {
+            if (typeDeclaration.IsArrayTypeDeclaration)
+            {
+                memberBuilder.AppendLine("this._menesArrayValueBacking = default;");
             }
         }
 
@@ -405,6 +677,21 @@ namespace Menes.JsonSchema.TypeBuilder
                     memberBuilder.AppendLine($"this._menesAdditionalPropertiesBacking = System.Collections.Immutable.ImmutableArray<Menes.AdditionalProperty>.Empty;");
                 }
             }
+        }
+
+        private void BuildArrayConversionOperators(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
+        {
+            if (!typeDeclaration.IsArrayTypeDeclaration)
+            {
+                return;
+            }
+
+            TypeDeclaration itemsType = this.GetItemsTypeFor(typeDeclaration);
+
+            memberBuilder.AppendLine($"public static implicit operator {typeDeclaration.DotnetTypeName}(System.Collections.Immutable.ImmutableArray<{itemsType.FullyQualifiedDotNetTypeName}> items)");
+            memberBuilder.AppendLine("{");
+            memberBuilder.AppendLine($"    return new {typeDeclaration.DotnetTypeName}(items);");
+            memberBuilder.AppendLine("}");
         }
 
         private void BuildConversionOperators(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
@@ -550,6 +837,11 @@ namespace Menes.JsonSchema.TypeBuilder
 
         private void BuildTryGetProperty(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
         {
+            if (!typeDeclaration.IsObjectTypeDeclaration)
+            {
+                return;
+            }
+
             memberBuilder.AppendLine("/// <inheritdoc />");
             memberBuilder.AppendLine("public bool TryGetProperty<T>(System.ReadOnlySpan<char> propertyName, out T property)");
             memberBuilder.AppendLine("    where T : struct, Menes.IJsonValue");
@@ -818,6 +1110,10 @@ namespace Menes.JsonSchema.TypeBuilder
             else if (typeDeclaration.IsArrayTypeDeclaration)
             {
                 memberBuilder.AppendLine("writer.WriteStartArray();");
+                memberBuilder.AppendLine("foreach (var item in this._menesArrayValueBacking)");
+                memberBuilder.AppendLine("{");
+                memberBuilder.AppendLine("    item.WriteTo(writer);");
+                memberBuilder.AppendLine("}");
                 memberBuilder.AppendLine("writer.WriteEndArray();");
             }
             else
@@ -826,6 +1122,22 @@ namespace Menes.JsonSchema.TypeBuilder
             }
 
             memberBuilder.AppendLine("}");
+        }
+
+        private void BuildArrayBackingField(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
+        {
+            if (typeDeclaration.Items is not null)
+            {
+                TypeDeclaration itemsType = this.GetItemsTypeFor(typeDeclaration);
+                if (itemsType.ContainsReferenceTo(typeDeclaration))
+                {
+                    memberBuilder.AppendLine("private readonly System.Collections.Immutable.ImmutableArray<Menes.JsonValueBacking>? _menesArrayValueBacking;");
+                }
+                else
+                {
+                    memberBuilder.AppendLine($"private readonly System.Collections.Immutable.ImmutableArray<{itemsType.FullyQualifiedDotNetTypeName}>? _menesArrayValueBacking;");
+                }
+            }
         }
 
         private void BuildTypeBackingFields(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
@@ -891,7 +1203,7 @@ namespace Menes.JsonSchema.TypeBuilder
                     }
                     else
                     {
-                        memberBuilder.AppendLine($"    if (this.{property.DotnetFieldName} is Menes.JsonValueBacking {property.DotnetFieldName})");
+                        memberBuilder.AppendLine($"    if (this.{property.DotnetFieldName} is Menes.JsonValueBacking {property.DotnetFieldName} && !{property.DotnetFieldName}.IsNull)");
                     }
 
                     memberBuilder.AppendLine("    {");
@@ -943,8 +1255,21 @@ namespace Menes.JsonSchema.TypeBuilder
 
             this.BuildTypeBackingFieldsAreNull(typeDeclaration, memberBuilder);
 
+            this.BuildArrayBackingFieldIsNull(typeDeclaration, memberBuilder);
+
             memberBuilder.AppendLine("return true;");
             memberBuilder.AppendLine("}");
+        }
+
+        private void BuildArrayBackingFieldIsNull(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
+        {
+            if (typeDeclaration.IsArrayTypeDeclaration)
+            {
+                memberBuilder.AppendLine($"if (this._menesArrayValueBacking is not null)");
+                memberBuilder.AppendLine("{");
+                memberBuilder.AppendLine("    return false;");
+                memberBuilder.AppendLine("}");
+            }
         }
 
         private void BuildPropertiesAreNull(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)

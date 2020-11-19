@@ -4,7 +4,7 @@
 #pragma warning disable
 namespace TestSpace
 {
-    public readonly struct Draft201909MetaMetaData : Menes.IJsonValue
+    public readonly struct Draft201909MetaMetaData : Menes.IJsonObject
     {
         public static readonly Draft201909MetaMetaData Null = default(Draft201909MetaMetaData);
         private static readonly System.ReadOnlyMemory<char> _MenesTitleJsonPropertyName = System.MemoryExtensions.AsMemory("title");
@@ -608,69 +608,29 @@ namespace TestSpace
                 }
                 return this.As<T>().Validate().Valid;
             }
-            /// <inheritdoc />
-            public bool TryGetProperty<T>(System.ReadOnlySpan<char> propertyName, out T property)
-                where T : struct, Menes.IJsonValue
-            {
-                if (this.HasJsonElement)
-                {
-                    if (this.JsonElement.TryGetProperty(propertyName, out System.Text.Json.JsonElement value))
-                    {
-                        property = Menes.JsonValue.As<T>(value);
-                        return true;
-                    }
-                    property = default;
-                    return false;
-                }
-                property = default;
-                return false;
-            }
-            /// <inheritdoc />
-            public bool TryGetProperty<T>(string propertyName, out T property)
-                where T : struct, Menes.IJsonValue
-            {
-                if (this.HasJsonElement)
-                {
-                    if (this.JsonElement.TryGetProperty(propertyName, out System.Text.Json.JsonElement value))
-                    {
-                        property = Menes.JsonValue.As<T>(value);
-                        return true;
-                    }
-                    property = default;
-                    return false;
-                }
-                property = default;
-                return false;
-            }
-            /// <inheritdoc />
-            public bool TryGetProperty<T>(System.ReadOnlySpan<byte> propertyName, out T property)
-                where T : struct, Menes.IJsonValue
-            {
-                if (this.HasJsonElement)
-                {
-                    if (this.JsonElement.TryGetProperty(propertyName, out System.Text.Json.JsonElement value))
-                    {
-                        property = Menes.JsonValue.As<T>(value);
-                        return true;
-                    }
-                    property = default;
-                    return false;
-                }
-                property = default;
-                return false;
-            }
             private bool AllBackingFieldsAreNull()
             {
                 return true;
             }
         }
-        public readonly struct ExamplesArray : Menes.IJsonValue
+        public readonly struct ExamplesArray : Menes.IJsonValue, System.Collections.Generic.IEnumerable<Draft201909MetaMetaData.ExamplesArray.ItemsEntity>, System.Collections.IEnumerable
         {
             public static readonly ExamplesArray Null = default(ExamplesArray);
             private readonly System.Text.Json.JsonElement _menesJsonElementBacking;
+            private readonly System.Collections.Immutable.ImmutableArray<Draft201909MetaMetaData.ExamplesArray.ItemsEntity>? _menesArrayValueBacking;
             public ExamplesArray(System.Text.Json.JsonElement jsonElement)
             {
                 this._menesJsonElementBacking = jsonElement;
+                this._menesArrayValueBacking = default;
+            }
+            public ExamplesArray(System.Collections.Immutable.ImmutableArray<Draft201909MetaMetaData.ExamplesArray.ItemsEntity> value)
+            {
+                this._menesArrayValueBacking = value;
+                this._menesJsonElementBacking = default;
+            }
+            public static implicit operator ExamplesArray(System.Collections.Immutable.ImmutableArray<Draft201909MetaMetaData.ExamplesArray.ItemsEntity> items)
+            {
+                return new ExamplesArray(items);
             }
             /// <inheritdoc />
             public bool IsUndefined => !this.HasJsonElement && this.AllBackingFieldsAreNull();
@@ -695,6 +655,10 @@ namespace TestSpace
                     return;
                 }
                 writer.WriteStartArray();
+                foreach (var item in this._menesArrayValueBacking)
+                {
+                    item.WriteTo(writer);
+                }
                 writer.WriteEndArray();
             }
             /// <inheritdoc />
@@ -713,59 +677,15 @@ namespace TestSpace
                 }
                 return this.As<T>().Validate().Valid;
             }
-            /// <inheritdoc />
-            public bool TryGetProperty<T>(System.ReadOnlySpan<char> propertyName, out T property)
-                where T : struct, Menes.IJsonValue
-            {
-                if (this.HasJsonElement)
-                {
-                    if (this.JsonElement.TryGetProperty(propertyName, out System.Text.Json.JsonElement value))
-                    {
-                        property = Menes.JsonValue.As<T>(value);
-                        return true;
-                    }
-                    property = default;
-                    return false;
-                }
-                property = default;
-                return false;
-            }
-            /// <inheritdoc />
-            public bool TryGetProperty<T>(string propertyName, out T property)
-                where T : struct, Menes.IJsonValue
-            {
-                if (this.HasJsonElement)
-                {
-                    if (this.JsonElement.TryGetProperty(propertyName, out System.Text.Json.JsonElement value))
-                    {
-                        property = Menes.JsonValue.As<T>(value);
-                        return true;
-                    }
-                    property = default;
-                    return false;
-                }
-                property = default;
-                return false;
-            }
-            /// <inheritdoc />
-            public bool TryGetProperty<T>(System.ReadOnlySpan<byte> propertyName, out T property)
-                where T : struct, Menes.IJsonValue
-            {
-                if (this.HasJsonElement)
-                {
-                    if (this.JsonElement.TryGetProperty(propertyName, out System.Text.Json.JsonElement value))
-                    {
-                        property = Menes.JsonValue.As<T>(value);
-                        return true;
-                    }
-                    property = default;
-                    return false;
-                }
-                property = default;
-                return false;
-            }
+            public Draft201909MetaMetaData.ExamplesArray.MenesArrayEnumerator GetEnumerator() { return new Draft201909MetaMetaData.ExamplesArray.MenesArrayEnumerator(this); }
+            System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() { return this.GetEnumerator(); }
+            System.Collections.Generic.IEnumerator<Draft201909MetaMetaData.ExamplesArray.ItemsEntity> System.Collections.Generic.IEnumerable<Draft201909MetaMetaData.ExamplesArray.ItemsEntity>.GetEnumerator() { return this.GetEnumerator(); }
             private bool AllBackingFieldsAreNull()
             {
+                if (this._menesArrayValueBacking is not null)
+                {
+                    return false;
+                }
                 return true;
             }
             public readonly struct ItemsEntity : Menes.IJsonValue
@@ -823,60 +743,107 @@ namespace TestSpace
                     }
                     return this.As<T>().Validate().Valid;
                 }
-                /// <inheritdoc />
-                public bool TryGetProperty<T>(System.ReadOnlySpan<char> propertyName, out T property)
-                    where T : struct, Menes.IJsonValue
-                {
-                    if (this.HasJsonElement)
-                    {
-                        if (this.JsonElement.TryGetProperty(propertyName, out System.Text.Json.JsonElement value))
-                        {
-                            property = Menes.JsonValue.As<T>(value);
-                            return true;
-                        }
-                        property = default;
-                        return false;
-                    }
-                    property = default;
-                    return false;
-                }
-                /// <inheritdoc />
-                public bool TryGetProperty<T>(string propertyName, out T property)
-                    where T : struct, Menes.IJsonValue
-                {
-                    if (this.HasJsonElement)
-                    {
-                        if (this.JsonElement.TryGetProperty(propertyName, out System.Text.Json.JsonElement value))
-                        {
-                            property = Menes.JsonValue.As<T>(value);
-                            return true;
-                        }
-                        property = default;
-                        return false;
-                    }
-                    property = default;
-                    return false;
-                }
-                /// <inheritdoc />
-                public bool TryGetProperty<T>(System.ReadOnlySpan<byte> propertyName, out T property)
-                    where T : struct, Menes.IJsonValue
-                {
-                    if (this.HasJsonElement)
-                    {
-                        if (this.JsonElement.TryGetProperty(propertyName, out System.Text.Json.JsonElement value))
-                        {
-                            property = Menes.JsonValue.As<T>(value);
-                            return true;
-                        }
-                        property = default;
-                        return false;
-                    }
-                    property = default;
-                    return false;
-                }
                 private bool AllBackingFieldsAreNull()
                 {
                     return true;
+                }
+            }
+            /// <summary>
+            /// An enumerator for the array values in a <see cref="ExamplesArray"/>.
+            /// </summary>
+            public struct MenesArrayEnumerator : System.Collections.Generic.IEnumerable<Draft201909MetaMetaData.ExamplesArray.ItemsEntity>, System.Collections.IEnumerable, System.Collections.Generic.IEnumerator<Draft201909MetaMetaData.ExamplesArray.ItemsEntity>, System.Collections.IEnumerator
+            {
+                private ExamplesArray instance;
+                private System.Text.Json.JsonElement.ArrayEnumerator jsonEnumerator;
+                private bool hasJsonEnumerator;
+                private int index;
+                internal MenesArrayEnumerator(ExamplesArray instance)
+                {
+                    this.instance = instance;
+                    if (this.instance.HasJsonElement)
+                    {
+                        this.index = -2;
+                        this.hasJsonEnumerator = true;
+                        this.jsonEnumerator = this.instance.JsonElement.EnumerateArray();
+                    }
+                    else
+                    {
+                        this.index = -1;
+                        this.hasJsonEnumerator = false;
+                        this.jsonEnumerator = default;
+                    }
+                }
+                /// <inheritdoc/>
+                public Draft201909MetaMetaData.ExamplesArray.ItemsEntity Current
+                {
+                    get
+                    {
+                        if (this.hasJsonEnumerator)
+                        {
+                            return new Draft201909MetaMetaData.ExamplesArray.ItemsEntity(this.jsonEnumerator.Current);
+                        }
+                        else if (this.instance._menesArrayValueBacking is System.Collections.Immutable.ImmutableArray<Draft201909MetaMetaData.ExamplesArray.ItemsEntity> array && this.index >= 0 && this.index < array.Length)
+                        {
+                            return array[this.index];
+                        }
+                        return default;
+                    }
+                }
+                /// <inheritdoc/>
+                object System.Collections.IEnumerator.Current => this.Current;
+                /// <summary>
+                /// Returns a fresh copy of the enumerator
+                /// </summary>
+                /// <returns>An enumerator for the array values in a <see cref="ExamplesArray"/>.</returns>
+                public MenesArrayEnumerator GetEnumerator()
+                {
+                    MenesArrayEnumerator result = this;
+                    result.Reset();
+                    return result;
+                }
+                /// <inheritdoc/>
+                System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+                {
+                    return this.GetEnumerator();
+                }
+                /// <inheritdoc/>
+                System.Collections.Generic.IEnumerator<Draft201909MetaMetaData.ExamplesArray.ItemsEntity> System.Collections.Generic.IEnumerable<Draft201909MetaMetaData.ExamplesArray.ItemsEntity>.GetEnumerator()
+                {
+                    return this.GetEnumerator();
+                }
+                /// <inheritdoc/>
+                public void Dispose()
+                {
+                    if (this.hasJsonEnumerator)
+                    {
+                        this.jsonEnumerator.Dispose();
+                    }
+                }
+                /// <inheritdoc/>
+                public void Reset()
+                {
+                    if (this.hasJsonEnumerator)
+                    {
+                        this.jsonEnumerator.Reset();
+                    }
+                    else
+                    {
+                        this.index = -1;
+                    }
+                }
+                /// <inheritdoc/>
+                public bool MoveNext()
+                {
+                    if (this.hasJsonEnumerator)
+                    {
+                        return this.jsonEnumerator.MoveNext();
+                    }
+                    else if (this.instance._menesArrayValueBacking is System.Collections.Immutable.ImmutableArray<Draft201909MetaMetaData.ExamplesArray.ItemsEntity> array && this.index < array.Length)
+                    {
+                        this.index++;
+                        return true;
+                    }
+                    return false;
                 }
             }
         }
