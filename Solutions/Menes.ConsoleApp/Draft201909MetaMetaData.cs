@@ -51,6 +51,45 @@ namespace TestSpace
             this.writeOnly = default;
             this.examples = default;
         }
+        public Draft201909MetaMetaData(Menes.JsonString? title = null, Menes.JsonString? description = null, Draft201909MetaMetaData.DefaultEntity? @default = null, Menes.JsonBoolean? deprecated = null, Menes.JsonBoolean? readOnly = null, Menes.JsonBoolean? writeOnly = null, Draft201909MetaMetaData.ExamplesArray? examples = null)
+        {
+            this._menesJsonElementBacking = default;
+            this.title = title;
+            this.description = description;
+            this.@default = @default;
+            this.deprecated = deprecated;
+            this.readOnly = readOnly;
+            this.writeOnly = writeOnly;
+            this.examples = examples;
+            this._menesAdditionalPropertiesBacking = System.Collections.Immutable.ImmutableArray<Menes.AdditionalProperty<Menes.JsonAny>>.Empty;
+            this._menesBooleanTypeBacking = default;
+        }
+        public Draft201909MetaMetaData(Menes.JsonBoolean value)
+        {
+            this._menesJsonElementBacking = default;
+            this._menesBooleanTypeBacking = value;
+            this._menesAdditionalPropertiesBacking = System.Collections.Immutable.ImmutableArray<Menes.AdditionalProperty<Menes.JsonAny>>.Empty;
+            this.title = default;
+            this.description = default;
+            this.@default = default;
+            this.deprecated = default;
+            this.readOnly = default;
+            this.writeOnly = default;
+            this.examples = default;
+        }
+        private Draft201909MetaMetaData(Menes.JsonString? title, Menes.JsonString? description, Draft201909MetaMetaData.DefaultEntity? @default, Menes.JsonBoolean? deprecated, Menes.JsonBoolean? readOnly, Menes.JsonBoolean? writeOnly, Draft201909MetaMetaData.ExamplesArray? examples, Menes.JsonBoolean? _menesBooleanTypeBacking, in System.Collections.Immutable.ImmutableArray<Menes.AdditionalProperty<Menes.JsonAny>> _menesAdditionalPropertiesBacking)
+        {
+            this._menesJsonElementBacking = default;
+            this.title = title;
+            this.description = description;
+            this.@default = @default;
+            this.deprecated = deprecated;
+            this.readOnly = readOnly;
+            this.writeOnly = writeOnly;
+            this.examples = examples;
+            this._menesBooleanTypeBacking = _menesBooleanTypeBacking;
+            this._menesAdditionalPropertiesBacking = _menesAdditionalPropertiesBacking;
+        }
         public static implicit operator Menes.JsonBoolean(Draft201909MetaMetaData value)
         {
             return value.As<Menes.JsonBoolean>();

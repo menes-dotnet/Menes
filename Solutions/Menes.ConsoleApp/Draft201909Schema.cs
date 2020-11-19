@@ -311,6 +311,201 @@ namespace TestSpace
             this.definitions = default;
             this.dependencies = default;
         }
+        public Draft201909Schema(Draft201909MetaCore.IdValue? id = null, Menes.JsonUri? schema = null, Draft201909MetaCore.AnchorValue? anchor = null, Menes.JsonString? @ref = null, Menes.JsonString? recursiveRef = null, Menes.JsonBoolean? recursiveAnchor = null, Draft201909MetaCore.VocabularyEntity? vocabulary = null, Menes.JsonString? comment = null, Draft201909MetaCore.DefsEntity? defs = null, Draft201909MetaApplicator? additionalItems = null, Draft201909MetaApplicator? unevaluatedItems = null, Draft201909MetaApplicator.ItemsEntity? items = null, Draft201909MetaApplicator? contains = null, Draft201909MetaApplicator? additionalProperties = null, Draft201909MetaApplicator? unevaluatedProperties = null, Draft201909MetaApplicator.PropertiesEntity? properties = null, Draft201909MetaApplicator.PatternPropertiesEntity? patternProperties = null, Draft201909MetaApplicator.DependentSchemasEntity? dependentSchemas = null, Draft201909MetaApplicator? propertyNames = null, Draft201909MetaApplicator? @if = null, Draft201909MetaApplicator? then = null, Draft201909MetaApplicator? @else = null, Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity? allOf = null, Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity? anyOf = null, Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity? oneOf = null, Draft201909MetaApplicator? not = null, Draft201909MetaValidation.MultipleOfValue? multipleOf = null, Menes.JsonNumber? maximum = null, Menes.JsonNumber? exclusiveMaximum = null, Menes.JsonNumber? minimum = null, Menes.JsonNumber? exclusiveMinimum = null, Draft201909MetaValidation.NonNegativeIntegerValue? maxLength = null, Draft201909MetaValidation.NonNegativeIntegerValue? minLength = null, Menes.JsonString? pattern = null, Draft201909MetaValidation.NonNegativeIntegerValue? maxItems = null, Draft201909MetaValidation.NonNegativeIntegerValue? minItems = null, Menes.JsonBoolean? uniqueItems = null, Draft201909MetaValidation.NonNegativeIntegerValue? maxContains = null, Draft201909MetaValidation.NonNegativeIntegerValue? minContains = null, Draft201909MetaValidation.NonNegativeIntegerValue? maxProperties = null, Draft201909MetaValidation.NonNegativeIntegerValue? minProperties = null, Draft201909MetaValidation.StringArrayEntity? required = null, Draft201909MetaValidation.DependentRequiredEntity? dependentRequired = null, Draft201909MetaValidation.ConstEntity? @const = null, Draft201909MetaValidation.EnumArray? @enum = null, Draft201909MetaValidation.TypeEntity? type = null, Menes.JsonString? title = null, Menes.JsonString? description = null, Draft201909MetaMetaData.DefaultEntity? @default = null, Menes.JsonBoolean? deprecated = null, Menes.JsonBoolean? readOnly = null, Menes.JsonBoolean? writeOnly = null, Draft201909MetaMetaData.ExamplesArray? examples = null, Menes.JsonString? format = null, Menes.JsonString? contentMediaType = null, Menes.JsonString? contentEncoding = null, Draft201909MetaContent? contentSchema = null, Draft201909Schema.DefinitionsEntity? definitions = null, Draft201909Schema.DependenciesEntity? dependencies = null)
+        {
+            this._menesJsonElementBacking = default;
+            this.id = id;
+            this.schema = schema;
+            this.anchor = anchor;
+            this.@ref = @ref;
+            this.recursiveRef = recursiveRef;
+            this.recursiveAnchor = recursiveAnchor;
+            this.vocabulary = vocabulary;
+            this.comment = comment;
+            this.defs = defs;
+            this.additionalItems = additionalItems;
+            this.unevaluatedItems = unevaluatedItems;
+            this.items = items;
+            this.contains = contains;
+            this.additionalProperties = additionalProperties;
+            this.unevaluatedProperties = unevaluatedProperties;
+            this.properties = properties;
+            this.patternProperties = patternProperties;
+            this.dependentSchemas = dependentSchemas;
+            this.propertyNames = propertyNames;
+            this.@if = @if;
+            this.then = then;
+            this.@else = @else;
+            this.allOf = allOf;
+            this.anyOf = anyOf;
+            this.oneOf = oneOf;
+            this.not = not;
+            this.multipleOf = multipleOf;
+            this.maximum = maximum;
+            this.exclusiveMaximum = exclusiveMaximum;
+            this.minimum = minimum;
+            this.exclusiveMinimum = exclusiveMinimum;
+            this.maxLength = maxLength;
+            this.minLength = minLength;
+            this.pattern = pattern;
+            this.maxItems = maxItems;
+            this.minItems = minItems;
+            this.uniqueItems = uniqueItems;
+            this.maxContains = maxContains;
+            this.minContains = minContains;
+            this.maxProperties = maxProperties;
+            this.minProperties = minProperties;
+            this.required = required;
+            this.dependentRequired = dependentRequired;
+            this.@const = @const;
+            this.@enum = @enum;
+            this.type = type;
+            this.title = title;
+            this.description = description;
+            this.@default = @default;
+            this.deprecated = deprecated;
+            this.readOnly = readOnly;
+            this.writeOnly = writeOnly;
+            this.examples = examples;
+            this.format = format;
+            this.contentMediaType = contentMediaType;
+            this.contentEncoding = contentEncoding;
+            this.contentSchema = contentSchema;
+            this.definitions = definitions;
+            this.dependencies = dependencies;
+            this._menesAdditionalPropertiesBacking = System.Collections.Immutable.ImmutableArray<Menes.AdditionalProperty<Menes.JsonAny>>.Empty;
+            this._menesBooleanTypeBacking = default;
+        }
+        public Draft201909Schema(Menes.JsonBoolean value)
+        {
+            this._menesJsonElementBacking = default;
+            this._menesBooleanTypeBacking = value;
+            this._menesAdditionalPropertiesBacking = System.Collections.Immutable.ImmutableArray<Menes.AdditionalProperty<Menes.JsonAny>>.Empty;
+            this.id = default;
+            this.schema = default;
+            this.anchor = default;
+            this.@ref = default;
+            this.recursiveRef = default;
+            this.recursiveAnchor = default;
+            this.vocabulary = default;
+            this.comment = default;
+            this.defs = default;
+            this.additionalItems = default;
+            this.unevaluatedItems = default;
+            this.items = default;
+            this.contains = default;
+            this.additionalProperties = default;
+            this.unevaluatedProperties = default;
+            this.properties = default;
+            this.patternProperties = default;
+            this.dependentSchemas = default;
+            this.propertyNames = default;
+            this.@if = default;
+            this.then = default;
+            this.@else = default;
+            this.allOf = default;
+            this.anyOf = default;
+            this.oneOf = default;
+            this.not = default;
+            this.multipleOf = default;
+            this.maximum = default;
+            this.exclusiveMaximum = default;
+            this.minimum = default;
+            this.exclusiveMinimum = default;
+            this.maxLength = default;
+            this.minLength = default;
+            this.pattern = default;
+            this.maxItems = default;
+            this.minItems = default;
+            this.uniqueItems = default;
+            this.maxContains = default;
+            this.minContains = default;
+            this.maxProperties = default;
+            this.minProperties = default;
+            this.required = default;
+            this.dependentRequired = default;
+            this.@const = default;
+            this.@enum = default;
+            this.type = default;
+            this.title = default;
+            this.description = default;
+            this.@default = default;
+            this.deprecated = default;
+            this.readOnly = default;
+            this.writeOnly = default;
+            this.examples = default;
+            this.format = default;
+            this.contentMediaType = default;
+            this.contentEncoding = default;
+            this.contentSchema = default;
+            this.definitions = default;
+            this.dependencies = default;
+        }
+        private Draft201909Schema(Draft201909MetaCore.IdValue? id, Menes.JsonUri? schema, Draft201909MetaCore.AnchorValue? anchor, Menes.JsonString? @ref, Menes.JsonString? recursiveRef, Menes.JsonBoolean? recursiveAnchor, Draft201909MetaCore.VocabularyEntity? vocabulary, Menes.JsonString? comment, Draft201909MetaCore.DefsEntity? defs, Draft201909MetaApplicator? additionalItems, Draft201909MetaApplicator? unevaluatedItems, Draft201909MetaApplicator.ItemsEntity? items, Draft201909MetaApplicator? contains, Draft201909MetaApplicator? additionalProperties, Draft201909MetaApplicator? unevaluatedProperties, Draft201909MetaApplicator.PropertiesEntity? properties, Draft201909MetaApplicator.PatternPropertiesEntity? patternProperties, Draft201909MetaApplicator.DependentSchemasEntity? dependentSchemas, Draft201909MetaApplicator? propertyNames, Draft201909MetaApplicator? @if, Draft201909MetaApplicator? then, Draft201909MetaApplicator? @else, Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity? allOf, Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity? anyOf, Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity? oneOf, Draft201909MetaApplicator? not, Draft201909MetaValidation.MultipleOfValue? multipleOf, Menes.JsonNumber? maximum, Menes.JsonNumber? exclusiveMaximum, Menes.JsonNumber? minimum, Menes.JsonNumber? exclusiveMinimum, Draft201909MetaValidation.NonNegativeIntegerValue? maxLength, Draft201909MetaValidation.NonNegativeIntegerValue? minLength, Menes.JsonString? pattern, Draft201909MetaValidation.NonNegativeIntegerValue? maxItems, Draft201909MetaValidation.NonNegativeIntegerValue? minItems, Menes.JsonBoolean? uniqueItems, Draft201909MetaValidation.NonNegativeIntegerValue? maxContains, Draft201909MetaValidation.NonNegativeIntegerValue? minContains, Draft201909MetaValidation.NonNegativeIntegerValue? maxProperties, Draft201909MetaValidation.NonNegativeIntegerValue? minProperties, Draft201909MetaValidation.StringArrayEntity? required, Draft201909MetaValidation.DependentRequiredEntity? dependentRequired, Draft201909MetaValidation.ConstEntity? @const, Draft201909MetaValidation.EnumArray? @enum, Draft201909MetaValidation.TypeEntity? type, Menes.JsonString? title, Menes.JsonString? description, Draft201909MetaMetaData.DefaultEntity? @default, Menes.JsonBoolean? deprecated, Menes.JsonBoolean? readOnly, Menes.JsonBoolean? writeOnly, Draft201909MetaMetaData.ExamplesArray? examples, Menes.JsonString? format, Menes.JsonString? contentMediaType, Menes.JsonString? contentEncoding, Draft201909MetaContent? contentSchema, Draft201909Schema.DefinitionsEntity? definitions, Draft201909Schema.DependenciesEntity? dependencies, Menes.JsonBoolean? _menesBooleanTypeBacking, in System.Collections.Immutable.ImmutableArray<Menes.AdditionalProperty<Menes.JsonAny>> _menesAdditionalPropertiesBacking)
+        {
+            this._menesJsonElementBacking = default;
+            this.id = id;
+            this.schema = schema;
+            this.anchor = anchor;
+            this.@ref = @ref;
+            this.recursiveRef = recursiveRef;
+            this.recursiveAnchor = recursiveAnchor;
+            this.vocabulary = vocabulary;
+            this.comment = comment;
+            this.defs = defs;
+            this.additionalItems = additionalItems;
+            this.unevaluatedItems = unevaluatedItems;
+            this.items = items;
+            this.contains = contains;
+            this.additionalProperties = additionalProperties;
+            this.unevaluatedProperties = unevaluatedProperties;
+            this.properties = properties;
+            this.patternProperties = patternProperties;
+            this.dependentSchemas = dependentSchemas;
+            this.propertyNames = propertyNames;
+            this.@if = @if;
+            this.then = then;
+            this.@else = @else;
+            this.allOf = allOf;
+            this.anyOf = anyOf;
+            this.oneOf = oneOf;
+            this.not = not;
+            this.multipleOf = multipleOf;
+            this.maximum = maximum;
+            this.exclusiveMaximum = exclusiveMaximum;
+            this.minimum = minimum;
+            this.exclusiveMinimum = exclusiveMinimum;
+            this.maxLength = maxLength;
+            this.minLength = minLength;
+            this.pattern = pattern;
+            this.maxItems = maxItems;
+            this.minItems = minItems;
+            this.uniqueItems = uniqueItems;
+            this.maxContains = maxContains;
+            this.minContains = minContains;
+            this.maxProperties = maxProperties;
+            this.minProperties = minProperties;
+            this.required = required;
+            this.dependentRequired = dependentRequired;
+            this.@const = @const;
+            this.@enum = @enum;
+            this.type = type;
+            this.title = title;
+            this.description = description;
+            this.@default = @default;
+            this.deprecated = deprecated;
+            this.readOnly = readOnly;
+            this.writeOnly = writeOnly;
+            this.examples = examples;
+            this.format = format;
+            this.contentMediaType = contentMediaType;
+            this.contentEncoding = contentEncoding;
+            this.contentSchema = contentSchema;
+            this.definitions = definitions;
+            this.dependencies = dependencies;
+            this._menesBooleanTypeBacking = _menesBooleanTypeBacking;
+            this._menesAdditionalPropertiesBacking = _menesAdditionalPropertiesBacking;
+        }
         public static implicit operator Menes.JsonBoolean(Draft201909Schema value)
         {
             return value.As<Menes.JsonBoolean>();
@@ -864,27 +1059,27 @@ namespace TestSpace
             }
             return this.As<T>().Validate().Valid;
         }
-        private readonly Draft201909MetaCore AsDraft201909MetaCore()
+        public readonly Draft201909MetaCore AsDraft201909MetaCore()
         {
             return this.As<Draft201909MetaCore>();
         }
-        private readonly Draft201909MetaApplicator AsDraft201909MetaApplicator()
+        public readonly Draft201909MetaApplicator AsDraft201909MetaApplicator()
         {
             return this.As<Draft201909MetaApplicator>();
         }
-        private readonly Draft201909MetaValidation AsDraft201909MetaValidation()
+        public readonly Draft201909MetaValidation AsDraft201909MetaValidation()
         {
             return this.As<Draft201909MetaValidation>();
         }
-        private readonly Draft201909MetaMetaData AsDraft201909MetaMetaData()
+        public readonly Draft201909MetaMetaData AsDraft201909MetaMetaData()
         {
             return this.As<Draft201909MetaMetaData>();
         }
-        private readonly Draft201909MetaFormat AsDraft201909MetaFormat()
+        public readonly Draft201909MetaFormat AsDraft201909MetaFormat()
         {
             return this.As<Draft201909MetaFormat>();
         }
-        private readonly Draft201909MetaContent AsDraft201909MetaContent()
+        public readonly Draft201909MetaContent AsDraft201909MetaContent()
         {
             return this.As<Draft201909MetaContent>();
         }
@@ -3182,6 +3377,11 @@ namespace TestSpace
                 this._menesJsonElementBacking = jsonElement;
                 this._menesAdditionalPropertiesBacking = System.Collections.Immutable.ImmutableArray<Menes.AdditionalProperty>.Empty;
             }
+            private DefinitionsEntity(in System.Collections.Immutable.ImmutableArray<Menes.AdditionalProperty> _menesAdditionalPropertiesBacking)
+            {
+                this._menesJsonElementBacking = default;
+                this._menesAdditionalPropertiesBacking = _menesAdditionalPropertiesBacking;
+            }
             /// <inheritdoc />
             public bool IsUndefined => !this.HasJsonElement && this.AllBackingFieldsAreNull();
             /// <inheritdoc />
@@ -3332,6 +3532,11 @@ namespace TestSpace
             {
                 this._menesJsonElementBacking = jsonElement;
                 this._menesAdditionalPropertiesBacking = System.Collections.Immutable.ImmutableArray<Menes.AdditionalProperty>.Empty;
+            }
+            private DependenciesEntity(in System.Collections.Immutable.ImmutableArray<Menes.AdditionalProperty> _menesAdditionalPropertiesBacking)
+            {
+                this._menesJsonElementBacking = default;
+                this._menesAdditionalPropertiesBacking = _menesAdditionalPropertiesBacking;
             }
             /// <inheritdoc />
             public bool IsUndefined => !this.HasJsonElement && this.AllBackingFieldsAreNull();
@@ -3596,11 +3801,11 @@ namespace TestSpace
                     }
                     return this.As<T>().Validate().Valid;
                 }
-                private readonly Draft201909Schema AsDraft201909Schema()
+                public readonly Draft201909Schema AsDraft201909Schema()
                 {
                     return this.As<Draft201909Schema>();
                 }
-                private readonly Draft201909MetaValidation.StringArrayEntity AsStringArrayEntity()
+                public readonly Draft201909MetaValidation.StringArrayEntity AsStringArrayEntity()
                 {
                     return this.As<Draft201909MetaValidation.StringArrayEntity>();
                 }

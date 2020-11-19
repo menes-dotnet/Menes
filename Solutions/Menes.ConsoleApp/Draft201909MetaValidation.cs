@@ -116,6 +116,84 @@ namespace TestSpace
             this.@enum = default;
             this.type = default;
         }
+        public Draft201909MetaValidation(Draft201909MetaValidation.MultipleOfValue? multipleOf = null, Menes.JsonNumber? maximum = null, Menes.JsonNumber? exclusiveMaximum = null, Menes.JsonNumber? minimum = null, Menes.JsonNumber? exclusiveMinimum = null, Draft201909MetaValidation.NonNegativeIntegerValue? maxLength = null, Draft201909MetaValidation.NonNegativeIntegerValue? minLength = null, Menes.JsonString? pattern = null, Draft201909MetaValidation.NonNegativeIntegerValue? maxItems = null, Draft201909MetaValidation.NonNegativeIntegerValue? minItems = null, Menes.JsonBoolean? uniqueItems = null, Draft201909MetaValidation.NonNegativeIntegerValue? maxContains = null, Draft201909MetaValidation.NonNegativeIntegerValue? minContains = null, Draft201909MetaValidation.NonNegativeIntegerValue? maxProperties = null, Draft201909MetaValidation.NonNegativeIntegerValue? minProperties = null, Draft201909MetaValidation.StringArrayEntity? required = null, Draft201909MetaValidation.DependentRequiredEntity? dependentRequired = null, Draft201909MetaValidation.ConstEntity? @const = null, Draft201909MetaValidation.EnumArray? @enum = null, Draft201909MetaValidation.TypeEntity? type = null)
+        {
+            this._menesJsonElementBacking = default;
+            this.multipleOf = multipleOf;
+            this.maximum = maximum;
+            this.exclusiveMaximum = exclusiveMaximum;
+            this.minimum = minimum;
+            this.exclusiveMinimum = exclusiveMinimum;
+            this.maxLength = maxLength;
+            this.minLength = minLength;
+            this.pattern = pattern;
+            this.maxItems = maxItems;
+            this.minItems = minItems;
+            this.uniqueItems = uniqueItems;
+            this.maxContains = maxContains;
+            this.minContains = minContains;
+            this.maxProperties = maxProperties;
+            this.minProperties = minProperties;
+            this.required = required;
+            this.dependentRequired = dependentRequired;
+            this.@const = @const;
+            this.@enum = @enum;
+            this.type = type;
+            this._menesAdditionalPropertiesBacking = System.Collections.Immutable.ImmutableArray<Menes.AdditionalProperty<Menes.JsonAny>>.Empty;
+            this._menesBooleanTypeBacking = default;
+        }
+        public Draft201909MetaValidation(Menes.JsonBoolean value)
+        {
+            this._menesJsonElementBacking = default;
+            this._menesBooleanTypeBacking = value;
+            this._menesAdditionalPropertiesBacking = System.Collections.Immutable.ImmutableArray<Menes.AdditionalProperty<Menes.JsonAny>>.Empty;
+            this.multipleOf = default;
+            this.maximum = default;
+            this.exclusiveMaximum = default;
+            this.minimum = default;
+            this.exclusiveMinimum = default;
+            this.maxLength = default;
+            this.minLength = default;
+            this.pattern = default;
+            this.maxItems = default;
+            this.minItems = default;
+            this.uniqueItems = default;
+            this.maxContains = default;
+            this.minContains = default;
+            this.maxProperties = default;
+            this.minProperties = default;
+            this.required = default;
+            this.dependentRequired = default;
+            this.@const = default;
+            this.@enum = default;
+            this.type = default;
+        }
+        private Draft201909MetaValidation(Draft201909MetaValidation.MultipleOfValue? multipleOf, Menes.JsonNumber? maximum, Menes.JsonNumber? exclusiveMaximum, Menes.JsonNumber? minimum, Menes.JsonNumber? exclusiveMinimum, Draft201909MetaValidation.NonNegativeIntegerValue? maxLength, Draft201909MetaValidation.NonNegativeIntegerValue? minLength, Menes.JsonString? pattern, Draft201909MetaValidation.NonNegativeIntegerValue? maxItems, Draft201909MetaValidation.NonNegativeIntegerValue? minItems, Menes.JsonBoolean? uniqueItems, Draft201909MetaValidation.NonNegativeIntegerValue? maxContains, Draft201909MetaValidation.NonNegativeIntegerValue? minContains, Draft201909MetaValidation.NonNegativeIntegerValue? maxProperties, Draft201909MetaValidation.NonNegativeIntegerValue? minProperties, Draft201909MetaValidation.StringArrayEntity? required, Draft201909MetaValidation.DependentRequiredEntity? dependentRequired, Draft201909MetaValidation.ConstEntity? @const, Draft201909MetaValidation.EnumArray? @enum, Draft201909MetaValidation.TypeEntity? type, Menes.JsonBoolean? _menesBooleanTypeBacking, in System.Collections.Immutable.ImmutableArray<Menes.AdditionalProperty<Menes.JsonAny>> _menesAdditionalPropertiesBacking)
+        {
+            this._menesJsonElementBacking = default;
+            this.multipleOf = multipleOf;
+            this.maximum = maximum;
+            this.exclusiveMaximum = exclusiveMaximum;
+            this.minimum = minimum;
+            this.exclusiveMinimum = exclusiveMinimum;
+            this.maxLength = maxLength;
+            this.minLength = minLength;
+            this.pattern = pattern;
+            this.maxItems = maxItems;
+            this.minItems = minItems;
+            this.uniqueItems = uniqueItems;
+            this.maxContains = maxContains;
+            this.minContains = minContains;
+            this.maxProperties = maxProperties;
+            this.minProperties = minProperties;
+            this.required = required;
+            this.dependentRequired = dependentRequired;
+            this.@const = @const;
+            this.@enum = @enum;
+            this.type = type;
+            this._menesBooleanTypeBacking = _menesBooleanTypeBacking;
+            this._menesAdditionalPropertiesBacking = _menesAdditionalPropertiesBacking;
+        }
         public static implicit operator Menes.JsonBoolean(Draft201909MetaValidation value)
         {
             return value.As<Menes.JsonBoolean>();
@@ -1147,6 +1225,16 @@ namespace TestSpace
                 this._menesJsonElementBacking = jsonElement;
                 this._menesNumberTypeBacking = default;
             }
+            public MultipleOfValue(Menes.JsonNumber value)
+            {
+                this._menesJsonElementBacking = default;
+                this._menesNumberTypeBacking = value;
+            }
+            private MultipleOfValue(Menes.JsonNumber? _menesNumberTypeBacking)
+            {
+                this._menesJsonElementBacking = default;
+                this._menesNumberTypeBacking = _menesNumberTypeBacking;
+            }
             public static implicit operator Menes.JsonInteger(MultipleOfValue value)
             {
                 return value.As<Menes.JsonInteger>();
@@ -1304,6 +1392,16 @@ namespace TestSpace
             {
                 this._menesJsonElementBacking = jsonElement;
                 this._menesIntegerTypeBacking = default;
+            }
+            public NonNegativeIntegerValue(Menes.JsonInteger value)
+            {
+                this._menesJsonElementBacking = default;
+                this._menesIntegerTypeBacking = value;
+            }
+            private NonNegativeIntegerValue(Menes.JsonInteger? _menesIntegerTypeBacking)
+            {
+                this._menesJsonElementBacking = default;
+                this._menesIntegerTypeBacking = _menesIntegerTypeBacking;
             }
             public static implicit operator Menes.JsonInteger(NonNegativeIntegerValue value)
             {
@@ -1549,6 +1647,11 @@ namespace TestSpace
             {
                 this._menesJsonElementBacking = jsonElement;
                 this._menesAdditionalPropertiesBacking = System.Collections.Immutable.ImmutableArray<Menes.AdditionalProperty<Draft201909MetaValidation.StringArrayEntity>>.Empty;
+            }
+            private DependentRequiredEntity(in System.Collections.Immutable.ImmutableArray<Menes.AdditionalProperty<Draft201909MetaValidation.StringArrayEntity>> _menesAdditionalPropertiesBacking)
+            {
+                this._menesJsonElementBacking = default;
+                this._menesAdditionalPropertiesBacking = _menesAdditionalPropertiesBacking;
             }
             /// <inheritdoc />
             public bool IsUndefined => !this.HasJsonElement && this.AllBackingFieldsAreNull();
@@ -2139,11 +2242,11 @@ namespace TestSpace
                 }
                 return this.As<T>().Validate().Valid;
             }
-            private readonly Draft201909MetaValidation.TypeEntity.SimpleTypesEntity AsSimpleTypesEntity()
+            public readonly Draft201909MetaValidation.TypeEntity.SimpleTypesEntity AsSimpleTypesEntity()
             {
                 return this.As<Draft201909MetaValidation.TypeEntity.SimpleTypesEntity>();
             }
-            private readonly Draft201909MetaValidation.TypeEntity.AnyOf1Array AsAnyOf1Array()
+            public readonly Draft201909MetaValidation.TypeEntity.AnyOf1Array AsAnyOf1Array()
             {
                 return this.As<Draft201909MetaValidation.TypeEntity.AnyOf1Array>();
             }

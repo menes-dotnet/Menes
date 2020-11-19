@@ -31,6 +31,33 @@ namespace TestSpace
             this.contentEncoding = default;
             this.contentSchema = default;
         }
+        public Draft201909MetaContent(Menes.JsonString? contentMediaType = null, Menes.JsonString? contentEncoding = null, Draft201909MetaContent? contentSchema = null)
+        {
+            this._menesJsonElementBacking = default;
+            this.contentMediaType = contentMediaType;
+            this.contentEncoding = contentEncoding;
+            this.contentSchema = Menes.JsonValueBacking.From(contentSchema);
+            this._menesAdditionalPropertiesBacking = System.Collections.Immutable.ImmutableArray<Menes.AdditionalProperty<Menes.JsonAny>>.Empty;
+            this._menesBooleanTypeBacking = default;
+        }
+        public Draft201909MetaContent(Menes.JsonBoolean value)
+        {
+            this._menesJsonElementBacking = default;
+            this._menesBooleanTypeBacking = value;
+            this._menesAdditionalPropertiesBacking = System.Collections.Immutable.ImmutableArray<Menes.AdditionalProperty<Menes.JsonAny>>.Empty;
+            this.contentMediaType = default;
+            this.contentEncoding = default;
+            this.contentSchema = default;
+        }
+        private Draft201909MetaContent(Menes.JsonString? contentMediaType, Menes.JsonString? contentEncoding, Menes.JsonValueBacking contentSchema, Menes.JsonBoolean? _menesBooleanTypeBacking, in System.Collections.Immutable.ImmutableArray<Menes.AdditionalProperty<Menes.JsonAny>> _menesAdditionalPropertiesBacking)
+        {
+            this._menesJsonElementBacking = default;
+            this.contentMediaType = contentMediaType;
+            this.contentEncoding = contentEncoding;
+            this.contentSchema = contentSchema;
+            this._menesBooleanTypeBacking = _menesBooleanTypeBacking;
+            this._menesAdditionalPropertiesBacking = _menesAdditionalPropertiesBacking;
+        }
         public static implicit operator Menes.JsonBoolean(Draft201909MetaContent value)
         {
             return value.As<Menes.JsonBoolean>();

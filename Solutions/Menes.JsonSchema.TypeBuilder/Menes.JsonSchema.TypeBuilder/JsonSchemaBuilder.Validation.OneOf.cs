@@ -20,7 +20,7 @@ namespace Menes.JsonSchema.TypeBuilder
                 for (int i = 0; i < typeDeclaration.OneOf.Count; ++i)
                 {
                     TypeDeclaration oneOf = typeDeclaration.OneOf[i];
-                    memberBuilder.AppendLine($"private readonly {oneOf.FullyQualifiedDotNetTypeName} {this.GetAsMethodNameFor(oneOf)}()");
+                    memberBuilder.AppendLine($"public readonly {oneOf.FullyQualifiedDotNetTypeName} {this.GetAsMethodNameFor(oneOf)}()");
                     memberBuilder.AppendLine("{");
                     memberBuilder.AppendLine($"        return this.As<{oneOf.FullyQualifiedDotNetTypeName}>();");
                     memberBuilder.AppendLine("}");

@@ -101,6 +101,75 @@ namespace TestSpace
             this.oneOf = default;
             this.not = default;
         }
+        public Draft201909MetaApplicator(Draft201909MetaApplicator? additionalItems = null, Draft201909MetaApplicator? unevaluatedItems = null, Draft201909MetaApplicator.ItemsEntity? items = null, Draft201909MetaApplicator? contains = null, Draft201909MetaApplicator? additionalProperties = null, Draft201909MetaApplicator? unevaluatedProperties = null, Draft201909MetaApplicator.PropertiesEntity? properties = null, Draft201909MetaApplicator.PatternPropertiesEntity? patternProperties = null, Draft201909MetaApplicator.DependentSchemasEntity? dependentSchemas = null, Draft201909MetaApplicator? propertyNames = null, Draft201909MetaApplicator? @if = null, Draft201909MetaApplicator? then = null, Draft201909MetaApplicator? @else = null, Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity? allOf = null, Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity? anyOf = null, Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity? oneOf = null, Draft201909MetaApplicator? not = null)
+        {
+            this._menesJsonElementBacking = default;
+            this.additionalItems = Menes.JsonValueBacking.From(additionalItems);
+            this.unevaluatedItems = Menes.JsonValueBacking.From(unevaluatedItems);
+            this.items = Menes.JsonValueBacking.From(items);
+            this.contains = Menes.JsonValueBacking.From(contains);
+            this.additionalProperties = Menes.JsonValueBacking.From(additionalProperties);
+            this.unevaluatedProperties = Menes.JsonValueBacking.From(unevaluatedProperties);
+            this.properties = properties;
+            this.patternProperties = patternProperties;
+            this.dependentSchemas = dependentSchemas;
+            this.propertyNames = Menes.JsonValueBacking.From(propertyNames);
+            this.@if = Menes.JsonValueBacking.From(@if);
+            this.then = Menes.JsonValueBacking.From(then);
+            this.@else = Menes.JsonValueBacking.From(@else);
+            this.allOf = Menes.JsonValueBacking.From(allOf);
+            this.anyOf = Menes.JsonValueBacking.From(anyOf);
+            this.oneOf = Menes.JsonValueBacking.From(oneOf);
+            this.not = Menes.JsonValueBacking.From(not);
+            this._menesAdditionalPropertiesBacking = System.Collections.Immutable.ImmutableArray<Menes.AdditionalProperty<Menes.JsonAny>>.Empty;
+            this._menesBooleanTypeBacking = default;
+        }
+        public Draft201909MetaApplicator(Menes.JsonBoolean value)
+        {
+            this._menesJsonElementBacking = default;
+            this._menesBooleanTypeBacking = value;
+            this._menesAdditionalPropertiesBacking = System.Collections.Immutable.ImmutableArray<Menes.AdditionalProperty<Menes.JsonAny>>.Empty;
+            this.additionalItems = default;
+            this.unevaluatedItems = default;
+            this.items = default;
+            this.contains = default;
+            this.additionalProperties = default;
+            this.unevaluatedProperties = default;
+            this.properties = default;
+            this.patternProperties = default;
+            this.dependentSchemas = default;
+            this.propertyNames = default;
+            this.@if = default;
+            this.then = default;
+            this.@else = default;
+            this.allOf = default;
+            this.anyOf = default;
+            this.oneOf = default;
+            this.not = default;
+        }
+        private Draft201909MetaApplicator(Menes.JsonValueBacking additionalItems, Menes.JsonValueBacking unevaluatedItems, Menes.JsonValueBacking items, Menes.JsonValueBacking contains, Menes.JsonValueBacking additionalProperties, Menes.JsonValueBacking unevaluatedProperties, Draft201909MetaApplicator.PropertiesEntity? properties, Draft201909MetaApplicator.PatternPropertiesEntity? patternProperties, Draft201909MetaApplicator.DependentSchemasEntity? dependentSchemas, Menes.JsonValueBacking propertyNames, Menes.JsonValueBacking @if, Menes.JsonValueBacking then, Menes.JsonValueBacking @else, Menes.JsonValueBacking allOf, Menes.JsonValueBacking anyOf, Menes.JsonValueBacking oneOf, Menes.JsonValueBacking not, Menes.JsonBoolean? _menesBooleanTypeBacking, in System.Collections.Immutable.ImmutableArray<Menes.AdditionalProperty<Menes.JsonAny>> _menesAdditionalPropertiesBacking)
+        {
+            this._menesJsonElementBacking = default;
+            this.additionalItems = additionalItems;
+            this.unevaluatedItems = unevaluatedItems;
+            this.items = items;
+            this.contains = contains;
+            this.additionalProperties = additionalProperties;
+            this.unevaluatedProperties = unevaluatedProperties;
+            this.properties = properties;
+            this.patternProperties = patternProperties;
+            this.dependentSchemas = dependentSchemas;
+            this.propertyNames = propertyNames;
+            this.@if = @if;
+            this.then = then;
+            this.@else = @else;
+            this.allOf = allOf;
+            this.anyOf = anyOf;
+            this.oneOf = oneOf;
+            this.not = not;
+            this._menesBooleanTypeBacking = _menesBooleanTypeBacking;
+            this._menesAdditionalPropertiesBacking = _menesAdditionalPropertiesBacking;
+        }
         public static implicit operator Menes.JsonBoolean(Draft201909MetaApplicator value)
         {
             return value.As<Menes.JsonBoolean>();
@@ -1116,11 +1185,11 @@ namespace TestSpace
                 }
                 return this.As<T>().Validate().Valid;
             }
-            private readonly Draft201909MetaApplicator AsDraft201909MetaApplicator()
+            public readonly Draft201909MetaApplicator AsDraft201909MetaApplicator()
             {
                 return this.As<Draft201909MetaApplicator>();
             }
-            private readonly Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity AsSchemaArrayEntity()
+            public readonly Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity AsSchemaArrayEntity()
             {
                 return this.As<Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity>();
             }
@@ -1293,6 +1362,11 @@ namespace TestSpace
                 this._menesJsonElementBacking = jsonElement;
                 this._menesAdditionalPropertiesBacking = System.Collections.Immutable.ImmutableArray<Menes.AdditionalProperty>.Empty;
             }
+            private PropertiesEntity(in System.Collections.Immutable.ImmutableArray<Menes.AdditionalProperty> _menesAdditionalPropertiesBacking)
+            {
+                this._menesJsonElementBacking = default;
+                this._menesAdditionalPropertiesBacking = _menesAdditionalPropertiesBacking;
+            }
             /// <inheritdoc />
             public bool IsUndefined => !this.HasJsonElement && this.AllBackingFieldsAreNull();
             /// <inheritdoc />
@@ -1443,6 +1517,11 @@ namespace TestSpace
             {
                 this._menesJsonElementBacking = jsonElement;
                 this._menesAdditionalPropertiesBacking = System.Collections.Immutable.ImmutableArray<Menes.AdditionalProperty>.Empty;
+            }
+            private PatternPropertiesEntity(in System.Collections.Immutable.ImmutableArray<Menes.AdditionalProperty> _menesAdditionalPropertiesBacking)
+            {
+                this._menesJsonElementBacking = default;
+                this._menesAdditionalPropertiesBacking = _menesAdditionalPropertiesBacking;
             }
             /// <inheritdoc />
             public bool IsUndefined => !this.HasJsonElement && this.AllBackingFieldsAreNull();
@@ -1697,6 +1776,11 @@ namespace TestSpace
             {
                 this._menesJsonElementBacking = jsonElement;
                 this._menesAdditionalPropertiesBacking = System.Collections.Immutable.ImmutableArray<Menes.AdditionalProperty>.Empty;
+            }
+            private DependentSchemasEntity(in System.Collections.Immutable.ImmutableArray<Menes.AdditionalProperty> _menesAdditionalPropertiesBacking)
+            {
+                this._menesJsonElementBacking = default;
+                this._menesAdditionalPropertiesBacking = _menesAdditionalPropertiesBacking;
             }
             /// <inheritdoc />
             public bool IsUndefined => !this.HasJsonElement && this.AllBackingFieldsAreNull();

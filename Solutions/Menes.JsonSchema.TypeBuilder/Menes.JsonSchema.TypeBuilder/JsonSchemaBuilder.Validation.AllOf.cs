@@ -28,7 +28,7 @@ namespace Menes.JsonSchema.TypeBuilder
                 for (int i = 0; i < typeDeclaration.AllOf.Count; ++i)
                 {
                     TypeDeclaration allOf = typeDeclaration.AllOf[i];
-                    memberBuilder.AppendLine($"private readonly {allOf.FullyQualifiedDotNetTypeName} {this.GetAsMethodNameFor(allOf)}()");
+                    memberBuilder.AppendLine($"public readonly {allOf.FullyQualifiedDotNetTypeName} {this.GetAsMethodNameFor(allOf)}()");
                     memberBuilder.AppendLine("{");
                     memberBuilder.AppendLine($"    return this.As<{allOf.FullyQualifiedDotNetTypeName}>();");
                     memberBuilder.AppendLine("}");
