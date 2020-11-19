@@ -1385,21 +1385,18 @@ namespace Menes.JsonSchema.TypeBuilder
             {
                 foreach (PropertyDeclaration property in typeDeclaration.Properties)
                 {
-                    if (!property.IsRequired)
+                    if (property.TypeDeclaration!.ContainsReferenceTo(typeDeclaration))
                     {
-                        if (property.TypeDeclaration!.ContainsReferenceTo(typeDeclaration))
-                        {
-                            memberBuilder.AppendLine($"if (!this.{property.DotnetFieldName}.IsNull)");
-                        }
-                        else
-                        {
-                            memberBuilder.AppendLine($"if (this.{property.DotnetFieldName} is not null)");
-                        }
-
-                        memberBuilder.AppendLine("{");
-                        memberBuilder.AppendLine("    return false;");
-                        memberBuilder.AppendLine("}");
+                        memberBuilder.AppendLine($"if (!this.{property.DotnetFieldName}.IsNull)");
                     }
+                    else
+                    {
+                        memberBuilder.AppendLine($"if (this.{property.DotnetFieldName} is not null)");
+                    }
+
+                    memberBuilder.AppendLine("{");
+                    memberBuilder.AppendLine("    return false;");
+                    memberBuilder.AppendLine("}");
                 }
             }
         }
