@@ -39,6 +39,9 @@ namespace Menes.JsonSchema.TypeBuilder
             this.BuildTypeBackingFields(typeDeclaration, memberBuilder);
             this.BuildPropertyBackingFields(typeDeclaration, memberBuilder);
 
+            // Public constructors
+            this.BuildJsonElementConstructor(typeDeclaration, memberBuilder);
+
             // Conversion operators
             this.BuildConversionOperators(typeDeclaration, memberBuilder);
 
@@ -60,6 +63,65 @@ namespace Menes.JsonSchema.TypeBuilder
             // Embedded types
             this.BuildEmbeddedTypes(typeDeclaration, memberBuilder);
             memberBuilder.AppendLine("}");
+        }
+
+        private void BuildJsonElementConstructor(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
+        {
+            memberBuilder.AppendLine($"public {typeDeclaration.DotnetTypeName}(System.Text.Json.JsonElement jsonElement)");
+            memberBuilder.AppendLine("{");
+            memberBuilder.AppendLine("    this._menesJsonElementBacking = jsonElement;");
+            this.BuildAssignNullOrDefaultBackingFields(typeDeclaration, memberBuilder);
+            memberBuilder.AppendLine("}");
+        }
+
+        private void BuildAssignNullOrDefaultBackingFields(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
+        {
+            this.BuildAssignNullOrDefaultAdditionalPropertiesBackingField(typeDeclaration, memberBuilder);
+            this.BuildAssignNullOrDefaultTypeBackingFields(typeDeclaration, memberBuilder);
+            this.BuildAssignNullOrDefaultPropertyBackingFields(typeDeclaration, memberBuilder);
+        }
+
+        private void BuildAssignNullOrDefaultPropertyBackingFields(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
+        {
+            if (typeDeclaration.Properties is not null)
+            {
+                foreach (PropertyDeclaration property in typeDeclaration.Properties)
+                {
+                    memberBuilder.AppendLine($"this.{property.DotnetFieldName} = default;");
+                }
+            }
+        }
+
+        private void BuildAssignNullOrDefaultTypeBackingFields(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
+        {
+            if (typeDeclaration.Type is not null)
+            {
+                foreach (string type in typeDeclaration.Type)
+                {
+                    if (type != "object" && type != "array" && type != "null")
+                    {
+                        string typeAsPascalCase = Formatting.ToPascalCaseWithReservedWords(type).ToString();
+                        memberBuilder.AppendLine($"this._menes{typeAsPascalCase}TypeBacking = default;");
+                    }
+                }
+            }
+        }
+
+        private void BuildAssignNullOrDefaultAdditionalPropertiesBackingField(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
+        {
+            if (typeDeclaration.AllowsAdditionalProperties)
+            {
+                TypeDeclaration additionalPropertyType = typeDeclaration.AdditionalProperties ?? TypeDeclarations.AnyTypeDeclaration;
+
+                if (!additionalPropertyType.ContainsReferenceTo(typeDeclaration))
+                {
+                    memberBuilder.AppendLine($"this._menesAdditionalPropertiesBacking = System.Collections.Immutable.ImmutableArray<Menes.AdditionalProperty<{additionalPropertyType.FullyQualifiedDotNetTypeName}>>.Empty;");
+                }
+                else
+                {
+                    memberBuilder.AppendLine($"this._menesAdditionalPropertiesBacking = System.Collections.Immutable.ImmutableArray<Menes.AdditionalProperty>.Empty;");
+                }
+            }
         }
 
         private void BuildConversionOperators(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)

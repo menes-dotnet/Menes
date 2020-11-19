@@ -14,6 +14,13 @@ namespace TestSpace
         private readonly System.Collections.Immutable.ImmutableArray<Menes.AdditionalProperty<Menes.JsonAny>> _menesAdditionalPropertiesBacking;
         private readonly Menes.JsonBoolean? _menesBooleanTypeBacking;
         private readonly Menes.JsonString? format;
+        public Draft201909MetaFormat(System.Text.Json.JsonElement jsonElement)
+        {
+            this._menesJsonElementBacking = jsonElement;
+            this._menesAdditionalPropertiesBacking = System.Collections.Immutable.ImmutableArray<Menes.AdditionalProperty<Menes.JsonAny>>.Empty;
+            this._menesBooleanTypeBacking = default;
+            this.format = default;
+        }
         public static implicit operator Menes.JsonBoolean(Draft201909MetaFormat value)
         {
             return value.As<Menes.JsonBoolean>();

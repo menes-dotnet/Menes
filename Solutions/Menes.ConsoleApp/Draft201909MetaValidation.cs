@@ -90,6 +90,32 @@ namespace TestSpace
         private readonly Draft201909MetaValidation.ConstEntity? @const;
         private readonly Draft201909MetaValidation.EnumArray? @enum;
         private readonly Draft201909MetaValidation.TypeEntity? type;
+        public Draft201909MetaValidation(System.Text.Json.JsonElement jsonElement)
+        {
+            this._menesJsonElementBacking = jsonElement;
+            this._menesAdditionalPropertiesBacking = System.Collections.Immutable.ImmutableArray<Menes.AdditionalProperty<Menes.JsonAny>>.Empty;
+            this._menesBooleanTypeBacking = default;
+            this.multipleOf = default;
+            this.maximum = default;
+            this.exclusiveMaximum = default;
+            this.minimum = default;
+            this.exclusiveMinimum = default;
+            this.maxLength = default;
+            this.minLength = default;
+            this.pattern = default;
+            this.maxItems = default;
+            this.minItems = default;
+            this.uniqueItems = default;
+            this.maxContains = default;
+            this.minContains = default;
+            this.maxProperties = default;
+            this.minProperties = default;
+            this.required = default;
+            this.dependentRequired = default;
+            this.@const = default;
+            this.@enum = default;
+            this.type = default;
+        }
         public static implicit operator Menes.JsonBoolean(Draft201909MetaValidation value)
         {
             return value.As<Menes.JsonBoolean>();
@@ -1116,6 +1142,11 @@ namespace TestSpace
             public static readonly MultipleOfValue Null = default(MultipleOfValue);
             private readonly System.Text.Json.JsonElement _menesJsonElementBacking;
             private readonly Menes.JsonNumber? _menesNumberTypeBacking;
+            public MultipleOfValue(System.Text.Json.JsonElement jsonElement)
+            {
+                this._menesJsonElementBacking = jsonElement;
+                this._menesNumberTypeBacking = default;
+            }
             public static implicit operator Menes.JsonInteger(MultipleOfValue value)
             {
                 return value.As<Menes.JsonInteger>();
@@ -1269,6 +1300,11 @@ namespace TestSpace
             public static readonly NonNegativeIntegerValue Null = default(NonNegativeIntegerValue);
             private readonly System.Text.Json.JsonElement _menesJsonElementBacking;
             private readonly Menes.JsonInteger? _menesIntegerTypeBacking;
+            public NonNegativeIntegerValue(System.Text.Json.JsonElement jsonElement)
+            {
+                this._menesJsonElementBacking = jsonElement;
+                this._menesIntegerTypeBacking = default;
+            }
             public static implicit operator Menes.JsonInteger(NonNegativeIntegerValue value)
             {
                 return value.As<Menes.JsonInteger>();
@@ -1405,6 +1441,10 @@ namespace TestSpace
         {
             public static readonly StringArrayEntity Null = default(StringArrayEntity);
             private readonly System.Text.Json.JsonElement _menesJsonElementBacking;
+            public StringArrayEntity(System.Text.Json.JsonElement jsonElement)
+            {
+                this._menesJsonElementBacking = jsonElement;
+            }
             /// <inheritdoc />
             public bool IsUndefined => !this.HasJsonElement && this.AllBackingFieldsAreNull();
             /// <inheritdoc />
@@ -1505,6 +1545,11 @@ namespace TestSpace
             public static readonly DependentRequiredEntity Null = default(DependentRequiredEntity);
             private readonly System.Text.Json.JsonElement _menesJsonElementBacking;
             private readonly System.Collections.Immutable.ImmutableArray<Menes.AdditionalProperty<Draft201909MetaValidation.StringArrayEntity>> _menesAdditionalPropertiesBacking;
+            public DependentRequiredEntity(System.Text.Json.JsonElement jsonElement)
+            {
+                this._menesJsonElementBacking = jsonElement;
+                this._menesAdditionalPropertiesBacking = System.Collections.Immutable.ImmutableArray<Menes.AdditionalProperty<Draft201909MetaValidation.StringArrayEntity>>.Empty;
+            }
             /// <inheritdoc />
             public bool IsUndefined => !this.HasJsonElement && this.AllBackingFieldsAreNull();
             /// <inheritdoc />
@@ -1650,6 +1695,10 @@ namespace TestSpace
         {
             public static readonly ConstEntity Null = default(ConstEntity);
             private readonly System.Text.Json.JsonElement _menesJsonElementBacking;
+            public ConstEntity(System.Text.Json.JsonElement jsonElement)
+            {
+                this._menesJsonElementBacking = jsonElement;
+            }
             /// <inheritdoc />
             public bool IsUndefined => !this.HasJsonElement && this.AllBackingFieldsAreNull();
             /// <inheritdoc />
@@ -1757,6 +1806,10 @@ namespace TestSpace
         {
             public static readonly EnumArray Null = default(EnumArray);
             private readonly System.Text.Json.JsonElement _menesJsonElementBacking;
+            public EnumArray(System.Text.Json.JsonElement jsonElement)
+            {
+                this._menesJsonElementBacking = jsonElement;
+            }
             /// <inheritdoc />
             public bool IsUndefined => !this.HasJsonElement && this.AllBackingFieldsAreNull();
             /// <inheritdoc />
@@ -1855,6 +1908,10 @@ namespace TestSpace
             {
                 public static readonly ItemsEntity Null = default(ItemsEntity);
                 private readonly System.Text.Json.JsonElement _menesJsonElementBacking;
+                public ItemsEntity(System.Text.Json.JsonElement jsonElement)
+                {
+                    this._menesJsonElementBacking = jsonElement;
+                }
                 /// <inheritdoc />
                 public bool IsUndefined => !this.HasJsonElement && this.AllBackingFieldsAreNull();
                 /// <inheritdoc />
@@ -1963,6 +2020,10 @@ namespace TestSpace
         {
             public static readonly TypeEntity Null = default(TypeEntity);
             private readonly System.Text.Json.JsonElement _menesJsonElementBacking;
+            public TypeEntity(System.Text.Json.JsonElement jsonElement)
+            {
+                this._menesJsonElementBacking = jsonElement;
+            }
             public static implicit operator Draft201909MetaValidation.TypeEntity.SimpleTypesEntity(TypeEntity value)
             {
                 return value.As<Draft201909MetaValidation.TypeEntity.SimpleTypesEntity>();
@@ -2145,6 +2206,10 @@ namespace TestSpace
             {
                 public static readonly SimpleTypesEntity Null = default(SimpleTypesEntity);
                 private readonly System.Text.Json.JsonElement _menesJsonElementBacking;
+                public SimpleTypesEntity(System.Text.Json.JsonElement jsonElement)
+                {
+                    this._menesJsonElementBacking = jsonElement;
+                }
                 /// <inheritdoc />
                 public bool IsUndefined => !this.HasJsonElement && this.AllBackingFieldsAreNull();
                 /// <inheritdoc />
@@ -2244,6 +2309,10 @@ namespace TestSpace
             {
                 public static readonly AnyOf1Array Null = default(AnyOf1Array);
                 private readonly System.Text.Json.JsonElement _menesJsonElementBacking;
+                public AnyOf1Array(System.Text.Json.JsonElement jsonElement)
+                {
+                    this._menesJsonElementBacking = jsonElement;
+                }
                 /// <inheritdoc />
                 public bool IsUndefined => !this.HasJsonElement && this.AllBackingFieldsAreNull();
                 /// <inheritdoc />

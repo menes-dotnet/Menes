@@ -22,6 +22,15 @@ namespace TestSpace
         private readonly Menes.JsonString? contentMediaType;
         private readonly Menes.JsonString? contentEncoding;
         private readonly Menes.JsonValueBacking contentSchema;
+        public Draft201909MetaContent(System.Text.Json.JsonElement jsonElement)
+        {
+            this._menesJsonElementBacking = jsonElement;
+            this._menesAdditionalPropertiesBacking = System.Collections.Immutable.ImmutableArray<Menes.AdditionalProperty<Menes.JsonAny>>.Empty;
+            this._menesBooleanTypeBacking = default;
+            this.contentMediaType = default;
+            this.contentEncoding = default;
+            this.contentSchema = default;
+        }
         public static implicit operator Menes.JsonBoolean(Draft201909MetaContent value)
         {
             return value.As<Menes.JsonBoolean>();

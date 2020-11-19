@@ -38,6 +38,19 @@ namespace TestSpace
         private readonly Menes.JsonBoolean? readOnly;
         private readonly Menes.JsonBoolean? writeOnly;
         private readonly Draft201909MetaMetaData.ExamplesArray? examples;
+        public Draft201909MetaMetaData(System.Text.Json.JsonElement jsonElement)
+        {
+            this._menesJsonElementBacking = jsonElement;
+            this._menesAdditionalPropertiesBacking = System.Collections.Immutable.ImmutableArray<Menes.AdditionalProperty<Menes.JsonAny>>.Empty;
+            this._menesBooleanTypeBacking = default;
+            this.title = default;
+            this.description = default;
+            this.@default = default;
+            this.deprecated = default;
+            this.readOnly = default;
+            this.writeOnly = default;
+            this.examples = default;
+        }
         public static implicit operator Menes.JsonBoolean(Draft201909MetaMetaData value)
         {
             return value.As<Menes.JsonBoolean>();
@@ -504,6 +517,10 @@ namespace TestSpace
         {
             public static readonly DefaultEntity Null = default(DefaultEntity);
             private readonly System.Text.Json.JsonElement _menesJsonElementBacking;
+            public DefaultEntity(System.Text.Json.JsonElement jsonElement)
+            {
+                this._menesJsonElementBacking = jsonElement;
+            }
             /// <inheritdoc />
             public bool IsUndefined => !this.HasJsonElement && this.AllBackingFieldsAreNull();
             /// <inheritdoc />
@@ -611,6 +628,10 @@ namespace TestSpace
         {
             public static readonly ExamplesArray Null = default(ExamplesArray);
             private readonly System.Text.Json.JsonElement _menesJsonElementBacking;
+            public ExamplesArray(System.Text.Json.JsonElement jsonElement)
+            {
+                this._menesJsonElementBacking = jsonElement;
+            }
             /// <inheritdoc />
             public bool IsUndefined => !this.HasJsonElement && this.AllBackingFieldsAreNull();
             /// <inheritdoc />
@@ -709,6 +730,10 @@ namespace TestSpace
             {
                 public static readonly ItemsEntity Null = default(ItemsEntity);
                 private readonly System.Text.Json.JsonElement _menesJsonElementBacking;
+                public ItemsEntity(System.Text.Json.JsonElement jsonElement)
+                {
+                    this._menesJsonElementBacking = jsonElement;
+                }
                 /// <inheritdoc />
                 public bool IsUndefined => !this.HasJsonElement && this.AllBackingFieldsAreNull();
                 /// <inheritdoc />

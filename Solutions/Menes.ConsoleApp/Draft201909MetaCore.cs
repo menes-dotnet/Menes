@@ -46,6 +46,21 @@ namespace TestSpace
         private readonly Draft201909MetaCore.VocabularyEntity? vocabulary;
         private readonly Menes.JsonString? comment;
         private readonly Draft201909MetaCore.DefsEntity? defs;
+        public Draft201909MetaCore(System.Text.Json.JsonElement jsonElement)
+        {
+            this._menesJsonElementBacking = jsonElement;
+            this._menesAdditionalPropertiesBacking = System.Collections.Immutable.ImmutableArray<Menes.AdditionalProperty<Menes.JsonAny>>.Empty;
+            this._menesBooleanTypeBacking = default;
+            this.id = default;
+            this.schema = default;
+            this.anchor = default;
+            this.@ref = default;
+            this.recursiveRef = default;
+            this.recursiveAnchor = default;
+            this.vocabulary = default;
+            this.comment = default;
+            this.defs = default;
+        }
         public static implicit operator Menes.JsonBoolean(Draft201909MetaCore value)
         {
             return value.As<Menes.JsonBoolean>();
@@ -599,6 +614,11 @@ namespace TestSpace
             public static readonly IdValue Null = default(IdValue);
             private readonly System.Text.Json.JsonElement _menesJsonElementBacking;
             private readonly Menes.JsonString? _menesStringTypeBacking;
+            public IdValue(System.Text.Json.JsonElement jsonElement)
+            {
+                this._menesJsonElementBacking = jsonElement;
+                this._menesStringTypeBacking = default;
+            }
             public static implicit operator Menes.JsonString(IdValue value)
             {
                 return value.As<Menes.JsonString>();
@@ -720,6 +740,11 @@ namespace TestSpace
             public static readonly AnchorValue Null = default(AnchorValue);
             private readonly System.Text.Json.JsonElement _menesJsonElementBacking;
             private readonly Menes.JsonString? _menesStringTypeBacking;
+            public AnchorValue(System.Text.Json.JsonElement jsonElement)
+            {
+                this._menesJsonElementBacking = jsonElement;
+                this._menesStringTypeBacking = default;
+            }
             public static implicit operator Menes.JsonString(AnchorValue value)
             {
                 return value.As<Menes.JsonString>();
@@ -841,6 +866,11 @@ namespace TestSpace
             public static readonly VocabularyEntity Null = default(VocabularyEntity);
             private readonly System.Text.Json.JsonElement _menesJsonElementBacking;
             private readonly System.Collections.Immutable.ImmutableArray<Menes.AdditionalProperty<Menes.JsonBoolean>> _menesAdditionalPropertiesBacking;
+            public VocabularyEntity(System.Text.Json.JsonElement jsonElement)
+            {
+                this._menesJsonElementBacking = jsonElement;
+                this._menesAdditionalPropertiesBacking = System.Collections.Immutable.ImmutableArray<Menes.AdditionalProperty<Menes.JsonBoolean>>.Empty;
+            }
             /// <inheritdoc />
             public bool IsUndefined => !this.HasJsonElement && this.AllBackingFieldsAreNull();
             /// <inheritdoc />
@@ -987,6 +1017,11 @@ namespace TestSpace
             public static readonly DefsEntity Null = default(DefsEntity);
             private readonly System.Text.Json.JsonElement _menesJsonElementBacking;
             private readonly System.Collections.Immutable.ImmutableArray<Menes.AdditionalProperty> _menesAdditionalPropertiesBacking;
+            public DefsEntity(System.Text.Json.JsonElement jsonElement)
+            {
+                this._menesJsonElementBacking = jsonElement;
+                this._menesAdditionalPropertiesBacking = System.Collections.Immutable.ImmutableArray<Menes.AdditionalProperty>.Empty;
+            }
             /// <inheritdoc />
             public bool IsUndefined => !this.HasJsonElement && this.AllBackingFieldsAreNull();
             /// <inheritdoc />
