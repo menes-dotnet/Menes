@@ -20,7 +20,7 @@ namespace Menes.ConsoleApp
         public static void Main()
         {
             var test = new Test(default(Test));
-            var schema = new Draft201909Schema(type: (Draft201909MetaValidation.TypeEntity.SimpleTypesEntity)"string");
+            var schema = new Draft201909Schema(type: "string");
             Draft201909Schema? ap = schema.AdditionalProperties;
             string? title = schema.Title;
         }

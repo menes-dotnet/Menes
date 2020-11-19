@@ -2143,6 +2143,22 @@ namespace TestSpace
             {
                 return value.As<Draft201909MetaValidation.TypeEntity>();
             }
+            public static implicit operator Menes.JsonString(TypeEntity value)
+            {
+                return (Menes.JsonString)(Draft201909MetaValidation.TypeEntity.SimpleTypesEntity)value;
+            }
+            public static implicit operator TypeEntity(Menes.JsonString value)
+            {
+                return (Draft201909MetaValidation.TypeEntity)(Draft201909MetaValidation.TypeEntity.SimpleTypesEntity)value;
+            }
+            public static implicit operator string(TypeEntity value)
+            {
+                return (string)(Draft201909MetaValidation.TypeEntity.SimpleTypesEntity)value;
+            }
+            public static implicit operator TypeEntity(string value)
+            {
+                return (Draft201909MetaValidation.TypeEntity)(Draft201909MetaValidation.TypeEntity.SimpleTypesEntity)value;
+            }
             /// <inheritdoc />
             public bool IsUndefined => !this.HasJsonElement && this.AllBackingFieldsAreNull();
             /// <inheritdoc />

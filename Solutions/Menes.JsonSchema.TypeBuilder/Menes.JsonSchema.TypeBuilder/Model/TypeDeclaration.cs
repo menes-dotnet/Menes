@@ -831,6 +831,46 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         {
             MergeAsConversionMethods(Lower(typeToMerge.AsConversionMethods), result);
             MergeConversionOperators(Lower(typeToMerge.ConversionOperators), result);
+            MergeChildConversionOperators(typeToMerge, result);
+        }
+
+        private static void MergeChildConversionOperators(TypeDeclaration typeToMerge, TypeDeclaration result)
+        {
+            TypeDeclaration lowered = typeToMerge.Lowered;
+            if (lowered.AnyOf is not null)
+            {
+                foreach (TypeDeclaration targetType in lowered.AnyOf)
+                {
+                    AddChildConversionOperators(result, targetType);
+                }
+            }
+
+            if (lowered.OneOf is not null)
+            {
+                foreach (TypeDeclaration targetType in lowered.OneOf)
+                {
+                    AddChildConversionOperators(result, targetType);
+                }
+            }
+        }
+
+        private static void AddChildConversionOperators(TypeDeclaration result, TypeDeclaration targetType)
+        {
+            if (targetType.ConversionOperators is List<ConversionOperatorDeclaration> childOperators)
+            {
+                // Add conversion operators for the child operator via the target type
+                foreach (ConversionOperatorDeclaration childOperator in childOperators)
+                {
+                    result.AddConversionOperator(
+                        new ConversionOperatorDeclaration
+                        {
+                            Conversion = ConversionOperatorDeclaration.ConversionType.Cast,
+                            Direction = ConversionOperatorDeclaration.ConversionDirection.BidirectionalImplicit,
+                            TargetType = childOperator.TargetType,
+                            Via = targetType,
+                        });
+                }
+            }
         }
 
         /// <summary>
