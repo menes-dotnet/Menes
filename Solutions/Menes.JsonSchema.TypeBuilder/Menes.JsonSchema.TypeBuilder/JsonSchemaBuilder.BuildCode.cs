@@ -530,7 +530,7 @@ namespace Menes.JsonSchema.TypeBuilder
 
                     if (property.TypeDeclaration.ContainsReferenceTo(typeDeclaration))
                     {
-                        memberBuilder.AppendLine($"this.{property.DotnetFieldName} = Menes.JsonValueBacking.From({property.DotnetFieldName});");
+                        memberBuilder.AppendLine($"this.{property.DotnetFieldName} = Menes.JsonValueBacking.From<{property.TypeDeclaration.FullyQualifiedDotNetTypeName}>({property.DotnetFieldName});");
                     }
                     else
                     {

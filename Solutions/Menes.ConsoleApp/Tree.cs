@@ -1,14 +1,10 @@
 ﻿// <copyright file="Tree.cs" company="Endjin Limited">
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
-
 #pragma warning disable
-
-using System;
-
 namespace TestSpace
 {
-    public readonly struct Tree : Menes.IJsonValue
+    public readonly struct Tree : Menes.IJsonObject
     {
         public static readonly Tree Null = default(Tree);
         private static readonly System.ReadOnlyMemory<char> _MenesMetaJsonPropertyName = System.MemoryExtensions.AsMemory("meta");
@@ -19,8 +15,29 @@ namespace TestSpace
         private static readonly System.Text.Json.JsonEncodedText _MenesNodesEncodedJsonPropertyName = System.Text.Json.JsonEncodedText.Encode(_MenesNodesUtf8JsonPropertyName.Span);
         private readonly System.Text.Json.JsonElement _menesJsonElementBacking;
         private readonly System.Collections.Immutable.ImmutableArray<Menes.AdditionalProperty<Menes.JsonAny>> _menesAdditionalPropertiesBacking;
-        private readonly Tree.MetaValue? meta;
+        private readonly Menes.JsonString? meta;
         private readonly Menes.JsonValueBacking nodes;
+        public Tree(System.Text.Json.JsonElement jsonElement)
+        {
+            this._menesJsonElementBacking = jsonElement;
+            this._menesAdditionalPropertiesBacking = System.Collections.Immutable.ImmutableArray<Menes.AdditionalProperty<Menes.JsonAny>>.Empty;
+            this.meta = default;
+            this.nodes = default;
+        }
+        public Tree(Menes.JsonString meta, Tree.NodesArray nodes)
+        {
+            this._menesJsonElementBacking = default;
+            this.meta = meta;
+            this.nodes = Menes.JsonValueBacking.From<Tree.NodesArray>(nodes);
+            this._menesAdditionalPropertiesBacking = System.Collections.Immutable.ImmutableArray<Menes.AdditionalProperty<Menes.JsonAny>>.Empty;
+        }
+        private Tree(Menes.JsonString? meta, Menes.JsonValueBacking nodes, in System.Collections.Immutable.ImmutableArray<Menes.AdditionalProperty<Menes.JsonAny>> _menesAdditionalPropertiesBacking)
+        {
+            this._menesJsonElementBacking = default;
+            this.meta = meta;
+            this.nodes = nodes;
+            this._menesAdditionalPropertiesBacking = _menesAdditionalPropertiesBacking;
+        }
         /// <inheritdoc />
         public bool IsUndefined => !this.HasJsonElement && this.AllBackingFieldsAreNull();
         /// <inheritdoc />
@@ -29,7 +46,7 @@ namespace TestSpace
         public bool HasJsonElement => this._menesJsonElementBacking.ValueKind != System.Text.Json.JsonValueKind.Undefined;
         /// <inheritdoc />
         public System.Text.Json.JsonElement JsonElement => this._menesJsonElementBacking;
-        public Tree.MetaValue Meta => this.HasJsonElement ? this.GetPropertyFromJsonElement<Tree.MetaValue>(_MenesMetaUtf8JsonPropertyName.Span) : this.meta ?? Tree.MetaValue.Null;
+        public Menes.JsonString Meta => this.HasJsonElement ? this.GetPropertyFromJsonElement<Menes.JsonString>(_MenesMetaUtf8JsonPropertyName.Span) : this.meta ?? Menes.JsonString.Null;
         public Tree.NodesArray Nodes => this.HasJsonElement ? this.GetPropertyFromJsonElement<Tree.NodesArray>(_MenesNodesUtf8JsonPropertyName.Span) : this.nodes.Value<Tree.NodesArray>() ?? Tree.NodesArray.Null;
         /// <inheritdoc />
         public Menes.ValidationResult Validate(Menes.ValidationResult? validationResult = null, Menes.ValidationLevel level = Menes.ValidationLevel.Flag, System.Collections.Generic.HashSet<string>? evaluatedProperties = null, System.Collections.Generic.Stack<string>? absoluteKeywordLocation = null, System.Collections.Generic.Stack<string>? instanceLocation = null)
@@ -45,20 +62,22 @@ namespace TestSpace
                 this.JsonElement.WriteTo(writer);
                 return;
             }
-            if (this.meta is Tree.MetaValue meta)
+            writer.WriteStartObject();
+            if (this.meta is Menes.JsonString meta)
             {
-                writer.WritePropertyName("_MenesMetaEncodedJsonPropertyName");
+                writer.WritePropertyName(_MenesMetaEncodedJsonPropertyName);
                 meta.WriteTo(writer);
             }
-            if (this.nodes is Menes.JsonValueBacking nodes)
+            if (this.nodes is Menes.JsonValueBacking nodes && !nodes.IsNull)
             {
-                writer.WritePropertyName("_MenesNodesEncodedJsonPropertyName");
+                writer.WritePropertyName(_MenesNodesEncodedJsonPropertyName);
                 nodes.WriteTo(writer);
             }
             foreach (var property in this._menesAdditionalPropertiesBacking)
             {
                 property.WriteTo(writer);
             }
+            writer.WriteEndObject();
         }
         /// <inheritdoc />
         public T As<T>()
@@ -70,8 +89,11 @@ namespace TestSpace
         public bool Is<T>()
             where T : struct, Menes.IJsonValue
         {
-            T item = this.As<T>();
-            return item.Validate().Valid;
+            if (typeof(T) == typeof(Tree))
+            {
+                return this.Validate().Valid;
+            }
+            return this.As<T>().Validate().Valid;
         }
         /// <inheritdoc />
         public bool TryGetProperty<T>(System.ReadOnlySpan<char> propertyName, out T property)
@@ -87,12 +109,12 @@ namespace TestSpace
                 property = default;
                 return false;
             }
-            if (propertyName.SequenceEqual(_MenesMetaJsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesMetaJsonPropertyName.Span))
             {
                 property = this.Meta.As<T>();
                 return true;
             }
-            if (propertyName.SequenceEqual(_MenesNodesJsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesNodesJsonPropertyName.Span))
             {
                 property = this.Nodes.As<T>();
                 return true;
@@ -122,12 +144,12 @@ namespace TestSpace
                 property = default;
                 return false;
             }
-            if (System.MemoryExtensions.AsSpan(propertyName).SequenceEqual(_MenesMetaJsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(System.MemoryExtensions.AsSpan(propertyName), _MenesMetaJsonPropertyName.Span))
             {
                 property = this.Meta.As<T>();
                 return true;
             }
-            if (System.MemoryExtensions.AsSpan(propertyName).SequenceEqual(_MenesNodesJsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(System.MemoryExtensions.AsSpan(propertyName), _MenesNodesJsonPropertyName.Span))
             {
                 property = this.Nodes.As<T>();
                 return true;
@@ -157,12 +179,12 @@ namespace TestSpace
                 property = default;
                 return false;
             }
-            if (propertyName.SequenceEqual(_MenesMetaUtf8JsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesMetaUtf8JsonPropertyName.Span))
             {
                 property = this.Meta.As<T>();
                 return true;
             }
-            if (propertyName.SequenceEqual(_MenesNodesUtf8JsonPropertyName.Span))
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesNodesUtf8JsonPropertyName.Span))
             {
                 property = this.Nodes.As<T>();
                 return true;
@@ -177,6 +199,14 @@ namespace TestSpace
             }
             property = default;
             return false;
+        }
+        public Tree WithMeta(Menes.JsonString value)
+        {
+            return new Tree(value, this.nodes, this._menesAdditionalPropertiesBacking);
+        }
+        public Tree WithNodes(Tree.NodesArray value)
+        {
+            return new Tree(this.meta, Menes.JsonValueBacking.From<Tree.NodesArray>(value), this._menesAdditionalPropertiesBacking);
         }
         private TPropertyValue GetPropertyFromJsonElement<TPropertyValue>(System.ReadOnlySpan<byte> propertyName)
             where TPropertyValue : struct, Menes.IJsonValue
@@ -200,115 +230,30 @@ namespace TestSpace
             }
             return true;
         }
-        public readonly struct MetaValue : Menes.IJsonValue
-        {
-            public static readonly MetaValue Null = default(MetaValue);
-            private readonly System.Text.Json.JsonElement _menesJsonElementBacking;
-            private readonly Menes.JsonString? _menesStringTypeBacking;
-            /// <inheritdoc />
-            public bool IsUndefined => !this.HasJsonElement && this.AllBackingFieldsAreNull();
-            /// <inheritdoc />
-            public bool IsNull => this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Null || (!this.HasJsonElement && this.AllBackingFieldsAreNull());
-            /// <inheritdoc />
-            public bool HasJsonElement => this._menesJsonElementBacking.ValueKind != System.Text.Json.JsonValueKind.Undefined;
-            /// <inheritdoc />
-            public System.Text.Json.JsonElement JsonElement => this._menesJsonElementBacking;
-            /// <inheritdoc />
-            public Menes.ValidationResult Validate(Menes.ValidationResult? validationResult = null, Menes.ValidationLevel level = Menes.ValidationLevel.Flag, System.Collections.Generic.HashSet<string>? evaluatedProperties = null, System.Collections.Generic.Stack<string>? absoluteKeywordLocation = null, System.Collections.Generic.Stack<string>? instanceLocation = null)
-            {
-                Menes.ValidationResult result = validationResult ?? Menes.ValidationResult.ValidResult;
-                return result;
-            }
-            /// <inheritdoc />
-            public void WriteTo(System.Text.Json.Utf8JsonWriter writer)
-            {
-                if (this.HasJsonElement)
-                {
-                    this.JsonElement.WriteTo(writer);
-                    return;
-                }
-                if (this._menesStringTypeBacking is Menes.JsonString _menesStringTypeBacking)
-                {
-                    _menesStringTypeBacking.WriteTo(writer);
-                }
-            }
-            /// <inheritdoc />
-            public T As<T>()
-                where T : struct, Menes.IJsonValue
-            {
-                return Menes.JsonValue.As<T>(Menes.JsonValue.FlattenToJsonElementBacking(this).JsonElement);
-            }
-            /// <inheritdoc />
-            public bool Is<T>()
-                where T : struct, Menes.IJsonValue
-            {
-                T item = this.As<T>();
-                return item.Validate().Valid;
-            }
-            /// <inheritdoc />
-            public bool TryGetProperty<T>(System.ReadOnlySpan<char> propertyName, out T property)
-                where T : struct, Menes.IJsonValue
-            {
-                if (this.HasJsonElement)
-                {
-                    if (this.JsonElement.TryGetProperty(propertyName, out System.Text.Json.JsonElement value))
-                    {
-                        property = Menes.JsonValue.As<T>(value);
-                        return true;
-                    }
-                    property = default;
-                    return false;
-                }
-                property = default;
-                return false;
-            }
-            /// <inheritdoc />
-            public bool TryGetProperty<T>(string propertyName, out T property)
-                where T : struct, Menes.IJsonValue
-            {
-                if (this.HasJsonElement)
-                {
-                    if (this.JsonElement.TryGetProperty(propertyName, out System.Text.Json.JsonElement value))
-                    {
-                        property = Menes.JsonValue.As<T>(value);
-                        return true;
-                    }
-                    property = default;
-                    return false;
-                }
-                property = default;
-                return false;
-            }
-            /// <inheritdoc />
-            public bool TryGetProperty<T>(System.ReadOnlySpan<byte> propertyName, out T property)
-                where T : struct, Menes.IJsonValue
-            {
-                if (this.HasJsonElement)
-                {
-                    if (this.JsonElement.TryGetProperty(propertyName, out System.Text.Json.JsonElement value))
-                    {
-                        property = Menes.JsonValue.As<T>(value);
-                        return true;
-                    }
-                    property = default;
-                    return false;
-                }
-                property = default;
-                return false;
-            }
-            private bool AllBackingFieldsAreNull()
-            {
-                if (this._menesStringTypeBacking is not null)
-                {
-                    return false;
-                }
-                return true;
-            }
-        }
-        public readonly struct NodesArray : Menes.IJsonValue
+        public readonly struct NodesArray : Menes.IJsonValue, System.Collections.IEnumerable
         {
             public static readonly NodesArray Null = default(NodesArray);
             private readonly System.Text.Json.JsonElement _menesJsonElementBacking;
+            private readonly System.Collections.Immutable.ImmutableArray<Menes.JsonValueBacking>? _menesArrayValueBacking;
+            public NodesArray(System.Text.Json.JsonElement jsonElement)
+            {
+                this._menesJsonElementBacking = jsonElement;
+                this._menesArrayValueBacking = default;
+            }
+            public NodesArray(System.Collections.Immutable.ImmutableArray<Tree.NodeEntity> value)
+            {
+                var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonValueBacking>();
+                foreach (var item in value)
+                {
+                    arrayBuilder.Add(Menes.JsonValueBacking.From<Tree.NodeEntity>(item));
+                }
+                this._menesArrayValueBacking = arrayBuilder.ToImmutable();
+                this._menesJsonElementBacking = default;
+            }
+            public static implicit operator NodesArray(System.Collections.Immutable.ImmutableArray<Tree.NodeEntity> items)
+            {
+                return new Tree.NodesArray(items);
+            }
             /// <inheritdoc />
             public bool IsUndefined => !this.HasJsonElement && this.AllBackingFieldsAreNull();
             /// <inheritdoc />
@@ -331,6 +276,12 @@ namespace TestSpace
                     this.JsonElement.WriteTo(writer);
                     return;
                 }
+                writer.WriteStartArray();
+                foreach (var item in this._menesArrayValueBacking)
+                {
+                    item.WriteTo(writer);
+                }
+                writer.WriteEndArray();
             }
             /// <inheritdoc />
             public T As<T>()
@@ -342,162 +293,122 @@ namespace TestSpace
             public bool Is<T>()
                 where T : struct, Menes.IJsonValue
             {
-                T item = this.As<T>();
-                return item.Validate().Valid;
-            }
-            /// <inheritdoc />
-            public bool TryGetProperty<T>(System.ReadOnlySpan<char> propertyName, out T property)
-                where T : struct, Menes.IJsonValue
-            {
-                if (this.HasJsonElement)
+                if (typeof(T) == typeof(Tree.NodesArray))
                 {
-                    if (this.JsonElement.TryGetProperty(propertyName, out System.Text.Json.JsonElement value))
-                    {
-                        property = Menes.JsonValue.As<T>(value);
-                        return true;
-                    }
-                    property = default;
-                    return false;
+                    return this.Validate().Valid;
                 }
-                property = default;
-                return false;
+                return this.As<T>().Validate().Valid;
             }
-            /// <inheritdoc />
-            public bool TryGetProperty<T>(string propertyName, out T property)
-                where T : struct, Menes.IJsonValue
-            {
-                if (this.HasJsonElement)
-                {
-                    if (this.JsonElement.TryGetProperty(propertyName, out System.Text.Json.JsonElement value))
-                    {
-                        property = Menes.JsonValue.As<T>(value);
-                        return true;
-                    }
-                    property = default;
-                    return false;
-                }
-                property = default;
-                return false;
-            }
-            /// <inheritdoc />
-            public bool TryGetProperty<T>(System.ReadOnlySpan<byte> propertyName, out T property)
-                where T : struct, Menes.IJsonValue
-            {
-                if (this.HasJsonElement)
-                {
-                    if (this.JsonElement.TryGetProperty(propertyName, out System.Text.Json.JsonElement value))
-                    {
-                        property = Menes.JsonValue.As<T>(value);
-                        return true;
-                    }
-                    property = default;
-                    return false;
-                }
-                property = default;
-                return false;
-            }
+            public Tree.NodesArray.MenesArrayEnumerator GetEnumerator() { return new Tree.NodesArray.MenesArrayEnumerator(this); }
+            System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() { return this.GetEnumerator(); }
             private bool AllBackingFieldsAreNull()
             {
+                if (this._menesArrayValueBacking is not null)
+                {
+                    return false;
+                }
                 return true;
             }
+            /// <summary>
+            /// An enumerator for the array values in a <see cref="NodesArray"/>.
+            /// </summary>
+            public struct MenesArrayEnumerator : System.Collections.Generic.IEnumerable<Tree.NodeEntity>, System.Collections.IEnumerable, System.Collections.Generic.IEnumerator<Tree.NodeEntity>, System.Collections.IEnumerator
+            {
+                private NodesArray instance;
+                private System.Text.Json.JsonElement.ArrayEnumerator jsonEnumerator;
+                private bool hasJsonEnumerator;
+                private int index;
+                internal MenesArrayEnumerator(NodesArray instance)
+                {
+                    this.instance = instance;
+                    if (this.instance.HasJsonElement)
+                    {
+                        this.index = -2;
+                        this.hasJsonEnumerator = true;
+                        this.jsonEnumerator = this.instance.JsonElement.EnumerateArray();
+                    }
+                    else
+                    {
+                        this.index = -1;
+                        this.hasJsonEnumerator = false;
+                        this.jsonEnumerator = default;
+                    }
+                }
+                /// <inheritdoc/>
+                public Tree.NodeEntity Current
+                {
+                    get
+                    {
+                        if (this.hasJsonEnumerator)
+                        {
+                            return new Tree.NodeEntity(this.jsonEnumerator.Current);
+                        }
+                        else if (this.instance._menesArrayValueBacking is System.Collections.Immutable.ImmutableArray<Menes.JsonValueBacking> array && this.index >= 0 && this.index < array.Length)
+                        {
+                            return array[this.index].Value<Tree.NodeEntity>() ?? default;
+                        }
+                        return default;
+                    }
+                }
+                /// <inheritdoc/>
+                object System.Collections.IEnumerator.Current => this.Current;
+                /// <summary>
+                /// Returns a fresh copy of the enumerator
+                /// </summary>
+                /// <returns>An enumerator for the array values in a <see cref="NodesArray"/>.</returns>
+                public MenesArrayEnumerator GetEnumerator()
+                {
+                    MenesArrayEnumerator result = this;
+                    result.Reset();
+                    return result;
+                }
+                /// <inheritdoc/>
+                System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+                {
+                    return this.GetEnumerator();
+                }
+                /// <inheritdoc/>
+                System.Collections.Generic.IEnumerator<Tree.NodeEntity> System.Collections.Generic.IEnumerable<Tree.NodeEntity>.GetEnumerator()
+                {
+                    return this.GetEnumerator();
+                }
+                /// <inheritdoc/>
+                public void Dispose()
+                {
+                    if (this.hasJsonEnumerator)
+                    {
+                        this.jsonEnumerator.Dispose();
+                    }
+                }
+                /// <inheritdoc/>
+                public void Reset()
+                {
+                    if (this.hasJsonEnumerator)
+                    {
+                        this.jsonEnumerator.Reset();
+                    }
+                    else
+                    {
+                        this.index = -1;
+                    }
+                }
+                /// <inheritdoc/>
+                public bool MoveNext()
+                {
+                    if (this.hasJsonEnumerator)
+                    {
+                        return this.jsonEnumerator.MoveNext();
+                    }
+                    else if (this.instance._menesArrayValueBacking is System.Collections.Immutable.ImmutableArray<Menes.JsonValueBacking> array && this.index < array.Length)
+                    {
+                        this.index++;
+                        return true;
+                    }
+                    return false;
+                }
+            }
         }
-        public readonly struct ItemsEntity : Menes.IJsonValue
-        {
-            public static readonly ItemsEntity Null = default(ItemsEntity);
-            private readonly System.Text.Json.JsonElement _menesJsonElementBacking;
-            /// <inheritdoc />
-            public bool IsUndefined => !this.HasJsonElement && this.AllBackingFieldsAreNull();
-            /// <inheritdoc />
-            public bool IsNull => this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Null || (!this.HasJsonElement && this.AllBackingFieldsAreNull());
-            /// <inheritdoc />
-            public bool HasJsonElement => this._menesJsonElementBacking.ValueKind != System.Text.Json.JsonValueKind.Undefined;
-            /// <inheritdoc />
-            public System.Text.Json.JsonElement JsonElement => this._menesJsonElementBacking;
-            /// <inheritdoc />
-            public Menes.ValidationResult Validate(Menes.ValidationResult? validationResult = null, Menes.ValidationLevel level = Menes.ValidationLevel.Flag, System.Collections.Generic.HashSet<string>? evaluatedProperties = null, System.Collections.Generic.Stack<string>? absoluteKeywordLocation = null, System.Collections.Generic.Stack<string>? instanceLocation = null)
-            {
-                Menes.ValidationResult result = validationResult ?? Menes.ValidationResult.ValidResult;
-                return result;
-            }
-            /// <inheritdoc />
-            public void WriteTo(System.Text.Json.Utf8JsonWriter writer)
-            {
-                if (this.HasJsonElement)
-                {
-                    this.JsonElement.WriteTo(writer);
-                    return;
-                }
-            }
-            /// <inheritdoc />
-            public T As<T>()
-                where T : struct, Menes.IJsonValue
-            {
-                return Menes.JsonValue.As<T>(Menes.JsonValue.FlattenToJsonElementBacking(this).JsonElement);
-            }
-            /// <inheritdoc />
-            public bool Is<T>()
-                where T : struct, Menes.IJsonValue
-            {
-                T item = this.As<T>();
-                return item.Validate().Valid;
-            }
-            /// <inheritdoc />
-            public bool TryGetProperty<T>(System.ReadOnlySpan<char> propertyName, out T property)
-                where T : struct, Menes.IJsonValue
-            {
-                if (this.HasJsonElement)
-                {
-                    if (this.JsonElement.TryGetProperty(propertyName, out System.Text.Json.JsonElement value))
-                    {
-                        property = Menes.JsonValue.As<T>(value);
-                        return true;
-                    }
-                    property = default;
-                    return false;
-                }
-                property = default;
-                return false;
-            }
-            /// <inheritdoc />
-            public bool TryGetProperty<T>(string propertyName, out T property)
-                where T : struct, Menes.IJsonValue
-            {
-                if (this.HasJsonElement)
-                {
-                    if (this.JsonElement.TryGetProperty(propertyName, out System.Text.Json.JsonElement value))
-                    {
-                        property = Menes.JsonValue.As<T>(value);
-                        return true;
-                    }
-                    property = default;
-                    return false;
-                }
-                property = default;
-                return false;
-            }
-            /// <inheritdoc />
-            public bool TryGetProperty<T>(System.ReadOnlySpan<byte> propertyName, out T property)
-                where T : struct, Menes.IJsonValue
-            {
-                if (this.HasJsonElement)
-                {
-                    if (this.JsonElement.TryGetProperty(propertyName, out System.Text.Json.JsonElement value))
-                    {
-                        property = Menes.JsonValue.As<T>(value);
-                        return true;
-                    }
-                    property = default;
-                    return false;
-                }
-                property = default;
-                return false;
-            }
-            private bool AllBackingFieldsAreNull()
-            {
-                return true;
-            }
-        }
-        public readonly struct NodeEntity : Menes.IJsonValue
+        public readonly struct NodeEntity : Menes.IJsonObject
         {
             public static readonly NodeEntity Null = default(NodeEntity);
             private static readonly System.ReadOnlyMemory<char> _MenesValueJsonPropertyName = System.MemoryExtensions.AsMemory("value");
@@ -508,8 +419,29 @@ namespace TestSpace
             private static readonly System.Text.Json.JsonEncodedText _MenesSubtreeEncodedJsonPropertyName = System.Text.Json.JsonEncodedText.Encode(_MenesSubtreeUtf8JsonPropertyName.Span);
             private readonly System.Text.Json.JsonElement _menesJsonElementBacking;
             private readonly System.Collections.Immutable.ImmutableArray<Menes.AdditionalProperty<Menes.JsonAny>> _menesAdditionalPropertiesBacking;
-            private readonly Tree.NodeEntity.ValueEntity? value;
-            private readonly Tree.NodeEntity.SubtreeEntity? subtree;
+            private readonly Menes.JsonNumber? value;
+            private readonly Menes.JsonValueBacking subtree;
+            public NodeEntity(System.Text.Json.JsonElement jsonElement)
+            {
+                this._menesJsonElementBacking = jsonElement;
+                this._menesAdditionalPropertiesBacking = System.Collections.Immutable.ImmutableArray<Menes.AdditionalProperty<Menes.JsonAny>>.Empty;
+                this.value = default;
+                this.subtree = default;
+            }
+            public NodeEntity(Menes.JsonNumber value, Tree? subtree = null)
+            {
+                this._menesJsonElementBacking = default;
+                this.value = value;
+                this.subtree = Menes.JsonValueBacking.From(subtree);
+                this._menesAdditionalPropertiesBacking = System.Collections.Immutable.ImmutableArray<Menes.AdditionalProperty<Menes.JsonAny>>.Empty;
+            }
+            private NodeEntity(Menes.JsonNumber? value, Menes.JsonValueBacking subtree, in System.Collections.Immutable.ImmutableArray<Menes.AdditionalProperty<Menes.JsonAny>> _menesAdditionalPropertiesBacking)
+            {
+                this._menesJsonElementBacking = default;
+                this.value = value;
+                this.subtree = subtree;
+                this._menesAdditionalPropertiesBacking = _menesAdditionalPropertiesBacking;
+            }
             /// <inheritdoc />
             public bool IsUndefined => !this.HasJsonElement && this.AllBackingFieldsAreNull();
             /// <inheritdoc />
@@ -518,8 +450,8 @@ namespace TestSpace
             public bool HasJsonElement => this._menesJsonElementBacking.ValueKind != System.Text.Json.JsonValueKind.Undefined;
             /// <inheritdoc />
             public System.Text.Json.JsonElement JsonElement => this._menesJsonElementBacking;
-            public Tree.NodeEntity.ValueEntity Value => this.HasJsonElement ? this.GetPropertyFromJsonElement<Tree.NodeEntity.ValueEntity>(_MenesValueUtf8JsonPropertyName.Span) : this.value ?? Tree.NodeEntity.ValueEntity.Null;
-            public Tree.NodeEntity.SubtreeEntity? Subtree => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Tree.NodeEntity.SubtreeEntity>(_MenesSubtreeUtf8JsonPropertyName.Span) : this.subtree;
+            public Menes.JsonNumber Value => this.HasJsonElement ? this.GetPropertyFromJsonElement<Menes.JsonNumber>(_MenesValueUtf8JsonPropertyName.Span) : this.value ?? Menes.JsonNumber.Null;
+            public Tree? Subtree => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Tree>(_MenesSubtreeUtf8JsonPropertyName.Span) : this.subtree.Value<Tree>();
             /// <inheritdoc />
             public Menes.ValidationResult Validate(Menes.ValidationResult? validationResult = null, Menes.ValidationLevel level = Menes.ValidationLevel.Flag, System.Collections.Generic.HashSet<string>? evaluatedProperties = null, System.Collections.Generic.Stack<string>? absoluteKeywordLocation = null, System.Collections.Generic.Stack<string>? instanceLocation = null)
             {
@@ -534,20 +466,22 @@ namespace TestSpace
                     this.JsonElement.WriteTo(writer);
                     return;
                 }
-                if (this.value is Tree.NodeEntity.ValueEntity value)
+                writer.WriteStartObject();
+                if (this.value is Menes.JsonNumber value)
                 {
-                    writer.WritePropertyName("_MenesValueEncodedJsonPropertyName");
+                    writer.WritePropertyName(_MenesValueEncodedJsonPropertyName);
                     value.WriteTo(writer);
                 }
-                if (this.subtree is Tree.NodeEntity.SubtreeEntity subtree)
+                if (this.subtree is Menes.JsonValueBacking subtree && !subtree.IsNull)
                 {
-                    writer.WritePropertyName("_MenesSubtreeEncodedJsonPropertyName");
+                    writer.WritePropertyName(_MenesSubtreeEncodedJsonPropertyName);
                     subtree.WriteTo(writer);
                 }
                 foreach (var property in this._menesAdditionalPropertiesBacking)
                 {
                     property.WriteTo(writer);
                 }
+                writer.WriteEndObject();
             }
             /// <inheritdoc />
             public T As<T>()
@@ -559,8 +493,11 @@ namespace TestSpace
             public bool Is<T>()
                 where T : struct, Menes.IJsonValue
             {
-                T item = this.As<T>();
-                return item.Validate().Valid;
+                if (typeof(T) == typeof(Tree.NodeEntity))
+                {
+                    return this.Validate().Valid;
+                }
+                return this.As<T>().Validate().Valid;
             }
             /// <inheritdoc />
             public bool TryGetProperty<T>(System.ReadOnlySpan<char> propertyName, out T property)
@@ -576,12 +513,12 @@ namespace TestSpace
                     property = default;
                     return false;
                 }
-                if (propertyName.SequenceEqual(_MenesValueJsonPropertyName.Span))
+                if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesValueJsonPropertyName.Span))
                 {
                     property = this.Value.As<T>();
                     return true;
                 }
-                if (propertyName.SequenceEqual(_MenesSubtreeJsonPropertyName.Span))
+                if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesSubtreeJsonPropertyName.Span))
                 {
                     if (!(this.Subtree?.As<T>() is T result))
                     {
@@ -617,12 +554,12 @@ namespace TestSpace
                     property = default;
                     return false;
                 }
-                if (System.MemoryExtensions.AsSpan(propertyName).SequenceEqual(_MenesValueJsonPropertyName.Span))
+                if (System.MemoryExtensions.SequenceEqual(System.MemoryExtensions.AsSpan(propertyName), _MenesValueJsonPropertyName.Span))
                 {
                     property = this.Value.As<T>();
                     return true;
                 }
-                if (System.MemoryExtensions.AsSpan(propertyName).SequenceEqual(_MenesSubtreeJsonPropertyName.Span))
+                if (System.MemoryExtensions.SequenceEqual(System.MemoryExtensions.AsSpan(propertyName), _MenesSubtreeJsonPropertyName.Span))
                 {
                     if (!(this.Subtree?.As<T>() is T result))
                     {
@@ -658,12 +595,12 @@ namespace TestSpace
                     property = default;
                     return false;
                 }
-                if (propertyName.SequenceEqual(_MenesValueUtf8JsonPropertyName.Span))
+                if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesValueUtf8JsonPropertyName.Span))
                 {
                     property = this.Value.As<T>();
                     return true;
                 }
-                if (propertyName.SequenceEqual(_MenesSubtreeUtf8JsonPropertyName.Span))
+                if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesSubtreeUtf8JsonPropertyName.Span))
                 {
                     if (!(this.Subtree?.As<T>() is T result))
                     {
@@ -684,6 +621,14 @@ namespace TestSpace
                 }
                 property = default;
                 return false;
+            }
+            public NodeEntity WithValue(Menes.JsonNumber value)
+            {
+                return new NodeEntity(value, this.subtree, this._menesAdditionalPropertiesBacking);
+            }
+            public NodeEntity WithSubtree(Tree value)
+            {
+                return new NodeEntity(this.value, Menes.JsonValueBacking.From<Tree>(value), this._menesAdditionalPropertiesBacking);
             }
             private TPropertyValue GetPropertyFromJsonElement<TPropertyValue>(System.ReadOnlySpan<byte> propertyName)
                 where TPropertyValue : struct, Menes.IJsonValue
@@ -701,7 +646,7 @@ namespace TestSpace
             }
             private bool AllBackingFieldsAreNull()
             {
-                if (this.subtree is not null)
+                if (!this.subtree.IsNull)
                 {
                     return false;
                 }
@@ -710,204 +655,6 @@ namespace TestSpace
                     return false;
                 }
                 return true;
-            }
-            public readonly struct ValueEntity : Menes.IJsonValue
-            {
-                public static readonly ValueEntity Null = default(ValueEntity);
-                private readonly System.Text.Json.JsonElement _menesJsonElementBacking;
-                private readonly Menes.JsonNumber? _menesNumberTypeBacking;
-                /// <inheritdoc />
-                public bool IsUndefined => !this.HasJsonElement && this.AllBackingFieldsAreNull();
-                /// <inheritdoc />
-                public bool IsNull => this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Null || (!this.HasJsonElement && this.AllBackingFieldsAreNull());
-                /// <inheritdoc />
-                public bool HasJsonElement => this._menesJsonElementBacking.ValueKind != System.Text.Json.JsonValueKind.Undefined;
-                /// <inheritdoc />
-                public System.Text.Json.JsonElement JsonElement => this._menesJsonElementBacking;
-                /// <inheritdoc />
-                public Menes.ValidationResult Validate(Menes.ValidationResult? validationResult = null, Menes.ValidationLevel level = Menes.ValidationLevel.Flag, System.Collections.Generic.HashSet<string>? evaluatedProperties = null, System.Collections.Generic.Stack<string>? absoluteKeywordLocation = null, System.Collections.Generic.Stack<string>? instanceLocation = null)
-                {
-                    Menes.ValidationResult result = validationResult ?? Menes.ValidationResult.ValidResult;
-                    return result;
-                }
-                /// <inheritdoc />
-                public void WriteTo(System.Text.Json.Utf8JsonWriter writer)
-                {
-                    if (this.HasJsonElement)
-                    {
-                        this.JsonElement.WriteTo(writer);
-                        return;
-                    }
-                    _menesNumberTypeBacking?.WriteTo(writer);
-                }
-                /// <inheritdoc />
-                public T As<T>()
-                    where T : struct, Menes.IJsonValue
-                {
-                    return Menes.JsonValue.As<T>(Menes.JsonValue.FlattenToJsonElementBacking(this).JsonElement);
-                }
-                /// <inheritdoc />
-                public bool Is<T>()
-                    where T : struct, Menes.IJsonValue
-                {
-                    T item = this.As<T>();
-                    return item.Validate().Valid;
-                }
-                /// <inheritdoc />
-                public bool TryGetProperty<T>(System.ReadOnlySpan<char> propertyName, out T property)
-                    where T : struct, Menes.IJsonValue
-                {
-                    if (this.HasJsonElement)
-                    {
-                        if (this.JsonElement.TryGetProperty(propertyName, out System.Text.Json.JsonElement value))
-                        {
-                            property = Menes.JsonValue.As<T>(value);
-                            return true;
-                        }
-                        property = default;
-                        return false;
-                    }
-                    property = default;
-                    return false;
-                }
-                /// <inheritdoc />
-                public bool TryGetProperty<T>(string propertyName, out T property)
-                    where T : struct, Menes.IJsonValue
-                {
-                    if (this.HasJsonElement)
-                    {
-                        if (this.JsonElement.TryGetProperty(propertyName, out System.Text.Json.JsonElement value))
-                        {
-                            property = Menes.JsonValue.As<T>(value);
-                            return true;
-                        }
-                        property = default;
-                        return false;
-                    }
-                    property = default;
-                    return false;
-                }
-                /// <inheritdoc />
-                public bool TryGetProperty<T>(System.ReadOnlySpan<byte> propertyName, out T property)
-                    where T : struct, Menes.IJsonValue
-                {
-                    if (this.HasJsonElement)
-                    {
-                        if (this.JsonElement.TryGetProperty(propertyName, out System.Text.Json.JsonElement value))
-                        {
-                            property = Menes.JsonValue.As<T>(value);
-                            return true;
-                        }
-                        property = default;
-                        return false;
-                    }
-                    property = default;
-                    return false;
-                }
-                private bool AllBackingFieldsAreNull()
-                {
-                    if (this._menesNumberTypeBacking is not null)
-                    {
-                        return false;
-                    }
-                    return true;
-                }
-            }
-            public readonly struct SubtreeEntity : Menes.IJsonValue
-            {
-                public static readonly SubtreeEntity Null = default(SubtreeEntity);
-                private readonly System.Text.Json.JsonElement _menesJsonElementBacking;
-                /// <inheritdoc />
-                public bool IsUndefined => !this.HasJsonElement && this.AllBackingFieldsAreNull();
-                /// <inheritdoc />
-                public bool IsNull => this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Null || (!this.HasJsonElement && this.AllBackingFieldsAreNull());
-                /// <inheritdoc />
-                public bool HasJsonElement => this._menesJsonElementBacking.ValueKind != System.Text.Json.JsonValueKind.Undefined;
-                /// <inheritdoc />
-                public System.Text.Json.JsonElement JsonElement => this._menesJsonElementBacking;
-                /// <inheritdoc />
-                public Menes.ValidationResult Validate(Menes.ValidationResult? validationResult = null, Menes.ValidationLevel level = Menes.ValidationLevel.Flag, System.Collections.Generic.HashSet<string>? evaluatedProperties = null, System.Collections.Generic.Stack<string>? absoluteKeywordLocation = null, System.Collections.Generic.Stack<string>? instanceLocation = null)
-                {
-                    Menes.ValidationResult result = validationResult ?? Menes.ValidationResult.ValidResult;
-                    return result;
-                }
-                /// <inheritdoc />
-                public void WriteTo(System.Text.Json.Utf8JsonWriter writer)
-                {
-                    if (this.HasJsonElement)
-                    {
-                        this.JsonElement.WriteTo(writer);
-                        return;
-                    }
-                }
-                /// <inheritdoc />
-                public T As<T>()
-                    where T : struct, Menes.IJsonValue
-                {
-                    return Menes.JsonValue.As<T>(Menes.JsonValue.FlattenToJsonElementBacking(this).JsonElement);
-                }
-                /// <inheritdoc />
-                public bool Is<T>()
-                    where T : struct, Menes.IJsonValue
-                {
-                    T item = this.As<T>();
-                    return item.Validate().Valid;
-                }
-                /// <inheritdoc />
-                public bool TryGetProperty<T>(System.ReadOnlySpan<char> propertyName, out T property)
-                    where T : struct, Menes.IJsonValue
-                {
-                    if (this.HasJsonElement)
-                    {
-                        if (this.JsonElement.TryGetProperty(propertyName, out System.Text.Json.JsonElement value))
-                        {
-                            property = Menes.JsonValue.As<T>(value);
-                            return true;
-                        }
-                        property = default;
-                        return false;
-                    }
-                    property = default;
-                    return false;
-                }
-                /// <inheritdoc />
-                public bool TryGetProperty<T>(string propertyName, out T property)
-                    where T : struct, Menes.IJsonValue
-                {
-                    if (this.HasJsonElement)
-                    {
-                        if (this.JsonElement.TryGetProperty(propertyName, out System.Text.Json.JsonElement value))
-                        {
-                            property = Menes.JsonValue.As<T>(value);
-                            return true;
-                        }
-                        property = default;
-                        return false;
-                    }
-                    property = default;
-                    return false;
-                }
-                /// <inheritdoc />
-                public bool TryGetProperty<T>(System.ReadOnlySpan<byte> propertyName, out T property)
-                    where T : struct, Menes.IJsonValue
-                {
-                    if (this.HasJsonElement)
-                    {
-                        if (this.JsonElement.TryGetProperty(propertyName, out System.Text.Json.JsonElement value))
-                        {
-                            property = Menes.JsonValue.As<T>(value);
-                            return true;
-                        }
-                        property = default;
-                        return false;
-                    }
-                    property = default;
-                    return false;
-                }
-                private bool AllBackingFieldsAreNull()
-                {
-                    return true;
-                }
             }
         }
     }
