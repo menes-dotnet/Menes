@@ -153,6 +153,7 @@ namespace TestSpace
                 this.JsonElement.WriteTo(writer);
                 return;
             }
+            writer.WriteStartObject();
             if (this.id is Draft201909MetaCore.IdValue id)
             {
                 writer.WritePropertyName(_MenesIdEncodedJsonPropertyName);
@@ -202,7 +203,7 @@ namespace TestSpace
             {
                 property.WriteTo(writer);
             }
-            this._menesBooleanTypeBacking?.WriteTo(writer);
+            writer.WriteEndObject();
         }
         /// <inheritdoc />
         public T As<T>()
@@ -963,10 +964,12 @@ namespace TestSpace
                     this.JsonElement.WriteTo(writer);
                     return;
                 }
+                writer.WriteStartObject();
                 foreach (var property in this._menesAdditionalPropertiesBacking)
                 {
                     property.WriteTo(writer);
                 }
+                writer.WriteEndObject();
             }
             /// <inheritdoc />
             public T As<T>()
@@ -1119,10 +1122,12 @@ namespace TestSpace
                     this.JsonElement.WriteTo(writer);
                     return;
                 }
+                writer.WriteStartObject();
                 foreach (var property in this._menesAdditionalPropertiesBacking)
                 {
                     property.WriteTo(writer);
                 }
+                writer.WriteEndObject();
             }
             /// <inheritdoc />
             public T As<T>()

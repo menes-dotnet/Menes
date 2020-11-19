@@ -21,8 +21,6 @@ namespace Menes.ConsoleApp
         {
             var test = new Test(default(Test));
             var schema = new Draft201909Schema(type: "string");
-            Draft201909Schema? ap = schema.AdditionalProperties;
-            string? title = schema.Title;
         }
 
         /// <summary>

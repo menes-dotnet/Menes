@@ -809,8 +809,22 @@ namespace Menes.JsonSchema.TypeBuilder
             memberBuilder.AppendLine("        this.JsonElement.WriteTo(writer);");
             memberBuilder.AppendLine("        return;");
             memberBuilder.AppendLine("    }");
-            this.BuildWritePropertyBackingValues(typeDeclaration, memberBuilder);
-            this.BuildWriteTypeBackingValues(typeDeclaration, memberBuilder);
+            if (typeDeclaration.IsObjectTypeDeclaration)
+            {
+                memberBuilder.AppendLine("writer.WriteStartObject();");
+                this.BuildWritePropertyBackingValues(typeDeclaration, memberBuilder);
+                memberBuilder.AppendLine("writer.WriteEndObject();");
+            }
+            else if (typeDeclaration.IsArrayTypeDeclaration)
+            {
+                memberBuilder.AppendLine("writer.WriteStartArray();");
+                memberBuilder.AppendLine("writer.WriteEndArray();");
+            }
+            else
+            {
+                this.BuildWriteTypeBackingValues(typeDeclaration, memberBuilder);
+            }
+
             memberBuilder.AppendLine("}");
         }
 

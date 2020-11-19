@@ -135,6 +135,7 @@ namespace TestSpace
                 this.JsonElement.WriteTo(writer);
                 return;
             }
+            writer.WriteStartObject();
             if (this.title is Menes.JsonString title)
             {
                 writer.WritePropertyName(_MenesTitleEncodedJsonPropertyName);
@@ -174,7 +175,7 @@ namespace TestSpace
             {
                 property.WriteTo(writer);
             }
-            this._menesBooleanTypeBacking?.WriteTo(writer);
+            writer.WriteEndObject();
         }
         /// <inheritdoc />
         public T As<T>()
@@ -693,6 +694,8 @@ namespace TestSpace
                     this.JsonElement.WriteTo(writer);
                     return;
                 }
+                writer.WriteStartArray();
+                writer.WriteEndArray();
             }
             /// <inheritdoc />
             public T As<T>()
