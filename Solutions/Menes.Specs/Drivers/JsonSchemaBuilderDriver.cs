@@ -59,8 +59,8 @@ namespace Drivers
         /// <returns>The fully qualified type name of the entity we have generated.</returns>
         internal async Task<string> GenerateTypeFor(JsonElement schema)
         {
-            await this.builder.BuildEntity(schema).ConfigureAwait(false);
-            return "SomeType";
+            // In reality, we are going to do something rather more complicated than this.
+            return await this.builder.BuildEntity(schema).ConfigureAwait(false);
         }
     }
 }

@@ -62,11 +62,11 @@ namespace Menes.JsonSchema.TypeBuilder
         /// Attempts to build an entity for a <see cref="JsonElement"/> containing a schema.
         /// </summary>
         /// <param name="schema">The root schema for which to build the entity.</param>
-        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        /// <returns>A <see cref="Task{T}"/> representing the asynchronous operation, which provides the fully qualified type name of the root type you have generated.</returns>
         /// <remarks>
         /// Use this overload when your base schema is the root of a document.
         /// </remarks>
-        public async Task BuildEntity(JsonElement schema)
+        public async Task<string> BuildEntity(JsonElement schema)
         {
             LocatedElement rootElement = await this.WalkTreeAndLocateElementsFrom(schema).ConfigureAwait(false);
 
@@ -74,13 +74,13 @@ namespace Menes.JsonSchema.TypeBuilder
             this.ValidateUnresolvedElements();
 
             // Nothing for us to do if the named element has already been built (or we are currently building it).
-            if (this.builtDeclarationsByLocation.ContainsKey(rootElement.AbsoluteKeywordLocation))
+            if (this.builtDeclarationsByLocation.TryGetValue(rootElement.AbsoluteKeywordLocation, out TypeDeclaration builtType))
             {
-                return;
+                return builtType.Lowered.FullyQualifiedDotNetTypeName!;
             }
 
             var generatedTypeNames = new HashSet<string>();
-            _ = await this.CreateTypeDeclarations(rootElement).ConfigureAwait(false);
+            TypeDeclaration root = await this.CreateTypeDeclarations(rootElement).ConfigureAwait(false);
             var memberBuilder = new System.Text.StringBuilder();
             foreach (TypeDeclaration type in this.builtDeclarationsByLocation.Values)
             {
@@ -101,6 +101,8 @@ namespace Menes.JsonSchema.TypeBuilder
                     System.IO.File.WriteAllText($"C:\\Users\\matth\\OneDrive\\Desktop\\{loweredType.DotnetTypeName}.cs", memberBuilder.ToString());
                 }
             }
+
+            return root.Lowered.FullyQualifiedDotNetTypeName!;
         }
     }
 }
