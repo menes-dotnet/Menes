@@ -20,7 +20,7 @@ namespace Menes.ConsoleApp
         public static void Main()
         {
             var test = new Test(default(Test));
-            var schema = new Draft201909Schema(type: (Draft201909MetaValidation.TypeEntity.AnyOf1Array)JsonArray.From<Draft201909MetaValidation.TypeEntity.SimpleTypesEntity>("string", "array"));
+            var schema = new Draft201909Schema(type: JsonArray.From("string", "array"));
             if (schema.Validate().Valid)
             {
                 Console.WriteLine("Hooray!");

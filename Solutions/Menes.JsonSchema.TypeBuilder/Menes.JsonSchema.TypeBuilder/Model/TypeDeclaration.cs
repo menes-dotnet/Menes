@@ -123,6 +123,11 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         public List<AsConversionMethodDeclaration>? AsConversionMethods { get; private set; }
 
         /// <summary>
+        /// Gets the list of array conversion operators for the type.
+        /// </summary>
+        public List<ArrayConversionOperatorDeclaration>? ArrayConversionOperators { get; private set; }
+
+        /// <summary>
         /// Gets the list of nested types in this declaration.
         /// </summary>
         public List<TypeDeclaration>? EmbeddedTypes { get; private set; }
@@ -358,13 +363,32 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         /// </summary>
         /// <param name="conversionOperatorDeclaration">The operator to add.</param>
         /// <remarks>
-        /// This will not add a conversion operator if it already existing in the type.
+        /// This will not add a conversion operator if it already exists in the type.
         /// </remarks>
         public void AddConversionOperator(ConversionOperatorDeclaration conversionOperatorDeclaration)
         {
             List<ConversionOperatorDeclaration> operators = this.EnsureConversionOperators();
 
             if (operators.Any(o => o.TargetType?.FullyQualifiedDotNetTypeName == conversionOperatorDeclaration.TargetType?.FullyQualifiedDotNetTypeName))
+            {
+                return;
+            }
+
+            operators.Add(conversionOperatorDeclaration);
+        }
+
+        /// <summary>
+        /// Add an array conversion operator.
+        /// </summary>
+        /// <param name="conversionOperatorDeclaration">The operator to add.</param>
+        /// <remarks>
+        /// This will not add a conversion operator if it already exists in the type.
+        /// </remarks>
+        public void AddArrayConversionOperator(ArrayConversionOperatorDeclaration conversionOperatorDeclaration)
+        {
+            List<ArrayConversionOperatorDeclaration> operators = this.EnsureArrayConversionOperators();
+
+            if (operators.Any(o => o.TargetItemType?.FullyQualifiedDotNetTypeName == conversionOperatorDeclaration.TargetItemType?.FullyQualifiedDotNetTypeName))
             {
                 return;
             }
@@ -546,6 +570,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         {
             List<TypeDeclaration> items = this.EnsureItems();
             items.Add(itemsDeclaration);
+            this.AddArrayConversionOperator(new ArrayConversionOperatorDeclaration { TargetItemType = itemsDeclaration });
         }
 
         /// <summary>
@@ -830,7 +855,41 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         {
             MergeAsConversionMethods(Lower(typeToMerge.AsConversionMethods), result);
             MergeConversionOperators(Lower(typeToMerge.ConversionOperators), result);
+            MergeArrayConversionOperators(typeToMerge, Lower(typeToMerge.ArrayConversionOperators), result);
             MergeChildConversionOperators(typeToMerge, result);
+        }
+
+        private static void MergeArrayConversionOperators(TypeDeclaration typeToMerge, List<ArrayConversionOperatorDeclaration>? conversionOperatorsToMerge, TypeDeclaration result)
+        {
+            if (conversionOperatorsToMerge is null)
+            {
+                return;
+            }
+
+            List<ArrayConversionOperatorDeclaration>? arrayConversionOperators = result.EnsureArrayConversionOperators();
+            foreach (ArrayConversionOperatorDeclaration conversion in conversionOperatorsToMerge)
+            {
+                if (!arrayConversionOperators.Any(c => c.TargetItemType == conversion.TargetItemType))
+                {
+                    arrayConversionOperators.Add(conversion);
+                    if (conversion.TargetItemType!.ConversionOperators is List<ConversionOperatorDeclaration> childOperators)
+                    {
+                        // Add conversion operators for the child operator via the target type
+                        foreach (ConversionOperatorDeclaration childOperator in childOperators)
+                        {
+                            result.AddArrayConversionOperator(
+                                new ArrayConversionOperatorDeclaration
+                                {
+                                    TargetItemType = childOperator.TargetType,
+                                    ViaItemType = conversion.TargetItemType,
+                                    ViaArrayType = typeToMerge,
+                                });
+                        }
+                    }
+                }
+            }
+
+            result.ArrayConversionOperators = arrayConversionOperators;
         }
 
         private static void MergeChildConversionOperators(TypeDeclaration typeToMerge, TypeDeclaration result)
@@ -841,6 +900,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
                 foreach (TypeDeclaration targetType in lowered.AnyOf)
                 {
                     AddChildConversionOperators(result, targetType);
+                    AddChildArrayConversionOperators(result, targetType);
                 }
             }
 
@@ -849,6 +909,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
                 foreach (TypeDeclaration targetType in lowered.OneOf)
                 {
                     AddChildConversionOperators(result, targetType);
+                    AddChildArrayConversionOperators(result, targetType);
                 }
             }
         }
@@ -867,6 +928,24 @@ namespace Menes.JsonSchema.TypeBuilder.Model
                             Direction = ConversionOperatorDeclaration.ConversionDirection.BidirectionalImplicit,
                             TargetType = childOperator.TargetType,
                             Via = targetType,
+                        });
+                }
+            }
+        }
+
+        private static void AddChildArrayConversionOperators(TypeDeclaration result, TypeDeclaration targetType)
+        {
+            if (targetType.ArrayConversionOperators is List<ArrayConversionOperatorDeclaration> childOperators)
+            {
+                // Add conversion operators for the child operator via the target type
+                foreach (ArrayConversionOperatorDeclaration childOperator in childOperators)
+                {
+                    result.AddArrayConversionOperator(
+                        new ArrayConversionOperatorDeclaration
+                        {
+                            TargetItemType = childOperator.TargetItemType,
+                            ViaItemType = childOperator.TargetItemType,
+                            ViaArrayType = targetType,
                         });
                 }
             }
@@ -1097,6 +1176,11 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         private static List<ConversionOperatorDeclaration>? Lower(List<ConversionOperatorDeclaration>? conversionOperators)
         {
             return conversionOperators?.Select(c => new ConversionOperatorDeclaration { Conversion = c.Conversion, TargetType = c.TargetType?.Lowered, Direction = c.Direction, Via = c.Via }).ToList();
+        }
+
+        private static List<ArrayConversionOperatorDeclaration>? Lower(List<ArrayConversionOperatorDeclaration>? conversionOperators)
+        {
+            return conversionOperators?.Select(c => new ArrayConversionOperatorDeclaration { TargetItemType = c.TargetItemType?.Lowered, ViaItemType = c.ViaItemType }).ToList();
         }
 
         private static List<AsConversionMethodDeclaration>? Lower(List<AsConversionMethodDeclaration>? asConversionMethods)
@@ -1413,6 +1497,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
                    this.Const is null &&
                    this.Contains is null &&
                    this.ConversionOperators is null &&
+                   this.ArrayConversionOperators is null &&
                    this.DependentRequired is null &&
                    this.Enum is null &&
                    this.ExclusiveMaximum is null &&
@@ -1557,6 +1642,11 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         private List<ConversionOperatorDeclaration> EnsureConversionOperators()
         {
             return this.ConversionOperators ??= new List<ConversionOperatorDeclaration>();
+        }
+
+        private List<ArrayConversionOperatorDeclaration> EnsureArrayConversionOperators()
+        {
+            return this.ArrayConversionOperators ??= new List<ArrayConversionOperatorDeclaration>();
         }
 
         private List<AsConversionMethodDeclaration> EnsureAsConversionMethods()

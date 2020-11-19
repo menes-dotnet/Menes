@@ -681,17 +681,40 @@ namespace Menes.JsonSchema.TypeBuilder
 
         private void BuildArrayConversionOperators(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
         {
-            if (!typeDeclaration.IsArrayTypeDeclaration)
+            if (!(typeDeclaration.ArrayConversionOperators is List<ArrayConversionOperatorDeclaration> arrayConversionOperators))
             {
                 return;
             }
 
-            TypeDeclaration itemsType = this.GetItemsTypeFor(typeDeclaration);
+            foreach (ArrayConversionOperatorDeclaration arrayConversionOperator in arrayConversionOperators)
+            {
+                string targetItemTypeName = arrayConversionOperator.TargetItemType?.FullyQualifiedDotNetTypeName ?? throw new InvalidOperationException("You must set the target item type before generating code.");
 
-            memberBuilder.AppendLine($"public static implicit operator {typeDeclaration.DotnetTypeName}(System.Collections.Immutable.ImmutableArray<{itemsType.FullyQualifiedDotNetTypeName}> items)");
-            memberBuilder.AppendLine("{");
-            memberBuilder.AppendLine($"    return new {typeDeclaration.DotnetTypeName}(items);");
-            memberBuilder.AppendLine("}");
+                memberBuilder.AppendLine($"public static implicit operator {typeDeclaration.DotnetTypeName}(System.Collections.Immutable.ImmutableArray<{targetItemTypeName}> items)");
+                memberBuilder.AppendLine("{");
+                if (arrayConversionOperator.ViaItemType is TypeDeclaration viaType && arrayConversionOperator.ViaArrayType is TypeDeclaration viaArrayType)
+                {
+                    memberBuilder.AppendLine($"    var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<{viaType.FullyQualifiedDotNetTypeName}>();");
+                    memberBuilder.AppendLine("    foreach (var item in items)");
+                    memberBuilder.AppendLine("    {");
+                    memberBuilder.AppendLine($"        arrayBuilder.Add(({viaType.FullyQualifiedDotNetTypeName})item);");
+                    memberBuilder.AppendLine("    }");
+                    memberBuilder.AppendLine($"    return ({typeDeclaration.DotnetTypeName})({viaArrayType.FullyQualifiedDotNetTypeName})arrayBuilder.ToImmutable();");
+                }
+                else
+                {
+                    if (typeDeclaration.IsArrayTypeDeclaration)
+                    {
+                        memberBuilder.AppendLine($"    return new {typeDeclaration.FullyQualifiedDotNetTypeName}(items);");
+                    }
+                    else
+                    {
+                        memberBuilder.AppendLine($"    return ({typeDeclaration.FullyQualifiedDotNetTypeName})items;");
+                    }
+                }
+
+                memberBuilder.AppendLine("}");
+            }
         }
 
         private void BuildConversionOperators(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)

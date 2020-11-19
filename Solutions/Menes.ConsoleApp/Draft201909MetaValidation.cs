@@ -1451,7 +1451,7 @@ namespace TestSpace
             }
             public static implicit operator StringArrayEntity(System.Collections.Immutable.ImmutableArray<Menes.JsonString> items)
             {
-                return new StringArrayEntity(items);
+                return new Draft201909MetaValidation.StringArrayEntity(items);
             }
             /// <inheritdoc />
             public bool IsUndefined => !this.HasJsonElement && this.AllBackingFieldsAreNull();
@@ -1843,7 +1843,7 @@ namespace TestSpace
             }
             public static implicit operator EnumArray(System.Collections.Immutable.ImmutableArray<Draft201909MetaValidation.EnumArray.ItemsEntity> items)
             {
-                return new EnumArray(items);
+                return new Draft201909MetaValidation.EnumArray(items);
             }
             /// <inheritdoc />
             public bool IsUndefined => !this.HasJsonElement && this.AllBackingFieldsAreNull();
@@ -2100,6 +2100,33 @@ namespace TestSpace
             {
                 return (Draft201909MetaValidation.TypeEntity)(Draft201909MetaValidation.TypeEntity.SimpleTypesEntity)value;
             }
+            public static implicit operator TypeEntity(System.Collections.Immutable.ImmutableArray<Draft201909MetaValidation.TypeEntity.SimpleTypesEntity> items)
+            {
+                var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Draft201909MetaValidation.TypeEntity.SimpleTypesEntity>();
+                foreach (var item in items)
+                {
+                    arrayBuilder.Add((Draft201909MetaValidation.TypeEntity.SimpleTypesEntity)item);
+                }
+                return (TypeEntity)(Draft201909MetaValidation.TypeEntity.AnyOf1Array)arrayBuilder.ToImmutable();
+            }
+            public static implicit operator TypeEntity(System.Collections.Immutable.ImmutableArray<Menes.JsonString> items)
+            {
+                var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonString>();
+                foreach (var item in items)
+                {
+                    arrayBuilder.Add((Menes.JsonString)item);
+                }
+                return (TypeEntity)(Draft201909MetaValidation.TypeEntity.AnyOf1Array)arrayBuilder.ToImmutable();
+            }
+            public static implicit operator TypeEntity(System.Collections.Immutable.ImmutableArray<string> items)
+            {
+                var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<string>();
+                foreach (var item in items)
+                {
+                    arrayBuilder.Add((string)item);
+                }
+                return (TypeEntity)(Draft201909MetaValidation.TypeEntity.AnyOf1Array)arrayBuilder.ToImmutable();
+            }
             /// <inheritdoc />
             public bool IsUndefined => !this.HasJsonElement && this.AllBackingFieldsAreNull();
             /// <inheritdoc />
@@ -2313,7 +2340,25 @@ namespace TestSpace
                 }
                 public static implicit operator AnyOf1Array(System.Collections.Immutable.ImmutableArray<Draft201909MetaValidation.TypeEntity.SimpleTypesEntity> items)
                 {
-                    return new AnyOf1Array(items);
+                    return new Draft201909MetaValidation.TypeEntity.AnyOf1Array(items);
+                }
+                public static implicit operator AnyOf1Array(System.Collections.Immutable.ImmutableArray<Menes.JsonString> items)
+                {
+                    var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Draft201909MetaValidation.TypeEntity.SimpleTypesEntity>();
+                    foreach (var item in items)
+                    {
+                        arrayBuilder.Add((Draft201909MetaValidation.TypeEntity.SimpleTypesEntity)item);
+                    }
+                    return (AnyOf1Array)(Draft201909MetaValidation.TypeEntity.AnyOf1Array)arrayBuilder.ToImmutable();
+                }
+                public static implicit operator AnyOf1Array(System.Collections.Immutable.ImmutableArray<string> items)
+                {
+                    var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Draft201909MetaValidation.TypeEntity.SimpleTypesEntity>();
+                    foreach (var item in items)
+                    {
+                        arrayBuilder.Add((Draft201909MetaValidation.TypeEntity.SimpleTypesEntity)item);
+                    }
+                    return (AnyOf1Array)(Draft201909MetaValidation.TypeEntity.AnyOf1Array)arrayBuilder.ToImmutable();
                 }
                 /// <inheritdoc />
                 public bool IsUndefined => !this.HasJsonElement && this.AllBackingFieldsAreNull();
