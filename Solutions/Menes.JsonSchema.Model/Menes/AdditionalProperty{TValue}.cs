@@ -104,8 +104,11 @@ namespace Menes
         /// <param name="writer">The writer to which to write the property name/value pair.</param>
         public void WriteTo(Utf8JsonWriter writer)
         {
-            writer.WritePropertyName(this.name.Span);
-            this.Value.WriteTo(writer);
+            if (!this.Value.IsNull)
+            {
+                writer.WritePropertyName(this.name.Span);
+                this.Value.WriteTo(writer);
+            }
         }
     }
 }

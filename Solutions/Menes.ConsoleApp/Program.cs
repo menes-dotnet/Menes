@@ -97,6 +97,8 @@ namespace Menes.ConsoleApp
 
             tree = tree.SetProperty("meta", (JsonString)"Hello");
             tree = tree.SetProperty("foo", (JsonString)"Bar");
+            tree = tree.SetProperty("frob", (JsonString)"Bob");
+            tree = tree.RemoveProperty("frob");
 
             Serialize(tree);
 

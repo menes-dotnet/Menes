@@ -992,6 +992,18 @@ namespace TestSpace
             property = default;
             return false;
         }
+        public Draft201909MetaApplicator RemoveProperty(string propertyName)
+        {
+            return this.SetProperty(propertyName, Menes.JsonNull.Instance);
+        }
+        public Draft201909MetaApplicator RemoveProperty(System.ReadOnlySpan<char> propertyName)
+        {
+            return this.SetProperty(propertyName, Menes.JsonNull.Instance);
+        }
+        public Draft201909MetaApplicator RemoveProperty(System.ReadOnlySpan<byte> propertyName)
+        {
+            return this.SetProperty(propertyName, Menes.JsonNull.Instance);
+        }
         public Draft201909MetaApplicator SetProperty<T>(string name, T value)
         where T : struct, Menes.IJsonValue
         {
@@ -2297,6 +2309,18 @@ where T1 : struct, Menes.IJsonValue
                 property = default;
                 return false;
             }
+            public PropertiesEntity RemoveProperty(string propertyName)
+            {
+                return this.SetProperty(propertyName, Menes.JsonNull.Instance);
+            }
+            public PropertiesEntity RemoveProperty(System.ReadOnlySpan<char> propertyName)
+            {
+                return this.SetProperty(propertyName, Menes.JsonNull.Instance);
+            }
+            public PropertiesEntity RemoveProperty(System.ReadOnlySpan<byte> propertyName)
+            {
+                return this.SetProperty(propertyName, Menes.JsonNull.Instance);
+            }
             public PropertiesEntity SetProperty<T>(string name, T value)
             where T : struct, Menes.IJsonValue
             {
@@ -2689,6 +2713,18 @@ where TPropertyValue : struct, Menes.IJsonValue
                 }
                 property = default;
                 return false;
+            }
+            public PatternPropertiesEntity RemoveProperty(string propertyName)
+            {
+                return this.SetProperty(propertyName, Menes.JsonNull.Instance);
+            }
+            public PatternPropertiesEntity RemoveProperty(System.ReadOnlySpan<char> propertyName)
+            {
+                return this.SetProperty(propertyName, Menes.JsonNull.Instance);
+            }
+            public PatternPropertiesEntity RemoveProperty(System.ReadOnlySpan<byte> propertyName)
+            {
+                return this.SetProperty(propertyName, Menes.JsonNull.Instance);
             }
             public PatternPropertiesEntity SetProperty<T>(string name, T value)
             where T : struct, Menes.IJsonValue
@@ -3138,6 +3174,18 @@ where TPropertyValue : struct, Menes.IJsonValue
                 }
                 property = default;
                 return false;
+            }
+            public DependentSchemasEntity RemoveProperty(string propertyName)
+            {
+                return this.SetProperty(propertyName, Menes.JsonNull.Instance);
+            }
+            public DependentSchemasEntity RemoveProperty(System.ReadOnlySpan<char> propertyName)
+            {
+                return this.SetProperty(propertyName, Menes.JsonNull.Instance);
+            }
+            public DependentSchemasEntity RemoveProperty(System.ReadOnlySpan<byte> propertyName)
+            {
+                return this.SetProperty(propertyName, Menes.JsonNull.Instance);
             }
             public DependentSchemasEntity SetProperty<T>(string name, T value)
             where T : struct, Menes.IJsonValue

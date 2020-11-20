@@ -3129,6 +3129,18 @@ namespace TestSpace
             property = default;
             return false;
         }
+        public Draft201909Schema RemoveProperty(string propertyName)
+        {
+            return this.SetProperty(propertyName, Menes.JsonNull.Instance);
+        }
+        public Draft201909Schema RemoveProperty(System.ReadOnlySpan<char> propertyName)
+        {
+            return this.SetProperty(propertyName, Menes.JsonNull.Instance);
+        }
+        public Draft201909Schema RemoveProperty(System.ReadOnlySpan<byte> propertyName)
+        {
+            return this.SetProperty(propertyName, Menes.JsonNull.Instance);
+        }
         public Draft201909Schema SetProperty<T>(string name, T value)
         where T : struct, Menes.IJsonValue
         {
@@ -4955,6 +4967,18 @@ namespace TestSpace
                 property = default;
                 return false;
             }
+            public DefinitionsEntity RemoveProperty(string propertyName)
+            {
+                return this.SetProperty(propertyName, Menes.JsonNull.Instance);
+            }
+            public DefinitionsEntity RemoveProperty(System.ReadOnlySpan<char> propertyName)
+            {
+                return this.SetProperty(propertyName, Menes.JsonNull.Instance);
+            }
+            public DefinitionsEntity RemoveProperty(System.ReadOnlySpan<byte> propertyName)
+            {
+                return this.SetProperty(propertyName, Menes.JsonNull.Instance);
+            }
             public DefinitionsEntity SetProperty<T>(string name, T value)
             where T : struct, Menes.IJsonValue
             {
@@ -5347,6 +5371,18 @@ where TPropertyValue : struct, Menes.IJsonValue
                 }
                 property = default;
                 return false;
+            }
+            public DependenciesEntity RemoveProperty(string propertyName)
+            {
+                return this.SetProperty(propertyName, Menes.JsonNull.Instance);
+            }
+            public DependenciesEntity RemoveProperty(System.ReadOnlySpan<char> propertyName)
+            {
+                return this.SetProperty(propertyName, Menes.JsonNull.Instance);
+            }
+            public DependenciesEntity RemoveProperty(System.ReadOnlySpan<byte> propertyName)
+            {
+                return this.SetProperty(propertyName, Menes.JsonNull.Instance);
             }
             public DependenciesEntity SetProperty<T>(string name, T value)
             where T : struct, Menes.IJsonValue

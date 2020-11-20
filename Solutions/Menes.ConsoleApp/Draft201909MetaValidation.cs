@@ -1133,6 +1133,18 @@ namespace TestSpace
             property = default;
             return false;
         }
+        public Draft201909MetaValidation RemoveProperty(string propertyName)
+        {
+            return this.SetProperty(propertyName, Menes.JsonNull.Instance);
+        }
+        public Draft201909MetaValidation RemoveProperty(System.ReadOnlySpan<char> propertyName)
+        {
+            return this.SetProperty(propertyName, Menes.JsonNull.Instance);
+        }
+        public Draft201909MetaValidation RemoveProperty(System.ReadOnlySpan<byte> propertyName)
+        {
+            return this.SetProperty(propertyName, Menes.JsonNull.Instance);
+        }
         public Draft201909MetaValidation SetProperty<T>(string name, T value)
         where T : struct, Menes.IJsonValue
         {
@@ -2583,6 +2595,18 @@ where T1 : struct, Menes.IJsonValue
                 }
                 property = default;
                 return false;
+            }
+            public DependentRequiredEntity RemoveProperty(string propertyName)
+            {
+                return this.SetProperty(propertyName, Menes.JsonNull.Instance);
+            }
+            public DependentRequiredEntity RemoveProperty(System.ReadOnlySpan<char> propertyName)
+            {
+                return this.SetProperty(propertyName, Menes.JsonNull.Instance);
+            }
+            public DependentRequiredEntity RemoveProperty(System.ReadOnlySpan<byte> propertyName)
+            {
+                return this.SetProperty(propertyName, Menes.JsonNull.Instance);
             }
             public DependentRequiredEntity SetProperty<T>(string name, T value)
             where T : struct, Menes.IJsonValue

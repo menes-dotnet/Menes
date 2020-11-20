@@ -616,6 +616,18 @@ namespace TestSpace
             property = default;
             return false;
         }
+        public Draft201909MetaCore RemoveProperty(string propertyName)
+        {
+            return this.SetProperty(propertyName, Menes.JsonNull.Instance);
+        }
+        public Draft201909MetaCore RemoveProperty(System.ReadOnlySpan<char> propertyName)
+        {
+            return this.SetProperty(propertyName, Menes.JsonNull.Instance);
+        }
+        public Draft201909MetaCore RemoveProperty(System.ReadOnlySpan<byte> propertyName)
+        {
+            return this.SetProperty(propertyName, Menes.JsonNull.Instance);
+        }
         public Draft201909MetaCore SetProperty<T>(string name, T value)
         where T : struct, Menes.IJsonValue
         {
@@ -1320,6 +1332,18 @@ namespace TestSpace
                 property = default;
                 return false;
             }
+            public VocabularyEntity RemoveProperty(string propertyName)
+            {
+                return this.SetProperty(propertyName, Menes.JsonNull.Instance);
+            }
+            public VocabularyEntity RemoveProperty(System.ReadOnlySpan<char> propertyName)
+            {
+                return this.SetProperty(propertyName, Menes.JsonNull.Instance);
+            }
+            public VocabularyEntity RemoveProperty(System.ReadOnlySpan<byte> propertyName)
+            {
+                return this.SetProperty(propertyName, Menes.JsonNull.Instance);
+            }
             public VocabularyEntity SetProperty<T>(string name, T value)
             where T : struct, Menes.IJsonValue
             {
@@ -1712,6 +1736,18 @@ where TPropertyValue : struct, Menes.IJsonValue
                 }
                 property = default;
                 return false;
+            }
+            public DefsEntity RemoveProperty(string propertyName)
+            {
+                return this.SetProperty(propertyName, Menes.JsonNull.Instance);
+            }
+            public DefsEntity RemoveProperty(System.ReadOnlySpan<char> propertyName)
+            {
+                return this.SetProperty(propertyName, Menes.JsonNull.Instance);
+            }
+            public DefsEntity RemoveProperty(System.ReadOnlySpan<byte> propertyName)
+            {
+                return this.SetProperty(propertyName, Menes.JsonNull.Instance);
             }
             public DefsEntity SetProperty<T>(string name, T value)
             where T : struct, Menes.IJsonValue

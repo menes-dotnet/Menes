@@ -240,6 +240,18 @@ namespace TestSpace
             property = default;
             return false;
         }
+        public Draft201909MetaFormat RemoveProperty(string propertyName)
+        {
+            return this.SetProperty(propertyName, Menes.JsonNull.Instance);
+        }
+        public Draft201909MetaFormat RemoveProperty(System.ReadOnlySpan<char> propertyName)
+        {
+            return this.SetProperty(propertyName, Menes.JsonNull.Instance);
+        }
+        public Draft201909MetaFormat RemoveProperty(System.ReadOnlySpan<byte> propertyName)
+        {
+            return this.SetProperty(propertyName, Menes.JsonNull.Instance);
+        }
         public Draft201909MetaFormat SetProperty<T>(string name, T value)
         where T : struct, Menes.IJsonValue
         {

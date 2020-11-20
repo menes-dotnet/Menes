@@ -32,6 +32,21 @@ namespace Menes.JsonSchema.TypeBuilder
                 return;
             }
 
+            memberBuilder.AppendLine($"public {typeDeclaration.DotnetTypeName} RemoveProperty(string propertyName)");
+            memberBuilder.AppendLine("{");
+            memberBuilder.AppendLine("    return this.SetProperty(propertyName, Menes.JsonNull.Instance);");
+            memberBuilder.AppendLine("}");
+
+            memberBuilder.AppendLine($"public {typeDeclaration.DotnetTypeName} RemoveProperty(System.ReadOnlySpan<char> propertyName)");
+            memberBuilder.AppendLine("{");
+            memberBuilder.AppendLine("    return this.SetProperty(propertyName, Menes.JsonNull.Instance);");
+            memberBuilder.AppendLine("}");
+
+            memberBuilder.AppendLine($"public {typeDeclaration.DotnetTypeName} RemoveProperty(System.ReadOnlySpan<byte> propertyName)");
+            memberBuilder.AppendLine("{");
+            memberBuilder.AppendLine("    return this.SetProperty(propertyName, Menes.JsonNull.Instance);");
+            memberBuilder.AppendLine("}");
+
             memberBuilder.AppendLine($"public {typeDeclaration.DotnetTypeName} SetProperty<T>(string name, T value)");
             memberBuilder.AppendLine($"where T : struct, Menes.IJsonValue");
             memberBuilder.AppendLine("{");

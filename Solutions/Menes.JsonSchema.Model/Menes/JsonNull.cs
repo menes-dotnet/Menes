@@ -18,6 +18,11 @@ namespace Menes
         public static readonly JsonNull Null = default;
 
         /// <summary>
+        /// The null value.
+        /// </summary>
+        public static readonly JsonNull Instance = default;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="JsonNull"/> struct.
         /// </summary>
         /// <param name="jsonElement">The backing json element.</param>

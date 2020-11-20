@@ -223,6 +223,18 @@ namespace TestSpace
             property = default;
             return false;
         }
+        public Tree RemoveProperty(string propertyName)
+        {
+            return this.SetProperty(propertyName, Menes.JsonNull.Instance);
+        }
+        public Tree RemoveProperty(System.ReadOnlySpan<char> propertyName)
+        {
+            return this.SetProperty(propertyName, Menes.JsonNull.Instance);
+        }
+        public Tree RemoveProperty(System.ReadOnlySpan<byte> propertyName)
+        {
+            return this.SetProperty(propertyName, Menes.JsonNull.Instance);
+        }
         public Tree SetProperty<T>(string name, T value)
         where T : struct, Menes.IJsonValue
         {
@@ -1063,6 +1075,18 @@ where T1 : struct, Menes.IJsonValue
                 }
                 property = default;
                 return false;
+            }
+            public NodeEntity RemoveProperty(string propertyName)
+            {
+                return this.SetProperty(propertyName, Menes.JsonNull.Instance);
+            }
+            public NodeEntity RemoveProperty(System.ReadOnlySpan<char> propertyName)
+            {
+                return this.SetProperty(propertyName, Menes.JsonNull.Instance);
+            }
+            public NodeEntity RemoveProperty(System.ReadOnlySpan<byte> propertyName)
+            {
+                return this.SetProperty(propertyName, Menes.JsonNull.Instance);
             }
             public NodeEntity SetProperty<T>(string name, T value)
             where T : struct, Menes.IJsonValue
