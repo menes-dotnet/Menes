@@ -59,6 +59,29 @@ namespace Menes
         }
 
         /// <summary>
+        /// Get the value of this property from the given owner.
+        /// </summary>
+        /// <typeparam name="TValue">The type with which to retrieve the value of the property.</typeparam>
+        /// <returns>The value of the property.</returns>
+        public TValue Value<TValue>()
+            where TValue : struct, IJsonValue
+        {
+            if (this.name is ReadOnlyMemory<char> name)
+            {
+                if (this.owner.TryGetProperty(name.Span, out TValue value))
+                {
+                    return value;
+                }
+                else
+                {
+                    throw new InvalidOperationException("The object was modified while enumerating properties.");
+                }
+            }
+
+            return this.jsonProperty.Value.As<TValue>();
+        }
+
+        /// <summary>
         /// Compares the specified string to the name of this property.
         /// </summary>
         /// <param name="name">The name of the property.</param>
@@ -105,24 +128,6 @@ namespace Menes
             }
 
             return this.jsonProperty.NameEquals(utf8Name);
-        }
-
-        /// <summary>
-        /// Get the value of this property from the given owner.
-        /// </summary>
-        /// <typeparam name="TValue">The type with which to retrieve the value of the property.</typeparam>
-        /// <param name="value">The value of the property.</param>
-        /// <returns><c>true</c> if the property was available.</returns>
-        public bool TryGetValue<TValue>(out TValue value)
-            where TValue : struct, IJsonValue
-        {
-            if (this.name is ReadOnlyMemory<char> name)
-            {
-                return this.owner.TryGetProperty(name.Span, out value);
-            }
-
-            value = this.jsonProperty.Value.As<TValue>();
-            return true;
         }
     }
 }

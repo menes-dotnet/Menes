@@ -99,23 +99,17 @@ namespace Menes.ConsoleApp
             {
                 if (property.NameEquals("meta"))
                 {
-                    if (property.TryGetValue(out JsonString value))
-                    {
-                        Console.WriteLine($"{property.Name}: {(string)value}");
-                    }
+                    Console.WriteLine($"{property.Name}: {(string)property.Value<JsonString>()}");
                 }
 
                 if (property.NameEquals("nodes"))
                 {
-                    if (property.TryGetValue(out Tree.NodesArray value))
+                    Console.WriteLine($"{property.Name}:");
+                    foreach (Tree.NodeEntity node in property.Value<Tree.NodesArray>())
                     {
-                        Console.WriteLine($"{property.Name}:");
-                        foreach (Tree.NodeEntity node in value)
+                        if (node.TryGetProperty("value", out JsonNumber nodeVal))
                         {
-                            if (node.TryGetProperty("value", out JsonNumber nodeVal))
-                            {
-                                Console.WriteLine($"\t{nodeVal.GetDouble()}");
-                            }
+                            Console.WriteLine($"\t{nodeVal.GetDouble()}");
                         }
                     }
                 }
