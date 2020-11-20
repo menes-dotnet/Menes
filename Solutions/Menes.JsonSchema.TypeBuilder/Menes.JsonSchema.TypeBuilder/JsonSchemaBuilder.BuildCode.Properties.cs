@@ -5,6 +5,7 @@
 namespace Menes.JsonSchema.TypeBuilder
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Text;
     using Menes.JsonSchema.TypeBuilder.Model;
@@ -22,6 +23,111 @@ namespace Menes.JsonSchema.TypeBuilder
         private void BuildJsonElementBackingField(StringBuilder memberBuilder)
         {
             memberBuilder.AppendLine("private readonly System.Text.Json.JsonElement _menesJsonElementBacking;");
+        }
+
+        private void BuildSetPropertyMethods(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
+        {
+            if (!typeDeclaration.IsObjectTypeDeclaration)
+            {
+                return;
+            }
+
+            memberBuilder.AppendLine($"public {typeDeclaration.DotnetTypeName} SetProperty<T>(string name, T value)");
+            memberBuilder.AppendLine($"where T : struct, Menes.IJsonValue");
+            memberBuilder.AppendLine("{");
+            memberBuilder.AppendLine("    var propertyName = System.MemoryExtensions.AsSpan(name);");
+
+            this.BuildSetProperty(typeDeclaration, memberBuilder);
+
+            memberBuilder.AppendLine("}");
+
+            memberBuilder.AppendLine($"public {typeDeclaration.DotnetTypeName} SetProperty<T>(System.ReadOnlySpan<char> propertyName, T value)");
+            memberBuilder.AppendLine($"where T : struct, Menes.IJsonValue");
+            memberBuilder.AppendLine("{");
+
+            this.BuildSetProperty(typeDeclaration, memberBuilder);
+
+            memberBuilder.AppendLine("}");
+
+            memberBuilder.AppendLine($"public {typeDeclaration.DotnetTypeName} SetProperty<T>(System.ReadOnlySpan<byte> utf8Name, T value)");
+            memberBuilder.AppendLine($"where T : struct, Menes.IJsonValue");
+            memberBuilder.AppendLine("{");
+
+            memberBuilder.AppendLine("    System.Span<char> name = stackalloc char[utf8Name.Length];");
+            memberBuilder.AppendLine("    int writtenCount = System.Text.Encoding.UTF8.GetChars(utf8Name, name);");
+            memberBuilder.AppendLine("    var propertyName = name.Slice(0, writtenCount);");
+
+            this.BuildSetProperty(typeDeclaration, memberBuilder);
+
+            memberBuilder.AppendLine("}");
+        }
+
+        private void BuildSetProperty(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
+        {
+            if (typeDeclaration.Properties is List<PropertyDeclaration> properties)
+            {
+                foreach (PropertyDeclaration property in properties)
+                {
+                    memberBuilder.AppendLine($"if (System.MemoryExtensions.SequenceEqual(propertyName, _Menes{property.DotnetPropertyName}JsonPropertyName.Span))");
+                    memberBuilder.AppendLine("{");
+                    memberBuilder.AppendLine($"    return this.With{property.DotnetPropertyName}(value.As<{property.TypeDeclaration!.FullyQualifiedDotNetTypeName}>());");
+                    memberBuilder.AppendLine("}");
+                }
+            }
+
+            if (typeDeclaration.AllowsAdditionalProperties)
+            {
+                TypeDeclaration additionalPropertyType = typeDeclaration.AdditionalProperties ?? TypeDeclarations.AnyTypeDeclaration;
+
+                bool containsReference = additionalPropertyType.ContainsReferenceTo(typeDeclaration);
+                if (!containsReference)
+                {
+                    memberBuilder.AppendLine($"var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.AdditionalProperty<{additionalPropertyType.FullyQualifiedDotNetTypeName}>>();");
+                }
+                else
+                {
+                    memberBuilder.AppendLine($"var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.AdditionalProperty>();");
+                }
+
+                memberBuilder.AppendLine("bool added = false;");
+                memberBuilder.AppendLine("foreach (var property in this._menesAdditionalPropertiesBacking)");
+                memberBuilder.AppendLine("{");
+                memberBuilder.AppendLine("    if (!property.NameEquals(propertyName))");
+                memberBuilder.AppendLine("    {");
+                memberBuilder.AppendLine("        arrayBuilder.Add(property);");
+                memberBuilder.AppendLine("    }");
+                memberBuilder.AppendLine("    else");
+                memberBuilder.AppendLine("    {");
+
+                if (!containsReference)
+                {
+                    memberBuilder.AppendLine($"        arrayBuilder.Add(new Menes.AdditionalProperty<{additionalPropertyType.FullyQualifiedDotNetTypeName}>(propertyName, value.As<{additionalPropertyType.FullyQualifiedDotNetTypeName}>()));");
+                }
+                else
+                {
+                    memberBuilder.AppendLine($"        arrayBuilder.Add(new Menes.AdditionalProperty(propertyName, Menes.JsonValueBacking.From<{additionalPropertyType.FullyQualifiedDotNetTypeName}>(value.As<{additionalPropertyType.FullyQualifiedDotNetTypeName}>())));");
+                }
+
+                memberBuilder.AppendLine("        added = true;");
+                memberBuilder.AppendLine("    }");
+                memberBuilder.AppendLine("}");
+
+                memberBuilder.AppendLine("if (!added)");
+                memberBuilder.AppendLine("{");
+
+                if (!containsReference)
+                {
+                    memberBuilder.AppendLine($"        arrayBuilder.Add(new Menes.AdditionalProperty<{additionalPropertyType.FullyQualifiedDotNetTypeName}>(propertyName, value.As<{additionalPropertyType.FullyQualifiedDotNetTypeName}>()));");
+                }
+                else
+                {
+                    memberBuilder.AppendLine($"        arrayBuilder.Add(new Menes.AdditionalProperty(propertyName, Menes.JsonValueBacking.From<{additionalPropertyType.FullyQualifiedDotNetTypeName}>(value.As<{additionalPropertyType.FullyQualifiedDotNetTypeName}>())));");
+                }
+
+                memberBuilder.AppendLine("}");
+            }
+
+            memberBuilder.AppendLine("return this.WithAdditionalProperties(arrayBuilder.ToImmutable());");
         }
 
         private void BuildAdditionalPropertiesBackingField(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)

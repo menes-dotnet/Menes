@@ -992,6 +992,283 @@ namespace TestSpace
             property = default;
             return false;
         }
+        public Draft201909MetaApplicator SetProperty<T>(string name, T value)
+        where T : struct, Menes.IJsonValue
+        {
+            var propertyName = System.MemoryExtensions.AsSpan(name);
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesAdditionalItemsJsonPropertyName.Span))
+            {
+                return this.WithAdditionalItems(value.As<Draft201909MetaApplicator>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesUnevaluatedItemsJsonPropertyName.Span))
+            {
+                return this.WithUnevaluatedItems(value.As<Draft201909MetaApplicator>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesItemsJsonPropertyName.Span))
+            {
+                return this.WithItems(value.As<Draft201909MetaApplicator.ItemsEntity>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesContainsJsonPropertyName.Span))
+            {
+                return this.WithContains(value.As<Draft201909MetaApplicator>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesAdditionalPropertiesJsonPropertyName.Span))
+            {
+                return this.WithAdditionalProperties(value.As<Draft201909MetaApplicator>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesUnevaluatedPropertiesJsonPropertyName.Span))
+            {
+                return this.WithUnevaluatedProperties(value.As<Draft201909MetaApplicator>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesPropertiesJsonPropertyName.Span))
+            {
+                return this.WithProperties(value.As<Draft201909MetaApplicator.PropertiesEntity>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesPatternPropertiesJsonPropertyName.Span))
+            {
+                return this.WithPatternProperties(value.As<Draft201909MetaApplicator.PatternPropertiesEntity>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesDependentSchemasJsonPropertyName.Span))
+            {
+                return this.WithDependentSchemas(value.As<Draft201909MetaApplicator.DependentSchemasEntity>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesPropertyNamesJsonPropertyName.Span))
+            {
+                return this.WithPropertyNames(value.As<Draft201909MetaApplicator>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesIfJsonPropertyName.Span))
+            {
+                return this.WithIf(value.As<Draft201909MetaApplicator>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesThenJsonPropertyName.Span))
+            {
+                return this.WithThen(value.As<Draft201909MetaApplicator>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesElseJsonPropertyName.Span))
+            {
+                return this.WithElse(value.As<Draft201909MetaApplicator>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesAllOfJsonPropertyName.Span))
+            {
+                return this.WithAllOf(value.As<Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesAnyOfJsonPropertyName.Span))
+            {
+                return this.WithAnyOf(value.As<Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesOneOfJsonPropertyName.Span))
+            {
+                return this.WithOneOf(value.As<Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesNotJsonPropertyName.Span))
+            {
+                return this.WithNot(value.As<Draft201909MetaApplicator>());
+            }
+            var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.AdditionalProperty<Menes.JsonAny>>();
+            bool added = false;
+            foreach (var property in this._menesAdditionalPropertiesBacking)
+            {
+                if (!property.NameEquals(propertyName))
+                {
+                    arrayBuilder.Add(property);
+                }
+                else
+                {
+                    arrayBuilder.Add(new Menes.AdditionalProperty<Menes.JsonAny>(propertyName, value.As<Menes.JsonAny>()));
+                    added = true;
+                }
+            }
+            if (!added)
+            {
+                arrayBuilder.Add(new Menes.AdditionalProperty<Menes.JsonAny>(propertyName, value.As<Menes.JsonAny>()));
+            }
+            return this.WithAdditionalProperties(arrayBuilder.ToImmutable());
+        }
+        public Draft201909MetaApplicator SetProperty<T>(System.ReadOnlySpan<char> propertyName, T value)
+        where T : struct, Menes.IJsonValue
+        {
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesAdditionalItemsJsonPropertyName.Span))
+            {
+                return this.WithAdditionalItems(value.As<Draft201909MetaApplicator>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesUnevaluatedItemsJsonPropertyName.Span))
+            {
+                return this.WithUnevaluatedItems(value.As<Draft201909MetaApplicator>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesItemsJsonPropertyName.Span))
+            {
+                return this.WithItems(value.As<Draft201909MetaApplicator.ItemsEntity>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesContainsJsonPropertyName.Span))
+            {
+                return this.WithContains(value.As<Draft201909MetaApplicator>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesAdditionalPropertiesJsonPropertyName.Span))
+            {
+                return this.WithAdditionalProperties(value.As<Draft201909MetaApplicator>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesUnevaluatedPropertiesJsonPropertyName.Span))
+            {
+                return this.WithUnevaluatedProperties(value.As<Draft201909MetaApplicator>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesPropertiesJsonPropertyName.Span))
+            {
+                return this.WithProperties(value.As<Draft201909MetaApplicator.PropertiesEntity>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesPatternPropertiesJsonPropertyName.Span))
+            {
+                return this.WithPatternProperties(value.As<Draft201909MetaApplicator.PatternPropertiesEntity>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesDependentSchemasJsonPropertyName.Span))
+            {
+                return this.WithDependentSchemas(value.As<Draft201909MetaApplicator.DependentSchemasEntity>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesPropertyNamesJsonPropertyName.Span))
+            {
+                return this.WithPropertyNames(value.As<Draft201909MetaApplicator>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesIfJsonPropertyName.Span))
+            {
+                return this.WithIf(value.As<Draft201909MetaApplicator>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesThenJsonPropertyName.Span))
+            {
+                return this.WithThen(value.As<Draft201909MetaApplicator>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesElseJsonPropertyName.Span))
+            {
+                return this.WithElse(value.As<Draft201909MetaApplicator>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesAllOfJsonPropertyName.Span))
+            {
+                return this.WithAllOf(value.As<Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesAnyOfJsonPropertyName.Span))
+            {
+                return this.WithAnyOf(value.As<Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesOneOfJsonPropertyName.Span))
+            {
+                return this.WithOneOf(value.As<Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesNotJsonPropertyName.Span))
+            {
+                return this.WithNot(value.As<Draft201909MetaApplicator>());
+            }
+            var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.AdditionalProperty<Menes.JsonAny>>();
+            bool added = false;
+            foreach (var property in this._menesAdditionalPropertiesBacking)
+            {
+                if (!property.NameEquals(propertyName))
+                {
+                    arrayBuilder.Add(property);
+                }
+                else
+                {
+                    arrayBuilder.Add(new Menes.AdditionalProperty<Menes.JsonAny>(propertyName, value.As<Menes.JsonAny>()));
+                    added = true;
+                }
+            }
+            if (!added)
+            {
+                arrayBuilder.Add(new Menes.AdditionalProperty<Menes.JsonAny>(propertyName, value.As<Menes.JsonAny>()));
+            }
+            return this.WithAdditionalProperties(arrayBuilder.ToImmutable());
+        }
+        public Draft201909MetaApplicator SetProperty<T>(System.ReadOnlySpan<byte> utf8Name, T value)
+        where T : struct, Menes.IJsonValue
+        {
+            System.Span<char> name = stackalloc char[utf8Name.Length];
+            int writtenCount = System.Text.Encoding.UTF8.GetChars(utf8Name, name);
+            var propertyName = name.Slice(0, writtenCount);
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesAdditionalItemsJsonPropertyName.Span))
+            {
+                return this.WithAdditionalItems(value.As<Draft201909MetaApplicator>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesUnevaluatedItemsJsonPropertyName.Span))
+            {
+                return this.WithUnevaluatedItems(value.As<Draft201909MetaApplicator>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesItemsJsonPropertyName.Span))
+            {
+                return this.WithItems(value.As<Draft201909MetaApplicator.ItemsEntity>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesContainsJsonPropertyName.Span))
+            {
+                return this.WithContains(value.As<Draft201909MetaApplicator>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesAdditionalPropertiesJsonPropertyName.Span))
+            {
+                return this.WithAdditionalProperties(value.As<Draft201909MetaApplicator>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesUnevaluatedPropertiesJsonPropertyName.Span))
+            {
+                return this.WithUnevaluatedProperties(value.As<Draft201909MetaApplicator>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesPropertiesJsonPropertyName.Span))
+            {
+                return this.WithProperties(value.As<Draft201909MetaApplicator.PropertiesEntity>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesPatternPropertiesJsonPropertyName.Span))
+            {
+                return this.WithPatternProperties(value.As<Draft201909MetaApplicator.PatternPropertiesEntity>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesDependentSchemasJsonPropertyName.Span))
+            {
+                return this.WithDependentSchemas(value.As<Draft201909MetaApplicator.DependentSchemasEntity>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesPropertyNamesJsonPropertyName.Span))
+            {
+                return this.WithPropertyNames(value.As<Draft201909MetaApplicator>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesIfJsonPropertyName.Span))
+            {
+                return this.WithIf(value.As<Draft201909MetaApplicator>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesThenJsonPropertyName.Span))
+            {
+                return this.WithThen(value.As<Draft201909MetaApplicator>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesElseJsonPropertyName.Span))
+            {
+                return this.WithElse(value.As<Draft201909MetaApplicator>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesAllOfJsonPropertyName.Span))
+            {
+                return this.WithAllOf(value.As<Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesAnyOfJsonPropertyName.Span))
+            {
+                return this.WithAnyOf(value.As<Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesOneOfJsonPropertyName.Span))
+            {
+                return this.WithOneOf(value.As<Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesNotJsonPropertyName.Span))
+            {
+                return this.WithNot(value.As<Draft201909MetaApplicator>());
+            }
+            var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.AdditionalProperty<Menes.JsonAny>>();
+            bool added = false;
+            foreach (var property in this._menesAdditionalPropertiesBacking)
+            {
+                if (!property.NameEquals(propertyName))
+                {
+                    arrayBuilder.Add(property);
+                }
+                else
+                {
+                    arrayBuilder.Add(new Menes.AdditionalProperty<Menes.JsonAny>(propertyName, value.As<Menes.JsonAny>()));
+                    added = true;
+                }
+            }
+            if (!added)
+            {
+                arrayBuilder.Add(new Menes.AdditionalProperty<Menes.JsonAny>(propertyName, value.As<Menes.JsonAny>()));
+            }
+            return this.WithAdditionalProperties(arrayBuilder.ToImmutable());
+        }
         public Draft201909MetaApplicator.MenesPropertyEnumerator GetEnumerator() { return new Draft201909MetaApplicator.MenesPropertyEnumerator(this); }
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() { return this.GetEnumerator(); }
         public Draft201909MetaApplicator WithAdditionalItems(Draft201909MetaApplicator value)
@@ -1275,8 +1552,20 @@ namespace TestSpace
                 return true;
             }
             currentIndex++;
+            foreach (var property in this._menesAdditionalPropertiesBacking)
+            {
+                if (currentIndex == index)
+                {
+                    result = new Menes.Property<Draft201909MetaApplicator>(this, property.NameAsMemory);
+                    return true;
+                }
+            }
             result = default; ;
             return false;
+        }
+        private Draft201909MetaApplicator WithAdditionalProperties(System.Collections.Immutable.ImmutableArray<Menes.AdditionalProperty<Menes.JsonAny>> value)
+        {
+            return new Draft201909MetaApplicator(this.additionalItems, this.unevaluatedItems, this.items, this.contains, this.additionalProperties, this.unevaluatedProperties, this.properties, this.patternProperties, this.dependentSchemas, this.propertyNames, this.@if, this.then, this.@else, this.allOf, this.anyOf, this.oneOf, this.not, this._menesBooleanTypeBacking, value);
         }
         public readonly struct ItemsEntity : Menes.IJsonValue
         {
@@ -2007,6 +2296,79 @@ where T1 : struct, Menes.IJsonValue
                 property = default;
                 return false;
             }
+            public PropertiesEntity SetProperty<T>(string name, T value)
+            where T : struct, Menes.IJsonValue
+            {
+                var propertyName = System.MemoryExtensions.AsSpan(name);
+                var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.AdditionalProperty>();
+                bool added = false;
+                foreach (var property in this._menesAdditionalPropertiesBacking)
+                {
+                    if (!property.NameEquals(propertyName))
+                    {
+                        arrayBuilder.Add(property);
+                    }
+                    else
+                    {
+                        arrayBuilder.Add(new Menes.AdditionalProperty(propertyName, Menes.JsonValueBacking.From<Draft201909MetaApplicator>(value.As<Draft201909MetaApplicator>())));
+                        added = true;
+                    }
+                }
+                if (!added)
+                {
+                    arrayBuilder.Add(new Menes.AdditionalProperty(propertyName, Menes.JsonValueBacking.From<Draft201909MetaApplicator>(value.As<Draft201909MetaApplicator>())));
+                }
+                return this.WithAdditionalProperties(arrayBuilder.ToImmutable());
+            }
+            public PropertiesEntity SetProperty<T>(System.ReadOnlySpan<char> propertyName, T value)
+            where T : struct, Menes.IJsonValue
+            {
+                var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.AdditionalProperty>();
+                bool added = false;
+                foreach (var property in this._menesAdditionalPropertiesBacking)
+                {
+                    if (!property.NameEquals(propertyName))
+                    {
+                        arrayBuilder.Add(property);
+                    }
+                    else
+                    {
+                        arrayBuilder.Add(new Menes.AdditionalProperty(propertyName, Menes.JsonValueBacking.From<Draft201909MetaApplicator>(value.As<Draft201909MetaApplicator>())));
+                        added = true;
+                    }
+                }
+                if (!added)
+                {
+                    arrayBuilder.Add(new Menes.AdditionalProperty(propertyName, Menes.JsonValueBacking.From<Draft201909MetaApplicator>(value.As<Draft201909MetaApplicator>())));
+                }
+                return this.WithAdditionalProperties(arrayBuilder.ToImmutable());
+            }
+            public PropertiesEntity SetProperty<T>(System.ReadOnlySpan<byte> utf8Name, T value)
+            where T : struct, Menes.IJsonValue
+            {
+                System.Span<char> name = stackalloc char[utf8Name.Length];
+                int writtenCount = System.Text.Encoding.UTF8.GetChars(utf8Name, name);
+                var propertyName = name.Slice(0, writtenCount);
+                var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.AdditionalProperty>();
+                bool added = false;
+                foreach (var property in this._menesAdditionalPropertiesBacking)
+                {
+                    if (!property.NameEquals(propertyName))
+                    {
+                        arrayBuilder.Add(property);
+                    }
+                    else
+                    {
+                        arrayBuilder.Add(new Menes.AdditionalProperty(propertyName, Menes.JsonValueBacking.From<Draft201909MetaApplicator>(value.As<Draft201909MetaApplicator>())));
+                        added = true;
+                    }
+                }
+                if (!added)
+                {
+                    arrayBuilder.Add(new Menes.AdditionalProperty(propertyName, Menes.JsonValueBacking.From<Draft201909MetaApplicator>(value.As<Draft201909MetaApplicator>())));
+                }
+                return this.WithAdditionalProperties(arrayBuilder.ToImmutable());
+            }
             public Draft201909MetaApplicator.PropertiesEntity.MenesPropertyEnumerator GetEnumerator() { return new Draft201909MetaApplicator.PropertiesEntity.MenesPropertyEnumerator(this); }
             System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() { return this.GetEnumerator(); }
             private TPropertyValue GetPropertyFromJsonElement<TPropertyValue>(System.ReadOnlySpan<byte> propertyName)
@@ -2048,8 +2410,20 @@ where TPropertyValue : struct, Menes.IJsonValue
                     }
                 }
                 int currentIndex = 0;
+                foreach (var property in this._menesAdditionalPropertiesBacking)
+                {
+                    if (currentIndex == index)
+                    {
+                        result = new Menes.Property<PropertiesEntity>(this, property.NameAsMemory);
+                        return true;
+                    }
+                }
                 result = default; ;
                 return false;
+            }
+            private PropertiesEntity WithAdditionalProperties(System.Collections.Immutable.ImmutableArray<Menes.AdditionalProperty> value)
+            {
+                return new PropertiesEntity(value);
             }
             /// <summary>
             /// An enumerator for the properties in a <see cref="PropertiesEntity"/>.
@@ -2314,6 +2688,79 @@ where TPropertyValue : struct, Menes.IJsonValue
                 property = default;
                 return false;
             }
+            public PatternPropertiesEntity SetProperty<T>(string name, T value)
+            where T : struct, Menes.IJsonValue
+            {
+                var propertyName = System.MemoryExtensions.AsSpan(name);
+                var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.AdditionalProperty>();
+                bool added = false;
+                foreach (var property in this._menesAdditionalPropertiesBacking)
+                {
+                    if (!property.NameEquals(propertyName))
+                    {
+                        arrayBuilder.Add(property);
+                    }
+                    else
+                    {
+                        arrayBuilder.Add(new Menes.AdditionalProperty(propertyName, Menes.JsonValueBacking.From<Draft201909MetaApplicator>(value.As<Draft201909MetaApplicator>())));
+                        added = true;
+                    }
+                }
+                if (!added)
+                {
+                    arrayBuilder.Add(new Menes.AdditionalProperty(propertyName, Menes.JsonValueBacking.From<Draft201909MetaApplicator>(value.As<Draft201909MetaApplicator>())));
+                }
+                return this.WithAdditionalProperties(arrayBuilder.ToImmutable());
+            }
+            public PatternPropertiesEntity SetProperty<T>(System.ReadOnlySpan<char> propertyName, T value)
+            where T : struct, Menes.IJsonValue
+            {
+                var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.AdditionalProperty>();
+                bool added = false;
+                foreach (var property in this._menesAdditionalPropertiesBacking)
+                {
+                    if (!property.NameEquals(propertyName))
+                    {
+                        arrayBuilder.Add(property);
+                    }
+                    else
+                    {
+                        arrayBuilder.Add(new Menes.AdditionalProperty(propertyName, Menes.JsonValueBacking.From<Draft201909MetaApplicator>(value.As<Draft201909MetaApplicator>())));
+                        added = true;
+                    }
+                }
+                if (!added)
+                {
+                    arrayBuilder.Add(new Menes.AdditionalProperty(propertyName, Menes.JsonValueBacking.From<Draft201909MetaApplicator>(value.As<Draft201909MetaApplicator>())));
+                }
+                return this.WithAdditionalProperties(arrayBuilder.ToImmutable());
+            }
+            public PatternPropertiesEntity SetProperty<T>(System.ReadOnlySpan<byte> utf8Name, T value)
+            where T : struct, Menes.IJsonValue
+            {
+                System.Span<char> name = stackalloc char[utf8Name.Length];
+                int writtenCount = System.Text.Encoding.UTF8.GetChars(utf8Name, name);
+                var propertyName = name.Slice(0, writtenCount);
+                var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.AdditionalProperty>();
+                bool added = false;
+                foreach (var property in this._menesAdditionalPropertiesBacking)
+                {
+                    if (!property.NameEquals(propertyName))
+                    {
+                        arrayBuilder.Add(property);
+                    }
+                    else
+                    {
+                        arrayBuilder.Add(new Menes.AdditionalProperty(propertyName, Menes.JsonValueBacking.From<Draft201909MetaApplicator>(value.As<Draft201909MetaApplicator>())));
+                        added = true;
+                    }
+                }
+                if (!added)
+                {
+                    arrayBuilder.Add(new Menes.AdditionalProperty(propertyName, Menes.JsonValueBacking.From<Draft201909MetaApplicator>(value.As<Draft201909MetaApplicator>())));
+                }
+                return this.WithAdditionalProperties(arrayBuilder.ToImmutable());
+            }
             public Draft201909MetaApplicator.PatternPropertiesEntity.MenesPropertyEnumerator GetEnumerator() { return new Draft201909MetaApplicator.PatternPropertiesEntity.MenesPropertyEnumerator(this); }
             System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() { return this.GetEnumerator(); }
             private TPropertyValue GetPropertyFromJsonElement<TPropertyValue>(System.ReadOnlySpan<byte> propertyName)
@@ -2355,8 +2802,20 @@ where TPropertyValue : struct, Menes.IJsonValue
                     }
                 }
                 int currentIndex = 0;
+                foreach (var property in this._menesAdditionalPropertiesBacking)
+                {
+                    if (currentIndex == index)
+                    {
+                        result = new Menes.Property<PatternPropertiesEntity>(this, property.NameAsMemory);
+                        return true;
+                    }
+                }
                 result = default; ;
                 return false;
+            }
+            private PatternPropertiesEntity WithAdditionalProperties(System.Collections.Immutable.ImmutableArray<Menes.AdditionalProperty> value)
+            {
+                return new PatternPropertiesEntity(value);
             }
             public readonly struct PropertyNamesEntity : Menes.IJsonValue
             {
@@ -2677,6 +3136,79 @@ where TPropertyValue : struct, Menes.IJsonValue
                 property = default;
                 return false;
             }
+            public DependentSchemasEntity SetProperty<T>(string name, T value)
+            where T : struct, Menes.IJsonValue
+            {
+                var propertyName = System.MemoryExtensions.AsSpan(name);
+                var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.AdditionalProperty>();
+                bool added = false;
+                foreach (var property in this._menesAdditionalPropertiesBacking)
+                {
+                    if (!property.NameEquals(propertyName))
+                    {
+                        arrayBuilder.Add(property);
+                    }
+                    else
+                    {
+                        arrayBuilder.Add(new Menes.AdditionalProperty(propertyName, Menes.JsonValueBacking.From<Draft201909MetaApplicator>(value.As<Draft201909MetaApplicator>())));
+                        added = true;
+                    }
+                }
+                if (!added)
+                {
+                    arrayBuilder.Add(new Menes.AdditionalProperty(propertyName, Menes.JsonValueBacking.From<Draft201909MetaApplicator>(value.As<Draft201909MetaApplicator>())));
+                }
+                return this.WithAdditionalProperties(arrayBuilder.ToImmutable());
+            }
+            public DependentSchemasEntity SetProperty<T>(System.ReadOnlySpan<char> propertyName, T value)
+            where T : struct, Menes.IJsonValue
+            {
+                var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.AdditionalProperty>();
+                bool added = false;
+                foreach (var property in this._menesAdditionalPropertiesBacking)
+                {
+                    if (!property.NameEquals(propertyName))
+                    {
+                        arrayBuilder.Add(property);
+                    }
+                    else
+                    {
+                        arrayBuilder.Add(new Menes.AdditionalProperty(propertyName, Menes.JsonValueBacking.From<Draft201909MetaApplicator>(value.As<Draft201909MetaApplicator>())));
+                        added = true;
+                    }
+                }
+                if (!added)
+                {
+                    arrayBuilder.Add(new Menes.AdditionalProperty(propertyName, Menes.JsonValueBacking.From<Draft201909MetaApplicator>(value.As<Draft201909MetaApplicator>())));
+                }
+                return this.WithAdditionalProperties(arrayBuilder.ToImmutable());
+            }
+            public DependentSchemasEntity SetProperty<T>(System.ReadOnlySpan<byte> utf8Name, T value)
+            where T : struct, Menes.IJsonValue
+            {
+                System.Span<char> name = stackalloc char[utf8Name.Length];
+                int writtenCount = System.Text.Encoding.UTF8.GetChars(utf8Name, name);
+                var propertyName = name.Slice(0, writtenCount);
+                var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.AdditionalProperty>();
+                bool added = false;
+                foreach (var property in this._menesAdditionalPropertiesBacking)
+                {
+                    if (!property.NameEquals(propertyName))
+                    {
+                        arrayBuilder.Add(property);
+                    }
+                    else
+                    {
+                        arrayBuilder.Add(new Menes.AdditionalProperty(propertyName, Menes.JsonValueBacking.From<Draft201909MetaApplicator>(value.As<Draft201909MetaApplicator>())));
+                        added = true;
+                    }
+                }
+                if (!added)
+                {
+                    arrayBuilder.Add(new Menes.AdditionalProperty(propertyName, Menes.JsonValueBacking.From<Draft201909MetaApplicator>(value.As<Draft201909MetaApplicator>())));
+                }
+                return this.WithAdditionalProperties(arrayBuilder.ToImmutable());
+            }
             public Draft201909MetaApplicator.DependentSchemasEntity.MenesPropertyEnumerator GetEnumerator() { return new Draft201909MetaApplicator.DependentSchemasEntity.MenesPropertyEnumerator(this); }
             System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() { return this.GetEnumerator(); }
             private TPropertyValue GetPropertyFromJsonElement<TPropertyValue>(System.ReadOnlySpan<byte> propertyName)
@@ -2718,8 +3250,20 @@ where TPropertyValue : struct, Menes.IJsonValue
                     }
                 }
                 int currentIndex = 0;
+                foreach (var property in this._menesAdditionalPropertiesBacking)
+                {
+                    if (currentIndex == index)
+                    {
+                        result = new Menes.Property<DependentSchemasEntity>(this, property.NameAsMemory);
+                        return true;
+                    }
+                }
                 result = default; ;
                 return false;
+            }
+            private DependentSchemasEntity WithAdditionalProperties(System.Collections.Immutable.ImmutableArray<Menes.AdditionalProperty> value)
+            {
+                return new DependentSchemasEntity(value);
             }
             /// <summary>
             /// An enumerator for the properties in a <see cref="DependentSchemasEntity"/>.

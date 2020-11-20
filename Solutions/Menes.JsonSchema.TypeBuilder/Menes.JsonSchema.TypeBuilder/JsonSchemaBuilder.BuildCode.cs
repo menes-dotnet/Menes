@@ -61,6 +61,7 @@ namespace Menes.JsonSchema.TypeBuilder
             this.BuildWriteToMethod(typeDeclaration, memberBuilder);
             this.BuildIsAndAsMethods(typeDeclaration, memberBuilder);
             this.BuildTryGetProperty(typeDeclaration, memberBuilder);
+            this.BuildSetPropertyMethods(typeDeclaration, memberBuilder);
             this.BuildArrayEnumerators(typeDeclaration, memberBuilder);
             this.BuildArrayAdd(typeDeclaration, memberBuilder);
             this.BuildArrayInsert(typeDeclaration, memberBuilder);
@@ -73,6 +74,7 @@ namespace Menes.JsonSchema.TypeBuilder
             this.BuildJsonPropertyGetMethods(typeDeclaration, memberBuilder);
             this.BuildAllBackingFieldsAreNullMethod(typeDeclaration, memberBuilder);
             this.BuildGetPropertyAtIndex(typeDeclaration, memberBuilder);
+            this.BuildWithAdditionalPropertyMethod(typeDeclaration, memberBuilder);
 
             // Embedded types
             this.BuildEmbeddedTypes(typeDeclaration, memberBuilder);

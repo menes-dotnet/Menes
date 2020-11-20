@@ -223,6 +223,103 @@ namespace TestSpace
             property = default;
             return false;
         }
+        public Tree SetProperty<T>(string name, T value)
+        where T : struct, Menes.IJsonValue
+        {
+            var propertyName = System.MemoryExtensions.AsSpan(name);
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesMetaJsonPropertyName.Span))
+            {
+                return this.WithMeta(value.As<Menes.JsonString>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesNodesJsonPropertyName.Span))
+            {
+                return this.WithNodes(value.As<Tree.NodesArray>());
+            }
+            var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.AdditionalProperty<Menes.JsonAny>>();
+            bool added = false;
+            foreach (var property in this._menesAdditionalPropertiesBacking)
+            {
+                if (!property.NameEquals(propertyName))
+                {
+                    arrayBuilder.Add(property);
+                }
+                else
+                {
+                    arrayBuilder.Add(new Menes.AdditionalProperty<Menes.JsonAny>(propertyName, value.As<Menes.JsonAny>()));
+                    added = true;
+                }
+            }
+            if (!added)
+            {
+                arrayBuilder.Add(new Menes.AdditionalProperty<Menes.JsonAny>(propertyName, value.As<Menes.JsonAny>()));
+            }
+            return this.WithAdditionalProperties(arrayBuilder.ToImmutable());
+        }
+        public Tree SetProperty<T>(System.ReadOnlySpan<char> propertyName, T value)
+        where T : struct, Menes.IJsonValue
+        {
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesMetaJsonPropertyName.Span))
+            {
+                return this.WithMeta(value.As<Menes.JsonString>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesNodesJsonPropertyName.Span))
+            {
+                return this.WithNodes(value.As<Tree.NodesArray>());
+            }
+            var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.AdditionalProperty<Menes.JsonAny>>();
+            bool added = false;
+            foreach (var property in this._menesAdditionalPropertiesBacking)
+            {
+                if (!property.NameEquals(propertyName))
+                {
+                    arrayBuilder.Add(property);
+                }
+                else
+                {
+                    arrayBuilder.Add(new Menes.AdditionalProperty<Menes.JsonAny>(propertyName, value.As<Menes.JsonAny>()));
+                    added = true;
+                }
+            }
+            if (!added)
+            {
+                arrayBuilder.Add(new Menes.AdditionalProperty<Menes.JsonAny>(propertyName, value.As<Menes.JsonAny>()));
+            }
+            return this.WithAdditionalProperties(arrayBuilder.ToImmutable());
+        }
+        public Tree SetProperty<T>(System.ReadOnlySpan<byte> utf8Name, T value)
+        where T : struct, Menes.IJsonValue
+        {
+            System.Span<char> name = stackalloc char[utf8Name.Length];
+            int writtenCount = System.Text.Encoding.UTF8.GetChars(utf8Name, name);
+            var propertyName = name.Slice(0, writtenCount);
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesMetaJsonPropertyName.Span))
+            {
+                return this.WithMeta(value.As<Menes.JsonString>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesNodesJsonPropertyName.Span))
+            {
+                return this.WithNodes(value.As<Tree.NodesArray>());
+            }
+            var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.AdditionalProperty<Menes.JsonAny>>();
+            bool added = false;
+            foreach (var property in this._menesAdditionalPropertiesBacking)
+            {
+                if (!property.NameEquals(propertyName))
+                {
+                    arrayBuilder.Add(property);
+                }
+                else
+                {
+                    arrayBuilder.Add(new Menes.AdditionalProperty<Menes.JsonAny>(propertyName, value.As<Menes.JsonAny>()));
+                    added = true;
+                }
+            }
+            if (!added)
+            {
+                arrayBuilder.Add(new Menes.AdditionalProperty<Menes.JsonAny>(propertyName, value.As<Menes.JsonAny>()));
+            }
+            return this.WithAdditionalProperties(arrayBuilder.ToImmutable());
+        }
         public Tree.MenesPropertyEnumerator GetEnumerator() { return new Tree.MenesPropertyEnumerator(this); }
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() { return this.GetEnumerator(); }
         public Tree WithMeta(Menes.JsonString value)
@@ -292,8 +389,20 @@ namespace TestSpace
                 return true;
             }
             currentIndex++;
+            foreach (var property in this._menesAdditionalPropertiesBacking)
+            {
+                if (currentIndex == index)
+                {
+                    result = new Menes.Property<Tree>(this, property.NameAsMemory);
+                    return true;
+                }
+            }
             result = default; ;
             return false;
+        }
+        private Tree WithAdditionalProperties(System.Collections.Immutable.ImmutableArray<Menes.AdditionalProperty<Menes.JsonAny>> value)
+        {
+            return new Tree(this.meta, this.nodes, value);
         }
         public readonly struct NodesArray : Menes.IJsonValue, System.Collections.IEnumerable
         {
@@ -954,6 +1063,103 @@ where T1 : struct, Menes.IJsonValue
                 property = default;
                 return false;
             }
+            public NodeEntity SetProperty<T>(string name, T value)
+            where T : struct, Menes.IJsonValue
+            {
+                var propertyName = System.MemoryExtensions.AsSpan(name);
+                if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesValueJsonPropertyName.Span))
+                {
+                    return this.WithValue(value.As<Menes.JsonNumber>());
+                }
+                if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesSubtreeJsonPropertyName.Span))
+                {
+                    return this.WithSubtree(value.As<Tree>());
+                }
+                var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.AdditionalProperty<Menes.JsonAny>>();
+                bool added = false;
+                foreach (var property in this._menesAdditionalPropertiesBacking)
+                {
+                    if (!property.NameEquals(propertyName))
+                    {
+                        arrayBuilder.Add(property);
+                    }
+                    else
+                    {
+                        arrayBuilder.Add(new Menes.AdditionalProperty<Menes.JsonAny>(propertyName, value.As<Menes.JsonAny>()));
+                        added = true;
+                    }
+                }
+                if (!added)
+                {
+                    arrayBuilder.Add(new Menes.AdditionalProperty<Menes.JsonAny>(propertyName, value.As<Menes.JsonAny>()));
+                }
+                return this.WithAdditionalProperties(arrayBuilder.ToImmutable());
+            }
+            public NodeEntity SetProperty<T>(System.ReadOnlySpan<char> propertyName, T value)
+            where T : struct, Menes.IJsonValue
+            {
+                if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesValueJsonPropertyName.Span))
+                {
+                    return this.WithValue(value.As<Menes.JsonNumber>());
+                }
+                if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesSubtreeJsonPropertyName.Span))
+                {
+                    return this.WithSubtree(value.As<Tree>());
+                }
+                var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.AdditionalProperty<Menes.JsonAny>>();
+                bool added = false;
+                foreach (var property in this._menesAdditionalPropertiesBacking)
+                {
+                    if (!property.NameEquals(propertyName))
+                    {
+                        arrayBuilder.Add(property);
+                    }
+                    else
+                    {
+                        arrayBuilder.Add(new Menes.AdditionalProperty<Menes.JsonAny>(propertyName, value.As<Menes.JsonAny>()));
+                        added = true;
+                    }
+                }
+                if (!added)
+                {
+                    arrayBuilder.Add(new Menes.AdditionalProperty<Menes.JsonAny>(propertyName, value.As<Menes.JsonAny>()));
+                }
+                return this.WithAdditionalProperties(arrayBuilder.ToImmutable());
+            }
+            public NodeEntity SetProperty<T>(System.ReadOnlySpan<byte> utf8Name, T value)
+            where T : struct, Menes.IJsonValue
+            {
+                System.Span<char> name = stackalloc char[utf8Name.Length];
+                int writtenCount = System.Text.Encoding.UTF8.GetChars(utf8Name, name);
+                var propertyName = name.Slice(0, writtenCount);
+                if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesValueJsonPropertyName.Span))
+                {
+                    return this.WithValue(value.As<Menes.JsonNumber>());
+                }
+                if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesSubtreeJsonPropertyName.Span))
+                {
+                    return this.WithSubtree(value.As<Tree>());
+                }
+                var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.AdditionalProperty<Menes.JsonAny>>();
+                bool added = false;
+                foreach (var property in this._menesAdditionalPropertiesBacking)
+                {
+                    if (!property.NameEquals(propertyName))
+                    {
+                        arrayBuilder.Add(property);
+                    }
+                    else
+                    {
+                        arrayBuilder.Add(new Menes.AdditionalProperty<Menes.JsonAny>(propertyName, value.As<Menes.JsonAny>()));
+                        added = true;
+                    }
+                }
+                if (!added)
+                {
+                    arrayBuilder.Add(new Menes.AdditionalProperty<Menes.JsonAny>(propertyName, value.As<Menes.JsonAny>()));
+                }
+                return this.WithAdditionalProperties(arrayBuilder.ToImmutable());
+            }
             public Tree.NodeEntity.MenesPropertyEnumerator GetEnumerator() { return new Tree.NodeEntity.MenesPropertyEnumerator(this); }
             System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() { return this.GetEnumerator(); }
             public NodeEntity WithValue(Menes.JsonNumber value)
@@ -1023,8 +1229,20 @@ where T1 : struct, Menes.IJsonValue
                     return true;
                 }
                 currentIndex++;
+                foreach (var property in this._menesAdditionalPropertiesBacking)
+                {
+                    if (currentIndex == index)
+                    {
+                        result = new Menes.Property<NodeEntity>(this, property.NameAsMemory);
+                        return true;
+                    }
+                }
                 result = default; ;
                 return false;
+            }
+            private NodeEntity WithAdditionalProperties(System.Collections.Immutable.ImmutableArray<Menes.AdditionalProperty<Menes.JsonAny>> value)
+            {
+                return new NodeEntity(this.value, this.subtree, value);
             }
             /// <summary>
             /// An enumerator for the properties in a <see cref="NodeEntity"/>.

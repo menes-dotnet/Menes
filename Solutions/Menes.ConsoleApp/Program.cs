@@ -95,6 +95,9 @@ namespace Menes.ConsoleApp
                     .Insert(3, new Tree.NodeEntity(6), new Tree.NodeEntity(7), new Tree.NodeEntity(8), new Tree.NodeEntity(9), new Tree.NodeEntity(10))
                     .RemoveIf(n => n.Value < 5));
 
+            tree = tree.SetProperty("meta", (JsonString)"Hello");
+            tree = tree.SetProperty("foo", (JsonString)"Bar");
+
             Serialize(tree);
 
             foreach (Property<Tree> property in tree)

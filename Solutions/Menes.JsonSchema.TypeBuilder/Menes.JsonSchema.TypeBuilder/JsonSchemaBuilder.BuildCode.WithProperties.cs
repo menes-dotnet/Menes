@@ -34,6 +34,34 @@ namespace Menes.JsonSchema.TypeBuilder
             }
         }
 
+        private void BuildWithAdditionalPropertyMethod(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
+        {
+            if (typeDeclaration.AllowsAdditionalProperties)
+            {
+                TypeDeclaration additionalPropertyType = typeDeclaration.AdditionalProperties ?? TypeDeclarations.AnyTypeDeclaration;
+
+                bool containsReference = additionalPropertyType.ContainsReferenceTo(typeDeclaration);
+                if (!containsReference)
+                {
+                    memberBuilder.AppendLine($"private {typeDeclaration.DotnetTypeName} WithAdditionalProperties(System.Collections.Immutable.ImmutableArray<Menes.AdditionalProperty<{additionalPropertyType.FullyQualifiedDotNetTypeName}>> value)");
+                }
+                else
+                {
+                    memberBuilder.AppendLine($"private {typeDeclaration.DotnetTypeName} WithAdditionalProperties(System.Collections.Immutable.ImmutableArray<Menes.AdditionalProperty> value)");
+                }
+
+                memberBuilder.AppendLine("{");
+                memberBuilder.Append($"    return new {typeDeclaration.DotnetTypeName}(");
+                bool isFirstParameter = true;
+                isFirstParameter = this.BuildRawPropertyConstructorInstances(isFirstParameter, typeDeclaration, memberBuilder, null);
+                isFirstParameter = this.BuildRawTypeConstructorInstances(isFirstParameter, typeDeclaration, memberBuilder);
+                isFirstParameter = this.AppendParameterComma(isFirstParameter, memberBuilder);
+                memberBuilder.Append("value");
+                memberBuilder.AppendLine(");");
+                memberBuilder.AppendLine("}");
+            }
+        }
+
         private bool BuildRawAdditionalPropertiesConstructorInstances(bool isFirstParameter, TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
         {
             if (typeDeclaration.AllowsAdditionalProperties)

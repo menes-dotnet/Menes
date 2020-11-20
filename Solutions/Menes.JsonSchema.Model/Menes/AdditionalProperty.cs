@@ -28,9 +28,36 @@ namespace Menes
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="Property{T}"/> struct.
+        /// </summary>
+        /// <param name="name">the name of the property.</param>
+        /// <param name="value">The value of the property.</param>
+        public AdditionalProperty(string name, in JsonValueBacking value)
+        {
+            this.name = name.AsMemory();
+            this.value = value;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Property{T}"/> struct.
+        /// </summary>
+        /// <param name="name">the name of the property.</param>
+        /// <param name="value">The value of the property.</param>
+        public AdditionalProperty(ReadOnlySpan<char> name, in JsonValueBacking value)
+        {
+            this.name = name.ToArray();
+            this.value = value;
+        }
+
+        /// <summary>
         /// Gets the name of the property.
         /// </summary>
         public string Name => this.name.ToString();
+
+        /// <summary>
+        /// Gets the property name as a <see cref="ReadOnlyMemory{T}"/> of <see cref="char"/>.
+        /// </summary>
+        public ReadOnlyMemory<char> NameAsMemory => this.name;
 
         /// <summary>
         /// Gets the value of the property as the given type.
@@ -72,8 +99,8 @@ namespace Menes
         {
             // The output can't be longer than the input.
             Span<char> name = stackalloc char[utf8Name.Length];
-            Encoding.UTF8.GetChars(utf8Name, name);
-            return this.name.Span.SequenceEqual(name);
+            int writtenCount = Encoding.UTF8.GetChars(utf8Name, name);
+            return this.name.Span.SequenceEqual(name.Slice(0, writtenCount));
         }
 
         /// <summary>

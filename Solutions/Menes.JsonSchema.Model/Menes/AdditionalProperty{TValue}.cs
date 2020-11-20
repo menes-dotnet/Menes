@@ -29,6 +29,28 @@ namespace Menes
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="Property{T}"/> struct.
+        /// </summary>
+        /// <param name="name">the name of the property.</param>
+        /// <param name="value">The value of the property.</param>
+        public AdditionalProperty(string name, in TValue value)
+        {
+            this.name = name.AsMemory();
+            this.Value = value;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Property{T}"/> struct.
+        /// </summary>
+        /// <param name="name">the name of the property.</param>
+        /// <param name="value">The value of the property.</param>
+        public AdditionalProperty(ReadOnlySpan<char> name, in TValue value)
+        {
+            this.name = name.ToArray();
+            this.Value = value;
+        }
+
+        /// <summary>
         /// Gets the value of the property.
         /// </summary>
         public TValue Value { get; }
@@ -37,6 +59,11 @@ namespace Menes
         /// Gets the name of the property.
         /// </summary>
         public string Name => this.name.ToString();
+
+        /// <summary>
+        /// Gets the property name as a <see cref="ReadOnlyMemory{T}"/> of <see cref="char"/>.
+        /// </summary>
+        public ReadOnlyMemory<char> NameAsMemory => this.name;
 
         /// <summary>
         /// Compares the specified string to the name of this property.

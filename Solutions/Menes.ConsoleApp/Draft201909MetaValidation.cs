@@ -1133,6 +1133,319 @@ namespace TestSpace
             property = default;
             return false;
         }
+        public Draft201909MetaValidation SetProperty<T>(string name, T value)
+        where T : struct, Menes.IJsonValue
+        {
+            var propertyName = System.MemoryExtensions.AsSpan(name);
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesMultipleOfJsonPropertyName.Span))
+            {
+                return this.WithMultipleOf(value.As<Draft201909MetaValidation.MultipleOfValue>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesMaximumJsonPropertyName.Span))
+            {
+                return this.WithMaximum(value.As<Menes.JsonNumber>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesExclusiveMaximumJsonPropertyName.Span))
+            {
+                return this.WithExclusiveMaximum(value.As<Menes.JsonNumber>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesMinimumJsonPropertyName.Span))
+            {
+                return this.WithMinimum(value.As<Menes.JsonNumber>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesExclusiveMinimumJsonPropertyName.Span))
+            {
+                return this.WithExclusiveMinimum(value.As<Menes.JsonNumber>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesMaxLengthJsonPropertyName.Span))
+            {
+                return this.WithMaxLength(value.As<Draft201909MetaValidation.NonNegativeIntegerValue>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesMinLengthJsonPropertyName.Span))
+            {
+                return this.WithMinLength(value.As<Draft201909MetaValidation.NonNegativeIntegerValue>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesPatternJsonPropertyName.Span))
+            {
+                return this.WithPattern(value.As<Menes.JsonString>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesMaxItemsJsonPropertyName.Span))
+            {
+                return this.WithMaxItems(value.As<Draft201909MetaValidation.NonNegativeIntegerValue>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesMinItemsJsonPropertyName.Span))
+            {
+                return this.WithMinItems(value.As<Draft201909MetaValidation.NonNegativeIntegerValue>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesUniqueItemsJsonPropertyName.Span))
+            {
+                return this.WithUniqueItems(value.As<Menes.JsonBoolean>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesMaxContainsJsonPropertyName.Span))
+            {
+                return this.WithMaxContains(value.As<Draft201909MetaValidation.NonNegativeIntegerValue>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesMinContainsJsonPropertyName.Span))
+            {
+                return this.WithMinContains(value.As<Draft201909MetaValidation.NonNegativeIntegerValue>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesMaxPropertiesJsonPropertyName.Span))
+            {
+                return this.WithMaxProperties(value.As<Draft201909MetaValidation.NonNegativeIntegerValue>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesMinPropertiesJsonPropertyName.Span))
+            {
+                return this.WithMinProperties(value.As<Draft201909MetaValidation.NonNegativeIntegerValue>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesRequiredJsonPropertyName.Span))
+            {
+                return this.WithRequired(value.As<Draft201909MetaValidation.StringArrayEntity>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesDependentRequiredJsonPropertyName.Span))
+            {
+                return this.WithDependentRequired(value.As<Draft201909MetaValidation.DependentRequiredEntity>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesConstJsonPropertyName.Span))
+            {
+                return this.WithConst(value.As<Draft201909MetaValidation.ConstEntity>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesEnumJsonPropertyName.Span))
+            {
+                return this.WithEnum(value.As<Draft201909MetaValidation.EnumArray>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesTypeJsonPropertyName.Span))
+            {
+                return this.WithType(value.As<Draft201909MetaValidation.TypeEntity>());
+            }
+            var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.AdditionalProperty<Menes.JsonAny>>();
+            bool added = false;
+            foreach (var property in this._menesAdditionalPropertiesBacking)
+            {
+                if (!property.NameEquals(propertyName))
+                {
+                    arrayBuilder.Add(property);
+                }
+                else
+                {
+                    arrayBuilder.Add(new Menes.AdditionalProperty<Menes.JsonAny>(propertyName, value.As<Menes.JsonAny>()));
+                    added = true;
+                }
+            }
+            if (!added)
+            {
+                arrayBuilder.Add(new Menes.AdditionalProperty<Menes.JsonAny>(propertyName, value.As<Menes.JsonAny>()));
+            }
+            return this.WithAdditionalProperties(arrayBuilder.ToImmutable());
+        }
+        public Draft201909MetaValidation SetProperty<T>(System.ReadOnlySpan<char> propertyName, T value)
+        where T : struct, Menes.IJsonValue
+        {
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesMultipleOfJsonPropertyName.Span))
+            {
+                return this.WithMultipleOf(value.As<Draft201909MetaValidation.MultipleOfValue>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesMaximumJsonPropertyName.Span))
+            {
+                return this.WithMaximum(value.As<Menes.JsonNumber>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesExclusiveMaximumJsonPropertyName.Span))
+            {
+                return this.WithExclusiveMaximum(value.As<Menes.JsonNumber>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesMinimumJsonPropertyName.Span))
+            {
+                return this.WithMinimum(value.As<Menes.JsonNumber>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesExclusiveMinimumJsonPropertyName.Span))
+            {
+                return this.WithExclusiveMinimum(value.As<Menes.JsonNumber>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesMaxLengthJsonPropertyName.Span))
+            {
+                return this.WithMaxLength(value.As<Draft201909MetaValidation.NonNegativeIntegerValue>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesMinLengthJsonPropertyName.Span))
+            {
+                return this.WithMinLength(value.As<Draft201909MetaValidation.NonNegativeIntegerValue>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesPatternJsonPropertyName.Span))
+            {
+                return this.WithPattern(value.As<Menes.JsonString>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesMaxItemsJsonPropertyName.Span))
+            {
+                return this.WithMaxItems(value.As<Draft201909MetaValidation.NonNegativeIntegerValue>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesMinItemsJsonPropertyName.Span))
+            {
+                return this.WithMinItems(value.As<Draft201909MetaValidation.NonNegativeIntegerValue>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesUniqueItemsJsonPropertyName.Span))
+            {
+                return this.WithUniqueItems(value.As<Menes.JsonBoolean>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesMaxContainsJsonPropertyName.Span))
+            {
+                return this.WithMaxContains(value.As<Draft201909MetaValidation.NonNegativeIntegerValue>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesMinContainsJsonPropertyName.Span))
+            {
+                return this.WithMinContains(value.As<Draft201909MetaValidation.NonNegativeIntegerValue>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesMaxPropertiesJsonPropertyName.Span))
+            {
+                return this.WithMaxProperties(value.As<Draft201909MetaValidation.NonNegativeIntegerValue>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesMinPropertiesJsonPropertyName.Span))
+            {
+                return this.WithMinProperties(value.As<Draft201909MetaValidation.NonNegativeIntegerValue>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesRequiredJsonPropertyName.Span))
+            {
+                return this.WithRequired(value.As<Draft201909MetaValidation.StringArrayEntity>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesDependentRequiredJsonPropertyName.Span))
+            {
+                return this.WithDependentRequired(value.As<Draft201909MetaValidation.DependentRequiredEntity>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesConstJsonPropertyName.Span))
+            {
+                return this.WithConst(value.As<Draft201909MetaValidation.ConstEntity>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesEnumJsonPropertyName.Span))
+            {
+                return this.WithEnum(value.As<Draft201909MetaValidation.EnumArray>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesTypeJsonPropertyName.Span))
+            {
+                return this.WithType(value.As<Draft201909MetaValidation.TypeEntity>());
+            }
+            var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.AdditionalProperty<Menes.JsonAny>>();
+            bool added = false;
+            foreach (var property in this._menesAdditionalPropertiesBacking)
+            {
+                if (!property.NameEquals(propertyName))
+                {
+                    arrayBuilder.Add(property);
+                }
+                else
+                {
+                    arrayBuilder.Add(new Menes.AdditionalProperty<Menes.JsonAny>(propertyName, value.As<Menes.JsonAny>()));
+                    added = true;
+                }
+            }
+            if (!added)
+            {
+                arrayBuilder.Add(new Menes.AdditionalProperty<Menes.JsonAny>(propertyName, value.As<Menes.JsonAny>()));
+            }
+            return this.WithAdditionalProperties(arrayBuilder.ToImmutable());
+        }
+        public Draft201909MetaValidation SetProperty<T>(System.ReadOnlySpan<byte> utf8Name, T value)
+        where T : struct, Menes.IJsonValue
+        {
+            System.Span<char> name = stackalloc char[utf8Name.Length];
+            int writtenCount = System.Text.Encoding.UTF8.GetChars(utf8Name, name);
+            var propertyName = name.Slice(0, writtenCount);
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesMultipleOfJsonPropertyName.Span))
+            {
+                return this.WithMultipleOf(value.As<Draft201909MetaValidation.MultipleOfValue>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesMaximumJsonPropertyName.Span))
+            {
+                return this.WithMaximum(value.As<Menes.JsonNumber>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesExclusiveMaximumJsonPropertyName.Span))
+            {
+                return this.WithExclusiveMaximum(value.As<Menes.JsonNumber>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesMinimumJsonPropertyName.Span))
+            {
+                return this.WithMinimum(value.As<Menes.JsonNumber>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesExclusiveMinimumJsonPropertyName.Span))
+            {
+                return this.WithExclusiveMinimum(value.As<Menes.JsonNumber>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesMaxLengthJsonPropertyName.Span))
+            {
+                return this.WithMaxLength(value.As<Draft201909MetaValidation.NonNegativeIntegerValue>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesMinLengthJsonPropertyName.Span))
+            {
+                return this.WithMinLength(value.As<Draft201909MetaValidation.NonNegativeIntegerValue>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesPatternJsonPropertyName.Span))
+            {
+                return this.WithPattern(value.As<Menes.JsonString>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesMaxItemsJsonPropertyName.Span))
+            {
+                return this.WithMaxItems(value.As<Draft201909MetaValidation.NonNegativeIntegerValue>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesMinItemsJsonPropertyName.Span))
+            {
+                return this.WithMinItems(value.As<Draft201909MetaValidation.NonNegativeIntegerValue>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesUniqueItemsJsonPropertyName.Span))
+            {
+                return this.WithUniqueItems(value.As<Menes.JsonBoolean>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesMaxContainsJsonPropertyName.Span))
+            {
+                return this.WithMaxContains(value.As<Draft201909MetaValidation.NonNegativeIntegerValue>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesMinContainsJsonPropertyName.Span))
+            {
+                return this.WithMinContains(value.As<Draft201909MetaValidation.NonNegativeIntegerValue>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesMaxPropertiesJsonPropertyName.Span))
+            {
+                return this.WithMaxProperties(value.As<Draft201909MetaValidation.NonNegativeIntegerValue>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesMinPropertiesJsonPropertyName.Span))
+            {
+                return this.WithMinProperties(value.As<Draft201909MetaValidation.NonNegativeIntegerValue>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesRequiredJsonPropertyName.Span))
+            {
+                return this.WithRequired(value.As<Draft201909MetaValidation.StringArrayEntity>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesDependentRequiredJsonPropertyName.Span))
+            {
+                return this.WithDependentRequired(value.As<Draft201909MetaValidation.DependentRequiredEntity>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesConstJsonPropertyName.Span))
+            {
+                return this.WithConst(value.As<Draft201909MetaValidation.ConstEntity>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesEnumJsonPropertyName.Span))
+            {
+                return this.WithEnum(value.As<Draft201909MetaValidation.EnumArray>());
+            }
+            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesTypeJsonPropertyName.Span))
+            {
+                return this.WithType(value.As<Draft201909MetaValidation.TypeEntity>());
+            }
+            var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.AdditionalProperty<Menes.JsonAny>>();
+            bool added = false;
+            foreach (var property in this._menesAdditionalPropertiesBacking)
+            {
+                if (!property.NameEquals(propertyName))
+                {
+                    arrayBuilder.Add(property);
+                }
+                else
+                {
+                    arrayBuilder.Add(new Menes.AdditionalProperty<Menes.JsonAny>(propertyName, value.As<Menes.JsonAny>()));
+                    added = true;
+                }
+            }
+            if (!added)
+            {
+                arrayBuilder.Add(new Menes.AdditionalProperty<Menes.JsonAny>(propertyName, value.As<Menes.JsonAny>()));
+            }
+            return this.WithAdditionalProperties(arrayBuilder.ToImmutable());
+        }
         public Draft201909MetaValidation.MenesPropertyEnumerator GetEnumerator() { return new Draft201909MetaValidation.MenesPropertyEnumerator(this); }
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() { return this.GetEnumerator(); }
         public Draft201909MetaValidation WithMultipleOf(Draft201909MetaValidation.MultipleOfValue value)
@@ -1458,8 +1771,20 @@ namespace TestSpace
                 return true;
             }
             currentIndex++;
+            foreach (var property in this._menesAdditionalPropertiesBacking)
+            {
+                if (currentIndex == index)
+                {
+                    result = new Menes.Property<Draft201909MetaValidation>(this, property.NameAsMemory);
+                    return true;
+                }
+            }
             result = default; ;
             return false;
+        }
+        private Draft201909MetaValidation WithAdditionalProperties(System.Collections.Immutable.ImmutableArray<Menes.AdditionalProperty<Menes.JsonAny>> value)
+        {
+            return new Draft201909MetaValidation(this.multipleOf, this.maximum, this.exclusiveMaximum, this.minimum, this.exclusiveMinimum, this.maxLength, this.minLength, this.pattern, this.maxItems, this.minItems, this.uniqueItems, this.maxContains, this.minContains, this.maxProperties, this.minProperties, this.required, this.dependentRequired, this.@const, this.@enum, this.type, this._menesBooleanTypeBacking, value);
         }
         public readonly struct MultipleOfValue : Menes.IJsonValue
         {
@@ -2258,6 +2583,79 @@ where T1 : struct, Menes.IJsonValue
                 property = default;
                 return false;
             }
+            public DependentRequiredEntity SetProperty<T>(string name, T value)
+            where T : struct, Menes.IJsonValue
+            {
+                var propertyName = System.MemoryExtensions.AsSpan(name);
+                var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.AdditionalProperty<Draft201909MetaValidation.StringArrayEntity>>();
+                bool added = false;
+                foreach (var property in this._menesAdditionalPropertiesBacking)
+                {
+                    if (!property.NameEquals(propertyName))
+                    {
+                        arrayBuilder.Add(property);
+                    }
+                    else
+                    {
+                        arrayBuilder.Add(new Menes.AdditionalProperty<Draft201909MetaValidation.StringArrayEntity>(propertyName, value.As<Draft201909MetaValidation.StringArrayEntity>()));
+                        added = true;
+                    }
+                }
+                if (!added)
+                {
+                    arrayBuilder.Add(new Menes.AdditionalProperty<Draft201909MetaValidation.StringArrayEntity>(propertyName, value.As<Draft201909MetaValidation.StringArrayEntity>()));
+                }
+                return this.WithAdditionalProperties(arrayBuilder.ToImmutable());
+            }
+            public DependentRequiredEntity SetProperty<T>(System.ReadOnlySpan<char> propertyName, T value)
+            where T : struct, Menes.IJsonValue
+            {
+                var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.AdditionalProperty<Draft201909MetaValidation.StringArrayEntity>>();
+                bool added = false;
+                foreach (var property in this._menesAdditionalPropertiesBacking)
+                {
+                    if (!property.NameEquals(propertyName))
+                    {
+                        arrayBuilder.Add(property);
+                    }
+                    else
+                    {
+                        arrayBuilder.Add(new Menes.AdditionalProperty<Draft201909MetaValidation.StringArrayEntity>(propertyName, value.As<Draft201909MetaValidation.StringArrayEntity>()));
+                        added = true;
+                    }
+                }
+                if (!added)
+                {
+                    arrayBuilder.Add(new Menes.AdditionalProperty<Draft201909MetaValidation.StringArrayEntity>(propertyName, value.As<Draft201909MetaValidation.StringArrayEntity>()));
+                }
+                return this.WithAdditionalProperties(arrayBuilder.ToImmutable());
+            }
+            public DependentRequiredEntity SetProperty<T>(System.ReadOnlySpan<byte> utf8Name, T value)
+            where T : struct, Menes.IJsonValue
+            {
+                System.Span<char> name = stackalloc char[utf8Name.Length];
+                int writtenCount = System.Text.Encoding.UTF8.GetChars(utf8Name, name);
+                var propertyName = name.Slice(0, writtenCount);
+                var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.AdditionalProperty<Draft201909MetaValidation.StringArrayEntity>>();
+                bool added = false;
+                foreach (var property in this._menesAdditionalPropertiesBacking)
+                {
+                    if (!property.NameEquals(propertyName))
+                    {
+                        arrayBuilder.Add(property);
+                    }
+                    else
+                    {
+                        arrayBuilder.Add(new Menes.AdditionalProperty<Draft201909MetaValidation.StringArrayEntity>(propertyName, value.As<Draft201909MetaValidation.StringArrayEntity>()));
+                        added = true;
+                    }
+                }
+                if (!added)
+                {
+                    arrayBuilder.Add(new Menes.AdditionalProperty<Draft201909MetaValidation.StringArrayEntity>(propertyName, value.As<Draft201909MetaValidation.StringArrayEntity>()));
+                }
+                return this.WithAdditionalProperties(arrayBuilder.ToImmutable());
+            }
             public Draft201909MetaValidation.DependentRequiredEntity.MenesPropertyEnumerator GetEnumerator() { return new Draft201909MetaValidation.DependentRequiredEntity.MenesPropertyEnumerator(this); }
             System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() { return this.GetEnumerator(); }
             private TPropertyValue GetPropertyFromJsonElement<TPropertyValue>(System.ReadOnlySpan<byte> propertyName)
@@ -2299,8 +2697,20 @@ where TPropertyValue : struct, Menes.IJsonValue
                     }
                 }
                 int currentIndex = 0;
+                foreach (var property in this._menesAdditionalPropertiesBacking)
+                {
+                    if (currentIndex == index)
+                    {
+                        result = new Menes.Property<DependentRequiredEntity>(this, property.NameAsMemory);
+                        return true;
+                    }
+                }
                 result = default; ;
                 return false;
+            }
+            private DependentRequiredEntity WithAdditionalProperties(System.Collections.Immutable.ImmutableArray<Menes.AdditionalProperty<Draft201909MetaValidation.StringArrayEntity>> value)
+            {
+                return new DependentRequiredEntity(value);
             }
             /// <summary>
             /// An enumerator for the properties in a <see cref="DependentRequiredEntity"/>.

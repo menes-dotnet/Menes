@@ -223,6 +223,18 @@ namespace Menes.JsonSchema.TypeBuilder
                 }
             }
 
+            if (typeDeclaration.AllowsAdditionalProperties)
+            {
+                memberBuilder.AppendLine("foreach (var property in this._menesAdditionalPropertiesBacking)");
+                memberBuilder.AppendLine("{");
+                memberBuilder.AppendLine("    if (currentIndex == index)");
+                memberBuilder.AppendLine("    {");
+                memberBuilder.AppendLine($"        result = new Menes.Property<{typeDeclaration.DotnetTypeName}>(this, property.NameAsMemory);");
+                memberBuilder.AppendLine("        return true;");
+                memberBuilder.AppendLine("    }");
+                memberBuilder.AppendLine("}");
+            }
+
             memberBuilder.AppendLine("    result = default;;");
             memberBuilder.AppendLine("    return false;");
             memberBuilder.AppendLine("}");
