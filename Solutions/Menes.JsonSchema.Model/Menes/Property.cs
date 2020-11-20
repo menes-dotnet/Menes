@@ -43,6 +43,22 @@ namespace Menes
         }
 
         /// <summary>
+        /// Gets the name of the property as a string.
+        /// </summary>
+        public string Name
+        {
+            get
+            {
+                if (this.name is ReadOnlyMemory<char> name)
+                {
+                    return name.ToString();
+                }
+
+                return this.jsonProperty.Name;
+            }
+        }
+
+        /// <summary>
         /// Compares the specified string to the name of this property.
         /// </summary>
         /// <param name="name">The name of the property.</param>

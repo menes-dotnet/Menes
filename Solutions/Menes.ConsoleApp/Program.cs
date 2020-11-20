@@ -84,6 +84,32 @@ namespace Menes.ConsoleApp
                                     new Tree.NodeEntity(8))))));
 
             Serialize(tree);
+
+            foreach (Property<Tree> property in tree)
+            {
+                if (property.NameEquals("meta"))
+                {
+                    if (property.TryGetValue(out JsonString value))
+                    {
+                        Console.WriteLine($"{property.Name}: {(string)value}");
+                    }
+                }
+
+                if (property.NameEquals("nodes"))
+                {
+                    if (property.TryGetValue(out Tree.NodesArray value))
+                    {
+                        Console.WriteLine($"{property.Name}:");
+                        foreach (Tree.NodeEntity node in value)
+                        {
+                            if (node.TryGetProperty("value", out JsonNumber nodeVal))
+                            {
+                                Console.WriteLine($"\t{nodeVal.GetDouble()}");
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         private static string Serialize(IJsonValue value)

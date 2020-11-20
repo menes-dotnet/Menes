@@ -54,6 +54,7 @@ namespace Menes.JsonSchema.TypeBuilder
             this.BuildUndefinedAndNullProperties(memberBuilder);
             this.BuildJsonElementProperties(memberBuilder);
             this.BuildProperties(typeDeclaration, memberBuilder);
+            this.BuildPropertyCountProperty(typeDeclaration, memberBuilder);
 
             // Public methods
             this.BuildValidateMethod(typeDeclaration, memberBuilder);
@@ -61,12 +62,13 @@ namespace Menes.JsonSchema.TypeBuilder
             this.BuildIsAndAsMethods(typeDeclaration, memberBuilder);
             this.BuildTryGetProperty(typeDeclaration, memberBuilder);
             this.BuildArrayEnumerators(typeDeclaration, memberBuilder);
-            this.BuildPropertyEnumerators(typeDeclaration, memberBuilder);
+            this.BuildObjectEnumerator(typeDeclaration, memberBuilder);
             this.BuildWithPropertyMethods(typeDeclaration, memberBuilder);
 
             // Private methods
             this.BuildJsonPropertyGetMethods(typeDeclaration, memberBuilder);
             this.BuildAllBackingFieldsAreNullMethod(typeDeclaration, memberBuilder);
+            this.BuildGetPropertyAtIndex(typeDeclaration, memberBuilder);
 
             // Embedded types
             this.BuildEmbeddedTypes(typeDeclaration, memberBuilder);

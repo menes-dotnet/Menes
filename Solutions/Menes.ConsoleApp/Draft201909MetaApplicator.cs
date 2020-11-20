@@ -104,23 +104,23 @@ namespace TestSpace
         public Draft201909MetaApplicator(Draft201909MetaApplicator? additionalItems = null, Draft201909MetaApplicator? unevaluatedItems = null, Draft201909MetaApplicator.ItemsEntity? items = null, Draft201909MetaApplicator? contains = null, Draft201909MetaApplicator? additionalProperties = null, Draft201909MetaApplicator? unevaluatedProperties = null, Draft201909MetaApplicator.PropertiesEntity? properties = null, Draft201909MetaApplicator.PatternPropertiesEntity? patternProperties = null, Draft201909MetaApplicator.DependentSchemasEntity? dependentSchemas = null, Draft201909MetaApplicator? propertyNames = null, Draft201909MetaApplicator? @if = null, Draft201909MetaApplicator? then = null, Draft201909MetaApplicator? @else = null, Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity? allOf = null, Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity? anyOf = null, Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity? oneOf = null, Draft201909MetaApplicator? not = null)
         {
             this._menesJsonElementBacking = default;
-            this.additionalItems = Menes.JsonValueBacking.From(additionalItems);
-            this.unevaluatedItems = Menes.JsonValueBacking.From(unevaluatedItems);
+            this.additionalItems = Menes.JsonValueBacking.From<Draft201909MetaApplicator>(additionalItems);
+            this.unevaluatedItems = Menes.JsonValueBacking.From<Draft201909MetaApplicator>(unevaluatedItems);
             this.items = items;
-            this.contains = Menes.JsonValueBacking.From(contains);
-            this.additionalProperties = Menes.JsonValueBacking.From(additionalProperties);
-            this.unevaluatedProperties = Menes.JsonValueBacking.From(unevaluatedProperties);
-            this.properties = Menes.JsonValueBacking.From(properties);
-            this.patternProperties = Menes.JsonValueBacking.From(patternProperties);
-            this.dependentSchemas = Menes.JsonValueBacking.From(dependentSchemas);
-            this.propertyNames = Menes.JsonValueBacking.From(propertyNames);
-            this.@if = Menes.JsonValueBacking.From(@if);
-            this.then = Menes.JsonValueBacking.From(then);
-            this.@else = Menes.JsonValueBacking.From(@else);
-            this.allOf = Menes.JsonValueBacking.From(allOf);
-            this.anyOf = Menes.JsonValueBacking.From(anyOf);
-            this.oneOf = Menes.JsonValueBacking.From(oneOf);
-            this.not = Menes.JsonValueBacking.From(not);
+            this.contains = Menes.JsonValueBacking.From<Draft201909MetaApplicator>(contains);
+            this.additionalProperties = Menes.JsonValueBacking.From<Draft201909MetaApplicator>(additionalProperties);
+            this.unevaluatedProperties = Menes.JsonValueBacking.From<Draft201909MetaApplicator>(unevaluatedProperties);
+            this.properties = Menes.JsonValueBacking.From<Draft201909MetaApplicator.PropertiesEntity>(properties);
+            this.patternProperties = Menes.JsonValueBacking.From<Draft201909MetaApplicator.PatternPropertiesEntity>(patternProperties);
+            this.dependentSchemas = Menes.JsonValueBacking.From<Draft201909MetaApplicator.DependentSchemasEntity>(dependentSchemas);
+            this.propertyNames = Menes.JsonValueBacking.From<Draft201909MetaApplicator>(propertyNames);
+            this.@if = Menes.JsonValueBacking.From<Draft201909MetaApplicator>(@if);
+            this.then = Menes.JsonValueBacking.From<Draft201909MetaApplicator>(then);
+            this.@else = Menes.JsonValueBacking.From<Draft201909MetaApplicator>(@else);
+            this.allOf = Menes.JsonValueBacking.From<Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity>(allOf);
+            this.anyOf = Menes.JsonValueBacking.From<Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity>(anyOf);
+            this.oneOf = Menes.JsonValueBacking.From<Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity>(oneOf);
+            this.not = Menes.JsonValueBacking.From<Draft201909MetaApplicator>(not);
             this._menesAdditionalPropertiesBacking = System.Collections.Immutable.ImmutableArray<Menes.AdditionalProperty<Menes.JsonAny>>.Empty;
             this._menesBooleanTypeBacking = default;
         }
@@ -211,6 +211,25 @@ namespace TestSpace
         public Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity? AnyOf => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity>(_MenesAnyOfUtf8JsonPropertyName.Span) : this.anyOf.Value<Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity>();
         public Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity? OneOf => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity>(_MenesOneOfUtf8JsonPropertyName.Span) : this.oneOf.Value<Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity>();
         public Draft201909MetaApplicator? Not => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator>(_MenesNotUtf8JsonPropertyName.Span) : this.not.Value<Draft201909MetaApplicator>();
+        public int PropertyCount
+        {
+            get
+            {
+                if (this.HasJsonElement)
+                {
+                    int jsonPropertyIndex = 0;
+                    foreach (var property in this.JsonElement.EnumerateObject())
+                    {
+                        jsonPropertyIndex++;
+                    }
+                    return jsonPropertyIndex;
+                }
+                else
+                {
+                    return 17 + this._menesAdditionalPropertiesBacking.Length;
+                }
+            }
+        }
         /// <inheritdoc />
         public Menes.ValidationResult Validate(Menes.ValidationResult? validationResult = null, Menes.ValidationLevel level = Menes.ValidationLevel.Flag, System.Collections.Generic.HashSet<string>? evaluatedProperties = null, System.Collections.Generic.Stack<string>? absoluteKeywordLocation = null, System.Collections.Generic.Stack<string>? instanceLocation = null)
         {
@@ -969,6 +988,8 @@ namespace TestSpace
             property = default;
             return false;
         }
+        public Draft201909MetaApplicator.MenesPropertyEnumerator GetEnumerator() { return new Draft201909MetaApplicator.MenesPropertyEnumerator(this); }
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() { return this.GetEnumerator(); }
         public Draft201909MetaApplicator WithAdditionalItems(Draft201909MetaApplicator value)
         {
             return new Draft201909MetaApplicator(Menes.JsonValueBacking.From<Draft201909MetaApplicator>(value), this.unevaluatedItems, this.items, this.contains, this.additionalProperties, this.unevaluatedProperties, this.properties, this.patternProperties, this.dependentSchemas, this.propertyNames, this.@if, this.then, this.@else, this.allOf, this.anyOf, this.oneOf, this.not, this._menesBooleanTypeBacking, this._menesAdditionalPropertiesBacking);
@@ -1130,6 +1151,128 @@ namespace TestSpace
                 return false;
             }
             return true;
+        }
+        /// <inheritdoc />
+        private bool TryGetPropertyAtIndex(int index, out Menes.Property<Draft201909MetaApplicator> result)
+        {
+            if (this.HasJsonElement)
+            {
+                int jsonPropertyIndex = 0;
+                foreach (var property in this.JsonElement.EnumerateObject())
+                {
+                    if (jsonPropertyIndex == index)
+                    {
+                        result = new Menes.Property<Draft201909MetaApplicator>(property);
+                        return true;
+                    }
+                    jsonPropertyIndex++;
+                }
+            }
+            int currentIndex = 0;
+            if (currentIndex == index)
+            {
+                result = new Menes.Property<Draft201909MetaApplicator>(this, _MenesAdditionalItemsJsonPropertyName);
+                return true;
+            }
+            currentIndex++;
+            if (currentIndex == index)
+            {
+                result = new Menes.Property<Draft201909MetaApplicator>(this, _MenesUnevaluatedItemsJsonPropertyName);
+                return true;
+            }
+            currentIndex++;
+            if (currentIndex == index)
+            {
+                result = new Menes.Property<Draft201909MetaApplicator>(this, _MenesItemsJsonPropertyName);
+                return true;
+            }
+            currentIndex++;
+            if (currentIndex == index)
+            {
+                result = new Menes.Property<Draft201909MetaApplicator>(this, _MenesContainsJsonPropertyName);
+                return true;
+            }
+            currentIndex++;
+            if (currentIndex == index)
+            {
+                result = new Menes.Property<Draft201909MetaApplicator>(this, _MenesAdditionalPropertiesJsonPropertyName);
+                return true;
+            }
+            currentIndex++;
+            if (currentIndex == index)
+            {
+                result = new Menes.Property<Draft201909MetaApplicator>(this, _MenesUnevaluatedPropertiesJsonPropertyName);
+                return true;
+            }
+            currentIndex++;
+            if (currentIndex == index)
+            {
+                result = new Menes.Property<Draft201909MetaApplicator>(this, _MenesPropertiesJsonPropertyName);
+                return true;
+            }
+            currentIndex++;
+            if (currentIndex == index)
+            {
+                result = new Menes.Property<Draft201909MetaApplicator>(this, _MenesPatternPropertiesJsonPropertyName);
+                return true;
+            }
+            currentIndex++;
+            if (currentIndex == index)
+            {
+                result = new Menes.Property<Draft201909MetaApplicator>(this, _MenesDependentSchemasJsonPropertyName);
+                return true;
+            }
+            currentIndex++;
+            if (currentIndex == index)
+            {
+                result = new Menes.Property<Draft201909MetaApplicator>(this, _MenesPropertyNamesJsonPropertyName);
+                return true;
+            }
+            currentIndex++;
+            if (currentIndex == index)
+            {
+                result = new Menes.Property<Draft201909MetaApplicator>(this, _MenesIfJsonPropertyName);
+                return true;
+            }
+            currentIndex++;
+            if (currentIndex == index)
+            {
+                result = new Menes.Property<Draft201909MetaApplicator>(this, _MenesThenJsonPropertyName);
+                return true;
+            }
+            currentIndex++;
+            if (currentIndex == index)
+            {
+                result = new Menes.Property<Draft201909MetaApplicator>(this, _MenesElseJsonPropertyName);
+                return true;
+            }
+            currentIndex++;
+            if (currentIndex == index)
+            {
+                result = new Menes.Property<Draft201909MetaApplicator>(this, _MenesAllOfJsonPropertyName);
+                return true;
+            }
+            currentIndex++;
+            if (currentIndex == index)
+            {
+                result = new Menes.Property<Draft201909MetaApplicator>(this, _MenesAnyOfJsonPropertyName);
+                return true;
+            }
+            currentIndex++;
+            if (currentIndex == index)
+            {
+                result = new Menes.Property<Draft201909MetaApplicator>(this, _MenesOneOfJsonPropertyName);
+                return true;
+            }
+            currentIndex++;
+            if (currentIndex == index)
+            {
+                result = new Menes.Property<Draft201909MetaApplicator>(this, _MenesNotJsonPropertyName);
+                return true;
+            }
+            currentIndex++;
+            result = default; ;
+            return false;
         }
         public readonly struct ItemsEntity : Menes.IJsonValue
         {
@@ -1477,6 +1620,25 @@ namespace TestSpace
             public bool HasJsonElement => this._menesJsonElementBacking.ValueKind != System.Text.Json.JsonValueKind.Undefined;
             /// <inheritdoc />
             public System.Text.Json.JsonElement JsonElement => this._menesJsonElementBacking;
+            public int PropertyCount
+            {
+                get
+                {
+                    if (this.HasJsonElement)
+                    {
+                        int jsonPropertyIndex = 0;
+                        foreach (var property in this.JsonElement.EnumerateObject())
+                        {
+                            jsonPropertyIndex++;
+                        }
+                        return jsonPropertyIndex;
+                    }
+                    else
+                    {
+                        return this._menesAdditionalPropertiesBacking.Length;
+                    }
+                }
+            }
             /// <inheritdoc />
             public Menes.ValidationResult Validate(Menes.ValidationResult? validationResult = null, Menes.ValidationLevel level = Menes.ValidationLevel.Flag, System.Collections.Generic.HashSet<string>? evaluatedProperties = null, System.Collections.Generic.Stack<string>? absoluteKeywordLocation = null, System.Collections.Generic.Stack<string>? instanceLocation = null)
             {
@@ -1589,8 +1751,10 @@ namespace TestSpace
                 property = default;
                 return false;
             }
+            public Draft201909MetaApplicator.PropertiesEntity.MenesPropertyEnumerator GetEnumerator() { return new Draft201909MetaApplicator.PropertiesEntity.MenesPropertyEnumerator(this); }
+            System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() { return this.GetEnumerator(); }
             private TPropertyValue GetPropertyFromJsonElement<TPropertyValue>(System.ReadOnlySpan<byte> propertyName)
-                where TPropertyValue : struct, Menes.IJsonValue
+where TPropertyValue : struct, Menes.IJsonValue
             {
                 return this.GetOptionalPropertyFromJsonElement<TPropertyValue>(propertyName) ?? default;
             }
@@ -1610,6 +1774,130 @@ namespace TestSpace
                     return false;
                 }
                 return true;
+            }
+            /// <inheritdoc />
+            private bool TryGetPropertyAtIndex(int index, out Menes.Property<PropertiesEntity> result)
+            {
+                if (this.HasJsonElement)
+                {
+                    int jsonPropertyIndex = 0;
+                    foreach (var property in this.JsonElement.EnumerateObject())
+                    {
+                        if (jsonPropertyIndex == index)
+                        {
+                            result = new Menes.Property<PropertiesEntity>(property);
+                            return true;
+                        }
+                        jsonPropertyIndex++;
+                    }
+                }
+                int currentIndex = 0;
+                result = default; ;
+                return false;
+            }
+            /// <summary>
+            /// An enumerator for the properties in a <see cref="PropertiesEntity"/>.
+            /// </summary>
+            public struct MenesPropertyEnumerator : System.Collections.Generic.IEnumerable<Menes.Property<PropertiesEntity>>, System.Collections.IEnumerable, System.Collections.Generic.IEnumerator<Menes.Property<PropertiesEntity>>, System.Collections.IEnumerator
+            {
+                private PropertiesEntity instance;
+                private System.Text.Json.JsonElement.ObjectEnumerator jsonEnumerator;
+                private bool hasJsonEnumerator;
+                private int index;
+                private int propertyCount;
+                internal MenesPropertyEnumerator(PropertiesEntity instance)
+                {
+                    this.instance = instance;
+                    this.propertyCount = instance.PropertyCount;
+                    if (this.instance.HasJsonElement)
+                    {
+                        this.index = -2;
+                        this.hasJsonEnumerator = true;
+                        this.jsonEnumerator = this.instance.JsonElement.EnumerateObject();
+                    }
+                    else
+                    {
+                        this.index = -1;
+                        this.hasJsonEnumerator = false;
+                        this.jsonEnumerator = default;
+                    }
+                }
+                /// <inheritdoc/>
+                public Menes.Property<PropertiesEntity> Current
+                {
+                    get
+                    {
+                        if (this.hasJsonEnumerator)
+                        {
+                            return new Menes.Property<PropertiesEntity>(this.jsonEnumerator.Current);
+                        }
+                        else if (this.index >= 0)
+                        {
+                            if (this.instance.TryGetPropertyAtIndex(this.index, out var result))
+                            {
+                                return result;
+                            }
+                            throw new System.InvalidOperationException("Unable to get the property in the enumeration. The collection has been modified.");
+                        }
+                        return new Menes.Property<PropertiesEntity>(this.instance, default);
+                    }
+                }
+                /// <inheritdoc/>
+                object System.Collections.IEnumerator.Current => this.Current;
+                /// <summary>
+                /// Returns a fresh copy of the enumerator
+                /// </summary>
+                /// <returns>An enumerator for the properties in a <see cref="PropertiesEntity"/>.</returns>
+                public MenesPropertyEnumerator GetEnumerator()
+                {
+                    MenesPropertyEnumerator result = this;
+                    result.Reset();
+                    return result;
+                }
+                /// <inheritdoc/>
+                System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+                {
+                    return this.GetEnumerator();
+                }
+                /// <inheritdoc/>
+                System.Collections.Generic.IEnumerator<Menes.Property<PropertiesEntity>> System.Collections.Generic.IEnumerable<Menes.Property<PropertiesEntity>>.GetEnumerator()
+                {
+                    return this.GetEnumerator();
+                }
+                /// <inheritdoc/>
+                public void Dispose()
+                {
+                    if (this.hasJsonEnumerator)
+                    {
+                        this.jsonEnumerator.Dispose();
+                    }
+                }
+                /// <inheritdoc/>
+                public void Reset()
+                {
+                    if (this.hasJsonEnumerator)
+                    {
+                        this.jsonEnumerator.Reset();
+                    }
+                }
+                /// <inheritdoc/>
+                public bool MoveNext()
+                {
+                    if (this.hasJsonEnumerator)
+                    {
+                        return this.jsonEnumerator.MoveNext();
+                    }
+                    else
+                    {
+                        if (this.index + 1 < this.propertyCount)
+                        {
+                            this.index++;
+                            return true;
+                        }
+                        return false;
+                    }
+                    return false;
+                }
             }
         }
         public readonly struct PatternPropertiesEntity : Menes.IJsonObject
@@ -1635,6 +1923,25 @@ namespace TestSpace
             public bool HasJsonElement => this._menesJsonElementBacking.ValueKind != System.Text.Json.JsonValueKind.Undefined;
             /// <inheritdoc />
             public System.Text.Json.JsonElement JsonElement => this._menesJsonElementBacking;
+            public int PropertyCount
+            {
+                get
+                {
+                    if (this.HasJsonElement)
+                    {
+                        int jsonPropertyIndex = 0;
+                        foreach (var property in this.JsonElement.EnumerateObject())
+                        {
+                            jsonPropertyIndex++;
+                        }
+                        return jsonPropertyIndex;
+                    }
+                    else
+                    {
+                        return this._menesAdditionalPropertiesBacking.Length;
+                    }
+                }
+            }
             /// <inheritdoc />
             public Menes.ValidationResult Validate(Menes.ValidationResult? validationResult = null, Menes.ValidationLevel level = Menes.ValidationLevel.Flag, System.Collections.Generic.HashSet<string>? evaluatedProperties = null, System.Collections.Generic.Stack<string>? absoluteKeywordLocation = null, System.Collections.Generic.Stack<string>? instanceLocation = null)
             {
@@ -1747,8 +2054,10 @@ namespace TestSpace
                 property = default;
                 return false;
             }
+            public Draft201909MetaApplicator.PatternPropertiesEntity.MenesPropertyEnumerator GetEnumerator() { return new Draft201909MetaApplicator.PatternPropertiesEntity.MenesPropertyEnumerator(this); }
+            System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() { return this.GetEnumerator(); }
             private TPropertyValue GetPropertyFromJsonElement<TPropertyValue>(System.ReadOnlySpan<byte> propertyName)
-                where TPropertyValue : struct, Menes.IJsonValue
+where TPropertyValue : struct, Menes.IJsonValue
             {
                 return this.GetOptionalPropertyFromJsonElement<TPropertyValue>(propertyName) ?? default;
             }
@@ -1768,6 +2077,26 @@ namespace TestSpace
                     return false;
                 }
                 return true;
+            }
+            /// <inheritdoc />
+            private bool TryGetPropertyAtIndex(int index, out Menes.Property<PatternPropertiesEntity> result)
+            {
+                if (this.HasJsonElement)
+                {
+                    int jsonPropertyIndex = 0;
+                    foreach (var property in this.JsonElement.EnumerateObject())
+                    {
+                        if (jsonPropertyIndex == index)
+                        {
+                            result = new Menes.Property<PatternPropertiesEntity>(property);
+                            return true;
+                        }
+                        jsonPropertyIndex++;
+                    }
+                }
+                int currentIndex = 0;
+                result = default; ;
+                return false;
             }
             public readonly struct PropertyNamesEntity : Menes.IJsonValue
             {
@@ -1821,6 +2150,110 @@ namespace TestSpace
                     return true;
                 }
             }
+            /// <summary>
+            /// An enumerator for the properties in a <see cref="PatternPropertiesEntity"/>.
+            /// </summary>
+            public struct MenesPropertyEnumerator : System.Collections.Generic.IEnumerable<Menes.Property<PatternPropertiesEntity>>, System.Collections.IEnumerable, System.Collections.Generic.IEnumerator<Menes.Property<PatternPropertiesEntity>>, System.Collections.IEnumerator
+            {
+                private PatternPropertiesEntity instance;
+                private System.Text.Json.JsonElement.ObjectEnumerator jsonEnumerator;
+                private bool hasJsonEnumerator;
+                private int index;
+                private int propertyCount;
+                internal MenesPropertyEnumerator(PatternPropertiesEntity instance)
+                {
+                    this.instance = instance;
+                    this.propertyCount = instance.PropertyCount;
+                    if (this.instance.HasJsonElement)
+                    {
+                        this.index = -2;
+                        this.hasJsonEnumerator = true;
+                        this.jsonEnumerator = this.instance.JsonElement.EnumerateObject();
+                    }
+                    else
+                    {
+                        this.index = -1;
+                        this.hasJsonEnumerator = false;
+                        this.jsonEnumerator = default;
+                    }
+                }
+                /// <inheritdoc/>
+                public Menes.Property<PatternPropertiesEntity> Current
+                {
+                    get
+                    {
+                        if (this.hasJsonEnumerator)
+                        {
+                            return new Menes.Property<PatternPropertiesEntity>(this.jsonEnumerator.Current);
+                        }
+                        else if (this.index >= 0)
+                        {
+                            if (this.instance.TryGetPropertyAtIndex(this.index, out var result))
+                            {
+                                return result;
+                            }
+                            throw new System.InvalidOperationException("Unable to get the property in the enumeration. The collection has been modified.");
+                        }
+                        return new Menes.Property<PatternPropertiesEntity>(this.instance, default);
+                    }
+                }
+                /// <inheritdoc/>
+                object System.Collections.IEnumerator.Current => this.Current;
+                /// <summary>
+                /// Returns a fresh copy of the enumerator
+                /// </summary>
+                /// <returns>An enumerator for the properties in a <see cref="PatternPropertiesEntity"/>.</returns>
+                public MenesPropertyEnumerator GetEnumerator()
+                {
+                    MenesPropertyEnumerator result = this;
+                    result.Reset();
+                    return result;
+                }
+                /// <inheritdoc/>
+                System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+                {
+                    return this.GetEnumerator();
+                }
+                /// <inheritdoc/>
+                System.Collections.Generic.IEnumerator<Menes.Property<PatternPropertiesEntity>> System.Collections.Generic.IEnumerable<Menes.Property<PatternPropertiesEntity>>.GetEnumerator()
+                {
+                    return this.GetEnumerator();
+                }
+                /// <inheritdoc/>
+                public void Dispose()
+                {
+                    if (this.hasJsonEnumerator)
+                    {
+                        this.jsonEnumerator.Dispose();
+                    }
+                }
+                /// <inheritdoc/>
+                public void Reset()
+                {
+                    if (this.hasJsonEnumerator)
+                    {
+                        this.jsonEnumerator.Reset();
+                    }
+                }
+                /// <inheritdoc/>
+                public bool MoveNext()
+                {
+                    if (this.hasJsonEnumerator)
+                    {
+                        return this.jsonEnumerator.MoveNext();
+                    }
+                    else
+                    {
+                        if (this.index + 1 < this.propertyCount)
+                        {
+                            this.index++;
+                            return true;
+                        }
+                        return false;
+                    }
+                    return false;
+                }
+            }
         }
         public readonly struct DependentSchemasEntity : Menes.IJsonObject
         {
@@ -1845,6 +2278,25 @@ namespace TestSpace
             public bool HasJsonElement => this._menesJsonElementBacking.ValueKind != System.Text.Json.JsonValueKind.Undefined;
             /// <inheritdoc />
             public System.Text.Json.JsonElement JsonElement => this._menesJsonElementBacking;
+            public int PropertyCount
+            {
+                get
+                {
+                    if (this.HasJsonElement)
+                    {
+                        int jsonPropertyIndex = 0;
+                        foreach (var property in this.JsonElement.EnumerateObject())
+                        {
+                            jsonPropertyIndex++;
+                        }
+                        return jsonPropertyIndex;
+                    }
+                    else
+                    {
+                        return this._menesAdditionalPropertiesBacking.Length;
+                    }
+                }
+            }
             /// <inheritdoc />
             public Menes.ValidationResult Validate(Menes.ValidationResult? validationResult = null, Menes.ValidationLevel level = Menes.ValidationLevel.Flag, System.Collections.Generic.HashSet<string>? evaluatedProperties = null, System.Collections.Generic.Stack<string>? absoluteKeywordLocation = null, System.Collections.Generic.Stack<string>? instanceLocation = null)
             {
@@ -1957,8 +2409,10 @@ namespace TestSpace
                 property = default;
                 return false;
             }
+            public Draft201909MetaApplicator.DependentSchemasEntity.MenesPropertyEnumerator GetEnumerator() { return new Draft201909MetaApplicator.DependentSchemasEntity.MenesPropertyEnumerator(this); }
+            System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() { return this.GetEnumerator(); }
             private TPropertyValue GetPropertyFromJsonElement<TPropertyValue>(System.ReadOnlySpan<byte> propertyName)
-                where TPropertyValue : struct, Menes.IJsonValue
+where TPropertyValue : struct, Menes.IJsonValue
             {
                 return this.GetOptionalPropertyFromJsonElement<TPropertyValue>(propertyName) ?? default;
             }
@@ -1978,6 +2432,234 @@ namespace TestSpace
                     return false;
                 }
                 return true;
+            }
+            /// <inheritdoc />
+            private bool TryGetPropertyAtIndex(int index, out Menes.Property<DependentSchemasEntity> result)
+            {
+                if (this.HasJsonElement)
+                {
+                    int jsonPropertyIndex = 0;
+                    foreach (var property in this.JsonElement.EnumerateObject())
+                    {
+                        if (jsonPropertyIndex == index)
+                        {
+                            result = new Menes.Property<DependentSchemasEntity>(property);
+                            return true;
+                        }
+                        jsonPropertyIndex++;
+                    }
+                }
+                int currentIndex = 0;
+                result = default; ;
+                return false;
+            }
+            /// <summary>
+            /// An enumerator for the properties in a <see cref="DependentSchemasEntity"/>.
+            /// </summary>
+            public struct MenesPropertyEnumerator : System.Collections.Generic.IEnumerable<Menes.Property<DependentSchemasEntity>>, System.Collections.IEnumerable, System.Collections.Generic.IEnumerator<Menes.Property<DependentSchemasEntity>>, System.Collections.IEnumerator
+            {
+                private DependentSchemasEntity instance;
+                private System.Text.Json.JsonElement.ObjectEnumerator jsonEnumerator;
+                private bool hasJsonEnumerator;
+                private int index;
+                private int propertyCount;
+                internal MenesPropertyEnumerator(DependentSchemasEntity instance)
+                {
+                    this.instance = instance;
+                    this.propertyCount = instance.PropertyCount;
+                    if (this.instance.HasJsonElement)
+                    {
+                        this.index = -2;
+                        this.hasJsonEnumerator = true;
+                        this.jsonEnumerator = this.instance.JsonElement.EnumerateObject();
+                    }
+                    else
+                    {
+                        this.index = -1;
+                        this.hasJsonEnumerator = false;
+                        this.jsonEnumerator = default;
+                    }
+                }
+                /// <inheritdoc/>
+                public Menes.Property<DependentSchemasEntity> Current
+                {
+                    get
+                    {
+                        if (this.hasJsonEnumerator)
+                        {
+                            return new Menes.Property<DependentSchemasEntity>(this.jsonEnumerator.Current);
+                        }
+                        else if (this.index >= 0)
+                        {
+                            if (this.instance.TryGetPropertyAtIndex(this.index, out var result))
+                            {
+                                return result;
+                            }
+                            throw new System.InvalidOperationException("Unable to get the property in the enumeration. The collection has been modified.");
+                        }
+                        return new Menes.Property<DependentSchemasEntity>(this.instance, default);
+                    }
+                }
+                /// <inheritdoc/>
+                object System.Collections.IEnumerator.Current => this.Current;
+                /// <summary>
+                /// Returns a fresh copy of the enumerator
+                /// </summary>
+                /// <returns>An enumerator for the properties in a <see cref="DependentSchemasEntity"/>.</returns>
+                public MenesPropertyEnumerator GetEnumerator()
+                {
+                    MenesPropertyEnumerator result = this;
+                    result.Reset();
+                    return result;
+                }
+                /// <inheritdoc/>
+                System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+                {
+                    return this.GetEnumerator();
+                }
+                /// <inheritdoc/>
+                System.Collections.Generic.IEnumerator<Menes.Property<DependentSchemasEntity>> System.Collections.Generic.IEnumerable<Menes.Property<DependentSchemasEntity>>.GetEnumerator()
+                {
+                    return this.GetEnumerator();
+                }
+                /// <inheritdoc/>
+                public void Dispose()
+                {
+                    if (this.hasJsonEnumerator)
+                    {
+                        this.jsonEnumerator.Dispose();
+                    }
+                }
+                /// <inheritdoc/>
+                public void Reset()
+                {
+                    if (this.hasJsonEnumerator)
+                    {
+                        this.jsonEnumerator.Reset();
+                    }
+                }
+                /// <inheritdoc/>
+                public bool MoveNext()
+                {
+                    if (this.hasJsonEnumerator)
+                    {
+                        return this.jsonEnumerator.MoveNext();
+                    }
+                    else
+                    {
+                        if (this.index + 1 < this.propertyCount)
+                        {
+                            this.index++;
+                            return true;
+                        }
+                        return false;
+                    }
+                    return false;
+                }
+            }
+        }
+        /// <summary>
+        /// An enumerator for the properties in a <see cref="Draft201909MetaApplicator"/>.
+        /// </summary>
+        public struct MenesPropertyEnumerator : System.Collections.Generic.IEnumerable<Menes.Property<Draft201909MetaApplicator>>, System.Collections.IEnumerable, System.Collections.Generic.IEnumerator<Menes.Property<Draft201909MetaApplicator>>, System.Collections.IEnumerator
+        {
+            private Draft201909MetaApplicator instance;
+            private System.Text.Json.JsonElement.ObjectEnumerator jsonEnumerator;
+            private bool hasJsonEnumerator;
+            private int index;
+            private int propertyCount;
+            internal MenesPropertyEnumerator(Draft201909MetaApplicator instance)
+            {
+                this.instance = instance;
+                this.propertyCount = instance.PropertyCount;
+                if (this.instance.HasJsonElement)
+                {
+                    this.index = -2;
+                    this.hasJsonEnumerator = true;
+                    this.jsonEnumerator = this.instance.JsonElement.EnumerateObject();
+                }
+                else
+                {
+                    this.index = -1;
+                    this.hasJsonEnumerator = false;
+                    this.jsonEnumerator = default;
+                }
+            }
+            /// <inheritdoc/>
+            public Menes.Property<Draft201909MetaApplicator> Current
+            {
+                get
+                {
+                    if (this.hasJsonEnumerator)
+                    {
+                        return new Menes.Property<Draft201909MetaApplicator>(this.jsonEnumerator.Current);
+                    }
+                    else if (this.index >= 0)
+                    {
+                        if (this.instance.TryGetPropertyAtIndex(this.index, out var result))
+                        {
+                            return result;
+                        }
+                        throw new System.InvalidOperationException("Unable to get the property in the enumeration. The collection has been modified.");
+                    }
+                    return new Menes.Property<Draft201909MetaApplicator>(this.instance, default);
+                }
+            }
+            /// <inheritdoc/>
+            object System.Collections.IEnumerator.Current => this.Current;
+            /// <summary>
+            /// Returns a fresh copy of the enumerator
+            /// </summary>
+            /// <returns>An enumerator for the properties in a <see cref="Draft201909MetaApplicator"/>.</returns>
+            public MenesPropertyEnumerator GetEnumerator()
+            {
+                MenesPropertyEnumerator result = this;
+                result.Reset();
+                return result;
+            }
+            /// <inheritdoc/>
+            System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+            {
+                return this.GetEnumerator();
+            }
+            /// <inheritdoc/>
+            System.Collections.Generic.IEnumerator<Menes.Property<Draft201909MetaApplicator>> System.Collections.Generic.IEnumerable<Menes.Property<Draft201909MetaApplicator>>.GetEnumerator()
+            {
+                return this.GetEnumerator();
+            }
+            /// <inheritdoc/>
+            public void Dispose()
+            {
+                if (this.hasJsonEnumerator)
+                {
+                    this.jsonEnumerator.Dispose();
+                }
+            }
+            /// <inheritdoc/>
+            public void Reset()
+            {
+                if (this.hasJsonEnumerator)
+                {
+                    this.jsonEnumerator.Reset();
+                }
+            }
+            /// <inheritdoc/>
+            public bool MoveNext()
+            {
+                if (this.hasJsonEnumerator)
+                {
+                    return this.jsonEnumerator.MoveNext();
+                }
+                else
+                {
+                    if (this.index + 1 < this.propertyCount)
+                    {
+                        this.index++;
+                        return true;
+                    }
+                    return false;
+                }
+                return false;
             }
         }
     }

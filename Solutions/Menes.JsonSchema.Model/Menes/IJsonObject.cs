@@ -5,11 +5,12 @@
 namespace Menes
 {
     using System;
+    using System.Collections;
 
     /// <summary>
     /// Represents any object value that can be represented as Json.
     /// </summary>
-    public interface IJsonObject : IJsonValue
+    public interface IJsonObject : IJsonValue, IEnumerable
     {
         /// <summary>
         /// Try to get a named property.

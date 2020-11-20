@@ -5,13 +5,14 @@
 namespace Menes
 {
     using System;
+    using System.Collections;
     using System.Collections.Generic;
     using System.Text.Json;
 
     /// <summary>
     /// Represents the {}/true json type.
     /// </summary>
-    public readonly struct JsonAny : IJsonObject
+    public readonly struct JsonAny : IJsonValue
     {
         /// <summary>
         /// The null value.
@@ -53,7 +54,13 @@ namespace Menes
             return this.JsonElement.As<T>().Validate(ValidationResult.ValidResult, ValidationLevel.Flag).Valid;
         }
 
-        /// <inheritdoc />
+        /// <summary>
+        /// Try to get a named property.
+        /// </summary>
+        /// <typeparam name="T">The type of the property to get.</typeparam>
+        /// <param name="propertyName">The name of the property.</param>
+        /// <param name="property">The resulting property.</param>
+        /// <returns><c>True</c> if there was a property with the given name.</returns>
         public bool TryGetProperty<T>(ReadOnlySpan<char> propertyName, out T property)
             where T : struct, IJsonValue
         {
@@ -67,7 +74,13 @@ namespace Menes
             return false;
         }
 
-        /// <inheritdoc />
+        /// <summary>
+        /// Try to get a named property.
+        /// </summary>
+        /// <typeparam name="T">The type of the property to get.</typeparam>
+        /// <param name="propertyName">The name of the property.</param>
+        /// <param name="property">The resulting property.</param>
+        /// <returns><c>True</c> if there was a property with the given name.</returns>
         public bool TryGetProperty<T>(string propertyName, out T property)
             where T : struct, IJsonValue
         {
@@ -81,7 +94,13 @@ namespace Menes
             return false;
         }
 
-        /// <inheritdoc />
+        /// <summary>
+        /// Try to get a named property.
+        /// </summary>
+        /// <typeparam name="T">The type of the property to get.</typeparam>
+        /// <param name="utf8PropertyName">The utf8 encoded name of the property.</param>
+        /// <param name="property">The resulting property.</param>
+        /// <returns><c>True</c> if there was a property with the given name.</returns>
         public bool TryGetProperty<T>(ReadOnlySpan<byte> utf8PropertyName, out T property)
             where T : struct, IJsonValue
         {
