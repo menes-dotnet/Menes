@@ -9,7 +9,7 @@ namespace Menes
     using System.Text.Json;
 
     /// <summary>
-    /// Represents the {}/true json type.
+    /// Represents the string json type.
     /// </summary>
     public readonly struct JsonString : IJsonValue
     {
