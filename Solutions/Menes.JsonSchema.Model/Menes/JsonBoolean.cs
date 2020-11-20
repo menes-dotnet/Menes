@@ -152,5 +152,11 @@ namespace Menes
                 writer.WriteNullValue();
             }
         }
+
+        /// <inheritdoc />
+        public override string ToString()
+        {
+            return this.IsNull ? "null" : this.GetBoolean().ToString();
+        }
     }
 }

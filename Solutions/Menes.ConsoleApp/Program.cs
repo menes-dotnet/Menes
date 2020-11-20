@@ -99,7 +99,7 @@ namespace Menes.ConsoleApp
             {
                 if (property.NameEquals("meta"))
                 {
-                    Console.WriteLine($"{property.Name}: {(string)property.Value<JsonString>()}");
+                    Console.WriteLine($"{property.Name}: {property.Value<JsonString>()}");
                 }
 
                 if (property.NameEquals("nodes"))
@@ -109,7 +109,7 @@ namespace Menes.ConsoleApp
                     {
                         if (node.TryGetProperty("value", out JsonNumber nodeVal))
                         {
-                            Console.WriteLine($"\t{nodeVal.GetDouble()}");
+                            Console.WriteLine($"\t{nodeVal}");
                         }
                     }
                 }

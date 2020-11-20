@@ -126,6 +126,12 @@ namespace Menes
         }
 
         /// <inheritdoc />
+        public override string ToString()
+        {
+            return this.IsNull ? "null" : this;
+        }
+
+        /// <inheritdoc />
         public T As<T>()
             where T : struct, IJsonValue
         {
