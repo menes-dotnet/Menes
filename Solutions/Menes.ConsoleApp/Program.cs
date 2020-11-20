@@ -90,7 +90,9 @@ namespace Menes.ConsoleApp
 
             tree = tree.WithNodes(
                 tree.Nodes
-                    .Add(new Tree.NodeEntity(999))
+                    .Add(new Tree.NodeEntity(999), new Tree.NodeEntity(1000))
+                    .Insert(0, new Tree.NodeEntity(42), new Tree.NodeEntity(54), new Tree.NodeEntity(33.333))
+                    .Insert(3, new Tree.NodeEntity(6), new Tree.NodeEntity(7), new Tree.NodeEntity(8), new Tree.NodeEntity(9), new Tree.NodeEntity(10))
                     .RemoveIf(n => n.Value < 5));
 
             Serialize(tree);

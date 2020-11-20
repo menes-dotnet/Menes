@@ -185,11 +185,49 @@ namespace Menes.JsonSchema.TypeBuilder
                 return;
             }
 
-            memberBuilder.AppendLine($"public {typeDeclaration.DotnetTypeName} Add<T>(T item)");
+            memberBuilder.AppendLine($"public {typeDeclaration.DotnetTypeName} Add<T1>(T1 item1)");
+            memberBuilder.AppendLine("    where T1 : struct, Menes.IJsonValue");
+            memberBuilder.AppendLine("{");
+
+            this.BuildArrayAddOrInsert(typeDeclaration, memberBuilder, false, 1);
+
+            memberBuilder.AppendLine("}");
+
+            memberBuilder.AppendLine($"public {typeDeclaration.DotnetTypeName} Add<T1, T2>(T1 item1, T2 item2)");
+            memberBuilder.AppendLine("    where T1 : struct, Menes.IJsonValue");
+            memberBuilder.AppendLine("    where T2 : struct, Menes.IJsonValue");
+            memberBuilder.AppendLine("{");
+
+            this.BuildArrayAddOrInsert(typeDeclaration, memberBuilder, false, 2);
+
+            memberBuilder.AppendLine("}");
+
+            memberBuilder.AppendLine($"public {typeDeclaration.DotnetTypeName} Add<T1, T2, T3>(T1 item1, T2 item2, T3 item3)");
+            memberBuilder.AppendLine("    where T1 : struct, Menes.IJsonValue");
+            memberBuilder.AppendLine("    where T2 : struct, Menes.IJsonValue");
+            memberBuilder.AppendLine("    where T3 : struct, Menes.IJsonValue");
+            memberBuilder.AppendLine("{");
+
+            this.BuildArrayAddOrInsert(typeDeclaration, memberBuilder, false, 3);
+
+            memberBuilder.AppendLine("}");
+
+            memberBuilder.AppendLine($"public {typeDeclaration.DotnetTypeName} Add<T1, T2, T3, T4>(T1 item1, T2 item2, T3 item3, T4 item4)");
+            memberBuilder.AppendLine("    where T1 : struct, Menes.IJsonValue");
+            memberBuilder.AppendLine("    where T2 : struct, Menes.IJsonValue");
+            memberBuilder.AppendLine("    where T3 : struct, Menes.IJsonValue");
+            memberBuilder.AppendLine("    where T4 : struct, Menes.IJsonValue");
+            memberBuilder.AppendLine("{");
+
+            this.BuildArrayAddOrInsert(typeDeclaration, memberBuilder, false, 4);
+
+            memberBuilder.AppendLine("}");
+
+            memberBuilder.AppendLine($"public {typeDeclaration.DotnetTypeName} Add<T>(params T[] items)");
             memberBuilder.AppendLine("    where T : struct, Menes.IJsonValue");
             memberBuilder.AppendLine("{");
 
-            this.BuildArrayAddOrInsert(typeDeclaration, memberBuilder, false);
+            this.BuildArrayAddOrInsert(typeDeclaration, memberBuilder, false, -1);
 
             memberBuilder.AppendLine("}");
         }
@@ -201,16 +239,54 @@ namespace Menes.JsonSchema.TypeBuilder
                 return;
             }
 
-            memberBuilder.AppendLine($"public {typeDeclaration.DotnetTypeName} Insert<T>(int index, T item)");
+            memberBuilder.AppendLine($"public {typeDeclaration.DotnetTypeName} Insert<T>(int index, T item1)");
             memberBuilder.AppendLine("    where T : struct, Menes.IJsonValue");
             memberBuilder.AppendLine("{");
 
-            this.BuildArrayAddOrInsert(typeDeclaration, memberBuilder, true);
+            this.BuildArrayAddOrInsert(typeDeclaration, memberBuilder, true, 1);
+
+            memberBuilder.AppendLine("}");
+
+            memberBuilder.AppendLine($"public {typeDeclaration.DotnetTypeName} Insert<T1, T2>(int index, T1 item1, T2 item2)");
+            memberBuilder.AppendLine("    where T1 : struct, Menes.IJsonValue");
+            memberBuilder.AppendLine("    where T2 : struct, Menes.IJsonValue");
+            memberBuilder.AppendLine("{");
+
+            this.BuildArrayAddOrInsert(typeDeclaration, memberBuilder, true, 2);
+
+            memberBuilder.AppendLine("}");
+
+            memberBuilder.AppendLine($"public {typeDeclaration.DotnetTypeName} Insert<T1, T2, T3>(int index, T1 item1, T2 item2, T3 item3)");
+            memberBuilder.AppendLine("    where T1 : struct, Menes.IJsonValue");
+            memberBuilder.AppendLine("    where T2 : struct, Menes.IJsonValue");
+            memberBuilder.AppendLine("    where T3 : struct, Menes.IJsonValue");
+            memberBuilder.AppendLine("{");
+
+            this.BuildArrayAddOrInsert(typeDeclaration, memberBuilder, true, 3);
+
+            memberBuilder.AppendLine("}");
+
+            memberBuilder.AppendLine($"public {typeDeclaration.DotnetTypeName} Insert<T1, T2, T3, T4>(int index, T1 item1, T2 item2, T3 item3, T4 item4)");
+            memberBuilder.AppendLine("    where T1 : struct, Menes.IJsonValue");
+            memberBuilder.AppendLine("    where T2 : struct, Menes.IJsonValue");
+            memberBuilder.AppendLine("    where T3 : struct, Menes.IJsonValue");
+            memberBuilder.AppendLine("    where T4 : struct, Menes.IJsonValue");
+            memberBuilder.AppendLine("{");
+
+            this.BuildArrayAddOrInsert(typeDeclaration, memberBuilder, true, 4);
+
+            memberBuilder.AppendLine("}");
+
+            memberBuilder.AppendLine($"public {typeDeclaration.DotnetTypeName} Insert<T>(int index, params T[] items)");
+            memberBuilder.AppendLine("    where T : struct, Menes.IJsonValue");
+            memberBuilder.AppendLine("{");
+
+            this.BuildArrayAddOrInsert(typeDeclaration, memberBuilder, true, -1);
 
             memberBuilder.AppendLine("}");
         }
 
-        private void BuildArrayAddOrInsert(TypeDeclaration typeDeclaration, StringBuilder memberBuilder, bool insert)
+        private void BuildArrayAddOrInsert(TypeDeclaration typeDeclaration, StringBuilder memberBuilder, bool insert, int itemsCount)
         {
             TypeDeclaration itemsType = this.GetItemsTypeFor(typeDeclaration);
             bool containsReference = itemsType.ContainsReferenceTo(typeDeclaration);
@@ -236,7 +312,21 @@ namespace Menes.JsonSchema.TypeBuilder
             {
                 memberBuilder.AppendLine("if (currentIndex == index)");
                 memberBuilder.AppendLine("{");
-                this.AddNewItem(memberBuilder, itemsType, containsReference);
+                if (itemsCount == -1)
+                {
+                    memberBuilder.AppendLine("foreach (var item1 in items)");
+                    memberBuilder.AppendLine("{");
+                    this.AddNewItem(memberBuilder, itemsType, containsReference, 1);
+                    memberBuilder.AppendLine("}");
+                }
+                else
+                {
+                    for (int i = 0; i < itemsCount; ++i)
+                    {
+                        this.AddNewItem(memberBuilder, itemsType, containsReference, i + 1);
+                    }
+                }
+
                 memberBuilder.AppendLine("    inserted = true;");
                 memberBuilder.AppendLine("}");
             }
@@ -259,7 +349,20 @@ namespace Menes.JsonSchema.TypeBuilder
             }
             else
             {
-                this.AddNewItem(memberBuilder, itemsType, containsReference);
+                if (itemsCount == -1)
+                {
+                    memberBuilder.AppendLine("foreach (var item1 in items)");
+                    memberBuilder.AppendLine("{");
+                    this.AddNewItem(memberBuilder, itemsType, containsReference, 1);
+                    memberBuilder.AppendLine("}");
+                }
+                else
+                {
+                    for (int i = 0; i < itemsCount; ++i)
+                    {
+                        this.AddNewItem(memberBuilder, itemsType, containsReference, i + 1);
+                    }
+                }
             }
 
             memberBuilder.AppendLine($"return new {typeDeclaration.FullyQualifiedDotNetTypeName}(arrayBuilder.ToImmutable());");
@@ -353,15 +456,15 @@ namespace Menes.JsonSchema.TypeBuilder
             memberBuilder.AppendLine("}");
         }
 
-        private void AddNewItem(StringBuilder memberBuilder, TypeDeclaration itemsType, bool containsReference)
+        private void AddNewItem(StringBuilder memberBuilder, TypeDeclaration itemsType, bool containsReference, int itemIndex)
         {
             if (containsReference)
             {
-                memberBuilder.AppendLine($"    arrayBuilder.Add(Menes.JsonArrayValueBacking.From<{itemsType.FullyQualifiedDotNetTypeName}>(item.As<{itemsType.FullyQualifiedDotNetTypeName}>()));");
+                memberBuilder.AppendLine($"    arrayBuilder.Add(Menes.JsonArrayValueBacking.From<{itemsType.FullyQualifiedDotNetTypeName}>(item{itemIndex}.As<{itemsType.FullyQualifiedDotNetTypeName}>()));");
             }
             else
             {
-                memberBuilder.AppendLine($"    arrayBuilder.Add(item.As<{itemsType.FullyQualifiedDotNetTypeName}>());");
+                memberBuilder.AppendLine($"    arrayBuilder.Add(item{itemIndex}.As<{itemsType.FullyQualifiedDotNetTypeName}>());");
             }
         }
 

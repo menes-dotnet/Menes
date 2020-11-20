@@ -375,18 +375,77 @@ namespace TestSpace
             }
             public Tree.NodesArray.MenesArrayEnumerator GetEnumerator() { return new Tree.NodesArray.MenesArrayEnumerator(this); }
             System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() { return this.GetEnumerator(); }
-            public NodesArray Add<T>(T item)
-where T : struct, Menes.IJsonValue
+            public NodesArray Add<T1>(T1 item1)
+where T1 : struct, Menes.IJsonValue
             {
                 var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonArrayValueBacking>();
                 foreach (var oldItem in this._menesArrayValueBacking)
                 {
                     arrayBuilder.Add(oldItem);
                 }
-                arrayBuilder.Add(Menes.JsonArrayValueBacking.From<Tree.NodeEntity>(item.As<Tree.NodeEntity>()));
+                arrayBuilder.Add(Menes.JsonArrayValueBacking.From<Tree.NodeEntity>(item1.As<Tree.NodeEntity>()));
                 return new Tree.NodesArray(arrayBuilder.ToImmutable());
             }
-            public NodesArray Insert<T>(int index, T item)
+            public NodesArray Add<T1, T2>(T1 item1, T2 item2)
+                where T1 : struct, Menes.IJsonValue
+                where T2 : struct, Menes.IJsonValue
+            {
+                var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonArrayValueBacking>();
+                foreach (var oldItem in this._menesArrayValueBacking)
+                {
+                    arrayBuilder.Add(oldItem);
+                }
+                arrayBuilder.Add(Menes.JsonArrayValueBacking.From<Tree.NodeEntity>(item1.As<Tree.NodeEntity>()));
+                arrayBuilder.Add(Menes.JsonArrayValueBacking.From<Tree.NodeEntity>(item2.As<Tree.NodeEntity>()));
+                return new Tree.NodesArray(arrayBuilder.ToImmutable());
+            }
+            public NodesArray Add<T1, T2, T3>(T1 item1, T2 item2, T3 item3)
+                where T1 : struct, Menes.IJsonValue
+                where T2 : struct, Menes.IJsonValue
+                where T3 : struct, Menes.IJsonValue
+            {
+                var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonArrayValueBacking>();
+                foreach (var oldItem in this._menesArrayValueBacking)
+                {
+                    arrayBuilder.Add(oldItem);
+                }
+                arrayBuilder.Add(Menes.JsonArrayValueBacking.From<Tree.NodeEntity>(item1.As<Tree.NodeEntity>()));
+                arrayBuilder.Add(Menes.JsonArrayValueBacking.From<Tree.NodeEntity>(item2.As<Tree.NodeEntity>()));
+                arrayBuilder.Add(Menes.JsonArrayValueBacking.From<Tree.NodeEntity>(item3.As<Tree.NodeEntity>()));
+                return new Tree.NodesArray(arrayBuilder.ToImmutable());
+            }
+            public NodesArray Add<T1, T2, T3, T4>(T1 item1, T2 item2, T3 item3, T4 item4)
+                where T1 : struct, Menes.IJsonValue
+                where T2 : struct, Menes.IJsonValue
+                where T3 : struct, Menes.IJsonValue
+                where T4 : struct, Menes.IJsonValue
+            {
+                var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonArrayValueBacking>();
+                foreach (var oldItem in this._menesArrayValueBacking)
+                {
+                    arrayBuilder.Add(oldItem);
+                }
+                arrayBuilder.Add(Menes.JsonArrayValueBacking.From<Tree.NodeEntity>(item1.As<Tree.NodeEntity>()));
+                arrayBuilder.Add(Menes.JsonArrayValueBacking.From<Tree.NodeEntity>(item2.As<Tree.NodeEntity>()));
+                arrayBuilder.Add(Menes.JsonArrayValueBacking.From<Tree.NodeEntity>(item3.As<Tree.NodeEntity>()));
+                arrayBuilder.Add(Menes.JsonArrayValueBacking.From<Tree.NodeEntity>(item4.As<Tree.NodeEntity>()));
+                return new Tree.NodesArray(arrayBuilder.ToImmutable());
+            }
+            public NodesArray Add<T>(params T[] items)
+                where T : struct, Menes.IJsonValue
+            {
+                var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonArrayValueBacking>();
+                foreach (var oldItem in this._menesArrayValueBacking)
+                {
+                    arrayBuilder.Add(oldItem);
+                }
+                foreach (var item1 in items)
+                {
+                    arrayBuilder.Add(Menes.JsonArrayValueBacking.From<Tree.NodeEntity>(item1.As<Tree.NodeEntity>()));
+                }
+                return new Tree.NodesArray(arrayBuilder.ToImmutable());
+            }
+            public NodesArray Insert<T>(int index, T item1)
                 where T : struct, Menes.IJsonValue
             {
                 var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonArrayValueBacking>();
@@ -396,7 +455,110 @@ where T : struct, Menes.IJsonValue
                 {
                     if (currentIndex == index)
                     {
-                        arrayBuilder.Add(Menes.JsonArrayValueBacking.From<Tree.NodeEntity>(item.As<Tree.NodeEntity>()));
+                        arrayBuilder.Add(Menes.JsonArrayValueBacking.From<Tree.NodeEntity>(item1.As<Tree.NodeEntity>()));
+                        inserted = true;
+                    }
+                    arrayBuilder.Add(oldItem);
+                    currentIndex++;
+                }
+                if (!inserted)
+                {
+                    throw new System.IndexOutOfRangeException($"The given index {index} was out of range.");
+                }
+                return new Tree.NodesArray(arrayBuilder.ToImmutable());
+            }
+            public NodesArray Insert<T1, T2>(int index, T1 item1, T2 item2)
+                where T1 : struct, Menes.IJsonValue
+                where T2 : struct, Menes.IJsonValue
+            {
+                var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonArrayValueBacking>();
+                int currentIndex = 0;
+                bool inserted = false;
+                foreach (var oldItem in this._menesArrayValueBacking)
+                {
+                    if (currentIndex == index)
+                    {
+                        arrayBuilder.Add(Menes.JsonArrayValueBacking.From<Tree.NodeEntity>(item1.As<Tree.NodeEntity>()));
+                        arrayBuilder.Add(Menes.JsonArrayValueBacking.From<Tree.NodeEntity>(item2.As<Tree.NodeEntity>()));
+                        inserted = true;
+                    }
+                    arrayBuilder.Add(oldItem);
+                    currentIndex++;
+                }
+                if (!inserted)
+                {
+                    throw new System.IndexOutOfRangeException($"The given index {index} was out of range.");
+                }
+                return new Tree.NodesArray(arrayBuilder.ToImmutable());
+            }
+            public NodesArray Insert<T1, T2, T3>(int index, T1 item1, T2 item2, T3 item3)
+                where T1 : struct, Menes.IJsonValue
+                where T2 : struct, Menes.IJsonValue
+                where T3 : struct, Menes.IJsonValue
+            {
+                var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonArrayValueBacking>();
+                int currentIndex = 0;
+                bool inserted = false;
+                foreach (var oldItem in this._menesArrayValueBacking)
+                {
+                    if (currentIndex == index)
+                    {
+                        arrayBuilder.Add(Menes.JsonArrayValueBacking.From<Tree.NodeEntity>(item1.As<Tree.NodeEntity>()));
+                        arrayBuilder.Add(Menes.JsonArrayValueBacking.From<Tree.NodeEntity>(item2.As<Tree.NodeEntity>()));
+                        arrayBuilder.Add(Menes.JsonArrayValueBacking.From<Tree.NodeEntity>(item3.As<Tree.NodeEntity>()));
+                        inserted = true;
+                    }
+                    arrayBuilder.Add(oldItem);
+                    currentIndex++;
+                }
+                if (!inserted)
+                {
+                    throw new System.IndexOutOfRangeException($"The given index {index} was out of range.");
+                }
+                return new Tree.NodesArray(arrayBuilder.ToImmutable());
+            }
+            public NodesArray Insert<T1, T2, T3, T4>(int index, T1 item1, T2 item2, T3 item3, T4 item4)
+                where T1 : struct, Menes.IJsonValue
+                where T2 : struct, Menes.IJsonValue
+                where T3 : struct, Menes.IJsonValue
+                where T4 : struct, Menes.IJsonValue
+            {
+                var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonArrayValueBacking>();
+                int currentIndex = 0;
+                bool inserted = false;
+                foreach (var oldItem in this._menesArrayValueBacking)
+                {
+                    if (currentIndex == index)
+                    {
+                        arrayBuilder.Add(Menes.JsonArrayValueBacking.From<Tree.NodeEntity>(item1.As<Tree.NodeEntity>()));
+                        arrayBuilder.Add(Menes.JsonArrayValueBacking.From<Tree.NodeEntity>(item2.As<Tree.NodeEntity>()));
+                        arrayBuilder.Add(Menes.JsonArrayValueBacking.From<Tree.NodeEntity>(item3.As<Tree.NodeEntity>()));
+                        arrayBuilder.Add(Menes.JsonArrayValueBacking.From<Tree.NodeEntity>(item4.As<Tree.NodeEntity>()));
+                        inserted = true;
+                    }
+                    arrayBuilder.Add(oldItem);
+                    currentIndex++;
+                }
+                if (!inserted)
+                {
+                    throw new System.IndexOutOfRangeException($"The given index {index} was out of range.");
+                }
+                return new Tree.NodesArray(arrayBuilder.ToImmutable());
+            }
+            public NodesArray Insert<T>(int index, params T[] items)
+                where T : struct, Menes.IJsonValue
+            {
+                var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonArrayValueBacking>();
+                int currentIndex = 0;
+                bool inserted = false;
+                foreach (var oldItem in this._menesArrayValueBacking)
+                {
+                    if (currentIndex == index)
+                    {
+                        foreach (var item1 in items)
+                        {
+                            arrayBuilder.Add(Menes.JsonArrayValueBacking.From<Tree.NodeEntity>(item1.As<Tree.NodeEntity>()));
+                        }
                         inserted = true;
                     }
                     arrayBuilder.Add(oldItem);
