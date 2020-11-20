@@ -396,6 +396,7 @@ namespace TestSpace
                     result = new Menes.Property<Tree>(this, property.NameAsMemory);
                     return true;
                 }
+                currentIndex++;
             }
             result = default; ;
             return false;
@@ -1236,6 +1237,7 @@ where T1 : struct, Menes.IJsonValue
                         result = new Menes.Property<NodeEntity>(this, property.NameAsMemory);
                         return true;
                     }
+                    currentIndex++;
                 }
                 result = default; ;
                 return false;

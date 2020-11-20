@@ -829,6 +829,7 @@ namespace TestSpace
                     result = new Menes.Property<Draft201909MetaMetaData>(this, property.NameAsMemory);
                     return true;
                 }
+                currentIndex++;
             }
             result = default; ;
             return false;

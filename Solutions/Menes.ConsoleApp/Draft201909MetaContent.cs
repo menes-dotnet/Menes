@@ -537,6 +537,7 @@ namespace TestSpace
                     result = new Menes.Property<Draft201909MetaContent>(this, property.NameAsMemory);
                     return true;
                 }
+                currentIndex++;
             }
             result = default; ;
             return false;

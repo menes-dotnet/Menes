@@ -975,6 +975,7 @@ namespace TestSpace
                     result = new Menes.Property<Draft201909MetaCore>(this, property.NameAsMemory);
                     return true;
                 }
+                currentIndex++;
             }
             result = default; ;
             return false;
@@ -1440,6 +1441,7 @@ where TPropertyValue : struct, Menes.IJsonValue
                         result = new Menes.Property<VocabularyEntity>(this, property.NameAsMemory);
                         return true;
                     }
+                    currentIndex++;
                 }
                 result = default; ;
                 return false;
@@ -1832,6 +1834,7 @@ where TPropertyValue : struct, Menes.IJsonValue
                         result = new Menes.Property<DefsEntity>(this, property.NameAsMemory);
                         return true;
                     }
+                    currentIndex++;
                 }
                 result = default; ;
                 return false;

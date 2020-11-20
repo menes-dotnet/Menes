@@ -232,6 +232,7 @@ namespace Menes.JsonSchema.TypeBuilder
                 memberBuilder.AppendLine($"        result = new Menes.Property<{typeDeclaration.DotnetTypeName}>(this, property.NameAsMemory);");
                 memberBuilder.AppendLine("        return true;");
                 memberBuilder.AppendLine("    }");
+                memberBuilder.AppendLine("    currentIndex++;");
                 memberBuilder.AppendLine("}");
             }
 
