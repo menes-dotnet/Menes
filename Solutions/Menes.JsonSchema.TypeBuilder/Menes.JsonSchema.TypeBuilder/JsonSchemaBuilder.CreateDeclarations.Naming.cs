@@ -1,4 +1,4 @@
-﻿// <copyright file="JsonSchemaBuilder.Naming.cs" company="Endjin Limited">
+﻿// <copyright file="JsonSchemaBuilder.CreateDeclarations.Naming.cs" company="Endjin Limited">
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
@@ -18,7 +18,7 @@ namespace Menes.JsonSchema.TypeBuilder
         private static readonly ReadOnlyMemory<char> ValueSuffix = "Value".AsMemory();
         private static readonly ReadOnlyMemory<char> EntitySuffix = "Entity".AsMemory();
 
-        private Dictionary<string, string> fullyQualifiedTypeNameToAsMethodName = new Dictionary<string, string>();
+        private readonly Dictionary<string, string> fullyQualifiedTypeNameToAsMethodName = new Dictionary<string, string>();
 
         private static ReadOnlyMemory<char> MakeMemberNameUnique(TypeDeclaration? typeDeclaration, ReadOnlyMemory<char> baseName, ReadOnlyMemory<char>? suffix = null)
         {

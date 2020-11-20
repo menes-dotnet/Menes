@@ -1,4 +1,4 @@
-﻿// <copyright file="JsonSchemaBuilder.Validation.Boolean.cs" company="Endjin Limited">
+﻿// <copyright file="JsonSchemaBuilder.BuildCode.Validation.Boolean.cs" company="Endjin Limited">
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 

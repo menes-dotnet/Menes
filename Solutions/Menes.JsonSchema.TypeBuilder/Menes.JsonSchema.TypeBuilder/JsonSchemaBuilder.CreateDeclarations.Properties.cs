@@ -1,4 +1,4 @@
-﻿// <copyright file="JsonSchemaBuilder.FindProperties.cs" company="Endjin Limited">
+﻿// <copyright file="JsonSchemaBuilder.CreateDeclarations.Properties.cs" company="Endjin Limited">
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 

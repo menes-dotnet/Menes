@@ -1,4 +1,4 @@
-﻿// <copyright file="JsonSchemaBuilder.ElementResolution.cs" company="Endjin Limited">
+﻿// <copyright file="JsonSchemaBuilder.WalkTree.ElementResolution.cs" company="Endjin Limited">
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
