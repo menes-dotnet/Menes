@@ -62,6 +62,10 @@ namespace Menes.JsonSchema.TypeBuilder
             this.BuildIsAndAsMethods(typeDeclaration, memberBuilder);
             this.BuildTryGetProperty(typeDeclaration, memberBuilder);
             this.BuildArrayEnumerators(typeDeclaration, memberBuilder);
+            this.BuildArrayAdd(typeDeclaration, memberBuilder);
+            this.BuildArrayInsert(typeDeclaration, memberBuilder);
+            this.BuildArrayRemoveAt(typeDeclaration, memberBuilder);
+            this.BuildArrayRemoveIf(typeDeclaration, memberBuilder);
             this.BuildObjectEnumerator(typeDeclaration, memberBuilder);
             this.BuildWithPropertyMethods(typeDeclaration, memberBuilder);
 
@@ -109,6 +113,10 @@ namespace Menes.JsonSchema.TypeBuilder
             memberBuilder.AppendLine("public T As<T>()");
             memberBuilder.AppendLine("    where T : struct, Menes.IJsonValue");
             memberBuilder.AppendLine("{");
+            memberBuilder.AppendLine($"if (typeof(T) == typeof({typeDeclaration.DotnetTypeName}))");
+            memberBuilder.AppendLine("{");
+            memberBuilder.AppendLine("    return Corvus.Extensions.CastTo<T>.From(this);");
+            memberBuilder.AppendLine("}");
             memberBuilder.AppendLine("    return Menes.JsonValue.As<T>(Menes.JsonValue.FlattenToJsonElementBacking(this).JsonElement);");
             memberBuilder.AppendLine("}");
 

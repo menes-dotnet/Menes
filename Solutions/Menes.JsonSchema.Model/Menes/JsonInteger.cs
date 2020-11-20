@@ -155,19 +155,24 @@ namespace Menes
         public T As<T>()
             where T : struct, IJsonValue
         {
-            return this.JsonElement.As<T>();
+            if (typeof(T) == typeof(JsonInteger))
+            {
+                return Corvus.Extensions.CastTo<T>.From(this);
+            }
+
+            return JsonValue.As<T>(JsonValue.FlattenToJsonElementBacking(this).JsonElement);
         }
 
         /// <inheritdoc />
         public bool Is<T>()
             where T : struct, IJsonValue
         {
-            if (typeof(T) == typeof(JsonString))
+            if (typeof(T) == typeof(JsonInteger))
             {
                 return this.Validate().Valid;
             }
 
-            return this.JsonElement.As<T>().Validate(ValidationResult.ValidResult, ValidationLevel.Flag).Valid;
+            return this.As<T>().Validate().Valid;
         }
 
         /// <inheritdoc />

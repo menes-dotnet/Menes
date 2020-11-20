@@ -60,9 +60,9 @@ namespace Menes.JsonSchema.TypeBuilder
 
             if (itemsType.ContainsReferenceTo(typeDeclaration))
             {
-                memberBuilder.AppendLine("            else if (this.instance._menesArrayValueBacking is System.Collections.Immutable.ImmutableArray<Menes.JsonValueBacking> array && this.index >= 0 && this.index < array.Length)");
+                memberBuilder.AppendLine("            else if (this.instance._menesArrayValueBacking is System.Collections.Immutable.ImmutableArray<Menes.JsonArrayValueBacking> array && this.index >= 0 && this.index < array.Length)");
                 memberBuilder.AppendLine("            {");
-                memberBuilder.AppendLine($"                return array[this.index].Value<{itemsType.FullyQualifiedDotNetTypeName}>() ?? default;");
+                memberBuilder.AppendLine($"                return array[this.index].As<{itemsType.FullyQualifiedDotNetTypeName}>();");
                 memberBuilder.AppendLine("            }");
             }
             else
@@ -134,11 +134,11 @@ namespace Menes.JsonSchema.TypeBuilder
             memberBuilder.AppendLine("        }");
             if (itemsType.ContainsReferenceTo(typeDeclaration))
             {
-                memberBuilder.AppendLine("        else if (this.instance._menesArrayValueBacking is System.Collections.Immutable.ImmutableArray<Menes.JsonValueBacking> array && this.index < array.Length)");
+                memberBuilder.AppendLine("        else if (this.instance._menesArrayValueBacking is System.Collections.Immutable.ImmutableArray<Menes.JsonArrayValueBacking> array && this.index + 1 < array.Length)");
             }
             else
             {
-                memberBuilder.AppendLine($"        else if (this.instance._menesArrayValueBacking is System.Collections.Immutable.ImmutableArray<{itemsType.FullyQualifiedDotNetTypeName}> array && this.index < array.Length)");
+                memberBuilder.AppendLine($"        else if (this.instance._menesArrayValueBacking is System.Collections.Immutable.ImmutableArray<{itemsType.FullyQualifiedDotNetTypeName}> array && this.index + 1 < array.Length)");
             }
 
             memberBuilder.AppendLine("        {");
@@ -178,6 +178,193 @@ namespace Menes.JsonSchema.TypeBuilder
             }
         }
 
+        private void BuildArrayAdd(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
+        {
+            if (!typeDeclaration.IsArrayTypeDeclaration)
+            {
+                return;
+            }
+
+            memberBuilder.AppendLine($"public {typeDeclaration.DotnetTypeName} Add<T>(T item)");
+            memberBuilder.AppendLine("    where T : struct, Menes.IJsonValue");
+            memberBuilder.AppendLine("{");
+
+            this.BuildArrayAddOrInsert(typeDeclaration, memberBuilder, false);
+
+            memberBuilder.AppendLine("}");
+        }
+
+        private void BuildArrayInsert(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
+        {
+            if (!typeDeclaration.IsArrayTypeDeclaration)
+            {
+                return;
+            }
+
+            memberBuilder.AppendLine($"public {typeDeclaration.DotnetTypeName} Insert<T>(int index, T item)");
+            memberBuilder.AppendLine("    where T : struct, Menes.IJsonValue");
+            memberBuilder.AppendLine("{");
+
+            this.BuildArrayAddOrInsert(typeDeclaration, memberBuilder, true);
+
+            memberBuilder.AppendLine("}");
+        }
+
+        private void BuildArrayAddOrInsert(TypeDeclaration typeDeclaration, StringBuilder memberBuilder, bool insert)
+        {
+            TypeDeclaration itemsType = this.GetItemsTypeFor(typeDeclaration);
+            bool containsReference = itemsType.ContainsReferenceTo(typeDeclaration);
+
+            if (containsReference)
+            {
+                memberBuilder.AppendLine("var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonArrayValueBacking>();");
+            }
+            else
+            {
+                memberBuilder.AppendLine($"var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<{itemsType.FullyQualifiedDotNetTypeName}>();");
+            }
+
+            if (insert)
+            {
+                memberBuilder.AppendLine("int currentIndex = 0;");
+                memberBuilder.AppendLine("bool inserted = false;");
+            }
+
+            memberBuilder.AppendLine("foreach(var oldItem in this._menesArrayValueBacking)");
+            memberBuilder.AppendLine("{");
+            if (insert)
+            {
+                memberBuilder.AppendLine("if (currentIndex == index)");
+                memberBuilder.AppendLine("{");
+                this.AddNewItem(memberBuilder, itemsType, containsReference);
+                memberBuilder.AppendLine("    inserted = true;");
+                memberBuilder.AppendLine("}");
+            }
+
+            memberBuilder.AppendLine("arrayBuilder.Add(oldItem);");
+
+            if (insert)
+            {
+                memberBuilder.AppendLine("currentIndex++;");
+            }
+
+            memberBuilder.AppendLine("}");
+
+            if (insert)
+            {
+                memberBuilder.AppendLine("if (!inserted)");
+                memberBuilder.AppendLine("{");
+                memberBuilder.AppendLine("    throw new System.IndexOutOfRangeException($\"The given index {index} was out of range.\");");
+                memberBuilder.AppendLine("}");
+            }
+            else
+            {
+                this.AddNewItem(memberBuilder, itemsType, containsReference);
+            }
+
+            memberBuilder.AppendLine($"return new {typeDeclaration.FullyQualifiedDotNetTypeName}(arrayBuilder.ToImmutable());");
+        }
+
+        private void BuildArrayRemoveAt(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
+        {
+            if (!typeDeclaration.IsArrayTypeDeclaration)
+            {
+                return;
+            }
+
+            memberBuilder.AppendLine($"public {typeDeclaration.DotnetTypeName} RemoveAt(int index)");
+            memberBuilder.AppendLine("{");
+
+            TypeDeclaration itemsType = this.GetItemsTypeFor(typeDeclaration);
+            bool containsReference = itemsType.ContainsReferenceTo(typeDeclaration);
+
+            if (containsReference)
+            {
+                memberBuilder.AppendLine("var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonArrayValueBacking>();");
+            }
+            else
+            {
+                memberBuilder.AppendLine($"var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<{itemsType.FullyQualifiedDotNetTypeName}>();");
+            }
+
+            memberBuilder.AppendLine("int currentIndex = 0;");
+            memberBuilder.AppendLine("bool removed = false;");
+            memberBuilder.AppendLine("foreach(var item in this._menesArrayValueBacking)");
+            memberBuilder.AppendLine("{");
+            memberBuilder.AppendLine("    if (currentIndex != index)");
+            memberBuilder.AppendLine("    {");
+            memberBuilder.AppendLine("        arrayBuilder.Add(item);");
+            memberBuilder.AppendLine("    }");
+            memberBuilder.AppendLine("    else");
+            memberBuilder.AppendLine("    {");
+            memberBuilder.AppendLine("        removed = true;");
+            memberBuilder.AppendLine("    }");
+            memberBuilder.AppendLine("    currentIndex++;");
+            memberBuilder.AppendLine("}");
+
+            memberBuilder.AppendLine("if (!removed)");
+            memberBuilder.AppendLine("{");
+            memberBuilder.AppendLine("    throw new System.IndexOutOfRangeException($\"The given index {index} was out of range.\");");
+            memberBuilder.AppendLine("}");
+
+            memberBuilder.AppendLine($"return new {typeDeclaration.FullyQualifiedDotNetTypeName}(arrayBuilder.ToImmutable());");
+
+            memberBuilder.AppendLine("}");
+        }
+
+        private void BuildArrayRemoveIf(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
+        {
+            if (!typeDeclaration.IsArrayTypeDeclaration)
+            {
+                return;
+            }
+
+            TypeDeclaration itemsType = this.GetItemsTypeFor(typeDeclaration);
+            bool containsReference = itemsType.ContainsReferenceTo(typeDeclaration);
+
+            memberBuilder.AppendLine($"public {typeDeclaration.DotnetTypeName} RemoveIf(System.Predicate<{itemsType.FullyQualifiedDotNetTypeName}> condition)");
+            memberBuilder.AppendLine("{");
+            memberBuilder.AppendLine($"    return this.RemoveIf<{itemsType.FullyQualifiedDotNetTypeName}>(condition);");
+            memberBuilder.AppendLine("}");
+
+            memberBuilder.AppendLine($"public {typeDeclaration.DotnetTypeName} RemoveIf<T>(System.Predicate<T> condition)");
+            memberBuilder.AppendLine($"    where T : struct, Menes.IJsonValue");
+            memberBuilder.AppendLine("{");
+
+            if (containsReference)
+            {
+                memberBuilder.AppendLine("var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonArrayValueBacking>();");
+            }
+            else
+            {
+                memberBuilder.AppendLine($"var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<{itemsType.FullyQualifiedDotNetTypeName}>();");
+            }
+
+            memberBuilder.AppendLine("foreach(var item in this._menesArrayValueBacking)");
+            memberBuilder.AppendLine("{");
+            memberBuilder.AppendLine("    if (!condition(item.As<T>()))");
+            memberBuilder.AppendLine("    {");
+            memberBuilder.AppendLine("        arrayBuilder.Add(item);");
+            memberBuilder.AppendLine("    }");
+            memberBuilder.AppendLine("}");
+
+            memberBuilder.AppendLine($"return new {typeDeclaration.FullyQualifiedDotNetTypeName}(arrayBuilder.ToImmutable());");
+
+            memberBuilder.AppendLine("}");
+        }
+
+        private void AddNewItem(StringBuilder memberBuilder, TypeDeclaration itemsType, bool containsReference)
+        {
+            if (containsReference)
+            {
+                memberBuilder.AppendLine($"    arrayBuilder.Add(Menes.JsonArrayValueBacking.From<{itemsType.FullyQualifiedDotNetTypeName}>(item.As<{itemsType.FullyQualifiedDotNetTypeName}>()));");
+            }
+            else
+            {
+                memberBuilder.AppendLine($"    arrayBuilder.Add(item.As<{itemsType.FullyQualifiedDotNetTypeName}>());");
+            }
+        }
+
         private void BuildArrayInterfaces(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
         {
             if (!typeDeclaration.IsArrayTypeDeclaration)
@@ -209,12 +396,12 @@ namespace Menes.JsonSchema.TypeBuilder
 
         private void BuildArrayBackingField(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
         {
-            if (typeDeclaration.Items is not null)
+            if (typeDeclaration.IsArrayTypeDeclaration)
             {
                 TypeDeclaration itemsType = this.GetItemsTypeFor(typeDeclaration);
                 if (itemsType.ContainsReferenceTo(typeDeclaration))
                 {
-                    memberBuilder.AppendLine("private readonly System.Collections.Immutable.ImmutableArray<Menes.JsonValueBacking>? _menesArrayValueBacking;");
+                    memberBuilder.AppendLine("private readonly System.Collections.Immutable.ImmutableArray<Menes.JsonArrayValueBacking>? _menesArrayValueBacking;");
                 }
                 else
                 {

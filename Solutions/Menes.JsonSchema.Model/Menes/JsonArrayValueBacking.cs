@@ -1,4 +1,4 @@
-﻿// <copyright file="JsonValueBacking.cs" company="Endjin Limited">
+﻿// <copyright file="JsonArrayValueBacking.cs" company="Endjin Limited">
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
@@ -13,29 +13,29 @@ namespace Menes
     /// This will box the <see cref="IJsonValue"/> if it is not backed by a <see cref="JsonElement"/>. It is used in the implementation
     /// of the entities where they have properties which recursively contain instances of the parent property.
     /// </remarks>
-    public readonly struct JsonValueBacking
+    public readonly struct JsonArrayValueBacking
     {
         private readonly IJsonValue? value;
         private readonly JsonElement jsonElement;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="JsonValueBacking"/> struct.
+        /// Initializes a new instance of the <see cref="JsonArrayValueBacking"/> struct.
         /// </summary>
         /// <param name="value">The <see cref="JsonValue"/> with which to construct the backing value.</param>
-        internal JsonValueBacking(IJsonValue? value)
+        internal JsonArrayValueBacking(IJsonValue value)
         {
             this.value = value;
             this.jsonElement = default;
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="JsonValueBacking"/> struct.
+        /// Initializes a new instance of the <see cref="JsonArrayValueBacking"/> struct.
         /// </summary>
         /// <param name="jsonElement">The <see cref="JsonElement"/> from which to construct the backing value.</param>
-        internal JsonValueBacking(JsonElement jsonElement)
+        internal JsonArrayValueBacking(JsonElement jsonElement)
         {
             this.jsonElement = jsonElement;
-            this.value = null;
+            this.value = default;
         }
 
         /// <summary>
@@ -48,16 +48,16 @@ namespace Menes
         /// </summary>
         /// <typeparam name="T">The type of the <see cref="IJsonValue"/>.</typeparam>
         /// <param name="source">The source <see cref="IJsonValue"/>.</param>
-        /// <returns>An instance of the <see cref="JsonValueBacking"/> for the given <see cref="IJsonValue"/>.</returns>
-        public static JsonValueBacking From<T>(T? source)
+        /// <returns>An instance of the <see cref="JsonArrayValueBacking"/> for the given <see cref="IJsonValue"/>.</returns>
+        public static JsonArrayValueBacking From<T>(T source)
             where T : struct, IJsonValue
         {
             if (source is T s && s.HasJsonElement)
             {
-                return new JsonValueBacking(s.JsonElement);
+                return new JsonArrayValueBacking(s.JsonElement);
             }
 
-            return new JsonValueBacking(source);
+            return new JsonArrayValueBacking(source);
         }
 
         /// <summary>
@@ -82,12 +82,12 @@ namespace Menes
         /// </summary>
         /// <typeparam name="TValue">The type of the value.</typeparam>
         /// <returns>The value, constructed from the <see cref="jsonElement"/> if available, otherwise cast from the boxed instance.</returns>
-        public TValue? As<TValue>()
+        public TValue As<TValue>()
             where TValue : struct, IJsonValue
         {
             if (this.value is not null)
             {
-                return (TValue)this.value;
+                return this.value.As<TValue>();
             }
 
             if (this.jsonElement.ValueKind != JsonValueKind.Null && this.jsonElement.ValueKind != JsonValueKind.Undefined)

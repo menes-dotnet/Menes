@@ -47,7 +47,7 @@ namespace TestSpace
         /// <inheritdoc />
         public System.Text.Json.JsonElement JsonElement => this._menesJsonElementBacking;
         public Menes.JsonString Meta => this.HasJsonElement ? this.GetPropertyFromJsonElement<Menes.JsonString>(_MenesMetaUtf8JsonPropertyName.Span) : this.meta ?? Menes.JsonString.Null;
-        public Tree.NodesArray Nodes => this.HasJsonElement ? this.GetPropertyFromJsonElement<Tree.NodesArray>(_MenesNodesUtf8JsonPropertyName.Span) : this.nodes.Value<Tree.NodesArray>() ?? Tree.NodesArray.Null;
+        public Tree.NodesArray Nodes => this.HasJsonElement ? this.GetPropertyFromJsonElement<Tree.NodesArray>(_MenesNodesUtf8JsonPropertyName.Span) : this.nodes.As<Tree.NodesArray>() ?? Tree.NodesArray.Null;
         public int PropertyCount
         {
             get
@@ -102,6 +102,10 @@ namespace TestSpace
         public T As<T>()
             where T : struct, Menes.IJsonValue
         {
+            if (typeof(T) == typeof(Tree))
+            {
+                return Corvus.Extensions.CastTo<T>.From(this);
+            }
             return Menes.JsonValue.As<T>(Menes.JsonValue.FlattenToJsonElementBacking(this).JsonElement);
         }
         /// <inheritdoc />
@@ -295,7 +299,7 @@ namespace TestSpace
         {
             public static readonly NodesArray Null = default(NodesArray);
             private readonly System.Text.Json.JsonElement _menesJsonElementBacking;
-            private readonly System.Collections.Immutable.ImmutableArray<Menes.JsonValueBacking>? _menesArrayValueBacking;
+            private readonly System.Collections.Immutable.ImmutableArray<Menes.JsonArrayValueBacking>? _menesArrayValueBacking;
             public NodesArray(System.Text.Json.JsonElement jsonElement)
             {
                 this._menesJsonElementBacking = jsonElement;
@@ -303,12 +307,17 @@ namespace TestSpace
             }
             public NodesArray(System.Collections.Immutable.ImmutableArray<Tree.NodeEntity> value)
             {
-                var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonValueBacking>();
+                var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonArrayValueBacking>();
                 foreach (var item in value)
                 {
-                    arrayBuilder.Add(Menes.JsonValueBacking.From<Tree.NodeEntity>(item));
+                    arrayBuilder.Add(Menes.JsonArrayValueBacking.From<Tree.NodeEntity>(item));
                 }
                 this._menesArrayValueBacking = arrayBuilder.ToImmutable();
+                this._menesJsonElementBacking = default;
+            }
+            private NodesArray(System.Collections.Immutable.ImmutableArray<Menes.JsonArrayValueBacking> value)
+            {
+                this._menesArrayValueBacking = value;
                 this._menesJsonElementBacking = default;
             }
             public static implicit operator NodesArray(System.Collections.Immutable.ImmutableArray<Tree.NodeEntity> items)
@@ -348,6 +357,10 @@ namespace TestSpace
             public T As<T>()
                 where T : struct, Menes.IJsonValue
             {
+                if (typeof(T) == typeof(NodesArray))
+                {
+                    return Corvus.Extensions.CastTo<T>.From(this);
+                }
                 return Menes.JsonValue.As<T>(Menes.JsonValue.FlattenToJsonElementBacking(this).JsonElement);
             }
             /// <inheritdoc />
@@ -362,6 +375,79 @@ namespace TestSpace
             }
             public Tree.NodesArray.MenesArrayEnumerator GetEnumerator() { return new Tree.NodesArray.MenesArrayEnumerator(this); }
             System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() { return this.GetEnumerator(); }
+            public NodesArray Add<T>(T item)
+where T : struct, Menes.IJsonValue
+            {
+                var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonArrayValueBacking>();
+                foreach (var oldItem in this._menesArrayValueBacking)
+                {
+                    arrayBuilder.Add(oldItem);
+                }
+                arrayBuilder.Add(Menes.JsonArrayValueBacking.From<Tree.NodeEntity>(item.As<Tree.NodeEntity>()));
+                return new Tree.NodesArray(arrayBuilder.ToImmutable());
+            }
+            public NodesArray Insert<T>(int index, T item)
+                where T : struct, Menes.IJsonValue
+            {
+                var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonArrayValueBacking>();
+                int currentIndex = 0;
+                bool inserted = false;
+                foreach (var oldItem in this._menesArrayValueBacking)
+                {
+                    if (currentIndex == index)
+                    {
+                        arrayBuilder.Add(Menes.JsonArrayValueBacking.From<Tree.NodeEntity>(item.As<Tree.NodeEntity>()));
+                        inserted = true;
+                    }
+                    arrayBuilder.Add(oldItem);
+                    currentIndex++;
+                }
+                if (!inserted)
+                {
+                    throw new System.IndexOutOfRangeException($"The given index {index} was out of range.");
+                }
+                return new Tree.NodesArray(arrayBuilder.ToImmutable());
+            }
+            public NodesArray RemoveAt(int index)
+            {
+                var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonArrayValueBacking>();
+                int currentIndex = 0;
+                bool removed = false;
+                foreach (var item in this._menesArrayValueBacking)
+                {
+                    if (currentIndex != index)
+                    {
+                        arrayBuilder.Add(item);
+                    }
+                    else
+                    {
+                        removed = true;
+                    }
+                    currentIndex++;
+                }
+                if (!removed)
+                {
+                    throw new System.IndexOutOfRangeException($"The given index {index} was out of range.");
+                }
+                return new Tree.NodesArray(arrayBuilder.ToImmutable());
+            }
+            public NodesArray RemoveIf(System.Predicate<Tree.NodeEntity> condition)
+            {
+                return this.RemoveIf<Tree.NodeEntity>(condition);
+            }
+            public NodesArray RemoveIf<T>(System.Predicate<T> condition)
+                where T : struct, Menes.IJsonValue
+            {
+                var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonArrayValueBacking>();
+                foreach (var item in this._menesArrayValueBacking)
+                {
+                    if (!condition(item.As<T>()))
+                    {
+                        arrayBuilder.Add(item);
+                    }
+                }
+                return new Tree.NodesArray(arrayBuilder.ToImmutable());
+            }
             private bool AllBackingFieldsAreNull()
             {
                 if (this._menesArrayValueBacking is not null)
@@ -404,9 +490,9 @@ namespace TestSpace
                         {
                             return new Tree.NodeEntity(this.jsonEnumerator.Current);
                         }
-                        else if (this.instance._menesArrayValueBacking is System.Collections.Immutable.ImmutableArray<Menes.JsonValueBacking> array && this.index >= 0 && this.index < array.Length)
+                        else if (this.instance._menesArrayValueBacking is System.Collections.Immutable.ImmutableArray<Menes.JsonArrayValueBacking> array && this.index >= 0 && this.index < array.Length)
                         {
-                            return array[this.index].Value<Tree.NodeEntity>() ?? default;
+                            return array[this.index].As<Tree.NodeEntity>();
                         }
                         return default;
                     }
@@ -460,7 +546,7 @@ namespace TestSpace
                     {
                         return this.jsonEnumerator.MoveNext();
                     }
-                    else if (this.instance._menesArrayValueBacking is System.Collections.Immutable.ImmutableArray<Menes.JsonValueBacking> array && this.index < array.Length)
+                    else if (this.instance._menesArrayValueBacking is System.Collections.Immutable.ImmutableArray<Menes.JsonArrayValueBacking> array && this.index + 1 < array.Length)
                     {
                         this.index++;
                         return true;
@@ -512,7 +598,7 @@ namespace TestSpace
             /// <inheritdoc />
             public System.Text.Json.JsonElement JsonElement => this._menesJsonElementBacking;
             public Menes.JsonNumber Value => this.HasJsonElement ? this.GetPropertyFromJsonElement<Menes.JsonNumber>(_MenesValueUtf8JsonPropertyName.Span) : this.value ?? Menes.JsonNumber.Null;
-            public Tree? Subtree => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Tree>(_MenesSubtreeUtf8JsonPropertyName.Span) : this.subtree.Value<Tree>();
+            public Tree? Subtree => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Tree>(_MenesSubtreeUtf8JsonPropertyName.Span) : this.subtree.As<Tree>();
             public int PropertyCount
             {
                 get
@@ -567,6 +653,10 @@ namespace TestSpace
             public T As<T>()
                 where T : struct, Menes.IJsonValue
             {
+                if (typeof(T) == typeof(NodeEntity))
+                {
+                    return Corvus.Extensions.CastTo<T>.From(this);
+                }
                 return Menes.JsonValue.As<T>(Menes.JsonValue.FlattenToJsonElementBacking(this).JsonElement);
             }
             /// <inheritdoc />

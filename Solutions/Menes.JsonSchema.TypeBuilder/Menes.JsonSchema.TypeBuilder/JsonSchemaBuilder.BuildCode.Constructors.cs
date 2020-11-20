@@ -31,7 +31,47 @@ namespace Menes.JsonSchema.TypeBuilder
             this.BuildArrayConstructors(typeDeclaration, memberBuilder, constructorParameterDeclarations);
 
             // Private constructors
+            this.BuildRawArrayConstructor(typeDeclaration, memberBuilder, constructorParameterDeclarations);
             this.BuildRawEntityConstructor(typeDeclaration, memberBuilder, constructorParameterDeclarations);
+        }
+
+        private void BuildRawArrayConstructor(TypeDeclaration typeDeclaration, StringBuilder memberBuilder, HashSet<string> constructorParameterDeclarations)
+        {
+            if (!typeDeclaration.IsArrayTypeDeclaration)
+            {
+                return;
+            }
+
+            TypeDeclaration itemsType = this.GetItemsTypeFor(typeDeclaration);
+            bool containsReference = itemsType.ContainsReferenceTo(typeDeclaration);
+
+            // We only need this private constructor if we contain a recursive reference value; otherwise
+            // we will be using the public constructor
+            if (!containsReference)
+            {
+                return;
+            }
+
+            var parameterDeclarations = new StringBuilder();
+
+            parameterDeclarations.Append($"System.Collections.Immutable.ImmutableArray<Menes.JsonArrayValueBacking> value");
+
+            string parameterDeclaration = parameterDeclarations.ToString();
+            if (!constructorParameterDeclarations.Contains(parameterDeclaration) && !string.IsNullOrEmpty(parameterDeclaration))
+            {
+                constructorParameterDeclarations.Add(parameterDeclaration);
+                memberBuilder.AppendLine($"private {typeDeclaration.DotnetTypeName}({parameterDeclaration})");
+                memberBuilder.AppendLine("{");
+
+                memberBuilder.AppendLine("    this._menesArrayValueBacking = value;");
+
+                memberBuilder.AppendLine("    this._menesJsonElementBacking = default;");
+                this.BuildAssignNullOrDefaultAdditionalPropertiesBackingField(typeDeclaration, memberBuilder);
+                this.BuildAssignNullOrDefaultPropertyBackingFields(typeDeclaration, memberBuilder);
+                this.BuildAssignNullOrDefaultTypeBackingFields(typeDeclaration, memberBuilder);
+
+                memberBuilder.AppendLine("}");
+            }
         }
 
         private void BuildArrayConstructors(TypeDeclaration typeDeclaration, StringBuilder memberBuilder, HashSet<string> constructorParameterDeclarations)
@@ -55,10 +95,10 @@ namespace Menes.JsonSchema.TypeBuilder
 
                 if (itemsType.ContainsReferenceTo(typeDeclaration))
                 {
-                    memberBuilder.AppendLine("    var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonValueBacking>();");
+                    memberBuilder.AppendLine("    var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonArrayValueBacking>();");
                     memberBuilder.AppendLine("    foreach (var item in value)");
                     memberBuilder.AppendLine("    {");
-                    memberBuilder.AppendLine($"        arrayBuilder.Add(Menes.JsonValueBacking.From<{itemsType.FullyQualifiedDotNetTypeName}>(item));");
+                    memberBuilder.AppendLine($"        arrayBuilder.Add(Menes.JsonArrayValueBacking.From<{itemsType.FullyQualifiedDotNetTypeName}>(item));");
                     memberBuilder.AppendLine("    }");
                     memberBuilder.AppendLine("    this._menesArrayValueBacking = arrayBuilder.ToImmutable();");
                 }

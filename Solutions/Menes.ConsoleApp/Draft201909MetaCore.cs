@@ -138,7 +138,7 @@ namespace TestSpace
         public Menes.JsonBoolean? RecursiveAnchor => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Menes.JsonBoolean>(_MenesRecursiveAnchorUtf8JsonPropertyName.Span) : this.recursiveAnchor;
         public Draft201909MetaCore.VocabularyEntity? Vocabulary => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaCore.VocabularyEntity>(_MenesVocabularyUtf8JsonPropertyName.Span) : this.vocabulary;
         public Menes.JsonString? Comment => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Menes.JsonString>(_MenesCommentUtf8JsonPropertyName.Span) : this.comment;
-        public Draft201909MetaCore.DefsEntity? Defs => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaCore.DefsEntity>(_MenesDefsUtf8JsonPropertyName.Span) : this.defs.Value<Draft201909MetaCore.DefsEntity>();
+        public Draft201909MetaCore.DefsEntity? Defs => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaCore.DefsEntity>(_MenesDefsUtf8JsonPropertyName.Span) : this.defs.As<Draft201909MetaCore.DefsEntity>();
         public int PropertyCount
         {
             get
@@ -228,6 +228,10 @@ namespace TestSpace
         public T As<T>()
             where T : struct, Menes.IJsonValue
         {
+            if (typeof(T) == typeof(Draft201909MetaCore))
+            {
+                return Corvus.Extensions.CastTo<T>.From(this);
+            }
             return Menes.JsonValue.As<T>(Menes.JsonValue.FlattenToJsonElementBacking(this).JsonElement);
         }
         /// <inheritdoc />
@@ -850,6 +854,10 @@ namespace TestSpace
             public T As<T>()
                 where T : struct, Menes.IJsonValue
             {
+                if (typeof(T) == typeof(IdValue))
+                {
+                    return Corvus.Extensions.CastTo<T>.From(this);
+                }
                 return Menes.JsonValue.As<T>(Menes.JsonValue.FlattenToJsonElementBacking(this).JsonElement);
             }
             /// <inheritdoc />
@@ -935,6 +943,10 @@ namespace TestSpace
             public T As<T>()
                 where T : struct, Menes.IJsonValue
             {
+                if (typeof(T) == typeof(AnchorValue))
+                {
+                    return Corvus.Extensions.CastTo<T>.From(this);
+                }
                 return Menes.JsonValue.As<T>(Menes.JsonValue.FlattenToJsonElementBacking(this).JsonElement);
             }
             /// <inheritdoc />
@@ -1023,6 +1035,10 @@ namespace TestSpace
             public T As<T>()
                 where T : struct, Menes.IJsonValue
             {
+                if (typeof(T) == typeof(VocabularyEntity))
+                {
+                    return Corvus.Extensions.CastTo<T>.From(this);
+                }
                 return Menes.JsonValue.As<T>(Menes.JsonValue.FlattenToJsonElementBacking(this).JsonElement);
             }
             /// <inheritdoc />
@@ -1326,6 +1342,10 @@ where TPropertyValue : struct, Menes.IJsonValue
             public T As<T>()
                 where T : struct, Menes.IJsonValue
             {
+                if (typeof(T) == typeof(DefsEntity))
+                {
+                    return Corvus.Extensions.CastTo<T>.From(this);
+                }
                 return Menes.JsonValue.As<T>(Menes.JsonValue.FlattenToJsonElementBacking(this).JsonElement);
             }
             /// <inheritdoc />

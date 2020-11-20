@@ -1,62 +1,26 @@
-// <copyright file="Draft201909MetaFormat.cs" company="Endjin Limited">
+// <copyright file="JsonObject.cs" company="Endjin Limited">
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 #pragma warning disable
-namespace TestSpace
+namespace Menes
 {
-    public readonly struct Draft201909MetaFormat : Menes.IJsonObject
+    /// <summary>
+    /// An anonymous JSON object on which you can set and retrieve properties.
+    /// </summary>
+    public readonly struct JsonObject : Menes.IJsonObject
     {
-        public static readonly Draft201909MetaFormat Null = default(Draft201909MetaFormat);
-        private static readonly System.ReadOnlyMemory<char> _MenesFormatJsonPropertyName = System.MemoryExtensions.AsMemory("format");
-        private static readonly System.ReadOnlyMemory<byte> _MenesFormatUtf8JsonPropertyName = new byte[] { 102, 111, 114, 109, 97, 116 };
-        private static readonly System.Text.Json.JsonEncodedText _MenesFormatEncodedJsonPropertyName = System.Text.Json.JsonEncodedText.Encode(_MenesFormatUtf8JsonPropertyName.Span);
+        public static readonly JsonObject Null = default(JsonObject);
         private readonly System.Text.Json.JsonElement _menesJsonElementBacking;
         private readonly System.Collections.Immutable.ImmutableArray<Menes.AdditionalProperty<Menes.JsonAny>> _menesAdditionalPropertiesBacking;
-        private readonly Menes.JsonBoolean? _menesBooleanTypeBacking;
-        private readonly Menes.JsonString? format;
-        public Draft201909MetaFormat(System.Text.Json.JsonElement jsonElement)
+        public JsonObject(System.Text.Json.JsonElement jsonElement)
         {
             this._menesJsonElementBacking = jsonElement;
             this._menesAdditionalPropertiesBacking = System.Collections.Immutable.ImmutableArray<Menes.AdditionalProperty<Menes.JsonAny>>.Empty;
-            this._menesBooleanTypeBacking = default;
-            this.format = default;
         }
-        public Draft201909MetaFormat(Menes.JsonString? format = null)
+        private JsonObject(in System.Collections.Immutable.ImmutableArray<Menes.AdditionalProperty<Menes.JsonAny>> _menesAdditionalPropertiesBacking)
         {
             this._menesJsonElementBacking = default;
-            this.format = format;
-            this._menesAdditionalPropertiesBacking = System.Collections.Immutable.ImmutableArray<Menes.AdditionalProperty<Menes.JsonAny>>.Empty;
-            this._menesBooleanTypeBacking = default;
-        }
-        public Draft201909MetaFormat(Menes.JsonBoolean value)
-        {
-            this._menesJsonElementBacking = default;
-            this._menesBooleanTypeBacking = value;
-            this._menesAdditionalPropertiesBacking = System.Collections.Immutable.ImmutableArray<Menes.AdditionalProperty<Menes.JsonAny>>.Empty;
-            this.format = default;
-        }
-        private Draft201909MetaFormat(Menes.JsonString? format, Menes.JsonBoolean? _menesBooleanTypeBacking, in System.Collections.Immutable.ImmutableArray<Menes.AdditionalProperty<Menes.JsonAny>> _menesAdditionalPropertiesBacking)
-        {
-            this._menesJsonElementBacking = default;
-            this.format = format;
-            this._menesBooleanTypeBacking = _menesBooleanTypeBacking;
             this._menesAdditionalPropertiesBacking = _menesAdditionalPropertiesBacking;
-        }
-        public static implicit operator Menes.JsonBoolean(Draft201909MetaFormat value)
-        {
-            return value.As<Menes.JsonBoolean>();
-        }
-        public static implicit operator Draft201909MetaFormat(Menes.JsonBoolean value)
-        {
-            return value.As<Draft201909MetaFormat>();
-        }
-        public static implicit operator bool(Draft201909MetaFormat value)
-        {
-            return (bool)(Menes.JsonBoolean)value;
-        }
-        public static implicit operator Draft201909MetaFormat(bool value)
-        {
-            return (Draft201909MetaFormat)(Menes.JsonBoolean)value;
         }
         /// <inheritdoc />
         public bool IsUndefined => !this.HasJsonElement && this.AllBackingFieldsAreNull();
@@ -66,7 +30,6 @@ namespace TestSpace
         public bool HasJsonElement => this._menesJsonElementBacking.ValueKind != System.Text.Json.JsonValueKind.Undefined;
         /// <inheritdoc />
         public System.Text.Json.JsonElement JsonElement => this._menesJsonElementBacking;
-        public Menes.JsonString? Format => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Menes.JsonString>(_MenesFormatUtf8JsonPropertyName.Span) : this.format;
         public int PropertyCount
         {
             get
@@ -82,7 +45,7 @@ namespace TestSpace
                 }
                 else
                 {
-                    return 1 + this._menesAdditionalPropertiesBacking.Length;
+                    return this._menesAdditionalPropertiesBacking.Length;
                 }
             }
         }
@@ -101,11 +64,6 @@ namespace TestSpace
                 return;
             }
             writer.WriteStartObject();
-            if (this.format is Menes.JsonString format)
-            {
-                writer.WritePropertyName(_MenesFormatEncodedJsonPropertyName);
-                format.WriteTo(writer);
-            }
             foreach (var property in this._menesAdditionalPropertiesBacking)
             {
                 property.WriteTo(writer);
@@ -116,17 +74,13 @@ namespace TestSpace
         public T As<T>()
             where T : struct, Menes.IJsonValue
         {
-            if (typeof(T) == typeof(Draft201909MetaFormat))
-            {
-                return Corvus.Extensions.CastTo<T>.From(this);
-            }
             return Menes.JsonValue.As<T>(Menes.JsonValue.FlattenToJsonElementBacking(this).JsonElement);
         }
         /// <inheritdoc />
         public bool Is<T>()
             where T : struct, Menes.IJsonValue
         {
-            if (typeof(T) == typeof(Draft201909MetaFormat))
+            if (typeof(T) == typeof(JsonObject))
             {
                 return this.Validate().Valid;
             }
@@ -145,17 +99,6 @@ namespace TestSpace
                 }
                 property = default;
                 return false;
-            }
-            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesFormatJsonPropertyName.Span))
-            {
-                if (!(this.Format?.As<T>() is T result))
-                {
-                    property = default;
-                    return false;
-                }
-                property = result;
-                return true;
-                return true;
             }
             foreach (var additionalProperty in this._menesAdditionalPropertiesBacking)
             {
@@ -182,17 +125,6 @@ namespace TestSpace
                 property = default;
                 return false;
             }
-            if (System.MemoryExtensions.SequenceEqual(System.MemoryExtensions.AsSpan(propertyName), _MenesFormatJsonPropertyName.Span))
-            {
-                if (!(this.Format?.As<T>() is T result))
-                {
-                    property = default;
-                    return false;
-                }
-                property = result;
-                return true;
-                return true;
-            }
             foreach (var additionalProperty in this._menesAdditionalPropertiesBacking)
             {
                 if (additionalProperty.NameEquals(propertyName))
@@ -218,17 +150,6 @@ namespace TestSpace
                 property = default;
                 return false;
             }
-            if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesFormatUtf8JsonPropertyName.Span))
-            {
-                if (!(this.Format?.As<T>() is T result))
-                {
-                    property = default;
-                    return false;
-                }
-                property = result;
-                return true;
-                return true;
-            }
             foreach (var additionalProperty in this._menesAdditionalPropertiesBacking)
             {
                 if (additionalProperty.NameEquals(propertyName))
@@ -240,12 +161,8 @@ namespace TestSpace
             property = default;
             return false;
         }
-        public Draft201909MetaFormat.MenesPropertyEnumerator GetEnumerator() { return new Draft201909MetaFormat.MenesPropertyEnumerator(this); }
+        public JsonObject.MenesPropertyEnumerator GetEnumerator() { return new JsonObject.MenesPropertyEnumerator(this); }
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() { return this.GetEnumerator(); }
-        public Draft201909MetaFormat WithFormat(Menes.JsonString value)
-        {
-            return new Draft201909MetaFormat(value, this._menesBooleanTypeBacking, this._menesAdditionalPropertiesBacking);
-        }
         private TPropertyValue GetPropertyFromJsonElement<TPropertyValue>(System.ReadOnlySpan<byte> propertyName)
             where TPropertyValue : struct, Menes.IJsonValue
         {
@@ -262,22 +179,14 @@ namespace TestSpace
         }
         private bool AllBackingFieldsAreNull()
         {
-            if (this.format is not null)
-            {
-                return false;
-            }
             if (this._menesAdditionalPropertiesBacking.Length > 0)
-            {
-                return false;
-            }
-            if (this._menesBooleanTypeBacking is not null)
             {
                 return false;
             }
             return true;
         }
         /// <inheritdoc />
-        private bool TryGetPropertyAtIndex(int index, out Menes.Property<Draft201909MetaFormat> result)
+        private bool TryGetPropertyAtIndex(int index, out Menes.Property<JsonObject> result)
         {
             if (this.HasJsonElement)
             {
@@ -286,33 +195,27 @@ namespace TestSpace
                 {
                     if (jsonPropertyIndex == index)
                     {
-                        result = new Menes.Property<Draft201909MetaFormat>(property);
+                        result = new Menes.Property<JsonObject>(property);
                         return true;
                     }
                     jsonPropertyIndex++;
                 }
             }
             int currentIndex = 0;
-            if (currentIndex == index)
-            {
-                result = new Menes.Property<Draft201909MetaFormat>(this, _MenesFormatJsonPropertyName);
-                return true;
-            }
-            currentIndex++;
             result = default; ;
             return false;
         }
         /// <summary>
-        /// An enumerator for the properties in a <see cref="Draft201909MetaFormat"/>.
+        /// An enumerator for the properties in a <see cref="JsonObject"/>.
         /// </summary>
-        public struct MenesPropertyEnumerator : System.Collections.Generic.IEnumerable<Menes.Property<Draft201909MetaFormat>>, System.Collections.IEnumerable, System.Collections.Generic.IEnumerator<Menes.Property<Draft201909MetaFormat>>, System.Collections.IEnumerator
+        public struct MenesPropertyEnumerator : System.Collections.Generic.IEnumerable<Menes.Property<JsonObject>>, System.Collections.IEnumerable, System.Collections.Generic.IEnumerator<Menes.Property<JsonObject>>, System.Collections.IEnumerator
         {
-            private Draft201909MetaFormat instance;
+            private JsonObject instance;
             private System.Text.Json.JsonElement.ObjectEnumerator jsonEnumerator;
             private bool hasJsonEnumerator;
             private int index;
             private int propertyCount;
-            internal MenesPropertyEnumerator(Draft201909MetaFormat instance)
+            internal MenesPropertyEnumerator(JsonObject instance)
             {
                 this.instance = instance;
                 this.propertyCount = instance.PropertyCount;
@@ -330,13 +233,13 @@ namespace TestSpace
                 }
             }
             /// <inheritdoc/>
-            public Menes.Property<Draft201909MetaFormat> Current
+            public Menes.Property<JsonObject> Current
             {
                 get
                 {
                     if (this.hasJsonEnumerator)
                     {
-                        return new Menes.Property<Draft201909MetaFormat>(this.jsonEnumerator.Current);
+                        return new Menes.Property<JsonObject>(this.jsonEnumerator.Current);
                     }
                     else if (this.index >= 0)
                     {
@@ -346,7 +249,7 @@ namespace TestSpace
                         }
                         throw new System.InvalidOperationException("Unable to get the property in the enumeration. The collection has been modified.");
                     }
-                    return new Menes.Property<Draft201909MetaFormat>(this.instance, default);
+                    return new Menes.Property<JsonObject>(this.instance, default);
                 }
             }
             /// <inheritdoc/>
@@ -354,7 +257,7 @@ namespace TestSpace
             /// <summary>
             /// Returns a fresh copy of the enumerator
             /// </summary>
-            /// <returns>An enumerator for the properties in a <see cref="Draft201909MetaFormat"/>.</returns>
+            /// <returns>An enumerator for the properties in a <see cref="JsonObject"/>.</returns>
             public MenesPropertyEnumerator GetEnumerator()
             {
                 MenesPropertyEnumerator result = this;
@@ -367,7 +270,7 @@ namespace TestSpace
                 return this.GetEnumerator();
             }
             /// <inheritdoc/>
-            System.Collections.Generic.IEnumerator<Menes.Property<Draft201909MetaFormat>> System.Collections.Generic.IEnumerable<Menes.Property<Draft201909MetaFormat>>.GetEnumerator()
+            System.Collections.Generic.IEnumerator<Menes.Property<JsonObject>> System.Collections.Generic.IEnumerable<Menes.Property<JsonObject>>.GetEnumerator()
             {
                 return this.GetEnumerator();
             }

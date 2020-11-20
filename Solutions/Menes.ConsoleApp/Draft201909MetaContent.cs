@@ -84,7 +84,7 @@ namespace TestSpace
         public System.Text.Json.JsonElement JsonElement => this._menesJsonElementBacking;
         public Menes.JsonString? ContentMediaType => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Menes.JsonString>(_MenesContentMediaTypeUtf8JsonPropertyName.Span) : this.contentMediaType;
         public Menes.JsonString? ContentEncoding => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Menes.JsonString>(_MenesContentEncodingUtf8JsonPropertyName.Span) : this.contentEncoding;
-        public Draft201909MetaContent? ContentSchema => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaContent>(_MenesContentSchemaUtf8JsonPropertyName.Span) : this.contentSchema.Value<Draft201909MetaContent>();
+        public Draft201909MetaContent? ContentSchema => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaContent>(_MenesContentSchemaUtf8JsonPropertyName.Span) : this.contentSchema.As<Draft201909MetaContent>();
         public int PropertyCount
         {
             get
@@ -144,6 +144,10 @@ namespace TestSpace
         public T As<T>()
             where T : struct, Menes.IJsonValue
         {
+            if (typeof(T) == typeof(Draft201909MetaContent))
+            {
+                return Corvus.Extensions.CastTo<T>.From(this);
+            }
             return Menes.JsonValue.As<T>(Menes.JsonValue.FlattenToJsonElementBacking(this).JsonElement);
         }
         /// <inheritdoc />

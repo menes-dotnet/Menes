@@ -9,6 +9,9 @@ namespace Menes.ConsoleApp
     using System.Collections.Generic;
     using System.Text;
     using System.Text.Json;
+    using System.Threading.Tasks;
+    using Menes.Json.Schema;
+    using Menes.JsonSchema.TypeBuilder;
     using TestSpace;
 
     /// <summary>
@@ -85,6 +88,13 @@ namespace Menes.ConsoleApp
 
             Serialize(tree);
 
+            tree = tree.WithNodes(
+                tree.Nodes
+                    .Add(new Tree.NodeEntity(999))
+                    .RemoveIf(n => n.Value < 5));
+
+            Serialize(tree);
+
             foreach (Property<Tree> property in tree)
             {
                 if (property.NameEquals("meta"))
@@ -110,6 +120,14 @@ namespace Menes.ConsoleApp
                     }
                 }
             }
+        }
+
+        private static async Task BuildJsonObjectType()
+        {
+            var builder = new JsonSchemaBuilder(new FileSystemDocumentResolver());
+            string schema = "{ \"id\": \"https://endjin.com/menes/schema/JsonObject\", \"type\": \"object\" }";
+            using var doc = JsonDocument.Parse(schema);
+            await builder.BuildEntity(doc.RootElement).ConfigureAwait(false);
         }
 
         private static string Serialize(IJsonValue value)
@@ -156,7 +174,7 @@ namespace Menes.ConsoleApp
             /// <summary>
             /// Gets the child value.
             /// </summary>
-            public Test? Child => this.child.Value<Test>();
+            public Test? Child => this.child.As<Test>();
 
             /// <inheritdoc/>
             public bool IsUndefined => this.JsonElement.ValueKind == JsonValueKind.Undefined && this.AllBackingFieldsAreNull();
@@ -172,14 +190,14 @@ namespace Menes.ConsoleApp
 
             /// <inheritdoc/>
             public T As<T>()
-                where T : struct, IJsonValue
+                where T : struct, Menes.IJsonValue
             {
                 throw new NotImplementedException();
             }
 
             /// <inheritdoc/>
             public bool Is<T>()
-                where T : struct, IJsonValue
+                where T : struct, Menes.IJsonValue
             {
                 throw new NotImplementedException();
             }

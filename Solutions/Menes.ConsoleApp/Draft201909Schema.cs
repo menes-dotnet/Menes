@@ -635,7 +635,7 @@ namespace TestSpace
         public Menes.JsonString? ContentMediaType => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Menes.JsonString>(_MenesContentMediaTypeUtf8JsonPropertyName.Span) : this.contentMediaType;
         public Menes.JsonString? ContentEncoding => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Menes.JsonString>(_MenesContentEncodingUtf8JsonPropertyName.Span) : this.contentEncoding;
         public Draft201909MetaContent? ContentSchema => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaContent>(_MenesContentSchemaUtf8JsonPropertyName.Span) : this.contentSchema;
-        public Draft201909Schema.DefinitionsEntity? Definitions => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909Schema.DefinitionsEntity>(_MenesDefinitionsUtf8JsonPropertyName.Span) : this.definitions.Value<Draft201909Schema.DefinitionsEntity>();
+        public Draft201909Schema.DefinitionsEntity? Definitions => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909Schema.DefinitionsEntity>(_MenesDefinitionsUtf8JsonPropertyName.Span) : this.definitions.As<Draft201909Schema.DefinitionsEntity>();
         public Draft201909Schema.DependenciesEntity? Dependencies => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909Schema.DependenciesEntity>(_MenesDependenciesUtf8JsonPropertyName.Span) : this.dependencies;
         public int PropertyCount
         {
@@ -1067,6 +1067,10 @@ namespace TestSpace
         public T As<T>()
             where T : struct, Menes.IJsonValue
         {
+            if (typeof(T) == typeof(Draft201909Schema))
+            {
+                return Corvus.Extensions.CastTo<T>.From(this);
+            }
             return Menes.JsonValue.As<T>(Menes.JsonValue.FlattenToJsonElementBacking(this).JsonElement);
         }
         /// <inheritdoc />
@@ -4066,6 +4070,10 @@ namespace TestSpace
             public T As<T>()
                 where T : struct, Menes.IJsonValue
             {
+                if (typeof(T) == typeof(DefinitionsEntity))
+                {
+                    return Corvus.Extensions.CastTo<T>.From(this);
+                }
                 return Menes.JsonValue.As<T>(Menes.JsonValue.FlattenToJsonElementBacking(this).JsonElement);
             }
             /// <inheritdoc />
@@ -4369,6 +4377,10 @@ where TPropertyValue : struct, Menes.IJsonValue
             public T As<T>()
                 where T : struct, Menes.IJsonValue
             {
+                if (typeof(T) == typeof(DependenciesEntity))
+                {
+                    return Corvus.Extensions.CastTo<T>.From(this);
+                }
                 return Menes.JsonValue.As<T>(Menes.JsonValue.FlattenToJsonElementBacking(this).JsonElement);
             }
             /// <inheritdoc />
@@ -4620,6 +4632,10 @@ where TPropertyValue : struct, Menes.IJsonValue
                 public T As<T>()
                     where T : struct, Menes.IJsonValue
                 {
+                    if (typeof(T) == typeof(AdditionalPropertiesEntity))
+                    {
+                        return Corvus.Extensions.CastTo<T>.From(this);
+                    }
                     return Menes.JsonValue.As<T>(Menes.JsonValue.FlattenToJsonElementBacking(this).JsonElement);
                 }
                 /// <inheritdoc />

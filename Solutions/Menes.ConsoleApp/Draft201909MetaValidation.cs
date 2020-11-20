@@ -382,6 +382,10 @@ namespace TestSpace
         public T As<T>()
             where T : struct, Menes.IJsonValue
         {
+            if (typeof(T) == typeof(Draft201909MetaValidation))
+            {
+                return Corvus.Extensions.CastTo<T>.From(this);
+            }
             return Menes.JsonValue.As<T>(Menes.JsonValue.FlattenToJsonElementBacking(this).JsonElement);
         }
         /// <inheritdoc />
@@ -1553,6 +1557,10 @@ namespace TestSpace
             public T As<T>()
                 where T : struct, Menes.IJsonValue
             {
+                if (typeof(T) == typeof(MultipleOfValue))
+                {
+                    return Corvus.Extensions.CastTo<T>.From(this);
+                }
                 return Menes.JsonValue.As<T>(Menes.JsonValue.FlattenToJsonElementBacking(this).JsonElement);
             }
             /// <inheritdoc />
@@ -1654,6 +1662,10 @@ namespace TestSpace
             public T As<T>()
                 where T : struct, Menes.IJsonValue
             {
+                if (typeof(T) == typeof(NonNegativeIntegerValue))
+                {
+                    return Corvus.Extensions.CastTo<T>.From(this);
+                }
                 return Menes.JsonValue.As<T>(Menes.JsonValue.FlattenToJsonElementBacking(this).JsonElement);
             }
             /// <inheritdoc />
@@ -1727,6 +1739,10 @@ namespace TestSpace
             public T As<T>()
                 where T : struct, Menes.IJsonValue
             {
+                if (typeof(T) == typeof(StringArrayEntity))
+                {
+                    return Corvus.Extensions.CastTo<T>.From(this);
+                }
                 return Menes.JsonValue.As<T>(Menes.JsonValue.FlattenToJsonElementBacking(this).JsonElement);
             }
             /// <inheritdoc />
@@ -1742,6 +1758,79 @@ namespace TestSpace
             public Draft201909MetaValidation.StringArrayEntity.MenesArrayEnumerator GetEnumerator() { return new Draft201909MetaValidation.StringArrayEntity.MenesArrayEnumerator(this); }
             System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() { return this.GetEnumerator(); }
             System.Collections.Generic.IEnumerator<Menes.JsonString> System.Collections.Generic.IEnumerable<Menes.JsonString>.GetEnumerator() { return this.GetEnumerator(); }
+            public StringArrayEntity Add<T>(T item)
+where T : struct, Menes.IJsonValue
+            {
+                var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonString>();
+                foreach (var oldItem in this._menesArrayValueBacking)
+                {
+                    arrayBuilder.Add(oldItem);
+                }
+                arrayBuilder.Add(item.As<Menes.JsonString>());
+                return new Draft201909MetaValidation.StringArrayEntity(arrayBuilder.ToImmutable());
+            }
+            public StringArrayEntity Insert<T>(int index, T item)
+                where T : struct, Menes.IJsonValue
+            {
+                var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonString>();
+                int currentIndex = 0;
+                bool inserted = false;
+                foreach (var oldItem in this._menesArrayValueBacking)
+                {
+                    if (currentIndex == index)
+                    {
+                        arrayBuilder.Add(item.As<Menes.JsonString>());
+                        inserted = true;
+                    }
+                    arrayBuilder.Add(oldItem);
+                    currentIndex++;
+                }
+                if (!inserted)
+                {
+                    throw new System.IndexOutOfRangeException($"The given index {index} was out of range.");
+                }
+                return new Draft201909MetaValidation.StringArrayEntity(arrayBuilder.ToImmutable());
+            }
+            public StringArrayEntity RemoveAt(int index)
+            {
+                var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonString>();
+                int currentIndex = 0;
+                bool removed = false;
+                foreach (var item in this._menesArrayValueBacking)
+                {
+                    if (currentIndex != index)
+                    {
+                        arrayBuilder.Add(item);
+                    }
+                    else
+                    {
+                        removed = true;
+                    }
+                    currentIndex++;
+                }
+                if (!removed)
+                {
+                    throw new System.IndexOutOfRangeException($"The given index {index} was out of range.");
+                }
+                return new Draft201909MetaValidation.StringArrayEntity(arrayBuilder.ToImmutable());
+            }
+            public StringArrayEntity RemoveIf(System.Predicate<Menes.JsonString> condition)
+            {
+                return this.RemoveIf<Menes.JsonString>(condition);
+            }
+            public StringArrayEntity RemoveIf<T>(System.Predicate<T> condition)
+                where T : struct, Menes.IJsonValue
+            {
+                var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonString>();
+                foreach (var item in this._menesArrayValueBacking)
+                {
+                    if (!condition(item.As<T>()))
+                    {
+                        arrayBuilder.Add(item);
+                    }
+                }
+                return new Draft201909MetaValidation.StringArrayEntity(arrayBuilder.ToImmutable());
+            }
             private bool AllBackingFieldsAreNull()
             {
                 if (this._menesArrayValueBacking is not null)
@@ -1840,7 +1929,7 @@ namespace TestSpace
                     {
                         return this.jsonEnumerator.MoveNext();
                     }
-                    else if (this.instance._menesArrayValueBacking is System.Collections.Immutable.ImmutableArray<Menes.JsonString> array && this.index < array.Length)
+                    else if (this.instance._menesArrayValueBacking is System.Collections.Immutable.ImmutableArray<Menes.JsonString> array && this.index + 1 < array.Length)
                     {
                         this.index++;
                         return true;
@@ -1916,6 +2005,10 @@ namespace TestSpace
             public T As<T>()
                 where T : struct, Menes.IJsonValue
             {
+                if (typeof(T) == typeof(DependentRequiredEntity))
+                {
+                    return Corvus.Extensions.CastTo<T>.From(this);
+                }
                 return Menes.JsonValue.As<T>(Menes.JsonValue.FlattenToJsonElementBacking(this).JsonElement);
             }
             /// <inheritdoc />
@@ -2195,6 +2288,10 @@ where TPropertyValue : struct, Menes.IJsonValue
             public T As<T>()
                 where T : struct, Menes.IJsonValue
             {
+                if (typeof(T) == typeof(ConstEntity))
+                {
+                    return Corvus.Extensions.CastTo<T>.From(this);
+                }
                 return Menes.JsonValue.As<T>(Menes.JsonValue.FlattenToJsonElementBacking(this).JsonElement);
             }
             /// <inheritdoc />
@@ -2264,6 +2361,10 @@ where TPropertyValue : struct, Menes.IJsonValue
             public T As<T>()
                 where T : struct, Menes.IJsonValue
             {
+                if (typeof(T) == typeof(EnumArray))
+                {
+                    return Corvus.Extensions.CastTo<T>.From(this);
+                }
                 return Menes.JsonValue.As<T>(Menes.JsonValue.FlattenToJsonElementBacking(this).JsonElement);
             }
             /// <inheritdoc />
@@ -2279,6 +2380,79 @@ where TPropertyValue : struct, Menes.IJsonValue
             public Draft201909MetaValidation.EnumArray.MenesArrayEnumerator GetEnumerator() { return new Draft201909MetaValidation.EnumArray.MenesArrayEnumerator(this); }
             System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() { return this.GetEnumerator(); }
             System.Collections.Generic.IEnumerator<Draft201909MetaValidation.EnumArray.ItemsEntity> System.Collections.Generic.IEnumerable<Draft201909MetaValidation.EnumArray.ItemsEntity>.GetEnumerator() { return this.GetEnumerator(); }
+            public EnumArray Add<T>(T item)
+where T : struct, Menes.IJsonValue
+            {
+                var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Draft201909MetaValidation.EnumArray.ItemsEntity>();
+                foreach (var oldItem in this._menesArrayValueBacking)
+                {
+                    arrayBuilder.Add(oldItem);
+                }
+                arrayBuilder.Add(item.As<Draft201909MetaValidation.EnumArray.ItemsEntity>());
+                return new Draft201909MetaValidation.EnumArray(arrayBuilder.ToImmutable());
+            }
+            public EnumArray Insert<T>(int index, T item)
+                where T : struct, Menes.IJsonValue
+            {
+                var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Draft201909MetaValidation.EnumArray.ItemsEntity>();
+                int currentIndex = 0;
+                bool inserted = false;
+                foreach (var oldItem in this._menesArrayValueBacking)
+                {
+                    if (currentIndex == index)
+                    {
+                        arrayBuilder.Add(item.As<Draft201909MetaValidation.EnumArray.ItemsEntity>());
+                        inserted = true;
+                    }
+                    arrayBuilder.Add(oldItem);
+                    currentIndex++;
+                }
+                if (!inserted)
+                {
+                    throw new System.IndexOutOfRangeException($"The given index {index} was out of range.");
+                }
+                return new Draft201909MetaValidation.EnumArray(arrayBuilder.ToImmutable());
+            }
+            public EnumArray RemoveAt(int index)
+            {
+                var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Draft201909MetaValidation.EnumArray.ItemsEntity>();
+                int currentIndex = 0;
+                bool removed = false;
+                foreach (var item in this._menesArrayValueBacking)
+                {
+                    if (currentIndex != index)
+                    {
+                        arrayBuilder.Add(item);
+                    }
+                    else
+                    {
+                        removed = true;
+                    }
+                    currentIndex++;
+                }
+                if (!removed)
+                {
+                    throw new System.IndexOutOfRangeException($"The given index {index} was out of range.");
+                }
+                return new Draft201909MetaValidation.EnumArray(arrayBuilder.ToImmutable());
+            }
+            public EnumArray RemoveIf(System.Predicate<Draft201909MetaValidation.EnumArray.ItemsEntity> condition)
+            {
+                return this.RemoveIf<Draft201909MetaValidation.EnumArray.ItemsEntity>(condition);
+            }
+            public EnumArray RemoveIf<T>(System.Predicate<T> condition)
+                where T : struct, Menes.IJsonValue
+            {
+                var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Draft201909MetaValidation.EnumArray.ItemsEntity>();
+                foreach (var item in this._menesArrayValueBacking)
+                {
+                    if (!condition(item.As<T>()))
+                    {
+                        arrayBuilder.Add(item);
+                    }
+                }
+                return new Draft201909MetaValidation.EnumArray(arrayBuilder.ToImmutable());
+            }
             private bool AllBackingFieldsAreNull()
             {
                 if (this._menesArrayValueBacking is not null)
@@ -2330,6 +2504,10 @@ where TPropertyValue : struct, Menes.IJsonValue
                 public T As<T>()
                     where T : struct, Menes.IJsonValue
                 {
+                    if (typeof(T) == typeof(ItemsEntity))
+                    {
+                        return Corvus.Extensions.CastTo<T>.From(this);
+                    }
                     return Menes.JsonValue.As<T>(Menes.JsonValue.FlattenToJsonElementBacking(this).JsonElement);
                 }
                 /// <inheritdoc />
@@ -2437,7 +2615,7 @@ where TPropertyValue : struct, Menes.IJsonValue
                     {
                         return this.jsonEnumerator.MoveNext();
                     }
-                    else if (this.instance._menesArrayValueBacking is System.Collections.Immutable.ImmutableArray<Draft201909MetaValidation.EnumArray.ItemsEntity> array && this.index < array.Length)
+                    else if (this.instance._menesArrayValueBacking is System.Collections.Immutable.ImmutableArray<Draft201909MetaValidation.EnumArray.ItemsEntity> array && this.index + 1 < array.Length)
                     {
                         this.index++;
                         return true;
@@ -2600,6 +2778,10 @@ where TPropertyValue : struct, Menes.IJsonValue
             public T As<T>()
                 where T : struct, Menes.IJsonValue
             {
+                if (typeof(T) == typeof(TypeEntity))
+                {
+                    return Corvus.Extensions.CastTo<T>.From(this);
+                }
                 return Menes.JsonValue.As<T>(Menes.JsonValue.FlattenToJsonElementBacking(this).JsonElement);
             }
             /// <inheritdoc />
@@ -2688,6 +2870,10 @@ where TPropertyValue : struct, Menes.IJsonValue
                 public T As<T>()
                     where T : struct, Menes.IJsonValue
                 {
+                    if (typeof(T) == typeof(SimpleTypesEntity))
+                    {
+                        return Corvus.Extensions.CastTo<T>.From(this);
+                    }
                     return Menes.JsonValue.As<T>(Menes.JsonValue.FlattenToJsonElementBacking(this).JsonElement);
                 }
                 /// <inheritdoc />
@@ -2779,6 +2965,10 @@ where TPropertyValue : struct, Menes.IJsonValue
                 public T As<T>()
                     where T : struct, Menes.IJsonValue
                 {
+                    if (typeof(T) == typeof(AnyOf1Array))
+                    {
+                        return Corvus.Extensions.CastTo<T>.From(this);
+                    }
                     return Menes.JsonValue.As<T>(Menes.JsonValue.FlattenToJsonElementBacking(this).JsonElement);
                 }
                 /// <inheritdoc />
@@ -2794,6 +2984,79 @@ where TPropertyValue : struct, Menes.IJsonValue
                 public Draft201909MetaValidation.TypeEntity.AnyOf1Array.MenesArrayEnumerator GetEnumerator() { return new Draft201909MetaValidation.TypeEntity.AnyOf1Array.MenesArrayEnumerator(this); }
                 System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() { return this.GetEnumerator(); }
                 System.Collections.Generic.IEnumerator<Draft201909MetaValidation.TypeEntity.SimpleTypesEntity> System.Collections.Generic.IEnumerable<Draft201909MetaValidation.TypeEntity.SimpleTypesEntity>.GetEnumerator() { return this.GetEnumerator(); }
+                public AnyOf1Array Add<T>(T item)
+where T : struct, Menes.IJsonValue
+                {
+                    var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Draft201909MetaValidation.TypeEntity.SimpleTypesEntity>();
+                    foreach (var oldItem in this._menesArrayValueBacking)
+                    {
+                        arrayBuilder.Add(oldItem);
+                    }
+                    arrayBuilder.Add(item.As<Draft201909MetaValidation.TypeEntity.SimpleTypesEntity>());
+                    return new Draft201909MetaValidation.TypeEntity.AnyOf1Array(arrayBuilder.ToImmutable());
+                }
+                public AnyOf1Array Insert<T>(int index, T item)
+                    where T : struct, Menes.IJsonValue
+                {
+                    var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Draft201909MetaValidation.TypeEntity.SimpleTypesEntity>();
+                    int currentIndex = 0;
+                    bool inserted = false;
+                    foreach (var oldItem in this._menesArrayValueBacking)
+                    {
+                        if (currentIndex == index)
+                        {
+                            arrayBuilder.Add(item.As<Draft201909MetaValidation.TypeEntity.SimpleTypesEntity>());
+                            inserted = true;
+                        }
+                        arrayBuilder.Add(oldItem);
+                        currentIndex++;
+                    }
+                    if (!inserted)
+                    {
+                        throw new System.IndexOutOfRangeException($"The given index {index} was out of range.");
+                    }
+                    return new Draft201909MetaValidation.TypeEntity.AnyOf1Array(arrayBuilder.ToImmutable());
+                }
+                public AnyOf1Array RemoveAt(int index)
+                {
+                    var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Draft201909MetaValidation.TypeEntity.SimpleTypesEntity>();
+                    int currentIndex = 0;
+                    bool removed = false;
+                    foreach (var item in this._menesArrayValueBacking)
+                    {
+                        if (currentIndex != index)
+                        {
+                            arrayBuilder.Add(item);
+                        }
+                        else
+                        {
+                            removed = true;
+                        }
+                        currentIndex++;
+                    }
+                    if (!removed)
+                    {
+                        throw new System.IndexOutOfRangeException($"The given index {index} was out of range.");
+                    }
+                    return new Draft201909MetaValidation.TypeEntity.AnyOf1Array(arrayBuilder.ToImmutable());
+                }
+                public AnyOf1Array RemoveIf(System.Predicate<Draft201909MetaValidation.TypeEntity.SimpleTypesEntity> condition)
+                {
+                    return this.RemoveIf<Draft201909MetaValidation.TypeEntity.SimpleTypesEntity>(condition);
+                }
+                public AnyOf1Array RemoveIf<T>(System.Predicate<T> condition)
+                    where T : struct, Menes.IJsonValue
+                {
+                    var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Draft201909MetaValidation.TypeEntity.SimpleTypesEntity>();
+                    foreach (var item in this._menesArrayValueBacking)
+                    {
+                        if (!condition(item.As<T>()))
+                        {
+                            arrayBuilder.Add(item);
+                        }
+                    }
+                    return new Draft201909MetaValidation.TypeEntity.AnyOf1Array(arrayBuilder.ToImmutable());
+                }
                 private bool AllBackingFieldsAreNull()
                 {
                     if (this._menesArrayValueBacking is not null)
@@ -2892,7 +3155,7 @@ where TPropertyValue : struct, Menes.IJsonValue
                         {
                             return this.jsonEnumerator.MoveNext();
                         }
-                        else if (this.instance._menesArrayValueBacking is System.Collections.Immutable.ImmutableArray<Draft201909MetaValidation.TypeEntity.SimpleTypesEntity> array && this.index < array.Length)
+                        else if (this.instance._menesArrayValueBacking is System.Collections.Immutable.ImmutableArray<Draft201909MetaValidation.TypeEntity.SimpleTypesEntity> array && this.index + 1 < array.Length)
                         {
                             this.index++;
                             return true;

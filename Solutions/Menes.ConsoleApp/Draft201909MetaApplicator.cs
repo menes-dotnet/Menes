@@ -194,23 +194,23 @@ namespace TestSpace
         public bool HasJsonElement => this._menesJsonElementBacking.ValueKind != System.Text.Json.JsonValueKind.Undefined;
         /// <inheritdoc />
         public System.Text.Json.JsonElement JsonElement => this._menesJsonElementBacking;
-        public Draft201909MetaApplicator? AdditionalItems => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator>(_MenesAdditionalItemsUtf8JsonPropertyName.Span) : this.additionalItems.Value<Draft201909MetaApplicator>();
-        public Draft201909MetaApplicator? UnevaluatedItems => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator>(_MenesUnevaluatedItemsUtf8JsonPropertyName.Span) : this.unevaluatedItems.Value<Draft201909MetaApplicator>();
+        public Draft201909MetaApplicator? AdditionalItems => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator>(_MenesAdditionalItemsUtf8JsonPropertyName.Span) : this.additionalItems.As<Draft201909MetaApplicator>();
+        public Draft201909MetaApplicator? UnevaluatedItems => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator>(_MenesUnevaluatedItemsUtf8JsonPropertyName.Span) : this.unevaluatedItems.As<Draft201909MetaApplicator>();
         public Draft201909MetaApplicator.ItemsEntity? Items => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator.ItemsEntity>(_MenesItemsUtf8JsonPropertyName.Span) : this.items;
-        public Draft201909MetaApplicator? Contains => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator>(_MenesContainsUtf8JsonPropertyName.Span) : this.contains.Value<Draft201909MetaApplicator>();
-        public Draft201909MetaApplicator? AdditionalProperties => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator>(_MenesAdditionalPropertiesUtf8JsonPropertyName.Span) : this.additionalProperties.Value<Draft201909MetaApplicator>();
-        public Draft201909MetaApplicator? UnevaluatedProperties => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator>(_MenesUnevaluatedPropertiesUtf8JsonPropertyName.Span) : this.unevaluatedProperties.Value<Draft201909MetaApplicator>();
-        public Draft201909MetaApplicator.PropertiesEntity? Properties => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator.PropertiesEntity>(_MenesPropertiesUtf8JsonPropertyName.Span) : this.properties.Value<Draft201909MetaApplicator.PropertiesEntity>();
-        public Draft201909MetaApplicator.PatternPropertiesEntity? PatternProperties => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator.PatternPropertiesEntity>(_MenesPatternPropertiesUtf8JsonPropertyName.Span) : this.patternProperties.Value<Draft201909MetaApplicator.PatternPropertiesEntity>();
-        public Draft201909MetaApplicator.DependentSchemasEntity? DependentSchemas => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator.DependentSchemasEntity>(_MenesDependentSchemasUtf8JsonPropertyName.Span) : this.dependentSchemas.Value<Draft201909MetaApplicator.DependentSchemasEntity>();
-        public Draft201909MetaApplicator? PropertyNames => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator>(_MenesPropertyNamesUtf8JsonPropertyName.Span) : this.propertyNames.Value<Draft201909MetaApplicator>();
-        public Draft201909MetaApplicator? If => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator>(_MenesIfUtf8JsonPropertyName.Span) : this.@if.Value<Draft201909MetaApplicator>();
-        public Draft201909MetaApplicator? Then => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator>(_MenesThenUtf8JsonPropertyName.Span) : this.then.Value<Draft201909MetaApplicator>();
-        public Draft201909MetaApplicator? Else => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator>(_MenesElseUtf8JsonPropertyName.Span) : this.@else.Value<Draft201909MetaApplicator>();
-        public Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity? AllOf => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity>(_MenesAllOfUtf8JsonPropertyName.Span) : this.allOf.Value<Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity>();
-        public Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity? AnyOf => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity>(_MenesAnyOfUtf8JsonPropertyName.Span) : this.anyOf.Value<Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity>();
-        public Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity? OneOf => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity>(_MenesOneOfUtf8JsonPropertyName.Span) : this.oneOf.Value<Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity>();
-        public Draft201909MetaApplicator? Not => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator>(_MenesNotUtf8JsonPropertyName.Span) : this.not.Value<Draft201909MetaApplicator>();
+        public Draft201909MetaApplicator? Contains => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator>(_MenesContainsUtf8JsonPropertyName.Span) : this.contains.As<Draft201909MetaApplicator>();
+        public Draft201909MetaApplicator? AdditionalProperties => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator>(_MenesAdditionalPropertiesUtf8JsonPropertyName.Span) : this.additionalProperties.As<Draft201909MetaApplicator>();
+        public Draft201909MetaApplicator? UnevaluatedProperties => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator>(_MenesUnevaluatedPropertiesUtf8JsonPropertyName.Span) : this.unevaluatedProperties.As<Draft201909MetaApplicator>();
+        public Draft201909MetaApplicator.PropertiesEntity? Properties => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator.PropertiesEntity>(_MenesPropertiesUtf8JsonPropertyName.Span) : this.properties.As<Draft201909MetaApplicator.PropertiesEntity>();
+        public Draft201909MetaApplicator.PatternPropertiesEntity? PatternProperties => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator.PatternPropertiesEntity>(_MenesPatternPropertiesUtf8JsonPropertyName.Span) : this.patternProperties.As<Draft201909MetaApplicator.PatternPropertiesEntity>();
+        public Draft201909MetaApplicator.DependentSchemasEntity? DependentSchemas => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator.DependentSchemasEntity>(_MenesDependentSchemasUtf8JsonPropertyName.Span) : this.dependentSchemas.As<Draft201909MetaApplicator.DependentSchemasEntity>();
+        public Draft201909MetaApplicator? PropertyNames => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator>(_MenesPropertyNamesUtf8JsonPropertyName.Span) : this.propertyNames.As<Draft201909MetaApplicator>();
+        public Draft201909MetaApplicator? If => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator>(_MenesIfUtf8JsonPropertyName.Span) : this.@if.As<Draft201909MetaApplicator>();
+        public Draft201909MetaApplicator? Then => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator>(_MenesThenUtf8JsonPropertyName.Span) : this.then.As<Draft201909MetaApplicator>();
+        public Draft201909MetaApplicator? Else => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator>(_MenesElseUtf8JsonPropertyName.Span) : this.@else.As<Draft201909MetaApplicator>();
+        public Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity? AllOf => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity>(_MenesAllOfUtf8JsonPropertyName.Span) : this.allOf.As<Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity>();
+        public Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity? AnyOf => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity>(_MenesAnyOfUtf8JsonPropertyName.Span) : this.anyOf.As<Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity>();
+        public Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity? OneOf => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity>(_MenesOneOfUtf8JsonPropertyName.Span) : this.oneOf.As<Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity>();
+        public Draft201909MetaApplicator? Not => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator>(_MenesNotUtf8JsonPropertyName.Span) : this.not.As<Draft201909MetaApplicator>();
         public int PropertyCount
         {
             get
@@ -340,6 +340,10 @@ namespace TestSpace
         public T As<T>()
             where T : struct, Menes.IJsonValue
         {
+            if (typeof(T) == typeof(Draft201909MetaApplicator))
+            {
+                return Corvus.Extensions.CastTo<T>.From(this);
+            }
             return Menes.JsonValue.As<T>(Menes.JsonValue.FlattenToJsonElementBacking(this).JsonElement);
         }
         /// <inheritdoc />
@@ -1394,6 +1398,10 @@ namespace TestSpace
             public T As<T>()
                 where T : struct, Menes.IJsonValue
             {
+                if (typeof(T) == typeof(ItemsEntity))
+                {
+                    return Corvus.Extensions.CastTo<T>.From(this);
+                }
                 return Menes.JsonValue.As<T>(Menes.JsonValue.FlattenToJsonElementBacking(this).JsonElement);
             }
             /// <inheritdoc />
@@ -1422,7 +1430,7 @@ namespace TestSpace
             {
                 public static readonly SchemaArrayEntity Null = default(SchemaArrayEntity);
                 private readonly System.Text.Json.JsonElement _menesJsonElementBacking;
-                private readonly System.Collections.Immutable.ImmutableArray<Menes.JsonValueBacking>? _menesArrayValueBacking;
+                private readonly System.Collections.Immutable.ImmutableArray<Menes.JsonArrayValueBacking>? _menesArrayValueBacking;
                 public SchemaArrayEntity(System.Text.Json.JsonElement jsonElement)
                 {
                     this._menesJsonElementBacking = jsonElement;
@@ -1430,12 +1438,17 @@ namespace TestSpace
                 }
                 public SchemaArrayEntity(System.Collections.Immutable.ImmutableArray<Draft201909MetaApplicator> value)
                 {
-                    var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonValueBacking>();
+                    var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonArrayValueBacking>();
                     foreach (var item in value)
                     {
-                        arrayBuilder.Add(Menes.JsonValueBacking.From<Draft201909MetaApplicator>(item));
+                        arrayBuilder.Add(Menes.JsonArrayValueBacking.From<Draft201909MetaApplicator>(item));
                     }
                     this._menesArrayValueBacking = arrayBuilder.ToImmutable();
+                    this._menesJsonElementBacking = default;
+                }
+                private SchemaArrayEntity(System.Collections.Immutable.ImmutableArray<Menes.JsonArrayValueBacking> value)
+                {
+                    this._menesArrayValueBacking = value;
                     this._menesJsonElementBacking = default;
                 }
                 public static implicit operator SchemaArrayEntity(System.Collections.Immutable.ImmutableArray<Draft201909MetaApplicator> items)
@@ -1475,6 +1488,10 @@ namespace TestSpace
                 public T As<T>()
                     where T : struct, Menes.IJsonValue
                 {
+                    if (typeof(T) == typeof(SchemaArrayEntity))
+                    {
+                        return Corvus.Extensions.CastTo<T>.From(this);
+                    }
                     return Menes.JsonValue.As<T>(Menes.JsonValue.FlattenToJsonElementBacking(this).JsonElement);
                 }
                 /// <inheritdoc />
@@ -1489,6 +1506,79 @@ namespace TestSpace
                 }
                 public Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity.MenesArrayEnumerator GetEnumerator() { return new Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity.MenesArrayEnumerator(this); }
                 System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() { return this.GetEnumerator(); }
+                public SchemaArrayEntity Add<T>(T item)
+where T : struct, Menes.IJsonValue
+                {
+                    var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonArrayValueBacking>();
+                    foreach (var oldItem in this._menesArrayValueBacking)
+                    {
+                        arrayBuilder.Add(oldItem);
+                    }
+                    arrayBuilder.Add(Menes.JsonArrayValueBacking.From<Draft201909MetaApplicator>(item.As<Draft201909MetaApplicator>()));
+                    return new Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity(arrayBuilder.ToImmutable());
+                }
+                public SchemaArrayEntity Insert<T>(int index, T item)
+                    where T : struct, Menes.IJsonValue
+                {
+                    var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonArrayValueBacking>();
+                    int currentIndex = 0;
+                    bool inserted = false;
+                    foreach (var oldItem in this._menesArrayValueBacking)
+                    {
+                        if (currentIndex == index)
+                        {
+                            arrayBuilder.Add(Menes.JsonArrayValueBacking.From<Draft201909MetaApplicator>(item.As<Draft201909MetaApplicator>()));
+                            inserted = true;
+                        }
+                        arrayBuilder.Add(oldItem);
+                        currentIndex++;
+                    }
+                    if (!inserted)
+                    {
+                        throw new System.IndexOutOfRangeException($"The given index {index} was out of range.");
+                    }
+                    return new Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity(arrayBuilder.ToImmutable());
+                }
+                public SchemaArrayEntity RemoveAt(int index)
+                {
+                    var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonArrayValueBacking>();
+                    int currentIndex = 0;
+                    bool removed = false;
+                    foreach (var item in this._menesArrayValueBacking)
+                    {
+                        if (currentIndex != index)
+                        {
+                            arrayBuilder.Add(item);
+                        }
+                        else
+                        {
+                            removed = true;
+                        }
+                        currentIndex++;
+                    }
+                    if (!removed)
+                    {
+                        throw new System.IndexOutOfRangeException($"The given index {index} was out of range.");
+                    }
+                    return new Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity(arrayBuilder.ToImmutable());
+                }
+                public SchemaArrayEntity RemoveIf(System.Predicate<Draft201909MetaApplicator> condition)
+                {
+                    return this.RemoveIf<Draft201909MetaApplicator>(condition);
+                }
+                public SchemaArrayEntity RemoveIf<T>(System.Predicate<T> condition)
+                    where T : struct, Menes.IJsonValue
+                {
+                    var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonArrayValueBacking>();
+                    foreach (var item in this._menesArrayValueBacking)
+                    {
+                        if (!condition(item.As<T>()))
+                        {
+                            arrayBuilder.Add(item);
+                        }
+                    }
+                    return new Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity(arrayBuilder.ToImmutable());
+                }
                 private bool AllBackingFieldsAreNull()
                 {
                     if (this._menesArrayValueBacking is not null)
@@ -1531,9 +1621,9 @@ namespace TestSpace
                             {
                                 return new Draft201909MetaApplicator(this.jsonEnumerator.Current);
                             }
-                            else if (this.instance._menesArrayValueBacking is System.Collections.Immutable.ImmutableArray<Menes.JsonValueBacking> array && this.index >= 0 && this.index < array.Length)
+                            else if (this.instance._menesArrayValueBacking is System.Collections.Immutable.ImmutableArray<Menes.JsonArrayValueBacking> array && this.index >= 0 && this.index < array.Length)
                             {
-                                return array[this.index].Value<Draft201909MetaApplicator>() ?? default;
+                                return array[this.index].As<Draft201909MetaApplicator>();
                             }
                             return default;
                         }
@@ -1587,7 +1677,7 @@ namespace TestSpace
                         {
                             return this.jsonEnumerator.MoveNext();
                         }
-                        else if (this.instance._menesArrayValueBacking is System.Collections.Immutable.ImmutableArray<Menes.JsonValueBacking> array && this.index < array.Length)
+                        else if (this.instance._menesArrayValueBacking is System.Collections.Immutable.ImmutableArray<Menes.JsonArrayValueBacking> array && this.index + 1 < array.Length)
                         {
                             this.index++;
                             return true;
@@ -1664,6 +1754,10 @@ namespace TestSpace
             public T As<T>()
                 where T : struct, Menes.IJsonValue
             {
+                if (typeof(T) == typeof(PropertiesEntity))
+                {
+                    return Corvus.Extensions.CastTo<T>.From(this);
+                }
                 return Menes.JsonValue.As<T>(Menes.JsonValue.FlattenToJsonElementBacking(this).JsonElement);
             }
             /// <inheritdoc />
@@ -1967,6 +2061,10 @@ where TPropertyValue : struct, Menes.IJsonValue
             public T As<T>()
                 where T : struct, Menes.IJsonValue
             {
+                if (typeof(T) == typeof(PatternPropertiesEntity))
+                {
+                    return Corvus.Extensions.CastTo<T>.From(this);
+                }
                 return Menes.JsonValue.As<T>(Menes.JsonValue.FlattenToJsonElementBacking(this).JsonElement);
             }
             /// <inheritdoc />
@@ -2133,6 +2231,10 @@ where TPropertyValue : struct, Menes.IJsonValue
                 public T As<T>()
                     where T : struct, Menes.IJsonValue
                 {
+                    if (typeof(T) == typeof(PropertyNamesEntity))
+                    {
+                        return Corvus.Extensions.CastTo<T>.From(this);
+                    }
                     return Menes.JsonValue.As<T>(Menes.JsonValue.FlattenToJsonElementBacking(this).JsonElement);
                 }
                 /// <inheritdoc />
@@ -2322,6 +2424,10 @@ where TPropertyValue : struct, Menes.IJsonValue
             public T As<T>()
                 where T : struct, Menes.IJsonValue
             {
+                if (typeof(T) == typeof(DependentSchemasEntity))
+                {
+                    return Corvus.Extensions.CastTo<T>.From(this);
+                }
                 return Menes.JsonValue.As<T>(Menes.JsonValue.FlattenToJsonElementBacking(this).JsonElement);
             }
             /// <inheritdoc />

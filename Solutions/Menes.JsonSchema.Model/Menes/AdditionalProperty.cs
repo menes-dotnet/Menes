@@ -40,7 +40,7 @@ namespace Menes
         public TValue? Value<TValue>()
             where TValue : struct, IJsonValue
         {
-            return this.value.Value<TValue>();
+            return this.value.As<TValue>();
         }
 
         /// <summary>
