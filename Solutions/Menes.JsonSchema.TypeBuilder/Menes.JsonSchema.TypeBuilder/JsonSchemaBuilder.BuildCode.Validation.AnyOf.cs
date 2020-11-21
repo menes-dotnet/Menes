@@ -45,28 +45,73 @@ namespace Menes.JsonSchema.TypeBuilder
 
                 this.PushPropertyToAbsoluteKeywordLocationStack("anyOf");
 
+                // If we don't have to evaluate everything, we can short-circuit anyOf
+                if (typeDeclaration.IsConcreteAnyOf && typeDeclaration.UnevaluatedProperties is null)
+                {
+                    int currentIndex = 0;
+                    memberBuilder.AppendLine("int foundIndex = -1;");
+                    memberBuilder.AppendLine("Menes.ValidationResult? preResult = null;");
+                    memberBuilder.AppendLine("if (level == Menes.ValidationLevel.Flag)");
+                    memberBuilder.AppendLine("{");
+                    foreach (TypeDeclaration type in typeDeclaration.AnyOf)
+                    {
+                        string backingName = Formatting.ToPascalCaseWithReservedWords(type.FullyQualifiedDotNetTypeName!).ToString();
+                        memberBuilder.AppendLine($"if (that._menes{backingName}AnyOfBacking is {type.FullyQualifiedDotNetTypeName} anyOfBacking{currentIndex})");
+                        memberBuilder.AppendLine("{");
+                        memberBuilder.AppendLine($"    foundIndex = {currentIndex};");
+                        memberBuilder.AppendLine($"    preResult = anyOfBacking{currentIndex}.Validate(result, level, absoluteKeywordLocation: absoluteKeywordLocation, instanceLocation: instanceLocation);");
+                        memberBuilder.AppendLine("    if (preResult.Valid)");
+                        memberBuilder.AppendLine("    {");
+                        memberBuilder.AppendLine("        return result;");
+                        memberBuilder.AppendLine("    }");
+                        memberBuilder.AppendLine("}");
+                        currentIndex++;
+                    }
+
+                    memberBuilder.AppendLine("}");
+                }
+
                 int anyOfIndex = 0;
                 foreach (TypeDeclaration anyOfType in typeDeclaration.AnyOf)
                 {
                     this.PushArrayIndexToAbsoluteKeywordLocationStack(anyOfIndex);
                     this.BuildPushAbsoluteKeywordLocation(memberBuilder, anyOfIndex);
 
+                    memberBuilder.AppendLine($"Menes.ValidationResult anyOfResult{anyOfIndex};");
+
+                    // If we don't have to evaluate everything, we can short-circuit anyOf
+                    if (typeDeclaration.IsConcreteAnyOf && typeDeclaration.UnevaluatedProperties is null)
+                    {
+                        memberBuilder.AppendLine($"if (foundIndex == {anyOfIndex})");
+                        memberBuilder.AppendLine("{");
+                        memberBuilder.AppendLine($"    anyOfResult{anyOfIndex} = preResult;");
+                        memberBuilder.AppendLine("}");
+                        memberBuilder.AppendLine("else");
+                        memberBuilder.AppendLine("{");
+                    }
+
                     memberBuilder.AppendLine($"var anyOf{anyOfIndex} = that.{this.GetAsMethodNameFor(anyOfType)}();");
 
                     if (typeDeclaration.UnevaluatedProperties is not null)
                     {
-                        memberBuilder.AppendLine($"var anyOfResult{anyOfIndex} = anyOf{anyOfIndex}.Validate(result, level, localEvaluatedProperties, absoluteKeywordLocation, instanceLocation);");
+                        memberBuilder.AppendLine($"anyOfResult{anyOfIndex} = anyOf{anyOfIndex}.Validate(result, level, localEvaluatedProperties, absoluteKeywordLocation, instanceLocation);");
                     }
                     else
                     {
-                        memberBuilder.AppendLine($"var anyOfResult{anyOfIndex} = anyOf{anyOfIndex}.Validate(result, level, absoluteKeywordLocation: absoluteKeywordLocation, instanceLocation: instanceLocation);");
+                        memberBuilder.AppendLine($"anyOfResult{anyOfIndex} = anyOf{anyOfIndex}.Validate(result, level, absoluteKeywordLocation: absoluteKeywordLocation, instanceLocation: instanceLocation);");
+
+                        // We can short circuit if we are at "flag" level as soon as we find a valid result, but
+                        // only if we are not evaluating all the unevaluated properties.
+                        memberBuilder.AppendLine($"if (level == Menes.ValidationLevel.Flag && anyOfResult{anyOfIndex}.Valid)");
+                        memberBuilder.AppendLine("{");
+                        memberBuilder.AppendLine("    return result;");
+                        memberBuilder.AppendLine("}");
                     }
 
-                    // We can short circuit if we are at "flag" level as soon as we find a valid result.
-                    memberBuilder.AppendLine($"if (level == Menes.ValidationLevel.Flag && anyOfResult{anyOfIndex}.Valid)");
-                    memberBuilder.AppendLine("{");
-                    memberBuilder.AppendLine("    return result;");
-                    memberBuilder.AppendLine("}");
+                    if (typeDeclaration.IsConcreteAnyOf && typeDeclaration.UnevaluatedProperties is null)
+                    {
+                        memberBuilder.AppendLine("}");
+                    }
 
                     this.BuildPopAbsoluteKeywordLocation(memberBuilder, anyOfIndex);
                     this.absoluteKeywordLocationStack.Pop();
