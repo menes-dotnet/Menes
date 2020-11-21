@@ -162,12 +162,155 @@ namespace Menes.JsonSchema.TypeBuilder
             }
         }
 
-        private void BuildUndefinedAndNullProperties(StringBuilder memberBuilder)
+        private void BuildUndefinedAndNullProperties(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
         {
             memberBuilder.AppendLine("/// <inheritdoc />");
             memberBuilder.AppendLine("public bool IsUndefined => !this.HasJsonElement && this.AllBackingFieldsAreNull();");
             memberBuilder.AppendLine("/// <inheritdoc />");
             memberBuilder.AppendLine("public bool IsNull => this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Null || (!this.HasJsonElement && this.AllBackingFieldsAreNull());");
+
+            if (typeDeclaration.Type is List<string> type)
+            {
+                if (type.Count == 1)
+                {
+                    memberBuilder.AppendLine("/// <inheritdoc />");
+                    if (type[0] == "number" || type[0] == "integer")
+                    {
+                        memberBuilder.AppendLine("public bool IsNumber => true;");
+                    }
+                    else
+                    {
+                        memberBuilder.AppendLine("public bool IsNumber => false;");
+                    }
+
+                    memberBuilder.AppendLine("/// <inheritdoc />");
+                    if (type[0] == "integer")
+                    {
+                        memberBuilder.AppendLine("public bool IsInteger => true;");
+                    }
+                    else
+                    {
+                        memberBuilder.AppendLine("public bool IsInteger=> false;");
+                    }
+
+                    memberBuilder.AppendLine("/// <inheritdoc />");
+                    if (type[0] == "string")
+                    {
+                        memberBuilder.AppendLine("public bool IsString => true;");
+                    }
+                    else
+                    {
+                        memberBuilder.AppendLine("public bool IsString => false;");
+                    }
+
+                    memberBuilder.AppendLine("/// <inheritdoc />");
+                    if (type[0] == "object")
+                    {
+                        memberBuilder.AppendLine("public bool IsObject => true;");
+                    }
+                    else
+                    {
+                        memberBuilder.AppendLine("public bool IsObject => false;");
+                    }
+
+                    memberBuilder.AppendLine("/// <inheritdoc />");
+                    if (type[0] == "boolean")
+                    {
+                        memberBuilder.AppendLine("public bool IsBoolean => true;");
+                    }
+                    else
+                    {
+                        memberBuilder.AppendLine("public bool IsBoolean => false;");
+                    }
+
+                    memberBuilder.AppendLine("/// <inheritdoc />");
+                    if (type[0] == "array")
+                    {
+                        memberBuilder.AppendLine("public bool IsArray => true;");
+                    }
+                    else
+                    {
+                        memberBuilder.AppendLine("public bool IsArray => false;");
+                    }
+                }
+                else
+                {
+                    memberBuilder.AppendLine("/// <inheritdoc />");
+                    if (type.Contains("number") || type.Contains("integer"))
+                    {
+                        memberBuilder.AppendLine("public bool IsNumber => (this.HasJsonElement && this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Number) || (!this.HasJsonElement && this._menesNumberTypeBacking is not null);");
+                    }
+                    else
+                    {
+                        memberBuilder.AppendLine("public bool IsNumber => false;");
+                    }
+
+                    memberBuilder.AppendLine("/// <inheritdoc />");
+                    if (type.Contains("integer"))
+                    {
+                        memberBuilder.AppendLine("public bool IsInteger => (this.HasJsonElement && this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Number) || (!this.HasJsonElement && this._menesIntegerTypeBacking is not null);");
+                    }
+                    else
+                    {
+                        memberBuilder.AppendLine("public bool IsInteger=> false;");
+                    }
+
+                    memberBuilder.AppendLine("/// <inheritdoc />");
+                    if (type.Contains("string"))
+                    {
+                        memberBuilder.AppendLine("public bool IsString => (this.HasJsonElement && this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.String) || (!this.HasJsonElement && this._menesStringTypeBacking is not null);");
+                    }
+                    else
+                    {
+                        memberBuilder.AppendLine("public bool IsString => false;");
+                    }
+
+                    memberBuilder.AppendLine("/// <inheritdoc />");
+                    if (type.Contains("object"))
+                    {
+                        memberBuilder.AppendLine("public bool IsObject => (this.HasJsonElement && this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Object) || (!this.HasJsonElement && !this.AllBackingFieldsAreNull());");
+                    }
+                    else
+                    {
+                        memberBuilder.AppendLine("public bool IsObject => false;");
+                    }
+
+                    memberBuilder.AppendLine("/// <inheritdoc />");
+                    if (type.Contains("boolean"))
+                    {
+                        memberBuilder.AppendLine("public bool IsBoolean => (this.HasJsonElement && (this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.True || this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.False)) || (!this.HasJsonElement && _menesBooleanTypeBacking is not null);");
+                    }
+                    else
+                    {
+                        memberBuilder.AppendLine("public bool IsBoolean => false;");
+                    }
+
+                    memberBuilder.AppendLine("/// <inheritdoc />");
+                    if (type.Contains("array"))
+                    {
+                        memberBuilder.AppendLine("public bool IsArray => (this.HasJsonElement && this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Array) || (!this.HasJsonElement && this._menesArrayValueBacking.Length > 0);");
+                    }
+                    else
+                    {
+                        memberBuilder.AppendLine("public bool IsArray => false;");
+                    }
+                }
+            }
+            else
+            {
+                memberBuilder.AppendLine("/// <inheritdoc />");
+                memberBuilder.AppendLine("public bool IsNumber => this.HasJsonElement && this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Number;");
+                memberBuilder.AppendLine("/// <inheritdoc />");
+                memberBuilder.AppendLine("public bool IsInteger => this.HasJsonElement && this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Number;");
+                memberBuilder.AppendLine("/// <inheritdoc />");
+                memberBuilder.AppendLine("public bool IsString => this.HasJsonElement && this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.String;");
+                memberBuilder.AppendLine("/// <inheritdoc />");
+                memberBuilder.AppendLine("public bool IsObject => this.HasJsonElement && this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Object;");
+                memberBuilder.AppendLine("/// <inheritdoc />");
+                memberBuilder.AppendLine("public bool IsBoolean => this.HasJsonElement && (this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.True || this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.False);");
+                memberBuilder.AppendLine("/// <inheritdoc />");
+                memberBuilder.AppendLine("public bool IsArray => this.HasJsonElement && this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Array;");
+            }
         }
 
         private void BuildPropertyNames(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)

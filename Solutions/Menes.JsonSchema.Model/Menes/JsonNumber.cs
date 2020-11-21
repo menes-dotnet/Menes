@@ -99,6 +99,24 @@ namespace Menes
         /// <inheritdoc />
         public JsonElement JsonElement { get; }
 
+        /// <inheritdoc />
+        public bool IsNumber => true;
+
+        /// <inheritdoc />
+        public bool IsInteger => false;
+
+        /// <inheritdoc />
+        public bool IsString => false;
+
+        /// <inheritdoc />
+        public bool IsObject => false;
+
+        /// <inheritdoc />
+        public bool IsBoolean => false;
+
+        /// <inheritdoc />
+        public bool IsArray => false;
+
         /// <summary>
         /// Implicit conversion from <see cref="int"/>.
         /// </summary>
@@ -152,6 +170,28 @@ namespace Menes
         /// </summary>
         /// <param name="value">The value to convert.</param>
         public static implicit operator JsonNumber(JsonInteger value) => new JsonNumber(value);
+
+        /// <summary>
+        /// Validates the given instance as this type.
+        /// </summary>
+        /// <typeparam name="T">The type of the instance to validate.</typeparam>
+        /// <param name="instance">The instance to validate.</param>
+        /// <param name="validationResult">The current validation result.</param>
+        /// <param name="level">The validation level to use.</param>
+        /// <param name="evaluatedProperties">The list of evaluated properties.</param>
+        /// <param name="absoluteKeywordLocation">The absolute keyword location stack.</param>
+        /// <param name="instanceLocation">The instance location stack.</param>
+        /// <returns>The updated validation result.</returns>
+        public static ValidationResult Validate<T>(T instance, ValidationResult? validationResult = null, ValidationLevel level = ValidationLevel.Flag, HashSet<string>? evaluatedProperties = null, Stack<string>? absoluteKeywordLocation = null, Stack<string>? instanceLocation = null)
+            where T : struct, IJsonValue
+        {
+            if (instance.IsNumber)
+            {
+                return AddSuccess(level, absoluteKeywordLocation, instanceLocation, validationResult ?? ValidationResult.ValidResult);
+            }
+
+            return AddError(level, absoluteKeywordLocation, instanceLocation, validationResult ?? ValidationResult.ValidResult);
+        }
 
         /// <summary>
         /// Gets the <see cref="JsonNumber"/> as a <see cref="double"/>.
@@ -370,32 +410,11 @@ namespace Menes
 
             if (this.HasJsonElement && this.JsonElement.ValueKind != JsonValueKind.Number)
             {
-                if (level >= ValidationLevel.Basic)
-                {
-                    string? il = null;
-                    string? akl = null;
-
-                    instanceLocation?.TryPeek(out il);
-                    absoluteKeywordLocation?.TryPeek(out akl);
-                    result.AddResult(valid: false, message: $"6.1.1.  type - should have been 'number' but was '{this.JsonElement.ValueKind}'.", instanceLocation: il, absoluteKeywordLocation: akl);
-                }
-                else
-                {
-                    result.SetValid(false);
-                }
+                AddError(level, absoluteKeywordLocation, instanceLocation, result);
             }
             else
             {
-                if (level == ValidationLevel.Verbose)
-                {
-                    string? il = null;
-                    string? akl = null;
-
-                    instanceLocation?.TryPeek(out il);
-                    absoluteKeywordLocation?.TryPeek(out akl);
-
-                    result.AddResult(valid: true, instanceLocation: il, absoluteKeywordLocation: akl);
-                }
+                AddSuccess(level, absoluteKeywordLocation, instanceLocation, result);
             }
 
             return result;
@@ -428,6 +447,41 @@ namespace Menes
         public override string ToString()
         {
             return this.IsNull ? "null" : this.GetDouble().ToString();
+        }
+
+        private static ValidationResult AddSuccess(ValidationLevel level, Stack<string>? absoluteKeywordLocation, Stack<string>? instanceLocation, ValidationResult result)
+        {
+            if (level == ValidationLevel.Verbose)
+            {
+                string? il = null;
+                string? akl = null;
+
+                instanceLocation?.TryPeek(out il);
+                absoluteKeywordLocation?.TryPeek(out akl);
+
+                result.AddResult(valid: true, instanceLocation: il, absoluteKeywordLocation: akl);
+            }
+
+            return result;
+        }
+
+        private static ValidationResult AddError(ValidationLevel level, Stack<string>? absoluteKeywordLocation, Stack<string>? instanceLocation, ValidationResult result)
+        {
+            if (level >= ValidationLevel.Basic)
+            {
+                string? il = null;
+                string? akl = null;
+
+                instanceLocation?.TryPeek(out il);
+                absoluteKeywordLocation?.TryPeek(out akl);
+                result.AddResult(valid: false, message: $"6.1.1.  type - should have been convertible to 'number'.", instanceLocation: il, absoluteKeywordLocation: akl);
+            }
+            else
+            {
+                result.SetValid(false);
+            }
+
+            return result;
         }
     }
 }

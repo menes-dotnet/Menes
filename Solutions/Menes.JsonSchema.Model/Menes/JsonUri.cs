@@ -54,6 +54,24 @@ namespace Menes
         /// <inheritdoc />
         public JsonElement JsonElement { get; }
 
+        /// <inheritdoc />
+        public bool IsNumber => false;
+
+        /// <inheritdoc />
+        public bool IsInteger => false;
+
+        /// <inheritdoc />
+        public bool IsString => true;
+
+        /// <inheritdoc />
+        public bool IsObject => false;
+
+        /// <inheritdoc />
+        public bool IsArray => false;
+
+        /// <inheritdoc />
+        public bool IsBoolean => false;
+
         /// <summary>
         /// Implicit conversion from <see cref="Uri"/>.
         /// </summary>

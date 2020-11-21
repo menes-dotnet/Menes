@@ -193,6 +193,24 @@ namespace Menes.ConsoleApp
             /// <inheritdoc/>
             public bool IsNull => (this.JsonElement.ValueKind == JsonValueKind.Undefined || this.JsonElement.ValueKind == JsonValueKind.Null) && this.AllBackingFieldsAreNull();
 
+            /// <inheritdoc />
+            public bool IsNumber => false;
+
+            /// <inheritdoc />
+            public bool IsInteger => false;
+
+            /// <inheritdoc />
+            public bool IsString => false;
+
+            /// <inheritdoc />
+            public bool IsObject => true;
+
+            /// <inheritdoc />
+            public bool IsBoolean => false;
+
+            /// <inheritdoc />
+            public bool IsArray => false;
+
             /// <inheritdoc/>
             public bool HasJsonElement => this.JsonElement.ValueKind != JsonValueKind.Undefined;
 

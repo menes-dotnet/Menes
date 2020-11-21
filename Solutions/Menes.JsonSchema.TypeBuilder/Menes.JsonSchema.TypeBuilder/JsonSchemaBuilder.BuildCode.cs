@@ -53,7 +53,7 @@ namespace Menes.JsonSchema.TypeBuilder
             this.BuildArrayConversionOperators(typeDeclaration, memberBuilder);
 
             // Public properties
-            this.BuildUndefinedAndNullProperties(memberBuilder);
+            this.BuildUndefinedAndNullProperties(typeDeclaration, memberBuilder);
             this.BuildJsonElementProperties(memberBuilder);
             this.BuildProperties(typeDeclaration, memberBuilder);
             this.BuildPropertyCountProperty(typeDeclaration, memberBuilder);

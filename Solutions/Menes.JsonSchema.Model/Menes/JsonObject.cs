@@ -27,6 +27,23 @@ namespace Menes
         /// <inheritdoc />
         public bool IsNull => this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Null || (!this.HasJsonElement && this.AllBackingFieldsAreNull());
         /// <inheritdoc />
+        public bool IsNumber => false;
+
+        /// <inheritdoc />
+        public bool IsInteger => false;
+
+        /// <inheritdoc />
+        public bool IsString => false;
+
+        /// <inheritdoc />
+        public bool IsObject => true;
+
+        /// <inheritdoc />
+        public bool IsBoolean => false;
+
+        /// <inheritdoc />
+        public bool IsArray => false;
+        /// <inheritdoc />
         public bool HasJsonElement => this._menesJsonElementBacking.ValueKind != System.Text.Json.JsonValueKind.Undefined;
         /// <inheritdoc />
         public System.Text.Json.JsonElement JsonElement => this._menesJsonElementBacking;

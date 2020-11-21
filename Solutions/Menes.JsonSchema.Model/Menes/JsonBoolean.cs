@@ -46,6 +46,24 @@ namespace Menes
         public bool IsNull => (this.JsonElement.ValueKind == JsonValueKind.Undefined || this.JsonElement.ValueKind == JsonValueKind.Null) && this.value is null;
 
         /// <inheritdoc />
+        public bool IsNumber => false;
+
+        /// <inheritdoc />
+        public bool IsInteger => false;
+
+        /// <inheritdoc />
+        public bool IsString => false;
+
+        /// <inheritdoc />
+        public bool IsObject => false;
+
+        /// <inheritdoc />
+        public bool IsBoolean => true;
+
+        /// <inheritdoc />
+        public bool IsArray => false;
+
+        /// <inheritdoc />
         public bool HasJsonElement => this.JsonElement.ValueKind != JsonValueKind.Undefined;
 
         /// <inheritdoc />

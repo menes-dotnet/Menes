@@ -13,16 +13,6 @@ namespace Menes
     /// </summary>
     public class ValidationResult : IEquatable<ValidationResult>
     {
-        /// <summary>
-        /// Gets a valid validation result.
-        /// </summary>
-        public static readonly ValidationResult ValidResult = new ValidationResult(true);
-
-        /// <summary>
-        /// Gets a valid validation result.
-        /// </summary>
-        public static readonly ValidationResult InvalidResult = new ValidationResult(false);
-
         private bool valid;
 
         /// <summary>
@@ -43,6 +33,16 @@ namespace Menes
             this.AbsoluteKeywordLocation = absoluteKeywordLocation;
             this.Errors = errors;
         }
+
+        /// <summary>
+        /// Gets a valid validation result.
+        /// </summary>
+        public static ValidationResult ValidResult => new ValidationResult(true);
+
+        /// <summary>
+        /// Gets a valid validation result.
+        /// </summary>
+        public static ValidationResult InvalidResult => new ValidationResult(false);
 
         /// <summary>
         /// Gets a value indicating whether the item was valid.

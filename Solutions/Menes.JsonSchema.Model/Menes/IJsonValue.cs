@@ -23,6 +23,36 @@ namespace Menes
         bool IsNull { get; }
 
         /// <summary>
+        /// Gets a value indicating whether this can be represented as a <see cref="JsonNumber"/>.
+        /// </summary>
+        bool IsNumber => false;
+
+        /// <summary>
+        /// Gets a value indicating whether this can be represented as a <see cref="JsonObject"/>.
+        /// </summary>
+        bool IsInteger => false;
+
+        /// <summary>
+        /// Gets a value indicating whether this can be represented as a <see cref="JsonString"/>.
+        /// </summary>
+        bool IsString => false;
+
+        /// <summary>
+        /// Gets a value indicating whether this can be represented as a <see cref="JsonBoolean"/>.
+        /// </summary>
+        bool IsBoolean => false;
+
+        /// <summary>
+        /// Gets a value indicating whether this can be represented as a <see cref="IJsonObject"/>.
+        /// </summary>
+        bool IsObject => false;
+
+        /// <summary>
+        /// Gets a value indicating whether this is a JSON array.
+        /// </summary>
+        bool IsArray => false;
+
+        /// <summary>
         /// Gets a value indicating whether this is backed by a <see cref="JsonElement"/>.
         /// </summary>
         bool HasJsonElement { get; }
