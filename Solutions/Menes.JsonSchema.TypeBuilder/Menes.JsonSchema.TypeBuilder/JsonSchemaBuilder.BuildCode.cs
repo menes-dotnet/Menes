@@ -121,6 +121,29 @@ namespace Menes.JsonSchema.TypeBuilder
             memberBuilder.AppendLine("{");
             memberBuilder.AppendLine("    return Corvus.Extensions.CastTo<T>.From(this);");
             memberBuilder.AppendLine("}");
+
+            if (typeDeclaration.IsConcreteOneOf)
+            {
+                foreach (TypeDeclaration oneOfType in typeDeclaration.OneOf!)
+                {
+                    memberBuilder.AppendLine($"if (typeof(T) == typeof({oneOfType.FullyQualifiedDotNetTypeName}) && this._menes{Formatting.ToPascalCaseWithReservedWords(oneOfType.FullyQualifiedDotNetTypeName!).ToString()}OneOfBacking is not null)");
+                    memberBuilder.AppendLine("{");
+                    memberBuilder.AppendLine($"    return Corvus.Extensions.CastTo<T>.From(this._menes{Formatting.ToPascalCaseWithReservedWords(oneOfType.FullyQualifiedDotNetTypeName!).ToString()}OneOfBacking);");
+                    memberBuilder.AppendLine("}");
+                }
+            }
+
+            if (typeDeclaration.IsConcreteAnyOf)
+            {
+                foreach (TypeDeclaration anyOfType in typeDeclaration.AnyOf!)
+                {
+                    memberBuilder.AppendLine($"if (typeof(T) == typeof({anyOfType.FullyQualifiedDotNetTypeName}) && this._menes{Formatting.ToPascalCaseWithReservedWords(anyOfType.FullyQualifiedDotNetTypeName!).ToString()}AnyOfBacking is not null)");
+                    memberBuilder.AppendLine("{");
+                    memberBuilder.AppendLine($"    return Corvus.Extensions.CastTo<T>.From(this._menes{Formatting.ToPascalCaseWithReservedWords(anyOfType.FullyQualifiedDotNetTypeName!).ToString()}AnyOfBacking);");
+                    memberBuilder.AppendLine("}");
+                }
+            }
+
             memberBuilder.AppendLine($"    return Menes.JsonValue.As<{typeDeclaration.DotnetTypeName}, T>(this);");
             memberBuilder.AppendLine("}");
 
@@ -132,6 +155,29 @@ namespace Menes.JsonSchema.TypeBuilder
             memberBuilder.AppendLine("{");
             memberBuilder.AppendLine("    return this.Validate().Valid;");
             memberBuilder.AppendLine("}");
+
+            if (typeDeclaration.IsConcreteOneOf)
+            {
+                foreach (TypeDeclaration oneOfType in typeDeclaration.OneOf!)
+                {
+                    memberBuilder.AppendLine($"if (typeof(T) == typeof({oneOfType.FullyQualifiedDotNetTypeName}) && this._menes{Formatting.ToPascalCaseWithReservedWords(oneOfType.FullyQualifiedDotNetTypeName!).ToString()}OneOfBacking is not null)");
+                    memberBuilder.AppendLine("{");
+                    memberBuilder.AppendLine($"    return this._menes{Formatting.ToPascalCaseWithReservedWords(oneOfType.FullyQualifiedDotNetTypeName!).ToString()}OneOfBacking.Value!.Validate().Valid;");
+                    memberBuilder.AppendLine("}");
+                }
+            }
+
+            if (typeDeclaration.IsConcreteAnyOf)
+            {
+                foreach (TypeDeclaration anyOfType in typeDeclaration.AnyOf!)
+                {
+                    memberBuilder.AppendLine($"if (typeof(T) == typeof({anyOfType.FullyQualifiedDotNetTypeName}) && this._menes{Formatting.ToPascalCaseWithReservedWords(anyOfType.FullyQualifiedDotNetTypeName!).ToString()}AnyOfBacking is not null)");
+                    memberBuilder.AppendLine("{");
+                    memberBuilder.AppendLine($"    return this._menes{Formatting.ToPascalCaseWithReservedWords(anyOfType.FullyQualifiedDotNetTypeName!).ToString()}AnyOfBacking.Value!.Validate().Valid;");
+                    memberBuilder.AppendLine("}");
+                }
+            }
+
             memberBuilder.AppendLine("    return this.As<T>().Validate().Valid;");
             memberBuilder.AppendLine("}");
 

@@ -26,6 +26,16 @@ namespace Menes.ConsoleApp
         {
             var test = new Test(default(Test));
             var schema = new Draft201909Schema(type: JsonArray.From("string", "array"));
+
+            if (schema.Type!.Value!.Validate().Valid)
+            {
+                Console.WriteLine("Hooray!");
+            }
+            else
+            {
+                Console.WriteLine("Boo!");
+            }
+
             if (schema.Validate().Valid)
             {
                 Console.WriteLine("Hooray!");

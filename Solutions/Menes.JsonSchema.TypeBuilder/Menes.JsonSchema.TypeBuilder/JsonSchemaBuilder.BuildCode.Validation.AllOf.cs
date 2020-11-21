@@ -17,7 +17,7 @@ namespace Menes.JsonSchema.TypeBuilder
         {
             if (typeDeclaration.AllOf is List<TypeDeclaration>)
             {
-                memberBuilder.AppendLine("result = ValidateAllOf(flattened, result, level, evaluatedProperties, absoluteKeywordLocation, instanceLocation);");
+                memberBuilder.AppendLine("result = ValidateAllOf(this, result, level, evaluatedProperties, absoluteKeywordLocation, instanceLocation);");
             }
         }
 
