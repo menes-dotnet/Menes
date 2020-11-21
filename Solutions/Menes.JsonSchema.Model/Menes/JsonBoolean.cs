@@ -81,7 +81,7 @@ namespace Menes
                 return Corvus.Extensions.CastTo<T>.From(this);
             }
 
-            return JsonValue.As<T>(JsonValue.FlattenToJsonElementBacking(this).JsonElement);
+            return JsonValue.As<JsonBoolean, T>(this);
         }
 
         /// <inheritdoc />

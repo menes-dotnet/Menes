@@ -8,6 +8,7 @@ namespace Menes
     using System.Collections;
     using System.Collections.Generic;
     using System.Text.Json;
+    using Corvus.Extensions;
 
     /// <summary>
     /// Represents the {}/true json type.
@@ -44,14 +45,24 @@ namespace Menes
         public T As<T>()
             where T : struct, IJsonValue
         {
-            return this.JsonElement.As<T>();
+            if (typeof(T) == typeof(JsonAny))
+            {
+                return CastTo<T>.From(this);
+            }
+
+            return JsonValue.As<JsonAny, T>(this);
         }
 
         /// <inheritdoc />
         public bool Is<T>()
             where T : struct, IJsonValue
         {
-            return this.JsonElement.As<T>().Validate(ValidationResult.ValidResult, ValidationLevel.Flag).Valid;
+            if (typeof(T) == typeof(JsonAny))
+            {
+                return this.Validate().Valid;
+            }
+
+            return JsonValue.As<JsonAny, T>(this).Validate(ValidationResult.ValidResult, ValidationLevel.Flag).Valid;
         }
 
         /// <summary>

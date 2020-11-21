@@ -74,7 +74,12 @@ namespace Menes
         public T As<T>()
             where T : struct, Menes.IJsonValue
         {
-            return Menes.JsonValue.As<T>(Menes.JsonValue.FlattenToJsonElementBacking(this).JsonElement);
+            if (typeof(T) == typeof(JsonObject))
+            {
+                return Corvus.Extensions.CastTo<T>.From(this);
+            }
+
+            return Menes.JsonValue.As<JsonObject, T>(this);
         }
         /// <inheritdoc />
         public bool Is<T>()

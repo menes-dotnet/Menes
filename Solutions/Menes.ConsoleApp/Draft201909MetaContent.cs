@@ -148,7 +148,7 @@ namespace TestSpace
             {
                 return Corvus.Extensions.CastTo<T>.From(this);
             }
-            return Menes.JsonValue.As<T>(Menes.JsonValue.FlattenToJsonElementBacking(this).JsonElement);
+            return Menes.JsonValue.As<Draft201909MetaContent, T>(this);
         }
         /// <inheritdoc />
         public bool Is<T>()

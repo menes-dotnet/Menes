@@ -26,6 +26,7 @@ namespace Menes.JsonSchema.TypeBuilder
                     bool isFirstParameter = true;
                     isFirstParameter = this.BuildRawPropertyConstructorInstances(isFirstParameter, typeDeclaration, memberBuilder, property.DotnetPropertyName);
                     isFirstParameter = this.BuildRawTypeConstructorInstances(isFirstParameter, typeDeclaration, memberBuilder);
+                    isFirstParameter = this.BuildRawOneOfConstructorInstances(isFirstParameter, typeDeclaration, memberBuilder);
                     this.BuildRawAdditionalPropertiesConstructorInstances(isFirstParameter, typeDeclaration, memberBuilder);
 
                     memberBuilder.AppendLine($");");
@@ -55,6 +56,7 @@ namespace Menes.JsonSchema.TypeBuilder
                 bool isFirstParameter = true;
                 isFirstParameter = this.BuildRawPropertyConstructorInstances(isFirstParameter, typeDeclaration, memberBuilder, null);
                 isFirstParameter = this.BuildRawTypeConstructorInstances(isFirstParameter, typeDeclaration, memberBuilder);
+                isFirstParameter = this.BuildRawOneOfConstructorInstances(isFirstParameter, typeDeclaration, memberBuilder);
                 isFirstParameter = this.AppendParameterComma(isFirstParameter, memberBuilder);
                 memberBuilder.Append("value");
                 memberBuilder.AppendLine(");");
@@ -86,6 +88,38 @@ namespace Menes.JsonSchema.TypeBuilder
                         string typeAsPascalCase = Formatting.ToPascalCaseWithReservedWords(type).ToString();
                         memberBuilder.Append($"this._menes{typeAsPascalCase}TypeBacking");
                     }
+                }
+            }
+
+            return isFirstParameter;
+        }
+
+        private bool BuildRawOneOfConstructorInstances(bool isFirstParameter, TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
+        {
+            if (typeDeclaration.IsConcreteOneOf)
+            {
+                foreach (TypeDeclaration type in typeDeclaration.OneOf!)
+                {
+                    isFirstParameter = this.AppendParameterComma(isFirstParameter, memberBuilder);
+
+                    string typeAsPascalCase = Formatting.ToPascalCaseWithReservedWords(type.FullyQualifiedDotNetTypeName!).ToString();
+                    memberBuilder.Append($"this._menes{typeAsPascalCase}OneOfBacking");
+                }
+            }
+
+            return isFirstParameter;
+        }
+
+        private bool BuildRawAnyOfConstructorInstances(bool isFirstParameter, TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
+        {
+            if (typeDeclaration.IsConcreteAnyOf)
+            {
+                foreach (TypeDeclaration type in typeDeclaration.AnyOf!)
+                {
+                    isFirstParameter = this.AppendParameterComma(isFirstParameter, memberBuilder);
+
+                    string typeAsPascalCase = Formatting.ToPascalCaseWithReservedWords(type.FullyQualifiedDotNetTypeName!).ToString();
+                    memberBuilder.Append($"this._menes{typeAsPascalCase}AnyOfBacking");
                 }
             }
 

@@ -1071,7 +1071,7 @@ namespace TestSpace
             {
                 return Corvus.Extensions.CastTo<T>.From(this);
             }
-            return Menes.JsonValue.As<T>(Menes.JsonValue.FlattenToJsonElementBacking(this).JsonElement);
+            return Menes.JsonValue.As<Draft201909Schema, T>(this);
         }
         /// <inheritdoc />
         public bool Is<T>()
@@ -4880,7 +4880,7 @@ namespace TestSpace
                 {
                     return Corvus.Extensions.CastTo<T>.From(this);
                 }
-                return Menes.JsonValue.As<T>(Menes.JsonValue.FlattenToJsonElementBacking(this).JsonElement);
+                return Menes.JsonValue.As<DefinitionsEntity, T>(this);
             }
             /// <inheritdoc />
             public bool Is<T>()
@@ -5285,7 +5285,7 @@ where TPropertyValue : struct, Menes.IJsonValue
                 {
                     return Corvus.Extensions.CastTo<T>.From(this);
                 }
-                return Menes.JsonValue.As<T>(Menes.JsonValue.FlattenToJsonElementBacking(this).JsonElement);
+                return Menes.JsonValue.As<DependenciesEntity, T>(this);
             }
             /// <inheritdoc />
             public bool Is<T>()
@@ -5638,7 +5638,7 @@ where TPropertyValue : struct, Menes.IJsonValue
                     {
                         return Corvus.Extensions.CastTo<T>.From(this);
                     }
-                    return Menes.JsonValue.As<T>(Menes.JsonValue.FlattenToJsonElementBacking(this).JsonElement);
+                    return Menes.JsonValue.As<AdditionalPropertiesEntity, T>(this);
                 }
                 /// <inheritdoc />
                 public bool Is<T>()

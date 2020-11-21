@@ -40,6 +40,8 @@ namespace Menes.JsonSchema.TypeBuilder
             this.BuildJsonElementBackingField(memberBuilder);
             this.BuildAdditionalPropertiesBackingField(typeDeclaration, memberBuilder);
             this.BuildTypeBackingFields(typeDeclaration, memberBuilder);
+            this.BuildOneOfBackingFields(typeDeclaration, memberBuilder);
+            this.BuildAnyOfBackingFields(typeDeclaration, memberBuilder);
             this.BuildArrayBackingField(typeDeclaration, memberBuilder);
             this.BuildPropertyBackingFields(typeDeclaration, memberBuilder);
 
@@ -119,7 +121,7 @@ namespace Menes.JsonSchema.TypeBuilder
             memberBuilder.AppendLine("{");
             memberBuilder.AppendLine("    return Corvus.Extensions.CastTo<T>.From(this);");
             memberBuilder.AppendLine("}");
-            memberBuilder.AppendLine("    return Menes.JsonValue.As<T>(Menes.JsonValue.FlattenToJsonElementBacking(this).JsonElement);");
+            memberBuilder.AppendLine($"    return Menes.JsonValue.As<{typeDeclaration.DotnetTypeName}, T>(this);");
             memberBuilder.AppendLine("}");
 
             memberBuilder.AppendLine("/// <inheritdoc />");
@@ -176,6 +178,14 @@ namespace Menes.JsonSchema.TypeBuilder
                 memberBuilder.AppendLine("}");
                 memberBuilder.AppendLine("writer.WriteEndArray();");
             }
+            else if (typeDeclaration.IsConcreteOneOf)
+            {
+                this.BuildWriteOneOfBackingValues(typeDeclaration, memberBuilder);
+            }
+            else if (typeDeclaration.IsConcreteAnyOf)
+            {
+                this.BuildWriteAnyOfBackingValues(typeDeclaration, memberBuilder);
+            }
             else
             {
                 this.BuildWriteTypeBackingValues(typeDeclaration, memberBuilder);
@@ -194,6 +204,8 @@ namespace Menes.JsonSchema.TypeBuilder
             this.BuildAdditionalPropertiesAreNull(typeDeclaration, memberBuilder);
 
             this.BuildTypeBackingFieldsAreNull(typeDeclaration, memberBuilder);
+            this.BuildOneOfBackingFieldsAreNull(typeDeclaration, memberBuilder);
+            this.BuildAnyOfBackingFieldsAreNull(typeDeclaration, memberBuilder);
 
             this.BuildArrayBackingFieldIsNull(typeDeclaration, memberBuilder);
 

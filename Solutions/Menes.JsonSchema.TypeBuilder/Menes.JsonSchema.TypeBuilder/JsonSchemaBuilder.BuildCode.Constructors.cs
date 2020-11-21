@@ -27,6 +27,8 @@ namespace Menes.JsonSchema.TypeBuilder
             this.BuildRequiredPropertiesConstructor(typeDeclaration, memberBuilder, constructorParameterDeclarations);
 
             this.BuildTypeConstructors(typeDeclaration, memberBuilder, constructorParameterDeclarations);
+            this.BuildOneOfConstructors(typeDeclaration, memberBuilder, constructorParameterDeclarations);
+            this.BuildAnyOfConstructors(typeDeclaration, memberBuilder, constructorParameterDeclarations);
 
             this.BuildArrayConstructors(typeDeclaration, memberBuilder, constructorParameterDeclarations);
 
@@ -69,6 +71,8 @@ namespace Menes.JsonSchema.TypeBuilder
                 this.BuildAssignNullOrDefaultAdditionalPropertiesBackingField(typeDeclaration, memberBuilder);
                 this.BuildAssignNullOrDefaultPropertyBackingFields(typeDeclaration, memberBuilder);
                 this.BuildAssignNullOrDefaultTypeBackingFields(typeDeclaration, memberBuilder);
+                this.BuildAssignNullOrDefaultOneOfBackingFields(typeDeclaration, memberBuilder);
+                this.BuildAssignNullOrDefaultAnyOfBackingFields(typeDeclaration, memberBuilder);
 
                 memberBuilder.AppendLine("}");
             }
@@ -111,6 +115,8 @@ namespace Menes.JsonSchema.TypeBuilder
                 this.BuildAssignNullOrDefaultAdditionalPropertiesBackingField(typeDeclaration, memberBuilder);
                 this.BuildAssignNullOrDefaultPropertyBackingFields(typeDeclaration, memberBuilder);
                 this.BuildAssignNullOrDefaultTypeBackingFields(typeDeclaration, memberBuilder);
+                this.BuildAssignNullOrDefaultOneOfBackingFields(typeDeclaration, memberBuilder);
+                this.BuildAssignNullOrDefaultAnyOfBackingFields(typeDeclaration, memberBuilder);
 
                 memberBuilder.AppendLine("}");
             }
@@ -137,6 +143,8 @@ namespace Menes.JsonSchema.TypeBuilder
             this.BuildAssignNullOrDefaultAdditionalPropertiesBackingField(typeDeclaration, memberBuilder);
             this.BuildAssignNullOrDefaultArrayBackingField(typeDeclaration, memberBuilder);
             this.BuildAssignNullOrDefaultTypeBackingFields(typeDeclaration, memberBuilder);
+            this.BuildAssignNullOrDefaultOneOfBackingFields(typeDeclaration, memberBuilder);
+            this.BuildAssignNullOrDefaultAnyOfBackingFields(typeDeclaration, memberBuilder);
             memberBuilder.AppendLine("}");
         }
 
@@ -172,8 +180,80 @@ namespace Menes.JsonSchema.TypeBuilder
                         this.BuildAssignNullOrDefaultPropertyBackingFields(typeDeclaration, memberBuilder);
                         this.BuildAssignNullOrDefaultArrayBackingField(typeDeclaration, memberBuilder);
                         this.BuildAssignNullOrDefaultTypeBackingFields(typeDeclaration, memberBuilder, type);
+                        this.BuildAssignNullOrDefaultOneOfBackingFields(typeDeclaration, memberBuilder);
+                        this.BuildAssignNullOrDefaultAnyOfBackingFields(typeDeclaration, memberBuilder);
                         memberBuilder.AppendLine("}");
                     }
+                }
+            }
+        }
+
+        private void BuildOneOfConstructors(TypeDeclaration typeDeclaration, StringBuilder memberBuilder, HashSet<string> constructorParameterDeclarations)
+        {
+            if (typeDeclaration.IsConcreteOneOf)
+            {
+                foreach (TypeDeclaration type in typeDeclaration.OneOf!)
+                {
+                    var parameterDeclarations = new StringBuilder();
+
+                    parameterDeclarations.Append($"{type.FullyQualifiedDotNetTypeName} value");
+
+                    string parameterDeclaration = parameterDeclarations.ToString();
+                    if (constructorParameterDeclarations.Contains(parameterDeclaration) || string.IsNullOrEmpty(parameterDeclaration))
+                    {
+                        return;
+                    }
+
+                    constructorParameterDeclarations.Add(parameterDeclaration);
+                    memberBuilder.Append($"public {typeDeclaration.DotnetTypeName}(");
+                    memberBuilder.Append(parameterDeclaration);
+                    memberBuilder.AppendLine(")");
+                    memberBuilder.AppendLine("{");
+                    memberBuilder.AppendLine("    this._menesJsonElementBacking = default;");
+                    memberBuilder.AppendLine($"    this._menes{Formatting.ToPascalCaseWithReservedWords(type.FullyQualifiedDotNetTypeName!).ToString()}OneOfBacking = value;");
+
+                    this.BuildAssignNullOrDefaultAdditionalPropertiesBackingField(typeDeclaration, memberBuilder);
+                    this.BuildAssignNullOrDefaultPropertyBackingFields(typeDeclaration, memberBuilder);
+                    this.BuildAssignNullOrDefaultArrayBackingField(typeDeclaration, memberBuilder);
+                    this.BuildAssignNullOrDefaultTypeBackingFields(typeDeclaration, memberBuilder);
+                    this.BuildAssignNullOrDefaultOneOfBackingFields(typeDeclaration, memberBuilder, type);
+                    this.BuildAssignNullOrDefaultAnyOfBackingFields(typeDeclaration, memberBuilder, type);
+                    memberBuilder.AppendLine("}");
+                }
+            }
+        }
+
+        private void BuildAnyOfConstructors(TypeDeclaration typeDeclaration, StringBuilder memberBuilder, HashSet<string> constructorParameterDeclarations)
+        {
+            if (typeDeclaration.IsConcreteAnyOf)
+            {
+                foreach (TypeDeclaration type in typeDeclaration.AnyOf!)
+                {
+                    var parameterDeclarations = new StringBuilder();
+
+                    parameterDeclarations.Append($"{type.FullyQualifiedDotNetTypeName} value");
+
+                    string parameterDeclaration = parameterDeclarations.ToString();
+                    if (constructorParameterDeclarations.Contains(parameterDeclaration) || string.IsNullOrEmpty(parameterDeclaration))
+                    {
+                        return;
+                    }
+
+                    constructorParameterDeclarations.Add(parameterDeclaration);
+                    memberBuilder.Append($"public {typeDeclaration.DotnetTypeName}(");
+                    memberBuilder.Append(parameterDeclaration);
+                    memberBuilder.AppendLine(")");
+                    memberBuilder.AppendLine("{");
+                    memberBuilder.AppendLine("    this._menesJsonElementBacking = default;");
+                    memberBuilder.AppendLine($"    this._menes{Formatting.ToPascalCaseWithReservedWords(type.FullyQualifiedDotNetTypeName!).ToString()}AnyOfBacking = value;");
+
+                    this.BuildAssignNullOrDefaultAdditionalPropertiesBackingField(typeDeclaration, memberBuilder);
+                    this.BuildAssignNullOrDefaultPropertyBackingFields(typeDeclaration, memberBuilder);
+                    this.BuildAssignNullOrDefaultArrayBackingField(typeDeclaration, memberBuilder);
+                    this.BuildAssignNullOrDefaultTypeBackingFields(typeDeclaration, memberBuilder);
+                    this.BuildAssignNullOrDefaultOneOfBackingFields(typeDeclaration, memberBuilder);
+                    this.BuildAssignNullOrDefaultAnyOfBackingFields(typeDeclaration, memberBuilder, type);
+                    memberBuilder.AppendLine("}");
                 }
             }
         }
@@ -184,6 +264,8 @@ namespace Menes.JsonSchema.TypeBuilder
             bool isFirstParameter = true;
             isFirstParameter = this.BuildRawPropertyConstructorParameters(isFirstParameter, typeDeclaration, parameterDeclarations);
             isFirstParameter = this.BuildRawTypeConstructorParameters(isFirstParameter, typeDeclaration, parameterDeclarations);
+            isFirstParameter = this.BuildRawOneOfConstructorParameters(isFirstParameter, typeDeclaration, parameterDeclarations);
+            isFirstParameter = this.BuildRawAnyOfConstructorParameters(isFirstParameter, typeDeclaration, parameterDeclarations);
             this.BuildRawAdditionalPropertiesConstructorParameters(isFirstParameter, typeDeclaration, parameterDeclarations);
 
             string parameterDeclaration = parameterDeclarations.ToString();
@@ -200,6 +282,8 @@ namespace Menes.JsonSchema.TypeBuilder
             memberBuilder.AppendLine("    this._menesJsonElementBacking = default;");
             this.BuildRawPropertyConstructorAssignment(typeDeclaration, memberBuilder);
             this.BuildRawTypeConstructorAssignment(typeDeclaration, memberBuilder);
+            this.BuildRawOneOfConstructorAssignment(typeDeclaration, memberBuilder);
+            this.BuildRawAnyOfConstructorAssignment(typeDeclaration, memberBuilder);
             this.BuildRawAdditionalPropertiesConstructorAssignment(typeDeclaration, memberBuilder);
             memberBuilder.AppendLine("}");
         }
@@ -293,6 +377,30 @@ namespace Menes.JsonSchema.TypeBuilder
             }
         }
 
+        private void BuildRawOneOfConstructorAssignment(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
+        {
+            if (typeDeclaration.IsConcreteOneOf)
+            {
+                foreach (TypeDeclaration type in typeDeclaration.OneOf!)
+                {
+                    string typeAsPascalCase = Formatting.ToPascalCaseWithReservedWords(type.FullyQualifiedDotNetTypeName!).ToString();
+                    memberBuilder.AppendLine($"this._menes{typeAsPascalCase}OneOfBacking = _menes{typeAsPascalCase}OneOfBacking;");
+                }
+            }
+        }
+
+        private void BuildRawAnyOfConstructorAssignment(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
+        {
+            if (typeDeclaration.IsConcreteAnyOf)
+            {
+                foreach (TypeDeclaration type in typeDeclaration.AnyOf!)
+                {
+                    string typeAsPascalCase = Formatting.ToPascalCaseWithReservedWords(type.FullyQualifiedDotNetTypeName!).ToString();
+                    memberBuilder.AppendLine($"this._menes{typeAsPascalCase}AnyOfBacking = _menes{typeAsPascalCase}AnyOfBacking;");
+                }
+            }
+        }
+
         private void BuildRawAdditionalPropertiesConstructorAssignment(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
         {
             if (typeDeclaration.AllowsAdditionalProperties)
@@ -342,6 +450,36 @@ namespace Menes.JsonSchema.TypeBuilder
             return isFirstParameter;
         }
 
+        private bool BuildRawOneOfConstructorParameters(bool isFirstParameter, TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
+        {
+            if (typeDeclaration.IsConcreteOneOf)
+            {
+                foreach (TypeDeclaration type in typeDeclaration.OneOf!)
+                {
+                    isFirstParameter = this.AppendParameterComma(isFirstParameter, memberBuilder);
+                    string typeAsPascalCase = Formatting.ToPascalCaseWithReservedWords(type.FullyQualifiedDotNetTypeName!).ToString();
+                    memberBuilder.Append($"{type.FullyQualifiedDotNetTypeName}? _menes{typeAsPascalCase}OneOfBacking");
+                }
+            }
+
+            return isFirstParameter;
+        }
+
+        private bool BuildRawAnyOfConstructorParameters(bool isFirstParameter, TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
+        {
+            if (typeDeclaration.IsConcreteAnyOf)
+            {
+                foreach (TypeDeclaration type in typeDeclaration.AnyOf!)
+                {
+                    isFirstParameter = this.AppendParameterComma(isFirstParameter, memberBuilder);
+                    string typeAsPascalCase = Formatting.ToPascalCaseWithReservedWords(type.FullyQualifiedDotNetTypeName!).ToString();
+                    memberBuilder.Append($"{type.FullyQualifiedDotNetTypeName}? _menes{typeAsPascalCase}AnyOfBacking");
+                }
+            }
+
+            return isFirstParameter;
+        }
+
         private bool BuildRawPropertyConstructorParameters(bool isFirstParameter, TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
         {
             if (typeDeclaration.Properties is not null)
@@ -381,6 +519,8 @@ namespace Menes.JsonSchema.TypeBuilder
         {
             this.BuildAssignNullOrDefaultAdditionalPropertiesBackingField(typeDeclaration, memberBuilder);
             this.BuildAssignNullOrDefaultTypeBackingFields(typeDeclaration, memberBuilder);
+            this.BuildAssignNullOrDefaultOneOfBackingFields(typeDeclaration, memberBuilder);
+            this.BuildAssignNullOrDefaultAnyOfBackingFields(typeDeclaration, memberBuilder);
             this.BuildAssignNullOrDefaultPropertyBackingFields(typeDeclaration, memberBuilder);
             this.BuildAssignNullOrDefaultArrayBackingField(typeDeclaration, memberBuilder);
         }
@@ -414,6 +554,34 @@ namespace Menes.JsonSchema.TypeBuilder
                     {
                         string typeAsPascalCase = Formatting.ToPascalCaseWithReservedWords(type).ToString();
                         memberBuilder.AppendLine($"this._menes{typeAsPascalCase}TypeBacking = default;");
+                    }
+                }
+            }
+        }
+
+        private void BuildAssignNullOrDefaultOneOfBackingFields(TypeDeclaration typeDeclaration, StringBuilder memberBuilder, TypeDeclaration? typeToSkip = null)
+        {
+            if (typeDeclaration.IsConcreteOneOf)
+            {
+                foreach (TypeDeclaration type in typeDeclaration.OneOf!)
+                {
+                    if (typeToSkip?.FullyQualifiedDotNetTypeName != type.FullyQualifiedDotNetTypeName)
+                    {
+                        memberBuilder.AppendLine($"this._menes{Formatting.ToPascalCaseWithReservedWords(type.FullyQualifiedDotNetTypeName!).ToString()}OneOfBacking = default;");
+                    }
+                }
+            }
+        }
+
+        private void BuildAssignNullOrDefaultAnyOfBackingFields(TypeDeclaration typeDeclaration, StringBuilder memberBuilder, TypeDeclaration? typeToSkip = null)
+        {
+            if (typeDeclaration.IsConcreteAnyOf)
+            {
+                foreach (TypeDeclaration type in typeDeclaration.AnyOf!)
+                {
+                    if (typeToSkip?.FullyQualifiedDotNetTypeName != type.FullyQualifiedDotNetTypeName)
+                    {
+                        memberBuilder.AppendLine($"this._menes{Formatting.ToPascalCaseWithReservedWords(type.FullyQualifiedDotNetTypeName!).ToString()}AnyOfBacking = default;");
                     }
                 }
             }

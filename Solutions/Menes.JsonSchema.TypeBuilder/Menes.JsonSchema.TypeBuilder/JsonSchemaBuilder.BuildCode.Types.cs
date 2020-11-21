@@ -62,5 +62,77 @@ namespace Menes.JsonSchema.TypeBuilder
                 }
             }
         }
+
+        private void BuildOneOfBackingFields(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
+        {
+            if (typeDeclaration.IsConcreteOneOf)
+            {
+                foreach (TypeDeclaration type in typeDeclaration.OneOf!)
+                {
+                    memberBuilder.AppendLine($"private readonly {type.FullyQualifiedDotNetTypeName}? _menes{Formatting.ToPascalCaseWithReservedWords(type.FullyQualifiedDotNetTypeName!).ToString()}OneOfBacking;");
+                }
+            }
+        }
+
+        private void BuildOneOfBackingFieldsAreNull(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
+        {
+            if (typeDeclaration.IsConcreteOneOf)
+            {
+                foreach (TypeDeclaration type in typeDeclaration.OneOf!)
+                {
+                    memberBuilder.AppendLine($"if (this._menes{Formatting.ToPascalCaseWithReservedWords(type.FullyQualifiedDotNetTypeName!).ToString()}OneOfBacking is not null)");
+                    memberBuilder.AppendLine("{");
+                    memberBuilder.AppendLine("    return false;");
+                    memberBuilder.AppendLine("}");
+                }
+            }
+        }
+
+        private void BuildWriteOneOfBackingValues(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
+        {
+            if (typeDeclaration.IsConcreteOneOf)
+            {
+                foreach (TypeDeclaration type in typeDeclaration.OneOf!)
+                {
+                    memberBuilder.AppendLine($"        this._menes{Formatting.ToPascalCaseWithReservedWords(type.FullyQualifiedDotNetTypeName!).ToString()}OneOfBacking?.WriteTo(writer);");
+                }
+            }
+        }
+
+        private void BuildAnyOfBackingFields(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
+        {
+            if (typeDeclaration.IsConcreteAnyOf)
+            {
+                foreach (TypeDeclaration type in typeDeclaration.AnyOf!)
+                {
+                    memberBuilder.AppendLine($"private readonly {type.FullyQualifiedDotNetTypeName}? _menes{Formatting.ToPascalCaseWithReservedWords(type.FullyQualifiedDotNetTypeName!).ToString()}AnyOfBacking;");
+                }
+            }
+        }
+
+        private void BuildAnyOfBackingFieldsAreNull(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
+        {
+            if (typeDeclaration.IsConcreteAnyOf)
+            {
+                foreach (TypeDeclaration type in typeDeclaration.AnyOf!)
+                {
+                    memberBuilder.AppendLine($"if (this._menes{Formatting.ToPascalCaseWithReservedWords(type.FullyQualifiedDotNetTypeName!).ToString()}AnyOfBacking is not null)");
+                    memberBuilder.AppendLine("{");
+                    memberBuilder.AppendLine("    return false;");
+                    memberBuilder.AppendLine("}");
+                }
+            }
+        }
+
+        private void BuildWriteAnyOfBackingValues(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
+        {
+            if (typeDeclaration.IsConcreteAnyOf)
+            {
+                foreach (TypeDeclaration type in typeDeclaration.AnyOf!)
+                {
+                    memberBuilder.AppendLine($"        this._menes{Formatting.ToPascalCaseWithReservedWords(type.FullyQualifiedDotNetTypeName!).ToString()}AnyOfBacking?.WriteTo(writer);");
+                }
+            }
+        }
     }
 }

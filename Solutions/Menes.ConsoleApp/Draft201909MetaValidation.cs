@@ -386,7 +386,7 @@ namespace TestSpace
             {
                 return Corvus.Extensions.CastTo<T>.From(this);
             }
-            return Menes.JsonValue.As<T>(Menes.JsonValue.FlattenToJsonElementBacking(this).JsonElement);
+            return Menes.JsonValue.As<Draft201909MetaValidation, T>(this);
         }
         /// <inheritdoc />
         public bool Is<T>()
@@ -1899,7 +1899,7 @@ namespace TestSpace
                 {
                     return Corvus.Extensions.CastTo<T>.From(this);
                 }
-                return Menes.JsonValue.As<T>(Menes.JsonValue.FlattenToJsonElementBacking(this).JsonElement);
+                return Menes.JsonValue.As<MultipleOfValue, T>(this);
             }
             /// <inheritdoc />
             public bool Is<T>()
@@ -2004,7 +2004,7 @@ namespace TestSpace
                 {
                     return Corvus.Extensions.CastTo<T>.From(this);
                 }
-                return Menes.JsonValue.As<T>(Menes.JsonValue.FlattenToJsonElementBacking(this).JsonElement);
+                return Menes.JsonValue.As<NonNegativeIntegerValue, T>(this);
             }
             /// <inheritdoc />
             public bool Is<T>()
@@ -2081,7 +2081,7 @@ namespace TestSpace
                 {
                     return Corvus.Extensions.CastTo<T>.From(this);
                 }
-                return Menes.JsonValue.As<T>(Menes.JsonValue.FlattenToJsonElementBacking(this).JsonElement);
+                return Menes.JsonValue.As<StringArrayEntity, T>(this);
             }
             /// <inheritdoc />
             public bool Is<T>()
@@ -2509,7 +2509,7 @@ where T1 : struct, Menes.IJsonValue
                 {
                     return Corvus.Extensions.CastTo<T>.From(this);
                 }
-                return Menes.JsonValue.As<T>(Menes.JsonValue.FlattenToJsonElementBacking(this).JsonElement);
+                return Menes.JsonValue.As<DependentRequiredEntity, T>(this);
             }
             /// <inheritdoc />
             public bool Is<T>()
@@ -2890,7 +2890,7 @@ where TPropertyValue : struct, Menes.IJsonValue
                 {
                     return Corvus.Extensions.CastTo<T>.From(this);
                 }
-                return Menes.JsonValue.As<T>(Menes.JsonValue.FlattenToJsonElementBacking(this).JsonElement);
+                return Menes.JsonValue.As<ConstEntity, T>(this);
             }
             /// <inheritdoc />
             public bool Is<T>()
@@ -2963,7 +2963,7 @@ where TPropertyValue : struct, Menes.IJsonValue
                 {
                     return Corvus.Extensions.CastTo<T>.From(this);
                 }
-                return Menes.JsonValue.As<T>(Menes.JsonValue.FlattenToJsonElementBacking(this).JsonElement);
+                return Menes.JsonValue.As<EnumArray, T>(this);
             }
             /// <inheritdoc />
             public bool Is<T>()
@@ -3268,7 +3268,7 @@ where T1 : struct, Menes.IJsonValue
                     {
                         return Corvus.Extensions.CastTo<T>.From(this);
                     }
-                    return Menes.JsonValue.As<T>(Menes.JsonValue.FlattenToJsonElementBacking(this).JsonElement);
+                    return Menes.JsonValue.As<ItemsEntity, T>(this);
                 }
                 /// <inheritdoc />
                 public bool Is<T>()
@@ -3388,9 +3388,31 @@ where T1 : struct, Menes.IJsonValue
         {
             public static readonly TypeEntity Null = default(TypeEntity);
             private readonly System.Text.Json.JsonElement _menesJsonElementBacking;
+            private readonly Draft201909MetaValidation.TypeEntity.SimpleTypesEntity? _menesDraft201909MetaValidationTypeEntitySimpleTypesEntityAnyOfBacking;
+            private readonly Draft201909MetaValidation.TypeEntity.AnyOf1Array? _menesDraft201909MetaValidationTypeEntityAnyOf1ArrayAnyOfBacking;
             public TypeEntity(System.Text.Json.JsonElement jsonElement)
             {
                 this._menesJsonElementBacking = jsonElement;
+                this._menesDraft201909MetaValidationTypeEntitySimpleTypesEntityAnyOfBacking = default;
+                this._menesDraft201909MetaValidationTypeEntityAnyOf1ArrayAnyOfBacking = default;
+            }
+            public TypeEntity(Draft201909MetaValidation.TypeEntity.SimpleTypesEntity value)
+            {
+                this._menesJsonElementBacking = default;
+                this._menesDraft201909MetaValidationTypeEntitySimpleTypesEntityAnyOfBacking = value;
+                this._menesDraft201909MetaValidationTypeEntityAnyOf1ArrayAnyOfBacking = default;
+            }
+            public TypeEntity(Draft201909MetaValidation.TypeEntity.AnyOf1Array value)
+            {
+                this._menesJsonElementBacking = default;
+                this._menesDraft201909MetaValidationTypeEntityAnyOf1ArrayAnyOfBacking = value;
+                this._menesDraft201909MetaValidationTypeEntitySimpleTypesEntityAnyOfBacking = default;
+            }
+            private TypeEntity(Draft201909MetaValidation.TypeEntity.SimpleTypesEntity? _menesDraft201909MetaValidationTypeEntitySimpleTypesEntityAnyOfBacking, Draft201909MetaValidation.TypeEntity.AnyOf1Array? _menesDraft201909MetaValidationTypeEntityAnyOf1ArrayAnyOfBacking)
+            {
+                this._menesJsonElementBacking = default;
+                this._menesDraft201909MetaValidationTypeEntitySimpleTypesEntityAnyOfBacking = _menesDraft201909MetaValidationTypeEntitySimpleTypesEntityAnyOfBacking;
+                this._menesDraft201909MetaValidationTypeEntityAnyOf1ArrayAnyOfBacking = _menesDraft201909MetaValidationTypeEntityAnyOf1ArrayAnyOfBacking;
             }
             public static implicit operator Draft201909MetaValidation.TypeEntity.SimpleTypesEntity(TypeEntity value)
             {
@@ -3533,6 +3555,8 @@ where T1 : struct, Menes.IJsonValue
                     this.JsonElement.WriteTo(writer);
                     return;
                 }
+                this._menesDraft201909MetaValidationTypeEntitySimpleTypesEntityAnyOfBacking?.WriteTo(writer);
+                this._menesDraft201909MetaValidationTypeEntityAnyOf1ArrayAnyOfBacking?.WriteTo(writer);
             }
             /// <inheritdoc />
             public T As<T>()
@@ -3542,7 +3566,7 @@ where T1 : struct, Menes.IJsonValue
                 {
                     return Corvus.Extensions.CastTo<T>.From(this);
                 }
-                return Menes.JsonValue.As<T>(Menes.JsonValue.FlattenToJsonElementBacking(this).JsonElement);
+                return Menes.JsonValue.As<TypeEntity, T>(this);
             }
             /// <inheritdoc />
             public bool Is<T>()
@@ -3564,6 +3588,14 @@ where T1 : struct, Menes.IJsonValue
             }
             private bool AllBackingFieldsAreNull()
             {
+                if (this._menesDraft201909MetaValidationTypeEntitySimpleTypesEntityAnyOfBacking is not null)
+                {
+                    return false;
+                }
+                if (this._menesDraft201909MetaValidationTypeEntityAnyOf1ArrayAnyOfBacking is not null)
+                {
+                    return false;
+                }
                 return true;
             }
             public readonly struct SimpleTypesEntity : Menes.IJsonValue
@@ -3634,7 +3666,7 @@ where T1 : struct, Menes.IJsonValue
                     {
                         return Corvus.Extensions.CastTo<T>.From(this);
                     }
-                    return Menes.JsonValue.As<T>(Menes.JsonValue.FlattenToJsonElementBacking(this).JsonElement);
+                    return Menes.JsonValue.As<SimpleTypesEntity, T>(this);
                 }
                 /// <inheritdoc />
                 public bool Is<T>()
@@ -3729,7 +3761,7 @@ where T1 : struct, Menes.IJsonValue
                     {
                         return Corvus.Extensions.CastTo<T>.From(this);
                     }
-                    return Menes.JsonValue.As<T>(Menes.JsonValue.FlattenToJsonElementBacking(this).JsonElement);
+                    return Menes.JsonValue.As<AnyOf1Array, T>(this);
                 }
                 /// <inheritdoc />
                 public bool Is<T>()
