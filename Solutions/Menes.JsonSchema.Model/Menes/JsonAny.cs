@@ -13,7 +13,7 @@ namespace Menes
     /// <summary>
     /// Represents the {}/true json type.
     /// </summary>
-    public readonly struct JsonAny : IJsonObject
+    public readonly struct JsonAny : IJsonValue, IJsonObject, IJsonArray
     {
         /// <summary>
         /// The null value.
@@ -222,7 +222,7 @@ namespace Menes
                 return false;
             }
 
-            if (this.JsonElement.TryGetProperty(propertyName, out JsonElement value))
+            if (this.HasJsonElement && this.JsonElement.TryGetProperty(propertyName, out JsonElement value))
             {
                 property = value.As<T>();
                 return true;
@@ -252,7 +252,7 @@ namespace Menes
                 return false;
             }
 
-            if (this.JsonElement.TryGetProperty(utf8PropertyName, out JsonElement value))
+            if (this.HasJsonElement && this.JsonElement.TryGetProperty(utf8PropertyName, out JsonElement value))
             {
                 property = value.As<T>();
                 return true;
@@ -306,7 +306,61 @@ namespace Menes
         /// <inheritdoc/>
         public IEnumerator GetEnumerator()
         {
-            return this.EnumerateObject();
+            if (this.IsObject)
+            {
+                return this.EnumerateObject();
+            }
+
+            if (this.IsArray)
+            {
+                return this.EnumerateArray();
+            }
+
+            throw new InvalidOperationException("Cannot enumerate a non array or object type.");
+        }
+
+        /// <inheritdoc/>
+        public int GetArrayLength()
+        {
+            if (this.value is IJsonArray array)
+            {
+                return array.GetArrayLength();
+            }
+
+            if (this.JsonElement.ValueKind == JsonValueKind.Array)
+            {
+                return this.JsonElement.GetArrayLength();
+            }
+
+            return 0;
+        }
+
+        /// <inheritdoc/>
+        public T GetItemAtIndex<T>(int index)
+            where T : struct, IJsonValue
+        {
+            if (this.value is IJsonArray array)
+            {
+                return array.GetItemAtIndex<T>(index);
+            }
+
+            if (this.JsonElement.ValueKind == JsonValueKind.Array)
+            {
+                int currentIndex = 0;
+                foreach (JsonElement item in this.JsonElement.EnumerateArray())
+                {
+                    if (currentIndex == index)
+                    {
+                        return item.As<T>();
+                    }
+
+                    currentIndex++;
+                }
+
+                throw new IndexOutOfRangeException();
+            }
+
+            return default;
         }
 
         /// <inheritdoc/>

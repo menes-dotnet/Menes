@@ -131,6 +131,28 @@ namespace Menes.ConsoleApp
                     }
                 }
             }
+
+            // Now do the same but through a JsonAny. This will cause boxing through the interfaces.
+            JsonAny treeAny = tree.As<JsonAny>();
+            foreach (IProperty property in treeAny.EnumerateObject())
+            {
+                if (property.NameEquals("meta"))
+                {
+                    Console.WriteLine($"{property.Name}: {property.Value<JsonString>()}");
+                }
+
+                if (property.NameEquals("nodes"))
+                {
+                    Console.WriteLine($"{property.Name}:");
+                    foreach (JsonAny node in property.Value<JsonAny>().EnumerateArray())
+                    {
+                        if (node.TryGetProperty("value", out JsonNumber nodeVal))
+                        {
+                            Console.WriteLine($"\t{nodeVal}");
+                        }
+                    }
+                }
+            }
         }
 
         private static async Task BuildJsonObjectType()
