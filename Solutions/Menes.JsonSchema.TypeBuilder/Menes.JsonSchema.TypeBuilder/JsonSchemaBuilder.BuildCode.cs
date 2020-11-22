@@ -89,7 +89,7 @@ namespace Menes.JsonSchema.TypeBuilder
         {
             if (typeDeclaration.IsObjectTypeDeclaration)
             {
-                memberBuilder.Append("Menes.IJsonObject");
+                memberBuilder.Append($"Menes.IJsonObject<{typeDeclaration.DotnetTypeName}>");
             }
             else
             {

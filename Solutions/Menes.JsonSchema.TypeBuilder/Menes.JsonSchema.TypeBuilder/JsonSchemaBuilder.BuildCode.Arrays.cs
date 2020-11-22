@@ -169,13 +169,10 @@ namespace Menes.JsonSchema.TypeBuilder
             memberBuilder.Append("    return this.GetEnumerator();");
             memberBuilder.Append("}");
 
-            if (!itemsType.ContainsReferenceTo(typeDeclaration))
-            {
-                memberBuilder.Append($"System.Collections.Generic.IEnumerator<{itemsType.FullyQualifiedDotNetTypeName}> System.Collections.Generic.IEnumerable<{itemsType.FullyQualifiedDotNetTypeName}>.GetEnumerator()");
-                memberBuilder.Append("{");
-                memberBuilder.Append("    return this.GetEnumerator();");
-                memberBuilder.Append("}");
-            }
+            memberBuilder.Append($"System.Collections.Generic.IEnumerator<{itemsType.FullyQualifiedDotNetTypeName}> System.Collections.Generic.IEnumerable<{itemsType.FullyQualifiedDotNetTypeName}>.GetEnumerator()");
+            memberBuilder.Append("{");
+            memberBuilder.Append("    return this.GetEnumerator();");
+            memberBuilder.Append("}");
         }
 
         private void BuildArrayAdd(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
@@ -476,15 +473,7 @@ namespace Menes.JsonSchema.TypeBuilder
             }
 
             TypeDeclaration itemsType = this.GetItemsTypeFor(typeDeclaration);
-            if (!itemsType.ContainsReferenceTo(typeDeclaration))
-            {
-                // If we are not recursively defined, we can explicitly implement IEnumerable<T>.
-                memberBuilder.Append($", System.Collections.Generic.IEnumerable<{itemsType.FullyQualifiedDotNetTypeName}>, System.Collections.IEnumerable");
-            }
-            else
-            {
-                memberBuilder.Append($", System.Collections.IEnumerable");
-            }
+            memberBuilder.Append($", Menes.IJsonArray<{typeDeclaration.DotnetTypeName}, {itemsType.FullyQualifiedDotNetTypeName}>");
         }
 
         private TypeDeclaration GetItemsTypeFor(TypeDeclaration typeDeclaration)

@@ -282,6 +282,11 @@ namespace Menes.JsonSchema.TypeBuilder
             memberBuilder.Append("{");
             memberBuilder.Append("    return this.GetEnumerator();");
             memberBuilder.Append("}");
+
+            memberBuilder.Append($"System.Collections.Generic.IEnumerator<Menes.Property<{typeDeclaration.FullyQualifiedDotNetTypeName}>> System.Collections.Generic.IEnumerable<Menes.Property<{typeDeclaration.FullyQualifiedDotNetTypeName}>>.GetEnumerator()");
+            memberBuilder.Append("{");
+            memberBuilder.Append("    return this.GetEnumerator();");
+            memberBuilder.Append("}");
         }
     }
 }

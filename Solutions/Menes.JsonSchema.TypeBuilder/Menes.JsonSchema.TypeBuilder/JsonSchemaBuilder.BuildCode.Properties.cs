@@ -298,6 +298,8 @@ namespace Menes.JsonSchema.TypeBuilder
             }
             else
             {
+                //// TODO: Determine if this is a oneOf/anyOf/allOf/any type and do something special for those cases
+
                 memberBuilder.AppendLine("/// <inheritdoc />");
                 memberBuilder.AppendLine("public bool IsNumber => this.HasJsonElement && this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Number;");
                 memberBuilder.AppendLine("/// <inheritdoc />");
