@@ -32,6 +32,14 @@ namespace Menes
             where TSource : struct, IJsonValue
             where TTarget : struct, IJsonValue
         {
+            // If we're going to JsonAny, use the special constructor
+            // and avoid boxing if we are using a JsonElement, or serialization
+            // if we are not a JsonElement.
+            if (typeof(TTarget) == typeof(JsonAny))
+            {
+                return CastTo<TTarget>.From(JsonAny.From(element));
+            }
+
             Func<TSource, TTarget> func = CastTo<Func<TSource, TTarget>>.From(FactoryCache.GetOrAdd(typeof(TTarget), t =>
             {
                 Type returnType = typeof(TTarget);

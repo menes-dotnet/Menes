@@ -252,6 +252,13 @@ namespace TestSpace
             property = default;
             return false;
         }
+        /// <inheritdoc />
+        public bool TryGetPropertyAtIndex(int index, out Menes.IProperty result)
+        {
+            var rc = this.TryGetPropertyAtIndex(index, out Menes.Property<Draft201909MetaFormat> prop);
+            result = prop;
+            return rc;
+        }
         public Draft201909MetaFormat RemoveProperty(string propertyName)
         {
             return this.SetProperty(propertyName, Menes.JsonNull.Instance);
@@ -463,7 +470,7 @@ namespace TestSpace
                     }
                     else if (this.index >= 0)
                     {
-                        if (this.instance.TryGetPropertyAtIndex(this.index, out var result))
+                        if (this.instance.TryGetPropertyAtIndex(this.index, out Menes.Property<Draft201909MetaFormat> result))
                         {
                             return result;
                         }
@@ -526,7 +533,6 @@ namespace TestSpace
                     }
                     return false;
                 }
-                return false;
             }
         }
     }

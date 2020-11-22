@@ -28,7 +28,7 @@ namespace Menes
         bool IsNumber => false;
 
         /// <summary>
-        /// Gets a value indicating whether this can be represented as a <see cref="JsonObject"/>.
+        /// Gets a value indicating whether this can be represented as a <see cref="JsonInteger"/>.
         /// </summary>
         bool IsInteger => false;
 

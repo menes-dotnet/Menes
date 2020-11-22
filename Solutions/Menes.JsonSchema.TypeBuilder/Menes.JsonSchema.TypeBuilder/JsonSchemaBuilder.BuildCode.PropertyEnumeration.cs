@@ -18,7 +18,7 @@ namespace Menes.JsonSchema.TypeBuilder
         /// </summary>
         /// <remarks>
         /// <para>
-        /// This relies on <see cref="BuildGetPropertyAtIndex(TypeDeclaration, StringBuilder)"/> to create the corresponding <c>Menes.Property&lt;TValue&gt;.GetPropertyAtIndex(int index)</c> method on the parent.
+        /// This relies on <see cref="BuildPrivateGetPropertyAtIndex(TypeDeclaration, StringBuilder)"/> to create the corresponding <c>Menes.Property&lt;TValue&gt;.GetPropertyAtIndex(int index)</c> method on the parent.
         /// </para>
         /// <para>
         /// It is used by <see cref="BuildPropertyEnumerator(TypeDeclaration, StringBuilder)"/>.
@@ -71,7 +71,7 @@ namespace Menes.JsonSchema.TypeBuilder
             memberBuilder.AppendLine("            }");
             memberBuilder.AppendLine("            else if (this.index >= 0)");
             memberBuilder.AppendLine("            {");
-            memberBuilder.AppendLine("                if (this.instance.TryGetPropertyAtIndex(this.index, out var result))");
+            memberBuilder.AppendLine($"                if (this.instance.TryGetPropertyAtIndex(this.index, out Menes.Property<{typeDeclaration.DotnetTypeName}> result))");
             memberBuilder.AppendLine("                {");
             memberBuilder.AppendLine("                    return result;");
             memberBuilder.AppendLine("                }");
@@ -140,7 +140,6 @@ namespace Menes.JsonSchema.TypeBuilder
             memberBuilder.AppendLine("            }");
             memberBuilder.AppendLine("            return false;");
             memberBuilder.AppendLine("        }");
-            memberBuilder.AppendLine("        return false;");
             memberBuilder.AppendLine("    }");
             memberBuilder.AppendLine("}");
         }
@@ -196,7 +195,23 @@ namespace Menes.JsonSchema.TypeBuilder
             memberBuilder.AppendLine("}");
         }
 
-        private void BuildGetPropertyAtIndex(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
+        private void BuildPublicGetPropertyAtIndex(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
+        {
+            if (!typeDeclaration.IsObjectTypeDeclaration)
+            {
+                return;
+            }
+
+            memberBuilder.AppendLine("/// <inheritdoc />");
+            memberBuilder.AppendLine("public bool TryGetPropertyAtIndex(int index, out Menes.IProperty result)");
+            memberBuilder.AppendLine("{");
+            memberBuilder.AppendLine($"    var rc = this.TryGetPropertyAtIndex(index, out Menes.Property<{typeDeclaration.DotnetTypeName}> prop);");
+            memberBuilder.AppendLine("    result = prop;");
+            memberBuilder.AppendLine("    return rc;");
+            memberBuilder.AppendLine("}");
+        }
+
+        private void BuildPrivateGetPropertyAtIndex(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
         {
             if (!typeDeclaration.IsObjectTypeDeclaration)
             {

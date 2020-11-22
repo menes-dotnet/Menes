@@ -13,6 +13,14 @@ namespace Menes
     public interface IJsonObject : IJsonValue, IEnumerable
     {
         /// <summary>
+        /// Gets a count of the properties on the object.
+        /// </summary>
+        int PropertyCount
+        {
+            get;
+        }
+
+        /// <summary>
         /// Try to get a named property.
         /// </summary>
         /// <typeparam name="T">The type of the property to get.</typeparam>
@@ -41,5 +49,13 @@ namespace Menes
         /// <returns><c>True</c> if there was a property with the given name.</returns>
         bool TryGetProperty<T>(ReadOnlySpan<byte> utf8PropertyName, out T property)
             where T : struct, IJsonValue;
+
+        /// <summary>
+        /// Tries to get the property at the given index.
+        /// </summary>
+        /// <param name="index">The index at which to get the property.</param>
+        /// <param name="property">The property.</param>
+        /// <returns><c>True</c> if it was possibe to get the property at the given index.</returns>
+        bool TryGetPropertyAtIndex(int index, out IProperty property);
     }
 }

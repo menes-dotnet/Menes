@@ -12,7 +12,7 @@ namespace Menes
     /// A property accessor.
     /// </summary>
     /// <typeparam name="T">The type of <see cref="IJsonValue"/> that owns this property.</typeparam>
-    public readonly struct Property<T>
+    public readonly struct Property<T> : IProperty
         where T : struct, IJsonObject
     {
         private readonly ReadOnlyMemory<char>? name;
@@ -55,6 +55,20 @@ namespace Menes
                 }
 
                 return this.jsonProperty.Name;
+            }
+        }
+
+        /// <inheritdoc />
+        public ReadOnlyMemory<char> NameAsMemory
+        {
+            get
+            {
+                if (this.name is ReadOnlyMemory<char> name)
+                {
+                    return name;
+                }
+
+                return this.jsonProperty.Name.AsMemory();
             }
         }
 
@@ -120,11 +134,9 @@ namespace Menes
         {
             if (this.name is ReadOnlyMemory<char> ourName)
             {
-                // We have to allocate a string for now
-                // In NetCore5.x land we can use <c>UTF8Encoding.GetChars</c> and stackalloc a Span<char>.
-                // (see: https://docs.microsoft.com/en-us/dotnet/api/system.text.utf8encoding.getchars?view=net-5.0)
-                string name = Encoding.UTF8.GetString(utf8Name);
-                return ourName.Span.SequenceEqual(name);
+                Span<char> name = stackalloc char[utf8Name.Length];
+                int written = Encoding.UTF8.GetChars(utf8Name, name);
+                return ourName.Span.SequenceEqual(name.Slice(0, written));
             }
 
             return this.jsonProperty.NameEquals(utf8Name);

@@ -12,6 +12,46 @@ namespace Menes.JsonSchema.TypeBuilder
     /// </summary>
     public partial class JsonSchemaBuilder
     {
+        private void BuildArrayAccessors(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
+        {
+            if (!typeDeclaration.IsArrayTypeDeclaration)
+            {
+                return;
+            }
+
+            memberBuilder.AppendLine("/// <inheritdoc />");
+            memberBuilder.AppendLine("public int GetArrayLength()");
+            memberBuilder.AppendLine("{");
+            memberBuilder.AppendLine("    if (this.HasJsonElement)");
+            memberBuilder.AppendLine("    {");
+            memberBuilder.AppendLine("        return this.JsonElement.GetArrayLength();");
+            memberBuilder.AppendLine("    }");
+            memberBuilder.AppendLine("    return this._menesArrayValueBacking?.Length ?? 0;");
+            memberBuilder.AppendLine("}");
+            memberBuilder.AppendLine("/// <inheritdoc />");
+            memberBuilder.AppendLine("public T GetItemAtIndex<T>(int index)");
+            memberBuilder.AppendLine("    where T : struct, Menes.IJsonValue");
+            memberBuilder.AppendLine("{");
+            memberBuilder.AppendLine("    if (this.HasJsonElement)");
+            memberBuilder.AppendLine("    {");
+            memberBuilder.AppendLine("        int currentIndex = 0;");
+            memberBuilder.AppendLine("        foreach (var item in this.JsonElement.EnumerateArray())");
+            memberBuilder.AppendLine("        {");
+            memberBuilder.AppendLine("            if (currentIndex == index)");
+            memberBuilder.AppendLine("            {");
+            memberBuilder.AppendLine("                return Menes.JsonValue.As<T>(item);");
+            memberBuilder.AppendLine("            }");
+            memberBuilder.AppendLine("        }");
+            memberBuilder.AppendLine("        throw new System.IndexOutOfRangeException();");
+            memberBuilder.AppendLine("    }");
+            memberBuilder.AppendLine("    if (this._menesArrayValueBacking is not null)");
+            memberBuilder.AppendLine("    {");
+            memberBuilder.AppendLine("        return this._menesArrayValueBacking.Value[index].As<T>();");
+            memberBuilder.AppendLine("    }");
+            memberBuilder.AppendLine("    return default;");
+            memberBuilder.AppendLine("}");
+        }
+
         private void BuildArrayEnumerator(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
         {
             if (!typeDeclaration.IsArrayTypeDeclaration)

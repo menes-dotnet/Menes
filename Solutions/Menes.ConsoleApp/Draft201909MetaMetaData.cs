@@ -534,6 +534,13 @@ namespace TestSpace
             property = default;
             return false;
         }
+        /// <inheritdoc />
+        public bool TryGetPropertyAtIndex(int index, out Menes.IProperty result)
+        {
+            var rc = this.TryGetPropertyAtIndex(index, out Menes.Property<Draft201909MetaMetaData> prop);
+            result = prop;
+            return rc;
+        }
         public Draft201909MetaMetaData RemoveProperty(string propertyName)
         {
             return this.SetProperty(propertyName, Menes.JsonNull.Instance);
@@ -1021,9 +1028,39 @@ namespace TestSpace
             }
             public Draft201909MetaMetaData.ExamplesArray.MenesArrayEnumerator GetEnumerator() { return new Draft201909MetaMetaData.ExamplesArray.MenesArrayEnumerator(this); }
             System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() { return this.GetEnumerator(); }
-            System.Collections.Generic.IEnumerator<Draft201909MetaMetaData.ExamplesArray.ItemsEntity> System.Collections.Generic.IEnumerable<Draft201909MetaMetaData.ExamplesArray.ItemsEntity>.GetEnumerator() { return this.GetEnumerator(); }
+            System.Collections.Generic.IEnumerator<Draft201909MetaMetaData.ExamplesArray.ItemsEntity> System.Collections.Generic.IEnumerable<Draft201909MetaMetaData.ExamplesArray.ItemsEntity>.GetEnumerator() { return this.GetEnumerator(); }/// <inheritdoc />
+            public int GetArrayLength()
+            {
+                if (this.HasJsonElement)
+                {
+                    return this.JsonElement.GetArrayLength();
+                }
+                return this._menesArrayValueBacking?.Length ?? 0;
+            }
+            /// <inheritdoc />
+            public T GetItemAtIndex<T>(int index)
+                where T : struct, Menes.IJsonValue
+            {
+                if (this.HasJsonElement)
+                {
+                    int currentIndex = 0;
+                    foreach (var item in this.JsonElement.EnumerateArray())
+                    {
+                        if (currentIndex == index)
+                        {
+                            return Menes.JsonValue.As<T>(item);
+                        }
+                    }
+                    throw new System.IndexOutOfRangeException();
+                }
+                if (this._menesArrayValueBacking is not null)
+                {
+                    return this._menesArrayValueBacking.Value[index].As<T>();
+                }
+                return default;
+            }
             public ExamplesArray Add<T1>(T1 item1)
-where T1 : struct, Menes.IJsonValue
+                where T1 : struct, Menes.IJsonValue
             {
                 var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Draft201909MetaMetaData.ExamplesArray.ItemsEntity>();
                 foreach (var oldItem in this._menesArrayValueBacking)
@@ -1478,7 +1515,7 @@ where T1 : struct, Menes.IJsonValue
                     }
                     else if (this.index >= 0)
                     {
-                        if (this.instance.TryGetPropertyAtIndex(this.index, out var result))
+                        if (this.instance.TryGetPropertyAtIndex(this.index, out Menes.Property<Draft201909MetaMetaData> result))
                         {
                             return result;
                         }
@@ -1541,7 +1578,6 @@ where T1 : struct, Menes.IJsonValue
                     }
                     return false;
                 }
-                return false;
             }
         }
     }

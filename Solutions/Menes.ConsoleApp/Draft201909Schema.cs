@@ -3140,6 +3140,13 @@ namespace TestSpace
             property = default;
             return false;
         }
+        /// <inheritdoc />
+        public bool TryGetPropertyAtIndex(int index, out Menes.IProperty result)
+        {
+            var rc = this.TryGetPropertyAtIndex(index, out Menes.Property<Draft201909Schema> prop);
+            result = prop;
+            return rc;
+        }
         public Draft201909Schema RemoveProperty(string propertyName)
         {
             return this.SetProperty(propertyName, Menes.JsonNull.Instance);
@@ -4991,6 +4998,13 @@ namespace TestSpace
                 property = default;
                 return false;
             }
+            /// <inheritdoc />
+            public bool TryGetPropertyAtIndex(int index, out Menes.IProperty result)
+            {
+                var rc = this.TryGetPropertyAtIndex(index, out Menes.Property<DefinitionsEntity> prop);
+                result = prop;
+                return rc;
+            }
             public DefinitionsEntity RemoveProperty(string propertyName)
             {
                 return this.SetProperty(propertyName, Menes.JsonNull.Instance);
@@ -5172,7 +5186,7 @@ where TPropertyValue : struct, Menes.IJsonValue
                         }
                         else if (this.index >= 0)
                         {
-                            if (this.instance.TryGetPropertyAtIndex(this.index, out var result))
+                            if (this.instance.TryGetPropertyAtIndex(this.index, out Menes.Property<DefinitionsEntity> result))
                             {
                                 return result;
                             }
@@ -5235,7 +5249,6 @@ where TPropertyValue : struct, Menes.IJsonValue
                         }
                         return false;
                     }
-                    return false;
                 }
             }
         }
@@ -5408,6 +5421,13 @@ where TPropertyValue : struct, Menes.IJsonValue
                 }
                 property = default;
                 return false;
+            }
+            /// <inheritdoc />
+            public bool TryGetPropertyAtIndex(int index, out Menes.IProperty result)
+            {
+                var rc = this.TryGetPropertyAtIndex(index, out Menes.Property<DependenciesEntity> prop);
+                result = prop;
+                return rc;
             }
             public DependenciesEntity RemoveProperty(string propertyName)
             {
@@ -5752,7 +5772,7 @@ where TPropertyValue : struct, Menes.IJsonValue
                         }
                         else if (this.index >= 0)
                         {
-                            if (this.instance.TryGetPropertyAtIndex(this.index, out var result))
+                            if (this.instance.TryGetPropertyAtIndex(this.index, out Menes.Property<DependenciesEntity> result))
                             {
                                 return result;
                             }
@@ -5815,7 +5835,6 @@ where TPropertyValue : struct, Menes.IJsonValue
                         }
                         return false;
                     }
-                    return false;
                 }
             }
         }
@@ -5857,7 +5876,7 @@ where TPropertyValue : struct, Menes.IJsonValue
                     }
                     else if (this.index >= 0)
                     {
-                        if (this.instance.TryGetPropertyAtIndex(this.index, out var result))
+                        if (this.instance.TryGetPropertyAtIndex(this.index, out Menes.Property<Draft201909Schema> result))
                         {
                             return result;
                         }
@@ -5920,7 +5939,6 @@ where TPropertyValue : struct, Menes.IJsonValue
                     }
                     return false;
                 }
-                return false;
             }
         }
     }

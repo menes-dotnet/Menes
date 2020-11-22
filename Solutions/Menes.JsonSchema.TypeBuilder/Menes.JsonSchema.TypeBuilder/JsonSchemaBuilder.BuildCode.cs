@@ -63,8 +63,10 @@ namespace Menes.JsonSchema.TypeBuilder
             this.BuildWriteToMethod(typeDeclaration, memberBuilder);
             this.BuildIsAndAsMethods(typeDeclaration, memberBuilder);
             this.BuildTryGetProperty(typeDeclaration, memberBuilder);
+            this.BuildPublicGetPropertyAtIndex(typeDeclaration, memberBuilder);
             this.BuildSetPropertyMethods(typeDeclaration, memberBuilder);
             this.BuildArrayEnumerators(typeDeclaration, memberBuilder);
+            this.BuildArrayAccessors(typeDeclaration, memberBuilder);
             this.BuildArrayAdd(typeDeclaration, memberBuilder);
             this.BuildArrayInsert(typeDeclaration, memberBuilder);
             this.BuildArrayRemoveAt(typeDeclaration, memberBuilder);
@@ -75,7 +77,7 @@ namespace Menes.JsonSchema.TypeBuilder
             // Private methods
             this.BuildJsonPropertyGetMethods(typeDeclaration, memberBuilder);
             this.BuildAllBackingFieldsAreNullMethod(typeDeclaration, memberBuilder);
-            this.BuildGetPropertyAtIndex(typeDeclaration, memberBuilder);
+            this.BuildPrivateGetPropertyAtIndex(typeDeclaration, memberBuilder);
             this.BuildWithAdditionalPropertyMethod(typeDeclaration, memberBuilder);
 
             // Embedded types

@@ -172,28 +172,6 @@ namespace Menes
         public static implicit operator JsonNumber(JsonInteger value) => new JsonNumber(value);
 
         /// <summary>
-        /// Validates the given instance as this type.
-        /// </summary>
-        /// <typeparam name="T">The type of the instance to validate.</typeparam>
-        /// <param name="instance">The instance to validate.</param>
-        /// <param name="validationResult">The current validation result.</param>
-        /// <param name="level">The validation level to use.</param>
-        /// <param name="evaluatedProperties">The list of evaluated properties.</param>
-        /// <param name="absoluteKeywordLocation">The absolute keyword location stack.</param>
-        /// <param name="instanceLocation">The instance location stack.</param>
-        /// <returns>The updated validation result.</returns>
-        public static ValidationResult Validate<T>(T instance, ValidationResult? validationResult = null, ValidationLevel level = ValidationLevel.Flag, HashSet<string>? evaluatedProperties = null, Stack<string>? absoluteKeywordLocation = null, Stack<string>? instanceLocation = null)
-            where T : struct, IJsonValue
-        {
-            if (instance.IsNumber)
-            {
-                return AddSuccess(level, absoluteKeywordLocation, instanceLocation, validationResult ?? ValidationResult.ValidResult);
-            }
-
-            return AddError(level, absoluteKeywordLocation, instanceLocation, validationResult ?? ValidationResult.ValidResult);
-        }
-
-        /// <summary>
         /// Gets the <see cref="JsonNumber"/> as a <see cref="double"/>.
         /// </summary>
         /// <returns>The <see cref="double"/>.</returns>
