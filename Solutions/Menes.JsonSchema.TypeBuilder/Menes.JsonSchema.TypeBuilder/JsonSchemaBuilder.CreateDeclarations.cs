@@ -25,7 +25,7 @@ namespace Menes.JsonSchema.TypeBuilder
             // We create the type declaration and immediately add it to the built declarations
             // collection so that we will be able to bomb out if we have already started building
             // this when we see a recursive definition.
-            if (this.builtDeclarationsByLocation.TryGetValue(schema.AbsoluteKeywordLocation, out TypeDeclaration prebuilt))
+            if (this.builtDeclarationsByLocation.TryGetValue(schema.AbsoluteKeywordLocation, out TypeDeclaration? prebuilt))
             {
                 return prebuilt;
             }
@@ -231,7 +231,10 @@ namespace Menes.JsonSchema.TypeBuilder
                         foreach (JsonElement required in property.Value.EnumerateArray())
                         {
                             ValidateString(required);
-                            typeDeclaration.AddDependentRequired(key, required.GetString());
+                            string? dr = required.GetString();
+
+                            // We know we are not null if we passed ValidateString().
+                            typeDeclaration.AddDependentRequired(key, dr!);
                         }
                     }
                 }

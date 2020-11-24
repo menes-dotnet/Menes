@@ -5,12 +5,23 @@
 namespace Drivers
 {
     using System;
+    using System.Collections.Generic;
+    using System.Collections.Immutable;
     using System.IO;
+    using System.Linq;
+    using System.Reflection;
+    using System.Runtime.Loader;
+    using System.Text.Encodings.Web;
     using System.Text.Json;
     using System.Threading.Tasks;
+    using Corvus.Extensions;
+    using Menes;
     using Menes.Json;
     using Menes.Json.Schema;
     using Menes.JsonSchema.TypeBuilder;
+    using Microsoft.CodeAnalysis;
+    using Microsoft.CodeAnalysis.CSharp;
+    using Microsoft.CodeAnalysis.Emit;
     using Microsoft.Extensions.Configuration;
 
     /// <summary>
@@ -18,6 +29,7 @@ namespace Drivers
     /// </summary>
     public class JsonSchemaBuilderDriver : IDisposable
     {
+        private const string NamespaceName = "Driver.GeneratedTypes";
         private readonly IConfiguration configuration;
         private readonly JsonSchemaBuilder builder;
         private readonly IDocumentResolver documentResolver = new FileSystemDocumentResolver();
@@ -57,10 +69,73 @@ namespace Drivers
         /// </summary>
         /// <param name="schema">The schema for which to generate the type.</param>
         /// <returns>The fully qualified type name of the entity we have generated.</returns>
-        internal async Task<string> GenerateTypeFor(JsonElement schema)
+        public async Task<Type> GenerateTypeFor(JsonElement schema)
         {
             // In reality, we are going to do something rather more complicated than this.
-            return await this.builder.BuildEntity(schema).ConfigureAwait(false);
+            string rootTypeName = await this.builder.BuildEntity(schema).ConfigureAwait(false);
+
+            ImmutableDictionary<string, string> generatedTypes = this.builder.BuildTypes(NamespaceName);
+
+            rootTypeName = $"{NamespaceName}.{rootTypeName}";
+            IEnumerable<SyntaxTree> syntaxTrees = ParseSyntaxTrees(generatedTypes);
+
+            // We are happy with the defaults (debug etc.)
+            var options = new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary);
+            IEnumerable<MetadataReference> references = BuildMetadataReferences();
+            var compilation = CSharpCompilation.Create($"Drivered.GeneratedTypes_{Guid.NewGuid()}", syntaxTrees, references, options);
+
+            using var outputStream = new MemoryStream();
+            EmitResult result = compilation.Emit(outputStream);
+
+            outputStream.Flush();
+            outputStream.Position = 0;
+
+            Assembly generatedAssembly = AssemblyLoadContext.Default.LoadFromStream(outputStream);
+
+            return generatedAssembly.ExportedTypes.Where(t => t.FullName == rootTypeName).Single();
+        }
+
+        /// <summary>
+        /// Create an instance of the given <see cref="IJsonValue"/> type from
+        /// the json data provided.
+        /// </summary>
+        /// <param name="type">The type (which must be a <see cref="IJsonValue"/> and have a constructor with a single <see cref="JsonElement"/> parameter.</param>
+        /// <param name="data">The JSON data from which to initialize the value.</param>
+        /// <returns>An instance of a <see cref="IJsonValue"/> initialized from the data.</returns>
+        public IJsonValue CreateInstance(Type type, JsonElement data)
+        {
+            ConstructorInfo? constructor = type.GetConstructor(new[] { typeof(JsonElement) });
+            if (constructor is null)
+            {
+                throw new InvalidOperationException($"Unable to find the public JsonElement constructor on type '{type.FullName}'");
+            }
+
+            return CastTo<IJsonValue>.From(constructor.Invoke(new object[] { data }));
+        }
+
+        private static IEnumerable<MetadataReference> BuildMetadataReferences()
+        {
+            return new MetadataReference[]
+            {
+                MetadataReference.CreateFromFile(AppDomain.CurrentDomain.GetAssemblies().Single(a => a.GetName().Name == "netstandard").Location),
+                MetadataReference.CreateFromFile(AppDomain.CurrentDomain.GetAssemblies().Single(a => a.GetName().Name == "System.Runtime").Location),
+                MetadataReference.CreateFromFile(typeof(object).Assembly.Location),
+                MetadataReference.CreateFromFile(typeof(IEnumerable<>).Assembly.Location),
+                MetadataReference.CreateFromFile(typeof(JavaScriptEncoder).Assembly.Location),
+                MetadataReference.CreateFromFile(typeof(Stack<>).Assembly.Location),
+                MetadataReference.CreateFromFile(typeof(JsonElement).Assembly.Location),
+                MetadataReference.CreateFromFile(typeof(CastTo<>).Assembly.Location),
+                MetadataReference.CreateFromFile(typeof(ImmutableArray).Assembly.Location),
+                MetadataReference.CreateFromFile(typeof(JsonAny).Assembly.Location),
+            };
+        }
+
+        private static IEnumerable<SyntaxTree> ParseSyntaxTrees(ImmutableDictionary<string, string> generatedTypes)
+        {
+            foreach (KeyValuePair<string, string> type in generatedTypes)
+            {
+                yield return CSharpSyntaxTree.ParseText(type.Value);
+            }
         }
     }
 }

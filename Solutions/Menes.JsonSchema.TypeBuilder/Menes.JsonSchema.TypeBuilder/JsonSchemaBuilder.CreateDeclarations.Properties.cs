@@ -47,10 +47,13 @@ namespace Menes.JsonSchema.TypeBuilder
             {
                 foreach (JsonElement jsonPropertyName in required.EnumerateArray())
                 {
-                    string name = jsonPropertyName.GetString();
-                    this.PushPropertyToAbsoluteKeywordLocationStack(name);
+                    ValidateString(jsonPropertyName);
 
-                    this.CreateOrUpdateRequiredPropertyDeclarationFor(typeDeclaration, name);
+                    // We know we are not null if we passed ValidateString();
+                    string? name = jsonPropertyName.GetString();
+                    this.PushPropertyToAbsoluteKeywordLocationStack(name!);
+
+                    this.CreateOrUpdateRequiredPropertyDeclarationFor(typeDeclaration, name!);
 
                     this.absoluteKeywordLocationStack.Pop();
                 }
@@ -61,6 +64,7 @@ namespace Menes.JsonSchema.TypeBuilder
         /// Enumerate the required properties list to update the corresponding property declaration, or
         /// to add it if it was not declared previously.
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("StyleCop.CSharp.SpacingRules", "SA1009:Closing parenthesis should be spaced correctly", Justification = "The analyzers do not yet support the correct syntax for the not-null operator.")]
         private void AddDependentRequiredProperties(LocatedElement schema, TypeDeclaration typeDeclaration)
         {
             if (schema.JsonElement.TryGetProperty("dependentRequired", out JsonElement required))
@@ -70,7 +74,7 @@ namespace Menes.JsonSchema.TypeBuilder
                 foreach (JsonProperty property in required.EnumerateObject())
                 {
                     ValidateArray(property.Value);
-                    result.Add(property.Name, property.Value.EnumerateArray().Select(s => s.GetString()).ToList());
+                    result.Add(property.Name, property.Value.EnumerateArray().Select(s => s.GetString()!).ToList());
                 }
 
                 typeDeclaration.DependentRequired = result;

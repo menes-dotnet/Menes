@@ -212,7 +212,7 @@ namespace Menes.JsonSchema.TypeBuilder
                 throw new InvalidOperationException("You must set the type name for an entity before generating code.");
             }
 
-            if (!this.fullyQualifiedTypeNameToAsMethodName.TryGetValue(typeDeclaration.FullyQualifiedDotNetTypeName, out string asMethodName))
+            if (!this.fullyQualifiedTypeNameToAsMethodName.TryGetValue(typeDeclaration.FullyQualifiedDotNetTypeName, out string? asMethodName))
             {
                 int nameIndex = 1;
                 string baseAsMethodName = $"As{typeDeclaration.DotnetTypeName}";

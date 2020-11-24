@@ -4,6 +4,7 @@
 
 namespace Steps
 {
+    using System;
     using System.Text.Json;
     using System.Threading.Tasks;
     using Drivers;
@@ -20,7 +21,7 @@ namespace Steps
         private const string InputJsonFileName = "InputJsonFileName";
         private const string Schema = "Schema";
         private const string InputData = "InputData";
-        private const string SchemaTypeName = "SchemaTypeName";
+        private const string SchemaType = "SchemaType";
         private const string SchemaInstance = "SchemaInstance";
         private const string SchemaValidationResult = "SchemaValidationResult";
 
@@ -75,30 +76,34 @@ namespace Steps
         }
 
         /// <summary>
-        /// Generates the code for the schema in the scenario property <see cref="Schema"/>, compiles it, and loads the assembly. The fully qualified type name is stored in a scenario property called <see cref="SchemaTypeName"/>.
+        /// Generates the code for the schema in the scenario property <see cref="Schema"/>, compiles it, and loads the assembly. The fully qualified type name is stored in a scenario property called <see cref="SchemaType"/>.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         [Given(@"I generate a type for the schema")]
         public async Task GivenIGenerateATypeForTheSchema()
         {
-            string fqtn = await this.driver.GenerateTypeFor(this.scenarioContext.Get<JsonElement>(Schema)).ConfigureAwait(false);
-            this.scenarioContext.Set(fqtn, SchemaTypeName);
+            Type type = await this.driver.GenerateTypeFor(this.scenarioContext.Get<JsonElement>(Schema)).ConfigureAwait(false);
+            this.scenarioContext.Set(type, SchemaType);
         }
 
         /// <summary>
-        /// Constructs an instance of the type whose name is stored in the scenario property <see cref="SchemaTypeName"/>, using the <see cref="JsonElement"/> stored in the scenario property called <see cref="InputData"/>, and stores it in the scenario property <see cref="SchemaInstance"/>.
+        /// Constructs an instance of the type whose name is stored in the scenario property <see cref="SchemaType"/>, using the <see cref="JsonElement"/> stored in the scenario property called <see cref="InputData"/>, and stores it in the scenario property <see cref="SchemaInstance"/>.
         /// </summary>
         [Given(@"I construct an instance of the schema type from the data")]
         public void GivenIConstructAnInstanceOfTheSchemaTypeFromTheData()
         {
+            IJsonValue value = this.driver.CreateInstance(this.scenarioContext.Get<Type>(SchemaType), this.scenarioContext.Get<JsonElement>(InputData));
+            this.scenarioContext.Set(value, SchemaInstance);
         }
 
         /// <summary>
-        /// Calls the validation method on the instance in the scenario property <see cref="SchemaInstance"/> and stores the validation result in <see cref="ValidationResult"/>.
+        /// Calls the validation method on the instance in the scenario property <see cref="SchemaInstance"/> and stores the validation result in <see cref="SchemaValidationResult"/>.
         /// </summary>
         [When(@"I validate the instance")]
         public void WhenIValidateTheInstance()
         {
+            ValidationResult validationResult = this.scenarioContext.Get<IJsonValue>(SchemaInstance).Validate();
+            this.scenarioContext.Set(validationResult, SchemaValidationResult);
         }
 
         /// <summary>
@@ -108,6 +113,8 @@ namespace Steps
         [Then(@"the result will be (.*)")]
         public void ThenTheResultWillBe(bool expectedValidity)
         {
+            ValidationResult actual = this.scenarioContext.Get<ValidationResult>(SchemaValidationResult);
+            Assert.AreEqual(expectedValidity, actual.Valid);
         }
     }
 }

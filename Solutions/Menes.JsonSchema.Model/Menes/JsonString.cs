@@ -90,7 +90,7 @@ namespace Menes
         /// Implicit conversion to <see cref="string"/>.
         /// </summary>
         /// <param name="value">The string value from which to convert.</param>
-        public static implicit operator string(JsonString value) => value.GetString();
+        public static implicit operator string?(JsonString value) => value.GetString();
 
         /// <summary>
         /// Implicit conversion from <see cref="ReadOnlyMemory{T}"/>.
@@ -120,9 +120,9 @@ namespace Menes
         /// Gets the <see cref="JsonString"/> as a <see cref="string"/>.
         /// </summary>
         /// <returns>The <see cref="string"/>.</returns>
-        public string GetString()
+        public string? GetString()
         {
-            return this.HasJsonElement ? this.JsonElement.GetString() : (this.value ?? ReadOnlyMemory<char>.Empty).ToString();
+            return this.HasJsonElement ? this.JsonElement.GetString() : this.value?.ToString();
         }
 
         /// <summary>

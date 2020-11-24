@@ -49,7 +49,9 @@ namespace Menes.JsonSchema.TypeBuilder
             JsonReference baseReference = this.absoluteKeywordLocationStack.Peek();
             if (schema.ValueKind == JsonValueKind.Object && schema.TryGetProperty("$id", out JsonElement dollarid) && dollarid.ValueKind == JsonValueKind.String)
             {
-                return baseReference.Apply(new JsonReference(dollarid.GetString()));
+                // Cannot be null if we are ValueKind.String as above.
+                string? did = dollarid.GetString();
+                return baseReference.Apply(new JsonReference(did!));
             }
 
             return baseReference;

@@ -99,6 +99,7 @@ namespace Menes.JsonSchema.TypeBuilder
             }
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("StyleCop.CSharp.SpacingRules", "SA1009:Closing parenthesis should be spaced correctly", Justification = "The analyzer does not yet support the not-null operator.")]
         private static string ValidateTypeString(JsonElement property)
         {
             if (property.ValueKind != JsonValueKind.String)
@@ -106,7 +107,7 @@ namespace Menes.JsonSchema.TypeBuilder
                 throw new InvalidOperationException($"Unsuppported type string: {property.ValueKind}.");
             }
 
-            string typeString = property.GetString();
+            string typeString = property.GetString()!;
             if (typeString == "null" || typeString == "boolean" || typeString == "object" ||
                 typeString == "array" || typeString == "number" || typeString == "string" || typeString == "integer")
             {

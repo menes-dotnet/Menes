@@ -5,6 +5,7 @@
 namespace Menes.JsonSchema.TypeBuilder
 {
     using System.Collections.Generic;
+    using System.Collections.Immutable;
     using System.Text.Json;
     using System.Threading.Tasks;
     using Menes.Json;
@@ -74,14 +75,26 @@ namespace Menes.JsonSchema.TypeBuilder
             this.ValidateUnresolvedElements();
 
             // Nothing for us to do if the named element has already been built (or we are currently building it).
-            if (this.builtDeclarationsByLocation.TryGetValue(rootElement.AbsoluteKeywordLocation, out TypeDeclaration builtType))
+            if (this.builtDeclarationsByLocation.TryGetValue(rootElement.AbsoluteKeywordLocation, out TypeDeclaration? builtType))
             {
                 return builtType.Lowered.FullyQualifiedDotNetTypeName!;
             }
 
-            var generatedTypeNames = new HashSet<string>();
             TypeDeclaration root = await this.CreateTypeDeclarations(rootElement).ConfigureAwait(false);
+            return root.Lowered.FullyQualifiedDotNetTypeName!;
+        }
+
+        /// <summary>
+        /// Build the types we have generated.
+        /// </summary>
+        /// <param name="namespaceName">The namespace into which to build the types.</param>
+        /// <returns>A dictionary mapping file names to the code generated for the type.</returns>
+        public ImmutableDictionary<string, string> BuildTypes(string namespaceName)
+        {
+            var generatedTypeNames = new HashSet<string>();
+
             var memberBuilder = new System.Text.StringBuilder();
+            ImmutableDictionary<string, string>.Builder generatedTypes = ImmutableDictionary.CreateBuilder<string, string>();
             foreach (TypeDeclaration type in this.builtDeclarationsByLocation.Values)
             {
                 TypeDeclaration loweredType = type.Lowered;
@@ -93,16 +106,16 @@ namespace Menes.JsonSchema.TypeBuilder
                     memberBuilder.AppendLine("// Copyright (c) Endjin Limited. All rights reserved.");
                     memberBuilder.AppendLine("// </copyright>");
                     memberBuilder.AppendLine("#pragma warning disable");
-                    memberBuilder.AppendLine("namespace TestSpace");
+                    memberBuilder.AppendLine($"namespace {namespaceName}");
                     memberBuilder.AppendLine("{");
                     this.BuildCode(loweredType, memberBuilder);
                     generatedTypeNames.Add(loweredType.FullyQualifiedDotNetTypeName!);
                     memberBuilder.AppendLine("}");
-                    System.IO.File.WriteAllText($"C:\\Users\\matth\\OneDrive\\Desktop\\{loweredType.DotnetTypeName}.cs", memberBuilder.ToString());
+                    generatedTypes.Add($"{loweredType.DotnetTypeName}.cs", memberBuilder.ToString());
                 }
             }
 
-            return root.Lowered.FullyQualifiedDotNetTypeName!;
+            return generatedTypes.ToImmutable();
         }
     }
 }

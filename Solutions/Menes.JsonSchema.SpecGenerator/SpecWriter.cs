@@ -55,8 +55,8 @@ namespace Menes.JsonSchema.SpecGenerator
         {
             string inputSchemaReference = $"#/{scenarioIndex}/schema";
 
-            string scenarioTitle = scenarioDefinition.GetProperty("description").GetString();
-            scenarioTitle = NormalizeTitleForDeduplication(scenarioTitle);
+            string? scenarioTitle = scenarioDefinition.GetProperty("description").GetString();
+            scenarioTitle = NormalizeTitleForDeduplication(scenarioTitle!);
 
             builder.AppendLine();
             builder.AppendLine($"Scenario Outline: {scenarioTitle}");
@@ -117,7 +117,13 @@ namespace Menes.JsonSchema.SpecGenerator
                 valid = "true ";
             }
 
-            string description = test.GetProperty("description").GetString();
+            string? description = test.GetProperty("description").GetString();
+
+            if (description is null)
+            {
+                throw new Exception("Expected a 'description' property with a string value.");
+            }
+
             description = description.PadRight(80);
 
             builder.AppendLine($"        | {inputDataReference} | {valid} | {description} |");

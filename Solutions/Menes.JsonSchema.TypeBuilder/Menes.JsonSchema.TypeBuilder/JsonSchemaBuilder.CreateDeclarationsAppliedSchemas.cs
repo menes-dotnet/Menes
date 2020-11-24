@@ -25,7 +25,9 @@ namespace Menes.JsonSchema.TypeBuilder
 
                     ValidateDollarRef(dollarref);
 
-                    JsonReference location = this.GetAbsoluteKeywordLocation(JsonReference.FromEncodedJsonString(dollarref.GetString()).Value);
+                    // Cannot be null if we passed ValidateDollarRef();
+                    string? dref = dollarref.GetString();
+                    JsonReference location = this.GetAbsoluteKeywordLocation(JsonReference.FromEncodedJsonString(dref!).Value);
                     if (this.TryGetResolvedElement(location, out LocatedElement dollarRefTypeElement))
                     {
                         TypeDeclaration dollarrefTypeDeclaration = await this.CreateTypeDeclarations(dollarRefTypeElement).ConfigureAwait(false);
@@ -44,7 +46,9 @@ namespace Menes.JsonSchema.TypeBuilder
 
                     ValidateDollarRef(dollarrecursiveRef);
 
-                    JsonReference location = this.GetAbsoluteKeywordLocation(JsonReference.FromEncodedJsonString(dollarrecursiveRef.GetString()).Value);
+                    // Cannot be null if we passed ValidateDollarRef();
+                    string? drref = dollarrecursiveRef.GetString();
+                    JsonReference location = this.GetAbsoluteKeywordLocation(JsonReference.FromEncodedJsonString(drref!).Value);
                     if (this.TryGetResolvedElement(location, out LocatedElement dollarrecursiveRefTypeElement))
                     {
                         TypeDeclaration dollarrecursiveRefTypeDeclaration = await this.CreateTypeDeclarations(dollarrecursiveRefTypeElement).ConfigureAwait(false);
