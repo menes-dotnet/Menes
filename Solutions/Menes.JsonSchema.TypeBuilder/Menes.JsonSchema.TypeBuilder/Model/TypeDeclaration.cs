@@ -43,6 +43,11 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         public string? DotnetTypeName { get; set; }
 
         /// <summary>
+        /// Gets or sets an explicit namespace for the type.
+        /// </summary>
+        public string? Namespace { get; set; }
+
+        /// <summary>
         /// Gets a value indicating whether this is a lowered reference type.
         /// </summary>
         /// <remarks>
@@ -472,6 +477,11 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether this has an items array, or a single item.
+        /// </summary>
+        public bool IsItemsArray { get; set; }
+
+        /// <summary>
         /// Add a conversion operator.
         /// </summary>
         /// <param name="conversionOperatorDeclaration">The operator to add.</param>
@@ -558,7 +568,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
 
             return (this.Properties is not null && this.Properties.Any(p => p.TypeDeclaration?.ContainsReferenceTo(typeDeclaration, typeNamesVisited) ?? false)) ||
                 (this.AdditionalProperties is not null && this.AdditionalProperties.ContainsReferenceTo(typeDeclaration, typeNamesVisited)) ||
-                (this.Items is not null && this.Items.Count == 1 && this.Items[0].ContainsReferenceTo(typeDeclaration, typeNamesVisited));
+                (this.Items is not null && !this.IsItemsArray && this.Items[0].ContainsReferenceTo(typeDeclaration, typeNamesVisited));
         }
 
         /// <summary>
@@ -683,7 +693,6 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         {
             List<TypeDeclaration> items = this.EnsureItems();
             items.Add(itemsDeclaration);
-            this.AddArrayConversionOperator(new ArrayConversionOperatorDeclaration { TargetItemType = itemsDeclaration });
         }
 
         /// <summary>
@@ -1591,6 +1600,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
             }
 
             // Then merge in our own base type to the target.
+            result.IsItemsArray = baseType.IsItemsArray;
             MergeItems(Lower(baseType.Items), result);
             MergeProperties(Lower(baseType.Properties), result);
             MergeValidations(baseType, result);

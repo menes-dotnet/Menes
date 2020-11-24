@@ -518,7 +518,7 @@ namespace Menes.JsonSchema.TypeBuilder
 
         private TypeDeclaration GetItemsTypeFor(TypeDeclaration typeDeclaration)
         {
-            if (typeDeclaration.Items is not null && typeDeclaration.Items.Count == 1)
+            if (typeDeclaration.Items is not null && !typeDeclaration.IsItemsArray)
             {
                 return typeDeclaration.Items[0];
             }

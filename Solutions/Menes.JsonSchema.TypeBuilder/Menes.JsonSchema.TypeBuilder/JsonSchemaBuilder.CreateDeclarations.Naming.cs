@@ -17,6 +17,7 @@ namespace Menes.JsonSchema.TypeBuilder
         private static readonly ReadOnlyMemory<char> ArraySuffix = "Array".AsMemory();
         private static readonly ReadOnlyMemory<char> ValueSuffix = "Value".AsMemory();
         private static readonly ReadOnlyMemory<char> EntitySuffix = "Entity".AsMemory();
+        private static readonly ReadOnlyMemory<char> MenesPrefix = "Menes.".AsMemory();
 
         private readonly Dictionary<string, string> fullyQualifiedTypeNameToAsMethodName = new Dictionary<string, string>();
 
@@ -215,7 +216,7 @@ namespace Menes.JsonSchema.TypeBuilder
             if (!this.fullyQualifiedTypeNameToAsMethodName.TryGetValue(typeDeclaration.FullyQualifiedDotNetTypeName, out string? asMethodName))
             {
                 int nameIndex = 1;
-                string baseAsMethodName = $"As{typeDeclaration.DotnetTypeName}";
+                string baseAsMethodName = $"As{Formatting.RemovePrefix(typeDeclaration.DotnetTypeName, MenesPrefix.Span).ToString()}";
                 asMethodName = baseAsMethodName;
                 while (this.fullyQualifiedTypeNameToAsMethodName.ContainsKey(asMethodName))
                 {

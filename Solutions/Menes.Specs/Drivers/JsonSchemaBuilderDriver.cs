@@ -11,6 +11,7 @@ namespace Drivers
     using System.Linq;
     using System.Reflection;
     using System.Runtime.Loader;
+    using System.Text;
     using System.Text.Encodings.Web;
     using System.Text.Json;
     using System.Threading.Tasks;
@@ -22,6 +23,7 @@ namespace Drivers
     using Microsoft.CodeAnalysis;
     using Microsoft.CodeAnalysis.CSharp;
     using Microsoft.CodeAnalysis.Emit;
+    using Microsoft.CodeAnalysis.Text;
     using Microsoft.Extensions.Configuration;
 
     /// <summary>
@@ -87,6 +89,11 @@ namespace Drivers
             using var outputStream = new MemoryStream();
             EmitResult result = compilation.Emit(outputStream);
 
+            if (!result.Success)
+            {
+                throw new Exception("Unable to compile generated code\r\n" + BuildCompilationErrors(result));
+            }
+
             outputStream.Flush();
             outputStream.Position = 0;
 
@@ -111,6 +118,17 @@ namespace Drivers
             }
 
             return CastTo<IJsonValue>.From(constructor.Invoke(new object[] { data }));
+        }
+
+        private static string BuildCompilationErrors(EmitResult result)
+        {
+            var builder = new StringBuilder();
+            foreach (Diagnostic diagnostic in result.Diagnostics)
+            {
+                builder.AppendLine(diagnostic.ToString());
+            }
+
+            return builder.ToString();
         }
 
         private static IEnumerable<MetadataReference> BuildMetadataReferences()

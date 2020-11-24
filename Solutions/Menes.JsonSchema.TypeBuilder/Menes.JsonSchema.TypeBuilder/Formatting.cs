@@ -154,6 +154,22 @@ namespace Menes.JsonSchema.TypeBuilder
             }
         }
 
+        /// <summary>
+        /// Removes the given prefix.
+        /// </summary>
+        /// <param name="dotnetTypeName">The type name from which to remove the prefix.</param>
+        /// <param name="prefix">The prefix to remove.</param>
+        /// <returns>The type name without the prefix.</returns>
+        public static ReadOnlySpan<char> RemovePrefix(ReadOnlySpan<char> dotnetTypeName, ReadOnlySpan<char> prefix)
+        {
+            if (dotnetTypeName.StartsWith(prefix))
+            {
+                return dotnetTypeName.Slice(prefix.Length);
+            }
+
+            return dotnetTypeName;
+        }
+
         private static ReadOnlySpan<char> TrimFileExtension(ReadOnlySpan<char> uriFragment)
         {
             int lastDot = -1;

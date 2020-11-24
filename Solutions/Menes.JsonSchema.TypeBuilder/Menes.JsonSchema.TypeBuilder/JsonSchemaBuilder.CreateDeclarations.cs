@@ -374,10 +374,12 @@ namespace Menes.JsonSchema.TypeBuilder
                     JsonReference location = this.GetLocationForSchemaElement(items);
                     if (items.ValueKind == JsonValueKind.Object || items.ValueKind == JsonValueKind.True || items.ValueKind == JsonValueKind.False)
                     {
+                        typeDeclaration.IsItemsArray = false;
                         if (this.TryGetResolvedElement(location, out LocatedElement propertyTypeElement))
                         {
                             TypeDeclaration itemsDeclaration = await this.CreateTypeDeclarations(propertyTypeElement).ConfigureAwait(false);
                             typeDeclaration.AddItem(itemsDeclaration);
+                            typeDeclaration.AddArrayConversionOperator(new ArrayConversionOperatorDeclaration { TargetItemType = itemsDeclaration });
                         }
                         else
                         {
@@ -405,6 +407,9 @@ namespace Menes.JsonSchema.TypeBuilder
                             ++index;
                             this.absoluteKeywordLocationStack.Pop();
                         }
+
+                        typeDeclaration.IsItemsArray = true;
+                        typeDeclaration.AddArrayConversionOperator(new ArrayConversionOperatorDeclaration { TargetItemType = TypeDeclarations.AnyTypeDeclaration });
                     }
 
                     this.absoluteKeywordLocationStack.Pop();
