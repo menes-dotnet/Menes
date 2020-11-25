@@ -146,6 +146,7 @@ namespace Menes.JsonSchema.TypeBuilder
                 var propertyDeclaration = new PropertyDeclaration();
                 this.SetPropertyName(typeDeclaration, jsonPropertyName, propertyDeclaration);
                 propertyDeclaration.TypeDeclaration = TypeDeclarations.AnyTypeDeclaration;
+                propertyDeclaration.IsRequired = true;
                 typeDeclaration.AddPropertyDeclaration(propertyDeclaration);
             }
         }

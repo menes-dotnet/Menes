@@ -4,6 +4,7 @@
 
 namespace Menes.JsonSchema.TypeBuilder
 {
+    using System;
     using System.Text;
     using Menes.JsonSchema.TypeBuilder.Model;
 
@@ -28,11 +29,56 @@ namespace Menes.JsonSchema.TypeBuilder
                 this.BuildAnyOfValidation(typeDeclaration, memberBuilder);
             }
 
+            this.BuildTypeValidations(typeDeclaration, memberBuilder);
+            this.BuildPropertyValidations(typeDeclaration, memberBuilder);
+
             MergeLocalEvaluatedProperties(typeDeclaration, memberBuilder);
 
             memberBuilder.AppendLine("return result;");
 
             this.BuildValidationLocalFunctions(typeDeclaration, memberBuilder);
+        }
+
+        private void BuildPropertyValidations(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
+        {
+            if (!typeDeclaration.IsObjectTypeDeclaration)
+            {
+                return;
+            }
+
+            if (typeDeclaration.Properties is not null)
+            {
+                int index = 0;
+                memberBuilder.AppendLine("if (this.IsObject)");
+                memberBuilder.AppendLine("{");
+                foreach (PropertyDeclaration property in typeDeclaration.Properties)
+                {
+                    this.PushPropertyToAbsoluteKeywordLocationStack(property.JsonPropertyName!);
+                    this.BuildPushAbsoluteKeywordLocation(memberBuilder, index);
+                    if (property.IsRequired)
+                    {
+                        memberBuilder.AppendLine($"    evaluatedProperties?.Add({Formatting.FormatLiteralOrNull(property.JsonPropertyName, true)});");
+                        memberBuilder.AppendLine($"    if (!this.TryGetProperty<{property.TypeDeclaration!.FullyQualifiedDotNetTypeName}>(_Menes{property.DotnetPropertyName}JsonPropertyName.Span, out {property.TypeDeclaration!.FullyQualifiedDotNetTypeName} value{index}))");
+                        memberBuilder.AppendLine("    {");
+                        this.WriteError("6.5.3. required - required property not present.", memberBuilder);
+                        memberBuilder.AppendLine("    }");
+                        memberBuilder.AppendLine("    else");
+                        memberBuilder.AppendLine("    {");
+                        this.WriteSuccess(memberBuilder);
+                        memberBuilder.AppendLine("    }");
+                    }
+
+                    this.BuildPopAbsoluteKeywordLocation(memberBuilder, index);
+                    this.absoluteKeywordLocationStack.Pop();
+                    index++;
+                }
+
+                memberBuilder.AppendLine("}");
+            }
+        }
+
+        private void BuildTypeValidations(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
+        {
         }
 
         private void BuildValidationLocalFunctions(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
