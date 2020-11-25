@@ -12,6 +12,7 @@ namespace Menes.ConsoleApp
     using System.Threading.Tasks;
     using Menes.Json.Schema;
     using Menes.JsonSchema.TypeBuilder;
+    using NodaTime;
     using TestSpace;
 
     /// <summary>
@@ -105,9 +106,12 @@ namespace Menes.ConsoleApp
                     .Insert(3, new Tree.NodeEntity(6), new Tree.NodeEntity(7), new Tree.NodeEntity(8), new Tree.NodeEntity(9), new Tree.NodeEntity(10))
                     .RemoveIf(n => n.Value < 5));
 
-            tree = tree.SetProperty("meta", (JsonString)"Hello");
-            tree = tree.SetProperty("foo", (JsonString)"Bar");
-            tree = tree.SetProperty("frob", (JsonString)"Bob");
+            tree = tree.SetProperty("meta", "Hello");
+            tree = tree.SetProperty("foo", "Bar");
+            tree = tree.SetProperty("frob", "Bob");
+            tree = tree.SetProperty("numbery", 33);
+            tree = tree.SetProperty("veryNumbery", 99.9);
+            tree = tree.SetProperty("dateIsh", DateTimeOffset.Now);
             tree = tree.RemoveProperty("frob");
 
             Serialize(tree);

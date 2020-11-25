@@ -13,6 +13,7 @@ namespace Menes
     using System.Reflection.Emit;
     using System.Text.Json;
     using Corvus.Extensions;
+    using NodaTime;
 
     /// <summary>
     /// Utilities for working with <see cref="IJsonValue"/>.
@@ -21,6 +22,594 @@ namespace Menes
     {
         private static readonly ConcurrentDictionary<Type, object> FactoryCache = new ConcurrentDictionary<Type, object>();
         private static readonly ConcurrentDictionary<Type, object> JsonElementFactoryCache = new ConcurrentDictionary<Type, object>();
+
+        /// <summary>
+        /// Sets a <see cref="JsonString"/> value from a raw dotnet type.
+        /// </summary>
+        /// <typeparam name="T">The type on which to set the property.</typeparam>
+        /// <param name="target">The instance on which to set the property.</param>
+        /// <param name="propertyName">The name of the property to set.</param>
+        /// <param name="value">The vlaue to set.</param>
+        /// <returns>An instance of the type, with the property set.</returns>
+        public static T SetProperty<T>(this T target, string propertyName, string value)
+            where T : struct, IJsonObject<T>
+        {
+            return target.SetProperty(propertyName, (JsonString)value);
+        }
+
+        /// <summary>
+        /// Sets a <see cref="JsonString"/> value from a raw dotnet type.
+        /// </summary>
+        /// <typeparam name="T">The type on which to set the property.</typeparam>
+        /// <param name="target">The instance on which to set the property.</param>
+        /// <param name="propertyName">The name of the property to set.</param>
+        /// <param name="value">The vlaue to set.</param>
+        /// <returns>An instance of the type, with the property set.</returns>
+        public static T SetProperty<T>(this T target, ReadOnlySpan<byte> propertyName, string value)
+            where T : struct, IJsonObject<T>
+        {
+            return target.SetProperty(propertyName, (JsonString)value);
+        }
+
+        /// <summary>
+        /// Sets a <see cref="JsonString"/> value from a raw dotnet type.
+        /// </summary>
+        /// <typeparam name="T">The type on which to set the property.</typeparam>
+        /// <param name="target">The instance on which to set the property.</param>
+        /// <param name="propertyName">The name of the property to set.</param>
+        /// <param name="value">The vlaue to set.</param>
+        /// <returns>An instance of the type, with the property set.</returns>
+        public static T SetProperty<T>(this T target, ReadOnlySpan<char> propertyName, string value)
+            where T : struct, IJsonObject<T>
+        {
+            return target.SetProperty(propertyName, (JsonString)value);
+        }
+
+        /// <summary>
+        /// Sets a <see cref="JsonString"/> value from a raw dotnet type.
+        /// </summary>
+        /// <typeparam name="T">The type on which to set the property.</typeparam>
+        /// <param name="target">The instance on which to set the property.</param>
+        /// <param name="propertyName">The name of the property to set.</param>
+        /// <param name="value">The vlaue to set.</param>
+        /// <returns>An instance of the type, with the property set.</returns>
+        public static T SetProperty<T>(this T target, string propertyName, ReadOnlySpan<char> value)
+            where T : struct, IJsonObject<T>
+        {
+            return target.SetProperty(propertyName, (JsonString)value);
+        }
+
+        /// <summary>
+        /// Sets a <see cref="JsonString"/> value from a raw dotnet type.
+        /// </summary>
+        /// <typeparam name="T">The type on which to set the property.</typeparam>
+        /// <param name="target">The instance on which to set the property.</param>
+        /// <param name="propertyName">The name of the property to set.</param>
+        /// <param name="value">The vlaue to set.</param>
+        /// <returns>An instance of the type, with the property set.</returns>
+        public static T SetProperty<T>(this T target, ReadOnlySpan<byte> propertyName, ReadOnlySpan<char> value)
+            where T : struct, IJsonObject<T>
+        {
+            return target.SetProperty(propertyName, (JsonString)value);
+        }
+
+        /// <summary>
+        /// Sets a <see cref="JsonString"/> value from a raw dotnet type.
+        /// </summary>
+        /// <typeparam name="T">The type on which to set the property.</typeparam>
+        /// <param name="target">The instance on which to set the property.</param>
+        /// <param name="propertyName">The name of the property to set.</param>
+        /// <param name="value">The vlaue to set.</param>
+        /// <returns>An instance of the type, with the property set.</returns>
+        public static T SetProperty<T>(this T target, ReadOnlySpan<char> propertyName, ReadOnlySpan<char> value)
+            where T : struct, IJsonObject<T>
+        {
+            return target.SetProperty(propertyName, (JsonString)value);
+        }
+
+        /// <summary>
+        /// Sets a <see cref="JsonString"/> value from a raw dotnet type.
+        /// </summary>
+        /// <typeparam name="T">The type on which to set the property.</typeparam>
+        /// <param name="target">The instance on which to set the property.</param>
+        /// <param name="propertyName">The name of the property to set.</param>
+        /// <param name="value">The vlaue to set.</param>
+        /// <returns>An instance of the type, with the property set.</returns>
+        public static T SetProperty<T>(this T target, string propertyName, ReadOnlyMemory<char> value)
+            where T : struct, IJsonObject<T>
+        {
+            return target.SetProperty(propertyName, (JsonString)value);
+        }
+
+        /// <summary>
+        /// Sets a <see cref="JsonString"/> value from a raw dotnet type.
+        /// </summary>
+        /// <typeparam name="T">The type on which to set the property.</typeparam>
+        /// <param name="target">The instance on which to set the property.</param>
+        /// <param name="propertyName">The name of the property to set.</param>
+        /// <param name="value">The vlaue to set.</param>
+        /// <returns>An instance of the type, with the property set.</returns>
+        public static T SetProperty<T>(this T target, ReadOnlySpan<byte> propertyName, ReadOnlyMemory<char> value)
+            where T : struct, IJsonObject<T>
+        {
+            return target.SetProperty(propertyName, (JsonString)value);
+        }
+
+        /// <summary>
+        /// Sets a <see cref="JsonString"/> value from a raw dotnet type.
+        /// </summary>
+        /// <typeparam name="T">The type on which to set the property.</typeparam>
+        /// <param name="target">The instance on which to set the property.</param>
+        /// <param name="propertyName">The name of the property to set.</param>
+        /// <param name="value">The vlaue to set.</param>
+        /// <returns>An instance of the type, with the property set.</returns>
+        public static T SetProperty<T>(this T target, ReadOnlySpan<char> propertyName, ReadOnlyMemory<char> value)
+            where T : struct, IJsonObject<T>
+        {
+            return target.SetProperty(propertyName, (JsonString)value);
+        }
+
+        /// <summary>
+        /// Sets a <see cref="JsonNumber"/> value from a raw dotnet type.
+        /// </summary>
+        /// <typeparam name="T">The type on which to set the property.</typeparam>
+        /// <param name="target">The instance on which to set the property.</param>
+        /// <param name="propertyName">The name of the property to set.</param>
+        /// <param name="value">The vlaue to set.</param>
+        /// <returns>An instance of the type, with the property set.</returns>
+        public static T SetProperty<T>(this T target, string propertyName, int value)
+            where T : struct, IJsonObject<T>
+        {
+            return target.SetProperty(propertyName, (JsonNumber)value);
+        }
+
+        /// <summary>
+        /// Sets a <see cref="JsonNumber"/> value from a raw dotnet type.
+        /// </summary>
+        /// <typeparam name="T">The type on which to set the property.</typeparam>
+        /// <param name="target">The instance on which to set the property.</param>
+        /// <param name="propertyName">The name of the property to set.</param>
+        /// <param name="value">The vlaue to set.</param>
+        /// <returns>An instance of the type, with the property set.</returns>
+        public static T SetProperty<T>(this T target, ReadOnlySpan<byte> propertyName, int value)
+            where T : struct, IJsonObject<T>
+        {
+            return target.SetProperty(propertyName, (JsonNumber)value);
+        }
+
+        /// <summary>
+        /// Sets a <see cref="JsonNumber"/> value from a raw dotnet type.
+        /// </summary>
+        /// <typeparam name="T">The type on which to set the property.</typeparam>
+        /// <param name="target">The instance on which to set the property.</param>
+        /// <param name="propertyName">The name of the property to set.</param>
+        /// <param name="value">The vlaue to set.</param>
+        /// <returns>An instance of the type, with the property set.</returns>
+        public static T SetProperty<T>(this T target, ReadOnlySpan<char> propertyName, int value)
+            where T : struct, IJsonObject<T>
+        {
+            return target.SetProperty(propertyName, (JsonNumber)value);
+        }
+
+        /// <summary>
+        /// Sets a <see cref="JsonNumber"/> value from a raw dotnet type.
+        /// </summary>
+        /// <typeparam name="T">The type on which to set the property.</typeparam>
+        /// <param name="target">The instance on which to set the property.</param>
+        /// <param name="propertyName">The name of the property to set.</param>
+        /// <param name="value">The vlaue to set.</param>
+        /// <returns>An instance of the type, with the property set.</returns>
+        public static T SetProperty<T>(this T target, string propertyName, long value)
+            where T : struct, IJsonObject<T>
+        {
+            return target.SetProperty(propertyName, (JsonNumber)value);
+        }
+
+        /// <summary>
+        /// Sets a <see cref="JsonNumber"/> value from a raw dotnet type.
+        /// </summary>
+        /// <typeparam name="T">The type on which to set the property.</typeparam>
+        /// <param name="target">The instance on which to set the property.</param>
+        /// <param name="propertyName">The name of the property to set.</param>
+        /// <param name="value">The vlaue to set.</param>
+        /// <returns>An instance of the type, with the property set.</returns>
+        public static T SetProperty<T>(this T target, ReadOnlySpan<byte> propertyName, long value)
+            where T : struct, IJsonObject<T>
+        {
+            return target.SetProperty(propertyName, (JsonNumber)value);
+        }
+
+        /// <summary>
+        /// Sets a <see cref="JsonNumber"/> value from a raw dotnet type.
+        /// </summary>
+        /// <typeparam name="T">The type on which to set the property.</typeparam>
+        /// <param name="target">The instance on which to set the property.</param>
+        /// <param name="propertyName">The name of the property to set.</param>
+        /// <param name="value">The vlaue to set.</param>
+        /// <returns>An instance of the type, with the property set.</returns>
+        public static T SetProperty<T>(this T target, ReadOnlySpan<char> propertyName, long value)
+            where T : struct, IJsonObject<T>
+        {
+            return target.SetProperty(propertyName, (JsonNumber)value);
+        }
+
+        /// <summary>
+        /// Sets a <see cref="JsonNumber"/> value from a raw dotnet type.
+        /// </summary>
+        /// <typeparam name="T">The type on which to set the property.</typeparam>
+        /// <param name="target">The instance on which to set the property.</param>
+        /// <param name="propertyName">The name of the property to set.</param>
+        /// <param name="value">The vlaue to set.</param>
+        /// <returns>An instance of the type, with the property set.</returns>
+        public static T SetProperty<T>(this T target, string propertyName, double value)
+            where T : struct, IJsonObject<T>
+        {
+            return target.SetProperty(propertyName, (JsonNumber)value);
+        }
+
+        /// <summary>
+        /// Sets a <see cref="JsonNumber"/> value from a raw dotnet type.
+        /// </summary>
+        /// <typeparam name="T">The type on which to set the property.</typeparam>
+        /// <param name="target">The instance on which to set the property.</param>
+        /// <param name="propertyName">The name of the property to set.</param>
+        /// <param name="value">The vlaue to set.</param>
+        /// <returns>An instance of the type, with the property set.</returns>
+        public static T SetProperty<T>(this T target, ReadOnlySpan<byte> propertyName, double value)
+            where T : struct, IJsonObject<T>
+        {
+            return target.SetProperty(propertyName, (JsonNumber)value);
+        }
+
+        /// <summary>
+        /// Sets a <see cref="JsonNumber"/> value from a raw dotnet type.
+        /// </summary>
+        /// <typeparam name="T">The type on which to set the property.</typeparam>
+        /// <param name="target">The instance on which to set the property.</param>
+        /// <param name="propertyName">The name of the property to set.</param>
+        /// <param name="value">The vlaue to set.</param>
+        /// <returns>An instance of the type, with the property set.</returns>
+        public static T SetProperty<T>(this T target, ReadOnlySpan<char> propertyName, double value)
+            where T : struct, IJsonObject<T>
+        {
+            return target.SetProperty(propertyName, (JsonNumber)value);
+        }
+
+        /// <summary>
+        /// Sets a <see cref="JsonNumber"/> value from a raw dotnet type.
+        /// </summary>
+        /// <typeparam name="T">The type on which to set the property.</typeparam>
+        /// <param name="target">The instance on which to set the property.</param>
+        /// <param name="propertyName">The name of the property to set.</param>
+        /// <param name="value">The vlaue to set.</param>
+        /// <returns>An instance of the type, with the property set.</returns>
+        public static T SetProperty<T>(this T target, string propertyName, float value)
+            where T : struct, IJsonObject<T>
+        {
+            return target.SetProperty(propertyName, (JsonNumber)value);
+        }
+
+        /// <summary>
+        /// Sets a <see cref="JsonNumber"/> value from a raw dotnet type.
+        /// </summary>
+        /// <typeparam name="T">The type on which to set the property.</typeparam>
+        /// <param name="target">The instance on which to set the property.</param>
+        /// <param name="propertyName">The name of the property to set.</param>
+        /// <param name="value">The vlaue to set.</param>
+        /// <returns>An instance of the type, with the property set.</returns>
+        public static T SetProperty<T>(this T target, ReadOnlySpan<byte> propertyName, float value)
+            where T : struct, IJsonObject<T>
+        {
+            return target.SetProperty(propertyName, (JsonNumber)value);
+        }
+
+        /// <summary>
+        /// Sets a <see cref="JsonNumber"/> value from a raw dotnet type.
+        /// </summary>
+        /// <typeparam name="T">The type on which to set the property.</typeparam>
+        /// <param name="target">The instance on which to set the property.</param>
+        /// <param name="propertyName">The name of the property to set.</param>
+        /// <param name="value">The vlaue to set.</param>
+        /// <returns>An instance of the type, with the property set.</returns>
+        public static T SetProperty<T>(this T target, ReadOnlySpan<char> propertyName, float value)
+            where T : struct, IJsonObject<T>
+        {
+            return target.SetProperty(propertyName, (JsonNumber)value);
+        }
+
+        /// <summary>
+        /// Sets a <see cref="JsonGuid"/> value from a raw dotnet type.
+        /// </summary>
+        /// <typeparam name="T">The type on which to set the property.</typeparam>
+        /// <param name="target">The instance on which to set the property.</param>
+        /// <param name="propertyName">The name of the property to set.</param>
+        /// <param name="value">The vlaue to set.</param>
+        /// <returns>An instance of the type, with the property set.</returns>
+        public static T SetProperty<T>(this T target, string propertyName, Guid value)
+            where T : struct, IJsonObject<T>
+        {
+            return target.SetProperty(propertyName, (JsonGuid)value);
+        }
+
+        /// <summary>
+        /// Sets a <see cref="JsonGuid"/> value from a raw dotnet type.
+        /// </summary>
+        /// <typeparam name="T">The type on which to set the property.</typeparam>
+        /// <param name="target">The instance on which to set the property.</param>
+        /// <param name="propertyName">The name of the property to set.</param>
+        /// <param name="value">The vlaue to set.</param>
+        /// <returns>An instance of the type, with the property set.</returns>
+        public static T SetProperty<T>(this T target, ReadOnlySpan<byte> propertyName, Guid value)
+            where T : struct, IJsonObject<T>
+        {
+            return target.SetProperty(propertyName, (JsonGuid)value);
+        }
+
+        /// <summary>
+        /// Sets a <see cref="JsonGuid"/> value from a raw dotnet type.
+        /// </summary>
+        /// <typeparam name="T">The type on which to set the property.</typeparam>
+        /// <param name="target">The instance on which to set the property.</param>
+        /// <param name="propertyName">The name of the property to set.</param>
+        /// <param name="value">The vlaue to set.</param>
+        /// <returns>An instance of the type, with the property set.</returns>
+        public static T SetProperty<T>(this T target, ReadOnlySpan<char> propertyName, Guid value)
+            where T : struct, IJsonObject<T>
+        {
+            return target.SetProperty(propertyName, (JsonGuid)value);
+        }
+
+        /// <summary>
+        /// Sets a <see cref="JsonBoolean"/> value from a raw dotnet type.
+        /// </summary>
+        /// <typeparam name="T">The type on which to set the property.</typeparam>
+        /// <param name="target">The instance on which to set the property.</param>
+        /// <param name="propertyName">The name of the property to set.</param>
+        /// <param name="value">The vlaue to set.</param>
+        /// <returns>An instance of the type, with the property set.</returns>
+        public static T SetProperty<T>(this T target, string propertyName, bool value)
+            where T : struct, IJsonObject<T>
+        {
+            return target.SetProperty(propertyName, (JsonBoolean)value);
+        }
+
+        /// <summary>
+        /// Sets a <see cref="JsonBoolean"/> value from a raw dotnet type.
+        /// </summary>
+        /// <typeparam name="T">The type on which to set the property.</typeparam>
+        /// <param name="target">The instance on which to set the property.</param>
+        /// <param name="propertyName">The name of the property to set.</param>
+        /// <param name="value">The vlaue to set.</param>
+        /// <returns>An instance of the type, with the property set.</returns>
+        public static T SetProperty<T>(this T target, ReadOnlySpan<byte> propertyName, bool value)
+            where T : struct, IJsonObject<T>
+        {
+            return target.SetProperty(propertyName, (JsonBoolean)value);
+        }
+
+        /// <summary>
+        /// Sets a <see cref="JsonBoolean"/> value from a raw dotnet type.
+        /// </summary>
+        /// <typeparam name="T">The type on which to set the property.</typeparam>
+        /// <param name="target">The instance on which to set the property.</param>
+        /// <param name="propertyName">The name of the property to set.</param>
+        /// <param name="value">The vlaue to set.</param>
+        /// <returns>An instance of the type, with the property set.</returns>
+        public static T SetProperty<T>(this T target, ReadOnlySpan<char> propertyName, bool value)
+            where T : struct, IJsonObject<T>
+        {
+            return target.SetProperty(propertyName, (JsonBoolean)value);
+        }
+
+        /// <summary>
+        /// Sets a <see cref="JsonDate"/> value from a raw dotnet type.
+        /// </summary>
+        /// <typeparam name="T">The type on which to set the property.</typeparam>
+        /// <param name="target">The instance on which to set the property.</param>
+        /// <param name="propertyName">The name of the property to set.</param>
+        /// <param name="value">The vlaue to set.</param>
+        /// <returns>An instance of the type, with the property set.</returns>
+        public static T SetProperty<T>(this T target, string propertyName, LocalDate value)
+            where T : struct, IJsonObject<T>
+        {
+            return target.SetProperty(propertyName, (JsonDate)value);
+        }
+
+        /// <summary>
+        /// Sets a <see cref="JsonDate"/> value from a raw dotnet type.
+        /// </summary>
+        /// <typeparam name="T">The type on which to set the property.</typeparam>
+        /// <param name="target">The instance on which to set the property.</param>
+        /// <param name="propertyName">The name of the property to set.</param>
+        /// <param name="value">The vlaue to set.</param>
+        /// <returns>An instance of the type, with the property set.</returns>
+        public static T SetProperty<T>(this T target, ReadOnlySpan<byte> propertyName, LocalDate value)
+            where T : struct, IJsonObject<T>
+        {
+            return target.SetProperty(propertyName, (JsonDate)value);
+        }
+
+        /// <summary>
+        /// Sets a <see cref="JsonDate"/> value from a raw dotnet type.
+        /// </summary>
+        /// <typeparam name="T">The type on which to set the property.</typeparam>
+        /// <param name="target">The instance on which to set the property.</param>
+        /// <param name="propertyName">The name of the property to set.</param>
+        /// <param name="value">The vlaue to set.</param>
+        /// <returns>An instance of the type, with the property set.</returns>
+        public static T SetProperty<T>(this T target, ReadOnlySpan<char> propertyName, LocalDate value)
+            where T : struct, IJsonObject<T>
+        {
+            return target.SetProperty(propertyName, (JsonDate)value);
+        }
+
+        /// <summary>
+        /// Sets a <see cref="JsonDateTime"/> value from a raw dotnet type.
+        /// </summary>
+        /// <typeparam name="T">The type on which to set the property.</typeparam>
+        /// <param name="target">The instance on which to set the property.</param>
+        /// <param name="propertyName">The name of the property to set.</param>
+        /// <param name="value">The vlaue to set.</param>
+        /// <returns>An instance of the type, with the property set.</returns>
+        public static T SetProperty<T>(this T target, string propertyName, OffsetDateTime value)
+            where T : struct, IJsonObject<T>
+        {
+            return target.SetProperty(propertyName, (JsonDateTime)value);
+        }
+
+        /// <summary>
+        /// Sets a <see cref="JsonDateTime"/> value from a raw dotnet type.
+        /// </summary>
+        /// <typeparam name="T">The type on which to set the property.</typeparam>
+        /// <param name="target">The instance on which to set the property.</param>
+        /// <param name="propertyName">The name of the property to set.</param>
+        /// <param name="value">The vlaue to set.</param>
+        /// <returns>An instance of the type, with the property set.</returns>
+        public static T SetProperty<T>(this T target, ReadOnlySpan<byte> propertyName, OffsetDateTime value)
+            where T : struct, IJsonObject<T>
+        {
+            return target.SetProperty(propertyName, (JsonDateTime)value);
+        }
+
+        /// <summary>
+        /// Sets a <see cref="JsonDateTime"/> value from a raw dotnet type.
+        /// </summary>
+        /// <typeparam name="T">The type on which to set the property.</typeparam>
+        /// <param name="target">The instance on which to set the property.</param>
+        /// <param name="propertyName">The name of the property to set.</param>
+        /// <param name="value">The vlaue to set.</param>
+        /// <returns>An instance of the type, with the property set.</returns>
+        public static T SetProperty<T>(this T target, ReadOnlySpan<char> propertyName, OffsetDateTime value)
+            where T : struct, IJsonObject<T>
+        {
+            return target.SetProperty(propertyName, (JsonDateTime)value);
+        }
+
+        /// <summary>
+        /// Sets a <see cref="JsonTime"/> value from a raw dotnet type.
+        /// </summary>
+        /// <typeparam name="T">The type on which to set the property.</typeparam>
+        /// <param name="target">The instance on which to set the property.</param>
+        /// <param name="propertyName">The name of the property to set.</param>
+        /// <param name="value">The vlaue to set.</param>
+        /// <returns>An instance of the type, with the property set.</returns>
+        public static T SetProperty<T>(this T target, string propertyName, OffsetTime value)
+            where T : struct, IJsonObject<T>
+        {
+            return target.SetProperty(propertyName, (JsonTime)value);
+        }
+
+        /// <summary>
+        /// Sets a <see cref="JsonTime"/> value from a raw dotnet type.
+        /// </summary>
+        /// <typeparam name="T">The type on which to set the property.</typeparam>
+        /// <param name="target">The instance on which to set the property.</param>
+        /// <param name="propertyName">The name of the property to set.</param>
+        /// <param name="value">The vlaue to set.</param>
+        /// <returns>An instance of the type, with the property set.</returns>
+        public static T SetProperty<T>(this T target, ReadOnlySpan<byte> propertyName, OffsetTime value)
+            where T : struct, IJsonObject<T>
+        {
+            return target.SetProperty(propertyName, (JsonTime)value);
+        }
+
+        /// <summary>
+        /// Sets a <see cref="JsonTime"/> value from a raw dotnet type.
+        /// </summary>
+        /// <typeparam name="T">The type on which to set the property.</typeparam>
+        /// <param name="target">The instance on which to set the property.</param>
+        /// <param name="propertyName">The name of the property to set.</param>
+        /// <param name="value">The vlaue to set.</param>
+        /// <returns>An instance of the type, with the property set.</returns>
+        public static T SetProperty<T>(this T target, ReadOnlySpan<char> propertyName, OffsetTime value)
+            where T : struct, IJsonObject<T>
+        {
+            return target.SetProperty(propertyName, (JsonTime)value);
+        }
+
+        /// <summary>
+        /// Sets a <see cref="JsonDuration"/> value from a raw dotnet type.
+        /// </summary>
+        /// <typeparam name="T">The type on which to set the property.</typeparam>
+        /// <param name="target">The instance on which to set the property.</param>
+        /// <param name="propertyName">The name of the property to set.</param>
+        /// <param name="value">The vlaue to set.</param>
+        /// <returns>An instance of the type, with the property set.</returns>
+        public static T SetProperty<T>(this T target, string propertyName, Duration value)
+            where T : struct, IJsonObject<T>
+        {
+            return target.SetProperty(propertyName, (JsonDuration)value);
+        }
+
+        /// <summary>
+        /// Sets a <see cref="JsonDuration"/> value from a raw dotnet type.
+        /// </summary>
+        /// <typeparam name="T">The type on which to set the property.</typeparam>
+        /// <param name="target">The instance on which to set the property.</param>
+        /// <param name="propertyName">The name of the property to set.</param>
+        /// <param name="value">The vlaue to set.</param>
+        /// <returns>An instance of the type, with the property set.</returns>
+        public static T SetProperty<T>(this T target, ReadOnlySpan<byte> propertyName, Duration value)
+            where T : struct, IJsonObject<T>
+        {
+            return target.SetProperty(propertyName, (JsonDuration)value);
+        }
+
+        /// <summary>
+        /// Sets a <see cref="JsonDuration"/> value from a raw dotnet type.
+        /// </summary>
+        /// <typeparam name="T">The type on which to set the property.</typeparam>
+        /// <param name="target">The instance on which to set the property.</param>
+        /// <param name="propertyName">The name of the property to set.</param>
+        /// <param name="value">The vlaue to set.</param>
+        /// <returns>An instance of the type, with the property set.</returns>
+        public static T SetProperty<T>(this T target, ReadOnlySpan<char> propertyName, Duration value)
+            where T : struct, IJsonObject<T>
+        {
+            return target.SetProperty(propertyName, (JsonDuration)value);
+        }
+
+        /// <summary>
+        /// Sets a <see cref="JsonDateTime"/> value from a raw dotnet type.
+        /// </summary>
+        /// <typeparam name="T">The type on which to set the property.</typeparam>
+        /// <param name="target">The instance on which to set the property.</param>
+        /// <param name="propertyName">The name of the property to set.</param>
+        /// <param name="value">The vlaue to set.</param>
+        /// <returns>An instance of the type, with the property set.</returns>
+        public static T SetProperty<T>(this T target, string propertyName, DateTimeOffset value)
+            where T : struct, IJsonObject<T>
+        {
+            return target.SetProperty(propertyName, (JsonDateTime)OffsetDateTime.FromDateTimeOffset(value));
+        }
+
+        /// <summary>
+        /// Sets a <see cref="JsonDuration"/> value from a raw dotnet type.
+        /// </summary>
+        /// <typeparam name="T">The type on which to set the property.</typeparam>
+        /// <param name="target">The instance on which to set the property.</param>
+        /// <param name="propertyName">The name of the property to set.</param>
+        /// <param name="value">The vlaue to set.</param>
+        /// <returns>An instance of the type, with the property set.</returns>
+        public static T SetProperty<T>(this T target, ReadOnlySpan<byte> propertyName, DateTimeOffset value)
+            where T : struct, IJsonObject<T>
+        {
+            return target.SetProperty(propertyName, (JsonDateTime)OffsetDateTime.FromDateTimeOffset(value));
+        }
+
+        /// <summary>
+        /// Sets a <see cref="JsonDuration"/> value from a raw dotnet type.
+        /// </summary>
+        /// <typeparam name="T">The type on which to set the property.</typeparam>
+        /// <param name="target">The instance on which to set the property.</param>
+        /// <param name="propertyName">The name of the property to set.</param>
+        /// <param name="value">The vlaue to set.</param>
+        /// <returns>An instance of the type, with the property set.</returns>
+        public static T SetProperty<T>(this T target, ReadOnlySpan<char> propertyName, DateTimeOffset value)
+            where T : struct, IJsonObject<T>
+        {
+            return target.SetProperty(propertyName, (JsonDateTime)OffsetDateTime.FromDateTimeOffset(value));
+        }
 
         /// <summary>
         /// Get a <see cref="IJsonValue"/> constructed from the given <see cref="IJsonValue"/>.
