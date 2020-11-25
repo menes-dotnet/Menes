@@ -4,6 +4,7 @@
 
 namespace Menes.JsonSchema.TypeBuilder
 {
+    using System;
     using System.Text;
     using Menes.JsonSchema.TypeBuilder.Model;
 
@@ -44,6 +45,7 @@ namespace Menes.JsonSchema.TypeBuilder
             this.BuildAnyOfBackingFields(typeDeclaration, memberBuilder);
             this.BuildArrayBackingField(typeDeclaration, memberBuilder);
             this.BuildPropertyBackingFields(typeDeclaration, memberBuilder);
+            this.BuildPatternPropertyExpressions(typeDeclaration, memberBuilder);
 
             // Public and private constructors
             this.BuildConstructors(typeDeclaration, memberBuilder);
@@ -85,6 +87,21 @@ namespace Menes.JsonSchema.TypeBuilder
             this.BuildArrayEnumerator(typeDeclaration, memberBuilder);
             this.BuildPropertyEnumerator(typeDeclaration, memberBuilder);
             memberBuilder.AppendLine("}");
+        }
+
+        private void BuildPatternPropertyExpressions(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
+        {
+            if (typeDeclaration.PatternProperties is null)
+            {
+                return;
+            }
+
+            int index = 0;
+            foreach (PatternProperty patternProperty in typeDeclaration.PatternProperties)
+            {
+                memberBuilder.AppendLine($"private static readonly System.Text.RegularExpressions.Regex _MenesPatternExpression{index} = new System.Text.RegularExpressions.Regex({Formatting.FormatLiteralOrNull(patternProperty.Pattern, true)}, System.Text.RegularExpressions.RegexOptions.Compiled);");
+                index++;
+            }
         }
 
         private void BuildInterfaces(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)

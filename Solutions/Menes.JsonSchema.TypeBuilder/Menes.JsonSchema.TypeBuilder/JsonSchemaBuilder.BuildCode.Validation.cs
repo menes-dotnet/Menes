@@ -29,26 +29,61 @@ namespace Menes.JsonSchema.TypeBuilder
             memberBuilder.AppendLine("{");
             try
             {
-                switch (typeDeclaration.TypeSchema.JsonElement.ValueKind)
-                {
-                    case JsonValueKind.True:
-                        this.BuildTrueValidation(memberBuilder);
-                        break;
-                    case JsonValueKind.False:
-                        this.BuildFalseValidation(memberBuilder);
-                        break;
-                    case JsonValueKind.Object:
-                        this.BuildSchemaValidation(typeDeclaration, memberBuilder);
-                        break;
-                    default:
-                        throw new InvalidOperationException($"The schema is not valid. Expected to find [true, false, {{}}] but was {typeDeclaration.TypeSchema.JsonElement.ValueKind}.");
-                }
+                this.BuildSchemaValidation(typeDeclaration, memberBuilder);
             }
             finally
             {
                 memberBuilder.AppendLine("}");
                 this.absoluteKeywordLocationStack.Pop();
             }
+        }
+
+        private void BuildArrayValidation(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
+        {
+            if (!typeDeclaration.IsArrayTypeDeclaration)
+            {
+                return;
+            }
+
+            if (typeDeclaration.IsConcreteArray)
+            {
+                memberBuilder.AppendLine("if (!this.IsArray)");
+                memberBuilder.AppendLine("{");
+                this.WriteError("6.1.1. type - expected an array type.", memberBuilder);
+                memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.Valid)");
+                memberBuilder.AppendLine("        {");
+                memberBuilder.AppendLine("            return result;");
+                memberBuilder.AppendLine("        }");
+                memberBuilder.AppendLine("}");
+            }
+
+            memberBuilder.AppendLine("if (this.IsArray)");
+            memberBuilder.AppendLine("{");
+            if (typeDeclaration.MinItems is int minItems)
+            {
+                memberBuilder.AppendLine($"if (this.GetArrayLength() < {minItems})");
+                memberBuilder.AppendLine("{");
+                this.WriteError($"6.4.2.  minItems - expected a minimum of {minItems} items", memberBuilder);
+                memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.Valid)");
+                memberBuilder.AppendLine("        {");
+                memberBuilder.AppendLine("            return result;");
+                memberBuilder.AppendLine("        }");
+                memberBuilder.AppendLine("}");
+            }
+
+            if (typeDeclaration.MaxItems is int maxItems)
+            {
+                memberBuilder.AppendLine($"if (this.GetArrayLength() > {maxItems})");
+                memberBuilder.AppendLine("{");
+                this.WriteError($"6.4.2.  minItems - expected a maximum of {maxItems} items", memberBuilder);
+                memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.Valid)");
+                memberBuilder.AppendLine("        {");
+                memberBuilder.AppendLine("            return result;");
+                memberBuilder.AppendLine("        }");
+                memberBuilder.AppendLine("}");
+            }
+
+            memberBuilder.AppendLine("}");
         }
 
         private string WriteAbsoluteKeywordLocation()

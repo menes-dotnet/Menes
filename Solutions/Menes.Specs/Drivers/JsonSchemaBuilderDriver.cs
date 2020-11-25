@@ -158,6 +158,7 @@ namespace Drivers
                 MetadataReference.CreateFromFile(typeof(JsonElement).Assembly.Location),
                 MetadataReference.CreateFromFile(typeof(CastTo<>).Assembly.Location),
                 MetadataReference.CreateFromFile(typeof(ImmutableArray).Assembly.Location),
+                MetadataReference.CreateFromFile(typeof(System.Text.RegularExpressions.Regex).Assembly.Location),
                 MetadataReference.CreateFromFile(typeof(JsonAny).Assembly.Location),
             };
         }

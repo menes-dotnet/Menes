@@ -59,9 +59,10 @@ namespace Menes.JsonSchema.TypeBuilder
             parameterDeclarations.Append($"System.Collections.Immutable.ImmutableArray<Menes.JsonArrayValueBacking> value");
 
             string parameterDeclaration = parameterDeclarations.ToString();
-            if (!constructorParameterDeclarations.Contains(parameterDeclaration) && !string.IsNullOrEmpty(parameterDeclaration))
+            string pdWithoutDefaults = parameterDeclaration.Replace(" = null", string.Empty);
+            if (!constructorParameterDeclarations.Contains(pdWithoutDefaults) && !string.IsNullOrEmpty(parameterDeclaration))
             {
-                constructorParameterDeclarations.Add(parameterDeclaration);
+                constructorParameterDeclarations.Add(pdWithoutDefaults);
                 memberBuilder.AppendLine($"private {typeDeclaration.DotnetTypeName}({parameterDeclaration})");
                 memberBuilder.AppendLine("{");
 
@@ -91,9 +92,11 @@ namespace Menes.JsonSchema.TypeBuilder
             parameterDeclarations.Append($"System.Collections.Immutable.ImmutableArray<{itemsType.FullyQualifiedDotNetTypeName}> value");
 
             string parameterDeclaration = parameterDeclarations.ToString();
-            if (!constructorParameterDeclarations.Contains(parameterDeclaration) && !string.IsNullOrEmpty(parameterDeclaration))
+            string pdWithoutDefaults = parameterDeclaration.Replace(" = null", string.Empty);
+
+            if (!constructorParameterDeclarations.Contains(pdWithoutDefaults) && !string.IsNullOrEmpty(parameterDeclaration))
             {
-                constructorParameterDeclarations.Add(parameterDeclaration);
+                constructorParameterDeclarations.Add(pdWithoutDefaults);
                 memberBuilder.AppendLine($"public {typeDeclaration.DotnetTypeName}({parameterDeclaration})");
                 memberBuilder.AppendLine("{");
 
@@ -128,12 +131,13 @@ namespace Menes.JsonSchema.TypeBuilder
             this.BuildPropertyConstructorParameters(true, typeDeclaration, parameterDeclarations);
 
             string parameterDeclaration = parameterDeclarations.ToString();
-            if (constructorParameterDeclarations.Contains(parameterDeclaration) || string.IsNullOrEmpty(parameterDeclaration))
+            string pdWithoutDefaults = parameterDeclaration.Replace(" = null", string.Empty);
+            if (constructorParameterDeclarations.Contains(pdWithoutDefaults) || string.IsNullOrEmpty(parameterDeclaration))
             {
                 return;
             }
 
-            constructorParameterDeclarations.Add(parameterDeclaration);
+            constructorParameterDeclarations.Add(pdWithoutDefaults);
             memberBuilder.Append($"public {typeDeclaration.DotnetTypeName}(");
             memberBuilder.Append(parameterDeclaration);
             memberBuilder.AppendLine(")");
@@ -163,12 +167,13 @@ namespace Menes.JsonSchema.TypeBuilder
                         parameterDeclarations.Append($"{typeName} value");
 
                         string parameterDeclaration = parameterDeclarations.ToString();
-                        if (constructorParameterDeclarations.Contains(parameterDeclaration) || string.IsNullOrEmpty(parameterDeclaration))
+                        string pdWithoutDefaults = parameterDeclaration.Replace(" = null", string.Empty);
+                        if (constructorParameterDeclarations.Contains(pdWithoutDefaults) || string.IsNullOrEmpty(parameterDeclaration))
                         {
                             return;
                         }
 
-                        constructorParameterDeclarations.Add(parameterDeclaration);
+                        constructorParameterDeclarations.Add(pdWithoutDefaults);
                         memberBuilder.Append($"public {typeDeclaration.DotnetTypeName}(");
                         memberBuilder.Append(parameterDeclaration);
                         memberBuilder.AppendLine(")");
@@ -199,12 +204,13 @@ namespace Menes.JsonSchema.TypeBuilder
                     parameterDeclarations.Append($"{type.FullyQualifiedDotNetTypeName} value");
 
                     string parameterDeclaration = parameterDeclarations.ToString();
-                    if (constructorParameterDeclarations.Contains(parameterDeclaration) || string.IsNullOrEmpty(parameterDeclaration))
+                    string pdWithoutDefaults = parameterDeclaration.Replace(" = null", string.Empty);
+                    if (constructorParameterDeclarations.Contains(pdWithoutDefaults) || string.IsNullOrEmpty(parameterDeclaration))
                     {
                         return;
                     }
 
-                    constructorParameterDeclarations.Add(parameterDeclaration);
+                    constructorParameterDeclarations.Add(pdWithoutDefaults);
                     memberBuilder.Append($"public {typeDeclaration.DotnetTypeName}(");
                     memberBuilder.Append(parameterDeclaration);
                     memberBuilder.AppendLine(")");
@@ -234,12 +240,13 @@ namespace Menes.JsonSchema.TypeBuilder
                     parameterDeclarations.Append($"{type.FullyQualifiedDotNetTypeName} value");
 
                     string parameterDeclaration = parameterDeclarations.ToString();
-                    if (constructorParameterDeclarations.Contains(parameterDeclaration) || string.IsNullOrEmpty(parameterDeclaration))
+                    string pdWithoutDefaults = parameterDeclaration.Replace(" = null", string.Empty);
+                    if (constructorParameterDeclarations.Contains(pdWithoutDefaults) || string.IsNullOrEmpty(parameterDeclaration))
                     {
                         return;
                     }
 
-                    constructorParameterDeclarations.Add(parameterDeclaration);
+                    constructorParameterDeclarations.Add(pdWithoutDefaults);
                     memberBuilder.Append($"public {typeDeclaration.DotnetTypeName}(");
                     memberBuilder.Append(parameterDeclaration);
                     memberBuilder.AppendLine(")");
@@ -269,12 +276,13 @@ namespace Menes.JsonSchema.TypeBuilder
             this.BuildRawAdditionalPropertiesConstructorParameters(isFirstParameter, typeDeclaration, parameterDeclarations);
 
             string parameterDeclaration = parameterDeclarations.ToString();
-            if (constructorParameterDeclarations.Contains(parameterDeclaration) || string.IsNullOrEmpty(parameterDeclaration))
+            string pdWithoutDefaults = parameterDeclaration.Replace(" = null", string.Empty);
+            if (constructorParameterDeclarations.Contains(pdWithoutDefaults) || string.IsNullOrEmpty(parameterDeclaration))
             {
                 return;
             }
 
-            constructorParameterDeclarations.Add(parameterDeclaration);
+            constructorParameterDeclarations.Add(pdWithoutDefaults);
             memberBuilder.Append($"private {typeDeclaration.DotnetTypeName}(");
             memberBuilder.Append(parameterDeclaration);
             memberBuilder.AppendLine(")");

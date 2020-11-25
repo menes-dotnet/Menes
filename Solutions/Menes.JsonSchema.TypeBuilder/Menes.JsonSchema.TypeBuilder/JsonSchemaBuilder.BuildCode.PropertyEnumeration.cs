@@ -174,7 +174,7 @@ namespace Menes.JsonSchema.TypeBuilder
                 }
                 else
                 {
-                    memberBuilder.AppendLine($"           return {count} + this._menesAdditionalPropertiesBacking.Length;");
+                    memberBuilder.AppendLine($"           return {count};");
                 }
             }
             else
@@ -291,7 +291,16 @@ namespace Menes.JsonSchema.TypeBuilder
             {
                 memberBuilder.AppendLine($"public {typeDeclaration.FullyQualifiedDotNetTypeName}.MenesPropertyEnumerator GetEnumerator()");
                 memberBuilder.AppendLine("{");
-                memberBuilder.AppendLine($"    return new {typeDeclaration.FullyQualifiedDotNetTypeName}.MenesPropertyEnumerator(this);");
+                memberBuilder.AppendLine($"    return new MenesPropertyEnumerator(this);");
+                memberBuilder.AppendLine("}");
+
+                memberBuilder.AppendLine("/// <summary>");
+                memberBuilder.AppendLine("/// Enumerate the properties in the object.");
+                memberBuilder.AppendLine("/// </summary>");
+                memberBuilder.AppendLine("/// <returns>The object enumerator.</returns>");
+                memberBuilder.AppendLine("public MenesPropertyEnumerator EnumerateObject()");
+                memberBuilder.AppendLine("{");
+                memberBuilder.AppendLine("    return new MenesPropertyEnumerator(this);");
                 memberBuilder.AppendLine("}");
 
                 memberBuilder.AppendLine("System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()");

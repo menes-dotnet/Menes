@@ -140,9 +140,10 @@ namespace Menes.JsonSchema.TypeBuilder
                 }
 
                 memberBuilder.AppendLine("}");
+                memberBuilder.AppendLine("return this.WithAdditionalProperties(arrayBuilder.ToImmutable());");
             }
 
-            memberBuilder.AppendLine("return this.WithAdditionalProperties(arrayBuilder.ToImmutable());");
+            memberBuilder.AppendLine("return this;");
         }
 
         private void BuildAdditionalPropertiesBackingField(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)

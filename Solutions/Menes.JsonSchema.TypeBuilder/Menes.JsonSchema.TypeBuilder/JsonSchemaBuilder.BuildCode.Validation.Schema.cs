@@ -29,14 +29,73 @@ namespace Menes.JsonSchema.TypeBuilder
                 this.BuildAnyOfValidation(typeDeclaration, memberBuilder);
             }
 
-            this.BuildTypeValidations(typeDeclaration, memberBuilder);
             this.BuildPropertyValidations(typeDeclaration, memberBuilder);
+            this.BuildEnumeratedPropertyValidations(typeDeclaration, memberBuilder);
+            this.BuildArrayValidation(typeDeclaration, memberBuilder);
 
             MergeLocalEvaluatedProperties(typeDeclaration, memberBuilder);
 
             memberBuilder.AppendLine("return result;");
 
             this.BuildValidationLocalFunctions(typeDeclaration, memberBuilder);
+        }
+
+        private void BuildEnumeratedPropertyValidations(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
+        {
+            if (!typeDeclaration.IsObjectTypeDeclaration)
+            {
+                return;
+            }
+
+            memberBuilder.AppendLine("if (this.IsObject)");
+            memberBuilder.AppendLine("{");
+            memberBuilder.AppendLine("    foreach (var property in this.EnumerateObject())");
+            memberBuilder.AppendLine("    {");
+
+            if (typeDeclaration.PatternProperties is not null)
+            {
+                int patternIndex = 0;
+
+                foreach (PatternProperty patternProperty in typeDeclaration.PatternProperties)
+                {
+                    memberBuilder.AppendLine($"    if (_MenesPatternExpression{patternIndex}.IsMatch(property.Name))");
+                    memberBuilder.AppendLine("    {");
+                    memberBuilder.AppendLine("        evaluatedProperties?.Add(property.Name);");
+                    memberBuilder.AppendLine($"        result = property.Value<{patternProperty.Schema.FullyQualifiedDotNetTypeName}>().Validate(result, level, evaluatedProperties, absoluteKeywordLocation, instanceLocation);");
+                    memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.Valid)");
+                    memberBuilder.AppendLine("        {");
+                    memberBuilder.AppendLine("            return result;");
+                    memberBuilder.AppendLine("        }");
+                    memberBuilder.AppendLine("    }");
+                    patternIndex++;
+                }
+            }
+
+            if (typeDeclaration.AllowsAdditionalProperties && typeDeclaration.AdditionalProperties is not null)
+            {
+                memberBuilder.AppendLine($"    if (!evaluatedProperties?.Contains(property.Name) ?? true)");
+                memberBuilder.AppendLine("    {");
+                memberBuilder.AppendLine($"        result = property.Value<{typeDeclaration.AdditionalProperties.FullyQualifiedDotNetTypeName}>().Validate(result, level, evaluatedProperties, absoluteKeywordLocation, instanceLocation);");
+                memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.Valid)");
+                memberBuilder.AppendLine("        {");
+                memberBuilder.AppendLine("            return result;");
+                memberBuilder.AppendLine("        }");
+                memberBuilder.AppendLine("    }");
+            }
+            else if (!typeDeclaration.AllowsAdditionalProperties)
+            {
+                memberBuilder.AppendLine($"    if (!evaluatedProperties?.Contains(property.Name) ?? true)");
+                memberBuilder.AppendLine("    {");
+                this.WriteError("9.3.2.3. additionalProperties - additional properties are not permitted.", memberBuilder);
+                memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag)");
+                memberBuilder.AppendLine("        {");
+                memberBuilder.AppendLine("            return result;");
+                memberBuilder.AppendLine("        }");
+                memberBuilder.AppendLine("    }");
+            }
+
+            memberBuilder.AppendLine("    }");
+            memberBuilder.AppendLine("}");
         }
 
         private void BuildPropertyValidations(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
@@ -51,6 +110,10 @@ namespace Menes.JsonSchema.TypeBuilder
                 int index = 0;
                 memberBuilder.AppendLine("if (this.IsObject)");
                 memberBuilder.AppendLine("{");
+
+                // We need to know what we have already evaluated if we have pattern properties
+                memberBuilder.AppendLine("evaluatedProperties = evaluatedProperties ?? new System.Collections.Generic.HashSet<string>();");
+
                 foreach (PropertyDeclaration property in typeDeclaration.Properties)
                 {
                     this.PushPropertyToAbsoluteKeywordLocationStack(property.JsonPropertyName!);
