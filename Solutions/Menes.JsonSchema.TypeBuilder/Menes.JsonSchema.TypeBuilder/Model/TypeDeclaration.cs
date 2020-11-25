@@ -644,12 +644,17 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         }
 
         /// <summary>
-        /// Determines if we contain a member matching the given name.
+        /// Determines if we contain a member matching the given name, or if this name matches our name.
         /// </summary>
         /// <param name="span">The name to match.</param>
         /// <returns>True if we match the name.</returns>
         public bool ContainsMemberName(Span<char> span)
         {
+            if (span.SequenceEqual(this.DotnetTypeName!.AsSpan()))
+            {
+                return true;
+            }
+
             foreach (string name in this.memberNames)
             {
                 if (span.SequenceEqual(name.AsSpan()))
