@@ -287,20 +287,69 @@ namespace Menes.JsonSchema.TypeBuilder
                 return;
             }
 
-            memberBuilder.Append($"public {typeDeclaration.FullyQualifiedDotNetTypeName}.MenesPropertyEnumerator GetEnumerator()");
-            memberBuilder.Append("{");
-            memberBuilder.Append($"    return new {typeDeclaration.FullyQualifiedDotNetTypeName}.MenesPropertyEnumerator(this);");
-            memberBuilder.Append("}");
+            if (!typeDeclaration.IsArrayTypeDeclaration)
+            {
+                memberBuilder.AppendLine($"public {typeDeclaration.FullyQualifiedDotNetTypeName}.MenesPropertyEnumerator GetEnumerator()");
+                memberBuilder.AppendLine("{");
+                memberBuilder.AppendLine($"    return new {typeDeclaration.FullyQualifiedDotNetTypeName}.MenesPropertyEnumerator(this);");
+                memberBuilder.AppendLine("}");
 
-            memberBuilder.Append("System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()");
-            memberBuilder.Append("{");
-            memberBuilder.Append("    return this.GetEnumerator();");
-            memberBuilder.Append("}");
+                memberBuilder.AppendLine("System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()");
+                memberBuilder.AppendLine("{");
+                memberBuilder.AppendLine("    return this.GetEnumerator();");
+                memberBuilder.AppendLine("}");
 
-            memberBuilder.Append($"System.Collections.Generic.IEnumerator<Menes.Property<{typeDeclaration.FullyQualifiedDotNetTypeName}>> System.Collections.Generic.IEnumerable<Menes.Property<{typeDeclaration.FullyQualifiedDotNetTypeName}>>.GetEnumerator()");
-            memberBuilder.Append("{");
-            memberBuilder.Append("    return this.GetEnumerator();");
-            memberBuilder.Append("}");
+                memberBuilder.AppendLine($"System.Collections.Generic.IEnumerator<Menes.Property<{typeDeclaration.FullyQualifiedDotNetTypeName}>> System.Collections.Generic.IEnumerable<Menes.Property<{typeDeclaration.FullyQualifiedDotNetTypeName}>>.GetEnumerator()");
+                memberBuilder.AppendLine("{");
+                memberBuilder.AppendLine("    return this.GetEnumerator();");
+                memberBuilder.AppendLine("}");
+            }
+            else
+            {
+                // In this code path we integrate both object and array type
+                // enumeration as per JsonAny.
+                TypeDeclaration itemsType = this.GetItemsTypeFor(typeDeclaration);
+
+                memberBuilder.AppendLine("/// <summary>");
+                memberBuilder.AppendLine("/// Enumerate the array.");
+                memberBuilder.AppendLine("/// </summary>");
+                memberBuilder.AppendLine("/// <returns>An array enumerator.</returns>");
+                memberBuilder.AppendLine("public MenesArrayEnumerator EnumerateArray()");
+                memberBuilder.AppendLine("{");
+                memberBuilder.AppendLine("    return new MenesArrayEnumerator(this);");
+                memberBuilder.AppendLine("}");
+                memberBuilder.AppendLine("/// <summary>");
+                memberBuilder.AppendLine("/// Enumerate the properties in the object.");
+                memberBuilder.AppendLine("/// </summary>");
+                memberBuilder.AppendLine("/// <returns>The object enumerator.</returns>");
+                memberBuilder.AppendLine("public MenesPropertyEnumerator EnumerateObject()");
+                memberBuilder.AppendLine("{");
+                memberBuilder.AppendLine("    return new MenesPropertyEnumerator(this);");
+                memberBuilder.AppendLine("}");
+                memberBuilder.AppendLine("/// <inheritdoc/>");
+                memberBuilder.AppendLine("public System.Collections.IEnumerator GetEnumerator()");
+                memberBuilder.AppendLine("{");
+                memberBuilder.AppendLine("    if (this.IsObject)");
+                memberBuilder.AppendLine("    {");
+                memberBuilder.AppendLine("        return this.EnumerateObject();");
+                memberBuilder.AppendLine("    }");
+                memberBuilder.AppendLine("    if (this.IsArray)");
+                memberBuilder.AppendLine("    {");
+                memberBuilder.AppendLine("        return this.EnumerateArray();");
+                memberBuilder.AppendLine("    }");
+                memberBuilder.AppendLine("    throw new System.InvalidOperationException(\"Cannot enumerate a non array or object type.\");");
+                memberBuilder.AppendLine("}");
+
+                memberBuilder.AppendLine($"System.Collections.Generic.IEnumerator<Menes.Property<{typeDeclaration.FullyQualifiedDotNetTypeName}>> System.Collections.Generic.IEnumerable<Menes.Property<{typeDeclaration.FullyQualifiedDotNetTypeName}>>.GetEnumerator()");
+                memberBuilder.AppendLine("{");
+                memberBuilder.AppendLine("    return this.EnumerateObject();");
+                memberBuilder.AppendLine("}");
+
+                memberBuilder.AppendLine($"System.Collections.Generic.IEnumerator<{itemsType.FullyQualifiedDotNetTypeName}> System.Collections.Generic.IEnumerable<{itemsType.FullyQualifiedDotNetTypeName}>.GetEnumerator()");
+                memberBuilder.AppendLine("{");
+                memberBuilder.AppendLine("    return this.EnumerateArray();");
+                memberBuilder.AppendLine("}");
+            }
         }
     }
 }

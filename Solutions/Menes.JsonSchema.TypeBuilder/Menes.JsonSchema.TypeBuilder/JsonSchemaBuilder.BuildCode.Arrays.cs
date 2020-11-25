@@ -192,27 +192,29 @@ namespace Menes.JsonSchema.TypeBuilder
 
         private void BuildArrayEnumerators(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
         {
-            if (!typeDeclaration.IsArrayTypeDeclaration)
+            if (!typeDeclaration.IsArrayTypeDeclaration  || typeDeclaration.IsObjectTypeDeclaration)
             {
+                // If we're not an array, don't generate these; but if we are an object too, we will have dealt with this
+                // in the object enumerator
                 return;
             }
 
             TypeDeclaration itemsType = this.GetItemsTypeFor(typeDeclaration);
 
-            memberBuilder.Append($"public {typeDeclaration.FullyQualifiedDotNetTypeName}.MenesArrayEnumerator GetEnumerator()");
-            memberBuilder.Append("{");
-            memberBuilder.Append($"    return new {typeDeclaration.FullyQualifiedDotNetTypeName}.MenesArrayEnumerator(this);");
-            memberBuilder.Append("}");
+            memberBuilder.AppendLine($"public {typeDeclaration.FullyQualifiedDotNetTypeName}.MenesArrayEnumerator GetEnumerator()");
+            memberBuilder.AppendLine("{");
+            memberBuilder.AppendLine($"    return new {typeDeclaration.FullyQualifiedDotNetTypeName}.MenesArrayEnumerator(this);");
+            memberBuilder.AppendLine("}");
 
-            memberBuilder.Append("System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()");
-            memberBuilder.Append("{");
-            memberBuilder.Append("    return this.GetEnumerator();");
-            memberBuilder.Append("}");
+            memberBuilder.AppendLine("System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()");
+            memberBuilder.AppendLine("{");
+            memberBuilder.AppendLine("    return this.GetEnumerator();");
+            memberBuilder.AppendLine("}");
 
-            memberBuilder.Append($"System.Collections.Generic.IEnumerator<{itemsType.FullyQualifiedDotNetTypeName}> System.Collections.Generic.IEnumerable<{itemsType.FullyQualifiedDotNetTypeName}>.GetEnumerator()");
-            memberBuilder.Append("{");
-            memberBuilder.Append("    return this.GetEnumerator();");
-            memberBuilder.Append("}");
+            memberBuilder.AppendLine($"System.Collections.Generic.IEnumerator<{itemsType.FullyQualifiedDotNetTypeName}> System.Collections.Generic.IEnumerable<{itemsType.FullyQualifiedDotNetTypeName}>.GetEnumerator()");
+            memberBuilder.AppendLine("{");
+            memberBuilder.AppendLine("    return this.GetEnumerator();");
+            memberBuilder.AppendLine("}");
         }
 
         private void BuildArrayAdd(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)

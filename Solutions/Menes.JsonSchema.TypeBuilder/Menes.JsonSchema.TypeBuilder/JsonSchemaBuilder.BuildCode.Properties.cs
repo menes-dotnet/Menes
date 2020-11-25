@@ -292,7 +292,7 @@ namespace Menes.JsonSchema.TypeBuilder
                     memberBuilder.AppendLine("/// <inheritdoc />");
                     if (type.Contains("array"))
                     {
-                        memberBuilder.AppendLine("public bool IsArray => (this.HasJsonElement && this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Array) || (!this.HasJsonElement && this._menesArrayValueBacking.Length > 0);");
+                        memberBuilder.AppendLine("public bool IsArray => (this.HasJsonElement && this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Array) || (!this.HasJsonElement && this._menesArrayValueBacking is not null);");
                     }
                     else
                     {

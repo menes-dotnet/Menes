@@ -285,6 +285,7 @@ namespace Menes.JsonSchema.TypeBuilder
             this.BuildRawOneOfConstructorAssignment(typeDeclaration, memberBuilder);
             this.BuildRawAnyOfConstructorAssignment(typeDeclaration, memberBuilder);
             this.BuildRawAdditionalPropertiesConstructorAssignment(typeDeclaration, memberBuilder);
+            this.BuildAssignNullOrDefaultArrayBackingField(typeDeclaration, memberBuilder);
             memberBuilder.AppendLine("}");
         }
 
