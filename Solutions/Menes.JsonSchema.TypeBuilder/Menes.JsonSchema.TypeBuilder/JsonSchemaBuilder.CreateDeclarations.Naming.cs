@@ -38,7 +38,7 @@ namespace Menes.JsonSchema.TypeBuilder
                     suffix.Value.Span.CopyTo(name[baseName.Length..]);
                 }
 
-                int index = 1;
+                int index = 0;
                 length = baseName.Length + (suffix?.Length ?? 0);
                 while (owner.ContainsMemberName(name.Slice(0, length)))
                 {

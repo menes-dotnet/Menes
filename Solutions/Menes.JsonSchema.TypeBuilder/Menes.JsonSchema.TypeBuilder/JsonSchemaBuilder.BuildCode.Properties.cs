@@ -328,7 +328,7 @@ namespace Menes.JsonSchema.TypeBuilder
 
             foreach (PropertyDeclaration property in typeDeclaration.Properties)
             {
-                memberBuilder.AppendLine($"private static readonly System.ReadOnlyMemory<char> _Menes{property.DotnetPropertyName}JsonPropertyName = System.MemoryExtensions.AsMemory(\"{property.DotnetFieldName}\");");
+                memberBuilder.AppendLine($"private static readonly System.ReadOnlyMemory<char> _Menes{property.DotnetPropertyName}JsonPropertyName = System.MemoryExtensions.AsMemory({Formatting.FormatLiteralOrNull(property.JsonPropertyName, true)});");
             }
 
             foreach (PropertyDeclaration property in typeDeclaration.Properties)
