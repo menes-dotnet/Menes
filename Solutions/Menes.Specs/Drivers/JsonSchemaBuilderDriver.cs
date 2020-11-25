@@ -110,7 +110,7 @@ namespace Drivers
 
             if (isMenesType)
             {
-                return this.assemblyLoadContext.Assemblies.Where(a => a.GetName().Name == "Menes.JsonSchema.Model").Single().ExportedTypes.Where(t => t.FullName == rootTypeName).Single();
+                return AssemblyLoadContext.Default.Assemblies.Where(a => a.GetName().Name == "Menes.JsonSchema.Model").Single().ExportedTypes.Where(t => t.FullName == rootTypeName).Single();
             }
 
             return generatedAssembly.ExportedTypes.Where(t => t.FullName == rootTypeName).Single();
