@@ -4,7 +4,6 @@
 
 namespace Menes.JsonSchema.TypeBuilder
 {
-    using System;
     using System.Text;
     using Menes.JsonSchema.TypeBuilder.Model;
 

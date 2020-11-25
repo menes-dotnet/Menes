@@ -41,6 +41,7 @@ namespace Menes.JsonSchema.TypeBuilder
         /// </summary>
         /// <param name="schema">The root schema for which to build the entity.</param>
         /// <param name="baseAbsoluteKeywordLocation">A base absolute keyword locatoin for the schema.</param>
+        /// <param name="fallbackRootName">The type name to use if there is no derivable name on the root.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         /// <remarks>
         /// <para>
@@ -52,10 +53,10 @@ namespace Menes.JsonSchema.TypeBuilder
         /// You may use this, for example, when referencing a schema element from an OpenAPI document.
         /// </para>
         /// </remarks>
-        public async Task BuildEntity(JsonElement schema, JsonReference baseAbsoluteKeywordLocation)
+        public async Task BuildEntity(JsonElement schema, JsonReference baseAbsoluteKeywordLocation, string? fallbackRootName)
         {
             this.absoluteKeywordLocationStack.Push(baseAbsoluteKeywordLocation);
-            await this.BuildEntity(schema);
+            await this.BuildEntity(schema, fallbackRootName);
             this.absoluteKeywordLocationStack.Pop();
         }
 
@@ -63,11 +64,12 @@ namespace Menes.JsonSchema.TypeBuilder
         /// Attempts to build an entity for a <see cref="JsonElement"/> containing a schema.
         /// </summary>
         /// <param name="schema">The root schema for which to build the entity.</param>
+        /// <param name="fallbackRootName">The type name to use if there is no derivable name on the root.</param>
         /// <returns>A <see cref="Task{T}"/> representing the asynchronous operation, which provides the fully qualified type name of the root type you have generated.</returns>
         /// <remarks>
         /// Use this overload when your base schema is the root of a document.
         /// </remarks>
-        public async Task<string> BuildEntity(JsonElement schema)
+        public async Task<string> BuildEntity(JsonElement schema, string? fallbackRootName)
         {
             LocatedElement rootElement = await this.WalkTreeAndLocateElementsFrom(schema).ConfigureAwait(false);
 
@@ -80,7 +82,7 @@ namespace Menes.JsonSchema.TypeBuilder
                 return builtType.Lowered.FullyQualifiedDotNetTypeName!;
             }
 
-            TypeDeclaration root = await this.CreateTypeDeclarations(rootElement).ConfigureAwait(false);
+            TypeDeclaration root = await this.CreateTypeDeclarations(rootElement, fallbackRootName).ConfigureAwait(false);
             return root.Lowered.FullyQualifiedDotNetTypeName!;
         }
 

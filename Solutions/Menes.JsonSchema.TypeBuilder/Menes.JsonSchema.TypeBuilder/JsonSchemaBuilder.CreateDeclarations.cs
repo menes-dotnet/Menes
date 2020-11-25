@@ -20,7 +20,7 @@ namespace Menes.JsonSchema.TypeBuilder
         /// Build a <see cref="TypeDeclaration"/> from a <see cref="LocatedElement"/> produced
         /// by calling <see cref="WalkTreeAndLocateElementsFrom(System.Text.Json.JsonElement)"/>.
         /// </summary>
-        private async Task<TypeDeclaration> CreateTypeDeclarations(LocatedElement schema)
+        private async Task<TypeDeclaration> CreateTypeDeclarations(LocatedElement schema, string? fallbackRootName = null)
         {
             // We create the type declaration and immediately add it to the built declarations
             // collection so that we will be able to bomb out if we have already started building
@@ -38,7 +38,7 @@ namespace Menes.JsonSchema.TypeBuilder
 
             try
             {
-                await this.SetNameAndParent(schema, typeDeclaration).ConfigureAwait(false);
+                await this.SetNameAndParent(schema, typeDeclaration, fallbackRootName).ConfigureAwait(false);
                 this.SetBooleanSchema(schema, typeDeclaration);
 
                 if (!typeDeclaration.IsBooleanSchema)
@@ -57,6 +57,11 @@ namespace Menes.JsonSchema.TypeBuilder
                     await this.AddObjectValidations(schema, typeDeclaration).ConfigureAwait(false);
                     await this.AddArrayValidations(schema, typeDeclaration).ConfigureAwait(false);
                     await this.FindProperties(schema, typeDeclaration).ConfigureAwait(false);
+                }
+
+                if (typeDeclaration.IsEmpty)
+                {
+                    return TypeDeclarations.AnyTypeDeclaration;
                 }
 
                 return typeDeclaration;
@@ -521,10 +526,10 @@ namespace Menes.JsonSchema.TypeBuilder
         /// of our parent's unique name validation constraints.
         /// </para>
         /// </summary>
-        private async Task SetNameAndParent(LocatedElement schema, TypeDeclaration typeDeclaration)
+        private async Task SetNameAndParent(LocatedElement schema, TypeDeclaration typeDeclaration, string? fallbackRootName)
         {
             await this.SetParent(schema, typeDeclaration).ConfigureAwait(false);
-            this.SetTypeName(schema, typeDeclaration);
+            this.SetTypeName(schema, typeDeclaration, fallbackRootName);
             this.AddToParent(typeDeclaration);
         }
 

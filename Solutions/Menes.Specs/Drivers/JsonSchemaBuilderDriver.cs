@@ -23,7 +23,6 @@ namespace Drivers
     using Microsoft.CodeAnalysis;
     using Microsoft.CodeAnalysis.CSharp;
     using Microsoft.CodeAnalysis.Emit;
-    using Microsoft.CodeAnalysis.Text;
     using Microsoft.Extensions.Configuration;
 
     /// <summary>
@@ -35,6 +34,7 @@ namespace Drivers
         private readonly IConfiguration configuration;
         private readonly JsonSchemaBuilder builder;
         private readonly IDocumentResolver documentResolver = new FileSystemDocumentResolver();
+        private TestAssemblyLoadContext? assemblyLoadContext = new TestAssemblyLoadContext();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="JsonSchemaBuilderDriver"/> class.
@@ -51,6 +51,10 @@ namespace Drivers
         public void Dispose()
         {
             this.documentResolver.Dispose();
+            this.assemblyLoadContext!.Unload();
+            this.assemblyLoadContext = null;
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
 
         /// <summary>
@@ -74,17 +78,22 @@ namespace Drivers
         public async Task<Type> GenerateTypeFor(JsonElement schema)
         {
             // In reality, we are going to do something rather more complicated than this.
-            string rootTypeName = await this.builder.BuildEntity(schema).ConfigureAwait(false);
+            string rootTypeName = await this.builder.BuildEntity(schema, $"RootEntity").ConfigureAwait(false);
 
             ImmutableDictionary<string, string> generatedTypes = this.builder.BuildTypes(NamespaceName);
 
-            rootTypeName = $"{NamespaceName}.{rootTypeName}";
+            bool isMenesType = rootTypeName.StartsWith("Menes.");
+            if (!isMenesType)
+            {
+                rootTypeName = $"{NamespaceName}.{rootTypeName}";
+            }
+
             IEnumerable<SyntaxTree> syntaxTrees = ParseSyntaxTrees(generatedTypes);
 
             // We are happy with the defaults (debug etc.)
             var options = new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary);
             IEnumerable<MetadataReference> references = BuildMetadataReferences();
-            var compilation = CSharpCompilation.Create($"Drivered.GeneratedTypes_{Guid.NewGuid()}", syntaxTrees, references, options);
+            var compilation = CSharpCompilation.Create($"Driver.GeneratedTypes_{Guid.NewGuid()}", syntaxTrees, references, options);
 
             using var outputStream = new MemoryStream();
             EmitResult result = compilation.Emit(outputStream);
@@ -97,7 +106,12 @@ namespace Drivers
             outputStream.Flush();
             outputStream.Position = 0;
 
-            Assembly generatedAssembly = AssemblyLoadContext.Default.LoadFromStream(outputStream);
+            Assembly generatedAssembly = this.assemblyLoadContext!.LoadFromStream(outputStream);
+
+            if (isMenesType)
+            {
+                return this.assemblyLoadContext.Assemblies.Where(a => a.GetName().Name == "Menes.JsonSchema.Model").Single().ExportedTypes.Where(t => t.FullName == rootTypeName).Single();
+            }
 
             return generatedAssembly.ExportedTypes.Where(t => t.FullName == rootTypeName).Single();
         }
@@ -153,6 +167,14 @@ namespace Drivers
             foreach (KeyValuePair<string, string> type in generatedTypes)
             {
                 yield return CSharpSyntaxTree.ParseText(type.Value);
+            }
+        }
+
+        private class TestAssemblyLoadContext : AssemblyLoadContext
+        {
+            public TestAssemblyLoadContext()
+                : base($"TestAssemblyLoadContext_{Guid.NewGuid().ToString("N")}", isCollectible: true)
+            {
             }
         }
     }

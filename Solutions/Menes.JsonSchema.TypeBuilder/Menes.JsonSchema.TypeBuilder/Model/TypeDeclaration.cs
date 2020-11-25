@@ -482,6 +482,54 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         public bool IsItemsArray { get; set; }
 
         /// <summary>
+        /// Gets a value indicating whether this is an empty type declaration.
+        /// </summary>
+        public bool IsEmpty
+        {
+            get
+            {
+                return
+                       !this.IsRef &&
+                       this.AdditionalItems is null &&
+                       this.AdditionalProperties is null &&
+                       this.AllOf is null &&
+                       this.AnyOf is null &&
+                       this.Const is null &&
+                       this.Contains is null &&
+                       this.DependentRequired is null &&
+                       this.Enum is null &&
+                       this.ExclusiveMaximum is null &&
+                       this.ExclusiveMinimum is null &&
+                       this.IfThenElse is null &&
+                       this.Items is null &&
+                       this.MaxContains is null &&
+                       this.Maximum is null &&
+                       this.MaxItems is null &&
+                       this.MaxLength is null &&
+                       this.MaxProperties is null &&
+                       this.MergedTypes is null &&
+                       this.MinContains is null &&
+                       this.Minimum is null &&
+                       this.MinItems is null &&
+                       this.MinLength is null &&
+                       this.MinProperties is null &&
+                       this.MultipleOf is null &&
+                       this.EmbeddedTypes is null &&
+                       this.Not is null &&
+                       this.OneOf is null &&
+                       this.Pattern is null &&
+                       this.PatternProperties is null &&
+                       this.DependentSchemas is null &&
+                       this.Properties is null &&
+                       this.PropertyNames is null &&
+                       this.Type is null &&
+                       this.UnevaluatedItems is null &&
+                       this.UnevaluatedProperties is null &&
+                       this.UniqueItems is null;
+            }
+        }
+
+        /// <summary>
         /// Add a conversion operator.
         /// </summary>
         /// <param name="conversionOperatorDeclaration">The operator to add.</param>

@@ -99,8 +99,9 @@ namespace Menes.JsonSchema.TypeBuilder
         /// Formats a reference as a PascalCased name />.
         /// </summary>
         /// <param name="reference">The reference to format.</param>
+        /// <param name="fallbackRootName">The fallback name to use as the root name.</param>
         /// <returns>The reference formateted as a name.</returns>
-        public static ReadOnlyMemory<char> FormatReferenceAsName(JsonReference reference)
+        public static ReadOnlyMemory<char> FormatReferenceAsName(JsonReference reference, ReadOnlyMemory<char>? fallbackRootName)
         {
             JsonReferenceBuilder refBuilder = reference.AsBuilder();
 
@@ -126,7 +127,7 @@ namespace Menes.JsonSchema.TypeBuilder
                 ReadOnlySpan<char> result = FixCasing(output, true, false);
                 if (result.Length == 0)
                 {
-                    return Root;
+                    return fallbackRootName ?? Root;
                 }
 
                 var memory = new Memory<char>(new char[result.Length]);
@@ -141,7 +142,7 @@ namespace Menes.JsonSchema.TypeBuilder
                 ReadOnlySpan<char> result = FixCasing(output, true, false);
                 if (result.Length == 0)
                 {
-                    return Root;
+                    return fallbackRootName ?? Root;
                 }
 
                 var memory = new Memory<char>(new char[result.Length]);
@@ -150,7 +151,7 @@ namespace Menes.JsonSchema.TypeBuilder
             }
             else
             {
-                return Root;
+                return fallbackRootName ?? Root;
             }
         }
 
@@ -164,7 +165,7 @@ namespace Menes.JsonSchema.TypeBuilder
         {
             if (dotnetTypeName.StartsWith(prefix))
             {
-                return dotnetTypeName.Slice(prefix.Length);
+                return dotnetTypeName[prefix.Length..];
             }
 
             return dotnetTypeName;

@@ -160,7 +160,7 @@ namespace Menes.ConsoleApp
             var builder = new JsonSchemaBuilder(new FileSystemDocumentResolver());
             string schema = "{ \"id\": \"https://endjin.com/menes/schema/JsonObject\", \"type\": \"object\" }";
             using var doc = JsonDocument.Parse(schema);
-            await builder.BuildEntity(doc.RootElement).ConfigureAwait(false);
+            await builder.BuildEntity(doc.RootElement, $"RootEntity{Guid.NewGuid()}").ConfigureAwait(false);
         }
 
         private static string Serialize(IJsonValue value)

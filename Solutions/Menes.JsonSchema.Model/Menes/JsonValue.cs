@@ -7,6 +7,8 @@ namespace Menes
     using System;
     using System.Buffers;
     using System.Collections.Concurrent;
+    using System.Linq;
+    using System.Linq.Expressions;
     using System.Reflection;
     using System.Reflection.Emit;
     using System.Text.Json;
@@ -32,6 +34,11 @@ namespace Menes
             where TSource : struct, IJsonValue
             where TTarget : struct, IJsonValue
         {
+            if (element.HasJsonElement)
+            {
+                return element.JsonElement.As<TTarget>();
+            }
+
             // If we're going to JsonAny, use the special constructor
             // and avoid boxing if we are using a JsonElement, or serialization
             // if we are not a JsonElement.
@@ -40,10 +47,21 @@ namespace Menes
                 return CastTo<TTarget>.From(JsonAny.From(element));
             }
 
+            // If we're going to JsonAny, use the special constructor
+            // and avoid boxing if we are using a JsonElement, or serialization
+            // if we are not a JsonElement.
+            if (typeof(TTarget) == typeof(JsonNull))
+            {
+                return CastTo<TTarget>.From(JsonNull.From(element));
+            }
+
             Func<TSource, TTarget> func = CastTo<Func<TSource, TTarget>>.From(FactoryCache.GetOrAdd(typeof(TTarget), t =>
             {
+                Type sourceType = typeof(TSource);
+
                 Type returnType = typeof(TTarget);
-                Type[] argumentTypes = new[] { typeof(TSource) };
+                Type[] argumentTypes = new[] { sourceType };
+
                 ConstructorInfo ctor = returnType.GetConstructor(argumentTypes);
                 if (ctor == null)
                 {
@@ -51,7 +69,7 @@ namespace Menes
                 }
 
                 var dynamic = new DynamicMethod(
-                    $"${returnType.Name}_From{typeof(TSource).Name}",
+                    $"${returnType.Name}_From{sourceType.Name}",
                     returnType,
                     argumentTypes,
                     returnType);

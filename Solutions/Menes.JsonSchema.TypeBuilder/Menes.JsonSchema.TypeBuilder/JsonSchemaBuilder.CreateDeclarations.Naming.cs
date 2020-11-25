@@ -230,9 +230,9 @@ namespace Menes.JsonSchema.TypeBuilder
             return asMethodName;
         }
 
-        private void SetTypeName(LocatedElement schema, TypeDeclaration typeDeclaration)
+        private void SetTypeName(LocatedElement schema, TypeDeclaration typeDeclaration, string? fallbackRootName)
         {
-            ReadOnlyMemory<char> baseName = Formatting.FormatReferenceAsName(schema.AbsoluteKeywordLocation);
+            ReadOnlyMemory<char> baseName = Formatting.FormatReferenceAsName(schema.AbsoluteKeywordLocation, fallbackRootName?.AsMemory());
 
             // If we named from the fragment, then we may need to add a suffix
             if (schema.AbsoluteKeywordLocation.HasFragment && this.absoluteKeywordLocationStack.Peek().Equals(schema.AbsoluteKeywordLocation))
