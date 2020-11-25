@@ -54,7 +54,7 @@ namespace Menes.JsonSchema.TypeBuilder
             {
                 foreach (string type in typeDeclaration.Type)
                 {
-                    if (type != "object" && type != "array")
+                    if (type != "object" && type != "array" && type != "null")
                     {
                         string typeAsPascalCase = Formatting.ToPascalCaseWithReservedWords(type).ToString();
                         memberBuilder.AppendLine($"        this._menes{typeAsPascalCase}TypeBacking?.WriteTo(writer);");
