@@ -59,7 +59,7 @@ namespace Menes.JsonSchema.TypeBuilder
                     await this.FindProperties(schema, typeDeclaration).ConfigureAwait(false);
                 }
 
-                if (typeDeclaration.IsEmpty)
+                if (typeDeclaration.IsEmpty && !typeDeclaration.IsBooleanSchema)
                 {
                     return TypeDeclarations.AnyTypeDeclaration;
                 }

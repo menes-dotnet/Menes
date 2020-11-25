@@ -1595,6 +1595,18 @@ namespace Menes.JsonSchema.TypeBuilder.Model
                 return this.lowered;
             }
 
+            if (this.IsBooleanTrueType)
+            {
+                this.lowered = TypeDeclarations.AnyTypeDeclaration;
+                return this.lowered;
+            }
+
+            if (this.IsBooleanFalseType)
+            {
+                this.lowered = TypeDeclarations.NotTypeDeclaration;
+                return this.lowered;
+            }
+
             if (this.IsNakedType() && this.Type?.Count == 1)
             {
                 string nakedType = this.Type[0];

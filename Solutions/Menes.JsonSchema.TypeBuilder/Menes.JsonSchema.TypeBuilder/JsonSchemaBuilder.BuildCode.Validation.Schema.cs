@@ -55,18 +55,32 @@ namespace Menes.JsonSchema.TypeBuilder
                 {
                     this.PushPropertyToAbsoluteKeywordLocationStack(property.JsonPropertyName!);
                     this.BuildPushAbsoluteKeywordLocation(memberBuilder, index);
+                    memberBuilder.AppendLine($"    evaluatedProperties?.Add({Formatting.FormatLiteralOrNull(property.JsonPropertyName, true)});");
+                    memberBuilder.AppendLine($"    if (this.TryGetProperty<{property.TypeDeclaration!.FullyQualifiedDotNetTypeName}>(_Menes{property.DotnetPropertyName}JsonPropertyName.Span, out {property.TypeDeclaration!.FullyQualifiedDotNetTypeName} value{index}))");
+                    memberBuilder.AppendLine("    {");
+                    memberBuilder.AppendLine($"        result = value{index}.Validate(result, level, evaluatedProperties, absoluteKeywordLocation, instanceLocation);");
+                    memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.Valid)");
+                    memberBuilder.AppendLine("        {");
+                    memberBuilder.AppendLine("            return result;");
+                    memberBuilder.AppendLine("        }");
+                    memberBuilder.AppendLine("    }");
+                    memberBuilder.AppendLine("    else");
+                    memberBuilder.AppendLine("    {");
+
                     if (property.IsRequired)
                     {
-                        memberBuilder.AppendLine($"    evaluatedProperties?.Add({Formatting.FormatLiteralOrNull(property.JsonPropertyName, true)});");
-                        memberBuilder.AppendLine($"    if (!this.TryGetProperty<{property.TypeDeclaration!.FullyQualifiedDotNetTypeName}>(_Menes{property.DotnetPropertyName}JsonPropertyName.Span, out {property.TypeDeclaration!.FullyQualifiedDotNetTypeName} value{index}))");
-                        memberBuilder.AppendLine("    {");
                         this.WriteError("6.5.3. required - required property not present.", memberBuilder);
-                        memberBuilder.AppendLine("    }");
-                        memberBuilder.AppendLine("    else");
-                        memberBuilder.AppendLine("    {");
-                        this.WriteSuccess(memberBuilder);
-                        memberBuilder.AppendLine("    }");
+                        memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag)");
+                        memberBuilder.AppendLine("        {");
+                        memberBuilder.AppendLine("            return result;");
+                        memberBuilder.AppendLine("        }");
                     }
+                    else
+                    {
+                        this.WriteSuccess(memberBuilder);
+                    }
+
+                    memberBuilder.AppendLine("    }");
 
                     this.BuildPopAbsoluteKeywordLocation(memberBuilder, index);
                     this.absoluteKeywordLocationStack.Pop();
