@@ -22,6 +22,8 @@ namespace Menes.JsonSchema.TypeBuilder
 
             AddLocalEvaluatedProperties(typeDeclaration, memberBuilder);
 
+            this.BuildTypeValidations(typeDeclaration, memberBuilder);
+
             if (typeDeclaration.AllOf is not null || typeDeclaration.AnyOf is not null || typeDeclaration.OneOf is not null)
             {
                 this.BuildAllOfValidation(typeDeclaration, memberBuilder);
@@ -39,6 +41,72 @@ namespace Menes.JsonSchema.TypeBuilder
             memberBuilder.AppendLine("return result;");
 
             this.BuildValidationLocalFunctions(typeDeclaration, memberBuilder);
+        }
+
+        private void BuildTypeValidations(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
+        {
+            if (typeDeclaration.Type is not null)
+            {
+                bool isFirst = true;
+                memberBuilder.Append($"if (");
+                foreach (string type in typeDeclaration.Type)
+                {
+                    switch (type)
+                    {
+                        case "array":
+                            isFirst = AppendOperator(memberBuilder, isFirst);
+                            memberBuilder.Append("!this.IsArray");
+                            break;
+                        case "object":
+                            isFirst = AppendOperator(memberBuilder, isFirst);
+                            memberBuilder.Append("!this.IsObject");
+                            break;
+                        case "number":
+                            isFirst = AppendOperator(memberBuilder, isFirst);
+                            memberBuilder.Append("!this.IsNumber");
+                            break;
+                        case "string":
+                            isFirst = AppendOperator(memberBuilder, isFirst);
+                            memberBuilder.Append("!this.IsString");
+                            break;
+                        case "integer":
+                            isFirst = AppendOperator(memberBuilder, isFirst);
+                            memberBuilder.Append("!this.IsInteger");
+                            break;
+                        case "null":
+                            isFirst = AppendOperator(memberBuilder, isFirst);
+                            memberBuilder.Append("!this.IsNull");
+                            break;
+                        case "boolean":
+                            isFirst = AppendOperator(memberBuilder, isFirst);
+                            memberBuilder.Append("!this.IsBoolean");
+                            break;
+                    }
+                }
+
+                memberBuilder.AppendLine(")");
+                memberBuilder.AppendLine("{");
+                this.WriteError($"6.1.1.  type - item must be one of {string.Join(",", typeDeclaration.Type)}", memberBuilder);
+                memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.Valid)");
+                memberBuilder.AppendLine("        {");
+                memberBuilder.AppendLine("            return result;");
+                memberBuilder.AppendLine("        }");
+                memberBuilder.AppendLine("}");
+            }
+
+            static bool AppendOperator(StringBuilder memberBuilder, bool isFirst)
+            {
+                if (isFirst)
+                {
+                    isFirst = false;
+                }
+                else
+                {
+                    memberBuilder.Append(" && ");
+                }
+
+                return isFirst;
+            }
         }
 
         private void BuildNumericValidations(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
@@ -221,10 +289,6 @@ namespace Menes.JsonSchema.TypeBuilder
 
                 memberBuilder.AppendLine("}");
             }
-        }
-
-        private void BuildTypeValidations(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
-        {
         }
 
         private void BuildValidationLocalFunctions(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)

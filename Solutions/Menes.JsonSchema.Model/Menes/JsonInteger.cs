@@ -50,7 +50,7 @@ namespace Menes
         public bool IsNumber => true;
 
         /// <inheritdoc />
-        public bool IsInteger => true;
+        public bool IsInteger => (this.JsonElement.ValueKind == JsonValueKind.Number && this.JsonElement.GetDouble() == Math.Floor(this.JsonElement.GetDouble())) || (!this.HasJsonElement && this.valueAsInt64 is not null);
 
         /// <inheritdoc />
         public bool IsString => false;
@@ -198,7 +198,7 @@ namespace Menes
         {
             ValidationResult result = validationResult ?? ValidationResult.ValidResult;
 
-            if (this.HasJsonElement && this.JsonElement.ValueKind != JsonValueKind.Number)
+            if (this.HasJsonElement && (this.JsonElement.ValueKind != JsonValueKind.Number || this.JsonElement.GetDouble() != Math.Floor(this.JsonElement.GetDouble())))
             {
                 if (level >= ValidationLevel.Basic)
                 {
