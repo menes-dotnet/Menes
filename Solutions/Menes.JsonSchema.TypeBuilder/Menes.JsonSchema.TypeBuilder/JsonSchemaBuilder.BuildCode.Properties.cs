@@ -236,9 +236,13 @@ namespace Menes.JsonSchema.TypeBuilder
                 else
                 {
                     memberBuilder.AppendLine("/// <inheritdoc />");
-                    if (type.Contains("number") || type.Contains("integer"))
+                    if (type.Contains("number"))
                     {
                         memberBuilder.AppendLine("public bool IsNumber => (this.HasJsonElement && this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Number) || (!this.HasJsonElement && this._menesNumberTypeBacking is not null);");
+                    }
+                    else if (type.Contains("integer"))
+                    {
+                        memberBuilder.AppendLine("public bool IsNumber => (this.HasJsonElement && this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Number) || (!this.HasJsonElement && this._menesIntegerTypeBacking is not null);");
                     }
                     else
                     {
