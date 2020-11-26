@@ -180,37 +180,37 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         /// A clr <see cref="string"/> type that matches an email address.
         /// </summary>
         // language=regex
-        public static readonly TypeDeclaration EmailTypeDeclaration = new TypeDeclaration(builtInType: true) { DotnetTypeName = "Menes.JsonString", Pattern = "(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])" };
+        public static readonly TypeDeclaration EmailTypeDeclaration = new TypeDeclaration(builtInType: true) { DotnetTypeName = "Menes.JsonEmail" };
 
         /// <summary>
         /// A clr <see cref="string"/> type that matches an idn-email address.
         /// </summary>
         // language=regex
-        public static readonly TypeDeclaration IdnEmailTypeDeclaration = new TypeDeclaration(builtInType: true) { DotnetTypeName = "Menes.JsonString", Pattern = "(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])" };
+        public static readonly TypeDeclaration IdnEmailTypeDeclaration = new TypeDeclaration(builtInType: true) { DotnetTypeName = "Menes.JsonIdnEmail" };
 
         /// <summary>
         /// A clr <see cref="string"/> type that matches a hostname address.
         /// </summary>
         // language=regex
-        public static readonly TypeDeclaration HostnameTypeDeclaration = new TypeDeclaration(builtInType: true) { DotnetTypeName = "Menes.JsonString", Pattern = "^(?=.{1,255}$)[0-9a-z](([0-9a-z]|\\b-){0,61}[0-9a-z])?(\\.[0-9a-z](([0-9a-z]|\\b-){0,61}[0-9a-z])?)*\\.?$" };
+        public static readonly TypeDeclaration HostnameTypeDeclaration = new TypeDeclaration(builtInType: true) { DotnetTypeName = "Menes.JsonHostname" };
 
         /// <summary>
         /// A clr <see cref="string"/> type that matches a hostname address.
         /// </summary>
         // language=regex
-        public static readonly TypeDeclaration IdnHostnameTypeDeclaration = new TypeDeclaration(builtInType: true) { DotnetTypeName = "Menes.JsonString", Pattern = "^(?=.{1,255}$)[0-9a-z](([0-9a-z]|\\b-){0,61}[0-9a-z])?(\\.[0-9a-z](([0-9a-z]|\\b-){0,61}[0-9a-z])?)*\\.?$" };
+        public static readonly TypeDeclaration IdnHostnameTypeDeclaration = new TypeDeclaration(builtInType: true) { DotnetTypeName = "Menes.JsonIdnHostname" };
 
         /// <summary>
         /// A clr <see cref="string"/> type that matches a V4 IP address.
         /// </summary>
         // language=regex
-        public static readonly TypeDeclaration IpV4TypeDeclaration = new TypeDeclaration(builtInType: true) { DotnetTypeName = "Menes.JsonString", Pattern = "(?:(?:^|\\.)(?:2(?:5[0-5]|[0-4]\\d)|1?\\d?\\d)){4}" };
+        public static readonly TypeDeclaration IpV4TypeDeclaration = new TypeDeclaration(builtInType: true) { DotnetTypeName = "Menes.JsonIpV4" };
 
         /// <summary>
         /// A clr <see cref="string"/> type that matches a V6 IP address.
         /// </summary>
         // language=regex
-        public static readonly TypeDeclaration IpV6TypeDeclaration = new TypeDeclaration(builtInType: true) { DotnetTypeName = "Menes.JsonString", Pattern = "^(?=.{1,255}$)[0-9a-z](([0-9a-z]|\\b-){0,61}[0-9a-z])?(\\.[0-9a-z](([0-9a-z]|\\b-){0,61}[0-9a-z])?)*\\.?$" };
+        public static readonly TypeDeclaration IpV6TypeDeclaration = new TypeDeclaration(builtInType: true) { DotnetTypeName = "Menes.JsonIpV6" };
 
         /// <summary>
         /// Gets the Menes type name for the given json-schema type.
