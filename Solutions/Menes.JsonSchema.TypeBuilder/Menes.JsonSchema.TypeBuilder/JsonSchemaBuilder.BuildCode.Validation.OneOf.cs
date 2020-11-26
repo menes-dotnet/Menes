@@ -17,9 +17,18 @@ namespace Menes.JsonSchema.TypeBuilder
         {
             if (typeDeclaration.OneOf is not null)
             {
+                var seenItems = new HashSet<string>();
+
                 for (int i = 0; i < typeDeclaration.OneOf.Count; ++i)
                 {
                     TypeDeclaration oneOf = typeDeclaration.OneOf[i];
+
+                    if (seenItems.Contains(oneOf.FullyQualifiedDotNetTypeName!))
+                    {
+                        continue;
+                    }
+
+                    seenItems.Add(oneOf.FullyQualifiedDotNetTypeName!);
                     memberBuilder.AppendLine($"public readonly {oneOf.FullyQualifiedDotNetTypeName} {this.GetAsMethodNameFor(oneOf)}()");
                     memberBuilder.AppendLine("{");
                     memberBuilder.AppendLine($"        return this.As<{oneOf.FullyQualifiedDotNetTypeName}>();");
@@ -32,7 +41,7 @@ namespace Menes.JsonSchema.TypeBuilder
         {
             if (typeDeclaration.OneOf is List<TypeDeclaration>)
             {
-                memberBuilder.AppendLine("result = ValidateOneOf(this, result, level, evaluatedProperties, absoluteKeywordLocation, instanceLocation);");
+                memberBuilder.AppendLine("result = ValidateOneOf(this, result, level, composedEvaluatedProperties, absoluteKeywordLocation, instanceLocation);");
             }
         }
 
@@ -45,6 +54,7 @@ namespace Menes.JsonSchema.TypeBuilder
                 memberBuilder.AppendLine($"Menes.ValidationResult ValidateOneOf(in {typeDeclaration.FullyQualifiedDotNetTypeName} that, Menes.ValidationResult validationResult, Menes.ValidationLevel level = Menes.ValidationLevel.Flag, System.Collections.Generic.HashSet<string>? evaluatedProperties = null, System.Collections.Generic.Stack<string>? absoluteKeywordLocation = null, System.Collections.Generic.Stack<string>? instanceLocation = null)");
                 memberBuilder.AppendLine("{");
                 memberBuilder.AppendLine("  Menes.ValidationResult result = validationResult;");
+                memberBuilder.AppendLine("System.Collections.Generic.HashSet<string> localEvaluatedProperties = new System.Collections.Generic.HashSet<string>();");
 
                 memberBuilder.AppendLine("int oneOfCount = 0;");
                 int oneOfIndex = 0;
@@ -53,9 +63,11 @@ namespace Menes.JsonSchema.TypeBuilder
                     this.PushArrayIndexToAbsoluteKeywordLocationStack(oneOfIndex);
                     this.BuildPushAbsoluteKeywordLocation(memberBuilder, oneOfIndex);
 
+                    memberBuilder.AppendLine("localEvaluatedProperties.Clear();");
+
                     memberBuilder.AppendLine($"var oneOf{oneOfIndex} = that.{this.GetAsMethodNameFor(oneOfType)}();");
 
-                    memberBuilder.AppendLine($"var oneOfResult{oneOfIndex} = oneOf{oneOfIndex}.Validate(result, level, evaluatedProperties, absoluteKeywordLocation, instanceLocation);");
+                    memberBuilder.AppendLine($"var oneOfResult{oneOfIndex} = oneOf{oneOfIndex}.Validate(null, level, localEvaluatedProperties, absoluteKeywordLocation, instanceLocation);");
 
                     memberBuilder.AppendLine($"if (oneOfResult{oneOfIndex}.Valid)");
                     memberBuilder.AppendLine("{");
@@ -72,6 +84,13 @@ namespace Menes.JsonSchema.TypeBuilder
                         memberBuilder.AppendLine("}");
                     }
 
+                    memberBuilder.AppendLine("}");
+
+                    // Merge the evaluated items back into the outer result set, which is the
+                    // "composedEvaluatedProperties" collection.
+                    memberBuilder.AppendLine("foreach (var item in localEvaluatedProperties)");
+                    memberBuilder.AppendLine("{");
+                    memberBuilder.AppendLine("    evaluatedProperties.Add(item);");
                     memberBuilder.AppendLine("}");
 
                     this.BuildPopAbsoluteKeywordLocation(memberBuilder, oneOfIndex);

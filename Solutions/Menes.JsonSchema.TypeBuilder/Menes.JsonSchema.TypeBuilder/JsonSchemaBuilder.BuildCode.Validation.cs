@@ -29,6 +29,7 @@ namespace Menes.JsonSchema.TypeBuilder
             memberBuilder.AppendLine("{");
 
             memberBuilder.AppendLine("evaluatedProperties = evaluatedProperties ?? new System.Collections.Generic.HashSet<string>();");
+            memberBuilder.AppendLine("var composedEvaluatedProperties = new System.Collections.Generic.HashSet<string>();");
 
             try
             {

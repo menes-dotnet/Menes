@@ -23,8 +23,7 @@ namespace Menes.JsonSchema.TypeBuilder
             this.BuildTypeValidations(typeDeclaration, memberBuilder);
 
             this.BuildNumericValidations(typeDeclaration, memberBuilder);
-            this.BuildPropertyValidations(typeDeclaration, memberBuilder);
-            this.BuildEnumeratedPropertyValidations(typeDeclaration, memberBuilder);
+            this.BuildStringValidations(typeDeclaration, memberBuilder);
 
             if (typeDeclaration.AllOf is not null || typeDeclaration.AnyOf is not null || typeDeclaration.OneOf is not null)
             {
@@ -32,6 +31,9 @@ namespace Menes.JsonSchema.TypeBuilder
                 this.BuildOneOfValidation(typeDeclaration, memberBuilder);
                 this.BuildAnyOfValidation(typeDeclaration, memberBuilder);
             }
+
+            this.BuildPropertyValidations(typeDeclaration, memberBuilder);
+            this.BuildEnumeratedPropertyValidations(typeDeclaration, memberBuilder);
 
             this.BuildArrayValidation(typeDeclaration, memberBuilder);
 
@@ -112,10 +114,10 @@ namespace Menes.JsonSchema.TypeBuilder
             {
                 memberBuilder.AppendLine("if (this.IsNumber)");
                 memberBuilder.AppendLine("{");
-                memberBuilder.AppendLine("    var number = this.As<Menes.JsonNumber>();");
+                memberBuilder.AppendLine("    var number = (double)this.As<Menes.JsonNumber>();");
                 if (typeDeclaration.MultipleOf is double mo)
                 {
-                    memberBuilder.AppendLine($"    if (System.Math.IEEERemainder((double)number, (double){mo}) > 0)");
+                    memberBuilder.AppendLine($"    if (System.Math.Abs(System.Math.IEEERemainder((double)number, (double){mo})) > 1.0E-18)");
                     memberBuilder.AppendLine("    {");
                     this.WriteError($"6.2.1.  multipleOf - item must be a multiple of {mo}", memberBuilder);
                     memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.Valid)");
@@ -166,6 +168,54 @@ namespace Menes.JsonSchema.TypeBuilder
                     memberBuilder.AppendLine($"    if (number <= (double){emi})");
                     memberBuilder.AppendLine("    {");
                     this.WriteError($"6.2.3.  exclusiveMinimum - item must be greater then {emi}", memberBuilder);
+                    memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.Valid)");
+                    memberBuilder.AppendLine("        {");
+                    memberBuilder.AppendLine("            return result;");
+                    memberBuilder.AppendLine("        }");
+                    memberBuilder.AppendLine("    }");
+                }
+
+                memberBuilder.AppendLine("}");
+            }
+        }
+
+        private void BuildStringValidations(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
+        {
+            if (typeDeclaration.IsStringType)
+            {
+                memberBuilder.AppendLine("if (this.IsString)");
+                memberBuilder.AppendLine("{");
+                memberBuilder.AppendLine("    var value = (string)this.As<Menes.JsonString>();");
+
+                if (typeDeclaration.MaxLength is int maxl)
+                {
+                    memberBuilder.AppendLine($"    if (value.Length > {maxl})");
+                    memberBuilder.AppendLine("    {");
+                    this.WriteError($"6.3.1.  maxLength - value must have length less than or equal to {maxl}", memberBuilder);
+                    memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.Valid)");
+                    memberBuilder.AppendLine("        {");
+                    memberBuilder.AppendLine("            return result;");
+                    memberBuilder.AppendLine("        }");
+                    memberBuilder.AppendLine("    }");
+                }
+
+                if (typeDeclaration.MinLength is int minl)
+                {
+                    memberBuilder.AppendLine($"    if (value.Length < {minl})");
+                    memberBuilder.AppendLine("    {");
+                    this.WriteError($"6.3.2.  minimum - value must have length greater than or equal to {minl}", memberBuilder);
+                    memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.Valid)");
+                    memberBuilder.AppendLine("        {");
+                    memberBuilder.AppendLine("            return result;");
+                    memberBuilder.AppendLine("        }");
+                    memberBuilder.AppendLine("    }");
+                }
+
+                if (typeDeclaration.Pattern is string pattern)
+                {
+                    memberBuilder.AppendLine($"    if (!_MenesPatternExpression.IsMatch(value))");
+                    memberBuilder.AppendLine("    {");
+                    this.WriteError($"6.3.3.  pattern - value must match the regular expression {pattern}", memberBuilder);
                     memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.Valid)");
                     memberBuilder.AppendLine("        {");
                     memberBuilder.AppendLine("            return result;");

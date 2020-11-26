@@ -102,7 +102,8 @@ namespace Steps
         [When(@"I validate the instance")]
         public void WhenIValidateTheInstance()
         {
-            ValidationResult validationResult = this.scenarioContext.Get<IJsonValue>(SchemaInstance).Validate();
+            IJsonValue jsonValue = this.scenarioContext.Get<IJsonValue>(SchemaInstance);
+            ValidationResult validationResult = jsonValue.Validate();
             this.scenarioContext.Set(validationResult, SchemaValidationResult);
         }
 

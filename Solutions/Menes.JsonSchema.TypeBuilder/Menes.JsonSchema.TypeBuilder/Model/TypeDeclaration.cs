@@ -541,6 +541,17 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         }
 
         /// <summary>
+        /// Gets a value indicating whether this is a string type.
+        /// </summary>
+        public bool IsStringType
+        {
+            get
+            {
+                return (this.Type is not null && this.Type.Contains("string")) || this.MinLength is not null || this.MaxLength is not null || this.Pattern is not null;
+            }
+        }
+
+        /// <summary>
         /// Add a conversion operator.
         /// </summary>
         /// <param name="conversionOperatorDeclaration">The operator to add.</param>
@@ -722,11 +733,15 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         public void AddOneOfType(TypeDeclaration oneOfType)
         {
             List<TypeDeclaration> oneOfTypes = this.EnsureOneOfTypes();
+
+            // Protect against adding multiple instance of the conversion operators, but...
             if (!oneOfTypes.Any(t => t.FullyQualifiedDotNetTypeName == oneOfType.FullyQualifiedDotNetTypeName))
             {
-                oneOfTypes.Add(oneOfType);
                 this.AddConversionOperatorsFor(oneOfType);
             }
+
+            // ...we can add multiple instances of the same type
+            oneOfTypes.Add(oneOfType);
         }
 
         /// <summary>
@@ -1294,9 +1309,6 @@ namespace Menes.JsonSchema.TypeBuilder.Model
 
         private static void MergeTypesToBase(TypeDeclaration result, TypeDeclaration typeToMerge)
         {
-            MergeAllOf(typeToMerge.AllOf, result);
-            MergeAnyOf(typeToMerge.AnyOf, result);
-            MergeOneOf(typeToMerge.OneOf, result);
             MergeProperties(ForceNonLocal(typeToMerge.Properties), result);
             MergeItems(typeToMerge.Items, result);
             MergeConstAndEnum(typeToMerge, result);
@@ -1570,10 +1582,10 @@ namespace Menes.JsonSchema.TypeBuilder.Model
 
                 foreach (TypeDeclaration type in oneOfTypes)
                 {
-                    if (type != result && !resultTypes.Any(t => t.FullyQualifiedDotNetTypeName == type.FullyQualifiedDotNetTypeName))
-                    {
+                    ////if (type != result && !resultTypes.Any(t => t.FullyQualifiedDotNetTypeName == type.FullyQualifiedDotNetTypeName))
+                    ////{
                         resultTypes.Add(type);
-                    }
+                    ////}
                 }
 
                 result.OneOf = resultTypes;

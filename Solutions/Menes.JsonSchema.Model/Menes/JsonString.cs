@@ -7,6 +7,7 @@ namespace Menes
     using System;
     using System.Collections.Generic;
     using System.Text.Json;
+    using System.Text.RegularExpressions;
 
     /// <summary>
     /// Represents the string json type.
@@ -132,6 +133,25 @@ namespace Menes
         public ReadOnlyMemory<char> AsMemory()
         {
             return this.HasJsonElement ? this.JsonElement.GetString().AsMemory() : this.value ?? ReadOnlyMemory<char>.Empty;
+        }
+
+        /// <summary>
+        /// Gets the length of the string.
+        /// </summary>
+        /// <returns>The length of the string, or 0 if the string is null or empty.</returns>
+        public int GetLength()
+        {
+            return this.HasJsonElement ? this.JsonElement.GetString()?.Length ?? 0 : (this.value ?? ReadOnlyMemory<char>.Empty).Length;
+        }
+
+        /// <summary>
+        /// Returns true if the value matches the given regular expression.
+        /// </summary>
+        /// <param name="regex">The regular expression to match.</param>
+        /// <returns><c>True</c> if the string matches the regular expression.</returns>
+        public bool IsMatch(Regex regex)
+        {
+            return regex.IsMatch(this.GetString());
         }
 
         /// <summary>
