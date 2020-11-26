@@ -20,9 +20,11 @@ namespace Menes.JsonSchema.TypeBuilder
         {
             memberBuilder.AppendLine("Menes.ValidationResult result = validationResult ?? Menes.ValidationResult.ValidResult;");
 
-            AddLocalEvaluatedProperties(typeDeclaration, memberBuilder);
-
             this.BuildTypeValidations(typeDeclaration, memberBuilder);
+
+            this.BuildNumericValidations(typeDeclaration, memberBuilder);
+            this.BuildPropertyValidations(typeDeclaration, memberBuilder);
+            this.BuildEnumeratedPropertyValidations(typeDeclaration, memberBuilder);
 
             if (typeDeclaration.AllOf is not null || typeDeclaration.AnyOf is not null || typeDeclaration.OneOf is not null)
             {
@@ -31,12 +33,7 @@ namespace Menes.JsonSchema.TypeBuilder
                 this.BuildAnyOfValidation(typeDeclaration, memberBuilder);
             }
 
-            this.BuildNumericValidations(typeDeclaration, memberBuilder);
-            this.BuildPropertyValidations(typeDeclaration, memberBuilder);
-            this.BuildEnumeratedPropertyValidations(typeDeclaration, memberBuilder);
             this.BuildArrayValidation(typeDeclaration, memberBuilder);
-
-            MergeLocalEvaluatedProperties(typeDeclaration, memberBuilder);
 
             memberBuilder.AppendLine("return result;");
 
@@ -111,70 +108,73 @@ namespace Menes.JsonSchema.TypeBuilder
 
         private void BuildNumericValidations(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
         {
-            memberBuilder.AppendLine("if (this.IsNumber)");
-            memberBuilder.AppendLine("{");
-            memberBuilder.AppendLine("    var number = this.As<Menes.JsonNumber>();");
-            if (typeDeclaration.MultipleOf is double mo)
+            if (typeDeclaration.IsNumericType)
             {
-                memberBuilder.AppendLine($"    if (System.Math.IEEERemainder((double)number, (double){mo}) > 0)");
-                memberBuilder.AppendLine("    {");
-                this.WriteError($"6.2.1.  multipleOf - item must be a multiple of {mo}", memberBuilder);
-                memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.Valid)");
-                memberBuilder.AppendLine("        {");
-                memberBuilder.AppendLine("            return result;");
-                memberBuilder.AppendLine("        }");
-                memberBuilder.AppendLine("    }");
-            }
+                memberBuilder.AppendLine("if (this.IsNumber)");
+                memberBuilder.AppendLine("{");
+                memberBuilder.AppendLine("    var number = this.As<Menes.JsonNumber>();");
+                if (typeDeclaration.MultipleOf is double mo)
+                {
+                    memberBuilder.AppendLine($"    if (System.Math.IEEERemainder((double)number, (double){mo}) > 0)");
+                    memberBuilder.AppendLine("    {");
+                    this.WriteError($"6.2.1.  multipleOf - item must be a multiple of {mo}", memberBuilder);
+                    memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.Valid)");
+                    memberBuilder.AppendLine("        {");
+                    memberBuilder.AppendLine("            return result;");
+                    memberBuilder.AppendLine("        }");
+                    memberBuilder.AppendLine("    }");
+                }
 
-            if (typeDeclaration.Maximum is double ma)
-            {
-                memberBuilder.AppendLine($"    if (number > (double){ma})");
-                memberBuilder.AppendLine("    {");
-                this.WriteError($"6.2.2.  maximum - item must be less than or equal to {ma}", memberBuilder);
-                memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.Valid)");
-                memberBuilder.AppendLine("        {");
-                memberBuilder.AppendLine("            return result;");
-                memberBuilder.AppendLine("        }");
-                memberBuilder.AppendLine("    }");
-            }
+                if (typeDeclaration.Maximum is double ma)
+                {
+                    memberBuilder.AppendLine($"    if (number > (double){ma})");
+                    memberBuilder.AppendLine("    {");
+                    this.WriteError($"6.2.2.  maximum - item must be less than or equal to {ma}", memberBuilder);
+                    memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.Valid)");
+                    memberBuilder.AppendLine("        {");
+                    memberBuilder.AppendLine("            return result;");
+                    memberBuilder.AppendLine("        }");
+                    memberBuilder.AppendLine("    }");
+                }
 
-            if (typeDeclaration.ExclusiveMaximum is double ema)
-            {
-                memberBuilder.AppendLine($"    if (number >= (double){ema})");
-                memberBuilder.AppendLine("    {");
-                this.WriteError($"6.2.3.  exclusiveMaximum - item must be less then {ema}", memberBuilder);
-                memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.Valid)");
-                memberBuilder.AppendLine("        {");
-                memberBuilder.AppendLine("            return result;");
-                memberBuilder.AppendLine("        }");
-                memberBuilder.AppendLine("    }");
-            }
+                if (typeDeclaration.ExclusiveMaximum is double ema)
+                {
+                    memberBuilder.AppendLine($"    if (number >= (double){ema})");
+                    memberBuilder.AppendLine("    {");
+                    this.WriteError($"6.2.3.  exclusiveMaximum - item must be less then {ema}", memberBuilder);
+                    memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.Valid)");
+                    memberBuilder.AppendLine("        {");
+                    memberBuilder.AppendLine("            return result;");
+                    memberBuilder.AppendLine("        }");
+                    memberBuilder.AppendLine("    }");
+                }
 
-            if (typeDeclaration.Minimum is double mi)
-            {
-                memberBuilder.AppendLine($"    if (number < (double){mi})");
-                memberBuilder.AppendLine("    {");
-                this.WriteError($"6.2.4.  minimum - item must be greater than or equal to {mi}", memberBuilder);
-                memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.Valid)");
-                memberBuilder.AppendLine("        {");
-                memberBuilder.AppendLine("            return result;");
-                memberBuilder.AppendLine("        }");
-                memberBuilder.AppendLine("    }");
-            }
+                if (typeDeclaration.Minimum is double mi)
+                {
+                    memberBuilder.AppendLine($"    if (number < (double){mi})");
+                    memberBuilder.AppendLine("    {");
+                    this.WriteError($"6.2.4.  minimum - item must be greater than or equal to {mi}", memberBuilder);
+                    memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.Valid)");
+                    memberBuilder.AppendLine("        {");
+                    memberBuilder.AppendLine("            return result;");
+                    memberBuilder.AppendLine("        }");
+                    memberBuilder.AppendLine("    }");
+                }
 
-            if (typeDeclaration.ExclusiveMinimum is double emi)
-            {
-                memberBuilder.AppendLine($"    if (number <= (double){emi})");
-                memberBuilder.AppendLine("    {");
-                this.WriteError($"6.2.3.  exclusiveMinimum - item must be greater then {emi}", memberBuilder);
-                memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.Valid)");
-                memberBuilder.AppendLine("        {");
-                memberBuilder.AppendLine("            return result;");
-                memberBuilder.AppendLine("        }");
-                memberBuilder.AppendLine("    }");
-            }
+                if (typeDeclaration.ExclusiveMinimum is double emi)
+                {
+                    memberBuilder.AppendLine($"    if (number <= (double){emi})");
+                    memberBuilder.AppendLine("    {");
+                    this.WriteError($"6.2.3.  exclusiveMinimum - item must be greater then {emi}", memberBuilder);
+                    memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.Valid)");
+                    memberBuilder.AppendLine("        {");
+                    memberBuilder.AppendLine("            return result;");
+                    memberBuilder.AppendLine("        }");
+                    memberBuilder.AppendLine("    }");
+                }
 
-            memberBuilder.AppendLine("}");
+                memberBuilder.AppendLine("}");
+            }
         }
 
         private void BuildEnumeratedPropertyValidations(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
@@ -248,11 +248,15 @@ namespace Menes.JsonSchema.TypeBuilder
                 memberBuilder.AppendLine("if (this.IsObject)");
                 memberBuilder.AppendLine("{");
 
-                // We need to know what we have already evaluated if we have pattern properties
-                memberBuilder.AppendLine("evaluatedProperties = evaluatedProperties ?? new System.Collections.Generic.HashSet<string>();");
-
                 foreach (PropertyDeclaration property in typeDeclaration.Properties)
                 {
+                    // Don't evaluate non-local properties here (e.g. those that are merged in from allOf)
+                    if (!property.IsLocal)
+                    {
+                        index++;
+                        continue;
+                    }
+
                     this.PushPropertyToAbsoluteKeywordLocationStack(property.JsonPropertyName!);
                     this.BuildPushAbsoluteKeywordLocation(memberBuilder, index);
                     memberBuilder.AppendLine($"    evaluatedProperties?.Add({Formatting.FormatLiteralOrNull(property.JsonPropertyName, true)});");

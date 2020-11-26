@@ -147,6 +147,7 @@ namespace Menes.JsonSchema.TypeBuilder
                 this.SetPropertyName(typeDeclaration, jsonPropertyName, propertyDeclaration);
                 propertyDeclaration.TypeDeclaration = TypeDeclarations.AnyTypeDeclaration;
                 propertyDeclaration.IsRequired = true;
+                propertyDeclaration.IsLocal = true;
                 typeDeclaration.AddPropertyDeclaration(propertyDeclaration);
             }
         }
@@ -168,6 +169,7 @@ namespace Menes.JsonSchema.TypeBuilder
                     var newPropertyDeclaration = new PropertyDeclaration
                     {
                         TypeDeclaration = newTypeDeclaration,
+                        IsLocal = true,
                     };
                     this.SetPropertyName(typeDeclaration, jsonPropertyName, newPropertyDeclaration);
                     typeDeclaration.AddPropertyDeclaration(newPropertyDeclaration);

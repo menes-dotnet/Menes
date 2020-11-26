@@ -94,7 +94,7 @@ namespace Menes.JsonSchema.TypeBuilder
 
                     if (typeDeclaration.UnevaluatedProperties is not null)
                     {
-                        memberBuilder.AppendLine($"anyOfResult{anyOfIndex} = anyOf{anyOfIndex}.Validate(result, level, localEvaluatedProperties, absoluteKeywordLocation, instanceLocation);");
+                        memberBuilder.AppendLine($"anyOfResult{anyOfIndex} = anyOf{anyOfIndex}.Validate(result, level, evaluatedProperties, absoluteKeywordLocation, instanceLocation);");
                     }
                     else
                     {

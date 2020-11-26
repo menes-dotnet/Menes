@@ -27,6 +27,9 @@ namespace Menes.JsonSchema.TypeBuilder
             memberBuilder.AppendLine("/// <inheritdoc />");
             memberBuilder.AppendLine("public Menes.ValidationResult Validate(Menes.ValidationResult? validationResult = null, Menes.ValidationLevel level = Menes.ValidationLevel.Flag, System.Collections.Generic.HashSet<string>? evaluatedProperties = null, System.Collections.Generic.Stack<string>? absoluteKeywordLocation = null, System.Collections.Generic.Stack<string>? instanceLocation = null)");
             memberBuilder.AppendLine("{");
+
+            memberBuilder.AppendLine("evaluatedProperties = evaluatedProperties ?? new System.Collections.Generic.HashSet<string>();");
+
             try
             {
                 this.BuildSchemaValidation(typeDeclaration, memberBuilder);

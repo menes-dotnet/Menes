@@ -55,14 +55,7 @@ namespace Menes.JsonSchema.TypeBuilder
 
                     memberBuilder.AppendLine($"var oneOf{oneOfIndex} = that.{this.GetAsMethodNameFor(oneOfType)}();");
 
-                    if (typeDeclaration.UnevaluatedProperties is not null)
-                    {
-                        memberBuilder.AppendLine($"var oneOfResult{oneOfIndex} = oneOf{oneOfIndex}.Validate(result, level, localEvaluatedProperties, absoluteKeywordLocation, instanceLocation);");
-                    }
-                    else
-                    {
-                        memberBuilder.AppendLine($"var oneOfResult{oneOfIndex} = oneOf{oneOfIndex}.Validate(result, level, absoluteKeywordLocation: absoluteKeywordLocation, instanceLocation: instanceLocation);");
-                    }
+                    memberBuilder.AppendLine($"var oneOfResult{oneOfIndex} = oneOf{oneOfIndex}.Validate(result, level, evaluatedProperties, absoluteKeywordLocation, instanceLocation);");
 
                     memberBuilder.AppendLine($"if (oneOfResult{oneOfIndex}.Valid)");
                     memberBuilder.AppendLine("{");

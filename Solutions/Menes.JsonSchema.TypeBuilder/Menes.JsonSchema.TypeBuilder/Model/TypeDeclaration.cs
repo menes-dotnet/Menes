@@ -530,6 +530,17 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         }
 
         /// <summary>
+        /// Gets a value indicating whether this is a numeric type.
+        /// </summary>
+        public bool IsNumericType
+        {
+            get
+            {
+                return (this.Type is not null && (this.Type.Contains("number") || this.Type.Contains("integer"))) || this.Minimum is not null || this.Maximum is not null || this.ExclusiveMinimum is not null || this.ExclusiveMaximum is not null || this.MultipleOf is not null;
+            }
+        }
+
+        /// <summary>
         /// Add a conversion operator.
         /// </summary>
         /// <param name="conversionOperatorDeclaration">The operator to add.</param>
@@ -1286,7 +1297,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
             MergeAllOf(typeToMerge.AllOf, result);
             MergeAnyOf(typeToMerge.AnyOf, result);
             MergeOneOf(typeToMerge.OneOf, result);
-            MergeProperties(typeToMerge.Properties, result);
+            MergeProperties(ForceNonLocal(typeToMerge.Properties), result);
             MergeItems(typeToMerge.Items, result);
             MergeConstAndEnum(typeToMerge, result);
 
@@ -1296,6 +1307,11 @@ namespace Menes.JsonSchema.TypeBuilder.Model
 
             // We also don't merge conversion methods as these are dealt with when the types are added to the
             // allOf, oneOf, anyOf properties using the 'Vias'
+        }
+
+        private static List<PropertyDeclaration>? ForceNonLocal(List<PropertyDeclaration>? properties)
+        {
+            return properties?.Select(p => new PropertyDeclaration { DotnetFieldName = p.DotnetFieldName, DotnetPropertyName = p.DotnetPropertyName, TypeDeclaration = p.TypeDeclaration, IsRequired = p.IsRequired, JsonPropertyName = p.JsonPropertyName }).ToList();
         }
 
         private static void MergeDependentRequired(TypeDeclaration typeToMerge, TypeDeclaration result)
@@ -1343,9 +1359,9 @@ namespace Menes.JsonSchema.TypeBuilder.Model
             return new IfThenElse(ifThenElseTypes.If.Lowered, ifThenElseTypes.Then?.Lowered, ifThenElseTypes.Else?.Lowered);
         }
 
-        private static List<PropertyDeclaration>? Lower(List<PropertyDeclaration>? properties)
+        private static List<PropertyDeclaration>? Lower(List<PropertyDeclaration>? properties, bool maintainLocality)
         {
-            return properties?.Select(p => (p.TypeDeclaration?.IsLowered ?? true) ? p : new PropertyDeclaration { DotnetFieldName = p.DotnetFieldName, DotnetPropertyName = p.DotnetPropertyName, IsRequired = p.IsRequired, JsonPropertyName = p.JsonPropertyName, TypeDeclaration = p.TypeDeclaration?.Lowered }).ToList();
+            return properties?.Select(p => (p.TypeDeclaration?.IsLowered ?? true) ? p : new PropertyDeclaration { DotnetFieldName = p.DotnetFieldName, DotnetPropertyName = p.DotnetPropertyName, IsRequired = p.IsRequired, IsLocal = maintainLocality ? p.IsLocal : false, JsonPropertyName = p.JsonPropertyName, TypeDeclaration = p.TypeDeclaration?.Lowered }).ToList();
         }
 
         private static List<ConversionOperatorDeclaration>? Lower(List<ConversionOperatorDeclaration>? conversionOperators)
@@ -1667,7 +1683,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
             // Then merge in our own base type to the target.
             result.IsItemsArray = baseType.IsItemsArray;
             MergeItems(Lower(baseType.Items), result);
-            MergeProperties(Lower(baseType.Properties), result);
+            MergeProperties(Lower(baseType.Properties, true), result);
             MergeValidations(baseType, result);
             MergeConversions(baseType, result);
             MergeConstAndEnum(baseType, result);

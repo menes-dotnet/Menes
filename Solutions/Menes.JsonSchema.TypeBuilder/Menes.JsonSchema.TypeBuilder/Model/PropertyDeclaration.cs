@@ -36,5 +36,11 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         /// Gets or sets a value indicating whether this property is optional.
         /// </summary>
         public bool IsRequired { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this property is local to the type,
+        /// or merged from another type.
+        /// </summary>
+        public bool IsLocal { get; set; }
     }
 }
