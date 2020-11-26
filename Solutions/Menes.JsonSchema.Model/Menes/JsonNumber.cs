@@ -54,39 +54,6 @@ namespace Menes
             this.JsonElement = default;
         }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="JsonNumber"/> struct.
-        /// </summary>
-        /// <param name="value">The JsonInteger from which to construct the <see cref="JsonNumber"/>.</param>
-        public JsonNumber(JsonInteger value)
-        {
-            if (value.IsNull)
-            {
-                this.JsonElement = default;
-                this.valueAsDouble = null;
-                this.valueAsInt64 = null;
-            }
-            else if (value.HasJsonElement)
-            {
-                this.JsonElement = value.JsonElement;
-                this.valueAsDouble = null;
-                this.valueAsInt64 = null;
-            }
-            else
-            {
-                this.JsonElement = default;
-                this.valueAsDouble = null;
-                if (value.TryGetInt64(out long val))
-                {
-                    this.valueAsInt64 = val;
-                }
-                else
-                {
-                    this.valueAsInt64 = null;
-                }
-            }
-        }
-
         /// <inheritdoc />
         public bool IsUndefined => this.JsonElement.ValueKind == JsonValueKind.Undefined && this.valueAsDouble is null && this.valueAsInt64 is null;
 

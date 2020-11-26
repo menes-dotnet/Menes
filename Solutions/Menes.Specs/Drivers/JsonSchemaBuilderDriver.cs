@@ -167,7 +167,7 @@ namespace Drivers
         {
             foreach (KeyValuePair<string, string> type in generatedTypes)
             {
-                yield return CSharpSyntaxTree.ParseText(type.Value);
+                yield return CSharpSyntaxTree.ParseText(type.Value, path: type.Key);
             }
         }
 

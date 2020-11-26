@@ -123,7 +123,7 @@ namespace Menes.JsonSchema.TypeBuilder
             typeDeclaration.AddConversionOperator(
                 new ConversionOperatorDeclaration
                 {
-                    Conversion = ConversionOperatorDeclaration.ConversionType.Cast,
+                    Conversion = ConversionOperatorDeclaration.ConversionType.GenericAsAndStaticFrom,
                     Direction = ConversionOperatorDeclaration.ConversionDirection.BidirectionalImplicit,
                     TargetType = TypeDeclarations.NumberTypeDeclaration,
                 });

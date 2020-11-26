@@ -6,6 +6,7 @@ namespace Menes.JsonSchema.TypeBuilder
 {
     using System;
     using System.Text;
+    using System.Text.Json;
     using Menes.JsonSchema.TypeBuilder.Model;
 
     /// <summary>
@@ -22,7 +23,10 @@ namespace Menes.JsonSchema.TypeBuilder
 
             this.BuildTypeValidations(typeDeclaration, memberBuilder);
 
+            this.BuildConstValidation(typeDeclaration, memberBuilder);
+
             this.BuildNumericValidations(typeDeclaration, memberBuilder);
+
             this.BuildStringValidations(typeDeclaration, memberBuilder);
 
             if (typeDeclaration.AllOf is not null || typeDeclaration.AnyOf is not null || typeDeclaration.OneOf is not null)
@@ -40,6 +44,116 @@ namespace Menes.JsonSchema.TypeBuilder
             memberBuilder.AppendLine("return result;");
 
             this.BuildValidationLocalFunctions(typeDeclaration, memberBuilder);
+        }
+
+        private void BuildConstValidation(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
+        {
+            if (typeDeclaration.Const is not JsonElement value)
+            {
+                return;
+            }
+
+            if (value.ValueKind == JsonValueKind.Number)
+            {
+                memberBuilder.AppendLine("if (!this.IsNumber)");
+                memberBuilder.AppendLine("{");
+                this.WriteError($"6.1.3. const - does not match const value {value.GetRawText()}", memberBuilder);
+                memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.Valid)");
+                memberBuilder.AppendLine("        {");
+                memberBuilder.AppendLine("            return result;");
+                memberBuilder.AppendLine("        }");
+                memberBuilder.AppendLine("}");
+                memberBuilder.AppendLine("else");
+                memberBuilder.AppendLine("{");
+                memberBuilder.AppendLine("    if ((double)this != (double)_MenesConstValue)");
+                memberBuilder.AppendLine("    {");
+                this.WriteError($"6.1.3. const - does not match const value {value.GetRawText()}", memberBuilder);
+                memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.Valid)");
+                memberBuilder.AppendLine("        {");
+                memberBuilder.AppendLine("            return result;");
+                memberBuilder.AppendLine("        }");
+                memberBuilder.AppendLine("    }");
+                memberBuilder.AppendLine("    else");
+                memberBuilder.AppendLine("    {");
+                this.WriteSuccess(memberBuilder);
+                memberBuilder.AppendLine("    }");
+                memberBuilder.AppendLine("}");
+            }
+            else if (value.ValueKind == JsonValueKind.Null)
+            {
+                memberBuilder.AppendLine("if (!this.IsNull)");
+                memberBuilder.AppendLine("{");
+                this.WriteError($"6.1.3. const - does not match null value", memberBuilder);
+                memberBuilder.AppendLine("    if (level == Menes.ValidationLevel.Flag && !result.Valid)");
+                memberBuilder.AppendLine("    {");
+                memberBuilder.AppendLine("        return result;");
+                memberBuilder.AppendLine("    }");
+                memberBuilder.AppendLine("}");
+                memberBuilder.AppendLine("else");
+                memberBuilder.AppendLine("{");
+                this.WriteSuccess(memberBuilder);
+                memberBuilder.AppendLine("}");
+            }
+            else if (value.ValueKind == JsonValueKind.False || value.ValueKind == JsonValueKind.True)
+            {
+                memberBuilder.AppendLine("if (!this.IsBoolean)");
+                memberBuilder.AppendLine("{");
+                this.WriteError($"6.1.3. const - does not match const value {value.GetRawText()}", memberBuilder);
+                memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.Valid)");
+                memberBuilder.AppendLine("        {");
+                memberBuilder.AppendLine("            return result;");
+                memberBuilder.AppendLine("        }");
+                memberBuilder.AppendLine("}");
+                memberBuilder.AppendLine("else");
+                memberBuilder.AppendLine("{");
+                memberBuilder.AppendLine("    if ((bool)this != (bool)_MenesConstValue)");
+                memberBuilder.AppendLine("    {");
+                this.WriteError($"6.1.3. const - does not match const value {value.GetRawText()}", memberBuilder);
+                memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.Valid)");
+                memberBuilder.AppendLine("        {");
+                memberBuilder.AppendLine("            return result;");
+                memberBuilder.AppendLine("        }");
+                memberBuilder.AppendLine("    }");
+                memberBuilder.AppendLine("    else");
+                memberBuilder.AppendLine("    {");
+                this.WriteSuccess(memberBuilder);
+                memberBuilder.AppendLine("    }");
+                memberBuilder.AppendLine("}");
+            }
+            else if (value.ValueKind == JsonValueKind.String)
+            {
+                memberBuilder.AppendLine("if (!this.IsString)");
+                memberBuilder.AppendLine("{");
+                this.WriteError($"6.1.3. const - does not match const value {value.GetRawText()}", memberBuilder);
+                memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.Valid)");
+                memberBuilder.AppendLine("        {");
+                memberBuilder.AppendLine("            return result;");
+                memberBuilder.AppendLine("        }");
+                memberBuilder.AppendLine("}");
+                memberBuilder.AppendLine("else");
+                memberBuilder.AppendLine("{");
+                memberBuilder.AppendLine("    if (!System.MemoryExtensions.SequenceEqual(this.As<Menes.JsonString>().AsSpan(), _MenesConstValue.AsSpan()))");
+                memberBuilder.AppendLine("    {");
+                this.WriteError($"6.1.3. const - does not match const value {value.GetRawText()}", memberBuilder);
+                memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.Valid)");
+                memberBuilder.AppendLine("        {");
+                memberBuilder.AppendLine("            return result;");
+                memberBuilder.AppendLine("        }");
+                memberBuilder.AppendLine("    }");
+                memberBuilder.AppendLine("    else");
+                memberBuilder.AppendLine("    {");
+                this.WriteSuccess(memberBuilder);
+                memberBuilder.AppendLine("    }");
+                memberBuilder.AppendLine("}");
+            }
+            else if (value.ValueKind == JsonValueKind.Array)
+            {
+                throw new NotImplementedException();
+            }
+            else if (value.ValueKind == JsonValueKind.Object)
+            {
+                throw new NotImplementedException();
+            }
         }
 
         private void BuildTypeValidations(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)

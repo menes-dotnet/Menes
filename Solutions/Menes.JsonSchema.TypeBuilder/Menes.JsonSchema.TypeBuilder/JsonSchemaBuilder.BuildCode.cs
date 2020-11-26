@@ -6,6 +6,7 @@ namespace Menes.JsonSchema.TypeBuilder
 {
     using System;
     using System.Text;
+    using System.Text.Json;
     using Menes.JsonSchema.TypeBuilder.Model;
 
     /// <summary>
@@ -47,6 +48,7 @@ namespace Menes.JsonSchema.TypeBuilder
             this.BuildPropertyBackingFields(typeDeclaration, memberBuilder);
             this.BuildPatternExpression(typeDeclaration, memberBuilder);
             this.BuildPatternPropertyExpressions(typeDeclaration, memberBuilder);
+            this.BuildConstValue(typeDeclaration, memberBuilder);
 
             // Public and private constructors
             this.BuildConstructors(typeDeclaration, memberBuilder);
@@ -88,6 +90,39 @@ namespace Menes.JsonSchema.TypeBuilder
             this.BuildArrayEnumerator(typeDeclaration, memberBuilder);
             this.BuildPropertyEnumerator(typeDeclaration, memberBuilder);
             memberBuilder.AppendLine("}");
+        }
+
+        private void BuildConstValue(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
+        {
+            if (typeDeclaration.Const is not JsonElement value)
+            {
+                return;
+            }
+
+            if (value.ValueKind == JsonValueKind.Number)
+            {
+                memberBuilder.AppendLine($"private static readonly Menes.JsonNumber _MenesConstValue = new Menes.JsonNumber((double){value.GetDouble()});");
+            }
+            else if (value.ValueKind == JsonValueKind.Null)
+            {
+                memberBuilder.AppendLine($"private static readonly Menes.JsonNull _MenesConstValue = Menes.JsonNull.Instance;");
+            }
+            else if (value.ValueKind == JsonValueKind.False)
+            {
+                memberBuilder.AppendLine($"private static readonly Menes.JsonBoolean _MenesConstValue = new Menes.JsonBoolean(false);");
+            }
+            else if (value.ValueKind == JsonValueKind.True)
+            {
+                memberBuilder.AppendLine($"private static readonly Menes.JsonBoolean _MenesConstValue = new Menes.JsonBoolean(true);");
+            }
+            else if (value.ValueKind == JsonValueKind.String)
+            {
+                memberBuilder.AppendLine($"private static readonly Menes.JsonString _MenesConstValue = new Menes.JsonString({Formatting.FormatLiteralOrNull(value.GetString(), true)});");
+            }
+            else if (value.ValueKind == JsonValueKind.Array || value.ValueKind == JsonValueKind.Object)
+            {
+                memberBuilder.AppendLine($"private static readonly Menes.JsonAny _MenesConstValue = new Menes.JsonAny({Formatting.FormatLiteralOrNull(value.GetRawText(), true)});");
+            }
         }
 
         private void BuildPatternExpression(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)

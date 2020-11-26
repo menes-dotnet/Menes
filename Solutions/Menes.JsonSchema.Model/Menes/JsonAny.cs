@@ -35,6 +35,17 @@ namespace Menes
         /// <summary>
         /// Initializes a new instance of the <see cref="JsonAny"/> struct.
         /// </summary>
+        /// <param name="jsonText">The JSON text fragment from which to construct this element.</param>
+        public JsonAny(string jsonText)
+        {
+            using var document = JsonDocument.Parse(jsonText);
+            this.JsonElement = document.RootElement.Clone();
+            this.value = null;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="JsonAny"/> struct.
+        /// </summary>
         /// <param name="value">The <see cref="IJsonValue"/> from which this JsonAny is constructed.</param>
         private JsonAny(IJsonValue value)
         {
