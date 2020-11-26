@@ -204,7 +204,7 @@ namespace Menes
                 return default;
             }
 
-            NodaTime.Text.ParseResult<LocalDate> result = NodaTime.Text.LocalDatePattern.Iso.Parse(date);
+            NodaTime.Text.ParseResult<LocalDate> result = NodaTime.Text.LocalDatePattern.Iso.Parse(date.ToUpperInvariant());
             if (result.TryGetValue(default, out LocalDate dateResult))
             {
                 return dateResult;

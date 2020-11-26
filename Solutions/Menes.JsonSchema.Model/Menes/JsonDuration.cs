@@ -6,6 +6,7 @@ namespace Menes
 {
     using System.Collections.Generic;
     using System.Text.Json;
+    using System.Text.RegularExpressions;
     using NodaTime;
 
     /// <summary>
@@ -18,7 +19,8 @@ namespace Menes
         /// </summary>
         public static readonly JsonDuration Null = default;
 
-        private readonly Duration? value;
+        private static readonly Regex DurationPattern = new Regex(@"^P(?!$)((\d+(?:\.\d+)?Y)?(\d+(?:\.\d+)?M)?|(\d+(?:\.\d+)?W)?)?(\d+(?:\.\d+)?D)?(T(?=\d)(\d+(?:\.\d+)?H)?(\d+(?:\.\d+)?M)?(\d+(?:\.\d+)?S)?)?$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+        private readonly Period? value;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="JsonDuration"/> struct.
@@ -33,8 +35,8 @@ namespace Menes
         /// <summary>
         /// Initializes a new instance of the <see cref="JsonDuration"/> struct.
         /// </summary>
-        /// <param name="value">The backing NodaTime.Duration value.</param>
-        public JsonDuration(Duration value)
+        /// <param name="value">The backing NodaTime.Period value.</param>
+        public JsonDuration(Period value)
         {
             this.value = value;
             this.JsonElement = default;
@@ -71,24 +73,24 @@ namespace Menes
         public JsonElement JsonElement { get; }
 
         /// <summary>
-        /// Implicit conversion from <see cref="Duration"/>.
+        /// Implicit conversion from <see cref="Period"/>.
         /// </summary>
         /// <param name="value">The bool value from which to convert.</param>
-        public static implicit operator JsonDuration(Duration value) => new JsonDuration(value);
+        public static implicit operator JsonDuration(Period value) => new JsonDuration(value);
 
         /// <summary>
-        /// Implicit conversion to <see cref="Duration"/>.
+        /// Implicit conversion to <see cref="Period"/>.
         /// </summary>
         /// <param name="value">The bool value from which to convert.</param>
-        public static implicit operator Duration(JsonDuration value) => value.GetNodaTimeDuration();
+        public static implicit operator Period(JsonDuration value) => value.GetNodaTimeDuration();
 
         /// <summary>
         /// Gets the <see cref="JsonDuration"/> as a <see cref="bool"/>.
         /// </summary>
         /// <returns>The <see cref="bool"/>.</returns>
-        public Duration GetNodaTimeDuration()
+        public Period GetNodaTimeDuration()
         {
-            return (this.HasJsonElement ? this.Parse(this.JsonElement) : this.value) ?? default;
+            return (this.HasJsonElement ? this.Parse(this.JsonElement) : this.value) ?? Period.Zero;
         }
 
         /// <inheritdoc />
@@ -130,7 +132,7 @@ namespace Menes
                 return false;
             }
 
-            return (Duration)this == otherDuration;
+            return (Period)this == otherDuration;
         }
 
         /// <inheritdoc />
@@ -138,7 +140,7 @@ namespace Menes
         {
             ValidationResult result = validationResult ?? ValidationResult.ValidResult;
 
-            if (this.HasJsonElement && (this.JsonElement.ValueKind != JsonValueKind.String || this.Parse(this.JsonElement) is null))
+            if (this.HasJsonElement && (this.JsonElement.ValueKind != JsonValueKind.String || !DurationPattern.IsMatch(this.JsonElement.GetString())))
             {
                 if (level >= ValidationLevel.Basic)
                 {
@@ -180,9 +182,9 @@ namespace Menes
                 return;
             }
 
-            if (this.value is Duration v)
+            if (this.value is Period v)
             {
-                writer.WriteStringValue(NodaTime.Text.DurationPattern.JsonRoundtrip.Format(v));
+                writer.WriteStringValue(NodaTime.Text.PeriodPattern.NormalizingIso.Format(v));
             }
             else
             {
@@ -196,7 +198,7 @@ namespace Menes
             return this.IsNull ? "null" : this.GetNodaTimeDuration().ToString();
         }
 
-        private Duration? Parse(JsonElement jsonElement)
+        private Period? Parse(JsonElement jsonElement)
         {
             string? date = jsonElement.GetString();
             if (date is null)
@@ -204,8 +206,8 @@ namespace Menes
                 return default;
             }
 
-            NodaTime.Text.ParseResult<Duration> result = NodaTime.Text.DurationPattern.JsonRoundtrip.Parse(date);
-            if (result.TryGetValue(default, out Duration dateResult))
+            NodaTime.Text.ParseResult<Period> result = NodaTime.Text.PeriodPattern.NormalizingIso.Parse(date.ToUpperInvariant());
+            if (result.TryGetValue(Period.Zero, out Period dateResult))
             {
                 return dateResult;
             }

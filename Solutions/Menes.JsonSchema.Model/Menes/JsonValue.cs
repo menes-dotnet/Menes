@@ -535,7 +535,7 @@ namespace Menes
         /// <param name="propertyName">The name of the property to set.</param>
         /// <param name="value">The vlaue to set.</param>
         /// <returns>An instance of the type, with the property set.</returns>
-        public static T SetProperty<T>(this T target, string propertyName, Duration value)
+        public static T SetProperty<T>(this T target, string propertyName, Period value)
             where T : struct, IJsonObject<T>
         {
             return target.SetProperty(propertyName, (JsonDuration)value);
@@ -549,7 +549,7 @@ namespace Menes
         /// <param name="propertyName">The name of the property to set.</param>
         /// <param name="value">The vlaue to set.</param>
         /// <returns>An instance of the type, with the property set.</returns>
-        public static T SetProperty<T>(this T target, ReadOnlySpan<byte> propertyName, Duration value)
+        public static T SetProperty<T>(this T target, ReadOnlySpan<byte> propertyName, Period value)
             where T : struct, IJsonObject<T>
         {
             return target.SetProperty(propertyName, (JsonDuration)value);
@@ -563,7 +563,7 @@ namespace Menes
         /// <param name="propertyName">The name of the property to set.</param>
         /// <param name="value">The vlaue to set.</param>
         /// <returns>An instance of the type, with the property set.</returns>
-        public static T SetProperty<T>(this T target, ReadOnlySpan<char> propertyName, Duration value)
+        public static T SetProperty<T>(this T target, ReadOnlySpan<char> propertyName, Period value)
             where T : struct, IJsonObject<T>
         {
             return target.SetProperty(propertyName, (JsonDuration)value);

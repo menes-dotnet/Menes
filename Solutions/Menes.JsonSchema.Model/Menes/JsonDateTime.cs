@@ -204,7 +204,7 @@ namespace Menes
                 return default;
             }
 
-            NodaTime.Text.ParseResult<OffsetDateTime> result = NodaTime.Text.OffsetDateTimePattern.ExtendedIso.Parse(date);
+            NodaTime.Text.ParseResult<OffsetDateTime> result = NodaTime.Text.OffsetDateTimePattern.ExtendedIso.Parse(date.ToUpperInvariant());
             if (result.TryGetValue(default, out OffsetDateTime dateResult))
             {
                 return dateResult;

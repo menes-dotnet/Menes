@@ -157,14 +157,14 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         public static readonly TypeDeclaration ClrDateTimeRawTypeDeclaration = new TypeDeclaration(builtInType: true) { DotnetTypeName = "NodaTime.OffsetDateTime" };
 
         /// <summary>
-        /// A clr <see cref="NodaTime.Duration"/> type.
+        /// A clr <see cref="NodaTime.Period"/> type.
         /// </summary>
         public static readonly TypeDeclaration ClrDurationTypeDeclaration = new TypeDeclaration(builtInType: true) { DotnetTypeName = "Menes.JsonDuration" };
 
         /// <summary>
-        /// A clr <see cref="NodaTime.Duration"/> type.
+        /// A clr <see cref="NodaTime.Period"/> type.
         /// </summary>
-        public static readonly TypeDeclaration ClrDurationRawTypeDeclaration = new TypeDeclaration(builtInType: true) { DotnetTypeName = "NodaTime.Duration" };
+        public static readonly TypeDeclaration ClrDurationRawTypeDeclaration = new TypeDeclaration(builtInType: true) { DotnetTypeName = "NodaTime.Period" };
 
         /// <summary>
         /// A clr <see cref="NodaTime.OffsetTime"/> type.
