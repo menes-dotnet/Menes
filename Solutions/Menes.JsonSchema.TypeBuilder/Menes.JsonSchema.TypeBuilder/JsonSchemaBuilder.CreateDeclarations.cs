@@ -462,15 +462,15 @@ namespace Menes.JsonSchema.TypeBuilder
         {
             if (schema.JsonElement.ValueKind == JsonValueKind.Object)
             {
+                if (schema.JsonElement.TryGetProperty("format", out JsonElement format))
+                {
+                    ValidateString(format);
+                    typeDeclaration.Format = format.GetString();
+                }
+
                 if (schema.JsonElement.TryGetProperty("type", out JsonElement type))
                 {
                     ValidateStringOrArray(type);
-
-                    if (schema.JsonElement.TryGetProperty("format", out JsonElement format))
-                    {
-                        ValidateString(format);
-                        typeDeclaration.Format = format.GetString();
-                    }
 
                     if (type.ValueKind == JsonValueKind.Array)
                     {

@@ -229,25 +229,46 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         /// <param name="type">The type for which to get the type declaration.</param>
         /// <param name="format">The format for which to get the type declaration.</param>
         /// <returns>The <see cref="TypeDeclaration"/> corresponding to the type and optional format.</returns>
-        public static TypeDeclaration GetTypeFor(string type, string? format)
+        public static TypeDeclaration GetTypeFor(string? type, string? format)
         {
             return type switch
             {
                 "null" => NullTypeDeclaration,
-                "integer" => GetIntegerFor(format),
-                "number" => GetNumberFor(format),
+                "integer" => GetIntegerFor(format) ?? IntegerTypeDeclaration,
+                "number" => GetNumberFor(format) ?? NumberTypeDeclaration,
                 "boolean" => ClrBoolTypeDeclaration,
-                "string" => GetStringFor(format),
+                "string" => GetStringFor(format) ?? ClrStringTypeDeclaration,
+                null => GetIntegerFor(format) ?? GetNumberFor(format) ?? GetStringFor(format) ?? throw new InvalidOperationException($"Unsupported format declaration {format}."),
                 _ => throw new InvalidOperationException($"Unsupported type declaration {type}."),
             };
         }
 
-        private static TypeDeclaration GetStringFor(string? format)
+        /// <summary>
+        /// Gets a value indicating whether the supplied format is a string format.
+        /// </summary>
+        /// <param name="format">The format to check.</param>
+        /// <returns>True if this is a string format.</returns>
+        public static bool IsStringFormat(string format)
+        {
+            return GetStringFor(format) is not null;
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether the supplied format is a numeric format.
+        /// </summary>
+        /// <param name="format">The format to check.</param>
+        /// <returns>True if this is a numeric format.</returns>
+        public static bool IsNumericFormat(string format)
+        {
+            return (GetNumberFor(format) ?? GetIntegerFor(format)) is not null;
+        }
+
+        private static TypeDeclaration? GetStringFor(string? format)
         {
             return format switch
             {
                 "date" => ClrDateTypeDeclaration,
-                "datetime" => ClrDateTimeTypeDeclaration,
+                "date-time" => ClrDateTimeTypeDeclaration,
                 "time" => ClrTimeTypeDeclaration,
                 "duration" => ClrDurationTypeDeclaration,
                 "email" => EmailTypeDeclaration,
@@ -260,27 +281,27 @@ namespace Menes.JsonSchema.TypeBuilder.Model
                 "uri" => ClrUriTypeDeclaration,
                 "iri" => ClrIriTypeDeclaration,
                 "iri-reference" => ClrIriReferenceTypeDeclaration,
-                _ => ClrStringTypeDeclaration,
+                _ => null,
             };
         }
 
-        private static TypeDeclaration GetNumberFor(string? format)
+        private static TypeDeclaration? GetNumberFor(string? format)
         {
             return format switch
             {
                 "single" => ClrFloatTypeDeclaration,
                 "double" => ClrDoubleTypeDeclaration,
-                _ => NumberTypeDeclaration,
+                _ => null,
             };
         }
 
-        private static TypeDeclaration GetIntegerFor(string? format)
+        private static TypeDeclaration? GetIntegerFor(string? format)
         {
             return format switch
             {
                 "int32" => ClrInt32TypeDeclaration,
                 "int64" => ClrInt64TypeDeclaration,
-                _ => IntegerTypeDeclaration,
+                _ => null,
             };
         }
     }

@@ -239,7 +239,7 @@ namespace Menes.JsonSchema.TypeBuilder
                         TargetType = TypeDeclarations.ClrDateTypeDeclaration,
                     });
             }
-            else if (formatString is string && formatString == "datetime")
+            else if (formatString is string && formatString == "date-time")
             {
                 typeDeclaration.AddConversionOperator(
                     new ConversionOperatorDeclaration

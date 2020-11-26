@@ -22,6 +22,7 @@ namespace Menes.JsonSchema.TypeBuilder
             memberBuilder.AppendLine("Menes.ValidationResult result = validationResult ?? Menes.ValidationResult.ValidResult;");
 
             this.BuildTypeValidations(typeDeclaration, memberBuilder);
+            this.BuildFormatValidations(typeDeclaration, memberBuilder);
 
             this.BuildConstValidation(typeDeclaration, memberBuilder);
 
@@ -44,6 +45,38 @@ namespace Menes.JsonSchema.TypeBuilder
             memberBuilder.AppendLine("return result;");
 
             this.BuildValidationLocalFunctions(typeDeclaration, memberBuilder);
+        }
+
+        private void BuildFormatValidations(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
+        {
+            if (typeDeclaration.Format is null)
+            {
+                return;
+            }
+
+            if (TypeDeclarations.IsNumericFormat(typeDeclaration.Format))
+            {
+                memberBuilder.AppendLine($"if (this.IsNumber)");
+                memberBuilder.AppendLine("{");
+            }
+            else if (TypeDeclarations.IsStringFormat(typeDeclaration.Format))
+            {
+                memberBuilder.AppendLine($"if (this.IsString)");
+                memberBuilder.AppendLine("{");
+            }
+            else
+            {
+                return;
+            }
+
+            TypeDeclaration type = TypeDeclarations.GetTypeFor(null, typeDeclaration.Format);
+            memberBuilder.AppendLine($"result = this.As<{type.FullyQualifiedDotNetTypeName}>().Validate(result);");
+            memberBuilder.AppendLine("if (level == Menes.ValidationLevel.Flag && !result.Valid)");
+            memberBuilder.AppendLine("{");
+            memberBuilder.AppendLine("    return result;");
+            memberBuilder.AppendLine("}");
+
+            memberBuilder.AppendLine("}");
         }
 
         private void BuildConstValidation(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)

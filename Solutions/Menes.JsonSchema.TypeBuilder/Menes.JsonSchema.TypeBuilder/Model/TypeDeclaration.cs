@@ -400,6 +400,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
                        this.Enum is null &&
                        this.ExclusiveMaximum is null &&
                        this.ExclusiveMinimum is null &&
+                       this.Format is null &&
                        this.IfThenElse is null &&
                        this.Items is null &&
                        this.MaxContains is null &&
@@ -450,6 +451,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
                        this.Enum is null &&
                        this.ExclusiveMaximum is null &&
                        this.ExclusiveMinimum is null &&
+                       this.Format is null &&
                        this.IfThenElse is null &&
                        this.Items is null &&
                        this.MaxContains is null &&
@@ -498,6 +500,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
                        this.Contains is null &&
                        this.DependentRequired is null &&
                        this.Enum is null &&
+                       this.Format is null &&
                        this.ExclusiveMaximum is null &&
                        this.ExclusiveMinimum is null &&
                        this.IfThenElse is null &&
@@ -1665,6 +1668,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
             {
                 DotnetTypeName = this.DotnetTypeName,
                 Type = this.Type,
+                Format = this.Format,
                 Parent = this.Parent,
                 IsLowered = true,
             };

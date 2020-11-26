@@ -99,6 +99,15 @@ namespace Menes.JsonSchema.SpecGenerator
             {
                 yield return (inputFile, this.GetOutputFeatureFileFor(inputFile));
             }
+
+            string optionalDirectory = Path.Combine(this.TestsDirectory, "optional");
+            if (Directory.Exists(optionalDirectory))
+            {
+                foreach (string inputFile in Directory.EnumerateFiles(this.TestsDirectory))
+                {
+                    yield return (inputFile, this.GetOutputFeatureFileFor(inputFile));
+                }
+            }
         }
 
         /// <inheritdoc/>
