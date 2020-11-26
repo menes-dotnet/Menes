@@ -67,6 +67,7 @@ namespace Menes.JsonSchema.TypeBuilder
             this.BuildValidateMethod(typeDeclaration, memberBuilder);
             this.BuildWriteToMethod(typeDeclaration, memberBuilder);
             this.BuildIsAndAsMethods(typeDeclaration, memberBuilder);
+            this.BuildEqualsMethod(typeDeclaration, memberBuilder);
             this.BuildTryGetProperty(typeDeclaration, memberBuilder);
             this.BuildPublicGetPropertyAtIndex(typeDeclaration, memberBuilder);
             this.BuildSetPropertyMethods(typeDeclaration, memberBuilder);
@@ -174,6 +175,101 @@ namespace Menes.JsonSchema.TypeBuilder
             }
 
             return isFirstParameter;
+        }
+
+        private void BuildEqualsMethod(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
+        {
+            memberBuilder.AppendLine("/// <inheritdoc/>");
+            memberBuilder.AppendLine("public bool Equals<T>(T other)");
+            memberBuilder.AppendLine("    where T : struct, Menes.IJsonValue");
+            memberBuilder.AppendLine("{");
+
+            if (typeDeclaration.IsConcreteType)
+            {
+                if (typeDeclaration.IsStringType)
+                {
+                    memberBuilder.AppendLine("    if (!other.IsString)");
+                    memberBuilder.AppendLine("    {");
+                    memberBuilder.AppendLine("        return false;");
+                    memberBuilder.AppendLine("    }");
+                    memberBuilder.AppendLine("    return ((Menes.JsonString)this).Equals(other);");
+                }
+
+                if (typeDeclaration.IsBooleanType)
+                {
+                    memberBuilder.AppendLine("    if (!other.IsBoolean)");
+                    memberBuilder.AppendLine("    {");
+                    memberBuilder.AppendLine("        return false;");
+                    memberBuilder.AppendLine("    }");
+                    memberBuilder.AppendLine("    return ((Menes.JsonBoolean)this).Equals(other);");
+                }
+
+                if (typeDeclaration.IsNumericType)
+                {
+                    memberBuilder.AppendLine("    if (!other.IsNumber)");
+                    memberBuilder.AppendLine("    {");
+                    memberBuilder.AppendLine("        return false;");
+                    memberBuilder.AppendLine("    }");
+                    memberBuilder.AppendLine("    return ((Menes.JsonNumber)this).Equals(other);");
+                }
+
+                if (typeDeclaration.IsArrayTypeDeclaration)
+                {
+                    memberBuilder.AppendLine("    if (!other.IsArray)");
+                    memberBuilder.AppendLine("    {");
+                    memberBuilder.AppendLine("        return false;");
+                    memberBuilder.AppendLine("    }");
+
+                    memberBuilder.AppendLine("MenesArrayEnumerator firstEnumerator = this.EnumerateArray();");
+                    memberBuilder.AppendLine("Menes.JsonAny.MenesArrayEnumerator secondEnumerator = other.As<Menes.JsonAny>().EnumerateArray();");
+                    memberBuilder.AppendLine("while (firstEnumerator.MoveNext())");
+                    memberBuilder.AppendLine("{");
+                    memberBuilder.AppendLine("    if (!secondEnumerator.MoveNext())");
+                    memberBuilder.AppendLine("    {");
+                    memberBuilder.AppendLine("        // We've run out of items in the second enumerator.");
+                    memberBuilder.AppendLine("        return false;");
+                    memberBuilder.AppendLine("    }");
+                    memberBuilder.AppendLine("    if (!firstEnumerator.Current.Equals(secondEnumerator.Current))");
+                    memberBuilder.AppendLine("    {");
+                    memberBuilder.AppendLine("        return false;");
+                    memberBuilder.AppendLine("    }");
+                    memberBuilder.AppendLine("}");
+                    memberBuilder.AppendLine("// If we have extra items in the second enumerator, return false.");
+                    memberBuilder.AppendLine("return !secondEnumerator.MoveNext();");
+                }
+
+                if (typeDeclaration.IsObjectTypeDeclaration)
+                {
+                    memberBuilder.AppendLine("    if (!other.IsObject)");
+                    memberBuilder.AppendLine("    {");
+                    memberBuilder.AppendLine("        return false;");
+                    memberBuilder.AppendLine("    }");
+                    memberBuilder.AppendLine("    var otherObject = Corvus.Extensions.CastTo<Menes.IJsonObject>.From(other);");
+                    memberBuilder.AppendLine("MenesPropertyEnumerator firstEnumerator = this.EnumerateObject();");
+                    memberBuilder.AppendLine("if (this.PropertyCount != otherObject.PropertyCount)");
+                    memberBuilder.AppendLine("{");
+                    memberBuilder.AppendLine("    return false;");
+                    memberBuilder.AppendLine("}");
+                    memberBuilder.AppendLine("while (firstEnumerator.MoveNext())");
+                    memberBuilder.AppendLine("{");
+                    memberBuilder.AppendLine("    if (!otherObject.TryGetProperty<Menes.JsonAny>(firstEnumerator.Current.NameAsMemory.Span, out Menes.JsonAny otherProperty))");
+                    memberBuilder.AppendLine("    {");
+                    memberBuilder.AppendLine("        return false;");
+                    memberBuilder.AppendLine("    }");
+                    memberBuilder.AppendLine("    if (!firstEnumerator.Current.Value<Menes.JsonAny>().Equals(otherProperty))");
+                    memberBuilder.AppendLine("    {");
+                    memberBuilder.AppendLine("        return false;");
+                    memberBuilder.AppendLine("    }");
+                    memberBuilder.AppendLine("}");
+                    memberBuilder.AppendLine("return true;");
+                }
+            }
+            else
+            {
+                memberBuilder.AppendLine("return false;");
+            }
+
+            memberBuilder.AppendLine("}");
         }
 
         private void BuildIsAndAsMethods(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)

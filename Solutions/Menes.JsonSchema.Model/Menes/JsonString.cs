@@ -193,6 +193,24 @@ namespace Menes
             return this.As<T>().Validate().Valid;
         }
 
+        /// <inheritdoc/>
+        public bool Equals<T>(T other)
+            where T : struct, IJsonValue
+        {
+            if (!other.IsString)
+            {
+                return false;
+            }
+
+            JsonString otherString = other.As<JsonString>();
+            if (!otherString.Validate().Valid)
+            {
+                return false;
+            }
+
+            return this.AsSpan().SequenceEqual(otherString.AsSpan());
+        }
+
         /// <inheritdoc />
         public ValidationResult Validate(ValidationResult? validationResult = null, ValidationLevel level = ValidationLevel.Flag, HashSet<string>? evaluatedProperties = null, Stack<string>? absoluteKeywordLocation = null, Stack<string>? instanceLocation = null)
         {

@@ -8,7 +8,7 @@ namespace Menes
     using System.Text.Json;
 
     /// <summary>
-    /// Represents the {}/true json type.
+    /// Represents the boolean json type.
     /// </summary>
     public readonly struct JsonBoolean : IJsonValue
     {
@@ -175,6 +175,18 @@ namespace Menes
         public override string ToString()
         {
             return this.IsNull ? "null" : this.GetBoolean().ToString();
+        }
+
+        /// <inheritdoc/>
+        public bool Equals<T>(T other)
+            where T : struct, IJsonValue
+        {
+            if (!other.IsBoolean)
+            {
+                return false;
+            }
+
+            return this == other.As<JsonBoolean>();
         }
     }
 }

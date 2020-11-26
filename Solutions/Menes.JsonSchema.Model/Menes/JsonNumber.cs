@@ -348,6 +348,24 @@ namespace Menes
             return this.As<T>().Validate(ValidationResult.ValidResult, ValidationLevel.Flag).Valid;
         }
 
+        /// <inheritdoc/>
+        public bool Equals<T>(T other)
+            where T : struct, IJsonValue
+        {
+            if (!other.IsString)
+            {
+                return false;
+            }
+
+            JsonNumber otherNumber = other.As<JsonNumber>();
+            if (!otherNumber.Validate().Valid)
+            {
+                return false;
+            }
+
+            return (double)this == otherNumber;
+        }
+
         /// <inheritdoc />
         public ValidationResult Validate(ValidationResult? validationResult = null, ValidationLevel level = ValidationLevel.Flag, HashSet<string>? evaluatedProperties = null, Stack<string>? absoluteKeywordLocation = null, Stack<string>? instanceLocation = null)
         {

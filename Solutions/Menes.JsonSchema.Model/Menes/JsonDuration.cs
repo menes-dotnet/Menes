@@ -9,7 +9,7 @@ namespace Menes
     using NodaTime;
 
     /// <summary>
-    /// Represents the {}/true json type.
+    /// Represents the duration json type.
     /// </summary>
     public readonly struct JsonDuration : IJsonValue
     {
@@ -115,12 +115,30 @@ namespace Menes
             return this.As<T>().Validate().Valid;
         }
 
+        /// <inheritdoc/>
+        public bool Equals<T>(T other)
+            where T : struct, IJsonValue
+        {
+            if (!other.IsString)
+            {
+                return false;
+            }
+
+            JsonDuration otherDuration = other.As<JsonDuration>();
+            if (!otherDuration.Validate().Valid)
+            {
+                return false;
+            }
+
+            return (Duration)this == otherDuration;
+        }
+
         /// <inheritdoc />
         public ValidationResult Validate(ValidationResult? validationResult = null, ValidationLevel level = ValidationLevel.Flag, HashSet<string>? evaluatedProperties = null, Stack<string>? absoluteKeywordLocation = null, Stack<string>? instanceLocation = null)
         {
             ValidationResult result = validationResult ?? ValidationResult.ValidResult;
 
-            if (this.HasJsonElement && this.JsonElement.ValueKind != JsonValueKind.True && this.JsonElement.ValueKind != JsonValueKind.False)
+            if (this.HasJsonElement && (this.JsonElement.ValueKind != JsonValueKind.String || this.Parse(this.JsonElement) is null))
             {
                 if (level >= ValidationLevel.Basic)
                 {
@@ -187,8 +205,12 @@ namespace Menes
             }
 
             NodaTime.Text.ParseResult<Duration> result = NodaTime.Text.DurationPattern.JsonRoundtrip.Parse(date);
-            result.TryGetValue(default, out Duration dateResult);
-            return dateResult;
+            if (result.TryGetValue(default, out Duration dateResult))
+            {
+                return dateResult;
+            }
+
+            return default;
         }
     }
 }

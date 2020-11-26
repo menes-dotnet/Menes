@@ -9,7 +9,7 @@ namespace Menes
     using System.Text.Json;
 
     /// <summary>
-    /// Represents the {}/true json type.
+    /// Represents the integer json type.
     /// </summary>
     public readonly struct JsonInteger : IJsonValue
     {
@@ -191,6 +191,24 @@ namespace Menes
             }
 
             return this.As<T>().Validate().Valid;
+        }
+
+        /// <inheritdoc/>
+        public bool Equals<T>(T other)
+            where T : struct, IJsonValue
+        {
+            if (!other.IsString)
+            {
+                return false;
+            }
+
+            JsonInteger otherInteger = other.As<JsonInteger>();
+            if (!otherInteger.Validate().Valid)
+            {
+                return false;
+            }
+
+            return (long)this == otherInteger;
         }
 
         /// <inheritdoc />

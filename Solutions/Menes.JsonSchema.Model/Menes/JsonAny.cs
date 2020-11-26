@@ -169,6 +169,69 @@ namespace Menes
             return JsonValue.As<JsonAny, T>(this).Validate(ValidationResult.ValidResult, ValidationLevel.Flag).Valid;
         }
 
+        /// <inheritdoc/>
+        public bool Equals<T>(T other)
+            where T : struct, IJsonValue
+        {
+            if (this.IsString)
+            {
+                return this.As<JsonString>().Equals(other);
+            }
+
+            if (this.IsBoolean)
+            {
+                return this.As<JsonBoolean>().Equals(other);
+            }
+
+            if (this.IsInteger)
+            {
+                return this.As<JsonInteger>().Equals(other);
+            }
+
+            if (this.IsNull)
+            {
+                return other.IsNull;
+            }
+
+            if (this.IsNumber)
+            {
+                return this.As<JsonNumber>().Equals(other);
+            }
+
+            if (this.IsArray)
+            {
+                if (!other.IsArray)
+                {
+                    return false;
+                }
+
+                if (typeof(T) == typeof(JsonAny))
+                {
+                    return this.ArrayEqual(CastTo<JsonAny>.From(other));
+                }
+
+                // Reverse the order so we can get the type matching.
+                return other.Equals(this);
+            }
+
+            if (this.IsObject)
+            {
+                if (!other.IsObject)
+                {
+                    return false;
+                }
+
+                if (typeof(T) == typeof(JsonAny))
+                {
+                    return this.ObjectEqual(CastTo<JsonAny>.From(other));
+                }
+
+                return other.Equals(this);
+            }
+
+            return false;
+        }
+
         /// <summary>
         /// Enumerate the array.
         /// </summary>
@@ -407,6 +470,54 @@ namespace Menes
 
             property = default;
             return false;
+        }
+
+        private bool ObjectEqual(JsonAny other)
+        {
+            MenesPropertyEnumerator firstEnumerator = this.EnumerateObject();
+
+            if (this.PropertyCount != other.PropertyCount)
+            {
+                return false;
+            }
+
+            while (firstEnumerator.MoveNext())
+            {
+                if (!other.TryGetProperty<JsonAny>(firstEnumerator.Current.NameAsMemory.Span, out JsonAny otherProperty))
+                {
+                    return false;
+                }
+
+                if (!firstEnumerator.Current.Value<JsonAny>().Equals(otherProperty))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        private bool ArrayEqual(JsonAny other)
+        {
+            MenesArrayEnumerator firstEnumerator = this.EnumerateArray();
+            MenesArrayEnumerator secondEnumerator = other.EnumerateArray();
+
+            while (firstEnumerator.MoveNext())
+            {
+                if (!secondEnumerator.MoveNext())
+                {
+                    // We've run out of items in the second enumerator.
+                    return false;
+                }
+
+                if (!firstEnumerator.Current.Equals(secondEnumerator.Current))
+                {
+                    return false;
+                }
+            }
+
+            // If we have extra items in the second enumerator, return false.
+            return !secondEnumerator.MoveNext();
         }
 
         /// <summary>

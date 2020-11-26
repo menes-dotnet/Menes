@@ -9,7 +9,7 @@ namespace Menes
     using System.Text.Json;
 
     /// <summary>
-    /// Represents the {}/true json type.
+    /// Represents the uuid json type.
     /// </summary>
     public readonly struct JsonGuid : IJsonValue
     {
@@ -88,7 +88,7 @@ namespace Menes
         /// <returns>The <see cref="bool"/>.</returns>
         public Guid GetGuid()
         {
-            return this.HasJsonElement ? this.JsonElement.GetGuid() : (this.value ?? Guid.Empty);
+            return (this.HasJsonElement ? this.Parse(this.JsonElement) : this.value) ?? Guid.Empty;
         }
 
         /// <inheritdoc />
@@ -115,12 +115,30 @@ namespace Menes
             return this.As<T>().Validate().Valid;
         }
 
+        /// <inheritdoc/>
+        public bool Equals<T>(T other)
+            where T : struct, IJsonValue
+        {
+            if (!other.IsString)
+            {
+                return false;
+            }
+
+            JsonGuid otherGuid = other.As<JsonGuid>();
+            if (!otherGuid.Validate().Valid)
+            {
+                return false;
+            }
+
+            return (Guid)this == otherGuid;
+        }
+
         /// <inheritdoc />
         public ValidationResult Validate(ValidationResult? validationResult = null, ValidationLevel level = ValidationLevel.Flag, HashSet<string>? evaluatedProperties = null, Stack<string>? absoluteKeywordLocation = null, Stack<string>? instanceLocation = null)
         {
             ValidationResult result = validationResult ?? ValidationResult.ValidResult;
 
-            if (this.HasJsonElement && this.JsonElement.ValueKind != JsonValueKind.True && this.JsonElement.ValueKind != JsonValueKind.False)
+            if (this.HasJsonElement && (this.JsonElement.ValueKind != JsonValueKind.String || this.Parse(this.JsonElement) is null))
             {
                 if (level >= ValidationLevel.Basic)
                 {
@@ -176,6 +194,16 @@ namespace Menes
         public override string ToString()
         {
             return this.IsNull ? "null" : this.GetGuid().ToString();
+        }
+
+        private Guid? Parse(JsonElement jsonElement)
+        {
+            if (this.JsonElement.TryGetGuid(out Guid guid))
+            {
+                return guid;
+            }
+
+            return default;
         }
     }
 }

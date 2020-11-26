@@ -192,7 +192,7 @@ namespace Menes.JsonSchema.TypeBuilder
 
         private void BuildArrayEnumerators(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
         {
-            if (!typeDeclaration.IsArrayTypeDeclaration  || typeDeclaration.IsObjectTypeDeclaration)
+            if (!typeDeclaration.IsArrayTypeDeclaration || typeDeclaration.IsObjectTypeDeclaration)
             {
                 // If we're not an array, don't generate these; but if we are an object too, we will have dealt with this
                 // in the object enumerator
@@ -202,6 +202,11 @@ namespace Menes.JsonSchema.TypeBuilder
             TypeDeclaration itemsType = this.GetItemsTypeFor(typeDeclaration);
 
             memberBuilder.AppendLine($"public {typeDeclaration.FullyQualifiedDotNetTypeName}.MenesArrayEnumerator GetEnumerator()");
+            memberBuilder.AppendLine("{");
+            memberBuilder.AppendLine($"    return new {typeDeclaration.FullyQualifiedDotNetTypeName}.MenesArrayEnumerator(this);");
+            memberBuilder.AppendLine("}");
+
+            memberBuilder.AppendLine($"public {typeDeclaration.FullyQualifiedDotNetTypeName}.MenesArrayEnumerator EnumerateArray()");
             memberBuilder.AppendLine("{");
             memberBuilder.AppendLine($"    return new {typeDeclaration.FullyQualifiedDotNetTypeName}.MenesArrayEnumerator(this);");
             memberBuilder.AppendLine("}");

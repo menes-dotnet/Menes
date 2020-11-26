@@ -14,12 +14,12 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         /// <summary>
         /// The {}/true type declaration.
         /// </summary>
-        public static readonly TypeDeclaration AnyTypeDeclaration = new TypeDeclaration(builtInType: true) { IsBooleanTrueType = true, DotnetTypeName = "Menes.JsonAny" };
+        public static readonly TypeDeclaration AnyTypeDeclaration = new TypeDeclaration(builtInType: true) { IsBooleanTrueSchema = true, DotnetTypeName = "Menes.JsonAny" };
 
         /// <summary>
         /// The not {}/false type declaration.
         /// </summary>
-        public static readonly TypeDeclaration NotTypeDeclaration = new TypeDeclaration(builtInType: true) { IsBooleanFalseType = true, DotnetTypeName = "Menes.JsonNotAny" };
+        public static readonly TypeDeclaration NotTypeDeclaration = new TypeDeclaration(builtInType: true) { IsBooleanFalseSchema = true, DotnetTypeName = "Menes.JsonNotAny" };
 
         /// <summary>
         /// The not {}/false type declaration.

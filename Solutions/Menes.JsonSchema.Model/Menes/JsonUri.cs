@@ -117,12 +117,30 @@ namespace Menes
             return this.As<T>().Validate().Valid;
         }
 
+        /// <inheritdoc/>
+        public bool Equals<T>(T other)
+            where T : struct, IJsonValue
+        {
+            if (!other.IsString)
+            {
+                return false;
+            }
+
+            JsonUri otherUri = other.As<JsonUri>();
+            if (!otherUri.Validate().Valid)
+            {
+                return false;
+            }
+
+            return this.GetUri().Equals(otherUri.GetUri());
+        }
+
         /// <inheritdoc />
         public ValidationResult Validate(ValidationResult? validationResult = null, ValidationLevel level = ValidationLevel.Flag, HashSet<string>? evaluatedProperties = null, Stack<string>? absoluteKeywordLocation = null, Stack<string>? instanceLocation = null)
         {
             ValidationResult result = validationResult ?? ValidationResult.ValidResult;
 
-            if (this.HasJsonElement && this.JsonElement.ValueKind != JsonValueKind.True && this.JsonElement.ValueKind != JsonValueKind.False)
+            if (this.HasJsonElement && (this.JsonElement.ValueKind != JsonValueKind.String || !Uri.IsWellFormedUriString(this.JsonElement.GetString(), UriKind.RelativeOrAbsolute)))
             {
                 if (level >= ValidationLevel.Basic)
                 {
@@ -131,7 +149,7 @@ namespace Menes
 
                     instanceLocation?.TryPeek(out il);
                     absoluteKeywordLocation?.TryPeek(out akl);
-                    result.AddResult(valid: false, message: $"6.1.1.  type - should have been 'True' or 'False' but was '{this.JsonElement.ValueKind}'.", instanceLocation: il, absoluteKeywordLocation: akl);
+                    result.AddResult(valid: false, message: $"6.1.1.  type - should have been a URI string but was '{this.JsonElement.ValueKind}'.", instanceLocation: il, absoluteKeywordLocation: akl);
                 }
                 else
                 {

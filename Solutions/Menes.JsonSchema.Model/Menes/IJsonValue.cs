@@ -83,6 +83,15 @@ namespace Menes
             where T : struct, IJsonValue;
 
         /// <summary>
+        /// Determines if this value equals the other value.
+        /// </summary>
+        /// <typeparam name="T">The type of the other value with which to compare.</typeparam>
+        /// <param name="other">The other value with which to compare.</param>
+        /// <returns>True if they are equal.</returns>
+        bool Equals<T>(T other)
+            where T : struct, IJsonValue;
+
+        /// <summary>
         /// Writes the value to a <see cref="Utf8JsonWriter"/>.
         /// </summary>
         /// <param name="writer">The output to which to write the Any.</param>

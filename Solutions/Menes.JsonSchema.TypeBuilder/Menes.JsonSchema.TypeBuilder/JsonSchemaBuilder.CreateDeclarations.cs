@@ -447,11 +447,11 @@ namespace Menes.JsonSchema.TypeBuilder
         {
             if (schema.JsonElement.ValueKind == JsonValueKind.True)
             {
-                typeDeclaration.IsBooleanTrueType = true;
+                typeDeclaration.IsBooleanTrueSchema = true;
             }
             else if (schema.JsonElement.ValueKind == JsonValueKind.False)
             {
-                typeDeclaration.IsBooleanFalseType = true;
+                typeDeclaration.IsBooleanFalseSchema = true;
             }
         }
 

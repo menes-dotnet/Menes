@@ -115,12 +115,30 @@ namespace Menes
             return this.As<T>().Validate().Valid;
         }
 
+        /// <inheritdoc/>
+        public bool Equals<T>(T other)
+            where T : struct, IJsonValue
+        {
+            if (!other.IsString)
+            {
+                return false;
+            }
+
+            JsonTime otherTime = other.As<JsonTime>();
+            if (!otherTime.Validate().Valid)
+            {
+                return false;
+            }
+
+            return (OffsetTime)this == otherTime;
+        }
+
         /// <inheritdoc />
         public ValidationResult Validate(ValidationResult? validationResult = null, ValidationLevel level = ValidationLevel.Flag, HashSet<string>? evaluatedProperties = null, Stack<string>? absoluteKeywordLocation = null, Stack<string>? instanceLocation = null)
         {
             ValidationResult result = validationResult ?? ValidationResult.ValidResult;
 
-            if (this.HasJsonElement && this.JsonElement.ValueKind != JsonValueKind.True && this.JsonElement.ValueKind != JsonValueKind.False)
+            if (this.HasJsonElement && (this.JsonElement.ValueKind != JsonValueKind.String || this.Parse(this.JsonElement) is null))
             {
                 if (level >= ValidationLevel.Basic)
                 {
@@ -187,8 +205,12 @@ namespace Menes
             }
 
             NodaTime.Text.ParseResult<OffsetTime> result = NodaTime.Text.OffsetTimePattern.ExtendedIso.Parse(date);
-            result.TryGetValue(default, out OffsetTime dateResult);
-            return dateResult;
+            if (result.TryGetValue(default, out OffsetTime dateResult))
+            {
+                return dateResult;
+            }
+
+            return default;
         }
     }
 }

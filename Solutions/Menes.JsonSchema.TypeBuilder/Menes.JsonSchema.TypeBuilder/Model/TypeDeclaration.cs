@@ -87,12 +87,12 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         /// <summary>
         /// Gets or sets a value indicating whether this is a boolean true type.
         /// </summary>
-        public bool IsBooleanTrueType { get; set; }
+        public bool IsBooleanTrueSchema { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this is a boolean false type.
         /// </summary>
-        public bool IsBooleanFalseType { get; set; }
+        public bool IsBooleanFalseSchema { get; set; }
 
         /// <summary>
         /// Gets or sets the type array for this type declaration.
@@ -232,7 +232,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
             {
                 // The only case where we don't allow additional properties
                 if (this.AdditionalProperties is not null &&
-                    this.AdditionalProperties.IsBooleanFalseType)
+                    this.AdditionalProperties.IsBooleanFalseSchema)
                 {
                     return false;
                 }
@@ -244,7 +244,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         /// <summary>
         /// Gets a value indicating whether this is a boolean schema.
         /// </summary>
-        public bool IsBooleanSchema => this.IsBooleanFalseType || this.IsBooleanTrueType;
+        public bool IsBooleanSchema => this.IsBooleanFalseSchema || this.IsBooleanTrueSchema;
 
         /// <summary>
         /// Gets a value indicating whether this type has been lowered.
@@ -552,6 +552,17 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         }
 
         /// <summary>
+        /// Gets a value indicating whether this is a numeric type.
+        /// </summary>
+        public bool IsBooleanType
+        {
+            get
+            {
+                return this.Type is not null && this.Type.Contains("boolean");
+            }
+        }
+
+        /// <summary>
         /// Add a conversion operator.
         /// </summary>
         /// <param name="conversionOperatorDeclaration">The operator to add.</param>
@@ -846,13 +857,13 @@ namespace Menes.JsonSchema.TypeBuilder.Model
             }
 
             // We always specialise the {} type.
-            if (loweredOther.IsBooleanTrueType)
+            if (loweredOther.IsBooleanTrueSchema)
             {
                 return true;
             }
 
             // Can never specialise the not type
-            if (loweredOther.IsBooleanFalseType)
+            if (loweredOther.IsBooleanFalseSchema)
             {
                 return false;
             }
@@ -1623,13 +1634,13 @@ namespace Menes.JsonSchema.TypeBuilder.Model
                 return this.lowered;
             }
 
-            if (this.IsBooleanTrueType)
+            if (this.IsBooleanTrueSchema)
             {
                 this.lowered = TypeDeclarations.AnyTypeDeclaration;
                 return this.lowered;
             }
 
-            if (this.IsBooleanFalseType)
+            if (this.IsBooleanFalseSchema)
             {
                 this.lowered = TypeDeclarations.NotTypeDeclaration;
                 return this.lowered;

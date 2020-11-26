@@ -158,6 +158,13 @@ namespace Menes
             return JsonValue.As<JsonNotAny, T>(this).Validate(ValidationResult.ValidResult, ValidationLevel.Flag).Valid;
         }
 
+        /// <inheritdoc/>
+        public bool Equals<T>(T other)
+            where T : struct, IJsonValue
+        {
+            return typeof(T) == typeof(JsonNotAny);
+        }
+
         /// <summary>
         /// Enumerate the array.
         /// </summary>

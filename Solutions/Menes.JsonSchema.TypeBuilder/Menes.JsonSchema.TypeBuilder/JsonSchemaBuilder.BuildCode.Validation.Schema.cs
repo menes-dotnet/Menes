@@ -148,11 +148,95 @@ namespace Menes.JsonSchema.TypeBuilder
             }
             else if (value.ValueKind == JsonValueKind.Array)
             {
-                throw new NotImplementedException();
+                memberBuilder.AppendLine("if (!this.IsArray)");
+                memberBuilder.AppendLine("{");
+                this.WriteError($"6.1.3. const - does not match const value {value.GetRawText()}", memberBuilder);
+                memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.Valid)");
+                memberBuilder.AppendLine("        {");
+                memberBuilder.AppendLine("            return result;");
+                memberBuilder.AppendLine("        }");
+                memberBuilder.AppendLine("}");
+                memberBuilder.AppendLine("else");
+                memberBuilder.AppendLine("{");
+                memberBuilder.AppendLine("    var firstEnumerator = _MenesConstValue.EnumerateArray();");
+                memberBuilder.AppendLine("    var secondEnumerator = this.EnumerateArray();");
+                memberBuilder.AppendLine("    bool failed = false;");
+                memberBuilder.AppendLine("   while(firstEnumerator.MoveNext())");
+                memberBuilder.AppendLine("   {");
+
+                // If we can't move the second enumerator on, we've run out of items.
+                memberBuilder.AppendLine("       if (!secondEnumerator.MoveNext())");
+                memberBuilder.AppendLine("       {");
+                this.WriteError($"6.1.3. const - does not match const value {value.GetRawText()}", memberBuilder);
+                memberBuilder.AppendLine("           if (level == Menes.ValidationLevel.Flag)");
+                memberBuilder.AppendLine("           {");
+                memberBuilder.AppendLine("               return result;");
+                memberBuilder.AppendLine("           }");
+                memberBuilder.AppendLine("           else");
+                memberBuilder.AppendLine("           {");
+                memberBuilder.AppendLine("                failed = true;");
+                memberBuilder.AppendLine("           }");
+                memberBuilder.AppendLine("       }");
+                memberBuilder.AppendLine("       if (!firstEnumerator.Current.Equals(secondEnumerator.Current))");
+                memberBuilder.AppendLine("       {");
+                this.WriteError($"6.1.3. const - does not match const value {value.GetRawText()}", memberBuilder);
+                memberBuilder.AppendLine("           if (level == Menes.ValidationLevel.Flag)");
+                memberBuilder.AppendLine("           {");
+                memberBuilder.AppendLine("               return result;");
+                memberBuilder.AppendLine("           }");
+                memberBuilder.AppendLine("           else");
+                memberBuilder.AppendLine("           {");
+                memberBuilder.AppendLine("                failed = true;");
+                memberBuilder.AppendLine("           }");
+                memberBuilder.AppendLine("       }");
+
+                memberBuilder.AppendLine("   }");
+
+                memberBuilder.AppendLine("if (!failed)");
+                memberBuilder.AppendLine("{");
+
+                // we can still move the second enumerator on, having got to the end of the first, so we've failed.
+                memberBuilder.AppendLine("    if (secondEnumerator.MoveNext())");
+                memberBuilder.AppendLine("    {");
+                this.WriteError($"6.1.3. const - does not match const value {value.GetRawText()}", memberBuilder);
+                memberBuilder.AppendLine("           if (level == Menes.ValidationLevel.Flag && !result.Valid)");
+                memberBuilder.AppendLine("           {");
+                memberBuilder.AppendLine("               return result;");
+                memberBuilder.AppendLine("           }");
+                memberBuilder.AppendLine("           else");
+                memberBuilder.AppendLine("           {");
+                memberBuilder.AppendLine("                failed = true;");
+                memberBuilder.AppendLine("           }");
+                memberBuilder.AppendLine("    }");
+                memberBuilder.AppendLine("}");
+
+                memberBuilder.AppendLine("}");
             }
             else if (value.ValueKind == JsonValueKind.Object)
             {
-                throw new NotImplementedException();
+                memberBuilder.AppendLine("if (!this.IsObject)");
+                memberBuilder.AppendLine("{");
+                this.WriteError($"6.1.3. const - does not match const value {value.GetRawText()}", memberBuilder);
+                memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.Valid)");
+                memberBuilder.AppendLine("        {");
+                memberBuilder.AppendLine("            return result;");
+                memberBuilder.AppendLine("        }");
+                memberBuilder.AppendLine("}");
+                memberBuilder.AppendLine("else");
+                memberBuilder.AppendLine("{");
+                memberBuilder.AppendLine("    if (!this.Equals(_MenesConstValue))");
+                memberBuilder.AppendLine("    {");
+                this.WriteError($"6.1.3. const - does not match const value {value.GetRawText()}", memberBuilder);
+                memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.Valid)");
+                memberBuilder.AppendLine("        {");
+                memberBuilder.AppendLine("            return result;");
+                memberBuilder.AppendLine("        }");
+                memberBuilder.AppendLine("    }");
+                memberBuilder.AppendLine("    else");
+                memberBuilder.AppendLine("    {");
+                this.WriteSuccess(memberBuilder);
+                memberBuilder.AppendLine("    }");
+                memberBuilder.AppendLine("}");
             }
         }
 

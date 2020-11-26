@@ -163,6 +163,18 @@ namespace Menes
             return JsonValue.As<JsonNull, T>(this).Validate(ValidationResult.ValidResult, ValidationLevel.Flag).Valid;
         }
 
+        /// <inheritdoc/>
+        public bool Equals<T>(T other)
+            where T : struct, IJsonValue
+        {
+            if (!other.IsNull)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
         /// <summary>
         /// Enumerate the array.
         /// </summary>
