@@ -135,6 +135,66 @@ namespace Menes
             }
         }
 
+        /// <inheritdoc/>
+        public bool HasProperty(ReadOnlySpan<char> propertyName)
+        {
+            if (!this.IsObject)
+            {
+                return false;
+            }
+
+            if (this.HasJsonElement && this.JsonElement.TryGetProperty(propertyName, out _))
+            {
+                return true;
+            }
+            else if (this.value is IJsonObject jobject)
+            {
+                return jobject.HasProperty(propertyName);
+            }
+
+            return false;
+        }
+
+        /// <inheritdoc/>
+        public bool HasProperty(string propertyName)
+        {
+            if (!this.IsObject)
+            {
+                return false;
+            }
+
+            if (this.HasJsonElement && this.JsonElement.TryGetProperty(propertyName, out _))
+            {
+                return true;
+            }
+            else if (this.value is IJsonObject jobject)
+            {
+                return jobject.HasProperty(propertyName);
+            }
+
+            return false;
+        }
+
+        /// <inheritdoc/>
+        public bool HasProperty(ReadOnlySpan<byte> utf8PropertyName)
+        {
+            if (!this.IsObject)
+            {
+                return false;
+            }
+
+            if (this.HasJsonElement && this.JsonElement.TryGetProperty(utf8PropertyName, out _))
+            {
+                return true;
+            }
+            else if (this.value is IJsonObject jobject)
+            {
+                return jobject.HasProperty(utf8PropertyName);
+            }
+
+            return false;
+        }
+
         /// <inheritdoc />
         public T As<T>()
             where T : struct, IJsonValue

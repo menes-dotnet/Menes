@@ -757,6 +757,33 @@ namespace Menes.JsonSchema.TypeBuilder
                 return;
             }
 
+            if (typeDeclaration.DependentRequired is Dictionary<string, List<string>> dependentRequired)
+            {
+                memberBuilder.AppendLine("if (this.IsObject)");
+                memberBuilder.AppendLine("{");
+
+                foreach (KeyValuePair<string, List<string>> dr in dependentRequired)
+                {
+                    memberBuilder.AppendLine($"if (this.HasProperty({Formatting.FormatLiteralOrNull(dr.Key, true)}))");
+                    memberBuilder.AppendLine("{");
+                    foreach (string required in dr.Value)
+                    {
+                        memberBuilder.AppendLine($"if (!this.HasProperty({Formatting.FormatLiteralOrNull(required, true)}))");
+                        memberBuilder.AppendLine("{");
+                        this.WriteError($"6.5.4.  dependentRequired - because you have property {dr.Key} you must have property {required}.", memberBuilder);
+                        memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.Valid)");
+                        memberBuilder.AppendLine("        {");
+                        memberBuilder.AppendLine("            return result;");
+                        memberBuilder.AppendLine("        }");
+                        memberBuilder.AppendLine("}");
+                    }
+
+                    memberBuilder.AppendLine("}");
+                }
+
+                memberBuilder.AppendLine("}");
+            }
+
             if (typeDeclaration.Properties is not null)
             {
                 int index = 0;

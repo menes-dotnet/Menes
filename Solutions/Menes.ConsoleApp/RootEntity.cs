@@ -4,20 +4,20 @@
 #pragma warning disable
 namespace Driver.GeneratedTypes
 {
-    public readonly struct RootEntity : Menes.IJsonValue, Menes.IJsonArray<RootEntity, Menes.JsonAny>
+    public readonly struct RootEntity : Menes.IJsonObject<RootEntity>
     {
         public static readonly RootEntity Null = default(RootEntity);
         private readonly System.Text.Json.JsonElement _menesJsonElementBacking;
-        private readonly System.Collections.Immutable.ImmutableArray<Menes.JsonAny>? _menesArrayValueBacking;
+        private readonly System.Collections.Immutable.ImmutableArray<Menes.AdditionalProperty<Menes.JsonAny>> _menesAdditionalPropertiesBacking;
         public RootEntity(System.Text.Json.JsonElement jsonElement)
         {
             this._menesJsonElementBacking = jsonElement;
-            this._menesArrayValueBacking = default;
+            this._menesAdditionalPropertiesBacking = System.Collections.Immutable.ImmutableArray<Menes.AdditionalProperty<Menes.JsonAny>>.Empty;
         }
-        public RootEntity(System.Collections.Immutable.ImmutableArray<Menes.JsonAny> value)
+        private RootEntity(in System.Collections.Immutable.ImmutableArray<Menes.AdditionalProperty<Menes.JsonAny>> _menesAdditionalPropertiesBacking)
         {
-            this._menesArrayValueBacking = value;
             this._menesJsonElementBacking = default;
+            this._menesAdditionalPropertiesBacking = _menesAdditionalPropertiesBacking;
         }
         /// <inheritdoc />
         public bool IsUndefined => !this.HasJsonElement && this.AllBackingFieldsAreNull();
@@ -39,25 +39,79 @@ namespace Driver.GeneratedTypes
         public bool HasJsonElement => this._menesJsonElementBacking.ValueKind != System.Text.Json.JsonValueKind.Undefined;
         /// <inheritdoc />
         public System.Text.Json.JsonElement JsonElement => this._menesJsonElementBacking;
+        public int PropertyCount
+        {
+            get
+            {
+                if (this.HasJsonElement)
+                {
+                    int jsonPropertyIndex = 0;
+                    foreach (var property in this.JsonElement.EnumerateObject())
+                    {
+                        jsonPropertyIndex++;
+                    }
+                    return jsonPropertyIndex;
+                }
+                else
+                {
+                    return this._menesAdditionalPropertiesBacking.Length;
+                }
+            }
+        }
         /// <inheritdoc />
         public Menes.ValidationResult Validate(Menes.ValidationResult? validationResult = null, Menes.ValidationLevel level = Menes.ValidationLevel.Flag, System.Collections.Generic.HashSet<string>? evaluatedProperties = null, System.Collections.Generic.Stack<string>? absoluteKeywordLocation = null, System.Collections.Generic.Stack<string>? instanceLocation = null)
         {
             evaluatedProperties = evaluatedProperties ?? new System.Collections.Generic.HashSet<string>();
             var composedEvaluatedProperties = new System.Collections.Generic.HashSet<string>();
             Menes.ValidationResult result = validationResult ?? Menes.ValidationResult.ValidResult;
-            if (this.IsArray)
+            if (this.IsObject)
             {
-                int arrayLength = 0;
-                int containsCount = 0;
-                var arrayEnumerator = this.EnumerateArray();
-                while (arrayEnumerator.MoveNext())
+                if (this.HasProperty("quux"))
                 {
-                    var containsResult = arrayEnumerator.Current.As<RootEntity.ContainsEntity>().Validate(null, level, evaluatedProperties, absoluteKeywordLocation, instanceLocation);
-                    if (containsResult.Valid)
+                    if (!this.HasProperty("foo"))
                     {
-                        containsCount++;
+                        if (level >= Menes.ValidationLevel.Basic)
+                        {
+                            string? il = null;
+                            string? akl = null;
+                            instanceLocation?.TryPeek(out il);
+                            absoluteKeywordLocation?.TryPeek(out akl);
+                            result.AddResult(valid: false, message: "6.5.4.  dependentRequired - because you have property quux you must have property foo.", instanceLocation: il, absoluteKeywordLocation: akl);
+                        }
+                        else
+                        {
+                            result.SetValid(false);
+                        }
+                        if (level == Menes.ValidationLevel.Flag && !result.Valid)
+                        {
+                            return result;
+                        }
                     }
-                    arrayLength++;
+                    if (!this.HasProperty("bar"))
+                    {
+                        if (level >= Menes.ValidationLevel.Basic)
+                        {
+                            string? il = null;
+                            string? akl = null;
+                            instanceLocation?.TryPeek(out il);
+                            absoluteKeywordLocation?.TryPeek(out akl);
+                            result.AddResult(valid: false, message: "6.5.4.  dependentRequired - because you have property quux you must have property bar.", instanceLocation: il, absoluteKeywordLocation: akl);
+                        }
+                        else
+                        {
+                            result.SetValid(false);
+                        }
+                        if (level == Menes.ValidationLevel.Flag && !result.Valid)
+                        {
+                            return result;
+                        }
+                    }
+                }
+            }
+            if (this.IsObject)
+            {
+                foreach (var property in this.EnumerateObject())
+                {
                 }
             }
             return result;
@@ -70,12 +124,12 @@ namespace Driver.GeneratedTypes
                 this.JsonElement.WriteTo(writer);
                 return;
             }
-            writer.WriteStartArray();
-            foreach (var item in this._menesArrayValueBacking)
+            writer.WriteStartObject();
+            foreach (var property in this._menesAdditionalPropertiesBacking)
             {
-                item.WriteTo(writer);
+                property.WriteTo(writer);
             }
-            writer.WriteEndArray();
+            writer.WriteEndObject();
         }
         /// <inheritdoc />
         public T As<T>()
@@ -103,412 +157,327 @@ namespace Driver.GeneratedTypes
         {
             return false;
         }
-        public RootEntity.MenesArrayEnumerator GetEnumerator()
+        /// <inheritdoc/>
+        public bool HasProperty(System.ReadOnlySpan<char> propertyName)
         {
-            return new RootEntity.MenesArrayEnumerator(this);
+            if (this.HasJsonElement && this.JsonElement.TryGetProperty(propertyName, out _))
+            {
+                return true;
+            }
+            else
+            {
+                foreach (var additionalProperty in this._menesAdditionalPropertiesBacking)
+                {
+                    if (additionalProperty.NameEquals(propertyName))
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
-        public RootEntity.MenesArrayEnumerator EnumerateArray()
+        /// <inheritdoc/>
+        public bool HasProperty(string propertyName)
         {
-            return new RootEntity.MenesArrayEnumerator(this);
+            if (this.HasJsonElement && this.JsonElement.TryGetProperty(propertyName, out _))
+            {
+                return true;
+            }
+            else
+            {
+                foreach (var additionalProperty in this._menesAdditionalPropertiesBacking)
+                {
+                    if (additionalProperty.NameEquals(propertyName))
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+        /// <inheritdoc/>
+        public bool HasProperty(System.ReadOnlySpan<byte> utf8PropertyName)
+        {
+            if (this.HasJsonElement && this.JsonElement.TryGetProperty(utf8PropertyName, out _))
+            {
+                return true;
+            }
+            else
+            {
+                foreach (var additionalProperty in this._menesAdditionalPropertiesBacking)
+                {
+                    if (additionalProperty.NameEquals(utf8PropertyName))
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+        /// <inheritdoc />
+        public bool TryGetProperty<T>(System.ReadOnlySpan<char> propertyName, out T property)
+            where T : struct, Menes.IJsonValue
+        {
+            if (this.HasJsonElement)
+            {
+                if (this.JsonElement.TryGetProperty(propertyName, out System.Text.Json.JsonElement value))
+                {
+                    property = Menes.JsonValue.As<T>(value);
+                    return true;
+                }
+                property = default;
+                return false;
+            }
+            foreach (var additionalProperty in this._menesAdditionalPropertiesBacking)
+            {
+                if (additionalProperty.NameEquals(propertyName))
+                {
+                    property = additionalProperty.Value.As<T>();
+                    return true;
+                }
+            }
+            property = default;
+            return false;
+        }
+        /// <inheritdoc />
+        public bool TryGetProperty<T>(string propertyName, out T property)
+            where T : struct, Menes.IJsonValue
+        {
+            if (this.HasJsonElement)
+            {
+                if (this.JsonElement.TryGetProperty(propertyName, out System.Text.Json.JsonElement value))
+                {
+                    property = Menes.JsonValue.As<T>(value);
+                    return true;
+                }
+                property = default;
+                return false;
+            }
+            foreach (var additionalProperty in this._menesAdditionalPropertiesBacking)
+            {
+                if (additionalProperty.NameEquals(propertyName))
+                {
+                    property = additionalProperty.Value.As<T>();
+                    return true;
+                }
+            }
+            property = default;
+            return false;
+        }
+        /// <inheritdoc />
+        public bool TryGetProperty<T>(System.ReadOnlySpan<byte> propertyName, out T property)
+            where T : struct, Menes.IJsonValue
+        {
+            if (this.HasJsonElement)
+            {
+                if (this.JsonElement.TryGetProperty(propertyName, out System.Text.Json.JsonElement value))
+                {
+                    property = Menes.JsonValue.As<T>(value);
+                    return true;
+                }
+                property = default;
+                return false;
+            }
+            foreach (var additionalProperty in this._menesAdditionalPropertiesBacking)
+            {
+                if (additionalProperty.NameEquals(propertyName))
+                {
+                    property = additionalProperty.Value.As<T>();
+                    return true;
+                }
+            }
+            property = default;
+            return false;
+        }
+        /// <inheritdoc />
+        public bool TryGetPropertyAtIndex(int index, out Menes.IProperty result)
+        {
+            var rc = this.TryGetPropertyAtIndex(index, out Menes.Property<RootEntity> prop);
+            result = prop;
+            return rc;
+        }
+        public RootEntity RemoveProperty(string propertyName)
+        {
+            return this.SetProperty(propertyName, Menes.JsonNull.Instance);
+        }
+        public RootEntity RemoveProperty(System.ReadOnlySpan<char> propertyName)
+        {
+            return this.SetProperty(propertyName, Menes.JsonNull.Instance);
+        }
+        public RootEntity RemoveProperty(System.ReadOnlySpan<byte> propertyName)
+        {
+            return this.SetProperty(propertyName, Menes.JsonNull.Instance);
+        }
+        public RootEntity SetProperty<T>(string name, T value)
+        where T : struct, Menes.IJsonValue
+        {
+            var propertyName = System.MemoryExtensions.AsSpan(name);
+            var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.AdditionalProperty<Menes.JsonAny>>();
+            bool added = false;
+            foreach (var property in this._menesAdditionalPropertiesBacking)
+            {
+                if (!property.NameEquals(propertyName))
+                {
+                    arrayBuilder.Add(property);
+                }
+                else
+                {
+                    arrayBuilder.Add(new Menes.AdditionalProperty<Menes.JsonAny>(propertyName, value.As<Menes.JsonAny>()));
+                    added = true;
+                }
+            }
+            if (!added)
+            {
+                arrayBuilder.Add(new Menes.AdditionalProperty<Menes.JsonAny>(propertyName, value.As<Menes.JsonAny>()));
+            }
+            return this.WithAdditionalProperties(arrayBuilder.ToImmutable());
+            return this;
+        }
+        public RootEntity SetProperty<T>(System.ReadOnlySpan<char> propertyName, T value)
+        where T : struct, Menes.IJsonValue
+        {
+            var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.AdditionalProperty<Menes.JsonAny>>();
+            bool added = false;
+            foreach (var property in this._menesAdditionalPropertiesBacking)
+            {
+                if (!property.NameEquals(propertyName))
+                {
+                    arrayBuilder.Add(property);
+                }
+                else
+                {
+                    arrayBuilder.Add(new Menes.AdditionalProperty<Menes.JsonAny>(propertyName, value.As<Menes.JsonAny>()));
+                    added = true;
+                }
+            }
+            if (!added)
+            {
+                arrayBuilder.Add(new Menes.AdditionalProperty<Menes.JsonAny>(propertyName, value.As<Menes.JsonAny>()));
+            }
+            return this.WithAdditionalProperties(arrayBuilder.ToImmutable());
+            return this;
+        }
+        public RootEntity SetProperty<T>(System.ReadOnlySpan<byte> utf8Name, T value)
+        where T : struct, Menes.IJsonValue
+        {
+            System.Span<char> name = stackalloc char[utf8Name.Length];
+            int writtenCount = System.Text.Encoding.UTF8.GetChars(utf8Name, name);
+            var propertyName = name.Slice(0, writtenCount);
+            var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.AdditionalProperty<Menes.JsonAny>>();
+            bool added = false;
+            foreach (var property in this._menesAdditionalPropertiesBacking)
+            {
+                if (!property.NameEquals(propertyName))
+                {
+                    arrayBuilder.Add(property);
+                }
+                else
+                {
+                    arrayBuilder.Add(new Menes.AdditionalProperty<Menes.JsonAny>(propertyName, value.As<Menes.JsonAny>()));
+                    added = true;
+                }
+            }
+            if (!added)
+            {
+                arrayBuilder.Add(new Menes.AdditionalProperty<Menes.JsonAny>(propertyName, value.As<Menes.JsonAny>()));
+            }
+            return this.WithAdditionalProperties(arrayBuilder.ToImmutable());
+            return this;
+        }
+        public RootEntity.MenesPropertyEnumerator GetEnumerator()
+        {
+            return new MenesPropertyEnumerator(this);
+        }
+        /// <summary>
+        /// Enumerate the properties in the object.
+        /// </summary>
+        /// <returns>The object enumerator.</returns>
+        public MenesPropertyEnumerator EnumerateObject()
+        {
+            return new MenesPropertyEnumerator(this);
         }
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
         {
             return this.GetEnumerator();
         }
-        System.Collections.Generic.IEnumerator<Menes.JsonAny> System.Collections.Generic.IEnumerable<Menes.JsonAny>.GetEnumerator()
+        System.Collections.Generic.IEnumerator<Menes.Property<RootEntity>> System.Collections.Generic.IEnumerable<Menes.Property<RootEntity>>.GetEnumerator()
         {
             return this.GetEnumerator();
         }
-        /// <inheritdoc />
-        public int GetArrayLength()
+        private TPropertyValue GetPropertyFromJsonElement<TPropertyValue>(System.ReadOnlySpan<byte> propertyName)
+            where TPropertyValue : struct, Menes.IJsonValue
         {
-            if (this.HasJsonElement)
-            {
-                return this.JsonElement.GetArrayLength();
-            }
-            return this._menesArrayValueBacking?.Length ?? 0;
+            return this.GetOptionalPropertyFromJsonElement<TPropertyValue>(propertyName) ?? default;
         }
-        /// <inheritdoc />
-        public T GetItemAtIndex<T>(int index)
-            where T : struct, Menes.IJsonValue
+        private TPropertyValue? GetOptionalPropertyFromJsonElement<TPropertyValue>(System.ReadOnlySpan<byte> propertyName)
+            where TPropertyValue : struct, Menes.IJsonValue
         {
-            if (this.HasJsonElement)
-            {
-                int currentIndex = 0;
-                foreach (var item in this.JsonElement.EnumerateArray())
-                {
-                    if (currentIndex == index)
-                    {
-                        return Menes.JsonValue.As<T>(item);
-                    }
-                }
-                throw new System.IndexOutOfRangeException();
-            }
-            if (this._menesArrayValueBacking is not null)
-            {
-                return this._menesArrayValueBacking.Value[index].As<T>();
-            }
-            return default;
-        }
-        public RootEntity Add<T1>(T1 item1)
-            where T1 : struct, Menes.IJsonValue
-        {
-            var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonAny>();
-            foreach (var oldItem in this._menesArrayValueBacking)
-            {
-                arrayBuilder.Add(oldItem);
-            }
-            arrayBuilder.Add(item1.As<Menes.JsonAny>());
-            return new RootEntity(arrayBuilder.ToImmutable());
-        }
-        public RootEntity Add<T1, T2>(T1 item1, T2 item2)
-            where T1 : struct, Menes.IJsonValue
-            where T2 : struct, Menes.IJsonValue
-        {
-            var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonAny>();
-            foreach (var oldItem in this._menesArrayValueBacking)
-            {
-                arrayBuilder.Add(oldItem);
-            }
-            arrayBuilder.Add(item1.As<Menes.JsonAny>());
-            arrayBuilder.Add(item2.As<Menes.JsonAny>());
-            return new RootEntity(arrayBuilder.ToImmutable());
-        }
-        public RootEntity Add<T1, T2, T3>(T1 item1, T2 item2, T3 item3)
-            where T1 : struct, Menes.IJsonValue
-            where T2 : struct, Menes.IJsonValue
-            where T3 : struct, Menes.IJsonValue
-        {
-            var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonAny>();
-            foreach (var oldItem in this._menesArrayValueBacking)
-            {
-                arrayBuilder.Add(oldItem);
-            }
-            arrayBuilder.Add(item1.As<Menes.JsonAny>());
-            arrayBuilder.Add(item2.As<Menes.JsonAny>());
-            arrayBuilder.Add(item3.As<Menes.JsonAny>());
-            return new RootEntity(arrayBuilder.ToImmutable());
-        }
-        public RootEntity Add<T1, T2, T3, T4>(T1 item1, T2 item2, T3 item3, T4 item4)
-            where T1 : struct, Menes.IJsonValue
-            where T2 : struct, Menes.IJsonValue
-            where T3 : struct, Menes.IJsonValue
-            where T4 : struct, Menes.IJsonValue
-        {
-            var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonAny>();
-            foreach (var oldItem in this._menesArrayValueBacking)
-            {
-                arrayBuilder.Add(oldItem);
-            }
-            arrayBuilder.Add(item1.As<Menes.JsonAny>());
-            arrayBuilder.Add(item2.As<Menes.JsonAny>());
-            arrayBuilder.Add(item3.As<Menes.JsonAny>());
-            arrayBuilder.Add(item4.As<Menes.JsonAny>());
-            return new RootEntity(arrayBuilder.ToImmutable());
-        }
-        public RootEntity Add<T>(params T[] items)
-            where T : struct, Menes.IJsonValue
-        {
-            var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonAny>();
-            foreach (var oldItem in this._menesArrayValueBacking)
-            {
-                arrayBuilder.Add(oldItem);
-            }
-            foreach (var item1 in items)
-            {
-                arrayBuilder.Add(item1.As<Menes.JsonAny>());
-            }
-            return new RootEntity(arrayBuilder.ToImmutable());
-        }
-        public RootEntity Insert<T>(int index, T item1)
-            where T : struct, Menes.IJsonValue
-        {
-            var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonAny>();
-            int currentIndex = 0;
-            bool inserted = false;
-            foreach (var oldItem in this._menesArrayValueBacking)
-            {
-                if (currentIndex == index)
-                {
-                    arrayBuilder.Add(item1.As<Menes.JsonAny>());
-                    inserted = true;
-                }
-                arrayBuilder.Add(oldItem);
-                currentIndex++;
-            }
-            if (!inserted)
-            {
-                throw new System.IndexOutOfRangeException($"The given index {index} was out of range.");
-            }
-            return new RootEntity(arrayBuilder.ToImmutable());
-        }
-        public RootEntity Insert<T1, T2>(int index, T1 item1, T2 item2)
-            where T1 : struct, Menes.IJsonValue
-            where T2 : struct, Menes.IJsonValue
-        {
-            var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonAny>();
-            int currentIndex = 0;
-            bool inserted = false;
-            foreach (var oldItem in this._menesArrayValueBacking)
-            {
-                if (currentIndex == index)
-                {
-                    arrayBuilder.Add(item1.As<Menes.JsonAny>());
-                    arrayBuilder.Add(item2.As<Menes.JsonAny>());
-                    inserted = true;
-                }
-                arrayBuilder.Add(oldItem);
-                currentIndex++;
-            }
-            if (!inserted)
-            {
-                throw new System.IndexOutOfRangeException($"The given index {index} was out of range.");
-            }
-            return new RootEntity(arrayBuilder.ToImmutable());
-        }
-        public RootEntity Insert<T1, T2, T3>(int index, T1 item1, T2 item2, T3 item3)
-            where T1 : struct, Menes.IJsonValue
-            where T2 : struct, Menes.IJsonValue
-            where T3 : struct, Menes.IJsonValue
-        {
-            var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonAny>();
-            int currentIndex = 0;
-            bool inserted = false;
-            foreach (var oldItem in this._menesArrayValueBacking)
-            {
-                if (currentIndex == index)
-                {
-                    arrayBuilder.Add(item1.As<Menes.JsonAny>());
-                    arrayBuilder.Add(item2.As<Menes.JsonAny>());
-                    arrayBuilder.Add(item3.As<Menes.JsonAny>());
-                    inserted = true;
-                }
-                arrayBuilder.Add(oldItem);
-                currentIndex++;
-            }
-            if (!inserted)
-            {
-                throw new System.IndexOutOfRangeException($"The given index {index} was out of range.");
-            }
-            return new RootEntity(arrayBuilder.ToImmutable());
-        }
-        public RootEntity Insert<T1, T2, T3, T4>(int index, T1 item1, T2 item2, T3 item3, T4 item4)
-            where T1 : struct, Menes.IJsonValue
-            where T2 : struct, Menes.IJsonValue
-            where T3 : struct, Menes.IJsonValue
-            where T4 : struct, Menes.IJsonValue
-        {
-            var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonAny>();
-            int currentIndex = 0;
-            bool inserted = false;
-            foreach (var oldItem in this._menesArrayValueBacking)
-            {
-                if (currentIndex == index)
-                {
-                    arrayBuilder.Add(item1.As<Menes.JsonAny>());
-                    arrayBuilder.Add(item2.As<Menes.JsonAny>());
-                    arrayBuilder.Add(item3.As<Menes.JsonAny>());
-                    arrayBuilder.Add(item4.As<Menes.JsonAny>());
-                    inserted = true;
-                }
-                arrayBuilder.Add(oldItem);
-                currentIndex++;
-            }
-            if (!inserted)
-            {
-                throw new System.IndexOutOfRangeException($"The given index {index} was out of range.");
-            }
-            return new RootEntity(arrayBuilder.ToImmutable());
-        }
-        public RootEntity Insert<T>(int index, params T[] items)
-            where T : struct, Menes.IJsonValue
-        {
-            var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonAny>();
-            int currentIndex = 0;
-            bool inserted = false;
-            foreach (var oldItem in this._menesArrayValueBacking)
-            {
-                if (currentIndex == index)
-                {
-                    foreach (var item1 in items)
-                    {
-                        arrayBuilder.Add(item1.As<Menes.JsonAny>());
-                    }
-                    inserted = true;
-                }
-                arrayBuilder.Add(oldItem);
-                currentIndex++;
-            }
-            if (!inserted)
-            {
-                throw new System.IndexOutOfRangeException($"The given index {index} was out of range.");
-            }
-            return new RootEntity(arrayBuilder.ToImmutable());
-        }
-        public RootEntity RemoveAt(int index)
-        {
-            var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonAny>();
-            int currentIndex = 0;
-            bool removed = false;
-            foreach (var item in this._menesArrayValueBacking)
-            {
-                if (currentIndex != index)
-                {
-                    arrayBuilder.Add(item);
-                }
-                else
-                {
-                    removed = true;
-                }
-                currentIndex++;
-            }
-            if (!removed)
-            {
-                throw new System.IndexOutOfRangeException($"The given index {index} was out of range.");
-            }
-            return new RootEntity(arrayBuilder.ToImmutable());
-        }
-        public RootEntity RemoveIf(System.Predicate<Menes.JsonAny> condition)
-        {
-            return this.RemoveIf<Menes.JsonAny>(condition);
-        }
-        public RootEntity RemoveIf<T>(System.Predicate<T> condition)
-            where T : struct, Menes.IJsonValue
-        {
-            var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonAny>();
-            foreach (var item in this._menesArrayValueBacking)
-            {
-                if (!condition(item.As<T>()))
-                {
-                    arrayBuilder.Add(item);
-                }
-            }
-            return new RootEntity(arrayBuilder.ToImmutable());
+            return this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Object ?
+                 (this.JsonElement.TryGetProperty(propertyName, out System.Text.Json.JsonElement property)
+                     ? Menes.JsonValue.As<TPropertyValue>(property)
+                     : null)
+                 : null;
         }
         private bool AllBackingFieldsAreNull()
         {
-            if (this._menesArrayValueBacking is not null)
+            if (this._menesAdditionalPropertiesBacking.Length > 0)
             {
                 return false;
             }
             return true;
         }
-        public readonly struct ContainsEntity : Menes.IJsonValue
+        /// <inheritdoc />
+        private bool TryGetPropertyAtIndex(int index, out Menes.Property<RootEntity> result)
         {
-            public static readonly ContainsEntity Null = default(ContainsEntity);
-            private readonly System.Text.Json.JsonElement _menesJsonElementBacking;
-            public ContainsEntity(System.Text.Json.JsonElement jsonElement)
+            if (this.HasJsonElement)
             {
-                this._menesJsonElementBacking = jsonElement;
-            }
-            /// <inheritdoc />
-            public bool IsUndefined => !this.HasJsonElement && this.AllBackingFieldsAreNull();
-            /// <inheritdoc />
-            public bool IsNull => this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Null || (!this.HasJsonElement && this.AllBackingFieldsAreNull());
-            /// <inheritdoc />
-            public bool IsNumber => this.HasJsonElement && this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Number;
-            /// <inheritdoc />
-            public bool IsInteger => this.HasJsonElement && this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Number;
-            /// <inheritdoc />
-            public bool IsString => this.HasJsonElement && this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.String;
-            /// <inheritdoc />
-            public bool IsObject => this.HasJsonElement && this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Object;
-            /// <inheritdoc />
-            public bool IsBoolean => this.HasJsonElement && (this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.True || this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.False);
-            /// <inheritdoc />
-            public bool IsArray => this.HasJsonElement && this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Array;
-            /// <inheritdoc />
-            public bool HasJsonElement => this._menesJsonElementBacking.ValueKind != System.Text.Json.JsonValueKind.Undefined;
-            /// <inheritdoc />
-            public System.Text.Json.JsonElement JsonElement => this._menesJsonElementBacking;
-            /// <inheritdoc />
-            public Menes.ValidationResult Validate(Menes.ValidationResult? validationResult = null, Menes.ValidationLevel level = Menes.ValidationLevel.Flag, System.Collections.Generic.HashSet<string>? evaluatedProperties = null, System.Collections.Generic.Stack<string>? absoluteKeywordLocation = null, System.Collections.Generic.Stack<string>? instanceLocation = null)
-            {
-                evaluatedProperties = evaluatedProperties ?? new System.Collections.Generic.HashSet<string>();
-                var composedEvaluatedProperties = new System.Collections.Generic.HashSet<string>();
-                Menes.ValidationResult result = validationResult ?? Menes.ValidationResult.ValidResult;
-                if (this.IsNumber)
+                int jsonPropertyIndex = 0;
+                foreach (var property in this.JsonElement.EnumerateObject())
                 {
-                    var number = (double)this.As<Menes.JsonNumber>();
-                    if (number < (double)5)
+                    if (jsonPropertyIndex == index)
                     {
-                        if (level >= Menes.ValidationLevel.Basic)
-                        {
-                            string? il = null;
-                            string? akl = null;
-                            instanceLocation?.TryPeek(out il);
-                            absoluteKeywordLocation?.TryPeek(out akl);
-                            result.AddResult(valid: false, message: "6.2.4.  minimum - item must be greater than or equal to 5", instanceLocation: il, absoluteKeywordLocation: akl);
-                        }
-                        else
-                        {
-                            result.SetValid(false);
-                        }
-                        if (level == Menes.ValidationLevel.Flag && !result.Valid)
-                        {
-                            return result;
-                        }
+                        result = new Menes.Property<RootEntity>(property);
+                        return true;
                     }
+                    jsonPropertyIndex++;
                 }
-                return result;
             }
-            /// <inheritdoc />
-            public void WriteTo(System.Text.Json.Utf8JsonWriter writer)
+            int currentIndex = 0;
+            foreach (var property in this._menesAdditionalPropertiesBacking)
             {
-                if (this.HasJsonElement)
+                if (currentIndex == index)
                 {
-                    this.JsonElement.WriteTo(writer);
-                    return;
+                    result = new Menes.Property<RootEntity>(this, property.NameAsMemory);
+                    return true;
                 }
+                currentIndex++;
             }
-            /// <inheritdoc />
-            public T As<T>()
-                where T : struct, Menes.IJsonValue
-            {
-                if (typeof(T) == typeof(ContainsEntity))
-                {
-                    return Corvus.Extensions.CastTo<T>.From(this);
-                }
-                return Menes.JsonValue.As<ContainsEntity, T>(this);
-            }
-            /// <inheritdoc />
-            public bool Is<T>()
-                where T : struct, Menes.IJsonValue
-            {
-                if (typeof(T) == typeof(RootEntity.ContainsEntity))
-                {
-                    return this.Validate().Valid;
-                }
-                return this.As<T>().Validate().Valid;
-            }
-            /// <inheritdoc/>
-            public bool Equals<T>(T other)
-                where T : struct, Menes.IJsonValue
-            {
-                return false;
-            }
-            private bool AllBackingFieldsAreNull()
-            {
-                return true;
-            }
+            result = default; ;
+            return false;
+        }
+        private RootEntity WithAdditionalProperties(System.Collections.Immutable.ImmutableArray<Menes.AdditionalProperty<Menes.JsonAny>> value)
+        {
+            return new RootEntity(value);
         }
         /// <summary>
-        /// An enumerator for the array values in a <see cref="RootEntity"/>.
+        /// An enumerator for the properties in a <see cref="RootEntity"/>.
         /// </summary>
-        public struct MenesArrayEnumerator : System.Collections.Generic.IEnumerable<Menes.JsonAny>, System.Collections.IEnumerable, System.Collections.Generic.IEnumerator<Menes.JsonAny>, System.Collections.IEnumerator
+        public struct MenesPropertyEnumerator : System.Collections.Generic.IEnumerable<Menes.Property<RootEntity>>, System.Collections.IEnumerable, System.Collections.Generic.IEnumerator<Menes.Property<RootEntity>>, System.Collections.IEnumerator
         {
             private RootEntity instance;
-            private System.Text.Json.JsonElement.ArrayEnumerator jsonEnumerator;
+            private System.Text.Json.JsonElement.ObjectEnumerator jsonEnumerator;
             private bool hasJsonEnumerator;
             private int index;
-            internal MenesArrayEnumerator(RootEntity instance)
+            private int propertyCount;
+            internal MenesPropertyEnumerator(RootEntity instance)
             {
                 this.instance = instance;
+                this.propertyCount = instance.PropertyCount;
                 if (this.instance.HasJsonElement)
                 {
                     this.index = -2;
                     this.hasJsonEnumerator = true;
-                    this.jsonEnumerator = this.instance.JsonElement.EnumerateArray();
+                    this.jsonEnumerator = this.instance.JsonElement.EnumerateObject();
                 }
                 else
                 {
@@ -518,19 +487,23 @@ namespace Driver.GeneratedTypes
                 }
             }
             /// <inheritdoc/>
-            public Menes.JsonAny Current
+            public Menes.Property<RootEntity> Current
             {
                 get
                 {
                     if (this.hasJsonEnumerator)
                     {
-                        return new Menes.JsonAny(this.jsonEnumerator.Current);
+                        return new Menes.Property<RootEntity>(this.jsonEnumerator.Current);
                     }
-                    else if (this.instance._menesArrayValueBacking is System.Collections.Immutable.ImmutableArray<Menes.JsonAny> array && this.index >= 0 && this.index < array.Length)
+                    else if (this.index >= 0)
                     {
-                        return array[this.index];
+                        if (this.instance.TryGetPropertyAtIndex(this.index, out Menes.Property<RootEntity> result))
+                        {
+                            return result;
+                        }
+                        throw new System.InvalidOperationException("Unable to get the property in the enumeration. The collection has been modified.");
                     }
-                    return default;
+                    return new Menes.Property<RootEntity>(this.instance, default);
                 }
             }
             /// <inheritdoc/>
@@ -538,10 +511,10 @@ namespace Driver.GeneratedTypes
             /// <summary>
             /// Returns a fresh copy of the enumerator
             /// </summary>
-            /// <returns>An enumerator for the array values in a <see cref="RootEntity"/>.</returns>
-            public MenesArrayEnumerator GetEnumerator()
+            /// <returns>An enumerator for the properties in a <see cref="RootEntity"/>.</returns>
+            public MenesPropertyEnumerator GetEnumerator()
             {
-                MenesArrayEnumerator result = this;
+                MenesPropertyEnumerator result = this;
                 result.Reset();
                 return result;
             }
@@ -551,7 +524,7 @@ namespace Driver.GeneratedTypes
                 return this.GetEnumerator();
             }
             /// <inheritdoc/>
-            System.Collections.Generic.IEnumerator<Menes.JsonAny> System.Collections.Generic.IEnumerable<Menes.JsonAny>.GetEnumerator()
+            System.Collections.Generic.IEnumerator<Menes.Property<RootEntity>> System.Collections.Generic.IEnumerable<Menes.Property<RootEntity>>.GetEnumerator()
             {
                 return this.GetEnumerator();
             }
@@ -570,10 +543,6 @@ namespace Driver.GeneratedTypes
                 {
                     this.jsonEnumerator.Reset();
                 }
-                else
-                {
-                    this.index = -1;
-                }
             }
             /// <inheritdoc/>
             public bool MoveNext()
@@ -582,12 +551,15 @@ namespace Driver.GeneratedTypes
                 {
                     return this.jsonEnumerator.MoveNext();
                 }
-                else if (this.instance._menesArrayValueBacking is System.Collections.Immutable.ImmutableArray<Menes.JsonAny> array && this.index + 1 < array.Length)
+                else
                 {
-                    this.index++;
-                    return true;
+                    if (this.index + 1 < this.propertyCount)
+                    {
+                        this.index++;
+                        return true;
+                    }
+                    return false;
                 }
-                return false;
             }
         }
     }

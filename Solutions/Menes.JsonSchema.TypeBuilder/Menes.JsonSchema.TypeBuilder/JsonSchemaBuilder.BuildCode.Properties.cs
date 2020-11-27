@@ -285,6 +285,82 @@ namespace Menes.JsonSchema.TypeBuilder
                 return;
             }
 
+            memberBuilder.AppendLine("/// <inheritdoc/>");
+            memberBuilder.AppendLine("public bool HasProperty(System.ReadOnlySpan<char> propertyName)");
+            memberBuilder.AppendLine("{");
+            memberBuilder.AppendLine("    if (this.HasJsonElement && this.JsonElement.TryGetProperty(propertyName, out _))");
+            memberBuilder.AppendLine("    {");
+            memberBuilder.AppendLine("        return true;");
+            memberBuilder.AppendLine("    }");
+            memberBuilder.AppendLine("    else");
+            memberBuilder.AppendLine("    {");
+            if (typeDeclaration.Properties is not null)
+            {
+                foreach (PropertyDeclaration property in typeDeclaration.Properties)
+                {
+                    memberBuilder.AppendLine($"    if (System.MemoryExtensions.SequenceEqual(propertyName, _Menes{property.DotnetPropertyName}JsonPropertyName.Span))");
+                    memberBuilder.AppendLine("    {");
+                    memberBuilder.AppendLine($"        return true;");
+                    memberBuilder.AppendLine("    }");
+                }
+            }
+
+            this.BuildHasPropertyFromAdditionalProperties(typeDeclaration, memberBuilder);
+
+            memberBuilder.AppendLine("    }");
+            memberBuilder.AppendLine("    return false;");
+            memberBuilder.AppendLine("}");
+            memberBuilder.AppendLine("/// <inheritdoc/>");
+            memberBuilder.AppendLine("public bool HasProperty(string propertyName)");
+            memberBuilder.AppendLine("{");
+            memberBuilder.AppendLine("    if (this.HasJsonElement && this.JsonElement.TryGetProperty(propertyName, out _))");
+            memberBuilder.AppendLine("    {");
+            memberBuilder.AppendLine("        return true;");
+            memberBuilder.AppendLine("    }");
+            memberBuilder.AppendLine("    else");
+            memberBuilder.AppendLine("    {");
+            if (typeDeclaration.Properties is not null)
+            {
+                foreach (PropertyDeclaration property in typeDeclaration.Properties)
+                {
+                    memberBuilder.AppendLine($"    if (System.MemoryExtensions.SequenceEqual(System.MemoryExtensions.AsSpan(propertyName), _Menes{property.DotnetPropertyName}JsonPropertyName.Span))");
+                    memberBuilder.AppendLine("    {");
+                    memberBuilder.AppendLine($"        return true;");
+                    memberBuilder.AppendLine("    }");
+                }
+            }
+
+            this.BuildHasPropertyFromAdditionalProperties(typeDeclaration, memberBuilder);
+
+            memberBuilder.AppendLine("    }");
+            memberBuilder.AppendLine("    return false;");
+            memberBuilder.AppendLine("}");
+            memberBuilder.AppendLine("/// <inheritdoc/>");
+            memberBuilder.AppendLine("public bool HasProperty(System.ReadOnlySpan<byte> propertyName)");
+            memberBuilder.AppendLine("{");
+            memberBuilder.AppendLine("    if (this.HasJsonElement && this.JsonElement.TryGetProperty(propertyName, out _))");
+            memberBuilder.AppendLine("    {");
+            memberBuilder.AppendLine("        return true;");
+            memberBuilder.AppendLine("    }");
+            memberBuilder.AppendLine("    else");
+            memberBuilder.AppendLine("    {");
+            if (typeDeclaration.Properties is not null)
+            {
+                foreach (PropertyDeclaration property in typeDeclaration.Properties)
+                {
+                    memberBuilder.AppendLine($"    if (System.MemoryExtensions.SequenceEqual(propertyName, _Menes{property.DotnetPropertyName}Utf8JsonPropertyName.Span))");
+                    memberBuilder.AppendLine("    {");
+                    memberBuilder.AppendLine($"        return true;");
+                    memberBuilder.AppendLine("    }");
+                }
+            }
+
+            this.BuildHasPropertyFromAdditionalProperties(typeDeclaration, memberBuilder);
+
+            memberBuilder.AppendLine("    }");
+            memberBuilder.AppendLine("    return false;");
+            memberBuilder.AppendLine("}");
+
             memberBuilder.AppendLine("/// <inheritdoc />");
             memberBuilder.AppendLine("public bool TryGetProperty<T>(System.ReadOnlySpan<char> propertyName, out T property)");
             memberBuilder.AppendLine("    where T : struct, Menes.IJsonValue");
@@ -385,6 +461,20 @@ namespace Menes.JsonSchema.TypeBuilder
             memberBuilder.AppendLine("        property = default;");
             memberBuilder.AppendLine("        return false;");
             memberBuilder.AppendLine("    }");
+        }
+
+        private void BuildHasPropertyFromAdditionalProperties(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
+        {
+            if (typeDeclaration.AllowsAdditionalProperties)
+            {
+                memberBuilder.AppendLine("    foreach (var additionalProperty in this._menesAdditionalPropertiesBacking)");
+                memberBuilder.AppendLine("    {");
+                memberBuilder.AppendLine("        if (additionalProperty.NameEquals(propertyName))");
+                memberBuilder.AppendLine("        {");
+                memberBuilder.AppendLine("            return true;");
+                memberBuilder.AppendLine("        }");
+                memberBuilder.AppendLine("    }");
+            }
         }
 
         private void BuildTryGetPropertyFromAdditionalProperties(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)

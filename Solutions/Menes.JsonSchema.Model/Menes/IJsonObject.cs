@@ -21,6 +21,27 @@ namespace Menes
         }
 
         /// <summary>
+        /// Gets a value indicating whether the entity has a property with teh given name.
+        /// </summary>
+        /// <param name="propertyName">The name of the property.</param>
+        /// <returns><c>True</c> if the entity has a property with the given name.</returns>
+        bool HasProperty(ReadOnlySpan<char> propertyName);
+
+        /// <summary>
+        /// Gets a value indicating whether the entity has a property with teh given name.
+        /// </summary>
+        /// <param name="propertyName">The name of the property.</param>
+        /// <returns><c>True</c> if the entity has a property with the given name.</returns>
+        bool HasProperty(string propertyName);
+
+        /// <summary>
+        /// Gets a value indicating whether the entity has a property with teh given name.
+        /// </summary>
+        /// <param name="utf8PropertyName">The utf8 encoded name of the property.</param>
+        /// <returns><c>True</c> if the entity has a property with the given name.</returns>
+        bool HasProperty(ReadOnlySpan<byte> utf8PropertyName);
+
+        /// <summary>
         /// Try to get a named property.
         /// </summary>
         /// <typeparam name="T">The type of the property to get.</typeparam>
