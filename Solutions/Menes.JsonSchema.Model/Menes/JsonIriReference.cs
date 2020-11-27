@@ -140,7 +140,7 @@ namespace Menes
         {
             ValidationResult result = validationResult ?? ValidationResult.ValidResult;
 
-            if (this.HasJsonElement && (this.JsonElement.ValueKind != JsonValueKind.String || !Uri.IsWellFormedUriString(this.JsonElement.GetString(), UriKind.RelativeOrAbsolute)))
+            if (this.HasJsonElement && (this.JsonElement.ValueKind != JsonValueKind.String || this.Parse(this.JsonElement.GetString()) is null))
             {
                 if (level >= ValidationLevel.Basic)
                 {
@@ -149,7 +149,7 @@ namespace Menes
 
                     instanceLocation?.TryPeek(out il);
                     absoluteKeywordLocation?.TryPeek(out akl);
-                    result.AddResult(valid: false, message: $"6.1.1.  type - should have been a URI string but was '{this.JsonElement.ValueKind}'.", instanceLocation: il, absoluteKeywordLocation: akl);
+                    result.AddResult(valid: false, message: $"6.1.1.  type - should have been a IRI-reference string but was '{this.JsonElement.ValueKind}'.", instanceLocation: il, absoluteKeywordLocation: akl);
                 }
                 else
                 {
@@ -158,6 +158,21 @@ namespace Menes
             }
             else
             {
+                if (this.value is Uri value)
+                {
+                    if (value.OriginalString.StartsWith("\\\\") ||
+                        (value.IsAbsoluteUri && value.Fragment.Contains('\\')) ||
+                        (value.OriginalString.StartsWith('#') && value.OriginalString.Contains('\\')))
+                    {
+                        string? il = null;
+                        string? akl = null;
+
+                        instanceLocation?.TryPeek(out il);
+                        absoluteKeywordLocation?.TryPeek(out akl);
+                        result.AddResult(valid: false, message: $"6.1.1.  type - should have been a IRI-reference string but was '{this.JsonElement.ValueKind}'.", instanceLocation: il, absoluteKeywordLocation: akl);
+                    }
+                }
+
                 if (level == ValidationLevel.Verbose)
                 {
                     string? il = null;
@@ -196,6 +211,36 @@ namespace Menes
         public override string ToString()
         {
             return this.IsNull ? "null" : this.GetUri().ToString();
+        }
+
+        private Uri? Parse(string? value)
+        {
+            if (value is null)
+            {
+                return default;
+            }
+
+            if (value.StartsWith("\\\\"))
+            {
+                return default;
+            }
+
+            if (value.StartsWith('#') && value.Contains('\\'))
+            {
+                return default;
+            }
+
+            if (!Uri.TryCreate(this.JsonElement.GetString(), UriKind.RelativeOrAbsolute, out Uri testUri))
+            {
+                return default;
+            }
+
+            if (testUri.IsAbsoluteUri && testUri.Fragment.Contains('\\'))
+            {
+                return default;
+            }
+
+            return testUri;
         }
     }
 }
