@@ -7,9 +7,10 @@ namespace Menes
     using System;
     using System.Collections.Generic;
     using System.Text.Json;
+    using System.Text.RegularExpressions;
 
     /// <summary>
-    /// Represents the uri json type.
+    /// Represents the ipv6 json type.
     /// </summary>
     public readonly struct JsonUriTemplate : IJsonValue
     {
@@ -17,10 +18,9 @@ namespace Menes
         /// The null value.
         /// </summary>
         public static readonly JsonUriTemplate Null = default;
+        private static readonly Regex Pattern = new Regex(@"^([^\x00-\x20\x7f""'%<>\\^`{|}]|%[0-9A-Fa-f]{2}|{[+#./;?&=,!@|]?((\w|%[0-9A-Fa-f]{2})(\.?(\w|%[0-9A-Fa-f]{2}))*(:[1-9]\d{0,3}|\*)?)(,((\w|%[0-9A-Fa-f]{2})(\.?(\w|%[0-9A-Fa-f]{2}))*(:[1-9]\d{0,3}|\*)?))*})*$", RegexOptions.Compiled);
 
-        private static readonly Uri Empty = new Uri(string.Empty, UriKind.RelativeOrAbsolute);
-
-        private readonly Uri? value;
+        private readonly ReadOnlyMemory<char>? value;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="JsonUriTemplate"/> struct.
@@ -35,8 +35,18 @@ namespace Menes
         /// <summary>
         /// Initializes a new instance of the <see cref="JsonUriTemplate"/> struct.
         /// </summary>
-        /// <param name="value">The backing Uri value.</param>
-        public JsonUriTemplate(Uri value)
+        /// <param name="value">The backing string value.</param>
+        public JsonUriTemplate(string value)
+        {
+            this.value = value.AsMemory();
+            this.JsonElement = default;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="JsonUriTemplate"/> struct.
+        /// </summary>
+        /// <param name="value">The backing string value.</param>
+        public JsonUriTemplate(ReadOnlyMemory<char> value)
         {
             this.value = value;
             this.JsonElement = default;
@@ -47,12 +57,6 @@ namespace Menes
 
         /// <inheritdoc />
         public bool IsNull => (this.JsonElement.ValueKind == JsonValueKind.Undefined || this.JsonElement.ValueKind == JsonValueKind.Null) && this.value is null;
-
-        /// <inheritdoc />
-        public bool HasJsonElement => this.JsonElement.ValueKind != JsonValueKind.Undefined;
-
-        /// <inheritdoc />
-        public JsonElement JsonElement { get; }
 
         /// <inheritdoc />
         public bool IsNumber => false;
@@ -67,30 +71,103 @@ namespace Menes
         public bool IsObject => false;
 
         /// <inheritdoc />
+        public bool IsBoolean => false;
+
+        /// <inheritdoc />
         public bool IsArray => false;
 
         /// <inheritdoc />
-        public bool IsBoolean => false;
+        public bool HasJsonElement => this.JsonElement.ValueKind != JsonValueKind.Undefined;
+
+        /// <inheritdoc />
+        public JsonElement JsonElement { get; }
 
         /// <summary>
-        /// Implicit conversion from <see cref="Uri"/>.
+        /// Implicit conversion from <see cref="string"/>.
         /// </summary>
-        /// <param name="value">The Uri value from which to convert.</param>
-        public static implicit operator JsonUriTemplate(Uri value) => new JsonUriTemplate(value);
+        /// <param name="value">The string value from which to convert.</param>
+        public static implicit operator JsonUriTemplate(string value) => new JsonUriTemplate(value);
 
         /// <summary>
-        /// Implicit conversion to <see cref="Uri"/>.
+        /// Implicit conversion to <see cref="string"/>.
         /// </summary>
-        /// <param name="value">The Uri value from which to convert.</param>
-        public static implicit operator Uri(JsonUriTemplate value) => value.GetUri();
+        /// <param name="value">The string value from which to convert.</param>
+        public static implicit operator string?(JsonUriTemplate value) => value.GetString();
 
         /// <summary>
-        /// Gets the <see cref="JsonUriTemplate"/> as a <see cref="Uri"/>.
+        /// Implicit conversion from <see cref="ReadOnlyMemory{T}"/>.
         /// </summary>
-        /// <returns>The <see cref="Uri"/>.</returns>
-        public Uri GetUri()
+        /// <param name="value">The string value from which to convert.</param>
+        public static implicit operator JsonUriTemplate(ReadOnlyMemory<char> value) => new JsonUriTemplate(value);
+
+        /// <summary>
+        /// Implicit conversion to <see cref="ReadOnlyMemory{T}"/>.
+        /// </summary>
+        /// <param name="value">The string value from which to convert.</param>
+        public static implicit operator ReadOnlyMemory<char>(JsonUriTemplate value) => value.AsMemory();
+
+        /// <summary>
+        /// Implicit conversion from <see cref="ReadOnlyMemory{T}"/>.
+        /// </summary>
+        /// <param name="value">The string value from which to convert.</param>
+        public static implicit operator JsonUriTemplate(ReadOnlySpan<char> value) => new JsonUriTemplate(value.ToArray());
+
+        /// <summary>
+        /// Implicit conversion from <see cref="ReadOnlyMemory{T}"/>.
+        /// </summary>
+        /// <param name="value">The string value from which to convert.</param>
+        public static implicit operator ReadOnlySpan<char>(JsonUriTemplate value) => value.AsSpan();
+
+        /// <summary>
+        /// Gets the <see cref="JsonUriTemplate"/> as a <see cref="string"/>.
+        /// </summary>
+        /// <returns>The <see cref="string"/>.</returns>
+        public string? GetString()
         {
-            return this.HasJsonElement ? new Uri(this.JsonElement.GetString(), UriKind.RelativeOrAbsolute) : (this.value ?? Empty);
+            return this.HasJsonElement ? this.JsonElement.GetString() : this.value?.ToString();
+        }
+
+        /// <summary>
+        /// Gets the <see cref="JsonUriTemplate"/> as a <see cref="ReadOnlyMemory{T}"/> of <see cref="char"/>.
+        /// </summary>
+        /// <returns>The <see cref="string"/>.</returns>
+        public ReadOnlyMemory<char> AsMemory()
+        {
+            return this.HasJsonElement ? this.JsonElement.GetString().AsMemory() : this.value ?? ReadOnlyMemory<char>.Empty;
+        }
+
+        /// <summary>
+        /// Gets the length of the string.
+        /// </summary>
+        /// <returns>The length of the string, or 0 if the string is null or empty.</returns>
+        public int GetLength()
+        {
+            return this.HasJsonElement ? this.JsonElement.GetString()?.Length ?? 0 : (this.value ?? ReadOnlyMemory<char>.Empty).Length;
+        }
+
+        /// <summary>
+        /// Returns true if the value matches the given regular expression.
+        /// </summary>
+        /// <param name="regex">The regular expression to match.</param>
+        /// <returns><c>True</c> if the string matches the regular expression.</returns>
+        public bool IsMatch(Regex regex)
+        {
+            return regex.IsMatch(this.GetString());
+        }
+
+        /// <summary>
+        /// Gets the <see cref="JsonUriTemplate"/> as a <see cref="ReadOnlySpan{T}"/> of char.
+        /// </summary>
+        /// <returns>The <see cref="string"/>.</returns>
+        public ReadOnlySpan<char> AsSpan()
+        {
+            return this.AsMemory().Span;
+        }
+
+        /// <inheritdoc />
+        public override string ToString()
+        {
+            return this.IsNull ? "null" : this;
         }
 
         /// <inheritdoc />
@@ -126,13 +203,13 @@ namespace Menes
                 return false;
             }
 
-            JsonUriTemplate otherUri = other.As<JsonUriTemplate>();
-            if (!otherUri.Validate().Valid)
+            JsonUriTemplate otherString = other.As<JsonUriTemplate>();
+            if (!otherString.Validate().Valid)
             {
                 return false;
             }
 
-            return this.GetUri().Equals(otherUri.GetUri());
+            return this.AsSpan().SequenceEqual(otherString.AsSpan());
         }
 
         /// <inheritdoc />
@@ -140,7 +217,7 @@ namespace Menes
         {
             ValidationResult result = validationResult ?? ValidationResult.ValidResult;
 
-            if (this.HasJsonElement && (this.JsonElement.ValueKind != JsonValueKind.String || !Uri.IsWellFormedUriString(this.JsonElement.GetString(), UriKind.RelativeOrAbsolute)))
+            if ((this.HasJsonElement && (this.JsonElement.ValueKind != JsonValueKind.String || !Parse(this.JsonElement.GetString()))) || (this.value is ReadOnlyMemory<char> value && !Parse(value.ToString())))
             {
                 if (level >= ValidationLevel.Basic)
                 {
@@ -149,7 +226,7 @@ namespace Menes
 
                     instanceLocation?.TryPeek(out il);
                     absoluteKeywordLocation?.TryPeek(out akl);
-                    result.AddResult(valid: false, message: $"6.1.1.  type - should have been a URI string but was '{this.JsonElement.ValueKind}'.", instanceLocation: il, absoluteKeywordLocation: akl);
+                    result.AddResult(valid: false, message: $"6.1.1.  type - should have matched an IPv6 address.", instanceLocation: il, absoluteKeywordLocation: akl);
                 }
                 else
                 {
@@ -182,9 +259,9 @@ namespace Menes
                 return;
             }
 
-            if (this.value is Uri v)
+            if (this.value is ReadOnlyMemory<char> v)
             {
-                writer.WriteStringValue(v.ToString());
+                writer.WriteStringValue(v.Span);
             }
             else
             {
@@ -192,10 +269,14 @@ namespace Menes
             }
         }
 
-        /// <inheritdoc />
-        public override string ToString()
+        private static bool Parse(string? ipv4)
         {
-            return this.IsNull ? "null" : this.GetUri().ToString();
+            if (!Pattern.IsMatch(ipv4))
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }
