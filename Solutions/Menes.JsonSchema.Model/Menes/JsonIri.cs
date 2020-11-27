@@ -90,7 +90,7 @@ namespace Menes
         /// <returns>The <see cref="Uri"/>.</returns>
         public Uri GetUri()
         {
-            return this.HasJsonElement ? new Uri(this.JsonElement.GetString(), UriKind.RelativeOrAbsolute) : (this.value ?? Empty);
+            return this.HasJsonElement ? new Uri(this.JsonElement.GetString(), UriKind.Absolute) : (this.value ?? Empty);
         }
 
         /// <inheritdoc />
@@ -140,7 +140,7 @@ namespace Menes
         {
             ValidationResult result = validationResult ?? ValidationResult.ValidResult;
 
-            if (this.HasJsonElement && (this.JsonElement.ValueKind != JsonValueKind.String || !Uri.IsWellFormedUriString(this.JsonElement.GetString(), UriKind.RelativeOrAbsolute)))
+            if (this.HasJsonElement && (this.JsonElement.ValueKind != JsonValueKind.String || !(Uri.TryCreate(this.JsonElement.GetString(), UriKind.Absolute, out Uri testUri) && (testUri.Scheme == Uri.UriSchemeHttp || testUri.Scheme == Uri.UriSchemeHttps))))
             {
                 if (level >= ValidationLevel.Basic)
                 {
@@ -149,7 +149,7 @@ namespace Menes
 
                     instanceLocation?.TryPeek(out il);
                     absoluteKeywordLocation?.TryPeek(out akl);
-                    result.AddResult(valid: false, message: $"6.1.1.  type - should have been a URI string but was '{this.JsonElement.ValueKind}'.", instanceLocation: il, absoluteKeywordLocation: akl);
+                    result.AddResult(valid: false, message: $"6.1.1.  type - should have been a IRI stringS.", instanceLocation: il, absoluteKeywordLocation: akl);
                 }
                 else
                 {
