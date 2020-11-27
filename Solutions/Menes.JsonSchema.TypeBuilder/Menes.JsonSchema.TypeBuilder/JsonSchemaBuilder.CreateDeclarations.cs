@@ -92,16 +92,33 @@ namespace Menes.JsonSchema.TypeBuilder
                 {
                     ValidateArray(enumPropertyValue);
                     var result = new List<JsonElement>();
+                    JsonElement? currentElement = null;
+                    bool allMatchingValueKinds = true;
+
                     foreach (JsonElement enumValue in enumPropertyValue.EnumerateArray())
                     {
+                        if (currentElement is null)
+                        {
+                            currentElement = enumValue;
+                        }
+
+                        if (currentElement?.ValueKind != enumValue.ValueKind)
+                        {
+                            allMatchingValueKinds = false;
+                        }
+
                         result.Add(enumValue);
                     }
 
-                    typeDeclaration.Enum = result;
-                    if (typeDeclaration.Type is null && result.Count > 0)
+                    if (allMatchingValueKinds && currentElement is JsonElement element)
                     {
-                        this.SetTypeFromElementValueKind(typeDeclaration, result[0], default);
+                        if (typeDeclaration.Type is null)
+                        {
+                            this.SetTypeFromElementValueKind(typeDeclaration, element, default);
+                        }
                     }
+
+                    typeDeclaration.Enum = result;
                 }
             }
         }

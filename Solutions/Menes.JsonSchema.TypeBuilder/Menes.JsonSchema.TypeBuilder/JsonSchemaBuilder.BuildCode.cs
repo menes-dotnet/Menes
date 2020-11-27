@@ -5,6 +5,7 @@
 namespace Menes.JsonSchema.TypeBuilder
 {
     using System;
+    using System.Collections.Generic;
     using System.Text;
     using System.Text.Json;
     using Menes.JsonSchema.TypeBuilder.Model;
@@ -90,7 +91,72 @@ namespace Menes.JsonSchema.TypeBuilder
             this.BuildEmbeddedTypes(typeDeclaration, memberBuilder);
             this.BuildArrayEnumerator(typeDeclaration, memberBuilder);
             this.BuildPropertyEnumerator(typeDeclaration, memberBuilder);
+            this.BuildEnumValues(typeDeclaration, memberBuilder);
             memberBuilder.AppendLine("}");
+        }
+
+        private void BuildEnumValues(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
+        {
+            if (typeDeclaration.Enum is not List<JsonElement> values)
+            {
+                return;
+            }
+
+            memberBuilder.AppendLine("// ");
+            memberBuilder.AppendLine("public static class EnumValues");
+            memberBuilder.AppendLine("{");
+
+            int index = 0;
+            var memberNames = new HashSet<string>();
+
+            foreach (JsonElement value in values)
+            {
+                this.BuildEnumValue(value, index, typeDeclaration, memberBuilder, memberNames);
+                index++;
+            }
+
+            memberBuilder.AppendLine("}");
+        }
+
+        private void BuildEnumValue(JsonElement value, int index, TypeDeclaration typeDeclaration, StringBuilder memberBuilder, HashSet<string> memberNames)
+        {
+            if (value.ValueKind == JsonValueKind.Number)
+            {
+                memberBuilder.AppendLine($"public static readonly Menes.JsonNumber Item{index} = new Menes.JsonNumber((double){value.GetDouble()});");
+            }
+            else if (value.ValueKind == JsonValueKind.Null)
+            {
+                memberBuilder.AppendLine($"public static readonly Menes.JsonNull Item{index} = Menes.JsonNull.Instance;");
+            }
+            else if (value.ValueKind == JsonValueKind.False)
+            {
+                memberBuilder.AppendLine($"public static readonly Menes.JsonBoolean Item{index} = new Menes.JsonBoolean(false);");
+            }
+            else if (value.ValueKind == JsonValueKind.True)
+            {
+                memberBuilder.AppendLine($"public static readonly Menes.JsonBoolean Item{index} = new Menes.JsonBoolean(true);");
+            }
+            else if (value.ValueKind == JsonValueKind.String)
+            {
+                memberBuilder.AppendLine($"public static readonly Menes.JsonString Item{index} = new Menes.JsonString({Formatting.FormatLiteralOrNull(value.GetString(), true)});");
+                string? valueAsString = value.GetString();
+                string baseName = Formatting.ToPascalCaseWithReservedWords(valueAsString!).ToString();
+                string name = baseName;
+                int nameIndex = 1;
+
+                while (memberNames.Contains(name))
+                {
+                    name = baseName + nameIndex;
+                    ++index;
+                }
+
+                memberNames.Add(name);
+                memberBuilder.AppendLine($"public static readonly Menes.JsonString {name} = new Menes.JsonString({Formatting.FormatLiteralOrNull(valueAsString, true)});");
+            }
+            else if (value.ValueKind == JsonValueKind.Array || value.ValueKind == JsonValueKind.Object)
+            {
+                memberBuilder.AppendLine($"public static readonly Menes.JsonAny Item{index} = new Menes.JsonAny({Formatting.FormatLiteralOrNull(value.GetRawText(), true)});");
+            }
         }
 
         private void BuildConstValue(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
@@ -153,7 +219,7 @@ namespace Menes.JsonSchema.TypeBuilder
 
         private void BuildInterfaces(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
         {
-            if (typeDeclaration.IsObjectTypeDeclaration)
+            if (typeDeclaration.IsObjectType)
             {
                 memberBuilder.Append($"Menes.IJsonObject<{typeDeclaration.DotnetTypeName}>");
             }
@@ -213,7 +279,7 @@ namespace Menes.JsonSchema.TypeBuilder
                     memberBuilder.AppendLine("    return ((Menes.JsonNumber)this).Equals(other);");
                 }
 
-                if (typeDeclaration.IsArrayTypeDeclaration)
+                if (typeDeclaration.IsArrayType)
                 {
                     memberBuilder.AppendLine("    if (!other.IsArray)");
                     memberBuilder.AppendLine("    {");
@@ -238,7 +304,7 @@ namespace Menes.JsonSchema.TypeBuilder
                     memberBuilder.AppendLine("return !secondEnumerator.MoveNext();");
                 }
 
-                if (typeDeclaration.IsObjectTypeDeclaration)
+                if (typeDeclaration.IsObjectType)
                 {
                     memberBuilder.AppendLine("    if (!other.IsObject)");
                     memberBuilder.AppendLine("    {");
@@ -370,13 +436,13 @@ namespace Menes.JsonSchema.TypeBuilder
             memberBuilder.AppendLine("        this.JsonElement.WriteTo(writer);");
             memberBuilder.AppendLine("        return;");
             memberBuilder.AppendLine("    }");
-            if (typeDeclaration.IsObjectTypeDeclaration)
+            if (typeDeclaration.IsObjectType)
             {
                 memberBuilder.AppendLine("writer.WriteStartObject();");
                 this.BuildWritePropertyBackingValues(typeDeclaration, memberBuilder);
                 memberBuilder.AppendLine("writer.WriteEndObject();");
             }
-            else if (typeDeclaration.IsArrayTypeDeclaration)
+            else if (typeDeclaration.IsArrayType)
             {
                 memberBuilder.AppendLine("writer.WriteStartArray();");
                 memberBuilder.AppendLine("foreach (var item in this._menesArrayValueBacking)");

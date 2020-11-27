@@ -14,7 +14,7 @@ namespace Menes.JsonSchema.TypeBuilder
     {
         private void BuildArrayAccessors(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
         {
-            if (!typeDeclaration.IsArrayTypeDeclaration)
+            if (!typeDeclaration.IsArrayType)
             {
                 return;
             }
@@ -54,7 +54,7 @@ namespace Menes.JsonSchema.TypeBuilder
 
         private void BuildArrayEnumerator(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
         {
-            if (!typeDeclaration.IsArrayTypeDeclaration)
+            if (!typeDeclaration.IsArrayType)
             {
                 return;
             }
@@ -192,7 +192,7 @@ namespace Menes.JsonSchema.TypeBuilder
 
         private void BuildArrayEnumerators(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
         {
-            if (!typeDeclaration.IsArrayTypeDeclaration || typeDeclaration.IsObjectTypeDeclaration)
+            if (!typeDeclaration.IsArrayType || typeDeclaration.IsObjectType)
             {
                 // If we're not an array, don't generate these; but if we are an object too, we will have dealt with this
                 // in the object enumerator
@@ -224,7 +224,7 @@ namespace Menes.JsonSchema.TypeBuilder
 
         private void BuildArrayAdd(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
         {
-            if (!typeDeclaration.IsArrayTypeDeclaration)
+            if (!typeDeclaration.IsArrayType)
             {
                 return;
             }
@@ -278,7 +278,7 @@ namespace Menes.JsonSchema.TypeBuilder
 
         private void BuildArrayInsert(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
         {
-            if (!typeDeclaration.IsArrayTypeDeclaration)
+            if (!typeDeclaration.IsArrayType)
             {
                 return;
             }
@@ -414,7 +414,7 @@ namespace Menes.JsonSchema.TypeBuilder
 
         private void BuildArrayRemoveAt(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
         {
-            if (!typeDeclaration.IsArrayTypeDeclaration)
+            if (!typeDeclaration.IsArrayType)
             {
                 return;
             }
@@ -461,7 +461,7 @@ namespace Menes.JsonSchema.TypeBuilder
 
         private void BuildArrayRemoveIf(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
         {
-            if (!typeDeclaration.IsArrayTypeDeclaration)
+            if (!typeDeclaration.IsArrayType)
             {
                 return;
             }
@@ -514,7 +514,7 @@ namespace Menes.JsonSchema.TypeBuilder
 
         private void BuildArrayInterfaces(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
         {
-            if (!typeDeclaration.IsArrayTypeDeclaration)
+            if (!typeDeclaration.IsArrayType)
             {
                 return;
             }
@@ -535,7 +535,7 @@ namespace Menes.JsonSchema.TypeBuilder
 
         private void BuildArrayBackingField(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
         {
-            if (typeDeclaration.IsArrayTypeDeclaration)
+            if (typeDeclaration.IsArrayType)
             {
                 TypeDeclaration itemsType = this.GetItemsTypeFor(typeDeclaration);
                 if (itemsType.ContainsReferenceTo(typeDeclaration))
@@ -551,7 +551,7 @@ namespace Menes.JsonSchema.TypeBuilder
 
         private void BuildArrayBackingFieldIsNull(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
         {
-            if (typeDeclaration.IsArrayTypeDeclaration)
+            if (typeDeclaration.IsArrayType)
             {
                 memberBuilder.AppendLine($"if (this._menesArrayValueBacking is not null)");
                 memberBuilder.AppendLine("{");

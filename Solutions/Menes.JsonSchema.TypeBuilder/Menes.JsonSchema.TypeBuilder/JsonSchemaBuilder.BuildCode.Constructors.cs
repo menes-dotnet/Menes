@@ -39,7 +39,7 @@ namespace Menes.JsonSchema.TypeBuilder
 
         private void BuildRawArrayConstructor(TypeDeclaration typeDeclaration, StringBuilder memberBuilder, HashSet<string> constructorParameterDeclarations)
         {
-            if (!typeDeclaration.IsArrayTypeDeclaration)
+            if (!typeDeclaration.IsArrayType)
             {
                 return;
             }
@@ -81,7 +81,7 @@ namespace Menes.JsonSchema.TypeBuilder
 
         private void BuildArrayConstructors(TypeDeclaration typeDeclaration, StringBuilder memberBuilder, HashSet<string> constructorParameterDeclarations)
         {
-            if (!typeDeclaration.IsArrayTypeDeclaration)
+            if (!typeDeclaration.IsArrayType)
             {
                 return;
             }
@@ -547,7 +547,7 @@ namespace Menes.JsonSchema.TypeBuilder
 
         private void BuildAssignNullOrDefaultArrayBackingField(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
         {
-            if (typeDeclaration.IsArrayTypeDeclaration)
+            if (typeDeclaration.IsArrayType)
             {
                 memberBuilder.AppendLine("this._menesArrayValueBacking = default;");
             }

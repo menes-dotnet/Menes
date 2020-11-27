@@ -5,6 +5,8 @@
 namespace Menes.JsonSchema.TypeBuilder
 {
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Text;
     using System.Text.Json;
     using Menes.JsonSchema.TypeBuilder.Model;
@@ -25,6 +27,7 @@ namespace Menes.JsonSchema.TypeBuilder
             this.BuildFormatValidations(typeDeclaration, memberBuilder);
 
             this.BuildConstValidation(typeDeclaration, memberBuilder);
+            this.BuildEnumValidation(typeDeclaration, memberBuilder);
 
             this.BuildNumericValidations(typeDeclaration, memberBuilder);
 
@@ -273,6 +276,172 @@ namespace Menes.JsonSchema.TypeBuilder
             }
         }
 
+        private void BuildEnumValidation(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
+        {
+            if (typeDeclaration.Enum is not List<JsonElement> values)
+            {
+                return;
+            }
+
+            ////this.WriteError($"6.1.2. enum - does not match enum values {string.Join(", ", value.Select(v => v.GetRawText()))}", memberBuilder);
+
+            memberBuilder.AppendLine("bool foundMatch = false;");
+
+            int enumIndex = 0;
+            foreach (JsonElement value in values)
+            {
+                if (value.ValueKind == JsonValueKind.Number)
+                {
+                    memberBuilder.AppendLine("if (!foundMatch)");
+                    memberBuilder.AppendLine("{");
+                    memberBuilder.AppendLine("    if (this.IsNumber)");
+                    memberBuilder.AppendLine("    {");
+                    if (typeDeclaration.IsNumericType)
+                    {
+                        memberBuilder.AppendLine($"        if ((double)this != (double){typeDeclaration.DotnetTypeName}.EnumValues.Item{enumIndex})");
+                    }
+                    else
+                    {
+                        memberBuilder.AppendLine($"        if ((double)this.As<Menes.JsonNumber>() != (double){typeDeclaration.DotnetTypeName}.EnumValues.Item{enumIndex})");
+                    }
+
+                    memberBuilder.AppendLine("        {");
+                    memberBuilder.AppendLine("            foundMatch = false;");
+                    memberBuilder.AppendLine("        }");
+                    memberBuilder.AppendLine("        else");
+                    memberBuilder.AppendLine("        {");
+                    memberBuilder.AppendLine("            foundMatch = true;");
+                    memberBuilder.AppendLine("        }");
+                    memberBuilder.AppendLine("    }");
+                    memberBuilder.AppendLine("}");
+                }
+                else if (value.ValueKind == JsonValueKind.Null)
+                {
+                    memberBuilder.AppendLine("if (!foundMatch)");
+                    memberBuilder.AppendLine("{");
+                    memberBuilder.AppendLine("    if (this.IsNull)");
+                    memberBuilder.AppendLine("    {");
+                    memberBuilder.AppendLine("        foundMatch = true;");
+                    memberBuilder.AppendLine("    }");
+                    memberBuilder.AppendLine("}");
+                }
+                else if (value.ValueKind == JsonValueKind.False || value.ValueKind == JsonValueKind.True)
+                {
+                    memberBuilder.AppendLine("if (!foundMatch)");
+                    memberBuilder.AppendLine("{");
+                    memberBuilder.AppendLine("    if (this.IsBoolean)");
+                    memberBuilder.AppendLine("    {");
+
+                    if (typeDeclaration.IsBooleanType)
+                    {
+                        memberBuilder.AppendLine($"        if ((bool)this == (bool){typeDeclaration.DotnetTypeName}.EnumValues.Item{enumIndex})");
+                    }
+                    else
+                    {
+                        memberBuilder.AppendLine($"        if ((bool)this.As<Menes.JsonBoolean>() == (bool){typeDeclaration.DotnetTypeName}.EnumValues.Item{enumIndex})");
+                    }
+
+                    memberBuilder.AppendLine("        {");
+                    memberBuilder.AppendLine("            foundMatch = true;");
+                    memberBuilder.AppendLine("        }");
+                    memberBuilder.AppendLine("    }");
+                    memberBuilder.AppendLine("}");
+                }
+                else if (value.ValueKind == JsonValueKind.String)
+                {
+                    memberBuilder.AppendLine("if (!foundMatch)");
+                    memberBuilder.AppendLine("{");
+                    memberBuilder.AppendLine("    if (this.IsString)");
+                    memberBuilder.AppendLine("    {");
+
+                    memberBuilder.AppendLine($"       if (System.MemoryExtensions.SequenceEqual(this.As<Menes.JsonString>().AsSpan(), {typeDeclaration.DotnetTypeName}.EnumValues.Item{enumIndex}.AsSpan()))");
+                    memberBuilder.AppendLine("        {");
+                    memberBuilder.AppendLine("            foundMatch = true;");
+                    memberBuilder.AppendLine("        }");
+                    memberBuilder.AppendLine("    }");
+                    memberBuilder.AppendLine("}");
+                }
+                else if (value.ValueKind == JsonValueKind.Array)
+                {
+                    memberBuilder.AppendLine("if (!foundMatch)");
+                    memberBuilder.AppendLine("{");
+                    memberBuilder.AppendLine("    if (this.IsArray)");
+                    memberBuilder.AppendLine("    {");
+                    memberBuilder.AppendLine($"        var firstEnumerator = {typeDeclaration.DotnetTypeName}.EnumValues.Item{enumIndex}.EnumerateArray();");
+
+                    if (typeDeclaration.IsArrayType)
+                    {
+                        memberBuilder.AppendLine("        var secondEnumerator = this.EnumerateArray();");
+                    }
+                    else
+                    {
+                        memberBuilder.AppendLine("        var secondEnumerator = this.As<Menes.JsonAny>().EnumerateArray();");
+                    }
+
+                    memberBuilder.AppendLine("        bool failed = false;");
+                    memberBuilder.AppendLine("        while(firstEnumerator.MoveNext())");
+                    memberBuilder.AppendLine("        {");
+
+                    // If we can't move the second enumerator on, we've run out of items.
+                    memberBuilder.AppendLine("            if (!secondEnumerator.MoveNext())");
+                    memberBuilder.AppendLine("            {");
+                    memberBuilder.AppendLine("                 failed = true;");
+                    memberBuilder.AppendLine("                 break;");
+                    memberBuilder.AppendLine("            }");
+                    memberBuilder.AppendLine("            else if (!firstEnumerator.Current.Equals(secondEnumerator.Current))");
+                    memberBuilder.AppendLine("            {");
+                    memberBuilder.AppendLine("                 failed = true;");
+                    memberBuilder.AppendLine("                 break;");
+                    memberBuilder.AppendLine("            }");
+                    memberBuilder.AppendLine("        }");
+
+                    memberBuilder.AppendLine("       if (!failed && !secondEnumerator.MoveNext())");
+                    memberBuilder.AppendLine("       {");
+                    memberBuilder.AppendLine("           foundMatch = true;");
+                    memberBuilder.AppendLine("       }");
+                    memberBuilder.AppendLine("    }");
+                    memberBuilder.AppendLine("}");
+                }
+                else if (value.ValueKind == JsonValueKind.Object)
+                {
+                    memberBuilder.AppendLine("if (!foundMatch)");
+                    memberBuilder.AppendLine("{");
+                    memberBuilder.AppendLine("    if (this.IsObject)");
+                    memberBuilder.AppendLine("    {");
+
+                    if (typeDeclaration.IsObjectType)
+                    {
+                        memberBuilder.AppendLine($"        if (this.Equals({typeDeclaration.DotnetTypeName}.EnumValues.Item{enumIndex}))");
+                    }
+                    else
+                    {
+                        memberBuilder.AppendLine($"        if (this.As<Menes.JsonAny>().Equals({typeDeclaration.DotnetTypeName}.EnumValues.Item{enumIndex}))");
+                    }
+
+                    memberBuilder.AppendLine("        {");
+                    memberBuilder.AppendLine("               foundMatch = true;");
+                    memberBuilder.AppendLine("        }");
+                    memberBuilder.AppendLine("    }");
+                    memberBuilder.AppendLine("}");
+                }
+
+                enumIndex++;
+            }
+
+            memberBuilder.AppendLine("if (!foundMatch)");
+            memberBuilder.AppendLine("{");
+            this.WriteError($"6.1.2. enum - does not match enum values {string.Join(", ", values.Select(v => v.GetRawText()))}", memberBuilder);
+            memberBuilder.AppendLine("if (level == Menes.ValidationLevel.Flag && !result.Valid)");
+            memberBuilder.AppendLine("{");
+            memberBuilder.AppendLine("    return result;");
+            memberBuilder.AppendLine("}");
+            memberBuilder.AppendLine("}");
+            memberBuilder.AppendLine("else");
+            memberBuilder.AppendLine("{");
+            this.WriteSuccess(memberBuilder);
+            memberBuilder.AppendLine("}");
+        }
+
         private void BuildTypeValidations(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
         {
             if (typeDeclaration.Type is not null)
@@ -460,7 +629,7 @@ namespace Menes.JsonSchema.TypeBuilder
 
         private void BuildEnumeratedPropertyValidations(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
         {
-            if (!typeDeclaration.IsObjectTypeDeclaration)
+            if (!typeDeclaration.IsObjectType)
             {
                 return;
             }
@@ -518,7 +687,7 @@ namespace Menes.JsonSchema.TypeBuilder
 
         private void BuildPropertyValidations(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
         {
-            if (!typeDeclaration.IsObjectTypeDeclaration)
+            if (!typeDeclaration.IsObjectType)
             {
                 return;
             }

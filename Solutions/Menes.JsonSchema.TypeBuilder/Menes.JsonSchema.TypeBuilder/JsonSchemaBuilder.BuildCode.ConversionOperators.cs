@@ -38,7 +38,7 @@ namespace Menes.JsonSchema.TypeBuilder
                 }
                 else
                 {
-                    if (typeDeclaration.IsArrayTypeDeclaration)
+                    if (typeDeclaration.IsArrayType)
                     {
                         memberBuilder.AppendLine($"    return new {typeDeclaration.FullyQualifiedDotNetTypeName}(items);");
                     }

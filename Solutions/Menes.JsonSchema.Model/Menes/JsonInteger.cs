@@ -197,7 +197,7 @@ namespace Menes
         public bool Equals<T>(T other)
             where T : struct, IJsonValue
         {
-            if (!other.IsString)
+            if (!other.IsNumber && !other.IsInteger)
             {
                 return false;
             }

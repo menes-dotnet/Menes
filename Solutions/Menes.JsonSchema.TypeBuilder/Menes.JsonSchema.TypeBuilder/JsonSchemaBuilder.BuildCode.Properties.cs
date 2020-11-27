@@ -27,7 +27,7 @@ namespace Menes.JsonSchema.TypeBuilder
 
         private void BuildSetPropertyMethods(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
         {
-            if (!typeDeclaration.IsObjectTypeDeclaration)
+            if (!typeDeclaration.IsObjectType)
             {
                 return;
             }
@@ -280,7 +280,7 @@ namespace Menes.JsonSchema.TypeBuilder
 
         private void BuildTryGetProperty(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
         {
-            if (!typeDeclaration.IsObjectTypeDeclaration)
+            if (!typeDeclaration.IsObjectType)
             {
                 return;
             }

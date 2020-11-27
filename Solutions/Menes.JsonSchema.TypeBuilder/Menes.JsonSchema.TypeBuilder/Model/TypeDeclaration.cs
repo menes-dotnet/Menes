@@ -237,7 +237,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
                     return false;
                 }
 
-                return this.IsObjectTypeDeclaration;
+                return this.IsObjectType;
             }
         }
 
@@ -351,12 +351,12 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         /// <summary>
         /// Gets a value indicating whether this is an object-type declaration.
         /// </summary>
-        public bool IsObjectTypeDeclaration => (this.Type is not null && this.Type.Contains("object")) || this.AdditionalProperties is not null || this.DependentRequired is not null || this.DependentSchemas is not null || this.MaxProperties is not null || this.MinProperties is not null || this.PatternProperties is not null || this.Properties is not null || this.PropertyNames is not null || this.UnevaluatedProperties is not null;
+        public bool IsObjectType => (this.Type is not null && this.Type.Contains("object")) || this.AdditionalProperties is not null || this.DependentRequired is not null || this.DependentSchemas is not null || this.MaxProperties is not null || this.MinProperties is not null || this.PatternProperties is not null || this.Properties is not null || this.PropertyNames is not null || this.UnevaluatedProperties is not null;
 
         /// <summary>
         /// Gets a value indicating whether this is an array-type declaration.
         /// </summary>
-        public bool IsArrayTypeDeclaration => (this.Type is not null && this.Type.Contains("array")) || this.AdditionalItems is not null || this.Items is not null || this.UnevaluatedItems is not null || this.Contains is not null || this.MaxContains is not null || this.MaxItems is not null || this.MinContains is not null || this.MinItems is not null || this.UniqueItems is not null;
+        public bool IsArrayType => (this.Type is not null && this.Type.Contains("array")) || this.AdditionalItems is not null || this.Items is not null || this.UnevaluatedItems is not null || this.Contains is not null || this.MaxContains is not null || this.MaxItems is not null || this.MinContains is not null || this.MinItems is not null || this.UniqueItems is not null;
 
         /// <summary>
         /// Gets a value indicating whether this is a concerete object-type declaration.
@@ -697,6 +697,12 @@ namespace Menes.JsonSchema.TypeBuilder.Model
                 {
                     return true;
                 }
+            }
+
+            // This is an internal name we have used.
+            if (span.SequenceEqual("EnumValues"))
+            {
+                return true;
             }
 
             return false;

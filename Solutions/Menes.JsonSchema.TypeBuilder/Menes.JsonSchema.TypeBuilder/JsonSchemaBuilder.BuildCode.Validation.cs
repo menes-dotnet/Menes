@@ -44,7 +44,7 @@ namespace Menes.JsonSchema.TypeBuilder
 
         private void BuildArrayValidation(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
         {
-            if (!typeDeclaration.IsArrayTypeDeclaration)
+            if (!typeDeclaration.IsArrayType)
             {
                 return;
             }

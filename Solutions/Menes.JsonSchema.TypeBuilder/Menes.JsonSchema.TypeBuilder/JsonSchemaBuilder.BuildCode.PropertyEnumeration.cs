@@ -25,7 +25,7 @@ namespace Menes.JsonSchema.TypeBuilder
         /// </remarks>
         private void BuildPropertyEnumerator(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
         {
-            if (!typeDeclaration.IsObjectTypeDeclaration)
+            if (!typeDeclaration.IsObjectType)
             {
                 return;
             }
@@ -145,7 +145,7 @@ namespace Menes.JsonSchema.TypeBuilder
 
         private void BuildPropertyCountProperty(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
         {
-            if (!typeDeclaration.IsObjectTypeDeclaration)
+            if (!typeDeclaration.IsObjectType)
             {
                 return;
             }
@@ -196,7 +196,7 @@ namespace Menes.JsonSchema.TypeBuilder
 
         private void BuildPublicGetPropertyAtIndex(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
         {
-            if (!typeDeclaration.IsObjectTypeDeclaration)
+            if (!typeDeclaration.IsObjectType)
             {
                 return;
             }
@@ -212,7 +212,7 @@ namespace Menes.JsonSchema.TypeBuilder
 
         private void BuildPrivateGetPropertyAtIndex(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
         {
-            if (!typeDeclaration.IsObjectTypeDeclaration)
+            if (!typeDeclaration.IsObjectType)
             {
                 return;
             }
@@ -282,12 +282,12 @@ namespace Menes.JsonSchema.TypeBuilder
         /// </remarks>
         private void BuildObjectEnumerator(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
         {
-            if (!typeDeclaration.IsObjectTypeDeclaration)
+            if (!typeDeclaration.IsObjectType)
             {
                 return;
             }
 
-            if (!typeDeclaration.IsArrayTypeDeclaration)
+            if (!typeDeclaration.IsArrayType)
             {
                 memberBuilder.AppendLine($"public {typeDeclaration.FullyQualifiedDotNetTypeName}.MenesPropertyEnumerator GetEnumerator()");
                 memberBuilder.AppendLine("{");
