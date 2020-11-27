@@ -653,6 +653,17 @@ namespace Menes.JsonSchema.TypeBuilder
             memberBuilder.AppendLine("    foreach (var property in this.EnumerateObject())");
             memberBuilder.AppendLine("    {");
 
+            if (typeDeclaration.DependentSchemas is List<DependentSchema> dependentSchemas)
+            {
+                foreach (DependentSchema dependentSchema in dependentSchemas)
+                {
+                    memberBuilder.AppendLine($"if (property.NameEquals({Formatting.FormatLiteralOrNull(dependentSchema.PropertyName, true)}))");
+                    memberBuilder.AppendLine("{");
+                    memberBuilder.AppendLine($"    result = this.As<{dependentSchema.Schema.FullyQualifiedDotNetTypeName}>().Validate(result, level, evaluatedProperties, absoluteKeywordLocation, instanceLocation);");
+                    memberBuilder.AppendLine("}");
+                }
+            }
+
             if (typeDeclaration.PropertyNames is TypeDeclaration propertyNames)
             {
                 memberBuilder.AppendLine($"var propertyName = new Menes.JsonString(property.NameAsMemory).As<{propertyNames.FullyQualifiedDotNetTypeName}>();");
