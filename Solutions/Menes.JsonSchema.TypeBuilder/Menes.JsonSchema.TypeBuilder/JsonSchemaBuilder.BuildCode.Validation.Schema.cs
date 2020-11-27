@@ -653,6 +653,16 @@ namespace Menes.JsonSchema.TypeBuilder
             memberBuilder.AppendLine("    foreach (var property in this.EnumerateObject())");
             memberBuilder.AppendLine("    {");
 
+            if (typeDeclaration.PropertyNames is TypeDeclaration propertyNames)
+            {
+                memberBuilder.AppendLine($"var propertyName = new Menes.JsonString(property.NameAsMemory).As<{propertyNames.FullyQualifiedDotNetTypeName}>();");
+                memberBuilder.AppendLine($"result = propertyName.Validate(result, level, evaluatedProperties, absoluteKeywordLocation, instanceLocation);");
+                memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.Valid)");
+                memberBuilder.AppendLine("        {");
+                memberBuilder.AppendLine("            return result;");
+                memberBuilder.AppendLine("        }");
+            }
+
             if (typeDeclaration.MaxProperties is not null || typeDeclaration.MinProperties is not null)
             {
                 memberBuilder.AppendLine("    propertyCount++;");

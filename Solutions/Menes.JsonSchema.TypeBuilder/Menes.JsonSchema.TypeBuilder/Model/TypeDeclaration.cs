@@ -1234,7 +1234,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
             MergeUnevaluatedProperties(typeToMerge.UnevaluatedProperties?.Lowered, result);
             MergeAdditionalProperties(typeToMerge.AdditionalProperties?.Lowered, result);
             MergePatternProperties(typeToMerge.PatternProperties, result);
-            MergePropertyNames(typeToMerge.PropertyNames, result);
+            MergePropertyNames(typeToMerge.PropertyNames?.Lowered, result);
 
             if (typeToMerge.ExclusiveMaximum is not null)
             {
