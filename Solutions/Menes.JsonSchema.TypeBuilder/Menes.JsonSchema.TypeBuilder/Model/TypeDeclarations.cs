@@ -277,7 +277,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
                 "idn-hostname" => IdnHostnameTypeDeclaration,
                 "ipv4" => IpV4TypeDeclaration,
                 "ipv6" => IpV6TypeDeclaration,
-                "guid" => ClrGuidTypeDeclaration,
+                "uuid" => ClrGuidTypeDeclaration,
                 "uri" => ClrUriTypeDeclaration,
                 "iri" => ClrIriTypeDeclaration,
                 "iri-reference" => ClrIriReferenceTypeDeclaration,
