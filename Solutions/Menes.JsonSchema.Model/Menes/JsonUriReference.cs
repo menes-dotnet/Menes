@@ -1,4 +1,4 @@
-﻿// <copyright file="JsonUri.cs" company="Endjin Limited">
+﻿// <copyright file="JsonUriReference.cs" company="Endjin Limited">
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
@@ -11,32 +11,32 @@ namespace Menes
     /// <summary>
     /// Represents the uri json type.
     /// </summary>
-    public readonly struct JsonUri : IJsonValue
+    public readonly struct JsonUriReference : IJsonValue
     {
         /// <summary>
         /// The null value.
         /// </summary>
-        public static readonly JsonUri Null = default;
+        public static readonly JsonUriReference Null = default;
 
         private static readonly Uri Empty = new Uri(string.Empty, UriKind.RelativeOrAbsolute);
 
         private readonly Uri? value;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="JsonUri"/> struct.
+        /// Initializes a new instance of the <see cref="JsonUriReference"/> struct.
         /// </summary>
         /// <param name="jsonElement">The backing json element.</param>
-        public JsonUri(JsonElement jsonElement)
+        public JsonUriReference(JsonElement jsonElement)
         {
             this.JsonElement = jsonElement;
             this.value = null;
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="JsonUri"/> struct.
+        /// Initializes a new instance of the <see cref="JsonUriReference"/> struct.
         /// </summary>
         /// <param name="value">The backing Uri value.</param>
-        public JsonUri(Uri value)
+        public JsonUriReference(Uri value)
         {
             this.value = value;
             this.JsonElement = default;
@@ -76,16 +76,16 @@ namespace Menes
         /// Implicit conversion from <see cref="Uri"/>.
         /// </summary>
         /// <param name="value">The Uri value from which to convert.</param>
-        public static implicit operator JsonUri(Uri value) => new JsonUri(value);
+        public static implicit operator JsonUriReference(Uri value) => new JsonUriReference(value);
 
         /// <summary>
         /// Implicit conversion to <see cref="Uri"/>.
         /// </summary>
         /// <param name="value">The Uri value from which to convert.</param>
-        public static implicit operator Uri(JsonUri value) => value.GetUri();
+        public static implicit operator Uri(JsonUriReference value) => value.GetUri();
 
         /// <summary>
-        /// Gets the <see cref="JsonUri"/> as a <see cref="Uri"/>.
+        /// Gets the <see cref="JsonUriReference"/> as a <see cref="Uri"/>.
         /// </summary>
         /// <returns>The <see cref="Uri"/>.</returns>
         public Uri GetUri()
@@ -97,7 +97,7 @@ namespace Menes
         public T As<T>()
             where T : struct, IJsonValue
         {
-            if (typeof(T) == typeof(JsonUri))
+            if (typeof(T) == typeof(JsonUriReference))
             {
                 return Corvus.Extensions.CastTo<T>.From(this);
             }
@@ -109,7 +109,7 @@ namespace Menes
         public bool Is<T>()
             where T : struct, IJsonValue
         {
-            if (typeof(T) == typeof(JsonUri))
+            if (typeof(T) == typeof(JsonUriReference))
             {
                 return this.Validate().Valid;
             }
@@ -126,7 +126,7 @@ namespace Menes
                 return false;
             }
 
-            JsonUri otherUri = other.As<JsonUri>();
+            JsonUriReference otherUri = other.As<JsonUriReference>();
             if (!otherUri.Validate().Valid)
             {
                 return false;

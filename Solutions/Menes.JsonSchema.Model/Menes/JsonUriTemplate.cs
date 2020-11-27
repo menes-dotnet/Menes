@@ -1,4 +1,4 @@
-﻿// <copyright file="JsonUri.cs" company="Endjin Limited">
+﻿// <copyright file="JsonUriTemplate.cs" company="Endjin Limited">
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
@@ -11,32 +11,32 @@ namespace Menes
     /// <summary>
     /// Represents the uri json type.
     /// </summary>
-    public readonly struct JsonUri : IJsonValue
+    public readonly struct JsonUriTemplate : IJsonValue
     {
         /// <summary>
         /// The null value.
         /// </summary>
-        public static readonly JsonUri Null = default;
+        public static readonly JsonUriTemplate Null = default;
 
         private static readonly Uri Empty = new Uri(string.Empty, UriKind.RelativeOrAbsolute);
 
         private readonly Uri? value;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="JsonUri"/> struct.
+        /// Initializes a new instance of the <see cref="JsonUriTemplate"/> struct.
         /// </summary>
         /// <param name="jsonElement">The backing json element.</param>
-        public JsonUri(JsonElement jsonElement)
+        public JsonUriTemplate(JsonElement jsonElement)
         {
             this.JsonElement = jsonElement;
             this.value = null;
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="JsonUri"/> struct.
+        /// Initializes a new instance of the <see cref="JsonUriTemplate"/> struct.
         /// </summary>
         /// <param name="value">The backing Uri value.</param>
-        public JsonUri(Uri value)
+        public JsonUriTemplate(Uri value)
         {
             this.value = value;
             this.JsonElement = default;
@@ -76,16 +76,16 @@ namespace Menes
         /// Implicit conversion from <see cref="Uri"/>.
         /// </summary>
         /// <param name="value">The Uri value from which to convert.</param>
-        public static implicit operator JsonUri(Uri value) => new JsonUri(value);
+        public static implicit operator JsonUriTemplate(Uri value) => new JsonUriTemplate(value);
 
         /// <summary>
         /// Implicit conversion to <see cref="Uri"/>.
         /// </summary>
         /// <param name="value">The Uri value from which to convert.</param>
-        public static implicit operator Uri(JsonUri value) => value.GetUri();
+        public static implicit operator Uri(JsonUriTemplate value) => value.GetUri();
 
         /// <summary>
-        /// Gets the <see cref="JsonUri"/> as a <see cref="Uri"/>.
+        /// Gets the <see cref="JsonUriTemplate"/> as a <see cref="Uri"/>.
         /// </summary>
         /// <returns>The <see cref="Uri"/>.</returns>
         public Uri GetUri()
@@ -97,7 +97,7 @@ namespace Menes
         public T As<T>()
             where T : struct, IJsonValue
         {
-            if (typeof(T) == typeof(JsonUri))
+            if (typeof(T) == typeof(JsonUriTemplate))
             {
                 return Corvus.Extensions.CastTo<T>.From(this);
             }
@@ -109,7 +109,7 @@ namespace Menes
         public bool Is<T>()
             where T : struct, IJsonValue
         {
-            if (typeof(T) == typeof(JsonUri))
+            if (typeof(T) == typeof(JsonUriTemplate))
             {
                 return this.Validate().Valid;
             }
@@ -126,7 +126,7 @@ namespace Menes
                 return false;
             }
 
-            JsonUri otherUri = other.As<JsonUri>();
+            JsonUriTemplate otherUri = other.As<JsonUriTemplate>();
             if (!otherUri.Validate().Valid)
             {
                 return false;

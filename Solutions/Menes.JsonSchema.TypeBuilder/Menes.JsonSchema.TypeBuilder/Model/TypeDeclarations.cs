@@ -112,6 +112,16 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         public static readonly TypeDeclaration ClrUriTypeDeclaration = new TypeDeclaration(builtInType: true) { DotnetTypeName = "Menes.JsonUri" };
 
         /// <summary>
+        /// A clr <see cref="System.Uri"/> type.
+        /// </summary>
+        public static readonly TypeDeclaration ClrUriReferenceTypeDeclaration = new TypeDeclaration(builtInType: true) { DotnetTypeName = "Menes.JsonUriReference" };
+
+        /// <summary>
+        /// A clr <see cref="System.Uri"/> type.
+        /// </summary>
+        public static readonly TypeDeclaration ClrUriTemplateTypeDeclaration = new TypeDeclaration(builtInType: true) { DotnetTypeName = "Menes.JsonUriTemplate" };
+
+        /// <summary>
         /// A clr IRI type.
         /// </summary>
         public static readonly TypeDeclaration ClrIriTypeDeclaration = new TypeDeclaration(builtInType: true) { DotnetTypeName = "Menes.JsonIri" };
@@ -279,6 +289,8 @@ namespace Menes.JsonSchema.TypeBuilder.Model
                 "ipv6" => IpV6TypeDeclaration,
                 "uuid" => ClrGuidTypeDeclaration,
                 "uri" => ClrUriTypeDeclaration,
+                "uri-template" => ClrUriTemplateTypeDeclaration,
+                "uri-reference" => ClrUriReferenceTypeDeclaration,
                 "iri" => ClrIriTypeDeclaration,
                 "iri-reference" => ClrIriReferenceTypeDeclaration,
                 _ => null,

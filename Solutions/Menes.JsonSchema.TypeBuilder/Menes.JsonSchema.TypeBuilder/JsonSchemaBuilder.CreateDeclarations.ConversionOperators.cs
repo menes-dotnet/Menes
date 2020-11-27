@@ -375,6 +375,26 @@ namespace Menes.JsonSchema.TypeBuilder
                         Via = TypeDeclarations.ClrUriTypeDeclaration,
                     });
             }
+            else if (formatString is string && formatString == "uri-reference")
+            {
+                typeDeclaration.AddConversionOperator(
+                    new ConversionOperatorDeclaration
+                    {
+                        Conversion = ConversionOperatorDeclaration.ConversionType.GenericAsAndStaticFrom,
+                        Direction = ConversionOperatorDeclaration.ConversionDirection.BidirectionalImplicit,
+                        TargetType = TypeDeclarations.ClrUriReferenceTypeDeclaration,
+                    });
+            }
+            else if (formatString is string && formatString == "uri-template")
+            {
+                typeDeclaration.AddConversionOperator(
+                    new ConversionOperatorDeclaration
+                    {
+                        Conversion = ConversionOperatorDeclaration.ConversionType.GenericAsAndStaticFrom,
+                        Direction = ConversionOperatorDeclaration.ConversionDirection.BidirectionalImplicit,
+                        TargetType = TypeDeclarations.ClrUriTemplateTypeDeclaration,
+                    });
+            }
             else if (formatString is string && formatString == "iri")
             {
                 typeDeclaration.AddConversionOperator(
