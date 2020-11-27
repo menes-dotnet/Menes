@@ -588,9 +588,19 @@ namespace Menes.JsonSchema.TypeBuilder
                 memberBuilder.AppendLine("{");
                 memberBuilder.AppendLine("    var value = (string)this.As<Menes.JsonString>();");
 
+                if (typeDeclaration.MaxLength is not null || typeDeclaration.MinLength is not null)
+                {
+                    memberBuilder.AppendLine("    int length = 0;");
+                    memberBuilder.AppendLine("var enumerator = System.Globalization.StringInfo.GetTextElementEnumerator(value);");
+                    memberBuilder.AppendLine("while (enumerator.MoveNext())");
+                    memberBuilder.AppendLine("{");
+                    memberBuilder.AppendLine("    length++;");
+                    memberBuilder.AppendLine("}");
+                }
+
                 if (typeDeclaration.MaxLength is int maxl)
                 {
-                    memberBuilder.AppendLine($"    if (value.Length > {maxl})");
+                    memberBuilder.AppendLine($"    if (length > {maxl})");
                     memberBuilder.AppendLine("    {");
                     this.WriteError($"6.3.1.  maxLength - value must have length less than or equal to {maxl}", memberBuilder);
                     memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.Valid)");
@@ -602,7 +612,7 @@ namespace Menes.JsonSchema.TypeBuilder
 
                 if (typeDeclaration.MinLength is int minl)
                 {
-                    memberBuilder.AppendLine($"    if (value.Length < {minl})");
+                    memberBuilder.AppendLine($"    if (length < {minl})");
                     memberBuilder.AppendLine("    {");
                     this.WriteError($"6.3.2.  minimum - value must have length greater than or equal to {minl}", memberBuilder);
                     memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.Valid)");
