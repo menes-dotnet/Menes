@@ -140,7 +140,7 @@ namespace Menes
         {
             ValidationResult result = validationResult ?? ValidationResult.ValidResult;
 
-            if (this.HasJsonElement && (this.JsonElement.ValueKind != JsonValueKind.String || !Uri.IsWellFormedUriString(this.JsonElement.GetString(), UriKind.RelativeOrAbsolute)))
+            if (this.HasJsonElement && (this.JsonElement.ValueKind != JsonValueKind.String || !(Uri.TryCreate(this.JsonElement.GetString(), UriKind.Absolute, out Uri testUri) && (!testUri.IsAbsoluteUri || !testUri.IsUnc))))
             {
                 if (level >= ValidationLevel.Basic)
                 {
@@ -158,7 +158,23 @@ namespace Menes
             }
             else
             {
-                if (level == ValidationLevel.Verbose)
+                if (this.value is Uri value && (!value.IsWellFormedOriginalString() || (value.IsAbsoluteUri && value.IsUnc)))
+                {
+                    if (level >= ValidationLevel.Basic)
+                    {
+                        string? il = null;
+                        string? akl = null;
+
+                        instanceLocation?.TryPeek(out il);
+                        absoluteKeywordLocation?.TryPeek(out akl);
+                        result.AddResult(valid: false, message: $"6.1.1.  type - should have been a URI string but was '{this.JsonElement.ValueKind}'.", instanceLocation: il, absoluteKeywordLocation: akl);
+                    }
+                    else
+                    {
+                        result.SetValid(false);
+                    }
+                }
+                else if (level == ValidationLevel.Verbose)
                 {
                     string? il = null;
                     string? akl = null;
