@@ -80,7 +80,7 @@ namespace Menes.Json.Schema
 
             if (this.documents.TryGetValue(path, out JsonDocument? result))
             {
-                if (JsonFragment.TryResolveFragment(result, reference.Fragment, out JsonElement? element))
+                if (JsonPointerUtilities.TryResolvePointer(result, reference.Fragment, out JsonElement? element))
                 {
                     return element;
                 }
@@ -92,7 +92,7 @@ namespace Menes.Json.Schema
             {
                 using Stream stream = File.OpenRead(path);
                 result = await JsonDocument.ParseAsync(stream).ConfigureAwait(false);
-                return JsonFragment.ResolveFragment(result, reference.Fragment);
+                return JsonPointerUtilities.ResolvePointer(result, reference.Fragment);
             }
             catch (Exception)
             {

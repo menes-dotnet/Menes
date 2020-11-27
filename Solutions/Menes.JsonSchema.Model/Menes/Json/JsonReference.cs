@@ -167,7 +167,7 @@ namespace Menes.Json
             if (referenceOrNull is string reference)
             {
                 Span<char> decodedReference = stackalloc char[reference.Length];
-                int writtenBytes = JsonFragment.DecodeHexFragment(reference, decodedReference);
+                int writtenBytes = JsonPointerUtilities.DecodeHexPointer(reference, decodedReference);
                 var output = new Memory<char>(new char[writtenBytes]);
                 decodedReference.Slice(0, writtenBytes).CopyTo(output.Span);
                 return new JsonReference(output);
@@ -215,7 +215,7 @@ namespace Menes.Json
             int copiedByteCount = writeIndex;
 
             Span<char> target = encodedValue[writeIndex..];
-            int writtenBytes = JsonFragment.EncodeFragment(unencodedPropertyName.AsSpan(), ref target);
+            int writtenBytes = JsonPointerUtilities.EncodePointer(unencodedPropertyName.AsSpan(), ref target);
             int totalWritten = copiedByteCount + writtenBytes;
             var output = new Memory<char>(new char[totalWritten]);
             encodedValue.Slice(0, totalWritten).CopyTo(output.Span);

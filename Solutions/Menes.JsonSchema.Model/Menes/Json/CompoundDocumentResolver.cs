@@ -43,7 +43,7 @@ namespace Menes.Json
 
             if (this.documents.TryGetValue(uri, out JsonDocument? result))
             {
-                if (JsonFragment.TryResolveFragment(result, reference.Fragment, out JsonElement? element))
+                if (JsonPointerUtilities.TryResolvePointer(result, reference.Fragment, out JsonElement? element))
                 {
                     return element;
                 }

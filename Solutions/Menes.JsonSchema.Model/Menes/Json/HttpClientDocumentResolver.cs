@@ -67,14 +67,14 @@ namespace Menes.Json.Schema
             string uri = new string(reference.Uri);
             if (this.documents.TryGetValue(uri, out JsonDocument? result))
             {
-                return JsonFragment.ResolveFragment(result, reference.Fragment);
+                return JsonPointerUtilities.ResolvePointer(result, reference.Fragment);
             }
 
             try
             {
                 using Stream stream = await this.httpClient.GetStreamAsync(uri).ConfigureAwait(false);
                 result = await JsonDocument.ParseAsync(stream).ConfigureAwait(false);
-                if (JsonFragment.TryResolveFragment(result, reference.Fragment, out JsonElement? element))
+                if (JsonPointerUtilities.TryResolvePointer(result, reference.Fragment, out JsonElement? element))
                 {
                     return element;
                 }

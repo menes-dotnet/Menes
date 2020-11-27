@@ -127,6 +127,11 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         public static readonly TypeDeclaration ClrIriTypeDeclaration = new TypeDeclaration(builtInType: true) { DotnetTypeName = "Menes.JsonIri" };
 
         /// <summary>
+        /// A clr IRI type.
+        /// </summary>
+        public static readonly TypeDeclaration ClrJsonPointerTypeDeclaration = new TypeDeclaration(builtInType: true) { DotnetTypeName = "Menes.JsonPointer" };
+
+        /// <summary>
         /// A clr IRI-Reference type.
         /// </summary>
         public static readonly TypeDeclaration ClrIriReferenceTypeDeclaration = new TypeDeclaration(builtInType: true) { DotnetTypeName = "Menes.JsonIriReference" };
@@ -293,6 +298,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
                 "uri-reference" => ClrUriReferenceTypeDeclaration,
                 "iri" => ClrIriTypeDeclaration,
                 "iri-reference" => ClrIriReferenceTypeDeclaration,
+                "json-pointer" => ClrJsonPointerTypeDeclaration,
                 _ => null,
             };
         }

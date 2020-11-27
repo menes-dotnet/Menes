@@ -1,4 +1,4 @@
-﻿// <copyright file="JsonFragment.cs" company="Endjin Limited">
+﻿// <copyright file="JsonPointerUtilities.cs" company="Endjin Limited">
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
@@ -12,12 +12,12 @@ namespace Menes.Json
     using System.Text.Json;
 
     /// <summary>
-    /// Utility function to resolve the JsonElement referenced by a json fragment pointer into a json element.
+    /// Utility function to resolve the JsonElement referenced by a json pointer into a json element.
     /// </summary>
     /// <remarks>
     /// Note that we don't support <c>$anchor</c> or <c>$id</c> with this implementation.
     /// </remarks>
-    public static class JsonFragment
+    public static class JsonPointerUtilities
     {
         private static readonly HashSet<char> ReservedCharacters = new HashSet<char> { '%', '"' };
         private static readonly char[] HexDigits = new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
@@ -28,9 +28,9 @@ namespace Menes.Json
         /// <param name="root">The root document from which to start resolving the pointer.</param>
         /// <param name="fragment">The fragment in <c>#/blah/foo/3/bar/baz</c> form.</param>
         /// <returns><c>true</c> if the element was found.</returns>
-        public static JsonElement ResolveFragment(JsonDocument root, in ReadOnlySpan<char> fragment)
+        public static JsonElement ResolvePointer(JsonDocument root, in ReadOnlySpan<char> fragment)
         {
-            if (TryResolveFragment(root.RootElement, fragment, true, out JsonElement? element))
+            if (TryResolvePointer(root.RootElement, fragment, true, out JsonElement? element))
             {
                 return element.Value;
             }
@@ -44,9 +44,9 @@ namespace Menes.Json
         /// <param name="root">The root element from which to start resolving the pointer.</param>
         /// <param name="fragment">The fragment in <c>#/blah/foo/3/bar/baz</c> form.</param>
         /// <returns><c>true</c> if the element was found.</returns>
-        public static JsonElement ResolveFragment(JsonElement root, in ReadOnlySpan<char> fragment)
+        public static JsonElement ResolvePointer(JsonElement root, in ReadOnlySpan<char> fragment)
         {
-            if (TryResolveFragment(root, fragment, true, out JsonElement? element))
+            if (TryResolvePointer(root, fragment, true, out JsonElement? element))
             {
                 return element.Value;
             }
@@ -61,9 +61,9 @@ namespace Menes.Json
         /// <param name="fragment">The fragment in <c>#/blah/foo/3/bar/baz</c> form.</param>
         /// <param name="element">The element found at the given location.</param>
         /// <returns><c>true</c> if the element was found.</returns>
-        public static bool TryResolveFragment(JsonDocument root, in ReadOnlySpan<char> fragment, [NotNullWhen(true)] out JsonElement? element)
+        public static bool TryResolvePointer(JsonDocument root, in ReadOnlySpan<char> fragment, [NotNullWhen(true)] out JsonElement? element)
         {
-            return TryResolveFragment(root.RootElement, fragment, false, out element);
+            return TryResolvePointer(root.RootElement, fragment, false, out element);
         }
 
         /// <summary>
@@ -73,18 +73,18 @@ namespace Menes.Json
         /// <param name="fragment">The fragment in <c>#/blah/foo/3/bar/baz</c> form.</param>
         /// <param name="element">The element found at the given location.</param>
         /// <returns><c>true</c> if the element was found.</returns>
-        public static bool TryResolveFragment(JsonElement root, in ReadOnlySpan<char> fragment, [NotNullWhen(true)] out JsonElement? element)
+        public static bool TryResolvePointer(JsonElement root, in ReadOnlySpan<char> fragment, [NotNullWhen(true)] out JsonElement? element)
         {
-            return TryResolveFragment(root, fragment, false, out element);
+            return TryResolvePointer(root, fragment, false, out element);
         }
 
         /// <summary>
-        /// Encodes the ~ encoding in a fragment.
+        /// Encodes the ~ encoding in a pointer.
         /// </summary>
         /// <param name="unencodedFragment">The encoded fragment.</param>
         /// <param name="fragment">The span into which to write the result.</param>
         /// <returns>The length of the decoded fragment.</returns>
-        internal static int EncodeFragment(in ReadOnlySpan<char> unencodedFragment, ref Span<char> fragment)
+        internal static int EncodePointer(in ReadOnlySpan<char> unencodedFragment, ref Span<char> fragment)
         {
             int readIndex = 0;
             int writeIndex = 0;
@@ -122,7 +122,7 @@ namespace Menes.Json
         /// <param name="encodedFragment">The encoded reference.</param>
         /// <param name="fragment">The span into which to write the result.</param>
         /// <returns>The length of the decoded reference.</returns>
-        internal static int DecodeHexFragment(ReadOnlySpan<char> encodedFragment, Span<char> fragment)
+        internal static int DecodeHexPointer(ReadOnlySpan<char> encodedFragment, Span<char> fragment)
         {
             int readIndex = 0;
             int writeIndex = 0;
@@ -174,7 +174,7 @@ namespace Menes.Json
         /// <param name="encodedFragment">The encoded reference.</param>
         /// <param name="fragment">The span into which to write the result.</param>
         /// <returns>The length of the decoded reference.</returns>
-        internal static int DecodeFragment(ReadOnlySpan<char> encodedFragment, Span<char> fragment)
+        internal static int DecodePointer(ReadOnlySpan<char> encodedFragment, Span<char> fragment)
         {
             int readIndex = 0;
             int writeIndex = 0;
@@ -223,7 +223,7 @@ namespace Menes.Json
         /// <param name="throwOnFailure">If true, we throw on failure.</param>
         /// <param name="element">The element found at the given location.</param>
         /// <returns><c>true</c> if the element was found.</returns>
-        private static bool TryResolveFragment(JsonElement root, in ReadOnlySpan<char> fragment, bool throwOnFailure, [NotNullWhen(true)] out JsonElement? element)
+        private static bool TryResolvePointer(JsonElement root, in ReadOnlySpan<char> fragment, bool throwOnFailure, [NotNullWhen(true)] out JsonElement? element)
         {
             JsonElement current = root;
             int index = 0;
@@ -257,7 +257,7 @@ namespace Menes.Json
                 int endRun = index;
                 ReadOnlySpan<char> encodedComponent = fragment[startRun..endRun];
                 Span<char> decodedComponent = stackalloc char[encodedComponent.Length];
-                int decodedWritten = DecodeFragment(encodedComponent, decodedComponent);
+                int decodedWritten = DecodePointer(encodedComponent, decodedComponent);
                 ReadOnlySpan<char> component = decodedComponent.Slice(0, decodedWritten);
                 if (current.ValueKind == JsonValueKind.Object)
                 {
