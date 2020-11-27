@@ -435,6 +435,16 @@ namespace Menes.JsonSchema.TypeBuilder
                         TargetType = TypeDeclarations.ClrRelativeJsonPointerTypeDeclaration,
                     });
             }
+            else if (formatString is string && formatString == "regex")
+            {
+                typeDeclaration.AddConversionOperator(
+                    new ConversionOperatorDeclaration
+                    {
+                        Conversion = ConversionOperatorDeclaration.ConversionType.GenericAsAndStaticFrom,
+                        Direction = ConversionOperatorDeclaration.ConversionDirection.BidirectionalImplicit,
+                        TargetType = TypeDeclarations.ClrRegexTypeDeclaration,
+                    });
+            }
 
             typeDeclaration.AddConversionOperator(
                 new ConversionOperatorDeclaration
