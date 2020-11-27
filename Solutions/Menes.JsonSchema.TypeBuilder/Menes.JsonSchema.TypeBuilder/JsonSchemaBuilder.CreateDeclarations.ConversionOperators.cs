@@ -425,6 +425,16 @@ namespace Menes.JsonSchema.TypeBuilder
                         TargetType = TypeDeclarations.ClrJsonPointerTypeDeclaration,
                     });
             }
+            else if (formatString is string && formatString == "relative-json-pointer")
+            {
+                typeDeclaration.AddConversionOperator(
+                    new ConversionOperatorDeclaration
+                    {
+                        Conversion = ConversionOperatorDeclaration.ConversionType.GenericAsAndStaticFrom,
+                        Direction = ConversionOperatorDeclaration.ConversionDirection.BidirectionalImplicit,
+                        TargetType = TypeDeclarations.ClrRelativeJsonPointerTypeDeclaration,
+                    });
+            }
 
             typeDeclaration.AddConversionOperator(
                 new ConversionOperatorDeclaration
