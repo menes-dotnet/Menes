@@ -33,8 +33,9 @@ namespace Menes.JsonSchema.TypeBuilder
 
             this.BuildStringValidations(typeDeclaration, memberBuilder);
 
-            if (typeDeclaration.AllOf is not null || typeDeclaration.AnyOf is not null || typeDeclaration.OneOf is not null)
+            if (typeDeclaration.AllOf is not null || typeDeclaration.AnyOf is not null || typeDeclaration.OneOf is not null || typeDeclaration.Not is not null)
             {
+                this.BuildNotValidation(typeDeclaration, memberBuilder);
                 this.BuildAllOfValidation(typeDeclaration, memberBuilder);
                 this.BuildOneOfValidation(typeDeclaration, memberBuilder);
                 this.BuildAnyOfValidation(typeDeclaration, memberBuilder);
@@ -747,6 +748,7 @@ namespace Menes.JsonSchema.TypeBuilder
 
         private void BuildValidationLocalFunctions(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
         {
+            this.BuildNotValidationLocalFunction(typeDeclaration, memberBuilder);
             this.BuildAllOfValidationLocalFunction(typeDeclaration, memberBuilder);
             this.BuildAnyOfValidationLocalFunction(typeDeclaration, memberBuilder);
             this.BuildOneOfValidationLocalFunction(typeDeclaration, memberBuilder);
