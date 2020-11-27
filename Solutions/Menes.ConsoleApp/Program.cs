@@ -24,7 +24,7 @@ namespace Menes.ConsoleApp
         /// </summary>
         public static void Main()
         {
-            RootEntity entity = new JsonAny("{\"prop1\": \"match\"}").As<RootEntity>();
+            RootEntity entity = new JsonAny("{\"foo\": \"foo\", \"bar\": \"bar\"}").As<RootEntity>();
             entity.Validate();
         }
 

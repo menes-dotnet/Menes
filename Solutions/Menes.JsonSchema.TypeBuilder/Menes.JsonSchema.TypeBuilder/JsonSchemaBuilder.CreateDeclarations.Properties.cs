@@ -124,6 +124,10 @@ namespace Menes.JsonSchema.TypeBuilder
                         {
                             typeDeclaration.AdditionalProperties = TypeDeclarations.NotTypeDeclaration;
                         }
+                        else if (propertyTypeElement.JsonElement.ValueKind == JsonValueKind.True)
+                        {
+                            typeDeclaration.AdditionalProperties = TypeDeclarations.AnyTypeDeclaration;
+                        }
                     }
                     else
                     {

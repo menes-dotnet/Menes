@@ -698,16 +698,32 @@ namespace Menes.JsonSchema.TypeBuilder
                 }
             }
 
-            if (typeDeclaration.AllowsAdditionalProperties && typeDeclaration.AdditionalProperties is not null)
+            if (typeDeclaration.AllowsAdditionalProperties)
             {
-                memberBuilder.AppendLine($"    if (!evaluatedProperties?.Contains(property.Name) ?? true)");
-                memberBuilder.AppendLine("    {");
-                memberBuilder.AppendLine($"        result = property.Value<{typeDeclaration.AdditionalProperties.FullyQualifiedDotNetTypeName}>().Validate(result, level, evaluatedProperties, absoluteKeywordLocation, instanceLocation);");
-                memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.Valid)");
-                memberBuilder.AppendLine("        {");
-                memberBuilder.AppendLine("            return result;");
-                memberBuilder.AppendLine("        }");
-                memberBuilder.AppendLine("    }");
+                if (typeDeclaration.AdditionalProperties is not null)
+                {
+                    memberBuilder.AppendLine($"    if (!evaluatedProperties?.Contains(property.Name) ?? true)");
+                    memberBuilder.AppendLine("    {");
+                    memberBuilder.AppendLine("        evaluatedProperties?.Add(property.Name);");
+                    memberBuilder.AppendLine($"        result = property.Value<{typeDeclaration.AdditionalProperties.FullyQualifiedDotNetTypeName}>().Validate(result, level, evaluatedProperties, absoluteKeywordLocation, instanceLocation);");
+                    memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.Valid)");
+                    memberBuilder.AppendLine("        {");
+                    memberBuilder.AppendLine("            return result;");
+                    memberBuilder.AppendLine("        }");
+                    memberBuilder.AppendLine("    }");
+                }
+                else if (typeDeclaration.UnevaluatedProperties is TypeDeclaration unevaluatedProperties)
+                {
+                    memberBuilder.AppendLine($"    if (!(evaluatedProperties?.Contains(property.Name) ?? true) && !(composedEvaluatedProperties?.Contains(property.Name) ?? true))");
+                    memberBuilder.AppendLine("    {");
+                    memberBuilder.AppendLine($"        result = property.Value<{unevaluatedProperties.FullyQualifiedDotNetTypeName}>().Validate(result, level, evaluatedProperties, absoluteKeywordLocation, instanceLocation);");
+                    memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.Valid)");
+                    memberBuilder.AppendLine("        {");
+                    memberBuilder.AppendLine("            return result;");
+                    memberBuilder.AppendLine("        }");
+                    memberBuilder.AppendLine("        evaluatedProperties?.Add(property.Name);");
+                    memberBuilder.AppendLine("    }");
+                }
             }
             else if (!typeDeclaration.AllowsAdditionalProperties)
             {
