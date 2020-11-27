@@ -5,6 +5,7 @@
 namespace Menes.JsonSchema.TypeBuilder
 {
     using System;
+    using System.Collections.Generic;
     using System.Text;
     using System.Text.Json;
     using Menes.Json;
@@ -63,9 +64,85 @@ namespace Menes.JsonSchema.TypeBuilder
 
             memberBuilder.AppendLine("if (this.IsArray)");
             memberBuilder.AppendLine("{");
+
+            memberBuilder.AppendLine("int arrayLength = 0;");
+
+            memberBuilder.AppendLine("var arrayEnumerator = this.EnumerateArray();");
+            memberBuilder.AppendLine("while (arrayEnumerator.MoveNext())");
+            memberBuilder.AppendLine("{");
+            if (typeDeclaration.Items is List<TypeDeclaration> items)
+            {
+                if (!typeDeclaration.IsItemsArray)
+                {
+                    memberBuilder.AppendLine($"result = arrayEnumerator.Current.As<{items[0].FullyQualifiedDotNetTypeName}>().Validate(result, level, evaluatedProperties, absoluteKeywordLocation, instanceLocation);");
+                    memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.Valid)");
+                    memberBuilder.AppendLine("        {");
+                    memberBuilder.AppendLine("            return result;");
+                    memberBuilder.AppendLine("        }");
+                }
+                else
+                {
+                    memberBuilder.AppendLine("switch(arrayLength)");
+                    memberBuilder.AppendLine("{");
+
+                    int caseIndex = 0;
+                    foreach (TypeDeclaration item in items)
+                    {
+                        memberBuilder.AppendLine($"case {caseIndex}:");
+                        memberBuilder.AppendLine($"   result = arrayEnumerator.Current.As<{items[caseIndex].FullyQualifiedDotNetTypeName}>().Validate(result, level, evaluatedProperties, absoluteKeywordLocation, instanceLocation);");
+                        memberBuilder.AppendLine("    if (level == Menes.ValidationLevel.Flag && !result.Valid)");
+                        memberBuilder.AppendLine("    {");
+                        memberBuilder.AppendLine("        return result;");
+                        memberBuilder.AppendLine("    }");
+                        memberBuilder.AppendLine("    break;");
+                        caseIndex++;
+                    }
+
+                    memberBuilder.AppendLine("default:");
+                    if (!typeDeclaration.AllowsAdditionalItems)
+                    {
+                        this.WriteError("9.3.1.2. additionalItems", memberBuilder);
+                        memberBuilder.AppendLine("    if (level == Menes.ValidationLevel.Flag && !result.Valid)");
+                        memberBuilder.AppendLine("    {");
+                        memberBuilder.AppendLine("        return result;");
+                        memberBuilder.AppendLine("    }");
+                    }
+                    else if (typeDeclaration.AdditionalItems is TypeDeclaration additionalItems)
+                    {
+                        memberBuilder.AppendLine($"   result = arrayEnumerator.Current.As<{additionalItems.FullyQualifiedDotNetTypeName}>().Validate(result, level, evaluatedProperties, absoluteKeywordLocation, instanceLocation);");
+                        memberBuilder.AppendLine("    if (level == Menes.ValidationLevel.Flag && !result.Valid)");
+                        memberBuilder.AppendLine("    {");
+                        memberBuilder.AppendLine("        return result;");
+                        memberBuilder.AppendLine("    }");
+                    }
+                    else if (typeDeclaration.UnevaluatedItems is TypeDeclaration unevaluatedItems)
+                    {
+                        memberBuilder.AppendLine($"   result = arrayEnumerator.Current.As<{unevaluatedItems.FullyQualifiedDotNetTypeName}>().Validate(result, level, evaluatedProperties, absoluteKeywordLocation, instanceLocation);");
+                        memberBuilder.AppendLine("    if (level == Menes.ValidationLevel.Flag && !result.Valid)");
+                        memberBuilder.AppendLine("    {");
+                        memberBuilder.AppendLine("        return result;");
+                        memberBuilder.AppendLine("    }");
+                    }
+
+                    memberBuilder.AppendLine("break;");
+                    memberBuilder.AppendLine("}");
+                }
+            }
+            else if (typeDeclaration.UnevaluatedItems is TypeDeclaration unevaluatedItems)
+            {
+                memberBuilder.AppendLine($"   result = arrayEnumerator.Current.As<{unevaluatedItems.FullyQualifiedDotNetTypeName}>().Validate(result, level, evaluatedProperties, absoluteKeywordLocation, instanceLocation);");
+                memberBuilder.AppendLine("    if (level == Menes.ValidationLevel.Flag && !result.Valid)");
+                memberBuilder.AppendLine("    {");
+                memberBuilder.AppendLine("        return result;");
+                memberBuilder.AppendLine("    }");
+            }
+
+            memberBuilder.AppendLine("   arrayLength++;");
+            memberBuilder.AppendLine("}");
+
             if (typeDeclaration.MinItems is int minItems)
             {
-                memberBuilder.AppendLine($"if (this.GetArrayLength() < {minItems})");
+                memberBuilder.AppendLine($"if (arrayLength < {minItems})");
                 memberBuilder.AppendLine("{");
                 this.WriteError($"6.4.2.  minItems - expected a minimum of {minItems} items", memberBuilder);
                 memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.Valid)");
@@ -77,7 +154,7 @@ namespace Menes.JsonSchema.TypeBuilder
 
             if (typeDeclaration.MaxItems is int maxItems)
             {
-                memberBuilder.AppendLine($"if (this.GetArrayLength() > {maxItems})");
+                memberBuilder.AppendLine($"if (arrayLength > {maxItems})");
                 memberBuilder.AppendLine("{");
                 this.WriteError($"6.4.2.  minItems - expected a maximum of {maxItems} items", memberBuilder);
                 memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.Valid)");

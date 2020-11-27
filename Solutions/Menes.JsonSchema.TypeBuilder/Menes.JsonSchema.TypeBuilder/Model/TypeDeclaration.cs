@@ -242,6 +242,24 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         }
 
         /// <summary>
+        /// Gets a value indicating whether this type allows additional properties.
+        /// </summary>
+        public bool AllowsAdditionalItems
+        {
+            get
+            {
+                // The only case where we don't allow additional items
+                if (this.AdditionalItems is not null &&
+                    this.AdditionalItems.IsBooleanFalseSchema)
+                {
+                    return false;
+                }
+
+                return this.IsArrayType;
+            }
+        }
+
+        /// <summary>
         /// Gets a value indicating whether this is a boolean schema.
         /// </summary>
         public bool IsBooleanSchema => this.IsBooleanFalseSchema || this.IsBooleanTrueSchema;
@@ -1058,10 +1076,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
 
             foreach (TypeDeclaration item in items)
             {
-                if (!resultItems.Any(i => i.FullyQualifiedDotNetTypeName == item.FullyQualifiedDotNetTypeName))
-                {
-                    resultItems.Add(item);
-                }
+                resultItems.Add(item);
             }
         }
 
@@ -1330,7 +1345,6 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         private static void MergeTypesToBase(TypeDeclaration result, TypeDeclaration typeToMerge)
         {
             MergeProperties(ForceNonLocal(typeToMerge.Properties), result);
-            MergeItems(typeToMerge.Items, result);
             MergeConstAndEnum(typeToMerge, result);
 
             // Note that we don't merge validations on the merged types
@@ -1604,7 +1618,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
                 {
                     ////if (type != result && !resultTypes.Any(t => t.FullyQualifiedDotNetTypeName == type.FullyQualifiedDotNetTypeName))
                     ////{
-                        resultTypes.Add(type);
+                    resultTypes.Add(type);
                     ////}
                 }
 
