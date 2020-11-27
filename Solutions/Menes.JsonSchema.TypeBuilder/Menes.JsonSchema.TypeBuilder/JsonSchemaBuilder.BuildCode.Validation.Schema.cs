@@ -645,8 +645,18 @@ namespace Menes.JsonSchema.TypeBuilder
 
             memberBuilder.AppendLine("if (this.IsObject)");
             memberBuilder.AppendLine("{");
+            if (typeDeclaration.MaxProperties is not null || typeDeclaration.MinProperties is not null)
+            {
+                memberBuilder.AppendLine("    int propertyCount = 0;");
+            }
+
             memberBuilder.AppendLine("    foreach (var property in this.EnumerateObject())");
             memberBuilder.AppendLine("    {");
+
+            if (typeDeclaration.MaxProperties is not null || typeDeclaration.MinProperties is not null)
+            {
+                memberBuilder.AppendLine("    propertyCount++;");
+            }
 
             if (typeDeclaration.PatternProperties is not null)
             {
@@ -691,6 +701,31 @@ namespace Menes.JsonSchema.TypeBuilder
             }
 
             memberBuilder.AppendLine("    }");
+
+            if (typeDeclaration.MaxProperties is int maxProperties)
+            {
+                memberBuilder.AppendLine($"    if (propertyCount > {maxProperties})");
+                memberBuilder.AppendLine("    {");
+                this.WriteError($"6.5.1.  maxProperties - property count greater than {maxProperties}", memberBuilder);
+                memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag)");
+                memberBuilder.AppendLine("        {");
+                memberBuilder.AppendLine("            return result;");
+                memberBuilder.AppendLine("        }");
+                memberBuilder.AppendLine("    }");
+            }
+
+            if (typeDeclaration.MinProperties is int minProperties)
+            {
+                memberBuilder.AppendLine($"    if (propertyCount < {minProperties})");
+                memberBuilder.AppendLine("    {");
+                this.WriteError($"6.5.1.  minProperties - property count less than {minProperties}", memberBuilder);
+                memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag)");
+                memberBuilder.AppendLine("        {");
+                memberBuilder.AppendLine("            return result;");
+                memberBuilder.AppendLine("        }");
+                memberBuilder.AppendLine("    }");
+            }
+
             memberBuilder.AppendLine("}");
         }
 
