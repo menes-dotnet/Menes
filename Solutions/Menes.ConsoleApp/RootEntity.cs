@@ -19,10 +19,6 @@ namespace Driver.GeneratedTypes
             this._menesArrayValueBacking = value;
             this._menesJsonElementBacking = default;
         }
-        public static implicit operator RootEntity(System.Collections.Immutable.ImmutableArray<Menes.JsonAny> items)
-        {
-            return new RootEntity(items);
-        }
         /// <inheritdoc />
         public bool IsUndefined => !this.HasJsonElement && this.AllBackingFieldsAreNull();
         /// <inheritdoc />
@@ -52,36 +48,14 @@ namespace Driver.GeneratedTypes
             if (this.IsArray)
             {
                 int arrayLength = 0;
+                int containsCount = 0;
                 var arrayEnumerator = this.EnumerateArray();
                 while (arrayEnumerator.MoveNext())
                 {
-                    switch (arrayLength)
+                    var containsResult = arrayEnumerator.Current.As<RootEntity.ContainsEntity>().Validate(null, level, evaluatedProperties, absoluteKeywordLocation, instanceLocation);
+                    if (containsResult.Valid)
                     {
-                        case 0:
-                            result = arrayEnumerator.Current.As<Menes.JsonAny>().Validate(result, level, evaluatedProperties, absoluteKeywordLocation, instanceLocation);
-                            if (level == Menes.ValidationLevel.Flag && !result.Valid)
-                            {
-                                return result;
-                            }
-                            break;
-                        default:
-                            if (level >= Menes.ValidationLevel.Basic)
-                            {
-                                string? il = null;
-                                string? akl = null;
-                                instanceLocation?.TryPeek(out il);
-                                absoluteKeywordLocation?.TryPeek(out akl);
-                                result.AddResult(valid: false, message: "9.3.1.2. additionalItems", instanceLocation: il, absoluteKeywordLocation: akl);
-                            }
-                            else
-                            {
-                                result.SetValid(false);
-                            }
-                            if (level == Menes.ValidationLevel.Flag && !result.Valid)
-                            {
-                                return result;
-                            }
-                            break;
+                        containsCount++;
                     }
                     arrayLength++;
                 }
@@ -419,11 +393,11 @@ namespace Driver.GeneratedTypes
             }
             return true;
         }
-        public readonly struct Items0Entity : Menes.IJsonValue
+        public readonly struct ContainsEntity : Menes.IJsonValue
         {
-            public static readonly Items0Entity Null = default(Items0Entity);
+            public static readonly ContainsEntity Null = default(ContainsEntity);
             private readonly System.Text.Json.JsonElement _menesJsonElementBacking;
-            public Items0Entity(System.Text.Json.JsonElement jsonElement)
+            public ContainsEntity(System.Text.Json.JsonElement jsonElement)
             {
                 this._menesJsonElementBacking = jsonElement;
             }
@@ -453,6 +427,29 @@ namespace Driver.GeneratedTypes
                 evaluatedProperties = evaluatedProperties ?? new System.Collections.Generic.HashSet<string>();
                 var composedEvaluatedProperties = new System.Collections.Generic.HashSet<string>();
                 Menes.ValidationResult result = validationResult ?? Menes.ValidationResult.ValidResult;
+                if (this.IsNumber)
+                {
+                    var number = (double)this.As<Menes.JsonNumber>();
+                    if (number < (double)5)
+                    {
+                        if (level >= Menes.ValidationLevel.Basic)
+                        {
+                            string? il = null;
+                            string? akl = null;
+                            instanceLocation?.TryPeek(out il);
+                            absoluteKeywordLocation?.TryPeek(out akl);
+                            result.AddResult(valid: false, message: "6.2.4.  minimum - item must be greater than or equal to 5", instanceLocation: il, absoluteKeywordLocation: akl);
+                        }
+                        else
+                        {
+                            result.SetValid(false);
+                        }
+                        if (level == Menes.ValidationLevel.Flag && !result.Valid)
+                        {
+                            return result;
+                        }
+                    }
+                }
                 return result;
             }
             /// <inheritdoc />
@@ -468,169 +465,17 @@ namespace Driver.GeneratedTypes
             public T As<T>()
                 where T : struct, Menes.IJsonValue
             {
-                if (typeof(T) == typeof(Items0Entity))
+                if (typeof(T) == typeof(ContainsEntity))
                 {
                     return Corvus.Extensions.CastTo<T>.From(this);
                 }
-                return Menes.JsonValue.As<Items0Entity, T>(this);
+                return Menes.JsonValue.As<ContainsEntity, T>(this);
             }
             /// <inheritdoc />
             public bool Is<T>()
                 where T : struct, Menes.IJsonValue
             {
-                if (typeof(T) == typeof(RootEntity.Items0Entity))
-                {
-                    return this.Validate().Valid;
-                }
-                return this.As<T>().Validate().Valid;
-            }
-            /// <inheritdoc/>
-            public bool Equals<T>(T other)
-                where T : struct, Menes.IJsonValue
-            {
-                return false;
-            }
-            private bool AllBackingFieldsAreNull()
-            {
-                return true;
-            }
-        }
-        public readonly struct Items1Entity : Menes.IJsonValue
-        {
-            public static readonly Items1Entity Null = default(Items1Entity);
-            private readonly System.Text.Json.JsonElement _menesJsonElementBacking;
-            public Items1Entity(System.Text.Json.JsonElement jsonElement)
-            {
-                this._menesJsonElementBacking = jsonElement;
-            }
-            /// <inheritdoc />
-            public bool IsUndefined => !this.HasJsonElement && this.AllBackingFieldsAreNull();
-            /// <inheritdoc />
-            public bool IsNull => this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Null || (!this.HasJsonElement && this.AllBackingFieldsAreNull());
-            /// <inheritdoc />
-            public bool IsNumber => this.HasJsonElement && this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Number;
-            /// <inheritdoc />
-            public bool IsInteger => this.HasJsonElement && this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Number;
-            /// <inheritdoc />
-            public bool IsString => this.HasJsonElement && this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.String;
-            /// <inheritdoc />
-            public bool IsObject => this.HasJsonElement && this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Object;
-            /// <inheritdoc />
-            public bool IsBoolean => this.HasJsonElement && (this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.True || this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.False);
-            /// <inheritdoc />
-            public bool IsArray => this.HasJsonElement && this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Array;
-            /// <inheritdoc />
-            public bool HasJsonElement => this._menesJsonElementBacking.ValueKind != System.Text.Json.JsonValueKind.Undefined;
-            /// <inheritdoc />
-            public System.Text.Json.JsonElement JsonElement => this._menesJsonElementBacking;
-            /// <inheritdoc />
-            public Menes.ValidationResult Validate(Menes.ValidationResult? validationResult = null, Menes.ValidationLevel level = Menes.ValidationLevel.Flag, System.Collections.Generic.HashSet<string>? evaluatedProperties = null, System.Collections.Generic.Stack<string>? absoluteKeywordLocation = null, System.Collections.Generic.Stack<string>? instanceLocation = null)
-            {
-                evaluatedProperties = evaluatedProperties ?? new System.Collections.Generic.HashSet<string>();
-                var composedEvaluatedProperties = new System.Collections.Generic.HashSet<string>();
-                Menes.ValidationResult result = validationResult ?? Menes.ValidationResult.ValidResult;
-                return result;
-            }
-            /// <inheritdoc />
-            public void WriteTo(System.Text.Json.Utf8JsonWriter writer)
-            {
-                if (this.HasJsonElement)
-                {
-                    this.JsonElement.WriteTo(writer);
-                    return;
-                }
-            }
-            /// <inheritdoc />
-            public T As<T>()
-                where T : struct, Menes.IJsonValue
-            {
-                if (typeof(T) == typeof(Items1Entity))
-                {
-                    return Corvus.Extensions.CastTo<T>.From(this);
-                }
-                return Menes.JsonValue.As<Items1Entity, T>(this);
-            }
-            /// <inheritdoc />
-            public bool Is<T>()
-                where T : struct, Menes.IJsonValue
-            {
-                if (typeof(T) == typeof(RootEntity.Items1Entity))
-                {
-                    return this.Validate().Valid;
-                }
-                return this.As<T>().Validate().Valid;
-            }
-            /// <inheritdoc/>
-            public bool Equals<T>(T other)
-                where T : struct, Menes.IJsonValue
-            {
-                return false;
-            }
-            private bool AllBackingFieldsAreNull()
-            {
-                return true;
-            }
-        }
-        public readonly struct Items2Entity : Menes.IJsonValue
-        {
-            public static readonly Items2Entity Null = default(Items2Entity);
-            private readonly System.Text.Json.JsonElement _menesJsonElementBacking;
-            public Items2Entity(System.Text.Json.JsonElement jsonElement)
-            {
-                this._menesJsonElementBacking = jsonElement;
-            }
-            /// <inheritdoc />
-            public bool IsUndefined => !this.HasJsonElement && this.AllBackingFieldsAreNull();
-            /// <inheritdoc />
-            public bool IsNull => this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Null || (!this.HasJsonElement && this.AllBackingFieldsAreNull());
-            /// <inheritdoc />
-            public bool IsNumber => this.HasJsonElement && this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Number;
-            /// <inheritdoc />
-            public bool IsInteger => this.HasJsonElement && this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Number;
-            /// <inheritdoc />
-            public bool IsString => this.HasJsonElement && this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.String;
-            /// <inheritdoc />
-            public bool IsObject => this.HasJsonElement && this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Object;
-            /// <inheritdoc />
-            public bool IsBoolean => this.HasJsonElement && (this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.True || this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.False);
-            /// <inheritdoc />
-            public bool IsArray => this.HasJsonElement && this.JsonElement.ValueKind == System.Text.Json.JsonValueKind.Array;
-            /// <inheritdoc />
-            public bool HasJsonElement => this._menesJsonElementBacking.ValueKind != System.Text.Json.JsonValueKind.Undefined;
-            /// <inheritdoc />
-            public System.Text.Json.JsonElement JsonElement => this._menesJsonElementBacking;
-            /// <inheritdoc />
-            public Menes.ValidationResult Validate(Menes.ValidationResult? validationResult = null, Menes.ValidationLevel level = Menes.ValidationLevel.Flag, System.Collections.Generic.HashSet<string>? evaluatedProperties = null, System.Collections.Generic.Stack<string>? absoluteKeywordLocation = null, System.Collections.Generic.Stack<string>? instanceLocation = null)
-            {
-                evaluatedProperties = evaluatedProperties ?? new System.Collections.Generic.HashSet<string>();
-                var composedEvaluatedProperties = new System.Collections.Generic.HashSet<string>();
-                Menes.ValidationResult result = validationResult ?? Menes.ValidationResult.ValidResult;
-                return result;
-            }
-            /// <inheritdoc />
-            public void WriteTo(System.Text.Json.Utf8JsonWriter writer)
-            {
-                if (this.HasJsonElement)
-                {
-                    this.JsonElement.WriteTo(writer);
-                    return;
-                }
-            }
-            /// <inheritdoc />
-            public T As<T>()
-                where T : struct, Menes.IJsonValue
-            {
-                if (typeof(T) == typeof(Items2Entity))
-                {
-                    return Corvus.Extensions.CastTo<T>.From(this);
-                }
-                return Menes.JsonValue.As<Items2Entity, T>(this);
-            }
-            /// <inheritdoc />
-            public bool Is<T>()
-                where T : struct, Menes.IJsonValue
-            {
-                if (typeof(T) == typeof(RootEntity.Items2Entity))
+                if (typeof(T) == typeof(RootEntity.ContainsEntity))
                 {
                     return this.Validate().Valid;
                 }

@@ -67,9 +67,34 @@ namespace Menes.JsonSchema.TypeBuilder
 
             memberBuilder.AppendLine("int arrayLength = 0;");
 
+            if (typeDeclaration.Contains is not null)
+            {
+                memberBuilder.AppendLine("int containsCount = 0;");
+            }
+
             memberBuilder.AppendLine("var arrayEnumerator = this.EnumerateArray();");
             memberBuilder.AppendLine("while (arrayEnumerator.MoveNext())");
             memberBuilder.AppendLine("{");
+
+            if (typeDeclaration.Contains is TypeDeclaration contains)
+            {
+                memberBuilder.AppendLine($"var containsResult = arrayEnumerator.Current.As<{contains.FullyQualifiedDotNetTypeName}>().Validate(null, level, evaluatedProperties, absoluteKeywordLocation, instanceLocation);");
+                memberBuilder.AppendLine("if (containsResult.Valid)");
+                memberBuilder.AppendLine("{");
+                memberBuilder.AppendLine("    containsCount++;");
+
+                if (typeDeclaration.MaxContains is int maxContains)
+                {
+                    memberBuilder.AppendLine($"        if (level == Menes.ValidationLevel.Flag && containsCount > {maxContains})");
+                    memberBuilder.AppendLine("        {");
+                    this.WriteError($"6.4.4.  maxContains - exceeded maximum of {maxContains}", memberBuilder);
+                    memberBuilder.AppendLine("            return result;");
+                    memberBuilder.AppendLine("        }");
+                }
+
+                memberBuilder.AppendLine("}");
+            }
+
             if (typeDeclaration.Items is List<TypeDeclaration> items)
             {
                 if (!typeDeclaration.IsItemsArray)
@@ -139,6 +164,33 @@ namespace Menes.JsonSchema.TypeBuilder
 
             memberBuilder.AppendLine("   arrayLength++;");
             memberBuilder.AppendLine("}");
+
+            if (typeDeclaration.Contains is not null)
+            {
+                if (typeDeclaration.MaxContains is int maxContains2)
+                {
+                    memberBuilder.AppendLine($"        if (containsCount > {maxContains2})");
+                    memberBuilder.AppendLine("        {");
+                    this.WriteError($"6.4.4.  maxContains - greater than maximum of {maxContains2}", memberBuilder);
+                    memberBuilder.AppendLine("        }");
+                }
+
+                if (typeDeclaration.MinContains is int minContains)
+                {
+                    memberBuilder.AppendLine($"        if (containsCount < {minContains})");
+                    memberBuilder.AppendLine("        {");
+                    this.WriteError($"6.4.5.  minContains - less than minimum of {minContains}", memberBuilder);
+                    memberBuilder.AppendLine("        }");
+                }
+
+                if (typeDeclaration.MinContains is null)
+                {
+                    memberBuilder.AppendLine($"        if (containsCount == 0)");
+                    memberBuilder.AppendLine("        {");
+                    this.WriteError($"9.3.1.4.  contains - no items found", memberBuilder);
+                    memberBuilder.AppendLine("        }");
+                }
+            }
 
             if (typeDeclaration.MinItems is int minItems)
             {
