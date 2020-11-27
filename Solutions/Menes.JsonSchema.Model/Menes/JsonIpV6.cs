@@ -6,6 +6,7 @@ namespace Menes
 {
     using System;
     using System.Collections.Generic;
+    using System.Net;
     using System.Text.Json;
     using System.Text.RegularExpressions;
 
@@ -18,7 +19,8 @@ namespace Menes
         /// The null value.
         /// </summary>
         public static readonly JsonIpV6 Null = default;
-        private static readonly Regex Pattern = new Regex("^(?=.{1,255}$)[0-9a-z](([0-9a-z]|\\b-){0,61}[0-9a-z])?(\\.[0-9a-z](([0-9a-z]|\\b-){0,61}[0-9a-z])?)*\\.?$", RegexOptions.Compiled);
+
+        private static readonly Regex ZoneIdExpression = new Regex("%.*$", RegexOptions.Compiled);
 
         private readonly ReadOnlyMemory<char>? value;
 
@@ -217,7 +219,7 @@ namespace Menes
         {
             ValidationResult result = validationResult ?? ValidationResult.ValidResult;
 
-            if ((this.HasJsonElement && (this.JsonElement.ValueKind != JsonValueKind.String || !Pattern.IsMatch(this.JsonElement.GetString()))) || (this.value is ReadOnlyMemory<char> value && !Pattern.IsMatch(value.ToString())))
+            if ((this.HasJsonElement && (this.JsonElement.ValueKind != JsonValueKind.String || !Parse(this.JsonElement.GetString()))) || (this.value is ReadOnlyMemory<char> value && !Parse(value.ToString())))
             {
                 if (level >= ValidationLevel.Basic)
                 {
@@ -226,7 +228,7 @@ namespace Menes
 
                     instanceLocation?.TryPeek(out il);
                     absoluteKeywordLocation?.TryPeek(out akl);
-                    result.AddResult(valid: false, message: $"6.1.1.  type - should have matched an email address.", instanceLocation: il, absoluteKeywordLocation: akl);
+                    result.AddResult(valid: false, message: $"6.1.1.  type - should have matched an IPv6 address.", instanceLocation: il, absoluteKeywordLocation: akl);
                 }
                 else
                 {
@@ -267,6 +269,19 @@ namespace Menes
             {
                 writer.WriteNullValue();
             }
+        }
+
+        private static bool Parse(string? ipv6)
+        {
+            if (IPAddress.TryParse(ipv6, out IPAddress address))
+            {
+                if (address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetworkV6)
+                {
+                    return !ZoneIdExpression.IsMatch(ipv6);
+                }
+            }
+
+            return false;
         }
     }
 }

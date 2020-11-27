@@ -6,11 +6,12 @@ namespace Menes
 {
     using System;
     using System.Collections.Generic;
+    using System.Net;
     using System.Text.Json;
     using System.Text.RegularExpressions;
 
     /// <summary>
-    /// Represents the ipv4 json type.
+    /// Represents the ipv6 json type.
     /// </summary>
     public readonly struct JsonIpV4 : IJsonValue
     {
@@ -217,7 +218,7 @@ namespace Menes
         {
             ValidationResult result = validationResult ?? ValidationResult.ValidResult;
 
-            if ((this.HasJsonElement && (this.JsonElement.ValueKind != JsonValueKind.String || !Pattern.IsMatch(this.JsonElement.GetString()))) || (this.value is ReadOnlyMemory<char> value && !Pattern.IsMatch(value.ToString())))
+            if ((this.HasJsonElement && (this.JsonElement.ValueKind != JsonValueKind.String || !Parse(this.JsonElement.GetString()))) || (this.value is ReadOnlyMemory<char> value && !Parse(value.ToString())))
             {
                 if (level >= ValidationLevel.Basic)
                 {
@@ -226,7 +227,7 @@ namespace Menes
 
                     instanceLocation?.TryPeek(out il);
                     absoluteKeywordLocation?.TryPeek(out akl);
-                    result.AddResult(valid: false, message: $"6.1.1.  type - should have matched an email address.", instanceLocation: il, absoluteKeywordLocation: akl);
+                    result.AddResult(valid: false, message: $"6.1.1.  type - should have matched an IPv6 address.", instanceLocation: il, absoluteKeywordLocation: akl);
                 }
                 else
                 {
@@ -267,6 +268,26 @@ namespace Menes
             {
                 writer.WriteNullValue();
             }
+        }
+
+        private static bool Parse(string? ipv4)
+        {
+            if (IPAddress.TryParse(ipv4, out IPAddress address))
+            {
+                if (address.AddressFamily != System.Net.Sockets.AddressFamily.InterNetwork)
+                {
+                    return false;
+                }
+
+                if (!Pattern.IsMatch(ipv4))
+                {
+                    return false;
+                }
+
+                return true;
+            }
+
+            return false;
         }
     }
 }

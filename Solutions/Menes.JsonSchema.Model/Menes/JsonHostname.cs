@@ -19,7 +19,7 @@ namespace Menes
         /// The null value.
         /// </summary>
         public static readonly JsonHostname Null = default;
-        private static readonly Regex Pattern = new Regex("^(?=.{1,255}$)[((?!_)\\w)](([((?!_)\\w)]|\\b-){0,61}[((?!_)\\w)])?(\\.[((?!_)\\w)](([((?!_)\\w)]|\\b-){0,61}[((?!_)\\w)])?)*\\.?$", RegexOptions.Compiled);
+        private static readonly Regex Pattern = new Regex("^(?=.{1,255}$)((?!_)\\w)((((?!_)\\w)|\\b-){0,61}((?!_)\\w))?(\\.((?!_)\\w)((((?!_)\\w)|\\b-){0,61}((?!_)\\w))?)*\\.?$", RegexOptions.Compiled);
         private static readonly IdnMapping IdnMapping = new IdnMapping();
         private readonly ReadOnlyMemory<char>? value;
 
@@ -274,10 +274,26 @@ namespace Menes
         {
             if (string.IsNullOrEmpty(value))
             {
-                return true;
+                return false;
             }
 
-            return Pattern.IsMatch(IdnMapping.GetUnicode(value));
+            if (value.StartsWith("xn--"))
+            {
+                string decodedValue;
+
+                try
+                {
+                    decodedValue = IdnMapping.GetUnicode(value);
+                }
+                catch (ArgumentException)
+                {
+                    return false;
+                }
+
+                return Pattern.IsMatch(decodedValue);
+            }
+
+            return Pattern.IsMatch(value);
         }
     }
 }
