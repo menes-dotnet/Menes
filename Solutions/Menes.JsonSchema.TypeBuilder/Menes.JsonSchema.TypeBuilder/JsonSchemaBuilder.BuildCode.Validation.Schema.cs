@@ -33,13 +33,11 @@ namespace Menes.JsonSchema.TypeBuilder
 
             this.BuildStringValidations(typeDeclaration, memberBuilder);
 
-            if (typeDeclaration.AllOf is not null || typeDeclaration.AnyOf is not null || typeDeclaration.OneOf is not null || typeDeclaration.Not is not null)
-            {
-                this.BuildNotValidation(typeDeclaration, memberBuilder);
-                this.BuildAllOfValidation(typeDeclaration, memberBuilder);
-                this.BuildOneOfValidation(typeDeclaration, memberBuilder);
-                this.BuildAnyOfValidation(typeDeclaration, memberBuilder);
-            }
+            this.BuildIfThenElseValidation(typeDeclaration, memberBuilder);
+            this.BuildNotValidation(typeDeclaration, memberBuilder);
+            this.BuildAllOfValidation(typeDeclaration, memberBuilder);
+            this.BuildOneOfValidation(typeDeclaration, memberBuilder);
+            this.BuildAnyOfValidation(typeDeclaration, memberBuilder);
 
             this.BuildPropertyValidations(typeDeclaration, memberBuilder);
             this.BuildEnumeratedPropertyValidations(typeDeclaration, memberBuilder);
@@ -582,7 +580,7 @@ namespace Menes.JsonSchema.TypeBuilder
 
         private void BuildStringValidations(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
         {
-            if (typeDeclaration.IsStringType)
+            if (typeDeclaration.IsStringType && (typeDeclaration.MaxLength is not null || typeDeclaration.MinLength is not null || typeDeclaration.Pattern is not null))
             {
                 memberBuilder.AppendLine("if (this.IsString)");
                 memberBuilder.AppendLine("{");
@@ -758,6 +756,7 @@ namespace Menes.JsonSchema.TypeBuilder
 
         private void BuildValidationLocalFunctions(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
         {
+            this.BuildIfThenElseValidationLocalFunction(typeDeclaration, memberBuilder);
             this.BuildNotValidationLocalFunction(typeDeclaration, memberBuilder);
             this.BuildAllOfValidationLocalFunction(typeDeclaration, memberBuilder);
             this.BuildAnyOfValidationLocalFunction(typeDeclaration, memberBuilder);

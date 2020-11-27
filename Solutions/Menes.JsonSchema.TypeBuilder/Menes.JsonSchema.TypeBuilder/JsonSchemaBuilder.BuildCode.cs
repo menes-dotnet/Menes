@@ -408,6 +408,7 @@ namespace Menes.JsonSchema.TypeBuilder
             memberBuilder.AppendLine("    return this.As<T>().Validate().Valid;");
             memberBuilder.AppendLine("}");
 
+            this.BuildIfThenElseAsMethods(typeDeclaration, memberBuilder);
             this.BuildNotAsMethods(typeDeclaration, memberBuilder);
             this.BuildAllOfAsMethods(typeDeclaration, memberBuilder);
             this.BuildAnyOfAsMethods(typeDeclaration, memberBuilder);
