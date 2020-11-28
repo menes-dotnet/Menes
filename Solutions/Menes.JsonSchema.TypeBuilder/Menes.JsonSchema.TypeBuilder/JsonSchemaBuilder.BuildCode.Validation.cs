@@ -31,6 +31,7 @@ namespace Menes.JsonSchema.TypeBuilder
 
             memberBuilder.AppendLine("evaluatedProperties = evaluatedProperties ?? new System.Collections.Generic.HashSet<string>();");
             memberBuilder.AppendLine("var composedEvaluatedProperties = new System.Collections.Generic.HashSet<string>();");
+            memberBuilder.AppendLine("var composedEvaluatedIndices = new System.Collections.Generic.HashSet<int>();");
 
             try
             {
@@ -104,6 +105,7 @@ namespace Menes.JsonSchema.TypeBuilder
                     memberBuilder.AppendLine("        {");
                     memberBuilder.AppendLine("            return result;");
                     memberBuilder.AppendLine("        }");
+                    memberBuilder.AppendLine("composedEvaluatedIndices.Add(arrayLength);");
                 }
                 else
                 {
@@ -119,6 +121,7 @@ namespace Menes.JsonSchema.TypeBuilder
                         memberBuilder.AppendLine("    {");
                         memberBuilder.AppendLine("        return result;");
                         memberBuilder.AppendLine("    }");
+                        memberBuilder.AppendLine("composedEvaluatedIndices.Add(arrayLength);");
                         memberBuilder.AppendLine("    break;");
                         caseIndex++;
                     }
@@ -132,21 +135,27 @@ namespace Menes.JsonSchema.TypeBuilder
                         memberBuilder.AppendLine("        return result;");
                         memberBuilder.AppendLine("    }");
                     }
-                    else if (typeDeclaration.AdditionalItems is TypeDeclaration additionalItems)
+                    else if (typeDeclaration.AllowsAdditionalItems)
                     {
-                        memberBuilder.AppendLine($"   result = arrayEnumerator.Current.As<{additionalItems.FullyQualifiedDotNetTypeName}>().Validate(result, level, evaluatedProperties, absoluteKeywordLocation, instanceLocation);");
-                        memberBuilder.AppendLine("    if (level == Menes.ValidationLevel.Flag && !result.Valid)");
-                        memberBuilder.AppendLine("    {");
-                        memberBuilder.AppendLine("        return result;");
-                        memberBuilder.AppendLine("    }");
-                    }
-                    else if (typeDeclaration.UnevaluatedItems is TypeDeclaration unevaluatedItems)
-                    {
-                        memberBuilder.AppendLine($"   result = arrayEnumerator.Current.As<{unevaluatedItems.FullyQualifiedDotNetTypeName}>().Validate(result, level, evaluatedProperties, absoluteKeywordLocation, instanceLocation);");
-                        memberBuilder.AppendLine("    if (level == Menes.ValidationLevel.Flag && !result.Valid)");
-                        memberBuilder.AppendLine("    {");
-                        memberBuilder.AppendLine("        return result;");
-                        memberBuilder.AppendLine("    }");
+                        if (typeDeclaration.AdditionalItems is TypeDeclaration additionalItems)
+                        {
+                            memberBuilder.AppendLine($"   result = arrayEnumerator.Current.As<{additionalItems.FullyQualifiedDotNetTypeName}>().Validate(result, level, evaluatedProperties, absoluteKeywordLocation, instanceLocation);");
+                            memberBuilder.AppendLine("    if (level == Menes.ValidationLevel.Flag && !result.Valid)");
+                            memberBuilder.AppendLine("    {");
+                            memberBuilder.AppendLine("        return result;");
+                            memberBuilder.AppendLine("    }");
+                        }
+                        else if (typeDeclaration.UnevaluatedItems is TypeDeclaration unevaluatedItems)
+                        {
+                            memberBuilder.AppendLine("if (!composedEvaluatedIndices.Contains(arrayLength))");
+                            memberBuilder.AppendLine("{");
+                            memberBuilder.AppendLine($"   result = arrayEnumerator.Current.As<{unevaluatedItems.FullyQualifiedDotNetTypeName}>().Validate(result, level, evaluatedProperties, absoluteKeywordLocation, instanceLocation);");
+                            memberBuilder.AppendLine("    if (level == Menes.ValidationLevel.Flag && !result.Valid)");
+                            memberBuilder.AppendLine("    {");
+                            memberBuilder.AppendLine("        return result;");
+                            memberBuilder.AppendLine("    }");
+                            memberBuilder.AppendLine("}");
+                        }
                     }
 
                     memberBuilder.AppendLine("break;");
@@ -155,11 +164,14 @@ namespace Menes.JsonSchema.TypeBuilder
             }
             else if (typeDeclaration.UnevaluatedItems is TypeDeclaration unevaluatedItems)
             {
+                memberBuilder.AppendLine("if (!composedEvaluatedIndices.Contains(arrayLength))");
+                memberBuilder.AppendLine("{");
                 memberBuilder.AppendLine($"   result = arrayEnumerator.Current.As<{unevaluatedItems.FullyQualifiedDotNetTypeName}>().Validate(result, level, evaluatedProperties, absoluteKeywordLocation, instanceLocation);");
                 memberBuilder.AppendLine("    if (level == Menes.ValidationLevel.Flag && !result.Valid)");
                 memberBuilder.AppendLine("    {");
                 memberBuilder.AppendLine("        return result;");
                 memberBuilder.AppendLine("    }");
+                memberBuilder.AppendLine("}");
             }
 
             memberBuilder.AppendLine("   arrayLength++;");
