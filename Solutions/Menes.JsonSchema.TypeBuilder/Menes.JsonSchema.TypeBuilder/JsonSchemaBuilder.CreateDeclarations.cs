@@ -572,7 +572,7 @@ namespace Menes.JsonSchema.TypeBuilder
                 }
 
                 // Don't set a self-referential parent.
-                if (parent != typeDeclaration)
+                if (parent != typeDeclaration && !parent.IsBuiltInType)
                 {
                     typeDeclaration.Parent = parent;
                 }
