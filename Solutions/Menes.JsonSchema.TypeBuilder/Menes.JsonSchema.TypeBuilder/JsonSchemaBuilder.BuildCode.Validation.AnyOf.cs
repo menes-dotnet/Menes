@@ -127,11 +127,15 @@ namespace Menes.JsonSchema.TypeBuilder
                         memberBuilder.AppendLine("}");
                     }
 
+                    memberBuilder.AppendLine($"if (anyOfResult{anyOfIndex}.Valid)");
+                    memberBuilder.AppendLine("{");
+
                     // Merge the evaluated items back into the outer result set, which is the
                     // "composedEvaluatedProperties" collection.
-                    memberBuilder.AppendLine("foreach (var item in localEvaluatedProperties)");
-                    memberBuilder.AppendLine("{");
-                    memberBuilder.AppendLine("    evaluatedProperties.Add(item);");
+                    memberBuilder.AppendLine("    foreach (var item in localEvaluatedProperties)");
+                    memberBuilder.AppendLine("    {");
+                    memberBuilder.AppendLine("        evaluatedProperties.Add(item);");
+                    memberBuilder.AppendLine("    }");
                     memberBuilder.AppendLine("}");
 
                     this.BuildPopAbsoluteKeywordLocation(memberBuilder, anyOfIndex);

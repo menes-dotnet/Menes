@@ -72,6 +72,15 @@ namespace Menes.JsonSchema.TypeBuilder
                 {
                     memberBuilder.AppendLine("if (ifResult.Valid)");
                     memberBuilder.AppendLine("{");
+
+                    // Merge back the local evaluated properties
+                    memberBuilder.AppendLine("    foreach (var item in localEvaluatedProperties)");
+                    memberBuilder.AppendLine("    {");
+                    memberBuilder.AppendLine("        evaluatedProperties.Add(item);");
+                    memberBuilder.AppendLine("    }");
+
+                    memberBuilder.AppendLine("localEvaluatedProperties.Clear();");
+
                     this.PushPropertyToAbsoluteKeywordLocationStack("then");
                     this.BuildPushAbsoluteKeywordLocation(memberBuilder, 2);
                     memberBuilder.AppendLine($"    var thenValue = that.{this.GetAsMethodNameFor(thenType)}();");
@@ -82,6 +91,12 @@ namespace Menes.JsonSchema.TypeBuilder
                     memberBuilder.AppendLine("    }");
                     memberBuilder.AppendLine("    else");
                     memberBuilder.AppendLine("    {");
+
+                    // Merge back the local evaluated properties
+                    memberBuilder.AppendLine("    foreach (var item in localEvaluatedProperties)");
+                    memberBuilder.AppendLine("    {");
+                    memberBuilder.AppendLine("        evaluatedProperties.Add(item);");
+                    memberBuilder.AppendLine("    }");
                     this.WriteSuccess(memberBuilder);
                     memberBuilder.AppendLine("    }");
                     this.BuildPopAbsoluteKeywordLocation(memberBuilder, 2);
@@ -104,6 +119,7 @@ namespace Menes.JsonSchema.TypeBuilder
                     this.PushPropertyToAbsoluteKeywordLocationStack("else");
                     this.BuildPushAbsoluteKeywordLocation(memberBuilder, 3);
                     memberBuilder.AppendLine($"    var elseValue = that.{this.GetAsMethodNameFor(elseType)}();");
+                    memberBuilder.AppendLine("localEvaluatedProperties.Clear();");
                     memberBuilder.AppendLine("    var elseResult = elseValue.Validate(null, level, localEvaluatedProperties, absoluteKeywordLocation, instanceLocation);");
                     memberBuilder.AppendLine("    if (!elseResult.Valid)");
                     memberBuilder.AppendLine("    {");
@@ -112,6 +128,12 @@ namespace Menes.JsonSchema.TypeBuilder
                     memberBuilder.AppendLine("    else");
                     memberBuilder.AppendLine("    {");
                     this.WriteSuccess(memberBuilder);
+
+                    // Merge back the local evaluated properties
+                    memberBuilder.AppendLine("    foreach (var item in localEvaluatedProperties)");
+                    memberBuilder.AppendLine("    {");
+                    memberBuilder.AppendLine("        evaluatedProperties.Add(item);");
+                    memberBuilder.AppendLine("    }");
                     memberBuilder.AppendLine("    }");
                     this.BuildPopAbsoluteKeywordLocation(memberBuilder, 3);
                     this.absoluteKeywordLocationStack.Pop();

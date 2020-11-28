@@ -26,6 +26,7 @@ namespace Menes.ConsoleApp
         {
             RootEntity entity = new JsonAny("{\"foo\": \"foo\", \"bar\": \"bar\"}").As<RootEntity>();
             entity.Validate();
+            entity.Validate();
         }
 
         private static async Task BuildJsonObjectType()
