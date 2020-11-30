@@ -24,8 +24,9 @@ namespace Menes.ConsoleApp
         public static void Main()
         {
             Draft201909Schema entity = new JsonAny("{\"$defs\": {\"foo\": {\"type\": 1}}}").As<Draft201909Schema>();
-            entity.Validate();
-            ////entity.Validate();
+            Console.WriteLine(entity.Validate().Valid);
+            entity = entity.SetProperty("type", Draft201909MetaValidation.TypeEntity.SimpleTypesEntity.EnumValues.String);
+            Console.WriteLine(entity.Validate().Valid);
         }
 
         private static async Task BuildJsonObjectType()

@@ -195,24 +195,24 @@ namespace Driver.GeneratedTypes
         private readonly Menes.JsonBoolean? recursiveAnchor;
         private readonly Draft201909MetaCore.VocabularyEntity? vocabulary;
         private readonly Menes.JsonString? comment;
-        private readonly Draft201909MetaCore.DefsEntity? defs;
-        private readonly Draft201909MetaApplicator? additionalItems;
-        private readonly Draft201909MetaApplicator? unevaluatedItems;
+        private readonly Menes.JsonValueBacking defs;
+        private readonly Menes.JsonValueBacking additionalItems;
+        private readonly Menes.JsonValueBacking unevaluatedItems;
         private readonly Draft201909MetaApplicator.ItemsEntity? items;
-        private readonly Draft201909MetaApplicator? contains;
-        private readonly Draft201909MetaApplicator? additionalProperties;
-        private readonly Draft201909MetaApplicator? unevaluatedProperties;
-        private readonly Draft201909MetaApplicator.PropertiesEntity? properties;
-        private readonly Draft201909MetaApplicator.PatternPropertiesEntity? patternProperties;
-        private readonly Draft201909MetaApplicator.DependentSchemasEntity? dependentSchemas;
-        private readonly Draft201909MetaApplicator? propertyNames;
-        private readonly Draft201909MetaApplicator? @if;
-        private readonly Draft201909MetaApplicator? then;
-        private readonly Draft201909MetaApplicator? @else;
-        private readonly Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity? allOf;
-        private readonly Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity? anyOf;
-        private readonly Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity? oneOf;
-        private readonly Draft201909MetaApplicator? not;
+        private readonly Menes.JsonValueBacking contains;
+        private readonly Menes.JsonValueBacking additionalProperties;
+        private readonly Menes.JsonValueBacking unevaluatedProperties;
+        private readonly Menes.JsonValueBacking properties;
+        private readonly Menes.JsonValueBacking patternProperties;
+        private readonly Menes.JsonValueBacking dependentSchemas;
+        private readonly Menes.JsonValueBacking propertyNames;
+        private readonly Menes.JsonValueBacking @if;
+        private readonly Menes.JsonValueBacking then;
+        private readonly Menes.JsonValueBacking @else;
+        private readonly Menes.JsonValueBacking allOf;
+        private readonly Menes.JsonValueBacking anyOf;
+        private readonly Menes.JsonValueBacking oneOf;
+        private readonly Menes.JsonValueBacking not;
         private readonly Draft201909MetaValidation.MultipleOfValue? multipleOf;
         private readonly Menes.JsonNumber? maximum;
         private readonly Menes.JsonNumber? exclusiveMaximum;
@@ -243,7 +243,7 @@ namespace Driver.GeneratedTypes
         private readonly Menes.JsonString? format;
         private readonly Menes.JsonString? contentMediaType;
         private readonly Menes.JsonString? contentEncoding;
-        private readonly Draft201909MetaContent? contentSchema;
+        private readonly Menes.JsonValueBacking contentSchema;
         private readonly Menes.JsonValueBacking definitions;
         private readonly Draft201909Schema.DependenciesEntity? dependencies;
         public Draft201909Schema(System.Text.Json.JsonElement jsonElement)
@@ -311,7 +311,7 @@ namespace Driver.GeneratedTypes
             this.definitions = default;
             this.dependencies = default;
         }
-        public Draft201909Schema(Draft201909MetaCore.IdValue? id = null, Menes.JsonUri? schema = null, Draft201909MetaCore.AnchorValue? anchor = null, Menes.JsonUriReference? @ref = null, Menes.JsonUriReference? recursiveRef = null, Menes.JsonBoolean? recursiveAnchor = null, Draft201909MetaCore.VocabularyEntity? vocabulary = null, Menes.JsonString? comment = null, Draft201909MetaCore.DefsEntity? defs = null, Draft201909MetaApplicator? additionalItems = null, Draft201909MetaApplicator? unevaluatedItems = null, Draft201909MetaApplicator.ItemsEntity? items = null, Draft201909MetaApplicator? contains = null, Draft201909MetaApplicator? additionalProperties = null, Draft201909MetaApplicator? unevaluatedProperties = null, Draft201909MetaApplicator.PropertiesEntity? properties = null, Draft201909MetaApplicator.PatternPropertiesEntity? patternProperties = null, Draft201909MetaApplicator.DependentSchemasEntity? dependentSchemas = null, Draft201909MetaApplicator? propertyNames = null, Draft201909MetaApplicator? @if = null, Draft201909MetaApplicator? then = null, Draft201909MetaApplicator? @else = null, Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity? allOf = null, Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity? anyOf = null, Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity? oneOf = null, Draft201909MetaApplicator? not = null, Draft201909MetaValidation.MultipleOfValue? multipleOf = null, Menes.JsonNumber? maximum = null, Menes.JsonNumber? exclusiveMaximum = null, Menes.JsonNumber? minimum = null, Menes.JsonNumber? exclusiveMinimum = null, Draft201909MetaValidation.NonNegativeIntegerValue? maxLength = null, Draft201909MetaValidation.NonNegativeIntegerValue? minLength = null, Menes.JsonRegex? pattern = null, Draft201909MetaValidation.NonNegativeIntegerValue? maxItems = null, Draft201909MetaValidation.NonNegativeIntegerValue? minItems = null, Menes.JsonBoolean? uniqueItems = null, Draft201909MetaValidation.NonNegativeIntegerValue? maxContains = null, Draft201909MetaValidation.NonNegativeIntegerValue? minContains = null, Draft201909MetaValidation.NonNegativeIntegerValue? maxProperties = null, Draft201909MetaValidation.NonNegativeIntegerValue? minProperties = null, Draft201909MetaValidation.StringArrayEntity? required = null, Draft201909MetaValidation.DependentRequiredEntity? dependentRequired = null, Menes.JsonAny? @const = null, Draft201909MetaValidation.EnumArray? @enum = null, Draft201909MetaValidation.TypeEntity? type = null, Menes.JsonString? title = null, Menes.JsonString? description = null, Menes.JsonAny? @default = null, Menes.JsonBoolean? deprecated = null, Menes.JsonBoolean? readOnly = null, Menes.JsonBoolean? writeOnly = null, Draft201909MetaMetaData.ExamplesArray? examples = null, Menes.JsonString? format = null, Menes.JsonString? contentMediaType = null, Menes.JsonString? contentEncoding = null, Draft201909MetaContent? contentSchema = null, Draft201909Schema.DefinitionsEntity? definitions = null, Draft201909Schema.DependenciesEntity? dependencies = null)
+        public Draft201909Schema(Draft201909MetaCore.IdValue? id = null, Menes.JsonUri? schema = null, Draft201909MetaCore.AnchorValue? anchor = null, Menes.JsonUriReference? @ref = null, Menes.JsonUriReference? recursiveRef = null, Menes.JsonBoolean? recursiveAnchor = null, Draft201909MetaCore.VocabularyEntity? vocabulary = null, Menes.JsonString? comment = null, Draft201909MetaCore.DefsEntity? defs = null, Draft201909Schema? additionalItems = null, Draft201909Schema? unevaluatedItems = null, Draft201909MetaApplicator.ItemsEntity? items = null, Draft201909Schema? contains = null, Draft201909Schema? additionalProperties = null, Draft201909Schema? unevaluatedProperties = null, Draft201909MetaApplicator.PropertiesEntity? properties = null, Draft201909MetaApplicator.PatternPropertiesEntity? patternProperties = null, Draft201909MetaApplicator.DependentSchemasEntity? dependentSchemas = null, Draft201909Schema? propertyNames = null, Draft201909Schema? @if = null, Draft201909Schema? then = null, Draft201909Schema? @else = null, Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity? allOf = null, Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity? anyOf = null, Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity? oneOf = null, Draft201909Schema? not = null, Draft201909MetaValidation.MultipleOfValue? multipleOf = null, Menes.JsonNumber? maximum = null, Menes.JsonNumber? exclusiveMaximum = null, Menes.JsonNumber? minimum = null, Menes.JsonNumber? exclusiveMinimum = null, Draft201909MetaValidation.NonNegativeIntegerValue? maxLength = null, Draft201909MetaValidation.NonNegativeIntegerValue? minLength = null, Menes.JsonRegex? pattern = null, Draft201909MetaValidation.NonNegativeIntegerValue? maxItems = null, Draft201909MetaValidation.NonNegativeIntegerValue? minItems = null, Menes.JsonBoolean? uniqueItems = null, Draft201909MetaValidation.NonNegativeIntegerValue? maxContains = null, Draft201909MetaValidation.NonNegativeIntegerValue? minContains = null, Draft201909MetaValidation.NonNegativeIntegerValue? maxProperties = null, Draft201909MetaValidation.NonNegativeIntegerValue? minProperties = null, Draft201909MetaValidation.StringArrayEntity? required = null, Draft201909MetaValidation.DependentRequiredEntity? dependentRequired = null, Menes.JsonAny? @const = null, Draft201909MetaValidation.EnumArray? @enum = null, Draft201909MetaValidation.TypeEntity? type = null, Menes.JsonString? title = null, Menes.JsonString? description = null, Menes.JsonAny? @default = null, Menes.JsonBoolean? deprecated = null, Menes.JsonBoolean? readOnly = null, Menes.JsonBoolean? writeOnly = null, Draft201909MetaMetaData.ExamplesArray? examples = null, Menes.JsonString? format = null, Menes.JsonString? contentMediaType = null, Menes.JsonString? contentEncoding = null, Draft201909Schema? contentSchema = null, Draft201909Schema.DefinitionsEntity? definitions = null, Draft201909Schema.DependenciesEntity? dependencies = null)
         {
             this._menesJsonElementBacking = default;
             this.id = id;
@@ -322,24 +322,24 @@ namespace Driver.GeneratedTypes
             this.recursiveAnchor = recursiveAnchor;
             this.vocabulary = vocabulary;
             this.comment = comment;
-            this.defs = defs;
-            this.additionalItems = additionalItems;
-            this.unevaluatedItems = unevaluatedItems;
+            this.defs = Menes.JsonValueBacking.From<Draft201909MetaCore.DefsEntity>(defs);
+            this.additionalItems = Menes.JsonValueBacking.From<Draft201909Schema>(additionalItems);
+            this.unevaluatedItems = Menes.JsonValueBacking.From<Draft201909Schema>(unevaluatedItems);
             this.items = items;
-            this.contains = contains;
-            this.additionalProperties = additionalProperties;
-            this.unevaluatedProperties = unevaluatedProperties;
-            this.properties = properties;
-            this.patternProperties = patternProperties;
-            this.dependentSchemas = dependentSchemas;
-            this.propertyNames = propertyNames;
-            this.@if = @if;
-            this.then = then;
-            this.@else = @else;
-            this.allOf = allOf;
-            this.anyOf = anyOf;
-            this.oneOf = oneOf;
-            this.not = not;
+            this.contains = Menes.JsonValueBacking.From<Draft201909Schema>(contains);
+            this.additionalProperties = Menes.JsonValueBacking.From<Draft201909Schema>(additionalProperties);
+            this.unevaluatedProperties = Menes.JsonValueBacking.From<Draft201909Schema>(unevaluatedProperties);
+            this.properties = Menes.JsonValueBacking.From<Draft201909MetaApplicator.PropertiesEntity>(properties);
+            this.patternProperties = Menes.JsonValueBacking.From<Draft201909MetaApplicator.PatternPropertiesEntity>(patternProperties);
+            this.dependentSchemas = Menes.JsonValueBacking.From<Draft201909MetaApplicator.DependentSchemasEntity>(dependentSchemas);
+            this.propertyNames = Menes.JsonValueBacking.From<Draft201909Schema>(propertyNames);
+            this.@if = Menes.JsonValueBacking.From<Draft201909Schema>(@if);
+            this.then = Menes.JsonValueBacking.From<Draft201909Schema>(then);
+            this.@else = Menes.JsonValueBacking.From<Draft201909Schema>(@else);
+            this.allOf = Menes.JsonValueBacking.From<Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity>(allOf);
+            this.anyOf = Menes.JsonValueBacking.From<Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity>(anyOf);
+            this.oneOf = Menes.JsonValueBacking.From<Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity>(oneOf);
+            this.not = Menes.JsonValueBacking.From<Draft201909Schema>(not);
             this.multipleOf = multipleOf;
             this.maximum = maximum;
             this.exclusiveMaximum = exclusiveMaximum;
@@ -370,7 +370,7 @@ namespace Driver.GeneratedTypes
             this.format = format;
             this.contentMediaType = contentMediaType;
             this.contentEncoding = contentEncoding;
-            this.contentSchema = contentSchema;
+            this.contentSchema = Menes.JsonValueBacking.From<Draft201909Schema>(contentSchema);
             this.definitions = Menes.JsonValueBacking.From<Draft201909Schema.DefinitionsEntity>(definitions);
             this.dependencies = dependencies;
             this._menesAdditionalPropertiesBacking = System.Collections.Immutable.ImmutableArray<Menes.AdditionalProperty<Menes.JsonAny>>.Empty;
@@ -441,7 +441,7 @@ namespace Driver.GeneratedTypes
             this.definitions = default;
             this.dependencies = default;
         }
-        private Draft201909Schema(Draft201909MetaCore.IdValue? id, Menes.JsonUri? schema, Draft201909MetaCore.AnchorValue? anchor, Menes.JsonUriReference? @ref, Menes.JsonUriReference? recursiveRef, Menes.JsonBoolean? recursiveAnchor, Draft201909MetaCore.VocabularyEntity? vocabulary, Menes.JsonString? comment, Draft201909MetaCore.DefsEntity? defs, Draft201909MetaApplicator? additionalItems, Draft201909MetaApplicator? unevaluatedItems, Draft201909MetaApplicator.ItemsEntity? items, Draft201909MetaApplicator? contains, Draft201909MetaApplicator? additionalProperties, Draft201909MetaApplicator? unevaluatedProperties, Draft201909MetaApplicator.PropertiesEntity? properties, Draft201909MetaApplicator.PatternPropertiesEntity? patternProperties, Draft201909MetaApplicator.DependentSchemasEntity? dependentSchemas, Draft201909MetaApplicator? propertyNames, Draft201909MetaApplicator? @if, Draft201909MetaApplicator? then, Draft201909MetaApplicator? @else, Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity? allOf, Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity? anyOf, Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity? oneOf, Draft201909MetaApplicator? not, Draft201909MetaValidation.MultipleOfValue? multipleOf, Menes.JsonNumber? maximum, Menes.JsonNumber? exclusiveMaximum, Menes.JsonNumber? minimum, Menes.JsonNumber? exclusiveMinimum, Draft201909MetaValidation.NonNegativeIntegerValue? maxLength, Draft201909MetaValidation.NonNegativeIntegerValue? minLength, Menes.JsonRegex? pattern, Draft201909MetaValidation.NonNegativeIntegerValue? maxItems, Draft201909MetaValidation.NonNegativeIntegerValue? minItems, Menes.JsonBoolean? uniqueItems, Draft201909MetaValidation.NonNegativeIntegerValue? maxContains, Draft201909MetaValidation.NonNegativeIntegerValue? minContains, Draft201909MetaValidation.NonNegativeIntegerValue? maxProperties, Draft201909MetaValidation.NonNegativeIntegerValue? minProperties, Draft201909MetaValidation.StringArrayEntity? required, Draft201909MetaValidation.DependentRequiredEntity? dependentRequired, Menes.JsonAny? @const, Draft201909MetaValidation.EnumArray? @enum, Draft201909MetaValidation.TypeEntity? type, Menes.JsonString? title, Menes.JsonString? description, Menes.JsonAny? @default, Menes.JsonBoolean? deprecated, Menes.JsonBoolean? readOnly, Menes.JsonBoolean? writeOnly, Draft201909MetaMetaData.ExamplesArray? examples, Menes.JsonString? format, Menes.JsonString? contentMediaType, Menes.JsonString? contentEncoding, Draft201909MetaContent? contentSchema, Menes.JsonValueBacking definitions, Draft201909Schema.DependenciesEntity? dependencies, Menes.JsonBoolean? _menesBooleanTypeBacking, in System.Collections.Immutable.ImmutableArray<Menes.AdditionalProperty<Menes.JsonAny>> _menesAdditionalPropertiesBacking)
+        private Draft201909Schema(Draft201909MetaCore.IdValue? id, Menes.JsonUri? schema, Draft201909MetaCore.AnchorValue? anchor, Menes.JsonUriReference? @ref, Menes.JsonUriReference? recursiveRef, Menes.JsonBoolean? recursiveAnchor, Draft201909MetaCore.VocabularyEntity? vocabulary, Menes.JsonString? comment, Menes.JsonValueBacking defs, Menes.JsonValueBacking additionalItems, Menes.JsonValueBacking unevaluatedItems, Draft201909MetaApplicator.ItemsEntity? items, Menes.JsonValueBacking contains, Menes.JsonValueBacking additionalProperties, Menes.JsonValueBacking unevaluatedProperties, Menes.JsonValueBacking properties, Menes.JsonValueBacking patternProperties, Menes.JsonValueBacking dependentSchemas, Menes.JsonValueBacking propertyNames, Menes.JsonValueBacking @if, Menes.JsonValueBacking then, Menes.JsonValueBacking @else, Menes.JsonValueBacking allOf, Menes.JsonValueBacking anyOf, Menes.JsonValueBacking oneOf, Menes.JsonValueBacking not, Draft201909MetaValidation.MultipleOfValue? multipleOf, Menes.JsonNumber? maximum, Menes.JsonNumber? exclusiveMaximum, Menes.JsonNumber? minimum, Menes.JsonNumber? exclusiveMinimum, Draft201909MetaValidation.NonNegativeIntegerValue? maxLength, Draft201909MetaValidation.NonNegativeIntegerValue? minLength, Menes.JsonRegex? pattern, Draft201909MetaValidation.NonNegativeIntegerValue? maxItems, Draft201909MetaValidation.NonNegativeIntegerValue? minItems, Menes.JsonBoolean? uniqueItems, Draft201909MetaValidation.NonNegativeIntegerValue? maxContains, Draft201909MetaValidation.NonNegativeIntegerValue? minContains, Draft201909MetaValidation.NonNegativeIntegerValue? maxProperties, Draft201909MetaValidation.NonNegativeIntegerValue? minProperties, Draft201909MetaValidation.StringArrayEntity? required, Draft201909MetaValidation.DependentRequiredEntity? dependentRequired, Menes.JsonAny? @const, Draft201909MetaValidation.EnumArray? @enum, Draft201909MetaValidation.TypeEntity? type, Menes.JsonString? title, Menes.JsonString? description, Menes.JsonAny? @default, Menes.JsonBoolean? deprecated, Menes.JsonBoolean? readOnly, Menes.JsonBoolean? writeOnly, Draft201909MetaMetaData.ExamplesArray? examples, Menes.JsonString? format, Menes.JsonString? contentMediaType, Menes.JsonString? contentEncoding, Menes.JsonValueBacking contentSchema, Menes.JsonValueBacking definitions, Draft201909Schema.DependenciesEntity? dependencies, Menes.JsonBoolean? _menesBooleanTypeBacking, in System.Collections.Immutable.ImmutableArray<Menes.AdditionalProperty<Menes.JsonAny>> _menesAdditionalPropertiesBacking)
         {
             this._menesJsonElementBacking = default;
             this.id = id;
@@ -598,24 +598,24 @@ namespace Driver.GeneratedTypes
         public Menes.JsonBoolean? RecursiveAnchor => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Menes.JsonBoolean>(_MenesRecursiveAnchorUtf8JsonPropertyName.Span) : this.recursiveAnchor;
         public Draft201909MetaCore.VocabularyEntity? Vocabulary => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaCore.VocabularyEntity>(_MenesVocabularyUtf8JsonPropertyName.Span) : this.vocabulary;
         public Menes.JsonString? Comment => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Menes.JsonString>(_MenesCommentUtf8JsonPropertyName.Span) : this.comment;
-        public Draft201909MetaCore.DefsEntity? Defs => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaCore.DefsEntity>(_MenesDefsUtf8JsonPropertyName.Span) : this.defs;
-        public Draft201909MetaApplicator? AdditionalItems => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator>(_MenesAdditionalItemsUtf8JsonPropertyName.Span) : this.additionalItems;
-        public Draft201909MetaApplicator? UnevaluatedItems => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator>(_MenesUnevaluatedItemsUtf8JsonPropertyName.Span) : this.unevaluatedItems;
+        public Draft201909MetaCore.DefsEntity? Defs => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaCore.DefsEntity>(_MenesDefsUtf8JsonPropertyName.Span) : this.defs.As<Draft201909MetaCore.DefsEntity>();
+        public Draft201909Schema? AdditionalItems => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909Schema>(_MenesAdditionalItemsUtf8JsonPropertyName.Span) : this.additionalItems.As<Draft201909Schema>();
+        public Draft201909Schema? UnevaluatedItems => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909Schema>(_MenesUnevaluatedItemsUtf8JsonPropertyName.Span) : this.unevaluatedItems.As<Draft201909Schema>();
         public Draft201909MetaApplicator.ItemsEntity? Items => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator.ItemsEntity>(_MenesItemsUtf8JsonPropertyName.Span) : this.items;
-        public Draft201909MetaApplicator? Contains => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator>(_MenesContainsUtf8JsonPropertyName.Span) : this.contains;
-        public Draft201909MetaApplicator? AdditionalProperties => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator>(_MenesAdditionalPropertiesUtf8JsonPropertyName.Span) : this.additionalProperties;
-        public Draft201909MetaApplicator? UnevaluatedProperties => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator>(_MenesUnevaluatedPropertiesUtf8JsonPropertyName.Span) : this.unevaluatedProperties;
-        public Draft201909MetaApplicator.PropertiesEntity? Properties => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator.PropertiesEntity>(_MenesPropertiesUtf8JsonPropertyName.Span) : this.properties;
-        public Draft201909MetaApplicator.PatternPropertiesEntity? PatternProperties => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator.PatternPropertiesEntity>(_MenesPatternPropertiesUtf8JsonPropertyName.Span) : this.patternProperties;
-        public Draft201909MetaApplicator.DependentSchemasEntity? DependentSchemas => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator.DependentSchemasEntity>(_MenesDependentSchemasUtf8JsonPropertyName.Span) : this.dependentSchemas;
-        public Draft201909MetaApplicator? PropertyNames => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator>(_MenesPropertyNamesUtf8JsonPropertyName.Span) : this.propertyNames;
-        public Draft201909MetaApplicator? If => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator>(_MenesIfUtf8JsonPropertyName.Span) : this.@if;
-        public Draft201909MetaApplicator? Then => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator>(_MenesThenUtf8JsonPropertyName.Span) : this.then;
-        public Draft201909MetaApplicator? Else => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator>(_MenesElseUtf8JsonPropertyName.Span) : this.@else;
-        public Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity? AllOf => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity>(_MenesAllOfUtf8JsonPropertyName.Span) : this.allOf;
-        public Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity? AnyOf => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity>(_MenesAnyOfUtf8JsonPropertyName.Span) : this.anyOf;
-        public Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity? OneOf => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity>(_MenesOneOfUtf8JsonPropertyName.Span) : this.oneOf;
-        public Draft201909MetaApplicator? Not => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator>(_MenesNotUtf8JsonPropertyName.Span) : this.not;
+        public Draft201909Schema? Contains => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909Schema>(_MenesContainsUtf8JsonPropertyName.Span) : this.contains.As<Draft201909Schema>();
+        public Draft201909Schema? AdditionalProperties => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909Schema>(_MenesAdditionalPropertiesUtf8JsonPropertyName.Span) : this.additionalProperties.As<Draft201909Schema>();
+        public Draft201909Schema? UnevaluatedProperties => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909Schema>(_MenesUnevaluatedPropertiesUtf8JsonPropertyName.Span) : this.unevaluatedProperties.As<Draft201909Schema>();
+        public Draft201909MetaApplicator.PropertiesEntity? Properties => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator.PropertiesEntity>(_MenesPropertiesUtf8JsonPropertyName.Span) : this.properties.As<Draft201909MetaApplicator.PropertiesEntity>();
+        public Draft201909MetaApplicator.PatternPropertiesEntity? PatternProperties => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator.PatternPropertiesEntity>(_MenesPatternPropertiesUtf8JsonPropertyName.Span) : this.patternProperties.As<Draft201909MetaApplicator.PatternPropertiesEntity>();
+        public Draft201909MetaApplicator.DependentSchemasEntity? DependentSchemas => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator.DependentSchemasEntity>(_MenesDependentSchemasUtf8JsonPropertyName.Span) : this.dependentSchemas.As<Draft201909MetaApplicator.DependentSchemasEntity>();
+        public Draft201909Schema? PropertyNames => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909Schema>(_MenesPropertyNamesUtf8JsonPropertyName.Span) : this.propertyNames.As<Draft201909Schema>();
+        public Draft201909Schema? If => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909Schema>(_MenesIfUtf8JsonPropertyName.Span) : this.@if.As<Draft201909Schema>();
+        public Draft201909Schema? Then => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909Schema>(_MenesThenUtf8JsonPropertyName.Span) : this.then.As<Draft201909Schema>();
+        public Draft201909Schema? Else => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909Schema>(_MenesElseUtf8JsonPropertyName.Span) : this.@else.As<Draft201909Schema>();
+        public Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity? AllOf => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity>(_MenesAllOfUtf8JsonPropertyName.Span) : this.allOf.As<Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity>();
+        public Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity? AnyOf => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity>(_MenesAnyOfUtf8JsonPropertyName.Span) : this.anyOf.As<Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity>();
+        public Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity? OneOf => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity>(_MenesOneOfUtf8JsonPropertyName.Span) : this.oneOf.As<Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity>();
+        public Draft201909Schema? Not => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909Schema>(_MenesNotUtf8JsonPropertyName.Span) : this.not.As<Draft201909Schema>();
         public Draft201909MetaValidation.MultipleOfValue? MultipleOf => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaValidation.MultipleOfValue>(_MenesMultipleOfUtf8JsonPropertyName.Span) : this.multipleOf;
         public Menes.JsonNumber? Maximum => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Menes.JsonNumber>(_MenesMaximumUtf8JsonPropertyName.Span) : this.maximum;
         public Menes.JsonNumber? ExclusiveMaximum => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Menes.JsonNumber>(_MenesExclusiveMaximumUtf8JsonPropertyName.Span) : this.exclusiveMaximum;
@@ -646,7 +646,7 @@ namespace Driver.GeneratedTypes
         public Menes.JsonString? Format => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Menes.JsonString>(_MenesFormatUtf8JsonPropertyName.Span) : this.format;
         public Menes.JsonString? ContentMediaType => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Menes.JsonString>(_MenesContentMediaTypeUtf8JsonPropertyName.Span) : this.contentMediaType;
         public Menes.JsonString? ContentEncoding => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Menes.JsonString>(_MenesContentEncodingUtf8JsonPropertyName.Span) : this.contentEncoding;
-        public Draft201909MetaContent? ContentSchema => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaContent>(_MenesContentSchemaUtf8JsonPropertyName.Span) : this.contentSchema;
+        public Draft201909Schema? ContentSchema => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909Schema>(_MenesContentSchemaUtf8JsonPropertyName.Span) : this.contentSchema.As<Draft201909Schema>();
         public Draft201909Schema.DefinitionsEntity? Definitions => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909Schema.DefinitionsEntity>(_MenesDefinitionsUtf8JsonPropertyName.Span) : this.definitions.As<Draft201909Schema.DefinitionsEntity>();
         public Draft201909Schema.DependenciesEntity? Dependencies => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909Schema.DependenciesEntity>(_MenesDependenciesUtf8JsonPropertyName.Span) : this.dependencies;
         public int PropertyCount
@@ -752,12 +752,6 @@ namespace Driver.GeneratedTypes
                 if (absoluteKeywordLocation is System.Collections.Generic.Stack<string> aklPop58)
                 {
                     aklPop58.Pop();
-                }
-            }
-            if (this.IsObject)
-            {
-                foreach (var property in this.EnumerateObject())
-                {
                 }
             }
             return result;
@@ -931,17 +925,17 @@ namespace Driver.GeneratedTypes
                 writer.WritePropertyName(_MenesCommentEncodedJsonPropertyName);
                 comment.WriteTo(writer);
             }
-            if (this.defs is Draft201909MetaCore.DefsEntity defs)
+            if (this.defs is Menes.JsonValueBacking defs && !defs.IsNull)
             {
                 writer.WritePropertyName(_MenesDefsEncodedJsonPropertyName);
                 defs.WriteTo(writer);
             }
-            if (this.additionalItems is Draft201909MetaApplicator additionalItems)
+            if (this.additionalItems is Menes.JsonValueBacking additionalItems && !additionalItems.IsNull)
             {
                 writer.WritePropertyName(_MenesAdditionalItemsEncodedJsonPropertyName);
                 additionalItems.WriteTo(writer);
             }
-            if (this.unevaluatedItems is Draft201909MetaApplicator unevaluatedItems)
+            if (this.unevaluatedItems is Menes.JsonValueBacking unevaluatedItems && !unevaluatedItems.IsNull)
             {
                 writer.WritePropertyName(_MenesUnevaluatedItemsEncodedJsonPropertyName);
                 unevaluatedItems.WriteTo(writer);
@@ -951,72 +945,72 @@ namespace Driver.GeneratedTypes
                 writer.WritePropertyName(_MenesItemsEncodedJsonPropertyName);
                 items.WriteTo(writer);
             }
-            if (this.contains is Draft201909MetaApplicator contains)
+            if (this.contains is Menes.JsonValueBacking contains && !contains.IsNull)
             {
                 writer.WritePropertyName(_MenesContainsEncodedJsonPropertyName);
                 contains.WriteTo(writer);
             }
-            if (this.additionalProperties is Draft201909MetaApplicator additionalProperties)
+            if (this.additionalProperties is Menes.JsonValueBacking additionalProperties && !additionalProperties.IsNull)
             {
                 writer.WritePropertyName(_MenesAdditionalPropertiesEncodedJsonPropertyName);
                 additionalProperties.WriteTo(writer);
             }
-            if (this.unevaluatedProperties is Draft201909MetaApplicator unevaluatedProperties)
+            if (this.unevaluatedProperties is Menes.JsonValueBacking unevaluatedProperties && !unevaluatedProperties.IsNull)
             {
                 writer.WritePropertyName(_MenesUnevaluatedPropertiesEncodedJsonPropertyName);
                 unevaluatedProperties.WriteTo(writer);
             }
-            if (this.properties is Draft201909MetaApplicator.PropertiesEntity properties)
+            if (this.properties is Menes.JsonValueBacking properties && !properties.IsNull)
             {
                 writer.WritePropertyName(_MenesPropertiesEncodedJsonPropertyName);
                 properties.WriteTo(writer);
             }
-            if (this.patternProperties is Draft201909MetaApplicator.PatternPropertiesEntity patternProperties)
+            if (this.patternProperties is Menes.JsonValueBacking patternProperties && !patternProperties.IsNull)
             {
                 writer.WritePropertyName(_MenesPatternPropertiesEncodedJsonPropertyName);
                 patternProperties.WriteTo(writer);
             }
-            if (this.dependentSchemas is Draft201909MetaApplicator.DependentSchemasEntity dependentSchemas)
+            if (this.dependentSchemas is Menes.JsonValueBacking dependentSchemas && !dependentSchemas.IsNull)
             {
                 writer.WritePropertyName(_MenesDependentSchemasEncodedJsonPropertyName);
                 dependentSchemas.WriteTo(writer);
             }
-            if (this.propertyNames is Draft201909MetaApplicator propertyNames)
+            if (this.propertyNames is Menes.JsonValueBacking propertyNames && !propertyNames.IsNull)
             {
                 writer.WritePropertyName(_MenesPropertyNamesEncodedJsonPropertyName);
                 propertyNames.WriteTo(writer);
             }
-            if (this.@if is Draft201909MetaApplicator @if)
+            if (this.@if is Menes.JsonValueBacking @if && !@if.IsNull)
             {
                 writer.WritePropertyName(_MenesIfEncodedJsonPropertyName);
                 @if.WriteTo(writer);
             }
-            if (this.then is Draft201909MetaApplicator then)
+            if (this.then is Menes.JsonValueBacking then && !then.IsNull)
             {
                 writer.WritePropertyName(_MenesThenEncodedJsonPropertyName);
                 then.WriteTo(writer);
             }
-            if (this.@else is Draft201909MetaApplicator @else)
+            if (this.@else is Menes.JsonValueBacking @else && !@else.IsNull)
             {
                 writer.WritePropertyName(_MenesElseEncodedJsonPropertyName);
                 @else.WriteTo(writer);
             }
-            if (this.allOf is Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity allOf)
+            if (this.allOf is Menes.JsonValueBacking allOf && !allOf.IsNull)
             {
                 writer.WritePropertyName(_MenesAllOfEncodedJsonPropertyName);
                 allOf.WriteTo(writer);
             }
-            if (this.anyOf is Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity anyOf)
+            if (this.anyOf is Menes.JsonValueBacking anyOf && !anyOf.IsNull)
             {
                 writer.WritePropertyName(_MenesAnyOfEncodedJsonPropertyName);
                 anyOf.WriteTo(writer);
             }
-            if (this.oneOf is Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity oneOf)
+            if (this.oneOf is Menes.JsonValueBacking oneOf && !oneOf.IsNull)
             {
                 writer.WritePropertyName(_MenesOneOfEncodedJsonPropertyName);
                 oneOf.WriteTo(writer);
             }
-            if (this.not is Draft201909MetaApplicator not)
+            if (this.not is Menes.JsonValueBacking not && !not.IsNull)
             {
                 writer.WritePropertyName(_MenesNotEncodedJsonPropertyName);
                 not.WriteTo(writer);
@@ -1171,7 +1165,7 @@ namespace Driver.GeneratedTypes
                 writer.WritePropertyName(_MenesContentEncodingEncodedJsonPropertyName);
                 contentEncoding.WriteTo(writer);
             }
-            if (this.contentSchema is Draft201909MetaContent contentSchema)
+            if (this.contentSchema is Menes.JsonValueBacking contentSchema && !contentSchema.IsNull)
             {
                 writer.WritePropertyName(_MenesContentSchemaEncodedJsonPropertyName);
                 contentSchema.WriteTo(writer);
@@ -4090,11 +4084,11 @@ namespace Driver.GeneratedTypes
             }
             if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesAdditionalItemsJsonPropertyName.Span))
             {
-                return this.WithAdditionalItems(value.As<Draft201909MetaApplicator>());
+                return this.WithAdditionalItems(value.As<Draft201909Schema>());
             }
             if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesUnevaluatedItemsJsonPropertyName.Span))
             {
-                return this.WithUnevaluatedItems(value.As<Draft201909MetaApplicator>());
+                return this.WithUnevaluatedItems(value.As<Draft201909Schema>());
             }
             if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesItemsJsonPropertyName.Span))
             {
@@ -4102,15 +4096,15 @@ namespace Driver.GeneratedTypes
             }
             if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesContainsJsonPropertyName.Span))
             {
-                return this.WithContains(value.As<Draft201909MetaApplicator>());
+                return this.WithContains(value.As<Draft201909Schema>());
             }
             if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesAdditionalPropertiesJsonPropertyName.Span))
             {
-                return this.WithAdditionalProperties(value.As<Draft201909MetaApplicator>());
+                return this.WithAdditionalProperties(value.As<Draft201909Schema>());
             }
             if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesUnevaluatedPropertiesJsonPropertyName.Span))
             {
-                return this.WithUnevaluatedProperties(value.As<Draft201909MetaApplicator>());
+                return this.WithUnevaluatedProperties(value.As<Draft201909Schema>());
             }
             if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesPropertiesJsonPropertyName.Span))
             {
@@ -4126,19 +4120,19 @@ namespace Driver.GeneratedTypes
             }
             if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesPropertyNamesJsonPropertyName.Span))
             {
-                return this.WithPropertyNames(value.As<Draft201909MetaApplicator>());
+                return this.WithPropertyNames(value.As<Draft201909Schema>());
             }
             if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesIfJsonPropertyName.Span))
             {
-                return this.WithIf(value.As<Draft201909MetaApplicator>());
+                return this.WithIf(value.As<Draft201909Schema>());
             }
             if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesThenJsonPropertyName.Span))
             {
-                return this.WithThen(value.As<Draft201909MetaApplicator>());
+                return this.WithThen(value.As<Draft201909Schema>());
             }
             if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesElseJsonPropertyName.Span))
             {
-                return this.WithElse(value.As<Draft201909MetaApplicator>());
+                return this.WithElse(value.As<Draft201909Schema>());
             }
             if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesAllOfJsonPropertyName.Span))
             {
@@ -4154,7 +4148,7 @@ namespace Driver.GeneratedTypes
             }
             if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesNotJsonPropertyName.Span))
             {
-                return this.WithNot(value.As<Draft201909MetaApplicator>());
+                return this.WithNot(value.As<Draft201909Schema>());
             }
             if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesMultipleOfJsonPropertyName.Span))
             {
@@ -4278,7 +4272,7 @@ namespace Driver.GeneratedTypes
             }
             if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesContentSchemaJsonPropertyName.Span))
             {
-                return this.WithContentSchema(value.As<Draft201909MetaContent>());
+                return this.WithContentSchema(value.As<Draft201909Schema>());
             }
             if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesDefinitionsJsonPropertyName.Span))
             {
@@ -4350,11 +4344,11 @@ namespace Driver.GeneratedTypes
             }
             if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesAdditionalItemsJsonPropertyName.Span))
             {
-                return this.WithAdditionalItems(value.As<Draft201909MetaApplicator>());
+                return this.WithAdditionalItems(value.As<Draft201909Schema>());
             }
             if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesUnevaluatedItemsJsonPropertyName.Span))
             {
-                return this.WithUnevaluatedItems(value.As<Draft201909MetaApplicator>());
+                return this.WithUnevaluatedItems(value.As<Draft201909Schema>());
             }
             if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesItemsJsonPropertyName.Span))
             {
@@ -4362,15 +4356,15 @@ namespace Driver.GeneratedTypes
             }
             if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesContainsJsonPropertyName.Span))
             {
-                return this.WithContains(value.As<Draft201909MetaApplicator>());
+                return this.WithContains(value.As<Draft201909Schema>());
             }
             if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesAdditionalPropertiesJsonPropertyName.Span))
             {
-                return this.WithAdditionalProperties(value.As<Draft201909MetaApplicator>());
+                return this.WithAdditionalProperties(value.As<Draft201909Schema>());
             }
             if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesUnevaluatedPropertiesJsonPropertyName.Span))
             {
-                return this.WithUnevaluatedProperties(value.As<Draft201909MetaApplicator>());
+                return this.WithUnevaluatedProperties(value.As<Draft201909Schema>());
             }
             if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesPropertiesJsonPropertyName.Span))
             {
@@ -4386,19 +4380,19 @@ namespace Driver.GeneratedTypes
             }
             if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesPropertyNamesJsonPropertyName.Span))
             {
-                return this.WithPropertyNames(value.As<Draft201909MetaApplicator>());
+                return this.WithPropertyNames(value.As<Draft201909Schema>());
             }
             if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesIfJsonPropertyName.Span))
             {
-                return this.WithIf(value.As<Draft201909MetaApplicator>());
+                return this.WithIf(value.As<Draft201909Schema>());
             }
             if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesThenJsonPropertyName.Span))
             {
-                return this.WithThen(value.As<Draft201909MetaApplicator>());
+                return this.WithThen(value.As<Draft201909Schema>());
             }
             if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesElseJsonPropertyName.Span))
             {
-                return this.WithElse(value.As<Draft201909MetaApplicator>());
+                return this.WithElse(value.As<Draft201909Schema>());
             }
             if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesAllOfJsonPropertyName.Span))
             {
@@ -4414,7 +4408,7 @@ namespace Driver.GeneratedTypes
             }
             if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesNotJsonPropertyName.Span))
             {
-                return this.WithNot(value.As<Draft201909MetaApplicator>());
+                return this.WithNot(value.As<Draft201909Schema>());
             }
             if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesMultipleOfJsonPropertyName.Span))
             {
@@ -4538,7 +4532,7 @@ namespace Driver.GeneratedTypes
             }
             if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesContentSchemaJsonPropertyName.Span))
             {
-                return this.WithContentSchema(value.As<Draft201909MetaContent>());
+                return this.WithContentSchema(value.As<Draft201909Schema>());
             }
             if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesDefinitionsJsonPropertyName.Span))
             {
@@ -4613,11 +4607,11 @@ namespace Driver.GeneratedTypes
             }
             if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesAdditionalItemsJsonPropertyName.Span))
             {
-                return this.WithAdditionalItems(value.As<Draft201909MetaApplicator>());
+                return this.WithAdditionalItems(value.As<Draft201909Schema>());
             }
             if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesUnevaluatedItemsJsonPropertyName.Span))
             {
-                return this.WithUnevaluatedItems(value.As<Draft201909MetaApplicator>());
+                return this.WithUnevaluatedItems(value.As<Draft201909Schema>());
             }
             if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesItemsJsonPropertyName.Span))
             {
@@ -4625,15 +4619,15 @@ namespace Driver.GeneratedTypes
             }
             if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesContainsJsonPropertyName.Span))
             {
-                return this.WithContains(value.As<Draft201909MetaApplicator>());
+                return this.WithContains(value.As<Draft201909Schema>());
             }
             if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesAdditionalPropertiesJsonPropertyName.Span))
             {
-                return this.WithAdditionalProperties(value.As<Draft201909MetaApplicator>());
+                return this.WithAdditionalProperties(value.As<Draft201909Schema>());
             }
             if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesUnevaluatedPropertiesJsonPropertyName.Span))
             {
-                return this.WithUnevaluatedProperties(value.As<Draft201909MetaApplicator>());
+                return this.WithUnevaluatedProperties(value.As<Draft201909Schema>());
             }
             if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesPropertiesJsonPropertyName.Span))
             {
@@ -4649,19 +4643,19 @@ namespace Driver.GeneratedTypes
             }
             if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesPropertyNamesJsonPropertyName.Span))
             {
-                return this.WithPropertyNames(value.As<Draft201909MetaApplicator>());
+                return this.WithPropertyNames(value.As<Draft201909Schema>());
             }
             if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesIfJsonPropertyName.Span))
             {
-                return this.WithIf(value.As<Draft201909MetaApplicator>());
+                return this.WithIf(value.As<Draft201909Schema>());
             }
             if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesThenJsonPropertyName.Span))
             {
-                return this.WithThen(value.As<Draft201909MetaApplicator>());
+                return this.WithThen(value.As<Draft201909Schema>());
             }
             if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesElseJsonPropertyName.Span))
             {
-                return this.WithElse(value.As<Draft201909MetaApplicator>());
+                return this.WithElse(value.As<Draft201909Schema>());
             }
             if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesAllOfJsonPropertyName.Span))
             {
@@ -4677,7 +4671,7 @@ namespace Driver.GeneratedTypes
             }
             if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesNotJsonPropertyName.Span))
             {
-                return this.WithNot(value.As<Draft201909MetaApplicator>());
+                return this.WithNot(value.As<Draft201909Schema>());
             }
             if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesMultipleOfJsonPropertyName.Span))
             {
@@ -4801,7 +4795,7 @@ namespace Driver.GeneratedTypes
             }
             if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesContentSchemaJsonPropertyName.Span))
             {
-                return this.WithContentSchema(value.As<Draft201909MetaContent>());
+                return this.WithContentSchema(value.As<Draft201909Schema>());
             }
             if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesDefinitionsJsonPropertyName.Span))
             {
@@ -4886,75 +4880,75 @@ namespace Driver.GeneratedTypes
         }
         public Draft201909Schema WithDefs(Draft201909MetaCore.DefsEntity value)
         {
-            return new Draft201909Schema(this.id, this.schema, this.anchor, this.@ref, this.recursiveRef, this.recursiveAnchor, this.vocabulary, this.comment, value, this.additionalItems, this.unevaluatedItems, this.items, this.contains, this.additionalProperties, this.unevaluatedProperties, this.properties, this.patternProperties, this.dependentSchemas, this.propertyNames, this.@if, this.then, this.@else, this.allOf, this.anyOf, this.oneOf, this.not, this.multipleOf, this.maximum, this.exclusiveMaximum, this.minimum, this.exclusiveMinimum, this.maxLength, this.minLength, this.pattern, this.maxItems, this.minItems, this.uniqueItems, this.maxContains, this.minContains, this.maxProperties, this.minProperties, this.required, this.dependentRequired, this.@const, this.@enum, this.type, this.title, this.description, this.@default, this.deprecated, this.readOnly, this.writeOnly, this.examples, this.format, this.contentMediaType, this.contentEncoding, this.contentSchema, this.definitions, this.dependencies, this._menesBooleanTypeBacking, this._menesAdditionalPropertiesBacking);
+            return new Draft201909Schema(this.id, this.schema, this.anchor, this.@ref, this.recursiveRef, this.recursiveAnchor, this.vocabulary, this.comment, Menes.JsonValueBacking.From<Draft201909MetaCore.DefsEntity>(value), this.additionalItems, this.unevaluatedItems, this.items, this.contains, this.additionalProperties, this.unevaluatedProperties, this.properties, this.patternProperties, this.dependentSchemas, this.propertyNames, this.@if, this.then, this.@else, this.allOf, this.anyOf, this.oneOf, this.not, this.multipleOf, this.maximum, this.exclusiveMaximum, this.minimum, this.exclusiveMinimum, this.maxLength, this.minLength, this.pattern, this.maxItems, this.minItems, this.uniqueItems, this.maxContains, this.minContains, this.maxProperties, this.minProperties, this.required, this.dependentRequired, this.@const, this.@enum, this.type, this.title, this.description, this.@default, this.deprecated, this.readOnly, this.writeOnly, this.examples, this.format, this.contentMediaType, this.contentEncoding, this.contentSchema, this.definitions, this.dependencies, this._menesBooleanTypeBacking, this._menesAdditionalPropertiesBacking);
         }
-        public Draft201909Schema WithAdditionalItems(Draft201909MetaApplicator value)
+        public Draft201909Schema WithAdditionalItems(Draft201909Schema value)
         {
-            return new Draft201909Schema(this.id, this.schema, this.anchor, this.@ref, this.recursiveRef, this.recursiveAnchor, this.vocabulary, this.comment, this.defs, value, this.unevaluatedItems, this.items, this.contains, this.additionalProperties, this.unevaluatedProperties, this.properties, this.patternProperties, this.dependentSchemas, this.propertyNames, this.@if, this.then, this.@else, this.allOf, this.anyOf, this.oneOf, this.not, this.multipleOf, this.maximum, this.exclusiveMaximum, this.minimum, this.exclusiveMinimum, this.maxLength, this.minLength, this.pattern, this.maxItems, this.minItems, this.uniqueItems, this.maxContains, this.minContains, this.maxProperties, this.minProperties, this.required, this.dependentRequired, this.@const, this.@enum, this.type, this.title, this.description, this.@default, this.deprecated, this.readOnly, this.writeOnly, this.examples, this.format, this.contentMediaType, this.contentEncoding, this.contentSchema, this.definitions, this.dependencies, this._menesBooleanTypeBacking, this._menesAdditionalPropertiesBacking);
+            return new Draft201909Schema(this.id, this.schema, this.anchor, this.@ref, this.recursiveRef, this.recursiveAnchor, this.vocabulary, this.comment, this.defs, Menes.JsonValueBacking.From<Draft201909Schema>(value), this.unevaluatedItems, this.items, this.contains, this.additionalProperties, this.unevaluatedProperties, this.properties, this.patternProperties, this.dependentSchemas, this.propertyNames, this.@if, this.then, this.@else, this.allOf, this.anyOf, this.oneOf, this.not, this.multipleOf, this.maximum, this.exclusiveMaximum, this.minimum, this.exclusiveMinimum, this.maxLength, this.minLength, this.pattern, this.maxItems, this.minItems, this.uniqueItems, this.maxContains, this.minContains, this.maxProperties, this.minProperties, this.required, this.dependentRequired, this.@const, this.@enum, this.type, this.title, this.description, this.@default, this.deprecated, this.readOnly, this.writeOnly, this.examples, this.format, this.contentMediaType, this.contentEncoding, this.contentSchema, this.definitions, this.dependencies, this._menesBooleanTypeBacking, this._menesAdditionalPropertiesBacking);
         }
-        public Draft201909Schema WithUnevaluatedItems(Draft201909MetaApplicator value)
+        public Draft201909Schema WithUnevaluatedItems(Draft201909Schema value)
         {
-            return new Draft201909Schema(this.id, this.schema, this.anchor, this.@ref, this.recursiveRef, this.recursiveAnchor, this.vocabulary, this.comment, this.defs, this.additionalItems, value, this.items, this.contains, this.additionalProperties, this.unevaluatedProperties, this.properties, this.patternProperties, this.dependentSchemas, this.propertyNames, this.@if, this.then, this.@else, this.allOf, this.anyOf, this.oneOf, this.not, this.multipleOf, this.maximum, this.exclusiveMaximum, this.minimum, this.exclusiveMinimum, this.maxLength, this.minLength, this.pattern, this.maxItems, this.minItems, this.uniqueItems, this.maxContains, this.minContains, this.maxProperties, this.minProperties, this.required, this.dependentRequired, this.@const, this.@enum, this.type, this.title, this.description, this.@default, this.deprecated, this.readOnly, this.writeOnly, this.examples, this.format, this.contentMediaType, this.contentEncoding, this.contentSchema, this.definitions, this.dependencies, this._menesBooleanTypeBacking, this._menesAdditionalPropertiesBacking);
+            return new Draft201909Schema(this.id, this.schema, this.anchor, this.@ref, this.recursiveRef, this.recursiveAnchor, this.vocabulary, this.comment, this.defs, this.additionalItems, Menes.JsonValueBacking.From<Draft201909Schema>(value), this.items, this.contains, this.additionalProperties, this.unevaluatedProperties, this.properties, this.patternProperties, this.dependentSchemas, this.propertyNames, this.@if, this.then, this.@else, this.allOf, this.anyOf, this.oneOf, this.not, this.multipleOf, this.maximum, this.exclusiveMaximum, this.minimum, this.exclusiveMinimum, this.maxLength, this.minLength, this.pattern, this.maxItems, this.minItems, this.uniqueItems, this.maxContains, this.minContains, this.maxProperties, this.minProperties, this.required, this.dependentRequired, this.@const, this.@enum, this.type, this.title, this.description, this.@default, this.deprecated, this.readOnly, this.writeOnly, this.examples, this.format, this.contentMediaType, this.contentEncoding, this.contentSchema, this.definitions, this.dependencies, this._menesBooleanTypeBacking, this._menesAdditionalPropertiesBacking);
         }
         public Draft201909Schema WithItems(Draft201909MetaApplicator.ItemsEntity value)
         {
             return new Draft201909Schema(this.id, this.schema, this.anchor, this.@ref, this.recursiveRef, this.recursiveAnchor, this.vocabulary, this.comment, this.defs, this.additionalItems, this.unevaluatedItems, value, this.contains, this.additionalProperties, this.unevaluatedProperties, this.properties, this.patternProperties, this.dependentSchemas, this.propertyNames, this.@if, this.then, this.@else, this.allOf, this.anyOf, this.oneOf, this.not, this.multipleOf, this.maximum, this.exclusiveMaximum, this.minimum, this.exclusiveMinimum, this.maxLength, this.minLength, this.pattern, this.maxItems, this.minItems, this.uniqueItems, this.maxContains, this.minContains, this.maxProperties, this.minProperties, this.required, this.dependentRequired, this.@const, this.@enum, this.type, this.title, this.description, this.@default, this.deprecated, this.readOnly, this.writeOnly, this.examples, this.format, this.contentMediaType, this.contentEncoding, this.contentSchema, this.definitions, this.dependencies, this._menesBooleanTypeBacking, this._menesAdditionalPropertiesBacking);
         }
-        public Draft201909Schema WithContains(Draft201909MetaApplicator value)
+        public Draft201909Schema WithContains(Draft201909Schema value)
         {
-            return new Draft201909Schema(this.id, this.schema, this.anchor, this.@ref, this.recursiveRef, this.recursiveAnchor, this.vocabulary, this.comment, this.defs, this.additionalItems, this.unevaluatedItems, this.items, value, this.additionalProperties, this.unevaluatedProperties, this.properties, this.patternProperties, this.dependentSchemas, this.propertyNames, this.@if, this.then, this.@else, this.allOf, this.anyOf, this.oneOf, this.not, this.multipleOf, this.maximum, this.exclusiveMaximum, this.minimum, this.exclusiveMinimum, this.maxLength, this.minLength, this.pattern, this.maxItems, this.minItems, this.uniqueItems, this.maxContains, this.minContains, this.maxProperties, this.minProperties, this.required, this.dependentRequired, this.@const, this.@enum, this.type, this.title, this.description, this.@default, this.deprecated, this.readOnly, this.writeOnly, this.examples, this.format, this.contentMediaType, this.contentEncoding, this.contentSchema, this.definitions, this.dependencies, this._menesBooleanTypeBacking, this._menesAdditionalPropertiesBacking);
+            return new Draft201909Schema(this.id, this.schema, this.anchor, this.@ref, this.recursiveRef, this.recursiveAnchor, this.vocabulary, this.comment, this.defs, this.additionalItems, this.unevaluatedItems, this.items, Menes.JsonValueBacking.From<Draft201909Schema>(value), this.additionalProperties, this.unevaluatedProperties, this.properties, this.patternProperties, this.dependentSchemas, this.propertyNames, this.@if, this.then, this.@else, this.allOf, this.anyOf, this.oneOf, this.not, this.multipleOf, this.maximum, this.exclusiveMaximum, this.minimum, this.exclusiveMinimum, this.maxLength, this.minLength, this.pattern, this.maxItems, this.minItems, this.uniqueItems, this.maxContains, this.minContains, this.maxProperties, this.minProperties, this.required, this.dependentRequired, this.@const, this.@enum, this.type, this.title, this.description, this.@default, this.deprecated, this.readOnly, this.writeOnly, this.examples, this.format, this.contentMediaType, this.contentEncoding, this.contentSchema, this.definitions, this.dependencies, this._menesBooleanTypeBacking, this._menesAdditionalPropertiesBacking);
         }
-        public Draft201909Schema WithAdditionalProperties(Draft201909MetaApplicator value)
+        public Draft201909Schema WithAdditionalProperties(Draft201909Schema value)
         {
-            return new Draft201909Schema(this.id, this.schema, this.anchor, this.@ref, this.recursiveRef, this.recursiveAnchor, this.vocabulary, this.comment, this.defs, this.additionalItems, this.unevaluatedItems, this.items, this.contains, value, this.unevaluatedProperties, this.properties, this.patternProperties, this.dependentSchemas, this.propertyNames, this.@if, this.then, this.@else, this.allOf, this.anyOf, this.oneOf, this.not, this.multipleOf, this.maximum, this.exclusiveMaximum, this.minimum, this.exclusiveMinimum, this.maxLength, this.minLength, this.pattern, this.maxItems, this.minItems, this.uniqueItems, this.maxContains, this.minContains, this.maxProperties, this.minProperties, this.required, this.dependentRequired, this.@const, this.@enum, this.type, this.title, this.description, this.@default, this.deprecated, this.readOnly, this.writeOnly, this.examples, this.format, this.contentMediaType, this.contentEncoding, this.contentSchema, this.definitions, this.dependencies, this._menesBooleanTypeBacking, this._menesAdditionalPropertiesBacking);
+            return new Draft201909Schema(this.id, this.schema, this.anchor, this.@ref, this.recursiveRef, this.recursiveAnchor, this.vocabulary, this.comment, this.defs, this.additionalItems, this.unevaluatedItems, this.items, this.contains, Menes.JsonValueBacking.From<Draft201909Schema>(value), this.unevaluatedProperties, this.properties, this.patternProperties, this.dependentSchemas, this.propertyNames, this.@if, this.then, this.@else, this.allOf, this.anyOf, this.oneOf, this.not, this.multipleOf, this.maximum, this.exclusiveMaximum, this.minimum, this.exclusiveMinimum, this.maxLength, this.minLength, this.pattern, this.maxItems, this.minItems, this.uniqueItems, this.maxContains, this.minContains, this.maxProperties, this.minProperties, this.required, this.dependentRequired, this.@const, this.@enum, this.type, this.title, this.description, this.@default, this.deprecated, this.readOnly, this.writeOnly, this.examples, this.format, this.contentMediaType, this.contentEncoding, this.contentSchema, this.definitions, this.dependencies, this._menesBooleanTypeBacking, this._menesAdditionalPropertiesBacking);
         }
-        public Draft201909Schema WithUnevaluatedProperties(Draft201909MetaApplicator value)
+        public Draft201909Schema WithUnevaluatedProperties(Draft201909Schema value)
         {
-            return new Draft201909Schema(this.id, this.schema, this.anchor, this.@ref, this.recursiveRef, this.recursiveAnchor, this.vocabulary, this.comment, this.defs, this.additionalItems, this.unevaluatedItems, this.items, this.contains, this.additionalProperties, value, this.properties, this.patternProperties, this.dependentSchemas, this.propertyNames, this.@if, this.then, this.@else, this.allOf, this.anyOf, this.oneOf, this.not, this.multipleOf, this.maximum, this.exclusiveMaximum, this.minimum, this.exclusiveMinimum, this.maxLength, this.minLength, this.pattern, this.maxItems, this.minItems, this.uniqueItems, this.maxContains, this.minContains, this.maxProperties, this.minProperties, this.required, this.dependentRequired, this.@const, this.@enum, this.type, this.title, this.description, this.@default, this.deprecated, this.readOnly, this.writeOnly, this.examples, this.format, this.contentMediaType, this.contentEncoding, this.contentSchema, this.definitions, this.dependencies, this._menesBooleanTypeBacking, this._menesAdditionalPropertiesBacking);
+            return new Draft201909Schema(this.id, this.schema, this.anchor, this.@ref, this.recursiveRef, this.recursiveAnchor, this.vocabulary, this.comment, this.defs, this.additionalItems, this.unevaluatedItems, this.items, this.contains, this.additionalProperties, Menes.JsonValueBacking.From<Draft201909Schema>(value), this.properties, this.patternProperties, this.dependentSchemas, this.propertyNames, this.@if, this.then, this.@else, this.allOf, this.anyOf, this.oneOf, this.not, this.multipleOf, this.maximum, this.exclusiveMaximum, this.minimum, this.exclusiveMinimum, this.maxLength, this.minLength, this.pattern, this.maxItems, this.minItems, this.uniqueItems, this.maxContains, this.minContains, this.maxProperties, this.minProperties, this.required, this.dependentRequired, this.@const, this.@enum, this.type, this.title, this.description, this.@default, this.deprecated, this.readOnly, this.writeOnly, this.examples, this.format, this.contentMediaType, this.contentEncoding, this.contentSchema, this.definitions, this.dependencies, this._menesBooleanTypeBacking, this._menesAdditionalPropertiesBacking);
         }
         public Draft201909Schema WithProperties(Draft201909MetaApplicator.PropertiesEntity value)
         {
-            return new Draft201909Schema(this.id, this.schema, this.anchor, this.@ref, this.recursiveRef, this.recursiveAnchor, this.vocabulary, this.comment, this.defs, this.additionalItems, this.unevaluatedItems, this.items, this.contains, this.additionalProperties, this.unevaluatedProperties, value, this.patternProperties, this.dependentSchemas, this.propertyNames, this.@if, this.then, this.@else, this.allOf, this.anyOf, this.oneOf, this.not, this.multipleOf, this.maximum, this.exclusiveMaximum, this.minimum, this.exclusiveMinimum, this.maxLength, this.minLength, this.pattern, this.maxItems, this.minItems, this.uniqueItems, this.maxContains, this.minContains, this.maxProperties, this.minProperties, this.required, this.dependentRequired, this.@const, this.@enum, this.type, this.title, this.description, this.@default, this.deprecated, this.readOnly, this.writeOnly, this.examples, this.format, this.contentMediaType, this.contentEncoding, this.contentSchema, this.definitions, this.dependencies, this._menesBooleanTypeBacking, this._menesAdditionalPropertiesBacking);
+            return new Draft201909Schema(this.id, this.schema, this.anchor, this.@ref, this.recursiveRef, this.recursiveAnchor, this.vocabulary, this.comment, this.defs, this.additionalItems, this.unevaluatedItems, this.items, this.contains, this.additionalProperties, this.unevaluatedProperties, Menes.JsonValueBacking.From<Draft201909MetaApplicator.PropertiesEntity>(value), this.patternProperties, this.dependentSchemas, this.propertyNames, this.@if, this.then, this.@else, this.allOf, this.anyOf, this.oneOf, this.not, this.multipleOf, this.maximum, this.exclusiveMaximum, this.minimum, this.exclusiveMinimum, this.maxLength, this.minLength, this.pattern, this.maxItems, this.minItems, this.uniqueItems, this.maxContains, this.minContains, this.maxProperties, this.minProperties, this.required, this.dependentRequired, this.@const, this.@enum, this.type, this.title, this.description, this.@default, this.deprecated, this.readOnly, this.writeOnly, this.examples, this.format, this.contentMediaType, this.contentEncoding, this.contentSchema, this.definitions, this.dependencies, this._menesBooleanTypeBacking, this._menesAdditionalPropertiesBacking);
         }
         public Draft201909Schema WithPatternProperties(Draft201909MetaApplicator.PatternPropertiesEntity value)
         {
-            return new Draft201909Schema(this.id, this.schema, this.anchor, this.@ref, this.recursiveRef, this.recursiveAnchor, this.vocabulary, this.comment, this.defs, this.additionalItems, this.unevaluatedItems, this.items, this.contains, this.additionalProperties, this.unevaluatedProperties, this.properties, value, this.dependentSchemas, this.propertyNames, this.@if, this.then, this.@else, this.allOf, this.anyOf, this.oneOf, this.not, this.multipleOf, this.maximum, this.exclusiveMaximum, this.minimum, this.exclusiveMinimum, this.maxLength, this.minLength, this.pattern, this.maxItems, this.minItems, this.uniqueItems, this.maxContains, this.minContains, this.maxProperties, this.minProperties, this.required, this.dependentRequired, this.@const, this.@enum, this.type, this.title, this.description, this.@default, this.deprecated, this.readOnly, this.writeOnly, this.examples, this.format, this.contentMediaType, this.contentEncoding, this.contentSchema, this.definitions, this.dependencies, this._menesBooleanTypeBacking, this._menesAdditionalPropertiesBacking);
+            return new Draft201909Schema(this.id, this.schema, this.anchor, this.@ref, this.recursiveRef, this.recursiveAnchor, this.vocabulary, this.comment, this.defs, this.additionalItems, this.unevaluatedItems, this.items, this.contains, this.additionalProperties, this.unevaluatedProperties, this.properties, Menes.JsonValueBacking.From<Draft201909MetaApplicator.PatternPropertiesEntity>(value), this.dependentSchemas, this.propertyNames, this.@if, this.then, this.@else, this.allOf, this.anyOf, this.oneOf, this.not, this.multipleOf, this.maximum, this.exclusiveMaximum, this.minimum, this.exclusiveMinimum, this.maxLength, this.minLength, this.pattern, this.maxItems, this.minItems, this.uniqueItems, this.maxContains, this.minContains, this.maxProperties, this.minProperties, this.required, this.dependentRequired, this.@const, this.@enum, this.type, this.title, this.description, this.@default, this.deprecated, this.readOnly, this.writeOnly, this.examples, this.format, this.contentMediaType, this.contentEncoding, this.contentSchema, this.definitions, this.dependencies, this._menesBooleanTypeBacking, this._menesAdditionalPropertiesBacking);
         }
         public Draft201909Schema WithDependentSchemas(Draft201909MetaApplicator.DependentSchemasEntity value)
         {
-            return new Draft201909Schema(this.id, this.schema, this.anchor, this.@ref, this.recursiveRef, this.recursiveAnchor, this.vocabulary, this.comment, this.defs, this.additionalItems, this.unevaluatedItems, this.items, this.contains, this.additionalProperties, this.unevaluatedProperties, this.properties, this.patternProperties, value, this.propertyNames, this.@if, this.then, this.@else, this.allOf, this.anyOf, this.oneOf, this.not, this.multipleOf, this.maximum, this.exclusiveMaximum, this.minimum, this.exclusiveMinimum, this.maxLength, this.minLength, this.pattern, this.maxItems, this.minItems, this.uniqueItems, this.maxContains, this.minContains, this.maxProperties, this.minProperties, this.required, this.dependentRequired, this.@const, this.@enum, this.type, this.title, this.description, this.@default, this.deprecated, this.readOnly, this.writeOnly, this.examples, this.format, this.contentMediaType, this.contentEncoding, this.contentSchema, this.definitions, this.dependencies, this._menesBooleanTypeBacking, this._menesAdditionalPropertiesBacking);
+            return new Draft201909Schema(this.id, this.schema, this.anchor, this.@ref, this.recursiveRef, this.recursiveAnchor, this.vocabulary, this.comment, this.defs, this.additionalItems, this.unevaluatedItems, this.items, this.contains, this.additionalProperties, this.unevaluatedProperties, this.properties, this.patternProperties, Menes.JsonValueBacking.From<Draft201909MetaApplicator.DependentSchemasEntity>(value), this.propertyNames, this.@if, this.then, this.@else, this.allOf, this.anyOf, this.oneOf, this.not, this.multipleOf, this.maximum, this.exclusiveMaximum, this.minimum, this.exclusiveMinimum, this.maxLength, this.minLength, this.pattern, this.maxItems, this.minItems, this.uniqueItems, this.maxContains, this.minContains, this.maxProperties, this.minProperties, this.required, this.dependentRequired, this.@const, this.@enum, this.type, this.title, this.description, this.@default, this.deprecated, this.readOnly, this.writeOnly, this.examples, this.format, this.contentMediaType, this.contentEncoding, this.contentSchema, this.definitions, this.dependencies, this._menesBooleanTypeBacking, this._menesAdditionalPropertiesBacking);
         }
-        public Draft201909Schema WithPropertyNames(Draft201909MetaApplicator value)
+        public Draft201909Schema WithPropertyNames(Draft201909Schema value)
         {
-            return new Draft201909Schema(this.id, this.schema, this.anchor, this.@ref, this.recursiveRef, this.recursiveAnchor, this.vocabulary, this.comment, this.defs, this.additionalItems, this.unevaluatedItems, this.items, this.contains, this.additionalProperties, this.unevaluatedProperties, this.properties, this.patternProperties, this.dependentSchemas, value, this.@if, this.then, this.@else, this.allOf, this.anyOf, this.oneOf, this.not, this.multipleOf, this.maximum, this.exclusiveMaximum, this.minimum, this.exclusiveMinimum, this.maxLength, this.minLength, this.pattern, this.maxItems, this.minItems, this.uniqueItems, this.maxContains, this.minContains, this.maxProperties, this.minProperties, this.required, this.dependentRequired, this.@const, this.@enum, this.type, this.title, this.description, this.@default, this.deprecated, this.readOnly, this.writeOnly, this.examples, this.format, this.contentMediaType, this.contentEncoding, this.contentSchema, this.definitions, this.dependencies, this._menesBooleanTypeBacking, this._menesAdditionalPropertiesBacking);
+            return new Draft201909Schema(this.id, this.schema, this.anchor, this.@ref, this.recursiveRef, this.recursiveAnchor, this.vocabulary, this.comment, this.defs, this.additionalItems, this.unevaluatedItems, this.items, this.contains, this.additionalProperties, this.unevaluatedProperties, this.properties, this.patternProperties, this.dependentSchemas, Menes.JsonValueBacking.From<Draft201909Schema>(value), this.@if, this.then, this.@else, this.allOf, this.anyOf, this.oneOf, this.not, this.multipleOf, this.maximum, this.exclusiveMaximum, this.minimum, this.exclusiveMinimum, this.maxLength, this.minLength, this.pattern, this.maxItems, this.minItems, this.uniqueItems, this.maxContains, this.minContains, this.maxProperties, this.minProperties, this.required, this.dependentRequired, this.@const, this.@enum, this.type, this.title, this.description, this.@default, this.deprecated, this.readOnly, this.writeOnly, this.examples, this.format, this.contentMediaType, this.contentEncoding, this.contentSchema, this.definitions, this.dependencies, this._menesBooleanTypeBacking, this._menesAdditionalPropertiesBacking);
         }
-        public Draft201909Schema WithIf(Draft201909MetaApplicator value)
+        public Draft201909Schema WithIf(Draft201909Schema value)
         {
-            return new Draft201909Schema(this.id, this.schema, this.anchor, this.@ref, this.recursiveRef, this.recursiveAnchor, this.vocabulary, this.comment, this.defs, this.additionalItems, this.unevaluatedItems, this.items, this.contains, this.additionalProperties, this.unevaluatedProperties, this.properties, this.patternProperties, this.dependentSchemas, this.propertyNames, value, this.then, this.@else, this.allOf, this.anyOf, this.oneOf, this.not, this.multipleOf, this.maximum, this.exclusiveMaximum, this.minimum, this.exclusiveMinimum, this.maxLength, this.minLength, this.pattern, this.maxItems, this.minItems, this.uniqueItems, this.maxContains, this.minContains, this.maxProperties, this.minProperties, this.required, this.dependentRequired, this.@const, this.@enum, this.type, this.title, this.description, this.@default, this.deprecated, this.readOnly, this.writeOnly, this.examples, this.format, this.contentMediaType, this.contentEncoding, this.contentSchema, this.definitions, this.dependencies, this._menesBooleanTypeBacking, this._menesAdditionalPropertiesBacking);
+            return new Draft201909Schema(this.id, this.schema, this.anchor, this.@ref, this.recursiveRef, this.recursiveAnchor, this.vocabulary, this.comment, this.defs, this.additionalItems, this.unevaluatedItems, this.items, this.contains, this.additionalProperties, this.unevaluatedProperties, this.properties, this.patternProperties, this.dependentSchemas, this.propertyNames, Menes.JsonValueBacking.From<Draft201909Schema>(value), this.then, this.@else, this.allOf, this.anyOf, this.oneOf, this.not, this.multipleOf, this.maximum, this.exclusiveMaximum, this.minimum, this.exclusiveMinimum, this.maxLength, this.minLength, this.pattern, this.maxItems, this.minItems, this.uniqueItems, this.maxContains, this.minContains, this.maxProperties, this.minProperties, this.required, this.dependentRequired, this.@const, this.@enum, this.type, this.title, this.description, this.@default, this.deprecated, this.readOnly, this.writeOnly, this.examples, this.format, this.contentMediaType, this.contentEncoding, this.contentSchema, this.definitions, this.dependencies, this._menesBooleanTypeBacking, this._menesAdditionalPropertiesBacking);
         }
-        public Draft201909Schema WithThen(Draft201909MetaApplicator value)
+        public Draft201909Schema WithThen(Draft201909Schema value)
         {
-            return new Draft201909Schema(this.id, this.schema, this.anchor, this.@ref, this.recursiveRef, this.recursiveAnchor, this.vocabulary, this.comment, this.defs, this.additionalItems, this.unevaluatedItems, this.items, this.contains, this.additionalProperties, this.unevaluatedProperties, this.properties, this.patternProperties, this.dependentSchemas, this.propertyNames, this.@if, value, this.@else, this.allOf, this.anyOf, this.oneOf, this.not, this.multipleOf, this.maximum, this.exclusiveMaximum, this.minimum, this.exclusiveMinimum, this.maxLength, this.minLength, this.pattern, this.maxItems, this.minItems, this.uniqueItems, this.maxContains, this.minContains, this.maxProperties, this.minProperties, this.required, this.dependentRequired, this.@const, this.@enum, this.type, this.title, this.description, this.@default, this.deprecated, this.readOnly, this.writeOnly, this.examples, this.format, this.contentMediaType, this.contentEncoding, this.contentSchema, this.definitions, this.dependencies, this._menesBooleanTypeBacking, this._menesAdditionalPropertiesBacking);
+            return new Draft201909Schema(this.id, this.schema, this.anchor, this.@ref, this.recursiveRef, this.recursiveAnchor, this.vocabulary, this.comment, this.defs, this.additionalItems, this.unevaluatedItems, this.items, this.contains, this.additionalProperties, this.unevaluatedProperties, this.properties, this.patternProperties, this.dependentSchemas, this.propertyNames, this.@if, Menes.JsonValueBacking.From<Draft201909Schema>(value), this.@else, this.allOf, this.anyOf, this.oneOf, this.not, this.multipleOf, this.maximum, this.exclusiveMaximum, this.minimum, this.exclusiveMinimum, this.maxLength, this.minLength, this.pattern, this.maxItems, this.minItems, this.uniqueItems, this.maxContains, this.minContains, this.maxProperties, this.minProperties, this.required, this.dependentRequired, this.@const, this.@enum, this.type, this.title, this.description, this.@default, this.deprecated, this.readOnly, this.writeOnly, this.examples, this.format, this.contentMediaType, this.contentEncoding, this.contentSchema, this.definitions, this.dependencies, this._menesBooleanTypeBacking, this._menesAdditionalPropertiesBacking);
         }
-        public Draft201909Schema WithElse(Draft201909MetaApplicator value)
+        public Draft201909Schema WithElse(Draft201909Schema value)
         {
-            return new Draft201909Schema(this.id, this.schema, this.anchor, this.@ref, this.recursiveRef, this.recursiveAnchor, this.vocabulary, this.comment, this.defs, this.additionalItems, this.unevaluatedItems, this.items, this.contains, this.additionalProperties, this.unevaluatedProperties, this.properties, this.patternProperties, this.dependentSchemas, this.propertyNames, this.@if, this.then, value, this.allOf, this.anyOf, this.oneOf, this.not, this.multipleOf, this.maximum, this.exclusiveMaximum, this.minimum, this.exclusiveMinimum, this.maxLength, this.minLength, this.pattern, this.maxItems, this.minItems, this.uniqueItems, this.maxContains, this.minContains, this.maxProperties, this.minProperties, this.required, this.dependentRequired, this.@const, this.@enum, this.type, this.title, this.description, this.@default, this.deprecated, this.readOnly, this.writeOnly, this.examples, this.format, this.contentMediaType, this.contentEncoding, this.contentSchema, this.definitions, this.dependencies, this._menesBooleanTypeBacking, this._menesAdditionalPropertiesBacking);
+            return new Draft201909Schema(this.id, this.schema, this.anchor, this.@ref, this.recursiveRef, this.recursiveAnchor, this.vocabulary, this.comment, this.defs, this.additionalItems, this.unevaluatedItems, this.items, this.contains, this.additionalProperties, this.unevaluatedProperties, this.properties, this.patternProperties, this.dependentSchemas, this.propertyNames, this.@if, this.then, Menes.JsonValueBacking.From<Draft201909Schema>(value), this.allOf, this.anyOf, this.oneOf, this.not, this.multipleOf, this.maximum, this.exclusiveMaximum, this.minimum, this.exclusiveMinimum, this.maxLength, this.minLength, this.pattern, this.maxItems, this.minItems, this.uniqueItems, this.maxContains, this.minContains, this.maxProperties, this.minProperties, this.required, this.dependentRequired, this.@const, this.@enum, this.type, this.title, this.description, this.@default, this.deprecated, this.readOnly, this.writeOnly, this.examples, this.format, this.contentMediaType, this.contentEncoding, this.contentSchema, this.definitions, this.dependencies, this._menesBooleanTypeBacking, this._menesAdditionalPropertiesBacking);
         }
         public Draft201909Schema WithAllOf(Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity value)
         {
-            return new Draft201909Schema(this.id, this.schema, this.anchor, this.@ref, this.recursiveRef, this.recursiveAnchor, this.vocabulary, this.comment, this.defs, this.additionalItems, this.unevaluatedItems, this.items, this.contains, this.additionalProperties, this.unevaluatedProperties, this.properties, this.patternProperties, this.dependentSchemas, this.propertyNames, this.@if, this.then, this.@else, value, this.anyOf, this.oneOf, this.not, this.multipleOf, this.maximum, this.exclusiveMaximum, this.minimum, this.exclusiveMinimum, this.maxLength, this.minLength, this.pattern, this.maxItems, this.minItems, this.uniqueItems, this.maxContains, this.minContains, this.maxProperties, this.minProperties, this.required, this.dependentRequired, this.@const, this.@enum, this.type, this.title, this.description, this.@default, this.deprecated, this.readOnly, this.writeOnly, this.examples, this.format, this.contentMediaType, this.contentEncoding, this.contentSchema, this.definitions, this.dependencies, this._menesBooleanTypeBacking, this._menesAdditionalPropertiesBacking);
+            return new Draft201909Schema(this.id, this.schema, this.anchor, this.@ref, this.recursiveRef, this.recursiveAnchor, this.vocabulary, this.comment, this.defs, this.additionalItems, this.unevaluatedItems, this.items, this.contains, this.additionalProperties, this.unevaluatedProperties, this.properties, this.patternProperties, this.dependentSchemas, this.propertyNames, this.@if, this.then, this.@else, Menes.JsonValueBacking.From<Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity>(value), this.anyOf, this.oneOf, this.not, this.multipleOf, this.maximum, this.exclusiveMaximum, this.minimum, this.exclusiveMinimum, this.maxLength, this.minLength, this.pattern, this.maxItems, this.minItems, this.uniqueItems, this.maxContains, this.minContains, this.maxProperties, this.minProperties, this.required, this.dependentRequired, this.@const, this.@enum, this.type, this.title, this.description, this.@default, this.deprecated, this.readOnly, this.writeOnly, this.examples, this.format, this.contentMediaType, this.contentEncoding, this.contentSchema, this.definitions, this.dependencies, this._menesBooleanTypeBacking, this._menesAdditionalPropertiesBacking);
         }
         public Draft201909Schema WithAnyOf(Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity value)
         {
-            return new Draft201909Schema(this.id, this.schema, this.anchor, this.@ref, this.recursiveRef, this.recursiveAnchor, this.vocabulary, this.comment, this.defs, this.additionalItems, this.unevaluatedItems, this.items, this.contains, this.additionalProperties, this.unevaluatedProperties, this.properties, this.patternProperties, this.dependentSchemas, this.propertyNames, this.@if, this.then, this.@else, this.allOf, value, this.oneOf, this.not, this.multipleOf, this.maximum, this.exclusiveMaximum, this.minimum, this.exclusiveMinimum, this.maxLength, this.minLength, this.pattern, this.maxItems, this.minItems, this.uniqueItems, this.maxContains, this.minContains, this.maxProperties, this.minProperties, this.required, this.dependentRequired, this.@const, this.@enum, this.type, this.title, this.description, this.@default, this.deprecated, this.readOnly, this.writeOnly, this.examples, this.format, this.contentMediaType, this.contentEncoding, this.contentSchema, this.definitions, this.dependencies, this._menesBooleanTypeBacking, this._menesAdditionalPropertiesBacking);
+            return new Draft201909Schema(this.id, this.schema, this.anchor, this.@ref, this.recursiveRef, this.recursiveAnchor, this.vocabulary, this.comment, this.defs, this.additionalItems, this.unevaluatedItems, this.items, this.contains, this.additionalProperties, this.unevaluatedProperties, this.properties, this.patternProperties, this.dependentSchemas, this.propertyNames, this.@if, this.then, this.@else, this.allOf, Menes.JsonValueBacking.From<Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity>(value), this.oneOf, this.not, this.multipleOf, this.maximum, this.exclusiveMaximum, this.minimum, this.exclusiveMinimum, this.maxLength, this.minLength, this.pattern, this.maxItems, this.minItems, this.uniqueItems, this.maxContains, this.minContains, this.maxProperties, this.minProperties, this.required, this.dependentRequired, this.@const, this.@enum, this.type, this.title, this.description, this.@default, this.deprecated, this.readOnly, this.writeOnly, this.examples, this.format, this.contentMediaType, this.contentEncoding, this.contentSchema, this.definitions, this.dependencies, this._menesBooleanTypeBacking, this._menesAdditionalPropertiesBacking);
         }
         public Draft201909Schema WithOneOf(Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity value)
         {
-            return new Draft201909Schema(this.id, this.schema, this.anchor, this.@ref, this.recursiveRef, this.recursiveAnchor, this.vocabulary, this.comment, this.defs, this.additionalItems, this.unevaluatedItems, this.items, this.contains, this.additionalProperties, this.unevaluatedProperties, this.properties, this.patternProperties, this.dependentSchemas, this.propertyNames, this.@if, this.then, this.@else, this.allOf, this.anyOf, value, this.not, this.multipleOf, this.maximum, this.exclusiveMaximum, this.minimum, this.exclusiveMinimum, this.maxLength, this.minLength, this.pattern, this.maxItems, this.minItems, this.uniqueItems, this.maxContains, this.minContains, this.maxProperties, this.minProperties, this.required, this.dependentRequired, this.@const, this.@enum, this.type, this.title, this.description, this.@default, this.deprecated, this.readOnly, this.writeOnly, this.examples, this.format, this.contentMediaType, this.contentEncoding, this.contentSchema, this.definitions, this.dependencies, this._menesBooleanTypeBacking, this._menesAdditionalPropertiesBacking);
+            return new Draft201909Schema(this.id, this.schema, this.anchor, this.@ref, this.recursiveRef, this.recursiveAnchor, this.vocabulary, this.comment, this.defs, this.additionalItems, this.unevaluatedItems, this.items, this.contains, this.additionalProperties, this.unevaluatedProperties, this.properties, this.patternProperties, this.dependentSchemas, this.propertyNames, this.@if, this.then, this.@else, this.allOf, this.anyOf, Menes.JsonValueBacking.From<Draft201909MetaApplicator.ItemsEntity.SchemaArrayEntity>(value), this.not, this.multipleOf, this.maximum, this.exclusiveMaximum, this.minimum, this.exclusiveMinimum, this.maxLength, this.minLength, this.pattern, this.maxItems, this.minItems, this.uniqueItems, this.maxContains, this.minContains, this.maxProperties, this.minProperties, this.required, this.dependentRequired, this.@const, this.@enum, this.type, this.title, this.description, this.@default, this.deprecated, this.readOnly, this.writeOnly, this.examples, this.format, this.contentMediaType, this.contentEncoding, this.contentSchema, this.definitions, this.dependencies, this._menesBooleanTypeBacking, this._menesAdditionalPropertiesBacking);
         }
-        public Draft201909Schema WithNot(Draft201909MetaApplicator value)
+        public Draft201909Schema WithNot(Draft201909Schema value)
         {
-            return new Draft201909Schema(this.id, this.schema, this.anchor, this.@ref, this.recursiveRef, this.recursiveAnchor, this.vocabulary, this.comment, this.defs, this.additionalItems, this.unevaluatedItems, this.items, this.contains, this.additionalProperties, this.unevaluatedProperties, this.properties, this.patternProperties, this.dependentSchemas, this.propertyNames, this.@if, this.then, this.@else, this.allOf, this.anyOf, this.oneOf, value, this.multipleOf, this.maximum, this.exclusiveMaximum, this.minimum, this.exclusiveMinimum, this.maxLength, this.minLength, this.pattern, this.maxItems, this.minItems, this.uniqueItems, this.maxContains, this.minContains, this.maxProperties, this.minProperties, this.required, this.dependentRequired, this.@const, this.@enum, this.type, this.title, this.description, this.@default, this.deprecated, this.readOnly, this.writeOnly, this.examples, this.format, this.contentMediaType, this.contentEncoding, this.contentSchema, this.definitions, this.dependencies, this._menesBooleanTypeBacking, this._menesAdditionalPropertiesBacking);
+            return new Draft201909Schema(this.id, this.schema, this.anchor, this.@ref, this.recursiveRef, this.recursiveAnchor, this.vocabulary, this.comment, this.defs, this.additionalItems, this.unevaluatedItems, this.items, this.contains, this.additionalProperties, this.unevaluatedProperties, this.properties, this.patternProperties, this.dependentSchemas, this.propertyNames, this.@if, this.then, this.@else, this.allOf, this.anyOf, this.oneOf, Menes.JsonValueBacking.From<Draft201909Schema>(value), this.multipleOf, this.maximum, this.exclusiveMaximum, this.minimum, this.exclusiveMinimum, this.maxLength, this.minLength, this.pattern, this.maxItems, this.minItems, this.uniqueItems, this.maxContains, this.minContains, this.maxProperties, this.minProperties, this.required, this.dependentRequired, this.@const, this.@enum, this.type, this.title, this.description, this.@default, this.deprecated, this.readOnly, this.writeOnly, this.examples, this.format, this.contentMediaType, this.contentEncoding, this.contentSchema, this.definitions, this.dependencies, this._menesBooleanTypeBacking, this._menesAdditionalPropertiesBacking);
         }
         public Draft201909Schema WithMultipleOf(Draft201909MetaValidation.MultipleOfValue value)
         {
@@ -5076,9 +5070,9 @@ namespace Driver.GeneratedTypes
         {
             return new Draft201909Schema(this.id, this.schema, this.anchor, this.@ref, this.recursiveRef, this.recursiveAnchor, this.vocabulary, this.comment, this.defs, this.additionalItems, this.unevaluatedItems, this.items, this.contains, this.additionalProperties, this.unevaluatedProperties, this.properties, this.patternProperties, this.dependentSchemas, this.propertyNames, this.@if, this.then, this.@else, this.allOf, this.anyOf, this.oneOf, this.not, this.multipleOf, this.maximum, this.exclusiveMaximum, this.minimum, this.exclusiveMinimum, this.maxLength, this.minLength, this.pattern, this.maxItems, this.minItems, this.uniqueItems, this.maxContains, this.minContains, this.maxProperties, this.minProperties, this.required, this.dependentRequired, this.@const, this.@enum, this.type, this.title, this.description, this.@default, this.deprecated, this.readOnly, this.writeOnly, this.examples, this.format, this.contentMediaType, value, this.contentSchema, this.definitions, this.dependencies, this._menesBooleanTypeBacking, this._menesAdditionalPropertiesBacking);
         }
-        public Draft201909Schema WithContentSchema(Draft201909MetaContent value)
+        public Draft201909Schema WithContentSchema(Draft201909Schema value)
         {
-            return new Draft201909Schema(this.id, this.schema, this.anchor, this.@ref, this.recursiveRef, this.recursiveAnchor, this.vocabulary, this.comment, this.defs, this.additionalItems, this.unevaluatedItems, this.items, this.contains, this.additionalProperties, this.unevaluatedProperties, this.properties, this.patternProperties, this.dependentSchemas, this.propertyNames, this.@if, this.then, this.@else, this.allOf, this.anyOf, this.oneOf, this.not, this.multipleOf, this.maximum, this.exclusiveMaximum, this.minimum, this.exclusiveMinimum, this.maxLength, this.minLength, this.pattern, this.maxItems, this.minItems, this.uniqueItems, this.maxContains, this.minContains, this.maxProperties, this.minProperties, this.required, this.dependentRequired, this.@const, this.@enum, this.type, this.title, this.description, this.@default, this.deprecated, this.readOnly, this.writeOnly, this.examples, this.format, this.contentMediaType, this.contentEncoding, value, this.definitions, this.dependencies, this._menesBooleanTypeBacking, this._menesAdditionalPropertiesBacking);
+            return new Draft201909Schema(this.id, this.schema, this.anchor, this.@ref, this.recursiveRef, this.recursiveAnchor, this.vocabulary, this.comment, this.defs, this.additionalItems, this.unevaluatedItems, this.items, this.contains, this.additionalProperties, this.unevaluatedProperties, this.properties, this.patternProperties, this.dependentSchemas, this.propertyNames, this.@if, this.then, this.@else, this.allOf, this.anyOf, this.oneOf, this.not, this.multipleOf, this.maximum, this.exclusiveMaximum, this.minimum, this.exclusiveMinimum, this.maxLength, this.minLength, this.pattern, this.maxItems, this.minItems, this.uniqueItems, this.maxContains, this.minContains, this.maxProperties, this.minProperties, this.required, this.dependentRequired, this.@const, this.@enum, this.type, this.title, this.description, this.@default, this.deprecated, this.readOnly, this.writeOnly, this.examples, this.format, this.contentMediaType, this.contentEncoding, Menes.JsonValueBacking.From<Draft201909Schema>(value), this.definitions, this.dependencies, this._menesBooleanTypeBacking, this._menesAdditionalPropertiesBacking);
         }
         public Draft201909Schema WithDefinitions(Draft201909Schema.DefinitionsEntity value)
         {
@@ -5136,15 +5130,15 @@ namespace Driver.GeneratedTypes
             {
                 return false;
             }
-            if (this.defs is not null)
+            if (!this.defs.IsNull)
             {
                 return false;
             }
-            if (this.additionalItems is not null)
+            if (!this.additionalItems.IsNull)
             {
                 return false;
             }
-            if (this.unevaluatedItems is not null)
+            if (!this.unevaluatedItems.IsNull)
             {
                 return false;
             }
@@ -5152,59 +5146,59 @@ namespace Driver.GeneratedTypes
             {
                 return false;
             }
-            if (this.contains is not null)
+            if (!this.contains.IsNull)
             {
                 return false;
             }
-            if (this.additionalProperties is not null)
+            if (!this.additionalProperties.IsNull)
             {
                 return false;
             }
-            if (this.unevaluatedProperties is not null)
+            if (!this.unevaluatedProperties.IsNull)
             {
                 return false;
             }
-            if (this.properties is not null)
+            if (!this.properties.IsNull)
             {
                 return false;
             }
-            if (this.patternProperties is not null)
+            if (!this.patternProperties.IsNull)
             {
                 return false;
             }
-            if (this.dependentSchemas is not null)
+            if (!this.dependentSchemas.IsNull)
             {
                 return false;
             }
-            if (this.propertyNames is not null)
+            if (!this.propertyNames.IsNull)
             {
                 return false;
             }
-            if (this.@if is not null)
+            if (!this.@if.IsNull)
             {
                 return false;
             }
-            if (this.then is not null)
+            if (!this.then.IsNull)
             {
                 return false;
             }
-            if (this.@else is not null)
+            if (!this.@else.IsNull)
             {
                 return false;
             }
-            if (this.allOf is not null)
+            if (!this.allOf.IsNull)
             {
                 return false;
             }
-            if (this.anyOf is not null)
+            if (!this.anyOf.IsNull)
             {
                 return false;
             }
-            if (this.oneOf is not null)
+            if (!this.oneOf.IsNull)
             {
                 return false;
             }
-            if (this.not is not null)
+            if (!this.not.IsNull)
             {
                 return false;
             }
@@ -5328,7 +5322,7 @@ namespace Driver.GeneratedTypes
             {
                 return false;
             }
-            if (this.contentSchema is not null)
+            if (!this.contentSchema.IsNull)
             {
                 return false;
             }

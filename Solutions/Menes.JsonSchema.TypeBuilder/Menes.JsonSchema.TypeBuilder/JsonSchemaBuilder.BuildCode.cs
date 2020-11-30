@@ -137,7 +137,7 @@ namespace Menes.JsonSchema.TypeBuilder
             }
             else if (value.ValueKind == JsonValueKind.String)
             {
-                memberBuilder.AppendLine($"public static readonly Menes.JsonString Item{index} = new Menes.JsonString({Formatting.FormatLiteralOrNull(value.GetString(), true)});");
+                memberBuilder.AppendLine($"internal static readonly Menes.JsonString Item{index} = new Menes.JsonString({Formatting.FormatLiteralOrNull(value.GetString(), true)});");
                 string? valueAsString = value.GetString();
                 string baseName = Formatting.ToPascalCaseWithReservedWords(valueAsString!).ToString();
                 string name = baseName;

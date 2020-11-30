@@ -858,12 +858,6 @@ namespace Driver.GeneratedTypes
                     aklPop19.Pop();
                 }
             }
-            if (this.IsObject)
-            {
-                foreach (var property in this.EnumerateObject())
-                {
-                }
-            }
             return result;
         }
         /// <inheritdoc />

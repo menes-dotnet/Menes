@@ -74,9 +74,9 @@ namespace Menes.JsonSchema.TypeBuilder
         /// elements remained unresolved.
         /// </para>
         /// </remarks>
-        private async Task<JsonElement?> TryResolveElement(JsonReference absoluteLocation)
+        private async Task<JsonElement?> TryResolveJsonElement(JsonReference absoluteLocation)
         {
-            if (this.TryGetResolvedElement(absoluteLocation, out LocatedElement resolvedElement))
+            if (this.TryResolveRawElement(absoluteLocation, out LocatedElement resolvedElement))
             {
                 return resolvedElement.JsonElement;
             }
@@ -96,10 +96,10 @@ namespace Menes.JsonSchema.TypeBuilder
         }
 
         /// <summary>
-        /// This is used by both the schema resolution and the type building to find
+        /// This is used by the type building to find
         /// a previously located element by its absolute location.
         /// </summary>
-        private bool TryGetResolvedElement(JsonReference absoluteLocation, [NotNullWhen(true)] out LocatedElement element)
+        private bool TryResolveRawElement(JsonReference absoluteLocation, [NotNullWhen(true)] out LocatedElement element)
         {
             if (this.anchors.TryGetValue(absoluteLocation, out element))
             {
@@ -108,6 +108,28 @@ namespace Menes.JsonSchema.TypeBuilder
 
             if (this.locatedElementsByLocation.TryGetValue(absoluteLocation, out element))
             {
+                return true;
+            }
+
+            element = default;
+            return false;
+        }
+
+        /// <summary>
+        /// This is used by the type building to find
+        /// a previously located element by its absolute location.
+        /// </summary>
+        private bool TryGetResolvedElement(JsonReference absoluteLocation, bool isRecursiveReference, [NotNullWhen(true)] out LocatedElement element)
+        {
+            if (this.anchors.TryGetValue(absoluteLocation, out element))
+            {
+                element = this.ResolveRecursiveAnchor(element, isRecursiveReference);
+                return true;
+            }
+
+            if (this.locatedElementsByLocation.TryGetValue(absoluteLocation, out element))
+            {
+                element = this.ResolveRecursiveAnchor(element, isRecursiveReference);
                 return true;
             }
 
@@ -149,7 +171,7 @@ namespace Menes.JsonSchema.TypeBuilder
                     return null;
                 }
 
-                if (this.TryGetResolvedElement(reference, out _))
+                if (this.TryGetResolvedElement(reference, false, out _))
                 {
                     if (reference != current)
                     {

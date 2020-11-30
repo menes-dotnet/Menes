@@ -28,7 +28,7 @@ namespace Menes.JsonSchema.TypeBuilder
                     // Cannot be null if we passed ValidateDollarRef();
                     string? dref = dollarref.GetString();
                     JsonReference location = this.GetAbsoluteKeywordLocation(JsonReference.FromEncodedJsonString(dref!).Value);
-                    if (this.TryGetResolvedElement(location, out LocatedElement dollarRefTypeElement))
+                    if (this.TryGetResolvedElement(location, false, out LocatedElement dollarRefTypeElement))
                     {
                         TypeDeclaration dollarrefTypeDeclaration = await this.CreateTypeDeclarations(dollarRefTypeElement).ConfigureAwait(false);
                         typeDeclaration.Reference = dollarrefTypeDeclaration;
@@ -49,7 +49,7 @@ namespace Menes.JsonSchema.TypeBuilder
                     // Cannot be null if we passed ValidateDollarRef();
                     string? drref = dollarrecursiveRef.GetString();
                     JsonReference location = this.GetAbsoluteKeywordLocation(JsonReference.FromEncodedJsonString(drref!).Value);
-                    if (this.TryGetResolvedElement(location, out LocatedElement dollarrecursiveRefTypeElement))
+                    if (this.TryGetResolvedElement(location, true, out LocatedElement dollarrecursiveRefTypeElement))
                     {
                         TypeDeclaration dollarrecursiveRefTypeDeclaration = await this.CreateTypeDeclarations(dollarrecursiveRefTypeElement).ConfigureAwait(false);
                         typeDeclaration.Reference = dollarrecursiveRefTypeDeclaration;
@@ -73,7 +73,7 @@ namespace Menes.JsonSchema.TypeBuilder
                     ValidateSchema(not);
                     this.PushPropertyToAbsoluteKeywordLocationStack("not");
                     JsonReference location = this.GetLocationForSchemaElement(not);
-                    if (this.TryGetResolvedElement(location, out LocatedElement propertyTypeElement))
+                    if (this.TryGetResolvedElement(location, false, out LocatedElement propertyTypeElement))
                     {
                         TypeDeclaration notDeclaration = await this.CreateTypeDeclarations(propertyTypeElement).ConfigureAwait(false);
                         typeDeclaration.Not = notDeclaration;
@@ -101,7 +101,7 @@ namespace Menes.JsonSchema.TypeBuilder
                     ValidateSchema(@if);
                     this.PushPropertyToAbsoluteKeywordLocationStack("if");
                     JsonReference location = this.GetLocationForSchemaElement(@if);
-                    if (this.TryGetResolvedElement(location, out LocatedElement propertyTypeElement))
+                    if (this.TryGetResolvedElement(location, false, out LocatedElement propertyTypeElement))
                     {
                         ifType = await this.CreateTypeDeclarations(propertyTypeElement).ConfigureAwait(false);
                     }
@@ -119,7 +119,7 @@ namespace Menes.JsonSchema.TypeBuilder
 
                     this.PushPropertyToAbsoluteKeywordLocationStack("then");
                     JsonReference location = this.GetLocationForSchemaElement(then);
-                    if (this.TryGetResolvedElement(location, out LocatedElement propertyTypeElement))
+                    if (this.TryGetResolvedElement(location, false, out LocatedElement propertyTypeElement))
                     {
                         thenType = await this.CreateTypeDeclarations(propertyTypeElement).ConfigureAwait(false);
                     }
@@ -136,7 +136,7 @@ namespace Menes.JsonSchema.TypeBuilder
                     ValidateSchema(@else);
                     this.PushPropertyToAbsoluteKeywordLocationStack("else");
                     JsonReference location = this.GetLocationForSchemaElement(@else);
-                    if (this.TryGetResolvedElement(location, out LocatedElement propertyTypeElement))
+                    if (this.TryGetResolvedElement(location, false, out LocatedElement propertyTypeElement))
                     {
                         elseType = await this.CreateTypeDeclarations(propertyTypeElement).ConfigureAwait(false);
                     }
@@ -209,7 +209,7 @@ namespace Menes.JsonSchema.TypeBuilder
                     {
                         this.PushArrayIndexToAbsoluteKeywordLocationStack(index);
                         JsonReference location = this.GetLocationForSchemaElement(element);
-                        if (this.TryGetResolvedElement(location, out LocatedElement allOfTypeElement))
+                        if (this.TryGetResolvedElement(location, false, out LocatedElement allOfTypeElement))
                         {
                             TypeDeclaration allOfTypeDeclaration = await this.CreateTypeDeclarations(allOfTypeElement).ConfigureAwait(false);
                             add(typeDeclaration, allOfTypeDeclaration);

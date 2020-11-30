@@ -267,13 +267,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         {
             get
             {
-                TypeDeclaration current = this.Lower();
-                while (current.lowered != null && current != current.lowered)
-                {
-                    current = current.lowered;
-                }
-
-                return current;
+                return this.Lower();
             }
         }
 

@@ -4,6 +4,7 @@
 
 namespace Menes.JsonSchema.TypeBuilder
 {
+    using System;
     using System.Text.Json;
     using System.Threading.Tasks;
     using Menes.Json;
@@ -60,7 +61,6 @@ namespace Menes.JsonSchema.TypeBuilder
                 {
                     this.PushPropertyToAbsoluteKeywordLocationStack(property);
 
-                    // We treat all refs as if they could be recursive.
                     if (property.NameEquals("$ref"))
                     {
                         ValidateDollarRef(property);
@@ -117,7 +117,7 @@ namespace Menes.JsonSchema.TypeBuilder
                 // content, then just follow the reference, unless there aren't yet any references and we're trying to get the root element
                 if (!recursiveReference && inplaceReference is JsonReference reference)
                 {
-                    await this.GetOrCreateLocatedElement(reference).ConfigureAwait(false);
+                    await this.GetOrCreateLocatedElement(reference, false).ConfigureAwait(false);
                 }
             }
             else
@@ -250,34 +250,21 @@ namespace Menes.JsonSchema.TypeBuilder
         /// as been pushed onto the stack (as is the case when called from <see cref="WalkTreeAndLocateElementsFrom(JsonElement)"/>.
         /// </para>
         /// </summary>
-        private async Task<LocatedElement?> GetOrCreateLocatedElement(JsonReference reference)
+        private async Task<LocatedElement?> GetOrCreateLocatedElement(JsonReference reference, bool isRecursiveReference)
         {
             JsonReference absoluteLocation = this.GetAbsoluteKeywordLocation(reference);
 
-            ////if (absoluteLocation == "#")
-            ////{
-            ////    // Self referential, so peek the item off the stack
-            ////    if (this.locatedElementsByLocation.TryGetValue(absoluteLocation, out LocatedElement locatedElement))
-            ////    {
-            ////        return locatedElement;
-            ////    }
-            ////    else
-            ////    {
-            ////        return null;
-            ////    }
-            ////}
-
             if (this.anchors.TryGetValue(absoluteLocation, out LocatedElement anchoredElement))
             {
-                return anchoredElement;
+                return this.ResolveRecursiveAnchor(anchoredElement, isRecursiveReference);
             }
 
             if (this.locatedElementsByLocation.TryGetValue(absoluteLocation, out LocatedElement referencedElement))
             {
-                return referencedElement;
+                return this.ResolveRecursiveAnchor(referencedElement, isRecursiveReference);
             }
 
-            JsonElement? resolvedElementOrNull = await this.TryResolveElement(absoluteLocation).ConfigureAwait(false);
+            JsonElement? resolvedElementOrNull = await this.TryResolveJsonElement(absoluteLocation).ConfigureAwait(false);
             if (resolvedElementOrNull is not JsonElement resolvedElement)
             {
                 return null;
@@ -287,12 +274,44 @@ namespace Menes.JsonSchema.TypeBuilder
 
             try
             {
-                return await this.WalkTreeAndLocateElementsFrom(resolvedElement).ConfigureAwait(false);
+                return this.ResolveRecursiveAnchor(await this.WalkTreeAndLocateElementsFrom(resolvedElement).ConfigureAwait(false), isRecursiveReference);
             }
             finally
             {
                 this.absoluteKeywordLocationStack.Pop();
             }
+        }
+
+        private LocatedElement ResolveRecursiveAnchor(LocatedElement anchoredElement, bool isRecursiveReference)
+        {
+            if (!isRecursiveReference)
+            {
+                return anchoredElement;
+            }
+
+            LocatedElement? lastRecursiveAnchor = null;
+            if (this.HasRecursiveAnchor(anchoredElement))
+            {
+                foreach (JsonReference item in this.absoluteKeywordLocationStack)
+                {
+                    if (this.locatedElementsByLocation.TryGetValue(item, out LocatedElement referencedElement))
+                    {
+                        if (this.HasRecursiveAnchor(referencedElement))
+                        {
+                            lastRecursiveAnchor = referencedElement;
+                        }
+                    }
+                }
+            }
+
+            return lastRecursiveAnchor ?? anchoredElement;
+        }
+
+        private bool HasRecursiveAnchor(LocatedElement anchoredElement)
+        {
+            return anchoredElement.JsonElement.ValueKind == JsonValueKind.Object &&
+                            anchoredElement.JsonElement.TryGetProperty("$recursiveAnchor", out JsonElement recursiveAnchor) &&
+                            recursiveAnchor.ValueKind == JsonValueKind.True;
         }
     }
 }
