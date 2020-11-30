@@ -74,13 +74,19 @@ namespace Menes
         /// Implicit conversion from <see cref="OffsetDateTime"/>.
         /// </summary>
         /// <param name="value">The bool value from which to convert.</param>
-        public static implicit operator JsonDateTime(OffsetDateTime value) => new JsonDateTime(value);
+        public static implicit operator JsonDateTime(OffsetDateTime value)
+        {
+            return new JsonDateTime(value);
+        }
 
         /// <summary>
         /// Implicit conversion to <see cref="OffsetDateTime"/>.
         /// </summary>
         /// <param name="value">The bool value from which to convert.</param>
-        public static implicit operator OffsetDateTime(JsonDateTime value) => value.GetNodaTimeOffsetDateTime();
+        public static implicit operator OffsetDateTime(JsonDateTime value)
+        {
+            return value.GetNodaTimeOffsetDateTime();
+        }
 
         /// <summary>
         /// Gets the <see cref="JsonDateTime"/> as a <see cref="bool"/>.

@@ -87,37 +87,55 @@ namespace Menes
         /// Implicit conversion from <see cref="string"/>.
         /// </summary>
         /// <param name="value">The string value from which to convert.</param>
-        public static implicit operator JsonHostname(string value) => new JsonHostname(value);
+        public static implicit operator JsonHostname(string value)
+        {
+            return new JsonHostname(value);
+        }
 
         /// <summary>
         /// Implicit conversion to <see cref="string"/>.
         /// </summary>
         /// <param name="value">The string value from which to convert.</param>
-        public static implicit operator string?(JsonHostname value) => value.GetString();
+        public static implicit operator string?(JsonHostname value)
+        {
+            return value.GetString();
+        }
 
         /// <summary>
         /// Implicit conversion from <see cref="ReadOnlyMemory{T}"/>.
         /// </summary>
         /// <param name="value">The string value from which to convert.</param>
-        public static implicit operator JsonHostname(ReadOnlyMemory<char> value) => new JsonHostname(value);
+        public static implicit operator JsonHostname(ReadOnlyMemory<char> value)
+        {
+            return new JsonHostname(value);
+        }
 
         /// <summary>
         /// Implicit conversion to <see cref="ReadOnlyMemory{T}"/>.
         /// </summary>
         /// <param name="value">The string value from which to convert.</param>
-        public static implicit operator ReadOnlyMemory<char>(JsonHostname value) => value.AsMemory();
+        public static implicit operator ReadOnlyMemory<char>(JsonHostname value)
+        {
+            return value.AsMemory();
+        }
 
         /// <summary>
         /// Implicit conversion from <see cref="ReadOnlyMemory{T}"/>.
         /// </summary>
         /// <param name="value">The string value from which to convert.</param>
-        public static implicit operator JsonHostname(ReadOnlySpan<char> value) => new JsonHostname(value.ToArray());
+        public static implicit operator JsonHostname(ReadOnlySpan<char> value)
+        {
+            return new JsonHostname(value.ToArray());
+        }
 
         /// <summary>
         /// Implicit conversion from <see cref="ReadOnlyMemory{T}"/>.
         /// </summary>
         /// <param name="value">The string value from which to convert.</param>
-        public static implicit operator ReadOnlySpan<char>(JsonHostname value) => value.AsSpan();
+        public static implicit operator ReadOnlySpan<char>(JsonHostname value)
+        {
+            return value.AsSpan();
+        }
 
         /// <summary>
         /// Gets the <see cref="JsonHostname"/> as a <see cref="string"/>.

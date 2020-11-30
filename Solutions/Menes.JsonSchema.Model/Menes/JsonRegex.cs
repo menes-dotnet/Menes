@@ -85,37 +85,55 @@ namespace Menes
         /// Implicit conversion from <see cref="string"/>.
         /// </summary>
         /// <param name="value">The string value from which to convert.</param>
-        public static implicit operator JsonRegex(string value) => new JsonRegex(value);
+        public static implicit operator JsonRegex(string value)
+        {
+            return new JsonRegex(value);
+        }
 
         /// <summary>
         /// Implicit conversion to <see cref="string"/>.
         /// </summary>
         /// <param name="value">The string value from which to convert.</param>
-        public static implicit operator string?(JsonRegex value) => value.GetString();
+        public static implicit operator string?(JsonRegex value)
+        {
+            return value.GetString();
+        }
 
         /// <summary>
         /// Implicit conversion from <see cref="ReadOnlyMemory{T}"/>.
         /// </summary>
         /// <param name="value">The string value from which to convert.</param>
-        public static implicit operator JsonRegex(ReadOnlyMemory<char> value) => new JsonRegex(value);
+        public static implicit operator JsonRegex(ReadOnlyMemory<char> value)
+        {
+            return new JsonRegex(value);
+        }
 
         /// <summary>
         /// Implicit conversion to <see cref="ReadOnlyMemory{T}"/>.
         /// </summary>
         /// <param name="value">The string value from which to convert.</param>
-        public static implicit operator ReadOnlyMemory<char>(JsonRegex value) => value.AsMemory();
+        public static implicit operator ReadOnlyMemory<char>(JsonRegex value)
+        {
+            return value.AsMemory();
+        }
 
         /// <summary>
         /// Implicit conversion from <see cref="ReadOnlyMemory{T}"/>.
         /// </summary>
         /// <param name="value">The string value from which to convert.</param>
-        public static implicit operator JsonRegex(ReadOnlySpan<char> value) => new JsonRegex(value.ToArray());
+        public static implicit operator JsonRegex(ReadOnlySpan<char> value)
+        {
+            return new JsonRegex(value.ToArray());
+        }
 
         /// <summary>
         /// Implicit conversion from <see cref="ReadOnlyMemory{T}"/>.
         /// </summary>
         /// <param name="value">The string value from which to convert.</param>
-        public static implicit operator ReadOnlySpan<char>(JsonRegex value) => value.AsSpan();
+        public static implicit operator ReadOnlySpan<char>(JsonRegex value)
+        {
+            return value.AsSpan();
+        }
 
         /// <summary>
         /// Gets the <see cref="JsonRegex"/> as a <see cref="string"/>.

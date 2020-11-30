@@ -74,13 +74,19 @@ namespace Menes
         /// Implicit conversion from <see cref="LocalDate"/>.
         /// </summary>
         /// <param name="value">The bool value from which to convert.</param>
-        public static implicit operator JsonDate(LocalDate value) => new JsonDate(value);
+        public static implicit operator JsonDate(LocalDate value)
+        {
+            return new JsonDate(value);
+        }
 
         /// <summary>
         /// Implicit conversion to <see cref="LocalDate"/>.
         /// </summary>
         /// <param name="value">The bool value from which to convert.</param>
-        public static implicit operator LocalDate(JsonDate value) => value.GetNodaTimeLocalDate();
+        public static implicit operator LocalDate(JsonDate value)
+        {
+            return value.GetNodaTimeLocalDate();
+        }
 
         /// <summary>
         /// Gets the <see cref="JsonDate"/> as a <see cref="bool"/>.

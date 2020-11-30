@@ -86,37 +86,55 @@ namespace Menes
         /// Implicit conversion from <see cref="string"/>.
         /// </summary>
         /// <param name="value">The string value from which to convert.</param>
-        public static implicit operator JsonIdnEmail(string value) => new JsonIdnEmail(value);
+        public static implicit operator JsonIdnEmail(string value)
+        {
+            return new JsonIdnEmail(value);
+        }
 
         /// <summary>
         /// Implicit conversion to <see cref="string"/>.
         /// </summary>
         /// <param name="value">The string value from which to convert.</param>
-        public static implicit operator string?(JsonIdnEmail value) => value.GetString();
+        public static implicit operator string?(JsonIdnEmail value)
+        {
+            return value.GetString();
+        }
 
         /// <summary>
         /// Implicit conversion from <see cref="ReadOnlyMemory{T}"/>.
         /// </summary>
         /// <param name="value">The string value from which to convert.</param>
-        public static implicit operator JsonIdnEmail(ReadOnlyMemory<char> value) => new JsonIdnEmail(value);
+        public static implicit operator JsonIdnEmail(ReadOnlyMemory<char> value)
+        {
+            return new JsonIdnEmail(value);
+        }
 
         /// <summary>
         /// Implicit conversion to <see cref="ReadOnlyMemory{T}"/>.
         /// </summary>
         /// <param name="value">The string value from which to convert.</param>
-        public static implicit operator ReadOnlyMemory<char>(JsonIdnEmail value) => value.AsMemory();
+        public static implicit operator ReadOnlyMemory<char>(JsonIdnEmail value)
+        {
+            return value.AsMemory();
+        }
 
         /// <summary>
         /// Implicit conversion from <see cref="ReadOnlyMemory{T}"/>.
         /// </summary>
         /// <param name="value">The string value from which to convert.</param>
-        public static implicit operator JsonIdnEmail(ReadOnlySpan<char> value) => new JsonIdnEmail(value.ToArray());
+        public static implicit operator JsonIdnEmail(ReadOnlySpan<char> value)
+        {
+            return new JsonIdnEmail(value.ToArray());
+        }
 
         /// <summary>
         /// Implicit conversion from <see cref="ReadOnlyMemory{T}"/>.
         /// </summary>
         /// <param name="value">The string value from which to convert.</param>
-        public static implicit operator ReadOnlySpan<char>(JsonIdnEmail value) => value.AsSpan();
+        public static implicit operator ReadOnlySpan<char>(JsonIdnEmail value)
+        {
+            return value.AsSpan();
+        }
 
         /// <summary>
         /// Gets the <see cref="JsonIdnEmail"/> as a <see cref="string"/>.

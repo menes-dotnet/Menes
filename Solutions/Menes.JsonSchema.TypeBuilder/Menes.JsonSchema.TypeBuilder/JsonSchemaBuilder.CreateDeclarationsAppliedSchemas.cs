@@ -31,7 +31,7 @@ namespace Menes.JsonSchema.TypeBuilder
                     if (this.TryGetResolvedElement(location, out LocatedElement dollarRefTypeElement))
                     {
                         TypeDeclaration dollarrefTypeDeclaration = await this.CreateTypeDeclarations(dollarRefTypeElement).ConfigureAwait(false);
-                        typeDeclaration.AddAllOfType(dollarrefTypeDeclaration);
+                        typeDeclaration.Reference = dollarrefTypeDeclaration;
                     }
                     else
                     {
@@ -52,7 +52,7 @@ namespace Menes.JsonSchema.TypeBuilder
                     if (this.TryGetResolvedElement(location, out LocatedElement dollarrecursiveRefTypeElement))
                     {
                         TypeDeclaration dollarrecursiveRefTypeDeclaration = await this.CreateTypeDeclarations(dollarrecursiveRefTypeElement).ConfigureAwait(false);
-                        typeDeclaration.AddAllOfType(dollarrecursiveRefTypeDeclaration);
+                        typeDeclaration.Reference = dollarrecursiveRefTypeDeclaration;
                     }
                     else
                     {

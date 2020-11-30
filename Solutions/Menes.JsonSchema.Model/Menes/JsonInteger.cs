@@ -74,25 +74,37 @@ namespace Menes
         /// Implicit conversion from <see cref="int"/>.
         /// </summary>
         /// <param name="value">The value to convert.</param>
-        public static implicit operator JsonInteger(int value) => new JsonInteger(value);
+        public static implicit operator JsonInteger(int value)
+        {
+            return new JsonInteger(value);
+        }
 
         /// <summary>
         /// Implicit conversion to <see cref="int"/>.
         /// </summary>
         /// <param name="value">The <see cref="JsonInteger"/> to convert.</param>
-        public static implicit operator int(JsonInteger value) => value.GetInt32();
+        public static implicit operator int(JsonInteger value)
+        {
+            return value.GetInt32();
+        }
 
         /// <summary>
         /// Implicit conversion from <see cref="long"/>.
         /// </summary>
         /// <param name="value">The value to convert.</param>
-        public static implicit operator JsonInteger(long value) => new JsonInteger(value);
+        public static implicit operator JsonInteger(long value)
+        {
+            return new JsonInteger(value);
+        }
 
         /// <summary>
         /// Implicit conversion to <see cref="long"/>.
         /// </summary>
         /// <param name="value">The <see cref="JsonInteger"/> to convert.</param>
-        public static implicit operator long(JsonInteger value) => value.GetInt64();
+        public static implicit operator long(JsonInteger value)
+        {
+            return value.GetInt64();
+        }
 
         /// <summary>
         /// Gets the <see cref="JsonInteger"/> as a <see cref="long"/>.

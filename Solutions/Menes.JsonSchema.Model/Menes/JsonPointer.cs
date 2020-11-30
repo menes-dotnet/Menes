@@ -86,37 +86,55 @@ namespace Menes
         /// Implicit conversion from <see cref="string"/>.
         /// </summary>
         /// <param name="value">The string value from which to convert.</param>
-        public static implicit operator JsonPointer(string value) => new JsonPointer(value);
+        public static implicit operator JsonPointer(string value)
+        {
+            return new JsonPointer(value);
+        }
 
         /// <summary>
         /// Implicit conversion to <see cref="string"/>.
         /// </summary>
         /// <param name="value">The string value from which to convert.</param>
-        public static implicit operator string?(JsonPointer value) => value.GetString();
+        public static implicit operator string?(JsonPointer value)
+        {
+            return value.GetString();
+        }
 
         /// <summary>
         /// Implicit conversion from <see cref="ReadOnlyMemory{T}"/>.
         /// </summary>
         /// <param name="value">The string value from which to convert.</param>
-        public static implicit operator JsonPointer(ReadOnlyMemory<char> value) => new JsonPointer(value);
+        public static implicit operator JsonPointer(ReadOnlyMemory<char> value)
+        {
+            return new JsonPointer(value);
+        }
 
         /// <summary>
         /// Implicit conversion to <see cref="ReadOnlyMemory{T}"/>.
         /// </summary>
         /// <param name="value">The string value from which to convert.</param>
-        public static implicit operator ReadOnlyMemory<char>(JsonPointer value) => value.AsMemory();
+        public static implicit operator ReadOnlyMemory<char>(JsonPointer value)
+        {
+            return value.AsMemory();
+        }
 
         /// <summary>
         /// Implicit conversion from <see cref="ReadOnlyMemory{T}"/>.
         /// </summary>
         /// <param name="value">The string value from which to convert.</param>
-        public static implicit operator JsonPointer(ReadOnlySpan<char> value) => new JsonPointer(value.ToArray());
+        public static implicit operator JsonPointer(ReadOnlySpan<char> value)
+        {
+            return new JsonPointer(value.ToArray());
+        }
 
         /// <summary>
         /// Implicit conversion from <see cref="ReadOnlyMemory{T}"/>.
         /// </summary>
         /// <param name="value">The string value from which to convert.</param>
-        public static implicit operator ReadOnlySpan<char>(JsonPointer value) => value.AsSpan();
+        public static implicit operator ReadOnlySpan<char>(JsonPointer value)
+        {
+            return value.AsSpan();
+        }
 
         /// <summary>
         /// Gets the <see cref="JsonPointer"/> as a <see cref="string"/>.

@@ -499,11 +499,11 @@ namespace Menes
         /// </summary>
         public struct MenesPropertyEnumerator : IEnumerable<Property<JsonNull>>, IEnumerable, IEnumerator<Property<JsonNull>>, IEnumerator
         {
-            private JsonNull instance;
+            private readonly JsonNull instance;
+            private readonly bool hasJsonEnumerator;
+            private readonly int propertyCount;
             private JsonElement.ObjectEnumerator jsonEnumerator;
-            private bool hasJsonEnumerator;
             private int index;
-            private int propertyCount;
 
             /// <summary>
             /// Initializes a new instance of the <see cref="MenesPropertyEnumerator"/> struct.
@@ -619,10 +619,10 @@ namespace Menes
         /// </summary>
         public struct MenesArrayEnumerator : IEnumerable<JsonNull>, IEnumerable, IEnumerator<JsonNull>, IEnumerator
         {
-            private JsonNull instance;
-            private JsonElement.ArrayEnumerator jsonEnumerator;
-            private bool hasJsonEnumerator;
+            private readonly JsonNull instance;
+            private readonly bool hasJsonEnumerator;
             private int index;
+            private JsonElement.ArrayEnumerator jsonEnumerator;
 
             /// <summary>
             /// Initializes a new instance of the <see cref="MenesArrayEnumerator"/> struct.

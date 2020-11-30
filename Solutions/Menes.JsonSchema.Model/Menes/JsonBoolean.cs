@@ -73,13 +73,19 @@ namespace Menes
         /// Implicit conversion from <see cref="bool"/>.
         /// </summary>
         /// <param name="value">The bool value from which to convert.</param>
-        public static implicit operator JsonBoolean(bool value) => new JsonBoolean(value);
+        public static implicit operator JsonBoolean(bool value)
+        {
+            return new JsonBoolean(value);
+        }
 
         /// <summary>
         /// Implicit conversion to <see cref="bool"/>.
         /// </summary>
         /// <param name="value">The bool value from which to convert.</param>
-        public static implicit operator bool(JsonBoolean value) => value.GetBoolean();
+        public static implicit operator bool(JsonBoolean value)
+        {
+            return value.GetBoolean();
+        }
 
         /// <summary>
         /// Gets the <see cref="JsonBoolean"/> as a <see cref="bool"/>.

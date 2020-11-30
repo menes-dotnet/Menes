@@ -86,37 +86,55 @@ namespace Menes
         /// Implicit conversion from <see cref="string"/>.
         /// </summary>
         /// <param name="value">The string value from which to convert.</param>
-        public static implicit operator JsonUriTemplate(string value) => new JsonUriTemplate(value);
+        public static implicit operator JsonUriTemplate(string value)
+        {
+            return new JsonUriTemplate(value);
+        }
 
         /// <summary>
         /// Implicit conversion to <see cref="string"/>.
         /// </summary>
         /// <param name="value">The string value from which to convert.</param>
-        public static implicit operator string?(JsonUriTemplate value) => value.GetString();
+        public static implicit operator string?(JsonUriTemplate value)
+        {
+            return value.GetString();
+        }
 
         /// <summary>
         /// Implicit conversion from <see cref="ReadOnlyMemory{T}"/>.
         /// </summary>
         /// <param name="value">The string value from which to convert.</param>
-        public static implicit operator JsonUriTemplate(ReadOnlyMemory<char> value) => new JsonUriTemplate(value);
+        public static implicit operator JsonUriTemplate(ReadOnlyMemory<char> value)
+        {
+            return new JsonUriTemplate(value);
+        }
 
         /// <summary>
         /// Implicit conversion to <see cref="ReadOnlyMemory{T}"/>.
         /// </summary>
         /// <param name="value">The string value from which to convert.</param>
-        public static implicit operator ReadOnlyMemory<char>(JsonUriTemplate value) => value.AsMemory();
+        public static implicit operator ReadOnlyMemory<char>(JsonUriTemplate value)
+        {
+            return value.AsMemory();
+        }
 
         /// <summary>
         /// Implicit conversion from <see cref="ReadOnlyMemory{T}"/>.
         /// </summary>
         /// <param name="value">The string value from which to convert.</param>
-        public static implicit operator JsonUriTemplate(ReadOnlySpan<char> value) => new JsonUriTemplate(value.ToArray());
+        public static implicit operator JsonUriTemplate(ReadOnlySpan<char> value)
+        {
+            return new JsonUriTemplate(value.ToArray());
+        }
 
         /// <summary>
         /// Implicit conversion from <see cref="ReadOnlyMemory{T}"/>.
         /// </summary>
         /// <param name="value">The string value from which to convert.</param>
-        public static implicit operator ReadOnlySpan<char>(JsonUriTemplate value) => value.AsSpan();
+        public static implicit operator ReadOnlySpan<char>(JsonUriTemplate value)
+        {
+            return value.AsSpan();
+        }
 
         /// <summary>
         /// Gets the <see cref="JsonUriTemplate"/> as a <see cref="string"/>.

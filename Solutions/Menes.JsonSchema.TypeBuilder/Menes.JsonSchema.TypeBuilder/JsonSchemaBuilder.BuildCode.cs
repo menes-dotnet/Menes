@@ -4,7 +4,6 @@
 
 namespace Menes.JsonSchema.TypeBuilder
 {
-    using System;
     using System.Collections.Generic;
     using System.Text;
     using System.Text.Json;
@@ -20,7 +19,7 @@ namespace Menes.JsonSchema.TypeBuilder
         /// </summary>
         private void BuildCode(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
         {
-            if (typeDeclaration.IsBuiltInType || typeDeclaration.IsRef)
+            if (typeDeclaration.IsBuiltInType)
             {
                 return;
             }

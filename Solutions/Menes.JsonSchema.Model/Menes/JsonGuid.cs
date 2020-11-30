@@ -74,13 +74,19 @@ namespace Menes
         /// Implicit conversion from <see cref="Guid"/>.
         /// </summary>
         /// <param name="value">The bool value from which to convert.</param>
-        public static implicit operator JsonGuid(Guid value) => new JsonGuid(value);
+        public static implicit operator JsonGuid(Guid value)
+        {
+            return new JsonGuid(value);
+        }
 
         /// <summary>
         /// Implicit conversion to <see cref="Guid"/>.
         /// </summary>
         /// <param name="value">The bool value from which to convert.</param>
-        public static implicit operator Guid(JsonGuid value) => value.GetGuid();
+        public static implicit operator Guid(JsonGuid value)
+        {
+            return value.GetGuid();
+        }
 
         /// <summary>
         /// Gets the <see cref="JsonGuid"/> as a <see cref="bool"/>.

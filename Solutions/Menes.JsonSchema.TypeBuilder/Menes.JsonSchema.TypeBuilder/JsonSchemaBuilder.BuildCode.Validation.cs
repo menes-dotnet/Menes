@@ -4,10 +4,8 @@
 
 namespace Menes.JsonSchema.TypeBuilder
 {
-    using System;
     using System.Collections.Generic;
     using System.Text;
-    using System.Text.Json;
     using Menes.Json;
     using Menes.JsonSchema.TypeBuilder.Model;
 
@@ -79,7 +77,7 @@ namespace Menes.JsonSchema.TypeBuilder
 
             if (typeDeclaration.Contains is TypeDeclaration contains)
             {
-                memberBuilder.AppendLine($"var containsResult = arrayEnumerator.Current.As<{contains.FullyQualifiedDotNetTypeName}>().Validate(null, level, evaluatedProperties, absoluteKeywordLocation, instanceLocation);");
+                memberBuilder.AppendLine($"var containsResult = arrayEnumerator.Current.As<{contains.FullyQualifiedDotNetTypeName}>().Validate(null, level, null, absoluteKeywordLocation, instanceLocation);");
                 memberBuilder.AppendLine("if (containsResult.Valid)");
                 memberBuilder.AppendLine("{");
                 memberBuilder.AppendLine("    containsCount++;");
@@ -100,7 +98,7 @@ namespace Menes.JsonSchema.TypeBuilder
             {
                 if (!typeDeclaration.IsItemsArray)
                 {
-                    memberBuilder.AppendLine($"result = arrayEnumerator.Current.As<{items[0].FullyQualifiedDotNetTypeName}>().Validate(result, level, evaluatedProperties, absoluteKeywordLocation, instanceLocation);");
+                    memberBuilder.AppendLine($"result = arrayEnumerator.Current.As<{items[0].FullyQualifiedDotNetTypeName}>().Validate(result, level, null, absoluteKeywordLocation, instanceLocation);");
                     memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.Valid)");
                     memberBuilder.AppendLine("        {");
                     memberBuilder.AppendLine("            return result;");
@@ -116,7 +114,7 @@ namespace Menes.JsonSchema.TypeBuilder
                     foreach (TypeDeclaration item in items)
                     {
                         memberBuilder.AppendLine($"case {caseIndex}:");
-                        memberBuilder.AppendLine($"   result = arrayEnumerator.Current.As<{items[caseIndex].FullyQualifiedDotNetTypeName}>().Validate(result, level, evaluatedProperties, absoluteKeywordLocation, instanceLocation);");
+                        memberBuilder.AppendLine($"   result = arrayEnumerator.Current.As<{items[caseIndex].FullyQualifiedDotNetTypeName}>().Validate(result, level, null, absoluteKeywordLocation, instanceLocation);");
                         memberBuilder.AppendLine("    if (level == Menes.ValidationLevel.Flag && !result.Valid)");
                         memberBuilder.AppendLine("    {");
                         memberBuilder.AppendLine("        return result;");
@@ -139,7 +137,7 @@ namespace Menes.JsonSchema.TypeBuilder
                     {
                         if (typeDeclaration.AdditionalItems is TypeDeclaration additionalItems)
                         {
-                            memberBuilder.AppendLine($"   result = arrayEnumerator.Current.As<{additionalItems.FullyQualifiedDotNetTypeName}>().Validate(result, level, evaluatedProperties, absoluteKeywordLocation, instanceLocation);");
+                            memberBuilder.AppendLine($"   result = arrayEnumerator.Current.As<{additionalItems.FullyQualifiedDotNetTypeName}>().Validate(result, level, null, absoluteKeywordLocation, instanceLocation);");
                             memberBuilder.AppendLine("    if (level == Menes.ValidationLevel.Flag && !result.Valid)");
                             memberBuilder.AppendLine("    {");
                             memberBuilder.AppendLine("        return result;");
@@ -149,7 +147,7 @@ namespace Menes.JsonSchema.TypeBuilder
                         {
                             memberBuilder.AppendLine("if (!composedEvaluatedIndices.Contains(arrayLength))");
                             memberBuilder.AppendLine("{");
-                            memberBuilder.AppendLine($"   result = arrayEnumerator.Current.As<{unevaluatedItems.FullyQualifiedDotNetTypeName}>().Validate(result, level, evaluatedProperties, absoluteKeywordLocation, instanceLocation);");
+                            memberBuilder.AppendLine($"   result = arrayEnumerator.Current.As<{unevaluatedItems.FullyQualifiedDotNetTypeName}>().Validate(result, level, null, absoluteKeywordLocation, instanceLocation);");
                             memberBuilder.AppendLine("    if (level == Menes.ValidationLevel.Flag && !result.Valid)");
                             memberBuilder.AppendLine("    {");
                             memberBuilder.AppendLine("        return result;");
@@ -166,7 +164,7 @@ namespace Menes.JsonSchema.TypeBuilder
             {
                 memberBuilder.AppendLine("if (!composedEvaluatedIndices.Contains(arrayLength))");
                 memberBuilder.AppendLine("{");
-                memberBuilder.AppendLine($"   result = arrayEnumerator.Current.As<{unevaluatedItems.FullyQualifiedDotNetTypeName}>().Validate(result, level, evaluatedProperties, absoluteKeywordLocation, instanceLocation);");
+                memberBuilder.AppendLine($"   result = arrayEnumerator.Current.As<{unevaluatedItems.FullyQualifiedDotNetTypeName}>().Validate(result, level, null, absoluteKeywordLocation, instanceLocation);");
                 memberBuilder.AppendLine("    if (level == Menes.ValidationLevel.Flag && !result.Valid)");
                 memberBuilder.AppendLine("    {");
                 memberBuilder.AppendLine("        return result;");

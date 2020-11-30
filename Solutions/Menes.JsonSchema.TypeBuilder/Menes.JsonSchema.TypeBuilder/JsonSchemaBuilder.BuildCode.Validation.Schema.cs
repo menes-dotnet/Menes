@@ -4,7 +4,6 @@
 
 namespace Menes.JsonSchema.TypeBuilder
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
@@ -659,6 +658,7 @@ namespace Menes.JsonSchema.TypeBuilder
                 {
                     memberBuilder.AppendLine($"if (property.NameEquals({Formatting.FormatLiteralOrNull(dependentSchema.PropertyName, true)}))");
                     memberBuilder.AppendLine("{");
+                    memberBuilder.AppendLine("        evaluatedProperties?.Add(property.Name);");
                     memberBuilder.AppendLine($"    result = this.As<{dependentSchema.Schema.FullyQualifiedDotNetTypeName}>().Validate(result, level, evaluatedProperties, absoluteKeywordLocation, instanceLocation);");
                     memberBuilder.AppendLine("}");
                 }
@@ -667,7 +667,7 @@ namespace Menes.JsonSchema.TypeBuilder
             if (typeDeclaration.PropertyNames is TypeDeclaration propertyNames)
             {
                 memberBuilder.AppendLine($"var propertyName = new Menes.JsonString(property.NameAsMemory).As<{propertyNames.FullyQualifiedDotNetTypeName}>();");
-                memberBuilder.AppendLine($"result = propertyName.Validate(result, level, evaluatedProperties, absoluteKeywordLocation, instanceLocation);");
+                memberBuilder.AppendLine($"result = propertyName.Validate(result, level, null, absoluteKeywordLocation, instanceLocation);");
                 memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.Valid)");
                 memberBuilder.AppendLine("        {");
                 memberBuilder.AppendLine("            return result;");
@@ -688,7 +688,7 @@ namespace Menes.JsonSchema.TypeBuilder
                     memberBuilder.AppendLine($"    if (_MenesPatternExpression{patternIndex}.IsMatch(property.Name))");
                     memberBuilder.AppendLine("    {");
                     memberBuilder.AppendLine("        evaluatedProperties?.Add(property.Name);");
-                    memberBuilder.AppendLine($"        result = property.Value<{patternProperty.Schema.FullyQualifiedDotNetTypeName}>().Validate(result, level, evaluatedProperties, absoluteKeywordLocation, instanceLocation);");
+                    memberBuilder.AppendLine($"        result = property.Value<{patternProperty.Schema.FullyQualifiedDotNetTypeName}>().Validate(result, level, null, absoluteKeywordLocation, instanceLocation);");
                     memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.Valid)");
                     memberBuilder.AppendLine("        {");
                     memberBuilder.AppendLine("            return result;");
@@ -705,7 +705,7 @@ namespace Menes.JsonSchema.TypeBuilder
                     memberBuilder.AppendLine($"    if (!evaluatedProperties?.Contains(property.Name) ?? true)");
                     memberBuilder.AppendLine("    {");
                     memberBuilder.AppendLine("        evaluatedProperties?.Add(property.Name);");
-                    memberBuilder.AppendLine($"        result = property.Value<{typeDeclaration.AdditionalProperties.FullyQualifiedDotNetTypeName}>().Validate(result, level, evaluatedProperties, absoluteKeywordLocation, instanceLocation);");
+                    memberBuilder.AppendLine($"        result = property.Value<{typeDeclaration.AdditionalProperties.FullyQualifiedDotNetTypeName}>().Validate(result, level, null, absoluteKeywordLocation, instanceLocation);");
                     memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.Valid)");
                     memberBuilder.AppendLine("        {");
                     memberBuilder.AppendLine("            return result;");
@@ -716,7 +716,7 @@ namespace Menes.JsonSchema.TypeBuilder
                 {
                     memberBuilder.AppendLine($"    if (!(evaluatedProperties?.Contains(property.Name) ?? true) && !(composedEvaluatedProperties?.Contains(property.Name) ?? true))");
                     memberBuilder.AppendLine("    {");
-                    memberBuilder.AppendLine($"        result = property.Value<{unevaluatedProperties.FullyQualifiedDotNetTypeName}>().Validate(result, level, evaluatedProperties, absoluteKeywordLocation, instanceLocation);");
+                    memberBuilder.AppendLine($"        result = property.Value<{unevaluatedProperties.FullyQualifiedDotNetTypeName}>().Validate(result, level, null, absoluteKeywordLocation, instanceLocation);");
                     memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.Valid)");
                     memberBuilder.AppendLine("        {");
                     memberBuilder.AppendLine("            return result;");
@@ -820,7 +820,7 @@ namespace Menes.JsonSchema.TypeBuilder
                     memberBuilder.AppendLine($"    evaluatedProperties?.Add({Formatting.FormatLiteralOrNull(property.JsonPropertyName, true)});");
                     memberBuilder.AppendLine($"    if (this.TryGetProperty<{property.TypeDeclaration!.FullyQualifiedDotNetTypeName}>(_Menes{property.DotnetPropertyName}JsonPropertyName.Span, out {property.TypeDeclaration!.FullyQualifiedDotNetTypeName} value{index}))");
                     memberBuilder.AppendLine("    {");
-                    memberBuilder.AppendLine($"        result = value{index}.Validate(result, level, evaluatedProperties, absoluteKeywordLocation, instanceLocation);");
+                    memberBuilder.AppendLine($"        result = value{index}.Validate(result, level, null, absoluteKeywordLocation, instanceLocation);");
                     memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.Valid)");
                     memberBuilder.AppendLine("        {");
                     memberBuilder.AppendLine("            return result;");

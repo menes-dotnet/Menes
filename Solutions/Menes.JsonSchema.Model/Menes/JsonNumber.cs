@@ -88,55 +88,82 @@ namespace Menes
         /// Implicit conversion from <see cref="int"/>.
         /// </summary>
         /// <param name="value">The value to convert.</param>
-        public static implicit operator JsonNumber(int value) => new JsonNumber((long)value);
+        public static implicit operator JsonNumber(int value)
+        {
+            return new JsonNumber(value);
+        }
 
         /// <summary>
         /// Implicit conversion to <see cref="int"/>.
         /// </summary>
         /// <param name="value">The <see cref="JsonNumber"/> to convert.</param>
-        public static implicit operator int(JsonNumber value) => value.GetInt32();
+        public static implicit operator int(JsonNumber value)
+        {
+            return value.GetInt32();
+        }
 
         /// <summary>
         /// Implicit conversion from <see cref="long"/>.
         /// </summary>
         /// <param name="value">The value to convert.</param>
-        public static implicit operator JsonNumber(long value) => new JsonNumber(value);
+        public static implicit operator JsonNumber(long value)
+        {
+            return new JsonNumber(value);
+        }
 
         /// <summary>
         /// Implicit conversion to <see cref="long"/>.
         /// </summary>
         /// <param name="value">The <see cref="JsonNumber"/> to convert.</param>
-        public static implicit operator long(JsonNumber value) => value.GetInt64();
+        public static implicit operator long(JsonNumber value)
+        {
+            return value.GetInt64();
+        }
 
         /// <summary>
         /// Implicit conversion from <see cref="float"/>.
         /// </summary>
         /// <param name="value">The value to convert.</param>
-        public static implicit operator JsonNumber(float value) => new JsonNumber(value);
+        public static implicit operator JsonNumber(float value)
+        {
+            return new JsonNumber(value);
+        }
 
         /// <summary>
         /// Implicit conversion to <see cref="float"/>.
         /// </summary>
         /// <param name="value">The <see cref="JsonNumber"/> to convert.</param>
-        public static implicit operator float(JsonNumber value) => value.GetSingle();
+        public static implicit operator float(JsonNumber value)
+        {
+            return value.GetSingle();
+        }
 
         /// <summary>
         /// Implicit conversion from <see cref="double"/>.
         /// </summary>
         /// <param name="value">The value to convert.</param>
-        public static implicit operator JsonNumber(double value) => new JsonNumber(value);
+        public static implicit operator JsonNumber(double value)
+        {
+            return new JsonNumber(value);
+        }
 
         /// <summary>
         /// Implicit conversion to <see cref="double"/>.
         /// </summary>
         /// <param name="value">The <see cref="JsonNumber"/> to convert.</param>
-        public static implicit operator double(JsonNumber value) => value.GetDouble();
+        public static implicit operator double(JsonNumber value)
+        {
+            return value.GetDouble();
+        }
 
         /// <summary>
         /// Implicit conversion from <see cref="JsonInteger"/>.
         /// </summary>
         /// <param name="value">The value to convert.</param>
-        public static implicit operator JsonNumber(JsonInteger value) => new JsonNumber(value);
+        public static implicit operator JsonNumber(JsonInteger value)
+        {
+            return new JsonNumber(value);
+        }
 
         /// <summary>
         /// Gets the <see cref="JsonNumber"/> as a <see cref="double"/>.
@@ -222,7 +249,7 @@ namespace Menes
             {
                 if (val >= float.MinValue && val <= float.MaxValue)
                 {
-                    value = (float)val;
+                    value = val;
                     return true;
                 }
             }

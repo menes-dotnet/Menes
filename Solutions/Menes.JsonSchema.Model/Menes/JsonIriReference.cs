@@ -76,13 +76,19 @@ namespace Menes
         /// Implicit conversion from <see cref="Uri"/>.
         /// </summary>
         /// <param name="value">The Uri value from which to convert.</param>
-        public static implicit operator JsonIriReference(Uri value) => new JsonIriReference(value);
+        public static implicit operator JsonIriReference(Uri value)
+        {
+            return new JsonIriReference(value);
+        }
 
         /// <summary>
         /// Implicit conversion to <see cref="Uri"/>.
         /// </summary>
         /// <param name="value">The Uri value from which to convert.</param>
-        public static implicit operator Uri(JsonIriReference value) => value.GetUri();
+        public static implicit operator Uri(JsonIriReference value)
+        {
+            return value.GetUri();
+        }
 
         /// <summary>
         /// Gets the <see cref="JsonIriReference"/> as a <see cref="Uri"/>.

@@ -87,37 +87,55 @@ namespace Menes
         /// Implicit conversion from <see cref="string"/>.
         /// </summary>
         /// <param name="value">The string value from which to convert.</param>
-        public static implicit operator JsonIpV4(string value) => new JsonIpV4(value);
+        public static implicit operator JsonIpV4(string value)
+        {
+            return new JsonIpV4(value);
+        }
 
         /// <summary>
         /// Implicit conversion to <see cref="string"/>.
         /// </summary>
         /// <param name="value">The string value from which to convert.</param>
-        public static implicit operator string?(JsonIpV4 value) => value.GetString();
+        public static implicit operator string?(JsonIpV4 value)
+        {
+            return value.GetString();
+        }
 
         /// <summary>
         /// Implicit conversion from <see cref="ReadOnlyMemory{T}"/>.
         /// </summary>
         /// <param name="value">The string value from which to convert.</param>
-        public static implicit operator JsonIpV4(ReadOnlyMemory<char> value) => new JsonIpV4(value);
+        public static implicit operator JsonIpV4(ReadOnlyMemory<char> value)
+        {
+            return new JsonIpV4(value);
+        }
 
         /// <summary>
         /// Implicit conversion to <see cref="ReadOnlyMemory{T}"/>.
         /// </summary>
         /// <param name="value">The string value from which to convert.</param>
-        public static implicit operator ReadOnlyMemory<char>(JsonIpV4 value) => value.AsMemory();
+        public static implicit operator ReadOnlyMemory<char>(JsonIpV4 value)
+        {
+            return value.AsMemory();
+        }
 
         /// <summary>
         /// Implicit conversion from <see cref="ReadOnlyMemory{T}"/>.
         /// </summary>
         /// <param name="value">The string value from which to convert.</param>
-        public static implicit operator JsonIpV4(ReadOnlySpan<char> value) => new JsonIpV4(value.ToArray());
+        public static implicit operator JsonIpV4(ReadOnlySpan<char> value)
+        {
+            return new JsonIpV4(value.ToArray());
+        }
 
         /// <summary>
         /// Implicit conversion from <see cref="ReadOnlyMemory{T}"/>.
         /// </summary>
         /// <param name="value">The string value from which to convert.</param>
-        public static implicit operator ReadOnlySpan<char>(JsonIpV4 value) => value.AsSpan();
+        public static implicit operator ReadOnlySpan<char>(JsonIpV4 value)
+        {
+            return value.AsSpan();
+        }
 
         /// <summary>
         /// Gets the <see cref="JsonIpV4"/> as a <see cref="string"/>.

@@ -48,15 +48,6 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         public string? Namespace { get; set; }
 
         /// <summary>
-        /// Gets a value indicating whether this is a lowered reference type.
-        /// </summary>
-        /// <remarks>
-        /// If <c>true</c> you will not need to generate this instance of the type, but just use
-        /// its type name.
-        /// </remarks>
-        public bool IsRef { get; private set; }
-
-        /// <summary>
         /// Gets the fully qualified dotnet name of the type.
         /// </summary>
         public string? FullyQualifiedDotNetTypeName
@@ -408,7 +399,6 @@ namespace Menes.JsonSchema.TypeBuilder.Model
                        this.AnyOf is not null &&
                        this.AnyOf.All(o => o.IsConcreteType) &&
                        //// And nothing else
-                       !this.IsRef &&
                        this.AdditionalItems is null &&
                        this.AdditionalProperties is null &&
                        this.AllOf is null &&
@@ -439,6 +429,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
                        this.DependentSchemas is null &&
                        this.Properties is null &&
                        this.PropertyNames is null &&
+                       this.Reference is null &&
                        this.Type is null &&
                        this.UnevaluatedItems is null &&
                        this.UnevaluatedProperties is null &&
@@ -458,7 +449,6 @@ namespace Menes.JsonSchema.TypeBuilder.Model
                        this.OneOf is not null &&
                        this.OneOf.All(o => o.IsConcreteType) &&
                        //// And nothing else
-                       !this.IsRef &&
                        this.AdditionalItems is null &&
                        this.AdditionalProperties is null &&
                        this.AllOf is null &&
@@ -486,6 +476,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
                        this.Not is null &&
                        this.Pattern is null &&
                        this.PatternProperties is null &&
+                       this.Reference is null &&
                        this.DependentSchemas is null &&
                        this.Properties is null &&
                        this.PropertyNames is null &&
@@ -509,7 +500,6 @@ namespace Menes.JsonSchema.TypeBuilder.Model
             get
             {
                 return
-                       !this.IsRef &&
                        this.AdditionalItems is null &&
                        this.AdditionalProperties is null &&
                        this.AllOf is null &&
@@ -543,6 +533,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
                        this.DependentSchemas is null &&
                        this.Properties is null &&
                        this.PropertyNames is null &&
+                       this.Reference is null &&
                        this.Type is null &&
                        this.UnevaluatedItems is null &&
                        this.UnevaluatedProperties is null &&
@@ -582,6 +573,11 @@ namespace Menes.JsonSchema.TypeBuilder.Model
                 return this.Type is not null && this.Type.Contains("boolean");
             }
         }
+
+        /// <summary>
+        /// Gets or sets the reference type.
+        /// </summary>
+        public TypeDeclaration? Reference { get; set; }
 
         /// <summary>
         /// Add a conversion operator.
@@ -1357,7 +1353,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
 
         private static List<PropertyDeclaration>? ForceNonLocal(List<PropertyDeclaration>? properties)
         {
-            return properties?.Select(p => new PropertyDeclaration { DotnetFieldName = p.DotnetFieldName, DotnetPropertyName = p.DotnetPropertyName, TypeDeclaration = p.TypeDeclaration, IsRequired = p.IsRequired, JsonPropertyName = p.JsonPropertyName }).ToList();
+            return properties?.Select(p => new PropertyDeclaration { DotnetFieldName = p.DotnetFieldName, DotnetPropertyName = p.DotnetPropertyName, TypeDeclaration = p.TypeDeclaration?.Lowered, IsRequired = p.IsRequired, JsonPropertyName = p.JsonPropertyName }).ToList();
         }
 
         private static void MergeDependentRequired(TypeDeclaration typeToMerge, TypeDeclaration result)
@@ -1407,7 +1403,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
 
         private static List<PropertyDeclaration>? Lower(List<PropertyDeclaration>? properties, bool maintainLocality)
         {
-            return properties?.Select(p => (p.TypeDeclaration?.IsLowered ?? true) ? p : new PropertyDeclaration { DotnetFieldName = p.DotnetFieldName, DotnetPropertyName = p.DotnetPropertyName, IsRequired = p.IsRequired, IsLocal = maintainLocality ? p.IsLocal : false, JsonPropertyName = p.JsonPropertyName, TypeDeclaration = p.TypeDeclaration?.Lowered }).ToList();
+            return properties?.Select(p => new PropertyDeclaration { DotnetFieldName = p.DotnetFieldName, DotnetPropertyName = p.DotnetPropertyName, IsRequired = p.IsRequired, IsLocal = maintainLocality ? p.IsLocal : false, JsonPropertyName = p.JsonPropertyName, TypeDeclaration = p.TypeDeclaration?.Lowered }).ToList();
         }
 
         private static List<ConversionOperatorDeclaration>? Lower(List<ConversionOperatorDeclaration>? conversionOperators)
@@ -1669,16 +1665,43 @@ namespace Menes.JsonSchema.TypeBuilder.Model
                 return this.lowered;
             }
 
+            if (this.IsNakedReference())
+            {
+                // If we are empty apart from a naked reference merged type, that is a reference to another type
+                // then treat us as that merged type.
+                this.lowered = this.Reference!.Lowered;
+
+                // Move our embedded types one up the stack.
+                if (this.EmbeddedTypes is List<TypeDeclaration> embeddedTypes)
+                {
+                    foreach (TypeDeclaration type in embeddedTypes)
+                    {
+                        if (!type.Lowered.IsBuiltInType && type.Lowered != this.Parent?.Lowered)
+                        {
+                            type.Lowered.Parent = this.Parent?.Lowered;
+                        }
+                        ////this.Parent?.Lowered.AddEmbeddedTypeDeclaration(type);
+                    }
+                }
+
+                return this.lowered;
+            }
+
             if (this.IsNakedType() && this.Type?.Count == 1)
             {
                 string nakedType = this.Type[0];
                 if (nakedType != "object" && nakedType != "array")
                 {
-                    // If we are empty apart from a single merged type, that is a naked type of a non-compound kind
+                    // If we are empty apart from a simple type, then we just use the built in type for our type and format.
                     this.lowered = TypeDeclarations.GetTypeFor(nakedType, this.Format);
-
                     return this.lowered;
                 }
+            }
+
+            if (this.Reference is not null)
+            {
+                // If we had a reference, then add our reference as an allOf type.
+                this.AddAllOfType(this.Reference.Lowered);
             }
 
             // First - we don't change our type schema; we are still the same type, however we got here...
@@ -1693,12 +1716,6 @@ namespace Menes.JsonSchema.TypeBuilder.Model
                 IsLowered = true,
             };
 
-            // Move back up our lowered stack looking for an unreferenced parent to which to add ourselves
-            while (result.Parent is not null && result.Parent.IsNakedReference())
-            {
-                result.Parent = result.Parent.Parent;
-            }
-
             TypeDeclaration baseType = this;
 
             // Ensure we have set the result early, before we start potentially recursively
@@ -1707,23 +1724,12 @@ namespace Menes.JsonSchema.TypeBuilder.Model
 
             if (this.MergedTypes is List<TypeDeclaration> mergedTypes)
             {
-                if (mergedTypes.Count == 1 && this.IsNakedReference())
-                {
-                    // If we are empty apart from a single merged type, that is a reference to another type
-                    // then treat us as that merged type.
-                    this.lowered = mergedTypes[0].Lowered;
+                List<TypeDeclaration>? lowered = Lower(mergedTypes);
 
-                    return this.lowered;
-                }
-                else
+                // Iterate the types to merge and merge them in
+                foreach (TypeDeclaration typeToMerge in lowered!)
                 {
-                    List<TypeDeclaration>? lowered = Lower(mergedTypes);
-
-                    // Iterate the types to merge and merge them in
-                    foreach (TypeDeclaration typeToMerge in lowered!)
-                    {
-                        MergeTypesToBase(result, typeToMerge);
-                    }
+                    MergeTypesToBase(result, typeToMerge);
                 }
             }
 
@@ -1740,7 +1746,8 @@ namespace Menes.JsonSchema.TypeBuilder.Model
 
         private bool IsNakedReference()
         {
-            return this.AdditionalItems is null &&
+            return this.Reference is not null &&
+                   this.AdditionalItems is null &&
                    this.AdditionalProperties is null &&
                    this.AllOf is null &&
                    this.AnyOf is null &&
@@ -1783,7 +1790,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         private bool IsNakedType()
         {
             return
-                   !this.IsRef &&
+                   this.Reference is null &&
                    this.AdditionalItems is null &&
                    this.AdditionalProperties is null &&
                    this.AllOf is null &&

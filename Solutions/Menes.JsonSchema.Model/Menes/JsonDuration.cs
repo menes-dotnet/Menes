@@ -76,13 +76,19 @@ namespace Menes
         /// Implicit conversion from <see cref="Period"/>.
         /// </summary>
         /// <param name="value">The bool value from which to convert.</param>
-        public static implicit operator JsonDuration(Period value) => new JsonDuration(value);
+        public static implicit operator JsonDuration(Period value)
+        {
+            return new JsonDuration(value);
+        }
 
         /// <summary>
         /// Implicit conversion to <see cref="Period"/>.
         /// </summary>
         /// <param name="value">The bool value from which to convert.</param>
-        public static implicit operator Period(JsonDuration value) => value.GetNodaTimeDuration();
+        public static implicit operator Period(JsonDuration value)
+        {
+            return value.GetNodaTimeDuration();
+        }
 
         /// <summary>
         /// Gets the <see cref="JsonDuration"/> as a <see cref="bool"/>.

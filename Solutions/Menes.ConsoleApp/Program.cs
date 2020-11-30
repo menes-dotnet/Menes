@@ -6,7 +6,6 @@ namespace Menes.ConsoleApp
 {
     using System;
     using System.Buffers;
-    using System.Collections.Generic;
     using System.Text;
     using System.Text.Json;
     using System.Threading.Tasks;
@@ -24,9 +23,9 @@ namespace Menes.ConsoleApp
         /// </summary>
         public static void Main()
         {
-            RootEntity entity = new JsonAny("{\"foo\": \"foo\", \"bar\": \"bar\"}").As<RootEntity>();
+            Draft201909Schema entity = new JsonAny("{\"$defs\": {\"foo\": {\"type\": 1}}}").As<Draft201909Schema>();
             entity.Validate();
-            entity.Validate();
+            ////entity.Validate();
         }
 
         private static async Task BuildJsonObjectType()
