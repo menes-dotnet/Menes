@@ -642,6 +642,14 @@ namespace Menes.JsonSchema.TypeBuilder
                 return;
             }
 
+            if (typeDeclaration.DependentSchemas is null && typeDeclaration.PropertyNames is null &&
+                typeDeclaration.MaxProperties is null && typeDeclaration.MinProperties is null &&
+                typeDeclaration.PatternProperties is null &&
+                typeDeclaration.AllowsAdditionalProperties && typeDeclaration.AdditionalProperties is null && typeDeclaration.UnevaluatedProperties is null)
+            {
+                return;
+            }
+
             memberBuilder.AppendLine("if (this.IsObject)");
             memberBuilder.AppendLine("{");
             if (typeDeclaration.MaxProperties is not null || typeDeclaration.MinProperties is not null)
