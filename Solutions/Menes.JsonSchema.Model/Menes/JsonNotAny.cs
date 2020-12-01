@@ -52,7 +52,7 @@ namespace Menes
         public bool IsNumber => this.JsonElement.ValueKind == JsonValueKind.Number || (this.value is not null && this.value.IsNumber);
 
         /// <inheritdoc />
-        public bool IsInteger => this.JsonElement.ValueKind == JsonValueKind.Number || (this.value is not null && this.value.IsInteger);
+        public bool IsInteger => (this.JsonElement.ValueKind == JsonValueKind.Number && this.JsonElement.TryGetInt64(out _)) || (this.value is not null && this.value.IsInteger);
 
         /// <inheritdoc />
         public bool IsString => this.JsonElement.ValueKind == JsonValueKind.String || (this.value is not null && this.value.IsString);

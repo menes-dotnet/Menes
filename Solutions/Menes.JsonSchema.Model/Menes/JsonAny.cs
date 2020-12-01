@@ -233,6 +233,11 @@ namespace Menes
         public bool Equals<T>(T other)
             where T : struct, IJsonValue
         {
+            if (this.IsNull)
+            {
+                return other.IsNull;
+            }
+
             if (this.IsString)
             {
                 return this.As<JsonString>().Equals(other);
@@ -246,11 +251,6 @@ namespace Menes
             if (this.IsInteger)
             {
                 return this.As<JsonInteger>().Equals(other);
-            }
-
-            if (this.IsNull)
-            {
-                return other.IsNull;
             }
 
             if (this.IsNumber)

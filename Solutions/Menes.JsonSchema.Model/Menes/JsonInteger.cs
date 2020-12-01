@@ -129,10 +129,18 @@ namespace Menes
         {
             if (this.HasJsonElement)
             {
-                return this.JsonElement.TryGetInt64(out value);
-            }
+                if (this.JsonElement.TryGetInt64(out value))
+                {
+                    return true;
+                }
 
-            if (this.valueAsInt64 is long val)
+                if (this.JsonElement.TryGetDouble(out double valueDouble) && valueDouble == Math.Floor(valueDouble))
+                {
+                    value = (long)valueDouble;
+                    return true;
+                }
+            }
+            else if (this.valueAsInt64 is long val)
             {
                 value = val;
                 return true;
@@ -165,7 +173,16 @@ namespace Menes
         {
             if (this.HasJsonElement)
             {
-                return this.JsonElement.TryGetInt32(out value);
+                if (this.JsonElement.TryGetInt32(out value))
+                {
+                    return true;
+                }
+
+                if (this.JsonElement.TryGetDouble(out double valueDouble) && valueDouble == Math.Floor(valueDouble))
+                {
+                    value = (int)valueDouble;
+                    return true;
+                }
             }
 
             if (this.valueAsInt64 is long val)

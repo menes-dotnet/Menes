@@ -117,10 +117,10 @@ namespace Menes.JsonSchema.TypeBuilder
                 }
             }
 
-            foreach (KeyValuePair<string, string> item in generatedTypes)
-            {
-                System.IO.File.WriteAllText(System.IO.Path.Combine(@"C:\Users\matth\OneDrive\Desktop\output", item.Key), item.Value);
-            }
+            ////foreach (KeyValuePair<string, string> item in generatedTypes)
+            ////{
+            ////    System.IO.File.WriteAllText(System.IO.Path.Combine(@"C:\Users\matth\OneDrive\Desktop\output", item.Key), item.Value);
+            ////}
 
             return generatedTypes.ToImmutable();
         }

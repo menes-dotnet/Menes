@@ -71,6 +71,29 @@ namespace Menes.JsonSchema.TypeBuilder
             memberBuilder.AppendLine("while (arrayEnumerator.MoveNext())");
             memberBuilder.AppendLine("{");
 
+            if (typeDeclaration.UniqueItems.HasValue && typeDeclaration.UniqueItems.Value)
+            {
+                memberBuilder.AppendLine("var innerEnumerator = this.EnumerateArray();");
+                memberBuilder.AppendLine("var innerIndex = -1;");
+                memberBuilder.AppendLine("while (innerIndex < arrayLength && innerEnumerator.MoveNext())");
+                memberBuilder.AppendLine("{");
+                memberBuilder.AppendLine("    innerIndex++;");
+                memberBuilder.AppendLine("}");
+
+                memberBuilder.AppendLine("while (innerEnumerator.MoveNext())");
+                memberBuilder.AppendLine("{");
+                memberBuilder.AppendLine("    if (innerEnumerator.Current.Equals(arrayEnumerator.Current))");
+                memberBuilder.AppendLine("    {");
+                this.WriteError($"6.4.3.  uniqueItems - duplicate items were found.", memberBuilder);
+                memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.IsValid)");
+                memberBuilder.AppendLine("        {");
+                memberBuilder.AppendLine("            return result;");
+                memberBuilder.AppendLine("        }");
+                memberBuilder.AppendLine("    }");
+                memberBuilder.AppendLine("}");
+                this.WriteSuccess(memberBuilder);
+            }
+
             if (typeDeclaration.Contains is TypeDeclaration contains)
             {
                 memberBuilder.AppendLine($"var containsResult = arrayEnumerator.Current.As<{contains.FullyQualifiedDotNetTypeName}>().Validate(result.CreateChildContext(), level);");
