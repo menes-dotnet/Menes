@@ -138,6 +138,7 @@ namespace Menes.JsonSchema.TypeBuilder
                             memberBuilder.AppendLine("    {");
                             memberBuilder.AppendLine("        return result;");
                             memberBuilder.AppendLine("    }");
+                            memberBuilder.AppendLine("result = result.WithLocalItemIndex(arrayLength);");
                         }
                         else if (typeDeclaration.UnevaluatedItems is TypeDeclaration unevaluatedItems)
                         {
@@ -148,6 +149,7 @@ namespace Menes.JsonSchema.TypeBuilder
                             memberBuilder.AppendLine("    {");
                             memberBuilder.AppendLine("        return result;");
                             memberBuilder.AppendLine("    }");
+                            memberBuilder.AppendLine("result = result.WithLocalItemIndex(arrayLength);");
                             memberBuilder.AppendLine("}");
                         }
                     }
@@ -165,6 +167,7 @@ namespace Menes.JsonSchema.TypeBuilder
                 memberBuilder.AppendLine("    {");
                 memberBuilder.AppendLine("        return result;");
                 memberBuilder.AppendLine("    }");
+                memberBuilder.AppendLine("result = result.WithLocalItemIndex(arrayLength);");
                 memberBuilder.AppendLine("}");
             }
 

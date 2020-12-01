@@ -23,7 +23,7 @@ namespace Menes.ConsoleApp
         /// </summary>
         public static void Main()
         {
-            RootEntity entity = new JsonAny("{\"foo\": \"foo\", \"bar\": \"bar\" }").As<RootEntity>();
+            RootEntity entity = new JsonAny("[\"foo\", \"bar\", \"baz\"]").As<RootEntity>();
             Console.WriteLine(entity.Validate(ValidationContext.ValidContext).IsValid);
         }
 

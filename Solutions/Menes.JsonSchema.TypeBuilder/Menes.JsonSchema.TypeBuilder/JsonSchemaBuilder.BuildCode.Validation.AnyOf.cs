@@ -56,46 +56,6 @@ namespace Menes.JsonSchema.TypeBuilder
 
                 memberBuilder.AppendLine("Menes.ValidationContext result = validationContext;");
 
-                // If we don't have to evaluate everything, we can short-circuit anyOf
-                if (typeDeclaration.IsConcreteAnyOf && typeDeclaration.UnevaluatedProperties is null)
-                {
-                    int currentIndex = 0;
-                    memberBuilder.AppendLine("Menes.ValidationContext preResult;");
-                    memberBuilder.AppendLine("if (level == Menes.ValidationLevel.Flag && !that.HasJsonElement)");
-                    memberBuilder.AppendLine("{");
-                    foreach (TypeDeclaration type in typeDeclaration.AnyOf)
-                    {
-                        this.PushArrayIndexToAbsoluteKeywordLocationStack(currentIndex);
-                        string backingName = Formatting.ToPascalCaseWithReservedWords(type.FullyQualifiedDotNetTypeName!).ToString();
-                        memberBuilder.AppendLine($"if (that._menes{backingName}AnyOfBacking is {type.FullyQualifiedDotNetTypeName} anyOfBacking{currentIndex})");
-                        memberBuilder.AppendLine("{");
-                        memberBuilder.AppendLine($"if (level == Menes.ValidationLevel.Flag)");
-                        memberBuilder.AppendLine("{");
-                        memberBuilder.AppendLine($"    preResult = anyOfBacking{currentIndex}.Validate(validationContext.CreateChildContext(), level);");
-                        memberBuilder.AppendLine("}");
-                        memberBuilder.AppendLine("else");
-                        memberBuilder.AppendLine("{");
-                        memberBuilder.AppendLine($"    preResult = anyOfBacking{currentIndex}.Validate(validationContext.CreateChildContext({Formatting.FormatLiteralOrNull(this.absoluteKeywordLocationStack.Peek(), true)}), level);");
-                        memberBuilder.AppendLine("}");
-                        memberBuilder.AppendLine("    if (preResult.IsValid)");
-                        memberBuilder.AppendLine("    {");
-
-                        // Merge the evaluated items back into the outer result set, which is the
-                        // "composedEvaluatedProperties" collection.
-                        memberBuilder.AppendLine("result = result.MergeChildContext(preResult, false);");
-
-                        memberBuilder.AppendLine("        return result;");
-                        memberBuilder.AppendLine("    }");
-                        memberBuilder.AppendLine("}");
-                        currentIndex++;
-                        this.absoluteKeywordLocationStack.Pop();
-                    }
-
-                    this.WriteError("9.2.1.2. anyOf - none of the provided types matched.", memberBuilder);
-                    memberBuilder.AppendLine("        return result;");
-                    memberBuilder.AppendLine("}");
-                }
-
                 int anyOfIndex = 0;
                 foreach (TypeDeclaration anyOfType in typeDeclaration.AnyOf)
                 {
@@ -114,21 +74,10 @@ namespace Menes.JsonSchema.TypeBuilder
                     memberBuilder.AppendLine($"    anyOfResult{anyOfIndex} = anyOf{anyOfIndex}.Validate(validationContext.CreateChildContext({Formatting.FormatLiteralOrNull(this.absoluteKeywordLocationStack.Peek(), true)}), level);");
                     memberBuilder.AppendLine("}");
 
-                    if (typeDeclaration.UnevaluatedProperties is null)
-                    {
-                        // We can short circuit if we are at "flag" level as soon as we find a valid result, but
-                        // only if we are not evaluating all the unevaluated properties.
-                        memberBuilder.AppendLine($"if (level == Menes.ValidationLevel.Flag && anyOfResult{anyOfIndex}.IsValid)");
-                        memberBuilder.AppendLine("{");
-                        memberBuilder.AppendLine("    return result;");
-                        memberBuilder.AppendLine("}");
-                    }
-
                     memberBuilder.AppendLine($"if (anyOfResult{anyOfIndex}.IsValid)");
                     memberBuilder.AppendLine("{");
 
-                    // Merge the evaluated items back into the outer result set, which is the
-                    // "composedEvaluatedProperties" collection.
+                    // Merge the evaluated items back into the outer result set
                     memberBuilder.AppendLine($"result = result.MergeChildContext(anyOfResult{anyOfIndex}, false);");
 
                     memberBuilder.AppendLine("}");
