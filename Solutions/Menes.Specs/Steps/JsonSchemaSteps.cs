@@ -103,8 +103,8 @@ namespace Steps
         public void WhenIValidateTheInstance()
         {
             IJsonValue jsonValue = this.scenarioContext.Get<IJsonValue>(SchemaInstance);
-            ValidationResult validationResult = jsonValue.Validate();
-            this.scenarioContext.Set(validationResult, SchemaValidationResult);
+            ValidationContext validationContext = jsonValue.Validate(ValidationContext.ValidContext);
+            this.scenarioContext.Set(validationContext, SchemaValidationResult);
         }
 
         /// <summary>
@@ -114,8 +114,8 @@ namespace Steps
         [Then(@"the result will be (.*)")]
         public void ThenTheResultWillBe(bool expectedValidity)
         {
-            ValidationResult actual = this.scenarioContext.Get<ValidationResult>(SchemaValidationResult);
-            Assert.AreEqual(expectedValidity, actual.Valid);
+            ValidationContext actual = this.scenarioContext.Get<ValidationContext>(SchemaValidationResult);
+            Assert.AreEqual(expectedValidity, actual.IsValid);
         }
     }
 }

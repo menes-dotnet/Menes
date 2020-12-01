@@ -206,10 +206,10 @@ namespace Menes
         {
             if (typeof(T) == typeof(RelativeJsonPointer))
             {
-                return this.Validate().Valid;
+                return this.Validate(ValidationContext.ValidContext).IsValid;
             }
 
-            return this.As<T>().Validate().Valid;
+            return this.As<T>().Validate(ValidationContext.ValidContext).IsValid;
         }
 
         /// <inheritdoc/>
@@ -222,7 +222,7 @@ namespace Menes
             }
 
             RelativeJsonPointer otherString = other.As<RelativeJsonPointer>();
-            if (!otherString.Validate().Valid)
+            if (!otherString.Validate(ValidationContext.ValidContext).IsValid)
             {
                 return false;
             }
@@ -231,41 +231,28 @@ namespace Menes
         }
 
         /// <inheritdoc />
-        public ValidationResult Validate(ValidationResult? validationResult = null, ValidationLevel level = ValidationLevel.Flag, HashSet<string>? evaluatedProperties = null, Stack<string>? absoluteKeywordLocation = null, Stack<string>? instanceLocation = null)
+        public ValidationContext Validate(ValidationContext validationContext, ValidationLevel level = ValidationLevel.Flag)
         {
-            ValidationResult result = validationResult ?? ValidationResult.ValidResult;
-
             if ((this.HasJsonElement && (this.JsonElement.ValueKind != JsonValueKind.String || !Parse(this.JsonElement.GetString()))) || (this.value is ReadOnlyMemory<char> value && !Parse(value.ToString())))
             {
                 if (level >= ValidationLevel.Basic)
                 {
-                    string? il = null;
-                    string? akl = null;
-
-                    instanceLocation?.TryPeek(out il);
-                    absoluteKeywordLocation?.TryPeek(out akl);
-                    result.AddResult(valid: false, message: $"6.1.1.  type - should have matched JSON Pointer.", instanceLocation: il, absoluteKeywordLocation: akl);
+                    return validationContext.WithResult(isValid: false, message: $"6.1.1.  type - should have been 'string' with format 'relative-json-pointer'.");
                 }
                 else
                 {
-                    result.SetValid(false);
+                    return validationContext.WithResult(isValid: false);
                 }
             }
             else
             {
                 if (level == ValidationLevel.Verbose)
                 {
-                    string? il = null;
-                    string? akl = null;
-
-                    instanceLocation?.TryPeek(out il);
-                    absoluteKeywordLocation?.TryPeek(out akl);
-
-                    result.AddResult(valid: true, instanceLocation: il, absoluteKeywordLocation: akl);
+                    return validationContext.WithResult(isValid: true);
                 }
             }
 
-            return result;
+            return validationContext;
         }
 
         /// <inheritdoc />

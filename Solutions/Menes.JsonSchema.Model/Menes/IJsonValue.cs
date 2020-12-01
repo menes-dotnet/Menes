@@ -4,7 +4,6 @@
 
 namespace Menes
 {
-    using System.Collections.Generic;
     using System.Text.Json;
 
     /// <summary>
@@ -100,12 +99,9 @@ namespace Menes
         /// <summary>
         /// Validate the element.
         /// </summary>
-        /// <param name="validationResult">The current validation result.</param>
-        /// <param name="level">The required validation level.</param>
-        /// <param name="evaluatedProperties">The properties that have been evaluated.</param>
-        /// <param name="absoluteKeywordLocation">The stack of absolute keyword locations in the validation.</param>
-        /// <param name="instanceLocation">The stack of instance locations for the validation.</param>
-        /// <returns>The validation updated with the results of the validation.</returns>
-        ValidationResult Validate(ValidationResult? validationResult = null, ValidationLevel level = ValidationLevel.Flag, HashSet<string>? evaluatedProperties = null, Stack<string>? absoluteKeywordLocation = null, Stack<string>? instanceLocation = null);
+        /// <param name="validationContext">The current validation context.</param>
+        /// <param name="level">The validation level.</param>
+        /// <returns>The validation context updated with the results of the validation.</returns>
+        ValidationContext Validate(ValidationContext validationContext, ValidationLevel level = ValidationLevel.Flag);
     }
 }

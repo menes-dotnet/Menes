@@ -369,10 +369,10 @@ namespace Menes
         {
             if (typeof(T) == typeof(JsonNumber))
             {
-                return this.Validate().Valid;
+                return this.Validate(ValidationContext.ValidContext).IsValid;
             }
 
-            return this.As<T>().Validate(ValidationResult.ValidResult, ValidationLevel.Flag).Valid;
+            return this.As<T>().Validate(ValidationContext.ValidContext).IsValid;
         }
 
         /// <inheritdoc/>
@@ -385,7 +385,7 @@ namespace Menes
             }
 
             JsonNumber otherNumber = other.As<JsonNumber>();
-            if (!otherNumber.Validate().Valid)
+            if (!otherNumber.Validate(ValidationContext.ValidContext).IsValid)
             {
                 return false;
             }
@@ -394,20 +394,28 @@ namespace Menes
         }
 
         /// <inheritdoc />
-        public ValidationResult Validate(ValidationResult? validationResult = null, ValidationLevel level = ValidationLevel.Flag, HashSet<string>? evaluatedProperties = null, Stack<string>? absoluteKeywordLocation = null, Stack<string>? instanceLocation = null)
+        public ValidationContext Validate(ValidationContext validationContext, ValidationLevel level = ValidationLevel.Flag)
         {
-            ValidationResult result = validationResult ?? ValidationResult.ValidResult;
-
             if (this.HasJsonElement && this.JsonElement.ValueKind != JsonValueKind.Number)
             {
-                AddError(level, absoluteKeywordLocation, instanceLocation, result);
+                if (level >= ValidationLevel.Basic)
+                {
+                    return validationContext.WithResult(isValid: false, message: $"6.1.1.  type - should have been 'number'.");
+                }
+                else
+                {
+                    return validationContext.WithResult(isValid: false);
+                }
             }
             else
             {
-                AddSuccess(level, absoluteKeywordLocation, instanceLocation, result);
+                if (level == ValidationLevel.Verbose)
+                {
+                    return validationContext.WithResult(isValid: true);
+                }
             }
 
-            return result;
+            return validationContext;
         }
 
         /// <inheritdoc />
@@ -437,41 +445,6 @@ namespace Menes
         public override string ToString()
         {
             return this.IsNull ? "null" : this.GetDouble().ToString();
-        }
-
-        private static ValidationResult AddSuccess(ValidationLevel level, Stack<string>? absoluteKeywordLocation, Stack<string>? instanceLocation, ValidationResult result)
-        {
-            if (level == ValidationLevel.Verbose)
-            {
-                string? il = null;
-                string? akl = null;
-
-                instanceLocation?.TryPeek(out il);
-                absoluteKeywordLocation?.TryPeek(out akl);
-
-                result.AddResult(valid: true, instanceLocation: il, absoluteKeywordLocation: akl);
-            }
-
-            return result;
-        }
-
-        private static ValidationResult AddError(ValidationLevel level, Stack<string>? absoluteKeywordLocation, Stack<string>? instanceLocation, ValidationResult result)
-        {
-            if (level >= ValidationLevel.Basic)
-            {
-                string? il = null;
-                string? akl = null;
-
-                instanceLocation?.TryPeek(out il);
-                absoluteKeywordLocation?.TryPeek(out akl);
-                result.AddResult(valid: false, message: $"6.1.1.  type - should have been convertible to 'number'.", instanceLocation: il, absoluteKeywordLocation: akl);
-            }
-            else
-            {
-                result.SetValid(false);
-            }
-
-            return result;
         }
     }
 }

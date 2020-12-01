@@ -9,7 +9,6 @@ namespace Menes.ConsoleApp
     using System.Text;
     using System.Text.Json;
     using System.Threading.Tasks;
-    using Driver.GeneratedTypes;
     using Menes.Json.Schema;
     using Menes.JsonSchema.TypeBuilder;
 
@@ -23,10 +22,10 @@ namespace Menes.ConsoleApp
         /// </summary>
         public static void Main()
         {
-            Draft201909Schema entity = new JsonAny("{\"$defs\": {\"foo\": {\"type\": 1}}}").As<Draft201909Schema>();
-            Console.WriteLine(entity.Validate().Valid);
-            entity = entity.SetProperty("type", Draft201909MetaValidation.TypeEntity.SimpleTypesEntity.EnumValues.String);
-            Console.WriteLine(entity.Validate().Valid);
+            ////Draft201909Schema entity = new JsonAny("{\"$defs\": {\"foo\": {\"type\": 1}}}").As<Draft201909Schema>();
+            ////Console.WriteLine(entity.Validate().IsValid);
+            ////entity = entity.SetProperty("type", Draft201909MetaValidation.TypeEntity.SimpleTypesEntity.EnumValues.String);
+            ////Console.WriteLine(entity.Validate().IsValid);
         }
 
         private static async Task BuildJsonObjectType()

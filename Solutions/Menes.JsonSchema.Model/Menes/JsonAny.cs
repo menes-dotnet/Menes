@@ -218,7 +218,7 @@ namespace Menes
         {
             if (typeof(T) == typeof(JsonAny))
             {
-                return this.Validate().Valid;
+                return this.Validate(ValidationContext.ValidContext).IsValid;
             }
 
             if (this.value is T)
@@ -226,7 +226,7 @@ namespace Menes
                 return true;
             }
 
-            return JsonValue.As<JsonAny, T>(this).Validate(ValidationResult.ValidResult, ValidationLevel.Flag).Valid;
+            return JsonValue.As<JsonAny, T>(this).Validate(ValidationContext.ValidContext).IsValid;
         }
 
         /// <inheritdoc/>
@@ -401,22 +401,14 @@ namespace Menes
         }
 
         /// <inheritdoc />
-        public ValidationResult Validate(ValidationResult? validationResult = null, ValidationLevel level = ValidationLevel.Flag, HashSet<string>? evaluatedProperties = null, Stack<string>? absoluteKeywordLocation = null, Stack<string>? instanceLocation = null)
+        public ValidationContext Validate(ValidationContext validationContext, ValidationLevel level = ValidationLevel.Flag)
         {
-            ValidationResult result = validationResult ?? ValidationResult.ValidResult;
-
             if (level == Menes.ValidationLevel.Verbose)
             {
-                string? il = null;
-                string? akl = null;
-
-                instanceLocation?.TryPeek(out il);
-                absoluteKeywordLocation?.TryPeek(out akl);
-
-                result.AddResult(valid: true, message: "6.1.1.  type is '{}'", instanceLocation: il, absoluteKeywordLocation: akl);
+                return validationContext.WithResult(isValid: true, message: "6.1.1.  type is '{}'");
             }
 
-            return result;
+            return validationContext;
         }
 
         /// <inheritdoc />
