@@ -81,6 +81,18 @@ namespace Menes.JsonSchema.TypeBuilder
                 return resolvedElement.JsonElement;
             }
 
+            if (!absoluteLocation.HasUri)
+            {
+                if (this.locatedElementsByLocation.TryGetValue("#", out LocatedElement value))
+                {
+                    if (JsonPointerUtilities.TryResolvePointer(value.JsonElement, absoluteLocation.Fragment, out JsonElement? locatedSchema))
+                    {
+                        this.unresolvedElements.Remove(absoluteLocation.ToString());
+                        return locatedSchema;
+                    }
+                }
+            }
+
             // We need to load the element from the relevant document.
             JsonElement? element = await this.documentResolver.TryResolve(absoluteLocation).ConfigureAwait(false);
             if (element is null)
