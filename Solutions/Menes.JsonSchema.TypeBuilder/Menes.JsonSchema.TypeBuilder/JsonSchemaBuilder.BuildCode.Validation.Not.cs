@@ -27,7 +27,7 @@ namespace Menes.JsonSchema.TypeBuilder
         {
             if (typeDeclaration.Not is not null)
             {
-                memberBuilder.AppendLine("result = ValidateNot(this, result, level, composedEvaluatedProperties, absoluteKeywordLocation, instanceLocation);");
+                memberBuilder.AppendLine("result = ValidateNot(this, result, level);");
             }
         }
 
@@ -35,45 +35,38 @@ namespace Menes.JsonSchema.TypeBuilder
         {
             if (typeDeclaration.Not is TypeDeclaration notType)
             {
-                memberBuilder.AppendLine($"Menes.ValidationResult ValidateNot(in {typeDeclaration.FullyQualifiedDotNetTypeName} that, Menes.ValidationResult validationResult, Menes.ValidationLevel level = Menes.ValidationLevel.Flag, System.Collections.Generic.HashSet<string>? evaluatedProperties = null, System.Collections.Generic.Stack<string>? absoluteKeywordLocation = null, System.Collections.Generic.Stack<string>? instanceLocation = null)");
+                memberBuilder.AppendLine($"Menes.ValidationContext ValidateNot(in {typeDeclaration.FullyQualifiedDotNetTypeName} that, in Menes.ValidationContext validationContext, Menes.ValidationLevel level = Menes.ValidationLevel.Flag)");
                 memberBuilder.AppendLine("{");
+
+                memberBuilder.AppendLine($"Menes.ValidationContext result = validationContext;");
 
                 this.PushPropertyToAbsoluteKeywordLocationStack("not");
 
-                memberBuilder.AppendLine("System.Collections.Generic.HashSet<string> localEvaluatedProperties = new System.Collections.Generic.HashSet<string>();");
+                memberBuilder.AppendLine($"var notValue = that.{this.GetAsMethodNameFor(notType)}();");
+                memberBuilder.AppendLine($"Menes.ValidationContext notResult;");
 
-                this.BuildPushAbsoluteKeywordLocation(memberBuilder, 1);
+                memberBuilder.AppendLine($"if (level == Menes.ValidationLevel.Flag)");
+                memberBuilder.AppendLine("{");
+                memberBuilder.AppendLine($"    notResult = notValue.Validate(validationContext.CreateChildContext(), level);");
+                memberBuilder.AppendLine("}");
+                memberBuilder.AppendLine("else");
+                memberBuilder.AppendLine("{");
+                memberBuilder.AppendLine($"    notResult = notValue.Validate(validationContext.CreateChildContext({Formatting.FormatLiteralOrNull(this.absoluteKeywordLocationStack.Peek(), true)}), level);");
+                memberBuilder.AppendLine("}");
 
-                memberBuilder.AppendLine("localEvaluatedProperties.Clear();");
-
-                memberBuilder.AppendLine($"Menes.ValidationResult notResult;");
-
-                memberBuilder.AppendLine($"var not = that.{this.GetAsMethodNameFor(notType)}();");
-
-                if (typeDeclaration.UnevaluatedProperties is not null)
+                if (typeDeclaration.UnevaluatedProperties is null)
                 {
-                    memberBuilder.AppendLine($"notResult = not.Validate(null, level, localEvaluatedProperties, absoluteKeywordLocation, instanceLocation);");
-                }
-                else
-                {
-                    memberBuilder.AppendLine($"notResult = not.Validate(null, level, localEvaluatedProperties, absoluteKeywordLocation, instanceLocation);");
-
                     // We can short circuit if we are at "flag" level as soon as we find a valid result, but
                     // only if we are not evaluating all the unevaluated properties.
-                    memberBuilder.AppendLine($"if (level == Menes.ValidationLevel.Flag && !notResult.Valid)");
+                    memberBuilder.AppendLine($"if (level == Menes.ValidationLevel.Flag && !notResult.IsValid)");
                     memberBuilder.AppendLine("{");
                     memberBuilder.AppendLine("    return result;");
                     memberBuilder.AppendLine("}");
                 }
 
-                // Merge the evaluated items back into the outer result set, which is the
-                // "composedEvaluatedProperties" collection.
-                memberBuilder.AppendLine("foreach (var item in localEvaluatedProperties)");
-                memberBuilder.AppendLine("{");
-                memberBuilder.AppendLine("    evaluatedProperties.Add(item);");
-                memberBuilder.AppendLine("}");
+                //// Not should *not* merge back from the child context.
 
-                memberBuilder.AppendLine("if (notResult.Valid)");
+                memberBuilder.AppendLine("if (notResult.IsValid)");
                 memberBuilder.AppendLine("{");
                 this.WriteError("9.2.1.4. not", memberBuilder);
                 memberBuilder.AppendLine("}");
@@ -85,7 +78,6 @@ namespace Menes.JsonSchema.TypeBuilder
                 memberBuilder.AppendLine("    return result;");
                 memberBuilder.AppendLine("}");
 
-                this.BuildPopAbsoluteKeywordLocation(memberBuilder, 1);
                 this.absoluteKeywordLocationStack.Pop();
             }
         }

@@ -125,7 +125,7 @@ namespace Menes
         /// <returns>The updated validation context.</returns>
         public ValidationContext WithResult(bool isValid, string? message = null)
         {
-            return new ValidationContext(this.IsValid && isValid, this.LocalEvaluatedItemIndices, this.LocalEvaluatedProperties, this.AppliedEvaluatedItemIndices, this.AppliedEvaluatedProperties, this.KeywordLocationStack, this.Results.Add(new ValidationResult(isValid, message, this.KeywordLocationStack.IsEmpty ? this.KeywordLocationStack.Peek() : null)));
+            return new ValidationContext(this.IsValid && isValid, this.LocalEvaluatedItemIndices, this.LocalEvaluatedProperties, this.AppliedEvaluatedItemIndices, this.AppliedEvaluatedProperties, this.KeywordLocationStack, this.Results.Add(new ValidationResult(isValid, message, this.KeywordLocationStack.IsEmpty ? null : this.KeywordLocationStack.Peek())));
         }
 
         /// <summary>
@@ -156,7 +156,7 @@ namespace Menes
         /// <returns>The updated validation context.</returns>
         public ValidationContext MergeChildContext(ValidationContext childContext, bool includeResults)
         {
-            return new ValidationContext(this.IsValid, this.LocalEvaluatedItemIndices, this.LocalEvaluatedProperties, this.AppliedEvaluatedItemIndices.Union(childContext.LocalEvaluatedItemIndices).Union(childContext.AppliedEvaluatedItemIndices), this.AppliedEvaluatedProperties.Union(childContext.LocalEvaluatedProperties).Union(childContext.AppliedEvaluatedProperties), this.KeywordLocationStack, includeResults ? this.Results.AddRange(childContext.Results) : this.Results);
+            return new ValidationContext(includeResults ? this.IsValid && childContext.IsValid : this.IsValid, this.LocalEvaluatedItemIndices, this.LocalEvaluatedProperties, this.AppliedEvaluatedItemIndices.Union(childContext.LocalEvaluatedItemIndices).Union(childContext.AppliedEvaluatedItemIndices), this.AppliedEvaluatedProperties.Union(childContext.LocalEvaluatedProperties).Union(childContext.AppliedEvaluatedProperties), this.KeywordLocationStack, includeResults ? this.Results.AddRange(childContext.Results) : this.Results);
         }
 
         /// <summary>
@@ -185,6 +185,16 @@ namespace Menes
         public ValidationContext CreateChildContext()
         {
             return new ValidationContext(this.IsValid, null, null, null, null, this.KeywordLocationStack, null);
+        }
+
+        /// <summary>
+        /// Creates a child context from the current location.
+        /// </summary>
+        /// <param name="absoluteKeywordLocation">The (optional) absolute keyword location for the child context.</param>
+        /// <returns>A new (valid) validation context with no evaluated items or properties, at the current location.</returns>
+        public ValidationContext CreateChildContext(string absoluteKeywordLocation)
+        {
+            return new ValidationContext(this.IsValid, null, null, null, null, this.KeywordLocationStack.Push(absoluteKeywordLocation), null);
         }
     }
 }

@@ -13,14 +13,14 @@ namespace Menes.JsonSchema.TypeBuilder
     {
         private void BuildFalseValidation(StringBuilder memberBuilder)
         {
-            memberBuilder.AppendLine("Menes.ValidationResult result = validationResult ?? Menes.ValidationResult.ValidResult;");
+            memberBuilder.AppendLine("Menes.ValidationContext result = validationContext;");
             this.WriteError("core 4.3.2.Boolean JSON Schemas - false", memberBuilder);
             memberBuilder.AppendLine("return result;");
         }
 
         private void BuildTrueValidation(StringBuilder memberBuilder)
         {
-            memberBuilder.AppendLine("Menes.ValidationResult result = validationResult ?? Menes.ValidationResult.ValidResult;");
+            memberBuilder.AppendLine("Menes.ValidationContext result = validationContext ?? Menes.ValidationContext.ValidContext;");
             this.WriteSuccess(memberBuilder);
             memberBuilder.AppendLine("return result;");
         }

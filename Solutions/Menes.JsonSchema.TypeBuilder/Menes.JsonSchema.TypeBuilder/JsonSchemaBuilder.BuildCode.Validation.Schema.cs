@@ -20,7 +20,7 @@ namespace Menes.JsonSchema.TypeBuilder
         /// </summary>
         private void BuildSchemaValidation(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
         {
-            memberBuilder.AppendLine("Menes.ValidationResult result = validationResult ?? Menes.ValidationResult.ValidResult;");
+            memberBuilder.AppendLine("Menes.ValidationContext result = validationContext;");
 
             this.BuildTypeValidations(typeDeclaration, memberBuilder);
             this.BuildFormatValidations(typeDeclaration, memberBuilder);
@@ -72,7 +72,7 @@ namespace Menes.JsonSchema.TypeBuilder
 
             TypeDeclaration type = TypeDeclarations.GetTypeFor(null, typeDeclaration.Format);
             memberBuilder.AppendLine($"result = this.As<{type.FullyQualifiedDotNetTypeName}>().Validate(result);");
-            memberBuilder.AppendLine("if (level == Menes.ValidationLevel.Flag && !result.Valid)");
+            memberBuilder.AppendLine("if (level == Menes.ValidationLevel.Flag && !result.IsValid)");
             memberBuilder.AppendLine("{");
             memberBuilder.AppendLine("    return result;");
             memberBuilder.AppendLine("}");
@@ -92,7 +92,7 @@ namespace Menes.JsonSchema.TypeBuilder
                 memberBuilder.AppendLine("if (!this.IsNumber)");
                 memberBuilder.AppendLine("{");
                 this.WriteError($"6.1.3. const - does not match const value {value.GetRawText()}", memberBuilder);
-                memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.Valid)");
+                memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.IsValid)");
                 memberBuilder.AppendLine("        {");
                 memberBuilder.AppendLine("            return result;");
                 memberBuilder.AppendLine("        }");
@@ -102,7 +102,7 @@ namespace Menes.JsonSchema.TypeBuilder
                 memberBuilder.AppendLine("    if ((double)this != (double)_MenesConstValue)");
                 memberBuilder.AppendLine("    {");
                 this.WriteError($"6.1.3. const - does not match const value {value.GetRawText()}", memberBuilder);
-                memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.Valid)");
+                memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.IsValid)");
                 memberBuilder.AppendLine("        {");
                 memberBuilder.AppendLine("            return result;");
                 memberBuilder.AppendLine("        }");
@@ -118,7 +118,7 @@ namespace Menes.JsonSchema.TypeBuilder
                 memberBuilder.AppendLine("if (!this.IsNull)");
                 memberBuilder.AppendLine("{");
                 this.WriteError($"6.1.3. const - does not match null value", memberBuilder);
-                memberBuilder.AppendLine("    if (level == Menes.ValidationLevel.Flag && !result.Valid)");
+                memberBuilder.AppendLine("    if (level == Menes.ValidationLevel.Flag && !result.IsValid)");
                 memberBuilder.AppendLine("    {");
                 memberBuilder.AppendLine("        return result;");
                 memberBuilder.AppendLine("    }");
@@ -133,7 +133,7 @@ namespace Menes.JsonSchema.TypeBuilder
                 memberBuilder.AppendLine("if (!this.IsBoolean)");
                 memberBuilder.AppendLine("{");
                 this.WriteError($"6.1.3. const - does not match const value {value.GetRawText()}", memberBuilder);
-                memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.Valid)");
+                memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.IsValid)");
                 memberBuilder.AppendLine("        {");
                 memberBuilder.AppendLine("            return result;");
                 memberBuilder.AppendLine("        }");
@@ -143,7 +143,7 @@ namespace Menes.JsonSchema.TypeBuilder
                 memberBuilder.AppendLine("    if ((bool)this != (bool)_MenesConstValue)");
                 memberBuilder.AppendLine("    {");
                 this.WriteError($"6.1.3. const - does not match const value {value.GetRawText()}", memberBuilder);
-                memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.Valid)");
+                memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.IsValid)");
                 memberBuilder.AppendLine("        {");
                 memberBuilder.AppendLine("            return result;");
                 memberBuilder.AppendLine("        }");
@@ -159,7 +159,7 @@ namespace Menes.JsonSchema.TypeBuilder
                 memberBuilder.AppendLine("if (!this.IsString)");
                 memberBuilder.AppendLine("{");
                 this.WriteError($"6.1.3. const - does not match const value {value.GetRawText()}", memberBuilder);
-                memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.Valid)");
+                memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.IsValid)");
                 memberBuilder.AppendLine("        {");
                 memberBuilder.AppendLine("            return result;");
                 memberBuilder.AppendLine("        }");
@@ -169,7 +169,7 @@ namespace Menes.JsonSchema.TypeBuilder
                 memberBuilder.AppendLine("    if (!System.MemoryExtensions.SequenceEqual(this.As<Menes.JsonString>().AsSpan(), _MenesConstValue.AsSpan()))");
                 memberBuilder.AppendLine("    {");
                 this.WriteError($"6.1.3. const - does not match const value {value.GetRawText()}", memberBuilder);
-                memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.Valid)");
+                memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.IsValid)");
                 memberBuilder.AppendLine("        {");
                 memberBuilder.AppendLine("            return result;");
                 memberBuilder.AppendLine("        }");
@@ -185,7 +185,7 @@ namespace Menes.JsonSchema.TypeBuilder
                 memberBuilder.AppendLine("if (!this.IsArray)");
                 memberBuilder.AppendLine("{");
                 this.WriteError($"6.1.3. const - does not match const value {value.GetRawText()}", memberBuilder);
-                memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.Valid)");
+                memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.IsValid)");
                 memberBuilder.AppendLine("        {");
                 memberBuilder.AppendLine("            return result;");
                 memberBuilder.AppendLine("        }");
@@ -233,7 +233,7 @@ namespace Menes.JsonSchema.TypeBuilder
                 memberBuilder.AppendLine("    if (secondEnumerator.MoveNext())");
                 memberBuilder.AppendLine("    {");
                 this.WriteError($"6.1.3. const - does not match const value {value.GetRawText()}", memberBuilder);
-                memberBuilder.AppendLine("           if (level == Menes.ValidationLevel.Flag && !result.Valid)");
+                memberBuilder.AppendLine("           if (level == Menes.ValidationLevel.Flag && !result.IsValid)");
                 memberBuilder.AppendLine("           {");
                 memberBuilder.AppendLine("               return result;");
                 memberBuilder.AppendLine("           }");
@@ -251,7 +251,7 @@ namespace Menes.JsonSchema.TypeBuilder
                 memberBuilder.AppendLine("if (!this.IsObject)");
                 memberBuilder.AppendLine("{");
                 this.WriteError($"6.1.3. const - does not match const value {value.GetRawText()}", memberBuilder);
-                memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.Valid)");
+                memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.IsValid)");
                 memberBuilder.AppendLine("        {");
                 memberBuilder.AppendLine("            return result;");
                 memberBuilder.AppendLine("        }");
@@ -261,7 +261,7 @@ namespace Menes.JsonSchema.TypeBuilder
                 memberBuilder.AppendLine("    if (!this.Equals(_MenesConstValue))");
                 memberBuilder.AppendLine("    {");
                 this.WriteError($"6.1.3. const - does not match const value {value.GetRawText()}", memberBuilder);
-                memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.Valid)");
+                memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.IsValid)");
                 memberBuilder.AppendLine("        {");
                 memberBuilder.AppendLine("            return result;");
                 memberBuilder.AppendLine("        }");
@@ -429,7 +429,7 @@ namespace Menes.JsonSchema.TypeBuilder
             memberBuilder.AppendLine("if (!foundMatch)");
             memberBuilder.AppendLine("{");
             this.WriteError($"6.1.2. enum - does not match enum values {string.Join(", ", values.Select(v => v.GetRawText()))}", memberBuilder);
-            memberBuilder.AppendLine("if (level == Menes.ValidationLevel.Flag && !result.Valid)");
+            memberBuilder.AppendLine("if (level == Menes.ValidationLevel.Flag && !result.IsValid)");
             memberBuilder.AppendLine("{");
             memberBuilder.AppendLine("    return result;");
             memberBuilder.AppendLine("}");
@@ -484,7 +484,7 @@ namespace Menes.JsonSchema.TypeBuilder
                 memberBuilder.AppendLine(")");
                 memberBuilder.AppendLine("{");
                 this.WriteError($"6.1.1.  type - item must be one of {string.Join(",", typeDeclaration.Type)}", memberBuilder);
-                memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.Valid)");
+                memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.IsValid)");
                 memberBuilder.AppendLine("        {");
                 memberBuilder.AppendLine("            return result;");
                 memberBuilder.AppendLine("        }");
@@ -518,7 +518,7 @@ namespace Menes.JsonSchema.TypeBuilder
                     memberBuilder.AppendLine($"    if (System.Math.Abs(System.Math.IEEERemainder((double)number, (double){mo})) > 1.0E-18)");
                     memberBuilder.AppendLine("    {");
                     this.WriteError($"6.2.1.  multipleOf - item must be a multiple of {mo}", memberBuilder);
-                    memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.Valid)");
+                    memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.IsValid)");
                     memberBuilder.AppendLine("        {");
                     memberBuilder.AppendLine("            return result;");
                     memberBuilder.AppendLine("        }");
@@ -530,7 +530,7 @@ namespace Menes.JsonSchema.TypeBuilder
                     memberBuilder.AppendLine($"    if (number > (double){ma})");
                     memberBuilder.AppendLine("    {");
                     this.WriteError($"6.2.2.  maximum - item must be less than or equal to {ma}", memberBuilder);
-                    memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.Valid)");
+                    memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.IsValid)");
                     memberBuilder.AppendLine("        {");
                     memberBuilder.AppendLine("            return result;");
                     memberBuilder.AppendLine("        }");
@@ -542,7 +542,7 @@ namespace Menes.JsonSchema.TypeBuilder
                     memberBuilder.AppendLine($"    if (number >= (double){ema})");
                     memberBuilder.AppendLine("    {");
                     this.WriteError($"6.2.3.  exclusiveMaximum - item must be less then {ema}", memberBuilder);
-                    memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.Valid)");
+                    memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.IsValid)");
                     memberBuilder.AppendLine("        {");
                     memberBuilder.AppendLine("            return result;");
                     memberBuilder.AppendLine("        }");
@@ -554,7 +554,7 @@ namespace Menes.JsonSchema.TypeBuilder
                     memberBuilder.AppendLine($"    if (number < (double){mi})");
                     memberBuilder.AppendLine("    {");
                     this.WriteError($"6.2.4.  minimum - item must be greater than or equal to {mi}", memberBuilder);
-                    memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.Valid)");
+                    memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.IsValid)");
                     memberBuilder.AppendLine("        {");
                     memberBuilder.AppendLine("            return result;");
                     memberBuilder.AppendLine("        }");
@@ -566,7 +566,7 @@ namespace Menes.JsonSchema.TypeBuilder
                     memberBuilder.AppendLine($"    if (number <= (double){emi})");
                     memberBuilder.AppendLine("    {");
                     this.WriteError($"6.2.3.  exclusiveMinimum - item must be greater then {emi}", memberBuilder);
-                    memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.Valid)");
+                    memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.IsValid)");
                     memberBuilder.AppendLine("        {");
                     memberBuilder.AppendLine("            return result;");
                     memberBuilder.AppendLine("        }");
@@ -600,7 +600,7 @@ namespace Menes.JsonSchema.TypeBuilder
                     memberBuilder.AppendLine($"    if (length > {maxl})");
                     memberBuilder.AppendLine("    {");
                     this.WriteError($"6.3.1.  maxLength - value must have length less than or equal to {maxl}", memberBuilder);
-                    memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.Valid)");
+                    memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.IsValid)");
                     memberBuilder.AppendLine("        {");
                     memberBuilder.AppendLine("            return result;");
                     memberBuilder.AppendLine("        }");
@@ -612,7 +612,7 @@ namespace Menes.JsonSchema.TypeBuilder
                     memberBuilder.AppendLine($"    if (length < {minl})");
                     memberBuilder.AppendLine("    {");
                     this.WriteError($"6.3.2.  minimum - value must have length greater than or equal to {minl}", memberBuilder);
-                    memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.Valid)");
+                    memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.IsValid)");
                     memberBuilder.AppendLine("        {");
                     memberBuilder.AppendLine("            return result;");
                     memberBuilder.AppendLine("        }");
@@ -624,7 +624,7 @@ namespace Menes.JsonSchema.TypeBuilder
                     memberBuilder.AppendLine($"    if (!_MenesPatternExpression.IsMatch(value))");
                     memberBuilder.AppendLine("    {");
                     this.WriteError($"6.3.3.  pattern - value must match the regular expression {pattern}", memberBuilder);
-                    memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.Valid)");
+                    memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.IsValid)");
                     memberBuilder.AppendLine("        {");
                     memberBuilder.AppendLine("            return result;");
                     memberBuilder.AppendLine("        }");
@@ -666,8 +666,8 @@ namespace Menes.JsonSchema.TypeBuilder
                 {
                     memberBuilder.AppendLine($"if (property.NameEquals({Formatting.FormatLiteralOrNull(dependentSchema.PropertyName, true)}))");
                     memberBuilder.AppendLine("{");
-                    memberBuilder.AppendLine("        evaluatedProperties?.Add(property.Name);");
-                    memberBuilder.AppendLine($"    result = this.As<{dependentSchema.Schema.FullyQualifiedDotNetTypeName}>().Validate(result, level, evaluatedProperties, absoluteKeywordLocation, instanceLocation);");
+                    memberBuilder.AppendLine("        result = result.WithLocalProperty(property.Name);");
+                    memberBuilder.AppendLine($"    result = this.As<{dependentSchema.Schema.FullyQualifiedDotNetTypeName}>().Validate(result, level);");
                     memberBuilder.AppendLine("}");
                 }
             }
@@ -675,8 +675,8 @@ namespace Menes.JsonSchema.TypeBuilder
             if (typeDeclaration.PropertyNames is TypeDeclaration propertyNames)
             {
                 memberBuilder.AppendLine($"var propertyName = new Menes.JsonString(property.NameAsMemory).As<{propertyNames.FullyQualifiedDotNetTypeName}>();");
-                memberBuilder.AppendLine($"result = propertyName.Validate(result, level, null, absoluteKeywordLocation, instanceLocation);");
-                memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.Valid)");
+                memberBuilder.AppendLine($"result = propertyName.Validate(result, level);");
+                memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.IsValid)");
                 memberBuilder.AppendLine("        {");
                 memberBuilder.AppendLine("            return result;");
                 memberBuilder.AppendLine("        }");
@@ -695,9 +695,9 @@ namespace Menes.JsonSchema.TypeBuilder
                 {
                     memberBuilder.AppendLine($"    if (_MenesPatternExpression{patternIndex}.IsMatch(property.Name))");
                     memberBuilder.AppendLine("    {");
-                    memberBuilder.AppendLine("        evaluatedProperties?.Add(property.Name);");
-                    memberBuilder.AppendLine($"        result = property.Value<{patternProperty.Schema.FullyQualifiedDotNetTypeName}>().Validate(result, level, null, absoluteKeywordLocation, instanceLocation);");
-                    memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.Valid)");
+                    memberBuilder.AppendLine("        result = result.WithLocalProperty(property.Name);");
+                    memberBuilder.AppendLine($"        result = property.Value<{patternProperty.Schema.FullyQualifiedDotNetTypeName}>().Validate(result, level);");
+                    memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.IsValid)");
                     memberBuilder.AppendLine("        {");
                     memberBuilder.AppendLine("            return result;");
                     memberBuilder.AppendLine("        }");
@@ -710,11 +710,11 @@ namespace Menes.JsonSchema.TypeBuilder
             {
                 if (typeDeclaration.AdditionalProperties is not null)
                 {
-                    memberBuilder.AppendLine($"    if (!evaluatedProperties?.Contains(property.Name) ?? true)");
+                    memberBuilder.AppendLine($"    if (!result.HasEvaluatedLocalProperty(property.Name))");
                     memberBuilder.AppendLine("    {");
-                    memberBuilder.AppendLine("        evaluatedProperties?.Add(property.Name);");
-                    memberBuilder.AppendLine($"        result = property.Value<{typeDeclaration.AdditionalProperties.FullyQualifiedDotNetTypeName}>().Validate(result, level, null, absoluteKeywordLocation, instanceLocation);");
-                    memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.Valid)");
+                    memberBuilder.AppendLine("        result = result.WithLocalProperty(property.Name);");
+                    memberBuilder.AppendLine($"        result = property.Value<{typeDeclaration.AdditionalProperties.FullyQualifiedDotNetTypeName}>().Validate(result, level);");
+                    memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.IsValid)");
                     memberBuilder.AppendLine("        {");
                     memberBuilder.AppendLine("            return result;");
                     memberBuilder.AppendLine("        }");
@@ -722,20 +722,20 @@ namespace Menes.JsonSchema.TypeBuilder
                 }
                 else if (typeDeclaration.UnevaluatedProperties is TypeDeclaration unevaluatedProperties)
                 {
-                    memberBuilder.AppendLine($"    if (!(evaluatedProperties?.Contains(property.Name) ?? true) && !(composedEvaluatedProperties?.Contains(property.Name) ?? true))");
+                    memberBuilder.AppendLine($"    if (!result.HasEvaluatedLocalOrAppliedProperty(property.Name))");
                     memberBuilder.AppendLine("    {");
-                    memberBuilder.AppendLine($"        result = property.Value<{unevaluatedProperties.FullyQualifiedDotNetTypeName}>().Validate(result, level, null, absoluteKeywordLocation, instanceLocation);");
-                    memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.Valid)");
+                    memberBuilder.AppendLine($"        result = property.Value<{unevaluatedProperties.FullyQualifiedDotNetTypeName}>().Validate(result, level);");
+                    memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.IsValid)");
                     memberBuilder.AppendLine("        {");
                     memberBuilder.AppendLine("            return result;");
                     memberBuilder.AppendLine("        }");
-                    memberBuilder.AppendLine("        evaluatedProperties?.Add(property.Name);");
+                    memberBuilder.AppendLine("        result = result.WithLocalProperty(property.Name);");
                     memberBuilder.AppendLine("    }");
                 }
             }
             else if (!typeDeclaration.AllowsAdditionalProperties)
             {
-                memberBuilder.AppendLine($"    if (!evaluatedProperties?.Contains(property.Name) ?? true)");
+                memberBuilder.AppendLine($"    if (!result.HasEvaluatedLocalProperty(property.Name))");
                 memberBuilder.AppendLine("    {");
                 this.WriteError("9.3.2.3. additionalProperties - additional properties are not permitted.", memberBuilder);
                 memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag)");
@@ -795,7 +795,7 @@ namespace Menes.JsonSchema.TypeBuilder
                         memberBuilder.AppendLine($"if (!this.HasProperty({Formatting.FormatLiteralOrNull(required, true)}))");
                         memberBuilder.AppendLine("{");
                         this.WriteError($"6.5.4.  dependentRequired - because you have property {dr.Key} you must have property {required}.", memberBuilder);
-                        memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.Valid)");
+                        memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.IsValid)");
                         memberBuilder.AppendLine("        {");
                         memberBuilder.AppendLine("            return result;");
                         memberBuilder.AppendLine("        }");
@@ -824,12 +824,11 @@ namespace Menes.JsonSchema.TypeBuilder
                     }
 
                     this.PushPropertyToAbsoluteKeywordLocationStack(property.JsonPropertyName!);
-                    this.BuildPushAbsoluteKeywordLocation(memberBuilder, index);
-                    memberBuilder.AppendLine($"    evaluatedProperties?.Add({Formatting.FormatLiteralOrNull(property.JsonPropertyName, true)});");
+                    memberBuilder.AppendLine($"    result = result.WithLocalProperty({Formatting.FormatLiteralOrNull(property.JsonPropertyName, true)});");
                     memberBuilder.AppendLine($"    if (this.TryGetProperty<{property.TypeDeclaration!.FullyQualifiedDotNetTypeName}>(_Menes{property.DotnetPropertyName}JsonPropertyName.Span, out {property.TypeDeclaration!.FullyQualifiedDotNetTypeName} value{index}))");
                     memberBuilder.AppendLine("    {");
-                    memberBuilder.AppendLine($"        result = value{index}.Validate(result, level, null, absoluteKeywordLocation, instanceLocation);");
-                    memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.Valid)");
+                    memberBuilder.AppendLine($"        result = value{index}.Validate(result, level);");
+                    memberBuilder.AppendLine("        if (level == Menes.ValidationLevel.Flag && !result.IsValid)");
                     memberBuilder.AppendLine("        {");
                     memberBuilder.AppendLine("            return result;");
                     memberBuilder.AppendLine("        }");
@@ -852,7 +851,6 @@ namespace Menes.JsonSchema.TypeBuilder
 
                     memberBuilder.AppendLine("    }");
 
-                    this.BuildPopAbsoluteKeywordLocation(memberBuilder, index);
                     this.absoluteKeywordLocationStack.Pop();
                     index++;
                 }

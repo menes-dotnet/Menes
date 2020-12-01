@@ -379,7 +379,7 @@ namespace Menes.JsonSchema.TypeBuilder
             memberBuilder.AppendLine("{");
             memberBuilder.AppendLine($"if (typeof(T) == typeof({typeDeclaration.FullyQualifiedDotNetTypeName}))");
             memberBuilder.AppendLine("{");
-            memberBuilder.AppendLine("    return this.Validate().Valid;");
+            memberBuilder.AppendLine("    return this.Validate(Menes.ValidationContext.ValidContext).IsValid;");
             memberBuilder.AppendLine("}");
 
             if (typeDeclaration.IsConcreteOneOf)
@@ -388,7 +388,7 @@ namespace Menes.JsonSchema.TypeBuilder
                 {
                     memberBuilder.AppendLine($"if (typeof(T) == typeof({oneOfType.FullyQualifiedDotNetTypeName}) && this._menes{Formatting.ToPascalCaseWithReservedWords(oneOfType.FullyQualifiedDotNetTypeName!).ToString()}OneOfBacking is not null)");
                     memberBuilder.AppendLine("{");
-                    memberBuilder.AppendLine($"    return this._menes{Formatting.ToPascalCaseWithReservedWords(oneOfType.FullyQualifiedDotNetTypeName!).ToString()}OneOfBacking.Value!.Validate().Valid;");
+                    memberBuilder.AppendLine($"    return this._menes{Formatting.ToPascalCaseWithReservedWords(oneOfType.FullyQualifiedDotNetTypeName!).ToString()}OneOfBacking.Value!.Validate(Menes.ValidationContext.ValidContext).IsValid;");
                     memberBuilder.AppendLine("}");
                 }
             }
@@ -399,12 +399,12 @@ namespace Menes.JsonSchema.TypeBuilder
                 {
                     memberBuilder.AppendLine($"if (typeof(T) == typeof({anyOfType.FullyQualifiedDotNetTypeName}) && this._menes{Formatting.ToPascalCaseWithReservedWords(anyOfType.FullyQualifiedDotNetTypeName!).ToString()}AnyOfBacking is not null)");
                     memberBuilder.AppendLine("{");
-                    memberBuilder.AppendLine($"    return this._menes{Formatting.ToPascalCaseWithReservedWords(anyOfType.FullyQualifiedDotNetTypeName!).ToString()}AnyOfBacking.Value!.Validate().Valid;");
+                    memberBuilder.AppendLine($"    return this._menes{Formatting.ToPascalCaseWithReservedWords(anyOfType.FullyQualifiedDotNetTypeName!).ToString()}AnyOfBacking.Value!.Validate(Menes.ValidationContext.ValidContext).IsValid;");
                     memberBuilder.AppendLine("}");
                 }
             }
 
-            memberBuilder.AppendLine("    return this.As<T>().Validate().Valid;");
+            memberBuilder.AppendLine("    return this.As<T>().Validate(Menes.ValidationContext.ValidContext).IsValid;");
             memberBuilder.AppendLine("}");
 
             this.BuildIfThenElseAsMethods(typeDeclaration, memberBuilder);

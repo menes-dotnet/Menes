@@ -41,7 +41,7 @@ namespace Menes.JsonSchema.TypeBuilder
         {
             if (typeDeclaration.OneOf is List<TypeDeclaration>)
             {
-                memberBuilder.AppendLine("result = ValidateOneOf(this, result, level, composedEvaluatedProperties, absoluteKeywordLocation, instanceLocation);");
+                memberBuilder.AppendLine("result = ValidateOneOf(this, result, level);");
             }
         }
 
@@ -51,25 +51,30 @@ namespace Menes.JsonSchema.TypeBuilder
             {
                 this.PushPropertyToAbsoluteKeywordLocationStack("oneOf");
 
-                memberBuilder.AppendLine($"Menes.ValidationResult ValidateOneOf(in {typeDeclaration.FullyQualifiedDotNetTypeName} that, Menes.ValidationResult validationResult, Menes.ValidationLevel level = Menes.ValidationLevel.Flag, System.Collections.Generic.HashSet<string>? evaluatedProperties = null, System.Collections.Generic.Stack<string>? absoluteKeywordLocation = null, System.Collections.Generic.Stack<string>? instanceLocation = null)");
+                memberBuilder.AppendLine($"Menes.ValidationContext ValidateOneOf(in {typeDeclaration.FullyQualifiedDotNetTypeName} that, in Menes.ValidationContext validationContext, Menes.ValidationLevel level = Menes.ValidationLevel.Flag)");
                 memberBuilder.AppendLine("{");
-                memberBuilder.AppendLine("  Menes.ValidationResult result = validationResult;");
-                memberBuilder.AppendLine("System.Collections.Generic.HashSet<string> localEvaluatedProperties = new System.Collections.Generic.HashSet<string>();");
+                memberBuilder.AppendLine("  Menes.ValidationContext result = validationContext;");
 
                 memberBuilder.AppendLine("int oneOfCount = 0;");
                 int oneOfIndex = 0;
                 foreach (TypeDeclaration oneOfType in typeDeclaration.OneOf)
                 {
                     this.PushArrayIndexToAbsoluteKeywordLocationStack(oneOfIndex);
-                    this.BuildPushAbsoluteKeywordLocation(memberBuilder, oneOfIndex);
-
-                    memberBuilder.AppendLine("localEvaluatedProperties.Clear();");
 
                     memberBuilder.AppendLine($"var oneOf{oneOfIndex} = that.{this.GetAsMethodNameFor(oneOfType)}();");
 
-                    memberBuilder.AppendLine($"var oneOfResult{oneOfIndex} = oneOf{oneOfIndex}.Validate(null, level, localEvaluatedProperties, absoluteKeywordLocation, instanceLocation);");
+                    memberBuilder.AppendLine($"Menes.ValidationContext oneOfResult{oneOfIndex};");
 
-                    memberBuilder.AppendLine($"if (oneOfResult{oneOfIndex}.Valid)");
+                    memberBuilder.AppendLine($"if (level == Menes.ValidationLevel.Flag)");
+                    memberBuilder.AppendLine("{");
+                    memberBuilder.AppendLine($"    oneOfResult{oneOfIndex} = oneOf{oneOfIndex}.Validate(validationContext.CreateChildContext(), level);");
+                    memberBuilder.AppendLine("}");
+                    memberBuilder.AppendLine("else");
+                    memberBuilder.AppendLine("{");
+                    memberBuilder.AppendLine($"    oneOfResult{oneOfIndex} = oneOf{oneOfIndex}.Validate(validationContext.CreateChildContext({Formatting.FormatLiteralOrNull(this.absoluteKeywordLocationStack.Peek(), true)}), level);");
+                    memberBuilder.AppendLine("}");
+
+                    memberBuilder.AppendLine($"if (oneOfResult{oneOfIndex}.IsValid)");
                     memberBuilder.AppendLine("{");
                     memberBuilder.AppendLine("    oneOfCount++;");
 
@@ -86,14 +91,9 @@ namespace Menes.JsonSchema.TypeBuilder
 
                     memberBuilder.AppendLine("}");
 
-                    // Merge the evaluated items back into the outer result set, which is the
-                    // "composedEvaluatedProperties" collection.
-                    memberBuilder.AppendLine("foreach (var item in localEvaluatedProperties)");
-                    memberBuilder.AppendLine("{");
-                    memberBuilder.AppendLine("    evaluatedProperties.Add(item);");
-                    memberBuilder.AppendLine("}");
+                    // Merge the evaluated items back into the outer result set
+                    memberBuilder.AppendLine($"result = result.MergeChildContext(oneOfResult{oneOfIndex}, false);");
 
-                    this.BuildPopAbsoluteKeywordLocation(memberBuilder, oneOfIndex);
                     this.absoluteKeywordLocationStack.Pop();
                     ++oneOfIndex;
                 }
