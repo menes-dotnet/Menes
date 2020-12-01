@@ -152,14 +152,14 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         public static readonly TypeDeclaration ClrUriRawTypeDeclaration = new TypeDeclaration(builtInType: true) { DotnetTypeName = "System.Uri" };
 
         /// <summary>
-        /// A clr <see cref="System.Memory{T}"/> of <see cref="byte"/> type.
+        /// A clr <see cref="JsonBase64String"/> type.
         /// </summary>
-        public static readonly TypeDeclaration ClrByteArrayTypeDeclaration = new TypeDeclaration(builtInType: true) { DotnetTypeName = "Menes.JsonByteArray" };
+        public static readonly TypeDeclaration ClrBase64StringTypeDeclaration = new TypeDeclaration(builtInType: true) { DotnetTypeName = "Menes.JsonBase64String" };
 
         /// <summary>
-        /// A clr <see cref="System.Memory{T}"/> of <see cref="byte"/> type.
+        /// A clr <see cref="JsonBase64String"/> type.
         /// </summary>
-        public static readonly TypeDeclaration ClrByteArrayRawTypeDeclaration = new TypeDeclaration(builtInType: true) { DotnetTypeName = "System.Memory<byte>" };
+        public static readonly TypeDeclaration ClrBase64StringRawTypeDeclaration = new TypeDeclaration(builtInType: true) { DotnetTypeName = "System.Memory<byte>" };
 
         /// <summary>
         /// A clr <see cref="NodaTime.LocalDate"/> type.

@@ -48,6 +48,16 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         public string? Namespace { get; set; }
 
         /// <summary>
+        /// Gets or sets the content media type.
+        /// </summary>
+        public string? ContentMediaType { get; set; }
+
+        /// <summary>
+        /// Gets or sets the content encoding.
+        /// </summary>
+        public string? ContentEncoding { get; set; }
+
+        /// <summary>
         /// Gets the fully qualified dotnet name of the type.
         /// </summary>
         public string? FullyQualifiedDotNetTypeName

@@ -44,7 +44,7 @@ namespace Menes.JsonSchema.TypeBuilder
                 if (!typeDeclaration.IsBooleanSchema)
                 {
                     await this.AddRef(schema, typeDeclaration).ConfigureAwait(false);
-                    this.AddTypeAndFormat(schema, typeDeclaration);
+                    this.AddTypeFormatAndEncoding(schema, typeDeclaration);
                     await this.AddAdditionalProperties(schema, typeDeclaration).ConfigureAwait(false);
                     await this.AddAllOf(schema, typeDeclaration).ConfigureAwait(false);
                     await this.AddAnyOf(schema, typeDeclaration).ConfigureAwait(false);
@@ -493,10 +493,37 @@ namespace Menes.JsonSchema.TypeBuilder
         /// <summary>
         /// Adds the type array to the declaration.
         /// </summary>
-        private void AddTypeAndFormat(LocatedElement schema, TypeDeclaration typeDeclaration)
+        private void AddTypeFormatAndEncoding(LocatedElement schema, TypeDeclaration typeDeclaration)
         {
             if (schema.JsonElement.ValueKind == JsonValueKind.Object)
             {
+                if (schema.JsonElement.TryGetProperty("contentMediaType", out JsonElement contentMediaType))
+                {
+                    typeDeclaration.ContentMediaType = contentMediaType.GetString();
+                }
+
+                if (schema.JsonElement.TryGetProperty("contentEncoding", out JsonElement contentEncoding))
+                {
+                    typeDeclaration.ContentEncoding = contentEncoding.GetString();
+                }
+
+                if (typeDeclaration.ContentMediaType is string cmt && cmt == "application/json")
+                {
+                    if (typeDeclaration.ContentEncoding is string ce && ce == "base64")
+                    {
+                        typeDeclaration.Reference = TypeDeclarations.ClrBase64StringTypeDeclaration;
+                    }
+                    else
+                    {
+                        typeDeclaration.Reference = TypeDeclarations.ClrBase64StringTypeDeclaration;
+                    }
+                }
+
+                if (typeDeclaration.ContentMediaType is null && typeDeclaration.ContentEncoding is string ce2 && ce2 == "base64")
+                {
+                    typeDeclaration.Reference = TypeDeclarations.ClrBase64StringTypeDeclaration;
+                }
+
                 if (schema.JsonElement.TryGetProperty("format", out JsonElement format))
                 {
                     ValidateString(format);

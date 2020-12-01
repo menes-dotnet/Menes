@@ -17,7 +17,7 @@ namespace Menes
         /// </summary>
         public static readonly JsonBase64String Null = default;
 
-        private readonly string? value;
+        private readonly Memory<byte>? value;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="JsonBase64String"/> struct.
@@ -33,9 +33,41 @@ namespace Menes
         /// Initializes a new instance of the <see cref="JsonBase64String"/> struct.
         /// </summary>
         /// <param name="value">The backing base64-encoded string.</param>
-        public JsonBase64String(string value)
+        public JsonBase64String(Memory<byte> value)
         {
             this.value = value;
+            this.JsonElement = default;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="JsonBase64String"/> struct.
+        /// </summary>
+        /// <param name="value">The backing base64-encoded string.</param>
+        public JsonBase64String(Span<byte> value)
+        {
+            this.value = value.ToArray();
+            this.JsonElement = default;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="JsonBase64String"/> struct.
+        /// </summary>
+        /// <param name="value">The backing base64-encoded string.</param>
+        public JsonBase64String(string value)
+        {
+            this.value = Convert.FromBase64String(value);
+            this.JsonElement = default;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="JsonBase64String"/> struct.
+        /// </summary>
+        /// <param name="value">The backing base64-encoded string.</param>
+        public JsonBase64String(Span<char> value)
+        {
+            Span<byte> bytes = stackalloc byte[value.Length];
+            Convert.TryFromBase64Chars(value, bytes, out int bytesWritten);
+            this.value = bytes.Slice(0, bytesWritten).ToArray();
             this.JsonElement = default;
         }
 
@@ -52,7 +84,7 @@ namespace Menes
         public bool IsInteger => false;
 
         /// <inheritdoc />
-        public bool IsString => true;
+        public bool IsString => this.JsonElement.ValueKind == JsonValueKind.String || this.value is not null;
 
         /// <inheritdoc />
         public bool IsObject => false;
@@ -70,7 +102,7 @@ namespace Menes
         public JsonElement JsonElement { get; }
 
         /// <summary>
-        /// Implicit conversion from <see cref="Guid"/>.
+        /// Implicit conversion from a base64 encoded string.
         /// </summary>
         /// <param name="value">The bool value from which to convert.</param>
         public static implicit operator JsonBase64String(string value)
@@ -88,19 +120,37 @@ namespace Menes
         }
 
         /// <summary>
-        /// Implicit conversion from <see cref="Guid"/>.
+        /// Implicit conversion from a base64 encoded string.
         /// </summary>
         /// <param name="value">The bool value from which to convert.</param>
-        public static implicit operator JsonBase64String(byte[] value)
+        public static implicit operator JsonBase64String(Span<char> value)
         {
-            return new JsonBase64String(Convert.ToBase64String(value));
+            return new JsonBase64String(value);
         }
 
         /// <summary>
-        /// Implicit conversion to a base64-encoded <see cref="string"/>.
+        /// Implicit conversion from a base64 encoded string.
         /// </summary>
         /// <param name="value">The bool value from which to convert.</param>
-        public static implicit operator byte[](JsonBase64String value)
+        public static implicit operator JsonBase64String(Span<byte> value)
+        {
+            return new JsonBase64String(value);
+        }
+
+        /// <summary>
+        /// Implicit conversion from <see cref="Memory{T}"/> of <see cref="byte"/>.
+        /// </summary>
+        /// <param name="value">The bool value from which to convert.</param>
+        public static implicit operator JsonBase64String(Memory<byte> value)
+        {
+            return new JsonBase64String(value);
+        }
+
+        /// <summary>
+        /// Implicit conversion to a <see cref="Memory{T}"/> of <see cref="byte"/>.
+        /// </summary>
+        /// <param name="value">The bool value from which to convert.</param>
+        public static implicit operator Memory<byte>(JsonBase64String value)
         {
             return value.GetByteArrayFromBase64EncodedString();
         }
@@ -111,16 +161,16 @@ namespace Menes
         /// <returns>The <see cref="bool"/>.</returns>
         public string GetBase64EncodedString()
         {
-            return (this.HasJsonElement ? this.JsonElement.GetString() : this.value) ?? string.Empty;
+            return (this.HasJsonElement ? this.JsonElement.GetString() : (this.value is Memory<byte> v ? Convert.ToBase64String(v.Span) : null)) ?? string.Empty;
         }
 
         /// <summary>
         /// Gets the JsonBase64 string as a byte array.
         /// </summary>
         /// <returns>The byte array represented by the Base64 encoded string.</returns>
-        public byte[] GetByteArrayFromBase64EncodedString()
+        public Memory<byte> GetByteArrayFromBase64EncodedString()
         {
-            return (this.HasJsonElement ? this.Parse(this.JsonElement) : (this.value is string v ? Convert.FromBase64String(v) : null)) ?? new byte[0];
+            return (this.HasJsonElement ? this.Parse(this.JsonElement) : this.value) ?? Memory<byte>.Empty;
         }
 
         /// <inheritdoc />
@@ -141,7 +191,7 @@ namespace Menes
         {
             if (typeof(T) == typeof(JsonBase64String))
             {
-                return this.Validate(ValidationContext.ValidContext).IsValid;
+                return this.IsString && this.Validate(ValidationContext.ValidContext).IsValid;
             }
 
             return this.As<T>().Validate(ValidationContext.ValidContext).IsValid;
@@ -156,18 +206,24 @@ namespace Menes
                 return false;
             }
 
-            JsonBase64String otherGuid = other.As<JsonBase64String>();
-            if (!otherGuid.Validate(ValidationContext.ValidContext).IsValid)
+            JsonBase64String otherBase64String = other.As<JsonBase64String>();
+            if (!otherBase64String.Validate(ValidationContext.ValidContext).IsValid)
             {
                 return false;
             }
 
-            return (string)this == otherGuid;
+            return this.GetByteArrayFromBase64EncodedString().Span.SequenceEqual(otherBase64String.GetByteArrayFromBase64EncodedString().Span);
         }
 
         /// <inheritdoc />
         public ValidationContext Validate(ValidationContext validationContext, ValidationLevel level = ValidationLevel.Flag)
         {
+            if (!this.IsString)
+            {
+                // Ignore non-strings.
+                return validationContext;
+            }
+
             if (this.HasJsonElement && (this.JsonElement.ValueKind != JsonValueKind.String || this.Parse(this.JsonElement) is null))
             {
                 if (level >= ValidationLevel.Basic)
@@ -199,9 +255,9 @@ namespace Menes
                 return;
             }
 
-            if (this.value is string v)
+            if (this.value is Memory<byte> v)
             {
-                writer.WriteStringValue(v);
+                writer.WriteBase64StringValue(v.Span);
             }
             else
             {
@@ -216,7 +272,7 @@ namespace Menes
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("StyleCop.CSharp.SpacingRules", "SA1011:Closing square brackets should be spaced correctly", Justification = "Stylecop is not dealing with nullable arrays.")]
-        private byte[]? Parse(JsonElement jsonElement)
+        private Memory<byte>? Parse(JsonElement jsonElement)
         {
             if (jsonElement.TryGetBytesFromBase64(out byte[]? value))
             {
