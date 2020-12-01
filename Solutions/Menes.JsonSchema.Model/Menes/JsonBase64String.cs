@@ -8,7 +8,7 @@ namespace Menes
     using System.Text.Json;
 
     /// <summary>
-    /// Represents the uuid json type.
+    /// Represents the contentEncoding base64 json type.
     /// </summary>
     public readonly struct JsonBase64String : IJsonValue
     {

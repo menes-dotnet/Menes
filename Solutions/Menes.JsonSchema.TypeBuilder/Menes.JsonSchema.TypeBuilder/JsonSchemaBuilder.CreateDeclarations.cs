@@ -515,7 +515,7 @@ namespace Menes.JsonSchema.TypeBuilder
                     }
                     else
                     {
-                        typeDeclaration.Reference = TypeDeclarations.ClrBase64StringTypeDeclaration;
+                        typeDeclaration.Reference = TypeDeclarations.ClrContentTypeDeclaration;
                     }
                 }
 

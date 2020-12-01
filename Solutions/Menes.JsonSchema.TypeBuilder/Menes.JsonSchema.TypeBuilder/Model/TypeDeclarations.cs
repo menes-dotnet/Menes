@@ -162,6 +162,11 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         public static readonly TypeDeclaration ClrBase64ContentTypeDeclaration = new TypeDeclaration(builtInType: true) { DotnetTypeName = "Menes.JsonBase64Content" };
 
         /// <summary>
+        /// A clr <see cref="JsonContent"/> type.
+        /// </summary>
+        public static readonly TypeDeclaration ClrContentTypeDeclaration = new TypeDeclaration(builtInType: true) { DotnetTypeName = "Menes.JsonContent" };
+
+        /// <summary>
         /// A clr <see cref="NodaTime.LocalDate"/> type.
         /// </summary>
         public static readonly TypeDeclaration ClrDateTypeDeclaration = new TypeDeclaration(builtInType: true) { DotnetTypeName = "Menes.JsonDate" };
