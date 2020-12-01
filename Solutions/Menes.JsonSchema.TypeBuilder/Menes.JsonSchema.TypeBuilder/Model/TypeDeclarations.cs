@@ -157,9 +157,9 @@ namespace Menes.JsonSchema.TypeBuilder.Model
         public static readonly TypeDeclaration ClrBase64StringTypeDeclaration = new TypeDeclaration(builtInType: true) { DotnetTypeName = "Menes.JsonBase64String" };
 
         /// <summary>
-        /// A clr <see cref="JsonBase64String"/> type.
+        /// A clr <see cref="JsonBase64Content"/> type.
         /// </summary>
-        public static readonly TypeDeclaration ClrBase64StringRawTypeDeclaration = new TypeDeclaration(builtInType: true) { DotnetTypeName = "System.Memory<byte>" };
+        public static readonly TypeDeclaration ClrBase64ContentTypeDeclaration = new TypeDeclaration(builtInType: true) { DotnetTypeName = "Menes.JsonBase64Content" };
 
         /// <summary>
         /// A clr <see cref="NodaTime.LocalDate"/> type.

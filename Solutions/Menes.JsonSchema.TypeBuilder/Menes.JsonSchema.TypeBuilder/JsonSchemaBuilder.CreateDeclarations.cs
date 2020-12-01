@@ -511,7 +511,7 @@ namespace Menes.JsonSchema.TypeBuilder
                 {
                     if (typeDeclaration.ContentEncoding is string ce && ce == "base64")
                     {
-                        typeDeclaration.Reference = TypeDeclarations.ClrBase64StringTypeDeclaration;
+                        typeDeclaration.Reference = TypeDeclarations.ClrBase64ContentTypeDeclaration;
                     }
                     else
                     {
