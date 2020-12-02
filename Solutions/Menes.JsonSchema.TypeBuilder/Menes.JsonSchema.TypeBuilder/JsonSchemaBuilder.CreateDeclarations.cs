@@ -57,6 +57,8 @@ namespace Menes.JsonSchema.TypeBuilder
                     await this.AddObjectValidations(schema, typeDeclaration).ConfigureAwait(false);
                     await this.AddArrayValidations(schema, typeDeclaration).ConfigureAwait(false);
                     await this.FindProperties(schema, typeDeclaration).ConfigureAwait(false);
+
+                    UpdateTypeNameWithTypeInformation(typeDeclaration);
                 }
 
                 if (typeDeclaration.IsEmpty && !typeDeclaration.IsBooleanSchema)

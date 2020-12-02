@@ -85,7 +85,7 @@ namespace Menes.JsonSchema
         private readonly Draft201909MetaValidation.NonNegativeIntegerValue? minContains;
         private readonly Draft201909MetaValidation.NonNegativeIntegerValue? maxProperties;
         private readonly Draft201909MetaValidation.NonNegativeIntegerValue? minProperties;
-        private readonly Draft201909MetaValidation.StringArrayEntity? required;
+        private readonly Draft201909MetaValidation.StringArray? required;
         private readonly Draft201909MetaValidation.DependentRequiredEntity? dependentRequired;
         private readonly Menes.JsonAny? @const;
         private readonly Draft201909MetaValidation.EnumArray? @enum;
@@ -116,7 +116,7 @@ namespace Menes.JsonSchema
             this.@enum = default;
             this.type = default;
         }
-        public Draft201909MetaValidation(Draft201909MetaValidation.MultipleOfValue? multipleOf = null, Menes.JsonNumber? maximum = null, Menes.JsonNumber? exclusiveMaximum = null, Menes.JsonNumber? minimum = null, Menes.JsonNumber? exclusiveMinimum = null, Draft201909MetaValidation.NonNegativeIntegerValue? maxLength = null, Draft201909MetaValidation.NonNegativeIntegerValue? minLength = null, Menes.JsonRegex? pattern = null, Draft201909MetaValidation.NonNegativeIntegerValue? maxItems = null, Draft201909MetaValidation.NonNegativeIntegerValue? minItems = null, Menes.JsonBoolean? uniqueItems = null, Draft201909MetaValidation.NonNegativeIntegerValue? maxContains = null, Draft201909MetaValidation.NonNegativeIntegerValue? minContains = null, Draft201909MetaValidation.NonNegativeIntegerValue? maxProperties = null, Draft201909MetaValidation.NonNegativeIntegerValue? minProperties = null, Draft201909MetaValidation.StringArrayEntity? required = null, Draft201909MetaValidation.DependentRequiredEntity? dependentRequired = null, Menes.JsonAny? @const = null, Draft201909MetaValidation.EnumArray? @enum = null, Draft201909MetaValidation.TypeEntity? type = null)
+        public Draft201909MetaValidation(Draft201909MetaValidation.MultipleOfValue? multipleOf = null, Menes.JsonNumber? maximum = null, Menes.JsonNumber? exclusiveMaximum = null, Menes.JsonNumber? minimum = null, Menes.JsonNumber? exclusiveMinimum = null, Draft201909MetaValidation.NonNegativeIntegerValue? maxLength = null, Draft201909MetaValidation.NonNegativeIntegerValue? minLength = null, Menes.JsonRegex? pattern = null, Draft201909MetaValidation.NonNegativeIntegerValue? maxItems = null, Draft201909MetaValidation.NonNegativeIntegerValue? minItems = null, Menes.JsonBoolean? uniqueItems = null, Draft201909MetaValidation.NonNegativeIntegerValue? maxContains = null, Draft201909MetaValidation.NonNegativeIntegerValue? minContains = null, Draft201909MetaValidation.NonNegativeIntegerValue? maxProperties = null, Draft201909MetaValidation.NonNegativeIntegerValue? minProperties = null, Draft201909MetaValidation.StringArray? required = null, Draft201909MetaValidation.DependentRequiredEntity? dependentRequired = null, Menes.JsonAny? @const = null, Draft201909MetaValidation.EnumArray? @enum = null, Draft201909MetaValidation.TypeEntity? type = null)
         {
             this._menesJsonElementBacking = default;
             this.multipleOf = multipleOf;
@@ -168,7 +168,7 @@ namespace Menes.JsonSchema
             this.@enum = default;
             this.type = default;
         }
-        private Draft201909MetaValidation(Draft201909MetaValidation.MultipleOfValue? multipleOf, Menes.JsonNumber? maximum, Menes.JsonNumber? exclusiveMaximum, Menes.JsonNumber? minimum, Menes.JsonNumber? exclusiveMinimum, Draft201909MetaValidation.NonNegativeIntegerValue? maxLength, Draft201909MetaValidation.NonNegativeIntegerValue? minLength, Menes.JsonRegex? pattern, Draft201909MetaValidation.NonNegativeIntegerValue? maxItems, Draft201909MetaValidation.NonNegativeIntegerValue? minItems, Menes.JsonBoolean? uniqueItems, Draft201909MetaValidation.NonNegativeIntegerValue? maxContains, Draft201909MetaValidation.NonNegativeIntegerValue? minContains, Draft201909MetaValidation.NonNegativeIntegerValue? maxProperties, Draft201909MetaValidation.NonNegativeIntegerValue? minProperties, Draft201909MetaValidation.StringArrayEntity? required, Draft201909MetaValidation.DependentRequiredEntity? dependentRequired, Menes.JsonAny? @const, Draft201909MetaValidation.EnumArray? @enum, Draft201909MetaValidation.TypeEntity? type, Menes.JsonBoolean? _menesBooleanTypeBacking, in System.Collections.Immutable.ImmutableArray<Menes.AdditionalProperty<Menes.JsonAny>> _menesAdditionalPropertiesBacking)
+        private Draft201909MetaValidation(Draft201909MetaValidation.MultipleOfValue? multipleOf, Menes.JsonNumber? maximum, Menes.JsonNumber? exclusiveMaximum, Menes.JsonNumber? minimum, Menes.JsonNumber? exclusiveMinimum, Draft201909MetaValidation.NonNegativeIntegerValue? maxLength, Draft201909MetaValidation.NonNegativeIntegerValue? minLength, Menes.JsonRegex? pattern, Draft201909MetaValidation.NonNegativeIntegerValue? maxItems, Draft201909MetaValidation.NonNegativeIntegerValue? minItems, Menes.JsonBoolean? uniqueItems, Draft201909MetaValidation.NonNegativeIntegerValue? maxContains, Draft201909MetaValidation.NonNegativeIntegerValue? minContains, Draft201909MetaValidation.NonNegativeIntegerValue? maxProperties, Draft201909MetaValidation.NonNegativeIntegerValue? minProperties, Draft201909MetaValidation.StringArray? required, Draft201909MetaValidation.DependentRequiredEntity? dependentRequired, Menes.JsonAny? @const, Draft201909MetaValidation.EnumArray? @enum, Draft201909MetaValidation.TypeEntity? type, Menes.JsonBoolean? _menesBooleanTypeBacking, in System.Collections.Immutable.ImmutableArray<Menes.AdditionalProperty<Menes.JsonAny>> _menesAdditionalPropertiesBacking)
         {
             this._menesJsonElementBacking = default;
             this.multipleOf = multipleOf;
@@ -245,7 +245,7 @@ namespace Menes.JsonSchema
         public Draft201909MetaValidation.NonNegativeIntegerValue? MinContains => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaValidation.NonNegativeIntegerValue>(_MenesMinContainsUtf8JsonPropertyName.Span) : this.minContains;
         public Draft201909MetaValidation.NonNegativeIntegerValue? MaxProperties => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaValidation.NonNegativeIntegerValue>(_MenesMaxPropertiesUtf8JsonPropertyName.Span) : this.maxProperties;
         public Draft201909MetaValidation.NonNegativeIntegerValue? MinProperties => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaValidation.NonNegativeIntegerValue>(_MenesMinPropertiesUtf8JsonPropertyName.Span) : this.minProperties;
-        public Draft201909MetaValidation.StringArrayEntity? Required => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaValidation.StringArrayEntity>(_MenesRequiredUtf8JsonPropertyName.Span) : this.required;
+        public Draft201909MetaValidation.StringArray? Required => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaValidation.StringArray>(_MenesRequiredUtf8JsonPropertyName.Span) : this.required;
         public Draft201909MetaValidation.DependentRequiredEntity? DependentRequired => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaValidation.DependentRequiredEntity>(_MenesDependentRequiredUtf8JsonPropertyName.Span) : this.dependentRequired;
         public Menes.JsonAny? Const => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Menes.JsonAny>(_MenesConstUtf8JsonPropertyName.Span) : this.@const;
         public Draft201909MetaValidation.EnumArray? Enum => this.HasJsonElement ? this.GetOptionalPropertyFromJsonElement<Draft201909MetaValidation.EnumArray>(_MenesEnumUtf8JsonPropertyName.Span) : this.@enum;
@@ -535,7 +535,7 @@ namespace Menes.JsonSchema
                     }
                 }
                 result = result.WithLocalProperty("required");
-                if (this.TryGetProperty<Draft201909MetaValidation.StringArrayEntity>(_MenesRequiredJsonPropertyName.Span, out Draft201909MetaValidation.StringArrayEntity value15))
+                if (this.TryGetProperty<Draft201909MetaValidation.StringArray>(_MenesRequiredJsonPropertyName.Span, out Draft201909MetaValidation.StringArray value15))
                 {
                     result = value15.Validate(result, level);
                     if (level == Menes.ValidationLevel.Flag && !result.IsValid)
@@ -701,7 +701,7 @@ namespace Menes.JsonSchema
                 writer.WritePropertyName(_MenesMinPropertiesEncodedJsonPropertyName);
                 minProperties.WriteTo(writer);
             }
-            if (this.required is Draft201909MetaValidation.StringArrayEntity required)
+            if (this.required is Draft201909MetaValidation.StringArray required)
             {
                 writer.WritePropertyName(_MenesRequiredEncodedJsonPropertyName);
                 required.WriteTo(writer);
@@ -1875,7 +1875,7 @@ namespace Menes.JsonSchema
             }
             if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesRequiredJsonPropertyName.Span))
             {
-                return this.WithRequired(value.As<Draft201909MetaValidation.StringArrayEntity>());
+                return this.WithRequired(value.As<Draft201909MetaValidation.StringArray>());
             }
             if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesDependentRequiredJsonPropertyName.Span))
             {
@@ -1979,7 +1979,7 @@ namespace Menes.JsonSchema
             }
             if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesRequiredJsonPropertyName.Span))
             {
-                return this.WithRequired(value.As<Draft201909MetaValidation.StringArrayEntity>());
+                return this.WithRequired(value.As<Draft201909MetaValidation.StringArray>());
             }
             if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesDependentRequiredJsonPropertyName.Span))
             {
@@ -2086,7 +2086,7 @@ namespace Menes.JsonSchema
             }
             if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesRequiredJsonPropertyName.Span))
             {
-                return this.WithRequired(value.As<Draft201909MetaValidation.StringArrayEntity>());
+                return this.WithRequired(value.As<Draft201909MetaValidation.StringArray>());
             }
             if (System.MemoryExtensions.SequenceEqual(propertyName, _MenesDependentRequiredJsonPropertyName.Span))
             {
@@ -2205,7 +2205,7 @@ namespace Menes.JsonSchema
         {
             return new Draft201909MetaValidation(this.multipleOf, this.maximum, this.exclusiveMaximum, this.minimum, this.exclusiveMinimum, this.maxLength, this.minLength, this.pattern, this.maxItems, this.minItems, this.uniqueItems, this.maxContains, this.minContains, this.maxProperties, value, this.required, this.dependentRequired, this.@const, this.@enum, this.type, this._menesBooleanTypeBacking, this._menesAdditionalPropertiesBacking);
         }
-        public Draft201909MetaValidation WithRequired(Draft201909MetaValidation.StringArrayEntity value)
+        public Draft201909MetaValidation WithRequired(Draft201909MetaValidation.StringArray value)
         {
             return new Draft201909MetaValidation(this.multipleOf, this.maximum, this.exclusiveMaximum, this.minimum, this.exclusiveMinimum, this.maxLength, this.minLength, this.pattern, this.maxItems, this.minItems, this.uniqueItems, this.maxContains, this.minContains, this.maxProperties, this.minProperties, value, this.dependentRequired, this.@const, this.@enum, this.type, this._menesBooleanTypeBacking, this._menesAdditionalPropertiesBacking);
         }
@@ -2830,24 +2830,24 @@ namespace Menes.JsonSchema
                 return true;
             }
         }
-        public readonly struct StringArrayEntity : Menes.IJsonValue, Menes.IJsonArray<StringArrayEntity, Menes.JsonString>
+        public readonly struct StringArray : Menes.IJsonValue, Menes.IJsonArray<StringArray, Menes.JsonString>
         {
-            public static readonly StringArrayEntity Null = default(StringArrayEntity);
+            public static readonly StringArray Null = default(StringArray);
             private readonly System.Text.Json.JsonElement _menesJsonElementBacking;
             private readonly System.Collections.Immutable.ImmutableArray<Menes.JsonString>? _menesArrayValueBacking;
-            public StringArrayEntity(System.Text.Json.JsonElement jsonElement)
+            public StringArray(System.Text.Json.JsonElement jsonElement)
             {
                 this._menesJsonElementBacking = jsonElement;
                 this._menesArrayValueBacking = default;
             }
-            public StringArrayEntity(System.Collections.Immutable.ImmutableArray<Menes.JsonString> value)
+            public StringArray(System.Collections.Immutable.ImmutableArray<Menes.JsonString> value)
             {
                 this._menesArrayValueBacking = value;
                 this._menesJsonElementBacking = default;
             }
-            public static implicit operator StringArrayEntity(System.Collections.Immutable.ImmutableArray<Menes.JsonString> items)
+            public static implicit operator StringArray(System.Collections.Immutable.ImmutableArray<Menes.JsonString> items)
             {
-                return new Draft201909MetaValidation.StringArrayEntity(items);
+                return new Draft201909MetaValidation.StringArray(items);
             }
             /// <inheritdoc />
             public bool IsUndefined => !this.HasJsonElement && this.AllBackingFieldsAreNull();
@@ -2971,17 +2971,17 @@ namespace Menes.JsonSchema
             public T As<T>()
                 where T : struct, Menes.IJsonValue
             {
-                if (typeof(T) == typeof(StringArrayEntity))
+                if (typeof(T) == typeof(StringArray))
                 {
                     return Corvus.Extensions.CastTo<T>.From(this);
                 }
-                return Menes.JsonValue.As<StringArrayEntity, T>(this);
+                return Menes.JsonValue.As<StringArray, T>(this);
             }
             /// <inheritdoc />
             public bool Is<T>()
                 where T : struct, Menes.IJsonValue
             {
-                if (typeof(T) == typeof(Draft201909MetaValidation.StringArrayEntity))
+                if (typeof(T) == typeof(Draft201909MetaValidation.StringArray))
                 {
                     return this.Validate(Menes.ValidationContext.ValidContext).IsValid;
                 }
@@ -3012,13 +3012,13 @@ namespace Menes.JsonSchema
                 // If we have extra items in the second enumerator, return false.
                 return !secondEnumerator.MoveNext();
             }
-            public Draft201909MetaValidation.StringArrayEntity.MenesArrayEnumerator GetEnumerator()
+            public Draft201909MetaValidation.StringArray.MenesArrayEnumerator GetEnumerator()
             {
-                return new Draft201909MetaValidation.StringArrayEntity.MenesArrayEnumerator(this);
+                return new Draft201909MetaValidation.StringArray.MenesArrayEnumerator(this);
             }
-            public Draft201909MetaValidation.StringArrayEntity.MenesArrayEnumerator EnumerateArray()
+            public Draft201909MetaValidation.StringArray.MenesArrayEnumerator EnumerateArray()
             {
-                return new Draft201909MetaValidation.StringArrayEntity.MenesArrayEnumerator(this);
+                return new Draft201909MetaValidation.StringArray.MenesArrayEnumerator(this);
             }
             System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
             {
@@ -3059,7 +3059,7 @@ namespace Menes.JsonSchema
                 }
                 return default;
             }
-            public StringArrayEntity Add<T1>(T1 item1)
+            public StringArray Add<T1>(T1 item1)
                 where T1 : struct, Menes.IJsonValue
             {
                 var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonString>();
@@ -3068,9 +3068,9 @@ namespace Menes.JsonSchema
                     arrayBuilder.Add(oldItem);
                 }
                 arrayBuilder.Add(item1.As<Menes.JsonString>());
-                return new Draft201909MetaValidation.StringArrayEntity(arrayBuilder.ToImmutable());
+                return new Draft201909MetaValidation.StringArray(arrayBuilder.ToImmutable());
             }
-            public StringArrayEntity Add<T1, T2>(T1 item1, T2 item2)
+            public StringArray Add<T1, T2>(T1 item1, T2 item2)
                 where T1 : struct, Menes.IJsonValue
                 where T2 : struct, Menes.IJsonValue
             {
@@ -3081,9 +3081,9 @@ namespace Menes.JsonSchema
                 }
                 arrayBuilder.Add(item1.As<Menes.JsonString>());
                 arrayBuilder.Add(item2.As<Menes.JsonString>());
-                return new Draft201909MetaValidation.StringArrayEntity(arrayBuilder.ToImmutable());
+                return new Draft201909MetaValidation.StringArray(arrayBuilder.ToImmutable());
             }
-            public StringArrayEntity Add<T1, T2, T3>(T1 item1, T2 item2, T3 item3)
+            public StringArray Add<T1, T2, T3>(T1 item1, T2 item2, T3 item3)
                 where T1 : struct, Menes.IJsonValue
                 where T2 : struct, Menes.IJsonValue
                 where T3 : struct, Menes.IJsonValue
@@ -3096,9 +3096,9 @@ namespace Menes.JsonSchema
                 arrayBuilder.Add(item1.As<Menes.JsonString>());
                 arrayBuilder.Add(item2.As<Menes.JsonString>());
                 arrayBuilder.Add(item3.As<Menes.JsonString>());
-                return new Draft201909MetaValidation.StringArrayEntity(arrayBuilder.ToImmutable());
+                return new Draft201909MetaValidation.StringArray(arrayBuilder.ToImmutable());
             }
-            public StringArrayEntity Add<T1, T2, T3, T4>(T1 item1, T2 item2, T3 item3, T4 item4)
+            public StringArray Add<T1, T2, T3, T4>(T1 item1, T2 item2, T3 item3, T4 item4)
                 where T1 : struct, Menes.IJsonValue
                 where T2 : struct, Menes.IJsonValue
                 where T3 : struct, Menes.IJsonValue
@@ -3113,9 +3113,9 @@ namespace Menes.JsonSchema
                 arrayBuilder.Add(item2.As<Menes.JsonString>());
                 arrayBuilder.Add(item3.As<Menes.JsonString>());
                 arrayBuilder.Add(item4.As<Menes.JsonString>());
-                return new Draft201909MetaValidation.StringArrayEntity(arrayBuilder.ToImmutable());
+                return new Draft201909MetaValidation.StringArray(arrayBuilder.ToImmutable());
             }
-            public StringArrayEntity Add<T>(params T[] items)
+            public StringArray Add<T>(params T[] items)
                 where T : struct, Menes.IJsonValue
             {
                 var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonString>();
@@ -3127,9 +3127,9 @@ namespace Menes.JsonSchema
                 {
                     arrayBuilder.Add(item1.As<Menes.JsonString>());
                 }
-                return new Draft201909MetaValidation.StringArrayEntity(arrayBuilder.ToImmutable());
+                return new Draft201909MetaValidation.StringArray(arrayBuilder.ToImmutable());
             }
-            public StringArrayEntity Insert<T>(int index, T item1)
+            public StringArray Insert<T>(int index, T item1)
                 where T : struct, Menes.IJsonValue
             {
                 var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonString>();
@@ -3149,9 +3149,9 @@ namespace Menes.JsonSchema
                 {
                     throw new System.IndexOutOfRangeException($"The given index {index} was out of range.");
                 }
-                return new Draft201909MetaValidation.StringArrayEntity(arrayBuilder.ToImmutable());
+                return new Draft201909MetaValidation.StringArray(arrayBuilder.ToImmutable());
             }
-            public StringArrayEntity Insert<T1, T2>(int index, T1 item1, T2 item2)
+            public StringArray Insert<T1, T2>(int index, T1 item1, T2 item2)
                 where T1 : struct, Menes.IJsonValue
                 where T2 : struct, Menes.IJsonValue
             {
@@ -3173,9 +3173,9 @@ namespace Menes.JsonSchema
                 {
                     throw new System.IndexOutOfRangeException($"The given index {index} was out of range.");
                 }
-                return new Draft201909MetaValidation.StringArrayEntity(arrayBuilder.ToImmutable());
+                return new Draft201909MetaValidation.StringArray(arrayBuilder.ToImmutable());
             }
-            public StringArrayEntity Insert<T1, T2, T3>(int index, T1 item1, T2 item2, T3 item3)
+            public StringArray Insert<T1, T2, T3>(int index, T1 item1, T2 item2, T3 item3)
                 where T1 : struct, Menes.IJsonValue
                 where T2 : struct, Menes.IJsonValue
                 where T3 : struct, Menes.IJsonValue
@@ -3199,9 +3199,9 @@ namespace Menes.JsonSchema
                 {
                     throw new System.IndexOutOfRangeException($"The given index {index} was out of range.");
                 }
-                return new Draft201909MetaValidation.StringArrayEntity(arrayBuilder.ToImmutable());
+                return new Draft201909MetaValidation.StringArray(arrayBuilder.ToImmutable());
             }
-            public StringArrayEntity Insert<T1, T2, T3, T4>(int index, T1 item1, T2 item2, T3 item3, T4 item4)
+            public StringArray Insert<T1, T2, T3, T4>(int index, T1 item1, T2 item2, T3 item3, T4 item4)
                 where T1 : struct, Menes.IJsonValue
                 where T2 : struct, Menes.IJsonValue
                 where T3 : struct, Menes.IJsonValue
@@ -3227,9 +3227,9 @@ namespace Menes.JsonSchema
                 {
                     throw new System.IndexOutOfRangeException($"The given index {index} was out of range.");
                 }
-                return new Draft201909MetaValidation.StringArrayEntity(arrayBuilder.ToImmutable());
+                return new Draft201909MetaValidation.StringArray(arrayBuilder.ToImmutable());
             }
-            public StringArrayEntity Insert<T>(int index, params T[] items)
+            public StringArray Insert<T>(int index, params T[] items)
                 where T : struct, Menes.IJsonValue
             {
                 var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonString>();
@@ -3252,9 +3252,9 @@ namespace Menes.JsonSchema
                 {
                     throw new System.IndexOutOfRangeException($"The given index {index} was out of range.");
                 }
-                return new Draft201909MetaValidation.StringArrayEntity(arrayBuilder.ToImmutable());
+                return new Draft201909MetaValidation.StringArray(arrayBuilder.ToImmutable());
             }
-            public StringArrayEntity RemoveAt(int index)
+            public StringArray RemoveAt(int index)
             {
                 var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonString>();
                 int currentIndex = 0;
@@ -3275,13 +3275,13 @@ namespace Menes.JsonSchema
                 {
                     throw new System.IndexOutOfRangeException($"The given index {index} was out of range.");
                 }
-                return new Draft201909MetaValidation.StringArrayEntity(arrayBuilder.ToImmutable());
+                return new Draft201909MetaValidation.StringArray(arrayBuilder.ToImmutable());
             }
-            public StringArrayEntity RemoveIf(System.Predicate<Menes.JsonString> condition)
+            public StringArray RemoveIf(System.Predicate<Menes.JsonString> condition)
             {
                 return this.RemoveIf<Menes.JsonString>(condition);
             }
-            public StringArrayEntity RemoveIf<T>(System.Predicate<T> condition)
+            public StringArray RemoveIf<T>(System.Predicate<T> condition)
                 where T : struct, Menes.IJsonValue
             {
                 var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.JsonString>();
@@ -3292,7 +3292,7 @@ namespace Menes.JsonSchema
                         arrayBuilder.Add(item);
                     }
                 }
-                return new Draft201909MetaValidation.StringArrayEntity(arrayBuilder.ToImmutable());
+                return new Draft201909MetaValidation.StringArray(arrayBuilder.ToImmutable());
             }
             private bool AllBackingFieldsAreNull()
             {
@@ -3303,15 +3303,15 @@ namespace Menes.JsonSchema
                 return true;
             }
             /// <summary>
-            /// An enumerator for the array values in a <see cref="StringArrayEntity"/>.
+            /// An enumerator for the array values in a <see cref="StringArray"/>.
             /// </summary>
             public struct MenesArrayEnumerator : System.Collections.Generic.IEnumerable<Menes.JsonString>, System.Collections.IEnumerable, System.Collections.Generic.IEnumerator<Menes.JsonString>, System.Collections.IEnumerator
             {
-                private StringArrayEntity instance;
+                private StringArray instance;
                 private System.Text.Json.JsonElement.ArrayEnumerator jsonEnumerator;
                 private bool hasJsonEnumerator;
                 private int index;
-                internal MenesArrayEnumerator(StringArrayEntity instance)
+                internal MenesArrayEnumerator(StringArray instance)
                 {
                     this.instance = instance;
                     if (this.instance.HasJsonElement)
@@ -3348,7 +3348,7 @@ namespace Menes.JsonSchema
                 /// <summary>
                 /// Returns a fresh copy of the enumerator
                 /// </summary>
-                /// <returns>An enumerator for the array values in a <see cref="StringArrayEntity"/>.</returns>
+                /// <returns>An enumerator for the array values in a <see cref="StringArray"/>.</returns>
                 public MenesArrayEnumerator GetEnumerator()
                 {
                     MenesArrayEnumerator result = this;
@@ -3405,13 +3405,13 @@ namespace Menes.JsonSchema
         {
             public static readonly DependentRequiredEntity Null = default(DependentRequiredEntity);
             private readonly System.Text.Json.JsonElement _menesJsonElementBacking;
-            private readonly System.Collections.Immutable.ImmutableArray<Menes.AdditionalProperty<Draft201909MetaValidation.StringArrayEntity>> _menesAdditionalPropertiesBacking;
+            private readonly System.Collections.Immutable.ImmutableArray<Menes.AdditionalProperty<Draft201909MetaValidation.StringArray>> _menesAdditionalPropertiesBacking;
             public DependentRequiredEntity(System.Text.Json.JsonElement jsonElement)
             {
                 this._menesJsonElementBacking = jsonElement;
-                this._menesAdditionalPropertiesBacking = System.Collections.Immutable.ImmutableArray<Menes.AdditionalProperty<Draft201909MetaValidation.StringArrayEntity>>.Empty;
+                this._menesAdditionalPropertiesBacking = System.Collections.Immutable.ImmutableArray<Menes.AdditionalProperty<Draft201909MetaValidation.StringArray>>.Empty;
             }
-            private DependentRequiredEntity(in System.Collections.Immutable.ImmutableArray<Menes.AdditionalProperty<Draft201909MetaValidation.StringArrayEntity>> _menesAdditionalPropertiesBacking)
+            private DependentRequiredEntity(in System.Collections.Immutable.ImmutableArray<Menes.AdditionalProperty<Draft201909MetaValidation.StringArray>> _menesAdditionalPropertiesBacking)
             {
                 this._menesJsonElementBacking = default;
                 this._menesAdditionalPropertiesBacking = _menesAdditionalPropertiesBacking;
@@ -3485,7 +3485,7 @@ namespace Menes.JsonSchema
                         if (!result.HasEvaluatedLocalProperty(property.Name))
                         {
                             result = result.WithLocalProperty(property.Name);
-                            result = property.Value<Draft201909MetaValidation.StringArrayEntity>().Validate(result, level);
+                            result = property.Value<Draft201909MetaValidation.StringArray>().Validate(result, level);
                             if (level == Menes.ValidationLevel.Flag && !result.IsValid)
                             {
                                 return result;
@@ -3712,7 +3712,7 @@ namespace Menes.JsonSchema
             where T : struct, Menes.IJsonValue
             {
                 var propertyName = System.MemoryExtensions.AsSpan(name);
-                var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.AdditionalProperty<Draft201909MetaValidation.StringArrayEntity>>();
+                var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.AdditionalProperty<Draft201909MetaValidation.StringArray>>();
                 bool added = false;
                 foreach (var property in this._menesAdditionalPropertiesBacking)
                 {
@@ -3722,13 +3722,13 @@ namespace Menes.JsonSchema
                     }
                     else
                     {
-                        arrayBuilder.Add(new Menes.AdditionalProperty<Draft201909MetaValidation.StringArrayEntity>(propertyName, value.As<Draft201909MetaValidation.StringArrayEntity>()));
+                        arrayBuilder.Add(new Menes.AdditionalProperty<Draft201909MetaValidation.StringArray>(propertyName, value.As<Draft201909MetaValidation.StringArray>()));
                         added = true;
                     }
                 }
                 if (!added)
                 {
-                    arrayBuilder.Add(new Menes.AdditionalProperty<Draft201909MetaValidation.StringArrayEntity>(propertyName, value.As<Draft201909MetaValidation.StringArrayEntity>()));
+                    arrayBuilder.Add(new Menes.AdditionalProperty<Draft201909MetaValidation.StringArray>(propertyName, value.As<Draft201909MetaValidation.StringArray>()));
                 }
                 return this.WithAdditionalProperties(arrayBuilder.ToImmutable());
                 return this;
@@ -3736,7 +3736,7 @@ namespace Menes.JsonSchema
             public DependentRequiredEntity SetProperty<T>(System.ReadOnlySpan<char> propertyName, T value)
             where T : struct, Menes.IJsonValue
             {
-                var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.AdditionalProperty<Draft201909MetaValidation.StringArrayEntity>>();
+                var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.AdditionalProperty<Draft201909MetaValidation.StringArray>>();
                 bool added = false;
                 foreach (var property in this._menesAdditionalPropertiesBacking)
                 {
@@ -3746,13 +3746,13 @@ namespace Menes.JsonSchema
                     }
                     else
                     {
-                        arrayBuilder.Add(new Menes.AdditionalProperty<Draft201909MetaValidation.StringArrayEntity>(propertyName, value.As<Draft201909MetaValidation.StringArrayEntity>()));
+                        arrayBuilder.Add(new Menes.AdditionalProperty<Draft201909MetaValidation.StringArray>(propertyName, value.As<Draft201909MetaValidation.StringArray>()));
                         added = true;
                     }
                 }
                 if (!added)
                 {
-                    arrayBuilder.Add(new Menes.AdditionalProperty<Draft201909MetaValidation.StringArrayEntity>(propertyName, value.As<Draft201909MetaValidation.StringArrayEntity>()));
+                    arrayBuilder.Add(new Menes.AdditionalProperty<Draft201909MetaValidation.StringArray>(propertyName, value.As<Draft201909MetaValidation.StringArray>()));
                 }
                 return this.WithAdditionalProperties(arrayBuilder.ToImmutable());
                 return this;
@@ -3763,7 +3763,7 @@ namespace Menes.JsonSchema
                 System.Span<char> name = stackalloc char[utf8Name.Length];
                 int writtenCount = System.Text.Encoding.UTF8.GetChars(utf8Name, name);
                 var propertyName = name.Slice(0, writtenCount);
-                var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.AdditionalProperty<Draft201909MetaValidation.StringArrayEntity>>();
+                var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Menes.AdditionalProperty<Draft201909MetaValidation.StringArray>>();
                 bool added = false;
                 foreach (var property in this._menesAdditionalPropertiesBacking)
                 {
@@ -3773,13 +3773,13 @@ namespace Menes.JsonSchema
                     }
                     else
                     {
-                        arrayBuilder.Add(new Menes.AdditionalProperty<Draft201909MetaValidation.StringArrayEntity>(propertyName, value.As<Draft201909MetaValidation.StringArrayEntity>()));
+                        arrayBuilder.Add(new Menes.AdditionalProperty<Draft201909MetaValidation.StringArray>(propertyName, value.As<Draft201909MetaValidation.StringArray>()));
                         added = true;
                     }
                 }
                 if (!added)
                 {
-                    arrayBuilder.Add(new Menes.AdditionalProperty<Draft201909MetaValidation.StringArrayEntity>(propertyName, value.As<Draft201909MetaValidation.StringArrayEntity>()));
+                    arrayBuilder.Add(new Menes.AdditionalProperty<Draft201909MetaValidation.StringArray>(propertyName, value.As<Draft201909MetaValidation.StringArray>()));
                 }
                 return this.WithAdditionalProperties(arrayBuilder.ToImmutable());
                 return this;
@@ -3855,7 +3855,7 @@ namespace Menes.JsonSchema
                 result = default; ;
                 return false;
             }
-            private DependentRequiredEntity WithAdditionalProperties(System.Collections.Immutable.ImmutableArray<Menes.AdditionalProperty<Draft201909MetaValidation.StringArrayEntity>> value)
+            private DependentRequiredEntity WithAdditionalProperties(System.Collections.Immutable.ImmutableArray<Menes.AdditionalProperty<Draft201909MetaValidation.StringArray>> value)
             {
                 return new DependentRequiredEntity(value);
             }

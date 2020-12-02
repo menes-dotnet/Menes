@@ -27,8 +27,8 @@ namespace Menes.JsonSchema.TypeBuilder
         /// <summary>
         /// Update a type name based on the type information we have available during the lowering process.
         /// </summary>
-        /// <param name="typeDeclaration"></param>
-        public static void UpdateTypeNameWithTypeInformation(TypeDeclaration typeDeclaration)
+        /// <param name="typeDeclaration">The type declaration to update.</param>
+        private static void UpdateTypeNameWithTypeInformation(TypeDeclaration typeDeclaration)
         {
             if (typeDeclaration.IsArrayType && !typeDeclaration.IsItemsArray && typeDeclaration.Items is not null && typeDeclaration.Items.Count == 1 && (typeDeclaration.DotnetTypeName.AsSpan().StartsWith(AnyOfPrefix.Span) || typeDeclaration.DotnetTypeName.AsSpan().StartsWith(AllOfPrefix.Span) || typeDeclaration.DotnetTypeName.AsSpan().StartsWith(OneOfPrefix.Span)))
             {
@@ -183,7 +183,7 @@ namespace Menes.JsonSchema.TypeBuilder
                 {
                     if (baseName.Length >= EntitySuffix.Length && baseName[^EntitySuffix.Length..].Span.SequenceEqual(EntitySuffix.Span))
                     {
-                        return ValueSuffix;
+                        return ReadOnlyMemory<char>.Empty;
                     }
 
                     return EntitySuffix;
@@ -192,7 +192,7 @@ namespace Menes.JsonSchema.TypeBuilder
                 {
                     if (baseName.Length >= ArraySuffix.Length && baseName[^ArraySuffix.Length..].Span.SequenceEqual(ArraySuffix.Span))
                     {
-                        return EntitySuffix;
+                        return ReadOnlyMemory<char>.Empty;
                     }
 
                     return ArraySuffix;
@@ -201,7 +201,7 @@ namespace Menes.JsonSchema.TypeBuilder
                 {
                     if (baseName.Length >= ValueSuffix.Length && baseName[^ValueSuffix.Length..].Span.SequenceEqual(ValueSuffix.Span))
                     {
-                        return EntitySuffix;
+                        return ReadOnlyMemory<char>.Empty;
                     }
 
                     return ValueSuffix;
