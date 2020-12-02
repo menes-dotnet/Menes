@@ -7,7 +7,6 @@ namespace Menes.JsonSchema.Benchmarking
     using BenchmarkDotNet.Configs;
     using BenchmarkDotNet.Jobs;
     using BenchmarkDotNet.Running;
-    using Menes.JsonSchema.Benchmarking.Benchmarks;
 
     /// <summary>
     /// Main program.

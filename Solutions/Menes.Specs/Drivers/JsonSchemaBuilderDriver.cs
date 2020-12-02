@@ -30,7 +30,6 @@ namespace Drivers
     /// </summary>
     public class JsonSchemaBuilderDriver : IDisposable
     {
-        private const string NamespaceName = "Driver.GeneratedTypes";
         private readonly IConfiguration configuration;
         private readonly JsonSchemaBuilder builder;
         private readonly IDocumentResolver documentResolver = new FileSystemDocumentResolver();
@@ -73,6 +72,7 @@ namespace Drivers
         /// <summary>
         /// Generates a type for the given root schema element.
         /// </summary>
+        /// <param name="writeBenchmarks">If <c>true</c>, write benchmark files.</param>
         /// <param name="index">The index of the scenario example.</param>
         /// <param name="filename">The filename containing the schema.</param>
         /// <param name="schemaPath">The path to the schema in the file.</param>
@@ -82,7 +82,7 @@ namespace Drivers
         /// <param name="scenarioName">The scenario name for the type.</param>
         /// <param name="valid">Whether the scenario is expected to be valid.</param>
         /// <returns>The fully qualified type name of the entity we have generated.</returns>
-        public async Task<Type> GenerateTypeFor(int index, string filename, string schemaPath, string dataPath, JsonElement schema, string featureName, string scenarioName, bool valid)
+        public async Task<Type> GenerateTypeFor(bool writeBenchmarks, int index, string filename, string schemaPath, string dataPath, JsonElement schema, string featureName, string scenarioName, bool valid)
         {
             string rootTypeName = await this.builder.BuildEntity(schema, $"RootEntity").ConfigureAwait(false);
 
@@ -94,7 +94,10 @@ namespace Drivers
                 rootTypeName = $"{featureName}Feature.{scenarioName}.{rootTypeName}";
             }
 
-            ////WriteBenchmarks(index, filename, schemaPath, dataPath, featureName, scenarioName, generatedTypes, rootTypeName, valid);
+            if (writeBenchmarks)
+            {
+                WriteBenchmarks(index, filename, schemaPath, dataPath, featureName, scenarioName, generatedTypes, rootTypeName, valid);
+            }
 
             IEnumerable<SyntaxTree> syntaxTrees = ParseSyntaxTrees(generatedTypes);
 

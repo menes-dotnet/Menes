@@ -4,8 +4,6 @@
 
 namespace Menes
 {
-    using System;
-
     /// <summary>
     /// A validation result.
     /// </summary>

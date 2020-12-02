@@ -27,7 +27,7 @@
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="3.8.0" />
 
 
-    <PackageReference Include="SpecFlow.NUnit" Version="3.5.5" />
+    <PackageReference Include="SpecFlow.NUnit" Version="3.5.14" />
     <PackageReference Include="nunit" Version="3.12.0" />
     <PackageReference Include="NUnit3TestAdapter" Version="3.17.0" />
 

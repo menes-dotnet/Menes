@@ -13,7 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Menes.JsonSchema.SpecGenera
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Menes.JsonSchema.Model", "Menes.JsonSchema.Model\Menes.JsonSchema.Model.csproj", "{37399910-10F9-40D5-AA82-73466DC443A4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Menes.JsonSchema.Benchmarking", "Menes.JsonSchema.Benchmarking\Menes.JsonSchema.Benchmarking.csproj", "{625E53A5-E220-421D-86BD-C5451FC38F1D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Menes.JsonSchema.Benchmarking", "Menes.JsonSchema.Benchmarking\Menes.JsonSchema.Benchmarking.csproj", "{625E53A5-E220-421D-86BD-C5451FC38F1D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Menes.JsonSchema", "Menes.JsonSchema\Menes.JsonSchema.csproj", "{F3C0460E-C7A2-4452-B3D3-49B3652CD528}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{625E53A5-E220-421D-86BD-C5451FC38F1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{625E53A5-E220-421D-86BD-C5451FC38F1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{625E53A5-E220-421D-86BD-C5451FC38F1D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F3C0460E-C7A2-4452-B3D3-49B3652CD528}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3C0460E-C7A2-4452-B3D3-49B3652CD528}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3C0460E-C7A2-4452-B3D3-49B3652CD528}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3C0460E-C7A2-4452-B3D3-49B3652CD528}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

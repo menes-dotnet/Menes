@@ -4,7 +4,6 @@
 
 namespace Menes
 {
-    using System.Collections.Generic;
     using System.Text.Json;
 
     /// <summary>

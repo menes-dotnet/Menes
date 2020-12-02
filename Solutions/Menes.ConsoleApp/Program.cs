@@ -11,6 +11,7 @@ namespace Menes.ConsoleApp
     using System.Threading.Tasks;
     using Driver.GeneratedTypes;
     using Menes.Json.Schema;
+    using Menes.JsonSchema;
     using Menes.JsonSchema.TypeBuilder;
 
     /// <summary>
@@ -25,14 +26,17 @@ namespace Menes.ConsoleApp
         {
             RootEntity entity = new JsonAny("[\"foo\", \"bar\", \"baz\"]").As<RootEntity>();
             Console.WriteLine(entity.Validate(ValidationContext.ValidContext).IsValid);
-        }
 
-        private static async Task BuildJsonObjectType()
-        {
-            var builder = new JsonSchemaBuilder(new FileSystemDocumentResolver());
-            string schema = "{ \"id\": \"https://endjin.com/menes/schema/JsonObject\", \"type\": \"object\" }";
-            using var doc = JsonDocument.Parse(schema);
-            await builder.BuildEntity(doc.RootElement, $"RootEntity{Guid.NewGuid()}").ConfigureAwait(false);
+            var schema = new Draft201909Schema(
+                id: "http://endjin.com/something",
+                type: Draft201909MetaValidation.TypeEntity.SimpleTypesEntity.EnumValues.String,
+                format: "date-time");
+
+            string serializedSchema = Serialize(schema);
+
+            Draft201909Schema deserializedSchema = Deserialize<Draft201909Schema>(serializedSchema);
+
+            Console.WriteLine(deserializedSchema.Validate(ValidationContext.ValidContext).IsValid);
         }
 
         private static string Serialize(IJsonValue value)
@@ -44,6 +48,13 @@ namespace Menes.ConsoleApp
             string serializedValue = Encoding.UTF8.GetString(abw.WrittenSpan);
             Console.WriteLine(serializedValue);
             return serializedValue;
+        }
+
+        private static T Deserialize<T>(string jsonValue)
+            where T : struct, IJsonValue
+        {
+            using var doc = JsonDocument.Parse(jsonValue);
+            return doc.RootElement.Clone().As<T>();
         }
     }
 }
