@@ -28,8 +28,10 @@ namespace Menes.ConsoleApp
             Console.WriteLine(entity.Validate(ValidationContext.ValidContext).IsValid);
 
             var schema = new Draft201909Schema(
-                id: "http://endjin.com/something",
-                type: Draft201909MetaValidation.TypeEntity.SimpleTypesEntity.EnumValues.String,
+                id: "http://endjin.com/schemas/SomeExample",
+                type: JsonArray.From(
+                    Draft201909MetaValidation.TypeEntity.SimpleTypesEntity.EnumValues.String,
+                    Draft201909MetaValidation.TypeEntity.SimpleTypesEntity.EnumValues.Integer),
                 format: "date-time");
 
             string serializedSchema = Serialize(schema);
