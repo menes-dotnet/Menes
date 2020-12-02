@@ -6,6 +6,7 @@ namespace Menes.JsonSchema.Benchmarking.Benchmarks
 {
     using System;
     using System.Net.Http;
+    using System.Text;
     using System.Text.Json;
     using System.Threading.Tasks;
     using Drivers;
@@ -27,6 +28,8 @@ namespace Menes.JsonSchema.Benchmarking.Benchmarks
         private JSchema? newtonsoftSchema;
         private bool? isValid;
         private string? data;
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("StyleCop.CSharp.SpacingRules", "SA1011:Closing square brackets should be spaced correctly", Justification = "Stylecop is broken.")]
+        private byte[]? dataBytes;
 
         /// <summary>
         /// Setup the benchmark.
@@ -55,7 +58,8 @@ namespace Menes.JsonSchema.Benchmarking.Benchmarks
                 throw new InvalidOperationException($"Unable to find the element in file '{filename}' at location '{inputDataReference}'");
             }
 
-            this.data = d.ToString();
+            this.data = d.GetRawText();
+            this.dataBytes = Encoding.UTF8.GetBytes(this.data!);
 
             this.newtonsoftSchema = JSchema.Parse(schema.Value.ToString(), new JSchemaUrlResolver());
             this.isValid = isValid;
@@ -68,8 +72,9 @@ namespace Menes.JsonSchema.Benchmarking.Benchmarks
         protected void ValidateMenesCore<T>()
             where T : struct, IJsonValue
         {
-            using var document = JsonDocument.Parse(this.data!);
-            T value = document.RootElement.As<T>();
+            var reader = new Utf8JsonReader(this.dataBytes!.AsSpan());
+            JsonDocument.TryParseValue(ref reader, out JsonDocument? document);
+            T value = document!.RootElement.As<T>();
 
             if (value.Validate(ValidationContext.ValidContext).IsValid != this.isValid)
             {

@@ -94,7 +94,7 @@ namespace Drivers
                 rootTypeName = $"{featureName}Feature.{scenarioName}.{rootTypeName}";
             }
 
-            WriteBenchmarks(index, filename, schemaPath, dataPath, featureName, scenarioName, generatedTypes, rootTypeName, valid);
+            ////WriteBenchmarks(index, filename, schemaPath, dataPath, featureName, scenarioName, generatedTypes, rootTypeName, valid);
 
             IEnumerable<SyntaxTree> syntaxTrees = ParseSyntaxTrees(generatedTypes);
 
