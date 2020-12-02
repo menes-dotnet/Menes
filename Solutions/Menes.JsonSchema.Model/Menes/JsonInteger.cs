@@ -223,7 +223,7 @@ namespace Menes
         }
 
         /// <inheritdoc/>
-        public bool Equals<T>(T other)
+        public bool Equals<T>(in T other)
             where T : struct, IJsonValue
         {
             if (!other.IsNumber && !other.IsInteger)
@@ -241,7 +241,7 @@ namespace Menes
         }
 
         /// <inheritdoc />
-        public ValidationContext Validate(ValidationContext validationContext, ValidationLevel level = ValidationLevel.Flag)
+        public ValidationContext Validate(in ValidationContext validationContext, ValidationLevel level = ValidationLevel.Flag)
         {
             if (this.HasJsonElement && (this.JsonElement.ValueKind != JsonValueKind.Number || this.JsonElement.GetDouble() != Math.Floor(this.JsonElement.GetDouble())))
             {

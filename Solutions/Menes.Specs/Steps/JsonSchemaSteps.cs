@@ -9,6 +9,7 @@ namespace Steps
     using System.Threading.Tasks;
     using Drivers;
     using Menes;
+    using Menes.JsonSchema.TypeBuilder;
     using NUnit.Framework;
     using TechTalk.SpecFlow;
 
@@ -20,21 +21,25 @@ namespace Steps
     {
         private const string InputJsonFileName = "InputJsonFileName";
         private const string Schema = "Schema";
+        private const string SchemaPath = "SchemaPath";
         private const string InputData = "InputData";
+        private const string InputDataPath = "InputDataPath";
         private const string SchemaType = "SchemaType";
         private const string SchemaInstance = "SchemaInstance";
         private const string SchemaValidationResult = "SchemaValidationResult";
-
+        private readonly FeatureContext featureContext;
         private readonly ScenarioContext scenarioContext;
         private readonly JsonSchemaBuilderDriver driver;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="JsonSchemaSteps"/> class.
         /// </summary>
+        /// <param name="featureContext">The current feature context.</param>
         /// <param name="scenarioContext">The current scenario context.</param>
         /// <param name="driver">The json schema builder driver.</param>
-        public JsonSchemaSteps(ScenarioContext scenarioContext, JsonSchemaBuilderDriver driver)
+        public JsonSchemaSteps(FeatureContext featureContext, ScenarioContext scenarioContext, JsonSchemaBuilderDriver driver)
         {
+            this.featureContext = featureContext;
             this.scenarioContext = scenarioContext;
             this.driver = driver;
         }
@@ -59,6 +64,7 @@ namespace Steps
         {
             JsonElement? element = await this.driver.GetElement(this.scenarioContext.Get<string>(InputJsonFileName), referenceFragment).ConfigureAwait(false);
             Assert.NotNull(element);
+            this.scenarioContext.Set(referenceFragment, SchemaPath);
             this.scenarioContext.Set(element.Value, Schema);
         }
 
@@ -72,6 +78,7 @@ namespace Steps
         {
             JsonElement? element = await this.driver.GetElement(this.scenarioContext.Get<string>(InputJsonFileName), referenceFragment).ConfigureAwait(false);
             Assert.NotNull(element);
+            this.scenarioContext.Set(referenceFragment, InputDataPath);
             this.scenarioContext.Set(element.Value, InputData);
         }
 
@@ -82,7 +89,8 @@ namespace Steps
         [Given(@"I generate a type for the schema")]
         public async Task GivenIGenerateATypeForTheSchema()
         {
-            Type type = await this.driver.GenerateTypeFor(this.scenarioContext.Get<JsonElement>(Schema)).ConfigureAwait(false);
+            string inputDataPath = this.scenarioContext.Get<string>(InputDataPath);
+            Type type = await this.driver.GenerateTypeFor(int.Parse(inputDataPath.AsSpan().Slice(12, 3)), this.scenarioContext.Get<string>(InputJsonFileName), this.scenarioContext.Get<string>(SchemaPath), inputDataPath, this.scenarioContext.Get<JsonElement>(Schema), Formatting.ToPascalCaseWithReservedWords(this.featureContext.FeatureInfo.Title).ToString(), Formatting.ToPascalCaseWithReservedWords(this.scenarioContext.ScenarioInfo.Title).ToString(), bool.Parse((string)this.scenarioContext.ScenarioInfo.Arguments[1])).ConfigureAwait(false);
             this.scenarioContext.Set(type, SchemaType);
         }
 

@@ -245,7 +245,7 @@ namespace Menes.JsonSchema.TypeBuilder
         private void BuildEqualsMethod(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
         {
             memberBuilder.AppendLine("/// <inheritdoc/>");
-            memberBuilder.AppendLine("public bool Equals<T>(T other)");
+            memberBuilder.AppendLine("public bool Equals<T>(in T other)");
             memberBuilder.AppendLine("    where T : struct, Menes.IJsonValue");
             memberBuilder.AppendLine("{");
 

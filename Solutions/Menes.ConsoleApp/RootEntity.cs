@@ -60,7 +60,7 @@ namespace Driver.GeneratedTypes
         /// <inheritdoc />
         public System.Text.Json.JsonElement JsonElement => this._menesJsonElementBacking;
         /// <inheritdoc />
-        public Menes.ValidationContext Validate(Menes.ValidationContext validationContext, Menes.ValidationLevel level = Menes.ValidationLevel.Flag)
+        public Menes.ValidationContext Validate(in Menes.ValidationContext validationContext, Menes.ValidationLevel level = Menes.ValidationLevel.Flag)
         {
             Menes.ValidationContext result = validationContext;
             if (!this.IsArray)
@@ -231,7 +231,7 @@ namespace Driver.GeneratedTypes
             return this.As<RootEntity.AnyOf1Entity>();
         }
         /// <inheritdoc/>
-        public bool Equals<T>(T other)
+        public bool Equals<T>(in T other)
             where T : struct, Menes.IJsonValue
         {
             if (!other.IsArray)
@@ -585,7 +585,7 @@ namespace Driver.GeneratedTypes
             /// <inheritdoc />
             public System.Text.Json.JsonElement JsonElement => this._menesJsonElementBacking;
             /// <inheritdoc />
-            public Menes.ValidationContext Validate(Menes.ValidationContext validationContext, Menes.ValidationLevel level = Menes.ValidationLevel.Flag)
+            public Menes.ValidationContext Validate(in Menes.ValidationContext validationContext, Menes.ValidationLevel level = Menes.ValidationLevel.Flag)
             {
                 Menes.ValidationContext result = validationContext;
                 if (this.IsArray)
@@ -656,7 +656,7 @@ namespace Driver.GeneratedTypes
                 return this.As<T>().Validate(Menes.ValidationContext.ValidContext).IsValid;
             }
             /// <inheritdoc/>
-            public bool Equals<T>(T other)
+            public bool Equals<T>(in T other)
                 where T : struct, Menes.IJsonValue
             {
                 return false;
@@ -1009,7 +1009,7 @@ namespace Driver.GeneratedTypes
                 /// <inheritdoc />
                 public System.Text.Json.JsonElement JsonElement => this._menesJsonElementBacking;
                 /// <inheritdoc />
-                public Menes.ValidationContext Validate(Menes.ValidationContext validationContext, Menes.ValidationLevel level = Menes.ValidationLevel.Flag)
+                public Menes.ValidationContext Validate(in Menes.ValidationContext validationContext, Menes.ValidationLevel level = Menes.ValidationLevel.Flag)
                 {
                     Menes.ValidationContext result = validationContext;
                     if (!this.IsString)
@@ -1100,7 +1100,7 @@ namespace Driver.GeneratedTypes
                     return this.As<T>().Validate(Menes.ValidationContext.ValidContext).IsValid;
                 }
                 /// <inheritdoc/>
-                public bool Equals<T>(T other)
+                public bool Equals<T>(in T other)
                     where T : struct, Menes.IJsonValue
                 {
                     if (!other.IsString)
@@ -1257,7 +1257,7 @@ namespace Driver.GeneratedTypes
             /// <inheritdoc />
             public System.Text.Json.JsonElement JsonElement => this._menesJsonElementBacking;
             /// <inheritdoc />
-            public Menes.ValidationContext Validate(Menes.ValidationContext validationContext, Menes.ValidationLevel level = Menes.ValidationLevel.Flag)
+            public Menes.ValidationContext Validate(in Menes.ValidationContext validationContext, Menes.ValidationLevel level = Menes.ValidationLevel.Flag)
             {
                 Menes.ValidationContext result = validationContext;
                 if (this.IsArray)
@@ -1336,7 +1336,7 @@ namespace Driver.GeneratedTypes
                 return this.As<T>().Validate(Menes.ValidationContext.ValidContext).IsValid;
             }
             /// <inheritdoc/>
-            public bool Equals<T>(T other)
+            public bool Equals<T>(in T other)
                 where T : struct, Menes.IJsonValue
             {
                 return false;
@@ -1689,7 +1689,7 @@ namespace Driver.GeneratedTypes
                 /// <inheritdoc />
                 public System.Text.Json.JsonElement JsonElement => this._menesJsonElementBacking;
                 /// <inheritdoc />
-                public Menes.ValidationContext Validate(Menes.ValidationContext validationContext, Menes.ValidationLevel level = Menes.ValidationLevel.Flag)
+                public Menes.ValidationContext Validate(in Menes.ValidationContext validationContext, Menes.ValidationLevel level = Menes.ValidationLevel.Flag)
                 {
                     Menes.ValidationContext result = validationContext;
                     if (!this.IsString)
@@ -1780,7 +1780,7 @@ namespace Driver.GeneratedTypes
                     return this.As<T>().Validate(Menes.ValidationContext.ValidContext).IsValid;
                 }
                 /// <inheritdoc/>
-                public bool Equals<T>(T other)
+                public bool Equals<T>(in T other)
                     where T : struct, Menes.IJsonValue
                 {
                     if (!other.IsString)
@@ -1955,7 +1955,7 @@ namespace Driver.GeneratedTypes
             /// <inheritdoc />
             public System.Text.Json.JsonElement JsonElement => this._menesJsonElementBacking;
             /// <inheritdoc />
-            public Menes.ValidationContext Validate(Menes.ValidationContext validationContext, Menes.ValidationLevel level = Menes.ValidationLevel.Flag)
+            public Menes.ValidationContext Validate(in Menes.ValidationContext validationContext, Menes.ValidationLevel level = Menes.ValidationLevel.Flag)
             {
                 Menes.ValidationContext result = validationContext;
                 if (!this.IsString)
@@ -2046,7 +2046,7 @@ namespace Driver.GeneratedTypes
                 return this.As<T>().Validate(Menes.ValidationContext.ValidContext).IsValid;
             }
             /// <inheritdoc/>
-            public bool Equals<T>(T other)
+            public bool Equals<T>(in T other)
                 where T : struct, Menes.IJsonValue
             {
                 if (!other.IsString)

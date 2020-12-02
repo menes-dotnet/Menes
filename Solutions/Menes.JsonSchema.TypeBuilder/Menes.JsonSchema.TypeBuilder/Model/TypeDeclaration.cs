@@ -1407,7 +1407,7 @@ namespace Menes.JsonSchema.TypeBuilder.Model
 
         private static List<PropertyDeclaration>? Lower(List<PropertyDeclaration>? properties, bool maintainLocality)
         {
-            return properties?.Select(p => new PropertyDeclaration { DotnetFieldName = p.DotnetFieldName, DotnetPropertyName = p.DotnetPropertyName, IsRequired = p.IsRequired, IsLocal = maintainLocality ? p.IsLocal : false, JsonPropertyName = p.JsonPropertyName, TypeDeclaration = p.TypeDeclaration?.Lowered }).ToList();
+            return properties?.Select(p => new PropertyDeclaration { DotnetFieldName = p.DotnetFieldName, DotnetPropertyName = p.DotnetPropertyName, IsRequired = p.IsRequired, IsLocal = maintainLocality && p.IsLocal, JsonPropertyName = p.JsonPropertyName, TypeDeclaration = p.TypeDeclaration?.Lowered }).ToList();
         }
 
         private static List<ConversionOperatorDeclaration>? Lower(List<ConversionOperatorDeclaration>? conversionOperators)

@@ -87,7 +87,7 @@ namespace Menes
         /// <typeparam name="T">The type of the other value with which to compare.</typeparam>
         /// <param name="other">The other value with which to compare.</param>
         /// <returns>True if they are equal.</returns>
-        bool Equals<T>(T other)
+        bool Equals<T>(in T other)
             where T : struct, IJsonValue;
 
         /// <summary>
@@ -102,6 +102,6 @@ namespace Menes
         /// <param name="validationContext">The current validation context.</param>
         /// <param name="level">The validation level.</param>
         /// <returns>The validation context updated with the results of the validation.</returns>
-        ValidationContext Validate(ValidationContext validationContext, ValidationLevel level = ValidationLevel.Flag);
+        ValidationContext Validate(in ValidationContext validationContext, ValidationLevel level = ValidationLevel.Flag);
     }
 }

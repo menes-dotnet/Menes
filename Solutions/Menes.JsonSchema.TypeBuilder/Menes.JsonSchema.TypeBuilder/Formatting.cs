@@ -12,7 +12,7 @@ namespace Menes.JsonSchema.TypeBuilder
     /// <summary>
     /// Formatting utilities.
     /// </summary>
-    internal static class Formatting
+    public static class Formatting
     {
         private static readonly ReadOnlyMemory<char> HttpsScheme = "https://".AsMemory();
         private static readonly ReadOnlyMemory<char> HttpScheme = "http://".AsMemory();

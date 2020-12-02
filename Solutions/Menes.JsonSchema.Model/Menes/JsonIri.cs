@@ -124,7 +124,7 @@ namespace Menes
         }
 
         /// <inheritdoc/>
-        public bool Equals<T>(T other)
+        public bool Equals<T>(in T other)
             where T : struct, IJsonValue
         {
             if (!other.IsString)
@@ -142,7 +142,7 @@ namespace Menes
         }
 
         /// <inheritdoc />
-        public ValidationContext Validate(ValidationContext validationContext, ValidationLevel level = ValidationLevel.Flag)
+        public ValidationContext Validate(in ValidationContext validationContext, ValidationLevel level = ValidationLevel.Flag)
         {
             if (this.HasJsonElement && (this.JsonElement.ValueKind != JsonValueKind.String || !(Uri.TryCreate(this.JsonElement.GetString(), UriKind.Absolute, out Uri testUri) && (testUri.Scheme == Uri.UriSchemeHttp || testUri.Scheme == Uri.UriSchemeHttps))))
             {

@@ -164,7 +164,7 @@ namespace Menes
         }
 
         /// <inheritdoc/>
-        public bool Equals<T>(T other)
+        public bool Equals<T>(in T other)
             where T : struct, IJsonValue
         {
             if (!other.IsNull)
@@ -344,7 +344,7 @@ namespace Menes
         }
 
         /// <inheritdoc />
-        public ValidationContext Validate(ValidationContext validationContext, ValidationLevel level = ValidationLevel.Flag)
+        public ValidationContext Validate(in ValidationContext validationContext, ValidationLevel level = ValidationLevel.Flag)
         {
             if (!this.IsNull)
             {

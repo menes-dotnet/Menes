@@ -73,20 +73,28 @@ namespace Drivers
         /// <summary>
         /// Generates a type for the given root schema element.
         /// </summary>
+        /// <param name="index">The index of the scenario example.</param>
+        /// <param name="filename">The filename containing the schema.</param>
+        /// <param name="schemaPath">The path to the schema in the file.</param>
+        /// <param name="dataPath">The path to the data in the file.</param>
         /// <param name="schema">The schema for which to generate the type.</param>
+        /// <param name="featureName">The feature name for the type.</param>
+        /// <param name="scenarioName">The scenario name for the type.</param>
+        /// <param name="valid">Whether the scenario is expected to be valid.</param>
         /// <returns>The fully qualified type name of the entity we have generated.</returns>
-        public async Task<Type> GenerateTypeFor(JsonElement schema)
+        public async Task<Type> GenerateTypeFor(int index, string filename, string schemaPath, string dataPath, JsonElement schema, string featureName, string scenarioName, bool valid)
         {
-            // In reality, we are going to do something rather more complicated than this.
             string rootTypeName = await this.builder.BuildEntity(schema, $"RootEntity").ConfigureAwait(false);
 
-            ImmutableDictionary<string, string> generatedTypes = this.builder.BuildTypes(NamespaceName);
+            ImmutableDictionary<string, string> generatedTypes = this.builder.BuildTypes($"{featureName}Feature.{scenarioName}");
 
             bool isMenesType = rootTypeName.StartsWith("Menes.");
             if (!isMenesType)
             {
-                rootTypeName = $"{NamespaceName}.{rootTypeName}";
+                rootTypeName = $"{featureName}Feature.{scenarioName}.{rootTypeName}";
             }
+
+            WriteBenchmarks(index, filename, schemaPath, dataPath, featureName, scenarioName, generatedTypes, rootTypeName, valid);
 
             IEnumerable<SyntaxTree> syntaxTrees = ParseSyntaxTrees(generatedTypes);
 
@@ -134,6 +142,81 @@ namespace Drivers
             return CastTo<IJsonValue>.From(constructor.Invoke(new object[] { data }));
         }
 
+        /// <summary>
+        /// Create an instance of the given <see cref="IJsonValue"/> type from
+        /// the json data provided.
+        /// </summary>
+        /// <param name="type">The type (which must be a <see cref="IJsonValue"/> and have a constructor with a single <see cref="JsonElement"/> parameter.</param>
+        /// <param name="data">The JSON data from which to initialize the value.</param>
+        /// <returns>An instance of a <see cref="IJsonValue"/> initialized from the data.</returns>
+        public IJsonValue CreateInstance(Type type, string data)
+        {
+            using var document = JsonDocument.Parse(data);
+            return this.CreateInstance(type, document.RootElement.Clone());
+        }
+
+        private static void WriteBenchmarks(int index, string filename, string schemaPath, string dataPath, string featureName, string scenarioName, ImmutableDictionary<string, string> generatedTypes, string rootTypeName, bool valid)
+        {
+            foreach (KeyValuePair<string, string> item in generatedTypes)
+            {
+                string path = $@"C:\Users\matth\OneDrive\Desktop\output\{featureName}\{scenarioName}";
+                Directory.CreateDirectory(path);
+                File.WriteAllText(Path.Combine(path, item.Key), item.Value);
+
+                File.WriteAllText(Path.Combine(path, $"Benchmark{index}.cs"), BuildBenchmark(index, filename, schemaPath, dataPath, featureName, scenarioName, rootTypeName, valid));
+            }
+        }
+
+        private static string BuildBenchmark(int index, string filename, string schemaPath, string dataPath, string featureName, string scenarioName, string rootTypeName, bool valid)
+        {
+            var builder = new StringBuilder();
+
+            builder.AppendLine($"// <copyright file=\"Benchmark{index}.cs\" company=\"Endjin Limited\">");
+            builder.AppendLine("// Copyright (c) Endjin Limited. All rights reserved.");
+            builder.AppendLine("// </copyright>");
+            builder.AppendLine("#pragma warning disable");
+            builder.AppendLine($"namespace {featureName}Feature.{scenarioName}");
+            builder.AppendLine("{");
+            builder.AppendLine("    using System.Threading.Tasks;");
+            builder.AppendLine("    using BenchmarkDotNet.Attributes;");
+            builder.AppendLine("    using BenchmarkDotNet.Diagnosers;");
+            builder.AppendLine("    using Menes.JsonSchema.Benchmarking.Benchmarks;");
+            builder.AppendLine("    /// <summary>");
+            builder.AppendLine("    /// Additional properties benchmark.");
+            builder.AppendLine("    /// </summary>");
+            builder.AppendLine("    [MemoryDiagnoser]");
+            builder.AppendLine($"    public class Benchmark{index} : BenchmarkBase");
+            builder.AppendLine("    {");
+            builder.AppendLine("        /// <summary>");
+            builder.AppendLine("        /// Global setup.");
+            builder.AppendLine("        /// </summary>");
+            builder.AppendLine("        /// <returns>A <see cref=\"Task\"/> which completes once setup is complete.</returns>");
+            builder.AppendLine("        [GlobalSetup]");
+            builder.AppendLine("        public Task GlobalSetup()");
+            builder.AppendLine("        {");
+            builder.AppendLine($"            return this.GlobalSetup(\"{filename}\", \"{schemaPath}\", \"{dataPath}\", {valid.ToString().ToLowerInvariant()});");
+            builder.AppendLine("        }");
+            builder.AppendLine("        /// <summary>");
+            builder.AppendLine("        /// Validates using the Menes types.");
+            builder.AppendLine("        /// </summary>");
+            builder.AppendLine("        [Benchmark]");
+            builder.AppendLine("        public void ValidateMenes()");
+            builder.AppendLine("        {");
+            builder.AppendLine($"            this.ValidateMenesCore<{rootTypeName}>();");
+            builder.AppendLine("        }");
+            builder.AppendLine("        /// <summary>");
+            builder.AppendLine("        /// Validates using the Newtonsoft types.");
+            builder.AppendLine("        /// </summary>");
+            builder.AppendLine("        [Benchmark]");
+            builder.AppendLine("        public void ValidateNewtonsoft()");
+            builder.AppendLine("        {");
+            builder.AppendLine("            this.ValidateNewtonsoftCore();");
+            builder.AppendLine("        }");
+            builder.AppendLine("    }");
+            builder.AppendLine("}");
+            return builder.ToString();
+        }
+
         private static string BuildCompilationErrors(EmitResult result)
         {
             var builder = new StringBuilder();
@@ -174,7 +257,7 @@ namespace Drivers
         private class TestAssemblyLoadContext : AssemblyLoadContext
         {
             public TestAssemblyLoadContext()
-                : base($"TestAssemblyLoadContext_{Guid.NewGuid().ToString("N")}", isCollectible: true)
+                : base($"TestAssemblyLoadContext_{Guid.NewGuid():N}", isCollectible: true)
             {
             }
         }

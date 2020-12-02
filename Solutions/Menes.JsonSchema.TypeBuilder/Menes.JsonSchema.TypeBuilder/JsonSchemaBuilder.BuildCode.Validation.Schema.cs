@@ -21,6 +21,10 @@ namespace Menes.JsonSchema.TypeBuilder
         private void BuildSchemaValidation(TypeDeclaration typeDeclaration, StringBuilder memberBuilder)
         {
             memberBuilder.AppendLine("Menes.ValidationContext result = validationContext;");
+            memberBuilder.AppendLine("if (level != Menes.ValidationLevel.Flag)");
+            memberBuilder.AppendLine("{");
+            memberBuilder.AppendLine("    result = result.UsingStack();");
+            memberBuilder.AppendLine("}");
 
             this.BuildTypeValidations(typeDeclaration, memberBuilder);
             this.BuildFormatValidations(typeDeclaration, memberBuilder);
@@ -813,6 +817,14 @@ namespace Menes.JsonSchema.TypeBuilder
                 int index = 0;
                 memberBuilder.AppendLine("if (this.IsObject)");
                 memberBuilder.AppendLine("{");
+
+                if (typeDeclaration.AllowsAdditionalProperties)
+                {
+                    if (typeDeclaration.AdditionalProperties is not null || typeDeclaration.UnevaluatedProperties is not null)
+                    {
+                        memberBuilder.AppendLine($"    result = result.UsingEvaluatedProperties();");
+                    }
+                }
 
                 foreach (PropertyDeclaration property in typeDeclaration.Properties)
                 {
