@@ -18,8 +18,23 @@ namespace Menes.JsonSchema.TypeBuilder
         private static readonly ReadOnlyMemory<char> ValueSuffix = "Value".AsMemory();
         private static readonly ReadOnlyMemory<char> EntitySuffix = "Entity".AsMemory();
         private static readonly ReadOnlyMemory<char> MenesPrefix = "Menes.".AsMemory();
+        private static readonly ReadOnlyMemory<char> AnyOfPrefix = "AnyOf".AsMemory();
+        private static readonly ReadOnlyMemory<char> AllOfPrefix = "AllOf".AsMemory();
+        private static readonly ReadOnlyMemory<char> OneOfPrefix = "OneOf".AsMemory();
 
         private readonly Dictionary<string, string> fullyQualifiedTypeNameToAsMethodName = new Dictionary<string, string>();
+
+        /// <summary>
+        /// Update a type name based on the type information we have available during the lowering process.
+        /// </summary>
+        /// <param name="typeDeclaration"></param>
+        public static void UpdateTypeNameWithTypeInformation(TypeDeclaration typeDeclaration)
+        {
+            if (typeDeclaration.IsArrayType && !typeDeclaration.IsItemsArray && typeDeclaration.Items is not null && typeDeclaration.Items.Count == 1 && (typeDeclaration.DotnetTypeName.AsSpan().StartsWith(AnyOfPrefix.Span) || typeDeclaration.DotnetTypeName.AsSpan().StartsWith(AllOfPrefix.Span) || typeDeclaration.DotnetTypeName.AsSpan().StartsWith(OneOfPrefix.Span)))
+            {
+                typeDeclaration.DotnetTypeName = MakeMemberNameUnique(typeDeclaration.Parent, Formatting.RemovePrefix(typeDeclaration.Items[0].Lowered.DotnetTypeName, MenesPrefix.Span), ArraySuffix).ToString();
+            }
+        }
 
         private static ReadOnlyMemory<char> MakeMemberNameUnique(TypeDeclaration? typeDeclaration, ReadOnlyMemory<char> baseName, ReadOnlyMemory<char>? suffix = null)
         {

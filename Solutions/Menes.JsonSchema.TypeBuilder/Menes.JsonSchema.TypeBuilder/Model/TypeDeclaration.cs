@@ -1745,6 +1745,10 @@ namespace Menes.JsonSchema.TypeBuilder.Model
             MergeConversions(baseType, result);
             MergeConstAndEnum(baseType, result);
             MergeEmbeddedTypes(baseType, result);
+
+            // And finally, update our type name based on the lowered information
+            JsonSchemaBuilder.UpdateTypeNameWithTypeInformation(result);
+
             return this.lowered;
         }
 

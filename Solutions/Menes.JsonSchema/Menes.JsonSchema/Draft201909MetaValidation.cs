@@ -4511,30 +4511,30 @@ namespace Menes.JsonSchema
             public static readonly TypeEntity Null = default(TypeEntity);
             private readonly System.Text.Json.JsonElement _menesJsonElementBacking;
             private readonly Draft201909MetaValidation.TypeEntity.SimpleTypesEntity? _menesDraft201909MetaValidationTypeEntitySimpleTypesEntityAnyOfBacking;
-            private readonly Draft201909MetaValidation.TypeEntity.AnyOf1Array? _menesDraft201909MetaValidationTypeEntityAnyOf1ArrayAnyOfBacking;
+            private readonly Draft201909MetaValidation.TypeEntity.SimpleTypesEntityArray? _menesDraft201909MetaValidationTypeEntitySimpleTypesEntityArrayAnyOfBacking;
             public TypeEntity(System.Text.Json.JsonElement jsonElement)
             {
                 this._menesJsonElementBacking = jsonElement;
                 this._menesDraft201909MetaValidationTypeEntitySimpleTypesEntityAnyOfBacking = default;
-                this._menesDraft201909MetaValidationTypeEntityAnyOf1ArrayAnyOfBacking = default;
+                this._menesDraft201909MetaValidationTypeEntitySimpleTypesEntityArrayAnyOfBacking = default;
             }
             public TypeEntity(Draft201909MetaValidation.TypeEntity.SimpleTypesEntity value)
             {
                 this._menesJsonElementBacking = default;
                 this._menesDraft201909MetaValidationTypeEntitySimpleTypesEntityAnyOfBacking = value;
-                this._menesDraft201909MetaValidationTypeEntityAnyOf1ArrayAnyOfBacking = default;
+                this._menesDraft201909MetaValidationTypeEntitySimpleTypesEntityArrayAnyOfBacking = default;
             }
-            public TypeEntity(Draft201909MetaValidation.TypeEntity.AnyOf1Array value)
+            public TypeEntity(Draft201909MetaValidation.TypeEntity.SimpleTypesEntityArray value)
             {
                 this._menesJsonElementBacking = default;
-                this._menesDraft201909MetaValidationTypeEntityAnyOf1ArrayAnyOfBacking = value;
+                this._menesDraft201909MetaValidationTypeEntitySimpleTypesEntityArrayAnyOfBacking = value;
                 this._menesDraft201909MetaValidationTypeEntitySimpleTypesEntityAnyOfBacking = default;
             }
-            private TypeEntity(Draft201909MetaValidation.TypeEntity.SimpleTypesEntity? _menesDraft201909MetaValidationTypeEntitySimpleTypesEntityAnyOfBacking, Draft201909MetaValidation.TypeEntity.AnyOf1Array? _menesDraft201909MetaValidationTypeEntityAnyOf1ArrayAnyOfBacking)
+            private TypeEntity(Draft201909MetaValidation.TypeEntity.SimpleTypesEntity? _menesDraft201909MetaValidationTypeEntitySimpleTypesEntityAnyOfBacking, Draft201909MetaValidation.TypeEntity.SimpleTypesEntityArray? _menesDraft201909MetaValidationTypeEntitySimpleTypesEntityArrayAnyOfBacking)
             {
                 this._menesJsonElementBacking = default;
                 this._menesDraft201909MetaValidationTypeEntitySimpleTypesEntityAnyOfBacking = _menesDraft201909MetaValidationTypeEntitySimpleTypesEntityAnyOfBacking;
-                this._menesDraft201909MetaValidationTypeEntityAnyOf1ArrayAnyOfBacking = _menesDraft201909MetaValidationTypeEntityAnyOf1ArrayAnyOfBacking;
+                this._menesDraft201909MetaValidationTypeEntitySimpleTypesEntityArrayAnyOfBacking = _menesDraft201909MetaValidationTypeEntitySimpleTypesEntityArrayAnyOfBacking;
             }
             public static implicit operator Draft201909MetaValidation.TypeEntity.SimpleTypesEntity(TypeEntity value)
             {
@@ -4544,11 +4544,11 @@ namespace Menes.JsonSchema
             {
                 return value.As<Draft201909MetaValidation.TypeEntity>();
             }
-            public static implicit operator Draft201909MetaValidation.TypeEntity.AnyOf1Array(TypeEntity value)
+            public static implicit operator Draft201909MetaValidation.TypeEntity.SimpleTypesEntityArray(TypeEntity value)
             {
-                return value.As<Draft201909MetaValidation.TypeEntity.AnyOf1Array>();
+                return value.As<Draft201909MetaValidation.TypeEntity.SimpleTypesEntityArray>();
             }
-            public static implicit operator TypeEntity(Draft201909MetaValidation.TypeEntity.AnyOf1Array value)
+            public static implicit operator TypeEntity(Draft201909MetaValidation.TypeEntity.SimpleTypesEntityArray value)
             {
                 return value.As<Draft201909MetaValidation.TypeEntity>();
             }
@@ -4575,7 +4575,7 @@ namespace Menes.JsonSchema
                 {
                     arrayBuilder.Add((Draft201909MetaValidation.TypeEntity.SimpleTypesEntity)item);
                 }
-                return (TypeEntity)(Draft201909MetaValidation.TypeEntity.AnyOf1Array)arrayBuilder.ToImmutable();
+                return (TypeEntity)(Draft201909MetaValidation.TypeEntity.SimpleTypesEntityArray)arrayBuilder.ToImmutable();
             }
             public static implicit operator TypeEntity(System.Collections.Immutable.ImmutableArray<Menes.JsonString> items)
             {
@@ -4584,7 +4584,7 @@ namespace Menes.JsonSchema
                 {
                     arrayBuilder.Add((Menes.JsonString)item);
                 }
-                return (TypeEntity)(Draft201909MetaValidation.TypeEntity.AnyOf1Array)arrayBuilder.ToImmutable();
+                return (TypeEntity)(Draft201909MetaValidation.TypeEntity.SimpleTypesEntityArray)arrayBuilder.ToImmutable();
             }
             public static implicit operator TypeEntity(System.Collections.Immutable.ImmutableArray<string> items)
             {
@@ -4593,7 +4593,7 @@ namespace Menes.JsonSchema
                 {
                     arrayBuilder.Add((string)item);
                 }
-                return (TypeEntity)(Draft201909MetaValidation.TypeEntity.AnyOf1Array)arrayBuilder.ToImmutable();
+                return (TypeEntity)(Draft201909MetaValidation.TypeEntity.SimpleTypesEntityArray)arrayBuilder.ToImmutable();
             }
             /// <inheritdoc />
             public bool IsUndefined => !this.HasJsonElement && this.AllBackingFieldsAreNull();
@@ -4642,7 +4642,7 @@ namespace Menes.JsonSchema
                     {
                         result = result.MergeChildContext(anyOfResult0, false);
                     }
-                    var anyOf1 = that.AsAnyOf1Array();
+                    var anyOf1 = that.AsSimpleTypesEntityArray();
                     Menes.ValidationContext anyOfResult1;
                     if (level == Menes.ValidationLevel.Flag)
                     {
@@ -4686,7 +4686,7 @@ namespace Menes.JsonSchema
                     return;
                 }
                 this._menesDraft201909MetaValidationTypeEntitySimpleTypesEntityAnyOfBacking?.WriteTo(writer);
-                this._menesDraft201909MetaValidationTypeEntityAnyOf1ArrayAnyOfBacking?.WriteTo(writer);
+                this._menesDraft201909MetaValidationTypeEntitySimpleTypesEntityArrayAnyOfBacking?.WriteTo(writer);
             }
             /// <inheritdoc />
             public T As<T>()
@@ -4700,9 +4700,9 @@ namespace Menes.JsonSchema
                 {
                     return Corvus.Extensions.CastTo<T>.From(this._menesDraft201909MetaValidationTypeEntitySimpleTypesEntityAnyOfBacking);
                 }
-                if (typeof(T) == typeof(Draft201909MetaValidation.TypeEntity.AnyOf1Array) && this._menesDraft201909MetaValidationTypeEntityAnyOf1ArrayAnyOfBacking is not null)
+                if (typeof(T) == typeof(Draft201909MetaValidation.TypeEntity.SimpleTypesEntityArray) && this._menesDraft201909MetaValidationTypeEntitySimpleTypesEntityArrayAnyOfBacking is not null)
                 {
-                    return Corvus.Extensions.CastTo<T>.From(this._menesDraft201909MetaValidationTypeEntityAnyOf1ArrayAnyOfBacking);
+                    return Corvus.Extensions.CastTo<T>.From(this._menesDraft201909MetaValidationTypeEntitySimpleTypesEntityArrayAnyOfBacking);
                 }
                 return Menes.JsonValue.As<TypeEntity, T>(this);
             }
@@ -4718,9 +4718,9 @@ namespace Menes.JsonSchema
                 {
                     return this._menesDraft201909MetaValidationTypeEntitySimpleTypesEntityAnyOfBacking.Value!.Validate(Menes.ValidationContext.ValidContext).IsValid;
                 }
-                if (typeof(T) == typeof(Draft201909MetaValidation.TypeEntity.AnyOf1Array) && this._menesDraft201909MetaValidationTypeEntityAnyOf1ArrayAnyOfBacking is not null)
+                if (typeof(T) == typeof(Draft201909MetaValidation.TypeEntity.SimpleTypesEntityArray) && this._menesDraft201909MetaValidationTypeEntitySimpleTypesEntityArrayAnyOfBacking is not null)
                 {
-                    return this._menesDraft201909MetaValidationTypeEntityAnyOf1ArrayAnyOfBacking.Value!.Validate(Menes.ValidationContext.ValidContext).IsValid;
+                    return this._menesDraft201909MetaValidationTypeEntitySimpleTypesEntityArrayAnyOfBacking.Value!.Validate(Menes.ValidationContext.ValidContext).IsValid;
                 }
                 return this.As<T>().Validate(Menes.ValidationContext.ValidContext).IsValid;
             }
@@ -4728,9 +4728,9 @@ namespace Menes.JsonSchema
             {
                 return this.As<Draft201909MetaValidation.TypeEntity.SimpleTypesEntity>();
             }
-            public readonly Draft201909MetaValidation.TypeEntity.AnyOf1Array AsAnyOf1Array()
+            public readonly Draft201909MetaValidation.TypeEntity.SimpleTypesEntityArray AsSimpleTypesEntityArray()
             {
-                return this.As<Draft201909MetaValidation.TypeEntity.AnyOf1Array>();
+                return this.As<Draft201909MetaValidation.TypeEntity.SimpleTypesEntityArray>();
             }
             /// <inheritdoc/>
             public bool Equals<T>(in T other)
@@ -4744,7 +4744,7 @@ namespace Menes.JsonSchema
                 {
                     return false;
                 }
-                if (this._menesDraft201909MetaValidationTypeEntityAnyOf1ArrayAnyOfBacking is not null)
+                if (this._menesDraft201909MetaValidationTypeEntitySimpleTypesEntityArrayAnyOfBacking is not null)
                 {
                     return false;
                 }
@@ -4991,42 +4991,42 @@ namespace Menes.JsonSchema
                     public static readonly Menes.JsonString String = new Menes.JsonString("string");
                 }
             }
-            public readonly struct AnyOf1Array : Menes.IJsonValue, Menes.IJsonArray<AnyOf1Array, Draft201909MetaValidation.TypeEntity.SimpleTypesEntity>
+            public readonly struct SimpleTypesEntityArray : Menes.IJsonValue, Menes.IJsonArray<SimpleTypesEntityArray, Draft201909MetaValidation.TypeEntity.SimpleTypesEntity>
             {
-                public static readonly AnyOf1Array Null = default(AnyOf1Array);
+                public static readonly SimpleTypesEntityArray Null = default(SimpleTypesEntityArray);
                 private readonly System.Text.Json.JsonElement _menesJsonElementBacking;
                 private readonly System.Collections.Immutable.ImmutableArray<Draft201909MetaValidation.TypeEntity.SimpleTypesEntity>? _menesArrayValueBacking;
-                public AnyOf1Array(System.Text.Json.JsonElement jsonElement)
+                public SimpleTypesEntityArray(System.Text.Json.JsonElement jsonElement)
                 {
                     this._menesJsonElementBacking = jsonElement;
                     this._menesArrayValueBacking = default;
                 }
-                public AnyOf1Array(System.Collections.Immutable.ImmutableArray<Draft201909MetaValidation.TypeEntity.SimpleTypesEntity> value)
+                public SimpleTypesEntityArray(System.Collections.Immutable.ImmutableArray<Draft201909MetaValidation.TypeEntity.SimpleTypesEntity> value)
                 {
                     this._menesArrayValueBacking = value;
                     this._menesJsonElementBacking = default;
                 }
-                public static implicit operator AnyOf1Array(System.Collections.Immutable.ImmutableArray<Draft201909MetaValidation.TypeEntity.SimpleTypesEntity> items)
+                public static implicit operator SimpleTypesEntityArray(System.Collections.Immutable.ImmutableArray<Draft201909MetaValidation.TypeEntity.SimpleTypesEntity> items)
                 {
-                    return new Draft201909MetaValidation.TypeEntity.AnyOf1Array(items);
+                    return new Draft201909MetaValidation.TypeEntity.SimpleTypesEntityArray(items);
                 }
-                public static implicit operator AnyOf1Array(System.Collections.Immutable.ImmutableArray<Menes.JsonString> items)
+                public static implicit operator SimpleTypesEntityArray(System.Collections.Immutable.ImmutableArray<Menes.JsonString> items)
                 {
                     var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Draft201909MetaValidation.TypeEntity.SimpleTypesEntity>();
                     foreach (var item in items)
                     {
                         arrayBuilder.Add((Draft201909MetaValidation.TypeEntity.SimpleTypesEntity)item);
                     }
-                    return (AnyOf1Array)(Draft201909MetaValidation.TypeEntity.AnyOf1Array)arrayBuilder.ToImmutable();
+                    return (SimpleTypesEntityArray)(Draft201909MetaValidation.TypeEntity.SimpleTypesEntityArray)arrayBuilder.ToImmutable();
                 }
-                public static implicit operator AnyOf1Array(System.Collections.Immutable.ImmutableArray<string> items)
+                public static implicit operator SimpleTypesEntityArray(System.Collections.Immutable.ImmutableArray<string> items)
                 {
                     var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Draft201909MetaValidation.TypeEntity.SimpleTypesEntity>();
                     foreach (var item in items)
                     {
                         arrayBuilder.Add((Draft201909MetaValidation.TypeEntity.SimpleTypesEntity)item);
                     }
-                    return (AnyOf1Array)(Draft201909MetaValidation.TypeEntity.AnyOf1Array)arrayBuilder.ToImmutable();
+                    return (SimpleTypesEntityArray)(Draft201909MetaValidation.TypeEntity.SimpleTypesEntityArray)arrayBuilder.ToImmutable();
                 }
                 /// <inheritdoc />
                 public bool IsUndefined => !this.HasJsonElement && this.AllBackingFieldsAreNull();
@@ -5165,17 +5165,17 @@ namespace Menes.JsonSchema
                 public T As<T>()
                     where T : struct, Menes.IJsonValue
                 {
-                    if (typeof(T) == typeof(AnyOf1Array))
+                    if (typeof(T) == typeof(SimpleTypesEntityArray))
                     {
                         return Corvus.Extensions.CastTo<T>.From(this);
                     }
-                    return Menes.JsonValue.As<AnyOf1Array, T>(this);
+                    return Menes.JsonValue.As<SimpleTypesEntityArray, T>(this);
                 }
                 /// <inheritdoc />
                 public bool Is<T>()
                     where T : struct, Menes.IJsonValue
                 {
-                    if (typeof(T) == typeof(Draft201909MetaValidation.TypeEntity.AnyOf1Array))
+                    if (typeof(T) == typeof(Draft201909MetaValidation.TypeEntity.SimpleTypesEntityArray))
                     {
                         return this.Validate(Menes.ValidationContext.ValidContext).IsValid;
                     }
@@ -5206,13 +5206,13 @@ namespace Menes.JsonSchema
                     // If we have extra items in the second enumerator, return false.
                     return !secondEnumerator.MoveNext();
                 }
-                public Draft201909MetaValidation.TypeEntity.AnyOf1Array.MenesArrayEnumerator GetEnumerator()
+                public Draft201909MetaValidation.TypeEntity.SimpleTypesEntityArray.MenesArrayEnumerator GetEnumerator()
                 {
-                    return new Draft201909MetaValidation.TypeEntity.AnyOf1Array.MenesArrayEnumerator(this);
+                    return new Draft201909MetaValidation.TypeEntity.SimpleTypesEntityArray.MenesArrayEnumerator(this);
                 }
-                public Draft201909MetaValidation.TypeEntity.AnyOf1Array.MenesArrayEnumerator EnumerateArray()
+                public Draft201909MetaValidation.TypeEntity.SimpleTypesEntityArray.MenesArrayEnumerator EnumerateArray()
                 {
-                    return new Draft201909MetaValidation.TypeEntity.AnyOf1Array.MenesArrayEnumerator(this);
+                    return new Draft201909MetaValidation.TypeEntity.SimpleTypesEntityArray.MenesArrayEnumerator(this);
                 }
                 System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
                 {
@@ -5253,7 +5253,7 @@ namespace Menes.JsonSchema
                     }
                     return default;
                 }
-                public AnyOf1Array Add<T1>(T1 item1)
+                public SimpleTypesEntityArray Add<T1>(T1 item1)
                     where T1 : struct, Menes.IJsonValue
                 {
                     var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Draft201909MetaValidation.TypeEntity.SimpleTypesEntity>();
@@ -5262,9 +5262,9 @@ namespace Menes.JsonSchema
                         arrayBuilder.Add(oldItem);
                     }
                     arrayBuilder.Add(item1.As<Draft201909MetaValidation.TypeEntity.SimpleTypesEntity>());
-                    return new Draft201909MetaValidation.TypeEntity.AnyOf1Array(arrayBuilder.ToImmutable());
+                    return new Draft201909MetaValidation.TypeEntity.SimpleTypesEntityArray(arrayBuilder.ToImmutable());
                 }
-                public AnyOf1Array Add<T1, T2>(T1 item1, T2 item2)
+                public SimpleTypesEntityArray Add<T1, T2>(T1 item1, T2 item2)
                     where T1 : struct, Menes.IJsonValue
                     where T2 : struct, Menes.IJsonValue
                 {
@@ -5275,9 +5275,9 @@ namespace Menes.JsonSchema
                     }
                     arrayBuilder.Add(item1.As<Draft201909MetaValidation.TypeEntity.SimpleTypesEntity>());
                     arrayBuilder.Add(item2.As<Draft201909MetaValidation.TypeEntity.SimpleTypesEntity>());
-                    return new Draft201909MetaValidation.TypeEntity.AnyOf1Array(arrayBuilder.ToImmutable());
+                    return new Draft201909MetaValidation.TypeEntity.SimpleTypesEntityArray(arrayBuilder.ToImmutable());
                 }
-                public AnyOf1Array Add<T1, T2, T3>(T1 item1, T2 item2, T3 item3)
+                public SimpleTypesEntityArray Add<T1, T2, T3>(T1 item1, T2 item2, T3 item3)
                     where T1 : struct, Menes.IJsonValue
                     where T2 : struct, Menes.IJsonValue
                     where T3 : struct, Menes.IJsonValue
@@ -5290,9 +5290,9 @@ namespace Menes.JsonSchema
                     arrayBuilder.Add(item1.As<Draft201909MetaValidation.TypeEntity.SimpleTypesEntity>());
                     arrayBuilder.Add(item2.As<Draft201909MetaValidation.TypeEntity.SimpleTypesEntity>());
                     arrayBuilder.Add(item3.As<Draft201909MetaValidation.TypeEntity.SimpleTypesEntity>());
-                    return new Draft201909MetaValidation.TypeEntity.AnyOf1Array(arrayBuilder.ToImmutable());
+                    return new Draft201909MetaValidation.TypeEntity.SimpleTypesEntityArray(arrayBuilder.ToImmutable());
                 }
-                public AnyOf1Array Add<T1, T2, T3, T4>(T1 item1, T2 item2, T3 item3, T4 item4)
+                public SimpleTypesEntityArray Add<T1, T2, T3, T4>(T1 item1, T2 item2, T3 item3, T4 item4)
                     where T1 : struct, Menes.IJsonValue
                     where T2 : struct, Menes.IJsonValue
                     where T3 : struct, Menes.IJsonValue
@@ -5307,9 +5307,9 @@ namespace Menes.JsonSchema
                     arrayBuilder.Add(item2.As<Draft201909MetaValidation.TypeEntity.SimpleTypesEntity>());
                     arrayBuilder.Add(item3.As<Draft201909MetaValidation.TypeEntity.SimpleTypesEntity>());
                     arrayBuilder.Add(item4.As<Draft201909MetaValidation.TypeEntity.SimpleTypesEntity>());
-                    return new Draft201909MetaValidation.TypeEntity.AnyOf1Array(arrayBuilder.ToImmutable());
+                    return new Draft201909MetaValidation.TypeEntity.SimpleTypesEntityArray(arrayBuilder.ToImmutable());
                 }
-                public AnyOf1Array Add<T>(params T[] items)
+                public SimpleTypesEntityArray Add<T>(params T[] items)
                     where T : struct, Menes.IJsonValue
                 {
                     var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Draft201909MetaValidation.TypeEntity.SimpleTypesEntity>();
@@ -5321,9 +5321,9 @@ namespace Menes.JsonSchema
                     {
                         arrayBuilder.Add(item1.As<Draft201909MetaValidation.TypeEntity.SimpleTypesEntity>());
                     }
-                    return new Draft201909MetaValidation.TypeEntity.AnyOf1Array(arrayBuilder.ToImmutable());
+                    return new Draft201909MetaValidation.TypeEntity.SimpleTypesEntityArray(arrayBuilder.ToImmutable());
                 }
-                public AnyOf1Array Insert<T>(int index, T item1)
+                public SimpleTypesEntityArray Insert<T>(int index, T item1)
                     where T : struct, Menes.IJsonValue
                 {
                     var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Draft201909MetaValidation.TypeEntity.SimpleTypesEntity>();
@@ -5343,9 +5343,9 @@ namespace Menes.JsonSchema
                     {
                         throw new System.IndexOutOfRangeException($"The given index {index} was out of range.");
                     }
-                    return new Draft201909MetaValidation.TypeEntity.AnyOf1Array(arrayBuilder.ToImmutable());
+                    return new Draft201909MetaValidation.TypeEntity.SimpleTypesEntityArray(arrayBuilder.ToImmutable());
                 }
-                public AnyOf1Array Insert<T1, T2>(int index, T1 item1, T2 item2)
+                public SimpleTypesEntityArray Insert<T1, T2>(int index, T1 item1, T2 item2)
                     where T1 : struct, Menes.IJsonValue
                     where T2 : struct, Menes.IJsonValue
                 {
@@ -5367,9 +5367,9 @@ namespace Menes.JsonSchema
                     {
                         throw new System.IndexOutOfRangeException($"The given index {index} was out of range.");
                     }
-                    return new Draft201909MetaValidation.TypeEntity.AnyOf1Array(arrayBuilder.ToImmutable());
+                    return new Draft201909MetaValidation.TypeEntity.SimpleTypesEntityArray(arrayBuilder.ToImmutable());
                 }
-                public AnyOf1Array Insert<T1, T2, T3>(int index, T1 item1, T2 item2, T3 item3)
+                public SimpleTypesEntityArray Insert<T1, T2, T3>(int index, T1 item1, T2 item2, T3 item3)
                     where T1 : struct, Menes.IJsonValue
                     where T2 : struct, Menes.IJsonValue
                     where T3 : struct, Menes.IJsonValue
@@ -5393,9 +5393,9 @@ namespace Menes.JsonSchema
                     {
                         throw new System.IndexOutOfRangeException($"The given index {index} was out of range.");
                     }
-                    return new Draft201909MetaValidation.TypeEntity.AnyOf1Array(arrayBuilder.ToImmutable());
+                    return new Draft201909MetaValidation.TypeEntity.SimpleTypesEntityArray(arrayBuilder.ToImmutable());
                 }
-                public AnyOf1Array Insert<T1, T2, T3, T4>(int index, T1 item1, T2 item2, T3 item3, T4 item4)
+                public SimpleTypesEntityArray Insert<T1, T2, T3, T4>(int index, T1 item1, T2 item2, T3 item3, T4 item4)
                     where T1 : struct, Menes.IJsonValue
                     where T2 : struct, Menes.IJsonValue
                     where T3 : struct, Menes.IJsonValue
@@ -5421,9 +5421,9 @@ namespace Menes.JsonSchema
                     {
                         throw new System.IndexOutOfRangeException($"The given index {index} was out of range.");
                     }
-                    return new Draft201909MetaValidation.TypeEntity.AnyOf1Array(arrayBuilder.ToImmutable());
+                    return new Draft201909MetaValidation.TypeEntity.SimpleTypesEntityArray(arrayBuilder.ToImmutable());
                 }
-                public AnyOf1Array Insert<T>(int index, params T[] items)
+                public SimpleTypesEntityArray Insert<T>(int index, params T[] items)
                     where T : struct, Menes.IJsonValue
                 {
                     var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Draft201909MetaValidation.TypeEntity.SimpleTypesEntity>();
@@ -5446,9 +5446,9 @@ namespace Menes.JsonSchema
                     {
                         throw new System.IndexOutOfRangeException($"The given index {index} was out of range.");
                     }
-                    return new Draft201909MetaValidation.TypeEntity.AnyOf1Array(arrayBuilder.ToImmutable());
+                    return new Draft201909MetaValidation.TypeEntity.SimpleTypesEntityArray(arrayBuilder.ToImmutable());
                 }
-                public AnyOf1Array RemoveAt(int index)
+                public SimpleTypesEntityArray RemoveAt(int index)
                 {
                     var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Draft201909MetaValidation.TypeEntity.SimpleTypesEntity>();
                     int currentIndex = 0;
@@ -5469,13 +5469,13 @@ namespace Menes.JsonSchema
                     {
                         throw new System.IndexOutOfRangeException($"The given index {index} was out of range.");
                     }
-                    return new Draft201909MetaValidation.TypeEntity.AnyOf1Array(arrayBuilder.ToImmutable());
+                    return new Draft201909MetaValidation.TypeEntity.SimpleTypesEntityArray(arrayBuilder.ToImmutable());
                 }
-                public AnyOf1Array RemoveIf(System.Predicate<Draft201909MetaValidation.TypeEntity.SimpleTypesEntity> condition)
+                public SimpleTypesEntityArray RemoveIf(System.Predicate<Draft201909MetaValidation.TypeEntity.SimpleTypesEntity> condition)
                 {
                     return this.RemoveIf<Draft201909MetaValidation.TypeEntity.SimpleTypesEntity>(condition);
                 }
-                public AnyOf1Array RemoveIf<T>(System.Predicate<T> condition)
+                public SimpleTypesEntityArray RemoveIf<T>(System.Predicate<T> condition)
                     where T : struct, Menes.IJsonValue
                 {
                     var arrayBuilder = System.Collections.Immutable.ImmutableArray.CreateBuilder<Draft201909MetaValidation.TypeEntity.SimpleTypesEntity>();
@@ -5486,7 +5486,7 @@ namespace Menes.JsonSchema
                             arrayBuilder.Add(item);
                         }
                     }
-                    return new Draft201909MetaValidation.TypeEntity.AnyOf1Array(arrayBuilder.ToImmutable());
+                    return new Draft201909MetaValidation.TypeEntity.SimpleTypesEntityArray(arrayBuilder.ToImmutable());
                 }
                 private bool AllBackingFieldsAreNull()
                 {
@@ -5497,15 +5497,15 @@ namespace Menes.JsonSchema
                     return true;
                 }
                 /// <summary>
-                /// An enumerator for the array values in a <see cref="AnyOf1Array"/>.
+                /// An enumerator for the array values in a <see cref="SimpleTypesEntityArray"/>.
                 /// </summary>
                 public struct MenesArrayEnumerator : System.Collections.Generic.IEnumerable<Draft201909MetaValidation.TypeEntity.SimpleTypesEntity>, System.Collections.IEnumerable, System.Collections.Generic.IEnumerator<Draft201909MetaValidation.TypeEntity.SimpleTypesEntity>, System.Collections.IEnumerator
                 {
-                    private AnyOf1Array instance;
+                    private SimpleTypesEntityArray instance;
                     private System.Text.Json.JsonElement.ArrayEnumerator jsonEnumerator;
                     private bool hasJsonEnumerator;
                     private int index;
-                    internal MenesArrayEnumerator(AnyOf1Array instance)
+                    internal MenesArrayEnumerator(SimpleTypesEntityArray instance)
                     {
                         this.instance = instance;
                         if (this.instance.HasJsonElement)
@@ -5542,7 +5542,7 @@ namespace Menes.JsonSchema
                     /// <summary>
                     /// Returns a fresh copy of the enumerator
                     /// </summary>
-                    /// <returns>An enumerator for the array values in a <see cref="AnyOf1Array"/>.</returns>
+                    /// <returns>An enumerator for the array values in a <see cref="SimpleTypesEntityArray"/>.</returns>
                     public MenesArrayEnumerator GetEnumerator()
                     {
                         MenesArrayEnumerator result = this;
