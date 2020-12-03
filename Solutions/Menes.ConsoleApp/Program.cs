@@ -6,13 +6,14 @@ namespace Menes.ConsoleApp
 {
     using System;
     using System.Buffers;
+    using System.Net.Http;
     using System.Text;
     using System.Text.Json;
     using System.Threading.Tasks;
     using Driver.GeneratedTypes;
-    using Menes.Json.Schema;
+    using Menes.Json;
     using Menes.JsonSchema;
-    using Menes.JsonSchema.TypeBuilder;
+    using Menes.JsonSchema.TypeModel;
 
     /// <summary>
     /// Console app for the Menes type generator.
@@ -20,9 +21,21 @@ namespace Menes.ConsoleApp
     public class Program
     {
         /// <summary>
-        /// The main program entry point.
+        /// Main entry point.
         /// </summary>
-        public static void Main()
+        /// <returns>A <see cref="Task"/> representing the result of the asynchronous operation.</returns>
+        public static async Task Main()
+        {
+            // New up a json walker.
+            var walker = new JsonWalker(new HttpClientDocumentResolver(new HttpClient()));
+
+            var jsonSchemaWalker = new JsonSchemaWalker();
+            jsonSchemaWalker.RegisterWith(walker);
+
+            LocatedElement? root = await walker.ResolveReference(new JsonReference("https://json-schema.org/draft/2019-09/schema"), false).ConfigureAwait(false);
+        }
+
+        private static void PlayWithTheSchema()
         {
             RootEntity entity = new JsonAny("[\"foo\", \"bar\", \"baz\"]").As<RootEntity>();
             Console.WriteLine(entity.Validate(ValidationContext.ValidContext).IsValid);
