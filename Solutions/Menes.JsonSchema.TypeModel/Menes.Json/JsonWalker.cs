@@ -27,6 +27,7 @@ namespace Menes.Json
 
         private readonly Stack<string> scopedLocationStack = new Stack<string>();
         private readonly IDocumentResolver documentResolver;
+        private readonly string baseLocation;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="JsonWalker"/> class.
@@ -35,10 +36,10 @@ namespace Menes.Json
         /// <param name="baseLocation">The initial base location.</param>
         public JsonWalker(IDocumentResolver documentResolver, string baseLocation = "#")
         {
-            this.scopedLocationStack.Push(baseLocation);
             this.handlers.Add(DefaultHandler);
             this.resolvers.Add(DefaultResolver);
             this.documentResolver = documentResolver;
+            this.baseLocation = baseLocation;
         }
 
         /// <summary>
@@ -48,7 +49,7 @@ namespace Menes.Json
         {
             get
             {
-                return this.locatedElements[this.scopedLocationStack.Peek()];
+                return this.locatedElements[this.PeekLocationStack()];
             }
         }
 
@@ -182,7 +183,7 @@ namespace Menes.Json
         /// <returns><c>True</c> if this added or updated the element, otherwise false.</returns>
         public bool AddOrUpdateLocatedElement(JsonElement element, string contentType)
         {
-            string location = this.scopedLocationStack.Peek();
+            string location = this.PeekLocationStack();
             if (this.locatedElements.TryGetValue(location, out LocatedElement value))
             {
                 return value.Update(element, contentType);
@@ -199,11 +200,16 @@ namespace Menes.Json
         /// </summary>
         /// <param name="locatedElement">The previously located element which is now being referenced at this location.</param>
         /// <remarks>This is used by handlers to add an element they have previously located to a new place in the location cache.</remarks>
-        public void TryAddLocatedElement(LocatedElement locatedElement)
+        public void AddOrUpdateLocatedElement(LocatedElement locatedElement)
         {
-            string location = this.scopedLocationStack.Peek();
+            string location = this.PeekLocationStack();
             if (!this.locatedElements.ContainsKey(location))
             {
+                this.locatedElements.Add(location, locatedElement);
+            }
+            else
+            {
+                this.locatedElements.Remove(location);
                 this.locatedElements.Add(location, locatedElement);
             }
         }
@@ -234,7 +240,7 @@ namespace Menes.Json
         public async Task<LocatedElement> ResolveReference(JsonReference reference, bool isRecursiveReference)
         {
             // The current location is the current place in the stack, with the reference applied.
-            var currentLocation = new JsonReference(this.scopedLocationStack.Peek()).Apply(reference);
+            var currentLocation = new JsonReference(this.PeekLocationStack()).Apply(reference);
 
             var enumerator = this.resolvers.GetEnumerator();
             while (enumerator.MoveNext())
@@ -247,6 +253,15 @@ namespace Menes.Json
             }
 
             throw new ArgumentException("Unable to resolve reference.", nameof(reference));
+        }
+
+        /// <summary>
+        /// Peek the top item off the location stack.
+        /// </summary>
+        /// <returns>The top item off the location stack, or the base location.</returns>
+        public string PeekLocationStack()
+        {
+            return this.scopedLocationStack.Count > 0 ? this.scopedLocationStack.Peek() : this.baseLocation;
         }
 
         /// <summary>
@@ -263,7 +278,7 @@ namespace Menes.Json
         /// <param name="name">The unencoded property name to push to the stack.</param>
         public void PushPropertyToLocationStack(string name)
         {
-            var currentLocation = new JsonReference(this.scopedLocationStack.Peek());
+            var currentLocation = new JsonReference(this.PeekLocationStack());
             this.scopedLocationStack.Push(currentLocation.AppendUnencodedPropertyNameToFragment(name));
         }
 
@@ -273,7 +288,7 @@ namespace Menes.Json
         /// <param name="index">The array index to push to the stack.</param>
         public void PushArrayIndexToLocationStack(int index)
         {
-            var currentLocation = new JsonReference(this.scopedLocationStack.Peek());
+            var currentLocation = new JsonReference(this.PeekLocationStack());
             this.scopedLocationStack.Push(currentLocation.AppendArrayIndexToFragment(index));
         }
 
@@ -283,7 +298,7 @@ namespace Menes.Json
         /// <param name="scope">The scope change to push to the stack.</param>
         public void PushScopeToLocationStack(string scope)
         {
-            var currentLocation = new JsonReference(this.scopedLocationStack.Peek());
+            var currentLocation = new JsonReference(this.PeekLocationStack());
             this.scopedLocationStack.Push(currentLocation.Apply(new JsonReference(scope)));
         }
 
@@ -340,7 +355,7 @@ namespace Menes.Json
 
         private bool TryAddLocatedElement(JsonElement element, string contentType)
         {
-            string location = this.scopedLocationStack.Peek();
+            string location = this.PeekLocationStack();
             if (!this.locatedElements.ContainsKey(location))
             {
                 this.locatedElements.Add(location, new LocatedElement(location, element, contentType));

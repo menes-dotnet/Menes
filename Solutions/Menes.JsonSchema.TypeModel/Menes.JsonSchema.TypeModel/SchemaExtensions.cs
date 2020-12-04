@@ -20,14 +20,39 @@ namespace Menes.JsonSchema.TypeModel
         }
 
         /// <summary>
+        /// Determines if this schema is a simple type.
+        /// </summary>
+        /// <param name="draft201909Schema">The schema to test.</param>
+        /// <returns><c>True</c> if the schema has a single type value, or no type value but a format value.</returns>
+        public static bool IsExplicitArrayType(this Draft201909Schema draft201909Schema)
+        {
+            return
+                draft201909Schema.Type is Draft201909MetaValidation.TypeEntity type && type.IsString && type == Draft201909MetaValidation.TypeEntity.SimpleTypesEntity.EnumValues.Array;
+        }
+
+        /// <summary>
+        /// Determines if this schema is a simple type.
+        /// </summary>
+        /// <param name="draft201909Schema">The schema to test.</param>
+        /// <returns><c>True</c> if the schema has a single type value, or no type value but a format value.</returns>
+        public static bool IsSimpleType(this Draft201909Schema draft201909Schema)
+        {
+            return
+                (draft201909Schema.Type is Draft201909MetaValidation.TypeEntity type && type.Is<Draft201909MetaValidation.TypeEntity.SimpleTypesEntity>()) ||
+                (draft201909Schema.Type is null && draft201909Schema.Format is not null);
+        }
+
+        /// <summary>
         /// Determines if this schema is empty of non-extension items.
         /// </summary>
         /// <param name="draft201909Schema">The schema to test.</param>
         /// <returns><c>True</c> if all the non-extension items are empty.</returns>
-        public static bool IsBuiltInType(Draft201909Schema draft201909Schema)
+        public static bool IsBuiltInType(this Draft201909Schema draft201909Schema)
         {
             return
-                draft201909Schema.Type is Draft201909MetaValidation.TypeEntity type && type.Is<Draft201909MetaValidation.TypeEntity.SimpleTypesEntity>() &&
+                draft201909Schema.IsBoolean ||
+                draft201909Schema.IsEmpty() ||
+                (draft201909Schema.IsSimpleType() &&
                 draft201909Schema.AdditionalItems is null &&
                 draft201909Schema.AdditionalProperties is null &&
                 draft201909Schema.AllOf is null &&
@@ -46,7 +71,6 @@ namespace Menes.JsonSchema.TypeModel
                 draft201909Schema.Enum is null &&
                 draft201909Schema.ExclusiveMaximum is null &&
                 draft201909Schema.ExclusiveMinimum is null &&
-                draft201909Schema.Format is null &&
                 draft201909Schema.If is null &&
                 draft201909Schema.Items is null &&
                 draft201909Schema.MaxContains is null &&
@@ -75,7 +99,7 @@ namespace Menes.JsonSchema.TypeModel
                 draft201909Schema.UnevaluatedItems is null &&
                 draft201909Schema.UnevaluatedProperties is null &&
                 draft201909Schema.UniqueItems is null &&
-                draft201909Schema.WriteOnly is null;
+                draft201909Schema.WriteOnly is null);
         }
 
         /// <summary>
@@ -83,7 +107,7 @@ namespace Menes.JsonSchema.TypeModel
         /// </summary>
         /// <param name="draft201909Schema">The schema to test.</param>
         /// <returns><c>True</c> if all the non-extension items are empty.</returns>
-        public static bool IsEmpty(Draft201909Schema draft201909Schema)
+        public static bool IsEmpty(this Draft201909Schema draft201909Schema)
         {
             return
                 draft201909Schema.Comment is null &&

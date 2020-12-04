@@ -154,7 +154,7 @@ namespace Menes.JsonSchema.TypeModel
             {
                 walker.PushPropertyToLocationStack("$ref");
                 LocatedElement referencedElement = await walker.ResolveReference(new JsonReference(reference.GetUri().OriginalString), isRecursiveReference: false).ConfigureAwait(false);
-                walker.TryAddLocatedElement(referencedElement);
+                walker.AddOrUpdateLocatedElement(referencedElement);
                 EnsureDraft201909SchemaContent(referencedElement);
                 walker.PopLocationStack();
             }
@@ -164,7 +164,7 @@ namespace Menes.JsonSchema.TypeModel
                 walker.PushPropertyToLocationStack("$recursiveRef");
 
                 LocatedElement referencedElement = await walker.ResolveReference(new JsonReference(recursiveReference.GetUri().OriginalString), isRecursiveReference: true).ConfigureAwait(false);
-                walker.TryAddLocatedElement(referencedElement);
+                walker.AddOrUpdateLocatedElement(referencedElement);
 
                 // Our resolver will have resolved this to a referenced element, taking into account the recursive reference element, so we
                 // can now check that we've got a schema back.

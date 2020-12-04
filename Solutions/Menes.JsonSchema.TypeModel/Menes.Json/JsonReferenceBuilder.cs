@@ -100,6 +100,16 @@ namespace Menes.Json
         public ReadOnlySpan<char> Port => this.FindPort();
 
         /// <summary>
+        /// Gets a reference builder from a reference.
+        /// </summary>
+        /// <param name="reference">The reference from which to create the builder.</param>
+        /// <returns>A <see cref="JsonReferenceBuilder"/> initialized from the given string.</returns>
+        public static JsonReferenceBuilder From(string reference)
+        {
+            return new JsonReference(reference).AsBuilder();
+        }
+
+        /// <summary>
         /// Gets the JsonReference corresponding to this builder.
         /// </summary>
         /// <returns>The <see cref="JsonReference"/> built from this builder.</returns>

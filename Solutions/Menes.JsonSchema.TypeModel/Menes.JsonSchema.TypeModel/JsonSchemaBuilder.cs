@@ -7,6 +7,7 @@ namespace Menes.JsonSchema.TypeModel
     using System;
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
+    using System.Linq;
     using System.Threading.Tasks;
     using Menes.Json;
 
@@ -44,7 +45,19 @@ namespace Menes.JsonSchema.TypeModel
             this.BuildTypeDeclarations();
 
             // Then we prune the types we aren't actually using
-            this.PruneUnreferencedTypes(rootElement.AbsoluteLocation);
+            Dictionary<string, TypeDeclaration> referencedTypesByLocation = this.PruneUnreferencedTypes(rootElement.AbsoluteLocation);
+
+            // Then prune the built-in types (setting their dotnet type names appropriately)
+            Dictionary<string, TypeDeclaration> typesForGenerationByLocation = this.PruneBuiltInTypes(referencedTypesByLocation);
+
+            // Now we are going to populate the types we have built with information that cannot be derived locally from the schema.
+            // And set the parents for the remaining types that we are going to generate.
+            this.SetParents(typesForGenerationByLocation);
+
+            // Once the parents are set, we can build names for our types.
+            this.SetNames(typesForGenerationByLocation);
+
+            this.FindProperties(typesForGenerationByLocation, referencedTypesByLocation);
         }
 
         /// <summary>
@@ -65,12 +78,12 @@ namespace Menes.JsonSchema.TypeModel
             }
         }
 
-        private void PruneUnreferencedTypes(string rootLocation)
+        private Dictionary<string, TypeDeclaration> PruneUnreferencedTypes(string rootLocation)
         {
             TypeDeclaration root = this.locatedTypeDeclarations[rootLocation];
             var referencedTypes = new HashSet<TypeDeclaration>();
             this.FindReferencedTypes(root, referencedTypes);
-            this.typeDeclarations.IntersectWith(referencedTypes);
+            return referencedTypes.ToDictionary(k => k.Location);
         }
 
         private void FindReferencedTypes(TypeDeclaration currentDeclaration, HashSet<TypeDeclaration> referencedTypes)
@@ -303,23 +316,23 @@ namespace Menes.JsonSchema.TypeModel
 
         private bool TryReduceSchema(string absoluteLocation, Draft201909Schema draft201909Schema, [NotNullWhen(true)] out TypeDeclaration? reducedTypeDeclaration)
         {
-            if (draft201909Schema.IsNakedReference() && draft201909Schema.Ref is JsonUriReference reference)
+            if (draft201909Schema.IsNakedReference() && draft201909Schema.Ref is JsonUriReference)
             {
-                return this.ReduceSchema(absoluteLocation, out reducedTypeDeclaration, reference);
+                return this.ReduceSchema(absoluteLocation, out reducedTypeDeclaration, "$ref");
             }
 
-            if (draft201909Schema.IsNakedRecursiveReference() && draft201909Schema.RecursiveRef is JsonUriReference recursiveReference)
+            if (draft201909Schema.IsNakedRecursiveReference() && draft201909Schema.RecursiveRef is JsonUriReference)
             {
-                return this.ReduceSchema(absoluteLocation, out reducedTypeDeclaration, recursiveReference);
+                return this.ReduceSchema(absoluteLocation, out reducedTypeDeclaration, "$recursiveRef");
             }
 
             reducedTypeDeclaration = default;
             return false;
         }
 
-        private bool ReduceSchema(string absoluteLocation, out TypeDeclaration? reducedTypeDeclaration, JsonUriReference reference)
+        private bool ReduceSchema(string absoluteLocation, out TypeDeclaration? reducedTypeDeclaration, string referenceProperty)
         {
-            JsonReference currentLocation = new JsonReference(absoluteLocation).Apply(new JsonReference(reference.GetUri().OriginalString));
+            JsonReference currentLocation = new JsonReference(absoluteLocation).AppendUnencodedPropertyNameToFragment(referenceProperty);
             if (this.locatedTypeDeclarations.TryGetValue(currentLocation, out TypeDeclaration locatedTypeDeclaration))
             {
                 reducedTypeDeclaration = locatedTypeDeclaration;
@@ -353,6 +366,116 @@ namespace Menes.JsonSchema.TypeModel
             }
 
             throw new InvalidOperationException($"Unable to find the TypeDeclaration for location '{resolvedSchemaLocation}'");
+        }
+
+        private void SetParents(Dictionary<string, TypeDeclaration> referencedTypesByLocation)
+        {
+            foreach (TypeDeclaration typeDeclaration in referencedTypesByLocation.Values)
+            {
+                FindAndSetParent(referencedTypesByLocation, typeDeclaration);
+            }
+
+            static void FindAndSetParent(Dictionary<string, TypeDeclaration> referencedTypesByLocation, TypeDeclaration typeDeclaration)
+            {
+                ReadOnlySpan<char> location = typeDeclaration.Location.AsSpan();
+                while (true)
+                {
+                    int lastSlash = location.LastIndexOf('/');
+                    if (lastSlash <= 0)
+                    {
+                        break;
+                    }
+
+                    if (location[lastSlash - 1] == '#')
+                    {
+                        lastSlash -= 1;
+                    }
+
+                    if (lastSlash <= 0)
+                    {
+                        break;
+                    }
+
+                    location = location.Slice(0, lastSlash);
+                    if (referencedTypesByLocation.TryGetValue(location.ToString(), out TypeDeclaration parent) && parent != typeDeclaration)
+                    {
+                        typeDeclaration.SetParent(parent);
+                        break;
+                    }
+                }
+            }
+        }
+
+        private void FindProperties(Dictionary<string, TypeDeclaration> typesForGenerationByLocation, Dictionary<string, TypeDeclaration> referencedTypesByLocation)
+        {
+        }
+
+        private void SetNames(Dictionary<string, TypeDeclaration> typesForGenerationByLocation)
+        {
+            foreach (TypeDeclaration type in typesForGenerationByLocation.Values.Where(t => t.Parent is null))
+            {
+                this.RecursivelySetName(type);
+            }
+
+            // Now we've named everything once, we can fix up our array names to better reflect the types of the items
+            foreach (TypeDeclaration type in typesForGenerationByLocation.Values.Where(t => t.Parent is null))
+            {
+                this.RecursivelyFixArrayName(type);
+            }
+
+            // Once we've set all the base names, and namespaces, we can set the fully qualified names.
+            foreach (TypeDeclaration type in typesForGenerationByLocation.Values)
+            {
+                type.SetFullyQualifiedDotnetTypeName();
+            }
+        }
+
+        private void RecursivelyFixArrayName(TypeDeclaration type)
+        {
+            if (type.Schema.IsExplicitArrayType())
+            {
+                if (type.Schema.Items is Draft201909MetaApplicator.ItemsEntity items && items.IsObject)
+                {
+                    TypeDeclaration itemsDeclaration = this.GetTypeDeclarationForProperty(type.Location, "items");
+                    type.OverrideDotnetTypeName($"{itemsDeclaration.DotnetTypeName}Array");
+                }
+            }
+
+            foreach (TypeDeclaration child in type.Children)
+            {
+                this.RecursivelyFixArrayName(child);
+            }
+        }
+
+        private void RecursivelySetName(TypeDeclaration type, int? index = null)
+        {
+            type.SetDotnetTypeNameAndNamespace(index is null ? "Entity" : $"Entity{index + 1}");
+            int childIndex = 0;
+            foreach (TypeDeclaration child in type.Children)
+            {
+                this.RecursivelySetName(child, childIndex);
+                ++childIndex;
+            }
+        }
+
+        private Dictionary<string, TypeDeclaration> PruneBuiltInTypes(Dictionary<string, TypeDeclaration> referencedTypesByLocation)
+        {
+            var pruned = new Dictionary<string, TypeDeclaration>();
+
+            foreach (KeyValuePair<string, TypeDeclaration> item in referencedTypesByLocation)
+            {
+                if (!item.Value.Schema.IsBuiltInType())
+                {
+                    pruned.Add(item.Key, item.Value);
+                }
+                else
+                {
+                    item.Value.SetBuiltInTypeNameAndNamespace();
+                    Console.WriteLine(item.Value.FullyQualifiedDotnetTypeName);
+                }
+            }
+
+            return pruned;
         }
     }
 }
