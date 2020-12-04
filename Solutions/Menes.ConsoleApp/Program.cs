@@ -28,11 +28,9 @@ namespace Menes.ConsoleApp
         {
             // New up a json walker.
             var walker = new JsonWalker(new HttpClientDocumentResolver(new HttpClient()));
+            var builder = new JsonSchemaBuilder(walker);
 
-            var jsonSchemaWalker = new JsonSchemaWalker();
-            jsonSchemaWalker.RegisterWith(walker);
-
-            LocatedElement? root = await walker.ResolveReference(new JsonReference("https://json-schema.org/draft/2019-09/schema"), false).ConfigureAwait(false);
+            await builder.BuildTypesFor("https://json-schema.org/draft/2019-09/schema").ConfigureAwait(false);
         }
 
         private static void PlayWithTheSchema()

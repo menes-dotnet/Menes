@@ -53,6 +53,18 @@ namespace Menes.Json
         }
 
         /// <summary>
+        /// Enumerate the located elements.
+        /// </summary>
+        /// <returns>An enumerable of the located elements.</returns>
+        public IEnumerable<LocatedElement> EnumerateLocatedElements()
+        {
+            foreach (KeyValuePair<string, LocatedElement> element in this.locatedElements)
+            {
+                yield return element.Value;
+            }
+        }
+
+        /// <summary>
         /// Walks the contents of an object or array.
         /// </summary>
         /// <param name="element">The content to walk.</param>
@@ -94,6 +106,21 @@ namespace Menes.Json
             {
                 throw new ArgumentException("The element must be an object or an array", nameof(element));
             }
+        }
+
+        /// <summary>
+        /// Gets a previously located element.
+        /// </summary>
+        /// <param name="location">The location for which to find the element.</param>
+        /// <returns>The located element.</returns>
+        public LocatedElement GetLocatedElement(string location)
+        {
+            if (this.locatedElements.TryGetValue(location, out LocatedElement value))
+            {
+                return value;
+            }
+
+            throw new ArgumentException($"Unable to find the element at location '{location}'", nameof(location));
         }
 
         /// <summary>
@@ -164,6 +191,20 @@ namespace Menes.Json
             {
                 this.locatedElements.Add(location, new LocatedElement(location, element, contentType));
                 return true;
+            }
+        }
+
+        /// <summary>
+        /// Adds or updates a located element in the cache.
+        /// </summary>
+        /// <param name="locatedElement">The previously located element which is now being referenced at this location.</param>
+        /// <remarks>This is used by handlers to add an element they have previously located to a new place in the location cache.</remarks>
+        public void TryAddLocatedElement(LocatedElement locatedElement)
+        {
+            string location = this.scopedLocationStack.Peek();
+            if (!this.locatedElements.ContainsKey(location))
+            {
+                this.locatedElements.Add(location, locatedElement);
             }
         }
 
@@ -284,7 +325,7 @@ namespace Menes.Json
         /// </summary>
         private static async Task<bool> DefaultHandler(JsonWalker walker, JsonElement element)
         {
-            if (!walker.AddOrUpdateLocatedElement(element, DefaultContent))
+            if (!walker.TryAddLocatedElement(element, DefaultContent))
             {
                 return true;
             }
@@ -295,6 +336,18 @@ namespace Menes.Json
             }
 
             return true;
+        }
+
+        private bool TryAddLocatedElement(JsonElement element, string contentType)
+        {
+            string location = this.scopedLocationStack.Peek();
+            if (!this.locatedElements.ContainsKey(location))
+            {
+                this.locatedElements.Add(location, new LocatedElement(location, element, contentType));
+                return true;
+            }
+
+            return false;
         }
     }
 }

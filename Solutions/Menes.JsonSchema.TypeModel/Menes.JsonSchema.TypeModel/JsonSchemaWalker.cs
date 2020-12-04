@@ -13,7 +13,7 @@ namespace Menes.JsonSchema.TypeModel
     /// <summary>
     /// A walker for <see cref="Draft201909Schema"/>.
     /// </summary>
-    public class JsonSchemaWalker
+    internal class JsonSchemaWalker
     {
         /// <summary>
         /// The content type of Draft201909Schema elements.
@@ -115,6 +115,17 @@ namespace Menes.JsonSchema.TypeModel
                 return false;
             }
 
+            // If it is valid as a schema, but empty apart from unkown extensions, we will not handle it.
+            if (schema.EmptyButWithUnknownExtensions())
+            {
+                return false;
+            }
+
+            if (!schema.IsBoolean && !schema.IsObject)
+            {
+                return false;
+            }
+
             // Tell the walker that this is our content.
             if (!walker.AddOrUpdateLocatedElement(element, Draft201909SchemaContent))
             {
@@ -143,7 +154,7 @@ namespace Menes.JsonSchema.TypeModel
             {
                 walker.PushPropertyToLocationStack("$ref");
                 LocatedElement referencedElement = await walker.ResolveReference(new JsonReference(reference.GetUri().OriginalString), isRecursiveReference: false).ConfigureAwait(false);
-                walker.AddOrUpdateLocatedElement(referencedElement.Element, Draft201909SchemaContent);
+                walker.TryAddLocatedElement(referencedElement);
                 EnsureDraft201909SchemaContent(referencedElement);
                 walker.PopLocationStack();
             }
@@ -153,7 +164,7 @@ namespace Menes.JsonSchema.TypeModel
                 walker.PushPropertyToLocationStack("$recursiveRef");
 
                 LocatedElement referencedElement = await walker.ResolveReference(new JsonReference(recursiveReference.GetUri().OriginalString), isRecursiveReference: true).ConfigureAwait(false);
-                walker.AddOrUpdateLocatedElement(referencedElement.Element, Draft201909SchemaContent);
+                walker.TryAddLocatedElement(referencedElement);
 
                 // Our resolver will have resolved this to a referenced element, taking into account the recursive reference element, so we
                 // can now check that we've got a schema back.
