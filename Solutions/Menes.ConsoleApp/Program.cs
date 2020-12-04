@@ -30,7 +30,7 @@ namespace Menes.ConsoleApp
             var walker = new JsonWalker(new HttpClientDocumentResolver(new HttpClient()));
             var builder = new JsonSchemaBuilder(walker);
 
-            await builder.BuildTypesFor("https://json-schema.org/draft/2019-09/schema").ConfigureAwait(false);
+            await builder.BuildTypesFor("https://json-schema.org/draft/2019-09/schema", "Menes.JsonSchema").ConfigureAwait(false);
         }
 
         private static void PlayWithTheSchema()

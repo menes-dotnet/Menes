@@ -35,8 +35,10 @@ namespace Menes.JsonSchema.TypeModel
         /// Builds types for the schema provided by the given reference.
         /// </summary>
         /// <param name="reference">a uri-reference to the schema in which to build the types.</param>
+        /// <param name="rootNamespace">The root namespace to use for types.</param>
+        /// <param name="baseUriToNamespaceMap">A map of base URIs to namespaces to use for specific types.</param>
         /// <returns>A <see cref="Task"/> which completes once the types are built.</returns>
-        public async Task BuildTypesFor(string reference)
+        public async Task BuildTypesFor(string reference, string rootNamespace, Dictionary<string, string>? baseUriToNamespaceMap = null)
         {
             // First, we resolve the reference and locate our root element.
             LocatedElement rootElement = await this.walker.ResolveReference(new JsonReference(reference), false).ConfigureAwait(false);
@@ -55,7 +57,7 @@ namespace Menes.JsonSchema.TypeModel
             this.SetParents(typesForGenerationByLocation);
 
             // Once the parents are set, we can build names for our types.
-            this.SetNames(typesForGenerationByLocation);
+            this.SetNames(typesForGenerationByLocation, rootNamespace, baseUriToNamespaceMap);
 
             this.FindProperties(typesForGenerationByLocation, referencedTypesByLocation);
         }
@@ -410,11 +412,11 @@ namespace Menes.JsonSchema.TypeModel
         {
         }
 
-        private void SetNames(Dictionary<string, TypeDeclaration> typesForGenerationByLocation)
+        private void SetNames(Dictionary<string, TypeDeclaration> typesForGenerationByLocation, string rootNamespace, Dictionary<string, string>? baseUriToNamespaceMap)
         {
             foreach (TypeDeclaration type in typesForGenerationByLocation.Values.Where(t => t.Parent is null))
             {
-                this.RecursivelySetName(type);
+                this.RecursivelySetName(type, rootNamespace, baseUriToNamespaceMap);
             }
 
             // Now we've named everything once, we can fix up our array names to better reflect the types of the items
@@ -447,13 +449,28 @@ namespace Menes.JsonSchema.TypeModel
             }
         }
 
-        private void RecursivelySetName(TypeDeclaration type, int? index = null)
+        private void RecursivelySetName(TypeDeclaration type, string rootNamespace, Dictionary<string, string>? baseUriToNamespaceMap, int? index = null)
         {
-            type.SetDotnetTypeNameAndNamespace(index is null ? "Entity" : $"Entity{index + 1}");
+            string ns;
+            if (baseUriToNamespaceMap is Dictionary<string, string> butnmp)
+            {
+                var location = new JsonReference(type.Location);
+
+                if (!location.HasAbsoluteUri || !butnmp.TryGetValue(location.Uri.ToString(), out ns))
+                {
+                    ns = rootNamespace;
+                }
+            }
+            else
+            {
+                ns = rootNamespace;
+            }
+
+            type.SetDotnetTypeNameAndNamespace(ns, index is null ? "Entity" : $"Entity{index + 1}");
             int childIndex = 0;
             foreach (TypeDeclaration child in type.Children)
             {
-                this.RecursivelySetName(child, childIndex);
+                this.RecursivelySetName(child, rootNamespace, baseUriToNamespaceMap, childIndex);
                 ++childIndex;
             }
         }

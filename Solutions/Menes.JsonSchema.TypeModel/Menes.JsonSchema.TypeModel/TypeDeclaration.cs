@@ -94,7 +94,7 @@ namespace Menes.JsonSchema.TypeModel
         /// Calculates a name for the type based on the inforamtion we have.
         /// </summary>
         /// <remarks>
-        /// A builder should call <see cref="SetDotnetTypeNameAndNamespace(string)"/> across the whole hierarchy before calling set fully qualified name.
+        /// A builder should call <see cref="SetDotnetTypeNameAndNamespace(string, string)"/> across the whole hierarchy before calling set fully qualified name.
         /// </remarks>
         public void SetFullyQualifiedDotnetTypeName()
         {
@@ -148,12 +148,13 @@ namespace Menes.JsonSchema.TypeModel
         /// <summary>
         /// Calculates a name for the type based on the inforamtion we have.
         /// </summary>
+        /// <param name="rootNamespace">The namespace to use for this type if it has no parent.</param>
         /// <param name="fallbackBaseName">The base type name to fall back on if we can't derive one from our location and type infomration.</param>
         /// <remarks>
         /// A builder should call <see cref="SetParent(TypeDeclaration)"/> before calling set name.
         /// </remarks>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("StyleCop.CSharp.SpacingRules", "SA1009:Closing parenthesis should be spaced correctly", Justification = "Sylecop does not yet support this syntax.")]
-        public void SetDotnetTypeNameAndNamespace(string fallbackBaseName)
+        public void SetDotnetTypeNameAndNamespace(string rootNamespace, string fallbackBaseName)
         {
             var reference = JsonReferenceBuilder.From(this.Location);
 
@@ -176,6 +177,8 @@ namespace Menes.JsonSchema.TypeModel
                     ReadOnlySpan<char> dnt = fallbackBaseName;
                     this.DotnetTypeName = dnt.ToString();
                 }
+
+                this.Namespace = rootNamespace;
             }
             else
             {
@@ -236,11 +239,18 @@ namespace Menes.JsonSchema.TypeModel
                     dotnetTypeName,
                 };
 
+            TypeDeclaration rootParent = this;
             TypeDeclaration? parent = this.Parent;
             while (parent is TypeDeclaration p)
             {
                 nameSegments.Insert(0, p.DotnetTypeName!);
+                rootParent = parent;
                 parent = parent.Parent;
+            }
+
+            if (rootParent.Namespace is not null)
+            {
+                nameSegments.Insert(0, rootParent.Namespace);
             }
 
             return string.Join('.', nameSegments);
