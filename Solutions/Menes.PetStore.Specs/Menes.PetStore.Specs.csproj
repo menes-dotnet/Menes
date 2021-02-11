@@ -20,7 +20,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Corvus.Extensions.Newtonsoft.Json" Version="1.0.0" />
-    <PackageReference Include="Corvus.Testing.SpecFlow.NUnit" Version="1.1.0" />
+    <PackageReference Include="Corvus.Testing.SpecFlow.NUnit" Version="1.2.1" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Menes.PetStore.Hosting\Menes.PetStore.Hosting.csproj" />
