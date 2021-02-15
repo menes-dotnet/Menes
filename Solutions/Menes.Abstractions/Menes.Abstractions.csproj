@@ -31,7 +31,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="System.Interactive" Version="4.1.1" />
-    <PackageReference Include="System.Text.Encodings.Web" Version="4.7.1" />
+    <PackageReference Include="System.Text.Encodings.Web" Version="5.0.0" />
     <PackageReference Include="Tavis.UriTemplates" Version="1.1.1" />
   </ItemGroup>
 
