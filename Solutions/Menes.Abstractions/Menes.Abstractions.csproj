@@ -15,23 +15,23 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Corvus.ContentHandling" Version="1.0.0" />
-    <PackageReference Include="Corvus.Extensions" Version="1.0.0" />
-    <PackageReference Include="Corvus.Extensions.Newtonsoft.Json" Version="1.0.0" />
-    <PackageReference Include="Corvus.Monitoring.Instrumentation.Abstractions" Version="1.0.0" />
+    <PackageReference Include="Corvus.ContentHandling" Version="1.1.0" />
+    <PackageReference Include="Corvus.Extensions" Version="1.1.2" />
+    <PackageReference Include="Corvus.Extensions.Newtonsoft.Json" Version="1.2.0" />
+    <PackageReference Include="Corvus.Monitoring.Instrumentation.Abstractions" Version="1.2.0" />
     <PackageReference Include="Endjin.RecommendedPractices" Version="1.2.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.CSharp" Version="4.5.0" />
-    <PackageReference Include="Microsoft.Extensions.Logging" Version="2.2.0" />
-    <PackageReference Include="Microsoft.OpenApi.Readers" Version="1.1.4" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="3.1.12" />
+    <PackageReference Include="Microsoft.OpenApi.Readers" Version="1.2.3" />
     <PackageReference Include="Nullable" Version="1.2.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="System.Interactive" Version="3.2.0" />
-    <PackageReference Include="System.Text.Encodings.Web" Version="4.5.0" />
+    <PackageReference Include="System.Interactive" Version="4.1.1" />
+    <PackageReference Include="System.Text.Encodings.Web" Version="4.7.1" />
     <PackageReference Include="Tavis.UriTemplates" Version="1.1.1" />
   </ItemGroup>
 
