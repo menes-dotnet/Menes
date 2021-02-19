@@ -29,7 +29,7 @@ jobs:
     runs-on: ubuntu-18.04
     # Don't process PRs from forked repos
     if:
-      github.event.pull_request.head.repo.full_name == github.repository
+      github.event.pull_request.head.repo.full_name.toUpperCase() == github.repository.toUpperCase()
     steps:
       - name: Generate token
         id: generate_token
