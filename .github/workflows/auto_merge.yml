@@ -27,16 +27,25 @@ jobs:
   auto_merge:
     name: Auto-squash the PR
     runs-on: ubuntu-18.04
-    # Don't process PRs from forked repos
-    if:
-      github.event.pull_request.head.repo.full_name == github.repository
+    
     steps:
+      - name: Debug condition
+        run: |
+          echo "github.event.pull_request.head.repo.full_name : ${{ github.event.pull_request.head.repo.full_name }}"
+          echo "github.repository : ${{ github.repository }}"
+    
       - name: Generate token
+        # Don't process PRs from forked repos
+        if:
+          github.event.pull_request.head.repo.full_name == github.repository
         id: generate_token
         uses: tibdex/github-app-token@v1
         with:
           app_id: ${{ secrets.ENDJIN_BOT_APP_ID }}
           private_key: ${{ secrets.ENDJIN_BOT_PRIVATE_KEY }}
       - uses: endjin/autosquash@v2.2
+        # Don't process PRs from forked repos
+        if:
+          github.event.pull_request.head.repo.full_name == github.repository
         with:
           github_token: '${{ steps.generate_token.outputs.token }}'
