@@ -47,7 +47,8 @@ jobs:
     runs-on: ubuntu-18.04
     # Don't run when the triggering event originates from a forked repos
     needs: check_pr_from_fork
-    if: (!needs.check_pr_from_fork.outputs.is_forked_pr)
+    if: |
+      needs.check_pr_from_fork.outputs.is_forked_pr == 'false'
     steps:
       - name: Generate token
         id: generate_token
