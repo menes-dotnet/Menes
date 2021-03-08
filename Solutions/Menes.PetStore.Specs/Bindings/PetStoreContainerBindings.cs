@@ -19,7 +19,7 @@ namespace Menes.PetStore.Specs.Bindings
                 services =>
                 {
                     services.AddLogging(builder => builder.SetMinimumLevel(LogLevel.Debug));
-                    services.AddJsonSerializerSettings();
+                    services.AddJsonNetSerializerSettingsProvider();
                 });
         }
     }

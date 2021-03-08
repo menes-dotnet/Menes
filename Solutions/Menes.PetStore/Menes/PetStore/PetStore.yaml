@@ -336,6 +336,10 @@ components:
             properties:
               self:
                 $ref: "#/components/schemas/Link"
+              image:
+                $ref: "#/components/schemas/Link"
+              pocoimage:
+                $ref: "#/components/schemas/Link"
 
     PetList:
       anyOf:
@@ -354,6 +358,10 @@ components:
                 $ref: "#/components/schemas/Link"
               pets:
                 $ref: "#/components/schemas/LinkCollection"
+              create:
+                $ref: "#/components/schemas/Link"
+              next:
+                $ref: "#/components/schemas/Link"
           _embedded:
             type: object
             properties:

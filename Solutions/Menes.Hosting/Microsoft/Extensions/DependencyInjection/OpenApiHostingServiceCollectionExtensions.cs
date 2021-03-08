@@ -95,7 +95,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 return services;
             }
 
-            services.AddJsonSerializerSettings();
+            services.AddJsonNetSerializerSettingsProvider();
 
             services.AddInstrumentation();
 
