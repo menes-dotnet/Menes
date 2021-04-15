@@ -8,8 +8,7 @@ namespace Steps
     using System.Text.Json;
     using System.Threading.Tasks;
     using Drivers;
-    using Menes;
-    using Menes.JsonSchema.TypeBuilder;
+    using Menes.Json;
     using NUnit.Framework;
     using TechTalk.SpecFlow;
 
@@ -58,14 +57,10 @@ namespace Steps
         /// Uses the reference fragment to provide the schema JsonElement as a scenario property called <see cref="Schema"/>.
         /// </summary>
         /// <param name="referenceFragment">The reference fragment pointing to the relevant schema element in the <see cref="InputJsonFileName"/>.</param>
-        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         [Given(@"the schema at ""(.*)""")]
-        public async Task GivenTheSchemaAt(string referenceFragment)
+        public void GivenTheSchemaAt(string referenceFragment)
         {
-            JsonElement? element = await this.driver.GetElement(this.scenarioContext.Get<string>(InputJsonFileName), referenceFragment).ConfigureAwait(false);
-            Assert.NotNull(element);
             this.scenarioContext.Set(referenceFragment, SchemaPath);
-            this.scenarioContext.Set(element.Value, Schema);
         }
 
         /// <summary>
@@ -90,7 +85,7 @@ namespace Steps
         public async Task GivenIGenerateATypeForTheSchema()
         {
             string inputDataPath = this.scenarioContext.Get<string>(InputDataPath);
-            Type type = await this.driver.GenerateTypeFor(false, int.Parse(inputDataPath.AsSpan().Slice(12, 3)), this.scenarioContext.Get<string>(InputJsonFileName), this.scenarioContext.Get<string>(SchemaPath), inputDataPath, this.scenarioContext.Get<JsonElement>(Schema), Formatting.ToPascalCaseWithReservedWords(this.featureContext.FeatureInfo.Title).ToString(), Formatting.ToPascalCaseWithReservedWords(this.scenarioContext.ScenarioInfo.Title).ToString(), bool.Parse((string)this.scenarioContext.ScenarioInfo.Arguments[1])).ConfigureAwait(false);
+            Type type = await this.driver.GenerateTypeFor(true, int.Parse(inputDataPath.AsSpan().Slice(12, 3)), this.scenarioContext.Get<string>(InputJsonFileName), this.scenarioContext.Get<string>(SchemaPath), inputDataPath, Formatting.ToPascalCaseWithReservedWords(this.featureContext.FeatureInfo.Title).ToString(), Formatting.ToPascalCaseWithReservedWords(this.scenarioContext.ScenarioInfo.Title).ToString(), bool.Parse((string)this.scenarioContext.ScenarioInfo.Arguments[1] !)).ConfigureAwait(false);
             this.scenarioContext.Set(type, SchemaType);
         }
 

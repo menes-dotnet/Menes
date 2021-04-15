@@ -2,7 +2,7 @@
   <Import Project="$(EndjinProjectPropsPath)" Condition="$(EndjinProjectPropsPath) != ''" />
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
@@ -15,20 +15,29 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Features\JsonSchema\RealWorld\**" />
+    <EmbeddedResource Remove="Features\JsonSchema\RealWorld\**" />
+    <None Remove="Features\JsonSchema\RealWorld\**" />
+    <SpecFlowFeatureFiles Remove="Features\JsonSchema\RealWorld\**" />
+    <SpecFlowObsoleteCodeBehindFiles Remove="Features\JsonSchema\RealWorld\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="5.0.0" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.8.3" />
-    <PackageReference Include="SolidToken.SpecFlow.DependencyInjection" Version="0.6.0" />
-    <PackageReference Include="SpecFlow.Plus.LivingDocPlugin" Version="3.4.243" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.4" />
+    <PackageReference Include="SolidToken.SpecFlow.DependencyInjection" Version="3.7.0" />
+    <PackageReference Include="SpecFlow.Plus.LivingDocPlugin" Version="3.7.141" />
+    <PackageReference Include="System.Text.Encodings.Web" Version="5.0.1" />
 
     <PackageReference Include="Endjin.RecommendedPractices" Version="1.2.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="3.8.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="3.9.0" />
 
 
-    <PackageReference Include="SpecFlow.NUnit" Version="3.5.14" />
-    <PackageReference Include="nunit" Version="3.12.0" />
+    <PackageReference Include="SpecFlow.NUnit" Version="3.7.38" />
+    <PackageReference Include="nunit" Version="3.13.1" />
     <PackageReference Include="NUnit3TestAdapter" Version="3.17.0" />
 
 
@@ -40,7 +49,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Menes.JsonSchema.TypeBuilder\Menes.JsonSchema.TypeBuilder.csproj" />
+    <ProjectReference Include="..\Menes.Json.SchemaModel\Menes.Json.SchemaModel.csproj" />
+    <ProjectReference Include="..\Menes.Json\Menes.Json.csproj" />
   </ItemGroup>
 
   <ItemGroup>

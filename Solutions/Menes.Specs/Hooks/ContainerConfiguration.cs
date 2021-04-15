@@ -8,7 +8,7 @@ namespace Hooks
     using Drivers;
     using Menes.Json;
     using Menes.Json.Schema;
-    using Menes.JsonSchema.TypeBuilder;
+    using Menes.JsonSchema.TypeModel;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using SolidToken.SpecFlow.DependencyInjection;
@@ -29,6 +29,7 @@ namespace Hooks
             var services = new ServiceCollection();
 
             services.AddTransient<IDocumentResolver>(serviceProvider => new CompoundDocumentResolver(new FakeWebDocumentResolver(serviceProvider.GetRequiredService<IConfiguration>()["jsonSchemaBuilderDriverSettings:remotesBaseDirectory"]), new FileSystemDocumentResolver(), new HttpClientDocumentResolver(new HttpClient())));
+            services.AddTransient<JsonWalker>();
             services.AddTransient<JsonSchemaBuilder>();
             services.AddTransient<JsonSchemaBuilderDriver>();
             services.AddTransient<IConfiguration>(sp =>

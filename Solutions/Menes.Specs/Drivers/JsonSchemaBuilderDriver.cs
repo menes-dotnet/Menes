@@ -5,6 +5,7 @@
 namespace Drivers
 {
     using System;
+    using System.Buffers;
     using System.Collections.Generic;
     using System.Collections.Immutable;
     using System.IO;
@@ -14,12 +15,11 @@ namespace Drivers
     using System.Text;
     using System.Text.Encodings.Web;
     using System.Text.Json;
+    using System.Text.RegularExpressions;
     using System.Threading.Tasks;
     using Corvus.Extensions;
-    using Menes;
     using Menes.Json;
-    using Menes.Json.Schema;
-    using Menes.JsonSchema.TypeBuilder;
+    using Menes.JsonSchema.TypeModel;
     using Microsoft.CodeAnalysis;
     using Microsoft.CodeAnalysis.CSharp;
     using Microsoft.CodeAnalysis.Emit;
@@ -77,22 +77,20 @@ namespace Drivers
         /// <param name="filename">The filename containing the schema.</param>
         /// <param name="schemaPath">The path to the schema in the file.</param>
         /// <param name="dataPath">The path to the data in the file.</param>
-        /// <param name="schema">The schema for which to generate the type.</param>
         /// <param name="featureName">The feature name for the type.</param>
         /// <param name="scenarioName">The scenario name for the type.</param>
         /// <param name="valid">Whether the scenario is expected to be valid.</param>
         /// <returns>The fully qualified type name of the entity we have generated.</returns>
-        public async Task<Type> GenerateTypeFor(bool writeBenchmarks, int index, string filename, string schemaPath, string dataPath, JsonElement schema, string featureName, string scenarioName, bool valid)
+        public async Task<Type> GenerateTypeFor(bool writeBenchmarks, int index, string filename, string schemaPath, string dataPath, string featureName, string scenarioName, bool valid)
         {
-            string rootTypeName = await this.builder.BuildEntity(schema, $"RootEntity").ConfigureAwait(false);
+            string baseDirectory = this.configuration["jsonSchemaBuilderDriverSettings:testBaseDirectory"];
+            string path = Path.Combine(baseDirectory, filename) + schemaPath;
 
-            ImmutableDictionary<string, string> generatedTypes = this.builder.BuildTypes($"{featureName}Feature.{scenarioName}");
+            path = await this.builder.RebaseReferenceAsRootDocument(path).ConfigureAwait(false);
+
+            (string rootTypeName, ImmutableDictionary<string, (string dotnetTypeName, string code)> generatedTypes) = await this.builder.BuildTypesFor(path, $"{featureName}Feature.{scenarioName}").ConfigureAwait(false);
 
             bool isMenesType = rootTypeName.StartsWith("Menes.");
-            if (!isMenesType)
-            {
-                rootTypeName = $"{featureName}Feature.{scenarioName}.{rootTypeName}";
-            }
 
             if (writeBenchmarks)
             {
@@ -121,7 +119,7 @@ namespace Drivers
 
             if (isMenesType)
             {
-                return AssemblyLoadContext.Default.Assemblies.Where(a => a.GetName().Name == "Menes.JsonSchema.Model").Single().ExportedTypes.Where(t => t.FullName == rootTypeName).Single();
+                return AssemblyLoadContext.Default.Assemblies.Where(a => a.GetName().Name == "Menes.Json").Single().ExportedTypes.Where(t => t.FullName == rootTypeName).Single();
             }
 
             return generatedAssembly.ExportedTypes.Where(t => t.FullName == rootTypeName).Single();
@@ -158,14 +156,13 @@ namespace Drivers
             return this.CreateInstance(type, document.RootElement.Clone());
         }
 
-        private static void WriteBenchmarks(int index, string filename, string schemaPath, string dataPath, string featureName, string scenarioName, ImmutableDictionary<string, string> generatedTypes, string rootTypeName, bool valid)
+        private static void WriteBenchmarks(int index, string filename, string schemaPath, string dataPath, string featureName, string scenarioName, ImmutableDictionary<string, (string, string)> generatedTypes, string rootTypeName, bool valid)
         {
-            foreach (KeyValuePair<string, string> item in generatedTypes)
+            foreach (KeyValuePair<string, (string dotnetTypeName, string code)> item in generatedTypes)
             {
                 string path = $@"C:\Users\matth\OneDrive\Desktop\output\{featureName}\{scenarioName}";
                 Directory.CreateDirectory(path);
-                File.WriteAllText(Path.Combine(path, item.Key), item.Value);
-
+                File.WriteAllText(Path.ChangeExtension(Path.Combine(path, item.Value.dotnetTypeName), ".cs"), item.Value.code);
                 File.WriteAllText(Path.Combine(path, $"Benchmark{index}.cs"), BuildBenchmark(index, filename, schemaPath, dataPath, featureName, scenarioName, rootTypeName, valid));
             }
         }
@@ -244,16 +241,18 @@ namespace Drivers
                 MetadataReference.CreateFromFile(typeof(JsonElement).Assembly.Location),
                 MetadataReference.CreateFromFile(typeof(CastTo<>).Assembly.Location),
                 MetadataReference.CreateFromFile(typeof(ImmutableArray).Assembly.Location),
-                MetadataReference.CreateFromFile(typeof(System.Text.RegularExpressions.Regex).Assembly.Location),
+                MetadataReference.CreateFromFile(typeof(ReadOnlySequence<>).Assembly.Location),
+                MetadataReference.CreateFromFile(typeof(Regex).Assembly.Location),
+                MetadataReference.CreateFromFile(typeof(UrlEncoder).Assembly.Location),
                 MetadataReference.CreateFromFile(typeof(JsonAny).Assembly.Location),
             };
         }
 
-        private static IEnumerable<SyntaxTree> ParseSyntaxTrees(ImmutableDictionary<string, string> generatedTypes)
+        private static IEnumerable<SyntaxTree> ParseSyntaxTrees(ImmutableDictionary<string, (string, string)> generatedTypes)
         {
-            foreach (KeyValuePair<string, string> type in generatedTypes)
+            foreach (KeyValuePair<string, (string dotnetTypeName, string code)> type in generatedTypes)
             {
-                yield return CSharpSyntaxTree.ParseText(type.Value, path: type.Key);
+                yield return CSharpSyntaxTree.ParseText(type.Value.code, path: type.Key);
             }
         }
 
