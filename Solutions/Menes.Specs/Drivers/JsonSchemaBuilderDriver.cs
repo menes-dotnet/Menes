@@ -238,6 +238,7 @@ namespace Drivers
                 MetadataReference.CreateFromFile(typeof(IEnumerable<>).Assembly.Location),
                 MetadataReference.CreateFromFile(typeof(JavaScriptEncoder).Assembly.Location),
                 MetadataReference.CreateFromFile(typeof(Stack<>).Assembly.Location),
+                MetadataReference.CreateFromFile(typeof(Uri).Assembly.Location),
                 MetadataReference.CreateFromFile(typeof(JsonElement).Assembly.Location),
                 MetadataReference.CreateFromFile(typeof(CastTo<>).Assembly.Location),
                 MetadataReference.CreateFromFile(typeof(ImmutableArray).Assembly.Location),

@@ -17,7 +17,7 @@
 
 #nullable enable
 
-namespace <#=            Namespace #>
+namespace <#= Namespace #>
 {
     using System;
     using System.Collections.Generic;
@@ -32,12 +32,12 @@ namespace <#=            Namespace #>
     /// <summary>
     /// A type generated from a JsonSchema specification.
     /// </summary>
-    public readonly struct <#=        TypeDeclaration.DotnetTypeName #> :
+    public readonly struct <#= TypeDeclaration.DotnetTypeName #> :
     <#
     if(IsImplicitObject)
     {
     #>
-        IJsonObject<<#=            TypeDeclaration.DotnetTypeName #>>,
+        IJsonObject<<#= TypeDeclaration.DotnetTypeName #>>,
     <#
     }
     #>
@@ -45,7 +45,7 @@ namespace <#=            Namespace #>
     if(IsImplicitArray)
     {
     #>
-        IJsonArray<<#=            TypeDeclaration.DotnetTypeName #>>,
+        IJsonArray<<#= TypeDeclaration.DotnetTypeName #>>,
     <#
     }
     #>
@@ -57,7 +57,7 @@ namespace <#=            Namespace #>
     <#
     }
     #>
-        IEquatable<<#=        TypeDeclaration.DotnetTypeName #>>
+        IEquatable<<#= TypeDeclaration.DotnetTypeName #>>
     {
     <#
     if(HasProperties)
@@ -70,9 +70,14 @@ namespace <#=            Namespace #>
         #>
 
         /// <summary>
-        /// JSON property name for <see cref="<#=                property.DotnetPropertyName #>"/>.
+        /// JSON property name for <see cref="<#= property.DotnetPropertyName #>"/>.
         /// </summary>
-        public static readonly JsonEncodedText <#=                property.DotnetPropertyName #>JsonPropertyName = JsonEncodedText.Encode( new byte[] { <#=                GetEncodedBytes(property.JsonPropertyName) #> });
+        public static readonly ReadOnlyMemory<byte> <#= property.DotnetPropertyName #>Utf8JsonPropertyName = new byte[] { <#= GetEncodedBytes(property.JsonPropertyName) #> };
+
+        /// <summary>
+        /// JSON property name for <see cref="<#= property.DotnetPropertyName #>"/>.
+        /// </summary>
+        public static readonly JsonEncodedText <#= property.DotnetPropertyName #>JsonPropertyName = JsonEncodedText.Encode( <#= property.DotnetPropertyName #>Utf8JsonPropertyName.Span);
 
         <#
         }
@@ -86,37 +91,37 @@ namespace <#=            Namespace #>
     if(HasConstString)
     {
     #>
-        private static readonly <#=            TypeDeclaration.DotnetTypeName #> __MenesConstValue = JsonAny.Parse(<#=            ConstString #>);
+        private static readonly <#= TypeDeclaration.DotnetTypeName #> __MenesConstValue = JsonAny.Parse(<#= ConstString #>);
     <#
     }
     else if(HasConstBoolean)
     {
     #>
-        private static readonly <#=            TypeDeclaration.DotnetTypeName #> __MenesConstValue = JsonAny.Parse(<#=            ConstBoolean #>);
+        private static readonly <#= TypeDeclaration.DotnetTypeName #> __MenesConstValue = JsonAny.Parse(<#= ConstBoolean #>);
     <#
     }
     else if(HasConstNumber)
     {
     #>
-        private static readonly <#=            TypeDeclaration.DotnetTypeName #> __MenesConstValue = JsonAny.Parse(<#=            ConstNumber #>);
+        private static readonly <#= TypeDeclaration.DotnetTypeName #> __MenesConstValue = JsonAny.Parse(<#= ConstNumber #>);
     <#
     }
     else if(HasConstObject)
     {
     #>
-        private static readonly <#=            TypeDeclaration.DotnetTypeName #> __MenesConstValue = JsonAny.Parse(<#=            ConstObject #>);
+        private static readonly <#= TypeDeclaration.DotnetTypeName #> __MenesConstValue = JsonAny.Parse(<#= ConstObject #>);
     <#
     }
     else if(HasConstArray)
     {
     #>
-        private static readonly <#=            TypeDeclaration.DotnetTypeName #> __MenesConstValue = JsonAny.Parse(<#=            ConstArray #>);
+        private static readonly <#= TypeDeclaration.DotnetTypeName #> __MenesConstValue = JsonAny.Parse(<#= ConstArray #>);
     <#
     }
     else if(HasConstNull)
     {
     #>
-        private static readonly <#=            TypeDeclaration.DotnetTypeName #> __MenesConstValue = JsonAny.Parse("null");
+        private static readonly <#= TypeDeclaration.DotnetTypeName #> __MenesConstValue = JsonAny.Parse("null");
     <#
     }
     #>
@@ -126,7 +131,7 @@ namespace <#=            Namespace #>
     if(HasPattern)
     {
     #>
-        private static readonly Regex __MenesPatternExpression = new Regex("<#=            Pattern #>", RegexOptions.Compiled);
+        private static readonly Regex __MenesPatternExpression = new Regex("<#= Pattern #>", RegexOptions.Compiled);
     <#
     }
     #>
@@ -144,7 +149,7 @@ namespace <#=            Namespace #>
     if(HasDependentSchemas)
     {
     #>
-        private static readonly ImmutableDictionary<JsonEncodedText, Func<<#=            TypeDeclaration.DotnetTypeName #>, ValidationContext, ValidationLevel, ValidationContext>> __MenesDependentSchema = CreateDependentSchemaValidators();
+        private static readonly ImmutableDictionary<JsonEncodedText, Func<<#= TypeDeclaration.DotnetTypeName #>, ValidationContext, ValidationLevel, ValidationContext>> __MenesDependentSchema = CreateDependentSchemaValidators();
     <#
     }
     #>
@@ -153,7 +158,7 @@ namespace <#=            Namespace #>
     if(HasLocalProperties)
     {
     #>
-        private static readonly ImmutableDictionary<JsonEncodedText, Func<<#=            TypeDeclaration.DotnetTypeName #>, ValidationContext, ValidationLevel, ValidationContext>> __MenesLocalProperties = CreateLocalPropertyValidators();
+        private static readonly ImmutableDictionary<JsonEncodedText, Func<<#= TypeDeclaration.DotnetTypeName #>, ValidationContext, ValidationLevel, ValidationContext>> __MenesLocalProperties = CreateLocalPropertyValidators();
     <#
     }
     #>
@@ -225,10 +230,10 @@ namespace <#=            Namespace #>
     #>
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="<#=        TypeDeclaration.DotnetTypeName #>"/> struct.
+        /// Initializes a new instance of the <see cref="<#= TypeDeclaration.DotnetTypeName #>"/> struct.
         /// </summary>
         /// <param name="value">The backing <see cref="JsonElement"/>.</param>
-        public <#=        TypeDeclaration.DotnetTypeName #>(JsonElement value)
+        public <#= TypeDeclaration.DotnetTypeName #>(JsonElement value)
         {
             this.jsonElementBacking = value;
     <#
@@ -279,10 +284,10 @@ namespace <#=            Namespace #>
     {
     #>
         /// <summary>
-        /// Initializes a new instance of the <see cref="<#=            TypeDeclaration.DotnetTypeName #>"/> struct.
+        /// Initializes a new instance of the <see cref="<#= TypeDeclaration.DotnetTypeName #>"/> struct.
         /// </summary>
         /// <param name="value">A property dictionary.</param>
-        public <#=            TypeDeclaration.DotnetTypeName #>(ImmutableDictionary<JsonEncodedText, JsonAny> value)
+        public <#= TypeDeclaration.DotnetTypeName #>(ImmutableDictionary<JsonEncodedText, JsonAny> value)
         {
             this.jsonElementBacking = default;
             this.objectBacking = value;
@@ -321,10 +326,10 @@ namespace <#=            Namespace #>
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="<#=            TypeDeclaration.DotnetTypeName #>"/> struct.
+        /// Initializes a new instance of the <see cref="<#= TypeDeclaration.DotnetTypeName #>"/> struct.
         /// </summary>
         /// <param name="jsonObject">The <see cref="JsonObject"/> from which to construct the value.</param>
-        public <#=            TypeDeclaration.DotnetTypeName #>(JsonObject jsonObject)
+        public <#= TypeDeclaration.DotnetTypeName #>(JsonObject jsonObject)
         {
             if (jsonObject.HasJsonElement)
             {
@@ -379,10 +384,10 @@ namespace <#=            Namespace #>
     {
     #>
         /// <summary>
-        /// Initializes a new instance of the <see cref="<#=            TypeDeclaration.DotnetTypeName #>"/> struct.
+        /// Initializes a new instance of the <see cref="<#= TypeDeclaration.DotnetTypeName #>"/> struct.
         /// </summary>
         /// <param name="value">An array list.</param>
-        public <#=            TypeDeclaration.DotnetTypeName #>(ImmutableList<JsonAny> value)
+        public <#= TypeDeclaration.DotnetTypeName #>(ImmutableList<JsonAny> value)
         {
             this.jsonElementBacking = default;
         <#
@@ -421,10 +426,10 @@ namespace <#=            Namespace #>
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="<#=            TypeDeclaration.DotnetTypeName #>"/> struct.
+        /// Initializes a new instance of the <see cref="<#= TypeDeclaration.DotnetTypeName #>"/> struct.
         /// </summary>
         /// <param name="jsonArray">The <see cref="JsonArray"/> from which to construct the value.</param>
-        public <#=            TypeDeclaration.DotnetTypeName #>(JsonArray jsonArray)
+        public <#= TypeDeclaration.DotnetTypeName #>(JsonArray jsonArray)
         {
             if (jsonArray.HasJsonElement)
             {
@@ -479,10 +484,10 @@ namespace <#=            Namespace #>
     {
     #>
         /// <summary>
-        /// Initializes a new instance of the <see cref="<#=            TypeDeclaration.DotnetTypeName #>"/> struct.
+        /// Initializes a new instance of the <see cref="<#= TypeDeclaration.DotnetTypeName #>"/> struct.
         /// </summary>
         /// <param name="jsonNumber">The <see cref="JsonNumber"/> from which to construct the value.</param>
-        public <#=            TypeDeclaration.DotnetTypeName #>(JsonNumber jsonNumber)
+        public <#= TypeDeclaration.DotnetTypeName #>(JsonNumber jsonNumber)
         {
             if (jsonNumber.HasJsonElement)
             {
@@ -529,10 +534,10 @@ namespace <#=            Namespace #>
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="<#=            TypeDeclaration.DotnetTypeName #>"/> struct.
+        /// Initializes a new instance of the <see cref="<#= TypeDeclaration.DotnetTypeName #>"/> struct.
         /// </summary>
         /// <param name="value">A number value.</param>
-        public <#=            TypeDeclaration.DotnetTypeName #>(double value)
+        public <#= TypeDeclaration.DotnetTypeName #>(double value)
         {
             this.jsonElementBacking = default;
         <#
@@ -571,10 +576,10 @@ namespace <#=            Namespace #>
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="<#=            TypeDeclaration.DotnetTypeName #>"/> struct.
+        /// Initializes a new instance of the <see cref="<#= TypeDeclaration.DotnetTypeName #>"/> struct.
         /// </summary>
         /// <param name="value">A number value.</param>
-        public <#=            TypeDeclaration.DotnetTypeName #>(int value)
+        public <#= TypeDeclaration.DotnetTypeName #>(int value)
         {
             this.jsonElementBacking = default;
         <#
@@ -613,10 +618,10 @@ namespace <#=            Namespace #>
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="<#=            TypeDeclaration.DotnetTypeName #>"/> struct.
+        /// Initializes a new instance of the <see cref="<#= TypeDeclaration.DotnetTypeName #>"/> struct.
         /// </summary>
         /// <param name="value">A number value.</param>
-        public <#=            TypeDeclaration.DotnetTypeName #>(float value)
+        public <#= TypeDeclaration.DotnetTypeName #>(float value)
         {
             this.jsonElementBacking = default;
         <#
@@ -655,10 +660,10 @@ namespace <#=            Namespace #>
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="<#=            TypeDeclaration.DotnetTypeName #>"/> struct.
+        /// Initializes a new instance of the <see cref="<#= TypeDeclaration.DotnetTypeName #>"/> struct.
         /// </summary>
         /// <param name="value">A number value.</param>
-        public <#=            TypeDeclaration.DotnetTypeName #>(long value)
+        public <#= TypeDeclaration.DotnetTypeName #>(long value)
         {
             this.jsonElementBacking = default;
         <#
@@ -704,10 +709,10 @@ namespace <#=            Namespace #>
     {
     #>
         /// <summary>
-        /// Initializes a new instance of the <see cref="<#=            TypeDeclaration.DotnetTypeName #>"/> struct.
+        /// Initializes a new instance of the <see cref="<#= TypeDeclaration.DotnetTypeName #>"/> struct.
         /// </summary>
         /// <param name="value">A string value.</param>
-        public <#=            TypeDeclaration.DotnetTypeName #>(string value)
+        public <#= TypeDeclaration.DotnetTypeName #>(string value)
         {
             this.jsonElementBacking = default;
         <#
@@ -746,10 +751,10 @@ namespace <#=            Namespace #>
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="<#=            TypeDeclaration.DotnetTypeName #>"/> struct.
+        /// Initializes a new instance of the <see cref="<#= TypeDeclaration.DotnetTypeName #>"/> struct.
         /// </summary>
         /// <param name="value">A string value.</param>
-        public <#=            TypeDeclaration.DotnetTypeName #>(JsonEncodedText value)
+        public <#= TypeDeclaration.DotnetTypeName #>(JsonEncodedText value)
         {
             this.jsonElementBacking = default;
         <#
@@ -788,10 +793,10 @@ namespace <#=            Namespace #>
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="<#=            TypeDeclaration.DotnetTypeName #>"/> struct.
+        /// Initializes a new instance of the <see cref="<#= TypeDeclaration.DotnetTypeName #>"/> struct.
         /// </summary>
         /// <param name="value">A string value.</param>
-        public <#=            TypeDeclaration.DotnetTypeName #>(ReadOnlySpan<char> value)
+        public <#= TypeDeclaration.DotnetTypeName #>(ReadOnlySpan<char> value)
         {
             this.jsonElementBacking = default;
         <#
@@ -830,10 +835,10 @@ namespace <#=            Namespace #>
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="<#=            TypeDeclaration.DotnetTypeName #>"/> struct.
+        /// Initializes a new instance of the <see cref="<#= TypeDeclaration.DotnetTypeName #>"/> struct.
         /// </summary>
         /// <param name="value">A string value.</param>
-        public <#=            TypeDeclaration.DotnetTypeName #>(ReadOnlySpan<byte> value)
+        public <#= TypeDeclaration.DotnetTypeName #>(ReadOnlySpan<byte> value)
         {
             this.jsonElementBacking = default;
         <#
@@ -872,10 +877,10 @@ namespace <#=            Namespace #>
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="<#=            TypeDeclaration.DotnetTypeName #>"/> struct.
+        /// Initializes a new instance of the <see cref="<#= TypeDeclaration.DotnetTypeName #>"/> struct.
         /// </summary>
         /// <param name="jsonString">The <see cref="JsonString"/> from which to construct the value.</param>
-        public <#=            TypeDeclaration.DotnetTypeName #>(JsonString jsonString)
+        public <#= TypeDeclaration.DotnetTypeName #>(JsonString jsonString)
         {
             if (jsonString.HasJsonElement)
             {
@@ -930,10 +935,10 @@ namespace <#=            Namespace #>
     {
     #>
         /// <summary>
-        /// Initializes a new instance of the <see cref="<#=            TypeDeclaration.DotnetTypeName #>"/> struct.
+        /// Initializes a new instance of the <see cref="<#= TypeDeclaration.DotnetTypeName #>"/> struct.
         /// </summary>
         /// <param name="jsonBoolean">The <see cref="JsonBoolean"/> from which to construct the value.</param>
-        public <#=            TypeDeclaration.DotnetTypeName #>(JsonBoolean jsonBoolean)
+        public <#= TypeDeclaration.DotnetTypeName #>(JsonBoolean jsonBoolean)
         {
             if (jsonBoolean.HasJsonElement)
             {
@@ -1014,7 +1019,7 @@ namespace <#=            Namespace #>
         #>
 
         /// <summary>
-        /// Gets <#=                property.DotnetPropertyName #>.
+        /// Gets <#= property.DotnetPropertyName #>.
         /// </summary>
         /// <remarks>
         /// {Property title}.
@@ -1023,13 +1028,24 @@ namespace <#=            Namespace #>
         /// <example>
         /// {Property examples}.
         /// </example>
-        public <#=                property.Type.FullyQualifiedDotnetTypeName #> <#=                property.DotnetPropertyName #>
+        public <#= property.Type.FullyQualifiedDotnetTypeName #> <#= property.DotnetPropertyName #>
         {
             get
             {
-                if (this.TryGetProperty(<#=                property.DotnetPropertyName #>JsonPropertyName, out JsonAny result))
+                if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
                 {
-                    return result;
+                    if(properties.TryGetValue(<#= property.DotnetPropertyName #>JsonPropertyName, out JsonAny result))
+                    {
+                        return result;
+                    }
+                }
+
+                if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
+                {
+                    if (this.jsonElementBacking.TryGetProperty(<#= property.DotnetPropertyName #>Utf8JsonPropertyName.Span, out JsonElement result))
+                    {
+                        return new  <#= property.Type.FullyQualifiedDotnetTypeName #>(result);
+                    }
                 }
 
                 return default;
@@ -1506,21 +1522,21 @@ namespace <#=            Namespace #>
         /// Conversion from any.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator <#=        TypeDeclaration.DotnetTypeName #>(JsonAny value)
+        public static implicit operator <#= TypeDeclaration.DotnetTypeName #>(JsonAny value)
         {
             if (value.HasJsonElement)
             {
-                return new <#=        TypeDeclaration.DotnetTypeName #>(value.AsJsonElement);
+                return new <#= TypeDeclaration.DotnetTypeName #>(value.AsJsonElement);
             }
 
-            return value.As<<#=        TypeDeclaration.DotnetTypeName #>>();
+            return value.As<<#= TypeDeclaration.DotnetTypeName #>>();
         }
 
         /// <summary>
         /// Conversion to any.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator JsonAny(<#=        TypeDeclaration.DotnetTypeName #> value)
+        public static implicit operator JsonAny(<#= TypeDeclaration.DotnetTypeName #> value)
         {
             return value.AsAny;
         }
@@ -1534,16 +1550,16 @@ namespace <#=            Namespace #>
         /// Conversion from array.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator <#=            TypeDeclaration.DotnetTypeName #>(JsonArray value)
+        public static implicit operator <#= TypeDeclaration.DotnetTypeName #>(JsonArray value)
         {
-            return new <#=            TypeDeclaration.DotnetTypeName #>(value);
+            return new <#= TypeDeclaration.DotnetTypeName #>(value);
         }
 
         /// <summary>
         /// Conversion to array.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator JsonArray(<#=            TypeDeclaration.DotnetTypeName #> value)
+        public static implicit operator JsonArray(<#= TypeDeclaration.DotnetTypeName #> value)
         {
             return value.AsArray;
         }
@@ -1561,16 +1577,16 @@ namespace <#=            Namespace #>
         /// Conversion from object.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator <#=            TypeDeclaration.DotnetTypeName #>(JsonObject value)
+        public static implicit operator <#= TypeDeclaration.DotnetTypeName #>(JsonObject value)
         {
-            return new <#=            TypeDeclaration.DotnetTypeName #>(value);
+            return new <#= TypeDeclaration.DotnetTypeName #>(value);
         }
 
         /// <summary>
         /// Conversion to object.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator JsonObject(<#=            TypeDeclaration.DotnetTypeName #> value)
+        public static implicit operator JsonObject(<#= TypeDeclaration.DotnetTypeName #> value)
         {
             return value.AsObject;
         }
@@ -1588,16 +1604,16 @@ namespace <#=            Namespace #>
         /// Conversion from string.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator <#=            TypeDeclaration.DotnetTypeName #>(string value)
+        public static implicit operator <#= TypeDeclaration.DotnetTypeName #>(string value)
         {
-            return new <#=            TypeDeclaration.DotnetTypeName #>(value);
+            return new <#= TypeDeclaration.DotnetTypeName #>(value);
         }
 
         /// <summary>
         /// Conversion to string.
         /// </summary>
         /// <param name="value">The number from which to convert.</param>
-        public static implicit operator string(<#=            TypeDeclaration.DotnetTypeName #> value)
+        public static implicit operator string(<#= TypeDeclaration.DotnetTypeName #> value)
         {
             return value.AsString.GetString();
         }
@@ -1606,16 +1622,16 @@ namespace <#=            Namespace #>
         /// Conversion from <see cref="JsonEncodedText"/>.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator <#=            TypeDeclaration.DotnetTypeName #>(JsonEncodedText value)
+        public static implicit operator <#= TypeDeclaration.DotnetTypeName #>(JsonEncodedText value)
         {
-            return new <#=            TypeDeclaration.DotnetTypeName #>(value);
+            return new <#= TypeDeclaration.DotnetTypeName #>(value);
         }
 
         /// <summary>
         /// Conversion to <see cref="JsonEncodedText"/>.
         /// </summary>
         /// <param name="value">The number from which to convert.</param>
-        public static implicit operator JsonEncodedText(<#=            TypeDeclaration.DotnetTypeName #> value)
+        public static implicit operator JsonEncodedText(<#= TypeDeclaration.DotnetTypeName #> value)
         {
             return value.AsString.GetJsonEncodedText();
         }
@@ -1624,16 +1640,16 @@ namespace <#=            Namespace #>
         /// Conversion from string.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator <#=            TypeDeclaration.DotnetTypeName #>(ReadOnlySpan<char> value)
+        public static implicit operator <#= TypeDeclaration.DotnetTypeName #>(ReadOnlySpan<char> value)
         {
-            return new <#=            TypeDeclaration.DotnetTypeName #>(value);
+            return new <#= TypeDeclaration.DotnetTypeName #>(value);
         }
 
         /// <summary>
         /// Conversion to string.
         /// </summary>
         /// <param name="value">The number from which to convert.</param>
-        public static implicit operator ReadOnlySpan<char>(<#=            TypeDeclaration.DotnetTypeName #> value)
+        public static implicit operator ReadOnlySpan<char>(<#= TypeDeclaration.DotnetTypeName #> value)
         {
             return value.AsString.AsSpan();
         }
@@ -1642,16 +1658,16 @@ namespace <#=            Namespace #>
         /// Conversion from utf8 bytes.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator <#=            TypeDeclaration.DotnetTypeName #>(ReadOnlySpan<byte> value)
+        public static implicit operator <#= TypeDeclaration.DotnetTypeName #>(ReadOnlySpan<byte> value)
         {
-            return new <#=            TypeDeclaration.DotnetTypeName #>(value);
+            return new <#= TypeDeclaration.DotnetTypeName #>(value);
         }
 
         /// <summary>
         /// Conversion to utf8 bytes.
         /// </summary>
         /// <param name="value">The number from which to convert.</param>
-        public static implicit operator ReadOnlySpan<byte>(<#=            TypeDeclaration.DotnetTypeName #> value)
+        public static implicit operator ReadOnlySpan<byte>(<#= TypeDeclaration.DotnetTypeName #> value)
         {
             return value.AsString.GetJsonEncodedText().EncodedUtf8Bytes;
         }
@@ -1660,16 +1676,16 @@ namespace <#=            Namespace #>
         /// Conversion from string.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator <#=            TypeDeclaration.DotnetTypeName #>(JsonString value)
+        public static implicit operator <#= TypeDeclaration.DotnetTypeName #>(JsonString value)
         {
-            return new <#=            TypeDeclaration.DotnetTypeName #>(value);
+            return new <#= TypeDeclaration.DotnetTypeName #>(value);
         }
 
         /// <summary>
         /// Conversion to string.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator JsonString(<#=            TypeDeclaration.DotnetTypeName #> value)
+        public static implicit operator JsonString(<#= TypeDeclaration.DotnetTypeName #> value)
         {
             return value.AsString;
         }
@@ -1687,16 +1703,16 @@ namespace <#=            Namespace #>
         /// Conversion from double.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator <#=            TypeDeclaration.DotnetTypeName #>(double value)
+        public static implicit operator <#= TypeDeclaration.DotnetTypeName #>(double value)
         {
-            return new <#=            TypeDeclaration.DotnetTypeName #>(value);
+            return new <#= TypeDeclaration.DotnetTypeName #>(value);
         }
 
         /// <summary>
         /// Conversion to double.
         /// </summary>
         /// <param name="number">The number from which to convert.</param>
-        public static implicit operator double(<#=            TypeDeclaration.DotnetTypeName #> number)
+        public static implicit operator double(<#= TypeDeclaration.DotnetTypeName #> number)
         {
             return number.AsNumber.GetDouble();
         }
@@ -1705,16 +1721,16 @@ namespace <#=            Namespace #>
         /// Conversion from float.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator <#=            TypeDeclaration.DotnetTypeName #>(float value)
+        public static implicit operator <#= TypeDeclaration.DotnetTypeName #>(float value)
         {
-            return new <#=            TypeDeclaration.DotnetTypeName #>(value);
+            return new <#= TypeDeclaration.DotnetTypeName #>(value);
         }
 
         /// <summary>
         /// Conversion to float.
         /// </summary>
         /// <param name="number">The number from which to convert.</param>
-        public static implicit operator float(<#=            TypeDeclaration.DotnetTypeName #> number)
+        public static implicit operator float(<#= TypeDeclaration.DotnetTypeName #> number)
         {
             return number.AsNumber.GetSingle();
         }
@@ -1723,16 +1739,16 @@ namespace <#=            Namespace #>
         /// Conversion from long.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator <#=            TypeDeclaration.DotnetTypeName #>(long value)
+        public static implicit operator <#= TypeDeclaration.DotnetTypeName #>(long value)
         {
-            return new <#=            TypeDeclaration.DotnetTypeName #>(value);
+            return new <#= TypeDeclaration.DotnetTypeName #>(value);
         }
 
         /// <summary>
         /// Conversion to long.
         /// </summary>
         /// <param name="number">The number from which to convert.</param>
-        public static implicit operator long(<#=            TypeDeclaration.DotnetTypeName #> number)
+        public static implicit operator long(<#= TypeDeclaration.DotnetTypeName #> number)
         {
             return number.AsNumber.GetInt64();
         }
@@ -1741,16 +1757,16 @@ namespace <#=            Namespace #>
         /// Conversion from int.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator <#=            TypeDeclaration.DotnetTypeName #>(int value)
+        public static implicit operator <#= TypeDeclaration.DotnetTypeName #>(int value)
         {
-            return new <#=            TypeDeclaration.DotnetTypeName #>(value);
+            return new <#= TypeDeclaration.DotnetTypeName #>(value);
         }
 
         /// <summary>
         /// Conversion to int.
         /// </summary>
         /// <param name="number">The number from which to convert.</param>
-        public static implicit operator int(<#=            TypeDeclaration.DotnetTypeName #> number)
+        public static implicit operator int(<#= TypeDeclaration.DotnetTypeName #> number)
         {
             return number.AsNumber.GetInt32();
         }
@@ -1759,16 +1775,16 @@ namespace <#=            Namespace #>
         /// Conversion from number.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator <#=            TypeDeclaration.DotnetTypeName #>(JsonNumber value)
+        public static implicit operator <#= TypeDeclaration.DotnetTypeName #>(JsonNumber value)
         {
-            return new <#=            TypeDeclaration.DotnetTypeName #>(value);
+            return new <#= TypeDeclaration.DotnetTypeName #>(value);
         }
 
         /// <summary>
         /// Conversion to number.
         /// </summary>
         /// <param name="number">The value from which to convert.</param>
-        public static implicit operator JsonNumber(<#=            TypeDeclaration.DotnetTypeName #> number)
+        public static implicit operator JsonNumber(<#= TypeDeclaration.DotnetTypeName #> number)
         {
             return number.AsNumber;
         }
@@ -1786,16 +1802,16 @@ namespace <#=            Namespace #>
         /// Conversion from bool.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator <#=            TypeDeclaration.DotnetTypeName #>(bool value)
+        public static implicit operator <#= TypeDeclaration.DotnetTypeName #>(bool value)
         {
-            return new <#=            TypeDeclaration.DotnetTypeName #>(value);
+            return new <#= TypeDeclaration.DotnetTypeName #>(value);
         }
 
         /// <summary>
         /// Conversion to bool.
         /// </summary>
         /// <param name="boolean">The value from which to convert.</param>
-        public static implicit operator bool(<#=            TypeDeclaration.DotnetTypeName #> boolean)
+        public static implicit operator bool(<#= TypeDeclaration.DotnetTypeName #> boolean)
         {
             return boolean.AsBoolean.GetBoolean();
         }
@@ -1804,16 +1820,16 @@ namespace <#=            Namespace #>
         /// Conversion from bool.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator <#=            TypeDeclaration.DotnetTypeName #>(JsonBoolean value)
+        public static implicit operator <#= TypeDeclaration.DotnetTypeName #>(JsonBoolean value)
         {
-            return new <#=            TypeDeclaration.DotnetTypeName #>(value);
+            return new <#= TypeDeclaration.DotnetTypeName #>(value);
         }
 
         /// <summary>
         /// Conversion to bool.
         /// </summary>
         /// <param name="boolean">The value from which to convert.</param>
-        public static implicit operator JsonBoolean(<#=            TypeDeclaration.DotnetTypeName #> boolean)
+        public static implicit operator JsonBoolean(<#= TypeDeclaration.DotnetTypeName #> boolean)
         {
             return boolean.AsBoolean;
         }
@@ -1833,13 +1849,13 @@ namespace <#=            Namespace #>
         #>
 
         /// <summary>
-        /// Sets <#=                Formatting.FormatLiteralOrNull(property.JsonPropertyName, true).Trim('"') #>.
+        /// Sets <#= Formatting.FormatLiteralOrNull(property.JsonPropertyName, true).Trim('"') #>.
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public <#=                TypeDeclaration.DotnetTypeName #> With<#=                property.DotnetPropertyName #>(<#=                property.Type.FullyQualifiedDotnetTypeName #> value)
+        public <#= TypeDeclaration.DotnetTypeName #> With<#= property.DotnetPropertyName #>(<#= property.Type.FullyQualifiedDotnetTypeName #> value)
         {
-            return this.SetProperty(<#=                property.DotnetPropertyName #>JsonPropertyName, value);
+            return this.SetProperty(<#= property.DotnetPropertyName #>JsonPropertyName, value);
         }
 
         <#
@@ -2077,7 +2093,7 @@ namespace <#=            Namespace #>
         }
 
         /// <inheritdoc/>
-        public bool Equals(<#=        TypeDeclaration.DotnetTypeName #> other)
+        public bool Equals(<#= TypeDeclaration.DotnetTypeName #> other)
         {
             JsonValueKind valueKind = this.ValueKind;
 
@@ -2166,7 +2182,7 @@ namespace <#=            Namespace #>
             return false;        }
 
         /// <inheritdoc/>
-        public <#=            TypeDeclaration.DotnetTypeName #> SetProperty<TValue>(JsonEncodedText name, TValue value)
+        public <#= TypeDeclaration.DotnetTypeName #> SetProperty<TValue>(JsonEncodedText name, TValue value)
             where TValue : IJsonValue
         {
             if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
@@ -2178,7 +2194,7 @@ namespace <#=            Namespace #>
         }
 
         /// <inheritdoc/>
-        public <#=            TypeDeclaration.DotnetTypeName #> SetProperty<TValue>(string name, TValue value)
+        public <#= TypeDeclaration.DotnetTypeName #> SetProperty<TValue>(string name, TValue value)
             where TValue : IJsonValue
         {
             if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
@@ -2190,7 +2206,7 @@ namespace <#=            Namespace #>
         }
 
         /// <inheritdoc/>
-        public <#=            TypeDeclaration.DotnetTypeName #> SetProperty<TValue>(ReadOnlySpan<char> name, TValue value)
+        public <#= TypeDeclaration.DotnetTypeName #> SetProperty<TValue>(ReadOnlySpan<char> name, TValue value)
             where TValue : IJsonValue
         {
             if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
@@ -2202,7 +2218,7 @@ namespace <#=            Namespace #>
         }
 
         /// <inheritdoc/>
-        public <#=            TypeDeclaration.DotnetTypeName #> SetProperty<TValue>(ReadOnlySpan<byte> utf8name, TValue value)
+        public <#= TypeDeclaration.DotnetTypeName #> SetProperty<TValue>(ReadOnlySpan<byte> utf8name, TValue value)
             where TValue : IJsonValue
         {
             if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
@@ -2214,7 +2230,7 @@ namespace <#=            Namespace #>
         }
 
         /// <inheritdoc/>
-        public <#=            TypeDeclaration.DotnetTypeName #> RemoveProperty(JsonEncodedText name)
+        public <#= TypeDeclaration.DotnetTypeName #> RemoveProperty(JsonEncodedText name)
         {
             if (this.ValueKind == JsonValueKind.Object)
             {
@@ -2225,7 +2241,7 @@ namespace <#=            Namespace #>
         }
 
         /// <inheritdoc/>
-        public <#=            TypeDeclaration.DotnetTypeName #> RemoveProperty(string name)
+        public <#= TypeDeclaration.DotnetTypeName #> RemoveProperty(string name)
         {
             if (this.ValueKind == JsonValueKind.Object)
             {
@@ -2236,7 +2252,7 @@ namespace <#=            Namespace #>
         }
 
         /// <inheritdoc/>
-        public <#=            TypeDeclaration.DotnetTypeName #> RemoveProperty(ReadOnlySpan<char> name)
+        public <#= TypeDeclaration.DotnetTypeName #> RemoveProperty(ReadOnlySpan<char> name)
         {
             if (this.ValueKind == JsonValueKind.Object)
             {
@@ -2247,7 +2263,7 @@ namespace <#=            Namespace #>
         }
 
         /// <inheritdoc/>
-        public <#=            TypeDeclaration.DotnetTypeName #> RemoveProperty(ReadOnlySpan<byte> utf8Name)
+        public <#= TypeDeclaration.DotnetTypeName #> RemoveProperty(ReadOnlySpan<byte> utf8Name)
         {
             if (this.ValueKind == JsonValueKind.Object)
             {
@@ -2267,7 +2283,7 @@ namespace <#=            Namespace #>
     #>
 
         /// <inheritdoc/>
-        public <#=            TypeDeclaration.DotnetTypeName #> Add<TItem>(TItem item)
+        public <#= TypeDeclaration.DotnetTypeName #> Add<TItem>(TItem item)
             where TItem : struct, IJsonValue
         {
             if (this.ValueKind == JsonValueKind.Array || this.ValueKind == JsonValueKind.Undefined)
@@ -2279,7 +2295,7 @@ namespace <#=            Namespace #>
         }
 
         /// <inheritdoc/>
-        public <#=            TypeDeclaration.DotnetTypeName #> Insert<TItem>(int index, TItem item)
+        public <#= TypeDeclaration.DotnetTypeName #> Insert<TItem>(int index, TItem item)
             where TItem : struct, IJsonValue
         {
             if (this.ValueKind == JsonValueKind.Array || this.ValueKind == JsonValueKind.Undefined)
@@ -2291,7 +2307,7 @@ namespace <#=            Namespace #>
         }
 
         /// <inheritdoc/>
-        public <#=            TypeDeclaration.DotnetTypeName #> Replace<TItem>(TItem oldValue, TItem newValue)
+        public <#= TypeDeclaration.DotnetTypeName #> Replace<TItem>(TItem oldValue, TItem newValue)
             where TItem : struct, IJsonValue
         {
             if (this.ValueKind == JsonValueKind.Array)
@@ -2303,7 +2319,7 @@ namespace <#=            Namespace #>
         }
 
         /// <inheritdoc/>
-        public <#=            TypeDeclaration.DotnetTypeName #> RemoveAt(int index)
+        public <#= TypeDeclaration.DotnetTypeName #> RemoveAt(int index)
         {
             if (this.ValueKind == JsonValueKind.Array)
             {
@@ -2314,7 +2330,7 @@ namespace <#=            Namespace #>
         }
 
         /// <inheritdoc/>
-        public <#=            TypeDeclaration.DotnetTypeName #> RemoveRange(int index, int count)
+        public <#= TypeDeclaration.DotnetTypeName #> RemoveRange(int index, int count)
         {
             if (this.ValueKind == JsonValueKind.Array)
             {
@@ -2325,7 +2341,7 @@ namespace <#=            Namespace #>
         }
 
         /// <inheritdoc/>
-        public <#=            TypeDeclaration.DotnetTypeName #> SetItem<TItem>(int index, TItem value)
+        public <#= TypeDeclaration.DotnetTypeName #> SetItem<TItem>(int index, TItem value)
             where TItem : struct, IJsonValue
         {
             if (this.ValueKind == JsonValueKind.Array)
@@ -2344,7 +2360,7 @@ namespace <#=            Namespace #>
         public T As<T>()
             where T : struct, IJsonValue
         {
-            return this.As<<#=        TypeDeclaration.DotnetTypeName #>, T>();
+            return this.As<<#= TypeDeclaration.DotnetTypeName #>, T>();
         }
 
         /// <inheritdoc/>
@@ -2453,7 +2469,7 @@ namespace <#=            Namespace #>
         for(int enumIndex = 0; enumIndex < EnumValues.Length; ++enumIndex)
         {
         #>
-                , __MenesEnumValues.Item<#=                enumIndex #>
+                , __MenesEnumValues.Item<#= enumIndex #>
         <#
         }
         #>
@@ -2479,7 +2495,7 @@ namespace <#=            Namespace #>
         if (HasMultipleOf)
         {
         #>
-                <#=                MultipleOf #>,
+                <#= MultipleOf #>,
         <#
         }
         else
@@ -2493,7 +2509,7 @@ namespace <#=            Namespace #>
         if (HasMaximum)
         {
         #>
-                 <#=                Maximum #>,
+                 <#= Maximum #>,
         <#
         }
         else
@@ -2507,7 +2523,7 @@ namespace <#=            Namespace #>
         if (HasExclusiveMaximum)
         {
         #>
-                 <#=                ExclusiveMaximum #>,
+                 <#= ExclusiveMaximum #>,
         <#
         }
         else
@@ -2521,7 +2537,7 @@ namespace <#=            Namespace #>
         if (HasMinimum)
         {
         #>
-                 <#=                Minimum #>,
+                 <#= Minimum #>,
         <#
         }
         else
@@ -2535,7 +2551,7 @@ namespace <#=            Namespace #>
         if (HasExclusiveMinimum)
         {
         #>
-                 <#=                ExclusiveMinimum #>
+                 <#= ExclusiveMinimum #>
         <#
         }
         else
@@ -2568,7 +2584,7 @@ namespace <#=            Namespace #>
         if (HasMaxLength)
         {
         #>
-                 <#=                MaxLength #>,
+                 <#= MaxLength #>,
         <#
         }
         else
@@ -2582,7 +2598,7 @@ namespace <#=            Namespace #>
         if (HasMinLength)
         {
         #>
-                 <#=                MinLength #>,
+                 <#= MinLength #>,
         <#
         }
         else
@@ -2728,10 +2744,10 @@ namespace <#=            Namespace #>
         {
         #>
             builder.Add(
-                new Regex("<#=                patternProperty.Pattern #>", RegexOptions.Compiled),
+                new Regex("<#= patternProperty.Pattern #>", RegexOptions.Compiled),
                 (property, validationContext, level) =>
                 {
-                    return property.ValueAs<<#=                patternProperty.DotnetTypeName #>>().Validate(validationContext, level);
+                    return property.ValueAs<<#= patternProperty.DotnetTypeName #>>().Validate(validationContext, level);
                 });
         <#
         }
@@ -2749,20 +2765,20 @@ namespace <#=            Namespace #>
     {
     #>
 
-        private static ImmutableDictionary<JsonEncodedText, Func<<#=            TypeDeclaration.DotnetTypeName #>, ValidationContext, ValidationLevel, ValidationContext>> CreateDependentSchemaValidators()
+        private static ImmutableDictionary<JsonEncodedText, Func<<#= TypeDeclaration.DotnetTypeName #>, ValidationContext, ValidationLevel, ValidationContext>> CreateDependentSchemaValidators()
         {
-            ImmutableDictionary<JsonEncodedText, Func<<#=            TypeDeclaration.DotnetTypeName #>, ValidationContext, ValidationLevel, ValidationContext>>.Builder builder =
-                ImmutableDictionary.CreateBuilder<JsonEncodedText, Func<<#=            TypeDeclaration.DotnetTypeName #>, ValidationContext, ValidationLevel, ValidationContext>>();
+            ImmutableDictionary<JsonEncodedText, Func<<#= TypeDeclaration.DotnetTypeName #>, ValidationContext, ValidationLevel, ValidationContext>>.Builder builder =
+                ImmutableDictionary.CreateBuilder<JsonEncodedText, Func<<#= TypeDeclaration.DotnetTypeName #>, ValidationContext, ValidationLevel, ValidationContext>>();
 
         <#
         foreach (var dependentSchema in DependentSchemas)
         {
         #>
             builder.Add(
-                JsonEncodedText.Encode("<#=                dependentSchema.Name #>"),
+                JsonEncodedText.Encode("<#= dependentSchema.Name #>"),
                 (entity, validationContext, level) =>
                 {
-                    return entity.As<<#=                dependentSchema.DotnetTypeName #>>().Validate(validationContext, level);
+                    return entity.As<<#= dependentSchema.DotnetTypeName #>>().Validate(validationContext, level);
                 });
 
         <#
@@ -2788,7 +2804,7 @@ namespace <#=            Namespace #>
         foreach (var property in Defaults)
         {
         #>
-            builder.Add(<#=                property.DotnetPropertyName #>JsonPropertyName, JsonAny.Parse(<#=                Formatting.FormatLiteralOrNull(property.DefaultValue, true) #>));
+            builder.Add(<#= property.DotnetPropertyName #>JsonPropertyName, JsonAny.Parse(<#= Formatting.FormatLiteralOrNull(property.DefaultValue, true) #>));
         <#
         }
         #>
@@ -2813,7 +2829,7 @@ namespace <#=            Namespace #>
         {
         #>
             builder.Add(
-                    JsonEncodedText.Encode(<#=                Formatting.FormatLiteralOrNull(dependentRequired.Name, true) #>),
+                    JsonEncodedText.Encode(<#= Formatting.FormatLiteralOrNull(dependentRequired.Name, true) #>),
                     ImmutableArray.Create<ReadOnlyMemory<byte>>(
             <#
             bool isFirst1 = true;
@@ -2825,13 +2841,13 @@ namespace <#=            Namespace #>
                 {
                     isFirst1 = false;
                 #>
-                        System.Text.Encoding.UTF8.GetBytes(<#=                        Formatting.FormatLiteralOrNull(dependentRequiredValue, true) #>).AsMemory()
+                        System.Text.Encoding.UTF8.GetBytes(<#=  Formatting.FormatLiteralOrNull(dependentRequiredValue, true) #>).AsMemory()
                 <#
                 }
                 else
                 {
                 #>
-                        , System.Text.Encoding.UTF8.GetBytes(<#=                        Formatting.FormatLiteralOrNull(dependentRequiredValue, true) #>).AsMemory()
+                        , System.Text.Encoding.UTF8.GetBytes(<#=  Formatting.FormatLiteralOrNull(dependentRequiredValue, true) #>).AsMemory()
                 <#
                 }
                 #>
@@ -2854,20 +2870,20 @@ namespace <#=            Namespace #>
     {
     #>
 
-        private static ImmutableDictionary<JsonEncodedText, Func<<#=            TypeDeclaration.DotnetTypeName #>, ValidationContext, ValidationLevel, ValidationContext>> CreateLocalPropertyValidators()
+        private static ImmutableDictionary<JsonEncodedText, Func<<#= TypeDeclaration.DotnetTypeName #>, ValidationContext, ValidationLevel, ValidationContext>> CreateLocalPropertyValidators()
         {
-            ImmutableDictionary<JsonEncodedText, Func<<#=            TypeDeclaration.DotnetTypeName #>, ValidationContext, ValidationLevel, ValidationContext>>.Builder builder =
-                ImmutableDictionary.CreateBuilder<JsonEncodedText, Func<<#=            TypeDeclaration.DotnetTypeName #>, ValidationContext, ValidationLevel, ValidationContext>>();
+            ImmutableDictionary<JsonEncodedText, Func<<#= TypeDeclaration.DotnetTypeName #>, ValidationContext, ValidationLevel, ValidationContext>>.Builder builder =
+                ImmutableDictionary.CreateBuilder<JsonEncodedText, Func<<#= TypeDeclaration.DotnetTypeName #>, ValidationContext, ValidationLevel, ValidationContext>>();
 
         <#
         foreach (var property in LocalProperties)
         {
         #>
             builder.Add(
-                <#=                property.DotnetPropertyName #>JsonPropertyName,
+                <#= property.DotnetPropertyName #>JsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                    <#=                property.Type.DotnetTypeName #> property = that.<#=                property.DotnetPropertyName #>;
+                    <#= property.Type.DotnetTypeName #> property = that.<#= property.DotnetPropertyName #>;
                     return property.Validate(validationContext, level);
                 });
         <#
@@ -2889,7 +2905,7 @@ namespace <#=            Namespace #>
         {
             ValidationContext result = validationContext;
 
-            ValidationContext refResult = this.As<<#=            RefDotnetTypeName #>>().Validate(validationContext.CreateChildContext(), level);
+            ValidationContext refResult = this.As<<#= RefDotnetTypeName #>>().Validate(validationContext.CreateChildContext(), level);
 
             if (!refResult.IsValid)
             {
@@ -3008,7 +3024,7 @@ namespace <#=            Namespace #>
             if (HasContains)
             {
         #>
-                ValidationContext containsResult = arrayEnumerator.Current.As<<#=                    ContainsDotnetTypeName #>>().Validate(result.CreateChildContext(), level);
+                ValidationContext containsResult = arrayEnumerator.Current.As<<#=     ContainsDotnetTypeName #>>().Validate(result.CreateChildContext(), level);
 
                 if (containsResult.IsValid)
                 {
@@ -3019,7 +3035,7 @@ namespace <#=            Namespace #>
                 if (HasMaxContains)
                 {
             #>
-                    if (level == ValidationLevel.Flag && containsCount > <#=                        MaxContains #>)
+                    if (level == ValidationLevel.Flag && containsCount > <#=  MaxContains #>)
                     {
                         return result.WithResult(isValid: false);
                     }
@@ -3036,7 +3052,7 @@ namespace <#=            Namespace #>
             if (HasSingleItemsType)
             {
         #>
-                result = arrayEnumerator.Current.As<<#=                    SingleItemsDotnetTypeName #>>().Validate(result, level);
+                result = arrayEnumerator.Current.As<<#=     SingleItemsDotnetTypeName #>>().Validate(result, level);
                 if (level == ValidationLevel.Flag && !result.IsValid)
                 {
                     return result;
@@ -3056,8 +3072,8 @@ namespace <#=            Namespace #>
                 foreach (var item in Items)
                 {
             #>
-                    case <#=                        itemsIndex #>:
-                        result = arrayEnumerator.Current.As<<#=                        item #>>().Validate(result, level);
+                    case <#=  itemsIndex #>:
+                        result = arrayEnumerator.Current.As<<#=  item #>>().Validate(result, level);
                         if (level == ValidationLevel.Flag && !result.IsValid)
                         {
                             return result;
@@ -3104,7 +3120,7 @@ namespace <#=            Namespace #>
                         if (HasAdditionalItemsSchema)
                         {
                     #>
-                        result = arrayEnumerator.Current.As<<#=                                AdditionalItemsDotnetTypeName #>>().Validate(result, level);
+                        result = arrayEnumerator.Current.As<<#=      AdditionalItemsDotnetTypeName #>>().Validate(result, level);
                         if (level == ValidationLevel.Flag && !result.IsValid)
                         {
                             return result;
@@ -3123,7 +3139,7 @@ namespace <#=            Namespace #>
                         if (!result.HasEvaluatedLocalOrAppliedItemIndex(arrayLength))
                         {
 
-                            result = arrayEnumerator.Current.As<<#=                            UnevaluatedItemsDotnetTypeName #>>().Validate(result, level);
+                            result = arrayEnumerator.Current.As<<#=  UnevaluatedItemsDotnetTypeName #>>().Validate(result, level);
 
                             if (level == ValidationLevel.Flag && !result.IsValid)
                             {
@@ -3180,7 +3196,7 @@ namespace <#=            Namespace #>
                         if (HasAdditionalItemsSchema)
                         {
                         #>
-                        result = arrayEnumerator.Current.As<<#=                                AdditionalItemsDotnetTypeName #>>().Validate(result, level);
+                        result = arrayEnumerator.Current.As<<#=      AdditionalItemsDotnetTypeName #>>().Validate(result, level);
                         if (level == ValidationLevel.Flag && !result.IsValid)
                         {
                             return result;
@@ -3197,7 +3213,7 @@ namespace <#=            Namespace #>
                 #>
                         if (!result.HasEvaluatedLocalOrAppliedItemIndex(arrayLength))
                         {
-                            result = arrayEnumerator.Current.As<<#=                            UnevaluatedItemsDotnetTypeName #>>().Validate(result, level);
+                            result = arrayEnumerator.Current.As<<#=  UnevaluatedItemsDotnetTypeName #>>().Validate(result, level);
 
                             if (level == ValidationLevel.Flag && !result.IsValid)
                             {
@@ -3228,15 +3244,15 @@ namespace <#=            Namespace #>
         if (HasMaxItems)
         {
         #>
-            if (arrayLength > <#=                MaxItems #>)
+            if (arrayLength > <#= MaxItems #>)
             {
                 if (level >= ValidationLevel.Detailed)
                 {
-                    result = result.WithResult(isValid: false, $"6.4.1. maxItems - {arrayLength} exceeds maximum number of items <#=                MaxItems #>.");
+                    result = result.WithResult(isValid: false, $"6.4.1. maxItems - {arrayLength} exceeds maximum number of items <#= MaxItems #>.");
                 }
                 else if (level >= ValidationLevel.Basic)
                 {
-                    result = result.WithResult(isValid: false, "6.4.1. maxItems - item count exceeds maximum number of items <#=                MaxItems #>.");
+                    result = result.WithResult(isValid: false, "6.4.1. maxItems - item count exceeds maximum number of items <#= MaxItems #>.");
                 }
                 else
                 {
@@ -3252,15 +3268,15 @@ namespace <#=            Namespace #>
         if (HasMinItems)
         {
         #>
-            if (arrayLength < <#=                MinItems #>)
+            if (arrayLength < <#= MinItems #>)
             {
                 if (level >= ValidationLevel.Detailed)
                 {
-                    result = result.WithResult(isValid: false, $"6.4.2. minItems - {arrayLength} is less than the minimum number of items <#=                MinItems #>.");
+                    result = result.WithResult(isValid: false, $"6.4.2. minItems - {arrayLength} is less than the minimum number of items <#= MinItems #>.");
                 }
                 else if (level >= ValidationLevel.Basic)
                 {
-                    result = result.WithResult(isValid: false, "6.4.2. minItems - item count is less than the minimum number of items <#=                MinItems #>.");
+                    result = result.WithResult(isValid: false, "6.4.2. minItems - item count is less than the minimum number of items <#= MinItems #>.");
                 }
                 else
                 {
@@ -3281,15 +3297,15 @@ namespace <#=            Namespace #>
             {
             #>
 
-            if (containsCount > <#=                    MaxContains #>)
+            if (containsCount > <#=     MaxContains #>)
             {
                 if (level >= ValidationLevel.Detailed)
                 {
-                    result = result.WithResult(isValid: false, $"6.4.4. maxContains - {containsCount} exceeds maximum number of matching items <#=                    MaxContains #>.");
+                    result = result.WithResult(isValid: false, $"6.4.4. maxContains - {containsCount} exceeds maximum number of matching items <#=     MaxContains #>.");
                 }
                 else if (level >= ValidationLevel.Basic)
                 {
-                    result = result.WithResult(isValid: false, "6.4.4. maxContains - item count exceeds maximum number of matching items <#=                    MaxContains #>.");
+                    result = result.WithResult(isValid: false, "6.4.4. maxContains - item count exceeds maximum number of matching items <#=     MaxContains #>.");
                 }
                 else
                 {
@@ -3305,15 +3321,15 @@ namespace <#=            Namespace #>
             if (HasMinContains)
             {
             #>
-            if (containsCount < <#=                    MinContains #>)
+            if (containsCount < <#=     MinContains #>)
             {
                 if (level >= ValidationLevel.Detailed)
                 {
-                    result = result.WithResult(isValid: false, $"6.4.5. minContains - {containsCount} is less than minimum number of matching items <#=                    MinContains #>.");
+                    result = result.WithResult(isValid: false, $"6.4.5. minContains - {containsCount} is less than minimum number of matching items <#=     MinContains #>.");
                 }
                 else if (level >= ValidationLevel.Basic)
                 {
-                    result = result.WithResult(isValid: false, "6.4.5. minContains - item count is less than minimum number of matching items <#=                    MinContains #>.");
+                    result = result.WithResult(isValid: false, "6.4.5. minContains - item count is less than minimum number of matching items <#=     MinContains #>.");
                 }
                 else
                 {
@@ -3397,7 +3413,7 @@ namespace <#=            Namespace #>
             foreach(var property in RequiredProperties)
             {
             #>
-            bool found<#=                    property.DotnetPropertyName #> = false;
+            bool found<#=     property.DotnetPropertyName #> = false;
             <#
             }
             #>
@@ -3452,7 +3468,7 @@ namespace <#=            Namespace #>
         if (HasLocalProperties || HasRequired)
         {
         #>
-                if (__MenesLocalProperties.TryGetValue(propertyName, out Func<<#=                TypeDeclaration.DotnetTypeName #>, ValidationContext, ValidationLevel, ValidationContext>? propertyValidator))
+                if (__MenesLocalProperties.TryGetValue(propertyName, out Func<<#= TypeDeclaration.DotnetTypeName #>, ValidationContext, ValidationLevel, ValidationContext>? propertyValidator))
                 {
                     result = result.WithLocalProperty(propertyName);
                     result = propertyValidator(this, result, level);
@@ -3479,9 +3495,9 @@ namespace <#=            Namespace #>
                     }
             #>
 
-                if (<#=                        property.DotnetPropertyName #>JsonPropertyName.Equals(propertyName))
+                if (<#=  property.DotnetPropertyName #>JsonPropertyName.Equals(propertyName))
                 {
-                    found<#=                        property.DotnetPropertyName#> = true;
+                    found<#=  property.DotnetPropertyName#> = true;
                 }
             <#
                 }
@@ -3497,7 +3513,7 @@ namespace <#=            Namespace #>
         if (HasDependentSchemas)
         {
         #>
-                if (__MenesDependentSchema.TryGetValue(propertyName, out Func<<#=                TypeDeclaration.DotnetTypeName #>, ValidationContext, ValidationLevel, ValidationContext>? dependentSchemaValidator))
+                if (__MenesDependentSchema.TryGetValue(propertyName, out Func<<#= TypeDeclaration.DotnetTypeName #>, ValidationContext, ValidationLevel, ValidationContext>? dependentSchemaValidator))
                 {
                     result = result.WithLocalProperty(propertyName);
                     result = dependentSchemaValidator(this, result, level);
@@ -3520,7 +3536,7 @@ namespace <#=            Namespace #>
             if (HasPropertyNames)
             {
             #>
-                result = new JsonString(propertyNameAsString).As<<#=                    PropertyNamesDotnetTypeName #>>().Validate(result, level);
+                result = new JsonString(propertyNameAsString).As<<#=     PropertyNamesDotnetTypeName #>>().Validate(result, level);
                 if (level == ValidationLevel.Flag && !result.IsValid)
                 {
                     return result;
@@ -3559,7 +3575,7 @@ namespace <#=            Namespace #>
         #>
                 if (!result.HasEvaluatedLocalProperty(propertyName))
                 {
-                    result = property.ValueAs<<#=                AdditionalPropertiesDotnetTypeName #>>().Validate(result, level);
+                    result = property.ValueAs<<#= AdditionalPropertiesDotnetTypeName #>>().Validate(result, level);
                     if (level == ValidationLevel.Flag && !result.IsValid)
                     {
                         return result;
@@ -3577,7 +3593,7 @@ namespace <#=            Namespace #>
                 if (!result.HasEvaluatedLocalOrAppliedProperty(propertyName))
                 {
 
-                    result = property.ValueAs<<#=                UnevaluatedPropertiesDotnetTypeName #>>().Validate(result, level);
+                    result = property.ValueAs<<#= UnevaluatedPropertiesDotnetTypeName #>>().Validate(result, level);
                     if (level == ValidationLevel.Flag && !result.IsValid)
                     {
                         return result;
@@ -3633,12 +3649,12 @@ namespace <#=            Namespace #>
             foreach (var property in RequiredProperties)
             {
             #>
-            if (!found<#=                    property.DotnetPropertyName #>
+            if (!found<#=     property.DotnetPropertyName #>
             <#
                 if (HasDefaults)
                 {
             #>
-            && !HasDefault(<#=                        property.DotnetPropertyName #>JsonPropertyName)
+            && !HasDefault(<#=  property.DotnetPropertyName #>JsonPropertyName)
             <#
                 }
             #>
@@ -3646,7 +3662,7 @@ namespace <#=            Namespace #>
             {
                 if (level >= ValidationLevel.Detailed)
                 {
-                    result = result.WithResult(isValid: false, $"6.5.3. required - required property \"<#=                    Formatting.FormatLiteralOrNull(property.JsonPropertyName, true).Trim('"') #>\" not present.");
+                    result = result.WithResult(isValid: false, $"6.5.3. required - required property \"<#=     Formatting.FormatLiteralOrNull(property.JsonPropertyName, true).Trim('"') #>\" not present.");
                 }
                 else if (level >= ValidationLevel.Basic)
                 {
@@ -3668,15 +3684,15 @@ namespace <#=            Namespace #>
         if (HasMaxProperties)
         {
         #>        
-            if (propertyCount > <#=                MaxProperties #>)
+            if (propertyCount > <#= MaxProperties #>)
             {
                 if (level >= ValidationLevel.Detailed)
                 {
-                    result = result.WithResult(isValid: false, $"6.5.1. maxProperties - property count of {propertyCount} is greater than <#=                MaxProperties #>.");
+                    result = result.WithResult(isValid: false, $"6.5.1. maxProperties - property count of {propertyCount} is greater than <#= MaxProperties #>.");
                 }
                 else if (level >= ValidationLevel.Basic)
                 {
-                    result = result.WithResult(isValid: false, "6.5.1. maxProperties - property count greater than <#=                MaxProperties #>.");
+                    result = result.WithResult(isValid: false, "6.5.1. maxProperties - property count greater than <#= MaxProperties #>.");
                 }
                 else
                 {
@@ -3691,15 +3707,15 @@ namespace <#=            Namespace #>
         if (HasMinProperties)
         {
         #>        
-            if (propertyCount < <#=                MinProperties #>)
+            if (propertyCount < <#= MinProperties #>)
             {
                 if (level >= ValidationLevel.Detailed)
                 {
-                    result = result.WithResult(isValid: false, $"6.5.2. minProperties - property count of {propertyCount} is lezs than <#=                MinProperties #>.");
+                    result = result.WithResult(isValid: false, $"6.5.2. minProperties - property count of {propertyCount} is lezs than <#= MinProperties #>.");
                 }
                 else if (level >= ValidationLevel.Basic)
                 {
-                    result = result.WithResult(isValid: false, "6.5.2. minProperties - property count less than <#=                MinProperties #>.");
+                    result = result.WithResult(isValid: false, "6.5.2. minProperties - property count less than <#= MinProperties #>.");
                 }
                 else
                 {
@@ -3734,11 +3750,11 @@ namespace <#=            Namespace #>
         {
         #>        
 
-            ValidationContext oneOfResult<#=                oneOfIndex#> = this.As<<#=                oneOf #>>().Validate(validationContext.CreateChildContext(), level);
+            ValidationContext oneOfResult<#= oneOfIndex#> = this.As<<#= oneOf #>>().Validate(validationContext.CreateChildContext(), level);
 
-            if (oneOfResult<#=                oneOfIndex #>.IsValid)
+            if (oneOfResult<#= oneOfIndex #>.IsValid)
             {
-                result = result.MergeChildContext(oneOfResult<#=                oneOfIndex #>, level >= ValidationLevel.Detailed);
+                result = result.MergeChildContext(oneOfResult<#= oneOfIndex #>, level >= ValidationLevel.Detailed);
                 oneOfCount += 1;
             <#
             if (!HasUnevaluatedItems && !HasUnevaluatedProperties)
@@ -3757,15 +3773,15 @@ namespace <#=            Namespace #>
             {
                 if (level >= ValidationLevel.Detailed)
                 {
-                    result = result.MergeChildContext(oneOfResult<#=                oneOfIndex #>, true);
+                    result = result.MergeChildContext(oneOfResult<#= oneOfIndex #>, true);
                 }
                 else if (level >= ValidationLevel.Basic)
                 {
-                    result = result.MergeChildContext(oneOfResult<#=                oneOfIndex #>, true);
+                    result = result.MergeChildContext(oneOfResult<#= oneOfIndex #>, true);
                 }
                 else
                 {
-                    result = result.MergeChildContext(oneOfResult<#=                oneOfIndex #>, false);
+                    result = result.MergeChildContext(oneOfResult<#= oneOfIndex #>, false);
                 }
             }
 
@@ -3835,11 +3851,11 @@ namespace <#=            Namespace #>
         {
         #>        
 
-            ValidationContext anyOfResult<#=                anyOfIndex #> = this.As<<#=                anyOf #>>().Validate(validationContext.CreateChildContext(), level);
+            ValidationContext anyOfResult<#= anyOfIndex #> = this.As<<#= anyOf #>>().Validate(validationContext.CreateChildContext(), level);
 
-            if (anyOfResult<#=                anyOfIndex #>.IsValid)
+            if (anyOfResult<#= anyOfIndex #>.IsValid)
             {
-                result = result.MergeChildContext(anyOfResult<#=                anyOfIndex #>, level >= ValidationLevel.Detailed);
+                result = result.MergeChildContext(anyOfResult<#= anyOfIndex #>, level >= ValidationLevel.Detailed);
             <#
             if (!HasUnevaluatedItems && !HasUnevaluatedProperties)
             {
@@ -3866,11 +3882,11 @@ namespace <#=            Namespace #>
             {
                 if (level >= ValidationLevel.Detailed)
                 {
-                    result = result.MergeResults(result.IsValid, level, anyOfResult<#=                anyOfIndex #>);
+                    result = result.MergeResults(result.IsValid, level, anyOfResult<#= anyOfIndex #>);
                 }
                 else if (level >= ValidationLevel.Basic)
                 {
-                    result = result.MergeResults(result.IsValid, level, anyOfResult<#=                anyOfIndex #>);
+                    result = result.MergeResults(result.IsValid, level, anyOfResult<#= anyOfIndex #>);
                 }
             }
 
@@ -3923,27 +3939,27 @@ namespace <#=            Namespace #>
         {
         #>        
 
-            ValidationContext allOfResult<#=                allOfIndex #> = this.As<<#=                allOf #>>().Validate(validationContext.CreateChildContext(), level);
+            ValidationContext allOfResult<#= allOfIndex #> = this.As<<#= allOf #>>().Validate(validationContext.CreateChildContext(), level);
 
-            if (!allOfResult<#=                allOfIndex #>.IsValid)
+            if (!allOfResult<#= allOfIndex #>.IsValid)
             {
                 if (level >= ValidationLevel.Detailed)
                 {
-                    result = result.MergeChildContext(allOfResult<#=                allOfIndex #>, true).WithResult(isValid: false, "Validation 10.2.1.1. allOf - failed to validate against the allOf schema.");
+                    result = result.MergeChildContext(allOfResult<#= allOfIndex #>, true).WithResult(isValid: false, "Validation 10.2.1.1. allOf - failed to validate against the allOf schema.");
                 }
                 else if (level >= ValidationLevel.Basic)
                 {
-                    result = result.MergeChildContext(allOfResult<#=                allOfIndex #>, true).WithResult(isValid: false, "Validation 10.2.1.1. allOf - failed to validate against the allOf schema.");
+                    result = result.MergeChildContext(allOfResult<#= allOfIndex #>, true).WithResult(isValid: false, "Validation 10.2.1.1. allOf - failed to validate against the allOf schema.");
                 }
                 else
                 {
-                    result = result.MergeChildContext(allOfResult<#=                allOfIndex #>, false).WithResult(isValid: false);
+                    result = result.MergeChildContext(allOfResult<#= allOfIndex #>, false).WithResult(isValid: false);
                     return result;
                 }
             }
             else
             {
-                result = result.MergeChildContext(allOfResult<#=                allOfIndex #>, level >= ValidationLevel.Detailed);
+                result = result.MergeChildContext(allOfResult<#= allOfIndex #>, level >= ValidationLevel.Detailed);
             }
 
         <#
@@ -3966,7 +3982,7 @@ namespace <#=            Namespace #>
         {
             ValidationContext result = validationContext;
 
-            ValidationContext notResult = this.As<<#=            NotDotnetTypeName #>>().Validate(validationContext.CreateChildContext(), level);
+            ValidationContext notResult = this.As<<#= NotDotnetTypeName #>>().Validate(validationContext.CreateChildContext(), level);
             if (notResult.IsValid)
             {
                 if (level >= ValidationLevel.Detailed)
@@ -4002,7 +4018,7 @@ namespace <#=            Namespace #>
         {
             ValidationContext result = validationContext;
 
-            ValidationContext ifResult = this.As<<#=            IfDotnetTypeName #>>().Validate(validationContext.CreateChildContext(), level);
+            ValidationContext ifResult = this.As<<#= IfDotnetTypeName #>>().Validate(validationContext.CreateChildContext(), level);
 
             if (!ifResult.IsValid)
             {
@@ -4032,7 +4048,7 @@ namespace <#=            Namespace #>
         #>        
             if (ifResult.IsValid)
             {
-                ValidationContext thenResult = this.As<<#=                ThenDotnetTypeName #>>().Validate(validationContext.CreateChildContext(), level);
+                ValidationContext thenResult = this.As<<#= ThenDotnetTypeName #>>().Validate(validationContext.CreateChildContext(), level);
 
                 if (!thenResult.IsValid)
                 {
@@ -4070,7 +4086,7 @@ namespace <#=            Namespace #>
         #>        
             if (!ifResult.IsValid)
             {
-                ValidationContext elseResult = this.As<<#=                ElseDotnetTypeName #>>().Validate(validationContext.CreateChildContext(), level);
+                ValidationContext elseResult = this.As<<#= ElseDotnetTypeName #>>().Validate(validationContext.CreateChildContext(), level);
 
                 if (!elseResult.IsValid)
                 {
@@ -4670,42 +4686,42 @@ namespace <#=            Namespace #>
             {
             #>
             /// <summary>
-            /// [{Title} || Item <#=                    enumItemIndex#>] (with predictable naming).
+            /// [{Title} || Item <#=     enumItemIndex#>] (with predictable naming).
             /// </summary>
             /// <remarks>
             /// {Description}.
             /// </remarks>
-            internal static readonly <#=                    TypeDeclaration.DotnetTypeName #> Item<#=                    enumItemIndex#> = JsonAny.Parse(<#=                    enumValue.SerializedValue #>);
+            internal static readonly <#=     TypeDeclaration.DotnetTypeName #> Item<#=     enumItemIndex#> = JsonAny.Parse(<#=     enumValue.SerializedValue #>);
             <#
             }
             else if (enumValue.IsBoolean)
             {
             #>
-            public static readonly <#=                    TypeDeclaration.DotnetTypeName #> Item<#=                    enumItemIndex#> = JsonAny.Parse(<#=                    enumValue.SerializedValue #>);
+            public static readonly <#=     TypeDeclaration.DotnetTypeName #> Item<#=     enumItemIndex#> = JsonAny.Parse(<#=     enumValue.SerializedValue #>);
             <#
             }
             else if (enumValue.IsNumber)
             {
             #>
-            public static readonly <#=                    TypeDeclaration.DotnetTypeName #> Item<#=                    enumItemIndex#> = JsonAny.Parse(<#=                    enumValue.SerializedValue #>);
+            public static readonly <#=     TypeDeclaration.DotnetTypeName #> Item<#=     enumItemIndex#> = JsonAny.Parse(<#=     enumValue.SerializedValue #>);
             <#
             }
             else if (enumValue.IsObject)
             {
             #>
-            public static readonly <#=                    TypeDeclaration.DotnetTypeName #> Item<#=                    enumItemIndex#> = JsonAny.Parse(<#=                    enumValue.SerializedValue #>);
+            public static readonly <#=     TypeDeclaration.DotnetTypeName #> Item<#=     enumItemIndex#> = JsonAny.Parse(<#=     enumValue.SerializedValue #>);
             <#
             }
             else if (enumValue.IsArray)
             {
             #>
-            public static readonly <#=                    TypeDeclaration.DotnetTypeName #> Item<#=                    enumItemIndex#> = JsonAny.Parse(<#=                    enumValue.SerializedValue #>);
+            public static readonly <#=     TypeDeclaration.DotnetTypeName #> Item<#=     enumItemIndex#> = JsonAny.Parse(<#=     enumValue.SerializedValue #>);
             <#
             }
             else if (enumValue.IsNull)
             {
             #>
-            public static readonly <#=                    TypeDeclaration.DotnetTypeName #> Item<#=                    enumItemIndex#> = JsonAny.Parse("null");
+            public static readonly <#=     TypeDeclaration.DotnetTypeName #> Item<#=     enumItemIndex#> = JsonAny.Parse("null");
             <#
             }
             #>
@@ -4723,7 +4739,7 @@ namespace <#=            Namespace #>
     {
     #>
 
-    <#=            WriteNestedType(nestedType) #>
+    <#= WriteNestedType(nestedType) #>
 
     <#
     }
