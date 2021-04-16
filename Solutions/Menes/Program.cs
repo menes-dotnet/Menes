@@ -7,7 +7,7 @@
 namespace Menes
 {
     using System.Text.Json;
-    using IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId;
+    using DefsFeature.InvalidDefinition;
     using Menes.Json;
 
     class Program
@@ -31,6 +31,8 @@ namespace Menes
         }");
             Schema schema = data.As<Schema>();
             var validated = schema.Validate();
+
+            schema = schema.WithAdditionalItems(true);
         }
     }
 }

@@ -3465,9 +3465,8 @@ namespace ");
         #line hidden
         
         #line 988 "SchemaEntity.tt"
-        this.Write("\"/> struct.\r\n        /// </summary>\r\n        /// <param name=\"jsonBoolean\">The <s" +
-                "ee cref=\"JsonBoolean\"/> from which to construct the value.</param>\r\n        publ" +
-                "ic ");
+        this.Write("\"/> struct.\r\n        /// </summary>\r\n        /// <param name=\"boolean\">The <see c" +
+                "ref=\"bool\"/> from which to construct the value.</param>\r\n        public ");
         
         #line default
         #line hidden

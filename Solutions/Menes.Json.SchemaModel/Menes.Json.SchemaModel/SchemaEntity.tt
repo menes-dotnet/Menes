@@ -987,7 +987,7 @@ namespace <#= Namespace #>
                 /// <summary>
         /// Initializes a new instance of the <see cref="<#= TypeDeclaration.DotnetTypeName #>"/> struct.
         /// </summary>
-        /// <param name="jsonBoolean">The <see cref="JsonBoolean"/> from which to construct the value.</param>
+        /// <param name="boolean">The <see cref="bool"/> from which to construct the value.</param>
         public <#= TypeDeclaration.DotnetTypeName #>(bool boolean)
         {
             this.jsonElementBacking = default;

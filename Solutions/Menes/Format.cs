@@ -10,7 +10,7 @@
 
 #nullable enable
 
-namespace IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId
+namespace DefsFeature.InvalidDefinition
 {
     using System;
     using System.Collections.Generic;
@@ -31,7 +31,12 @@ namespace IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId
         /// <summary>
         /// JSON property name for <see cref="Format1"/>.
         /// </summary>
-        public static readonly JsonEncodedText Format1JsonPropertyName = JsonEncodedText.Encode( new byte[] { 102, 111, 114, 109, 97, 116 });
+        public static readonly ReadOnlyMemory<byte> Format1Utf8JsonPropertyName = new byte[] { 102, 111, 114, 109, 97, 116 };
+
+        /// <summary>
+        /// JSON property name for <see cref="Format1"/>.
+        /// </summary>
+        public static readonly JsonEncodedText Format1JsonPropertyName = JsonEncodedText.Encode( Format1Utf8JsonPropertyName.Span);
 
         
     
@@ -61,7 +66,6 @@ namespace IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId
         {
             this.jsonElementBacking = value;
                 this.objectBacking = default;
-            /* endif */
                                 this.booleanBacking = default;
             }
 
@@ -118,7 +122,23 @@ namespace IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId
 
                     this.objectBacking = default;
                                         }
+
+                /// <summary>
+        /// Initializes a new instance of the <see cref="Format"/> struct.
+        /// </summary>
+        /// <param name="boolean">The <see cref="bool"/> from which to construct the value.</param>
+        public Format(bool boolean)
+        {
+            this.jsonElementBacking = default;
+            this.booleanBacking = boolean;
+
+                    this.objectBacking = default;
+                                        }
+
     
+    
+    
+
     
             
         /// <summary>
@@ -135,9 +155,20 @@ namespace IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId
         {
             get
             {
-                if (this.TryGetProperty(Format1JsonPropertyName, out JsonAny result))
+                if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
                 {
-                    return result;
+                    if(properties.TryGetValue(Format1JsonPropertyName, out JsonAny result))
+                    {
+                        return result;
+                    }
+                }
+
+                if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
+                {
+                    if (this.jsonElementBacking.TryGetProperty(Format1Utf8JsonPropertyName.Span, out JsonElement result))
+                    {
+                        return new  Menes.Json.JsonString(result);
+                    }
                 }
 
                 return default;
@@ -309,6 +340,8 @@ namespace IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId
             }
         }
 
+    
+        
         /// <summary>
         /// Conversion from any.
         /// </summary>
@@ -350,6 +383,24 @@ namespace IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId
         public static implicit operator JsonObject(Format value)
         {
             return value.AsObject;
+        }
+
+                /// <summary>
+        /// Implicit conversion to a property dictionary.
+        /// </summary>
+        /// <param name="value">The value from which to convert.</param>
+        public static implicit operator ImmutableDictionary<JsonEncodedText, JsonAny>(Format  value)
+        {
+            return value.AsObject.AsPropertyDictionary;
+        }
+
+        /// <summary>
+        /// Implicit conversion from a property dictionary.
+        /// </summary>
+        /// <param name="value">The value from which to convert.</param>
+        public static implicit operator Format (ImmutableDictionary<JsonEncodedText, JsonAny> value)
+        {
+            return new Format (value);
         }
 
     

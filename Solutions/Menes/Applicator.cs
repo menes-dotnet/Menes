@@ -10,7 +10,7 @@
 
 #nullable enable
 
-namespace IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId
+namespace DefsFeature.InvalidDefinition
 {
     using System;
     using System.Collections.Generic;
@@ -31,103 +31,188 @@ namespace IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId
         /// <summary>
         /// JSON property name for <see cref="AdditionalItems"/>.
         /// </summary>
-        public static readonly JsonEncodedText AdditionalItemsJsonPropertyName = JsonEncodedText.Encode( new byte[] { 97, 100, 100, 105, 116, 105, 111, 110, 97, 108, 73, 116, 101, 109, 115 });
+        public static readonly ReadOnlyMemory<byte> AdditionalItemsUtf8JsonPropertyName = new byte[] { 97, 100, 100, 105, 116, 105, 111, 110, 97, 108, 73, 116, 101, 109, 115 };
+
+        /// <summary>
+        /// JSON property name for <see cref="AdditionalItems"/>.
+        /// </summary>
+        public static readonly JsonEncodedText AdditionalItemsJsonPropertyName = JsonEncodedText.Encode( AdditionalItemsUtf8JsonPropertyName.Span);
 
         
         /// <summary>
         /// JSON property name for <see cref="UnevaluatedItems"/>.
         /// </summary>
-        public static readonly JsonEncodedText UnevaluatedItemsJsonPropertyName = JsonEncodedText.Encode( new byte[] { 117, 110, 101, 118, 97, 108, 117, 97, 116, 101, 100, 73, 116, 101, 109, 115 });
+        public static readonly ReadOnlyMemory<byte> UnevaluatedItemsUtf8JsonPropertyName = new byte[] { 117, 110, 101, 118, 97, 108, 117, 97, 116, 101, 100, 73, 116, 101, 109, 115 };
+
+        /// <summary>
+        /// JSON property name for <see cref="UnevaluatedItems"/>.
+        /// </summary>
+        public static readonly JsonEncodedText UnevaluatedItemsJsonPropertyName = JsonEncodedText.Encode( UnevaluatedItemsUtf8JsonPropertyName.Span);
 
         
         /// <summary>
         /// JSON property name for <see cref="Items"/>.
         /// </summary>
-        public static readonly JsonEncodedText ItemsJsonPropertyName = JsonEncodedText.Encode( new byte[] { 105, 116, 101, 109, 115 });
+        public static readonly ReadOnlyMemory<byte> ItemsUtf8JsonPropertyName = new byte[] { 105, 116, 101, 109, 115 };
+
+        /// <summary>
+        /// JSON property name for <see cref="Items"/>.
+        /// </summary>
+        public static readonly JsonEncodedText ItemsJsonPropertyName = JsonEncodedText.Encode( ItemsUtf8JsonPropertyName.Span);
 
         
         /// <summary>
         /// JSON property name for <see cref="Contains"/>.
         /// </summary>
-        public static readonly JsonEncodedText ContainsJsonPropertyName = JsonEncodedText.Encode( new byte[] { 99, 111, 110, 116, 97, 105, 110, 115 });
+        public static readonly ReadOnlyMemory<byte> ContainsUtf8JsonPropertyName = new byte[] { 99, 111, 110, 116, 97, 105, 110, 115 };
+
+        /// <summary>
+        /// JSON property name for <see cref="Contains"/>.
+        /// </summary>
+        public static readonly JsonEncodedText ContainsJsonPropertyName = JsonEncodedText.Encode( ContainsUtf8JsonPropertyName.Span);
 
         
         /// <summary>
         /// JSON property name for <see cref="AdditionalProperties"/>.
         /// </summary>
-        public static readonly JsonEncodedText AdditionalPropertiesJsonPropertyName = JsonEncodedText.Encode( new byte[] { 97, 100, 100, 105, 116, 105, 111, 110, 97, 108, 80, 114, 111, 112, 101, 114, 116, 105, 101, 115 });
+        public static readonly ReadOnlyMemory<byte> AdditionalPropertiesUtf8JsonPropertyName = new byte[] { 97, 100, 100, 105, 116, 105, 111, 110, 97, 108, 80, 114, 111, 112, 101, 114, 116, 105, 101, 115 };
+
+        /// <summary>
+        /// JSON property name for <see cref="AdditionalProperties"/>.
+        /// </summary>
+        public static readonly JsonEncodedText AdditionalPropertiesJsonPropertyName = JsonEncodedText.Encode( AdditionalPropertiesUtf8JsonPropertyName.Span);
 
         
         /// <summary>
         /// JSON property name for <see cref="UnevaluatedProperties"/>.
         /// </summary>
-        public static readonly JsonEncodedText UnevaluatedPropertiesJsonPropertyName = JsonEncodedText.Encode( new byte[] { 117, 110, 101, 118, 97, 108, 117, 97, 116, 101, 100, 80, 114, 111, 112, 101, 114, 116, 105, 101, 115 });
+        public static readonly ReadOnlyMemory<byte> UnevaluatedPropertiesUtf8JsonPropertyName = new byte[] { 117, 110, 101, 118, 97, 108, 117, 97, 116, 101, 100, 80, 114, 111, 112, 101, 114, 116, 105, 101, 115 };
+
+        /// <summary>
+        /// JSON property name for <see cref="UnevaluatedProperties"/>.
+        /// </summary>
+        public static readonly JsonEncodedText UnevaluatedPropertiesJsonPropertyName = JsonEncodedText.Encode( UnevaluatedPropertiesUtf8JsonPropertyName.Span);
 
         
         /// <summary>
         /// JSON property name for <see cref="Properties"/>.
         /// </summary>
-        public static readonly JsonEncodedText PropertiesJsonPropertyName = JsonEncodedText.Encode( new byte[] { 112, 114, 111, 112, 101, 114, 116, 105, 101, 115 });
+        public static readonly ReadOnlyMemory<byte> PropertiesUtf8JsonPropertyName = new byte[] { 112, 114, 111, 112, 101, 114, 116, 105, 101, 115 };
+
+        /// <summary>
+        /// JSON property name for <see cref="Properties"/>.
+        /// </summary>
+        public static readonly JsonEncodedText PropertiesJsonPropertyName = JsonEncodedText.Encode( PropertiesUtf8JsonPropertyName.Span);
 
         
         /// <summary>
         /// JSON property name for <see cref="PatternProperties"/>.
         /// </summary>
-        public static readonly JsonEncodedText PatternPropertiesJsonPropertyName = JsonEncodedText.Encode( new byte[] { 112, 97, 116, 116, 101, 114, 110, 80, 114, 111, 112, 101, 114, 116, 105, 101, 115 });
+        public static readonly ReadOnlyMemory<byte> PatternPropertiesUtf8JsonPropertyName = new byte[] { 112, 97, 116, 116, 101, 114, 110, 80, 114, 111, 112, 101, 114, 116, 105, 101, 115 };
+
+        /// <summary>
+        /// JSON property name for <see cref="PatternProperties"/>.
+        /// </summary>
+        public static readonly JsonEncodedText PatternPropertiesJsonPropertyName = JsonEncodedText.Encode( PatternPropertiesUtf8JsonPropertyName.Span);
 
         
         /// <summary>
         /// JSON property name for <see cref="DependentSchemas"/>.
         /// </summary>
-        public static readonly JsonEncodedText DependentSchemasJsonPropertyName = JsonEncodedText.Encode( new byte[] { 100, 101, 112, 101, 110, 100, 101, 110, 116, 83, 99, 104, 101, 109, 97, 115 });
+        public static readonly ReadOnlyMemory<byte> DependentSchemasUtf8JsonPropertyName = new byte[] { 100, 101, 112, 101, 110, 100, 101, 110, 116, 83, 99, 104, 101, 109, 97, 115 };
+
+        /// <summary>
+        /// JSON property name for <see cref="DependentSchemas"/>.
+        /// </summary>
+        public static readonly JsonEncodedText DependentSchemasJsonPropertyName = JsonEncodedText.Encode( DependentSchemasUtf8JsonPropertyName.Span);
 
         
         /// <summary>
         /// JSON property name for <see cref="PropertyNames"/>.
         /// </summary>
-        public static readonly JsonEncodedText PropertyNamesJsonPropertyName = JsonEncodedText.Encode( new byte[] { 112, 114, 111, 112, 101, 114, 116, 121, 78, 97, 109, 101, 115 });
+        public static readonly ReadOnlyMemory<byte> PropertyNamesUtf8JsonPropertyName = new byte[] { 112, 114, 111, 112, 101, 114, 116, 121, 78, 97, 109, 101, 115 };
+
+        /// <summary>
+        /// JSON property name for <see cref="PropertyNames"/>.
+        /// </summary>
+        public static readonly JsonEncodedText PropertyNamesJsonPropertyName = JsonEncodedText.Encode( PropertyNamesUtf8JsonPropertyName.Span);
 
         
         /// <summary>
         /// JSON property name for <see cref="If"/>.
         /// </summary>
-        public static readonly JsonEncodedText IfJsonPropertyName = JsonEncodedText.Encode( new byte[] { 105, 102 });
+        public static readonly ReadOnlyMemory<byte> IfUtf8JsonPropertyName = new byte[] { 105, 102 };
+
+        /// <summary>
+        /// JSON property name for <see cref="If"/>.
+        /// </summary>
+        public static readonly JsonEncodedText IfJsonPropertyName = JsonEncodedText.Encode( IfUtf8JsonPropertyName.Span);
 
         
         /// <summary>
         /// JSON property name for <see cref="Then"/>.
         /// </summary>
-        public static readonly JsonEncodedText ThenJsonPropertyName = JsonEncodedText.Encode( new byte[] { 116, 104, 101, 110 });
+        public static readonly ReadOnlyMemory<byte> ThenUtf8JsonPropertyName = new byte[] { 116, 104, 101, 110 };
+
+        /// <summary>
+        /// JSON property name for <see cref="Then"/>.
+        /// </summary>
+        public static readonly JsonEncodedText ThenJsonPropertyName = JsonEncodedText.Encode( ThenUtf8JsonPropertyName.Span);
 
         
         /// <summary>
         /// JSON property name for <see cref="Else"/>.
         /// </summary>
-        public static readonly JsonEncodedText ElseJsonPropertyName = JsonEncodedText.Encode( new byte[] { 101, 108, 115, 101 });
+        public static readonly ReadOnlyMemory<byte> ElseUtf8JsonPropertyName = new byte[] { 101, 108, 115, 101 };
+
+        /// <summary>
+        /// JSON property name for <see cref="Else"/>.
+        /// </summary>
+        public static readonly JsonEncodedText ElseJsonPropertyName = JsonEncodedText.Encode( ElseUtf8JsonPropertyName.Span);
 
         
         /// <summary>
         /// JSON property name for <see cref="AllOf"/>.
         /// </summary>
-        public static readonly JsonEncodedText AllOfJsonPropertyName = JsonEncodedText.Encode( new byte[] { 97, 108, 108, 79, 102 });
+        public static readonly ReadOnlyMemory<byte> AllOfUtf8JsonPropertyName = new byte[] { 97, 108, 108, 79, 102 };
+
+        /// <summary>
+        /// JSON property name for <see cref="AllOf"/>.
+        /// </summary>
+        public static readonly JsonEncodedText AllOfJsonPropertyName = JsonEncodedText.Encode( AllOfUtf8JsonPropertyName.Span);
 
         
         /// <summary>
         /// JSON property name for <see cref="AnyOf"/>.
         /// </summary>
-        public static readonly JsonEncodedText AnyOfJsonPropertyName = JsonEncodedText.Encode( new byte[] { 97, 110, 121, 79, 102 });
+        public static readonly ReadOnlyMemory<byte> AnyOfUtf8JsonPropertyName = new byte[] { 97, 110, 121, 79, 102 };
+
+        /// <summary>
+        /// JSON property name for <see cref="AnyOf"/>.
+        /// </summary>
+        public static readonly JsonEncodedText AnyOfJsonPropertyName = JsonEncodedText.Encode( AnyOfUtf8JsonPropertyName.Span);
 
         
         /// <summary>
         /// JSON property name for <see cref="OneOf"/>.
         /// </summary>
-        public static readonly JsonEncodedText OneOfJsonPropertyName = JsonEncodedText.Encode( new byte[] { 111, 110, 101, 79, 102 });
+        public static readonly ReadOnlyMemory<byte> OneOfUtf8JsonPropertyName = new byte[] { 111, 110, 101, 79, 102 };
+
+        /// <summary>
+        /// JSON property name for <see cref="OneOf"/>.
+        /// </summary>
+        public static readonly JsonEncodedText OneOfJsonPropertyName = JsonEncodedText.Encode( OneOfUtf8JsonPropertyName.Span);
 
         
         /// <summary>
         /// JSON property name for <see cref="Not"/>.
         /// </summary>
-        public static readonly JsonEncodedText NotJsonPropertyName = JsonEncodedText.Encode( new byte[] { 110, 111, 116 });
+        public static readonly ReadOnlyMemory<byte> NotUtf8JsonPropertyName = new byte[] { 110, 111, 116 };
+
+        /// <summary>
+        /// JSON property name for <see cref="Not"/>.
+        /// </summary>
+        public static readonly JsonEncodedText NotJsonPropertyName = JsonEncodedText.Encode( NotUtf8JsonPropertyName.Span);
 
         
     
@@ -158,7 +243,6 @@ namespace IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId
         {
             this.jsonElementBacking = value;
                 this.objectBacking = default;
-            /* endif */
                                 this.booleanBacking = default;
             }
 
@@ -215,7 +299,23 @@ namespace IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId
 
                     this.objectBacking = default;
                                         }
+
+                /// <summary>
+        /// Initializes a new instance of the <see cref="Applicator"/> struct.
+        /// </summary>
+        /// <param name="boolean">The <see cref="bool"/> from which to construct the value.</param>
+        public Applicator(bool boolean)
+        {
+            this.jsonElementBacking = default;
+            this.booleanBacking = boolean;
+
+                    this.objectBacking = default;
+                                        }
+
     
+    
+    
+
     
             
         /// <summary>
@@ -228,13 +328,24 @@ namespace IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId
         /// <example>
         /// {Property examples}.
         /// </example>
-        public IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId.Schema AdditionalItems
+        public DefsFeature.InvalidDefinition.Schema AdditionalItems
         {
             get
             {
-                if (this.TryGetProperty(AdditionalItemsJsonPropertyName, out JsonAny result))
+                if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
                 {
-                    return result;
+                    if(properties.TryGetValue(AdditionalItemsJsonPropertyName, out JsonAny result))
+                    {
+                        return result;
+                    }
+                }
+
+                if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
+                {
+                    if (this.jsonElementBacking.TryGetProperty(AdditionalItemsUtf8JsonPropertyName.Span, out JsonElement result))
+                    {
+                        return new  DefsFeature.InvalidDefinition.Schema(result);
+                    }
                 }
 
                 return default;
@@ -252,13 +363,24 @@ namespace IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId
         /// <example>
         /// {Property examples}.
         /// </example>
-        public IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId.Schema UnevaluatedItems
+        public DefsFeature.InvalidDefinition.Schema UnevaluatedItems
         {
             get
             {
-                if (this.TryGetProperty(UnevaluatedItemsJsonPropertyName, out JsonAny result))
+                if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
                 {
-                    return result;
+                    if(properties.TryGetValue(UnevaluatedItemsJsonPropertyName, out JsonAny result))
+                    {
+                        return result;
+                    }
+                }
+
+                if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
+                {
+                    if (this.jsonElementBacking.TryGetProperty(UnevaluatedItemsUtf8JsonPropertyName.Span, out JsonElement result))
+                    {
+                        return new  DefsFeature.InvalidDefinition.Schema(result);
+                    }
                 }
 
                 return default;
@@ -276,13 +398,24 @@ namespace IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId
         /// <example>
         /// {Property examples}.
         /// </example>
-        public IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId.Applicator.ItemsEntity Items
+        public DefsFeature.InvalidDefinition.Applicator.ItemsEntity Items
         {
             get
             {
-                if (this.TryGetProperty(ItemsJsonPropertyName, out JsonAny result))
+                if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
                 {
-                    return result;
+                    if(properties.TryGetValue(ItemsJsonPropertyName, out JsonAny result))
+                    {
+                        return result;
+                    }
+                }
+
+                if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
+                {
+                    if (this.jsonElementBacking.TryGetProperty(ItemsUtf8JsonPropertyName.Span, out JsonElement result))
+                    {
+                        return new  DefsFeature.InvalidDefinition.Applicator.ItemsEntity(result);
+                    }
                 }
 
                 return default;
@@ -300,13 +433,24 @@ namespace IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId
         /// <example>
         /// {Property examples}.
         /// </example>
-        public IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId.Schema Contains
+        public DefsFeature.InvalidDefinition.Schema Contains
         {
             get
             {
-                if (this.TryGetProperty(ContainsJsonPropertyName, out JsonAny result))
+                if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
                 {
-                    return result;
+                    if(properties.TryGetValue(ContainsJsonPropertyName, out JsonAny result))
+                    {
+                        return result;
+                    }
+                }
+
+                if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
+                {
+                    if (this.jsonElementBacking.TryGetProperty(ContainsUtf8JsonPropertyName.Span, out JsonElement result))
+                    {
+                        return new  DefsFeature.InvalidDefinition.Schema(result);
+                    }
                 }
 
                 return default;
@@ -324,13 +468,24 @@ namespace IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId
         /// <example>
         /// {Property examples}.
         /// </example>
-        public IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId.Schema AdditionalProperties
+        public DefsFeature.InvalidDefinition.Schema AdditionalProperties
         {
             get
             {
-                if (this.TryGetProperty(AdditionalPropertiesJsonPropertyName, out JsonAny result))
+                if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
                 {
-                    return result;
+                    if(properties.TryGetValue(AdditionalPropertiesJsonPropertyName, out JsonAny result))
+                    {
+                        return result;
+                    }
+                }
+
+                if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
+                {
+                    if (this.jsonElementBacking.TryGetProperty(AdditionalPropertiesUtf8JsonPropertyName.Span, out JsonElement result))
+                    {
+                        return new  DefsFeature.InvalidDefinition.Schema(result);
+                    }
                 }
 
                 return default;
@@ -348,13 +503,24 @@ namespace IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId
         /// <example>
         /// {Property examples}.
         /// </example>
-        public IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId.Schema UnevaluatedProperties
+        public DefsFeature.InvalidDefinition.Schema UnevaluatedProperties
         {
             get
             {
-                if (this.TryGetProperty(UnevaluatedPropertiesJsonPropertyName, out JsonAny result))
+                if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
                 {
-                    return result;
+                    if(properties.TryGetValue(UnevaluatedPropertiesJsonPropertyName, out JsonAny result))
+                    {
+                        return result;
+                    }
+                }
+
+                if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
+                {
+                    if (this.jsonElementBacking.TryGetProperty(UnevaluatedPropertiesUtf8JsonPropertyName.Span, out JsonElement result))
+                    {
+                        return new  DefsFeature.InvalidDefinition.Schema(result);
+                    }
                 }
 
                 return default;
@@ -372,13 +538,24 @@ namespace IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId
         /// <example>
         /// {Property examples}.
         /// </example>
-        public IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId.Applicator.PropertiesValue Properties
+        public DefsFeature.InvalidDefinition.Applicator.PropertiesValue Properties
         {
             get
             {
-                if (this.TryGetProperty(PropertiesJsonPropertyName, out JsonAny result))
+                if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
                 {
-                    return result;
+                    if(properties.TryGetValue(PropertiesJsonPropertyName, out JsonAny result))
+                    {
+                        return result;
+                    }
+                }
+
+                if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
+                {
+                    if (this.jsonElementBacking.TryGetProperty(PropertiesUtf8JsonPropertyName.Span, out JsonElement result))
+                    {
+                        return new  DefsFeature.InvalidDefinition.Applicator.PropertiesValue(result);
+                    }
                 }
 
                 return default;
@@ -396,13 +573,24 @@ namespace IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId
         /// <example>
         /// {Property examples}.
         /// </example>
-        public IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId.Applicator.PatternPropertiesValue PatternProperties
+        public DefsFeature.InvalidDefinition.Applicator.PatternPropertiesValue PatternProperties
         {
             get
             {
-                if (this.TryGetProperty(PatternPropertiesJsonPropertyName, out JsonAny result))
+                if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
                 {
-                    return result;
+                    if(properties.TryGetValue(PatternPropertiesJsonPropertyName, out JsonAny result))
+                    {
+                        return result;
+                    }
+                }
+
+                if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
+                {
+                    if (this.jsonElementBacking.TryGetProperty(PatternPropertiesUtf8JsonPropertyName.Span, out JsonElement result))
+                    {
+                        return new  DefsFeature.InvalidDefinition.Applicator.PatternPropertiesValue(result);
+                    }
                 }
 
                 return default;
@@ -420,13 +608,24 @@ namespace IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId
         /// <example>
         /// {Property examples}.
         /// </example>
-        public IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId.Applicator.DependentSchemasValue DependentSchemas
+        public DefsFeature.InvalidDefinition.Applicator.DependentSchemasValue DependentSchemas
         {
             get
             {
-                if (this.TryGetProperty(DependentSchemasJsonPropertyName, out JsonAny result))
+                if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
                 {
-                    return result;
+                    if(properties.TryGetValue(DependentSchemasJsonPropertyName, out JsonAny result))
+                    {
+                        return result;
+                    }
+                }
+
+                if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
+                {
+                    if (this.jsonElementBacking.TryGetProperty(DependentSchemasUtf8JsonPropertyName.Span, out JsonElement result))
+                    {
+                        return new  DefsFeature.InvalidDefinition.Applicator.DependentSchemasValue(result);
+                    }
                 }
 
                 return default;
@@ -444,13 +643,24 @@ namespace IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId
         /// <example>
         /// {Property examples}.
         /// </example>
-        public IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId.Schema PropertyNames
+        public DefsFeature.InvalidDefinition.Schema PropertyNames
         {
             get
             {
-                if (this.TryGetProperty(PropertyNamesJsonPropertyName, out JsonAny result))
+                if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
                 {
-                    return result;
+                    if(properties.TryGetValue(PropertyNamesJsonPropertyName, out JsonAny result))
+                    {
+                        return result;
+                    }
+                }
+
+                if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
+                {
+                    if (this.jsonElementBacking.TryGetProperty(PropertyNamesUtf8JsonPropertyName.Span, out JsonElement result))
+                    {
+                        return new  DefsFeature.InvalidDefinition.Schema(result);
+                    }
                 }
 
                 return default;
@@ -468,13 +678,24 @@ namespace IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId
         /// <example>
         /// {Property examples}.
         /// </example>
-        public IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId.Schema If
+        public DefsFeature.InvalidDefinition.Schema If
         {
             get
             {
-                if (this.TryGetProperty(IfJsonPropertyName, out JsonAny result))
+                if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
                 {
-                    return result;
+                    if(properties.TryGetValue(IfJsonPropertyName, out JsonAny result))
+                    {
+                        return result;
+                    }
+                }
+
+                if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
+                {
+                    if (this.jsonElementBacking.TryGetProperty(IfUtf8JsonPropertyName.Span, out JsonElement result))
+                    {
+                        return new  DefsFeature.InvalidDefinition.Schema(result);
+                    }
                 }
 
                 return default;
@@ -492,13 +713,24 @@ namespace IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId
         /// <example>
         /// {Property examples}.
         /// </example>
-        public IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId.Schema Then
+        public DefsFeature.InvalidDefinition.Schema Then
         {
             get
             {
-                if (this.TryGetProperty(ThenJsonPropertyName, out JsonAny result))
+                if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
                 {
-                    return result;
+                    if(properties.TryGetValue(ThenJsonPropertyName, out JsonAny result))
+                    {
+                        return result;
+                    }
+                }
+
+                if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
+                {
+                    if (this.jsonElementBacking.TryGetProperty(ThenUtf8JsonPropertyName.Span, out JsonElement result))
+                    {
+                        return new  DefsFeature.InvalidDefinition.Schema(result);
+                    }
                 }
 
                 return default;
@@ -516,13 +748,24 @@ namespace IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId
         /// <example>
         /// {Property examples}.
         /// </example>
-        public IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId.Schema Else
+        public DefsFeature.InvalidDefinition.Schema Else
         {
             get
             {
-                if (this.TryGetProperty(ElseJsonPropertyName, out JsonAny result))
+                if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
                 {
-                    return result;
+                    if(properties.TryGetValue(ElseJsonPropertyName, out JsonAny result))
+                    {
+                        return result;
+                    }
+                }
+
+                if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
+                {
+                    if (this.jsonElementBacking.TryGetProperty(ElseUtf8JsonPropertyName.Span, out JsonElement result))
+                    {
+                        return new  DefsFeature.InvalidDefinition.Schema(result);
+                    }
                 }
 
                 return default;
@@ -540,13 +783,24 @@ namespace IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId
         /// <example>
         /// {Property examples}.
         /// </example>
-        public IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId.Applicator.SchemaArray AllOf
+        public DefsFeature.InvalidDefinition.Applicator.SchemaArray AllOf
         {
             get
             {
-                if (this.TryGetProperty(AllOfJsonPropertyName, out JsonAny result))
+                if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
                 {
-                    return result;
+                    if(properties.TryGetValue(AllOfJsonPropertyName, out JsonAny result))
+                    {
+                        return result;
+                    }
+                }
+
+                if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
+                {
+                    if (this.jsonElementBacking.TryGetProperty(AllOfUtf8JsonPropertyName.Span, out JsonElement result))
+                    {
+                        return new  DefsFeature.InvalidDefinition.Applicator.SchemaArray(result);
+                    }
                 }
 
                 return default;
@@ -564,13 +818,24 @@ namespace IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId
         /// <example>
         /// {Property examples}.
         /// </example>
-        public IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId.Applicator.SchemaArray AnyOf
+        public DefsFeature.InvalidDefinition.Applicator.SchemaArray AnyOf
         {
             get
             {
-                if (this.TryGetProperty(AnyOfJsonPropertyName, out JsonAny result))
+                if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
                 {
-                    return result;
+                    if(properties.TryGetValue(AnyOfJsonPropertyName, out JsonAny result))
+                    {
+                        return result;
+                    }
+                }
+
+                if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
+                {
+                    if (this.jsonElementBacking.TryGetProperty(AnyOfUtf8JsonPropertyName.Span, out JsonElement result))
+                    {
+                        return new  DefsFeature.InvalidDefinition.Applicator.SchemaArray(result);
+                    }
                 }
 
                 return default;
@@ -588,13 +853,24 @@ namespace IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId
         /// <example>
         /// {Property examples}.
         /// </example>
-        public IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId.Applicator.SchemaArray OneOf
+        public DefsFeature.InvalidDefinition.Applicator.SchemaArray OneOf
         {
             get
             {
-                if (this.TryGetProperty(OneOfJsonPropertyName, out JsonAny result))
+                if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
                 {
-                    return result;
+                    if(properties.TryGetValue(OneOfJsonPropertyName, out JsonAny result))
+                    {
+                        return result;
+                    }
+                }
+
+                if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
+                {
+                    if (this.jsonElementBacking.TryGetProperty(OneOfUtf8JsonPropertyName.Span, out JsonElement result))
+                    {
+                        return new  DefsFeature.InvalidDefinition.Applicator.SchemaArray(result);
+                    }
                 }
 
                 return default;
@@ -612,13 +888,24 @@ namespace IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId
         /// <example>
         /// {Property examples}.
         /// </example>
-        public IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId.Schema Not
+        public DefsFeature.InvalidDefinition.Schema Not
         {
             get
             {
-                if (this.TryGetProperty(NotJsonPropertyName, out JsonAny result))
+                if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
                 {
-                    return result;
+                    if(properties.TryGetValue(NotJsonPropertyName, out JsonAny result))
+                    {
+                        return result;
+                    }
+                }
+
+                if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
+                {
+                    if (this.jsonElementBacking.TryGetProperty(NotUtf8JsonPropertyName.Span, out JsonElement result))
+                    {
+                        return new  DefsFeature.InvalidDefinition.Schema(result);
+                    }
                 }
 
                 return default;
@@ -790,6 +1077,8 @@ namespace IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId
             }
         }
 
+    
+        
         /// <summary>
         /// Conversion from any.
         /// </summary>
@@ -831,6 +1120,24 @@ namespace IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId
         public static implicit operator JsonObject(Applicator value)
         {
             return value.AsObject;
+        }
+
+                /// <summary>
+        /// Implicit conversion to a property dictionary.
+        /// </summary>
+        /// <param name="value">The value from which to convert.</param>
+        public static implicit operator ImmutableDictionary<JsonEncodedText, JsonAny>(Applicator  value)
+        {
+            return value.AsObject.AsPropertyDictionary;
+        }
+
+        /// <summary>
+        /// Implicit conversion from a property dictionary.
+        /// </summary>
+        /// <param name="value">The value from which to convert.</param>
+        public static implicit operator Applicator (ImmutableDictionary<JsonEncodedText, JsonAny> value)
+        {
+            return new Applicator (value);
         }
 
     
@@ -881,7 +1188,7 @@ namespace IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Applicator WithAdditionalItems(IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId.Schema value)
+        public Applicator WithAdditionalItems(DefsFeature.InvalidDefinition.Schema value)
         {
             return this.SetProperty(AdditionalItemsJsonPropertyName, value);
         }
@@ -892,7 +1199,7 @@ namespace IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Applicator WithUnevaluatedItems(IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId.Schema value)
+        public Applicator WithUnevaluatedItems(DefsFeature.InvalidDefinition.Schema value)
         {
             return this.SetProperty(UnevaluatedItemsJsonPropertyName, value);
         }
@@ -903,7 +1210,7 @@ namespace IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Applicator WithItems(IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId.Applicator.ItemsEntity value)
+        public Applicator WithItems(DefsFeature.InvalidDefinition.Applicator.ItemsEntity value)
         {
             return this.SetProperty(ItemsJsonPropertyName, value);
         }
@@ -914,7 +1221,7 @@ namespace IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Applicator WithContains(IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId.Schema value)
+        public Applicator WithContains(DefsFeature.InvalidDefinition.Schema value)
         {
             return this.SetProperty(ContainsJsonPropertyName, value);
         }
@@ -925,7 +1232,7 @@ namespace IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Applicator WithAdditionalProperties(IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId.Schema value)
+        public Applicator WithAdditionalProperties(DefsFeature.InvalidDefinition.Schema value)
         {
             return this.SetProperty(AdditionalPropertiesJsonPropertyName, value);
         }
@@ -936,7 +1243,7 @@ namespace IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Applicator WithUnevaluatedProperties(IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId.Schema value)
+        public Applicator WithUnevaluatedProperties(DefsFeature.InvalidDefinition.Schema value)
         {
             return this.SetProperty(UnevaluatedPropertiesJsonPropertyName, value);
         }
@@ -947,7 +1254,7 @@ namespace IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Applicator WithProperties(IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId.Applicator.PropertiesValue value)
+        public Applicator WithProperties(DefsFeature.InvalidDefinition.Applicator.PropertiesValue value)
         {
             return this.SetProperty(PropertiesJsonPropertyName, value);
         }
@@ -958,7 +1265,7 @@ namespace IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Applicator WithPatternProperties(IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId.Applicator.PatternPropertiesValue value)
+        public Applicator WithPatternProperties(DefsFeature.InvalidDefinition.Applicator.PatternPropertiesValue value)
         {
             return this.SetProperty(PatternPropertiesJsonPropertyName, value);
         }
@@ -969,7 +1276,7 @@ namespace IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Applicator WithDependentSchemas(IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId.Applicator.DependentSchemasValue value)
+        public Applicator WithDependentSchemas(DefsFeature.InvalidDefinition.Applicator.DependentSchemasValue value)
         {
             return this.SetProperty(DependentSchemasJsonPropertyName, value);
         }
@@ -980,7 +1287,7 @@ namespace IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Applicator WithPropertyNames(IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId.Schema value)
+        public Applicator WithPropertyNames(DefsFeature.InvalidDefinition.Schema value)
         {
             return this.SetProperty(PropertyNamesJsonPropertyName, value);
         }
@@ -991,7 +1298,7 @@ namespace IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Applicator WithIf(IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId.Schema value)
+        public Applicator WithIf(DefsFeature.InvalidDefinition.Schema value)
         {
             return this.SetProperty(IfJsonPropertyName, value);
         }
@@ -1002,7 +1309,7 @@ namespace IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Applicator WithThen(IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId.Schema value)
+        public Applicator WithThen(DefsFeature.InvalidDefinition.Schema value)
         {
             return this.SetProperty(ThenJsonPropertyName, value);
         }
@@ -1013,7 +1320,7 @@ namespace IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Applicator WithElse(IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId.Schema value)
+        public Applicator WithElse(DefsFeature.InvalidDefinition.Schema value)
         {
             return this.SetProperty(ElseJsonPropertyName, value);
         }
@@ -1024,7 +1331,7 @@ namespace IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Applicator WithAllOf(IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId.Applicator.SchemaArray value)
+        public Applicator WithAllOf(DefsFeature.InvalidDefinition.Applicator.SchemaArray value)
         {
             return this.SetProperty(AllOfJsonPropertyName, value);
         }
@@ -1035,7 +1342,7 @@ namespace IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Applicator WithAnyOf(IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId.Applicator.SchemaArray value)
+        public Applicator WithAnyOf(DefsFeature.InvalidDefinition.Applicator.SchemaArray value)
         {
             return this.SetProperty(AnyOfJsonPropertyName, value);
         }
@@ -1046,7 +1353,7 @@ namespace IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Applicator WithOneOf(IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId.Applicator.SchemaArray value)
+        public Applicator WithOneOf(DefsFeature.InvalidDefinition.Applicator.SchemaArray value)
         {
             return this.SetProperty(OneOfJsonPropertyName, value);
         }
@@ -1057,7 +1364,7 @@ namespace IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Applicator WithNot(IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId.Schema value)
+        public Applicator WithNot(DefsFeature.InvalidDefinition.Schema value)
         {
             return this.SetProperty(NotJsonPropertyName, value);
         }
@@ -1692,8 +1999,9 @@ namespace IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId
     /// A type generated from a JsonSchema specification.
     /// </summary>
     public readonly struct ItemsEntity :
-                    IJsonValue,
-            IEquatable<ItemsEntity>
+            IJsonObject<ItemsEntity>,
+                IJsonArray<ItemsEntity>,
+                IEquatable<ItemsEntity>
     {
     
     
@@ -1706,10 +2014,13 @@ namespace IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId
     
         private readonly JsonElement jsonElementBacking;
 
+            private readonly ImmutableDictionary<JsonEncodedText, JsonAny>? objectBacking;
+    
+            private readonly ImmutableList<JsonAny>? arrayBacking;
     
     
     
-    
+            private readonly bool? booleanBacking;
     
         /// <summary>
         /// Initializes a new instance of the <see cref="ItemsEntity"/> struct.
@@ -1718,22 +2029,211 @@ namespace IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId
         public ItemsEntity(JsonElement value)
         {
             this.jsonElementBacking = value;
-                            }
+                this.objectBacking = default;
+                    this.arrayBacking = default;
+                            this.booleanBacking = default;
+            }
+
+            /// <summary>
+        /// Initializes a new instance of the <see cref="ItemsEntity"/> struct.
+        /// </summary>
+        /// <param name="value">A property dictionary.</param>
+        public ItemsEntity(ImmutableDictionary<JsonEncodedText, JsonAny> value)
+        {
+            this.jsonElementBacking = default;
+            this.objectBacking = value;
+                    this.arrayBacking = default;
+                                            this.booleanBacking = default;
+                }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ItemsEntity"/> struct.
+        /// </summary>
+        /// <param name="jsonObject">The <see cref="JsonObject"/> from which to construct the value.</param>
+        public ItemsEntity(JsonObject jsonObject)
+        {
+            if (jsonObject.HasJsonElement)
+            {
+                this.jsonElementBacking = jsonObject.AsJsonElement;
+                this.objectBacking = default;
+            }
+            else
+            {
+                this.jsonElementBacking = default;
+                this.objectBacking = jsonObject.AsPropertyDictionary;
+            }
+
+                    this.arrayBacking = default;
+                                            this.booleanBacking = default;
+                }
+    
+            /// <summary>
+        /// Initializes a new instance of the <see cref="ItemsEntity"/> struct.
+        /// </summary>
+        /// <param name="value">An array list.</param>
+        public ItemsEntity(ImmutableList<JsonAny> value)
+        {
+            this.jsonElementBacking = default;
+                    this.objectBacking = default;
+                                            this.booleanBacking = default;
+                    this.arrayBacking = value;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ItemsEntity"/> struct.
+        /// </summary>
+        /// <param name="jsonArray">The <see cref="JsonArray"/> from which to construct the value.</param>
+        public ItemsEntity(JsonArray jsonArray)
+        {
+            if (jsonArray.HasJsonElement)
+            {
+                this.jsonElementBacking = jsonArray.AsJsonElement;
+                this.arrayBacking = default;
+            }
+            else
+            {
+                this.jsonElementBacking = default;
+                this.arrayBacking = jsonArray.AsItemsList;
+            }
+
+                    this.objectBacking = default;
+                                            this.booleanBacking = default;
+                }
+    
+    
+    
+            /// <summary>
+        /// Initializes a new instance of the <see cref="ItemsEntity"/> struct.
+        /// </summary>
+        /// <param name="jsonBoolean">The <see cref="JsonBoolean"/> from which to construct the value.</param>
+        public ItemsEntity(JsonBoolean jsonBoolean)
+        {
+            if (jsonBoolean.HasJsonElement)
+            {
+                this.jsonElementBacking = jsonBoolean.AsJsonElement;
+                this.booleanBacking = default;
+            }
+            else
+            {
+                this.jsonElementBacking = default;
+                this.booleanBacking = jsonBoolean.GetBoolean();
+            }
+
+                    this.objectBacking = default;
+                            this.arrayBacking = default;
+                                }
+
+                /// <summary>
+        /// Initializes a new instance of the <see cref="ItemsEntity"/> struct.
+        /// </summary>
+        /// <param name="boolean">The <see cref="bool"/> from which to construct the value.</param>
+        public ItemsEntity(bool boolean)
+        {
+            this.jsonElementBacking = default;
+            this.booleanBacking = boolean;
+
+                    this.objectBacking = default;
+                            this.arrayBacking = default;
+                                }
 
     
     
+            /// <summary>
+        /// Initializes a new instance of the <see cref="ItemsEntity"/> struct.
+        /// </summary>
+        /// <param name="conversion">The <see cref="DefsFeature.InvalidDefinition.Schema"/> from which to construct the value.</param>
+        public ItemsEntity(DefsFeature.InvalidDefinition.Schema conversion)
+        {
+            if (conversion.HasJsonElement)
+            {
+                this.jsonElementBacking = conversion.AsJsonElement;
+                        this.objectBacking = default;
+                                this.booleanBacking = default;
+        
+                        this.arrayBacking = default;
+                                    }
+            else
+            {
+                this.jsonElementBacking = default;
+                        if (conversion.ValueKind == JsonValueKind.Object)
+                {
+                    this.objectBacking = conversion;
+                }
+                else
+                {
+                    this.objectBacking = default;
+                }
+                                if (conversion.ValueKind == JsonValueKind.True || conversion.ValueKind == JsonValueKind.False)
+                {
+                    this.booleanBacking = conversion;
+                }
+                else
+                {
+                    this.booleanBacking = default;
+                }
+        
+                        this.arrayBacking = default;
+                                    }
+        }
+            /// <summary>
+        /// Initializes a new instance of the <see cref="ItemsEntity"/> struct.
+        /// </summary>
+        /// <param name="conversion">The <see cref="DefsFeature.InvalidDefinition.Applicator.SchemaArray"/> from which to construct the value.</param>
+        public ItemsEntity(DefsFeature.InvalidDefinition.Applicator.SchemaArray conversion)
+        {
+            if (conversion.HasJsonElement)
+            {
+                this.jsonElementBacking = conversion.AsJsonElement;
+                        this.objectBacking = default;
+                                this.booleanBacking = default;
+        
+                        this.arrayBacking = default;
+                                    }
+            else
+            {
+                this.jsonElementBacking = default;
+                        this.objectBacking = default;
+                                this.booleanBacking = default;
+        
+                        if (conversion.ValueKind == JsonValueKind.Array)
+                {
+                    this.arrayBacking = conversion;
+                }
+                else
+                {
+                    this.arrayBacking = default;
+                }
+                                    }
+        }
     
-    
-    
+
+            /// <inheritdoc/>
+        public int Length
+        {
+            get
+            {
+                if (this.arrayBacking is ImmutableList<JsonAny> items)
+                {
+                    return items.Count;
+                }
+
+                return this.jsonElementBacking.GetArrayLength();
+            }
+        }
     
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
         public bool HasJsonElement =>
     
+                this.objectBacking is null
+            
     
-                
-        true
+                        &&
+                    this.arrayBacking is null
+                                    &&
+                    this.booleanBacking is null
+    
                 ;
 
         /// <summary>
@@ -1743,10 +2243,25 @@ namespace IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId
         {
             get
             {
+              
+                if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> objectBacking)
+                {
+                    return JsonObject.PropertiesToJsonElement(objectBacking);
+                }
+
+    
+                    if (this.arrayBacking is ImmutableList<JsonAny> arrayBacking)
+                {
+                    return JsonArray.ItemsToJsonElement(arrayBacking);
+                }
     
     
     
-    
+                    if (this.booleanBacking is bool booleanBacking)
+                {
+                    return JsonBoolean.BoolToJsonElement(booleanBacking);
+                }
+
     
                 return this.jsonElementBacking;
             }
@@ -1757,10 +2272,25 @@ namespace IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId
         {
             get
             {
+                    if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny>)
+                {
+                    return JsonValueKind.Object;
+                }
+
+    
+                    if (this.arrayBacking is ImmutableList<JsonAny>)
+                {
+                    return JsonValueKind.Array;
+                }
+
     
     
     
-    
+                    if (this.booleanBacking is bool booleanBacking)
+                {
+                    return booleanBacking ? JsonValueKind.True : JsonValueKind.False;
+                }
+
     
                 return this.jsonElementBacking.ValueKind;
             }
@@ -1771,10 +2301,25 @@ namespace IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId
         {
             get
             {
+                    if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> objectBacking)
+                {
+                    return new JsonAny(objectBacking);
+                }
+
+    
+                    if (this.arrayBacking is ImmutableList<JsonAny> arrayBacking)
+                {
+                    return new JsonAny(arrayBacking);
+                }
+
     
     
     
-    
+                    if (this.booleanBacking is bool booleanBacking)
+                {
+                    return new JsonAny(booleanBacking);
+                }
+
     
                 return new JsonAny(this.jsonElementBacking);
             }
@@ -1787,6 +2332,11 @@ namespace IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId
         {
             get
             {
+                    if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> objectBacking)
+                {
+                    return new JsonObject(objectBacking);
+                }
+
     
                 return new JsonObject(this.jsonElementBacking);
             }
@@ -1799,6 +2349,11 @@ namespace IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId
         {
             get
             {
+                    if (this.arrayBacking is ImmutableList<JsonAny> arrayBacking)
+                {
+                    return new JsonArray(arrayBacking);
+                }
+
     
                 return new JsonArray(this.jsonElementBacking);
             }
@@ -1833,6 +2388,10 @@ namespace IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId
         {
             get
             {
+                    if (this.booleanBacking is bool booleanBacking)
+                {
+                    return new JsonBoolean(booleanBacking);
+                }
                     return new JsonBoolean(this.jsonElementBacking);
             }
         }
@@ -1848,6 +2407,156 @@ namespace IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId
             }
         }
 
+            /// <summary>
+        /// Conversion from DefsFeature.InvalidDefinition.Schema.
+        /// </summary>
+        /// <param name="value">The value from which to convert.</param>
+        public static implicit operator ItemsEntity(DefsFeature.InvalidDefinition.Schema value)
+        {
+            return new ItemsEntity(value);
+        }
+
+        /// <summary>
+        /// Conversion to DefsFeature.InvalidDefinition.Schema.
+        /// </summary>
+        /// <param name="value">The value from which to convert.</param>
+        public static implicit operator DefsFeature.InvalidDefinition.Schema(ItemsEntity value)
+        {
+                    if (value.ValueKind == JsonValueKind.Object)
+            {
+                return new DefsFeature.InvalidDefinition.Schema(value.AsObject);
+            }
+                                            if (value.ValueKind == JsonValueKind.True || value.ValueKind == JsonValueKind.False)
+            {
+                return new DefsFeature.InvalidDefinition.Schema(value.AsBoolean);
+            }
+                            return default;
+        }
+            /// <summary>
+        /// Conversion from DefsFeature.InvalidDefinition.Applicator.SchemaArray.
+        /// </summary>
+        /// <param name="value">The value from which to convert.</param>
+        public static implicit operator ItemsEntity(DefsFeature.InvalidDefinition.Applicator.SchemaArray value)
+        {
+            return new ItemsEntity(value);
+        }
+
+        /// <summary>
+        /// Conversion to DefsFeature.InvalidDefinition.Applicator.SchemaArray.
+        /// </summary>
+        /// <param name="value">The value from which to convert.</param>
+        public static implicit operator DefsFeature.InvalidDefinition.Applicator.SchemaArray(ItemsEntity value)
+        {
+                            if (value.ValueKind == JsonValueKind.Array)
+            {
+                return new DefsFeature.InvalidDefinition.Applicator.SchemaArray(value.AsArray);
+            }
+                                            return default;
+        }
+    
+                /// <summary>
+        /// Conversion from DefsFeature.InvalidDefinition.Core.
+        /// </summary>
+        /// <param name="value">The value from which to convert.</param>
+        public static implicit operator ItemsEntity(DefsFeature.InvalidDefinition.Core value)
+        {
+            return (DefsFeature.InvalidDefinition.Applicator.ItemsEntity)value;
+        }
+
+        /// <summary>
+        /// Conversion to DefsFeature.InvalidDefinition.Core.
+        /// </summary>
+        /// <param name="value">The value from which to convert.</param>
+        public static implicit operator DefsFeature.InvalidDefinition.Core(ItemsEntity value)
+        {
+            return (DefsFeature.InvalidDefinition.Applicator.ItemsEntity)value;
+        }
+            /// <summary>
+        /// Conversion from DefsFeature.InvalidDefinition.Applicator.
+        /// </summary>
+        /// <param name="value">The value from which to convert.</param>
+        public static implicit operator ItemsEntity(DefsFeature.InvalidDefinition.Applicator value)
+        {
+            return (DefsFeature.InvalidDefinition.Applicator.ItemsEntity)value;
+        }
+
+        /// <summary>
+        /// Conversion to DefsFeature.InvalidDefinition.Applicator.
+        /// </summary>
+        /// <param name="value">The value from which to convert.</param>
+        public static implicit operator DefsFeature.InvalidDefinition.Applicator(ItemsEntity value)
+        {
+            return (DefsFeature.InvalidDefinition.Applicator.ItemsEntity)value;
+        }
+            /// <summary>
+        /// Conversion from DefsFeature.InvalidDefinition.Validation.
+        /// </summary>
+        /// <param name="value">The value from which to convert.</param>
+        public static implicit operator ItemsEntity(DefsFeature.InvalidDefinition.Validation value)
+        {
+            return (DefsFeature.InvalidDefinition.Applicator.ItemsEntity)value;
+        }
+
+        /// <summary>
+        /// Conversion to DefsFeature.InvalidDefinition.Validation.
+        /// </summary>
+        /// <param name="value">The value from which to convert.</param>
+        public static implicit operator DefsFeature.InvalidDefinition.Validation(ItemsEntity value)
+        {
+            return (DefsFeature.InvalidDefinition.Applicator.ItemsEntity)value;
+        }
+            /// <summary>
+        /// Conversion from DefsFeature.InvalidDefinition.MetaData.
+        /// </summary>
+        /// <param name="value">The value from which to convert.</param>
+        public static implicit operator ItemsEntity(DefsFeature.InvalidDefinition.MetaData value)
+        {
+            return (DefsFeature.InvalidDefinition.Applicator.ItemsEntity)value;
+        }
+
+        /// <summary>
+        /// Conversion to DefsFeature.InvalidDefinition.MetaData.
+        /// </summary>
+        /// <param name="value">The value from which to convert.</param>
+        public static implicit operator DefsFeature.InvalidDefinition.MetaData(ItemsEntity value)
+        {
+            return (DefsFeature.InvalidDefinition.Applicator.ItemsEntity)value;
+        }
+            /// <summary>
+        /// Conversion from DefsFeature.InvalidDefinition.Format.
+        /// </summary>
+        /// <param name="value">The value from which to convert.</param>
+        public static implicit operator ItemsEntity(DefsFeature.InvalidDefinition.Format value)
+        {
+            return (DefsFeature.InvalidDefinition.Applicator.ItemsEntity)value;
+        }
+
+        /// <summary>
+        /// Conversion to DefsFeature.InvalidDefinition.Format.
+        /// </summary>
+        /// <param name="value">The value from which to convert.</param>
+        public static implicit operator DefsFeature.InvalidDefinition.Format(ItemsEntity value)
+        {
+            return (DefsFeature.InvalidDefinition.Applicator.ItemsEntity)value;
+        }
+            /// <summary>
+        /// Conversion from DefsFeature.InvalidDefinition.Content.
+        /// </summary>
+        /// <param name="value">The value from which to convert.</param>
+        public static implicit operator ItemsEntity(DefsFeature.InvalidDefinition.Content value)
+        {
+            return (DefsFeature.InvalidDefinition.Applicator.ItemsEntity)value;
+        }
+
+        /// <summary>
+        /// Conversion to DefsFeature.InvalidDefinition.Content.
+        /// </summary>
+        /// <param name="value">The value from which to convert.</param>
+        public static implicit operator DefsFeature.InvalidDefinition.Content(ItemsEntity value)
+        {
+            return (DefsFeature.InvalidDefinition.Applicator.ItemsEntity)value;
+        }
+    
         /// <summary>
         /// Conversion from any.
         /// </summary>
@@ -1872,9 +2581,119 @@ namespace IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId
         }
 
     
+        /// <summary>
+        /// Conversion from array.
+        /// </summary>
+        /// <param name="value">The value from which to convert.</param>
+        public static implicit operator ItemsEntity(JsonArray value)
+        {
+            return new ItemsEntity(value);
+        }
+
+        /// <summary>
+        /// Conversion to array.
+        /// </summary>
+        /// <param name="value">The value from which to convert.</param>
+        public static implicit operator JsonArray(ItemsEntity value)
+        {
+            return value.AsArray;
+        }
+       
+        /// <summary>
+        /// Implicit conversion to an <see cref="ImmutableList{T}"/> of <see cref="JsonAny"/>.
+        /// </summary>
+        /// <param name="value">The value from which to convert.</param>
+        public static implicit operator ImmutableList<JsonAny>(ItemsEntity value)
+        {
+            return value.AsArray.AsItemsList;
+        }
+
+        /// <summary>
+        /// Implicit conversion from an <see cref="ImmutableList{T}"/> of <see cref="JsonAny"/>.
+        /// </summary>
+        /// <param name="value">The value from which to convert.</param>
+        public static implicit operator ItemsEntity(ImmutableList<JsonAny> value)
+        {
+            return new ItemsEntity(value);
+        }
+    
+    
+        /// <summary>
+        /// Conversion from object.
+        /// </summary>
+        /// <param name="value">The value from which to convert.</param>
+        public static implicit operator ItemsEntity(JsonObject value)
+        {
+            return new ItemsEntity(value);
+        }
+
+        /// <summary>
+        /// Conversion to object.
+        /// </summary>
+        /// <param name="value">The value from which to convert.</param>
+        public static implicit operator JsonObject(ItemsEntity value)
+        {
+            return value.AsObject;
+        }
+
+                /// <summary>
+        /// Implicit conversion to a property dictionary.
+        /// </summary>
+        /// <param name="value">The value from which to convert.</param>
+        public static implicit operator ImmutableDictionary<JsonEncodedText, JsonAny>(ItemsEntity  value)
+        {
+            return value.AsObject.AsPropertyDictionary;
+        }
+
+        /// <summary>
+        /// Implicit conversion from a property dictionary.
+        /// </summary>
+        /// <param name="value">The value from which to convert.</param>
+        public static implicit operator ItemsEntity (ImmutableDictionary<JsonEncodedText, JsonAny> value)
+        {
+            return new ItemsEntity (value);
+        }
+
     
     
     
+    
+        /// <summary>
+        /// Conversion from bool.
+        /// </summary>
+        /// <param name="value">The value from which to convert.</param>
+        public static implicit operator ItemsEntity(bool value)
+        {
+            return new ItemsEntity(value);
+        }
+
+        /// <summary>
+        /// Conversion to bool.
+        /// </summary>
+        /// <param name="boolean">The value from which to convert.</param>
+        public static implicit operator bool(ItemsEntity boolean)
+        {
+            return boolean.AsBoolean.GetBoolean();
+        }
+
+        /// <summary>
+        /// Conversion from bool.
+        /// </summary>
+        /// <param name="value">The value from which to convert.</param>
+        public static implicit operator ItemsEntity(JsonBoolean value)
+        {
+            return new ItemsEntity(value);
+        }
+
+        /// <summary>
+        /// Conversion to bool.
+        /// </summary>
+        /// <param name="boolean">The value from which to convert.</param>
+        public static implicit operator JsonBoolean(ItemsEntity boolean)
+        {
+            return boolean.AsBoolean;
+        }
+
     
     
         /// <summary>
@@ -1883,10 +2702,27 @@ namespace IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId
         /// <param name="writer">The writer to which to write the object.</param>
         public void WriteTo(Utf8JsonWriter writer)
         {
+                if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> objectBacking)
+            {
+                JsonObject.WriteProperties(objectBacking, writer);
+                return;
+            }
+
+    
+                if (this.arrayBacking is ImmutableList<JsonAny> arrayBacking)
+            {
+                JsonArray.WriteItems(arrayBacking, writer);
+                return;
+            }
+
     
     
     
-    
+                if (this.booleanBacking is bool booleanBacking)
+            {
+                writer.WriteBooleanValue(booleanBacking);
+                return;
+            }
     
             if (this.jsonElementBacking.ValueKind != JsonValueKind.Undefined)
             {
@@ -1898,7 +2734,47 @@ namespace IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId
         }
 
     
+        /// <inheritdoc/>
+        public JsonObjectEnumerator EnumerateObject()
+        {
+            return this.AsObject.EnumerateObject();
+        }
+
     
+    
+        /// <inheritdoc/>
+        public JsonArrayEnumerator EnumerateArray()
+        {
+            return this.AsArray.EnumerateArray();
+        }
+
+    
+    
+        /// <inheritdoc/>
+        public bool TryGetProperty(JsonEncodedText name, out JsonAny value)
+        {
+            return this.AsObject.TryGetProperty(name, out value);
+        }
+
+        /// <inheritdoc/>
+        public bool TryGetProperty(string name, out JsonAny value)
+        {
+            return this.AsObject.TryGetProperty(name, out value);
+        }
+
+        /// <inheritdoc/>
+        public bool TryGetProperty(ReadOnlySpan<char> name, out JsonAny value)
+        {
+            return this.AsObject.TryGetProperty(name, out value);
+        }
+
+        /// <inheritdoc/>
+        public bool TryGetProperty(ReadOnlySpan<byte> utf8name, out JsonAny value)
+        {
+            return this.AsObject.TryGetProperty(utf8name, out value);
+        }
+
+        
     
         /// <inheritdoc/>
         public bool Equals<T>(T other)
@@ -1946,6 +2822,232 @@ namespace IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId
         }
 
     
+        /// <inheritdoc/>
+        public bool HasProperty(JsonEncodedText name)
+        {
+            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            {
+                return properties.TryGetValue(name, out _);
+            }
+
+            if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
+            {
+                return this.jsonElementBacking.TryGetProperty(name.ToString(), out JsonElement _);
+            }
+
+            return false;
+        }
+
+        /// <inheritdoc/>
+        public bool HasProperty(string name)
+        {
+            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            {
+                return properties.TryGetValue(JsonEncodedText.Encode(name), out _);
+            }
+
+            if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
+            {
+                return this.jsonElementBacking.TryGetProperty(name, out JsonElement _);
+            }
+
+            return false;
+        }
+
+        /// <inheritdoc/>
+        public bool HasProperty(ReadOnlySpan<char> name)
+        {
+            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            {
+                return properties.TryGetValue(JsonEncodedText.Encode(name), out _);
+            }
+
+            if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
+            {
+                return this.jsonElementBacking.TryGetProperty(name, out JsonElement _);
+            }
+
+            return false;        }
+
+        /// <inheritdoc/>
+        public bool HasProperty(ReadOnlySpan<byte> utf8name)
+        {
+            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            {
+                return properties.TryGetValue(JsonEncodedText.Encode(utf8name), out _);
+            }
+
+            if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
+            {
+                return this.jsonElementBacking.TryGetProperty(utf8name, out JsonElement _);
+            }
+
+            return false;        }
+
+        /// <inheritdoc/>
+        public ItemsEntity SetProperty<TValue>(JsonEncodedText name, TValue value)
+            where TValue : IJsonValue
+        {
+            if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
+            {
+                return this.AsObject.SetProperty(name, value);
+            }
+
+            return this;
+        }
+
+        /// <inheritdoc/>
+        public ItemsEntity SetProperty<TValue>(string name, TValue value)
+            where TValue : IJsonValue
+        {
+            if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
+            {
+                return this.AsObject.SetProperty(name, value);
+            }
+
+            return this;
+        }
+
+        /// <inheritdoc/>
+        public ItemsEntity SetProperty<TValue>(ReadOnlySpan<char> name, TValue value)
+            where TValue : IJsonValue
+        {
+            if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
+            {
+                return this.AsObject.SetProperty(name, value);
+            }
+
+            return this;
+        }
+
+        /// <inheritdoc/>
+        public ItemsEntity SetProperty<TValue>(ReadOnlySpan<byte> utf8name, TValue value)
+            where TValue : IJsonValue
+        {
+            if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
+            {
+                return this.AsObject.SetProperty(utf8name, value);
+            }
+
+            return this;
+        }
+
+        /// <inheritdoc/>
+        public ItemsEntity RemoveProperty(JsonEncodedText name)
+        {
+            if (this.ValueKind == JsonValueKind.Object)
+            {
+                return this.AsObject.RemoveProperty(name);
+            }
+
+            return this;
+        }
+
+        /// <inheritdoc/>
+        public ItemsEntity RemoveProperty(string name)
+        {
+            if (this.ValueKind == JsonValueKind.Object)
+            {
+                return this.AsObject.RemoveProperty(name);
+            }
+
+            return this;
+        }
+
+        /// <inheritdoc/>
+        public ItemsEntity RemoveProperty(ReadOnlySpan<char> name)
+        {
+            if (this.ValueKind == JsonValueKind.Object)
+            {
+                return this.AsObject.RemoveProperty(name);
+            }
+
+            return this;
+        }
+
+        /// <inheritdoc/>
+        public ItemsEntity RemoveProperty(ReadOnlySpan<byte> utf8Name)
+        {
+            if (this.ValueKind == JsonValueKind.Object)
+            {
+                return this.AsObject.RemoveProperty(utf8Name);
+            }
+
+            return this;
+        }
+
+    
+    
+        /// <inheritdoc/>
+        public ItemsEntity Add<TItem>(TItem item)
+            where TItem : struct, IJsonValue
+        {
+            if (this.ValueKind == JsonValueKind.Array || this.ValueKind == JsonValueKind.Undefined)
+            {
+                return this.AsArray.Add(item);
+            }
+
+            return this;
+        }
+
+        /// <inheritdoc/>
+        public ItemsEntity Insert<TItem>(int index, TItem item)
+            where TItem : struct, IJsonValue
+        {
+            if (this.ValueKind == JsonValueKind.Array || this.ValueKind == JsonValueKind.Undefined)
+            {
+                return this.AsArray.Insert(index, item);
+            }
+
+            return this;
+        }
+
+        /// <inheritdoc/>
+        public ItemsEntity Replace<TItem>(TItem oldValue, TItem newValue)
+            where TItem : struct, IJsonValue
+        {
+            if (this.ValueKind == JsonValueKind.Array)
+            {
+                return this.AsArray.Replace(oldValue, newValue);
+            }
+
+            return this;
+        }
+
+        /// <inheritdoc/>
+        public ItemsEntity RemoveAt(int index)
+        {
+            if (this.ValueKind == JsonValueKind.Array)
+            {
+                return this.AsArray.RemoveAt(index);
+            }
+
+            return this;
+        }
+
+        /// <inheritdoc/>
+        public ItemsEntity RemoveRange(int index, int count)
+        {
+            if (this.ValueKind == JsonValueKind.Array)
+            {
+                return this.AsArray.RemoveRange(index, count);
+            }
+
+            return this;
+        }
+
+        /// <inheritdoc/>
+        public ItemsEntity SetItem<TItem>(int index, TItem value)
+            where TItem : struct, IJsonValue
+        {
+            if (this.ValueKind == JsonValueKind.Array)
+            {
+                return this.AsArray.SetItem(index, value);
+            }
+
+            return this;
+        }
+
     
         /// <inheritdoc/>
         public T As<T>()
@@ -2004,7 +3106,7 @@ namespace IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId
 
                 
 
-            ValidationContext anyOfResult0 = this.As<IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId.Schema>().Validate(validationContext.CreateChildContext(), level);
+            ValidationContext anyOfResult0 = this.As<DefsFeature.InvalidDefinition.Schema>().Validate(validationContext.CreateChildContext(), level);
 
             if (anyOfResult0.IsValid)
             {
@@ -2032,7 +3134,7 @@ namespace IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId
 
                 
 
-            ValidationContext anyOfResult1 = this.As<IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId.Applicator.SchemaArray>().Validate(validationContext.CreateChildContext(), level);
+            ValidationContext anyOfResult1 = this.As<DefsFeature.InvalidDefinition.Applicator.SchemaArray>().Validate(validationContext.CreateChildContext(), level);
 
             if (anyOfResult1.IsValid)
             {
@@ -2169,6 +3271,9 @@ namespace IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId
     
     
     
+    
+    
+
             /// <inheritdoc/>
         public int Length
         {
@@ -2324,6 +3429,8 @@ namespace IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId
             }
         }
 
+    
+        
         /// <summary>
         /// Conversion from any.
         /// </summary>
@@ -2365,7 +3472,24 @@ namespace IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId
         {
             return value.AsArray;
         }
+       
+        /// <summary>
+        /// Implicit conversion to an <see cref="ImmutableList{T}"/> of <see cref="JsonAny"/>.
+        /// </summary>
+        /// <param name="value">The value from which to convert.</param>
+        public static implicit operator ImmutableList<JsonAny>(SchemaArray value)
+        {
+            return value.AsArray.AsItemsList;
+        }
 
+        /// <summary>
+        /// Implicit conversion from an <see cref="ImmutableList{T}"/> of <see cref="JsonAny"/>.
+        /// </summary>
+        /// <param name="value">The value from which to convert.</param>
+        public static implicit operator SchemaArray(ImmutableList<JsonAny> value)
+        {
+            return new SchemaArray(value);
+        }
     
     
     
@@ -2600,7 +3724,7 @@ namespace IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId
             {
         
         
-                        result = arrayEnumerator.Current.As<IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId.Schema>().Validate(result, level);
+                        result = arrayEnumerator.Current.As<DefsFeature.InvalidDefinition.Schema>().Validate(result, level);
                 if (level == ValidationLevel.Flag && !result.IsValid)
                 {
                     return result;
@@ -2727,7 +3851,6 @@ namespace IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId
         {
             this.jsonElementBacking = value;
                 this.objectBacking = default;
-            /* endif */
                             }
 
             /// <summary>
@@ -2763,6 +3886,9 @@ namespace IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId
     
     
     
+    
+    
+
     
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
@@ -2908,6 +4034,8 @@ namespace IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId
             }
         }
 
+    
+        
         /// <summary>
         /// Conversion from any.
         /// </summary>
@@ -2949,6 +4077,24 @@ namespace IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId
         public static implicit operator JsonObject(PropertiesValue value)
         {
             return value.AsObject;
+        }
+
+                /// <summary>
+        /// Implicit conversion to a property dictionary.
+        /// </summary>
+        /// <param name="value">The value from which to convert.</param>
+        public static implicit operator ImmutableDictionary<JsonEncodedText, JsonAny>(PropertiesValue  value)
+        {
+            return value.AsObject.AsPropertyDictionary;
+        }
+
+        /// <summary>
+        /// Implicit conversion from a property dictionary.
+        /// </summary>
+        /// <param name="value">The value from which to convert.</param>
+        public static implicit operator PropertiesValue (ImmutableDictionary<JsonEncodedText, JsonAny> value)
+        {
+            return new PropertiesValue (value);
         }
 
     
@@ -3300,7 +4446,7 @@ namespace IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId
         
                         if (!result.HasEvaluatedLocalProperty(propertyName))
                 {
-                    result = property.ValueAs<IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId.Schema>().Validate(result, level);
+                    result = property.ValueAs<DefsFeature.InvalidDefinition.Schema>().Validate(result, level);
                     if (level == ValidationLevel.Flag && !result.IsValid)
                     {
                         return result;
@@ -3410,7 +4556,6 @@ namespace IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId
         {
             this.jsonElementBacking = value;
                 this.objectBacking = default;
-            /* endif */
                             }
 
             /// <summary>
@@ -3446,6 +4591,9 @@ namespace IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId
     
     
     
+    
+    
+
     
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
@@ -3591,6 +4739,8 @@ namespace IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId
             }
         }
 
+    
+        
         /// <summary>
         /// Conversion from any.
         /// </summary>
@@ -3632,6 +4782,24 @@ namespace IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId
         public static implicit operator JsonObject(PatternPropertiesValue value)
         {
             return value.AsObject;
+        }
+
+                /// <summary>
+        /// Implicit conversion to a property dictionary.
+        /// </summary>
+        /// <param name="value">The value from which to convert.</param>
+        public static implicit operator ImmutableDictionary<JsonEncodedText, JsonAny>(PatternPropertiesValue  value)
+        {
+            return value.AsObject.AsPropertyDictionary;
+        }
+
+        /// <summary>
+        /// Implicit conversion from a property dictionary.
+        /// </summary>
+        /// <param name="value">The value from which to convert.</param>
+        public static implicit operator PatternPropertiesValue (ImmutableDictionary<JsonEncodedText, JsonAny> value)
+        {
+            return new PatternPropertiesValue (value);
         }
 
     
@@ -3982,7 +5150,7 @@ namespace IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId
         
                         string propertyNameAsString = property.Name;
 
-                            result = new JsonString(propertyNameAsString).As<IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId.Applicator.PatternPropertiesValue.PropertyNamesEntity>().Validate(result, level);
+                            result = new JsonString(propertyNameAsString).As<DefsFeature.InvalidDefinition.Applicator.PatternPropertiesValue.PropertyNamesEntity>().Validate(result, level);
                 if (level == ValidationLevel.Flag && !result.IsValid)
                 {
                     return result;
@@ -3991,7 +5159,7 @@ namespace IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId
                     
                         if (!result.HasEvaluatedLocalProperty(propertyName))
                 {
-                    result = property.ValueAs<IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId.Schema>().Validate(result, level);
+                    result = property.ValueAs<DefsFeature.InvalidDefinition.Schema>().Validate(result, level);
                     if (level == ValidationLevel.Flag && !result.IsValid)
                     {
                         return result;
@@ -4102,6 +5270,9 @@ namespace IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId
     
     
     
+    
+    
+
     
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
@@ -4225,6 +5396,8 @@ namespace IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId
             }
         }
 
+    
+        
         /// <summary>
         /// Conversion from any.
         /// </summary>
@@ -4464,7 +5637,6 @@ namespace IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId
         {
             this.jsonElementBacking = value;
                 this.objectBacking = default;
-            /* endif */
                             }
 
             /// <summary>
@@ -4500,6 +5672,9 @@ namespace IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId
     
     
     
+    
+    
+
     
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
@@ -4645,6 +5820,8 @@ namespace IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId
             }
         }
 
+    
+        
         /// <summary>
         /// Conversion from any.
         /// </summary>
@@ -4686,6 +5863,24 @@ namespace IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId
         public static implicit operator JsonObject(DependentSchemasValue value)
         {
             return value.AsObject;
+        }
+
+                /// <summary>
+        /// Implicit conversion to a property dictionary.
+        /// </summary>
+        /// <param name="value">The value from which to convert.</param>
+        public static implicit operator ImmutableDictionary<JsonEncodedText, JsonAny>(DependentSchemasValue  value)
+        {
+            return value.AsObject.AsPropertyDictionary;
+        }
+
+        /// <summary>
+        /// Implicit conversion from a property dictionary.
+        /// </summary>
+        /// <param name="value">The value from which to convert.</param>
+        public static implicit operator DependentSchemasValue (ImmutableDictionary<JsonEncodedText, JsonAny> value)
+        {
+            return new DependentSchemasValue (value);
         }
 
     
@@ -5037,7 +6232,7 @@ namespace IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId
         
                         if (!result.HasEvaluatedLocalProperty(propertyName))
                 {
-                    result = property.ValueAs<IdFeature.ValidUseOfEmptyFragmentsInLocationIndependentId.Schema>().Validate(result, level);
+                    result = property.ValueAs<DefsFeature.InvalidDefinition.Schema>().Validate(result, level);
                     if (level == ValidationLevel.Flag && !result.IsValid)
                     {
                         return result;
