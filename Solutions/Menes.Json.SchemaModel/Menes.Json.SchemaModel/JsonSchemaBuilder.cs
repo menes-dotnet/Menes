@@ -616,15 +616,21 @@ namespace Menes.JsonSchema.TypeModel
 
         private void RecursivelyFixArrayName(TypeDeclaration type)
         {
-            // TODO: consider what to do if we get a collision in these names
-            ////if (type.Schema.IsExplicitArrayType())
-            ////{
-            ////    if (type.Schema.Items is Draft201909MetaApplicator.ItemsEntity items && items.IsObject)
-            ////    {
-            ////        TypeDeclaration itemsDeclaration = this.GetTypeDeclarationForProperty(type.Location, "items");
-            ////        type.OverrideDotnetTypeName($"{itemsDeclaration.DotnetTypeName}Array");
-            ////    }
-            ////}
+            if (type.Schema.IsExplicitArrayType())
+            {
+                if (type.Schema.Items is Draft201909MetaApplicator.ItemsEntity items && items.IsObject)
+                {
+                    TypeDeclaration itemsDeclaration = this.GetTypeDeclarationForProperty(type.Location, "items");
+
+                    string targetName = $"{itemsDeclaration.DotnetTypeName}Array";
+                    if (type.Parent is TypeDeclaration p && type.Parent.Children.Any(c => c.DotnetTypeName == targetName))
+                    {
+                        targetName = $"{type.DotnetTypeName.AsSpan()[..^5].ToString()}{targetName}";
+                    }
+
+                    type.OverrideDotnetTypeName(targetName);
+                }
+            }
 
             foreach (TypeDeclaration child in type.Children)
             {
