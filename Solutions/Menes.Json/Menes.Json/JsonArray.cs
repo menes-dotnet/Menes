@@ -143,6 +143,24 @@ namespace Menes.Json
         }
 
         /// <summary>
+        /// Implicit conversion to an <see cref="ImmutableList{T}"/> of <see cref="JsonAny"/>.
+        /// </summary>
+        /// <param name="value">The value from which to convert.</param>
+        public static implicit operator ImmutableList<JsonAny>(JsonArray value)
+        {
+            return value.AsItemsList;
+        }
+
+        /// <summary>
+        /// Implicit conversion from an <see cref="ImmutableList{T}"/> of <see cref="JsonAny"/>.
+        /// </summary>
+        /// <param name="value">The value from which to convert.</param>
+        public static implicit operator JsonArray(ImmutableList<JsonAny> value)
+        {
+            return new JsonArray(value);
+        }
+
+        /// <summary>
         /// Create an array from the given items.
         /// </summary>
         /// <param name="items">The items from which to create the array.</param>

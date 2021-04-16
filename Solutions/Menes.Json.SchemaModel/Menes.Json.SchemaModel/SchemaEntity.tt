@@ -241,7 +241,6 @@ namespace <#= Namespace #>
     {
     #>
             this.objectBacking = default;
-            /* endif */
     <#
     }
     #>
@@ -984,9 +983,226 @@ namespace <#= Namespace #>
         }
         #>
         }
+
+                /// <summary>
+        /// Initializes a new instance of the <see cref="<#= TypeDeclaration.DotnetTypeName #>"/> struct.
+        /// </summary>
+        /// <param name="jsonBoolean">The <see cref="JsonBoolean"/> from which to construct the value.</param>
+        public <#= TypeDeclaration.DotnetTypeName #>(bool boolean)
+        {
+            this.jsonElementBacking = default;
+            this.booleanBacking = boolean;
+
+        <#
+        if(IsImplicitObject)
+        {
+        #>
+            this.objectBacking = default;
+        <#
+        }
+        #>
+        <#
+        if(IsImplicitArray)
+        {
+        #>
+            this.arrayBacking = default;
+        <#
+        }
+        #>
+        <#
+        if(IsImplicitNumber)
+        {
+        #>
+            this.numberBacking = default;
+        <#
+        }
+        #>
+        <#
+        if(IsImplicitString)
+        {
+        #>
+            this.stringBacking = default;
+        <#
+        }
+        #>
+        }
+
     <#
     }
     #>
+
+    <# /* Implicit Constructors */ #>
+
+    <#
+    foreach (Conversion conversion in ConversionsViaConstructor)
+    {
+    #>
+        /// <summary>
+        /// Initializes a new instance of the <see cref="<#= TypeDeclaration.DotnetTypeName #>"/> struct.
+        /// </summary>
+        /// <param name="conversion">The <see cref="<#= conversion.DotnetTypeName #>"/> from which to construct the value.</param>
+        public <#= TypeDeclaration.DotnetTypeName #>(<#= conversion.DotnetTypeName #> conversion)
+        {
+            if (conversion.HasJsonElement)
+            {
+                this.jsonElementBacking = conversion.AsJsonElement;
+        <#
+        if(IsImplicitObject)
+        {
+        #>
+                this.objectBacking = default;
+        <#
+        }
+        #>
+        <#
+        if(IsImplicitBoolean)
+        {
+        #>
+                this.booleanBacking = default;
+        <#
+        }
+        #>
+
+        <#
+        if(IsImplicitArray)
+        {
+        #>
+                this.arrayBacking = default;
+        <#
+        }
+        #>
+        <#
+        if(IsImplicitNumber)
+        {
+        #>
+                this.numberBacking = default;
+        <#
+        }
+        #>
+        <#
+        if(IsImplicitString)
+        {
+        #>
+                this.stringBacking = default;
+        <#
+        }
+        #>
+            }
+            else
+            {
+                this.jsonElementBacking = default;
+        <#
+        if(conversion.IsObject)
+        {
+        #>
+                if (conversion.ValueKind == JsonValueKind.Object)
+                {
+                    this.objectBacking = conversion;
+                }
+                else
+                {
+                    this.objectBacking = default;
+                }
+        <#
+        }
+        else if (IsImplicitObject)
+        {
+        #>
+                this.objectBacking = default;
+        <#
+        }
+        #>
+        <#
+        if(conversion.IsBoolean)
+        {
+        #>
+                if (conversion.ValueKind == JsonValueKind.True || conversion.ValueKind == JsonValueKind.False)
+                {
+                    this.booleanBacking = conversion;
+                }
+                else
+                {
+                    this.booleanBacking = default;
+                }
+        <#
+        }
+        else if (IsImplicitBoolean)
+        {
+        #>
+                this.booleanBacking = default;
+        <#
+        }
+        #>
+
+        <#
+        if(conversion.IsArray)
+        {
+        #>
+                if (conversion.ValueKind == JsonValueKind.Array)
+                {
+                    this.arrayBacking = conversion;
+                }
+                else
+                {
+                    this.arrayBacking = default;
+                }
+        <#
+        }
+        else if (IsImplicitArray)
+        {
+        #>
+                this.arrayBacking = default;
+        <#
+        }
+        #>
+        <#
+        if(conversion.IsNumber)
+        {
+        #>
+                if (conversion.ValueKind == JsonValueKind.Number)
+                {
+                    this.numberBacking = conversion;
+                }
+                else
+                {
+                    this.numberBacking = default;
+                }
+        <#
+        }
+        else if (IsImplicitNumber)
+        {
+        #>
+                this.numberBacking = default;
+        <#
+        }
+        #>
+        <#
+        if(conversion.IsString)
+        {
+        #>
+                if (conversion.ValueKind == JsonValueKind.String)
+                {
+                    this.stringBacking = conversion;
+                }
+                else
+                {
+                    this.stringBacking = default;
+                }
+        <#
+        }
+        else if (IsImplicitString)
+        {
+        #>
+                this.stringBacking = default;
+        <#
+        }
+        #>
+            }
+        }
+    <#
+    }
+    #>
+
 
     <#
     if (IsImplicitArray)
@@ -1518,6 +1734,111 @@ namespace <#= Namespace #>
             }
         }
 
+    <#
+    foreach(Conversion conversion in ConversionsViaConstructor)
+    {
+    #>
+        /// <summary>
+        /// Conversion from <#= conversion.DotnetTypeName #>.
+        /// </summary>
+        /// <param name="value">The value from which to convert.</param>
+        public static implicit operator <#= TypeDeclaration.DotnetTypeName #>(<#= conversion.DotnetTypeName #> value)
+        {
+            return new <#= TypeDeclaration.DotnetTypeName #>(value);
+        }
+
+        /// <summary>
+        /// Conversion to <#= conversion.DotnetTypeName #>.
+        /// </summary>
+        /// <param name="value">The value from which to convert.</param>
+        public static implicit operator <#= conversion.DotnetTypeName #>(<#= TypeDeclaration.DotnetTypeName #> value)
+        {
+        <#
+        if(conversion.IsObject)
+        {
+        #>
+            if (value.ValueKind == JsonValueKind.Object)
+            {
+                return new <#= conversion.DotnetTypeName #>(value.AsObject);
+            }
+        <#
+        }
+        #>
+        <#
+        if(conversion.IsArray)
+        {
+        #>
+            if (value.ValueKind == JsonValueKind.Array)
+            {
+                return new <#= conversion.DotnetTypeName #>(value.AsArray);
+            }
+        <#
+        }
+        #>
+        <#
+        if(conversion.IsString)
+        {
+        #>
+            if (value.ValueKind == JsonValueKind.String)
+            {
+                return new <#= conversion.DotnetTypeName #>(value.AsString);
+            }
+        <#
+        }
+        #>
+        <#
+        if(conversion.IsBoolean)
+        {
+        #>
+            if (value.ValueKind == JsonValueKind.True || value.ValueKind == JsonValueKind.False)
+            {
+                return new <#= conversion.DotnetTypeName #>(value.AsBoolean);
+            }
+        <#
+        }
+        #>
+        <#
+        if(conversion.IsNumber)
+        {
+        #>
+            if (value.ValueKind == JsonValueKind.Number)
+            {
+                return new <#= conversion.DotnetTypeName #>(value.AsNumber);
+            }
+        <#
+        }
+        #>
+            return default;
+        }
+    <#
+    }
+    #>
+
+        <#
+    foreach(Conversion conversion in ConversionsViaCast)
+    {
+    #>
+        /// <summary>
+        /// Conversion from <#= conversion.DotnetTypeName #>.
+        /// </summary>
+        /// <param name="value">The value from which to convert.</param>
+        public static implicit operator <#= TypeDeclaration.DotnetTypeName #>(<#= conversion.DotnetTypeName #> value)
+        {
+            return (<#= conversion.ConvertViaDotnetTypeName #>)value;
+        }
+
+        /// <summary>
+        /// Conversion to <#= conversion.DotnetTypeName #>.
+        /// </summary>
+        /// <param name="value">The value from which to convert.</param>
+        public static implicit operator <#= conversion.DotnetTypeName #>(<#= TypeDeclaration.DotnetTypeName #> value)
+        {
+            return (<#= conversion.ConvertViaDotnetTypeName #>)value;
+        }
+    <#
+    }
+    #>
+
         /// <summary>
         /// Conversion from any.
         /// </summary>
@@ -1563,7 +1884,24 @@ namespace <#= Namespace #>
         {
             return value.AsArray;
         }
+       
+        /// <summary>
+        /// Implicit conversion to an <see cref="ImmutableList{T}"/> of <see cref="JsonAny"/>.
+        /// </summary>
+        /// <param name="value">The value from which to convert.</param>
+        public static implicit operator ImmutableList<JsonAny>(<#= TypeDeclaration.DotnetTypeName #> value)
+        {
+            return value.AsArray.AsItemsList;
+        }
 
+        /// <summary>
+        /// Implicit conversion from an <see cref="ImmutableList{T}"/> of <see cref="JsonAny"/>.
+        /// </summary>
+        /// <param name="value">The value from which to convert.</param>
+        public static implicit operator <#= TypeDeclaration.DotnetTypeName #>(ImmutableList<JsonAny> value)
+        {
+            return new <#= TypeDeclaration.DotnetTypeName #>(value);
+        }
     <#
     }
     #>
@@ -1589,6 +1927,24 @@ namespace <#= Namespace #>
         public static implicit operator JsonObject(<#= TypeDeclaration.DotnetTypeName #> value)
         {
             return value.AsObject;
+        }
+
+                /// <summary>
+        /// Implicit conversion to a property dictionary.
+        /// </summary>
+        /// <param name="value">The value from which to convert.</param>
+        public static implicit operator ImmutableDictionary<JsonEncodedText, JsonAny>(<#= TypeDeclaration.DotnetTypeName #>  value)
+        {
+            return value.AsObject.AsPropertyDictionary;
+        }
+
+        /// <summary>
+        /// Implicit conversion from a property dictionary.
+        /// </summary>
+        /// <param name="value">The value from which to convert.</param>
+        public static implicit operator <#= TypeDeclaration.DotnetTypeName #> (ImmutableDictionary<JsonEncodedText, JsonAny> value)
+        {
+            return new <#= TypeDeclaration.DotnetTypeName #> (value);
         }
 
     <#

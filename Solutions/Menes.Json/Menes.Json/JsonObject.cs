@@ -113,6 +113,24 @@ namespace Menes.Json
         }
 
         /// <summary>
+        /// Implicit conversion to a property dictionary.
+        /// </summary>
+        /// <param name="value">The value from which to convert.</param>
+        public static implicit operator ImmutableDictionary<JsonEncodedText, JsonAny>(JsonObject value)
+        {
+            return value.AsPropertyDictionary;
+        }
+
+        /// <summary>
+        /// Implicit conversion from a property dictionary.
+        /// </summary>
+        /// <param name="value">The value from which to convert.</param>
+        public static implicit operator JsonObject(ImmutableDictionary<JsonEncodedText, JsonAny> value)
+        {
+            return new JsonObject(value);
+        }
+
+        /// <summary>
         /// Implicit conversion to JsonAny.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>

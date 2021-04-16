@@ -58,11 +58,22 @@ namespace Menes.JsonSchema.TypeModel
         /// Determines if this is an explicit boolean type.
         /// </summary>
         /// <param name="draft201909Schema">The schema to test.</param>
-        /// <returns><c>True</c> if the schema has a single type value, or no type value but a format value.</returns>
+        /// <returns><c>True</c> if the schema has a single type value.</returns>
         public static bool IsExplicitBooleanType(this Draft201909Schema draft201909Schema)
         {
             return
                 draft201909Schema.Type is Draft201909MetaValidation.TypeEntity type && type.IsString && (type == Draft201909MetaValidation.TypeEntity.SimpleTypesEntity.EnumValues.Boolean);
+        }
+
+        /// <summary>
+        /// Determines if this is an explicit null type.
+        /// </summary>
+        /// <param name="draft201909Schema">The schema to test.</param>
+        /// <returns><c>True</c> if the schema has a single type value.</returns>
+        public static bool IsExplicitNullType(this Draft201909Schema draft201909Schema)
+        {
+            return
+                draft201909Schema.Type is Draft201909MetaValidation.TypeEntity type && type.IsString && (type == Draft201909MetaValidation.TypeEntity.SimpleTypesEntity.EnumValues.Null);
         }
 
         /// <summary>
@@ -106,7 +117,7 @@ namespace Menes.JsonSchema.TypeModel
         public static bool IsNumberType(this Draft201909Schema draft201909Schema)
         {
             return
-                draft201909Schema.IsExplicitNumberType() || (draft201909Schema.Type is Draft201909MetaValidation.TypeEntity type && type.IsArray && type.AsSimpleTypesEntityArray().Any(type => type == Draft201909MetaValidation.TypeEntity.SimpleTypesEntity.EnumValues.Number || type == Draft201909MetaValidation.TypeEntity.SimpleTypesEntity.EnumValues.Integer)) || draft201909Schema.Minimum is not null || draft201909Schema.Maximum is not null || draft201909Schema.ExclusiveMaximum is not null || draft201909Schema.ExclusiveMaximum is not null || draft201909Schema.MultipleOf is not null;
+                draft201909Schema.IsExplicitNumberType() || (draft201909Schema.Type is Draft201909MetaValidation.TypeEntity type && type.IsArray && type.AsSimpleTypesEntityArray().Any(type => type == Draft201909MetaValidation.TypeEntity.SimpleTypesEntity.EnumValues.Number || type == Draft201909MetaValidation.TypeEntity.SimpleTypesEntity.EnumValues.Integer)) || draft201909Schema.Minimum is not null || draft201909Schema.Maximum is not null || draft201909Schema.ExclusiveMaximum is not null || draft201909Schema.ExclusiveMinimum is not null || draft201909Schema.MultipleOf is not null;
         }
 
         /// <summary>
@@ -118,6 +129,17 @@ namespace Menes.JsonSchema.TypeModel
         {
             return
                 draft201909Schema.IsExplicitBooleanType() || (draft201909Schema.Type is Draft201909MetaValidation.TypeEntity type && type.IsArray && type.AsSimpleTypesEntityArray().Any(type => type == Draft201909MetaValidation.TypeEntity.SimpleTypesEntity.EnumValues.Boolean));
+        }
+
+        /// <summary>
+        /// Determines if this can be a null type.
+        /// </summary>
+        /// <param name="draft201909Schema">The schema to test.</param>
+        /// <returns><c>True</c> if the schema has a single type value, or no type value but a format value.</returns>
+        public static bool IsNullType(this Draft201909Schema draft201909Schema)
+        {
+            return
+                draft201909Schema.IsExplicitNullType() || (draft201909Schema.Type is Draft201909MetaValidation.TypeEntity type && type.IsArray && type.AsSimpleTypesEntityArray().Any(type => type == Draft201909MetaValidation.TypeEntity.SimpleTypesEntity.EnumValues.Null));
         }
 
         /// <summary>

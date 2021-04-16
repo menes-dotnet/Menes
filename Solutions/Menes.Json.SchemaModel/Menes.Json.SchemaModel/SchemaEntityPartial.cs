@@ -3,6 +3,7 @@
 // </copyright>
 
 using System;
+using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using System.Text.Json;
@@ -53,7 +54,7 @@ public partial class SchemaEntity
     {
         get
         {
-            return this.TypeDeclaration.Schema.IsObjectType() || this.HasProperties;
+            return this.TypeDeclaration.Schema.IsObjectType() || this.HasProperties || this.ConversionsViaConstructor.Any(c => c.IsObject);
         }
     }
 
@@ -64,7 +65,7 @@ public partial class SchemaEntity
     {
         get
         {
-            return this.TypeDeclaration.Schema.IsArrayType();
+            return this.TypeDeclaration.Schema.IsArrayType() || this.ConversionsViaConstructor.Any(c => c.IsArray);
         }
     }
 
@@ -75,7 +76,7 @@ public partial class SchemaEntity
     {
         get
         {
-            return this.TypeDeclaration.Schema.IsNumberType();
+            return this.TypeDeclaration.Schema.IsNumberType() || this.ConversionsViaConstructor.Any(c => c.IsNumber);
         }
     }
 
@@ -86,7 +87,7 @@ public partial class SchemaEntity
     {
         get
         {
-            return this.TypeDeclaration.Schema.IsStringType();
+            return this.TypeDeclaration.Schema.IsStringType() || this.ConversionsViaConstructor.Any(c => c.IsString);
         }
     }
 
@@ -97,7 +98,7 @@ public partial class SchemaEntity
     {
         get
         {
-            return this.TypeDeclaration.Schema.IsBooleanType();
+            return this.TypeDeclaration.Schema.IsBooleanType() || this.ConversionsViaConstructor.Any(c => c.IsBoolean);
         }
     }
 
@@ -1295,6 +1296,38 @@ public partial class SchemaEntity
     }
 
     /// <summary>
+    /// Gets the implicit conversions appropriate for this type that require a constructor.
+    /// </summary>
+    public ImmutableArray<Conversion> ConversionsViaConstructor
+    {
+        get
+        {
+            var conversions = new Dictionary<TypeDeclaration, Conversion>();
+
+            this.AddConversionsFor(this.TypeDeclaration, conversions, null);
+
+            // Get the conversions that require a constructor
+            return conversions.Where(t => t.Value.ConvertViaDotnetTypeName is null).Select(t => t.Value).ToImmutableArray();
+        }
+    }
+
+    /// <summary>
+    /// Gets the implicit conversions appropriate for this type that require a cast.
+    /// </summary>
+    public ImmutableArray<Conversion> ConversionsViaCast
+    {
+        get
+        {
+            var conversions = new Dictionary<TypeDeclaration, Conversion>();
+
+            this.AddConversionsFor(this.TypeDeclaration, conversions, null);
+
+            // Select the conversions that require a cast through another type
+            return conversions.Where(t => t.Value.ConvertViaDotnetTypeName is not null).Select(t => t.Value).ToImmutableArray();
+        }
+    }
+
+    /// <summary>
     /// Gets the not schema dotnet type name.
     /// </summary>
     public string NotDotnetTypeName
@@ -1848,16 +1881,6 @@ public partial class SchemaEntity
         return sep.TransformText();
     }
 
-    private static string GetRawText(JsonAny? value)
-    {
-        if (value is JsonAny acutalValue)
-        {
-            return acutalValue.JsonElement.GetRawText();
-        }
-
-        throw new ArgumentNullException(nameof(value));
-    }
-
     private static string GetRawTextAsQuotedString(JsonAny? value)
     {
         if (value is JsonAny actualValue)
@@ -1883,6 +1906,63 @@ public partial class SchemaEntity
         }
 
         return false;
+    }
+
+    private void AddConversionsFor(TypeDeclaration typeDeclaration, Dictionary<TypeDeclaration, Conversion> conversions, TypeDeclaration? parent)
+    {
+        // First, look in the allOfs
+        if (typeDeclaration.Schema.AllOf is Draft201909MetaApplicator.ItemsEntity.SchemaArray oo)
+        {
+            for (int i = 0; i < oo.GetArrayLength(); ++i)
+            {
+                TypeDeclaration td = this.Builder.GetTypeDeclarationForPropertyArrayIndex(typeDeclaration, "allOf", i);
+
+                if (!td.IsBuiltInType && !conversions.ContainsKey(td))
+                {
+                    conversions.Add(td, new Conversion(td, parent));
+                    this.AddConversionsFor(td, conversions, typeDeclaration);
+                }
+            }
+        }
+
+        if (typeDeclaration.Schema.AnyOf is Draft201909MetaApplicator.ItemsEntity.SchemaArray ao)
+        {
+            for (int i = 0; i < ao.GetArrayLength(); ++i)
+            {
+                TypeDeclaration td = this.Builder.GetTypeDeclarationForPropertyArrayIndex(typeDeclaration, "anyOf", i);
+
+                if (!td.IsBuiltInType && !conversions.ContainsKey(td))
+                {
+                    conversions.Add(td, new Conversion(td, parent));
+                    this.AddConversionsFor(td, conversions, typeDeclaration);
+                }
+            }
+        }
+
+        if (typeDeclaration.Schema.OneOf is Draft201909MetaApplicator.ItemsEntity.SchemaArray oneOf)
+        {
+            for (int i = 0; i < oneOf.GetArrayLength(); ++i)
+            {
+                TypeDeclaration td = this.Builder.GetTypeDeclarationForPropertyArrayIndex(typeDeclaration, "oneOf", i);
+
+                if (!td.IsBuiltInType && !conversions.ContainsKey(td))
+                {
+                    conversions.Add(td, new Conversion(td, parent));
+                    this.AddConversionsFor(td, conversions, typeDeclaration);
+                }
+            }
+        }
+
+        if (typeDeclaration.Schema.Ref is JsonUriReference && !(typeDeclaration.Schema.IsNakedReference() || typeDeclaration.Schema.IsNakedRecursiveReference()))
+        {
+            TypeDeclaration td = this.Builder.GetTypeDeclarationForProperty(typeDeclaration, "$ref");
+
+            if (!td.IsBuiltInType && !conversions.ContainsKey(td))
+            {
+                conversions.Add(td, new Conversion(td, parent));
+                this.AddConversionsFor(td, conversions, typeDeclaration);
+            }
+        }
     }
 
     /// <summary>
@@ -1964,6 +2044,66 @@ public partial class SchemaEntity
         /// Gets the dotnet type name of the schema to match.
         /// </summary>
         public string DotnetTypeName { get; }
+    }
+
+    /// <summary>
+    /// Represents a conversion.
+    /// </summary>
+    public readonly struct Conversion
+    {
+        private readonly TypeDeclaration typeDeclaration;
+        private readonly TypeDeclaration? convertVia;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EnumValue"/> struct.
+        /// </summary>
+        /// <param name="typeDeclaration">The type declaration for the conversion.</param>
+        /// <param name="convertVia">The type declaration to convert via or null if this is a constructed conversion.</param>
+        public Conversion(TypeDeclaration typeDeclaration, TypeDeclaration? convertVia)
+        {
+            this.typeDeclaration = typeDeclaration;
+            this.convertVia = convertVia;
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a string value.
+        /// </summary>
+        public bool IsString => this.typeDeclaration.Schema.IsStringType();
+
+        /// <summary>
+        /// Gets a value indicating whether this is an object value.
+        /// </summary>
+        public bool IsObject => this.typeDeclaration.Schema.IsObjectType();
+
+        /// <summary>
+        /// Gets a value indicating whether this is an array value.
+        /// </summary>
+        public bool IsArray => this.typeDeclaration.Schema.IsArrayType();
+
+        /// <summary>
+        /// Gets a value indicating whether this is a boolean value.
+        /// </summary>
+        public bool IsBoolean => this.typeDeclaration.Schema.IsBooleanType();
+
+        /// <summary>
+        /// Gets a value indicating whether this is a number value.
+        /// </summary>
+        public bool IsNumber => this.typeDeclaration.Schema.IsNumberType();
+
+        /// <summary>
+        /// Gets a value indicating whether this is a number value.
+        /// </summary>
+        public bool IsNull => this.typeDeclaration.Schema.IsNullType();
+
+        /// <summary>
+        /// Gets the fully qualified dotnet type name.
+        /// </summary>
+        public string DotnetTypeName => this.typeDeclaration.FullyQualifiedDotnetTypeName ?? string.Empty;
+
+        /// <summary>
+        /// Gets the fully qualified dotnet type name of the type via which to convert.
+        /// </summary>
+        public string? ConvertViaDotnetTypeName => this.convertVia?.FullyQualifiedDotnetTypeName;
     }
 
     /// <summary>
