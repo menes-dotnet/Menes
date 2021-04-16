@@ -10,7 +10,7 @@
 
 #nullable enable
 
-namespace DefsFeature.InvalidDefinition
+namespace DefsFeature.ValidDefinition
 {
     using System;
     using System.Collections.Generic;
@@ -779,8 +779,8 @@ namespace DefsFeature.InvalidDefinition
             /// <summary>
         /// Initializes a new instance of the <see cref="Schema"/> struct.
         /// </summary>
-        /// <param name="conversion">The <see cref="DefsFeature.InvalidDefinition.Core"/> from which to construct the value.</param>
-        public Schema(DefsFeature.InvalidDefinition.Core conversion)
+        /// <param name="conversion">The <see cref="DefsFeature.ValidDefinition.Core"/> from which to construct the value.</param>
+        public Schema(DefsFeature.ValidDefinition.Core conversion)
         {
             if (conversion.HasJsonElement)
             {
@@ -814,8 +814,8 @@ namespace DefsFeature.InvalidDefinition
             /// <summary>
         /// Initializes a new instance of the <see cref="Schema"/> struct.
         /// </summary>
-        /// <param name="conversion">The <see cref="DefsFeature.InvalidDefinition.Applicator"/> from which to construct the value.</param>
-        public Schema(DefsFeature.InvalidDefinition.Applicator conversion)
+        /// <param name="conversion">The <see cref="DefsFeature.ValidDefinition.Applicator"/> from which to construct the value.</param>
+        public Schema(DefsFeature.ValidDefinition.Applicator conversion)
         {
             if (conversion.HasJsonElement)
             {
@@ -849,8 +849,8 @@ namespace DefsFeature.InvalidDefinition
             /// <summary>
         /// Initializes a new instance of the <see cref="Schema"/> struct.
         /// </summary>
-        /// <param name="conversion">The <see cref="DefsFeature.InvalidDefinition.Validation"/> from which to construct the value.</param>
-        public Schema(DefsFeature.InvalidDefinition.Validation conversion)
+        /// <param name="conversion">The <see cref="DefsFeature.ValidDefinition.Validation"/> from which to construct the value.</param>
+        public Schema(DefsFeature.ValidDefinition.Validation conversion)
         {
             if (conversion.HasJsonElement)
             {
@@ -884,8 +884,8 @@ namespace DefsFeature.InvalidDefinition
             /// <summary>
         /// Initializes a new instance of the <see cref="Schema"/> struct.
         /// </summary>
-        /// <param name="conversion">The <see cref="DefsFeature.InvalidDefinition.MetaData"/> from which to construct the value.</param>
-        public Schema(DefsFeature.InvalidDefinition.MetaData conversion)
+        /// <param name="conversion">The <see cref="DefsFeature.ValidDefinition.MetaData"/> from which to construct the value.</param>
+        public Schema(DefsFeature.ValidDefinition.MetaData conversion)
         {
             if (conversion.HasJsonElement)
             {
@@ -919,8 +919,8 @@ namespace DefsFeature.InvalidDefinition
             /// <summary>
         /// Initializes a new instance of the <see cref="Schema"/> struct.
         /// </summary>
-        /// <param name="conversion">The <see cref="DefsFeature.InvalidDefinition.Format"/> from which to construct the value.</param>
-        public Schema(DefsFeature.InvalidDefinition.Format conversion)
+        /// <param name="conversion">The <see cref="DefsFeature.ValidDefinition.Format"/> from which to construct the value.</param>
+        public Schema(DefsFeature.ValidDefinition.Format conversion)
         {
             if (conversion.HasJsonElement)
             {
@@ -954,8 +954,8 @@ namespace DefsFeature.InvalidDefinition
             /// <summary>
         /// Initializes a new instance of the <see cref="Schema"/> struct.
         /// </summary>
-        /// <param name="conversion">The <see cref="DefsFeature.InvalidDefinition.Content"/> from which to construct the value.</param>
-        public Schema(DefsFeature.InvalidDefinition.Content conversion)
+        /// <param name="conversion">The <see cref="DefsFeature.ValidDefinition.Content"/> from which to construct the value.</param>
+        public Schema(DefsFeature.ValidDefinition.Content conversion)
         {
             if (conversion.HasJsonElement)
             {
@@ -1000,7 +1000,7 @@ namespace DefsFeature.InvalidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.InvalidDefinition.Core.IdValue Id
+        public DefsFeature.ValidDefinition.Core.IdValue Id
         {
             get
             {
@@ -1016,7 +1016,7 @@ namespace DefsFeature.InvalidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(IdUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.InvalidDefinition.Core.IdValue(result);
+                        return new  DefsFeature.ValidDefinition.Core.IdValue(result);
                     }
                 }
 
@@ -1070,7 +1070,7 @@ namespace DefsFeature.InvalidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.InvalidDefinition.Core.AnchorValue Anchor
+        public DefsFeature.ValidDefinition.Core.AnchorValue Anchor
         {
             get
             {
@@ -1086,7 +1086,7 @@ namespace DefsFeature.InvalidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(AnchorUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.InvalidDefinition.Core.AnchorValue(result);
+                        return new  DefsFeature.ValidDefinition.Core.AnchorValue(result);
                     }
                 }
 
@@ -1175,7 +1175,7 @@ namespace DefsFeature.InvalidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.InvalidDefinition.Core.RecursiveAnchorValue RecursiveAnchor
+        public DefsFeature.ValidDefinition.Core.RecursiveAnchorValue RecursiveAnchor
         {
             get
             {
@@ -1191,7 +1191,7 @@ namespace DefsFeature.InvalidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(RecursiveAnchorUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.InvalidDefinition.Core.RecursiveAnchorValue(result);
+                        return new  DefsFeature.ValidDefinition.Core.RecursiveAnchorValue(result);
                     }
                 }
 
@@ -1210,7 +1210,7 @@ namespace DefsFeature.InvalidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.InvalidDefinition.Core.VocabularyValue Vocabulary
+        public DefsFeature.ValidDefinition.Core.VocabularyValue Vocabulary
         {
             get
             {
@@ -1226,7 +1226,7 @@ namespace DefsFeature.InvalidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(VocabularyUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.InvalidDefinition.Core.VocabularyValue(result);
+                        return new  DefsFeature.ValidDefinition.Core.VocabularyValue(result);
                     }
                 }
 
@@ -1280,7 +1280,7 @@ namespace DefsFeature.InvalidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.InvalidDefinition.Core.DefsValue Defs
+        public DefsFeature.ValidDefinition.Core.DefsValue Defs
         {
             get
             {
@@ -1296,7 +1296,7 @@ namespace DefsFeature.InvalidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(DefsUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.InvalidDefinition.Core.DefsValue(result);
+                        return new  DefsFeature.ValidDefinition.Core.DefsValue(result);
                     }
                 }
 
@@ -1315,7 +1315,7 @@ namespace DefsFeature.InvalidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.InvalidDefinition.Schema AdditionalItems
+        public DefsFeature.ValidDefinition.Schema AdditionalItems
         {
             get
             {
@@ -1331,7 +1331,7 @@ namespace DefsFeature.InvalidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(AdditionalItemsUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.InvalidDefinition.Schema(result);
+                        return new  DefsFeature.ValidDefinition.Schema(result);
                     }
                 }
 
@@ -1350,7 +1350,7 @@ namespace DefsFeature.InvalidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.InvalidDefinition.Schema UnevaluatedItems
+        public DefsFeature.ValidDefinition.Schema UnevaluatedItems
         {
             get
             {
@@ -1366,7 +1366,7 @@ namespace DefsFeature.InvalidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(UnevaluatedItemsUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.InvalidDefinition.Schema(result);
+                        return new  DefsFeature.ValidDefinition.Schema(result);
                     }
                 }
 
@@ -1385,7 +1385,7 @@ namespace DefsFeature.InvalidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.InvalidDefinition.Applicator.ItemsEntity Items
+        public DefsFeature.ValidDefinition.Applicator.ItemsEntity Items
         {
             get
             {
@@ -1401,7 +1401,7 @@ namespace DefsFeature.InvalidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(ItemsUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.InvalidDefinition.Applicator.ItemsEntity(result);
+                        return new  DefsFeature.ValidDefinition.Applicator.ItemsEntity(result);
                     }
                 }
 
@@ -1420,7 +1420,7 @@ namespace DefsFeature.InvalidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.InvalidDefinition.Schema Contains
+        public DefsFeature.ValidDefinition.Schema Contains
         {
             get
             {
@@ -1436,7 +1436,7 @@ namespace DefsFeature.InvalidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(ContainsUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.InvalidDefinition.Schema(result);
+                        return new  DefsFeature.ValidDefinition.Schema(result);
                     }
                 }
 
@@ -1455,7 +1455,7 @@ namespace DefsFeature.InvalidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.InvalidDefinition.Schema AdditionalProperties
+        public DefsFeature.ValidDefinition.Schema AdditionalProperties
         {
             get
             {
@@ -1471,7 +1471,7 @@ namespace DefsFeature.InvalidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(AdditionalPropertiesUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.InvalidDefinition.Schema(result);
+                        return new  DefsFeature.ValidDefinition.Schema(result);
                     }
                 }
 
@@ -1490,7 +1490,7 @@ namespace DefsFeature.InvalidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.InvalidDefinition.Schema UnevaluatedProperties
+        public DefsFeature.ValidDefinition.Schema UnevaluatedProperties
         {
             get
             {
@@ -1506,7 +1506,7 @@ namespace DefsFeature.InvalidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(UnevaluatedPropertiesUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.InvalidDefinition.Schema(result);
+                        return new  DefsFeature.ValidDefinition.Schema(result);
                     }
                 }
 
@@ -1525,7 +1525,7 @@ namespace DefsFeature.InvalidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.InvalidDefinition.Applicator.PropertiesValue Properties
+        public DefsFeature.ValidDefinition.Applicator.PropertiesValue Properties
         {
             get
             {
@@ -1541,7 +1541,7 @@ namespace DefsFeature.InvalidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(PropertiesUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.InvalidDefinition.Applicator.PropertiesValue(result);
+                        return new  DefsFeature.ValidDefinition.Applicator.PropertiesValue(result);
                     }
                 }
 
@@ -1560,7 +1560,7 @@ namespace DefsFeature.InvalidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.InvalidDefinition.Applicator.PatternPropertiesValue PatternProperties
+        public DefsFeature.ValidDefinition.Applicator.PatternPropertiesValue PatternProperties
         {
             get
             {
@@ -1576,7 +1576,7 @@ namespace DefsFeature.InvalidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(PatternPropertiesUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.InvalidDefinition.Applicator.PatternPropertiesValue(result);
+                        return new  DefsFeature.ValidDefinition.Applicator.PatternPropertiesValue(result);
                     }
                 }
 
@@ -1595,7 +1595,7 @@ namespace DefsFeature.InvalidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.InvalidDefinition.Applicator.DependentSchemasValue DependentSchemas
+        public DefsFeature.ValidDefinition.Applicator.DependentSchemasValue DependentSchemas
         {
             get
             {
@@ -1611,7 +1611,7 @@ namespace DefsFeature.InvalidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(DependentSchemasUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.InvalidDefinition.Applicator.DependentSchemasValue(result);
+                        return new  DefsFeature.ValidDefinition.Applicator.DependentSchemasValue(result);
                     }
                 }
 
@@ -1630,7 +1630,7 @@ namespace DefsFeature.InvalidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.InvalidDefinition.Schema PropertyNames
+        public DefsFeature.ValidDefinition.Schema PropertyNames
         {
             get
             {
@@ -1646,7 +1646,7 @@ namespace DefsFeature.InvalidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(PropertyNamesUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.InvalidDefinition.Schema(result);
+                        return new  DefsFeature.ValidDefinition.Schema(result);
                     }
                 }
 
@@ -1665,7 +1665,7 @@ namespace DefsFeature.InvalidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.InvalidDefinition.Schema If
+        public DefsFeature.ValidDefinition.Schema If
         {
             get
             {
@@ -1681,7 +1681,7 @@ namespace DefsFeature.InvalidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(IfUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.InvalidDefinition.Schema(result);
+                        return new  DefsFeature.ValidDefinition.Schema(result);
                     }
                 }
 
@@ -1700,7 +1700,7 @@ namespace DefsFeature.InvalidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.InvalidDefinition.Schema Then
+        public DefsFeature.ValidDefinition.Schema Then
         {
             get
             {
@@ -1716,7 +1716,7 @@ namespace DefsFeature.InvalidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(ThenUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.InvalidDefinition.Schema(result);
+                        return new  DefsFeature.ValidDefinition.Schema(result);
                     }
                 }
 
@@ -1735,7 +1735,7 @@ namespace DefsFeature.InvalidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.InvalidDefinition.Schema Else
+        public DefsFeature.ValidDefinition.Schema Else
         {
             get
             {
@@ -1751,7 +1751,7 @@ namespace DefsFeature.InvalidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(ElseUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.InvalidDefinition.Schema(result);
+                        return new  DefsFeature.ValidDefinition.Schema(result);
                     }
                 }
 
@@ -1770,7 +1770,7 @@ namespace DefsFeature.InvalidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.InvalidDefinition.Applicator.SchemaArray AllOf
+        public DefsFeature.ValidDefinition.Applicator.SchemaArray AllOf
         {
             get
             {
@@ -1786,7 +1786,7 @@ namespace DefsFeature.InvalidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(AllOfUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.InvalidDefinition.Applicator.SchemaArray(result);
+                        return new  DefsFeature.ValidDefinition.Applicator.SchemaArray(result);
                     }
                 }
 
@@ -1805,7 +1805,7 @@ namespace DefsFeature.InvalidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.InvalidDefinition.Applicator.SchemaArray AnyOf
+        public DefsFeature.ValidDefinition.Applicator.SchemaArray AnyOf
         {
             get
             {
@@ -1821,7 +1821,7 @@ namespace DefsFeature.InvalidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(AnyOfUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.InvalidDefinition.Applicator.SchemaArray(result);
+                        return new  DefsFeature.ValidDefinition.Applicator.SchemaArray(result);
                     }
                 }
 
@@ -1840,7 +1840,7 @@ namespace DefsFeature.InvalidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.InvalidDefinition.Applicator.SchemaArray OneOf
+        public DefsFeature.ValidDefinition.Applicator.SchemaArray OneOf
         {
             get
             {
@@ -1856,7 +1856,7 @@ namespace DefsFeature.InvalidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(OneOfUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.InvalidDefinition.Applicator.SchemaArray(result);
+                        return new  DefsFeature.ValidDefinition.Applicator.SchemaArray(result);
                     }
                 }
 
@@ -1875,7 +1875,7 @@ namespace DefsFeature.InvalidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.InvalidDefinition.Schema Not
+        public DefsFeature.ValidDefinition.Schema Not
         {
             get
             {
@@ -1891,7 +1891,7 @@ namespace DefsFeature.InvalidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(NotUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.InvalidDefinition.Schema(result);
+                        return new  DefsFeature.ValidDefinition.Schema(result);
                     }
                 }
 
@@ -1910,7 +1910,7 @@ namespace DefsFeature.InvalidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.InvalidDefinition.Validation.MultipleOfValue MultipleOf
+        public DefsFeature.ValidDefinition.Validation.MultipleOfValue MultipleOf
         {
             get
             {
@@ -1926,7 +1926,7 @@ namespace DefsFeature.InvalidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(MultipleOfUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.InvalidDefinition.Validation.MultipleOfValue(result);
+                        return new  DefsFeature.ValidDefinition.Validation.MultipleOfValue(result);
                     }
                 }
 
@@ -2085,7 +2085,7 @@ namespace DefsFeature.InvalidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.InvalidDefinition.Validation.NonNegativeIntegerValue MaxLength
+        public DefsFeature.ValidDefinition.Validation.NonNegativeIntegerValue MaxLength
         {
             get
             {
@@ -2101,7 +2101,7 @@ namespace DefsFeature.InvalidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(MaxLengthUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.InvalidDefinition.Validation.NonNegativeIntegerValue(result);
+                        return new  DefsFeature.ValidDefinition.Validation.NonNegativeIntegerValue(result);
                     }
                 }
 
@@ -2120,7 +2120,7 @@ namespace DefsFeature.InvalidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.InvalidDefinition.Validation.NonNegativeIntegerDefault0Entity MinLength
+        public DefsFeature.ValidDefinition.Validation.NonNegativeIntegerDefault0Entity MinLength
         {
             get
             {
@@ -2136,7 +2136,7 @@ namespace DefsFeature.InvalidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(MinLengthUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.InvalidDefinition.Validation.NonNegativeIntegerDefault0Entity(result);
+                        return new  DefsFeature.ValidDefinition.Validation.NonNegativeIntegerDefault0Entity(result);
                     }
                 }
 
@@ -2190,7 +2190,7 @@ namespace DefsFeature.InvalidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.InvalidDefinition.Validation.NonNegativeIntegerValue MaxItems
+        public DefsFeature.ValidDefinition.Validation.NonNegativeIntegerValue MaxItems
         {
             get
             {
@@ -2206,7 +2206,7 @@ namespace DefsFeature.InvalidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(MaxItemsUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.InvalidDefinition.Validation.NonNegativeIntegerValue(result);
+                        return new  DefsFeature.ValidDefinition.Validation.NonNegativeIntegerValue(result);
                     }
                 }
 
@@ -2225,7 +2225,7 @@ namespace DefsFeature.InvalidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.InvalidDefinition.Validation.NonNegativeIntegerDefault0Entity MinItems
+        public DefsFeature.ValidDefinition.Validation.NonNegativeIntegerDefault0Entity MinItems
         {
             get
             {
@@ -2241,7 +2241,7 @@ namespace DefsFeature.InvalidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(MinItemsUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.InvalidDefinition.Validation.NonNegativeIntegerDefault0Entity(result);
+                        return new  DefsFeature.ValidDefinition.Validation.NonNegativeIntegerDefault0Entity(result);
                     }
                 }
 
@@ -2260,7 +2260,7 @@ namespace DefsFeature.InvalidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.InvalidDefinition.Validation.UniqueItemsValue UniqueItems
+        public DefsFeature.ValidDefinition.Validation.UniqueItemsValue UniqueItems
         {
             get
             {
@@ -2276,7 +2276,7 @@ namespace DefsFeature.InvalidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(UniqueItemsUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.InvalidDefinition.Validation.UniqueItemsValue(result);
+                        return new  DefsFeature.ValidDefinition.Validation.UniqueItemsValue(result);
                     }
                 }
 
@@ -2295,7 +2295,7 @@ namespace DefsFeature.InvalidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.InvalidDefinition.Validation.NonNegativeIntegerValue MaxContains
+        public DefsFeature.ValidDefinition.Validation.NonNegativeIntegerValue MaxContains
         {
             get
             {
@@ -2311,7 +2311,7 @@ namespace DefsFeature.InvalidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(MaxContainsUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.InvalidDefinition.Validation.NonNegativeIntegerValue(result);
+                        return new  DefsFeature.ValidDefinition.Validation.NonNegativeIntegerValue(result);
                     }
                 }
 
@@ -2330,7 +2330,7 @@ namespace DefsFeature.InvalidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.InvalidDefinition.Validation.MinContainsEntity MinContains
+        public DefsFeature.ValidDefinition.Validation.MinContainsEntity MinContains
         {
             get
             {
@@ -2346,7 +2346,7 @@ namespace DefsFeature.InvalidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(MinContainsUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.InvalidDefinition.Validation.MinContainsEntity(result);
+                        return new  DefsFeature.ValidDefinition.Validation.MinContainsEntity(result);
                     }
                 }
 
@@ -2365,7 +2365,7 @@ namespace DefsFeature.InvalidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.InvalidDefinition.Validation.NonNegativeIntegerValue MaxProperties
+        public DefsFeature.ValidDefinition.Validation.NonNegativeIntegerValue MaxProperties
         {
             get
             {
@@ -2381,7 +2381,7 @@ namespace DefsFeature.InvalidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(MaxPropertiesUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.InvalidDefinition.Validation.NonNegativeIntegerValue(result);
+                        return new  DefsFeature.ValidDefinition.Validation.NonNegativeIntegerValue(result);
                     }
                 }
 
@@ -2400,7 +2400,7 @@ namespace DefsFeature.InvalidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.InvalidDefinition.Validation.NonNegativeIntegerDefault0Entity MinProperties
+        public DefsFeature.ValidDefinition.Validation.NonNegativeIntegerDefault0Entity MinProperties
         {
             get
             {
@@ -2416,7 +2416,7 @@ namespace DefsFeature.InvalidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(MinPropertiesUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.InvalidDefinition.Validation.NonNegativeIntegerDefault0Entity(result);
+                        return new  DefsFeature.ValidDefinition.Validation.NonNegativeIntegerDefault0Entity(result);
                     }
                 }
 
@@ -2435,7 +2435,7 @@ namespace DefsFeature.InvalidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.InvalidDefinition.Validation.JsonStringArray Required
+        public DefsFeature.ValidDefinition.Validation.JsonStringArray Required
         {
             get
             {
@@ -2451,7 +2451,7 @@ namespace DefsFeature.InvalidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(RequiredUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.InvalidDefinition.Validation.JsonStringArray(result);
+                        return new  DefsFeature.ValidDefinition.Validation.JsonStringArray(result);
                     }
                 }
 
@@ -2470,7 +2470,7 @@ namespace DefsFeature.InvalidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.InvalidDefinition.Validation.DependentRequiredValue DependentRequired
+        public DefsFeature.ValidDefinition.Validation.DependentRequiredValue DependentRequired
         {
             get
             {
@@ -2486,7 +2486,7 @@ namespace DefsFeature.InvalidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(DependentRequiredUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.InvalidDefinition.Validation.DependentRequiredValue(result);
+                        return new  DefsFeature.ValidDefinition.Validation.DependentRequiredValue(result);
                     }
                 }
 
@@ -2540,7 +2540,7 @@ namespace DefsFeature.InvalidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.InvalidDefinition.Validation.EnumArray Enum
+        public DefsFeature.ValidDefinition.Validation.EnumArray Enum
         {
             get
             {
@@ -2556,7 +2556,7 @@ namespace DefsFeature.InvalidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(EnumUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.InvalidDefinition.Validation.EnumArray(result);
+                        return new  DefsFeature.ValidDefinition.Validation.EnumArray(result);
                     }
                 }
 
@@ -2575,7 +2575,7 @@ namespace DefsFeature.InvalidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.InvalidDefinition.Validation.TypeEntity Type
+        public DefsFeature.ValidDefinition.Validation.TypeEntity Type
         {
             get
             {
@@ -2591,7 +2591,7 @@ namespace DefsFeature.InvalidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(TypeUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.InvalidDefinition.Validation.TypeEntity(result);
+                        return new  DefsFeature.ValidDefinition.Validation.TypeEntity(result);
                     }
                 }
 
@@ -2715,7 +2715,7 @@ namespace DefsFeature.InvalidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.InvalidDefinition.MetaData.DeprecatedValue Deprecated
+        public DefsFeature.ValidDefinition.MetaData.DeprecatedValue Deprecated
         {
             get
             {
@@ -2731,7 +2731,7 @@ namespace DefsFeature.InvalidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(DeprecatedUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.InvalidDefinition.MetaData.DeprecatedValue(result);
+                        return new  DefsFeature.ValidDefinition.MetaData.DeprecatedValue(result);
                     }
                 }
 
@@ -2750,7 +2750,7 @@ namespace DefsFeature.InvalidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.InvalidDefinition.MetaData.ReadOnlyValue ReadOnly
+        public DefsFeature.ValidDefinition.MetaData.ReadOnlyValue ReadOnly
         {
             get
             {
@@ -2766,7 +2766,7 @@ namespace DefsFeature.InvalidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(ReadOnlyUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.InvalidDefinition.MetaData.ReadOnlyValue(result);
+                        return new  DefsFeature.ValidDefinition.MetaData.ReadOnlyValue(result);
                     }
                 }
 
@@ -2785,7 +2785,7 @@ namespace DefsFeature.InvalidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.InvalidDefinition.MetaData.WriteOnlyValue WriteOnly
+        public DefsFeature.ValidDefinition.MetaData.WriteOnlyValue WriteOnly
         {
             get
             {
@@ -2801,7 +2801,7 @@ namespace DefsFeature.InvalidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(WriteOnlyUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.InvalidDefinition.MetaData.WriteOnlyValue(result);
+                        return new  DefsFeature.ValidDefinition.MetaData.WriteOnlyValue(result);
                     }
                 }
 
@@ -2820,7 +2820,7 @@ namespace DefsFeature.InvalidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.InvalidDefinition.MetaData.ExamplesArray Examples
+        public DefsFeature.ValidDefinition.MetaData.ExamplesArray Examples
         {
             get
             {
@@ -2836,7 +2836,7 @@ namespace DefsFeature.InvalidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(ExamplesUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.InvalidDefinition.MetaData.ExamplesArray(result);
+                        return new  DefsFeature.ValidDefinition.MetaData.ExamplesArray(result);
                     }
                 }
 
@@ -2960,7 +2960,7 @@ namespace DefsFeature.InvalidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.InvalidDefinition.Schema ContentSchema
+        public DefsFeature.ValidDefinition.Schema ContentSchema
         {
             get
             {
@@ -2976,7 +2976,7 @@ namespace DefsFeature.InvalidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(ContentSchemaUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.InvalidDefinition.Schema(result);
+                        return new  DefsFeature.ValidDefinition.Schema(result);
                     }
                 }
 
@@ -2995,7 +2995,7 @@ namespace DefsFeature.InvalidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.InvalidDefinition.Schema.DefinitionsValue Definitions
+        public DefsFeature.ValidDefinition.Schema.DefinitionsValue Definitions
         {
             get
             {
@@ -3011,7 +3011,7 @@ namespace DefsFeature.InvalidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(DefinitionsUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.InvalidDefinition.Schema.DefinitionsValue(result);
+                        return new  DefsFeature.ValidDefinition.Schema.DefinitionsValue(result);
                     }
                 }
 
@@ -3030,7 +3030,7 @@ namespace DefsFeature.InvalidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.InvalidDefinition.Schema.DependenciesValue Dependencies
+        public DefsFeature.ValidDefinition.Schema.DependenciesValue Dependencies
         {
             get
             {
@@ -3046,7 +3046,7 @@ namespace DefsFeature.InvalidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(DependenciesUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.InvalidDefinition.Schema.DependenciesValue(result);
+                        return new  DefsFeature.ValidDefinition.Schema.DependenciesValue(result);
                     }
                 }
 
@@ -3220,152 +3220,152 @@ namespace DefsFeature.InvalidDefinition
         }
 
             /// <summary>
-        /// Conversion from DefsFeature.InvalidDefinition.Core.
+        /// Conversion from DefsFeature.ValidDefinition.Core.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator Schema(DefsFeature.InvalidDefinition.Core value)
+        public static implicit operator Schema(DefsFeature.ValidDefinition.Core value)
         {
             return new Schema(value);
         }
 
         /// <summary>
-        /// Conversion to DefsFeature.InvalidDefinition.Core.
+        /// Conversion to DefsFeature.ValidDefinition.Core.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator DefsFeature.InvalidDefinition.Core(Schema value)
+        public static implicit operator DefsFeature.ValidDefinition.Core(Schema value)
         {
                     if (value.ValueKind == JsonValueKind.Object)
             {
-                return new DefsFeature.InvalidDefinition.Core(value.AsObject);
+                return new DefsFeature.ValidDefinition.Core(value.AsObject);
             }
                                             if (value.ValueKind == JsonValueKind.True || value.ValueKind == JsonValueKind.False)
             {
-                return new DefsFeature.InvalidDefinition.Core(value.AsBoolean);
+                return new DefsFeature.ValidDefinition.Core(value.AsBoolean);
             }
                             return default;
         }
             /// <summary>
-        /// Conversion from DefsFeature.InvalidDefinition.Applicator.
+        /// Conversion from DefsFeature.ValidDefinition.Applicator.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator Schema(DefsFeature.InvalidDefinition.Applicator value)
+        public static implicit operator Schema(DefsFeature.ValidDefinition.Applicator value)
         {
             return new Schema(value);
         }
 
         /// <summary>
-        /// Conversion to DefsFeature.InvalidDefinition.Applicator.
+        /// Conversion to DefsFeature.ValidDefinition.Applicator.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator DefsFeature.InvalidDefinition.Applicator(Schema value)
+        public static implicit operator DefsFeature.ValidDefinition.Applicator(Schema value)
         {
                     if (value.ValueKind == JsonValueKind.Object)
             {
-                return new DefsFeature.InvalidDefinition.Applicator(value.AsObject);
+                return new DefsFeature.ValidDefinition.Applicator(value.AsObject);
             }
                                             if (value.ValueKind == JsonValueKind.True || value.ValueKind == JsonValueKind.False)
             {
-                return new DefsFeature.InvalidDefinition.Applicator(value.AsBoolean);
+                return new DefsFeature.ValidDefinition.Applicator(value.AsBoolean);
             }
                             return default;
         }
             /// <summary>
-        /// Conversion from DefsFeature.InvalidDefinition.Validation.
+        /// Conversion from DefsFeature.ValidDefinition.Validation.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator Schema(DefsFeature.InvalidDefinition.Validation value)
+        public static implicit operator Schema(DefsFeature.ValidDefinition.Validation value)
         {
             return new Schema(value);
         }
 
         /// <summary>
-        /// Conversion to DefsFeature.InvalidDefinition.Validation.
+        /// Conversion to DefsFeature.ValidDefinition.Validation.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator DefsFeature.InvalidDefinition.Validation(Schema value)
+        public static implicit operator DefsFeature.ValidDefinition.Validation(Schema value)
         {
                     if (value.ValueKind == JsonValueKind.Object)
             {
-                return new DefsFeature.InvalidDefinition.Validation(value.AsObject);
+                return new DefsFeature.ValidDefinition.Validation(value.AsObject);
             }
                                             if (value.ValueKind == JsonValueKind.True || value.ValueKind == JsonValueKind.False)
             {
-                return new DefsFeature.InvalidDefinition.Validation(value.AsBoolean);
+                return new DefsFeature.ValidDefinition.Validation(value.AsBoolean);
             }
                             return default;
         }
             /// <summary>
-        /// Conversion from DefsFeature.InvalidDefinition.MetaData.
+        /// Conversion from DefsFeature.ValidDefinition.MetaData.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator Schema(DefsFeature.InvalidDefinition.MetaData value)
+        public static implicit operator Schema(DefsFeature.ValidDefinition.MetaData value)
         {
             return new Schema(value);
         }
 
         /// <summary>
-        /// Conversion to DefsFeature.InvalidDefinition.MetaData.
+        /// Conversion to DefsFeature.ValidDefinition.MetaData.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator DefsFeature.InvalidDefinition.MetaData(Schema value)
+        public static implicit operator DefsFeature.ValidDefinition.MetaData(Schema value)
         {
                     if (value.ValueKind == JsonValueKind.Object)
             {
-                return new DefsFeature.InvalidDefinition.MetaData(value.AsObject);
+                return new DefsFeature.ValidDefinition.MetaData(value.AsObject);
             }
                                             if (value.ValueKind == JsonValueKind.True || value.ValueKind == JsonValueKind.False)
             {
-                return new DefsFeature.InvalidDefinition.MetaData(value.AsBoolean);
+                return new DefsFeature.ValidDefinition.MetaData(value.AsBoolean);
             }
                             return default;
         }
             /// <summary>
-        /// Conversion from DefsFeature.InvalidDefinition.Format.
+        /// Conversion from DefsFeature.ValidDefinition.Format.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator Schema(DefsFeature.InvalidDefinition.Format value)
+        public static implicit operator Schema(DefsFeature.ValidDefinition.Format value)
         {
             return new Schema(value);
         }
 
         /// <summary>
-        /// Conversion to DefsFeature.InvalidDefinition.Format.
+        /// Conversion to DefsFeature.ValidDefinition.Format.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator DefsFeature.InvalidDefinition.Format(Schema value)
+        public static implicit operator DefsFeature.ValidDefinition.Format(Schema value)
         {
                     if (value.ValueKind == JsonValueKind.Object)
             {
-                return new DefsFeature.InvalidDefinition.Format(value.AsObject);
+                return new DefsFeature.ValidDefinition.Format(value.AsObject);
             }
                                             if (value.ValueKind == JsonValueKind.True || value.ValueKind == JsonValueKind.False)
             {
-                return new DefsFeature.InvalidDefinition.Format(value.AsBoolean);
+                return new DefsFeature.ValidDefinition.Format(value.AsBoolean);
             }
                             return default;
         }
             /// <summary>
-        /// Conversion from DefsFeature.InvalidDefinition.Content.
+        /// Conversion from DefsFeature.ValidDefinition.Content.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator Schema(DefsFeature.InvalidDefinition.Content value)
+        public static implicit operator Schema(DefsFeature.ValidDefinition.Content value)
         {
             return new Schema(value);
         }
 
         /// <summary>
-        /// Conversion to DefsFeature.InvalidDefinition.Content.
+        /// Conversion to DefsFeature.ValidDefinition.Content.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator DefsFeature.InvalidDefinition.Content(Schema value)
+        public static implicit operator DefsFeature.ValidDefinition.Content(Schema value)
         {
                     if (value.ValueKind == JsonValueKind.Object)
             {
-                return new DefsFeature.InvalidDefinition.Content(value.AsObject);
+                return new DefsFeature.ValidDefinition.Content(value.AsObject);
             }
                                             if (value.ValueKind == JsonValueKind.True || value.ValueKind == JsonValueKind.False)
             {
-                return new DefsFeature.InvalidDefinition.Content(value.AsBoolean);
+                return new DefsFeature.ValidDefinition.Content(value.AsBoolean);
             }
                             return default;
         }
@@ -3480,7 +3480,7 @@ namespace DefsFeature.InvalidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Schema WithId(DefsFeature.InvalidDefinition.Core.IdValue value)
+        public Schema WithId(DefsFeature.ValidDefinition.Core.IdValue value)
         {
             return this.SetProperty(IdJsonPropertyName, value);
         }
@@ -3502,7 +3502,7 @@ namespace DefsFeature.InvalidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Schema WithAnchor(DefsFeature.InvalidDefinition.Core.AnchorValue value)
+        public Schema WithAnchor(DefsFeature.ValidDefinition.Core.AnchorValue value)
         {
             return this.SetProperty(AnchorJsonPropertyName, value);
         }
@@ -3535,7 +3535,7 @@ namespace DefsFeature.InvalidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Schema WithRecursiveAnchor(DefsFeature.InvalidDefinition.Core.RecursiveAnchorValue value)
+        public Schema WithRecursiveAnchor(DefsFeature.ValidDefinition.Core.RecursiveAnchorValue value)
         {
             return this.SetProperty(RecursiveAnchorJsonPropertyName, value);
         }
@@ -3546,7 +3546,7 @@ namespace DefsFeature.InvalidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Schema WithVocabulary(DefsFeature.InvalidDefinition.Core.VocabularyValue value)
+        public Schema WithVocabulary(DefsFeature.ValidDefinition.Core.VocabularyValue value)
         {
             return this.SetProperty(VocabularyJsonPropertyName, value);
         }
@@ -3568,7 +3568,7 @@ namespace DefsFeature.InvalidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Schema WithDefs(DefsFeature.InvalidDefinition.Core.DefsValue value)
+        public Schema WithDefs(DefsFeature.ValidDefinition.Core.DefsValue value)
         {
             return this.SetProperty(DefsJsonPropertyName, value);
         }
@@ -3579,7 +3579,7 @@ namespace DefsFeature.InvalidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Schema WithAdditionalItems(DefsFeature.InvalidDefinition.Schema value)
+        public Schema WithAdditionalItems(DefsFeature.ValidDefinition.Schema value)
         {
             return this.SetProperty(AdditionalItemsJsonPropertyName, value);
         }
@@ -3590,7 +3590,7 @@ namespace DefsFeature.InvalidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Schema WithUnevaluatedItems(DefsFeature.InvalidDefinition.Schema value)
+        public Schema WithUnevaluatedItems(DefsFeature.ValidDefinition.Schema value)
         {
             return this.SetProperty(UnevaluatedItemsJsonPropertyName, value);
         }
@@ -3601,7 +3601,7 @@ namespace DefsFeature.InvalidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Schema WithItems(DefsFeature.InvalidDefinition.Applicator.ItemsEntity value)
+        public Schema WithItems(DefsFeature.ValidDefinition.Applicator.ItemsEntity value)
         {
             return this.SetProperty(ItemsJsonPropertyName, value);
         }
@@ -3612,7 +3612,7 @@ namespace DefsFeature.InvalidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Schema WithContains(DefsFeature.InvalidDefinition.Schema value)
+        public Schema WithContains(DefsFeature.ValidDefinition.Schema value)
         {
             return this.SetProperty(ContainsJsonPropertyName, value);
         }
@@ -3623,7 +3623,7 @@ namespace DefsFeature.InvalidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Schema WithAdditionalProperties(DefsFeature.InvalidDefinition.Schema value)
+        public Schema WithAdditionalProperties(DefsFeature.ValidDefinition.Schema value)
         {
             return this.SetProperty(AdditionalPropertiesJsonPropertyName, value);
         }
@@ -3634,7 +3634,7 @@ namespace DefsFeature.InvalidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Schema WithUnevaluatedProperties(DefsFeature.InvalidDefinition.Schema value)
+        public Schema WithUnevaluatedProperties(DefsFeature.ValidDefinition.Schema value)
         {
             return this.SetProperty(UnevaluatedPropertiesJsonPropertyName, value);
         }
@@ -3645,7 +3645,7 @@ namespace DefsFeature.InvalidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Schema WithProperties(DefsFeature.InvalidDefinition.Applicator.PropertiesValue value)
+        public Schema WithProperties(DefsFeature.ValidDefinition.Applicator.PropertiesValue value)
         {
             return this.SetProperty(PropertiesJsonPropertyName, value);
         }
@@ -3656,7 +3656,7 @@ namespace DefsFeature.InvalidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Schema WithPatternProperties(DefsFeature.InvalidDefinition.Applicator.PatternPropertiesValue value)
+        public Schema WithPatternProperties(DefsFeature.ValidDefinition.Applicator.PatternPropertiesValue value)
         {
             return this.SetProperty(PatternPropertiesJsonPropertyName, value);
         }
@@ -3667,7 +3667,7 @@ namespace DefsFeature.InvalidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Schema WithDependentSchemas(DefsFeature.InvalidDefinition.Applicator.DependentSchemasValue value)
+        public Schema WithDependentSchemas(DefsFeature.ValidDefinition.Applicator.DependentSchemasValue value)
         {
             return this.SetProperty(DependentSchemasJsonPropertyName, value);
         }
@@ -3678,7 +3678,7 @@ namespace DefsFeature.InvalidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Schema WithPropertyNames(DefsFeature.InvalidDefinition.Schema value)
+        public Schema WithPropertyNames(DefsFeature.ValidDefinition.Schema value)
         {
             return this.SetProperty(PropertyNamesJsonPropertyName, value);
         }
@@ -3689,7 +3689,7 @@ namespace DefsFeature.InvalidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Schema WithIf(DefsFeature.InvalidDefinition.Schema value)
+        public Schema WithIf(DefsFeature.ValidDefinition.Schema value)
         {
             return this.SetProperty(IfJsonPropertyName, value);
         }
@@ -3700,7 +3700,7 @@ namespace DefsFeature.InvalidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Schema WithThen(DefsFeature.InvalidDefinition.Schema value)
+        public Schema WithThen(DefsFeature.ValidDefinition.Schema value)
         {
             return this.SetProperty(ThenJsonPropertyName, value);
         }
@@ -3711,7 +3711,7 @@ namespace DefsFeature.InvalidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Schema WithElse(DefsFeature.InvalidDefinition.Schema value)
+        public Schema WithElse(DefsFeature.ValidDefinition.Schema value)
         {
             return this.SetProperty(ElseJsonPropertyName, value);
         }
@@ -3722,7 +3722,7 @@ namespace DefsFeature.InvalidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Schema WithAllOf(DefsFeature.InvalidDefinition.Applicator.SchemaArray value)
+        public Schema WithAllOf(DefsFeature.ValidDefinition.Applicator.SchemaArray value)
         {
             return this.SetProperty(AllOfJsonPropertyName, value);
         }
@@ -3733,7 +3733,7 @@ namespace DefsFeature.InvalidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Schema WithAnyOf(DefsFeature.InvalidDefinition.Applicator.SchemaArray value)
+        public Schema WithAnyOf(DefsFeature.ValidDefinition.Applicator.SchemaArray value)
         {
             return this.SetProperty(AnyOfJsonPropertyName, value);
         }
@@ -3744,7 +3744,7 @@ namespace DefsFeature.InvalidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Schema WithOneOf(DefsFeature.InvalidDefinition.Applicator.SchemaArray value)
+        public Schema WithOneOf(DefsFeature.ValidDefinition.Applicator.SchemaArray value)
         {
             return this.SetProperty(OneOfJsonPropertyName, value);
         }
@@ -3755,7 +3755,7 @@ namespace DefsFeature.InvalidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Schema WithNot(DefsFeature.InvalidDefinition.Schema value)
+        public Schema WithNot(DefsFeature.ValidDefinition.Schema value)
         {
             return this.SetProperty(NotJsonPropertyName, value);
         }
@@ -3766,7 +3766,7 @@ namespace DefsFeature.InvalidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Schema WithMultipleOf(DefsFeature.InvalidDefinition.Validation.MultipleOfValue value)
+        public Schema WithMultipleOf(DefsFeature.ValidDefinition.Validation.MultipleOfValue value)
         {
             return this.SetProperty(MultipleOfJsonPropertyName, value);
         }
@@ -3821,7 +3821,7 @@ namespace DefsFeature.InvalidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Schema WithMaxLength(DefsFeature.InvalidDefinition.Validation.NonNegativeIntegerValue value)
+        public Schema WithMaxLength(DefsFeature.ValidDefinition.Validation.NonNegativeIntegerValue value)
         {
             return this.SetProperty(MaxLengthJsonPropertyName, value);
         }
@@ -3832,7 +3832,7 @@ namespace DefsFeature.InvalidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Schema WithMinLength(DefsFeature.InvalidDefinition.Validation.NonNegativeIntegerDefault0Entity value)
+        public Schema WithMinLength(DefsFeature.ValidDefinition.Validation.NonNegativeIntegerDefault0Entity value)
         {
             return this.SetProperty(MinLengthJsonPropertyName, value);
         }
@@ -3854,7 +3854,7 @@ namespace DefsFeature.InvalidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Schema WithMaxItems(DefsFeature.InvalidDefinition.Validation.NonNegativeIntegerValue value)
+        public Schema WithMaxItems(DefsFeature.ValidDefinition.Validation.NonNegativeIntegerValue value)
         {
             return this.SetProperty(MaxItemsJsonPropertyName, value);
         }
@@ -3865,7 +3865,7 @@ namespace DefsFeature.InvalidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Schema WithMinItems(DefsFeature.InvalidDefinition.Validation.NonNegativeIntegerDefault0Entity value)
+        public Schema WithMinItems(DefsFeature.ValidDefinition.Validation.NonNegativeIntegerDefault0Entity value)
         {
             return this.SetProperty(MinItemsJsonPropertyName, value);
         }
@@ -3876,7 +3876,7 @@ namespace DefsFeature.InvalidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Schema WithUniqueItems(DefsFeature.InvalidDefinition.Validation.UniqueItemsValue value)
+        public Schema WithUniqueItems(DefsFeature.ValidDefinition.Validation.UniqueItemsValue value)
         {
             return this.SetProperty(UniqueItemsJsonPropertyName, value);
         }
@@ -3887,7 +3887,7 @@ namespace DefsFeature.InvalidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Schema WithMaxContains(DefsFeature.InvalidDefinition.Validation.NonNegativeIntegerValue value)
+        public Schema WithMaxContains(DefsFeature.ValidDefinition.Validation.NonNegativeIntegerValue value)
         {
             return this.SetProperty(MaxContainsJsonPropertyName, value);
         }
@@ -3898,7 +3898,7 @@ namespace DefsFeature.InvalidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Schema WithMinContains(DefsFeature.InvalidDefinition.Validation.MinContainsEntity value)
+        public Schema WithMinContains(DefsFeature.ValidDefinition.Validation.MinContainsEntity value)
         {
             return this.SetProperty(MinContainsJsonPropertyName, value);
         }
@@ -3909,7 +3909,7 @@ namespace DefsFeature.InvalidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Schema WithMaxProperties(DefsFeature.InvalidDefinition.Validation.NonNegativeIntegerValue value)
+        public Schema WithMaxProperties(DefsFeature.ValidDefinition.Validation.NonNegativeIntegerValue value)
         {
             return this.SetProperty(MaxPropertiesJsonPropertyName, value);
         }
@@ -3920,7 +3920,7 @@ namespace DefsFeature.InvalidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Schema WithMinProperties(DefsFeature.InvalidDefinition.Validation.NonNegativeIntegerDefault0Entity value)
+        public Schema WithMinProperties(DefsFeature.ValidDefinition.Validation.NonNegativeIntegerDefault0Entity value)
         {
             return this.SetProperty(MinPropertiesJsonPropertyName, value);
         }
@@ -3931,7 +3931,7 @@ namespace DefsFeature.InvalidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Schema WithRequired(DefsFeature.InvalidDefinition.Validation.JsonStringArray value)
+        public Schema WithRequired(DefsFeature.ValidDefinition.Validation.JsonStringArray value)
         {
             return this.SetProperty(RequiredJsonPropertyName, value);
         }
@@ -3942,7 +3942,7 @@ namespace DefsFeature.InvalidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Schema WithDependentRequired(DefsFeature.InvalidDefinition.Validation.DependentRequiredValue value)
+        public Schema WithDependentRequired(DefsFeature.ValidDefinition.Validation.DependentRequiredValue value)
         {
             return this.SetProperty(DependentRequiredJsonPropertyName, value);
         }
@@ -3964,7 +3964,7 @@ namespace DefsFeature.InvalidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Schema WithEnum(DefsFeature.InvalidDefinition.Validation.EnumArray value)
+        public Schema WithEnum(DefsFeature.ValidDefinition.Validation.EnumArray value)
         {
             return this.SetProperty(EnumJsonPropertyName, value);
         }
@@ -3975,7 +3975,7 @@ namespace DefsFeature.InvalidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Schema WithType(DefsFeature.InvalidDefinition.Validation.TypeEntity value)
+        public Schema WithType(DefsFeature.ValidDefinition.Validation.TypeEntity value)
         {
             return this.SetProperty(TypeJsonPropertyName, value);
         }
@@ -4019,7 +4019,7 @@ namespace DefsFeature.InvalidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Schema WithDeprecated(DefsFeature.InvalidDefinition.MetaData.DeprecatedValue value)
+        public Schema WithDeprecated(DefsFeature.ValidDefinition.MetaData.DeprecatedValue value)
         {
             return this.SetProperty(DeprecatedJsonPropertyName, value);
         }
@@ -4030,7 +4030,7 @@ namespace DefsFeature.InvalidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Schema WithReadOnly(DefsFeature.InvalidDefinition.MetaData.ReadOnlyValue value)
+        public Schema WithReadOnly(DefsFeature.ValidDefinition.MetaData.ReadOnlyValue value)
         {
             return this.SetProperty(ReadOnlyJsonPropertyName, value);
         }
@@ -4041,7 +4041,7 @@ namespace DefsFeature.InvalidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Schema WithWriteOnly(DefsFeature.InvalidDefinition.MetaData.WriteOnlyValue value)
+        public Schema WithWriteOnly(DefsFeature.ValidDefinition.MetaData.WriteOnlyValue value)
         {
             return this.SetProperty(WriteOnlyJsonPropertyName, value);
         }
@@ -4052,7 +4052,7 @@ namespace DefsFeature.InvalidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Schema WithExamples(DefsFeature.InvalidDefinition.MetaData.ExamplesArray value)
+        public Schema WithExamples(DefsFeature.ValidDefinition.MetaData.ExamplesArray value)
         {
             return this.SetProperty(ExamplesJsonPropertyName, value);
         }
@@ -4096,7 +4096,7 @@ namespace DefsFeature.InvalidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Schema WithContentSchema(DefsFeature.InvalidDefinition.Schema value)
+        public Schema WithContentSchema(DefsFeature.ValidDefinition.Schema value)
         {
             return this.SetProperty(ContentSchemaJsonPropertyName, value);
         }
@@ -4107,7 +4107,7 @@ namespace DefsFeature.InvalidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Schema WithDefinitions(DefsFeature.InvalidDefinition.Schema.DefinitionsValue value)
+        public Schema WithDefinitions(DefsFeature.ValidDefinition.Schema.DefinitionsValue value)
         {
             return this.SetProperty(DefinitionsJsonPropertyName, value);
         }
@@ -4118,7 +4118,7 @@ namespace DefsFeature.InvalidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Schema WithDependencies(DefsFeature.InvalidDefinition.Schema.DependenciesValue value)
+        public Schema WithDependencies(DefsFeature.ValidDefinition.Schema.DependenciesValue value)
         {
             return this.SetProperty(DependenciesJsonPropertyName, value);
         }
@@ -4603,7 +4603,7 @@ namespace DefsFeature.InvalidDefinition
 
                 
 
-            ValidationContext allOfResult0 = this.As<DefsFeature.InvalidDefinition.Core>().Validate(validationContext.CreateChildContext(), level);
+            ValidationContext allOfResult0 = this.As<DefsFeature.ValidDefinition.Core>().Validate(validationContext.CreateChildContext(), level);
 
             if (!allOfResult0.IsValid)
             {
@@ -4628,7 +4628,7 @@ namespace DefsFeature.InvalidDefinition
 
                 
 
-            ValidationContext allOfResult1 = this.As<DefsFeature.InvalidDefinition.Applicator>().Validate(validationContext.CreateChildContext(), level);
+            ValidationContext allOfResult1 = this.As<DefsFeature.ValidDefinition.Applicator>().Validate(validationContext.CreateChildContext(), level);
 
             if (!allOfResult1.IsValid)
             {
@@ -4653,7 +4653,7 @@ namespace DefsFeature.InvalidDefinition
 
                 
 
-            ValidationContext allOfResult2 = this.As<DefsFeature.InvalidDefinition.Validation>().Validate(validationContext.CreateChildContext(), level);
+            ValidationContext allOfResult2 = this.As<DefsFeature.ValidDefinition.Validation>().Validate(validationContext.CreateChildContext(), level);
 
             if (!allOfResult2.IsValid)
             {
@@ -4678,7 +4678,7 @@ namespace DefsFeature.InvalidDefinition
 
                 
 
-            ValidationContext allOfResult3 = this.As<DefsFeature.InvalidDefinition.MetaData>().Validate(validationContext.CreateChildContext(), level);
+            ValidationContext allOfResult3 = this.As<DefsFeature.ValidDefinition.MetaData>().Validate(validationContext.CreateChildContext(), level);
 
             if (!allOfResult3.IsValid)
             {
@@ -4703,7 +4703,7 @@ namespace DefsFeature.InvalidDefinition
 
                 
 
-            ValidationContext allOfResult4 = this.As<DefsFeature.InvalidDefinition.Format>().Validate(validationContext.CreateChildContext(), level);
+            ValidationContext allOfResult4 = this.As<DefsFeature.ValidDefinition.Format>().Validate(validationContext.CreateChildContext(), level);
 
             if (!allOfResult4.IsValid)
             {
@@ -4728,7 +4728,7 @@ namespace DefsFeature.InvalidDefinition
 
                 
 
-            ValidationContext allOfResult5 = this.As<DefsFeature.InvalidDefinition.Content>().Validate(validationContext.CreateChildContext(), level);
+            ValidationContext allOfResult5 = this.As<DefsFeature.ValidDefinition.Content>().Validate(validationContext.CreateChildContext(), level);
 
             if (!allOfResult5.IsValid)
             {
@@ -5447,7 +5447,7 @@ namespace DefsFeature.InvalidDefinition
         
                         if (!result.HasEvaluatedLocalProperty(propertyName))
                 {
-                    result = property.ValueAs<DefsFeature.InvalidDefinition.Schema>().Validate(result, level);
+                    result = property.ValueAs<DefsFeature.ValidDefinition.Schema>().Validate(result, level);
                     if (level == ValidationLevel.Flag && !result.IsValid)
                     {
                         return result;
@@ -6152,7 +6152,7 @@ namespace DefsFeature.InvalidDefinition
         
                         if (!result.HasEvaluatedLocalProperty(propertyName))
                 {
-                    result = property.ValueAs<DefsFeature.InvalidDefinition.Schema.DependenciesValue.AdditionalPropertiesEntity>().Validate(result, level);
+                    result = property.ValueAs<DefsFeature.ValidDefinition.Schema.DependenciesValue.AdditionalPropertiesEntity>().Validate(result, level);
                     if (level == ValidationLevel.Flag && !result.IsValid)
                     {
                         return result;
@@ -6372,8 +6372,8 @@ namespace DefsFeature.InvalidDefinition
             /// <summary>
         /// Initializes a new instance of the <see cref="AdditionalPropertiesEntity"/> struct.
         /// </summary>
-        /// <param name="conversion">The <see cref="DefsFeature.InvalidDefinition.Schema"/> from which to construct the value.</param>
-        public AdditionalPropertiesEntity(DefsFeature.InvalidDefinition.Schema conversion)
+        /// <param name="conversion">The <see cref="DefsFeature.ValidDefinition.Schema"/> from which to construct the value.</param>
+        public AdditionalPropertiesEntity(DefsFeature.ValidDefinition.Schema conversion)
         {
             if (conversion.HasJsonElement)
             {
@@ -6409,8 +6409,8 @@ namespace DefsFeature.InvalidDefinition
             /// <summary>
         /// Initializes a new instance of the <see cref="AdditionalPropertiesEntity"/> struct.
         /// </summary>
-        /// <param name="conversion">The <see cref="DefsFeature.InvalidDefinition.Validation.JsonStringArray"/> from which to construct the value.</param>
-        public AdditionalPropertiesEntity(DefsFeature.InvalidDefinition.Validation.JsonStringArray conversion)
+        /// <param name="conversion">The <see cref="DefsFeature.ValidDefinition.Validation.JsonStringArray"/> from which to construct the value.</param>
+        public AdditionalPropertiesEntity(DefsFeature.ValidDefinition.Validation.JsonStringArray conversion)
         {
             if (conversion.HasJsonElement)
             {
@@ -6639,153 +6639,153 @@ namespace DefsFeature.InvalidDefinition
         }
 
             /// <summary>
-        /// Conversion from DefsFeature.InvalidDefinition.Schema.
+        /// Conversion from DefsFeature.ValidDefinition.Schema.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator AdditionalPropertiesEntity(DefsFeature.InvalidDefinition.Schema value)
+        public static implicit operator AdditionalPropertiesEntity(DefsFeature.ValidDefinition.Schema value)
         {
             return new AdditionalPropertiesEntity(value);
         }
 
         /// <summary>
-        /// Conversion to DefsFeature.InvalidDefinition.Schema.
+        /// Conversion to DefsFeature.ValidDefinition.Schema.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator DefsFeature.InvalidDefinition.Schema(AdditionalPropertiesEntity value)
+        public static implicit operator DefsFeature.ValidDefinition.Schema(AdditionalPropertiesEntity value)
         {
                     if (value.ValueKind == JsonValueKind.Object)
             {
-                return new DefsFeature.InvalidDefinition.Schema(value.AsObject);
+                return new DefsFeature.ValidDefinition.Schema(value.AsObject);
             }
                                             if (value.ValueKind == JsonValueKind.True || value.ValueKind == JsonValueKind.False)
             {
-                return new DefsFeature.InvalidDefinition.Schema(value.AsBoolean);
+                return new DefsFeature.ValidDefinition.Schema(value.AsBoolean);
             }
                             return default;
         }
             /// <summary>
-        /// Conversion from DefsFeature.InvalidDefinition.Validation.JsonStringArray.
+        /// Conversion from DefsFeature.ValidDefinition.Validation.JsonStringArray.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator AdditionalPropertiesEntity(DefsFeature.InvalidDefinition.Validation.JsonStringArray value)
+        public static implicit operator AdditionalPropertiesEntity(DefsFeature.ValidDefinition.Validation.JsonStringArray value)
         {
             return new AdditionalPropertiesEntity(value);
         }
 
         /// <summary>
-        /// Conversion to DefsFeature.InvalidDefinition.Validation.JsonStringArray.
+        /// Conversion to DefsFeature.ValidDefinition.Validation.JsonStringArray.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator DefsFeature.InvalidDefinition.Validation.JsonStringArray(AdditionalPropertiesEntity value)
+        public static implicit operator DefsFeature.ValidDefinition.Validation.JsonStringArray(AdditionalPropertiesEntity value)
         {
                             if (value.ValueKind == JsonValueKind.Array)
             {
-                return new DefsFeature.InvalidDefinition.Validation.JsonStringArray(value.AsArray);
+                return new DefsFeature.ValidDefinition.Validation.JsonStringArray(value.AsArray);
             }
                                             return default;
         }
     
                 /// <summary>
-        /// Conversion from DefsFeature.InvalidDefinition.Core.
+        /// Conversion from DefsFeature.ValidDefinition.Core.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator AdditionalPropertiesEntity(DefsFeature.InvalidDefinition.Core value)
+        public static implicit operator AdditionalPropertiesEntity(DefsFeature.ValidDefinition.Core value)
         {
-            return (DefsFeature.InvalidDefinition.Schema.DependenciesValue.AdditionalPropertiesEntity)value;
+            return (DefsFeature.ValidDefinition.Schema.DependenciesValue.AdditionalPropertiesEntity)value;
         }
 
         /// <summary>
-        /// Conversion to DefsFeature.InvalidDefinition.Core.
+        /// Conversion to DefsFeature.ValidDefinition.Core.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator DefsFeature.InvalidDefinition.Core(AdditionalPropertiesEntity value)
+        public static implicit operator DefsFeature.ValidDefinition.Core(AdditionalPropertiesEntity value)
         {
-            return (DefsFeature.InvalidDefinition.Schema.DependenciesValue.AdditionalPropertiesEntity)value;
+            return (DefsFeature.ValidDefinition.Schema.DependenciesValue.AdditionalPropertiesEntity)value;
         }
             /// <summary>
-        /// Conversion from DefsFeature.InvalidDefinition.Applicator.
+        /// Conversion from DefsFeature.ValidDefinition.Applicator.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator AdditionalPropertiesEntity(DefsFeature.InvalidDefinition.Applicator value)
+        public static implicit operator AdditionalPropertiesEntity(DefsFeature.ValidDefinition.Applicator value)
         {
-            return (DefsFeature.InvalidDefinition.Schema.DependenciesValue.AdditionalPropertiesEntity)value;
+            return (DefsFeature.ValidDefinition.Schema.DependenciesValue.AdditionalPropertiesEntity)value;
         }
 
         /// <summary>
-        /// Conversion to DefsFeature.InvalidDefinition.Applicator.
+        /// Conversion to DefsFeature.ValidDefinition.Applicator.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator DefsFeature.InvalidDefinition.Applicator(AdditionalPropertiesEntity value)
+        public static implicit operator DefsFeature.ValidDefinition.Applicator(AdditionalPropertiesEntity value)
         {
-            return (DefsFeature.InvalidDefinition.Schema.DependenciesValue.AdditionalPropertiesEntity)value;
+            return (DefsFeature.ValidDefinition.Schema.DependenciesValue.AdditionalPropertiesEntity)value;
         }
             /// <summary>
-        /// Conversion from DefsFeature.InvalidDefinition.Validation.
+        /// Conversion from DefsFeature.ValidDefinition.Validation.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator AdditionalPropertiesEntity(DefsFeature.InvalidDefinition.Validation value)
+        public static implicit operator AdditionalPropertiesEntity(DefsFeature.ValidDefinition.Validation value)
         {
-            return (DefsFeature.InvalidDefinition.Schema.DependenciesValue.AdditionalPropertiesEntity)value;
+            return (DefsFeature.ValidDefinition.Schema.DependenciesValue.AdditionalPropertiesEntity)value;
         }
 
         /// <summary>
-        /// Conversion to DefsFeature.InvalidDefinition.Validation.
+        /// Conversion to DefsFeature.ValidDefinition.Validation.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator DefsFeature.InvalidDefinition.Validation(AdditionalPropertiesEntity value)
+        public static implicit operator DefsFeature.ValidDefinition.Validation(AdditionalPropertiesEntity value)
         {
-            return (DefsFeature.InvalidDefinition.Schema.DependenciesValue.AdditionalPropertiesEntity)value;
+            return (DefsFeature.ValidDefinition.Schema.DependenciesValue.AdditionalPropertiesEntity)value;
         }
             /// <summary>
-        /// Conversion from DefsFeature.InvalidDefinition.MetaData.
+        /// Conversion from DefsFeature.ValidDefinition.MetaData.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator AdditionalPropertiesEntity(DefsFeature.InvalidDefinition.MetaData value)
+        public static implicit operator AdditionalPropertiesEntity(DefsFeature.ValidDefinition.MetaData value)
         {
-            return (DefsFeature.InvalidDefinition.Schema.DependenciesValue.AdditionalPropertiesEntity)value;
+            return (DefsFeature.ValidDefinition.Schema.DependenciesValue.AdditionalPropertiesEntity)value;
         }
 
         /// <summary>
-        /// Conversion to DefsFeature.InvalidDefinition.MetaData.
+        /// Conversion to DefsFeature.ValidDefinition.MetaData.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator DefsFeature.InvalidDefinition.MetaData(AdditionalPropertiesEntity value)
+        public static implicit operator DefsFeature.ValidDefinition.MetaData(AdditionalPropertiesEntity value)
         {
-            return (DefsFeature.InvalidDefinition.Schema.DependenciesValue.AdditionalPropertiesEntity)value;
+            return (DefsFeature.ValidDefinition.Schema.DependenciesValue.AdditionalPropertiesEntity)value;
         }
             /// <summary>
-        /// Conversion from DefsFeature.InvalidDefinition.Format.
+        /// Conversion from DefsFeature.ValidDefinition.Format.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator AdditionalPropertiesEntity(DefsFeature.InvalidDefinition.Format value)
+        public static implicit operator AdditionalPropertiesEntity(DefsFeature.ValidDefinition.Format value)
         {
-            return (DefsFeature.InvalidDefinition.Schema.DependenciesValue.AdditionalPropertiesEntity)value;
+            return (DefsFeature.ValidDefinition.Schema.DependenciesValue.AdditionalPropertiesEntity)value;
         }
 
         /// <summary>
-        /// Conversion to DefsFeature.InvalidDefinition.Format.
+        /// Conversion to DefsFeature.ValidDefinition.Format.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator DefsFeature.InvalidDefinition.Format(AdditionalPropertiesEntity value)
+        public static implicit operator DefsFeature.ValidDefinition.Format(AdditionalPropertiesEntity value)
         {
-            return (DefsFeature.InvalidDefinition.Schema.DependenciesValue.AdditionalPropertiesEntity)value;
+            return (DefsFeature.ValidDefinition.Schema.DependenciesValue.AdditionalPropertiesEntity)value;
         }
             /// <summary>
-        /// Conversion from DefsFeature.InvalidDefinition.Content.
+        /// Conversion from DefsFeature.ValidDefinition.Content.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator AdditionalPropertiesEntity(DefsFeature.InvalidDefinition.Content value)
+        public static implicit operator AdditionalPropertiesEntity(DefsFeature.ValidDefinition.Content value)
         {
-            return (DefsFeature.InvalidDefinition.Schema.DependenciesValue.AdditionalPropertiesEntity)value;
+            return (DefsFeature.ValidDefinition.Schema.DependenciesValue.AdditionalPropertiesEntity)value;
         }
 
         /// <summary>
-        /// Conversion to DefsFeature.InvalidDefinition.Content.
+        /// Conversion to DefsFeature.ValidDefinition.Content.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator DefsFeature.InvalidDefinition.Content(AdditionalPropertiesEntity value)
+        public static implicit operator DefsFeature.ValidDefinition.Content(AdditionalPropertiesEntity value)
         {
-            return (DefsFeature.InvalidDefinition.Schema.DependenciesValue.AdditionalPropertiesEntity)value;
+            return (DefsFeature.ValidDefinition.Schema.DependenciesValue.AdditionalPropertiesEntity)value;
         }
     
         /// <summary>
@@ -7337,7 +7337,7 @@ namespace DefsFeature.InvalidDefinition
 
                 
 
-            ValidationContext anyOfResult0 = this.As<DefsFeature.InvalidDefinition.Schema>().Validate(validationContext.CreateChildContext(), level);
+            ValidationContext anyOfResult0 = this.As<DefsFeature.ValidDefinition.Schema>().Validate(validationContext.CreateChildContext(), level);
 
             if (anyOfResult0.IsValid)
             {
@@ -7365,7 +7365,7 @@ namespace DefsFeature.InvalidDefinition
 
                 
 
-            ValidationContext anyOfResult1 = this.As<DefsFeature.InvalidDefinition.Validation.JsonStringArray>().Validate(validationContext.CreateChildContext(), level);
+            ValidationContext anyOfResult1 = this.As<DefsFeature.ValidDefinition.Validation.JsonStringArray>().Validate(validationContext.CreateChildContext(), level);
 
             if (anyOfResult1.IsValid)
             {

@@ -10,7 +10,7 @@
 
 #nullable enable
 
-namespace DefsFeature.InvalidDefinition
+namespace DefsFeature.ValidDefinition
 {
     using System;
     using System.Collections.Generic;
@@ -240,7 +240,7 @@ namespace DefsFeature.InvalidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.InvalidDefinition.Core.IdValue Id
+        public DefsFeature.ValidDefinition.Core.IdValue Id
         {
             get
             {
@@ -256,7 +256,7 @@ namespace DefsFeature.InvalidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(IdUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.InvalidDefinition.Core.IdValue(result);
+                        return new  DefsFeature.ValidDefinition.Core.IdValue(result);
                     }
                 }
 
@@ -310,7 +310,7 @@ namespace DefsFeature.InvalidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.InvalidDefinition.Core.AnchorValue Anchor
+        public DefsFeature.ValidDefinition.Core.AnchorValue Anchor
         {
             get
             {
@@ -326,7 +326,7 @@ namespace DefsFeature.InvalidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(AnchorUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.InvalidDefinition.Core.AnchorValue(result);
+                        return new  DefsFeature.ValidDefinition.Core.AnchorValue(result);
                     }
                 }
 
@@ -415,7 +415,7 @@ namespace DefsFeature.InvalidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.InvalidDefinition.Core.RecursiveAnchorValue RecursiveAnchor
+        public DefsFeature.ValidDefinition.Core.RecursiveAnchorValue RecursiveAnchor
         {
             get
             {
@@ -431,7 +431,7 @@ namespace DefsFeature.InvalidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(RecursiveAnchorUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.InvalidDefinition.Core.RecursiveAnchorValue(result);
+                        return new  DefsFeature.ValidDefinition.Core.RecursiveAnchorValue(result);
                     }
                 }
 
@@ -450,7 +450,7 @@ namespace DefsFeature.InvalidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.InvalidDefinition.Core.VocabularyValue Vocabulary
+        public DefsFeature.ValidDefinition.Core.VocabularyValue Vocabulary
         {
             get
             {
@@ -466,7 +466,7 @@ namespace DefsFeature.InvalidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(VocabularyUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.InvalidDefinition.Core.VocabularyValue(result);
+                        return new  DefsFeature.ValidDefinition.Core.VocabularyValue(result);
                     }
                 }
 
@@ -520,7 +520,7 @@ namespace DefsFeature.InvalidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.InvalidDefinition.Core.DefsValue Defs
+        public DefsFeature.ValidDefinition.Core.DefsValue Defs
         {
             get
             {
@@ -536,7 +536,7 @@ namespace DefsFeature.InvalidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(DefsUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.InvalidDefinition.Core.DefsValue(result);
+                        return new  DefsFeature.ValidDefinition.Core.DefsValue(result);
                     }
                 }
 
@@ -820,7 +820,7 @@ namespace DefsFeature.InvalidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Core WithId(DefsFeature.InvalidDefinition.Core.IdValue value)
+        public Core WithId(DefsFeature.ValidDefinition.Core.IdValue value)
         {
             return this.SetProperty(IdJsonPropertyName, value);
         }
@@ -842,7 +842,7 @@ namespace DefsFeature.InvalidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Core WithAnchor(DefsFeature.InvalidDefinition.Core.AnchorValue value)
+        public Core WithAnchor(DefsFeature.ValidDefinition.Core.AnchorValue value)
         {
             return this.SetProperty(AnchorJsonPropertyName, value);
         }
@@ -875,7 +875,7 @@ namespace DefsFeature.InvalidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Core WithRecursiveAnchor(DefsFeature.InvalidDefinition.Core.RecursiveAnchorValue value)
+        public Core WithRecursiveAnchor(DefsFeature.ValidDefinition.Core.RecursiveAnchorValue value)
         {
             return this.SetProperty(RecursiveAnchorJsonPropertyName, value);
         }
@@ -886,7 +886,7 @@ namespace DefsFeature.InvalidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Core WithVocabulary(DefsFeature.InvalidDefinition.Core.VocabularyValue value)
+        public Core WithVocabulary(DefsFeature.ValidDefinition.Core.VocabularyValue value)
         {
             return this.SetProperty(VocabularyJsonPropertyName, value);
         }
@@ -908,7 +908,7 @@ namespace DefsFeature.InvalidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Core WithDefs(DefsFeature.InvalidDefinition.Core.DefsValue value)
+        public Core WithDefs(DefsFeature.ValidDefinition.Core.DefsValue value)
         {
             return this.SetProperty(DefsJsonPropertyName, value);
         }
@@ -4461,7 +4461,7 @@ namespace DefsFeature.InvalidDefinition
         
                         if (!result.HasEvaluatedLocalProperty(propertyName))
                 {
-                    result = property.ValueAs<DefsFeature.InvalidDefinition.Schema>().Validate(result, level);
+                    result = property.ValueAs<DefsFeature.ValidDefinition.Schema>().Validate(result, level);
                     if (level == ValidationLevel.Flag && !result.IsValid)
                     {
                         return result;

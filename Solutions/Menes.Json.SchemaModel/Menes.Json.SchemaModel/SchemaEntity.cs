@@ -108,7 +108,7 @@ namespace ");
         #line hidden
         
         #line 40 "SchemaEntity.tt"
-        this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.FullyQualifiedDotnetTypeName ));
+        this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
@@ -149,7 +149,7 @@ namespace ");
         #line hidden
         
         #line 48 "SchemaEntity.tt"
-        this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.FullyQualifiedDotnetTypeName ));
+        this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
@@ -204,7 +204,7 @@ namespace ");
         #line hidden
         
         #line 60 "SchemaEntity.tt"
-        this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.FullyQualifiedDotnetTypeName ));
+        this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
@@ -7888,7 +7888,7 @@ namespace ");
         #line hidden
         
         #line 2829 "SchemaEntity.tt"
-        this.Write("                , __MenesEnumValues.Item");
+        this.Write("                , EnumValues.Item");
         
         #line default
         #line hidden
@@ -13654,21 +13654,21 @@ namespace ");
 
     if (HasEnum)
     {
-        int enumItemIndex = 0;
     
         
         #line default
         #line hidden
         
-        #line 5091 "SchemaEntity.tt"
+        #line 5090 "SchemaEntity.tt"
         this.Write("        \r\n        /// <summary>\r\n        /// Permitted values.\r\n        /// </sum" +
-                "mary>\r\n        public static class __MenesEnumValues\r\n        {\r\n        ");
+                "mary>\r\n        public static class EnumValues\r\n        {\r\n        ");
         
         #line default
         #line hidden
         
-        #line 5097 "SchemaEntity.tt"
+        #line 5096 "SchemaEntity.tt"
 
+        int enumItemIndex = 0;
         foreach (var enumValue in EnumValues)
         {
         
@@ -13692,39 +13692,27 @@ namespace ");
         #line hidden
         
         #line 5105 "SchemaEntity.tt"
-        this.Write("            /// <summary>\r\n            /// [{Title} || Item ");
-        
-        #line default
-        #line hidden
-        
-        #line 5106 "SchemaEntity.tt"
-        this.Write(this.ToStringHelper.ToStringWithCulture(     enumItemIndex));
-        
-        #line default
-        #line hidden
-        
-        #line 5106 "SchemaEntity.tt"
-        this.Write("] (with predictable naming).\r\n            /// </summary>\r\n            /// <remark" +
-                "s>\r\n            /// {Description}.\r\n            /// </remarks>\r\n            inte" +
-                "rnal static readonly ");
+        this.Write("            /// <summary>\r\n            /// enumValue.AsPropertyName.\r\n           " +
+                " /// </summary>\r\n            /// <remarks>\r\n            /// {Description}.\r\n    " +
+                "        /// </remarks>\r\n            public static readonly ");
         
         #line default
         #line hidden
         
         #line 5111 "SchemaEntity.tt"
-        this.Write(this.ToStringHelper.ToStringWithCulture(     TypeDeclaration.DotnetTypeName ));
+        this.Write(this.ToStringHelper.ToStringWithCulture(                    TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
         #line 5111 "SchemaEntity.tt"
-        this.Write(" Item");
+        this.Write(" ");
         
         #line default
         #line hidden
         
         #line 5111 "SchemaEntity.tt"
-        this.Write(this.ToStringHelper.ToStringWithCulture(     enumItemIndex));
+        this.Write(this.ToStringHelper.ToStringWithCulture(                    enumValue.AsPropertyName));
         
         #line default
         #line hidden
@@ -13736,7 +13724,7 @@ namespace ");
         #line hidden
         
         #line 5111 "SchemaEntity.tt"
-        this.Write(this.ToStringHelper.ToStringWithCulture(     enumValue.SerializedValue ));
+        this.Write(this.ToStringHelper.ToStringWithCulture(                    enumValue.SerializedValue ));
         
         #line default
         #line hidden
@@ -14004,13 +13992,110 @@ namespace ");
         #line hidden
         
         #line 5145 "SchemaEntity.tt"
-        this.Write("        ");
+        this.Write("\r\n        ");
         
         #line default
         #line hidden
         
-        #line 5145 "SchemaEntity.tt"
+        #line 5146 "SchemaEntity.tt"
 
+            ++enumItemIndex;
+        }
+        
+        
+        #line default
+        #line hidden
+        
+        #line 5150 "SchemaEntity.tt"
+        this.Write("\r\n\r\n        ");
+        
+        #line default
+        #line hidden
+        
+        #line 5152 "SchemaEntity.tt"
+
+        enumItemIndex = 0;
+        foreach (var enumValue in EnumValues)
+        {
+        
+        
+        #line default
+        #line hidden
+        
+        #line 5157 "SchemaEntity.tt"
+        this.Write("            ");
+        
+        #line default
+        #line hidden
+        
+        #line 5157 "SchemaEntity.tt"
+
+            if (enumValue.IsString)
+            {
+            
+        
+        #line default
+        #line hidden
+        
+        #line 5161 "SchemaEntity.tt"
+        this.Write("            /// <summary>\r\n            /// [{Title} || Item ");
+        
+        #line default
+        #line hidden
+        
+        #line 5162 "SchemaEntity.tt"
+        this.Write(this.ToStringHelper.ToStringWithCulture(     enumItemIndex));
+        
+        #line default
+        #line hidden
+        
+        #line 5162 "SchemaEntity.tt"
+        this.Write("] (with predictable naming).\r\n            /// </summary>\r\n            /// <remark" +
+                "s>\r\n            /// {Description}.\r\n            /// </remarks>\r\n            inte" +
+                "rnal static readonly ");
+        
+        #line default
+        #line hidden
+        
+        #line 5167 "SchemaEntity.tt"
+        this.Write(this.ToStringHelper.ToStringWithCulture(     TypeDeclaration.DotnetTypeName ));
+        
+        #line default
+        #line hidden
+        
+        #line 5167 "SchemaEntity.tt"
+        this.Write(" Item");
+        
+        #line default
+        #line hidden
+        
+        #line 5167 "SchemaEntity.tt"
+        this.Write(this.ToStringHelper.ToStringWithCulture(     enumItemIndex));
+        
+        #line default
+        #line hidden
+        
+        #line 5167 "SchemaEntity.tt"
+        this.Write(" = JsonAny.Parse(");
+        
+        #line default
+        #line hidden
+        
+        #line 5167 "SchemaEntity.tt"
+        this.Write(this.ToStringHelper.ToStringWithCulture(     enumValue.SerializedValue ));
+        
+        #line default
+        #line hidden
+        
+        #line 5167 "SchemaEntity.tt"
+        this.Write(");\r\n            ");
+        
+        #line default
+        #line hidden
+        
+        #line 5168 "SchemaEntity.tt"
+
+            }
             enumItemIndex++;
         }
         
@@ -14018,13 +14103,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5149 "SchemaEntity.tt"
+        #line 5173 "SchemaEntity.tt"
         this.Write("        }\r\n    ");
         
         #line default
         #line hidden
         
-        #line 5150 "SchemaEntity.tt"
+        #line 5174 "SchemaEntity.tt"
 
     }
     
@@ -14032,13 +14117,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5153 "SchemaEntity.tt"
+        #line 5177 "SchemaEntity.tt"
         this.Write("\r\n    ");
         
         #line default
         #line hidden
         
-        #line 5154 "SchemaEntity.tt"
+        #line 5178 "SchemaEntity.tt"
 
     foreach(var nestedType in NestedTypes)
     {
@@ -14047,25 +14132,25 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5158 "SchemaEntity.tt"
+        #line 5182 "SchemaEntity.tt"
         this.Write("\r\n    ");
         
         #line default
         #line hidden
         
-        #line 5159 "SchemaEntity.tt"
+        #line 5183 "SchemaEntity.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( WriteNestedType(nestedType) ));
         
         #line default
         #line hidden
         
-        #line 5159 "SchemaEntity.tt"
+        #line 5183 "SchemaEntity.tt"
         this.Write("\r\n\r\n    ");
         
         #line default
         #line hidden
         
-        #line 5161 "SchemaEntity.tt"
+        #line 5185 "SchemaEntity.tt"
 
     }
     
@@ -14073,13 +14158,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5164 "SchemaEntity.tt"
+        #line 5188 "SchemaEntity.tt"
         this.Write("\r\n    }\r\n    ");
         
         #line default
         #line hidden
         
-        #line 5166 "SchemaEntity.tt"
+        #line 5190 "SchemaEntity.tt"
 
     if (!IsNested)
     {
@@ -14088,13 +14173,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5170 "SchemaEntity.tt"
+        #line 5194 "SchemaEntity.tt"
         this.Write("}\r\n    ");
         
         #line default
         #line hidden
         
-        #line 5171 "SchemaEntity.tt"
+        #line 5195 "SchemaEntity.tt"
 
     }
     

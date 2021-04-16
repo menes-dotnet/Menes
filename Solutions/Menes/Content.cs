@@ -10,7 +10,7 @@
 
 #nullable enable
 
-namespace DefsFeature.InvalidDefinition
+namespace DefsFeature.ValidDefinition
 {
     using System;
     using System.Collections.Generic;
@@ -243,7 +243,7 @@ namespace DefsFeature.InvalidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.InvalidDefinition.Schema ContentSchema
+        public DefsFeature.ValidDefinition.Schema ContentSchema
         {
             get
             {
@@ -259,7 +259,7 @@ namespace DefsFeature.InvalidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(ContentSchemaUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.InvalidDefinition.Schema(result);
+                        return new  DefsFeature.ValidDefinition.Schema(result);
                     }
                 }
 
@@ -565,7 +565,7 @@ namespace DefsFeature.InvalidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Content WithContentSchema(DefsFeature.InvalidDefinition.Schema value)
+        public Content WithContentSchema(DefsFeature.ValidDefinition.Schema value)
         {
             return this.SetProperty(ContentSchemaJsonPropertyName, value);
         }

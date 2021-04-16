@@ -10,7 +10,7 @@
 
 #nullable enable
 
-namespace DefsFeature.InvalidDefinition
+namespace DefsFeature.ValidDefinition
 {
     using System;
     using System.Collections.Generic;
@@ -328,7 +328,7 @@ namespace DefsFeature.InvalidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.InvalidDefinition.Schema AdditionalItems
+        public DefsFeature.ValidDefinition.Schema AdditionalItems
         {
             get
             {
@@ -344,7 +344,7 @@ namespace DefsFeature.InvalidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(AdditionalItemsUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.InvalidDefinition.Schema(result);
+                        return new  DefsFeature.ValidDefinition.Schema(result);
                     }
                 }
 
@@ -363,7 +363,7 @@ namespace DefsFeature.InvalidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.InvalidDefinition.Schema UnevaluatedItems
+        public DefsFeature.ValidDefinition.Schema UnevaluatedItems
         {
             get
             {
@@ -379,7 +379,7 @@ namespace DefsFeature.InvalidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(UnevaluatedItemsUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.InvalidDefinition.Schema(result);
+                        return new  DefsFeature.ValidDefinition.Schema(result);
                     }
                 }
 
@@ -398,7 +398,7 @@ namespace DefsFeature.InvalidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.InvalidDefinition.Applicator.ItemsEntity Items
+        public DefsFeature.ValidDefinition.Applicator.ItemsEntity Items
         {
             get
             {
@@ -414,7 +414,7 @@ namespace DefsFeature.InvalidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(ItemsUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.InvalidDefinition.Applicator.ItemsEntity(result);
+                        return new  DefsFeature.ValidDefinition.Applicator.ItemsEntity(result);
                     }
                 }
 
@@ -433,7 +433,7 @@ namespace DefsFeature.InvalidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.InvalidDefinition.Schema Contains
+        public DefsFeature.ValidDefinition.Schema Contains
         {
             get
             {
@@ -449,7 +449,7 @@ namespace DefsFeature.InvalidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(ContainsUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.InvalidDefinition.Schema(result);
+                        return new  DefsFeature.ValidDefinition.Schema(result);
                     }
                 }
 
@@ -468,7 +468,7 @@ namespace DefsFeature.InvalidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.InvalidDefinition.Schema AdditionalProperties
+        public DefsFeature.ValidDefinition.Schema AdditionalProperties
         {
             get
             {
@@ -484,7 +484,7 @@ namespace DefsFeature.InvalidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(AdditionalPropertiesUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.InvalidDefinition.Schema(result);
+                        return new  DefsFeature.ValidDefinition.Schema(result);
                     }
                 }
 
@@ -503,7 +503,7 @@ namespace DefsFeature.InvalidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.InvalidDefinition.Schema UnevaluatedProperties
+        public DefsFeature.ValidDefinition.Schema UnevaluatedProperties
         {
             get
             {
@@ -519,7 +519,7 @@ namespace DefsFeature.InvalidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(UnevaluatedPropertiesUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.InvalidDefinition.Schema(result);
+                        return new  DefsFeature.ValidDefinition.Schema(result);
                     }
                 }
 
@@ -538,7 +538,7 @@ namespace DefsFeature.InvalidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.InvalidDefinition.Applicator.PropertiesValue Properties
+        public DefsFeature.ValidDefinition.Applicator.PropertiesValue Properties
         {
             get
             {
@@ -554,7 +554,7 @@ namespace DefsFeature.InvalidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(PropertiesUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.InvalidDefinition.Applicator.PropertiesValue(result);
+                        return new  DefsFeature.ValidDefinition.Applicator.PropertiesValue(result);
                     }
                 }
 
@@ -573,7 +573,7 @@ namespace DefsFeature.InvalidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.InvalidDefinition.Applicator.PatternPropertiesValue PatternProperties
+        public DefsFeature.ValidDefinition.Applicator.PatternPropertiesValue PatternProperties
         {
             get
             {
@@ -589,7 +589,7 @@ namespace DefsFeature.InvalidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(PatternPropertiesUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.InvalidDefinition.Applicator.PatternPropertiesValue(result);
+                        return new  DefsFeature.ValidDefinition.Applicator.PatternPropertiesValue(result);
                     }
                 }
 
@@ -608,7 +608,7 @@ namespace DefsFeature.InvalidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.InvalidDefinition.Applicator.DependentSchemasValue DependentSchemas
+        public DefsFeature.ValidDefinition.Applicator.DependentSchemasValue DependentSchemas
         {
             get
             {
@@ -624,7 +624,7 @@ namespace DefsFeature.InvalidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(DependentSchemasUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.InvalidDefinition.Applicator.DependentSchemasValue(result);
+                        return new  DefsFeature.ValidDefinition.Applicator.DependentSchemasValue(result);
                     }
                 }
 
@@ -643,7 +643,7 @@ namespace DefsFeature.InvalidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.InvalidDefinition.Schema PropertyNames
+        public DefsFeature.ValidDefinition.Schema PropertyNames
         {
             get
             {
@@ -659,7 +659,7 @@ namespace DefsFeature.InvalidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(PropertyNamesUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.InvalidDefinition.Schema(result);
+                        return new  DefsFeature.ValidDefinition.Schema(result);
                     }
                 }
 
@@ -678,7 +678,7 @@ namespace DefsFeature.InvalidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.InvalidDefinition.Schema If
+        public DefsFeature.ValidDefinition.Schema If
         {
             get
             {
@@ -694,7 +694,7 @@ namespace DefsFeature.InvalidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(IfUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.InvalidDefinition.Schema(result);
+                        return new  DefsFeature.ValidDefinition.Schema(result);
                     }
                 }
 
@@ -713,7 +713,7 @@ namespace DefsFeature.InvalidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.InvalidDefinition.Schema Then
+        public DefsFeature.ValidDefinition.Schema Then
         {
             get
             {
@@ -729,7 +729,7 @@ namespace DefsFeature.InvalidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(ThenUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.InvalidDefinition.Schema(result);
+                        return new  DefsFeature.ValidDefinition.Schema(result);
                     }
                 }
 
@@ -748,7 +748,7 @@ namespace DefsFeature.InvalidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.InvalidDefinition.Schema Else
+        public DefsFeature.ValidDefinition.Schema Else
         {
             get
             {
@@ -764,7 +764,7 @@ namespace DefsFeature.InvalidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(ElseUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.InvalidDefinition.Schema(result);
+                        return new  DefsFeature.ValidDefinition.Schema(result);
                     }
                 }
 
@@ -783,7 +783,7 @@ namespace DefsFeature.InvalidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.InvalidDefinition.Applicator.SchemaArray AllOf
+        public DefsFeature.ValidDefinition.Applicator.SchemaArray AllOf
         {
             get
             {
@@ -799,7 +799,7 @@ namespace DefsFeature.InvalidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(AllOfUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.InvalidDefinition.Applicator.SchemaArray(result);
+                        return new  DefsFeature.ValidDefinition.Applicator.SchemaArray(result);
                     }
                 }
 
@@ -818,7 +818,7 @@ namespace DefsFeature.InvalidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.InvalidDefinition.Applicator.SchemaArray AnyOf
+        public DefsFeature.ValidDefinition.Applicator.SchemaArray AnyOf
         {
             get
             {
@@ -834,7 +834,7 @@ namespace DefsFeature.InvalidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(AnyOfUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.InvalidDefinition.Applicator.SchemaArray(result);
+                        return new  DefsFeature.ValidDefinition.Applicator.SchemaArray(result);
                     }
                 }
 
@@ -853,7 +853,7 @@ namespace DefsFeature.InvalidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.InvalidDefinition.Applicator.SchemaArray OneOf
+        public DefsFeature.ValidDefinition.Applicator.SchemaArray OneOf
         {
             get
             {
@@ -869,7 +869,7 @@ namespace DefsFeature.InvalidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(OneOfUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.InvalidDefinition.Applicator.SchemaArray(result);
+                        return new  DefsFeature.ValidDefinition.Applicator.SchemaArray(result);
                     }
                 }
 
@@ -888,7 +888,7 @@ namespace DefsFeature.InvalidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.InvalidDefinition.Schema Not
+        public DefsFeature.ValidDefinition.Schema Not
         {
             get
             {
@@ -904,7 +904,7 @@ namespace DefsFeature.InvalidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(NotUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.InvalidDefinition.Schema(result);
+                        return new  DefsFeature.ValidDefinition.Schema(result);
                     }
                 }
 
@@ -1188,7 +1188,7 @@ namespace DefsFeature.InvalidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Applicator WithAdditionalItems(DefsFeature.InvalidDefinition.Schema value)
+        public Applicator WithAdditionalItems(DefsFeature.ValidDefinition.Schema value)
         {
             return this.SetProperty(AdditionalItemsJsonPropertyName, value);
         }
@@ -1199,7 +1199,7 @@ namespace DefsFeature.InvalidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Applicator WithUnevaluatedItems(DefsFeature.InvalidDefinition.Schema value)
+        public Applicator WithUnevaluatedItems(DefsFeature.ValidDefinition.Schema value)
         {
             return this.SetProperty(UnevaluatedItemsJsonPropertyName, value);
         }
@@ -1210,7 +1210,7 @@ namespace DefsFeature.InvalidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Applicator WithItems(DefsFeature.InvalidDefinition.Applicator.ItemsEntity value)
+        public Applicator WithItems(DefsFeature.ValidDefinition.Applicator.ItemsEntity value)
         {
             return this.SetProperty(ItemsJsonPropertyName, value);
         }
@@ -1221,7 +1221,7 @@ namespace DefsFeature.InvalidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Applicator WithContains(DefsFeature.InvalidDefinition.Schema value)
+        public Applicator WithContains(DefsFeature.ValidDefinition.Schema value)
         {
             return this.SetProperty(ContainsJsonPropertyName, value);
         }
@@ -1232,7 +1232,7 @@ namespace DefsFeature.InvalidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Applicator WithAdditionalProperties(DefsFeature.InvalidDefinition.Schema value)
+        public Applicator WithAdditionalProperties(DefsFeature.ValidDefinition.Schema value)
         {
             return this.SetProperty(AdditionalPropertiesJsonPropertyName, value);
         }
@@ -1243,7 +1243,7 @@ namespace DefsFeature.InvalidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Applicator WithUnevaluatedProperties(DefsFeature.InvalidDefinition.Schema value)
+        public Applicator WithUnevaluatedProperties(DefsFeature.ValidDefinition.Schema value)
         {
             return this.SetProperty(UnevaluatedPropertiesJsonPropertyName, value);
         }
@@ -1254,7 +1254,7 @@ namespace DefsFeature.InvalidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Applicator WithProperties(DefsFeature.InvalidDefinition.Applicator.PropertiesValue value)
+        public Applicator WithProperties(DefsFeature.ValidDefinition.Applicator.PropertiesValue value)
         {
             return this.SetProperty(PropertiesJsonPropertyName, value);
         }
@@ -1265,7 +1265,7 @@ namespace DefsFeature.InvalidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Applicator WithPatternProperties(DefsFeature.InvalidDefinition.Applicator.PatternPropertiesValue value)
+        public Applicator WithPatternProperties(DefsFeature.ValidDefinition.Applicator.PatternPropertiesValue value)
         {
             return this.SetProperty(PatternPropertiesJsonPropertyName, value);
         }
@@ -1276,7 +1276,7 @@ namespace DefsFeature.InvalidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Applicator WithDependentSchemas(DefsFeature.InvalidDefinition.Applicator.DependentSchemasValue value)
+        public Applicator WithDependentSchemas(DefsFeature.ValidDefinition.Applicator.DependentSchemasValue value)
         {
             return this.SetProperty(DependentSchemasJsonPropertyName, value);
         }
@@ -1287,7 +1287,7 @@ namespace DefsFeature.InvalidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Applicator WithPropertyNames(DefsFeature.InvalidDefinition.Schema value)
+        public Applicator WithPropertyNames(DefsFeature.ValidDefinition.Schema value)
         {
             return this.SetProperty(PropertyNamesJsonPropertyName, value);
         }
@@ -1298,7 +1298,7 @@ namespace DefsFeature.InvalidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Applicator WithIf(DefsFeature.InvalidDefinition.Schema value)
+        public Applicator WithIf(DefsFeature.ValidDefinition.Schema value)
         {
             return this.SetProperty(IfJsonPropertyName, value);
         }
@@ -1309,7 +1309,7 @@ namespace DefsFeature.InvalidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Applicator WithThen(DefsFeature.InvalidDefinition.Schema value)
+        public Applicator WithThen(DefsFeature.ValidDefinition.Schema value)
         {
             return this.SetProperty(ThenJsonPropertyName, value);
         }
@@ -1320,7 +1320,7 @@ namespace DefsFeature.InvalidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Applicator WithElse(DefsFeature.InvalidDefinition.Schema value)
+        public Applicator WithElse(DefsFeature.ValidDefinition.Schema value)
         {
             return this.SetProperty(ElseJsonPropertyName, value);
         }
@@ -1331,7 +1331,7 @@ namespace DefsFeature.InvalidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Applicator WithAllOf(DefsFeature.InvalidDefinition.Applicator.SchemaArray value)
+        public Applicator WithAllOf(DefsFeature.ValidDefinition.Applicator.SchemaArray value)
         {
             return this.SetProperty(AllOfJsonPropertyName, value);
         }
@@ -1342,7 +1342,7 @@ namespace DefsFeature.InvalidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Applicator WithAnyOf(DefsFeature.InvalidDefinition.Applicator.SchemaArray value)
+        public Applicator WithAnyOf(DefsFeature.ValidDefinition.Applicator.SchemaArray value)
         {
             return this.SetProperty(AnyOfJsonPropertyName, value);
         }
@@ -1353,7 +1353,7 @@ namespace DefsFeature.InvalidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Applicator WithOneOf(DefsFeature.InvalidDefinition.Applicator.SchemaArray value)
+        public Applicator WithOneOf(DefsFeature.ValidDefinition.Applicator.SchemaArray value)
         {
             return this.SetProperty(OneOfJsonPropertyName, value);
         }
@@ -1364,7 +1364,7 @@ namespace DefsFeature.InvalidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Applicator WithNot(DefsFeature.InvalidDefinition.Schema value)
+        public Applicator WithNot(DefsFeature.ValidDefinition.Schema value)
         {
             return this.SetProperty(NotJsonPropertyName, value);
         }
@@ -2141,8 +2141,8 @@ namespace DefsFeature.InvalidDefinition
             /// <summary>
         /// Initializes a new instance of the <see cref="ItemsEntity"/> struct.
         /// </summary>
-        /// <param name="conversion">The <see cref="DefsFeature.InvalidDefinition.Schema"/> from which to construct the value.</param>
-        public ItemsEntity(DefsFeature.InvalidDefinition.Schema conversion)
+        /// <param name="conversion">The <see cref="DefsFeature.ValidDefinition.Schema"/> from which to construct the value.</param>
+        public ItemsEntity(DefsFeature.ValidDefinition.Schema conversion)
         {
             if (conversion.HasJsonElement)
             {
@@ -2178,8 +2178,8 @@ namespace DefsFeature.InvalidDefinition
             /// <summary>
         /// Initializes a new instance of the <see cref="ItemsEntity"/> struct.
         /// </summary>
-        /// <param name="conversion">The <see cref="DefsFeature.InvalidDefinition.Applicator.SchemaArray"/> from which to construct the value.</param>
-        public ItemsEntity(DefsFeature.InvalidDefinition.Applicator.SchemaArray conversion)
+        /// <param name="conversion">The <see cref="DefsFeature.ValidDefinition.Applicator.SchemaArray"/> from which to construct the value.</param>
+        public ItemsEntity(DefsFeature.ValidDefinition.Applicator.SchemaArray conversion)
         {
             if (conversion.HasJsonElement)
             {
@@ -2408,153 +2408,153 @@ namespace DefsFeature.InvalidDefinition
         }
 
             /// <summary>
-        /// Conversion from DefsFeature.InvalidDefinition.Schema.
+        /// Conversion from DefsFeature.ValidDefinition.Schema.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator ItemsEntity(DefsFeature.InvalidDefinition.Schema value)
+        public static implicit operator ItemsEntity(DefsFeature.ValidDefinition.Schema value)
         {
             return new ItemsEntity(value);
         }
 
         /// <summary>
-        /// Conversion to DefsFeature.InvalidDefinition.Schema.
+        /// Conversion to DefsFeature.ValidDefinition.Schema.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator DefsFeature.InvalidDefinition.Schema(ItemsEntity value)
+        public static implicit operator DefsFeature.ValidDefinition.Schema(ItemsEntity value)
         {
                     if (value.ValueKind == JsonValueKind.Object)
             {
-                return new DefsFeature.InvalidDefinition.Schema(value.AsObject);
+                return new DefsFeature.ValidDefinition.Schema(value.AsObject);
             }
                                             if (value.ValueKind == JsonValueKind.True || value.ValueKind == JsonValueKind.False)
             {
-                return new DefsFeature.InvalidDefinition.Schema(value.AsBoolean);
+                return new DefsFeature.ValidDefinition.Schema(value.AsBoolean);
             }
                             return default;
         }
             /// <summary>
-        /// Conversion from DefsFeature.InvalidDefinition.Applicator.SchemaArray.
+        /// Conversion from DefsFeature.ValidDefinition.Applicator.SchemaArray.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator ItemsEntity(DefsFeature.InvalidDefinition.Applicator.SchemaArray value)
+        public static implicit operator ItemsEntity(DefsFeature.ValidDefinition.Applicator.SchemaArray value)
         {
             return new ItemsEntity(value);
         }
 
         /// <summary>
-        /// Conversion to DefsFeature.InvalidDefinition.Applicator.SchemaArray.
+        /// Conversion to DefsFeature.ValidDefinition.Applicator.SchemaArray.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator DefsFeature.InvalidDefinition.Applicator.SchemaArray(ItemsEntity value)
+        public static implicit operator DefsFeature.ValidDefinition.Applicator.SchemaArray(ItemsEntity value)
         {
                             if (value.ValueKind == JsonValueKind.Array)
             {
-                return new DefsFeature.InvalidDefinition.Applicator.SchemaArray(value.AsArray);
+                return new DefsFeature.ValidDefinition.Applicator.SchemaArray(value.AsArray);
             }
                                             return default;
         }
     
                 /// <summary>
-        /// Conversion from DefsFeature.InvalidDefinition.Core.
+        /// Conversion from DefsFeature.ValidDefinition.Core.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator ItemsEntity(DefsFeature.InvalidDefinition.Core value)
+        public static implicit operator ItemsEntity(DefsFeature.ValidDefinition.Core value)
         {
-            return (DefsFeature.InvalidDefinition.Applicator.ItemsEntity)value;
+            return (DefsFeature.ValidDefinition.Applicator.ItemsEntity)value;
         }
 
         /// <summary>
-        /// Conversion to DefsFeature.InvalidDefinition.Core.
+        /// Conversion to DefsFeature.ValidDefinition.Core.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator DefsFeature.InvalidDefinition.Core(ItemsEntity value)
+        public static implicit operator DefsFeature.ValidDefinition.Core(ItemsEntity value)
         {
-            return (DefsFeature.InvalidDefinition.Applicator.ItemsEntity)value;
+            return (DefsFeature.ValidDefinition.Applicator.ItemsEntity)value;
         }
             /// <summary>
-        /// Conversion from DefsFeature.InvalidDefinition.Applicator.
+        /// Conversion from DefsFeature.ValidDefinition.Applicator.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator ItemsEntity(DefsFeature.InvalidDefinition.Applicator value)
+        public static implicit operator ItemsEntity(DefsFeature.ValidDefinition.Applicator value)
         {
-            return (DefsFeature.InvalidDefinition.Applicator.ItemsEntity)value;
+            return (DefsFeature.ValidDefinition.Applicator.ItemsEntity)value;
         }
 
         /// <summary>
-        /// Conversion to DefsFeature.InvalidDefinition.Applicator.
+        /// Conversion to DefsFeature.ValidDefinition.Applicator.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator DefsFeature.InvalidDefinition.Applicator(ItemsEntity value)
+        public static implicit operator DefsFeature.ValidDefinition.Applicator(ItemsEntity value)
         {
-            return (DefsFeature.InvalidDefinition.Applicator.ItemsEntity)value;
+            return (DefsFeature.ValidDefinition.Applicator.ItemsEntity)value;
         }
             /// <summary>
-        /// Conversion from DefsFeature.InvalidDefinition.Validation.
+        /// Conversion from DefsFeature.ValidDefinition.Validation.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator ItemsEntity(DefsFeature.InvalidDefinition.Validation value)
+        public static implicit operator ItemsEntity(DefsFeature.ValidDefinition.Validation value)
         {
-            return (DefsFeature.InvalidDefinition.Applicator.ItemsEntity)value;
+            return (DefsFeature.ValidDefinition.Applicator.ItemsEntity)value;
         }
 
         /// <summary>
-        /// Conversion to DefsFeature.InvalidDefinition.Validation.
+        /// Conversion to DefsFeature.ValidDefinition.Validation.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator DefsFeature.InvalidDefinition.Validation(ItemsEntity value)
+        public static implicit operator DefsFeature.ValidDefinition.Validation(ItemsEntity value)
         {
-            return (DefsFeature.InvalidDefinition.Applicator.ItemsEntity)value;
+            return (DefsFeature.ValidDefinition.Applicator.ItemsEntity)value;
         }
             /// <summary>
-        /// Conversion from DefsFeature.InvalidDefinition.MetaData.
+        /// Conversion from DefsFeature.ValidDefinition.MetaData.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator ItemsEntity(DefsFeature.InvalidDefinition.MetaData value)
+        public static implicit operator ItemsEntity(DefsFeature.ValidDefinition.MetaData value)
         {
-            return (DefsFeature.InvalidDefinition.Applicator.ItemsEntity)value;
+            return (DefsFeature.ValidDefinition.Applicator.ItemsEntity)value;
         }
 
         /// <summary>
-        /// Conversion to DefsFeature.InvalidDefinition.MetaData.
+        /// Conversion to DefsFeature.ValidDefinition.MetaData.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator DefsFeature.InvalidDefinition.MetaData(ItemsEntity value)
+        public static implicit operator DefsFeature.ValidDefinition.MetaData(ItemsEntity value)
         {
-            return (DefsFeature.InvalidDefinition.Applicator.ItemsEntity)value;
+            return (DefsFeature.ValidDefinition.Applicator.ItemsEntity)value;
         }
             /// <summary>
-        /// Conversion from DefsFeature.InvalidDefinition.Format.
+        /// Conversion from DefsFeature.ValidDefinition.Format.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator ItemsEntity(DefsFeature.InvalidDefinition.Format value)
+        public static implicit operator ItemsEntity(DefsFeature.ValidDefinition.Format value)
         {
-            return (DefsFeature.InvalidDefinition.Applicator.ItemsEntity)value;
+            return (DefsFeature.ValidDefinition.Applicator.ItemsEntity)value;
         }
 
         /// <summary>
-        /// Conversion to DefsFeature.InvalidDefinition.Format.
+        /// Conversion to DefsFeature.ValidDefinition.Format.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator DefsFeature.InvalidDefinition.Format(ItemsEntity value)
+        public static implicit operator DefsFeature.ValidDefinition.Format(ItemsEntity value)
         {
-            return (DefsFeature.InvalidDefinition.Applicator.ItemsEntity)value;
+            return (DefsFeature.ValidDefinition.Applicator.ItemsEntity)value;
         }
             /// <summary>
-        /// Conversion from DefsFeature.InvalidDefinition.Content.
+        /// Conversion from DefsFeature.ValidDefinition.Content.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator ItemsEntity(DefsFeature.InvalidDefinition.Content value)
+        public static implicit operator ItemsEntity(DefsFeature.ValidDefinition.Content value)
         {
-            return (DefsFeature.InvalidDefinition.Applicator.ItemsEntity)value;
+            return (DefsFeature.ValidDefinition.Applicator.ItemsEntity)value;
         }
 
         /// <summary>
-        /// Conversion to DefsFeature.InvalidDefinition.Content.
+        /// Conversion to DefsFeature.ValidDefinition.Content.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator DefsFeature.InvalidDefinition.Content(ItemsEntity value)
+        public static implicit operator DefsFeature.ValidDefinition.Content(ItemsEntity value)
         {
-            return (DefsFeature.InvalidDefinition.Applicator.ItemsEntity)value;
+            return (DefsFeature.ValidDefinition.Applicator.ItemsEntity)value;
         }
     
         /// <summary>
@@ -3106,7 +3106,7 @@ namespace DefsFeature.InvalidDefinition
 
                 
 
-            ValidationContext anyOfResult0 = this.As<DefsFeature.InvalidDefinition.Schema>().Validate(validationContext.CreateChildContext(), level);
+            ValidationContext anyOfResult0 = this.As<DefsFeature.ValidDefinition.Schema>().Validate(validationContext.CreateChildContext(), level);
 
             if (anyOfResult0.IsValid)
             {
@@ -3134,7 +3134,7 @@ namespace DefsFeature.InvalidDefinition
 
                 
 
-            ValidationContext anyOfResult1 = this.As<DefsFeature.InvalidDefinition.Applicator.SchemaArray>().Validate(validationContext.CreateChildContext(), level);
+            ValidationContext anyOfResult1 = this.As<DefsFeature.ValidDefinition.Applicator.SchemaArray>().Validate(validationContext.CreateChildContext(), level);
 
             if (anyOfResult1.IsValid)
             {
@@ -3196,621 +3196,6 @@ namespace DefsFeature.InvalidDefinition
     
     
     
-    
-    
-    
-    }
-    
-
-    
-    
-        /// <summary>
-    /// A type generated from a JsonSchema specification.
-    /// </summary>
-    public readonly struct SchemaArray :
-                IJsonArray<SchemaArray>,
-                IEquatable<SchemaArray>
-    {
-    
-    
-    
-    
-    
-    
-    
-
-    
-        private readonly JsonElement jsonElementBacking;
-
-    
-            private readonly ImmutableList<JsonAny>? arrayBacking;
-    
-    
-    
-    
-        /// <summary>
-        /// Initializes a new instance of the <see cref="SchemaArray"/> struct.
-        /// </summary>
-        /// <param name="value">The backing <see cref="JsonElement"/>.</param>
-        public SchemaArray(JsonElement value)
-        {
-            this.jsonElementBacking = value;
-                    this.arrayBacking = default;
-                        }
-
-    
-            /// <summary>
-        /// Initializes a new instance of the <see cref="SchemaArray"/> struct.
-        /// </summary>
-        /// <param name="value">An array list.</param>
-        public SchemaArray(ImmutableList<JsonAny> value)
-        {
-            this.jsonElementBacking = default;
-                                            this.arrayBacking = value;
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="SchemaArray"/> struct.
-        /// </summary>
-        /// <param name="jsonArray">The <see cref="JsonArray"/> from which to construct the value.</param>
-        public SchemaArray(JsonArray jsonArray)
-        {
-            if (jsonArray.HasJsonElement)
-            {
-                this.jsonElementBacking = jsonArray.AsJsonElement;
-                this.arrayBacking = default;
-            }
-            else
-            {
-                this.jsonElementBacking = default;
-                this.arrayBacking = jsonArray.AsItemsList;
-            }
-
-                                        }
-    
-    
-    
-    
-    
-    
-
-            /// <inheritdoc/>
-        public int Length
-        {
-            get
-            {
-                if (this.arrayBacking is ImmutableList<JsonAny> items)
-                {
-                    return items.Count;
-                }
-
-                return this.jsonElementBacking.GetArrayLength();
-            }
-        }
-    
-            /// <summary>
-        /// Gets a value indicating whether this is backed by a JSON element.
-        /// </summary>
-        public bool HasJsonElement =>
-    
-    
-                        this.arrayBacking is null
-                
-                ;
-
-        /// <summary>
-        /// Gets the value as a JsonElement.
-        /// </summary>
-        public JsonElement AsJsonElement
-        {
-            get
-            {
-    
-                    if (this.arrayBacking is ImmutableList<JsonAny> arrayBacking)
-                {
-                    return JsonArray.ItemsToJsonElement(arrayBacking);
-                }
-    
-    
-    
-    
-                return this.jsonElementBacking;
-            }
-        }
-
-        /// <inheritdoc/>
-        public JsonValueKind ValueKind
-        {
-            get
-            {
-    
-                    if (this.arrayBacking is ImmutableList<JsonAny>)
-                {
-                    return JsonValueKind.Array;
-                }
-
-    
-    
-    
-    
-                return this.jsonElementBacking.ValueKind;
-            }
-        }
-
-        /// <inheritdoc/>
-        public JsonAny AsAny
-        {
-            get
-            {
-    
-                    if (this.arrayBacking is ImmutableList<JsonAny> arrayBacking)
-                {
-                    return new JsonAny(arrayBacking);
-                }
-
-    
-    
-    
-    
-                return new JsonAny(this.jsonElementBacking);
-            }
-        }
-
-        /// <summary>
-        /// Gets the value as a <see cref="JsonObject"/>.
-        /// </summary>
-        public JsonObject AsObject
-        {
-            get
-            {
-    
-                return new JsonObject(this.jsonElementBacking);
-            }
-        }
-
-        /// <summary>
-        /// Gets the value as a <see cref="JsonArray"/>.
-        /// </summary>
-        public JsonArray AsArray
-        {
-            get
-            {
-                    if (this.arrayBacking is ImmutableList<JsonAny> arrayBacking)
-                {
-                    return new JsonArray(arrayBacking);
-                }
-
-    
-                return new JsonArray(this.jsonElementBacking);
-            }
-        }
-
-        /// <summary>
-        /// Gets the value as a <see cref="JsonNumber"/>.
-        /// </summary>
-        public JsonNumber AsNumber
-        {
-            get
-            {
-                    return new JsonNumber(this.jsonElementBacking);
-            }
-        }
-
-        /// <summary>
-        /// Gets the value as a <see cref="JsonString"/>.
-        /// </summary>
-        public JsonString AsString
-        {
-            get
-            {
-                    return new JsonString(this.jsonElementBacking);
-            }
-        }
-
-        /// <summary>
-        /// Gets the value as a <see cref="JsonBoolean"/>.
-        /// </summary>
-        public JsonBoolean AsBoolean
-        {
-            get
-            {
-                    return new JsonBoolean(this.jsonElementBacking);
-            }
-        }
-
-        /// <summary>
-        /// Gets the value as a <see cref="JsonNull"/>.
-        /// </summary>
-        public JsonNull AsNull
-        {
-            get
-            {
-                return default;
-            }
-        }
-
-    
-        
-        /// <summary>
-        /// Conversion from any.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator SchemaArray(JsonAny value)
-        {
-            if (value.HasJsonElement)
-            {
-                return new SchemaArray(value.AsJsonElement);
-            }
-
-            return value.As<SchemaArray>();
-        }
-
-        /// <summary>
-        /// Conversion to any.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator JsonAny(SchemaArray value)
-        {
-            return value.AsAny;
-        }
-
-    
-        /// <summary>
-        /// Conversion from array.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator SchemaArray(JsonArray value)
-        {
-            return new SchemaArray(value);
-        }
-
-        /// <summary>
-        /// Conversion to array.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator JsonArray(SchemaArray value)
-        {
-            return value.AsArray;
-        }
-       
-        /// <summary>
-        /// Implicit conversion to an <see cref="ImmutableList{T}"/> of <see cref="JsonAny"/>.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator ImmutableList<JsonAny>(SchemaArray value)
-        {
-            return value.AsArray.AsItemsList;
-        }
-
-        /// <summary>
-        /// Implicit conversion from an <see cref="ImmutableList{T}"/> of <see cref="JsonAny"/>.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator SchemaArray(ImmutableList<JsonAny> value)
-        {
-            return new SchemaArray(value);
-        }
-    
-    
-    
-    
-    
-    
-        /// <summary>
-        /// Writes the object to the <see cref="Utf8JsonWriter"/>.
-        /// </summary>
-        /// <param name="writer">The writer to which to write the object.</param>
-        public void WriteTo(Utf8JsonWriter writer)
-        {
-    
-                if (this.arrayBacking is ImmutableList<JsonAny> arrayBacking)
-            {
-                JsonArray.WriteItems(arrayBacking, writer);
-                return;
-            }
-
-    
-    
-    
-    
-            if (this.jsonElementBacking.ValueKind != JsonValueKind.Undefined)
-            {
-                this.jsonElementBacking.WriteTo(writer);
-                return;
-            }
-
-            writer.WriteNullValue();
-        }
-
-    
-    
-        /// <inheritdoc/>
-        public JsonArrayEnumerator EnumerateArray()
-        {
-            return this.AsArray.EnumerateArray();
-        }
-
-    
-    
-        /// <inheritdoc/>
-        public bool Equals<T>(T other)
-            where T : struct, IJsonValue
-        {
-            JsonValueKind valueKind = this.ValueKind;
-
-            if (other.ValueKind != valueKind)
-            {
-                return false;
-            }
-
-            return valueKind switch
-            {
-                JsonValueKind.Object => this.AsObject.Equals(other.AsObject()),
-                JsonValueKind.Array => this.AsArray.Equals(other.AsArray()),
-                JsonValueKind.Number => this.AsNumber.Equals(other.AsNumber()),
-                JsonValueKind.String => this.AsString.Equals(other.AsString()),
-                JsonValueKind.Null => true,
-                JsonValueKind.True or JsonValueKind.False => this.AsBoolean.Equals(other.AsBoolean()),
-                _ => false,
-            };
-        }
-
-        /// <inheritdoc/>
-        public bool Equals(SchemaArray other)
-        {
-            JsonValueKind valueKind = this.ValueKind;
-
-            if (other.ValueKind != valueKind)
-            {
-                return false;
-            }
-
-            return valueKind switch
-            {
-                JsonValueKind.Object => this.AsObject.Equals(other.AsObject),
-                JsonValueKind.Array => this.AsArray.Equals(other.AsArray),
-                JsonValueKind.Number => this.AsNumber.Equals(other.AsNumber),
-                JsonValueKind.String => this.AsString.Equals(other.AsString),
-                JsonValueKind.Null => true,
-                JsonValueKind.True or JsonValueKind.False => this.AsBoolean.Equals(other.AsBoolean),
-                _ => false,
-            };
-        }
-
-    
-    
-        /// <inheritdoc/>
-        public SchemaArray Add<TItem>(TItem item)
-            where TItem : struct, IJsonValue
-        {
-            if (this.ValueKind == JsonValueKind.Array || this.ValueKind == JsonValueKind.Undefined)
-            {
-                return this.AsArray.Add(item);
-            }
-
-            return this;
-        }
-
-        /// <inheritdoc/>
-        public SchemaArray Insert<TItem>(int index, TItem item)
-            where TItem : struct, IJsonValue
-        {
-            if (this.ValueKind == JsonValueKind.Array || this.ValueKind == JsonValueKind.Undefined)
-            {
-                return this.AsArray.Insert(index, item);
-            }
-
-            return this;
-        }
-
-        /// <inheritdoc/>
-        public SchemaArray Replace<TItem>(TItem oldValue, TItem newValue)
-            where TItem : struct, IJsonValue
-        {
-            if (this.ValueKind == JsonValueKind.Array)
-            {
-                return this.AsArray.Replace(oldValue, newValue);
-            }
-
-            return this;
-        }
-
-        /// <inheritdoc/>
-        public SchemaArray RemoveAt(int index)
-        {
-            if (this.ValueKind == JsonValueKind.Array)
-            {
-                return this.AsArray.RemoveAt(index);
-            }
-
-            return this;
-        }
-
-        /// <inheritdoc/>
-        public SchemaArray RemoveRange(int index, int count)
-        {
-            if (this.ValueKind == JsonValueKind.Array)
-            {
-                return this.AsArray.RemoveRange(index, count);
-            }
-
-            return this;
-        }
-
-        /// <inheritdoc/>
-        public SchemaArray SetItem<TItem>(int index, TItem value)
-            where TItem : struct, IJsonValue
-        {
-            if (this.ValueKind == JsonValueKind.Array)
-            {
-                return this.AsArray.SetItem(index, value);
-            }
-
-            return this;
-        }
-
-    
-        /// <inheritdoc/>
-        public T As<T>()
-            where T : struct, IJsonValue
-        {
-            return this.As<SchemaArray, T>();
-        }
-
-        /// <inheritdoc/>
-        public ValidationContext Validate(in ValidationContext? validationContext = null, ValidationLevel level = ValidationLevel.Flag)
-        {
-            ValidationContext result = validationContext ?? ValidationContext.ValidContext;
-            if (level != ValidationLevel.Flag)
-            {
-                result = result.UsingStack();
-            }
-
-    
-                JsonValueKind valueKind = this.ValueKind;
-    
-    
-                    result = this.ValidateType(valueKind, result, level);
-            if (level == ValidationLevel.Flag && !result.IsValid)
-            {
-                return result;
-            }
-        
-        
-        
-        
-    
-    
-    
-        
-    
-    
-    
-    
-    
-    
-    
-
-                result = this.ValidateArray(valueKind, result, level);
-            if (level == ValidationLevel.Flag && !result.IsValid)
-            {
-                return result;
-            }
-                return result;
-        }
-
-    
-    
-    
-    
-    
-    
-            private ValidationContext ValidateArray(JsonValueKind valueKind, in ValidationContext validationContext, ValidationLevel level)
-        {
-            ValidationContext result = validationContext;
-
-            if (valueKind != JsonValueKind.Array)
-            {
-                return result;
-            }
-
-         
-            int arrayLength = 0;
-         
-        
-                     JsonArrayEnumerator arrayEnumerator = this.EnumerateArray();
-
-            while (arrayEnumerator.MoveNext())
-            {
-        
-        
-                        result = arrayEnumerator.Current.As<DefsFeature.InvalidDefinition.Schema>().Validate(result, level);
-                if (level == ValidationLevel.Flag && !result.IsValid)
-                {
-                    return result;
-                }
-
-                result = result.WithLocalItemIndex(arrayLength);
-
-        
-                arrayLength++;
-            }
-        
-        
-                    if (arrayLength < 1)
-            {
-                if (level >= ValidationLevel.Detailed)
-                {
-                    result = result.WithResult(isValid: false, $"6.4.2. minItems - {arrayLength} is less than the minimum number of items 1.");
-                }
-                else if (level >= ValidationLevel.Basic)
-                {
-                    result = result.WithResult(isValid: false, "6.4.2. minItems - item count is less than the minimum number of items 1.");
-                }
-                else
-                {
-                    return result.WithResult(isValid: false);
-                }
-
-            }
-        
-        
-            return result;
-        }
-
-    
-    
-            
-
-            
-
-            
-
-            
-
-    
-    
-    
-            
-        private ValidationContext ValidateType(JsonValueKind valueKind, in ValidationContext validationContext, ValidationLevel level)
-        {
-            ValidationContext result = validationContext;
-            bool isValid = false;
-
-        
-        
-                
-            ValidationContext localResultArray = Menes.Json.Validate.TypeArray(valueKind, result, level);
-            if (level == ValidationLevel.Flag && localResultArray.IsValid)
-            {
-                return validationContext;
-            }
-
-            if (localResultArray.IsValid)
-            {
-                isValid = true;
-            }
-
-        
-        
-        
-        
-        
-            result = result.MergeResults(
-                isValid,
-                level
-        
-        
-                
-                , localResultArray
-        
-        
-        
-                        );
-
-            return result;
-        }
-
     
     
     
@@ -4446,7 +3831,7 @@ namespace DefsFeature.InvalidDefinition
         
                         if (!result.HasEvaluatedLocalProperty(propertyName))
                 {
-                    result = property.ValueAs<DefsFeature.InvalidDefinition.Schema>().Validate(result, level);
+                    result = property.ValueAs<DefsFeature.ValidDefinition.Schema>().Validate(result, level);
                     if (level == ValidationLevel.Flag && !result.IsValid)
                     {
                         return result;
@@ -5150,7 +4535,7 @@ namespace DefsFeature.InvalidDefinition
         
                         string propertyNameAsString = property.Name;
 
-                            result = new JsonString(propertyNameAsString).As<DefsFeature.InvalidDefinition.Applicator.PatternPropertiesValue.PropertyNamesEntity>().Validate(result, level);
+                            result = new JsonString(propertyNameAsString).As<DefsFeature.ValidDefinition.Applicator.PatternPropertiesValue.PropertyNamesEntity>().Validate(result, level);
                 if (level == ValidationLevel.Flag && !result.IsValid)
                 {
                     return result;
@@ -5159,7 +4544,7 @@ namespace DefsFeature.InvalidDefinition
                     
                         if (!result.HasEvaluatedLocalProperty(propertyName))
                 {
-                    result = property.ValueAs<DefsFeature.InvalidDefinition.Schema>().Validate(result, level);
+                    result = property.ValueAs<DefsFeature.ValidDefinition.Schema>().Validate(result, level);
                     if (level == ValidationLevel.Flag && !result.IsValid)
                     {
                         return result;
@@ -6232,7 +5617,7 @@ namespace DefsFeature.InvalidDefinition
         
                         if (!result.HasEvaluatedLocalProperty(propertyName))
                 {
-                    result = property.ValueAs<DefsFeature.InvalidDefinition.Schema>().Validate(result, level);
+                    result = property.ValueAs<DefsFeature.ValidDefinition.Schema>().Validate(result, level);
                     if (level == ValidationLevel.Flag && !result.IsValid)
                     {
                         return result;
@@ -6294,6 +5679,621 @@ namespace DefsFeature.InvalidDefinition
                 
                 , localResultObject
         
+        
+        
+        
+                        );
+
+            return result;
+        }
+
+    
+    
+    
+    }
+    
+
+    
+    
+        /// <summary>
+    /// A type generated from a JsonSchema specification.
+    /// </summary>
+    public readonly struct SchemaArray :
+                IJsonArray<SchemaArray>,
+                IEquatable<SchemaArray>
+    {
+    
+    
+    
+    
+    
+    
+    
+
+    
+        private readonly JsonElement jsonElementBacking;
+
+    
+            private readonly ImmutableList<JsonAny>? arrayBacking;
+    
+    
+    
+    
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SchemaArray"/> struct.
+        /// </summary>
+        /// <param name="value">The backing <see cref="JsonElement"/>.</param>
+        public SchemaArray(JsonElement value)
+        {
+            this.jsonElementBacking = value;
+                    this.arrayBacking = default;
+                        }
+
+    
+            /// <summary>
+        /// Initializes a new instance of the <see cref="SchemaArray"/> struct.
+        /// </summary>
+        /// <param name="value">An array list.</param>
+        public SchemaArray(ImmutableList<JsonAny> value)
+        {
+            this.jsonElementBacking = default;
+                                            this.arrayBacking = value;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SchemaArray"/> struct.
+        /// </summary>
+        /// <param name="jsonArray">The <see cref="JsonArray"/> from which to construct the value.</param>
+        public SchemaArray(JsonArray jsonArray)
+        {
+            if (jsonArray.HasJsonElement)
+            {
+                this.jsonElementBacking = jsonArray.AsJsonElement;
+                this.arrayBacking = default;
+            }
+            else
+            {
+                this.jsonElementBacking = default;
+                this.arrayBacking = jsonArray.AsItemsList;
+            }
+
+                                        }
+    
+    
+    
+    
+    
+    
+
+            /// <inheritdoc/>
+        public int Length
+        {
+            get
+            {
+                if (this.arrayBacking is ImmutableList<JsonAny> items)
+                {
+                    return items.Count;
+                }
+
+                return this.jsonElementBacking.GetArrayLength();
+            }
+        }
+    
+            /// <summary>
+        /// Gets a value indicating whether this is backed by a JSON element.
+        /// </summary>
+        public bool HasJsonElement =>
+    
+    
+                        this.arrayBacking is null
+                
+                ;
+
+        /// <summary>
+        /// Gets the value as a JsonElement.
+        /// </summary>
+        public JsonElement AsJsonElement
+        {
+            get
+            {
+    
+                    if (this.arrayBacking is ImmutableList<JsonAny> arrayBacking)
+                {
+                    return JsonArray.ItemsToJsonElement(arrayBacking);
+                }
+    
+    
+    
+    
+                return this.jsonElementBacking;
+            }
+        }
+
+        /// <inheritdoc/>
+        public JsonValueKind ValueKind
+        {
+            get
+            {
+    
+                    if (this.arrayBacking is ImmutableList<JsonAny>)
+                {
+                    return JsonValueKind.Array;
+                }
+
+    
+    
+    
+    
+                return this.jsonElementBacking.ValueKind;
+            }
+        }
+
+        /// <inheritdoc/>
+        public JsonAny AsAny
+        {
+            get
+            {
+    
+                    if (this.arrayBacking is ImmutableList<JsonAny> arrayBacking)
+                {
+                    return new JsonAny(arrayBacking);
+                }
+
+    
+    
+    
+    
+                return new JsonAny(this.jsonElementBacking);
+            }
+        }
+
+        /// <summary>
+        /// Gets the value as a <see cref="JsonObject"/>.
+        /// </summary>
+        public JsonObject AsObject
+        {
+            get
+            {
+    
+                return new JsonObject(this.jsonElementBacking);
+            }
+        }
+
+        /// <summary>
+        /// Gets the value as a <see cref="JsonArray"/>.
+        /// </summary>
+        public JsonArray AsArray
+        {
+            get
+            {
+                    if (this.arrayBacking is ImmutableList<JsonAny> arrayBacking)
+                {
+                    return new JsonArray(arrayBacking);
+                }
+
+    
+                return new JsonArray(this.jsonElementBacking);
+            }
+        }
+
+        /// <summary>
+        /// Gets the value as a <see cref="JsonNumber"/>.
+        /// </summary>
+        public JsonNumber AsNumber
+        {
+            get
+            {
+                    return new JsonNumber(this.jsonElementBacking);
+            }
+        }
+
+        /// <summary>
+        /// Gets the value as a <see cref="JsonString"/>.
+        /// </summary>
+        public JsonString AsString
+        {
+            get
+            {
+                    return new JsonString(this.jsonElementBacking);
+            }
+        }
+
+        /// <summary>
+        /// Gets the value as a <see cref="JsonBoolean"/>.
+        /// </summary>
+        public JsonBoolean AsBoolean
+        {
+            get
+            {
+                    return new JsonBoolean(this.jsonElementBacking);
+            }
+        }
+
+        /// <summary>
+        /// Gets the value as a <see cref="JsonNull"/>.
+        /// </summary>
+        public JsonNull AsNull
+        {
+            get
+            {
+                return default;
+            }
+        }
+
+    
+        
+        /// <summary>
+        /// Conversion from any.
+        /// </summary>
+        /// <param name="value">The value from which to convert.</param>
+        public static implicit operator SchemaArray(JsonAny value)
+        {
+            if (value.HasJsonElement)
+            {
+                return new SchemaArray(value.AsJsonElement);
+            }
+
+            return value.As<SchemaArray>();
+        }
+
+        /// <summary>
+        /// Conversion to any.
+        /// </summary>
+        /// <param name="value">The value from which to convert.</param>
+        public static implicit operator JsonAny(SchemaArray value)
+        {
+            return value.AsAny;
+        }
+
+    
+        /// <summary>
+        /// Conversion from array.
+        /// </summary>
+        /// <param name="value">The value from which to convert.</param>
+        public static implicit operator SchemaArray(JsonArray value)
+        {
+            return new SchemaArray(value);
+        }
+
+        /// <summary>
+        /// Conversion to array.
+        /// </summary>
+        /// <param name="value">The value from which to convert.</param>
+        public static implicit operator JsonArray(SchemaArray value)
+        {
+            return value.AsArray;
+        }
+       
+        /// <summary>
+        /// Implicit conversion to an <see cref="ImmutableList{T}"/> of <see cref="JsonAny"/>.
+        /// </summary>
+        /// <param name="value">The value from which to convert.</param>
+        public static implicit operator ImmutableList<JsonAny>(SchemaArray value)
+        {
+            return value.AsArray.AsItemsList;
+        }
+
+        /// <summary>
+        /// Implicit conversion from an <see cref="ImmutableList{T}"/> of <see cref="JsonAny"/>.
+        /// </summary>
+        /// <param name="value">The value from which to convert.</param>
+        public static implicit operator SchemaArray(ImmutableList<JsonAny> value)
+        {
+            return new SchemaArray(value);
+        }
+    
+    
+    
+    
+    
+    
+        /// <summary>
+        /// Writes the object to the <see cref="Utf8JsonWriter"/>.
+        /// </summary>
+        /// <param name="writer">The writer to which to write the object.</param>
+        public void WriteTo(Utf8JsonWriter writer)
+        {
+    
+                if (this.arrayBacking is ImmutableList<JsonAny> arrayBacking)
+            {
+                JsonArray.WriteItems(arrayBacking, writer);
+                return;
+            }
+
+    
+    
+    
+    
+            if (this.jsonElementBacking.ValueKind != JsonValueKind.Undefined)
+            {
+                this.jsonElementBacking.WriteTo(writer);
+                return;
+            }
+
+            writer.WriteNullValue();
+        }
+
+    
+    
+        /// <inheritdoc/>
+        public JsonArrayEnumerator EnumerateArray()
+        {
+            return this.AsArray.EnumerateArray();
+        }
+
+    
+    
+        /// <inheritdoc/>
+        public bool Equals<T>(T other)
+            where T : struct, IJsonValue
+        {
+            JsonValueKind valueKind = this.ValueKind;
+
+            if (other.ValueKind != valueKind)
+            {
+                return false;
+            }
+
+            return valueKind switch
+            {
+                JsonValueKind.Object => this.AsObject.Equals(other.AsObject()),
+                JsonValueKind.Array => this.AsArray.Equals(other.AsArray()),
+                JsonValueKind.Number => this.AsNumber.Equals(other.AsNumber()),
+                JsonValueKind.String => this.AsString.Equals(other.AsString()),
+                JsonValueKind.Null => true,
+                JsonValueKind.True or JsonValueKind.False => this.AsBoolean.Equals(other.AsBoolean()),
+                _ => false,
+            };
+        }
+
+        /// <inheritdoc/>
+        public bool Equals(SchemaArray other)
+        {
+            JsonValueKind valueKind = this.ValueKind;
+
+            if (other.ValueKind != valueKind)
+            {
+                return false;
+            }
+
+            return valueKind switch
+            {
+                JsonValueKind.Object => this.AsObject.Equals(other.AsObject),
+                JsonValueKind.Array => this.AsArray.Equals(other.AsArray),
+                JsonValueKind.Number => this.AsNumber.Equals(other.AsNumber),
+                JsonValueKind.String => this.AsString.Equals(other.AsString),
+                JsonValueKind.Null => true,
+                JsonValueKind.True or JsonValueKind.False => this.AsBoolean.Equals(other.AsBoolean),
+                _ => false,
+            };
+        }
+
+    
+    
+        /// <inheritdoc/>
+        public SchemaArray Add<TItem>(TItem item)
+            where TItem : struct, IJsonValue
+        {
+            if (this.ValueKind == JsonValueKind.Array || this.ValueKind == JsonValueKind.Undefined)
+            {
+                return this.AsArray.Add(item);
+            }
+
+            return this;
+        }
+
+        /// <inheritdoc/>
+        public SchemaArray Insert<TItem>(int index, TItem item)
+            where TItem : struct, IJsonValue
+        {
+            if (this.ValueKind == JsonValueKind.Array || this.ValueKind == JsonValueKind.Undefined)
+            {
+                return this.AsArray.Insert(index, item);
+            }
+
+            return this;
+        }
+
+        /// <inheritdoc/>
+        public SchemaArray Replace<TItem>(TItem oldValue, TItem newValue)
+            where TItem : struct, IJsonValue
+        {
+            if (this.ValueKind == JsonValueKind.Array)
+            {
+                return this.AsArray.Replace(oldValue, newValue);
+            }
+
+            return this;
+        }
+
+        /// <inheritdoc/>
+        public SchemaArray RemoveAt(int index)
+        {
+            if (this.ValueKind == JsonValueKind.Array)
+            {
+                return this.AsArray.RemoveAt(index);
+            }
+
+            return this;
+        }
+
+        /// <inheritdoc/>
+        public SchemaArray RemoveRange(int index, int count)
+        {
+            if (this.ValueKind == JsonValueKind.Array)
+            {
+                return this.AsArray.RemoveRange(index, count);
+            }
+
+            return this;
+        }
+
+        /// <inheritdoc/>
+        public SchemaArray SetItem<TItem>(int index, TItem value)
+            where TItem : struct, IJsonValue
+        {
+            if (this.ValueKind == JsonValueKind.Array)
+            {
+                return this.AsArray.SetItem(index, value);
+            }
+
+            return this;
+        }
+
+    
+        /// <inheritdoc/>
+        public T As<T>()
+            where T : struct, IJsonValue
+        {
+            return this.As<SchemaArray, T>();
+        }
+
+        /// <inheritdoc/>
+        public ValidationContext Validate(in ValidationContext? validationContext = null, ValidationLevel level = ValidationLevel.Flag)
+        {
+            ValidationContext result = validationContext ?? ValidationContext.ValidContext;
+            if (level != ValidationLevel.Flag)
+            {
+                result = result.UsingStack();
+            }
+
+    
+                JsonValueKind valueKind = this.ValueKind;
+    
+    
+                    result = this.ValidateType(valueKind, result, level);
+            if (level == ValidationLevel.Flag && !result.IsValid)
+            {
+                return result;
+            }
+        
+        
+        
+        
+    
+    
+    
+        
+    
+    
+    
+    
+    
+    
+    
+
+                result = this.ValidateArray(valueKind, result, level);
+            if (level == ValidationLevel.Flag && !result.IsValid)
+            {
+                return result;
+            }
+                return result;
+        }
+
+    
+    
+    
+    
+    
+    
+            private ValidationContext ValidateArray(JsonValueKind valueKind, in ValidationContext validationContext, ValidationLevel level)
+        {
+            ValidationContext result = validationContext;
+
+            if (valueKind != JsonValueKind.Array)
+            {
+                return result;
+            }
+
+         
+            int arrayLength = 0;
+         
+        
+                     JsonArrayEnumerator arrayEnumerator = this.EnumerateArray();
+
+            while (arrayEnumerator.MoveNext())
+            {
+        
+        
+                        result = arrayEnumerator.Current.As<DefsFeature.ValidDefinition.Schema>().Validate(result, level);
+                if (level == ValidationLevel.Flag && !result.IsValid)
+                {
+                    return result;
+                }
+
+                result = result.WithLocalItemIndex(arrayLength);
+
+        
+                arrayLength++;
+            }
+        
+        
+                    if (arrayLength < 1)
+            {
+                if (level >= ValidationLevel.Detailed)
+                {
+                    result = result.WithResult(isValid: false, $"6.4.2. minItems - {arrayLength} is less than the minimum number of items 1.");
+                }
+                else if (level >= ValidationLevel.Basic)
+                {
+                    result = result.WithResult(isValid: false, "6.4.2. minItems - item count is less than the minimum number of items 1.");
+                }
+                else
+                {
+                    return result.WithResult(isValid: false);
+                }
+
+            }
+        
+        
+            return result;
+        }
+
+    
+    
+            
+
+            
+
+            
+
+            
+
+    
+    
+    
+            
+        private ValidationContext ValidateType(JsonValueKind valueKind, in ValidationContext validationContext, ValidationLevel level)
+        {
+            ValidationContext result = validationContext;
+            bool isValid = false;
+
+        
+        
+                
+            ValidationContext localResultArray = Menes.Json.Validate.TypeArray(valueKind, result, level);
+            if (level == ValidationLevel.Flag && localResultArray.IsValid)
+            {
+                return validationContext;
+            }
+
+            if (localResultArray.IsValid)
+            {
+                isValid = true;
+            }
+
+        
+        
+        
+        
+        
+            result = result.MergeResults(
+                isValid,
+                level
+        
+        
+                
+                , localResultArray
         
         
         

@@ -10,7 +10,7 @@
 
 #nullable enable
 
-namespace DefsFeature.InvalidDefinition
+namespace DefsFeature.ValidDefinition
 {
     using System;
     using System.Collections.Generic;
@@ -361,7 +361,7 @@ namespace DefsFeature.InvalidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.InvalidDefinition.Validation.MultipleOfValue MultipleOf
+        public DefsFeature.ValidDefinition.Validation.MultipleOfValue MultipleOf
         {
             get
             {
@@ -377,7 +377,7 @@ namespace DefsFeature.InvalidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(MultipleOfUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.InvalidDefinition.Validation.MultipleOfValue(result);
+                        return new  DefsFeature.ValidDefinition.Validation.MultipleOfValue(result);
                     }
                 }
 
@@ -536,7 +536,7 @@ namespace DefsFeature.InvalidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.InvalidDefinition.Validation.NonNegativeIntegerValue MaxLength
+        public DefsFeature.ValidDefinition.Validation.NonNegativeIntegerValue MaxLength
         {
             get
             {
@@ -552,7 +552,7 @@ namespace DefsFeature.InvalidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(MaxLengthUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.InvalidDefinition.Validation.NonNegativeIntegerValue(result);
+                        return new  DefsFeature.ValidDefinition.Validation.NonNegativeIntegerValue(result);
                     }
                 }
 
@@ -571,7 +571,7 @@ namespace DefsFeature.InvalidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.InvalidDefinition.Validation.NonNegativeIntegerDefault0Entity MinLength
+        public DefsFeature.ValidDefinition.Validation.NonNegativeIntegerDefault0Entity MinLength
         {
             get
             {
@@ -587,7 +587,7 @@ namespace DefsFeature.InvalidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(MinLengthUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.InvalidDefinition.Validation.NonNegativeIntegerDefault0Entity(result);
+                        return new  DefsFeature.ValidDefinition.Validation.NonNegativeIntegerDefault0Entity(result);
                     }
                 }
 
@@ -641,7 +641,7 @@ namespace DefsFeature.InvalidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.InvalidDefinition.Validation.NonNegativeIntegerValue MaxItems
+        public DefsFeature.ValidDefinition.Validation.NonNegativeIntegerValue MaxItems
         {
             get
             {
@@ -657,7 +657,7 @@ namespace DefsFeature.InvalidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(MaxItemsUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.InvalidDefinition.Validation.NonNegativeIntegerValue(result);
+                        return new  DefsFeature.ValidDefinition.Validation.NonNegativeIntegerValue(result);
                     }
                 }
 
@@ -676,7 +676,7 @@ namespace DefsFeature.InvalidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.InvalidDefinition.Validation.NonNegativeIntegerDefault0Entity MinItems
+        public DefsFeature.ValidDefinition.Validation.NonNegativeIntegerDefault0Entity MinItems
         {
             get
             {
@@ -692,7 +692,7 @@ namespace DefsFeature.InvalidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(MinItemsUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.InvalidDefinition.Validation.NonNegativeIntegerDefault0Entity(result);
+                        return new  DefsFeature.ValidDefinition.Validation.NonNegativeIntegerDefault0Entity(result);
                     }
                 }
 
@@ -711,7 +711,7 @@ namespace DefsFeature.InvalidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.InvalidDefinition.Validation.UniqueItemsValue UniqueItems
+        public DefsFeature.ValidDefinition.Validation.UniqueItemsValue UniqueItems
         {
             get
             {
@@ -727,7 +727,7 @@ namespace DefsFeature.InvalidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(UniqueItemsUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.InvalidDefinition.Validation.UniqueItemsValue(result);
+                        return new  DefsFeature.ValidDefinition.Validation.UniqueItemsValue(result);
                     }
                 }
 
@@ -746,7 +746,7 @@ namespace DefsFeature.InvalidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.InvalidDefinition.Validation.NonNegativeIntegerValue MaxContains
+        public DefsFeature.ValidDefinition.Validation.NonNegativeIntegerValue MaxContains
         {
             get
             {
@@ -762,7 +762,7 @@ namespace DefsFeature.InvalidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(MaxContainsUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.InvalidDefinition.Validation.NonNegativeIntegerValue(result);
+                        return new  DefsFeature.ValidDefinition.Validation.NonNegativeIntegerValue(result);
                     }
                 }
 
@@ -781,7 +781,7 @@ namespace DefsFeature.InvalidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.InvalidDefinition.Validation.MinContainsEntity MinContains
+        public DefsFeature.ValidDefinition.Validation.MinContainsEntity MinContains
         {
             get
             {
@@ -797,7 +797,7 @@ namespace DefsFeature.InvalidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(MinContainsUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.InvalidDefinition.Validation.MinContainsEntity(result);
+                        return new  DefsFeature.ValidDefinition.Validation.MinContainsEntity(result);
                     }
                 }
 
@@ -816,7 +816,7 @@ namespace DefsFeature.InvalidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.InvalidDefinition.Validation.NonNegativeIntegerValue MaxProperties
+        public DefsFeature.ValidDefinition.Validation.NonNegativeIntegerValue MaxProperties
         {
             get
             {
@@ -832,7 +832,7 @@ namespace DefsFeature.InvalidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(MaxPropertiesUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.InvalidDefinition.Validation.NonNegativeIntegerValue(result);
+                        return new  DefsFeature.ValidDefinition.Validation.NonNegativeIntegerValue(result);
                     }
                 }
 
@@ -851,7 +851,7 @@ namespace DefsFeature.InvalidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.InvalidDefinition.Validation.NonNegativeIntegerDefault0Entity MinProperties
+        public DefsFeature.ValidDefinition.Validation.NonNegativeIntegerDefault0Entity MinProperties
         {
             get
             {
@@ -867,7 +867,7 @@ namespace DefsFeature.InvalidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(MinPropertiesUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.InvalidDefinition.Validation.NonNegativeIntegerDefault0Entity(result);
+                        return new  DefsFeature.ValidDefinition.Validation.NonNegativeIntegerDefault0Entity(result);
                     }
                 }
 
@@ -886,7 +886,7 @@ namespace DefsFeature.InvalidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.InvalidDefinition.Validation.JsonStringArray Required
+        public DefsFeature.ValidDefinition.Validation.JsonStringArray Required
         {
             get
             {
@@ -902,7 +902,7 @@ namespace DefsFeature.InvalidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(RequiredUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.InvalidDefinition.Validation.JsonStringArray(result);
+                        return new  DefsFeature.ValidDefinition.Validation.JsonStringArray(result);
                     }
                 }
 
@@ -921,7 +921,7 @@ namespace DefsFeature.InvalidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.InvalidDefinition.Validation.DependentRequiredValue DependentRequired
+        public DefsFeature.ValidDefinition.Validation.DependentRequiredValue DependentRequired
         {
             get
             {
@@ -937,7 +937,7 @@ namespace DefsFeature.InvalidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(DependentRequiredUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.InvalidDefinition.Validation.DependentRequiredValue(result);
+                        return new  DefsFeature.ValidDefinition.Validation.DependentRequiredValue(result);
                     }
                 }
 
@@ -991,7 +991,7 @@ namespace DefsFeature.InvalidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.InvalidDefinition.Validation.EnumArray Enum
+        public DefsFeature.ValidDefinition.Validation.EnumArray Enum
         {
             get
             {
@@ -1007,7 +1007,7 @@ namespace DefsFeature.InvalidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(EnumUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.InvalidDefinition.Validation.EnumArray(result);
+                        return new  DefsFeature.ValidDefinition.Validation.EnumArray(result);
                     }
                 }
 
@@ -1026,7 +1026,7 @@ namespace DefsFeature.InvalidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.InvalidDefinition.Validation.TypeEntity Type
+        public DefsFeature.ValidDefinition.Validation.TypeEntity Type
         {
             get
             {
@@ -1042,7 +1042,7 @@ namespace DefsFeature.InvalidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(TypeUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.InvalidDefinition.Validation.TypeEntity(result);
+                        return new  DefsFeature.ValidDefinition.Validation.TypeEntity(result);
                     }
                 }
 
@@ -1326,7 +1326,7 @@ namespace DefsFeature.InvalidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Validation WithMultipleOf(DefsFeature.InvalidDefinition.Validation.MultipleOfValue value)
+        public Validation WithMultipleOf(DefsFeature.ValidDefinition.Validation.MultipleOfValue value)
         {
             return this.SetProperty(MultipleOfJsonPropertyName, value);
         }
@@ -1381,7 +1381,7 @@ namespace DefsFeature.InvalidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Validation WithMaxLength(DefsFeature.InvalidDefinition.Validation.NonNegativeIntegerValue value)
+        public Validation WithMaxLength(DefsFeature.ValidDefinition.Validation.NonNegativeIntegerValue value)
         {
             return this.SetProperty(MaxLengthJsonPropertyName, value);
         }
@@ -1392,7 +1392,7 @@ namespace DefsFeature.InvalidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Validation WithMinLength(DefsFeature.InvalidDefinition.Validation.NonNegativeIntegerDefault0Entity value)
+        public Validation WithMinLength(DefsFeature.ValidDefinition.Validation.NonNegativeIntegerDefault0Entity value)
         {
             return this.SetProperty(MinLengthJsonPropertyName, value);
         }
@@ -1414,7 +1414,7 @@ namespace DefsFeature.InvalidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Validation WithMaxItems(DefsFeature.InvalidDefinition.Validation.NonNegativeIntegerValue value)
+        public Validation WithMaxItems(DefsFeature.ValidDefinition.Validation.NonNegativeIntegerValue value)
         {
             return this.SetProperty(MaxItemsJsonPropertyName, value);
         }
@@ -1425,7 +1425,7 @@ namespace DefsFeature.InvalidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Validation WithMinItems(DefsFeature.InvalidDefinition.Validation.NonNegativeIntegerDefault0Entity value)
+        public Validation WithMinItems(DefsFeature.ValidDefinition.Validation.NonNegativeIntegerDefault0Entity value)
         {
             return this.SetProperty(MinItemsJsonPropertyName, value);
         }
@@ -1436,7 +1436,7 @@ namespace DefsFeature.InvalidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Validation WithUniqueItems(DefsFeature.InvalidDefinition.Validation.UniqueItemsValue value)
+        public Validation WithUniqueItems(DefsFeature.ValidDefinition.Validation.UniqueItemsValue value)
         {
             return this.SetProperty(UniqueItemsJsonPropertyName, value);
         }
@@ -1447,7 +1447,7 @@ namespace DefsFeature.InvalidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Validation WithMaxContains(DefsFeature.InvalidDefinition.Validation.NonNegativeIntegerValue value)
+        public Validation WithMaxContains(DefsFeature.ValidDefinition.Validation.NonNegativeIntegerValue value)
         {
             return this.SetProperty(MaxContainsJsonPropertyName, value);
         }
@@ -1458,7 +1458,7 @@ namespace DefsFeature.InvalidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Validation WithMinContains(DefsFeature.InvalidDefinition.Validation.MinContainsEntity value)
+        public Validation WithMinContains(DefsFeature.ValidDefinition.Validation.MinContainsEntity value)
         {
             return this.SetProperty(MinContainsJsonPropertyName, value);
         }
@@ -1469,7 +1469,7 @@ namespace DefsFeature.InvalidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Validation WithMaxProperties(DefsFeature.InvalidDefinition.Validation.NonNegativeIntegerValue value)
+        public Validation WithMaxProperties(DefsFeature.ValidDefinition.Validation.NonNegativeIntegerValue value)
         {
             return this.SetProperty(MaxPropertiesJsonPropertyName, value);
         }
@@ -1480,7 +1480,7 @@ namespace DefsFeature.InvalidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Validation WithMinProperties(DefsFeature.InvalidDefinition.Validation.NonNegativeIntegerDefault0Entity value)
+        public Validation WithMinProperties(DefsFeature.ValidDefinition.Validation.NonNegativeIntegerDefault0Entity value)
         {
             return this.SetProperty(MinPropertiesJsonPropertyName, value);
         }
@@ -1491,7 +1491,7 @@ namespace DefsFeature.InvalidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Validation WithRequired(DefsFeature.InvalidDefinition.Validation.JsonStringArray value)
+        public Validation WithRequired(DefsFeature.ValidDefinition.Validation.JsonStringArray value)
         {
             return this.SetProperty(RequiredJsonPropertyName, value);
         }
@@ -1502,7 +1502,7 @@ namespace DefsFeature.InvalidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Validation WithDependentRequired(DefsFeature.InvalidDefinition.Validation.DependentRequiredValue value)
+        public Validation WithDependentRequired(DefsFeature.ValidDefinition.Validation.DependentRequiredValue value)
         {
             return this.SetProperty(DependentRequiredJsonPropertyName, value);
         }
@@ -1524,7 +1524,7 @@ namespace DefsFeature.InvalidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Validation WithEnum(DefsFeature.InvalidDefinition.Validation.EnumArray value)
+        public Validation WithEnum(DefsFeature.ValidDefinition.Validation.EnumArray value)
         {
             return this.SetProperty(EnumJsonPropertyName, value);
         }
@@ -1535,7 +1535,7 @@ namespace DefsFeature.InvalidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Validation WithType(DefsFeature.InvalidDefinition.Validation.TypeEntity value)
+        public Validation WithType(DefsFeature.ValidDefinition.Validation.TypeEntity value)
         {
             return this.SetProperty(TypeJsonPropertyName, value);
         }
@@ -3423,8 +3423,8 @@ namespace DefsFeature.InvalidDefinition
             /// <summary>
         /// Initializes a new instance of the <see cref="NonNegativeIntegerDefault0Entity"/> struct.
         /// </summary>
-        /// <param name="conversion">The <see cref="DefsFeature.InvalidDefinition.Validation.NonNegativeIntegerValue"/> from which to construct the value.</param>
-        public NonNegativeIntegerDefault0Entity(DefsFeature.InvalidDefinition.Validation.NonNegativeIntegerValue conversion)
+        /// <param name="conversion">The <see cref="DefsFeature.ValidDefinition.Validation.NonNegativeIntegerValue"/> from which to construct the value.</param>
+        public NonNegativeIntegerDefault0Entity(DefsFeature.ValidDefinition.Validation.NonNegativeIntegerValue conversion)
         {
             if (conversion.HasJsonElement)
             {
@@ -3592,23 +3592,23 @@ namespace DefsFeature.InvalidDefinition
         }
 
             /// <summary>
-        /// Conversion from DefsFeature.InvalidDefinition.Validation.NonNegativeIntegerValue.
+        /// Conversion from DefsFeature.ValidDefinition.Validation.NonNegativeIntegerValue.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator NonNegativeIntegerDefault0Entity(DefsFeature.InvalidDefinition.Validation.NonNegativeIntegerValue value)
+        public static implicit operator NonNegativeIntegerDefault0Entity(DefsFeature.ValidDefinition.Validation.NonNegativeIntegerValue value)
         {
             return new NonNegativeIntegerDefault0Entity(value);
         }
 
         /// <summary>
-        /// Conversion to DefsFeature.InvalidDefinition.Validation.NonNegativeIntegerValue.
+        /// Conversion to DefsFeature.ValidDefinition.Validation.NonNegativeIntegerValue.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator DefsFeature.InvalidDefinition.Validation.NonNegativeIntegerValue(NonNegativeIntegerDefault0Entity value)
+        public static implicit operator DefsFeature.ValidDefinition.Validation.NonNegativeIntegerValue(NonNegativeIntegerDefault0Entity value)
         {
                                                     if (value.ValueKind == JsonValueKind.Number)
             {
-                return new DefsFeature.InvalidDefinition.Validation.NonNegativeIntegerValue(value.AsNumber);
+                return new DefsFeature.ValidDefinition.Validation.NonNegativeIntegerValue(value.AsNumber);
             }
                     return default;
         }
@@ -3857,7 +3857,7 @@ namespace DefsFeature.InvalidDefinition
         {
             ValidationContext result = validationContext;
 
-            ValidationContext refResult = this.As<DefsFeature.InvalidDefinition.Validation.NonNegativeIntegerValue>().Validate(validationContext.CreateChildContext(), level);
+            ValidationContext refResult = this.As<DefsFeature.ValidDefinition.Validation.NonNegativeIntegerValue>().Validate(validationContext.CreateChildContext(), level);
 
             if (!refResult.IsValid)
             {
@@ -4476,8 +4476,8 @@ namespace DefsFeature.InvalidDefinition
             /// <summary>
         /// Initializes a new instance of the <see cref="MinContainsEntity"/> struct.
         /// </summary>
-        /// <param name="conversion">The <see cref="DefsFeature.InvalidDefinition.Validation.NonNegativeIntegerValue"/> from which to construct the value.</param>
-        public MinContainsEntity(DefsFeature.InvalidDefinition.Validation.NonNegativeIntegerValue conversion)
+        /// <param name="conversion">The <see cref="DefsFeature.ValidDefinition.Validation.NonNegativeIntegerValue"/> from which to construct the value.</param>
+        public MinContainsEntity(DefsFeature.ValidDefinition.Validation.NonNegativeIntegerValue conversion)
         {
             if (conversion.HasJsonElement)
             {
@@ -4645,23 +4645,23 @@ namespace DefsFeature.InvalidDefinition
         }
 
             /// <summary>
-        /// Conversion from DefsFeature.InvalidDefinition.Validation.NonNegativeIntegerValue.
+        /// Conversion from DefsFeature.ValidDefinition.Validation.NonNegativeIntegerValue.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator MinContainsEntity(DefsFeature.InvalidDefinition.Validation.NonNegativeIntegerValue value)
+        public static implicit operator MinContainsEntity(DefsFeature.ValidDefinition.Validation.NonNegativeIntegerValue value)
         {
             return new MinContainsEntity(value);
         }
 
         /// <summary>
-        /// Conversion to DefsFeature.InvalidDefinition.Validation.NonNegativeIntegerValue.
+        /// Conversion to DefsFeature.ValidDefinition.Validation.NonNegativeIntegerValue.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator DefsFeature.InvalidDefinition.Validation.NonNegativeIntegerValue(MinContainsEntity value)
+        public static implicit operator DefsFeature.ValidDefinition.Validation.NonNegativeIntegerValue(MinContainsEntity value)
         {
                                                     if (value.ValueKind == JsonValueKind.Number)
             {
-                return new DefsFeature.InvalidDefinition.Validation.NonNegativeIntegerValue(value.AsNumber);
+                return new DefsFeature.ValidDefinition.Validation.NonNegativeIntegerValue(value.AsNumber);
             }
                     return default;
         }
@@ -4910,7 +4910,7 @@ namespace DefsFeature.InvalidDefinition
         {
             ValidationContext result = validationContext;
 
-            ValidationContext refResult = this.As<DefsFeature.InvalidDefinition.Validation.NonNegativeIntegerValue>().Validate(validationContext.CreateChildContext(), level);
+            ValidationContext refResult = this.As<DefsFeature.ValidDefinition.Validation.NonNegativeIntegerValue>().Validate(validationContext.CreateChildContext(), level);
 
             if (!refResult.IsValid)
             {
@@ -6213,7 +6213,7 @@ namespace DefsFeature.InvalidDefinition
         
                         if (!result.HasEvaluatedLocalProperty(propertyName))
                 {
-                    result = property.ValueAs<DefsFeature.InvalidDefinition.Validation.JsonStringArray>().Validate(result, level);
+                    result = property.ValueAs<DefsFeature.ValidDefinition.Validation.JsonStringArray>().Validate(result, level);
                     if (level == ValidationLevel.Flag && !result.IsValid)
                     {
                         return result;
@@ -6961,8 +6961,8 @@ namespace DefsFeature.InvalidDefinition
             /// <summary>
         /// Initializes a new instance of the <see cref="TypeEntity"/> struct.
         /// </summary>
-        /// <param name="conversion">The <see cref="DefsFeature.InvalidDefinition.Validation.SimpleTypesEntity"/> from which to construct the value.</param>
-        public TypeEntity(DefsFeature.InvalidDefinition.Validation.SimpleTypesEntity conversion)
+        /// <param name="conversion">The <see cref="DefsFeature.ValidDefinition.Validation.SimpleTypesEntity"/> from which to construct the value.</param>
+        public TypeEntity(DefsFeature.ValidDefinition.Validation.SimpleTypesEntity conversion)
         {
             if (conversion.HasJsonElement)
             {
@@ -6980,8 +6980,8 @@ namespace DefsFeature.InvalidDefinition
             /// <summary>
         /// Initializes a new instance of the <see cref="TypeEntity"/> struct.
         /// </summary>
-        /// <param name="conversion">The <see cref="DefsFeature.InvalidDefinition.Validation.TypeEntity.SimpleTypesEntityArray"/> from which to construct the value.</param>
-        public TypeEntity(DefsFeature.InvalidDefinition.Validation.TypeEntity.SimpleTypesEntityArray conversion)
+        /// <param name="conversion">The <see cref="DefsFeature.ValidDefinition.Validation.TypeEntity.SimpleTypesEntityArray"/> from which to construct the value.</param>
+        public TypeEntity(DefsFeature.ValidDefinition.Validation.TypeEntity.SimpleTypesEntityArray conversion)
         {
             if (conversion.HasJsonElement)
             {
@@ -7161,40 +7161,40 @@ namespace DefsFeature.InvalidDefinition
         }
 
             /// <summary>
-        /// Conversion from DefsFeature.InvalidDefinition.Validation.SimpleTypesEntity.
+        /// Conversion from DefsFeature.ValidDefinition.Validation.SimpleTypesEntity.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator TypeEntity(DefsFeature.InvalidDefinition.Validation.SimpleTypesEntity value)
+        public static implicit operator TypeEntity(DefsFeature.ValidDefinition.Validation.SimpleTypesEntity value)
         {
             return new TypeEntity(value);
         }
 
         /// <summary>
-        /// Conversion to DefsFeature.InvalidDefinition.Validation.SimpleTypesEntity.
+        /// Conversion to DefsFeature.ValidDefinition.Validation.SimpleTypesEntity.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator DefsFeature.InvalidDefinition.Validation.SimpleTypesEntity(TypeEntity value)
+        public static implicit operator DefsFeature.ValidDefinition.Validation.SimpleTypesEntity(TypeEntity value)
         {
                                                     return default;
         }
             /// <summary>
-        /// Conversion from DefsFeature.InvalidDefinition.Validation.TypeEntity.SimpleTypesEntityArray.
+        /// Conversion from DefsFeature.ValidDefinition.Validation.TypeEntity.SimpleTypesEntityArray.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator TypeEntity(DefsFeature.InvalidDefinition.Validation.TypeEntity.SimpleTypesEntityArray value)
+        public static implicit operator TypeEntity(DefsFeature.ValidDefinition.Validation.TypeEntity.SimpleTypesEntityArray value)
         {
             return new TypeEntity(value);
         }
 
         /// <summary>
-        /// Conversion to DefsFeature.InvalidDefinition.Validation.TypeEntity.SimpleTypesEntityArray.
+        /// Conversion to DefsFeature.ValidDefinition.Validation.TypeEntity.SimpleTypesEntityArray.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator DefsFeature.InvalidDefinition.Validation.TypeEntity.SimpleTypesEntityArray(TypeEntity value)
+        public static implicit operator DefsFeature.ValidDefinition.Validation.TypeEntity.SimpleTypesEntityArray(TypeEntity value)
         {
                             if (value.ValueKind == JsonValueKind.Array)
             {
-                return new DefsFeature.InvalidDefinition.Validation.TypeEntity.SimpleTypesEntityArray(value.AsArray);
+                return new DefsFeature.ValidDefinition.Validation.TypeEntity.SimpleTypesEntityArray(value.AsArray);
             }
                                             return default;
         }
@@ -7476,7 +7476,7 @@ namespace DefsFeature.InvalidDefinition
 
                 
 
-            ValidationContext anyOfResult0 = this.As<DefsFeature.InvalidDefinition.Validation.SimpleTypesEntity>().Validate(validationContext.CreateChildContext(), level);
+            ValidationContext anyOfResult0 = this.As<DefsFeature.ValidDefinition.Validation.SimpleTypesEntity>().Validate(validationContext.CreateChildContext(), level);
 
             if (anyOfResult0.IsValid)
             {
@@ -7504,7 +7504,7 @@ namespace DefsFeature.InvalidDefinition
 
                 
 
-            ValidationContext anyOfResult1 = this.As<DefsFeature.InvalidDefinition.Validation.TypeEntity.SimpleTypesEntityArray>().Validate(validationContext.CreateChildContext(), level);
+            ValidationContext anyOfResult1 = this.As<DefsFeature.ValidDefinition.Validation.TypeEntity.SimpleTypesEntityArray>().Validate(validationContext.CreateChildContext(), level);
 
             if (anyOfResult1.IsValid)
             {
@@ -8116,7 +8116,7 @@ namespace DefsFeature.InvalidDefinition
 
         
         
-                        result = arrayEnumerator.Current.As<DefsFeature.InvalidDefinition.Validation.SimpleTypesEntity>().Validate(result, level);
+                        result = arrayEnumerator.Current.As<DefsFeature.ValidDefinition.Validation.SimpleTypesEntity>().Validate(result, level);
                 if (level == ValidationLevel.Flag && !result.IsValid)
                 {
                     return result;
@@ -8503,13 +8503,13 @@ namespace DefsFeature.InvalidDefinition
                 this,
                 result,
                 level
-                        , __MenesEnumValues.Item0
-                        , __MenesEnumValues.Item1
-                        , __MenesEnumValues.Item2
-                        , __MenesEnumValues.Item3
-                        , __MenesEnumValues.Item4
-                        , __MenesEnumValues.Item5
-                        , __MenesEnumValues.Item6
+                        , EnumValues.Item0
+                        , EnumValues.Item1
+                        , EnumValues.Item2
+                        , EnumValues.Item3
+                        , EnumValues.Item4
+                        , EnumValues.Item5
+                        , EnumValues.Item6
                         );
 
             if (level == ValidationLevel.Flag && !result.IsValid)
@@ -8553,8 +8553,66 @@ namespace DefsFeature.InvalidDefinition
         /// <summary>
         /// Permitted values.
         /// </summary>
-        public static class __MenesEnumValues
+        public static class EnumValues
         {
+                                /// <summary>
+            /// enumValue.AsPropertyName.
+            /// </summary>
+            /// <remarks>
+            /// {Description}.
+            /// </remarks>
+            public static readonly SimpleTypesEntity Array = JsonAny.Parse("\"array\"");
+            
+                                /// <summary>
+            /// enumValue.AsPropertyName.
+            /// </summary>
+            /// <remarks>
+            /// {Description}.
+            /// </remarks>
+            public static readonly SimpleTypesEntity Boolean = JsonAny.Parse("\"boolean\"");
+            
+                                /// <summary>
+            /// enumValue.AsPropertyName.
+            /// </summary>
+            /// <remarks>
+            /// {Description}.
+            /// </remarks>
+            public static readonly SimpleTypesEntity Integer = JsonAny.Parse("\"integer\"");
+            
+                                /// <summary>
+            /// enumValue.AsPropertyName.
+            /// </summary>
+            /// <remarks>
+            /// {Description}.
+            /// </remarks>
+            public static readonly SimpleTypesEntity Null = JsonAny.Parse("\"null\"");
+            
+                                /// <summary>
+            /// enumValue.AsPropertyName.
+            /// </summary>
+            /// <remarks>
+            /// {Description}.
+            /// </remarks>
+            public static readonly SimpleTypesEntity Number = JsonAny.Parse("\"number\"");
+            
+                                /// <summary>
+            /// enumValue.AsPropertyName.
+            /// </summary>
+            /// <remarks>
+            /// {Description}.
+            /// </remarks>
+            public static readonly SimpleTypesEntity Object = JsonAny.Parse("\"object\"");
+            
+                                /// <summary>
+            /// enumValue.AsPropertyName.
+            /// </summary>
+            /// <remarks>
+            /// {Description}.
+            /// </remarks>
+            public static readonly SimpleTypesEntity String = JsonAny.Parse("\"string\"");
+            
+        
+
                                 /// <summary>
             /// [{Title} || Item 0] (with predictable naming).
             /// </summary>
@@ -8562,49 +8620,49 @@ namespace DefsFeature.InvalidDefinition
             /// {Description}.
             /// </remarks>
             internal static readonly SimpleTypesEntity Item0 = JsonAny.Parse("\"array\"");
-                                            /// <summary>
+                                    /// <summary>
             /// [{Title} || Item 1] (with predictable naming).
             /// </summary>
             /// <remarks>
             /// {Description}.
             /// </remarks>
             internal static readonly SimpleTypesEntity Item1 = JsonAny.Parse("\"boolean\"");
-                                            /// <summary>
+                                    /// <summary>
             /// [{Title} || Item 2] (with predictable naming).
             /// </summary>
             /// <remarks>
             /// {Description}.
             /// </remarks>
             internal static readonly SimpleTypesEntity Item2 = JsonAny.Parse("\"integer\"");
-                                            /// <summary>
+                                    /// <summary>
             /// [{Title} || Item 3] (with predictable naming).
             /// </summary>
             /// <remarks>
             /// {Description}.
             /// </remarks>
             internal static readonly SimpleTypesEntity Item3 = JsonAny.Parse("\"null\"");
-                                            /// <summary>
+                                    /// <summary>
             /// [{Title} || Item 4] (with predictable naming).
             /// </summary>
             /// <remarks>
             /// {Description}.
             /// </remarks>
             internal static readonly SimpleTypesEntity Item4 = JsonAny.Parse("\"number\"");
-                                            /// <summary>
+                                    /// <summary>
             /// [{Title} || Item 5] (with predictable naming).
             /// </summary>
             /// <remarks>
             /// {Description}.
             /// </remarks>
             internal static readonly SimpleTypesEntity Item5 = JsonAny.Parse("\"object\"");
-                                            /// <summary>
+                                    /// <summary>
             /// [{Title} || Item 6] (with predictable naming).
             /// </summary>
             /// <remarks>
             /// {Description}.
             /// </remarks>
             internal static readonly SimpleTypesEntity Item6 = JsonAny.Parse("\"string\"");
-                            }
+                    }
     
     
     }

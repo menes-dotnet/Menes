@@ -10,7 +10,7 @@
 
 #nullable enable
 
-namespace DefsFeature.InvalidDefinition
+namespace DefsFeature.ValidDefinition
 {
     using System;
     using System.Collections.Generic;
@@ -323,7 +323,7 @@ namespace DefsFeature.InvalidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.InvalidDefinition.MetaData.DeprecatedValue Deprecated
+        public DefsFeature.ValidDefinition.MetaData.DeprecatedValue Deprecated
         {
             get
             {
@@ -339,7 +339,7 @@ namespace DefsFeature.InvalidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(DeprecatedUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.InvalidDefinition.MetaData.DeprecatedValue(result);
+                        return new  DefsFeature.ValidDefinition.MetaData.DeprecatedValue(result);
                     }
                 }
 
@@ -358,7 +358,7 @@ namespace DefsFeature.InvalidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.InvalidDefinition.MetaData.ReadOnlyValue ReadOnly
+        public DefsFeature.ValidDefinition.MetaData.ReadOnlyValue ReadOnly
         {
             get
             {
@@ -374,7 +374,7 @@ namespace DefsFeature.InvalidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(ReadOnlyUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.InvalidDefinition.MetaData.ReadOnlyValue(result);
+                        return new  DefsFeature.ValidDefinition.MetaData.ReadOnlyValue(result);
                     }
                 }
 
@@ -393,7 +393,7 @@ namespace DefsFeature.InvalidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.InvalidDefinition.MetaData.WriteOnlyValue WriteOnly
+        public DefsFeature.ValidDefinition.MetaData.WriteOnlyValue WriteOnly
         {
             get
             {
@@ -409,7 +409,7 @@ namespace DefsFeature.InvalidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(WriteOnlyUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.InvalidDefinition.MetaData.WriteOnlyValue(result);
+                        return new  DefsFeature.ValidDefinition.MetaData.WriteOnlyValue(result);
                     }
                 }
 
@@ -428,7 +428,7 @@ namespace DefsFeature.InvalidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.InvalidDefinition.MetaData.ExamplesArray Examples
+        public DefsFeature.ValidDefinition.MetaData.ExamplesArray Examples
         {
             get
             {
@@ -444,7 +444,7 @@ namespace DefsFeature.InvalidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(ExamplesUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.InvalidDefinition.MetaData.ExamplesArray(result);
+                        return new  DefsFeature.ValidDefinition.MetaData.ExamplesArray(result);
                     }
                 }
 
@@ -761,7 +761,7 @@ namespace DefsFeature.InvalidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public MetaData WithDeprecated(DefsFeature.InvalidDefinition.MetaData.DeprecatedValue value)
+        public MetaData WithDeprecated(DefsFeature.ValidDefinition.MetaData.DeprecatedValue value)
         {
             return this.SetProperty(DeprecatedJsonPropertyName, value);
         }
@@ -772,7 +772,7 @@ namespace DefsFeature.InvalidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public MetaData WithReadOnly(DefsFeature.InvalidDefinition.MetaData.ReadOnlyValue value)
+        public MetaData WithReadOnly(DefsFeature.ValidDefinition.MetaData.ReadOnlyValue value)
         {
             return this.SetProperty(ReadOnlyJsonPropertyName, value);
         }
@@ -783,7 +783,7 @@ namespace DefsFeature.InvalidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public MetaData WithWriteOnly(DefsFeature.InvalidDefinition.MetaData.WriteOnlyValue value)
+        public MetaData WithWriteOnly(DefsFeature.ValidDefinition.MetaData.WriteOnlyValue value)
         {
             return this.SetProperty(WriteOnlyJsonPropertyName, value);
         }
@@ -794,7 +794,7 @@ namespace DefsFeature.InvalidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public MetaData WithExamples(DefsFeature.InvalidDefinition.MetaData.ExamplesArray value)
+        public MetaData WithExamples(DefsFeature.ValidDefinition.MetaData.ExamplesArray value)
         {
             return this.SetProperty(ExamplesJsonPropertyName, value);
         }

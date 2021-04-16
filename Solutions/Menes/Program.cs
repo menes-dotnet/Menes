@@ -7,8 +7,9 @@
 namespace Menes
 {
     using System.Text.Json;
-    using DefsFeature.InvalidDefinition;
+    using DefsFeature.ValidDefinition;
     using Menes.Json;
+    using static DefsFeature.ValidDefinition.Validation;
 
     class Program
     {
@@ -33,6 +34,8 @@ namespace Menes
             var validated = schema.Validate();
 
             schema = schema.WithAdditionalItems(true);
+
+            schema = schema.WithType(SimpleTypesEntity.EnumValues.Array);
         }
     }
 }

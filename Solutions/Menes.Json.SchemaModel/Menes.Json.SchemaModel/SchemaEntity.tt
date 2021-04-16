@@ -2825,7 +2825,7 @@ namespace <#= Namespace #>
         for(int enumIndex = 0; enumIndex < EnumValues.Length; ++enumIndex)
         {
         #>
-                , __MenesEnumValues.Item<#= enumIndex #>
+                , EnumValues.Item<#= enumIndex #>
         <#
         }
         #>
@@ -5026,14 +5026,14 @@ namespace <#= Namespace #>
     <#
     if (HasEnum)
     {
-        int enumItemIndex = 0;
     #>        
         /// <summary>
         /// Permitted values.
         /// </summary>
-        public static class __MenesEnumValues
+        public static class EnumValues
         {
         <#
+        int enumItemIndex = 0;
         foreach (var enumValue in EnumValues)
         {
         #>
@@ -5042,12 +5042,12 @@ namespace <#= Namespace #>
             {
             #>
             /// <summary>
-            /// [{Title} || Item <#=     enumItemIndex#>] (with predictable naming).
+            /// enumValue.AsPropertyName.
             /// </summary>
             /// <remarks>
             /// {Description}.
             /// </remarks>
-            internal static readonly <#=     TypeDeclaration.DotnetTypeName #> Item<#=     enumItemIndex#> = JsonAny.Parse(<#=     enumValue.SerializedValue #>);
+            public static readonly <#=                    TypeDeclaration.DotnetTypeName #> <#=                    enumValue.AsPropertyName#> = JsonAny.Parse(<#=                    enumValue.SerializedValue #>);
             <#
             }
             else if (enumValue.IsBoolean)
@@ -5081,7 +5081,31 @@ namespace <#= Namespace #>
             <#
             }
             #>
+
         <#
+            ++enumItemIndex;
+        }
+        #>
+
+
+        <#
+        enumItemIndex = 0;
+        foreach (var enumValue in EnumValues)
+        {
+        #>
+            <#
+            if (enumValue.IsString)
+            {
+            #>
+            /// <summary>
+            /// [{Title} || Item <#=     enumItemIndex#>] (with predictable naming).
+            /// </summary>
+            /// <remarks>
+            /// {Description}.
+            /// </remarks>
+            internal static readonly <#=     TypeDeclaration.DotnetTypeName #> Item<#=     enumItemIndex#> = JsonAny.Parse(<#=     enumValue.SerializedValue #>);
+            <#
+            }
             enumItemIndex++;
         }
         #>

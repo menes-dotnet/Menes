@@ -2124,6 +2124,7 @@ public partial class SchemaEntity
             this.IsArray = value.IsArray;
             this.IsNull = value.IsNull;
             this.SerializedValue = GetRawTextAsQuotedString(value);
+            this.AsPropertyName = Formatting.ToPascalCaseWithReservedWords(this.SerializedValue.Trim('"')).ToString();
         }
 
         /// <summary>
@@ -2160,5 +2161,10 @@ public partial class SchemaEntity
         /// Gets the serialized value. This will be quoted for strings, objects, and arrays, otherwise raw.
         /// </summary>
         public string SerializedValue { get; }
+
+        /// <summary>
+        /// Gets the serialized value as a property name.
+        /// </summary>
+        public object AsPropertyName { get; }
     }
 }
