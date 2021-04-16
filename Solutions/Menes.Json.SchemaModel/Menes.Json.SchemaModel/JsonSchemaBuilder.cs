@@ -178,6 +178,28 @@ namespace Menes.JsonSchema.TypeModel
         {
             var localTypes = new HashSet<TypeDeclaration>();
 
+            this.FindReferencedTypesCore(currentDeclaration, referencedTypes, localTypes);
+            currentDeclaration.SetReferencedTypes(localTypes);
+
+            var inspectedTypes = localTypes.ToHashSet();
+
+            var currentTypes = localTypes.ToList();
+
+            while (currentTypes.Any())
+            {
+                localTypes.Clear();
+                foreach (TypeDeclaration type in currentTypes)
+                {
+                    inspectedTypes.Add(type);
+                    this.FindReferencedTypesCore(type, referencedTypes, localTypes);
+                }
+
+                currentTypes = localTypes.Except(inspectedTypes).ToList();
+            }
+        }
+
+        private void FindReferencedTypesCore(TypeDeclaration currentDeclaration, HashSet<TypeDeclaration> referencedTypes, HashSet<TypeDeclaration> localTypes)
+        {
             if (currentDeclaration.Schema.AdditionalItems is Draft201909Schema)
             {
                 TypeDeclaration typeDeclaration = this.GetTypeDeclarationForProperty(currentDeclaration.Location, "additionalItems");
@@ -357,8 +379,6 @@ namespace Menes.JsonSchema.TypeModel
                 this.AddTypeDeclarationsToReferencedTypes(referencedTypes, typeDeclaration);
                 localTypes.Add(typeDeclaration);
             }
-
-            currentDeclaration.SetReferencedTypes(localTypes);
         }
 
         private void AddTypeDeclarationsToReferencedTypes(HashSet<TypeDeclaration> referencedTypes, TypeDeclaration typeDeclaration)
@@ -366,7 +386,6 @@ namespace Menes.JsonSchema.TypeModel
             if (!referencedTypes.Contains(typeDeclaration))
             {
                 referencedTypes.Add(typeDeclaration);
-                this.FindReferencedTypes(typeDeclaration, referencedTypes);
             }
         }
 
@@ -597,14 +616,15 @@ namespace Menes.JsonSchema.TypeModel
 
         private void RecursivelyFixArrayName(TypeDeclaration type)
         {
-            if (type.Schema.IsExplicitArrayType())
-            {
-                if (type.Schema.Items is Draft201909MetaApplicator.ItemsEntity items && items.IsObject)
-                {
-                    TypeDeclaration itemsDeclaration = this.GetTypeDeclarationForProperty(type.Location, "items");
-                    type.OverrideDotnetTypeName($"{itemsDeclaration.DotnetTypeName}Array");
-                }
-            }
+            // TODO: consider what to do if we get a collision in these names
+            ////if (type.Schema.IsExplicitArrayType())
+            ////{
+            ////    if (type.Schema.Items is Draft201909MetaApplicator.ItemsEntity items && items.IsObject)
+            ////    {
+            ////        TypeDeclaration itemsDeclaration = this.GetTypeDeclarationForProperty(type.Location, "items");
+            ////        type.OverrideDotnetTypeName($"{itemsDeclaration.DotnetTypeName}Array");
+            ////    }
+            ////}
 
             foreach (TypeDeclaration child in type.Children)
             {

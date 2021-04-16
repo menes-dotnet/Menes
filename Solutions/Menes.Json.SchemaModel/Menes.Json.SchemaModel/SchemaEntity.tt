@@ -131,7 +131,7 @@ namespace <#= Namespace #>
     if(HasPattern)
     {
     #>
-        private static readonly Regex __MenesPatternExpression = new Regex("<#= Pattern #>", RegexOptions.Compiled);
+        private static readonly Regex __MenesPatternExpression = new Regex(<#= Formatting.FormatLiteralOrNull(Pattern, true) #>, RegexOptions.Compiled);
     <#
     }
     #>
@@ -3100,7 +3100,7 @@ namespace <#= Namespace #>
         {
         #>
             builder.Add(
-                new Regex("<#= patternProperty.Pattern #>", RegexOptions.Compiled),
+                new Regex(<#= Formatting.FormatLiteralOrNull(patternProperty.Pattern, true) #>, RegexOptions.Compiled),
                 (property, validationContext, level) =>
                 {
                     return property.ValueAs<<#= patternProperty.DotnetTypeName #>>().Validate(validationContext, level);

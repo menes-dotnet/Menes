@@ -17,6 +17,7 @@ namespace Menes.Json
         private static readonly ReadOnlyMemory<char> HttpScheme = "http://".AsMemory();
         private static readonly ReadOnlyMemory<char> FileScheme = "file://".AsMemory();
         private static readonly ReadOnlyMemory<char> Value = "Value".AsMemory();
+        private static readonly ReadOnlyMemory<char> TypePrefix = "Type".AsMemory();
         private static readonly ReadOnlyMemory<char> Item = "Item".AsMemory();
         private static readonly ReadOnlyMemory<char> Root = "RootEntity".AsMemory();
 
@@ -156,13 +157,13 @@ namespace Menes.Json
                 return v;
             }
 
-            ////if (char.IsDigit(v[0]))
-            ////{
-            ////    Span<char> buffer2 = new char[v.Length + 5];
-            ////    Value.Span.CopyTo(buffer2);
-            ////    v.CopyTo(buffer2[5..]);
-            ////    return buffer2;
-            ////}
+            if (char.IsDigit(v[0]))
+            {
+                Span<char> buffer2 = new char[v.Length + TypePrefix.Length];
+                TypePrefix.Span.CopyTo(buffer2);
+                v.CopyTo(buffer2[TypePrefix.Length..]);
+                return buffer2;
+            }
 
             return v;
         }

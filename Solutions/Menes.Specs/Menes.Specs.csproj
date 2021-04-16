@@ -14,13 +14,6 @@
     <NoWarn>RCS1029;CS1591</NoWarn>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Compile Remove="Features\JsonSchema\RealWorld\**" />
-    <EmbeddedResource Remove="Features\JsonSchema\RealWorld\**" />
-    <None Remove="Features\JsonSchema\RealWorld\**" />
-    <SpecFlowFeatureFiles Remove="Features\JsonSchema\RealWorld\**" />
-    <SpecFlowObsoleteCodeBehindFiles Remove="Features\JsonSchema\RealWorld\**" />
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="5.0.0" />

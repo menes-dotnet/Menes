@@ -108,7 +108,7 @@ namespace ");
         #line hidden
         
         #line 40 "SchemaEntity.tt"
-        this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
+        this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.FullyQualifiedDotnetTypeName ));
         
         #line default
         #line hidden
@@ -149,7 +149,7 @@ namespace ");
         #line hidden
         
         #line 48 "SchemaEntity.tt"
-        this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
+        this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.FullyQualifiedDotnetTypeName ));
         
         #line default
         #line hidden
@@ -204,7 +204,7 @@ namespace ");
         #line hidden
         
         #line 60 "SchemaEntity.tt"
-        this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
+        this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.FullyQualifiedDotnetTypeName ));
         
         #line default
         #line hidden
@@ -598,19 +598,19 @@ namespace ");
         #line hidden
         
         #line 134 "SchemaEntity.tt"
-        this.Write("        private static readonly Regex __MenesPatternExpression = new Regex(\"");
+        this.Write("        private static readonly Regex __MenesPatternExpression = new Regex(");
         
         #line default
         #line hidden
         
         #line 134 "SchemaEntity.tt"
-        this.Write(this.ToStringHelper.ToStringWithCulture( Pattern ));
+        this.Write(this.ToStringHelper.ToStringWithCulture( Formatting.FormatLiteralOrNull(Pattern, true) ));
         
         #line default
         #line hidden
         
         #line 134 "SchemaEntity.tt"
-        this.Write("\", RegexOptions.Compiled);\r\n    ");
+        this.Write(", RegexOptions.Compiled);\r\n    ");
         
         #line default
         #line hidden
@@ -8687,20 +8687,20 @@ namespace ");
         #line hidden
         
         #line 3103 "SchemaEntity.tt"
-        this.Write("            builder.Add(\r\n                new Regex(\"");
+        this.Write("            builder.Add(\r\n                new Regex(");
         
         #line default
         #line hidden
         
         #line 3104 "SchemaEntity.tt"
-        this.Write(this.ToStringHelper.ToStringWithCulture( patternProperty.Pattern ));
+        this.Write(this.ToStringHelper.ToStringWithCulture( Formatting.FormatLiteralOrNull(patternProperty.Pattern, true) ));
         
         #line default
         #line hidden
         
         #line 3104 "SchemaEntity.tt"
-        this.Write("\", RegexOptions.Compiled),\r\n                (property, validationContext, level) " +
-                "=>\r\n                {\r\n                    return property.ValueAs<");
+        this.Write(", RegexOptions.Compiled),\r\n                (property, validationContext, level) =" +
+                ">\r\n                {\r\n                    return property.ValueAs<");
         
         #line default
         #line hidden
