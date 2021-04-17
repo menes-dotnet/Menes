@@ -10,7 +10,7 @@
 
 #nullable enable
 
-namespace DefsFeature.ValidDefinition
+namespace Menes.Json
 {
     using System;
     using System.Collections.Generic;
@@ -240,7 +240,7 @@ namespace DefsFeature.ValidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.ValidDefinition.Core.IdValue Id
+        public Menes.Json.Core.IdValue Id
         {
             get
             {
@@ -256,7 +256,7 @@ namespace DefsFeature.ValidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(IdUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.ValidDefinition.Core.IdValue(result);
+                        return new  Menes.Json.Core.IdValue(result);
                     }
                 }
 
@@ -310,7 +310,7 @@ namespace DefsFeature.ValidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.ValidDefinition.Core.AnchorValue Anchor
+        public Menes.Json.Core.AnchorValue Anchor
         {
             get
             {
@@ -326,7 +326,7 @@ namespace DefsFeature.ValidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(AnchorUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.ValidDefinition.Core.AnchorValue(result);
+                        return new  Menes.Json.Core.AnchorValue(result);
                     }
                 }
 
@@ -415,7 +415,7 @@ namespace DefsFeature.ValidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.ValidDefinition.Core.RecursiveAnchorValue RecursiveAnchor
+        public Menes.Json.Core.RecursiveAnchorValue RecursiveAnchor
         {
             get
             {
@@ -431,7 +431,7 @@ namespace DefsFeature.ValidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(RecursiveAnchorUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.ValidDefinition.Core.RecursiveAnchorValue(result);
+                        return new  Menes.Json.Core.RecursiveAnchorValue(result);
                     }
                 }
 
@@ -450,7 +450,7 @@ namespace DefsFeature.ValidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.ValidDefinition.Core.VocabularyValue Vocabulary
+        public Menes.Json.Core.VocabularyValue Vocabulary
         {
             get
             {
@@ -466,7 +466,7 @@ namespace DefsFeature.ValidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(VocabularyUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.ValidDefinition.Core.VocabularyValue(result);
+                        return new  Menes.Json.Core.VocabularyValue(result);
                     }
                 }
 
@@ -520,7 +520,7 @@ namespace DefsFeature.ValidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.ValidDefinition.Core.DefsValue Defs
+        public Menes.Json.Core.DefsValue Defs
         {
             get
             {
@@ -536,7 +536,7 @@ namespace DefsFeature.ValidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(DefsUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.ValidDefinition.Core.DefsValue(result);
+                        return new  Menes.Json.Core.DefsValue(result);
                     }
                 }
 
@@ -813,14 +813,68 @@ namespace DefsFeature.ValidDefinition
         }
 
     
-    
+            /// <summary>
+        /// Creates an instance of a <see cref="Core"/>.
+        /// </summary>
+        public static Core Create(
+                            Menes.Json.Core.IdValue? id = null
+        ,             Menes.Json.JsonUri? schema = null
+        ,             Menes.Json.Core.AnchorValue? anchor = null
+        ,             Menes.Json.JsonUriReference? @ref = null
+        ,             Menes.Json.JsonUriReference? recursiveRef = null
+        ,             Menes.Json.Core.RecursiveAnchorValue? recursiveAnchor = null
+        ,             Menes.Json.Core.VocabularyValue? vocabulary = null
+        ,             Menes.Json.JsonString? comment = null
+        ,             Menes.Json.Core.DefsValue? defs = null
+                )
+        {
+            var builder = ImmutableDictionary.CreateBuilder<JsonEncodedText, JsonAny>();
+                            if (id is Menes.Json.Core.IdValue id__)
+            {
+                builder.Add(IdJsonPropertyName, id__);
+            }
+                    if (schema is Menes.Json.JsonUri schema__)
+            {
+                builder.Add(SchemaJsonPropertyName, schema__);
+            }
+                    if (anchor is Menes.Json.Core.AnchorValue anchor__)
+            {
+                builder.Add(AnchorJsonPropertyName, anchor__);
+            }
+                    if (@ref is Menes.Json.JsonUriReference @ref__)
+            {
+                builder.Add(RefJsonPropertyName, @ref__);
+            }
+                    if (recursiveRef is Menes.Json.JsonUriReference recursiveRef__)
+            {
+                builder.Add(RecursiveRefJsonPropertyName, recursiveRef__);
+            }
+                    if (recursiveAnchor is Menes.Json.Core.RecursiveAnchorValue recursiveAnchor__)
+            {
+                builder.Add(RecursiveAnchorJsonPropertyName, recursiveAnchor__);
+            }
+                    if (vocabulary is Menes.Json.Core.VocabularyValue vocabulary__)
+            {
+                builder.Add(VocabularyJsonPropertyName, vocabulary__);
+            }
+                    if (comment is Menes.Json.JsonString comment__)
+            {
+                builder.Add(CommentJsonPropertyName, comment__);
+            }
+                    if (defs is Menes.Json.Core.DefsValue defs__)
+            {
+                builder.Add(DefsJsonPropertyName, defs__);
+            }
+                    return builder.ToImmutable();
+        }
+
         
         /// <summary>
         /// Sets $id.
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Core WithId(DefsFeature.ValidDefinition.Core.IdValue value)
+        public Core WithId(Menes.Json.Core.IdValue value)
         {
             return this.SetProperty(IdJsonPropertyName, value);
         }
@@ -842,7 +896,7 @@ namespace DefsFeature.ValidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Core WithAnchor(DefsFeature.ValidDefinition.Core.AnchorValue value)
+        public Core WithAnchor(Menes.Json.Core.AnchorValue value)
         {
             return this.SetProperty(AnchorJsonPropertyName, value);
         }
@@ -875,7 +929,7 @@ namespace DefsFeature.ValidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Core WithRecursiveAnchor(DefsFeature.ValidDefinition.Core.RecursiveAnchorValue value)
+        public Core WithRecursiveAnchor(Menes.Json.Core.RecursiveAnchorValue value)
         {
             return this.SetProperty(RecursiveAnchorJsonPropertyName, value);
         }
@@ -886,7 +940,7 @@ namespace DefsFeature.ValidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Core WithVocabulary(DefsFeature.ValidDefinition.Core.VocabularyValue value)
+        public Core WithVocabulary(Menes.Json.Core.VocabularyValue value)
         {
             return this.SetProperty(VocabularyJsonPropertyName, value);
         }
@@ -908,13 +962,14 @@ namespace DefsFeature.ValidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Core WithDefs(DefsFeature.ValidDefinition.Core.DefsValue value)
+        public Core WithDefs(Menes.Json.Core.DefsValue value)
         {
             return this.SetProperty(DefsJsonPropertyName, value);
         }
 
         
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -1849,6 +1904,7 @@ namespace DefsFeature.ValidDefinition
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -2453,6 +2509,7 @@ namespace DefsFeature.ValidDefinition
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -2935,6 +2992,7 @@ namespace DefsFeature.ValidDefinition
 
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -3404,6 +3462,7 @@ namespace DefsFeature.ValidDefinition
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -4117,6 +4176,7 @@ namespace DefsFeature.ValidDefinition
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -4461,7 +4521,7 @@ namespace DefsFeature.ValidDefinition
         
                         if (!result.HasEvaluatedLocalProperty(propertyName))
                 {
-                    result = property.ValueAs<DefsFeature.ValidDefinition.Schema>().Validate(result, level);
+                    result = property.ValueAs<Menes.Json.Schema>().Validate(result, level);
                     if (level == ValidationLevel.Flag && !result.IsValid)
                     {
                         return result;

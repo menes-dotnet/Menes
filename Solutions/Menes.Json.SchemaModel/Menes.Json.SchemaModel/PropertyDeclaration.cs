@@ -5,6 +5,7 @@
 namespace Menes.JsonSchema.TypeModel
 {
     using System;
+    using Menes.Json;
 
     /// <summary>
     /// A property declaration in a <see cref="TypeDeclaration"/>.
@@ -52,6 +53,11 @@ namespace Menes.JsonSchema.TypeModel
         /// Gets or sets the dotnet property name.
         /// </summary>
         public string? DotnetPropertyName { get; set; }
+
+        /// <summary>
+        /// Gets the dotnet parameter name.
+        /// </summary>
+        public string? DotnetParameterName => this.DotnetPropertyName is string dnpn ? Formatting.ToCamelCaseWithReservedWords(dnpn).ToString() : null;
 
         /// <summary>
         /// Gets a value indicating whether this property has a default value.

@@ -158,6 +158,39 @@ public partial class SchemaEntity
     }
 
     /// <summary>
+    /// Gets the array of optional <see cref="PropertyDeclaration"/>s.
+    /// </summary>
+    public ImmutableArray<PropertyDeclaration> OptionalProperties
+    {
+        get
+        {
+            return this.TypeDeclaration.Properties.Where(p => p.IsDefinedInLocalScope && !p.IsRequired).ToImmutableArray();
+        }
+    }
+
+    /// <summary>
+    /// Gets the array of required <see cref="PropertyDeclaration"/>s.
+    /// </summary>
+    public ImmutableArray<PropertyDeclaration> RequiredAllOfAndRefProperties
+    {
+        get
+        {
+            return this.TypeDeclaration.Properties.Where(p => p.IsRequired).ToImmutableArray();
+        }
+    }
+
+    /// <summary>
+    /// Gets the array of optional <see cref="PropertyDeclaration"/>s.
+    /// </summary>
+    public ImmutableArray<PropertyDeclaration> OptionalAllOfAndRefProperties
+    {
+        get
+        {
+            return this.TypeDeclaration.Properties.Where(p => !p.IsRequired).ToImmutableArray();
+        }
+    }
+
+    /// <summary>
     /// Gets the array of properties with default values.
     /// </summary>
     public ImmutableArray<PropertyDeclaration> Defaults

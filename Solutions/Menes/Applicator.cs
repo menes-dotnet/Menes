@@ -10,7 +10,7 @@
 
 #nullable enable
 
-namespace DefsFeature.ValidDefinition
+namespace Menes.Json
 {
     using System;
     using System.Collections.Generic;
@@ -328,7 +328,7 @@ namespace DefsFeature.ValidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.ValidDefinition.Schema AdditionalItems
+        public Menes.Json.Schema AdditionalItems
         {
             get
             {
@@ -344,7 +344,7 @@ namespace DefsFeature.ValidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(AdditionalItemsUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.ValidDefinition.Schema(result);
+                        return new  Menes.Json.Schema(result);
                     }
                 }
 
@@ -363,7 +363,7 @@ namespace DefsFeature.ValidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.ValidDefinition.Schema UnevaluatedItems
+        public Menes.Json.Schema UnevaluatedItems
         {
             get
             {
@@ -379,7 +379,7 @@ namespace DefsFeature.ValidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(UnevaluatedItemsUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.ValidDefinition.Schema(result);
+                        return new  Menes.Json.Schema(result);
                     }
                 }
 
@@ -398,7 +398,7 @@ namespace DefsFeature.ValidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.ValidDefinition.Applicator.ItemsEntity Items
+        public Menes.Json.Applicator.ItemsEntity Items
         {
             get
             {
@@ -414,7 +414,7 @@ namespace DefsFeature.ValidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(ItemsUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.ValidDefinition.Applicator.ItemsEntity(result);
+                        return new  Menes.Json.Applicator.ItemsEntity(result);
                     }
                 }
 
@@ -433,7 +433,7 @@ namespace DefsFeature.ValidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.ValidDefinition.Schema Contains
+        public Menes.Json.Schema Contains
         {
             get
             {
@@ -449,7 +449,7 @@ namespace DefsFeature.ValidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(ContainsUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.ValidDefinition.Schema(result);
+                        return new  Menes.Json.Schema(result);
                     }
                 }
 
@@ -468,7 +468,7 @@ namespace DefsFeature.ValidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.ValidDefinition.Schema AdditionalProperties
+        public Menes.Json.Schema AdditionalProperties
         {
             get
             {
@@ -484,7 +484,7 @@ namespace DefsFeature.ValidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(AdditionalPropertiesUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.ValidDefinition.Schema(result);
+                        return new  Menes.Json.Schema(result);
                     }
                 }
 
@@ -503,7 +503,7 @@ namespace DefsFeature.ValidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.ValidDefinition.Schema UnevaluatedProperties
+        public Menes.Json.Schema UnevaluatedProperties
         {
             get
             {
@@ -519,7 +519,7 @@ namespace DefsFeature.ValidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(UnevaluatedPropertiesUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.ValidDefinition.Schema(result);
+                        return new  Menes.Json.Schema(result);
                     }
                 }
 
@@ -538,7 +538,7 @@ namespace DefsFeature.ValidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.ValidDefinition.Applicator.PropertiesValue Properties
+        public Menes.Json.Applicator.PropertiesValue Properties
         {
             get
             {
@@ -554,7 +554,7 @@ namespace DefsFeature.ValidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(PropertiesUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.ValidDefinition.Applicator.PropertiesValue(result);
+                        return new  Menes.Json.Applicator.PropertiesValue(result);
                     }
                 }
 
@@ -573,7 +573,7 @@ namespace DefsFeature.ValidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.ValidDefinition.Applicator.PatternPropertiesValue PatternProperties
+        public Menes.Json.Applicator.PatternPropertiesValue PatternProperties
         {
             get
             {
@@ -589,7 +589,7 @@ namespace DefsFeature.ValidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(PatternPropertiesUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.ValidDefinition.Applicator.PatternPropertiesValue(result);
+                        return new  Menes.Json.Applicator.PatternPropertiesValue(result);
                     }
                 }
 
@@ -608,7 +608,7 @@ namespace DefsFeature.ValidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.ValidDefinition.Applicator.DependentSchemasValue DependentSchemas
+        public Menes.Json.Applicator.DependentSchemasValue DependentSchemas
         {
             get
             {
@@ -624,7 +624,7 @@ namespace DefsFeature.ValidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(DependentSchemasUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.ValidDefinition.Applicator.DependentSchemasValue(result);
+                        return new  Menes.Json.Applicator.DependentSchemasValue(result);
                     }
                 }
 
@@ -643,7 +643,7 @@ namespace DefsFeature.ValidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.ValidDefinition.Schema PropertyNames
+        public Menes.Json.Schema PropertyNames
         {
             get
             {
@@ -659,7 +659,7 @@ namespace DefsFeature.ValidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(PropertyNamesUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.ValidDefinition.Schema(result);
+                        return new  Menes.Json.Schema(result);
                     }
                 }
 
@@ -678,7 +678,7 @@ namespace DefsFeature.ValidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.ValidDefinition.Schema If
+        public Menes.Json.Schema If
         {
             get
             {
@@ -694,7 +694,7 @@ namespace DefsFeature.ValidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(IfUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.ValidDefinition.Schema(result);
+                        return new  Menes.Json.Schema(result);
                     }
                 }
 
@@ -713,7 +713,7 @@ namespace DefsFeature.ValidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.ValidDefinition.Schema Then
+        public Menes.Json.Schema Then
         {
             get
             {
@@ -729,7 +729,7 @@ namespace DefsFeature.ValidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(ThenUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.ValidDefinition.Schema(result);
+                        return new  Menes.Json.Schema(result);
                     }
                 }
 
@@ -748,7 +748,7 @@ namespace DefsFeature.ValidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.ValidDefinition.Schema Else
+        public Menes.Json.Schema Else
         {
             get
             {
@@ -764,7 +764,7 @@ namespace DefsFeature.ValidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(ElseUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.ValidDefinition.Schema(result);
+                        return new  Menes.Json.Schema(result);
                     }
                 }
 
@@ -783,7 +783,7 @@ namespace DefsFeature.ValidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.ValidDefinition.Applicator.SchemaArray AllOf
+        public Menes.Json.Applicator.SchemaArray AllOf
         {
             get
             {
@@ -799,7 +799,7 @@ namespace DefsFeature.ValidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(AllOfUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.ValidDefinition.Applicator.SchemaArray(result);
+                        return new  Menes.Json.Applicator.SchemaArray(result);
                     }
                 }
 
@@ -818,7 +818,7 @@ namespace DefsFeature.ValidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.ValidDefinition.Applicator.SchemaArray AnyOf
+        public Menes.Json.Applicator.SchemaArray AnyOf
         {
             get
             {
@@ -834,7 +834,7 @@ namespace DefsFeature.ValidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(AnyOfUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.ValidDefinition.Applicator.SchemaArray(result);
+                        return new  Menes.Json.Applicator.SchemaArray(result);
                     }
                 }
 
@@ -853,7 +853,7 @@ namespace DefsFeature.ValidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.ValidDefinition.Applicator.SchemaArray OneOf
+        public Menes.Json.Applicator.SchemaArray OneOf
         {
             get
             {
@@ -869,7 +869,7 @@ namespace DefsFeature.ValidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(OneOfUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.ValidDefinition.Applicator.SchemaArray(result);
+                        return new  Menes.Json.Applicator.SchemaArray(result);
                     }
                 }
 
@@ -888,7 +888,7 @@ namespace DefsFeature.ValidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.ValidDefinition.Schema Not
+        public Menes.Json.Schema Not
         {
             get
             {
@@ -904,7 +904,7 @@ namespace DefsFeature.ValidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(NotUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.ValidDefinition.Schema(result);
+                        return new  Menes.Json.Schema(result);
                     }
                 }
 
@@ -1181,14 +1181,108 @@ namespace DefsFeature.ValidDefinition
         }
 
     
-    
+            /// <summary>
+        /// Creates an instance of a <see cref="Applicator"/>.
+        /// </summary>
+        public static Applicator Create(
+                            Menes.Json.Schema? additionalItems = null
+        ,             Menes.Json.Schema? unevaluatedItems = null
+        ,             Menes.Json.Applicator.ItemsEntity? items = null
+        ,             Menes.Json.Schema? contains = null
+        ,             Menes.Json.Schema? additionalProperties = null
+        ,             Menes.Json.Schema? unevaluatedProperties = null
+        ,             Menes.Json.Applicator.PropertiesValue? properties = null
+        ,             Menes.Json.Applicator.PatternPropertiesValue? patternProperties = null
+        ,             Menes.Json.Applicator.DependentSchemasValue? dependentSchemas = null
+        ,             Menes.Json.Schema? propertyNames = null
+        ,             Menes.Json.Schema? @if = null
+        ,             Menes.Json.Schema? then = null
+        ,             Menes.Json.Schema? @else = null
+        ,             Menes.Json.Applicator.SchemaArray? allOf = null
+        ,             Menes.Json.Applicator.SchemaArray? anyOf = null
+        ,             Menes.Json.Applicator.SchemaArray? oneOf = null
+        ,             Menes.Json.Schema? not = null
+                )
+        {
+            var builder = ImmutableDictionary.CreateBuilder<JsonEncodedText, JsonAny>();
+                            if (additionalItems is Menes.Json.Schema additionalItems__)
+            {
+                builder.Add(AdditionalItemsJsonPropertyName, additionalItems__);
+            }
+                    if (unevaluatedItems is Menes.Json.Schema unevaluatedItems__)
+            {
+                builder.Add(UnevaluatedItemsJsonPropertyName, unevaluatedItems__);
+            }
+                    if (items is Menes.Json.Applicator.ItemsEntity items__)
+            {
+                builder.Add(ItemsJsonPropertyName, items__);
+            }
+                    if (contains is Menes.Json.Schema contains__)
+            {
+                builder.Add(ContainsJsonPropertyName, contains__);
+            }
+                    if (additionalProperties is Menes.Json.Schema additionalProperties__)
+            {
+                builder.Add(AdditionalPropertiesJsonPropertyName, additionalProperties__);
+            }
+                    if (unevaluatedProperties is Menes.Json.Schema unevaluatedProperties__)
+            {
+                builder.Add(UnevaluatedPropertiesJsonPropertyName, unevaluatedProperties__);
+            }
+                    if (properties is Menes.Json.Applicator.PropertiesValue properties__)
+            {
+                builder.Add(PropertiesJsonPropertyName, properties__);
+            }
+                    if (patternProperties is Menes.Json.Applicator.PatternPropertiesValue patternProperties__)
+            {
+                builder.Add(PatternPropertiesJsonPropertyName, patternProperties__);
+            }
+                    if (dependentSchemas is Menes.Json.Applicator.DependentSchemasValue dependentSchemas__)
+            {
+                builder.Add(DependentSchemasJsonPropertyName, dependentSchemas__);
+            }
+                    if (propertyNames is Menes.Json.Schema propertyNames__)
+            {
+                builder.Add(PropertyNamesJsonPropertyName, propertyNames__);
+            }
+                    if (@if is Menes.Json.Schema @if__)
+            {
+                builder.Add(IfJsonPropertyName, @if__);
+            }
+                    if (then is Menes.Json.Schema then__)
+            {
+                builder.Add(ThenJsonPropertyName, then__);
+            }
+                    if (@else is Menes.Json.Schema @else__)
+            {
+                builder.Add(ElseJsonPropertyName, @else__);
+            }
+                    if (allOf is Menes.Json.Applicator.SchemaArray allOf__)
+            {
+                builder.Add(AllOfJsonPropertyName, allOf__);
+            }
+                    if (anyOf is Menes.Json.Applicator.SchemaArray anyOf__)
+            {
+                builder.Add(AnyOfJsonPropertyName, anyOf__);
+            }
+                    if (oneOf is Menes.Json.Applicator.SchemaArray oneOf__)
+            {
+                builder.Add(OneOfJsonPropertyName, oneOf__);
+            }
+                    if (not is Menes.Json.Schema not__)
+            {
+                builder.Add(NotJsonPropertyName, not__);
+            }
+                    return builder.ToImmutable();
+        }
+
         
         /// <summary>
         /// Sets additionalItems.
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Applicator WithAdditionalItems(DefsFeature.ValidDefinition.Schema value)
+        public Applicator WithAdditionalItems(Menes.Json.Schema value)
         {
             return this.SetProperty(AdditionalItemsJsonPropertyName, value);
         }
@@ -1199,7 +1293,7 @@ namespace DefsFeature.ValidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Applicator WithUnevaluatedItems(DefsFeature.ValidDefinition.Schema value)
+        public Applicator WithUnevaluatedItems(Menes.Json.Schema value)
         {
             return this.SetProperty(UnevaluatedItemsJsonPropertyName, value);
         }
@@ -1210,7 +1304,7 @@ namespace DefsFeature.ValidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Applicator WithItems(DefsFeature.ValidDefinition.Applicator.ItemsEntity value)
+        public Applicator WithItems(Menes.Json.Applicator.ItemsEntity value)
         {
             return this.SetProperty(ItemsJsonPropertyName, value);
         }
@@ -1221,7 +1315,7 @@ namespace DefsFeature.ValidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Applicator WithContains(DefsFeature.ValidDefinition.Schema value)
+        public Applicator WithContains(Menes.Json.Schema value)
         {
             return this.SetProperty(ContainsJsonPropertyName, value);
         }
@@ -1232,7 +1326,7 @@ namespace DefsFeature.ValidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Applicator WithAdditionalProperties(DefsFeature.ValidDefinition.Schema value)
+        public Applicator WithAdditionalProperties(Menes.Json.Schema value)
         {
             return this.SetProperty(AdditionalPropertiesJsonPropertyName, value);
         }
@@ -1243,7 +1337,7 @@ namespace DefsFeature.ValidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Applicator WithUnevaluatedProperties(DefsFeature.ValidDefinition.Schema value)
+        public Applicator WithUnevaluatedProperties(Menes.Json.Schema value)
         {
             return this.SetProperty(UnevaluatedPropertiesJsonPropertyName, value);
         }
@@ -1254,7 +1348,7 @@ namespace DefsFeature.ValidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Applicator WithProperties(DefsFeature.ValidDefinition.Applicator.PropertiesValue value)
+        public Applicator WithProperties(Menes.Json.Applicator.PropertiesValue value)
         {
             return this.SetProperty(PropertiesJsonPropertyName, value);
         }
@@ -1265,7 +1359,7 @@ namespace DefsFeature.ValidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Applicator WithPatternProperties(DefsFeature.ValidDefinition.Applicator.PatternPropertiesValue value)
+        public Applicator WithPatternProperties(Menes.Json.Applicator.PatternPropertiesValue value)
         {
             return this.SetProperty(PatternPropertiesJsonPropertyName, value);
         }
@@ -1276,7 +1370,7 @@ namespace DefsFeature.ValidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Applicator WithDependentSchemas(DefsFeature.ValidDefinition.Applicator.DependentSchemasValue value)
+        public Applicator WithDependentSchemas(Menes.Json.Applicator.DependentSchemasValue value)
         {
             return this.SetProperty(DependentSchemasJsonPropertyName, value);
         }
@@ -1287,7 +1381,7 @@ namespace DefsFeature.ValidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Applicator WithPropertyNames(DefsFeature.ValidDefinition.Schema value)
+        public Applicator WithPropertyNames(Menes.Json.Schema value)
         {
             return this.SetProperty(PropertyNamesJsonPropertyName, value);
         }
@@ -1298,7 +1392,7 @@ namespace DefsFeature.ValidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Applicator WithIf(DefsFeature.ValidDefinition.Schema value)
+        public Applicator WithIf(Menes.Json.Schema value)
         {
             return this.SetProperty(IfJsonPropertyName, value);
         }
@@ -1309,7 +1403,7 @@ namespace DefsFeature.ValidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Applicator WithThen(DefsFeature.ValidDefinition.Schema value)
+        public Applicator WithThen(Menes.Json.Schema value)
         {
             return this.SetProperty(ThenJsonPropertyName, value);
         }
@@ -1320,7 +1414,7 @@ namespace DefsFeature.ValidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Applicator WithElse(DefsFeature.ValidDefinition.Schema value)
+        public Applicator WithElse(Menes.Json.Schema value)
         {
             return this.SetProperty(ElseJsonPropertyName, value);
         }
@@ -1331,7 +1425,7 @@ namespace DefsFeature.ValidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Applicator WithAllOf(DefsFeature.ValidDefinition.Applicator.SchemaArray value)
+        public Applicator WithAllOf(Menes.Json.Applicator.SchemaArray value)
         {
             return this.SetProperty(AllOfJsonPropertyName, value);
         }
@@ -1342,7 +1436,7 @@ namespace DefsFeature.ValidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Applicator WithAnyOf(DefsFeature.ValidDefinition.Applicator.SchemaArray value)
+        public Applicator WithAnyOf(Menes.Json.Applicator.SchemaArray value)
         {
             return this.SetProperty(AnyOfJsonPropertyName, value);
         }
@@ -1353,7 +1447,7 @@ namespace DefsFeature.ValidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Applicator WithOneOf(DefsFeature.ValidDefinition.Applicator.SchemaArray value)
+        public Applicator WithOneOf(Menes.Json.Applicator.SchemaArray value)
         {
             return this.SetProperty(OneOfJsonPropertyName, value);
         }
@@ -1364,13 +1458,14 @@ namespace DefsFeature.ValidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Applicator WithNot(DefsFeature.ValidDefinition.Schema value)
+        public Applicator WithNot(Menes.Json.Schema value)
         {
             return this.SetProperty(NotJsonPropertyName, value);
         }
 
         
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -2141,8 +2236,8 @@ namespace DefsFeature.ValidDefinition
             /// <summary>
         /// Initializes a new instance of the <see cref="ItemsEntity"/> struct.
         /// </summary>
-        /// <param name="conversion">The <see cref="DefsFeature.ValidDefinition.Schema"/> from which to construct the value.</param>
-        public ItemsEntity(DefsFeature.ValidDefinition.Schema conversion)
+        /// <param name="conversion">The <see cref="Menes.Json.Schema"/> from which to construct the value.</param>
+        public ItemsEntity(Menes.Json.Schema conversion)
         {
             if (conversion.HasJsonElement)
             {
@@ -2178,8 +2273,8 @@ namespace DefsFeature.ValidDefinition
             /// <summary>
         /// Initializes a new instance of the <see cref="ItemsEntity"/> struct.
         /// </summary>
-        /// <param name="conversion">The <see cref="DefsFeature.ValidDefinition.Applicator.SchemaArray"/> from which to construct the value.</param>
-        public ItemsEntity(DefsFeature.ValidDefinition.Applicator.SchemaArray conversion)
+        /// <param name="conversion">The <see cref="Menes.Json.Applicator.SchemaArray"/> from which to construct the value.</param>
+        public ItemsEntity(Menes.Json.Applicator.SchemaArray conversion)
         {
             if (conversion.HasJsonElement)
             {
@@ -2408,153 +2503,153 @@ namespace DefsFeature.ValidDefinition
         }
 
             /// <summary>
-        /// Conversion from DefsFeature.ValidDefinition.Schema.
+        /// Conversion from Menes.Json.Schema.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator ItemsEntity(DefsFeature.ValidDefinition.Schema value)
+        public static implicit operator ItemsEntity(Menes.Json.Schema value)
         {
             return new ItemsEntity(value);
         }
 
         /// <summary>
-        /// Conversion to DefsFeature.ValidDefinition.Schema.
+        /// Conversion to Menes.Json.Schema.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator DefsFeature.ValidDefinition.Schema(ItemsEntity value)
+        public static implicit operator Menes.Json.Schema(ItemsEntity value)
         {
                     if (value.ValueKind == JsonValueKind.Object)
             {
-                return new DefsFeature.ValidDefinition.Schema(value.AsObject);
+                return new Menes.Json.Schema(value.AsObject);
             }
                                             if (value.ValueKind == JsonValueKind.True || value.ValueKind == JsonValueKind.False)
             {
-                return new DefsFeature.ValidDefinition.Schema(value.AsBoolean);
+                return new Menes.Json.Schema(value.AsBoolean);
             }
                             return default;
         }
             /// <summary>
-        /// Conversion from DefsFeature.ValidDefinition.Applicator.SchemaArray.
+        /// Conversion from Menes.Json.Applicator.SchemaArray.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator ItemsEntity(DefsFeature.ValidDefinition.Applicator.SchemaArray value)
+        public static implicit operator ItemsEntity(Menes.Json.Applicator.SchemaArray value)
         {
             return new ItemsEntity(value);
         }
 
         /// <summary>
-        /// Conversion to DefsFeature.ValidDefinition.Applicator.SchemaArray.
+        /// Conversion to Menes.Json.Applicator.SchemaArray.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator DefsFeature.ValidDefinition.Applicator.SchemaArray(ItemsEntity value)
+        public static implicit operator Menes.Json.Applicator.SchemaArray(ItemsEntity value)
         {
                             if (value.ValueKind == JsonValueKind.Array)
             {
-                return new DefsFeature.ValidDefinition.Applicator.SchemaArray(value.AsArray);
+                return new Menes.Json.Applicator.SchemaArray(value.AsArray);
             }
                                             return default;
         }
     
                 /// <summary>
-        /// Conversion from DefsFeature.ValidDefinition.Core.
+        /// Conversion from Menes.Json.Core.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator ItemsEntity(DefsFeature.ValidDefinition.Core value)
+        public static implicit operator ItemsEntity(Menes.Json.Core value)
         {
-            return (DefsFeature.ValidDefinition.Applicator.ItemsEntity)value;
+            return (Menes.Json.Applicator.ItemsEntity)value;
         }
 
         /// <summary>
-        /// Conversion to DefsFeature.ValidDefinition.Core.
+        /// Conversion to Menes.Json.Core.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator DefsFeature.ValidDefinition.Core(ItemsEntity value)
+        public static implicit operator Menes.Json.Core(ItemsEntity value)
         {
-            return (DefsFeature.ValidDefinition.Applicator.ItemsEntity)value;
+            return (Menes.Json.Applicator.ItemsEntity)value;
         }
             /// <summary>
-        /// Conversion from DefsFeature.ValidDefinition.Applicator.
+        /// Conversion from Menes.Json.Applicator.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator ItemsEntity(DefsFeature.ValidDefinition.Applicator value)
+        public static implicit operator ItemsEntity(Menes.Json.Applicator value)
         {
-            return (DefsFeature.ValidDefinition.Applicator.ItemsEntity)value;
+            return (Menes.Json.Applicator.ItemsEntity)value;
         }
 
         /// <summary>
-        /// Conversion to DefsFeature.ValidDefinition.Applicator.
+        /// Conversion to Menes.Json.Applicator.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator DefsFeature.ValidDefinition.Applicator(ItemsEntity value)
+        public static implicit operator Menes.Json.Applicator(ItemsEntity value)
         {
-            return (DefsFeature.ValidDefinition.Applicator.ItemsEntity)value;
+            return (Menes.Json.Applicator.ItemsEntity)value;
         }
             /// <summary>
-        /// Conversion from DefsFeature.ValidDefinition.Validation.
+        /// Conversion from Menes.Json.Validation.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator ItemsEntity(DefsFeature.ValidDefinition.Validation value)
+        public static implicit operator ItemsEntity(Menes.Json.Validation value)
         {
-            return (DefsFeature.ValidDefinition.Applicator.ItemsEntity)value;
+            return (Menes.Json.Applicator.ItemsEntity)value;
         }
 
         /// <summary>
-        /// Conversion to DefsFeature.ValidDefinition.Validation.
+        /// Conversion to Menes.Json.Validation.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator DefsFeature.ValidDefinition.Validation(ItemsEntity value)
+        public static implicit operator Menes.Json.Validation(ItemsEntity value)
         {
-            return (DefsFeature.ValidDefinition.Applicator.ItemsEntity)value;
+            return (Menes.Json.Applicator.ItemsEntity)value;
         }
             /// <summary>
-        /// Conversion from DefsFeature.ValidDefinition.MetaData.
+        /// Conversion from Menes.Json.MetaData.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator ItemsEntity(DefsFeature.ValidDefinition.MetaData value)
+        public static implicit operator ItemsEntity(Menes.Json.MetaData value)
         {
-            return (DefsFeature.ValidDefinition.Applicator.ItemsEntity)value;
+            return (Menes.Json.Applicator.ItemsEntity)value;
         }
 
         /// <summary>
-        /// Conversion to DefsFeature.ValidDefinition.MetaData.
+        /// Conversion to Menes.Json.MetaData.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator DefsFeature.ValidDefinition.MetaData(ItemsEntity value)
+        public static implicit operator Menes.Json.MetaData(ItemsEntity value)
         {
-            return (DefsFeature.ValidDefinition.Applicator.ItemsEntity)value;
+            return (Menes.Json.Applicator.ItemsEntity)value;
         }
             /// <summary>
-        /// Conversion from DefsFeature.ValidDefinition.Format.
+        /// Conversion from Menes.Json.Format.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator ItemsEntity(DefsFeature.ValidDefinition.Format value)
+        public static implicit operator ItemsEntity(Menes.Json.Format value)
         {
-            return (DefsFeature.ValidDefinition.Applicator.ItemsEntity)value;
+            return (Menes.Json.Applicator.ItemsEntity)value;
         }
 
         /// <summary>
-        /// Conversion to DefsFeature.ValidDefinition.Format.
+        /// Conversion to Menes.Json.Format.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator DefsFeature.ValidDefinition.Format(ItemsEntity value)
+        public static implicit operator Menes.Json.Format(ItemsEntity value)
         {
-            return (DefsFeature.ValidDefinition.Applicator.ItemsEntity)value;
+            return (Menes.Json.Applicator.ItemsEntity)value;
         }
             /// <summary>
-        /// Conversion from DefsFeature.ValidDefinition.Content.
+        /// Conversion from Menes.Json.Content.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator ItemsEntity(DefsFeature.ValidDefinition.Content value)
+        public static implicit operator ItemsEntity(Menes.Json.Content value)
         {
-            return (DefsFeature.ValidDefinition.Applicator.ItemsEntity)value;
+            return (Menes.Json.Applicator.ItemsEntity)value;
         }
 
         /// <summary>
-        /// Conversion to DefsFeature.ValidDefinition.Content.
+        /// Conversion to Menes.Json.Content.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator DefsFeature.ValidDefinition.Content(ItemsEntity value)
+        public static implicit operator Menes.Json.Content(ItemsEntity value)
         {
-            return (DefsFeature.ValidDefinition.Applicator.ItemsEntity)value;
+            return (Menes.Json.Applicator.ItemsEntity)value;
         }
     
         /// <summary>
@@ -2696,6 +2791,7 @@ namespace DefsFeature.ValidDefinition
 
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -3106,7 +3202,7 @@ namespace DefsFeature.ValidDefinition
 
                 
 
-            ValidationContext anyOfResult0 = this.As<DefsFeature.ValidDefinition.Schema>().Validate(validationContext.CreateChildContext(), level);
+            ValidationContext anyOfResult0 = this.As<Menes.Json.Schema>().Validate(validationContext.CreateChildContext(), level);
 
             if (anyOfResult0.IsValid)
             {
@@ -3134,7 +3230,7 @@ namespace DefsFeature.ValidDefinition
 
                 
 
-            ValidationContext anyOfResult1 = this.As<DefsFeature.ValidDefinition.Applicator.SchemaArray>().Validate(validationContext.CreateChildContext(), level);
+            ValidationContext anyOfResult1 = this.As<Menes.Json.Applicator.SchemaArray>().Validate(validationContext.CreateChildContext(), level);
 
             if (anyOfResult1.IsValid)
             {
@@ -3487,6 +3583,7 @@ namespace DefsFeature.ValidDefinition
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -3831,7 +3928,7 @@ namespace DefsFeature.ValidDefinition
         
                         if (!result.HasEvaluatedLocalProperty(propertyName))
                 {
-                    result = property.ValueAs<DefsFeature.ValidDefinition.Schema>().Validate(result, level);
+                    result = property.ValueAs<Menes.Json.Schema>().Validate(result, level);
                     if (level == ValidationLevel.Flag && !result.IsValid)
                     {
                         return result;
@@ -4192,6 +4289,7 @@ namespace DefsFeature.ValidDefinition
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -4535,7 +4633,7 @@ namespace DefsFeature.ValidDefinition
         
                         string propertyNameAsString = property.Name;
 
-                            result = new JsonString(propertyNameAsString).As<DefsFeature.ValidDefinition.Applicator.PatternPropertiesValue.PropertyNamesEntity>().Validate(result, level);
+                            result = new JsonString(propertyNameAsString).As<Menes.Json.Applicator.PatternPropertiesValue.PropertyNamesEntity>().Validate(result, level);
                 if (level == ValidationLevel.Flag && !result.IsValid)
                 {
                     return result;
@@ -4544,7 +4642,7 @@ namespace DefsFeature.ValidDefinition
                     
                         if (!result.HasEvaluatedLocalProperty(propertyName))
                 {
-                    result = property.ValueAs<DefsFeature.ValidDefinition.Schema>().Validate(result, level);
+                    result = property.ValueAs<Menes.Json.Schema>().Validate(result, level);
                     if (level == ValidationLevel.Flag && !result.IsValid)
                     {
                         return result;
@@ -4812,6 +4910,7 @@ namespace DefsFeature.ValidDefinition
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -5273,6 +5372,7 @@ namespace DefsFeature.ValidDefinition
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -5617,7 +5717,7 @@ namespace DefsFeature.ValidDefinition
         
                         if (!result.HasEvaluatedLocalProperty(propertyName))
                 {
-                    result = property.ValueAs<DefsFeature.ValidDefinition.Schema>().Validate(result, level);
+                    result = property.ValueAs<Menes.Json.Schema>().Validate(result, level);
                     if (level == ValidationLevel.Flag && !result.IsValid)
                     {
                         return result;
@@ -5987,6 +6087,7 @@ namespace DefsFeature.ValidDefinition
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -6215,7 +6316,7 @@ namespace DefsFeature.ValidDefinition
             {
         
         
-                        result = arrayEnumerator.Current.As<DefsFeature.ValidDefinition.Schema>().Validate(result, level);
+                        result = arrayEnumerator.Current.As<Menes.Json.Schema>().Validate(result, level);
                 if (level == ValidationLevel.Flag && !result.IsValid)
                 {
                     return result;

@@ -10,7 +10,7 @@
 
 #nullable enable
 
-namespace DefsFeature.ValidDefinition
+namespace Menes.Json
 {
     using System;
     using System.Collections.Generic;
@@ -444,7 +444,21 @@ namespace DefsFeature.ValidDefinition
         }
 
     
-    
+            /// <summary>
+        /// Creates an instance of a <see cref="Format"/>.
+        /// </summary>
+        public static Format Create(
+                            Menes.Json.JsonString? format1 = null
+                )
+        {
+            var builder = ImmutableDictionary.CreateBuilder<JsonEncodedText, JsonAny>();
+                            if (format1 is Menes.Json.JsonString format1__)
+            {
+                builder.Add(Format1JsonPropertyName, format1__);
+            }
+                    return builder.ToImmutable();
+        }
+
         
         /// <summary>
         /// Sets format.
@@ -458,6 +472,7 @@ namespace DefsFeature.ValidDefinition
 
         
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>

@@ -10,7 +10,7 @@
 
 #nullable enable
 
-namespace DefsFeature.ValidDefinition
+namespace Menes.Json
 {
     using System;
     using System.Collections.Generic;
@@ -779,8 +779,8 @@ namespace DefsFeature.ValidDefinition
             /// <summary>
         /// Initializes a new instance of the <see cref="Schema"/> struct.
         /// </summary>
-        /// <param name="conversion">The <see cref="DefsFeature.ValidDefinition.Core"/> from which to construct the value.</param>
-        public Schema(DefsFeature.ValidDefinition.Core conversion)
+        /// <param name="conversion">The <see cref="Menes.Json.Core"/> from which to construct the value.</param>
+        public Schema(Menes.Json.Core conversion)
         {
             if (conversion.HasJsonElement)
             {
@@ -814,8 +814,8 @@ namespace DefsFeature.ValidDefinition
             /// <summary>
         /// Initializes a new instance of the <see cref="Schema"/> struct.
         /// </summary>
-        /// <param name="conversion">The <see cref="DefsFeature.ValidDefinition.Applicator"/> from which to construct the value.</param>
-        public Schema(DefsFeature.ValidDefinition.Applicator conversion)
+        /// <param name="conversion">The <see cref="Menes.Json.Applicator"/> from which to construct the value.</param>
+        public Schema(Menes.Json.Applicator conversion)
         {
             if (conversion.HasJsonElement)
             {
@@ -849,8 +849,8 @@ namespace DefsFeature.ValidDefinition
             /// <summary>
         /// Initializes a new instance of the <see cref="Schema"/> struct.
         /// </summary>
-        /// <param name="conversion">The <see cref="DefsFeature.ValidDefinition.Validation"/> from which to construct the value.</param>
-        public Schema(DefsFeature.ValidDefinition.Validation conversion)
+        /// <param name="conversion">The <see cref="Menes.Json.Validation"/> from which to construct the value.</param>
+        public Schema(Menes.Json.Validation conversion)
         {
             if (conversion.HasJsonElement)
             {
@@ -884,8 +884,8 @@ namespace DefsFeature.ValidDefinition
             /// <summary>
         /// Initializes a new instance of the <see cref="Schema"/> struct.
         /// </summary>
-        /// <param name="conversion">The <see cref="DefsFeature.ValidDefinition.MetaData"/> from which to construct the value.</param>
-        public Schema(DefsFeature.ValidDefinition.MetaData conversion)
+        /// <param name="conversion">The <see cref="Menes.Json.MetaData"/> from which to construct the value.</param>
+        public Schema(Menes.Json.MetaData conversion)
         {
             if (conversion.HasJsonElement)
             {
@@ -919,8 +919,8 @@ namespace DefsFeature.ValidDefinition
             /// <summary>
         /// Initializes a new instance of the <see cref="Schema"/> struct.
         /// </summary>
-        /// <param name="conversion">The <see cref="DefsFeature.ValidDefinition.Format"/> from which to construct the value.</param>
-        public Schema(DefsFeature.ValidDefinition.Format conversion)
+        /// <param name="conversion">The <see cref="Menes.Json.Format"/> from which to construct the value.</param>
+        public Schema(Menes.Json.Format conversion)
         {
             if (conversion.HasJsonElement)
             {
@@ -954,8 +954,8 @@ namespace DefsFeature.ValidDefinition
             /// <summary>
         /// Initializes a new instance of the <see cref="Schema"/> struct.
         /// </summary>
-        /// <param name="conversion">The <see cref="DefsFeature.ValidDefinition.Content"/> from which to construct the value.</param>
-        public Schema(DefsFeature.ValidDefinition.Content conversion)
+        /// <param name="conversion">The <see cref="Menes.Json.Content"/> from which to construct the value.</param>
+        public Schema(Menes.Json.Content conversion)
         {
             if (conversion.HasJsonElement)
             {
@@ -1000,7 +1000,7 @@ namespace DefsFeature.ValidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.ValidDefinition.Core.IdValue Id
+        public Menes.Json.Core.IdValue Id
         {
             get
             {
@@ -1016,7 +1016,7 @@ namespace DefsFeature.ValidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(IdUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.ValidDefinition.Core.IdValue(result);
+                        return new  Menes.Json.Core.IdValue(result);
                     }
                 }
 
@@ -1070,7 +1070,7 @@ namespace DefsFeature.ValidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.ValidDefinition.Core.AnchorValue Anchor
+        public Menes.Json.Core.AnchorValue Anchor
         {
             get
             {
@@ -1086,7 +1086,7 @@ namespace DefsFeature.ValidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(AnchorUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.ValidDefinition.Core.AnchorValue(result);
+                        return new  Menes.Json.Core.AnchorValue(result);
                     }
                 }
 
@@ -1175,7 +1175,7 @@ namespace DefsFeature.ValidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.ValidDefinition.Core.RecursiveAnchorValue RecursiveAnchor
+        public Menes.Json.Core.RecursiveAnchorValue RecursiveAnchor
         {
             get
             {
@@ -1191,7 +1191,7 @@ namespace DefsFeature.ValidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(RecursiveAnchorUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.ValidDefinition.Core.RecursiveAnchorValue(result);
+                        return new  Menes.Json.Core.RecursiveAnchorValue(result);
                     }
                 }
 
@@ -1210,7 +1210,7 @@ namespace DefsFeature.ValidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.ValidDefinition.Core.VocabularyValue Vocabulary
+        public Menes.Json.Core.VocabularyValue Vocabulary
         {
             get
             {
@@ -1226,7 +1226,7 @@ namespace DefsFeature.ValidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(VocabularyUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.ValidDefinition.Core.VocabularyValue(result);
+                        return new  Menes.Json.Core.VocabularyValue(result);
                     }
                 }
 
@@ -1280,7 +1280,7 @@ namespace DefsFeature.ValidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.ValidDefinition.Core.DefsValue Defs
+        public Menes.Json.Core.DefsValue Defs
         {
             get
             {
@@ -1296,7 +1296,7 @@ namespace DefsFeature.ValidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(DefsUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.ValidDefinition.Core.DefsValue(result);
+                        return new  Menes.Json.Core.DefsValue(result);
                     }
                 }
 
@@ -1315,7 +1315,7 @@ namespace DefsFeature.ValidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.ValidDefinition.Schema AdditionalItems
+        public Menes.Json.Schema AdditionalItems
         {
             get
             {
@@ -1331,7 +1331,7 @@ namespace DefsFeature.ValidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(AdditionalItemsUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.ValidDefinition.Schema(result);
+                        return new  Menes.Json.Schema(result);
                     }
                 }
 
@@ -1350,7 +1350,7 @@ namespace DefsFeature.ValidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.ValidDefinition.Schema UnevaluatedItems
+        public Menes.Json.Schema UnevaluatedItems
         {
             get
             {
@@ -1366,7 +1366,7 @@ namespace DefsFeature.ValidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(UnevaluatedItemsUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.ValidDefinition.Schema(result);
+                        return new  Menes.Json.Schema(result);
                     }
                 }
 
@@ -1385,7 +1385,7 @@ namespace DefsFeature.ValidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.ValidDefinition.Applicator.ItemsEntity Items
+        public Menes.Json.Applicator.ItemsEntity Items
         {
             get
             {
@@ -1401,7 +1401,7 @@ namespace DefsFeature.ValidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(ItemsUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.ValidDefinition.Applicator.ItemsEntity(result);
+                        return new  Menes.Json.Applicator.ItemsEntity(result);
                     }
                 }
 
@@ -1420,7 +1420,7 @@ namespace DefsFeature.ValidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.ValidDefinition.Schema Contains
+        public Menes.Json.Schema Contains
         {
             get
             {
@@ -1436,7 +1436,7 @@ namespace DefsFeature.ValidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(ContainsUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.ValidDefinition.Schema(result);
+                        return new  Menes.Json.Schema(result);
                     }
                 }
 
@@ -1455,7 +1455,7 @@ namespace DefsFeature.ValidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.ValidDefinition.Schema AdditionalProperties
+        public Menes.Json.Schema AdditionalProperties
         {
             get
             {
@@ -1471,7 +1471,7 @@ namespace DefsFeature.ValidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(AdditionalPropertiesUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.ValidDefinition.Schema(result);
+                        return new  Menes.Json.Schema(result);
                     }
                 }
 
@@ -1490,7 +1490,7 @@ namespace DefsFeature.ValidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.ValidDefinition.Schema UnevaluatedProperties
+        public Menes.Json.Schema UnevaluatedProperties
         {
             get
             {
@@ -1506,7 +1506,7 @@ namespace DefsFeature.ValidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(UnevaluatedPropertiesUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.ValidDefinition.Schema(result);
+                        return new  Menes.Json.Schema(result);
                     }
                 }
 
@@ -1525,7 +1525,7 @@ namespace DefsFeature.ValidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.ValidDefinition.Applicator.PropertiesValue Properties
+        public Menes.Json.Applicator.PropertiesValue Properties
         {
             get
             {
@@ -1541,7 +1541,7 @@ namespace DefsFeature.ValidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(PropertiesUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.ValidDefinition.Applicator.PropertiesValue(result);
+                        return new  Menes.Json.Applicator.PropertiesValue(result);
                     }
                 }
 
@@ -1560,7 +1560,7 @@ namespace DefsFeature.ValidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.ValidDefinition.Applicator.PatternPropertiesValue PatternProperties
+        public Menes.Json.Applicator.PatternPropertiesValue PatternProperties
         {
             get
             {
@@ -1576,7 +1576,7 @@ namespace DefsFeature.ValidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(PatternPropertiesUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.ValidDefinition.Applicator.PatternPropertiesValue(result);
+                        return new  Menes.Json.Applicator.PatternPropertiesValue(result);
                     }
                 }
 
@@ -1595,7 +1595,7 @@ namespace DefsFeature.ValidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.ValidDefinition.Applicator.DependentSchemasValue DependentSchemas
+        public Menes.Json.Applicator.DependentSchemasValue DependentSchemas
         {
             get
             {
@@ -1611,7 +1611,7 @@ namespace DefsFeature.ValidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(DependentSchemasUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.ValidDefinition.Applicator.DependentSchemasValue(result);
+                        return new  Menes.Json.Applicator.DependentSchemasValue(result);
                     }
                 }
 
@@ -1630,7 +1630,7 @@ namespace DefsFeature.ValidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.ValidDefinition.Schema PropertyNames
+        public Menes.Json.Schema PropertyNames
         {
             get
             {
@@ -1646,7 +1646,7 @@ namespace DefsFeature.ValidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(PropertyNamesUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.ValidDefinition.Schema(result);
+                        return new  Menes.Json.Schema(result);
                     }
                 }
 
@@ -1665,7 +1665,7 @@ namespace DefsFeature.ValidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.ValidDefinition.Schema If
+        public Menes.Json.Schema If
         {
             get
             {
@@ -1681,7 +1681,7 @@ namespace DefsFeature.ValidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(IfUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.ValidDefinition.Schema(result);
+                        return new  Menes.Json.Schema(result);
                     }
                 }
 
@@ -1700,7 +1700,7 @@ namespace DefsFeature.ValidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.ValidDefinition.Schema Then
+        public Menes.Json.Schema Then
         {
             get
             {
@@ -1716,7 +1716,7 @@ namespace DefsFeature.ValidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(ThenUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.ValidDefinition.Schema(result);
+                        return new  Menes.Json.Schema(result);
                     }
                 }
 
@@ -1735,7 +1735,7 @@ namespace DefsFeature.ValidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.ValidDefinition.Schema Else
+        public Menes.Json.Schema Else
         {
             get
             {
@@ -1751,7 +1751,7 @@ namespace DefsFeature.ValidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(ElseUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.ValidDefinition.Schema(result);
+                        return new  Menes.Json.Schema(result);
                     }
                 }
 
@@ -1770,7 +1770,7 @@ namespace DefsFeature.ValidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.ValidDefinition.Applicator.SchemaArray AllOf
+        public Menes.Json.Applicator.SchemaArray AllOf
         {
             get
             {
@@ -1786,7 +1786,7 @@ namespace DefsFeature.ValidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(AllOfUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.ValidDefinition.Applicator.SchemaArray(result);
+                        return new  Menes.Json.Applicator.SchemaArray(result);
                     }
                 }
 
@@ -1805,7 +1805,7 @@ namespace DefsFeature.ValidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.ValidDefinition.Applicator.SchemaArray AnyOf
+        public Menes.Json.Applicator.SchemaArray AnyOf
         {
             get
             {
@@ -1821,7 +1821,7 @@ namespace DefsFeature.ValidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(AnyOfUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.ValidDefinition.Applicator.SchemaArray(result);
+                        return new  Menes.Json.Applicator.SchemaArray(result);
                     }
                 }
 
@@ -1840,7 +1840,7 @@ namespace DefsFeature.ValidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.ValidDefinition.Applicator.SchemaArray OneOf
+        public Menes.Json.Applicator.SchemaArray OneOf
         {
             get
             {
@@ -1856,7 +1856,7 @@ namespace DefsFeature.ValidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(OneOfUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.ValidDefinition.Applicator.SchemaArray(result);
+                        return new  Menes.Json.Applicator.SchemaArray(result);
                     }
                 }
 
@@ -1875,7 +1875,7 @@ namespace DefsFeature.ValidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.ValidDefinition.Schema Not
+        public Menes.Json.Schema Not
         {
             get
             {
@@ -1891,7 +1891,7 @@ namespace DefsFeature.ValidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(NotUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.ValidDefinition.Schema(result);
+                        return new  Menes.Json.Schema(result);
                     }
                 }
 
@@ -1910,7 +1910,7 @@ namespace DefsFeature.ValidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.ValidDefinition.Validation.MultipleOfValue MultipleOf
+        public Menes.Json.Validation.MultipleOfValue MultipleOf
         {
             get
             {
@@ -1926,7 +1926,7 @@ namespace DefsFeature.ValidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(MultipleOfUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.ValidDefinition.Validation.MultipleOfValue(result);
+                        return new  Menes.Json.Validation.MultipleOfValue(result);
                     }
                 }
 
@@ -2085,7 +2085,7 @@ namespace DefsFeature.ValidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.ValidDefinition.Validation.NonNegativeIntegerValue MaxLength
+        public Menes.Json.Validation.NonNegativeIntegerValue MaxLength
         {
             get
             {
@@ -2101,7 +2101,7 @@ namespace DefsFeature.ValidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(MaxLengthUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.ValidDefinition.Validation.NonNegativeIntegerValue(result);
+                        return new  Menes.Json.Validation.NonNegativeIntegerValue(result);
                     }
                 }
 
@@ -2120,7 +2120,7 @@ namespace DefsFeature.ValidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.ValidDefinition.Validation.NonNegativeIntegerDefault0Entity MinLength
+        public Menes.Json.Validation.NonNegativeIntegerDefault0Entity MinLength
         {
             get
             {
@@ -2136,7 +2136,7 @@ namespace DefsFeature.ValidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(MinLengthUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.ValidDefinition.Validation.NonNegativeIntegerDefault0Entity(result);
+                        return new  Menes.Json.Validation.NonNegativeIntegerDefault0Entity(result);
                     }
                 }
 
@@ -2190,7 +2190,7 @@ namespace DefsFeature.ValidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.ValidDefinition.Validation.NonNegativeIntegerValue MaxItems
+        public Menes.Json.Validation.NonNegativeIntegerValue MaxItems
         {
             get
             {
@@ -2206,7 +2206,7 @@ namespace DefsFeature.ValidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(MaxItemsUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.ValidDefinition.Validation.NonNegativeIntegerValue(result);
+                        return new  Menes.Json.Validation.NonNegativeIntegerValue(result);
                     }
                 }
 
@@ -2225,7 +2225,7 @@ namespace DefsFeature.ValidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.ValidDefinition.Validation.NonNegativeIntegerDefault0Entity MinItems
+        public Menes.Json.Validation.NonNegativeIntegerDefault0Entity MinItems
         {
             get
             {
@@ -2241,7 +2241,7 @@ namespace DefsFeature.ValidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(MinItemsUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.ValidDefinition.Validation.NonNegativeIntegerDefault0Entity(result);
+                        return new  Menes.Json.Validation.NonNegativeIntegerDefault0Entity(result);
                     }
                 }
 
@@ -2260,7 +2260,7 @@ namespace DefsFeature.ValidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.ValidDefinition.Validation.UniqueItemsValue UniqueItems
+        public Menes.Json.Validation.UniqueItemsValue UniqueItems
         {
             get
             {
@@ -2276,7 +2276,7 @@ namespace DefsFeature.ValidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(UniqueItemsUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.ValidDefinition.Validation.UniqueItemsValue(result);
+                        return new  Menes.Json.Validation.UniqueItemsValue(result);
                     }
                 }
 
@@ -2295,7 +2295,7 @@ namespace DefsFeature.ValidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.ValidDefinition.Validation.NonNegativeIntegerValue MaxContains
+        public Menes.Json.Validation.NonNegativeIntegerValue MaxContains
         {
             get
             {
@@ -2311,7 +2311,7 @@ namespace DefsFeature.ValidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(MaxContainsUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.ValidDefinition.Validation.NonNegativeIntegerValue(result);
+                        return new  Menes.Json.Validation.NonNegativeIntegerValue(result);
                     }
                 }
 
@@ -2330,7 +2330,7 @@ namespace DefsFeature.ValidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.ValidDefinition.Validation.MinContainsEntity MinContains
+        public Menes.Json.Validation.MinContainsEntity MinContains
         {
             get
             {
@@ -2346,7 +2346,7 @@ namespace DefsFeature.ValidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(MinContainsUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.ValidDefinition.Validation.MinContainsEntity(result);
+                        return new  Menes.Json.Validation.MinContainsEntity(result);
                     }
                 }
 
@@ -2365,7 +2365,7 @@ namespace DefsFeature.ValidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.ValidDefinition.Validation.NonNegativeIntegerValue MaxProperties
+        public Menes.Json.Validation.NonNegativeIntegerValue MaxProperties
         {
             get
             {
@@ -2381,7 +2381,7 @@ namespace DefsFeature.ValidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(MaxPropertiesUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.ValidDefinition.Validation.NonNegativeIntegerValue(result);
+                        return new  Menes.Json.Validation.NonNegativeIntegerValue(result);
                     }
                 }
 
@@ -2400,7 +2400,7 @@ namespace DefsFeature.ValidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.ValidDefinition.Validation.NonNegativeIntegerDefault0Entity MinProperties
+        public Menes.Json.Validation.NonNegativeIntegerDefault0Entity MinProperties
         {
             get
             {
@@ -2416,7 +2416,7 @@ namespace DefsFeature.ValidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(MinPropertiesUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.ValidDefinition.Validation.NonNegativeIntegerDefault0Entity(result);
+                        return new  Menes.Json.Validation.NonNegativeIntegerDefault0Entity(result);
                     }
                 }
 
@@ -2435,7 +2435,7 @@ namespace DefsFeature.ValidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.ValidDefinition.Validation.JsonStringArray Required
+        public Menes.Json.Validation.JsonStringArray Required
         {
             get
             {
@@ -2451,7 +2451,7 @@ namespace DefsFeature.ValidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(RequiredUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.ValidDefinition.Validation.JsonStringArray(result);
+                        return new  Menes.Json.Validation.JsonStringArray(result);
                     }
                 }
 
@@ -2470,7 +2470,7 @@ namespace DefsFeature.ValidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.ValidDefinition.Validation.DependentRequiredValue DependentRequired
+        public Menes.Json.Validation.DependentRequiredValue DependentRequired
         {
             get
             {
@@ -2486,7 +2486,7 @@ namespace DefsFeature.ValidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(DependentRequiredUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.ValidDefinition.Validation.DependentRequiredValue(result);
+                        return new  Menes.Json.Validation.DependentRequiredValue(result);
                     }
                 }
 
@@ -2540,7 +2540,7 @@ namespace DefsFeature.ValidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.ValidDefinition.Validation.EnumArray Enum
+        public Menes.Json.Validation.EnumArray Enum
         {
             get
             {
@@ -2556,7 +2556,7 @@ namespace DefsFeature.ValidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(EnumUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.ValidDefinition.Validation.EnumArray(result);
+                        return new  Menes.Json.Validation.EnumArray(result);
                     }
                 }
 
@@ -2575,7 +2575,7 @@ namespace DefsFeature.ValidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.ValidDefinition.Validation.TypeEntity Type
+        public Menes.Json.Validation.TypeEntity Type
         {
             get
             {
@@ -2591,7 +2591,7 @@ namespace DefsFeature.ValidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(TypeUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.ValidDefinition.Validation.TypeEntity(result);
+                        return new  Menes.Json.Validation.TypeEntity(result);
                     }
                 }
 
@@ -2715,7 +2715,7 @@ namespace DefsFeature.ValidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.ValidDefinition.MetaData.DeprecatedValue Deprecated
+        public Menes.Json.MetaData.DeprecatedValue Deprecated
         {
             get
             {
@@ -2731,7 +2731,7 @@ namespace DefsFeature.ValidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(DeprecatedUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.ValidDefinition.MetaData.DeprecatedValue(result);
+                        return new  Menes.Json.MetaData.DeprecatedValue(result);
                     }
                 }
 
@@ -2750,7 +2750,7 @@ namespace DefsFeature.ValidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.ValidDefinition.MetaData.ReadOnlyValue ReadOnly
+        public Menes.Json.MetaData.ReadOnlyValue ReadOnly
         {
             get
             {
@@ -2766,7 +2766,7 @@ namespace DefsFeature.ValidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(ReadOnlyUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.ValidDefinition.MetaData.ReadOnlyValue(result);
+                        return new  Menes.Json.MetaData.ReadOnlyValue(result);
                     }
                 }
 
@@ -2785,7 +2785,7 @@ namespace DefsFeature.ValidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.ValidDefinition.MetaData.WriteOnlyValue WriteOnly
+        public Menes.Json.MetaData.WriteOnlyValue WriteOnly
         {
             get
             {
@@ -2801,7 +2801,7 @@ namespace DefsFeature.ValidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(WriteOnlyUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.ValidDefinition.MetaData.WriteOnlyValue(result);
+                        return new  Menes.Json.MetaData.WriteOnlyValue(result);
                     }
                 }
 
@@ -2820,7 +2820,7 @@ namespace DefsFeature.ValidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.ValidDefinition.MetaData.ExamplesArray Examples
+        public Menes.Json.MetaData.ExamplesArray Examples
         {
             get
             {
@@ -2836,7 +2836,7 @@ namespace DefsFeature.ValidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(ExamplesUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.ValidDefinition.MetaData.ExamplesArray(result);
+                        return new  Menes.Json.MetaData.ExamplesArray(result);
                     }
                 }
 
@@ -2960,7 +2960,7 @@ namespace DefsFeature.ValidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.ValidDefinition.Schema ContentSchema
+        public Menes.Json.Schema ContentSchema
         {
             get
             {
@@ -2976,7 +2976,7 @@ namespace DefsFeature.ValidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(ContentSchemaUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.ValidDefinition.Schema(result);
+                        return new  Menes.Json.Schema(result);
                     }
                 }
 
@@ -2995,7 +2995,7 @@ namespace DefsFeature.ValidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.ValidDefinition.Schema.DefinitionsValue Definitions
+        public Menes.Json.Schema.DefinitionsValue Definitions
         {
             get
             {
@@ -3011,7 +3011,7 @@ namespace DefsFeature.ValidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(DefinitionsUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.ValidDefinition.Schema.DefinitionsValue(result);
+                        return new  Menes.Json.Schema.DefinitionsValue(result);
                     }
                 }
 
@@ -3030,7 +3030,7 @@ namespace DefsFeature.ValidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.ValidDefinition.Schema.DependenciesValue Dependencies
+        public Menes.Json.Schema.DependenciesValue Dependencies
         {
             get
             {
@@ -3046,7 +3046,7 @@ namespace DefsFeature.ValidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(DependenciesUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.ValidDefinition.Schema.DependenciesValue(result);
+                        return new  Menes.Json.Schema.DependenciesValue(result);
                     }
                 }
 
@@ -3220,152 +3220,152 @@ namespace DefsFeature.ValidDefinition
         }
 
             /// <summary>
-        /// Conversion from DefsFeature.ValidDefinition.Core.
+        /// Conversion from Menes.Json.Core.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator Schema(DefsFeature.ValidDefinition.Core value)
+        public static implicit operator Schema(Menes.Json.Core value)
         {
             return new Schema(value);
         }
 
         /// <summary>
-        /// Conversion to DefsFeature.ValidDefinition.Core.
+        /// Conversion to Menes.Json.Core.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator DefsFeature.ValidDefinition.Core(Schema value)
+        public static implicit operator Menes.Json.Core(Schema value)
         {
                     if (value.ValueKind == JsonValueKind.Object)
             {
-                return new DefsFeature.ValidDefinition.Core(value.AsObject);
+                return new Menes.Json.Core(value.AsObject);
             }
                                             if (value.ValueKind == JsonValueKind.True || value.ValueKind == JsonValueKind.False)
             {
-                return new DefsFeature.ValidDefinition.Core(value.AsBoolean);
+                return new Menes.Json.Core(value.AsBoolean);
             }
                             return default;
         }
             /// <summary>
-        /// Conversion from DefsFeature.ValidDefinition.Applicator.
+        /// Conversion from Menes.Json.Applicator.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator Schema(DefsFeature.ValidDefinition.Applicator value)
+        public static implicit operator Schema(Menes.Json.Applicator value)
         {
             return new Schema(value);
         }
 
         /// <summary>
-        /// Conversion to DefsFeature.ValidDefinition.Applicator.
+        /// Conversion to Menes.Json.Applicator.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator DefsFeature.ValidDefinition.Applicator(Schema value)
+        public static implicit operator Menes.Json.Applicator(Schema value)
         {
                     if (value.ValueKind == JsonValueKind.Object)
             {
-                return new DefsFeature.ValidDefinition.Applicator(value.AsObject);
+                return new Menes.Json.Applicator(value.AsObject);
             }
                                             if (value.ValueKind == JsonValueKind.True || value.ValueKind == JsonValueKind.False)
             {
-                return new DefsFeature.ValidDefinition.Applicator(value.AsBoolean);
+                return new Menes.Json.Applicator(value.AsBoolean);
             }
                             return default;
         }
             /// <summary>
-        /// Conversion from DefsFeature.ValidDefinition.Validation.
+        /// Conversion from Menes.Json.Validation.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator Schema(DefsFeature.ValidDefinition.Validation value)
+        public static implicit operator Schema(Menes.Json.Validation value)
         {
             return new Schema(value);
         }
 
         /// <summary>
-        /// Conversion to DefsFeature.ValidDefinition.Validation.
+        /// Conversion to Menes.Json.Validation.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator DefsFeature.ValidDefinition.Validation(Schema value)
+        public static implicit operator Menes.Json.Validation(Schema value)
         {
                     if (value.ValueKind == JsonValueKind.Object)
             {
-                return new DefsFeature.ValidDefinition.Validation(value.AsObject);
+                return new Menes.Json.Validation(value.AsObject);
             }
                                             if (value.ValueKind == JsonValueKind.True || value.ValueKind == JsonValueKind.False)
             {
-                return new DefsFeature.ValidDefinition.Validation(value.AsBoolean);
+                return new Menes.Json.Validation(value.AsBoolean);
             }
                             return default;
         }
             /// <summary>
-        /// Conversion from DefsFeature.ValidDefinition.MetaData.
+        /// Conversion from Menes.Json.MetaData.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator Schema(DefsFeature.ValidDefinition.MetaData value)
+        public static implicit operator Schema(Menes.Json.MetaData value)
         {
             return new Schema(value);
         }
 
         /// <summary>
-        /// Conversion to DefsFeature.ValidDefinition.MetaData.
+        /// Conversion to Menes.Json.MetaData.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator DefsFeature.ValidDefinition.MetaData(Schema value)
+        public static implicit operator Menes.Json.MetaData(Schema value)
         {
                     if (value.ValueKind == JsonValueKind.Object)
             {
-                return new DefsFeature.ValidDefinition.MetaData(value.AsObject);
+                return new Menes.Json.MetaData(value.AsObject);
             }
                                             if (value.ValueKind == JsonValueKind.True || value.ValueKind == JsonValueKind.False)
             {
-                return new DefsFeature.ValidDefinition.MetaData(value.AsBoolean);
+                return new Menes.Json.MetaData(value.AsBoolean);
             }
                             return default;
         }
             /// <summary>
-        /// Conversion from DefsFeature.ValidDefinition.Format.
+        /// Conversion from Menes.Json.Format.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator Schema(DefsFeature.ValidDefinition.Format value)
+        public static implicit operator Schema(Menes.Json.Format value)
         {
             return new Schema(value);
         }
 
         /// <summary>
-        /// Conversion to DefsFeature.ValidDefinition.Format.
+        /// Conversion to Menes.Json.Format.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator DefsFeature.ValidDefinition.Format(Schema value)
+        public static implicit operator Menes.Json.Format(Schema value)
         {
                     if (value.ValueKind == JsonValueKind.Object)
             {
-                return new DefsFeature.ValidDefinition.Format(value.AsObject);
+                return new Menes.Json.Format(value.AsObject);
             }
                                             if (value.ValueKind == JsonValueKind.True || value.ValueKind == JsonValueKind.False)
             {
-                return new DefsFeature.ValidDefinition.Format(value.AsBoolean);
+                return new Menes.Json.Format(value.AsBoolean);
             }
                             return default;
         }
             /// <summary>
-        /// Conversion from DefsFeature.ValidDefinition.Content.
+        /// Conversion from Menes.Json.Content.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator Schema(DefsFeature.ValidDefinition.Content value)
+        public static implicit operator Schema(Menes.Json.Content value)
         {
             return new Schema(value);
         }
 
         /// <summary>
-        /// Conversion to DefsFeature.ValidDefinition.Content.
+        /// Conversion to Menes.Json.Content.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator DefsFeature.ValidDefinition.Content(Schema value)
+        public static implicit operator Menes.Json.Content(Schema value)
         {
                     if (value.ValueKind == JsonValueKind.Object)
             {
-                return new DefsFeature.ValidDefinition.Content(value.AsObject);
+                return new Menes.Json.Content(value.AsObject);
             }
                                             if (value.ValueKind == JsonValueKind.True || value.ValueKind == JsonValueKind.False)
             {
-                return new DefsFeature.ValidDefinition.Content(value.AsBoolean);
+                return new Menes.Json.Content(value.AsBoolean);
             }
                             return default;
         }
@@ -3473,14 +3473,318 @@ namespace DefsFeature.ValidDefinition
         }
 
     
-    
+            /// <summary>
+        /// Creates an instance of a <see cref="Schema"/>.
+        /// </summary>
+        public static Schema Create(
+                            Menes.Json.Core.IdValue? id = null
+        ,             Menes.Json.JsonUri? schema1 = null
+        ,             Menes.Json.Core.AnchorValue? anchor = null
+        ,             Menes.Json.JsonUriReference? @ref = null
+        ,             Menes.Json.JsonUriReference? recursiveRef = null
+        ,             Menes.Json.Core.RecursiveAnchorValue? recursiveAnchor = null
+        ,             Menes.Json.Core.VocabularyValue? vocabulary = null
+        ,             Menes.Json.JsonString? comment = null
+        ,             Menes.Json.Core.DefsValue? defs = null
+        ,             Menes.Json.Schema? additionalItems = null
+        ,             Menes.Json.Schema? unevaluatedItems = null
+        ,             Menes.Json.Applicator.ItemsEntity? items = null
+        ,             Menes.Json.Schema? contains = null
+        ,             Menes.Json.Schema? additionalProperties = null
+        ,             Menes.Json.Schema? unevaluatedProperties = null
+        ,             Menes.Json.Applicator.PropertiesValue? properties = null
+        ,             Menes.Json.Applicator.PatternPropertiesValue? patternProperties = null
+        ,             Menes.Json.Applicator.DependentSchemasValue? dependentSchemas = null
+        ,             Menes.Json.Schema? propertyNames = null
+        ,             Menes.Json.Schema? @if = null
+        ,             Menes.Json.Schema? then = null
+        ,             Menes.Json.Schema? @else = null
+        ,             Menes.Json.Applicator.SchemaArray? allOf = null
+        ,             Menes.Json.Applicator.SchemaArray? anyOf = null
+        ,             Menes.Json.Applicator.SchemaArray? oneOf = null
+        ,             Menes.Json.Schema? not = null
+        ,             Menes.Json.Validation.MultipleOfValue? multipleOf = null
+        ,             Menes.Json.JsonNumber? maximum = null
+        ,             Menes.Json.JsonNumber? exclusiveMaximum = null
+        ,             Menes.Json.JsonNumber? minimum = null
+        ,             Menes.Json.JsonNumber? exclusiveMinimum = null
+        ,             Menes.Json.Validation.NonNegativeIntegerValue? maxLength = null
+        ,             Menes.Json.Validation.NonNegativeIntegerDefault0Entity? minLength = null
+        ,             Menes.Json.JsonRegex? pattern = null
+        ,             Menes.Json.Validation.NonNegativeIntegerValue? maxItems = null
+        ,             Menes.Json.Validation.NonNegativeIntegerDefault0Entity? minItems = null
+        ,             Menes.Json.Validation.UniqueItemsValue? uniqueItems = null
+        ,             Menes.Json.Validation.NonNegativeIntegerValue? maxContains = null
+        ,             Menes.Json.Validation.MinContainsEntity? minContains = null
+        ,             Menes.Json.Validation.NonNegativeIntegerValue? maxProperties = null
+        ,             Menes.Json.Validation.NonNegativeIntegerDefault0Entity? minProperties = null
+        ,             Menes.Json.Validation.JsonStringArray? required = null
+        ,             Menes.Json.Validation.DependentRequiredValue? dependentRequired = null
+        ,             Menes.Json.JsonAny? @const = null
+        ,             Menes.Json.Validation.EnumArray? @enum = null
+        ,             Menes.Json.Validation.TypeEntity? type = null
+        ,             Menes.Json.JsonString? title = null
+        ,             Menes.Json.JsonString? description = null
+        ,             Menes.Json.JsonAny? @default = null
+        ,             Menes.Json.MetaData.DeprecatedValue? deprecated = null
+        ,             Menes.Json.MetaData.ReadOnlyValue? readOnly = null
+        ,             Menes.Json.MetaData.WriteOnlyValue? writeOnly = null
+        ,             Menes.Json.MetaData.ExamplesArray? examples = null
+        ,             Menes.Json.JsonString? format = null
+        ,             Menes.Json.JsonString? contentMediaType = null
+        ,             Menes.Json.JsonString? contentEncoding = null
+        ,             Menes.Json.Schema? contentSchema = null
+        ,             Menes.Json.Schema.DefinitionsValue? definitions = null
+        ,             Menes.Json.Schema.DependenciesValue? dependencies = null
+                )
+        {
+            var builder = ImmutableDictionary.CreateBuilder<JsonEncodedText, JsonAny>();
+                            if (id is Menes.Json.Core.IdValue id__)
+            {
+                builder.Add(IdJsonPropertyName, id__);
+            }
+                    if (schema1 is Menes.Json.JsonUri schema1__)
+            {
+                builder.Add(Schema1JsonPropertyName, schema1__);
+            }
+                    if (anchor is Menes.Json.Core.AnchorValue anchor__)
+            {
+                builder.Add(AnchorJsonPropertyName, anchor__);
+            }
+                    if (@ref is Menes.Json.JsonUriReference @ref__)
+            {
+                builder.Add(RefJsonPropertyName, @ref__);
+            }
+                    if (recursiveRef is Menes.Json.JsonUriReference recursiveRef__)
+            {
+                builder.Add(RecursiveRefJsonPropertyName, recursiveRef__);
+            }
+                    if (recursiveAnchor is Menes.Json.Core.RecursiveAnchorValue recursiveAnchor__)
+            {
+                builder.Add(RecursiveAnchorJsonPropertyName, recursiveAnchor__);
+            }
+                    if (vocabulary is Menes.Json.Core.VocabularyValue vocabulary__)
+            {
+                builder.Add(VocabularyJsonPropertyName, vocabulary__);
+            }
+                    if (comment is Menes.Json.JsonString comment__)
+            {
+                builder.Add(CommentJsonPropertyName, comment__);
+            }
+                    if (defs is Menes.Json.Core.DefsValue defs__)
+            {
+                builder.Add(DefsJsonPropertyName, defs__);
+            }
+                    if (additionalItems is Menes.Json.Schema additionalItems__)
+            {
+                builder.Add(AdditionalItemsJsonPropertyName, additionalItems__);
+            }
+                    if (unevaluatedItems is Menes.Json.Schema unevaluatedItems__)
+            {
+                builder.Add(UnevaluatedItemsJsonPropertyName, unevaluatedItems__);
+            }
+                    if (items is Menes.Json.Applicator.ItemsEntity items__)
+            {
+                builder.Add(ItemsJsonPropertyName, items__);
+            }
+                    if (contains is Menes.Json.Schema contains__)
+            {
+                builder.Add(ContainsJsonPropertyName, contains__);
+            }
+                    if (additionalProperties is Menes.Json.Schema additionalProperties__)
+            {
+                builder.Add(AdditionalPropertiesJsonPropertyName, additionalProperties__);
+            }
+                    if (unevaluatedProperties is Menes.Json.Schema unevaluatedProperties__)
+            {
+                builder.Add(UnevaluatedPropertiesJsonPropertyName, unevaluatedProperties__);
+            }
+                    if (properties is Menes.Json.Applicator.PropertiesValue properties__)
+            {
+                builder.Add(PropertiesJsonPropertyName, properties__);
+            }
+                    if (patternProperties is Menes.Json.Applicator.PatternPropertiesValue patternProperties__)
+            {
+                builder.Add(PatternPropertiesJsonPropertyName, patternProperties__);
+            }
+                    if (dependentSchemas is Menes.Json.Applicator.DependentSchemasValue dependentSchemas__)
+            {
+                builder.Add(DependentSchemasJsonPropertyName, dependentSchemas__);
+            }
+                    if (propertyNames is Menes.Json.Schema propertyNames__)
+            {
+                builder.Add(PropertyNamesJsonPropertyName, propertyNames__);
+            }
+                    if (@if is Menes.Json.Schema @if__)
+            {
+                builder.Add(IfJsonPropertyName, @if__);
+            }
+                    if (then is Menes.Json.Schema then__)
+            {
+                builder.Add(ThenJsonPropertyName, then__);
+            }
+                    if (@else is Menes.Json.Schema @else__)
+            {
+                builder.Add(ElseJsonPropertyName, @else__);
+            }
+                    if (allOf is Menes.Json.Applicator.SchemaArray allOf__)
+            {
+                builder.Add(AllOfJsonPropertyName, allOf__);
+            }
+                    if (anyOf is Menes.Json.Applicator.SchemaArray anyOf__)
+            {
+                builder.Add(AnyOfJsonPropertyName, anyOf__);
+            }
+                    if (oneOf is Menes.Json.Applicator.SchemaArray oneOf__)
+            {
+                builder.Add(OneOfJsonPropertyName, oneOf__);
+            }
+                    if (not is Menes.Json.Schema not__)
+            {
+                builder.Add(NotJsonPropertyName, not__);
+            }
+                    if (multipleOf is Menes.Json.Validation.MultipleOfValue multipleOf__)
+            {
+                builder.Add(MultipleOfJsonPropertyName, multipleOf__);
+            }
+                    if (maximum is Menes.Json.JsonNumber maximum__)
+            {
+                builder.Add(MaximumJsonPropertyName, maximum__);
+            }
+                    if (exclusiveMaximum is Menes.Json.JsonNumber exclusiveMaximum__)
+            {
+                builder.Add(ExclusiveMaximumJsonPropertyName, exclusiveMaximum__);
+            }
+                    if (minimum is Menes.Json.JsonNumber minimum__)
+            {
+                builder.Add(MinimumJsonPropertyName, minimum__);
+            }
+                    if (exclusiveMinimum is Menes.Json.JsonNumber exclusiveMinimum__)
+            {
+                builder.Add(ExclusiveMinimumJsonPropertyName, exclusiveMinimum__);
+            }
+                    if (maxLength is Menes.Json.Validation.NonNegativeIntegerValue maxLength__)
+            {
+                builder.Add(MaxLengthJsonPropertyName, maxLength__);
+            }
+                    if (minLength is Menes.Json.Validation.NonNegativeIntegerDefault0Entity minLength__)
+            {
+                builder.Add(MinLengthJsonPropertyName, minLength__);
+            }
+                    if (pattern is Menes.Json.JsonRegex pattern__)
+            {
+                builder.Add(PatternJsonPropertyName, pattern__);
+            }
+                    if (maxItems is Menes.Json.Validation.NonNegativeIntegerValue maxItems__)
+            {
+                builder.Add(MaxItemsJsonPropertyName, maxItems__);
+            }
+                    if (minItems is Menes.Json.Validation.NonNegativeIntegerDefault0Entity minItems__)
+            {
+                builder.Add(MinItemsJsonPropertyName, minItems__);
+            }
+                    if (uniqueItems is Menes.Json.Validation.UniqueItemsValue uniqueItems__)
+            {
+                builder.Add(UniqueItemsJsonPropertyName, uniqueItems__);
+            }
+                    if (maxContains is Menes.Json.Validation.NonNegativeIntegerValue maxContains__)
+            {
+                builder.Add(MaxContainsJsonPropertyName, maxContains__);
+            }
+                    if (minContains is Menes.Json.Validation.MinContainsEntity minContains__)
+            {
+                builder.Add(MinContainsJsonPropertyName, minContains__);
+            }
+                    if (maxProperties is Menes.Json.Validation.NonNegativeIntegerValue maxProperties__)
+            {
+                builder.Add(MaxPropertiesJsonPropertyName, maxProperties__);
+            }
+                    if (minProperties is Menes.Json.Validation.NonNegativeIntegerDefault0Entity minProperties__)
+            {
+                builder.Add(MinPropertiesJsonPropertyName, minProperties__);
+            }
+                    if (required is Menes.Json.Validation.JsonStringArray required__)
+            {
+                builder.Add(RequiredJsonPropertyName, required__);
+            }
+                    if (dependentRequired is Menes.Json.Validation.DependentRequiredValue dependentRequired__)
+            {
+                builder.Add(DependentRequiredJsonPropertyName, dependentRequired__);
+            }
+                    if (@const is Menes.Json.JsonAny @const__)
+            {
+                builder.Add(ConstJsonPropertyName, @const__);
+            }
+                    if (@enum is Menes.Json.Validation.EnumArray @enum__)
+            {
+                builder.Add(EnumJsonPropertyName, @enum__);
+            }
+                    if (type is Menes.Json.Validation.TypeEntity type__)
+            {
+                builder.Add(TypeJsonPropertyName, type__);
+            }
+                    if (title is Menes.Json.JsonString title__)
+            {
+                builder.Add(TitleJsonPropertyName, title__);
+            }
+                    if (description is Menes.Json.JsonString description__)
+            {
+                builder.Add(DescriptionJsonPropertyName, description__);
+            }
+                    if (@default is Menes.Json.JsonAny @default__)
+            {
+                builder.Add(DefaultJsonPropertyName, @default__);
+            }
+                    if (deprecated is Menes.Json.MetaData.DeprecatedValue deprecated__)
+            {
+                builder.Add(DeprecatedJsonPropertyName, deprecated__);
+            }
+                    if (readOnly is Menes.Json.MetaData.ReadOnlyValue readOnly__)
+            {
+                builder.Add(ReadOnlyJsonPropertyName, readOnly__);
+            }
+                    if (writeOnly is Menes.Json.MetaData.WriteOnlyValue writeOnly__)
+            {
+                builder.Add(WriteOnlyJsonPropertyName, writeOnly__);
+            }
+                    if (examples is Menes.Json.MetaData.ExamplesArray examples__)
+            {
+                builder.Add(ExamplesJsonPropertyName, examples__);
+            }
+                    if (format is Menes.Json.JsonString format__)
+            {
+                builder.Add(FormatJsonPropertyName, format__);
+            }
+                    if (contentMediaType is Menes.Json.JsonString contentMediaType__)
+            {
+                builder.Add(ContentMediaTypeJsonPropertyName, contentMediaType__);
+            }
+                    if (contentEncoding is Menes.Json.JsonString contentEncoding__)
+            {
+                builder.Add(ContentEncodingJsonPropertyName, contentEncoding__);
+            }
+                    if (contentSchema is Menes.Json.Schema contentSchema__)
+            {
+                builder.Add(ContentSchemaJsonPropertyName, contentSchema__);
+            }
+                    if (definitions is Menes.Json.Schema.DefinitionsValue definitions__)
+            {
+                builder.Add(DefinitionsJsonPropertyName, definitions__);
+            }
+                    if (dependencies is Menes.Json.Schema.DependenciesValue dependencies__)
+            {
+                builder.Add(DependenciesJsonPropertyName, dependencies__);
+            }
+                    return builder.ToImmutable();
+        }
+
         
         /// <summary>
         /// Sets $id.
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Schema WithId(DefsFeature.ValidDefinition.Core.IdValue value)
+        public Schema WithId(Menes.Json.Core.IdValue value)
         {
             return this.SetProperty(IdJsonPropertyName, value);
         }
@@ -3502,7 +3806,7 @@ namespace DefsFeature.ValidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Schema WithAnchor(DefsFeature.ValidDefinition.Core.AnchorValue value)
+        public Schema WithAnchor(Menes.Json.Core.AnchorValue value)
         {
             return this.SetProperty(AnchorJsonPropertyName, value);
         }
@@ -3535,7 +3839,7 @@ namespace DefsFeature.ValidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Schema WithRecursiveAnchor(DefsFeature.ValidDefinition.Core.RecursiveAnchorValue value)
+        public Schema WithRecursiveAnchor(Menes.Json.Core.RecursiveAnchorValue value)
         {
             return this.SetProperty(RecursiveAnchorJsonPropertyName, value);
         }
@@ -3546,7 +3850,7 @@ namespace DefsFeature.ValidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Schema WithVocabulary(DefsFeature.ValidDefinition.Core.VocabularyValue value)
+        public Schema WithVocabulary(Menes.Json.Core.VocabularyValue value)
         {
             return this.SetProperty(VocabularyJsonPropertyName, value);
         }
@@ -3568,7 +3872,7 @@ namespace DefsFeature.ValidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Schema WithDefs(DefsFeature.ValidDefinition.Core.DefsValue value)
+        public Schema WithDefs(Menes.Json.Core.DefsValue value)
         {
             return this.SetProperty(DefsJsonPropertyName, value);
         }
@@ -3579,7 +3883,7 @@ namespace DefsFeature.ValidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Schema WithAdditionalItems(DefsFeature.ValidDefinition.Schema value)
+        public Schema WithAdditionalItems(Menes.Json.Schema value)
         {
             return this.SetProperty(AdditionalItemsJsonPropertyName, value);
         }
@@ -3590,7 +3894,7 @@ namespace DefsFeature.ValidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Schema WithUnevaluatedItems(DefsFeature.ValidDefinition.Schema value)
+        public Schema WithUnevaluatedItems(Menes.Json.Schema value)
         {
             return this.SetProperty(UnevaluatedItemsJsonPropertyName, value);
         }
@@ -3601,7 +3905,7 @@ namespace DefsFeature.ValidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Schema WithItems(DefsFeature.ValidDefinition.Applicator.ItemsEntity value)
+        public Schema WithItems(Menes.Json.Applicator.ItemsEntity value)
         {
             return this.SetProperty(ItemsJsonPropertyName, value);
         }
@@ -3612,7 +3916,7 @@ namespace DefsFeature.ValidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Schema WithContains(DefsFeature.ValidDefinition.Schema value)
+        public Schema WithContains(Menes.Json.Schema value)
         {
             return this.SetProperty(ContainsJsonPropertyName, value);
         }
@@ -3623,7 +3927,7 @@ namespace DefsFeature.ValidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Schema WithAdditionalProperties(DefsFeature.ValidDefinition.Schema value)
+        public Schema WithAdditionalProperties(Menes.Json.Schema value)
         {
             return this.SetProperty(AdditionalPropertiesJsonPropertyName, value);
         }
@@ -3634,7 +3938,7 @@ namespace DefsFeature.ValidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Schema WithUnevaluatedProperties(DefsFeature.ValidDefinition.Schema value)
+        public Schema WithUnevaluatedProperties(Menes.Json.Schema value)
         {
             return this.SetProperty(UnevaluatedPropertiesJsonPropertyName, value);
         }
@@ -3645,7 +3949,7 @@ namespace DefsFeature.ValidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Schema WithProperties(DefsFeature.ValidDefinition.Applicator.PropertiesValue value)
+        public Schema WithProperties(Menes.Json.Applicator.PropertiesValue value)
         {
             return this.SetProperty(PropertiesJsonPropertyName, value);
         }
@@ -3656,7 +3960,7 @@ namespace DefsFeature.ValidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Schema WithPatternProperties(DefsFeature.ValidDefinition.Applicator.PatternPropertiesValue value)
+        public Schema WithPatternProperties(Menes.Json.Applicator.PatternPropertiesValue value)
         {
             return this.SetProperty(PatternPropertiesJsonPropertyName, value);
         }
@@ -3667,7 +3971,7 @@ namespace DefsFeature.ValidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Schema WithDependentSchemas(DefsFeature.ValidDefinition.Applicator.DependentSchemasValue value)
+        public Schema WithDependentSchemas(Menes.Json.Applicator.DependentSchemasValue value)
         {
             return this.SetProperty(DependentSchemasJsonPropertyName, value);
         }
@@ -3678,7 +3982,7 @@ namespace DefsFeature.ValidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Schema WithPropertyNames(DefsFeature.ValidDefinition.Schema value)
+        public Schema WithPropertyNames(Menes.Json.Schema value)
         {
             return this.SetProperty(PropertyNamesJsonPropertyName, value);
         }
@@ -3689,7 +3993,7 @@ namespace DefsFeature.ValidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Schema WithIf(DefsFeature.ValidDefinition.Schema value)
+        public Schema WithIf(Menes.Json.Schema value)
         {
             return this.SetProperty(IfJsonPropertyName, value);
         }
@@ -3700,7 +4004,7 @@ namespace DefsFeature.ValidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Schema WithThen(DefsFeature.ValidDefinition.Schema value)
+        public Schema WithThen(Menes.Json.Schema value)
         {
             return this.SetProperty(ThenJsonPropertyName, value);
         }
@@ -3711,7 +4015,7 @@ namespace DefsFeature.ValidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Schema WithElse(DefsFeature.ValidDefinition.Schema value)
+        public Schema WithElse(Menes.Json.Schema value)
         {
             return this.SetProperty(ElseJsonPropertyName, value);
         }
@@ -3722,7 +4026,7 @@ namespace DefsFeature.ValidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Schema WithAllOf(DefsFeature.ValidDefinition.Applicator.SchemaArray value)
+        public Schema WithAllOf(Menes.Json.Applicator.SchemaArray value)
         {
             return this.SetProperty(AllOfJsonPropertyName, value);
         }
@@ -3733,7 +4037,7 @@ namespace DefsFeature.ValidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Schema WithAnyOf(DefsFeature.ValidDefinition.Applicator.SchemaArray value)
+        public Schema WithAnyOf(Menes.Json.Applicator.SchemaArray value)
         {
             return this.SetProperty(AnyOfJsonPropertyName, value);
         }
@@ -3744,7 +4048,7 @@ namespace DefsFeature.ValidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Schema WithOneOf(DefsFeature.ValidDefinition.Applicator.SchemaArray value)
+        public Schema WithOneOf(Menes.Json.Applicator.SchemaArray value)
         {
             return this.SetProperty(OneOfJsonPropertyName, value);
         }
@@ -3755,7 +4059,7 @@ namespace DefsFeature.ValidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Schema WithNot(DefsFeature.ValidDefinition.Schema value)
+        public Schema WithNot(Menes.Json.Schema value)
         {
             return this.SetProperty(NotJsonPropertyName, value);
         }
@@ -3766,7 +4070,7 @@ namespace DefsFeature.ValidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Schema WithMultipleOf(DefsFeature.ValidDefinition.Validation.MultipleOfValue value)
+        public Schema WithMultipleOf(Menes.Json.Validation.MultipleOfValue value)
         {
             return this.SetProperty(MultipleOfJsonPropertyName, value);
         }
@@ -3821,7 +4125,7 @@ namespace DefsFeature.ValidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Schema WithMaxLength(DefsFeature.ValidDefinition.Validation.NonNegativeIntegerValue value)
+        public Schema WithMaxLength(Menes.Json.Validation.NonNegativeIntegerValue value)
         {
             return this.SetProperty(MaxLengthJsonPropertyName, value);
         }
@@ -3832,7 +4136,7 @@ namespace DefsFeature.ValidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Schema WithMinLength(DefsFeature.ValidDefinition.Validation.NonNegativeIntegerDefault0Entity value)
+        public Schema WithMinLength(Menes.Json.Validation.NonNegativeIntegerDefault0Entity value)
         {
             return this.SetProperty(MinLengthJsonPropertyName, value);
         }
@@ -3854,7 +4158,7 @@ namespace DefsFeature.ValidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Schema WithMaxItems(DefsFeature.ValidDefinition.Validation.NonNegativeIntegerValue value)
+        public Schema WithMaxItems(Menes.Json.Validation.NonNegativeIntegerValue value)
         {
             return this.SetProperty(MaxItemsJsonPropertyName, value);
         }
@@ -3865,7 +4169,7 @@ namespace DefsFeature.ValidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Schema WithMinItems(DefsFeature.ValidDefinition.Validation.NonNegativeIntegerDefault0Entity value)
+        public Schema WithMinItems(Menes.Json.Validation.NonNegativeIntegerDefault0Entity value)
         {
             return this.SetProperty(MinItemsJsonPropertyName, value);
         }
@@ -3876,7 +4180,7 @@ namespace DefsFeature.ValidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Schema WithUniqueItems(DefsFeature.ValidDefinition.Validation.UniqueItemsValue value)
+        public Schema WithUniqueItems(Menes.Json.Validation.UniqueItemsValue value)
         {
             return this.SetProperty(UniqueItemsJsonPropertyName, value);
         }
@@ -3887,7 +4191,7 @@ namespace DefsFeature.ValidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Schema WithMaxContains(DefsFeature.ValidDefinition.Validation.NonNegativeIntegerValue value)
+        public Schema WithMaxContains(Menes.Json.Validation.NonNegativeIntegerValue value)
         {
             return this.SetProperty(MaxContainsJsonPropertyName, value);
         }
@@ -3898,7 +4202,7 @@ namespace DefsFeature.ValidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Schema WithMinContains(DefsFeature.ValidDefinition.Validation.MinContainsEntity value)
+        public Schema WithMinContains(Menes.Json.Validation.MinContainsEntity value)
         {
             return this.SetProperty(MinContainsJsonPropertyName, value);
         }
@@ -3909,7 +4213,7 @@ namespace DefsFeature.ValidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Schema WithMaxProperties(DefsFeature.ValidDefinition.Validation.NonNegativeIntegerValue value)
+        public Schema WithMaxProperties(Menes.Json.Validation.NonNegativeIntegerValue value)
         {
             return this.SetProperty(MaxPropertiesJsonPropertyName, value);
         }
@@ -3920,7 +4224,7 @@ namespace DefsFeature.ValidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Schema WithMinProperties(DefsFeature.ValidDefinition.Validation.NonNegativeIntegerDefault0Entity value)
+        public Schema WithMinProperties(Menes.Json.Validation.NonNegativeIntegerDefault0Entity value)
         {
             return this.SetProperty(MinPropertiesJsonPropertyName, value);
         }
@@ -3931,7 +4235,7 @@ namespace DefsFeature.ValidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Schema WithRequired(DefsFeature.ValidDefinition.Validation.JsonStringArray value)
+        public Schema WithRequired(Menes.Json.Validation.JsonStringArray value)
         {
             return this.SetProperty(RequiredJsonPropertyName, value);
         }
@@ -3942,7 +4246,7 @@ namespace DefsFeature.ValidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Schema WithDependentRequired(DefsFeature.ValidDefinition.Validation.DependentRequiredValue value)
+        public Schema WithDependentRequired(Menes.Json.Validation.DependentRequiredValue value)
         {
             return this.SetProperty(DependentRequiredJsonPropertyName, value);
         }
@@ -3964,7 +4268,7 @@ namespace DefsFeature.ValidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Schema WithEnum(DefsFeature.ValidDefinition.Validation.EnumArray value)
+        public Schema WithEnum(Menes.Json.Validation.EnumArray value)
         {
             return this.SetProperty(EnumJsonPropertyName, value);
         }
@@ -3975,7 +4279,7 @@ namespace DefsFeature.ValidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Schema WithType(DefsFeature.ValidDefinition.Validation.TypeEntity value)
+        public Schema WithType(Menes.Json.Validation.TypeEntity value)
         {
             return this.SetProperty(TypeJsonPropertyName, value);
         }
@@ -4019,7 +4323,7 @@ namespace DefsFeature.ValidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Schema WithDeprecated(DefsFeature.ValidDefinition.MetaData.DeprecatedValue value)
+        public Schema WithDeprecated(Menes.Json.MetaData.DeprecatedValue value)
         {
             return this.SetProperty(DeprecatedJsonPropertyName, value);
         }
@@ -4030,7 +4334,7 @@ namespace DefsFeature.ValidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Schema WithReadOnly(DefsFeature.ValidDefinition.MetaData.ReadOnlyValue value)
+        public Schema WithReadOnly(Menes.Json.MetaData.ReadOnlyValue value)
         {
             return this.SetProperty(ReadOnlyJsonPropertyName, value);
         }
@@ -4041,7 +4345,7 @@ namespace DefsFeature.ValidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Schema WithWriteOnly(DefsFeature.ValidDefinition.MetaData.WriteOnlyValue value)
+        public Schema WithWriteOnly(Menes.Json.MetaData.WriteOnlyValue value)
         {
             return this.SetProperty(WriteOnlyJsonPropertyName, value);
         }
@@ -4052,7 +4356,7 @@ namespace DefsFeature.ValidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Schema WithExamples(DefsFeature.ValidDefinition.MetaData.ExamplesArray value)
+        public Schema WithExamples(Menes.Json.MetaData.ExamplesArray value)
         {
             return this.SetProperty(ExamplesJsonPropertyName, value);
         }
@@ -4096,7 +4400,7 @@ namespace DefsFeature.ValidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Schema WithContentSchema(DefsFeature.ValidDefinition.Schema value)
+        public Schema WithContentSchema(Menes.Json.Schema value)
         {
             return this.SetProperty(ContentSchemaJsonPropertyName, value);
         }
@@ -4107,7 +4411,7 @@ namespace DefsFeature.ValidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Schema WithDefinitions(DefsFeature.ValidDefinition.Schema.DefinitionsValue value)
+        public Schema WithDefinitions(Menes.Json.Schema.DefinitionsValue value)
         {
             return this.SetProperty(DefinitionsJsonPropertyName, value);
         }
@@ -4118,13 +4422,14 @@ namespace DefsFeature.ValidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Schema WithDependencies(DefsFeature.ValidDefinition.Schema.DependenciesValue value)
+        public Schema WithDependencies(Menes.Json.Schema.DependenciesValue value)
         {
             return this.SetProperty(DependenciesJsonPropertyName, value);
         }
 
         
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -4603,7 +4908,7 @@ namespace DefsFeature.ValidDefinition
 
                 
 
-            ValidationContext allOfResult0 = this.As<DefsFeature.ValidDefinition.Core>().Validate(validationContext.CreateChildContext(), level);
+            ValidationContext allOfResult0 = this.As<Menes.Json.Core>().Validate(validationContext.CreateChildContext(), level);
 
             if (!allOfResult0.IsValid)
             {
@@ -4628,7 +4933,7 @@ namespace DefsFeature.ValidDefinition
 
                 
 
-            ValidationContext allOfResult1 = this.As<DefsFeature.ValidDefinition.Applicator>().Validate(validationContext.CreateChildContext(), level);
+            ValidationContext allOfResult1 = this.As<Menes.Json.Applicator>().Validate(validationContext.CreateChildContext(), level);
 
             if (!allOfResult1.IsValid)
             {
@@ -4653,7 +4958,7 @@ namespace DefsFeature.ValidDefinition
 
                 
 
-            ValidationContext allOfResult2 = this.As<DefsFeature.ValidDefinition.Validation>().Validate(validationContext.CreateChildContext(), level);
+            ValidationContext allOfResult2 = this.As<Menes.Json.Validation>().Validate(validationContext.CreateChildContext(), level);
 
             if (!allOfResult2.IsValid)
             {
@@ -4678,7 +4983,7 @@ namespace DefsFeature.ValidDefinition
 
                 
 
-            ValidationContext allOfResult3 = this.As<DefsFeature.ValidDefinition.MetaData>().Validate(validationContext.CreateChildContext(), level);
+            ValidationContext allOfResult3 = this.As<Menes.Json.MetaData>().Validate(validationContext.CreateChildContext(), level);
 
             if (!allOfResult3.IsValid)
             {
@@ -4703,7 +5008,7 @@ namespace DefsFeature.ValidDefinition
 
                 
 
-            ValidationContext allOfResult4 = this.As<DefsFeature.ValidDefinition.Format>().Validate(validationContext.CreateChildContext(), level);
+            ValidationContext allOfResult4 = this.As<Menes.Json.Format>().Validate(validationContext.CreateChildContext(), level);
 
             if (!allOfResult4.IsValid)
             {
@@ -4728,7 +5033,7 @@ namespace DefsFeature.ValidDefinition
 
                 
 
-            ValidationContext allOfResult5 = this.As<DefsFeature.ValidDefinition.Content>().Validate(validationContext.CreateChildContext(), level);
+            ValidationContext allOfResult5 = this.As<Menes.Json.Content>().Validate(validationContext.CreateChildContext(), level);
 
             if (!allOfResult5.IsValid)
             {
@@ -5103,6 +5408,7 @@ namespace DefsFeature.ValidDefinition
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -5447,7 +5753,7 @@ namespace DefsFeature.ValidDefinition
         
                         if (!result.HasEvaluatedLocalProperty(propertyName))
                 {
-                    result = property.ValueAs<DefsFeature.ValidDefinition.Schema>().Validate(result, level);
+                    result = property.ValueAs<Menes.Json.Schema>().Validate(result, level);
                     if (level == ValidationLevel.Flag && !result.IsValid)
                     {
                         return result;
@@ -5808,6 +6114,7 @@ namespace DefsFeature.ValidDefinition
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -6152,7 +6459,7 @@ namespace DefsFeature.ValidDefinition
         
                         if (!result.HasEvaluatedLocalProperty(propertyName))
                 {
-                    result = property.ValueAs<DefsFeature.ValidDefinition.Schema.DependenciesValue.AdditionalPropertiesEntity>().Validate(result, level);
+                    result = property.ValueAs<Menes.Json.Schema.DependenciesValue.AdditionalPropertiesEntity>().Validate(result, level);
                     if (level == ValidationLevel.Flag && !result.IsValid)
                     {
                         return result;
@@ -6372,8 +6679,8 @@ namespace DefsFeature.ValidDefinition
             /// <summary>
         /// Initializes a new instance of the <see cref="AdditionalPropertiesEntity"/> struct.
         /// </summary>
-        /// <param name="conversion">The <see cref="DefsFeature.ValidDefinition.Schema"/> from which to construct the value.</param>
-        public AdditionalPropertiesEntity(DefsFeature.ValidDefinition.Schema conversion)
+        /// <param name="conversion">The <see cref="Menes.Json.Schema"/> from which to construct the value.</param>
+        public AdditionalPropertiesEntity(Menes.Json.Schema conversion)
         {
             if (conversion.HasJsonElement)
             {
@@ -6409,8 +6716,8 @@ namespace DefsFeature.ValidDefinition
             /// <summary>
         /// Initializes a new instance of the <see cref="AdditionalPropertiesEntity"/> struct.
         /// </summary>
-        /// <param name="conversion">The <see cref="DefsFeature.ValidDefinition.Validation.JsonStringArray"/> from which to construct the value.</param>
-        public AdditionalPropertiesEntity(DefsFeature.ValidDefinition.Validation.JsonStringArray conversion)
+        /// <param name="conversion">The <see cref="Menes.Json.Validation.JsonStringArray"/> from which to construct the value.</param>
+        public AdditionalPropertiesEntity(Menes.Json.Validation.JsonStringArray conversion)
         {
             if (conversion.HasJsonElement)
             {
@@ -6639,153 +6946,153 @@ namespace DefsFeature.ValidDefinition
         }
 
             /// <summary>
-        /// Conversion from DefsFeature.ValidDefinition.Schema.
+        /// Conversion from Menes.Json.Schema.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator AdditionalPropertiesEntity(DefsFeature.ValidDefinition.Schema value)
+        public static implicit operator AdditionalPropertiesEntity(Menes.Json.Schema value)
         {
             return new AdditionalPropertiesEntity(value);
         }
 
         /// <summary>
-        /// Conversion to DefsFeature.ValidDefinition.Schema.
+        /// Conversion to Menes.Json.Schema.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator DefsFeature.ValidDefinition.Schema(AdditionalPropertiesEntity value)
+        public static implicit operator Menes.Json.Schema(AdditionalPropertiesEntity value)
         {
                     if (value.ValueKind == JsonValueKind.Object)
             {
-                return new DefsFeature.ValidDefinition.Schema(value.AsObject);
+                return new Menes.Json.Schema(value.AsObject);
             }
                                             if (value.ValueKind == JsonValueKind.True || value.ValueKind == JsonValueKind.False)
             {
-                return new DefsFeature.ValidDefinition.Schema(value.AsBoolean);
+                return new Menes.Json.Schema(value.AsBoolean);
             }
                             return default;
         }
             /// <summary>
-        /// Conversion from DefsFeature.ValidDefinition.Validation.JsonStringArray.
+        /// Conversion from Menes.Json.Validation.JsonStringArray.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator AdditionalPropertiesEntity(DefsFeature.ValidDefinition.Validation.JsonStringArray value)
+        public static implicit operator AdditionalPropertiesEntity(Menes.Json.Validation.JsonStringArray value)
         {
             return new AdditionalPropertiesEntity(value);
         }
 
         /// <summary>
-        /// Conversion to DefsFeature.ValidDefinition.Validation.JsonStringArray.
+        /// Conversion to Menes.Json.Validation.JsonStringArray.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator DefsFeature.ValidDefinition.Validation.JsonStringArray(AdditionalPropertiesEntity value)
+        public static implicit operator Menes.Json.Validation.JsonStringArray(AdditionalPropertiesEntity value)
         {
                             if (value.ValueKind == JsonValueKind.Array)
             {
-                return new DefsFeature.ValidDefinition.Validation.JsonStringArray(value.AsArray);
+                return new Menes.Json.Validation.JsonStringArray(value.AsArray);
             }
                                             return default;
         }
     
                 /// <summary>
-        /// Conversion from DefsFeature.ValidDefinition.Core.
+        /// Conversion from Menes.Json.Core.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator AdditionalPropertiesEntity(DefsFeature.ValidDefinition.Core value)
+        public static implicit operator AdditionalPropertiesEntity(Menes.Json.Core value)
         {
-            return (DefsFeature.ValidDefinition.Schema.DependenciesValue.AdditionalPropertiesEntity)value;
+            return (Menes.Json.Schema.DependenciesValue.AdditionalPropertiesEntity)value;
         }
 
         /// <summary>
-        /// Conversion to DefsFeature.ValidDefinition.Core.
+        /// Conversion to Menes.Json.Core.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator DefsFeature.ValidDefinition.Core(AdditionalPropertiesEntity value)
+        public static implicit operator Menes.Json.Core(AdditionalPropertiesEntity value)
         {
-            return (DefsFeature.ValidDefinition.Schema.DependenciesValue.AdditionalPropertiesEntity)value;
+            return (Menes.Json.Schema.DependenciesValue.AdditionalPropertiesEntity)value;
         }
             /// <summary>
-        /// Conversion from DefsFeature.ValidDefinition.Applicator.
+        /// Conversion from Menes.Json.Applicator.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator AdditionalPropertiesEntity(DefsFeature.ValidDefinition.Applicator value)
+        public static implicit operator AdditionalPropertiesEntity(Menes.Json.Applicator value)
         {
-            return (DefsFeature.ValidDefinition.Schema.DependenciesValue.AdditionalPropertiesEntity)value;
+            return (Menes.Json.Schema.DependenciesValue.AdditionalPropertiesEntity)value;
         }
 
         /// <summary>
-        /// Conversion to DefsFeature.ValidDefinition.Applicator.
+        /// Conversion to Menes.Json.Applicator.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator DefsFeature.ValidDefinition.Applicator(AdditionalPropertiesEntity value)
+        public static implicit operator Menes.Json.Applicator(AdditionalPropertiesEntity value)
         {
-            return (DefsFeature.ValidDefinition.Schema.DependenciesValue.AdditionalPropertiesEntity)value;
+            return (Menes.Json.Schema.DependenciesValue.AdditionalPropertiesEntity)value;
         }
             /// <summary>
-        /// Conversion from DefsFeature.ValidDefinition.Validation.
+        /// Conversion from Menes.Json.Validation.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator AdditionalPropertiesEntity(DefsFeature.ValidDefinition.Validation value)
+        public static implicit operator AdditionalPropertiesEntity(Menes.Json.Validation value)
         {
-            return (DefsFeature.ValidDefinition.Schema.DependenciesValue.AdditionalPropertiesEntity)value;
+            return (Menes.Json.Schema.DependenciesValue.AdditionalPropertiesEntity)value;
         }
 
         /// <summary>
-        /// Conversion to DefsFeature.ValidDefinition.Validation.
+        /// Conversion to Menes.Json.Validation.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator DefsFeature.ValidDefinition.Validation(AdditionalPropertiesEntity value)
+        public static implicit operator Menes.Json.Validation(AdditionalPropertiesEntity value)
         {
-            return (DefsFeature.ValidDefinition.Schema.DependenciesValue.AdditionalPropertiesEntity)value;
+            return (Menes.Json.Schema.DependenciesValue.AdditionalPropertiesEntity)value;
         }
             /// <summary>
-        /// Conversion from DefsFeature.ValidDefinition.MetaData.
+        /// Conversion from Menes.Json.MetaData.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator AdditionalPropertiesEntity(DefsFeature.ValidDefinition.MetaData value)
+        public static implicit operator AdditionalPropertiesEntity(Menes.Json.MetaData value)
         {
-            return (DefsFeature.ValidDefinition.Schema.DependenciesValue.AdditionalPropertiesEntity)value;
+            return (Menes.Json.Schema.DependenciesValue.AdditionalPropertiesEntity)value;
         }
 
         /// <summary>
-        /// Conversion to DefsFeature.ValidDefinition.MetaData.
+        /// Conversion to Menes.Json.MetaData.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator DefsFeature.ValidDefinition.MetaData(AdditionalPropertiesEntity value)
+        public static implicit operator Menes.Json.MetaData(AdditionalPropertiesEntity value)
         {
-            return (DefsFeature.ValidDefinition.Schema.DependenciesValue.AdditionalPropertiesEntity)value;
+            return (Menes.Json.Schema.DependenciesValue.AdditionalPropertiesEntity)value;
         }
             /// <summary>
-        /// Conversion from DefsFeature.ValidDefinition.Format.
+        /// Conversion from Menes.Json.Format.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator AdditionalPropertiesEntity(DefsFeature.ValidDefinition.Format value)
+        public static implicit operator AdditionalPropertiesEntity(Menes.Json.Format value)
         {
-            return (DefsFeature.ValidDefinition.Schema.DependenciesValue.AdditionalPropertiesEntity)value;
+            return (Menes.Json.Schema.DependenciesValue.AdditionalPropertiesEntity)value;
         }
 
         /// <summary>
-        /// Conversion to DefsFeature.ValidDefinition.Format.
+        /// Conversion to Menes.Json.Format.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator DefsFeature.ValidDefinition.Format(AdditionalPropertiesEntity value)
+        public static implicit operator Menes.Json.Format(AdditionalPropertiesEntity value)
         {
-            return (DefsFeature.ValidDefinition.Schema.DependenciesValue.AdditionalPropertiesEntity)value;
+            return (Menes.Json.Schema.DependenciesValue.AdditionalPropertiesEntity)value;
         }
             /// <summary>
-        /// Conversion from DefsFeature.ValidDefinition.Content.
+        /// Conversion from Menes.Json.Content.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator AdditionalPropertiesEntity(DefsFeature.ValidDefinition.Content value)
+        public static implicit operator AdditionalPropertiesEntity(Menes.Json.Content value)
         {
-            return (DefsFeature.ValidDefinition.Schema.DependenciesValue.AdditionalPropertiesEntity)value;
+            return (Menes.Json.Schema.DependenciesValue.AdditionalPropertiesEntity)value;
         }
 
         /// <summary>
-        /// Conversion to DefsFeature.ValidDefinition.Content.
+        /// Conversion to Menes.Json.Content.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator DefsFeature.ValidDefinition.Content(AdditionalPropertiesEntity value)
+        public static implicit operator Menes.Json.Content(AdditionalPropertiesEntity value)
         {
-            return (DefsFeature.ValidDefinition.Schema.DependenciesValue.AdditionalPropertiesEntity)value;
+            return (Menes.Json.Schema.DependenciesValue.AdditionalPropertiesEntity)value;
         }
     
         /// <summary>
@@ -6927,6 +7234,7 @@ namespace DefsFeature.ValidDefinition
 
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -7337,7 +7645,7 @@ namespace DefsFeature.ValidDefinition
 
                 
 
-            ValidationContext anyOfResult0 = this.As<DefsFeature.ValidDefinition.Schema>().Validate(validationContext.CreateChildContext(), level);
+            ValidationContext anyOfResult0 = this.As<Menes.Json.Schema>().Validate(validationContext.CreateChildContext(), level);
 
             if (anyOfResult0.IsValid)
             {
@@ -7365,7 +7673,7 @@ namespace DefsFeature.ValidDefinition
 
                 
 
-            ValidationContext anyOfResult1 = this.As<DefsFeature.ValidDefinition.Validation.JsonStringArray>().Validate(validationContext.CreateChildContext(), level);
+            ValidationContext anyOfResult1 = this.As<Menes.Json.Validation.JsonStringArray>().Validate(validationContext.CreateChildContext(), level);
 
             if (anyOfResult1.IsValid)
             {

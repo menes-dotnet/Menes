@@ -10,7 +10,7 @@
 
 #nullable enable
 
-namespace DefsFeature.ValidDefinition
+namespace Menes.Json
 {
     using System;
     using System.Collections.Generic;
@@ -323,7 +323,7 @@ namespace DefsFeature.ValidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.ValidDefinition.MetaData.DeprecatedValue Deprecated
+        public Menes.Json.MetaData.DeprecatedValue Deprecated
         {
             get
             {
@@ -339,7 +339,7 @@ namespace DefsFeature.ValidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(DeprecatedUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.ValidDefinition.MetaData.DeprecatedValue(result);
+                        return new  Menes.Json.MetaData.DeprecatedValue(result);
                     }
                 }
 
@@ -358,7 +358,7 @@ namespace DefsFeature.ValidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.ValidDefinition.MetaData.ReadOnlyValue ReadOnly
+        public Menes.Json.MetaData.ReadOnlyValue ReadOnly
         {
             get
             {
@@ -374,7 +374,7 @@ namespace DefsFeature.ValidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(ReadOnlyUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.ValidDefinition.MetaData.ReadOnlyValue(result);
+                        return new  Menes.Json.MetaData.ReadOnlyValue(result);
                     }
                 }
 
@@ -393,7 +393,7 @@ namespace DefsFeature.ValidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.ValidDefinition.MetaData.WriteOnlyValue WriteOnly
+        public Menes.Json.MetaData.WriteOnlyValue WriteOnly
         {
             get
             {
@@ -409,7 +409,7 @@ namespace DefsFeature.ValidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(WriteOnlyUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.ValidDefinition.MetaData.WriteOnlyValue(result);
+                        return new  Menes.Json.MetaData.WriteOnlyValue(result);
                     }
                 }
 
@@ -428,7 +428,7 @@ namespace DefsFeature.ValidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.ValidDefinition.MetaData.ExamplesArray Examples
+        public Menes.Json.MetaData.ExamplesArray Examples
         {
             get
             {
@@ -444,7 +444,7 @@ namespace DefsFeature.ValidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(ExamplesUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.ValidDefinition.MetaData.ExamplesArray(result);
+                        return new  Menes.Json.MetaData.ExamplesArray(result);
                     }
                 }
 
@@ -721,7 +721,51 @@ namespace DefsFeature.ValidDefinition
         }
 
     
-    
+            /// <summary>
+        /// Creates an instance of a <see cref="MetaData"/>.
+        /// </summary>
+        public static MetaData Create(
+                            Menes.Json.JsonString? title = null
+        ,             Menes.Json.JsonString? description = null
+        ,             Menes.Json.JsonAny? @default = null
+        ,             Menes.Json.MetaData.DeprecatedValue? deprecated = null
+        ,             Menes.Json.MetaData.ReadOnlyValue? readOnly = null
+        ,             Menes.Json.MetaData.WriteOnlyValue? writeOnly = null
+        ,             Menes.Json.MetaData.ExamplesArray? examples = null
+                )
+        {
+            var builder = ImmutableDictionary.CreateBuilder<JsonEncodedText, JsonAny>();
+                            if (title is Menes.Json.JsonString title__)
+            {
+                builder.Add(TitleJsonPropertyName, title__);
+            }
+                    if (description is Menes.Json.JsonString description__)
+            {
+                builder.Add(DescriptionJsonPropertyName, description__);
+            }
+                    if (@default is Menes.Json.JsonAny @default__)
+            {
+                builder.Add(DefaultJsonPropertyName, @default__);
+            }
+                    if (deprecated is Menes.Json.MetaData.DeprecatedValue deprecated__)
+            {
+                builder.Add(DeprecatedJsonPropertyName, deprecated__);
+            }
+                    if (readOnly is Menes.Json.MetaData.ReadOnlyValue readOnly__)
+            {
+                builder.Add(ReadOnlyJsonPropertyName, readOnly__);
+            }
+                    if (writeOnly is Menes.Json.MetaData.WriteOnlyValue writeOnly__)
+            {
+                builder.Add(WriteOnlyJsonPropertyName, writeOnly__);
+            }
+                    if (examples is Menes.Json.MetaData.ExamplesArray examples__)
+            {
+                builder.Add(ExamplesJsonPropertyName, examples__);
+            }
+                    return builder.ToImmutable();
+        }
+
         
         /// <summary>
         /// Sets title.
@@ -761,7 +805,7 @@ namespace DefsFeature.ValidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public MetaData WithDeprecated(DefsFeature.ValidDefinition.MetaData.DeprecatedValue value)
+        public MetaData WithDeprecated(Menes.Json.MetaData.DeprecatedValue value)
         {
             return this.SetProperty(DeprecatedJsonPropertyName, value);
         }
@@ -772,7 +816,7 @@ namespace DefsFeature.ValidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public MetaData WithReadOnly(DefsFeature.ValidDefinition.MetaData.ReadOnlyValue value)
+        public MetaData WithReadOnly(Menes.Json.MetaData.ReadOnlyValue value)
         {
             return this.SetProperty(ReadOnlyJsonPropertyName, value);
         }
@@ -783,7 +827,7 @@ namespace DefsFeature.ValidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public MetaData WithWriteOnly(DefsFeature.ValidDefinition.MetaData.WriteOnlyValue value)
+        public MetaData WithWriteOnly(Menes.Json.MetaData.WriteOnlyValue value)
         {
             return this.SetProperty(WriteOnlyJsonPropertyName, value);
         }
@@ -794,13 +838,14 @@ namespace DefsFeature.ValidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public MetaData WithExamples(DefsFeature.ValidDefinition.MetaData.ExamplesArray value)
+        public MetaData WithExamples(Menes.Json.MetaData.ExamplesArray value)
         {
             return this.SetProperty(ExamplesJsonPropertyName, value);
         }
 
         
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -1638,6 +1683,7 @@ namespace DefsFeature.ValidDefinition
 
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -2106,6 +2152,7 @@ namespace DefsFeature.ValidDefinition
 
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -2574,6 +2621,7 @@ namespace DefsFeature.ValidDefinition
 
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -3052,6 +3100,7 @@ namespace DefsFeature.ValidDefinition
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>

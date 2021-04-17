@@ -2198,6 +2198,67 @@ namespace <#= Namespace #>
     if (HasProperties)
     {
     #>
+        /// <summary>
+        /// Creates an instance of a <see cref="<#= TypeDeclaration.DotnetTypeName #>"/>.
+        /// </summary>
+        public static <#= TypeDeclaration.DotnetTypeName #> Create(
+        <#
+        bool isFirstCreateParameter = true;
+        foreach(var property in RequiredAllOfAndRefProperties)
+        {
+            if (isFirstCreateParameter)
+            {
+                isFirstCreateParameter = false;
+            }
+            else
+            {
+        #>, <#
+            }
+        #>
+           <#= property.Type.FullyQualifiedDotnetTypeName #> <#= property.DotnetParameterName #>
+        <#
+        }
+        #>
+        <#
+        foreach(var property in OptionalAllOfAndRefProperties)
+        {
+            if (isFirstCreateParameter)
+            {
+                isFirstCreateParameter = false;
+            }
+            else
+            {
+        #>, <#
+            }
+        #>
+            <#= property.Type.FullyQualifiedDotnetTypeName #>? <#= property.DotnetParameterName #> = null
+        <#
+        }
+        #>
+        )
+        {
+            var builder = ImmutableDictionary.CreateBuilder<JsonEncodedText, JsonAny>();
+        <#
+        foreach(var property in RequiredAllOfAndRefProperties)
+        {
+        #>
+            builder.Add(<#= property.DotnetPropertyName#>JsonPropertyName, <#= property.DotnetParameterName #>);
+        <#
+        }
+        #>
+        <#
+        foreach(var property in OptionalAllOfAndRefProperties)
+        {
+        #>
+            if (<#= property.DotnetParameterName #> is <#= property.Type.FullyQualifiedDotnetTypeName #> <#= property.DotnetParameterName #>__)
+            {
+                builder.Add(<#= property.DotnetPropertyName#>JsonPropertyName, <#= property.DotnetParameterName #>__);
+            }
+        <#
+        }
+        #>
+            return builder.ToImmutable();
+        }
 
         <#
         foreach(var property in Properties)
@@ -2221,6 +2282,7 @@ namespace <#= Namespace #>
     <#
     }
     #>
+
 
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
@@ -5053,30 +5115,60 @@ namespace <#= Namespace #>
             else if (enumValue.IsBoolean)
             {
             #>
+            /// <summary>
+            /// [{Title} || Item <#=     enumItemIndex#>] (with predictable naming).
+            /// </summary>
+            /// <remarks>
+            /// {Description}.
+            /// </remarks>
             public static readonly <#=     TypeDeclaration.DotnetTypeName #> Item<#=     enumItemIndex#> = JsonAny.Parse(<#=     enumValue.SerializedValue #>);
             <#
             }
             else if (enumValue.IsNumber)
             {
             #>
+            /// <summary>
+            /// [{Title} || Item <#=     enumItemIndex#>] (with predictable naming).
+            /// </summary>
+            /// <remarks>
+            /// {Description}.
+            /// </remarks>
             public static readonly <#=     TypeDeclaration.DotnetTypeName #> Item<#=     enumItemIndex#> = JsonAny.Parse(<#=     enumValue.SerializedValue #>);
             <#
             }
             else if (enumValue.IsObject)
             {
             #>
+            /// <summary>
+            /// [{Title} || Item <#=     enumItemIndex#>] (with predictable naming).
+            /// </summary>
+            /// <remarks>
+            /// {Description}.
+            /// </remarks>
             public static readonly <#=     TypeDeclaration.DotnetTypeName #> Item<#=     enumItemIndex#> = JsonAny.Parse(<#=     enumValue.SerializedValue #>);
             <#
             }
             else if (enumValue.IsArray)
             {
             #>
+            /// <summary>
+            /// [{Title} || Item <#=     enumItemIndex#>] (with predictable naming).
+            /// </summary>
+            /// <remarks>
+            /// {Description}.
+            /// </remarks>
             public static readonly <#=     TypeDeclaration.DotnetTypeName #> Item<#=     enumItemIndex#> = JsonAny.Parse(<#=     enumValue.SerializedValue #>);
             <#
             }
             else if (enumValue.IsNull)
             {
             #>
+            /// <summary>
+            /// [{Title} || Item <#=     enumItemIndex#>] (with predictable naming).
+            /// </summary>
+            /// <remarks>
+            /// {Description}.
+            /// </remarks>
             public static readonly <#=     TypeDeclaration.DotnetTypeName #> Item<#=     enumItemIndex#> = JsonAny.Parse("null");
             <#
             }

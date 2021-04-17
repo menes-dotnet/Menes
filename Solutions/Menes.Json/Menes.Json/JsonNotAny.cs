@@ -585,6 +585,15 @@ namespace Menes.Json
         }
 
         /// <summary>
+        /// Conversion to <see cref="JsonAny"/>.
+        /// </summary>
+        /// <param name="value">The number from which to convert.</param>
+        public static implicit operator JsonAny(JsonNotAny value)
+        {
+            return value.AsAny;
+        }
+
+        /// <summary>
         /// Conversion from double.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>

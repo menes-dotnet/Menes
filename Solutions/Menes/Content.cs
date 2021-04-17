@@ -10,7 +10,7 @@
 
 #nullable enable
 
-namespace DefsFeature.ValidDefinition
+namespace Menes.Json
 {
     using System;
     using System.Collections.Generic;
@@ -243,7 +243,7 @@ namespace DefsFeature.ValidDefinition
         /// <example>
         /// {Property examples}.
         /// </example>
-        public DefsFeature.ValidDefinition.Schema ContentSchema
+        public Menes.Json.Schema ContentSchema
         {
             get
             {
@@ -259,7 +259,7 @@ namespace DefsFeature.ValidDefinition
                 {
                     if (this.jsonElementBacking.TryGetProperty(ContentSchemaUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  DefsFeature.ValidDefinition.Schema(result);
+                        return new  Menes.Json.Schema(result);
                     }
                 }
 
@@ -536,7 +536,31 @@ namespace DefsFeature.ValidDefinition
         }
 
     
-    
+            /// <summary>
+        /// Creates an instance of a <see cref="Content"/>.
+        /// </summary>
+        public static Content Create(
+                            Menes.Json.JsonString? contentMediaType = null
+        ,             Menes.Json.JsonString? contentEncoding = null
+        ,             Menes.Json.Schema? contentSchema = null
+                )
+        {
+            var builder = ImmutableDictionary.CreateBuilder<JsonEncodedText, JsonAny>();
+                            if (contentMediaType is Menes.Json.JsonString contentMediaType__)
+            {
+                builder.Add(ContentMediaTypeJsonPropertyName, contentMediaType__);
+            }
+                    if (contentEncoding is Menes.Json.JsonString contentEncoding__)
+            {
+                builder.Add(ContentEncodingJsonPropertyName, contentEncoding__);
+            }
+                    if (contentSchema is Menes.Json.Schema contentSchema__)
+            {
+                builder.Add(ContentSchemaJsonPropertyName, contentSchema__);
+            }
+                    return builder.ToImmutable();
+        }
+
         
         /// <summary>
         /// Sets contentMediaType.
@@ -565,13 +589,14 @@ namespace DefsFeature.ValidDefinition
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Content WithContentSchema(DefsFeature.ValidDefinition.Schema value)
+        public Content WithContentSchema(Menes.Json.Schema value)
         {
             return this.SetProperty(ContentSchemaJsonPropertyName, value);
         }
 
         
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>

@@ -572,6 +572,18 @@ namespace Menes.JsonSchema.TypeModel
                 }
             }
 
+            if (source.Schema.Ref is JsonUriReference && !source.Schema.IsNakedReference())
+            {
+                TypeDeclaration refTypeDeclaration = this.GetTypeDeclarationForProperty(source.Location, "$ref");
+                this.AddPropertiesFromType(refTypeDeclaration, target, typesVisited);
+            }
+
+            if (source.Schema.RecursiveRef is JsonUriReference && !source.Schema.IsNakedRecursiveReference())
+            {
+                TypeDeclaration refTypeDeclaration = this.GetTypeDeclarationForProperty(source.Location, "$recursiveRef");
+                this.AddPropertiesFromType(refTypeDeclaration, target, typesVisited);
+            }
+
             // Then we add our own properties.
             if (source.Schema.Properties is Draft201909MetaApplicator.PropertiesEntity properties)
             {
