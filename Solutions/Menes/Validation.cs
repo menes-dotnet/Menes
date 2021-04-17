@@ -350,6 +350,7 @@ namespace Menes.Json
     
 
     
+    
             
         /// <summary>
         /// Gets MultipleOf.
@@ -2401,6 +2402,7 @@ namespace Menes.Json
     
 
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -2968,6 +2970,7 @@ namespace Menes.Json
     
     
 
+    
     
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
@@ -3562,6 +3565,29 @@ namespace Menes.Json
 
     
             /// <summary>
+        /// Gets the value as a <see cref="Menes.Json.Validation.NonNegativeIntegerValue" />.
+        /// </summary>
+        public Menes.Json.Validation.NonNegativeIntegerValue AsNonNegativeIntegerValue
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="Menes.Json.Validation.NonNegativeIntegerValue" />.
+        /// </summary>
+        public bool IsNonNegativeIntegerValue
+        {
+            get
+            {
+                return ((Menes.Json.Validation.NonNegativeIntegerValue)this).Validate().IsValid;
+            }
+        }
+
+    
+            /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
         public bool HasJsonElement =>
@@ -3704,7 +3730,7 @@ namespace Menes.Json
         }
 
             /// <summary>
-        /// Conversion from Menes.Json.Validation.NonNegativeIntegerValue.
+        /// Conversion from <see cref="Menes.Json.Validation.NonNegativeIntegerValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator NonNegativeIntegerDefault0Entity(Menes.Json.Validation.NonNegativeIntegerValue value)
@@ -3713,7 +3739,7 @@ namespace Menes.Json
         }
 
         /// <summary>
-        /// Conversion to Menes.Json.Validation.NonNegativeIntegerValue.
+        /// Conversion to <see cref="Menes.Json.Validation.NonNegativeIntegerValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator Menes.Json.Validation.NonNegativeIntegerValue(NonNegativeIntegerDefault0Entity value)
@@ -4093,6 +4119,7 @@ namespace Menes.Json
     
     
 
+    
     
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
@@ -4617,6 +4644,29 @@ namespace Menes.Json
 
     
             /// <summary>
+        /// Gets the value as a <see cref="Menes.Json.Validation.NonNegativeIntegerValue" />.
+        /// </summary>
+        public Menes.Json.Validation.NonNegativeIntegerValue AsNonNegativeIntegerValue
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="Menes.Json.Validation.NonNegativeIntegerValue" />.
+        /// </summary>
+        public bool IsNonNegativeIntegerValue
+        {
+            get
+            {
+                return ((Menes.Json.Validation.NonNegativeIntegerValue)this).Validate().IsValid;
+            }
+        }
+
+    
+            /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
         public bool HasJsonElement =>
@@ -4759,7 +4809,7 @@ namespace Menes.Json
         }
 
             /// <summary>
-        /// Conversion from Menes.Json.Validation.NonNegativeIntegerValue.
+        /// Conversion from <see cref="Menes.Json.Validation.NonNegativeIntegerValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator MinContainsEntity(Menes.Json.Validation.NonNegativeIntegerValue value)
@@ -4768,7 +4818,7 @@ namespace Menes.Json
         }
 
         /// <summary>
-        /// Conversion to Menes.Json.Validation.NonNegativeIntegerValue.
+        /// Conversion to <see cref="Menes.Json.Validation.NonNegativeIntegerValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator Menes.Json.Validation.NonNegativeIntegerValue(MinContainsEntity value)
@@ -5159,6 +5209,7 @@ namespace Menes.Json
                 return this.jsonElementBacking.GetArrayLength();
             }
         }
+    
     
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
@@ -5788,6 +5839,7 @@ namespace Menes.Json
     
     
 
+    
     
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
@@ -6508,6 +6560,7 @@ namespace Menes.Json
             }
         }
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -7170,6 +7223,51 @@ namespace Menes.Json
         }
     
             /// <summary>
+        /// Gets the value as a <see cref="Menes.Json.Validation.SimpleTypesEntity" />.
+        /// </summary>
+        public Menes.Json.Validation.SimpleTypesEntity AsSimpleTypesEntity
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="Menes.Json.Validation.SimpleTypesEntity" />.
+        /// </summary>
+        public bool IsSimpleTypesEntity
+        {
+            get
+            {
+                return ((Menes.Json.Validation.SimpleTypesEntity)this).Validate().IsValid;
+            }
+        }
+
+            /// <summary>
+        /// Gets the value as a <see cref="Menes.Json.Validation.TypeEntity.SimpleTypesEntityArray" />.
+        /// </summary>
+        public Menes.Json.Validation.TypeEntity.SimpleTypesEntityArray AsSimpleTypesEntityArray
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="Menes.Json.Validation.TypeEntity.SimpleTypesEntityArray" />.
+        /// </summary>
+        public bool IsSimpleTypesEntityArray
+        {
+            get
+            {
+                return ((Menes.Json.Validation.TypeEntity.SimpleTypesEntityArray)this).Validate().IsValid;
+            }
+        }
+
+    
+            /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
         public bool HasJsonElement =>
@@ -7311,7 +7409,7 @@ namespace Menes.Json
         }
 
             /// <summary>
-        /// Conversion from Menes.Json.Validation.SimpleTypesEntity.
+        /// Conversion from <see cref="Menes.Json.Validation.SimpleTypesEntity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator TypeEntity(Menes.Json.Validation.SimpleTypesEntity value)
@@ -7320,7 +7418,7 @@ namespace Menes.Json
         }
 
         /// <summary>
-        /// Conversion to Menes.Json.Validation.SimpleTypesEntity.
+        /// Conversion to <see cref="Menes.Json.Validation.SimpleTypesEntity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator Menes.Json.Validation.SimpleTypesEntity(TypeEntity value)
@@ -7328,7 +7426,7 @@ namespace Menes.Json
                                                     return default;
         }
             /// <summary>
-        /// Conversion from Menes.Json.Validation.TypeEntity.SimpleTypesEntityArray.
+        /// Conversion from <see cref="Menes.Json.Validation.TypeEntity.SimpleTypesEntityArray" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator TypeEntity(Menes.Json.Validation.TypeEntity.SimpleTypesEntityArray value)
@@ -7337,7 +7435,7 @@ namespace Menes.Json
         }
 
         /// <summary>
-        /// Conversion to Menes.Json.Validation.TypeEntity.SimpleTypesEntityArray.
+        /// Conversion to <see cref="Menes.Json.Validation.TypeEntity.SimpleTypesEntityArray" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator Menes.Json.Validation.TypeEntity.SimpleTypesEntityArray(TypeEntity value)
@@ -7820,6 +7918,7 @@ namespace Menes.Json
                 return this.jsonElementBacking.GetArrayLength();
             }
         }
+    
     
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
@@ -8439,6 +8538,7 @@ namespace Menes.Json
     
     
 
+    
     
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.

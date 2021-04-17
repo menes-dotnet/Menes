@@ -36,6 +36,7 @@ namespace Menes
 
             schema = schema.WithType(SimpleTypesEntity.EnumValues.Array);
 
+            bool isApplicator = schema.IsApplicator;
 
             Schema anotherSchema = Schema.Create(
                 id: "https://endjin.com/api/schema/example",

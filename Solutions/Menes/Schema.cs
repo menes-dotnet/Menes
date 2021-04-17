@@ -989,6 +989,139 @@ namespace Menes.Json
     
 
     
+            /// <summary>
+        /// Gets the value as a <see cref="Menes.Json.Core" />.
+        /// </summary>
+        public Menes.Json.Core AsCore
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="Menes.Json.Core" />.
+        /// </summary>
+        public bool IsCore
+        {
+            get
+            {
+                return ((Menes.Json.Core)this).Validate().IsValid;
+            }
+        }
+
+            /// <summary>
+        /// Gets the value as a <see cref="Menes.Json.Applicator" />.
+        /// </summary>
+        public Menes.Json.Applicator AsApplicator
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="Menes.Json.Applicator" />.
+        /// </summary>
+        public bool IsApplicator
+        {
+            get
+            {
+                return ((Menes.Json.Applicator)this).Validate().IsValid;
+            }
+        }
+
+            /// <summary>
+        /// Gets the value as a <see cref="Menes.Json.Validation" />.
+        /// </summary>
+        public Menes.Json.Validation AsValidation
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="Menes.Json.Validation" />.
+        /// </summary>
+        public bool IsValidation
+        {
+            get
+            {
+                return ((Menes.Json.Validation)this).Validate().IsValid;
+            }
+        }
+
+            /// <summary>
+        /// Gets the value as a <see cref="Menes.Json.MetaData" />.
+        /// </summary>
+        public Menes.Json.MetaData AsMetaData
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="Menes.Json.MetaData" />.
+        /// </summary>
+        public bool IsMetaData
+        {
+            get
+            {
+                return ((Menes.Json.MetaData)this).Validate().IsValid;
+            }
+        }
+
+            /// <summary>
+        /// Gets the value as a <see cref="Menes.Json.Format" />.
+        /// </summary>
+        public Menes.Json.Format AsFormat
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="Menes.Json.Format" />.
+        /// </summary>
+        public bool IsFormat
+        {
+            get
+            {
+                return ((Menes.Json.Format)this).Validate().IsValid;
+            }
+        }
+
+            /// <summary>
+        /// Gets the value as a <see cref="Menes.Json.Content" />.
+        /// </summary>
+        public Menes.Json.Content AsContent
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="Menes.Json.Content" />.
+        /// </summary>
+        public bool IsContent
+        {
+            get
+            {
+                return ((Menes.Json.Content)this).Validate().IsValid;
+            }
+        }
+
+    
             
         /// <summary>
         /// Gets Id.
@@ -3220,7 +3353,7 @@ namespace Menes.Json
         }
 
             /// <summary>
-        /// Conversion from Menes.Json.Core.
+        /// Conversion from <see cref="Menes.Json.Core" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator Schema(Menes.Json.Core value)
@@ -3229,7 +3362,7 @@ namespace Menes.Json
         }
 
         /// <summary>
-        /// Conversion to Menes.Json.Core.
+        /// Conversion to <see cref="Menes.Json.Core" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator Menes.Json.Core(Schema value)
@@ -3245,7 +3378,7 @@ namespace Menes.Json
                             return default;
         }
             /// <summary>
-        /// Conversion from Menes.Json.Applicator.
+        /// Conversion from <see cref="Menes.Json.Applicator" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator Schema(Menes.Json.Applicator value)
@@ -3254,7 +3387,7 @@ namespace Menes.Json
         }
 
         /// <summary>
-        /// Conversion to Menes.Json.Applicator.
+        /// Conversion to <see cref="Menes.Json.Applicator" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator Menes.Json.Applicator(Schema value)
@@ -3270,7 +3403,7 @@ namespace Menes.Json
                             return default;
         }
             /// <summary>
-        /// Conversion from Menes.Json.Validation.
+        /// Conversion from <see cref="Menes.Json.Validation" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator Schema(Menes.Json.Validation value)
@@ -3279,7 +3412,7 @@ namespace Menes.Json
         }
 
         /// <summary>
-        /// Conversion to Menes.Json.Validation.
+        /// Conversion to <see cref="Menes.Json.Validation" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator Menes.Json.Validation(Schema value)
@@ -3295,7 +3428,7 @@ namespace Menes.Json
                             return default;
         }
             /// <summary>
-        /// Conversion from Menes.Json.MetaData.
+        /// Conversion from <see cref="Menes.Json.MetaData" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator Schema(Menes.Json.MetaData value)
@@ -3304,7 +3437,7 @@ namespace Menes.Json
         }
 
         /// <summary>
-        /// Conversion to Menes.Json.MetaData.
+        /// Conversion to <see cref="Menes.Json.MetaData" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator Menes.Json.MetaData(Schema value)
@@ -3320,7 +3453,7 @@ namespace Menes.Json
                             return default;
         }
             /// <summary>
-        /// Conversion from Menes.Json.Format.
+        /// Conversion from <see cref="Menes.Json.Format" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator Schema(Menes.Json.Format value)
@@ -3329,7 +3462,7 @@ namespace Menes.Json
         }
 
         /// <summary>
-        /// Conversion to Menes.Json.Format.
+        /// Conversion to <see cref="Menes.Json.Format" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator Menes.Json.Format(Schema value)
@@ -3345,7 +3478,7 @@ namespace Menes.Json
                             return default;
         }
             /// <summary>
-        /// Conversion from Menes.Json.Content.
+        /// Conversion from <see cref="Menes.Json.Content" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator Schema(Menes.Json.Content value)
@@ -3354,7 +3487,7 @@ namespace Menes.Json
         }
 
         /// <summary>
-        /// Conversion to Menes.Json.Content.
+        /// Conversion to <see cref="Menes.Json.Content" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator Menes.Json.Content(Schema value)
@@ -5196,6 +5329,7 @@ namespace Menes.Json
     
 
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -5901,6 +6035,7 @@ namespace Menes.Json
     
     
 
+    
     
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
@@ -6760,6 +6895,51 @@ namespace Menes.Json
         }
     
             /// <summary>
+        /// Gets the value as a <see cref="Menes.Json.Schema" />.
+        /// </summary>
+        public Menes.Json.Schema AsSchema
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="Menes.Json.Schema" />.
+        /// </summary>
+        public bool IsSchema
+        {
+            get
+            {
+                return ((Menes.Json.Schema)this).Validate().IsValid;
+            }
+        }
+
+            /// <summary>
+        /// Gets the value as a <see cref="Menes.Json.Validation.JsonStringArray" />.
+        /// </summary>
+        public Menes.Json.Validation.JsonStringArray AsJsonStringArray
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="Menes.Json.Validation.JsonStringArray" />.
+        /// </summary>
+        public bool IsJsonStringArray
+        {
+            get
+            {
+                return ((Menes.Json.Validation.JsonStringArray)this).Validate().IsValid;
+            }
+        }
+
+    
+            /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
         public bool HasJsonElement =>
@@ -6946,7 +7126,7 @@ namespace Menes.Json
         }
 
             /// <summary>
-        /// Conversion from Menes.Json.Schema.
+        /// Conversion from <see cref="Menes.Json.Schema" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator AdditionalPropertiesEntity(Menes.Json.Schema value)
@@ -6955,7 +7135,7 @@ namespace Menes.Json
         }
 
         /// <summary>
-        /// Conversion to Menes.Json.Schema.
+        /// Conversion to <see cref="Menes.Json.Schema" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator Menes.Json.Schema(AdditionalPropertiesEntity value)
@@ -6971,7 +7151,7 @@ namespace Menes.Json
                             return default;
         }
             /// <summary>
-        /// Conversion from Menes.Json.Validation.JsonStringArray.
+        /// Conversion from <see cref="Menes.Json.Validation.JsonStringArray" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator AdditionalPropertiesEntity(Menes.Json.Validation.JsonStringArray value)
@@ -6980,7 +7160,7 @@ namespace Menes.Json
         }
 
         /// <summary>
-        /// Conversion to Menes.Json.Validation.JsonStringArray.
+        /// Conversion to <see cref="Menes.Json.Validation.JsonStringArray" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator Menes.Json.Validation.JsonStringArray(AdditionalPropertiesEntity value)
@@ -6993,7 +7173,7 @@ namespace Menes.Json
         }
     
                 /// <summary>
-        /// Conversion from Menes.Json.Core.
+        /// Conversion from <see cref="Menes.Json.Core" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator AdditionalPropertiesEntity(Menes.Json.Core value)
@@ -7002,7 +7182,7 @@ namespace Menes.Json
         }
 
         /// <summary>
-        /// Conversion to Menes.Json.Core.
+        /// Conversion to <see cref="Menes.Json.Core" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator Menes.Json.Core(AdditionalPropertiesEntity value)
@@ -7010,7 +7190,7 @@ namespace Menes.Json
             return (Menes.Json.Schema.DependenciesValue.AdditionalPropertiesEntity)value;
         }
             /// <summary>
-        /// Conversion from Menes.Json.Applicator.
+        /// Conversion from <see cref="Menes.Json.Applicator" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator AdditionalPropertiesEntity(Menes.Json.Applicator value)
@@ -7019,7 +7199,7 @@ namespace Menes.Json
         }
 
         /// <summary>
-        /// Conversion to Menes.Json.Applicator.
+        /// Conversion to <see cref="Menes.Json.Applicator" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator Menes.Json.Applicator(AdditionalPropertiesEntity value)
@@ -7027,7 +7207,7 @@ namespace Menes.Json
             return (Menes.Json.Schema.DependenciesValue.AdditionalPropertiesEntity)value;
         }
             /// <summary>
-        /// Conversion from Menes.Json.Validation.
+        /// Conversion from <see cref="Menes.Json.Validation" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator AdditionalPropertiesEntity(Menes.Json.Validation value)
@@ -7036,7 +7216,7 @@ namespace Menes.Json
         }
 
         /// <summary>
-        /// Conversion to Menes.Json.Validation.
+        /// Conversion to <see cref="Menes.Json.Validation" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator Menes.Json.Validation(AdditionalPropertiesEntity value)
@@ -7044,7 +7224,7 @@ namespace Menes.Json
             return (Menes.Json.Schema.DependenciesValue.AdditionalPropertiesEntity)value;
         }
             /// <summary>
-        /// Conversion from Menes.Json.MetaData.
+        /// Conversion from <see cref="Menes.Json.MetaData" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator AdditionalPropertiesEntity(Menes.Json.MetaData value)
@@ -7053,7 +7233,7 @@ namespace Menes.Json
         }
 
         /// <summary>
-        /// Conversion to Menes.Json.MetaData.
+        /// Conversion to <see cref="Menes.Json.MetaData" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator Menes.Json.MetaData(AdditionalPropertiesEntity value)
@@ -7061,7 +7241,7 @@ namespace Menes.Json
             return (Menes.Json.Schema.DependenciesValue.AdditionalPropertiesEntity)value;
         }
             /// <summary>
-        /// Conversion from Menes.Json.Format.
+        /// Conversion from <see cref="Menes.Json.Format" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator AdditionalPropertiesEntity(Menes.Json.Format value)
@@ -7070,7 +7250,7 @@ namespace Menes.Json
         }
 
         /// <summary>
-        /// Conversion to Menes.Json.Format.
+        /// Conversion to <see cref="Menes.Json.Format" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator Menes.Json.Format(AdditionalPropertiesEntity value)
@@ -7078,7 +7258,7 @@ namespace Menes.Json
             return (Menes.Json.Schema.DependenciesValue.AdditionalPropertiesEntity)value;
         }
             /// <summary>
-        /// Conversion from Menes.Json.Content.
+        /// Conversion from <see cref="Menes.Json.Content" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator AdditionalPropertiesEntity(Menes.Json.Content value)
@@ -7087,7 +7267,7 @@ namespace Menes.Json
         }
 
         /// <summary>
-        /// Conversion to Menes.Json.Content.
+        /// Conversion to <see cref="Menes.Json.Content" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator Menes.Json.Content(AdditionalPropertiesEntity value)

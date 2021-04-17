@@ -2131,7 +2131,12 @@ public partial class SchemaEntity
         /// <summary>
         /// Gets the fully qualified dotnet type name.
         /// </summary>
-        public string DotnetTypeName => this.typeDeclaration.FullyQualifiedDotnetTypeName ?? string.Empty;
+        public string FullyQualifiedDotnetTypeName => this.typeDeclaration.FullyQualifiedDotnetTypeName ?? string.Empty;
+
+        /// <summary>
+        /// Gets the dotnet type name.
+        /// </summary>
+        public string DotnetTypeName => this.typeDeclaration.DotnetTypeName ?? string.Empty;
 
         /// <summary>
         /// Gets the fully qualified dotnet type name of the type via which to convert.

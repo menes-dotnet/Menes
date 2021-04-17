@@ -1040,8 +1040,8 @@ namespace <#= Namespace #>
         /// <summary>
         /// Initializes a new instance of the <see cref="<#= TypeDeclaration.DotnetTypeName #>"/> struct.
         /// </summary>
-        /// <param name="conversion">The <see cref="<#= conversion.DotnetTypeName #>"/> from which to construct the value.</param>
-        public <#= TypeDeclaration.DotnetTypeName #>(<#= conversion.DotnetTypeName #> conversion)
+        /// <param name="conversion">The <see cref="<#= conversion.FullyQualifiedDotnetTypeName #>"/> from which to construct the value.</param>
+        public <#= TypeDeclaration.DotnetTypeName #>(<#= conversion.FullyQualifiedDotnetTypeName #> conversion)
         {
             if (conversion.HasJsonElement)
             {
@@ -1221,6 +1221,36 @@ namespace <#= Namespace #>
                 return this.jsonElementBacking.GetArrayLength();
             }
         }
+    <#
+    }
+    #>
+
+    <#
+    foreach (Conversion conversion in ConversionsViaConstructor)
+    {
+    #>
+        /// <summary>
+        /// Gets the value as a <see cref="<#= conversion.FullyQualifiedDotnetTypeName #>" />.
+        /// </summary>
+        public <#= conversion.FullyQualifiedDotnetTypeName #> As<#= conversion.DotnetTypeName #>
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="<#= conversion.FullyQualifiedDotnetTypeName #>" />.
+        /// </summary>
+        public bool Is<#= conversion.DotnetTypeName #>
+        {
+            get
+            {
+                return ((<#= conversion.FullyQualifiedDotnetTypeName #>)this).Validate().IsValid;
+            }
+        }
+
     <#
     }
     #>
@@ -1739,19 +1769,19 @@ namespace <#= Namespace #>
     {
     #>
         /// <summary>
-        /// Conversion from <#= conversion.DotnetTypeName #>.
+        /// Conversion from <see cref="<#= conversion.FullyQualifiedDotnetTypeName #>" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator <#= TypeDeclaration.DotnetTypeName #>(<#= conversion.DotnetTypeName #> value)
+        public static implicit operator <#= TypeDeclaration.DotnetTypeName #>(<#= conversion.FullyQualifiedDotnetTypeName #> value)
         {
             return new <#= TypeDeclaration.DotnetTypeName #>(value);
         }
 
         /// <summary>
-        /// Conversion to <#= conversion.DotnetTypeName #>.
+        /// Conversion to <see cref="<#= conversion.FullyQualifiedDotnetTypeName #>" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator <#= conversion.DotnetTypeName #>(<#= TypeDeclaration.DotnetTypeName #> value)
+        public static implicit operator <#= conversion.FullyQualifiedDotnetTypeName #>(<#= TypeDeclaration.DotnetTypeName #> value)
         {
         <#
         if(conversion.IsObject)
@@ -1759,7 +1789,7 @@ namespace <#= Namespace #>
         #>
             if (value.ValueKind == JsonValueKind.Object)
             {
-                return new <#= conversion.DotnetTypeName #>(value.AsObject);
+                return new <#= conversion.FullyQualifiedDotnetTypeName #>(value.AsObject);
             }
         <#
         }
@@ -1770,7 +1800,7 @@ namespace <#= Namespace #>
         #>
             if (value.ValueKind == JsonValueKind.Array)
             {
-                return new <#= conversion.DotnetTypeName #>(value.AsArray);
+                return new <#= conversion.FullyQualifiedDotnetTypeName #>(value.AsArray);
             }
         <#
         }
@@ -1781,7 +1811,7 @@ namespace <#= Namespace #>
         #>
             if (value.ValueKind == JsonValueKind.String)
             {
-                return new <#= conversion.DotnetTypeName #>(value.AsString);
+                return new <#= conversion.FullyQualifiedDotnetTypeName #>(value.AsString);
             }
         <#
         }
@@ -1792,7 +1822,7 @@ namespace <#= Namespace #>
         #>
             if (value.ValueKind == JsonValueKind.True || value.ValueKind == JsonValueKind.False)
             {
-                return new <#= conversion.DotnetTypeName #>(value.AsBoolean);
+                return new <#= conversion.FullyQualifiedDotnetTypeName #>(value.AsBoolean);
             }
         <#
         }
@@ -1803,7 +1833,7 @@ namespace <#= Namespace #>
         #>
             if (value.ValueKind == JsonValueKind.Number)
             {
-                return new <#= conversion.DotnetTypeName #>(value.AsNumber);
+                return new <#= conversion.FullyQualifiedDotnetTypeName #>(value.AsNumber);
             }
         <#
         }
@@ -1819,19 +1849,19 @@ namespace <#= Namespace #>
     {
     #>
         /// <summary>
-        /// Conversion from <#= conversion.DotnetTypeName #>.
+        /// Conversion from <see cref="<#= conversion.FullyQualifiedDotnetTypeName #>" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator <#= TypeDeclaration.DotnetTypeName #>(<#= conversion.DotnetTypeName #> value)
+        public static implicit operator <#= TypeDeclaration.DotnetTypeName #>(<#= conversion.FullyQualifiedDotnetTypeName #> value)
         {
             return (<#= conversion.ConvertViaDotnetTypeName #>)value;
         }
 
         /// <summary>
-        /// Conversion to <#= conversion.DotnetTypeName #>.
+        /// Conversion to <see cref="<#= conversion.FullyQualifiedDotnetTypeName #>" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator <#= conversion.DotnetTypeName #>(<#= TypeDeclaration.DotnetTypeName #> value)
+        public static implicit operator <#= conversion.FullyQualifiedDotnetTypeName #>(<#= TypeDeclaration.DotnetTypeName #> value)
         {
             return (<#= conversion.ConvertViaDotnetTypeName #>)value;
         }
