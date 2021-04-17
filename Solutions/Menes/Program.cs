@@ -6,6 +6,7 @@
 
 namespace Menes
 {
+    using System.Linq;
     using System.Text.Json;
     using Menes.Json;
     using static Menes.Json.Validation;
@@ -226,6 +227,13 @@ namespace Menes
             }
         }
 ");
+
+            var result = 
+                openApiSchema.Paths.EnumerateObject()
+                    .ToDictionary(
+                        k => k.Name,
+                        v => v.Value.EnumerateObject()
+                            .ToDictionary(k => k.Name, v => v.ValueAs<OpenApi.Schema.PathItemValue>()));
 
             var validation = openApiSchema.Validate(level: ValidationLevel.Flag);
         }

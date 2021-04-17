@@ -182,6 +182,7 @@ namespace OpenApi
     
 
     
+    
             
         /// <summary>
         /// Gets Openapi.
@@ -673,7 +674,47 @@ namespace OpenApi
     
     
     
-    
+            /// <summary>
+        /// Creates an instance of a <see cref="Schema"/>.
+        /// </summary>
+        public static Schema Create(
+                   OpenApi.Schema.OpenapiValue openapi
+        ,            OpenApi.Schema.InfoValue info
+        ,            OpenApi.Schema.PathsValue paths
+                ,             OpenApi.Schema.ExternalDocumentationValue? externalDocs = null
+        ,             OpenApi.Schema.ServerValueArray? servers = null
+        ,             OpenApi.Schema.SecurityRequirementValueArray? security = null
+        ,             OpenApi.Schema.TagValueArray? tags = null
+        ,             OpenApi.Schema.ComponentsValue? components = null
+                )
+        {
+            var builder = ImmutableDictionary.CreateBuilder<JsonEncodedText, JsonAny>();
+                    builder.Add(OpenapiJsonPropertyName, openapi);
+                    builder.Add(InfoJsonPropertyName, info);
+                    builder.Add(PathsJsonPropertyName, paths);
+                            if (externalDocs is OpenApi.Schema.ExternalDocumentationValue externalDocs__)
+            {
+                builder.Add(ExternalDocsJsonPropertyName, externalDocs__);
+            }
+                    if (servers is OpenApi.Schema.ServerValueArray servers__)
+            {
+                builder.Add(ServersJsonPropertyName, servers__);
+            }
+                    if (security is OpenApi.Schema.SecurityRequirementValueArray security__)
+            {
+                builder.Add(SecurityJsonPropertyName, security__);
+            }
+                    if (tags is OpenApi.Schema.TagValueArray tags__)
+            {
+                builder.Add(TagsJsonPropertyName, tags__);
+            }
+                    if (components is OpenApi.Schema.ComponentsValue components__)
+            {
+                builder.Add(ComponentsJsonPropertyName, components__);
+            }
+                    return builder.ToImmutable();
+        }
+
         
         /// <summary>
         /// Sets openapi.
@@ -764,6 +805,7 @@ namespace OpenApi
 
         
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -791,6 +833,8 @@ namespace OpenApi
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -1468,6 +1512,7 @@ namespace OpenApi
     
 
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -1732,6 +1777,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -2072,6 +2118,7 @@ namespace OpenApi
     
     
 
+    
     
             
         /// <summary>
@@ -2494,7 +2541,40 @@ namespace OpenApi
     
     
     
-    
+            /// <summary>
+        /// Creates an instance of a <see cref="InfoValue"/>.
+        /// </summary>
+        public static InfoValue Create(
+                   Menes.Json.JsonString title
+        ,            Menes.Json.JsonString version
+                ,             Menes.Json.JsonString? description = null
+        ,             Menes.Json.JsonUriReference? termsOfService = null
+        ,             OpenApi.Schema.ContactValue? contact = null
+        ,             OpenApi.Schema.LicenseValue? license = null
+                )
+        {
+            var builder = ImmutableDictionary.CreateBuilder<JsonEncodedText, JsonAny>();
+                    builder.Add(TitleJsonPropertyName, title);
+                    builder.Add(VersionJsonPropertyName, version);
+                            if (description is Menes.Json.JsonString description__)
+            {
+                builder.Add(DescriptionJsonPropertyName, description__);
+            }
+                    if (termsOfService is Menes.Json.JsonUriReference termsOfService__)
+            {
+                builder.Add(TermsOfServiceJsonPropertyName, termsOfService__);
+            }
+                    if (contact is OpenApi.Schema.ContactValue contact__)
+            {
+                builder.Add(ContactJsonPropertyName, contact__);
+            }
+                    if (license is OpenApi.Schema.LicenseValue license__)
+            {
+                builder.Add(LicenseJsonPropertyName, license__);
+            }
+                    return builder.ToImmutable();
+        }
+
         
         /// <summary>
         /// Sets title.
@@ -2563,6 +2643,7 @@ namespace OpenApi
 
         
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -2590,6 +2671,8 @@ namespace OpenApi
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -3229,6 +3312,7 @@ namespace OpenApi
     
 
     
+    
             
         /// <summary>
         /// Gets Url.
@@ -3510,7 +3594,23 @@ namespace OpenApi
     
     
     
-    
+            /// <summary>
+        /// Creates an instance of a <see cref="ExternalDocumentationValue"/>.
+        /// </summary>
+        public static ExternalDocumentationValue Create(
+                   Menes.Json.JsonUriReference url
+                ,             Menes.Json.JsonString? description = null
+                )
+        {
+            var builder = ImmutableDictionary.CreateBuilder<JsonEncodedText, JsonAny>();
+                    builder.Add(UrlJsonPropertyName, url);
+                            if (description is Menes.Json.JsonString description__)
+            {
+                builder.Add(DescriptionJsonPropertyName, description__);
+            }
+                    return builder.ToImmutable();
+        }
+
         
         /// <summary>
         /// Sets url.
@@ -3535,6 +3635,7 @@ namespace OpenApi
 
         
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -3562,6 +3663,8 @@ namespace OpenApi
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -4137,6 +4240,7 @@ namespace OpenApi
             }
         }
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -4345,6 +4449,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -4373,12 +4478,28 @@ namespace OpenApi
 
     
     
-        /// <inheritdoc/>
+                /// <summary>
+        /// Enumerate the items in the array as a <see cref="OpenApi.Schema.ServerValue" />.
+        /// </summary>
+        public JsonArrayEnumerator<OpenApi.Schema.ServerValue> EnumerateItems()
+        {
+            if (this.arrayBacking is ImmutableList<JsonAny> items)
+            {
+                return new JsonArrayEnumerator<OpenApi.Schema.ServerValue>(items);
+            }
+
+            if (this.jsonElementBacking.ValueKind == JsonValueKind.Array)
+            {
+                return new JsonArrayEnumerator<OpenApi.Schema.ServerValue>(this.jsonElementBacking);
+            }
+
+            return default;
+        }
+                /// <inheritdoc/>
         public JsonArrayEnumerator EnumerateArray()
         {
             return this.AsArray.EnumerateArray();
         }
-
     
     
         /// <inheritdoc/>
@@ -4736,6 +4857,7 @@ namespace OpenApi
             }
         }
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -4944,6 +5066,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -4972,12 +5095,28 @@ namespace OpenApi
 
     
     
-        /// <inheritdoc/>
+                /// <summary>
+        /// Enumerate the items in the array as a <see cref="OpenApi.Schema.SecurityRequirementValue" />.
+        /// </summary>
+        public JsonArrayEnumerator<OpenApi.Schema.SecurityRequirementValue> EnumerateItems()
+        {
+            if (this.arrayBacking is ImmutableList<JsonAny> items)
+            {
+                return new JsonArrayEnumerator<OpenApi.Schema.SecurityRequirementValue>(items);
+            }
+
+            if (this.jsonElementBacking.ValueKind == JsonValueKind.Array)
+            {
+                return new JsonArrayEnumerator<OpenApi.Schema.SecurityRequirementValue>(this.jsonElementBacking);
+            }
+
+            return default;
+        }
+                /// <inheritdoc/>
         public JsonArrayEnumerator EnumerateArray()
         {
             return this.AsArray.EnumerateArray();
         }
-
     
     
         /// <inheritdoc/>
@@ -5335,6 +5474,7 @@ namespace OpenApi
             }
         }
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -5543,6 +5683,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -5571,12 +5712,28 @@ namespace OpenApi
 
     
     
-        /// <inheritdoc/>
+                /// <summary>
+        /// Enumerate the items in the array as a <see cref="OpenApi.Schema.TagValue" />.
+        /// </summary>
+        public JsonArrayEnumerator<OpenApi.Schema.TagValue> EnumerateItems()
+        {
+            if (this.arrayBacking is ImmutableList<JsonAny> items)
+            {
+                return new JsonArrayEnumerator<OpenApi.Schema.TagValue>(items);
+            }
+
+            if (this.jsonElementBacking.ValueKind == JsonValueKind.Array)
+            {
+                return new JsonArrayEnumerator<OpenApi.Schema.TagValue>(this.jsonElementBacking);
+            }
+
+            return default;
+        }
+                /// <inheritdoc/>
         public JsonArrayEnumerator EnumerateArray()
         {
             return this.AsArray.EnumerateArray();
         }
-
     
     
         /// <inheritdoc/>
@@ -5948,6 +6105,7 @@ namespace OpenApi
     
 
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -6160,6 +6318,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -6187,6 +6346,8 @@ namespace OpenApi
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -6800,6 +6961,7 @@ namespace OpenApi
     
 
     
+    
             
         /// <summary>
         /// Gets Schemas.
@@ -7326,7 +7488,61 @@ namespace OpenApi
     
     
     
-    
+            /// <summary>
+        /// Creates an instance of a <see cref="ComponentsValue"/>.
+        /// </summary>
+        public static ComponentsValue Create(
+                            OpenApi.Schema.ComponentsValue.SchemasValue? schemas = null
+        ,             OpenApi.Schema.ComponentsValue.ResponsesValue? responses = null
+        ,             OpenApi.Schema.ComponentsValue.ParametersValue? parameters = null
+        ,             OpenApi.Schema.ComponentsValue.ExamplesValue? examples = null
+        ,             OpenApi.Schema.ComponentsValue.RequestBodiesValue? requestBodies = null
+        ,             OpenApi.Schema.ComponentsValue.HeadersValue? headers = null
+        ,             OpenApi.Schema.ComponentsValue.SecuritySchemesValue? securitySchemes = null
+        ,             OpenApi.Schema.ComponentsValue.LinksValue? links = null
+        ,             OpenApi.Schema.ComponentsValue.CallbacksValue? callbacks = null
+                )
+        {
+            var builder = ImmutableDictionary.CreateBuilder<JsonEncodedText, JsonAny>();
+                            if (schemas is OpenApi.Schema.ComponentsValue.SchemasValue schemas__)
+            {
+                builder.Add(SchemasJsonPropertyName, schemas__);
+            }
+                    if (responses is OpenApi.Schema.ComponentsValue.ResponsesValue responses__)
+            {
+                builder.Add(ResponsesJsonPropertyName, responses__);
+            }
+                    if (parameters is OpenApi.Schema.ComponentsValue.ParametersValue parameters__)
+            {
+                builder.Add(ParametersJsonPropertyName, parameters__);
+            }
+                    if (examples is OpenApi.Schema.ComponentsValue.ExamplesValue examples__)
+            {
+                builder.Add(ExamplesJsonPropertyName, examples__);
+            }
+                    if (requestBodies is OpenApi.Schema.ComponentsValue.RequestBodiesValue requestBodies__)
+            {
+                builder.Add(RequestBodiesJsonPropertyName, requestBodies__);
+            }
+                    if (headers is OpenApi.Schema.ComponentsValue.HeadersValue headers__)
+            {
+                builder.Add(HeadersJsonPropertyName, headers__);
+            }
+                    if (securitySchemes is OpenApi.Schema.ComponentsValue.SecuritySchemesValue securitySchemes__)
+            {
+                builder.Add(SecuritySchemesJsonPropertyName, securitySchemes__);
+            }
+                    if (links is OpenApi.Schema.ComponentsValue.LinksValue links__)
+            {
+                builder.Add(LinksJsonPropertyName, links__);
+            }
+                    if (callbacks is OpenApi.Schema.ComponentsValue.CallbacksValue callbacks__)
+            {
+                builder.Add(CallbacksJsonPropertyName, callbacks__);
+            }
+                    return builder.ToImmutable();
+        }
+
         
         /// <summary>
         /// Sets schemas.
@@ -7428,6 +7644,7 @@ namespace OpenApi
 
         
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -7455,6 +7672,8 @@ namespace OpenApi
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -8040,6 +8259,7 @@ namespace OpenApi
     
 
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -8252,6 +8472,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -8279,6 +8500,8 @@ namespace OpenApi
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -8815,6 +9038,51 @@ namespace OpenApi
 
     
             /// <summary>
+        /// Gets the value as a <see cref="OpenApi.Schema.SchemaValue" />.
+        /// </summary>
+        public OpenApi.Schema.SchemaValue AsSchemaValue
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="OpenApi.Schema.SchemaValue" />.
+        /// </summary>
+        public bool IsSchemaValue
+        {
+            get
+            {
+                return ((OpenApi.Schema.SchemaValue)this).Validate().IsValid;
+            }
+        }
+
+            /// <summary>
+        /// Gets the value as a <see cref="OpenApi.Schema.ReferenceValue" />.
+        /// </summary>
+        public OpenApi.Schema.ReferenceValue AsReferenceValue
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="OpenApi.Schema.ReferenceValue" />.
+        /// </summary>
+        public bool IsReferenceValue
+        {
+            get
+            {
+                return ((OpenApi.Schema.ReferenceValue)this).Validate().IsValid;
+            }
+        }
+
+    
+            /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
         public bool HasJsonElement =>
@@ -8959,7 +9227,7 @@ namespace OpenApi
         }
 
             /// <summary>
-        /// Conversion from OpenApi.Schema.SchemaValue.
+        /// Conversion from <see cref="OpenApi.Schema.SchemaValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator AZZ09Entity(OpenApi.Schema.SchemaValue value)
@@ -8968,7 +9236,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.SchemaValue.
+        /// Conversion to <see cref="OpenApi.Schema.SchemaValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.SchemaValue(AZZ09Entity value)
@@ -8980,7 +9248,7 @@ namespace OpenApi
                                                     return default;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.ReferenceValue.
+        /// Conversion from <see cref="OpenApi.Schema.ReferenceValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator AZZ09Entity(OpenApi.Schema.ReferenceValue value)
@@ -8989,7 +9257,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.ReferenceValue.
+        /// Conversion to <see cref="OpenApi.Schema.ReferenceValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.ReferenceValue(AZZ09Entity value)
@@ -9068,6 +9336,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -9095,6 +9364,8 @@ namespace OpenApi
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -9583,6 +9854,7 @@ namespace OpenApi
     
 
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -9795,6 +10067,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -9822,6 +10095,8 @@ namespace OpenApi
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -10358,6 +10633,51 @@ namespace OpenApi
 
     
             /// <summary>
+        /// Gets the value as a <see cref="OpenApi.Schema.ReferenceValue" />.
+        /// </summary>
+        public OpenApi.Schema.ReferenceValue AsReferenceValue
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="OpenApi.Schema.ReferenceValue" />.
+        /// </summary>
+        public bool IsReferenceValue
+        {
+            get
+            {
+                return ((OpenApi.Schema.ReferenceValue)this).Validate().IsValid;
+            }
+        }
+
+            /// <summary>
+        /// Gets the value as a <see cref="OpenApi.Schema.ResponseValue" />.
+        /// </summary>
+        public OpenApi.Schema.ResponseValue AsResponseValue
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="OpenApi.Schema.ResponseValue" />.
+        /// </summary>
+        public bool IsResponseValue
+        {
+            get
+            {
+                return ((OpenApi.Schema.ResponseValue)this).Validate().IsValid;
+            }
+        }
+
+    
+            /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
         public bool HasJsonElement =>
@@ -10502,7 +10822,7 @@ namespace OpenApi
         }
 
             /// <summary>
-        /// Conversion from OpenApi.Schema.ReferenceValue.
+        /// Conversion from <see cref="OpenApi.Schema.ReferenceValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator AZZ09Entity(OpenApi.Schema.ReferenceValue value)
@@ -10511,7 +10831,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.ReferenceValue.
+        /// Conversion to <see cref="OpenApi.Schema.ReferenceValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.ReferenceValue(AZZ09Entity value)
@@ -10523,7 +10843,7 @@ namespace OpenApi
                                                     return default;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.ResponseValue.
+        /// Conversion from <see cref="OpenApi.Schema.ResponseValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator AZZ09Entity(OpenApi.Schema.ResponseValue value)
@@ -10532,7 +10852,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.ResponseValue.
+        /// Conversion to <see cref="OpenApi.Schema.ResponseValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.ResponseValue(AZZ09Entity value)
@@ -10611,6 +10931,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -10638,6 +10959,8 @@ namespace OpenApi
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -11126,6 +11449,7 @@ namespace OpenApi
     
 
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -11338,6 +11662,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -11365,6 +11690,8 @@ namespace OpenApi
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -11901,6 +12228,51 @@ namespace OpenApi
 
     
             /// <summary>
+        /// Gets the value as a <see cref="OpenApi.Schema.ReferenceValue" />.
+        /// </summary>
+        public OpenApi.Schema.ReferenceValue AsReferenceValue
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="OpenApi.Schema.ReferenceValue" />.
+        /// </summary>
+        public bool IsReferenceValue
+        {
+            get
+            {
+                return ((OpenApi.Schema.ReferenceValue)this).Validate().IsValid;
+            }
+        }
+
+            /// <summary>
+        /// Gets the value as a <see cref="OpenApi.Schema.ParameterValue" />.
+        /// </summary>
+        public OpenApi.Schema.ParameterValue AsParameterValue
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="OpenApi.Schema.ParameterValue" />.
+        /// </summary>
+        public bool IsParameterValue
+        {
+            get
+            {
+                return ((OpenApi.Schema.ParameterValue)this).Validate().IsValid;
+            }
+        }
+
+    
+            /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
         public bool HasJsonElement =>
@@ -12045,7 +12417,7 @@ namespace OpenApi
         }
 
             /// <summary>
-        /// Conversion from OpenApi.Schema.ReferenceValue.
+        /// Conversion from <see cref="OpenApi.Schema.ReferenceValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator AZZ09Entity(OpenApi.Schema.ReferenceValue value)
@@ -12054,7 +12426,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.ReferenceValue.
+        /// Conversion to <see cref="OpenApi.Schema.ReferenceValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.ReferenceValue(AZZ09Entity value)
@@ -12066,7 +12438,7 @@ namespace OpenApi
                                                     return default;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.ParameterValue.
+        /// Conversion from <see cref="OpenApi.Schema.ParameterValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator AZZ09Entity(OpenApi.Schema.ParameterValue value)
@@ -12075,7 +12447,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.ParameterValue.
+        /// Conversion to <see cref="OpenApi.Schema.ParameterValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.ParameterValue(AZZ09Entity value)
@@ -12088,7 +12460,7 @@ namespace OpenApi
         }
     
                 /// <summary>
-        /// Conversion from OpenApi.Schema.ExampleXOExamplesEntity.
+        /// Conversion from <see cref="OpenApi.Schema.ExampleXOExamplesEntity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator AZZ09Entity(OpenApi.Schema.ExampleXOExamplesEntity value)
@@ -12097,7 +12469,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.ExampleXOExamplesEntity.
+        /// Conversion to <see cref="OpenApi.Schema.ExampleXOExamplesEntity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.ExampleXOExamplesEntity(AZZ09Entity value)
@@ -12105,7 +12477,7 @@ namespace OpenApi
             return (OpenApi.Schema.ComponentsValue.ParametersValue.AZZ09Entity)value;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.SchemaXOContentEntity.
+        /// Conversion from <see cref="OpenApi.Schema.SchemaXOContentEntity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator AZZ09Entity(OpenApi.Schema.SchemaXOContentEntity value)
@@ -12114,7 +12486,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.SchemaXOContentEntity.
+        /// Conversion to <see cref="OpenApi.Schema.SchemaXOContentEntity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.SchemaXOContentEntity(AZZ09Entity value)
@@ -12122,7 +12494,7 @@ namespace OpenApi
             return (OpenApi.Schema.ComponentsValue.ParametersValue.AZZ09Entity)value;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.SchemaXOContentEntity.OneOf0Entity.
+        /// Conversion from <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf0Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator AZZ09Entity(OpenApi.Schema.SchemaXOContentEntity.OneOf0Entity value)
@@ -12131,7 +12503,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.SchemaXOContentEntity.OneOf0Entity.
+        /// Conversion to <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf0Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.SchemaXOContentEntity.OneOf0Entity(AZZ09Entity value)
@@ -12139,7 +12511,7 @@ namespace OpenApi
             return (OpenApi.Schema.ParameterValue)value;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.
+        /// Conversion from <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator AZZ09Entity(OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity value)
@@ -12148,7 +12520,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.
+        /// Conversion to <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity(AZZ09Entity value)
@@ -12156,7 +12528,7 @@ namespace OpenApi
             return (OpenApi.Schema.ParameterValue)value;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf0Entity.
+        /// Conversion from <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf0Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator AZZ09Entity(OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf0Entity value)
@@ -12165,7 +12537,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf0Entity.
+        /// Conversion to <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf0Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf0Entity(AZZ09Entity value)
@@ -12173,7 +12545,7 @@ namespace OpenApi
             return (OpenApi.Schema.SchemaXOContentEntity)value;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf1Entity.
+        /// Conversion from <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf1Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator AZZ09Entity(OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf1Entity value)
@@ -12182,7 +12554,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf1Entity.
+        /// Conversion to <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf1Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf1Entity(AZZ09Entity value)
@@ -12190,7 +12562,7 @@ namespace OpenApi
             return (OpenApi.Schema.SchemaXOContentEntity)value;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf2Entity.
+        /// Conversion from <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf2Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator AZZ09Entity(OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf2Entity value)
@@ -12199,7 +12571,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf2Entity.
+        /// Conversion to <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf2Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf2Entity(AZZ09Entity value)
@@ -12207,7 +12579,7 @@ namespace OpenApi
             return (OpenApi.Schema.SchemaXOContentEntity)value;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf3Entity.
+        /// Conversion from <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf3Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator AZZ09Entity(OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf3Entity value)
@@ -12216,7 +12588,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf3Entity.
+        /// Conversion to <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf3Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf3Entity(AZZ09Entity value)
@@ -12224,7 +12596,7 @@ namespace OpenApi
             return (OpenApi.Schema.SchemaXOContentEntity)value;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf4Entity.
+        /// Conversion from <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf4Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator AZZ09Entity(OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf4Entity value)
@@ -12233,7 +12605,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf4Entity.
+        /// Conversion to <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf4Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf4Entity(AZZ09Entity value)
@@ -12241,7 +12613,7 @@ namespace OpenApi
             return (OpenApi.Schema.SchemaXOContentEntity)value;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.ParameterLocationEntity.
+        /// Conversion from <see cref="OpenApi.Schema.ParameterLocationEntity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator AZZ09Entity(OpenApi.Schema.ParameterLocationEntity value)
@@ -12250,7 +12622,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.ParameterLocationEntity.
+        /// Conversion to <see cref="OpenApi.Schema.ParameterLocationEntity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.ParameterLocationEntity(AZZ09Entity value)
@@ -12258,7 +12630,7 @@ namespace OpenApi
             return (OpenApi.Schema.ComponentsValue.ParametersValue.AZZ09Entity)value;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.ParameterLocationEntity.OneOf0Entity.
+        /// Conversion from <see cref="OpenApi.Schema.ParameterLocationEntity.OneOf0Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator AZZ09Entity(OpenApi.Schema.ParameterLocationEntity.OneOf0Entity value)
@@ -12267,7 +12639,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.ParameterLocationEntity.OneOf0Entity.
+        /// Conversion to <see cref="OpenApi.Schema.ParameterLocationEntity.OneOf0Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.ParameterLocationEntity.OneOf0Entity(AZZ09Entity value)
@@ -12275,7 +12647,7 @@ namespace OpenApi
             return (OpenApi.Schema.ParameterValue)value;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.ParameterLocationEntity.OneOf1Entity.
+        /// Conversion from <see cref="OpenApi.Schema.ParameterLocationEntity.OneOf1Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator AZZ09Entity(OpenApi.Schema.ParameterLocationEntity.OneOf1Entity value)
@@ -12284,7 +12656,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.ParameterLocationEntity.OneOf1Entity.
+        /// Conversion to <see cref="OpenApi.Schema.ParameterLocationEntity.OneOf1Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.ParameterLocationEntity.OneOf1Entity(AZZ09Entity value)
@@ -12292,7 +12664,7 @@ namespace OpenApi
             return (OpenApi.Schema.ParameterValue)value;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.ParameterLocationEntity.OneOf2Entity.
+        /// Conversion from <see cref="OpenApi.Schema.ParameterLocationEntity.OneOf2Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator AZZ09Entity(OpenApi.Schema.ParameterLocationEntity.OneOf2Entity value)
@@ -12301,7 +12673,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.ParameterLocationEntity.OneOf2Entity.
+        /// Conversion to <see cref="OpenApi.Schema.ParameterLocationEntity.OneOf2Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.ParameterLocationEntity.OneOf2Entity(AZZ09Entity value)
@@ -12309,7 +12681,7 @@ namespace OpenApi
             return (OpenApi.Schema.ParameterValue)value;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.ParameterLocationEntity.OneOf3Entity.
+        /// Conversion from <see cref="OpenApi.Schema.ParameterLocationEntity.OneOf3Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator AZZ09Entity(OpenApi.Schema.ParameterLocationEntity.OneOf3Entity value)
@@ -12318,7 +12690,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.ParameterLocationEntity.OneOf3Entity.
+        /// Conversion to <see cref="OpenApi.Schema.ParameterLocationEntity.OneOf3Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.ParameterLocationEntity.OneOf3Entity(AZZ09Entity value)
@@ -12392,6 +12764,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -12419,6 +12792,8 @@ namespace OpenApi
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -12907,6 +13282,7 @@ namespace OpenApi
     
 
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -13119,6 +13495,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -13146,6 +13523,8 @@ namespace OpenApi
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -13682,6 +14061,51 @@ namespace OpenApi
 
     
             /// <summary>
+        /// Gets the value as a <see cref="OpenApi.Schema.ReferenceValue" />.
+        /// </summary>
+        public OpenApi.Schema.ReferenceValue AsReferenceValue
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="OpenApi.Schema.ReferenceValue" />.
+        /// </summary>
+        public bool IsReferenceValue
+        {
+            get
+            {
+                return ((OpenApi.Schema.ReferenceValue)this).Validate().IsValid;
+            }
+        }
+
+            /// <summary>
+        /// Gets the value as a <see cref="OpenApi.Schema.ExampleValue" />.
+        /// </summary>
+        public OpenApi.Schema.ExampleValue AsExampleValue
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="OpenApi.Schema.ExampleValue" />.
+        /// </summary>
+        public bool IsExampleValue
+        {
+            get
+            {
+                return ((OpenApi.Schema.ExampleValue)this).Validate().IsValid;
+            }
+        }
+
+    
+            /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
         public bool HasJsonElement =>
@@ -13826,7 +14250,7 @@ namespace OpenApi
         }
 
             /// <summary>
-        /// Conversion from OpenApi.Schema.ReferenceValue.
+        /// Conversion from <see cref="OpenApi.Schema.ReferenceValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator AZZ09Entity(OpenApi.Schema.ReferenceValue value)
@@ -13835,7 +14259,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.ReferenceValue.
+        /// Conversion to <see cref="OpenApi.Schema.ReferenceValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.ReferenceValue(AZZ09Entity value)
@@ -13847,7 +14271,7 @@ namespace OpenApi
                                                     return default;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.ExampleValue.
+        /// Conversion from <see cref="OpenApi.Schema.ExampleValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator AZZ09Entity(OpenApi.Schema.ExampleValue value)
@@ -13856,7 +14280,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.ExampleValue.
+        /// Conversion to <see cref="OpenApi.Schema.ExampleValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.ExampleValue(AZZ09Entity value)
@@ -13935,6 +14359,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -13962,6 +14387,8 @@ namespace OpenApi
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -14450,6 +14877,7 @@ namespace OpenApi
     
 
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -14662,6 +15090,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -14689,6 +15118,8 @@ namespace OpenApi
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -15225,6 +15656,51 @@ namespace OpenApi
 
     
             /// <summary>
+        /// Gets the value as a <see cref="OpenApi.Schema.ReferenceValue" />.
+        /// </summary>
+        public OpenApi.Schema.ReferenceValue AsReferenceValue
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="OpenApi.Schema.ReferenceValue" />.
+        /// </summary>
+        public bool IsReferenceValue
+        {
+            get
+            {
+                return ((OpenApi.Schema.ReferenceValue)this).Validate().IsValid;
+            }
+        }
+
+            /// <summary>
+        /// Gets the value as a <see cref="OpenApi.Schema.RequestBodyValue" />.
+        /// </summary>
+        public OpenApi.Schema.RequestBodyValue AsRequestBodyValue
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="OpenApi.Schema.RequestBodyValue" />.
+        /// </summary>
+        public bool IsRequestBodyValue
+        {
+            get
+            {
+                return ((OpenApi.Schema.RequestBodyValue)this).Validate().IsValid;
+            }
+        }
+
+    
+            /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
         public bool HasJsonElement =>
@@ -15369,7 +15845,7 @@ namespace OpenApi
         }
 
             /// <summary>
-        /// Conversion from OpenApi.Schema.ReferenceValue.
+        /// Conversion from <see cref="OpenApi.Schema.ReferenceValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator AZZ09Entity(OpenApi.Schema.ReferenceValue value)
@@ -15378,7 +15854,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.ReferenceValue.
+        /// Conversion to <see cref="OpenApi.Schema.ReferenceValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.ReferenceValue(AZZ09Entity value)
@@ -15390,7 +15866,7 @@ namespace OpenApi
                                                     return default;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.RequestBodyValue.
+        /// Conversion from <see cref="OpenApi.Schema.RequestBodyValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator AZZ09Entity(OpenApi.Schema.RequestBodyValue value)
@@ -15399,7 +15875,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.RequestBodyValue.
+        /// Conversion to <see cref="OpenApi.Schema.RequestBodyValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.RequestBodyValue(AZZ09Entity value)
@@ -15478,6 +15954,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -15505,6 +15982,8 @@ namespace OpenApi
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -15993,6 +16472,7 @@ namespace OpenApi
     
 
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -16205,6 +16685,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -16232,6 +16713,8 @@ namespace OpenApi
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -16768,6 +17251,51 @@ namespace OpenApi
 
     
             /// <summary>
+        /// Gets the value as a <see cref="OpenApi.Schema.ReferenceValue" />.
+        /// </summary>
+        public OpenApi.Schema.ReferenceValue AsReferenceValue
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="OpenApi.Schema.ReferenceValue" />.
+        /// </summary>
+        public bool IsReferenceValue
+        {
+            get
+            {
+                return ((OpenApi.Schema.ReferenceValue)this).Validate().IsValid;
+            }
+        }
+
+            /// <summary>
+        /// Gets the value as a <see cref="OpenApi.Schema.HeaderValue" />.
+        /// </summary>
+        public OpenApi.Schema.HeaderValue AsHeaderValue
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="OpenApi.Schema.HeaderValue" />.
+        /// </summary>
+        public bool IsHeaderValue
+        {
+            get
+            {
+                return ((OpenApi.Schema.HeaderValue)this).Validate().IsValid;
+            }
+        }
+
+    
+            /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
         public bool HasJsonElement =>
@@ -16912,7 +17440,7 @@ namespace OpenApi
         }
 
             /// <summary>
-        /// Conversion from OpenApi.Schema.ReferenceValue.
+        /// Conversion from <see cref="OpenApi.Schema.ReferenceValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator AZZ09Entity(OpenApi.Schema.ReferenceValue value)
@@ -16921,7 +17449,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.ReferenceValue.
+        /// Conversion to <see cref="OpenApi.Schema.ReferenceValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.ReferenceValue(AZZ09Entity value)
@@ -16933,7 +17461,7 @@ namespace OpenApi
                                                     return default;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.HeaderValue.
+        /// Conversion from <see cref="OpenApi.Schema.HeaderValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator AZZ09Entity(OpenApi.Schema.HeaderValue value)
@@ -16942,7 +17470,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.HeaderValue.
+        /// Conversion to <see cref="OpenApi.Schema.HeaderValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.HeaderValue(AZZ09Entity value)
@@ -16955,7 +17483,7 @@ namespace OpenApi
         }
     
                 /// <summary>
-        /// Conversion from OpenApi.Schema.ExampleXOExamplesEntity.
+        /// Conversion from <see cref="OpenApi.Schema.ExampleXOExamplesEntity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator AZZ09Entity(OpenApi.Schema.ExampleXOExamplesEntity value)
@@ -16964,7 +17492,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.ExampleXOExamplesEntity.
+        /// Conversion to <see cref="OpenApi.Schema.ExampleXOExamplesEntity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.ExampleXOExamplesEntity(AZZ09Entity value)
@@ -16972,7 +17500,7 @@ namespace OpenApi
             return (OpenApi.Schema.ComponentsValue.HeadersValue.AZZ09Entity)value;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.SchemaXOContentEntity.
+        /// Conversion from <see cref="OpenApi.Schema.SchemaXOContentEntity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator AZZ09Entity(OpenApi.Schema.SchemaXOContentEntity value)
@@ -16981,7 +17509,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.SchemaXOContentEntity.
+        /// Conversion to <see cref="OpenApi.Schema.SchemaXOContentEntity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.SchemaXOContentEntity(AZZ09Entity value)
@@ -16989,7 +17517,7 @@ namespace OpenApi
             return (OpenApi.Schema.ComponentsValue.HeadersValue.AZZ09Entity)value;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.SchemaXOContentEntity.OneOf0Entity.
+        /// Conversion from <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf0Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator AZZ09Entity(OpenApi.Schema.SchemaXOContentEntity.OneOf0Entity value)
@@ -16998,7 +17526,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.SchemaXOContentEntity.OneOf0Entity.
+        /// Conversion to <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf0Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.SchemaXOContentEntity.OneOf0Entity(AZZ09Entity value)
@@ -17006,7 +17534,7 @@ namespace OpenApi
             return (OpenApi.Schema.HeaderValue)value;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.
+        /// Conversion from <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator AZZ09Entity(OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity value)
@@ -17015,7 +17543,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.
+        /// Conversion to <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity(AZZ09Entity value)
@@ -17023,7 +17551,7 @@ namespace OpenApi
             return (OpenApi.Schema.HeaderValue)value;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf0Entity.
+        /// Conversion from <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf0Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator AZZ09Entity(OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf0Entity value)
@@ -17032,7 +17560,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf0Entity.
+        /// Conversion to <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf0Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf0Entity(AZZ09Entity value)
@@ -17040,7 +17568,7 @@ namespace OpenApi
             return (OpenApi.Schema.SchemaXOContentEntity)value;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf1Entity.
+        /// Conversion from <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf1Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator AZZ09Entity(OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf1Entity value)
@@ -17049,7 +17577,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf1Entity.
+        /// Conversion to <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf1Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf1Entity(AZZ09Entity value)
@@ -17057,7 +17585,7 @@ namespace OpenApi
             return (OpenApi.Schema.SchemaXOContentEntity)value;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf2Entity.
+        /// Conversion from <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf2Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator AZZ09Entity(OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf2Entity value)
@@ -17066,7 +17594,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf2Entity.
+        /// Conversion to <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf2Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf2Entity(AZZ09Entity value)
@@ -17074,7 +17602,7 @@ namespace OpenApi
             return (OpenApi.Schema.SchemaXOContentEntity)value;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf3Entity.
+        /// Conversion from <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf3Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator AZZ09Entity(OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf3Entity value)
@@ -17083,7 +17611,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf3Entity.
+        /// Conversion to <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf3Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf3Entity(AZZ09Entity value)
@@ -17091,7 +17619,7 @@ namespace OpenApi
             return (OpenApi.Schema.SchemaXOContentEntity)value;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf4Entity.
+        /// Conversion from <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf4Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator AZZ09Entity(OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf4Entity value)
@@ -17100,7 +17628,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf4Entity.
+        /// Conversion to <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf4Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf4Entity(AZZ09Entity value)
@@ -17174,6 +17702,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -17201,6 +17730,8 @@ namespace OpenApi
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -17689,6 +18220,7 @@ namespace OpenApi
     
 
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -17901,6 +18433,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -17928,6 +18461,8 @@ namespace OpenApi
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -18457,6 +18992,51 @@ namespace OpenApi
 
     
             /// <summary>
+        /// Gets the value as a <see cref="OpenApi.Schema.ReferenceValue" />.
+        /// </summary>
+        public OpenApi.Schema.ReferenceValue AsReferenceValue
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="OpenApi.Schema.ReferenceValue" />.
+        /// </summary>
+        public bool IsReferenceValue
+        {
+            get
+            {
+                return ((OpenApi.Schema.ReferenceValue)this).Validate().IsValid;
+            }
+        }
+
+            /// <summary>
+        /// Gets the value as a <see cref="OpenApi.Schema.SecuritySchemeEntity" />.
+        /// </summary>
+        public OpenApi.Schema.SecuritySchemeEntity AsSecuritySchemeEntity
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="OpenApi.Schema.SecuritySchemeEntity" />.
+        /// </summary>
+        public bool IsSecuritySchemeEntity
+        {
+            get
+            {
+                return ((OpenApi.Schema.SecuritySchemeEntity)this).Validate().IsValid;
+            }
+        }
+
+    
+            /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
         public bool HasJsonElement =>
@@ -18601,7 +19181,7 @@ namespace OpenApi
         }
 
             /// <summary>
-        /// Conversion from OpenApi.Schema.ReferenceValue.
+        /// Conversion from <see cref="OpenApi.Schema.ReferenceValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator AZZ09Entity(OpenApi.Schema.ReferenceValue value)
@@ -18610,7 +19190,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.ReferenceValue.
+        /// Conversion to <see cref="OpenApi.Schema.ReferenceValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.ReferenceValue(AZZ09Entity value)
@@ -18622,7 +19202,7 @@ namespace OpenApi
                                                     return default;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.SecuritySchemeEntity.
+        /// Conversion from <see cref="OpenApi.Schema.SecuritySchemeEntity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator AZZ09Entity(OpenApi.Schema.SecuritySchemeEntity value)
@@ -18631,7 +19211,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.SecuritySchemeEntity.
+        /// Conversion to <see cref="OpenApi.Schema.SecuritySchemeEntity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.SecuritySchemeEntity(AZZ09Entity value)
@@ -18640,7 +19220,7 @@ namespace OpenApi
         }
     
                 /// <summary>
-        /// Conversion from OpenApi.Schema.APKeySecuritySchemeValue.
+        /// Conversion from <see cref="OpenApi.Schema.APKeySecuritySchemeValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator AZZ09Entity(OpenApi.Schema.APKeySecuritySchemeValue value)
@@ -18649,7 +19229,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.APKeySecuritySchemeValue.
+        /// Conversion to <see cref="OpenApi.Schema.APKeySecuritySchemeValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.APKeySecuritySchemeValue(AZZ09Entity value)
@@ -18657,7 +19237,7 @@ namespace OpenApi
             return (OpenApi.Schema.ComponentsValue.SecuritySchemesValue.AZZ09Entity)value;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.HTPSecuritySchemeValue.
+        /// Conversion from <see cref="OpenApi.Schema.HTPSecuritySchemeValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator AZZ09Entity(OpenApi.Schema.HTPSecuritySchemeValue value)
@@ -18666,7 +19246,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.HTPSecuritySchemeValue.
+        /// Conversion to <see cref="OpenApi.Schema.HTPSecuritySchemeValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.HTPSecuritySchemeValue(AZZ09Entity value)
@@ -18674,7 +19254,7 @@ namespace OpenApi
             return (OpenApi.Schema.ComponentsValue.SecuritySchemesValue.AZZ09Entity)value;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.HTPSecuritySchemeValue.OneOf0Entity.
+        /// Conversion from <see cref="OpenApi.Schema.HTPSecuritySchemeValue.OneOf0Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator AZZ09Entity(OpenApi.Schema.HTPSecuritySchemeValue.OneOf0Entity value)
@@ -18683,7 +19263,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.HTPSecuritySchemeValue.OneOf0Entity.
+        /// Conversion to <see cref="OpenApi.Schema.HTPSecuritySchemeValue.OneOf0Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.HTPSecuritySchemeValue.OneOf0Entity(AZZ09Entity value)
@@ -18691,7 +19271,7 @@ namespace OpenApi
             return (OpenApi.Schema.SecuritySchemeEntity)value;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.HTPSecuritySchemeValue.OneOf1Entity.
+        /// Conversion from <see cref="OpenApi.Schema.HTPSecuritySchemeValue.OneOf1Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator AZZ09Entity(OpenApi.Schema.HTPSecuritySchemeValue.OneOf1Entity value)
@@ -18700,7 +19280,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.HTPSecuritySchemeValue.OneOf1Entity.
+        /// Conversion to <see cref="OpenApi.Schema.HTPSecuritySchemeValue.OneOf1Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.HTPSecuritySchemeValue.OneOf1Entity(AZZ09Entity value)
@@ -18708,7 +19288,7 @@ namespace OpenApi
             return (OpenApi.Schema.SecuritySchemeEntity)value;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.OAuth2SecuritySchemeValue.
+        /// Conversion from <see cref="OpenApi.Schema.OAuth2SecuritySchemeValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator AZZ09Entity(OpenApi.Schema.OAuth2SecuritySchemeValue value)
@@ -18717,7 +19297,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.OAuth2SecuritySchemeValue.
+        /// Conversion to <see cref="OpenApi.Schema.OAuth2SecuritySchemeValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.OAuth2SecuritySchemeValue(AZZ09Entity value)
@@ -18725,7 +19305,7 @@ namespace OpenApi
             return (OpenApi.Schema.ComponentsValue.SecuritySchemesValue.AZZ09Entity)value;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.OpenIdConnectSecuritySchemeValue.
+        /// Conversion from <see cref="OpenApi.Schema.OpenIdConnectSecuritySchemeValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator AZZ09Entity(OpenApi.Schema.OpenIdConnectSecuritySchemeValue value)
@@ -18734,7 +19314,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.OpenIdConnectSecuritySchemeValue.
+        /// Conversion to <see cref="OpenApi.Schema.OpenIdConnectSecuritySchemeValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.OpenIdConnectSecuritySchemeValue(AZZ09Entity value)
@@ -18808,6 +19388,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -18835,6 +19416,8 @@ namespace OpenApi
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -19323,6 +19906,7 @@ namespace OpenApi
     
 
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -19535,6 +20119,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -19562,6 +20147,8 @@ namespace OpenApi
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -20098,6 +20685,51 @@ namespace OpenApi
 
     
             /// <summary>
+        /// Gets the value as a <see cref="OpenApi.Schema.ReferenceValue" />.
+        /// </summary>
+        public OpenApi.Schema.ReferenceValue AsReferenceValue
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="OpenApi.Schema.ReferenceValue" />.
+        /// </summary>
+        public bool IsReferenceValue
+        {
+            get
+            {
+                return ((OpenApi.Schema.ReferenceValue)this).Validate().IsValid;
+            }
+        }
+
+            /// <summary>
+        /// Gets the value as a <see cref="OpenApi.Schema.LinkValue" />.
+        /// </summary>
+        public OpenApi.Schema.LinkValue AsLinkValue
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="OpenApi.Schema.LinkValue" />.
+        /// </summary>
+        public bool IsLinkValue
+        {
+            get
+            {
+                return ((OpenApi.Schema.LinkValue)this).Validate().IsValid;
+            }
+        }
+
+    
+            /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
         public bool HasJsonElement =>
@@ -20242,7 +20874,7 @@ namespace OpenApi
         }
 
             /// <summary>
-        /// Conversion from OpenApi.Schema.ReferenceValue.
+        /// Conversion from <see cref="OpenApi.Schema.ReferenceValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator AZZ09Entity(OpenApi.Schema.ReferenceValue value)
@@ -20251,7 +20883,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.ReferenceValue.
+        /// Conversion to <see cref="OpenApi.Schema.ReferenceValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.ReferenceValue(AZZ09Entity value)
@@ -20263,7 +20895,7 @@ namespace OpenApi
                                                     return default;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.LinkValue.
+        /// Conversion from <see cref="OpenApi.Schema.LinkValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator AZZ09Entity(OpenApi.Schema.LinkValue value)
@@ -20272,7 +20904,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.LinkValue.
+        /// Conversion to <see cref="OpenApi.Schema.LinkValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.LinkValue(AZZ09Entity value)
@@ -20351,6 +20983,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -20378,6 +21011,8 @@ namespace OpenApi
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -20866,6 +21501,7 @@ namespace OpenApi
     
 
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -21078,6 +21714,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -21105,6 +21742,8 @@ namespace OpenApi
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -21641,6 +22280,51 @@ namespace OpenApi
 
     
             /// <summary>
+        /// Gets the value as a <see cref="OpenApi.Schema.ReferenceValue" />.
+        /// </summary>
+        public OpenApi.Schema.ReferenceValue AsReferenceValue
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="OpenApi.Schema.ReferenceValue" />.
+        /// </summary>
+        public bool IsReferenceValue
+        {
+            get
+            {
+                return ((OpenApi.Schema.ReferenceValue)this).Validate().IsValid;
+            }
+        }
+
+            /// <summary>
+        /// Gets the value as a <see cref="OpenApi.Schema.CallbackValue" />.
+        /// </summary>
+        public OpenApi.Schema.CallbackValue AsCallbackValue
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="OpenApi.Schema.CallbackValue" />.
+        /// </summary>
+        public bool IsCallbackValue
+        {
+            get
+            {
+                return ((OpenApi.Schema.CallbackValue)this).Validate().IsValid;
+            }
+        }
+
+    
+            /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
         public bool HasJsonElement =>
@@ -21785,7 +22469,7 @@ namespace OpenApi
         }
 
             /// <summary>
-        /// Conversion from OpenApi.Schema.ReferenceValue.
+        /// Conversion from <see cref="OpenApi.Schema.ReferenceValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator AZZ09Entity(OpenApi.Schema.ReferenceValue value)
@@ -21794,7 +22478,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.ReferenceValue.
+        /// Conversion to <see cref="OpenApi.Schema.ReferenceValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.ReferenceValue(AZZ09Entity value)
@@ -21806,7 +22490,7 @@ namespace OpenApi
                                                     return default;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.CallbackValue.
+        /// Conversion from <see cref="OpenApi.Schema.CallbackValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator AZZ09Entity(OpenApi.Schema.CallbackValue value)
@@ -21815,7 +22499,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.CallbackValue.
+        /// Conversion to <see cref="OpenApi.Schema.CallbackValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.CallbackValue(AZZ09Entity value)
@@ -21894,6 +22578,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -21921,6 +22606,8 @@ namespace OpenApi
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -22449,6 +23136,7 @@ namespace OpenApi
     
 
     
+    
             
         /// <summary>
         /// Gets Name.
@@ -22765,7 +23453,31 @@ namespace OpenApi
     
     
     
-    
+            /// <summary>
+        /// Creates an instance of a <see cref="ContactValue"/>.
+        /// </summary>
+        public static ContactValue Create(
+                            Menes.Json.JsonString? name = null
+        ,             Menes.Json.JsonUriReference? url = null
+        ,             Menes.Json.JsonEmail? email = null
+                )
+        {
+            var builder = ImmutableDictionary.CreateBuilder<JsonEncodedText, JsonAny>();
+                            if (name is Menes.Json.JsonString name__)
+            {
+                builder.Add(NameJsonPropertyName, name__);
+            }
+                    if (url is Menes.Json.JsonUriReference url__)
+            {
+                builder.Add(UrlJsonPropertyName, url__);
+            }
+                    if (email is Menes.Json.JsonEmail email__)
+            {
+                builder.Add(EmailJsonPropertyName, email__);
+            }
+                    return builder.ToImmutable();
+        }
+
         
         /// <summary>
         /// Sets name.
@@ -22801,6 +23513,7 @@ namespace OpenApi
 
         
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -22828,6 +23541,8 @@ namespace OpenApi
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -23400,6 +24115,7 @@ namespace OpenApi
     
 
     
+    
             
         /// <summary>
         /// Gets Name.
@@ -23681,7 +24397,23 @@ namespace OpenApi
     
     
     
-    
+            /// <summary>
+        /// Creates an instance of a <see cref="LicenseValue"/>.
+        /// </summary>
+        public static LicenseValue Create(
+                   Menes.Json.JsonString name
+                ,             Menes.Json.JsonUriReference? url = null
+                )
+        {
+            var builder = ImmutableDictionary.CreateBuilder<JsonEncodedText, JsonAny>();
+                    builder.Add(NameJsonPropertyName, name);
+                            if (url is Menes.Json.JsonUriReference url__)
+            {
+                builder.Add(UrlJsonPropertyName, url__);
+            }
+                    return builder.ToImmutable();
+        }
+
         
         /// <summary>
         /// Sets name.
@@ -23706,6 +24438,7 @@ namespace OpenApi
 
         
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -23733,6 +24466,8 @@ namespace OpenApi
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -24332,6 +25067,7 @@ namespace OpenApi
     
 
     
+    
             
         /// <summary>
         /// Gets Url.
@@ -24648,7 +25384,28 @@ namespace OpenApi
     
     
     
-    
+            /// <summary>
+        /// Creates an instance of a <see cref="ServerValue"/>.
+        /// </summary>
+        public static ServerValue Create(
+                   Menes.Json.JsonString url
+                ,             Menes.Json.JsonString? description = null
+        ,             OpenApi.Schema.ServerValue.VariablesValue? variables = null
+                )
+        {
+            var builder = ImmutableDictionary.CreateBuilder<JsonEncodedText, JsonAny>();
+                    builder.Add(UrlJsonPropertyName, url);
+                            if (description is Menes.Json.JsonString description__)
+            {
+                builder.Add(DescriptionJsonPropertyName, description__);
+            }
+                    if (variables is OpenApi.Schema.ServerValue.VariablesValue variables__)
+            {
+                builder.Add(VariablesJsonPropertyName, variables__);
+            }
+                    return builder.ToImmutable();
+        }
+
         
         /// <summary>
         /// Sets url.
@@ -24684,6 +25441,7 @@ namespace OpenApi
 
         
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -24711,6 +25469,8 @@ namespace OpenApi
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -25276,6 +26036,7 @@ namespace OpenApi
     
 
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -25488,6 +26249,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -25515,6 +26277,26 @@ namespace OpenApi
         }
 
     
+                /// <summary>
+        /// Enumerate the object as the given item type
+        /// </summary>
+        public JsonObjectEnumerator<OpenApi.Schema.ServerVariableValue> EnumerateProperties()
+        {
+            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            {
+                return new JsonObjectEnumerator<OpenApi.Schema.ServerVariableValue>(properties);
+            }
+
+            if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
+            {
+                return new JsonObjectEnumerator<OpenApi.Schema.ServerVariableValue>(this.jsonElementBacking);
+            }
+
+            return default;
+
+        }
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -25985,6 +26767,7 @@ namespace OpenApi
     
 
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -26197,6 +26980,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -26224,6 +27008,26 @@ namespace OpenApi
         }
 
     
+                /// <summary>
+        /// Enumerate the object as the given item type
+        /// </summary>
+        public JsonObjectEnumerator<OpenApi.Schema.SecurityRequirementValue.JsonStringArray> EnumerateProperties()
+        {
+            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            {
+                return new JsonObjectEnumerator<OpenApi.Schema.SecurityRequirementValue.JsonStringArray>(properties);
+            }
+
+            if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
+            {
+                return new JsonObjectEnumerator<OpenApi.Schema.SecurityRequirementValue.JsonStringArray>(this.jsonElementBacking);
+            }
+
+            return default;
+
+        }
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -26699,6 +27503,7 @@ namespace OpenApi
             }
         }
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -26907,6 +27712,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -26935,12 +27741,28 @@ namespace OpenApi
 
     
     
-        /// <inheritdoc/>
+                /// <summary>
+        /// Enumerate the items in the array as a <see cref="Menes.Json.JsonString" />.
+        /// </summary>
+        public JsonArrayEnumerator<Menes.Json.JsonString> EnumerateItems()
+        {
+            if (this.arrayBacking is ImmutableList<JsonAny> items)
+            {
+                return new JsonArrayEnumerator<Menes.Json.JsonString>(items);
+            }
+
+            if (this.jsonElementBacking.ValueKind == JsonValueKind.Array)
+            {
+                return new JsonArrayEnumerator<Menes.Json.JsonString>(this.jsonElementBacking);
+            }
+
+            return default;
+        }
+                /// <inheritdoc/>
         public JsonArrayEnumerator EnumerateArray()
         {
             return this.AsArray.EnumerateArray();
         }
-
     
     
         /// <inheritdoc/>
@@ -27326,6 +28148,7 @@ namespace OpenApi
     
 
     
+    
             
         /// <summary>
         /// Gets Name.
@@ -27642,7 +28465,28 @@ namespace OpenApi
     
     
     
-    
+            /// <summary>
+        /// Creates an instance of a <see cref="TagValue"/>.
+        /// </summary>
+        public static TagValue Create(
+                   Menes.Json.JsonString name
+                ,             Menes.Json.JsonString? description = null
+        ,             OpenApi.Schema.ExternalDocumentationValue? externalDocs = null
+                )
+        {
+            var builder = ImmutableDictionary.CreateBuilder<JsonEncodedText, JsonAny>();
+                    builder.Add(NameJsonPropertyName, name);
+                            if (description is Menes.Json.JsonString description__)
+            {
+                builder.Add(DescriptionJsonPropertyName, description__);
+            }
+                    if (externalDocs is OpenApi.Schema.ExternalDocumentationValue externalDocs__)
+            {
+                builder.Add(ExternalDocsJsonPropertyName, externalDocs__);
+            }
+                    return builder.ToImmutable();
+        }
+
         
         /// <summary>
         /// Sets name.
@@ -27678,6 +28522,7 @@ namespace OpenApi
 
         
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -27705,6 +28550,8 @@ namespace OpenApi
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -28333,6 +29180,7 @@ namespace OpenApi
     
 
     
+    
             
         /// <summary>
         /// Gets Ref.
@@ -28719,7 +29567,41 @@ namespace OpenApi
     
     
     
-    
+            /// <summary>
+        /// Creates an instance of a <see cref="PathItemValue"/>.
+        /// </summary>
+        public static PathItemValue Create(
+                            Menes.Json.JsonString? @ref = null
+        ,             Menes.Json.JsonString? summary = null
+        ,             Menes.Json.JsonString? description = null
+        ,             OpenApi.Schema.PathItemValue.ServerValueArray? servers = null
+        ,             OpenApi.Schema.PathItemValue.ItemsEntityArray? parameters = null
+                )
+        {
+            var builder = ImmutableDictionary.CreateBuilder<JsonEncodedText, JsonAny>();
+                            if (@ref is Menes.Json.JsonString @ref__)
+            {
+                builder.Add(RefJsonPropertyName, @ref__);
+            }
+                    if (summary is Menes.Json.JsonString summary__)
+            {
+                builder.Add(SummaryJsonPropertyName, summary__);
+            }
+                    if (description is Menes.Json.JsonString description__)
+            {
+                builder.Add(DescriptionJsonPropertyName, description__);
+            }
+                    if (servers is OpenApi.Schema.PathItemValue.ServerValueArray servers__)
+            {
+                builder.Add(ServersJsonPropertyName, servers__);
+            }
+                    if (parameters is OpenApi.Schema.PathItemValue.ItemsEntityArray parameters__)
+            {
+                builder.Add(ParametersJsonPropertyName, parameters__);
+            }
+                    return builder.ToImmutable();
+        }
+
         
         /// <summary>
         /// Sets $ref.
@@ -28777,6 +29659,7 @@ namespace OpenApi
 
         
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -28804,6 +29687,8 @@ namespace OpenApi
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -29379,6 +30264,7 @@ namespace OpenApi
             }
         }
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -29587,6 +30473,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -29615,12 +30502,28 @@ namespace OpenApi
 
     
     
-        /// <inheritdoc/>
+                /// <summary>
+        /// Enumerate the items in the array as a <see cref="OpenApi.Schema.ServerValue" />.
+        /// </summary>
+        public JsonArrayEnumerator<OpenApi.Schema.ServerValue> EnumerateItems()
+        {
+            if (this.arrayBacking is ImmutableList<JsonAny> items)
+            {
+                return new JsonArrayEnumerator<OpenApi.Schema.ServerValue>(items);
+            }
+
+            if (this.jsonElementBacking.ValueKind == JsonValueKind.Array)
+            {
+                return new JsonArrayEnumerator<OpenApi.Schema.ServerValue>(this.jsonElementBacking);
+            }
+
+            return default;
+        }
+                /// <inheritdoc/>
         public JsonArrayEnumerator EnumerateArray()
         {
             return this.AsArray.EnumerateArray();
         }
-
     
     
         /// <inheritdoc/>
@@ -29978,6 +30881,7 @@ namespace OpenApi
             }
         }
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -30186,6 +31090,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -30214,12 +31119,28 @@ namespace OpenApi
 
     
     
-        /// <inheritdoc/>
+                /// <summary>
+        /// Enumerate the items in the array as a <see cref="OpenApi.Schema.PathItemValue.ItemsEntityArray.ItemsEntity" />.
+        /// </summary>
+        public JsonArrayEnumerator<OpenApi.Schema.PathItemValue.ItemsEntityArray.ItemsEntity> EnumerateItems()
+        {
+            if (this.arrayBacking is ImmutableList<JsonAny> items)
+            {
+                return new JsonArrayEnumerator<OpenApi.Schema.PathItemValue.ItemsEntityArray.ItemsEntity>(items);
+            }
+
+            if (this.jsonElementBacking.ValueKind == JsonValueKind.Array)
+            {
+                return new JsonArrayEnumerator<OpenApi.Schema.PathItemValue.ItemsEntityArray.ItemsEntity>(this.jsonElementBacking);
+            }
+
+            return default;
+        }
+                /// <inheritdoc/>
         public JsonArrayEnumerator EnumerateArray()
         {
             return this.AsArray.EnumerateArray();
         }
-
     
     
         /// <inheritdoc/>
@@ -30639,6 +31560,51 @@ namespace OpenApi
 
     
             /// <summary>
+        /// Gets the value as a <see cref="OpenApi.Schema.ParameterValue" />.
+        /// </summary>
+        public OpenApi.Schema.ParameterValue AsParameterValue
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="OpenApi.Schema.ParameterValue" />.
+        /// </summary>
+        public bool IsParameterValue
+        {
+            get
+            {
+                return ((OpenApi.Schema.ParameterValue)this).Validate().IsValid;
+            }
+        }
+
+            /// <summary>
+        /// Gets the value as a <see cref="OpenApi.Schema.ReferenceValue" />.
+        /// </summary>
+        public OpenApi.Schema.ReferenceValue AsReferenceValue
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="OpenApi.Schema.ReferenceValue" />.
+        /// </summary>
+        public bool IsReferenceValue
+        {
+            get
+            {
+                return ((OpenApi.Schema.ReferenceValue)this).Validate().IsValid;
+            }
+        }
+
+    
+            /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
         public bool HasJsonElement =>
@@ -30783,7 +31749,7 @@ namespace OpenApi
         }
 
             /// <summary>
-        /// Conversion from OpenApi.Schema.ParameterValue.
+        /// Conversion from <see cref="OpenApi.Schema.ParameterValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator ItemsEntity(OpenApi.Schema.ParameterValue value)
@@ -30792,7 +31758,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.ParameterValue.
+        /// Conversion to <see cref="OpenApi.Schema.ParameterValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.ParameterValue(ItemsEntity value)
@@ -30804,7 +31770,7 @@ namespace OpenApi
                                                     return default;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.ReferenceValue.
+        /// Conversion from <see cref="OpenApi.Schema.ReferenceValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator ItemsEntity(OpenApi.Schema.ReferenceValue value)
@@ -30813,7 +31779,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.ReferenceValue.
+        /// Conversion to <see cref="OpenApi.Schema.ReferenceValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.ReferenceValue(ItemsEntity value)
@@ -30826,7 +31792,7 @@ namespace OpenApi
         }
     
                 /// <summary>
-        /// Conversion from OpenApi.Schema.ExampleXOExamplesEntity.
+        /// Conversion from <see cref="OpenApi.Schema.ExampleXOExamplesEntity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator ItemsEntity(OpenApi.Schema.ExampleXOExamplesEntity value)
@@ -30835,7 +31801,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.ExampleXOExamplesEntity.
+        /// Conversion to <see cref="OpenApi.Schema.ExampleXOExamplesEntity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.ExampleXOExamplesEntity(ItemsEntity value)
@@ -30843,7 +31809,7 @@ namespace OpenApi
             return (OpenApi.Schema.PathItemValue.ItemsEntityArray.ItemsEntity)value;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.SchemaXOContentEntity.
+        /// Conversion from <see cref="OpenApi.Schema.SchemaXOContentEntity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator ItemsEntity(OpenApi.Schema.SchemaXOContentEntity value)
@@ -30852,7 +31818,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.SchemaXOContentEntity.
+        /// Conversion to <see cref="OpenApi.Schema.SchemaXOContentEntity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.SchemaXOContentEntity(ItemsEntity value)
@@ -30860,7 +31826,7 @@ namespace OpenApi
             return (OpenApi.Schema.PathItemValue.ItemsEntityArray.ItemsEntity)value;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.SchemaXOContentEntity.OneOf0Entity.
+        /// Conversion from <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf0Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator ItemsEntity(OpenApi.Schema.SchemaXOContentEntity.OneOf0Entity value)
@@ -30869,7 +31835,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.SchemaXOContentEntity.OneOf0Entity.
+        /// Conversion to <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf0Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.SchemaXOContentEntity.OneOf0Entity(ItemsEntity value)
@@ -30877,7 +31843,7 @@ namespace OpenApi
             return (OpenApi.Schema.ParameterValue)value;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.
+        /// Conversion from <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator ItemsEntity(OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity value)
@@ -30886,7 +31852,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.
+        /// Conversion to <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity(ItemsEntity value)
@@ -30894,7 +31860,7 @@ namespace OpenApi
             return (OpenApi.Schema.ParameterValue)value;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf0Entity.
+        /// Conversion from <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf0Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator ItemsEntity(OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf0Entity value)
@@ -30903,7 +31869,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf0Entity.
+        /// Conversion to <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf0Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf0Entity(ItemsEntity value)
@@ -30911,7 +31877,7 @@ namespace OpenApi
             return (OpenApi.Schema.SchemaXOContentEntity)value;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf1Entity.
+        /// Conversion from <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf1Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator ItemsEntity(OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf1Entity value)
@@ -30920,7 +31886,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf1Entity.
+        /// Conversion to <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf1Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf1Entity(ItemsEntity value)
@@ -30928,7 +31894,7 @@ namespace OpenApi
             return (OpenApi.Schema.SchemaXOContentEntity)value;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf2Entity.
+        /// Conversion from <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf2Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator ItemsEntity(OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf2Entity value)
@@ -30937,7 +31903,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf2Entity.
+        /// Conversion to <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf2Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf2Entity(ItemsEntity value)
@@ -30945,7 +31911,7 @@ namespace OpenApi
             return (OpenApi.Schema.SchemaXOContentEntity)value;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf3Entity.
+        /// Conversion from <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf3Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator ItemsEntity(OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf3Entity value)
@@ -30954,7 +31920,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf3Entity.
+        /// Conversion to <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf3Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf3Entity(ItemsEntity value)
@@ -30962,7 +31928,7 @@ namespace OpenApi
             return (OpenApi.Schema.SchemaXOContentEntity)value;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf4Entity.
+        /// Conversion from <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf4Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator ItemsEntity(OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf4Entity value)
@@ -30971,7 +31937,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf4Entity.
+        /// Conversion to <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf4Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf4Entity(ItemsEntity value)
@@ -30979,7 +31945,7 @@ namespace OpenApi
             return (OpenApi.Schema.SchemaXOContentEntity)value;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.ParameterLocationEntity.
+        /// Conversion from <see cref="OpenApi.Schema.ParameterLocationEntity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator ItemsEntity(OpenApi.Schema.ParameterLocationEntity value)
@@ -30988,7 +31954,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.ParameterLocationEntity.
+        /// Conversion to <see cref="OpenApi.Schema.ParameterLocationEntity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.ParameterLocationEntity(ItemsEntity value)
@@ -30996,7 +31962,7 @@ namespace OpenApi
             return (OpenApi.Schema.PathItemValue.ItemsEntityArray.ItemsEntity)value;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.ParameterLocationEntity.OneOf0Entity.
+        /// Conversion from <see cref="OpenApi.Schema.ParameterLocationEntity.OneOf0Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator ItemsEntity(OpenApi.Schema.ParameterLocationEntity.OneOf0Entity value)
@@ -31005,7 +31971,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.ParameterLocationEntity.OneOf0Entity.
+        /// Conversion to <see cref="OpenApi.Schema.ParameterLocationEntity.OneOf0Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.ParameterLocationEntity.OneOf0Entity(ItemsEntity value)
@@ -31013,7 +31979,7 @@ namespace OpenApi
             return (OpenApi.Schema.ParameterValue)value;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.ParameterLocationEntity.OneOf1Entity.
+        /// Conversion from <see cref="OpenApi.Schema.ParameterLocationEntity.OneOf1Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator ItemsEntity(OpenApi.Schema.ParameterLocationEntity.OneOf1Entity value)
@@ -31022,7 +31988,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.ParameterLocationEntity.OneOf1Entity.
+        /// Conversion to <see cref="OpenApi.Schema.ParameterLocationEntity.OneOf1Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.ParameterLocationEntity.OneOf1Entity(ItemsEntity value)
@@ -31030,7 +31996,7 @@ namespace OpenApi
             return (OpenApi.Schema.ParameterValue)value;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.ParameterLocationEntity.OneOf2Entity.
+        /// Conversion from <see cref="OpenApi.Schema.ParameterLocationEntity.OneOf2Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator ItemsEntity(OpenApi.Schema.ParameterLocationEntity.OneOf2Entity value)
@@ -31039,7 +32005,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.ParameterLocationEntity.OneOf2Entity.
+        /// Conversion to <see cref="OpenApi.Schema.ParameterLocationEntity.OneOf2Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.ParameterLocationEntity.OneOf2Entity(ItemsEntity value)
@@ -31047,7 +32013,7 @@ namespace OpenApi
             return (OpenApi.Schema.ParameterValue)value;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.ParameterLocationEntity.OneOf3Entity.
+        /// Conversion from <see cref="OpenApi.Schema.ParameterLocationEntity.OneOf3Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator ItemsEntity(OpenApi.Schema.ParameterLocationEntity.OneOf3Entity value)
@@ -31056,7 +32022,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.ParameterLocationEntity.OneOf3Entity.
+        /// Conversion to <see cref="OpenApi.Schema.ParameterLocationEntity.OneOf3Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.ParameterLocationEntity.OneOf3Entity(ItemsEntity value)
@@ -31130,6 +32096,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -31157,6 +32124,8 @@ namespace OpenApi
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -31784,6 +32753,7 @@ namespace OpenApi
     
     
 
+    
     
             
         /// <summary>
@@ -32416,7 +33386,73 @@ namespace OpenApi
     
     
     
-    
+            /// <summary>
+        /// Creates an instance of a <see cref="OperationValue"/>.
+        /// </summary>
+        public static OperationValue Create(
+                   OpenApi.Schema.ResponsesValue responses
+                ,             OpenApi.Schema.OperationValue.JsonStringArray? tags = null
+        ,             Menes.Json.JsonString? summary = null
+        ,             Menes.Json.JsonString? description = null
+        ,             OpenApi.Schema.ExternalDocumentationValue? externalDocs = null
+        ,             Menes.Json.JsonString? operationId = null
+        ,             OpenApi.Schema.OperationValue.ItemsEntityArray? parameters = null
+        ,             OpenApi.Schema.OperationValue.RequestBodyEntity? requestBody = null
+        ,             OpenApi.Schema.OperationValue.CallbacksValue? callbacks = null
+        ,             OpenApi.Schema.OperationValue.DeprecatedValue? deprecated = null
+        ,             OpenApi.Schema.OperationValue.SecurityRequirementValueArray? security = null
+        ,             OpenApi.Schema.OperationValue.ServerValueArray? servers = null
+                )
+        {
+            var builder = ImmutableDictionary.CreateBuilder<JsonEncodedText, JsonAny>();
+                    builder.Add(ResponsesJsonPropertyName, responses);
+                            if (tags is OpenApi.Schema.OperationValue.JsonStringArray tags__)
+            {
+                builder.Add(TagsJsonPropertyName, tags__);
+            }
+                    if (summary is Menes.Json.JsonString summary__)
+            {
+                builder.Add(SummaryJsonPropertyName, summary__);
+            }
+                    if (description is Menes.Json.JsonString description__)
+            {
+                builder.Add(DescriptionJsonPropertyName, description__);
+            }
+                    if (externalDocs is OpenApi.Schema.ExternalDocumentationValue externalDocs__)
+            {
+                builder.Add(ExternalDocsJsonPropertyName, externalDocs__);
+            }
+                    if (operationId is Menes.Json.JsonString operationId__)
+            {
+                builder.Add(OperationIdJsonPropertyName, operationId__);
+            }
+                    if (parameters is OpenApi.Schema.OperationValue.ItemsEntityArray parameters__)
+            {
+                builder.Add(ParametersJsonPropertyName, parameters__);
+            }
+                    if (requestBody is OpenApi.Schema.OperationValue.RequestBodyEntity requestBody__)
+            {
+                builder.Add(RequestBodyJsonPropertyName, requestBody__);
+            }
+                    if (callbacks is OpenApi.Schema.OperationValue.CallbacksValue callbacks__)
+            {
+                builder.Add(CallbacksJsonPropertyName, callbacks__);
+            }
+                    if (deprecated is OpenApi.Schema.OperationValue.DeprecatedValue deprecated__)
+            {
+                builder.Add(DeprecatedJsonPropertyName, deprecated__);
+            }
+                    if (security is OpenApi.Schema.OperationValue.SecurityRequirementValueArray security__)
+            {
+                builder.Add(SecurityJsonPropertyName, security__);
+            }
+                    if (servers is OpenApi.Schema.OperationValue.ServerValueArray servers__)
+            {
+                builder.Add(ServersJsonPropertyName, servers__);
+            }
+                    return builder.ToImmutable();
+        }
+
         
         /// <summary>
         /// Sets responses.
@@ -32551,6 +33587,7 @@ namespace OpenApi
 
         
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -32578,6 +33615,8 @@ namespace OpenApi
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -33276,6 +34315,7 @@ namespace OpenApi
             }
         }
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -33484,6 +34524,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -33512,12 +34553,28 @@ namespace OpenApi
 
     
     
-        /// <inheritdoc/>
+                /// <summary>
+        /// Enumerate the items in the array as a <see cref="Menes.Json.JsonString" />.
+        /// </summary>
+        public JsonArrayEnumerator<Menes.Json.JsonString> EnumerateItems()
+        {
+            if (this.arrayBacking is ImmutableList<JsonAny> items)
+            {
+                return new JsonArrayEnumerator<Menes.Json.JsonString>(items);
+            }
+
+            if (this.jsonElementBacking.ValueKind == JsonValueKind.Array)
+            {
+                return new JsonArrayEnumerator<Menes.Json.JsonString>(this.jsonElementBacking);
+            }
+
+            return default;
+        }
+                /// <inheritdoc/>
         public JsonArrayEnumerator EnumerateArray()
         {
             return this.AsArray.EnumerateArray();
         }
-
     
     
         /// <inheritdoc/>
@@ -33875,6 +34932,7 @@ namespace OpenApi
             }
         }
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -34083,6 +35141,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -34111,12 +35170,28 @@ namespace OpenApi
 
     
     
-        /// <inheritdoc/>
+                /// <summary>
+        /// Enumerate the items in the array as a <see cref="OpenApi.Schema.OperationValue.ItemsEntityArray.ItemsEntity" />.
+        /// </summary>
+        public JsonArrayEnumerator<OpenApi.Schema.OperationValue.ItemsEntityArray.ItemsEntity> EnumerateItems()
+        {
+            if (this.arrayBacking is ImmutableList<JsonAny> items)
+            {
+                return new JsonArrayEnumerator<OpenApi.Schema.OperationValue.ItemsEntityArray.ItemsEntity>(items);
+            }
+
+            if (this.jsonElementBacking.ValueKind == JsonValueKind.Array)
+            {
+                return new JsonArrayEnumerator<OpenApi.Schema.OperationValue.ItemsEntityArray.ItemsEntity>(this.jsonElementBacking);
+            }
+
+            return default;
+        }
+                /// <inheritdoc/>
         public JsonArrayEnumerator EnumerateArray()
         {
             return this.AsArray.EnumerateArray();
         }
-
     
     
         /// <inheritdoc/>
@@ -34536,6 +35611,51 @@ namespace OpenApi
 
     
             /// <summary>
+        /// Gets the value as a <see cref="OpenApi.Schema.ParameterValue" />.
+        /// </summary>
+        public OpenApi.Schema.ParameterValue AsParameterValue
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="OpenApi.Schema.ParameterValue" />.
+        /// </summary>
+        public bool IsParameterValue
+        {
+            get
+            {
+                return ((OpenApi.Schema.ParameterValue)this).Validate().IsValid;
+            }
+        }
+
+            /// <summary>
+        /// Gets the value as a <see cref="OpenApi.Schema.ReferenceValue" />.
+        /// </summary>
+        public OpenApi.Schema.ReferenceValue AsReferenceValue
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="OpenApi.Schema.ReferenceValue" />.
+        /// </summary>
+        public bool IsReferenceValue
+        {
+            get
+            {
+                return ((OpenApi.Schema.ReferenceValue)this).Validate().IsValid;
+            }
+        }
+
+    
+            /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
         public bool HasJsonElement =>
@@ -34680,7 +35800,7 @@ namespace OpenApi
         }
 
             /// <summary>
-        /// Conversion from OpenApi.Schema.ParameterValue.
+        /// Conversion from <see cref="OpenApi.Schema.ParameterValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator ItemsEntity(OpenApi.Schema.ParameterValue value)
@@ -34689,7 +35809,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.ParameterValue.
+        /// Conversion to <see cref="OpenApi.Schema.ParameterValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.ParameterValue(ItemsEntity value)
@@ -34701,7 +35821,7 @@ namespace OpenApi
                                                     return default;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.ReferenceValue.
+        /// Conversion from <see cref="OpenApi.Schema.ReferenceValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator ItemsEntity(OpenApi.Schema.ReferenceValue value)
@@ -34710,7 +35830,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.ReferenceValue.
+        /// Conversion to <see cref="OpenApi.Schema.ReferenceValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.ReferenceValue(ItemsEntity value)
@@ -34723,7 +35843,7 @@ namespace OpenApi
         }
     
                 /// <summary>
-        /// Conversion from OpenApi.Schema.ExampleXOExamplesEntity.
+        /// Conversion from <see cref="OpenApi.Schema.ExampleXOExamplesEntity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator ItemsEntity(OpenApi.Schema.ExampleXOExamplesEntity value)
@@ -34732,7 +35852,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.ExampleXOExamplesEntity.
+        /// Conversion to <see cref="OpenApi.Schema.ExampleXOExamplesEntity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.ExampleXOExamplesEntity(ItemsEntity value)
@@ -34740,7 +35860,7 @@ namespace OpenApi
             return (OpenApi.Schema.OperationValue.ItemsEntityArray.ItemsEntity)value;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.SchemaXOContentEntity.
+        /// Conversion from <see cref="OpenApi.Schema.SchemaXOContentEntity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator ItemsEntity(OpenApi.Schema.SchemaXOContentEntity value)
@@ -34749,7 +35869,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.SchemaXOContentEntity.
+        /// Conversion to <see cref="OpenApi.Schema.SchemaXOContentEntity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.SchemaXOContentEntity(ItemsEntity value)
@@ -34757,7 +35877,7 @@ namespace OpenApi
             return (OpenApi.Schema.OperationValue.ItemsEntityArray.ItemsEntity)value;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.SchemaXOContentEntity.OneOf0Entity.
+        /// Conversion from <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf0Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator ItemsEntity(OpenApi.Schema.SchemaXOContentEntity.OneOf0Entity value)
@@ -34766,7 +35886,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.SchemaXOContentEntity.OneOf0Entity.
+        /// Conversion to <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf0Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.SchemaXOContentEntity.OneOf0Entity(ItemsEntity value)
@@ -34774,7 +35894,7 @@ namespace OpenApi
             return (OpenApi.Schema.ParameterValue)value;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.
+        /// Conversion from <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator ItemsEntity(OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity value)
@@ -34783,7 +35903,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.
+        /// Conversion to <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity(ItemsEntity value)
@@ -34791,7 +35911,7 @@ namespace OpenApi
             return (OpenApi.Schema.ParameterValue)value;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf0Entity.
+        /// Conversion from <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf0Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator ItemsEntity(OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf0Entity value)
@@ -34800,7 +35920,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf0Entity.
+        /// Conversion to <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf0Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf0Entity(ItemsEntity value)
@@ -34808,7 +35928,7 @@ namespace OpenApi
             return (OpenApi.Schema.SchemaXOContentEntity)value;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf1Entity.
+        /// Conversion from <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf1Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator ItemsEntity(OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf1Entity value)
@@ -34817,7 +35937,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf1Entity.
+        /// Conversion to <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf1Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf1Entity(ItemsEntity value)
@@ -34825,7 +35945,7 @@ namespace OpenApi
             return (OpenApi.Schema.SchemaXOContentEntity)value;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf2Entity.
+        /// Conversion from <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf2Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator ItemsEntity(OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf2Entity value)
@@ -34834,7 +35954,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf2Entity.
+        /// Conversion to <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf2Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf2Entity(ItemsEntity value)
@@ -34842,7 +35962,7 @@ namespace OpenApi
             return (OpenApi.Schema.SchemaXOContentEntity)value;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf3Entity.
+        /// Conversion from <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf3Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator ItemsEntity(OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf3Entity value)
@@ -34851,7 +35971,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf3Entity.
+        /// Conversion to <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf3Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf3Entity(ItemsEntity value)
@@ -34859,7 +35979,7 @@ namespace OpenApi
             return (OpenApi.Schema.SchemaXOContentEntity)value;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf4Entity.
+        /// Conversion from <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf4Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator ItemsEntity(OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf4Entity value)
@@ -34868,7 +35988,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf4Entity.
+        /// Conversion to <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf4Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf4Entity(ItemsEntity value)
@@ -34876,7 +35996,7 @@ namespace OpenApi
             return (OpenApi.Schema.SchemaXOContentEntity)value;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.ParameterLocationEntity.
+        /// Conversion from <see cref="OpenApi.Schema.ParameterLocationEntity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator ItemsEntity(OpenApi.Schema.ParameterLocationEntity value)
@@ -34885,7 +36005,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.ParameterLocationEntity.
+        /// Conversion to <see cref="OpenApi.Schema.ParameterLocationEntity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.ParameterLocationEntity(ItemsEntity value)
@@ -34893,7 +36013,7 @@ namespace OpenApi
             return (OpenApi.Schema.OperationValue.ItemsEntityArray.ItemsEntity)value;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.ParameterLocationEntity.OneOf0Entity.
+        /// Conversion from <see cref="OpenApi.Schema.ParameterLocationEntity.OneOf0Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator ItemsEntity(OpenApi.Schema.ParameterLocationEntity.OneOf0Entity value)
@@ -34902,7 +36022,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.ParameterLocationEntity.OneOf0Entity.
+        /// Conversion to <see cref="OpenApi.Schema.ParameterLocationEntity.OneOf0Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.ParameterLocationEntity.OneOf0Entity(ItemsEntity value)
@@ -34910,7 +36030,7 @@ namespace OpenApi
             return (OpenApi.Schema.ParameterValue)value;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.ParameterLocationEntity.OneOf1Entity.
+        /// Conversion from <see cref="OpenApi.Schema.ParameterLocationEntity.OneOf1Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator ItemsEntity(OpenApi.Schema.ParameterLocationEntity.OneOf1Entity value)
@@ -34919,7 +36039,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.ParameterLocationEntity.OneOf1Entity.
+        /// Conversion to <see cref="OpenApi.Schema.ParameterLocationEntity.OneOf1Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.ParameterLocationEntity.OneOf1Entity(ItemsEntity value)
@@ -34927,7 +36047,7 @@ namespace OpenApi
             return (OpenApi.Schema.ParameterValue)value;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.ParameterLocationEntity.OneOf2Entity.
+        /// Conversion from <see cref="OpenApi.Schema.ParameterLocationEntity.OneOf2Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator ItemsEntity(OpenApi.Schema.ParameterLocationEntity.OneOf2Entity value)
@@ -34936,7 +36056,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.ParameterLocationEntity.OneOf2Entity.
+        /// Conversion to <see cref="OpenApi.Schema.ParameterLocationEntity.OneOf2Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.ParameterLocationEntity.OneOf2Entity(ItemsEntity value)
@@ -34944,7 +36064,7 @@ namespace OpenApi
             return (OpenApi.Schema.ParameterValue)value;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.ParameterLocationEntity.OneOf3Entity.
+        /// Conversion from <see cref="OpenApi.Schema.ParameterLocationEntity.OneOf3Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator ItemsEntity(OpenApi.Schema.ParameterLocationEntity.OneOf3Entity value)
@@ -34953,7 +36073,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.ParameterLocationEntity.OneOf3Entity.
+        /// Conversion to <see cref="OpenApi.Schema.ParameterLocationEntity.OneOf3Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.ParameterLocationEntity.OneOf3Entity(ItemsEntity value)
@@ -35027,6 +36147,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -35054,6 +36175,8 @@ namespace OpenApi
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -35594,6 +36717,51 @@ namespace OpenApi
 
     
             /// <summary>
+        /// Gets the value as a <see cref="OpenApi.Schema.RequestBodyValue" />.
+        /// </summary>
+        public OpenApi.Schema.RequestBodyValue AsRequestBodyValue
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="OpenApi.Schema.RequestBodyValue" />.
+        /// </summary>
+        public bool IsRequestBodyValue
+        {
+            get
+            {
+                return ((OpenApi.Schema.RequestBodyValue)this).Validate().IsValid;
+            }
+        }
+
+            /// <summary>
+        /// Gets the value as a <see cref="OpenApi.Schema.ReferenceValue" />.
+        /// </summary>
+        public OpenApi.Schema.ReferenceValue AsReferenceValue
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="OpenApi.Schema.ReferenceValue" />.
+        /// </summary>
+        public bool IsReferenceValue
+        {
+            get
+            {
+                return ((OpenApi.Schema.ReferenceValue)this).Validate().IsValid;
+            }
+        }
+
+    
+            /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
         public bool HasJsonElement =>
@@ -35738,7 +36906,7 @@ namespace OpenApi
         }
 
             /// <summary>
-        /// Conversion from OpenApi.Schema.RequestBodyValue.
+        /// Conversion from <see cref="OpenApi.Schema.RequestBodyValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator RequestBodyEntity(OpenApi.Schema.RequestBodyValue value)
@@ -35747,7 +36915,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.RequestBodyValue.
+        /// Conversion to <see cref="OpenApi.Schema.RequestBodyValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.RequestBodyValue(RequestBodyEntity value)
@@ -35759,7 +36927,7 @@ namespace OpenApi
                                                     return default;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.ReferenceValue.
+        /// Conversion from <see cref="OpenApi.Schema.ReferenceValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator RequestBodyEntity(OpenApi.Schema.ReferenceValue value)
@@ -35768,7 +36936,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.ReferenceValue.
+        /// Conversion to <see cref="OpenApi.Schema.ReferenceValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.ReferenceValue(RequestBodyEntity value)
@@ -35847,6 +37015,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -35874,6 +37043,8 @@ namespace OpenApi
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -36357,6 +37528,7 @@ namespace OpenApi
     
 
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -36569,6 +37741,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -36596,6 +37769,26 @@ namespace OpenApi
         }
 
     
+                /// <summary>
+        /// Enumerate the object as the given item type
+        /// </summary>
+        public JsonObjectEnumerator<OpenApi.Schema.OperationValue.CallbacksValue.AdditionalPropertiesEntity> EnumerateProperties()
+        {
+            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            {
+                return new JsonObjectEnumerator<OpenApi.Schema.OperationValue.CallbacksValue.AdditionalPropertiesEntity>(properties);
+            }
+
+            if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
+            {
+                return new JsonObjectEnumerator<OpenApi.Schema.OperationValue.CallbacksValue.AdditionalPropertiesEntity>(this.jsonElementBacking);
+            }
+
+            return default;
+
+        }
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -37111,6 +38304,51 @@ namespace OpenApi
 
     
             /// <summary>
+        /// Gets the value as a <see cref="OpenApi.Schema.CallbackValue" />.
+        /// </summary>
+        public OpenApi.Schema.CallbackValue AsCallbackValue
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="OpenApi.Schema.CallbackValue" />.
+        /// </summary>
+        public bool IsCallbackValue
+        {
+            get
+            {
+                return ((OpenApi.Schema.CallbackValue)this).Validate().IsValid;
+            }
+        }
+
+            /// <summary>
+        /// Gets the value as a <see cref="OpenApi.Schema.ReferenceValue" />.
+        /// </summary>
+        public OpenApi.Schema.ReferenceValue AsReferenceValue
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="OpenApi.Schema.ReferenceValue" />.
+        /// </summary>
+        public bool IsReferenceValue
+        {
+            get
+            {
+                return ((OpenApi.Schema.ReferenceValue)this).Validate().IsValid;
+            }
+        }
+
+    
+            /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
         public bool HasJsonElement =>
@@ -37255,7 +38493,7 @@ namespace OpenApi
         }
 
             /// <summary>
-        /// Conversion from OpenApi.Schema.CallbackValue.
+        /// Conversion from <see cref="OpenApi.Schema.CallbackValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator AdditionalPropertiesEntity(OpenApi.Schema.CallbackValue value)
@@ -37264,7 +38502,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.CallbackValue.
+        /// Conversion to <see cref="OpenApi.Schema.CallbackValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.CallbackValue(AdditionalPropertiesEntity value)
@@ -37276,7 +38514,7 @@ namespace OpenApi
                                                     return default;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.ReferenceValue.
+        /// Conversion from <see cref="OpenApi.Schema.ReferenceValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator AdditionalPropertiesEntity(OpenApi.Schema.ReferenceValue value)
@@ -37285,7 +38523,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.ReferenceValue.
+        /// Conversion to <see cref="OpenApi.Schema.ReferenceValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.ReferenceValue(AdditionalPropertiesEntity value)
@@ -37364,6 +38602,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -37391,6 +38630,8 @@ namespace OpenApi
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -37880,6 +39121,7 @@ namespace OpenApi
     
 
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -38089,6 +39331,7 @@ namespace OpenApi
 
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -38359,6 +39602,7 @@ namespace OpenApi
             }
         }
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -38567,6 +39811,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -38595,12 +39840,28 @@ namespace OpenApi
 
     
     
-        /// <inheritdoc/>
+                /// <summary>
+        /// Enumerate the items in the array as a <see cref="OpenApi.Schema.SecurityRequirementValue" />.
+        /// </summary>
+        public JsonArrayEnumerator<OpenApi.Schema.SecurityRequirementValue> EnumerateItems()
+        {
+            if (this.arrayBacking is ImmutableList<JsonAny> items)
+            {
+                return new JsonArrayEnumerator<OpenApi.Schema.SecurityRequirementValue>(items);
+            }
+
+            if (this.jsonElementBacking.ValueKind == JsonValueKind.Array)
+            {
+                return new JsonArrayEnumerator<OpenApi.Schema.SecurityRequirementValue>(this.jsonElementBacking);
+            }
+
+            return default;
+        }
+                /// <inheritdoc/>
         public JsonArrayEnumerator EnumerateArray()
         {
             return this.AsArray.EnumerateArray();
         }
-
     
     
         /// <inheritdoc/>
@@ -38958,6 +40219,7 @@ namespace OpenApi
             }
         }
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -39166,6 +40428,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -39194,12 +40457,28 @@ namespace OpenApi
 
     
     
-        /// <inheritdoc/>
+                /// <summary>
+        /// Enumerate the items in the array as a <see cref="OpenApi.Schema.ServerValue" />.
+        /// </summary>
+        public JsonArrayEnumerator<OpenApi.Schema.ServerValue> EnumerateItems()
+        {
+            if (this.arrayBacking is ImmutableList<JsonAny> items)
+            {
+                return new JsonArrayEnumerator<OpenApi.Schema.ServerValue>(items);
+            }
+
+            if (this.jsonElementBacking.ValueKind == JsonValueKind.Array)
+            {
+                return new JsonArrayEnumerator<OpenApi.Schema.ServerValue>(this.jsonElementBacking);
+            }
+
+            return default;
+        }
+                /// <inheritdoc/>
         public JsonArrayEnumerator EnumerateArray()
         {
             return this.AsArray.EnumerateArray();
         }
-
     
     
         /// <inheritdoc/>
@@ -39585,6 +40864,7 @@ namespace OpenApi
     
 
     
+    
             
         /// <summary>
         /// Gets Default.
@@ -39901,7 +41181,28 @@ namespace OpenApi
     
     
     
-    
+            /// <summary>
+        /// Creates an instance of a <see cref="ServerVariableValue"/>.
+        /// </summary>
+        public static ServerVariableValue Create(
+                   Menes.Json.JsonString @default
+                ,             OpenApi.Schema.ServerVariableValue.JsonStringArray? @enum = null
+        ,             Menes.Json.JsonString? description = null
+                )
+        {
+            var builder = ImmutableDictionary.CreateBuilder<JsonEncodedText, JsonAny>();
+                    builder.Add(DefaultJsonPropertyName, @default);
+                            if (@enum is OpenApi.Schema.ServerVariableValue.JsonStringArray @enum__)
+            {
+                builder.Add(EnumJsonPropertyName, @enum__);
+            }
+                    if (description is Menes.Json.JsonString description__)
+            {
+                builder.Add(DescriptionJsonPropertyName, description__);
+            }
+                    return builder.ToImmutable();
+        }
+
         
         /// <summary>
         /// Sets default.
@@ -39937,6 +41238,7 @@ namespace OpenApi
 
         
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -39964,6 +41266,8 @@ namespace OpenApi
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -40542,6 +41846,7 @@ namespace OpenApi
             }
         }
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -40750,6 +42055,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -40778,12 +42084,28 @@ namespace OpenApi
 
     
     
-        /// <inheritdoc/>
+                /// <summary>
+        /// Enumerate the items in the array as a <see cref="Menes.Json.JsonString" />.
+        /// </summary>
+        public JsonArrayEnumerator<Menes.Json.JsonString> EnumerateItems()
+        {
+            if (this.arrayBacking is ImmutableList<JsonAny> items)
+            {
+                return new JsonArrayEnumerator<Menes.Json.JsonString>(items);
+            }
+
+            if (this.jsonElementBacking.ValueKind == JsonValueKind.Array)
+            {
+                return new JsonArrayEnumerator<Menes.Json.JsonString>(this.jsonElementBacking);
+            }
+
+            return default;
+        }
+                /// <inheritdoc/>
         public JsonArrayEnumerator EnumerateArray()
         {
             return this.AsArray.EnumerateArray();
         }
-
     
     
         /// <inheritdoc/>
@@ -41147,6 +42469,7 @@ namespace OpenApi
     
 
     
+    
             
         /// <summary>
         /// Gets Default.
@@ -41393,7 +42716,21 @@ namespace OpenApi
     
     
     
-    
+            /// <summary>
+        /// Creates an instance of a <see cref="ResponsesValue"/>.
+        /// </summary>
+        public static ResponsesValue Create(
+                            OpenApi.Schema.ResponsesValue.DefaultEntity? @default = null
+                )
+        {
+            var builder = ImmutableDictionary.CreateBuilder<JsonEncodedText, JsonAny>();
+                            if (@default is OpenApi.Schema.ResponsesValue.DefaultEntity @default__)
+            {
+                builder.Add(DefaultJsonPropertyName, @default__);
+            }
+                    return builder.ToImmutable();
+        }
+
         
         /// <summary>
         /// Sets default.
@@ -41407,6 +42744,7 @@ namespace OpenApi
 
         
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -41434,6 +42772,8 @@ namespace OpenApi
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -42042,6 +43382,51 @@ namespace OpenApi
 
     
             /// <summary>
+        /// Gets the value as a <see cref="OpenApi.Schema.ResponseValue" />.
+        /// </summary>
+        public OpenApi.Schema.ResponseValue AsResponseValue
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="OpenApi.Schema.ResponseValue" />.
+        /// </summary>
+        public bool IsResponseValue
+        {
+            get
+            {
+                return ((OpenApi.Schema.ResponseValue)this).Validate().IsValid;
+            }
+        }
+
+            /// <summary>
+        /// Gets the value as a <see cref="OpenApi.Schema.ReferenceValue" />.
+        /// </summary>
+        public OpenApi.Schema.ReferenceValue AsReferenceValue
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="OpenApi.Schema.ReferenceValue" />.
+        /// </summary>
+        public bool IsReferenceValue
+        {
+            get
+            {
+                return ((OpenApi.Schema.ReferenceValue)this).Validate().IsValid;
+            }
+        }
+
+    
+            /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
         public bool HasJsonElement =>
@@ -42186,7 +43571,7 @@ namespace OpenApi
         }
 
             /// <summary>
-        /// Conversion from OpenApi.Schema.ResponseValue.
+        /// Conversion from <see cref="OpenApi.Schema.ResponseValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator Type15D2XEntity(OpenApi.Schema.ResponseValue value)
@@ -42195,7 +43580,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.ResponseValue.
+        /// Conversion to <see cref="OpenApi.Schema.ResponseValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.ResponseValue(Type15D2XEntity value)
@@ -42207,7 +43592,7 @@ namespace OpenApi
                                                     return default;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.ReferenceValue.
+        /// Conversion from <see cref="OpenApi.Schema.ReferenceValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator Type15D2XEntity(OpenApi.Schema.ReferenceValue value)
@@ -42216,7 +43601,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.ReferenceValue.
+        /// Conversion to <see cref="OpenApi.Schema.ReferenceValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.ReferenceValue(Type15D2XEntity value)
@@ -42295,6 +43680,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -42322,6 +43708,8 @@ namespace OpenApi
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -42858,6 +44246,51 @@ namespace OpenApi
 
     
             /// <summary>
+        /// Gets the value as a <see cref="OpenApi.Schema.ResponseValue" />.
+        /// </summary>
+        public OpenApi.Schema.ResponseValue AsResponseValue
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="OpenApi.Schema.ResponseValue" />.
+        /// </summary>
+        public bool IsResponseValue
+        {
+            get
+            {
+                return ((OpenApi.Schema.ResponseValue)this).Validate().IsValid;
+            }
+        }
+
+            /// <summary>
+        /// Gets the value as a <see cref="OpenApi.Schema.ReferenceValue" />.
+        /// </summary>
+        public OpenApi.Schema.ReferenceValue AsReferenceValue
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="OpenApi.Schema.ReferenceValue" />.
+        /// </summary>
+        public bool IsReferenceValue
+        {
+            get
+            {
+                return ((OpenApi.Schema.ReferenceValue)this).Validate().IsValid;
+            }
+        }
+
+    
+            /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
         public bool HasJsonElement =>
@@ -43002,7 +44435,7 @@ namespace OpenApi
         }
 
             /// <summary>
-        /// Conversion from OpenApi.Schema.ResponseValue.
+        /// Conversion from <see cref="OpenApi.Schema.ResponseValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator DefaultEntity(OpenApi.Schema.ResponseValue value)
@@ -43011,7 +44444,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.ResponseValue.
+        /// Conversion to <see cref="OpenApi.Schema.ResponseValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.ResponseValue(DefaultEntity value)
@@ -43023,7 +44456,7 @@ namespace OpenApi
                                                     return default;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.ReferenceValue.
+        /// Conversion from <see cref="OpenApi.Schema.ReferenceValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator DefaultEntity(OpenApi.Schema.ReferenceValue value)
@@ -43032,7 +44465,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.ReferenceValue.
+        /// Conversion to <see cref="OpenApi.Schema.ReferenceValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.ReferenceValue(DefaultEntity value)
@@ -43111,6 +44544,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -43138,6 +44572,8 @@ namespace OpenApi
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -44014,6 +45450,7 @@ namespace OpenApi
     
     
 
+    
     
             
         /// <summary>
@@ -45451,7 +46888,191 @@ namespace OpenApi
     
     
     
-    
+            /// <summary>
+        /// Creates an instance of a <see cref="SchemaValue"/>.
+        /// </summary>
+        public static SchemaValue Create(
+                            Menes.Json.JsonString? title = null
+        ,             OpenApi.Schema.SchemaValue.MultipleOfValue? multipleOf = null
+        ,             Menes.Json.JsonNumber? maximum = null
+        ,             Menes.Json.JsonNumber? exclusiveMaximum = null
+        ,             Menes.Json.JsonNumber? minimum = null
+        ,             Menes.Json.JsonNumber? exclusiveMinimum = null
+        ,             OpenApi.Schema.SchemaValue.MaxLengthValue? maxLength = null
+        ,             OpenApi.Schema.SchemaValue.MinLengthValue? minLength = null
+        ,             Menes.Json.JsonRegex? pattern = null
+        ,             OpenApi.Schema.SchemaValue.MaxItemsValue? maxItems = null
+        ,             OpenApi.Schema.SchemaValue.MinItemsValue? minItems = null
+        ,             OpenApi.Schema.SchemaValue.UniqueItemsValue? uniqueItems = null
+        ,             OpenApi.Schema.SchemaValue.MaxPropertiesValue? maxProperties = null
+        ,             OpenApi.Schema.SchemaValue.MinPropertiesValue? minProperties = null
+        ,             OpenApi.Schema.SchemaValue.JsonStringArray? required = null
+        ,             OpenApi.Schema.SchemaValue.JsonAnyArray? @enum = null
+        ,             OpenApi.Schema.SchemaValue.TypeValue? type = null
+        ,             OpenApi.Schema.SchemaValue.NotEntity? not = null
+        ,             OpenApi.Schema.SchemaValue.ItemsEntityArray? allOf = null
+        ,             OpenApi.Schema.SchemaValue.OneOfItemsEntityArray? oneOf = null
+        ,             OpenApi.Schema.SchemaValue.AnyOfItemsEntityArray? anyOf = null
+        ,             OpenApi.Schema.SchemaValue.ItemsEntity? items = null
+        ,             OpenApi.Schema.SchemaValue.PropertiesValue? properties = null
+        ,             OpenApi.Schema.SchemaValue.AdditionalPropertiesEntity? additionalProperties = null
+        ,             Menes.Json.JsonString? description = null
+        ,             Menes.Json.JsonString? format = null
+        ,             Menes.Json.JsonAny? @default = null
+        ,             OpenApi.Schema.SchemaValue.NullableValue? nullable = null
+        ,             OpenApi.Schema.DiscriminatorValue? discriminator = null
+        ,             OpenApi.Schema.SchemaValue.ReadOnlyValue? readOnly = null
+        ,             OpenApi.Schema.SchemaValue.WriteOnlyValue? writeOnly = null
+        ,             Menes.Json.JsonAny? example = null
+        ,             OpenApi.Schema.ExternalDocumentationValue? externalDocs = null
+        ,             OpenApi.Schema.SchemaValue.DeprecatedValue? deprecated = null
+        ,             OpenApi.Schema.XMValue? xml = null
+                )
+        {
+            var builder = ImmutableDictionary.CreateBuilder<JsonEncodedText, JsonAny>();
+                            if (title is Menes.Json.JsonString title__)
+            {
+                builder.Add(TitleJsonPropertyName, title__);
+            }
+                    if (multipleOf is OpenApi.Schema.SchemaValue.MultipleOfValue multipleOf__)
+            {
+                builder.Add(MultipleOfJsonPropertyName, multipleOf__);
+            }
+                    if (maximum is Menes.Json.JsonNumber maximum__)
+            {
+                builder.Add(MaximumJsonPropertyName, maximum__);
+            }
+                    if (exclusiveMaximum is Menes.Json.JsonNumber exclusiveMaximum__)
+            {
+                builder.Add(ExclusiveMaximumJsonPropertyName, exclusiveMaximum__);
+            }
+                    if (minimum is Menes.Json.JsonNumber minimum__)
+            {
+                builder.Add(MinimumJsonPropertyName, minimum__);
+            }
+                    if (exclusiveMinimum is Menes.Json.JsonNumber exclusiveMinimum__)
+            {
+                builder.Add(ExclusiveMinimumJsonPropertyName, exclusiveMinimum__);
+            }
+                    if (maxLength is OpenApi.Schema.SchemaValue.MaxLengthValue maxLength__)
+            {
+                builder.Add(MaxLengthJsonPropertyName, maxLength__);
+            }
+                    if (minLength is OpenApi.Schema.SchemaValue.MinLengthValue minLength__)
+            {
+                builder.Add(MinLengthJsonPropertyName, minLength__);
+            }
+                    if (pattern is Menes.Json.JsonRegex pattern__)
+            {
+                builder.Add(PatternJsonPropertyName, pattern__);
+            }
+                    if (maxItems is OpenApi.Schema.SchemaValue.MaxItemsValue maxItems__)
+            {
+                builder.Add(MaxItemsJsonPropertyName, maxItems__);
+            }
+                    if (minItems is OpenApi.Schema.SchemaValue.MinItemsValue minItems__)
+            {
+                builder.Add(MinItemsJsonPropertyName, minItems__);
+            }
+                    if (uniqueItems is OpenApi.Schema.SchemaValue.UniqueItemsValue uniqueItems__)
+            {
+                builder.Add(UniqueItemsJsonPropertyName, uniqueItems__);
+            }
+                    if (maxProperties is OpenApi.Schema.SchemaValue.MaxPropertiesValue maxProperties__)
+            {
+                builder.Add(MaxPropertiesJsonPropertyName, maxProperties__);
+            }
+                    if (minProperties is OpenApi.Schema.SchemaValue.MinPropertiesValue minProperties__)
+            {
+                builder.Add(MinPropertiesJsonPropertyName, minProperties__);
+            }
+                    if (required is OpenApi.Schema.SchemaValue.JsonStringArray required__)
+            {
+                builder.Add(RequiredJsonPropertyName, required__);
+            }
+                    if (@enum is OpenApi.Schema.SchemaValue.JsonAnyArray @enum__)
+            {
+                builder.Add(EnumJsonPropertyName, @enum__);
+            }
+                    if (type is OpenApi.Schema.SchemaValue.TypeValue type__)
+            {
+                builder.Add(TypeJsonPropertyName, type__);
+            }
+                    if (not is OpenApi.Schema.SchemaValue.NotEntity not__)
+            {
+                builder.Add(NotJsonPropertyName, not__);
+            }
+                    if (allOf is OpenApi.Schema.SchemaValue.ItemsEntityArray allOf__)
+            {
+                builder.Add(AllOfJsonPropertyName, allOf__);
+            }
+                    if (oneOf is OpenApi.Schema.SchemaValue.OneOfItemsEntityArray oneOf__)
+            {
+                builder.Add(OneOfJsonPropertyName, oneOf__);
+            }
+                    if (anyOf is OpenApi.Schema.SchemaValue.AnyOfItemsEntityArray anyOf__)
+            {
+                builder.Add(AnyOfJsonPropertyName, anyOf__);
+            }
+                    if (items is OpenApi.Schema.SchemaValue.ItemsEntity items__)
+            {
+                builder.Add(ItemsJsonPropertyName, items__);
+            }
+                    if (properties is OpenApi.Schema.SchemaValue.PropertiesValue properties__)
+            {
+                builder.Add(PropertiesJsonPropertyName, properties__);
+            }
+                    if (additionalProperties is OpenApi.Schema.SchemaValue.AdditionalPropertiesEntity additionalProperties__)
+            {
+                builder.Add(AdditionalPropertiesJsonPropertyName, additionalProperties__);
+            }
+                    if (description is Menes.Json.JsonString description__)
+            {
+                builder.Add(DescriptionJsonPropertyName, description__);
+            }
+                    if (format is Menes.Json.JsonString format__)
+            {
+                builder.Add(FormatJsonPropertyName, format__);
+            }
+                    if (@default is Menes.Json.JsonAny @default__)
+            {
+                builder.Add(DefaultJsonPropertyName, @default__);
+            }
+                    if (nullable is OpenApi.Schema.SchemaValue.NullableValue nullable__)
+            {
+                builder.Add(NullableJsonPropertyName, nullable__);
+            }
+                    if (discriminator is OpenApi.Schema.DiscriminatorValue discriminator__)
+            {
+                builder.Add(DiscriminatorJsonPropertyName, discriminator__);
+            }
+                    if (readOnly is OpenApi.Schema.SchemaValue.ReadOnlyValue readOnly__)
+            {
+                builder.Add(ReadOnlyJsonPropertyName, readOnly__);
+            }
+                    if (writeOnly is OpenApi.Schema.SchemaValue.WriteOnlyValue writeOnly__)
+            {
+                builder.Add(WriteOnlyJsonPropertyName, writeOnly__);
+            }
+                    if (example is Menes.Json.JsonAny example__)
+            {
+                builder.Add(ExampleJsonPropertyName, example__);
+            }
+                    if (externalDocs is OpenApi.Schema.ExternalDocumentationValue externalDocs__)
+            {
+                builder.Add(ExternalDocsJsonPropertyName, externalDocs__);
+            }
+                    if (deprecated is OpenApi.Schema.SchemaValue.DeprecatedValue deprecated__)
+            {
+                builder.Add(DeprecatedJsonPropertyName, deprecated__);
+            }
+                    if (xml is OpenApi.Schema.XMValue xml__)
+            {
+                builder.Add(XmlJsonPropertyName, xml__);
+            }
+                    return builder.ToImmutable();
+        }
+
         
         /// <summary>
         /// Sets title.
@@ -45839,6 +47460,7 @@ namespace OpenApi
 
         
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -45866,6 +47488,8 @@ namespace OpenApi
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -46725,6 +48349,7 @@ namespace OpenApi
     
 
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -46989,6 +48614,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -47292,6 +48918,7 @@ namespace OpenApi
     
 
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -47556,6 +49183,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -47857,6 +49485,7 @@ namespace OpenApi
     
 
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -48121,6 +49750,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -48422,6 +50052,7 @@ namespace OpenApi
     
 
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -48686,6 +50317,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -48987,6 +50619,7 @@ namespace OpenApi
     
 
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -49251,6 +50884,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -49525,6 +51159,7 @@ namespace OpenApi
     
 
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -49734,6 +51369,7 @@ namespace OpenApi
 
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -50020,6 +51656,7 @@ namespace OpenApi
     
 
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -50284,6 +51921,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -50585,6 +52223,7 @@ namespace OpenApi
     
 
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -50849,6 +52488,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -51134,6 +52774,7 @@ namespace OpenApi
             }
         }
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -51342,6 +52983,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -51370,12 +53012,28 @@ namespace OpenApi
 
     
     
-        /// <inheritdoc/>
+                /// <summary>
+        /// Enumerate the items in the array as a <see cref="Menes.Json.JsonString" />.
+        /// </summary>
+        public JsonArrayEnumerator<Menes.Json.JsonString> EnumerateItems()
+        {
+            if (this.arrayBacking is ImmutableList<JsonAny> items)
+            {
+                return new JsonArrayEnumerator<Menes.Json.JsonString>(items);
+            }
+
+            if (this.jsonElementBacking.ValueKind == JsonValueKind.Array)
+            {
+                return new JsonArrayEnumerator<Menes.Json.JsonString>(this.jsonElementBacking);
+            }
+
+            return default;
+        }
+                /// <inheritdoc/>
         public JsonArrayEnumerator EnumerateArray()
         {
             return this.AsArray.EnumerateArray();
         }
-
     
     
         /// <inheritdoc/>
@@ -51775,6 +53433,7 @@ namespace OpenApi
             }
         }
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -51983,6 +53642,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -52011,12 +53671,28 @@ namespace OpenApi
 
     
     
-        /// <inheritdoc/>
+                /// <summary>
+        /// Enumerate the items in the array as a <see cref="Menes.Json.JsonAny" />.
+        /// </summary>
+        public JsonArrayEnumerator<Menes.Json.JsonAny> EnumerateItems()
+        {
+            if (this.arrayBacking is ImmutableList<JsonAny> items)
+            {
+                return new JsonArrayEnumerator<Menes.Json.JsonAny>(items);
+            }
+
+            if (this.jsonElementBacking.ValueKind == JsonValueKind.Array)
+            {
+                return new JsonArrayEnumerator<Menes.Json.JsonAny>(this.jsonElementBacking);
+            }
+
+            return default;
+        }
+                /// <inheritdoc/>
         public JsonArrayEnumerator EnumerateArray()
         {
             return this.AsArray.EnumerateArray();
         }
-
     
     
         /// <inheritdoc/>
@@ -52407,6 +54083,7 @@ namespace OpenApi
     
 
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -52671,6 +54348,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -53097,6 +54775,51 @@ namespace OpenApi
 
     
             /// <summary>
+        /// Gets the value as a <see cref="OpenApi.Schema.SchemaValue" />.
+        /// </summary>
+        public OpenApi.Schema.SchemaValue AsSchemaValue
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="OpenApi.Schema.SchemaValue" />.
+        /// </summary>
+        public bool IsSchemaValue
+        {
+            get
+            {
+                return ((OpenApi.Schema.SchemaValue)this).Validate().IsValid;
+            }
+        }
+
+            /// <summary>
+        /// Gets the value as a <see cref="OpenApi.Schema.ReferenceValue" />.
+        /// </summary>
+        public OpenApi.Schema.ReferenceValue AsReferenceValue
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="OpenApi.Schema.ReferenceValue" />.
+        /// </summary>
+        public bool IsReferenceValue
+        {
+            get
+            {
+                return ((OpenApi.Schema.ReferenceValue)this).Validate().IsValid;
+            }
+        }
+
+    
+            /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
         public bool HasJsonElement =>
@@ -53241,7 +54964,7 @@ namespace OpenApi
         }
 
             /// <summary>
-        /// Conversion from OpenApi.Schema.SchemaValue.
+        /// Conversion from <see cref="OpenApi.Schema.SchemaValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator NotEntity(OpenApi.Schema.SchemaValue value)
@@ -53250,7 +54973,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.SchemaValue.
+        /// Conversion to <see cref="OpenApi.Schema.SchemaValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.SchemaValue(NotEntity value)
@@ -53262,7 +54985,7 @@ namespace OpenApi
                                                     return default;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.ReferenceValue.
+        /// Conversion from <see cref="OpenApi.Schema.ReferenceValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator NotEntity(OpenApi.Schema.ReferenceValue value)
@@ -53271,7 +54994,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.ReferenceValue.
+        /// Conversion to <see cref="OpenApi.Schema.ReferenceValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.ReferenceValue(NotEntity value)
@@ -53350,6 +55073,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -53377,6 +55101,8 @@ namespace OpenApi
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -53873,6 +55599,7 @@ namespace OpenApi
             }
         }
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -54081,6 +55808,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -54109,12 +55837,28 @@ namespace OpenApi
 
     
     
-        /// <inheritdoc/>
+                /// <summary>
+        /// Enumerate the items in the array as a <see cref="OpenApi.Schema.SchemaValue.ItemsEntityArray.ItemsEntity" />.
+        /// </summary>
+        public JsonArrayEnumerator<OpenApi.Schema.SchemaValue.ItemsEntityArray.ItemsEntity> EnumerateItems()
+        {
+            if (this.arrayBacking is ImmutableList<JsonAny> items)
+            {
+                return new JsonArrayEnumerator<OpenApi.Schema.SchemaValue.ItemsEntityArray.ItemsEntity>(items);
+            }
+
+            if (this.jsonElementBacking.ValueKind == JsonValueKind.Array)
+            {
+                return new JsonArrayEnumerator<OpenApi.Schema.SchemaValue.ItemsEntityArray.ItemsEntity>(this.jsonElementBacking);
+            }
+
+            return default;
+        }
+                /// <inheritdoc/>
         public JsonArrayEnumerator EnumerateArray()
         {
             return this.AsArray.EnumerateArray();
         }
-
     
     
         /// <inheritdoc/>
@@ -54508,6 +56252,51 @@ namespace OpenApi
 
     
             /// <summary>
+        /// Gets the value as a <see cref="OpenApi.Schema.SchemaValue" />.
+        /// </summary>
+        public OpenApi.Schema.SchemaValue AsSchemaValue
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="OpenApi.Schema.SchemaValue" />.
+        /// </summary>
+        public bool IsSchemaValue
+        {
+            get
+            {
+                return ((OpenApi.Schema.SchemaValue)this).Validate().IsValid;
+            }
+        }
+
+            /// <summary>
+        /// Gets the value as a <see cref="OpenApi.Schema.ReferenceValue" />.
+        /// </summary>
+        public OpenApi.Schema.ReferenceValue AsReferenceValue
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="OpenApi.Schema.ReferenceValue" />.
+        /// </summary>
+        public bool IsReferenceValue
+        {
+            get
+            {
+                return ((OpenApi.Schema.ReferenceValue)this).Validate().IsValid;
+            }
+        }
+
+    
+            /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
         public bool HasJsonElement =>
@@ -54652,7 +56441,7 @@ namespace OpenApi
         }
 
             /// <summary>
-        /// Conversion from OpenApi.Schema.SchemaValue.
+        /// Conversion from <see cref="OpenApi.Schema.SchemaValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator ItemsEntity(OpenApi.Schema.SchemaValue value)
@@ -54661,7 +56450,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.SchemaValue.
+        /// Conversion to <see cref="OpenApi.Schema.SchemaValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.SchemaValue(ItemsEntity value)
@@ -54673,7 +56462,7 @@ namespace OpenApi
                                                     return default;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.ReferenceValue.
+        /// Conversion from <see cref="OpenApi.Schema.ReferenceValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator ItemsEntity(OpenApi.Schema.ReferenceValue value)
@@ -54682,7 +56471,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.ReferenceValue.
+        /// Conversion to <see cref="OpenApi.Schema.ReferenceValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.ReferenceValue(ItemsEntity value)
@@ -54761,6 +56550,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -54788,6 +56578,8 @@ namespace OpenApi
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -55288,6 +57080,7 @@ namespace OpenApi
             }
         }
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -55496,6 +57289,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -55524,12 +57318,28 @@ namespace OpenApi
 
     
     
-        /// <inheritdoc/>
+                /// <summary>
+        /// Enumerate the items in the array as a <see cref="OpenApi.Schema.SchemaValue.OneOfItemsEntityArray.ItemsEntity" />.
+        /// </summary>
+        public JsonArrayEnumerator<OpenApi.Schema.SchemaValue.OneOfItemsEntityArray.ItemsEntity> EnumerateItems()
+        {
+            if (this.arrayBacking is ImmutableList<JsonAny> items)
+            {
+                return new JsonArrayEnumerator<OpenApi.Schema.SchemaValue.OneOfItemsEntityArray.ItemsEntity>(items);
+            }
+
+            if (this.jsonElementBacking.ValueKind == JsonValueKind.Array)
+            {
+                return new JsonArrayEnumerator<OpenApi.Schema.SchemaValue.OneOfItemsEntityArray.ItemsEntity>(this.jsonElementBacking);
+            }
+
+            return default;
+        }
+                /// <inheritdoc/>
         public JsonArrayEnumerator EnumerateArray()
         {
             return this.AsArray.EnumerateArray();
         }
-
     
     
         /// <inheritdoc/>
@@ -55923,6 +57733,51 @@ namespace OpenApi
 
     
             /// <summary>
+        /// Gets the value as a <see cref="OpenApi.Schema.SchemaValue" />.
+        /// </summary>
+        public OpenApi.Schema.SchemaValue AsSchemaValue
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="OpenApi.Schema.SchemaValue" />.
+        /// </summary>
+        public bool IsSchemaValue
+        {
+            get
+            {
+                return ((OpenApi.Schema.SchemaValue)this).Validate().IsValid;
+            }
+        }
+
+            /// <summary>
+        /// Gets the value as a <see cref="OpenApi.Schema.ReferenceValue" />.
+        /// </summary>
+        public OpenApi.Schema.ReferenceValue AsReferenceValue
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="OpenApi.Schema.ReferenceValue" />.
+        /// </summary>
+        public bool IsReferenceValue
+        {
+            get
+            {
+                return ((OpenApi.Schema.ReferenceValue)this).Validate().IsValid;
+            }
+        }
+
+    
+            /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
         public bool HasJsonElement =>
@@ -56067,7 +57922,7 @@ namespace OpenApi
         }
 
             /// <summary>
-        /// Conversion from OpenApi.Schema.SchemaValue.
+        /// Conversion from <see cref="OpenApi.Schema.SchemaValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator ItemsEntity(OpenApi.Schema.SchemaValue value)
@@ -56076,7 +57931,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.SchemaValue.
+        /// Conversion to <see cref="OpenApi.Schema.SchemaValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.SchemaValue(ItemsEntity value)
@@ -56088,7 +57943,7 @@ namespace OpenApi
                                                     return default;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.ReferenceValue.
+        /// Conversion from <see cref="OpenApi.Schema.ReferenceValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator ItemsEntity(OpenApi.Schema.ReferenceValue value)
@@ -56097,7 +57952,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.ReferenceValue.
+        /// Conversion to <see cref="OpenApi.Schema.ReferenceValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.ReferenceValue(ItemsEntity value)
@@ -56176,6 +58031,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -56203,6 +58059,8 @@ namespace OpenApi
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -56703,6 +58561,7 @@ namespace OpenApi
             }
         }
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -56911,6 +58770,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -56939,12 +58799,28 @@ namespace OpenApi
 
     
     
-        /// <inheritdoc/>
+                /// <summary>
+        /// Enumerate the items in the array as a <see cref="OpenApi.Schema.SchemaValue.AnyOfItemsEntityArray.ItemsEntity" />.
+        /// </summary>
+        public JsonArrayEnumerator<OpenApi.Schema.SchemaValue.AnyOfItemsEntityArray.ItemsEntity> EnumerateItems()
+        {
+            if (this.arrayBacking is ImmutableList<JsonAny> items)
+            {
+                return new JsonArrayEnumerator<OpenApi.Schema.SchemaValue.AnyOfItemsEntityArray.ItemsEntity>(items);
+            }
+
+            if (this.jsonElementBacking.ValueKind == JsonValueKind.Array)
+            {
+                return new JsonArrayEnumerator<OpenApi.Schema.SchemaValue.AnyOfItemsEntityArray.ItemsEntity>(this.jsonElementBacking);
+            }
+
+            return default;
+        }
+                /// <inheritdoc/>
         public JsonArrayEnumerator EnumerateArray()
         {
             return this.AsArray.EnumerateArray();
         }
-
     
     
         /// <inheritdoc/>
@@ -57338,6 +59214,51 @@ namespace OpenApi
 
     
             /// <summary>
+        /// Gets the value as a <see cref="OpenApi.Schema.SchemaValue" />.
+        /// </summary>
+        public OpenApi.Schema.SchemaValue AsSchemaValue
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="OpenApi.Schema.SchemaValue" />.
+        /// </summary>
+        public bool IsSchemaValue
+        {
+            get
+            {
+                return ((OpenApi.Schema.SchemaValue)this).Validate().IsValid;
+            }
+        }
+
+            /// <summary>
+        /// Gets the value as a <see cref="OpenApi.Schema.ReferenceValue" />.
+        /// </summary>
+        public OpenApi.Schema.ReferenceValue AsReferenceValue
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="OpenApi.Schema.ReferenceValue" />.
+        /// </summary>
+        public bool IsReferenceValue
+        {
+            get
+            {
+                return ((OpenApi.Schema.ReferenceValue)this).Validate().IsValid;
+            }
+        }
+
+    
+            /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
         public bool HasJsonElement =>
@@ -57482,7 +59403,7 @@ namespace OpenApi
         }
 
             /// <summary>
-        /// Conversion from OpenApi.Schema.SchemaValue.
+        /// Conversion from <see cref="OpenApi.Schema.SchemaValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator ItemsEntity(OpenApi.Schema.SchemaValue value)
@@ -57491,7 +59412,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.SchemaValue.
+        /// Conversion to <see cref="OpenApi.Schema.SchemaValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.SchemaValue(ItemsEntity value)
@@ -57503,7 +59424,7 @@ namespace OpenApi
                                                     return default;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.ReferenceValue.
+        /// Conversion from <see cref="OpenApi.Schema.ReferenceValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator ItemsEntity(OpenApi.Schema.ReferenceValue value)
@@ -57512,7 +59433,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.ReferenceValue.
+        /// Conversion to <see cref="OpenApi.Schema.ReferenceValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.ReferenceValue(ItemsEntity value)
@@ -57591,6 +59512,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -57618,6 +59540,8 @@ namespace OpenApi
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -58158,6 +60082,51 @@ namespace OpenApi
 
     
             /// <summary>
+        /// Gets the value as a <see cref="OpenApi.Schema.SchemaValue" />.
+        /// </summary>
+        public OpenApi.Schema.SchemaValue AsSchemaValue
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="OpenApi.Schema.SchemaValue" />.
+        /// </summary>
+        public bool IsSchemaValue
+        {
+            get
+            {
+                return ((OpenApi.Schema.SchemaValue)this).Validate().IsValid;
+            }
+        }
+
+            /// <summary>
+        /// Gets the value as a <see cref="OpenApi.Schema.ReferenceValue" />.
+        /// </summary>
+        public OpenApi.Schema.ReferenceValue AsReferenceValue
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="OpenApi.Schema.ReferenceValue" />.
+        /// </summary>
+        public bool IsReferenceValue
+        {
+            get
+            {
+                return ((OpenApi.Schema.ReferenceValue)this).Validate().IsValid;
+            }
+        }
+
+    
+            /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
         public bool HasJsonElement =>
@@ -58302,7 +60271,7 @@ namespace OpenApi
         }
 
             /// <summary>
-        /// Conversion from OpenApi.Schema.SchemaValue.
+        /// Conversion from <see cref="OpenApi.Schema.SchemaValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator ItemsEntity(OpenApi.Schema.SchemaValue value)
@@ -58311,7 +60280,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.SchemaValue.
+        /// Conversion to <see cref="OpenApi.Schema.SchemaValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.SchemaValue(ItemsEntity value)
@@ -58323,7 +60292,7 @@ namespace OpenApi
                                                     return default;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.ReferenceValue.
+        /// Conversion from <see cref="OpenApi.Schema.ReferenceValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator ItemsEntity(OpenApi.Schema.ReferenceValue value)
@@ -58332,7 +60301,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.ReferenceValue.
+        /// Conversion to <see cref="OpenApi.Schema.ReferenceValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.ReferenceValue(ItemsEntity value)
@@ -58411,6 +60380,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -58438,6 +60408,8 @@ namespace OpenApi
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -58921,6 +60893,7 @@ namespace OpenApi
     
 
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -59133,6 +61106,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -59160,6 +61134,26 @@ namespace OpenApi
         }
 
     
+                /// <summary>
+        /// Enumerate the object as the given item type
+        /// </summary>
+        public JsonObjectEnumerator<OpenApi.Schema.SchemaValue.PropertiesValue.AdditionalPropertiesEntity> EnumerateProperties()
+        {
+            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            {
+                return new JsonObjectEnumerator<OpenApi.Schema.SchemaValue.PropertiesValue.AdditionalPropertiesEntity>(properties);
+            }
+
+            if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
+            {
+                return new JsonObjectEnumerator<OpenApi.Schema.SchemaValue.PropertiesValue.AdditionalPropertiesEntity>(this.jsonElementBacking);
+            }
+
+            return default;
+
+        }
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -59675,6 +61669,51 @@ namespace OpenApi
 
     
             /// <summary>
+        /// Gets the value as a <see cref="OpenApi.Schema.SchemaValue" />.
+        /// </summary>
+        public OpenApi.Schema.SchemaValue AsSchemaValue
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="OpenApi.Schema.SchemaValue" />.
+        /// </summary>
+        public bool IsSchemaValue
+        {
+            get
+            {
+                return ((OpenApi.Schema.SchemaValue)this).Validate().IsValid;
+            }
+        }
+
+            /// <summary>
+        /// Gets the value as a <see cref="OpenApi.Schema.ReferenceValue" />.
+        /// </summary>
+        public OpenApi.Schema.ReferenceValue AsReferenceValue
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="OpenApi.Schema.ReferenceValue" />.
+        /// </summary>
+        public bool IsReferenceValue
+        {
+            get
+            {
+                return ((OpenApi.Schema.ReferenceValue)this).Validate().IsValid;
+            }
+        }
+
+    
+            /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
         public bool HasJsonElement =>
@@ -59819,7 +61858,7 @@ namespace OpenApi
         }
 
             /// <summary>
-        /// Conversion from OpenApi.Schema.SchemaValue.
+        /// Conversion from <see cref="OpenApi.Schema.SchemaValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator AdditionalPropertiesEntity(OpenApi.Schema.SchemaValue value)
@@ -59828,7 +61867,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.SchemaValue.
+        /// Conversion to <see cref="OpenApi.Schema.SchemaValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.SchemaValue(AdditionalPropertiesEntity value)
@@ -59840,7 +61879,7 @@ namespace OpenApi
                                                     return default;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.ReferenceValue.
+        /// Conversion from <see cref="OpenApi.Schema.ReferenceValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator AdditionalPropertiesEntity(OpenApi.Schema.ReferenceValue value)
@@ -59849,7 +61888,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.ReferenceValue.
+        /// Conversion to <see cref="OpenApi.Schema.ReferenceValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.ReferenceValue(AdditionalPropertiesEntity value)
@@ -59928,6 +61967,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -59955,6 +61995,8 @@ namespace OpenApi
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -60495,6 +62537,51 @@ namespace OpenApi
 
     
             /// <summary>
+        /// Gets the value as a <see cref="OpenApi.Schema.SchemaValue" />.
+        /// </summary>
+        public OpenApi.Schema.SchemaValue AsSchemaValue
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="OpenApi.Schema.SchemaValue" />.
+        /// </summary>
+        public bool IsSchemaValue
+        {
+            get
+            {
+                return ((OpenApi.Schema.SchemaValue)this).Validate().IsValid;
+            }
+        }
+
+            /// <summary>
+        /// Gets the value as a <see cref="OpenApi.Schema.ReferenceValue" />.
+        /// </summary>
+        public OpenApi.Schema.ReferenceValue AsReferenceValue
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="OpenApi.Schema.ReferenceValue" />.
+        /// </summary>
+        public bool IsReferenceValue
+        {
+            get
+            {
+                return ((OpenApi.Schema.ReferenceValue)this).Validate().IsValid;
+            }
+        }
+
+    
+            /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
         public bool HasJsonElement =>
@@ -60639,7 +62726,7 @@ namespace OpenApi
         }
 
             /// <summary>
-        /// Conversion from OpenApi.Schema.SchemaValue.
+        /// Conversion from <see cref="OpenApi.Schema.SchemaValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator AdditionalPropertiesEntity(OpenApi.Schema.SchemaValue value)
@@ -60648,7 +62735,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.SchemaValue.
+        /// Conversion to <see cref="OpenApi.Schema.SchemaValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.SchemaValue(AdditionalPropertiesEntity value)
@@ -60660,7 +62747,7 @@ namespace OpenApi
                                                     return default;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.ReferenceValue.
+        /// Conversion from <see cref="OpenApi.Schema.ReferenceValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator AdditionalPropertiesEntity(OpenApi.Schema.ReferenceValue value)
@@ -60669,7 +62756,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.ReferenceValue.
+        /// Conversion to <see cref="OpenApi.Schema.ReferenceValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.ReferenceValue(AdditionalPropertiesEntity value)
@@ -60748,6 +62835,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -60775,6 +62863,8 @@ namespace OpenApi
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -61290,6 +63380,7 @@ namespace OpenApi
     
 
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -61499,6 +63590,7 @@ namespace OpenApi
 
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -61758,6 +63850,7 @@ namespace OpenApi
     
 
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -61967,6 +64060,7 @@ namespace OpenApi
 
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -62226,6 +64320,7 @@ namespace OpenApi
     
 
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -62435,6 +64530,7 @@ namespace OpenApi
 
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -62694,6 +64790,7 @@ namespace OpenApi
     
 
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -62903,6 +65000,7 @@ namespace OpenApi
 
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -63179,6 +65277,7 @@ namespace OpenApi
     
 
     
+    
             
         /// <summary>
         /// Gets Ref.
@@ -63425,7 +65524,18 @@ namespace OpenApi
     
     
     
-    
+            /// <summary>
+        /// Creates an instance of a <see cref="ReferenceValue"/>.
+        /// </summary>
+        public static ReferenceValue Create(
+                   Menes.Json.JsonAny @ref
+                        )
+        {
+            var builder = ImmutableDictionary.CreateBuilder<JsonEncodedText, JsonAny>();
+                    builder.Add(RefJsonPropertyName, @ref);
+                            return builder.ToImmutable();
+        }
+
         
         /// <summary>
         /// Sets $ref.
@@ -63439,6 +65549,7 @@ namespace OpenApi
 
         
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -63466,6 +65577,8 @@ namespace OpenApi
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -64052,6 +66165,7 @@ namespace OpenApi
     
 
     
+    
             
         /// <summary>
         /// Gets Description.
@@ -64403,7 +66517,33 @@ namespace OpenApi
     
     
     
-    
+            /// <summary>
+        /// Creates an instance of a <see cref="ResponseValue"/>.
+        /// </summary>
+        public static ResponseValue Create(
+                   Menes.Json.JsonString description
+                ,             OpenApi.Schema.ResponseValue.HeadersValue? headers = null
+        ,             OpenApi.Schema.ResponseValue.ContentValue? content = null
+        ,             OpenApi.Schema.ResponseValue.LinksValue? links = null
+                )
+        {
+            var builder = ImmutableDictionary.CreateBuilder<JsonEncodedText, JsonAny>();
+                    builder.Add(DescriptionJsonPropertyName, description);
+                            if (headers is OpenApi.Schema.ResponseValue.HeadersValue headers__)
+            {
+                builder.Add(HeadersJsonPropertyName, headers__);
+            }
+                    if (content is OpenApi.Schema.ResponseValue.ContentValue content__)
+            {
+                builder.Add(ContentJsonPropertyName, content__);
+            }
+                    if (links is OpenApi.Schema.ResponseValue.LinksValue links__)
+            {
+                builder.Add(LinksJsonPropertyName, links__);
+            }
+                    return builder.ToImmutable();
+        }
+
         
         /// <summary>
         /// Sets description.
@@ -64450,6 +66590,7 @@ namespace OpenApi
 
         
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -64477,6 +66618,8 @@ namespace OpenApi
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -65049,6 +67192,7 @@ namespace OpenApi
     
 
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -65261,6 +67405,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -65288,6 +67433,26 @@ namespace OpenApi
         }
 
     
+                /// <summary>
+        /// Enumerate the object as the given item type
+        /// </summary>
+        public JsonObjectEnumerator<OpenApi.Schema.ResponseValue.HeadersValue.AdditionalPropertiesEntity> EnumerateProperties()
+        {
+            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            {
+                return new JsonObjectEnumerator<OpenApi.Schema.ResponseValue.HeadersValue.AdditionalPropertiesEntity>(properties);
+            }
+
+            if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
+            {
+                return new JsonObjectEnumerator<OpenApi.Schema.ResponseValue.HeadersValue.AdditionalPropertiesEntity>(this.jsonElementBacking);
+            }
+
+            return default;
+
+        }
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -65803,6 +67968,51 @@ namespace OpenApi
 
     
             /// <summary>
+        /// Gets the value as a <see cref="OpenApi.Schema.HeaderValue" />.
+        /// </summary>
+        public OpenApi.Schema.HeaderValue AsHeaderValue
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="OpenApi.Schema.HeaderValue" />.
+        /// </summary>
+        public bool IsHeaderValue
+        {
+            get
+            {
+                return ((OpenApi.Schema.HeaderValue)this).Validate().IsValid;
+            }
+        }
+
+            /// <summary>
+        /// Gets the value as a <see cref="OpenApi.Schema.ReferenceValue" />.
+        /// </summary>
+        public OpenApi.Schema.ReferenceValue AsReferenceValue
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="OpenApi.Schema.ReferenceValue" />.
+        /// </summary>
+        public bool IsReferenceValue
+        {
+            get
+            {
+                return ((OpenApi.Schema.ReferenceValue)this).Validate().IsValid;
+            }
+        }
+
+    
+            /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
         public bool HasJsonElement =>
@@ -65947,7 +68157,7 @@ namespace OpenApi
         }
 
             /// <summary>
-        /// Conversion from OpenApi.Schema.HeaderValue.
+        /// Conversion from <see cref="OpenApi.Schema.HeaderValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator AdditionalPropertiesEntity(OpenApi.Schema.HeaderValue value)
@@ -65956,7 +68166,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.HeaderValue.
+        /// Conversion to <see cref="OpenApi.Schema.HeaderValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.HeaderValue(AdditionalPropertiesEntity value)
@@ -65968,7 +68178,7 @@ namespace OpenApi
                                                     return default;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.ReferenceValue.
+        /// Conversion from <see cref="OpenApi.Schema.ReferenceValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator AdditionalPropertiesEntity(OpenApi.Schema.ReferenceValue value)
@@ -65977,7 +68187,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.ReferenceValue.
+        /// Conversion to <see cref="OpenApi.Schema.ReferenceValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.ReferenceValue(AdditionalPropertiesEntity value)
@@ -65990,7 +68200,7 @@ namespace OpenApi
         }
     
                 /// <summary>
-        /// Conversion from OpenApi.Schema.ExampleXOExamplesEntity.
+        /// Conversion from <see cref="OpenApi.Schema.ExampleXOExamplesEntity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator AdditionalPropertiesEntity(OpenApi.Schema.ExampleXOExamplesEntity value)
@@ -65999,7 +68209,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.ExampleXOExamplesEntity.
+        /// Conversion to <see cref="OpenApi.Schema.ExampleXOExamplesEntity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.ExampleXOExamplesEntity(AdditionalPropertiesEntity value)
@@ -66007,7 +68217,7 @@ namespace OpenApi
             return (OpenApi.Schema.ResponseValue.HeadersValue.AdditionalPropertiesEntity)value;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.SchemaXOContentEntity.
+        /// Conversion from <see cref="OpenApi.Schema.SchemaXOContentEntity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator AdditionalPropertiesEntity(OpenApi.Schema.SchemaXOContentEntity value)
@@ -66016,7 +68226,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.SchemaXOContentEntity.
+        /// Conversion to <see cref="OpenApi.Schema.SchemaXOContentEntity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.SchemaXOContentEntity(AdditionalPropertiesEntity value)
@@ -66024,7 +68234,7 @@ namespace OpenApi
             return (OpenApi.Schema.ResponseValue.HeadersValue.AdditionalPropertiesEntity)value;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.SchemaXOContentEntity.OneOf0Entity.
+        /// Conversion from <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf0Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator AdditionalPropertiesEntity(OpenApi.Schema.SchemaXOContentEntity.OneOf0Entity value)
@@ -66033,7 +68243,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.SchemaXOContentEntity.OneOf0Entity.
+        /// Conversion to <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf0Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.SchemaXOContentEntity.OneOf0Entity(AdditionalPropertiesEntity value)
@@ -66041,7 +68251,7 @@ namespace OpenApi
             return (OpenApi.Schema.HeaderValue)value;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.
+        /// Conversion from <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator AdditionalPropertiesEntity(OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity value)
@@ -66050,7 +68260,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.
+        /// Conversion to <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity(AdditionalPropertiesEntity value)
@@ -66058,7 +68268,7 @@ namespace OpenApi
             return (OpenApi.Schema.HeaderValue)value;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf0Entity.
+        /// Conversion from <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf0Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator AdditionalPropertiesEntity(OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf0Entity value)
@@ -66067,7 +68277,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf0Entity.
+        /// Conversion to <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf0Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf0Entity(AdditionalPropertiesEntity value)
@@ -66075,7 +68285,7 @@ namespace OpenApi
             return (OpenApi.Schema.SchemaXOContentEntity)value;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf1Entity.
+        /// Conversion from <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf1Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator AdditionalPropertiesEntity(OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf1Entity value)
@@ -66084,7 +68294,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf1Entity.
+        /// Conversion to <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf1Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf1Entity(AdditionalPropertiesEntity value)
@@ -66092,7 +68302,7 @@ namespace OpenApi
             return (OpenApi.Schema.SchemaXOContentEntity)value;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf2Entity.
+        /// Conversion from <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf2Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator AdditionalPropertiesEntity(OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf2Entity value)
@@ -66101,7 +68311,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf2Entity.
+        /// Conversion to <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf2Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf2Entity(AdditionalPropertiesEntity value)
@@ -66109,7 +68319,7 @@ namespace OpenApi
             return (OpenApi.Schema.SchemaXOContentEntity)value;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf3Entity.
+        /// Conversion from <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf3Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator AdditionalPropertiesEntity(OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf3Entity value)
@@ -66118,7 +68328,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf3Entity.
+        /// Conversion to <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf3Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf3Entity(AdditionalPropertiesEntity value)
@@ -66126,7 +68336,7 @@ namespace OpenApi
             return (OpenApi.Schema.SchemaXOContentEntity)value;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf4Entity.
+        /// Conversion from <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf4Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator AdditionalPropertiesEntity(OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf4Entity value)
@@ -66135,7 +68345,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf4Entity.
+        /// Conversion to <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf4Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf4Entity(AdditionalPropertiesEntity value)
@@ -66209,6 +68419,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -66236,6 +68447,8 @@ namespace OpenApi
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -66723,6 +68936,7 @@ namespace OpenApi
     
 
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -66935,6 +69149,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -66962,6 +69177,26 @@ namespace OpenApi
         }
 
     
+                /// <summary>
+        /// Enumerate the object as the given item type
+        /// </summary>
+        public JsonObjectEnumerator<OpenApi.Schema.MediaTypeValue> EnumerateProperties()
+        {
+            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            {
+                return new JsonObjectEnumerator<OpenApi.Schema.MediaTypeValue>(properties);
+            }
+
+            if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
+            {
+                return new JsonObjectEnumerator<OpenApi.Schema.MediaTypeValue>(this.jsonElementBacking);
+            }
+
+            return default;
+
+        }
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -67428,6 +69663,7 @@ namespace OpenApi
     
 
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -67640,6 +69876,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -67667,6 +69904,26 @@ namespace OpenApi
         }
 
     
+                /// <summary>
+        /// Enumerate the object as the given item type
+        /// </summary>
+        public JsonObjectEnumerator<OpenApi.Schema.ResponseValue.LinksValue.AdditionalPropertiesEntity> EnumerateProperties()
+        {
+            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            {
+                return new JsonObjectEnumerator<OpenApi.Schema.ResponseValue.LinksValue.AdditionalPropertiesEntity>(properties);
+            }
+
+            if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
+            {
+                return new JsonObjectEnumerator<OpenApi.Schema.ResponseValue.LinksValue.AdditionalPropertiesEntity>(this.jsonElementBacking);
+            }
+
+            return default;
+
+        }
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -68182,6 +70439,51 @@ namespace OpenApi
 
     
             /// <summary>
+        /// Gets the value as a <see cref="OpenApi.Schema.LinkValue" />.
+        /// </summary>
+        public OpenApi.Schema.LinkValue AsLinkValue
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="OpenApi.Schema.LinkValue" />.
+        /// </summary>
+        public bool IsLinkValue
+        {
+            get
+            {
+                return ((OpenApi.Schema.LinkValue)this).Validate().IsValid;
+            }
+        }
+
+            /// <summary>
+        /// Gets the value as a <see cref="OpenApi.Schema.ReferenceValue" />.
+        /// </summary>
+        public OpenApi.Schema.ReferenceValue AsReferenceValue
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="OpenApi.Schema.ReferenceValue" />.
+        /// </summary>
+        public bool IsReferenceValue
+        {
+            get
+            {
+                return ((OpenApi.Schema.ReferenceValue)this).Validate().IsValid;
+            }
+        }
+
+    
+            /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
         public bool HasJsonElement =>
@@ -68326,7 +70628,7 @@ namespace OpenApi
         }
 
             /// <summary>
-        /// Conversion from OpenApi.Schema.LinkValue.
+        /// Conversion from <see cref="OpenApi.Schema.LinkValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator AdditionalPropertiesEntity(OpenApi.Schema.LinkValue value)
@@ -68335,7 +70637,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.LinkValue.
+        /// Conversion to <see cref="OpenApi.Schema.LinkValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.LinkValue(AdditionalPropertiesEntity value)
@@ -68347,7 +70649,7 @@ namespace OpenApi
                                                     return default;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.ReferenceValue.
+        /// Conversion from <see cref="OpenApi.Schema.ReferenceValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator AdditionalPropertiesEntity(OpenApi.Schema.ReferenceValue value)
@@ -68356,7 +70658,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.ReferenceValue.
+        /// Conversion to <see cref="OpenApi.Schema.ReferenceValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.ReferenceValue(AdditionalPropertiesEntity value)
@@ -68435,6 +70737,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -68462,6 +70765,8 @@ namespace OpenApi
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -69158,6 +71463,73 @@ namespace OpenApi
     
 
     
+            /// <summary>
+        /// Gets the value as a <see cref="OpenApi.Schema.ExampleXOExamplesEntity" />.
+        /// </summary>
+        public OpenApi.Schema.ExampleXOExamplesEntity AsExampleXOExamplesEntity
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="OpenApi.Schema.ExampleXOExamplesEntity" />.
+        /// </summary>
+        public bool IsExampleXOExamplesEntity
+        {
+            get
+            {
+                return ((OpenApi.Schema.ExampleXOExamplesEntity)this).Validate().IsValid;
+            }
+        }
+
+            /// <summary>
+        /// Gets the value as a <see cref="OpenApi.Schema.SchemaXOContentEntity" />.
+        /// </summary>
+        public OpenApi.Schema.SchemaXOContentEntity AsSchemaXOContentEntity
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="OpenApi.Schema.SchemaXOContentEntity" />.
+        /// </summary>
+        public bool IsSchemaXOContentEntity
+        {
+            get
+            {
+                return ((OpenApi.Schema.SchemaXOContentEntity)this).Validate().IsValid;
+            }
+        }
+
+            /// <summary>
+        /// Gets the value as a <see cref="OpenApi.Schema.ParameterLocationEntity" />.
+        /// </summary>
+        public OpenApi.Schema.ParameterLocationEntity AsParameterLocationEntity
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="OpenApi.Schema.ParameterLocationEntity" />.
+        /// </summary>
+        public bool IsParameterLocationEntity
+        {
+            get
+            {
+                return ((OpenApi.Schema.ParameterLocationEntity)this).Validate().IsValid;
+            }
+        }
+
+    
             
         /// <summary>
         /// Gets Name.
@@ -69758,7 +72130,7 @@ namespace OpenApi
         }
 
             /// <summary>
-        /// Conversion from OpenApi.Schema.ExampleXOExamplesEntity.
+        /// Conversion from <see cref="OpenApi.Schema.ExampleXOExamplesEntity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator ParameterValue(OpenApi.Schema.ExampleXOExamplesEntity value)
@@ -69767,7 +72139,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.ExampleXOExamplesEntity.
+        /// Conversion to <see cref="OpenApi.Schema.ExampleXOExamplesEntity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.ExampleXOExamplesEntity(ParameterValue value)
@@ -69775,7 +72147,7 @@ namespace OpenApi
                                                     return default;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.SchemaXOContentEntity.
+        /// Conversion from <see cref="OpenApi.Schema.SchemaXOContentEntity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator ParameterValue(OpenApi.Schema.SchemaXOContentEntity value)
@@ -69784,7 +72156,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.SchemaXOContentEntity.
+        /// Conversion to <see cref="OpenApi.Schema.SchemaXOContentEntity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.SchemaXOContentEntity(ParameterValue value)
@@ -69792,7 +72164,7 @@ namespace OpenApi
                                                     return default;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.ParameterLocationEntity.
+        /// Conversion from <see cref="OpenApi.Schema.ParameterLocationEntity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator ParameterValue(OpenApi.Schema.ParameterLocationEntity value)
@@ -69801,7 +72173,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.ParameterLocationEntity.
+        /// Conversion to <see cref="OpenApi.Schema.ParameterLocationEntity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.ParameterLocationEntity(ParameterValue value)
@@ -69810,7 +72182,7 @@ namespace OpenApi
         }
     
                 /// <summary>
-        /// Conversion from OpenApi.Schema.SchemaXOContentEntity.OneOf0Entity.
+        /// Conversion from <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf0Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator ParameterValue(OpenApi.Schema.SchemaXOContentEntity.OneOf0Entity value)
@@ -69819,7 +72191,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.SchemaXOContentEntity.OneOf0Entity.
+        /// Conversion to <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf0Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.SchemaXOContentEntity.OneOf0Entity(ParameterValue value)
@@ -69827,7 +72199,7 @@ namespace OpenApi
             return (OpenApi.Schema.ParameterValue)value;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.
+        /// Conversion from <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator ParameterValue(OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity value)
@@ -69836,7 +72208,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.
+        /// Conversion to <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity(ParameterValue value)
@@ -69844,7 +72216,7 @@ namespace OpenApi
             return (OpenApi.Schema.ParameterValue)value;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf0Entity.
+        /// Conversion from <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf0Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator ParameterValue(OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf0Entity value)
@@ -69853,7 +72225,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf0Entity.
+        /// Conversion to <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf0Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf0Entity(ParameterValue value)
@@ -69861,7 +72233,7 @@ namespace OpenApi
             return (OpenApi.Schema.SchemaXOContentEntity)value;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf1Entity.
+        /// Conversion from <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf1Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator ParameterValue(OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf1Entity value)
@@ -69870,7 +72242,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf1Entity.
+        /// Conversion to <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf1Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf1Entity(ParameterValue value)
@@ -69878,7 +72250,7 @@ namespace OpenApi
             return (OpenApi.Schema.SchemaXOContentEntity)value;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf2Entity.
+        /// Conversion from <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf2Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator ParameterValue(OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf2Entity value)
@@ -69887,7 +72259,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf2Entity.
+        /// Conversion to <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf2Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf2Entity(ParameterValue value)
@@ -69895,7 +72267,7 @@ namespace OpenApi
             return (OpenApi.Schema.SchemaXOContentEntity)value;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf3Entity.
+        /// Conversion from <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf3Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator ParameterValue(OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf3Entity value)
@@ -69904,7 +72276,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf3Entity.
+        /// Conversion to <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf3Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf3Entity(ParameterValue value)
@@ -69912,7 +72284,7 @@ namespace OpenApi
             return (OpenApi.Schema.SchemaXOContentEntity)value;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf4Entity.
+        /// Conversion from <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf4Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator ParameterValue(OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf4Entity value)
@@ -69921,7 +72293,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf4Entity.
+        /// Conversion to <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf4Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf4Entity(ParameterValue value)
@@ -69929,7 +72301,7 @@ namespace OpenApi
             return (OpenApi.Schema.SchemaXOContentEntity)value;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.ParameterLocationEntity.OneOf0Entity.
+        /// Conversion from <see cref="OpenApi.Schema.ParameterLocationEntity.OneOf0Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator ParameterValue(OpenApi.Schema.ParameterLocationEntity.OneOf0Entity value)
@@ -69938,7 +72310,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.ParameterLocationEntity.OneOf0Entity.
+        /// Conversion to <see cref="OpenApi.Schema.ParameterLocationEntity.OneOf0Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.ParameterLocationEntity.OneOf0Entity(ParameterValue value)
@@ -69946,7 +72318,7 @@ namespace OpenApi
             return (OpenApi.Schema.ParameterValue)value;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.ParameterLocationEntity.OneOf1Entity.
+        /// Conversion from <see cref="OpenApi.Schema.ParameterLocationEntity.OneOf1Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator ParameterValue(OpenApi.Schema.ParameterLocationEntity.OneOf1Entity value)
@@ -69955,7 +72327,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.ParameterLocationEntity.OneOf1Entity.
+        /// Conversion to <see cref="OpenApi.Schema.ParameterLocationEntity.OneOf1Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.ParameterLocationEntity.OneOf1Entity(ParameterValue value)
@@ -69963,7 +72335,7 @@ namespace OpenApi
             return (OpenApi.Schema.ParameterValue)value;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.ParameterLocationEntity.OneOf2Entity.
+        /// Conversion from <see cref="OpenApi.Schema.ParameterLocationEntity.OneOf2Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator ParameterValue(OpenApi.Schema.ParameterLocationEntity.OneOf2Entity value)
@@ -69972,7 +72344,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.ParameterLocationEntity.OneOf2Entity.
+        /// Conversion to <see cref="OpenApi.Schema.ParameterLocationEntity.OneOf2Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.ParameterLocationEntity.OneOf2Entity(ParameterValue value)
@@ -69980,7 +72352,7 @@ namespace OpenApi
             return (OpenApi.Schema.ParameterValue)value;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.ParameterLocationEntity.OneOf3Entity.
+        /// Conversion from <see cref="OpenApi.Schema.ParameterLocationEntity.OneOf3Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator ParameterValue(OpenApi.Schema.ParameterLocationEntity.OneOf3Entity value)
@@ -69989,7 +72361,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.ParameterLocationEntity.OneOf3Entity.
+        /// Conversion to <see cref="OpenApi.Schema.ParameterLocationEntity.OneOf3Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.ParameterLocationEntity.OneOf3Entity(ParameterValue value)
@@ -70062,7 +72434,75 @@ namespace OpenApi
     
     
     
-    
+            /// <summary>
+        /// Creates an instance of a <see cref="ParameterValue"/>.
+        /// </summary>
+        public static ParameterValue Create(
+                   Menes.Json.JsonString name
+        ,            Menes.Json.JsonString @in
+                ,             Menes.Json.JsonString? description = null
+        ,             OpenApi.Schema.ParameterValue.RequiredValue? required = null
+        ,             OpenApi.Schema.ParameterValue.DeprecatedValue? deprecated = null
+        ,             OpenApi.Schema.ParameterValue.AllowEmptyValueValue? allowEmptyValue = null
+        ,             Menes.Json.JsonString? style = null
+        ,             Menes.Json.JsonBoolean? explode = null
+        ,             OpenApi.Schema.ParameterValue.AllowReservedValue? allowReserved = null
+        ,             OpenApi.Schema.ParameterValue.SchemaEntity? schema = null
+        ,             OpenApi.Schema.ParameterValue.ContentValue? content = null
+        ,             Menes.Json.JsonAny? example = null
+        ,             OpenApi.Schema.ParameterValue.ExamplesValue? examples = null
+                )
+        {
+            var builder = ImmutableDictionary.CreateBuilder<JsonEncodedText, JsonAny>();
+                    builder.Add(NameJsonPropertyName, name);
+                    builder.Add(InJsonPropertyName, @in);
+                            if (description is Menes.Json.JsonString description__)
+            {
+                builder.Add(DescriptionJsonPropertyName, description__);
+            }
+                    if (required is OpenApi.Schema.ParameterValue.RequiredValue required__)
+            {
+                builder.Add(RequiredJsonPropertyName, required__);
+            }
+                    if (deprecated is OpenApi.Schema.ParameterValue.DeprecatedValue deprecated__)
+            {
+                builder.Add(DeprecatedJsonPropertyName, deprecated__);
+            }
+                    if (allowEmptyValue is OpenApi.Schema.ParameterValue.AllowEmptyValueValue allowEmptyValue__)
+            {
+                builder.Add(AllowEmptyValueJsonPropertyName, allowEmptyValue__);
+            }
+                    if (style is Menes.Json.JsonString style__)
+            {
+                builder.Add(StyleJsonPropertyName, style__);
+            }
+                    if (explode is Menes.Json.JsonBoolean explode__)
+            {
+                builder.Add(ExplodeJsonPropertyName, explode__);
+            }
+                    if (allowReserved is OpenApi.Schema.ParameterValue.AllowReservedValue allowReserved__)
+            {
+                builder.Add(AllowReservedJsonPropertyName, allowReserved__);
+            }
+                    if (schema is OpenApi.Schema.ParameterValue.SchemaEntity schema__)
+            {
+                builder.Add(SchemaJsonPropertyName, schema__);
+            }
+                    if (content is OpenApi.Schema.ParameterValue.ContentValue content__)
+            {
+                builder.Add(ContentJsonPropertyName, content__);
+            }
+                    if (example is Menes.Json.JsonAny example__)
+            {
+                builder.Add(ExampleJsonPropertyName, example__);
+            }
+                    if (examples is OpenApi.Schema.ParameterValue.ExamplesValue examples__)
+            {
+                builder.Add(ExamplesJsonPropertyName, examples__);
+            }
+                    return builder.ToImmutable();
+        }
+
         
         /// <summary>
         /// Sets name.
@@ -70208,6 +72648,7 @@ namespace OpenApi
 
         
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -70235,6 +72676,8 @@ namespace OpenApi
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -71045,6 +73488,7 @@ namespace OpenApi
     
 
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -71254,6 +73698,7 @@ namespace OpenApi
 
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -71513,6 +73958,7 @@ namespace OpenApi
     
 
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -71722,6 +74168,7 @@ namespace OpenApi
 
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -71981,6 +74428,7 @@ namespace OpenApi
     
 
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -72190,6 +74638,7 @@ namespace OpenApi
 
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -72449,6 +74898,7 @@ namespace OpenApi
     
 
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -72658,6 +75108,7 @@ namespace OpenApi
 
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -72968,6 +75419,51 @@ namespace OpenApi
 
     
             /// <summary>
+        /// Gets the value as a <see cref="OpenApi.Schema.SchemaValue" />.
+        /// </summary>
+        public OpenApi.Schema.SchemaValue AsSchemaValue
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="OpenApi.Schema.SchemaValue" />.
+        /// </summary>
+        public bool IsSchemaValue
+        {
+            get
+            {
+                return ((OpenApi.Schema.SchemaValue)this).Validate().IsValid;
+            }
+        }
+
+            /// <summary>
+        /// Gets the value as a <see cref="OpenApi.Schema.ReferenceValue" />.
+        /// </summary>
+        public OpenApi.Schema.ReferenceValue AsReferenceValue
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="OpenApi.Schema.ReferenceValue" />.
+        /// </summary>
+        public bool IsReferenceValue
+        {
+            get
+            {
+                return ((OpenApi.Schema.ReferenceValue)this).Validate().IsValid;
+            }
+        }
+
+    
+            /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
         public bool HasJsonElement =>
@@ -73112,7 +75608,7 @@ namespace OpenApi
         }
 
             /// <summary>
-        /// Conversion from OpenApi.Schema.SchemaValue.
+        /// Conversion from <see cref="OpenApi.Schema.SchemaValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator SchemaEntity(OpenApi.Schema.SchemaValue value)
@@ -73121,7 +75617,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.SchemaValue.
+        /// Conversion to <see cref="OpenApi.Schema.SchemaValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.SchemaValue(SchemaEntity value)
@@ -73133,7 +75629,7 @@ namespace OpenApi
                                                     return default;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.ReferenceValue.
+        /// Conversion from <see cref="OpenApi.Schema.ReferenceValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator SchemaEntity(OpenApi.Schema.ReferenceValue value)
@@ -73142,7 +75638,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.ReferenceValue.
+        /// Conversion to <see cref="OpenApi.Schema.ReferenceValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.ReferenceValue(SchemaEntity value)
@@ -73221,6 +75717,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -73248,6 +75745,8 @@ namespace OpenApi
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -73731,6 +76230,7 @@ namespace OpenApi
     
 
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -73943,6 +76443,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -73970,6 +76471,26 @@ namespace OpenApi
         }
 
     
+                /// <summary>
+        /// Enumerate the object as the given item type
+        /// </summary>
+        public JsonObjectEnumerator<OpenApi.Schema.MediaTypeValue> EnumerateProperties()
+        {
+            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            {
+                return new JsonObjectEnumerator<OpenApi.Schema.MediaTypeValue>(properties);
+            }
+
+            if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
+            {
+                return new JsonObjectEnumerator<OpenApi.Schema.MediaTypeValue>(this.jsonElementBacking);
+            }
+
+            return default;
+
+        }
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -74473,6 +76994,7 @@ namespace OpenApi
     
 
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -74685,6 +77207,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -74712,6 +77235,26 @@ namespace OpenApi
         }
 
     
+                /// <summary>
+        /// Enumerate the object as the given item type
+        /// </summary>
+        public JsonObjectEnumerator<OpenApi.Schema.ParameterValue.ExamplesValue.AdditionalPropertiesEntity> EnumerateProperties()
+        {
+            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            {
+                return new JsonObjectEnumerator<OpenApi.Schema.ParameterValue.ExamplesValue.AdditionalPropertiesEntity>(properties);
+            }
+
+            if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
+            {
+                return new JsonObjectEnumerator<OpenApi.Schema.ParameterValue.ExamplesValue.AdditionalPropertiesEntity>(this.jsonElementBacking);
+            }
+
+            return default;
+
+        }
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -75227,6 +77770,51 @@ namespace OpenApi
 
     
             /// <summary>
+        /// Gets the value as a <see cref="OpenApi.Schema.ExampleValue" />.
+        /// </summary>
+        public OpenApi.Schema.ExampleValue AsExampleValue
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="OpenApi.Schema.ExampleValue" />.
+        /// </summary>
+        public bool IsExampleValue
+        {
+            get
+            {
+                return ((OpenApi.Schema.ExampleValue)this).Validate().IsValid;
+            }
+        }
+
+            /// <summary>
+        /// Gets the value as a <see cref="OpenApi.Schema.ReferenceValue" />.
+        /// </summary>
+        public OpenApi.Schema.ReferenceValue AsReferenceValue
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="OpenApi.Schema.ReferenceValue" />.
+        /// </summary>
+        public bool IsReferenceValue
+        {
+            get
+            {
+                return ((OpenApi.Schema.ReferenceValue)this).Validate().IsValid;
+            }
+        }
+
+    
+            /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
         public bool HasJsonElement =>
@@ -75371,7 +77959,7 @@ namespace OpenApi
         }
 
             /// <summary>
-        /// Conversion from OpenApi.Schema.ExampleValue.
+        /// Conversion from <see cref="OpenApi.Schema.ExampleValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator AdditionalPropertiesEntity(OpenApi.Schema.ExampleValue value)
@@ -75380,7 +77968,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.ExampleValue.
+        /// Conversion to <see cref="OpenApi.Schema.ExampleValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.ExampleValue(AdditionalPropertiesEntity value)
@@ -75392,7 +77980,7 @@ namespace OpenApi
                                                     return default;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.ReferenceValue.
+        /// Conversion from <see cref="OpenApi.Schema.ReferenceValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator AdditionalPropertiesEntity(OpenApi.Schema.ReferenceValue value)
@@ -75401,7 +77989,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.ReferenceValue.
+        /// Conversion to <see cref="OpenApi.Schema.ReferenceValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.ReferenceValue(AdditionalPropertiesEntity value)
@@ -75480,6 +78068,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -75507,6 +78096,8 @@ namespace OpenApi
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -76046,6 +78637,7 @@ namespace OpenApi
     
 
     
+    
             
         /// <summary>
         /// Gets Summary.
@@ -76397,7 +78989,36 @@ namespace OpenApi
     
     
     
-    
+            /// <summary>
+        /// Creates an instance of a <see cref="ExampleValue"/>.
+        /// </summary>
+        public static ExampleValue Create(
+                            Menes.Json.JsonString? summary = null
+        ,             Menes.Json.JsonString? description = null
+        ,             Menes.Json.JsonAny? value = null
+        ,             Menes.Json.JsonUriReference? externalValue = null
+                )
+        {
+            var builder = ImmutableDictionary.CreateBuilder<JsonEncodedText, JsonAny>();
+                            if (summary is Menes.Json.JsonString summary__)
+            {
+                builder.Add(SummaryJsonPropertyName, summary__);
+            }
+                    if (description is Menes.Json.JsonString description__)
+            {
+                builder.Add(DescriptionJsonPropertyName, description__);
+            }
+                    if (value is Menes.Json.JsonAny value__)
+            {
+                builder.Add(ValueJsonPropertyName, value__);
+            }
+                    if (externalValue is Menes.Json.JsonUriReference externalValue__)
+            {
+                builder.Add(ExternalValueJsonPropertyName, externalValue__);
+            }
+                    return builder.ToImmutable();
+        }
+
         
         /// <summary>
         /// Sets summary.
@@ -76444,6 +79065,7 @@ namespace OpenApi
 
         
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -76471,6 +79093,8 @@ namespace OpenApi
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -77062,6 +79686,7 @@ namespace OpenApi
     
 
     
+    
             
         /// <summary>
         /// Gets Content.
@@ -77378,7 +80003,28 @@ namespace OpenApi
     
     
     
-    
+            /// <summary>
+        /// Creates an instance of a <see cref="RequestBodyValue"/>.
+        /// </summary>
+        public static RequestBodyValue Create(
+                   OpenApi.Schema.RequestBodyValue.ContentValue content
+                ,             Menes.Json.JsonString? description = null
+        ,             OpenApi.Schema.RequestBodyValue.RequiredValue? required = null
+                )
+        {
+            var builder = ImmutableDictionary.CreateBuilder<JsonEncodedText, JsonAny>();
+                    builder.Add(ContentJsonPropertyName, content);
+                            if (description is Menes.Json.JsonString description__)
+            {
+                builder.Add(DescriptionJsonPropertyName, description__);
+            }
+                    if (required is OpenApi.Schema.RequestBodyValue.RequiredValue required__)
+            {
+                builder.Add(RequiredJsonPropertyName, required__);
+            }
+                    return builder.ToImmutable();
+        }
+
         
         /// <summary>
         /// Sets content.
@@ -77414,6 +80060,7 @@ namespace OpenApi
 
         
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -77441,6 +80088,8 @@ namespace OpenApi
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -78063,6 +80712,7 @@ namespace OpenApi
     
 
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -78275,6 +80925,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -78302,6 +80953,26 @@ namespace OpenApi
         }
 
     
+                /// <summary>
+        /// Enumerate the object as the given item type
+        /// </summary>
+        public JsonObjectEnumerator<OpenApi.Schema.MediaTypeValue> EnumerateProperties()
+        {
+            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            {
+                return new JsonObjectEnumerator<OpenApi.Schema.MediaTypeValue>(properties);
+            }
+
+            if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
+            {
+                return new JsonObjectEnumerator<OpenApi.Schema.MediaTypeValue>(this.jsonElementBacking);
+            }
+
+            return default;
+
+        }
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -78770,6 +81441,7 @@ namespace OpenApi
     
 
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -78979,6 +81651,7 @@ namespace OpenApi
 
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -79402,6 +82075,51 @@ namespace OpenApi
                                     }
         }
     
+
+    
+            /// <summary>
+        /// Gets the value as a <see cref="OpenApi.Schema.ExampleXOExamplesEntity" />.
+        /// </summary>
+        public OpenApi.Schema.ExampleXOExamplesEntity AsExampleXOExamplesEntity
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="OpenApi.Schema.ExampleXOExamplesEntity" />.
+        /// </summary>
+        public bool IsExampleXOExamplesEntity
+        {
+            get
+            {
+                return ((OpenApi.Schema.ExampleXOExamplesEntity)this).Validate().IsValid;
+            }
+        }
+
+            /// <summary>
+        /// Gets the value as a <see cref="OpenApi.Schema.SchemaXOContentEntity" />.
+        /// </summary>
+        public OpenApi.Schema.SchemaXOContentEntity AsSchemaXOContentEntity
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="OpenApi.Schema.SchemaXOContentEntity" />.
+        /// </summary>
+        public bool IsSchemaXOContentEntity
+        {
+            get
+            {
+                return ((OpenApi.Schema.SchemaXOContentEntity)this).Validate().IsValid;
+            }
+        }
 
     
             
@@ -79934,7 +82652,7 @@ namespace OpenApi
         }
 
             /// <summary>
-        /// Conversion from OpenApi.Schema.ExampleXOExamplesEntity.
+        /// Conversion from <see cref="OpenApi.Schema.ExampleXOExamplesEntity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator HeaderValue(OpenApi.Schema.ExampleXOExamplesEntity value)
@@ -79943,7 +82661,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.ExampleXOExamplesEntity.
+        /// Conversion to <see cref="OpenApi.Schema.ExampleXOExamplesEntity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.ExampleXOExamplesEntity(HeaderValue value)
@@ -79951,7 +82669,7 @@ namespace OpenApi
                                                     return default;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.SchemaXOContentEntity.
+        /// Conversion from <see cref="OpenApi.Schema.SchemaXOContentEntity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator HeaderValue(OpenApi.Schema.SchemaXOContentEntity value)
@@ -79960,7 +82678,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.SchemaXOContentEntity.
+        /// Conversion to <see cref="OpenApi.Schema.SchemaXOContentEntity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.SchemaXOContentEntity(HeaderValue value)
@@ -79969,7 +82687,7 @@ namespace OpenApi
         }
     
                 /// <summary>
-        /// Conversion from OpenApi.Schema.SchemaXOContentEntity.OneOf0Entity.
+        /// Conversion from <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf0Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator HeaderValue(OpenApi.Schema.SchemaXOContentEntity.OneOf0Entity value)
@@ -79978,7 +82696,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.SchemaXOContentEntity.OneOf0Entity.
+        /// Conversion to <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf0Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.SchemaXOContentEntity.OneOf0Entity(HeaderValue value)
@@ -79986,7 +82704,7 @@ namespace OpenApi
             return (OpenApi.Schema.HeaderValue)value;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.
+        /// Conversion from <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator HeaderValue(OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity value)
@@ -79995,7 +82713,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.
+        /// Conversion to <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity(HeaderValue value)
@@ -80003,7 +82721,7 @@ namespace OpenApi
             return (OpenApi.Schema.HeaderValue)value;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf0Entity.
+        /// Conversion from <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf0Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator HeaderValue(OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf0Entity value)
@@ -80012,7 +82730,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf0Entity.
+        /// Conversion to <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf0Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf0Entity(HeaderValue value)
@@ -80020,7 +82738,7 @@ namespace OpenApi
             return (OpenApi.Schema.SchemaXOContentEntity)value;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf1Entity.
+        /// Conversion from <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf1Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator HeaderValue(OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf1Entity value)
@@ -80029,7 +82747,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf1Entity.
+        /// Conversion to <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf1Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf1Entity(HeaderValue value)
@@ -80037,7 +82755,7 @@ namespace OpenApi
             return (OpenApi.Schema.SchemaXOContentEntity)value;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf2Entity.
+        /// Conversion from <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf2Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator HeaderValue(OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf2Entity value)
@@ -80046,7 +82764,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf2Entity.
+        /// Conversion to <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf2Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf2Entity(HeaderValue value)
@@ -80054,7 +82772,7 @@ namespace OpenApi
             return (OpenApi.Schema.SchemaXOContentEntity)value;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf3Entity.
+        /// Conversion from <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf3Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator HeaderValue(OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf3Entity value)
@@ -80063,7 +82781,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf3Entity.
+        /// Conversion to <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf3Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf3Entity(HeaderValue value)
@@ -80071,7 +82789,7 @@ namespace OpenApi
             return (OpenApi.Schema.SchemaXOContentEntity)value;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf4Entity.
+        /// Conversion from <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf4Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator HeaderValue(OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf4Entity value)
@@ -80080,7 +82798,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf4Entity.
+        /// Conversion to <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf4Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf4Entity(HeaderValue value)
@@ -80153,7 +82871,71 @@ namespace OpenApi
     
     
     
-    
+            /// <summary>
+        /// Creates an instance of a <see cref="HeaderValue"/>.
+        /// </summary>
+        public static HeaderValue Create(
+                            Menes.Json.JsonString? description = null
+        ,             OpenApi.Schema.HeaderValue.RequiredValue? required = null
+        ,             OpenApi.Schema.HeaderValue.DeprecatedValue? deprecated = null
+        ,             OpenApi.Schema.HeaderValue.AllowEmptyValueValue? allowEmptyValue = null
+        ,             OpenApi.Schema.HeaderValue.StyleValue? style = null
+        ,             Menes.Json.JsonBoolean? explode = null
+        ,             OpenApi.Schema.HeaderValue.AllowReservedValue? allowReserved = null
+        ,             OpenApi.Schema.HeaderValue.SchemaEntity? schema = null
+        ,             OpenApi.Schema.HeaderValue.ContentValue? content = null
+        ,             Menes.Json.JsonAny? example = null
+        ,             OpenApi.Schema.HeaderValue.ExamplesValue? examples = null
+                )
+        {
+            var builder = ImmutableDictionary.CreateBuilder<JsonEncodedText, JsonAny>();
+                            if (description is Menes.Json.JsonString description__)
+            {
+                builder.Add(DescriptionJsonPropertyName, description__);
+            }
+                    if (required is OpenApi.Schema.HeaderValue.RequiredValue required__)
+            {
+                builder.Add(RequiredJsonPropertyName, required__);
+            }
+                    if (deprecated is OpenApi.Schema.HeaderValue.DeprecatedValue deprecated__)
+            {
+                builder.Add(DeprecatedJsonPropertyName, deprecated__);
+            }
+                    if (allowEmptyValue is OpenApi.Schema.HeaderValue.AllowEmptyValueValue allowEmptyValue__)
+            {
+                builder.Add(AllowEmptyValueJsonPropertyName, allowEmptyValue__);
+            }
+                    if (style is OpenApi.Schema.HeaderValue.StyleValue style__)
+            {
+                builder.Add(StyleJsonPropertyName, style__);
+            }
+                    if (explode is Menes.Json.JsonBoolean explode__)
+            {
+                builder.Add(ExplodeJsonPropertyName, explode__);
+            }
+                    if (allowReserved is OpenApi.Schema.HeaderValue.AllowReservedValue allowReserved__)
+            {
+                builder.Add(AllowReservedJsonPropertyName, allowReserved__);
+            }
+                    if (schema is OpenApi.Schema.HeaderValue.SchemaEntity schema__)
+            {
+                builder.Add(SchemaJsonPropertyName, schema__);
+            }
+                    if (content is OpenApi.Schema.HeaderValue.ContentValue content__)
+            {
+                builder.Add(ContentJsonPropertyName, content__);
+            }
+                    if (example is Menes.Json.JsonAny example__)
+            {
+                builder.Add(ExampleJsonPropertyName, example__);
+            }
+                    if (examples is OpenApi.Schema.HeaderValue.ExamplesValue examples__)
+            {
+                builder.Add(ExamplesJsonPropertyName, examples__);
+            }
+                    return builder.ToImmutable();
+        }
+
         
         /// <summary>
         /// Sets description.
@@ -80277,6 +83059,7 @@ namespace OpenApi
 
         
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -80304,6 +83087,8 @@ namespace OpenApi
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -81028,6 +83813,7 @@ namespace OpenApi
     
 
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -81237,6 +84023,7 @@ namespace OpenApi
 
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -81496,6 +84283,7 @@ namespace OpenApi
     
 
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -81705,6 +84493,7 @@ namespace OpenApi
 
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -81964,6 +84753,7 @@ namespace OpenApi
     
 
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -82173,6 +84963,7 @@ namespace OpenApi
 
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -82460,6 +85251,7 @@ namespace OpenApi
     
 
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -82724,6 +85516,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -83019,6 +85812,7 @@ namespace OpenApi
     
 
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -83228,6 +86022,7 @@ namespace OpenApi
 
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -83538,6 +86333,51 @@ namespace OpenApi
 
     
             /// <summary>
+        /// Gets the value as a <see cref="OpenApi.Schema.SchemaValue" />.
+        /// </summary>
+        public OpenApi.Schema.SchemaValue AsSchemaValue
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="OpenApi.Schema.SchemaValue" />.
+        /// </summary>
+        public bool IsSchemaValue
+        {
+            get
+            {
+                return ((OpenApi.Schema.SchemaValue)this).Validate().IsValid;
+            }
+        }
+
+            /// <summary>
+        /// Gets the value as a <see cref="OpenApi.Schema.ReferenceValue" />.
+        /// </summary>
+        public OpenApi.Schema.ReferenceValue AsReferenceValue
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="OpenApi.Schema.ReferenceValue" />.
+        /// </summary>
+        public bool IsReferenceValue
+        {
+            get
+            {
+                return ((OpenApi.Schema.ReferenceValue)this).Validate().IsValid;
+            }
+        }
+
+    
+            /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
         public bool HasJsonElement =>
@@ -83682,7 +86522,7 @@ namespace OpenApi
         }
 
             /// <summary>
-        /// Conversion from OpenApi.Schema.SchemaValue.
+        /// Conversion from <see cref="OpenApi.Schema.SchemaValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator SchemaEntity(OpenApi.Schema.SchemaValue value)
@@ -83691,7 +86531,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.SchemaValue.
+        /// Conversion to <see cref="OpenApi.Schema.SchemaValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.SchemaValue(SchemaEntity value)
@@ -83703,7 +86543,7 @@ namespace OpenApi
                                                     return default;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.ReferenceValue.
+        /// Conversion from <see cref="OpenApi.Schema.ReferenceValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator SchemaEntity(OpenApi.Schema.ReferenceValue value)
@@ -83712,7 +86552,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.ReferenceValue.
+        /// Conversion to <see cref="OpenApi.Schema.ReferenceValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.ReferenceValue(SchemaEntity value)
@@ -83791,6 +86631,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -83818,6 +86659,8 @@ namespace OpenApi
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -84301,6 +87144,7 @@ namespace OpenApi
     
 
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -84513,6 +87357,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -84540,6 +87385,26 @@ namespace OpenApi
         }
 
     
+                /// <summary>
+        /// Enumerate the object as the given item type
+        /// </summary>
+        public JsonObjectEnumerator<OpenApi.Schema.MediaTypeValue> EnumerateProperties()
+        {
+            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            {
+                return new JsonObjectEnumerator<OpenApi.Schema.MediaTypeValue>(properties);
+            }
+
+            if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
+            {
+                return new JsonObjectEnumerator<OpenApi.Schema.MediaTypeValue>(this.jsonElementBacking);
+            }
+
+            return default;
+
+        }
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -85043,6 +87908,7 @@ namespace OpenApi
     
 
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -85255,6 +88121,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -85282,6 +88149,26 @@ namespace OpenApi
         }
 
     
+                /// <summary>
+        /// Enumerate the object as the given item type
+        /// </summary>
+        public JsonObjectEnumerator<OpenApi.Schema.HeaderValue.ExamplesValue.AdditionalPropertiesEntity> EnumerateProperties()
+        {
+            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            {
+                return new JsonObjectEnumerator<OpenApi.Schema.HeaderValue.ExamplesValue.AdditionalPropertiesEntity>(properties);
+            }
+
+            if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
+            {
+                return new JsonObjectEnumerator<OpenApi.Schema.HeaderValue.ExamplesValue.AdditionalPropertiesEntity>(this.jsonElementBacking);
+            }
+
+            return default;
+
+        }
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -85797,6 +88684,51 @@ namespace OpenApi
 
     
             /// <summary>
+        /// Gets the value as a <see cref="OpenApi.Schema.ExampleValue" />.
+        /// </summary>
+        public OpenApi.Schema.ExampleValue AsExampleValue
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="OpenApi.Schema.ExampleValue" />.
+        /// </summary>
+        public bool IsExampleValue
+        {
+            get
+            {
+                return ((OpenApi.Schema.ExampleValue)this).Validate().IsValid;
+            }
+        }
+
+            /// <summary>
+        /// Gets the value as a <see cref="OpenApi.Schema.ReferenceValue" />.
+        /// </summary>
+        public OpenApi.Schema.ReferenceValue AsReferenceValue
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="OpenApi.Schema.ReferenceValue" />.
+        /// </summary>
+        public bool IsReferenceValue
+        {
+            get
+            {
+                return ((OpenApi.Schema.ReferenceValue)this).Validate().IsValid;
+            }
+        }
+
+    
+            /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
         public bool HasJsonElement =>
@@ -85941,7 +88873,7 @@ namespace OpenApi
         }
 
             /// <summary>
-        /// Conversion from OpenApi.Schema.ExampleValue.
+        /// Conversion from <see cref="OpenApi.Schema.ExampleValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator AdditionalPropertiesEntity(OpenApi.Schema.ExampleValue value)
@@ -85950,7 +88882,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.ExampleValue.
+        /// Conversion to <see cref="OpenApi.Schema.ExampleValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.ExampleValue(AdditionalPropertiesEntity value)
@@ -85962,7 +88894,7 @@ namespace OpenApi
                                                     return default;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.ReferenceValue.
+        /// Conversion from <see cref="OpenApi.Schema.ReferenceValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator AdditionalPropertiesEntity(OpenApi.Schema.ReferenceValue value)
@@ -85971,7 +88903,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.ReferenceValue.
+        /// Conversion to <see cref="OpenApi.Schema.ReferenceValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.ReferenceValue(AdditionalPropertiesEntity value)
@@ -86050,6 +88982,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -86077,6 +89010,8 @@ namespace OpenApi
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -86673,6 +89608,95 @@ namespace OpenApi
 
     
             /// <summary>
+        /// Gets the value as a <see cref="OpenApi.Schema.APKeySecuritySchemeValue" />.
+        /// </summary>
+        public OpenApi.Schema.APKeySecuritySchemeValue AsAPKeySecuritySchemeValue
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="OpenApi.Schema.APKeySecuritySchemeValue" />.
+        /// </summary>
+        public bool IsAPKeySecuritySchemeValue
+        {
+            get
+            {
+                return ((OpenApi.Schema.APKeySecuritySchemeValue)this).Validate().IsValid;
+            }
+        }
+
+            /// <summary>
+        /// Gets the value as a <see cref="OpenApi.Schema.HTPSecuritySchemeValue" />.
+        /// </summary>
+        public OpenApi.Schema.HTPSecuritySchemeValue AsHTPSecuritySchemeValue
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="OpenApi.Schema.HTPSecuritySchemeValue" />.
+        /// </summary>
+        public bool IsHTPSecuritySchemeValue
+        {
+            get
+            {
+                return ((OpenApi.Schema.HTPSecuritySchemeValue)this).Validate().IsValid;
+            }
+        }
+
+            /// <summary>
+        /// Gets the value as a <see cref="OpenApi.Schema.OAuth2SecuritySchemeValue" />.
+        /// </summary>
+        public OpenApi.Schema.OAuth2SecuritySchemeValue AsOAuth2SecuritySchemeValue
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="OpenApi.Schema.OAuth2SecuritySchemeValue" />.
+        /// </summary>
+        public bool IsOAuth2SecuritySchemeValue
+        {
+            get
+            {
+                return ((OpenApi.Schema.OAuth2SecuritySchemeValue)this).Validate().IsValid;
+            }
+        }
+
+            /// <summary>
+        /// Gets the value as a <see cref="OpenApi.Schema.OpenIdConnectSecuritySchemeValue" />.
+        /// </summary>
+        public OpenApi.Schema.OpenIdConnectSecuritySchemeValue AsOpenIdConnectSecuritySchemeValue
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="OpenApi.Schema.OpenIdConnectSecuritySchemeValue" />.
+        /// </summary>
+        public bool IsOpenIdConnectSecuritySchemeValue
+        {
+            get
+            {
+                return ((OpenApi.Schema.OpenIdConnectSecuritySchemeValue)this).Validate().IsValid;
+            }
+        }
+
+    
+            /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
         public bool HasJsonElement =>
@@ -86817,7 +89841,7 @@ namespace OpenApi
         }
 
             /// <summary>
-        /// Conversion from OpenApi.Schema.APKeySecuritySchemeValue.
+        /// Conversion from <see cref="OpenApi.Schema.APKeySecuritySchemeValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator SecuritySchemeEntity(OpenApi.Schema.APKeySecuritySchemeValue value)
@@ -86826,7 +89850,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.APKeySecuritySchemeValue.
+        /// Conversion to <see cref="OpenApi.Schema.APKeySecuritySchemeValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.APKeySecuritySchemeValue(SecuritySchemeEntity value)
@@ -86838,7 +89862,7 @@ namespace OpenApi
                                                     return default;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.HTPSecuritySchemeValue.
+        /// Conversion from <see cref="OpenApi.Schema.HTPSecuritySchemeValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator SecuritySchemeEntity(OpenApi.Schema.HTPSecuritySchemeValue value)
@@ -86847,7 +89871,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.HTPSecuritySchemeValue.
+        /// Conversion to <see cref="OpenApi.Schema.HTPSecuritySchemeValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.HTPSecuritySchemeValue(SecuritySchemeEntity value)
@@ -86859,7 +89883,7 @@ namespace OpenApi
                                                     return default;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.OAuth2SecuritySchemeValue.
+        /// Conversion from <see cref="OpenApi.Schema.OAuth2SecuritySchemeValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator SecuritySchemeEntity(OpenApi.Schema.OAuth2SecuritySchemeValue value)
@@ -86868,7 +89892,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.OAuth2SecuritySchemeValue.
+        /// Conversion to <see cref="OpenApi.Schema.OAuth2SecuritySchemeValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.OAuth2SecuritySchemeValue(SecuritySchemeEntity value)
@@ -86880,7 +89904,7 @@ namespace OpenApi
                                                     return default;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.OpenIdConnectSecuritySchemeValue.
+        /// Conversion from <see cref="OpenApi.Schema.OpenIdConnectSecuritySchemeValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator SecuritySchemeEntity(OpenApi.Schema.OpenIdConnectSecuritySchemeValue value)
@@ -86889,7 +89913,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.OpenIdConnectSecuritySchemeValue.
+        /// Conversion to <see cref="OpenApi.Schema.OpenIdConnectSecuritySchemeValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.OpenIdConnectSecuritySchemeValue(SecuritySchemeEntity value)
@@ -86902,7 +89926,7 @@ namespace OpenApi
         }
     
                 /// <summary>
-        /// Conversion from OpenApi.Schema.HTPSecuritySchemeValue.OneOf0Entity.
+        /// Conversion from <see cref="OpenApi.Schema.HTPSecuritySchemeValue.OneOf0Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator SecuritySchemeEntity(OpenApi.Schema.HTPSecuritySchemeValue.OneOf0Entity value)
@@ -86911,7 +89935,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.HTPSecuritySchemeValue.OneOf0Entity.
+        /// Conversion to <see cref="OpenApi.Schema.HTPSecuritySchemeValue.OneOf0Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.HTPSecuritySchemeValue.OneOf0Entity(SecuritySchemeEntity value)
@@ -86919,7 +89943,7 @@ namespace OpenApi
             return (OpenApi.Schema.SecuritySchemeEntity)value;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.HTPSecuritySchemeValue.OneOf1Entity.
+        /// Conversion from <see cref="OpenApi.Schema.HTPSecuritySchemeValue.OneOf1Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator SecuritySchemeEntity(OpenApi.Schema.HTPSecuritySchemeValue.OneOf1Entity value)
@@ -86928,7 +89952,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.HTPSecuritySchemeValue.OneOf1Entity.
+        /// Conversion to <see cref="OpenApi.Schema.HTPSecuritySchemeValue.OneOf1Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.HTPSecuritySchemeValue.OneOf1Entity(SecuritySchemeEntity value)
@@ -87002,6 +90026,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -87029,6 +90054,8 @@ namespace OpenApi
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -87642,6 +90669,7 @@ namespace OpenApi
     
 
     
+    
             
         /// <summary>
         /// Gets OperationId.
@@ -88063,7 +91091,46 @@ namespace OpenApi
     
     
     
-    
+            /// <summary>
+        /// Creates an instance of a <see cref="LinkValue"/>.
+        /// </summary>
+        public static LinkValue Create(
+                            Menes.Json.JsonString? operationId = null
+        ,             Menes.Json.JsonUriReference? operationRef = null
+        ,             OpenApi.Schema.LinkValue.ParametersValue? parameters = null
+        ,             Menes.Json.JsonAny? requestBody = null
+        ,             Menes.Json.JsonString? description = null
+        ,             OpenApi.Schema.ServerValue? server = null
+                )
+        {
+            var builder = ImmutableDictionary.CreateBuilder<JsonEncodedText, JsonAny>();
+                            if (operationId is Menes.Json.JsonString operationId__)
+            {
+                builder.Add(OperationIdJsonPropertyName, operationId__);
+            }
+                    if (operationRef is Menes.Json.JsonUriReference operationRef__)
+            {
+                builder.Add(OperationRefJsonPropertyName, operationRef__);
+            }
+                    if (parameters is OpenApi.Schema.LinkValue.ParametersValue parameters__)
+            {
+                builder.Add(ParametersJsonPropertyName, parameters__);
+            }
+                    if (requestBody is Menes.Json.JsonAny requestBody__)
+            {
+                builder.Add(RequestBodyJsonPropertyName, requestBody__);
+            }
+                    if (description is Menes.Json.JsonString description__)
+            {
+                builder.Add(DescriptionJsonPropertyName, description__);
+            }
+                    if (server is OpenApi.Schema.ServerValue server__)
+            {
+                builder.Add(ServerJsonPropertyName, server__);
+            }
+                    return builder.ToImmutable();
+        }
+
         
         /// <summary>
         /// Sets operationId.
@@ -88132,6 +91199,7 @@ namespace OpenApi
 
         
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -88159,6 +91227,8 @@ namespace OpenApi
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -88782,6 +91852,7 @@ namespace OpenApi
     
 
     
+    
             
         /// <summary>
         /// Gets OperationId.
@@ -89063,7 +92134,20 @@ namespace OpenApi
     
     
     
-    
+            /// <summary>
+        /// Creates an instance of a <see cref="NotEntity"/>.
+        /// </summary>
+        public static NotEntity Create(
+                   Menes.Json.JsonAny operationId
+        ,            Menes.Json.JsonAny operationRef
+                        )
+        {
+            var builder = ImmutableDictionary.CreateBuilder<JsonEncodedText, JsonAny>();
+                    builder.Add(OperationIdJsonPropertyName, operationId);
+                    builder.Add(OperationRefJsonPropertyName, operationRef);
+                            return builder.ToImmutable();
+        }
+
         
         /// <summary>
         /// Sets operationId.
@@ -89088,6 +92172,7 @@ namespace OpenApi
 
         
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -89115,6 +92200,8 @@ namespace OpenApi
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -89602,6 +92689,7 @@ namespace OpenApi
     
 
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -89814,6 +92902,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -89841,6 +92930,26 @@ namespace OpenApi
         }
 
     
+                /// <summary>
+        /// Enumerate the object as the given item type
+        /// </summary>
+        public JsonObjectEnumerator<Menes.Json.JsonAny> EnumerateProperties()
+        {
+            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            {
+                return new JsonObjectEnumerator<Menes.Json.JsonAny>(properties);
+            }
+
+            if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
+            {
+                return new JsonObjectEnumerator<Menes.Json.JsonAny>(this.jsonElementBacking);
+            }
+
+            return default;
+
+        }
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -90312,6 +93421,7 @@ namespace OpenApi
     
 
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -90524,6 +93634,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -90551,6 +93662,26 @@ namespace OpenApi
         }
 
     
+                /// <summary>
+        /// Enumerate the object as the given item type
+        /// </summary>
+        public JsonObjectEnumerator<OpenApi.Schema.PathItemValue> EnumerateProperties()
+        {
+            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            {
+                return new JsonObjectEnumerator<OpenApi.Schema.PathItemValue>(properties);
+            }
+
+            if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
+            {
+                return new JsonObjectEnumerator<OpenApi.Schema.PathItemValue>(this.jsonElementBacking);
+            }
+
+            return default;
+
+        }
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -91073,6 +94204,7 @@ namespace OpenApi
     
 
     
+    
             
         /// <summary>
         /// Gets PropertyName.
@@ -91354,7 +94486,23 @@ namespace OpenApi
     
     
     
-    
+            /// <summary>
+        /// Creates an instance of a <see cref="DiscriminatorValue"/>.
+        /// </summary>
+        public static DiscriminatorValue Create(
+                   Menes.Json.JsonString propertyName
+                ,             OpenApi.Schema.DiscriminatorValue.MappingValue? mapping = null
+                )
+        {
+            var builder = ImmutableDictionary.CreateBuilder<JsonEncodedText, JsonAny>();
+                    builder.Add(PropertyNameJsonPropertyName, propertyName);
+                            if (mapping is OpenApi.Schema.DiscriminatorValue.MappingValue mapping__)
+            {
+                builder.Add(MappingJsonPropertyName, mapping__);
+            }
+                    return builder.ToImmutable();
+        }
+
         
         /// <summary>
         /// Sets propertyName.
@@ -91379,6 +94527,7 @@ namespace OpenApi
 
         
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -91406,6 +94555,8 @@ namespace OpenApi
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -91916,6 +95067,7 @@ namespace OpenApi
     
 
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -92128,6 +95280,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -92155,6 +95308,26 @@ namespace OpenApi
         }
 
     
+                /// <summary>
+        /// Enumerate the object as the given item type
+        /// </summary>
+        public JsonObjectEnumerator<Menes.Json.JsonString> EnumerateProperties()
+        {
+            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            {
+                return new JsonObjectEnumerator<Menes.Json.JsonString>(properties);
+            }
+
+            if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
+            {
+                return new JsonObjectEnumerator<Menes.Json.JsonString>(this.jsonElementBacking);
+            }
+
+            return default;
+
+        }
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -92685,6 +95858,7 @@ namespace OpenApi
     
 
     
+    
             
         /// <summary>
         /// Gets Name.
@@ -93071,7 +96245,41 @@ namespace OpenApi
     
     
     
-    
+            /// <summary>
+        /// Creates an instance of a <see cref="XMValue"/>.
+        /// </summary>
+        public static XMValue Create(
+                            Menes.Json.JsonString? name = null
+        ,             Menes.Json.JsonUri? @namespace = null
+        ,             Menes.Json.JsonString? prefix = null
+        ,             OpenApi.Schema.XMValue.AttributeValue? attribute = null
+        ,             OpenApi.Schema.XMValue.WrappedValue? wrapped = null
+                )
+        {
+            var builder = ImmutableDictionary.CreateBuilder<JsonEncodedText, JsonAny>();
+                            if (name is Menes.Json.JsonString name__)
+            {
+                builder.Add(NameJsonPropertyName, name__);
+            }
+                    if (@namespace is Menes.Json.JsonUri @namespace__)
+            {
+                builder.Add(NamespaceJsonPropertyName, @namespace__);
+            }
+                    if (prefix is Menes.Json.JsonString prefix__)
+            {
+                builder.Add(PrefixJsonPropertyName, prefix__);
+            }
+                    if (attribute is OpenApi.Schema.XMValue.AttributeValue attribute__)
+            {
+                builder.Add(AttributeJsonPropertyName, attribute__);
+            }
+                    if (wrapped is OpenApi.Schema.XMValue.WrappedValue wrapped__)
+            {
+                builder.Add(WrappedJsonPropertyName, wrapped__);
+            }
+                    return builder.ToImmutable();
+        }
+
         
         /// <summary>
         /// Sets name.
@@ -93129,6 +96337,7 @@ namespace OpenApi
 
         
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -93156,6 +96365,8 @@ namespace OpenApi
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -93771,6 +96982,7 @@ namespace OpenApi
     
 
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -93980,6 +97192,7 @@ namespace OpenApi
 
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -94239,6 +97452,7 @@ namespace OpenApi
     
 
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -94448,6 +97662,7 @@ namespace OpenApi
 
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -94679,6 +97894,7 @@ namespace OpenApi
     
 
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -94832,6 +98048,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -95088,6 +98305,7 @@ namespace OpenApi
     
     
 
+    
     
             
         /// <summary>
@@ -95370,7 +98588,20 @@ namespace OpenApi
     
     
     
-    
+            /// <summary>
+        /// Creates an instance of a <see cref="NotEntity"/>.
+        /// </summary>
+        public static NotEntity Create(
+                   Menes.Json.JsonAny example
+        ,            Menes.Json.JsonAny examples
+                        )
+        {
+            var builder = ImmutableDictionary.CreateBuilder<JsonEncodedText, JsonAny>();
+                    builder.Add(ExampleJsonPropertyName, example);
+                    builder.Add(ExamplesJsonPropertyName, examples);
+                            return builder.ToImmutable();
+        }
+
         
         /// <summary>
         /// Sets example.
@@ -95395,6 +98626,7 @@ namespace OpenApi
 
         
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -95422,6 +98654,8 @@ namespace OpenApi
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -95966,6 +99200,51 @@ namespace OpenApi
 
     
             /// <summary>
+        /// Gets the value as a <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf0Entity" />.
+        /// </summary>
+        public OpenApi.Schema.SchemaXOContentEntity.OneOf0Entity AsOneOf0Entity
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf0Entity" />.
+        /// </summary>
+        public bool IsOneOf0Entity
+        {
+            get
+            {
+                return ((OpenApi.Schema.SchemaXOContentEntity.OneOf0Entity)this).Validate().IsValid;
+            }
+        }
+
+            /// <summary>
+        /// Gets the value as a <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity" />.
+        /// </summary>
+        public OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity AsOneOf1Entity
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity" />.
+        /// </summary>
+        public bool IsOneOf1Entity
+        {
+            get
+            {
+                return ((OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity)this).Validate().IsValid;
+            }
+        }
+
+    
+            /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
         public bool HasJsonElement =>
@@ -96110,7 +99389,7 @@ namespace OpenApi
         }
 
             /// <summary>
-        /// Conversion from OpenApi.Schema.SchemaXOContentEntity.OneOf0Entity.
+        /// Conversion from <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf0Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator SchemaXOContentEntity(OpenApi.Schema.SchemaXOContentEntity.OneOf0Entity value)
@@ -96119,7 +99398,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.SchemaXOContentEntity.OneOf0Entity.
+        /// Conversion to <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf0Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.SchemaXOContentEntity.OneOf0Entity(SchemaXOContentEntity value)
@@ -96131,7 +99410,7 @@ namespace OpenApi
                                                     return default;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.
+        /// Conversion from <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator SchemaXOContentEntity(OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity value)
@@ -96140,7 +99419,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.
+        /// Conversion to <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity(SchemaXOContentEntity value)
@@ -96153,7 +99432,7 @@ namespace OpenApi
         }
     
                 /// <summary>
-        /// Conversion from OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf0Entity.
+        /// Conversion from <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf0Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator SchemaXOContentEntity(OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf0Entity value)
@@ -96162,7 +99441,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf0Entity.
+        /// Conversion to <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf0Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf0Entity(SchemaXOContentEntity value)
@@ -96170,7 +99449,7 @@ namespace OpenApi
             return (OpenApi.Schema.SchemaXOContentEntity)value;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf1Entity.
+        /// Conversion from <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf1Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator SchemaXOContentEntity(OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf1Entity value)
@@ -96179,7 +99458,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf1Entity.
+        /// Conversion to <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf1Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf1Entity(SchemaXOContentEntity value)
@@ -96187,7 +99466,7 @@ namespace OpenApi
             return (OpenApi.Schema.SchemaXOContentEntity)value;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf2Entity.
+        /// Conversion from <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf2Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator SchemaXOContentEntity(OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf2Entity value)
@@ -96196,7 +99475,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf2Entity.
+        /// Conversion to <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf2Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf2Entity(SchemaXOContentEntity value)
@@ -96204,7 +99483,7 @@ namespace OpenApi
             return (OpenApi.Schema.SchemaXOContentEntity)value;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf3Entity.
+        /// Conversion from <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf3Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator SchemaXOContentEntity(OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf3Entity value)
@@ -96213,7 +99492,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf3Entity.
+        /// Conversion to <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf3Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf3Entity(SchemaXOContentEntity value)
@@ -96221,7 +99500,7 @@ namespace OpenApi
             return (OpenApi.Schema.SchemaXOContentEntity)value;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf4Entity.
+        /// Conversion from <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf4Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator SchemaXOContentEntity(OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf4Entity value)
@@ -96230,7 +99509,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf4Entity.
+        /// Conversion to <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf4Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf4Entity(SchemaXOContentEntity value)
@@ -96304,6 +99583,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -96331,6 +99611,8 @@ namespace OpenApi
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -96870,6 +100152,7 @@ namespace OpenApi
     
 
     
+    
             
         /// <summary>
         /// Gets Schema.
@@ -97151,7 +100434,20 @@ namespace OpenApi
     
     
     
-    
+            /// <summary>
+        /// Creates an instance of a <see cref="NotEntity"/>.
+        /// </summary>
+        public static NotEntity Create(
+                   Menes.Json.JsonAny schema
+        ,            Menes.Json.JsonAny content
+                        )
+        {
+            var builder = ImmutableDictionary.CreateBuilder<JsonEncodedText, JsonAny>();
+                    builder.Add(SchemaJsonPropertyName, schema);
+                    builder.Add(ContentJsonPropertyName, content);
+                            return builder.ToImmutable();
+        }
+
         
         /// <summary>
         /// Sets schema.
@@ -97176,6 +100472,7 @@ namespace OpenApi
 
         
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -97203,6 +100500,8 @@ namespace OpenApi
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -97704,6 +101003,7 @@ namespace OpenApi
     
 
     
+    
             
         /// <summary>
         /// Gets Schema.
@@ -97950,7 +101250,18 @@ namespace OpenApi
     
     
     
-    
+            /// <summary>
+        /// Creates an instance of a <see cref="OneOf0Entity"/>.
+        /// </summary>
+        public static OneOf0Entity Create(
+                   Menes.Json.JsonAny schema
+                        )
+        {
+            var builder = ImmutableDictionary.CreateBuilder<JsonEncodedText, JsonAny>();
+                    builder.Add(SchemaJsonPropertyName, schema);
+                            return builder.ToImmutable();
+        }
+
         
         /// <summary>
         /// Sets schema.
@@ -97964,6 +101275,7 @@ namespace OpenApi
 
         
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -97991,6 +101303,8 @@ namespace OpenApi
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -98557,6 +101871,117 @@ namespace OpenApi
     
 
     
+            /// <summary>
+        /// Gets the value as a <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf0Entity" />.
+        /// </summary>
+        public OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf0Entity AsAllOf0Entity
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf0Entity" />.
+        /// </summary>
+        public bool IsAllOf0Entity
+        {
+            get
+            {
+                return ((OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf0Entity)this).Validate().IsValid;
+            }
+        }
+
+            /// <summary>
+        /// Gets the value as a <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf1Entity" />.
+        /// </summary>
+        public OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf1Entity AsAllOf1Entity
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf1Entity" />.
+        /// </summary>
+        public bool IsAllOf1Entity
+        {
+            get
+            {
+                return ((OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf1Entity)this).Validate().IsValid;
+            }
+        }
+
+            /// <summary>
+        /// Gets the value as a <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf2Entity" />.
+        /// </summary>
+        public OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf2Entity AsAllOf2Entity
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf2Entity" />.
+        /// </summary>
+        public bool IsAllOf2Entity
+        {
+            get
+            {
+                return ((OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf2Entity)this).Validate().IsValid;
+            }
+        }
+
+            /// <summary>
+        /// Gets the value as a <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf3Entity" />.
+        /// </summary>
+        public OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf3Entity AsAllOf3Entity
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf3Entity" />.
+        /// </summary>
+        public bool IsAllOf3Entity
+        {
+            get
+            {
+                return ((OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf3Entity)this).Validate().IsValid;
+            }
+        }
+
+            /// <summary>
+        /// Gets the value as a <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf4Entity" />.
+        /// </summary>
+        public OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf4Entity AsAllOf4Entity
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf4Entity" />.
+        /// </summary>
+        public bool IsAllOf4Entity
+        {
+            get
+            {
+                return ((OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf4Entity)this).Validate().IsValid;
+            }
+        }
+
+    
             
         /// <summary>
         /// Gets Content.
@@ -98737,7 +102162,7 @@ namespace OpenApi
         }
 
             /// <summary>
-        /// Conversion from OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf0Entity.
+        /// Conversion from <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf0Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OneOf1Entity(OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf0Entity value)
@@ -98746,7 +102171,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf0Entity.
+        /// Conversion to <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf0Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf0Entity(OneOf1Entity value)
@@ -98754,7 +102179,7 @@ namespace OpenApi
                                                     return default;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf1Entity.
+        /// Conversion from <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf1Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OneOf1Entity(OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf1Entity value)
@@ -98763,7 +102188,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf1Entity.
+        /// Conversion to <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf1Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf1Entity(OneOf1Entity value)
@@ -98771,7 +102196,7 @@ namespace OpenApi
                                                     return default;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf2Entity.
+        /// Conversion from <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf2Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OneOf1Entity(OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf2Entity value)
@@ -98780,7 +102205,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf2Entity.
+        /// Conversion to <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf2Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf2Entity(OneOf1Entity value)
@@ -98788,7 +102213,7 @@ namespace OpenApi
                                                     return default;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf3Entity.
+        /// Conversion from <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf3Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OneOf1Entity(OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf3Entity value)
@@ -98797,7 +102222,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf3Entity.
+        /// Conversion to <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf3Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf3Entity(OneOf1Entity value)
@@ -98805,7 +102230,7 @@ namespace OpenApi
                                                     return default;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf4Entity.
+        /// Conversion from <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf4Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OneOf1Entity(OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf4Entity value)
@@ -98814,7 +102239,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf4Entity.
+        /// Conversion to <see cref="OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf4Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.SchemaXOContentEntity.OneOf1Entity.AllOf4Entity(OneOf1Entity value)
@@ -98888,7 +102313,18 @@ namespace OpenApi
     
     
     
-    
+            /// <summary>
+        /// Creates an instance of a <see cref="OneOf1Entity"/>.
+        /// </summary>
+        public static OneOf1Entity Create(
+                   Menes.Json.JsonAny content
+                        )
+        {
+            var builder = ImmutableDictionary.CreateBuilder<JsonEncodedText, JsonAny>();
+                    builder.Add(ContentJsonPropertyName, content);
+                            return builder.ToImmutable();
+        }
+
         
         /// <summary>
         /// Sets content.
@@ -98902,6 +102338,7 @@ namespace OpenApi
 
         
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -98929,6 +102366,8 @@ namespace OpenApi
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -99491,6 +102930,7 @@ namespace OpenApi
     
 
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -99644,6 +103084,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -99889,6 +103330,7 @@ namespace OpenApi
     
     
 
+    
     
             
         /// <summary>
@@ -100136,7 +103578,18 @@ namespace OpenApi
     
     
     
-    
+            /// <summary>
+        /// Creates an instance of a <see cref="NotEntity"/>.
+        /// </summary>
+        public static NotEntity Create(
+                   Menes.Json.JsonAny style
+                        )
+        {
+            var builder = ImmutableDictionary.CreateBuilder<JsonEncodedText, JsonAny>();
+                    builder.Add(StyleJsonPropertyName, style);
+                            return builder.ToImmutable();
+        }
+
         
         /// <summary>
         /// Sets style.
@@ -100150,6 +103603,7 @@ namespace OpenApi
 
         
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -100177,6 +103631,8 @@ namespace OpenApi
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -100608,6 +104064,7 @@ namespace OpenApi
     
 
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -100761,6 +104218,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -101006,6 +104464,7 @@ namespace OpenApi
     
     
 
+    
     
             
         /// <summary>
@@ -101253,7 +104712,18 @@ namespace OpenApi
     
     
     
-    
+            /// <summary>
+        /// Creates an instance of a <see cref="NotEntity"/>.
+        /// </summary>
+        public static NotEntity Create(
+                   Menes.Json.JsonAny explode
+                        )
+        {
+            var builder = ImmutableDictionary.CreateBuilder<JsonEncodedText, JsonAny>();
+                    builder.Add(ExplodeJsonPropertyName, explode);
+                            return builder.ToImmutable();
+        }
+
         
         /// <summary>
         /// Sets explode.
@@ -101267,6 +104737,7 @@ namespace OpenApi
 
         
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -101294,6 +104765,8 @@ namespace OpenApi
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -101725,6 +105198,7 @@ namespace OpenApi
     
 
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -101878,6 +105352,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -102123,6 +105598,7 @@ namespace OpenApi
     
     
 
+    
     
             
         /// <summary>
@@ -102370,7 +105846,18 @@ namespace OpenApi
     
     
     
-    
+            /// <summary>
+        /// Creates an instance of a <see cref="NotEntity"/>.
+        /// </summary>
+        public static NotEntity Create(
+                   Menes.Json.JsonAny allowReserved
+                        )
+        {
+            var builder = ImmutableDictionary.CreateBuilder<JsonEncodedText, JsonAny>();
+                    builder.Add(AllowReservedJsonPropertyName, allowReserved);
+                            return builder.ToImmutable();
+        }
+
         
         /// <summary>
         /// Sets allowReserved.
@@ -102384,6 +105871,7 @@ namespace OpenApi
 
         
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -102411,6 +105899,8 @@ namespace OpenApi
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -102842,6 +106332,7 @@ namespace OpenApi
     
 
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -102995,6 +106486,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -103240,6 +106732,7 @@ namespace OpenApi
     
     
 
+    
     
             
         /// <summary>
@@ -103487,7 +106980,18 @@ namespace OpenApi
     
     
     
-    
+            /// <summary>
+        /// Creates an instance of a <see cref="NotEntity"/>.
+        /// </summary>
+        public static NotEntity Create(
+                   Menes.Json.JsonAny example
+                        )
+        {
+            var builder = ImmutableDictionary.CreateBuilder<JsonEncodedText, JsonAny>();
+                    builder.Add(ExampleJsonPropertyName, example);
+                            return builder.ToImmutable();
+        }
+
         
         /// <summary>
         /// Sets example.
@@ -103501,6 +107005,7 @@ namespace OpenApi
 
         
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -103528,6 +107033,8 @@ namespace OpenApi
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -103959,6 +107466,7 @@ namespace OpenApi
     
 
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -104112,6 +107620,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -104357,6 +107866,7 @@ namespace OpenApi
     
     
 
+    
     
             
         /// <summary>
@@ -104604,7 +108114,18 @@ namespace OpenApi
     
     
     
-    
+            /// <summary>
+        /// Creates an instance of a <see cref="NotEntity"/>.
+        /// </summary>
+        public static NotEntity Create(
+                   Menes.Json.JsonAny examples
+                        )
+        {
+            var builder = ImmutableDictionary.CreateBuilder<JsonEncodedText, JsonAny>();
+                    builder.Add(ExamplesJsonPropertyName, examples);
+                            return builder.ToImmutable();
+        }
+
         
         /// <summary>
         /// Sets examples.
@@ -104618,6 +108139,7 @@ namespace OpenApi
 
         
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -104645,6 +108167,8 @@ namespace OpenApi
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -105219,6 +108743,95 @@ namespace OpenApi
 
     
             /// <summary>
+        /// Gets the value as a <see cref="OpenApi.Schema.ParameterLocationEntity.OneOf0Entity" />.
+        /// </summary>
+        public OpenApi.Schema.ParameterLocationEntity.OneOf0Entity AsOneOf0Entity
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="OpenApi.Schema.ParameterLocationEntity.OneOf0Entity" />.
+        /// </summary>
+        public bool IsOneOf0Entity
+        {
+            get
+            {
+                return ((OpenApi.Schema.ParameterLocationEntity.OneOf0Entity)this).Validate().IsValid;
+            }
+        }
+
+            /// <summary>
+        /// Gets the value as a <see cref="OpenApi.Schema.ParameterLocationEntity.OneOf1Entity" />.
+        /// </summary>
+        public OpenApi.Schema.ParameterLocationEntity.OneOf1Entity AsOneOf1Entity
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="OpenApi.Schema.ParameterLocationEntity.OneOf1Entity" />.
+        /// </summary>
+        public bool IsOneOf1Entity
+        {
+            get
+            {
+                return ((OpenApi.Schema.ParameterLocationEntity.OneOf1Entity)this).Validate().IsValid;
+            }
+        }
+
+            /// <summary>
+        /// Gets the value as a <see cref="OpenApi.Schema.ParameterLocationEntity.OneOf2Entity" />.
+        /// </summary>
+        public OpenApi.Schema.ParameterLocationEntity.OneOf2Entity AsOneOf2Entity
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="OpenApi.Schema.ParameterLocationEntity.OneOf2Entity" />.
+        /// </summary>
+        public bool IsOneOf2Entity
+        {
+            get
+            {
+                return ((OpenApi.Schema.ParameterLocationEntity.OneOf2Entity)this).Validate().IsValid;
+            }
+        }
+
+            /// <summary>
+        /// Gets the value as a <see cref="OpenApi.Schema.ParameterLocationEntity.OneOf3Entity" />.
+        /// </summary>
+        public OpenApi.Schema.ParameterLocationEntity.OneOf3Entity AsOneOf3Entity
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="OpenApi.Schema.ParameterLocationEntity.OneOf3Entity" />.
+        /// </summary>
+        public bool IsOneOf3Entity
+        {
+            get
+            {
+                return ((OpenApi.Schema.ParameterLocationEntity.OneOf3Entity)this).Validate().IsValid;
+            }
+        }
+
+    
+            /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
         public bool HasJsonElement =>
@@ -105363,7 +108976,7 @@ namespace OpenApi
         }
 
             /// <summary>
-        /// Conversion from OpenApi.Schema.ParameterLocationEntity.OneOf0Entity.
+        /// Conversion from <see cref="OpenApi.Schema.ParameterLocationEntity.OneOf0Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator ParameterLocationEntity(OpenApi.Schema.ParameterLocationEntity.OneOf0Entity value)
@@ -105372,7 +108985,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.ParameterLocationEntity.OneOf0Entity.
+        /// Conversion to <see cref="OpenApi.Schema.ParameterLocationEntity.OneOf0Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.ParameterLocationEntity.OneOf0Entity(ParameterLocationEntity value)
@@ -105384,7 +108997,7 @@ namespace OpenApi
                                                     return default;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.ParameterLocationEntity.OneOf1Entity.
+        /// Conversion from <see cref="OpenApi.Schema.ParameterLocationEntity.OneOf1Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator ParameterLocationEntity(OpenApi.Schema.ParameterLocationEntity.OneOf1Entity value)
@@ -105393,7 +109006,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.ParameterLocationEntity.OneOf1Entity.
+        /// Conversion to <see cref="OpenApi.Schema.ParameterLocationEntity.OneOf1Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.ParameterLocationEntity.OneOf1Entity(ParameterLocationEntity value)
@@ -105405,7 +109018,7 @@ namespace OpenApi
                                                     return default;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.ParameterLocationEntity.OneOf2Entity.
+        /// Conversion from <see cref="OpenApi.Schema.ParameterLocationEntity.OneOf2Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator ParameterLocationEntity(OpenApi.Schema.ParameterLocationEntity.OneOf2Entity value)
@@ -105414,7 +109027,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.ParameterLocationEntity.OneOf2Entity.
+        /// Conversion to <see cref="OpenApi.Schema.ParameterLocationEntity.OneOf2Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.ParameterLocationEntity.OneOf2Entity(ParameterLocationEntity value)
@@ -105426,7 +109039,7 @@ namespace OpenApi
                                                     return default;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.ParameterLocationEntity.OneOf3Entity.
+        /// Conversion from <see cref="OpenApi.Schema.ParameterLocationEntity.OneOf3Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator ParameterLocationEntity(OpenApi.Schema.ParameterLocationEntity.OneOf3Entity value)
@@ -105435,7 +109048,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.ParameterLocationEntity.OneOf3Entity.
+        /// Conversion to <see cref="OpenApi.Schema.ParameterLocationEntity.OneOf3Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.ParameterLocationEntity.OneOf3Entity(ParameterLocationEntity value)
@@ -105514,6 +109127,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -105541,6 +109155,8 @@ namespace OpenApi
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -106117,6 +109733,7 @@ namespace OpenApi
     
 
     
+    
             
         /// <summary>
         /// Gets Required.
@@ -106433,7 +110050,28 @@ namespace OpenApi
     
     
     
-    
+            /// <summary>
+        /// Creates an instance of a <see cref="OneOf0Entity"/>.
+        /// </summary>
+        public static OneOf0Entity Create(
+                   OpenApi.Schema.ParameterLocationEntity.OneOf0Entity.RequiredEntity required
+                ,             OpenApi.Schema.ParameterLocationEntity.OneOf0Entity.InEntity? @in = null
+        ,             OpenApi.Schema.ParameterLocationEntity.OneOf0Entity.StyleEntity? style = null
+                )
+        {
+            var builder = ImmutableDictionary.CreateBuilder<JsonEncodedText, JsonAny>();
+                    builder.Add(RequiredJsonPropertyName, required);
+                            if (@in is OpenApi.Schema.ParameterLocationEntity.OneOf0Entity.InEntity @in__)
+            {
+                builder.Add(InJsonPropertyName, @in__);
+            }
+                    if (style is OpenApi.Schema.ParameterLocationEntity.OneOf0Entity.StyleEntity style__)
+            {
+                builder.Add(StyleJsonPropertyName, style__);
+            }
+                    return builder.ToImmutable();
+        }
+
         
         /// <summary>
         /// Sets required.
@@ -106469,6 +110107,7 @@ namespace OpenApi
 
         
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -106496,6 +110135,8 @@ namespace OpenApi
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -106990,6 +110631,7 @@ namespace OpenApi
     
 
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -107143,6 +110785,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -107349,6 +110992,7 @@ namespace OpenApi
     
 
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -107502,6 +111146,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -107740,6 +111385,7 @@ namespace OpenApi
     
 
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -107893,6 +111539,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -108033,10 +111680,13 @@ namespace OpenApi
         /// </summary>
         public static class EnumValues
         {
-                        /// <summary>
-                        /// Missing documentation.
-                        /// </summary>
-                                public static readonly RequiredEntity Item0 = JsonAny.Parse("true");
+                                /// <summary>
+            /// [{Title} || Item 0] (with predictable naming).
+            /// </summary>
+            /// <remarks>
+            /// {Description}.
+            /// </remarks>
+            public static readonly RequiredEntity Item0 = JsonAny.Parse("true");
             
         
 
@@ -108148,6 +111798,7 @@ namespace OpenApi
     
     
 
+    
     
             
         /// <summary>
@@ -108430,7 +112081,26 @@ namespace OpenApi
     
     
     
-    
+            /// <summary>
+        /// Creates an instance of a <see cref="OneOf1Entity"/>.
+        /// </summary>
+        public static OneOf1Entity Create(
+                            OpenApi.Schema.ParameterLocationEntity.OneOf1Entity.InEntity? @in = null
+        ,             OpenApi.Schema.ParameterLocationEntity.OneOf1Entity.StyleEntity? style = null
+                )
+        {
+            var builder = ImmutableDictionary.CreateBuilder<JsonEncodedText, JsonAny>();
+                            if (@in is OpenApi.Schema.ParameterLocationEntity.OneOf1Entity.InEntity @in__)
+            {
+                builder.Add(InJsonPropertyName, @in__);
+            }
+                    if (style is OpenApi.Schema.ParameterLocationEntity.OneOf1Entity.StyleEntity style__)
+            {
+                builder.Add(StyleJsonPropertyName, style__);
+            }
+                    return builder.ToImmutable();
+        }
+
         
         /// <summary>
         /// Sets in.
@@ -108455,6 +112125,7 @@ namespace OpenApi
 
         
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -108482,6 +112153,8 @@ namespace OpenApi
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -108945,6 +112618,7 @@ namespace OpenApi
     
 
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -109098,6 +112772,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -109304,6 +112979,7 @@ namespace OpenApi
     
 
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -109457,6 +113133,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -109771,6 +113448,7 @@ namespace OpenApi
     
 
     
+    
             
         /// <summary>
         /// Gets In.
@@ -110052,7 +113730,26 @@ namespace OpenApi
     
     
     
-    
+            /// <summary>
+        /// Creates an instance of a <see cref="OneOf2Entity"/>.
+        /// </summary>
+        public static OneOf2Entity Create(
+                            OpenApi.Schema.ParameterLocationEntity.OneOf2Entity.InEntity? @in = null
+        ,             OpenApi.Schema.ParameterLocationEntity.OneOf2Entity.StyleEntity? style = null
+                )
+        {
+            var builder = ImmutableDictionary.CreateBuilder<JsonEncodedText, JsonAny>();
+                            if (@in is OpenApi.Schema.ParameterLocationEntity.OneOf2Entity.InEntity @in__)
+            {
+                builder.Add(InJsonPropertyName, @in__);
+            }
+                    if (style is OpenApi.Schema.ParameterLocationEntity.OneOf2Entity.StyleEntity style__)
+            {
+                builder.Add(StyleJsonPropertyName, style__);
+            }
+                    return builder.ToImmutable();
+        }
+
         
         /// <summary>
         /// Sets in.
@@ -110077,6 +113774,7 @@ namespace OpenApi
 
         
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -110104,6 +113802,8 @@ namespace OpenApi
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -110567,6 +114267,7 @@ namespace OpenApi
     
 
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -110720,6 +114421,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -110926,6 +114628,7 @@ namespace OpenApi
     
 
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -111079,6 +114782,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -111344,6 +115048,7 @@ namespace OpenApi
     
     
 
+    
     
             
         /// <summary>
@@ -111626,7 +115331,26 @@ namespace OpenApi
     
     
     
-    
+            /// <summary>
+        /// Creates an instance of a <see cref="OneOf3Entity"/>.
+        /// </summary>
+        public static OneOf3Entity Create(
+                            OpenApi.Schema.ParameterLocationEntity.OneOf3Entity.InEntity? @in = null
+        ,             OpenApi.Schema.ParameterLocationEntity.OneOf3Entity.StyleEntity? style = null
+                )
+        {
+            var builder = ImmutableDictionary.CreateBuilder<JsonEncodedText, JsonAny>();
+                            if (@in is OpenApi.Schema.ParameterLocationEntity.OneOf3Entity.InEntity @in__)
+            {
+                builder.Add(InJsonPropertyName, @in__);
+            }
+                    if (style is OpenApi.Schema.ParameterLocationEntity.OneOf3Entity.StyleEntity style__)
+            {
+                builder.Add(StyleJsonPropertyName, style__);
+            }
+                    return builder.ToImmutable();
+        }
+
         
         /// <summary>
         /// Sets in.
@@ -111651,6 +115375,7 @@ namespace OpenApi
 
         
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -111678,6 +115403,8 @@ namespace OpenApi
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -112141,6 +115868,7 @@ namespace OpenApi
     
 
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -112294,6 +116022,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -112500,6 +116229,7 @@ namespace OpenApi
     
 
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -112653,6 +116383,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -112944,6 +116675,7 @@ namespace OpenApi
     
     
 
+    
     
             
         /// <summary>
@@ -113296,7 +117028,27 @@ namespace OpenApi
     
     
     
-    
+            /// <summary>
+        /// Creates an instance of a <see cref="APKeySecuritySchemeValue"/>.
+        /// </summary>
+        public static APKeySecuritySchemeValue Create(
+                   OpenApi.Schema.APKeySecuritySchemeValue.TypeValue type
+        ,            Menes.Json.JsonString name
+        ,            OpenApi.Schema.APKeySecuritySchemeValue.InValue @in
+                ,             Menes.Json.JsonString? description = null
+                )
+        {
+            var builder = ImmutableDictionary.CreateBuilder<JsonEncodedText, JsonAny>();
+                    builder.Add(TypeJsonPropertyName, type);
+                    builder.Add(NameJsonPropertyName, name);
+                    builder.Add(InJsonPropertyName, @in);
+                            if (description is Menes.Json.JsonString description__)
+            {
+                builder.Add(DescriptionJsonPropertyName, description__);
+            }
+                    return builder.ToImmutable();
+        }
+
         
         /// <summary>
         /// Sets type.
@@ -113343,6 +117095,7 @@ namespace OpenApi
 
         
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -113370,6 +117123,8 @@ namespace OpenApi
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -114018,6 +117773,7 @@ namespace OpenApi
     
 
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -114282,6 +118038,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -114605,6 +118362,7 @@ namespace OpenApi
     
 
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -114869,6 +118627,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -115298,6 +119057,51 @@ namespace OpenApi
     
 
     
+            /// <summary>
+        /// Gets the value as a <see cref="OpenApi.Schema.HTPSecuritySchemeValue.OneOf0Entity" />.
+        /// </summary>
+        public OpenApi.Schema.HTPSecuritySchemeValue.OneOf0Entity AsOneOf0Entity
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="OpenApi.Schema.HTPSecuritySchemeValue.OneOf0Entity" />.
+        /// </summary>
+        public bool IsOneOf0Entity
+        {
+            get
+            {
+                return ((OpenApi.Schema.HTPSecuritySchemeValue.OneOf0Entity)this).Validate().IsValid;
+            }
+        }
+
+            /// <summary>
+        /// Gets the value as a <see cref="OpenApi.Schema.HTPSecuritySchemeValue.OneOf1Entity" />.
+        /// </summary>
+        public OpenApi.Schema.HTPSecuritySchemeValue.OneOf1Entity AsOneOf1Entity
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="OpenApi.Schema.HTPSecuritySchemeValue.OneOf1Entity" />.
+        /// </summary>
+        public bool IsOneOf1Entity
+        {
+            get
+            {
+                return ((OpenApi.Schema.HTPSecuritySchemeValue.OneOf1Entity)this).Validate().IsValid;
+            }
+        }
+
+    
             
         /// <summary>
         /// Gets Scheme.
@@ -115583,7 +119387,7 @@ namespace OpenApi
         }
 
             /// <summary>
-        /// Conversion from OpenApi.Schema.HTPSecuritySchemeValue.OneOf0Entity.
+        /// Conversion from <see cref="OpenApi.Schema.HTPSecuritySchemeValue.OneOf0Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator HTPSecuritySchemeValue(OpenApi.Schema.HTPSecuritySchemeValue.OneOf0Entity value)
@@ -115592,7 +119396,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.HTPSecuritySchemeValue.OneOf0Entity.
+        /// Conversion to <see cref="OpenApi.Schema.HTPSecuritySchemeValue.OneOf0Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.HTPSecuritySchemeValue.OneOf0Entity(HTPSecuritySchemeValue value)
@@ -115604,7 +119408,7 @@ namespace OpenApi
                                                     return default;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.HTPSecuritySchemeValue.OneOf1Entity.
+        /// Conversion from <see cref="OpenApi.Schema.HTPSecuritySchemeValue.OneOf1Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator HTPSecuritySchemeValue(OpenApi.Schema.HTPSecuritySchemeValue.OneOf1Entity value)
@@ -115613,7 +119417,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.HTPSecuritySchemeValue.OneOf1Entity.
+        /// Conversion to <see cref="OpenApi.Schema.HTPSecuritySchemeValue.OneOf1Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.HTPSecuritySchemeValue.OneOf1Entity(HTPSecuritySchemeValue value)
@@ -115691,7 +119495,30 @@ namespace OpenApi
     
     
     
-    
+            /// <summary>
+        /// Creates an instance of a <see cref="HTPSecuritySchemeValue"/>.
+        /// </summary>
+        public static HTPSecuritySchemeValue Create(
+                   Menes.Json.JsonString scheme
+        ,            OpenApi.Schema.HTPSecuritySchemeValue.TypeValue type
+                ,             Menes.Json.JsonString? bearerFormat = null
+        ,             Menes.Json.JsonString? description = null
+                )
+        {
+            var builder = ImmutableDictionary.CreateBuilder<JsonEncodedText, JsonAny>();
+                    builder.Add(SchemeJsonPropertyName, scheme);
+                    builder.Add(TypeJsonPropertyName, type);
+                            if (bearerFormat is Menes.Json.JsonString bearerFormat__)
+            {
+                builder.Add(BearerFormatJsonPropertyName, bearerFormat__);
+            }
+                    if (description is Menes.Json.JsonString description__)
+            {
+                builder.Add(DescriptionJsonPropertyName, description__);
+            }
+                    return builder.ToImmutable();
+        }
+
         
         /// <summary>
         /// Sets scheme.
@@ -115738,6 +119565,7 @@ namespace OpenApi
 
         
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -115765,6 +119593,8 @@ namespace OpenApi
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -116489,6 +120319,7 @@ namespace OpenApi
     
 
     
+    
             
         /// <summary>
         /// Gets Scheme.
@@ -116735,7 +120566,21 @@ namespace OpenApi
     
     
     
-    
+            /// <summary>
+        /// Creates an instance of a <see cref="OneOf0Entity"/>.
+        /// </summary>
+        public static OneOf0Entity Create(
+                            OpenApi.Schema.HTPSecuritySchemeValue.OneOf0Entity.SchemeEntity? scheme = null
+                )
+        {
+            var builder = ImmutableDictionary.CreateBuilder<JsonEncodedText, JsonAny>();
+                            if (scheme is OpenApi.Schema.HTPSecuritySchemeValue.OneOf0Entity.SchemeEntity scheme__)
+            {
+                builder.Add(SchemeJsonPropertyName, scheme__);
+            }
+                    return builder.ToImmutable();
+        }
+
         
         /// <summary>
         /// Sets scheme.
@@ -116749,6 +120594,7 @@ namespace OpenApi
 
         
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -116776,6 +120622,8 @@ namespace OpenApi
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -117176,6 +121024,7 @@ namespace OpenApi
     
 
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -117329,6 +121178,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -117583,6 +121433,7 @@ namespace OpenApi
     
 
     
+    
             
         /// <summary>
         /// Gets Scheme.
@@ -117829,7 +121680,21 @@ namespace OpenApi
     
     
     
-    
+            /// <summary>
+        /// Creates an instance of a <see cref="OneOf1Entity"/>.
+        /// </summary>
+        public static OneOf1Entity Create(
+                            OpenApi.Schema.HTPSecuritySchemeValue.OneOf1Entity.SchemeEntity? scheme = null
+                )
+        {
+            var builder = ImmutableDictionary.CreateBuilder<JsonEncodedText, JsonAny>();
+                            if (scheme is OpenApi.Schema.HTPSecuritySchemeValue.OneOf1Entity.SchemeEntity scheme__)
+            {
+                builder.Add(SchemeJsonPropertyName, scheme__);
+            }
+                    return builder.ToImmutable();
+        }
+
         
         /// <summary>
         /// Sets scheme.
@@ -117843,6 +121708,7 @@ namespace OpenApi
 
         
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -117870,6 +121736,8 @@ namespace OpenApi
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -118349,6 +122217,7 @@ namespace OpenApi
     
 
     
+    
             
         /// <summary>
         /// Gets BearerFormat.
@@ -118595,7 +122464,18 @@ namespace OpenApi
     
     
     
-    
+            /// <summary>
+        /// Creates an instance of a <see cref="NotEntity"/>.
+        /// </summary>
+        public static NotEntity Create(
+                   Menes.Json.JsonAny bearerFormat
+                        )
+        {
+            var builder = ImmutableDictionary.CreateBuilder<JsonEncodedText, JsonAny>();
+                    builder.Add(BearerFormatJsonPropertyName, bearerFormat);
+                            return builder.ToImmutable();
+        }
+
         
         /// <summary>
         /// Sets bearerFormat.
@@ -118609,6 +122489,7 @@ namespace OpenApi
 
         
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -118636,6 +122517,8 @@ namespace OpenApi
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -119063,6 +122946,7 @@ namespace OpenApi
     
 
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -119216,6 +123100,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -119418,6 +123303,7 @@ namespace OpenApi
     
 
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -119571,6 +123457,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -119845,6 +123732,7 @@ namespace OpenApi
     
 
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -120109,6 +123997,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -120443,6 +124332,7 @@ namespace OpenApi
     
 
     
+    
             
         /// <summary>
         /// Gets Type.
@@ -120759,7 +124649,25 @@ namespace OpenApi
     
     
     
-    
+            /// <summary>
+        /// Creates an instance of a <see cref="OAuth2SecuritySchemeValue"/>.
+        /// </summary>
+        public static OAuth2SecuritySchemeValue Create(
+                   OpenApi.Schema.OAuth2SecuritySchemeValue.TypeValue type
+        ,            OpenApi.Schema.OAuthFlowsValue flows
+                ,             Menes.Json.JsonString? description = null
+                )
+        {
+            var builder = ImmutableDictionary.CreateBuilder<JsonEncodedText, JsonAny>();
+                    builder.Add(TypeJsonPropertyName, type);
+                    builder.Add(FlowsJsonPropertyName, flows);
+                            if (description is Menes.Json.JsonString description__)
+            {
+                builder.Add(DescriptionJsonPropertyName, description__);
+            }
+                    return builder.ToImmutable();
+        }
+
         
         /// <summary>
         /// Sets type.
@@ -120795,6 +124703,7 @@ namespace OpenApi
 
         
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -120822,6 +124731,8 @@ namespace OpenApi
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -121440,6 +125351,7 @@ namespace OpenApi
     
 
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -121704,6 +125616,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -122038,6 +125951,7 @@ namespace OpenApi
     
 
     
+    
             
         /// <summary>
         /// Gets Type.
@@ -122354,7 +126268,25 @@ namespace OpenApi
     
     
     
-    
+            /// <summary>
+        /// Creates an instance of a <see cref="OpenIdConnectSecuritySchemeValue"/>.
+        /// </summary>
+        public static OpenIdConnectSecuritySchemeValue Create(
+                   OpenApi.Schema.OpenIdConnectSecuritySchemeValue.TypeValue type
+        ,            Menes.Json.JsonUriReference openIdConnectUrl
+                ,             Menes.Json.JsonString? description = null
+                )
+        {
+            var builder = ImmutableDictionary.CreateBuilder<JsonEncodedText, JsonAny>();
+                    builder.Add(TypeJsonPropertyName, type);
+                    builder.Add(OpenIdConnectUrlJsonPropertyName, openIdConnectUrl);
+                            if (description is Menes.Json.JsonString description__)
+            {
+                builder.Add(DescriptionJsonPropertyName, description__);
+            }
+                    return builder.ToImmutable();
+        }
+
         
         /// <summary>
         /// Sets type.
@@ -122390,6 +126322,7 @@ namespace OpenApi
 
         
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -122417,6 +126350,8 @@ namespace OpenApi
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -123035,6 +126970,7 @@ namespace OpenApi
     
 
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -123299,6 +127235,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -123663,6 +127600,29 @@ namespace OpenApi
     
 
     
+            /// <summary>
+        /// Gets the value as a <see cref="OpenApi.Schema.ExampleXOExamplesEntity" />.
+        /// </summary>
+        public OpenApi.Schema.ExampleXOExamplesEntity AsExampleXOExamplesEntity
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="OpenApi.Schema.ExampleXOExamplesEntity" />.
+        /// </summary>
+        public bool IsExampleXOExamplesEntity
+        {
+            get
+            {
+                return ((OpenApi.Schema.ExampleXOExamplesEntity)this).Validate().IsValid;
+            }
+        }
+
+    
             
         /// <summary>
         /// Gets Schema.
@@ -123948,7 +127908,7 @@ namespace OpenApi
         }
 
             /// <summary>
-        /// Conversion from OpenApi.Schema.ExampleXOExamplesEntity.
+        /// Conversion from <see cref="OpenApi.Schema.ExampleXOExamplesEntity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator MediaTypeValue(OpenApi.Schema.ExampleXOExamplesEntity value)
@@ -123957,7 +127917,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.ExampleXOExamplesEntity.
+        /// Conversion to <see cref="OpenApi.Schema.ExampleXOExamplesEntity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.ExampleXOExamplesEntity(MediaTypeValue value)
@@ -124031,7 +127991,36 @@ namespace OpenApi
     
     
     
-    
+            /// <summary>
+        /// Creates an instance of a <see cref="MediaTypeValue"/>.
+        /// </summary>
+        public static MediaTypeValue Create(
+                            OpenApi.Schema.MediaTypeValue.SchemaEntity? schema = null
+        ,             Menes.Json.JsonAny? example = null
+        ,             OpenApi.Schema.MediaTypeValue.ExamplesValue? examples = null
+        ,             OpenApi.Schema.MediaTypeValue.EncodingValue? encoding = null
+                )
+        {
+            var builder = ImmutableDictionary.CreateBuilder<JsonEncodedText, JsonAny>();
+                            if (schema is OpenApi.Schema.MediaTypeValue.SchemaEntity schema__)
+            {
+                builder.Add(SchemaJsonPropertyName, schema__);
+            }
+                    if (example is Menes.Json.JsonAny example__)
+            {
+                builder.Add(ExampleJsonPropertyName, example__);
+            }
+                    if (examples is OpenApi.Schema.MediaTypeValue.ExamplesValue examples__)
+            {
+                builder.Add(ExamplesJsonPropertyName, examples__);
+            }
+                    if (encoding is OpenApi.Schema.MediaTypeValue.EncodingValue encoding__)
+            {
+                builder.Add(EncodingJsonPropertyName, encoding__);
+            }
+                    return builder.ToImmutable();
+        }
+
         
         /// <summary>
         /// Sets schema.
@@ -124078,6 +128067,7 @@ namespace OpenApi
 
         
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -124105,6 +128095,8 @@ namespace OpenApi
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -124746,6 +128738,51 @@ namespace OpenApi
 
     
             /// <summary>
+        /// Gets the value as a <see cref="OpenApi.Schema.SchemaValue" />.
+        /// </summary>
+        public OpenApi.Schema.SchemaValue AsSchemaValue
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="OpenApi.Schema.SchemaValue" />.
+        /// </summary>
+        public bool IsSchemaValue
+        {
+            get
+            {
+                return ((OpenApi.Schema.SchemaValue)this).Validate().IsValid;
+            }
+        }
+
+            /// <summary>
+        /// Gets the value as a <see cref="OpenApi.Schema.ReferenceValue" />.
+        /// </summary>
+        public OpenApi.Schema.ReferenceValue AsReferenceValue
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="OpenApi.Schema.ReferenceValue" />.
+        /// </summary>
+        public bool IsReferenceValue
+        {
+            get
+            {
+                return ((OpenApi.Schema.ReferenceValue)this).Validate().IsValid;
+            }
+        }
+
+    
+            /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
         public bool HasJsonElement =>
@@ -124890,7 +128927,7 @@ namespace OpenApi
         }
 
             /// <summary>
-        /// Conversion from OpenApi.Schema.SchemaValue.
+        /// Conversion from <see cref="OpenApi.Schema.SchemaValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator SchemaEntity(OpenApi.Schema.SchemaValue value)
@@ -124899,7 +128936,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.SchemaValue.
+        /// Conversion to <see cref="OpenApi.Schema.SchemaValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.SchemaValue(SchemaEntity value)
@@ -124911,7 +128948,7 @@ namespace OpenApi
                                                     return default;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.ReferenceValue.
+        /// Conversion from <see cref="OpenApi.Schema.ReferenceValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator SchemaEntity(OpenApi.Schema.ReferenceValue value)
@@ -124920,7 +128957,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.ReferenceValue.
+        /// Conversion to <see cref="OpenApi.Schema.ReferenceValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.ReferenceValue(SchemaEntity value)
@@ -124999,6 +129036,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -125026,6 +129064,8 @@ namespace OpenApi
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -125509,6 +129549,7 @@ namespace OpenApi
     
 
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -125721,6 +129762,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -125748,6 +129790,26 @@ namespace OpenApi
         }
 
     
+                /// <summary>
+        /// Enumerate the object as the given item type
+        /// </summary>
+        public JsonObjectEnumerator<OpenApi.Schema.MediaTypeValue.ExamplesValue.AdditionalPropertiesEntity> EnumerateProperties()
+        {
+            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            {
+                return new JsonObjectEnumerator<OpenApi.Schema.MediaTypeValue.ExamplesValue.AdditionalPropertiesEntity>(properties);
+            }
+
+            if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
+            {
+                return new JsonObjectEnumerator<OpenApi.Schema.MediaTypeValue.ExamplesValue.AdditionalPropertiesEntity>(this.jsonElementBacking);
+            }
+
+            return default;
+
+        }
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -126263,6 +130325,51 @@ namespace OpenApi
 
     
             /// <summary>
+        /// Gets the value as a <see cref="OpenApi.Schema.ExampleValue" />.
+        /// </summary>
+        public OpenApi.Schema.ExampleValue AsExampleValue
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="OpenApi.Schema.ExampleValue" />.
+        /// </summary>
+        public bool IsExampleValue
+        {
+            get
+            {
+                return ((OpenApi.Schema.ExampleValue)this).Validate().IsValid;
+            }
+        }
+
+            /// <summary>
+        /// Gets the value as a <see cref="OpenApi.Schema.ReferenceValue" />.
+        /// </summary>
+        public OpenApi.Schema.ReferenceValue AsReferenceValue
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this is a valid <see cref="OpenApi.Schema.ReferenceValue" />.
+        /// </summary>
+        public bool IsReferenceValue
+        {
+            get
+            {
+                return ((OpenApi.Schema.ReferenceValue)this).Validate().IsValid;
+            }
+        }
+
+    
+            /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
         public bool HasJsonElement =>
@@ -126407,7 +130514,7 @@ namespace OpenApi
         }
 
             /// <summary>
-        /// Conversion from OpenApi.Schema.ExampleValue.
+        /// Conversion from <see cref="OpenApi.Schema.ExampleValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator AdditionalPropertiesEntity(OpenApi.Schema.ExampleValue value)
@@ -126416,7 +130523,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.ExampleValue.
+        /// Conversion to <see cref="OpenApi.Schema.ExampleValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.ExampleValue(AdditionalPropertiesEntity value)
@@ -126428,7 +130535,7 @@ namespace OpenApi
                                                     return default;
         }
             /// <summary>
-        /// Conversion from OpenApi.Schema.ReferenceValue.
+        /// Conversion from <see cref="OpenApi.Schema.ReferenceValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator AdditionalPropertiesEntity(OpenApi.Schema.ReferenceValue value)
@@ -126437,7 +130544,7 @@ namespace OpenApi
         }
 
         /// <summary>
-        /// Conversion to OpenApi.Schema.ReferenceValue.
+        /// Conversion to <see cref="OpenApi.Schema.ReferenceValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator OpenApi.Schema.ReferenceValue(AdditionalPropertiesEntity value)
@@ -126516,6 +130623,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -126543,6 +130651,8 @@ namespace OpenApi
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -127030,6 +131140,7 @@ namespace OpenApi
     
 
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -127242,6 +131353,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -127269,6 +131381,26 @@ namespace OpenApi
         }
 
     
+                /// <summary>
+        /// Enumerate the object as the given item type
+        /// </summary>
+        public JsonObjectEnumerator<OpenApi.Schema.EncodingValue> EnumerateProperties()
+        {
+            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            {
+                return new JsonObjectEnumerator<OpenApi.Schema.EncodingValue>(properties);
+            }
+
+            if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
+            {
+                return new JsonObjectEnumerator<OpenApi.Schema.EncodingValue>(this.jsonElementBacking);
+            }
+
+            return default;
+
+        }
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -127787,6 +131919,7 @@ namespace OpenApi
     
 
     
+    
             
         /// <summary>
         /// Gets Implicit.
@@ -128138,7 +132271,36 @@ namespace OpenApi
     
     
     
-    
+            /// <summary>
+        /// Creates an instance of a <see cref="OAuthFlowsValue"/>.
+        /// </summary>
+        public static OAuthFlowsValue Create(
+                            OpenApi.Schema.ImplicitOAuthFlowValue? @implicit = null
+        ,             OpenApi.Schema.PasswordOAuthFlowValue? password = null
+        ,             OpenApi.Schema.ClientCredentialsFlowValue? clientCredentials = null
+        ,             OpenApi.Schema.AuthorizationCodeOAuthFlowValue? authorizationCode = null
+                )
+        {
+            var builder = ImmutableDictionary.CreateBuilder<JsonEncodedText, JsonAny>();
+                            if (@implicit is OpenApi.Schema.ImplicitOAuthFlowValue @implicit__)
+            {
+                builder.Add(ImplicitJsonPropertyName, @implicit__);
+            }
+                    if (password is OpenApi.Schema.PasswordOAuthFlowValue password__)
+            {
+                builder.Add(PasswordJsonPropertyName, password__);
+            }
+                    if (clientCredentials is OpenApi.Schema.ClientCredentialsFlowValue clientCredentials__)
+            {
+                builder.Add(ClientCredentialsJsonPropertyName, clientCredentials__);
+            }
+                    if (authorizationCode is OpenApi.Schema.AuthorizationCodeOAuthFlowValue authorizationCode__)
+            {
+                builder.Add(AuthorizationCodeJsonPropertyName, authorizationCode__);
+            }
+                    return builder.ToImmutable();
+        }
+
         
         /// <summary>
         /// Sets implicit.
@@ -128185,6 +132347,7 @@ namespace OpenApi
 
         
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -128212,6 +132375,8 @@ namespace OpenApi
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -128802,6 +132967,7 @@ namespace OpenApi
     
 
     
+    
             
         /// <summary>
         /// Gets AuthorizationUrl.
@@ -129118,7 +133284,25 @@ namespace OpenApi
     
     
     
-    
+            /// <summary>
+        /// Creates an instance of a <see cref="ImplicitOAuthFlowValue"/>.
+        /// </summary>
+        public static ImplicitOAuthFlowValue Create(
+                   Menes.Json.JsonUriReference authorizationUrl
+        ,            OpenApi.Schema.ImplicitOAuthFlowValue.ScopesValue scopes
+                ,             Menes.Json.JsonUriReference? refreshUrl = null
+                )
+        {
+            var builder = ImmutableDictionary.CreateBuilder<JsonEncodedText, JsonAny>();
+                    builder.Add(AuthorizationUrlJsonPropertyName, authorizationUrl);
+                    builder.Add(ScopesJsonPropertyName, scopes);
+                            if (refreshUrl is Menes.Json.JsonUriReference refreshUrl__)
+            {
+                builder.Add(RefreshUrlJsonPropertyName, refreshUrl__);
+            }
+                    return builder.ToImmutable();
+        }
+
         
         /// <summary>
         /// Sets authorizationUrl.
@@ -129154,6 +133338,7 @@ namespace OpenApi
 
         
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -129181,6 +133366,8 @@ namespace OpenApi
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -129769,6 +133956,7 @@ namespace OpenApi
     
 
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -129981,6 +134169,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -130008,6 +134197,26 @@ namespace OpenApi
         }
 
     
+                /// <summary>
+        /// Enumerate the object as the given item type
+        /// </summary>
+        public JsonObjectEnumerator<Menes.Json.JsonString> EnumerateProperties()
+        {
+            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            {
+                return new JsonObjectEnumerator<Menes.Json.JsonString>(properties);
+            }
+
+            if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
+            {
+                return new JsonObjectEnumerator<Menes.Json.JsonString>(this.jsonElementBacking);
+            }
+
+            return default;
+
+        }
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -130515,6 +134724,7 @@ namespace OpenApi
     
 
     
+    
             
         /// <summary>
         /// Gets TokenUrl.
@@ -130831,7 +135041,28 @@ namespace OpenApi
     
     
     
-    
+            /// <summary>
+        /// Creates an instance of a <see cref="PasswordOAuthFlowValue"/>.
+        /// </summary>
+        public static PasswordOAuthFlowValue Create(
+                   Menes.Json.JsonUriReference tokenUrl
+                ,             Menes.Json.JsonUriReference? refreshUrl = null
+        ,             OpenApi.Schema.PasswordOAuthFlowValue.ScopesValue? scopes = null
+                )
+        {
+            var builder = ImmutableDictionary.CreateBuilder<JsonEncodedText, JsonAny>();
+                    builder.Add(TokenUrlJsonPropertyName, tokenUrl);
+                            if (refreshUrl is Menes.Json.JsonUriReference refreshUrl__)
+            {
+                builder.Add(RefreshUrlJsonPropertyName, refreshUrl__);
+            }
+                    if (scopes is OpenApi.Schema.PasswordOAuthFlowValue.ScopesValue scopes__)
+            {
+                builder.Add(ScopesJsonPropertyName, scopes__);
+            }
+                    return builder.ToImmutable();
+        }
+
         
         /// <summary>
         /// Sets tokenUrl.
@@ -130867,6 +135098,7 @@ namespace OpenApi
 
         
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -130894,6 +135126,8 @@ namespace OpenApi
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -131459,6 +135693,7 @@ namespace OpenApi
     
 
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -131671,6 +135906,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -131698,6 +135934,26 @@ namespace OpenApi
         }
 
     
+                /// <summary>
+        /// Enumerate the object as the given item type
+        /// </summary>
+        public JsonObjectEnumerator<Menes.Json.JsonString> EnumerateProperties()
+        {
+            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            {
+                return new JsonObjectEnumerator<Menes.Json.JsonString>(properties);
+            }
+
+            if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
+            {
+                return new JsonObjectEnumerator<Menes.Json.JsonString>(this.jsonElementBacking);
+            }
+
+            return default;
+
+        }
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -132205,6 +136461,7 @@ namespace OpenApi
     
 
     
+    
             
         /// <summary>
         /// Gets TokenUrl.
@@ -132521,7 +136778,28 @@ namespace OpenApi
     
     
     
-    
+            /// <summary>
+        /// Creates an instance of a <see cref="ClientCredentialsFlowValue"/>.
+        /// </summary>
+        public static ClientCredentialsFlowValue Create(
+                   Menes.Json.JsonUriReference tokenUrl
+                ,             Menes.Json.JsonUriReference? refreshUrl = null
+        ,             OpenApi.Schema.ClientCredentialsFlowValue.ScopesValue? scopes = null
+                )
+        {
+            var builder = ImmutableDictionary.CreateBuilder<JsonEncodedText, JsonAny>();
+                    builder.Add(TokenUrlJsonPropertyName, tokenUrl);
+                            if (refreshUrl is Menes.Json.JsonUriReference refreshUrl__)
+            {
+                builder.Add(RefreshUrlJsonPropertyName, refreshUrl__);
+            }
+                    if (scopes is OpenApi.Schema.ClientCredentialsFlowValue.ScopesValue scopes__)
+            {
+                builder.Add(ScopesJsonPropertyName, scopes__);
+            }
+                    return builder.ToImmutable();
+        }
+
         
         /// <summary>
         /// Sets tokenUrl.
@@ -132557,6 +136835,7 @@ namespace OpenApi
 
         
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -132584,6 +136863,8 @@ namespace OpenApi
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -133149,6 +137430,7 @@ namespace OpenApi
     
 
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -133361,6 +137643,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -133388,6 +137671,26 @@ namespace OpenApi
         }
 
     
+                /// <summary>
+        /// Enumerate the object as the given item type
+        /// </summary>
+        public JsonObjectEnumerator<Menes.Json.JsonString> EnumerateProperties()
+        {
+            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            {
+                return new JsonObjectEnumerator<Menes.Json.JsonString>(properties);
+            }
+
+            if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
+            {
+                return new JsonObjectEnumerator<Menes.Json.JsonString>(this.jsonElementBacking);
+            }
+
+            return default;
+
+        }
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -133906,6 +138209,7 @@ namespace OpenApi
     
 
     
+    
             
         /// <summary>
         /// Gets AuthorizationUrl.
@@ -134257,7 +138561,30 @@ namespace OpenApi
     
     
     
-    
+            /// <summary>
+        /// Creates an instance of a <see cref="AuthorizationCodeOAuthFlowValue"/>.
+        /// </summary>
+        public static AuthorizationCodeOAuthFlowValue Create(
+                   Menes.Json.JsonUriReference authorizationUrl
+        ,            Menes.Json.JsonUriReference tokenUrl
+                ,             Menes.Json.JsonUriReference? refreshUrl = null
+        ,             OpenApi.Schema.AuthorizationCodeOAuthFlowValue.ScopesValue? scopes = null
+                )
+        {
+            var builder = ImmutableDictionary.CreateBuilder<JsonEncodedText, JsonAny>();
+                    builder.Add(AuthorizationUrlJsonPropertyName, authorizationUrl);
+                    builder.Add(TokenUrlJsonPropertyName, tokenUrl);
+                            if (refreshUrl is Menes.Json.JsonUriReference refreshUrl__)
+            {
+                builder.Add(RefreshUrlJsonPropertyName, refreshUrl__);
+            }
+                    if (scopes is OpenApi.Schema.AuthorizationCodeOAuthFlowValue.ScopesValue scopes__)
+            {
+                builder.Add(ScopesJsonPropertyName, scopes__);
+            }
+                    return builder.ToImmutable();
+        }
+
         
         /// <summary>
         /// Sets authorizationUrl.
@@ -134304,6 +138631,7 @@ namespace OpenApi
 
         
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -134331,6 +138659,8 @@ namespace OpenApi
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -134926,6 +139256,7 @@ namespace OpenApi
     
 
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -135138,6 +139469,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -135165,6 +139497,26 @@ namespace OpenApi
         }
 
     
+                /// <summary>
+        /// Enumerate the object as the given item type
+        /// </summary>
+        public JsonObjectEnumerator<Menes.Json.JsonString> EnumerateProperties()
+        {
+            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            {
+                return new JsonObjectEnumerator<Menes.Json.JsonString>(properties);
+            }
+
+            if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
+            {
+                return new JsonObjectEnumerator<Menes.Json.JsonString>(this.jsonElementBacking);
+            }
+
+            return default;
+
+        }
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -135694,6 +140046,7 @@ namespace OpenApi
     
 
     
+    
             
         /// <summary>
         /// Gets ContentType.
@@ -136080,7 +140433,41 @@ namespace OpenApi
     
     
     
-    
+            /// <summary>
+        /// Creates an instance of a <see cref="EncodingValue"/>.
+        /// </summary>
+        public static EncodingValue Create(
+                            Menes.Json.JsonString? contentType = null
+        ,             OpenApi.Schema.EncodingValue.HeadersValue? headers = null
+        ,             OpenApi.Schema.EncodingValue.StyleValue? style = null
+        ,             Menes.Json.JsonBoolean? explode = null
+        ,             OpenApi.Schema.EncodingValue.AllowReservedValue? allowReserved = null
+                )
+        {
+            var builder = ImmutableDictionary.CreateBuilder<JsonEncodedText, JsonAny>();
+                            if (contentType is Menes.Json.JsonString contentType__)
+            {
+                builder.Add(ContentTypeJsonPropertyName, contentType__);
+            }
+                    if (headers is OpenApi.Schema.EncodingValue.HeadersValue headers__)
+            {
+                builder.Add(HeadersJsonPropertyName, headers__);
+            }
+                    if (style is OpenApi.Schema.EncodingValue.StyleValue style__)
+            {
+                builder.Add(StyleJsonPropertyName, style__);
+            }
+                    if (explode is Menes.Json.JsonBoolean explode__)
+            {
+                builder.Add(ExplodeJsonPropertyName, explode__);
+            }
+                    if (allowReserved is OpenApi.Schema.EncodingValue.AllowReservedValue allowReserved__)
+            {
+                builder.Add(AllowReservedJsonPropertyName, allowReserved__);
+            }
+                    return builder.ToImmutable();
+        }
+
         
         /// <summary>
         /// Sets contentType.
@@ -136138,6 +140525,7 @@ namespace OpenApi
 
         
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -136165,6 +140553,8 @@ namespace OpenApi
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -136746,6 +141136,7 @@ namespace OpenApi
     
 
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -136958,6 +141349,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -136985,6 +141377,26 @@ namespace OpenApi
         }
 
     
+                /// <summary>
+        /// Enumerate the object as the given item type
+        /// </summary>
+        public JsonObjectEnumerator<OpenApi.Schema.HeaderValue> EnumerateProperties()
+        {
+            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            {
+                return new JsonObjectEnumerator<OpenApi.Schema.HeaderValue>(properties);
+            }
+
+            if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
+            {
+                return new JsonObjectEnumerator<OpenApi.Schema.HeaderValue>(this.jsonElementBacking);
+            }
+
+            return default;
+
+        }
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -137481,6 +141893,7 @@ namespace OpenApi
     
 
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -137745,6 +142158,7 @@ namespace OpenApi
     
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>
@@ -138088,6 +142502,7 @@ namespace OpenApi
     
 
     
+    
             /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
@@ -138297,6 +142712,7 @@ namespace OpenApi
 
     
     
+
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
         /// </summary>

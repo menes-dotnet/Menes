@@ -879,6 +879,30 @@ public partial class SchemaEntity
     }
 
     /// <summary>
+    /// Gets a value indicating whether this object has explicit additionalProperties as a schema object.
+    /// </summary>
+    public bool HasAdditionalPropertiesObject
+    {
+        get
+        {
+            return this.TypeDeclaration.Schema.AdditionalProperties is not null &&
+               (this.TypeDeclaration.Schema.AdditionalProperties?.JsonElement.ValueKind == JsonValueKind.Object);
+        }
+    }
+
+    /// <summary>
+    /// Gets a value indicating whether this object has explicit unevaluatedProperties as a schema object.
+    /// </summary>
+    public bool HasUnevaluatedPropertiesObject
+    {
+        get
+        {
+            return this.TypeDeclaration.Schema.UnevaluatedProperties is not null &&
+               (this.TypeDeclaration.Schema.UnevaluatedProperties?.JsonElement.ValueKind == JsonValueKind.Object);
+        }
+    }
+
+    /// <summary>
     /// Gets a value indicating whether this object has an items constraint.
     /// </summary>
     public bool HasItems
