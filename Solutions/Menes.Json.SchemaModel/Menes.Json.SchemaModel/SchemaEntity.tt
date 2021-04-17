@@ -2388,12 +2388,35 @@ namespace <#= Namespace #>
     {
     #>
 
+        <#
+        if (HasSingleItemsType)
+        {
+        #>
+        /// <summary>
+        /// Enumerate the items in the array as a <see cref="<#= SingleItemsDotnetTypeName #>" />.
+        /// </summary>
+        public JsonArrayEnumerator<<#= SingleItemsDotnetTypeName #>> EnumerateItems()
+        {
+            if (this.arrayBacking is ImmutableList<JsonAny> items)
+            {
+                return new JsonArrayEnumerator<<#= SingleItemsDotnetTypeName #>>(items);
+            }
+
+            if (this.jsonElementBacking.ValueKind == JsonValueKind.Array)
+            {
+                return new JsonArrayEnumerator<<#= SingleItemsDotnetTypeName #>>(this.jsonElementBacking);
+            }
+
+            return default;
+        }
+        <#
+        }
+        #>
         /// <inheritdoc/>
         public JsonArrayEnumerator EnumerateArray()
         {
             return this.AsArray.EnumerateArray();
         }
-
     <#
     }
     #>

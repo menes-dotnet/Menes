@@ -5397,12 +5397,28 @@ namespace Menes.Json
 
     
     
-        /// <inheritdoc/>
+                /// <summary>
+        /// Enumerate the items in the array as a <see cref="Menes.Json.JsonString" />.
+        /// </summary>
+        public JsonArrayEnumerator<Menes.Json.JsonString> EnumerateItems()
+        {
+            if (this.arrayBacking is ImmutableList<JsonAny> items)
+            {
+                return new JsonArrayEnumerator<Menes.Json.JsonString>(items);
+            }
+
+            if (this.jsonElementBacking.ValueKind == JsonValueKind.Array)
+            {
+                return new JsonArrayEnumerator<Menes.Json.JsonString>(this.jsonElementBacking);
+            }
+
+            return default;
+        }
+                /// <inheritdoc/>
         public JsonArrayEnumerator EnumerateArray()
         {
             return this.AsArray.EnumerateArray();
         }
-
     
     
         /// <inheritdoc/>
@@ -6729,12 +6745,28 @@ namespace Menes.Json
 
     
     
-        /// <inheritdoc/>
+                /// <summary>
+        /// Enumerate the items in the array as a <see cref="Menes.Json.JsonAny" />.
+        /// </summary>
+        public JsonArrayEnumerator<Menes.Json.JsonAny> EnumerateItems()
+        {
+            if (this.arrayBacking is ImmutableList<JsonAny> items)
+            {
+                return new JsonArrayEnumerator<Menes.Json.JsonAny>(items);
+            }
+
+            if (this.jsonElementBacking.ValueKind == JsonValueKind.Array)
+            {
+                return new JsonArrayEnumerator<Menes.Json.JsonAny>(this.jsonElementBacking);
+            }
+
+            return default;
+        }
+                /// <inheritdoc/>
         public JsonArrayEnumerator EnumerateArray()
         {
             return this.AsArray.EnumerateArray();
         }
-
     
     
         /// <inheritdoc/>
@@ -7412,12 +7444,28 @@ namespace Menes.Json
 
     
     
-        /// <inheritdoc/>
+                /// <summary>
+        /// Enumerate the items in the array as a <see cref="Menes.Json.JsonAny" />.
+        /// </summary>
+        public JsonArrayEnumerator<Menes.Json.JsonAny> EnumerateItems()
+        {
+            if (this.arrayBacking is ImmutableList<JsonAny> items)
+            {
+                return new JsonArrayEnumerator<Menes.Json.JsonAny>(items);
+            }
+
+            if (this.jsonElementBacking.ValueKind == JsonValueKind.Array)
+            {
+                return new JsonArrayEnumerator<Menes.Json.JsonAny>(this.jsonElementBacking);
+            }
+
+            return default;
+        }
+                /// <inheritdoc/>
         public JsonArrayEnumerator EnumerateArray()
         {
             return this.AsArray.EnumerateArray();
         }
-
     
     
         /// <inheritdoc/>
@@ -8010,12 +8058,28 @@ namespace Menes.Json
 
     
     
-        /// <inheritdoc/>
+                /// <summary>
+        /// Enumerate the items in the array as a <see cref="Menes.Json.Validation.SimpleTypesEntity" />.
+        /// </summary>
+        public JsonArrayEnumerator<Menes.Json.Validation.SimpleTypesEntity> EnumerateItems()
+        {
+            if (this.arrayBacking is ImmutableList<JsonAny> items)
+            {
+                return new JsonArrayEnumerator<Menes.Json.Validation.SimpleTypesEntity>(items);
+            }
+
+            if (this.jsonElementBacking.ValueKind == JsonValueKind.Array)
+            {
+                return new JsonArrayEnumerator<Menes.Json.Validation.SimpleTypesEntity>(this.jsonElementBacking);
+            }
+
+            return default;
+        }
+                /// <inheritdoc/>
         public JsonArrayEnumerator EnumerateArray()
         {
             return this.AsArray.EnumerateArray();
         }
-
     
     
         /// <inheritdoc/>
