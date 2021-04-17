@@ -226,6 +226,8 @@ namespace Menes
             }
         }
 ");
+
+            var validation = openApiSchema.Validate(level: ValidationLevel.Flag);
         }
     }
 }

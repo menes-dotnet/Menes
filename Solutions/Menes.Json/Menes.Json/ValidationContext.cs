@@ -23,6 +23,9 @@ namespace Menes.Json
         /// </summary>
         public static readonly ValidationContext InvalidContext = new ValidationContext(false);
 
+        private static readonly ImmutableStack<JsonEncodedText> RootLocationStack = ImmutableStack.Create(JsonEncodedText.Encode("#"));
+        private static readonly ImmutableStack<string> RootAbsoluteLocationStack = ImmutableStack.Create("#");
+
         private readonly int localEvaluatedItemIndex;
         private readonly ImmutableHashSet<JsonEncodedText> localEvaluatedProperties;
         private readonly int appliedEvaluatedItemIndex;
@@ -65,7 +68,7 @@ namespace Menes.Json
         /// <returns>The validation context enabled with the keyword stack.</returns>
         public ValidationContext UsingStack()
         {
-            return new ValidationContext(this.IsValid, this.localEvaluatedItemIndex, this.localEvaluatedProperties, this.appliedEvaluatedItemIndex, this.appliedEvaluatedProperties, this.locationStack ?? ImmutableStack<JsonEncodedText>.Empty, this.absoluteKeywordLocationStack ?? ImmutableStack<string>.Empty, this.results);
+            return new ValidationContext(this.IsValid, this.localEvaluatedItemIndex, this.localEvaluatedProperties, this.appliedEvaluatedItemIndex, this.appliedEvaluatedProperties, this.locationStack ?? RootLocationStack, this.absoluteKeywordLocationStack ?? RootAbsoluteLocationStack, this.results);
         }
 
         /// <summary>
@@ -74,7 +77,7 @@ namespace Menes.Json
         /// <returns>The validation context enabled with evaluated properties.</returns>
         public ValidationContext UsingEvaluatedProperties()
         {
-            return new ValidationContext(this.IsValid, this.localEvaluatedItemIndex, this.localEvaluatedProperties, this.appliedEvaluatedItemIndex, this.appliedEvaluatedProperties, this.locationStack ?? ImmutableStack<JsonEncodedText>.Empty, this.absoluteKeywordLocationStack ?? ImmutableStack<string>.Empty, this.results);
+            return new ValidationContext(this.IsValid, this.localEvaluatedItemIndex, this.localEvaluatedProperties, this.appliedEvaluatedItemIndex, this.appliedEvaluatedProperties, this.locationStack ?? RootLocationStack, this.absoluteKeywordLocationStack ?? RootAbsoluteLocationStack, this.results);
         }
 
         /// <summary>
