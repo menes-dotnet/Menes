@@ -31,6 +31,24 @@ namespace Menes.Json
         /// Initializes a new instance of the <see cref="JsonRelativePointer"/> struct.
         /// </summary>
         /// <param name="value">The string value.</param>
+        public JsonRelativePointer(JsonString value)
+        {
+            if (value.HasJsonElement)
+            {
+                this.jsonElement = value.AsJsonElement;
+                this.value = default;
+            }
+            else
+            {
+                this.jsonElement = default;
+                this.value = value.GetJsonEncodedText();
+            }
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="JsonRelativePointer"/> struct.
+        /// </summary>
+        /// <param name="value">The string value.</param>
         public JsonRelativePointer(string value)
         {
             this.jsonElement = default;
@@ -140,14 +158,7 @@ namespace Menes.Json
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator JsonRelativePointer(JsonString value)
         {
-            if (value.HasJsonElement)
-            {
-                return new JsonRelativePointer(value.AsJsonElement);
-            }
-            else
-            {
-                return new JsonRelativePointer((JsonEncodedText)value);
-            }
+            return new JsonRelativePointer(value);
         }
 
         /// <summary>

@@ -2471,7 +2471,7 @@ namespace <#= Namespace #>
     #>
 
         <#
-        if (HasSingleItemsType)
+        if (CanEnumerateAsSpecificType)
         {
         #>
         /// <summary>

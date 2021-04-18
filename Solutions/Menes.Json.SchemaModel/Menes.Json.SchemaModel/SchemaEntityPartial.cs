@@ -1059,7 +1059,18 @@ public partial class SchemaEntity
     {
         get
         {
-            return this.TypeDeclaration.Schema.Items.IsSchema || (this.TypeDeclaration.Schema.Items.IsUndefined() && this.TypeDeclaration.Schema.UnevaluatedItems.IsNotUndefined());
+            return this.TypeDeclaration.Schema.Items.IsSchema;
+        }
+    }
+
+    /// <summary>
+    /// Gets a value indicating whether we can enumerate this type as a single items type.
+    /// </summary>
+    public bool CanEnumerateAsSpecificType
+    {
+        get
+        {
+            return (this.HasSingleItemsType || (this.TypeDeclaration.Schema.Items.IsUndefined() && this.TypeDeclaration.Schema.UnevaluatedItems.IsNotUndefined())) && this.SingleItemsDotnetTypeName != $"{BuiltInTypes.AnyTypeDeclaration.ns}.{BuiltInTypes.AnyTypeDeclaration.type}";
         }
     }
 
@@ -2181,7 +2192,7 @@ public partial class SchemaEntity
             this.IsNumber = value.ValueKind == JsonValueKind.Number;
             this.IsObject = value.ValueKind == JsonValueKind.Object;
             this.IsArray = value.ValueKind == JsonValueKind.Array;
-            this.IsNull = value.IsUndefined();
+            this.IsNull = value.IsNull();
             this.SerializedValue = GetRawTextAsQuotedString(value);
             this.AsPropertyName = Formatting.ToPascalCaseWithReservedWords(this.SerializedValue.Trim('"')).ToString();
         }

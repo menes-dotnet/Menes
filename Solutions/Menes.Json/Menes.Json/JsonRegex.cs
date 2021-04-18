@@ -34,6 +34,26 @@ namespace Menes.Json
         /// <summary>
         /// Initializes a new instance of the <see cref="JsonRegex"/> struct.
         /// </summary>
+        /// <param name="value">The string value.</param>
+        public JsonRegex(JsonString value)
+        {
+            if (value.HasJsonElement)
+            {
+                this.jsonElement = value.AsJsonElement;
+                this.value = default;
+                this.localRegexValue = default;
+            }
+            else
+            {
+                this.jsonElement = default;
+                this.value = value.GetJsonEncodedText();
+                this.localRegexValue = default;
+            }
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="JsonRegex"/> struct.
+        /// </summary>
         /// <param name="value">The base64 encoded string value.</param>
         public JsonRegex(string value)
         {
@@ -161,14 +181,7 @@ namespace Menes.Json
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator JsonRegex(JsonString value)
         {
-            if (value.HasJsonElement)
-            {
-                return new JsonRegex(value.AsJsonElement);
-            }
-            else
-            {
-                return new JsonRegex((JsonEncodedText)value);
-            }
+            return new JsonRegex(value);
         }
 
         /// <summary>

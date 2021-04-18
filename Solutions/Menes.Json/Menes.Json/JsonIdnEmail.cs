@@ -32,6 +32,24 @@ namespace Menes.Json
         /// <summary>
         /// Initializes a new instance of the <see cref="JsonIdnEmail"/> struct.
         /// </summary>
+        /// <param name="value">The string value.</param>
+        public JsonIdnEmail(JsonString value)
+        {
+            if (value.HasJsonElement)
+            {
+                this.jsonElement = value.AsJsonElement;
+                this.value = default;
+            }
+            else
+            {
+                this.jsonElement = default;
+                this.value = value.GetJsonEncodedText();
+            }
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="JsonIdnEmail"/> struct.
+        /// </summary>
         /// <param name="value">The base64 encoded string value.</param>
         public JsonIdnEmail(string value)
         {
@@ -144,14 +162,7 @@ namespace Menes.Json
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator JsonIdnEmail(JsonString value)
         {
-            if (value.HasJsonElement)
-            {
-                return new JsonIdnEmail(value.AsJsonElement);
-            }
-            else
-            {
-                return new JsonIdnEmail((JsonEncodedText)value);
-            }
+            return new JsonIdnEmail(value);
         }
 
         /// <summary>

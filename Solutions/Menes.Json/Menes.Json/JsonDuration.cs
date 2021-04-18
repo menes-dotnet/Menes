@@ -34,6 +34,26 @@ namespace Menes.Json
         /// <summary>
         /// Initializes a new instance of the <see cref="JsonDuration"/> struct.
         /// </summary>
+        /// <param name="value">The string value.</param>
+        public JsonDuration(JsonString value)
+        {
+            if (value.HasJsonElement)
+            {
+                this.jsonElement = value.AsJsonElement;
+                this.value = default;
+                this.localPeriodValue = default;
+            }
+            else
+            {
+                this.jsonElement = default;
+                this.value = value.GetJsonEncodedText();
+                this.localPeriodValue = default;
+            }
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="JsonDuration"/> struct.
+        /// </summary>
         /// <param name="value">The base64 encoded string value.</param>
         public JsonDuration(string value)
         {
@@ -161,14 +181,7 @@ namespace Menes.Json
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator JsonDuration(JsonString value)
         {
-            if (value.HasJsonElement)
-            {
-                return new JsonDuration(value.AsJsonElement);
-            }
-            else
-            {
-                return new JsonDuration((JsonEncodedText)value);
-            }
+            return new JsonDuration(value);
         }
 
         /// <summary>

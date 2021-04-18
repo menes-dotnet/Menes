@@ -12,8 +12,8 @@ using Menes.Json;
 using System;
 using System.Collections.Generic;
 
-#pragma warning disable
 
+#pragma warning disable
 public partial class SchemaEntity : SchemaEntityBase {
     
     public virtual string TransformText() {
@@ -7605,7 +7605,7 @@ namespace ");
         
         #line 2476 "SchemaEntity.tt"
 
-        if (HasSingleItemsType)
+        if (CanEnumerateAsSpecificType)
         {
         
         

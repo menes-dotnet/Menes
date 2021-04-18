@@ -30,6 +30,24 @@ namespace Menes.Json
         /// <summary>
         /// Initializes a new instance of the <see cref="JsonHostname"/> struct.
         /// </summary>
+        /// <param name="value">The string value.</param>
+        public JsonHostname(JsonString value)
+        {
+            if (value.HasJsonElement)
+            {
+                this.jsonElement = value.AsJsonElement;
+                this.value = default;
+            }
+            else
+            {
+                this.jsonElement = default;
+                this.value = value.GetJsonEncodedText();
+            }
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="JsonHostname"/> struct.
+        /// </summary>
         /// <param name="value">The base64 encoded string value.</param>
         public JsonHostname(string value)
         {
@@ -142,14 +160,7 @@ namespace Menes.Json
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator JsonHostname(JsonString value)
         {
-            if (value.HasJsonElement)
-            {
-                return new JsonHostname(value.AsJsonElement);
-            }
-            else
-            {
-                return new JsonHostname((JsonEncodedText)value);
-            }
+            return new JsonHostname(value);
         }
 
         /// <summary>

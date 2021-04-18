@@ -10,7 +10,7 @@
 
 #nullable enable
 
-namespace AdditionalItemsFeature.AdditionalItemsAsFalseWithoutItems
+namespace UnevaluatedItemsFeature.UnevaluatedItemsAsSchema
 {
     using System;
     using System.Collections.Generic;
@@ -341,6 +341,23 @@ namespace AdditionalItemsFeature.AdditionalItemsAsFalseWithoutItems
 
 
 
+        /// <summary>
+        /// Enumerate the items in the array as a <see cref="Menes.Json.JsonAny" />.
+        /// </summary>
+        public JsonArrayEnumerator<Menes.Json.JsonAny> EnumerateItems()
+        {
+            if (this.arrayBacking is ImmutableList<JsonAny> items)
+            {
+                return new JsonArrayEnumerator<Menes.Json.JsonAny>(items);
+            }
+
+            if (this.jsonElementBacking.ValueKind == JsonValueKind.Array)
+            {
+                return new JsonArrayEnumerator<Menes.Json.JsonAny>(this.jsonElementBacking);
+            }
+
+            return default;
+        }
         /// <inheritdoc/>
         public JsonArrayEnumerator EnumerateArray()
         {
@@ -486,6 +503,16 @@ namespace AdditionalItemsFeature.AdditionalItemsAsFalseWithoutItems
             JsonValueKind valueKind = this.ValueKind;
 
 
+            result = this.ValidateType(valueKind, result, level);
+            if (level == ValidationLevel.Flag && !result.IsValid)
+            {
+                return result;
+            }
+
+
+
+
+
 
 
 
@@ -530,20 +557,13 @@ namespace AdditionalItemsFeature.AdditionalItemsAsFalseWithoutItems
             {
 
 
-                if (level >= ValidationLevel.Detailed)
+                result = arrayEnumerator.Current.As<Menes.Json.JsonAny>().Validate(result, level);
+                if (level == ValidationLevel.Flag && !result.IsValid)
                 {
-                    result = result.WithResult(isValid: false, $"9.3.1.2. additionalItems - Additional items are not permitted at index {arrayLength}.");
-                }
-                else if (level >= ValidationLevel.Basic)
-                {
-                    result = result.WithResult(isValid: false, "9.3.1.2. additionalItems - Additional items are not permitted.");
-                }
-                else if (level == ValidationLevel.Flag)
-                {
-                    return result.WithResult(isValid: false);
+                    return result;
                 }
 
-
+                result = result.WithLocalItemIndex(arrayLength);
 
 
                 arrayLength++;
@@ -567,6 +587,46 @@ namespace AdditionalItemsFeature.AdditionalItemsAsFalseWithoutItems
 
 
 
+
+
+        private ValidationContext ValidateType(JsonValueKind valueKind, in ValidationContext validationContext, ValidationLevel level)
+        {
+            ValidationContext result = validationContext;
+            bool isValid = false;
+
+
+
+
+            ValidationContext localResultArray = Menes.Json.Validate.TypeArray(valueKind, result, level);
+            if (level == ValidationLevel.Flag && localResultArray.IsValid)
+            {
+                return validationContext;
+            }
+
+            if (localResultArray.IsValid)
+            {
+                isValid = true;
+            }
+
+
+
+
+
+
+            result = result.MergeResults(
+                isValid,
+                level
+
+
+
+                , localResultArray
+
+
+
+                        );
+
+            return result;
+        }
 
 
 

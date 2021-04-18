@@ -33,6 +33,24 @@ namespace Menes.Json
         /// <summary>
         /// Initializes a new instance of the <see cref="JsonIpV4"/> struct.
         /// </summary>
+        /// <param name="value">The string value.</param>
+        public JsonIpV4(JsonString value)
+        {
+            if (value.HasJsonElement)
+            {
+                this.jsonElement = value.AsJsonElement;
+                this.value = default;
+            }
+            else
+            {
+                this.jsonElement = default;
+                this.value = value.GetJsonEncodedText();
+            }
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="JsonIpV4"/> struct.
+        /// </summary>
         /// <param name="value">The base64 encoded string value.</param>
         public JsonIpV4(string value)
         {
@@ -155,14 +173,7 @@ namespace Menes.Json
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator JsonIpV4(JsonString value)
         {
-            if (value.HasJsonElement)
-            {
-                return new JsonIpV4(value.AsJsonElement);
-            }
-            else
-            {
-                return new JsonIpV4((JsonEncodedText)value);
-            }
+            return new JsonIpV4(value);
         }
 
         /// <summary>

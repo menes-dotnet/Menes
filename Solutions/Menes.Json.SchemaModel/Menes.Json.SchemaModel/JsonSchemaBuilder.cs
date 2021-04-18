@@ -406,7 +406,7 @@ namespace Menes.Json.SchemaModel
 
             if (!draft201909Schema.Validate(ValidationContext.ValidContext).IsValid)
             {
-                throw new InvalidOperationException("Unable to build types for an invalid schema.");
+                    throw new InvalidOperationException("Unable to build types for an invalid schema.");
             }
 
             ////if (draft201909Schema.Id is Draft201909MetaCore.IdValue idValue)

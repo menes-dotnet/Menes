@@ -34,6 +34,26 @@ namespace Menes.Json
         /// <summary>
         /// Initializes a new instance of the <see cref="JsonDate"/> struct.
         /// </summary>
+        /// <param name="value">The string value.</param>
+        public JsonDate(JsonString value)
+        {
+            if (value.HasJsonElement)
+            {
+                this.jsonElement = value.AsJsonElement;
+                this.value = default;
+                this.localDateValue = default;
+            }
+            else
+            {
+                this.jsonElement = default;
+                this.value = value.GetJsonEncodedText();
+                this.localDateValue = default;
+            }
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="JsonDate"/> struct.
+        /// </summary>
         /// <param name="value">The base64 encoded string value.</param>
         public JsonDate(string value)
         {
@@ -184,14 +204,7 @@ namespace Menes.Json
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator JsonDate(JsonString value)
         {
-            if (value.HasJsonElement)
-            {
-                return new JsonDate(value.AsJsonElement);
-            }
-            else
-            {
-                return new JsonDate((JsonEncodedText)value);
-            }
+            return new JsonDate(value);
         }
 
         /// <summary>

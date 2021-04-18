@@ -34,6 +34,26 @@ namespace Menes.Json
         /// <summary>
         /// Initializes a new instance of the <see cref="JsonTime"/> struct.
         /// </summary>
+        /// <param name="value">The string value.</param>
+        public JsonTime(JsonString value)
+        {
+            if (value.HasJsonElement)
+            {
+                this.jsonElement = value.AsJsonElement;
+                this.value = default;
+                this.localDateValue = default;
+            }
+            else
+            {
+                this.jsonElement = default;
+                this.value = value.GetJsonEncodedText();
+                this.localDateValue = default;
+            }
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="JsonTime"/> struct.
+        /// </summary>
         /// <param name="value">The base64 encoded string value.</param>
         public JsonTime(string value)
         {
@@ -161,14 +181,7 @@ namespace Menes.Json
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator JsonTime(JsonString value)
         {
-            if (value.HasJsonElement)
-            {
-                return new JsonTime(value.AsJsonElement);
-            }
-            else
-            {
-                return new JsonTime((JsonEncodedText)value);
-            }
+            return new JsonTime(value);
         }
 
         /// <summary>

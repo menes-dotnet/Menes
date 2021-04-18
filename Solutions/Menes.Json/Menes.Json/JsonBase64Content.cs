@@ -35,6 +35,26 @@ namespace Menes.Json
         /// <summary>
         /// Initializes a new instance of the <see cref="JsonBase64Content"/> struct.
         /// </summary>
+        /// <param name="value">The string value.</param>
+        public JsonBase64Content(JsonString value)
+        {
+            if (value.HasJsonElement)
+            {
+                this.jsonElement = value.AsJsonElement;
+                this.value = default;
+                this.jsonDocumentValue = default;
+            }
+            else
+            {
+                this.jsonElement = default;
+                this.value = value.GetJsonEncodedText();
+                this.jsonDocumentValue = default;
+            }
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="JsonBase64Content"/> struct.
+        /// </summary>
         /// <param name="value">The base64 encoded string value.</param>
         public JsonBase64Content(string value)
         {
@@ -172,14 +192,7 @@ namespace Menes.Json
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator JsonBase64Content(JsonString value)
         {
-            if (value.HasJsonElement)
-            {
-                return new JsonBase64Content(value.AsJsonElement);
-            }
-            else
-            {
-                return new JsonBase64Content((JsonEncodedText)value);
-            }
+            return new JsonBase64Content(value);
         }
 
         /// <summary>

@@ -34,6 +34,26 @@ namespace Menes.Json
         /// <summary>
         /// Initializes a new instance of the <see cref="JsonIriReference"/> struct.
         /// </summary>
+        /// <param name="value">The string value.</param>
+        public JsonIriReference(JsonString value)
+        {
+            if (value.HasJsonElement)
+            {
+                this.jsonElement = value.AsJsonElement;
+                this.value = default;
+                this.localUriValue = default;
+            }
+            else
+            {
+                this.jsonElement = default;
+                this.value = value.GetJsonEncodedText();
+                this.localUriValue = default;
+            }
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="JsonIriReference"/> struct.
+        /// </summary>
         /// <param name="value">The base64 encoded string value.</param>
         public JsonIriReference(string value)
         {
@@ -161,14 +181,7 @@ namespace Menes.Json
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator JsonIriReference(JsonString value)
         {
-            if (value.HasJsonElement)
-            {
-                return new JsonIriReference(value.AsJsonElement);
-            }
-            else
-            {
-                return new JsonIriReference((JsonEncodedText)value);
-            }
+            return new JsonIriReference(value);
         }
 
         /// <summary>

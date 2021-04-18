@@ -30,6 +30,24 @@ namespace Menes.Json
         /// <summary>
         /// Initializes a new instance of the <see cref="JsonUriTemplate"/> struct.
         /// </summary>
+        /// <param name="value">The string value.</param>
+        public JsonUriTemplate(JsonString value)
+        {
+            if (value.HasJsonElement)
+            {
+                this.jsonElement = value.AsJsonElement;
+                this.value = default;
+            }
+            else
+            {
+                this.jsonElement = default;
+                this.value = value.GetJsonEncodedText();
+            }
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="JsonUriTemplate"/> struct.
+        /// </summary>
         /// <param name="value">The base64 encoded string value.</param>
         public JsonUriTemplate(string value)
         {
@@ -142,14 +160,7 @@ namespace Menes.Json
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator JsonUriTemplate(JsonString value)
         {
-            if (value.HasJsonElement)
-            {
-                return new JsonUriTemplate(value.AsJsonElement);
-            }
-            else
-            {
-                return new JsonUriTemplate((JsonEncodedText)value);
-            }
+            return new JsonUriTemplate(value);
         }
 
         /// <summary>
