@@ -320,7 +320,7 @@ namespace Menes.JsonSchema.TypeModel
                 (_, "base64") => ClrBase64StringTypeDeclaration,
                 ("application/json", null) => ClrContentTypeDeclaration,
                 (null, null) => ClrStringTypeDeclaration,
-                _ => default,
+                _ => null,
             };
         }
 
