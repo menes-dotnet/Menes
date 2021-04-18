@@ -13,6 +13,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Menes.Json.SchemaModel", "M
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Menes.Specs", "Menes.Specs\Menes.Specs.csproj", "{B781EF33-C74E-4252-B36E-47F80172EAFC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Menes.OpenApi", "Menes.OpenApi\Menes.OpenApi.csproj", "{8BE0DD81-E206-4C91-9E6A-CB2C917C3133}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Menes.Json.Walker", "Menes.Json.Walker\Menes.Json.Walker.csproj", "{98DE4724-22F1-4049-A26A-E7CE2058CBD8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +43,14 @@ Global
 		{B781EF33-C74E-4252-B36E-47F80172EAFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B781EF33-C74E-4252-B36E-47F80172EAFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B781EF33-C74E-4252-B36E-47F80172EAFC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8BE0DD81-E206-4C91-9E6A-CB2C917C3133}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8BE0DD81-E206-4C91-9E6A-CB2C917C3133}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8BE0DD81-E206-4C91-9E6A-CB2C917C3133}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8BE0DD81-E206-4C91-9E6A-CB2C917C3133}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98DE4724-22F1-4049-A26A-E7CE2058CBD8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98DE4724-22F1-4049-A26A-E7CE2058CBD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98DE4724-22F1-4049-A26A-E7CE2058CBD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98DE4724-22F1-4049-A26A-E7CE2058CBD8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

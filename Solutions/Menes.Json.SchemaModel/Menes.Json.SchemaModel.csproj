@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Menes.Json.JsonSchema\Menes.Json.JsonSchema.csproj" />
+    <ProjectReference Include="..\Menes.Json.Walker\Menes.Json.Walker.csproj" />
   </ItemGroup>
 
   <ItemGroup>

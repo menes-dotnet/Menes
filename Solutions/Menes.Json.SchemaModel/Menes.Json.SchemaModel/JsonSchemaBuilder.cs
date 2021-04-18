@@ -436,12 +436,12 @@ namespace Menes.Json.SchemaModel
 
         private bool TryReduceSchema(string absoluteLocation, Schema draft201909Schema, [NotNullWhen(true)] out TypeDeclaration? reducedTypeDeclaration)
         {
-            if (draft201909Schema.IsNakedReference() && draft201909Schema.Ref.IsNotUndefined())
+            if (draft201909Schema.IsNakedReference())
             {
                 return this.ReduceSchema(absoluteLocation, out reducedTypeDeclaration, "$ref");
             }
 
-            if (draft201909Schema.IsNakedRecursiveReference() && draft201909Schema.RecursiveRef.IsNotUndefined())
+            if (draft201909Schema.IsNakedRecursiveReference())
             {
                 return this.ReduceSchema(absoluteLocation, out reducedTypeDeclaration, "$recursiveRef");
             }
