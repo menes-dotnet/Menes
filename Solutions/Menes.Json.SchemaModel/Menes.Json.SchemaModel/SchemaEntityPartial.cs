@@ -54,7 +54,7 @@ public partial class SchemaEntity
     {
         get
         {
-            return this.TypeDeclaration.Schema.IsObjectType() || this.HasProperties || this.ConversionsViaConstructor.Any(c => c.IsObject) || this.HasObjectEnum || this.HasObjectConst;
+            return this.TypeDeclaration.Schema.IsObjectType() || this.HasProperties || this.ConversionsViaConstructor.Any(c => c.IsObject);
         }
     }
 
@@ -65,7 +65,7 @@ public partial class SchemaEntity
     {
         get
         {
-            return this.TypeDeclaration.Schema.IsArrayType() || this.ConversionsViaConstructor.Any(c => c.IsArray) || this.HasArrayEnum || this.HasArrayConst;
+            return this.TypeDeclaration.Schema.IsArrayType() || this.ConversionsViaConstructor.Any(c => c.IsArray);
         }
     }
 
@@ -76,7 +76,7 @@ public partial class SchemaEntity
     {
         get
         {
-            return this.TypeDeclaration.Schema.IsNumberType() || this.ConversionsViaConstructor.Any(c => c.IsNumber) || this.HasNumberEnum || this.HasNumberConst;
+            return this.TypeDeclaration.Schema.IsNumberType() || this.ConversionsViaConstructor.Any(c => c.IsNumber);
         }
     }
 
@@ -87,7 +87,7 @@ public partial class SchemaEntity
     {
         get
         {
-            return this.TypeDeclaration.Schema.IsStringType() || this.ConversionsViaConstructor.Any(c => c.IsString) || this.HasStringEnum || this.HasStringConst;
+            return this.TypeDeclaration.Schema.IsStringType() || this.ConversionsViaConstructor.Any(c => c.IsString);
         }
     }
 
@@ -98,127 +98,7 @@ public partial class SchemaEntity
     {
         get
         {
-            return this.TypeDeclaration.Schema.IsBooleanType() || this.ConversionsViaConstructor.Any(c => c.IsBoolean) || this.HasBooleanEnum || this.HasBooleanConst;
-        }
-    }
-
-    /// <summary>
-    /// Gets a value indicating whether is has an object enum type.
-    /// </summary>
-    public bool HasObjectEnum
-    {
-        get
-        {
-            return this.TypeDeclaration.Schema.Enum is Draft201909MetaValidation.EnumArray ea &&
-                ea.EnumerateArray().Any(e => e.IsObject);
-        }
-    }
-
-    /// <summary>
-    /// Gets a value indicating whether is has an array enum type.
-    /// </summary>
-    public bool HasArrayEnum
-    {
-        get
-        {
-            return this.TypeDeclaration.Schema.Enum is Draft201909MetaValidation.EnumArray ea &&
-                ea.EnumerateArray().Any(e => e.IsArray);
-        }
-    }
-
-    /// <summary>
-    /// Gets a value indicating whether is has an number enum type.
-    /// </summary>
-    public bool HasNumberEnum
-    {
-        get
-        {
-            return this.TypeDeclaration.Schema.Enum is Draft201909MetaValidation.EnumArray ea &&
-                ea.EnumerateArray().Any(e => e.IsNumber);
-        }
-    }
-
-    /// <summary>
-    /// Gets a value indicating whether is has an array enum type.
-    /// </summary>
-    public bool HasStringEnum
-    {
-        get
-        {
-            return this.TypeDeclaration.Schema.Enum is Draft201909MetaValidation.EnumArray ea &&
-                ea.EnumerateArray().Any(e => e.IsString);
-        }
-    }
-
-    /// <summary>
-    /// Gets a value indicating whether is has a boolean enum type.
-    /// </summary>
-    public bool HasBooleanEnum
-    {
-        get
-        {
-            return this.TypeDeclaration.Schema.Enum is Draft201909MetaValidation.EnumArray ea &&
-                ea.EnumerateArray().Any(e => e.IsBoolean);
-        }
-    }
-
-    /// <summary>
-    /// Gets a value indicating whether is has an object const type.
-    /// </summary>
-    public bool HasObjectConst
-    {
-        get
-        {
-            return this.TypeDeclaration.Schema.Const is JsonAny c &&
-                c.IsObject;
-        }
-    }
-
-    /// <summary>
-    /// Gets a value indicating whether is has an array const type.
-    /// </summary>
-    public bool HasArrayConst
-    {
-        get
-        {
-            return this.TypeDeclaration.Schema.Const is JsonAny c &&
-                c.IsArray;
-        }
-    }
-
-    /// <summary>
-    /// Gets a value indicating whether is has a string const type.
-    /// </summary>
-    public bool HasStringConst
-    {
-        get
-        {
-            return this.TypeDeclaration.Schema.Const is JsonAny c &&
-                c.IsString;
-        }
-    }
-
-    /// <summary>
-    /// Gets a value indicating whether is has a number const type.
-    /// </summary>
-    public bool HasNumberConst
-    {
-        get
-        {
-            return this.TypeDeclaration.Schema.Const is JsonAny c &&
-                c.IsNumber;
-        }
-    }
-
-    /// <summary>
-    /// Gets a value indicating whether is has a boolean const type.
-    /// </summary>
-    public bool HasBooleanConst
-    {
-        get
-        {
-            return this.TypeDeclaration.Schema.Const is JsonAny c &&
-                c.IsBoolean;
+            return this.TypeDeclaration.Schema.IsBooleanType() || this.ConversionsViaConstructor.Any(c => c.IsBoolean);
         }
     }
 

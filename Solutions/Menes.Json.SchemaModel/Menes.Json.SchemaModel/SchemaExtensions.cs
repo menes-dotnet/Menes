@@ -95,7 +95,7 @@ namespace Menes.JsonSchema.TypeModel
         public static bool IsObjectType(this Draft201909Schema draft201909Schema)
         {
             return
-                draft201909Schema.IsExplicitObjectType() || (draft201909Schema.Type is Draft201909MetaValidation.TypeEntity type && type.IsArray && type.AsSimpleTypesEntityArray().Any(type => type == Draft201909MetaValidation.TypeEntity.SimpleTypesEntity.EnumValues.Object)) || draft201909Schema.Properties is not null || draft201909Schema.Required is not null || draft201909Schema.DependentRequired is not null || draft201909Schema.AdditionalProperties is not null || draft201909Schema.DependentSchemas is not null || draft201909Schema.MaxProperties is not null || draft201909Schema.MinProperties is not null || draft201909Schema.PatternProperties is not null || draft201909Schema.PropertyNames is not null || draft201909Schema.UnevaluatedProperties is not null;
+                draft201909Schema.IsExplicitObjectType() || (draft201909Schema.Type is Draft201909MetaValidation.TypeEntity type && type.IsArray && type.AsSimpleTypesEntityArray().Any(type => type == Draft201909MetaValidation.TypeEntity.SimpleTypesEntity.EnumValues.Object)) || draft201909Schema.Properties is not null || draft201909Schema.Required is not null || draft201909Schema.DependentRequired is not null || draft201909Schema.AdditionalProperties is not null || draft201909Schema.DependentSchemas is not null || draft201909Schema.MaxProperties is not null || draft201909Schema.MinProperties is not null || draft201909Schema.PatternProperties is not null || draft201909Schema.PropertyNames is not null || draft201909Schema.UnevaluatedProperties is not null || draft201909Schema.HasObjectEnum() || draft201909Schema.HasObjectConst();
         }
 
         /// <summary>
@@ -106,7 +106,7 @@ namespace Menes.JsonSchema.TypeModel
         public static bool IsArrayType(this Draft201909Schema draft201909Schema)
         {
             return
-                draft201909Schema.IsExplicitArrayType() || (draft201909Schema.Type is Draft201909MetaValidation.TypeEntity type && type.IsArray && type.AsSimpleTypesEntityArray().Any(type => type == Draft201909MetaValidation.TypeEntity.SimpleTypesEntity.EnumValues.Array)) || draft201909Schema.AdditionalItems is not null || draft201909Schema.Contains is not null || draft201909Schema.Items is not null || draft201909Schema.MaxContains is not null || draft201909Schema.MaxItems is not null || draft201909Schema.MinContains is not null || draft201909Schema.MinItems is not null || draft201909Schema.UnevaluatedItems is not null || draft201909Schema.UniqueItems is not null;
+                draft201909Schema.IsExplicitArrayType() || (draft201909Schema.Type is Draft201909MetaValidation.TypeEntity type && type.IsArray && type.AsSimpleTypesEntityArray().Any(type => type == Draft201909MetaValidation.TypeEntity.SimpleTypesEntity.EnumValues.Array)) || draft201909Schema.AdditionalItems is not null || draft201909Schema.Contains is not null || draft201909Schema.Items is not null || draft201909Schema.MaxContains is not null || draft201909Schema.MaxItems is not null || draft201909Schema.MinContains is not null || draft201909Schema.MinItems is not null || draft201909Schema.UnevaluatedItems is not null || draft201909Schema.UniqueItems is not null || draft201909Schema.HasArrayEnum() || draft201909Schema.HasArrayConst();
         }
 
         /// <summary>
@@ -117,7 +117,7 @@ namespace Menes.JsonSchema.TypeModel
         public static bool IsNumberType(this Draft201909Schema draft201909Schema)
         {
             return
-                draft201909Schema.IsExplicitNumberType() || (draft201909Schema.Type is Draft201909MetaValidation.TypeEntity type && type.IsArray && type.AsSimpleTypesEntityArray().Any(type => type == Draft201909MetaValidation.TypeEntity.SimpleTypesEntity.EnumValues.Number || type == Draft201909MetaValidation.TypeEntity.SimpleTypesEntity.EnumValues.Integer)) || draft201909Schema.Minimum is not null || draft201909Schema.Maximum is not null || draft201909Schema.ExclusiveMaximum is not null || draft201909Schema.ExclusiveMinimum is not null || draft201909Schema.MultipleOf is not null;
+                draft201909Schema.IsExplicitNumberType() || (draft201909Schema.Type is Draft201909MetaValidation.TypeEntity type && type.IsArray && type.AsSimpleTypesEntityArray().Any(type => type == Draft201909MetaValidation.TypeEntity.SimpleTypesEntity.EnumValues.Number || type == Draft201909MetaValidation.TypeEntity.SimpleTypesEntity.EnumValues.Integer)) || draft201909Schema.Minimum is not null || draft201909Schema.Maximum is not null || draft201909Schema.ExclusiveMaximum is not null || draft201909Schema.ExclusiveMinimum is not null || draft201909Schema.MultipleOf is not null || draft201909Schema.HasNumberEnum() || draft201909Schema.HasNumberConst();
         }
 
         /// <summary>
@@ -128,7 +128,7 @@ namespace Menes.JsonSchema.TypeModel
         public static bool IsBooleanType(this Draft201909Schema draft201909Schema)
         {
             return
-                draft201909Schema.IsExplicitBooleanType() || (draft201909Schema.Type is Draft201909MetaValidation.TypeEntity type && type.IsArray && type.AsSimpleTypesEntityArray().Any(type => type == Draft201909MetaValidation.TypeEntity.SimpleTypesEntity.EnumValues.Boolean));
+                draft201909Schema.IsExplicitBooleanType() || (draft201909Schema.Type is Draft201909MetaValidation.TypeEntity type && type.IsArray && type.AsSimpleTypesEntityArray().Any(type => type == Draft201909MetaValidation.TypeEntity.SimpleTypesEntity.EnumValues.Boolean)) || draft201909Schema.HasBooleanEnum() || draft201909Schema.HasBooleanConst();
         }
 
         /// <summary>
@@ -150,7 +150,117 @@ namespace Menes.JsonSchema.TypeModel
         public static bool IsStringType(this Draft201909Schema draft201909Schema)
         {
             return
-                draft201909Schema.IsExplicitStringType() || (draft201909Schema.Type is Draft201909MetaValidation.TypeEntity type && type.IsArray && type.AsSimpleTypesEntityArray().Any(type => type == Draft201909MetaValidation.TypeEntity.SimpleTypesEntity.EnumValues.String)) || draft201909Schema.MinLength is not null || draft201909Schema.MaxLength is not null || draft201909Schema.Pattern is not null;
+                draft201909Schema.IsExplicitStringType() || (draft201909Schema.Type is Draft201909MetaValidation.TypeEntity type && type.IsArray && type.AsSimpleTypesEntityArray().Any(type => type == Draft201909MetaValidation.TypeEntity.SimpleTypesEntity.EnumValues.String)) || draft201909Schema.MinLength is not null || draft201909Schema.MaxLength is not null || draft201909Schema.Pattern is not null || draft201909Schema.HasStringEnum() || draft201909Schema.HasStringConst();
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether is has an object enum type.
+        /// </summary>
+        /// <param name="draft201909Schema">The schema to validate.</param>
+        /// <returns>True if the schema has at least one enum value of the correct type.</returns>
+        public static bool HasObjectEnum(this Draft201909Schema draft201909Schema)
+        {
+            return draft201909Schema.Enum is Draft201909MetaValidation.EnumArray ea &&
+                ea.EnumerateArray().Any(e => e.IsObject);
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether is has an array enum type.
+        /// </summary>
+        /// <param name="draft201909Schema">The schema to validate.</param>
+        /// <returns>True if the schema has at least one enum value of the correct type.</returns>
+        public static bool HasArrayEnum(this Draft201909Schema draft201909Schema)
+        {
+            return draft201909Schema.Enum is Draft201909MetaValidation.EnumArray ea &&
+                ea.EnumerateArray().Any(e => e.IsArray);
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether is has an number enum type.
+        /// </summary>
+        /// <param name="draft201909Schema">The schema to validate.</param>
+        /// <returns>True if the schema has at least one enum value of the correct type.</returns>
+        public static bool HasNumberEnum(this Draft201909Schema draft201909Schema)
+        {
+            return draft201909Schema.Enum is Draft201909MetaValidation.EnumArray ea &&
+                ea.EnumerateArray().Any(e => e.IsNumber);
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether is has an array enum type.
+        /// </summary>
+        /// <param name="draft201909Schema">The schema to validate.</param>
+        /// <returns>True if the schema has at least one enum value of the correct type.</returns>
+        public static bool HasStringEnum(this Draft201909Schema draft201909Schema)
+        {
+            return draft201909Schema.Enum is Draft201909MetaValidation.EnumArray ea &&
+                ea.EnumerateArray().Any(e => e.IsString);
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether is has a boolean enum type.
+        /// </summary>
+        /// <param name="draft201909Schema">The schema to validate.</param>
+        /// <returns>True if the schema has at least one enum value of the correct type.</returns>
+        public static bool HasBooleanEnum(this Draft201909Schema draft201909Schema)
+        {
+            return draft201909Schema.Enum is Draft201909MetaValidation.EnumArray ea &&
+                ea.EnumerateArray().Any(e => e.IsBoolean);
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether is has an object const type.
+        /// </summary>
+        /// <param name="draft201909Schema">The schema to validate.</param>
+        /// <returns>True if the schema has a const value of the correct type.</returns>
+        public static bool HasObjectConst(this Draft201909Schema draft201909Schema)
+        {
+            return draft201909Schema.Const is JsonAny c &&
+                c.IsObject;
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether is has an array const type.
+        /// </summary>
+        /// <param name="draft201909Schema">The schema to validate.</param>
+        /// <returns>True if the schema has a const value of the correct type.</returns>
+        public static bool HasArrayConst(this Draft201909Schema draft201909Schema)
+        {
+            return draft201909Schema.Const is JsonAny c &&
+                c.IsArray;
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether is has a string const type.
+        /// </summary>
+        /// <param name="draft201909Schema">The schema to validate.</param>
+        /// <returns>True if the schema has a const value of the correct type.</returns>
+        public static bool HasStringConst(this Draft201909Schema draft201909Schema)
+        {
+            return draft201909Schema.Const is JsonAny c &&
+                c.IsString;
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether is has a number const type.
+        /// </summary>
+        /// <param name="draft201909Schema">The schema to validate.</param>
+        /// <returns>True if the schema has a const value of the correct type.</returns>
+        public static bool HasNumberConst(this Draft201909Schema draft201909Schema)
+        {
+            return draft201909Schema.Const is JsonAny c &&
+                c.IsNumber;
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether is has a boolean const type.
+        /// </summary>
+        /// <param name="draft201909Schema">The schema to validate.</param>
+        /// <returns>True if the schema has a const value of the correct type.</returns>
+        public static bool HasBooleanConst(this Draft201909Schema draft201909Schema)
+        {
+            return draft201909Schema.Const is JsonAny c &&
+                c.IsBoolean;
         }
 
         /// <summary>
