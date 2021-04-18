@@ -992,7 +992,7 @@ namespace Menes.Json
         /// <example>
         /// {Property examples}.
         /// </example>
-        public Menes.Json.Validation.EnumArray Enum
+        public Menes.Json.Validation.JsonAnyArray Enum
         {
             get
             {
@@ -1008,7 +1008,7 @@ namespace Menes.Json
                 {
                     if (this.jsonElementBacking.TryGetProperty(EnumUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  Menes.Json.Validation.EnumArray(result);
+                        return new  Menes.Json.Validation.JsonAnyArray(result);
                     }
                 }
 
@@ -1342,7 +1342,7 @@ namespace Menes.Json
         ,             Menes.Json.Validation.JsonStringArray? required = null
         ,             Menes.Json.Validation.DependentRequiredValue? dependentRequired = null
         ,             Menes.Json.JsonAny? @const = null
-        ,             Menes.Json.Validation.EnumArray? @enum = null
+        ,             Menes.Json.Validation.JsonAnyArray? @enum = null
         ,             Menes.Json.Validation.TypeEntity? type = null
                 )
         {
@@ -1419,7 +1419,7 @@ namespace Menes.Json
             {
                 builder.Add(ConstJsonPropertyName, @const__);
             }
-                    if (@enum is Menes.Json.Validation.EnumArray @enum__)
+                    if (@enum is Menes.Json.Validation.JsonAnyArray @enum__)
             {
                 builder.Add(EnumJsonPropertyName, @enum__);
             }
@@ -1634,7 +1634,7 @@ namespace Menes.Json
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Validation WithEnum(Menes.Json.Validation.EnumArray value)
+        public Validation WithEnum(Menes.Json.Validation.JsonAnyArray value)
         {
             return this.SetProperty(EnumJsonPropertyName, value);
         }
@@ -2175,7 +2175,7 @@ namespace Menes.Json
                 EnumJsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                    EnumArray property = that.Enum;
+                    JsonAnyArray property = that.Enum;
                     return property.Validate(validationContext, level);
                 });
                     builder.Add(
@@ -6501,9 +6501,9 @@ namespace Menes.Json
         /// <summary>
     /// A type generated from a JsonSchema specification.
     /// </summary>
-    public readonly struct EnumArray :
-                IJsonArray<EnumArray>,
-                IEquatable<EnumArray>
+    public readonly struct JsonAnyArray :
+                IJsonArray<JsonAnyArray>,
+                IEquatable<JsonAnyArray>
     {
     
     
@@ -6523,10 +6523,10 @@ namespace Menes.Json
     
     
         /// <summary>
-        /// Initializes a new instance of the <see cref="EnumArray"/> struct.
+        /// Initializes a new instance of the <see cref="JsonAnyArray"/> struct.
         /// </summary>
         /// <param name="value">The backing <see cref="JsonElement"/>.</param>
-        public EnumArray(JsonElement value)
+        public JsonAnyArray(JsonElement value)
         {
             this.jsonElementBacking = value;
                     this.arrayBacking = default;
@@ -6534,20 +6534,20 @@ namespace Menes.Json
 
     
             /// <summary>
-        /// Initializes a new instance of the <see cref="EnumArray"/> struct.
+        /// Initializes a new instance of the <see cref="JsonAnyArray"/> struct.
         /// </summary>
         /// <param name="value">An array list.</param>
-        public EnumArray(ImmutableList<JsonAny> value)
+        public JsonAnyArray(ImmutableList<JsonAny> value)
         {
             this.jsonElementBacking = default;
                                             this.arrayBacking = value;
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="EnumArray"/> struct.
+        /// Initializes a new instance of the <see cref="JsonAnyArray"/> struct.
         /// </summary>
         /// <param name="jsonArray">The <see cref="JsonArray"/> from which to construct the value.</param>
-        public EnumArray(JsonArray jsonArray)
+        public JsonAnyArray(JsonArray jsonArray)
         {
             if (jsonArray.HasJsonElement)
             {
@@ -6730,21 +6730,21 @@ namespace Menes.Json
         /// Conversion from any.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator EnumArray(JsonAny value)
+        public static implicit operator JsonAnyArray(JsonAny value)
         {
             if (value.HasJsonElement)
             {
-                return new EnumArray(value.AsJsonElement);
+                return new JsonAnyArray(value.AsJsonElement);
             }
 
-            return value.As<EnumArray>();
+            return value.As<JsonAnyArray>();
         }
 
         /// <summary>
         /// Conversion to any.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator JsonAny(EnumArray value)
+        public static implicit operator JsonAny(JsonAnyArray value)
         {
             return value.AsAny;
         }
@@ -6754,16 +6754,16 @@ namespace Menes.Json
         /// Conversion from array.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator EnumArray(JsonArray value)
+        public static implicit operator JsonAnyArray(JsonArray value)
         {
-            return new EnumArray(value);
+            return new JsonAnyArray(value);
         }
 
         /// <summary>
         /// Conversion to array.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator JsonArray(EnumArray value)
+        public static implicit operator JsonArray(JsonAnyArray value)
         {
             return value.AsArray;
         }
@@ -6772,7 +6772,7 @@ namespace Menes.Json
         /// Implicit conversion to an <see cref="ImmutableList{T}"/> of <see cref="JsonAny"/>.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator ImmutableList<JsonAny>(EnumArray value)
+        public static implicit operator ImmutableList<JsonAny>(JsonAnyArray value)
         {
             return value.AsArray.AsItemsList;
         }
@@ -6781,9 +6781,9 @@ namespace Menes.Json
         /// Implicit conversion from an <see cref="ImmutableList{T}"/> of <see cref="JsonAny"/>.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator EnumArray(ImmutableList<JsonAny> value)
+        public static implicit operator JsonAnyArray(ImmutableList<JsonAny> value)
         {
-            return new EnumArray(value);
+            return new JsonAnyArray(value);
         }
     
     
@@ -6820,23 +6820,6 @@ namespace Menes.Json
 
     
     
-                /// <summary>
-        /// Enumerate the items in the array as a <see cref="Menes.Json.JsonAny" />.
-        /// </summary>
-        public JsonArrayEnumerator<Menes.Json.JsonAny> EnumerateItems()
-        {
-            if (this.arrayBacking is ImmutableList<JsonAny> items)
-            {
-                return new JsonArrayEnumerator<Menes.Json.JsonAny>(items);
-            }
-
-            if (this.jsonElementBacking.ValueKind == JsonValueKind.Array)
-            {
-                return new JsonArrayEnumerator<Menes.Json.JsonAny>(this.jsonElementBacking);
-            }
-
-            return default;
-        }
                 /// <inheritdoc/>
         public JsonArrayEnumerator EnumerateArray()
         {
@@ -6868,7 +6851,7 @@ namespace Menes.Json
         }
 
         /// <inheritdoc/>
-        public bool Equals(EnumArray other)
+        public bool Equals(JsonAnyArray other)
         {
             JsonValueKind valueKind = this.ValueKind;
 
@@ -6892,7 +6875,7 @@ namespace Menes.Json
     
     
         /// <inheritdoc/>
-        public EnumArray Add<TItem>(TItem item)
+        public JsonAnyArray Add<TItem>(TItem item)
             where TItem : struct, IJsonValue
         {
             if (this.ValueKind == JsonValueKind.Array || this.ValueKind == JsonValueKind.Undefined)
@@ -6904,7 +6887,7 @@ namespace Menes.Json
         }
 
         /// <inheritdoc/>
-        public EnumArray Insert<TItem>(int index, TItem item)
+        public JsonAnyArray Insert<TItem>(int index, TItem item)
             where TItem : struct, IJsonValue
         {
             if (this.ValueKind == JsonValueKind.Array || this.ValueKind == JsonValueKind.Undefined)
@@ -6916,7 +6899,7 @@ namespace Menes.Json
         }
 
         /// <inheritdoc/>
-        public EnumArray Replace<TItem>(TItem oldValue, TItem newValue)
+        public JsonAnyArray Replace<TItem>(TItem oldValue, TItem newValue)
             where TItem : struct, IJsonValue
         {
             if (this.ValueKind == JsonValueKind.Array)
@@ -6928,7 +6911,7 @@ namespace Menes.Json
         }
 
         /// <inheritdoc/>
-        public EnumArray RemoveAt(int index)
+        public JsonAnyArray RemoveAt(int index)
         {
             if (this.ValueKind == JsonValueKind.Array)
             {
@@ -6939,7 +6922,7 @@ namespace Menes.Json
         }
 
         /// <inheritdoc/>
-        public EnumArray RemoveRange(int index, int count)
+        public JsonAnyArray RemoveRange(int index, int count)
         {
             if (this.ValueKind == JsonValueKind.Array)
             {
@@ -6950,7 +6933,7 @@ namespace Menes.Json
         }
 
         /// <inheritdoc/>
-        public EnumArray SetItem<TItem>(int index, TItem value)
+        public JsonAnyArray SetItem<TItem>(int index, TItem value)
             where TItem : struct, IJsonValue
         {
             if (this.ValueKind == JsonValueKind.Array)
@@ -6966,7 +6949,7 @@ namespace Menes.Json
         public T As<T>()
             where T : struct, IJsonValue
         {
-            return this.As<EnumArray, T>();
+            return this.As<JsonAnyArray, T>();
         }
 
         /// <inheritdoc/>
@@ -7765,23 +7748,6 @@ namespace Menes.Json
 
     
     
-                /// <summary>
-        /// Enumerate the items in the array as a <see cref="Menes.Json.JsonAny" />.
-        /// </summary>
-        public JsonArrayEnumerator<Menes.Json.JsonAny> EnumerateItems()
-        {
-            if (this.arrayBacking is ImmutableList<JsonAny> items)
-            {
-                return new JsonArrayEnumerator<Menes.Json.JsonAny>(items);
-            }
-
-            if (this.jsonElementBacking.ValueKind == JsonValueKind.Array)
-            {
-                return new JsonArrayEnumerator<Menes.Json.JsonAny>(this.jsonElementBacking);
-            }
-
-            return default;
-        }
                 /// <inheritdoc/>
         public JsonArrayEnumerator EnumerateArray()
         {

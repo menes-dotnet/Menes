@@ -2673,7 +2673,7 @@ namespace Menes.Json
         /// <example>
         /// {Property examples}.
         /// </example>
-        public Menes.Json.Validation.EnumArray Enum
+        public Menes.Json.Validation.JsonAnyArray Enum
         {
             get
             {
@@ -2689,7 +2689,7 @@ namespace Menes.Json
                 {
                     if (this.jsonElementBacking.TryGetProperty(EnumUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  Menes.Json.Validation.EnumArray(result);
+                        return new  Menes.Json.Validation.JsonAnyArray(result);
                     }
                 }
 
@@ -2953,7 +2953,7 @@ namespace Menes.Json
         /// <example>
         /// {Property examples}.
         /// </example>
-        public Menes.Json.MetaData.ExamplesArray Examples
+        public Menes.Json.MetaData.JsonAnyArray Examples
         {
             get
             {
@@ -2969,7 +2969,7 @@ namespace Menes.Json
                 {
                     if (this.jsonElementBacking.TryGetProperty(ExamplesUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  Menes.Json.MetaData.ExamplesArray(result);
+                        return new  Menes.Json.MetaData.JsonAnyArray(result);
                     }
                 }
 
@@ -3654,7 +3654,7 @@ namespace Menes.Json
         ,             Menes.Json.Validation.JsonStringArray? required = null
         ,             Menes.Json.Validation.DependentRequiredValue? dependentRequired = null
         ,             Menes.Json.JsonAny? @const = null
-        ,             Menes.Json.Validation.EnumArray? @enum = null
+        ,             Menes.Json.Validation.JsonAnyArray? @enum = null
         ,             Menes.Json.Validation.TypeEntity? type = null
         ,             Menes.Json.JsonString? title = null
         ,             Menes.Json.JsonString? description = null
@@ -3662,7 +3662,7 @@ namespace Menes.Json
         ,             Menes.Json.MetaData.DeprecatedValue? deprecated = null
         ,             Menes.Json.MetaData.ReadOnlyValue? readOnly = null
         ,             Menes.Json.MetaData.WriteOnlyValue? writeOnly = null
-        ,             Menes.Json.MetaData.ExamplesArray? examples = null
+        ,             Menes.Json.MetaData.JsonAnyArray? examples = null
         ,             Menes.Json.JsonString? format = null
         ,             Menes.Json.JsonString? contentMediaType = null
         ,             Menes.Json.JsonString? contentEncoding = null
@@ -3848,7 +3848,7 @@ namespace Menes.Json
             {
                 builder.Add(ConstJsonPropertyName, @const__);
             }
-                    if (@enum is Menes.Json.Validation.EnumArray @enum__)
+                    if (@enum is Menes.Json.Validation.JsonAnyArray @enum__)
             {
                 builder.Add(EnumJsonPropertyName, @enum__);
             }
@@ -3880,7 +3880,7 @@ namespace Menes.Json
             {
                 builder.Add(WriteOnlyJsonPropertyName, writeOnly__);
             }
-                    if (examples is Menes.Json.MetaData.ExamplesArray examples__)
+                    if (examples is Menes.Json.MetaData.JsonAnyArray examples__)
             {
                 builder.Add(ExamplesJsonPropertyName, examples__);
             }
@@ -4401,7 +4401,7 @@ namespace Menes.Json
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Schema WithEnum(Menes.Json.Validation.EnumArray value)
+        public Schema WithEnum(Menes.Json.Validation.JsonAnyArray value)
         {
             return this.SetProperty(EnumJsonPropertyName, value);
         }
@@ -4489,7 +4489,7 @@ namespace Menes.Json
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Schema WithExamples(Menes.Json.MetaData.ExamplesArray value)
+        public Schema WithExamples(Menes.Json.MetaData.JsonAnyArray value)
         {
             return this.SetProperty(ExamplesJsonPropertyName, value);
         }
@@ -7505,23 +7505,6 @@ namespace Menes.Json
 
     
     
-                /// <summary>
-        /// Enumerate the items in the array as a <see cref="Menes.Json.JsonAny" />.
-        /// </summary>
-        public JsonArrayEnumerator<Menes.Json.JsonAny> EnumerateItems()
-        {
-            if (this.arrayBacking is ImmutableList<JsonAny> items)
-            {
-                return new JsonArrayEnumerator<Menes.Json.JsonAny>(items);
-            }
-
-            if (this.jsonElementBacking.ValueKind == JsonValueKind.Array)
-            {
-                return new JsonArrayEnumerator<Menes.Json.JsonAny>(this.jsonElementBacking);
-            }
-
-            return default;
-        }
                 /// <inheritdoc/>
         public JsonArrayEnumerator EnumerateArray()
         {

@@ -281,7 +281,7 @@ namespace Menes.Json.SchemaModel
                 if (currentDeclaration.Schema.Items.IsSchemaArray)
                 {
                     int index = 0;
-                    foreach (Schema schema in currentDeclaration.Schema.Items.EnumerateItems())
+                    foreach (Schema schema in currentDeclaration.Schema.Items.EnumerateArray())
                     {
                         TypeDeclaration typeDeclaration = this.GetTypeDeclarationForPropertyArrayIndex(currentDeclaration.Location, "items", index);
                         this.AddTypeDeclarationsToReferencedTypes(referencedTypes, typeDeclaration);

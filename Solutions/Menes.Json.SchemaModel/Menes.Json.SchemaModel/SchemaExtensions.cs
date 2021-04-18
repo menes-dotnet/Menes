@@ -162,7 +162,7 @@ namespace Menes.Json.SchemaModel
         public static bool HasObjectEnum(this Schema draft201909Schema)
         {
             return draft201909Schema.Enum.ValueKind == JsonValueKind.Array &&
-                draft201909Schema.Enum.EnumerateItems().Any(e => e.ValueKind == JsonValueKind.Object);
+                draft201909Schema.Enum.EnumerateArray().Any(e => e.ValueKind == JsonValueKind.Object);
         }
 
         /// <summary>
@@ -173,7 +173,7 @@ namespace Menes.Json.SchemaModel
         public static bool HasArrayEnum(this Schema draft201909Schema)
         {
             return draft201909Schema.Enum.ValueKind == JsonValueKind.Array &&
-                draft201909Schema.Enum.EnumerateItems().Any(e => e.ValueKind == JsonValueKind.Array);
+                draft201909Schema.Enum.EnumerateArray().Any(e => e.ValueKind == JsonValueKind.Array);
         }
 
         /// <summary>
@@ -184,7 +184,7 @@ namespace Menes.Json.SchemaModel
         public static bool HasNumberEnum(this Schema draft201909Schema)
         {
             return draft201909Schema.Enum.ValueKind == JsonValueKind.Array &&
-                draft201909Schema.Enum.EnumerateItems().Any(e => e.ValueKind == JsonValueKind.Number);
+                draft201909Schema.Enum.EnumerateArray().Any(e => e.ValueKind == JsonValueKind.Number);
         }
 
         /// <summary>
@@ -195,7 +195,7 @@ namespace Menes.Json.SchemaModel
         public static bool HasNullEnum(this Schema draft201909Schema)
         {
             return draft201909Schema.Enum.ValueKind == JsonValueKind.Array &&
-                draft201909Schema.Enum.EnumerateItems().Any(e => e.ValueKind == JsonValueKind.Null);
+                draft201909Schema.Enum.EnumerateArray().Any(e => e.ValueKind == JsonValueKind.Null);
         }
 
         /// <summary>
@@ -206,7 +206,7 @@ namespace Menes.Json.SchemaModel
         public static bool HasStringEnum(this Schema draft201909Schema)
         {
             return draft201909Schema.Enum.ValueKind == JsonValueKind.Array &&
-                draft201909Schema.Enum.EnumerateItems().Any(e => e.ValueKind == JsonValueKind.String);
+                draft201909Schema.Enum.EnumerateArray().Any(e => e.ValueKind == JsonValueKind.String);
         }
 
         /// <summary>
@@ -217,7 +217,7 @@ namespace Menes.Json.SchemaModel
         public static bool HasBooleanEnum(this Schema draft201909Schema)
         {
             return draft201909Schema.Enum.ValueKind == JsonValueKind.Array &&
-                draft201909Schema.Enum.EnumerateItems().Any(e => e.ValueKind == JsonValueKind.True || e.ValueKind == JsonValueKind.False);
+                draft201909Schema.Enum.EnumerateArray().Any(e => e.ValueKind == JsonValueKind.True || e.ValueKind == JsonValueKind.False);
         }
 
         /// <summary>
