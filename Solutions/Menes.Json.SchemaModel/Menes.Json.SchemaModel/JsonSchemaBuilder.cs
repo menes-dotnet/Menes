@@ -2,7 +2,7 @@
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
-namespace Menes.JsonSchema.TypeModel
+namespace Menes.Json.SchemaModel
 {
     using System;
     using System.Collections.Generic;
@@ -107,7 +107,7 @@ namespace Menes.JsonSchema.TypeModel
 
             foreach (LocatedElement element in this.walker.EnumerateLocatedElements())
             {
-                if (element.ContentType == JsonSchemaWalker.Draft201909SchemaContent && new JsonReference(element.AbsoluteLocation).HasAbsoluteUri)
+                if (element.ContentType == JsonSchemaWalker.SchemaContent && new JsonReference(element.AbsoluteLocation).HasAbsoluteUri)
                 {
                     TypeDeclaration declaration = this.BuildTypeDeclarationFor(element);
                     if (element.AbsoluteLocation == rootElement.AbsoluteLocation)
@@ -200,24 +200,24 @@ namespace Menes.JsonSchema.TypeModel
 
         private void FindReferencedTypesCore(TypeDeclaration currentDeclaration, HashSet<TypeDeclaration> referencedTypes, HashSet<TypeDeclaration> localTypes)
         {
-            if (currentDeclaration.Schema.AdditionalItems is Draft201909Schema)
+            if (currentDeclaration.Schema.AdditionalItems.IsNotUndefined())
             {
                 TypeDeclaration typeDeclaration = this.GetTypeDeclarationForProperty(currentDeclaration.Location, "additionalItems");
                 this.AddTypeDeclarationsToReferencedTypes(referencedTypes, typeDeclaration);
                 localTypes.Add(typeDeclaration);
             }
 
-            if (currentDeclaration.Schema.AdditionalProperties is Draft201909Schema)
+            if (currentDeclaration.Schema.AdditionalProperties.IsNotUndefined())
             {
                 TypeDeclaration typeDeclaration = this.GetTypeDeclarationForProperty(currentDeclaration.Location, "additionalProperties");
                 this.AddTypeDeclarationsToReferencedTypes(referencedTypes, typeDeclaration);
                 localTypes.Add(typeDeclaration);
             }
 
-            if (currentDeclaration.Schema.AllOf is Draft201909MetaApplicator.ItemsEntity.SchemaArray allOf)
+            if (currentDeclaration.Schema.AllOf.IsNotUndefined())
             {
                 int index = 0;
-                foreach (Draft201909Schema schema in allOf.EnumerateArray())
+                foreach (Schema schema in currentDeclaration.Schema.AllOf.EnumerateArray())
                 {
                     TypeDeclaration typeDeclaration = this.GetTypeDeclarationForPropertyArrayIndex(currentDeclaration.Location, "allOf", index);
                     this.AddTypeDeclarationsToReferencedTypes(referencedTypes, typeDeclaration);
@@ -226,10 +226,10 @@ namespace Menes.JsonSchema.TypeModel
                 }
             }
 
-            if (currentDeclaration.Schema.AnyOf is Draft201909MetaApplicator.ItemsEntity.SchemaArray anyOf)
+            if (currentDeclaration.Schema.AnyOf.IsNotUndefined())
             {
                 int index = 0;
-                foreach (Draft201909Schema schema in anyOf.EnumerateArray())
+                foreach (Schema schema in currentDeclaration.Schema.AnyOf.EnumerateArray())
                 {
                     TypeDeclaration typeDeclaration = this.GetTypeDeclarationForPropertyArrayIndex(currentDeclaration.Location, "anyOf", index);
                     this.AddTypeDeclarationsToReferencedTypes(referencedTypes, typeDeclaration);
@@ -238,23 +238,23 @@ namespace Menes.JsonSchema.TypeModel
                 }
             }
 
-            if (currentDeclaration.Schema.Contains is Draft201909Schema)
+            if (currentDeclaration.Schema.Contains.IsNotUndefined())
             {
                 TypeDeclaration typeDeclaration = this.GetTypeDeclarationForProperty(currentDeclaration.Location, "contains");
                 this.AddTypeDeclarationsToReferencedTypes(referencedTypes, typeDeclaration);
                 localTypes.Add(typeDeclaration);
             }
 
-            if (currentDeclaration.Schema.ContentSchema is Draft201909Schema)
+            if (currentDeclaration.Schema.ContentSchema.IsNotUndefined())
             {
                 TypeDeclaration typeDeclaration = this.GetTypeDeclarationForProperty(currentDeclaration.Location, "contentSchema");
                 this.AddTypeDeclarationsToReferencedTypes(referencedTypes, typeDeclaration);
                 localTypes.Add(typeDeclaration);
             }
 
-            if (currentDeclaration.Schema.DependentSchemas is Draft201909MetaApplicator.DependentSchemasEntity dependentSchemas)
+            if (currentDeclaration.Schema.DependentSchemas.IsNotUndefined())
             {
-                foreach (Property<Draft201909MetaApplicator.DependentSchemasEntity> schemaProperty in dependentSchemas.EnumerateObject())
+                foreach (Property<Schema> schemaProperty in currentDeclaration.Schema.DependentSchemas.EnumerateProperties())
                 {
                     TypeDeclaration typeDeclaration = this.GetTypeDeclarationForProperty(new JsonReference(currentDeclaration.Location).AppendUnencodedPropertyNameToFragment("dependentSchemas"), schemaProperty.Name);
                     this.AddTypeDeclarationsToReferencedTypes(referencedTypes, typeDeclaration);
@@ -262,26 +262,26 @@ namespace Menes.JsonSchema.TypeModel
                 }
             }
 
-            if (currentDeclaration.Schema.Else is Draft201909Schema)
+            if (currentDeclaration.Schema.Else.IsNotUndefined())
             {
                 TypeDeclaration typeDeclaration = this.GetTypeDeclarationForProperty(currentDeclaration.Location, "else");
                 this.AddTypeDeclarationsToReferencedTypes(referencedTypes, typeDeclaration);
                 localTypes.Add(typeDeclaration);
             }
 
-            if (currentDeclaration.Schema.If is Draft201909Schema)
+            if (currentDeclaration.Schema.If.IsNotUndefined())
             {
                 TypeDeclaration typeDeclaration = this.GetTypeDeclarationForProperty(currentDeclaration.Location, "if");
                 this.AddTypeDeclarationsToReferencedTypes(referencedTypes, typeDeclaration);
                 localTypes.Add(typeDeclaration);
             }
 
-            if (currentDeclaration.Schema.Items is Draft201909MetaApplicator.ItemsEntity items)
+            if (currentDeclaration.Schema.Items.IsNotUndefined())
             {
-                if (items.IsArray)
+                if (currentDeclaration.Schema.Items.IsSchemaArray)
                 {
                     int index = 0;
-                    foreach (Draft201909Schema schema in items.AsSchemaArray().EnumerateArray())
+                    foreach (Schema schema in currentDeclaration.Schema.Items.EnumerateItems())
                     {
                         TypeDeclaration typeDeclaration = this.GetTypeDeclarationForPropertyArrayIndex(currentDeclaration.Location, "items", index);
                         this.AddTypeDeclarationsToReferencedTypes(referencedTypes, typeDeclaration);
@@ -297,17 +297,17 @@ namespace Menes.JsonSchema.TypeModel
                 }
             }
 
-            if (currentDeclaration.Schema.Not is Draft201909Schema)
+            if (currentDeclaration.Schema.Not.IsNotUndefined())
             {
                 TypeDeclaration typeDeclaration = this.GetTypeDeclarationForProperty(currentDeclaration.Location, "not");
                 this.AddTypeDeclarationsToReferencedTypes(referencedTypes, typeDeclaration);
                 localTypes.Add(typeDeclaration);
             }
 
-            if (currentDeclaration.Schema.OneOf is Draft201909MetaApplicator.ItemsEntity.SchemaArray oneOf)
+            if (currentDeclaration.Schema.OneOf.IsNotUndefined())
             {
                 int index = 0;
-                foreach (Draft201909Schema schema in oneOf.EnumerateArray())
+                foreach (Schema schema in currentDeclaration.Schema.OneOf.EnumerateItems())
                 {
                     TypeDeclaration typeDeclaration = this.GetTypeDeclarationForPropertyArrayIndex(currentDeclaration.Location, "oneOf", index);
                     this.AddTypeDeclarationsToReferencedTypes(referencedTypes, typeDeclaration);
@@ -316,9 +316,9 @@ namespace Menes.JsonSchema.TypeModel
                 }
             }
 
-            if (currentDeclaration.Schema.PatternProperties is Draft201909MetaApplicator.PatternPropertiesEntity patternProperties)
+            if (currentDeclaration.Schema.PatternProperties.IsNotUndefined())
             {
-                foreach (Property<Draft201909MetaApplicator.PatternPropertiesEntity> schemaProperty in patternProperties.EnumerateObject())
+                foreach (Property<Schema> schemaProperty in currentDeclaration.Schema.PatternProperties.EnumerateProperties())
                 {
                     TypeDeclaration typeDeclaration = this.GetTypeDeclarationForProperty(new JsonReference(currentDeclaration.Location).AppendUnencodedPropertyNameToFragment("patternProperties"), schemaProperty.Name);
                     this.AddTypeDeclarationsToReferencedTypes(referencedTypes, typeDeclaration);
@@ -326,9 +326,9 @@ namespace Menes.JsonSchema.TypeModel
                 }
             }
 
-            if (currentDeclaration.Schema.Properties is Draft201909MetaApplicator.PropertiesEntity properties)
+            if (currentDeclaration.Schema.Properties.IsNotUndefined())
             {
-                foreach (Property<Draft201909MetaApplicator.PropertiesEntity> schemaProperty in properties.EnumerateObject())
+                foreach (Property<Schema> schemaProperty in currentDeclaration.Schema.Properties.EnumerateProperties())
                 {
                     TypeDeclaration typeDeclaration = this.GetTypeDeclarationForProperty(new JsonReference(currentDeclaration.Location).AppendUnencodedPropertyNameToFragment("properties"), schemaProperty.Name);
                     this.AddTypeDeclarationsToReferencedTypes(referencedTypes, typeDeclaration);
@@ -336,14 +336,14 @@ namespace Menes.JsonSchema.TypeModel
                 }
             }
 
-            if (currentDeclaration.Schema.PropertyNames is Draft201909Schema)
+            if (currentDeclaration.Schema.PropertyNames.IsNotUndefined())
             {
                 TypeDeclaration typeDeclaration = this.GetTypeDeclarationForProperty(currentDeclaration.Location, "propertyNames");
                 this.AddTypeDeclarationsToReferencedTypes(referencedTypes, typeDeclaration);
                 localTypes.Add(typeDeclaration);
             }
 
-            if (currentDeclaration.Schema.RecursiveRef is JsonUriReference)
+            if (currentDeclaration.Schema.RecursiveRef.IsNotUndefined())
             {
                 // If we have a recursive ref, this is being applied in place; naked refs have already been reduced.
                 TypeDeclaration typeDeclaration = this.GetTypeDeclarationForProperty(currentDeclaration.Location, "$recursiveRef");
@@ -351,7 +351,7 @@ namespace Menes.JsonSchema.TypeModel
                 localTypes.Add(typeDeclaration);
             }
 
-            if (currentDeclaration.Schema.Ref is JsonUriReference)
+            if (currentDeclaration.Schema.Ref.IsNotUndefined())
             {
                 // If we have a recursive ref, this is being applied in place; naked refs have already been reduced.
                 TypeDeclaration typeDeclaration = this.GetTypeDeclarationForProperty(currentDeclaration.Location, "$ref");
@@ -359,21 +359,21 @@ namespace Menes.JsonSchema.TypeModel
                 localTypes.Add(typeDeclaration);
             }
 
-            if (currentDeclaration.Schema.Then is Draft201909Schema)
+            if (currentDeclaration.Schema.Then.IsNotUndefined())
             {
                 TypeDeclaration typeDeclaration = this.GetTypeDeclarationForProperty(currentDeclaration.Location, "then");
                 this.AddTypeDeclarationsToReferencedTypes(referencedTypes, typeDeclaration);
                 localTypes.Add(typeDeclaration);
             }
 
-            if (currentDeclaration.Schema.UnevaluatedItems is Draft201909Schema)
+            if (currentDeclaration.Schema.UnevaluatedItems.IsNotUndefined())
             {
                 TypeDeclaration typeDeclaration = this.GetTypeDeclarationForProperty(currentDeclaration.Location, "unevaluatedItems");
                 this.AddTypeDeclarationsToReferencedTypes(referencedTypes, typeDeclaration);
                 localTypes.Add(typeDeclaration);
             }
 
-            if (currentDeclaration.Schema.UnevaluatedProperties is Draft201909Schema)
+            if (currentDeclaration.Schema.UnevaluatedProperties.IsNotUndefined())
             {
                 TypeDeclaration typeDeclaration = this.GetTypeDeclarationForProperty(currentDeclaration.Location, "unevaluatedProperties");
                 this.AddTypeDeclarationsToReferencedTypes(referencedTypes, typeDeclaration);
@@ -391,13 +391,13 @@ namespace Menes.JsonSchema.TypeModel
 
         private TypeDeclaration BuildTypeDeclarationFor(LocatedElement rootElement)
         {
-            return this.BuildTypeDeclarationFor(rootElement.AbsoluteLocation, rootElement.Element.As<Draft201909Schema>());
+            return this.BuildTypeDeclarationFor(rootElement.AbsoluteLocation, new Schema(rootElement.Element));
         }
 
         /// <summary>
         /// Build the type declaration for the given schema.
         /// </summary>
-        private TypeDeclaration BuildTypeDeclarationFor(string location, Draft201909Schema draft201909Schema)
+        private TypeDeclaration BuildTypeDeclarationFor(string location, Schema draft201909Schema)
         {
             if (this.locatedTypeDeclarations.TryGetValue(location, out TypeDeclaration existingDeclaration))
             {
@@ -434,14 +434,14 @@ namespace Menes.JsonSchema.TypeModel
             return result;
         }
 
-        private bool TryReduceSchema(string absoluteLocation, Draft201909Schema draft201909Schema, [NotNullWhen(true)] out TypeDeclaration? reducedTypeDeclaration)
+        private bool TryReduceSchema(string absoluteLocation, Schema draft201909Schema, [NotNullWhen(true)] out TypeDeclaration? reducedTypeDeclaration)
         {
-            if (draft201909Schema.IsNakedReference() && draft201909Schema.Ref is JsonUriReference)
+            if (draft201909Schema.IsNakedReference() && draft201909Schema.Ref.IsNotUndefined())
             {
                 return this.ReduceSchema(absoluteLocation, out reducedTypeDeclaration, "$ref");
             }
 
-            if (draft201909Schema.IsNakedRecursiveReference() && draft201909Schema.RecursiveRef is JsonUriReference)
+            if (draft201909Schema.IsNakedRecursiveReference() && draft201909Schema.RecursiveRef.IsNotUndefined())
             {
                 return this.ReduceSchema(absoluteLocation, out reducedTypeDeclaration, "$recursiveRef");
             }
@@ -553,18 +553,18 @@ namespace Menes.JsonSchema.TypeModel
 
             // First we add the 'required' properties as JsonAny; they will be overridden if we have explicit implementations
             // elsewhere
-            if (source.Schema.Required is Draft201909MetaValidation.StringArray requiredArray)
+            if (source.Schema.Required.IsNotUndefined())
             {
-                foreach (JsonString requiredName in requiredArray.EnumerateArray())
+                foreach (JsonString requiredName in source.Schema.Required.EnumerateItems())
                 {
                     target.AddOrReplaceProperty(new PropertyDeclaration(BuiltInTypes.AnyTypeDeclarationInstance, requiredName!, true, source.Location == target.Location));
                 }
             }
 
-            if (source.Schema.AllOf is Draft201909MetaApplicator.ItemsEntity.SchemaArray allOf)
+            if (source.Schema.AllOf.IsNotUndefined())
             {
                 int index = 0;
-                foreach (Draft201909Schema schema in allOf.EnumerateArray())
+                foreach (Schema schema in source.Schema.AllOf.EnumerateItems())
                 {
                     TypeDeclaration allOfTypeDeclaration = this.GetTypeDeclarationForPropertyArrayIndex(source.Location, "allOf", index);
                     this.AddPropertiesFromType(allOfTypeDeclaration, target, typesVisited);
@@ -572,29 +572,29 @@ namespace Menes.JsonSchema.TypeModel
                 }
             }
 
-            if (source.Schema.Ref is JsonUriReference && !source.Schema.IsNakedReference())
+            if (source.Schema.Ref.IsNotUndefined() && !source.Schema.IsNakedReference())
             {
                 TypeDeclaration refTypeDeclaration = this.GetTypeDeclarationForProperty(source.Location, "$ref");
                 this.AddPropertiesFromType(refTypeDeclaration, target, typesVisited);
             }
 
-            if (source.Schema.RecursiveRef is JsonUriReference && !source.Schema.IsNakedRecursiveReference())
+            if (source.Schema.RecursiveRef.IsNotUndefined() && !source.Schema.IsNakedRecursiveReference())
             {
                 TypeDeclaration refTypeDeclaration = this.GetTypeDeclarationForProperty(source.Location, "$recursiveRef");
                 this.AddPropertiesFromType(refTypeDeclaration, target, typesVisited);
             }
 
             // Then we add our own properties.
-            if (source.Schema.Properties is Draft201909MetaApplicator.PropertiesEntity properties)
+            if (source.Schema.Properties.IsNotUndefined())
             {
-                foreach (Property<Draft201909MetaApplicator.PropertiesEntity> property in properties.EnumerateObject())
+                foreach (Property<Schema> property in source.Schema.Properties.EnumerateProperties())
                 {
                     string propertyName = property.Name;
                     bool isRequired = false;
 
-                    if (source.Schema.Required is Draft201909MetaValidation.StringArray required)
+                    if (source.Schema.Required.IsNotUndefined())
                     {
-                        if (required.Any(r => propertyName == r.GetString()))
+                        if (source.Schema.Required.EnumerateItems().Any(r => propertyName == r.GetString()))
                         {
                             isRequired = true;
                         }
@@ -630,7 +630,7 @@ namespace Menes.JsonSchema.TypeModel
         {
             if (type.Schema.IsExplicitArrayType())
             {
-                if (type.Schema.Items is Draft201909MetaApplicator.ItemsEntity items && items.IsObject)
+                if (type.Schema.Items.IsNotUndefined() && type.Schema.Items.IsSchema)
                 {
                     TypeDeclaration itemsDeclaration = this.GetTypeDeclarationForProperty(type.Location, "items");
 

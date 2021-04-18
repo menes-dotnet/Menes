@@ -7,8 +7,7 @@ namespace Hooks
     using System.Net.Http;
     using Drivers;
     using Menes.Json;
-    using Menes.Json.Schema;
-    using Menes.JsonSchema.TypeModel;
+    using Menes.Json.SchemaModel;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using SolidToken.SpecFlow.DependencyInjection;

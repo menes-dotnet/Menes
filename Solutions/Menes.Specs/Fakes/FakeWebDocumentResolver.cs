@@ -2,7 +2,7 @@
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
-namespace Menes.Json.Schema
+namespace Menes.Json
 {
     using System;
     using System.Collections.Generic;

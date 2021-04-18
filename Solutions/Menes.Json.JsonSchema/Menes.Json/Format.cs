@@ -22,43 +22,21 @@ namespace Menes.Json
         /// <summary>
     /// A type generated from a JsonSchema specification.
     /// </summary>
-    public readonly struct Content :
-            IJsonObject<Content>,
-                    IEquatable<Content>
+    public readonly struct Format :
+            IJsonObject<Format>,
+                    IEquatable<Format>
     {
     
         
         /// <summary>
-        /// JSON property name for <see cref="ContentMediaType"/>.
+        /// JSON property name for <see cref="Format1"/>.
         /// </summary>
-        public static readonly ReadOnlyMemory<byte> ContentMediaTypeUtf8JsonPropertyName = new byte[] { 99, 111, 110, 116, 101, 110, 116, 77, 101, 100, 105, 97, 84, 121, 112, 101 };
+        public static readonly ReadOnlyMemory<byte> Format1Utf8JsonPropertyName = new byte[] { 102, 111, 114, 109, 97, 116 };
 
         /// <summary>
-        /// JSON property name for <see cref="ContentMediaType"/>.
+        /// JSON property name for <see cref="Format1"/>.
         /// </summary>
-        public static readonly JsonEncodedText ContentMediaTypeJsonPropertyName = JsonEncodedText.Encode( ContentMediaTypeUtf8JsonPropertyName.Span);
-
-        
-        /// <summary>
-        /// JSON property name for <see cref="ContentEncoding"/>.
-        /// </summary>
-        public static readonly ReadOnlyMemory<byte> ContentEncodingUtf8JsonPropertyName = new byte[] { 99, 111, 110, 116, 101, 110, 116, 69, 110, 99, 111, 100, 105, 110, 103 };
-
-        /// <summary>
-        /// JSON property name for <see cref="ContentEncoding"/>.
-        /// </summary>
-        public static readonly JsonEncodedText ContentEncodingJsonPropertyName = JsonEncodedText.Encode( ContentEncodingUtf8JsonPropertyName.Span);
-
-        
-        /// <summary>
-        /// JSON property name for <see cref="ContentSchema"/>.
-        /// </summary>
-        public static readonly ReadOnlyMemory<byte> ContentSchemaUtf8JsonPropertyName = new byte[] { 99, 111, 110, 116, 101, 110, 116, 83, 99, 104, 101, 109, 97 };
-
-        /// <summary>
-        /// JSON property name for <see cref="ContentSchema"/>.
-        /// </summary>
-        public static readonly JsonEncodedText ContentSchemaJsonPropertyName = JsonEncodedText.Encode( ContentSchemaUtf8JsonPropertyName.Span);
+        public static readonly JsonEncodedText Format1JsonPropertyName = JsonEncodedText.Encode( Format1Utf8JsonPropertyName.Span);
 
         
     
@@ -66,7 +44,7 @@ namespace Menes.Json
     
     
     
-            private static readonly ImmutableDictionary<JsonEncodedText, Func<Content, ValidationContext, ValidationLevel, ValidationContext>> __MenesLocalProperties = CreateLocalPropertyValidators();
+            private static readonly ImmutableDictionary<JsonEncodedText, Func<Format, ValidationContext, ValidationLevel, ValidationContext>> __MenesLocalProperties = CreateLocalPropertyValidators();
     
     
 
@@ -81,10 +59,10 @@ namespace Menes.Json
             private readonly bool? booleanBacking;
     
         /// <summary>
-        /// Initializes a new instance of the <see cref="Content"/> struct.
+        /// Initializes a new instance of the <see cref="Format"/> struct.
         /// </summary>
         /// <param name="value">The backing <see cref="JsonElement"/>.</param>
-        public Content(JsonElement value)
+        public Format(JsonElement value)
         {
             this.jsonElementBacking = value;
                 this.objectBacking = default;
@@ -92,10 +70,10 @@ namespace Menes.Json
             }
 
             /// <summary>
-        /// Initializes a new instance of the <see cref="Content"/> struct.
+        /// Initializes a new instance of the <see cref="Format"/> struct.
         /// </summary>
         /// <param name="value">A property dictionary.</param>
-        public Content(ImmutableDictionary<JsonEncodedText, JsonAny> value)
+        public Format(ImmutableDictionary<JsonEncodedText, JsonAny> value)
         {
             this.jsonElementBacking = default;
             this.objectBacking = value;
@@ -103,10 +81,10 @@ namespace Menes.Json
                 }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Content"/> struct.
+        /// Initializes a new instance of the <see cref="Format"/> struct.
         /// </summary>
         /// <param name="jsonObject">The <see cref="JsonObject"/> from which to construct the value.</param>
-        public Content(JsonObject jsonObject)
+        public Format(JsonObject jsonObject)
         {
             if (jsonObject.HasJsonElement)
             {
@@ -126,10 +104,10 @@ namespace Menes.Json
     
     
             /// <summary>
-        /// Initializes a new instance of the <see cref="Content"/> struct.
+        /// Initializes a new instance of the <see cref="Format"/> struct.
         /// </summary>
         /// <param name="jsonBoolean">The <see cref="JsonBoolean"/> from which to construct the value.</param>
-        public Content(JsonBoolean jsonBoolean)
+        public Format(JsonBoolean jsonBoolean)
         {
             if (jsonBoolean.HasJsonElement)
             {
@@ -146,10 +124,10 @@ namespace Menes.Json
                                         }
 
                 /// <summary>
-        /// Initializes a new instance of the <see cref="Content"/> struct.
+        /// Initializes a new instance of the <see cref="Format"/> struct.
         /// </summary>
         /// <param name="boolean">The <see cref="bool"/> from which to construct the value.</param>
-        public Content(bool boolean)
+        public Format(bool boolean)
         {
             this.jsonElementBacking = default;
             this.booleanBacking = boolean;
@@ -165,7 +143,7 @@ namespace Menes.Json
     
             
         /// <summary>
-        /// Gets ContentMediaType.
+        /// Gets Format1.
         /// </summary>
         /// <remarks>
         /// {Property title}.
@@ -174,13 +152,13 @@ namespace Menes.Json
         /// <example>
         /// {Property examples}.
         /// </example>
-        public Menes.Json.JsonString ContentMediaType
+        public Menes.Json.JsonString Format1
         {
             get
             {
                 if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
                 {
-                    if(properties.TryGetValue(ContentMediaTypeJsonPropertyName, out JsonAny result))
+                    if(properties.TryGetValue(Format1JsonPropertyName, out JsonAny result))
                     {
                         return result;
                     }
@@ -188,79 +166,9 @@ namespace Menes.Json
 
                 if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
                 {
-                    if (this.jsonElementBacking.TryGetProperty(ContentMediaTypeUtf8JsonPropertyName.Span, out JsonElement result))
+                    if (this.jsonElementBacking.TryGetProperty(Format1Utf8JsonPropertyName.Span, out JsonElement result))
                     {
                         return new  Menes.Json.JsonString(result);
-                    }
-                }
-
-                return default;
-            }
-        }
-
-        
-        /// <summary>
-        /// Gets ContentEncoding.
-        /// </summary>
-        /// <remarks>
-        /// {Property title}.
-        /// {Property description}.
-        /// </remarks>
-        /// <example>
-        /// {Property examples}.
-        /// </example>
-        public Menes.Json.JsonString ContentEncoding
-        {
-            get
-            {
-                if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
-                {
-                    if(properties.TryGetValue(ContentEncodingJsonPropertyName, out JsonAny result))
-                    {
-                        return result;
-                    }
-                }
-
-                if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
-                {
-                    if (this.jsonElementBacking.TryGetProperty(ContentEncodingUtf8JsonPropertyName.Span, out JsonElement result))
-                    {
-                        return new  Menes.Json.JsonString(result);
-                    }
-                }
-
-                return default;
-            }
-        }
-
-        
-        /// <summary>
-        /// Gets ContentSchema.
-        /// </summary>
-        /// <remarks>
-        /// {Property title}.
-        /// {Property description}.
-        /// </remarks>
-        /// <example>
-        /// {Property examples}.
-        /// </example>
-        public Menes.Json.Schema ContentSchema
-        {
-            get
-            {
-                if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
-                {
-                    if(properties.TryGetValue(ContentSchemaJsonPropertyName, out JsonAny result))
-                    {
-                        return result;
-                    }
-                }
-
-                if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
-                {
-                    if (this.jsonElementBacking.TryGetProperty(ContentSchemaUtf8JsonPropertyName.Span, out JsonElement result))
-                    {
-                        return new  Menes.Json.Schema(result);
                     }
                 }
 
@@ -439,21 +347,21 @@ namespace Menes.Json
         /// Conversion from any.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator Content(JsonAny value)
+        public static implicit operator Format(JsonAny value)
         {
             if (value.HasJsonElement)
             {
-                return new Content(value.AsJsonElement);
+                return new Format(value.AsJsonElement);
             }
 
-            return value.As<Content>();
+            return value.As<Format>();
         }
 
         /// <summary>
         /// Conversion to any.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator JsonAny(Content value)
+        public static implicit operator JsonAny(Format value)
         {
             return value.AsAny;
         }
@@ -464,16 +372,16 @@ namespace Menes.Json
         /// Conversion from object.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator Content(JsonObject value)
+        public static implicit operator Format(JsonObject value)
         {
-            return new Content(value);
+            return new Format(value);
         }
 
         /// <summary>
         /// Conversion to object.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator JsonObject(Content value)
+        public static implicit operator JsonObject(Format value)
         {
             return value.AsObject;
         }
@@ -482,7 +390,7 @@ namespace Menes.Json
         /// Implicit conversion to a property dictionary.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator ImmutableDictionary<JsonEncodedText, JsonAny>(Content  value)
+        public static implicit operator ImmutableDictionary<JsonEncodedText, JsonAny>(Format  value)
         {
             return value.AsObject.AsPropertyDictionary;
         }
@@ -491,9 +399,9 @@ namespace Menes.Json
         /// Implicit conversion from a property dictionary.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator Content (ImmutableDictionary<JsonEncodedText, JsonAny> value)
+        public static implicit operator Format (ImmutableDictionary<JsonEncodedText, JsonAny> value)
         {
-            return new Content (value);
+            return new Format (value);
         }
 
     
@@ -504,16 +412,16 @@ namespace Menes.Json
         /// Conversion from bool.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator Content(bool value)
+        public static implicit operator Format(bool value)
         {
-            return new Content(value);
+            return new Format(value);
         }
 
         /// <summary>
         /// Conversion to bool.
         /// </summary>
         /// <param name="boolean">The value from which to convert.</param>
-        public static implicit operator bool(Content boolean)
+        public static implicit operator bool(Format boolean)
         {
             return boolean.AsBoolean.GetBoolean();
         }
@@ -522,77 +430,45 @@ namespace Menes.Json
         /// Conversion from bool.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator Content(JsonBoolean value)
+        public static implicit operator Format(JsonBoolean value)
         {
-            return new Content(value);
+            return new Format(value);
         }
 
         /// <summary>
         /// Conversion to bool.
         /// </summary>
         /// <param name="boolean">The value from which to convert.</param>
-        public static implicit operator JsonBoolean(Content boolean)
+        public static implicit operator JsonBoolean(Format boolean)
         {
             return boolean.AsBoolean;
         }
 
     
             /// <summary>
-        /// Creates an instance of a <see cref="Content"/>.
+        /// Creates an instance of a <see cref="Format"/>.
         /// </summary>
-        public static Content Create(
-                            Menes.Json.JsonString? contentMediaType = null
-        ,             Menes.Json.JsonString? contentEncoding = null
-        ,             Menes.Json.Schema? contentSchema = null
+        public static Format Create(
+                            Menes.Json.JsonString? format1 = null
                 )
         {
             var builder = ImmutableDictionary.CreateBuilder<JsonEncodedText, JsonAny>();
-                            if (contentMediaType is Menes.Json.JsonString contentMediaType__)
+                            if (format1 is Menes.Json.JsonString format1__)
             {
-                builder.Add(ContentMediaTypeJsonPropertyName, contentMediaType__);
-            }
-                    if (contentEncoding is Menes.Json.JsonString contentEncoding__)
-            {
-                builder.Add(ContentEncodingJsonPropertyName, contentEncoding__);
-            }
-                    if (contentSchema is Menes.Json.Schema contentSchema__)
-            {
-                builder.Add(ContentSchemaJsonPropertyName, contentSchema__);
+                builder.Add(Format1JsonPropertyName, format1__);
             }
                     return builder.ToImmutable();
         }
 
         
         /// <summary>
-        /// Sets contentMediaType.
+        /// Sets format.
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Content WithContentMediaType(Menes.Json.JsonString value)
+        public Format WithFormat1(Menes.Json.JsonString value)
         {
-            return this.SetProperty(ContentMediaTypeJsonPropertyName, value);
-        }
-
-        
-        /// <summary>
-        /// Sets contentEncoding.
-        /// </summary>
-        /// <param name="value">The value to set.</param>
-        /// <returns>The entity with the updated property.</returns>
-        public Content WithContentEncoding(Menes.Json.JsonString value)
-        {
-            return this.SetProperty(ContentEncodingJsonPropertyName, value);
-        }
-
-        
-        /// <summary>
-        /// Sets contentSchema.
-        /// </summary>
-        /// <param name="value">The value to set.</param>
-        /// <returns>The entity with the updated property.</returns>
-        public Content WithContentSchema(Menes.Json.Schema value)
-        {
-            return this.SetProperty(ContentSchemaJsonPropertyName, value);
+            return this.SetProperty(Format1JsonPropertyName, value);
         }
 
         
@@ -630,6 +506,8 @@ namespace Menes.Json
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -689,7 +567,7 @@ namespace Menes.Json
         }
 
         /// <inheritdoc/>
-        public bool Equals(Content other)
+        public bool Equals(Format other)
         {
             JsonValueKind valueKind = this.ValueKind;
 
@@ -774,7 +652,7 @@ namespace Menes.Json
             return false;        }
 
         /// <inheritdoc/>
-        public Content SetProperty<TValue>(JsonEncodedText name, TValue value)
+        public Format SetProperty<TValue>(JsonEncodedText name, TValue value)
             where TValue : IJsonValue
         {
             if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
@@ -786,7 +664,7 @@ namespace Menes.Json
         }
 
         /// <inheritdoc/>
-        public Content SetProperty<TValue>(string name, TValue value)
+        public Format SetProperty<TValue>(string name, TValue value)
             where TValue : IJsonValue
         {
             if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
@@ -798,7 +676,7 @@ namespace Menes.Json
         }
 
         /// <inheritdoc/>
-        public Content SetProperty<TValue>(ReadOnlySpan<char> name, TValue value)
+        public Format SetProperty<TValue>(ReadOnlySpan<char> name, TValue value)
             where TValue : IJsonValue
         {
             if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
@@ -810,7 +688,7 @@ namespace Menes.Json
         }
 
         /// <inheritdoc/>
-        public Content SetProperty<TValue>(ReadOnlySpan<byte> utf8name, TValue value)
+        public Format SetProperty<TValue>(ReadOnlySpan<byte> utf8name, TValue value)
             where TValue : IJsonValue
         {
             if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
@@ -822,7 +700,7 @@ namespace Menes.Json
         }
 
         /// <inheritdoc/>
-        public Content RemoveProperty(JsonEncodedText name)
+        public Format RemoveProperty(JsonEncodedText name)
         {
             if (this.ValueKind == JsonValueKind.Object)
             {
@@ -833,7 +711,7 @@ namespace Menes.Json
         }
 
         /// <inheritdoc/>
-        public Content RemoveProperty(string name)
+        public Format RemoveProperty(string name)
         {
             if (this.ValueKind == JsonValueKind.Object)
             {
@@ -844,7 +722,7 @@ namespace Menes.Json
         }
 
         /// <inheritdoc/>
-        public Content RemoveProperty(ReadOnlySpan<char> name)
+        public Format RemoveProperty(ReadOnlySpan<char> name)
         {
             if (this.ValueKind == JsonValueKind.Object)
             {
@@ -855,7 +733,7 @@ namespace Menes.Json
         }
 
         /// <inheritdoc/>
-        public Content RemoveProperty(ReadOnlySpan<byte> utf8Name)
+        public Format RemoveProperty(ReadOnlySpan<byte> utf8Name)
         {
             if (this.ValueKind == JsonValueKind.Object)
             {
@@ -871,7 +749,7 @@ namespace Menes.Json
         public T As<T>()
             where T : struct, IJsonValue
         {
-            return this.As<Content, T>();
+            return this.As<Format, T>();
         }
 
         /// <inheritdoc/>
@@ -922,30 +800,16 @@ namespace Menes.Json
     
     
     
-        private static ImmutableDictionary<JsonEncodedText, Func<Content, ValidationContext, ValidationLevel, ValidationContext>> CreateLocalPropertyValidators()
+        private static ImmutableDictionary<JsonEncodedText, Func<Format, ValidationContext, ValidationLevel, ValidationContext>> CreateLocalPropertyValidators()
         {
-            ImmutableDictionary<JsonEncodedText, Func<Content, ValidationContext, ValidationLevel, ValidationContext>>.Builder builder =
-                ImmutableDictionary.CreateBuilder<JsonEncodedText, Func<Content, ValidationContext, ValidationLevel, ValidationContext>>();
+            ImmutableDictionary<JsonEncodedText, Func<Format, ValidationContext, ValidationLevel, ValidationContext>>.Builder builder =
+                ImmutableDictionary.CreateBuilder<JsonEncodedText, Func<Format, ValidationContext, ValidationLevel, ValidationContext>>();
 
                     builder.Add(
-                ContentMediaTypeJsonPropertyName,
+                Format1JsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                    JsonString property = that.ContentMediaType;
-                    return property.Validate(validationContext, level);
-                });
-                    builder.Add(
-                ContentEncodingJsonPropertyName,
-                (that, validationContext, level) =>
-                {
-                    JsonString property = that.ContentEncoding;
-                    return property.Validate(validationContext, level);
-                });
-                    builder.Add(
-                ContentSchemaJsonPropertyName,
-                (that, validationContext, level) =>
-                {
-                    Schema property = that.ContentSchema;
+                    JsonString property = that.Format1;
                     return property.Validate(validationContext, level);
                 });
         
@@ -972,7 +836,7 @@ namespace Menes.Json
                 JsonEncodedText propertyName = property.NameAsJsonEncodedText;
 
         
-                        if (__MenesLocalProperties.TryGetValue(propertyName, out Func<Content, ValidationContext, ValidationLevel, ValidationContext>? propertyValidator))
+                        if (__MenesLocalProperties.TryGetValue(propertyName, out Func<Format, ValidationContext, ValidationLevel, ValidationContext>? propertyValidator))
                 {
                     result = result.WithLocalProperty(propertyName);
                     result = propertyValidator(this, result, level);

@@ -8,8 +8,7 @@ using System.Collections.Immutable;
 using System.Linq;
 using System.Text.Json;
 using Menes.Json;
-using Menes.JsonSchema;
-using Menes.JsonSchema.TypeModel;
+using Menes.Json.SchemaModel;
 
 /// <summary>
 /// The code-behind for the SchemaEntity T4 template.
@@ -208,7 +207,7 @@ public partial class SchemaEntity
     {
         get
         {
-            return this.TypeDeclaration.Schema.Const is JsonAny constValue && constValue.IsString;
+            return this.TypeDeclaration.Schema.Const.ValueKind == JsonValueKind.String;
         }
     }
 
@@ -219,7 +218,7 @@ public partial class SchemaEntity
     {
         get
         {
-            return this.TypeDeclaration.Schema.Const is JsonAny constValue && constValue.IsBoolean;
+            return this.TypeDeclaration.Schema.Const.ValueKind == JsonValueKind.True || this.TypeDeclaration.Schema.Const.ValueKind == JsonValueKind.False;
         }
     }
 
@@ -230,7 +229,7 @@ public partial class SchemaEntity
     {
         get
         {
-            return this.TypeDeclaration.Schema.Const is JsonAny constValue && constValue.IsNumber;
+            return this.TypeDeclaration.Schema.Const.ValueKind == JsonValueKind.Number;
         }
     }
 
@@ -241,7 +240,7 @@ public partial class SchemaEntity
     {
         get
         {
-            return this.TypeDeclaration.Schema.Const is JsonAny constValue && constValue.IsObject;
+            return this.TypeDeclaration.Schema.Const.ValueKind == JsonValueKind.Object;
         }
     }
 
@@ -252,7 +251,7 @@ public partial class SchemaEntity
     {
         get
         {
-            return this.TypeDeclaration.Schema.Const is JsonAny constValue && constValue.IsArray;
+            return this.TypeDeclaration.Schema.Const.ValueKind == JsonValueKind.Array;
         }
     }
 
@@ -263,7 +262,7 @@ public partial class SchemaEntity
     {
         get
         {
-            return this.TypeDeclaration.Schema.Const is JsonAny constValue && constValue.IsNull;
+            return this.TypeDeclaration.Schema.Const.ValueKind == JsonValueKind.Null;
         }
     }
 
@@ -274,9 +273,9 @@ public partial class SchemaEntity
     {
         get
         {
-            if (this.TypeDeclaration.Schema.Const is JsonAny constValue && constValue.IsString)
+            if (this.HasConstString)
             {
-                return GetRawTextAsQuotedString(constValue);
+                return GetRawTextAsQuotedString(this.TypeDeclaration.Schema.Const);
             }
 
             return string.Empty;
@@ -290,9 +289,9 @@ public partial class SchemaEntity
     {
         get
         {
-            if (this.TypeDeclaration.Schema.Const is JsonAny constValue && constValue.IsBoolean)
+            if (this.HasConstBoolean)
             {
-                return GetRawTextAsQuotedString(constValue);
+                return GetRawTextAsQuotedString(this.TypeDeclaration.Schema.Const);
             }
 
             return string.Empty;
@@ -306,9 +305,9 @@ public partial class SchemaEntity
     {
         get
         {
-            if (this.TypeDeclaration.Schema.Const is JsonAny constValue && constValue.IsNumber)
+            if (this.HasConstNumber)
             {
-                return GetRawTextAsQuotedString(constValue);
+                return GetRawTextAsQuotedString(this.TypeDeclaration.Schema.Const);
             }
 
             return string.Empty;
@@ -322,9 +321,9 @@ public partial class SchemaEntity
     {
         get
         {
-            if (this.TypeDeclaration.Schema.Const is JsonAny constValue && constValue.IsObject)
+            if (this.HasConstObject)
             {
-                return GetRawTextAsQuotedString(constValue);
+                return GetRawTextAsQuotedString(this.TypeDeclaration.Schema.Const);
             }
 
             return string.Empty;
@@ -338,9 +337,9 @@ public partial class SchemaEntity
     {
         get
         {
-            if (this.TypeDeclaration.Schema.Const is JsonAny constValue && constValue.IsArray)
+            if (this.HasConstArray)
             {
-                return GetRawTextAsQuotedString(constValue);
+                return GetRawTextAsQuotedString(this.TypeDeclaration.Schema.Const);
             }
 
             return string.Empty;
@@ -354,7 +353,7 @@ public partial class SchemaEntity
     {
         get
         {
-            return this.TypeDeclaration.Schema.Pattern is JsonRegex;
+            return this.TypeDeclaration.Schema.Pattern.IsNotUndefined();
         }
     }
 
@@ -365,9 +364,9 @@ public partial class SchemaEntity
     {
         get
         {
-            if (this.TypeDeclaration.Schema.Pattern is JsonRegex pattern)
+            if (this.HasPattern)
             {
-                return pattern.GetString() ?? string.Empty;
+                return this.TypeDeclaration.Schema.Pattern;
             }
 
             return string.Empty;
@@ -381,7 +380,7 @@ public partial class SchemaEntity
     {
         get
         {
-            return this.TypeDeclaration.Schema.DependentRequired is Draft201909MetaValidation.DependentRequiredEntity;
+            return this.TypeDeclaration.Schema.DependentRequired.IsNotUndefined();
         }
     }
 
@@ -392,7 +391,7 @@ public partial class SchemaEntity
     {
         get
         {
-            return this.TypeDeclaration.Schema.DependentSchemas is Draft201909MetaApplicator.DependentSchemasEntity;
+            return this.TypeDeclaration.Schema.DependentSchemas.IsNotUndefined();
         }
     }
 
@@ -403,7 +402,7 @@ public partial class SchemaEntity
     {
         get
         {
-            return this.TypeDeclaration.Schema.PatternProperties is Draft201909MetaApplicator.PatternPropertiesEntity;
+            return this.TypeDeclaration.Schema.PatternProperties.IsNotUndefined();
         }
     }
 
@@ -414,7 +413,7 @@ public partial class SchemaEntity
     {
         get
         {
-            return this.TypeDeclaration.Schema.Type is Draft201909MetaValidation.TypeEntity;
+            return this.TypeDeclaration.Schema.Type.IsNotUndefined();
         }
     }
 
@@ -425,7 +424,7 @@ public partial class SchemaEntity
     {
         get
         {
-            return this.TypeDeclaration.Schema.Format is JsonString || this.TypeDeclaration.Schema.ContentEncoding is not null;
+            return this.TypeDeclaration.Schema.Format.IsNotUndefined() || this.TypeDeclaration.Schema.ContentEncoding.IsNotUndefined();
         }
     }
 
@@ -436,7 +435,7 @@ public partial class SchemaEntity
     {
         get
         {
-            return this.TypeDeclaration.Schema.ContentMediaType is not null || this.TypeDeclaration.Schema.ContentEncoding is not null;
+            return this.TypeDeclaration.Schema.ContentMediaType.IsNotUndefined() || this.TypeDeclaration.Schema.ContentEncoding.IsNotUndefined();
         }
     }
 
@@ -447,7 +446,7 @@ public partial class SchemaEntity
     {
         get
         {
-            return this.TypeDeclaration.Schema.Const is JsonAny;
+            return this.TypeDeclaration.Schema.Const.IsNotUndefined();
         }
     }
 
@@ -458,7 +457,7 @@ public partial class SchemaEntity
     {
         get
         {
-            return this.TypeDeclaration.Schema.Enum is Draft201909MetaValidation.EnumArray;
+            return this.TypeDeclaration.Schema.Enum.IsNotUndefined();
         }
     }
 
@@ -470,9 +469,9 @@ public partial class SchemaEntity
         get
         {
             ImmutableArray<EnumValue>.Builder builder = ImmutableArray.CreateBuilder<EnumValue>();
-            if (this.TypeDeclaration.Schema.Enum is Draft201909MetaValidation.EnumArray enumArray)
+            if (this.TypeDeclaration.Schema.Enum.IsNotUndefined())
             {
-                foreach (JsonAny value in enumArray.EnumerateArray())
+                foreach (JsonAny value in this.TypeDeclaration.Schema.Enum.EnumerateArray())
                 {
                     builder.Add(new EnumValue(value));
                 }
@@ -489,7 +488,7 @@ public partial class SchemaEntity
     {
         get
         {
-            return this.TypeDeclaration.Schema.MultipleOf is Draft201909MetaValidation.MultipleOfValue;
+            return this.TypeDeclaration.Schema.MultipleOf.IsNotUndefined();
         }
     }
 
@@ -500,7 +499,7 @@ public partial class SchemaEntity
     {
         get
         {
-            return this.TypeDeclaration.Schema.ExclusiveMaximum is JsonNumber;
+            return this.TypeDeclaration.Schema.ExclusiveMaximum.IsNotUndefined();
         }
     }
 
@@ -511,7 +510,7 @@ public partial class SchemaEntity
     {
         get
         {
-            return this.TypeDeclaration.Schema.Maximum is JsonNumber;
+            return this.TypeDeclaration.Schema.Maximum.IsNotUndefined();
         }
     }
 
@@ -522,7 +521,7 @@ public partial class SchemaEntity
     {
         get
         {
-            return this.TypeDeclaration.Schema.MaxItems is Draft201909MetaValidation.NonNegativeIntegerValue;
+            return this.TypeDeclaration.Schema.MaxItems.IsNotUndefined();
         }
     }
 
@@ -533,7 +532,7 @@ public partial class SchemaEntity
     {
         get
         {
-            return this.TypeDeclaration.Schema.MinItems is Draft201909MetaValidation.NonNegativeIntegerValue;
+            return this.TypeDeclaration.Schema.MinItems.IsNotUndefined();
         }
     }
 
@@ -544,7 +543,7 @@ public partial class SchemaEntity
     {
         get
         {
-            return this.TypeDeclaration.Schema.MaxItems is Draft201909MetaValidation.NonNegativeIntegerValue mi ? mi : default;
+            return this.HasMaxItems ? this.TypeDeclaration.Schema.MaxItems : default;
         }
     }
 
@@ -555,7 +554,7 @@ public partial class SchemaEntity
     {
         get
         {
-            return this.TypeDeclaration.Schema.MinItems is Draft201909MetaValidation.NonNegativeIntegerValue mi ? mi : default;
+            return this.HasMinItems ? this.TypeDeclaration.Schema.MinItems : default;
         }
     }
 
@@ -566,7 +565,7 @@ public partial class SchemaEntity
     {
         get
         {
-            return this.TypeDeclaration.Schema.ExclusiveMinimum is JsonNumber;
+            return this.TypeDeclaration.Schema.ExclusiveMinimum.IsNotUndefined();
         }
     }
 
@@ -577,7 +576,7 @@ public partial class SchemaEntity
     {
         get
         {
-            return this.TypeDeclaration.Schema.Minimum is JsonNumber;
+            return this.TypeDeclaration.Schema.Minimum.IsNotUndefined();
         }
     }
 
@@ -588,9 +587,9 @@ public partial class SchemaEntity
     {
         get
         {
-            if (this.TypeDeclaration.Schema.MultipleOf is Draft201909MetaValidation.MultipleOfValue mof)
+            if (this.TypeDeclaration.Schema.MultipleOf.IsNotUndefined())
             {
-                return mof.JsonElement.GetRawText();
+                return this.TypeDeclaration.Schema.MultipleOf.AsJsonElement.GetRawText();
             }
 
             return string.Empty;
@@ -604,9 +603,9 @@ public partial class SchemaEntity
     {
         get
         {
-            if (this.TypeDeclaration.Schema.ExclusiveMaximum is JsonNumber em)
+            if (this.TypeDeclaration.Schema.ExclusiveMaximum.IsNotUndefined())
             {
-                return em.JsonElement.GetRawText();
+                return this.TypeDeclaration.Schema.ExclusiveMaximum.AsJsonElement.GetRawText();
             }
 
             return string.Empty;
@@ -620,9 +619,9 @@ public partial class SchemaEntity
     {
         get
         {
-            if (this.TypeDeclaration.Schema.Maximum is JsonNumber m)
+            if (this.TypeDeclaration.Schema.Maximum.IsNotUndefined())
             {
-                return m.JsonElement.GetRawText();
+                return this.TypeDeclaration.Schema.Maximum.AsJsonElement.GetRawText();
             }
 
             return string.Empty;
@@ -636,9 +635,9 @@ public partial class SchemaEntity
     {
         get
         {
-            if (this.TypeDeclaration.Schema.ExclusiveMinimum is JsonNumber em)
+            if (this.TypeDeclaration.Schema.ExclusiveMinimum.IsNotUndefined())
             {
-                return em.JsonElement.GetRawText();
+                return this.TypeDeclaration.Schema.ExclusiveMinimum.AsJsonElement.GetRawText();
             }
 
             return string.Empty;
@@ -652,9 +651,9 @@ public partial class SchemaEntity
     {
         get
         {
-            if (this.TypeDeclaration.Schema.Minimum is JsonNumber m)
+            if (this.TypeDeclaration.Schema.Minimum.IsNotUndefined())
             {
-                return m.JsonElement.GetRawText();
+                return this.TypeDeclaration.Schema.Minimum.AsJsonElement.GetRawText();
             }
 
             return string.Empty;
@@ -668,7 +667,7 @@ public partial class SchemaEntity
     {
         get
         {
-            return this.TypeDeclaration.Schema.MaxLength is Draft201909MetaValidation.NonNegativeIntegerValue;
+            return this.TypeDeclaration.Schema.MaxLength.IsNotUndefined();
         }
     }
 
@@ -679,7 +678,7 @@ public partial class SchemaEntity
     {
         get
         {
-            return this.TypeDeclaration.Schema.MinLength is Draft201909MetaValidation.NonNegativeIntegerValue;
+            return this.TypeDeclaration.Schema.MinLength.IsNotUndefined();
         }
     }
 
@@ -690,9 +689,9 @@ public partial class SchemaEntity
     {
         get
         {
-            if (this.TypeDeclaration.Schema.MaxLength is Draft201909MetaValidation.NonNegativeIntegerValue v)
+            if (this.TypeDeclaration.Schema.MaxLength.IsNotUndefined())
             {
-                return v.JsonElement.GetRawText();
+                return this.TypeDeclaration.Schema.MaxLength.AsJsonElement.GetRawText();
             }
 
             return string.Empty;
@@ -706,9 +705,9 @@ public partial class SchemaEntity
     {
         get
         {
-            if (this.TypeDeclaration.Schema.MinLength is Draft201909MetaValidation.NonNegativeIntegerValue v)
+            if (this.TypeDeclaration.Schema.MinLength.IsNotUndefined())
             {
-                return v.JsonElement.GetRawText();
+                return this.TypeDeclaration.Schema.MinLength.AsJsonElement.GetRawText();
             }
 
             return string.Empty;
@@ -722,7 +721,7 @@ public partial class SchemaEntity
     {
         get
         {
-            return this.TypeDeclaration.Schema.If is Draft201909Schema;
+            return this.TypeDeclaration.Schema.If.IsNotUndefined();
         }
     }
 
@@ -733,7 +732,7 @@ public partial class SchemaEntity
     {
         get
         {
-            return this.TypeDeclaration.Schema.Not is Draft201909Schema;
+            return this.TypeDeclaration.Schema.Not.IsNotUndefined();
         }
     }
 
@@ -744,7 +743,7 @@ public partial class SchemaEntity
     {
         get
         {
-            return this.TypeDeclaration.Schema.AllOf is Draft201909MetaApplicator.ItemsEntity.SchemaArray;
+            return this.TypeDeclaration.Schema.AllOf.IsNotUndefined();
         }
     }
 
@@ -755,7 +754,7 @@ public partial class SchemaEntity
     {
         get
         {
-            return this.TypeDeclaration.Schema.AnyOf is Draft201909MetaApplicator.ItemsEntity.SchemaArray;
+            return this.TypeDeclaration.Schema.AnyOf.IsNotUndefined();
         }
     }
 
@@ -766,7 +765,7 @@ public partial class SchemaEntity
     {
         get
         {
-            return this.TypeDeclaration.Schema.OneOf is Draft201909MetaApplicator.ItemsEntity.SchemaArray;
+            return this.TypeDeclaration.Schema.OneOf.IsNotUndefined();
         }
     }
 
@@ -777,7 +776,7 @@ public partial class SchemaEntity
     {
         get
         {
-            return this.TypeDeclaration.Schema.Required is Draft201909MetaValidation.StringArray;
+            return this.TypeDeclaration.Schema.Required.IsNotUndefined();
         }
     }
 
@@ -788,7 +787,7 @@ public partial class SchemaEntity
     {
         get
         {
-            return this.TypeDeclaration.Schema.Ref is not null && !this.TypeDeclaration.Schema.IsNakedReference();
+            return this.TypeDeclaration.Schema.Ref.IsNotUndefined() && !this.TypeDeclaration.Schema.IsNakedReference();
         }
     }
 
@@ -811,7 +810,7 @@ public partial class SchemaEntity
     {
         get
         {
-            return this.TypeDeclaration.Schema.MaxProperties is Draft201909MetaValidation.NonNegativeIntegerValue;
+            return this.TypeDeclaration.Schema.MaxProperties.IsNotUndefined();
         }
     }
 
@@ -822,7 +821,7 @@ public partial class SchemaEntity
     {
         get
         {
-            return this.TypeDeclaration.Schema.MinProperties is Draft201909MetaValidation.NonNegativeIntegerValue;
+            return this.TypeDeclaration.Schema.MinProperties.IsNotUndefined();
         }
     }
 
@@ -833,7 +832,7 @@ public partial class SchemaEntity
     {
         get
         {
-            return this.TypeDeclaration.Schema.PropertyNames is Draft201909Schema;
+            return this.TypeDeclaration.Schema.PropertyNames.IsNotUndefined();
         }
     }
 
@@ -844,9 +843,9 @@ public partial class SchemaEntity
     {
         get
         {
-            return this.TypeDeclaration.Schema.AdditionalProperties is null ||
-                this.TypeDeclaration.Schema.AdditionalProperties?.JsonElement.ValueKind == JsonValueKind.True ||
-                this.TypeDeclaration.Schema.AdditionalProperties?.JsonElement.ValueKind == JsonValueKind.Object;
+            return this.TypeDeclaration.Schema.AdditionalProperties.IsUndefined() ||
+                this.TypeDeclaration.Schema.AdditionalProperties.ValueKind == JsonValueKind.True ||
+                this.TypeDeclaration.Schema.AdditionalProperties.ValueKind == JsonValueKind.Object;
         }
     }
 
@@ -857,10 +856,9 @@ public partial class SchemaEntity
     {
         get
         {
-            return this.TypeDeclaration.Schema.AdditionalProperties is not null &&
-               (this.TypeDeclaration.Schema.AdditionalProperties?.JsonElement.ValueKind == JsonValueKind.Object ||
-                this.TypeDeclaration.Schema.AdditionalProperties?.JsonElement.ValueKind == JsonValueKind.True ||
-                this.TypeDeclaration.Schema.AdditionalProperties?.JsonElement.ValueKind == JsonValueKind.False);
+            return this.TypeDeclaration.Schema.AdditionalProperties.ValueKind == JsonValueKind.Object ||
+                this.TypeDeclaration.Schema.AdditionalProperties.ValueKind == JsonValueKind.True ||
+                this.TypeDeclaration.Schema.AdditionalProperties.ValueKind == JsonValueKind.False;
         }
     }
 
@@ -871,10 +869,9 @@ public partial class SchemaEntity
     {
         get
         {
-            return this.TypeDeclaration.Schema.UnevaluatedProperties is not null &&
-               (this.TypeDeclaration.Schema.UnevaluatedProperties?.JsonElement.ValueKind == JsonValueKind.Object ||
-                this.TypeDeclaration.Schema.UnevaluatedProperties?.JsonElement.ValueKind == JsonValueKind.True ||
-                this.TypeDeclaration.Schema.UnevaluatedProperties?.JsonElement.ValueKind == JsonValueKind.False);
+            return this.TypeDeclaration.Schema.UnevaluatedProperties.ValueKind == JsonValueKind.Object ||
+                this.TypeDeclaration.Schema.UnevaluatedProperties.ValueKind == JsonValueKind.True ||
+                this.TypeDeclaration.Schema.UnevaluatedProperties.ValueKind == JsonValueKind.False;
         }
     }
 
@@ -885,8 +882,7 @@ public partial class SchemaEntity
     {
         get
         {
-            return this.TypeDeclaration.Schema.AdditionalProperties is not null &&
-               (this.TypeDeclaration.Schema.AdditionalProperties?.JsonElement.ValueKind == JsonValueKind.Object);
+            return this.TypeDeclaration.Schema.AdditionalProperties.ValueKind == JsonValueKind.Object;
         }
     }
 
@@ -897,8 +893,7 @@ public partial class SchemaEntity
     {
         get
         {
-            return this.TypeDeclaration.Schema.UnevaluatedProperties is not null &&
-               (this.TypeDeclaration.Schema.UnevaluatedProperties?.JsonElement.ValueKind == JsonValueKind.Object);
+            return this.TypeDeclaration.Schema.UnevaluatedProperties.ValueKind == JsonValueKind.Object;
         }
     }
 
@@ -909,7 +904,7 @@ public partial class SchemaEntity
     {
         get
         {
-            return this.TypeDeclaration.Schema.Items is Draft201909MetaApplicator.ItemsEntity;
+            return this.TypeDeclaration.Schema.Items.IsNotUndefined();
         }
     }
 
@@ -920,7 +915,7 @@ public partial class SchemaEntity
     {
         get
         {
-            return this.TypeDeclaration.Schema.UniqueItems is JsonBoolean ui && ui;
+            return this.TypeDeclaration.Schema.UniqueItems.ValueKind == JsonValueKind.True;
         }
     }
 
@@ -931,7 +926,7 @@ public partial class SchemaEntity
     {
         get
         {
-            return this.TypeDeclaration.Schema.Contains is Draft201909Schema;
+            return this.TypeDeclaration.Schema.Contains.IsNotUndefined();
         }
     }
 
@@ -942,7 +937,7 @@ public partial class SchemaEntity
     {
         get
         {
-            if (this.TypeDeclaration.Schema.Contains is not null)
+            if (this.TypeDeclaration.Schema.Contains.IsNotUndefined())
             {
                 TypeDeclaration typeDeclaration = this.Builder.GetTypeDeclarationForProperty(this.TypeDeclaration, "contains");
                 return typeDeclaration.FullyQualifiedDotnetTypeName!;
@@ -960,9 +955,9 @@ public partial class SchemaEntity
         get
         {
             ImmutableArray<PatternProperty>.Builder builder = ImmutableArray.CreateBuilder<PatternProperty>();
-            if (this.TypeDeclaration.Schema.PatternProperties is Draft201909MetaApplicator.PatternPropertiesEntity pp)
+            if (this.TypeDeclaration.Schema.PatternProperties.IsNotUndefined())
             {
-                foreach (Property<Draft201909MetaApplicator.PatternPropertiesEntity> property in pp.EnumerateObject())
+                foreach (Property<Schema> property in this.TypeDeclaration.Schema.PatternProperties.EnumerateProperties())
                 {
                     TypeDeclaration typeDeclaration = this.Builder.GetTypeDeclarationForPatternProperty(this.TypeDeclaration, property.Name);
                     builder.Add(new PatternProperty(property.Name, typeDeclaration.FullyQualifiedDotnetTypeName!));
@@ -981,9 +976,9 @@ public partial class SchemaEntity
         get
         {
             ImmutableArray<DependentSchema>.Builder builder = ImmutableArray.CreateBuilder<DependentSchema>();
-            if (this.TypeDeclaration.Schema.DependentSchemas is Draft201909MetaApplicator.DependentSchemasEntity ds)
+            if (this.TypeDeclaration.Schema.DependentSchemas.IsNotUndefined())
             {
-                foreach (Property<Draft201909MetaApplicator.DependentSchemasEntity> property in ds.EnumerateObject())
+                foreach (Property<Schema> property in this.TypeDeclaration.Schema.DependentSchemas.EnumerateProperties())
                 {
                     builder.Add(new DependentSchema(property.Name, this.Builder.GetTypeDeclarationForDependentSchema(this.TypeDeclaration, property.Name).FullyQualifiedDotnetTypeName!));
                 }
@@ -1001,14 +996,14 @@ public partial class SchemaEntity
         get
         {
             ImmutableArray<DependentRequiredValue>.Builder builder = ImmutableArray.CreateBuilder<DependentRequiredValue>();
-            if (this.TypeDeclaration.Schema.DependentRequired is Draft201909MetaValidation.DependentRequiredEntity dr)
+            if (this.TypeDeclaration.Schema.DependentRequired.IsNotUndefined())
             {
-                foreach (Property<Draft201909MetaValidation.DependentRequiredEntity> property in dr.EnumerateObject())
+                foreach (Property<Validation.JsonStringArray> property in this.TypeDeclaration.Schema.DependentRequired.EnumerateProperties())
                 {
                     ImmutableArray<string>.Builder innerBuilder = ImmutableArray.CreateBuilder<string>();
-                    foreach (JsonString item in property.Value<Draft201909MetaValidation.StringArray>().EnumerateArray())
+                    foreach (JsonString item in property.Value.EnumerateItems())
                     {
-                        innerBuilder.Add(item.GetString() ?? string.Empty);
+                        innerBuilder.Add(item);
                     }
 
                     builder.Add(new DependentRequiredValue(property.Name, innerBuilder.ToImmutable()));
@@ -1037,7 +1032,7 @@ public partial class SchemaEntity
     {
         get
         {
-            return this.TypeDeclaration.Schema.MaxContains is Draft201909MetaValidation.NonNegativeIntegerValue;
+            return this.TypeDeclaration.Schema.MaxContains.IsNotUndefined();
         }
     }
 
@@ -1048,9 +1043,9 @@ public partial class SchemaEntity
     {
         get
         {
-            if (this.TypeDeclaration.Schema.MaxContains is Draft201909MetaValidation.NonNegativeIntegerValue mc)
+            if (this.HasMaxContains)
             {
-                return mc;
+                return this.TypeDeclaration.Schema.MaxContains;
             }
 
             return default;
@@ -1064,7 +1059,7 @@ public partial class SchemaEntity
     {
         get
         {
-            return (this.TypeDeclaration.Schema.Items is Draft201909MetaApplicator.ItemsEntity ie && (ie.IsObject || ie.IsBoolean)) || (this.TypeDeclaration.Schema.Items is null && this.TypeDeclaration.Schema.UnevaluatedItems is null);
+            return this.TypeDeclaration.Schema.Items.IsSchema || (this.TypeDeclaration.Schema.Items.IsUndefined() && this.TypeDeclaration.Schema.UnevaluatedItems.IsNotUndefined());
         }
     }
 
@@ -1075,17 +1070,22 @@ public partial class SchemaEntity
     {
         get
         {
-            if (this.TypeDeclaration.Schema.Items is Draft201909MetaApplicator.ItemsEntity ie)
+            if (this.TypeDeclaration.Schema.Items.IsNotUndefined())
             {
-                if (ie.IsObject)
+                if (this.TypeDeclaration.Schema.Items.ValueKind == JsonValueKind.Object)
                 {
                     TypeDeclaration itemsType = this.Builder.GetTypeDeclarationForProperty(this.TypeDeclaration, "items");
                     return itemsType.FullyQualifiedDotnetTypeName ?? string.Empty;
                 }
 
-                if (ie.IsBoolean)
+                if (this.TypeDeclaration.Schema.Items.ValueKind == JsonValueKind.True)
                 {
-                    return ie.As<JsonBoolean>() ? $"{BuiltInTypes.AnyTypeDeclaration.ns}.{BuiltInTypes.AnyTypeDeclaration.type}" : $"{BuiltInTypes.NotAnyTypeDeclaration.ns}.{BuiltInTypes.NotAnyTypeDeclaration.type}";
+                    return $"{BuiltInTypes.AnyTypeDeclaration.ns}.{BuiltInTypes.AnyTypeDeclaration.type}";
+                }
+
+                if (this.TypeDeclaration.Schema.Items.ValueKind == JsonValueKind.False)
+                {
+                    return $"{BuiltInTypes.NotAnyTypeDeclaration.ns}.{BuiltInTypes.NotAnyTypeDeclaration.type}";
                 }
             }
 
@@ -1100,7 +1100,7 @@ public partial class SchemaEntity
     {
         get
         {
-            return this.TypeDeclaration.Schema.Items is Draft201909MetaApplicator.ItemsEntity ie && ie.IsArray;
+            return this.TypeDeclaration.Schema.Items.IsSchemaArray;
         }
     }
 
@@ -1112,9 +1112,9 @@ public partial class SchemaEntity
         get
         {
             ImmutableArray<string>.Builder builder = ImmutableArray.CreateBuilder<string>();
-            if (this.TypeDeclaration.Schema.Items is Draft201909MetaApplicator.ItemsEntity ie && ie.IsArray)
+            if (this.TypeDeclaration.Schema.Items.IsSchemaArray)
             {
-                for (int i = 0; i < ie.AsSchemaArray().GetArrayLength(); ++i)
+                for (int i = 0; i < this.TypeDeclaration.Schema.Items.Length; ++i)
                 {
                     TypeDeclaration td = this.Builder.GetTypeDeclarationForPropertyArrayIndex(this.TypeDeclaration, "items", i);
                     builder.Add(td.FullyQualifiedDotnetTypeName ?? string.Empty);
@@ -1132,9 +1132,9 @@ public partial class SchemaEntity
     {
         get
         {
-            return this.TypeDeclaration.Schema.AdditionalItems is null ||
-                this.TypeDeclaration.Schema.AdditionalItems?.JsonElement.ValueKind == JsonValueKind.True ||
-                this.TypeDeclaration.Schema.AdditionalItems?.JsonElement.ValueKind == JsonValueKind.Object;
+            return this.TypeDeclaration.Schema.AdditionalItems.IsUndefined() ||
+                this.TypeDeclaration.Schema.AdditionalItems.ValueKind == JsonValueKind.True ||
+                this.TypeDeclaration.Schema.AdditionalItems.ValueKind == JsonValueKind.Object;
         }
     }
 
@@ -1145,10 +1145,9 @@ public partial class SchemaEntity
     {
         get
         {
-            return this.TypeDeclaration.Schema.AdditionalItems is not null &&
-                (this.TypeDeclaration.Schema.AdditionalItems?.JsonElement.ValueKind == JsonValueKind.Object ||
-                 this.TypeDeclaration.Schema.AdditionalItems?.JsonElement.ValueKind == JsonValueKind.True ||
-                 this.TypeDeclaration.Schema.AdditionalItems?.JsonElement.ValueKind == JsonValueKind.False);
+            return this.TypeDeclaration.Schema.AdditionalItems.ValueKind == JsonValueKind.Object ||
+                 this.TypeDeclaration.Schema.AdditionalItems.ValueKind == JsonValueKind.True ||
+                 this.TypeDeclaration.Schema.AdditionalItems.ValueKind == JsonValueKind.False;
         }
     }
 
@@ -1159,8 +1158,7 @@ public partial class SchemaEntity
     {
         get
         {
-            return this.TypeDeclaration.Schema.AdditionalItems is not null &&
-                this.TypeDeclaration.Schema.AdditionalItems?.JsonElement.ValueKind == JsonValueKind.Object;
+            return this.TypeDeclaration.Schema.AdditionalItems.ValueKind == JsonValueKind.Object;
         }
     }
 
@@ -1171,7 +1169,7 @@ public partial class SchemaEntity
     {
         get
         {
-            if (this.TypeDeclaration.Schema.AdditionalItems is Draft201909Schema ai)
+            if (this.TypeDeclaration.Schema.AdditionalItems.IsNotUndefined())
             {
                 TypeDeclaration td = this.Builder.GetTypeDeclarationForProperty(this.TypeDeclaration, "additionalItems");
                 return td.FullyQualifiedDotnetTypeName ?? string.Empty;
@@ -1188,10 +1186,9 @@ public partial class SchemaEntity
     {
         get
         {
-            return this.TypeDeclaration.Schema.UnevaluatedItems is not null &&
-                (this.TypeDeclaration.Schema.UnevaluatedItems?.JsonElement.ValueKind == JsonValueKind.Object ||
-                 this.TypeDeclaration.Schema.UnevaluatedItems?.JsonElement.ValueKind == JsonValueKind.True ||
-                 this.TypeDeclaration.Schema.UnevaluatedItems?.JsonElement.ValueKind == JsonValueKind.False);
+            return this.TypeDeclaration.Schema.UnevaluatedItems.ValueKind == JsonValueKind.Object ||
+                 this.TypeDeclaration.Schema.UnevaluatedItems.ValueKind == JsonValueKind.True ||
+                 this.TypeDeclaration.Schema.UnevaluatedItems.ValueKind == JsonValueKind.False;
         }
     }
 
@@ -1202,7 +1199,7 @@ public partial class SchemaEntity
     {
         get
         {
-            if (this.TypeDeclaration.Schema.UnevaluatedItems is Draft201909Schema ai)
+            if (this.TypeDeclaration.Schema.UnevaluatedItems.IsNotUndefined())
             {
                 TypeDeclaration td = this.Builder.GetTypeDeclarationForProperty(this.TypeDeclaration, "unevaluatedItems");
                 return td.FullyQualifiedDotnetTypeName ?? string.Empty;
@@ -1219,7 +1216,7 @@ public partial class SchemaEntity
     {
         get
         {
-            return this.TypeDeclaration.Schema.MinContains is not null;
+            return this.TypeDeclaration.Schema.MinContains.IsNotUndefined();
         }
     }
 
@@ -1230,7 +1227,7 @@ public partial class SchemaEntity
     {
         get
         {
-            return this.TypeDeclaration.Schema.MinContains is Draft201909MetaValidation.NonNegativeIntegerValue mc ? mc : default;
+            return this.HasMinContains ? this.TypeDeclaration.Schema.MinContains : default;
         }
     }
 
@@ -1274,7 +1271,7 @@ public partial class SchemaEntity
     {
         get
         {
-            return this.TypeDeclaration.Schema.MaxProperties is Draft201909MetaValidation.NonNegativeIntegerValue mp ? mp : default;
+            return this.TypeDeclaration.Schema.MaxProperties.IsNotUndefined() ? this.TypeDeclaration.Schema.MaxProperties : default;
         }
     }
 
@@ -1285,7 +1282,7 @@ public partial class SchemaEntity
     {
         get
         {
-            return this.TypeDeclaration.Schema.MinProperties is Draft201909MetaValidation.NonNegativeIntegerValue mp ? mp : default;
+            return this.TypeDeclaration.Schema.MinProperties.IsNotUndefined() ? this.TypeDeclaration.Schema.MinProperties : default;
         }
     }
 
@@ -1297,9 +1294,9 @@ public partial class SchemaEntity
         get
         {
             ImmutableArray<string>.Builder builder = ImmutableArray.CreateBuilder<string>();
-            if (this.TypeDeclaration.Schema.OneOf is Draft201909MetaApplicator.ItemsEntity.SchemaArray oo)
+            if (this.TypeDeclaration.Schema.OneOf.IsNotUndefined())
             {
-                for (int i = 0; i < oo.GetArrayLength(); ++i)
+                for (int i = 0; i < this.TypeDeclaration.Schema.OneOf.Length; ++i)
                 {
                     TypeDeclaration td = this.Builder.GetTypeDeclarationForPropertyArrayIndex(this.TypeDeclaration, "oneOf", i);
                     builder.Add(td.FullyQualifiedDotnetTypeName!);
@@ -1318,9 +1315,9 @@ public partial class SchemaEntity
         get
         {
             ImmutableArray<string>.Builder builder = ImmutableArray.CreateBuilder<string>();
-            if (this.TypeDeclaration.Schema.AnyOf is Draft201909MetaApplicator.ItemsEntity.SchemaArray oo)
+            if (this.TypeDeclaration.Schema.AnyOf.IsNotUndefined())
             {
-                for (int i = 0; i < oo.GetArrayLength(); ++i)
+                for (int i = 0; i < this.TypeDeclaration.Schema.AnyOf.Length; ++i)
                 {
                     TypeDeclaration td = this.Builder.GetTypeDeclarationForPropertyArrayIndex(this.TypeDeclaration, "anyOf", i);
                     builder.Add(td.FullyQualifiedDotnetTypeName!);
@@ -1339,9 +1336,9 @@ public partial class SchemaEntity
         get
         {
             ImmutableArray<string>.Builder builder = ImmutableArray.CreateBuilder<string>();
-            if (this.TypeDeclaration.Schema.AllOf is Draft201909MetaApplicator.ItemsEntity.SchemaArray oo)
+            if (this.TypeDeclaration.Schema.AllOf.IsNotUndefined())
             {
-                for (int i = 0; i < oo.GetArrayLength(); ++i)
+                for (int i = 0; i < this.TypeDeclaration.Schema.AllOf.Length; ++i)
                 {
                     TypeDeclaration td = this.Builder.GetTypeDeclarationForPropertyArrayIndex(this.TypeDeclaration, "allOf", i);
                     builder.Add(td.FullyQualifiedDotnetTypeName!);
@@ -1413,7 +1410,7 @@ public partial class SchemaEntity
     {
         get
         {
-            return this.TypeDeclaration.Schema.Then is not null;
+            return this.TypeDeclaration.Schema.Then.IsNotUndefined();
         }
     }
 
@@ -1435,7 +1432,7 @@ public partial class SchemaEntity
     {
         get
         {
-            return this.TypeDeclaration.Schema.Else is not null;
+            return this.TypeDeclaration.Schema.Else.IsNotUndefined();
         }
     }
 
@@ -1457,9 +1454,9 @@ public partial class SchemaEntity
     {
         get
         {
-            if (this.TypeDeclaration.Schema.ContentMediaType is JsonString contentMediaType && this.TypeDeclaration.Schema.ContentEncoding is JsonString contentEncoding)
+            if (this.TypeDeclaration.Schema.ContentMediaType.IsNotUndefined() && this.TypeDeclaration.Schema.ContentEncoding.IsNotUndefined())
             {
-                return contentMediaType == "application/json" && contentEncoding == "base64";
+                return this.TypeDeclaration.Schema.ContentMediaType == "application/json" && this.TypeDeclaration.Schema.ContentEncoding == "base64";
             }
 
             return false;
@@ -1473,9 +1470,9 @@ public partial class SchemaEntity
     {
         get
         {
-            if (this.TypeDeclaration.Schema.ContentMediaType is null && this.TypeDeclaration.Schema.ContentEncoding is JsonString contentEncoding)
+            if (this.TypeDeclaration.Schema.ContentMediaType.IsUndefined() && this.TypeDeclaration.Schema.ContentEncoding.IsNotUndefined())
             {
-                return contentEncoding == "base64";
+                return this.TypeDeclaration.Schema.ContentEncoding == "base64";
             }
 
             return false;
@@ -1489,9 +1486,9 @@ public partial class SchemaEntity
     {
         get
         {
-            if (this.TypeDeclaration.Schema.ContentMediaType is JsonString contentMediaType && this.TypeDeclaration.Schema.ContentEncoding is null)
+            if (this.TypeDeclaration.Schema.ContentMediaType.IsNotUndefined() && this.TypeDeclaration.Schema.ContentEncoding.IsUndefined())
             {
-                return contentMediaType == "application/json";
+                return this.TypeDeclaration.Schema.ContentMediaType == "application/json";
             }
 
             return false;
@@ -1505,9 +1502,9 @@ public partial class SchemaEntity
     {
         get
         {
-            if (this.TypeDeclaration.Schema.Format is JsonString format)
+            if (this.TypeDeclaration.Schema.Format.IsNotUndefined())
             {
-                return format == "date";
+                return this.TypeDeclaration.Schema.Format == "date";
             }
 
             return false;
@@ -1521,9 +1518,9 @@ public partial class SchemaEntity
     {
         get
         {
-            if (this.TypeDeclaration.Schema.Format is JsonString format)
+            if (this.TypeDeclaration.Schema.Format.IsNotUndefined())
             {
-                return format == "date-time";
+                return this.TypeDeclaration.Schema.Format == "date-time";
             }
 
             return false;
@@ -1537,9 +1534,9 @@ public partial class SchemaEntity
     {
         get
         {
-            if (this.TypeDeclaration.Schema.Format is JsonString format)
+            if (this.TypeDeclaration.Schema.Format.IsNotUndefined())
             {
-                return format == "duration";
+                return this.TypeDeclaration.Schema.Format == "duration";
             }
 
             return false;
@@ -1553,9 +1550,9 @@ public partial class SchemaEntity
     {
         get
         {
-            if (this.TypeDeclaration.Schema.Format is JsonString format)
+            if (this.TypeDeclaration.Schema.Format.IsNotUndefined())
             {
-                return format == "time";
+                return this.TypeDeclaration.Schema.Format == "time";
             }
 
             return false;
@@ -1569,9 +1566,9 @@ public partial class SchemaEntity
     {
         get
         {
-            if (this.TypeDeclaration.Schema.Format is JsonString format)
+            if (this.TypeDeclaration.Schema.Format.IsNotUndefined())
             {
-                return format == "email";
+                return this.TypeDeclaration.Schema.Format == "email";
             }
 
             return false;
@@ -1585,9 +1582,9 @@ public partial class SchemaEntity
     {
         get
         {
-            if (this.TypeDeclaration.Schema.Format is JsonString format)
+            if (this.TypeDeclaration.Schema.Format.IsNotUndefined())
             {
-                return format == "hostname";
+                return this.TypeDeclaration.Schema.Format == "hostname";
             }
 
             return false;
@@ -1601,9 +1598,9 @@ public partial class SchemaEntity
     {
         get
         {
-            if (this.TypeDeclaration.Schema.Format is JsonString format)
+            if (this.TypeDeclaration.Schema.Format.IsNotUndefined())
             {
-                return format == "idn-email";
+                return this.TypeDeclaration.Schema.Format == "idn-email";
             }
 
             return false;
@@ -1617,9 +1614,9 @@ public partial class SchemaEntity
     {
         get
         {
-            if (this.TypeDeclaration.Schema.Format is JsonString format)
+            if (this.TypeDeclaration.Schema.Format.IsNotUndefined())
             {
-                return format == "idn-hostname";
+                return this.TypeDeclaration.Schema.Format == "idn-hostname";
             }
 
             return false;
@@ -1633,9 +1630,9 @@ public partial class SchemaEntity
     {
         get
         {
-            if (this.TypeDeclaration.Schema.Format is JsonString format)
+            if (this.TypeDeclaration.Schema.Format.IsNotUndefined())
             {
-                return format == "integer";
+                return this.TypeDeclaration.Schema.Format == "integer";
             }
 
             return false;
@@ -1649,9 +1646,9 @@ public partial class SchemaEntity
     {
         get
         {
-            if (this.TypeDeclaration.Schema.Format is JsonString format)
+            if (this.TypeDeclaration.Schema.Format.IsNotUndefined())
             {
-                return format == "ipv4";
+                return this.TypeDeclaration.Schema.Format == "ipv4";
             }
 
             return false;
@@ -1665,9 +1662,9 @@ public partial class SchemaEntity
     {
         get
         {
-            if (this.TypeDeclaration.Schema.Format is JsonString format)
+            if (this.TypeDeclaration.Schema.Format.IsNotUndefined())
             {
-                return format == "ipv6";
+                return this.TypeDeclaration.Schema.Format == "ipv6";
             }
 
             return false;
@@ -1681,9 +1678,9 @@ public partial class SchemaEntity
     {
         get
         {
-            if (this.TypeDeclaration.Schema.Format is JsonString format)
+            if (this.TypeDeclaration.Schema.Format.IsNotUndefined())
             {
-                return format == "iri";
+                return this.TypeDeclaration.Schema.Format == "iri";
             }
 
             return false;
@@ -1697,9 +1694,9 @@ public partial class SchemaEntity
     {
         get
         {
-            if (this.TypeDeclaration.Schema.Format is JsonString format)
+            if (this.TypeDeclaration.Schema.Format.IsNotUndefined())
             {
-                return format == "iri-reference";
+                return this.TypeDeclaration.Schema.Format == "iri-reference";
             }
 
             return false;
@@ -1713,9 +1710,9 @@ public partial class SchemaEntity
     {
         get
         {
-            if (this.TypeDeclaration.Schema.Format is JsonString format)
+            if (this.TypeDeclaration.Schema.Format.IsNotUndefined())
             {
-                return format == "json-pointer";
+                return this.TypeDeclaration.Schema.Format == "json-pointer";
             }
 
             return false;
@@ -1729,9 +1726,9 @@ public partial class SchemaEntity
     {
         get
         {
-            if (this.TypeDeclaration.Schema.Format is JsonString format)
+            if (this.TypeDeclaration.Schema.Format.IsNotUndefined())
             {
-                return format == "regex";
+                return this.TypeDeclaration.Schema.Format == "regex";
             }
 
             return false;
@@ -1745,9 +1742,9 @@ public partial class SchemaEntity
     {
         get
         {
-            if (this.TypeDeclaration.Schema.Format is JsonString format)
+            if (this.TypeDeclaration.Schema.Format.IsNotUndefined())
             {
-                return format == "relative-json-pointer";
+                return this.TypeDeclaration.Schema.Format == "relative-json-pointer";
             }
 
             return false;
@@ -1761,9 +1758,9 @@ public partial class SchemaEntity
     {
         get
         {
-            if (this.TypeDeclaration.Schema.Format is JsonString format)
+            if (this.TypeDeclaration.Schema.Format.IsNotUndefined())
             {
-                return format == "uri";
+                return this.TypeDeclaration.Schema.Format == "uri";
             }
 
             return false;
@@ -1777,9 +1774,9 @@ public partial class SchemaEntity
     {
         get
         {
-            if (this.TypeDeclaration.Schema.Format is JsonString format)
+            if (this.TypeDeclaration.Schema.Format.IsNotUndefined())
             {
-                return format == "uri-reference";
+                return this.TypeDeclaration.Schema.Format == "uri-reference";
             }
 
             return false;
@@ -1793,9 +1790,9 @@ public partial class SchemaEntity
     {
         get
         {
-            if (this.TypeDeclaration.Schema.Format is JsonString format)
+            if (this.TypeDeclaration.Schema.Format.IsNotUndefined())
             {
-                return format == "uri-template";
+                return this.TypeDeclaration.Schema.Format == "uri-template";
             }
 
             return false;
@@ -1809,9 +1806,9 @@ public partial class SchemaEntity
     {
         get
         {
-            if (this.TypeDeclaration.Schema.Format is JsonString format)
+            if (this.TypeDeclaration.Schema.Format.IsNotUndefined())
             {
-                return format == "uuid";
+                return this.TypeDeclaration.Schema.Format == "uuid";
             }
 
             return false;
@@ -1825,7 +1822,7 @@ public partial class SchemaEntity
     {
         get
         {
-            return this.TypeDeclaration.Schema.Type is Draft201909MetaValidation.TypeEntity te;
+            return this.TypeDeclaration.Schema.Type.IsNotUndefined();
         }
     }
 
@@ -1942,7 +1939,7 @@ public partial class SchemaEntity
     {
         if (value is JsonAny actualValue)
         {
-            return Formatting.FormatLiteralOrNull(actualValue.JsonElement.GetRawText(), true);
+            return Formatting.FormatLiteralOrNull(actualValue.AsJsonElement.GetRawText(), true);
         }
 
         throw new ArgumentNullException(nameof(value));
@@ -1950,15 +1947,15 @@ public partial class SchemaEntity
 
     private bool MatchType(string typeToMatch)
     {
-        if (this.TypeDeclaration.Schema.Type is Draft201909MetaValidation.TypeEntity te)
+        if (this.TypeDeclaration.Schema.Type.IsNotUndefined())
         {
-            if (te.IsString)
+            if (this.TypeDeclaration.Schema.Type.IsSimpleTypesEntity)
             {
-                return te.AsSimpleTypesEntity() == typeToMatch;
+                return this.TypeDeclaration.Schema.Type.AsSimpleTypesEntity.AsString == typeToMatch;
             }
-            else if (te.IsArray)
+            else if (this.TypeDeclaration.Schema.Type.IsSimpleTypesEntityArray)
             {
-                return te.AsSimpleTypesEntityArray().Any(t => t == typeToMatch);
+                return this.TypeDeclaration.Schema.Type.AsSimpleTypesEntityArray.EnumerateItems().Any(t => t.AsString == typeToMatch);
             }
         }
 
@@ -1968,9 +1965,9 @@ public partial class SchemaEntity
     private void AddConversionsFor(TypeDeclaration typeDeclaration, Dictionary<TypeDeclaration, Conversion> conversions, TypeDeclaration? parent)
     {
         // First, look in the allOfs
-        if (typeDeclaration.Schema.AllOf is Draft201909MetaApplicator.ItemsEntity.SchemaArray oo)
+        if (typeDeclaration.Schema.AllOf.IsNotUndefined())
         {
-            for (int i = 0; i < oo.GetArrayLength(); ++i)
+            for (int i = 0; i < typeDeclaration.Schema.AllOf.Length; ++i)
             {
                 TypeDeclaration td = this.Builder.GetTypeDeclarationForPropertyArrayIndex(typeDeclaration, "allOf", i);
 
@@ -1982,9 +1979,9 @@ public partial class SchemaEntity
             }
         }
 
-        if (typeDeclaration.Schema.AnyOf is Draft201909MetaApplicator.ItemsEntity.SchemaArray ao)
+        if (typeDeclaration.Schema.AnyOf.IsNotUndefined())
         {
-            for (int i = 0; i < ao.GetArrayLength(); ++i)
+            for (int i = 0; i < typeDeclaration.Schema.AnyOf.Length; ++i)
             {
                 TypeDeclaration td = this.Builder.GetTypeDeclarationForPropertyArrayIndex(typeDeclaration, "anyOf", i);
 
@@ -1996,9 +1993,9 @@ public partial class SchemaEntity
             }
         }
 
-        if (typeDeclaration.Schema.OneOf is Draft201909MetaApplicator.ItemsEntity.SchemaArray oneOf)
+        if (typeDeclaration.Schema.OneOf.IsNotUndefined())
         {
-            for (int i = 0; i < oneOf.GetArrayLength(); ++i)
+            for (int i = 0; i < typeDeclaration.Schema.OneOf.Length; ++i)
             {
                 TypeDeclaration td = this.Builder.GetTypeDeclarationForPropertyArrayIndex(typeDeclaration, "oneOf", i);
 
@@ -2010,7 +2007,7 @@ public partial class SchemaEntity
             }
         }
 
-        if (typeDeclaration.Schema.Ref is JsonUriReference && !(typeDeclaration.Schema.IsNakedReference() || typeDeclaration.Schema.IsNakedRecursiveReference()))
+        if (typeDeclaration.Schema.Ref.IsNotUndefined() && !(typeDeclaration.Schema.IsNakedReference() || typeDeclaration.Schema.IsNakedRecursiveReference()))
         {
             TypeDeclaration td = this.Builder.GetTypeDeclarationForProperty(typeDeclaration, "$ref");
 
@@ -2179,12 +2176,12 @@ public partial class SchemaEntity
         /// <param name="value">The instance of the enum value.</param>
         public EnumValue(JsonAny value)
         {
-            this.IsString = value.IsString;
-            this.IsBoolean = value.IsBoolean;
-            this.IsNumber = value.IsNumber;
-            this.IsObject = value.IsObject;
-            this.IsArray = value.IsArray;
-            this.IsNull = value.IsNull;
+            this.IsString = value.ValueKind == JsonValueKind.String;
+            this.IsBoolean = value.ValueKind == JsonValueKind.True || value.ValueKind == JsonValueKind.False;
+            this.IsNumber = value.ValueKind == JsonValueKind.Number;
+            this.IsObject = value.ValueKind == JsonValueKind.Object;
+            this.IsArray = value.ValueKind == JsonValueKind.Array;
+            this.IsNull = value.IsUndefined();
             this.SerializedValue = GetRawTextAsQuotedString(value);
             this.AsPropertyName = Formatting.ToPascalCaseWithReservedWords(this.SerializedValue.Trim('"')).ToString();
         }

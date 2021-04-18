@@ -2,13 +2,11 @@
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
-namespace Menes.JsonSchema.TypeModel
+namespace Menes.Json.SchemaModel
 {
     using System;
     using System.Collections.Generic;
     using System.Collections.Immutable;
-    using System.Diagnostics;
-    using System.Linq;
     using Menes.Json;
 
     /// <summary>
@@ -25,7 +23,7 @@ namespace Menes.JsonSchema.TypeModel
         /// </summary>
         /// <param name="location">The canonical location of the type declaration.</param>
         /// <param name="schema">The schema with which this type declaration is associated.</param>
-        public TypeDeclaration(string location, Draft201909Schema schema)
+        public TypeDeclaration(string location, Schema schema)
         {
             this.Location = location;
             this.Schema = schema;
@@ -35,7 +33,7 @@ namespace Menes.JsonSchema.TypeModel
         /// Initializes a new instance of the <see cref="TypeDeclaration"/> class for a built-in type.
         /// </summary>
         /// <param name="schema">The schema for the built-in type.</param>
-        public TypeDeclaration(Draft201909Schema schema)
+        public TypeDeclaration(Schema schema)
             : this(BuiltInsLocation, schema)
         {
             if (!schema.IsBuiltInType())
@@ -52,7 +50,7 @@ namespace Menes.JsonSchema.TypeModel
         /// <param name="ns">The namespace for the built-in type.</param>
         /// <param name="typename">The typename for the built-in type.</param>
         public TypeDeclaration(string? ns, string typename)
-            : this(BuiltInsLocation, default(Draft201909Schema))
+            : this(BuiltInsLocation, default(Schema))
         {
             this.SetNamespaceAndTypeName(ns, typename);
         }
@@ -70,7 +68,7 @@ namespace Menes.JsonSchema.TypeModel
         /// <summary>
         /// Gets the schema associated with this type declaration.
         /// </summary>
-        public Draft201909Schema Schema { get; }
+        public Schema Schema { get; }
 
         /// <summary>
         /// Gets the parent declaration of this type declaration.
@@ -156,9 +154,13 @@ namespace Menes.JsonSchema.TypeModel
                 string ns;
                 string type;
 
-                if (this.Schema.IsBoolean)
+                if (this.Schema.ValueKind == System.Text.Json.JsonValueKind.True)
                 {
-                    (ns, type) = this.Schema ? BuiltInTypes.AnyTypeDeclaration : BuiltInTypes.NotAnyTypeDeclaration;
+                    (ns, type) = BuiltInTypes.AnyTypeDeclaration;
+                }
+                else if (this.Schema.ValueKind == System.Text.Json.JsonValueKind.True || this.Schema.ValueKind == System.Text.Json.JsonValueKind.False)
+                {
+                    (ns, type) = BuiltInTypes.NotAnyTypeDeclaration;
                 }
                 else if (this.Schema.IsEmpty())
                 {
@@ -166,7 +168,7 @@ namespace Menes.JsonSchema.TypeModel
                 }
                 else
                 {
-                    (ns, type) = BuiltInTypes.GetTypeNameFor(this.Schema.Type, this.Schema.Format, this.Schema.ContentEncoding, this.Schema.ContentMediaType);
+                    (ns, type) = BuiltInTypes.GetTypeNameFor(this.Schema.Type.AsSimpleTypesEntity.AsString, this.Schema.Format, this.Schema.ContentEncoding, this.Schema.ContentMediaType);
                 }
 
                 this.SetNamespaceAndTypeName(ns, type);
@@ -334,7 +336,7 @@ namespace Menes.JsonSchema.TypeModel
                 this.DotnetTypeName!,
             };
 
-            if (this.Schema.Enum is not null)
+            if (this.Schema.Enum.IsNotUndefined())
             {
                 existingNames.Add("EnumValues");
             }

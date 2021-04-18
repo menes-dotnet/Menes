@@ -2,7 +2,7 @@
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
-namespace Menes.JsonSchema.TypeModel
+namespace Menes.Json.SchemaModel
 {
     using System;
     using System.Collections.Generic;
@@ -11,14 +11,14 @@ namespace Menes.JsonSchema.TypeModel
     using Menes.Json;
 
     /// <summary>
-    /// A walker for <see cref="Draft201909Schema"/>.
+    /// A walker for <see cref="Schema"/>.
     /// </summary>
     internal class JsonSchemaWalker
     {
         /// <summary>
-        /// The content type of Draft201909Schema elements.
+        /// The content type of Schema elements.
         /// </summary>
-        public const string Draft201909SchemaContent = "application/vnd.menes.jsonschemawalker.draft201909schemacontent";
+        public const string SchemaContent = "application/vnd.menes.jsonschemawalker.draft201909schemacontent";
 
         private readonly Dictionary<string, LocatedElement> anchoredSchema = new Dictionary<string, LocatedElement>();
 
@@ -32,29 +32,29 @@ namespace Menes.JsonSchema.TypeModel
             walker.RegisterResolver(this.ResolveReference);
         }
 
-        private static Draft201909Schema EnsureDraft201909SchemaContent(LocatedElement referencedElement)
+        private static Schema EnsureSchemaContent(LocatedElement referencedElement)
         {
             if (referencedElement.ContentType == JsonWalker.DefaultContent)
             {
-                Draft201909Schema draft201909Schema = referencedElement.Element.As<Draft201909Schema>();
+                var draft201909Schema = new Schema(referencedElement.Element);
                 if (draft201909Schema.Validate(ValidationContext.ValidContext).IsValid)
                 {
                     return draft201909Schema;
                 }
             }
-            else if (referencedElement.ContentType != Draft201909SchemaContent)
+            else if (referencedElement.ContentType != SchemaContent)
             {
-                throw new InvalidOperationException("A reference within Draft201909SchemaContent must be to Draft201909SchemaContent.");
+                throw new InvalidOperationException("A reference within SchemaContent must be to SchemaContent.");
             }
 
-            return referencedElement.Element.As<Draft201909Schema>();
+            return new Schema(referencedElement.Element);
         }
 
         private async Task<LocatedElement?> ResolveReference(JsonWalker walker, JsonReference reference, bool isRecursiveReference, Func<Task<LocatedElement?>> resolve)
         {
             if (this.anchoredSchema.TryGetValue(reference.AsDecodedString(), out LocatedElement value))
             {
-                EnsureDraft201909SchemaContent(value);
+                EnsureSchemaContent(value);
                 return this.ResolvePotentiallyRecursiveAnchor(walker, value, isRecursiveReference);
             }
 
@@ -75,7 +75,7 @@ namespace Menes.JsonSchema.TypeModel
             }
 
             // We can't resolve recursive anchors on non-schema content.
-            if (locatedElement.ContentType != Draft201909SchemaContent)
+            if (locatedElement.ContentType != SchemaContent)
             {
                 return locatedElement;
             }
@@ -98,18 +98,18 @@ namespace Menes.JsonSchema.TypeModel
 
         private bool HasRecursiveAnchor(LocatedElement locatedElement)
         {
-            if (locatedElement.ContentType != Draft201909SchemaContent)
+            if (locatedElement.ContentType != SchemaContent)
             {
                 return false;
             }
 
-            Draft201909Schema schema = locatedElement.Element.As<Draft201909Schema>();
-            return schema.RecursiveAnchor is JsonBoolean recursiveAnchor && recursiveAnchor;
+            var schema = new Schema(locatedElement.Element);
+            return schema.RecursiveAnchor.IsNotUndefined() && schema.RecursiveAnchor;
         }
 
         private async Task<bool> HandleElement(JsonWalker walker, JsonElement element)
         {
-            Draft201909Schema schema = element.As<Draft201909Schema>();
+            var schema = new Schema(element);
             if (!schema.Validate(ValidationContext.ValidContext).IsValid)
             {
                 return false;
@@ -121,29 +121,29 @@ namespace Menes.JsonSchema.TypeModel
                 return false;
             }
 
-            if (!schema.IsBoolean && !schema.IsObject)
+            if (schema.ValueKind != JsonValueKind.True && schema.ValueKind != JsonValueKind.False && schema.ValueKind != JsonValueKind.Object)
             {
                 return false;
             }
 
             // Tell the walker that this is our content.
-            if (!walker.AddOrUpdateLocatedElement(element, Draft201909SchemaContent))
+            if (!walker.AddOrUpdateLocatedElement(element, SchemaContent))
             {
                 return true;
             }
 
-            if (schema.Id is Draft201909MetaCore.IdValue id)
+            if (schema.Id.IsNotUndefined())
             {
                 string currentLocation = walker.PeekLocationStack();
 
                 // Update the scope with the ID value
-                walker.PushScopeToLocationStack(id);
+                walker.PushScopeToLocationStack(schema.Id);
 
                 // If our ID is not the same as our existing URI...
                 if (currentLocation != walker.PeekLocationStack())
                 {
                     // And add our element at that scope too
-                    if (!walker.AddOrUpdateLocatedElement(element, Draft201909SchemaContent))
+                    if (!walker.AddOrUpdateLocatedElement(element, SchemaContent))
                     {
                         walker.PopLocationStack();
                         return true;
@@ -153,16 +153,16 @@ namespace Menes.JsonSchema.TypeModel
                 }
             }
 
-            if (schema.Anchor is Draft201909MetaCore.AnchorValue anchor)
+            if (schema.Anchor.IsNotUndefined())
             {
-                this.anchoredSchema.Add(new JsonReference(walker.PeekLocationStack()).Apply(new JsonReference("#" + anchor)), walker.CurrentElement);
+                this.anchoredSchema.Add(new JsonReference(walker.PeekLocationStack()).Apply(new JsonReference("#" + schema.Anchor)), walker.CurrentElement);
             }
 
-            if (schema.IsObject)
+            if (schema.ValueKind == JsonValueKind.Object)
             {
                 // This is an object schema, not a boolean schema
                 // so we will walk all our properties, giving every handler the chance to deal with it.
-                await walker.WalkContentsOfObjectOrArray(schema.JsonElement).ConfigureAwait(false);
+                await walker.WalkContentsOfObjectOrArray(schema.AsJsonElement).ConfigureAwait(false);
             }
 
             if (schema.Ref is JsonUriReference reference)
@@ -172,7 +172,7 @@ namespace Menes.JsonSchema.TypeModel
                 if (referencedElement is LocatedElement re)
                 {
                     walker.AddOrUpdateLocatedElement(re);
-                    EnsureDraft201909SchemaContent(re);
+                    EnsureSchemaContent(re);
                 }
                 else
                 {
@@ -180,7 +180,7 @@ namespace Menes.JsonSchema.TypeModel
                     walker.AddUnresolvedReference(reference.GetUri().OriginalString, false, (w, e) =>
                     {
                         w.AddOrUpdateLocatedElement(e);
-                        EnsureDraft201909SchemaContent(e);
+                        EnsureSchemaContent(e);
                     });
                 }
 
@@ -195,7 +195,7 @@ namespace Menes.JsonSchema.TypeModel
                 if (referencedElement is LocatedElement re)
                 {
                     walker.AddOrUpdateLocatedElement(re);
-                    EnsureDraft201909SchemaContent(re);
+                    EnsureSchemaContent(re);
                 }
                 else
                 {
@@ -203,14 +203,14 @@ namespace Menes.JsonSchema.TypeModel
                     walker.AddUnresolvedReference(recursiveReference.GetUri().OriginalString, false, (w, e) =>
                     {
                         w.AddOrUpdateLocatedElement(e);
-                        EnsureDraft201909SchemaContent(e);
+                        EnsureSchemaContent(e);
                     });
                 }
 
                 walker.PopLocationStack();
             }
 
-            if (schema.Id is Draft201909MetaCore.IdValue)
+            if (schema.Id.IsNotUndefined())
             {
                 // We pushed our ID onto the stack, so pop it back off again.
                 walker.PopLocationStack();

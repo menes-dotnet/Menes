@@ -2,9 +2,8 @@
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
-namespace Menes.JsonSchema.TypeModel
+namespace Menes.Json.SchemaModel
 {
-    using System;
     using Menes.Json;
 
     /// <summary>
@@ -62,7 +61,7 @@ namespace Menes.JsonSchema.TypeModel
         /// <summary>
         /// Gets a value indicating whether this property has a default value.
         /// </summary>
-        public bool HasDefaultValue => this.Type.Schema.Default is not null;
+        public bool HasDefaultValue => this.Type.Schema.Default.IsNotUndefined();
 
         /// <summary>
         /// Gets the default value for the property.

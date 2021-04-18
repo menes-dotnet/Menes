@@ -106,7 +106,46 @@ namespace Menes.Json
             where T : struct, IJsonValue
         {
             JsonValueKind valueKind = value.ValueKind;
-            return valueKind == JsonValueKind.Null || valueKind == JsonValueKind.Undefined;
+            return valueKind == JsonValueKind.Null;
+        }
+
+        /// <summary>
+        /// Gets a value which determines if the value is not null or undefined.
+        /// </summary>
+        /// <typeparam name="T">The type of value to test.</typeparam>
+        /// <param name="value">The value to test.</param>
+        /// <returns><c>True</c> if the value is Null or Undefined.</returns>
+        public static bool IsNotNull<T>(this T value)
+            where T : struct, IJsonValue
+        {
+            JsonValueKind valueKind = value.ValueKind;
+            return valueKind != JsonValueKind.Null;
+        }
+
+        /// <summary>
+        /// Gets a value which determines if the value is undefined.
+        /// </summary>
+        /// <typeparam name="T">The type of value to test.</typeparam>
+        /// <param name="value">The value to test.</param>
+        /// <returns><c>True</c> if the value is Undefined.</returns>
+        public static bool IsUndefined<T>(this T value)
+            where T : struct, IJsonValue
+        {
+            JsonValueKind valueKind = value.ValueKind;
+            return valueKind == JsonValueKind.Undefined;
+        }
+
+        /// <summary>
+        /// Gets a value which determines if the value is not undefined.
+        /// </summary>
+        /// <typeparam name="T">The type of value to test.</typeparam>
+        /// <param name="value">The value to test.</param>
+        /// <returns><c>True</c> if the value is Undefined.</returns>
+        public static bool IsNotUndefined<T>(this T value)
+            where T : struct, IJsonValue
+        {
+            JsonValueKind valueKind = value.ValueKind;
+            return valueKind != JsonValueKind.Undefined;
         }
 
         /// <summary>
@@ -118,7 +157,7 @@ namespace Menes.Json
         public static T? AsOptional<T>(this T value)
             where T : struct, IJsonValue
         {
-            if (value.IsNull())
+            if (value.IsNull() || value.IsUndefined())
             {
                 return default;
             }

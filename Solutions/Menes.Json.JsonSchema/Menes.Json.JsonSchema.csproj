@@ -19,6 +19,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Menes.Json\Menes.Json.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Update="StyleCop.Analyzers" Version="1.2.0-beta.333" />
   </ItemGroup>
 

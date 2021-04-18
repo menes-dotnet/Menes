@@ -3686,52 +3686,12 @@ namespace <#= Namespace #>
             else
             {
         #>
-                    <#
-                if (!AllowsAdditionalItems)
-                {
-            #>
-                        if (level >= ValidationLevel.Detailed)
-                        {
-                            result = result.WithResult(isValid: false, $"9.3.1.2. additionalItems - Additional items are not permitted at index {arrayLength}.");
-                        }
-                        else if (level >= ValidationLevel.Basic)
-                        {
-                            result = result.WithResult(isValid: false, "9.3.1.2. additionalItems - Additional items are not permitted.");
-                        }
-                        else if (level == ValidationLevel.Flag)
-                        {
-                            return result.WithResult(isValid: false);
-                        }
-
-            <#
-                }
-            #>
-
             <#
                 if (AllowsAdditionalItems)
                 {
             #>
                 <#
-                    if (HasAdditionalItems)
-                    {
-                #>
-                        <#
-                        if (HasAdditionalItemsSchema)
-                        {
-                        #>
-                        result = arrayEnumerator.Current.As<<#=      AdditionalItemsDotnetTypeName #>>().Validate(result, level);
-                        if (level == ValidationLevel.Flag && !result.IsValid)
-                        {
-                            return result;
-                        }
-                    <#
-                        }
-                    #>
-                        result = result.WithLocalItemIndex(arrayLength);
-
-                <#
-                    }
-                    else if (HasUnevaluatedItems)
+                    if (!HasAdditionalItems && HasUnevaluatedItems)
                     {
                 #>
                         if (!result.HasEvaluatedLocalOrAppliedItemIndex(arrayLength))

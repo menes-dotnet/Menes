@@ -2,7 +2,7 @@
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
-namespace Menes.JsonSchema.TypeModel
+namespace Menes.Json.SchemaModel
 {
     using System;
     using System.Collections.Generic;
@@ -26,12 +26,12 @@ namespace Menes.JsonSchema.TypeModel
         /// <summary>
         /// Gets a type declaration instance for the Any type declaration.
         /// </summary>
-        public static readonly TypeDeclaration AnyTypeDeclarationInstance = new TypeDeclaration(new Draft201909Schema(true));
+        public static readonly TypeDeclaration AnyTypeDeclarationInstance = new TypeDeclaration(new Schema(true));
 
         /// <summary>
         /// Gets a type declaration instance for the NotAny type declaration.
         /// </summary>
-        public static readonly TypeDeclaration NotAnyTypeDeclarationInstance = new TypeDeclaration(new Draft201909Schema(false));
+        public static readonly TypeDeclaration NotAnyTypeDeclarationInstance = new TypeDeclaration(new Schema(false));
 
         /// <summary>
         /// The not {}/false type declaration.
@@ -320,7 +320,7 @@ namespace Menes.JsonSchema.TypeModel
                 (_, "base64") => ClrBase64StringTypeDeclaration,
                 ("application/json", null) => ClrContentTypeDeclaration,
                 (null, null) => ClrStringTypeDeclaration,
-                _ => default,
+                _ => null,
             };
         }
 

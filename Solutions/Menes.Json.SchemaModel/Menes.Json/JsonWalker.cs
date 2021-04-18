@@ -9,7 +9,6 @@ namespace Menes.Json
     using System.Linq;
     using System.Text.Json;
     using System.Threading.Tasks;
-    using Menes.JsonSchema;
 
     /// <summary>
     /// Walks a JsonElement to identify and locate entities of interest.

@@ -1003,6 +1003,8 @@ namespace Menes.Json
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -3495,6 +3497,26 @@ namespace Menes.Json
         }
 
     
+                /// <summary>
+        /// Enumerate the object as the given item type
+        /// </summary>
+        public JsonObjectEnumerator<Menes.Json.JsonBoolean> EnumerateProperties()
+        {
+            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            {
+                return new JsonObjectEnumerator<Menes.Json.JsonBoolean>(properties);
+            }
+
+            if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
+            {
+                return new JsonObjectEnumerator<Menes.Json.JsonBoolean>(this.jsonElementBacking);
+            }
+
+            return default;
+
+        }
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -4210,6 +4232,26 @@ namespace Menes.Json
         }
 
     
+                /// <summary>
+        /// Enumerate the object as the given item type
+        /// </summary>
+        public JsonObjectEnumerator<Menes.Json.Schema> EnumerateProperties()
+        {
+            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            {
+                return new JsonObjectEnumerator<Menes.Json.Schema>(properties);
+            }
+
+            if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
+            {
+                return new JsonObjectEnumerator<Menes.Json.Schema>(this.jsonElementBacking);
+            }
+
+            return default;
+
+        }
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {

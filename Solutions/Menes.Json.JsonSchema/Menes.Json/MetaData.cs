@@ -879,6 +879,8 @@ namespace Menes.Json
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {

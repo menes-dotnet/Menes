@@ -8,7 +8,6 @@ namespace Menes.Json
     using System.Buffers;
     using System.Collections.Generic;
     using System.Collections.Immutable;
-    using System.Diagnostics;
     using System.Text.Json;
 
     /// <summary>

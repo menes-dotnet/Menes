@@ -1685,6 +1685,8 @@ namespace Menes.Json
         }
 
     
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -6081,6 +6083,26 @@ namespace Menes.Json
         }
 
     
+                /// <summary>
+        /// Enumerate the object as the given item type
+        /// </summary>
+        public JsonObjectEnumerator<Menes.Json.Validation.JsonStringArray> EnumerateProperties()
+        {
+            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            {
+                return new JsonObjectEnumerator<Menes.Json.Validation.JsonStringArray>(properties);
+            }
+
+            if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
+            {
+                return new JsonObjectEnumerator<Menes.Json.Validation.JsonStringArray>(this.jsonElementBacking);
+            }
+
+            return default;
+
+        }
+        
+        
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
@@ -7115,6 +7137,7 @@ namespace Menes.Json
             private readonly ImmutableList<JsonAny>? arrayBacking;
     
     
+            private readonly JsonEncodedText? stringBacking;
     
     
         /// <summary>
@@ -7125,7 +7148,8 @@ namespace Menes.Json
         {
             this.jsonElementBacking = value;
                     this.arrayBacking = default;
-                        }
+                        this.stringBacking = default;
+                }
 
     
             /// <summary>
@@ -7135,7 +7159,8 @@ namespace Menes.Json
         public TypeEntity(ImmutableList<JsonAny> value)
         {
             this.jsonElementBacking = default;
-                                            this.arrayBacking = value;
+                                    this.stringBacking = default;
+                            this.arrayBacking = value;
         }
 
         /// <summary>
@@ -7155,9 +7180,73 @@ namespace Menes.Json
                 this.arrayBacking = jsonArray.AsItemsList;
             }
 
-                                        }
+                                    this.stringBacking = default;
+                        }
     
     
+            /// <summary>
+        /// Initializes a new instance of the <see cref="TypeEntity"/> struct.
+        /// </summary>
+        /// <param name="value">A string value.</param>
+        public TypeEntity(string value)
+        {
+            this.jsonElementBacking = default;
+                            this.arrayBacking = default;
+                                    this.stringBacking = JsonEncodedText.Encode(value);
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TypeEntity"/> struct.
+        /// </summary>
+        /// <param name="value">A string value.</param>
+        public TypeEntity(JsonEncodedText value)
+        {
+            this.jsonElementBacking = default;
+                            this.arrayBacking = default;
+                                    this.stringBacking = value;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TypeEntity"/> struct.
+        /// </summary>
+        /// <param name="value">A string value.</param>
+        public TypeEntity(ReadOnlySpan<char> value)
+        {
+            this.jsonElementBacking = default;
+                            this.arrayBacking = default;
+                                    this.stringBacking = JsonEncodedText.Encode(value);
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TypeEntity"/> struct.
+        /// </summary>
+        /// <param name="value">A string value.</param>
+        public TypeEntity(ReadOnlySpan<byte> value)
+        {
+            this.jsonElementBacking = default;
+                            this.arrayBacking = default;
+                                    this.stringBacking = JsonEncodedText.Encode(value);
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TypeEntity"/> struct.
+        /// </summary>
+        /// <param name="jsonString">The <see cref="JsonString"/> from which to construct the value.</param>
+        public TypeEntity(JsonString jsonString)
+        {
+            if (jsonString.HasJsonElement)
+            {
+                this.jsonElementBacking = jsonString.AsJsonElement;
+                this.stringBacking = default;
+            }
+            else
+            {
+                this.jsonElementBacking = default;
+                this.stringBacking = jsonString.GetJsonEncodedText();
+            }
+
+                            this.arrayBacking = default;
+                                }
     
     
     
@@ -7172,13 +7261,22 @@ namespace Menes.Json
                 this.jsonElementBacking = conversion.AsJsonElement;
                 
                         this.arrayBacking = default;
-                                    }
+                                        this.stringBacking = default;
+                    }
             else
             {
                 this.jsonElementBacking = default;
                 
                         this.arrayBacking = default;
-                                    }
+                                        if (conversion.ValueKind == JsonValueKind.String)
+                {
+                    this.stringBacking = conversion;
+                }
+                else
+                {
+                    this.stringBacking = default;
+                }
+                    }
         }
             /// <summary>
         /// Initializes a new instance of the <see cref="TypeEntity"/> struct.
@@ -7191,7 +7289,8 @@ namespace Menes.Json
                 this.jsonElementBacking = conversion.AsJsonElement;
                 
                         this.arrayBacking = default;
-                                    }
+                                        this.stringBacking = default;
+                    }
             else
             {
                 this.jsonElementBacking = default;
@@ -7204,7 +7303,8 @@ namespace Menes.Json
                 {
                     this.arrayBacking = default;
                 }
-                                    }
+                                        this.stringBacking = default;
+                    }
         }
     
 
@@ -7274,7 +7374,9 @@ namespace Menes.Json
     
     
                         this.arrayBacking is null
-                
+                                &&
+                    this.stringBacking is null
+        
                 ;
 
         /// <summary>
@@ -7291,6 +7393,11 @@ namespace Menes.Json
                 }
     
     
+                    if (this.stringBacking is JsonEncodedText stringBacking)
+                {
+                    return JsonString.StringToJsonElement(stringBacking);
+                }
+
     
     
                 return this.jsonElementBacking;
@@ -7310,6 +7417,11 @@ namespace Menes.Json
 
     
     
+                    if (this.stringBacking is JsonEncodedText)
+                {
+                    return JsonValueKind.String;
+                }
+
     
     
                 return this.jsonElementBacking.ValueKind;
@@ -7329,6 +7441,11 @@ namespace Menes.Json
 
     
     
+                    if (this.stringBacking is JsonEncodedText stringBacking)
+                {
+                    return new JsonAny(stringBacking);
+                }
+
     
     
                 return new JsonAny(this.jsonElementBacking);
@@ -7382,6 +7499,11 @@ namespace Menes.Json
         {
             get
             {
+                    if (this.stringBacking is JsonEncodedText stringBacking)
+                {
+                    return new JsonString(stringBacking);
+                }
+
                     return new JsonString(this.jsonElementBacking);
             }
         }
@@ -7423,7 +7545,11 @@ namespace Menes.Json
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator Menes.Json.Validation.SimpleTypesEntity(TypeEntity value)
         {
-                                                    return default;
+                                    if (value.ValueKind == JsonValueKind.String)
+            {
+                return new Menes.Json.Validation.SimpleTypesEntity(value.AsString);
+            }
+                                    return default;
         }
             /// <summary>
         /// Conversion from <see cref="Menes.Json.Validation.TypeEntity.SimpleTypesEntityArray" />.
@@ -7510,6 +7636,97 @@ namespace Menes.Json
     
     
     
+        /// <summary>
+        /// Conversion from string.
+        /// </summary>
+        /// <param name="value">The value from which to convert.</param>
+        public static implicit operator TypeEntity(string value)
+        {
+            return new TypeEntity(value);
+        }
+
+        /// <summary>
+        /// Conversion to string.
+        /// </summary>
+        /// <param name="value">The number from which to convert.</param>
+        public static implicit operator string(TypeEntity value)
+        {
+            return value.AsString.GetString();
+        }
+
+        /// <summary>
+        /// Conversion from <see cref="JsonEncodedText"/>.
+        /// </summary>
+        /// <param name="value">The value from which to convert.</param>
+        public static implicit operator TypeEntity(JsonEncodedText value)
+        {
+            return new TypeEntity(value);
+        }
+
+        /// <summary>
+        /// Conversion to <see cref="JsonEncodedText"/>.
+        /// </summary>
+        /// <param name="value">The number from which to convert.</param>
+        public static implicit operator JsonEncodedText(TypeEntity value)
+        {
+            return value.AsString.GetJsonEncodedText();
+        }
+
+        /// <summary>
+        /// Conversion from string.
+        /// </summary>
+        /// <param name="value">The value from which to convert.</param>
+        public static implicit operator TypeEntity(ReadOnlySpan<char> value)
+        {
+            return new TypeEntity(value);
+        }
+
+        /// <summary>
+        /// Conversion to string.
+        /// </summary>
+        /// <param name="value">The number from which to convert.</param>
+        public static implicit operator ReadOnlySpan<char>(TypeEntity value)
+        {
+            return value.AsString.AsSpan();
+        }
+
+        /// <summary>
+        /// Conversion from utf8 bytes.
+        /// </summary>
+        /// <param name="value">The value from which to convert.</param>
+        public static implicit operator TypeEntity(ReadOnlySpan<byte> value)
+        {
+            return new TypeEntity(value);
+        }
+
+        /// <summary>
+        /// Conversion to utf8 bytes.
+        /// </summary>
+        /// <param name="value">The number from which to convert.</param>
+        public static implicit operator ReadOnlySpan<byte>(TypeEntity value)
+        {
+            return value.AsString.GetJsonEncodedText().EncodedUtf8Bytes;
+        }
+
+        /// <summary>
+        /// Conversion from string.
+        /// </summary>
+        /// <param name="value">The value from which to convert.</param>
+        public static implicit operator TypeEntity(JsonString value)
+        {
+            return new TypeEntity(value);
+        }
+
+        /// <summary>
+        /// Conversion to string.
+        /// </summary>
+        /// <param name="value">The value from which to convert.</param>
+        public static implicit operator JsonString(TypeEntity value)
+        {
+            return value.AsString;
+        }
+
+    
     
     
     
@@ -7529,6 +7746,12 @@ namespace Menes.Json
 
     
     
+                if (this.stringBacking is JsonEncodedText stringBacking)
+            {
+                writer.WriteStringValue(stringBacking);
+                return;
+            }
+
     
     
             if (this.jsonElementBacking.ValueKind != JsonValueKind.Undefined)
@@ -8519,6 +8742,7 @@ namespace Menes.Json
     
     
     
+            private readonly JsonEncodedText? stringBacking;
     
     
         /// <summary>
@@ -8528,11 +8752,70 @@ namespace Menes.Json
         public SimpleTypesEntity(JsonElement value)
         {
             this.jsonElementBacking = value;
-                            }
+                            this.stringBacking = default;
+                }
 
     
     
     
+            /// <summary>
+        /// Initializes a new instance of the <see cref="SimpleTypesEntity"/> struct.
+        /// </summary>
+        /// <param name="value">A string value.</param>
+        public SimpleTypesEntity(string value)
+        {
+            this.jsonElementBacking = default;
+                                            this.stringBacking = JsonEncodedText.Encode(value);
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SimpleTypesEntity"/> struct.
+        /// </summary>
+        /// <param name="value">A string value.</param>
+        public SimpleTypesEntity(JsonEncodedText value)
+        {
+            this.jsonElementBacking = default;
+                                            this.stringBacking = value;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SimpleTypesEntity"/> struct.
+        /// </summary>
+        /// <param name="value">A string value.</param>
+        public SimpleTypesEntity(ReadOnlySpan<char> value)
+        {
+            this.jsonElementBacking = default;
+                                            this.stringBacking = JsonEncodedText.Encode(value);
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SimpleTypesEntity"/> struct.
+        /// </summary>
+        /// <param name="value">A string value.</param>
+        public SimpleTypesEntity(ReadOnlySpan<byte> value)
+        {
+            this.jsonElementBacking = default;
+                                            this.stringBacking = JsonEncodedText.Encode(value);
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SimpleTypesEntity"/> struct.
+        /// </summary>
+        /// <param name="jsonString">The <see cref="JsonString"/> from which to construct the value.</param>
+        public SimpleTypesEntity(JsonString jsonString)
+        {
+            if (jsonString.HasJsonElement)
+            {
+                this.jsonElementBacking = jsonString.AsJsonElement;
+                this.stringBacking = default;
+            }
+            else
+            {
+                this.jsonElementBacking = default;
+                this.stringBacking = jsonString.GetJsonEncodedText();
+            }
+
+                                        }
     
     
     
@@ -8546,8 +8829,8 @@ namespace Menes.Json
         public bool HasJsonElement =>
     
     
-                
-        true
+                                this.stringBacking is null
+        
                 ;
 
         /// <summary>
@@ -8560,6 +8843,11 @@ namespace Menes.Json
     
     
     
+                    if (this.stringBacking is JsonEncodedText stringBacking)
+                {
+                    return JsonString.StringToJsonElement(stringBacking);
+                }
+
     
     
                 return this.jsonElementBacking;
@@ -8574,6 +8862,11 @@ namespace Menes.Json
     
     
     
+                    if (this.stringBacking is JsonEncodedText)
+                {
+                    return JsonValueKind.String;
+                }
+
     
     
                 return this.jsonElementBacking.ValueKind;
@@ -8588,6 +8881,11 @@ namespace Menes.Json
     
     
     
+                    if (this.stringBacking is JsonEncodedText stringBacking)
+                {
+                    return new JsonAny(stringBacking);
+                }
+
     
     
                 return new JsonAny(this.jsonElementBacking);
@@ -8636,6 +8934,11 @@ namespace Menes.Json
         {
             get
             {
+                    if (this.stringBacking is JsonEncodedText stringBacking)
+                {
+                    return new JsonString(stringBacking);
+                }
+
                     return new JsonString(this.jsonElementBacking);
             }
         }
@@ -8690,6 +8993,97 @@ namespace Menes.Json
     
     
     
+        /// <summary>
+        /// Conversion from string.
+        /// </summary>
+        /// <param name="value">The value from which to convert.</param>
+        public static implicit operator SimpleTypesEntity(string value)
+        {
+            return new SimpleTypesEntity(value);
+        }
+
+        /// <summary>
+        /// Conversion to string.
+        /// </summary>
+        /// <param name="value">The number from which to convert.</param>
+        public static implicit operator string(SimpleTypesEntity value)
+        {
+            return value.AsString.GetString();
+        }
+
+        /// <summary>
+        /// Conversion from <see cref="JsonEncodedText"/>.
+        /// </summary>
+        /// <param name="value">The value from which to convert.</param>
+        public static implicit operator SimpleTypesEntity(JsonEncodedText value)
+        {
+            return new SimpleTypesEntity(value);
+        }
+
+        /// <summary>
+        /// Conversion to <see cref="JsonEncodedText"/>.
+        /// </summary>
+        /// <param name="value">The number from which to convert.</param>
+        public static implicit operator JsonEncodedText(SimpleTypesEntity value)
+        {
+            return value.AsString.GetJsonEncodedText();
+        }
+
+        /// <summary>
+        /// Conversion from string.
+        /// </summary>
+        /// <param name="value">The value from which to convert.</param>
+        public static implicit operator SimpleTypesEntity(ReadOnlySpan<char> value)
+        {
+            return new SimpleTypesEntity(value);
+        }
+
+        /// <summary>
+        /// Conversion to string.
+        /// </summary>
+        /// <param name="value">The number from which to convert.</param>
+        public static implicit operator ReadOnlySpan<char>(SimpleTypesEntity value)
+        {
+            return value.AsString.AsSpan();
+        }
+
+        /// <summary>
+        /// Conversion from utf8 bytes.
+        /// </summary>
+        /// <param name="value">The value from which to convert.</param>
+        public static implicit operator SimpleTypesEntity(ReadOnlySpan<byte> value)
+        {
+            return new SimpleTypesEntity(value);
+        }
+
+        /// <summary>
+        /// Conversion to utf8 bytes.
+        /// </summary>
+        /// <param name="value">The number from which to convert.</param>
+        public static implicit operator ReadOnlySpan<byte>(SimpleTypesEntity value)
+        {
+            return value.AsString.GetJsonEncodedText().EncodedUtf8Bytes;
+        }
+
+        /// <summary>
+        /// Conversion from string.
+        /// </summary>
+        /// <param name="value">The value from which to convert.</param>
+        public static implicit operator SimpleTypesEntity(JsonString value)
+        {
+            return new SimpleTypesEntity(value);
+        }
+
+        /// <summary>
+        /// Conversion to string.
+        /// </summary>
+        /// <param name="value">The value from which to convert.</param>
+        public static implicit operator JsonString(SimpleTypesEntity value)
+        {
+            return value.AsString;
+        }
+
+    
     
     
     
@@ -8703,6 +9097,12 @@ namespace Menes.Json
     
     
     
+                if (this.stringBacking is JsonEncodedText stringBacking)
+            {
+                writer.WriteStringValue(stringBacking);
+                return;
+            }
+
     
     
             if (this.jsonElementBacking.ValueKind != JsonValueKind.Undefined)
