@@ -1946,6 +1946,24 @@ public partial class SchemaEntity
         return sep.TransformText();
     }
 
+    /// <summary>
+    /// Gets the suffix to use for the pattern property.
+    /// </summary>
+    /// <param name="patternProperty">The pattern property for which to determine the suffix.</param>
+    /// <returns>The suffix for the given property.</returns>
+    /// <remarks>
+    /// The suffix will be the index + 1 if there are multiple patterns that resolve to the same type. Otherwise, it will be the simple type name to which it resolves.
+    /// </remarks>
+    public string PatternPropertySuffix(PatternProperty patternProperty)
+    {
+        if (this.PatternProperties.Count(p => p.DotnetTypeName == patternProperty.DotnetTypeName) == 1)
+        {
+            return patternProperty.DotnetTypeName[(patternProperty.DotnetTypeName.LastIndexOf('.') + 1) ..];
+        }
+
+        return (this.PatternProperties.IndexOf(patternProperty) + 1).ToString();
+    }
+
     private static string GetRawTextAsQuotedString(JsonAny? value)
     {
         if (value is JsonAny actualValue)
@@ -2087,7 +2105,7 @@ public partial class SchemaEntity
     /// <summary>
     /// Represents a pattern property.
     /// </summary>
-    public readonly struct PatternProperty
+    public readonly struct PatternProperty : IEquatable<PatternProperty>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="PatternProperty"/> struct.
@@ -2109,6 +2127,47 @@ public partial class SchemaEntity
         /// Gets the dotnet type name of the schema to match.
         /// </summary>
         public string DotnetTypeName { get; }
+
+        /// <summary>
+        /// Equality operator.
+        /// </summary>
+        /// <param name="left">LHS.</param>
+        /// <param name="right">RHS.</param>
+        /// <returns>True if the properties are equal.</returns>
+        public static bool operator ==(PatternProperty left, PatternProperty right)
+        {
+            return left.Equals(right);
+        }
+
+        /// <summary>
+        /// Equality operator.
+        /// </summary>
+        /// <param name="left">LHS.</param>
+        /// <param name="right">RHS.</param>
+        /// <returns>True if the properties are not equal.</returns>
+        public static bool operator !=(PatternProperty left, PatternProperty right)
+        {
+            return !(left == right);
+        }
+
+        /// <inheritdoc/>
+        public override bool Equals(object? obj)
+        {
+            return obj is PatternProperty property && this.Equals(property);
+        }
+
+        /// <inheritdoc/>
+        public bool Equals(PatternProperty other)
+        {
+            return this.Pattern == other.Pattern &&
+                   this.DotnetTypeName == other.DotnetTypeName;
+        }
+
+        /// <inheritdoc/>
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(this.Pattern, this.DotnetTypeName);
+        }
     }
 
     /// <summary>

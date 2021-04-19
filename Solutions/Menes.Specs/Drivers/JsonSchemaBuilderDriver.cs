@@ -246,6 +246,7 @@ namespace Drivers
                 MetadataReference.CreateFromFile(typeof(Regex).Assembly.Location),
                 MetadataReference.CreateFromFile(typeof(UrlEncoder).Assembly.Location),
                 MetadataReference.CreateFromFile(typeof(JsonAny).Assembly.Location),
+                MetadataReference.CreateFromFile(typeof(System.Linq.Enumerable).Assembly.Location),
             };
         }
 

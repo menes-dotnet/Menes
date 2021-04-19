@@ -102,6 +102,19 @@ namespace Menes.Json
         /// <typeparam name="T">The type of value to test.</typeparam>
         /// <param name="value">The value to test.</param>
         /// <returns><c>True</c> if the value is Null or Undefined.</returns>
+        public static bool IsNullOrUndefined<T>(this T value)
+            where T : struct, IJsonValue
+        {
+            JsonValueKind valueKind = value.ValueKind;
+            return valueKind == JsonValueKind.Null || valueKind == JsonValueKind.Undefined;
+        }
+
+        /// <summary>
+        /// Gets a value which determines if the value is null.
+        /// </summary>
+        /// <typeparam name="T">The type of value to test.</typeparam>
+        /// <param name="value">The value to test.</param>
+        /// <returns><c>True</c> if the value is Null.</returns>
         public static bool IsNull<T>(this T value)
             where T : struct, IJsonValue
         {
@@ -110,11 +123,11 @@ namespace Menes.Json
         }
 
         /// <summary>
-        /// Gets a value which determines if the value is not null or undefined.
+        /// Gets a value which determines if the value is not null.
         /// </summary>
         /// <typeparam name="T">The type of value to test.</typeparam>
         /// <param name="value">The value to test.</param>
-        /// <returns><c>True</c> if the value is Null or Undefined.</returns>
+        /// <returns><c>False</c> if the value is Null.</returns>
         public static bool IsNotNull<T>(this T value)
             where T : struct, IJsonValue
         {
@@ -140,12 +153,25 @@ namespace Menes.Json
         /// </summary>
         /// <typeparam name="T">The type of value to test.</typeparam>
         /// <param name="value">The value to test.</param>
-        /// <returns><c>True</c> if the value is Undefined.</returns>
+        /// <returns><c>False</c> if the value is Undefined.</returns>
         public static bool IsNotUndefined<T>(this T value)
             where T : struct, IJsonValue
         {
             JsonValueKind valueKind = value.ValueKind;
             return valueKind != JsonValueKind.Undefined;
+        }
+
+        /// <summary>
+        /// Gets a value which determines if the value is not null or undefined.
+        /// </summary>
+        /// <typeparam name="T">The type of value to test.</typeparam>
+        /// <param name="value">The value to test.</param>
+        /// <returns><c>False</c> if the value is Null or Undefined.</returns>
+        public static bool IsNotNullOrUndefined<T>(this T value)
+            where T : struct, IJsonValue
+        {
+            JsonValueKind valueKind = value.ValueKind;
+            return valueKind != JsonValueKind.Undefined && valueKind != JsonValueKind.Null;
         }
 
         /// <summary>

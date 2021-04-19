@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Menes.OpenApi", "Menes.Open
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Menes.Json.Walker", "Menes.Json.Walker\Menes.Json.Walker.csproj", "{98DE4724-22F1-4049-A26A-E7CE2058CBD8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Menes.OpenApi.SchemaModel", "Menes.OpenApi.SchemaModel\Menes.OpenApi.SchemaModel.csproj", "{CEF56902-4167-4199-9255-FBB8674E737A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{98DE4724-22F1-4049-A26A-E7CE2058CBD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{98DE4724-22F1-4049-A26A-E7CE2058CBD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{98DE4724-22F1-4049-A26A-E7CE2058CBD8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CEF56902-4167-4199-9255-FBB8674E737A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CEF56902-4167-4199-9255-FBB8674E737A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CEF56902-4167-4199-9255-FBB8674E737A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CEF56902-4167-4199-9255-FBB8674E737A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

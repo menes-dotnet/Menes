@@ -8,6 +8,7 @@ namespace Hooks
     using Drivers;
     using Menes.Json;
     using Menes.Json.SchemaModel;
+    using Menes.OpenApi.SchemaModel;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using SolidToken.SpecFlow.DependencyInjection;
@@ -30,7 +31,9 @@ namespace Hooks
             services.AddTransient<IDocumentResolver>(serviceProvider => new CompoundDocumentResolver(new FakeWebDocumentResolver(serviceProvider.GetRequiredService<IConfiguration>()["jsonSchemaBuilderDriverSettings:remotesBaseDirectory"]), new FileSystemDocumentResolver(), new HttpClientDocumentResolver(new HttpClient())));
             services.AddTransient<JsonWalker>();
             services.AddTransient<JsonSchemaBuilder>();
+            services.AddTransient<OpenApiServiceBuilder>();
             services.AddTransient<JsonSchemaBuilderDriver>();
+            services.AddTransient<OpenApiServiceBuilderDriver>();
             services.AddTransient<IConfiguration>(sp =>
             {
                 IConfigurationBuilder configurationBuilder = new ConfigurationBuilder();
