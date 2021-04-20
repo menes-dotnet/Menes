@@ -240,7 +240,7 @@ namespace Menes.Json.SchemaModel
                 if (reference.HasFragment)
                 {
                     int lastSlash = reference.Fragment.LastIndexOf('/');
-                    if (char.IsDigit(reference.Fragment[lastSlash + 1]))
+                    if (char.IsDigit(reference.Fragment[lastSlash + 1]) && lastSlash > 0)
                     {
                         int previousSlash = reference.Fragment[.. (lastSlash - 1)].LastIndexOf('/');
                         if (previousSlash >= 0)
@@ -250,7 +250,7 @@ namespace Menes.Json.SchemaModel
 
                         typename = Formatting.ToPascalCaseWithReservedWords(reference.Fragment[(lastSlash + 1)..].ToString());
                     }
-                    else if (reference.Fragment[(lastSlash + 1)..].SequenceEqual("items"))
+                    else if (reference.Fragment[(lastSlash + 1)..].SequenceEqual("items") && lastSlash > 0)
                     {
                         int previousSlash = reference.Fragment[.. (lastSlash - 1)].LastIndexOf('/');
                         typename = Formatting.ToPascalCaseWithReservedWords(reference.Fragment[(previousSlash + 1) .. lastSlash].ToString());
