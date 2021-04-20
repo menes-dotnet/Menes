@@ -6,6 +6,7 @@ namespace Menes.OpenApi.SchemaModel
 {
     using System;
     using System.Collections.Generic;
+    using System.Collections.Immutable;
     using System.Text.Json;
     using System.Threading.Tasks;
     using Menes.Json;
@@ -16,6 +17,7 @@ namespace Menes.OpenApi.SchemaModel
     public class OpenApiServiceBuilder
     {
         private readonly Stack<Document.ServerValueArray> serverStack = new Stack<Document.ServerValueArray>();
+        private readonly Queue<ImmutableList<Document.ParameterValue>> parametersQueue = new Queue<ImmutableList<Document.ParameterValue>>();
         private readonly IDocumentResolver resolver;
 
         /// <summary>
@@ -70,6 +72,27 @@ namespace Menes.OpenApi.SchemaModel
                 this.serverStack.Push(pathItem.Servers.As<Document.ServerValueArray>());
             }
 
+            if (pathItem.Parameters.IsNotNullOrUndefined())
+            {
+                ImmutableList<Document.ParameterValue>.Builder parameterBuilder = ImmutableList.CreateBuilder<Document.ParameterValue>();
+                foreach (Document.PathItemValue.ParametersEntity item in pathItem.Parameters.EnumerateItems())
+                {
+                    Document.ParameterValue parameterValue;
+                    if (item.IsReferenceValue)
+                    {
+                        parameterValue = await this.ResolveReference<Document.ParameterValue>(item.AsReferenceValue.Ref);
+                    }
+                    else
+                    {
+                        parameterValue = item.AsParameterValue;
+                    }
+
+                    parameterBuilder.Add(parameterValue);
+                }
+
+                this.parametersQueue.Enqueue(parameterBuilder.ToImmutable());
+            }
+
             foreach (Property property in pathItem.EnumerateObject())
             {
                 if (IsOperationValue(property))
@@ -83,27 +106,78 @@ namespace Menes.OpenApi.SchemaModel
                 this.serverStack.Pop();
             }
 
+            if (pathItem.Parameters.IsNotNullOrUndefined())
+            {
+                this.parametersQueue.Dequeue();
+            }
+
             static bool IsOperationValue(Property pathItemProperty)
             {
                 return Document.PathItemValue.PatternPropertyOperationValue.IsMatch(pathItemProperty.Name);
             }
         }
 
-        private Task ProcessOperation(string verb, Document.OperationValue operation)
+        private async Task ProcessOperation(string verb, Document.OperationValue operation)
         {
             if (operation.Servers.IsNotNullOrUndefined())
             {
                 this.serverStack.Push(operation.Servers.As<Document.ServerValueArray>());
             }
 
-            //// DO WHATEVER WE NEED TO DO
+            if (operation.Parameters.IsNotNullOrUndefined())
+            {
+                ImmutableList<Document.ParameterValue>.Builder parameterBuilder = ImmutableList.CreateBuilder<Document.ParameterValue>();
+                foreach (Document.OperationValue.ParametersEntity item in operation.Parameters.EnumerateItems())
+                {
+                    Document.ParameterValue parameterValue;
+                    if (item.IsReferenceValue)
+                    {
+                        parameterValue = await this.ResolveReference<Document.ParameterValue>(item.AsReferenceValue.Ref);
+                    }
+                    else
+                    {
+                        parameterValue = item.AsParameterValue;
+                    }
+
+                    parameterBuilder.Add(parameterValue);
+                }
+
+                this.parametersQueue.Enqueue(parameterBuilder.ToImmutable());
+            }
 
             if (operation.Servers.IsNotNullOrUndefined())
             {
                 this.serverStack.Pop();
             }
 
-            return Task.CompletedTask;
+            if (operation.Parameters.IsNotNullOrUndefined())
+            {
+                this.parametersQueue.Dequeue();
+            }
+        }
+
+        /// <summary>
+        /// Creates the merged list of parameters for the current context.
+        /// </summary>
+        /// <returns>A list of parameter values which represents the set for the current context.</returns>
+        private ImmutableList<Document.ParameterValue> MergeParameters()
+        {
+            ImmutableList<Document.ParameterValue>.Builder result = ImmutableList.CreateBuilder<Document.ParameterValue>();
+            foreach (ImmutableList<Document.ParameterValue> parameters in this.parametersQueue)
+            {
+                foreach (Document.ParameterValue parameter in parameters)
+                {
+                    int index = result.FindIndex(r => r.In == parameter.In && r.Name == parameter.Name);
+                    if (index >= 0)
+                    {
+                        result.RemoveAt(index);
+                    }
+
+                    result.Add(parameter);
+                }
+            }
+
+            return result.ToImmutable();
         }
 
         private void PushRootServers(Document openApiDocument)
