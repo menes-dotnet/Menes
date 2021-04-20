@@ -247,9 +247,18 @@ namespace Menes.Json.SchemaModel
                         {
                             lastSlash = previousSlash;
                         }
-                    }
 
-                    typename = Formatting.ToPascalCaseWithReservedWords(reference.Fragment[(lastSlash + 1)..].ToString());
+                        typename = Formatting.ToPascalCaseWithReservedWords(reference.Fragment[(lastSlash + 1)..].ToString());
+                    }
+                    else if (reference.Fragment[(lastSlash + 1)..].SequenceEqual("items"))
+                    {
+                        int previousSlash = reference.Fragment[.. (lastSlash - 1)].LastIndexOf('/');
+                        typename = Formatting.ToPascalCaseWithReservedWords(reference.Fragment[(previousSlash + 1) .. lastSlash].ToString());
+                    }
+                    else
+                    {
+                        typename = Formatting.ToPascalCaseWithReservedWords(reference.Fragment[(lastSlash + 1)..].ToString());
+                    }
                 }
                 else if (reference.HasPath)
                 {

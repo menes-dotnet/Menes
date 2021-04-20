@@ -498,6 +498,8 @@ namespace Menes.Json.SchemaModel
             static void FindAndSetParent(Dictionary<string, TypeDeclaration> referencedTypesByLocation, TypeDeclaration typeDeclaration)
             {
                 ReadOnlySpan<char> location = typeDeclaration.Location.AsSpan();
+                bool isItemsArray = location.EndsWith("items");
+
                 while (true)
                 {
                     int lastSlash = location.LastIndexOf('/');
@@ -519,6 +521,12 @@ namespace Menes.Json.SchemaModel
                     location = location.Slice(0, lastSlash);
                     if (referencedTypesByLocation.TryGetValue(location.ToString(), out TypeDeclaration parent) && parent != typeDeclaration)
                     {
+                        // Walk back up to the parent type for the items type, if available.
+                        if (isItemsArray && parent.Parent is TypeDeclaration p)
+                        {
+                            parent = p;
+                        }
+
                         typeDeclaration.SetParent(parent);
                         break;
                     }
