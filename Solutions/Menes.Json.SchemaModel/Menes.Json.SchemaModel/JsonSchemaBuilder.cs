@@ -330,9 +330,11 @@ namespace Menes.Json.SchemaModel
             {
                 foreach (Property<Schema> schemaProperty in currentDeclaration.Schema.Properties.EnumerateProperties())
                 {
-                    TypeDeclaration typeDeclaration = this.GetTypeDeclarationForProperty(new JsonReference(currentDeclaration.Location).AppendUnencodedPropertyNameToFragment("properties"), schemaProperty.Name);
-                    this.AddTypeDeclarationsToReferencedTypes(referencedTypes, typeDeclaration);
-                    localTypes.Add(typeDeclaration);
+                    if (this.TryGetTypeDeclarationForProperty(new JsonReference(currentDeclaration.Location).AppendUnencodedPropertyNameToFragment("properties"), schemaProperty.Name, out TypeDeclaration? typeDeclaration))
+                    {
+                        this.AddTypeDeclarationsToReferencedTypes(referencedTypes, typeDeclaration);
+                        localTypes.Add(typeDeclaration);
+                    }
                 }
             }
 
@@ -406,7 +408,7 @@ namespace Menes.Json.SchemaModel
 
             if (!draft201909Schema.Validate(ValidationContext.ValidContext).IsValid)
             {
-                    throw new InvalidOperationException("Unable to build types for an invalid schema.");
+                throw new InvalidOperationException("Unable to build types for an invalid schema.");
             }
 
             ////if (draft201909Schema.Id is Draft201909MetaCore.IdValue idValue)
@@ -473,19 +475,30 @@ namespace Menes.Json.SchemaModel
                 return typeDeclaration;
             }
 
-            throw new InvalidOperationException($"Unable to find the TypeDeclaration for location '{resolvedSchemaLocation}'");
+            return BuiltInTypes.AnyTypeDeclarationInstance;
         }
 
         private TypeDeclaration GetTypeDeclarationForProperty(string location, string propertyName)
         {
-            JsonReference schemaLocation = new JsonReference(location).AppendUnencodedPropertyNameToFragment(propertyName);
-            string resolvedSchemaLocation = this.walker.GetLocatedElement(schemaLocation.ToString()).AbsoluteLocation;
-            if (this.locatedTypeDeclarations.TryGetValue(resolvedSchemaLocation, out TypeDeclaration typeDeclaration))
+            if (this.TryGetTypeDeclarationForProperty(location, propertyName, out TypeDeclaration? typeDeclaration))
             {
                 return typeDeclaration;
             }
 
-            throw new InvalidOperationException($"Unable to find the TypeDeclaration for location '{resolvedSchemaLocation}'");
+            return BuiltInTypes.AnyTypeDeclarationInstance;
+        }
+
+        private bool TryGetTypeDeclarationForProperty(string location, string propertyName, [NotNullWhen(true)]out TypeDeclaration? typeDeclaration)
+        {
+            JsonReference schemaLocation = new JsonReference(location).AppendUnencodedPropertyNameToFragment(propertyName);
+            string resolvedSchemaLocation = this.walker.GetLocatedElement(schemaLocation.ToString()).AbsoluteLocation;
+            if (this.locatedTypeDeclarations.TryGetValue(resolvedSchemaLocation, out typeDeclaration))
+            {
+                return true;
+            }
+
+            typeDeclaration = default;
+            return false;
         }
 
         private void SetParents(Dictionary<string, TypeDeclaration> referencedTypesByLocation)
