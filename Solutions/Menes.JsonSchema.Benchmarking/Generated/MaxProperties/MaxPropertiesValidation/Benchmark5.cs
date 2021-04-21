@@ -29,7 +29,7 @@ namespace MaxPropertiesFeature.MaxPropertiesValidation
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<MaxPropertiesFeature.MaxPropertiesValidation.RootEntity>();
+            this.ValidateMenesCore<MaxPropertiesFeature.MaxPropertiesValidation.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

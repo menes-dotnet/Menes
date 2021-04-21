@@ -29,7 +29,7 @@ namespace RefFeature.RefsWithQuote
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<RefFeature.RefsWithQuote.RootEntity>();
+            this.ValidateMenesCore<RefFeature.RefsWithQuote.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

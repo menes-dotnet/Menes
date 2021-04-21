@@ -29,7 +29,7 @@ namespace FormatFeature.ValidationOfIDEMailAddresses
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<FormatFeature.ValidationOfIDEMailAddresses.RootEntity>();
+            this.ValidateMenesCore<FormatFeature.ValidationOfIDEMailAddresses.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

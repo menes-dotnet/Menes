@@ -29,7 +29,7 @@ namespace UuidFeature.UuidFormat
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<UuidFeature.UuidFormat.RootEntity>();
+            this.ValidateMenesCore<UuidFeature.UuidFormat.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

@@ -29,7 +29,7 @@ namespace MinContainsFeature.MaxContainsLessThanMinContains
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<MinContainsFeature.MaxContainsLessThanMinContains.RootEntity>();
+            this.ValidateMenesCore<MinContainsFeature.MaxContainsLessThanMinContains.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

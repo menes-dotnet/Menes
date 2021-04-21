@@ -29,7 +29,7 @@ namespace ItemsFeature.AnArrayOfSchemasForItems
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<ItemsFeature.AnArrayOfSchemasForItems.RootEntity>();
+            this.ValidateMenesCore<ItemsFeature.AnArrayOfSchemasForItems.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

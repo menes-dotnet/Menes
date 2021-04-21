@@ -29,7 +29,7 @@ namespace TypeFeature.TypeArrayObjectOrNull
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<TypeFeature.TypeArrayObjectOrNull.RootEntity>();
+            this.ValidateMenesCore<TypeFeature.TypeArrayObjectOrNull.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

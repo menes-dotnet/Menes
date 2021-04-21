@@ -29,7 +29,7 @@ namespace HostnameFeature.ValidationOfHostNames
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<HostnameFeature.ValidationOfHostNames.RootEntity>();
+            this.ValidateMenesCore<HostnameFeature.ValidationOfHostNames.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

@@ -29,7 +29,7 @@ namespace IfThenElseFeature.NonInterferenceAcrossCombinedSchemas
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<IfThenElseFeature.NonInterferenceAcrossCombinedSchemas.RootEntity>();
+            this.ValidateMenesCore<IfThenElseFeature.NonInterferenceAcrossCombinedSchemas.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

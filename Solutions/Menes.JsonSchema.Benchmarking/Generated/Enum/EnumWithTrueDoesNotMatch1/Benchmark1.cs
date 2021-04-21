@@ -29,7 +29,7 @@ namespace EnumFeature.EnumWithTrueDoesNotMatch1
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<EnumFeature.EnumWithTrueDoesNotMatch1.RootEntity>();
+            this.ValidateMenesCore<EnumFeature.EnumWithTrueDoesNotMatch1.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

@@ -29,7 +29,7 @@ namespace IfThenElseFeature.ValidateAgainstCorrectBranchThenVsElse
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<IfThenElseFeature.ValidateAgainstCorrectBranchThenVsElse.RootEntity>();
+            this.ValidateMenesCore<IfThenElseFeature.ValidateAgainstCorrectBranchThenVsElse.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

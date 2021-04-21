@@ -29,7 +29,7 @@ namespace IdnEmailFeature.ValidationOfAnInternationalizedEMailAddresses
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<IdnEmailFeature.ValidationOfAnInternationalizedEMailAddresses.RootEntity>();
+            this.ValidateMenesCore<IdnEmailFeature.ValidationOfAnInternationalizedEMailAddresses.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

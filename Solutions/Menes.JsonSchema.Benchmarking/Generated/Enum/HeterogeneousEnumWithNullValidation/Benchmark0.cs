@@ -29,7 +29,7 @@ namespace EnumFeature.HeterogeneousEnumWithNullValidation
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<EnumFeature.HeterogeneousEnumWithNullValidation.RootEntity>();
+            this.ValidateMenesCore<EnumFeature.HeterogeneousEnumWithNullValidation.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

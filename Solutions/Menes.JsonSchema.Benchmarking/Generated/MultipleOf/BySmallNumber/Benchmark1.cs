@@ -29,7 +29,7 @@ namespace MultipleOfFeature.BySmallNumber
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<MultipleOfFeature.BySmallNumber.RootEntity>();
+            this.ValidateMenesCore<MultipleOfFeature.BySmallNumber.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

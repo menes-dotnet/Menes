@@ -29,7 +29,7 @@ namespace EnumFeature.NulCharactersInStrings
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<EnumFeature.NulCharactersInStrings.RootEntity>();
+            this.ValidateMenesCore<EnumFeature.NulCharactersInStrings.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

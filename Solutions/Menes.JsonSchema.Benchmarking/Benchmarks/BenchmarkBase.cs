@@ -11,8 +11,7 @@ namespace Menes.JsonSchema.Benchmarking.Benchmarks
     using System.Threading.Tasks;
     using Drivers;
     using Menes.Json;
-    using Menes.Json.Schema;
-    using Menes.JsonSchema.TypeBuilder;
+    using Menes.Json.SchemaModel;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Newtonsoft.Json.Linq;
@@ -74,7 +73,7 @@ namespace Menes.JsonSchema.Benchmarking.Benchmarks
         {
             var reader = new Utf8JsonReader(this.dataBytes!.AsSpan());
             JsonDocument.TryParseValue(ref reader, out JsonDocument? document);
-            T value = document!.RootElement.As<T>();
+            T value = new JsonAny(document!.RootElement).As<T>();
 
             if (value.Validate(ValidationContext.ValidContext).IsValid != this.isValid)
             {
@@ -99,6 +98,7 @@ namespace Menes.JsonSchema.Benchmarking.Benchmarks
             var services = new ServiceCollection();
 
             services.AddTransient<IDocumentResolver>(serviceProvider => new CompoundDocumentResolver(new FakeWebDocumentResolver(serviceProvider.GetRequiredService<IConfiguration>()["jsonSchemaBuilderDriverSettings:remotesBaseDirectory"]), new FileSystemDocumentResolver(), new HttpClientDocumentResolver(new HttpClient())));
+            services.AddTransient<JsonWalker>();
             services.AddTransient<JsonSchemaBuilder>();
             services.AddTransient<JsonSchemaBuilderDriver>();
             services.AddTransient<IConfiguration>(sp =>

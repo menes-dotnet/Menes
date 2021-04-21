@@ -29,7 +29,7 @@ namespace DefaultFeature.InvalidStringValueForDefault
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<DefaultFeature.InvalidStringValueForDefault.RootEntity>();
+            this.ValidateMenesCore<DefaultFeature.InvalidStringValueForDefault.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

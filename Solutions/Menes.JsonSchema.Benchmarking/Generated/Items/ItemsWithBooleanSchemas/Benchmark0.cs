@@ -29,7 +29,7 @@ namespace ItemsFeature.ItemsWithBooleanSchemas
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<ItemsFeature.ItemsWithBooleanSchemas.RootEntity>();
+            this.ValidateMenesCore<ItemsFeature.ItemsWithBooleanSchemas.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

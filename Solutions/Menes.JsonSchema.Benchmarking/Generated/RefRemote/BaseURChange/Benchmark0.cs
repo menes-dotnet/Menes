@@ -29,7 +29,7 @@ namespace RefRemoteFeature.BaseURChange
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<RefRemoteFeature.BaseURChange.RootEntity>();
+            this.ValidateMenesCore<RefRemoteFeature.BaseURChange.Entity>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

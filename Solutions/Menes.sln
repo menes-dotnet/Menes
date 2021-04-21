@@ -13,11 +13,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Menes.Json.SchemaModel", "M
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Menes.Specs", "Menes.Specs\Menes.Specs.csproj", "{B781EF33-C74E-4252-B36E-47F80172EAFC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Menes.OpenApi", "Menes.OpenApi\Menes.OpenApi.csproj", "{8BE0DD81-E206-4C91-9E6A-CB2C917C3133}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Menes.OpenApi", "Menes.OpenApi\Menes.OpenApi.csproj", "{8BE0DD81-E206-4C91-9E6A-CB2C917C3133}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Menes.Json.Walker", "Menes.Json.Walker\Menes.Json.Walker.csproj", "{98DE4724-22F1-4049-A26A-E7CE2058CBD8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Menes.Json.Walker", "Menes.Json.Walker\Menes.Json.Walker.csproj", "{98DE4724-22F1-4049-A26A-E7CE2058CBD8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Menes.OpenApi.SchemaModel", "Menes.OpenApi.SchemaModel\Menes.OpenApi.SchemaModel.csproj", "{CEF56902-4167-4199-9255-FBB8674E737A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Menes.OpenApi.SchemaModel", "Menes.OpenApi.SchemaModel\Menes.OpenApi.SchemaModel.csproj", "{CEF56902-4167-4199-9255-FBB8674E737A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Menes.JsonSchema.Benchmarking", "Menes.JsonSchema.Benchmarking\Menes.JsonSchema.Benchmarking.csproj", "{40D4A29C-E007-4B93-82F5-B19A0495D2F8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Menes.JsonSchema.SpecGenerator", "Menes.JsonSchema.SpecGenerator\Menes.JsonSchema.SpecGenerator.csproj", "{57089604-1AB8-4D43-A05D-5C74B4C9F2B4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +61,14 @@ Global
 		{CEF56902-4167-4199-9255-FBB8674E737A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CEF56902-4167-4199-9255-FBB8674E737A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CEF56902-4167-4199-9255-FBB8674E737A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{40D4A29C-E007-4B93-82F5-B19A0495D2F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40D4A29C-E007-4B93-82F5-B19A0495D2F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40D4A29C-E007-4B93-82F5-B19A0495D2F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40D4A29C-E007-4B93-82F5-B19A0495D2F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{57089604-1AB8-4D43-A05D-5C74B4C9F2B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57089604-1AB8-4D43-A05D-5C74B4C9F2B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57089604-1AB8-4D43-A05D-5C74B4C9F2B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57089604-1AB8-4D43-A05D-5C74B4C9F2B4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -29,7 +29,7 @@ namespace MinLengthFeature.MinLengthValidation
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<MinLengthFeature.MinLengthValidation.RootEntity>();
+            this.ValidateMenesCore<MinLengthFeature.MinLengthValidation.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

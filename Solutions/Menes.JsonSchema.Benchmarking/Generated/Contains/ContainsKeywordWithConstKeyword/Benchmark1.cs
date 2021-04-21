@@ -29,7 +29,7 @@ namespace ContainsFeature.ContainsKeywordWithConstKeyword
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<ContainsFeature.ContainsKeywordWithConstKeyword.RootEntity>();
+            this.ValidateMenesCore<ContainsFeature.ContainsKeywordWithConstKeyword.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

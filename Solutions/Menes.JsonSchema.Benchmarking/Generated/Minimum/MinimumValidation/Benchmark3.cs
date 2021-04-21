@@ -29,7 +29,7 @@ namespace MinimumFeature.MinimumValidation
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<MinimumFeature.MinimumValidation.RootEntity>();
+            this.ValidateMenesCore<MinimumFeature.MinimumValidation.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

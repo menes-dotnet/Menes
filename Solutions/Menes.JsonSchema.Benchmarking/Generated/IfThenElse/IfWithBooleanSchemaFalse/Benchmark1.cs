@@ -29,7 +29,7 @@ namespace IfThenElseFeature.IfWithBooleanSchemaFalse
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<IfThenElseFeature.IfWithBooleanSchemaFalse.RootEntity>();
+            this.ValidateMenesCore<IfThenElseFeature.IfWithBooleanSchemaFalse.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

@@ -29,7 +29,7 @@ namespace UniqueItemsFeature.UniqueItemsEqualsFalseValidation
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<UniqueItemsFeature.UniqueItemsEqualsFalseValidation.RootEntity>();
+            this.ValidateMenesCore<UniqueItemsFeature.UniqueItemsEqualsFalseValidation.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

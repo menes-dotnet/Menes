@@ -29,7 +29,7 @@ namespace IfThenElseFeature.IfAppearsAtTheEndWhenSerializedKeywordProcessingSequ
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<IfThenElseFeature.IfAppearsAtTheEndWhenSerializedKeywordProcessingSequence.RootEntity>();
+            this.ValidateMenesCore<IfThenElseFeature.IfAppearsAtTheEndWhenSerializedKeywordProcessingSequence.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

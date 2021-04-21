@@ -29,7 +29,7 @@ namespace FormatFeature.ValidationOfUUDs
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<FormatFeature.ValidationOfUUDs.RootEntity>();
+            this.ValidateMenesCore<FormatFeature.ValidationOfUUDs.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

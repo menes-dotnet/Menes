@@ -29,7 +29,7 @@ namespace PatternPropertiesFeature.PatternPropertiesValidatesPropertiesMatchingA
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<PatternPropertiesFeature.PatternPropertiesValidatesPropertiesMatchingARegex.RootEntity>();
+            this.ValidateMenesCore<PatternPropertiesFeature.PatternPropertiesValidatesPropertiesMatchingARegex.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

@@ -29,7 +29,7 @@ namespace UnevaluatedItemsFeature.UnevaluatedItemsTrue
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<UnevaluatedItemsFeature.UnevaluatedItemsTrue.RootEntity>();
+            this.ValidateMenesCore<UnevaluatedItemsFeature.UnevaluatedItemsTrue.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

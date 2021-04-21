@@ -29,7 +29,7 @@ namespace RefFeature.EscapedPointerRef
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<RefFeature.EscapedPointerRef.RootEntity>();
+            this.ValidateMenesCore<RefFeature.EscapedPointerRef.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

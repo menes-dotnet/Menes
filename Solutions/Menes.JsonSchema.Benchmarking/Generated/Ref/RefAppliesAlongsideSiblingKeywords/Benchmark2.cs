@@ -29,7 +29,7 @@ namespace RefFeature.RefAppliesAlongsideSiblingKeywords
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<RefFeature.RefAppliesAlongsideSiblingKeywords.RootEntity>();
+            this.ValidateMenesCore<RefFeature.RefAppliesAlongsideSiblingKeywords.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

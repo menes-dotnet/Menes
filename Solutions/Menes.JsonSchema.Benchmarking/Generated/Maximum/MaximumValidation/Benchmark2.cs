@@ -29,7 +29,7 @@ namespace MaximumFeature.MaximumValidation
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<MaximumFeature.MaximumValidation.RootEntity>();
+            this.ValidateMenesCore<MaximumFeature.MaximumValidation.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

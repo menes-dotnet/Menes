@@ -29,7 +29,7 @@ namespace OneOfFeature.OneOfWithEmptySchema
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<OneOfFeature.OneOfWithEmptySchema.RootEntity>();
+            this.ValidateMenesCore<OneOfFeature.OneOfWithEmptySchema.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

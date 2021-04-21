@@ -29,7 +29,7 @@ namespace UnevaluatedPropertiesFeature.NestedUnevaluatedPropertiesOuterFalseInne
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<UnevaluatedPropertiesFeature.NestedUnevaluatedPropertiesOuterFalseInnerTruePropertiesOutside.RootEntity>();
+            this.ValidateMenesCore<UnevaluatedPropertiesFeature.NestedUnevaluatedPropertiesOuterFalseInnerTruePropertiesOutside.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

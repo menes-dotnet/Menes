@@ -29,7 +29,7 @@ namespace FormatFeature.ValidationOfTimeStrings
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<FormatFeature.ValidationOfTimeStrings.RootEntity>();
+            this.ValidateMenesCore<FormatFeature.ValidationOfTimeStrings.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

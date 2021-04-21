@@ -29,7 +29,7 @@ namespace AllOfFeature.AllOfWithTwoEmptySchemas
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<AllOfFeature.AllOfWithTwoEmptySchemas.RootEntity>();
+            this.ValidateMenesCore<AllOfFeature.AllOfWithTwoEmptySchemas.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

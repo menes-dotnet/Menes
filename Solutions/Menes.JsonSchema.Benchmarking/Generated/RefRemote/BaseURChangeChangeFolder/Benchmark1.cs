@@ -29,7 +29,7 @@ namespace RefRemoteFeature.BaseURChangeChangeFolder
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<RefRemoteFeature.BaseURChangeChangeFolder.ScopeChangeDefs1>();
+            this.ValidateMenesCore<RefRemoteFeature.BaseURChangeChangeFolder.ScopeChangeDefs1Json>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

@@ -29,7 +29,7 @@ namespace ConstFeature.FloatAndIntegersAreEqualUpTo64BitRepresentationLimits
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<ConstFeature.FloatAndIntegersAreEqualUpTo64BitRepresentationLimits.RootEntity>();
+            this.ValidateMenesCore<ConstFeature.FloatAndIntegersAreEqualUpTo64BitRepresentationLimits.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

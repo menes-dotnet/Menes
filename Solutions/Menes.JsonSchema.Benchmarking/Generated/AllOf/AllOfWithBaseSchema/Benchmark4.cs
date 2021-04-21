@@ -29,7 +29,7 @@ namespace AllOfFeature.AllOfWithBaseSchema
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<AllOfFeature.AllOfWithBaseSchema.RootEntity>();
+            this.ValidateMenesCore<AllOfFeature.AllOfWithBaseSchema.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

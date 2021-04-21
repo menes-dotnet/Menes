@@ -29,7 +29,7 @@ namespace AllOfFeature.AllOfCombinedWithAnyOfOneOf
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<AllOfFeature.AllOfCombinedWithAnyOfOneOf.RootEntity>();
+            this.ValidateMenesCore<AllOfFeature.AllOfCombinedWithAnyOfOneOf.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

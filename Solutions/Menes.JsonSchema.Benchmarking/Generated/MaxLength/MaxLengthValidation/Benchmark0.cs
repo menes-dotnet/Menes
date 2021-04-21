@@ -29,7 +29,7 @@ namespace MaxLengthFeature.MaxLengthValidation
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<MaxLengthFeature.MaxLengthValidation.RootEntity>();
+            this.ValidateMenesCore<MaxLengthFeature.MaxLengthValidation.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

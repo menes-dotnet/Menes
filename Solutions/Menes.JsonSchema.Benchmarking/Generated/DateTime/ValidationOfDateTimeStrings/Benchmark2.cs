@@ -29,7 +29,7 @@ namespace DateTimeFeature.ValidationOfDateTimeStrings
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<DateTimeFeature.ValidationOfDateTimeStrings.RootEntity>();
+            this.ValidateMenesCore<DateTimeFeature.ValidationOfDateTimeStrings.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

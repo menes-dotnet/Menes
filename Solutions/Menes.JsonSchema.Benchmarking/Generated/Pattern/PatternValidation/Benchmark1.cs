@@ -29,7 +29,7 @@ namespace PatternFeature.PatternValidation
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<PatternFeature.PatternValidation.RootEntity>();
+            this.ValidateMenesCore<PatternFeature.PatternValidation.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

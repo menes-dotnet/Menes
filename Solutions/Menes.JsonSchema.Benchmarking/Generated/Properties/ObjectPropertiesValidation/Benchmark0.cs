@@ -29,7 +29,7 @@ namespace PropertiesFeature.ObjectPropertiesValidation
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<PropertiesFeature.ObjectPropertiesValidation.RootEntity>();
+            this.ValidateMenesCore<PropertiesFeature.ObjectPropertiesValidation.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

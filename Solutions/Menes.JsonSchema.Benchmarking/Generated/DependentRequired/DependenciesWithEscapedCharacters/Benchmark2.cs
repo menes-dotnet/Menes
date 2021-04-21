@@ -29,7 +29,7 @@ namespace DependentRequiredFeature.DependenciesWithEscapedCharacters
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<DependentRequiredFeature.DependenciesWithEscapedCharacters.RootEntity>();
+            this.ValidateMenesCore<DependentRequiredFeature.DependenciesWithEscapedCharacters.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

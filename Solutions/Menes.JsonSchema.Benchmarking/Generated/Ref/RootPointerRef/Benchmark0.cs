@@ -29,7 +29,7 @@ namespace RefFeature.RootPointerRef
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<RefFeature.RootPointerRef.RootEntity>();
+            this.ValidateMenesCore<RefFeature.RootPointerRef.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

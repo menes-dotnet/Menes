@@ -29,7 +29,7 @@ namespace PropertyNamesFeature.PropertyNamesWithBooleanSchemaFalse
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<PropertyNamesFeature.PropertyNamesWithBooleanSchemaFalse.RootEntity>();
+            this.ValidateMenesCore<PropertyNamesFeature.PropertyNamesWithBooleanSchemaFalse.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

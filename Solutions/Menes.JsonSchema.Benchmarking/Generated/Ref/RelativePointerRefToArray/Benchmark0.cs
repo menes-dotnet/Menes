@@ -29,7 +29,7 @@ namespace RefFeature.RelativePointerRefToArray
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<RefFeature.RelativePointerRefToArray.RootEntity>();
+            this.ValidateMenesCore<RefFeature.RelativePointerRefToArray.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

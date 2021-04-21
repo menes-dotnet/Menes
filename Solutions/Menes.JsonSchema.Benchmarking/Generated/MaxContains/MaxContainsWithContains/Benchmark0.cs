@@ -29,7 +29,7 @@ namespace MaxContainsFeature.MaxContainsWithContains
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<MaxContainsFeature.MaxContainsWithContains.RootEntity>();
+            this.ValidateMenesCore<MaxContainsFeature.MaxContainsWithContains.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

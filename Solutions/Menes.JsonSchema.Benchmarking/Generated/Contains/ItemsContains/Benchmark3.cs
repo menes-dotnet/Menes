@@ -29,7 +29,7 @@ namespace ContainsFeature.ItemsContains
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<ContainsFeature.ItemsContains.RootEntity>();
+            this.ValidateMenesCore<ContainsFeature.ItemsContains.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

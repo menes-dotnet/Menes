@@ -29,7 +29,7 @@ namespace IfThenElseFeature.IgnoreElseWithoutIf
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<IfThenElseFeature.IgnoreElseWithoutIf.RootEntity>();
+            this.ValidateMenesCore<IfThenElseFeature.IgnoreElseWithoutIf.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

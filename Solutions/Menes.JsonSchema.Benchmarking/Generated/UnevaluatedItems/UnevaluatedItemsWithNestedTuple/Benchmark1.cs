@@ -29,7 +29,7 @@ namespace UnevaluatedItemsFeature.UnevaluatedItemsWithNestedTuple
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<UnevaluatedItemsFeature.UnevaluatedItemsWithNestedTuple.RootEntity>();
+            this.ValidateMenesCore<UnevaluatedItemsFeature.UnevaluatedItemsWithNestedTuple.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

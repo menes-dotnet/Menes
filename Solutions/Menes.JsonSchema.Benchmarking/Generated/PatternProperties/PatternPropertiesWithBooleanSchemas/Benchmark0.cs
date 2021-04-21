@@ -29,7 +29,7 @@ namespace PatternPropertiesFeature.PatternPropertiesWithBooleanSchemas
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<PatternPropertiesFeature.PatternPropertiesWithBooleanSchemas.RootEntity>();
+            this.ValidateMenesCore<PatternPropertiesFeature.PatternPropertiesWithBooleanSchemas.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

@@ -29,7 +29,7 @@ namespace RegexFeature.ValidationOfRegularExpressions
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<RegexFeature.ValidationOfRegularExpressions.RootEntity>();
+            this.ValidateMenesCore<RegexFeature.ValidationOfRegularExpressions.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

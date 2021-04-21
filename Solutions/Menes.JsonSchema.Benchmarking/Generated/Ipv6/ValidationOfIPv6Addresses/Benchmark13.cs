@@ -29,7 +29,7 @@ namespace Ipv6Feature.ValidationOfIPv6Addresses
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<Ipv6Feature.ValidationOfIPv6Addresses.RootEntity>();
+            this.ValidateMenesCore<Ipv6Feature.ValidationOfIPv6Addresses.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

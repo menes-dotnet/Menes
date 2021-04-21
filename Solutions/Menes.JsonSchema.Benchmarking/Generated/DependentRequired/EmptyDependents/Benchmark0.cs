@@ -29,7 +29,7 @@ namespace DependentRequiredFeature.EmptyDependents
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<Menes.JsonAny>();
+            this.ValidateMenesCore<DependentRequiredFeature.EmptyDependents.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

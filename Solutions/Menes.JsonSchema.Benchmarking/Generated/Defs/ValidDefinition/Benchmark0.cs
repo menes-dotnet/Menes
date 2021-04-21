@@ -29,7 +29,7 @@ namespace DefsFeature.ValidDefinition
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<DefsFeature.ValidDefinition.Draft201909Schema>();
+            this.ValidateMenesCore<DefsFeature.ValidDefinition.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

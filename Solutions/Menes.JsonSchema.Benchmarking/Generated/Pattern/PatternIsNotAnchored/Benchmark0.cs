@@ -29,7 +29,7 @@ namespace PatternFeature.PatternIsNotAnchored
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<PatternFeature.PatternIsNotAnchored.RootEntity>();
+            this.ValidateMenesCore<PatternFeature.PatternIsNotAnchored.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

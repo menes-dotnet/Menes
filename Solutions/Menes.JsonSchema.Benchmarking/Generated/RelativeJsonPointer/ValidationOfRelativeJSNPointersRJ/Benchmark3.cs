@@ -29,7 +29,7 @@ namespace RelativeJsonPointerFeature.ValidationOfRelativeJSNPointersRJ
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<RelativeJsonPointerFeature.ValidationOfRelativeJSNPointersRJ.RootEntity>();
+            this.ValidateMenesCore<RelativeJsonPointerFeature.ValidationOfRelativeJSNPointersRJ.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

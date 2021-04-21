@@ -29,7 +29,7 @@ namespace AdditionalItemsFeature.AdditionalItemsAreAllowedByDefault
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<AdditionalItemsFeature.AdditionalItemsAreAllowedByDefault.RootEntity>();
+            this.ValidateMenesCore<AdditionalItemsFeature.AdditionalItemsAreAllowedByDefault.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

@@ -29,7 +29,7 @@ namespace PatternPropertiesFeature.RegexesAreNotAnchoredByDefaultAndAreCaseSensi
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<PatternPropertiesFeature.RegexesAreNotAnchoredByDefaultAndAreCaseSensitive.RootEntity>();
+            this.ValidateMenesCore<PatternPropertiesFeature.RegexesAreNotAnchoredByDefaultAndAreCaseSensitive.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

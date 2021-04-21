@@ -29,7 +29,7 @@ namespace RefFeature.RemoteRefContainingRefsItself
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<RefFeature.RemoteRefContainingRefsItself.Draft201909Schema>();
+            this.ValidateMenesCore<RefFeature.RemoteRefContainingRefsItself.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

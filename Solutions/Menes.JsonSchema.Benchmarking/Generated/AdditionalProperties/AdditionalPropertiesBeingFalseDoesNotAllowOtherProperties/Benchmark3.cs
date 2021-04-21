@@ -29,7 +29,7 @@ namespace AdditionalPropertiesFeature.AdditionalPropertiesBeingFalseDoesNotAllow
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<AdditionalPropertiesFeature.AdditionalPropertiesBeingFalseDoesNotAllowOtherProperties.RootEntity>();
+            this.ValidateMenesCore<AdditionalPropertiesFeature.AdditionalPropertiesBeingFalseDoesNotAllowOtherProperties.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

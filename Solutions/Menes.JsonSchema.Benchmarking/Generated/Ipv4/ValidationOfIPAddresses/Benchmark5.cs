@@ -29,7 +29,7 @@ namespace Ipv4Feature.ValidationOfIPAddresses
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<Ipv4Feature.ValidationOfIPAddresses.RootEntity>();
+            this.ValidateMenesCore<Ipv4Feature.ValidationOfIPAddresses.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

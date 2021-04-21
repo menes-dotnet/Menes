@@ -29,7 +29,7 @@ namespace PatternPropertiesFeature.MultipleSimultaneousPatternPropertiesAreValid
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<PatternPropertiesFeature.MultipleSimultaneousPatternPropertiesAreValidated.RootEntity>();
+            this.ValidateMenesCore<PatternPropertiesFeature.MultipleSimultaneousPatternPropertiesAreValidated.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

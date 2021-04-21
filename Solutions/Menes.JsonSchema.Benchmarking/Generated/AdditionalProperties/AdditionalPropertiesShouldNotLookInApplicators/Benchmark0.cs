@@ -29,7 +29,7 @@ namespace AdditionalPropertiesFeature.AdditionalPropertiesShouldNotLookInApplica
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<AdditionalPropertiesFeature.AdditionalPropertiesShouldNotLookInApplicators.RootEntity>();
+            this.ValidateMenesCore<AdditionalPropertiesFeature.AdditionalPropertiesShouldNotLookInApplicators.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

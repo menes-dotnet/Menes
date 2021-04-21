@@ -29,7 +29,7 @@ namespace RequiredFeature.RequiredDefaultValidation
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<RequiredFeature.RequiredDefaultValidation.RootEntity>();
+            this.ValidateMenesCore<RequiredFeature.RequiredDefaultValidation.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

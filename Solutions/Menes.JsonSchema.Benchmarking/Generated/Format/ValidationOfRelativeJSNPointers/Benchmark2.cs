@@ -29,7 +29,7 @@ namespace FormatFeature.ValidationOfRelativeJSNPointers
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<FormatFeature.ValidationOfRelativeJSNPointers.RootEntity>();
+            this.ValidateMenesCore<FormatFeature.ValidationOfRelativeJSNPointers.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

@@ -29,7 +29,7 @@ namespace ItemsFeature.NestedItems
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<ItemsFeature.NestedItems.RootEntity>();
+            this.ValidateMenesCore<ItemsFeature.NestedItems.ItemsArrayArray>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

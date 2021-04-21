@@ -29,7 +29,7 @@ namespace IdFeature.UnnormalizedIdsAreAllowedButDiscouraged
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<IdFeature.UnnormalizedIdsAreAllowedButDiscouraged.Draft201909Schema>();
+            this.ValidateMenesCore<IdFeature.UnnormalizedIdsAreAllowedButDiscouraged.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

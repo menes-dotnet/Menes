@@ -29,7 +29,7 @@ namespace DependentRequiredFeature.SingleDependency
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<DependentRequiredFeature.SingleDependency.RootEntity>();
+            this.ValidateMenesCore<DependentRequiredFeature.SingleDependency.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

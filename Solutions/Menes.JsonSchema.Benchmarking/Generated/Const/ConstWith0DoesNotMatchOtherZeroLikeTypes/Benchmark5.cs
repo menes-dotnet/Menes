@@ -29,7 +29,7 @@ namespace ConstFeature.ConstWith0DoesNotMatchOtherZeroLikeTypes
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<ConstFeature.ConstWith0DoesNotMatchOtherZeroLikeTypes.RootEntity>();
+            this.ValidateMenesCore<ConstFeature.ConstWith0DoesNotMatchOtherZeroLikeTypes.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

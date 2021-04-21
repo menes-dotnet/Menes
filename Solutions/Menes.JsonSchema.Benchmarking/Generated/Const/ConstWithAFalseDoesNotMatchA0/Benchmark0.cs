@@ -29,7 +29,7 @@ namespace ConstFeature.ConstWithAFalseDoesNotMatchA0
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<ConstFeature.ConstWithAFalseDoesNotMatchA0.RootEntity>();
+            this.ValidateMenesCore<ConstFeature.ConstWithAFalseDoesNotMatchA0.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

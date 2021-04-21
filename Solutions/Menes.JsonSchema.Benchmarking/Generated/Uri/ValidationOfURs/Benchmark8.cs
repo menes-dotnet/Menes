@@ -29,7 +29,7 @@ namespace UriFeature.ValidationOfURs
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<UriFeature.ValidationOfURs.RootEntity>();
+            this.ValidateMenesCore<UriFeature.ValidationOfURs.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

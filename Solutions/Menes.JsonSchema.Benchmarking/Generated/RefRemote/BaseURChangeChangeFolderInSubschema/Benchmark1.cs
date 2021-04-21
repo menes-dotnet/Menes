@@ -29,7 +29,7 @@ namespace RefRemoteFeature.BaseURChangeChangeFolderInSubschema
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<RefRemoteFeature.BaseURChangeChangeFolderInSubschema.ScopeChangeDefs2>();
+            this.ValidateMenesCore<RefRemoteFeature.BaseURChangeChangeFolderInSubschema.ScopeChangeDefs2Json>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

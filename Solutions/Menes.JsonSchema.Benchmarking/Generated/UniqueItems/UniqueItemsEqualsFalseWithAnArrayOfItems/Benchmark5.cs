@@ -29,7 +29,7 @@ namespace UniqueItemsFeature.UniqueItemsEqualsFalseWithAnArrayOfItems
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<UniqueItemsFeature.UniqueItemsEqualsFalseWithAnArrayOfItems.RootEntity>();
+            this.ValidateMenesCore<UniqueItemsFeature.UniqueItemsEqualsFalseWithAnArrayOfItems.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

@@ -29,7 +29,7 @@ namespace DependentSchemasFeature.BooleanSubschemas
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<DependentSchemasFeature.BooleanSubschemas.RootEntity>();
+            this.ValidateMenesCore<DependentSchemasFeature.BooleanSubschemas.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

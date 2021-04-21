@@ -29,7 +29,7 @@ namespace MinimumFeature.MinimumValidationWithSignedInteger
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<MinimumFeature.MinimumValidationWithSignedInteger.RootEntity>();
+            this.ValidateMenesCore<MinimumFeature.MinimumValidationWithSignedInteger.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

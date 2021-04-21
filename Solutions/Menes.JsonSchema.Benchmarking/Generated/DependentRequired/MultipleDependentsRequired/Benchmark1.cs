@@ -29,7 +29,7 @@ namespace DependentRequiredFeature.MultipleDependentsRequired
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<DependentRequiredFeature.MultipleDependentsRequired.RootEntity>();
+            this.ValidateMenesCore<DependentRequiredFeature.MultipleDependentsRequired.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

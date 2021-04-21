@@ -29,7 +29,7 @@ namespace NotFeature.NotMoreComplexSchema
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<NotFeature.NotMoreComplexSchema.RootEntity>();
+            this.ValidateMenesCore<NotFeature.NotMoreComplexSchema.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

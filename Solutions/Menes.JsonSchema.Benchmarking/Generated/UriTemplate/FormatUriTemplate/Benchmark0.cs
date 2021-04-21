@@ -29,7 +29,7 @@ namespace UriTemplateFeature.FormatUriTemplate
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<UriTemplateFeature.FormatUriTemplate.RootEntity>();
+            this.ValidateMenesCore<UriTemplateFeature.FormatUriTemplate.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

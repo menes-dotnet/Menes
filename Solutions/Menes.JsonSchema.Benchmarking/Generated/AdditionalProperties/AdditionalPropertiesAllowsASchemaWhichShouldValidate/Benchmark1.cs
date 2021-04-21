@@ -29,7 +29,7 @@ namespace AdditionalPropertiesFeature.AdditionalPropertiesAllowsASchemaWhichShou
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<AdditionalPropertiesFeature.AdditionalPropertiesAllowsASchemaWhichShouldValidate.RootEntity>();
+            this.ValidateMenesCore<AdditionalPropertiesFeature.AdditionalPropertiesAllowsASchemaWhichShouldValidate.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

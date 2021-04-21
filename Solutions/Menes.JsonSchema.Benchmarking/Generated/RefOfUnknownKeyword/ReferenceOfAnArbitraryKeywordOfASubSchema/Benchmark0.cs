@@ -29,7 +29,7 @@ namespace RefOfUnknownKeywordFeature.ReferenceOfAnArbitraryKeywordOfASubSchema
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<RefOfUnknownKeywordFeature.ReferenceOfAnArbitraryKeywordOfASubSchema.RootEntity>();
+            this.ValidateMenesCore<RefOfUnknownKeywordFeature.ReferenceOfAnArbitraryKeywordOfASubSchema.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

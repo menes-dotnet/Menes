@@ -29,7 +29,7 @@ namespace JsonPointerFeature.ValidationOfJSNPointersJSNStringRepresentation
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<JsonPointerFeature.ValidationOfJSNPointersJSNStringRepresentation.RootEntity>();
+            this.ValidateMenesCore<JsonPointerFeature.ValidationOfJSNPointersJSNStringRepresentation.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

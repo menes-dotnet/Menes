@@ -29,7 +29,7 @@ namespace DurationFeature.ValidationOfDurationStrings
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<DurationFeature.ValidationOfDurationStrings.RootEntity>();
+            this.ValidateMenesCore<DurationFeature.ValidationOfDurationStrings.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

@@ -29,7 +29,7 @@ namespace NotFeature.ForbiddenProperty
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<NotFeature.ForbiddenProperty.RootEntity>();
+            this.ValidateMenesCore<NotFeature.ForbiddenProperty.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

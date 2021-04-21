@@ -29,7 +29,7 @@ namespace RefFeature.RefCreatesNewScopeWhenAdjacentToKeywords
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<RefFeature.RefCreatesNewScopeWhenAdjacentToKeywords.RootEntity>();
+            this.ValidateMenesCore<RefFeature.RefCreatesNewScopeWhenAdjacentToKeywords.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

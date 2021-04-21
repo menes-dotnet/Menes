@@ -29,7 +29,7 @@ namespace NotFeature.NotWithBooleanSchemaFalse
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<NotFeature.NotWithBooleanSchemaFalse.RootEntity>();
+            this.ValidateMenesCore<NotFeature.NotWithBooleanSchemaFalse.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

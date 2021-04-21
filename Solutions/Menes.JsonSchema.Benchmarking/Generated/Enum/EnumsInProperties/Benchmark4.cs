@@ -29,7 +29,7 @@ namespace EnumFeature.EnumsInProperties
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<EnumFeature.EnumsInProperties.RootEntity>();
+            this.ValidateMenesCore<EnumFeature.EnumsInProperties.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

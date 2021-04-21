@@ -29,7 +29,7 @@ namespace OneOfFeature.OneOfWithMissingOptionalProperty
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<OneOfFeature.OneOfWithMissingOptionalProperty.RootEntity>();
+            this.ValidateMenesCore<OneOfFeature.OneOfWithMissingOptionalProperty.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

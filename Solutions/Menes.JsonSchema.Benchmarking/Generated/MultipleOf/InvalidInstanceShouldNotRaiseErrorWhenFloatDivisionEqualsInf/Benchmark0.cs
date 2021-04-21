@@ -29,7 +29,7 @@ namespace MultipleOfFeature.InvalidInstanceShouldNotRaiseErrorWhenFloatDivisionE
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<MultipleOfFeature.InvalidInstanceShouldNotRaiseErrorWhenFloatDivisionEqualsInf.RootEntity>();
+            this.ValidateMenesCore<MultipleOfFeature.InvalidInstanceShouldNotRaiseErrorWhenFloatDivisionEqualsInf.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

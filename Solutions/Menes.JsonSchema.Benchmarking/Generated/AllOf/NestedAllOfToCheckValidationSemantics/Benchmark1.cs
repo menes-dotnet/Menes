@@ -29,7 +29,7 @@ namespace AllOfFeature.NestedAllOfToCheckValidationSemantics
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<AllOfFeature.NestedAllOfToCheckValidationSemantics.RootEntity>();
+            this.ValidateMenesCore<AllOfFeature.NestedAllOfToCheckValidationSemantics.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

@@ -29,7 +29,7 @@ namespace MaxPropertiesFeature.MaxPropertiesEquals0MeansTheObjectIsEmpty
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<MaxPropertiesFeature.MaxPropertiesEquals0MeansTheObjectIsEmpty.RootEntity>();
+            this.ValidateMenesCore<MaxPropertiesFeature.MaxPropertiesEquals0MeansTheObjectIsEmpty.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

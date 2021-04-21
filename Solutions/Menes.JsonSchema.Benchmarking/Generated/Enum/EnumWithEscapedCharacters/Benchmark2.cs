@@ -29,7 +29,7 @@ namespace EnumFeature.EnumWithEscapedCharacters
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<EnumFeature.EnumWithEscapedCharacters.RootEntity>();
+            this.ValidateMenesCore<EnumFeature.EnumWithEscapedCharacters.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

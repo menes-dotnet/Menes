@@ -29,7 +29,7 @@ namespace ConstFeature.ConstWith20MatchesIntegerAndFloatTypes
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<ConstFeature.ConstWith20MatchesIntegerAndFloatTypes.RootEntity>();
+            this.ValidateMenesCore<ConstFeature.ConstWith20MatchesIntegerAndFloatTypes.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

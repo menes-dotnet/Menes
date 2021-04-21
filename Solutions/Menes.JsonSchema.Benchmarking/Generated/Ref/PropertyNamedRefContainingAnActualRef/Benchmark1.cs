@@ -29,7 +29,7 @@ namespace RefFeature.PropertyNamedRefContainingAnActualRef
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<RefFeature.PropertyNamedRefContainingAnActualRef.RootEntity>();
+            this.ValidateMenesCore<RefFeature.PropertyNamedRefContainingAnActualRef.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

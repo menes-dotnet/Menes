@@ -29,7 +29,7 @@ namespace IdFeature.InvalidUseOfFragmentsInLocationIndependentId
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<IdFeature.InvalidUseOfFragmentsInLocationIndependentId.Draft201909Schema>();
+            this.ValidateMenesCore<IdFeature.InvalidUseOfFragmentsInLocationIndependentId.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

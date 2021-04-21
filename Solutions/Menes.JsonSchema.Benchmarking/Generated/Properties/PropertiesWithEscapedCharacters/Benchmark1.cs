@@ -29,7 +29,7 @@ namespace PropertiesFeature.PropertiesWithEscapedCharacters
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<PropertiesFeature.PropertiesWithEscapedCharacters.RootEntity>();
+            this.ValidateMenesCore<PropertiesFeature.PropertiesWithEscapedCharacters.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

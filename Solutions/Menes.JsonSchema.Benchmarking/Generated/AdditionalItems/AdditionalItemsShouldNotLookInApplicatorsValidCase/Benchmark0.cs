@@ -29,7 +29,7 @@ namespace AdditionalItemsFeature.AdditionalItemsShouldNotLookInApplicatorsValidC
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<AdditionalItemsFeature.AdditionalItemsShouldNotLookInApplicatorsValidCase.RootEntity>();
+            this.ValidateMenesCore<AdditionalItemsFeature.AdditionalItemsShouldNotLookInApplicatorsValidCase.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

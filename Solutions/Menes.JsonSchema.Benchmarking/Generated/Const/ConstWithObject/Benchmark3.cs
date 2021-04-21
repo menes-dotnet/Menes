@@ -29,7 +29,7 @@ namespace ConstFeature.ConstWithObject
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<ConstFeature.ConstWithObject.RootEntity>();
+            this.ValidateMenesCore<ConstFeature.ConstWithObject.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

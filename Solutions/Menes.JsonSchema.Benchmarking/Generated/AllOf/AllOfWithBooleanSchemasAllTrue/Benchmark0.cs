@@ -29,7 +29,7 @@ namespace AllOfFeature.AllOfWithBooleanSchemasAllTrue
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<AllOfFeature.AllOfWithBooleanSchemasAllTrue.RootEntity>();
+            this.ValidateMenesCore<AllOfFeature.AllOfWithBooleanSchemasAllTrue.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

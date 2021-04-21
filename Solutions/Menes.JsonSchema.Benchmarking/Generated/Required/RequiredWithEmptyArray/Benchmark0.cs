@@ -29,7 +29,7 @@ namespace RequiredFeature.RequiredWithEmptyArray
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<RequiredFeature.RequiredWithEmptyArray.RootEntity>();
+            this.ValidateMenesCore<RequiredFeature.RequiredWithEmptyArray.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

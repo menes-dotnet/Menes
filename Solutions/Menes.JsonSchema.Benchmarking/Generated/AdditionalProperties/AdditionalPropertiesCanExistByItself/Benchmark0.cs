@@ -29,7 +29,7 @@ namespace AdditionalPropertiesFeature.AdditionalPropertiesCanExistByItself
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<AdditionalPropertiesFeature.AdditionalPropertiesCanExistByItself.RootEntity>();
+            this.ValidateMenesCore<AdditionalPropertiesFeature.AdditionalPropertiesCanExistByItself.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

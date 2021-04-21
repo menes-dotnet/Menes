@@ -29,7 +29,7 @@ namespace NotFeature.NotMultipleTypes
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<NotFeature.NotMultipleTypes.RootEntity>();
+            this.ValidateMenesCore<NotFeature.NotMultipleTypes.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

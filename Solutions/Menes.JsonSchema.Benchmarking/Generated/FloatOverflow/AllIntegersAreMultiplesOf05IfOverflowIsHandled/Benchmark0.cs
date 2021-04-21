@@ -29,7 +29,7 @@ namespace FloatOverflowFeature.AllIntegersAreMultiplesOf05IfOverflowIsHandled
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<FloatOverflowFeature.AllIntegersAreMultiplesOf05IfOverflowIsHandled.RootEntity>();
+            this.ValidateMenesCore<FloatOverflowFeature.AllIntegersAreMultiplesOf05IfOverflowIsHandled.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

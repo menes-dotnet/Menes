@@ -29,7 +29,7 @@ namespace MultipleOfFeature.ByNumber
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<MultipleOfFeature.ByNumber.RootEntity>();
+            this.ValidateMenesCore<MultipleOfFeature.ByNumber.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

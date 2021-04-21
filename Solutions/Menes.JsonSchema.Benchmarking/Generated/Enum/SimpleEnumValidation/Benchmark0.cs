@@ -29,7 +29,7 @@ namespace EnumFeature.SimpleEnumValidation
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<EnumFeature.SimpleEnumValidation.RootEntity>();
+            this.ValidateMenesCore<EnumFeature.SimpleEnumValidation.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

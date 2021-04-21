@@ -29,7 +29,7 @@ namespace IriReferenceFeature.ValidationOfIRReferences
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<IriReferenceFeature.ValidationOfIRReferences.RootEntity>();
+            this.ValidateMenesCore<IriReferenceFeature.ValidationOfIRReferences.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

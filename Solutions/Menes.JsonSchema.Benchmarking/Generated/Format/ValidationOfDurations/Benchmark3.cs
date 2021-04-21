@@ -29,7 +29,7 @@ namespace FormatFeature.ValidationOfDurations
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<FormatFeature.ValidationOfDurations.RootEntity>();
+            this.ValidateMenesCore<FormatFeature.ValidationOfDurations.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

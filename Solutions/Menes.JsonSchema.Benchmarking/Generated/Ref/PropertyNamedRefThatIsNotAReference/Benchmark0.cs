@@ -29,7 +29,7 @@ namespace RefFeature.PropertyNamedRefThatIsNotAReference
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<RefFeature.PropertyNamedRefThatIsNotAReference.RootEntity>();
+            this.ValidateMenesCore<RefFeature.PropertyNamedRefThatIsNotAReference.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

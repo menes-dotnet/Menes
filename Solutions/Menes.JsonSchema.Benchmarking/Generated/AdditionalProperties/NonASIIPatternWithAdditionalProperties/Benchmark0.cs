@@ -29,7 +29,7 @@ namespace AdditionalPropertiesFeature.NonASIIPatternWithAdditionalProperties
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<AdditionalPropertiesFeature.NonASIIPatternWithAdditionalProperties.RootEntity>();
+            this.ValidateMenesCore<AdditionalPropertiesFeature.NonASIIPatternWithAdditionalProperties.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

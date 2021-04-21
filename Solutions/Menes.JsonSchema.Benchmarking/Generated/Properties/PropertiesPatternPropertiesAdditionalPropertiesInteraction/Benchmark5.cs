@@ -29,7 +29,7 @@ namespace PropertiesFeature.PropertiesPatternPropertiesAdditionalPropertiesInter
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<PropertiesFeature.PropertiesPatternPropertiesAdditionalPropertiesInteraction.RootEntity>();
+            this.ValidateMenesCore<PropertiesFeature.PropertiesPatternPropertiesAdditionalPropertiesInteraction.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

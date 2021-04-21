@@ -29,7 +29,7 @@ namespace RefFeature.RelativePointerRefToObject
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<RefFeature.RelativePointerRefToObject.RootEntity>();
+            this.ValidateMenesCore<RefFeature.RelativePointerRefToObject.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

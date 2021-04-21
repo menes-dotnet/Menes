@@ -29,7 +29,7 @@ namespace MinContainsFeature.MinContainsEquals2WithContains
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<MinContainsFeature.MinContainsEquals2WithContains.RootEntity>();
+            this.ValidateMenesCore<MinContainsFeature.MinContainsEquals2WithContains.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

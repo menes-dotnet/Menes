@@ -29,7 +29,7 @@ namespace MaximumFeature.MaximumValidationWithUnsignedInteger
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<MaximumFeature.MaximumValidationWithUnsignedInteger.RootEntity>();
+            this.ValidateMenesCore<MaximumFeature.MaximumValidationWithUnsignedInteger.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

@@ -29,7 +29,7 @@ namespace UriReferenceFeature.ValidationOfURReferences
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<UriReferenceFeature.ValidationOfURReferences.RootEntity>();
+            this.ValidateMenesCore<UriReferenceFeature.ValidationOfURReferences.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

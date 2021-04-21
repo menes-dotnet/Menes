@@ -29,7 +29,7 @@ namespace IdnHostnameFeature.ValidationOfInternationalizedHostNames
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<IdnHostnameFeature.ValidationOfInternationalizedHostNames.RootEntity>();
+            this.ValidateMenesCore<IdnHostnameFeature.ValidationOfInternationalizedHostNames.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

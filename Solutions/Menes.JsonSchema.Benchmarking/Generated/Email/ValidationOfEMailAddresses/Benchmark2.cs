@@ -29,7 +29,7 @@ namespace EmailFeature.ValidationOfEMailAddresses
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<EmailFeature.ValidationOfEMailAddresses.RootEntity>();
+            this.ValidateMenesCore<EmailFeature.ValidationOfEMailAddresses.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.

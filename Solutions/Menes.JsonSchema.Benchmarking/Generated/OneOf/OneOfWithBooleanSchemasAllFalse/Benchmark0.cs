@@ -29,7 +29,7 @@ namespace OneOfFeature.OneOfWithBooleanSchemasAllFalse
         [Benchmark]
         public void ValidateMenes()
         {
-            this.ValidateMenesCore<OneOfFeature.OneOfWithBooleanSchemasAllFalse.RootEntity>();
+            this.ValidateMenesCore<OneOfFeature.OneOfWithBooleanSchemasAllFalse.Schema>();
         }
         /// <summary>
         /// Validates using the Newtonsoft types.
