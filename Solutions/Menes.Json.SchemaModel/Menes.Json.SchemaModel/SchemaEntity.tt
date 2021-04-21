@@ -2419,6 +2419,7 @@ namespace <#= Namespace #>
         <#
         }
         #>
+
         )
         {
             var builder = ImmutableDictionary.CreateBuilder<JsonEncodedText, JsonAny>();
@@ -2558,7 +2559,7 @@ namespace <#= Namespace #>
     #>
 
         <#
-        if (!HasProperties && HasAdditionalPropertiesObject && !HasUnevaluatedPropertiesObject)
+        if (HasAdditionalPropertiesObject && !HasUnevaluatedPropertiesObject)
         {
         #>
         /// <summary>
@@ -2584,7 +2585,7 @@ namespace <#= Namespace #>
         #>
 
         <#
-        if (!HasProperties && !HasAdditionalPropertiesObject && HasUnevaluatedPropertiesObject)
+        if (!HasAdditionalPropertiesObject && HasUnevaluatedPropertiesObject)
         {
         #>
         /// <summary>

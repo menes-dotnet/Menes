@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Menes.Json.JsonSchema\Menes.Json.JsonSchema.csproj" />
+    <ProjectReference Include="..\Menes.Json.SchemaModel\Menes.Json.SchemaModel.csproj" />
     <ProjectReference Include="..\Menes.Json\Menes.Json.csproj" />
     <ProjectReference Include="..\Menes.OpenApi.SchemaModel\Menes.OpenApi.SchemaModel.csproj" />
     <ProjectReference Include="..\Menes.OpenApi\Menes.OpenApi.csproj" />
