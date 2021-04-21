@@ -14,6 +14,11 @@ namespace Menes.Json
     /// </summary>
     public readonly struct JsonArray : IJsonArray<JsonArray>, IEquatable<JsonArray>
     {
+        /// <summary>
+        /// An empty JsonArray.
+        /// </summary>
+        public static readonly JsonArray Empty = new JsonArray(ImmutableList<JsonAny>.Empty);
+
         private readonly JsonElement jsonElement;
         private readonly ImmutableList<JsonAny>? items;
 
