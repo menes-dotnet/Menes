@@ -1,5 +1,6 @@
 ﻿namespace Menes.Json.SchemaGenerator
 {
+    using System;
     using System.Collections.Generic;
     using System.Collections.Immutable;
     using System.CommandLine;
@@ -31,7 +32,7 @@
             };
 
             rootCommand.Description = "Generate C# types from a JSON schema.";
-            
+
             rootCommand.AddArgument(
                 new Argument<string>(
                     "schemaFile",
@@ -53,23 +54,43 @@
 
         private static async Task<int> GenerateTypes(string schemaFile, string rootNamespace, string rootPath, bool rebaseToRootPath, string outputPath)
         {
-            var walker = new JsonWalker(DocumentResolver.Default);
-            var builder = new JsonSchemaBuilder(walker);
-            (_, ImmutableDictionary<string, (string, string)> generatedTypes) = await builder.BuildTypesFor(new JsonReference(schemaFile).Apply(new JsonReference(rootPath)), rootNamespace, rebaseToRootPath).ConfigureAwait(false);
-
-            if (!string.IsNullOrEmpty(outputPath))
+            try
             {
-                Directory.CreateDirectory(outputPath);
+                var walker = new JsonWalker(DocumentResolver.Default);
+                var builder = new JsonSchemaBuilder(walker);
+                (_, ImmutableDictionary<string, (string, string)> generatedTypes) = await builder.BuildTypesFor(new JsonReference(schemaFile).Apply(new JsonReference(rootPath)), rootNamespace, rebaseToRootPath).ConfigureAwait(false);
+
+                if (!string.IsNullOrEmpty(outputPath))
+                {
+                    Directory.CreateDirectory(outputPath);
+                }
+                else
+                {
+                    outputPath = Path.GetDirectoryName(schemaFile);
+                }
+
+                foreach (KeyValuePair<string, (string, string)> generatedType in generatedTypes)
+                {
+                    try
+                    {
+                        string source = SyntaxFactory.ParseCompilationUnit(generatedType.Value.Item2)
+                             .NormalizeWhitespace()
+                             .GetText()
+                             .ToString();
+
+                        File.WriteAllText(Path.ChangeExtension(Path.Combine(outputPath, generatedType.Value.Item1), ".cs"), source);
+                    }
+                    catch (Exception)
+                    {
+                        Console.Error.WriteLine($"Unable to parse generated type: {generatedType.Value.Item1} from location {generatedType.Key}");
+                        return -1;
+                    }
+                }
             }
-
-            foreach (KeyValuePair<string, (string, string)> generatedType in generatedTypes)
+            catch (Exception)
             {
-                string source = SyntaxFactory.ParseCompilationUnit(generatedType.Value.Item2)
-                     .NormalizeWhitespace()
-                     .GetText()
-                     .ToString();
-
-                File.WriteAllText(Path.ChangeExtension(Path.Combine(outputPath, generatedType.Value.Item1), ".cs"), source);
+                Console.Error.WriteLine($"Unable to generate types.");
+                return -1;
             }
 
             return 0;

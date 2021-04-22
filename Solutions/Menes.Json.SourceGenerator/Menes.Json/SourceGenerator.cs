@@ -63,12 +63,12 @@ namespace Menes.Json
         /// <inheritdoc/>
         public void Initialize(GeneratorInitializationContext context)
         {
-#if DEBUG
-            if (!Debugger.IsAttached)
-            {
-                Debugger.Launch();
-            }
-#endif
+////#if DEBUG
+////            if (!Debugger.IsAttached)
+////            {
+////                Debugger.Launch();
+////            }
+////#endif
         }
 
         /// <summary>
