@@ -6,6 +6,7 @@
     using System.CommandLine;
     using System.CommandLine.Invocation;
     using System.IO;
+    using System.Text.Json;
     using System.Threading.Tasks;
     using Menes.Json.SchemaModel;
     using Microsoft.CodeAnalysis;
@@ -24,8 +25,11 @@
                     "--rootPath",
                     description: "The path in the document for the root type."),
                 new Option<string>(
+                    "--outputMapFile",
+                    description: "The name to use for a map file which includes details of the files that were written."),
+                new Option<string>(
                     "--outputPath",
-                    description: "The output directory."),
+                    description: "The output directory. It defaults to the same folder as the schema file."),
                 new Option<bool>(
                     "--rebaseToRootPath",
                     "If a --rootPath is specified, rebase the document as if it was rooted on the specified element."),
@@ -43,16 +47,16 @@
 
 
             // Note that the parameters of the handler method are matched according to the names of the options
-            rootCommand.Handler = CommandHandler.Create<string, string, string, bool, string>((schemaFile, rootNamespace, rootPath, rebaseToRootPath, outputPath) =>
+            rootCommand.Handler = CommandHandler.Create<string, string, string, bool, string, string>((schemaFile, rootNamespace, rootPath, rebaseToRootPath, outputPath, outputMapFile) =>
               {
-                  return GenerateTypes(schemaFile, rootNamespace, rootPath, rebaseToRootPath, outputPath);
+                  return GenerateTypes(schemaFile, rootNamespace, rootPath, rebaseToRootPath, outputPath, outputMapFile);
               });
 
             // Parse the incoming args and invoke the handler
             return rootCommand.InvokeAsync(args);
         }
 
-        private static async Task<int> GenerateTypes(string schemaFile, string rootNamespace, string rootPath, bool rebaseToRootPath, string outputPath)
+        private static async Task<int> GenerateTypes(string schemaFile, string rootNamespace, string rootPath, bool rebaseToRootPath, string outputPath, string outputMapFile)
         {
             try
             {
@@ -69,6 +73,15 @@
                     outputPath = Path.GetDirectoryName(schemaFile);
                 }
 
+                string mapFile = string.IsNullOrEmpty(outputMapFile) ? outputMapFile: Path.Combine(outputPath, outputMapFile);
+
+                if (!string.IsNullOrEmpty(mapFile))
+                {
+                    File.AppendAllText(mapFile, "[");
+                }
+
+                bool first = true;
+
                 foreach (KeyValuePair<string, (string, string)> generatedType in generatedTypes)
                 {
                     try
@@ -78,7 +91,21 @@
                              .GetText()
                              .ToString();
 
-                        File.WriteAllText(Path.ChangeExtension(Path.Combine(outputPath, generatedType.Value.Item1), ".cs"), source);
+                        string outputFile = Path.ChangeExtension(Path.Combine(outputPath, generatedType.Value.Item1), ".cs");
+                        File.WriteAllText(outputFile, source);
+
+                        if (!string.IsNullOrEmpty(mapFile))
+                        {
+                            if (first)
+                            {
+                                first = false;
+                            }
+                            else
+                            {
+                                File.AppendAllText(mapFile, ", ");
+                            }
+                            File.AppendAllText(mapFile, $"{{\"key\": \"{JsonEncodedText.Encode(generatedType.Key)}\", \"class\": \"{JsonEncodedText.Encode(generatedType.Value.Item1)}\", \"path\": \"{JsonEncodedText.Encode(outputFile)}\"}}\r\n");
+                        }
                     }
                     catch (Exception)
                     {
@@ -86,6 +113,12 @@
                         return -1;
                     }
                 }
+
+                if (!string.IsNullOrEmpty(mapFile))
+                {
+                    File.AppendAllText(mapFile, "]");
+                }
+
             }
             catch (Exception)
             {

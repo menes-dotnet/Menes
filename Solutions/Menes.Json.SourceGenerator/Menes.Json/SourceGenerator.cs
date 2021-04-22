@@ -18,14 +18,14 @@ namespace Menes.Json
     /// <remarks>
     /// <para>
     /// For each JSON schema file for which you want to generate schema,
-    /// include a JSON file in the csproj.
+    /// include a JSON file in the csproj, and set the GenerateSchema option to "true".
     /// </para>
     /// <code>
     /// <![CDATA[
     /// <ItemGroup>
-    ///   <AdditionalFiles Include="SomeSchema.json" />
-    ///   <AdditionalFiles Include="SomeSchema.json" RootNamespace="Some.Example" />
-    ///   <AdditionalFiles Include="AnotherSchema.csv" RootPath="#/foo/bar/baz" RebaseToRootPath="true" />
+    ///   <AdditionalFiles Include="SomeSchema.json" GenerateSchema="true" />
+    ///   <AdditionalFiles Include="SomeSchema.json" GenerateSchema="true" RootNamespace="Some.Example" />
+    ///   <AdditionalFiles Include="AnotherSchema.csv" GenerateSchema="true" RootPath="#/foo/bar/baz" RebaseToRootPath="true" />
     /// </ItemGroup>
     /// ]]>
     /// </code>
@@ -53,7 +53,7 @@ namespace Menes.Json
             {
                 if (Path.GetExtension(additionalFile.Path).Equals(".json", StringComparison.OrdinalIgnoreCase))
                 {
-                    sources = this.Merge(sources, this.HandleJsonFile(context, additionalFile, this.GetPathToGenerate(context, additionalFile), this.GetRootNamespace(context, additionalFile), this.GetRebaseToRootPath(context, additionalFile)));
+                    sources = this.Merge(sources, this.HandleJsonFile(context, additionalFile, this.GetGenerateSchema(context, additionalFile), this.GetRootPath(context, additionalFile), this.GetRootNamespace(context, additionalFile), this.GetRebaseToRootPath(context, additionalFile)));
                 }
             }
 
@@ -63,37 +63,122 @@ namespace Menes.Json
         /// <inheritdoc/>
         public void Initialize(GeneratorInitializationContext context)
         {
-////#if DEBUG
-////            if (!Debugger.IsAttached)
-////            {
-////                Debugger.Launch();
-////            }
-////#endif
         }
 
-        /// <summary>
-        /// Gets the path to generate in the file from the properties.
-        /// </summary>
-        /// <param name="context">The generator context.</param>
-        /// <param name="additionalFile">The file to process.</param>
-        /// <returns>The path into the file.</returns>
-        private string GetPathToGenerate(GeneratorExecutionContext context, AdditionalText additionalFile)
+        private static IEnumerable<(string, string, string)> Parse(string text)
         {
-            if (context.AnalyzerConfigOptions.GetOptions(additionalFile)
-                .TryGetValue("build_metadata.additionalfiles.RootPath", out string? rootPathToGenerate))
+            // Find the array
+            int currentIndex = text.IndexOf('[');
+            if (currentIndex == -1)
             {
-                return rootPathToGenerate;
+                yield break;
             }
-            else
+
+            bool isFirst = true;
+
+            while (true)
             {
-                return string.Empty;
+                if (isFirst)
+                {
+                    isFirst = false;
+                }
+                else
+                {
+                    currentIndex = text.IndexOf(',', currentIndex + 1);
+                    if (currentIndex == -1)
+                    {
+                        break;
+                    }
+                }
+
+                int lookAhead = text.IndexOf('{', currentIndex + 1);
+                if (lookAhead == -1)
+                {
+                    throw new InvalidOperationException("Expected '{'");
+                }
+
+                currentIndex = lookAhead;
+
+                lookAhead = text.IndexOf("\"key\":", currentIndex + 1);
+                if (lookAhead == -1)
+                {
+                    throw new InvalidOperationException("Expected 'key' property.");
+                }
+
+                lookAhead = text.IndexOf('"', lookAhead + 6);
+                if (lookAhead == -1)
+                {
+                    throw new InvalidOperationException("Expected 'key' property value start.");
+                }
+
+                int endLookAhead = text.IndexOf('"', lookAhead + 1);
+                if (endLookAhead == -1)
+                {
+                    throw new InvalidOperationException("Expected 'key' property value end.");
+                }
+
+                string keyProperty = text.Substring(lookAhead + 1, endLookAhead - (lookAhead + 1));
+
+                lookAhead = text.IndexOf("\"class\":", currentIndex + 1);
+                if (lookAhead == -1)
+                {
+                    throw new InvalidOperationException("Expected 'class' property.");
+                }
+
+                lookAhead = text.IndexOf('"', lookAhead + 8);
+                if (lookAhead == -1)
+                {
+                    throw new InvalidOperationException("Expected 'class' property value start.");
+                }
+
+                endLookAhead = text.IndexOf('"', lookAhead + 1);
+                if (endLookAhead == -1)
+                {
+                    throw new InvalidOperationException("Expected 'class' property value end.");
+                }
+
+                string classProperty = text.Substring(lookAhead + 1, endLookAhead - (lookAhead + 1));
+
+                lookAhead = text.IndexOf("\"path\":", currentIndex + 1);
+                if (lookAhead == -1)
+                {
+                    throw new InvalidOperationException("Expected 'path' property.");
+                }
+
+                lookAhead = text.IndexOf('"', lookAhead + 7);
+                if (lookAhead == -1)
+                {
+                    throw new InvalidOperationException("Expected 'path' property value start.");
+                }
+
+                endLookAhead = text.IndexOf('"', lookAhead + 1);
+                if (endLookAhead == -1)
+                {
+                    throw new InvalidOperationException("Expected 'path' property value end.");
+                }
+
+                string pathProperty = text.Substring(lookAhead + 1, endLookAhead - (lookAhead + 1));
+
+                currentIndex = text.IndexOf('}', currentIndex + 1);
+                if (currentIndex == -1)
+                {
+                    throw new InvalidOperationException("Expected '}'");
+                }
+
+                yield return (keyProperty, classProperty, pathProperty);
+            }
+
+            currentIndex = text.IndexOf(']', currentIndex + 1);
+            if (currentIndex == -1)
+            {
+                throw new InvalidOperationException("Expected ']'");
             }
         }
 
-        private bool GetRebaseToRootPath(GeneratorExecutionContext context, AdditionalText additionalFile)
+        private bool GetGenerateSchema(GeneratorExecutionContext context, AdditionalText additionalFile)
         {
             if (context.AnalyzerConfigOptions.GetOptions(additionalFile)
-                .TryGetValue("build_metadata.additionalfiles.RebaseToRootPath", out string? rootPathToGenerate))
+                .TryGetValue("build_metadata.AdditionalFiles.GenerateSchema", out string? rootPathToGenerate))
             {
                 if (bool.TryParse(rootPathToGenerate, out bool rpg))
                 {
@@ -104,10 +189,37 @@ namespace Menes.Json
             return false;
         }
 
+        private string GetRootPath(GeneratorExecutionContext context, AdditionalText additionalFile)
+        {
+            if (context.AnalyzerConfigOptions.GetOptions(additionalFile)
+                .TryGetValue("build_metadata.AdditionalFiles.RootPath", out string? rootPathToGenerate))
+            {
+                return string.IsNullOrEmpty(rootPathToGenerate) ? rootPathToGenerate : "#" + rootPathToGenerate;
+            }
+            else
+            {
+                return string.Empty;
+            }
+        }
+
+        private bool GetRebaseToRootPath(GeneratorExecutionContext context, AdditionalText additionalFile)
+        {
+            if (context.AnalyzerConfigOptions.GetOptions(additionalFile)
+                .TryGetValue("build_metadata.AdditionalFiles.RebaseToRootPath", out string? rebase))
+            {
+                if (bool.TryParse(rebase, out bool r))
+                {
+                    return r;
+                }
+            }
+
+            return false;
+        }
+
         private string GetRootNamespace(GeneratorExecutionContext context, AdditionalText additionalFile)
         {
             if (context.AnalyzerConfigOptions.GetOptions(additionalFile)
-                .TryGetValue("build_metadata.additionalfiles.RootNamespace", out string? rootNamepsace))
+                .TryGetValue("build_metadata.AdditionalFiles.RootNamespace", out string? rootNamepsace))
             {
                 return rootNamepsace;
             }
@@ -115,9 +227,74 @@ namespace Menes.Json
             return context.Compilation.GlobalNamespace.Name;
         }
 
-        private ImmutableDictionary<string, (string, string)> HandleJsonFile(GeneratorExecutionContext context, AdditionalText additionalFile, string rootPathToGenerate, string rootNamespace, bool rebaseToRootPath)
+        private ImmutableDictionary<string, (string, string)> HandleJsonFile(GeneratorExecutionContext context, AdditionalText additionalFile, bool generateSchema, string rootPath, string rootNamespace, bool rebaseToRootPath)
         {
-            return ImmutableDictionary<string, (string, string)>.Empty;
+            if (!generateSchema)
+            {
+                return ImmutableDictionary<string, (string, string)>.Empty;
+            }
+
+            string arguments = string.Empty;
+            if (!string.IsNullOrEmpty(rootNamespace))
+            {
+                arguments = arguments + $"--rootNamespace \"{rootNamespace}\" ";
+            }
+
+            if (!string.IsNullOrEmpty(rootPath))
+            {
+                arguments = arguments + $"--rootPath \"{rootPath}\" ";
+            }
+
+            if (rebaseToRootPath)
+            {
+                arguments = arguments + $"--rebaseToRootPath \"{rebaseToRootPath}\" ";
+            }
+
+            string tempPath = Path.GetTempPath();
+            tempPath = Path.Combine(tempPath, Path.GetRandomFileName());
+
+            arguments = arguments + $"--outputPath \"{tempPath}\" ";
+
+            arguments = arguments + $"--outputMapFile mapfile.json \"{additionalFile.Path}\"";
+
+            var process = new Process
+            {
+                StartInfo = new ProcessStartInfo
+                {
+                    FileName = "menes",
+                    Arguments = arguments,
+                    CreateNoWindow = true,
+                    WindowStyle = ProcessWindowStyle.Hidden,
+                    RedirectStandardError = true,
+                    RedirectStandardOutput = true,
+                    UseShellExecute = false,
+                },
+            };
+            process.Start();
+            process.WaitForExit();
+
+            try
+            {
+                if (process.ExitCode == 0)
+                {
+                    ImmutableDictionary<string, (string, string)>.Builder result = ImmutableDictionary.CreateBuilder<string, (string, string)>();
+
+                    foreach ((string k, string c, string p) in Parse(File.ReadAllText(Path.Combine(tempPath, "mapfile.json"))))
+                    {
+                        result.Add(k, (c, File.ReadAllText(p)));
+                    }
+
+                    return result.ToImmutable();
+                }
+                else
+                {
+                    throw new InvalidOperationException(process.StandardError.ReadToEnd());
+                }
+            }
+            finally
+            {
+                Directory.Delete(tempPath, true);
+            }
         }
 
         private ImmutableDictionary<string, (string, string)> Merge(ImmutableDictionary<string, (string, string)> sources, ImmutableDictionary<string, (string, string)> added)
@@ -140,7 +317,7 @@ namespace Menes.Json
             foreach (KeyValuePair<string, (string typeName, string sourceCode)> source in sources)
             {
                 context.AddSource(
-                    source.Key,
+                    source.Value.typeName,
                     SyntaxFactory.ParseCompilationUnit(source.Value.sourceCode)
                       .NormalizeWhitespace()
                       .GetText()

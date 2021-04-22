@@ -12,7 +12,6 @@ namespace Menes
     using System.Threading.Tasks;
     using Marain.LineOfBusiness;
     using Menes.Json;
-    using Menes.Json.SchemaModel;
     using Menes.OpenApi;
 
     class Program
@@ -20,6 +19,7 @@ namespace Menes
         static async Task Main(string[] args)
         {
             PersonResource person = PersonResource.Create(
+                foo: "Hello",
                 links: PersonResource.LinksValue.Create(
                     self: Link.Create("https://endjin.com/person/bar"),
                     primaryName: Link.Create("https://endjin.com/names/foo")),
@@ -2300,16 +2300,6 @@ namespace Menes
       }
    }
 }");
-
-            var walker = new JsonWalker(DocumentResolver.Default);
-            DocumentResolver.Default.AddDocument("http://endjin.com/peopleapi.json", doc);
-            JsonSchemaBuilder builder = new JsonSchemaBuilder(walker);
-            var result = await builder.BuildTypesFor("http://endjin.com/peopleapi.json#/components/schemas/PersonResource", "Marain.LineOfBusiness").ConfigureAwait(false);
-
-            foreach(var generatedType in result.generatedTypes)
-            {
-                File.WriteAllText($"C:\\Users\\matth\\OneDrive\\desktop\\output\\{generatedType.Value.Item1}.cs", generatedType.Value.Item2);
-            }
 
             ////Schema schema = JsonAny.Parse(@"[ 1, 2, 3, 4, 5 ]");
 
