@@ -15,8 +15,4 @@
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Menes.JsonSchema.TypeBuilder\Menes.JsonSchema.TypeBuilder.csproj" />
-  </ItemGroup>
-
 </Project>

@@ -23,9 +23,9 @@ namespace Menes.Json
         private readonly ImmutableList<JsonAny>? items;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="JsonObject"/> struct.
+        /// Initializes a new instance of the <see cref="JsonArray"/> struct.
         /// </summary>
-        /// <param name="jsonElement">The JSON element from which to construct the object.</param>
+        /// <param name="jsonElement">The JSON element from which to construct the array.</param>
         public JsonArray(JsonElement jsonElement)
         {
             this.jsonElement = jsonElement;
@@ -33,7 +33,7 @@ namespace Menes.Json
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="JsonObject"/> struct.
+        /// Initializes a new instance of the <see cref="JsonArray"/> struct.
         /// </summary>
         /// <param name="items">An immutable list of items in the array.</param>
         public JsonArray(ImmutableList<JsonAny> items)

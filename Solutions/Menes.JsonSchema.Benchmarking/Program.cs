@@ -5,8 +5,11 @@
 namespace Menes.JsonSchema.Benchmarking
 {
     using BenchmarkDotNet.Configs;
+    using BenchmarkDotNet.Engines;
+    using BenchmarkDotNet.Environments;
     using BenchmarkDotNet.Jobs;
     using BenchmarkDotNet.Running;
+    using Perfolizer.Mathematics.OutlierDetection;
 
     /// <summary>
     /// Main program.
@@ -22,9 +25,9 @@ namespace Menes.JsonSchema.Benchmarking
             BenchmarkSwitcher.FromAssembly(typeof(Program).Assembly).RunAllJoined(
                 ManualConfig.Create(DefaultConfig.Instance)
                 .AddJob(Job.Dry
-                    .WithLaunchCount(1)
-                    .WithWarmupCount(5)
-                    .WithIterationCount(20)));
+                    .WithRuntime(CoreRuntime.Core50)
+                    .WithOutlierMode(OutlierMode.RemoveAll)
+                    .WithStrategy(RunStrategy.Throughput)));
         }
     }
 }
