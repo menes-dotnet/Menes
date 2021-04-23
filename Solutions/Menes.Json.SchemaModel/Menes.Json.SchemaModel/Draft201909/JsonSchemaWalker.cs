@@ -128,6 +128,12 @@ namespace Menes.Json.SchemaModel.Draft201909
                 return false;
             }
 
+            // Don't recurse into Enums or Consts as Schema
+            if ((walker.EnumerateLocationStack(1).FirstOrDefault() is LocatedElement parent && parent.AbsoluteLocation.EndsWith("enum")) || walker.PeekLocationStack().EndsWith("const"))
+            {
+                return false;
+            }
+
             // Tell the walker that this is our content.
             if (!walker.AddOrUpdateLocatedElement(element, SchemaContent))
             {
@@ -157,10 +163,7 @@ namespace Menes.Json.SchemaModel.Draft201909
 
             if (schema.Anchor.IsNotUndefined())
             {
-                if (!(walker.EnumerateLocationStack(1).FirstOrDefault() is LocatedElement parent && parent.AbsoluteLocation.EndsWith("enum")) && !walker.PeekLocationStack().EndsWith("const"))
-                {
-                    this.anchoredSchema.Add(new JsonReference(walker.PeekLocationStack()).Apply(new JsonReference("#" + schema.Anchor)), walker.CurrentElement);
-                }
+                this.anchoredSchema.Add(new JsonReference(walker.PeekLocationStack()).Apply(new JsonReference("#" + schema.Anchor)), walker.CurrentElement);
             }
 
             if (schema.ValueKind == JsonValueKind.Object)
