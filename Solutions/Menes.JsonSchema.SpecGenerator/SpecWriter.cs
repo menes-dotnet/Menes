@@ -13,7 +13,7 @@ namespace Menes.JsonSchema.SpecGenerator
     /// Write .feature files for specs from the json schema specs.
     /// </summary>
     /// <remarks>
-    /// https://github.com/json-schema-org/JSON-Schema-Test-Suite/tree/master/tests/draft2019-09.
+    /// https://github.com/json-schema-org/JSON-Schema-Test-Suite/tree/master/tests/draft2020-12.
     /// </remarks>
     internal class SpecWriter
     {
@@ -23,23 +23,23 @@ namespace Menes.JsonSchema.SpecGenerator
         /// <param name="specDirectories">The spec directories.</param>
         internal static void Write(SpecDirectories specDirectories)
         {
-            foreach ((string inputFile, string outputFile) in specDirectories.EnumerateTests())
+            foreach ((string testSet, string inputFile, string outputFile) in specDirectories.EnumerateTests())
             {
                 Console.WriteLine($"Reading: {inputFile}");
                 Console.WriteLine($"Writing: {outputFile}");
                 Console.WriteLine();
-                WriteFeatureFile(inputFile, outputFile);
+                WriteFeatureFile(testSet, inputFile, outputFile);
             }
         }
 
-        private static void WriteFeatureFile(string inputFile, string outputFile)
+        private static void WriteFeatureFile(string testSet, string inputFile, string outputFile)
         {
             string inputFileUri = Path.GetFileName(inputFile);
             using var testDocument = JsonDocument.Parse(File.ReadAllText(inputFile));
 
             var builder = new StringBuilder();
 
-            WriteFeatureHeading(Path.GetFileNameWithoutExtension(inputFile), builder);
+            WriteFeatureHeading(testSet, Path.GetFileNameWithoutExtension(inputFile), builder);
 
             int index = 0;
             foreach (JsonElement scenarioDefinition in testDocument.RootElement.EnumerateArray())
@@ -95,12 +95,14 @@ namespace Menes.JsonSchema.SpecGenerator
             return scenarioTitle;
         }
 
-        private static void WriteFeatureHeading(string featureName, StringBuilder builder)
+        private static void WriteFeatureHeading(string testSet, string featureName, StringBuilder builder)
         {
-            builder.AppendLine($"Feature: {featureName}");
+            builder.AppendLine($"@{testSet}");
+            builder.AppendLine();
+            builder.AppendLine($"Feature: {featureName} {testSet}");
             builder.AppendLine("    In order to use json-schema");
             builder.AppendLine("    As a developer");
-            builder.AppendLine($"    I want to support {featureName}");
+            builder.AppendLine($"    I want to support {featureName} in {testSet}");
         }
 
         private static void WriteExample(int scenarioIndex, int testIndex, JsonElement test, StringBuilder builder)

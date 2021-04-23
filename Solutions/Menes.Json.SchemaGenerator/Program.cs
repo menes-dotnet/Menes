@@ -24,6 +24,10 @@
                 new Option<string>(
                     "--rootPath",
                     description: "The path in the document for the root type."),
+                new Option<SchemaVariant>(
+                    "--useSchema",
+                    getDefaultValue: () => SchemaVariant.Draft201909,
+                    description: "The schema variant to use."),
                 new Option<string>(
                     "--outputMapFile",
                     description: "The name to use for a map file which includes details of the files that were written."),
@@ -47,21 +51,27 @@
 
 
             // Note that the parameters of the handler method are matched according to the names of the options
-            rootCommand.Handler = CommandHandler.Create<string, string, string, bool, string, string>((schemaFile, rootNamespace, rootPath, rebaseToRootPath, outputPath, outputMapFile) =>
+            rootCommand.Handler = CommandHandler.Create<string, string, string, bool, string, string, SchemaVariant>((schemaFile, rootNamespace, rootPath, rebaseToRootPath, outputPath, outputMapFile, schemaVariant) =>
               {
-                  return GenerateTypes(schemaFile, rootNamespace, rootPath, rebaseToRootPath, outputPath, outputMapFile);
+                  return GenerateTypes(schemaFile, rootNamespace, rootPath, rebaseToRootPath, outputPath, outputMapFile, schemaVariant);
               });
 
             // Parse the incoming args and invoke the handler
             return rootCommand.InvokeAsync(args);
         }
 
-        private static async Task<int> GenerateTypes(string schemaFile, string rootNamespace, string rootPath, bool rebaseToRootPath, string outputPath, string outputMapFile)
+        private static async Task<int> GenerateTypes(string schemaFile, string rootNamespace, string rootPath, bool rebaseToRootPath, string outputPath, string outputMapFile, SchemaVariant schemaVariant)
         {
             try
             {
                 var walker = new JsonWalker(DocumentResolver.Default);
-                var builder = new JsonSchemaBuilder(walker);
+                IJsonSchemaBuilder builder =
+                    schemaVariant switch
+                    { 
+                        SchemaVariant.Draft201909 => new SchemaModel.Draft201909.JsonSchemaBuilder(walker),
+                        _ => new SchemaModel.Draft202012.JsonSchemaBuilder(walker)
+                    };
+
                 (_, ImmutableDictionary<string, (string, string)> generatedTypes) = await builder.BuildTypesFor(new JsonReference(schemaFile).Apply(new JsonReference(rootPath)), rootNamespace, rebaseToRootPath).ConfigureAwait(false);
 
                 if (!string.IsNullOrEmpty(outputPath))
@@ -127,6 +137,12 @@
             }
 
             return 0;
+        }
+
+        private enum SchemaVariant
+        {
+            Draft201909,
+            Draft202012
         }
     }
 }

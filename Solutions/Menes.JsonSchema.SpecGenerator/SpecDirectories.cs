@@ -13,12 +13,18 @@ namespace Menes.JsonSchema.SpecGenerator
     /// </summary>
     internal struct SpecDirectories
     {
-        private SpecDirectories(string testsDirectory, string remotesDirectory, string outputDirectory)
+        private SpecDirectories(string testSet, string testsDirectory, string remotesDirectory, string outputDirectory)
         {
+            this.TestSet = testSet;
             this.TestsDirectory = testsDirectory;
             this.RemotesDirectory = remotesDirectory;
             this.OutputDirectory = outputDirectory;
         }
+
+        /// <summary>
+        /// Gets the set of tests to which this belongs.
+        /// </summary>
+        public string TestSet { get; }
 
         /// <summary>
         /// Gets the directory contain the JSON schema specs.
@@ -48,7 +54,13 @@ namespace Menes.JsonSchema.SpecGenerator
                 inputDirectory = Path.Combine(inputDirectory, args[0]);
             }
 
-            string testsDirectory = Path.Combine(inputDirectory, "tests\\draft2019-09");
+            string testSet = "draft2019-09";
+            if (args.Length > 2)
+            {
+                testSet = args[2];
+            }
+
+            string testsDirectory = Path.Combine(inputDirectory, $"tests\\{testSet}");
             string remotesDirectory = Path.Combine(inputDirectory, "remotes");
 
             if (!Directory.Exists(testsDirectory))
@@ -61,7 +73,7 @@ namespace Menes.JsonSchema.SpecGenerator
                 throw new InvalidOperationException($"Unable to find the remotes directory: '{remotesDirectory}'");
             }
 
-            string outputDirectory = Environment.CurrentDirectory;
+            string outputDirectory = Path.Combine(Environment.CurrentDirectory, testSet);
             if (args.Length > 1)
             {
                 outputDirectory = Path.Combine(outputDirectory, args[1]);
@@ -76,7 +88,7 @@ namespace Menes.JsonSchema.SpecGenerator
                 throw new InvalidOperationException($"Unable to create the output directory: '{outputDirectory}'", ex);
             }
 
-            return new SpecDirectories(testsDirectory, remotesDirectory, outputDirectory);
+            return new SpecDirectories(testSet, testsDirectory, remotesDirectory, outputDirectory);
         }
 
         /// <summary>
@@ -93,20 +105,11 @@ namespace Menes.JsonSchema.SpecGenerator
         /// Enumerates the input test files.
         /// </summary>
         /// <returns>An enumerable of the input test files and their corresponding output feature files.</returns>
-        public IEnumerable<(string inputFile, string outputFile)> EnumerateTests()
+        public IEnumerable<(string testSet, string inputFile, string outputFile)> EnumerateTests()
         {
             foreach (string inputFile in Directory.EnumerateFiles(this.TestsDirectory))
             {
-                yield return (inputFile, this.GetOutputFeatureFileFor(inputFile));
-            }
-
-            string optionalDirectory = Path.Combine(this.TestsDirectory, "optional");
-            if (Directory.Exists(optionalDirectory))
-            {
-                foreach (string inputFile in Directory.EnumerateFiles(this.TestsDirectory))
-                {
-                    yield return (inputFile, this.GetOutputFeatureFileFor(inputFile));
-                }
+                yield return (this.TestSet, inputFile, this.GetOutputFeatureFileFor(inputFile));
             }
         }
 

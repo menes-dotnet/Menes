@@ -16,13 +16,13 @@
     <PackageReference Include="System.Text.Encodings.Web" Version="5.0.1" />
   </ItemGroup>
 
-  <ItemGroup>
+  <!--<ItemGroup>
     <CompilerVisibleItemMetadata Include="AdditionalFiles" MetadataName="GenerateSchema" />
     <CompilerVisibleItemMetadata Include="AdditionalFiles" MetadataName="RootNamespace" />
     <CompilerVisibleItemMetadata Include="AdditionalFiles" MetadataName="RootPath" />
     <CompilerVisibleItemMetadata Include="AdditionalFiles" MetadataName="RebaseToRootPath" />
     <AdditionalFiles Include="ResourceSample\PeopleApi.json" GenerateSchema="true" RootNamespace="Marain.LineOfBusiness" RootPath="/components/schemas/PersonResource" />
-  </ItemGroup>
+  </ItemGroup>-->
 
   <ItemGroup>
     <ProjectReference Include="..\Menes.Json.SourceGenerator\Menes.Json.SourceGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />

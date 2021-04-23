@@ -21,7 +21,7 @@ namespace Menes.Json
         public const string DefaultContent = "application/vnd.menes.element-default";
 
         private readonly List<Func<JsonWalker, JsonElement, Task<bool>>> handlers = new List<Func<JsonWalker, JsonElement, Task<bool>>>();
-        private readonly List<Func<JsonWalker, JsonReference, bool, Func<Task<LocatedElement?>>, Task<LocatedElement?>>> resolvers = new List<Func<JsonWalker, JsonReference, bool, Func<Task<LocatedElement?>>, Task<LocatedElement?>>>();
+        private readonly List<Func<JsonWalker, JsonReference, bool, bool, Func<Task<LocatedElement?>>, Task<LocatedElement?>>> resolvers = new List<Func<JsonWalker, JsonReference, bool, bool, Func<Task<LocatedElement?>>, Task<LocatedElement?>>>();
 
         private readonly Dictionary<string, LocatedElement> locatedElements = new Dictionary<string, LocatedElement>();
 
@@ -29,7 +29,7 @@ namespace Menes.Json
         private readonly IDocumentResolver documentResolver;
         private readonly string baseLocation;
 
-        private readonly List<(string, bool, string, Action<JsonWalker, LocatedElement>)> unresolvedReferences = new List<(string, bool, string, Action<JsonWalker, LocatedElement>)>();
+        private readonly List<(string, bool, bool, string, Action<JsonWalker, LocatedElement>)> unresolvedReferences = new List<(string, bool, bool, string, Action<JsonWalker, LocatedElement>)>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="JsonWalker"/> class.
@@ -201,10 +201,11 @@ namespace Menes.Json
         /// </summary>
         /// <param name="reference">The reference to resolve.</param>
         /// <param name="isRecursiveReference">A value indicating whether this is a recursive reference.</param>
+        /// <param name="isDynamicReference">A value indicating whether this is a dynamic reference.</param>
         /// <param name="postResolutionAction">The action to perform once the item has been resolved.</param>
-        public void AddUnresolvedReference(string reference, bool isRecursiveReference, Action<JsonWalker, LocatedElement> postResolutionAction)
+        public void AddUnresolvedReference(string reference, bool isRecursiveReference, bool isDynamicReference, Action<JsonWalker, LocatedElement> postResolutionAction)
         {
-            this.unresolvedReferences.Add((reference, isRecursiveReference, this.PeekLocationStack(), postResolutionAction));
+            this.unresolvedReferences.Add((reference, isRecursiveReference, isDynamicReference, this.PeekLocationStack(), postResolutionAction));
         }
 
         /// <summary>
@@ -213,7 +214,7 @@ namespace Menes.Json
         /// <returns>A <see cref="Task"/> which completes when the references are resolved.</returns>
         public async Task ResolveUnresolvedReferences()
         {
-            foreach ((string reference, bool isRecursiveReference, string stackLocation, Action<JsonWalker, LocatedElement> postResolutionAction) in this.unresolvedReferences)
+            foreach ((string reference, bool isRecursiveReference, bool isDynamicReference, string stackLocation, Action<JsonWalker, LocatedElement> postResolutionAction) in this.unresolvedReferences)
             {
                 if (this.locatedElements.ContainsKey(reference))
                 {
@@ -221,7 +222,7 @@ namespace Menes.Json
                 }
 
                 this.PushScopeToLocationStack(stackLocation);
-                LocatedElement? locatedElement = await this.ResolveReference(new JsonReference(reference), isRecursiveReference);
+                LocatedElement? locatedElement = await this.ResolveReference(new JsonReference(reference), isRecursiveReference, isDynamicReference);
                 if (locatedElement is LocatedElement)
                 {
                     postResolutionAction(this, locatedElement);
@@ -241,7 +242,7 @@ namespace Menes.Json
         /// on that element that has been returned. It returns a <see cref="Task{TResult}"/> which, when complete, provides
         /// the <see cref="LocatedElement"/> or <c>null</c> if the element could not be located.
         /// </remarks>
-        public void RegisterResolver(Func<JsonWalker, JsonReference, bool, Func<Task<LocatedElement?>>, Task<LocatedElement?>> resolver)
+        public void RegisterResolver(Func<JsonWalker, JsonReference, bool, bool, Func<Task<LocatedElement?>>, Task<LocatedElement?>> resolver)
         {
             this.resolvers.Insert(this.resolvers.Count - 1, resolver);
         }
@@ -319,9 +320,10 @@ namespace Menes.Json
         /// </summary>
         /// <param name="reference">The reference to resolve.</param>
         /// <param name="isRecursiveReference">True if the reference is recursive.</param>
+        /// <param name="isDynamicReference">True if the reference is dynamic.</param>
         /// <returns>A <see cref="Task"/> which completes when the reference is resolved, providing the location of the resolved element.</returns>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0008:Use explicit type", Justification = "GetEnumerator() produces a long and complicated enumerator type that obscures the intent.")]
-        public async Task<LocatedElement?> ResolveReference(JsonReference reference, bool isRecursiveReference)
+        public async Task<LocatedElement?> ResolveReference(JsonReference reference, bool isRecursiveReference, bool isDynamicReference)
         {
             // The current location is the current place in the stack, with the reference applied.
             var currentLocation = new JsonReference(this.PeekLocationStack()).Apply(reference);
@@ -329,7 +331,7 @@ namespace Menes.Json
             var enumerator = this.resolvers.GetEnumerator();
             while (enumerator.MoveNext())
             {
-                var result = await enumerator.Current(this, currentLocation, isRecursiveReference, () => RecursivelyResolve(enumerator, this, currentLocation, isRecursiveReference)).ConfigureAwait(false);
+                var result = await enumerator.Current(this, currentLocation, isRecursiveReference, isDynamicReference, () => RecursivelyResolve(enumerator, this, currentLocation, isRecursiveReference, isDynamicReference)).ConfigureAwait(false);
                 if (result != null)
                 {
                     return result;
@@ -386,17 +388,17 @@ namespace Menes.Json
             this.scopedLocationStack.Push(currentLocation.Apply(new JsonReference(scope)));
         }
 
-        private static Task<LocatedElement?> RecursivelyResolve(List<Func<JsonWalker, JsonReference, bool, Func<Task<LocatedElement?>>, Task<LocatedElement?>>>.Enumerator enumerator, JsonWalker walker, JsonReference reference, bool isRecursiveReference)
+        private static Task<LocatedElement?> RecursivelyResolve(List<Func<JsonWalker, JsonReference, bool, bool, Func<Task<LocatedElement?>>, Task<LocatedElement?>>>.Enumerator enumerator, JsonWalker walker, JsonReference reference, bool isRecursiveReference, bool isDynamicReference)
         {
             if (enumerator.MoveNext())
             {
-                return enumerator.Current(walker, reference, isRecursiveReference, () => RecursivelyResolve(enumerator, walker, reference, isRecursiveReference));
+                return enumerator.Current(walker, reference, isRecursiveReference, isDynamicReference, () => RecursivelyResolve(enumerator, walker, reference, isRecursiveReference, isDynamicReference));
             }
 
             return Task.FromResult<LocatedElement?>(default);
         }
 
-        private static async Task<LocatedElement?> DefaultResolver(JsonWalker walker, JsonReference reference, bool isRecursiveReference, Func<Task<LocatedElement?>> resolve)
+        private static async Task<LocatedElement?> DefaultResolver(JsonWalker walker, JsonReference reference, bool isRecursiveReference, bool isDynamicReference, Func<Task<LocatedElement?>> resolve)
         {
             if (walker.locatedElements.TryGetValue(reference.AsDecodedString(), out LocatedElement element))
             {

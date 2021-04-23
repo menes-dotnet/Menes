@@ -28,7 +28,7 @@ namespace Steps
         private const string SchemaValidationResult = "SchemaValidationResult";
         private readonly FeatureContext featureContext;
         private readonly ScenarioContext scenarioContext;
-        private readonly JsonSchemaBuilderDriver driver;
+        private readonly IJsonSchemaBuilderDriver driver;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="JsonSchemaSteps"/> class.
@@ -36,7 +36,7 @@ namespace Steps
         /// <param name="featureContext">The current feature context.</param>
         /// <param name="scenarioContext">The current scenario context.</param>
         /// <param name="driver">The json schema builder driver.</param>
-        public JsonSchemaSteps(FeatureContext featureContext, ScenarioContext scenarioContext, JsonSchemaBuilderDriver driver)
+        public JsonSchemaSteps(FeatureContext featureContext, ScenarioContext scenarioContext, IJsonSchemaBuilderDriver driver)
         {
             this.featureContext = featureContext;
             this.scenarioContext = scenarioContext;
