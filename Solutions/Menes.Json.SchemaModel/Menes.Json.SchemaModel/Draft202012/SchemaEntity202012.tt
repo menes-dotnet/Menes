@@ -4062,7 +4062,8 @@ namespace <#= Namespace #>
                 if (__MenesLocalProperties.TryGetValue(propertyName, out Func<<#= TypeDeclaration.DotnetTypeName #>, ValidationContext, ValidationLevel, ValidationContext>? propertyValidator))
                 {
                     result = result.WithLocalProperty(propertyName);
-                    result = propertyValidator(this, result, level);
+                    var propertyResult = propertyValidator(this, result, level);
+                    result = result.MergeResults(propertyResult.IsValid, level, propertyResult);
                     if (level == ValidationLevel.Flag && !result.IsValid)
                     {
                         return result;

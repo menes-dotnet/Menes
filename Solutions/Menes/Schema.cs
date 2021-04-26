@@ -10,7 +10,7 @@
 
 #nullable enable
 
-namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf
+namespace UnevaluatedItemsDraft202012Feature.ItemIsEvaluatedInAnUncleSchemaToUnevaluatedItems
 {
     using System;
     using System.Collections.Generic;
@@ -24,9 +24,22 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf
     /// A type generated from a JsonSchema specification.
     /// </summary>
     public readonly struct Schema :
-                IJsonArray<Schema>,
-                IEquatable<Schema>
+            IJsonObject<Schema>,
+                    IEquatable<Schema>
     {
+
+        
+    
+        
+        /// <summary>
+        /// JSON property name for <see cref="Foo"/>.
+        /// </summary>
+        public static readonly ReadOnlyMemory<byte> FooUtf8JsonPropertyName = new byte[] { 102, 111, 111 };
+
+        /// <summary>
+        /// JSON property name for <see cref="Foo"/>.
+        /// </summary>
+        public static readonly JsonEncodedText FooJsonPropertyName = JsonEncodedText.Encode( FooUtf8JsonPropertyName.Span);
 
         
     
@@ -34,14 +47,15 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf
     
     
     
+            private static readonly ImmutableDictionary<JsonEncodedText, Func<Schema, ValidationContext, ValidationLevel, ValidationContext>> __MenesLocalProperties = CreateLocalPropertyValidators();
     
     
 
     
         private readonly JsonElement jsonElementBacking;
 
+            private readonly ImmutableDictionary<JsonEncodedText, JsonAny>? objectBacking;
     
-            private readonly ImmutableList<JsonAny>? arrayBacking;
     
     
     
@@ -53,35 +67,34 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf
         public Schema(JsonElement value)
         {
             this.jsonElementBacking = value;
-                    this.arrayBacking = default;
-                        }
+                this.objectBacking = default;
+                            }
 
-    
             /// <summary>
         /// Initializes a new instance of the <see cref="Schema"/> struct.
         /// </summary>
-        /// <param name="value">An array list.</param>
-        public Schema(ImmutableList<JsonAny> value)
+        /// <param name="value">A property dictionary.</param>
+        public Schema(ImmutableDictionary<JsonEncodedText, JsonAny> value)
         {
             this.jsonElementBacking = default;
-                                            this.arrayBacking = value;
-        }
+            this.objectBacking = value;
+                                        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Schema"/> struct.
         /// </summary>
-        /// <param name="jsonArray">The <see cref="JsonArray"/> from which to construct the value.</param>
-        public Schema(JsonArray jsonArray)
+        /// <param name="jsonObject">The <see cref="JsonObject"/> from which to construct the value.</param>
+        public Schema(JsonObject jsonObject)
         {
-            if (jsonArray.HasJsonElement)
+            if (jsonObject.HasJsonElement)
             {
-                this.jsonElementBacking = jsonArray.AsJsonElement;
-                this.arrayBacking = default;
+                this.jsonElementBacking = jsonObject.AsJsonElement;
+                this.objectBacking = default;
             }
             else
             {
                 this.jsonElementBacking = default;
-                this.arrayBacking = jsonArray.AsItemsList;
+                this.objectBacking = jsonObject.AsPropertyDictionary;
             }
 
                                         }
@@ -90,78 +103,40 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf
     
     
     
+    
             /// <summary>
         /// Initializes a new instance of the <see cref="Schema"/> struct.
         /// </summary>
-        /// <param name="conversion">The <see cref="UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf.Schema.AnyOf0Entity"/> from which to construct the value.</param>
-        public Schema(UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf.Schema.AnyOf0Entity conversion)
+        /// <param name="conversion">The <see cref="UnevaluatedItemsDraft202012Feature.ItemIsEvaluatedInAnUncleSchemaToUnevaluatedItems.Schema.AnyOf0Entity"/> from which to construct the value.</param>
+        public Schema(UnevaluatedItemsDraft202012Feature.ItemIsEvaluatedInAnUncleSchemaToUnevaluatedItems.Schema.AnyOf0Entity conversion)
         {
             if (conversion.HasJsonElement)
             {
                 this.jsonElementBacking = conversion.AsJsonElement;
+                        this.objectBacking = default;
                 
-                        this.arrayBacking = default;
                                     }
             else
             {
                 this.jsonElementBacking = default;
-                
-                        if (conversion.ValueKind == JsonValueKind.Array)
+                        if (conversion.ValueKind == JsonValueKind.Object)
                 {
-                    this.arrayBacking = conversion;
+                    this.objectBacking = conversion;
                 }
                 else
                 {
-                    this.arrayBacking = default;
+                    this.objectBacking = default;
                 }
-                                    }
-        }
-            /// <summary>
-        /// Initializes a new instance of the <see cref="Schema"/> struct.
-        /// </summary>
-        /// <param name="conversion">The <see cref="UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf.Schema.AnyOf1Entity"/> from which to construct the value.</param>
-        public Schema(UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf.Schema.AnyOf1Entity conversion)
-        {
-            if (conversion.HasJsonElement)
-            {
-                this.jsonElementBacking = conversion.AsJsonElement;
                 
-                        this.arrayBacking = default;
-                                    }
-            else
-            {
-                this.jsonElementBacking = default;
-                
-                        if (conversion.ValueKind == JsonValueKind.Array)
-                {
-                    this.arrayBacking = conversion;
-                }
-                else
-                {
-                    this.arrayBacking = default;
-                }
                                     }
         }
     
 
-            /// <inheritdoc/>
-        public int Length
-        {
-            get
-            {
-                if (this.arrayBacking is ImmutableList<JsonAny> items)
-                {
-                    return items.Count;
-                }
-
-                return this.jsonElementBacking.GetArrayLength();
-            }
-        }
     
             /// <summary>
-        /// Gets the value as a <see cref="UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf.Schema.AnyOf0Entity" />.
+        /// Gets the value as a <see cref="UnevaluatedItemsDraft202012Feature.ItemIsEvaluatedInAnUncleSchemaToUnevaluatedItems.Schema.AnyOf0Entity" />.
         /// </summary>
-        public UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf.Schema.AnyOf0Entity AsAnyOf0Entity
+        public UnevaluatedItemsDraft202012Feature.ItemIsEvaluatedInAnUncleSchemaToUnevaluatedItems.Schema.AnyOf0Entity AsAnyOf0Entity
         {
             get
             {
@@ -170,46 +145,60 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf
         }
 
         /// <summary>
-        /// Gets a value indicating whether this is a valid <see cref="UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf.Schema.AnyOf0Entity" />.
+        /// Gets a value indicating whether this is a valid <see cref="UnevaluatedItemsDraft202012Feature.ItemIsEvaluatedInAnUncleSchemaToUnevaluatedItems.Schema.AnyOf0Entity" />.
         /// </summary>
         public bool IsAnyOf0Entity
         {
             get
             {
-                return ((UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf.Schema.AnyOf0Entity)this).Validate().IsValid;
-            }
-        }
-
-            /// <summary>
-        /// Gets the value as a <see cref="UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf.Schema.AnyOf1Entity" />.
-        /// </summary>
-        public UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf.Schema.AnyOf1Entity AsAnyOf1Entity
-        {
-            get
-            {
-                return this;
-            }
-        }
-
-        /// <summary>
-        /// Gets a value indicating whether this is a valid <see cref="UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf.Schema.AnyOf1Entity" />.
-        /// </summary>
-        public bool IsAnyOf1Entity
-        {
-            get
-            {
-                return ((UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf.Schema.AnyOf1Entity)this).Validate().IsValid;
+                return ((UnevaluatedItemsDraft202012Feature.ItemIsEvaluatedInAnUncleSchemaToUnevaluatedItems.Schema.AnyOf0Entity)this).Validate().IsValid;
             }
         }
 
     
-            /// <summary>
+            
+        /// <summary>
+        /// Gets Foo.
+        /// </summary>
+        /// <remarks>
+        /// {Property title}.
+        /// {Property description}.
+        /// </remarks>
+        /// <example>
+        /// {Property examples}.
+        /// </example>
+        public UnevaluatedItemsDraft202012Feature.ItemIsEvaluatedInAnUncleSchemaToUnevaluatedItems.Schema.FooArray Foo
+        {
+            get
+            {
+                if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+                {
+                    if(properties.TryGetValue(FooJsonPropertyName, out JsonAny result))
+                    {
+                        return result;
+                    }
+                }
+
+                if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
+                {
+                    if (this.jsonElementBacking.TryGetProperty(FooUtf8JsonPropertyName.Span, out JsonElement result))
+                    {
+                        return new  UnevaluatedItemsDraft202012Feature.ItemIsEvaluatedInAnUncleSchemaToUnevaluatedItems.Schema.FooArray(result);
+                    }
+                }
+
+                return default;
+            }
+        }
+
+                    /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
         public bool HasJsonElement =>
     
+                this.objectBacking is null
+            
     
-                        this.arrayBacking is null
                 
                 ;
 
@@ -220,11 +209,13 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf
         {
             get
             {
-    
-                    if (this.arrayBacking is ImmutableList<JsonAny> arrayBacking)
+              
+                if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> objectBacking)
                 {
-                    return JsonArray.ItemsToJsonElement(arrayBacking);
+                    return JsonObject.PropertiesToJsonElement(objectBacking);
                 }
+
+    
     
     
     
@@ -238,12 +229,12 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf
         {
             get
             {
-    
-                    if (this.arrayBacking is ImmutableList<JsonAny>)
+                    if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny>)
                 {
-                    return JsonValueKind.Array;
+                    return JsonValueKind.Object;
                 }
 
+    
     
     
     
@@ -257,12 +248,12 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf
         {
             get
             {
-    
-                    if (this.arrayBacking is ImmutableList<JsonAny> arrayBacking)
+                    if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> objectBacking)
                 {
-                    return new JsonAny(arrayBacking);
+                    return new JsonAny(objectBacking);
                 }
 
+    
     
     
     
@@ -278,6 +269,11 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf
         {
             get
             {
+                    if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> objectBacking)
+                {
+                    return new JsonObject(objectBacking);
+                }
+
     
                 return new JsonObject(this.jsonElementBacking);
             }
@@ -290,11 +286,6 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf
         {
             get
             {
-                    if (this.arrayBacking is ImmutableList<JsonAny> arrayBacking)
-                {
-                    return new JsonArray(arrayBacking);
-                }
-
     
                 return new JsonArray(this.jsonElementBacking);
             }
@@ -345,46 +336,25 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf
         }
 
             /// <summary>
-        /// Conversion from <see cref="UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf.Schema.AnyOf0Entity" />.
+        /// Conversion from <see cref="UnevaluatedItemsDraft202012Feature.ItemIsEvaluatedInAnUncleSchemaToUnevaluatedItems.Schema.AnyOf0Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator Schema(UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf.Schema.AnyOf0Entity value)
+        public static implicit operator Schema(UnevaluatedItemsDraft202012Feature.ItemIsEvaluatedInAnUncleSchemaToUnevaluatedItems.Schema.AnyOf0Entity value)
         {
             return new Schema(value);
         }
 
         /// <summary>
-        /// Conversion to <see cref="UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf.Schema.AnyOf0Entity" />.
+        /// Conversion to <see cref="UnevaluatedItemsDraft202012Feature.ItemIsEvaluatedInAnUncleSchemaToUnevaluatedItems.Schema.AnyOf0Entity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf.Schema.AnyOf0Entity(Schema value)
+        public static implicit operator UnevaluatedItemsDraft202012Feature.ItemIsEvaluatedInAnUncleSchemaToUnevaluatedItems.Schema.AnyOf0Entity(Schema value)
         {
-                            if (value.ValueKind == JsonValueKind.Array)
+                    if (value.ValueKind == JsonValueKind.Object)
             {
-                return new UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf.Schema.AnyOf0Entity(value.AsArray);
+                return new UnevaluatedItemsDraft202012Feature.ItemIsEvaluatedInAnUncleSchemaToUnevaluatedItems.Schema.AnyOf0Entity(value.AsObject);
             }
-                                            return default;
-        }
-            /// <summary>
-        /// Conversion from <see cref="UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf.Schema.AnyOf1Entity" />.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator Schema(UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf.Schema.AnyOf1Entity value)
-        {
-            return new Schema(value);
-        }
-
-        /// <summary>
-        /// Conversion to <see cref="UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf.Schema.AnyOf1Entity" />.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf.Schema.AnyOf1Entity(Schema value)
-        {
-                            if (value.ValueKind == JsonValueKind.Array)
-            {
-                return new UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf.Schema.AnyOf1Entity(value.AsArray);
-            }
-                                            return default;
+                                                    return default;
         }
     
         
@@ -412,103 +382,76 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf
         }
 
     
+    
         /// <summary>
-        /// Conversion from array.
+        /// Conversion from object.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator Schema(JsonArray value)
+        public static implicit operator Schema(JsonObject value)
         {
             return new Schema(value);
         }
 
         /// <summary>
-        /// Conversion to array.
+        /// Conversion to object.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator JsonArray(Schema value)
+        public static implicit operator JsonObject(Schema value)
         {
-            return value.AsArray;
+            return value.AsObject;
         }
-       
-        /// <summary>
-        /// Implicit conversion to an <see cref="ImmutableList{T}"/> of <see cref="JsonAny"/>.
+
+                /// <summary>
+        /// Implicit conversion to a property dictionary.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator ImmutableList<JsonAny>(Schema value)
+        public static implicit operator ImmutableDictionary<JsonEncodedText, JsonAny>(Schema  value)
         {
-            return value.AsArray.AsItemsList;
+            return value.AsObject.AsPropertyDictionary;
         }
 
         /// <summary>
-        /// Implicit conversion from an <see cref="ImmutableList{T}"/> of <see cref="JsonAny"/>.
+        /// Implicit conversion from a property dictionary.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator Schema(ImmutableList<JsonAny> value)
+        public static implicit operator Schema (ImmutableDictionary<JsonEncodedText, JsonAny> value)
         {
-            return new Schema(value);
-        }
-    
-    
-    
-    
-    
-                            /// <summary>
-        /// Create an array from the given items.
-        /// </summary>
-        /// <param name="items">The items from which to create the array.</param>
-        /// <returns>The new array created from the items.</returns>
-        public static Schema From(params JsonAny[] items)
-        {
-            return new Schema(items.ToImmutableList());
+            return new Schema (value);
         }
 
-        /// <summary>
-        /// Create an array from the given items.
+    
+    
+    
+    
+    
+            /// <summary>
+        /// Creates an instance of a <see cref="Schema"/>.
         /// </summary>
-        /// <param name="item1">The items from which to create the array.</param>
-        /// <returns>The new array created from the items.</returns>
-        public static Schema From(JsonAny item1)
-        {
-            return new Schema(ImmutableList.Create(item1));
-        }
-
-        /// <summary>
-        /// Create an array from the given items.
-        /// </summary>
-        /// <param name="item1">The first item from which to create the array.</param>
-        /// <param name="item2">The second item from which to create the array.</param>
-        /// <returns>The new array created from the items.</returns>
-        public static Schema From(JsonAny item1, JsonAny item2)
-        {
-            return new Schema(ImmutableList.Create(item1, item2));
-        }
-
-        /// <summary>
-        /// Create an array from the given items.
-        /// </summary>
-        /// <param name="item1">The first item from which to create the array.</param>
-        /// <param name="item2">The second item from which to create the array.</param>
-        /// <param name="item3">The third item from which to create the array.</param>
-        /// <returns>The new array created from the items.</returns>
-        public static Schema From(JsonAny item1, JsonAny item2, JsonAny item3)
-        {
-            return new Schema(ImmutableList.Create(item1, item2, item3));
-        }
-
-        /// <summary>
-        /// Create an array from the given items.
-        /// </summary>
-        /// <param name="item1">The first item from which to create the array.</param>
-        /// <param name="item2">The second item from which to create the array.</param>
-        /// <param name="item3">The third item from which to create the array.</param>
-        /// <param name="item4">The fourth item from which to create the array.</param>
-        /// <returns>The new array created from the items.</returns>
-        public static Schema From(JsonAny item1, JsonAny item2, JsonAny item3, JsonAny item4)
-        {
-            return new Schema(ImmutableList.Create(item1, item2, item3, item4));
-        }
+        public static Schema Create(
+                            UnevaluatedItemsDraft202012Feature.ItemIsEvaluatedInAnUncleSchemaToUnevaluatedItems.Schema.FooArray? foo = null
         
-    
+        )
+        {
+            var builder = ImmutableDictionary.CreateBuilder<JsonEncodedText, JsonAny>();
+                            if (foo is UnevaluatedItemsDraft202012Feature.ItemIsEvaluatedInAnUncleSchemaToUnevaluatedItems.Schema.FooArray foo__)
+            {
+                builder.Add(FooJsonPropertyName, foo__);
+            }
+                    return builder.ToImmutable();
+        }
+
+        
+        /// <summary>
+        /// Sets foo.
+        /// </summary>
+        /// <param name="value">The value to set.</param>
+        /// <returns>The entity with the updated property.</returns>
+        public Schema WithFoo(UnevaluatedItemsDraft202012Feature.ItemIsEvaluatedInAnUncleSchemaToUnevaluatedItems.Schema.FooArray value)
+        {
+            return this.SetProperty(FooJsonPropertyName, value);
+        }
+
+        
     
 
         /// <summary>
@@ -517,13 +460,13 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf
         /// <param name="writer">The writer to which to write the object.</param>
         public void WriteTo(Utf8JsonWriter writer)
         {
-    
-                if (this.arrayBacking is ImmutableList<JsonAny> arrayBacking)
+                if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> objectBacking)
             {
-                JsonArray.WriteItems(arrayBacking, writer);
+                JsonObject.WriteProperties(objectBacking, writer);
                 return;
             }
 
+    
     
     
     
@@ -538,13 +481,42 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf
         }
 
     
-    
-                /// <inheritdoc/>
-        public JsonArrayEnumerator EnumerateArray()
+        
+        
+        /// <inheritdoc/>
+        public JsonObjectEnumerator EnumerateObject()
         {
-            return this.AsArray.EnumerateArray();
+            return this.AsObject.EnumerateObject();
         }
+
     
+    
+    
+        /// <inheritdoc/>
+        public bool TryGetProperty(JsonEncodedText name, out JsonAny value)
+        {
+            return this.AsObject.TryGetProperty(name, out value);
+        }
+
+        /// <inheritdoc/>
+        public bool TryGetProperty(string name, out JsonAny value)
+        {
+            return this.AsObject.TryGetProperty(name, out value);
+        }
+
+        /// <inheritdoc/>
+        public bool TryGetProperty(ReadOnlySpan<char> name, out JsonAny value)
+        {
+            return this.AsObject.TryGetProperty(name, out value);
+        }
+
+        /// <inheritdoc/>
+        public bool TryGetProperty(ReadOnlySpan<byte> utf8name, out JsonAny value)
+        {
+            return this.AsObject.TryGetProperty(utf8name, out value);
+        }
+
+        
     
         /// <inheritdoc/>
         public bool Equals<T>(T other)
@@ -592,77 +564,161 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf
         }
 
     
+        /// <inheritdoc/>
+        public bool HasProperty(JsonEncodedText name)
+        {
+            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            {
+                return properties.TryGetValue(name, out _);
+            }
+
+            if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
+            {
+                return this.jsonElementBacking.TryGetProperty(name.ToString(), out JsonElement _);
+            }
+
+            return false;
+        }
+
+        /// <inheritdoc/>
+        public bool HasProperty(string name)
+        {
+            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            {
+                return properties.TryGetValue(JsonEncodedText.Encode(name), out _);
+            }
+
+            if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
+            {
+                return this.jsonElementBacking.TryGetProperty(name, out JsonElement _);
+            }
+
+            return false;
+        }
+
+        /// <inheritdoc/>
+        public bool HasProperty(ReadOnlySpan<char> name)
+        {
+            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            {
+                return properties.TryGetValue(JsonEncodedText.Encode(name), out _);
+            }
+
+            if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
+            {
+                return this.jsonElementBacking.TryGetProperty(name, out JsonElement _);
+            }
+
+            return false;        }
+
+        /// <inheritdoc/>
+        public bool HasProperty(ReadOnlySpan<byte> utf8name)
+        {
+            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            {
+                return properties.TryGetValue(JsonEncodedText.Encode(utf8name), out _);
+            }
+
+            if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
+            {
+                return this.jsonElementBacking.TryGetProperty(utf8name, out JsonElement _);
+            }
+
+            return false;        }
+
+        /// <inheritdoc/>
+        public Schema SetProperty<TValue>(JsonEncodedText name, TValue value)
+            where TValue : IJsonValue
+        {
+            if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
+            {
+                return this.AsObject.SetProperty(name, value);
+            }
+
+            return this;
+        }
+
+        /// <inheritdoc/>
+        public Schema SetProperty<TValue>(string name, TValue value)
+            where TValue : IJsonValue
+        {
+            if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
+            {
+                return this.AsObject.SetProperty(name, value);
+            }
+
+            return this;
+        }
+
+        /// <inheritdoc/>
+        public Schema SetProperty<TValue>(ReadOnlySpan<char> name, TValue value)
+            where TValue : IJsonValue
+        {
+            if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
+            {
+                return this.AsObject.SetProperty(name, value);
+            }
+
+            return this;
+        }
+
+        /// <inheritdoc/>
+        public Schema SetProperty<TValue>(ReadOnlySpan<byte> utf8name, TValue value)
+            where TValue : IJsonValue
+        {
+            if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
+            {
+                return this.AsObject.SetProperty(utf8name, value);
+            }
+
+            return this;
+        }
+
+        /// <inheritdoc/>
+        public Schema RemoveProperty(JsonEncodedText name)
+        {
+            if (this.ValueKind == JsonValueKind.Object)
+            {
+                return this.AsObject.RemoveProperty(name);
+            }
+
+            return this;
+        }
+
+        /// <inheritdoc/>
+        public Schema RemoveProperty(string name)
+        {
+            if (this.ValueKind == JsonValueKind.Object)
+            {
+                return this.AsObject.RemoveProperty(name);
+            }
+
+            return this;
+        }
+
+        /// <inheritdoc/>
+        public Schema RemoveProperty(ReadOnlySpan<char> name)
+        {
+            if (this.ValueKind == JsonValueKind.Object)
+            {
+                return this.AsObject.RemoveProperty(name);
+            }
+
+            return this;
+        }
+
+        /// <inheritdoc/>
+        public Schema RemoveProperty(ReadOnlySpan<byte> utf8Name)
+        {
+            if (this.ValueKind == JsonValueKind.Object)
+            {
+                return this.AsObject.RemoveProperty(utf8Name);
+            }
+
+            return this;
+        }
+
     
-        /// <inheritdoc/>
-        public Schema Add<TItem>(TItem item)
-            where TItem : struct, IJsonValue
-        {
-            if (this.ValueKind == JsonValueKind.Array || this.ValueKind == JsonValueKind.Undefined)
-            {
-                return this.AsArray.Add(item);
-            }
-
-            return this;
-        }
-
-        /// <inheritdoc/>
-        public Schema Insert<TItem>(int index, TItem item)
-            where TItem : struct, IJsonValue
-        {
-            if (this.ValueKind == JsonValueKind.Array || this.ValueKind == JsonValueKind.Undefined)
-            {
-                return this.AsArray.Insert(index, item);
-            }
-
-            return this;
-        }
-
-        /// <inheritdoc/>
-        public Schema Replace<TItem>(TItem oldValue, TItem newValue)
-            where TItem : struct, IJsonValue
-        {
-            if (this.ValueKind == JsonValueKind.Array)
-            {
-                return this.AsArray.Replace(oldValue, newValue);
-            }
-
-            return this;
-        }
-
-        /// <inheritdoc/>
-        public Schema RemoveAt(int index)
-        {
-            if (this.ValueKind == JsonValueKind.Array)
-            {
-                return this.AsArray.RemoveAt(index);
-            }
-
-            return this;
-        }
-
-        /// <inheritdoc/>
-        public Schema RemoveRange(int index, int count)
-        {
-            if (this.ValueKind == JsonValueKind.Array)
-            {
-                return this.AsArray.RemoveRange(index, count);
-            }
-
-            return this;
-        }
-
-        /// <inheritdoc/>
-        public Schema SetItem<TItem>(int index, TItem value)
-            where TItem : struct, IJsonValue
-        {
-            if (this.ValueKind == JsonValueKind.Array)
-            {
-                return this.AsArray.SetItem(index, value);
-            }
-
-            return this;
-        }
-
     
         /// <inheritdoc/>
         public T As<T>()
@@ -708,13 +764,14 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf
             }
     
     
-    
-
-                result = this.ValidateArray(valueKind, result, level);
+                result = this.ValidateObject(valueKind, result, level);
             if (level == ValidationLevel.Flag && !result.IsValid)
             {
                 return result;
             }
+
+    
+
                 return result;
         }
 
@@ -723,65 +780,67 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf
     
     
     
+        private static ImmutableDictionary<JsonEncodedText, Func<Schema, ValidationContext, ValidationLevel, ValidationContext>> CreateLocalPropertyValidators()
+        {
+            ImmutableDictionary<JsonEncodedText, Func<Schema, ValidationContext, ValidationLevel, ValidationContext>>.Builder builder =
+                ImmutableDictionary.CreateBuilder<JsonEncodedText, Func<Schema, ValidationContext, ValidationLevel, ValidationContext>>();
+
+                    builder.Add(
+                FooJsonPropertyName,
+                (that, validationContext, level) =>
+                {
+                    UnevaluatedItemsDraft202012Feature.ItemIsEvaluatedInAnUncleSchemaToUnevaluatedItems.Schema.FooArray property = that.Foo;
+                    return property.Validate(validationContext, level);
+                });
+        
+            return builder.ToImmutable();
+        }
+
     
-            private ValidationContext ValidateArray(JsonValueKind valueKind, in ValidationContext validationContext, ValidationLevel level)
+    
+    
+            private ValidationContext ValidateObject(JsonValueKind valueKind, in ValidationContext validationContext, ValidationLevel level)
         {
             ValidationContext result = validationContext;
 
-            if (valueKind != JsonValueKind.Array)
+            if (valueKind != JsonValueKind.Object)
             {
                 return result;
             }
 
-         
-            int arrayLength = 0;
-         
         
-                     JsonArrayEnumerator arrayEnumerator = this.EnumerateArray();
-
-            while (arrayEnumerator.MoveNext())
+        
+        
+            foreach (Property property in this.EnumerateObject())
             {
+                JsonEncodedText propertyName = property.NameAsJsonEncodedText;
+
         
-        
-                        switch (arrayLength)
+                        if (__MenesLocalProperties.TryGetValue(propertyName, out Func<Schema, ValidationContext, ValidationLevel, ValidationContext>? propertyValidator))
                 {
-                                case 0:
-                    
-                        result = arrayEnumerator.Current.As<UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf.Schema.PrefixItems0Entity>().Validate(result, level);
-                        if (level == ValidationLevel.Flag && !result.IsValid)
-                        {
-                            return result;
-                        }
-                        break;
+                    result = result.WithLocalProperty(propertyName);
+                    result = propertyValidator(this, result, level);
+                    if (level == ValidationLevel.Flag && !result.IsValid)
+                    {
+                        return result;
+                    }
+
             
-                    default:
-                                        if (!result.HasEvaluatedLocalOrAppliedItemIndex(arrayLength))
-                        {
-
-                            result = arrayEnumerator.Current.As<Menes.Json.JsonNotAny>().Validate(result, level);
-
-                            if (level == ValidationLevel.Flag && !result.IsValid)
-                            {
-                                return result;
-                            }
-
-                            result = result.WithLocalItemIndex(arrayLength);
-                        }
-                
-                        break;
                 }
+        
+        
+        
+        
+        
+        
+                    }
 
-        
-                arrayLength++;
-            }
-        
         
         
         
             return result;
         }
 
-    
     
             
 
@@ -794,12 +853,19 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf
 
                 
 
-            ValidationContext anyOfResult0 = this.As<UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf.Schema.AnyOf0Entity>().Validate(validationContext.CreateChildContext(), level);
+            ValidationContext anyOfResult0 = this.As<UnevaluatedItemsDraft202012Feature.ItemIsEvaluatedInAnUncleSchemaToUnevaluatedItems.Schema.AnyOf0Entity>().Validate(validationContext.CreateChildContext(), level);
 
             if (anyOfResult0.IsValid)
             {
                 result = result.MergeChildContext(anyOfResult0, level >= ValidationLevel.Detailed);
-                                foundValid = true;
+                            if (level == ValidationLevel.Flag)
+                {
+                    return result;
+                }
+                else
+                {
+                    foundValid = true;
+                }
                         }
             else
             {
@@ -810,27 +876,6 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf
                 else if (level >= ValidationLevel.Basic)
                 {
                     result = result.MergeResults(result.IsValid, level, anyOfResult0);
-                }
-            }
-
-                
-
-            ValidationContext anyOfResult1 = this.As<UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf.Schema.AnyOf1Entity>().Validate(validationContext.CreateChildContext(), level);
-
-            if (anyOfResult1.IsValid)
-            {
-                result = result.MergeChildContext(anyOfResult1, level >= ValidationLevel.Detailed);
-                                foundValid = true;
-                        }
-            else
-            {
-                if (level >= ValidationLevel.Detailed)
-                {
-                    result = result.MergeResults(result.IsValid, level, anyOfResult1);
-                }
-                else if (level >= ValidationLevel.Basic)
-                {
-                    result = result.MergeResults(result.IsValid, level, anyOfResult1);
                 }
             }
 
@@ -877,15 +922,14 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf
             bool isValid = false;
 
         
-        
                 
-            ValidationContext localResultArray = Menes.Json.Validate.TypeArray(valueKind, result, level);
-            if (level == ValidationLevel.Flag && localResultArray.IsValid)
+            ValidationContext localResultObject = Menes.Json.Validate.TypeObject(valueKind, result, level);
+            if (level == ValidationLevel.Flag && localResultObject.IsValid)
             {
                 return validationContext;
             }
 
-            if (localResultArray.IsValid)
+            if (localResultObject.IsValid)
             {
                 isValid = true;
             }
@@ -895,13 +939,14 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf
         
         
         
+        
             result = result.MergeResults(
                 isValid,
                 level
         
-        
                 
-                , localResultArray
+                , localResultObject
+        
         
         
         
@@ -918,9 +963,22 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf
     /// A type generated from a JsonSchema specification.
     /// </summary>
     public readonly struct AnyOf0Entity :
-                IJsonArray<AnyOf0Entity>,
-                IEquatable<AnyOf0Entity>
+            IJsonObject<AnyOf0Entity>,
+                    IEquatable<AnyOf0Entity>
     {
+
+        
+    
+        
+        /// <summary>
+        /// JSON property name for <see cref="Foo"/>.
+        /// </summary>
+        public static readonly ReadOnlyMemory<byte> FooUtf8JsonPropertyName = new byte[] { 102, 111, 111 };
+
+        /// <summary>
+        /// JSON property name for <see cref="Foo"/>.
+        /// </summary>
+        public static readonly JsonEncodedText FooJsonPropertyName = JsonEncodedText.Encode( FooUtf8JsonPropertyName.Span);
 
         
     
@@ -928,14 +986,15 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf
     
     
     
+            private static readonly ImmutableDictionary<JsonEncodedText, Func<AnyOf0Entity, ValidationContext, ValidationLevel, ValidationContext>> __MenesLocalProperties = CreateLocalPropertyValidators();
     
     
 
     
         private readonly JsonElement jsonElementBacking;
 
+            private readonly ImmutableDictionary<JsonEncodedText, JsonAny>? objectBacking;
     
-            private readonly ImmutableList<JsonAny>? arrayBacking;
     
     
     
@@ -947,35 +1006,34 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf
         public AnyOf0Entity(JsonElement value)
         {
             this.jsonElementBacking = value;
-                    this.arrayBacking = default;
-                        }
+                this.objectBacking = default;
+                            }
 
-    
             /// <summary>
         /// Initializes a new instance of the <see cref="AnyOf0Entity"/> struct.
         /// </summary>
-        /// <param name="value">An array list.</param>
-        public AnyOf0Entity(ImmutableList<JsonAny> value)
+        /// <param name="value">A property dictionary.</param>
+        public AnyOf0Entity(ImmutableDictionary<JsonEncodedText, JsonAny> value)
         {
             this.jsonElementBacking = default;
-                                            this.arrayBacking = value;
-        }
+            this.objectBacking = value;
+                                        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AnyOf0Entity"/> struct.
         /// </summary>
-        /// <param name="jsonArray">The <see cref="JsonArray"/> from which to construct the value.</param>
-        public AnyOf0Entity(JsonArray jsonArray)
+        /// <param name="jsonObject">The <see cref="JsonObject"/> from which to construct the value.</param>
+        public AnyOf0Entity(JsonObject jsonObject)
         {
-            if (jsonArray.HasJsonElement)
+            if (jsonObject.HasJsonElement)
             {
-                this.jsonElementBacking = jsonArray.AsJsonElement;
-                this.arrayBacking = default;
+                this.jsonElementBacking = jsonObject.AsJsonElement;
+                this.objectBacking = default;
             }
             else
             {
                 this.jsonElementBacking = default;
-                this.arrayBacking = jsonArray.AsItemsList;
+                this.objectBacking = jsonObject.AsPropertyDictionary;
             }
 
                                         }
@@ -985,29 +1043,53 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf
     
     
     
+    
 
-            /// <inheritdoc/>
-        public int Length
+    
+    
+            
+        /// <summary>
+        /// Gets Foo.
+        /// </summary>
+        /// <remarks>
+        /// {Property title}.
+        /// {Property description}.
+        /// </remarks>
+        /// <example>
+        /// {Property examples}.
+        /// </example>
+        public UnevaluatedItemsDraft202012Feature.ItemIsEvaluatedInAnUncleSchemaToUnevaluatedItems.Schema.AnyOf0Entity.FooEntity Foo
         {
             get
             {
-                if (this.arrayBacking is ImmutableList<JsonAny> items)
+                if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
                 {
-                    return items.Count;
+                    if(properties.TryGetValue(FooJsonPropertyName, out JsonAny result))
+                    {
+                        return result;
+                    }
                 }
 
-                return this.jsonElementBacking.GetArrayLength();
+                if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
+                {
+                    if (this.jsonElementBacking.TryGetProperty(FooUtf8JsonPropertyName.Span, out JsonElement result))
+                    {
+                        return new  UnevaluatedItemsDraft202012Feature.ItemIsEvaluatedInAnUncleSchemaToUnevaluatedItems.Schema.AnyOf0Entity.FooEntity(result);
+                    }
+                }
+
+                return default;
             }
         }
-    
-    
-            /// <summary>
+
+                    /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
         public bool HasJsonElement =>
     
+                this.objectBacking is null
+            
     
-                        this.arrayBacking is null
                 
                 ;
 
@@ -1018,11 +1100,13 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf
         {
             get
             {
-    
-                    if (this.arrayBacking is ImmutableList<JsonAny> arrayBacking)
+              
+                if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> objectBacking)
                 {
-                    return JsonArray.ItemsToJsonElement(arrayBacking);
+                    return JsonObject.PropertiesToJsonElement(objectBacking);
                 }
+
+    
     
     
     
@@ -1036,12 +1120,12 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf
         {
             get
             {
-    
-                    if (this.arrayBacking is ImmutableList<JsonAny>)
+                    if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny>)
                 {
-                    return JsonValueKind.Array;
+                    return JsonValueKind.Object;
                 }
 
+    
     
     
     
@@ -1055,12 +1139,12 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf
         {
             get
             {
-    
-                    if (this.arrayBacking is ImmutableList<JsonAny> arrayBacking)
+                    if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> objectBacking)
                 {
-                    return new JsonAny(arrayBacking);
+                    return new JsonAny(objectBacking);
                 }
 
+    
     
     
     
@@ -1076,6 +1160,11 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf
         {
             get
             {
+                    if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> objectBacking)
+                {
+                    return new JsonObject(objectBacking);
+                }
+
     
                 return new JsonObject(this.jsonElementBacking);
             }
@@ -1088,11 +1177,6 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf
         {
             get
             {
-                    if (this.arrayBacking is ImmutableList<JsonAny> arrayBacking)
-                {
-                    return new JsonArray(arrayBacking);
-                }
-
     
                 return new JsonArray(this.jsonElementBacking);
             }
@@ -1168,103 +1252,76 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf
         }
 
     
+    
         /// <summary>
-        /// Conversion from array.
+        /// Conversion from object.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator AnyOf0Entity(JsonArray value)
+        public static implicit operator AnyOf0Entity(JsonObject value)
         {
             return new AnyOf0Entity(value);
         }
 
         /// <summary>
-        /// Conversion to array.
+        /// Conversion to object.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator JsonArray(AnyOf0Entity value)
+        public static implicit operator JsonObject(AnyOf0Entity value)
         {
-            return value.AsArray;
+            return value.AsObject;
         }
-       
-        /// <summary>
-        /// Implicit conversion to an <see cref="ImmutableList{T}"/> of <see cref="JsonAny"/>.
+
+                /// <summary>
+        /// Implicit conversion to a property dictionary.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator ImmutableList<JsonAny>(AnyOf0Entity value)
+        public static implicit operator ImmutableDictionary<JsonEncodedText, JsonAny>(AnyOf0Entity  value)
         {
-            return value.AsArray.AsItemsList;
+            return value.AsObject.AsPropertyDictionary;
         }
 
         /// <summary>
-        /// Implicit conversion from an <see cref="ImmutableList{T}"/> of <see cref="JsonAny"/>.
+        /// Implicit conversion from a property dictionary.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator AnyOf0Entity(ImmutableList<JsonAny> value)
+        public static implicit operator AnyOf0Entity (ImmutableDictionary<JsonEncodedText, JsonAny> value)
         {
-            return new AnyOf0Entity(value);
-        }
-    
-    
-    
-    
-    
-                            /// <summary>
-        /// Create an array from the given items.
-        /// </summary>
-        /// <param name="items">The items from which to create the array.</param>
-        /// <returns>The new array created from the items.</returns>
-        public static AnyOf0Entity From(params JsonAny[] items)
-        {
-            return new AnyOf0Entity(items.ToImmutableList());
+            return new AnyOf0Entity (value);
         }
 
-        /// <summary>
-        /// Create an array from the given items.
+    
+    
+    
+    
+    
+            /// <summary>
+        /// Creates an instance of a <see cref="AnyOf0Entity"/>.
         /// </summary>
-        /// <param name="item1">The items from which to create the array.</param>
-        /// <returns>The new array created from the items.</returns>
-        public static AnyOf0Entity From(JsonAny item1)
-        {
-            return new AnyOf0Entity(ImmutableList.Create(item1));
-        }
-
-        /// <summary>
-        /// Create an array from the given items.
-        /// </summary>
-        /// <param name="item1">The first item from which to create the array.</param>
-        /// <param name="item2">The second item from which to create the array.</param>
-        /// <returns>The new array created from the items.</returns>
-        public static AnyOf0Entity From(JsonAny item1, JsonAny item2)
-        {
-            return new AnyOf0Entity(ImmutableList.Create(item1, item2));
-        }
-
-        /// <summary>
-        /// Create an array from the given items.
-        /// </summary>
-        /// <param name="item1">The first item from which to create the array.</param>
-        /// <param name="item2">The second item from which to create the array.</param>
-        /// <param name="item3">The third item from which to create the array.</param>
-        /// <returns>The new array created from the items.</returns>
-        public static AnyOf0Entity From(JsonAny item1, JsonAny item2, JsonAny item3)
-        {
-            return new AnyOf0Entity(ImmutableList.Create(item1, item2, item3));
-        }
-
-        /// <summary>
-        /// Create an array from the given items.
-        /// </summary>
-        /// <param name="item1">The first item from which to create the array.</param>
-        /// <param name="item2">The second item from which to create the array.</param>
-        /// <param name="item3">The third item from which to create the array.</param>
-        /// <param name="item4">The fourth item from which to create the array.</param>
-        /// <returns>The new array created from the items.</returns>
-        public static AnyOf0Entity From(JsonAny item1, JsonAny item2, JsonAny item3, JsonAny item4)
-        {
-            return new AnyOf0Entity(ImmutableList.Create(item1, item2, item3, item4));
-        }
+        public static AnyOf0Entity Create(
+                            UnevaluatedItemsDraft202012Feature.ItemIsEvaluatedInAnUncleSchemaToUnevaluatedItems.Schema.AnyOf0Entity.FooEntity? foo = null
         
-    
+        )
+        {
+            var builder = ImmutableDictionary.CreateBuilder<JsonEncodedText, JsonAny>();
+                            if (foo is UnevaluatedItemsDraft202012Feature.ItemIsEvaluatedInAnUncleSchemaToUnevaluatedItems.Schema.AnyOf0Entity.FooEntity foo__)
+            {
+                builder.Add(FooJsonPropertyName, foo__);
+            }
+                    return builder.ToImmutable();
+        }
+
+        
+        /// <summary>
+        /// Sets foo.
+        /// </summary>
+        /// <param name="value">The value to set.</param>
+        /// <returns>The entity with the updated property.</returns>
+        public AnyOf0Entity WithFoo(UnevaluatedItemsDraft202012Feature.ItemIsEvaluatedInAnUncleSchemaToUnevaluatedItems.Schema.AnyOf0Entity.FooEntity value)
+        {
+            return this.SetProperty(FooJsonPropertyName, value);
+        }
+
+        
     
 
         /// <summary>
@@ -1273,13 +1330,13 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf
         /// <param name="writer">The writer to which to write the object.</param>
         public void WriteTo(Utf8JsonWriter writer)
         {
-    
-                if (this.arrayBacking is ImmutableList<JsonAny> arrayBacking)
+                if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> objectBacking)
             {
-                JsonArray.WriteItems(arrayBacking, writer);
+                JsonObject.WriteProperties(objectBacking, writer);
                 return;
             }
 
+    
     
     
     
@@ -1294,13 +1351,42 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf
         }
 
     
-    
-                /// <inheritdoc/>
-        public JsonArrayEnumerator EnumerateArray()
+        
+        
+        /// <inheritdoc/>
+        public JsonObjectEnumerator EnumerateObject()
         {
-            return this.AsArray.EnumerateArray();
+            return this.AsObject.EnumerateObject();
         }
+
     
+    
+    
+        /// <inheritdoc/>
+        public bool TryGetProperty(JsonEncodedText name, out JsonAny value)
+        {
+            return this.AsObject.TryGetProperty(name, out value);
+        }
+
+        /// <inheritdoc/>
+        public bool TryGetProperty(string name, out JsonAny value)
+        {
+            return this.AsObject.TryGetProperty(name, out value);
+        }
+
+        /// <inheritdoc/>
+        public bool TryGetProperty(ReadOnlySpan<char> name, out JsonAny value)
+        {
+            return this.AsObject.TryGetProperty(name, out value);
+        }
+
+        /// <inheritdoc/>
+        public bool TryGetProperty(ReadOnlySpan<byte> utf8name, out JsonAny value)
+        {
+            return this.AsObject.TryGetProperty(utf8name, out value);
+        }
+
+        
     
         /// <inheritdoc/>
         public bool Equals<T>(T other)
@@ -1348,77 +1434,161 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf
         }
 
     
+        /// <inheritdoc/>
+        public bool HasProperty(JsonEncodedText name)
+        {
+            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            {
+                return properties.TryGetValue(name, out _);
+            }
+
+            if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
+            {
+                return this.jsonElementBacking.TryGetProperty(name.ToString(), out JsonElement _);
+            }
+
+            return false;
+        }
+
+        /// <inheritdoc/>
+        public bool HasProperty(string name)
+        {
+            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            {
+                return properties.TryGetValue(JsonEncodedText.Encode(name), out _);
+            }
+
+            if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
+            {
+                return this.jsonElementBacking.TryGetProperty(name, out JsonElement _);
+            }
+
+            return false;
+        }
+
+        /// <inheritdoc/>
+        public bool HasProperty(ReadOnlySpan<char> name)
+        {
+            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            {
+                return properties.TryGetValue(JsonEncodedText.Encode(name), out _);
+            }
+
+            if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
+            {
+                return this.jsonElementBacking.TryGetProperty(name, out JsonElement _);
+            }
+
+            return false;        }
+
+        /// <inheritdoc/>
+        public bool HasProperty(ReadOnlySpan<byte> utf8name)
+        {
+            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            {
+                return properties.TryGetValue(JsonEncodedText.Encode(utf8name), out _);
+            }
+
+            if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
+            {
+                return this.jsonElementBacking.TryGetProperty(utf8name, out JsonElement _);
+            }
+
+            return false;        }
+
+        /// <inheritdoc/>
+        public AnyOf0Entity SetProperty<TValue>(JsonEncodedText name, TValue value)
+            where TValue : IJsonValue
+        {
+            if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
+            {
+                return this.AsObject.SetProperty(name, value);
+            }
+
+            return this;
+        }
+
+        /// <inheritdoc/>
+        public AnyOf0Entity SetProperty<TValue>(string name, TValue value)
+            where TValue : IJsonValue
+        {
+            if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
+            {
+                return this.AsObject.SetProperty(name, value);
+            }
+
+            return this;
+        }
+
+        /// <inheritdoc/>
+        public AnyOf0Entity SetProperty<TValue>(ReadOnlySpan<char> name, TValue value)
+            where TValue : IJsonValue
+        {
+            if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
+            {
+                return this.AsObject.SetProperty(name, value);
+            }
+
+            return this;
+        }
+
+        /// <inheritdoc/>
+        public AnyOf0Entity SetProperty<TValue>(ReadOnlySpan<byte> utf8name, TValue value)
+            where TValue : IJsonValue
+        {
+            if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
+            {
+                return this.AsObject.SetProperty(utf8name, value);
+            }
+
+            return this;
+        }
+
+        /// <inheritdoc/>
+        public AnyOf0Entity RemoveProperty(JsonEncodedText name)
+        {
+            if (this.ValueKind == JsonValueKind.Object)
+            {
+                return this.AsObject.RemoveProperty(name);
+            }
+
+            return this;
+        }
+
+        /// <inheritdoc/>
+        public AnyOf0Entity RemoveProperty(string name)
+        {
+            if (this.ValueKind == JsonValueKind.Object)
+            {
+                return this.AsObject.RemoveProperty(name);
+            }
+
+            return this;
+        }
+
+        /// <inheritdoc/>
+        public AnyOf0Entity RemoveProperty(ReadOnlySpan<char> name)
+        {
+            if (this.ValueKind == JsonValueKind.Object)
+            {
+                return this.AsObject.RemoveProperty(name);
+            }
+
+            return this;
+        }
+
+        /// <inheritdoc/>
+        public AnyOf0Entity RemoveProperty(ReadOnlySpan<byte> utf8Name)
+        {
+            if (this.ValueKind == JsonValueKind.Object)
+            {
+                return this.AsObject.RemoveProperty(utf8Name);
+            }
+
+            return this;
+        }
+
     
-        /// <inheritdoc/>
-        public AnyOf0Entity Add<TItem>(TItem item)
-            where TItem : struct, IJsonValue
-        {
-            if (this.ValueKind == JsonValueKind.Array || this.ValueKind == JsonValueKind.Undefined)
-            {
-                return this.AsArray.Add(item);
-            }
-
-            return this;
-        }
-
-        /// <inheritdoc/>
-        public AnyOf0Entity Insert<TItem>(int index, TItem item)
-            where TItem : struct, IJsonValue
-        {
-            if (this.ValueKind == JsonValueKind.Array || this.ValueKind == JsonValueKind.Undefined)
-            {
-                return this.AsArray.Insert(index, item);
-            }
-
-            return this;
-        }
-
-        /// <inheritdoc/>
-        public AnyOf0Entity Replace<TItem>(TItem oldValue, TItem newValue)
-            where TItem : struct, IJsonValue
-        {
-            if (this.ValueKind == JsonValueKind.Array)
-            {
-                return this.AsArray.Replace(oldValue, newValue);
-            }
-
-            return this;
-        }
-
-        /// <inheritdoc/>
-        public AnyOf0Entity RemoveAt(int index)
-        {
-            if (this.ValueKind == JsonValueKind.Array)
-            {
-                return this.AsArray.RemoveAt(index);
-            }
-
-            return this;
-        }
-
-        /// <inheritdoc/>
-        public AnyOf0Entity RemoveRange(int index, int count)
-        {
-            if (this.ValueKind == JsonValueKind.Array)
-            {
-                return this.AsArray.RemoveRange(index, count);
-            }
-
-            return this;
-        }
-
-        /// <inheritdoc/>
-        public AnyOf0Entity SetItem<TItem>(int index, TItem value)
-            where TItem : struct, IJsonValue
-        {
-            if (this.ValueKind == JsonValueKind.Array)
-            {
-                return this.AsArray.SetItem(index, value);
-            }
-
-            return this;
-        }
-
     
         /// <inheritdoc/>
         public T As<T>()
@@ -1449,13 +1619,14 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf
     
     
     
-    
-
-                result = this.ValidateArray(valueKind, result, level);
+                result = this.ValidateObject(valueKind, result, level);
             if (level == ValidationLevel.Flag && !result.IsValid)
             {
                 return result;
             }
+
+    
+
                 return result;
         }
 
@@ -1464,54 +1635,61 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf
     
     
     
+        private static ImmutableDictionary<JsonEncodedText, Func<AnyOf0Entity, ValidationContext, ValidationLevel, ValidationContext>> CreateLocalPropertyValidators()
+        {
+            ImmutableDictionary<JsonEncodedText, Func<AnyOf0Entity, ValidationContext, ValidationLevel, ValidationContext>>.Builder builder =
+                ImmutableDictionary.CreateBuilder<JsonEncodedText, Func<AnyOf0Entity, ValidationContext, ValidationLevel, ValidationContext>>();
+
+                    builder.Add(
+                FooJsonPropertyName,
+                (that, validationContext, level) =>
+                {
+                    UnevaluatedItemsDraft202012Feature.ItemIsEvaluatedInAnUncleSchemaToUnevaluatedItems.Schema.AnyOf0Entity.FooEntity property = that.Foo;
+                    return property.Validate(validationContext, level);
+                });
+        
+            return builder.ToImmutable();
+        }
+
     
-            private ValidationContext ValidateArray(JsonValueKind valueKind, in ValidationContext validationContext, ValidationLevel level)
+    
+    
+            private ValidationContext ValidateObject(JsonValueKind valueKind, in ValidationContext validationContext, ValidationLevel level)
         {
             ValidationContext result = validationContext;
 
-            if (valueKind != JsonValueKind.Array)
+            if (valueKind != JsonValueKind.Object)
             {
                 return result;
             }
 
-         
-            int arrayLength = 0;
-         
         
-                     JsonArrayEnumerator arrayEnumerator = this.EnumerateArray();
-
-            while (arrayEnumerator.MoveNext())
+        
+        
+            foreach (Property property in this.EnumerateObject())
             {
-        
-        
-                        switch (arrayLength)
-                {
-                                case 0:
-                    
-                        result = arrayEnumerator.Current.As<Menes.Json.JsonAny>().Validate(result, level);
-                        if (level == ValidationLevel.Flag && !result.IsValid)
-                        {
-                            return result;
-                        }
-                        break;
-                                case 1:
-                    
-                        result = arrayEnumerator.Current.As<UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf.Schema.AnyOf0Entity.PrefixItems1Entity>().Validate(result, level);
-                        if (level == ValidationLevel.Flag && !result.IsValid)
-                        {
-                            return result;
-                        }
-                        break;
-            
-                    default:
-                
-                        break;
-                }
+                JsonEncodedText propertyName = property.NameAsJsonEncodedText;
 
         
-                arrayLength++;
-            }
+                        if (__MenesLocalProperties.TryGetValue(propertyName, out Func<AnyOf0Entity, ValidationContext, ValidationLevel, ValidationContext>? propertyValidator))
+                {
+                    result = result.WithLocalProperty(propertyName);
+                    result = propertyValidator(this, result, level);
+                    if (level == ValidationLevel.Flag && !result.IsValid)
+                    {
+                        return result;
+                    }
+
+            
+                }
         
+        
+        
+        
+        
+        
+                    }
+
         
         
         
@@ -1519,7 +1697,6 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf
         }
 
     
-    
             
 
             
@@ -1538,526 +1715,9 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf
         /// <summary>
     /// A type generated from a JsonSchema specification.
     /// </summary>
-    public readonly struct PrefixItems1Entity :
-                    IJsonValue,
-            IEquatable<PrefixItems1Entity>
-    {
-
-        
-    
-            private static readonly PrefixItems1Entity __MenesConstValue = JsonAny.Parse("\"bar\"");
-    
-    
-    
-    
-    
-    
-
-    
-        private readonly JsonElement jsonElementBacking;
-
-    
-    
-    
-            private readonly JsonEncodedText? stringBacking;
-    
-    
-        /// <summary>
-        /// Initializes a new instance of the <see cref="PrefixItems1Entity"/> struct.
-        /// </summary>
-        /// <param name="value">The backing <see cref="JsonElement"/>.</param>
-        public PrefixItems1Entity(JsonElement value)
-        {
-            this.jsonElementBacking = value;
-                            this.stringBacking = default;
-                }
-
-    
-    
-    
-            /// <summary>
-        /// Initializes a new instance of the <see cref="PrefixItems1Entity"/> struct.
-        /// </summary>
-        /// <param name="value">A string value.</param>
-        public PrefixItems1Entity(string value)
-        {
-            this.jsonElementBacking = default;
-                                            this.stringBacking = JsonEncodedText.Encode(value);
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="PrefixItems1Entity"/> struct.
-        /// </summary>
-        /// <param name="value">A string value.</param>
-        public PrefixItems1Entity(JsonEncodedText value)
-        {
-            this.jsonElementBacking = default;
-                                            this.stringBacking = value;
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="PrefixItems1Entity"/> struct.
-        /// </summary>
-        /// <param name="value">A string value.</param>
-        public PrefixItems1Entity(ReadOnlySpan<char> value)
-        {
-            this.jsonElementBacking = default;
-                                            this.stringBacking = JsonEncodedText.Encode(value);
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="PrefixItems1Entity"/> struct.
-        /// </summary>
-        /// <param name="value">A string value.</param>
-        public PrefixItems1Entity(ReadOnlySpan<byte> value)
-        {
-            this.jsonElementBacking = default;
-                                            this.stringBacking = JsonEncodedText.Encode(value);
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="PrefixItems1Entity"/> struct.
-        /// </summary>
-        /// <param name="jsonString">The <see cref="JsonString"/> from which to construct the value.</param>
-        public PrefixItems1Entity(JsonString jsonString)
-        {
-            if (jsonString.HasJsonElement)
-            {
-                this.jsonElementBacking = jsonString.AsJsonElement;
-                this.stringBacking = default;
-            }
-            else
-            {
-                this.jsonElementBacking = default;
-                this.stringBacking = jsonString.GetJsonEncodedText();
-            }
-
-                                        }
-    
-    
-    
-    
-
-    
-    
-            /// <summary>
-        /// Gets a value indicating whether this is backed by a JSON element.
-        /// </summary>
-        public bool HasJsonElement =>
-    
-    
-                                this.stringBacking is null
-        
-                ;
-
-        /// <summary>
-        /// Gets the value as a JsonElement.
-        /// </summary>
-        public JsonElement AsJsonElement
-        {
-            get
-            {
-    
-    
-    
-                    if (this.stringBacking is JsonEncodedText stringBacking)
-                {
-                    return JsonString.StringToJsonElement(stringBacking);
-                }
-
-    
-    
-                return this.jsonElementBacking;
-            }
-        }
-
-        /// <inheritdoc/>
-        public JsonValueKind ValueKind
-        {
-            get
-            {
-    
-    
-    
-                    if (this.stringBacking is JsonEncodedText)
-                {
-                    return JsonValueKind.String;
-                }
-
-    
-    
-                return this.jsonElementBacking.ValueKind;
-            }
-        }
-
-        /// <inheritdoc/>
-        public JsonAny AsAny
-        {
-            get
-            {
-    
-    
-    
-                    if (this.stringBacking is JsonEncodedText stringBacking)
-                {
-                    return new JsonAny(stringBacking);
-                }
-
-    
-    
-                return new JsonAny(this.jsonElementBacking);
-            }
-        }
-
-        /// <summary>
-        /// Gets the value as a <see cref="JsonObject"/>.
-        /// </summary>
-        public JsonObject AsObject
-        {
-            get
-            {
-    
-                return new JsonObject(this.jsonElementBacking);
-            }
-        }
-
-        /// <summary>
-        /// Gets the value as a <see cref="JsonArray"/>.
-        /// </summary>
-        public JsonArray AsArray
-        {
-            get
-            {
-    
-                return new JsonArray(this.jsonElementBacking);
-            }
-        }
-
-        /// <summary>
-        /// Gets the value as a <see cref="JsonNumber"/>.
-        /// </summary>
-        public JsonNumber AsNumber
-        {
-            get
-            {
-                    return new JsonNumber(this.jsonElementBacking);
-            }
-        }
-
-        /// <summary>
-        /// Gets the value as a <see cref="JsonString"/>.
-        /// </summary>
-        public JsonString AsString
-        {
-            get
-            {
-                    if (this.stringBacking is JsonEncodedText stringBacking)
-                {
-                    return new JsonString(stringBacking);
-                }
-
-                    return new JsonString(this.jsonElementBacking);
-            }
-        }
-
-        /// <summary>
-        /// Gets the value as a <see cref="JsonBoolean"/>.
-        /// </summary>
-        public JsonBoolean AsBoolean
-        {
-            get
-            {
-                    return new JsonBoolean(this.jsonElementBacking);
-            }
-        }
-
-        /// <summary>
-        /// Gets the value as a <see cref="JsonNull"/>.
-        /// </summary>
-        public JsonNull AsNull
-        {
-            get
-            {
-                return default;
-            }
-        }
-
-    
-        
-        /// <summary>
-        /// Conversion from any.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator PrefixItems1Entity(JsonAny value)
-        {
-            if (value.HasJsonElement)
-            {
-                return new PrefixItems1Entity(value.AsJsonElement);
-            }
-
-            return value.As<PrefixItems1Entity>();
-        }
-
-        /// <summary>
-        /// Conversion to any.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator JsonAny(PrefixItems1Entity value)
-        {
-            return value.AsAny;
-        }
-
-    
-    
-    
-        /// <summary>
-        /// Conversion from string.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator PrefixItems1Entity(string value)
-        {
-            return new PrefixItems1Entity(value);
-        }
-
-        /// <summary>
-        /// Conversion to string.
-        /// </summary>
-        /// <param name="value">The number from which to convert.</param>
-        public static implicit operator string(PrefixItems1Entity value)
-        {
-            return value.AsString.GetString();
-        }
-
-        /// <summary>
-        /// Conversion from <see cref="JsonEncodedText"/>.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator PrefixItems1Entity(JsonEncodedText value)
-        {
-            return new PrefixItems1Entity(value);
-        }
-
-        /// <summary>
-        /// Conversion to <see cref="JsonEncodedText"/>.
-        /// </summary>
-        /// <param name="value">The number from which to convert.</param>
-        public static implicit operator JsonEncodedText(PrefixItems1Entity value)
-        {
-            return value.AsString.GetJsonEncodedText();
-        }
-
-        /// <summary>
-        /// Conversion from string.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator PrefixItems1Entity(ReadOnlySpan<char> value)
-        {
-            return new PrefixItems1Entity(value);
-        }
-
-        /// <summary>
-        /// Conversion to string.
-        /// </summary>
-        /// <param name="value">The number from which to convert.</param>
-        public static implicit operator ReadOnlySpan<char>(PrefixItems1Entity value)
-        {
-            return value.AsString.AsSpan();
-        }
-
-        /// <summary>
-        /// Conversion from utf8 bytes.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator PrefixItems1Entity(ReadOnlySpan<byte> value)
-        {
-            return new PrefixItems1Entity(value);
-        }
-
-        /// <summary>
-        /// Conversion to utf8 bytes.
-        /// </summary>
-        /// <param name="value">The number from which to convert.</param>
-        public static implicit operator ReadOnlySpan<byte>(PrefixItems1Entity value)
-        {
-            return value.AsString.GetJsonEncodedText().EncodedUtf8Bytes;
-        }
-
-        /// <summary>
-        /// Conversion from string.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator PrefixItems1Entity(JsonString value)
-        {
-            return new PrefixItems1Entity(value);
-        }
-
-        /// <summary>
-        /// Conversion to string.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator JsonString(PrefixItems1Entity value)
-        {
-            return value.AsString;
-        }
-
-    
-    
-    
-    
-    
-
-        /// <summary>
-        /// Writes the object to the <see cref="Utf8JsonWriter"/>.
-        /// </summary>
-        /// <param name="writer">The writer to which to write the object.</param>
-        public void WriteTo(Utf8JsonWriter writer)
-        {
-    
-    
-    
-                if (this.stringBacking is JsonEncodedText stringBacking)
-            {
-                writer.WriteStringValue(stringBacking);
-                return;
-            }
-
-    
-    
-            if (this.jsonElementBacking.ValueKind != JsonValueKind.Undefined)
-            {
-                this.jsonElementBacking.WriteTo(writer);
-                return;
-            }
-
-            writer.WriteNullValue();
-        }
-
-    
-    
-    
-        /// <inheritdoc/>
-        public bool Equals<T>(T other)
-            where T : struct, IJsonValue
-        {
-            JsonValueKind valueKind = this.ValueKind;
-
-            if (other.ValueKind != valueKind)
-            {
-                return false;
-            }
-
-            return valueKind switch
-            {
-                JsonValueKind.Object => this.AsObject.Equals(other.AsObject()),
-                JsonValueKind.Array => this.AsArray.Equals(other.AsArray()),
-                JsonValueKind.Number => this.AsNumber.Equals(other.AsNumber()),
-                JsonValueKind.String => this.AsString.Equals(other.AsString()),
-                JsonValueKind.Null => true,
-                JsonValueKind.True or JsonValueKind.False => this.AsBoolean.Equals(other.AsBoolean()),
-                _ => false,
-            };
-        }
-
-        /// <inheritdoc/>
-        public bool Equals(PrefixItems1Entity other)
-        {
-            JsonValueKind valueKind = this.ValueKind;
-
-            if (other.ValueKind != valueKind)
-            {
-                return false;
-            }
-
-            return valueKind switch
-            {
-                JsonValueKind.Object => this.AsObject.Equals(other.AsObject),
-                JsonValueKind.Array => this.AsArray.Equals(other.AsArray),
-                JsonValueKind.Number => this.AsNumber.Equals(other.AsNumber),
-                JsonValueKind.String => this.AsString.Equals(other.AsString),
-                JsonValueKind.Null => true,
-                JsonValueKind.True or JsonValueKind.False => this.AsBoolean.Equals(other.AsBoolean),
-                _ => false,
-            };
-        }
-
-    
-    
-        /// <inheritdoc/>
-        public T As<T>()
-            where T : struct, IJsonValue
-        {
-            return this.As<PrefixItems1Entity, T>();
-        }
-
-        /// <inheritdoc/>
-        public ValidationContext Validate(in ValidationContext? validationContext = null, ValidationLevel level = ValidationLevel.Flag)
-        {
-            ValidationContext result = validationContext ?? ValidationContext.ValidContext;
-            if (level != ValidationLevel.Flag)
-            {
-                result = result.UsingStack();
-            }
-
-    
-    
-    
-                result = Menes.Json.Validate.ValidateConst(this, result, level, __MenesConstValue);
-            if (level == ValidationLevel.Flag && !result.IsValid)
-            {
-                return result;
-            }
-
-    
-    
-        
-    
-    
-    
-    
-    
-    
-    
-
-                return result;
-        }
-
-    
-    
-    
-    
-    
-    
-    
-    
-            
-
-            
-
-            
-
-            
-
-    
-    
-    
-    
-    
-    
-    }
-    
-
-    
-    }
-    
-
-    
-    
-        /// <summary>
-    /// A type generated from a JsonSchema specification.
-    /// </summary>
-    public readonly struct AnyOf1Entity :
-                IJsonArray<AnyOf1Entity>,
-                IEquatable<AnyOf1Entity>
+    public readonly struct FooEntity :
+                IJsonArray<FooEntity>,
+                IEquatable<FooEntity>
     {
 
         
@@ -2079,10 +1739,10 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf
     
     
         /// <summary>
-        /// Initializes a new instance of the <see cref="AnyOf1Entity"/> struct.
+        /// Initializes a new instance of the <see cref="FooEntity"/> struct.
         /// </summary>
         /// <param name="value">The backing <see cref="JsonElement"/>.</param>
-        public AnyOf1Entity(JsonElement value)
+        public FooEntity(JsonElement value)
         {
             this.jsonElementBacking = value;
                     this.arrayBacking = default;
@@ -2090,20 +1750,20 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf
 
     
             /// <summary>
-        /// Initializes a new instance of the <see cref="AnyOf1Entity"/> struct.
+        /// Initializes a new instance of the <see cref="FooEntity"/> struct.
         /// </summary>
         /// <param name="value">An array list.</param>
-        public AnyOf1Entity(ImmutableList<JsonAny> value)
+        public FooEntity(ImmutableList<JsonAny> value)
         {
             this.jsonElementBacking = default;
                                             this.arrayBacking = value;
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AnyOf1Entity"/> struct.
+        /// Initializes a new instance of the <see cref="FooEntity"/> struct.
         /// </summary>
         /// <param name="jsonArray">The <see cref="JsonArray"/> from which to construct the value.</param>
-        public AnyOf1Entity(JsonArray jsonArray)
+        public FooEntity(JsonArray jsonArray)
         {
             if (jsonArray.HasJsonElement)
             {
@@ -2286,21 +1946,21 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf
         /// Conversion from any.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator AnyOf1Entity(JsonAny value)
+        public static implicit operator FooEntity(JsonAny value)
         {
             if (value.HasJsonElement)
             {
-                return new AnyOf1Entity(value.AsJsonElement);
+                return new FooEntity(value.AsJsonElement);
             }
 
-            return value.As<AnyOf1Entity>();
+            return value.As<FooEntity>();
         }
 
         /// <summary>
         /// Conversion to any.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator JsonAny(AnyOf1Entity value)
+        public static implicit operator JsonAny(FooEntity value)
         {
             return value.AsAny;
         }
@@ -2310,16 +1970,16 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf
         /// Conversion from array.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator AnyOf1Entity(JsonArray value)
+        public static implicit operator FooEntity(JsonArray value)
         {
-            return new AnyOf1Entity(value);
+            return new FooEntity(value);
         }
 
         /// <summary>
         /// Conversion to array.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator JsonArray(AnyOf1Entity value)
+        public static implicit operator JsonArray(FooEntity value)
         {
             return value.AsArray;
         }
@@ -2328,7 +1988,7 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf
         /// Implicit conversion to an <see cref="ImmutableList{T}"/> of <see cref="JsonAny"/>.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator ImmutableList<JsonAny>(AnyOf1Entity value)
+        public static implicit operator ImmutableList<JsonAny>(FooEntity value)
         {
             return value.AsArray.AsItemsList;
         }
@@ -2337,9 +1997,9 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf
         /// Implicit conversion from an <see cref="ImmutableList{T}"/> of <see cref="JsonAny"/>.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator AnyOf1Entity(ImmutableList<JsonAny> value)
+        public static implicit operator FooEntity(ImmutableList<JsonAny> value)
         {
-            return new AnyOf1Entity(value);
+            return new FooEntity(value);
         }
     
     
@@ -2351,9 +2011,9 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf
         /// </summary>
         /// <param name="items">The items from which to create the array.</param>
         /// <returns>The new array created from the items.</returns>
-        public static AnyOf1Entity From(params JsonAny[] items)
+        public static FooEntity From(params JsonAny[] items)
         {
-            return new AnyOf1Entity(items.ToImmutableList());
+            return new FooEntity(items.ToImmutableList());
         }
 
         /// <summary>
@@ -2361,9 +2021,9 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf
         /// </summary>
         /// <param name="item1">The items from which to create the array.</param>
         /// <returns>The new array created from the items.</returns>
-        public static AnyOf1Entity From(JsonAny item1)
+        public static FooEntity From(JsonAny item1)
         {
-            return new AnyOf1Entity(ImmutableList.Create(item1));
+            return new FooEntity(ImmutableList.Create(item1));
         }
 
         /// <summary>
@@ -2372,9 +2032,9 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf
         /// <param name="item1">The first item from which to create the array.</param>
         /// <param name="item2">The second item from which to create the array.</param>
         /// <returns>The new array created from the items.</returns>
-        public static AnyOf1Entity From(JsonAny item1, JsonAny item2)
+        public static FooEntity From(JsonAny item1, JsonAny item2)
         {
-            return new AnyOf1Entity(ImmutableList.Create(item1, item2));
+            return new FooEntity(ImmutableList.Create(item1, item2));
         }
 
         /// <summary>
@@ -2384,9 +2044,9 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf
         /// <param name="item2">The second item from which to create the array.</param>
         /// <param name="item3">The third item from which to create the array.</param>
         /// <returns>The new array created from the items.</returns>
-        public static AnyOf1Entity From(JsonAny item1, JsonAny item2, JsonAny item3)
+        public static FooEntity From(JsonAny item1, JsonAny item2, JsonAny item3)
         {
-            return new AnyOf1Entity(ImmutableList.Create(item1, item2, item3));
+            return new FooEntity(ImmutableList.Create(item1, item2, item3));
         }
 
         /// <summary>
@@ -2397,9 +2057,9 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf
         /// <param name="item3">The third item from which to create the array.</param>
         /// <param name="item4">The fourth item from which to create the array.</param>
         /// <returns>The new array created from the items.</returns>
-        public static AnyOf1Entity From(JsonAny item1, JsonAny item2, JsonAny item3, JsonAny item4)
+        public static FooEntity From(JsonAny item1, JsonAny item2, JsonAny item3, JsonAny item4)
         {
-            return new AnyOf1Entity(ImmutableList.Create(item1, item2, item3, item4));
+            return new FooEntity(ImmutableList.Create(item1, item2, item3, item4));
         }
         
     
@@ -2464,7 +2124,7 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf
         }
 
         /// <inheritdoc/>
-        public bool Equals(AnyOf1Entity other)
+        public bool Equals(FooEntity other)
         {
             JsonValueKind valueKind = this.ValueKind;
 
@@ -2488,7 +2148,7 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf
     
     
         /// <inheritdoc/>
-        public AnyOf1Entity Add<TItem>(TItem item)
+        public FooEntity Add<TItem>(TItem item)
             where TItem : struct, IJsonValue
         {
             if (this.ValueKind == JsonValueKind.Array || this.ValueKind == JsonValueKind.Undefined)
@@ -2500,7 +2160,7 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf
         }
 
         /// <inheritdoc/>
-        public AnyOf1Entity Insert<TItem>(int index, TItem item)
+        public FooEntity Insert<TItem>(int index, TItem item)
             where TItem : struct, IJsonValue
         {
             if (this.ValueKind == JsonValueKind.Array || this.ValueKind == JsonValueKind.Undefined)
@@ -2512,7 +2172,7 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf
         }
 
         /// <inheritdoc/>
-        public AnyOf1Entity Replace<TItem>(TItem oldValue, TItem newValue)
+        public FooEntity Replace<TItem>(TItem oldValue, TItem newValue)
             where TItem : struct, IJsonValue
         {
             if (this.ValueKind == JsonValueKind.Array)
@@ -2524,7 +2184,7 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf
         }
 
         /// <inheritdoc/>
-        public AnyOf1Entity RemoveAt(int index)
+        public FooEntity RemoveAt(int index)
         {
             if (this.ValueKind == JsonValueKind.Array)
             {
@@ -2535,7 +2195,7 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf
         }
 
         /// <inheritdoc/>
-        public AnyOf1Entity RemoveRange(int index, int count)
+        public FooEntity RemoveRange(int index, int count)
         {
             if (this.ValueKind == JsonValueKind.Array)
             {
@@ -2546,7 +2206,7 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf
         }
 
         /// <inheritdoc/>
-        public AnyOf1Entity SetItem<TItem>(int index, TItem value)
+        public FooEntity SetItem<TItem>(int index, TItem value)
             where TItem : struct, IJsonValue
         {
             if (this.ValueKind == JsonValueKind.Array)
@@ -2562,7 +2222,7 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf
         public T As<T>()
             where T : struct, IJsonValue
         {
-            return this.As<AnyOf1Entity, T>();
+            return this.As<FooEntity, T>();
         }
 
         /// <inheritdoc/>
@@ -2631,22 +2291,16 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf
                         {
                             return result;
                         }
+                        result = result.WithLocalItemIndex(arrayLength);
                         break;
                                 case 1:
                     
-                        result = arrayEnumerator.Current.As<Menes.Json.JsonAny>().Validate(result, level);
+                        result = arrayEnumerator.Current.As<Menes.Json.JsonString>().Validate(result, level);
                         if (level == ValidationLevel.Flag && !result.IsValid)
                         {
                             return result;
                         }
-                        break;
-                                case 2:
-                    
-                        result = arrayEnumerator.Current.As<UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf.Schema.AnyOf1Entity.PrefixItems2Entity>().Validate(result, level);
-                        if (level == ValidationLevel.Flag && !result.IsValid)
-                        {
-                            return result;
-                        }
+                        result = result.WithLocalItemIndex(arrayLength);
                         break;
             
                     default:
@@ -2680,18 +2334,25 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf
     
     
     
+    }
+    
+
+    
+    }
+    
+
+    
     
         /// <summary>
     /// A type generated from a JsonSchema specification.
     /// </summary>
-    public readonly struct PrefixItems2Entity :
-                    IJsonValue,
-            IEquatable<PrefixItems2Entity>
+    public readonly struct FooArray :
+                IJsonArray<FooArray>,
+                IEquatable<FooArray>
     {
 
         
     
-            private static readonly PrefixItems2Entity __MenesConstValue = JsonAny.Parse("\"baz\"");
     
     
     
@@ -2703,79 +2364,47 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf
         private readonly JsonElement jsonElementBacking;
 
     
+            private readonly ImmutableList<JsonAny>? arrayBacking;
     
     
-            private readonly JsonEncodedText? stringBacking;
     
     
         /// <summary>
-        /// Initializes a new instance of the <see cref="PrefixItems2Entity"/> struct.
+        /// Initializes a new instance of the <see cref="FooArray"/> struct.
         /// </summary>
         /// <param name="value">The backing <see cref="JsonElement"/>.</param>
-        public PrefixItems2Entity(JsonElement value)
+        public FooArray(JsonElement value)
         {
             this.jsonElementBacking = value;
-                            this.stringBacking = default;
-                }
+                    this.arrayBacking = default;
+                        }
 
-    
-    
     
             /// <summary>
-        /// Initializes a new instance of the <see cref="PrefixItems2Entity"/> struct.
+        /// Initializes a new instance of the <see cref="FooArray"/> struct.
         /// </summary>
-        /// <param name="value">A string value.</param>
-        public PrefixItems2Entity(string value)
+        /// <param name="value">An array list.</param>
+        public FooArray(ImmutableList<JsonAny> value)
         {
             this.jsonElementBacking = default;
-                                            this.stringBacking = JsonEncodedText.Encode(value);
+                                            this.arrayBacking = value;
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PrefixItems2Entity"/> struct.
+        /// Initializes a new instance of the <see cref="FooArray"/> struct.
         /// </summary>
-        /// <param name="value">A string value.</param>
-        public PrefixItems2Entity(JsonEncodedText value)
+        /// <param name="jsonArray">The <see cref="JsonArray"/> from which to construct the value.</param>
+        public FooArray(JsonArray jsonArray)
         {
-            this.jsonElementBacking = default;
-                                            this.stringBacking = value;
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="PrefixItems2Entity"/> struct.
-        /// </summary>
-        /// <param name="value">A string value.</param>
-        public PrefixItems2Entity(ReadOnlySpan<char> value)
-        {
-            this.jsonElementBacking = default;
-                                            this.stringBacking = JsonEncodedText.Encode(value);
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="PrefixItems2Entity"/> struct.
-        /// </summary>
-        /// <param name="value">A string value.</param>
-        public PrefixItems2Entity(ReadOnlySpan<byte> value)
-        {
-            this.jsonElementBacking = default;
-                                            this.stringBacking = JsonEncodedText.Encode(value);
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="PrefixItems2Entity"/> struct.
-        /// </summary>
-        /// <param name="jsonString">The <see cref="JsonString"/> from which to construct the value.</param>
-        public PrefixItems2Entity(JsonString jsonString)
-        {
-            if (jsonString.HasJsonElement)
+            if (jsonArray.HasJsonElement)
             {
-                this.jsonElementBacking = jsonString.AsJsonElement;
-                this.stringBacking = default;
+                this.jsonElementBacking = jsonArray.AsJsonElement;
+                this.arrayBacking = default;
             }
             else
             {
                 this.jsonElementBacking = default;
-                this.stringBacking = jsonString.GetJsonEncodedText();
+                this.arrayBacking = jsonArray.AsItemsList;
             }
 
                                         }
@@ -2783,7 +2412,22 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf
     
     
     
+    
+    
 
+            /// <inheritdoc/>
+        public int Length
+        {
+            get
+            {
+                if (this.arrayBacking is ImmutableList<JsonAny> items)
+                {
+                    return items.Count;
+                }
+
+                return this.jsonElementBacking.GetArrayLength();
+            }
+        }
     
     
             /// <summary>
@@ -2792,8 +2436,8 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf
         public bool HasJsonElement =>
     
     
-                                this.stringBacking is null
-        
+                        this.arrayBacking is null
+                
                 ;
 
         /// <summary>
@@ -2804,13 +2448,12 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf
             get
             {
     
-    
-    
-                    if (this.stringBacking is JsonEncodedText stringBacking)
+                    if (this.arrayBacking is ImmutableList<JsonAny> arrayBacking)
                 {
-                    return JsonString.StringToJsonElement(stringBacking);
+                    return JsonArray.ItemsToJsonElement(arrayBacking);
                 }
-
+    
+    
     
     
                 return this.jsonElementBacking;
@@ -2823,13 +2466,13 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf
             get
             {
     
-    
-    
-                    if (this.stringBacking is JsonEncodedText)
+                    if (this.arrayBacking is ImmutableList<JsonAny>)
                 {
-                    return JsonValueKind.String;
+                    return JsonValueKind.Array;
                 }
 
+    
+    
     
     
                 return this.jsonElementBacking.ValueKind;
@@ -2842,13 +2485,13 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf
             get
             {
     
-    
-    
-                    if (this.stringBacking is JsonEncodedText stringBacking)
+                    if (this.arrayBacking is ImmutableList<JsonAny> arrayBacking)
                 {
-                    return new JsonAny(stringBacking);
+                    return new JsonAny(arrayBacking);
                 }
 
+    
+    
     
     
                 return new JsonAny(this.jsonElementBacking);
@@ -2874,6 +2517,11 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf
         {
             get
             {
+                    if (this.arrayBacking is ImmutableList<JsonAny> arrayBacking)
+                {
+                    return new JsonArray(arrayBacking);
+                }
+
     
                 return new JsonArray(this.jsonElementBacking);
             }
@@ -2897,11 +2545,6 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf
         {
             get
             {
-                    if (this.stringBacking is JsonEncodedText stringBacking)
-                {
-                    return new JsonString(stringBacking);
-                }
-
                     return new JsonString(this.jsonElementBacking);
             }
         }
@@ -2934,121 +2577,122 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf
         /// Conversion from any.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator PrefixItems2Entity(JsonAny value)
+        public static implicit operator FooArray(JsonAny value)
         {
             if (value.HasJsonElement)
             {
-                return new PrefixItems2Entity(value.AsJsonElement);
+                return new FooArray(value.AsJsonElement);
             }
 
-            return value.As<PrefixItems2Entity>();
+            return value.As<FooArray>();
         }
 
         /// <summary>
         /// Conversion to any.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator JsonAny(PrefixItems2Entity value)
+        public static implicit operator JsonAny(FooArray value)
         {
             return value.AsAny;
         }
 
     
-    
-    
         /// <summary>
-        /// Conversion from string.
+        /// Conversion from array.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator PrefixItems2Entity(string value)
+        public static implicit operator FooArray(JsonArray value)
         {
-            return new PrefixItems2Entity(value);
+            return new FooArray(value);
         }
 
         /// <summary>
-        /// Conversion to string.
-        /// </summary>
-        /// <param name="value">The number from which to convert.</param>
-        public static implicit operator string(PrefixItems2Entity value)
-        {
-            return value.AsString.GetString();
-        }
-
-        /// <summary>
-        /// Conversion from <see cref="JsonEncodedText"/>.
+        /// Conversion to array.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator PrefixItems2Entity(JsonEncodedText value)
+        public static implicit operator JsonArray(FooArray value)
         {
-            return new PrefixItems2Entity(value);
+            return value.AsArray;
         }
-
+       
         /// <summary>
-        /// Conversion to <see cref="JsonEncodedText"/>.
-        /// </summary>
-        /// <param name="value">The number from which to convert.</param>
-        public static implicit operator JsonEncodedText(PrefixItems2Entity value)
-        {
-            return value.AsString.GetJsonEncodedText();
-        }
-
-        /// <summary>
-        /// Conversion from string.
+        /// Implicit conversion to an <see cref="ImmutableList{T}"/> of <see cref="JsonAny"/>.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator PrefixItems2Entity(ReadOnlySpan<char> value)
+        public static implicit operator ImmutableList<JsonAny>(FooArray value)
         {
-            return new PrefixItems2Entity(value);
+            return value.AsArray.AsItemsList;
         }
 
         /// <summary>
-        /// Conversion to string.
-        /// </summary>
-        /// <param name="value">The number from which to convert.</param>
-        public static implicit operator ReadOnlySpan<char>(PrefixItems2Entity value)
-        {
-            return value.AsString.AsSpan();
-        }
-
-        /// <summary>
-        /// Conversion from utf8 bytes.
+        /// Implicit conversion from an <see cref="ImmutableList{T}"/> of <see cref="JsonAny"/>.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator PrefixItems2Entity(ReadOnlySpan<byte> value)
+        public static implicit operator FooArray(ImmutableList<JsonAny> value)
         {
-            return new PrefixItems2Entity(value);
+            return new FooArray(value);
         }
-
-        /// <summary>
-        /// Conversion to utf8 bytes.
-        /// </summary>
-        /// <param name="value">The number from which to convert.</param>
-        public static implicit operator ReadOnlySpan<byte>(PrefixItems2Entity value)
-        {
-            return value.AsString.GetJsonEncodedText().EncodedUtf8Bytes;
-        }
-
-        /// <summary>
-        /// Conversion from string.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator PrefixItems2Entity(JsonString value)
-        {
-            return new PrefixItems2Entity(value);
-        }
-
-        /// <summary>
-        /// Conversion to string.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator JsonString(PrefixItems2Entity value)
-        {
-            return value.AsString;
-        }
-
     
     
     
+    
+    
+                            /// <summary>
+        /// Create an array from the given items.
+        /// </summary>
+        /// <param name="items">The items from which to create the array.</param>
+        /// <returns>The new array created from the items.</returns>
+        public static FooArray From(params JsonAny[] items)
+        {
+            return new FooArray(items.ToImmutableList());
+        }
+
+        /// <summary>
+        /// Create an array from the given items.
+        /// </summary>
+        /// <param name="item1">The items from which to create the array.</param>
+        /// <returns>The new array created from the items.</returns>
+        public static FooArray From(JsonAny item1)
+        {
+            return new FooArray(ImmutableList.Create(item1));
+        }
+
+        /// <summary>
+        /// Create an array from the given items.
+        /// </summary>
+        /// <param name="item1">The first item from which to create the array.</param>
+        /// <param name="item2">The second item from which to create the array.</param>
+        /// <returns>The new array created from the items.</returns>
+        public static FooArray From(JsonAny item1, JsonAny item2)
+        {
+            return new FooArray(ImmutableList.Create(item1, item2));
+        }
+
+        /// <summary>
+        /// Create an array from the given items.
+        /// </summary>
+        /// <param name="item1">The first item from which to create the array.</param>
+        /// <param name="item2">The second item from which to create the array.</param>
+        /// <param name="item3">The third item from which to create the array.</param>
+        /// <returns>The new array created from the items.</returns>
+        public static FooArray From(JsonAny item1, JsonAny item2, JsonAny item3)
+        {
+            return new FooArray(ImmutableList.Create(item1, item2, item3));
+        }
+
+        /// <summary>
+        /// Create an array from the given items.
+        /// </summary>
+        /// <param name="item1">The first item from which to create the array.</param>
+        /// <param name="item2">The second item from which to create the array.</param>
+        /// <param name="item3">The third item from which to create the array.</param>
+        /// <param name="item4">The fourth item from which to create the array.</param>
+        /// <returns>The new array created from the items.</returns>
+        public static FooArray From(JsonAny item1, JsonAny item2, JsonAny item3, JsonAny item4)
+        {
+            return new FooArray(ImmutableList.Create(item1, item2, item3, item4));
+        }
+        
     
     
 
@@ -3059,14 +2703,14 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf
         public void WriteTo(Utf8JsonWriter writer)
         {
     
-    
-    
-                if (this.stringBacking is JsonEncodedText stringBacking)
+                if (this.arrayBacking is ImmutableList<JsonAny> arrayBacking)
             {
-                writer.WriteStringValue(stringBacking);
+                JsonArray.WriteItems(arrayBacking, writer);
                 return;
             }
 
+    
+    
     
     
             if (this.jsonElementBacking.ValueKind != JsonValueKind.Undefined)
@@ -3079,6 +2723,12 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf
         }
 
     
+    
+                /// <inheritdoc/>
+        public JsonArrayEnumerator EnumerateArray()
+        {
+            return this.AsArray.EnumerateArray();
+        }
     
     
         /// <inheritdoc/>
@@ -3105,7 +2755,7 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf
         }
 
         /// <inheritdoc/>
-        public bool Equals(PrefixItems2Entity other)
+        public bool Equals(FooArray other)
         {
             JsonValueKind valueKind = this.ValueKind;
 
@@ -3129,10 +2779,81 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf
     
     
         /// <inheritdoc/>
+        public FooArray Add<TItem>(TItem item)
+            where TItem : struct, IJsonValue
+        {
+            if (this.ValueKind == JsonValueKind.Array || this.ValueKind == JsonValueKind.Undefined)
+            {
+                return this.AsArray.Add(item);
+            }
+
+            return this;
+        }
+
+        /// <inheritdoc/>
+        public FooArray Insert<TItem>(int index, TItem item)
+            where TItem : struct, IJsonValue
+        {
+            if (this.ValueKind == JsonValueKind.Array || this.ValueKind == JsonValueKind.Undefined)
+            {
+                return this.AsArray.Insert(index, item);
+            }
+
+            return this;
+        }
+
+        /// <inheritdoc/>
+        public FooArray Replace<TItem>(TItem oldValue, TItem newValue)
+            where TItem : struct, IJsonValue
+        {
+            if (this.ValueKind == JsonValueKind.Array)
+            {
+                return this.AsArray.Replace(oldValue, newValue);
+            }
+
+            return this;
+        }
+
+        /// <inheritdoc/>
+        public FooArray RemoveAt(int index)
+        {
+            if (this.ValueKind == JsonValueKind.Array)
+            {
+                return this.AsArray.RemoveAt(index);
+            }
+
+            return this;
+        }
+
+        /// <inheritdoc/>
+        public FooArray RemoveRange(int index, int count)
+        {
+            if (this.ValueKind == JsonValueKind.Array)
+            {
+                return this.AsArray.RemoveRange(index, count);
+            }
+
+            return this;
+        }
+
+        /// <inheritdoc/>
+        public FooArray SetItem<TItem>(int index, TItem value)
+            where TItem : struct, IJsonValue
+        {
+            if (this.ValueKind == JsonValueKind.Array)
+            {
+                return this.AsArray.SetItem(index, value);
+            }
+
+            return this;
+        }
+
+    
+        /// <inheritdoc/>
         public T As<T>()
             where T : struct, IJsonValue
         {
-            return this.As<PrefixItems2Entity, T>();
+            return this.As<FooArray, T>();
         }
 
         /// <inheritdoc/>
@@ -3145,14 +2866,19 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf
             }
 
     
+                JsonValueKind valueKind = this.ValueKind;
     
     
-                result = Menes.Json.Validate.ValidateConst(this, result, level, __MenesConstValue);
+                    result = this.ValidateType(valueKind, result, level);
             if (level == ValidationLevel.Flag && !result.IsValid)
             {
                 return result;
             }
-
+        
+        
+        
+        
+    
     
     
         
@@ -3164,523 +2890,11 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf
     
     
 
-                return result;
-        }
-
-    
-    
-    
-    
-    
-    
-    
-    
-            
-
-            
-
-            
-
-            
-
-    
-    
-    
-    
-    
-    
-    }
-    
-
-    
-    }
-    
-
-    
-    
-        /// <summary>
-    /// A type generated from a JsonSchema specification.
-    /// </summary>
-    public readonly struct PrefixItems0Entity :
-                    IJsonValue,
-            IEquatable<PrefixItems0Entity>
-    {
-
-        
-    
-            private static readonly PrefixItems0Entity __MenesConstValue = JsonAny.Parse("\"foo\"");
-    
-    
-    
-    
-    
-    
-
-    
-        private readonly JsonElement jsonElementBacking;
-
-    
-    
-    
-            private readonly JsonEncodedText? stringBacking;
-    
-    
-        /// <summary>
-        /// Initializes a new instance of the <see cref="PrefixItems0Entity"/> struct.
-        /// </summary>
-        /// <param name="value">The backing <see cref="JsonElement"/>.</param>
-        public PrefixItems0Entity(JsonElement value)
-        {
-            this.jsonElementBacking = value;
-                            this.stringBacking = default;
-                }
-
-    
-    
-    
-            /// <summary>
-        /// Initializes a new instance of the <see cref="PrefixItems0Entity"/> struct.
-        /// </summary>
-        /// <param name="value">A string value.</param>
-        public PrefixItems0Entity(string value)
-        {
-            this.jsonElementBacking = default;
-                                            this.stringBacking = JsonEncodedText.Encode(value);
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="PrefixItems0Entity"/> struct.
-        /// </summary>
-        /// <param name="value">A string value.</param>
-        public PrefixItems0Entity(JsonEncodedText value)
-        {
-            this.jsonElementBacking = default;
-                                            this.stringBacking = value;
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="PrefixItems0Entity"/> struct.
-        /// </summary>
-        /// <param name="value">A string value.</param>
-        public PrefixItems0Entity(ReadOnlySpan<char> value)
-        {
-            this.jsonElementBacking = default;
-                                            this.stringBacking = JsonEncodedText.Encode(value);
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="PrefixItems0Entity"/> struct.
-        /// </summary>
-        /// <param name="value">A string value.</param>
-        public PrefixItems0Entity(ReadOnlySpan<byte> value)
-        {
-            this.jsonElementBacking = default;
-                                            this.stringBacking = JsonEncodedText.Encode(value);
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="PrefixItems0Entity"/> struct.
-        /// </summary>
-        /// <param name="jsonString">The <see cref="JsonString"/> from which to construct the value.</param>
-        public PrefixItems0Entity(JsonString jsonString)
-        {
-            if (jsonString.HasJsonElement)
-            {
-                this.jsonElementBacking = jsonString.AsJsonElement;
-                this.stringBacking = default;
-            }
-            else
-            {
-                this.jsonElementBacking = default;
-                this.stringBacking = jsonString.GetJsonEncodedText();
-            }
-
-                                        }
-    
-    
-    
-    
-
-    
-    
-            /// <summary>
-        /// Gets a value indicating whether this is backed by a JSON element.
-        /// </summary>
-        public bool HasJsonElement =>
-    
-    
-                                this.stringBacking is null
-        
-                ;
-
-        /// <summary>
-        /// Gets the value as a JsonElement.
-        /// </summary>
-        public JsonElement AsJsonElement
-        {
-            get
-            {
-    
-    
-    
-                    if (this.stringBacking is JsonEncodedText stringBacking)
-                {
-                    return JsonString.StringToJsonElement(stringBacking);
-                }
-
-    
-    
-                return this.jsonElementBacking;
-            }
-        }
-
-        /// <inheritdoc/>
-        public JsonValueKind ValueKind
-        {
-            get
-            {
-    
-    
-    
-                    if (this.stringBacking is JsonEncodedText)
-                {
-                    return JsonValueKind.String;
-                }
-
-    
-    
-                return this.jsonElementBacking.ValueKind;
-            }
-        }
-
-        /// <inheritdoc/>
-        public JsonAny AsAny
-        {
-            get
-            {
-    
-    
-    
-                    if (this.stringBacking is JsonEncodedText stringBacking)
-                {
-                    return new JsonAny(stringBacking);
-                }
-
-    
-    
-                return new JsonAny(this.jsonElementBacking);
-            }
-        }
-
-        /// <summary>
-        /// Gets the value as a <see cref="JsonObject"/>.
-        /// </summary>
-        public JsonObject AsObject
-        {
-            get
-            {
-    
-                return new JsonObject(this.jsonElementBacking);
-            }
-        }
-
-        /// <summary>
-        /// Gets the value as a <see cref="JsonArray"/>.
-        /// </summary>
-        public JsonArray AsArray
-        {
-            get
-            {
-    
-                return new JsonArray(this.jsonElementBacking);
-            }
-        }
-
-        /// <summary>
-        /// Gets the value as a <see cref="JsonNumber"/>.
-        /// </summary>
-        public JsonNumber AsNumber
-        {
-            get
-            {
-                    return new JsonNumber(this.jsonElementBacking);
-            }
-        }
-
-        /// <summary>
-        /// Gets the value as a <see cref="JsonString"/>.
-        /// </summary>
-        public JsonString AsString
-        {
-            get
-            {
-                    if (this.stringBacking is JsonEncodedText stringBacking)
-                {
-                    return new JsonString(stringBacking);
-                }
-
-                    return new JsonString(this.jsonElementBacking);
-            }
-        }
-
-        /// <summary>
-        /// Gets the value as a <see cref="JsonBoolean"/>.
-        /// </summary>
-        public JsonBoolean AsBoolean
-        {
-            get
-            {
-                    return new JsonBoolean(this.jsonElementBacking);
-            }
-        }
-
-        /// <summary>
-        /// Gets the value as a <see cref="JsonNull"/>.
-        /// </summary>
-        public JsonNull AsNull
-        {
-            get
-            {
-                return default;
-            }
-        }
-
-    
-        
-        /// <summary>
-        /// Conversion from any.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator PrefixItems0Entity(JsonAny value)
-        {
-            if (value.HasJsonElement)
-            {
-                return new PrefixItems0Entity(value.AsJsonElement);
-            }
-
-            return value.As<PrefixItems0Entity>();
-        }
-
-        /// <summary>
-        /// Conversion to any.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator JsonAny(PrefixItems0Entity value)
-        {
-            return value.AsAny;
-        }
-
-    
-    
-    
-        /// <summary>
-        /// Conversion from string.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator PrefixItems0Entity(string value)
-        {
-            return new PrefixItems0Entity(value);
-        }
-
-        /// <summary>
-        /// Conversion to string.
-        /// </summary>
-        /// <param name="value">The number from which to convert.</param>
-        public static implicit operator string(PrefixItems0Entity value)
-        {
-            return value.AsString.GetString();
-        }
-
-        /// <summary>
-        /// Conversion from <see cref="JsonEncodedText"/>.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator PrefixItems0Entity(JsonEncodedText value)
-        {
-            return new PrefixItems0Entity(value);
-        }
-
-        /// <summary>
-        /// Conversion to <see cref="JsonEncodedText"/>.
-        /// </summary>
-        /// <param name="value">The number from which to convert.</param>
-        public static implicit operator JsonEncodedText(PrefixItems0Entity value)
-        {
-            return value.AsString.GetJsonEncodedText();
-        }
-
-        /// <summary>
-        /// Conversion from string.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator PrefixItems0Entity(ReadOnlySpan<char> value)
-        {
-            return new PrefixItems0Entity(value);
-        }
-
-        /// <summary>
-        /// Conversion to string.
-        /// </summary>
-        /// <param name="value">The number from which to convert.</param>
-        public static implicit operator ReadOnlySpan<char>(PrefixItems0Entity value)
-        {
-            return value.AsString.AsSpan();
-        }
-
-        /// <summary>
-        /// Conversion from utf8 bytes.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator PrefixItems0Entity(ReadOnlySpan<byte> value)
-        {
-            return new PrefixItems0Entity(value);
-        }
-
-        /// <summary>
-        /// Conversion to utf8 bytes.
-        /// </summary>
-        /// <param name="value">The number from which to convert.</param>
-        public static implicit operator ReadOnlySpan<byte>(PrefixItems0Entity value)
-        {
-            return value.AsString.GetJsonEncodedText().EncodedUtf8Bytes;
-        }
-
-        /// <summary>
-        /// Conversion from string.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator PrefixItems0Entity(JsonString value)
-        {
-            return new PrefixItems0Entity(value);
-        }
-
-        /// <summary>
-        /// Conversion to string.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator JsonString(PrefixItems0Entity value)
-        {
-            return value.AsString;
-        }
-
-    
-    
-    
-    
-    
-
-        /// <summary>
-        /// Writes the object to the <see cref="Utf8JsonWriter"/>.
-        /// </summary>
-        /// <param name="writer">The writer to which to write the object.</param>
-        public void WriteTo(Utf8JsonWriter writer)
-        {
-    
-    
-    
-                if (this.stringBacking is JsonEncodedText stringBacking)
-            {
-                writer.WriteStringValue(stringBacking);
-                return;
-            }
-
-    
-    
-            if (this.jsonElementBacking.ValueKind != JsonValueKind.Undefined)
-            {
-                this.jsonElementBacking.WriteTo(writer);
-                return;
-            }
-
-            writer.WriteNullValue();
-        }
-
-    
-    
-    
-        /// <inheritdoc/>
-        public bool Equals<T>(T other)
-            where T : struct, IJsonValue
-        {
-            JsonValueKind valueKind = this.ValueKind;
-
-            if (other.ValueKind != valueKind)
-            {
-                return false;
-            }
-
-            return valueKind switch
-            {
-                JsonValueKind.Object => this.AsObject.Equals(other.AsObject()),
-                JsonValueKind.Array => this.AsArray.Equals(other.AsArray()),
-                JsonValueKind.Number => this.AsNumber.Equals(other.AsNumber()),
-                JsonValueKind.String => this.AsString.Equals(other.AsString()),
-                JsonValueKind.Null => true,
-                JsonValueKind.True or JsonValueKind.False => this.AsBoolean.Equals(other.AsBoolean()),
-                _ => false,
-            };
-        }
-
-        /// <inheritdoc/>
-        public bool Equals(PrefixItems0Entity other)
-        {
-            JsonValueKind valueKind = this.ValueKind;
-
-            if (other.ValueKind != valueKind)
-            {
-                return false;
-            }
-
-            return valueKind switch
-            {
-                JsonValueKind.Object => this.AsObject.Equals(other.AsObject),
-                JsonValueKind.Array => this.AsArray.Equals(other.AsArray),
-                JsonValueKind.Number => this.AsNumber.Equals(other.AsNumber),
-                JsonValueKind.String => this.AsString.Equals(other.AsString),
-                JsonValueKind.Null => true,
-                JsonValueKind.True or JsonValueKind.False => this.AsBoolean.Equals(other.AsBoolean),
-                _ => false,
-            };
-        }
-
-    
-    
-        /// <inheritdoc/>
-        public T As<T>()
-            where T : struct, IJsonValue
-        {
-            return this.As<PrefixItems0Entity, T>();
-        }
-
-        /// <inheritdoc/>
-        public ValidationContext Validate(in ValidationContext? validationContext = null, ValidationLevel level = ValidationLevel.Flag)
-        {
-            ValidationContext result = validationContext ?? ValidationContext.ValidContext;
-            if (level != ValidationLevel.Flag)
-            {
-                result = result.UsingStack();
-            }
-
-    
-    
-    
-                result = Menes.Json.Validate.ValidateConst(this, result, level, __MenesConstValue);
+                result = this.ValidateArray(valueKind, result, level);
             if (level == ValidationLevel.Flag && !result.IsValid)
             {
                 return result;
             }
-
-    
-    
-        
-    
-    
-    
-    
-    
-    
-    
-
                 return result;
         }
 
@@ -3690,6 +2904,64 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf
     
     
     
+            private ValidationContext ValidateArray(JsonValueKind valueKind, in ValidationContext validationContext, ValidationLevel level)
+        {
+            ValidationContext result = validationContext;
+
+            if (valueKind != JsonValueKind.Array)
+            {
+                return result;
+            }
+
+         
+            int arrayLength = 0;
+         
+        
+                     JsonArrayEnumerator arrayEnumerator = this.EnumerateArray();
+
+            while (arrayEnumerator.MoveNext())
+            {
+        
+        
+                        switch (arrayLength)
+                {
+                                case 0:
+                    
+                        result = arrayEnumerator.Current.As<Menes.Json.JsonString>().Validate(result, level);
+                        if (level == ValidationLevel.Flag && !result.IsValid)
+                        {
+                            return result;
+                        }
+                        result = result.WithLocalItemIndex(arrayLength);
+                        break;
+            
+                    default:
+                                        if (!result.HasEvaluatedLocalOrAppliedItemIndex(arrayLength))
+                        {
+
+                            result = arrayEnumerator.Current.As<Menes.Json.JsonNotAny>().Validate(result, level);
+
+                            if (level == ValidationLevel.Flag && !result.IsValid)
+                            {
+                                return result;
+                            }
+
+                            result = result.WithLocalItemIndex(arrayLength);
+                        }
+                
+                        break;
+                }
+
+        
+                arrayLength++;
+            }
+        
+        
+        
+        
+            return result;
+        }
+
     
     
             
@@ -3703,6 +2975,46 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf
     
     
     
+            
+        private ValidationContext ValidateType(JsonValueKind valueKind, in ValidationContext validationContext, ValidationLevel level)
+        {
+            ValidationContext result = validationContext;
+            bool isValid = false;
+
+        
+        
+                
+            ValidationContext localResultArray = Menes.Json.Validate.TypeArray(valueKind, result, level);
+            if (level == ValidationLevel.Flag && localResultArray.IsValid)
+            {
+                return validationContext;
+            }
+
+            if (localResultArray.IsValid)
+            {
+                isValid = true;
+            }
+
+        
+        
+        
+        
+        
+            result = result.MergeResults(
+                isValid,
+                level
+        
+        
+                
+                , localResultArray
+        
+        
+        
+                        );
+
+            return result;
+        }
+
     
     
     

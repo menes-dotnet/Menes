@@ -15,15 +15,19 @@ namespace Menes
 
     using Menes.Json;
     using Menes.OpenApi;
-
-    using UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf;
+    using UnevaluatedItemsDraft202012Feature.ItemIsEvaluatedInAnUncleSchemaToUnevaluatedItems;
 
     class Program
     {
         static async Task Main(string[] args)
         {
 
-            Schema schema = JsonAny.Parse(@"[""foo"", ""bar""]");
+            Schema schema = JsonAny.Parse(@"{
+                    ""foo"": [
+                        ""test"",
+                        ""test""
+                    ]
+                }");
             var result = schema.Validate();
 
             ////PersonResource person = PersonResource.Create(
