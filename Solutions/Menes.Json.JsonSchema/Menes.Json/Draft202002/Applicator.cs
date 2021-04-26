@@ -10,7 +10,7 @@
 
 #nullable enable
 
-namespace Menes.Json.Draft202012
+namespace  Menes.Json.Draft202012
 {
     using System;
     using System.Collections.Generic;
@@ -310,7 +310,7 @@ namespace Menes.Json.Draft202012
         /// <example>
         /// {Property examples}.
         /// </example>
-        public Menes.Json.Draft202012.Applicator.JsonAnyArray PrefixItems
+        public  Menes.Json.Draft202012.Applicator.SchemaArray PrefixItems
         {
             get
             {
@@ -326,7 +326,7 @@ namespace Menes.Json.Draft202012
                 {
                     if (this.jsonElementBacking.TryGetProperty(PrefixItemsUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  Menes.Json.Draft202012.Applicator.JsonAnyArray(result);
+                        return new   Menes.Json.Draft202012.Applicator.SchemaArray(result);
                     }
                 }
 
@@ -345,7 +345,7 @@ namespace Menes.Json.Draft202012
         /// <example>
         /// {Property examples}.
         /// </example>
-        public Menes.Json.JsonAny Items
+        public  Menes.Json.Draft202012.Schema Items
         {
             get
             {
@@ -361,7 +361,7 @@ namespace Menes.Json.Draft202012
                 {
                     if (this.jsonElementBacking.TryGetProperty(ItemsUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  Menes.Json.JsonAny(result);
+                        return new   Menes.Json.Draft202012.Schema(result);
                     }
                 }
 
@@ -380,7 +380,7 @@ namespace Menes.Json.Draft202012
         /// <example>
         /// {Property examples}.
         /// </example>
-        public Menes.Json.JsonAny Contains
+        public  Menes.Json.Draft202012.Schema Contains
         {
             get
             {
@@ -396,7 +396,7 @@ namespace Menes.Json.Draft202012
                 {
                     if (this.jsonElementBacking.TryGetProperty(ContainsUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  Menes.Json.JsonAny(result);
+                        return new   Menes.Json.Draft202012.Schema(result);
                     }
                 }
 
@@ -415,7 +415,7 @@ namespace Menes.Json.Draft202012
         /// <example>
         /// {Property examples}.
         /// </example>
-        public Menes.Json.JsonAny AdditionalProperties
+        public  Menes.Json.Draft202012.Schema AdditionalProperties
         {
             get
             {
@@ -431,7 +431,7 @@ namespace Menes.Json.Draft202012
                 {
                     if (this.jsonElementBacking.TryGetProperty(AdditionalPropertiesUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  Menes.Json.JsonAny(result);
+                        return new   Menes.Json.Draft202012.Schema(result);
                     }
                 }
 
@@ -450,7 +450,7 @@ namespace Menes.Json.Draft202012
         /// <example>
         /// {Property examples}.
         /// </example>
-        public Menes.Json.Draft202012.Applicator.PropertiesValue Properties
+        public  Menes.Json.Draft202012.Applicator.PropertiesValue Properties
         {
             get
             {
@@ -466,7 +466,7 @@ namespace Menes.Json.Draft202012
                 {
                     if (this.jsonElementBacking.TryGetProperty(PropertiesUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  Menes.Json.Draft202012.Applicator.PropertiesValue(result);
+                        return new   Menes.Json.Draft202012.Applicator.PropertiesValue(result);
                     }
                 }
 
@@ -485,7 +485,7 @@ namespace Menes.Json.Draft202012
         /// <example>
         /// {Property examples}.
         /// </example>
-        public Menes.Json.Draft202012.Applicator.PatternPropertiesValue PatternProperties
+        public  Menes.Json.Draft202012.Applicator.PatternPropertiesValue PatternProperties
         {
             get
             {
@@ -501,7 +501,7 @@ namespace Menes.Json.Draft202012
                 {
                     if (this.jsonElementBacking.TryGetProperty(PatternPropertiesUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  Menes.Json.Draft202012.Applicator.PatternPropertiesValue(result);
+                        return new   Menes.Json.Draft202012.Applicator.PatternPropertiesValue(result);
                     }
                 }
 
@@ -520,7 +520,7 @@ namespace Menes.Json.Draft202012
         /// <example>
         /// {Property examples}.
         /// </example>
-        public Menes.Json.Draft202012.Applicator.DependentSchemasValue DependentSchemas
+        public  Menes.Json.Draft202012.Applicator.DependentSchemasValue DependentSchemas
         {
             get
             {
@@ -536,7 +536,7 @@ namespace Menes.Json.Draft202012
                 {
                     if (this.jsonElementBacking.TryGetProperty(DependentSchemasUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  Menes.Json.Draft202012.Applicator.DependentSchemasValue(result);
+                        return new   Menes.Json.Draft202012.Applicator.DependentSchemasValue(result);
                     }
                 }
 
@@ -555,7 +555,7 @@ namespace Menes.Json.Draft202012
         /// <example>
         /// {Property examples}.
         /// </example>
-        public Menes.Json.JsonAny PropertyNames
+        public  Menes.Json.Draft202012.Schema PropertyNames
         {
             get
             {
@@ -571,7 +571,7 @@ namespace Menes.Json.Draft202012
                 {
                     if (this.jsonElementBacking.TryGetProperty(PropertyNamesUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  Menes.Json.JsonAny(result);
+                        return new   Menes.Json.Draft202012.Schema(result);
                     }
                 }
 
@@ -590,7 +590,7 @@ namespace Menes.Json.Draft202012
         /// <example>
         /// {Property examples}.
         /// </example>
-        public Menes.Json.JsonAny If
+        public  Menes.Json.Draft202012.Schema If
         {
             get
             {
@@ -606,7 +606,7 @@ namespace Menes.Json.Draft202012
                 {
                     if (this.jsonElementBacking.TryGetProperty(IfUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  Menes.Json.JsonAny(result);
+                        return new   Menes.Json.Draft202012.Schema(result);
                     }
                 }
 
@@ -625,7 +625,7 @@ namespace Menes.Json.Draft202012
         /// <example>
         /// {Property examples}.
         /// </example>
-        public Menes.Json.JsonAny Then
+        public  Menes.Json.Draft202012.Schema Then
         {
             get
             {
@@ -641,7 +641,7 @@ namespace Menes.Json.Draft202012
                 {
                     if (this.jsonElementBacking.TryGetProperty(ThenUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  Menes.Json.JsonAny(result);
+                        return new   Menes.Json.Draft202012.Schema(result);
                     }
                 }
 
@@ -660,7 +660,7 @@ namespace Menes.Json.Draft202012
         /// <example>
         /// {Property examples}.
         /// </example>
-        public Menes.Json.JsonAny Else
+        public  Menes.Json.Draft202012.Schema Else
         {
             get
             {
@@ -676,7 +676,7 @@ namespace Menes.Json.Draft202012
                 {
                     if (this.jsonElementBacking.TryGetProperty(ElseUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  Menes.Json.JsonAny(result);
+                        return new   Menes.Json.Draft202012.Schema(result);
                     }
                 }
 
@@ -695,7 +695,7 @@ namespace Menes.Json.Draft202012
         /// <example>
         /// {Property examples}.
         /// </example>
-        public Menes.Json.Draft202012.Applicator.JsonAnyArray AllOf
+        public  Menes.Json.Draft202012.Applicator.SchemaArray AllOf
         {
             get
             {
@@ -711,7 +711,7 @@ namespace Menes.Json.Draft202012
                 {
                     if (this.jsonElementBacking.TryGetProperty(AllOfUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  Menes.Json.Draft202012.Applicator.JsonAnyArray(result);
+                        return new   Menes.Json.Draft202012.Applicator.SchemaArray(result);
                     }
                 }
 
@@ -730,7 +730,7 @@ namespace Menes.Json.Draft202012
         /// <example>
         /// {Property examples}.
         /// </example>
-        public Menes.Json.Draft202012.Applicator.JsonAnyArray AnyOf
+        public  Menes.Json.Draft202012.Applicator.SchemaArray AnyOf
         {
             get
             {
@@ -746,7 +746,7 @@ namespace Menes.Json.Draft202012
                 {
                     if (this.jsonElementBacking.TryGetProperty(AnyOfUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  Menes.Json.Draft202012.Applicator.JsonAnyArray(result);
+                        return new   Menes.Json.Draft202012.Applicator.SchemaArray(result);
                     }
                 }
 
@@ -765,7 +765,7 @@ namespace Menes.Json.Draft202012
         /// <example>
         /// {Property examples}.
         /// </example>
-        public Menes.Json.Draft202012.Applicator.JsonAnyArray OneOf
+        public  Menes.Json.Draft202012.Applicator.SchemaArray OneOf
         {
             get
             {
@@ -781,7 +781,7 @@ namespace Menes.Json.Draft202012
                 {
                     if (this.jsonElementBacking.TryGetProperty(OneOfUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  Menes.Json.Draft202012.Applicator.JsonAnyArray(result);
+                        return new   Menes.Json.Draft202012.Applicator.SchemaArray(result);
                     }
                 }
 
@@ -800,7 +800,7 @@ namespace Menes.Json.Draft202012
         /// <example>
         /// {Property examples}.
         /// </example>
-        public Menes.Json.JsonAny Not
+        public  Menes.Json.Draft202012.Schema Not
         {
             get
             {
@@ -816,7 +816,7 @@ namespace Menes.Json.Draft202012
                 {
                     if (this.jsonElementBacking.TryGetProperty(NotUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  Menes.Json.JsonAny(result);
+                        return new   Menes.Json.Draft202012.Schema(result);
                     }
                 }
 
@@ -1098,82 +1098,82 @@ namespace Menes.Json.Draft202012
         /// Creates an instance of a <see cref="Applicator"/>.
         /// </summary>
         public static Applicator Create(
-                            Menes.Json.Draft202012.Applicator.JsonAnyArray? prefixItems = null
-        ,             Menes.Json.JsonAny? items = null
-        ,             Menes.Json.JsonAny? contains = null
-        ,             Menes.Json.JsonAny? additionalProperties = null
-        ,             Menes.Json.Draft202012.Applicator.PropertiesValue? properties = null
-        ,             Menes.Json.Draft202012.Applicator.PatternPropertiesValue? patternProperties = null
-        ,             Menes.Json.Draft202012.Applicator.DependentSchemasValue? dependentSchemas = null
-        ,             Menes.Json.JsonAny? propertyNames = null
-        ,             Menes.Json.JsonAny? @if = null
-        ,             Menes.Json.JsonAny? then = null
-        ,             Menes.Json.JsonAny? @else = null
-        ,             Menes.Json.Draft202012.Applicator.JsonAnyArray? allOf = null
-        ,             Menes.Json.Draft202012.Applicator.JsonAnyArray? anyOf = null
-        ,             Menes.Json.Draft202012.Applicator.JsonAnyArray? oneOf = null
-        ,             Menes.Json.JsonAny? not = null
+                             Menes.Json.Draft202012.Applicator.SchemaArray? prefixItems = null
+        ,              Menes.Json.Draft202012.Schema? items = null
+        ,              Menes.Json.Draft202012.Schema? contains = null
+        ,              Menes.Json.Draft202012.Schema? additionalProperties = null
+        ,              Menes.Json.Draft202012.Applicator.PropertiesValue? properties = null
+        ,              Menes.Json.Draft202012.Applicator.PatternPropertiesValue? patternProperties = null
+        ,              Menes.Json.Draft202012.Applicator.DependentSchemasValue? dependentSchemas = null
+        ,              Menes.Json.Draft202012.Schema? propertyNames = null
+        ,              Menes.Json.Draft202012.Schema? @if = null
+        ,              Menes.Json.Draft202012.Schema? then = null
+        ,              Menes.Json.Draft202012.Schema? @else = null
+        ,              Menes.Json.Draft202012.Applicator.SchemaArray? allOf = null
+        ,              Menes.Json.Draft202012.Applicator.SchemaArray? anyOf = null
+        ,              Menes.Json.Draft202012.Applicator.SchemaArray? oneOf = null
+        ,              Menes.Json.Draft202012.Schema? not = null
         
         )
         {
             var builder = ImmutableDictionary.CreateBuilder<JsonEncodedText, JsonAny>();
-                            if (prefixItems is Menes.Json.Draft202012.Applicator.JsonAnyArray prefixItems__)
+                            if (prefixItems is  Menes.Json.Draft202012.Applicator.SchemaArray prefixItems__)
             {
                 builder.Add(PrefixItemsJsonPropertyName, prefixItems__);
             }
-                    if (items is Menes.Json.JsonAny items__)
+                    if (items is  Menes.Json.Draft202012.Schema items__)
             {
                 builder.Add(ItemsJsonPropertyName, items__);
             }
-                    if (contains is Menes.Json.JsonAny contains__)
+                    if (contains is  Menes.Json.Draft202012.Schema contains__)
             {
                 builder.Add(ContainsJsonPropertyName, contains__);
             }
-                    if (additionalProperties is Menes.Json.JsonAny additionalProperties__)
+                    if (additionalProperties is  Menes.Json.Draft202012.Schema additionalProperties__)
             {
                 builder.Add(AdditionalPropertiesJsonPropertyName, additionalProperties__);
             }
-                    if (properties is Menes.Json.Draft202012.Applicator.PropertiesValue properties__)
+                    if (properties is  Menes.Json.Draft202012.Applicator.PropertiesValue properties__)
             {
                 builder.Add(PropertiesJsonPropertyName, properties__);
             }
-                    if (patternProperties is Menes.Json.Draft202012.Applicator.PatternPropertiesValue patternProperties__)
+                    if (patternProperties is  Menes.Json.Draft202012.Applicator.PatternPropertiesValue patternProperties__)
             {
                 builder.Add(PatternPropertiesJsonPropertyName, patternProperties__);
             }
-                    if (dependentSchemas is Menes.Json.Draft202012.Applicator.DependentSchemasValue dependentSchemas__)
+                    if (dependentSchemas is  Menes.Json.Draft202012.Applicator.DependentSchemasValue dependentSchemas__)
             {
                 builder.Add(DependentSchemasJsonPropertyName, dependentSchemas__);
             }
-                    if (propertyNames is Menes.Json.JsonAny propertyNames__)
+                    if (propertyNames is  Menes.Json.Draft202012.Schema propertyNames__)
             {
                 builder.Add(PropertyNamesJsonPropertyName, propertyNames__);
             }
-                    if (@if is Menes.Json.JsonAny @if__)
+                    if (@if is  Menes.Json.Draft202012.Schema @if__)
             {
                 builder.Add(IfJsonPropertyName, @if__);
             }
-                    if (then is Menes.Json.JsonAny then__)
+                    if (then is  Menes.Json.Draft202012.Schema then__)
             {
                 builder.Add(ThenJsonPropertyName, then__);
             }
-                    if (@else is Menes.Json.JsonAny @else__)
+                    if (@else is  Menes.Json.Draft202012.Schema @else__)
             {
                 builder.Add(ElseJsonPropertyName, @else__);
             }
-                    if (allOf is Menes.Json.Draft202012.Applicator.JsonAnyArray allOf__)
+                    if (allOf is  Menes.Json.Draft202012.Applicator.SchemaArray allOf__)
             {
                 builder.Add(AllOfJsonPropertyName, allOf__);
             }
-                    if (anyOf is Menes.Json.Draft202012.Applicator.JsonAnyArray anyOf__)
+                    if (anyOf is  Menes.Json.Draft202012.Applicator.SchemaArray anyOf__)
             {
                 builder.Add(AnyOfJsonPropertyName, anyOf__);
             }
-                    if (oneOf is Menes.Json.Draft202012.Applicator.JsonAnyArray oneOf__)
+                    if (oneOf is  Menes.Json.Draft202012.Applicator.SchemaArray oneOf__)
             {
                 builder.Add(OneOfJsonPropertyName, oneOf__);
             }
-                    if (not is Menes.Json.JsonAny not__)
+                    if (not is  Menes.Json.Draft202012.Schema not__)
             {
                 builder.Add(NotJsonPropertyName, not__);
             }
@@ -1186,7 +1186,7 @@ namespace Menes.Json.Draft202012
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Applicator WithPrefixItems(Menes.Json.Draft202012.Applicator.JsonAnyArray value)
+        public Applicator WithPrefixItems( Menes.Json.Draft202012.Applicator.SchemaArray value)
         {
             return this.SetProperty(PrefixItemsJsonPropertyName, value);
         }
@@ -1197,7 +1197,7 @@ namespace Menes.Json.Draft202012
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Applicator WithItems(Menes.Json.JsonAny value)
+        public Applicator WithItems( Menes.Json.Draft202012.Schema value)
         {
             return this.SetProperty(ItemsJsonPropertyName, value);
         }
@@ -1208,7 +1208,7 @@ namespace Menes.Json.Draft202012
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Applicator WithContains(Menes.Json.JsonAny value)
+        public Applicator WithContains( Menes.Json.Draft202012.Schema value)
         {
             return this.SetProperty(ContainsJsonPropertyName, value);
         }
@@ -1219,7 +1219,7 @@ namespace Menes.Json.Draft202012
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Applicator WithAdditionalProperties(Menes.Json.JsonAny value)
+        public Applicator WithAdditionalProperties( Menes.Json.Draft202012.Schema value)
         {
             return this.SetProperty(AdditionalPropertiesJsonPropertyName, value);
         }
@@ -1230,7 +1230,7 @@ namespace Menes.Json.Draft202012
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Applicator WithProperties(Menes.Json.Draft202012.Applicator.PropertiesValue value)
+        public Applicator WithProperties( Menes.Json.Draft202012.Applicator.PropertiesValue value)
         {
             return this.SetProperty(PropertiesJsonPropertyName, value);
         }
@@ -1241,7 +1241,7 @@ namespace Menes.Json.Draft202012
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Applicator WithPatternProperties(Menes.Json.Draft202012.Applicator.PatternPropertiesValue value)
+        public Applicator WithPatternProperties( Menes.Json.Draft202012.Applicator.PatternPropertiesValue value)
         {
             return this.SetProperty(PatternPropertiesJsonPropertyName, value);
         }
@@ -1252,7 +1252,7 @@ namespace Menes.Json.Draft202012
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Applicator WithDependentSchemas(Menes.Json.Draft202012.Applicator.DependentSchemasValue value)
+        public Applicator WithDependentSchemas( Menes.Json.Draft202012.Applicator.DependentSchemasValue value)
         {
             return this.SetProperty(DependentSchemasJsonPropertyName, value);
         }
@@ -1263,7 +1263,7 @@ namespace Menes.Json.Draft202012
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Applicator WithPropertyNames(Menes.Json.JsonAny value)
+        public Applicator WithPropertyNames( Menes.Json.Draft202012.Schema value)
         {
             return this.SetProperty(PropertyNamesJsonPropertyName, value);
         }
@@ -1274,7 +1274,7 @@ namespace Menes.Json.Draft202012
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Applicator WithIf(Menes.Json.JsonAny value)
+        public Applicator WithIf( Menes.Json.Draft202012.Schema value)
         {
             return this.SetProperty(IfJsonPropertyName, value);
         }
@@ -1285,7 +1285,7 @@ namespace Menes.Json.Draft202012
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Applicator WithThen(Menes.Json.JsonAny value)
+        public Applicator WithThen( Menes.Json.Draft202012.Schema value)
         {
             return this.SetProperty(ThenJsonPropertyName, value);
         }
@@ -1296,7 +1296,7 @@ namespace Menes.Json.Draft202012
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Applicator WithElse(Menes.Json.JsonAny value)
+        public Applicator WithElse( Menes.Json.Draft202012.Schema value)
         {
             return this.SetProperty(ElseJsonPropertyName, value);
         }
@@ -1307,7 +1307,7 @@ namespace Menes.Json.Draft202012
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Applicator WithAllOf(Menes.Json.Draft202012.Applicator.JsonAnyArray value)
+        public Applicator WithAllOf( Menes.Json.Draft202012.Applicator.SchemaArray value)
         {
             return this.SetProperty(AllOfJsonPropertyName, value);
         }
@@ -1318,7 +1318,7 @@ namespace Menes.Json.Draft202012
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Applicator WithAnyOf(Menes.Json.Draft202012.Applicator.JsonAnyArray value)
+        public Applicator WithAnyOf( Menes.Json.Draft202012.Applicator.SchemaArray value)
         {
             return this.SetProperty(AnyOfJsonPropertyName, value);
         }
@@ -1329,7 +1329,7 @@ namespace Menes.Json.Draft202012
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Applicator WithOneOf(Menes.Json.Draft202012.Applicator.JsonAnyArray value)
+        public Applicator WithOneOf( Menes.Json.Draft202012.Applicator.SchemaArray value)
         {
             return this.SetProperty(OneOfJsonPropertyName, value);
         }
@@ -1340,7 +1340,7 @@ namespace Menes.Json.Draft202012
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Applicator WithNot(Menes.Json.JsonAny value)
+        public Applicator WithNot( Menes.Json.Draft202012.Schema value)
         {
             return this.SetProperty(NotJsonPropertyName, value);
         }
@@ -1741,105 +1741,105 @@ namespace Menes.Json.Draft202012
                 PrefixItemsJsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                    JsonAnyArray property = that.PrefixItems;
+                     Menes.Json.Draft202012.Applicator.SchemaArray property = that.PrefixItems;
                     return property.Validate(validationContext, level);
                 });
                     builder.Add(
                 ItemsJsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                    JsonAny property = that.Items;
+                     Menes.Json.Draft202012.Schema property = that.Items;
                     return property.Validate(validationContext, level);
                 });
                     builder.Add(
                 ContainsJsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                    JsonAny property = that.Contains;
+                     Menes.Json.Draft202012.Schema property = that.Contains;
                     return property.Validate(validationContext, level);
                 });
                     builder.Add(
                 AdditionalPropertiesJsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                    JsonAny property = that.AdditionalProperties;
+                     Menes.Json.Draft202012.Schema property = that.AdditionalProperties;
                     return property.Validate(validationContext, level);
                 });
                     builder.Add(
                 PropertiesJsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                    PropertiesValue property = that.Properties;
+                     Menes.Json.Draft202012.Applicator.PropertiesValue property = that.Properties;
                     return property.Validate(validationContext, level);
                 });
                     builder.Add(
                 PatternPropertiesJsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                    PatternPropertiesValue property = that.PatternProperties;
+                     Menes.Json.Draft202012.Applicator.PatternPropertiesValue property = that.PatternProperties;
                     return property.Validate(validationContext, level);
                 });
                     builder.Add(
                 DependentSchemasJsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                    DependentSchemasValue property = that.DependentSchemas;
+                     Menes.Json.Draft202012.Applicator.DependentSchemasValue property = that.DependentSchemas;
                     return property.Validate(validationContext, level);
                 });
                     builder.Add(
                 PropertyNamesJsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                    JsonAny property = that.PropertyNames;
+                     Menes.Json.Draft202012.Schema property = that.PropertyNames;
                     return property.Validate(validationContext, level);
                 });
                     builder.Add(
                 IfJsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                    JsonAny property = that.If;
+                     Menes.Json.Draft202012.Schema property = that.If;
                     return property.Validate(validationContext, level);
                 });
                     builder.Add(
                 ThenJsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                    JsonAny property = that.Then;
+                     Menes.Json.Draft202012.Schema property = that.Then;
                     return property.Validate(validationContext, level);
                 });
                     builder.Add(
                 ElseJsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                    JsonAny property = that.Else;
+                     Menes.Json.Draft202012.Schema property = that.Else;
                     return property.Validate(validationContext, level);
                 });
                     builder.Add(
                 AllOfJsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                    JsonAnyArray property = that.AllOf;
+                     Menes.Json.Draft202012.Applicator.SchemaArray property = that.AllOf;
                     return property.Validate(validationContext, level);
                 });
                     builder.Add(
                 AnyOfJsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                    JsonAnyArray property = that.AnyOf;
+                     Menes.Json.Draft202012.Applicator.SchemaArray property = that.AnyOf;
                     return property.Validate(validationContext, level);
                 });
                     builder.Add(
                 OneOfJsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                    JsonAnyArray property = that.OneOf;
+                     Menes.Json.Draft202012.Applicator.SchemaArray property = that.OneOf;
                     return property.Validate(validationContext, level);
                 });
                     builder.Add(
                 NotJsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                    JsonAny property = that.Not;
+                     Menes.Json.Draft202012.Schema property = that.Not;
                     return property.Validate(validationContext, level);
                 });
         
@@ -1964,9 +1964,9 @@ namespace Menes.Json.Draft202012
         /// <summary>
     /// A type generated from a JsonSchema specification.
     /// </summary>
-    public readonly struct JsonAnyArray :
-                IJsonArray<JsonAnyArray>,
-                IEquatable<JsonAnyArray>
+    public readonly struct SchemaArray :
+                IJsonArray<SchemaArray>,
+                IEquatable<SchemaArray>
     {
 
         
@@ -1988,10 +1988,10 @@ namespace Menes.Json.Draft202012
     
     
         /// <summary>
-        /// Initializes a new instance of the <see cref="JsonAnyArray"/> struct.
+        /// Initializes a new instance of the <see cref="SchemaArray"/> struct.
         /// </summary>
         /// <param name="value">The backing <see cref="JsonElement"/>.</param>
-        public JsonAnyArray(JsonElement value)
+        public SchemaArray(JsonElement value)
         {
             this.jsonElementBacking = value;
                     this.arrayBacking = default;
@@ -1999,20 +1999,20 @@ namespace Menes.Json.Draft202012
 
     
             /// <summary>
-        /// Initializes a new instance of the <see cref="JsonAnyArray"/> struct.
+        /// Initializes a new instance of the <see cref="SchemaArray"/> struct.
         /// </summary>
         /// <param name="value">An array list.</param>
-        public JsonAnyArray(ImmutableList<JsonAny> value)
+        public SchemaArray(ImmutableList<JsonAny> value)
         {
             this.jsonElementBacking = default;
                                             this.arrayBacking = value;
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="JsonAnyArray"/> struct.
+        /// Initializes a new instance of the <see cref="SchemaArray"/> struct.
         /// </summary>
         /// <param name="jsonArray">The <see cref="JsonArray"/> from which to construct the value.</param>
-        public JsonAnyArray(JsonArray jsonArray)
+        public SchemaArray(JsonArray jsonArray)
         {
             if (jsonArray.HasJsonElement)
             {
@@ -2195,21 +2195,21 @@ namespace Menes.Json.Draft202012
         /// Conversion from any.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator JsonAnyArray(JsonAny value)
+        public static implicit operator SchemaArray(JsonAny value)
         {
             if (value.HasJsonElement)
             {
-                return new JsonAnyArray(value.AsJsonElement);
+                return new SchemaArray(value.AsJsonElement);
             }
 
-            return value.As<JsonAnyArray>();
+            return value.As<SchemaArray>();
         }
 
         /// <summary>
         /// Conversion to any.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator JsonAny(JsonAnyArray value)
+        public static implicit operator JsonAny(SchemaArray value)
         {
             return value.AsAny;
         }
@@ -2219,16 +2219,16 @@ namespace Menes.Json.Draft202012
         /// Conversion from array.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator JsonAnyArray(JsonArray value)
+        public static implicit operator SchemaArray(JsonArray value)
         {
-            return new JsonAnyArray(value);
+            return new SchemaArray(value);
         }
 
         /// <summary>
         /// Conversion to array.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator JsonArray(JsonAnyArray value)
+        public static implicit operator JsonArray(SchemaArray value)
         {
             return value.AsArray;
         }
@@ -2237,7 +2237,7 @@ namespace Menes.Json.Draft202012
         /// Implicit conversion to an <see cref="ImmutableList{T}"/> of <see cref="JsonAny"/>.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator ImmutableList<JsonAny>(JsonAnyArray value)
+        public static implicit operator ImmutableList<JsonAny>(SchemaArray value)
         {
             return value.AsArray.AsItemsList;
         }
@@ -2246,23 +2246,23 @@ namespace Menes.Json.Draft202012
         /// Implicit conversion from an <see cref="ImmutableList{T}"/> of <see cref="JsonAny"/>.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator JsonAnyArray(ImmutableList<JsonAny> value)
+        public static implicit operator SchemaArray(ImmutableList<JsonAny> value)
         {
-            return new JsonAnyArray(value);
+            return new SchemaArray(value);
         }
     
     
     
     
     
-                            /// <summary>
+                    /// <summary>
         /// Create an array from the given items.
         /// </summary>
         /// <param name="items">The items from which to create the array.</param>
         /// <returns>The new array created from the items.</returns>
-        public static JsonAnyArray From(params JsonAny[] items)
+        public static SchemaArray From(params  Menes.Json.Draft202012.Schema[] items)
         {
-            return new JsonAnyArray(items.ToImmutableList());
+            return new SchemaArray(items.Select(i => (JsonAny)i).ToImmutableList());
         }
 
         /// <summary>
@@ -2270,9 +2270,9 @@ namespace Menes.Json.Draft202012
         /// </summary>
         /// <param name="item1">The items from which to create the array.</param>
         /// <returns>The new array created from the items.</returns>
-        public static JsonAnyArray From(JsonAny item1)
+        public static SchemaArray From( Menes.Json.Draft202012.Schema item1)
         {
-            return new JsonAnyArray(ImmutableList.Create(item1));
+            return new SchemaArray(ImmutableList.Create((JsonAny)item1));
         }
 
         /// <summary>
@@ -2281,9 +2281,9 @@ namespace Menes.Json.Draft202012
         /// <param name="item1">The first item from which to create the array.</param>
         /// <param name="item2">The second item from which to create the array.</param>
         /// <returns>The new array created from the items.</returns>
-        public static JsonAnyArray From(JsonAny item1, JsonAny item2)
+        public static SchemaArray From( Menes.Json.Draft202012.Schema item1,  Menes.Json.Draft202012.Schema item2)
         {
-            return new JsonAnyArray(ImmutableList.Create(item1, item2));
+            return new SchemaArray(ImmutableList.Create((JsonAny)item1, (JsonAny)item2));
         }
 
         /// <summary>
@@ -2293,9 +2293,9 @@ namespace Menes.Json.Draft202012
         /// <param name="item2">The second item from which to create the array.</param>
         /// <param name="item3">The third item from which to create the array.</param>
         /// <returns>The new array created from the items.</returns>
-        public static JsonAnyArray From(JsonAny item1, JsonAny item2, JsonAny item3)
+        public static SchemaArray From( Menes.Json.Draft202012.Schema item1,  Menes.Json.Draft202012.Schema item2,  Menes.Json.Draft202012.Schema item3)
         {
-            return new JsonAnyArray(ImmutableList.Create(item1, item2, item3));
+            return new SchemaArray(ImmutableList.Create((JsonAny)item1, (JsonAny)item2, (JsonAny)item3));
         }
 
         /// <summary>
@@ -2306,9 +2306,9 @@ namespace Menes.Json.Draft202012
         /// <param name="item3">The third item from which to create the array.</param>
         /// <param name="item4">The fourth item from which to create the array.</param>
         /// <returns>The new array created from the items.</returns>
-        public static JsonAnyArray From(JsonAny item1, JsonAny item2, JsonAny item3, JsonAny item4)
+        public static SchemaArray From( Menes.Json.Draft202012.Schema item1,  Menes.Json.Draft202012.Schema item2,  Menes.Json.Draft202012.Schema item3,  Menes.Json.Draft202012.Schema item4)
         {
-            return new JsonAnyArray(ImmutableList.Create(item1, item2, item3, item4));
+            return new SchemaArray(ImmutableList.Create((JsonAny)item1, (JsonAny)item2, (JsonAny)item3, (JsonAny)item4));
         }
         
     
@@ -2342,6 +2342,23 @@ namespace Menes.Json.Draft202012
 
     
     
+                /// <summary>
+        /// Enumerate the items in the array as a <see cref=" Menes.Json.Draft202012.Schema" />.
+        /// </summary>
+        public JsonArrayEnumerator< Menes.Json.Draft202012.Schema> EnumerateItems()
+        {
+            if (this.arrayBacking is ImmutableList<JsonAny> items)
+            {
+                return new JsonArrayEnumerator< Menes.Json.Draft202012.Schema>(items);
+            }
+
+            if (this.jsonElementBacking.ValueKind == JsonValueKind.Array)
+            {
+                return new JsonArrayEnumerator< Menes.Json.Draft202012.Schema>(this.jsonElementBacking);
+            }
+
+            return default;
+        }
                 /// <inheritdoc/>
         public JsonArrayEnumerator EnumerateArray()
         {
@@ -2373,7 +2390,7 @@ namespace Menes.Json.Draft202012
         }
 
         /// <inheritdoc/>
-        public bool Equals(JsonAnyArray other)
+        public bool Equals(SchemaArray other)
         {
             JsonValueKind valueKind = this.ValueKind;
 
@@ -2397,7 +2414,7 @@ namespace Menes.Json.Draft202012
     
     
         /// <inheritdoc/>
-        public JsonAnyArray Add<TItem>(TItem item)
+        public SchemaArray Add<TItem>(TItem item)
             where TItem : struct, IJsonValue
         {
             if (this.ValueKind == JsonValueKind.Array || this.ValueKind == JsonValueKind.Undefined)
@@ -2409,7 +2426,7 @@ namespace Menes.Json.Draft202012
         }
 
         /// <inheritdoc/>
-        public JsonAnyArray Insert<TItem>(int index, TItem item)
+        public SchemaArray Insert<TItem>(int index, TItem item)
             where TItem : struct, IJsonValue
         {
             if (this.ValueKind == JsonValueKind.Array || this.ValueKind == JsonValueKind.Undefined)
@@ -2421,7 +2438,7 @@ namespace Menes.Json.Draft202012
         }
 
         /// <inheritdoc/>
-        public JsonAnyArray Replace<TItem>(TItem oldValue, TItem newValue)
+        public SchemaArray Replace<TItem>(TItem oldValue, TItem newValue)
             where TItem : struct, IJsonValue
         {
             if (this.ValueKind == JsonValueKind.Array)
@@ -2433,7 +2450,7 @@ namespace Menes.Json.Draft202012
         }
 
         /// <inheritdoc/>
-        public JsonAnyArray RemoveAt(int index)
+        public SchemaArray RemoveAt(int index)
         {
             if (this.ValueKind == JsonValueKind.Array)
             {
@@ -2444,7 +2461,7 @@ namespace Menes.Json.Draft202012
         }
 
         /// <inheritdoc/>
-        public JsonAnyArray RemoveRange(int index, int count)
+        public SchemaArray RemoveRange(int index, int count)
         {
             if (this.ValueKind == JsonValueKind.Array)
             {
@@ -2455,7 +2472,7 @@ namespace Menes.Json.Draft202012
         }
 
         /// <inheritdoc/>
-        public JsonAnyArray SetItem<TItem>(int index, TItem value)
+        public SchemaArray SetItem<TItem>(int index, TItem value)
             where TItem : struct, IJsonValue
         {
             if (this.ValueKind == JsonValueKind.Array)
@@ -2471,7 +2488,7 @@ namespace Menes.Json.Draft202012
         public T As<T>()
             where T : struct, IJsonValue
         {
-            return this.As<JsonAnyArray, T>();
+            return this.As<SchemaArray, T>();
         }
 
         /// <inheritdoc/>
@@ -2541,7 +2558,7 @@ namespace Menes.Json.Draft202012
             {
         
         
-                        result = arrayEnumerator.Current.As<Menes.Json.JsonAny>().Validate(result, level);
+                        result = arrayEnumerator.Current.As< Menes.Json.Draft202012.Schema>().Validate(result, level);
                 if (level == ValidationLevel.Flag && !result.IsValid)
                 {
                     return result;
@@ -2954,16 +2971,16 @@ namespace Menes.Json.Draft202012
                 /// <summary>
         /// Enumerate the object as the given item type
         /// </summary>
-        public JsonObjectEnumerator<Menes.Json.JsonAny> EnumerateProperties()
+        public JsonObjectEnumerator< Menes.Json.Draft202012.Schema> EnumerateProperties()
         {
             if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
             {
-                return new JsonObjectEnumerator<Menes.Json.JsonAny>(properties);
+                return new JsonObjectEnumerator< Menes.Json.Draft202012.Schema>(properties);
             }
 
             if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
             {
-                return new JsonObjectEnumerator<Menes.Json.JsonAny>(this.jsonElementBacking);
+                return new JsonObjectEnumerator< Menes.Json.Draft202012.Schema>(this.jsonElementBacking);
             }
 
             return default;
@@ -3288,7 +3305,7 @@ namespace Menes.Json.Draft202012
         
                         if (!result.HasEvaluatedLocalProperty(propertyName))
                 {
-                    result = property.ValueAs<Menes.Json.JsonAny>().Validate(result, level);
+                    result = property.ValueAs< Menes.Json.Draft202012.Schema>().Validate(result, level);
                     if (level == ValidationLevel.Flag && !result.IsValid)
                     {
                         return result;
@@ -3684,16 +3701,16 @@ namespace Menes.Json.Draft202012
                 /// <summary>
         /// Enumerate the object as the given item type
         /// </summary>
-        public JsonObjectEnumerator<Menes.Json.JsonAny> EnumerateProperties()
+        public JsonObjectEnumerator< Menes.Json.Draft202012.Schema> EnumerateProperties()
         {
             if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
             {
-                return new JsonObjectEnumerator<Menes.Json.JsonAny>(properties);
+                return new JsonObjectEnumerator< Menes.Json.Draft202012.Schema>(properties);
             }
 
             if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
             {
-                return new JsonObjectEnumerator<Menes.Json.JsonAny>(this.jsonElementBacking);
+                return new JsonObjectEnumerator< Menes.Json.Draft202012.Schema>(this.jsonElementBacking);
             }
 
             return default;
@@ -4017,7 +4034,7 @@ namespace Menes.Json.Draft202012
         
                         string propertyNameAsString = property.Name;
 
-                            result = new JsonString(propertyNameAsString).As<Menes.Json.Draft202012.Applicator.PatternPropertiesValue.PropertyNamesEntity>().Validate(result, level);
+                            result = new JsonString(propertyNameAsString).As< Menes.Json.Draft202012.Applicator.PatternPropertiesValue.PropertyNamesEntity>().Validate(result, level);
                 if (level == ValidationLevel.Flag && !result.IsValid)
                 {
                     return result;
@@ -4026,7 +4043,7 @@ namespace Menes.Json.Draft202012
                     
                         if (!result.HasEvaluatedLocalProperty(propertyName))
                 {
-                    result = property.ValueAs<Menes.Json.JsonAny>().Validate(result, level);
+                    result = property.ValueAs< Menes.Json.Draft202012.Schema>().Validate(result, level);
                     if (level == ValidationLevel.Flag && !result.IsValid)
                     {
                         return result;
@@ -4795,16 +4812,16 @@ namespace Menes.Json.Draft202012
                 /// <summary>
         /// Enumerate the object as the given item type
         /// </summary>
-        public JsonObjectEnumerator<Menes.Json.JsonAny> EnumerateProperties()
+        public JsonObjectEnumerator< Menes.Json.Draft202012.Schema> EnumerateProperties()
         {
             if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
             {
-                return new JsonObjectEnumerator<Menes.Json.JsonAny>(properties);
+                return new JsonObjectEnumerator< Menes.Json.Draft202012.Schema>(properties);
             }
 
             if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
             {
-                return new JsonObjectEnumerator<Menes.Json.JsonAny>(this.jsonElementBacking);
+                return new JsonObjectEnumerator< Menes.Json.Draft202012.Schema>(this.jsonElementBacking);
             }
 
             return default;
@@ -5129,7 +5146,7 @@ namespace Menes.Json.Draft202012
         
                         if (!result.HasEvaluatedLocalProperty(propertyName))
                 {
-                    result = property.ValueAs<Menes.Json.JsonAny>().Validate(result, level);
+                    result = property.ValueAs< Menes.Json.Draft202012.Schema>().Validate(result, level);
                     if (level == ValidationLevel.Flag && !result.IsValid)
                     {
                         return result;

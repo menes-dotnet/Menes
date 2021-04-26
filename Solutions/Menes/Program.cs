@@ -10,14 +10,22 @@ namespace Menes
     using System.Linq;
     using System.Text.Json;
     using System.Threading.Tasks;
+
     ////using Marain.LineOfBusiness;
+
     using Menes.Json;
     using Menes.OpenApi;
+
+    using UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithAnyOf;
 
     class Program
     {
         static async Task Main(string[] args)
         {
+
+            Schema schema = JsonAny.Parse(@"[""foo"", ""bar""]");
+            var result = schema.Validate();
+
             ////PersonResource person = PersonResource.Create(
             ////    foo: "Hello",
             ////    links: PersonResource.LinksValue.Create(

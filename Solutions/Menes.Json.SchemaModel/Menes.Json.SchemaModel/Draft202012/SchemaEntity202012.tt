@@ -3760,28 +3760,6 @@ namespace <#= Namespace #>
                         {
                             return result;
                         }
-                        break;
-            <#
-                        itemsIndex++;
-                    }
-                }
-            #>
-
-
-            <#
-                if (HasMultipleItemsType)
-                {
-                    foreach (var item in Items)
-                    {
-            #>
-                    case <#= itemsIndex #>:
-                    
-                        result = arrayEnumerator.Current.As<<#= item #>>().Validate(result, level);
-                        if (level == ValidationLevel.Flag && !result.IsValid)
-                        {
-                            return result;
-                        }
-
                         result = result.WithLocalItemIndex(arrayLength);
                         break;
             <#
@@ -3789,6 +3767,7 @@ namespace <#= Namespace #>
                     }
                 }
             #>
+
                     default:
                 <#
                 if (HasSingleItemsType)

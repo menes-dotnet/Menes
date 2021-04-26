@@ -958,7 +958,7 @@ public partial class SchemaEntity202012
             ImmutableArray<PatternProperty>.Builder builder = ImmutableArray.CreateBuilder<PatternProperty>();
             if (this.TypeDeclaration.Schema.PatternProperties.IsNotUndefined())
             {
-                foreach (Property<JsonAny> property in this.TypeDeclaration.Schema.PatternProperties.EnumerateProperties())
+                foreach (Property<Schema> property in this.TypeDeclaration.Schema.PatternProperties.EnumerateProperties())
                 {
                     TypeDeclaration typeDeclaration = this.Builder.GetTypeDeclarationForPatternProperty(this.TypeDeclaration, property.Name);
                     builder.Add(new PatternProperty(property.Name, typeDeclaration.FullyQualifiedDotnetTypeName!));
@@ -979,7 +979,7 @@ public partial class SchemaEntity202012
             ImmutableArray<DependentSchema>.Builder builder = ImmutableArray.CreateBuilder<DependentSchema>();
             if (this.TypeDeclaration.Schema.DependentSchemas.IsNotUndefined())
             {
-                foreach (Property<JsonAny> property in this.TypeDeclaration.Schema.DependentSchemas.EnumerateProperties())
+                foreach (Property<Schema> property in this.TypeDeclaration.Schema.DependentSchemas.EnumerateProperties())
                 {
                     builder.Add(new DependentSchema(property.Name, this.Builder.GetTypeDeclarationForDependentSchema(this.TypeDeclaration, property.Name).FullyQualifiedDotnetTypeName!));
                 }
@@ -1123,7 +1123,8 @@ public partial class SchemaEntity202012
     {
         get
         {
-            return this.TypeDeclaration.Schema.Items.ValueKind == JsonValueKind.Array;
+            // We can never have a multiple items type
+            return false;
         }
     }
 
@@ -1137,30 +1138,9 @@ public partial class SchemaEntity202012
             ImmutableArray<string>.Builder builder = ImmutableArray.CreateBuilder<string>();
             if (this.TypeDeclaration.Schema.PrefixItems.ValueKind == JsonValueKind.Array)
             {
-                for (int i = 0; i < this.TypeDeclaration.Schema.Items.Length; ++i)
+                for (int i = 0; i < this.TypeDeclaration.Schema.PrefixItems.Length; ++i)
                 {
                     TypeDeclaration td = this.Builder.GetTypeDeclarationForPropertyArrayIndex(this.TypeDeclaration, "prefixItems", i);
-                    builder.Add(td.FullyQualifiedDotnetTypeName ?? string.Empty);
-                }
-            }
-
-            return builder.ToImmutable();
-        }
-    }
-
-    /// <summary>
-    /// Gets the array of dotnet type names when the items constraint is an array.
-    /// </summary>
-    public ImmutableArray<string> Items
-    {
-        get
-        {
-            ImmutableArray<string>.Builder builder = ImmutableArray.CreateBuilder<string>();
-            if (this.TypeDeclaration.Schema.Items.ValueKind == JsonValueKind.Array)
-            {
-                for (int i = 0; i < this.TypeDeclaration.Schema.Items.Length; ++i)
-                {
-                    TypeDeclaration td = this.Builder.GetTypeDeclarationForPropertyArrayIndex(this.TypeDeclaration, "items", i);
                     builder.Add(td.FullyQualifiedDotnetTypeName ?? string.Empty);
                 }
             }

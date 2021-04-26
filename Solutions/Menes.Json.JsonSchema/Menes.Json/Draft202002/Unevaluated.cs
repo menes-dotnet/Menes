@@ -10,7 +10,7 @@
 
 #nullable enable
 
-namespace Menes.Json.Draft202012
+namespace  Menes.Json.Draft202012
 {
     using System;
     using System.Collections.Generic;
@@ -166,7 +166,7 @@ namespace Menes.Json.Draft202012
         /// <example>
         /// {Property examples}.
         /// </example>
-        public Menes.Json.JsonAny UnevaluatedItems
+        public  Menes.Json.Draft202012.Schema UnevaluatedItems
         {
             get
             {
@@ -182,7 +182,7 @@ namespace Menes.Json.Draft202012
                 {
                     if (this.jsonElementBacking.TryGetProperty(UnevaluatedItemsUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  Menes.Json.JsonAny(result);
+                        return new   Menes.Json.Draft202012.Schema(result);
                     }
                 }
 
@@ -201,7 +201,7 @@ namespace Menes.Json.Draft202012
         /// <example>
         /// {Property examples}.
         /// </example>
-        public Menes.Json.JsonAny UnevaluatedProperties
+        public  Menes.Json.Draft202012.Schema UnevaluatedProperties
         {
             get
             {
@@ -217,7 +217,7 @@ namespace Menes.Json.Draft202012
                 {
                     if (this.jsonElementBacking.TryGetProperty(UnevaluatedPropertiesUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  Menes.Json.JsonAny(result);
+                        return new   Menes.Json.Draft202012.Schema(result);
                     }
                 }
 
@@ -499,17 +499,17 @@ namespace Menes.Json.Draft202012
         /// Creates an instance of a <see cref="Unevaluated"/>.
         /// </summary>
         public static Unevaluated Create(
-                            Menes.Json.JsonAny? unevaluatedItems = null
-        ,             Menes.Json.JsonAny? unevaluatedProperties = null
+                             Menes.Json.Draft202012.Schema? unevaluatedItems = null
+        ,              Menes.Json.Draft202012.Schema? unevaluatedProperties = null
         
         )
         {
             var builder = ImmutableDictionary.CreateBuilder<JsonEncodedText, JsonAny>();
-                            if (unevaluatedItems is Menes.Json.JsonAny unevaluatedItems__)
+                            if (unevaluatedItems is  Menes.Json.Draft202012.Schema unevaluatedItems__)
             {
                 builder.Add(UnevaluatedItemsJsonPropertyName, unevaluatedItems__);
             }
-                    if (unevaluatedProperties is Menes.Json.JsonAny unevaluatedProperties__)
+                    if (unevaluatedProperties is  Menes.Json.Draft202012.Schema unevaluatedProperties__)
             {
                 builder.Add(UnevaluatedPropertiesJsonPropertyName, unevaluatedProperties__);
             }
@@ -522,7 +522,7 @@ namespace Menes.Json.Draft202012
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Unevaluated WithUnevaluatedItems(Menes.Json.JsonAny value)
+        public Unevaluated WithUnevaluatedItems( Menes.Json.Draft202012.Schema value)
         {
             return this.SetProperty(UnevaluatedItemsJsonPropertyName, value);
         }
@@ -533,7 +533,7 @@ namespace Menes.Json.Draft202012
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Unevaluated WithUnevaluatedProperties(Menes.Json.JsonAny value)
+        public Unevaluated WithUnevaluatedProperties( Menes.Json.Draft202012.Schema value)
         {
             return this.SetProperty(UnevaluatedPropertiesJsonPropertyName, value);
         }
@@ -876,14 +876,14 @@ namespace Menes.Json.Draft202012
                 UnevaluatedItemsJsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                    JsonAny property = that.UnevaluatedItems;
+                     Menes.Json.Draft202012.Schema property = that.UnevaluatedItems;
                     return property.Validate(validationContext, level);
                 });
                     builder.Add(
                 UnevaluatedPropertiesJsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                    JsonAny property = that.UnevaluatedProperties;
+                     Menes.Json.Draft202012.Schema property = that.UnevaluatedProperties;
                     return property.Validate(validationContext, level);
                 });
         

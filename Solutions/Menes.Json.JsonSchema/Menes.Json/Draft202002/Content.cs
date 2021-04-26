@@ -10,7 +10,7 @@
 
 #nullable enable
 
-namespace Menes.Json.Draft202012
+namespace  Menes.Json.Draft202012
 {
     using System;
     using System.Collections.Generic;
@@ -247,7 +247,7 @@ namespace Menes.Json.Draft202012
         /// <example>
         /// {Property examples}.
         /// </example>
-        public Menes.Json.JsonAny ContentSchema
+        public  Menes.Json.Draft202012.Schema ContentSchema
         {
             get
             {
@@ -263,7 +263,7 @@ namespace Menes.Json.Draft202012
                 {
                     if (this.jsonElementBacking.TryGetProperty(ContentSchemaUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  Menes.Json.JsonAny(result);
+                        return new   Menes.Json.Draft202012.Schema(result);
                     }
                 }
 
@@ -547,7 +547,7 @@ namespace Menes.Json.Draft202012
         public static Content Create(
                             Menes.Json.JsonString? contentEncoding = null
         ,             Menes.Json.JsonString? contentMediaType = null
-        ,             Menes.Json.JsonAny? contentSchema = null
+        ,              Menes.Json.Draft202012.Schema? contentSchema = null
         
         )
         {
@@ -560,7 +560,7 @@ namespace Menes.Json.Draft202012
             {
                 builder.Add(ContentMediaTypeJsonPropertyName, contentMediaType__);
             }
-                    if (contentSchema is Menes.Json.JsonAny contentSchema__)
+                    if (contentSchema is  Menes.Json.Draft202012.Schema contentSchema__)
             {
                 builder.Add(ContentSchemaJsonPropertyName, contentSchema__);
             }
@@ -595,7 +595,7 @@ namespace Menes.Json.Draft202012
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Content WithContentSchema(Menes.Json.JsonAny value)
+        public Content WithContentSchema( Menes.Json.Draft202012.Schema value)
         {
             return this.SetProperty(ContentSchemaJsonPropertyName, value);
         }
@@ -938,21 +938,21 @@ namespace Menes.Json.Draft202012
                 ContentEncodingJsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                    JsonString property = that.ContentEncoding;
+                    Menes.Json.JsonString property = that.ContentEncoding;
                     return property.Validate(validationContext, level);
                 });
                     builder.Add(
                 ContentMediaTypeJsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                    JsonString property = that.ContentMediaType;
+                    Menes.Json.JsonString property = that.ContentMediaType;
                     return property.Validate(validationContext, level);
                 });
                     builder.Add(
                 ContentSchemaJsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                    JsonAny property = that.ContentSchema;
+                     Menes.Json.Draft202012.Schema property = that.ContentSchema;
                     return property.Validate(validationContext, level);
                 });
         

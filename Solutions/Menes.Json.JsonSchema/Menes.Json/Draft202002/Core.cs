@@ -10,7 +10,7 @@
 
 #nullable enable
 
-namespace Menes.Json.Draft202012
+namespace  Menes.Json.Draft202012
 {
     using System;
     using System.Collections.Generic;
@@ -243,7 +243,7 @@ namespace Menes.Json.Draft202012
         /// <example>
         /// {Property examples}.
         /// </example>
-        public Menes.Json.Draft202012.Core.IdEntity Id
+        public  Menes.Json.Draft202012.Core.IdEntity Id
         {
             get
             {
@@ -259,7 +259,7 @@ namespace Menes.Json.Draft202012
                 {
                     if (this.jsonElementBacking.TryGetProperty(IdUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  Menes.Json.Draft202012.Core.IdEntity(result);
+                        return new   Menes.Json.Draft202012.Core.IdEntity(result);
                     }
                 }
 
@@ -348,7 +348,7 @@ namespace Menes.Json.Draft202012
         /// <example>
         /// {Property examples}.
         /// </example>
-        public Menes.Json.Draft202012.Core.AnchorStringValue Anchor
+        public  Menes.Json.Draft202012.Core.AnchorStringValue Anchor
         {
             get
             {
@@ -364,7 +364,7 @@ namespace Menes.Json.Draft202012
                 {
                     if (this.jsonElementBacking.TryGetProperty(AnchorUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  Menes.Json.Draft202012.Core.AnchorStringValue(result);
+                        return new   Menes.Json.Draft202012.Core.AnchorStringValue(result);
                     }
                 }
 
@@ -418,7 +418,7 @@ namespace Menes.Json.Draft202012
         /// <example>
         /// {Property examples}.
         /// </example>
-        public Menes.Json.Draft202012.Core.AnchorStringValue DynamicAnchor
+        public  Menes.Json.Draft202012.Core.AnchorStringValue DynamicAnchor
         {
             get
             {
@@ -434,7 +434,7 @@ namespace Menes.Json.Draft202012
                 {
                     if (this.jsonElementBacking.TryGetProperty(DynamicAnchorUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  Menes.Json.Draft202012.Core.AnchorStringValue(result);
+                        return new   Menes.Json.Draft202012.Core.AnchorStringValue(result);
                     }
                 }
 
@@ -453,7 +453,7 @@ namespace Menes.Json.Draft202012
         /// <example>
         /// {Property examples}.
         /// </example>
-        public Menes.Json.Draft202012.Core.VocabularyValue Vocabulary
+        public  Menes.Json.Draft202012.Core.VocabularyValue Vocabulary
         {
             get
             {
@@ -469,7 +469,7 @@ namespace Menes.Json.Draft202012
                 {
                     if (this.jsonElementBacking.TryGetProperty(VocabularyUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  Menes.Json.Draft202012.Core.VocabularyValue(result);
+                        return new   Menes.Json.Draft202012.Core.VocabularyValue(result);
                     }
                 }
 
@@ -523,7 +523,7 @@ namespace Menes.Json.Draft202012
         /// <example>
         /// {Property examples}.
         /// </example>
-        public Menes.Json.Draft202012.Core.DefsValue Defs
+        public  Menes.Json.Draft202012.Core.DefsValue Defs
         {
             get
             {
@@ -539,7 +539,7 @@ namespace Menes.Json.Draft202012
                 {
                     if (this.jsonElementBacking.TryGetProperty(DefsUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  Menes.Json.Draft202012.Core.DefsValue(result);
+                        return new   Menes.Json.Draft202012.Core.DefsValue(result);
                     }
                 }
 
@@ -821,20 +821,20 @@ namespace Menes.Json.Draft202012
         /// Creates an instance of a <see cref="Core"/>.
         /// </summary>
         public static Core Create(
-                            Menes.Json.Draft202012.Core.IdEntity? id = null
+                             Menes.Json.Draft202012.Core.IdEntity? id = null
         ,             Menes.Json.JsonUri? schema = null
         ,             Menes.Json.JsonUriReference? @ref = null
-        ,             Menes.Json.Draft202012.Core.AnchorStringValue? anchor = null
+        ,              Menes.Json.Draft202012.Core.AnchorStringValue? anchor = null
         ,             Menes.Json.JsonUriReference? dynamicRef = null
-        ,             Menes.Json.Draft202012.Core.AnchorStringValue? dynamicAnchor = null
-        ,             Menes.Json.Draft202012.Core.VocabularyValue? vocabulary = null
+        ,              Menes.Json.Draft202012.Core.AnchorStringValue? dynamicAnchor = null
+        ,              Menes.Json.Draft202012.Core.VocabularyValue? vocabulary = null
         ,             Menes.Json.JsonString? comment = null
-        ,             Menes.Json.Draft202012.Core.DefsValue? defs = null
+        ,              Menes.Json.Draft202012.Core.DefsValue? defs = null
         
         )
         {
             var builder = ImmutableDictionary.CreateBuilder<JsonEncodedText, JsonAny>();
-                            if (id is Menes.Json.Draft202012.Core.IdEntity id__)
+                            if (id is  Menes.Json.Draft202012.Core.IdEntity id__)
             {
                 builder.Add(IdJsonPropertyName, id__);
             }
@@ -846,7 +846,7 @@ namespace Menes.Json.Draft202012
             {
                 builder.Add(RefJsonPropertyName, @ref__);
             }
-                    if (anchor is Menes.Json.Draft202012.Core.AnchorStringValue anchor__)
+                    if (anchor is  Menes.Json.Draft202012.Core.AnchorStringValue anchor__)
             {
                 builder.Add(AnchorJsonPropertyName, anchor__);
             }
@@ -854,11 +854,11 @@ namespace Menes.Json.Draft202012
             {
                 builder.Add(DynamicRefJsonPropertyName, dynamicRef__);
             }
-                    if (dynamicAnchor is Menes.Json.Draft202012.Core.AnchorStringValue dynamicAnchor__)
+                    if (dynamicAnchor is  Menes.Json.Draft202012.Core.AnchorStringValue dynamicAnchor__)
             {
                 builder.Add(DynamicAnchorJsonPropertyName, dynamicAnchor__);
             }
-                    if (vocabulary is Menes.Json.Draft202012.Core.VocabularyValue vocabulary__)
+                    if (vocabulary is  Menes.Json.Draft202012.Core.VocabularyValue vocabulary__)
             {
                 builder.Add(VocabularyJsonPropertyName, vocabulary__);
             }
@@ -866,7 +866,7 @@ namespace Menes.Json.Draft202012
             {
                 builder.Add(CommentJsonPropertyName, comment__);
             }
-                    if (defs is Menes.Json.Draft202012.Core.DefsValue defs__)
+                    if (defs is  Menes.Json.Draft202012.Core.DefsValue defs__)
             {
                 builder.Add(DefsJsonPropertyName, defs__);
             }
@@ -879,7 +879,7 @@ namespace Menes.Json.Draft202012
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Core WithId(Menes.Json.Draft202012.Core.IdEntity value)
+        public Core WithId( Menes.Json.Draft202012.Core.IdEntity value)
         {
             return this.SetProperty(IdJsonPropertyName, value);
         }
@@ -912,7 +912,7 @@ namespace Menes.Json.Draft202012
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Core WithAnchor(Menes.Json.Draft202012.Core.AnchorStringValue value)
+        public Core WithAnchor( Menes.Json.Draft202012.Core.AnchorStringValue value)
         {
             return this.SetProperty(AnchorJsonPropertyName, value);
         }
@@ -934,7 +934,7 @@ namespace Menes.Json.Draft202012
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Core WithDynamicAnchor(Menes.Json.Draft202012.Core.AnchorStringValue value)
+        public Core WithDynamicAnchor( Menes.Json.Draft202012.Core.AnchorStringValue value)
         {
             return this.SetProperty(DynamicAnchorJsonPropertyName, value);
         }
@@ -945,7 +945,7 @@ namespace Menes.Json.Draft202012
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Core WithVocabulary(Menes.Json.Draft202012.Core.VocabularyValue value)
+        public Core WithVocabulary( Menes.Json.Draft202012.Core.VocabularyValue value)
         {
             return this.SetProperty(VocabularyJsonPropertyName, value);
         }
@@ -967,7 +967,7 @@ namespace Menes.Json.Draft202012
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Core WithDefs(Menes.Json.Draft202012.Core.DefsValue value)
+        public Core WithDefs( Menes.Json.Draft202012.Core.DefsValue value)
         {
             return this.SetProperty(DefsJsonPropertyName, value);
         }
@@ -1310,63 +1310,63 @@ namespace Menes.Json.Draft202012
                 IdJsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                    IdEntity property = that.Id;
+                     Menes.Json.Draft202012.Core.IdEntity property = that.Id;
                     return property.Validate(validationContext, level);
                 });
                     builder.Add(
                 SchemaJsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                    JsonUri property = that.Schema;
+                    Menes.Json.JsonUri property = that.Schema;
                     return property.Validate(validationContext, level);
                 });
                     builder.Add(
                 RefJsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                    JsonUriReference property = that.Ref;
+                    Menes.Json.JsonUriReference property = that.Ref;
                     return property.Validate(validationContext, level);
                 });
                     builder.Add(
                 AnchorJsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                    AnchorStringValue property = that.Anchor;
+                     Menes.Json.Draft202012.Core.AnchorStringValue property = that.Anchor;
                     return property.Validate(validationContext, level);
                 });
                     builder.Add(
                 DynamicRefJsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                    JsonUriReference property = that.DynamicRef;
+                    Menes.Json.JsonUriReference property = that.DynamicRef;
                     return property.Validate(validationContext, level);
                 });
                     builder.Add(
                 DynamicAnchorJsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                    AnchorStringValue property = that.DynamicAnchor;
+                     Menes.Json.Draft202012.Core.AnchorStringValue property = that.DynamicAnchor;
                     return property.Validate(validationContext, level);
                 });
                     builder.Add(
                 VocabularyJsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                    VocabularyValue property = that.Vocabulary;
+                     Menes.Json.Draft202012.Core.VocabularyValue property = that.Vocabulary;
                     return property.Validate(validationContext, level);
                 });
                     builder.Add(
                 CommentJsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                    JsonString property = that.Comment;
+                    Menes.Json.JsonString property = that.Comment;
                     return property.Validate(validationContext, level);
                 });
                     builder.Add(
                 DefsJsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                    DefsValue property = that.Defs;
+                     Menes.Json.Draft202012.Core.DefsValue property = that.Defs;
                     return property.Validate(validationContext, level);
                 });
         
@@ -3673,16 +3673,16 @@ namespace Menes.Json.Draft202012
                 /// <summary>
         /// Enumerate the object as the given item type
         /// </summary>
-        public JsonObjectEnumerator<Menes.Json.JsonAny> EnumerateProperties()
+        public JsonObjectEnumerator< Menes.Json.Draft202012.Schema> EnumerateProperties()
         {
             if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
             {
-                return new JsonObjectEnumerator<Menes.Json.JsonAny>(properties);
+                return new JsonObjectEnumerator< Menes.Json.Draft202012.Schema>(properties);
             }
 
             if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
             {
-                return new JsonObjectEnumerator<Menes.Json.JsonAny>(this.jsonElementBacking);
+                return new JsonObjectEnumerator< Menes.Json.Draft202012.Schema>(this.jsonElementBacking);
             }
 
             return default;
@@ -4007,7 +4007,7 @@ namespace Menes.Json.Draft202012
         
                         if (!result.HasEvaluatedLocalProperty(propertyName))
                 {
-                    result = property.ValueAs<Menes.Json.JsonAny>().Validate(result, level);
+                    result = property.ValueAs< Menes.Json.Draft202012.Schema>().Validate(result, level);
                     if (level == ValidationLevel.Flag && !result.IsValid)
                     {
                         return result;

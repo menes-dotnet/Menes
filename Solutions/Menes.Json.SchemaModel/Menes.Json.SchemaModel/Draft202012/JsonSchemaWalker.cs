@@ -62,11 +62,11 @@ namespace Menes.Json.SchemaModel.Draft202012
                 if (this.anchoredSchema.TryGetValue(decodedRef, out LocatedElement value))
                 {
                     EnsureSchemaContent(value);
-                    return this.ResolvePotentiallyRecursiveAnchor(walker, value, isRecursiveReference);
+                    return this.ResolvePotentiallyRecursiveAnchor(walker, value, isDynamicReference);
                 }
 
                 LocatedElement? resolvedElement = await resolve().ConfigureAwait(false);
-                return this.ResolvePotentiallyRecursiveAnchor(walker, resolvedElement, isRecursiveReference);
+                return this.ResolvePotentiallyRecursiveAnchor(walker, resolvedElement, isDynamicReference);
             }
             else
             {
@@ -100,12 +100,12 @@ namespace Menes.Json.SchemaModel.Draft202012
             }
 
             LocatedElement? lastRecursiveAnchor = null;
-            if (this.HasRecursiveAnchor(locatedElement))
+            if (this.HasRecursiveOrDynamicAnchor(locatedElement))
             {
                 // Enumerate the recursive anchors up the stack, skipping the start location
                 foreach (LocatedElement item in walker.EnumerateLocationStack(1))
                 {
-                    if (this.HasRecursiveAnchor(item))
+                    if (this.HasRecursiveOrDynamicAnchor(item))
                     {
                         lastRecursiveAnchor = item;
                     }
@@ -115,7 +115,7 @@ namespace Menes.Json.SchemaModel.Draft202012
             return lastRecursiveAnchor ?? locatedElement;
         }
 
-        private bool HasRecursiveAnchor(LocatedElement locatedElement)
+        private bool HasRecursiveOrDynamicAnchor(LocatedElement locatedElement)
         {
             if (locatedElement.ContentType != SchemaContent)
             {
@@ -123,7 +123,7 @@ namespace Menes.Json.SchemaModel.Draft202012
             }
 
             var schema = new Schema(locatedElement.Element);
-            return schema.RecursiveAnchor.IsNotUndefined();
+            return schema.RecursiveAnchor.IsNotUndefined() || schema.DynamicAnchor.IsNotUndefined();
         }
 
         private async Task<bool> HandleElement(JsonWalker walker, JsonElement element)

@@ -26,9 +26,9 @@ namespace Menes.Json
         private static readonly ImmutableStack<JsonEncodedText> RootLocationStack = ImmutableStack.Create(JsonEncodedText.Encode("#"));
         private static readonly ImmutableStack<string> RootAbsoluteLocationStack = ImmutableStack.Create("#");
 
-        private readonly int localEvaluatedItemIndex;
+        private readonly ImmutableHashSet<int> localEvaluatedItemIndex;
         private readonly ImmutableHashSet<JsonEncodedText> localEvaluatedProperties;
-        private readonly int appliedEvaluatedItemIndex;
+        private readonly ImmutableHashSet<int> appliedEvaluatedItemIndex;
         private readonly ImmutableHashSet<JsonEncodedText> appliedEvaluatedProperties;
         private readonly ImmutableStack<string>? absoluteKeywordLocationStack;
         private readonly ImmutableStack<JsonEncodedText>? locationStack;
@@ -38,18 +38,18 @@ namespace Menes.Json
         /// Initializes a new instance of the <see cref="ValidationContext"/> struct.
         /// </summary>
         /// <param name="isValid">Whether this context is valid.</param>
-        /// <param name="localEvaluatedItemIndex">The maximum locally evaluated item index.</param>
+        /// <param name="localEvaluatedItemIndex">The set of locally evaluated item indices.</param>
         /// <param name="localEvaluatedProperties">The hash set of locally evaluated properties in this location.</param>
         /// <param name="appliedEvaluatedItemIndex">The maximum evaluated item index from applied schema.</param>
         /// <param name="appliedEvaluatedProperties">The hash set of evaluated properties from applied schema.</param>
         /// <param name="locationStack">The current location stack.</param>
         /// <param name="absoluteKeywordLocationStack">The current absolute keyword location stack.</param>
         /// <param name="results">The validation results.</param>
-        private ValidationContext(bool isValid, int? localEvaluatedItemIndex = null, in ImmutableHashSet<JsonEncodedText>? localEvaluatedProperties = null, int? appliedEvaluatedItemIndex = null, in ImmutableHashSet<JsonEncodedText>? appliedEvaluatedProperties = null, in ImmutableStack<JsonEncodedText>? locationStack = null, in ImmutableStack<string>? absoluteKeywordLocationStack = null, in ImmutableArray<ValidationResult>? results = null)
+        private ValidationContext(bool isValid, ImmutableHashSet<int>? localEvaluatedItemIndex = null, in ImmutableHashSet<JsonEncodedText>? localEvaluatedProperties = null, ImmutableHashSet<int>? appliedEvaluatedItemIndex = null, in ImmutableHashSet<JsonEncodedText>? appliedEvaluatedProperties = null, in ImmutableStack<JsonEncodedText>? locationStack = null, in ImmutableStack<string>? absoluteKeywordLocationStack = null, in ImmutableArray<ValidationResult>? results = null)
         {
-            this.localEvaluatedItemIndex = localEvaluatedItemIndex ?? -1;
+            this.localEvaluatedItemIndex = localEvaluatedItemIndex ?? ImmutableHashSet<int>.Empty;
             this.localEvaluatedProperties = localEvaluatedProperties ?? ImmutableHashSet<JsonEncodedText>.Empty;
-            this.appliedEvaluatedItemIndex = appliedEvaluatedItemIndex ?? -1;
+            this.appliedEvaluatedItemIndex = appliedEvaluatedItemIndex ?? ImmutableHashSet<int>.Empty;
             this.appliedEvaluatedProperties = appliedEvaluatedProperties ?? ImmutableHashSet<JsonEncodedText>.Empty;
             this.locationStack = locationStack;
             this.absoluteKeywordLocationStack = absoluteKeywordLocationStack;
@@ -97,7 +97,7 @@ namespace Menes.Json
         /// <returns><c>True</c> if the item has been evaluated locally.</returns>
         public bool HasEvaluatedLocalItemIndex(int itemIndex)
         {
-            return this.localEvaluatedItemIndex >= itemIndex;
+            return this.localEvaluatedItemIndex.Contains(itemIndex);
         }
 
         /// <summary>
@@ -117,7 +117,7 @@ namespace Menes.Json
         /// <returns><c>True</c> if an item has been evaluated either locally or by applied schema.</returns>
         public bool HasEvaluatedLocalOrAppliedItemIndex(int itemIndex)
         {
-            return this.localEvaluatedItemIndex >= itemIndex || this.appliedEvaluatedItemIndex >= itemIndex;
+            return this.localEvaluatedItemIndex.Contains(itemIndex) || this.appliedEvaluatedItemIndex.Contains(itemIndex);
         }
 
         /// <summary>
@@ -138,7 +138,7 @@ namespace Menes.Json
         /// <returns>The updated validation context.</returns>
         public ValidationContext WithLocalItemIndex(int index)
         {
-            return new ValidationContext(this.IsValid, Math.Max(this.localEvaluatedItemIndex, index), this.localEvaluatedProperties, this.appliedEvaluatedItemIndex, this.appliedEvaluatedProperties, this.locationStack, this.absoluteKeywordLocationStack, this.results);
+            return new ValidationContext(this.IsValid, this.localEvaluatedItemIndex.Add(index), this.localEvaluatedProperties, this.appliedEvaluatedItemIndex, this.appliedEvaluatedProperties, this.locationStack, this.absoluteKeywordLocationStack, this.results);
         }
 
         /// <summary>
@@ -159,7 +159,7 @@ namespace Menes.Json
         /// <returns>The updated validation context.</returns>
         public ValidationContext MergeChildContext(in ValidationContext childContext, bool includeResults)
         {
-            return new ValidationContext(includeResults ? this.IsValid && childContext.IsValid : this.IsValid, this.localEvaluatedItemIndex, this.localEvaluatedProperties, Math.Max(this.appliedEvaluatedItemIndex, Math.Max(childContext.localEvaluatedItemIndex, childContext.appliedEvaluatedItemIndex)), this.CombineProperties(childContext), this.locationStack, this.absoluteKeywordLocationStack, includeResults && childContext.results is not null ? this.results?.AddRange(childContext.results) : this.results);
+            return new ValidationContext(includeResults ? this.IsValid && childContext.IsValid : this.IsValid, this.localEvaluatedItemIndex, this.localEvaluatedProperties, this.appliedEvaluatedItemIndex.Union(childContext.localEvaluatedItemIndex).Union(childContext.appliedEvaluatedItemIndex), this.CombineProperties(childContext), this.locationStack, this.absoluteKeywordLocationStack, includeResults && childContext.results is not null ? this.results?.AddRange(childContext.results) : this.results);
         }
 
         /// <summary>

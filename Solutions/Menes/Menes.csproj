@@ -25,6 +25,7 @@
   </ItemGroup>-->
 
   <ItemGroup>
+    <ProjectReference Include="..\Menes.Json.JsonSchema\Menes.Json.JsonSchema.csproj" />
     <ProjectReference Include="..\Menes.Json.SourceGenerator\Menes.Json.SourceGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
   </ItemGroup>
 

@@ -10,7 +10,7 @@
 
 #nullable enable
 
-namespace Menes.Json.Draft202012
+namespace  Menes.Json.Draft202012
 {
     using System;
     using System.Collections.Generic;
@@ -327,7 +327,7 @@ namespace Menes.Json.Draft202012
         /// <example>
         /// {Property examples}.
         /// </example>
-        public Menes.Json.Draft202012.MetaData.DeprecatedValue Deprecated
+        public  Menes.Json.Draft202012.MetaData.DeprecatedValue Deprecated
         {
             get
             {
@@ -343,7 +343,7 @@ namespace Menes.Json.Draft202012
                 {
                     if (this.jsonElementBacking.TryGetProperty(DeprecatedUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  Menes.Json.Draft202012.MetaData.DeprecatedValue(result);
+                        return new   Menes.Json.Draft202012.MetaData.DeprecatedValue(result);
                     }
                 }
 
@@ -362,7 +362,7 @@ namespace Menes.Json.Draft202012
         /// <example>
         /// {Property examples}.
         /// </example>
-        public Menes.Json.Draft202012.MetaData.ReadOnlyValue ReadOnly
+        public  Menes.Json.Draft202012.MetaData.ReadOnlyValue ReadOnly
         {
             get
             {
@@ -378,7 +378,7 @@ namespace Menes.Json.Draft202012
                 {
                     if (this.jsonElementBacking.TryGetProperty(ReadOnlyUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  Menes.Json.Draft202012.MetaData.ReadOnlyValue(result);
+                        return new   Menes.Json.Draft202012.MetaData.ReadOnlyValue(result);
                     }
                 }
 
@@ -397,7 +397,7 @@ namespace Menes.Json.Draft202012
         /// <example>
         /// {Property examples}.
         /// </example>
-        public Menes.Json.Draft202012.MetaData.WriteOnlyValue WriteOnly
+        public  Menes.Json.Draft202012.MetaData.WriteOnlyValue WriteOnly
         {
             get
             {
@@ -413,7 +413,7 @@ namespace Menes.Json.Draft202012
                 {
                     if (this.jsonElementBacking.TryGetProperty(WriteOnlyUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  Menes.Json.Draft202012.MetaData.WriteOnlyValue(result);
+                        return new   Menes.Json.Draft202012.MetaData.WriteOnlyValue(result);
                     }
                 }
 
@@ -432,7 +432,7 @@ namespace Menes.Json.Draft202012
         /// <example>
         /// {Property examples}.
         /// </example>
-        public Menes.Json.Draft202012.MetaData.JsonAnyArray Examples
+        public  Menes.Json.Draft202012.MetaData.JsonAnyArray Examples
         {
             get
             {
@@ -448,7 +448,7 @@ namespace Menes.Json.Draft202012
                 {
                     if (this.jsonElementBacking.TryGetProperty(ExamplesUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  Menes.Json.Draft202012.MetaData.JsonAnyArray(result);
+                        return new   Menes.Json.Draft202012.MetaData.JsonAnyArray(result);
                     }
                 }
 
@@ -733,10 +733,10 @@ namespace Menes.Json.Draft202012
                             Menes.Json.JsonString? title = null
         ,             Menes.Json.JsonString? description = null
         ,             Menes.Json.JsonAny? @default = null
-        ,             Menes.Json.Draft202012.MetaData.DeprecatedValue? deprecated = null
-        ,             Menes.Json.Draft202012.MetaData.ReadOnlyValue? readOnly = null
-        ,             Menes.Json.Draft202012.MetaData.WriteOnlyValue? writeOnly = null
-        ,             Menes.Json.Draft202012.MetaData.JsonAnyArray? examples = null
+        ,              Menes.Json.Draft202012.MetaData.DeprecatedValue? deprecated = null
+        ,              Menes.Json.Draft202012.MetaData.ReadOnlyValue? readOnly = null
+        ,              Menes.Json.Draft202012.MetaData.WriteOnlyValue? writeOnly = null
+        ,              Menes.Json.Draft202012.MetaData.JsonAnyArray? examples = null
         
         )
         {
@@ -753,19 +753,19 @@ namespace Menes.Json.Draft202012
             {
                 builder.Add(DefaultJsonPropertyName, @default__);
             }
-                    if (deprecated is Menes.Json.Draft202012.MetaData.DeprecatedValue deprecated__)
+                    if (deprecated is  Menes.Json.Draft202012.MetaData.DeprecatedValue deprecated__)
             {
                 builder.Add(DeprecatedJsonPropertyName, deprecated__);
             }
-                    if (readOnly is Menes.Json.Draft202012.MetaData.ReadOnlyValue readOnly__)
+                    if (readOnly is  Menes.Json.Draft202012.MetaData.ReadOnlyValue readOnly__)
             {
                 builder.Add(ReadOnlyJsonPropertyName, readOnly__);
             }
-                    if (writeOnly is Menes.Json.Draft202012.MetaData.WriteOnlyValue writeOnly__)
+                    if (writeOnly is  Menes.Json.Draft202012.MetaData.WriteOnlyValue writeOnly__)
             {
                 builder.Add(WriteOnlyJsonPropertyName, writeOnly__);
             }
-                    if (examples is Menes.Json.Draft202012.MetaData.JsonAnyArray examples__)
+                    if (examples is  Menes.Json.Draft202012.MetaData.JsonAnyArray examples__)
             {
                 builder.Add(ExamplesJsonPropertyName, examples__);
             }
@@ -811,7 +811,7 @@ namespace Menes.Json.Draft202012
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public MetaData WithDeprecated(Menes.Json.Draft202012.MetaData.DeprecatedValue value)
+        public MetaData WithDeprecated( Menes.Json.Draft202012.MetaData.DeprecatedValue value)
         {
             return this.SetProperty(DeprecatedJsonPropertyName, value);
         }
@@ -822,7 +822,7 @@ namespace Menes.Json.Draft202012
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public MetaData WithReadOnly(Menes.Json.Draft202012.MetaData.ReadOnlyValue value)
+        public MetaData WithReadOnly( Menes.Json.Draft202012.MetaData.ReadOnlyValue value)
         {
             return this.SetProperty(ReadOnlyJsonPropertyName, value);
         }
@@ -833,7 +833,7 @@ namespace Menes.Json.Draft202012
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public MetaData WithWriteOnly(Menes.Json.Draft202012.MetaData.WriteOnlyValue value)
+        public MetaData WithWriteOnly( Menes.Json.Draft202012.MetaData.WriteOnlyValue value)
         {
             return this.SetProperty(WriteOnlyJsonPropertyName, value);
         }
@@ -844,7 +844,7 @@ namespace Menes.Json.Draft202012
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public MetaData WithExamples(Menes.Json.Draft202012.MetaData.JsonAnyArray value)
+        public MetaData WithExamples( Menes.Json.Draft202012.MetaData.JsonAnyArray value)
         {
             return this.SetProperty(ExamplesJsonPropertyName, value);
         }
@@ -1245,49 +1245,49 @@ namespace Menes.Json.Draft202012
                 TitleJsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                    JsonString property = that.Title;
+                    Menes.Json.JsonString property = that.Title;
                     return property.Validate(validationContext, level);
                 });
                     builder.Add(
                 DescriptionJsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                    JsonString property = that.Description;
+                    Menes.Json.JsonString property = that.Description;
                     return property.Validate(validationContext, level);
                 });
                     builder.Add(
                 DefaultJsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                    JsonAny property = that.Default;
+                    Menes.Json.JsonAny property = that.Default;
                     return property.Validate(validationContext, level);
                 });
                     builder.Add(
                 DeprecatedJsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                    DeprecatedValue property = that.Deprecated;
+                     Menes.Json.Draft202012.MetaData.DeprecatedValue property = that.Deprecated;
                     return property.Validate(validationContext, level);
                 });
                     builder.Add(
                 ReadOnlyJsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                    ReadOnlyValue property = that.ReadOnly;
+                     Menes.Json.Draft202012.MetaData.ReadOnlyValue property = that.ReadOnly;
                     return property.Validate(validationContext, level);
                 });
                     builder.Add(
                 WriteOnlyJsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                    WriteOnlyValue property = that.WriteOnly;
+                     Menes.Json.Draft202012.MetaData.WriteOnlyValue property = that.WriteOnly;
                     return property.Validate(validationContext, level);
                 });
                     builder.Add(
                 ExamplesJsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                    JsonAnyArray property = that.Examples;
+                     Menes.Json.Draft202012.MetaData.JsonAnyArray property = that.Examples;
                     return property.Validate(validationContext, level);
                 });
         

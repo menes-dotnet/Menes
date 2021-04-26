@@ -10,7 +10,7 @@
 
 #nullable enable
 
-namespace Menes.Json.Draft202012
+namespace  Menes.Json.Draft202012
 {
     using System;
     using System.Collections.Generic;
@@ -814,7 +814,7 @@ namespace Menes.Json.Draft202012
                 FormatJsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                    JsonString property = that.Format;
+                    Menes.Json.JsonString property = that.Format;
                     return property.Validate(validationContext, level);
                 });
         
