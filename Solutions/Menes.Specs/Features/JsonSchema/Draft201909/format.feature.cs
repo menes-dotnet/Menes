@@ -85,7 +85,6 @@ namespace Features.JsonSchema.Draft201909
         [NUnit.Framework.TestCaseAttribute("#/000/tests/003/data", "true", "ignores arrays", null)]
         [NUnit.Framework.TestCaseAttribute("#/000/tests/004/data", "true", "ignores booleans", null)]
         [NUnit.Framework.TestCaseAttribute("#/000/tests/005/data", "true", "ignores null", null)]
-        [NUnit.Framework.TestCaseAttribute("#/000/tests/006/data", "true", "invalid email string is only an annotation by default", null)]
         public virtual void ValidationOfE_MailAddresses(string inputDataReference, string valid, string description, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
@@ -147,7 +146,6 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestCaseAttribute("#/001/tests/003/data", "true", "ignores arrays", null)]
         [NUnit.Framework.TestCaseAttribute("#/001/tests/004/data", "true", "ignores booleans", null)]
         [NUnit.Framework.TestCaseAttribute("#/001/tests/005/data", "true", "ignores null", null)]
-        [NUnit.Framework.TestCaseAttribute("#/001/tests/006/data", "true", "invalid idn-email string is only an annotation by default", null)]
         public virtual void ValidationOfIDNE_MailAddresses(string inputDataReference, string valid, string description, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
@@ -209,7 +207,6 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestCaseAttribute("#/002/tests/003/data", "true", "ignores arrays", null)]
         [NUnit.Framework.TestCaseAttribute("#/002/tests/004/data", "true", "ignores booleans", null)]
         [NUnit.Framework.TestCaseAttribute("#/002/tests/005/data", "true", "ignores null", null)]
-        [NUnit.Framework.TestCaseAttribute("#/002/tests/006/data", "true", "invalid regex string is only an annotation by default", null)]
         public virtual void ValidationOfRegexes(string inputDataReference, string valid, string description, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
@@ -271,7 +268,6 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestCaseAttribute("#/003/tests/003/data", "true", "ignores arrays", null)]
         [NUnit.Framework.TestCaseAttribute("#/003/tests/004/data", "true", "ignores booleans", null)]
         [NUnit.Framework.TestCaseAttribute("#/003/tests/005/data", "true", "ignores null", null)]
-        [NUnit.Framework.TestCaseAttribute("#/003/tests/006/data", "true", "invalid ipv4 string is only an annotation by default", null)]
         public virtual void ValidationOfIPAddresses(string inputDataReference, string valid, string description, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
@@ -333,7 +329,6 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestCaseAttribute("#/004/tests/003/data", "true", "ignores arrays", null)]
         [NUnit.Framework.TestCaseAttribute("#/004/tests/004/data", "true", "ignores booleans", null)]
         [NUnit.Framework.TestCaseAttribute("#/004/tests/005/data", "true", "ignores null", null)]
-        [NUnit.Framework.TestCaseAttribute("#/004/tests/006/data", "true", "invalid ipv6 string is only an annotation by default", null)]
         public virtual void ValidationOfIPv6Addresses(string inputDataReference, string valid, string description, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
@@ -395,7 +390,6 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestCaseAttribute("#/005/tests/003/data", "true", "ignores arrays", null)]
         [NUnit.Framework.TestCaseAttribute("#/005/tests/004/data", "true", "ignores booleans", null)]
         [NUnit.Framework.TestCaseAttribute("#/005/tests/005/data", "true", "ignores null", null)]
-        [NUnit.Framework.TestCaseAttribute("#/005/tests/006/data", "true", "invalid idn-hostname string is only an annotation by default", null)]
         public virtual void ValidationOfIDNHostnames(string inputDataReference, string valid, string description, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
@@ -457,7 +451,6 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestCaseAttribute("#/006/tests/003/data", "true", "ignores arrays", null)]
         [NUnit.Framework.TestCaseAttribute("#/006/tests/004/data", "true", "ignores booleans", null)]
         [NUnit.Framework.TestCaseAttribute("#/006/tests/005/data", "true", "ignores null", null)]
-        [NUnit.Framework.TestCaseAttribute("#/006/tests/006/data", "true", "invalid hostname string is only an annotation by default", null)]
         public virtual void ValidationOfHostnames(string inputDataReference, string valid, string description, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
@@ -519,7 +512,6 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestCaseAttribute("#/007/tests/003/data", "true", "ignores arrays", null)]
         [NUnit.Framework.TestCaseAttribute("#/007/tests/004/data", "true", "ignores booleans", null)]
         [NUnit.Framework.TestCaseAttribute("#/007/tests/005/data", "true", "ignores null", null)]
-        [NUnit.Framework.TestCaseAttribute("#/007/tests/006/data", "true", "invalid date string is only an annotation by default", null)]
         public virtual void ValidationOfDateStrings(string inputDataReference, string valid, string description, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
@@ -581,7 +573,6 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestCaseAttribute("#/008/tests/003/data", "true", "ignores arrays", null)]
         [NUnit.Framework.TestCaseAttribute("#/008/tests/004/data", "true", "ignores booleans", null)]
         [NUnit.Framework.TestCaseAttribute("#/008/tests/005/data", "true", "ignores null", null)]
-        [NUnit.Framework.TestCaseAttribute("#/008/tests/006/data", "true", "invalid date-time string is only an annotation by default", null)]
         public virtual void ValidationOfDate_TimeStrings(string inputDataReference, string valid, string description, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
@@ -643,7 +634,6 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestCaseAttribute("#/009/tests/003/data", "true", "ignores arrays", null)]
         [NUnit.Framework.TestCaseAttribute("#/009/tests/004/data", "true", "ignores booleans", null)]
         [NUnit.Framework.TestCaseAttribute("#/009/tests/005/data", "true", "ignores null", null)]
-        [NUnit.Framework.TestCaseAttribute("#/009/tests/006/data", "true", "invalid time string is only an annotation by default", null)]
         public virtual void ValidationOfTimeStrings(string inputDataReference, string valid, string description, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
@@ -705,7 +695,6 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestCaseAttribute("#/010/tests/003/data", "true", "ignores arrays", null)]
         [NUnit.Framework.TestCaseAttribute("#/010/tests/004/data", "true", "ignores booleans", null)]
         [NUnit.Framework.TestCaseAttribute("#/010/tests/005/data", "true", "ignores null", null)]
-        [NUnit.Framework.TestCaseAttribute("#/010/tests/006/data", "true", "invalid json-pointer string is only an annotation by default", null)]
         public virtual void ValidationOfJSONPointers(string inputDataReference, string valid, string description, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
@@ -767,7 +756,6 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestCaseAttribute("#/011/tests/003/data", "true", "ignores arrays", null)]
         [NUnit.Framework.TestCaseAttribute("#/011/tests/004/data", "true", "ignores booleans", null)]
         [NUnit.Framework.TestCaseAttribute("#/011/tests/005/data", "true", "ignores null", null)]
-        [NUnit.Framework.TestCaseAttribute("#/011/tests/006/data", "true", "invalid relative-json-pointer string is only an annotation by default", null)]
         public virtual void ValidationOfRelativeJSONPointers(string inputDataReference, string valid, string description, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
@@ -829,7 +817,6 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestCaseAttribute("#/012/tests/003/data", "true", "ignores arrays", null)]
         [NUnit.Framework.TestCaseAttribute("#/012/tests/004/data", "true", "ignores booleans", null)]
         [NUnit.Framework.TestCaseAttribute("#/012/tests/005/data", "true", "ignores null", null)]
-        [NUnit.Framework.TestCaseAttribute("#/012/tests/006/data", "true", "invalid iri string is only an annotation by default", null)]
         public virtual void ValidationOfIRIs(string inputDataReference, string valid, string description, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
@@ -891,7 +878,6 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestCaseAttribute("#/013/tests/003/data", "true", "ignores arrays", null)]
         [NUnit.Framework.TestCaseAttribute("#/013/tests/004/data", "true", "ignores booleans", null)]
         [NUnit.Framework.TestCaseAttribute("#/013/tests/005/data", "true", "ignores null", null)]
-        [NUnit.Framework.TestCaseAttribute("#/013/tests/006/data", "true", "invalid iri-reference string is only an annotation by default", null)]
         public virtual void ValidationOfIRIReferences(string inputDataReference, string valid, string description, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
@@ -953,7 +939,6 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestCaseAttribute("#/014/tests/003/data", "true", "ignores arrays", null)]
         [NUnit.Framework.TestCaseAttribute("#/014/tests/004/data", "true", "ignores booleans", null)]
         [NUnit.Framework.TestCaseAttribute("#/014/tests/005/data", "true", "ignores null", null)]
-        [NUnit.Framework.TestCaseAttribute("#/014/tests/006/data", "true", "invalid uri string is only an annotation by default", null)]
         public virtual void ValidationOfURIs(string inputDataReference, string valid, string description, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
@@ -1015,7 +1000,6 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestCaseAttribute("#/015/tests/003/data", "true", "ignores arrays", null)]
         [NUnit.Framework.TestCaseAttribute("#/015/tests/004/data", "true", "ignores booleans", null)]
         [NUnit.Framework.TestCaseAttribute("#/015/tests/005/data", "true", "ignores null", null)]
-        [NUnit.Framework.TestCaseAttribute("#/015/tests/006/data", "true", "invalid uri-reference string is only an annotation by default", null)]
         public virtual void ValidationOfURIReferences(string inputDataReference, string valid, string description, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
@@ -1077,7 +1061,6 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestCaseAttribute("#/016/tests/003/data", "true", "ignores arrays", null)]
         [NUnit.Framework.TestCaseAttribute("#/016/tests/004/data", "true", "ignores booleans", null)]
         [NUnit.Framework.TestCaseAttribute("#/016/tests/005/data", "true", "ignores null", null)]
-        [NUnit.Framework.TestCaseAttribute("#/016/tests/006/data", "true", "invalid uri-template string is only an annotation by default", null)]
         public virtual void ValidationOfURITemplates(string inputDataReference, string valid, string description, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
@@ -1139,7 +1122,6 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestCaseAttribute("#/017/tests/003/data", "true", "ignores arrays", null)]
         [NUnit.Framework.TestCaseAttribute("#/017/tests/004/data", "true", "ignores booleans", null)]
         [NUnit.Framework.TestCaseAttribute("#/017/tests/005/data", "true", "ignores null", null)]
-        [NUnit.Framework.TestCaseAttribute("#/017/tests/006/data", "true", "invalid uuid string is only an annotation by default", null)]
         public virtual void ValidationOfUUIDs(string inputDataReference, string valid, string description, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
@@ -1201,7 +1183,6 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestCaseAttribute("#/018/tests/003/data", "true", "ignores arrays", null)]
         [NUnit.Framework.TestCaseAttribute("#/018/tests/004/data", "true", "ignores booleans", null)]
         [NUnit.Framework.TestCaseAttribute("#/018/tests/005/data", "true", "ignores null", null)]
-        [NUnit.Framework.TestCaseAttribute("#/018/tests/006/data", "true", "invalid duration string is only an annotation by default", null)]
         public virtual void ValidationOfDurations(string inputDataReference, string valid, string description, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;

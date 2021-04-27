@@ -10,7 +10,7 @@
 
 #nullable enable
 
-namespace  Menes.Json.Draft202012
+namespace Menes.Json.Draft202012
 {
     using System;
     using System.Collections.Generic;
@@ -365,7 +365,7 @@ namespace  Menes.Json.Draft202012
         /// <example>
         /// {Property examples}.
         /// </example>
-        public  Menes.Json.Draft202012.Validation.TypeEntity Type
+        public Menes.Json.Draft202012.Validation.TypeEntity Type
         {
             get
             {
@@ -381,7 +381,7 @@ namespace  Menes.Json.Draft202012
                 {
                     if (this.jsonElementBacking.TryGetProperty(TypeUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new   Menes.Json.Draft202012.Validation.TypeEntity(result);
+                        return new  Menes.Json.Draft202012.Validation.TypeEntity(result);
                     }
                 }
 
@@ -435,7 +435,7 @@ namespace  Menes.Json.Draft202012
         /// <example>
         /// {Property examples}.
         /// </example>
-        public  Menes.Json.Draft202012.Validation.JsonAnyArray Enum
+        public Menes.Json.Draft202012.Validation.JsonAnyArray Enum
         {
             get
             {
@@ -451,7 +451,7 @@ namespace  Menes.Json.Draft202012
                 {
                     if (this.jsonElementBacking.TryGetProperty(EnumUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new   Menes.Json.Draft202012.Validation.JsonAnyArray(result);
+                        return new  Menes.Json.Draft202012.Validation.JsonAnyArray(result);
                     }
                 }
 
@@ -470,7 +470,7 @@ namespace  Menes.Json.Draft202012
         /// <example>
         /// {Property examples}.
         /// </example>
-        public  Menes.Json.Draft202012.Validation.MultipleOfValue MultipleOf
+        public Menes.Json.Draft202012.Validation.MultipleOfValue MultipleOf
         {
             get
             {
@@ -486,7 +486,7 @@ namespace  Menes.Json.Draft202012
                 {
                     if (this.jsonElementBacking.TryGetProperty(MultipleOfUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new   Menes.Json.Draft202012.Validation.MultipleOfValue(result);
+                        return new  Menes.Json.Draft202012.Validation.MultipleOfValue(result);
                     }
                 }
 
@@ -645,7 +645,7 @@ namespace  Menes.Json.Draft202012
         /// <example>
         /// {Property examples}.
         /// </example>
-        public  Menes.Json.Draft202012.Validation.NonNegativeIntegerValue MaxLength
+        public Menes.Json.Draft202012.Validation.NonNegativeIntegerValue MaxLength
         {
             get
             {
@@ -661,7 +661,7 @@ namespace  Menes.Json.Draft202012
                 {
                     if (this.jsonElementBacking.TryGetProperty(MaxLengthUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new   Menes.Json.Draft202012.Validation.NonNegativeIntegerValue(result);
+                        return new  Menes.Json.Draft202012.Validation.NonNegativeIntegerValue(result);
                     }
                 }
 
@@ -680,7 +680,7 @@ namespace  Menes.Json.Draft202012
         /// <example>
         /// {Property examples}.
         /// </example>
-        public  Menes.Json.Draft202012.Validation.NonNegativeIntegerDefault0Entity MinLength
+        public Menes.Json.Draft202012.Validation.NonNegativeIntegerDefault0Entity MinLength
         {
             get
             {
@@ -696,7 +696,7 @@ namespace  Menes.Json.Draft202012
                 {
                     if (this.jsonElementBacking.TryGetProperty(MinLengthUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new   Menes.Json.Draft202012.Validation.NonNegativeIntegerDefault0Entity(result);
+                        return new  Menes.Json.Draft202012.Validation.NonNegativeIntegerDefault0Entity(result);
                     }
                 }
 
@@ -750,7 +750,7 @@ namespace  Menes.Json.Draft202012
         /// <example>
         /// {Property examples}.
         /// </example>
-        public  Menes.Json.Draft202012.Validation.NonNegativeIntegerValue MaxItems
+        public Menes.Json.Draft202012.Validation.NonNegativeIntegerValue MaxItems
         {
             get
             {
@@ -766,7 +766,7 @@ namespace  Menes.Json.Draft202012
                 {
                     if (this.jsonElementBacking.TryGetProperty(MaxItemsUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new   Menes.Json.Draft202012.Validation.NonNegativeIntegerValue(result);
+                        return new  Menes.Json.Draft202012.Validation.NonNegativeIntegerValue(result);
                     }
                 }
 
@@ -785,7 +785,7 @@ namespace  Menes.Json.Draft202012
         /// <example>
         /// {Property examples}.
         /// </example>
-        public  Menes.Json.Draft202012.Validation.NonNegativeIntegerDefault0Entity MinItems
+        public Menes.Json.Draft202012.Validation.NonNegativeIntegerDefault0Entity MinItems
         {
             get
             {
@@ -801,7 +801,7 @@ namespace  Menes.Json.Draft202012
                 {
                     if (this.jsonElementBacking.TryGetProperty(MinItemsUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new   Menes.Json.Draft202012.Validation.NonNegativeIntegerDefault0Entity(result);
+                        return new  Menes.Json.Draft202012.Validation.NonNegativeIntegerDefault0Entity(result);
                     }
                 }
 
@@ -820,7 +820,7 @@ namespace  Menes.Json.Draft202012
         /// <example>
         /// {Property examples}.
         /// </example>
-        public  Menes.Json.Draft202012.Validation.UniqueItemsValue UniqueItems
+        public Menes.Json.Draft202012.Validation.UniqueItemsValue UniqueItems
         {
             get
             {
@@ -836,7 +836,7 @@ namespace  Menes.Json.Draft202012
                 {
                     if (this.jsonElementBacking.TryGetProperty(UniqueItemsUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new   Menes.Json.Draft202012.Validation.UniqueItemsValue(result);
+                        return new  Menes.Json.Draft202012.Validation.UniqueItemsValue(result);
                     }
                 }
 
@@ -855,7 +855,7 @@ namespace  Menes.Json.Draft202012
         /// <example>
         /// {Property examples}.
         /// </example>
-        public  Menes.Json.Draft202012.Validation.NonNegativeIntegerValue MaxContains
+        public Menes.Json.Draft202012.Validation.NonNegativeIntegerValue MaxContains
         {
             get
             {
@@ -871,7 +871,7 @@ namespace  Menes.Json.Draft202012
                 {
                     if (this.jsonElementBacking.TryGetProperty(MaxContainsUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new   Menes.Json.Draft202012.Validation.NonNegativeIntegerValue(result);
+                        return new  Menes.Json.Draft202012.Validation.NonNegativeIntegerValue(result);
                     }
                 }
 
@@ -890,7 +890,7 @@ namespace  Menes.Json.Draft202012
         /// <example>
         /// {Property examples}.
         /// </example>
-        public  Menes.Json.Draft202012.Validation.MinContainsEntity MinContains
+        public Menes.Json.Draft202012.Validation.MinContainsEntity MinContains
         {
             get
             {
@@ -906,7 +906,7 @@ namespace  Menes.Json.Draft202012
                 {
                     if (this.jsonElementBacking.TryGetProperty(MinContainsUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new   Menes.Json.Draft202012.Validation.MinContainsEntity(result);
+                        return new  Menes.Json.Draft202012.Validation.MinContainsEntity(result);
                     }
                 }
 
@@ -925,7 +925,7 @@ namespace  Menes.Json.Draft202012
         /// <example>
         /// {Property examples}.
         /// </example>
-        public  Menes.Json.Draft202012.Validation.NonNegativeIntegerValue MaxProperties
+        public Menes.Json.Draft202012.Validation.NonNegativeIntegerValue MaxProperties
         {
             get
             {
@@ -941,7 +941,7 @@ namespace  Menes.Json.Draft202012
                 {
                     if (this.jsonElementBacking.TryGetProperty(MaxPropertiesUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new   Menes.Json.Draft202012.Validation.NonNegativeIntegerValue(result);
+                        return new  Menes.Json.Draft202012.Validation.NonNegativeIntegerValue(result);
                     }
                 }
 
@@ -960,7 +960,7 @@ namespace  Menes.Json.Draft202012
         /// <example>
         /// {Property examples}.
         /// </example>
-        public  Menes.Json.Draft202012.Validation.NonNegativeIntegerDefault0Entity MinProperties
+        public Menes.Json.Draft202012.Validation.NonNegativeIntegerDefault0Entity MinProperties
         {
             get
             {
@@ -976,7 +976,7 @@ namespace  Menes.Json.Draft202012
                 {
                     if (this.jsonElementBacking.TryGetProperty(MinPropertiesUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new   Menes.Json.Draft202012.Validation.NonNegativeIntegerDefault0Entity(result);
+                        return new  Menes.Json.Draft202012.Validation.NonNegativeIntegerDefault0Entity(result);
                     }
                 }
 
@@ -995,7 +995,7 @@ namespace  Menes.Json.Draft202012
         /// <example>
         /// {Property examples}.
         /// </example>
-        public  Menes.Json.Draft202012.Validation.JsonStringArray Required
+        public Menes.Json.Draft202012.Validation.JsonStringArray Required
         {
             get
             {
@@ -1011,7 +1011,7 @@ namespace  Menes.Json.Draft202012
                 {
                     if (this.jsonElementBacking.TryGetProperty(RequiredUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new   Menes.Json.Draft202012.Validation.JsonStringArray(result);
+                        return new  Menes.Json.Draft202012.Validation.JsonStringArray(result);
                     }
                 }
 
@@ -1030,7 +1030,7 @@ namespace  Menes.Json.Draft202012
         /// <example>
         /// {Property examples}.
         /// </example>
-        public  Menes.Json.Draft202012.Validation.DependentRequiredValue DependentRequired
+        public Menes.Json.Draft202012.Validation.DependentRequiredValue DependentRequired
         {
             get
             {
@@ -1046,7 +1046,7 @@ namespace  Menes.Json.Draft202012
                 {
                     if (this.jsonElementBacking.TryGetProperty(DependentRequiredUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new   Menes.Json.Draft202012.Validation.DependentRequiredValue(result);
+                        return new  Menes.Json.Draft202012.Validation.DependentRequiredValue(result);
                     }
                 }
 
@@ -1328,31 +1328,31 @@ namespace  Menes.Json.Draft202012
         /// Creates an instance of a <see cref="Validation"/>.
         /// </summary>
         public static Validation Create(
-                             Menes.Json.Draft202012.Validation.TypeEntity? type = null
+                            Menes.Json.Draft202012.Validation.TypeEntity? type = null
         ,             Menes.Json.JsonAny? @const = null
-        ,              Menes.Json.Draft202012.Validation.JsonAnyArray? @enum = null
-        ,              Menes.Json.Draft202012.Validation.MultipleOfValue? multipleOf = null
+        ,             Menes.Json.Draft202012.Validation.JsonAnyArray? @enum = null
+        ,             Menes.Json.Draft202012.Validation.MultipleOfValue? multipleOf = null
         ,             Menes.Json.JsonNumber? maximum = null
         ,             Menes.Json.JsonNumber? exclusiveMaximum = null
         ,             Menes.Json.JsonNumber? minimum = null
         ,             Menes.Json.JsonNumber? exclusiveMinimum = null
-        ,              Menes.Json.Draft202012.Validation.NonNegativeIntegerValue? maxLength = null
-        ,              Menes.Json.Draft202012.Validation.NonNegativeIntegerDefault0Entity? minLength = null
+        ,             Menes.Json.Draft202012.Validation.NonNegativeIntegerValue? maxLength = null
+        ,             Menes.Json.Draft202012.Validation.NonNegativeIntegerDefault0Entity? minLength = null
         ,             Menes.Json.JsonRegex? pattern = null
-        ,              Menes.Json.Draft202012.Validation.NonNegativeIntegerValue? maxItems = null
-        ,              Menes.Json.Draft202012.Validation.NonNegativeIntegerDefault0Entity? minItems = null
-        ,              Menes.Json.Draft202012.Validation.UniqueItemsValue? uniqueItems = null
-        ,              Menes.Json.Draft202012.Validation.NonNegativeIntegerValue? maxContains = null
-        ,              Menes.Json.Draft202012.Validation.MinContainsEntity? minContains = null
-        ,              Menes.Json.Draft202012.Validation.NonNegativeIntegerValue? maxProperties = null
-        ,              Menes.Json.Draft202012.Validation.NonNegativeIntegerDefault0Entity? minProperties = null
-        ,              Menes.Json.Draft202012.Validation.JsonStringArray? required = null
-        ,              Menes.Json.Draft202012.Validation.DependentRequiredValue? dependentRequired = null
+        ,             Menes.Json.Draft202012.Validation.NonNegativeIntegerValue? maxItems = null
+        ,             Menes.Json.Draft202012.Validation.NonNegativeIntegerDefault0Entity? minItems = null
+        ,             Menes.Json.Draft202012.Validation.UniqueItemsValue? uniqueItems = null
+        ,             Menes.Json.Draft202012.Validation.NonNegativeIntegerValue? maxContains = null
+        ,             Menes.Json.Draft202012.Validation.MinContainsEntity? minContains = null
+        ,             Menes.Json.Draft202012.Validation.NonNegativeIntegerValue? maxProperties = null
+        ,             Menes.Json.Draft202012.Validation.NonNegativeIntegerDefault0Entity? minProperties = null
+        ,             Menes.Json.Draft202012.Validation.JsonStringArray? required = null
+        ,             Menes.Json.Draft202012.Validation.DependentRequiredValue? dependentRequired = null
         
         )
         {
             var builder = ImmutableDictionary.CreateBuilder<JsonEncodedText, JsonAny>();
-                            if (type is  Menes.Json.Draft202012.Validation.TypeEntity type__)
+                            if (type is Menes.Json.Draft202012.Validation.TypeEntity type__)
             {
                 builder.Add(TypeJsonPropertyName, type__);
             }
@@ -1360,11 +1360,11 @@ namespace  Menes.Json.Draft202012
             {
                 builder.Add(ConstJsonPropertyName, @const__);
             }
-                    if (@enum is  Menes.Json.Draft202012.Validation.JsonAnyArray @enum__)
+                    if (@enum is Menes.Json.Draft202012.Validation.JsonAnyArray @enum__)
             {
                 builder.Add(EnumJsonPropertyName, @enum__);
             }
-                    if (multipleOf is  Menes.Json.Draft202012.Validation.MultipleOfValue multipleOf__)
+                    if (multipleOf is Menes.Json.Draft202012.Validation.MultipleOfValue multipleOf__)
             {
                 builder.Add(MultipleOfJsonPropertyName, multipleOf__);
             }
@@ -1384,11 +1384,11 @@ namespace  Menes.Json.Draft202012
             {
                 builder.Add(ExclusiveMinimumJsonPropertyName, exclusiveMinimum__);
             }
-                    if (maxLength is  Menes.Json.Draft202012.Validation.NonNegativeIntegerValue maxLength__)
+                    if (maxLength is Menes.Json.Draft202012.Validation.NonNegativeIntegerValue maxLength__)
             {
                 builder.Add(MaxLengthJsonPropertyName, maxLength__);
             }
-                    if (minLength is  Menes.Json.Draft202012.Validation.NonNegativeIntegerDefault0Entity minLength__)
+                    if (minLength is Menes.Json.Draft202012.Validation.NonNegativeIntegerDefault0Entity minLength__)
             {
                 builder.Add(MinLengthJsonPropertyName, minLength__);
             }
@@ -1396,39 +1396,39 @@ namespace  Menes.Json.Draft202012
             {
                 builder.Add(PatternJsonPropertyName, pattern__);
             }
-                    if (maxItems is  Menes.Json.Draft202012.Validation.NonNegativeIntegerValue maxItems__)
+                    if (maxItems is Menes.Json.Draft202012.Validation.NonNegativeIntegerValue maxItems__)
             {
                 builder.Add(MaxItemsJsonPropertyName, maxItems__);
             }
-                    if (minItems is  Menes.Json.Draft202012.Validation.NonNegativeIntegerDefault0Entity minItems__)
+                    if (minItems is Menes.Json.Draft202012.Validation.NonNegativeIntegerDefault0Entity minItems__)
             {
                 builder.Add(MinItemsJsonPropertyName, minItems__);
             }
-                    if (uniqueItems is  Menes.Json.Draft202012.Validation.UniqueItemsValue uniqueItems__)
+                    if (uniqueItems is Menes.Json.Draft202012.Validation.UniqueItemsValue uniqueItems__)
             {
                 builder.Add(UniqueItemsJsonPropertyName, uniqueItems__);
             }
-                    if (maxContains is  Menes.Json.Draft202012.Validation.NonNegativeIntegerValue maxContains__)
+                    if (maxContains is Menes.Json.Draft202012.Validation.NonNegativeIntegerValue maxContains__)
             {
                 builder.Add(MaxContainsJsonPropertyName, maxContains__);
             }
-                    if (minContains is  Menes.Json.Draft202012.Validation.MinContainsEntity minContains__)
+                    if (minContains is Menes.Json.Draft202012.Validation.MinContainsEntity minContains__)
             {
                 builder.Add(MinContainsJsonPropertyName, minContains__);
             }
-                    if (maxProperties is  Menes.Json.Draft202012.Validation.NonNegativeIntegerValue maxProperties__)
+                    if (maxProperties is Menes.Json.Draft202012.Validation.NonNegativeIntegerValue maxProperties__)
             {
                 builder.Add(MaxPropertiesJsonPropertyName, maxProperties__);
             }
-                    if (minProperties is  Menes.Json.Draft202012.Validation.NonNegativeIntegerDefault0Entity minProperties__)
+                    if (minProperties is Menes.Json.Draft202012.Validation.NonNegativeIntegerDefault0Entity minProperties__)
             {
                 builder.Add(MinPropertiesJsonPropertyName, minProperties__);
             }
-                    if (required is  Menes.Json.Draft202012.Validation.JsonStringArray required__)
+                    if (required is Menes.Json.Draft202012.Validation.JsonStringArray required__)
             {
                 builder.Add(RequiredJsonPropertyName, required__);
             }
-                    if (dependentRequired is  Menes.Json.Draft202012.Validation.DependentRequiredValue dependentRequired__)
+                    if (dependentRequired is Menes.Json.Draft202012.Validation.DependentRequiredValue dependentRequired__)
             {
                 builder.Add(DependentRequiredJsonPropertyName, dependentRequired__);
             }
@@ -1441,7 +1441,7 @@ namespace  Menes.Json.Draft202012
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Validation WithType( Menes.Json.Draft202012.Validation.TypeEntity value)
+        public Validation WithType(Menes.Json.Draft202012.Validation.TypeEntity value)
         {
             return this.SetProperty(TypeJsonPropertyName, value);
         }
@@ -1463,7 +1463,7 @@ namespace  Menes.Json.Draft202012
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Validation WithEnum( Menes.Json.Draft202012.Validation.JsonAnyArray value)
+        public Validation WithEnum(Menes.Json.Draft202012.Validation.JsonAnyArray value)
         {
             return this.SetProperty(EnumJsonPropertyName, value);
         }
@@ -1474,7 +1474,7 @@ namespace  Menes.Json.Draft202012
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Validation WithMultipleOf( Menes.Json.Draft202012.Validation.MultipleOfValue value)
+        public Validation WithMultipleOf(Menes.Json.Draft202012.Validation.MultipleOfValue value)
         {
             return this.SetProperty(MultipleOfJsonPropertyName, value);
         }
@@ -1529,7 +1529,7 @@ namespace  Menes.Json.Draft202012
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Validation WithMaxLength( Menes.Json.Draft202012.Validation.NonNegativeIntegerValue value)
+        public Validation WithMaxLength(Menes.Json.Draft202012.Validation.NonNegativeIntegerValue value)
         {
             return this.SetProperty(MaxLengthJsonPropertyName, value);
         }
@@ -1540,7 +1540,7 @@ namespace  Menes.Json.Draft202012
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Validation WithMinLength( Menes.Json.Draft202012.Validation.NonNegativeIntegerDefault0Entity value)
+        public Validation WithMinLength(Menes.Json.Draft202012.Validation.NonNegativeIntegerDefault0Entity value)
         {
             return this.SetProperty(MinLengthJsonPropertyName, value);
         }
@@ -1562,7 +1562,7 @@ namespace  Menes.Json.Draft202012
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Validation WithMaxItems( Menes.Json.Draft202012.Validation.NonNegativeIntegerValue value)
+        public Validation WithMaxItems(Menes.Json.Draft202012.Validation.NonNegativeIntegerValue value)
         {
             return this.SetProperty(MaxItemsJsonPropertyName, value);
         }
@@ -1573,7 +1573,7 @@ namespace  Menes.Json.Draft202012
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Validation WithMinItems( Menes.Json.Draft202012.Validation.NonNegativeIntegerDefault0Entity value)
+        public Validation WithMinItems(Menes.Json.Draft202012.Validation.NonNegativeIntegerDefault0Entity value)
         {
             return this.SetProperty(MinItemsJsonPropertyName, value);
         }
@@ -1584,7 +1584,7 @@ namespace  Menes.Json.Draft202012
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Validation WithUniqueItems( Menes.Json.Draft202012.Validation.UniqueItemsValue value)
+        public Validation WithUniqueItems(Menes.Json.Draft202012.Validation.UniqueItemsValue value)
         {
             return this.SetProperty(UniqueItemsJsonPropertyName, value);
         }
@@ -1595,7 +1595,7 @@ namespace  Menes.Json.Draft202012
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Validation WithMaxContains( Menes.Json.Draft202012.Validation.NonNegativeIntegerValue value)
+        public Validation WithMaxContains(Menes.Json.Draft202012.Validation.NonNegativeIntegerValue value)
         {
             return this.SetProperty(MaxContainsJsonPropertyName, value);
         }
@@ -1606,7 +1606,7 @@ namespace  Menes.Json.Draft202012
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Validation WithMinContains( Menes.Json.Draft202012.Validation.MinContainsEntity value)
+        public Validation WithMinContains(Menes.Json.Draft202012.Validation.MinContainsEntity value)
         {
             return this.SetProperty(MinContainsJsonPropertyName, value);
         }
@@ -1617,7 +1617,7 @@ namespace  Menes.Json.Draft202012
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Validation WithMaxProperties( Menes.Json.Draft202012.Validation.NonNegativeIntegerValue value)
+        public Validation WithMaxProperties(Menes.Json.Draft202012.Validation.NonNegativeIntegerValue value)
         {
             return this.SetProperty(MaxPropertiesJsonPropertyName, value);
         }
@@ -1628,7 +1628,7 @@ namespace  Menes.Json.Draft202012
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Validation WithMinProperties( Menes.Json.Draft202012.Validation.NonNegativeIntegerDefault0Entity value)
+        public Validation WithMinProperties(Menes.Json.Draft202012.Validation.NonNegativeIntegerDefault0Entity value)
         {
             return this.SetProperty(MinPropertiesJsonPropertyName, value);
         }
@@ -1639,7 +1639,7 @@ namespace  Menes.Json.Draft202012
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Validation WithRequired( Menes.Json.Draft202012.Validation.JsonStringArray value)
+        public Validation WithRequired(Menes.Json.Draft202012.Validation.JsonStringArray value)
         {
             return this.SetProperty(RequiredJsonPropertyName, value);
         }
@@ -1650,7 +1650,7 @@ namespace  Menes.Json.Draft202012
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Validation WithDependentRequired( Menes.Json.Draft202012.Validation.DependentRequiredValue value)
+        public Validation WithDependentRequired(Menes.Json.Draft202012.Validation.DependentRequiredValue value)
         {
             return this.SetProperty(DependentRequiredJsonPropertyName, value);
         }
@@ -2054,7 +2054,7 @@ namespace  Menes.Json.Draft202012
                 TypeJsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                     Menes.Json.Draft202012.Validation.TypeEntity property = that.Type;
+                    Menes.Json.Draft202012.Validation.TypeEntity property = that.Type;
                     return property.Validate(validationContext, level);
                 });
                     builder.Add(
@@ -2068,14 +2068,14 @@ namespace  Menes.Json.Draft202012
                 EnumJsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                     Menes.Json.Draft202012.Validation.JsonAnyArray property = that.Enum;
+                    Menes.Json.Draft202012.Validation.JsonAnyArray property = that.Enum;
                     return property.Validate(validationContext, level);
                 });
                     builder.Add(
                 MultipleOfJsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                     Menes.Json.Draft202012.Validation.MultipleOfValue property = that.MultipleOf;
+                    Menes.Json.Draft202012.Validation.MultipleOfValue property = that.MultipleOf;
                     return property.Validate(validationContext, level);
                 });
                     builder.Add(
@@ -2110,14 +2110,14 @@ namespace  Menes.Json.Draft202012
                 MaxLengthJsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                     Menes.Json.Draft202012.Validation.NonNegativeIntegerValue property = that.MaxLength;
+                    Menes.Json.Draft202012.Validation.NonNegativeIntegerValue property = that.MaxLength;
                     return property.Validate(validationContext, level);
                 });
                     builder.Add(
                 MinLengthJsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                     Menes.Json.Draft202012.Validation.NonNegativeIntegerDefault0Entity property = that.MinLength;
+                    Menes.Json.Draft202012.Validation.NonNegativeIntegerDefault0Entity property = that.MinLength;
                     return property.Validate(validationContext, level);
                 });
                     builder.Add(
@@ -2131,63 +2131,63 @@ namespace  Menes.Json.Draft202012
                 MaxItemsJsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                     Menes.Json.Draft202012.Validation.NonNegativeIntegerValue property = that.MaxItems;
+                    Menes.Json.Draft202012.Validation.NonNegativeIntegerValue property = that.MaxItems;
                     return property.Validate(validationContext, level);
                 });
                     builder.Add(
                 MinItemsJsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                     Menes.Json.Draft202012.Validation.NonNegativeIntegerDefault0Entity property = that.MinItems;
+                    Menes.Json.Draft202012.Validation.NonNegativeIntegerDefault0Entity property = that.MinItems;
                     return property.Validate(validationContext, level);
                 });
                     builder.Add(
                 UniqueItemsJsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                     Menes.Json.Draft202012.Validation.UniqueItemsValue property = that.UniqueItems;
+                    Menes.Json.Draft202012.Validation.UniqueItemsValue property = that.UniqueItems;
                     return property.Validate(validationContext, level);
                 });
                     builder.Add(
                 MaxContainsJsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                     Menes.Json.Draft202012.Validation.NonNegativeIntegerValue property = that.MaxContains;
+                    Menes.Json.Draft202012.Validation.NonNegativeIntegerValue property = that.MaxContains;
                     return property.Validate(validationContext, level);
                 });
                     builder.Add(
                 MinContainsJsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                     Menes.Json.Draft202012.Validation.MinContainsEntity property = that.MinContains;
+                    Menes.Json.Draft202012.Validation.MinContainsEntity property = that.MinContains;
                     return property.Validate(validationContext, level);
                 });
                     builder.Add(
                 MaxPropertiesJsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                     Menes.Json.Draft202012.Validation.NonNegativeIntegerValue property = that.MaxProperties;
+                    Menes.Json.Draft202012.Validation.NonNegativeIntegerValue property = that.MaxProperties;
                     return property.Validate(validationContext, level);
                 });
                     builder.Add(
                 MinPropertiesJsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                     Menes.Json.Draft202012.Validation.NonNegativeIntegerDefault0Entity property = that.MinProperties;
+                    Menes.Json.Draft202012.Validation.NonNegativeIntegerDefault0Entity property = that.MinProperties;
                     return property.Validate(validationContext, level);
                 });
                     builder.Add(
                 RequiredJsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                     Menes.Json.Draft202012.Validation.JsonStringArray property = that.Required;
+                    Menes.Json.Draft202012.Validation.JsonStringArray property = that.Required;
                     return property.Validate(validationContext, level);
                 });
                     builder.Add(
                 DependentRequiredJsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                     Menes.Json.Draft202012.Validation.DependentRequiredValue property = that.DependentRequired;
+                    Menes.Json.Draft202012.Validation.DependentRequiredValue property = that.DependentRequired;
                     return property.Validate(validationContext, level);
                 });
         
@@ -2217,7 +2217,8 @@ namespace  Menes.Json.Draft202012
                         if (__MenesLocalProperties.TryGetValue(propertyName, out Func<Validation, ValidationContext, ValidationLevel, ValidationContext>? propertyValidator))
                 {
                     result = result.WithLocalProperty(propertyName);
-                    result = propertyValidator(this, result, level);
+                    var propertyResult = propertyValidator(this, result, level);
+                    result = result.MergeResults(propertyResult.IsValid, level, propertyResult);
                     if (level == ValidationLevel.Flag && !result.IsValid)
                     {
                         return result;
@@ -2449,8 +2450,8 @@ namespace  Menes.Json.Draft202012
             /// <summary>
         /// Initializes a new instance of the <see cref="TypeEntity"/> struct.
         /// </summary>
-        /// <param name="conversion">The <see cref=" Menes.Json.Draft202012.Validation.SimpleTypesEntity"/> from which to construct the value.</param>
-        public TypeEntity( Menes.Json.Draft202012.Validation.SimpleTypesEntity conversion)
+        /// <param name="conversion">The <see cref="Menes.Json.Draft202012.Validation.SimpleTypesEntity"/> from which to construct the value.</param>
+        public TypeEntity(Menes.Json.Draft202012.Validation.SimpleTypesEntity conversion)
         {
             if (conversion.HasJsonElement)
             {
@@ -2477,8 +2478,8 @@ namespace  Menes.Json.Draft202012
             /// <summary>
         /// Initializes a new instance of the <see cref="TypeEntity"/> struct.
         /// </summary>
-        /// <param name="conversion">The <see cref=" Menes.Json.Draft202012.Validation.TypeEntity.SimpleTypesEntityArray"/> from which to construct the value.</param>
-        public TypeEntity( Menes.Json.Draft202012.Validation.TypeEntity.SimpleTypesEntityArray conversion)
+        /// <param name="conversion">The <see cref="Menes.Json.Draft202012.Validation.TypeEntity.SimpleTypesEntityArray"/> from which to construct the value.</param>
+        public TypeEntity(Menes.Json.Draft202012.Validation.TypeEntity.SimpleTypesEntityArray conversion)
         {
             if (conversion.HasJsonElement)
             {
@@ -2519,9 +2520,9 @@ namespace  Menes.Json.Draft202012
         }
     
             /// <summary>
-        /// Gets the value as a <see cref=" Menes.Json.Draft202012.Validation.SimpleTypesEntity" />.
+        /// Gets the value as a <see cref="Menes.Json.Draft202012.Validation.SimpleTypesEntity" />.
         /// </summary>
-        public  Menes.Json.Draft202012.Validation.SimpleTypesEntity AsSimpleTypesEntity
+        public Menes.Json.Draft202012.Validation.SimpleTypesEntity AsSimpleTypesEntity
         {
             get
             {
@@ -2530,20 +2531,20 @@ namespace  Menes.Json.Draft202012
         }
 
         /// <summary>
-        /// Gets a value indicating whether this is a valid <see cref=" Menes.Json.Draft202012.Validation.SimpleTypesEntity" />.
+        /// Gets a value indicating whether this is a valid <see cref="Menes.Json.Draft202012.Validation.SimpleTypesEntity" />.
         /// </summary>
         public bool IsSimpleTypesEntity
         {
             get
             {
-                return (( Menes.Json.Draft202012.Validation.SimpleTypesEntity)this).Validate().IsValid;
+                return ((Menes.Json.Draft202012.Validation.SimpleTypesEntity)this).Validate().IsValid;
             }
         }
 
             /// <summary>
-        /// Gets the value as a <see cref=" Menes.Json.Draft202012.Validation.TypeEntity.SimpleTypesEntityArray" />.
+        /// Gets the value as a <see cref="Menes.Json.Draft202012.Validation.TypeEntity.SimpleTypesEntityArray" />.
         /// </summary>
-        public  Menes.Json.Draft202012.Validation.TypeEntity.SimpleTypesEntityArray AsSimpleTypesEntityArray
+        public Menes.Json.Draft202012.Validation.TypeEntity.SimpleTypesEntityArray AsSimpleTypesEntityArray
         {
             get
             {
@@ -2552,13 +2553,13 @@ namespace  Menes.Json.Draft202012
         }
 
         /// <summary>
-        /// Gets a value indicating whether this is a valid <see cref=" Menes.Json.Draft202012.Validation.TypeEntity.SimpleTypesEntityArray" />.
+        /// Gets a value indicating whether this is a valid <see cref="Menes.Json.Draft202012.Validation.TypeEntity.SimpleTypesEntityArray" />.
         /// </summary>
         public bool IsSimpleTypesEntityArray
         {
             get
             {
-                return (( Menes.Json.Draft202012.Validation.TypeEntity.SimpleTypesEntityArray)this).Validate().IsValid;
+                return ((Menes.Json.Draft202012.Validation.TypeEntity.SimpleTypesEntityArray)this).Validate().IsValid;
             }
         }
 
@@ -2727,44 +2728,44 @@ namespace  Menes.Json.Draft202012
         }
 
             /// <summary>
-        /// Conversion from <see cref=" Menes.Json.Draft202012.Validation.SimpleTypesEntity" />.
+        /// Conversion from <see cref="Menes.Json.Draft202012.Validation.SimpleTypesEntity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator TypeEntity( Menes.Json.Draft202012.Validation.SimpleTypesEntity value)
+        public static implicit operator TypeEntity(Menes.Json.Draft202012.Validation.SimpleTypesEntity value)
         {
             return new TypeEntity(value);
         }
 
         /// <summary>
-        /// Conversion to <see cref=" Menes.Json.Draft202012.Validation.SimpleTypesEntity" />.
+        /// Conversion to <see cref="Menes.Json.Draft202012.Validation.SimpleTypesEntity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator  Menes.Json.Draft202012.Validation.SimpleTypesEntity(TypeEntity value)
+        public static implicit operator Menes.Json.Draft202012.Validation.SimpleTypesEntity(TypeEntity value)
         {
                                     if (value.ValueKind == JsonValueKind.String)
             {
-                return new  Menes.Json.Draft202012.Validation.SimpleTypesEntity(value.AsString);
+                return new Menes.Json.Draft202012.Validation.SimpleTypesEntity(value.AsString);
             }
                                     return default;
         }
             /// <summary>
-        /// Conversion from <see cref=" Menes.Json.Draft202012.Validation.TypeEntity.SimpleTypesEntityArray" />.
+        /// Conversion from <see cref="Menes.Json.Draft202012.Validation.TypeEntity.SimpleTypesEntityArray" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator TypeEntity( Menes.Json.Draft202012.Validation.TypeEntity.SimpleTypesEntityArray value)
+        public static implicit operator TypeEntity(Menes.Json.Draft202012.Validation.TypeEntity.SimpleTypesEntityArray value)
         {
             return new TypeEntity(value);
         }
 
         /// <summary>
-        /// Conversion to <see cref=" Menes.Json.Draft202012.Validation.TypeEntity.SimpleTypesEntityArray" />.
+        /// Conversion to <see cref="Menes.Json.Draft202012.Validation.TypeEntity.SimpleTypesEntityArray" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator  Menes.Json.Draft202012.Validation.TypeEntity.SimpleTypesEntityArray(TypeEntity value)
+        public static implicit operator Menes.Json.Draft202012.Validation.TypeEntity.SimpleTypesEntityArray(TypeEntity value)
         {
                             if (value.ValueKind == JsonValueKind.Array)
             {
-                return new  Menes.Json.Draft202012.Validation.TypeEntity.SimpleTypesEntityArray(value.AsArray);
+                return new Menes.Json.Draft202012.Validation.TypeEntity.SimpleTypesEntityArray(value.AsArray);
             }
                                             return default;
         }
@@ -3200,7 +3201,7 @@ namespace  Menes.Json.Draft202012
 
                 
 
-            ValidationContext anyOfResult0 = this.As< Menes.Json.Draft202012.Validation.SimpleTypesEntity>().Validate(validationContext.CreateChildContext(), level);
+            ValidationContext anyOfResult0 = this.As<Menes.Json.Draft202012.Validation.SimpleTypesEntity>().Validate(validationContext.CreateChildContext(), level);
 
             if (anyOfResult0.IsValid)
             {
@@ -3228,7 +3229,7 @@ namespace  Menes.Json.Draft202012
 
                 
 
-            ValidationContext anyOfResult1 = this.As< Menes.Json.Draft202012.Validation.TypeEntity.SimpleTypesEntityArray>().Validate(validationContext.CreateChildContext(), level);
+            ValidationContext anyOfResult1 = this.As<Menes.Json.Draft202012.Validation.TypeEntity.SimpleTypesEntityArray>().Validate(validationContext.CreateChildContext(), level);
 
             if (anyOfResult1.IsValid)
             {
@@ -3593,7 +3594,7 @@ namespace  Menes.Json.Draft202012
         /// </summary>
         /// <param name="items">The items from which to create the array.</param>
         /// <returns>The new array created from the items.</returns>
-        public static SimpleTypesEntityArray From(params  Menes.Json.Draft202012.Validation.SimpleTypesEntity[] items)
+        public static SimpleTypesEntityArray From(params Menes.Json.Draft202012.Validation.SimpleTypesEntity[] items)
         {
             return new SimpleTypesEntityArray(items.Select(i => (JsonAny)i).ToImmutableList());
         }
@@ -3603,7 +3604,7 @@ namespace  Menes.Json.Draft202012
         /// </summary>
         /// <param name="item1">The items from which to create the array.</param>
         /// <returns>The new array created from the items.</returns>
-        public static SimpleTypesEntityArray From( Menes.Json.Draft202012.Validation.SimpleTypesEntity item1)
+        public static SimpleTypesEntityArray From(Menes.Json.Draft202012.Validation.SimpleTypesEntity item1)
         {
             return new SimpleTypesEntityArray(ImmutableList.Create((JsonAny)item1));
         }
@@ -3614,7 +3615,7 @@ namespace  Menes.Json.Draft202012
         /// <param name="item1">The first item from which to create the array.</param>
         /// <param name="item2">The second item from which to create the array.</param>
         /// <returns>The new array created from the items.</returns>
-        public static SimpleTypesEntityArray From( Menes.Json.Draft202012.Validation.SimpleTypesEntity item1,  Menes.Json.Draft202012.Validation.SimpleTypesEntity item2)
+        public static SimpleTypesEntityArray From(Menes.Json.Draft202012.Validation.SimpleTypesEntity item1, Menes.Json.Draft202012.Validation.SimpleTypesEntity item2)
         {
             return new SimpleTypesEntityArray(ImmutableList.Create((JsonAny)item1, (JsonAny)item2));
         }
@@ -3626,7 +3627,7 @@ namespace  Menes.Json.Draft202012
         /// <param name="item2">The second item from which to create the array.</param>
         /// <param name="item3">The third item from which to create the array.</param>
         /// <returns>The new array created from the items.</returns>
-        public static SimpleTypesEntityArray From( Menes.Json.Draft202012.Validation.SimpleTypesEntity item1,  Menes.Json.Draft202012.Validation.SimpleTypesEntity item2,  Menes.Json.Draft202012.Validation.SimpleTypesEntity item3)
+        public static SimpleTypesEntityArray From(Menes.Json.Draft202012.Validation.SimpleTypesEntity item1, Menes.Json.Draft202012.Validation.SimpleTypesEntity item2, Menes.Json.Draft202012.Validation.SimpleTypesEntity item3)
         {
             return new SimpleTypesEntityArray(ImmutableList.Create((JsonAny)item1, (JsonAny)item2, (JsonAny)item3));
         }
@@ -3639,7 +3640,7 @@ namespace  Menes.Json.Draft202012
         /// <param name="item3">The third item from which to create the array.</param>
         /// <param name="item4">The fourth item from which to create the array.</param>
         /// <returns>The new array created from the items.</returns>
-        public static SimpleTypesEntityArray From( Menes.Json.Draft202012.Validation.SimpleTypesEntity item1,  Menes.Json.Draft202012.Validation.SimpleTypesEntity item2,  Menes.Json.Draft202012.Validation.SimpleTypesEntity item3,  Menes.Json.Draft202012.Validation.SimpleTypesEntity item4)
+        public static SimpleTypesEntityArray From(Menes.Json.Draft202012.Validation.SimpleTypesEntity item1, Menes.Json.Draft202012.Validation.SimpleTypesEntity item2, Menes.Json.Draft202012.Validation.SimpleTypesEntity item3, Menes.Json.Draft202012.Validation.SimpleTypesEntity item4)
         {
             return new SimpleTypesEntityArray(ImmutableList.Create((JsonAny)item1, (JsonAny)item2, (JsonAny)item3, (JsonAny)item4));
         }
@@ -3676,18 +3677,18 @@ namespace  Menes.Json.Draft202012
     
     
                 /// <summary>
-        /// Enumerate the items in the array as a <see cref=" Menes.Json.Draft202012.Validation.SimpleTypesEntity" />.
+        /// Enumerate the items in the array as a <see cref="Menes.Json.Draft202012.Validation.SimpleTypesEntity" />.
         /// </summary>
-        public JsonArrayEnumerator< Menes.Json.Draft202012.Validation.SimpleTypesEntity> EnumerateItems()
+        public JsonArrayEnumerator<Menes.Json.Draft202012.Validation.SimpleTypesEntity> EnumerateItems()
         {
             if (this.arrayBacking is ImmutableList<JsonAny> items)
             {
-                return new JsonArrayEnumerator< Menes.Json.Draft202012.Validation.SimpleTypesEntity>(items);
+                return new JsonArrayEnumerator<Menes.Json.Draft202012.Validation.SimpleTypesEntity>(items);
             }
 
             if (this.jsonElementBacking.ValueKind == JsonValueKind.Array)
             {
-                return new JsonArrayEnumerator< Menes.Json.Draft202012.Validation.SimpleTypesEntity>(this.jsonElementBacking);
+                return new JsonArrayEnumerator<Menes.Json.Draft202012.Validation.SimpleTypesEntity>(this.jsonElementBacking);
             }
 
             return default;
@@ -3917,7 +3918,7 @@ namespace  Menes.Json.Draft202012
 
         
         
-                        result = arrayEnumerator.Current.As< Menes.Json.Draft202012.Validation.SimpleTypesEntity>().Validate(result, level);
+                        result = arrayEnumerator.Current.As<Menes.Json.Draft202012.Validation.SimpleTypesEntity>().Validate(result, level);
                 if (level == ValidationLevel.Flag && !result.IsValid)
                 {
                     return result;
@@ -5919,8 +5920,8 @@ namespace  Menes.Json.Draft202012
             /// <summary>
         /// Initializes a new instance of the <see cref="NonNegativeIntegerDefault0Entity"/> struct.
         /// </summary>
-        /// <param name="conversion">The <see cref=" Menes.Json.Draft202012.Validation.NonNegativeIntegerValue"/> from which to construct the value.</param>
-        public NonNegativeIntegerDefault0Entity( Menes.Json.Draft202012.Validation.NonNegativeIntegerValue conversion)
+        /// <param name="conversion">The <see cref="Menes.Json.Draft202012.Validation.NonNegativeIntegerValue"/> from which to construct the value.</param>
+        public NonNegativeIntegerDefault0Entity(Menes.Json.Draft202012.Validation.NonNegativeIntegerValue conversion)
         {
             if (conversion.HasJsonElement)
             {
@@ -5946,9 +5947,9 @@ namespace  Menes.Json.Draft202012
 
     
             /// <summary>
-        /// Gets the value as a <see cref=" Menes.Json.Draft202012.Validation.NonNegativeIntegerValue" />.
+        /// Gets the value as a <see cref="Menes.Json.Draft202012.Validation.NonNegativeIntegerValue" />.
         /// </summary>
-        public  Menes.Json.Draft202012.Validation.NonNegativeIntegerValue AsNonNegativeIntegerValue
+        public Menes.Json.Draft202012.Validation.NonNegativeIntegerValue AsNonNegativeIntegerValue
         {
             get
             {
@@ -5957,13 +5958,13 @@ namespace  Menes.Json.Draft202012
         }
 
         /// <summary>
-        /// Gets a value indicating whether this is a valid <see cref=" Menes.Json.Draft202012.Validation.NonNegativeIntegerValue" />.
+        /// Gets a value indicating whether this is a valid <see cref="Menes.Json.Draft202012.Validation.NonNegativeIntegerValue" />.
         /// </summary>
         public bool IsNonNegativeIntegerValue
         {
             get
             {
-                return (( Menes.Json.Draft202012.Validation.NonNegativeIntegerValue)this).Validate().IsValid;
+                return ((Menes.Json.Draft202012.Validation.NonNegativeIntegerValue)this).Validate().IsValid;
             }
         }
 
@@ -6111,23 +6112,23 @@ namespace  Menes.Json.Draft202012
         }
 
             /// <summary>
-        /// Conversion from <see cref=" Menes.Json.Draft202012.Validation.NonNegativeIntegerValue" />.
+        /// Conversion from <see cref="Menes.Json.Draft202012.Validation.NonNegativeIntegerValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator NonNegativeIntegerDefault0Entity( Menes.Json.Draft202012.Validation.NonNegativeIntegerValue value)
+        public static implicit operator NonNegativeIntegerDefault0Entity(Menes.Json.Draft202012.Validation.NonNegativeIntegerValue value)
         {
             return new NonNegativeIntegerDefault0Entity(value);
         }
 
         /// <summary>
-        /// Conversion to <see cref=" Menes.Json.Draft202012.Validation.NonNegativeIntegerValue" />.
+        /// Conversion to <see cref="Menes.Json.Draft202012.Validation.NonNegativeIntegerValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator  Menes.Json.Draft202012.Validation.NonNegativeIntegerValue(NonNegativeIntegerDefault0Entity value)
+        public static implicit operator Menes.Json.Draft202012.Validation.NonNegativeIntegerValue(NonNegativeIntegerDefault0Entity value)
         {
                                                     if (value.ValueKind == JsonValueKind.Number)
             {
-                return new  Menes.Json.Draft202012.Validation.NonNegativeIntegerValue(value.AsNumber);
+                return new Menes.Json.Draft202012.Validation.NonNegativeIntegerValue(value.AsNumber);
             }
                     return default;
         }
@@ -6378,7 +6379,7 @@ namespace  Menes.Json.Draft202012
         {
             ValidationContext result = validationContext;
 
-            ValidationContext refResult = this.As< Menes.Json.Draft202012.Validation.NonNegativeIntegerValue>().Validate(validationContext.CreateChildContext(), level);
+            ValidationContext refResult = this.As<Menes.Json.Draft202012.Validation.NonNegativeIntegerValue>().Validate(validationContext.CreateChildContext(), level);
 
             if (!refResult.IsValid)
             {
@@ -7004,8 +7005,8 @@ namespace  Menes.Json.Draft202012
             /// <summary>
         /// Initializes a new instance of the <see cref="MinContainsEntity"/> struct.
         /// </summary>
-        /// <param name="conversion">The <see cref=" Menes.Json.Draft202012.Validation.NonNegativeIntegerValue"/> from which to construct the value.</param>
-        public MinContainsEntity( Menes.Json.Draft202012.Validation.NonNegativeIntegerValue conversion)
+        /// <param name="conversion">The <see cref="Menes.Json.Draft202012.Validation.NonNegativeIntegerValue"/> from which to construct the value.</param>
+        public MinContainsEntity(Menes.Json.Draft202012.Validation.NonNegativeIntegerValue conversion)
         {
             if (conversion.HasJsonElement)
             {
@@ -7031,9 +7032,9 @@ namespace  Menes.Json.Draft202012
 
     
             /// <summary>
-        /// Gets the value as a <see cref=" Menes.Json.Draft202012.Validation.NonNegativeIntegerValue" />.
+        /// Gets the value as a <see cref="Menes.Json.Draft202012.Validation.NonNegativeIntegerValue" />.
         /// </summary>
-        public  Menes.Json.Draft202012.Validation.NonNegativeIntegerValue AsNonNegativeIntegerValue
+        public Menes.Json.Draft202012.Validation.NonNegativeIntegerValue AsNonNegativeIntegerValue
         {
             get
             {
@@ -7042,13 +7043,13 @@ namespace  Menes.Json.Draft202012
         }
 
         /// <summary>
-        /// Gets a value indicating whether this is a valid <see cref=" Menes.Json.Draft202012.Validation.NonNegativeIntegerValue" />.
+        /// Gets a value indicating whether this is a valid <see cref="Menes.Json.Draft202012.Validation.NonNegativeIntegerValue" />.
         /// </summary>
         public bool IsNonNegativeIntegerValue
         {
             get
             {
-                return (( Menes.Json.Draft202012.Validation.NonNegativeIntegerValue)this).Validate().IsValid;
+                return ((Menes.Json.Draft202012.Validation.NonNegativeIntegerValue)this).Validate().IsValid;
             }
         }
 
@@ -7196,23 +7197,23 @@ namespace  Menes.Json.Draft202012
         }
 
             /// <summary>
-        /// Conversion from <see cref=" Menes.Json.Draft202012.Validation.NonNegativeIntegerValue" />.
+        /// Conversion from <see cref="Menes.Json.Draft202012.Validation.NonNegativeIntegerValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator MinContainsEntity( Menes.Json.Draft202012.Validation.NonNegativeIntegerValue value)
+        public static implicit operator MinContainsEntity(Menes.Json.Draft202012.Validation.NonNegativeIntegerValue value)
         {
             return new MinContainsEntity(value);
         }
 
         /// <summary>
-        /// Conversion to <see cref=" Menes.Json.Draft202012.Validation.NonNegativeIntegerValue" />.
+        /// Conversion to <see cref="Menes.Json.Draft202012.Validation.NonNegativeIntegerValue" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator  Menes.Json.Draft202012.Validation.NonNegativeIntegerValue(MinContainsEntity value)
+        public static implicit operator Menes.Json.Draft202012.Validation.NonNegativeIntegerValue(MinContainsEntity value)
         {
                                                     if (value.ValueKind == JsonValueKind.Number)
             {
-                return new  Menes.Json.Draft202012.Validation.NonNegativeIntegerValue(value.AsNumber);
+                return new Menes.Json.Draft202012.Validation.NonNegativeIntegerValue(value.AsNumber);
             }
                     return default;
         }
@@ -7463,7 +7464,7 @@ namespace  Menes.Json.Draft202012
         {
             ValidationContext result = validationContext;
 
-            ValidationContext refResult = this.As< Menes.Json.Draft202012.Validation.NonNegativeIntegerValue>().Validate(validationContext.CreateChildContext(), level);
+            ValidationContext refResult = this.As<Menes.Json.Draft202012.Validation.NonNegativeIntegerValue>().Validate(validationContext.CreateChildContext(), level);
 
             if (!refResult.IsValid)
             {
@@ -8534,16 +8535,16 @@ namespace  Menes.Json.Draft202012
                 /// <summary>
         /// Enumerate the object as the given item type
         /// </summary>
-        public JsonObjectEnumerator< Menes.Json.Draft202012.Validation.JsonStringArray> EnumerateProperties()
+        public JsonObjectEnumerator<Menes.Json.Draft202012.Validation.JsonStringArray> EnumerateProperties()
         {
             if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
             {
-                return new JsonObjectEnumerator< Menes.Json.Draft202012.Validation.JsonStringArray>(properties);
+                return new JsonObjectEnumerator<Menes.Json.Draft202012.Validation.JsonStringArray>(properties);
             }
 
             if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
             {
-                return new JsonObjectEnumerator< Menes.Json.Draft202012.Validation.JsonStringArray>(this.jsonElementBacking);
+                return new JsonObjectEnumerator<Menes.Json.Draft202012.Validation.JsonStringArray>(this.jsonElementBacking);
             }
 
             return default;
@@ -8868,7 +8869,7 @@ namespace  Menes.Json.Draft202012
         
                         if (!result.HasEvaluatedLocalProperty(propertyName))
                 {
-                    result = property.ValueAs< Menes.Json.Draft202012.Validation.JsonStringArray>().Validate(result, level);
+                    result = property.ValueAs<Menes.Json.Draft202012.Validation.JsonStringArray>().Validate(result, level);
                     if (level == ValidationLevel.Flag && !result.IsValid)
                     {
                         return result;

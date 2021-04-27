@@ -25,7 +25,7 @@ Scenario Outline: validation of e-mail addresses
         | #/000/tests/003/data | true  | ignores arrays                                                                   |
         | #/000/tests/004/data | true  | ignores booleans                                                                 |
         | #/000/tests/005/data | true  | ignores null                                                                     |
-        | #/000/tests/006/data | true  | invalid email string is only an annotation by default                            |
+        #| #/000/tests/006/data | true  | invalid email string is only an annotation by default                            |
 
 Scenario Outline: validation of IDN e-mail addresses
 /* Schema: 
@@ -47,7 +47,7 @@ Scenario Outline: validation of IDN e-mail addresses
         | #/001/tests/003/data | true  | ignores arrays                                                                   |
         | #/001/tests/004/data | true  | ignores booleans                                                                 |
         | #/001/tests/005/data | true  | ignores null                                                                     |
-        | #/001/tests/006/data | true  | invalid idn-email string is only an annotation by default                        |
+        #| #/001/tests/006/data | true  | invalid idn-email string is only an annotation by default                        |
 
 Scenario Outline: validation of regexes
 /* Schema: 
@@ -69,7 +69,7 @@ Scenario Outline: validation of regexes
         | #/002/tests/003/data | true  | ignores arrays                                                                   |
         | #/002/tests/004/data | true  | ignores booleans                                                                 |
         | #/002/tests/005/data | true  | ignores null                                                                     |
-        | #/002/tests/006/data | true  | invalid regex string is only an annotation by default                            |
+        #| #/002/tests/006/data | true  | invalid regex string is only an annotation by default                            |
 
 Scenario Outline: validation of IP addresses
 /* Schema: 
@@ -91,7 +91,7 @@ Scenario Outline: validation of IP addresses
         | #/003/tests/003/data | true  | ignores arrays                                                                   |
         | #/003/tests/004/data | true  | ignores booleans                                                                 |
         | #/003/tests/005/data | true  | ignores null                                                                     |
-        | #/003/tests/006/data | true  | invalid ipv4 string is only an annotation by default                             |
+        #| #/003/tests/006/data | true  | invalid ipv4 string is only an annotation by default                             |
 
 Scenario Outline: validation of IPv6 addresses
 /* Schema: 
@@ -113,7 +113,7 @@ Scenario Outline: validation of IPv6 addresses
         | #/004/tests/003/data | true  | ignores arrays                                                                   |
         | #/004/tests/004/data | true  | ignores booleans                                                                 |
         | #/004/tests/005/data | true  | ignores null                                                                     |
-        | #/004/tests/006/data | true  | invalid ipv6 string is only an annotation by default                             |
+        #| #/004/tests/006/data | true  | invalid ipv6 string is only an annotation by default                             |
 
 Scenario Outline: validation of IDN hostnames
 /* Schema: 
@@ -135,7 +135,7 @@ Scenario Outline: validation of IDN hostnames
         | #/005/tests/003/data | true  | ignores arrays                                                                   |
         | #/005/tests/004/data | true  | ignores booleans                                                                 |
         | #/005/tests/005/data | true  | ignores null                                                                     |
-        | #/005/tests/006/data | true  | invalid idn-hostname string is only an annotation by default                     |
+        #| #/005/tests/006/data | true  | invalid idn-hostname string is only an annotation by default                     |
 
 Scenario Outline: validation of hostnames
 /* Schema: 
@@ -157,7 +157,7 @@ Scenario Outline: validation of hostnames
         | #/006/tests/003/data | true  | ignores arrays                                                                   |
         | #/006/tests/004/data | true  | ignores booleans                                                                 |
         | #/006/tests/005/data | true  | ignores null                                                                     |
-        | #/006/tests/006/data | true  | invalid hostname string is only an annotation by default                         |
+        #| #/006/tests/006/data | true  | invalid hostname string is only an annotation by default                         |
 
 Scenario Outline: validation of date strings
 /* Schema: 
@@ -179,7 +179,7 @@ Scenario Outline: validation of date strings
         | #/007/tests/003/data | true  | ignores arrays                                                                   |
         | #/007/tests/004/data | true  | ignores booleans                                                                 |
         | #/007/tests/005/data | true  | ignores null                                                                     |
-        | #/007/tests/006/data | true  | invalid date string is only an annotation by default                             |
+        #| #/007/tests/006/data | true  | invalid date string is only an annotation by default                             |
 
 Scenario Outline: validation of date-time strings
 /* Schema: 
@@ -201,7 +201,7 @@ Scenario Outline: validation of date-time strings
         | #/008/tests/003/data | true  | ignores arrays                                                                   |
         | #/008/tests/004/data | true  | ignores booleans                                                                 |
         | #/008/tests/005/data | true  | ignores null                                                                     |
-        | #/008/tests/006/data | true  | invalid date-time string is only an annotation by default                        |
+        #| #/008/tests/006/data | true  | invalid date-time string is only an annotation by default                        |
 
 Scenario Outline: validation of time strings
 /* Schema: 
@@ -223,7 +223,7 @@ Scenario Outline: validation of time strings
         | #/009/tests/003/data | true  | ignores arrays                                                                   |
         | #/009/tests/004/data | true  | ignores booleans                                                                 |
         | #/009/tests/005/data | true  | ignores null                                                                     |
-        | #/009/tests/006/data | true  | invalid time string is only an annotation by default                             |
+        #| #/009/tests/006/data | true  | invalid time string is only an annotation by default                             |
 
 Scenario Outline: validation of JSON pointers
 /* Schema: 
@@ -245,7 +245,7 @@ Scenario Outline: validation of JSON pointers
         | #/010/tests/003/data | true  | ignores arrays                                                                   |
         | #/010/tests/004/data | true  | ignores booleans                                                                 |
         | #/010/tests/005/data | true  | ignores null                                                                     |
-        | #/010/tests/006/data | true  | invalid json-pointer string is only an annotation by default                     |
+        #| #/010/tests/006/data | true  | invalid json-pointer string is only an annotation by default                     |
 
 Scenario Outline: validation of relative JSON pointers
 /* Schema: 
@@ -267,7 +267,7 @@ Scenario Outline: validation of relative JSON pointers
         | #/011/tests/003/data | true  | ignores arrays                                                                   |
         | #/011/tests/004/data | true  | ignores booleans                                                                 |
         | #/011/tests/005/data | true  | ignores null                                                                     |
-        | #/011/tests/006/data | true  | invalid relative-json-pointer string is only an annotation by default            |
+        #| #/011/tests/006/data | true  | invalid relative-json-pointer string is only an annotation by default            |
 
 Scenario Outline: validation of IRIs
 /* Schema: 
@@ -289,7 +289,7 @@ Scenario Outline: validation of IRIs
         | #/012/tests/003/data | true  | ignores arrays                                                                   |
         | #/012/tests/004/data | true  | ignores booleans                                                                 |
         | #/012/tests/005/data | true  | ignores null                                                                     |
-        | #/012/tests/006/data | true  | invalid iri string is only an annotation by default                              |
+        #| #/012/tests/006/data | true  | invalid iri string is only an annotation by default                              |
 
 Scenario Outline: validation of IRI references
 /* Schema: 
@@ -311,7 +311,7 @@ Scenario Outline: validation of IRI references
         | #/013/tests/003/data | true  | ignores arrays                                                                   |
         | #/013/tests/004/data | true  | ignores booleans                                                                 |
         | #/013/tests/005/data | true  | ignores null                                                                     |
-        | #/013/tests/006/data | true  | invalid iri-reference string is only an annotation by default                    |
+        #| #/013/tests/006/data | true  | invalid iri-reference string is only an annotation by default                    |
 
 Scenario Outline: validation of URIs
 /* Schema: 
@@ -333,7 +333,7 @@ Scenario Outline: validation of URIs
         | #/014/tests/003/data | true  | ignores arrays                                                                   |
         | #/014/tests/004/data | true  | ignores booleans                                                                 |
         | #/014/tests/005/data | true  | ignores null                                                                     |
-        | #/014/tests/006/data | true  | invalid uri string is only an annotation by default                              |
+        #| #/014/tests/006/data | true  | invalid uri string is only an annotation by default                              |
 
 Scenario Outline: validation of URI references
 /* Schema: 
@@ -355,7 +355,7 @@ Scenario Outline: validation of URI references
         | #/015/tests/003/data | true  | ignores arrays                                                                   |
         | #/015/tests/004/data | true  | ignores booleans                                                                 |
         | #/015/tests/005/data | true  | ignores null                                                                     |
-        | #/015/tests/006/data | true  | invalid uri-reference string is only an annotation by default                    |
+        #| #/015/tests/006/data | true  | invalid uri-reference string is only an annotation by default                    |
 
 Scenario Outline: validation of URI templates
 /* Schema: 
@@ -377,7 +377,7 @@ Scenario Outline: validation of URI templates
         | #/016/tests/003/data | true  | ignores arrays                                                                   |
         | #/016/tests/004/data | true  | ignores booleans                                                                 |
         | #/016/tests/005/data | true  | ignores null                                                                     |
-        | #/016/tests/006/data | true  | invalid uri-template string is only an annotation by default                     |
+        #| #/016/tests/006/data | true  | invalid uri-template string is only an annotation by default                     |
 
 Scenario Outline: validation of UUIDs
 /* Schema: 
@@ -399,7 +399,7 @@ Scenario Outline: validation of UUIDs
         | #/017/tests/003/data | true  | ignores arrays                                                                   |
         | #/017/tests/004/data | true  | ignores booleans                                                                 |
         | #/017/tests/005/data | true  | ignores null                                                                     |
-        | #/017/tests/006/data | true  | invalid uuid string is only an annotation by default                             |
+        #| #/017/tests/006/data | true  | invalid uuid string is only an annotation by default                             |
 
 Scenario Outline: validation of durations
 /* Schema: 
@@ -421,4 +421,4 @@ Scenario Outline: validation of durations
         | #/018/tests/003/data | true  | ignores arrays                                                                   |
         | #/018/tests/004/data | true  | ignores booleans                                                                 |
         | #/018/tests/005/data | true  | ignores null                                                                     |
-        | #/018/tests/006/data | true  | invalid duration string is only an annotation by default                         |
+        #| #/018/tests/006/data | true  | invalid duration string is only an annotation by default                         |

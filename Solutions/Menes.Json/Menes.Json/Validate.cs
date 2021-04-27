@@ -254,15 +254,15 @@ namespace Menes.Json
             {
                 if (level >= ValidationLevel.Detailed)
                 {
-                    return validationContext.WithResult(isValid: true, $"Validation 6.1.1 type - should have been 'string' with format 'regex' but was '{regexInstance.GetString()}'.");
+                    return validationContext.WithResult(isValid: false, $"Validation 6.1.1 type - should have been 'string' with format 'regex' but was '{regexInstance.GetString()}'.");
                 }
                 else if (level >= ValidationLevel.Basic)
                 {
-                    return validationContext.WithResult(isValid: true, "Validation 6.1.1 type - should have been a 'string' with format 'regex'.");
+                    return validationContext.WithResult(isValid: false, "Validation 6.1.1 type - should have been a 'string' with format 'regex'.");
                 }
                 else
                 {
-                    return validationContext.WithResult(isValid: true);
+                    return validationContext.WithResult(isValid: false);
                 }
             }
 
@@ -320,15 +320,15 @@ namespace Menes.Json
             {
                 if (level >= ValidationLevel.Detailed)
                 {
-                    return validationContext.WithResult(isValid: true, $"Validation 6.1.1 type - should have been 'string' with format 'iri-reference' but was '{iri.GetString()}'.");
+                    return validationContext.WithResult(isValid: false, $"Validation 6.1.1 type - should have been 'string' with format 'iri-reference' but was '{iri.GetString()}'.");
                 }
                 else if (level >= ValidationLevel.Basic)
                 {
-                    return validationContext.WithResult(isValid: true, "Validation 6.1.1 type - should have been a 'string' with format 'iri-reference'.");
+                    return validationContext.WithResult(isValid: false, "Validation 6.1.1 type - should have been a 'string' with format 'iri-reference'.");
                 }
                 else
                 {
-                    return validationContext.WithResult(isValid: true);
+                    return validationContext.WithResult(isValid: false);
                 }
             }
 
@@ -374,15 +374,15 @@ namespace Menes.Json
             {
                 if (level >= ValidationLevel.Detailed)
                 {
-                    return validationContext.WithResult(isValid: true, $"Validation 6.1.1 type - should have been 'string' with format 'json-pointer' but was '{jsonPointer.GetString()}'.");
+                    return validationContext.WithResult(isValid: false, $"Validation 6.1.1 type - should have been 'string' with format 'json-pointer' but was '{jsonPointer.GetString()}'.");
                 }
                 else if (level >= ValidationLevel.Basic)
                 {
-                    return validationContext.WithResult(isValid: true, "Validation 6.1.1 type - should have been a 'string' with format 'json-pointer'.");
+                    return validationContext.WithResult(isValid: false, "Validation 6.1.1 type - should have been a 'string' with format 'json-pointer'.");
                 }
                 else
                 {
-                    return validationContext.WithResult(isValid: true);
+                    return validationContext.WithResult(isValid: false);
                 }
             }
 
@@ -428,15 +428,15 @@ namespace Menes.Json
             {
                 if (level >= ValidationLevel.Detailed)
                 {
-                    return validationContext.WithResult(isValid: true, $"Validation 6.1.1 type - should have been 'string' with format 'relative-json-pointer' but was '{jsonPointer.GetString()}'.");
+                    return validationContext.WithResult(isValid: false, $"Validation 6.1.1 type - should have been 'string' with format 'relative-json-pointer' but was '{jsonPointer.GetString()}'.");
                 }
                 else if (level >= ValidationLevel.Basic)
                 {
-                    return validationContext.WithResult(isValid: true, "Validation 6.1.1 type - should have been a 'string' with format 'relative-json-pointer'.");
+                    return validationContext.WithResult(isValid: false, "Validation 6.1.1 type - should have been a 'string' with format 'relative-json-pointer'.");
                 }
                 else
                 {
-                    return validationContext.WithResult(isValid: true);
+                    return validationContext.WithResult(isValid: false);
                 }
             }
 
@@ -491,15 +491,15 @@ namespace Menes.Json
             {
                 if (level >= ValidationLevel.Detailed)
                 {
-                    return validationContext.WithResult(isValid: true, $"Validation 6.1.1 type - should have been 'string' with format 'iri' but was '{iri.GetString()}'.");
+                    return validationContext.WithResult(isValid: false, $"Validation 6.1.1 type - should have been 'string' with format 'iri' but was '{iri.GetString()}'.");
                 }
                 else if (level >= ValidationLevel.Basic)
                 {
-                    return validationContext.WithResult(isValid: true, "Validation 6.1.1 type - should have been a 'string' with format 'iri'.");
+                    return validationContext.WithResult(isValid: false, "Validation 6.1.1 type - should have been a 'string' with format 'iri'.");
                 }
                 else
                 {
-                    return validationContext.WithResult(isValid: true);
+                    return validationContext.WithResult(isValid: false);
                 }
             }
 
@@ -554,15 +554,15 @@ namespace Menes.Json
             {
                 if (level >= ValidationLevel.Detailed)
                 {
-                    return validationContext.WithResult(isValid: true, $"Validation 6.1.1 type - should have been 'string' with format 'uri' but was '{uriInstance.GetString()}'.");
+                    return validationContext.WithResult(isValid: false, $"Validation 6.1.1 type - should have been 'string' with format 'uri' but was '{uriInstance.GetString()}'.");
                 }
                 else if (level >= ValidationLevel.Basic)
                 {
-                    return validationContext.WithResult(isValid: true, "Validation 6.1.1 type - should have been a 'string' with format 'uri'.");
+                    return validationContext.WithResult(isValid: false, "Validation 6.1.1 type - should have been a 'string' with format 'uri'.");
                 }
                 else
                 {
-                    return validationContext.WithResult(isValid: true);
+                    return validationContext.WithResult(isValid: false);
                 }
             }
 
@@ -620,15 +620,15 @@ namespace Menes.Json
             {
                 if (level >= ValidationLevel.Detailed)
                 {
-                    return validationContext.WithResult(isValid: true, $"Validation 6.1.1 type - should have been 'string' with format 'uri-reference' but was '{uriReferenceInstance.GetString()}'.");
+                    return validationContext.WithResult(isValid: false, $"Validation 6.1.1 type - should have been 'string' with format 'uri-reference' but was '{uriReferenceInstance.GetString()}'.");
                 }
                 else if (level >= ValidationLevel.Basic)
                 {
-                    return validationContext.WithResult(isValid: true, "Validation 6.1.1 type - should have been a 'string' with format 'uri-reference'.");
+                    return validationContext.WithResult(isValid: false, "Validation 6.1.1 type - should have been a 'string' with format 'uri-reference'.");
                 }
                 else
                 {
-                    return validationContext.WithResult(isValid: true);
+                    return validationContext.WithResult(isValid: false);
                 }
             }
 
@@ -683,15 +683,15 @@ namespace Menes.Json
             {
                 if (level >= ValidationLevel.Detailed)
                 {
-                    return validationContext.WithResult(isValid: true, $"Validation 6.1.1 type - should have been 'string' with format 'time' but was '{time.GetString()}'.");
+                    return validationContext.WithResult(isValid: false, $"Validation 6.1.1 type - should have been 'string' with format 'time' but was '{time.GetString()}'.");
                 }
                 else if (level >= ValidationLevel.Basic)
                 {
-                    return validationContext.WithResult(isValid: true, "Validation 6.1.1 type - should have been a 'string' with format 'time'.");
+                    return validationContext.WithResult(isValid: false, "Validation 6.1.1 type - should have been a 'string' with format 'time'.");
                 }
                 else
                 {
-                    return validationContext.WithResult(isValid: true);
+                    return validationContext.WithResult(isValid: false);
                 }
             }
 
@@ -746,15 +746,15 @@ namespace Menes.Json
             {
                 if (level >= ValidationLevel.Detailed)
                 {
-                    return validationContext.WithResult(isValid: true, $"Validation 6.1.1 type - should have been 'string' with format 'date' but was '{date.GetString()}'.");
+                    return validationContext.WithResult(isValid: false, $"Validation 6.1.1 type - should have been 'string' with format 'date' but was '{date.GetString()}'.");
                 }
                 else if (level >= ValidationLevel.Basic)
                 {
-                    return validationContext.WithResult(isValid: true, "Validation 6.1.1 type - should have been a 'string' with format 'date'.");
+                    return validationContext.WithResult(isValid: false, "Validation 6.1.1 type - should have been a 'string' with format 'date'.");
                 }
                 else
                 {
-                    return validationContext.WithResult(isValid: true);
+                    return validationContext.WithResult(isValid: false);
                 }
             }
 
@@ -800,15 +800,15 @@ namespace Menes.Json
             {
                 if (level >= ValidationLevel.Detailed)
                 {
-                    return validationContext.WithResult(isValid: true, $"Validation 6.1.1 type - should have been 'string' with format 'email', but was '{email.GetString()}'.");
+                    return validationContext.WithResult(isValid: false, $"Validation 6.1.1 type - should have been 'string' with format 'email', but was '{email.GetString()}'.");
                 }
                 else if (level >= ValidationLevel.Basic)
                 {
-                    return validationContext.WithResult(isValid: true, "Validation 6.1.1 type - should have been a 'string' with format 'email'.");
+                    return validationContext.WithResult(isValid: false, "Validation 6.1.1 type - should have been a 'string' with format 'email'.");
                 }
                 else
                 {
-                    return validationContext.WithResult(isValid: true);
+                    return validationContext.WithResult(isValid: false);
                 }
             }
 
@@ -867,15 +867,15 @@ namespace Menes.Json
             {
                 if (level >= ValidationLevel.Detailed)
                 {
-                    return validationContext.WithResult(isValid: true, $"Validation 6.1.1 type - should have been 'string' with format 'ipv6', but was '{ipv6.GetString()}'.");
+                    return validationContext.WithResult(isValid: false, $"Validation 6.1.1 type - should have been 'string' with format 'ipv6', but was '{ipv6.GetString()}'.");
                 }
                 else if (level >= ValidationLevel.Basic)
                 {
-                    return validationContext.WithResult(isValid: true, "Validation 6.1.1 type - should have been a 'string' with format 'ipv6'.");
+                    return validationContext.WithResult(isValid: false, "Validation 6.1.1 type - should have been a 'string' with format 'ipv6'.");
                 }
                 else
                 {
-                    return validationContext.WithResult(isValid: true);
+                    return validationContext.WithResult(isValid: false);
                 }
             }
         }
@@ -914,15 +914,15 @@ namespace Menes.Json
             {
                 if (level >= ValidationLevel.Detailed)
                 {
-                    return validationContext.WithResult(isValid: true, $"Validation 6.1.1 type - should have been 'string' with format 'uri-template', but was '{uriTemplate}'.");
+                    return validationContext.WithResult(isValid: false, $"Validation 6.1.1 type - should have been 'string' with format 'uri-template', but was '{uriTemplate}'.");
                 }
                 else if (level >= ValidationLevel.Basic)
                 {
-                    return validationContext.WithResult(isValid: true, "Validation 6.1.1 type - should have been a 'string' with format 'uri-template'.");
+                    return validationContext.WithResult(isValid: false, "Validation 6.1.1 type - should have been a 'string' with format 'uri-template'.");
                 }
                 else
                 {
-                    return validationContext.WithResult(isValid: true);
+                    return validationContext.WithResult(isValid: false);
                 }
             }
 
@@ -981,15 +981,15 @@ namespace Menes.Json
             {
                 if (level >= ValidationLevel.Detailed)
                 {
-                    return validationContext.WithResult(isValid: true, $"Validation 6.1.1 type - should have been 'string' with format 'ipv4', but was '{ipv4.GetString()}'.");
+                    return validationContext.WithResult(isValid: false, $"Validation 6.1.1 type - should have been 'string' with format 'ipv4', but was '{ipv4.GetString()}'.");
                 }
                 else if (level >= ValidationLevel.Basic)
                 {
-                    return validationContext.WithResult(isValid: true, "Validation 6.1.1 type - should have been a 'string' with format 'ipv4'.");
+                    return validationContext.WithResult(isValid: false, "Validation 6.1.1 type - should have been a 'string' with format 'ipv4'.");
                 }
                 else
                 {
-                    return validationContext.WithResult(isValid: true);
+                    return validationContext.WithResult(isValid: false);
                 }
             }
         }
@@ -1068,15 +1068,15 @@ namespace Menes.Json
             {
                 if (level >= ValidationLevel.Detailed)
                 {
-                    return validationContext.WithResult(isValid: true, $"Validation 6.1.1 type - should have been 'string' with format 'idn-email', but was '{email.GetString()}'.");
+                    return validationContext.WithResult(isValid: false, $"Validation 6.1.1 type - should have been 'string' with format 'idn-email', but was '{email.GetString()}'.");
                 }
                 else if (level >= ValidationLevel.Basic)
                 {
-                    return validationContext.WithResult(isValid: true, "Validation 6.1.1 type - should have been a 'string' with format 'idn-email'.");
+                    return validationContext.WithResult(isValid: false, "Validation 6.1.1 type - should have been a 'string' with format 'idn-email'.");
                 }
                 else
                 {
-                    return validationContext.WithResult(isValid: true);
+                    return validationContext.WithResult(isValid: false);
                 }
             }
 
@@ -1151,15 +1151,15 @@ namespace Menes.Json
             {
                 if (level >= ValidationLevel.Detailed)
                 {
-                    return validationContext.WithResult(isValid: true, $"Validation 6.1.1 type - should have been 'string' with format 'idn-hostname', but was '{value}'.");
+                    return validationContext.WithResult(isValid: false, $"Validation 6.1.1 type - should have been 'string' with format 'idn-hostname', but was '{value}'.");
                 }
                 else if (level >= ValidationLevel.Basic)
                 {
-                    return validationContext.WithResult(isValid: true, "Validation 6.1.1 type - should have been a 'string' with format 'idn-hostname'.");
+                    return validationContext.WithResult(isValid: false, "Validation 6.1.1 type - should have been a 'string' with format 'idn-hostname'.");
                 }
                 else
                 {
-                    return validationContext.WithResult(isValid: true);
+                    return validationContext.WithResult(isValid: false);
                 }
             }
 
@@ -1226,15 +1226,15 @@ namespace Menes.Json
             {
                 if (level >= ValidationLevel.Detailed)
                 {
-                    return validationContext.WithResult(isValid: true, $"Validation 6.1.1 type - should have been 'string' with format 'hostname', but was '{value}'.");
+                    return validationContext.WithResult(isValid: false, $"Validation 6.1.1 type - should have been 'string' with format 'hostname', but was '{value}'.");
                 }
                 else if (level >= ValidationLevel.Basic)
                 {
-                    return validationContext.WithResult(isValid: true, "Validation 6.1.1 type - should have been a 'string' with format 'hostname'.");
+                    return validationContext.WithResult(isValid: false, "Validation 6.1.1 type - should have been a 'string' with format 'hostname'.");
                 }
                 else
                 {
-                    return validationContext.WithResult(isValid: true);
+                    return validationContext.WithResult(isValid: false);
                 }
             }
 
@@ -1279,15 +1279,15 @@ namespace Menes.Json
             {
                 if (level >= ValidationLevel.Detailed)
                 {
-                    return validationContext.WithResult(isValid: true, $"Validation 6.1.1 type - should have been 'string' with format 'uuid', but was '{instance.AsString()}'.");
+                    return validationContext.WithResult(isValid: false, $"Validation 6.1.1 type - should have been 'string' with format 'uuid', but was '{instance.AsString()}'.");
                 }
                 else if (level >= ValidationLevel.Basic)
                 {
-                    return validationContext.WithResult(isValid: true, "Validation 6.1.1 type - should have been a 'string' with format 'uuid'.");
+                    return validationContext.WithResult(isValid: false, "Validation 6.1.1 type - should have been a 'string' with format 'uuid'.");
                 }
                 else
                 {
-                    return validationContext.WithResult(isValid: true);
+                    return validationContext.WithResult(isValid: false);
                 }
             }
 
@@ -1333,15 +1333,15 @@ namespace Menes.Json
             {
                 if (level >= ValidationLevel.Detailed)
                 {
-                    return validationContext.WithResult(isValid: true, $"Validation 6.1.1 type - should have been 'string' with format 'duration', but was '{date.GetString()}'.");
+                    return validationContext.WithResult(isValid: false, $"Validation 6.1.1 type - should have been 'string' with format 'duration', but was '{date.GetString()}'.");
                 }
                 else if (level >= ValidationLevel.Basic)
                 {
-                    return validationContext.WithResult(isValid: true, "Validation 6.1.1 type - should have been a 'string' with format 'duration'.");
+                    return validationContext.WithResult(isValid: false, "Validation 6.1.1 type - should have been a 'string' with format 'duration'.");
                 }
                 else
                 {
-                    return validationContext.WithResult(isValid: true);
+                    return validationContext.WithResult(isValid: false);
                 }
             }
 
@@ -1396,15 +1396,15 @@ namespace Menes.Json
             {
                 if (level >= ValidationLevel.Detailed)
                 {
-                    return validationContext.WithResult(isValid: true, $"Validation 6.1.1 type - should have been 'string' with format 'datetime' but was '{date.GetString()}'.");
+                    return validationContext.WithResult(isValid: false, $"Validation 6.1.1 type - should have been 'string' with format 'datetime' but was '{date.GetString()}'.");
                 }
                 else if (level >= ValidationLevel.Basic)
                 {
-                    return validationContext.WithResult(isValid: true, "Validation 6.1.1 type - should have been a 'string' with format 'datetime'.");
+                    return validationContext.WithResult(isValid: false, "Validation 6.1.1 type - should have been a 'string' with format 'datetime'.");
                 }
                 else
                 {
-                    return validationContext.WithResult(isValid: true);
+                    return validationContext.WithResult(isValid: false);
                 }
             }
 

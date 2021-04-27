@@ -10,7 +10,7 @@
 
 #nullable enable
 
-namespace  Menes.Json.Draft202012
+namespace Menes.Json.Draft202012
 {
     using System;
     using System.Collections.Generic;
@@ -844,7 +844,8 @@ namespace  Menes.Json.Draft202012
                         if (__MenesLocalProperties.TryGetValue(propertyName, out Func<FormatAnnotation, ValidationContext, ValidationLevel, ValidationContext>? propertyValidator))
                 {
                     result = result.WithLocalProperty(propertyName);
-                    result = propertyValidator(this, result, level);
+                    var propertyResult = propertyValidator(this, result, level);
+                    result = result.MergeResults(propertyResult.IsValid, level, propertyResult);
                     if (level == ValidationLevel.Flag && !result.IsValid)
                     {
                         return result;

@@ -215,22 +215,29 @@ namespace Menes.Json
         /// <returns>A <see cref="Task"/> which completes when the references are resolved.</returns>
         public async Task ResolveUnresolvedReferences()
         {
-            foreach ((string reference, bool isRecursiveReference, bool isDynamicReference, List<string> stackLocation, Action<JsonWalker, LocatedElement> postResolutionAction) in this.unresolvedReferences)
+            int iterationCount = 0;
+            while (this.unresolvedReferences.Count > 0 && iterationCount < 10)
             {
-                if (this.locatedElements.ContainsKey(reference))
+                iterationCount++;
+                var currentList = this.unresolvedReferences.ToList();
+                this.unresolvedReferences.Clear();
+                foreach ((string reference, bool isRecursiveReference, bool isDynamicReference, List<string> stackLocation, Action<JsonWalker, LocatedElement> postResolutionAction) in currentList)
                 {
-                    continue;
-                }
+                    if (this.locatedElements.ContainsKey(reference))
+                    {
+                        continue;
+                    }
 
-                stackLocation.Reverse();
-                this.scopedLocationStack = new Stack<string>(stackLocation);
-                LocatedElement? locatedElement = await this.ResolveReference(new JsonReference(reference), isRecursiveReference, isDynamicReference);
-                if (locatedElement is LocatedElement)
-                {
-                    postResolutionAction(this, locatedElement);
-                }
+                    stackLocation.Reverse();
+                    this.scopedLocationStack = new Stack<string>(stackLocation);
+                    LocatedElement? locatedElement = await this.ResolveReference(new JsonReference(reference), isRecursiveReference, isDynamicReference);
+                    if (locatedElement is LocatedElement)
+                    {
+                        postResolutionAction(this, locatedElement);
+                    }
 
-                this.PopLocationStack();
+                    this.PopLocationStack();
+                }
             }
         }
 
