@@ -386,17 +386,18 @@ namespace Menes.Json
 
             if (!this.HasBase64Bytes())
             {
+                // Valid, but we annotate
                 if (level >= ValidationLevel.Detailed)
                 {
-                    return result.WithResult(isValid: false, $"Validation 8.3 contentEncoding - should have been a base64 encoded 'string'.");
+                    return result.WithResult(isValid: true, $"Validation 8.3 contentEncoding - should have been a base64 encoded 'string'.");
                 }
                 else if (level >= ValidationLevel.Basic)
                 {
-                    return result.WithResult(isValid: false, "Validation 8.3 contentEncoding - should have been a base64 encoded 'string'.");
+                    return result.WithResult(isValid: true, "Validation 8.3 contentEncoding - should have been a base64 encoded 'string'.");
                 }
                 else
                 {
-                    return result.WithResult(isValid: false);
+                    return result.WithResult(isValid: true);
                 }
             }
             else if (level == ValidationLevel.Verbose)

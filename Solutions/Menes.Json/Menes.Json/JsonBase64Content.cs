@@ -439,32 +439,34 @@ namespace Menes.Json
             EncodedContentMediaTypeParseStatus status = this.TryGetJsonDocument(out JsonDocument? _);
             if (status == EncodedContentMediaTypeParseStatus.UnableToDecode)
             {
+                // Is valid, but we annotate
                 if (level >= ValidationLevel.Detailed)
                 {
-                    return result.WithResult(isValid: false, $"Validation 8.3 contentEncoding - should have been a base64 encoded 'string'.");
+                    return result.WithResult(isValid: true, $"Validation 8.3 contentEncoding - should have been a base64 encoded 'string'.");
                 }
                 else if (level >= ValidationLevel.Basic)
                 {
-                    return result.WithResult(isValid: false, "Validation 8.3 contentEncoding - should have been a base64 encoded 'string'.");
+                    return result.WithResult(isValid: true, "Validation 8.3 contentEncoding - should have been a base64 encoded 'string'.");
                 }
                 else
                 {
-                    return result.WithResult(isValid: false);
+                    return result.WithResult(isValid: true);
                 }
             }
             else if (status == EncodedContentMediaTypeParseStatus.UnableToParseToMediaType)
             {
+                // Validates true, but we will annotate ite
                 if (level >= ValidationLevel.Detailed)
                 {
-                    return result.WithResult(isValid: false, $"Validation 8.4 contentMediaType - should have been a base64 encoded 'string' of type 'application/json'.");
+                    return result.WithResult(isValid: true, $"Validation 8.4 contentMediaType - valid, but should have been a base64 encoded 'string' of type 'application/json'.");
                 }
                 else if (level >= ValidationLevel.Basic)
                 {
-                    return result.WithResult(isValid: false, "Validation 8.4 contentMediaType - should have been a base64 encoded 'string' of type 'application/json'.");
+                    return result.WithResult(isValid: true, "Validation 8.4 contentMediaType - valid, but should have been a base64 encoded 'string' of type 'application/json'.");
                 }
                 else
                 {
-                    return result.WithResult(isValid: false);
+                    return result.WithResult(isValid: true);
                 }
             }
             else if (level == ValidationLevel.Verbose)

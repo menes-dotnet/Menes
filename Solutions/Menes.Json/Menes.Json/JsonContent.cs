@@ -409,17 +409,18 @@ namespace Menes.Json
             }
             else if (status == EncodedContentMediaTypeParseStatus.UnableToParseToMediaType)
             {
+                // Should be Valid, but we just annotate.
                 if (level >= ValidationLevel.Detailed)
                 {
-                    return result.WithResult(isValid: false, $"Validation 8.4 contentMediaType - should have been a 'string' with contentMediaType 'application/json'.");
+                    return result.WithResult(isValid: true, $"Validation 8.4 contentMediaType - should have been a 'string' with contentMediaType 'application/json'.");
                 }
                 else if (level >= ValidationLevel.Basic)
                 {
-                    return result.WithResult(isValid: false, "Validation 8.4 contentMediaType - should have been a 'string' with contentMediaType 'application/json'.");
+                    return result.WithResult(isValid: true, "Validation 8.4 contentMediaType - should have been a 'string' with contentMediaType 'application/json'.");
                 }
                 else
                 {
-                    return result.WithResult(isValid: false);
+                    return result.WithResult(isValid: true);
                 }
             }
             else if (level == ValidationLevel.Verbose)
