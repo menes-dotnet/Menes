@@ -35,6 +35,10 @@
                 new Option<string>(
                     "--outputPath",
                     description: "The output directory. It defaults to the same folder as the schema file."),
+                new Option<string?>(
+                    "--outputRootTypeName",
+                    getDefaultValue: () => null,
+                    description: "The Dotnet TypeName for the root type."),
                 new Option<bool>(
                     "--rebaseToRootPath",
                     "If a --rootPath is specified, rebase the document as if it was rooted on the specified element."),
@@ -52,16 +56,16 @@
 
 
             // Note that the parameters of the handler method are matched according to the names of the options
-            rootCommand.Handler = CommandHandler.Create<string, string, string, bool, string, string, SchemaVariant>((schemaFile, rootNamespace, rootPath, rebaseToRootPath, outputPath, outputMapFile, schemaVariant) =>
+            rootCommand.Handler = CommandHandler.Create<string, string, string, bool, string, string, string, SchemaVariant>((schemaFile, rootNamespace, rootPath, rebaseToRootPath, outputPath, outputMapFile, outputRootTypeName, useSchema) =>
               {
-                  return GenerateTypes(schemaFile, rootNamespace, rootPath, rebaseToRootPath, outputPath, outputMapFile, schemaVariant);
+                  return GenerateTypes(schemaFile, rootNamespace, rootPath, rebaseToRootPath, outputPath, outputMapFile, outputRootTypeName, useSchema);
               });
 
             // Parse the incoming args and invoke the handler
             return rootCommand.InvokeAsync(args);
         }
 
-        private static async Task<int> GenerateTypes(string schemaFile, string rootNamespace, string rootPath, bool rebaseToRootPath, string outputPath, string outputMapFile, SchemaVariant schemaVariant)
+        private static async Task<int> GenerateTypes(string schemaFile, string rootNamespace, string rootPath, bool rebaseToRootPath, string outputPath, string outputMapFile, string rootTypeName, SchemaVariant schemaVariant)
         {
             try
             {
@@ -76,7 +80,7 @@
                 JsonReference reference = new JsonReference(schemaFile).Apply(new JsonReference(rootPath));
                 string resolvedReference = await walker.TryRebaseDocumentToPropertyValue(reference, "$id").ConfigureAwait(false);
 
-                (_, ImmutableDictionary<string, (string, string)> generatedTypes) = await builder.BuildTypesFor(resolvedReference, rootNamespace, rebaseToRootPath).ConfigureAwait(false);
+                (_, ImmutableDictionary<string, (string, string)> generatedTypes) = await builder.BuildTypesFor(resolvedReference, rootNamespace, rebaseToRootPath, rootTypeName: rootTypeName).ConfigureAwait(false);
 
                 if (!string.IsNullOrEmpty(outputPath))
                 {
@@ -88,9 +92,9 @@
                 }
 
                 string mapFile = string.IsNullOrEmpty(outputMapFile) ? outputMapFile: Path.Combine(outputPath, outputMapFile);
-
                 if (!string.IsNullOrEmpty(mapFile))
                 {
+                    File.Delete(mapFile);
                     File.AppendAllText(mapFile, "[");
                 }
 
@@ -141,12 +145,6 @@
             }
 
             return 0;
-        }
-
-        private enum SchemaVariant
-        {
-            Draft201909,
-            Draft202012
         }
     }
 }

@@ -1059,6 +1059,10 @@ namespace <#= Namespace #>
     <#
     foreach (Conversion conversion in ConversionsViaConstructor)
     {
+        if (conversion.IsBuiltInType)
+        {
+            continue;
+        }
     #>
         /// <summary>
         /// Initializes a new instance of the <see cref="<#= TypeDeclaration.DotnetTypeName #>"/> struct.
@@ -1251,6 +1255,10 @@ namespace <#= Namespace #>
     <#
     foreach (Conversion conversion in ConversionsViaConstructor)
     {
+        if (conversion.IsBuiltInType)
+        {
+            continue;
+        }
     #>
         /// <summary>
         /// Gets the value as a <see cref="<#= conversion.FullyQualifiedDotnetTypeName #>" />.
@@ -1790,6 +1798,10 @@ namespace <#= Namespace #>
     <#
     foreach(Conversion conversion in ConversionsViaConstructor)
     {
+        if (conversion.IsBuiltInType)
+        {
+            continue;
+        }
     #>
         /// <summary>
         /// Conversion from <see cref="<#= conversion.FullyQualifiedDotnetTypeName #>" />.

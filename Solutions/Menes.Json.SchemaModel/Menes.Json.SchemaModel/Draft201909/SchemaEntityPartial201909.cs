@@ -2041,7 +2041,7 @@ public partial class SchemaEntity201909
         {
             TypeDeclaration td = this.Builder.GetTypeDeclarationForProperty(typeDeclaration, "$ref");
 
-            if (!td.IsBuiltInType && !conversions.ContainsKey(td))
+            if (!conversions.ContainsKey(td))
             {
                 conversions.Add(td, new Conversion(td, parent));
                 this.AddConversionsFor(td, conversions, typeDeclaration);
@@ -2219,6 +2219,11 @@ public partial class SchemaEntity201909
         /// Gets a value indicating whether this is a number value.
         /// </summary>
         public bool IsNull => this.typeDeclaration.Schema.IsNullType();
+
+        /// <summary>
+        /// Gets a value indicating whether this is a built-in type.
+        /// </summary>
+        public bool IsBuiltInType => this.typeDeclaration.Schema.IsBuiltInType();
 
         /// <summary>
         /// Gets the fully qualified dotnet type name.

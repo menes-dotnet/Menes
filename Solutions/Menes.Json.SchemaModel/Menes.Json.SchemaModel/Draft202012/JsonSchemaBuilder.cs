@@ -41,7 +41,7 @@ namespace Menes.Json.SchemaModel.Draft202012
         }
 
         /// <inheritdoc/>
-        public async Task<(string rootType, ImmutableDictionary<string, (string, string)> generatedTypes)> BuildTypesFor(string reference, string rootNamespace, bool rebase = false, Dictionary<string, string>? baseUriToNamespaceMap = null)
+        public async Task<(string rootType, ImmutableDictionary<string, (string, string)> generatedTypes)> BuildTypesFor(string reference, string rootNamespace, bool rebase = false, Dictionary<string, string>? baseUriToNamespaceMap = null, string? rootTypeName = null)
         {
             // First, we resolve the reference and locate our root element.
             LocatedElement? rootElement = await this.walker.ResolveReference(new JsonReference(reference), false, false).ConfigureAwait(false);
@@ -67,12 +67,12 @@ namespace Menes.Json.SchemaModel.Draft202012
             this.SetParents(typesForGenerationByLocation);
 
             // Once the parents are set, we can build names for our types.
-            this.SetNames(typesForGenerationByLocation, rootNamespace, baseUriToNamespaceMap);
+            this.SetNames(typesForGenerationByLocation, rootNamespace, baseUriToNamespaceMap, rootTypeName, rootLocation);
 
             // Now, find and add all our properties.
             this.FindProperties(typesForGenerationByLocation, referencedTypesByLocation);
 
-            string rootTypeName = this.locatedTypeDeclarations[rootLocation].FullyQualifiedDotnetTypeName!;
+            rootTypeName = this.locatedTypeDeclarations[rootLocation].FullyQualifiedDotnetTypeName!;
             return (
                 rootTypeName,
                 typesForGenerationByLocation.Where(t => t.Value.Parent is null).Select(
@@ -611,11 +611,11 @@ namespace Menes.Json.SchemaModel.Draft202012
             }
         }
 
-        private void SetNames(Dictionary<string, TypeDeclaration> typesForGenerationByLocation, string rootNamespace, Dictionary<string, string>? baseUriToNamespaceMap)
+        private void SetNames(Dictionary<string, TypeDeclaration> typesForGenerationByLocation, string rootNamespace, Dictionary<string, string>? baseUriToNamespaceMap, string? rootTypeName, string rootLocation)
         {
             foreach (TypeDeclaration type in typesForGenerationByLocation.Values.Where(t => t.Parent is null))
             {
-                this.RecursivelySetName(type, rootNamespace, baseUriToNamespaceMap);
+                this.RecursivelySetName(type, rootNamespace, baseUriToNamespaceMap, rootTypeName, rootLocation);
             }
 
             // Now we've named everything once, we can fix up our array names to better reflect the types of the items
@@ -663,7 +663,7 @@ namespace Menes.Json.SchemaModel.Draft202012
             }
         }
 
-        private void RecursivelySetName(TypeDeclaration type, string rootNamespace, Dictionary<string, string>? baseUriToNamespaceMap, int? index = null)
+        private void RecursivelySetName(TypeDeclaration type, string rootNamespace, Dictionary<string, string>? baseUriToNamespaceMap, string? rootTypeName, string rootLocation, int? index = null)
         {
             string ns;
             if (baseUriToNamespaceMap is Dictionary<string, string> butnmp)
@@ -682,12 +682,17 @@ namespace Menes.Json.SchemaModel.Draft202012
 
             type.SetDotnetTypeNameAndNamespace(ns, index is null ? "Entity" : $"Entity{index + 1}");
 
+            if (type.Location == rootLocation && rootTypeName is string rtn)
+            {
+                type.OverrideDotnetTypeName(rtn);
+            }
+
             this.FixNameForChildren(type);
 
             int childIndex = 0;
             foreach (TypeDeclaration child in type.Children)
             {
-                this.RecursivelySetName(child, rootNamespace, baseUriToNamespaceMap, childIndex);
+                this.RecursivelySetName(child, rootNamespace, baseUriToNamespaceMap, rootTypeName, rootLocation, childIndex);
                 ++childIndex;
             }
         }

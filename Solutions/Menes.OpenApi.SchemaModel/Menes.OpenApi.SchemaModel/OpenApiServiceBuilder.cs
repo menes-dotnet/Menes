@@ -49,7 +49,7 @@ namespace Menes.OpenApi.SchemaModel
             {
                 if (IsPathItemValue(pathProperty))
                 {
-                    Document.PathItemValue pathItem = pathProperty.ValueAs<Document.PathItemValue>();
+                    Document.PathItemOrReferenceEntity pathItem = pathProperty.ValueAs<Document.PathItemOrReferenceEntity>();
                     await this.ProcessPathItem(pathProperty.Name, pathItem).ConfigureAwait(false);
                 }
             }
@@ -60,11 +60,17 @@ namespace Menes.OpenApi.SchemaModel
             }
         }
 
-        private async Task ProcessPathItem(string path, Document.PathItemValue pathItem)
+        private async Task ProcessPathItem(string path, Document.PathItemOrReferenceEntity pathItemOrReference)
         {
-            if (pathItem.Ref.IsNotNullOrUndefined())
+            Document.PathItemValue pathItem;
+            Document.ReferenceValue referenceValue = pathItemOrReference.As<Document.ReferenceValue>();
+            if (referenceValue.IsValid())
             {
-                pathItem = await this.ResolveReference<Document.PathItemValue>(pathItem.Ref).ConfigureAwait(false);
+                pathItem = await this.ResolveReference<Document.PathItemValue>(referenceValue.Ref).ConfigureAwait(false);
+            }
+            else
+            {
+                pathItem = pathItemOrReference.As<Document.PathItemValue>();
             }
 
             if (pathItem.Servers.IsNotNullOrUndefined())
@@ -75,16 +81,17 @@ namespace Menes.OpenApi.SchemaModel
             if (pathItem.Parameters.IsNotNullOrUndefined())
             {
                 ImmutableList<Document.ParameterValue>.Builder parameterBuilder = ImmutableList.CreateBuilder<Document.ParameterValue>();
-                foreach (Document.PathItemValue.ParametersEntity item in pathItem.Parameters.EnumerateItems())
+                foreach (Document.ParameterOrReferenceEntity itemOrReference in pathItem.Parameters.EnumerateItems())
                 {
                     Document.ParameterValue parameterValue;
-                    if (item.IsReferenceValue)
+                    Document.ReferenceValue reference = itemOrReference.As<Document.ReferenceValue>();
+                    if (reference.IsValid())
                     {
-                        parameterValue = await this.ResolveReference<Document.ParameterValue>(item.AsReferenceValue.Ref);
+                        parameterValue = await this.ResolveReference<Document.ParameterValue>(reference.Ref);
                     }
                     else
                     {
-                        parameterValue = item.AsParameterValue;
+                        parameterValue = itemOrReference.As<Document.ParameterValue>();
                     }
 
                     parameterBuilder.Add(parameterValue);
@@ -127,16 +134,17 @@ namespace Menes.OpenApi.SchemaModel
             if (operation.Parameters.IsNotNullOrUndefined())
             {
                 ImmutableList<Document.ParameterValue>.Builder parameterBuilder = ImmutableList.CreateBuilder<Document.ParameterValue>();
-                foreach (Document.OperationValue.ParametersEntity item in operation.Parameters.EnumerateItems())
+                foreach (Document.ParameterOrReferenceEntity itemOrReference in operation.Parameters.EnumerateItems())
                 {
                     Document.ParameterValue parameterValue;
-                    if (item.IsReferenceValue)
+                    Document.ReferenceValue reference = itemOrReference.As<Document.ReferenceValue>();
+                    if (reference.IsValid())
                     {
-                        parameterValue = await this.ResolveReference<Document.ParameterValue>(item.AsReferenceValue.Ref);
+                        parameterValue = await this.ResolveReference<Document.ParameterValue>(reference.Ref);
                     }
                     else
                     {
-                        parameterValue = item.AsParameterValue;
+                        parameterValue = itemOrReference.As<Document.ParameterValue>();
                     }
 
                     parameterBuilder.Add(parameterValue);
