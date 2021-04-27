@@ -3042,7 +3042,7 @@ namespace <#= Namespace #>
         }
 
         /// <inheritdoc/>
-        public ValidationContext Validate(in ValidationContext? validationContext = null, ValidationLevel level = ValidationLevel.Flag)
+        public ValidationContext Validate(in ValidationContext? validationContext = null, ValidationLevel level = ValidationLevel.Flag, bool strictFormatValidation = true)
         {
             ValidationContext result = validationContext ?? ValidationContext.ValidContext;
             if (level != ValidationLevel.Flag)
@@ -3620,7 +3620,7 @@ namespace <#= Namespace #>
     if (HasItems || HasContains || HasUniqueItems || HasMaxItems || HasMinItems || HasUnevaluatedItems || HasAdditionalItems)
     {
     #>
-        private ValidationContext ValidateArray(JsonValueKind valueKind, in ValidationContext validationContext, ValidationLevel level)
+        private ValidationContext ValidateArray(JsonValueKind valueKind, in ValidationContext validationContext, ValidationLevel level, bool strictFormatValidation)
         {
             ValidationContext result = validationContext;
 
@@ -4016,7 +4016,7 @@ namespace <#= Namespace #>
     if (HasDependentRequired || HasLocalProperties || HasRequired || HasMaxProperties || HasMinProperties|| HasDependentSchemas || HasPropertyNames || HasPatternProperties || ((AllowsAdditionalProperties && (HasAdditionalProperties || HasUnevaluatedProperties)) || !AllowsAdditionalProperties))
     {
     #>
-        private ValidationContext ValidateObject(JsonValueKind valueKind, in ValidationContext validationContext, ValidationLevel level)
+        private ValidationContext ValidateObject(JsonValueKind valueKind, in ValidationContext validationContext, ValidationLevel level, bool strictFormatValidation)
         {
             ValidationContext result = validationContext;
 
@@ -4109,7 +4109,7 @@ namespace <#= Namespace #>
                 if (__MenesLocalProperties.TryGetValue(propertyName, out Func<<#= TypeDeclaration.DotnetTypeName #>, ValidationContext, ValidationLevel, ValidationContext>? propertyValidator))
                 {
                     result = result.WithLocalProperty(propertyName);
-                    var propertyResult = propertyValidator(this, result, level);
+                    var propertyResult = propertyValidator(this, result, level, strictFormatValidation);
                     result = result.MergeResults(propertyResult.IsValid, level, propertyResult);
                     if (level == ValidationLevel.Flag && !result.IsValid)
                     {
@@ -4155,7 +4155,7 @@ namespace <#= Namespace #>
                 if (__MenesDependentSchema.TryGetValue(propertyName, out Func<<#= TypeDeclaration.DotnetTypeName #>, ValidationContext, ValidationLevel, ValidationContext>? dependentSchemaValidator))
                 {
                     result = result.WithLocalProperty(propertyName);
-                    result = dependentSchemaValidator(this, result, level);
+                    result = dependentSchemaValidator(this, result, level, strictFormatValidation);
                     if (level == ValidationLevel.Flag && !result.IsValid)
                     {
                         return result;
@@ -4826,7 +4826,7 @@ namespace <#= Namespace #>
         #>        
             if (valueKind == JsonValueKind.String)
             {
-                return Menes.Json.Validate.TypeRelativeJsonPointer(this, result, level);
+                return Menes.Json.Validate.TypeRelativeJsonPointer(this, result, level, strictFormatValidation);
             }
         <#
         }
@@ -4838,7 +4838,7 @@ namespace <#= Namespace #>
         #>        
             if (valueKind == JsonValueKind.String)
             {
-                return Menes.Json.Validate.TypeDate(this, result, level);
+                return Menes.Json.Validate.TypeDate(this, result, level, strictFormatValidation);
             }
 
         <#
@@ -4851,7 +4851,7 @@ namespace <#= Namespace #>
         #>        
             if (valueKind == JsonValueKind.String)
             {
-                return Menes.Json.Validate.TypeDateTime(this, result, level);
+                return Menes.Json.Validate.TypeDateTime(this, result, level, strictFormatValidation);
             }
         <#
         }
@@ -4863,7 +4863,7 @@ namespace <#= Namespace #>
         #>        
             if (valueKind == JsonValueKind.String)
             {
-                return Menes.Json.Validate.TypeDuration(this, result, level);
+                return Menes.Json.Validate.TypeDuration(this, result, level, strictFormatValidation);
             }
         <#
         }
@@ -4875,7 +4875,7 @@ namespace <#= Namespace #>
         #>        
             if (valueKind == JsonValueKind.String)
             {
-                return Menes.Json.Validate.TypeTime(this, result, level);
+                return Menes.Json.Validate.TypeTime(this, result, level, strictFormatValidation);
             }
         <#
         }
@@ -4887,7 +4887,7 @@ namespace <#= Namespace #>
         #>        
             if (valueKind == JsonValueKind.String)
             {
-                return Menes.Json.Validate.TypeEmail(this, result, level);
+                return Menes.Json.Validate.TypeEmail(this, result, level, strictFormatValidation);
             }
         <#
         }
@@ -4899,7 +4899,7 @@ namespace <#= Namespace #>
         #>        
             if (valueKind == JsonValueKind.String)
             {
-                return Menes.Json.Validate.TypeHostname(this, result, level);
+                return Menes.Json.Validate.TypeHostname(this, result, level, strictFormatValidation);
             }
         <#
         }
@@ -4911,7 +4911,7 @@ namespace <#= Namespace #>
         #>        
             if (valueKind == JsonValueKind.String)
             {
-                return Menes.Json.Validate.TypeIdnEmail(this, result, level);
+                return Menes.Json.Validate.TypeIdnEmail(this, result, level, strictFormatValidation);
             }
 
         <#
@@ -4924,7 +4924,7 @@ namespace <#= Namespace #>
         #>        
             if (valueKind == JsonValueKind.String)
             {
-                return Menes.Json.Validate.TypeIdnHostname(this, result, level);
+                return Menes.Json.Validate.TypeIdnHostname(this, result, level, strictFormatValidation);
             }
         <#
         }
@@ -4936,7 +4936,7 @@ namespace <#= Namespace #>
         #>        
             if (valueKind == JsonValueKind.Number)
             {
-                return Menes.Json.Validate.TypeInteger(this, result, level);
+                return Menes.Json.Validate.TypeInteger(this, result, level, strictFormatValidation);
             }
         <#
         }
@@ -4948,7 +4948,7 @@ namespace <#= Namespace #>
         #>        
             if (valueKind == JsonValueKind.String)
             {
-                return Menes.Json.Validate.TypeIpV4(this, result, level);
+                return Menes.Json.Validate.TypeIpV4(this, result, level, strictFormatValidation);
             }
 
         <#
@@ -4961,7 +4961,7 @@ namespace <#= Namespace #>
         #>        
             if (valueKind == JsonValueKind.String)
             {
-                return Menes.Json.Validate.TypeIpV6(this, result, level);
+                return Menes.Json.Validate.TypeIpV6(this, result, level, strictFormatValidation);
             }
 
         <#
@@ -4974,7 +4974,7 @@ namespace <#= Namespace #>
         #>        
             if (valueKind == JsonValueKind.String)
             {
-                return Menes.Json.Validate.TypeIri(this, result, level);
+                return Menes.Json.Validate.TypeIri(this, result, level, strictFormatValidation);
             }
         <#
         }
@@ -4986,7 +4986,7 @@ namespace <#= Namespace #>
         #>        
             if (valueKind == JsonValueKind.String)
             {
-                return Menes.Json.Validate.TypeIriReference(this, result, level);
+                return Menes.Json.Validate.TypeIriReference(this, result, level, strictFormatValidation);
             }
         <#
         }
@@ -4998,7 +4998,7 @@ namespace <#= Namespace #>
         #>        
             if (valueKind == JsonValueKind.String)
             {
-                return Menes.Json.Validate.TypeJsonPointer(this, result, level);
+                return Menes.Json.Validate.TypeJsonPointer(this, result, level, strictFormatValidation);
             }
         <#
         }
@@ -5010,7 +5010,7 @@ namespace <#= Namespace #>
         #>        
             if (valueKind == JsonValueKind.String)
             {
-                return Menes.Json.Validate.TypeRegex(this, result, level);
+                return Menes.Json.Validate.TypeRegex(this, result, level, strictFormatValidation);
             }
         <#
         }
@@ -5022,7 +5022,7 @@ namespace <#= Namespace #>
         #>        
             if (valueKind == JsonValueKind.String)
             {
-                return Menes.Json.Validate.TypeRelativeJsonPointer(this, result, level);
+                return Menes.Json.Validate.TypeRelativeJsonPointer(this, result, level, strictFormatValidation);
             }
         <#
         }
@@ -5034,7 +5034,7 @@ namespace <#= Namespace #>
         #>        
             if (valueKind == JsonValueKind.String)
             {
-                return Menes.Json.Validate.TypeTime(this, result, level);
+                return Menes.Json.Validate.TypeTime(this, result, level, strictFormatValidation);
             }
 
         <#
@@ -5047,7 +5047,7 @@ namespace <#= Namespace #>
         #>        
             if (valueKind == JsonValueKind.String)
             {
-                return Menes.Json.Validate.TypeUri(this, result, level);
+                return Menes.Json.Validate.TypeUri(this, result, level, strictFormatValidation);
             }
 
         <#
@@ -5060,7 +5060,7 @@ namespace <#= Namespace #>
         #>        
             if (valueKind == JsonValueKind.String)
             {
-                return Menes.Json.Validate.TypeUriReference(this, result, level);
+                return Menes.Json.Validate.TypeUriReference(this, result, level, strictFormatValidation);
             }
         <#
         }
@@ -5072,7 +5072,7 @@ namespace <#= Namespace #>
         #>        
             if (valueKind == JsonValueKind.String)
             {
-                return Menes.Json.Validate.TypeUriTemplate(this, result, level);
+                return Menes.Json.Validate.TypeUriTemplate(this, result, level, strictFormatValidation);
             }
 
         <#
@@ -5085,7 +5085,7 @@ namespace <#= Namespace #>
         #>        
             if (valueKind == JsonValueKind.String)
             {
-                return Menes.Json.Validate.TypeUuid(this, result, level);
+                return Menes.Json.Validate.TypeUuid(this, result, level, strictFormatValidation);
             }
 
         <#
@@ -5103,7 +5103,7 @@ namespace <#= Namespace #>
     if (HasType)
     {
     #>        
-        private ValidationContext ValidateType(JsonValueKind valueKind, in ValidationContext validationContext, ValidationLevel level)
+        private ValidationContext ValidateType(JsonValueKind valueKind, in ValidationContext validationContext, ValidationLevel level, bool strictFormatValidation)
         {
             ValidationContext result = validationContext;
             bool isValid = false;
@@ -5188,7 +5188,7 @@ namespace <#= Namespace #>
         if (HasIntegerType)
         {
         #>        
-            ValidationContext localResultInteger = Menes.Json.Validate.TypeInteger(this, result, level);
+            ValidationContext localResultInteger = Menes.Json.Validate.TypeInteger(this, result, level, strictFormatValidation);
             if (level == ValidationLevel.Flag && localResultInteger.IsValid)
             {
                 return validationContext;

@@ -25,11 +25,12 @@ namespace Menes.Json
 
         private readonly Dictionary<string, LocatedElement> locatedElements = new Dictionary<string, LocatedElement>();
 
-        private readonly Stack<string> scopedLocationStack = new Stack<string>();
         private readonly IDocumentResolver documentResolver;
         private readonly string baseLocation;
 
-        private readonly List<(string, bool, bool, string, Action<JsonWalker, LocatedElement>)> unresolvedReferences = new List<(string, bool, bool, string, Action<JsonWalker, LocatedElement>)>();
+        private readonly List<(string, bool, bool, List<string>, Action<JsonWalker, LocatedElement>)> unresolvedReferences = new List<(string, bool, bool, List<string>, Action<JsonWalker, LocatedElement>)>();
+
+        private Stack<string> scopedLocationStack = new Stack<string>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="JsonWalker"/> class.
@@ -205,7 +206,7 @@ namespace Menes.Json
         /// <param name="postResolutionAction">The action to perform once the item has been resolved.</param>
         public void AddUnresolvedReference(string reference, bool isRecursiveReference, bool isDynamicReference, Action<JsonWalker, LocatedElement> postResolutionAction)
         {
-            this.unresolvedReferences.Add((reference, isRecursiveReference, isDynamicReference, this.PeekLocationStack(), postResolutionAction));
+            this.unresolvedReferences.Add((reference, isRecursiveReference, isDynamicReference, this.scopedLocationStack.ToList(), postResolutionAction));
         }
 
         /// <summary>
@@ -214,14 +215,15 @@ namespace Menes.Json
         /// <returns>A <see cref="Task"/> which completes when the references are resolved.</returns>
         public async Task ResolveUnresolvedReferences()
         {
-            foreach ((string reference, bool isRecursiveReference, bool isDynamicReference, string stackLocation, Action<JsonWalker, LocatedElement> postResolutionAction) in this.unresolvedReferences)
+            foreach ((string reference, bool isRecursiveReference, bool isDynamicReference, List<string> stackLocation, Action<JsonWalker, LocatedElement> postResolutionAction) in this.unresolvedReferences)
             {
                 if (this.locatedElements.ContainsKey(reference))
                 {
                     continue;
                 }
 
-                this.PushScopeToLocationStack(stackLocation);
+                stackLocation.Reverse();
+                this.scopedLocationStack = new Stack<string>(stackLocation);
                 LocatedElement? locatedElement = await this.ResolveReference(new JsonReference(reference), isRecursiveReference, isDynamicReference);
                 if (locatedElement is LocatedElement)
                 {
@@ -334,7 +336,13 @@ namespace Menes.Json
                 var result = await enumerator.Current(this, currentLocation, isRecursiveReference, isDynamicReference, () => RecursivelyResolve(enumerator, this, currentLocation, isRecursiveReference, isDynamicReference)).ConfigureAwait(false);
                 if (result != null)
                 {
-                    return result;
+                    // This mechanism allows us to say "defer resolution and don't delegate to further handlers.
+                    if (result.Element.ValueKind != JsonValueKind.Undefined)
+                    {
+                        return result;
+                    }
+
+                    return default;
                 }
             }
 

@@ -23,6 +23,7 @@ namespace Menes.Json.SchemaModel.Draft202012
         public const string SchemaContent = "application/vnd.menes.jsonschemawalker.draft201909schemacontent";
 
         private readonly Dictionary<string, LocatedElement> anchoredSchema = new Dictionary<string, LocatedElement>();
+        private readonly Dictionary<string, LocatedElement> dynamicAnchoredSchema = new Dictionary<string, LocatedElement>();
         private readonly Stack<LocatedElement> currentSchema = new Stack<LocatedElement>();
 
         /// <summary>
@@ -59,29 +60,88 @@ namespace Menes.Json.SchemaModel.Draft202012
 
             if (isDynamicReference)
             {
-                if (this.anchoredSchema.TryGetValue(decodedRef, out LocatedElement value))
+                if (this.dynamicAnchoredSchema.TryGetValue(decodedRef, out LocatedElement dynamicValue))
                 {
-                    EnsureSchemaContent(value);
-                    return this.ResolvePotentiallyRecursiveAnchor(walker, value, isDynamicReference);
+                    EnsureSchemaContent(dynamicValue);
+                    return this.ResolvePotentiallyRecursiveAnchor(walker, dynamicValue, reference.Fragment.ToString(), isDynamicReference);
                 }
-
-                LocatedElement? resolvedElement = await resolve().ConfigureAwait(false);
-                return this.ResolvePotentiallyRecursiveAnchor(walker, resolvedElement, isDynamicReference);
+                else
+                {
+                    if (this.currentSchema.Count > 1)
+                    {
+                        if (this.HasUnknownAnchors(this.currentSchema.Skip(1).Take(1).Single().Element))
+                        {
+                            // We defer location to later if we have local anchors, but we have not
+                            // resolved via an anchor
+                            return new LocatedElement(walker.PeekLocationStack(), default, SchemaContent);
+                        }
+                    }
+                }
             }
-            else
+
+            if (this.anchoredSchema.TryGetValue(decodedRef, out LocatedElement value))
             {
-                if (this.anchoredSchema.TryGetValue(decodedRef, out LocatedElement value))
-                {
-                    EnsureSchemaContent(value);
-                    return this.ResolvePotentiallyRecursiveAnchor(walker, value, isRecursiveReference);
-                }
+                EnsureSchemaContent(value);
 
-                LocatedElement? resolvedElement = await resolve().ConfigureAwait(false);
-                return this.ResolvePotentiallyRecursiveAnchor(walker, resolvedElement, isRecursiveReference);
+                // Don't do recursive resolution if this wasn't resolved to a dynamic anchor...
+                return this.ResolvePotentiallyRecursiveAnchor(walker, value, reference.Fragment.ToString(), false);
             }
+
+            if (this.currentSchema.Count > 1)
+            {
+                if (this.HasUnknownAnchors(this.currentSchema.Skip(1).Take(1).Single().Element))
+                {
+                    // We defer location to later if we have local anchors, but we have not
+                    // resolved via an anchor
+                    return new LocatedElement(walker.PeekLocationStack(), default, SchemaContent);
+                }
+            }
+
+            LocatedElement? resolvedElement = await resolve().ConfigureAwait(false);
+            return this.ResolvePotentiallyRecursiveAnchor(walker, resolvedElement, reference.Fragment.ToString(), false);
         }
 
-        private LocatedElement? ResolvePotentiallyRecursiveAnchor(JsonWalker walker, LocatedElement? locatedElement, bool isRecursiveReference)
+        private bool HasUnknownAnchors(JsonElement element)
+        {
+            if (element.ValueKind == JsonValueKind.Object)
+            {
+                foreach (JsonProperty property in element.EnumerateObject())
+                {
+                    if (property.NameEquals("$anchor") || property.NameEquals("$dynamicAnchor"))
+                    {
+                        if (property.Value.ValueKind == JsonValueKind.String && !this.anchoredSchema.ContainsKey(property.Value.GetString() !))
+                        {
+                            return true;
+                        }
+                    }
+                    else if (property.NameEquals("enum") || property.NameEquals("const"))
+                    {
+                        continue;
+                    }
+                    else if (property.Value.ValueKind == JsonValueKind.Object || property.Value.ValueKind == JsonValueKind.Array)
+                    {
+                        if (this.HasUnknownAnchors(property.Value))
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+            else if (element.ValueKind == JsonValueKind.Array)
+            {
+                foreach (JsonElement child in element.EnumerateArray())
+                {
+                    if (this.HasUnknownAnchors(child))
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        private LocatedElement? ResolvePotentiallyRecursiveAnchor(JsonWalker walker, LocatedElement? locatedElement, string reference, bool isRecursiveReference)
         {
             if (locatedElement is null)
             {
@@ -100,30 +160,21 @@ namespace Menes.Json.SchemaModel.Draft202012
             }
 
             LocatedElement? lastRecursiveAnchor = null;
-            if (this.HasRecursiveOrDynamicAnchor(locatedElement))
+
+            // Enumerate the recursive anchors up the stack, skipping the start location
+            foreach (LocatedElement item in walker.EnumerateLocationStack(1))
             {
-                // Enumerate the recursive anchors up the stack, skipping the start location
-                foreach (LocatedElement item in walker.EnumerateLocationStack(1))
+                if (this.dynamicAnchoredSchema.TryGetValue(new JsonReference(item.AbsoluteLocation).Apply(new JsonReference(reference)), out LocatedElement dynamiclocatedValue))
                 {
-                    if (this.HasRecursiveOrDynamicAnchor(item))
-                    {
-                        lastRecursiveAnchor = item;
-                    }
+                    lastRecursiveAnchor = dynamiclocatedValue;
+                }
+                else if (lastRecursiveAnchor is null && this.anchoredSchema.TryGetValue(new JsonReference(item.AbsoluteLocation).Apply(new JsonReference(reference)), out LocatedElement locatedValue))
+                {
+                    lastRecursiveAnchor = locatedValue;
                 }
             }
 
             return lastRecursiveAnchor ?? locatedElement;
-        }
-
-        private bool HasRecursiveOrDynamicAnchor(LocatedElement locatedElement)
-        {
-            if (locatedElement.ContentType != SchemaContent)
-            {
-                return false;
-            }
-
-            var schema = new Schema(locatedElement.Element);
-            return schema.RecursiveAnchor.IsNotUndefined() || schema.DynamicAnchor.IsNotUndefined();
         }
 
         private async Task<bool> HandleElement(JsonWalker walker, JsonElement element)
@@ -194,6 +245,7 @@ namespace Menes.Json.SchemaModel.Draft202012
                 if (schema.DynamicAnchor.IsNotNullOrUndefined())
                 {
                     this.anchoredSchema.Add(new JsonReference(walker.PeekLocationStack()).Apply(new JsonReference("#" + schema.DynamicAnchor)), walker.CurrentElement);
+                    this.dynamicAnchoredSchema.Add(new JsonReference(walker.PeekLocationStack()).Apply(new JsonReference("#" + schema.DynamicAnchor)), walker.CurrentElement);
                 }
 
                 if (schema.ValueKind == JsonValueKind.Object)

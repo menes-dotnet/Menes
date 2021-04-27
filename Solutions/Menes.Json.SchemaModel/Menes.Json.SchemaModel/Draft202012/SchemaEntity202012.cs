@@ -8921,7 +8921,7 @@ namespace ");
         }
 
         /// <inheritdoc/>
-        public ValidationContext Validate(in ValidationContext? validationContext = null, ValidationLevel level = ValidationLevel.Flag)
+        public ValidationContext Validate(in ValidationContext? validationContext = null, ValidationLevel level = ValidationLevel.Flag, bool strictFormatValidation = true)
         {
             ValidationContext result = validationContext ?? ValidationContext.ValidContext;
             if (level != ValidationLevel.Flag)
@@ -10631,7 +10631,7 @@ namespace ");
         #line hidden
         
         #line 3626 "SchemaEntity202012.tt"
-        this.Write(@"        private ValidationContext ValidateArray(JsonValueKind valueKind, in ValidationContext validationContext, ValidationLevel level)
+        this.Write(@"        private ValidationContext ValidateArray(JsonValueKind valueKind, in ValidationContext validationContext, ValidationLevel level, bool strictFormatValidation)
         {
             ValidationContext result = validationContext;
 
@@ -11514,7 +11514,7 @@ namespace ");
         #line hidden
         
         #line 3975 "SchemaEntity202012.tt"
-        this.Write(@"        private ValidationContext ValidateObject(JsonValueKind valueKind, in ValidationContext validationContext, ValidationLevel level)
+        this.Write(@"        private ValidationContext ValidateObject(JsonValueKind valueKind, in ValidationContext validationContext, ValidationLevel level, bool strictFormatValidation)
         {
             ValidationContext result = validationContext;
 
@@ -11764,7 +11764,7 @@ namespace ");
         this.Write(@", ValidationContext, ValidationLevel, ValidationContext>? propertyValidator))
                 {
                     result = result.WithLocalProperty(propertyName);
-                    var propertyResult = propertyValidator(this, result, level);
+                    var propertyResult = propertyValidator(this, result, level, strictFormatValidation);
                     result = result.MergeResults(propertyResult.IsValid, level, propertyResult);
                     if (level == ValidationLevel.Flag && !result.IsValid)
                     {
@@ -11893,7 +11893,7 @@ namespace ");
         this.Write(@", ValidationContext, ValidationLevel, ValidationContext>? dependentSchemaValidator))
                 {
                     result = result.WithLocalProperty(propertyName);
-                    result = dependentSchemaValidator(this, result, level);
+                    result = dependentSchemaValidator(this, result, level, strictFormatValidation);
                     if (level == ValidationLevel.Flag && !result.IsValid)
                     {
                         return result;
@@ -13532,7 +13532,7 @@ namespace ");
         
         #line 4819 "SchemaEntity202012.tt"
         this.Write("        \r\n            if (valueKind == JsonValueKind.String)\r\n            {\r\n    " +
-                "            return Menes.Json.Validate.TypeDate(this, result, level);\r\n         " +
+                "            return Menes.Json.Validate.TypeDate(this, result, level, strictFormatValidation);\r\n         " +
                 "   }\r\n\r\n        ");
         
         #line default
@@ -13563,7 +13563,7 @@ namespace ");
         
         #line 4833 "SchemaEntity202012.tt"
         this.Write("        \r\n            if (valueKind == JsonValueKind.String)\r\n            {\r\n    " +
-                "            return Menes.Json.Validate.TypeDateTime(this, result, level);\r\n     " +
+                "            return Menes.Json.Validate.TypeDateTime(this, result, level, strictFormatValidation);\r\n     " +
                 "       }\r\n        ");
         
         #line default
@@ -13594,7 +13594,7 @@ namespace ");
         
         #line 4846 "SchemaEntity202012.tt"
         this.Write("        \r\n            if (valueKind == JsonValueKind.String)\r\n            {\r\n    " +
-                "            return Menes.Json.Validate.TypeDuration(this, result, level);\r\n     " +
+                "            return Menes.Json.Validate.TypeDuration(this, result, level, strictFormatValidation);\r\n     " +
                 "       }\r\n        ");
         
         #line default
@@ -13625,7 +13625,7 @@ namespace ");
         
         #line 4859 "SchemaEntity202012.tt"
         this.Write("        \r\n            if (valueKind == JsonValueKind.String)\r\n            {\r\n    " +
-                "            return Menes.Json.Validate.TypeTime(this, result, level);\r\n         " +
+                "            return Menes.Json.Validate.TypeTime(this, result, level, strictFormatValidation);\r\n         " +
                 "   }\r\n        ");
         
         #line default
@@ -13656,7 +13656,7 @@ namespace ");
         
         #line 4872 "SchemaEntity202012.tt"
         this.Write("        \r\n            if (valueKind == JsonValueKind.String)\r\n            {\r\n    " +
-                "            return Menes.Json.Validate.TypeEmail(this, result, level);\r\n        " +
+                "            return Menes.Json.Validate.TypeEmail(this, result, level, strictFormatValidation);\r\n        " +
                 "    }\r\n        ");
         
         #line default
@@ -13687,7 +13687,7 @@ namespace ");
         
         #line 4885 "SchemaEntity202012.tt"
         this.Write("        \r\n            if (valueKind == JsonValueKind.String)\r\n            {\r\n    " +
-                "            return Menes.Json.Validate.TypeHostname(this, result, level);\r\n     " +
+                "            return Menes.Json.Validate.TypeHostname(this, result, level, strictFormatValidation);\r\n     " +
                 "       }\r\n        ");
         
         #line default
@@ -13718,7 +13718,7 @@ namespace ");
         
         #line 4898 "SchemaEntity202012.tt"
         this.Write("        \r\n            if (valueKind == JsonValueKind.String)\r\n            {\r\n    " +
-                "            return Menes.Json.Validate.TypeIdnEmail(this, result, level);\r\n     " +
+                "            return Menes.Json.Validate.TypeIdnEmail(this, result, level, strictFormatValidation);\r\n     " +
                 "       }\r\n\r\n        ");
         
         #line default
@@ -13749,7 +13749,7 @@ namespace ");
         
         #line 4912 "SchemaEntity202012.tt"
         this.Write("        \r\n            if (valueKind == JsonValueKind.String)\r\n            {\r\n    " +
-                "            return Menes.Json.Validate.TypeIdnHostname(this, result, level);\r\n  " +
+                "            return Menes.Json.Validate.TypeIdnHostname(this, result, level, strictFormatValidation);\r\n  " +
                 "          }\r\n        ");
         
         #line default
@@ -13780,7 +13780,7 @@ namespace ");
         
         #line 4925 "SchemaEntity202012.tt"
         this.Write("        \r\n            if (valueKind == JsonValueKind.Number)\r\n            {\r\n    " +
-                "            return Menes.Json.Validate.TypeInteger(this, result, level);\r\n      " +
+                "            return Menes.Json.Validate.TypeInteger(this, result, level, strictFormatValidation);\r\n      " +
                 "      }\r\n        ");
         
         #line default
@@ -13811,7 +13811,7 @@ namespace ");
         
         #line 4938 "SchemaEntity202012.tt"
         this.Write("        \r\n            if (valueKind == JsonValueKind.String)\r\n            {\r\n    " +
-                "            return Menes.Json.Validate.TypeIpV4(this, result, level);\r\n         " +
+                "            return Menes.Json.Validate.TypeIpV4(this, result, level, strictFormatValidation);\r\n         " +
                 "   }\r\n\r\n        ");
         
         #line default
@@ -13842,7 +13842,7 @@ namespace ");
         
         #line 4952 "SchemaEntity202012.tt"
         this.Write("        \r\n            if (valueKind == JsonValueKind.String)\r\n            {\r\n    " +
-                "            return Menes.Json.Validate.TypeIpV6(this, result, level);\r\n         " +
+                "            return Menes.Json.Validate.TypeIpV6(this, result, level, strictFormatValidation);\r\n         " +
                 "   }\r\n\r\n        ");
         
         #line default
@@ -13873,7 +13873,7 @@ namespace ");
         
         #line 4966 "SchemaEntity202012.tt"
         this.Write("        \r\n            if (valueKind == JsonValueKind.String)\r\n            {\r\n    " +
-                "            return Menes.Json.Validate.TypeIri(this, result, level);\r\n          " +
+                "            return Menes.Json.Validate.TypeIri(this, result, level, strictFormatValidation);\r\n          " +
                 "  }\r\n        ");
         
         #line default
@@ -13904,7 +13904,7 @@ namespace ");
         
         #line 4979 "SchemaEntity202012.tt"
         this.Write("        \r\n            if (valueKind == JsonValueKind.String)\r\n            {\r\n    " +
-                "            return Menes.Json.Validate.TypeIriReference(this, result, level);\r\n " +
+                "            return Menes.Json.Validate.TypeIriReference(this, result, level, strictFormatValidation);\r\n " +
                 "           }\r\n        ");
         
         #line default
@@ -13935,7 +13935,7 @@ namespace ");
         
         #line 4992 "SchemaEntity202012.tt"
         this.Write("        \r\n            if (valueKind == JsonValueKind.String)\r\n            {\r\n    " +
-                "            return Menes.Json.Validate.TypeJsonPointer(this, result, level);\r\n  " +
+                "            return Menes.Json.Validate.TypeJsonPointer(this, result, level, strictFormatValidation);\r\n  " +
                 "          }\r\n        ");
         
         #line default
@@ -13966,7 +13966,7 @@ namespace ");
         
         #line 5005 "SchemaEntity202012.tt"
         this.Write("        \r\n            if (valueKind == JsonValueKind.String)\r\n            {\r\n    " +
-                "            return Menes.Json.Validate.TypeRegex(this, result, level);\r\n        " +
+                "            return Menes.Json.Validate.TypeRegex(this, result, level, strictFormatValidation);\r\n        " +
                 "    }\r\n        ");
         
         #line default
@@ -14028,7 +14028,7 @@ namespace ");
         
         #line 5031 "SchemaEntity202012.tt"
         this.Write("        \r\n            if (valueKind == JsonValueKind.String)\r\n            {\r\n    " +
-                "            return Menes.Json.Validate.TypeTime(this, result, level);\r\n         " +
+                "            return Menes.Json.Validate.TypeTime(this, result, level, strictFormatValidation);\r\n         " +
                 "   }\r\n\r\n        ");
         
         #line default
@@ -14059,7 +14059,7 @@ namespace ");
         
         #line 5045 "SchemaEntity202012.tt"
         this.Write("        \r\n            if (valueKind == JsonValueKind.String)\r\n            {\r\n    " +
-                "            return Menes.Json.Validate.TypeUri(this, result, level);\r\n          " +
+                "            return Menes.Json.Validate.TypeUri(this, result, level, strictFormatValidation);\r\n          " +
                 "  }\r\n\r\n        ");
         
         #line default
@@ -14090,7 +14090,7 @@ namespace ");
         
         #line 5059 "SchemaEntity202012.tt"
         this.Write("        \r\n            if (valueKind == JsonValueKind.String)\r\n            {\r\n    " +
-                "            return Menes.Json.Validate.TypeUriReference(this, result, level);\r\n " +
+                "            return Menes.Json.Validate.TypeUriReference(this, result, level, strictFormatValidation);\r\n " +
                 "           }\r\n        ");
         
         #line default
@@ -14121,7 +14121,7 @@ namespace ");
         
         #line 5072 "SchemaEntity202012.tt"
         this.Write("        \r\n            if (valueKind == JsonValueKind.String)\r\n            {\r\n    " +
-                "            return Menes.Json.Validate.TypeUriTemplate(this, result, level);\r\n  " +
+                "            return Menes.Json.Validate.TypeUriTemplate(this, result, level, strictFormatValidation);\r\n  " +
                 "          }\r\n\r\n        ");
         
         #line default
@@ -14152,7 +14152,7 @@ namespace ");
         
         #line 5086 "SchemaEntity202012.tt"
         this.Write("        \r\n            if (valueKind == JsonValueKind.String)\r\n            {\r\n    " +
-                "            return Menes.Json.Validate.TypeUuid(this, result, level);\r\n         " +
+                "            return Menes.Json.Validate.TypeUuid(this, result, level, strictFormatValidation);\r\n         " +
                 "   }\r\n\r\n        ");
         
         #line default
@@ -14197,7 +14197,7 @@ namespace ");
         
         #line 5107 "SchemaEntity202012.tt"
         this.Write(@"        
-        private ValidationContext ValidateType(JsonValueKind valueKind, in ValidationContext validationContext, ValidationLevel level)
+        private ValidationContext ValidateType(JsonValueKind valueKind, in ValidationContext validationContext, ValidationLevel level, bool strictFormatValidation)
         {
             ValidationContext result = validationContext;
             bool isValid = false;
@@ -14382,7 +14382,7 @@ namespace ");
         
         #line 5197 "SchemaEntity202012.tt"
         this.Write(@"        
-            ValidationContext localResultInteger = Menes.Json.Validate.TypeInteger(this, result, level);
+            ValidationContext localResultInteger = Menes.Json.Validate.TypeInteger(this, result, level, strictFormatValidation);
             if (level == ValidationLevel.Flag && localResultInteger.IsValid)
             {
                 return validationContext;
