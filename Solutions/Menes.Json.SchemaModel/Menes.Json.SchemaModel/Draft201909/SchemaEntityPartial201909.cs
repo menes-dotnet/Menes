@@ -1407,11 +1407,22 @@ public partial class SchemaEntity201909
     /// <summary>
     /// Gets the if schema dotnet type name.
     /// </summary>
-    public string IfDotnetTypeName
+    public string IfFullyQualifiedDotnetTypeName
     {
         get
         {
             return this.Builder.GetTypeDeclarationForProperty(this.TypeDeclaration, "if").FullyQualifiedDotnetTypeName ?? string.Empty;
+        }
+    }
+
+    /// <summary>
+    /// Gets the if schema dotnet type name.
+    /// </summary>
+    public string IfDotnetTypeName
+    {
+        get
+        {
+            return this.Builder.GetTypeDeclarationForProperty(this.TypeDeclaration, "if").DotnetTypeName ?? string.Empty;
         }
     }
 
@@ -1427,13 +1438,24 @@ public partial class SchemaEntity201909
     }
 
     /// <summary>
-    /// Gets the tehn schema dotnet type name.
+    /// Gets the fully qualified then schema dotnet type name.
+    /// </summary>
+    public string ThenFullyQualifiedDotnetTypeName
+    {
+        get
+        {
+            return this.Builder.GetTypeDeclarationForProperty(this.TypeDeclaration, "then").FullyQualifiedDotnetTypeName ?? string.Empty;
+        }
+    }
+
+    /// <summary>
+    /// Gets the then schema dotnet type name.
     /// </summary>
     public string ThenDotnetTypeName
     {
         get
         {
-            return this.Builder.GetTypeDeclarationForProperty(this.TypeDeclaration, "then").FullyQualifiedDotnetTypeName ?? string.Empty;
+            return this.Builder.GetTypeDeclarationForProperty(this.TypeDeclaration, "then").DotnetTypeName ?? string.Empty;
         }
     }
 
@@ -1449,13 +1471,24 @@ public partial class SchemaEntity201909
     }
 
     /// <summary>
+    /// Gets the fully qualified else schema dotnet type name.
+    /// </summary>
+    public string ElseFullyQualifiedDotnetTypeName
+    {
+        get
+        {
+            return this.Builder.GetTypeDeclarationForProperty(this.TypeDeclaration, "else").FullyQualifiedDotnetTypeName ?? string.Empty;
+        }
+    }
+
+    /// <summary>
     /// Gets the else schema dotnet type name.
     /// </summary>
     public string ElseDotnetTypeName
     {
         get
         {
-            return this.Builder.GetTypeDeclarationForProperty(this.TypeDeclaration, "else").FullyQualifiedDotnetTypeName ?? string.Empty;
+            return this.Builder.GetTypeDeclarationForProperty(this.TypeDeclaration, "else").DotnetTypeName ?? string.Empty;
         }
     }
 
@@ -2040,6 +2073,39 @@ public partial class SchemaEntity201909
         if (typeDeclaration.Schema.Ref.IsNotUndefined() && !(typeDeclaration.Schema.IsNakedReference() || typeDeclaration.Schema.IsNakedRecursiveReference()))
         {
             TypeDeclaration td = this.Builder.GetTypeDeclarationForProperty(typeDeclaration, "$ref");
+
+            if (!conversions.ContainsKey(td))
+            {
+                conversions.Add(td, new Conversion(td, parent));
+                this.AddConversionsFor(td, conversions, typeDeclaration);
+            }
+        }
+
+        if (typeDeclaration.Schema.If.IsNotUndefined() && !(typeDeclaration.Schema.IsNakedReference() || typeDeclaration.Schema.IsNakedRecursiveReference()))
+        {
+            TypeDeclaration td = this.Builder.GetTypeDeclarationForProperty(typeDeclaration, "if");
+
+            if (!conversions.ContainsKey(td))
+            {
+                conversions.Add(td, new Conversion(td, parent));
+                this.AddConversionsFor(td, conversions, typeDeclaration);
+            }
+        }
+
+        if (typeDeclaration.Schema.Then.IsNotUndefined() && !(typeDeclaration.Schema.IsNakedReference() || typeDeclaration.Schema.IsNakedRecursiveReference()))
+        {
+            TypeDeclaration td = this.Builder.GetTypeDeclarationForProperty(typeDeclaration, "then");
+
+            if (!conversions.ContainsKey(td))
+            {
+                conversions.Add(td, new Conversion(td, parent));
+                this.AddConversionsFor(td, conversions, typeDeclaration);
+            }
+        }
+
+        if (typeDeclaration.Schema.Else.IsNotUndefined() && !(typeDeclaration.Schema.IsNakedReference() || typeDeclaration.Schema.IsNakedRecursiveReference()))
+        {
+            TypeDeclaration td = this.Builder.GetTypeDeclarationForProperty(typeDeclaration, "else");
 
             if (!conversions.ContainsKey(td))
             {

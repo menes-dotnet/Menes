@@ -63,14 +63,13 @@ namespace Menes.OpenApi.SchemaModel
         private async Task ProcessPathItem(string path, Document.PathItemOrReferenceEntity pathItemOrReference)
         {
             Document.PathItemValue pathItem;
-            Document.ReferenceValue referenceValue = pathItemOrReference.As<Document.ReferenceValue>();
-            if (referenceValue.IsValid())
+            if (pathItemOrReference.IsIfMatchReferenceValue)
             {
-                pathItem = await this.ResolveReference<Document.PathItemValue>(referenceValue.Ref).ConfigureAwait(false);
+                pathItem = await this.ResolveReference<Document.PathItemValue>(pathItemOrReference.AsIfMatchReferenceValue.Ref).ConfigureAwait(false);
             }
             else
             {
-                pathItem = pathItemOrReference.As<Document.PathItemValue>();
+                pathItem = pathItemOrReference.AsElseMatchPathItemValue;
             }
 
             if (pathItem.Servers.IsNotNullOrUndefined())
@@ -84,14 +83,13 @@ namespace Menes.OpenApi.SchemaModel
                 foreach (Document.ParameterOrReferenceEntity itemOrReference in pathItem.Parameters.EnumerateItems())
                 {
                     Document.ParameterValue parameterValue;
-                    Document.ReferenceValue reference = itemOrReference.As<Document.ReferenceValue>();
-                    if (reference.IsValid())
+                    if (itemOrReference.IsIfMatchReferenceValue)
                     {
-                        parameterValue = await this.ResolveReference<Document.ParameterValue>(reference.Ref);
+                        parameterValue = await this.ResolveReference<Document.ParameterValue>(itemOrReference.AsIfMatchReferenceValue.Ref);
                     }
                     else
                     {
-                        parameterValue = itemOrReference.As<Document.ParameterValue>();
+                        parameterValue = itemOrReference.AsElseMatchParameterValue;
                     }
 
                     parameterBuilder.Add(parameterValue);
@@ -137,14 +135,13 @@ namespace Menes.OpenApi.SchemaModel
                 foreach (Document.ParameterOrReferenceEntity itemOrReference in operation.Parameters.EnumerateItems())
                 {
                     Document.ParameterValue parameterValue;
-                    Document.ReferenceValue reference = itemOrReference.As<Document.ReferenceValue>();
-                    if (reference.IsValid())
+                    if (itemOrReference.IsIfMatchReferenceValue)
                     {
-                        parameterValue = await this.ResolveReference<Document.ParameterValue>(reference.Ref);
+                        parameterValue = await this.ResolveReference<Document.ParameterValue>(itemOrReference.AsIfMatchReferenceValue.Ref);
                     }
                     else
                     {
-                        parameterValue = itemOrReference.As<Document.ParameterValue>();
+                        parameterValue = itemOrReference.AsElseMatchParameterValue;
                     }
 
                     parameterBuilder.Add(parameterValue);

@@ -1287,6 +1287,72 @@ namespace <#= Namespace #>
     #>
 
     <#
+    if (HasIfThenElse)
+    {
+    #>
+        <#
+        if (HasThen)
+        {
+        #>
+        /// <summary>
+        /// Gets a value indicating whether this matches the If/Then type.
+        /// </summary>
+        public bool IsIfMatch<#=                ThenDotnetTypeName#>
+        {
+            get
+            {
+                return this.As<<#=                IfFullyQualifiedDotnetTypeName#>>().IsValid(); 
+            }
+        }
+
+        /// <summary>
+        /// Gets this as the matching type for the If/Then clause.
+        /// </summary>
+        public <#=ThenFullyQualifiedDotnetTypeName#> AsIfMatch<#=ThenDotnetTypeName#>
+        {
+            get
+            {
+                return this.As<<#=ThenFullyQualifiedDotnetTypeName#>>(); 
+            }
+        }
+
+        <#
+        }
+        #>
+
+        <#
+        if (HasElse)
+        {
+        #>
+        /// <summary>
+        /// Gets a value indicating whether this matches the If/Else type.
+        /// </summary>
+        public bool IsElseMatch<#=ElseDotnetTypeName#>
+        {
+            get
+            {
+                return !this.As<<#=IfFullyQualifiedDotnetTypeName#>>().IsValid(); 
+            }
+        }
+
+        /// <summary>
+        /// Gets this as the matching type for the If/Else clause.
+        /// </summary>
+        public <#=ElseFullyQualifiedDotnetTypeName#> AsElseMatch<#=ElseDotnetTypeName#>
+        {
+            get
+            {
+                return this.As<<#=ElseFullyQualifiedDotnetTypeName#>>(); 
+            }
+        }
+        <#
+        }
+        #>
+    <#
+    }
+    #>
+
+    <#
     if(HasProperties)
     {
     #>
@@ -4622,7 +4688,7 @@ namespace <#= Namespace #>
         {
             ValidationContext result = validationContext;
 
-            ValidationContext ifResult = this.As<<#= IfDotnetTypeName #>>().Validate(validationContext.CreateChildContext(), level);
+            ValidationContext ifResult = this.As<<#= IfFullyQualifiedDotnetTypeName #>>().Validate(validationContext.CreateChildContext(), level);
 
             if (!ifResult.IsValid)
             {
@@ -4652,7 +4718,7 @@ namespace <#= Namespace #>
         #>        
             if (ifResult.IsValid)
             {
-                ValidationContext thenResult = this.As<<#= ThenDotnetTypeName #>>().Validate(validationContext.CreateChildContext(), level);
+                ValidationContext thenResult = this.As<<#= ThenFullyQualifiedDotnetTypeName #>>().Validate(validationContext.CreateChildContext(), level);
 
                 if (!thenResult.IsValid)
                 {
@@ -4690,7 +4756,7 @@ namespace <#= Namespace #>
         #>        
             if (!ifResult.IsValid)
             {
-                ValidationContext elseResult = this.As<<#= ElseDotnetTypeName #>>().Validate(validationContext.CreateChildContext(), level);
+                ValidationContext elseResult = this.As<<#= ElseFullyQualifiedDotnetTypeName #>>().Validate(validationContext.CreateChildContext(), level);
 
                 if (!elseResult.IsValid)
                 {
