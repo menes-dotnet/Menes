@@ -23,7 +23,7 @@ namespace Menes.Json
         private static readonly Regex IpV4Pattern = new Regex("^(?:(?:^|\\.)(?:2(?:5[0-5]|[0-4]\\d)|1?\\d?\\d)){4}$", RegexOptions.Compiled);
         private static readonly Regex ZoneIdExpression = new Regex("%.*$", RegexOptions.Compiled);
         private static readonly Regex JsonPointerPattern = new Regex("^((/(([^/~])|(~[01]))*))*$", RegexOptions.Compiled);
-        private static readonly Regex RelativeJsonPointerPattern = new Regex("^(0|[1-9][0-9]+)(#|(/(/|[^/~]|(~[01]))*))?$", RegexOptions.Compiled);
+        private static readonly Regex RelativeJsonPointerPattern = new Regex("^(0|[1-9]+)(#|(/(/|[^/~]|(~[01]))*))?$", RegexOptions.Compiled);
         private static readonly Regex UriTemplatePattern = new Regex(@"^([^\x00-\x20\x7f""'%<>\\^`{|}]|%[0-9A-Fa-f]{2}|{[+#./;?&=,!@|]?((\w|%[0-9A-Fa-f]{2})(\.?(\w|%[0-9A-Fa-f]{2}))*(:[1-9]\d{0,3}|\*)?)(,((\w|%[0-9A-Fa-f]{2})(\.?(\w|%[0-9A-Fa-f]{2}))*(:[1-9]\d{0,3}|\*)?))*})*$", RegexOptions.Compiled);
         private static readonly Regex UuidTemplatePattern = new Regex(@"[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}", RegexOptions.Compiled);
 
