@@ -15,6 +15,7 @@ namespace Menes.Json.Draft201909
     using System;
     using System.Collections.Generic;
     using System.Collections.Immutable;
+    using System.Linq;
     using System.Text.Json;
     using System.Text.RegularExpressions;
     using Menes.Json;
@@ -26,6 +27,8 @@ namespace Menes.Json.Draft201909
             IJsonObject<Content>,
                     IEquatable<Content>
     {
+
+        
     
         
         /// <summary>
@@ -537,6 +540,7 @@ namespace Menes.Json.Draft201909
         }
 
     
+    
             /// <summary>
         /// Creates an instance of a <see cref="Content"/>.
         /// </summary>
@@ -544,7 +548,8 @@ namespace Menes.Json.Draft201909
                             Menes.Json.JsonString? contentMediaType = null
         ,             Menes.Json.JsonString? contentEncoding = null
         ,             Menes.Json.Draft201909.Schema? contentSchema = null
-                )
+        
+        )
         {
             var builder = ImmutableDictionary.CreateBuilder<JsonEncodedText, JsonAny>();
                             if (contentMediaType is Menes.Json.JsonString contentMediaType__)
@@ -933,21 +938,21 @@ namespace Menes.Json.Draft201909
                 ContentMediaTypeJsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                    JsonString property = that.ContentMediaType;
+                    Menes.Json.JsonString property = that.ContentMediaType;
                     return property.Validate(validationContext, level);
                 });
                     builder.Add(
                 ContentEncodingJsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                    JsonString property = that.ContentEncoding;
+                    Menes.Json.JsonString property = that.ContentEncoding;
                     return property.Validate(validationContext, level);
                 });
                     builder.Add(
                 ContentSchemaJsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                    Schema property = that.ContentSchema;
+                    Menes.Json.Draft201909.Schema property = that.ContentSchema;
                     return property.Validate(validationContext, level);
                 });
         
@@ -977,7 +982,8 @@ namespace Menes.Json.Draft201909
                         if (__MenesLocalProperties.TryGetValue(propertyName, out Func<Content, ValidationContext, ValidationLevel, ValidationContext>? propertyValidator))
                 {
                     result = result.WithLocalProperty(propertyName);
-                    result = propertyValidator(this, result, level);
+                    var propertyResult = propertyValidator(this, result, level);
+                    result = result.MergeResults(propertyResult.IsValid, level, propertyResult);
                     if (level == ValidationLevel.Flag && !result.IsValid)
                     {
                         return result;

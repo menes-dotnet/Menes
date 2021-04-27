@@ -74,6 +74,7 @@ namespace Menes.Json
             {
                 using Stream stream = await this.httpClient.GetStreamAsync(uri).ConfigureAwait(false);
                 result = await JsonDocument.ParseAsync(stream).ConfigureAwait(false);
+                this.documents.Add(uri, result);
                 if (JsonPointerUtilities.TryResolvePointer(result, reference.Fragment, out JsonElement? element))
                 {
                     return element;

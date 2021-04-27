@@ -15,6 +15,7 @@ namespace Menes.Json.Draft201909
     using System;
     using System.Collections.Generic;
     using System.Collections.Immutable;
+    using System.Linq;
     using System.Text.Json;
     using System.Text.RegularExpressions;
     using Menes.Json;
@@ -26,6 +27,8 @@ namespace Menes.Json.Draft201909
             IJsonObject<Core>,
                     IEquatable<Core>
     {
+
+        
     
         
         /// <summary>
@@ -814,6 +817,7 @@ namespace Menes.Json.Draft201909
         }
 
     
+    
             /// <summary>
         /// Creates an instance of a <see cref="Core"/>.
         /// </summary>
@@ -827,7 +831,8 @@ namespace Menes.Json.Draft201909
         ,             Menes.Json.Draft201909.Core.VocabularyValue? vocabulary = null
         ,             Menes.Json.JsonString? comment = null
         ,             Menes.Json.Draft201909.Core.DefsValue? defs = null
-                )
+        
+        )
         {
             var builder = ImmutableDictionary.CreateBuilder<JsonEncodedText, JsonAny>();
                             if (id is Menes.Json.Draft201909.Core.IdValue id__)
@@ -1363,63 +1368,63 @@ namespace Menes.Json.Draft201909
                 IdJsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                    IdValue property = that.Id;
+                    Menes.Json.Draft201909.Core.IdValue property = that.Id;
                     return property.Validate(validationContext, level);
                 });
                     builder.Add(
                 SchemaJsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                    JsonUri property = that.Schema;
+                    Menes.Json.JsonUri property = that.Schema;
                     return property.Validate(validationContext, level);
                 });
                     builder.Add(
                 AnchorJsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                    AnchorValue property = that.Anchor;
+                    Menes.Json.Draft201909.Core.AnchorValue property = that.Anchor;
                     return property.Validate(validationContext, level);
                 });
                     builder.Add(
                 RefJsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                    JsonUriReference property = that.Ref;
+                    Menes.Json.JsonUriReference property = that.Ref;
                     return property.Validate(validationContext, level);
                 });
                     builder.Add(
                 RecursiveRefJsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                    JsonUriReference property = that.RecursiveRef;
+                    Menes.Json.JsonUriReference property = that.RecursiveRef;
                     return property.Validate(validationContext, level);
                 });
                     builder.Add(
                 RecursiveAnchorJsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                    RecursiveAnchorValue property = that.RecursiveAnchor;
+                    Menes.Json.Draft201909.Core.RecursiveAnchorValue property = that.RecursiveAnchor;
                     return property.Validate(validationContext, level);
                 });
                     builder.Add(
                 VocabularyJsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                    VocabularyValue property = that.Vocabulary;
+                    Menes.Json.Draft201909.Core.VocabularyValue property = that.Vocabulary;
                     return property.Validate(validationContext, level);
                 });
                     builder.Add(
                 CommentJsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                    JsonString property = that.Comment;
+                    Menes.Json.JsonString property = that.Comment;
                     return property.Validate(validationContext, level);
                 });
                     builder.Add(
                 DefsJsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                    DefsValue property = that.Defs;
+                    Menes.Json.Draft201909.Core.DefsValue property = that.Defs;
                     return property.Validate(validationContext, level);
                 });
         
@@ -1449,7 +1454,8 @@ namespace Menes.Json.Draft201909
                         if (__MenesLocalProperties.TryGetValue(propertyName, out Func<Core, ValidationContext, ValidationLevel, ValidationContext>? propertyValidator))
                 {
                     result = result.WithLocalProperty(propertyName);
-                    result = propertyValidator(this, result, level);
+                    var propertyResult = propertyValidator(this, result, level);
+                    result = result.MergeResults(propertyResult.IsValid, level, propertyResult);
                     if (level == ValidationLevel.Flag && !result.IsValid)
                     {
                         return result;
@@ -1548,6 +1554,8 @@ namespace Menes.Json.Draft201909
                     IJsonValue,
             IEquatable<IdValue>
     {
+
+        
     
     
             private static readonly Regex __MenesPatternExpression = new Regex("^[^#]*#?$", RegexOptions.Compiled);
@@ -1908,6 +1916,7 @@ namespace Menes.Json.Draft201909
     
     
     
+    
 
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
@@ -2154,6 +2163,8 @@ namespace Menes.Json.Draft201909
                     IJsonValue,
             IEquatable<AnchorValue>
     {
+
+        
     
     
             private static readonly Regex __MenesPatternExpression = new Regex("^[A-Za-z][-A-Za-z0-9.:_]*$", RegexOptions.Compiled);
@@ -2514,6 +2525,7 @@ namespace Menes.Json.Draft201909
     
     
     
+    
 
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
@@ -2722,6 +2734,8 @@ namespace Menes.Json.Draft201909
                     IJsonValue,
             IEquatable<RecursiveAnchorValue>
     {
+
+        
     
     
     
@@ -2998,6 +3012,7 @@ namespace Menes.Json.Draft201909
 
     
     
+    
 
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
@@ -3192,6 +3207,8 @@ namespace Menes.Json.Draft201909
             IJsonObject<VocabularyValue>,
                     IEquatable<VocabularyValue>
     {
+
+        
     
     
     
@@ -3464,6 +3481,7 @@ namespace Menes.Json.Draft201909
             return new VocabularyValue (value);
         }
 
+    
     
     
     
@@ -3927,6 +3945,8 @@ namespace Menes.Json.Draft201909
             IJsonObject<DefsValue>,
                     IEquatable<DefsValue>
     {
+
+        
     
     
     
@@ -4199,6 +4219,7 @@ namespace Menes.Json.Draft201909
             return new DefsValue (value);
         }
 
+    
     
     
     

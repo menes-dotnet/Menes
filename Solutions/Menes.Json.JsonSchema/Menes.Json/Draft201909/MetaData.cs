@@ -15,6 +15,7 @@ namespace Menes.Json.Draft201909
     using System;
     using System.Collections.Generic;
     using System.Collections.Immutable;
+    using System.Linq;
     using System.Text.Json;
     using System.Text.RegularExpressions;
     using Menes.Json;
@@ -26,6 +27,8 @@ namespace Menes.Json.Draft201909
             IJsonObject<MetaData>,
                     IEquatable<MetaData>
     {
+
+        
     
         
         /// <summary>
@@ -722,6 +725,7 @@ namespace Menes.Json.Draft201909
         }
 
     
+    
             /// <summary>
         /// Creates an instance of a <see cref="MetaData"/>.
         /// </summary>
@@ -733,7 +737,8 @@ namespace Menes.Json.Draft201909
         ,             Menes.Json.Draft201909.MetaData.ReadOnlyValue? readOnly = null
         ,             Menes.Json.Draft201909.MetaData.WriteOnlyValue? writeOnly = null
         ,             Menes.Json.Draft201909.MetaData.JsonAnyArray? examples = null
-                )
+        
+        )
         {
             var builder = ImmutableDictionary.CreateBuilder<JsonEncodedText, JsonAny>();
                             if (title is Menes.Json.JsonString title__)
@@ -1240,49 +1245,49 @@ namespace Menes.Json.Draft201909
                 TitleJsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                    JsonString property = that.Title;
+                    Menes.Json.JsonString property = that.Title;
                     return property.Validate(validationContext, level);
                 });
                     builder.Add(
                 DescriptionJsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                    JsonString property = that.Description;
+                    Menes.Json.JsonString property = that.Description;
                     return property.Validate(validationContext, level);
                 });
                     builder.Add(
                 DefaultJsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                    JsonAny property = that.Default;
+                    Menes.Json.JsonAny property = that.Default;
                     return property.Validate(validationContext, level);
                 });
                     builder.Add(
                 DeprecatedJsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                    DeprecatedValue property = that.Deprecated;
+                    Menes.Json.Draft201909.MetaData.DeprecatedValue property = that.Deprecated;
                     return property.Validate(validationContext, level);
                 });
                     builder.Add(
                 ReadOnlyJsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                    ReadOnlyValue property = that.ReadOnly;
+                    Menes.Json.Draft201909.MetaData.ReadOnlyValue property = that.ReadOnly;
                     return property.Validate(validationContext, level);
                 });
                     builder.Add(
                 WriteOnlyJsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                    WriteOnlyValue property = that.WriteOnly;
+                    Menes.Json.Draft201909.MetaData.WriteOnlyValue property = that.WriteOnly;
                     return property.Validate(validationContext, level);
                 });
                     builder.Add(
                 ExamplesJsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                    JsonAnyArray property = that.Examples;
+                    Menes.Json.Draft201909.MetaData.JsonAnyArray property = that.Examples;
                     return property.Validate(validationContext, level);
                 });
         
@@ -1312,7 +1317,8 @@ namespace Menes.Json.Draft201909
                         if (__MenesLocalProperties.TryGetValue(propertyName, out Func<MetaData, ValidationContext, ValidationLevel, ValidationContext>? propertyValidator))
                 {
                     result = result.WithLocalProperty(propertyName);
-                    result = propertyValidator(this, result, level);
+                    var propertyResult = propertyValidator(this, result, level);
+                    result = result.MergeResults(propertyResult.IsValid, level, propertyResult);
                     if (level == ValidationLevel.Flag && !result.IsValid)
                     {
                         return result;
@@ -1411,6 +1417,8 @@ namespace Menes.Json.Draft201909
                     IJsonValue,
             IEquatable<DeprecatedValue>
     {
+
+        
     
     
     
@@ -1687,6 +1695,7 @@ namespace Menes.Json.Draft201909
 
     
     
+    
 
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
@@ -1881,6 +1890,8 @@ namespace Menes.Json.Draft201909
                     IJsonValue,
             IEquatable<ReadOnlyValue>
     {
+
+        
     
     
     
@@ -2157,6 +2168,7 @@ namespace Menes.Json.Draft201909
 
     
     
+    
 
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
@@ -2351,6 +2363,8 @@ namespace Menes.Json.Draft201909
                     IJsonValue,
             IEquatable<WriteOnlyValue>
     {
+
+        
     
     
     
@@ -2627,6 +2641,7 @@ namespace Menes.Json.Draft201909
 
     
     
+    
 
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
@@ -2821,6 +2836,8 @@ namespace Menes.Json.Draft201909
                 IJsonArray<JsonAnyArray>,
                 IEquatable<JsonAnyArray>
     {
+
+        
     
     
     
@@ -3105,6 +3122,63 @@ namespace Menes.Json.Draft201909
     
     
     
+    
+                            /// <summary>
+        /// Create an array from the given items.
+        /// </summary>
+        /// <param name="items">The items from which to create the array.</param>
+        /// <returns>The new array created from the items.</returns>
+        public static JsonAnyArray From(params JsonAny[] items)
+        {
+            return new JsonAnyArray(items.ToImmutableList());
+        }
+
+        /// <summary>
+        /// Create an array from the given items.
+        /// </summary>
+        /// <param name="item1">The items from which to create the array.</param>
+        /// <returns>The new array created from the items.</returns>
+        public static JsonAnyArray From(JsonAny item1)
+        {
+            return new JsonAnyArray(ImmutableList.Create(item1));
+        }
+
+        /// <summary>
+        /// Create an array from the given items.
+        /// </summary>
+        /// <param name="item1">The first item from which to create the array.</param>
+        /// <param name="item2">The second item from which to create the array.</param>
+        /// <returns>The new array created from the items.</returns>
+        public static JsonAnyArray From(JsonAny item1, JsonAny item2)
+        {
+            return new JsonAnyArray(ImmutableList.Create(item1, item2));
+        }
+
+        /// <summary>
+        /// Create an array from the given items.
+        /// </summary>
+        /// <param name="item1">The first item from which to create the array.</param>
+        /// <param name="item2">The second item from which to create the array.</param>
+        /// <param name="item3">The third item from which to create the array.</param>
+        /// <returns>The new array created from the items.</returns>
+        public static JsonAnyArray From(JsonAny item1, JsonAny item2, JsonAny item3)
+        {
+            return new JsonAnyArray(ImmutableList.Create(item1, item2, item3));
+        }
+
+        /// <summary>
+        /// Create an array from the given items.
+        /// </summary>
+        /// <param name="item1">The first item from which to create the array.</param>
+        /// <param name="item2">The second item from which to create the array.</param>
+        /// <param name="item3">The third item from which to create the array.</param>
+        /// <param name="item4">The fourth item from which to create the array.</param>
+        /// <returns>The new array created from the items.</returns>
+        public static JsonAnyArray From(JsonAny item1, JsonAny item2, JsonAny item3, JsonAny item4)
+        {
+            return new JsonAnyArray(ImmutableList.Create(item1, item2, item3, item4));
+        }
+        
     
     
 

@@ -90,7 +90,7 @@ namespace Menes.Json
             var jref = new JsonReference(reference);
             if (!jref.HasFragment)
             {
-                // If this really is a root document, then just return the rerefence
+                // If this really is a root document, then just return the reference
                 return reference;
             }
 
@@ -103,6 +103,34 @@ namespace Menes.Json
             }
 
             throw new ArgumentException($"Unable to find the element at location '{reference}'", nameof(reference));
+        }
+
+        /// <summary>
+        /// Rebases a reference to a canonical URI contained in a given property..
+        /// </summary>
+        /// <param name="reference">The reference to rebase as a root document.</param>
+        /// <param name="propertyName">The name of the property containing the canonical URI at which to rebase the document.</param>
+        /// <returns>A <see cref="Task{TResult}"/> which, when complete, provides the updated reference of the root document.</returns>
+        public async Task<string> TryRebaseDocumentToPropertyValue(string reference, string propertyName)
+        {
+            var jref = new JsonReference(reference);
+
+            JsonElement? element = await this.documentResolver.TryResolve(jref);
+            if (element is JsonElement e && e.ValueKind == JsonValueKind.Object)
+            {
+                if (e.TryGetProperty(propertyName, out JsonElement uri) && uri.ValueKind == JsonValueKind.String)
+                {
+                    string outputUri = uri.GetString() !;
+                    var outputUriRef = new JsonReference(outputUri);
+                    if (!outputUriRef.HasFragment)
+                    {
+                        this.documentResolver.AddDocument(outputUri, JsonDocument.Parse(e.GetRawText()));
+                        return outputUri;
+                    }
+                }
+            }
+
+            return reference;
         }
 
         /// <summary>

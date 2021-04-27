@@ -15,6 +15,7 @@ namespace Menes.Json.Draft201909
     using System;
     using System.Collections.Generic;
     using System.Collections.Immutable;
+    using System.Linq;
     using System.Text.Json;
     using System.Text.RegularExpressions;
     using Menes.Json;
@@ -26,6 +27,8 @@ namespace Menes.Json.Draft201909
             IJsonObject<Schema>,
                     IEquatable<Schema>
     {
+
+        
     
         
         /// <summary>
@@ -1518,7 +1521,7 @@ namespace Menes.Json.Draft201909
         /// <example>
         /// {Property examples}.
         /// </example>
-        public Menes.Json.Draft201909.Applicator.ItemsEntity Items
+        public Menes.Json.Draft201909.Applicator.PropertiesEntity Items
         {
             get
             {
@@ -1534,7 +1537,7 @@ namespace Menes.Json.Draft201909
                 {
                     if (this.jsonElementBacking.TryGetProperty(ItemsUtf8JsonPropertyName.Span, out JsonElement result))
                     {
-                        return new  Menes.Json.Draft201909.Applicator.ItemsEntity(result);
+                        return new  Menes.Json.Draft201909.Applicator.PropertiesEntity(result);
                     }
                 }
 
@@ -3606,6 +3609,7 @@ namespace Menes.Json.Draft201909
         }
 
     
+    
             /// <summary>
         /// Creates an instance of a <see cref="Schema"/>.
         /// </summary>
@@ -3621,7 +3625,7 @@ namespace Menes.Json.Draft201909
         ,             Menes.Json.Draft201909.Core.DefsValue? defs = null
         ,             Menes.Json.Draft201909.Schema? additionalItems = null
         ,             Menes.Json.Draft201909.Schema? unevaluatedItems = null
-        ,             Menes.Json.Draft201909.Applicator.ItemsEntity? items = null
+        ,             Menes.Json.Draft201909.Applicator.PropertiesEntity? items = null
         ,             Menes.Json.Draft201909.Schema? contains = null
         ,             Menes.Json.Draft201909.Schema? additionalProperties = null
         ,             Menes.Json.Draft201909.Schema? unevaluatedProperties = null
@@ -3669,7 +3673,8 @@ namespace Menes.Json.Draft201909
         ,             Menes.Json.Draft201909.Schema? contentSchema = null
         ,             Menes.Json.Draft201909.Schema.DefinitionsValue? definitions = null
         ,             Menes.Json.Draft201909.Schema.DependenciesValue? dependencies = null
-                )
+        
+        )
         {
             var builder = ImmutableDictionary.CreateBuilder<JsonEncodedText, JsonAny>();
                             if (id is Menes.Json.Draft201909.Core.IdValue id__)
@@ -3716,7 +3721,7 @@ namespace Menes.Json.Draft201909
             {
                 builder.Add(UnevaluatedItemsJsonPropertyName, unevaluatedItems__);
             }
-                    if (items is Menes.Json.Draft201909.Applicator.ItemsEntity items__)
+                    if (items is Menes.Json.Draft201909.Applicator.PropertiesEntity items__)
             {
                 builder.Add(ItemsJsonPropertyName, items__);
             }
@@ -4038,7 +4043,7 @@ namespace Menes.Json.Draft201909
         /// </summary>
         /// <param name="value">The value to set.</param>
         /// <returns>The entity with the updated property.</returns>
-        public Schema WithItems(Menes.Json.Draft201909.Applicator.ItemsEntity value)
+        public Schema WithItems(Menes.Json.Draft201909.Applicator.PropertiesEntity value)
         {
             return this.SetProperty(ItemsJsonPropertyName, value);
         }
@@ -4972,14 +4977,14 @@ namespace Menes.Json.Draft201909
                 DefinitionsJsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                    DefinitionsValue property = that.Definitions;
+                    Menes.Json.Draft201909.Schema.DefinitionsValue property = that.Definitions;
                     return property.Validate(validationContext, level);
                 });
                     builder.Add(
                 DependenciesJsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                    DependenciesValue property = that.Dependencies;
+                    Menes.Json.Draft201909.Schema.DependenciesValue property = that.Dependencies;
                     return property.Validate(validationContext, level);
                 });
         
@@ -5009,7 +5014,8 @@ namespace Menes.Json.Draft201909
                         if (__MenesLocalProperties.TryGetValue(propertyName, out Func<Schema, ValidationContext, ValidationLevel, ValidationContext>? propertyValidator))
                 {
                     result = result.WithLocalProperty(propertyName);
-                    result = propertyValidator(this, result, level);
+                    var propertyResult = propertyValidator(this, result, level);
+                    result = result.MergeResults(propertyResult.IsValid, level, propertyResult);
                     if (level == ValidationLevel.Flag && !result.IsValid)
                     {
                         return result;
@@ -5267,6 +5273,8 @@ namespace Menes.Json.Draft201909
             IJsonObject<DefinitionsValue>,
                     IEquatable<DefinitionsValue>
     {
+
+        
     
     
     
@@ -5539,6 +5547,7 @@ namespace Menes.Json.Draft201909
             return new DefinitionsValue (value);
         }
 
+    
     
     
     
@@ -5994,6 +6003,8 @@ namespace Menes.Json.Draft201909
             IJsonObject<DependenciesValue>,
                     IEquatable<DependenciesValue>
     {
+
+        
     
     
     
@@ -6266,6 +6277,7 @@ namespace Menes.Json.Draft201909
             return new DependenciesValue (value);
         }
 
+    
     
     
     
@@ -6718,6 +6730,8 @@ namespace Menes.Json.Draft201909
                 IJsonArray<AdditionalPropertiesEntity>,
                 IEquatable<AdditionalPropertiesEntity>
     {
+
+        
     
     
     
@@ -7454,6 +7468,63 @@ namespace Menes.Json.Draft201909
             return boolean.AsBoolean;
         }
 
+    
+                            /// <summary>
+        /// Create an array from the given items.
+        /// </summary>
+        /// <param name="items">The items from which to create the array.</param>
+        /// <returns>The new array created from the items.</returns>
+        public static AdditionalPropertiesEntity From(params JsonAny[] items)
+        {
+            return new AdditionalPropertiesEntity(items.ToImmutableList());
+        }
+
+        /// <summary>
+        /// Create an array from the given items.
+        /// </summary>
+        /// <param name="item1">The items from which to create the array.</param>
+        /// <returns>The new array created from the items.</returns>
+        public static AdditionalPropertiesEntity From(JsonAny item1)
+        {
+            return new AdditionalPropertiesEntity(ImmutableList.Create(item1));
+        }
+
+        /// <summary>
+        /// Create an array from the given items.
+        /// </summary>
+        /// <param name="item1">The first item from which to create the array.</param>
+        /// <param name="item2">The second item from which to create the array.</param>
+        /// <returns>The new array created from the items.</returns>
+        public static AdditionalPropertiesEntity From(JsonAny item1, JsonAny item2)
+        {
+            return new AdditionalPropertiesEntity(ImmutableList.Create(item1, item2));
+        }
+
+        /// <summary>
+        /// Create an array from the given items.
+        /// </summary>
+        /// <param name="item1">The first item from which to create the array.</param>
+        /// <param name="item2">The second item from which to create the array.</param>
+        /// <param name="item3">The third item from which to create the array.</param>
+        /// <returns>The new array created from the items.</returns>
+        public static AdditionalPropertiesEntity From(JsonAny item1, JsonAny item2, JsonAny item3)
+        {
+            return new AdditionalPropertiesEntity(ImmutableList.Create(item1, item2, item3));
+        }
+
+        /// <summary>
+        /// Create an array from the given items.
+        /// </summary>
+        /// <param name="item1">The first item from which to create the array.</param>
+        /// <param name="item2">The second item from which to create the array.</param>
+        /// <param name="item3">The third item from which to create the array.</param>
+        /// <param name="item4">The fourth item from which to create the array.</param>
+        /// <returns>The new array created from the items.</returns>
+        public static AdditionalPropertiesEntity From(JsonAny item1, JsonAny item2, JsonAny item3, JsonAny item4)
+        {
+            return new AdditionalPropertiesEntity(ImmutableList.Create(item1, item2, item3, item4));
+        }
+        
     
     
 

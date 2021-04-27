@@ -71,6 +71,7 @@ namespace Menes.Json
             {
                 using Stream stream = File.OpenRead(path);
                 result = await JsonDocument.ParseAsync(stream).ConfigureAwait(false);
+                this.documents.Add(path, result);
                 return JsonPointerUtilities.ResolvePointer(result, reference.Fragment);
             }
             catch (Exception)

@@ -6,6 +6,7 @@
     using System.CommandLine;
     using System.CommandLine.Invocation;
     using System.IO;
+    using System.Net.Http;
     using System.Text.Json;
     using System.Threading.Tasks;
     using Menes.Json.SchemaModel;
@@ -64,7 +65,7 @@
         {
             try
             {
-                var walker = new JsonWalker(DocumentResolver.Default);
+                var walker = new JsonWalker(new CompoundDocumentResolver(new FileSystemDocumentResolver(), new HttpClientDocumentResolver(new HttpClient())));
                 IJsonSchemaBuilder builder =
                     schemaVariant switch
                     { 
@@ -72,7 +73,10 @@
                         _ => new SchemaModel.Draft202012.JsonSchemaBuilder(walker)
                     };
 
-                (_, ImmutableDictionary<string, (string, string)> generatedTypes) = await builder.BuildTypesFor(new JsonReference(schemaFile).Apply(new JsonReference(rootPath)), rootNamespace, rebaseToRootPath).ConfigureAwait(false);
+                JsonReference reference = new JsonReference(schemaFile).Apply(new JsonReference(rootPath));
+                string resolvedReference = await walker.TryRebaseDocumentToPropertyValue(reference, "$id").ConfigureAwait(false);
+
+                (_, ImmutableDictionary<string, (string, string)> generatedTypes) = await builder.BuildTypesFor(resolvedReference, rootNamespace, rebaseToRootPath).ConfigureAwait(false);
 
                 if (!string.IsNullOrEmpty(outputPath))
                 {

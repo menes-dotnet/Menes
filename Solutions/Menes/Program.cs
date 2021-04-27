@@ -10,8 +10,7 @@ namespace Menes
     using System.Linq;
     using System.Text.Json;
     using System.Threading.Tasks;
-
-    ////using Marain.LineOfBusiness;
+    using Marain.LineOfBusiness;
 
     using Menes.Json;
     using Menes.OpenApi;
@@ -28,20 +27,21 @@ namespace Menes
                         ""test""
                     ]
                 }");
+
             var result = schema.Validate();
 
-            ////PersonResource person = PersonResource.Create(
-            ////    foo: "Hello",
-            ////    links: PersonResource.LinksValue.Create(
-            ////        self: Link.Create("https://endjin.com/person/bar"),
-            ////        primaryName: Link.Create("https://endjin.com/names/foo")),
-            ////    embedded: PersonResource.EmbeddedValue.Create(
-            ////        primaryName: PersonNameResource.Create(
-            ////            links: LinksProperty.Create(
-            ////                self: Link.Create("https://endjin.com/names/foo")),
-            ////            familyName: "Silver",
-            ////            givenName: "John",
-            ////            otherNames: JsonArray.Empty)));
+            PersonResource person = PersonResource.Create(
+                foo: "Hello",
+                links: PersonResource.LinksValue.Create(
+                    self: Link.Create("https://endjin.com/person/bar"),
+                    primaryName: Link.Create("https://endjin.com/names/foo")),
+                embedded: PersonResource.EmbeddedValue.Create(
+                    primaryName: PersonNameResource.Create(
+                        links: LinksProperty.Create(
+                            self: Link.Create("https://endjin.com/names/foo")),
+                        familyName: "Silver",
+                        givenName: "John",
+                        otherNames: JsonArray.Empty)));
 
             using JsonDocument doc = JsonDocument.Parse(@"
 {

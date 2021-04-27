@@ -15,6 +15,7 @@ namespace Menes.Json.Draft201909
     using System;
     using System.Collections.Generic;
     using System.Collections.Immutable;
+    using System.Linq;
     using System.Text.Json;
     using System.Text.RegularExpressions;
     using Menes.Json;
@@ -26,6 +27,8 @@ namespace Menes.Json.Draft201909
             IJsonObject<Validation>,
                     IEquatable<Validation>
     {
+
+        
     
         
         /// <summary>
@@ -1320,6 +1323,7 @@ namespace Menes.Json.Draft201909
         }
 
     
+    
             /// <summary>
         /// Creates an instance of a <see cref="Validation"/>.
         /// </summary>
@@ -1344,7 +1348,8 @@ namespace Menes.Json.Draft201909
         ,             Menes.Json.JsonAny? @const = null
         ,             Menes.Json.Draft201909.Validation.JsonAnyArray? @enum = null
         ,             Menes.Json.Draft201909.Validation.TypeEntity? type = null
-                )
+        
+        )
         {
             var builder = ImmutableDictionary.CreateBuilder<JsonEncodedText, JsonAny>();
                             if (multipleOf is Menes.Json.Draft201909.Validation.MultipleOfValue multipleOf__)
@@ -2049,140 +2054,140 @@ namespace Menes.Json.Draft201909
                 MultipleOfJsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                    MultipleOfValue property = that.MultipleOf;
+                    Menes.Json.Draft201909.Validation.MultipleOfValue property = that.MultipleOf;
                     return property.Validate(validationContext, level);
                 });
                     builder.Add(
                 MaximumJsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                    JsonNumber property = that.Maximum;
+                    Menes.Json.JsonNumber property = that.Maximum;
                     return property.Validate(validationContext, level);
                 });
                     builder.Add(
                 ExclusiveMaximumJsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                    JsonNumber property = that.ExclusiveMaximum;
+                    Menes.Json.JsonNumber property = that.ExclusiveMaximum;
                     return property.Validate(validationContext, level);
                 });
                     builder.Add(
                 MinimumJsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                    JsonNumber property = that.Minimum;
+                    Menes.Json.JsonNumber property = that.Minimum;
                     return property.Validate(validationContext, level);
                 });
                     builder.Add(
                 ExclusiveMinimumJsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                    JsonNumber property = that.ExclusiveMinimum;
+                    Menes.Json.JsonNumber property = that.ExclusiveMinimum;
                     return property.Validate(validationContext, level);
                 });
                     builder.Add(
                 MaxLengthJsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                    NonNegativeIntegerValue property = that.MaxLength;
+                    Menes.Json.Draft201909.Validation.NonNegativeIntegerValue property = that.MaxLength;
                     return property.Validate(validationContext, level);
                 });
                     builder.Add(
                 MinLengthJsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                    NonNegativeIntegerDefault0Entity property = that.MinLength;
+                    Menes.Json.Draft201909.Validation.NonNegativeIntegerDefault0Entity property = that.MinLength;
                     return property.Validate(validationContext, level);
                 });
                     builder.Add(
                 PatternJsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                    JsonRegex property = that.Pattern;
+                    Menes.Json.JsonRegex property = that.Pattern;
                     return property.Validate(validationContext, level);
                 });
                     builder.Add(
                 MaxItemsJsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                    NonNegativeIntegerValue property = that.MaxItems;
+                    Menes.Json.Draft201909.Validation.NonNegativeIntegerValue property = that.MaxItems;
                     return property.Validate(validationContext, level);
                 });
                     builder.Add(
                 MinItemsJsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                    NonNegativeIntegerDefault0Entity property = that.MinItems;
+                    Menes.Json.Draft201909.Validation.NonNegativeIntegerDefault0Entity property = that.MinItems;
                     return property.Validate(validationContext, level);
                 });
                     builder.Add(
                 UniqueItemsJsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                    UniqueItemsValue property = that.UniqueItems;
+                    Menes.Json.Draft201909.Validation.UniqueItemsValue property = that.UniqueItems;
                     return property.Validate(validationContext, level);
                 });
                     builder.Add(
                 MaxContainsJsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                    NonNegativeIntegerValue property = that.MaxContains;
+                    Menes.Json.Draft201909.Validation.NonNegativeIntegerValue property = that.MaxContains;
                     return property.Validate(validationContext, level);
                 });
                     builder.Add(
                 MinContainsJsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                    MinContainsEntity property = that.MinContains;
+                    Menes.Json.Draft201909.Validation.MinContainsEntity property = that.MinContains;
                     return property.Validate(validationContext, level);
                 });
                     builder.Add(
                 MaxPropertiesJsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                    NonNegativeIntegerValue property = that.MaxProperties;
+                    Menes.Json.Draft201909.Validation.NonNegativeIntegerValue property = that.MaxProperties;
                     return property.Validate(validationContext, level);
                 });
                     builder.Add(
                 MinPropertiesJsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                    NonNegativeIntegerDefault0Entity property = that.MinProperties;
+                    Menes.Json.Draft201909.Validation.NonNegativeIntegerDefault0Entity property = that.MinProperties;
                     return property.Validate(validationContext, level);
                 });
                     builder.Add(
                 RequiredJsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                    JsonStringArray property = that.Required;
+                    Menes.Json.Draft201909.Validation.JsonStringArray property = that.Required;
                     return property.Validate(validationContext, level);
                 });
                     builder.Add(
                 DependentRequiredJsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                    DependentRequiredValue property = that.DependentRequired;
+                    Menes.Json.Draft201909.Validation.DependentRequiredValue property = that.DependentRequired;
                     return property.Validate(validationContext, level);
                 });
                     builder.Add(
                 ConstJsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                    JsonAny property = that.Const;
+                    Menes.Json.JsonAny property = that.Const;
                     return property.Validate(validationContext, level);
                 });
                     builder.Add(
                 EnumJsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                    JsonAnyArray property = that.Enum;
+                    Menes.Json.Draft201909.Validation.JsonAnyArray property = that.Enum;
                     return property.Validate(validationContext, level);
                 });
                     builder.Add(
                 TypeJsonPropertyName,
                 (that, validationContext, level) =>
                 {
-                    TypeEntity property = that.Type;
+                    Menes.Json.Draft201909.Validation.TypeEntity property = that.Type;
                     return property.Validate(validationContext, level);
                 });
         
@@ -2212,7 +2217,8 @@ namespace Menes.Json.Draft201909
                         if (__MenesLocalProperties.TryGetValue(propertyName, out Func<Validation, ValidationContext, ValidationLevel, ValidationContext>? propertyValidator))
                 {
                     result = result.WithLocalProperty(propertyName);
-                    result = propertyValidator(this, result, level);
+                    var propertyResult = propertyValidator(this, result, level);
+                    result = result.MergeResults(propertyResult.IsValid, level, propertyResult);
                     if (level == ValidationLevel.Flag && !result.IsValid)
                     {
                         return result;
@@ -2311,6 +2317,8 @@ namespace Menes.Json.Draft201909
                     IJsonValue,
             IEquatable<MultipleOfValue>
     {
+
+        
     
     
     
@@ -2669,6 +2677,7 @@ namespace Menes.Json.Draft201909
     
     
     
+    
 
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
@@ -2880,6 +2889,8 @@ namespace Menes.Json.Draft201909
                     IJsonValue,
             IEquatable<NonNegativeIntegerValue>
     {
+
+        
     
     
     
@@ -3238,6 +3249,7 @@ namespace Menes.Json.Draft201909
     
     
     
+    
 
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
@@ -3447,6 +3459,8 @@ namespace Menes.Json.Draft201909
                     IJsonValue,
             IEquatable<NonNegativeIntegerDefault0Entity>
     {
+
+        
     
     
     
@@ -3874,6 +3888,7 @@ namespace Menes.Json.Draft201909
     
     
     
+    
 
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
@@ -4056,6 +4071,8 @@ namespace Menes.Json.Draft201909
                     IJsonValue,
             IEquatable<UniqueItemsValue>
     {
+
+        
     
     
     
@@ -4332,6 +4349,7 @@ namespace Menes.Json.Draft201909
 
     
     
+    
 
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
@@ -4526,6 +4544,8 @@ namespace Menes.Json.Draft201909
                     IJsonValue,
             IEquatable<MinContainsEntity>
     {
+
+        
     
     
     
@@ -4953,6 +4973,7 @@ namespace Menes.Json.Draft201909
     
     
     
+    
 
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.
@@ -5135,6 +5156,8 @@ namespace Menes.Json.Draft201909
                 IJsonArray<JsonStringArray>,
                 IEquatable<JsonStringArray>
     {
+
+        
     
     
     
@@ -5419,6 +5442,63 @@ namespace Menes.Json.Draft201909
     
     
     
+    
+                    /// <summary>
+        /// Create an array from the given items.
+        /// </summary>
+        /// <param name="items">The items from which to create the array.</param>
+        /// <returns>The new array created from the items.</returns>
+        public static JsonStringArray From(params Menes.Json.JsonString[] items)
+        {
+            return new JsonStringArray(items.Select(i => (JsonAny)i).ToImmutableList());
+        }
+
+        /// <summary>
+        /// Create an array from the given items.
+        /// </summary>
+        /// <param name="item1">The items from which to create the array.</param>
+        /// <returns>The new array created from the items.</returns>
+        public static JsonStringArray From(Menes.Json.JsonString item1)
+        {
+            return new JsonStringArray(ImmutableList.Create((JsonAny)item1));
+        }
+
+        /// <summary>
+        /// Create an array from the given items.
+        /// </summary>
+        /// <param name="item1">The first item from which to create the array.</param>
+        /// <param name="item2">The second item from which to create the array.</param>
+        /// <returns>The new array created from the items.</returns>
+        public static JsonStringArray From(Menes.Json.JsonString item1, Menes.Json.JsonString item2)
+        {
+            return new JsonStringArray(ImmutableList.Create((JsonAny)item1, (JsonAny)item2));
+        }
+
+        /// <summary>
+        /// Create an array from the given items.
+        /// </summary>
+        /// <param name="item1">The first item from which to create the array.</param>
+        /// <param name="item2">The second item from which to create the array.</param>
+        /// <param name="item3">The third item from which to create the array.</param>
+        /// <returns>The new array created from the items.</returns>
+        public static JsonStringArray From(Menes.Json.JsonString item1, Menes.Json.JsonString item2, Menes.Json.JsonString item3)
+        {
+            return new JsonStringArray(ImmutableList.Create((JsonAny)item1, (JsonAny)item2, (JsonAny)item3));
+        }
+
+        /// <summary>
+        /// Create an array from the given items.
+        /// </summary>
+        /// <param name="item1">The first item from which to create the array.</param>
+        /// <param name="item2">The second item from which to create the array.</param>
+        /// <param name="item3">The third item from which to create the array.</param>
+        /// <param name="item4">The fourth item from which to create the array.</param>
+        /// <returns>The new array created from the items.</returns>
+        public static JsonStringArray From(Menes.Json.JsonString item1, Menes.Json.JsonString item2, Menes.Json.JsonString item3, Menes.Json.JsonString item4)
+        {
+            return new JsonStringArray(ImmutableList.Create((JsonAny)item1, (JsonAny)item2, (JsonAny)item3, (JsonAny)item4));
+        }
+        
     
     
 
@@ -5778,6 +5858,8 @@ namespace Menes.Json.Draft201909
             IJsonObject<DependentRequiredValue>,
                     IEquatable<DependentRequiredValue>
     {
+
+        
     
     
     
@@ -6050,6 +6132,7 @@ namespace Menes.Json.Draft201909
             return new DependentRequiredValue (value);
         }
 
+    
     
     
     
@@ -6505,6 +6588,8 @@ namespace Menes.Json.Draft201909
                 IJsonArray<JsonAnyArray>,
                 IEquatable<JsonAnyArray>
     {
+
+        
     
     
     
@@ -6789,6 +6874,63 @@ namespace Menes.Json.Draft201909
     
     
     
+    
+                            /// <summary>
+        /// Create an array from the given items.
+        /// </summary>
+        /// <param name="items">The items from which to create the array.</param>
+        /// <returns>The new array created from the items.</returns>
+        public static JsonAnyArray From(params JsonAny[] items)
+        {
+            return new JsonAnyArray(items.ToImmutableList());
+        }
+
+        /// <summary>
+        /// Create an array from the given items.
+        /// </summary>
+        /// <param name="item1">The items from which to create the array.</param>
+        /// <returns>The new array created from the items.</returns>
+        public static JsonAnyArray From(JsonAny item1)
+        {
+            return new JsonAnyArray(ImmutableList.Create(item1));
+        }
+
+        /// <summary>
+        /// Create an array from the given items.
+        /// </summary>
+        /// <param name="item1">The first item from which to create the array.</param>
+        /// <param name="item2">The second item from which to create the array.</param>
+        /// <returns>The new array created from the items.</returns>
+        public static JsonAnyArray From(JsonAny item1, JsonAny item2)
+        {
+            return new JsonAnyArray(ImmutableList.Create(item1, item2));
+        }
+
+        /// <summary>
+        /// Create an array from the given items.
+        /// </summary>
+        /// <param name="item1">The first item from which to create the array.</param>
+        /// <param name="item2">The second item from which to create the array.</param>
+        /// <param name="item3">The third item from which to create the array.</param>
+        /// <returns>The new array created from the items.</returns>
+        public static JsonAnyArray From(JsonAny item1, JsonAny item2, JsonAny item3)
+        {
+            return new JsonAnyArray(ImmutableList.Create(item1, item2, item3));
+        }
+
+        /// <summary>
+        /// Create an array from the given items.
+        /// </summary>
+        /// <param name="item1">The first item from which to create the array.</param>
+        /// <param name="item2">The second item from which to create the array.</param>
+        /// <param name="item3">The third item from which to create the array.</param>
+        /// <param name="item4">The fourth item from which to create the array.</param>
+        /// <returns>The new array created from the items.</returns>
+        public static JsonAnyArray From(JsonAny item1, JsonAny item2, JsonAny item3, JsonAny item4)
+        {
+            return new JsonAnyArray(ImmutableList.Create(item1, item2, item3, item4));
+        }
+        
     
     
 
@@ -7105,6 +7247,8 @@ namespace Menes.Json.Draft201909
                 IJsonArray<TypeEntity>,
                 IEquatable<TypeEntity>
     {
+
+        
     
     
     
@@ -7712,6 +7856,63 @@ namespace Menes.Json.Draft201909
     
     
     
+                            /// <summary>
+        /// Create an array from the given items.
+        /// </summary>
+        /// <param name="items">The items from which to create the array.</param>
+        /// <returns>The new array created from the items.</returns>
+        public static TypeEntity From(params JsonAny[] items)
+        {
+            return new TypeEntity(items.ToImmutableList());
+        }
+
+        /// <summary>
+        /// Create an array from the given items.
+        /// </summary>
+        /// <param name="item1">The items from which to create the array.</param>
+        /// <returns>The new array created from the items.</returns>
+        public static TypeEntity From(JsonAny item1)
+        {
+            return new TypeEntity(ImmutableList.Create(item1));
+        }
+
+        /// <summary>
+        /// Create an array from the given items.
+        /// </summary>
+        /// <param name="item1">The first item from which to create the array.</param>
+        /// <param name="item2">The second item from which to create the array.</param>
+        /// <returns>The new array created from the items.</returns>
+        public static TypeEntity From(JsonAny item1, JsonAny item2)
+        {
+            return new TypeEntity(ImmutableList.Create(item1, item2));
+        }
+
+        /// <summary>
+        /// Create an array from the given items.
+        /// </summary>
+        /// <param name="item1">The first item from which to create the array.</param>
+        /// <param name="item2">The second item from which to create the array.</param>
+        /// <param name="item3">The third item from which to create the array.</param>
+        /// <returns>The new array created from the items.</returns>
+        public static TypeEntity From(JsonAny item1, JsonAny item2, JsonAny item3)
+        {
+            return new TypeEntity(ImmutableList.Create(item1, item2, item3));
+        }
+
+        /// <summary>
+        /// Create an array from the given items.
+        /// </summary>
+        /// <param name="item1">The first item from which to create the array.</param>
+        /// <param name="item2">The second item from which to create the array.</param>
+        /// <param name="item3">The third item from which to create the array.</param>
+        /// <param name="item4">The fourth item from which to create the array.</param>
+        /// <returns>The new array created from the items.</returns>
+        public static TypeEntity From(JsonAny item1, JsonAny item2, JsonAny item3, JsonAny item4)
+        {
+            return new TypeEntity(ImmutableList.Create(item1, item2, item3, item4));
+        }
+        
+    
     
 
         /// <summary>
@@ -8031,6 +8232,8 @@ namespace Menes.Json.Draft201909
                 IJsonArray<SimpleTypesEntityArray>,
                 IEquatable<SimpleTypesEntityArray>
     {
+
+        
     
     
     
@@ -8315,6 +8518,63 @@ namespace Menes.Json.Draft201909
     
     
     
+    
+                    /// <summary>
+        /// Create an array from the given items.
+        /// </summary>
+        /// <param name="items">The items from which to create the array.</param>
+        /// <returns>The new array created from the items.</returns>
+        public static SimpleTypesEntityArray From(params Menes.Json.Draft201909.Validation.SimpleTypesEntity[] items)
+        {
+            return new SimpleTypesEntityArray(items.Select(i => (JsonAny)i).ToImmutableList());
+        }
+
+        /// <summary>
+        /// Create an array from the given items.
+        /// </summary>
+        /// <param name="item1">The items from which to create the array.</param>
+        /// <returns>The new array created from the items.</returns>
+        public static SimpleTypesEntityArray From(Menes.Json.Draft201909.Validation.SimpleTypesEntity item1)
+        {
+            return new SimpleTypesEntityArray(ImmutableList.Create((JsonAny)item1));
+        }
+
+        /// <summary>
+        /// Create an array from the given items.
+        /// </summary>
+        /// <param name="item1">The first item from which to create the array.</param>
+        /// <param name="item2">The second item from which to create the array.</param>
+        /// <returns>The new array created from the items.</returns>
+        public static SimpleTypesEntityArray From(Menes.Json.Draft201909.Validation.SimpleTypesEntity item1, Menes.Json.Draft201909.Validation.SimpleTypesEntity item2)
+        {
+            return new SimpleTypesEntityArray(ImmutableList.Create((JsonAny)item1, (JsonAny)item2));
+        }
+
+        /// <summary>
+        /// Create an array from the given items.
+        /// </summary>
+        /// <param name="item1">The first item from which to create the array.</param>
+        /// <param name="item2">The second item from which to create the array.</param>
+        /// <param name="item3">The third item from which to create the array.</param>
+        /// <returns>The new array created from the items.</returns>
+        public static SimpleTypesEntityArray From(Menes.Json.Draft201909.Validation.SimpleTypesEntity item1, Menes.Json.Draft201909.Validation.SimpleTypesEntity item2, Menes.Json.Draft201909.Validation.SimpleTypesEntity item3)
+        {
+            return new SimpleTypesEntityArray(ImmutableList.Create((JsonAny)item1, (JsonAny)item2, (JsonAny)item3));
+        }
+
+        /// <summary>
+        /// Create an array from the given items.
+        /// </summary>
+        /// <param name="item1">The first item from which to create the array.</param>
+        /// <param name="item2">The second item from which to create the array.</param>
+        /// <param name="item3">The third item from which to create the array.</param>
+        /// <param name="item4">The fourth item from which to create the array.</param>
+        /// <returns>The new array created from the items.</returns>
+        public static SimpleTypesEntityArray From(Menes.Json.Draft201909.Validation.SimpleTypesEntity item1, Menes.Json.Draft201909.Validation.SimpleTypesEntity item2, Menes.Json.Draft201909.Validation.SimpleTypesEntity item3, Menes.Json.Draft201909.Validation.SimpleTypesEntity item4)
+        {
+            return new SimpleTypesEntityArray(ImmutableList.Create((JsonAny)item1, (JsonAny)item2, (JsonAny)item3, (JsonAny)item4));
+        }
+        
     
     
 
@@ -8694,6 +8954,8 @@ namespace Menes.Json.Draft201909
                     IJsonValue,
             IEquatable<SimpleTypesEntity>
     {
+
+        
     
     
     
@@ -9049,6 +9311,7 @@ namespace Menes.Json.Draft201909
             return value.AsString;
         }
 
+    
     
     
     
