@@ -430,6 +430,7 @@ namespace Menes.Json.SchemaModel.Draft202012
                 draft202012Schema.PrefixItems.IsUndefined() &&
                 draft202012Schema.AdditionalProperties.IsUndefined() &&
                 draft202012Schema.AllOf.IsUndefined() &&
+                draft202012Schema.DynamicAnchor.IsUndefined() &&
                 draft202012Schema.Anchor.IsUndefined() &&
                 draft202012Schema.AnyOf.IsUndefined() &&
                 draft202012Schema.Const.IsUndefined() &&
@@ -490,6 +491,7 @@ namespace Menes.Json.SchemaModel.Draft202012
                 draft202012Schema.AdditionalProperties.IsUndefined() &&
                 draft202012Schema.AllOf.IsUndefined() &&
                 draft202012Schema.Anchor.IsUndefined() &&
+                draft202012Schema.DynamicAnchor.IsUndefined() &&
                 draft202012Schema.AnyOf.IsUndefined() &&
                 draft202012Schema.Const.IsUndefined() &&
                 draft202012Schema.Contains.IsUndefined() &&
@@ -545,6 +547,7 @@ namespace Menes.Json.SchemaModel.Draft202012
         {
             return
                 draft202012Schema.DynamicRef.IsNotUndefined() &&
+                draft202012Schema.DynamicAnchor.IsUndefined() &&
                 draft202012Schema.PrefixItems.IsUndefined() &&
                 draft202012Schema.AdditionalProperties.IsUndefined() &&
                 draft202012Schema.AllOf.IsUndefined() &&

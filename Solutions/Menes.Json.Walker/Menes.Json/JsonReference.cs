@@ -309,6 +309,28 @@ namespace Menes.Json
         }
 
         /// <summary>
+        /// Moves to the parent fragment if available.
+        /// </summary>
+        /// <returns>A JsonReference pointing at the parent fragment, or the original reference if there is no fragment.</returns>
+        public JsonReference MoveToParentFragment()
+        {
+            int lastSlash = this.Fragment.LastIndexOf('/');
+            if (lastSlash > 0)
+            {
+                if (lastSlash > 1)
+                {
+                    return new JsonReference(this.Uri, this.Fragment[..lastSlash]);
+                }
+                else
+                {
+                    return new JsonReference(this.Uri, ReadOnlySpan<char>.Empty);
+                }
+            }
+
+            return this;
+        }
+
+        /// <summary>
         /// Combine this Json reference with another using the rules in rfc3986 (https://tools.ietf.org/html/rfc3986#section-5.2.2).
         /// </summary>
         /// <param name="other">The reference with which to combine.</param>

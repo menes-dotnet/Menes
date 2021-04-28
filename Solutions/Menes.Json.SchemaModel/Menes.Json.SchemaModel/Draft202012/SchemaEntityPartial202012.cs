@@ -844,9 +844,15 @@ public partial class SchemaEntity202012
     {
         get
         {
-            return this.TypeDeclaration.Schema.AdditionalProperties.IsUndefined() ||
-                this.TypeDeclaration.Schema.AdditionalProperties.ValueKind == JsonValueKind.True ||
-                this.TypeDeclaration.Schema.AdditionalProperties.ValueKind == JsonValueKind.Object;
+            if (this.TypeDeclaration.Schema.AdditionalProperties.IsNullOrUndefined())
+            {
+                return true;
+            }
+
+            TypeDeclaration typeDeclaration = this.Builder.GetTypeDeclarationForProperty(this.TypeDeclaration, "additionalProperties");
+            return typeDeclaration.Schema.IsUndefined() ||
+                typeDeclaration.Schema.ValueKind == JsonValueKind.True ||
+                typeDeclaration.Schema.ValueKind == JsonValueKind.Object;
         }
     }
 
@@ -857,9 +863,15 @@ public partial class SchemaEntity202012
     {
         get
         {
-            return this.TypeDeclaration.Schema.AdditionalProperties.ValueKind == JsonValueKind.Object ||
-                this.TypeDeclaration.Schema.AdditionalProperties.ValueKind == JsonValueKind.True ||
-                this.TypeDeclaration.Schema.AdditionalProperties.ValueKind == JsonValueKind.False;
+            if (this.TypeDeclaration.Schema.AdditionalProperties.IsNullOrUndefined())
+            {
+                return false;
+            }
+
+            TypeDeclaration typeDeclaration = this.Builder.GetTypeDeclarationForProperty(this.TypeDeclaration, "additionalProperties");
+            return typeDeclaration.Schema.ValueKind == JsonValueKind.Object ||
+                typeDeclaration.Schema.ValueKind == JsonValueKind.True ||
+                typeDeclaration.Schema.ValueKind == JsonValueKind.False;
         }
     }
 
@@ -870,9 +882,15 @@ public partial class SchemaEntity202012
     {
         get
         {
-            return this.TypeDeclaration.Schema.UnevaluatedProperties.ValueKind == JsonValueKind.Object ||
-                this.TypeDeclaration.Schema.UnevaluatedProperties.ValueKind == JsonValueKind.True ||
-                this.TypeDeclaration.Schema.UnevaluatedProperties.ValueKind == JsonValueKind.False;
+            if (this.TypeDeclaration.Schema.UnevaluatedProperties.IsNullOrUndefined())
+            {
+                return false;
+            }
+
+            TypeDeclaration typeDeclaration = this.Builder.GetTypeDeclarationForProperty(this.TypeDeclaration, "unevaluatedProperties");
+            return typeDeclaration.Schema.ValueKind == JsonValueKind.Object ||
+                typeDeclaration.Schema.ValueKind == JsonValueKind.True ||
+                typeDeclaration.Schema.ValueKind == JsonValueKind.False;
         }
     }
 
@@ -883,7 +901,14 @@ public partial class SchemaEntity202012
     {
         get
         {
-            return this.TypeDeclaration.Schema.AdditionalProperties.ValueKind == JsonValueKind.Object;
+            if (this.TypeDeclaration.Schema.AdditionalProperties.IsNullOrUndefined())
+            {
+                return false;
+            }
+
+            TypeDeclaration typeDeclaration = this.Builder.GetTypeDeclarationForProperty(this.TypeDeclaration, "additionalProperties");
+
+            return typeDeclaration.Schema.ValueKind == JsonValueKind.Object;
         }
     }
 
@@ -894,7 +919,13 @@ public partial class SchemaEntity202012
     {
         get
         {
-            return this.TypeDeclaration.Schema.UnevaluatedProperties.ValueKind == JsonValueKind.Object;
+            if (this.TypeDeclaration.Schema.UnevaluatedProperties.IsNullOrUndefined())
+            {
+                return false;
+            }
+
+            TypeDeclaration typeDeclaration = this.Builder.GetTypeDeclarationForProperty(this.TypeDeclaration, "unevaluatedProperties");
+            return typeDeclaration.Schema.ValueKind == JsonValueKind.Object;
         }
     }
 

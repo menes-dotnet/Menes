@@ -57,7 +57,7 @@ namespace Menes.Json.SchemaModel.Draft202012
             string rootLocation = this.BuildTypeDeclarations(rootElement);
 
             // Then we prune the types we aren't actually using
-            Dictionary<string, TypeDeclaration> referencedTypesByLocation = this.PruneUnreferencedTypes(rootLocation);
+            Dictionary<string, TypeDeclaration> referencedTypesByLocation = this.ResolveDynamicAndUnreferencedTypes(rootLocation);
 
             // Then prune the built-in types (setting their dotnet type names appropriately)
             Dictionary<string, TypeDeclaration> typesForGenerationByLocation = this.PruneBuiltInTypes(referencedTypesByLocation);
@@ -128,13 +128,13 @@ namespace Menes.Json.SchemaModel.Draft202012
             return this.GetTypeDeclarationForPropertyArrayIndex(typeDeclaration.Location, property, index);
         }
 
-        private Dictionary<string, TypeDeclaration> PruneUnreferencedTypes(string rootLocation)
+        private Dictionary<string, TypeDeclaration> ResolveDynamicAndUnreferencedTypes(string rootLocation)
         {
             TypeDeclaration root = this.locatedTypeDeclarations[rootLocation];
             var referencedTypes = new HashSet<TypeDeclaration>();
-            this.FindReferencedTypes(root, referencedTypes);
+            this.FindAndBuildReferencedTypes(root, referencedTypes);
             referencedTypes.Add(root);
-            return referencedTypes.ToDictionary(k => k.Location);
+            return referencedTypes.ToDictionary(k => k.LexicalLocation);
         }
 
         private string BuildTypeDeclarations(LocatedElement rootElement)
@@ -156,11 +156,11 @@ namespace Menes.Json.SchemaModel.Draft202012
             return result;
         }
 
-        private void FindReferencedTypes(TypeDeclaration currentDeclaration, HashSet<TypeDeclaration> referencedTypes)
+        private void FindAndBuildReferencedTypes(TypeDeclaration currentDeclaration, HashSet<TypeDeclaration> referencedTypes)
         {
             var localTypes = new HashSet<TypeDeclaration>();
 
-            this.FindReferencedTypesCore(currentDeclaration, referencedTypes, localTypes);
+            this.FindAndBuildReferencedTypesCore(currentDeclaration, referencedTypes, localTypes);
             currentDeclaration.SetReferencedTypes(localTypes);
 
             var inspectedTypes = localTypes.ToHashSet();
@@ -173,14 +173,14 @@ namespace Menes.Json.SchemaModel.Draft202012
                 foreach (TypeDeclaration type in currentTypes)
                 {
                     inspectedTypes.Add(type);
-                    this.FindReferencedTypesCore(type, referencedTypes, localTypes);
+                    this.FindAndBuildReferencedTypesCore(type, referencedTypes, localTypes);
                 }
 
                 currentTypes = localTypes.Except(inspectedTypes).ToList();
             }
         }
 
-        private void FindReferencedTypesCore(TypeDeclaration currentDeclaration, HashSet<TypeDeclaration> referencedTypes, HashSet<TypeDeclaration> localTypes)
+        private void FindAndBuildReferencedTypesCore(TypeDeclaration currentDeclaration, HashSet<TypeDeclaration> referencedTypes, HashSet<TypeDeclaration> localTypes)
         {
             if (currentDeclaration.Schema.AdditionalProperties.IsNotUndefined())
             {
@@ -328,7 +328,6 @@ namespace Menes.Json.SchemaModel.Draft202012
 
             if (currentDeclaration.Schema.Ref.IsNotUndefined())
             {
-                // If we have a recursive ref, this is being applied in place; naked refs have already been reduced.
                 TypeDeclaration typeDeclaration = this.GetTypeDeclarationForProperty(currentDeclaration.Location, "$ref");
                 this.AddTypeDeclarationsToReferencedTypes(referencedTypes, typeDeclaration);
                 localTypes.Add(typeDeclaration);
@@ -384,18 +383,13 @@ namespace Menes.Json.SchemaModel.Draft202012
                 throw new InvalidOperationException("Unable to build types for an invalid schema.");
             }
 
-            ////if (draft201909Schema.Id is Draft201909MetaCore.IdValue idValue)
-            ////{
-            ////    location = new JsonReference(location).Apply(new JsonReference(idValue));
-            ////}
-
             if (this.TryReduceSchema(location, draft201909Schema, out TypeDeclaration? reducedTypeDeclaration))
             {
                 this.locatedTypeDeclarations.Add(location, reducedTypeDeclaration);
                 return reducedTypeDeclaration;
             }
 
-            // Check to see that we haven't located a type declration uring reduction.
+            // Check to see that we haven't located a type declaration during reduction.
             if (this.locatedTypeDeclarations.TryGetValue(location, out TypeDeclaration builtDuringReduction))
             {
                 return builtDuringReduction;
@@ -470,8 +464,27 @@ namespace Menes.Json.SchemaModel.Draft202012
         {
             JsonReference schemaLocation = new JsonReference(location).AppendUnencodedPropertyNameToFragment(propertyName);
             string resolvedSchemaLocation = this.walker.GetLocatedElement(schemaLocation.ToString()).AbsoluteLocation;
+
             if (this.locatedTypeDeclarations.TryGetValue(resolvedSchemaLocation, out typeDeclaration))
             {
+                // Figure out if we are in a dynamic anchor situation
+                if (resolvedSchemaLocation != schemaLocation &&
+                    this.locatedTypeDeclarations.TryGetValue(location, out TypeDeclaration sourceDeclaration) &&
+                    sourceDeclaration.Schema.DynamicAnchor.IsNotNullOrUndefined() &&
+                    sourceDeclaration.Schema.DynamicAnchor.Equals(typeDeclaration.Schema.DynamicAnchor))
+                {
+                    // This is a dynamic anchor, so don't go for the original one, figure out if we can get one for
+                    // this location instead; we build an artificial key
+                    if (this.locatedTypeDeclarations.TryGetValue(schemaLocation, out TypeDeclaration? dynamicTypeDeclaration))
+                    {
+                        typeDeclaration = dynamicTypeDeclaration;
+                        return true;
+                    }
+
+                    typeDeclaration = new TypeDeclaration(resolvedSchemaLocation, schemaLocation, typeDeclaration.Schema);
+                    this.locatedTypeDeclarations.Add(schemaLocation, typeDeclaration);
+                }
+
                 return true;
             }
 
@@ -488,7 +501,7 @@ namespace Menes.Json.SchemaModel.Draft202012
 
             static void FindAndSetParent(Dictionary<string, TypeDeclaration> referencedTypesByLocation, TypeDeclaration typeDeclaration)
             {
-                ReadOnlySpan<char> location = typeDeclaration.Location.AsSpan();
+                ReadOnlySpan<char> location = typeDeclaration.LexicalLocation.AsSpan();
                 bool isItemsArray = location.EndsWith("items");
 
                 while (true)
