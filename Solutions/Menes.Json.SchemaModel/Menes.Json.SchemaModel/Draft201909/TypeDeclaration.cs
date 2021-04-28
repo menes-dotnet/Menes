@@ -22,11 +22,25 @@ namespace Menes.Json.SchemaModel.Draft201909
         /// <summary>
         /// Initializes a new instance of the <see cref="TypeDeclaration"/> class.
         /// </summary>
+        /// <param name="absoluteLocation">The canonical location of the type declaration.</param>
+        /// <param name="lexicalLocation">The lexical location of the type declaration.</param>
+        /// <param name="schema">The schema with which this type declaration is associated.</param>
+        public TypeDeclaration(string absoluteLocation, string lexicalLocation, Schema schema)
+        {
+            this.Location = absoluteLocation;
+            this.LexicalLocation = lexicalLocation;
+            this.Schema = schema;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TypeDeclaration"/> class.
+        /// </summary>
         /// <param name="location">The canonical location of the type declaration.</param>
         /// <param name="schema">The schema with which this type declaration is associated.</param>
         public TypeDeclaration(string location, Schema schema)
         {
             this.Location = location;
+            this.LexicalLocation = location;
             this.Schema = schema;
         }
 
@@ -65,6 +79,11 @@ namespace Menes.Json.SchemaModel.Draft201909
         /// Gets the canonical location of the type declaration.
         /// </summary>
         public string Location { get; }
+
+        /// <summary>
+        /// Gets the lexical location of the type declaration.
+        /// </summary>
+        public string LexicalLocation { get; }
 
         /// <summary>
         /// Gets the schema associated with this type declaration.
