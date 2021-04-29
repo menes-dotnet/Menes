@@ -389,7 +389,7 @@ namespace Menes.Json
         }
 
         /// <inheritdoc/>
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (obj is JsonRelativePointer jany)
             {

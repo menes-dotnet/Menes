@@ -5,13 +5,12 @@
 namespace Menes.JsonSchema.Benchmarking.Benchmarks
 {
     using System;
+    using System.IO;
     using System.Net.Http;
     using System.Text;
     using System.Text.Json;
     using System.Threading.Tasks;
-    using Drivers;
     using Menes.Json;
-    using Menes.Json.SchemaModel;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Newtonsoft.Json.Linq;
@@ -23,7 +22,8 @@ namespace Menes.JsonSchema.Benchmarking.Benchmarks
     public class BenchmarkBase
     {
         private IServiceProvider? serviceProvider;
-        private JsonSchemaBuilderDriver? driver;
+        private IDocumentResolver? resolver;
+        private IConfiguration? configuration;
         private JSchema? newtonsoftSchema;
         private bool? isValid;
         private string? data;
@@ -41,8 +41,9 @@ namespace Menes.JsonSchema.Benchmarking.Benchmarks
         protected async Task GlobalSetup(string filename, string referenceFragment, string inputDataReference, bool isValid)
         {
             this.serviceProvider = CreateServices().BuildServiceProvider();
-            this.driver = this.serviceProvider.GetRequiredService<JsonSchemaBuilderDriver>();
-            JsonElement? schema = await this.driver.GetElement(filename, referenceFragment).ConfigureAwait(false);
+            this.resolver = this.serviceProvider.GetRequiredService<IDocumentResolver>();
+            this.configuration = this.serviceProvider.GetRequiredService<IConfiguration>();
+            JsonElement? schema = await this.GetElement(filename, referenceFragment).ConfigureAwait(false);
             if (schema is null)
             {
                 throw new InvalidOperationException($"Unable to find the element in file '{filename}' at location '{referenceFragment}'");
@@ -51,7 +52,7 @@ namespace Menes.JsonSchema.Benchmarking.Benchmarks
             IConfiguration configuration = this.serviceProvider.GetRequiredService<IConfiguration>();
             License.RegisterLicense(configuration["newtonsoft:licenseKey"]);
 
-            JsonElement? data = await this.driver.GetElement(filename, inputDataReference).ConfigureAwait(false);
+            JsonElement? data = await this.GetElement(filename, inputDataReference).ConfigureAwait(false);
             if (data is not JsonElement d)
             {
                 throw new InvalidOperationException($"Unable to find the element in file '{filename}' at location '{inputDataReference}'");
@@ -98,9 +99,6 @@ namespace Menes.JsonSchema.Benchmarking.Benchmarks
             var services = new ServiceCollection();
 
             services.AddTransient<IDocumentResolver>(serviceProvider => new CompoundDocumentResolver(new FakeWebDocumentResolver(serviceProvider.GetRequiredService<IConfiguration>()["jsonSchemaBuilderDriverSettings:remotesBaseDirectory"]), new FileSystemDocumentResolver(), new HttpClientDocumentResolver(new HttpClient())));
-            services.AddTransient<JsonWalker>();
-            services.AddTransient<JsonSchemaBuilder>();
-            services.AddTransient<JsonSchemaBuilderDriver>();
             services.AddTransient<IConfiguration>(sp =>
             {
                 IConfigurationBuilder configurationBuilder = new ConfigurationBuilder();
@@ -110,6 +108,23 @@ namespace Menes.JsonSchema.Benchmarking.Benchmarks
             });
 
             return services;
+        }
+
+        private Task<JsonElement?> GetElement(string filename, string referenceFragment)
+        {
+            if (this.configuration is not IConfiguration config)
+            {
+                throw new InvalidOperationException("You must provide IConfiguration in the container");
+            }
+
+            if (this.resolver is not IDocumentResolver resolver)
+            {
+                throw new InvalidOperationException("You must provide IConfiguration in the container");
+            }
+
+            string baseDirectory = config["jsonSchemaBuilder201909DriverSettings:testBaseDirectory"];
+            string path = Path.Combine(baseDirectory, filename);
+            return resolver.TryResolve(new JsonReference(path, referenceFragment));
         }
     }
 }

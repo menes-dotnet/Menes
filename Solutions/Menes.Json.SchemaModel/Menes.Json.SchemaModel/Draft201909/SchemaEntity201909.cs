@@ -8176,8 +8176,8 @@ namespace ");
         #line hidden
         
         #line 2573 "SchemaEntity201909.tt"
-        this.Write("\r\n        /// <inheritdoc/>\r\n        public override bool Equals(object obj)\r\n   " +
-                "     {\r\n            if (obj is ");
+        this.Write("\r\n        /// <inheritdoc/>\r\n        public override bool Equals(object? obj)\r\n  " +
+                "      {\r\n            if (obj is ");
         
         #line default
         #line hidden
