@@ -21,7 +21,7 @@ namespace DependentSchemasDraft202012Feature.BooleanSubschemas
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("dependentSchemas.json", "#/1/schema", "#/001/tests/002/data", false);
+            return this.GlobalSetup("draft2020-12\\dependentSchemas.json", "#/1/schema", "#/001/tests/002/data", false);
         }
         /// <summary>
         /// Validates using the Menes types.

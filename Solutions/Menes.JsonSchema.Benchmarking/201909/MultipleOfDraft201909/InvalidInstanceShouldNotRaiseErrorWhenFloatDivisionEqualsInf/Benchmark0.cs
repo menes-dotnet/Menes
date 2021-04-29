@@ -21,7 +21,7 @@ namespace MultipleOfDraft201909Feature.InvalidInstanceShouldNotRaiseErrorWhenFlo
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("multipleOf.json", "#/3/schema", "#/003/tests/000/data", false);
+            return this.GlobalSetup("draft2019-09\\multipleOf.json", "#/3/schema", "#/003/tests/000/data", false);
         }
         /// <summary>
         /// Validates using the Menes types.

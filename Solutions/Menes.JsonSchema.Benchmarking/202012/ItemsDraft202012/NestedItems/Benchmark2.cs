@@ -21,7 +21,7 @@ namespace ItemsDraft202012Feature.NestedItems
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("items.json", "#/4/schema", "#/004/tests/002/data", false);
+            return this.GlobalSetup("draft2020-12\\items.json", "#/4/schema", "#/004/tests/002/data", false);
         }
         /// <summary>
         /// Validates using the Menes types.

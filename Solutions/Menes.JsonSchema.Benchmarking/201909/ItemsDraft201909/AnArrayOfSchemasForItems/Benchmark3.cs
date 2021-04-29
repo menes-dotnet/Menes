@@ -21,7 +21,7 @@ namespace ItemsDraft201909Feature.AnArrayOfSchemasForItems
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("items.json", "#/1/schema", "#/001/tests/003/data", true);
+            return this.GlobalSetup("draft2019-09\\items.json", "#/1/schema", "#/001/tests/003/data", true);
         }
         /// <summary>
         /// Validates using the Menes types.

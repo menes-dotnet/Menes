@@ -21,7 +21,7 @@ namespace ConstDraft202012Feature.ConstWith20MatchesIntegerAndFloatTypes
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("const.json", "#/12/schema", "#/012/tests/002/data", true);
+            return this.GlobalSetup("draft2020-12\\const.json", "#/12/schema", "#/012/tests/002/data", true);
         }
         /// <summary>
         /// Validates using the Menes types.

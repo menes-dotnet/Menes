@@ -21,7 +21,7 @@ namespace IfThenElseDraft202012Feature.IfAppearsAtTheEndWhenSerializedKeywordPro
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("if-then-else.json", "#/9/schema", "#/009/tests/000/data", true);
+            return this.GlobalSetup("draft2020-12\\if-then-else.json", "#/9/schema", "#/009/tests/000/data", true);
         }
         /// <summary>
         /// Validates using the Menes types.

@@ -21,7 +21,7 @@ namespace AdditionalPropertiesDraft202012Feature.AdditionalPropertiesAreAllowedB
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("additionalProperties.json", "#/4/schema", "#/004/tests/000/data", true);
+            return this.GlobalSetup("draft2020-12\\additionalProperties.json", "#/4/schema", "#/004/tests/000/data", true);
         }
         /// <summary>
         /// Validates using the Menes types.

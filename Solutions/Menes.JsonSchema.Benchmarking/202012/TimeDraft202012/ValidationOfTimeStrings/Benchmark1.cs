@@ -21,7 +21,7 @@ namespace TimeDraft202012Feature.ValidationOfTimeStrings
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("time.json", "#/0/schema", "#/000/tests/001/data", false);
+            return this.GlobalSetup("draft2020-12\\time.json", "#/0/schema", "#/000/tests/001/data", false);
         }
         /// <summary>
         /// Validates using the Menes types.

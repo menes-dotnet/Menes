@@ -21,7 +21,7 @@ namespace RecursiveRefDraft201909Feature.MultipleDynamicPathsToTheRecursiveRefKe
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("recursiveRef.json", "#/7/schema", "#/007/tests/001/data", false);
+            return this.GlobalSetup("draft2019-09\\recursiveRef.json", "#/7/schema", "#/007/tests/001/data", false);
         }
         /// <summary>
         /// Validates using the Menes types.

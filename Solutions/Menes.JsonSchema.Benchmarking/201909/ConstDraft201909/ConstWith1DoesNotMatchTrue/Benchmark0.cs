@@ -21,7 +21,7 @@ namespace ConstDraft201909Feature.ConstWith1DoesNotMatchTrue
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("const.json", "#/11/schema", "#/011/tests/000/data", false);
+            return this.GlobalSetup("draft2019-09\\const.json", "#/11/schema", "#/011/tests/000/data", false);
         }
         /// <summary>
         /// Validates using the Menes types.

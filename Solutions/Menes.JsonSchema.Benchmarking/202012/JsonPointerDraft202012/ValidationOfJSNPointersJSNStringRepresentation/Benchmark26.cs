@@ -21,7 +21,7 @@ namespace JsonPointerDraft202012Feature.ValidationOfJSNPointersJSNStringRepresen
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("json-pointer.json", "#/0/schema", "#/000/tests/026/data", false);
+            return this.GlobalSetup("draft2020-12\\json-pointer.json", "#/0/schema", "#/000/tests/026/data", false);
         }
         /// <summary>
         /// Validates using the Menes types.

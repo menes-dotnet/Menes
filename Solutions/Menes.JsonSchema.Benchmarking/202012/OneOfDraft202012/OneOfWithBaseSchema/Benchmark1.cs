@@ -21,7 +21,7 @@ namespace OneOfDraft202012Feature.OneOfWithBaseSchema
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("oneOf.json", "#/1/schema", "#/001/tests/001/data", true);
+            return this.GlobalSetup("draft2020-12\\oneOf.json", "#/1/schema", "#/001/tests/001/data", true);
         }
         /// <summary>
         /// Validates using the Menes types.

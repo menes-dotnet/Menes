@@ -21,7 +21,7 @@ namespace AllOfDraft202012Feature.AllOfWithBooleanSchemasAllTrue
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("allOf.json", "#/3/schema", "#/003/tests/000/data", true);
+            return this.GlobalSetup("draft2020-12\\allOf.json", "#/3/schema", "#/003/tests/000/data", true);
         }
         /// <summary>
         /// Validates using the Menes types.

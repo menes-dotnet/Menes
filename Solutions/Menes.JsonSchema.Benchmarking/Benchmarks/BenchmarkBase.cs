@@ -122,8 +122,11 @@ namespace Menes.JsonSchema.Benchmarking.Benchmarks
                 throw new InvalidOperationException("You must provide IConfiguration in the container");
             }
 
-            string baseDirectory = config["jsonSchemaBuilder201909DriverSettings:testBaseDirectory"];
+            string baseDirectory = config["jsonSchemaBuilderDriverSettings:testBaseDirectory"];
             string path = Path.Combine(baseDirectory, filename);
+
+            Console.WriteLine(path);
+
             return resolver.TryResolve(new JsonReference(path, referenceFragment));
         }
     }

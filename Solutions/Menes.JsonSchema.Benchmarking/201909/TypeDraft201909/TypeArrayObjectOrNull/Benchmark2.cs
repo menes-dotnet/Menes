@@ -21,7 +21,7 @@ namespace TypeDraft201909Feature.TypeArrayObjectOrNull
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("type.json", "#/10/schema", "#/010/tests/002/data", true);
+            return this.GlobalSetup("draft2019-09\\type.json", "#/10/schema", "#/010/tests/002/data", true);
         }
         /// <summary>
         /// Validates using the Menes types.

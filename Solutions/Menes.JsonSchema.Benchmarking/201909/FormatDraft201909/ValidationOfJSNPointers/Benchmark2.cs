@@ -21,7 +21,7 @@ namespace FormatDraft201909Feature.ValidationOfJSNPointers
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("format.json", "#/10/schema", "#/010/tests/002/data", true);
+            return this.GlobalSetup("draft2019-09\\format.json", "#/10/schema", "#/010/tests/002/data", true);
         }
         /// <summary>
         /// Validates using the Menes types.

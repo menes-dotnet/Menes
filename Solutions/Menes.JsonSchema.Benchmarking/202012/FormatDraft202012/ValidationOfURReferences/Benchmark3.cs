@@ -21,7 +21,7 @@ namespace FormatDraft202012Feature.ValidationOfURReferences
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("format.json", "#/15/schema", "#/015/tests/003/data", true);
+            return this.GlobalSetup("draft2020-12\\format.json", "#/15/schema", "#/015/tests/003/data", true);
         }
         /// <summary>
         /// Validates using the Menes types.

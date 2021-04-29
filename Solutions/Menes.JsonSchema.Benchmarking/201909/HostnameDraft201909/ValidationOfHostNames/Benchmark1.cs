@@ -21,7 +21,7 @@ namespace HostnameDraft201909Feature.ValidationOfHostNames
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("hostname.json", "#/0/schema", "#/000/tests/001/data", true);
+            return this.GlobalSetup("draft2019-09\\hostname.json", "#/0/schema", "#/000/tests/001/data", true);
         }
         /// <summary>
         /// Validates using the Menes types.

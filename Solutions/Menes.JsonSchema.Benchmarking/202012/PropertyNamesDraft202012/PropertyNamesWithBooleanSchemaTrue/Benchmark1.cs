@@ -21,7 +21,7 @@ namespace PropertyNamesDraft202012Feature.PropertyNamesWithBooleanSchemaTrue
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("propertyNames.json", "#/1/schema", "#/001/tests/001/data", true);
+            return this.GlobalSetup("draft2020-12\\propertyNames.json", "#/1/schema", "#/001/tests/001/data", true);
         }
         /// <summary>
         /// Validates using the Menes types.

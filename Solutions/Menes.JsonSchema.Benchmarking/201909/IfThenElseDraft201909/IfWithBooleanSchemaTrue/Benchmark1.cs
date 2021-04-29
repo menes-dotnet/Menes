@@ -21,7 +21,7 @@ namespace IfThenElseDraft201909Feature.IfWithBooleanSchemaTrue
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("if-then-else.json", "#/7/schema", "#/007/tests/001/data", false);
+            return this.GlobalSetup("draft2019-09\\if-then-else.json", "#/7/schema", "#/007/tests/001/data", false);
         }
         /// <summary>
         /// Validates using the Menes types.

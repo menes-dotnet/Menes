@@ -21,7 +21,7 @@ namespace MaxPropertiesDraft202012Feature.MaxPropertiesValidation
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("maxProperties.json", "#/0/schema", "#/000/tests/004/data", true);
+            return this.GlobalSetup("draft2020-12\\maxProperties.json", "#/0/schema", "#/000/tests/004/data", true);
         }
         /// <summary>
         /// Validates using the Menes types.

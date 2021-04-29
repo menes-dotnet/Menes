@@ -21,7 +21,7 @@ namespace MinimumDraft201909Feature.MinimumValidation
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("minimum.json", "#/0/schema", "#/000/tests/002/data", false);
+            return this.GlobalSetup("draft2019-09\\minimum.json", "#/0/schema", "#/000/tests/002/data", false);
         }
         /// <summary>
         /// Validates using the Menes types.

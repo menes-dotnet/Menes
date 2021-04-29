@@ -21,7 +21,7 @@ namespace MultipleOfDraft201909Feature.ByInt
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("multipleOf.json", "#/0/schema", "#/000/tests/002/data", true);
+            return this.GlobalSetup("draft2019-09\\multipleOf.json", "#/0/schema", "#/000/tests/002/data", true);
         }
         /// <summary>
         /// Validates using the Menes types.

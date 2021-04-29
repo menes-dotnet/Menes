@@ -21,7 +21,7 @@ namespace EmailDraft202012Feature.ValidationOfEMailAddresses
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("email.json", "#/0/schema", "#/000/tests/005/data", false);
+            return this.GlobalSetup("draft2020-12\\email.json", "#/0/schema", "#/000/tests/005/data", false);
         }
         /// <summary>
         /// Validates using the Menes types.

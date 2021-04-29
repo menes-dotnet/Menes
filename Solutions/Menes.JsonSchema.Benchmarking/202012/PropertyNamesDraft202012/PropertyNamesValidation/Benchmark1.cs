@@ -21,7 +21,7 @@ namespace PropertyNamesDraft202012Feature.PropertyNamesValidation
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("propertyNames.json", "#/0/schema", "#/000/tests/001/data", false);
+            return this.GlobalSetup("draft2020-12\\propertyNames.json", "#/0/schema", "#/000/tests/001/data", false);
         }
         /// <summary>
         /// Validates using the Menes types.

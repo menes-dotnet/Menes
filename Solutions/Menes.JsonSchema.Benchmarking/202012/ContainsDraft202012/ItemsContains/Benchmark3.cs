@@ -21,7 +21,7 @@ namespace ContainsDraft202012Feature.ItemsContains
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("contains.json", "#/4/schema", "#/004/tests/003/data", false);
+            return this.GlobalSetup("draft2020-12\\contains.json", "#/4/schema", "#/004/tests/003/data", false);
         }
         /// <summary>
         /// Validates using the Menes types.

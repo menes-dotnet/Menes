@@ -21,7 +21,7 @@ namespace AnyOfDraft201909Feature.AnyOfWithBooleanSchemasAllFalse
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("anyOf.json", "#/4/schema", "#/004/tests/000/data", false);
+            return this.GlobalSetup("draft2019-09\\anyOf.json", "#/4/schema", "#/004/tests/000/data", false);
         }
         /// <summary>
         /// Validates using the Menes types.

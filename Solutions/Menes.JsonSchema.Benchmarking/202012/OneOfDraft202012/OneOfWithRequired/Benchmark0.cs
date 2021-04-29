@@ -21,7 +21,7 @@ namespace OneOfDraft202012Feature.OneOfWithRequired
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("oneOf.json", "#/8/schema", "#/008/tests/000/data", false);
+            return this.GlobalSetup("draft2020-12\\oneOf.json", "#/8/schema", "#/008/tests/000/data", false);
         }
         /// <summary>
         /// Validates using the Menes types.

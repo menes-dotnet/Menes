@@ -21,7 +21,7 @@ namespace RelativeJsonPointerDraft202012Feature.ValidationOfRelativeJSNPointersR
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("relative-json-pointer.json", "#/0/schema", "#/000/tests/003/data", true);
+            return this.GlobalSetup("draft2020-12\\relative-json-pointer.json", "#/0/schema", "#/000/tests/003/data", true);
         }
         /// <summary>
         /// Validates using the Menes types.

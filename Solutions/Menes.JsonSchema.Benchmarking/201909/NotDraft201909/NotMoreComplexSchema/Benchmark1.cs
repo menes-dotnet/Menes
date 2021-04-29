@@ -21,7 +21,7 @@ namespace NotDraft201909Feature.NotMoreComplexSchema
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("not.json", "#/2/schema", "#/002/tests/001/data", true);
+            return this.GlobalSetup("draft2019-09\\not.json", "#/2/schema", "#/002/tests/001/data", true);
         }
         /// <summary>
         /// Validates using the Menes types.

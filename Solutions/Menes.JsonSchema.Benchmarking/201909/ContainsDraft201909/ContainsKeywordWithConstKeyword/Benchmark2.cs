@@ -21,7 +21,7 @@ namespace ContainsDraft201909Feature.ContainsKeywordWithConstKeyword
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("contains.json", "#/1/schema", "#/001/tests/002/data", false);
+            return this.GlobalSetup("draft2019-09\\contains.json", "#/1/schema", "#/001/tests/002/data", false);
         }
         /// <summary>
         /// Validates using the Menes types.

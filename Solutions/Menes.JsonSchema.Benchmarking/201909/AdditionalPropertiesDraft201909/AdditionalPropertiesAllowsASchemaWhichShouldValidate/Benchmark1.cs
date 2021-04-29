@@ -21,7 +21,7 @@ namespace AdditionalPropertiesDraft201909Feature.AdditionalPropertiesAllowsASche
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("additionalProperties.json", "#/2/schema", "#/002/tests/001/data", true);
+            return this.GlobalSetup("draft2019-09\\additionalProperties.json", "#/2/schema", "#/002/tests/001/data", true);
         }
         /// <summary>
         /// Validates using the Menes types.

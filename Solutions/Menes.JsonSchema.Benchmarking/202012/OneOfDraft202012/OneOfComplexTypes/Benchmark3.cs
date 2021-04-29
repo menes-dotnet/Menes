@@ -21,7 +21,7 @@ namespace OneOfDraft202012Feature.OneOfComplexTypes
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("oneOf.json", "#/6/schema", "#/006/tests/003/data", false);
+            return this.GlobalSetup("draft2020-12\\oneOf.json", "#/6/schema", "#/006/tests/003/data", false);
         }
         /// <summary>
         /// Validates using the Menes types.

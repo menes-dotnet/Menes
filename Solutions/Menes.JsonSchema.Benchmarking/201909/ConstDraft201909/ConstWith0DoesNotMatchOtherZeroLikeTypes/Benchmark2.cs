@@ -21,7 +21,7 @@ namespace ConstDraft201909Feature.ConstWith0DoesNotMatchOtherZeroLikeTypes
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("const.json", "#/10/schema", "#/010/tests/002/data", true);
+            return this.GlobalSetup("draft2019-09\\const.json", "#/10/schema", "#/010/tests/002/data", true);
         }
         /// <summary>
         /// Validates using the Menes types.

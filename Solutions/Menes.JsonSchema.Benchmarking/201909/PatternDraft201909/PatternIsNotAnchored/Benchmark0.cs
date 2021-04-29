@@ -21,7 +21,7 @@ namespace PatternDraft201909Feature.PatternIsNotAnchored
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("pattern.json", "#/1/schema", "#/001/tests/000/data", true);
+            return this.GlobalSetup("draft2019-09\\pattern.json", "#/1/schema", "#/001/tests/000/data", true);
         }
         /// <summary>
         /// Validates using the Menes types.

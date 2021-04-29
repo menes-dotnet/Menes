@@ -21,7 +21,7 @@ namespace RefDraft201909Feature.EscapedPointerRef
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("ref.json", "#/3/schema", "#/003/tests/000/data", false);
+            return this.GlobalSetup("draft2019-09\\ref.json", "#/3/schema", "#/003/tests/000/data", false);
         }
         /// <summary>
         /// Validates using the Menes types.

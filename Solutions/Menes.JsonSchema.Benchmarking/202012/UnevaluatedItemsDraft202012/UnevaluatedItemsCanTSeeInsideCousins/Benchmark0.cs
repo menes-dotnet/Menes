@@ -21,7 +21,7 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsCanTSeeInsideCousin
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("unevaluatedItems.json", "#/15/schema", "#/015/tests/000/data", false);
+            return this.GlobalSetup("draft2020-12\\unevaluatedItems.json", "#/15/schema", "#/015/tests/000/data", false);
         }
         /// <summary>
         /// Validates using the Menes types.

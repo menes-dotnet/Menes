@@ -21,7 +21,7 @@ namespace UuidDraft201909Feature.UuidFormat
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("uuid.json", "#/0/schema", "#/000/tests/004/data", false);
+            return this.GlobalSetup("draft2019-09\\uuid.json", "#/0/schema", "#/000/tests/004/data", false);
         }
         /// <summary>
         /// Validates using the Menes types.

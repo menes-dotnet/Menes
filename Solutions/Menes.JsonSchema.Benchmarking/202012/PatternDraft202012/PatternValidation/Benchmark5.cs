@@ -21,7 +21,7 @@ namespace PatternDraft202012Feature.PatternValidation
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("pattern.json", "#/0/schema", "#/000/tests/005/data", true);
+            return this.GlobalSetup("draft2020-12\\pattern.json", "#/0/schema", "#/000/tests/005/data", true);
         }
         /// <summary>
         /// Validates using the Menes types.

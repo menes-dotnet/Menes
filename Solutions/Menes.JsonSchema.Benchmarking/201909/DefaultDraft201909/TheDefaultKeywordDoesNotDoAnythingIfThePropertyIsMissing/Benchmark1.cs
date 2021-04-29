@@ -21,7 +21,7 @@ namespace DefaultDraft201909Feature.TheDefaultKeywordDoesNotDoAnythingIfThePrope
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("default.json", "#/2/schema", "#/002/tests/001/data", false);
+            return this.GlobalSetup("draft2019-09\\default.json", "#/2/schema", "#/002/tests/001/data", false);
         }
         /// <summary>
         /// Validates using the Menes types.

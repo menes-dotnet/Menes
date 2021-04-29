@@ -21,7 +21,7 @@ namespace ItemsDraft202012Feature.PrefixItemsWithNoAdditionalItemsAllowed
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("items.json", "#/5/schema", "#/005/tests/002/data", true);
+            return this.GlobalSetup("draft2020-12\\items.json", "#/5/schema", "#/005/tests/002/data", true);
         }
         /// <summary>
         /// Validates using the Menes types.

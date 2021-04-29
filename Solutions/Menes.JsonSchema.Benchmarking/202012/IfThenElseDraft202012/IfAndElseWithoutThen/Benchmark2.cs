@@ -21,7 +21,7 @@ namespace IfThenElseDraft202012Feature.IfAndElseWithoutThen
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("if-then-else.json", "#/4/schema", "#/004/tests/002/data", false);
+            return this.GlobalSetup("draft2020-12\\if-then-else.json", "#/4/schema", "#/004/tests/002/data", false);
         }
         /// <summary>
         /// Validates using the Menes types.

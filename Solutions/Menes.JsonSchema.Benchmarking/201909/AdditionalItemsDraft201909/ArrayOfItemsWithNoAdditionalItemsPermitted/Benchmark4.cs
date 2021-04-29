@@ -21,7 +21,7 @@ namespace AdditionalItemsDraft201909Feature.ArrayOfItemsWithNoAdditionalItemsPer
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("additionalItems.json", "#/2/schema", "#/002/tests/004/data", false);
+            return this.GlobalSetup("draft2019-09\\additionalItems.json", "#/2/schema", "#/002/tests/004/data", false);
         }
         /// <summary>
         /// Validates using the Menes types.

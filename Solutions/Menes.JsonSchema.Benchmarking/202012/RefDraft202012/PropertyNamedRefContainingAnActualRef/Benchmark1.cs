@@ -21,7 +21,7 @@ namespace RefDraft202012Feature.PropertyNamedRefContainingAnActualRef
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("ref.json", "#/8/schema", "#/008/tests/001/data", false);
+            return this.GlobalSetup("draft2020-12\\ref.json", "#/8/schema", "#/008/tests/001/data", false);
         }
         /// <summary>
         /// Validates using the Menes types.

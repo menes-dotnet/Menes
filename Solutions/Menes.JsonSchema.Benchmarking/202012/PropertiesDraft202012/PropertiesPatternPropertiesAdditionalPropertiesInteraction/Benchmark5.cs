@@ -21,7 +21,7 @@ namespace PropertiesDraft202012Feature.PropertiesPatternPropertiesAdditionalProp
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("properties.json", "#/1/schema", "#/001/tests/005/data", true);
+            return this.GlobalSetup("draft2020-12\\properties.json", "#/1/schema", "#/001/tests/005/data", true);
         }
         /// <summary>
         /// Validates using the Menes types.

@@ -21,7 +21,7 @@ namespace MinLengthDraft201909Feature.MinLengthValidation
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("minLength.json", "#/0/schema", "#/000/tests/000/data", true);
+            return this.GlobalSetup("draft2019-09\\minLength.json", "#/0/schema", "#/000/tests/000/data", true);
         }
         /// <summary>
         /// Validates using the Menes types.

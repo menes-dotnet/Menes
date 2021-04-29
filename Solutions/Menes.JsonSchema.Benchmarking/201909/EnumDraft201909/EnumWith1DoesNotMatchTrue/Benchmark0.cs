@@ -21,7 +21,7 @@ namespace EnumDraft201909Feature.EnumWith1DoesNotMatchTrue
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("enum.json", "#/8/schema", "#/008/tests/000/data", false);
+            return this.GlobalSetup("draft2019-09\\enum.json", "#/8/schema", "#/008/tests/000/data", false);
         }
         /// <summary>
         /// Validates using the Menes types.

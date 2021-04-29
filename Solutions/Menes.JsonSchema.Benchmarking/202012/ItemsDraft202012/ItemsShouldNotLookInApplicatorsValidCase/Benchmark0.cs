@@ -21,7 +21,7 @@ namespace ItemsDraft202012Feature.ItemsShouldNotLookInApplicatorsValidCase
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("items.json", "#/6/schema", "#/006/tests/000/data", false);
+            return this.GlobalSetup("draft2020-12\\items.json", "#/6/schema", "#/006/tests/000/data", false);
         }
         /// <summary>
         /// Validates using the Menes types.

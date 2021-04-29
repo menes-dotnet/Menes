@@ -21,7 +21,7 @@ namespace MinPropertiesDraft201909Feature.MinPropertiesValidation
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("minProperties.json", "#/0/schema", "#/000/tests/000/data", true);
+            return this.GlobalSetup("draft2019-09\\minProperties.json", "#/0/schema", "#/000/tests/000/data", true);
         }
         /// <summary>
         /// Validates using the Menes types.

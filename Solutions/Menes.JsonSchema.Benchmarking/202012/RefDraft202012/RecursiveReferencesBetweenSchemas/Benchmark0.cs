@@ -21,7 +21,7 @@ namespace RefDraft202012Feature.RecursiveReferencesBetweenSchemas
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("ref.json", "#/11/schema", "#/011/tests/000/data", true);
+            return this.GlobalSetup("draft2020-12\\ref.json", "#/11/schema", "#/011/tests/000/data", true);
         }
         /// <summary>
         /// Validates using the Menes types.

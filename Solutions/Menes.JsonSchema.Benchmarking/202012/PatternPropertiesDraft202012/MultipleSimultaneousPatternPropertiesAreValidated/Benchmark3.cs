@@ -21,7 +21,7 @@ namespace PatternPropertiesDraft202012Feature.MultipleSimultaneousPatternPropert
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("patternProperties.json", "#/1/schema", "#/001/tests/003/data", false);
+            return this.GlobalSetup("draft2020-12\\patternProperties.json", "#/1/schema", "#/001/tests/003/data", false);
         }
         /// <summary>
         /// Validates using the Menes types.

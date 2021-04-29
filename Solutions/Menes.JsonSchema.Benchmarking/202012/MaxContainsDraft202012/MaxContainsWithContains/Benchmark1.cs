@@ -21,7 +21,7 @@ namespace MaxContainsDraft202012Feature.MaxContainsWithContains
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("maxContains.json", "#/1/schema", "#/001/tests/001/data", true);
+            return this.GlobalSetup("draft2020-12\\maxContains.json", "#/1/schema", "#/001/tests/001/data", true);
         }
         /// <summary>
         /// Validates using the Menes types.

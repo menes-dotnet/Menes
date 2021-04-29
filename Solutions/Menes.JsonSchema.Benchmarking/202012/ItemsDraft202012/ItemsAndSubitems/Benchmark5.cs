@@ -21,7 +21,7 @@ namespace ItemsDraft202012Feature.ItemsAndSubitems
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("items.json", "#/3/schema", "#/003/tests/005/data", true);
+            return this.GlobalSetup("draft2020-12\\items.json", "#/3/schema", "#/003/tests/005/data", true);
         }
         /// <summary>
         /// Validates using the Menes types.

@@ -21,7 +21,7 @@ namespace ConstDraft202012Feature.FloatAndIntegersAreEqualUpTo64BitRepresentatio
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("const.json", "#/13/schema", "#/013/tests/003/data", false);
+            return this.GlobalSetup("draft2020-12\\const.json", "#/13/schema", "#/013/tests/003/data", false);
         }
         /// <summary>
         /// Validates using the Menes types.

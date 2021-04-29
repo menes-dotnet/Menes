@@ -21,7 +21,7 @@ namespace PatternPropertiesDraft201909Feature.RegexesAreNotAnchoredByDefaultAndA
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("patternProperties.json", "#/2/schema", "#/002/tests/001/data", false);
+            return this.GlobalSetup("draft2019-09\\patternProperties.json", "#/2/schema", "#/002/tests/001/data", false);
         }
         /// <summary>
         /// Validates using the Menes types.

@@ -21,7 +21,7 @@ namespace DateTimeDraft201909Feature.ValidationOfDateTimeStrings
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("date-time.json", "#/0/schema", "#/000/tests/002/data", true);
+            return this.GlobalSetup("draft2019-09\\date-time.json", "#/0/schema", "#/000/tests/002/data", true);
         }
         /// <summary>
         /// Validates using the Menes types.

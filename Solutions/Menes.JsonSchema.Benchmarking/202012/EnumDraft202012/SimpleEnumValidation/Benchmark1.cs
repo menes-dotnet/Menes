@@ -21,7 +21,7 @@ namespace EnumDraft202012Feature.SimpleEnumValidation
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("enum.json", "#/0/schema", "#/000/tests/001/data", false);
+            return this.GlobalSetup("draft2020-12\\enum.json", "#/0/schema", "#/000/tests/001/data", false);
         }
         /// <summary>
         /// Validates using the Menes types.

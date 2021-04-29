@@ -21,7 +21,7 @@ namespace PrefixItemsDraft202012Feature.PrefixItemsWithBooleanSchemas
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("prefixItems.json", "#/1/schema", "#/001/tests/000/data", true);
+            return this.GlobalSetup("draft2020-12\\prefixItems.json", "#/1/schema", "#/001/tests/000/data", true);
         }
         /// <summary>
         /// Validates using the Menes types.

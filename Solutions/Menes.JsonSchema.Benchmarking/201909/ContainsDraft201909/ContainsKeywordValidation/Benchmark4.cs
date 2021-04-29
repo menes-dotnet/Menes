@@ -21,7 +21,7 @@ namespace ContainsDraft201909Feature.ContainsKeywordValidation
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("contains.json", "#/0/schema", "#/000/tests/004/data", false);
+            return this.GlobalSetup("draft2019-09\\contains.json", "#/0/schema", "#/000/tests/004/data", false);
         }
         /// <summary>
         /// Validates using the Menes types.

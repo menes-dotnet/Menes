@@ -21,7 +21,7 @@ namespace AnyOfDraft202012Feature.AnyOfWithOneEmptySchema
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("anyOf.json", "#/6/schema", "#/006/tests/001/data", true);
+            return this.GlobalSetup("draft2020-12\\anyOf.json", "#/6/schema", "#/006/tests/001/data", true);
         }
         /// <summary>
         /// Validates using the Menes types.

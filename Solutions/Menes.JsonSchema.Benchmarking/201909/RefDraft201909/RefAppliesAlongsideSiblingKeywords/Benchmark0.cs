@@ -21,7 +21,7 @@ namespace RefDraft201909Feature.RefAppliesAlongsideSiblingKeywords
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("ref.json", "#/5/schema", "#/005/tests/000/data", true);
+            return this.GlobalSetup("draft2019-09\\ref.json", "#/5/schema", "#/005/tests/000/data", true);
         }
         /// <summary>
         /// Validates using the Menes types.

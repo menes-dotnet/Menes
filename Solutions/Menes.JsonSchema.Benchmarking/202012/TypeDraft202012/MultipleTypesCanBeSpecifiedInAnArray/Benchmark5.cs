@@ -21,7 +21,7 @@ namespace TypeDraft202012Feature.MultipleTypesCanBeSpecifiedInAnArray
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("type.json", "#/7/schema", "#/007/tests/005/data", false);
+            return this.GlobalSetup("draft2020-12\\type.json", "#/7/schema", "#/007/tests/005/data", false);
         }
         /// <summary>
         /// Validates using the Menes types.

@@ -21,7 +21,7 @@ namespace IdnEmailDraft201909Feature.ValidationOfAnInternationalizedEMailAddress
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("idn-email.json", "#/0/schema", "#/000/tests/002/data", true);
+            return this.GlobalSetup("draft2019-09\\idn-email.json", "#/0/schema", "#/000/tests/002/data", true);
         }
         /// <summary>
         /// Validates using the Menes types.

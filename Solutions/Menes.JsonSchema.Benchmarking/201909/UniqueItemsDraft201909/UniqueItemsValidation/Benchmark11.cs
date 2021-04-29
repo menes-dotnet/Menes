@@ -21,7 +21,7 @@ namespace UniqueItemsDraft201909Feature.UniqueItemsValidation
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("uniqueItems.json", "#/0/schema", "#/000/tests/011/data", true);
+            return this.GlobalSetup("draft2019-09\\uniqueItems.json", "#/0/schema", "#/000/tests/011/data", true);
         }
         /// <summary>
         /// Validates using the Menes types.

@@ -21,7 +21,7 @@ namespace PatternPropertiesDraft202012Feature.PatternPropertiesWithBooleanSchema
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("patternProperties.json", "#/3/schema", "#/003/tests/002/data", false);
+            return this.GlobalSetup("draft2020-12\\patternProperties.json", "#/3/schema", "#/003/tests/002/data", false);
         }
         /// <summary>
         /// Validates using the Menes types.

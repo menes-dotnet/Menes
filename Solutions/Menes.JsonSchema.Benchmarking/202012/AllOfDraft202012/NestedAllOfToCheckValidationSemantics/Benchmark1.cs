@@ -21,7 +21,7 @@ namespace AllOfDraft202012Feature.NestedAllOfToCheckValidationSemantics
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("allOf.json", "#/10/schema", "#/010/tests/001/data", false);
+            return this.GlobalSetup("draft2020-12\\allOf.json", "#/10/schema", "#/010/tests/001/data", false);
         }
         /// <summary>
         /// Validates using the Menes types.

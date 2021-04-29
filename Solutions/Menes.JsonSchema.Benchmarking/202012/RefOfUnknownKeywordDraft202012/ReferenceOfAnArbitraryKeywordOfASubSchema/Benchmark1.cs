@@ -21,7 +21,7 @@ namespace RefOfUnknownKeywordDraft202012Feature.ReferenceOfAnArbitraryKeywordOfA
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("refOfUnknownKeyword.json", "#/1/schema", "#/001/tests/001/data", false);
+            return this.GlobalSetup("draft2020-12\\refOfUnknownKeyword.json", "#/1/schema", "#/001/tests/001/data", false);
         }
         /// <summary>
         /// Validates using the Menes types.

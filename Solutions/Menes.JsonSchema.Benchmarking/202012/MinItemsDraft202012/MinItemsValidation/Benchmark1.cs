@@ -21,7 +21,7 @@ namespace MinItemsDraft202012Feature.MinItemsValidation
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("minItems.json", "#/0/schema", "#/000/tests/001/data", true);
+            return this.GlobalSetup("draft2020-12\\minItems.json", "#/0/schema", "#/000/tests/001/data", true);
         }
         /// <summary>
         /// Validates using the Menes types.

@@ -21,7 +21,7 @@ namespace AllOfDraft202012Feature.AllOfWithOneEmptySchema
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("allOf.json", "#/6/schema", "#/006/tests/000/data", true);
+            return this.GlobalSetup("draft2020-12\\allOf.json", "#/6/schema", "#/006/tests/000/data", true);
         }
         /// <summary>
         /// Validates using the Menes types.

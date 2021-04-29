@@ -21,7 +21,7 @@ namespace RefRemoteDraft201909Feature.BaseURChangeChangeFolder
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("refRemote.json", "#/4/schema", "#/004/tests/000/data", true);
+            return this.GlobalSetup("draft2019-09\\refRemote.json", "#/4/schema", "#/004/tests/000/data", true);
         }
         /// <summary>
         /// Validates using the Menes types.

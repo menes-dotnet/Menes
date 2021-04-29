@@ -21,7 +21,7 @@ namespace DependentRequiredDraft202012Feature.EmptyDependents
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("dependentRequired.json", "#/1/schema", "#/001/tests/002/data", true);
+            return this.GlobalSetup("draft2020-12\\dependentRequired.json", "#/1/schema", "#/001/tests/002/data", true);
         }
         /// <summary>
         /// Validates using the Menes types.

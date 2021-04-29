@@ -21,7 +21,7 @@ namespace DefsDraft202012Feature.ValidateDefinitionAgainstMetaschema
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("defs.json", "#/0/schema", "#/000/tests/001/data", false);
+            return this.GlobalSetup("draft2020-12\\defs.json", "#/0/schema", "#/000/tests/001/data", false);
         }
         /// <summary>
         /// Validates using the Menes types.

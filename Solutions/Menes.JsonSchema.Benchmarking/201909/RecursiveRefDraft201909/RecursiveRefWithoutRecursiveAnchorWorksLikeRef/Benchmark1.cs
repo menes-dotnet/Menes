@@ -21,7 +21,7 @@ namespace RecursiveRefDraft201909Feature.RecursiveRefWithoutRecursiveAnchorWorks
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("recursiveRef.json", "#/0/schema", "#/000/tests/001/data", true);
+            return this.GlobalSetup("draft2019-09\\recursiveRef.json", "#/0/schema", "#/000/tests/001/data", true);
         }
         /// <summary>
         /// Validates using the Menes types.

@@ -21,7 +21,7 @@ namespace UniqueItemsDraft202012Feature.UniqueItemsWithAnArrayOfItems
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("uniqueItems.json", "#/1/schema", "#/001/tests/003/data", false);
+            return this.GlobalSetup("draft2020-12\\uniqueItems.json", "#/1/schema", "#/001/tests/003/data", false);
         }
         /// <summary>
         /// Validates using the Menes types.

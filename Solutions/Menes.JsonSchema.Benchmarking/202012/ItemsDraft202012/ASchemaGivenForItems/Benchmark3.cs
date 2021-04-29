@@ -21,7 +21,7 @@ namespace ItemsDraft202012Feature.ASchemaGivenForItems
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("items.json", "#/0/schema", "#/000/tests/003/data", true);
+            return this.GlobalSetup("draft2020-12\\items.json", "#/0/schema", "#/000/tests/003/data", true);
         }
         /// <summary>
         /// Validates using the Menes types.

@@ -21,7 +21,7 @@ namespace UniqueItemsDraft201909Feature.UniqueItemsEqualsFalseWithAnArrayOfItems
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("uniqueItems.json", "#/5/schema", "#/005/tests/002/data", true);
+            return this.GlobalSetup("draft2019-09\\uniqueItems.json", "#/5/schema", "#/005/tests/002/data", true);
         }
         /// <summary>
         /// Validates using the Menes types.

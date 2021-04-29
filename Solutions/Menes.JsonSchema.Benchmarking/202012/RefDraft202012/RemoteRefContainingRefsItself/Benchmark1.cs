@@ -21,7 +21,7 @@ namespace RefDraft202012Feature.RemoteRefContainingRefsItself
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("ref.json", "#/6/schema", "#/006/tests/001/data", false);
+            return this.GlobalSetup("draft2020-12\\ref.json", "#/6/schema", "#/006/tests/001/data", false);
         }
         /// <summary>
         /// Validates using the Menes types.

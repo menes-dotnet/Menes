@@ -21,7 +21,7 @@ namespace ContentDraft201909Feature.ValidationOfBinaryEncodedMediaTypeDocumentsW
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("content.json", "#/3/schema", "#/003/tests/002/data", true);
+            return this.GlobalSetup("draft2019-09\\content.json", "#/3/schema", "#/003/tests/002/data", true);
         }
         /// <summary>
         /// Validates using the Menes types.

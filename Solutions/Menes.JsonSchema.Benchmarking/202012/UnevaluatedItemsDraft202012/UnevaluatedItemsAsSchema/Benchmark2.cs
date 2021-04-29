@@ -21,7 +21,7 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAsSchema
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("unevaluatedItems.json", "#/2/schema", "#/002/tests/002/data", false);
+            return this.GlobalSetup("draft2020-12\\unevaluatedItems.json", "#/2/schema", "#/002/tests/002/data", false);
         }
         /// <summary>
         /// Validates using the Menes types.

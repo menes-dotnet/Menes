@@ -21,7 +21,7 @@ namespace EnumDraft202012Feature.HeterogeneousEnumWithNullValidation
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("enum.json", "#/2/schema", "#/002/tests/002/data", false);
+            return this.GlobalSetup("draft2020-12\\enum.json", "#/2/schema", "#/002/tests/002/data", false);
         }
         /// <summary>
         /// Validates using the Menes types.

@@ -21,7 +21,7 @@ namespace IfThenElseDraft202012Feature.ValidateAgainstCorrectBranchThenVsElse
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("if-then-else.json", "#/5/schema", "#/005/tests/003/data", false);
+            return this.GlobalSetup("draft2020-12\\if-then-else.json", "#/5/schema", "#/005/tests/003/data", false);
         }
         /// <summary>
         /// Validates using the Menes types.

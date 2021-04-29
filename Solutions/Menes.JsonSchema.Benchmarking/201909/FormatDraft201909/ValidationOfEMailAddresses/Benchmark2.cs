@@ -21,7 +21,7 @@ namespace FormatDraft201909Feature.ValidationOfEMailAddresses
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("format.json", "#/0/schema", "#/000/tests/002/data", true);
+            return this.GlobalSetup("draft2019-09\\format.json", "#/0/schema", "#/000/tests/002/data", true);
         }
         /// <summary>
         /// Validates using the Menes types.

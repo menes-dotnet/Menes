@@ -21,7 +21,7 @@ namespace ContentDraft202012Feature.ValidationOfBinaryStringEncoding
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("content.json", "#/1/schema", "#/001/tests/001/data", true);
+            return this.GlobalSetup("draft2020-12\\content.json", "#/1/schema", "#/001/tests/001/data", true);
         }
         /// <summary>
         /// Validates using the Menes types.

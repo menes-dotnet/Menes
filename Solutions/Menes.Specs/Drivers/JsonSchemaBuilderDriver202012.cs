@@ -198,7 +198,7 @@ namespace Drivers
             builder.AppendLine("        [GlobalSetup]");
             builder.AppendLine("        public Task GlobalSetup()");
             builder.AppendLine("        {");
-            builder.AppendLine($"            return this.GlobalSetup(\"{filename}\", \"{schemaPath}\", \"{dataPath}\", {valid.ToString().ToLowerInvariant()});");
+            builder.AppendLine($"            return this.GlobalSetup(\"draft2020-12\\\\{filename}\", \"{schemaPath}\", \"{dataPath}\", {valid.ToString().ToLowerInvariant()});");
             builder.AppendLine("        }");
             builder.AppendLine("        /// <summary>");
             builder.AppendLine("        /// Validates using the Menes types.");

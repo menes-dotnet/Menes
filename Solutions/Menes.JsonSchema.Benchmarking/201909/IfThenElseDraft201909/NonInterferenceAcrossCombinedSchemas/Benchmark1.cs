@@ -21,7 +21,7 @@ namespace IfThenElseDraft201909Feature.NonInterferenceAcrossCombinedSchemas
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("if-then-else.json", "#/6/schema", "#/006/tests/001/data", true);
+            return this.GlobalSetup("draft2019-09\\if-then-else.json", "#/6/schema", "#/006/tests/001/data", true);
         }
         /// <summary>
         /// Validates using the Menes types.

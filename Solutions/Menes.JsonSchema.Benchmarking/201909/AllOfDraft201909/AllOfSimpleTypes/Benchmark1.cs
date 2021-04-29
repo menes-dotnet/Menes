@@ -21,7 +21,7 @@ namespace AllOfDraft201909Feature.AllOfSimpleTypes
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("allOf.json", "#/2/schema", "#/002/tests/001/data", false);
+            return this.GlobalSetup("draft2019-09\\allOf.json", "#/2/schema", "#/002/tests/001/data", false);
         }
         /// <summary>
         /// Validates using the Menes types.

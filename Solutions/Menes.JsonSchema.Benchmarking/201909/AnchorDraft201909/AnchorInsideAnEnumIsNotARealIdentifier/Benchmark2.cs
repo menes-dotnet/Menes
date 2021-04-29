@@ -21,7 +21,7 @@ namespace AnchorDraft201909Feature.AnchorInsideAnEnumIsNotARealIdentifier
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("anchor.json", "#/3/schema", "#/003/tests/002/data", true);
+            return this.GlobalSetup("draft2019-09\\anchor.json", "#/3/schema", "#/003/tests/002/data", true);
         }
         /// <summary>
         /// Validates using the Menes types.

@@ -21,7 +21,7 @@ namespace FormatDraft201909Feature.ValidationOfDurations
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("format.json", "#/18/schema", "#/018/tests/001/data", true);
+            return this.GlobalSetup("draft2019-09\\format.json", "#/18/schema", "#/018/tests/001/data", true);
         }
         /// <summary>
         /// Validates using the Menes types.

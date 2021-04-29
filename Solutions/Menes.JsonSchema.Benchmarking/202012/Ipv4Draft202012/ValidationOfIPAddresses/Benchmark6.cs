@@ -21,7 +21,7 @@ namespace Ipv4Draft202012Feature.ValidationOfIPAddresses
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("ipv4.json", "#/0/schema", "#/000/tests/006/data", false);
+            return this.GlobalSetup("draft2020-12\\ipv4.json", "#/0/schema", "#/000/tests/006/data", false);
         }
         /// <summary>
         /// Validates using the Menes types.

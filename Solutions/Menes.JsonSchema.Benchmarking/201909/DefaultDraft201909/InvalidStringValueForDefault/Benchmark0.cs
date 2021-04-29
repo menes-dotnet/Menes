@@ -21,7 +21,7 @@ namespace DefaultDraft201909Feature.InvalidStringValueForDefault
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("default.json", "#/1/schema", "#/001/tests/000/data", true);
+            return this.GlobalSetup("draft2019-09\\default.json", "#/1/schema", "#/001/tests/000/data", true);
         }
         /// <summary>
         /// Validates using the Menes types.

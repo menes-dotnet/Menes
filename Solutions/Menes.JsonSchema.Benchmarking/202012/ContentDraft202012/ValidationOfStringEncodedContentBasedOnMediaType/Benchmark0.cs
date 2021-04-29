@@ -21,7 +21,7 @@ namespace ContentDraft202012Feature.ValidationOfStringEncodedContentBasedOnMedia
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("content.json", "#/0/schema", "#/000/tests/000/data", true);
+            return this.GlobalSetup("draft2020-12\\content.json", "#/0/schema", "#/000/tests/000/data", true);
         }
         /// <summary>
         /// Validates using the Menes types.

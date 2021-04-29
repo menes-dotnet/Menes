@@ -21,7 +21,7 @@ namespace ItemsDraft201909Feature.ItemsWithBooleanSchemas
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("items.json", "#/4/schema", "#/004/tests/000/data", true);
+            return this.GlobalSetup("draft2019-09\\items.json", "#/4/schema", "#/004/tests/000/data", true);
         }
         /// <summary>
         /// Validates using the Menes types.

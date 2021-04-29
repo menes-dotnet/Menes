@@ -21,7 +21,7 @@ namespace OneOfDraft201909Feature.NestedOneOfToCheckValidationSemantics
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("oneOf.json", "#/10/schema", "#/010/tests/000/data", true);
+            return this.GlobalSetup("draft2019-09\\oneOf.json", "#/10/schema", "#/010/tests/000/data", true);
         }
         /// <summary>
         /// Validates using the Menes types.

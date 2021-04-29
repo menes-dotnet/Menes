@@ -21,7 +21,7 @@ namespace ExclusiveMinimumDraft201909Feature.ExclusiveMinimumValidation
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("exclusiveMinimum.json", "#/0/schema", "#/000/tests/003/data", true);
+            return this.GlobalSetup("draft2019-09\\exclusiveMinimum.json", "#/0/schema", "#/000/tests/003/data", true);
         }
         /// <summary>
         /// Validates using the Menes types.

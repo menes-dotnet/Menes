@@ -21,7 +21,7 @@ namespace FormatDraft202012Feature.ValidationOfRegexes
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("format.json", "#/2/schema", "#/002/tests/004/data", true);
+            return this.GlobalSetup("draft2020-12\\format.json", "#/2/schema", "#/002/tests/004/data", true);
         }
         /// <summary>
         /// Validates using the Menes types.

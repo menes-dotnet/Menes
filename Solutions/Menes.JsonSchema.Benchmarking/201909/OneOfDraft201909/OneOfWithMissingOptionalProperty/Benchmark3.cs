@@ -21,7 +21,7 @@ namespace OneOfDraft201909Feature.OneOfWithMissingOptionalProperty
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("oneOf.json", "#/9/schema", "#/009/tests/003/data", false);
+            return this.GlobalSetup("draft2019-09\\oneOf.json", "#/9/schema", "#/009/tests/003/data", false);
         }
         /// <summary>
         /// Validates using the Menes types.

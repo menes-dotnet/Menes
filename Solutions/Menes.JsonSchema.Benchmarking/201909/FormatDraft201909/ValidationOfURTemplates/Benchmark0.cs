@@ -21,7 +21,7 @@ namespace FormatDraft201909Feature.ValidationOfURTemplates
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("format.json", "#/16/schema", "#/016/tests/000/data", true);
+            return this.GlobalSetup("draft2019-09\\format.json", "#/16/schema", "#/016/tests/000/data", true);
         }
         /// <summary>
         /// Validates using the Menes types.

@@ -21,7 +21,7 @@ namespace Ipv6Draft201909Feature.ValidationOfIPv6Addresses
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("ipv6.json", "#/0/schema", "#/000/tests/004/data", true);
+            return this.GlobalSetup("draft2019-09\\ipv6.json", "#/0/schema", "#/000/tests/004/data", true);
         }
         /// <summary>
         /// Validates using the Menes types.

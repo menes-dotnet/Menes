@@ -21,7 +21,7 @@ namespace IdDraft202012Feature.UnnormalizedIdsAreAllowedButDiscouraged
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("id.json", "#/2/schema", "#/002/tests/002/data", true);
+            return this.GlobalSetup("draft2020-12\\id.json", "#/2/schema", "#/002/tests/002/data", true);
         }
         /// <summary>
         /// Validates using the Menes types.

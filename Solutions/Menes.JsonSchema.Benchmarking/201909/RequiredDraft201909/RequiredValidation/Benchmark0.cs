@@ -21,7 +21,7 @@ namespace RequiredDraft201909Feature.RequiredValidation
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("required.json", "#/0/schema", "#/000/tests/000/data", true);
+            return this.GlobalSetup("draft2019-09\\required.json", "#/0/schema", "#/000/tests/000/data", true);
         }
         /// <summary>
         /// Validates using the Menes types.

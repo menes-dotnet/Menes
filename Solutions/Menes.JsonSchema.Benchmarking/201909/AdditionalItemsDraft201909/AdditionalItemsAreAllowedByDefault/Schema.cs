@@ -393,7 +393,8 @@ namespace AdditionalItemsDraft201909Feature.AdditionalItemsAreAllowedByDefault
             return new Schema(ImmutableList.Create(item1, item2, item3, item4));
         }
         
-        
+    
+    
         /// <inheritdoc/>
         public override bool Equals(object? obj)
         {

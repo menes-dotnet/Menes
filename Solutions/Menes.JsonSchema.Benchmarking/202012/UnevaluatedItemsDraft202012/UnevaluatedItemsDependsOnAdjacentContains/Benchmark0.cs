@@ -21,7 +21,7 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsDependsOnAdjacentCo
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("unevaluatedItems.json", "#/17/schema", "#/017/tests/000/data", true);
+            return this.GlobalSetup("draft2020-12\\unevaluatedItems.json", "#/17/schema", "#/017/tests/000/data", true);
         }
         /// <summary>
         /// Validates using the Menes types.

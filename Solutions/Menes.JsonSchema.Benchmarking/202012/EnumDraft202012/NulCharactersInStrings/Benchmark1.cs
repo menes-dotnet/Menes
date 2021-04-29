@@ -21,7 +21,7 @@ namespace EnumDraft202012Feature.NulCharactersInStrings
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("enum.json", "#/9/schema", "#/009/tests/001/data", false);
+            return this.GlobalSetup("draft2020-12\\enum.json", "#/9/schema", "#/009/tests/001/data", false);
         }
         /// <summary>
         /// Validates using the Menes types.

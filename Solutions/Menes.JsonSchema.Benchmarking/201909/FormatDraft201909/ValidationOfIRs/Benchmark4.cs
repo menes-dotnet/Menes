@@ -21,7 +21,7 @@ namespace FormatDraft201909Feature.ValidationOfIRs
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("format.json", "#/12/schema", "#/012/tests/004/data", true);
+            return this.GlobalSetup("draft2019-09\\format.json", "#/12/schema", "#/012/tests/004/data", true);
         }
         /// <summary>
         /// Validates using the Menes types.

@@ -21,7 +21,7 @@ namespace AllOfDraft201909Feature.AllOfCombinedWithAnyOfOneOf
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("allOf.json", "#/11/schema", "#/011/tests/004/data", false);
+            return this.GlobalSetup("draft2019-09\\allOf.json", "#/11/schema", "#/011/tests/004/data", false);
         }
         /// <summary>
         /// Validates using the Menes types.

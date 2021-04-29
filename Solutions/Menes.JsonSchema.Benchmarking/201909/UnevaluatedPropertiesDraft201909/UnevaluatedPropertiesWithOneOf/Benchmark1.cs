@@ -21,7 +21,7 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithOneOf
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("unevaluatedProperties.json", "#/11/schema", "#/011/tests/001/data", false);
+            return this.GlobalSetup("draft2019-09\\unevaluatedProperties.json", "#/11/schema", "#/011/tests/001/data", false);
         }
         /// <summary>
         /// Validates using the Menes types.

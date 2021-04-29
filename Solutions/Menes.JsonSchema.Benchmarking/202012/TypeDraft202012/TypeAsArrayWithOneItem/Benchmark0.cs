@@ -21,7 +21,7 @@ namespace TypeDraft202012Feature.TypeAsArrayWithOneItem
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("type.json", "#/8/schema", "#/008/tests/000/data", true);
+            return this.GlobalSetup("draft2020-12\\type.json", "#/8/schema", "#/008/tests/000/data", true);
         }
         /// <summary>
         /// Validates using the Menes types.

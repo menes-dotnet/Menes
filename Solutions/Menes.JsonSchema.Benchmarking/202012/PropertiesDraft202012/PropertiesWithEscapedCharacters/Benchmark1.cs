@@ -21,7 +21,7 @@ namespace PropertiesDraft202012Feature.PropertiesWithEscapedCharacters
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("properties.json", "#/3/schema", "#/003/tests/001/data", false);
+            return this.GlobalSetup("draft2020-12\\properties.json", "#/3/schema", "#/003/tests/001/data", false);
         }
         /// <summary>
         /// Validates using the Menes types.

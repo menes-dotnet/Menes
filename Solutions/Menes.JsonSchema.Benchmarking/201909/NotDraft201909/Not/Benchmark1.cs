@@ -21,7 +21,7 @@ namespace NotDraft201909Feature.Not
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("not.json", "#/0/schema", "#/000/tests/001/data", false);
+            return this.GlobalSetup("draft2019-09\\not.json", "#/0/schema", "#/000/tests/001/data", false);
         }
         /// <summary>
         /// Validates using the Menes types.

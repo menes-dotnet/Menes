@@ -21,7 +21,7 @@ namespace ConstDraft202012Feature.NulCharactersInStrings
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("const.json", "#/14/schema", "#/014/tests/001/data", false);
+            return this.GlobalSetup("draft2020-12\\const.json", "#/14/schema", "#/014/tests/001/data", false);
         }
         /// <summary>
         /// Validates using the Menes types.

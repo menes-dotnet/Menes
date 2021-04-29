@@ -21,7 +21,7 @@ namespace AdditionalItemsDraft201909Feature.AdditionalItemsShouldNotLookInApplic
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("additionalItems.json", "#/6/schema", "#/006/tests/000/data", false);
+            return this.GlobalSetup("draft2019-09\\additionalItems.json", "#/6/schema", "#/006/tests/000/data", false);
         }
         /// <summary>
         /// Validates using the Menes types.

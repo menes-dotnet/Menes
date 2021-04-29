@@ -21,7 +21,7 @@ namespace ConstDraft201909Feature.ConstWithArrayFalseDoesNotMatchArray0
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("const.json", "#/6/schema", "#/006/tests/000/data", true);
+            return this.GlobalSetup("draft2019-09\\const.json", "#/6/schema", "#/006/tests/000/data", true);
         }
         /// <summary>
         /// Validates using the Menes types.

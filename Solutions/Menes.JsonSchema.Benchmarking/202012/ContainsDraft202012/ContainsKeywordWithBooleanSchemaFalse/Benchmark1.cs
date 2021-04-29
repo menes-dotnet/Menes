@@ -21,7 +21,7 @@ namespace ContainsDraft202012Feature.ContainsKeywordWithBooleanSchemaFalse
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("contains.json", "#/3/schema", "#/003/tests/001/data", false);
+            return this.GlobalSetup("draft2020-12\\contains.json", "#/3/schema", "#/003/tests/001/data", false);
         }
         /// <summary>
         /// Validates using the Menes types.

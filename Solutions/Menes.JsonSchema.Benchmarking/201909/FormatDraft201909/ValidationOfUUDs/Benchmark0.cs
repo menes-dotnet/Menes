@@ -21,7 +21,7 @@ namespace FormatDraft201909Feature.ValidationOfUUDs
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("format.json", "#/17/schema", "#/017/tests/000/data", true);
+            return this.GlobalSetup("draft2019-09\\format.json", "#/17/schema", "#/017/tests/000/data", true);
         }
         /// <summary>
         /// Validates using the Menes types.

@@ -21,7 +21,7 @@ namespace MaxLengthDraft202012Feature.MaxLengthValidation
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("maxLength.json", "#/0/schema", "#/000/tests/002/data", false);
+            return this.GlobalSetup("draft2020-12\\maxLength.json", "#/0/schema", "#/000/tests/002/data", false);
         }
         /// <summary>
         /// Validates using the Menes types.

@@ -21,7 +21,7 @@ namespace DependentRequiredDraft202012Feature.DependenciesWithEscapedCharacters
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("dependentRequired.json", "#/3/schema", "#/003/tests/000/data", true);
+            return this.GlobalSetup("draft2020-12\\dependentRequired.json", "#/3/schema", "#/003/tests/000/data", true);
         }
         /// <summary>
         /// Validates using the Menes types.

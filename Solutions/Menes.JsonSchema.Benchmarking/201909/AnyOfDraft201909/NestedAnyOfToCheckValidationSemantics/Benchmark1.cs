@@ -21,7 +21,7 @@ namespace AnyOfDraft201909Feature.NestedAnyOfToCheckValidationSemantics
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("anyOf.json", "#/7/schema", "#/007/tests/001/data", false);
+            return this.GlobalSetup("draft2019-09\\anyOf.json", "#/7/schema", "#/007/tests/001/data", false);
         }
         /// <summary>
         /// Validates using the Menes types.

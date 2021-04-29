@@ -21,7 +21,7 @@ namespace IriDraft202012Feature.ValidationOfIRs
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("iri.json", "#/0/schema", "#/000/tests/005/data", false);
+            return this.GlobalSetup("draft2020-12\\iri.json", "#/0/schema", "#/000/tests/005/data", false);
         }
         /// <summary>
         /// Validates using the Menes types.

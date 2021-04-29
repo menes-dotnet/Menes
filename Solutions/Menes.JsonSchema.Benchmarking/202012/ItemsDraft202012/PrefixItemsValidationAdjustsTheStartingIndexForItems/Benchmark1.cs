@@ -21,7 +21,7 @@ namespace ItemsDraft202012Feature.PrefixItemsValidationAdjustsTheStartingIndexFo
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("items.json", "#/7/schema", "#/007/tests/001/data", false);
+            return this.GlobalSetup("draft2020-12\\items.json", "#/7/schema", "#/007/tests/001/data", false);
         }
         /// <summary>
         /// Validates using the Menes types.

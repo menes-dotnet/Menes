@@ -21,7 +21,7 @@ namespace EnumDraft202012Feature.EnumsInProperties
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("enum.json", "#/3/schema", "#/003/tests/004/data", false);
+            return this.GlobalSetup("draft2020-12\\enum.json", "#/3/schema", "#/003/tests/004/data", false);
         }
         /// <summary>
         /// Validates using the Menes types.

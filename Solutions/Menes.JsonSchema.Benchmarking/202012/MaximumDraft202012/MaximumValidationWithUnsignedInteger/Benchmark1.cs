@@ -21,7 +21,7 @@ namespace MaximumDraft202012Feature.MaximumValidationWithUnsignedInteger
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("maximum.json", "#/1/schema", "#/001/tests/001/data", true);
+            return this.GlobalSetup("draft2020-12\\maximum.json", "#/1/schema", "#/001/tests/001/data", true);
         }
         /// <summary>
         /// Validates using the Menes types.

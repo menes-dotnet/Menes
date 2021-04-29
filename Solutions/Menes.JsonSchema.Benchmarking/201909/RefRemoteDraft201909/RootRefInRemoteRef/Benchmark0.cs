@@ -21,7 +21,7 @@ namespace RefRemoteDraft201909Feature.RootRefInRemoteRef
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("refRemote.json", "#/6/schema", "#/006/tests/000/data", true);
+            return this.GlobalSetup("draft2019-09\\refRemote.json", "#/6/schema", "#/006/tests/000/data", true);
         }
         /// <summary>
         /// Validates using the Menes types.

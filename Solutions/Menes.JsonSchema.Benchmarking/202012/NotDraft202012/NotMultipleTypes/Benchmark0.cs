@@ -21,7 +21,7 @@ namespace NotDraft202012Feature.NotMultipleTypes
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("not.json", "#/1/schema", "#/001/tests/000/data", true);
+            return this.GlobalSetup("draft2020-12\\not.json", "#/1/schema", "#/001/tests/000/data", true);
         }
         /// <summary>
         /// Validates using the Menes types.

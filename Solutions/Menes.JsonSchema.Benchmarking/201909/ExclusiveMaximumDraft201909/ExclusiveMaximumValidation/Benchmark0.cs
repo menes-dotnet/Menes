@@ -21,7 +21,7 @@ namespace ExclusiveMaximumDraft201909Feature.ExclusiveMaximumValidation
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("exclusiveMaximum.json", "#/0/schema", "#/000/tests/000/data", true);
+            return this.GlobalSetup("draft2019-09\\exclusiveMaximum.json", "#/0/schema", "#/000/tests/000/data", true);
         }
         /// <summary>
         /// Validates using the Menes types.

@@ -21,7 +21,7 @@ namespace MaximumDraft202012Feature.MaximumValidation
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("maximum.json", "#/0/schema", "#/000/tests/003/data", true);
+            return this.GlobalSetup("draft2020-12\\maximum.json", "#/0/schema", "#/000/tests/003/data", true);
         }
         /// <summary>
         /// Validates using the Menes types.

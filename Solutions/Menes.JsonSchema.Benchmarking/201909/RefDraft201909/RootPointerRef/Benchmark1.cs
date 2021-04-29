@@ -21,7 +21,7 @@ namespace RefDraft201909Feature.RootPointerRef
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("ref.json", "#/0/schema", "#/000/tests/001/data", true);
+            return this.GlobalSetup("draft2019-09\\ref.json", "#/0/schema", "#/000/tests/001/data", true);
         }
         /// <summary>
         /// Validates using the Menes types.

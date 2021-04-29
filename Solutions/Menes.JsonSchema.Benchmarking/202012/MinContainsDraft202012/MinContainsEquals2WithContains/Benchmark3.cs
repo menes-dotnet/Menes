@@ -21,7 +21,7 @@ namespace MinContainsDraft202012Feature.MinContainsEquals2WithContains
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("minContains.json", "#/2/schema", "#/002/tests/003/data", true);
+            return this.GlobalSetup("draft2020-12\\minContains.json", "#/2/schema", "#/002/tests/003/data", true);
         }
         /// <summary>
         /// Validates using the Menes types.

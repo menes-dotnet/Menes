@@ -21,7 +21,7 @@ namespace MaxItemsDraft201909Feature.MaxItemsValidation
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("maxItems.json", "#/0/schema", "#/000/tests/003/data", true);
+            return this.GlobalSetup("draft2019-09\\maxItems.json", "#/0/schema", "#/000/tests/003/data", true);
         }
         /// <summary>
         /// Validates using the Menes types.

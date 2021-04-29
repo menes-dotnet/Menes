@@ -21,7 +21,7 @@ namespace DefaultDraft202012Feature.InvalidTypeForDefault
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("default.json", "#/0/schema", "#/000/tests/001/data", true);
+            return this.GlobalSetup("draft2020-12\\default.json", "#/0/schema", "#/000/tests/001/data", true);
         }
         /// <summary>
         /// Validates using the Menes types.

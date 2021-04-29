@@ -21,7 +21,7 @@ namespace DurationDraft202012Feature.ValidationOfDurationStrings
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("duration.json", "#/0/schema", "#/000/tests/010/data", true);
+            return this.GlobalSetup("draft2020-12\\duration.json", "#/0/schema", "#/000/tests/010/data", true);
         }
         /// <summary>
         /// Validates using the Menes types.

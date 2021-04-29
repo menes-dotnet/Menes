@@ -21,7 +21,7 @@ namespace ConstDraft202012Feature.ConstWithObject
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("const.json", "#/1/schema", "#/001/tests/003/data", false);
+            return this.GlobalSetup("draft2020-12\\const.json", "#/1/schema", "#/001/tests/003/data", false);
         }
         /// <summary>
         /// Validates using the Menes types.

@@ -21,7 +21,7 @@ namespace InfiniteLoopDetectionDraft201909Feature.EvaluatingTheSameSchemaLocatio
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("infinite-loop-detection.json", "#/0/schema", "#/000/tests/001/data", false);
+            return this.GlobalSetup("draft2019-09\\infinite-loop-detection.json", "#/0/schema", "#/000/tests/001/data", false);
         }
         /// <summary>
         /// Validates using the Menes types.

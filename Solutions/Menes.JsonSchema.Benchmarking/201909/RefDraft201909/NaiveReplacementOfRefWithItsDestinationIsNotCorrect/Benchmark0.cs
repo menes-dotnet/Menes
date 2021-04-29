@@ -21,7 +21,7 @@ namespace RefDraft201909Feature.NaiveReplacementOfRefWithItsDestinationIsNotCorr
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("ref.json", "#/14/schema", "#/014/tests/000/data", false);
+            return this.GlobalSetup("draft2019-09\\ref.json", "#/14/schema", "#/014/tests/000/data", false);
         }
         /// <summary>
         /// Validates using the Menes types.

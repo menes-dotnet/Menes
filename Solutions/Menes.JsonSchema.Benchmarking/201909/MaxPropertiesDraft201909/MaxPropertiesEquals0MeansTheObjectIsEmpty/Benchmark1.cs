@@ -21,7 +21,7 @@ namespace MaxPropertiesDraft201909Feature.MaxPropertiesEquals0MeansTheObjectIsEm
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("maxProperties.json", "#/1/schema", "#/001/tests/001/data", false);
+            return this.GlobalSetup("draft2019-09\\maxProperties.json", "#/1/schema", "#/001/tests/001/data", false);
         }
         /// <summary>
         /// Validates using the Menes types.

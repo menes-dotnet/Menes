@@ -21,7 +21,7 @@ namespace DependentSchemasDraft202012Feature.SingleDependency
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("dependentSchemas.json", "#/0/schema", "#/000/tests/004/data", false);
+            return this.GlobalSetup("draft2020-12\\dependentSchemas.json", "#/0/schema", "#/000/tests/004/data", false);
         }
         /// <summary>
         /// Validates using the Menes types.

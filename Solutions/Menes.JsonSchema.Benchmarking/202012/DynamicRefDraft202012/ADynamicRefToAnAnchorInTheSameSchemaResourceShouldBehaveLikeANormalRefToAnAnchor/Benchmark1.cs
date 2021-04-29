@@ -21,7 +21,7 @@ namespace DynamicRefDraft202012Feature.ADynamicRefToAnAnchorInTheSameSchemaResou
         [GlobalSetup]
         public Task GlobalSetup()
         {
-            return this.GlobalSetup("dynamicRef.json", "#/1/schema", "#/001/tests/001/data", false);
+            return this.GlobalSetup("draft2020-12\\dynamicRef.json", "#/1/schema", "#/001/tests/001/data", false);
         }
         /// <summary>
         /// Validates using the Menes types.
