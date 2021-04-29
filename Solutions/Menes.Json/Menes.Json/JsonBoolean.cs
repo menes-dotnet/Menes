@@ -13,6 +13,8 @@ namespace Menes.Json
     /// </summary>
     public readonly struct JsonBoolean : IJsonValue, IEquatable<JsonBoolean>
     {
+        private static readonly int TrueHashCode = true.GetHashCode();
+        private static readonly int FalseHashCode = false.GetHashCode();
         private readonly JsonElement jsonElement;
         private readonly bool? value;
 
@@ -119,6 +121,28 @@ namespace Menes.Json
         }
 
         /// <summary>
+        /// Standard equality operator.
+        /// </summary>
+        /// <param name="lhs">The left hand side of the comparison.</param>
+        /// <param name="rhs">The right hand side of the comparison.</param>
+        /// <returns>True if they are equal.</returns>
+        public static bool operator ==(JsonBoolean lhs, JsonBoolean rhs)
+        {
+            return lhs.Equals(rhs);
+        }
+
+        /// <summary>
+        /// Standard inequality operator.
+        /// </summary>
+        /// <param name="lhs">The left hand side of the comparison.</param>
+        /// <param name="rhs">The right hand side of the comparison.</param>
+        /// <returns>True if they are not equal.</returns>
+        public static bool operator !=(JsonBoolean lhs, JsonBoolean rhs)
+        {
+            return !lhs.Equals(rhs);
+        }
+
+        /// <summary>
         /// Write a property dictionary to a <see cref="JsonElement"/>.
         /// </summary>
         /// <param name="value">The value to write.</param>
@@ -189,6 +213,31 @@ namespace Menes.Json
 
             result = default;
             return false;
+        }
+
+        /// <inheritdoc/>
+        public override bool Equals(object obj)
+        {
+            if (obj is JsonBoolean jany)
+            {
+                return this.Equals(jany);
+            }
+
+            return false;
+        }
+
+        /// <inheritdoc/>
+        public override int GetHashCode()
+        {
+            JsonValueKind valueKind = this.ValueKind;
+
+            return valueKind switch
+            {
+                JsonValueKind.True => TrueHashCode,
+                JsonValueKind.False => FalseHashCode,
+                JsonValueKind.Null => JsonNull.NullHashCode,
+                _ => 0,
+            };
         }
 
         /// <summary>

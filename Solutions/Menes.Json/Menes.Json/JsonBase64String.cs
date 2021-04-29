@@ -256,6 +256,28 @@ namespace Menes.Json
         }
 
         /// <summary>
+        /// Standard equality operator.
+        /// </summary>
+        /// <param name="lhs">The left hand side of the comparison.</param>
+        /// <param name="rhs">The right hand side of the comparison.</param>
+        /// <returns>True if they are equal.</returns>
+        public static bool operator ==(JsonBase64String lhs, JsonBase64String rhs)
+        {
+            return lhs.Equals(rhs);
+        }
+
+        /// <summary>
+        /// Standard inequality operator.
+        /// </summary>
+        /// <param name="lhs">The left hand side of the comparison.</param>
+        /// <param name="rhs">The right hand side of the comparison.</param>
+        /// <returns>True if they are not equal.</returns>
+        public static bool operator !=(JsonBase64String lhs, JsonBase64String rhs)
+        {
+            return !lhs.Equals(rhs);
+        }
+
+        /// <summary>
         /// Creates a new instance of the <see cref="JsonBase64String"/> struct from a byte arrary.
         /// </summary>
         /// <param name="value">The <see cref="ReadOnlySpan{T}"/> of <see cref="byte"/> from which to construct the Base64 content.</param>
@@ -526,6 +548,30 @@ namespace Menes.Json
             }
 
             return ReadOnlySpan<char>.Empty;
+        }
+
+        /// <inheritdoc/>
+        public override bool Equals(object obj)
+        {
+            if (obj is JsonBase64String jany)
+            {
+                return this.Equals(jany);
+            }
+
+            return false;
+        }
+
+        /// <inheritdoc/>
+        public override int GetHashCode()
+        {
+            JsonValueKind valueKind = this.ValueKind;
+
+            return valueKind switch
+            {
+                JsonValueKind.String => this.AsString().GetHashCode(),
+                JsonValueKind.Null => JsonNull.NullHashCode,
+                _ => 0,
+            };
         }
 
         /// <summary>

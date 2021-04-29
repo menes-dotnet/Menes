@@ -10,7 +10,7 @@ namespace Menes.Json
     /// <summary>
     /// A property on a <see cref="JsonObject"/>.
     /// </summary>
-    public readonly struct Property
+    public readonly struct Property : IEquatable<Property>
     {
         private readonly JsonProperty? jsonProperty;
         private readonly JsonEncodedText? name;
@@ -229,6 +229,28 @@ namespace Menes.Json
         }
 
         /// <summary>
+        /// Standard equality operator.
+        /// </summary>
+        /// <param name="left">The LHS of the comparison.</param>
+        /// <param name="right">The RHS of the comparison.</param>
+        /// <returns>True if they are equal.</returns>
+        public static bool operator ==(Property left, Property right)
+        {
+            return left.Equals(right);
+        }
+
+        /// <summary>
+        /// Standard inequality operator.
+        /// </summary>
+        /// <param name="left">The LHS of the comparison.</param>
+        /// <param name="right">The RHS of the comparison.</param>
+        /// <returns>True if they are not equal.</returns>
+        public static bool operator !=(Property left, Property right)
+        {
+            return !(left == right);
+        }
+
+        /// <summary>
         /// Gets the value as an instance of the given type.
         /// </summary>
         /// <typeparam name="T">The type for which to get the value.</typeparam>
@@ -327,6 +349,25 @@ namespace Menes.Json
             }
 
             return false;
+        }
+
+        /// <inheritdoc/>
+        public override bool Equals(object? obj)
+        {
+            return obj is Property property && this.Equals(property);
+        }
+
+        /// <inheritdoc/>
+        public bool Equals(Property other)
+        {
+            return this.Value.Equals(other.Value) &&
+                   this.Name == other.Name;
+        }
+
+        /// <inheritdoc/>
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(this.Value, this.Name);
         }
     }
 }

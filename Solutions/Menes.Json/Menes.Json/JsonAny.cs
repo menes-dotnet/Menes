@@ -653,6 +653,28 @@ namespace Menes.Json
         }
 
         /// <summary>
+        /// Standard equality operator.
+        /// </summary>
+        /// <param name="lhs">The left hand side of the comparison.</param>
+        /// <param name="rhs">The right hand side of the comparison.</param>
+        /// <returns>True if they are equal.</returns>
+        public static bool operator ==(JsonAny lhs, JsonAny rhs)
+        {
+            return lhs.Equals(rhs);
+        }
+
+        /// <summary>
+        /// Standard inequality operator.
+        /// </summary>
+        /// <param name="lhs">The left hand side of the comparison.</param>
+        /// <param name="rhs">The right hand side of the comparison.</param>
+        /// <returns>True if they are not equal.</returns>
+        public static bool operator !=(JsonAny lhs, JsonAny rhs)
+        {
+            return !lhs.Equals(rhs);
+        }
+
+        /// <summary>
         /// Parses a JSON string into a JsonAny.
         /// </summary>
         /// <param name="json">The json string to parse.</param>
@@ -710,6 +732,34 @@ namespace Menes.Json
         {
             using var jsonDocument = JsonDocument.Parse(utf8Json, options);
             return new JsonAny(jsonDocument.RootElement.Clone());
+        }
+
+        /// <inheritdoc/>
+        public override bool Equals(object obj)
+        {
+            if (obj is JsonAny jany)
+            {
+                return this.Equals(jany);
+            }
+
+            return false;
+        }
+
+        /// <inheritdoc/>
+        public override int GetHashCode()
+        {
+            JsonValueKind valueKind = this.ValueKind;
+
+            return valueKind switch
+            {
+                JsonValueKind.Object => this.AsObject.GetHashCode(),
+                JsonValueKind.Array => this.AsArray.GetHashCode(),
+                JsonValueKind.Number => this.AsNumber.GetHashCode(),
+                JsonValueKind.String => this.AsString.GetHashCode(),
+                JsonValueKind.True or JsonValueKind.False => this.AsBoolean.GetHashCode(),
+                JsonValueKind.Null => JsonNull.NullHashCode,
+                _ => 0,
+            };
         }
 
         /// <summary>

@@ -148,6 +148,28 @@ namespace Menes.Json
         }
 
         /// <summary>
+        /// Standard equality operator.
+        /// </summary>
+        /// <param name="lhs">The left hand side of the comparison.</param>
+        /// <param name="rhs">The right hand side of the comparison.</param>
+        /// <returns>True if they are equal.</returns>
+        public static bool operator ==(JsonObject lhs, JsonObject rhs)
+        {
+            return lhs.Equals(rhs);
+        }
+
+        /// <summary>
+        /// Standard inequality operator.
+        /// </summary>
+        /// <param name="lhs">The left hand side of the comparison.</param>
+        /// <param name="rhs">The right hand side of the comparison.</param>
+        /// <returns>True if they are not equal.</returns>
+        public static bool operator !=(JsonObject lhs, JsonObject rhs)
+        {
+            return !lhs.Equals(rhs);
+        }
+
+        /// <summary>
         /// Write a property dictionary to a <see cref="JsonElement"/>.
         /// </summary>
         /// <param name="properties">The property dictionary to write.</param>
@@ -194,6 +216,30 @@ namespace Menes.Json
             where T : struct, IJsonValue
         {
             return this.As<JsonObject, T>();
+        }
+
+        /// <inheritdoc/>
+        public override bool Equals(object obj)
+        {
+            if (obj is JsonObject jany)
+            {
+                return this.Equals(jany);
+            }
+
+            return false;
+        }
+
+        /// <inheritdoc/>
+        public override int GetHashCode()
+        {
+            JsonValueKind valueKind = this.ValueKind;
+
+            return valueKind switch
+            {
+                JsonValueKind.Object => this.GetHashCodeCore(),
+                JsonValueKind.Null => JsonNull.NullHashCode,
+                _ => 0,
+            };
         }
 
         /// <summary>
@@ -481,6 +527,22 @@ namespace Menes.Json
         public JsonObject RemoveProperty(ReadOnlySpan<byte> utf8Name)
         {
             return this.RemoveProperty(JsonEncodedText.Encode(utf8Name));
+        }
+
+        private int GetHashCodeCore()
+        {
+            HashCode hash = default;
+
+            // Sort by name
+            ImmutableArray<Property> sortedProperties =
+                this.EnumerateObject().ToImmutableArray().Sort((x, y) => StringComparer.Ordinal.Compare(x.Name, y.Name));
+
+            foreach (Property item in sortedProperties)
+            {
+                hash.Add(item.GetHashCode());
+            }
+
+            return hash.ToHashCode();
         }
     }
 }

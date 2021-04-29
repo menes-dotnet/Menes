@@ -166,6 +166,28 @@ namespace Menes.Json
         }
 
         /// <summary>
+        /// Standard equality operator.
+        /// </summary>
+        /// <param name="lhs">The left hand side of the comparison.</param>
+        /// <param name="rhs">The right hand side of the comparison.</param>
+        /// <returns>True if they are equal.</returns>
+        public static bool operator ==(JsonArray lhs, JsonArray rhs)
+        {
+            return lhs.Equals(rhs);
+        }
+
+        /// <summary>
+        /// Standard inequality operator.
+        /// </summary>
+        /// <param name="lhs">The left hand side of the comparison.</param>
+        /// <param name="rhs">The right hand side of the comparison.</param>
+        /// <returns>True if they are not equal.</returns>
+        public static bool operator !=(JsonArray lhs, JsonArray rhs)
+        {
+            return !lhs.Equals(rhs);
+        }
+
+        /// <summary>
         /// Create an array from the given items.
         /// </summary>
         /// <param name="items">The items from which to create the array.</param>
@@ -267,6 +289,30 @@ namespace Menes.Json
             ValidationContext result = validationContext ?? ValidationContext.ValidContext;
 
             return Json.Validate.TypeArray(this.ValueKind, result, level);
+        }
+
+        /// <inheritdoc/>
+        public override bool Equals(object obj)
+        {
+            if (obj is JsonAny jany)
+            {
+                return this.Equals(jany);
+            }
+
+            return false;
+        }
+
+        /// <inheritdoc/>
+        public override int GetHashCode()
+        {
+            JsonValueKind valueKind = this.ValueKind;
+
+            return valueKind switch
+            {
+                JsonValueKind.Array => this.GetHashCodeCore(),
+                JsonValueKind.Null => JsonNull.NullHashCode,
+                _ => 0,
+            };
         }
 
         /// <summary>
@@ -382,6 +428,18 @@ namespace Menes.Json
         public JsonArray RemoveRange(int index, int count)
         {
             return new JsonArray(this.AsItemsList.RemoveRange(index, count));
+        }
+
+        private int GetHashCodeCore()
+        {
+            HashCode hash = default;
+
+            foreach (JsonAny item in this.EnumerateArray())
+            {
+                hash.Add(item);
+            }
+
+            return hash.ToHashCode();
         }
     }
 }

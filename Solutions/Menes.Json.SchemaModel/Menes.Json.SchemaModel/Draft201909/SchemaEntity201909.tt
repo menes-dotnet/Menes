@@ -2325,6 +2325,28 @@ namespace <#= Namespace #>
     }
     #>
 
+        /// <summary>
+        /// Standard equality operator.
+        /// </summary>
+        /// <param name="lhs">The left hand side of the comparison.</param>
+        /// <param name="rhs">The right hand side of the comparison.</param>
+        /// <returns>True if they are equal.</returns>
+        public static bool operator ==(<#= TypeDeclaration.DotnetTypeName #> lhs, <#= TypeDeclaration.DotnetTypeName #> rhs)
+        {
+            return lhs.Equals(rhs);
+        }
+
+        /// <summary>
+        /// Standard inequality operator.
+        /// </summary>
+        /// <param name="lhs">The left hand side of the comparison.</param>
+        /// <param name="rhs">The right hand side of the comparison.</param>
+        /// <returns>True if they are not equal.</returns>
+        public static bool operator !=(<#= TypeDeclaration.DotnetTypeName #> lhs, <#= TypeDeclaration.DotnetTypeName #> rhs)
+        {
+            return !lhs.Equals(rhs);
+        }
+
     <#
     if (IsImplicitArray)
     {
@@ -2546,6 +2568,33 @@ namespace <#= Namespace #>
     }
     #>
 
+        /// <inheritdoc/>
+        public override bool Equals(object obj)
+        {
+            if (obj is <#= TypeDeclaration.DotnetTypeName #> entity)
+            {
+                return this.Equals(entity);
+            }
+
+            return false;
+        }
+
+        /// <inheritdoc/>
+        public override int GetHashCode()
+        {
+            JsonValueKind valueKind = this.ValueKind;
+
+            return valueKind switch
+            {
+                JsonValueKind.Object => this.AsObject.GetHashCode(),
+                JsonValueKind.Array => this.AsArray.GetHashCode(),
+                JsonValueKind.Number => this.AsNumber.GetHashCode(),
+                JsonValueKind.String => this.AsString.GetHashCode(),
+                JsonValueKind.True or JsonValueKind.False => this.AsBoolean.GetHashCode(),
+                JsonValueKind.Null => JsonNull.NullHashCode,
+                _ => 0,
+            };
+        }
 
         /// <summary>
         /// Writes the object to the <see cref="Utf8JsonWriter"/>.

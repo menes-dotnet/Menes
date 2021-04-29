@@ -4,6 +4,7 @@
 
 namespace Menes.Json
 {
+    using System;
     using System.Text.Json;
 
     /// <summary>
@@ -11,6 +12,11 @@ namespace Menes.Json
     /// </summary>
     public readonly struct JsonNull : IJsonValue
     {
+        /// <summary>
+        /// Gets the constant HashCode for a null instance.
+        /// </summary>
+        public static readonly int NullHashCode = new Guid("e55d355c-0834-4cb8-93f3-7fa3e0977e2a").GetHashCode();
+
         /// <summary>
         /// Gets a null value.
         /// </summary>
@@ -57,6 +63,28 @@ namespace Menes.Json
             return default;
         }
 
+        /// <summary>
+        /// Standard equality operator.
+        /// </summary>
+        /// <param name="lhs">The left hand side of the comparison.</param>
+        /// <param name="rhs">The right hand side of the comparison.</param>
+        /// <returns>True if they are equal.</returns>
+        public static bool operator ==(JsonNull lhs, JsonNull rhs)
+        {
+            return lhs.Equals(rhs);
+        }
+
+        /// <summary>
+        /// Standard inequality operator.
+        /// </summary>
+        /// <param name="lhs">The left hand side of the comparison.</param>
+        /// <param name="rhs">The right hand side of the comparison.</param>
+        /// <returns>True if they are not equal.</returns>
+        public static bool operator !=(JsonNull lhs, JsonNull rhs)
+        {
+            return !lhs.Equals(rhs);
+        }
+
         /// <inheritdoc/>
         public ValidationContext Validate(in ValidationContext? validationContext = null, ValidationLevel level = ValidationLevel.Flag)
         {
@@ -80,6 +108,23 @@ namespace Menes.Json
             where T : struct, IJsonValue
         {
             return this.ValueKind == other.ValueKind;
+        }
+
+        /// <inheritdoc/>
+        public override bool Equals(object obj)
+        {
+            if (obj is JsonNull jany)
+            {
+                return this.Equals(jany);
+            }
+
+            return false;
+        }
+
+        /// <inheritdoc/>
+        public override int GetHashCode()
+        {
+            return NullHashCode;
         }
 
         /// <inheritdoc/>
