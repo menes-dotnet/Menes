@@ -672,6 +672,8 @@ namespace RefRemoteDraft202012Feature.BaseURChangeChangeFolderInSubschema
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;
@@ -740,7 +742,6 @@ namespace RefRemoteDraft202012Feature.BaseURChangeChangeFolderInSubschema
                 return result;
             }
 
-        
         
         
             foreach (Property property in this.EnumerateObject())

@@ -741,6 +741,9 @@ namespace AdditionalPropertiesDraft202012Feature.AdditionalPropertiesBeingFalseD
             {
                 result = result.UsingStack();
             }
+                    result = result.UsingEvaluatedProperties();
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;
@@ -821,7 +824,6 @@ namespace AdditionalPropertiesDraft202012Feature.AdditionalPropertiesBeingFalseD
                 return result;
             }
 
-        
         
         
             foreach (Property property in this.EnumerateObject())

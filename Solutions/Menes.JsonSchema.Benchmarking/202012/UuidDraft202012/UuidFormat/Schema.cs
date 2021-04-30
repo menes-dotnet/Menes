@@ -355,6 +355,8 @@ namespace UuidDraft202012Feature.UuidFormat
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;

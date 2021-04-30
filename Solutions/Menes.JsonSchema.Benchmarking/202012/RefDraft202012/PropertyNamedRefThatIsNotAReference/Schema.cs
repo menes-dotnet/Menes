@@ -672,6 +672,8 @@ namespace RefDraft202012Feature.PropertyNamedRefThatIsNotAReference
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;
@@ -730,7 +732,6 @@ namespace RefDraft202012Feature.PropertyNamedRefThatIsNotAReference
                 return result;
             }
 
-        
         
         
             foreach (Property property in this.EnumerateObject())

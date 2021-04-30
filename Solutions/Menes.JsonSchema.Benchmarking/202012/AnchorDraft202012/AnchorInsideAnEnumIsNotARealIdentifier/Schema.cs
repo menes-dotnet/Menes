@@ -664,6 +664,8 @@ namespace AnchorDraft202012Feature.AnchorInsideAnEnumIsNotARealIdentifier
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
     
@@ -1374,6 +1376,8 @@ namespace AnchorDraft202012Feature.AnchorInsideAnEnumIsNotARealIdentifier
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
     

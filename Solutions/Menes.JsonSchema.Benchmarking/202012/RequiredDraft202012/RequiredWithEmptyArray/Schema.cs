@@ -672,6 +672,8 @@ namespace RequiredDraft202012Feature.RequiredWithEmptyArray
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;
@@ -730,7 +732,6 @@ namespace RequiredDraft202012Feature.RequiredWithEmptyArray
                 return result;
             }
 
-        
         
                             
             foreach (Property property in this.EnumerateObject())

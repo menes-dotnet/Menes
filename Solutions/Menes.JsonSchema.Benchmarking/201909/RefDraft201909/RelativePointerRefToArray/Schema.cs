@@ -593,6 +593,9 @@ namespace RefDraft201909Feature.RelativePointerRefToArray
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
                 JsonValueKind valueKind = this.ValueKind;
     

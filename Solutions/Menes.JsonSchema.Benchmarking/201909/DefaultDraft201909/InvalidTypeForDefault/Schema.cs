@@ -710,6 +710,9 @@ namespace DefaultDraft201909Feature.InvalidTypeForDefault
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
                 JsonValueKind valueKind = this.ValueKind;
     
@@ -775,7 +778,6 @@ namespace DefaultDraft201909Feature.InvalidTypeForDefault
                 return result;
             }
 
-        
         
         
             foreach (Property property in this.EnumerateObject())
@@ -1336,6 +1338,9 @@ namespace DefaultDraft201909Feature.InvalidTypeForDefault
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
                 JsonValueKind valueKind = this.ValueKind;
     

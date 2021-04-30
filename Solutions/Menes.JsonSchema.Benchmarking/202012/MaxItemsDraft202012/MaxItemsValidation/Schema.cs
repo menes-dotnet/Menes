@@ -592,6 +592,8 @@ namespace MaxItemsDraft202012Feature.MaxItemsValidation
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;

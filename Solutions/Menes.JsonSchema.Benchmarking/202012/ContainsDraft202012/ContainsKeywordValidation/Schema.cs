@@ -592,6 +592,8 @@ namespace ContainsDraft202012Feature.ContainsKeywordValidation
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;
@@ -1208,6 +1210,8 @@ namespace ContainsDraft202012Feature.ContainsKeywordValidation
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
     

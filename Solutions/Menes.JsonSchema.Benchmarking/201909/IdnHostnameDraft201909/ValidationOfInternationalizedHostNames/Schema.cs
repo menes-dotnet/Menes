@@ -356,6 +356,9 @@ namespace IdnHostnameDraft201909Feature.ValidationOfInternationalizedHostNames
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
                 JsonValueKind valueKind = this.ValueKind;
     

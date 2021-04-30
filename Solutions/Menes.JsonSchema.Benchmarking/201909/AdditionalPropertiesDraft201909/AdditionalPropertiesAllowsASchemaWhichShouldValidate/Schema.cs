@@ -753,6 +753,10 @@ namespace AdditionalPropertiesDraft201909Feature.AdditionalPropertiesAllowsASche
                 result = result.UsingStack();
             }
 
+                        
+                    result = result.UsingEvaluatedProperties();
+        
+        
     
                 JsonValueKind valueKind = this.ValueKind;
     
@@ -817,8 +821,6 @@ namespace AdditionalPropertiesDraft201909Feature.AdditionalPropertiesAllowsASche
                 return result;
             }
 
-                    result = result.UsingEvaluatedProperties();
-        
         
         
             foreach (Property property in this.EnumerateObject())

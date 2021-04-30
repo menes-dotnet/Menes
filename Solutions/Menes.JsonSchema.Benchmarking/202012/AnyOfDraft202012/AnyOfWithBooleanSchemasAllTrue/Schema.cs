@@ -355,6 +355,8 @@ namespace AnyOfDraft202012Feature.AnyOfWithBooleanSchemasAllTrue
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
     

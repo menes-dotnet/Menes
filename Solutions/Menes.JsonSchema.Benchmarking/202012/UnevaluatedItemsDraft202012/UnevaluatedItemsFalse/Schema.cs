@@ -592,6 +592,9 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsFalse
             {
                 result = result.UsingStack();
             }
+        
+                    result = result.UsingEvaluatedItems();
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;

@@ -673,6 +673,9 @@ namespace RefRemoteDraft201909Feature.BaseURChangeChangeFolder
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
                 JsonValueKind valueKind = this.ValueKind;
     
@@ -740,7 +743,6 @@ namespace RefRemoteDraft201909Feature.BaseURChangeChangeFolder
                 return result;
             }
 
-        
         
         
             foreach (Property property in this.EnumerateObject())

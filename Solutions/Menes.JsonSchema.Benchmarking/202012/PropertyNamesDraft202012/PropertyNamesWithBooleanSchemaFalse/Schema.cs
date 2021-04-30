@@ -595,6 +595,8 @@ namespace PropertyNamesDraft202012Feature.PropertyNamesWithBooleanSchemaFalse
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;
@@ -636,7 +638,6 @@ namespace PropertyNamesDraft202012Feature.PropertyNamesWithBooleanSchemaFalse
                 return result;
             }
 
-        
         
         
             foreach (Property property in this.EnumerateObject())

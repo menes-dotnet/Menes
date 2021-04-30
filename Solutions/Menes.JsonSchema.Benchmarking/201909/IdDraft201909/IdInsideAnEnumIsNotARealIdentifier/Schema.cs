@@ -665,6 +665,9 @@ namespace IdDraft201909Feature.IdInsideAnEnumIsNotARealIdentifier
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
     
     
@@ -1375,6 +1378,9 @@ namespace IdDraft201909Feature.IdInsideAnEnumIsNotARealIdentifier
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
     
     

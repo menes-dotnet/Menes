@@ -833,6 +833,8 @@ namespace DefsDraft202012Feature.ValidateDefinitionAgainstMetaschema
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;
@@ -908,7 +910,6 @@ namespace DefsDraft202012Feature.ValidateDefinitionAgainstMetaschema
                 return result;
             }
 
-        
         
         
             foreach (Property property in this.EnumerateObject())

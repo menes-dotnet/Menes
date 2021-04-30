@@ -531,6 +531,8 @@ namespace MultipleOfDraft202012Feature.BySmallNumber
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
     

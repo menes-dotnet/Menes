@@ -678,6 +678,8 @@ namespace ItemsDraft202012Feature.ItemsShouldNotLookInApplicatorsValidCase
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;
@@ -1372,6 +1374,8 @@ namespace ItemsDraft202012Feature.ItemsShouldNotLookInApplicatorsValidCase
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;
@@ -1975,6 +1979,8 @@ namespace ItemsDraft202012Feature.ItemsShouldNotLookInApplicatorsValidCase
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
     
@@ -2550,6 +2556,8 @@ namespace ItemsDraft202012Feature.ItemsShouldNotLookInApplicatorsValidCase
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
     

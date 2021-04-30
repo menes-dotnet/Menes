@@ -609,6 +609,8 @@ namespace ItemsDraft202012Feature.ItemsWithBooleanSchemaFalse
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;

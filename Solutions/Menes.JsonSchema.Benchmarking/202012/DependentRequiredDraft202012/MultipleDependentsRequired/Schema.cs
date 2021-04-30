@@ -596,6 +596,8 @@ namespace DependentRequiredDraft202012Feature.MultipleDependentsRequired
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;
@@ -652,7 +654,6 @@ namespace DependentRequiredDraft202012Feature.MultipleDependentsRequired
                 return result;
             }
 
-        
         
         
             foreach (Property property in this.EnumerateObject())

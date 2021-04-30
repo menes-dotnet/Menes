@@ -355,6 +355,8 @@ namespace OneOfDraft202012Feature.OneOfWithBooleanSchemasMoreThanOneTrue
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
     
@@ -402,7 +404,7 @@ namespace OneOfDraft202012Feature.OneOfWithBooleanSchemasMoreThanOneTrue
             {
                 result = result.MergeChildContext(oneOfResult0, level >= ValidationLevel.Detailed);
                 oneOfCount += 1;
-                            if (oneOfCount > 1 && level == ValidationLevel.Flag)
+                                            if (oneOfCount > 1 && level == ValidationLevel.Flag)
                 {
                     result = result.WithResult(isValid: false);
                     return result;
@@ -412,15 +414,15 @@ namespace OneOfDraft202012Feature.OneOfWithBooleanSchemasMoreThanOneTrue
             {
                 if (level >= ValidationLevel.Detailed)
                 {
-                    result = result.MergeChildContext(oneOfResult0, true);
+                    result = result.MergeResults(result.IsValid, level, oneOfResult0);
                 }
                 else if (level >= ValidationLevel.Basic)
                 {
-                    result = result.MergeChildContext(oneOfResult0, true);
+                    result = result.MergeResults(result.IsValid, level, oneOfResult0);
                 }
                 else
                 {
-                    result = result.MergeChildContext(oneOfResult0, false);
+                    result = result.MergeResults(result.IsValid, level, oneOfResult0);
                 }
             }
 
@@ -432,7 +434,7 @@ namespace OneOfDraft202012Feature.OneOfWithBooleanSchemasMoreThanOneTrue
             {
                 result = result.MergeChildContext(oneOfResult1, level >= ValidationLevel.Detailed);
                 oneOfCount += 1;
-                            if (oneOfCount > 1 && level == ValidationLevel.Flag)
+                                            if (oneOfCount > 1 && level == ValidationLevel.Flag)
                 {
                     result = result.WithResult(isValid: false);
                     return result;
@@ -442,15 +444,15 @@ namespace OneOfDraft202012Feature.OneOfWithBooleanSchemasMoreThanOneTrue
             {
                 if (level >= ValidationLevel.Detailed)
                 {
-                    result = result.MergeChildContext(oneOfResult1, true);
+                    result = result.MergeResults(result.IsValid, level, oneOfResult1);
                 }
                 else if (level >= ValidationLevel.Basic)
                 {
-                    result = result.MergeChildContext(oneOfResult1, true);
+                    result = result.MergeResults(result.IsValid, level, oneOfResult1);
                 }
                 else
                 {
-                    result = result.MergeChildContext(oneOfResult1, false);
+                    result = result.MergeResults(result.IsValid, level, oneOfResult1);
                 }
             }
 
@@ -462,7 +464,7 @@ namespace OneOfDraft202012Feature.OneOfWithBooleanSchemasMoreThanOneTrue
             {
                 result = result.MergeChildContext(oneOfResult2, level >= ValidationLevel.Detailed);
                 oneOfCount += 1;
-                            if (oneOfCount > 1 && level == ValidationLevel.Flag)
+                                            if (oneOfCount > 1 && level == ValidationLevel.Flag)
                 {
                     result = result.WithResult(isValid: false);
                     return result;
@@ -472,15 +474,15 @@ namespace OneOfDraft202012Feature.OneOfWithBooleanSchemasMoreThanOneTrue
             {
                 if (level >= ValidationLevel.Detailed)
                 {
-                    result = result.MergeChildContext(oneOfResult2, true);
+                    result = result.MergeResults(result.IsValid, level, oneOfResult2);
                 }
                 else if (level >= ValidationLevel.Basic)
                 {
-                    result = result.MergeChildContext(oneOfResult2, true);
+                    result = result.MergeResults(result.IsValid, level, oneOfResult2);
                 }
                 else
                 {
-                    result = result.MergeChildContext(oneOfResult2, false);
+                    result = result.MergeResults(result.IsValid, level, oneOfResult2);
                 }
             }
 

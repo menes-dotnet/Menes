@@ -609,6 +609,8 @@ namespace ItemsDraft202012Feature.NestedItems
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;
@@ -1331,6 +1333,8 @@ namespace ItemsDraft202012Feature.NestedItems
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;
@@ -2057,6 +2061,8 @@ namespace ItemsDraft202012Feature.NestedItems
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;
@@ -2783,6 +2789,8 @@ namespace ItemsDraft202012Feature.NestedItems
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;

@@ -673,6 +673,10 @@ namespace RefDraft201909Feature.RootPointerRef
                 result = result.UsingStack();
             }
 
+                        
+                    result = result.UsingEvaluatedProperties();
+        
+        
     
                 JsonValueKind valueKind = this.ValueKind;
     
@@ -730,7 +734,6 @@ namespace RefDraft201909Feature.RootPointerRef
                 return result;
             }
 
-        
         
         
             foreach (Property property in this.EnumerateObject())

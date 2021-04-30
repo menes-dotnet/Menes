@@ -673,6 +673,10 @@ namespace RecursiveRefDraft201909Feature.RecursiveRefWithoutRecursiveAnchorWorks
                 result = result.UsingStack();
             }
 
+                        
+                    result = result.UsingEvaluatedProperties();
+        
+        
     
                 JsonValueKind valueKind = this.ValueKind;
     
@@ -730,7 +734,6 @@ namespace RecursiveRefDraft201909Feature.RecursiveRefWithoutRecursiveAnchorWorks
                 return result;
             }
 
-        
         
         
             foreach (Property property in this.EnumerateObject())

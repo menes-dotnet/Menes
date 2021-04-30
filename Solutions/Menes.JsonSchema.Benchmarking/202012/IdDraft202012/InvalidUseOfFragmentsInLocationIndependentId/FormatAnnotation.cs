@@ -771,6 +771,8 @@ namespace IdDraft202012Feature.InvalidUseOfFragmentsInLocationIndependentId
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;
@@ -839,7 +841,6 @@ namespace IdDraft202012Feature.InvalidUseOfFragmentsInLocationIndependentId
                 return result;
             }
 
-        
         
         
             foreach (Property property in this.EnumerateObject())

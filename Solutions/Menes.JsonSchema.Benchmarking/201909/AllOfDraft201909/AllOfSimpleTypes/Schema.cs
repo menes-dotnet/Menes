@@ -670,6 +670,9 @@ namespace AllOfDraft201909Feature.AllOfSimpleTypes
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
     
     
@@ -1285,6 +1288,9 @@ namespace AllOfDraft201909Feature.AllOfSimpleTypes
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
     
     
@@ -1856,6 +1862,9 @@ namespace AllOfDraft201909Feature.AllOfSimpleTypes
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
     
     

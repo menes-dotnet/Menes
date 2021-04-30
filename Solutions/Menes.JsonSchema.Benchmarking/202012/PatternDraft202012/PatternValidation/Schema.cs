@@ -505,6 +505,8 @@ namespace PatternDraft202012Feature.PatternValidation
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
     

@@ -532,6 +532,9 @@ namespace EnumDraft201909Feature.EnumWith1DoesNotMatchTrue
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
     
     

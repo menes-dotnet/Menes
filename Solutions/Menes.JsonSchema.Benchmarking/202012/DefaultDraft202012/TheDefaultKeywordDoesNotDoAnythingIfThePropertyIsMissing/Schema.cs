@@ -709,6 +709,8 @@ namespace DefaultDraft202012Feature.TheDefaultKeywordDoesNotDoAnythingIfThePrope
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;
@@ -785,7 +787,6 @@ namespace DefaultDraft202012Feature.TheDefaultKeywordDoesNotDoAnythingIfThePrope
                 return result;
             }
 
-        
         
         
             foreach (Property property in this.EnumerateObject())
@@ -1385,6 +1386,8 @@ namespace DefaultDraft202012Feature.TheDefaultKeywordDoesNotDoAnythingIfThePrope
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;

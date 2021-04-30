@@ -597,6 +597,9 @@ namespace ConstDraft201909Feature.ConstWithObject
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
     
     

@@ -356,6 +356,9 @@ namespace AllOfDraft201909Feature.AllOfWithTheLastEmptySchema
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
     
     

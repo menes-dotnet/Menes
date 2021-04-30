@@ -531,6 +531,8 @@ namespace MultipleOfDraft202012Feature.InvalidInstanceShouldNotRaiseErrorWhenFlo
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;

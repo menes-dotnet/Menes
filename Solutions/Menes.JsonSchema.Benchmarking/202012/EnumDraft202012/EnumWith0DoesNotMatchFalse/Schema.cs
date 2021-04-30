@@ -531,6 +531,8 @@ namespace EnumDraft202012Feature.EnumWith0DoesNotMatchFalse
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
     

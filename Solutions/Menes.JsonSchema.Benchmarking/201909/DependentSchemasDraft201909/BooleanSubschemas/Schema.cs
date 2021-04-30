@@ -597,6 +597,9 @@ namespace DependentSchemasDraft201909Feature.BooleanSubschemas
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
                 JsonValueKind valueKind = this.ValueKind;
     
@@ -660,7 +663,6 @@ namespace DependentSchemasDraft201909Feature.BooleanSubschemas
                 return result;
             }
 
-        
         
         
             foreach (Property property in this.EnumerateObject())

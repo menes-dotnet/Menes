@@ -731,6 +731,8 @@ namespace RequiredDraft202012Feature.RequiredValidation
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;
@@ -796,7 +798,6 @@ namespace RequiredDraft202012Feature.RequiredValidation
                 return result;
             }
 
-        
         
                                 bool foundFoo = false;
                     

@@ -505,6 +505,9 @@ namespace EnumDraft201909Feature.EnumWithEscapedCharacters
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
     
     

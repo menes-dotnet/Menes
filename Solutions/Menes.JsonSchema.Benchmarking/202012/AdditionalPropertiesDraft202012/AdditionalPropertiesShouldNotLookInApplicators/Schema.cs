@@ -758,6 +758,9 @@ namespace AdditionalPropertiesDraft202012Feature.AdditionalPropertiesShouldNotLo
             {
                 result = result.UsingStack();
             }
+                    result = result.UsingEvaluatedProperties();
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;
@@ -804,8 +807,6 @@ namespace AdditionalPropertiesDraft202012Feature.AdditionalPropertiesShouldNotLo
                 return result;
             }
 
-                    result = result.UsingEvaluatedProperties();
-        
         
         
             foreach (Property property in this.EnumerateObject())
@@ -1537,6 +1538,8 @@ namespace AdditionalPropertiesDraft202012Feature.AdditionalPropertiesShouldNotLo
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;
@@ -1595,7 +1598,6 @@ namespace AdditionalPropertiesDraft202012Feature.AdditionalPropertiesShouldNotLo
                 return result;
             }
 
-        
         
         
             foreach (Property property in this.EnumerateObject())

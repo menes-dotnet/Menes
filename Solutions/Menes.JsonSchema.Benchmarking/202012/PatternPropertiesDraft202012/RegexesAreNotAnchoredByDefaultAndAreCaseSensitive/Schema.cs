@@ -607,6 +607,8 @@ namespace PatternPropertiesDraft202012Feature.RegexesAreNotAnchoredByDefaultAndA
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;
@@ -669,7 +671,6 @@ namespace PatternPropertiesDraft202012Feature.RegexesAreNotAnchoredByDefaultAndA
                 return result;
             }
 
-        
         
         
             foreach (Property property in this.EnumerateObject())

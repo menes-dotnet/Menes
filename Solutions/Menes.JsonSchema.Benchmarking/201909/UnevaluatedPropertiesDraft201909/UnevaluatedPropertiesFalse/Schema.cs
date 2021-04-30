@@ -596,6 +596,10 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesFalse
                 result = result.UsingStack();
             }
 
+                        
+                    result = result.UsingEvaluatedProperties();
+        
+        
     
                 JsonValueKind valueKind = this.ValueKind;
     
@@ -646,8 +650,6 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesFalse
                 return result;
             }
 
-                    result = result.UsingEvaluatedProperties();
-        
         
         
             foreach (Property property in this.EnumerateObject())

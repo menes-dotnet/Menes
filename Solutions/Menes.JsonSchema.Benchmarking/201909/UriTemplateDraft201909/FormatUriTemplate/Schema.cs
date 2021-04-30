@@ -356,6 +356,9 @@ namespace UriTemplateDraft201909Feature.FormatUriTemplate
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
                 JsonValueKind valueKind = this.ValueKind;
     

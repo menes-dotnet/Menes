@@ -742,6 +742,10 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithNeste
                 result = result.UsingStack();
             }
 
+                        
+                    result = result.UsingEvaluatedProperties();
+        
+        
     
                 JsonValueKind valueKind = this.ValueKind;
     
@@ -814,8 +818,6 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithNeste
                 return result;
             }
 
-                    result = result.UsingEvaluatedProperties();
-        
         
         
             foreach (Property property in this.EnumerateObject())
@@ -1533,6 +1535,9 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithNeste
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
                 JsonValueKind valueKind = this.ValueKind;
     
@@ -1588,7 +1593,6 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithNeste
                 return result;
             }
 
-        
         
         
             foreach (Property property in this.EnumerateObject())

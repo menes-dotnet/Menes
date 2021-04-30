@@ -593,6 +593,9 @@ namespace ContainsDraft201909Feature.ContainsKeywordValidation
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
                 JsonValueKind valueKind = this.ValueKind;
     
@@ -1210,6 +1213,9 @@ namespace ContainsDraft201909Feature.ContainsKeywordValidation
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
     
     

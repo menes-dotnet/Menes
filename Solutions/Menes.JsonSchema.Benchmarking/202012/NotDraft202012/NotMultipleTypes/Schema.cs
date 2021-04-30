@@ -355,6 +355,8 @@ namespace NotDraft202012Feature.NotMultipleTypes
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
     
@@ -1043,6 +1045,8 @@ namespace NotDraft202012Feature.NotMultipleTypes
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;

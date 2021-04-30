@@ -759,6 +759,9 @@ namespace PropertiesDraft202012Feature.PropertiesPatternPropertiesAdditionalProp
             {
                 result = result.UsingStack();
             }
+                    result = result.UsingEvaluatedProperties();
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;
@@ -839,8 +842,6 @@ namespace PropertiesDraft202012Feature.PropertiesPatternPropertiesAdditionalProp
                 return result;
             }
 
-                    result = result.UsingEvaluatedProperties();
-        
         
         
             foreach (Property property in this.EnumerateObject())
@@ -1486,6 +1487,8 @@ namespace PropertiesDraft202012Feature.PropertiesPatternPropertiesAdditionalProp
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;
@@ -2143,6 +2146,8 @@ namespace PropertiesDraft202012Feature.PropertiesPatternPropertiesAdditionalProp
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;

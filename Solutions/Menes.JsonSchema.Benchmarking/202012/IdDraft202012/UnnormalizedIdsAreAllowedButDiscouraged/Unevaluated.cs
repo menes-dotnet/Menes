@@ -833,6 +833,8 @@ namespace IdDraft202012Feature.UnnormalizedIdsAreAllowedButDiscouraged
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;
@@ -908,7 +910,6 @@ namespace IdDraft202012Feature.UnnormalizedIdsAreAllowedButDiscouraged
                 return result;
             }
 
-        
         
         
             foreach (Property property in this.EnumerateObject())

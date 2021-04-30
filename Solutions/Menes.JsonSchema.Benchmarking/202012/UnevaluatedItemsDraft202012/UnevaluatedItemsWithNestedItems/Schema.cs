@@ -661,6 +661,9 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithNestedItems
             {
                 result = result.UsingStack();
             }
+        
+                    result = result.UsingEvaluatedItems();
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;
@@ -1409,6 +1412,8 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithNestedItems
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;

@@ -810,6 +810,9 @@ namespace InfiniteLoopDetectionDraft201909Feature.EvaluatingTheSameSchemaLocatio
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
     
     
@@ -1566,6 +1569,9 @@ namespace InfiniteLoopDetectionDraft201909Feature.EvaluatingTheSameSchemaLocatio
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
                 JsonValueKind valueKind = this.ValueKind;
     
@@ -1623,7 +1629,6 @@ namespace InfiniteLoopDetectionDraft201909Feature.EvaluatingTheSameSchemaLocatio
                 return result;
             }
 
-        
         
         
             foreach (Property property in this.EnumerateObject())
@@ -2270,6 +2275,10 @@ namespace InfiniteLoopDetectionDraft201909Feature.EvaluatingTheSameSchemaLocatio
                 result = result.UsingStack();
             }
 
+                        
+                    result = result.UsingEvaluatedProperties();
+        
+        
     
                 JsonValueKind valueKind = this.ValueKind;
     
@@ -2310,8 +2319,6 @@ namespace InfiniteLoopDetectionDraft201909Feature.EvaluatingTheSameSchemaLocatio
                 return result;
             }
 
-                    result = result.UsingEvaluatedProperties();
-        
         
         
             foreach (Property property in this.EnumerateObject())

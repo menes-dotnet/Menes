@@ -811,6 +811,10 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithOneOf
                 result = result.UsingStack();
             }
 
+                        
+                    result = result.UsingEvaluatedProperties();
+        
+        
     
                 JsonValueKind valueKind = this.ValueKind;
     
@@ -884,8 +888,6 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithOneOf
                 return result;
             }
 
-                    result = result.UsingEvaluatedProperties();
-        
         
         
             foreach (Property property in this.EnumerateObject())
@@ -952,15 +954,15 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithOneOf
             {
                 if (level >= ValidationLevel.Detailed)
                 {
-                    result = result.MergeChildContext(oneOfResult0, true);
+                    result = result.MergeResults(result.IsValid, level, oneOfResult0);
                 }
                 else if (level >= ValidationLevel.Basic)
                 {
-                    result = result.MergeChildContext(oneOfResult0, true);
+                    result = result.MergeResults(result.IsValid, level, oneOfResult0);
                 }
                 else
                 {
-                    result = result.MergeChildContext(oneOfResult0, false);
+                    result = result.MergeResults(result.IsValid, level, oneOfResult0);
                 }
             }
 
@@ -977,15 +979,15 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithOneOf
             {
                 if (level >= ValidationLevel.Detailed)
                 {
-                    result = result.MergeChildContext(oneOfResult1, true);
+                    result = result.MergeResults(result.IsValid, level, oneOfResult1);
                 }
                 else if (level >= ValidationLevel.Basic)
                 {
-                    result = result.MergeChildContext(oneOfResult1, true);
+                    result = result.MergeResults(result.IsValid, level, oneOfResult1);
                 }
                 else
                 {
-                    result = result.MergeChildContext(oneOfResult1, false);
+                    result = result.MergeResults(result.IsValid, level, oneOfResult1);
                 }
             }
 
@@ -1735,6 +1737,9 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithOneOf
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
                 JsonValueKind valueKind = this.ValueKind;
     
@@ -1792,7 +1797,6 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithOneOf
                 return result;
             }
 
-        
         
                                 bool foundBar = false;
                     
@@ -2350,6 +2354,9 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithOneOf
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
     
     
@@ -3053,6 +3060,9 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithOneOf
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
                 JsonValueKind valueKind = this.ValueKind;
     
@@ -3110,7 +3120,6 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithOneOf
                 return result;
             }
 
-        
         
                                 bool foundBaz = false;
                     
@@ -3668,6 +3677,9 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithOneOf
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
     
     

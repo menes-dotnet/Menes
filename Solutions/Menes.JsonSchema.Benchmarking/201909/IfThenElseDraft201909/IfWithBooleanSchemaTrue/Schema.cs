@@ -687,6 +687,9 @@ namespace IfThenElseDraft201909Feature.IfWithBooleanSchemaTrue
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
     
     
@@ -1314,6 +1317,9 @@ namespace IfThenElseDraft201909Feature.IfWithBooleanSchemaTrue
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
     
     
@@ -1849,6 +1855,9 @@ namespace IfThenElseDraft201909Feature.IfWithBooleanSchemaTrue
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
     
     

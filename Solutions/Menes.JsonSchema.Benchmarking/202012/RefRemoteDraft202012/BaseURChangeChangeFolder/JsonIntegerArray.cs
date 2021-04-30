@@ -609,6 +609,8 @@ namespace RefRemoteDraft202012Feature.BaseURChangeChangeFolder
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;

@@ -673,6 +673,9 @@ namespace RefDraft201909Feature.PropertyNamedRefContainingAnActualRef
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
                 JsonValueKind valueKind = this.ValueKind;
     
@@ -730,7 +733,6 @@ namespace RefDraft201909Feature.PropertyNamedRefContainingAnActualRef
                 return result;
             }
 
-        
         
         
             foreach (Property property in this.EnumerateObject())

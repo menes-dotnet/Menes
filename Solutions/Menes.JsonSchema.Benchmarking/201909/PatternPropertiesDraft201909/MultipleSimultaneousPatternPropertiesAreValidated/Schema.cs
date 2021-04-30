@@ -608,6 +608,9 @@ namespace PatternPropertiesDraft201909Feature.MultipleSimultaneousPatternPropert
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
                 JsonValueKind valueKind = this.ValueKind;
     
@@ -669,7 +672,6 @@ namespace PatternPropertiesDraft201909Feature.MultipleSimultaneousPatternPropert
                 return result;
             }
 
-        
         
         
             foreach (Property property in this.EnumerateObject())
@@ -1234,6 +1236,9 @@ namespace PatternPropertiesDraft201909Feature.MultipleSimultaneousPatternPropert
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
     
     

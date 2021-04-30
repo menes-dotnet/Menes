@@ -669,6 +669,8 @@ namespace AllOfDraft202012Feature.AllOfSimpleTypes
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
     
@@ -1284,6 +1286,8 @@ namespace AllOfDraft202012Feature.AllOfSimpleTypes
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
     
@@ -1855,6 +1859,8 @@ namespace AllOfDraft202012Feature.AllOfSimpleTypes
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
     

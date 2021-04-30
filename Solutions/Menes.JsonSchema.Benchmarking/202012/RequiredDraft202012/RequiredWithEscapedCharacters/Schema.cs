@@ -964,6 +964,8 @@ namespace RequiredDraft202012Feature.RequiredWithEscapedCharacters
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;
@@ -1057,7 +1059,6 @@ namespace RequiredDraft202012Feature.RequiredWithEscapedCharacters
                 return result;
             }
 
-        
         
                                 bool foundFooBar = false;
                         bool foundFooBar1 = false;

@@ -839,6 +839,8 @@ namespace TypeDraft202012Feature.TypeArrayObjectOrNull
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;

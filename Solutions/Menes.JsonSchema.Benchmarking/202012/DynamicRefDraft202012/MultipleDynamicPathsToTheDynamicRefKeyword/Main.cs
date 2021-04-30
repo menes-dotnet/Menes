@@ -1071,6 +1071,8 @@ namespace DynamicRefDraft202012Feature.MultipleDynamicPathsToTheDynamicRefKeywor
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
     
@@ -1788,6 +1790,8 @@ namespace DynamicRefDraft202012Feature.MultipleDynamicPathsToTheDynamicRefKeywor
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;
@@ -1829,7 +1833,6 @@ namespace DynamicRefDraft202012Feature.MultipleDynamicPathsToTheDynamicRefKeywor
                 return result;
             }
 
-        
         
         
             foreach (Property property in this.EnumerateObject())
@@ -2359,6 +2362,8 @@ namespace DynamicRefDraft202012Feature.MultipleDynamicPathsToTheDynamicRefKeywor
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
     

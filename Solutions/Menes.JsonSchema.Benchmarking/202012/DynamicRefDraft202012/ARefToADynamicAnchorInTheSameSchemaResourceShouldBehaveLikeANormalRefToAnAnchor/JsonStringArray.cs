@@ -609,6 +609,8 @@ namespace DynamicRefDraft202012Feature.ARefToADynamicAnchorInTheSameSchemaResour
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;

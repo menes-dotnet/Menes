@@ -664,6 +664,8 @@ namespace IdDraft202012Feature.IdInsideAnEnumIsNotARealIdentifier
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
     
@@ -1374,6 +1376,8 @@ namespace IdDraft202012Feature.IdInsideAnEnumIsNotARealIdentifier
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
     

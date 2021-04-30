@@ -411,6 +411,8 @@ namespace AnyOfDraft202012Feature.NestedAnyOfToCheckValidationSemantics
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
     
@@ -853,6 +855,8 @@ namespace AnyOfDraft202012Feature.NestedAnyOfToCheckValidationSemantics
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
     

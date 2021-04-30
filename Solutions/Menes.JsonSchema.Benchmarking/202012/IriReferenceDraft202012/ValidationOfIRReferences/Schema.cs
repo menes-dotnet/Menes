@@ -355,6 +355,8 @@ namespace IriReferenceDraft202012Feature.ValidationOfIRReferences
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;

@@ -672,6 +672,8 @@ namespace RequiredDraft202012Feature.RequiredDefaultValidation
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;
@@ -730,7 +732,6 @@ namespace RequiredDraft202012Feature.RequiredDefaultValidation
                 return result;
             }
 
-        
         
         
             foreach (Property property in this.EnumerateObject())

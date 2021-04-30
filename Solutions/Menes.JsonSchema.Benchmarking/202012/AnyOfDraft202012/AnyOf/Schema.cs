@@ -600,6 +600,8 @@ namespace AnyOfDraft202012Feature.AnyOf
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
     
@@ -1246,6 +1248,8 @@ namespace AnyOfDraft202012Feature.AnyOf
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
     

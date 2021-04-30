@@ -593,6 +593,9 @@ namespace MinContainsDraft201909Feature.MinContainsEquals1WithContains
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
                 JsonValueKind valueKind = this.ValueKind;
     
@@ -1211,6 +1214,9 @@ namespace MinContainsDraft201909Feature.MinContainsEquals1WithContains
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
     
     

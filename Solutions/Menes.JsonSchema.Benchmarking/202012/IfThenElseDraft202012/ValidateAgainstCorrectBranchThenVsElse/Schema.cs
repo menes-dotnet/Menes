@@ -782,6 +782,8 @@ namespace IfThenElseDraft202012Feature.ValidateAgainstCorrectBranchThenVsElse
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
     
@@ -1435,6 +1437,8 @@ namespace IfThenElseDraft202012Feature.ValidateAgainstCorrectBranchThenVsElse
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
     
@@ -2006,6 +2010,8 @@ namespace IfThenElseDraft202012Feature.ValidateAgainstCorrectBranchThenVsElse
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
     
@@ -2577,6 +2583,8 @@ namespace IfThenElseDraft202012Feature.ValidateAgainstCorrectBranchThenVsElse
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
     

@@ -735,6 +735,9 @@ namespace AdditionalPropertiesDraft201909Feature.AdditionalPropertiesAreAllowedB
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
                 JsonValueKind valueKind = this.ValueKind;
     
@@ -799,7 +802,6 @@ namespace AdditionalPropertiesDraft201909Feature.AdditionalPropertiesAreAllowedB
                 return result;
             }
 
-        
         
         
             foreach (Property property in this.EnumerateObject())

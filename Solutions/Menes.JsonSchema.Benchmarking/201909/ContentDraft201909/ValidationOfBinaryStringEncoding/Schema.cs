@@ -356,6 +356,9 @@ namespace ContentDraft201909Feature.ValidationOfBinaryStringEncoding
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
                 JsonValueKind valueKind = this.ValueKind;
     

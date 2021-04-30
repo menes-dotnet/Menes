@@ -355,6 +355,8 @@ namespace AnyOfDraft202012Feature.AnyOfWithOneEmptySchema
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
     

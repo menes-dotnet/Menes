@@ -355,6 +355,8 @@ namespace ContentDraft202012Feature.ValidationOfBinaryEncodedMediaTypeDocumentsW
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;
@@ -1101,6 +1103,8 @@ namespace ContentDraft202012Feature.ValidationOfBinaryEncodedMediaTypeDocumentsW
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;
@@ -1159,7 +1163,6 @@ namespace ContentDraft202012Feature.ValidationOfBinaryEncodedMediaTypeDocumentsW
                 return result;
             }
 
-        
         
                                 bool foundFoo = false;
                     

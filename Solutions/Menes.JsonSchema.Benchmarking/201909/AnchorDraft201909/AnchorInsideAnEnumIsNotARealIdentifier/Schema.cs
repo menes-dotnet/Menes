@@ -665,6 +665,9 @@ namespace AnchorDraft201909Feature.AnchorInsideAnEnumIsNotARealIdentifier
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
     
     
@@ -1375,6 +1378,9 @@ namespace AnchorDraft201909Feature.AnchorInsideAnEnumIsNotARealIdentifier
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
     
     

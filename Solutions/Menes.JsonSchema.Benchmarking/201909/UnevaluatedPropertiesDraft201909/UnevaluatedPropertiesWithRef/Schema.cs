@@ -804,6 +804,10 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithRef
                 result = result.UsingStack();
             }
 
+                        
+                    result = result.UsingEvaluatedProperties();
+        
+        
                 result = this.ValidateRef(result, level);
             if (level == ValidationLevel.Flag && !result.IsValid)
             {
@@ -869,6 +873,7 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithRef
         {
             ValidationContext result = validationContext;
 
+
             ValidationContext refResult = this.As<UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithRef.Schema.BarEntity>().Validate(validationContext.CreateChildContext(), level);
 
             if (!refResult.IsValid)
@@ -909,8 +914,6 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithRef
                 return result;
             }
 
-                    result = result.UsingEvaluatedProperties();
-        
         
         
             foreach (Property property in this.EnumerateObject())
@@ -1664,6 +1667,9 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithRef
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
                 JsonValueKind valueKind = this.ValueKind;
     
@@ -1721,7 +1727,6 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithRef
                 return result;
             }
 
-        
         
         
             foreach (Property property in this.EnumerateObject())

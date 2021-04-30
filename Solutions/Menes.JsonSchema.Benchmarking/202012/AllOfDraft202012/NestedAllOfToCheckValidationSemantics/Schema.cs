@@ -411,6 +411,8 @@ namespace AllOfDraft202012Feature.NestedAllOfToCheckValidationSemantics
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
     
@@ -825,6 +827,8 @@ namespace AllOfDraft202012Feature.NestedAllOfToCheckValidationSemantics
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
     

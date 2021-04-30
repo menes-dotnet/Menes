@@ -793,6 +793,9 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteract
             {
                 result = result.UsingStack();
             }
+        
+                    result = result.UsingEvaluatedItems();
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;
@@ -1523,6 +1526,8 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteract
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;
@@ -2113,6 +2118,8 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteract
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
     
@@ -2906,6 +2913,8 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteract
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
     
@@ -3589,6 +3598,8 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteract
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;
@@ -4179,6 +4190,8 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteract
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
     
@@ -4875,6 +4888,8 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteract
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
     
@@ -5527,6 +5542,8 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteract
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;
@@ -6117,6 +6134,8 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteract
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
     

@@ -673,6 +673,9 @@ namespace RefDraft201909Feature.RefAppliesAlongsideSiblingKeywords
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
                 JsonValueKind valueKind = this.ValueKind;
     
@@ -730,7 +733,6 @@ namespace RefDraft201909Feature.RefAppliesAlongsideSiblingKeywords
                 return result;
             }
 
-        
         
         
             foreach (Property property in this.EnumerateObject())
@@ -1352,6 +1354,9 @@ namespace RefDraft201909Feature.RefAppliesAlongsideSiblingKeywords
                 result = result.UsingStack();
             }
 
+                        
+        
+        
                 result = this.ValidateRef(result, level);
             if (level == ValidationLevel.Flag && !result.IsValid)
             {
@@ -1388,6 +1393,7 @@ namespace RefDraft201909Feature.RefAppliesAlongsideSiblingKeywords
             private ValidationContext ValidateRef(in ValidationContext validationContext, ValidationLevel level)
         {
             ValidationContext result = validationContext;
+
 
             ValidationContext refResult = this.As<Menes.Json.JsonArray>().Validate(validationContext.CreateChildContext(), level);
 

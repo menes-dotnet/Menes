@@ -1319,6 +1319,8 @@ namespace EnumDraft202012Feature.HeterogeneousEnumValidation
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
     

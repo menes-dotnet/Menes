@@ -596,6 +596,8 @@ namespace DependentSchemasDraft202012Feature.DependenciesWithEscapedCharacters
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;
@@ -660,7 +662,6 @@ namespace DependentSchemasDraft202012Feature.DependenciesWithEscapedCharacters
                 return result;
             }
 
-        
         
         
             foreach (Property property in this.EnumerateObject())
@@ -1281,6 +1282,8 @@ namespace DependentSchemasDraft202012Feature.DependenciesWithEscapedCharacters
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;
@@ -1322,7 +1325,6 @@ namespace DependentSchemasDraft202012Feature.DependenciesWithEscapedCharacters
                 return result;
             }
 
-        
                     int propertyCount = 0;
         
         
@@ -2033,6 +2035,8 @@ namespace DependentSchemasDraft202012Feature.DependenciesWithEscapedCharacters
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;
@@ -2091,7 +2095,6 @@ namespace DependentSchemasDraft202012Feature.DependenciesWithEscapedCharacters
                 return result;
             }
 
-        
         
                                 bool foundFooBar = false;
                     

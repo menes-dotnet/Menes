@@ -1267,6 +1267,8 @@ namespace DefsDraft202012Feature.ValidateDefinitionAgainstMetaschema
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;
@@ -1391,7 +1393,6 @@ namespace DefsDraft202012Feature.ValidateDefinitionAgainstMetaschema
                 return result;
             }
 
-        
         
         
             foreach (Property property in this.EnumerateObject())
@@ -1979,6 +1980,8 @@ namespace DefsDraft202012Feature.ValidateDefinitionAgainstMetaschema
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;
@@ -2572,6 +2575,8 @@ namespace DefsDraft202012Feature.ValidateDefinitionAgainstMetaschema
             {
                 result = result.UsingStack();
             }
+        
+        
 
                 result = this.ValidateRef(result, level);
             if (level == ValidationLevel.Flag && !result.IsValid)
@@ -3260,6 +3265,9 @@ namespace DefsDraft202012Feature.ValidateDefinitionAgainstMetaschema
             {
                 result = result.UsingStack();
             }
+                    result = result.UsingEvaluatedProperties();
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;
@@ -3311,8 +3319,6 @@ namespace DefsDraft202012Feature.ValidateDefinitionAgainstMetaschema
                 return result;
             }
 
-                    result = result.UsingEvaluatedProperties();
-        
         
         
             foreach (Property property in this.EnumerateObject())
@@ -4003,6 +4009,9 @@ namespace DefsDraft202012Feature.ValidateDefinitionAgainstMetaschema
             {
                 result = result.UsingStack();
             }
+                    result = result.UsingEvaluatedProperties();
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;
@@ -4054,8 +4063,6 @@ namespace DefsDraft202012Feature.ValidateDefinitionAgainstMetaschema
                 return result;
             }
 
-                    result = result.UsingEvaluatedProperties();
-        
         
         
             foreach (Property property in this.EnumerateObject())

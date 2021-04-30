@@ -531,6 +531,8 @@ namespace FloatOverflowDraft202012Feature.AllIntegersAreMultiplesOf05IfOverflowI
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;

@@ -692,6 +692,8 @@ namespace IfThenElseDraft202012Feature.IfAndThenWithoutElse
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
     
@@ -1314,6 +1316,8 @@ namespace IfThenElseDraft202012Feature.IfAndThenWithoutElse
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
     
@@ -1885,6 +1889,8 @@ namespace IfThenElseDraft202012Feature.IfAndThenWithoutElse
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
     

@@ -661,6 +661,9 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithRef
             {
                 result = result.UsingStack();
             }
+        
+                    result = result.UsingEvaluatedItems();
+        
 
                 result = this.ValidateRef(result, level);
             if (level == ValidationLevel.Flag && !result.IsValid)
@@ -1425,6 +1428,8 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsWithRef
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;

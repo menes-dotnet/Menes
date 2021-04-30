@@ -610,6 +610,9 @@ namespace ContainsDraft201909Feature.ItemsContains
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
                 JsonValueKind valueKind = this.ValueKind;
     
@@ -1234,6 +1237,9 @@ namespace ContainsDraft201909Feature.ItemsContains
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
     
     
@@ -1805,6 +1811,9 @@ namespace ContainsDraft201909Feature.ItemsContains
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
     
     

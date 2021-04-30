@@ -602,6 +602,9 @@ namespace AdditionalPropertiesDraft202012Feature.NonASIIPatternWithAdditionalPro
             {
                 result = result.UsingStack();
             }
+                    result = result.UsingEvaluatedProperties();
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;
@@ -658,7 +661,6 @@ namespace AdditionalPropertiesDraft202012Feature.NonASIIPatternWithAdditionalPro
                 return result;
             }
 
-        
         
         
             foreach (Property property in this.EnumerateObject())

@@ -531,6 +531,8 @@ namespace MultipleOfDraft202012Feature.ByInt
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
     

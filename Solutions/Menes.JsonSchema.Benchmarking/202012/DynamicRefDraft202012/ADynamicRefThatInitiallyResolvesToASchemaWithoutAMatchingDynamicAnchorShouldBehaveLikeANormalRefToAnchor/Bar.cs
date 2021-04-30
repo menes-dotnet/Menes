@@ -672,6 +672,8 @@ namespace DynamicRefDraft202012Feature.ADynamicRefThatInitiallyResolvesToASchema
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;
@@ -740,7 +742,6 @@ namespace DynamicRefDraft202012Feature.ADynamicRefThatInitiallyResolvesToASchema
                 return result;
             }
 
-        
         
         
             foreach (Property property in this.EnumerateObject())

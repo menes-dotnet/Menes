@@ -732,6 +732,9 @@ namespace EnumDraft201909Feature.EnumsInProperties
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
                 JsonValueKind valueKind = this.ValueKind;
     
@@ -806,7 +809,6 @@ namespace EnumDraft201909Feature.EnumsInProperties
                 return result;
             }
 
-        
         
                                 bool foundBar = false;
                     
@@ -1403,6 +1405,9 @@ namespace EnumDraft201909Feature.EnumsInProperties
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
     
     
@@ -1966,6 +1971,9 @@ namespace EnumDraft201909Feature.EnumsInProperties
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
     
     

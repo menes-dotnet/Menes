@@ -593,6 +593,9 @@ namespace ItemsDraft201909Feature.AnArrayOfSchemasForItems
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
                 JsonValueKind valueKind = this.ValueKind;
     

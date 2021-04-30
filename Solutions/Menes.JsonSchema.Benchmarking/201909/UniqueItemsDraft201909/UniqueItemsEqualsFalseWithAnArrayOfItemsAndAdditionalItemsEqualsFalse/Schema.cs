@@ -593,6 +593,10 @@ namespace UniqueItemsDraft201909Feature.UniqueItemsEqualsFalseWithAnArrayOfItems
                 result = result.UsingStack();
             }
 
+                        
+        
+                    result = result.UsingEvaluatedItems();
+        
     
                 JsonValueKind valueKind = this.ValueKind;
     

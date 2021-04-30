@@ -592,6 +592,8 @@ namespace MaxContainsDraft202012Feature.MaxContainsWithoutContainsIsIgnored
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
     

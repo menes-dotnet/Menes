@@ -595,6 +595,8 @@ namespace MaxPropertiesDraft202012Feature.MaxPropertiesEquals0MeansTheObjectIsEm
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;
@@ -636,7 +638,6 @@ namespace MaxPropertiesDraft202012Feature.MaxPropertiesEquals0MeansTheObjectIsEm
                 return result;
             }
 
-        
                     int propertyCount = 0;
         
         

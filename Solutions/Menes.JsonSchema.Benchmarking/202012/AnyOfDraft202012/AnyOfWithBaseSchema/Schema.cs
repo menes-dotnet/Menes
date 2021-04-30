@@ -642,6 +642,8 @@ namespace AnyOfDraft202012Feature.AnyOfWithBaseSchema
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;
@@ -1312,6 +1314,8 @@ namespace AnyOfDraft202012Feature.AnyOfWithBaseSchema
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
     
@@ -1853,6 +1857,8 @@ namespace AnyOfDraft202012Feature.AnyOfWithBaseSchema
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
     

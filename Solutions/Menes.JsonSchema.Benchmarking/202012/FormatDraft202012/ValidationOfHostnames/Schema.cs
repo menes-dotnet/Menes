@@ -355,6 +355,8 @@ namespace FormatDraft202012Feature.ValidationOfHostnames
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;

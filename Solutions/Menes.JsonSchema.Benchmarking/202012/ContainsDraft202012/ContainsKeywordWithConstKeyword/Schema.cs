@@ -592,6 +592,8 @@ namespace ContainsDraft202012Feature.ContainsKeywordWithConstKeyword
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;
@@ -1209,6 +1211,8 @@ namespace ContainsDraft202012Feature.ContainsKeywordWithConstKeyword
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
     

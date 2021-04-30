@@ -356,6 +356,9 @@ namespace RelativeJsonPointerDraft201909Feature.ValidationOfRelativeJSNPointersR
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
                 JsonValueKind valueKind = this.ValueKind;
     

@@ -851,6 +851,8 @@ namespace DynamicRefDraft202012Feature.MultipleDynamicPathsToTheDynamicRefKeywor
             {
                 result = result.UsingStack();
             }
+        
+        
 
                 result = this.ValidateRef(result, level);
             if (level == ValidationLevel.Flag && !result.IsValid)
@@ -1585,6 +1587,9 @@ namespace DynamicRefDraft202012Feature.MultipleDynamicPathsToTheDynamicRefKeywor
             {
                 result = result.UsingStack();
             }
+                    result = result.UsingEvaluatedProperties();
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;
@@ -1626,8 +1631,6 @@ namespace DynamicRefDraft202012Feature.MultipleDynamicPathsToTheDynamicRefKeywor
                 return result;
             }
 
-                    result = result.UsingEvaluatedProperties();
-        
         
         
             foreach (Property property in this.EnumerateObject())

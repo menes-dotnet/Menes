@@ -609,6 +609,8 @@ namespace UniqueItemsDraft202012Feature.UniqueItemsWithAnArrayOfItemsAndAddition
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;

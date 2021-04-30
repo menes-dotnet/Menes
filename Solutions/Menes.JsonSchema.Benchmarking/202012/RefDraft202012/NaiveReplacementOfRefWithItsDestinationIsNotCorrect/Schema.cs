@@ -595,6 +595,8 @@ namespace RefDraft202012Feature.NaiveReplacementOfRefWithItsDestinationIsNotCorr
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
     

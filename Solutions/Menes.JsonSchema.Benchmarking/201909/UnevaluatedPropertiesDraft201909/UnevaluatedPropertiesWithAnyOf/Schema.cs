@@ -880,6 +880,10 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithAnyOf
                 result = result.UsingStack();
             }
 
+                        
+                    result = result.UsingEvaluatedProperties();
+        
+        
     
                 JsonValueKind valueKind = this.ValueKind;
     
@@ -952,8 +956,6 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithAnyOf
                 return result;
             }
 
-                    result = result.UsingEvaluatedProperties();
-        
         
         
             foreach (Property property in this.EnumerateObject())
@@ -1801,6 +1803,9 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithAnyOf
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
                 JsonValueKind valueKind = this.ValueKind;
     
@@ -1858,7 +1863,6 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithAnyOf
                 return result;
             }
 
-        
         
                                 bool foundBar = false;
                     
@@ -2416,6 +2420,9 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithAnyOf
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
     
     
@@ -3119,6 +3126,9 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithAnyOf
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
                 JsonValueKind valueKind = this.ValueKind;
     
@@ -3176,7 +3186,6 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithAnyOf
                 return result;
             }
 
-        
         
                                 bool foundBaz = false;
                     
@@ -3734,6 +3743,9 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithAnyOf
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
     
     
@@ -4437,6 +4449,9 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithAnyOf
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
                 JsonValueKind valueKind = this.ValueKind;
     
@@ -4494,7 +4509,6 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithAnyOf
                 return result;
             }
 
-        
         
                                 bool foundQuux = false;
                     
@@ -5052,6 +5066,9 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithAnyOf
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
     
     

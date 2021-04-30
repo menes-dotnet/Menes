@@ -741,6 +741,8 @@ namespace UnevaluatedItemsDraft202012Feature.ItemIsEvaluatedInAnUncleSchemaToUne
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;
@@ -814,7 +816,6 @@ namespace UnevaluatedItemsDraft202012Feature.ItemIsEvaluatedInAnUncleSchemaToUne
                 return result;
             }
 
-        
         
         
             foreach (Property property in this.EnumerateObject())
@@ -1617,6 +1618,8 @@ namespace UnevaluatedItemsDraft202012Feature.ItemIsEvaluatedInAnUncleSchemaToUne
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;
@@ -1675,7 +1678,6 @@ namespace UnevaluatedItemsDraft202012Feature.ItemIsEvaluatedInAnUncleSchemaToUne
                 return result;
             }
 
-        
         
         
             foreach (Property property in this.EnumerateObject())
@@ -2296,6 +2298,8 @@ namespace UnevaluatedItemsDraft202012Feature.ItemIsEvaluatedInAnUncleSchemaToUne
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;
@@ -2977,6 +2981,9 @@ namespace UnevaluatedItemsDraft202012Feature.ItemIsEvaluatedInAnUncleSchemaToUne
             {
                 result = result.UsingStack();
             }
+        
+                    result = result.UsingEvaluatedItems();
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;

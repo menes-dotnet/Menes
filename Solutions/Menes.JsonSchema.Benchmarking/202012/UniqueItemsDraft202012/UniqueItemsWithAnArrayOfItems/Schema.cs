@@ -592,6 +592,8 @@ namespace UniqueItemsDraft202012Feature.UniqueItemsWithAnArrayOfItems
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;

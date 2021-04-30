@@ -601,6 +601,9 @@ namespace OneOfDraft201909Feature.OneOf
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
     
     
@@ -657,15 +660,15 @@ namespace OneOfDraft201909Feature.OneOf
             {
                 if (level >= ValidationLevel.Detailed)
                 {
-                    result = result.MergeChildContext(oneOfResult0, true);
+                    result = result.MergeResults(result.IsValid, level, oneOfResult0);
                 }
                 else if (level >= ValidationLevel.Basic)
                 {
-                    result = result.MergeChildContext(oneOfResult0, true);
+                    result = result.MergeResults(result.IsValid, level, oneOfResult0);
                 }
                 else
                 {
-                    result = result.MergeChildContext(oneOfResult0, false);
+                    result = result.MergeResults(result.IsValid, level, oneOfResult0);
                 }
             }
 
@@ -687,15 +690,15 @@ namespace OneOfDraft201909Feature.OneOf
             {
                 if (level >= ValidationLevel.Detailed)
                 {
-                    result = result.MergeChildContext(oneOfResult1, true);
+                    result = result.MergeResults(result.IsValid, level, oneOfResult1);
                 }
                 else if (level >= ValidationLevel.Basic)
                 {
-                    result = result.MergeChildContext(oneOfResult1, true);
+                    result = result.MergeResults(result.IsValid, level, oneOfResult1);
                 }
                 else
                 {
-                    result = result.MergeChildContext(oneOfResult1, false);
+                    result = result.MergeResults(result.IsValid, level, oneOfResult1);
                 }
             }
 
@@ -1267,6 +1270,9 @@ namespace OneOfDraft201909Feature.OneOf
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
     
     

@@ -355,6 +355,8 @@ namespace JsonPointerDraft202012Feature.ValidationOfJSNPointersJSNStringRepresen
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;

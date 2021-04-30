@@ -532,6 +532,9 @@ namespace MultipleOfDraft201909Feature.BySmallNumber
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
     
     

@@ -596,6 +596,8 @@ namespace DependentRequiredDraft202012Feature.DependenciesWithEscapedCharacters
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;
@@ -656,7 +658,6 @@ namespace DependentRequiredDraft202012Feature.DependenciesWithEscapedCharacters
                 return result;
             }
 
-        
         
         
             foreach (Property property in this.EnumerateObject())

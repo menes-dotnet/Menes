@@ -9022,7 +9022,7 @@ namespace ");
         
         #line 3066 "SchemaEntity202012.tt"
 
-        if (HasUnevaluatedProperties)
+        if (HasAdditionalProperties || HasUnevaluatedProperties)
         {
         
         

@@ -596,6 +596,8 @@ namespace DependentRequiredDraft202012Feature.EmptyDependents
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;
@@ -650,7 +652,6 @@ namespace DependentRequiredDraft202012Feature.EmptyDependents
                 return result;
             }
 
-        
         
         
             foreach (Property property in this.EnumerateObject())

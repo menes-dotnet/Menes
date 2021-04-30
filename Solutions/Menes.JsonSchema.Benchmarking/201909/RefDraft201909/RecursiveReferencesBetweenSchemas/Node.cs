@@ -732,6 +732,9 @@ namespace RefDraft201909Feature.RecursiveReferencesBetweenSchemas
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
                 JsonValueKind valueKind = this.ValueKind;
     
@@ -806,7 +809,6 @@ namespace RefDraft201909Feature.RecursiveReferencesBetweenSchemas
                 return result;
             }
 
-        
         
                                 bool foundValue = false;
                     

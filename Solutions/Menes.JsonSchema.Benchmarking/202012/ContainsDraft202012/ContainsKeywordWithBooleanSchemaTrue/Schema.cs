@@ -592,6 +592,8 @@ namespace ContainsDraft202012Feature.ContainsKeywordWithBooleanSchemaTrue
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;

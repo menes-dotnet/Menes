@@ -592,6 +592,8 @@ namespace PrefixItemsDraft202012Feature.AdditionalItemsAreAllowedByDefault
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;

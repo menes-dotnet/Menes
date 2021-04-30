@@ -505,6 +505,8 @@ namespace PatternDraft202012Feature.PatternIsNotAnchored
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
     

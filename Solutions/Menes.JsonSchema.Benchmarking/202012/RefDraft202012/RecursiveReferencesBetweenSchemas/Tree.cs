@@ -728,6 +728,8 @@ namespace RefDraft202012Feature.RecursiveReferencesBetweenSchemas
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;
@@ -803,7 +805,6 @@ namespace RefDraft202012Feature.RecursiveReferencesBetweenSchemas
                 return result;
             }
 
-        
         
                                 bool foundMeta = false;
                         bool foundNodes = false;
@@ -1527,6 +1528,8 @@ namespace RefDraft202012Feature.RecursiveReferencesBetweenSchemas
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;

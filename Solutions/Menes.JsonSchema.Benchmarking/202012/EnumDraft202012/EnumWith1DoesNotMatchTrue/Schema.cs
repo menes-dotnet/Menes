@@ -531,6 +531,8 @@ namespace EnumDraft202012Feature.EnumWith1DoesNotMatchTrue
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
     

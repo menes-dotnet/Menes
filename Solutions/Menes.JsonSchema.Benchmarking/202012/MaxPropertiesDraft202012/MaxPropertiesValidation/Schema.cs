@@ -595,6 +595,8 @@ namespace MaxPropertiesDraft202012Feature.MaxPropertiesValidation
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;
@@ -636,7 +638,6 @@ namespace MaxPropertiesDraft202012Feature.MaxPropertiesValidation
                 return result;
             }
 
-        
                     int propertyCount = 0;
         
         

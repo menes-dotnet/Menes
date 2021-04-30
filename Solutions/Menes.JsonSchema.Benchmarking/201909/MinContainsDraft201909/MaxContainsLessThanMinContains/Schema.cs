@@ -593,6 +593,9 @@ namespace MinContainsDraft201909Feature.MaxContainsLessThanMinContains
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
                 JsonValueKind valueKind = this.ValueKind;
     
@@ -1232,6 +1235,9 @@ namespace MinContainsDraft201909Feature.MaxContainsLessThanMinContains
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
     
     

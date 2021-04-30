@@ -355,6 +355,8 @@ namespace AllOfDraft202012Feature.AllOfWithBooleanSchemasSomeFalse
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
     

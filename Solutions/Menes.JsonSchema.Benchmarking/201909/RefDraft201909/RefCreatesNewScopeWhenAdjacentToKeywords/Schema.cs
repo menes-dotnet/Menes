@@ -742,6 +742,9 @@ namespace RefDraft201909Feature.RefCreatesNewScopeWhenAdjacentToKeywords
                 result = result.UsingStack();
             }
 
+                        
+        
+        
                 result = this.ValidateRef(result, level);
             if (level == ValidationLevel.Flag && !result.IsValid)
             {
@@ -797,6 +800,7 @@ namespace RefDraft201909Feature.RefCreatesNewScopeWhenAdjacentToKeywords
         {
             ValidationContext result = validationContext;
 
+
             ValidationContext refResult = this.As<RefDraft201909Feature.RefCreatesNewScopeWhenAdjacentToKeywords.Schema.AEntity>().Validate(validationContext.CreateChildContext(), level);
 
             if (!refResult.IsValid)
@@ -837,7 +841,6 @@ namespace RefDraft201909Feature.RefCreatesNewScopeWhenAdjacentToKeywords
                 return result;
             }
 
-        
         
         
             foreach (Property property in this.EnumerateObject())
@@ -1462,6 +1465,10 @@ namespace RefDraft201909Feature.RefCreatesNewScopeWhenAdjacentToKeywords
                 result = result.UsingStack();
             }
 
+                        
+                    result = result.UsingEvaluatedProperties();
+        
+        
     
                 JsonValueKind valueKind = this.ValueKind;
     
@@ -1502,8 +1509,6 @@ namespace RefDraft201909Feature.RefCreatesNewScopeWhenAdjacentToKeywords
                 return result;
             }
 
-                    result = result.UsingEvaluatedProperties();
-        
         
         
             foreach (Property property in this.EnumerateObject())

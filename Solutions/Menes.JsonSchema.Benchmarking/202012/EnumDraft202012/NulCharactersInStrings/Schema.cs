@@ -504,6 +504,8 @@ namespace EnumDraft202012Feature.NulCharactersInStrings
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
     

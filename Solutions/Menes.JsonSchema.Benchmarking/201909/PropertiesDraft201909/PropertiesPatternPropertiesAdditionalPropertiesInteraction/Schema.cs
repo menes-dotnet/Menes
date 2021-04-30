@@ -760,6 +760,10 @@ namespace PropertiesDraft201909Feature.PropertiesPatternPropertiesAdditionalProp
                 result = result.UsingStack();
             }
 
+                        
+                    result = result.UsingEvaluatedProperties();
+        
+        
     
                 JsonValueKind valueKind = this.ValueKind;
     
@@ -839,8 +843,6 @@ namespace PropertiesDraft201909Feature.PropertiesPatternPropertiesAdditionalProp
                 return result;
             }
 
-                    result = result.UsingEvaluatedProperties();
-        
         
         
             foreach (Property property in this.EnumerateObject())
@@ -1487,6 +1489,9 @@ namespace PropertiesDraft201909Feature.PropertiesPatternPropertiesAdditionalProp
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
                 JsonValueKind valueKind = this.ValueKind;
     
@@ -2144,6 +2149,9 @@ namespace PropertiesDraft201909Feature.PropertiesPatternPropertiesAdditionalProp
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
                 JsonValueKind valueKind = this.ValueKind;
     

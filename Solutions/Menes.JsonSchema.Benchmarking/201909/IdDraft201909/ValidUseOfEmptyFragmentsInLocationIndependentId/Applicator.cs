@@ -1801,6 +1801,9 @@ namespace IdDraft201909Feature.ValidUseOfEmptyFragmentsInLocationIndependentId
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
                 JsonValueKind valueKind = this.ValueKind;
     
@@ -1989,7 +1992,6 @@ namespace IdDraft201909Feature.ValidUseOfEmptyFragmentsInLocationIndependentId
                 return result;
             }
 
-        
         
         
             foreach (Property property in this.EnumerateObject())
@@ -3274,6 +3276,9 @@ namespace IdDraft201909Feature.ValidUseOfEmptyFragmentsInLocationIndependentId
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
     
     
@@ -4006,6 +4011,10 @@ namespace IdDraft201909Feature.ValidUseOfEmptyFragmentsInLocationIndependentId
                 result = result.UsingStack();
             }
 
+                        
+                    result = result.UsingEvaluatedProperties();
+        
+        
     
                 JsonValueKind valueKind = this.ValueKind;
     
@@ -4056,8 +4065,6 @@ namespace IdDraft201909Feature.ValidUseOfEmptyFragmentsInLocationIndependentId
                 return result;
             }
 
-                    result = result.UsingEvaluatedProperties();
-        
         
         
             foreach (Property property in this.EnumerateObject())
@@ -4741,6 +4748,10 @@ namespace IdDraft201909Feature.ValidUseOfEmptyFragmentsInLocationIndependentId
                 result = result.UsingStack();
             }
 
+                        
+                    result = result.UsingEvaluatedProperties();
+        
+        
     
                 JsonValueKind valueKind = this.ValueKind;
     
@@ -4791,8 +4802,6 @@ namespace IdDraft201909Feature.ValidUseOfEmptyFragmentsInLocationIndependentId
                 return result;
             }
 
-                    result = result.UsingEvaluatedProperties();
-        
         
         
             foreach (Property property in this.EnumerateObject())
@@ -5222,6 +5231,9 @@ namespace IdDraft201909Feature.ValidUseOfEmptyFragmentsInLocationIndependentId
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
                 JsonValueKind valueKind = this.ValueKind;
     
@@ -5907,6 +5919,10 @@ namespace IdDraft201909Feature.ValidUseOfEmptyFragmentsInLocationIndependentId
                 result = result.UsingStack();
             }
 
+                        
+                    result = result.UsingEvaluatedProperties();
+        
+        
     
                 JsonValueKind valueKind = this.ValueKind;
     
@@ -5957,8 +5973,6 @@ namespace IdDraft201909Feature.ValidUseOfEmptyFragmentsInLocationIndependentId
                 return result;
             }
 
-                    result = result.UsingEvaluatedProperties();
-        
         
         
             foreach (Property property in this.EnumerateObject())
@@ -6638,6 +6652,9 @@ namespace IdDraft201909Feature.ValidUseOfEmptyFragmentsInLocationIndependentId
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
                 JsonValueKind valueKind = this.ValueKind;
     

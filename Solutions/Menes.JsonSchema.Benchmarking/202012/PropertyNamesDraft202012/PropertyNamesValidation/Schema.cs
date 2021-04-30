@@ -595,6 +595,8 @@ namespace PropertyNamesDraft202012Feature.PropertyNamesValidation
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;
@@ -636,7 +638,6 @@ namespace PropertyNamesDraft202012Feature.PropertyNamesValidation
                 return result;
             }
 
-        
         
         
             foreach (Property property in this.EnumerateObject())
@@ -1165,6 +1166,8 @@ namespace PropertyNamesDraft202012Feature.PropertyNamesValidation
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
     

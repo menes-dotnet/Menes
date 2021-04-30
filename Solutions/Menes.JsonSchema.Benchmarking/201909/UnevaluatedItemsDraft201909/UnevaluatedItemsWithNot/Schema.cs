@@ -593,6 +593,10 @@ namespace UnevaluatedItemsDraft201909Feature.UnevaluatedItemsWithNot
                 result = result.UsingStack();
             }
 
+                        
+        
+                    result = result.UsingEvaluatedItems();
+        
     
                 JsonValueKind valueKind = this.ValueKind;
     
@@ -1268,6 +1272,9 @@ namespace UnevaluatedItemsDraft201909Feature.UnevaluatedItemsWithNot
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
     
     
@@ -1653,6 +1660,9 @@ namespace UnevaluatedItemsDraft201909Feature.UnevaluatedItemsWithNot
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
     
     
@@ -2300,6 +2310,9 @@ namespace UnevaluatedItemsDraft201909Feature.UnevaluatedItemsWithNot
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
                 JsonValueKind valueKind = this.ValueKind;
     
@@ -2887,6 +2900,9 @@ namespace UnevaluatedItemsDraft201909Feature.UnevaluatedItemsWithNot
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
     
     

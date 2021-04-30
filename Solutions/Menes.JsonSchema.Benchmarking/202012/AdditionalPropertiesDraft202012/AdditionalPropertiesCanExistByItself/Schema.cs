@@ -613,6 +613,9 @@ namespace AdditionalPropertiesDraft202012Feature.AdditionalPropertiesCanExistByI
             {
                 result = result.UsingStack();
             }
+                    result = result.UsingEvaluatedProperties();
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;
@@ -654,8 +657,6 @@ namespace AdditionalPropertiesDraft202012Feature.AdditionalPropertiesCanExistByI
                 return result;
             }
 
-                    result = result.UsingEvaluatedProperties();
-        
         
         
             foreach (Property property in this.EnumerateObject())

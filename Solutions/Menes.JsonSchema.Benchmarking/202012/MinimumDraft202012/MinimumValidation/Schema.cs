@@ -531,6 +531,8 @@ namespace MinimumDraft202012Feature.MinimumValidation
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
     

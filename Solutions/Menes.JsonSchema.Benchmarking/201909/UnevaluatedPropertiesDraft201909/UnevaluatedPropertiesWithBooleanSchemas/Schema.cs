@@ -673,6 +673,10 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithBoole
                 result = result.UsingStack();
             }
 
+                        
+                    result = result.UsingEvaluatedProperties();
+        
+        
     
                 JsonValueKind valueKind = this.ValueKind;
     
@@ -745,8 +749,6 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithBoole
                 return result;
             }
 
-                    result = result.UsingEvaluatedProperties();
-        
         
         
             foreach (Property property in this.EnumerateObject())

@@ -596,6 +596,9 @@ namespace MinPropertiesDraft201909Feature.MinPropertiesValidation
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
                 JsonValueKind valueKind = this.ValueKind;
     
@@ -636,7 +639,6 @@ namespace MinPropertiesDraft201909Feature.MinPropertiesValidation
                 return result;
             }
 
-        
                     int propertyCount = 0;
         
         

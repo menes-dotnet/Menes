@@ -803,6 +803,8 @@ namespace DynamicRefDraft202012Feature.ADynamicRefThatInitiallyResolvesToASchema
             {
                 result = result.UsingStack();
             }
+        
+        
 
                 result = this.ValidateRef(result, level);
             if (level == ValidationLevel.Flag && !result.IsValid)
@@ -909,7 +911,6 @@ namespace DynamicRefDraft202012Feature.ADynamicRefThatInitiallyResolvesToASchema
                 return result;
             }
 
-        
         
         
             foreach (Property property in this.EnumerateObject())
@@ -1483,6 +1484,8 @@ namespace DynamicRefDraft202012Feature.ADynamicRefThatInitiallyResolvesToASchema
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
     
@@ -2185,6 +2188,8 @@ namespace DynamicRefDraft202012Feature.ADynamicRefThatInitiallyResolvesToASchema
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;
@@ -2253,7 +2258,6 @@ namespace DynamicRefDraft202012Feature.ADynamicRefThatInitiallyResolvesToASchema
                 return result;
             }
 
-        
         
         
             foreach (Property property in this.EnumerateObject())

@@ -983,6 +983,9 @@ namespace PropertiesDraft201909Feature.PropertiesWithEscapedCharacters
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
                 JsonValueKind valueKind = this.ValueKind;
     
@@ -1075,7 +1078,6 @@ namespace PropertiesDraft201909Feature.PropertiesWithEscapedCharacters
                 return result;
             }
 
-        
         
         
             foreach (Property property in this.EnumerateObject())

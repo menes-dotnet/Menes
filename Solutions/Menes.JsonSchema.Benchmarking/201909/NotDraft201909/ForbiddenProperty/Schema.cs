@@ -673,6 +673,9 @@ namespace NotDraft201909Feature.ForbiddenProperty
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
                 JsonValueKind valueKind = this.ValueKind;
     
@@ -730,7 +733,6 @@ namespace NotDraft201909Feature.ForbiddenProperty
                 return result;
             }
 
-        
         
         
             foreach (Property property in this.EnumerateObject())
@@ -1115,6 +1117,9 @@ namespace NotDraft201909Feature.ForbiddenProperty
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
     
     

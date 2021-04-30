@@ -531,6 +531,8 @@ namespace EnumDraft202012Feature.HeterogeneousEnumWithNullValidation
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
     

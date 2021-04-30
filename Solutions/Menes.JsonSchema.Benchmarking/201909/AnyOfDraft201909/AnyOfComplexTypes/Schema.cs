@@ -734,6 +734,9 @@ namespace AnyOfDraft201909Feature.AnyOfComplexTypes
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
     
     
@@ -1518,6 +1521,9 @@ namespace AnyOfDraft201909Feature.AnyOfComplexTypes
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
                 JsonValueKind valueKind = this.ValueKind;
     
@@ -1575,7 +1581,6 @@ namespace AnyOfDraft201909Feature.AnyOfComplexTypes
                 return result;
             }
 
-        
         
                                 bool foundBar = false;
                     
@@ -2301,6 +2306,9 @@ namespace AnyOfDraft201909Feature.AnyOfComplexTypes
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
                 JsonValueKind valueKind = this.ValueKind;
     
@@ -2358,7 +2366,6 @@ namespace AnyOfDraft201909Feature.AnyOfComplexTypes
                 return result;
             }
 
-        
         
                                 bool foundFoo = false;
                     

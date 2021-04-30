@@ -1066,6 +1066,9 @@ namespace RecursiveRefDraft201909Feature.MultipleDynamicPathsToTheRecursiveRefKe
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
     
     
@@ -1783,6 +1786,9 @@ namespace RecursiveRefDraft201909Feature.MultipleDynamicPathsToTheRecursiveRefKe
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
                 JsonValueKind valueKind = this.ValueKind;
     
@@ -1823,7 +1829,6 @@ namespace RecursiveRefDraft201909Feature.MultipleDynamicPathsToTheRecursiveRefKe
                 return result;
             }
 
-        
         
         
             foreach (Property property in this.EnumerateObject())
@@ -2354,6 +2359,9 @@ namespace RecursiveRefDraft201909Feature.MultipleDynamicPathsToTheRecursiveRefKe
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
     
     

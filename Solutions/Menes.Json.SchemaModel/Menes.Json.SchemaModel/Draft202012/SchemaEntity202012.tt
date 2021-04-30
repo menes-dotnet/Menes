@@ -3061,7 +3061,7 @@ namespace <#= Namespace #>
                 result = result.UsingStack();
             }
         <#
-        if (HasUnevaluatedProperties)
+        if (HasAdditionalProperties || HasUnevaluatedProperties)
         {
         #>
             result = result.UsingEvaluatedProperties();

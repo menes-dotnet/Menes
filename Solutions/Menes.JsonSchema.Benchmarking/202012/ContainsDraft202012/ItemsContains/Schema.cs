@@ -609,6 +609,8 @@ namespace ContainsDraft202012Feature.ItemsContains
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;
@@ -1233,6 +1235,8 @@ namespace ContainsDraft202012Feature.ItemsContains
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
     
@@ -1804,6 +1808,8 @@ namespace ContainsDraft202012Feature.ItemsContains
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
     

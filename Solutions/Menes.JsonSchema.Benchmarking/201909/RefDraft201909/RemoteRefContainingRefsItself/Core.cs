@@ -1305,6 +1305,9 @@ namespace RefDraft201909Feature.RemoteRefContainingRefsItself
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
                 JsonValueKind valueKind = this.ValueKind;
     
@@ -1437,7 +1440,6 @@ namespace RefDraft201909Feature.RemoteRefContainingRefsItself
                 return result;
             }
 
-        
         
         
             foreach (Property property in this.EnumerateObject())
@@ -2026,6 +2028,9 @@ namespace RefDraft201909Feature.RemoteRefContainingRefsItself
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
                 JsonValueKind valueKind = this.ValueKind;
     
@@ -2657,6 +2662,9 @@ namespace RefDraft201909Feature.RemoteRefContainingRefsItself
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
                 JsonValueKind valueKind = this.ValueKind;
     
@@ -3193,6 +3201,9 @@ namespace RefDraft201909Feature.RemoteRefContainingRefsItself
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
                 JsonValueKind valueKind = this.ValueKind;
     
@@ -3881,6 +3892,10 @@ namespace RefDraft201909Feature.RemoteRefContainingRefsItself
                 result = result.UsingStack();
             }
 
+                        
+                    result = result.UsingEvaluatedProperties();
+        
+        
     
                 JsonValueKind valueKind = this.ValueKind;
     
@@ -3931,8 +3946,6 @@ namespace RefDraft201909Feature.RemoteRefContainingRefsItself
                 return result;
             }
 
-                    result = result.UsingEvaluatedProperties();
-        
         
         
             foreach (Property property in this.EnumerateObject())
@@ -4624,6 +4637,10 @@ namespace RefDraft201909Feature.RemoteRefContainingRefsItself
                 result = result.UsingStack();
             }
 
+                        
+                    result = result.UsingEvaluatedProperties();
+        
+        
     
                 JsonValueKind valueKind = this.ValueKind;
     
@@ -4674,8 +4691,6 @@ namespace RefDraft201909Feature.RemoteRefContainingRefsItself
                 return result;
             }
 
-                    result = result.UsingEvaluatedProperties();
-        
         
         
             foreach (Property property in this.EnumerateObject())

@@ -607,6 +607,8 @@ namespace PatternPropertiesDraft202012Feature.PatternPropertiesWithBooleanSchema
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;
@@ -669,7 +671,6 @@ namespace PatternPropertiesDraft202012Feature.PatternPropertiesWithBooleanSchema
                 return result;
             }
 
-        
         
         
             foreach (Property property in this.EnumerateObject())

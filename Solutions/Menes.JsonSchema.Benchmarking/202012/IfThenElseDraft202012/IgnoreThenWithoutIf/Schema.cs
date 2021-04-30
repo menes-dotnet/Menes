@@ -600,6 +600,8 @@ namespace IfThenElseDraft202012Feature.IgnoreThenWithoutIf
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
     
@@ -1152,6 +1154,8 @@ namespace IfThenElseDraft202012Feature.IgnoreThenWithoutIf
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
     

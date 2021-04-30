@@ -672,6 +672,8 @@ namespace RefDraft202012Feature.RefAppliesAlongsideSiblingKeywords
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;
@@ -730,7 +732,6 @@ namespace RefDraft202012Feature.RefAppliesAlongsideSiblingKeywords
                 return result;
             }
 
-        
         
         
             foreach (Property property in this.EnumerateObject())
@@ -1351,6 +1352,8 @@ namespace RefDraft202012Feature.RefAppliesAlongsideSiblingKeywords
             {
                 result = result.UsingStack();
             }
+        
+        
 
                 result = this.ValidateRef(result, level);
             if (level == ValidationLevel.Flag && !result.IsValid)

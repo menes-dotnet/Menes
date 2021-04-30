@@ -609,6 +609,8 @@ namespace ItemsDraft202012Feature.ItemsAndSubitems
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;
@@ -1365,6 +1367,8 @@ namespace ItemsDraft202012Feature.ItemsAndSubitems
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;
@@ -2176,6 +2180,8 @@ namespace ItemsDraft202012Feature.ItemsAndSubitems
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;
@@ -2244,7 +2250,6 @@ namespace ItemsDraft202012Feature.ItemsAndSubitems
                 return result;
             }
 
-        
         
                                 bool foundFoo = false;
                     

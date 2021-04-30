@@ -735,6 +735,9 @@ namespace RefDraft201909Feature.RelativePointerRefToObject
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
                 JsonValueKind valueKind = this.ValueKind;
     
@@ -799,7 +802,6 @@ namespace RefDraft201909Feature.RelativePointerRefToObject
                 return result;
             }
 
-        
         
         
             foreach (Property property in this.EnumerateObject())

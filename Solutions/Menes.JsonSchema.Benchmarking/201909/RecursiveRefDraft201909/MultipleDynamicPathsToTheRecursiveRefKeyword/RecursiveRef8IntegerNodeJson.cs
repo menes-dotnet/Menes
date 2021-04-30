@@ -852,6 +852,9 @@ namespace RecursiveRefDraft201909Feature.MultipleDynamicPathsToTheRecursiveRefKe
                 result = result.UsingStack();
             }
 
+                        
+        
+        
                 result = this.ValidateRef(result, level);
             if (level == ValidationLevel.Flag && !result.IsValid)
             {
@@ -893,6 +896,7 @@ namespace RecursiveRefDraft201909Feature.MultipleDynamicPathsToTheRecursiveRefKe
             private ValidationContext ValidateRef(in ValidationContext validationContext, ValidationLevel level)
         {
             ValidationContext result = validationContext;
+
 
             ValidationContext refResult = this.As<RecursiveRefDraft201909Feature.MultipleDynamicPathsToTheRecursiveRefKeyword.RecursiveRef8IntegerNodeJson.RecursiveRef8InnerJsonEntity>().Validate(validationContext.CreateChildContext(), level);
 
@@ -1586,6 +1590,10 @@ namespace RecursiveRefDraft201909Feature.MultipleDynamicPathsToTheRecursiveRefKe
                 result = result.UsingStack();
             }
 
+                        
+                    result = result.UsingEvaluatedProperties();
+        
+        
     
                 JsonValueKind valueKind = this.ValueKind;
     
@@ -1626,8 +1634,6 @@ namespace RecursiveRefDraft201909Feature.MultipleDynamicPathsToTheRecursiveRefKe
                 return result;
             }
 
-                    result = result.UsingEvaluatedProperties();
-        
         
         
             foreach (Property property in this.EnumerateObject())

@@ -355,6 +355,8 @@ namespace AllOfDraft202012Feature.AllOfWithTheFirstEmptySchema
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
     

@@ -355,6 +355,8 @@ namespace Ipv6Draft202012Feature.ValidationOfIPv6Addresses
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;

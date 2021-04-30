@@ -662,6 +662,10 @@ namespace UnevaluatedItemsDraft201909Feature.UnevaluatedItemsWithRef
                 result = result.UsingStack();
             }
 
+                        
+        
+                    result = result.UsingEvaluatedItems();
+        
                 result = this.ValidateRef(result, level);
             if (level == ValidationLevel.Flag && !result.IsValid)
             {
@@ -708,6 +712,7 @@ namespace UnevaluatedItemsDraft201909Feature.UnevaluatedItemsWithRef
             private ValidationContext ValidateRef(in ValidationContext validationContext, ValidationLevel level)
         {
             ValidationContext result = validationContext;
+
 
             ValidationContext refResult = this.As<UnevaluatedItemsDraft201909Feature.UnevaluatedItemsWithRef.Schema.BarEntity>().Validate(validationContext.CreateChildContext(), level);
 
@@ -1427,6 +1432,9 @@ namespace UnevaluatedItemsDraft201909Feature.UnevaluatedItemsWithRef
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
                 JsonValueKind valueKind = this.ValueKind;
     

@@ -597,6 +597,9 @@ namespace DependentSchemasDraft201909Feature.SingleDependency
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
                 JsonValueKind valueKind = this.ValueKind;
     
@@ -653,7 +656,6 @@ namespace DependentSchemasDraft201909Feature.SingleDependency
                 return result;
             }
 
-        
         
         
             foreach (Property property in this.EnumerateObject())
@@ -1414,6 +1416,9 @@ namespace DependentSchemasDraft201909Feature.SingleDependency
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
                 JsonValueKind valueKind = this.ValueKind;
     
@@ -1478,7 +1483,6 @@ namespace DependentSchemasDraft201909Feature.SingleDependency
                 return result;
             }
 
-        
         
         
             foreach (Property property in this.EnumerateObject())

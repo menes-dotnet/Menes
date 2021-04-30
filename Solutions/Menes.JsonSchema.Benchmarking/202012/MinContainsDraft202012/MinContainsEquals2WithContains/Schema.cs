@@ -592,6 +592,8 @@ namespace MinContainsDraft202012Feature.MinContainsEquals2WithContains
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;
@@ -1209,6 +1211,8 @@ namespace MinContainsDraft202012Feature.MinContainsEquals2WithContains
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
     

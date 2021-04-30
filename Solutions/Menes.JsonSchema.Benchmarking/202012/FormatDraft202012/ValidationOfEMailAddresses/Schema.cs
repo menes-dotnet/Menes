@@ -355,6 +355,8 @@ namespace FormatDraft202012Feature.ValidationOfEMailAddresses
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;

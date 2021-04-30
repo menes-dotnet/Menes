@@ -771,6 +771,8 @@ namespace IdDraft202012Feature.ValidUseOfEmptyFragmentsInLocationIndependentId
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;
@@ -839,7 +841,6 @@ namespace IdDraft202012Feature.ValidUseOfEmptyFragmentsInLocationIndependentId
                 return result;
             }
 
-        
         
         
             foreach (Property property in this.EnumerateObject())

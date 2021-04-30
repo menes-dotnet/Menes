@@ -796,6 +796,8 @@ namespace RefDraft202012Feature.EscapedPointerRef
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;
@@ -868,7 +870,6 @@ namespace RefDraft202012Feature.EscapedPointerRef
                 return result;
             }
 
-        
         
         
             foreach (Property property in this.EnumerateObject())

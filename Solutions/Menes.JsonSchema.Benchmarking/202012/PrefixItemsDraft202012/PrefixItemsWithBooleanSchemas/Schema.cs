@@ -592,6 +592,8 @@ namespace PrefixItemsDraft202012Feature.PrefixItemsWithBooleanSchemas
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;

@@ -691,6 +691,8 @@ namespace TypeDraft202012Feature.MultipleTypesCanBeSpecifiedInAnArray
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;

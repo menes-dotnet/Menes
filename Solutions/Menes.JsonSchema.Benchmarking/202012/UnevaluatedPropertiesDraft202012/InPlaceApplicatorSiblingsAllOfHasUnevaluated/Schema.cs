@@ -809,6 +809,8 @@ namespace UnevaluatedPropertiesDraft202012Feature.InPlaceApplicatorSiblingsAllOf
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;
@@ -1658,6 +1660,9 @@ namespace UnevaluatedPropertiesDraft202012Feature.InPlaceApplicatorSiblingsAllOf
             {
                 result = result.UsingStack();
             }
+                    result = result.UsingEvaluatedProperties();
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;
@@ -1716,8 +1721,6 @@ namespace UnevaluatedPropertiesDraft202012Feature.InPlaceApplicatorSiblingsAllOf
                 return result;
             }
 
-                    result = result.UsingEvaluatedProperties();
-        
         
         
             foreach (Property property in this.EnumerateObject())
@@ -2434,6 +2437,8 @@ namespace UnevaluatedPropertiesDraft202012Feature.InPlaceApplicatorSiblingsAllOf
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;
@@ -2492,7 +2497,6 @@ namespace UnevaluatedPropertiesDraft202012Feature.InPlaceApplicatorSiblingsAllOf
                 return result;
             }
 
-        
         
         
             foreach (Property property in this.EnumerateObject())

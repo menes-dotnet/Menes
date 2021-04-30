@@ -609,6 +609,8 @@ namespace DynamicRefDraft202012Feature.ADynamicRefShouldResolveToTheFirstDynamic
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;

@@ -355,6 +355,8 @@ namespace RefRemoteDraft202012Feature.RootRefInRemoteRef
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
     

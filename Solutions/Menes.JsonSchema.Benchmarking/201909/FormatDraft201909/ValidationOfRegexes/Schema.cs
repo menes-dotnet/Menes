@@ -356,6 +356,9 @@ namespace FormatDraft201909Feature.ValidationOfRegexes
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
                 JsonValueKind valueKind = this.ValueKind;
     

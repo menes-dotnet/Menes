@@ -895,6 +895,8 @@ namespace RefDraft202012Feature.RemoteRefContainingRefsItself
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;
@@ -977,7 +979,6 @@ namespace RefDraft202012Feature.RemoteRefContainingRefsItself
                 return result;
             }
 
-        
         
         
             foreach (Property property in this.EnumerateObject())

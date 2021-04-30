@@ -673,6 +673,9 @@ namespace RefDraft201909Feature.RefsWithQuote
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
                 JsonValueKind valueKind = this.ValueKind;
     
@@ -730,7 +733,6 @@ namespace RefDraft201909Feature.RefsWithQuote
                 return result;
             }
 
-        
         
         
             foreach (Property property in this.EnumerateObject())

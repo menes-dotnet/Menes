@@ -355,6 +355,8 @@ namespace TimeDraft202012Feature.ValidationOfTimeStrings
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;

@@ -603,6 +603,9 @@ namespace PatternPropertiesDraft201909Feature.PatternPropertiesValidatesProperti
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
                 JsonValueKind valueKind = this.ValueKind;
     
@@ -658,7 +661,6 @@ namespace PatternPropertiesDraft201909Feature.PatternPropertiesValidatesProperti
                 return result;
             }
 
-        
         
         
             foreach (Property property in this.EnumerateObject())

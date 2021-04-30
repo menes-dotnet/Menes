@@ -593,6 +593,10 @@ namespace UnevaluatedItemsDraft201909Feature.UnevaluatedItemsWithAdditionalItems
                 result = result.UsingStack();
             }
 
+                        
+        
+                    result = result.UsingEvaluatedItems();
+        
     
                 JsonValueKind valueKind = this.ValueKind;
     

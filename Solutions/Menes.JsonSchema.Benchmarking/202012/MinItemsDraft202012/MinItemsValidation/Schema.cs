@@ -592,6 +592,8 @@ namespace MinItemsDraft202012Feature.MinItemsValidation
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;

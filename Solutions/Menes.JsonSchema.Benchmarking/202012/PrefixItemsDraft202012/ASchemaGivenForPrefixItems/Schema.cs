@@ -592,6 +592,8 @@ namespace PrefixItemsDraft202012Feature.ASchemaGivenForPrefixItems
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;

@@ -355,6 +355,8 @@ namespace UriReferenceDraft202012Feature.ValidationOfURReferences
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;

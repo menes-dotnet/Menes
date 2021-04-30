@@ -596,6 +596,9 @@ namespace RefDraft201909Feature.NaiveReplacementOfRefWithItsDestinationIsNotCorr
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
     
     

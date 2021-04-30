@@ -355,6 +355,8 @@ namespace DurationDraft202012Feature.ValidationOfDurationStrings
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;

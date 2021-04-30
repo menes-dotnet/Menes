@@ -735,6 +735,9 @@ namespace RefOfUnknownKeywordDraft201909Feature.ReferenceOfAnArbitraryKeywordOfA
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
                 JsonValueKind valueKind = this.ValueKind;
     
@@ -799,7 +802,6 @@ namespace RefOfUnknownKeywordDraft201909Feature.ReferenceOfAnArbitraryKeywordOfA
                 return result;
             }
 
-        
         
         
             foreach (Property property in this.EnumerateObject())

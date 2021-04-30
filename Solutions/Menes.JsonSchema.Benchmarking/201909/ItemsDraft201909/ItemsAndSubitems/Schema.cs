@@ -593,6 +593,10 @@ namespace ItemsDraft201909Feature.ItemsAndSubitems
                 result = result.UsingStack();
             }
 
+                        
+        
+                    result = result.UsingEvaluatedItems();
+        
     
                 JsonValueKind valueKind = this.ValueKind;
     
@@ -1338,6 +1342,10 @@ namespace ItemsDraft201909Feature.ItemsAndSubitems
                 result = result.UsingStack();
             }
 
+                        
+        
+                    result = result.UsingEvaluatedItems();
+        
     
                 JsonValueKind valueKind = this.ValueKind;
     
@@ -2155,6 +2163,9 @@ namespace ItemsDraft201909Feature.ItemsAndSubitems
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
                 JsonValueKind valueKind = this.ValueKind;
     
@@ -2222,7 +2233,6 @@ namespace ItemsDraft201909Feature.ItemsAndSubitems
                 return result;
             }
 
-        
         
                                 bool foundFoo = false;
                     

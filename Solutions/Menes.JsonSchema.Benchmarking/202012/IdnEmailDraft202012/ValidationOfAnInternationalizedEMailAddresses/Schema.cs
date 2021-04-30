@@ -355,6 +355,8 @@ namespace IdnEmailDraft202012Feature.ValidationOfAnInternationalizedEMailAddress
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;

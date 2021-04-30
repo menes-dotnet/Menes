@@ -355,6 +355,8 @@ namespace IdnHostnameDraft202012Feature.ValidationOfInternationalizedHostNames
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;

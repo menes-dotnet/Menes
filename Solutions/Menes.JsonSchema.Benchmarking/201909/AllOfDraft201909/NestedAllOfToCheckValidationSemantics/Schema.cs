@@ -412,6 +412,9 @@ namespace AllOfDraft201909Feature.NestedAllOfToCheckValidationSemantics
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
     
     
@@ -826,6 +829,9 @@ namespace AllOfDraft201909Feature.NestedAllOfToCheckValidationSemantics
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
     
     

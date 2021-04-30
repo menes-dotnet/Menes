@@ -609,6 +609,8 @@ namespace DynamicRefDraft202012Feature.ADynamicRefWithANonMatchingDynamicAnchorI
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;
@@ -1077,6 +1079,8 @@ namespace DynamicRefDraft202012Feature.ADynamicRefWithANonMatchingDynamicAnchorI
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
     

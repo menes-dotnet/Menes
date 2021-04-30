@@ -531,6 +531,8 @@ namespace EnumDraft202012Feature.SimpleEnumValidation
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
     

@@ -356,6 +356,9 @@ namespace FormatDraft201909Feature.ValidationOfIPv6Addresses
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
                 JsonValueKind valueKind = this.ValueKind;
     

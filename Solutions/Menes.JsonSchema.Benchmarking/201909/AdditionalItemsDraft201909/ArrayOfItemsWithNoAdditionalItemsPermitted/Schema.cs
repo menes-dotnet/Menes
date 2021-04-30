@@ -593,6 +593,10 @@ namespace AdditionalItemsDraft201909Feature.ArrayOfItemsWithNoAdditionalItemsPer
                 result = result.UsingStack();
             }
 
+                        
+        
+                    result = result.UsingEvaluatedItems();
+        
     
                 JsonValueKind valueKind = this.ValueKind;
     

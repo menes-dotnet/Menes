@@ -896,6 +896,9 @@ namespace DefsDraft201909Feature.ValidateDefinitionAgainstMetaschema
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
                 JsonValueKind valueKind = this.ValueKind;
     
@@ -977,7 +980,6 @@ namespace DefsDraft201909Feature.ValidateDefinitionAgainstMetaschema
                 return result;
             }
 
-        
         
         
             foreach (Property property in this.EnumerateObject())

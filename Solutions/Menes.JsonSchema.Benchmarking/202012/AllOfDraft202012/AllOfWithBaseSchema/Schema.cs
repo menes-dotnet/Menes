@@ -925,6 +925,8 @@ namespace AllOfDraft202012Feature.AllOfWithBaseSchema
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;
@@ -988,7 +990,6 @@ namespace AllOfDraft202012Feature.AllOfWithBaseSchema
                 return result;
             }
 
-        
         
                                 bool foundBar = false;
                     
@@ -1768,6 +1769,8 @@ namespace AllOfDraft202012Feature.AllOfWithBaseSchema
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;
@@ -1826,7 +1829,6 @@ namespace AllOfDraft202012Feature.AllOfWithBaseSchema
                 return result;
             }
 
-        
         
                                 bool foundFoo = false;
                     
@@ -2551,6 +2553,8 @@ namespace AllOfDraft202012Feature.AllOfWithBaseSchema
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;
@@ -2609,7 +2613,6 @@ namespace AllOfDraft202012Feature.AllOfWithBaseSchema
                 return result;
             }
 
-        
         
                                 bool foundBaz = false;
                     

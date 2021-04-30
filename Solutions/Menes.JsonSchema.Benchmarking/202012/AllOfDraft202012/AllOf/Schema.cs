@@ -865,6 +865,8 @@ namespace AllOfDraft202012Feature.AllOf
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
     
@@ -1618,6 +1620,8 @@ namespace AllOfDraft202012Feature.AllOf
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;
@@ -1676,7 +1680,6 @@ namespace AllOfDraft202012Feature.AllOf
                 return result;
             }
 
-        
         
                                 bool foundBar = false;
                     
@@ -2401,6 +2404,8 @@ namespace AllOfDraft202012Feature.AllOf
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;
@@ -2459,7 +2464,6 @@ namespace AllOfDraft202012Feature.AllOf
                 return result;
             }
 
-        
         
                                 bool foundFoo = false;
                     

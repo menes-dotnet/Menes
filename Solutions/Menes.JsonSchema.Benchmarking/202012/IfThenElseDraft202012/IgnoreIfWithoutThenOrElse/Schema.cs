@@ -601,6 +601,8 @@ namespace IfThenElseDraft202012Feature.IgnoreIfWithoutThenOrElse
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
     
@@ -1193,6 +1195,8 @@ namespace IfThenElseDraft202012Feature.IgnoreIfWithoutThenOrElse
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
     

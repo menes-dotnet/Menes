@@ -505,6 +505,9 @@ namespace TypeDraft201909Feature.TypeAsArrayWithOneItem
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
                 JsonValueKind valueKind = this.ValueKind;
     

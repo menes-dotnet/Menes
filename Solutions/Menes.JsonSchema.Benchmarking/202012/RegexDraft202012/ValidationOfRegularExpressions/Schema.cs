@@ -355,6 +355,8 @@ namespace RegexDraft202012Feature.ValidationOfRegularExpressions
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;

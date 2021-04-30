@@ -610,6 +610,9 @@ namespace ItemsDraft201909Feature.NestedItems
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
                 JsonValueKind valueKind = this.ValueKind;
     
@@ -1332,6 +1335,9 @@ namespace ItemsDraft201909Feature.NestedItems
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
                 JsonValueKind valueKind = this.ValueKind;
     
@@ -2058,6 +2064,9 @@ namespace ItemsDraft201909Feature.NestedItems
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
                 JsonValueKind valueKind = this.ValueKind;
     
@@ -2784,6 +2793,9 @@ namespace ItemsDraft201909Feature.NestedItems
                 result = result.UsingStack();
             }
 
+                        
+        
+        
     
                 JsonValueKind valueKind = this.ValueKind;
     

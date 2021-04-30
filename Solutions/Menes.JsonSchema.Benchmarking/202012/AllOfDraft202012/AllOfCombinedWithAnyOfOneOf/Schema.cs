@@ -738,6 +738,8 @@ namespace AllOfDraft202012Feature.AllOfCombinedWithAnyOfOneOf
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
     
@@ -795,7 +797,7 @@ namespace AllOfDraft202012Feature.AllOfCombinedWithAnyOfOneOf
             {
                 result = result.MergeChildContext(oneOfResult0, level >= ValidationLevel.Detailed);
                 oneOfCount += 1;
-                            if (oneOfCount > 1 && level == ValidationLevel.Flag)
+                                            if (oneOfCount > 1 && level == ValidationLevel.Flag)
                 {
                     result = result.WithResult(isValid: false);
                     return result;
@@ -805,15 +807,15 @@ namespace AllOfDraft202012Feature.AllOfCombinedWithAnyOfOneOf
             {
                 if (level >= ValidationLevel.Detailed)
                 {
-                    result = result.MergeChildContext(oneOfResult0, true);
+                    result = result.MergeResults(result.IsValid, level, oneOfResult0);
                 }
                 else if (level >= ValidationLevel.Basic)
                 {
-                    result = result.MergeChildContext(oneOfResult0, true);
+                    result = result.MergeResults(result.IsValid, level, oneOfResult0);
                 }
                 else
                 {
-                    result = result.MergeChildContext(oneOfResult0, false);
+                    result = result.MergeResults(result.IsValid, level, oneOfResult0);
                 }
             }
 
@@ -1480,6 +1482,8 @@ namespace AllOfDraft202012Feature.AllOfCombinedWithAnyOfOneOf
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
     
@@ -2051,6 +2055,8 @@ namespace AllOfDraft202012Feature.AllOfCombinedWithAnyOfOneOf
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
     
@@ -2622,6 +2628,8 @@ namespace AllOfDraft202012Feature.AllOfCombinedWithAnyOfOneOf
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
     

@@ -355,6 +355,8 @@ namespace NotDraft202012Feature.NotMoreComplexSchema
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
     
@@ -1082,6 +1084,8 @@ namespace NotDraft202012Feature.NotMoreComplexSchema
             {
                 result = result.UsingStack();
             }
+        
+        
 
     
                 JsonValueKind valueKind = this.ValueKind;
@@ -1150,7 +1154,6 @@ namespace NotDraft202012Feature.NotMoreComplexSchema
                 return result;
             }
 
-        
         
         
             foreach (Property property in this.EnumerateObject())
