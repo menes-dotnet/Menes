@@ -14,6 +14,8 @@ namespace Menes
 
     using Menes.Json;
     using Menes.OpenApi;
+    using UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteractToControlItemDependencyRelationship;
+
     ////using UnevaluatedItemsDraft202012Feature.ItemIsEvaluatedInAnUncleSchemaToUnevaluatedItems;
 
     class Program
@@ -21,14 +23,9 @@ namespace Menes
         static async Task Main(string[] args)
         {
 
-            ////Schema schema = JsonAny.Parse(@"{
-            ////        ""foo"": [
-            ////            ""test"",
-            ////            ""test""
-            ////        ]
-            ////    }");
+            Schema schema = JsonAny.Parse(@"[ ""a"", ""b"", ""a"", ""b"", ""a"" ]");
 
-            ////var result = schema.Validate();
+            var result = schema.Validate();
 
             ////PersonResource person = PersonResource.Create(
             ////    foo: "Hello",

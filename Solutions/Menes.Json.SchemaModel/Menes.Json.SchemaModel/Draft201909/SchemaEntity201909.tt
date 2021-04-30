@@ -3061,6 +3061,25 @@ namespace <#= Namespace #>
                 result = result.UsingStack();
             }
 
+                        
+        <#
+        if (HasAdditionalProperties || HasUnevaluatedProperties)
+        {
+        #>
+            result = result.UsingEvaluatedProperties();
+        <#
+        }
+        #>
+
+        <#
+        if (HasAdditionalItems || HasUnevaluatedItems)
+        {
+        #>
+            result = result.UsingEvaluatedItems();
+        <#
+        }
+        #>
+
     <#
     if (HasRef)
     {    
@@ -3594,6 +3613,7 @@ namespace <#= Namespace #>
         {
             ValidationContext result = validationContext;
 
+
             ValidationContext refResult = this.As<<#= RefDotnetTypeName #>>().Validate(validationContext.CreateChildContext(), level);
 
             if (!refResult.IsValid)
@@ -4037,15 +4057,6 @@ namespace <#= Namespace #>
             }
 
         <#
-        if (AllowsAdditionalProperties && (HasAdditionalProperties || HasUnevaluatedProperties))
-        {
-        #>
-            result = result.UsingEvaluatedProperties();
-        <#
-        }
-        #>
-
-        <#
         if (HasMaxProperties || HasMinProperties)
         {
         #>
@@ -4423,15 +4434,15 @@ namespace <#= Namespace #>
             {
                 if (level >= ValidationLevel.Detailed)
                 {
-                    result = result.MergeChildContext(oneOfResult<#= oneOfIndex #>, true);
+                    result = result.MergeResults(result.IsValid, level, oneOfResult<#= oneOfIndex #>);
                 }
                 else if (level >= ValidationLevel.Basic)
                 {
-                    result = result.MergeChildContext(oneOfResult<#= oneOfIndex #>, true);
+                    result = result.MergeResults(result.IsValid, level, oneOfResult<#= oneOfIndex #>);
                 }
                 else
                 {
-                    result = result.MergeChildContext(oneOfResult<#= oneOfIndex #>, false);
+                    result = result.MergeResults(result.IsValid, level, oneOfResult<#= oneOfIndex #>);
                 }
             }
 
