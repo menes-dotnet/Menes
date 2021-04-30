@@ -8,6 +8,7 @@ namespace Menes.Json
     using System.Buffers;
     using System.Collections.Generic;
     using System.Collections.Immutable;
+    using System.Text;
     using System.Text.Json;
 
     /// <summary>
@@ -16,7 +17,7 @@ namespace Menes.Json
     public readonly struct JsonObject : IJsonObject<JsonObject>, IEquatable<JsonObject>
     {
         private readonly JsonElement jsonElement;
-        private readonly ImmutableDictionary<JsonEncodedText, JsonAny>? properties;
+        private readonly ImmutableDictionary<string, JsonAny>? properties;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="JsonObject"/> struct.
@@ -32,7 +33,7 @@ namespace Menes.Json
         /// Initializes a new instance of the <see cref="JsonObject"/> struct.
         /// </summary>
         /// <param name="properties">An immutable dictionary of properties for the object.</param>
-        public JsonObject(ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+        public JsonObject(ImmutableDictionary<string, JsonAny> properties)
         {
             this.jsonElement = default;
             this.properties = properties;
@@ -66,7 +67,7 @@ namespace Menes.Json
         {
             get
             {
-                if (this.properties is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+                if (this.properties is ImmutableDictionary<string, JsonAny> properties)
                 {
                     return PropertiesToJsonElement(properties);
                 }
@@ -87,27 +88,27 @@ namespace Menes.Json
         /// <summary>
         /// Gets the object as a property dictionary.
         /// </summary>
-        public ImmutableDictionary<JsonEncodedText, JsonAny> AsPropertyDictionary
+        public ImmutableDictionary<string, JsonAny> AsPropertyDictionary
         {
             get
             {
-                if (this.properties is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+                if (this.properties is ImmutableDictionary<string, JsonAny> properties)
                 {
                     return properties;
                 }
 
                 if (this.jsonElement.ValueKind == JsonValueKind.Object)
                 {
-                    ImmutableDictionary<JsonEncodedText, JsonAny>.Builder builder = ImmutableDictionary.CreateBuilder<JsonEncodedText, JsonAny>();
+                    ImmutableDictionary<string, JsonAny>.Builder builder = ImmutableDictionary.CreateBuilder<string, JsonAny>();
                     foreach (JsonProperty property in this.jsonElement.EnumerateObject())
                     {
-                        builder.Add(JsonEncodedText.Encode(property.Name), new JsonAny(property.Value));
+                        builder.Add(property.Name, new JsonAny(property.Value));
                     }
 
                     return builder.ToImmutable();
                 }
 
-                return ImmutableDictionary<JsonEncodedText, JsonAny>.Empty;
+                return ImmutableDictionary<string, JsonAny>.Empty;
             }
         }
 
@@ -115,7 +116,7 @@ namespace Menes.Json
         /// Implicit conversion to a property dictionary.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator ImmutableDictionary<JsonEncodedText, JsonAny>(JsonObject value)
+        public static implicit operator ImmutableDictionary<string, JsonAny>(JsonObject value)
         {
             return value.AsPropertyDictionary;
         }
@@ -124,7 +125,7 @@ namespace Menes.Json
         /// Implicit conversion from a property dictionary.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator JsonObject(ImmutableDictionary<JsonEncodedText, JsonAny> value)
+        public static implicit operator JsonObject(ImmutableDictionary<string, JsonAny> value)
         {
             return new JsonObject(value);
         }
@@ -174,7 +175,7 @@ namespace Menes.Json
         /// </summary>
         /// <param name="properties">The property dictionary to write.</param>
         /// <returns>A JsonElement serialized from the properties.</returns>
-        public static JsonElement PropertiesToJsonElement(ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+        public static JsonElement PropertiesToJsonElement(ImmutableDictionary<string, JsonAny> properties)
         {
             var abw = new ArrayBufferWriter<byte>();
             using var writer = new Utf8JsonWriter(abw);
@@ -190,11 +191,11 @@ namespace Menes.Json
         /// </summary>
         /// <param name="properties">The property dictionary to write.</param>
         /// <param name="writer">The writer to which to write the object.</param>
-        public static void WriteProperties(ImmutableDictionary<JsonEncodedText, JsonAny> properties, Utf8JsonWriter writer)
+        public static void WriteProperties(ImmutableDictionary<string, JsonAny> properties, Utf8JsonWriter writer)
         {
             writer.WriteStartObject();
 
-            foreach (KeyValuePair<JsonEncodedText, JsonAny> property in properties)
+            foreach (KeyValuePair<string, JsonAny> property in properties)
             {
                 writer.WritePropertyName(property.Key);
                 property.Value.WriteTo(writer);
@@ -248,7 +249,7 @@ namespace Menes.Json
         /// <param name="writer">The writer to which to write the object.</param>
         public void WriteTo(Utf8JsonWriter writer)
         {
-            if (this.properties is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            if (this.properties is ImmutableDictionary<string, JsonAny> properties)
             {
                 WriteProperties(properties, writer);
             }
@@ -261,7 +262,7 @@ namespace Menes.Json
         /// <inheritdoc/>
         public JsonObjectEnumerator EnumerateObject()
         {
-            if (this.properties is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            if (this.properties is ImmutableDictionary<string, JsonAny> properties)
             {
                 return new JsonObjectEnumerator(properties);
             }
@@ -297,7 +298,7 @@ namespace Menes.Json
             int count = 0;
             foreach (Property property in this.EnumerateObject())
             {
-                if (!other.TryGetProperty(property.NameAsJsonEncodedText, out JsonAny value) || !property.Value.Equals(value))
+                if (!other.TryGetProperty(property.Name, out JsonAny value) || !property.Value.Equals(value))
                 {
                     return false;
                 }
@@ -315,47 +316,11 @@ namespace Menes.Json
         }
 
         /// <inheritdoc/>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("StyleCop.CSharp.SpacingRules", "SA1011:Closing square brackets should be spaced correctly", Justification = "Stylecop issue")]
-        public bool TryGetProperty(JsonEncodedText name, out JsonAny value)
-        {
-            if (this.properties is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
-            {
-                return properties.TryGetValue(name, out value);
-            }
-
-            if (this.jsonElement.ValueKind == JsonValueKind.Object)
-            {
-                ReadOnlySpan<byte> utf8Source = name.EncodedUtf8Bytes;
-
-                int idx = utf8Source.IndexOf(JsonConstants.BackSlash);
-
-                ReadOnlySpan<byte> utf8Unescaped;
-                if (idx >= 0)
-                {
-                    utf8Unescaped = JsonReaderHelper.GetUnescapedSpan(utf8Source, idx);
-                }
-                else
-                {
-                    utf8Unescaped = utf8Source;
-                }
-
-                if (this.jsonElement.TryGetProperty(utf8Unescaped, out JsonElement jsonElement))
-                {
-                    value = new JsonAny(jsonElement);
-                    return true;
-                }
-            }
-
-            value = default;
-            return false;
-        }
-
-        /// <inheritdoc/>
         public bool TryGetProperty(string name, out JsonAny value)
         {
-            if (this.properties is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            if (this.properties is ImmutableDictionary<string, JsonAny> properties)
             {
-                return properties.TryGetValue(JsonEncodedText.Encode(name), out value);
+                return properties.TryGetValue(name, out value);
             }
 
             if (this.jsonElement.ValueKind == JsonValueKind.Object)
@@ -374,9 +339,9 @@ namespace Menes.Json
         /// <inheritdoc/>
         public bool TryGetProperty(ReadOnlySpan<char> name, out JsonAny value)
         {
-            if (this.properties is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            if (this.properties is ImmutableDictionary<string, JsonAny> properties)
             {
-                return properties.TryGetValue(JsonEncodedText.Encode(name), out value);
+                return properties.TryGetValue(name.ToString(), out value);
             }
 
             if (this.jsonElement.ValueKind == JsonValueKind.Object)
@@ -395,9 +360,9 @@ namespace Menes.Json
         /// <inheritdoc/>
         public bool TryGetProperty(ReadOnlySpan<byte> utf8name, out JsonAny value)
         {
-            if (this.properties is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            if (this.properties is ImmutableDictionary<string, JsonAny> properties)
             {
-                return properties.TryGetValue(JsonEncodedText.Encode(utf8name), out value);
+                return properties.TryGetValue(Encoding.UTF8.GetString(utf8name), out value);
             }
 
             if (this.jsonElement.ValueKind == JsonValueKind.Object)
@@ -414,27 +379,11 @@ namespace Menes.Json
         }
 
         /// <inheritdoc/>
-        public bool HasProperty(JsonEncodedText name)
-        {
-            if (this.properties is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
-            {
-                return properties.TryGetValue(name, out _);
-            }
-
-            if (this.jsonElement.ValueKind == JsonValueKind.Object)
-            {
-                return this.jsonElement.TryGetProperty(name.ToString(), out JsonElement _);
-            }
-
-            return false;
-        }
-
-        /// <inheritdoc/>
         public bool HasProperty(string name)
         {
-            if (this.properties is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            if (this.properties is ImmutableDictionary<string, JsonAny> properties)
             {
-                return properties.TryGetValue(JsonEncodedText.Encode(name), out _);
+                return properties.TryGetValue(name, out _);
             }
 
             if (this.jsonElement.ValueKind == JsonValueKind.Object)
@@ -448,9 +397,9 @@ namespace Menes.Json
         /// <inheritdoc/>
         public bool HasProperty(ReadOnlySpan<char> name)
         {
-            if (this.properties is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            if (this.properties is ImmutableDictionary<string, JsonAny> properties)
             {
-                return properties.TryGetValue(JsonEncodedText.Encode(name), out _);
+                return properties.TryGetValue(name.ToString(), out _);
             }
 
             if (this.jsonElement.ValueKind == JsonValueKind.Object)
@@ -464,9 +413,9 @@ namespace Menes.Json
         /// <inheritdoc/>
         public bool HasProperty(ReadOnlySpan<byte> utf8name)
         {
-            if (this.properties is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            if (this.properties is ImmutableDictionary<string, JsonAny> properties)
             {
-                return properties.TryGetValue(JsonEncodedText.Encode(utf8name), out _);
+                return properties.TryGetValue(Encoding.UTF8.GetString(utf8name), out _);
             }
 
             if (this.jsonElement.ValueKind == JsonValueKind.Object)
@@ -478,55 +427,42 @@ namespace Menes.Json
         }
 
         /// <inheritdoc/>
-        public JsonObject SetProperty<TValue>(JsonEncodedText name, TValue value)
+        public JsonObject SetProperty<TValue>(string name, TValue value)
             where TValue : IJsonValue
         {
             return new JsonObject(this.AsPropertyDictionary.SetItem(name, value.AsAny));
         }
 
         /// <inheritdoc/>
-        public JsonObject SetProperty<TValue>(string name, TValue value)
-            where TValue : IJsonValue
-        {
-            return this.SetProperty(JsonEncodedText.Encode(name), value);
-        }
-
-        /// <inheritdoc/>
         public JsonObject SetProperty<TValue>(ReadOnlySpan<char> name, TValue value)
             where TValue : IJsonValue
         {
-            return this.SetProperty(JsonEncodedText.Encode(name), value);
+            return this.SetProperty(name, value);
         }
 
         /// <inheritdoc/>
         public JsonObject SetProperty<TValue>(ReadOnlySpan<byte> utf8Name, TValue value)
             where TValue : IJsonValue
         {
-            return this.SetProperty(JsonEncodedText.Encode(utf8Name), value);
-        }
-
-        /// <inheritdoc/>
-        public JsonObject RemoveProperty(JsonEncodedText name)
-        {
-            return new JsonObject(this.AsPropertyDictionary.Remove(name));
+            return this.SetProperty(utf8Name, value);
         }
 
         /// <inheritdoc/>
         public JsonObject RemoveProperty(string name)
         {
-            return this.RemoveProperty(JsonEncodedText.Encode(name));
+            return new JsonObject(this.AsPropertyDictionary.Remove(name));
         }
 
         /// <inheritdoc/>
         public JsonObject RemoveProperty(ReadOnlySpan<char> name)
         {
-            return this.RemoveProperty(JsonEncodedText.Encode(name));
+            return this.RemoveProperty(name);
         }
 
         /// <inheritdoc/>
         public JsonObject RemoveProperty(ReadOnlySpan<byte> utf8Name)
         {
-            return this.RemoveProperty(JsonEncodedText.Encode(utf8Name));
+            return this.RemoveProperty(Encoding.UTF8.GetString(utf8Name));
         }
 
         private int GetHashCodeCore()

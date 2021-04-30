@@ -16,6 +16,7 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
     using System.Collections.Generic;
     using System.Collections.Immutable;
     using System.Linq;
+    using System.Text;
     using System.Text.Json;
     using System.Text.RegularExpressions;
     using Menes.Json;
@@ -40,7 +41,7 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
     
         private readonly JsonElement jsonElementBacking;
 
-            private readonly ImmutableDictionary<JsonEncodedText, JsonAny>? objectBacking;
+            private readonly ImmutableDictionary<string, JsonAny>? objectBacking;
     
     
     
@@ -60,7 +61,7 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
         /// Initializes a new instance of the <see cref="Schema"/> struct.
         /// </summary>
         /// <param name="value">A property dictionary.</param>
-        public Schema(ImmutableDictionary<JsonEncodedText, JsonAny> value)
+        public Schema(ImmutableDictionary<string, JsonAny> value)
         {
             this.jsonElementBacking = default;
             this.objectBacking = value;
@@ -302,7 +303,7 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
             get
             {
               
-                if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> objectBacking)
+                if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
                 {
                     return JsonObject.PropertiesToJsonElement(objectBacking);
                 }
@@ -321,7 +322,7 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
         {
             get
             {
-                    if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny>)
+                    if (this.objectBacking is ImmutableDictionary<string, JsonAny>)
                 {
                     return JsonValueKind.Object;
                 }
@@ -340,7 +341,7 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
         {
             get
             {
-                    if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> objectBacking)
+                    if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
                 {
                     return new JsonAny(objectBacking);
                 }
@@ -361,7 +362,7 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
         {
             get
             {
-                    if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> objectBacking)
+                    if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
                 {
                     return new JsonObject(objectBacking);
                 }
@@ -539,7 +540,7 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
         /// Implicit conversion to a property dictionary.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator ImmutableDictionary<JsonEncodedText, JsonAny>(Schema  value)
+        public static implicit operator ImmutableDictionary<string, JsonAny>(Schema  value)
         {
             return value.AsObject.AsPropertyDictionary;
         }
@@ -548,7 +549,7 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
         /// Implicit conversion from a property dictionary.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator Schema (ImmutableDictionary<JsonEncodedText, JsonAny> value)
+        public static implicit operator Schema (ImmutableDictionary<string, JsonAny> value)
         {
             return new Schema (value);
         }
@@ -615,7 +616,7 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
         /// <param name="writer">The writer to which to write the object.</param>
         public void WriteTo(Utf8JsonWriter writer)
         {
-                if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> objectBacking)
+                if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
             {
                 JsonObject.WriteProperties(objectBacking, writer);
                 return;
@@ -647,12 +648,6 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
     
     
     
-        /// <inheritdoc/>
-        public bool TryGetProperty(JsonEncodedText name, out JsonAny value)
-        {
-            return this.AsObject.TryGetProperty(name, out value);
-        }
-
         /// <inheritdoc/>
         public bool TryGetProperty(string name, out JsonAny value)
         {
@@ -720,9 +715,9 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
 
     
         /// <inheritdoc/>
-        public bool HasProperty(JsonEncodedText name)
+        public bool HasProperty(string name)
         {
-            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            if (this.objectBacking is ImmutableDictionary<string, JsonAny> properties)
             {
                 return properties.TryGetValue(name, out _);
             }
@@ -736,27 +731,11 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
         }
 
         /// <inheritdoc/>
-        public bool HasProperty(string name)
-        {
-            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
-            {
-                return properties.TryGetValue(JsonEncodedText.Encode(name), out _);
-            }
-
-            if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
-            {
-                return this.jsonElementBacking.TryGetProperty(name, out JsonElement _);
-            }
-
-            return false;
-        }
-
-        /// <inheritdoc/>
         public bool HasProperty(ReadOnlySpan<char> name)
         {
-            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            if (this.objectBacking is ImmutableDictionary<string, JsonAny> properties)
             {
-                return properties.TryGetValue(JsonEncodedText.Encode(name), out _);
+                return properties.TryGetValue(name.ToString(), out _);
             }
 
             if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
@@ -769,9 +748,9 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
         /// <inheritdoc/>
         public bool HasProperty(ReadOnlySpan<byte> utf8name)
         {
-            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            if (this.objectBacking is ImmutableDictionary<string, JsonAny> properties)
             {
-                return properties.TryGetValue(JsonEncodedText.Encode(utf8name), out _);
+                return properties.TryGetValue(Encoding.UTF8.GetString(utf8name), out _);
             }
 
             if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
@@ -780,18 +759,6 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
             }
 
             return false;        }
-
-        /// <inheritdoc/>
-        public Schema SetProperty<TValue>(JsonEncodedText name, TValue value)
-            where TValue : IJsonValue
-        {
-            if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
-            {
-                return this.AsObject.SetProperty(name, value);
-            }
-
-            return this;
-        }
 
         /// <inheritdoc/>
         public Schema SetProperty<TValue>(string name, TValue value)
@@ -824,17 +791,6 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
             if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
             {
                 return this.AsObject.SetProperty(utf8name, value);
-            }
-
-            return this;
-        }
-
-        /// <inheritdoc/>
-        public Schema RemoveProperty(JsonEncodedText name)
-        {
-            if (this.ValueKind == JsonValueKind.Object)
-            {
-                return this.AsObject.RemoveProperty(name);
             }
 
             return this;
@@ -953,7 +909,7 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
         
             foreach (Property property in this.EnumerateObject())
             {
-                JsonEncodedText propertyName = property.NameAsJsonEncodedText;
+                string propertyName = property.Name;
 
         
         
@@ -1153,7 +1109,7 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
         /// <summary>
         /// JSON property name for <see cref="Baz"/>.
         /// </summary>
-        public static readonly JsonEncodedText BazJsonPropertyName = JsonEncodedText.Encode( BazUtf8JsonPropertyName.Span);
+        public static readonly string BazJsonPropertyName = "baz";
 
         
     
@@ -1161,14 +1117,14 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
     
     
     
-            private static readonly ImmutableDictionary<JsonEncodedText, Func<ElseEntity, ValidationContext, ValidationLevel, ValidationContext>> __MenesLocalProperties = CreateLocalPropertyValidators();
+            private static readonly ImmutableDictionary<string, Func<ElseEntity, ValidationContext, ValidationLevel, ValidationContext>> __MenesLocalProperties = CreateLocalPropertyValidators();
     
     
 
     
         private readonly JsonElement jsonElementBacking;
 
-            private readonly ImmutableDictionary<JsonEncodedText, JsonAny>? objectBacking;
+            private readonly ImmutableDictionary<string, JsonAny>? objectBacking;
     
     
     
@@ -1188,7 +1144,7 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
         /// Initializes a new instance of the <see cref="ElseEntity"/> struct.
         /// </summary>
         /// <param name="value">A property dictionary.</param>
-        public ElseEntity(ImmutableDictionary<JsonEncodedText, JsonAny> value)
+        public ElseEntity(ImmutableDictionary<string, JsonAny> value)
         {
             this.jsonElementBacking = default;
             this.objectBacking = value;
@@ -1238,7 +1194,7 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
         {
             get
             {
-                if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+                if (this.objectBacking is ImmutableDictionary<string, JsonAny> properties)
                 {
                     if(properties.TryGetValue(BazJsonPropertyName, out JsonAny result))
                     {
@@ -1277,7 +1233,7 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
             get
             {
               
-                if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> objectBacking)
+                if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
                 {
                     return JsonObject.PropertiesToJsonElement(objectBacking);
                 }
@@ -1296,7 +1252,7 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
         {
             get
             {
-                    if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny>)
+                    if (this.objectBacking is ImmutableDictionary<string, JsonAny>)
                 {
                     return JsonValueKind.Object;
                 }
@@ -1315,7 +1271,7 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
         {
             get
             {
-                    if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> objectBacking)
+                    if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
                 {
                     return new JsonAny(objectBacking);
                 }
@@ -1336,7 +1292,7 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
         {
             get
             {
-                    if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> objectBacking)
+                    if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
                 {
                     return new JsonObject(objectBacking);
                 }
@@ -1451,7 +1407,7 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
         /// Implicit conversion to a property dictionary.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator ImmutableDictionary<JsonEncodedText, JsonAny>(ElseEntity  value)
+        public static implicit operator ImmutableDictionary<string, JsonAny>(ElseEntity  value)
         {
             return value.AsObject.AsPropertyDictionary;
         }
@@ -1460,7 +1416,7 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
         /// Implicit conversion from a property dictionary.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator ElseEntity (ImmutableDictionary<JsonEncodedText, JsonAny> value)
+        public static implicit operator ElseEntity (ImmutableDictionary<string, JsonAny> value)
         {
             return new ElseEntity (value);
         }
@@ -1500,7 +1456,7 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
                 
         )
         {
-            var builder = ImmutableDictionary.CreateBuilder<JsonEncodedText, JsonAny>();
+            var builder = ImmutableDictionary.CreateBuilder<string, JsonAny>();
                     builder.Add(BazJsonPropertyName, baz);
                             return builder.ToImmutable();
         }
@@ -1552,7 +1508,7 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
         /// <param name="writer">The writer to which to write the object.</param>
         public void WriteTo(Utf8JsonWriter writer)
         {
-                if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> objectBacking)
+                if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
             {
                 JsonObject.WriteProperties(objectBacking, writer);
                 return;
@@ -1584,12 +1540,6 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
     
     
     
-        /// <inheritdoc/>
-        public bool TryGetProperty(JsonEncodedText name, out JsonAny value)
-        {
-            return this.AsObject.TryGetProperty(name, out value);
-        }
-
         /// <inheritdoc/>
         public bool TryGetProperty(string name, out JsonAny value)
         {
@@ -1657,9 +1607,9 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
 
     
         /// <inheritdoc/>
-        public bool HasProperty(JsonEncodedText name)
+        public bool HasProperty(string name)
         {
-            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            if (this.objectBacking is ImmutableDictionary<string, JsonAny> properties)
             {
                 return properties.TryGetValue(name, out _);
             }
@@ -1673,27 +1623,11 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
         }
 
         /// <inheritdoc/>
-        public bool HasProperty(string name)
-        {
-            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
-            {
-                return properties.TryGetValue(JsonEncodedText.Encode(name), out _);
-            }
-
-            if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
-            {
-                return this.jsonElementBacking.TryGetProperty(name, out JsonElement _);
-            }
-
-            return false;
-        }
-
-        /// <inheritdoc/>
         public bool HasProperty(ReadOnlySpan<char> name)
         {
-            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            if (this.objectBacking is ImmutableDictionary<string, JsonAny> properties)
             {
-                return properties.TryGetValue(JsonEncodedText.Encode(name), out _);
+                return properties.TryGetValue(name.ToString(), out _);
             }
 
             if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
@@ -1706,9 +1640,9 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
         /// <inheritdoc/>
         public bool HasProperty(ReadOnlySpan<byte> utf8name)
         {
-            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            if (this.objectBacking is ImmutableDictionary<string, JsonAny> properties)
             {
-                return properties.TryGetValue(JsonEncodedText.Encode(utf8name), out _);
+                return properties.TryGetValue(Encoding.UTF8.GetString(utf8name), out _);
             }
 
             if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
@@ -1717,18 +1651,6 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
             }
 
             return false;        }
-
-        /// <inheritdoc/>
-        public ElseEntity SetProperty<TValue>(JsonEncodedText name, TValue value)
-            where TValue : IJsonValue
-        {
-            if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
-            {
-                return this.AsObject.SetProperty(name, value);
-            }
-
-            return this;
-        }
 
         /// <inheritdoc/>
         public ElseEntity SetProperty<TValue>(string name, TValue value)
@@ -1761,17 +1683,6 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
             if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
             {
                 return this.AsObject.SetProperty(utf8name, value);
-            }
-
-            return this;
-        }
-
-        /// <inheritdoc/>
-        public ElseEntity RemoveProperty(JsonEncodedText name)
-        {
-            if (this.ValueKind == JsonValueKind.Object)
-            {
-                return this.AsObject.RemoveProperty(name);
             }
 
             return this;
@@ -1857,10 +1768,10 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
     
     
     
-        private static ImmutableDictionary<JsonEncodedText, Func<ElseEntity, ValidationContext, ValidationLevel, ValidationContext>> CreateLocalPropertyValidators()
+        private static ImmutableDictionary<string, Func<ElseEntity, ValidationContext, ValidationLevel, ValidationContext>> CreateLocalPropertyValidators()
         {
-            ImmutableDictionary<JsonEncodedText, Func<ElseEntity, ValidationContext, ValidationLevel, ValidationContext>>.Builder builder =
-                ImmutableDictionary.CreateBuilder<JsonEncodedText, Func<ElseEntity, ValidationContext, ValidationLevel, ValidationContext>>();
+            ImmutableDictionary<string, Func<ElseEntity, ValidationContext, ValidationLevel, ValidationContext>>.Builder builder =
+                ImmutableDictionary.CreateBuilder<string, Func<ElseEntity, ValidationContext, ValidationLevel, ValidationContext>>();
 
                     builder.Add(
                 BazJsonPropertyName,
@@ -1891,7 +1802,7 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
                     
             foreach (Property property in this.EnumerateObject())
             {
-                JsonEncodedText propertyName = property.NameAsJsonEncodedText;
+                string propertyName = property.Name;
 
         
                         if (__MenesLocalProperties.TryGetValue(propertyName, out Func<ElseEntity, ValidationContext, ValidationLevel, ValidationContext>? propertyValidator))
@@ -1981,7 +1892,7 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
         /// <summary>
         /// JSON property name for <see cref="Foo"/>.
         /// </summary>
-        public static readonly JsonEncodedText FooJsonPropertyName = JsonEncodedText.Encode( FooUtf8JsonPropertyName.Span);
+        public static readonly string FooJsonPropertyName = "foo";
 
         
     
@@ -1989,14 +1900,14 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
     
     
     
-            private static readonly ImmutableDictionary<JsonEncodedText, Func<IfEntity, ValidationContext, ValidationLevel, ValidationContext>> __MenesLocalProperties = CreateLocalPropertyValidators();
+            private static readonly ImmutableDictionary<string, Func<IfEntity, ValidationContext, ValidationLevel, ValidationContext>> __MenesLocalProperties = CreateLocalPropertyValidators();
     
     
 
     
         private readonly JsonElement jsonElementBacking;
 
-            private readonly ImmutableDictionary<JsonEncodedText, JsonAny>? objectBacking;
+            private readonly ImmutableDictionary<string, JsonAny>? objectBacking;
     
     
     
@@ -2016,7 +1927,7 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
         /// Initializes a new instance of the <see cref="IfEntity"/> struct.
         /// </summary>
         /// <param name="value">A property dictionary.</param>
-        public IfEntity(ImmutableDictionary<JsonEncodedText, JsonAny> value)
+        public IfEntity(ImmutableDictionary<string, JsonAny> value)
         {
             this.jsonElementBacking = default;
             this.objectBacking = value;
@@ -2066,7 +1977,7 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
         {
             get
             {
-                if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+                if (this.objectBacking is ImmutableDictionary<string, JsonAny> properties)
                 {
                     if(properties.TryGetValue(FooJsonPropertyName, out JsonAny result))
                     {
@@ -2105,7 +2016,7 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
             get
             {
               
-                if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> objectBacking)
+                if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
                 {
                     return JsonObject.PropertiesToJsonElement(objectBacking);
                 }
@@ -2124,7 +2035,7 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
         {
             get
             {
-                    if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny>)
+                    if (this.objectBacking is ImmutableDictionary<string, JsonAny>)
                 {
                     return JsonValueKind.Object;
                 }
@@ -2143,7 +2054,7 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
         {
             get
             {
-                    if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> objectBacking)
+                    if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
                 {
                     return new JsonAny(objectBacking);
                 }
@@ -2164,7 +2075,7 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
         {
             get
             {
-                    if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> objectBacking)
+                    if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
                 {
                     return new JsonObject(objectBacking);
                 }
@@ -2279,7 +2190,7 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
         /// Implicit conversion to a property dictionary.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator ImmutableDictionary<JsonEncodedText, JsonAny>(IfEntity  value)
+        public static implicit operator ImmutableDictionary<string, JsonAny>(IfEntity  value)
         {
             return value.AsObject.AsPropertyDictionary;
         }
@@ -2288,7 +2199,7 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
         /// Implicit conversion from a property dictionary.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator IfEntity (ImmutableDictionary<JsonEncodedText, JsonAny> value)
+        public static implicit operator IfEntity (ImmutableDictionary<string, JsonAny> value)
         {
             return new IfEntity (value);
         }
@@ -2328,7 +2239,7 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
                 
         )
         {
-            var builder = ImmutableDictionary.CreateBuilder<JsonEncodedText, JsonAny>();
+            var builder = ImmutableDictionary.CreateBuilder<string, JsonAny>();
                     builder.Add(FooJsonPropertyName, foo);
                             return builder.ToImmutable();
         }
@@ -2380,7 +2291,7 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
         /// <param name="writer">The writer to which to write the object.</param>
         public void WriteTo(Utf8JsonWriter writer)
         {
-                if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> objectBacking)
+                if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
             {
                 JsonObject.WriteProperties(objectBacking, writer);
                 return;
@@ -2412,12 +2323,6 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
     
     
     
-        /// <inheritdoc/>
-        public bool TryGetProperty(JsonEncodedText name, out JsonAny value)
-        {
-            return this.AsObject.TryGetProperty(name, out value);
-        }
-
         /// <inheritdoc/>
         public bool TryGetProperty(string name, out JsonAny value)
         {
@@ -2485,9 +2390,9 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
 
     
         /// <inheritdoc/>
-        public bool HasProperty(JsonEncodedText name)
+        public bool HasProperty(string name)
         {
-            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            if (this.objectBacking is ImmutableDictionary<string, JsonAny> properties)
             {
                 return properties.TryGetValue(name, out _);
             }
@@ -2501,27 +2406,11 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
         }
 
         /// <inheritdoc/>
-        public bool HasProperty(string name)
-        {
-            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
-            {
-                return properties.TryGetValue(JsonEncodedText.Encode(name), out _);
-            }
-
-            if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
-            {
-                return this.jsonElementBacking.TryGetProperty(name, out JsonElement _);
-            }
-
-            return false;
-        }
-
-        /// <inheritdoc/>
         public bool HasProperty(ReadOnlySpan<char> name)
         {
-            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            if (this.objectBacking is ImmutableDictionary<string, JsonAny> properties)
             {
-                return properties.TryGetValue(JsonEncodedText.Encode(name), out _);
+                return properties.TryGetValue(name.ToString(), out _);
             }
 
             if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
@@ -2534,9 +2423,9 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
         /// <inheritdoc/>
         public bool HasProperty(ReadOnlySpan<byte> utf8name)
         {
-            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            if (this.objectBacking is ImmutableDictionary<string, JsonAny> properties)
             {
-                return properties.TryGetValue(JsonEncodedText.Encode(utf8name), out _);
+                return properties.TryGetValue(Encoding.UTF8.GetString(utf8name), out _);
             }
 
             if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
@@ -2545,18 +2434,6 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
             }
 
             return false;        }
-
-        /// <inheritdoc/>
-        public IfEntity SetProperty<TValue>(JsonEncodedText name, TValue value)
-            where TValue : IJsonValue
-        {
-            if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
-            {
-                return this.AsObject.SetProperty(name, value);
-            }
-
-            return this;
-        }
 
         /// <inheritdoc/>
         public IfEntity SetProperty<TValue>(string name, TValue value)
@@ -2589,17 +2466,6 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
             if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
             {
                 return this.AsObject.SetProperty(utf8name, value);
-            }
-
-            return this;
-        }
-
-        /// <inheritdoc/>
-        public IfEntity RemoveProperty(JsonEncodedText name)
-        {
-            if (this.ValueKind == JsonValueKind.Object)
-            {
-                return this.AsObject.RemoveProperty(name);
             }
 
             return this;
@@ -2685,10 +2551,10 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
     
     
     
-        private static ImmutableDictionary<JsonEncodedText, Func<IfEntity, ValidationContext, ValidationLevel, ValidationContext>> CreateLocalPropertyValidators()
+        private static ImmutableDictionary<string, Func<IfEntity, ValidationContext, ValidationLevel, ValidationContext>> CreateLocalPropertyValidators()
         {
-            ImmutableDictionary<JsonEncodedText, Func<IfEntity, ValidationContext, ValidationLevel, ValidationContext>>.Builder builder =
-                ImmutableDictionary.CreateBuilder<JsonEncodedText, Func<IfEntity, ValidationContext, ValidationLevel, ValidationContext>>();
+            ImmutableDictionary<string, Func<IfEntity, ValidationContext, ValidationLevel, ValidationContext>>.Builder builder =
+                ImmutableDictionary.CreateBuilder<string, Func<IfEntity, ValidationContext, ValidationLevel, ValidationContext>>();
 
                     builder.Add(
                 FooJsonPropertyName,
@@ -2719,7 +2585,7 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
                     
             foreach (Property property in this.EnumerateObject())
             {
-                JsonEncodedText propertyName = property.NameAsJsonEncodedText;
+                string propertyName = property.Name;
 
         
                         if (__MenesLocalProperties.TryGetValue(propertyName, out Func<IfEntity, ValidationContext, ValidationLevel, ValidationContext>? propertyValidator))
@@ -2810,7 +2676,7 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
     
     
     
-            private readonly JsonEncodedText? stringBacking;
+            private readonly string? stringBacking;
     
     
         /// <summary>
@@ -2833,16 +2699,6 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
         public FooEntity(string value)
         {
             this.jsonElementBacking = default;
-                                            this.stringBacking = JsonEncodedText.Encode(value);
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="FooEntity"/> struct.
-        /// </summary>
-        /// <param name="value">A string value.</param>
-        public FooEntity(JsonEncodedText value)
-        {
-            this.jsonElementBacking = default;
                                             this.stringBacking = value;
         }
 
@@ -2853,7 +2709,7 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
         public FooEntity(ReadOnlySpan<char> value)
         {
             this.jsonElementBacking = default;
-                                            this.stringBacking = JsonEncodedText.Encode(value);
+                                            this.stringBacking = value.ToString();
         }
 
         /// <summary>
@@ -2863,7 +2719,7 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
         public FooEntity(ReadOnlySpan<byte> value)
         {
             this.jsonElementBacking = default;
-                                            this.stringBacking = JsonEncodedText.Encode(value);
+                                            this.stringBacking = Encoding.UTF8.GetString(value);
         }
 
         /// <summary>
@@ -2880,7 +2736,7 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
             else
             {
                 this.jsonElementBacking = default;
-                this.stringBacking = jsonString.GetJsonEncodedText();
+                this.stringBacking = jsonString;
             }
 
                                         }
@@ -2912,7 +2768,7 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
     
     
     
-                    if (this.stringBacking is JsonEncodedText stringBacking)
+                    if (this.stringBacking is string stringBacking)
                 {
                     return JsonString.StringToJsonElement(stringBacking);
                 }
@@ -2931,7 +2787,7 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
     
     
     
-                    if (this.stringBacking is JsonEncodedText)
+                    if (this.stringBacking is string)
                 {
                     return JsonValueKind.String;
                 }
@@ -2950,7 +2806,7 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
     
     
     
-                    if (this.stringBacking is JsonEncodedText stringBacking)
+                    if (this.stringBacking is string stringBacking)
                 {
                     return new JsonAny(stringBacking);
                 }
@@ -3003,7 +2859,7 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
         {
             get
             {
-                    if (this.stringBacking is JsonEncodedText stringBacking)
+                    if (this.stringBacking is string stringBacking)
                 {
                     return new JsonString(stringBacking);
                 }
@@ -3077,25 +2933,7 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
         /// <param name="value">The number from which to convert.</param>
         public static implicit operator string(FooEntity value)
         {
-            return value.AsString.GetString();
-        }
-
-        /// <summary>
-        /// Conversion from <see cref="JsonEncodedText"/>.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator FooEntity(JsonEncodedText value)
-        {
-            return new FooEntity(value);
-        }
-
-        /// <summary>
-        /// Conversion to <see cref="JsonEncodedText"/>.
-        /// </summary>
-        /// <param name="value">The number from which to convert.</param>
-        public static implicit operator JsonEncodedText(FooEntity value)
-        {
-            return value.AsString.GetJsonEncodedText();
+            return value.AsString;
         }
 
         /// <summary>
@@ -3113,7 +2951,7 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
         /// <param name="value">The number from which to convert.</param>
         public static implicit operator ReadOnlySpan<char>(FooEntity value)
         {
-            return value.AsString.AsSpan();
+            return value.AsString;
         }
 
         /// <summary>
@@ -3131,7 +2969,7 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
         /// <param name="value">The number from which to convert.</param>
         public static implicit operator ReadOnlySpan<byte>(FooEntity value)
         {
-            return value.AsString.GetJsonEncodedText().EncodedUtf8Bytes;
+            return value.AsString;
         }
 
         /// <summary>
@@ -3216,7 +3054,7 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
     
     
     
-                if (this.stringBacking is JsonEncodedText stringBacking)
+                if (this.stringBacking is string stringBacking)
             {
                 writer.WriteStringValue(stringBacking);
                 return;
@@ -3372,7 +3210,7 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
         /// <summary>
         /// JSON property name for <see cref="Bar"/>.
         /// </summary>
-        public static readonly JsonEncodedText BarJsonPropertyName = JsonEncodedText.Encode( BarUtf8JsonPropertyName.Span);
+        public static readonly string BarJsonPropertyName = "bar";
 
         
     
@@ -3380,14 +3218,14 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
     
     
     
-            private static readonly ImmutableDictionary<JsonEncodedText, Func<ThenEntity, ValidationContext, ValidationLevel, ValidationContext>> __MenesLocalProperties = CreateLocalPropertyValidators();
+            private static readonly ImmutableDictionary<string, Func<ThenEntity, ValidationContext, ValidationLevel, ValidationContext>> __MenesLocalProperties = CreateLocalPropertyValidators();
     
     
 
     
         private readonly JsonElement jsonElementBacking;
 
-            private readonly ImmutableDictionary<JsonEncodedText, JsonAny>? objectBacking;
+            private readonly ImmutableDictionary<string, JsonAny>? objectBacking;
     
     
     
@@ -3407,7 +3245,7 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
         /// Initializes a new instance of the <see cref="ThenEntity"/> struct.
         /// </summary>
         /// <param name="value">A property dictionary.</param>
-        public ThenEntity(ImmutableDictionary<JsonEncodedText, JsonAny> value)
+        public ThenEntity(ImmutableDictionary<string, JsonAny> value)
         {
             this.jsonElementBacking = default;
             this.objectBacking = value;
@@ -3457,7 +3295,7 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
         {
             get
             {
-                if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+                if (this.objectBacking is ImmutableDictionary<string, JsonAny> properties)
                 {
                     if(properties.TryGetValue(BarJsonPropertyName, out JsonAny result))
                     {
@@ -3496,7 +3334,7 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
             get
             {
               
-                if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> objectBacking)
+                if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
                 {
                     return JsonObject.PropertiesToJsonElement(objectBacking);
                 }
@@ -3515,7 +3353,7 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
         {
             get
             {
-                    if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny>)
+                    if (this.objectBacking is ImmutableDictionary<string, JsonAny>)
                 {
                     return JsonValueKind.Object;
                 }
@@ -3534,7 +3372,7 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
         {
             get
             {
-                    if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> objectBacking)
+                    if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
                 {
                     return new JsonAny(objectBacking);
                 }
@@ -3555,7 +3393,7 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
         {
             get
             {
-                    if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> objectBacking)
+                    if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
                 {
                     return new JsonObject(objectBacking);
                 }
@@ -3670,7 +3508,7 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
         /// Implicit conversion to a property dictionary.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator ImmutableDictionary<JsonEncodedText, JsonAny>(ThenEntity  value)
+        public static implicit operator ImmutableDictionary<string, JsonAny>(ThenEntity  value)
         {
             return value.AsObject.AsPropertyDictionary;
         }
@@ -3679,7 +3517,7 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
         /// Implicit conversion from a property dictionary.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator ThenEntity (ImmutableDictionary<JsonEncodedText, JsonAny> value)
+        public static implicit operator ThenEntity (ImmutableDictionary<string, JsonAny> value)
         {
             return new ThenEntity (value);
         }
@@ -3719,7 +3557,7 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
                 
         )
         {
-            var builder = ImmutableDictionary.CreateBuilder<JsonEncodedText, JsonAny>();
+            var builder = ImmutableDictionary.CreateBuilder<string, JsonAny>();
                     builder.Add(BarJsonPropertyName, bar);
                             return builder.ToImmutable();
         }
@@ -3771,7 +3609,7 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
         /// <param name="writer">The writer to which to write the object.</param>
         public void WriteTo(Utf8JsonWriter writer)
         {
-                if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> objectBacking)
+                if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
             {
                 JsonObject.WriteProperties(objectBacking, writer);
                 return;
@@ -3803,12 +3641,6 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
     
     
     
-        /// <inheritdoc/>
-        public bool TryGetProperty(JsonEncodedText name, out JsonAny value)
-        {
-            return this.AsObject.TryGetProperty(name, out value);
-        }
-
         /// <inheritdoc/>
         public bool TryGetProperty(string name, out JsonAny value)
         {
@@ -3876,9 +3708,9 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
 
     
         /// <inheritdoc/>
-        public bool HasProperty(JsonEncodedText name)
+        public bool HasProperty(string name)
         {
-            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            if (this.objectBacking is ImmutableDictionary<string, JsonAny> properties)
             {
                 return properties.TryGetValue(name, out _);
             }
@@ -3892,27 +3724,11 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
         }
 
         /// <inheritdoc/>
-        public bool HasProperty(string name)
-        {
-            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
-            {
-                return properties.TryGetValue(JsonEncodedText.Encode(name), out _);
-            }
-
-            if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
-            {
-                return this.jsonElementBacking.TryGetProperty(name, out JsonElement _);
-            }
-
-            return false;
-        }
-
-        /// <inheritdoc/>
         public bool HasProperty(ReadOnlySpan<char> name)
         {
-            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            if (this.objectBacking is ImmutableDictionary<string, JsonAny> properties)
             {
-                return properties.TryGetValue(JsonEncodedText.Encode(name), out _);
+                return properties.TryGetValue(name.ToString(), out _);
             }
 
             if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
@@ -3925,9 +3741,9 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
         /// <inheritdoc/>
         public bool HasProperty(ReadOnlySpan<byte> utf8name)
         {
-            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            if (this.objectBacking is ImmutableDictionary<string, JsonAny> properties)
             {
-                return properties.TryGetValue(JsonEncodedText.Encode(utf8name), out _);
+                return properties.TryGetValue(Encoding.UTF8.GetString(utf8name), out _);
             }
 
             if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
@@ -3936,18 +3752,6 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
             }
 
             return false;        }
-
-        /// <inheritdoc/>
-        public ThenEntity SetProperty<TValue>(JsonEncodedText name, TValue value)
-            where TValue : IJsonValue
-        {
-            if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
-            {
-                return this.AsObject.SetProperty(name, value);
-            }
-
-            return this;
-        }
 
         /// <inheritdoc/>
         public ThenEntity SetProperty<TValue>(string name, TValue value)
@@ -3980,17 +3784,6 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
             if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
             {
                 return this.AsObject.SetProperty(utf8name, value);
-            }
-
-            return this;
-        }
-
-        /// <inheritdoc/>
-        public ThenEntity RemoveProperty(JsonEncodedText name)
-        {
-            if (this.ValueKind == JsonValueKind.Object)
-            {
-                return this.AsObject.RemoveProperty(name);
             }
 
             return this;
@@ -4076,10 +3869,10 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
     
     
     
-        private static ImmutableDictionary<JsonEncodedText, Func<ThenEntity, ValidationContext, ValidationLevel, ValidationContext>> CreateLocalPropertyValidators()
+        private static ImmutableDictionary<string, Func<ThenEntity, ValidationContext, ValidationLevel, ValidationContext>> CreateLocalPropertyValidators()
         {
-            ImmutableDictionary<JsonEncodedText, Func<ThenEntity, ValidationContext, ValidationLevel, ValidationContext>>.Builder builder =
-                ImmutableDictionary.CreateBuilder<JsonEncodedText, Func<ThenEntity, ValidationContext, ValidationLevel, ValidationContext>>();
+            ImmutableDictionary<string, Func<ThenEntity, ValidationContext, ValidationLevel, ValidationContext>>.Builder builder =
+                ImmutableDictionary.CreateBuilder<string, Func<ThenEntity, ValidationContext, ValidationLevel, ValidationContext>>();
 
                     builder.Add(
                 BarJsonPropertyName,
@@ -4110,7 +3903,7 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
                     
             foreach (Property property in this.EnumerateObject())
             {
-                JsonEncodedText propertyName = property.NameAsJsonEncodedText;
+                string propertyName = property.Name;
 
         
                         if (__MenesLocalProperties.TryGetValue(propertyName, out Func<ThenEntity, ValidationContext, ValidationLevel, ValidationContext>? propertyValidator))

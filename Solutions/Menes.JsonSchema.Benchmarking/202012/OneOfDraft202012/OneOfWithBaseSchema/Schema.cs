@@ -16,6 +16,7 @@ namespace OneOfDraft202012Feature.OneOfWithBaseSchema
     using System.Collections.Generic;
     using System.Collections.Immutable;
     using System.Linq;
+    using System.Text;
     using System.Text.Json;
     using System.Text.RegularExpressions;
     using Menes.Json;
@@ -43,7 +44,7 @@ namespace OneOfDraft202012Feature.OneOfWithBaseSchema
     
     
     
-            private readonly JsonEncodedText? stringBacking;
+            private readonly string? stringBacking;
     
     
         /// <summary>
@@ -66,16 +67,6 @@ namespace OneOfDraft202012Feature.OneOfWithBaseSchema
         public Schema(string value)
         {
             this.jsonElementBacking = default;
-                                            this.stringBacking = JsonEncodedText.Encode(value);
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Schema"/> struct.
-        /// </summary>
-        /// <param name="value">A string value.</param>
-        public Schema(JsonEncodedText value)
-        {
-            this.jsonElementBacking = default;
                                             this.stringBacking = value;
         }
 
@@ -86,7 +77,7 @@ namespace OneOfDraft202012Feature.OneOfWithBaseSchema
         public Schema(ReadOnlySpan<char> value)
         {
             this.jsonElementBacking = default;
-                                            this.stringBacking = JsonEncodedText.Encode(value);
+                                            this.stringBacking = value.ToString();
         }
 
         /// <summary>
@@ -96,7 +87,7 @@ namespace OneOfDraft202012Feature.OneOfWithBaseSchema
         public Schema(ReadOnlySpan<byte> value)
         {
             this.jsonElementBacking = default;
-                                            this.stringBacking = JsonEncodedText.Encode(value);
+                                            this.stringBacking = Encoding.UTF8.GetString(value);
         }
 
         /// <summary>
@@ -113,7 +104,7 @@ namespace OneOfDraft202012Feature.OneOfWithBaseSchema
             else
             {
                 this.jsonElementBacking = default;
-                this.stringBacking = jsonString.GetJsonEncodedText();
+                this.stringBacking = jsonString;
             }
 
                                         }
@@ -241,7 +232,7 @@ namespace OneOfDraft202012Feature.OneOfWithBaseSchema
     
     
     
-                    if (this.stringBacking is JsonEncodedText stringBacking)
+                    if (this.stringBacking is string stringBacking)
                 {
                     return JsonString.StringToJsonElement(stringBacking);
                 }
@@ -260,7 +251,7 @@ namespace OneOfDraft202012Feature.OneOfWithBaseSchema
     
     
     
-                    if (this.stringBacking is JsonEncodedText)
+                    if (this.stringBacking is string)
                 {
                     return JsonValueKind.String;
                 }
@@ -279,7 +270,7 @@ namespace OneOfDraft202012Feature.OneOfWithBaseSchema
     
     
     
-                    if (this.stringBacking is JsonEncodedText stringBacking)
+                    if (this.stringBacking is string stringBacking)
                 {
                     return new JsonAny(stringBacking);
                 }
@@ -332,7 +323,7 @@ namespace OneOfDraft202012Feature.OneOfWithBaseSchema
         {
             get
             {
-                    if (this.stringBacking is JsonEncodedText stringBacking)
+                    if (this.stringBacking is string stringBacking)
                 {
                     return new JsonString(stringBacking);
                 }
@@ -448,25 +439,7 @@ namespace OneOfDraft202012Feature.OneOfWithBaseSchema
         /// <param name="value">The number from which to convert.</param>
         public static implicit operator string(Schema value)
         {
-            return value.AsString.GetString();
-        }
-
-        /// <summary>
-        /// Conversion from <see cref="JsonEncodedText"/>.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator Schema(JsonEncodedText value)
-        {
-            return new Schema(value);
-        }
-
-        /// <summary>
-        /// Conversion to <see cref="JsonEncodedText"/>.
-        /// </summary>
-        /// <param name="value">The number from which to convert.</param>
-        public static implicit operator JsonEncodedText(Schema value)
-        {
-            return value.AsString.GetJsonEncodedText();
+            return value.AsString;
         }
 
         /// <summary>
@@ -484,7 +457,7 @@ namespace OneOfDraft202012Feature.OneOfWithBaseSchema
         /// <param name="value">The number from which to convert.</param>
         public static implicit operator ReadOnlySpan<char>(Schema value)
         {
-            return value.AsString.AsSpan();
+            return value.AsString;
         }
 
         /// <summary>
@@ -502,7 +475,7 @@ namespace OneOfDraft202012Feature.OneOfWithBaseSchema
         /// <param name="value">The number from which to convert.</param>
         public static implicit operator ReadOnlySpan<byte>(Schema value)
         {
-            return value.AsString.GetJsonEncodedText().EncodedUtf8Bytes;
+            return value.AsString;
         }
 
         /// <summary>
@@ -587,7 +560,7 @@ namespace OneOfDraft202012Feature.OneOfWithBaseSchema
     
     
     
-                if (this.stringBacking is JsonEncodedText stringBacking)
+                if (this.stringBacking is string stringBacking)
             {
                 writer.WriteStringValue(stringBacking);
                 return;
@@ -899,7 +872,7 @@ namespace OneOfDraft202012Feature.OneOfWithBaseSchema
     
     
     
-            private readonly JsonEncodedText? stringBacking;
+            private readonly string? stringBacking;
     
     
         /// <summary>
@@ -922,16 +895,6 @@ namespace OneOfDraft202012Feature.OneOfWithBaseSchema
         public OneOf0Entity(string value)
         {
             this.jsonElementBacking = default;
-                                            this.stringBacking = JsonEncodedText.Encode(value);
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="OneOf0Entity"/> struct.
-        /// </summary>
-        /// <param name="value">A string value.</param>
-        public OneOf0Entity(JsonEncodedText value)
-        {
-            this.jsonElementBacking = default;
                                             this.stringBacking = value;
         }
 
@@ -942,7 +905,7 @@ namespace OneOfDraft202012Feature.OneOfWithBaseSchema
         public OneOf0Entity(ReadOnlySpan<char> value)
         {
             this.jsonElementBacking = default;
-                                            this.stringBacking = JsonEncodedText.Encode(value);
+                                            this.stringBacking = value.ToString();
         }
 
         /// <summary>
@@ -952,7 +915,7 @@ namespace OneOfDraft202012Feature.OneOfWithBaseSchema
         public OneOf0Entity(ReadOnlySpan<byte> value)
         {
             this.jsonElementBacking = default;
-                                            this.stringBacking = JsonEncodedText.Encode(value);
+                                            this.stringBacking = Encoding.UTF8.GetString(value);
         }
 
         /// <summary>
@@ -969,7 +932,7 @@ namespace OneOfDraft202012Feature.OneOfWithBaseSchema
             else
             {
                 this.jsonElementBacking = default;
-                this.stringBacking = jsonString.GetJsonEncodedText();
+                this.stringBacking = jsonString;
             }
 
                                         }
@@ -1001,7 +964,7 @@ namespace OneOfDraft202012Feature.OneOfWithBaseSchema
     
     
     
-                    if (this.stringBacking is JsonEncodedText stringBacking)
+                    if (this.stringBacking is string stringBacking)
                 {
                     return JsonString.StringToJsonElement(stringBacking);
                 }
@@ -1020,7 +983,7 @@ namespace OneOfDraft202012Feature.OneOfWithBaseSchema
     
     
     
-                    if (this.stringBacking is JsonEncodedText)
+                    if (this.stringBacking is string)
                 {
                     return JsonValueKind.String;
                 }
@@ -1039,7 +1002,7 @@ namespace OneOfDraft202012Feature.OneOfWithBaseSchema
     
     
     
-                    if (this.stringBacking is JsonEncodedText stringBacking)
+                    if (this.stringBacking is string stringBacking)
                 {
                     return new JsonAny(stringBacking);
                 }
@@ -1092,7 +1055,7 @@ namespace OneOfDraft202012Feature.OneOfWithBaseSchema
         {
             get
             {
-                    if (this.stringBacking is JsonEncodedText stringBacking)
+                    if (this.stringBacking is string stringBacking)
                 {
                     return new JsonString(stringBacking);
                 }
@@ -1166,25 +1129,7 @@ namespace OneOfDraft202012Feature.OneOfWithBaseSchema
         /// <param name="value">The number from which to convert.</param>
         public static implicit operator string(OneOf0Entity value)
         {
-            return value.AsString.GetString();
-        }
-
-        /// <summary>
-        /// Conversion from <see cref="JsonEncodedText"/>.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator OneOf0Entity(JsonEncodedText value)
-        {
-            return new OneOf0Entity(value);
-        }
-
-        /// <summary>
-        /// Conversion to <see cref="JsonEncodedText"/>.
-        /// </summary>
-        /// <param name="value">The number from which to convert.</param>
-        public static implicit operator JsonEncodedText(OneOf0Entity value)
-        {
-            return value.AsString.GetJsonEncodedText();
+            return value.AsString;
         }
 
         /// <summary>
@@ -1202,7 +1147,7 @@ namespace OneOfDraft202012Feature.OneOfWithBaseSchema
         /// <param name="value">The number from which to convert.</param>
         public static implicit operator ReadOnlySpan<char>(OneOf0Entity value)
         {
-            return value.AsString.AsSpan();
+            return value.AsString;
         }
 
         /// <summary>
@@ -1220,7 +1165,7 @@ namespace OneOfDraft202012Feature.OneOfWithBaseSchema
         /// <param name="value">The number from which to convert.</param>
         public static implicit operator ReadOnlySpan<byte>(OneOf0Entity value)
         {
-            return value.AsString.GetJsonEncodedText().EncodedUtf8Bytes;
+            return value.AsString;
         }
 
         /// <summary>
@@ -1305,7 +1250,7 @@ namespace OneOfDraft202012Feature.OneOfWithBaseSchema
     
     
     
-                if (this.stringBacking is JsonEncodedText stringBacking)
+                if (this.stringBacking is string stringBacking)
             {
                 writer.WriteStringValue(stringBacking);
                 return;
@@ -1468,7 +1413,7 @@ namespace OneOfDraft202012Feature.OneOfWithBaseSchema
     
     
     
-            private readonly JsonEncodedText? stringBacking;
+            private readonly string? stringBacking;
     
     
         /// <summary>
@@ -1491,16 +1436,6 @@ namespace OneOfDraft202012Feature.OneOfWithBaseSchema
         public OneOf1Entity(string value)
         {
             this.jsonElementBacking = default;
-                                            this.stringBacking = JsonEncodedText.Encode(value);
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="OneOf1Entity"/> struct.
-        /// </summary>
-        /// <param name="value">A string value.</param>
-        public OneOf1Entity(JsonEncodedText value)
-        {
-            this.jsonElementBacking = default;
                                             this.stringBacking = value;
         }
 
@@ -1511,7 +1446,7 @@ namespace OneOfDraft202012Feature.OneOfWithBaseSchema
         public OneOf1Entity(ReadOnlySpan<char> value)
         {
             this.jsonElementBacking = default;
-                                            this.stringBacking = JsonEncodedText.Encode(value);
+                                            this.stringBacking = value.ToString();
         }
 
         /// <summary>
@@ -1521,7 +1456,7 @@ namespace OneOfDraft202012Feature.OneOfWithBaseSchema
         public OneOf1Entity(ReadOnlySpan<byte> value)
         {
             this.jsonElementBacking = default;
-                                            this.stringBacking = JsonEncodedText.Encode(value);
+                                            this.stringBacking = Encoding.UTF8.GetString(value);
         }
 
         /// <summary>
@@ -1538,7 +1473,7 @@ namespace OneOfDraft202012Feature.OneOfWithBaseSchema
             else
             {
                 this.jsonElementBacking = default;
-                this.stringBacking = jsonString.GetJsonEncodedText();
+                this.stringBacking = jsonString;
             }
 
                                         }
@@ -1570,7 +1505,7 @@ namespace OneOfDraft202012Feature.OneOfWithBaseSchema
     
     
     
-                    if (this.stringBacking is JsonEncodedText stringBacking)
+                    if (this.stringBacking is string stringBacking)
                 {
                     return JsonString.StringToJsonElement(stringBacking);
                 }
@@ -1589,7 +1524,7 @@ namespace OneOfDraft202012Feature.OneOfWithBaseSchema
     
     
     
-                    if (this.stringBacking is JsonEncodedText)
+                    if (this.stringBacking is string)
                 {
                     return JsonValueKind.String;
                 }
@@ -1608,7 +1543,7 @@ namespace OneOfDraft202012Feature.OneOfWithBaseSchema
     
     
     
-                    if (this.stringBacking is JsonEncodedText stringBacking)
+                    if (this.stringBacking is string stringBacking)
                 {
                     return new JsonAny(stringBacking);
                 }
@@ -1661,7 +1596,7 @@ namespace OneOfDraft202012Feature.OneOfWithBaseSchema
         {
             get
             {
-                    if (this.stringBacking is JsonEncodedText stringBacking)
+                    if (this.stringBacking is string stringBacking)
                 {
                     return new JsonString(stringBacking);
                 }
@@ -1735,25 +1670,7 @@ namespace OneOfDraft202012Feature.OneOfWithBaseSchema
         /// <param name="value">The number from which to convert.</param>
         public static implicit operator string(OneOf1Entity value)
         {
-            return value.AsString.GetString();
-        }
-
-        /// <summary>
-        /// Conversion from <see cref="JsonEncodedText"/>.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator OneOf1Entity(JsonEncodedText value)
-        {
-            return new OneOf1Entity(value);
-        }
-
-        /// <summary>
-        /// Conversion to <see cref="JsonEncodedText"/>.
-        /// </summary>
-        /// <param name="value">The number from which to convert.</param>
-        public static implicit operator JsonEncodedText(OneOf1Entity value)
-        {
-            return value.AsString.GetJsonEncodedText();
+            return value.AsString;
         }
 
         /// <summary>
@@ -1771,7 +1688,7 @@ namespace OneOfDraft202012Feature.OneOfWithBaseSchema
         /// <param name="value">The number from which to convert.</param>
         public static implicit operator ReadOnlySpan<char>(OneOf1Entity value)
         {
-            return value.AsString.AsSpan();
+            return value.AsString;
         }
 
         /// <summary>
@@ -1789,7 +1706,7 @@ namespace OneOfDraft202012Feature.OneOfWithBaseSchema
         /// <param name="value">The number from which to convert.</param>
         public static implicit operator ReadOnlySpan<byte>(OneOf1Entity value)
         {
-            return value.AsString.GetJsonEncodedText().EncodedUtf8Bytes;
+            return value.AsString;
         }
 
         /// <summary>
@@ -1874,7 +1791,7 @@ namespace OneOfDraft202012Feature.OneOfWithBaseSchema
     
     
     
-                if (this.stringBacking is JsonEncodedText stringBacking)
+                if (this.stringBacking is string stringBacking)
             {
                 writer.WriteStringValue(stringBacking);
                 return;

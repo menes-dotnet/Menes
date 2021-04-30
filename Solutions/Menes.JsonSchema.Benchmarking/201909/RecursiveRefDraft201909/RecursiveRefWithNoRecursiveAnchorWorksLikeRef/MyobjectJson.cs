@@ -16,6 +16,7 @@ namespace RecursiveRefDraft201909Feature.RecursiveRefWithNoRecursiveAnchorWorksL
     using System.Collections.Generic;
     using System.Collections.Immutable;
     using System.Linq;
+    using System.Text;
     using System.Text.Json;
     using System.Text.RegularExpressions;
     using Menes.Json;
@@ -40,7 +41,7 @@ namespace RecursiveRefDraft201909Feature.RecursiveRefWithNoRecursiveAnchorWorksL
     
         private readonly JsonElement jsonElementBacking;
 
-            private readonly ImmutableDictionary<JsonEncodedText, JsonAny>? objectBacking;
+            private readonly ImmutableDictionary<string, JsonAny>? objectBacking;
     
     
     
@@ -60,7 +61,7 @@ namespace RecursiveRefDraft201909Feature.RecursiveRefWithNoRecursiveAnchorWorksL
         /// Initializes a new instance of the <see cref="MyobjectJson"/> struct.
         /// </summary>
         /// <param name="value">A property dictionary.</param>
-        public MyobjectJson(ImmutableDictionary<JsonEncodedText, JsonAny> value)
+        public MyobjectJson(ImmutableDictionary<string, JsonAny> value)
         {
             this.jsonElementBacking = default;
             this.objectBacking = value;
@@ -162,7 +163,7 @@ namespace RecursiveRefDraft201909Feature.RecursiveRefWithNoRecursiveAnchorWorksL
             get
             {
               
-                if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> objectBacking)
+                if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
                 {
                     return JsonObject.PropertiesToJsonElement(objectBacking);
                 }
@@ -181,7 +182,7 @@ namespace RecursiveRefDraft201909Feature.RecursiveRefWithNoRecursiveAnchorWorksL
         {
             get
             {
-                    if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny>)
+                    if (this.objectBacking is ImmutableDictionary<string, JsonAny>)
                 {
                     return JsonValueKind.Object;
                 }
@@ -200,7 +201,7 @@ namespace RecursiveRefDraft201909Feature.RecursiveRefWithNoRecursiveAnchorWorksL
         {
             get
             {
-                    if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> objectBacking)
+                    if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
                 {
                     return new JsonAny(objectBacking);
                 }
@@ -221,7 +222,7 @@ namespace RecursiveRefDraft201909Feature.RecursiveRefWithNoRecursiveAnchorWorksL
         {
             get
             {
-                    if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> objectBacking)
+                    if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
                 {
                     return new JsonObject(objectBacking);
                 }
@@ -357,7 +358,7 @@ namespace RecursiveRefDraft201909Feature.RecursiveRefWithNoRecursiveAnchorWorksL
         /// Implicit conversion to a property dictionary.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator ImmutableDictionary<JsonEncodedText, JsonAny>(MyobjectJson  value)
+        public static implicit operator ImmutableDictionary<string, JsonAny>(MyobjectJson  value)
         {
             return value.AsObject.AsPropertyDictionary;
         }
@@ -366,7 +367,7 @@ namespace RecursiveRefDraft201909Feature.RecursiveRefWithNoRecursiveAnchorWorksL
         /// Implicit conversion from a property dictionary.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator MyobjectJson (ImmutableDictionary<JsonEncodedText, JsonAny> value)
+        public static implicit operator MyobjectJson (ImmutableDictionary<string, JsonAny> value)
         {
             return new MyobjectJson (value);
         }
@@ -433,7 +434,7 @@ namespace RecursiveRefDraft201909Feature.RecursiveRefWithNoRecursiveAnchorWorksL
         /// <param name="writer">The writer to which to write the object.</param>
         public void WriteTo(Utf8JsonWriter writer)
         {
-                if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> objectBacking)
+                if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
             {
                 JsonObject.WriteProperties(objectBacking, writer);
                 return;
@@ -465,12 +466,6 @@ namespace RecursiveRefDraft201909Feature.RecursiveRefWithNoRecursiveAnchorWorksL
     
     
     
-        /// <inheritdoc/>
-        public bool TryGetProperty(JsonEncodedText name, out JsonAny value)
-        {
-            return this.AsObject.TryGetProperty(name, out value);
-        }
-
         /// <inheritdoc/>
         public bool TryGetProperty(string name, out JsonAny value)
         {
@@ -538,9 +533,9 @@ namespace RecursiveRefDraft201909Feature.RecursiveRefWithNoRecursiveAnchorWorksL
 
     
         /// <inheritdoc/>
-        public bool HasProperty(JsonEncodedText name)
+        public bool HasProperty(string name)
         {
-            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            if (this.objectBacking is ImmutableDictionary<string, JsonAny> properties)
             {
                 return properties.TryGetValue(name, out _);
             }
@@ -554,27 +549,11 @@ namespace RecursiveRefDraft201909Feature.RecursiveRefWithNoRecursiveAnchorWorksL
         }
 
         /// <inheritdoc/>
-        public bool HasProperty(string name)
-        {
-            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
-            {
-                return properties.TryGetValue(JsonEncodedText.Encode(name), out _);
-            }
-
-            if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
-            {
-                return this.jsonElementBacking.TryGetProperty(name, out JsonElement _);
-            }
-
-            return false;
-        }
-
-        /// <inheritdoc/>
         public bool HasProperty(ReadOnlySpan<char> name)
         {
-            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            if (this.objectBacking is ImmutableDictionary<string, JsonAny> properties)
             {
-                return properties.TryGetValue(JsonEncodedText.Encode(name), out _);
+                return properties.TryGetValue(name.ToString(), out _);
             }
 
             if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
@@ -587,9 +566,9 @@ namespace RecursiveRefDraft201909Feature.RecursiveRefWithNoRecursiveAnchorWorksL
         /// <inheritdoc/>
         public bool HasProperty(ReadOnlySpan<byte> utf8name)
         {
-            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            if (this.objectBacking is ImmutableDictionary<string, JsonAny> properties)
             {
-                return properties.TryGetValue(JsonEncodedText.Encode(utf8name), out _);
+                return properties.TryGetValue(Encoding.UTF8.GetString(utf8name), out _);
             }
 
             if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
@@ -598,18 +577,6 @@ namespace RecursiveRefDraft201909Feature.RecursiveRefWithNoRecursiveAnchorWorksL
             }
 
             return false;        }
-
-        /// <inheritdoc/>
-        public MyobjectJson SetProperty<TValue>(JsonEncodedText name, TValue value)
-            where TValue : IJsonValue
-        {
-            if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
-            {
-                return this.AsObject.SetProperty(name, value);
-            }
-
-            return this;
-        }
 
         /// <inheritdoc/>
         public MyobjectJson SetProperty<TValue>(string name, TValue value)
@@ -642,17 +609,6 @@ namespace RecursiveRefDraft201909Feature.RecursiveRefWithNoRecursiveAnchorWorksL
             if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
             {
                 return this.AsObject.SetProperty(utf8name, value);
-            }
-
-            return this;
-        }
-
-        /// <inheritdoc/>
-        public MyobjectJson RemoveProperty(JsonEncodedText name)
-        {
-            if (this.ValueKind == JsonValueKind.Object)
-            {
-                return this.AsObject.RemoveProperty(name);
             }
 
             return this;
@@ -864,7 +820,7 @@ namespace RecursiveRefDraft201909Feature.RecursiveRefWithNoRecursiveAnchorWorksL
     
         private readonly JsonElement jsonElementBacking;
 
-            private readonly ImmutableDictionary<JsonEncodedText, JsonAny>? objectBacking;
+            private readonly ImmutableDictionary<string, JsonAny>? objectBacking;
     
     
     
@@ -884,7 +840,7 @@ namespace RecursiveRefDraft201909Feature.RecursiveRefWithNoRecursiveAnchorWorksL
         /// Initializes a new instance of the <see cref="AnyOf1Value"/> struct.
         /// </summary>
         /// <param name="value">A property dictionary.</param>
-        public AnyOf1Value(ImmutableDictionary<JsonEncodedText, JsonAny> value)
+        public AnyOf1Value(ImmutableDictionary<string, JsonAny> value)
         {
             this.jsonElementBacking = default;
             this.objectBacking = value;
@@ -938,7 +894,7 @@ namespace RecursiveRefDraft201909Feature.RecursiveRefWithNoRecursiveAnchorWorksL
             get
             {
               
-                if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> objectBacking)
+                if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
                 {
                     return JsonObject.PropertiesToJsonElement(objectBacking);
                 }
@@ -957,7 +913,7 @@ namespace RecursiveRefDraft201909Feature.RecursiveRefWithNoRecursiveAnchorWorksL
         {
             get
             {
-                    if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny>)
+                    if (this.objectBacking is ImmutableDictionary<string, JsonAny>)
                 {
                     return JsonValueKind.Object;
                 }
@@ -976,7 +932,7 @@ namespace RecursiveRefDraft201909Feature.RecursiveRefWithNoRecursiveAnchorWorksL
         {
             get
             {
-                    if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> objectBacking)
+                    if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
                 {
                     return new JsonAny(objectBacking);
                 }
@@ -997,7 +953,7 @@ namespace RecursiveRefDraft201909Feature.RecursiveRefWithNoRecursiveAnchorWorksL
         {
             get
             {
-                    if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> objectBacking)
+                    if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
                 {
                     return new JsonObject(objectBacking);
                 }
@@ -1112,7 +1068,7 @@ namespace RecursiveRefDraft201909Feature.RecursiveRefWithNoRecursiveAnchorWorksL
         /// Implicit conversion to a property dictionary.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator ImmutableDictionary<JsonEncodedText, JsonAny>(AnyOf1Value  value)
+        public static implicit operator ImmutableDictionary<string, JsonAny>(AnyOf1Value  value)
         {
             return value.AsObject.AsPropertyDictionary;
         }
@@ -1121,7 +1077,7 @@ namespace RecursiveRefDraft201909Feature.RecursiveRefWithNoRecursiveAnchorWorksL
         /// Implicit conversion from a property dictionary.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator AnyOf1Value (ImmutableDictionary<JsonEncodedText, JsonAny> value)
+        public static implicit operator AnyOf1Value (ImmutableDictionary<string, JsonAny> value)
         {
             return new AnyOf1Value (value);
         }
@@ -1188,7 +1144,7 @@ namespace RecursiveRefDraft201909Feature.RecursiveRefWithNoRecursiveAnchorWorksL
         /// <param name="writer">The writer to which to write the object.</param>
         public void WriteTo(Utf8JsonWriter writer)
         {
-                if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> objectBacking)
+                if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
             {
                 JsonObject.WriteProperties(objectBacking, writer);
                 return;
@@ -1214,7 +1170,7 @@ namespace RecursiveRefDraft201909Feature.RecursiveRefWithNoRecursiveAnchorWorksL
         /// </summary>
         public JsonObjectEnumerator<RecursiveRefDraft201909Feature.RecursiveRefWithNoRecursiveAnchorWorksLikeRef.MyobjectJson> EnumerateProperties()
         {
-            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            if (this.objectBacking is ImmutableDictionary<string, JsonAny> properties)
             {
                 return new JsonObjectEnumerator<RecursiveRefDraft201909Feature.RecursiveRefWithNoRecursiveAnchorWorksLikeRef.MyobjectJson>(properties);
             }
@@ -1238,12 +1194,6 @@ namespace RecursiveRefDraft201909Feature.RecursiveRefWithNoRecursiveAnchorWorksL
     
     
     
-        /// <inheritdoc/>
-        public bool TryGetProperty(JsonEncodedText name, out JsonAny value)
-        {
-            return this.AsObject.TryGetProperty(name, out value);
-        }
-
         /// <inheritdoc/>
         public bool TryGetProperty(string name, out JsonAny value)
         {
@@ -1311,9 +1261,9 @@ namespace RecursiveRefDraft201909Feature.RecursiveRefWithNoRecursiveAnchorWorksL
 
     
         /// <inheritdoc/>
-        public bool HasProperty(JsonEncodedText name)
+        public bool HasProperty(string name)
         {
-            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            if (this.objectBacking is ImmutableDictionary<string, JsonAny> properties)
             {
                 return properties.TryGetValue(name, out _);
             }
@@ -1327,27 +1277,11 @@ namespace RecursiveRefDraft201909Feature.RecursiveRefWithNoRecursiveAnchorWorksL
         }
 
         /// <inheritdoc/>
-        public bool HasProperty(string name)
-        {
-            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
-            {
-                return properties.TryGetValue(JsonEncodedText.Encode(name), out _);
-            }
-
-            if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
-            {
-                return this.jsonElementBacking.TryGetProperty(name, out JsonElement _);
-            }
-
-            return false;
-        }
-
-        /// <inheritdoc/>
         public bool HasProperty(ReadOnlySpan<char> name)
         {
-            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            if (this.objectBacking is ImmutableDictionary<string, JsonAny> properties)
             {
-                return properties.TryGetValue(JsonEncodedText.Encode(name), out _);
+                return properties.TryGetValue(name.ToString(), out _);
             }
 
             if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
@@ -1360,9 +1294,9 @@ namespace RecursiveRefDraft201909Feature.RecursiveRefWithNoRecursiveAnchorWorksL
         /// <inheritdoc/>
         public bool HasProperty(ReadOnlySpan<byte> utf8name)
         {
-            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            if (this.objectBacking is ImmutableDictionary<string, JsonAny> properties)
             {
-                return properties.TryGetValue(JsonEncodedText.Encode(utf8name), out _);
+                return properties.TryGetValue(Encoding.UTF8.GetString(utf8name), out _);
             }
 
             if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
@@ -1371,18 +1305,6 @@ namespace RecursiveRefDraft201909Feature.RecursiveRefWithNoRecursiveAnchorWorksL
             }
 
             return false;        }
-
-        /// <inheritdoc/>
-        public AnyOf1Value SetProperty<TValue>(JsonEncodedText name, TValue value)
-            where TValue : IJsonValue
-        {
-            if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
-            {
-                return this.AsObject.SetProperty(name, value);
-            }
-
-            return this;
-        }
 
         /// <inheritdoc/>
         public AnyOf1Value SetProperty<TValue>(string name, TValue value)
@@ -1415,17 +1337,6 @@ namespace RecursiveRefDraft201909Feature.RecursiveRefWithNoRecursiveAnchorWorksL
             if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
             {
                 return this.AsObject.SetProperty(utf8name, value);
-            }
-
-            return this;
-        }
-
-        /// <inheritdoc/>
-        public AnyOf1Value RemoveProperty(JsonEncodedText name)
-        {
-            if (this.ValueKind == JsonValueKind.Object)
-            {
-                return this.AsObject.RemoveProperty(name);
             }
 
             return this;
@@ -1538,7 +1449,7 @@ namespace RecursiveRefDraft201909Feature.RecursiveRefWithNoRecursiveAnchorWorksL
         
             foreach (Property property in this.EnumerateObject())
             {
-                JsonEncodedText propertyName = property.NameAsJsonEncodedText;
+                string propertyName = property.Name;
 
         
         

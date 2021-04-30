@@ -6,6 +6,7 @@ namespace Menes.Json
 {
     using System;
     using System.Collections.Immutable;
+    using System.Text;
     using System.Text.Json;
 
     /// <summary>
@@ -14,10 +15,10 @@ namespace Menes.Json
     public readonly struct JsonNotAny : IJsonObject<JsonNotAny>, IJsonArray<JsonNotAny>, IEquatable<JsonNotAny>
     {
         private readonly JsonElement jsonElementBacking;
-        private readonly ImmutableDictionary<JsonEncodedText, JsonAny>? objectBacking;
+        private readonly ImmutableDictionary<string, JsonAny>? objectBacking;
         private readonly ImmutableList<JsonAny>? arrayBacking;
         private readonly double? numberBacking;
-        private readonly JsonEncodedText? stringBacking;
+        private readonly string? stringBacking;
         private readonly bool? booleanBacking;
 
         /// <summary>
@@ -38,7 +39,7 @@ namespace Menes.Json
         /// Initializes a new instance of the <see cref="JsonNotAny"/> struct.
         /// </summary>
         /// <param name="value">A property dictionary.</param>
-        public JsonNotAny(ImmutableDictionary<JsonEncodedText, JsonAny> value)
+        public JsonNotAny(ImmutableDictionary<string, JsonAny> value)
         {
             this.jsonElementBacking = default;
             this.objectBacking = value;
@@ -128,20 +129,6 @@ namespace Menes.Json
             this.objectBacking = default;
             this.arrayBacking = default;
             this.numberBacking = default;
-            this.stringBacking = JsonEncodedText.Encode(value);
-            this.booleanBacking = default;
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="JsonNotAny"/> struct.
-        /// </summary>
-        /// <param name="value">A string value.</param>
-        public JsonNotAny(JsonEncodedText value)
-        {
-            this.jsonElementBacking = default;
-            this.objectBacking = default;
-            this.arrayBacking = default;
-            this.numberBacking = default;
             this.stringBacking = value;
             this.booleanBacking = default;
         }
@@ -156,7 +143,7 @@ namespace Menes.Json
             this.objectBacking = default;
             this.arrayBacking = default;
             this.numberBacking = default;
-            this.stringBacking = JsonEncodedText.Encode(value);
+            this.stringBacking = value.ToString();
             this.booleanBacking = default;
         }
 
@@ -170,7 +157,7 @@ namespace Menes.Json
             this.objectBacking = default;
             this.arrayBacking = default;
             this.numberBacking = default;
-            this.stringBacking = JsonEncodedText.Encode(value);
+            this.stringBacking = Encoding.UTF8.GetString(value);
             this.booleanBacking = default;
         }
 
@@ -257,7 +244,7 @@ namespace Menes.Json
             else
             {
                 this.jsonElementBacking = default;
-                this.stringBacking = jsonString.GetJsonEncodedText();
+                this.stringBacking = jsonString;
             }
 
             this.numberBacking = default;
@@ -315,7 +302,7 @@ namespace Menes.Json
         {
             get
             {
-                if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> objectBacking)
+                if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
                 {
                     return JsonObject.PropertiesToJsonElement(objectBacking);
                 }
@@ -330,7 +317,7 @@ namespace Menes.Json
                     return JsonNumber.NumberToJsonElement(numberBacking);
                 }
 
-                if (this.stringBacking is JsonEncodedText stringBacking)
+                if (this.stringBacking is string stringBacking)
                 {
                     return JsonString.StringToJsonElement(stringBacking);
                 }
@@ -349,7 +336,7 @@ namespace Menes.Json
         {
             get
             {
-                if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny>)
+                if (this.objectBacking is ImmutableDictionary<string, JsonAny>)
                 {
                     return JsonValueKind.Object;
                 }
@@ -364,7 +351,7 @@ namespace Menes.Json
                     return JsonValueKind.Number;
                 }
 
-                if (this.stringBacking is JsonEncodedText)
+                if (this.stringBacking is string)
                 {
                     return JsonValueKind.String;
                 }
@@ -404,7 +391,7 @@ namespace Menes.Json
         {
             get
             {
-                if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> objectBacking)
+                if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
                 {
                     return new JsonObject(objectBacking);
                 }
@@ -458,7 +445,7 @@ namespace Menes.Json
         {
             get
             {
-                if (this.stringBacking is JsonEncodedText stringBacking)
+                if (this.stringBacking is string stringBacking)
                 {
                     return new JsonString(stringBacking);
                 }
@@ -517,24 +504,6 @@ namespace Menes.Json
         }
 
         /// <summary>
-        /// Conversion from <see cref="JsonEncodedText"/>.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator JsonNotAny(JsonEncodedText value)
-        {
-            return new JsonNotAny(value);
-        }
-
-        /// <summary>
-        /// Conversion to <see cref="JsonEncodedText"/>.
-        /// </summary>
-        /// <param name="value">The number from which to convert.</param>
-        public static implicit operator JsonEncodedText(JsonNotAny value)
-        {
-            return value.AsString.GetJsonEncodedText();
-        }
-
-        /// <summary>
         /// Conversion from string.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
@@ -567,7 +536,7 @@ namespace Menes.Json
         /// <param name="value">The number from which to convert.</param>
         public static implicit operator ReadOnlySpan<byte>(JsonNotAny value)
         {
-            return value.AsString.GetJsonEncodedText().EncodedUtf8Bytes;
+            return Encoding.UTF8.GetBytes(value);
         }
 
         /// <summary>
@@ -721,7 +690,7 @@ namespace Menes.Json
         /// <param name="writer">The writer to which to write the object.</param>
         public void WriteTo(Utf8JsonWriter writer)
         {
-            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> objectBacking)
+            if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
             {
                 JsonObject.WriteProperties(objectBacking, writer);
                 return;
@@ -739,7 +708,7 @@ namespace Menes.Json
                 return;
             }
 
-            if (this.stringBacking is JsonEncodedText stringBacking)
+            if (this.stringBacking is string stringBacking)
             {
                 writer.WriteStringValue(stringBacking);
                 return;
@@ -773,12 +742,6 @@ namespace Menes.Json
         }
 
         /// <inheritdoc/>
-        public bool TryGetProperty(JsonEncodedText name, out JsonAny value)
-        {
-            return this.AsObject.TryGetProperty(name, out value);
-        }
-
-        /// <inheritdoc/>
         public bool TryGetProperty(string name, out JsonAny value)
         {
             return this.AsObject.TryGetProperty(name, out value);
@@ -794,12 +757,6 @@ namespace Menes.Json
         public bool TryGetProperty(ReadOnlySpan<byte> utf8name, out JsonAny value)
         {
             return this.AsObject.TryGetProperty(utf8name, out value);
-        }
-
-        /// <inheritdoc/>
-        public bool HasProperty(JsonEncodedText name)
-        {
-            return this.AsObject.HasProperty(name);
         }
 
         /// <inheritdoc/>
@@ -849,7 +806,7 @@ namespace Menes.Json
         }
 
         /// <inheritdoc/>
-        public JsonNotAny SetProperty<TValue>(JsonEncodedText name, TValue value)
+        public JsonNotAny SetProperty<TValue>(string name, TValue value)
             where TValue : IJsonValue
         {
             if (this.ValueKind == JsonValueKind.Object)
@@ -861,28 +818,31 @@ namespace Menes.Json
         }
 
         /// <inheritdoc/>
-        public JsonNotAny SetProperty<TValue>(string name, TValue value)
-            where TValue : IJsonValue
-        {
-            return this.SetProperty(JsonEncodedText.Encode(name), value);
-        }
-
-        /// <inheritdoc/>
         public JsonNotAny SetProperty<TValue>(ReadOnlySpan<char> name, TValue value)
             where TValue : IJsonValue
         {
-            return this.SetProperty(JsonEncodedText.Encode(name), value);
+            if (this.ValueKind == JsonValueKind.Object)
+            {
+                return new JsonNotAny(this.AsObject.SetProperty(name, value));
+            }
+
+            return this;
         }
 
         /// <inheritdoc/>
         public JsonNotAny SetProperty<TValue>(ReadOnlySpan<byte> utf8Name, TValue value)
             where TValue : IJsonValue
         {
-            return this.SetProperty(JsonEncodedText.Encode(utf8Name), value);
+            if (this.ValueKind == JsonValueKind.Object)
+            {
+                return new JsonNotAny(this.AsObject.SetProperty(utf8Name, value));
+            }
+
+            return this;
         }
 
         /// <inheritdoc/>
-        public JsonNotAny RemoveProperty(JsonEncodedText name)
+        public JsonNotAny RemoveProperty(string name)
         {
             if (this.ValueKind == JsonValueKind.Object)
             {
@@ -893,21 +853,25 @@ namespace Menes.Json
         }
 
         /// <inheritdoc/>
-        public JsonNotAny RemoveProperty(string name)
-        {
-            return this.RemoveProperty(JsonEncodedText.Encode(name));
-        }
-
-        /// <inheritdoc/>
         public JsonNotAny RemoveProperty(ReadOnlySpan<char> name)
         {
-            return this.RemoveProperty(JsonEncodedText.Encode(name));
+            if (this.ValueKind == JsonValueKind.Object)
+            {
+                return new JsonNotAny(this.AsObject.RemoveProperty(name));
+            }
+
+            return this;
         }
 
         /// <inheritdoc/>
         public JsonNotAny RemoveProperty(ReadOnlySpan<byte> utf8Name)
         {
-            return this.RemoveProperty(JsonEncodedText.Encode(utf8Name));
+            if (this.ValueKind == JsonValueKind.Object)
+            {
+                return new JsonNotAny(this.AsObject.RemoveProperty(utf8Name));
+            }
+
+            return this;
         }
 
         /// <inheritdoc/>

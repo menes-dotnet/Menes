@@ -16,6 +16,7 @@ namespace InfiniteLoopDetectionDraft202012Feature.EvaluatingTheSameSchemaLocatio
     using System.Collections.Generic;
     using System.Collections.Immutable;
     using System.Linq;
+    using System.Text;
     using System.Text.Json;
     using System.Text.RegularExpressions;
     using Menes.Json;
@@ -39,7 +40,7 @@ namespace InfiniteLoopDetectionDraft202012Feature.EvaluatingTheSameSchemaLocatio
         /// <summary>
         /// JSON property name for <see cref="Foo"/>.
         /// </summary>
-        public static readonly JsonEncodedText FooJsonPropertyName = JsonEncodedText.Encode( FooUtf8JsonPropertyName.Span);
+        public static readonly string FooJsonPropertyName = "foo";
 
         
     
@@ -53,7 +54,7 @@ namespace InfiniteLoopDetectionDraft202012Feature.EvaluatingTheSameSchemaLocatio
     
         private readonly JsonElement jsonElementBacking;
 
-            private readonly ImmutableDictionary<JsonEncodedText, JsonAny>? objectBacking;
+            private readonly ImmutableDictionary<string, JsonAny>? objectBacking;
     
     
     
@@ -73,7 +74,7 @@ namespace InfiniteLoopDetectionDraft202012Feature.EvaluatingTheSameSchemaLocatio
         /// Initializes a new instance of the <see cref="Schema"/> struct.
         /// </summary>
         /// <param name="value">A property dictionary.</param>
-        public Schema(ImmutableDictionary<JsonEncodedText, JsonAny> value)
+        public Schema(ImmutableDictionary<string, JsonAny> value)
         {
             this.jsonElementBacking = default;
             this.objectBacking = value;
@@ -219,7 +220,7 @@ namespace InfiniteLoopDetectionDraft202012Feature.EvaluatingTheSameSchemaLocatio
         {
             get
             {
-                if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+                if (this.objectBacking is ImmutableDictionary<string, JsonAny> properties)
                 {
                     if(properties.TryGetValue(FooJsonPropertyName, out JsonAny result))
                     {
@@ -258,7 +259,7 @@ namespace InfiniteLoopDetectionDraft202012Feature.EvaluatingTheSameSchemaLocatio
             get
             {
               
-                if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> objectBacking)
+                if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
                 {
                     return JsonObject.PropertiesToJsonElement(objectBacking);
                 }
@@ -277,7 +278,7 @@ namespace InfiniteLoopDetectionDraft202012Feature.EvaluatingTheSameSchemaLocatio
         {
             get
             {
-                    if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny>)
+                    if (this.objectBacking is ImmutableDictionary<string, JsonAny>)
                 {
                     return JsonValueKind.Object;
                 }
@@ -296,7 +297,7 @@ namespace InfiniteLoopDetectionDraft202012Feature.EvaluatingTheSameSchemaLocatio
         {
             get
             {
-                    if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> objectBacking)
+                    if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
                 {
                     return new JsonAny(objectBacking);
                 }
@@ -317,7 +318,7 @@ namespace InfiniteLoopDetectionDraft202012Feature.EvaluatingTheSameSchemaLocatio
         {
             get
             {
-                    if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> objectBacking)
+                    if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
                 {
                     return new JsonObject(objectBacking);
                 }
@@ -474,7 +475,7 @@ namespace InfiniteLoopDetectionDraft202012Feature.EvaluatingTheSameSchemaLocatio
         /// Implicit conversion to a property dictionary.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator ImmutableDictionary<JsonEncodedText, JsonAny>(Schema  value)
+        public static implicit operator ImmutableDictionary<string, JsonAny>(Schema  value)
         {
             return value.AsObject.AsPropertyDictionary;
         }
@@ -483,7 +484,7 @@ namespace InfiniteLoopDetectionDraft202012Feature.EvaluatingTheSameSchemaLocatio
         /// Implicit conversion from a property dictionary.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator Schema (ImmutableDictionary<JsonEncodedText, JsonAny> value)
+        public static implicit operator Schema (ImmutableDictionary<string, JsonAny> value)
         {
             return new Schema (value);
         }
@@ -523,7 +524,7 @@ namespace InfiniteLoopDetectionDraft202012Feature.EvaluatingTheSameSchemaLocatio
         
         )
         {
-            var builder = ImmutableDictionary.CreateBuilder<JsonEncodedText, JsonAny>();
+            var builder = ImmutableDictionary.CreateBuilder<string, JsonAny>();
                             if (foo is Menes.Json.JsonInteger foo__)
             {
                 builder.Add(FooJsonPropertyName, foo__);
@@ -578,7 +579,7 @@ namespace InfiniteLoopDetectionDraft202012Feature.EvaluatingTheSameSchemaLocatio
         /// <param name="writer">The writer to which to write the object.</param>
         public void WriteTo(Utf8JsonWriter writer)
         {
-                if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> objectBacking)
+                if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
             {
                 JsonObject.WriteProperties(objectBacking, writer);
                 return;
@@ -610,12 +611,6 @@ namespace InfiniteLoopDetectionDraft202012Feature.EvaluatingTheSameSchemaLocatio
     
     
     
-        /// <inheritdoc/>
-        public bool TryGetProperty(JsonEncodedText name, out JsonAny value)
-        {
-            return this.AsObject.TryGetProperty(name, out value);
-        }
-
         /// <inheritdoc/>
         public bool TryGetProperty(string name, out JsonAny value)
         {
@@ -683,9 +678,9 @@ namespace InfiniteLoopDetectionDraft202012Feature.EvaluatingTheSameSchemaLocatio
 
     
         /// <inheritdoc/>
-        public bool HasProperty(JsonEncodedText name)
+        public bool HasProperty(string name)
         {
-            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            if (this.objectBacking is ImmutableDictionary<string, JsonAny> properties)
             {
                 return properties.TryGetValue(name, out _);
             }
@@ -699,27 +694,11 @@ namespace InfiniteLoopDetectionDraft202012Feature.EvaluatingTheSameSchemaLocatio
         }
 
         /// <inheritdoc/>
-        public bool HasProperty(string name)
-        {
-            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
-            {
-                return properties.TryGetValue(JsonEncodedText.Encode(name), out _);
-            }
-
-            if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
-            {
-                return this.jsonElementBacking.TryGetProperty(name, out JsonElement _);
-            }
-
-            return false;
-        }
-
-        /// <inheritdoc/>
         public bool HasProperty(ReadOnlySpan<char> name)
         {
-            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            if (this.objectBacking is ImmutableDictionary<string, JsonAny> properties)
             {
-                return properties.TryGetValue(JsonEncodedText.Encode(name), out _);
+                return properties.TryGetValue(name.ToString(), out _);
             }
 
             if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
@@ -732,9 +711,9 @@ namespace InfiniteLoopDetectionDraft202012Feature.EvaluatingTheSameSchemaLocatio
         /// <inheritdoc/>
         public bool HasProperty(ReadOnlySpan<byte> utf8name)
         {
-            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            if (this.objectBacking is ImmutableDictionary<string, JsonAny> properties)
             {
-                return properties.TryGetValue(JsonEncodedText.Encode(utf8name), out _);
+                return properties.TryGetValue(Encoding.UTF8.GetString(utf8name), out _);
             }
 
             if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
@@ -743,18 +722,6 @@ namespace InfiniteLoopDetectionDraft202012Feature.EvaluatingTheSameSchemaLocatio
             }
 
             return false;        }
-
-        /// <inheritdoc/>
-        public Schema SetProperty<TValue>(JsonEncodedText name, TValue value)
-            where TValue : IJsonValue
-        {
-            if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
-            {
-                return this.AsObject.SetProperty(name, value);
-            }
-
-            return this;
-        }
 
         /// <inheritdoc/>
         public Schema SetProperty<TValue>(string name, TValue value)
@@ -787,17 +754,6 @@ namespace InfiniteLoopDetectionDraft202012Feature.EvaluatingTheSameSchemaLocatio
             if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
             {
                 return this.AsObject.SetProperty(utf8name, value);
-            }
-
-            return this;
-        }
-
-        /// <inheritdoc/>
-        public Schema RemoveProperty(JsonEncodedText name)
-        {
-            if (this.ValueKind == JsonValueKind.Object)
-            {
-                return this.AsObject.RemoveProperty(name);
             }
 
             return this;
@@ -977,7 +933,7 @@ namespace InfiniteLoopDetectionDraft202012Feature.EvaluatingTheSameSchemaLocatio
         /// <summary>
         /// JSON property name for <see cref="Foo"/>.
         /// </summary>
-        public static readonly JsonEncodedText FooJsonPropertyName = JsonEncodedText.Encode( FooUtf8JsonPropertyName.Span);
+        public static readonly string FooJsonPropertyName = "foo";
 
         
     
@@ -985,14 +941,14 @@ namespace InfiniteLoopDetectionDraft202012Feature.EvaluatingTheSameSchemaLocatio
     
     
     
-            private static readonly ImmutableDictionary<JsonEncodedText, Func<AllOf0Entity, ValidationContext, ValidationLevel, ValidationContext>> __MenesLocalProperties = CreateLocalPropertyValidators();
+            private static readonly ImmutableDictionary<string, Func<AllOf0Entity, ValidationContext, ValidationLevel, ValidationContext>> __MenesLocalProperties = CreateLocalPropertyValidators();
     
     
 
     
         private readonly JsonElement jsonElementBacking;
 
-            private readonly ImmutableDictionary<JsonEncodedText, JsonAny>? objectBacking;
+            private readonly ImmutableDictionary<string, JsonAny>? objectBacking;
     
     
     
@@ -1012,7 +968,7 @@ namespace InfiniteLoopDetectionDraft202012Feature.EvaluatingTheSameSchemaLocatio
         /// Initializes a new instance of the <see cref="AllOf0Entity"/> struct.
         /// </summary>
         /// <param name="value">A property dictionary.</param>
-        public AllOf0Entity(ImmutableDictionary<JsonEncodedText, JsonAny> value)
+        public AllOf0Entity(ImmutableDictionary<string, JsonAny> value)
         {
             this.jsonElementBacking = default;
             this.objectBacking = value;
@@ -1062,7 +1018,7 @@ namespace InfiniteLoopDetectionDraft202012Feature.EvaluatingTheSameSchemaLocatio
         {
             get
             {
-                if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+                if (this.objectBacking is ImmutableDictionary<string, JsonAny> properties)
                 {
                     if(properties.TryGetValue(FooJsonPropertyName, out JsonAny result))
                     {
@@ -1101,7 +1057,7 @@ namespace InfiniteLoopDetectionDraft202012Feature.EvaluatingTheSameSchemaLocatio
             get
             {
               
-                if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> objectBacking)
+                if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
                 {
                     return JsonObject.PropertiesToJsonElement(objectBacking);
                 }
@@ -1120,7 +1076,7 @@ namespace InfiniteLoopDetectionDraft202012Feature.EvaluatingTheSameSchemaLocatio
         {
             get
             {
-                    if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny>)
+                    if (this.objectBacking is ImmutableDictionary<string, JsonAny>)
                 {
                     return JsonValueKind.Object;
                 }
@@ -1139,7 +1095,7 @@ namespace InfiniteLoopDetectionDraft202012Feature.EvaluatingTheSameSchemaLocatio
         {
             get
             {
-                    if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> objectBacking)
+                    if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
                 {
                     return new JsonAny(objectBacking);
                 }
@@ -1160,7 +1116,7 @@ namespace InfiniteLoopDetectionDraft202012Feature.EvaluatingTheSameSchemaLocatio
         {
             get
             {
-                    if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> objectBacking)
+                    if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
                 {
                     return new JsonObject(objectBacking);
                 }
@@ -1275,7 +1231,7 @@ namespace InfiniteLoopDetectionDraft202012Feature.EvaluatingTheSameSchemaLocatio
         /// Implicit conversion to a property dictionary.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator ImmutableDictionary<JsonEncodedText, JsonAny>(AllOf0Entity  value)
+        public static implicit operator ImmutableDictionary<string, JsonAny>(AllOf0Entity  value)
         {
             return value.AsObject.AsPropertyDictionary;
         }
@@ -1284,7 +1240,7 @@ namespace InfiniteLoopDetectionDraft202012Feature.EvaluatingTheSameSchemaLocatio
         /// Implicit conversion from a property dictionary.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator AllOf0Entity (ImmutableDictionary<JsonEncodedText, JsonAny> value)
+        public static implicit operator AllOf0Entity (ImmutableDictionary<string, JsonAny> value)
         {
             return new AllOf0Entity (value);
         }
@@ -1324,7 +1280,7 @@ namespace InfiniteLoopDetectionDraft202012Feature.EvaluatingTheSameSchemaLocatio
         
         )
         {
-            var builder = ImmutableDictionary.CreateBuilder<JsonEncodedText, JsonAny>();
+            var builder = ImmutableDictionary.CreateBuilder<string, JsonAny>();
                             if (foo is Menes.Json.JsonInteger foo__)
             {
                 builder.Add(FooJsonPropertyName, foo__);
@@ -1379,7 +1335,7 @@ namespace InfiniteLoopDetectionDraft202012Feature.EvaluatingTheSameSchemaLocatio
         /// <param name="writer">The writer to which to write the object.</param>
         public void WriteTo(Utf8JsonWriter writer)
         {
-                if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> objectBacking)
+                if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
             {
                 JsonObject.WriteProperties(objectBacking, writer);
                 return;
@@ -1411,12 +1367,6 @@ namespace InfiniteLoopDetectionDraft202012Feature.EvaluatingTheSameSchemaLocatio
     
     
     
-        /// <inheritdoc/>
-        public bool TryGetProperty(JsonEncodedText name, out JsonAny value)
-        {
-            return this.AsObject.TryGetProperty(name, out value);
-        }
-
         /// <inheritdoc/>
         public bool TryGetProperty(string name, out JsonAny value)
         {
@@ -1484,9 +1434,9 @@ namespace InfiniteLoopDetectionDraft202012Feature.EvaluatingTheSameSchemaLocatio
 
     
         /// <inheritdoc/>
-        public bool HasProperty(JsonEncodedText name)
+        public bool HasProperty(string name)
         {
-            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            if (this.objectBacking is ImmutableDictionary<string, JsonAny> properties)
             {
                 return properties.TryGetValue(name, out _);
             }
@@ -1500,27 +1450,11 @@ namespace InfiniteLoopDetectionDraft202012Feature.EvaluatingTheSameSchemaLocatio
         }
 
         /// <inheritdoc/>
-        public bool HasProperty(string name)
-        {
-            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
-            {
-                return properties.TryGetValue(JsonEncodedText.Encode(name), out _);
-            }
-
-            if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
-            {
-                return this.jsonElementBacking.TryGetProperty(name, out JsonElement _);
-            }
-
-            return false;
-        }
-
-        /// <inheritdoc/>
         public bool HasProperty(ReadOnlySpan<char> name)
         {
-            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            if (this.objectBacking is ImmutableDictionary<string, JsonAny> properties)
             {
-                return properties.TryGetValue(JsonEncodedText.Encode(name), out _);
+                return properties.TryGetValue(name.ToString(), out _);
             }
 
             if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
@@ -1533,9 +1467,9 @@ namespace InfiniteLoopDetectionDraft202012Feature.EvaluatingTheSameSchemaLocatio
         /// <inheritdoc/>
         public bool HasProperty(ReadOnlySpan<byte> utf8name)
         {
-            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            if (this.objectBacking is ImmutableDictionary<string, JsonAny> properties)
             {
-                return properties.TryGetValue(JsonEncodedText.Encode(utf8name), out _);
+                return properties.TryGetValue(Encoding.UTF8.GetString(utf8name), out _);
             }
 
             if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
@@ -1544,18 +1478,6 @@ namespace InfiniteLoopDetectionDraft202012Feature.EvaluatingTheSameSchemaLocatio
             }
 
             return false;        }
-
-        /// <inheritdoc/>
-        public AllOf0Entity SetProperty<TValue>(JsonEncodedText name, TValue value)
-            where TValue : IJsonValue
-        {
-            if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
-            {
-                return this.AsObject.SetProperty(name, value);
-            }
-
-            return this;
-        }
 
         /// <inheritdoc/>
         public AllOf0Entity SetProperty<TValue>(string name, TValue value)
@@ -1588,17 +1510,6 @@ namespace InfiniteLoopDetectionDraft202012Feature.EvaluatingTheSameSchemaLocatio
             if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
             {
                 return this.AsObject.SetProperty(utf8name, value);
-            }
-
-            return this;
-        }
-
-        /// <inheritdoc/>
-        public AllOf0Entity RemoveProperty(JsonEncodedText name)
-        {
-            if (this.ValueKind == JsonValueKind.Object)
-            {
-                return this.AsObject.RemoveProperty(name);
             }
 
             return this;
@@ -1684,10 +1595,10 @@ namespace InfiniteLoopDetectionDraft202012Feature.EvaluatingTheSameSchemaLocatio
     
     
     
-        private static ImmutableDictionary<JsonEncodedText, Func<AllOf0Entity, ValidationContext, ValidationLevel, ValidationContext>> CreateLocalPropertyValidators()
+        private static ImmutableDictionary<string, Func<AllOf0Entity, ValidationContext, ValidationLevel, ValidationContext>> CreateLocalPropertyValidators()
         {
-            ImmutableDictionary<JsonEncodedText, Func<AllOf0Entity, ValidationContext, ValidationLevel, ValidationContext>>.Builder builder =
-                ImmutableDictionary.CreateBuilder<JsonEncodedText, Func<AllOf0Entity, ValidationContext, ValidationLevel, ValidationContext>>();
+            ImmutableDictionary<string, Func<AllOf0Entity, ValidationContext, ValidationLevel, ValidationContext>>.Builder builder =
+                ImmutableDictionary.CreateBuilder<string, Func<AllOf0Entity, ValidationContext, ValidationLevel, ValidationContext>>();
 
                     builder.Add(
                 FooJsonPropertyName,
@@ -1717,7 +1628,7 @@ namespace InfiniteLoopDetectionDraft202012Feature.EvaluatingTheSameSchemaLocatio
         
             foreach (Property property in this.EnumerateObject())
             {
-                JsonEncodedText propertyName = property.NameAsJsonEncodedText;
+                string propertyName = property.Name;
 
         
                         if (__MenesLocalProperties.TryGetValue(propertyName, out Func<AllOf0Entity, ValidationContext, ValidationLevel, ValidationContext>? propertyValidator))
@@ -1786,7 +1697,7 @@ namespace InfiniteLoopDetectionDraft202012Feature.EvaluatingTheSameSchemaLocatio
     
         private readonly JsonElement jsonElementBacking;
 
-            private readonly ImmutableDictionary<JsonEncodedText, JsonAny>? objectBacking;
+            private readonly ImmutableDictionary<string, JsonAny>? objectBacking;
     
     
     
@@ -1806,7 +1717,7 @@ namespace InfiniteLoopDetectionDraft202012Feature.EvaluatingTheSameSchemaLocatio
         /// Initializes a new instance of the <see cref="AllOf1Entity"/> struct.
         /// </summary>
         /// <param name="value">A property dictionary.</param>
-        public AllOf1Entity(ImmutableDictionary<JsonEncodedText, JsonAny> value)
+        public AllOf1Entity(ImmutableDictionary<string, JsonAny> value)
         {
             this.jsonElementBacking = default;
             this.objectBacking = value;
@@ -1860,7 +1771,7 @@ namespace InfiniteLoopDetectionDraft202012Feature.EvaluatingTheSameSchemaLocatio
             get
             {
               
-                if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> objectBacking)
+                if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
                 {
                     return JsonObject.PropertiesToJsonElement(objectBacking);
                 }
@@ -1879,7 +1790,7 @@ namespace InfiniteLoopDetectionDraft202012Feature.EvaluatingTheSameSchemaLocatio
         {
             get
             {
-                    if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny>)
+                    if (this.objectBacking is ImmutableDictionary<string, JsonAny>)
                 {
                     return JsonValueKind.Object;
                 }
@@ -1898,7 +1809,7 @@ namespace InfiniteLoopDetectionDraft202012Feature.EvaluatingTheSameSchemaLocatio
         {
             get
             {
-                    if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> objectBacking)
+                    if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
                 {
                     return new JsonAny(objectBacking);
                 }
@@ -1919,7 +1830,7 @@ namespace InfiniteLoopDetectionDraft202012Feature.EvaluatingTheSameSchemaLocatio
         {
             get
             {
-                    if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> objectBacking)
+                    if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
                 {
                     return new JsonObject(objectBacking);
                 }
@@ -2034,7 +1945,7 @@ namespace InfiniteLoopDetectionDraft202012Feature.EvaluatingTheSameSchemaLocatio
         /// Implicit conversion to a property dictionary.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator ImmutableDictionary<JsonEncodedText, JsonAny>(AllOf1Entity  value)
+        public static implicit operator ImmutableDictionary<string, JsonAny>(AllOf1Entity  value)
         {
             return value.AsObject.AsPropertyDictionary;
         }
@@ -2043,7 +1954,7 @@ namespace InfiniteLoopDetectionDraft202012Feature.EvaluatingTheSameSchemaLocatio
         /// Implicit conversion from a property dictionary.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator AllOf1Entity (ImmutableDictionary<JsonEncodedText, JsonAny> value)
+        public static implicit operator AllOf1Entity (ImmutableDictionary<string, JsonAny> value)
         {
             return new AllOf1Entity (value);
         }
@@ -2110,7 +2021,7 @@ namespace InfiniteLoopDetectionDraft202012Feature.EvaluatingTheSameSchemaLocatio
         /// <param name="writer">The writer to which to write the object.</param>
         public void WriteTo(Utf8JsonWriter writer)
         {
-                if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> objectBacking)
+                if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
             {
                 JsonObject.WriteProperties(objectBacking, writer);
                 return;
@@ -2136,7 +2047,7 @@ namespace InfiniteLoopDetectionDraft202012Feature.EvaluatingTheSameSchemaLocatio
         /// </summary>
         public JsonObjectEnumerator<Menes.Json.JsonInteger> EnumerateProperties()
         {
-            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            if (this.objectBacking is ImmutableDictionary<string, JsonAny> properties)
             {
                 return new JsonObjectEnumerator<Menes.Json.JsonInteger>(properties);
             }
@@ -2160,12 +2071,6 @@ namespace InfiniteLoopDetectionDraft202012Feature.EvaluatingTheSameSchemaLocatio
     
     
     
-        /// <inheritdoc/>
-        public bool TryGetProperty(JsonEncodedText name, out JsonAny value)
-        {
-            return this.AsObject.TryGetProperty(name, out value);
-        }
-
         /// <inheritdoc/>
         public bool TryGetProperty(string name, out JsonAny value)
         {
@@ -2233,9 +2138,9 @@ namespace InfiniteLoopDetectionDraft202012Feature.EvaluatingTheSameSchemaLocatio
 
     
         /// <inheritdoc/>
-        public bool HasProperty(JsonEncodedText name)
+        public bool HasProperty(string name)
         {
-            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            if (this.objectBacking is ImmutableDictionary<string, JsonAny> properties)
             {
                 return properties.TryGetValue(name, out _);
             }
@@ -2249,27 +2154,11 @@ namespace InfiniteLoopDetectionDraft202012Feature.EvaluatingTheSameSchemaLocatio
         }
 
         /// <inheritdoc/>
-        public bool HasProperty(string name)
-        {
-            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
-            {
-                return properties.TryGetValue(JsonEncodedText.Encode(name), out _);
-            }
-
-            if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
-            {
-                return this.jsonElementBacking.TryGetProperty(name, out JsonElement _);
-            }
-
-            return false;
-        }
-
-        /// <inheritdoc/>
         public bool HasProperty(ReadOnlySpan<char> name)
         {
-            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            if (this.objectBacking is ImmutableDictionary<string, JsonAny> properties)
             {
-                return properties.TryGetValue(JsonEncodedText.Encode(name), out _);
+                return properties.TryGetValue(name.ToString(), out _);
             }
 
             if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
@@ -2282,9 +2171,9 @@ namespace InfiniteLoopDetectionDraft202012Feature.EvaluatingTheSameSchemaLocatio
         /// <inheritdoc/>
         public bool HasProperty(ReadOnlySpan<byte> utf8name)
         {
-            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            if (this.objectBacking is ImmutableDictionary<string, JsonAny> properties)
             {
-                return properties.TryGetValue(JsonEncodedText.Encode(utf8name), out _);
+                return properties.TryGetValue(Encoding.UTF8.GetString(utf8name), out _);
             }
 
             if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
@@ -2293,18 +2182,6 @@ namespace InfiniteLoopDetectionDraft202012Feature.EvaluatingTheSameSchemaLocatio
             }
 
             return false;        }
-
-        /// <inheritdoc/>
-        public AllOf1Entity SetProperty<TValue>(JsonEncodedText name, TValue value)
-            where TValue : IJsonValue
-        {
-            if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
-            {
-                return this.AsObject.SetProperty(name, value);
-            }
-
-            return this;
-        }
 
         /// <inheritdoc/>
         public AllOf1Entity SetProperty<TValue>(string name, TValue value)
@@ -2337,17 +2214,6 @@ namespace InfiniteLoopDetectionDraft202012Feature.EvaluatingTheSameSchemaLocatio
             if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
             {
                 return this.AsObject.SetProperty(utf8name, value);
-            }
-
-            return this;
-        }
-
-        /// <inheritdoc/>
-        public AllOf1Entity RemoveProperty(JsonEncodedText name)
-        {
-            if (this.ValueKind == JsonValueKind.Object)
-            {
-                return this.AsObject.RemoveProperty(name);
             }
 
             return this;
@@ -2450,7 +2316,7 @@ namespace InfiniteLoopDetectionDraft202012Feature.EvaluatingTheSameSchemaLocatio
         
             foreach (Property property in this.EnumerateObject())
             {
-                JsonEncodedText propertyName = property.NameAsJsonEncodedText;
+                string propertyName = property.Name;
 
         
         

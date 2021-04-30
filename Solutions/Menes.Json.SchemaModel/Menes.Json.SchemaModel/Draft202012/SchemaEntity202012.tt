@@ -23,6 +23,7 @@ namespace <#= Namespace #>
     using System.Collections.Generic;
     using System.Collections.Immutable;
     using System.Linq;
+    using System.Text;
     using System.Text.Json;
     using System.Text.RegularExpressions;
     using Menes.Json;
@@ -100,7 +101,7 @@ namespace <#= Namespace #>
         /// <summary>
         /// JSON property name for <see cref="<#= property.DotnetPropertyName #>"/>.
         /// </summary>
-        public static readonly JsonEncodedText <#= property.DotnetPropertyName #>JsonPropertyName = JsonEncodedText.Encode( <#= property.DotnetPropertyName #>Utf8JsonPropertyName.Span);
+        public static readonly string <#= property.DotnetPropertyName #>JsonPropertyName = <#= Formatting.FormatLiteralOrNull(property.JsonPropertyName, true)#>;
 
         <#
         }
@@ -163,7 +164,7 @@ namespace <#= Namespace #>
     if(HasDependentRequired)
     {
     #>
-        private static readonly ImmutableDictionary<JsonEncodedText, ImmutableArray<ReadOnlyMemory<byte>>> __MenesDependentRequired = BuildDependentRequired();
+        private static readonly ImmutableDictionary<string, ImmutableArray<ReadOnlyMemory<byte>>> __MenesDependentRequired = BuildDependentRequired();
     <#
     }
     #>
@@ -172,7 +173,7 @@ namespace <#= Namespace #>
     if(HasDependentSchemas)
     {
     #>
-        private static readonly ImmutableDictionary<JsonEncodedText, Func<<#= TypeDeclaration.DotnetTypeName #>, ValidationContext, ValidationLevel, ValidationContext>> __MenesDependentSchema = CreateDependentSchemaValidators();
+        private static readonly ImmutableDictionary<string, Func<<#= TypeDeclaration.DotnetTypeName #>, ValidationContext, ValidationLevel, ValidationContext>> __MenesDependentSchema = CreateDependentSchemaValidators();
     <#
     }
     #>
@@ -181,7 +182,7 @@ namespace <#= Namespace #>
     if(HasLocalProperties)
     {
     #>
-        private static readonly ImmutableDictionary<JsonEncodedText, Func<<#= TypeDeclaration.DotnetTypeName #>, ValidationContext, ValidationLevel, ValidationContext>> __MenesLocalProperties = CreateLocalPropertyValidators();
+        private static readonly ImmutableDictionary<string, Func<<#= TypeDeclaration.DotnetTypeName #>, ValidationContext, ValidationLevel, ValidationContext>> __MenesLocalProperties = CreateLocalPropertyValidators();
     <#
     }
     #>
@@ -190,7 +191,7 @@ namespace <#= Namespace #>
     if(HasDefaults)
     {
     #>
-        private static readonly ImmutableDictionary<JsonEncodedText, JsonAny> __MenesDefaults = BuildDefaults();
+        private static readonly ImmutableDictionary<string, JsonAny> __MenesDefaults = BuildDefaults();
     <#
     }
     #>
@@ -211,7 +212,7 @@ namespace <#= Namespace #>
     if(IsImplicitObject)
     {
     #>
-        private readonly ImmutableDictionary<JsonEncodedText, JsonAny>? objectBacking;
+        private readonly ImmutableDictionary<string, JsonAny>? objectBacking;
     <#
     }
     #>
@@ -238,7 +239,7 @@ namespace <#= Namespace #>
     if(IsImplicitString)
     {
     #>
-        private readonly JsonEncodedText? stringBacking;
+        private readonly string? stringBacking;
     <#
     }
     #>
@@ -309,7 +310,7 @@ namespace <#= Namespace #>
         /// Initializes a new instance of the <see cref="<#= TypeDeclaration.DotnetTypeName #>"/> struct.
         /// </summary>
         /// <param name="value">A property dictionary.</param>
-        public <#= TypeDeclaration.DotnetTypeName #>(ImmutableDictionary<JsonEncodedText, JsonAny> value)
+        public <#= TypeDeclaration.DotnetTypeName #>(ImmutableDictionary<string, JsonAny> value)
         {
             this.jsonElementBacking = default;
             this.objectBacking = value;
@@ -769,48 +770,6 @@ namespace <#= Namespace #>
         <#
         }
         #>
-            this.stringBacking = JsonEncodedText.Encode(value);
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="<#= TypeDeclaration.DotnetTypeName #>"/> struct.
-        /// </summary>
-        /// <param name="value">A string value.</param>
-        public <#= TypeDeclaration.DotnetTypeName #>(JsonEncodedText value)
-        {
-            this.jsonElementBacking = default;
-        <#
-        if(IsImplicitObject)
-        {
-        #>
-            this.objectBacking = default;
-        <#
-        }
-        #>
-        <#
-        if(IsImplicitArray)
-        {
-        #>
-            this.arrayBacking = default;
-        <#
-        }
-        #>
-        <#
-        if(IsImplicitNumber)
-        {
-        #>
-            this.numberBacking = default;
-        <#
-        }
-        #>
-        <#
-        if(IsImplicitBoolean)
-        {
-        #>
-            this.booleanBacking = default;
-        <#
-        }
-        #>
             this.stringBacking = value;
         }
 
@@ -853,7 +812,7 @@ namespace <#= Namespace #>
         <#
         }
         #>
-            this.stringBacking = JsonEncodedText.Encode(value);
+            this.stringBacking = value.ToString();
         }
 
         /// <summary>
@@ -895,7 +854,7 @@ namespace <#= Namespace #>
         <#
         }
         #>
-            this.stringBacking = JsonEncodedText.Encode(value);
+            this.stringBacking = Encoding.UTF8.GetString(value);
         }
 
         /// <summary>
@@ -912,7 +871,7 @@ namespace <#= Namespace #>
             else
             {
                 this.jsonElementBacking = default;
-                this.stringBacking = jsonString.GetJsonEncodedText();
+                this.stringBacking = jsonString;
             }
 
         <#
@@ -1375,7 +1334,7 @@ namespace <#= Namespace #>
         {
             get
             {
-                if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+                if (this.objectBacking is ImmutableDictionary<string, JsonAny> properties)
                 {
                     if(properties.TryGetValue(<#= property.DotnetPropertyName #>JsonPropertyName, out JsonAny result))
                     {
@@ -1522,7 +1481,7 @@ namespace <#= Namespace #>
     if (IsImplicitObject)
     {
     #>          
-                if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> objectBacking)
+                if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
                 {
                     return JsonObject.PropertiesToJsonElement(objectBacking);
                 }
@@ -1560,7 +1519,7 @@ namespace <#= Namespace #>
     if (IsImplicitString)
     {
     #>
-                if (this.stringBacking is JsonEncodedText stringBacking)
+                if (this.stringBacking is string stringBacking)
                 {
                     return JsonString.StringToJsonElement(stringBacking);
                 }
@@ -1595,7 +1554,7 @@ namespace <#= Namespace #>
     if (IsImplicitObject)
     {
     #>
-                if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny>)
+                if (this.objectBacking is ImmutableDictionary<string, JsonAny>)
                 {
                     return JsonValueKind.Object;
                 }
@@ -1634,7 +1593,7 @@ namespace <#= Namespace #>
     if (IsImplicitString)
     {
     #>
-                if (this.stringBacking is JsonEncodedText)
+                if (this.stringBacking is string)
                 {
                     return JsonValueKind.String;
                 }
@@ -1669,7 +1628,7 @@ namespace <#= Namespace #>
     if (IsImplicitObject)
     {
     #>
-                if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> objectBacking)
+                if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
                 {
                     return new JsonAny(objectBacking);
                 }
@@ -1708,7 +1667,7 @@ namespace <#= Namespace #>
     if (IsImplicitString)
     {
     #>
-                if (this.stringBacking is JsonEncodedText stringBacking)
+                if (this.stringBacking is string stringBacking)
                 {
                     return new JsonAny(stringBacking);
                 }
@@ -1745,7 +1704,7 @@ namespace <#= Namespace #>
     if (IsImplicitObject)
     {
     #>
-                if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> objectBacking)
+                if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
                 {
                     return new JsonObject(objectBacking);
                 }
@@ -1816,7 +1775,7 @@ namespace <#= Namespace #>
     if (IsImplicitString)
     {
     #>
-                if (this.stringBacking is JsonEncodedText stringBacking)
+                if (this.stringBacking is string stringBacking)
                 {
                     return new JsonString(stringBacking);
                 }
@@ -2064,7 +2023,7 @@ namespace <#= Namespace #>
         /// Implicit conversion to a property dictionary.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator ImmutableDictionary<JsonEncodedText, JsonAny>(<#= TypeDeclaration.DotnetTypeName #>  value)
+        public static implicit operator ImmutableDictionary<string, JsonAny>(<#= TypeDeclaration.DotnetTypeName #>  value)
         {
             return value.AsObject.AsPropertyDictionary;
         }
@@ -2073,7 +2032,7 @@ namespace <#= Namespace #>
         /// Implicit conversion from a property dictionary.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator <#= TypeDeclaration.DotnetTypeName #> (ImmutableDictionary<JsonEncodedText, JsonAny> value)
+        public static implicit operator <#= TypeDeclaration.DotnetTypeName #> (ImmutableDictionary<string, JsonAny> value)
         {
             return new <#= TypeDeclaration.DotnetTypeName #> (value);
         }
@@ -2102,25 +2061,7 @@ namespace <#= Namespace #>
         /// <param name="value">The number from which to convert.</param>
         public static implicit operator string(<#= TypeDeclaration.DotnetTypeName #> value)
         {
-            return value.AsString.GetString();
-        }
-
-        /// <summary>
-        /// Conversion from <see cref="JsonEncodedText"/>.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator <#= TypeDeclaration.DotnetTypeName #>(JsonEncodedText value)
-        {
-            return new <#= TypeDeclaration.DotnetTypeName #>(value);
-        }
-
-        /// <summary>
-        /// Conversion to <see cref="JsonEncodedText"/>.
-        /// </summary>
-        /// <param name="value">The number from which to convert.</param>
-        public static implicit operator JsonEncodedText(<#= TypeDeclaration.DotnetTypeName #> value)
-        {
-            return value.AsString.GetJsonEncodedText();
+            return value.AsString;
         }
 
         /// <summary>
@@ -2138,7 +2079,7 @@ namespace <#= Namespace #>
         /// <param name="value">The number from which to convert.</param>
         public static implicit operator ReadOnlySpan<char>(<#= TypeDeclaration.DotnetTypeName #> value)
         {
-            return value.AsString.AsSpan();
+            return value.AsString;
         }
 
         /// <summary>
@@ -2156,7 +2097,7 @@ namespace <#= Namespace #>
         /// <param name="value">The number from which to convert.</param>
         public static implicit operator ReadOnlySpan<byte>(<#= TypeDeclaration.DotnetTypeName #> value)
         {
-            return value.AsString.GetJsonEncodedText().EncodedUtf8Bytes;
+            return value.AsString;
         }
 
         /// <summary>
@@ -2522,7 +2463,7 @@ namespace <#= Namespace #>
 
         )
         {
-            var builder = ImmutableDictionary.CreateBuilder<JsonEncodedText, JsonAny>();
+            var builder = ImmutableDictionary.CreateBuilder<string, JsonAny>();
         <#
         foreach(var property in RequiredAllOfAndRefProperties)
         {
@@ -2606,7 +2547,7 @@ namespace <#= Namespace #>
     if (IsImplicitObject)
     {
     #>
-            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> objectBacking)
+            if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
             {
                 JsonObject.WriteProperties(objectBacking, writer);
                 return;
@@ -2648,7 +2589,7 @@ namespace <#= Namespace #>
     if (IsImplicitString)
     {
     #>
-            if (this.stringBacking is JsonEncodedText stringBacking)
+            if (this.stringBacking is string stringBacking)
             {
                 writer.WriteStringValue(stringBacking);
                 return;
@@ -2694,7 +2635,7 @@ namespace <#= Namespace #>
         /// </summary>
         public JsonObjectEnumerator<<#= AdditionalPropertiesDotnetTypeName #>> EnumerateProperties()
         {
-            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            if (this.objectBacking is ImmutableDictionary<string, JsonAny> properties)
             {
                 return new JsonObjectEnumerator<<#= AdditionalPropertiesDotnetTypeName #>>(properties);
             }
@@ -2720,7 +2661,7 @@ namespace <#= Namespace #>
         /// </summary>
         public JsonObjectEnumerator<<#= UnevaluatedPropertiesDotnetTypeName #>> EnumerateProperties()
         {
-            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            if (this.objectBacking is ImmutableDictionary<string, JsonAny> properties)
             {
                 return new JsonObjectEnumerator<<#= UnevaluatedPropertiesDotnetTypeName #>>(properties);
             }
@@ -2791,12 +2732,6 @@ namespace <#= Namespace #>
     #>
 
         /// <inheritdoc/>
-        public bool TryGetProperty(JsonEncodedText name, out JsonAny value)
-        {
-            return this.AsObject.TryGetProperty(name, out value);
-        }
-
-        /// <inheritdoc/>
         public bool TryGetProperty(string name, out JsonAny value)
         {
             return this.AsObject.TryGetProperty(name, out value);
@@ -2819,51 +2754,39 @@ namespace <#= Namespace #>
         {
         #>
         /// <inheritdoc/>
-        public bool TryGetDefault(JsonEncodedText name, out JsonAny value)
+        public bool TryGetDefault(string name, out JsonAny value)
         {
             return __MenesDefaults.TryGetValue(name, out value);
         }
 
         /// <inheritdoc/>
-        public bool TryGetDefault(string name, out JsonAny value)
-        {
-            return __MenesDefaults.TryGetValue(JsonEncodedText.Encode(name), out value);
-        }
-
-        /// <inheritdoc/>
         public bool TryGetDefault(ReadOnlySpan<char> name, out JsonAny value)
         {
-            return __MenesDefaults.TryGetValue(JsonEncodedText.Encode(name), out value);
+            return __MenesDefaults.TryGetValue(name.ToString(), out value);
         }
 
         /// <inheritdoc/>
         public bool TryGetDefault(ReadOnlySpan<byte> utf8name, out JsonAny value)
         {
-            return __MenesDefaults.TryGetValue(JsonEncodedText.Encode(utf8name), out value);
-        }
-
-        /// <inheritdoc/>
-        public bool HasDefault(JsonEncodedText name)
-        {
-            return __MenesDefaults.TryGetValue(name, out _);
+            return __MenesDefaults.TryGetValue(Encoding.UTF8.GetString(utf8name), out value);
         }
 
         /// <inheritdoc/>
         public bool HasDefault(string name)
         {
-            return __MenesDefaults.TryGetValue(JsonEncodedText.Encode(name), out _);
+            return __MenesDefaults.TryGetValue(name, out _);
         }
 
         /// <inheritdoc/>
         public bool HasDefault(ReadOnlySpan<char> name)
         {
-            return __MenesDefaults.TryGetValue(JsonEncodedText.Encode(name), out _);
+            return __MenesDefaults.TryGetValue(name.ToString(), out _);
         }
 
         /// <inheritdoc/>
         public bool HasDefault(ReadOnlySpan<byte> utf8name)
         {
-            return __MenesDefaults.TryGetValue(JsonEncodedText.Encode(utf8name), out _);
+            return __MenesDefaults.TryGetValue(Encoding.UTF8.GetString(utf8name), out _);
         }
 
         <#
@@ -2925,9 +2848,9 @@ namespace <#= Namespace #>
     #>
 
         /// <inheritdoc/>
-        public bool HasProperty(JsonEncodedText name)
+        public bool HasProperty(string name)
         {
-            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            if (this.objectBacking is ImmutableDictionary<string, JsonAny> properties)
             {
                 return properties.TryGetValue(name, out _);
             }
@@ -2941,27 +2864,11 @@ namespace <#= Namespace #>
         }
 
         /// <inheritdoc/>
-        public bool HasProperty(string name)
-        {
-            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
-            {
-                return properties.TryGetValue(JsonEncodedText.Encode(name), out _);
-            }
-
-            if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
-            {
-                return this.jsonElementBacking.TryGetProperty(name, out JsonElement _);
-            }
-
-            return false;
-        }
-
-        /// <inheritdoc/>
         public bool HasProperty(ReadOnlySpan<char> name)
         {
-            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            if (this.objectBacking is ImmutableDictionary<string, JsonAny> properties)
             {
-                return properties.TryGetValue(JsonEncodedText.Encode(name), out _);
+                return properties.TryGetValue(name.ToString(), out _);
             }
 
             if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
@@ -2974,9 +2881,9 @@ namespace <#= Namespace #>
         /// <inheritdoc/>
         public bool HasProperty(ReadOnlySpan<byte> utf8name)
         {
-            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            if (this.objectBacking is ImmutableDictionary<string, JsonAny> properties)
             {
-                return properties.TryGetValue(JsonEncodedText.Encode(utf8name), out _);
+                return properties.TryGetValue(Encoding.UTF8.GetString(utf8name), out _);
             }
 
             if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
@@ -2985,18 +2892,6 @@ namespace <#= Namespace #>
             }
 
             return false;        }
-
-        /// <inheritdoc/>
-        public <#= TypeDeclaration.DotnetTypeName #> SetProperty<TValue>(JsonEncodedText name, TValue value)
-            where TValue : IJsonValue
-        {
-            if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
-            {
-                return this.AsObject.SetProperty(name, value);
-            }
-
-            return this;
-        }
 
         /// <inheritdoc/>
         public <#= TypeDeclaration.DotnetTypeName #> SetProperty<TValue>(string name, TValue value)
@@ -3029,17 +2924,6 @@ namespace <#= Namespace #>
             if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
             {
                 return this.AsObject.SetProperty(utf8name, value);
-            }
-
-            return this;
-        }
-
-        /// <inheritdoc/>
-        public <#= TypeDeclaration.DotnetTypeName #> RemoveProperty(JsonEncodedText name)
-        {
-            if (this.ValueKind == JsonValueKind.Object)
-            {
-                return this.AsObject.RemoveProperty(name);
             }
 
             return this;
@@ -3570,17 +3454,17 @@ namespace <#= Namespace #>
     {
     #>
 
-        private static ImmutableDictionary<JsonEncodedText, Func<<#= TypeDeclaration.DotnetTypeName #>, ValidationContext, ValidationLevel, ValidationContext>> CreateDependentSchemaValidators()
+        private static ImmutableDictionary<string, Func<<#= TypeDeclaration.DotnetTypeName #>, ValidationContext, ValidationLevel, ValidationContext>> CreateDependentSchemaValidators()
         {
-            ImmutableDictionary<JsonEncodedText, Func<<#= TypeDeclaration.DotnetTypeName #>, ValidationContext, ValidationLevel, ValidationContext>>.Builder builder =
-                ImmutableDictionary.CreateBuilder<JsonEncodedText, Func<<#= TypeDeclaration.DotnetTypeName #>, ValidationContext, ValidationLevel, ValidationContext>>();
+            ImmutableDictionary<string, Func<<#= TypeDeclaration.DotnetTypeName #>, ValidationContext, ValidationLevel, ValidationContext>>.Builder builder =
+                ImmutableDictionary.CreateBuilder<string, Func<<#= TypeDeclaration.DotnetTypeName #>, ValidationContext, ValidationLevel, ValidationContext>>();
 
         <#
         foreach (var dependentSchema in DependentSchemas)
         {
         #>
             builder.Add(
-                JsonEncodedText.Encode("<#= dependentSchema.Name #>"),
+                "<#= dependentSchema.Name #>",
                 (entity, validationContext, level) =>
                 {
                     return entity.As<<#= dependentSchema.DotnetTypeName #>>().Validate(validationContext, level);
@@ -3600,10 +3484,10 @@ namespace <#= Namespace #>
     if (HasDefaults)
     {
     #>
-        private static ImmutableDictionary<JsonEncodedText, JsonAny> BuildDefaults()
+        private static ImmutableDictionary<string, JsonAny> BuildDefaults()
         {
-            ImmutableDictionary<JsonEncodedText, JsonAny>.Builder builder =
-                ImmutableDictionary.CreateBuilder<JsonEncodedText, JsonAny>();
+            ImmutableDictionary<string, JsonAny>.Builder builder =
+                ImmutableDictionary.CreateBuilder<string, JsonAny>();
 
         <#
         foreach (var property in Defaults)
@@ -3624,17 +3508,17 @@ namespace <#= Namespace #>
     {
     #>
 
-        private static ImmutableDictionary<JsonEncodedText, ImmutableArray<ReadOnlyMemory<byte>>> BuildDependentRequired()
+        private static ImmutableDictionary<string, ImmutableArray<ReadOnlyMemory<byte>>> BuildDependentRequired()
         {
-            ImmutableDictionary<JsonEncodedText, ImmutableArray<ReadOnlyMemory<byte>>>.Builder builder =
-                ImmutableDictionary.CreateBuilder<JsonEncodedText, ImmutableArray<ReadOnlyMemory<byte>>>();
+            ImmutableDictionary<string, ImmutableArray<ReadOnlyMemory<byte>>>.Builder builder =
+                ImmutableDictionary.CreateBuilder<string, ImmutableArray<ReadOnlyMemory<byte>>>();
 
         <#
         foreach (var dependentRequired in DependentRequired)
         {
         #>
             builder.Add(
-                    JsonEncodedText.Encode(<#= Formatting.FormatLiteralOrNull(dependentRequired.Name, true) #>),
+                    <#= Formatting.FormatLiteralOrNull(dependentRequired.Name, true) #>,
                     ImmutableArray.Create<ReadOnlyMemory<byte>>(
             <#
             bool isFirst1 = true;
@@ -3675,10 +3559,10 @@ namespace <#= Namespace #>
     {
     #>
 
-        private static ImmutableDictionary<JsonEncodedText, Func<<#= TypeDeclaration.DotnetTypeName #>, ValidationContext, ValidationLevel, ValidationContext>> CreateLocalPropertyValidators()
+        private static ImmutableDictionary<string, Func<<#= TypeDeclaration.DotnetTypeName #>, ValidationContext, ValidationLevel, ValidationContext>> CreateLocalPropertyValidators()
         {
-            ImmutableDictionary<JsonEncodedText, Func<<#= TypeDeclaration.DotnetTypeName #>, ValidationContext, ValidationLevel, ValidationContext>>.Builder builder =
-                ImmutableDictionary.CreateBuilder<JsonEncodedText, Func<<#= TypeDeclaration.DotnetTypeName #>, ValidationContext, ValidationLevel, ValidationContext>>();
+            ImmutableDictionary<string, Func<<#= TypeDeclaration.DotnetTypeName #>, ValidationContext, ValidationLevel, ValidationContext>>.Builder builder =
+                ImmutableDictionary.CreateBuilder<string, Func<<#= TypeDeclaration.DotnetTypeName #>, ValidationContext, ValidationLevel, ValidationContext>>();
 
         <#
         foreach (var property in LocalProperties)
@@ -4141,7 +4025,7 @@ namespace <#= Namespace #>
 
             foreach (Property property in this.EnumerateObject())
             {
-                JsonEncodedText propertyName = property.NameAsJsonEncodedText;
+                string propertyName = property.Name;
 
         <#
         if (HasDependentRequired)

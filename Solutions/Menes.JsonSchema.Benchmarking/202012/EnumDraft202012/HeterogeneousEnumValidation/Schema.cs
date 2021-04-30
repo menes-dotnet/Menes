@@ -16,6 +16,7 @@ namespace EnumDraft202012Feature.HeterogeneousEnumValidation
     using System.Collections.Generic;
     using System.Collections.Immutable;
     using System.Linq;
+    using System.Text;
     using System.Text.Json;
     using System.Text.RegularExpressions;
     using Menes.Json;
@@ -41,13 +42,13 @@ namespace EnumDraft202012Feature.HeterogeneousEnumValidation
     
         private readonly JsonElement jsonElementBacking;
 
-            private readonly ImmutableDictionary<JsonEncodedText, JsonAny>? objectBacking;
+            private readonly ImmutableDictionary<string, JsonAny>? objectBacking;
     
             private readonly ImmutableList<JsonAny>? arrayBacking;
     
             private readonly double? numberBacking;
     
-            private readonly JsonEncodedText? stringBacking;
+            private readonly string? stringBacking;
     
             private readonly bool? booleanBacking;
     
@@ -69,7 +70,7 @@ namespace EnumDraft202012Feature.HeterogeneousEnumValidation
         /// Initializes a new instance of the <see cref="Schema"/> struct.
         /// </summary>
         /// <param name="value">A property dictionary.</param>
-        public Schema(ImmutableDictionary<JsonEncodedText, JsonAny> value)
+        public Schema(ImmutableDictionary<string, JsonAny> value)
         {
             this.jsonElementBacking = default;
             this.objectBacking = value;
@@ -228,20 +229,6 @@ namespace EnumDraft202012Feature.HeterogeneousEnumValidation
                             this.arrayBacking = default;
                             this.numberBacking = default;
                             this.booleanBacking = default;
-                    this.stringBacking = JsonEncodedText.Encode(value);
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Schema"/> struct.
-        /// </summary>
-        /// <param name="value">A string value.</param>
-        public Schema(JsonEncodedText value)
-        {
-            this.jsonElementBacking = default;
-                    this.objectBacking = default;
-                            this.arrayBacking = default;
-                            this.numberBacking = default;
-                            this.booleanBacking = default;
                     this.stringBacking = value;
         }
 
@@ -256,7 +243,7 @@ namespace EnumDraft202012Feature.HeterogeneousEnumValidation
                             this.arrayBacking = default;
                             this.numberBacking = default;
                             this.booleanBacking = default;
-                    this.stringBacking = JsonEncodedText.Encode(value);
+                    this.stringBacking = value.ToString();
         }
 
         /// <summary>
@@ -270,7 +257,7 @@ namespace EnumDraft202012Feature.HeterogeneousEnumValidation
                             this.arrayBacking = default;
                             this.numberBacking = default;
                             this.booleanBacking = default;
-                    this.stringBacking = JsonEncodedText.Encode(value);
+                    this.stringBacking = Encoding.UTF8.GetString(value);
         }
 
         /// <summary>
@@ -287,7 +274,7 @@ namespace EnumDraft202012Feature.HeterogeneousEnumValidation
             else
             {
                 this.jsonElementBacking = default;
-                this.stringBacking = jsonString.GetJsonEncodedText();
+                this.stringBacking = jsonString;
             }
 
                     this.objectBacking = default;
@@ -381,7 +368,7 @@ namespace EnumDraft202012Feature.HeterogeneousEnumValidation
             get
             {
               
-                if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> objectBacking)
+                if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
                 {
                     return JsonObject.PropertiesToJsonElement(objectBacking);
                 }
@@ -398,7 +385,7 @@ namespace EnumDraft202012Feature.HeterogeneousEnumValidation
                 }
 
     
-                    if (this.stringBacking is JsonEncodedText stringBacking)
+                    if (this.stringBacking is string stringBacking)
                 {
                     return JsonString.StringToJsonElement(stringBacking);
                 }
@@ -419,7 +406,7 @@ namespace EnumDraft202012Feature.HeterogeneousEnumValidation
         {
             get
             {
-                    if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny>)
+                    if (this.objectBacking is ImmutableDictionary<string, JsonAny>)
                 {
                     return JsonValueKind.Object;
                 }
@@ -437,7 +424,7 @@ namespace EnumDraft202012Feature.HeterogeneousEnumValidation
                 }
 
     
-                    if (this.stringBacking is JsonEncodedText)
+                    if (this.stringBacking is string)
                 {
                     return JsonValueKind.String;
                 }
@@ -458,7 +445,7 @@ namespace EnumDraft202012Feature.HeterogeneousEnumValidation
         {
             get
             {
-                    if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> objectBacking)
+                    if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
                 {
                     return new JsonAny(objectBacking);
                 }
@@ -476,7 +463,7 @@ namespace EnumDraft202012Feature.HeterogeneousEnumValidation
                 }
 
     
-                    if (this.stringBacking is JsonEncodedText stringBacking)
+                    if (this.stringBacking is string stringBacking)
                 {
                     return new JsonAny(stringBacking);
                 }
@@ -499,7 +486,7 @@ namespace EnumDraft202012Feature.HeterogeneousEnumValidation
         {
             get
             {
-                    if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> objectBacking)
+                    if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
                 {
                     return new JsonObject(objectBacking);
                 }
@@ -549,7 +536,7 @@ namespace EnumDraft202012Feature.HeterogeneousEnumValidation
         {
             get
             {
-                    if (this.stringBacking is JsonEncodedText stringBacking)
+                    if (this.stringBacking is string stringBacking)
                 {
                     return new JsonString(stringBacking);
                 }
@@ -669,7 +656,7 @@ namespace EnumDraft202012Feature.HeterogeneousEnumValidation
         /// Implicit conversion to a property dictionary.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator ImmutableDictionary<JsonEncodedText, JsonAny>(Schema  value)
+        public static implicit operator ImmutableDictionary<string, JsonAny>(Schema  value)
         {
             return value.AsObject.AsPropertyDictionary;
         }
@@ -678,7 +665,7 @@ namespace EnumDraft202012Feature.HeterogeneousEnumValidation
         /// Implicit conversion from a property dictionary.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator Schema (ImmutableDictionary<JsonEncodedText, JsonAny> value)
+        public static implicit operator Schema (ImmutableDictionary<string, JsonAny> value)
         {
             return new Schema (value);
         }
@@ -700,25 +687,7 @@ namespace EnumDraft202012Feature.HeterogeneousEnumValidation
         /// <param name="value">The number from which to convert.</param>
         public static implicit operator string(Schema value)
         {
-            return value.AsString.GetString();
-        }
-
-        /// <summary>
-        /// Conversion from <see cref="JsonEncodedText"/>.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator Schema(JsonEncodedText value)
-        {
-            return new Schema(value);
-        }
-
-        /// <summary>
-        /// Conversion to <see cref="JsonEncodedText"/>.
-        /// </summary>
-        /// <param name="value">The number from which to convert.</param>
-        public static implicit operator JsonEncodedText(Schema value)
-        {
-            return value.AsString.GetJsonEncodedText();
+            return value.AsString;
         }
 
         /// <summary>
@@ -736,7 +705,7 @@ namespace EnumDraft202012Feature.HeterogeneousEnumValidation
         /// <param name="value">The number from which to convert.</param>
         public static implicit operator ReadOnlySpan<char>(Schema value)
         {
-            return value.AsString.AsSpan();
+            return value.AsString;
         }
 
         /// <summary>
@@ -754,7 +723,7 @@ namespace EnumDraft202012Feature.HeterogeneousEnumValidation
         /// <param name="value">The number from which to convert.</param>
         public static implicit operator ReadOnlySpan<byte>(Schema value)
         {
-            return value.AsString.GetJsonEncodedText().EncodedUtf8Bytes;
+            return value.AsString;
         }
 
         /// <summary>
@@ -1020,7 +989,7 @@ namespace EnumDraft202012Feature.HeterogeneousEnumValidation
         /// <param name="writer">The writer to which to write the object.</param>
         public void WriteTo(Utf8JsonWriter writer)
         {
-                if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> objectBacking)
+                if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
             {
                 JsonObject.WriteProperties(objectBacking, writer);
                 return;
@@ -1041,7 +1010,7 @@ namespace EnumDraft202012Feature.HeterogeneousEnumValidation
             }
 
     
-                if (this.stringBacking is JsonEncodedText stringBacking)
+                if (this.stringBacking is string stringBacking)
             {
                 writer.WriteStringValue(stringBacking);
                 return;
@@ -1081,12 +1050,6 @@ namespace EnumDraft202012Feature.HeterogeneousEnumValidation
         }
     
     
-        /// <inheritdoc/>
-        public bool TryGetProperty(JsonEncodedText name, out JsonAny value)
-        {
-            return this.AsObject.TryGetProperty(name, out value);
-        }
-
         /// <inheritdoc/>
         public bool TryGetProperty(string name, out JsonAny value)
         {
@@ -1154,9 +1117,9 @@ namespace EnumDraft202012Feature.HeterogeneousEnumValidation
 
     
         /// <inheritdoc/>
-        public bool HasProperty(JsonEncodedText name)
+        public bool HasProperty(string name)
         {
-            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            if (this.objectBacking is ImmutableDictionary<string, JsonAny> properties)
             {
                 return properties.TryGetValue(name, out _);
             }
@@ -1170,27 +1133,11 @@ namespace EnumDraft202012Feature.HeterogeneousEnumValidation
         }
 
         /// <inheritdoc/>
-        public bool HasProperty(string name)
-        {
-            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
-            {
-                return properties.TryGetValue(JsonEncodedText.Encode(name), out _);
-            }
-
-            if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
-            {
-                return this.jsonElementBacking.TryGetProperty(name, out JsonElement _);
-            }
-
-            return false;
-        }
-
-        /// <inheritdoc/>
         public bool HasProperty(ReadOnlySpan<char> name)
         {
-            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            if (this.objectBacking is ImmutableDictionary<string, JsonAny> properties)
             {
-                return properties.TryGetValue(JsonEncodedText.Encode(name), out _);
+                return properties.TryGetValue(name.ToString(), out _);
             }
 
             if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
@@ -1203,9 +1150,9 @@ namespace EnumDraft202012Feature.HeterogeneousEnumValidation
         /// <inheritdoc/>
         public bool HasProperty(ReadOnlySpan<byte> utf8name)
         {
-            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            if (this.objectBacking is ImmutableDictionary<string, JsonAny> properties)
             {
-                return properties.TryGetValue(JsonEncodedText.Encode(utf8name), out _);
+                return properties.TryGetValue(Encoding.UTF8.GetString(utf8name), out _);
             }
 
             if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
@@ -1214,18 +1161,6 @@ namespace EnumDraft202012Feature.HeterogeneousEnumValidation
             }
 
             return false;        }
-
-        /// <inheritdoc/>
-        public Schema SetProperty<TValue>(JsonEncodedText name, TValue value)
-            where TValue : IJsonValue
-        {
-            if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
-            {
-                return this.AsObject.SetProperty(name, value);
-            }
-
-            return this;
-        }
 
         /// <inheritdoc/>
         public Schema SetProperty<TValue>(string name, TValue value)
@@ -1258,17 +1193,6 @@ namespace EnumDraft202012Feature.HeterogeneousEnumValidation
             if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
             {
                 return this.AsObject.SetProperty(utf8name, value);
-            }
-
-            return this;
-        }
-
-        /// <inheritdoc/>
-        public Schema RemoveProperty(JsonEncodedText name)
-        {
-            if (this.ValueKind == JsonValueKind.Object)
-            {
-                return this.AsObject.RemoveProperty(name);
             }
 
             return this;

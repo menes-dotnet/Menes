@@ -16,6 +16,7 @@ namespace DefaultDraft201909Feature.InvalidStringValueForDefault
     using System.Collections.Generic;
     using System.Collections.Immutable;
     using System.Linq;
+    using System.Text;
     using System.Text.Json;
     using System.Text.RegularExpressions;
     using Menes.Json;
@@ -39,7 +40,7 @@ namespace DefaultDraft201909Feature.InvalidStringValueForDefault
         /// <summary>
         /// JSON property name for <see cref="Bar"/>.
         /// </summary>
-        public static readonly JsonEncodedText BarJsonPropertyName = JsonEncodedText.Encode( BarUtf8JsonPropertyName.Span);
+        public static readonly string BarJsonPropertyName = "bar";
 
         
     
@@ -47,15 +48,15 @@ namespace DefaultDraft201909Feature.InvalidStringValueForDefault
     
     
     
-            private static readonly ImmutableDictionary<JsonEncodedText, Func<Schema, ValidationContext, ValidationLevel, ValidationContext>> __MenesLocalProperties = CreateLocalPropertyValidators();
+            private static readonly ImmutableDictionary<string, Func<Schema, ValidationContext, ValidationLevel, ValidationContext>> __MenesLocalProperties = CreateLocalPropertyValidators();
     
-            private static readonly ImmutableDictionary<JsonEncodedText, JsonAny> __MenesDefaults = BuildDefaults();
+            private static readonly ImmutableDictionary<string, JsonAny> __MenesDefaults = BuildDefaults();
     
 
     
         private readonly JsonElement jsonElementBacking;
 
-            private readonly ImmutableDictionary<JsonEncodedText, JsonAny>? objectBacking;
+            private readonly ImmutableDictionary<string, JsonAny>? objectBacking;
     
     
     
@@ -75,7 +76,7 @@ namespace DefaultDraft201909Feature.InvalidStringValueForDefault
         /// Initializes a new instance of the <see cref="Schema"/> struct.
         /// </summary>
         /// <param name="value">A property dictionary.</param>
-        public Schema(ImmutableDictionary<JsonEncodedText, JsonAny> value)
+        public Schema(ImmutableDictionary<string, JsonAny> value)
         {
             this.jsonElementBacking = default;
             this.objectBacking = value;
@@ -125,7 +126,7 @@ namespace DefaultDraft201909Feature.InvalidStringValueForDefault
         {
             get
             {
-                if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+                if (this.objectBacking is ImmutableDictionary<string, JsonAny> properties)
                 {
                     if(properties.TryGetValue(BarJsonPropertyName, out JsonAny result))
                     {
@@ -164,7 +165,7 @@ namespace DefaultDraft201909Feature.InvalidStringValueForDefault
             get
             {
               
-                if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> objectBacking)
+                if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
                 {
                     return JsonObject.PropertiesToJsonElement(objectBacking);
                 }
@@ -183,7 +184,7 @@ namespace DefaultDraft201909Feature.InvalidStringValueForDefault
         {
             get
             {
-                    if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny>)
+                    if (this.objectBacking is ImmutableDictionary<string, JsonAny>)
                 {
                     return JsonValueKind.Object;
                 }
@@ -202,7 +203,7 @@ namespace DefaultDraft201909Feature.InvalidStringValueForDefault
         {
             get
             {
-                    if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> objectBacking)
+                    if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
                 {
                     return new JsonAny(objectBacking);
                 }
@@ -223,7 +224,7 @@ namespace DefaultDraft201909Feature.InvalidStringValueForDefault
         {
             get
             {
-                    if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> objectBacking)
+                    if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
                 {
                     return new JsonObject(objectBacking);
                 }
@@ -338,7 +339,7 @@ namespace DefaultDraft201909Feature.InvalidStringValueForDefault
         /// Implicit conversion to a property dictionary.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator ImmutableDictionary<JsonEncodedText, JsonAny>(Schema  value)
+        public static implicit operator ImmutableDictionary<string, JsonAny>(Schema  value)
         {
             return value.AsObject.AsPropertyDictionary;
         }
@@ -347,7 +348,7 @@ namespace DefaultDraft201909Feature.InvalidStringValueForDefault
         /// Implicit conversion from a property dictionary.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator Schema (ImmutableDictionary<JsonEncodedText, JsonAny> value)
+        public static implicit operator Schema (ImmutableDictionary<string, JsonAny> value)
         {
             return new Schema (value);
         }
@@ -387,7 +388,7 @@ namespace DefaultDraft201909Feature.InvalidStringValueForDefault
         
         )
         {
-            var builder = ImmutableDictionary.CreateBuilder<JsonEncodedText, JsonAny>();
+            var builder = ImmutableDictionary.CreateBuilder<string, JsonAny>();
                             if (bar is DefaultDraft201909Feature.InvalidStringValueForDefault.Schema.BarValue bar__)
             {
                 builder.Add(BarJsonPropertyName, bar__);
@@ -442,7 +443,7 @@ namespace DefaultDraft201909Feature.InvalidStringValueForDefault
         /// <param name="writer">The writer to which to write the object.</param>
         public void WriteTo(Utf8JsonWriter writer)
         {
-                if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> objectBacking)
+                if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
             {
                 JsonObject.WriteProperties(objectBacking, writer);
                 return;
@@ -475,12 +476,6 @@ namespace DefaultDraft201909Feature.InvalidStringValueForDefault
     
     
         /// <inheritdoc/>
-        public bool TryGetProperty(JsonEncodedText name, out JsonAny value)
-        {
-            return this.AsObject.TryGetProperty(name, out value);
-        }
-
-        /// <inheritdoc/>
         public bool TryGetProperty(string name, out JsonAny value)
         {
             return this.AsObject.TryGetProperty(name, out value);
@@ -499,51 +494,39 @@ namespace DefaultDraft201909Feature.InvalidStringValueForDefault
         }
 
                 /// <inheritdoc/>
-        public bool TryGetDefault(JsonEncodedText name, out JsonAny value)
+        public bool TryGetDefault(string name, out JsonAny value)
         {
             return __MenesDefaults.TryGetValue(name, out value);
         }
 
         /// <inheritdoc/>
-        public bool TryGetDefault(string name, out JsonAny value)
-        {
-            return __MenesDefaults.TryGetValue(JsonEncodedText.Encode(name), out value);
-        }
-
-        /// <inheritdoc/>
         public bool TryGetDefault(ReadOnlySpan<char> name, out JsonAny value)
         {
-            return __MenesDefaults.TryGetValue(JsonEncodedText.Encode(name), out value);
+            return __MenesDefaults.TryGetValue(name.ToString(), out value);
         }
 
         /// <inheritdoc/>
         public bool TryGetDefault(ReadOnlySpan<byte> utf8name, out JsonAny value)
         {
-            return __MenesDefaults.TryGetValue(JsonEncodedText.Encode(utf8name), out value);
-        }
-
-        /// <inheritdoc/>
-        public bool HasDefault(JsonEncodedText name)
-        {
-            return __MenesDefaults.TryGetValue(name, out _);
+            return __MenesDefaults.TryGetValue(Encoding.UTF8.GetString(utf8name), out value);
         }
 
         /// <inheritdoc/>
         public bool HasDefault(string name)
         {
-            return __MenesDefaults.TryGetValue(JsonEncodedText.Encode(name), out _);
+            return __MenesDefaults.TryGetValue(name, out _);
         }
 
         /// <inheritdoc/>
         public bool HasDefault(ReadOnlySpan<char> name)
         {
-            return __MenesDefaults.TryGetValue(JsonEncodedText.Encode(name), out _);
+            return __MenesDefaults.TryGetValue(name.ToString(), out _);
         }
 
         /// <inheritdoc/>
         public bool HasDefault(ReadOnlySpan<byte> utf8name)
         {
-            return __MenesDefaults.TryGetValue(JsonEncodedText.Encode(utf8name), out _);
+            return __MenesDefaults.TryGetValue(Encoding.UTF8.GetString(utf8name), out _);
         }
 
         
@@ -595,9 +578,9 @@ namespace DefaultDraft201909Feature.InvalidStringValueForDefault
 
     
         /// <inheritdoc/>
-        public bool HasProperty(JsonEncodedText name)
+        public bool HasProperty(string name)
         {
-            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            if (this.objectBacking is ImmutableDictionary<string, JsonAny> properties)
             {
                 return properties.TryGetValue(name, out _);
             }
@@ -611,27 +594,11 @@ namespace DefaultDraft201909Feature.InvalidStringValueForDefault
         }
 
         /// <inheritdoc/>
-        public bool HasProperty(string name)
-        {
-            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
-            {
-                return properties.TryGetValue(JsonEncodedText.Encode(name), out _);
-            }
-
-            if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
-            {
-                return this.jsonElementBacking.TryGetProperty(name, out JsonElement _);
-            }
-
-            return false;
-        }
-
-        /// <inheritdoc/>
         public bool HasProperty(ReadOnlySpan<char> name)
         {
-            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            if (this.objectBacking is ImmutableDictionary<string, JsonAny> properties)
             {
-                return properties.TryGetValue(JsonEncodedText.Encode(name), out _);
+                return properties.TryGetValue(name.ToString(), out _);
             }
 
             if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
@@ -644,9 +611,9 @@ namespace DefaultDraft201909Feature.InvalidStringValueForDefault
         /// <inheritdoc/>
         public bool HasProperty(ReadOnlySpan<byte> utf8name)
         {
-            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            if (this.objectBacking is ImmutableDictionary<string, JsonAny> properties)
             {
-                return properties.TryGetValue(JsonEncodedText.Encode(utf8name), out _);
+                return properties.TryGetValue(Encoding.UTF8.GetString(utf8name), out _);
             }
 
             if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
@@ -655,18 +622,6 @@ namespace DefaultDraft201909Feature.InvalidStringValueForDefault
             }
 
             return false;        }
-
-        /// <inheritdoc/>
-        public Schema SetProperty<TValue>(JsonEncodedText name, TValue value)
-            where TValue : IJsonValue
-        {
-            if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
-            {
-                return this.AsObject.SetProperty(name, value);
-            }
-
-            return this;
-        }
 
         /// <inheritdoc/>
         public Schema SetProperty<TValue>(string name, TValue value)
@@ -699,17 +654,6 @@ namespace DefaultDraft201909Feature.InvalidStringValueForDefault
             if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
             {
                 return this.AsObject.SetProperty(utf8name, value);
-            }
-
-            return this;
-        }
-
-        /// <inheritdoc/>
-        public Schema RemoveProperty(JsonEncodedText name)
-        {
-            if (this.ValueKind == JsonValueKind.Object)
-            {
-                return this.AsObject.RemoveProperty(name);
             }
 
             return this;
@@ -792,10 +736,10 @@ namespace DefaultDraft201909Feature.InvalidStringValueForDefault
 
     
     
-            private static ImmutableDictionary<JsonEncodedText, JsonAny> BuildDefaults()
+            private static ImmutableDictionary<string, JsonAny> BuildDefaults()
         {
-            ImmutableDictionary<JsonEncodedText, JsonAny>.Builder builder =
-                ImmutableDictionary.CreateBuilder<JsonEncodedText, JsonAny>();
+            ImmutableDictionary<string, JsonAny>.Builder builder =
+                ImmutableDictionary.CreateBuilder<string, JsonAny>();
 
                     builder.Add(BarJsonPropertyName, JsonAny.Parse("\"bad\""));
                     return builder.ToImmutable();
@@ -803,10 +747,10 @@ namespace DefaultDraft201909Feature.InvalidStringValueForDefault
     
     
     
-        private static ImmutableDictionary<JsonEncodedText, Func<Schema, ValidationContext, ValidationLevel, ValidationContext>> CreateLocalPropertyValidators()
+        private static ImmutableDictionary<string, Func<Schema, ValidationContext, ValidationLevel, ValidationContext>> CreateLocalPropertyValidators()
         {
-            ImmutableDictionary<JsonEncodedText, Func<Schema, ValidationContext, ValidationLevel, ValidationContext>>.Builder builder =
-                ImmutableDictionary.CreateBuilder<JsonEncodedText, Func<Schema, ValidationContext, ValidationLevel, ValidationContext>>();
+            ImmutableDictionary<string, Func<Schema, ValidationContext, ValidationLevel, ValidationContext>>.Builder builder =
+                ImmutableDictionary.CreateBuilder<string, Func<Schema, ValidationContext, ValidationLevel, ValidationContext>>();
 
                     builder.Add(
                 BarJsonPropertyName,
@@ -836,7 +780,7 @@ namespace DefaultDraft201909Feature.InvalidStringValueForDefault
         
             foreach (Property property in this.EnumerateObject())
             {
-                JsonEncodedText propertyName = property.NameAsJsonEncodedText;
+                string propertyName = property.Name;
 
         
                         if (__MenesLocalProperties.TryGetValue(propertyName, out Func<Schema, ValidationContext, ValidationLevel, ValidationContext>? propertyValidator))
@@ -904,7 +848,7 @@ namespace DefaultDraft201909Feature.InvalidStringValueForDefault
     
     
     
-            private readonly JsonEncodedText? stringBacking;
+            private readonly string? stringBacking;
     
     
         /// <summary>
@@ -927,16 +871,6 @@ namespace DefaultDraft201909Feature.InvalidStringValueForDefault
         public BarValue(string value)
         {
             this.jsonElementBacking = default;
-                                            this.stringBacking = JsonEncodedText.Encode(value);
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="BarValue"/> struct.
-        /// </summary>
-        /// <param name="value">A string value.</param>
-        public BarValue(JsonEncodedText value)
-        {
-            this.jsonElementBacking = default;
                                             this.stringBacking = value;
         }
 
@@ -947,7 +881,7 @@ namespace DefaultDraft201909Feature.InvalidStringValueForDefault
         public BarValue(ReadOnlySpan<char> value)
         {
             this.jsonElementBacking = default;
-                                            this.stringBacking = JsonEncodedText.Encode(value);
+                                            this.stringBacking = value.ToString();
         }
 
         /// <summary>
@@ -957,7 +891,7 @@ namespace DefaultDraft201909Feature.InvalidStringValueForDefault
         public BarValue(ReadOnlySpan<byte> value)
         {
             this.jsonElementBacking = default;
-                                            this.stringBacking = JsonEncodedText.Encode(value);
+                                            this.stringBacking = Encoding.UTF8.GetString(value);
         }
 
         /// <summary>
@@ -974,7 +908,7 @@ namespace DefaultDraft201909Feature.InvalidStringValueForDefault
             else
             {
                 this.jsonElementBacking = default;
-                this.stringBacking = jsonString.GetJsonEncodedText();
+                this.stringBacking = jsonString;
             }
 
                                         }
@@ -1006,7 +940,7 @@ namespace DefaultDraft201909Feature.InvalidStringValueForDefault
     
     
     
-                    if (this.stringBacking is JsonEncodedText stringBacking)
+                    if (this.stringBacking is string stringBacking)
                 {
                     return JsonString.StringToJsonElement(stringBacking);
                 }
@@ -1025,7 +959,7 @@ namespace DefaultDraft201909Feature.InvalidStringValueForDefault
     
     
     
-                    if (this.stringBacking is JsonEncodedText)
+                    if (this.stringBacking is string)
                 {
                     return JsonValueKind.String;
                 }
@@ -1044,7 +978,7 @@ namespace DefaultDraft201909Feature.InvalidStringValueForDefault
     
     
     
-                    if (this.stringBacking is JsonEncodedText stringBacking)
+                    if (this.stringBacking is string stringBacking)
                 {
                     return new JsonAny(stringBacking);
                 }
@@ -1097,7 +1031,7 @@ namespace DefaultDraft201909Feature.InvalidStringValueForDefault
         {
             get
             {
-                    if (this.stringBacking is JsonEncodedText stringBacking)
+                    if (this.stringBacking is string stringBacking)
                 {
                     return new JsonString(stringBacking);
                 }
@@ -1171,25 +1105,7 @@ namespace DefaultDraft201909Feature.InvalidStringValueForDefault
         /// <param name="value">The number from which to convert.</param>
         public static implicit operator string(BarValue value)
         {
-            return value.AsString.GetString();
-        }
-
-        /// <summary>
-        /// Conversion from <see cref="JsonEncodedText"/>.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator BarValue(JsonEncodedText value)
-        {
-            return new BarValue(value);
-        }
-
-        /// <summary>
-        /// Conversion to <see cref="JsonEncodedText"/>.
-        /// </summary>
-        /// <param name="value">The number from which to convert.</param>
-        public static implicit operator JsonEncodedText(BarValue value)
-        {
-            return value.AsString.GetJsonEncodedText();
+            return value.AsString;
         }
 
         /// <summary>
@@ -1207,7 +1123,7 @@ namespace DefaultDraft201909Feature.InvalidStringValueForDefault
         /// <param name="value">The number from which to convert.</param>
         public static implicit operator ReadOnlySpan<char>(BarValue value)
         {
-            return value.AsString.AsSpan();
+            return value.AsString;
         }
 
         /// <summary>
@@ -1225,7 +1141,7 @@ namespace DefaultDraft201909Feature.InvalidStringValueForDefault
         /// <param name="value">The number from which to convert.</param>
         public static implicit operator ReadOnlySpan<byte>(BarValue value)
         {
-            return value.AsString.GetJsonEncodedText().EncodedUtf8Bytes;
+            return value.AsString;
         }
 
         /// <summary>
@@ -1310,7 +1226,7 @@ namespace DefaultDraft201909Feature.InvalidStringValueForDefault
     
     
     
-                if (this.stringBacking is JsonEncodedText stringBacking)
+                if (this.stringBacking is string stringBacking)
             {
                 writer.WriteStringValue(stringBacking);
                 return;

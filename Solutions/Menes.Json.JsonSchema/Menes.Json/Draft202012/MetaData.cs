@@ -16,6 +16,7 @@ namespace Menes.Json.Draft202012
     using System.Collections.Generic;
     using System.Collections.Immutable;
     using System.Linq;
+    using System.Text;
     using System.Text.Json;
     using System.Text.RegularExpressions;
     using Menes.Json;
@@ -39,7 +40,7 @@ namespace Menes.Json.Draft202012
         /// <summary>
         /// JSON property name for <see cref="Title"/>.
         /// </summary>
-        public static readonly JsonEncodedText TitleJsonPropertyName = JsonEncodedText.Encode( TitleUtf8JsonPropertyName.Span);
+        public static readonly string TitleJsonPropertyName = "title";
 
         
         /// <summary>
@@ -50,7 +51,7 @@ namespace Menes.Json.Draft202012
         /// <summary>
         /// JSON property name for <see cref="Description"/>.
         /// </summary>
-        public static readonly JsonEncodedText DescriptionJsonPropertyName = JsonEncodedText.Encode( DescriptionUtf8JsonPropertyName.Span);
+        public static readonly string DescriptionJsonPropertyName = "description";
 
         
         /// <summary>
@@ -61,7 +62,7 @@ namespace Menes.Json.Draft202012
         /// <summary>
         /// JSON property name for <see cref="Default"/>.
         /// </summary>
-        public static readonly JsonEncodedText DefaultJsonPropertyName = JsonEncodedText.Encode( DefaultUtf8JsonPropertyName.Span);
+        public static readonly string DefaultJsonPropertyName = "default";
 
         
         /// <summary>
@@ -72,7 +73,7 @@ namespace Menes.Json.Draft202012
         /// <summary>
         /// JSON property name for <see cref="Deprecated"/>.
         /// </summary>
-        public static readonly JsonEncodedText DeprecatedJsonPropertyName = JsonEncodedText.Encode( DeprecatedUtf8JsonPropertyName.Span);
+        public static readonly string DeprecatedJsonPropertyName = "deprecated";
 
         
         /// <summary>
@@ -83,7 +84,7 @@ namespace Menes.Json.Draft202012
         /// <summary>
         /// JSON property name for <see cref="ReadOnly"/>.
         /// </summary>
-        public static readonly JsonEncodedText ReadOnlyJsonPropertyName = JsonEncodedText.Encode( ReadOnlyUtf8JsonPropertyName.Span);
+        public static readonly string ReadOnlyJsonPropertyName = "readOnly";
 
         
         /// <summary>
@@ -94,7 +95,7 @@ namespace Menes.Json.Draft202012
         /// <summary>
         /// JSON property name for <see cref="WriteOnly"/>.
         /// </summary>
-        public static readonly JsonEncodedText WriteOnlyJsonPropertyName = JsonEncodedText.Encode( WriteOnlyUtf8JsonPropertyName.Span);
+        public static readonly string WriteOnlyJsonPropertyName = "writeOnly";
 
         
         /// <summary>
@@ -105,7 +106,7 @@ namespace Menes.Json.Draft202012
         /// <summary>
         /// JSON property name for <see cref="Examples"/>.
         /// </summary>
-        public static readonly JsonEncodedText ExamplesJsonPropertyName = JsonEncodedText.Encode( ExamplesUtf8JsonPropertyName.Span);
+        public static readonly string ExamplesJsonPropertyName = "examples";
 
         
     
@@ -113,15 +114,15 @@ namespace Menes.Json.Draft202012
     
     
     
-            private static readonly ImmutableDictionary<JsonEncodedText, Func<MetaData, ValidationContext, ValidationLevel, ValidationContext>> __MenesLocalProperties = CreateLocalPropertyValidators();
+            private static readonly ImmutableDictionary<string, Func<MetaData, ValidationContext, ValidationLevel, ValidationContext>> __MenesLocalProperties = CreateLocalPropertyValidators();
     
-            private static readonly ImmutableDictionary<JsonEncodedText, JsonAny> __MenesDefaults = BuildDefaults();
+            private static readonly ImmutableDictionary<string, JsonAny> __MenesDefaults = BuildDefaults();
     
 
     
         private readonly JsonElement jsonElementBacking;
 
-            private readonly ImmutableDictionary<JsonEncodedText, JsonAny>? objectBacking;
+            private readonly ImmutableDictionary<string, JsonAny>? objectBacking;
     
     
     
@@ -143,7 +144,7 @@ namespace Menes.Json.Draft202012
         /// Initializes a new instance of the <see cref="MetaData"/> struct.
         /// </summary>
         /// <param name="value">A property dictionary.</param>
-        public MetaData(ImmutableDictionary<JsonEncodedText, JsonAny> value)
+        public MetaData(ImmutableDictionary<string, JsonAny> value)
         {
             this.jsonElementBacking = default;
             this.objectBacking = value;
@@ -226,7 +227,7 @@ namespace Menes.Json.Draft202012
         {
             get
             {
-                if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+                if (this.objectBacking is ImmutableDictionary<string, JsonAny> properties)
                 {
                     if(properties.TryGetValue(TitleJsonPropertyName, out JsonAny result))
                     {
@@ -261,7 +262,7 @@ namespace Menes.Json.Draft202012
         {
             get
             {
-                if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+                if (this.objectBacking is ImmutableDictionary<string, JsonAny> properties)
                 {
                     if(properties.TryGetValue(DescriptionJsonPropertyName, out JsonAny result))
                     {
@@ -296,7 +297,7 @@ namespace Menes.Json.Draft202012
         {
             get
             {
-                if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+                if (this.objectBacking is ImmutableDictionary<string, JsonAny> properties)
                 {
                     if(properties.TryGetValue(DefaultJsonPropertyName, out JsonAny result))
                     {
@@ -331,7 +332,7 @@ namespace Menes.Json.Draft202012
         {
             get
             {
-                if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+                if (this.objectBacking is ImmutableDictionary<string, JsonAny> properties)
                 {
                     if(properties.TryGetValue(DeprecatedJsonPropertyName, out JsonAny result))
                     {
@@ -366,7 +367,7 @@ namespace Menes.Json.Draft202012
         {
             get
             {
-                if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+                if (this.objectBacking is ImmutableDictionary<string, JsonAny> properties)
                 {
                     if(properties.TryGetValue(ReadOnlyJsonPropertyName, out JsonAny result))
                     {
@@ -401,7 +402,7 @@ namespace Menes.Json.Draft202012
         {
             get
             {
-                if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+                if (this.objectBacking is ImmutableDictionary<string, JsonAny> properties)
                 {
                     if(properties.TryGetValue(WriteOnlyJsonPropertyName, out JsonAny result))
                     {
@@ -436,7 +437,7 @@ namespace Menes.Json.Draft202012
         {
             get
             {
-                if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+                if (this.objectBacking is ImmutableDictionary<string, JsonAny> properties)
                 {
                     if(properties.TryGetValue(ExamplesJsonPropertyName, out JsonAny result))
                     {
@@ -477,7 +478,7 @@ namespace Menes.Json.Draft202012
             get
             {
               
-                if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> objectBacking)
+                if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
                 {
                     return JsonObject.PropertiesToJsonElement(objectBacking);
                 }
@@ -501,7 +502,7 @@ namespace Menes.Json.Draft202012
         {
             get
             {
-                    if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny>)
+                    if (this.objectBacking is ImmutableDictionary<string, JsonAny>)
                 {
                     return JsonValueKind.Object;
                 }
@@ -525,7 +526,7 @@ namespace Menes.Json.Draft202012
         {
             get
             {
-                    if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> objectBacking)
+                    if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
                 {
                     return new JsonAny(objectBacking);
                 }
@@ -551,7 +552,7 @@ namespace Menes.Json.Draft202012
         {
             get
             {
-                    if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> objectBacking)
+                    if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
                 {
                     return new JsonObject(objectBacking);
                 }
@@ -670,7 +671,7 @@ namespace Menes.Json.Draft202012
         /// Implicit conversion to a property dictionary.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator ImmutableDictionary<JsonEncodedText, JsonAny>(MetaData  value)
+        public static implicit operator ImmutableDictionary<string, JsonAny>(MetaData  value)
         {
             return value.AsObject.AsPropertyDictionary;
         }
@@ -679,7 +680,7 @@ namespace Menes.Json.Draft202012
         /// Implicit conversion from a property dictionary.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator MetaData (ImmutableDictionary<JsonEncodedText, JsonAny> value)
+        public static implicit operator MetaData (ImmutableDictionary<string, JsonAny> value)
         {
             return new MetaData (value);
         }
@@ -740,7 +741,7 @@ namespace Menes.Json.Draft202012
         
         )
         {
-            var builder = ImmutableDictionary.CreateBuilder<JsonEncodedText, JsonAny>();
+            var builder = ImmutableDictionary.CreateBuilder<string, JsonAny>();
                             if (title is Menes.Json.JsonString title__)
             {
                 builder.Add(TitleJsonPropertyName, title__);
@@ -858,7 +859,7 @@ namespace Menes.Json.Draft202012
         /// <param name="writer">The writer to which to write the object.</param>
         public void WriteTo(Utf8JsonWriter writer)
         {
-                if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> objectBacking)
+                if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
             {
                 JsonObject.WriteProperties(objectBacking, writer);
                 return;
@@ -896,12 +897,6 @@ namespace Menes.Json.Draft202012
     
     
         /// <inheritdoc/>
-        public bool TryGetProperty(JsonEncodedText name, out JsonAny value)
-        {
-            return this.AsObject.TryGetProperty(name, out value);
-        }
-
-        /// <inheritdoc/>
         public bool TryGetProperty(string name, out JsonAny value)
         {
             return this.AsObject.TryGetProperty(name, out value);
@@ -920,51 +915,39 @@ namespace Menes.Json.Draft202012
         }
 
                 /// <inheritdoc/>
-        public bool TryGetDefault(JsonEncodedText name, out JsonAny value)
+        public bool TryGetDefault(string name, out JsonAny value)
         {
             return __MenesDefaults.TryGetValue(name, out value);
         }
 
         /// <inheritdoc/>
-        public bool TryGetDefault(string name, out JsonAny value)
-        {
-            return __MenesDefaults.TryGetValue(JsonEncodedText.Encode(name), out value);
-        }
-
-        /// <inheritdoc/>
         public bool TryGetDefault(ReadOnlySpan<char> name, out JsonAny value)
         {
-            return __MenesDefaults.TryGetValue(JsonEncodedText.Encode(name), out value);
+            return __MenesDefaults.TryGetValue(name.ToString(), out value);
         }
 
         /// <inheritdoc/>
         public bool TryGetDefault(ReadOnlySpan<byte> utf8name, out JsonAny value)
         {
-            return __MenesDefaults.TryGetValue(JsonEncodedText.Encode(utf8name), out value);
-        }
-
-        /// <inheritdoc/>
-        public bool HasDefault(JsonEncodedText name)
-        {
-            return __MenesDefaults.TryGetValue(name, out _);
+            return __MenesDefaults.TryGetValue(Encoding.UTF8.GetString(utf8name), out value);
         }
 
         /// <inheritdoc/>
         public bool HasDefault(string name)
         {
-            return __MenesDefaults.TryGetValue(JsonEncodedText.Encode(name), out _);
+            return __MenesDefaults.TryGetValue(name, out _);
         }
 
         /// <inheritdoc/>
         public bool HasDefault(ReadOnlySpan<char> name)
         {
-            return __MenesDefaults.TryGetValue(JsonEncodedText.Encode(name), out _);
+            return __MenesDefaults.TryGetValue(name.ToString(), out _);
         }
 
         /// <inheritdoc/>
         public bool HasDefault(ReadOnlySpan<byte> utf8name)
         {
-            return __MenesDefaults.TryGetValue(JsonEncodedText.Encode(utf8name), out _);
+            return __MenesDefaults.TryGetValue(Encoding.UTF8.GetString(utf8name), out _);
         }
 
         
@@ -1016,9 +999,9 @@ namespace Menes.Json.Draft202012
 
     
         /// <inheritdoc/>
-        public bool HasProperty(JsonEncodedText name)
+        public bool HasProperty(string name)
         {
-            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            if (this.objectBacking is ImmutableDictionary<string, JsonAny> properties)
             {
                 return properties.TryGetValue(name, out _);
             }
@@ -1032,27 +1015,11 @@ namespace Menes.Json.Draft202012
         }
 
         /// <inheritdoc/>
-        public bool HasProperty(string name)
-        {
-            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
-            {
-                return properties.TryGetValue(JsonEncodedText.Encode(name), out _);
-            }
-
-            if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
-            {
-                return this.jsonElementBacking.TryGetProperty(name, out JsonElement _);
-            }
-
-            return false;
-        }
-
-        /// <inheritdoc/>
         public bool HasProperty(ReadOnlySpan<char> name)
         {
-            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            if (this.objectBacking is ImmutableDictionary<string, JsonAny> properties)
             {
-                return properties.TryGetValue(JsonEncodedText.Encode(name), out _);
+                return properties.TryGetValue(name.ToString(), out _);
             }
 
             if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
@@ -1065,9 +1032,9 @@ namespace Menes.Json.Draft202012
         /// <inheritdoc/>
         public bool HasProperty(ReadOnlySpan<byte> utf8name)
         {
-            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            if (this.objectBacking is ImmutableDictionary<string, JsonAny> properties)
             {
-                return properties.TryGetValue(JsonEncodedText.Encode(utf8name), out _);
+                return properties.TryGetValue(Encoding.UTF8.GetString(utf8name), out _);
             }
 
             if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
@@ -1076,18 +1043,6 @@ namespace Menes.Json.Draft202012
             }
 
             return false;        }
-
-        /// <inheritdoc/>
-        public MetaData SetProperty<TValue>(JsonEncodedText name, TValue value)
-            where TValue : IJsonValue
-        {
-            if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
-            {
-                return this.AsObject.SetProperty(name, value);
-            }
-
-            return this;
-        }
 
         /// <inheritdoc/>
         public MetaData SetProperty<TValue>(string name, TValue value)
@@ -1120,17 +1075,6 @@ namespace Menes.Json.Draft202012
             if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
             {
                 return this.AsObject.SetProperty(utf8name, value);
-            }
-
-            return this;
-        }
-
-        /// <inheritdoc/>
-        public MetaData RemoveProperty(JsonEncodedText name)
-        {
-            if (this.ValueKind == JsonValueKind.Object)
-            {
-                return this.AsObject.RemoveProperty(name);
             }
 
             return this;
@@ -1223,10 +1167,10 @@ namespace Menes.Json.Draft202012
 
     
     
-            private static ImmutableDictionary<JsonEncodedText, JsonAny> BuildDefaults()
+            private static ImmutableDictionary<string, JsonAny> BuildDefaults()
         {
-            ImmutableDictionary<JsonEncodedText, JsonAny>.Builder builder =
-                ImmutableDictionary.CreateBuilder<JsonEncodedText, JsonAny>();
+            ImmutableDictionary<string, JsonAny>.Builder builder =
+                ImmutableDictionary.CreateBuilder<string, JsonAny>();
 
                     builder.Add(DeprecatedJsonPropertyName, JsonAny.Parse("false"));
                     builder.Add(ReadOnlyJsonPropertyName, JsonAny.Parse("false"));
@@ -1236,10 +1180,10 @@ namespace Menes.Json.Draft202012
     
     
     
-        private static ImmutableDictionary<JsonEncodedText, Func<MetaData, ValidationContext, ValidationLevel, ValidationContext>> CreateLocalPropertyValidators()
+        private static ImmutableDictionary<string, Func<MetaData, ValidationContext, ValidationLevel, ValidationContext>> CreateLocalPropertyValidators()
         {
-            ImmutableDictionary<JsonEncodedText, Func<MetaData, ValidationContext, ValidationLevel, ValidationContext>>.Builder builder =
-                ImmutableDictionary.CreateBuilder<JsonEncodedText, Func<MetaData, ValidationContext, ValidationLevel, ValidationContext>>();
+            ImmutableDictionary<string, Func<MetaData, ValidationContext, ValidationLevel, ValidationContext>>.Builder builder =
+                ImmutableDictionary.CreateBuilder<string, Func<MetaData, ValidationContext, ValidationLevel, ValidationContext>>();
 
                     builder.Add(
                 TitleJsonPropertyName,
@@ -1311,7 +1255,7 @@ namespace Menes.Json.Draft202012
         
             foreach (Property property in this.EnumerateObject())
             {
-                JsonEncodedText propertyName = property.NameAsJsonEncodedText;
+                string propertyName = property.Name;
 
         
                         if (__MenesLocalProperties.TryGetValue(propertyName, out Func<MetaData, ValidationContext, ValidationLevel, ValidationContext>? propertyValidator))

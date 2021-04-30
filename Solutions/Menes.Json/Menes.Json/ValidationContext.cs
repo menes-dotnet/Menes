@@ -23,15 +23,15 @@ namespace Menes.Json
         /// </summary>
         public static readonly ValidationContext InvalidContext = new ValidationContext(false);
 
-        private static readonly ImmutableStack<JsonEncodedText> RootLocationStack = ImmutableStack.Create(JsonEncodedText.Encode("#"));
+        private static readonly ImmutableStack<string> RootLocationStack = ImmutableStack.Create("#");
         private static readonly ImmutableStack<string> RootAbsoluteLocationStack = ImmutableStack.Create("#");
 
         private readonly ImmutableHashSet<int> localEvaluatedItemIndex;
-        private readonly ImmutableHashSet<JsonEncodedText> localEvaluatedProperties;
+        private readonly ImmutableHashSet<string> localEvaluatedProperties;
         private readonly ImmutableHashSet<int> appliedEvaluatedItemIndex;
-        private readonly ImmutableHashSet<JsonEncodedText> appliedEvaluatedProperties;
+        private readonly ImmutableHashSet<string> appliedEvaluatedProperties;
         private readonly ImmutableStack<string>? absoluteKeywordLocationStack;
-        private readonly ImmutableStack<JsonEncodedText>? locationStack;
+        private readonly ImmutableStack<string>? locationStack;
         private readonly ImmutableArray<ValidationResult>? results;
 
         /// <summary>
@@ -45,12 +45,12 @@ namespace Menes.Json
         /// <param name="locationStack">The current location stack.</param>
         /// <param name="absoluteKeywordLocationStack">The current absolute keyword location stack.</param>
         /// <param name="results">The validation results.</param>
-        private ValidationContext(bool isValid, ImmutableHashSet<int>? localEvaluatedItemIndex = null, in ImmutableHashSet<JsonEncodedText>? localEvaluatedProperties = null, ImmutableHashSet<int>? appliedEvaluatedItemIndex = null, in ImmutableHashSet<JsonEncodedText>? appliedEvaluatedProperties = null, in ImmutableStack<JsonEncodedText>? locationStack = null, in ImmutableStack<string>? absoluteKeywordLocationStack = null, in ImmutableArray<ValidationResult>? results = null)
+        private ValidationContext(bool isValid, ImmutableHashSet<int>? localEvaluatedItemIndex = null, in ImmutableHashSet<string>? localEvaluatedProperties = null, ImmutableHashSet<int>? appliedEvaluatedItemIndex = null, in ImmutableHashSet<string>? appliedEvaluatedProperties = null, in ImmutableStack<string>? locationStack = null, in ImmutableStack<string>? absoluteKeywordLocationStack = null, in ImmutableArray<ValidationResult>? results = null)
         {
             this.localEvaluatedItemIndex = localEvaluatedItemIndex ?? ImmutableHashSet<int>.Empty;
-            this.localEvaluatedProperties = localEvaluatedProperties ?? ImmutableHashSet<JsonEncodedText>.Empty;
+            this.localEvaluatedProperties = localEvaluatedProperties ?? ImmutableHashSet<string>.Empty;
             this.appliedEvaluatedItemIndex = appliedEvaluatedItemIndex ?? ImmutableHashSet<int>.Empty;
-            this.appliedEvaluatedProperties = appliedEvaluatedProperties ?? ImmutableHashSet<JsonEncodedText>.Empty;
+            this.appliedEvaluatedProperties = appliedEvaluatedProperties ?? ImmutableHashSet<string>.Empty;
             this.locationStack = locationStack;
             this.absoluteKeywordLocationStack = absoluteKeywordLocationStack;
             this.IsValid = isValid;
@@ -85,7 +85,7 @@ namespace Menes.Json
         /// </summary>
         /// <param name="propertyName">The name of the property.</param>
         /// <returns><c>True</c> if the property has been evaluated locally.</returns>
-        public bool HasEvaluatedLocalProperty(JsonEncodedText propertyName)
+        public bool HasEvaluatedLocalProperty(string propertyName)
         {
             return this.localEvaluatedProperties?.Contains(propertyName) ?? false;
         }
@@ -105,7 +105,7 @@ namespace Menes.Json
         /// </summary>
         /// <param name="propertyName">The name of the property.</param>
         /// <returns><c>True</c> if the property has been evaluated either locally or by applied schema.</returns>
-        public bool HasEvaluatedLocalOrAppliedProperty(JsonEncodedText propertyName)
+        public bool HasEvaluatedLocalOrAppliedProperty(string propertyName)
         {
             return (this.localEvaluatedProperties?.Contains(propertyName) ?? false) || (this.appliedEvaluatedProperties?.Contains(propertyName) ?? false);
         }
@@ -146,7 +146,7 @@ namespace Menes.Json
         /// </summary>
         /// <param name="propertyName">The property name to add.</param>
         /// <returns>The updated validation context.</returns>
-        public ValidationContext WithLocalProperty(JsonEncodedText propertyName)
+        public ValidationContext WithLocalProperty(string propertyName)
         {
             return new ValidationContext(this.IsValid, this.localEvaluatedItemIndex, this.AddLocalEvaluatedProperty(propertyName), this.appliedEvaluatedItemIndex, this.appliedEvaluatedProperties, this.locationStack, this.absoluteKeywordLocationStack, this.results);
         }
@@ -168,7 +168,7 @@ namespace Menes.Json
         /// <param name="location">The location to push.</param>
         /// <param name="absoluteKeywordLocation">The abolute keyword location to push.</param>
         /// <returns>The context updated with the given location.</returns>
-        public ValidationContext PushLocation(JsonEncodedText location, string absoluteKeywordLocation)
+        public ValidationContext PushLocation(string location, string absoluteKeywordLocation)
         {
             return new ValidationContext(this.IsValid, this.localEvaluatedItemIndex, this.localEvaluatedProperties, this.appliedEvaluatedItemIndex, this.appliedEvaluatedProperties, this.locationStack?.Push(location), this.absoluteKeywordLocationStack?.Push(absoluteKeywordLocation), this.results);
         }
@@ -197,7 +197,7 @@ namespace Menes.Json
         /// <param name="location">The location for the child context.</param>
         /// <param name="absoluteKeywordLocation">The absolute keyword location for the child context.</param>
         /// <returns>A new (valid) validation context with no evaluated items or properties, at the current location.</returns>
-        public ValidationContext CreateChildContext(JsonEncodedText location, string absoluteKeywordLocation)
+        public ValidationContext CreateChildContext(string location, string absoluteKeywordLocation)
         {
             return new ValidationContext(this.IsValid, null, null, null, null, this.locationStack?.Push(location), this.absoluteKeywordLocationStack?.Push(absoluteKeywordLocation), null);
         }
@@ -823,9 +823,9 @@ namespace Menes.Json
                 builder.ToImmutable());
         }
 
-        private ImmutableHashSet<JsonEncodedText>? AddLocalEvaluatedProperty(JsonEncodedText propertyName)
+        private ImmutableHashSet<string>? AddLocalEvaluatedProperty(string propertyName)
         {
-            if (this.localEvaluatedProperties is ImmutableHashSet<JsonEncodedText> lep)
+            if (this.localEvaluatedProperties is ImmutableHashSet<string> lep)
             {
                 if (!lep.Contains(propertyName))
                 {
@@ -836,7 +836,7 @@ namespace Menes.Json
             return this.localEvaluatedProperties;
         }
 
-        private ImmutableHashSet<JsonEncodedText>? CombineProperties(in ValidationContext childContext)
+        private ImmutableHashSet<string>? CombineProperties(in ValidationContext childContext)
         {
             if (this.appliedEvaluatedProperties is null)
             {
@@ -845,7 +845,7 @@ namespace Menes.Json
 
             if (childContext.appliedEvaluatedProperties is not null || childContext.localEvaluatedProperties is not null)
             {
-                ImmutableHashSet<JsonEncodedText> result = ImmutableHashSet<JsonEncodedText>.Empty;
+                ImmutableHashSet<string> result = ImmutableHashSet<string>.Empty;
                 if (childContext.appliedEvaluatedProperties is not null)
                 {
                     result = childContext.appliedEvaluatedProperties.Union(this.appliedEvaluatedProperties);

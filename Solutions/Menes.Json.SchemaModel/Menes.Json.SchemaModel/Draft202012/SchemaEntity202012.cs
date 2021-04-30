@@ -59,13 +59,14 @@ namespace ");
         
         #line 20 "SchemaEntity202012.tt"
         this.Write("\r\n{\r\n    using System;\r\n    using System.Collections.Generic;\r\n    using System.C" +
-                "ollections.Immutable;\r\n    using System.Linq;\r\n    using System.Text.Json;\r\n    " +
-                "using System.Text.RegularExpressions;\r\n    using Menes.Json;\r\n\r\n    ");
+                "ollections.Immutable;\r\n    using System.Linq;\r\n    using System.Text;\r\n    using" +
+                " System.Text.Json;\r\n    using System.Text.RegularExpressions;\r\n    using Menes.J" +
+                "son;\r\n\r\n    ");
         
         #line default
         #line hidden
         
-        #line 30 "SchemaEntity202012.tt"
+        #line 31 "SchemaEntity202012.tt"
 
     }
     
@@ -73,26 +74,26 @@ namespace ");
         #line default
         #line hidden
         
-        #line 33 "SchemaEntity202012.tt"
+        #line 34 "SchemaEntity202012.tt"
         this.Write("    /// <summary>\r\n    /// A type generated from a JsonSchema specification.\r\n   " +
                 " /// </summary>\r\n    public readonly struct ");
         
         #line default
         #line hidden
         
-        #line 36 "SchemaEntity202012.tt"
+        #line 37 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 36 "SchemaEntity202012.tt"
+        #line 37 "SchemaEntity202012.tt"
         this.Write(" :\r\n    ");
         
         #line default
         #line hidden
         
-        #line 37 "SchemaEntity202012.tt"
+        #line 38 "SchemaEntity202012.tt"
 
     if(IsImplicitObject)
     {
@@ -101,25 +102,25 @@ namespace ");
         #line default
         #line hidden
         
-        #line 41 "SchemaEntity202012.tt"
+        #line 42 "SchemaEntity202012.tt"
         this.Write("        IJsonObject<");
         
         #line default
         #line hidden
         
-        #line 41 "SchemaEntity202012.tt"
+        #line 42 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 41 "SchemaEntity202012.tt"
+        #line 42 "SchemaEntity202012.tt"
         this.Write(">,\r\n    ");
         
         #line default
         #line hidden
         
-        #line 42 "SchemaEntity202012.tt"
+        #line 43 "SchemaEntity202012.tt"
 
     }
     
@@ -127,13 +128,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 45 "SchemaEntity202012.tt"
+        #line 46 "SchemaEntity202012.tt"
         this.Write("    ");
         
         #line default
         #line hidden
         
-        #line 45 "SchemaEntity202012.tt"
+        #line 46 "SchemaEntity202012.tt"
 
     if(IsImplicitArray)
     {
@@ -142,25 +143,25 @@ namespace ");
         #line default
         #line hidden
         
-        #line 49 "SchemaEntity202012.tt"
+        #line 50 "SchemaEntity202012.tt"
         this.Write("        IJsonArray<");
         
         #line default
         #line hidden
         
-        #line 49 "SchemaEntity202012.tt"
+        #line 50 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 49 "SchemaEntity202012.tt"
+        #line 50 "SchemaEntity202012.tt"
         this.Write(">,\r\n    ");
         
         #line default
         #line hidden
         
-        #line 50 "SchemaEntity202012.tt"
+        #line 51 "SchemaEntity202012.tt"
 
     }
     
@@ -168,13 +169,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 53 "SchemaEntity202012.tt"
+        #line 54 "SchemaEntity202012.tt"
         this.Write("    ");
         
         #line default
         #line hidden
         
-        #line 53 "SchemaEntity202012.tt"
+        #line 54 "SchemaEntity202012.tt"
 
     if(!IsImplicitObject && !IsImplicitArray)
     {
@@ -183,13 +184,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 57 "SchemaEntity202012.tt"
+        #line 58 "SchemaEntity202012.tt"
         this.Write("        IJsonValue,\r\n    ");
         
         #line default
         #line hidden
         
-        #line 58 "SchemaEntity202012.tt"
+        #line 59 "SchemaEntity202012.tt"
 
     }
     
@@ -197,25 +198,25 @@ namespace ");
         #line default
         #line hidden
         
-        #line 61 "SchemaEntity202012.tt"
+        #line 62 "SchemaEntity202012.tt"
         this.Write("        IEquatable<");
         
         #line default
         #line hidden
         
-        #line 61 "SchemaEntity202012.tt"
+        #line 62 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 61 "SchemaEntity202012.tt"
+        #line 62 "SchemaEntity202012.tt"
         this.Write(">\r\n    {\r\n\r\n        ");
         
         #line default
         #line hidden
         
-        #line 64 "SchemaEntity202012.tt"
+        #line 65 "SchemaEntity202012.tt"
 
     if(HasPatternProperties)
     {
@@ -224,13 +225,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 68 "SchemaEntity202012.tt"
+        #line 69 "SchemaEntity202012.tt"
         this.Write("\r\n        ");
         
         #line default
         #line hidden
         
-        #line 69 "SchemaEntity202012.tt"
+        #line 70 "SchemaEntity202012.tt"
 
         foreach(var patternProperty in PatternProperties)
         {
@@ -239,61 +240,61 @@ namespace ");
         #line default
         #line hidden
         
-        #line 73 "SchemaEntity202012.tt"
+        #line 74 "SchemaEntity202012.tt"
         this.Write("        /// <summary>\r\n        /// A pattern property matching ");
         
         #line default
         #line hidden
         
-        #line 74 "SchemaEntity202012.tt"
+        #line 75 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture(                Formatting.FormatLiteralOrNull(patternProperty.Pattern, true).Trim('"')));
         
         #line default
         #line hidden
         
-        #line 74 "SchemaEntity202012.tt"
+        #line 75 "SchemaEntity202012.tt"
         this.Write(" producing a <see cref=\"");
         
         #line default
         #line hidden
         
-        #line 74 "SchemaEntity202012.tt"
+        #line 75 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( patternProperty.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 74 "SchemaEntity202012.tt"
+        #line 75 "SchemaEntity202012.tt"
         this.Write("\" />.\r\n        /// </summary>\r\n        public static Regex PatternProperty");
         
         #line default
         #line hidden
         
-        #line 76 "SchemaEntity202012.tt"
+        #line 77 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( PatternPropertySuffix(patternProperty) ));
         
         #line default
         #line hidden
         
-        #line 76 "SchemaEntity202012.tt"
+        #line 77 "SchemaEntity202012.tt"
         this.Write(" = new Regex(");
         
         #line default
         #line hidden
         
-        #line 76 "SchemaEntity202012.tt"
+        #line 77 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture(                Formatting.FormatLiteralOrNull(patternProperty.Pattern, true) ));
         
         #line default
         #line hidden
         
-        #line 76 "SchemaEntity202012.tt"
+        #line 77 "SchemaEntity202012.tt"
         this.Write(", RegexOptions.Compiled);\r\n\r\n        ");
         
         #line default
         #line hidden
         
-        #line 78 "SchemaEntity202012.tt"
+        #line 79 "SchemaEntity202012.tt"
 
         }
         
@@ -301,13 +302,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 81 "SchemaEntity202012.tt"
+        #line 82 "SchemaEntity202012.tt"
         this.Write("    ");
         
         #line default
         #line hidden
         
-        #line 81 "SchemaEntity202012.tt"
+        #line 82 "SchemaEntity202012.tt"
 
     }
     
@@ -315,13 +316,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 84 "SchemaEntity202012.tt"
+        #line 85 "SchemaEntity202012.tt"
         this.Write("\r\n    ");
         
         #line default
         #line hidden
         
-        #line 85 "SchemaEntity202012.tt"
+        #line 86 "SchemaEntity202012.tt"
 
     if(HasProperties)
     {
@@ -330,13 +331,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 89 "SchemaEntity202012.tt"
+        #line 90 "SchemaEntity202012.tt"
         this.Write("\r\n        ");
         
         #line default
         #line hidden
         
-        #line 90 "SchemaEntity202012.tt"
+        #line 91 "SchemaEntity202012.tt"
 
         foreach(var property in Properties)
         {
@@ -345,86 +346,86 @@ namespace ");
         #line default
         #line hidden
         
-        #line 94 "SchemaEntity202012.tt"
+        #line 95 "SchemaEntity202012.tt"
         this.Write("\r\n        /// <summary>\r\n        /// JSON property name for <see cref=\"");
         
         #line default
         #line hidden
         
-        #line 96 "SchemaEntity202012.tt"
+        #line 97 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( property.DotnetPropertyName ));
         
         #line default
         #line hidden
         
-        #line 96 "SchemaEntity202012.tt"
+        #line 97 "SchemaEntity202012.tt"
         this.Write("\"/>.\r\n        /// </summary>\r\n        public static readonly ReadOnlyMemory<byte>" +
                 " ");
         
         #line default
         #line hidden
         
-        #line 98 "SchemaEntity202012.tt"
+        #line 99 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( property.DotnetPropertyName ));
         
         #line default
         #line hidden
         
-        #line 98 "SchemaEntity202012.tt"
+        #line 99 "SchemaEntity202012.tt"
         this.Write("Utf8JsonPropertyName = new byte[] { ");
         
         #line default
         #line hidden
         
-        #line 98 "SchemaEntity202012.tt"
+        #line 99 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( GetEncodedBytes(property.JsonPropertyName) ));
         
         #line default
         #line hidden
         
-        #line 98 "SchemaEntity202012.tt"
+        #line 99 "SchemaEntity202012.tt"
         this.Write(" };\r\n\r\n        /// <summary>\r\n        /// JSON property name for <see cref=\"");
         
         #line default
         #line hidden
         
-        #line 101 "SchemaEntity202012.tt"
+        #line 102 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( property.DotnetPropertyName ));
         
         #line default
         #line hidden
         
-        #line 101 "SchemaEntity202012.tt"
-        this.Write("\"/>.\r\n        /// </summary>\r\n        public static readonly JsonEncodedText ");
+        #line 102 "SchemaEntity202012.tt"
+        this.Write("\"/>.\r\n        /// </summary>\r\n        public static readonly string ");
         
         #line default
         #line hidden
         
-        #line 103 "SchemaEntity202012.tt"
+        #line 104 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( property.DotnetPropertyName ));
         
         #line default
         #line hidden
         
-        #line 103 "SchemaEntity202012.tt"
-        this.Write("JsonPropertyName = JsonEncodedText.Encode( ");
+        #line 104 "SchemaEntity202012.tt"
+        this.Write("JsonPropertyName = ");
         
         #line default
         #line hidden
         
-        #line 103 "SchemaEntity202012.tt"
-        this.Write(this.ToStringHelper.ToStringWithCulture( property.DotnetPropertyName ));
+        #line 104 "SchemaEntity202012.tt"
+        this.Write(this.ToStringHelper.ToStringWithCulture( Formatting.FormatLiteralOrNull(property.JsonPropertyName, true)));
         
         #line default
         #line hidden
         
-        #line 103 "SchemaEntity202012.tt"
-        this.Write("Utf8JsonPropertyName.Span);\r\n\r\n        ");
+        #line 104 "SchemaEntity202012.tt"
+        this.Write(";\r\n\r\n        ");
         
         #line default
         #line hidden
         
-        #line 105 "SchemaEntity202012.tt"
+        #line 106 "SchemaEntity202012.tt"
 
         }
         
@@ -432,13 +433,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 108 "SchemaEntity202012.tt"
+        #line 109 "SchemaEntity202012.tt"
         this.Write("\r\n    ");
         
         #line default
         #line hidden
         
-        #line 109 "SchemaEntity202012.tt"
+        #line 110 "SchemaEntity202012.tt"
 
     }
     
@@ -446,13 +447,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 112 "SchemaEntity202012.tt"
+        #line 113 "SchemaEntity202012.tt"
         this.Write("\r\n    ");
         
         #line default
         #line hidden
         
-        #line 113 "SchemaEntity202012.tt"
+        #line 114 "SchemaEntity202012.tt"
 
     if(HasConstString)
     {
@@ -461,37 +462,37 @@ namespace ");
         #line default
         #line hidden
         
-        #line 117 "SchemaEntity202012.tt"
+        #line 118 "SchemaEntity202012.tt"
         this.Write("        private static readonly ");
         
         #line default
         #line hidden
         
-        #line 117 "SchemaEntity202012.tt"
+        #line 118 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 117 "SchemaEntity202012.tt"
+        #line 118 "SchemaEntity202012.tt"
         this.Write(" __MenesConstValue = JsonAny.Parse(");
         
         #line default
         #line hidden
         
-        #line 117 "SchemaEntity202012.tt"
+        #line 118 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( ConstString ));
         
         #line default
         #line hidden
         
-        #line 117 "SchemaEntity202012.tt"
+        #line 118 "SchemaEntity202012.tt"
         this.Write(");\r\n    ");
         
         #line default
         #line hidden
         
-        #line 118 "SchemaEntity202012.tt"
+        #line 119 "SchemaEntity202012.tt"
 
     }
     else if(HasConstBoolean)
@@ -501,37 +502,37 @@ namespace ");
         #line default
         #line hidden
         
-        #line 123 "SchemaEntity202012.tt"
+        #line 124 "SchemaEntity202012.tt"
         this.Write("        private static readonly ");
         
         #line default
         #line hidden
         
-        #line 123 "SchemaEntity202012.tt"
+        #line 124 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 123 "SchemaEntity202012.tt"
+        #line 124 "SchemaEntity202012.tt"
         this.Write(" __MenesConstValue = JsonAny.Parse(");
         
         #line default
         #line hidden
         
-        #line 123 "SchemaEntity202012.tt"
+        #line 124 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( ConstBoolean ));
         
         #line default
         #line hidden
         
-        #line 123 "SchemaEntity202012.tt"
+        #line 124 "SchemaEntity202012.tt"
         this.Write(");\r\n    ");
         
         #line default
         #line hidden
         
-        #line 124 "SchemaEntity202012.tt"
+        #line 125 "SchemaEntity202012.tt"
 
     }
     else if(HasConstNumber)
@@ -541,37 +542,37 @@ namespace ");
         #line default
         #line hidden
         
-        #line 129 "SchemaEntity202012.tt"
+        #line 130 "SchemaEntity202012.tt"
         this.Write("        private static readonly ");
         
         #line default
         #line hidden
         
-        #line 129 "SchemaEntity202012.tt"
+        #line 130 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 129 "SchemaEntity202012.tt"
+        #line 130 "SchemaEntity202012.tt"
         this.Write(" __MenesConstValue = JsonAny.Parse(");
         
         #line default
         #line hidden
         
-        #line 129 "SchemaEntity202012.tt"
+        #line 130 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( ConstNumber ));
         
         #line default
         #line hidden
         
-        #line 129 "SchemaEntity202012.tt"
+        #line 130 "SchemaEntity202012.tt"
         this.Write(");\r\n    ");
         
         #line default
         #line hidden
         
-        #line 130 "SchemaEntity202012.tt"
+        #line 131 "SchemaEntity202012.tt"
 
     }
     else if(HasConstObject)
@@ -581,37 +582,37 @@ namespace ");
         #line default
         #line hidden
         
-        #line 135 "SchemaEntity202012.tt"
+        #line 136 "SchemaEntity202012.tt"
         this.Write("        private static readonly ");
         
         #line default
         #line hidden
         
-        #line 135 "SchemaEntity202012.tt"
+        #line 136 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 135 "SchemaEntity202012.tt"
+        #line 136 "SchemaEntity202012.tt"
         this.Write(" __MenesConstValue = JsonAny.Parse(");
         
         #line default
         #line hidden
         
-        #line 135 "SchemaEntity202012.tt"
+        #line 136 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( ConstObject ));
         
         #line default
         #line hidden
         
-        #line 135 "SchemaEntity202012.tt"
+        #line 136 "SchemaEntity202012.tt"
         this.Write(");\r\n    ");
         
         #line default
         #line hidden
         
-        #line 136 "SchemaEntity202012.tt"
+        #line 137 "SchemaEntity202012.tt"
 
     }
     else if(HasConstArray)
@@ -621,37 +622,37 @@ namespace ");
         #line default
         #line hidden
         
-        #line 141 "SchemaEntity202012.tt"
+        #line 142 "SchemaEntity202012.tt"
         this.Write("        private static readonly ");
         
         #line default
         #line hidden
         
-        #line 141 "SchemaEntity202012.tt"
+        #line 142 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 141 "SchemaEntity202012.tt"
+        #line 142 "SchemaEntity202012.tt"
         this.Write(" __MenesConstValue = JsonAny.Parse(");
         
         #line default
         #line hidden
         
-        #line 141 "SchemaEntity202012.tt"
+        #line 142 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( ConstArray ));
         
         #line default
         #line hidden
         
-        #line 141 "SchemaEntity202012.tt"
+        #line 142 "SchemaEntity202012.tt"
         this.Write(");\r\n    ");
         
         #line default
         #line hidden
         
-        #line 142 "SchemaEntity202012.tt"
+        #line 143 "SchemaEntity202012.tt"
 
     }
     else if(HasConstNull)
@@ -661,25 +662,25 @@ namespace ");
         #line default
         #line hidden
         
-        #line 147 "SchemaEntity202012.tt"
+        #line 148 "SchemaEntity202012.tt"
         this.Write("        private static readonly ");
         
         #line default
         #line hidden
         
-        #line 147 "SchemaEntity202012.tt"
+        #line 148 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 147 "SchemaEntity202012.tt"
+        #line 148 "SchemaEntity202012.tt"
         this.Write(" __MenesConstValue = JsonAny.Parse(\"null\");\r\n    ");
         
         #line default
         #line hidden
         
-        #line 148 "SchemaEntity202012.tt"
+        #line 149 "SchemaEntity202012.tt"
 
     }
     
@@ -687,13 +688,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 151 "SchemaEntity202012.tt"
+        #line 152 "SchemaEntity202012.tt"
         this.Write("\r\n    ");
         
         #line default
         #line hidden
         
-        #line 152 "SchemaEntity202012.tt"
+        #line 153 "SchemaEntity202012.tt"
 
 
     if(HasPattern)
@@ -703,25 +704,25 @@ namespace ");
         #line default
         #line hidden
         
-        #line 157 "SchemaEntity202012.tt"
+        #line 158 "SchemaEntity202012.tt"
         this.Write("        private static readonly Regex __MenesPatternExpression = new Regex(");
         
         #line default
         #line hidden
         
-        #line 157 "SchemaEntity202012.tt"
+        #line 158 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( Formatting.FormatLiteralOrNull(Pattern, true) ));
         
         #line default
         #line hidden
         
-        #line 157 "SchemaEntity202012.tt"
+        #line 158 "SchemaEntity202012.tt"
         this.Write(", RegexOptions.Compiled);\r\n    ");
         
         #line default
         #line hidden
         
-        #line 158 "SchemaEntity202012.tt"
+        #line 159 "SchemaEntity202012.tt"
 
     }
     
@@ -729,13 +730,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 161 "SchemaEntity202012.tt"
+        #line 162 "SchemaEntity202012.tt"
         this.Write("\r\n    ");
         
         #line default
         #line hidden
         
-        #line 162 "SchemaEntity202012.tt"
+        #line 163 "SchemaEntity202012.tt"
 
     if(HasDependentRequired)
     {
@@ -744,15 +745,14 @@ namespace ");
         #line default
         #line hidden
         
-        #line 166 "SchemaEntity202012.tt"
-        this.Write("        private static readonly ImmutableDictionary<JsonEncodedText, ImmutableArr" +
-                "ay<ReadOnlyMemory<byte>>> __MenesDependentRequired = BuildDependentRequired();\r\n" +
-                "    ");
+        #line 167 "SchemaEntity202012.tt"
+        this.Write("        private static readonly ImmutableDictionary<string, ImmutableArray<ReadOn" +
+                "lyMemory<byte>>> __MenesDependentRequired = BuildDependentRequired();\r\n    ");
         
         #line default
         #line hidden
         
-        #line 167 "SchemaEntity202012.tt"
+        #line 168 "SchemaEntity202012.tt"
 
     }
     
@@ -760,13 +760,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 170 "SchemaEntity202012.tt"
+        #line 171 "SchemaEntity202012.tt"
         this.Write("\r\n    ");
         
         #line default
         #line hidden
         
-        #line 171 "SchemaEntity202012.tt"
+        #line 172 "SchemaEntity202012.tt"
 
     if(HasDependentSchemas)
     {
@@ -775,26 +775,26 @@ namespace ");
         #line default
         #line hidden
         
-        #line 175 "SchemaEntity202012.tt"
-        this.Write("        private static readonly ImmutableDictionary<JsonEncodedText, Func<");
+        #line 176 "SchemaEntity202012.tt"
+        this.Write("        private static readonly ImmutableDictionary<string, Func<");
         
         #line default
         #line hidden
         
-        #line 175 "SchemaEntity202012.tt"
+        #line 176 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 175 "SchemaEntity202012.tt"
+        #line 176 "SchemaEntity202012.tt"
         this.Write(", ValidationContext, ValidationLevel, ValidationContext>> __MenesDependentSchema " +
                 "= CreateDependentSchemaValidators();\r\n    ");
         
         #line default
         #line hidden
         
-        #line 176 "SchemaEntity202012.tt"
+        #line 177 "SchemaEntity202012.tt"
 
     }
     
@@ -802,13 +802,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 179 "SchemaEntity202012.tt"
+        #line 180 "SchemaEntity202012.tt"
         this.Write("\r\n    ");
         
         #line default
         #line hidden
         
-        #line 180 "SchemaEntity202012.tt"
+        #line 181 "SchemaEntity202012.tt"
 
     if(HasLocalProperties)
     {
@@ -817,26 +817,26 @@ namespace ");
         #line default
         #line hidden
         
-        #line 184 "SchemaEntity202012.tt"
-        this.Write("        private static readonly ImmutableDictionary<JsonEncodedText, Func<");
+        #line 185 "SchemaEntity202012.tt"
+        this.Write("        private static readonly ImmutableDictionary<string, Func<");
         
         #line default
         #line hidden
         
-        #line 184 "SchemaEntity202012.tt"
+        #line 185 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 184 "SchemaEntity202012.tt"
+        #line 185 "SchemaEntity202012.tt"
         this.Write(", ValidationContext, ValidationLevel, ValidationContext>> __MenesLocalProperties " +
                 "= CreateLocalPropertyValidators();\r\n    ");
         
         #line default
         #line hidden
         
-        #line 185 "SchemaEntity202012.tt"
+        #line 186 "SchemaEntity202012.tt"
 
     }
     
@@ -844,13 +844,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 188 "SchemaEntity202012.tt"
+        #line 189 "SchemaEntity202012.tt"
         this.Write("\r\n    ");
         
         #line default
         #line hidden
         
-        #line 189 "SchemaEntity202012.tt"
+        #line 190 "SchemaEntity202012.tt"
 
     if(HasDefaults)
     {
@@ -859,14 +859,14 @@ namespace ");
         #line default
         #line hidden
         
-        #line 193 "SchemaEntity202012.tt"
-        this.Write("        private static readonly ImmutableDictionary<JsonEncodedText, JsonAny> __M" +
-                "enesDefaults = BuildDefaults();\r\n    ");
+        #line 194 "SchemaEntity202012.tt"
+        this.Write("        private static readonly ImmutableDictionary<string, JsonAny> __MenesDefau" +
+                "lts = BuildDefaults();\r\n    ");
         
         #line default
         #line hidden
         
-        #line 194 "SchemaEntity202012.tt"
+        #line 195 "SchemaEntity202012.tt"
 
     }
     
@@ -874,13 +874,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 197 "SchemaEntity202012.tt"
+        #line 198 "SchemaEntity202012.tt"
         this.Write("\r\n\r\n    ");
         
         #line default
         #line hidden
         
-        #line 199 "SchemaEntity202012.tt"
+        #line 200 "SchemaEntity202012.tt"
 
     if(HasPatternProperties)
     {
@@ -889,7 +889,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 203 "SchemaEntity202012.tt"
+        #line 204 "SchemaEntity202012.tt"
         this.Write("        private static readonly ImmutableDictionary<Regex, Func<Property, Validat" +
                 "ionContext, ValidationLevel, ValidationContext>> __MenesPatternProperties = Crea" +
                 "tePatternPropertiesValidators();\r\n    ");
@@ -897,7 +897,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 204 "SchemaEntity202012.tt"
+        #line 205 "SchemaEntity202012.tt"
 
     }
     
@@ -905,13 +905,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 207 "SchemaEntity202012.tt"
+        #line 208 "SchemaEntity202012.tt"
         this.Write("\r\n        private readonly JsonElement jsonElementBacking;\r\n\r\n    ");
         
         #line default
         #line hidden
         
-        #line 210 "SchemaEntity202012.tt"
+        #line 211 "SchemaEntity202012.tt"
 
     if(IsImplicitObject)
     {
@@ -920,14 +920,14 @@ namespace ");
         #line default
         #line hidden
         
-        #line 214 "SchemaEntity202012.tt"
-        this.Write("        private readonly ImmutableDictionary<JsonEncodedText, JsonAny>? objectBac" +
-                "king;\r\n    ");
+        #line 215 "SchemaEntity202012.tt"
+        this.Write("        private readonly ImmutableDictionary<string, JsonAny>? objectBacking;\r\n  " +
+                "  ");
         
         #line default
         #line hidden
         
-        #line 215 "SchemaEntity202012.tt"
+        #line 216 "SchemaEntity202012.tt"
 
     }
     
@@ -935,13 +935,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 218 "SchemaEntity202012.tt"
+        #line 219 "SchemaEntity202012.tt"
         this.Write("\r\n    ");
         
         #line default
         #line hidden
         
-        #line 219 "SchemaEntity202012.tt"
+        #line 220 "SchemaEntity202012.tt"
 
     if(IsImplicitArray)
     {
@@ -950,13 +950,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 223 "SchemaEntity202012.tt"
+        #line 224 "SchemaEntity202012.tt"
         this.Write("        private readonly ImmutableList<JsonAny>? arrayBacking;\r\n    ");
         
         #line default
         #line hidden
         
-        #line 224 "SchemaEntity202012.tt"
+        #line 225 "SchemaEntity202012.tt"
 
     }
     
@@ -964,13 +964,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 227 "SchemaEntity202012.tt"
+        #line 228 "SchemaEntity202012.tt"
         this.Write("\r\n    ");
         
         #line default
         #line hidden
         
-        #line 228 "SchemaEntity202012.tt"
+        #line 229 "SchemaEntity202012.tt"
 
     if(IsImplicitNumber)
     {
@@ -979,13 +979,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 232 "SchemaEntity202012.tt"
+        #line 233 "SchemaEntity202012.tt"
         this.Write("        private readonly double? numberBacking;\r\n    ");
         
         #line default
         #line hidden
         
-        #line 233 "SchemaEntity202012.tt"
+        #line 234 "SchemaEntity202012.tt"
 
     }
     
@@ -993,13 +993,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 236 "SchemaEntity202012.tt"
+        #line 237 "SchemaEntity202012.tt"
         this.Write("\r\n    ");
         
         #line default
         #line hidden
         
-        #line 237 "SchemaEntity202012.tt"
+        #line 238 "SchemaEntity202012.tt"
 
     if(IsImplicitString)
     {
@@ -1008,13 +1008,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 241 "SchemaEntity202012.tt"
-        this.Write("        private readonly JsonEncodedText? stringBacking;\r\n    ");
+        #line 242 "SchemaEntity202012.tt"
+        this.Write("        private readonly string? stringBacking;\r\n    ");
         
         #line default
         #line hidden
         
-        #line 242 "SchemaEntity202012.tt"
+        #line 243 "SchemaEntity202012.tt"
 
     }
     
@@ -1022,13 +1022,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 245 "SchemaEntity202012.tt"
+        #line 246 "SchemaEntity202012.tt"
         this.Write("\r\n    ");
         
         #line default
         #line hidden
         
-        #line 246 "SchemaEntity202012.tt"
+        #line 247 "SchemaEntity202012.tt"
 
     if(IsImplicitBoolean)
     {
@@ -1037,13 +1037,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 250 "SchemaEntity202012.tt"
+        #line 251 "SchemaEntity202012.tt"
         this.Write("        private readonly bool? booleanBacking;\r\n    ");
         
         #line default
         #line hidden
         
-        #line 251 "SchemaEntity202012.tt"
+        #line 252 "SchemaEntity202012.tt"
 
     }
     
@@ -1051,40 +1051,40 @@ namespace ");
         #line default
         #line hidden
         
-        #line 254 "SchemaEntity202012.tt"
+        #line 255 "SchemaEntity202012.tt"
         this.Write("\r\n        /// <summary>\r\n        /// Initializes a new instance of the <see cref=" +
                 "\"");
         
         #line default
         #line hidden
         
-        #line 256 "SchemaEntity202012.tt"
+        #line 257 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 256 "SchemaEntity202012.tt"
+        #line 257 "SchemaEntity202012.tt"
         this.Write("\"/> struct.\r\n        /// </summary>\r\n        /// <param name=\"value\">The backing " +
                 "<see cref=\"JsonElement\"/>.</param>\r\n        public ");
         
         #line default
         #line hidden
         
-        #line 259 "SchemaEntity202012.tt"
+        #line 260 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 259 "SchemaEntity202012.tt"
+        #line 260 "SchemaEntity202012.tt"
         this.Write("(JsonElement value)\r\n        {\r\n            this.jsonElementBacking = value;\r\n   " +
                 " ");
         
         #line default
         #line hidden
         
-        #line 262 "SchemaEntity202012.tt"
+        #line 263 "SchemaEntity202012.tt"
 
     if(IsImplicitObject)
     {
@@ -1093,13 +1093,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 266 "SchemaEntity202012.tt"
+        #line 267 "SchemaEntity202012.tt"
         this.Write("            this.objectBacking = default;\r\n    ");
         
         #line default
         #line hidden
         
-        #line 267 "SchemaEntity202012.tt"
+        #line 268 "SchemaEntity202012.tt"
 
     }
     
@@ -1107,13 +1107,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 270 "SchemaEntity202012.tt"
+        #line 271 "SchemaEntity202012.tt"
         this.Write("    ");
         
         #line default
         #line hidden
         
-        #line 270 "SchemaEntity202012.tt"
+        #line 271 "SchemaEntity202012.tt"
 
     if(IsImplicitArray)
     {
@@ -1122,13 +1122,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 274 "SchemaEntity202012.tt"
+        #line 275 "SchemaEntity202012.tt"
         this.Write("            this.arrayBacking = default;\r\n    ");
         
         #line default
         #line hidden
         
-        #line 275 "SchemaEntity202012.tt"
+        #line 276 "SchemaEntity202012.tt"
 
     }
     
@@ -1136,13 +1136,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 278 "SchemaEntity202012.tt"
+        #line 279 "SchemaEntity202012.tt"
         this.Write("    ");
         
         #line default
         #line hidden
         
-        #line 278 "SchemaEntity202012.tt"
+        #line 279 "SchemaEntity202012.tt"
 
     if(IsImplicitNumber)
     {
@@ -1151,13 +1151,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 282 "SchemaEntity202012.tt"
+        #line 283 "SchemaEntity202012.tt"
         this.Write("            this.numberBacking = default;\r\n    ");
         
         #line default
         #line hidden
         
-        #line 283 "SchemaEntity202012.tt"
+        #line 284 "SchemaEntity202012.tt"
 
     }
     
@@ -1165,13 +1165,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 286 "SchemaEntity202012.tt"
+        #line 287 "SchemaEntity202012.tt"
         this.Write("    ");
         
         #line default
         #line hidden
         
-        #line 286 "SchemaEntity202012.tt"
+        #line 287 "SchemaEntity202012.tt"
 
     if(IsImplicitString)
     {
@@ -1180,13 +1180,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 290 "SchemaEntity202012.tt"
+        #line 291 "SchemaEntity202012.tt"
         this.Write("            this.stringBacking = default;\r\n    ");
         
         #line default
         #line hidden
         
-        #line 291 "SchemaEntity202012.tt"
+        #line 292 "SchemaEntity202012.tt"
 
     }
     
@@ -1194,13 +1194,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 294 "SchemaEntity202012.tt"
+        #line 295 "SchemaEntity202012.tt"
         this.Write("    ");
         
         #line default
         #line hidden
         
-        #line 294 "SchemaEntity202012.tt"
+        #line 295 "SchemaEntity202012.tt"
 
     if(IsImplicitBoolean)
     {
@@ -1209,13 +1209,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 298 "SchemaEntity202012.tt"
+        #line 299 "SchemaEntity202012.tt"
         this.Write("            this.booleanBacking = default;\r\n    ");
         
         #line default
         #line hidden
         
-        #line 299 "SchemaEntity202012.tt"
+        #line 300 "SchemaEntity202012.tt"
 
     }
     
@@ -1223,13 +1223,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 302 "SchemaEntity202012.tt"
+        #line 303 "SchemaEntity202012.tt"
         this.Write("        }\r\n\r\n    ");
         
         #line default
         #line hidden
         
-        #line 304 "SchemaEntity202012.tt"
+        #line 305 "SchemaEntity202012.tt"
 
     if(IsImplicitObject)
     {
@@ -1238,40 +1238,39 @@ namespace ");
         #line default
         #line hidden
         
-        #line 308 "SchemaEntity202012.tt"
+        #line 309 "SchemaEntity202012.tt"
         this.Write("        /// <summary>\r\n        /// Initializes a new instance of the <see cref=\"");
         
         #line default
         #line hidden
         
-        #line 309 "SchemaEntity202012.tt"
+        #line 310 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 309 "SchemaEntity202012.tt"
+        #line 310 "SchemaEntity202012.tt"
         this.Write("\"/> struct.\r\n        /// </summary>\r\n        /// <param name=\"value\">A property d" +
                 "ictionary.</param>\r\n        public ");
         
         #line default
         #line hidden
         
-        #line 312 "SchemaEntity202012.tt"
+        #line 313 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 312 "SchemaEntity202012.tt"
-        this.Write("(ImmutableDictionary<JsonEncodedText, JsonAny> value)\r\n        {\r\n            thi" +
-                "s.jsonElementBacking = default;\r\n            this.objectBacking = value;\r\n      " +
-                "  ");
+        #line 313 "SchemaEntity202012.tt"
+        this.Write("(ImmutableDictionary<string, JsonAny> value)\r\n        {\r\n            this.jsonEle" +
+                "mentBacking = default;\r\n            this.objectBacking = value;\r\n        ");
         
         #line default
         #line hidden
         
-        #line 316 "SchemaEntity202012.tt"
+        #line 317 "SchemaEntity202012.tt"
 
         if(IsImplicitArray)
         {
@@ -1280,13 +1279,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 320 "SchemaEntity202012.tt"
+        #line 321 "SchemaEntity202012.tt"
         this.Write("            this.arrayBacking = default;\r\n        ");
         
         #line default
         #line hidden
         
-        #line 321 "SchemaEntity202012.tt"
+        #line 322 "SchemaEntity202012.tt"
 
         }
         
@@ -1294,13 +1293,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 324 "SchemaEntity202012.tt"
+        #line 325 "SchemaEntity202012.tt"
         this.Write("        ");
         
         #line default
         #line hidden
         
-        #line 324 "SchemaEntity202012.tt"
+        #line 325 "SchemaEntity202012.tt"
 
         if(IsImplicitNumber)
         {
@@ -1309,13 +1308,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 328 "SchemaEntity202012.tt"
+        #line 329 "SchemaEntity202012.tt"
         this.Write("            this.numberBacking = default;\r\n        ");
         
         #line default
         #line hidden
         
-        #line 329 "SchemaEntity202012.tt"
+        #line 330 "SchemaEntity202012.tt"
 
         }
         
@@ -1323,13 +1322,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 332 "SchemaEntity202012.tt"
+        #line 333 "SchemaEntity202012.tt"
         this.Write("        ");
         
         #line default
         #line hidden
         
-        #line 332 "SchemaEntity202012.tt"
+        #line 333 "SchemaEntity202012.tt"
 
         if(IsImplicitString)
         {
@@ -1338,13 +1337,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 336 "SchemaEntity202012.tt"
+        #line 337 "SchemaEntity202012.tt"
         this.Write("            this.stringBacking = default;\r\n        ");
         
         #line default
         #line hidden
         
-        #line 337 "SchemaEntity202012.tt"
+        #line 338 "SchemaEntity202012.tt"
 
         }
         
@@ -1352,13 +1351,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 340 "SchemaEntity202012.tt"
+        #line 341 "SchemaEntity202012.tt"
         this.Write("        ");
         
         #line default
         #line hidden
         
-        #line 340 "SchemaEntity202012.tt"
+        #line 341 "SchemaEntity202012.tt"
 
         if(IsImplicitBoolean)
         {
@@ -1367,13 +1366,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 344 "SchemaEntity202012.tt"
+        #line 345 "SchemaEntity202012.tt"
         this.Write("            this.booleanBacking = default;\r\n        ");
         
         #line default
         #line hidden
         
-        #line 345 "SchemaEntity202012.tt"
+        #line 346 "SchemaEntity202012.tt"
 
         }
         
@@ -1381,20 +1380,20 @@ namespace ");
         #line default
         #line hidden
         
-        #line 348 "SchemaEntity202012.tt"
+        #line 349 "SchemaEntity202012.tt"
         this.Write("        }\r\n\r\n        /// <summary>\r\n        /// Initializes a new instance of the" +
                 " <see cref=\"");
         
         #line default
         #line hidden
         
-        #line 351 "SchemaEntity202012.tt"
+        #line 352 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 351 "SchemaEntity202012.tt"
+        #line 352 "SchemaEntity202012.tt"
         this.Write("\"/> struct.\r\n        /// </summary>\r\n        /// <param name=\"jsonObject\">The <se" +
                 "e cref=\"JsonObject\"/> from which to construct the value.</param>\r\n        public" +
                 " ");
@@ -1402,13 +1401,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 354 "SchemaEntity202012.tt"
+        #line 355 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 354 "SchemaEntity202012.tt"
+        #line 355 "SchemaEntity202012.tt"
         this.Write(@"(JsonObject jsonObject)
         {
             if (jsonObject.HasJsonElement)
@@ -1427,7 +1426,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 367 "SchemaEntity202012.tt"
+        #line 368 "SchemaEntity202012.tt"
 
         if(IsImplicitArray)
         {
@@ -1436,13 +1435,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 371 "SchemaEntity202012.tt"
+        #line 372 "SchemaEntity202012.tt"
         this.Write("            this.arrayBacking = default;\r\n        ");
         
         #line default
         #line hidden
         
-        #line 372 "SchemaEntity202012.tt"
+        #line 373 "SchemaEntity202012.tt"
 
         }
         
@@ -1450,13 +1449,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 375 "SchemaEntity202012.tt"
+        #line 376 "SchemaEntity202012.tt"
         this.Write("        ");
         
         #line default
         #line hidden
         
-        #line 375 "SchemaEntity202012.tt"
+        #line 376 "SchemaEntity202012.tt"
 
         if(IsImplicitNumber)
         {
@@ -1465,13 +1464,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 379 "SchemaEntity202012.tt"
+        #line 380 "SchemaEntity202012.tt"
         this.Write("            this.numberBacking = default;\r\n        ");
         
         #line default
         #line hidden
         
-        #line 380 "SchemaEntity202012.tt"
+        #line 381 "SchemaEntity202012.tt"
 
         }
         
@@ -1479,13 +1478,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 383 "SchemaEntity202012.tt"
+        #line 384 "SchemaEntity202012.tt"
         this.Write("        ");
         
         #line default
         #line hidden
         
-        #line 383 "SchemaEntity202012.tt"
+        #line 384 "SchemaEntity202012.tt"
 
         if(IsImplicitString)
         {
@@ -1494,13 +1493,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 387 "SchemaEntity202012.tt"
+        #line 388 "SchemaEntity202012.tt"
         this.Write("            this.stringBacking = default;\r\n        ");
         
         #line default
         #line hidden
         
-        #line 388 "SchemaEntity202012.tt"
+        #line 389 "SchemaEntity202012.tt"
 
         }
         
@@ -1508,13 +1507,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 391 "SchemaEntity202012.tt"
+        #line 392 "SchemaEntity202012.tt"
         this.Write("        ");
         
         #line default
         #line hidden
         
-        #line 391 "SchemaEntity202012.tt"
+        #line 392 "SchemaEntity202012.tt"
 
         if(IsImplicitBoolean)
         {
@@ -1523,13 +1522,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 395 "SchemaEntity202012.tt"
+        #line 396 "SchemaEntity202012.tt"
         this.Write("            this.booleanBacking = default;\r\n        ");
         
         #line default
         #line hidden
         
-        #line 396 "SchemaEntity202012.tt"
+        #line 397 "SchemaEntity202012.tt"
 
         }
         
@@ -1537,13 +1536,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 399 "SchemaEntity202012.tt"
+        #line 400 "SchemaEntity202012.tt"
         this.Write("        }\r\n    ");
         
         #line default
         #line hidden
         
-        #line 400 "SchemaEntity202012.tt"
+        #line 401 "SchemaEntity202012.tt"
 
     }
     
@@ -1551,13 +1550,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 403 "SchemaEntity202012.tt"
+        #line 404 "SchemaEntity202012.tt"
         this.Write("\r\n    ");
         
         #line default
         #line hidden
         
-        #line 404 "SchemaEntity202012.tt"
+        #line 405 "SchemaEntity202012.tt"
 
     if(IsImplicitArray)
     {
@@ -1566,39 +1565,39 @@ namespace ");
         #line default
         #line hidden
         
-        #line 408 "SchemaEntity202012.tt"
+        #line 409 "SchemaEntity202012.tt"
         this.Write("        /// <summary>\r\n        /// Initializes a new instance of the <see cref=\"");
         
         #line default
         #line hidden
         
-        #line 409 "SchemaEntity202012.tt"
+        #line 410 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 409 "SchemaEntity202012.tt"
+        #line 410 "SchemaEntity202012.tt"
         this.Write("\"/> struct.\r\n        /// </summary>\r\n        /// <param name=\"value\">An array lis" +
                 "t.</param>\r\n        public ");
         
         #line default
         #line hidden
         
-        #line 412 "SchemaEntity202012.tt"
+        #line 413 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 412 "SchemaEntity202012.tt"
+        #line 413 "SchemaEntity202012.tt"
         this.Write("(ImmutableList<JsonAny> value)\r\n        {\r\n            this.jsonElementBacking = " +
                 "default;\r\n        ");
         
         #line default
         #line hidden
         
-        #line 415 "SchemaEntity202012.tt"
+        #line 416 "SchemaEntity202012.tt"
 
         if(IsImplicitObject)
         {
@@ -1607,13 +1606,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 419 "SchemaEntity202012.tt"
+        #line 420 "SchemaEntity202012.tt"
         this.Write("            this.objectBacking = default;\r\n        ");
         
         #line default
         #line hidden
         
-        #line 420 "SchemaEntity202012.tt"
+        #line 421 "SchemaEntity202012.tt"
 
         }
         
@@ -1621,13 +1620,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 423 "SchemaEntity202012.tt"
+        #line 424 "SchemaEntity202012.tt"
         this.Write("        ");
         
         #line default
         #line hidden
         
-        #line 423 "SchemaEntity202012.tt"
+        #line 424 "SchemaEntity202012.tt"
 
         if(IsImplicitNumber)
         {
@@ -1636,13 +1635,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 427 "SchemaEntity202012.tt"
+        #line 428 "SchemaEntity202012.tt"
         this.Write("            this.numberBacking = default;\r\n        ");
         
         #line default
         #line hidden
         
-        #line 428 "SchemaEntity202012.tt"
+        #line 429 "SchemaEntity202012.tt"
 
         }
         
@@ -1650,13 +1649,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 431 "SchemaEntity202012.tt"
+        #line 432 "SchemaEntity202012.tt"
         this.Write("        ");
         
         #line default
         #line hidden
         
-        #line 431 "SchemaEntity202012.tt"
+        #line 432 "SchemaEntity202012.tt"
 
         if(IsImplicitString)
         {
@@ -1665,13 +1664,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 435 "SchemaEntity202012.tt"
+        #line 436 "SchemaEntity202012.tt"
         this.Write("            this.stringBacking = default;\r\n        ");
         
         #line default
         #line hidden
         
-        #line 436 "SchemaEntity202012.tt"
+        #line 437 "SchemaEntity202012.tt"
 
         }
         
@@ -1679,13 +1678,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 439 "SchemaEntity202012.tt"
+        #line 440 "SchemaEntity202012.tt"
         this.Write("        ");
         
         #line default
         #line hidden
         
-        #line 439 "SchemaEntity202012.tt"
+        #line 440 "SchemaEntity202012.tt"
 
         if(IsImplicitBoolean)
         {
@@ -1694,13 +1693,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 443 "SchemaEntity202012.tt"
+        #line 444 "SchemaEntity202012.tt"
         this.Write("            this.booleanBacking = default;\r\n        ");
         
         #line default
         #line hidden
         
-        #line 444 "SchemaEntity202012.tt"
+        #line 445 "SchemaEntity202012.tt"
 
         }
         
@@ -1708,33 +1707,33 @@ namespace ");
         #line default
         #line hidden
         
-        #line 447 "SchemaEntity202012.tt"
+        #line 448 "SchemaEntity202012.tt"
         this.Write("            this.arrayBacking = value;\r\n        }\r\n\r\n        /// <summary>\r\n     " +
                 "   /// Initializes a new instance of the <see cref=\"");
         
         #line default
         #line hidden
         
-        #line 451 "SchemaEntity202012.tt"
+        #line 452 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 451 "SchemaEntity202012.tt"
+        #line 452 "SchemaEntity202012.tt"
         this.Write("\"/> struct.\r\n        /// </summary>\r\n        /// <param name=\"jsonArray\">The <see" +
                 " cref=\"JsonArray\"/> from which to construct the value.</param>\r\n        public ");
         
         #line default
         #line hidden
         
-        #line 454 "SchemaEntity202012.tt"
+        #line 455 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 454 "SchemaEntity202012.tt"
+        #line 455 "SchemaEntity202012.tt"
         this.Write(@"(JsonArray jsonArray)
         {
             if (jsonArray.HasJsonElement)
@@ -1753,7 +1752,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 467 "SchemaEntity202012.tt"
+        #line 468 "SchemaEntity202012.tt"
 
         if(IsImplicitObject)
         {
@@ -1762,13 +1761,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 471 "SchemaEntity202012.tt"
+        #line 472 "SchemaEntity202012.tt"
         this.Write("            this.objectBacking = default;\r\n        ");
         
         #line default
         #line hidden
         
-        #line 472 "SchemaEntity202012.tt"
+        #line 473 "SchemaEntity202012.tt"
 
         }
         
@@ -1776,13 +1775,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 475 "SchemaEntity202012.tt"
+        #line 476 "SchemaEntity202012.tt"
         this.Write("        ");
         
         #line default
         #line hidden
         
-        #line 475 "SchemaEntity202012.tt"
+        #line 476 "SchemaEntity202012.tt"
 
         if(IsImplicitNumber)
         {
@@ -1791,13 +1790,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 479 "SchemaEntity202012.tt"
+        #line 480 "SchemaEntity202012.tt"
         this.Write("            this.numberBacking = default;\r\n        ");
         
         #line default
         #line hidden
         
-        #line 480 "SchemaEntity202012.tt"
+        #line 481 "SchemaEntity202012.tt"
 
         }
         
@@ -1805,13 +1804,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 483 "SchemaEntity202012.tt"
+        #line 484 "SchemaEntity202012.tt"
         this.Write("        ");
         
         #line default
         #line hidden
         
-        #line 483 "SchemaEntity202012.tt"
+        #line 484 "SchemaEntity202012.tt"
 
         if(IsImplicitString)
         {
@@ -1820,13 +1819,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 487 "SchemaEntity202012.tt"
+        #line 488 "SchemaEntity202012.tt"
         this.Write("            this.stringBacking = default;\r\n        ");
         
         #line default
         #line hidden
         
-        #line 488 "SchemaEntity202012.tt"
+        #line 489 "SchemaEntity202012.tt"
 
         }
         
@@ -1834,13 +1833,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 491 "SchemaEntity202012.tt"
+        #line 492 "SchemaEntity202012.tt"
         this.Write("        ");
         
         #line default
         #line hidden
         
-        #line 491 "SchemaEntity202012.tt"
+        #line 492 "SchemaEntity202012.tt"
 
         if(IsImplicitBoolean)
         {
@@ -1849,13 +1848,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 495 "SchemaEntity202012.tt"
+        #line 496 "SchemaEntity202012.tt"
         this.Write("            this.booleanBacking = default;\r\n        ");
         
         #line default
         #line hidden
         
-        #line 496 "SchemaEntity202012.tt"
+        #line 497 "SchemaEntity202012.tt"
 
         }
         
@@ -1863,13 +1862,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 499 "SchemaEntity202012.tt"
+        #line 500 "SchemaEntity202012.tt"
         this.Write("        }\r\n    ");
         
         #line default
         #line hidden
         
-        #line 500 "SchemaEntity202012.tt"
+        #line 501 "SchemaEntity202012.tt"
 
     }
     
@@ -1877,13 +1876,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 503 "SchemaEntity202012.tt"
+        #line 504 "SchemaEntity202012.tt"
         this.Write("\r\n    ");
         
         #line default
         #line hidden
         
-        #line 504 "SchemaEntity202012.tt"
+        #line 505 "SchemaEntity202012.tt"
 
     if(IsImplicitNumber)
     {
@@ -1892,19 +1891,19 @@ namespace ");
         #line default
         #line hidden
         
-        #line 508 "SchemaEntity202012.tt"
+        #line 509 "SchemaEntity202012.tt"
         this.Write("        /// <summary>\r\n        /// Initializes a new instance of the <see cref=\"");
         
         #line default
         #line hidden
         
-        #line 509 "SchemaEntity202012.tt"
+        #line 510 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 509 "SchemaEntity202012.tt"
+        #line 510 "SchemaEntity202012.tt"
         this.Write("\"/> struct.\r\n        /// </summary>\r\n        /// <param name=\"jsonNumber\">The <se" +
                 "e cref=\"JsonNumber\"/> from which to construct the value.</param>\r\n        public" +
                 " ");
@@ -1912,13 +1911,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 512 "SchemaEntity202012.tt"
+        #line 513 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 512 "SchemaEntity202012.tt"
+        #line 513 "SchemaEntity202012.tt"
         this.Write(@"(JsonNumber jsonNumber)
         {
             if (jsonNumber.HasJsonElement)
@@ -1936,7 +1935,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 524 "SchemaEntity202012.tt"
+        #line 525 "SchemaEntity202012.tt"
 
         if(IsImplicitObject)
         {
@@ -1945,13 +1944,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 528 "SchemaEntity202012.tt"
+        #line 529 "SchemaEntity202012.tt"
         this.Write("            this.objectBacking = default;\r\n        ");
         
         #line default
         #line hidden
         
-        #line 529 "SchemaEntity202012.tt"
+        #line 530 "SchemaEntity202012.tt"
 
         }
         
@@ -1959,13 +1958,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 532 "SchemaEntity202012.tt"
+        #line 533 "SchemaEntity202012.tt"
         this.Write("        ");
         
         #line default
         #line hidden
         
-        #line 532 "SchemaEntity202012.tt"
+        #line 533 "SchemaEntity202012.tt"
 
         if(IsImplicitArray)
         {
@@ -1974,13 +1973,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 536 "SchemaEntity202012.tt"
+        #line 537 "SchemaEntity202012.tt"
         this.Write("            this.arrayBacking = default;\r\n        ");
         
         #line default
         #line hidden
         
-        #line 537 "SchemaEntity202012.tt"
+        #line 538 "SchemaEntity202012.tt"
 
         }
         
@@ -1988,13 +1987,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 540 "SchemaEntity202012.tt"
+        #line 541 "SchemaEntity202012.tt"
         this.Write("        ");
         
         #line default
         #line hidden
         
-        #line 540 "SchemaEntity202012.tt"
+        #line 541 "SchemaEntity202012.tt"
 
         if(IsImplicitString)
         {
@@ -2003,13 +2002,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 544 "SchemaEntity202012.tt"
+        #line 545 "SchemaEntity202012.tt"
         this.Write("            this.stringBacking = default;\r\n        ");
         
         #line default
         #line hidden
         
-        #line 545 "SchemaEntity202012.tt"
+        #line 546 "SchemaEntity202012.tt"
 
         }
         
@@ -2017,13 +2016,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 548 "SchemaEntity202012.tt"
+        #line 549 "SchemaEntity202012.tt"
         this.Write("        ");
         
         #line default
         #line hidden
         
-        #line 548 "SchemaEntity202012.tt"
+        #line 549 "SchemaEntity202012.tt"
 
         if(IsImplicitBoolean)
         {
@@ -2032,13 +2031,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 552 "SchemaEntity202012.tt"
+        #line 553 "SchemaEntity202012.tt"
         this.Write("            this.booleanBacking = default;\r\n        ");
         
         #line default
         #line hidden
         
-        #line 553 "SchemaEntity202012.tt"
+        #line 554 "SchemaEntity202012.tt"
 
         }
         
@@ -2046,55 +2045,55 @@ namespace ");
         #line default
         #line hidden
         
-        #line 556 "SchemaEntity202012.tt"
+        #line 557 "SchemaEntity202012.tt"
         this.Write("        }\r\n\r\n        /// <summary>\r\n        /// Initializes a new instance of the" +
                 " <see cref=\"");
         
         #line default
         #line hidden
         
-        #line 559 "SchemaEntity202012.tt"
+        #line 560 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 559 "SchemaEntity202012.tt"
+        #line 560 "SchemaEntity202012.tt"
         this.Write("\"/> struct.\r\n        /// </summary>\r\n        /// <param name=\"value\">A number val" +
                 "ue.</param>\r\n        public ");
         
         #line default
         #line hidden
         
-        #line 562 "SchemaEntity202012.tt"
+        #line 563 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 562 "SchemaEntity202012.tt"
+        #line 563 "SchemaEntity202012.tt"
         this.Write("(double value)\r\n        {\r\n            this.jsonElementBacking = default;\r\n      " +
                 "  ");
         
         #line default
         #line hidden
         
-        #line 565 "SchemaEntity202012.tt"
+        #line 566 "SchemaEntity202012.tt"
 
         if(IsImplicitObject)
         {
         
-        
-        #line default
-        #line hidden
-        
-        #line 569 "SchemaEntity202012.tt"
-        this.Write("            this.objectBacking = default;\r\n        ");
         
         #line default
         #line hidden
         
         #line 570 "SchemaEntity202012.tt"
+        this.Write("            this.objectBacking = default;\r\n        ");
+        
+        #line default
+        #line hidden
+        
+        #line 571 "SchemaEntity202012.tt"
 
         }
         
@@ -2102,13 +2101,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 573 "SchemaEntity202012.tt"
+        #line 574 "SchemaEntity202012.tt"
         this.Write("        ");
         
         #line default
         #line hidden
         
-        #line 573 "SchemaEntity202012.tt"
+        #line 574 "SchemaEntity202012.tt"
 
         if(IsImplicitArray)
         {
@@ -2117,13 +2116,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 577 "SchemaEntity202012.tt"
+        #line 578 "SchemaEntity202012.tt"
         this.Write("            this.arrayBacking = default;\r\n        ");
         
         #line default
         #line hidden
         
-        #line 578 "SchemaEntity202012.tt"
+        #line 579 "SchemaEntity202012.tt"
 
         }
         
@@ -2131,13 +2130,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 581 "SchemaEntity202012.tt"
+        #line 582 "SchemaEntity202012.tt"
         this.Write("        ");
         
         #line default
         #line hidden
         
-        #line 581 "SchemaEntity202012.tt"
+        #line 582 "SchemaEntity202012.tt"
 
         if(IsImplicitString)
         {
@@ -2146,13 +2145,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 585 "SchemaEntity202012.tt"
+        #line 586 "SchemaEntity202012.tt"
         this.Write("            this.stringBacking = default;\r\n        ");
         
         #line default
         #line hidden
         
-        #line 586 "SchemaEntity202012.tt"
+        #line 587 "SchemaEntity202012.tt"
 
         }
         
@@ -2160,13 +2159,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 589 "SchemaEntity202012.tt"
+        #line 590 "SchemaEntity202012.tt"
         this.Write("        ");
         
         #line default
         #line hidden
         
-        #line 589 "SchemaEntity202012.tt"
+        #line 590 "SchemaEntity202012.tt"
 
         if(IsImplicitBoolean)
         {
@@ -2175,13 +2174,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 593 "SchemaEntity202012.tt"
+        #line 594 "SchemaEntity202012.tt"
         this.Write("            this.booleanBacking = default;\r\n        ");
         
         #line default
         #line hidden
         
-        #line 594 "SchemaEntity202012.tt"
+        #line 595 "SchemaEntity202012.tt"
 
         }
         
@@ -2189,39 +2188,39 @@ namespace ");
         #line default
         #line hidden
         
-        #line 597 "SchemaEntity202012.tt"
+        #line 598 "SchemaEntity202012.tt"
         this.Write("            this.numberBacking = value;\r\n        }\r\n\r\n        /// <summary>\r\n    " +
                 "    /// Initializes a new instance of the <see cref=\"");
         
         #line default
         #line hidden
         
-        #line 601 "SchemaEntity202012.tt"
+        #line 602 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 601 "SchemaEntity202012.tt"
+        #line 602 "SchemaEntity202012.tt"
         this.Write("\"/> struct.\r\n        /// </summary>\r\n        /// <param name=\"value\">A number val" +
                 "ue.</param>\r\n        public ");
         
         #line default
         #line hidden
         
-        #line 604 "SchemaEntity202012.tt"
+        #line 605 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 604 "SchemaEntity202012.tt"
+        #line 605 "SchemaEntity202012.tt"
         this.Write("(int value)\r\n        {\r\n            this.jsonElementBacking = default;\r\n        ");
         
         #line default
         #line hidden
         
-        #line 607 "SchemaEntity202012.tt"
+        #line 608 "SchemaEntity202012.tt"
 
         if(IsImplicitObject)
         {
@@ -2230,13 +2229,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 611 "SchemaEntity202012.tt"
+        #line 612 "SchemaEntity202012.tt"
         this.Write("            this.objectBacking = default;\r\n        ");
         
         #line default
         #line hidden
         
-        #line 612 "SchemaEntity202012.tt"
+        #line 613 "SchemaEntity202012.tt"
 
         }
         
@@ -2244,13 +2243,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 615 "SchemaEntity202012.tt"
+        #line 616 "SchemaEntity202012.tt"
         this.Write("        ");
         
         #line default
         #line hidden
         
-        #line 615 "SchemaEntity202012.tt"
+        #line 616 "SchemaEntity202012.tt"
 
         if(IsImplicitArray)
         {
@@ -2259,13 +2258,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 619 "SchemaEntity202012.tt"
+        #line 620 "SchemaEntity202012.tt"
         this.Write("            this.arrayBacking = default;\r\n        ");
         
         #line default
         #line hidden
         
-        #line 620 "SchemaEntity202012.tt"
+        #line 621 "SchemaEntity202012.tt"
 
         }
         
@@ -2273,13 +2272,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 623 "SchemaEntity202012.tt"
+        #line 624 "SchemaEntity202012.tt"
         this.Write("        ");
         
         #line default
         #line hidden
         
-        #line 623 "SchemaEntity202012.tt"
+        #line 624 "SchemaEntity202012.tt"
 
         if(IsImplicitString)
         {
@@ -2288,13 +2287,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 627 "SchemaEntity202012.tt"
+        #line 628 "SchemaEntity202012.tt"
         this.Write("            this.stringBacking = default;\r\n        ");
         
         #line default
         #line hidden
         
-        #line 628 "SchemaEntity202012.tt"
+        #line 629 "SchemaEntity202012.tt"
 
         }
         
@@ -2302,13 +2301,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 631 "SchemaEntity202012.tt"
+        #line 632 "SchemaEntity202012.tt"
         this.Write("        ");
         
         #line default
         #line hidden
         
-        #line 631 "SchemaEntity202012.tt"
+        #line 632 "SchemaEntity202012.tt"
 
         if(IsImplicitBoolean)
         {
@@ -2317,13 +2316,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 635 "SchemaEntity202012.tt"
+        #line 636 "SchemaEntity202012.tt"
         this.Write("            this.booleanBacking = default;\r\n        ");
         
         #line default
         #line hidden
         
-        #line 636 "SchemaEntity202012.tt"
+        #line 637 "SchemaEntity202012.tt"
 
         }
         
@@ -2331,40 +2330,40 @@ namespace ");
         #line default
         #line hidden
         
-        #line 639 "SchemaEntity202012.tt"
+        #line 640 "SchemaEntity202012.tt"
         this.Write("            this.numberBacking = value;\r\n        }\r\n\r\n        /// <summary>\r\n    " +
                 "    /// Initializes a new instance of the <see cref=\"");
         
         #line default
         #line hidden
         
-        #line 643 "SchemaEntity202012.tt"
+        #line 644 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 643 "SchemaEntity202012.tt"
+        #line 644 "SchemaEntity202012.tt"
         this.Write("\"/> struct.\r\n        /// </summary>\r\n        /// <param name=\"value\">A number val" +
                 "ue.</param>\r\n        public ");
         
         #line default
         #line hidden
         
-        #line 646 "SchemaEntity202012.tt"
+        #line 647 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 646 "SchemaEntity202012.tt"
+        #line 647 "SchemaEntity202012.tt"
         this.Write("(float value)\r\n        {\r\n            this.jsonElementBacking = default;\r\n       " +
                 " ");
         
         #line default
         #line hidden
         
-        #line 649 "SchemaEntity202012.tt"
+        #line 650 "SchemaEntity202012.tt"
 
         if(IsImplicitObject)
         {
@@ -2373,13 +2372,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 653 "SchemaEntity202012.tt"
+        #line 654 "SchemaEntity202012.tt"
         this.Write("            this.objectBacking = default;\r\n        ");
         
         #line default
         #line hidden
         
-        #line 654 "SchemaEntity202012.tt"
+        #line 655 "SchemaEntity202012.tt"
 
         }
         
@@ -2387,13 +2386,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 657 "SchemaEntity202012.tt"
+        #line 658 "SchemaEntity202012.tt"
         this.Write("        ");
         
         #line default
         #line hidden
         
-        #line 657 "SchemaEntity202012.tt"
+        #line 658 "SchemaEntity202012.tt"
 
         if(IsImplicitArray)
         {
@@ -2402,13 +2401,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 661 "SchemaEntity202012.tt"
+        #line 662 "SchemaEntity202012.tt"
         this.Write("            this.arrayBacking = default;\r\n        ");
         
         #line default
         #line hidden
         
-        #line 662 "SchemaEntity202012.tt"
+        #line 663 "SchemaEntity202012.tt"
 
         }
         
@@ -2416,13 +2415,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 665 "SchemaEntity202012.tt"
+        #line 666 "SchemaEntity202012.tt"
         this.Write("        ");
         
         #line default
         #line hidden
         
-        #line 665 "SchemaEntity202012.tt"
+        #line 666 "SchemaEntity202012.tt"
 
         if(IsImplicitString)
         {
@@ -2431,13 +2430,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 669 "SchemaEntity202012.tt"
+        #line 670 "SchemaEntity202012.tt"
         this.Write("            this.stringBacking = default;\r\n        ");
         
         #line default
         #line hidden
         
-        #line 670 "SchemaEntity202012.tt"
+        #line 671 "SchemaEntity202012.tt"
 
         }
         
@@ -2445,13 +2444,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 673 "SchemaEntity202012.tt"
+        #line 674 "SchemaEntity202012.tt"
         this.Write("        ");
         
         #line default
         #line hidden
         
-        #line 673 "SchemaEntity202012.tt"
+        #line 674 "SchemaEntity202012.tt"
 
         if(IsImplicitBoolean)
         {
@@ -2460,13 +2459,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 677 "SchemaEntity202012.tt"
+        #line 678 "SchemaEntity202012.tt"
         this.Write("            this.booleanBacking = default;\r\n        ");
         
         #line default
         #line hidden
         
-        #line 678 "SchemaEntity202012.tt"
+        #line 679 "SchemaEntity202012.tt"
 
         }
         
@@ -2474,40 +2473,40 @@ namespace ");
         #line default
         #line hidden
         
-        #line 681 "SchemaEntity202012.tt"
+        #line 682 "SchemaEntity202012.tt"
         this.Write("            this.numberBacking = value;\r\n        }\r\n\r\n        /// <summary>\r\n    " +
                 "    /// Initializes a new instance of the <see cref=\"");
         
         #line default
         #line hidden
         
-        #line 685 "SchemaEntity202012.tt"
+        #line 686 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 685 "SchemaEntity202012.tt"
+        #line 686 "SchemaEntity202012.tt"
         this.Write("\"/> struct.\r\n        /// </summary>\r\n        /// <param name=\"value\">A number val" +
                 "ue.</param>\r\n        public ");
         
         #line default
         #line hidden
         
-        #line 688 "SchemaEntity202012.tt"
+        #line 689 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 688 "SchemaEntity202012.tt"
+        #line 689 "SchemaEntity202012.tt"
         this.Write("(long value)\r\n        {\r\n            this.jsonElementBacking = default;\r\n        " +
                 "");
         
         #line default
         #line hidden
         
-        #line 691 "SchemaEntity202012.tt"
+        #line 692 "SchemaEntity202012.tt"
 
         if(IsImplicitObject)
         {
@@ -2516,13 +2515,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 695 "SchemaEntity202012.tt"
+        #line 696 "SchemaEntity202012.tt"
         this.Write("            this.objectBacking = default;\r\n        ");
         
         #line default
         #line hidden
         
-        #line 696 "SchemaEntity202012.tt"
+        #line 697 "SchemaEntity202012.tt"
 
         }
         
@@ -2530,13 +2529,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 699 "SchemaEntity202012.tt"
+        #line 700 "SchemaEntity202012.tt"
         this.Write("        ");
         
         #line default
         #line hidden
         
-        #line 699 "SchemaEntity202012.tt"
+        #line 700 "SchemaEntity202012.tt"
 
         if(IsImplicitArray)
         {
@@ -2545,13 +2544,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 703 "SchemaEntity202012.tt"
+        #line 704 "SchemaEntity202012.tt"
         this.Write("            this.arrayBacking = default;\r\n        ");
         
         #line default
         #line hidden
         
-        #line 704 "SchemaEntity202012.tt"
+        #line 705 "SchemaEntity202012.tt"
 
         }
         
@@ -2559,13 +2558,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 707 "SchemaEntity202012.tt"
+        #line 708 "SchemaEntity202012.tt"
         this.Write("        ");
         
         #line default
         #line hidden
         
-        #line 707 "SchemaEntity202012.tt"
+        #line 708 "SchemaEntity202012.tt"
 
         if(IsImplicitString)
         {
@@ -2574,13 +2573,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 711 "SchemaEntity202012.tt"
+        #line 712 "SchemaEntity202012.tt"
         this.Write("            this.stringBacking = default;\r\n        ");
         
         #line default
         #line hidden
         
-        #line 712 "SchemaEntity202012.tt"
+        #line 713 "SchemaEntity202012.tt"
 
         }
         
@@ -2588,13 +2587,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 715 "SchemaEntity202012.tt"
+        #line 716 "SchemaEntity202012.tt"
         this.Write("        ");
         
         #line default
         #line hidden
         
-        #line 715 "SchemaEntity202012.tt"
+        #line 716 "SchemaEntity202012.tt"
 
         if(IsImplicitBoolean)
         {
@@ -2603,13 +2602,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 719 "SchemaEntity202012.tt"
+        #line 720 "SchemaEntity202012.tt"
         this.Write("            this.booleanBacking = default;\r\n        ");
         
         #line default
         #line hidden
         
-        #line 720 "SchemaEntity202012.tt"
+        #line 721 "SchemaEntity202012.tt"
 
         }
         
@@ -2617,13 +2616,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 723 "SchemaEntity202012.tt"
+        #line 724 "SchemaEntity202012.tt"
         this.Write("            this.numberBacking = value;\r\n        }\r\n    ");
         
         #line default
         #line hidden
         
-        #line 725 "SchemaEntity202012.tt"
+        #line 726 "SchemaEntity202012.tt"
 
     }
     
@@ -2631,13 +2630,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 728 "SchemaEntity202012.tt"
+        #line 729 "SchemaEntity202012.tt"
         this.Write("\r\n    ");
         
         #line default
         #line hidden
         
-        #line 729 "SchemaEntity202012.tt"
+        #line 730 "SchemaEntity202012.tt"
 
     if(IsImplicitString)
     {
@@ -2646,197 +2645,54 @@ namespace ");
         #line default
         #line hidden
         
-        #line 733 "SchemaEntity202012.tt"
+        #line 734 "SchemaEntity202012.tt"
         this.Write("        /// <summary>\r\n        /// Initializes a new instance of the <see cref=\"");
         
         #line default
         #line hidden
         
-        #line 734 "SchemaEntity202012.tt"
+        #line 735 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 734 "SchemaEntity202012.tt"
+        #line 735 "SchemaEntity202012.tt"
         this.Write("\"/> struct.\r\n        /// </summary>\r\n        /// <param name=\"value\">A string val" +
                 "ue.</param>\r\n        public ");
         
         #line default
         #line hidden
         
-        #line 737 "SchemaEntity202012.tt"
+        #line 738 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 737 "SchemaEntity202012.tt"
+        #line 738 "SchemaEntity202012.tt"
         this.Write("(string value)\r\n        {\r\n            this.jsonElementBacking = default;\r\n      " +
                 "  ");
         
         #line default
         #line hidden
         
-        #line 740 "SchemaEntity202012.tt"
+        #line 741 "SchemaEntity202012.tt"
 
         if(IsImplicitObject)
         {
         
-        
-        #line default
-        #line hidden
-        
-        #line 744 "SchemaEntity202012.tt"
-        this.Write("            this.objectBacking = default;\r\n        ");
         
         #line default
         #line hidden
         
         #line 745 "SchemaEntity202012.tt"
-
-        }
-        
-        
-        #line default
-        #line hidden
-        
-        #line 748 "SchemaEntity202012.tt"
-        this.Write("        ");
-        
-        #line default
-        #line hidden
-        
-        #line 748 "SchemaEntity202012.tt"
-
-        if(IsImplicitArray)
-        {
-        
-        
-        #line default
-        #line hidden
-        
-        #line 752 "SchemaEntity202012.tt"
-        this.Write("            this.arrayBacking = default;\r\n        ");
-        
-        #line default
-        #line hidden
-        
-        #line 753 "SchemaEntity202012.tt"
-
-        }
-        
-        
-        #line default
-        #line hidden
-        
-        #line 756 "SchemaEntity202012.tt"
-        this.Write("        ");
-        
-        #line default
-        #line hidden
-        
-        #line 756 "SchemaEntity202012.tt"
-
-        if(IsImplicitNumber)
-        {
-        
-        
-        #line default
-        #line hidden
-        
-        #line 760 "SchemaEntity202012.tt"
-        this.Write("            this.numberBacking = default;\r\n        ");
-        
-        #line default
-        #line hidden
-        
-        #line 761 "SchemaEntity202012.tt"
-
-        }
-        
-        
-        #line default
-        #line hidden
-        
-        #line 764 "SchemaEntity202012.tt"
-        this.Write("        ");
-        
-        #line default
-        #line hidden
-        
-        #line 764 "SchemaEntity202012.tt"
-
-        if(IsImplicitBoolean)
-        {
-        
-        
-        #line default
-        #line hidden
-        
-        #line 768 "SchemaEntity202012.tt"
-        this.Write("            this.booleanBacking = default;\r\n        ");
-        
-        #line default
-        #line hidden
-        
-        #line 769 "SchemaEntity202012.tt"
-
-        }
-        
-        
-        #line default
-        #line hidden
-        
-        #line 772 "SchemaEntity202012.tt"
-        this.Write("            this.stringBacking = JsonEncodedText.Encode(value);\r\n        }\r\n\r\n   " +
-                "     /// <summary>\r\n        /// Initializes a new instance of the <see cref=\"");
-        
-        #line default
-        #line hidden
-        
-        #line 776 "SchemaEntity202012.tt"
-        this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
-        
-        #line default
-        #line hidden
-        
-        #line 776 "SchemaEntity202012.tt"
-        this.Write("\"/> struct.\r\n        /// </summary>\r\n        /// <param name=\"value\">A string val" +
-                "ue.</param>\r\n        public ");
-        
-        #line default
-        #line hidden
-        
-        #line 779 "SchemaEntity202012.tt"
-        this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
-        
-        #line default
-        #line hidden
-        
-        #line 779 "SchemaEntity202012.tt"
-        this.Write("(JsonEncodedText value)\r\n        {\r\n            this.jsonElementBacking = default" +
-                ";\r\n        ");
-        
-        #line default
-        #line hidden
-        
-        #line 782 "SchemaEntity202012.tt"
-
-        if(IsImplicitObject)
-        {
-        
-        
-        #line default
-        #line hidden
-        
-        #line 786 "SchemaEntity202012.tt"
         this.Write("            this.objectBacking = default;\r\n        ");
         
         #line default
         #line hidden
         
-        #line 787 "SchemaEntity202012.tt"
+        #line 746 "SchemaEntity202012.tt"
 
         }
         
@@ -2844,13 +2700,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 790 "SchemaEntity202012.tt"
+        #line 749 "SchemaEntity202012.tt"
         this.Write("        ");
         
         #line default
         #line hidden
         
-        #line 790 "SchemaEntity202012.tt"
+        #line 749 "SchemaEntity202012.tt"
 
         if(IsImplicitArray)
         {
@@ -2859,13 +2715,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 794 "SchemaEntity202012.tt"
+        #line 753 "SchemaEntity202012.tt"
         this.Write("            this.arrayBacking = default;\r\n        ");
         
         #line default
         #line hidden
         
-        #line 795 "SchemaEntity202012.tt"
+        #line 754 "SchemaEntity202012.tt"
 
         }
         
@@ -2873,13 +2729,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 798 "SchemaEntity202012.tt"
+        #line 757 "SchemaEntity202012.tt"
         this.Write("        ");
         
         #line default
         #line hidden
         
-        #line 798 "SchemaEntity202012.tt"
+        #line 757 "SchemaEntity202012.tt"
 
         if(IsImplicitNumber)
         {
@@ -2888,13 +2744,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 802 "SchemaEntity202012.tt"
+        #line 761 "SchemaEntity202012.tt"
         this.Write("            this.numberBacking = default;\r\n        ");
         
         #line default
         #line hidden
         
-        #line 803 "SchemaEntity202012.tt"
+        #line 762 "SchemaEntity202012.tt"
 
         }
         
@@ -2902,13 +2758,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 806 "SchemaEntity202012.tt"
+        #line 765 "SchemaEntity202012.tt"
         this.Write("        ");
         
         #line default
         #line hidden
         
-        #line 806 "SchemaEntity202012.tt"
+        #line 765 "SchemaEntity202012.tt"
 
         if(IsImplicitBoolean)
         {
@@ -2917,13 +2773,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 810 "SchemaEntity202012.tt"
+        #line 769 "SchemaEntity202012.tt"
         this.Write("            this.booleanBacking = default;\r\n        ");
         
         #line default
         #line hidden
         
-        #line 811 "SchemaEntity202012.tt"
+        #line 770 "SchemaEntity202012.tt"
 
         }
         
@@ -2931,40 +2787,40 @@ namespace ");
         #line default
         #line hidden
         
-        #line 814 "SchemaEntity202012.tt"
+        #line 773 "SchemaEntity202012.tt"
         this.Write("            this.stringBacking = value;\r\n        }\r\n\r\n        /// <summary>\r\n    " +
                 "    /// Initializes a new instance of the <see cref=\"");
         
         #line default
         #line hidden
         
-        #line 818 "SchemaEntity202012.tt"
+        #line 777 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 818 "SchemaEntity202012.tt"
+        #line 777 "SchemaEntity202012.tt"
         this.Write("\"/> struct.\r\n        /// </summary>\r\n        /// <param name=\"value\">A string val" +
                 "ue.</param>\r\n        public ");
         
         #line default
         #line hidden
         
-        #line 821 "SchemaEntity202012.tt"
+        #line 780 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 821 "SchemaEntity202012.tt"
+        #line 780 "SchemaEntity202012.tt"
         this.Write("(ReadOnlySpan<char> value)\r\n        {\r\n            this.jsonElementBacking = defa" +
                 "ult;\r\n        ");
         
         #line default
         #line hidden
         
-        #line 824 "SchemaEntity202012.tt"
+        #line 783 "SchemaEntity202012.tt"
 
         if(IsImplicitObject)
         {
@@ -2973,13 +2829,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 828 "SchemaEntity202012.tt"
+        #line 787 "SchemaEntity202012.tt"
         this.Write("            this.objectBacking = default;\r\n        ");
         
         #line default
         #line hidden
         
-        #line 829 "SchemaEntity202012.tt"
+        #line 788 "SchemaEntity202012.tt"
 
         }
         
@@ -2987,13 +2843,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 832 "SchemaEntity202012.tt"
+        #line 791 "SchemaEntity202012.tt"
         this.Write("        ");
         
         #line default
         #line hidden
         
-        #line 832 "SchemaEntity202012.tt"
+        #line 791 "SchemaEntity202012.tt"
 
         if(IsImplicitArray)
         {
@@ -3002,13 +2858,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 836 "SchemaEntity202012.tt"
+        #line 795 "SchemaEntity202012.tt"
         this.Write("            this.arrayBacking = default;\r\n        ");
         
         #line default
         #line hidden
         
-        #line 837 "SchemaEntity202012.tt"
+        #line 796 "SchemaEntity202012.tt"
 
         }
         
@@ -3016,13 +2872,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 840 "SchemaEntity202012.tt"
+        #line 799 "SchemaEntity202012.tt"
         this.Write("        ");
         
         #line default
         #line hidden
         
-        #line 840 "SchemaEntity202012.tt"
+        #line 799 "SchemaEntity202012.tt"
 
         if(IsImplicitNumber)
         {
@@ -3031,13 +2887,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 844 "SchemaEntity202012.tt"
+        #line 803 "SchemaEntity202012.tt"
         this.Write("            this.numberBacking = default;\r\n        ");
         
         #line default
         #line hidden
         
-        #line 845 "SchemaEntity202012.tt"
+        #line 804 "SchemaEntity202012.tt"
 
         }
         
@@ -3045,13 +2901,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 848 "SchemaEntity202012.tt"
+        #line 807 "SchemaEntity202012.tt"
         this.Write("        ");
         
         #line default
         #line hidden
         
-        #line 848 "SchemaEntity202012.tt"
+        #line 807 "SchemaEntity202012.tt"
 
         if(IsImplicitBoolean)
         {
@@ -3060,13 +2916,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 852 "SchemaEntity202012.tt"
+        #line 811 "SchemaEntity202012.tt"
         this.Write("            this.booleanBacking = default;\r\n        ");
         
         #line default
         #line hidden
         
-        #line 853 "SchemaEntity202012.tt"
+        #line 812 "SchemaEntity202012.tt"
 
         }
         
@@ -3074,40 +2930,40 @@ namespace ");
         #line default
         #line hidden
         
-        #line 856 "SchemaEntity202012.tt"
-        this.Write("            this.stringBacking = JsonEncodedText.Encode(value);\r\n        }\r\n\r\n   " +
-                "     /// <summary>\r\n        /// Initializes a new instance of the <see cref=\"");
+        #line 815 "SchemaEntity202012.tt"
+        this.Write("            this.stringBacking = value.ToString();\r\n        }\r\n\r\n        /// <sum" +
+                "mary>\r\n        /// Initializes a new instance of the <see cref=\"");
         
         #line default
         #line hidden
         
-        #line 860 "SchemaEntity202012.tt"
+        #line 819 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 860 "SchemaEntity202012.tt"
+        #line 819 "SchemaEntity202012.tt"
         this.Write("\"/> struct.\r\n        /// </summary>\r\n        /// <param name=\"value\">A string val" +
                 "ue.</param>\r\n        public ");
         
         #line default
         #line hidden
         
-        #line 863 "SchemaEntity202012.tt"
+        #line 822 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 863 "SchemaEntity202012.tt"
+        #line 822 "SchemaEntity202012.tt"
         this.Write("(ReadOnlySpan<byte> value)\r\n        {\r\n            this.jsonElementBacking = defa" +
                 "ult;\r\n        ");
         
         #line default
         #line hidden
         
-        #line 866 "SchemaEntity202012.tt"
+        #line 825 "SchemaEntity202012.tt"
 
         if(IsImplicitObject)
         {
@@ -3116,13 +2972,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 870 "SchemaEntity202012.tt"
+        #line 829 "SchemaEntity202012.tt"
         this.Write("            this.objectBacking = default;\r\n        ");
         
         #line default
         #line hidden
         
-        #line 871 "SchemaEntity202012.tt"
+        #line 830 "SchemaEntity202012.tt"
 
         }
         
@@ -3130,13 +2986,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 874 "SchemaEntity202012.tt"
+        #line 833 "SchemaEntity202012.tt"
         this.Write("        ");
         
         #line default
         #line hidden
         
-        #line 874 "SchemaEntity202012.tt"
+        #line 833 "SchemaEntity202012.tt"
 
         if(IsImplicitArray)
         {
@@ -3145,13 +3001,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 878 "SchemaEntity202012.tt"
+        #line 837 "SchemaEntity202012.tt"
         this.Write("            this.arrayBacking = default;\r\n        ");
         
         #line default
         #line hidden
         
-        #line 879 "SchemaEntity202012.tt"
+        #line 838 "SchemaEntity202012.tt"
 
         }
         
@@ -3159,13 +3015,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 882 "SchemaEntity202012.tt"
+        #line 841 "SchemaEntity202012.tt"
         this.Write("        ");
         
         #line default
         #line hidden
         
-        #line 882 "SchemaEntity202012.tt"
+        #line 841 "SchemaEntity202012.tt"
 
         if(IsImplicitNumber)
         {
@@ -3174,13 +3030,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 886 "SchemaEntity202012.tt"
+        #line 845 "SchemaEntity202012.tt"
         this.Write("            this.numberBacking = default;\r\n        ");
         
         #line default
         #line hidden
         
-        #line 887 "SchemaEntity202012.tt"
+        #line 846 "SchemaEntity202012.tt"
 
         }
         
@@ -3188,13 +3044,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 890 "SchemaEntity202012.tt"
+        #line 849 "SchemaEntity202012.tt"
         this.Write("        ");
         
         #line default
         #line hidden
         
-        #line 890 "SchemaEntity202012.tt"
+        #line 849 "SchemaEntity202012.tt"
 
         if(IsImplicitBoolean)
         {
@@ -3203,13 +3059,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 894 "SchemaEntity202012.tt"
+        #line 853 "SchemaEntity202012.tt"
         this.Write("            this.booleanBacking = default;\r\n        ");
         
         #line default
         #line hidden
         
-        #line 895 "SchemaEntity202012.tt"
+        #line 854 "SchemaEntity202012.tt"
 
         }
         
@@ -3217,20 +3073,20 @@ namespace ");
         #line default
         #line hidden
         
-        #line 898 "SchemaEntity202012.tt"
-        this.Write("            this.stringBacking = JsonEncodedText.Encode(value);\r\n        }\r\n\r\n   " +
-                "     /// <summary>\r\n        /// Initializes a new instance of the <see cref=\"");
+        #line 857 "SchemaEntity202012.tt"
+        this.Write("            this.stringBacking = Encoding.UTF8.GetString(value);\r\n        }\r\n\r\n  " +
+                "      /// <summary>\r\n        /// Initializes a new instance of the <see cref=\"");
         
         #line default
         #line hidden
         
-        #line 902 "SchemaEntity202012.tt"
+        #line 861 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 902 "SchemaEntity202012.tt"
+        #line 861 "SchemaEntity202012.tt"
         this.Write("\"/> struct.\r\n        /// </summary>\r\n        /// <param name=\"jsonString\">The <se" +
                 "e cref=\"JsonString\"/> from which to construct the value.</param>\r\n        public" +
                 " ");
@@ -3238,13 +3094,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 905 "SchemaEntity202012.tt"
+        #line 864 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 905 "SchemaEntity202012.tt"
+        #line 864 "SchemaEntity202012.tt"
         this.Write(@"(JsonString jsonString)
         {
             if (jsonString.HasJsonElement)
@@ -3255,7 +3111,7 @@ namespace ");
             else
             {
                 this.jsonElementBacking = default;
-                this.stringBacking = jsonString.GetJsonEncodedText();
+                this.stringBacking = jsonString;
             }
 
         ");
@@ -3263,7 +3119,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 918 "SchemaEntity202012.tt"
+        #line 877 "SchemaEntity202012.tt"
 
         if(IsImplicitObject)
         {
@@ -3272,13 +3128,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 922 "SchemaEntity202012.tt"
+        #line 881 "SchemaEntity202012.tt"
         this.Write("            this.objectBacking = default;\r\n        ");
         
         #line default
         #line hidden
         
-        #line 923 "SchemaEntity202012.tt"
+        #line 882 "SchemaEntity202012.tt"
 
         }
         
@@ -3286,13 +3142,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 926 "SchemaEntity202012.tt"
+        #line 885 "SchemaEntity202012.tt"
         this.Write("        ");
         
         #line default
         #line hidden
         
-        #line 926 "SchemaEntity202012.tt"
+        #line 885 "SchemaEntity202012.tt"
 
         if(IsImplicitArray)
         {
@@ -3301,13 +3157,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 930 "SchemaEntity202012.tt"
+        #line 889 "SchemaEntity202012.tt"
         this.Write("            this.arrayBacking = default;\r\n        ");
         
         #line default
         #line hidden
         
-        #line 931 "SchemaEntity202012.tt"
+        #line 890 "SchemaEntity202012.tt"
 
         }
         
@@ -3315,13 +3171,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 934 "SchemaEntity202012.tt"
+        #line 893 "SchemaEntity202012.tt"
         this.Write("        ");
         
         #line default
         #line hidden
         
-        #line 934 "SchemaEntity202012.tt"
+        #line 893 "SchemaEntity202012.tt"
 
         if(IsImplicitNumber)
         {
@@ -3330,13 +3186,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 938 "SchemaEntity202012.tt"
+        #line 897 "SchemaEntity202012.tt"
         this.Write("            this.numberBacking = default;\r\n        ");
         
         #line default
         #line hidden
         
-        #line 939 "SchemaEntity202012.tt"
+        #line 898 "SchemaEntity202012.tt"
 
         }
         
@@ -3344,13 +3200,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 942 "SchemaEntity202012.tt"
+        #line 901 "SchemaEntity202012.tt"
         this.Write("        ");
         
         #line default
         #line hidden
         
-        #line 942 "SchemaEntity202012.tt"
+        #line 901 "SchemaEntity202012.tt"
 
         if(IsImplicitBoolean)
         {
@@ -3359,13 +3215,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 946 "SchemaEntity202012.tt"
+        #line 905 "SchemaEntity202012.tt"
         this.Write("            this.booleanBacking = default;\r\n        ");
         
         #line default
         #line hidden
         
-        #line 947 "SchemaEntity202012.tt"
+        #line 906 "SchemaEntity202012.tt"
 
         }
         
@@ -3373,13 +3229,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 950 "SchemaEntity202012.tt"
+        #line 909 "SchemaEntity202012.tt"
         this.Write("        }\r\n    ");
         
         #line default
         #line hidden
         
-        #line 951 "SchemaEntity202012.tt"
+        #line 910 "SchemaEntity202012.tt"
 
     }
     
@@ -3387,13 +3243,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 954 "SchemaEntity202012.tt"
+        #line 913 "SchemaEntity202012.tt"
         this.Write("\r\n    ");
         
         #line default
         #line hidden
         
-        #line 955 "SchemaEntity202012.tt"
+        #line 914 "SchemaEntity202012.tt"
 
     if(IsImplicitBoolean)
     {
@@ -3402,19 +3258,19 @@ namespace ");
         #line default
         #line hidden
         
-        #line 959 "SchemaEntity202012.tt"
+        #line 918 "SchemaEntity202012.tt"
         this.Write("        /// <summary>\r\n        /// Initializes a new instance of the <see cref=\"");
         
         #line default
         #line hidden
         
-        #line 960 "SchemaEntity202012.tt"
+        #line 919 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 960 "SchemaEntity202012.tt"
+        #line 919 "SchemaEntity202012.tt"
         this.Write("\"/> struct.\r\n        /// </summary>\r\n        /// <param name=\"jsonBoolean\">The <s" +
                 "ee cref=\"JsonBoolean\"/> from which to construct the value.</param>\r\n        publ" +
                 "ic ");
@@ -3422,13 +3278,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 963 "SchemaEntity202012.tt"
+        #line 922 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 963 "SchemaEntity202012.tt"
+        #line 922 "SchemaEntity202012.tt"
         this.Write(@"(JsonBoolean jsonBoolean)
         {
             if (jsonBoolean.HasJsonElement)
@@ -3447,7 +3303,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 976 "SchemaEntity202012.tt"
+        #line 935 "SchemaEntity202012.tt"
 
         if(IsImplicitObject)
         {
@@ -3456,13 +3312,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 980 "SchemaEntity202012.tt"
+        #line 939 "SchemaEntity202012.tt"
         this.Write("            this.objectBacking = default;\r\n        ");
         
         #line default
         #line hidden
         
-        #line 981 "SchemaEntity202012.tt"
+        #line 940 "SchemaEntity202012.tt"
 
         }
         
@@ -3470,13 +3326,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 984 "SchemaEntity202012.tt"
+        #line 943 "SchemaEntity202012.tt"
         this.Write("        ");
         
         #line default
         #line hidden
         
-        #line 984 "SchemaEntity202012.tt"
+        #line 943 "SchemaEntity202012.tt"
 
         if(IsImplicitArray)
         {
@@ -3485,13 +3341,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 988 "SchemaEntity202012.tt"
+        #line 947 "SchemaEntity202012.tt"
         this.Write("            this.arrayBacking = default;\r\n        ");
         
         #line default
         #line hidden
         
-        #line 989 "SchemaEntity202012.tt"
+        #line 948 "SchemaEntity202012.tt"
 
         }
         
@@ -3499,13 +3355,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 992 "SchemaEntity202012.tt"
+        #line 951 "SchemaEntity202012.tt"
         this.Write("        ");
         
         #line default
         #line hidden
         
-        #line 992 "SchemaEntity202012.tt"
+        #line 951 "SchemaEntity202012.tt"
 
         if(IsImplicitNumber)
         {
@@ -3514,13 +3370,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 996 "SchemaEntity202012.tt"
+        #line 955 "SchemaEntity202012.tt"
         this.Write("            this.numberBacking = default;\r\n        ");
         
         #line default
         #line hidden
         
-        #line 997 "SchemaEntity202012.tt"
+        #line 956 "SchemaEntity202012.tt"
 
         }
         
@@ -3528,13 +3384,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1000 "SchemaEntity202012.tt"
+        #line 959 "SchemaEntity202012.tt"
         this.Write("        ");
         
         #line default
         #line hidden
         
-        #line 1000 "SchemaEntity202012.tt"
+        #line 959 "SchemaEntity202012.tt"
 
         if(IsImplicitString)
         {
@@ -3543,13 +3399,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1004 "SchemaEntity202012.tt"
+        #line 963 "SchemaEntity202012.tt"
         this.Write("            this.stringBacking = default;\r\n        ");
         
         #line default
         #line hidden
         
-        #line 1005 "SchemaEntity202012.tt"
+        #line 964 "SchemaEntity202012.tt"
 
         }
         
@@ -3557,40 +3413,40 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1008 "SchemaEntity202012.tt"
+        #line 967 "SchemaEntity202012.tt"
         this.Write("        }\r\n\r\n                /// <summary>\r\n        /// Initializes a new instanc" +
                 "e of the <see cref=\"");
         
         #line default
         #line hidden
         
-        #line 1011 "SchemaEntity202012.tt"
+        #line 970 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 1011 "SchemaEntity202012.tt"
+        #line 970 "SchemaEntity202012.tt"
         this.Write("\"/> struct.\r\n        /// </summary>\r\n        /// <param name=\"boolean\">The <see c" +
                 "ref=\"bool\"/> from which to construct the value.</param>\r\n        public ");
         
         #line default
         #line hidden
         
-        #line 1014 "SchemaEntity202012.tt"
+        #line 973 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 1014 "SchemaEntity202012.tt"
+        #line 973 "SchemaEntity202012.tt"
         this.Write("(bool boolean)\r\n        {\r\n            this.jsonElementBacking = default;\r\n      " +
                 "      this.booleanBacking = boolean;\r\n\r\n        ");
         
         #line default
         #line hidden
         
-        #line 1019 "SchemaEntity202012.tt"
+        #line 978 "SchemaEntity202012.tt"
 
         if(IsImplicitObject)
         {
@@ -3599,13 +3455,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1023 "SchemaEntity202012.tt"
+        #line 982 "SchemaEntity202012.tt"
         this.Write("            this.objectBacking = default;\r\n        ");
         
         #line default
         #line hidden
         
-        #line 1024 "SchemaEntity202012.tt"
+        #line 983 "SchemaEntity202012.tt"
 
         }
         
@@ -3613,13 +3469,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1027 "SchemaEntity202012.tt"
+        #line 986 "SchemaEntity202012.tt"
         this.Write("        ");
         
         #line default
         #line hidden
         
-        #line 1027 "SchemaEntity202012.tt"
+        #line 986 "SchemaEntity202012.tt"
 
         if(IsImplicitArray)
         {
@@ -3628,13 +3484,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1031 "SchemaEntity202012.tt"
+        #line 990 "SchemaEntity202012.tt"
         this.Write("            this.arrayBacking = default;\r\n        ");
         
         #line default
         #line hidden
         
-        #line 1032 "SchemaEntity202012.tt"
+        #line 991 "SchemaEntity202012.tt"
 
         }
         
@@ -3642,13 +3498,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1035 "SchemaEntity202012.tt"
+        #line 994 "SchemaEntity202012.tt"
         this.Write("        ");
         
         #line default
         #line hidden
         
-        #line 1035 "SchemaEntity202012.tt"
+        #line 994 "SchemaEntity202012.tt"
 
         if(IsImplicitNumber)
         {
@@ -3657,8 +3513,162 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1039 "SchemaEntity202012.tt"
+        #line 998 "SchemaEntity202012.tt"
         this.Write("            this.numberBacking = default;\r\n        ");
+        
+        #line default
+        #line hidden
+        
+        #line 999 "SchemaEntity202012.tt"
+
+        }
+        
+        
+        #line default
+        #line hidden
+        
+        #line 1002 "SchemaEntity202012.tt"
+        this.Write("        ");
+        
+        #line default
+        #line hidden
+        
+        #line 1002 "SchemaEntity202012.tt"
+
+        if(IsImplicitString)
+        {
+        
+        
+        #line default
+        #line hidden
+        
+        #line 1006 "SchemaEntity202012.tt"
+        this.Write("            this.stringBacking = default;\r\n        ");
+        
+        #line default
+        #line hidden
+        
+        #line 1007 "SchemaEntity202012.tt"
+
+        }
+        
+        
+        #line default
+        #line hidden
+        
+        #line 1010 "SchemaEntity202012.tt"
+        this.Write("        }\r\n\r\n    ");
+        
+        #line default
+        #line hidden
+        
+        #line 1012 "SchemaEntity202012.tt"
+
+    }
+    
+        
+        #line default
+        #line hidden
+        
+        #line 1015 "SchemaEntity202012.tt"
+        this.Write("\r\n    ");
+        
+        #line default
+        #line hidden
+        
+        #line 1016 "SchemaEntity202012.tt"
+ /* Implicit Constructors */ 
+        
+        #line default
+        #line hidden
+        
+        #line 1017 "SchemaEntity202012.tt"
+        this.Write("\r\n    ");
+        
+        #line default
+        #line hidden
+        
+        #line 1018 "SchemaEntity202012.tt"
+
+    foreach (Conversion conversion in ConversionsViaConstructor)
+    {
+        if (conversion.IsBuiltInType)
+        {
+            continue;
+        }
+    
+        
+        #line default
+        #line hidden
+        
+        #line 1026 "SchemaEntity202012.tt"
+        this.Write("        /// <summary>\r\n        /// Initializes a new instance of the <see cref=\"");
+        
+        #line default
+        #line hidden
+        
+        #line 1027 "SchemaEntity202012.tt"
+        this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
+        
+        #line default
+        #line hidden
+        
+        #line 1027 "SchemaEntity202012.tt"
+        this.Write("\"/> struct.\r\n        /// </summary>\r\n        /// <param name=\"conversion\">The <se" +
+                "e cref=\"");
+        
+        #line default
+        #line hidden
+        
+        #line 1029 "SchemaEntity202012.tt"
+        this.Write(this.ToStringHelper.ToStringWithCulture( conversion.FullyQualifiedDotnetTypeName ));
+        
+        #line default
+        #line hidden
+        
+        #line 1029 "SchemaEntity202012.tt"
+        this.Write("\"/> from which to construct the value.</param>\r\n        public ");
+        
+        #line default
+        #line hidden
+        
+        #line 1030 "SchemaEntity202012.tt"
+        this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
+        
+        #line default
+        #line hidden
+        
+        #line 1030 "SchemaEntity202012.tt"
+        this.Write("(");
+        
+        #line default
+        #line hidden
+        
+        #line 1030 "SchemaEntity202012.tt"
+        this.Write(this.ToStringHelper.ToStringWithCulture( conversion.FullyQualifiedDotnetTypeName ));
+        
+        #line default
+        #line hidden
+        
+        #line 1030 "SchemaEntity202012.tt"
+        this.Write(" conversion)\r\n        {\r\n            if (conversion.HasJsonElement)\r\n            " +
+                "{\r\n                this.jsonElementBacking = conversion.AsJsonElement;\r\n        " +
+                "");
+        
+        #line default
+        #line hidden
+        
+        #line 1035 "SchemaEntity202012.tt"
+
+        if(IsImplicitObject)
+        {
+        
+        
+        #line default
+        #line hidden
+        
+        #line 1039 "SchemaEntity202012.tt"
+        this.Write("                this.objectBacking = default;\r\n        ");
         
         #line default
         #line hidden
@@ -3679,7 +3689,7 @@ namespace ");
         
         #line 1043 "SchemaEntity202012.tt"
 
-        if(IsImplicitString)
+        if(IsImplicitBoolean)
         {
         
         
@@ -3687,7 +3697,7 @@ namespace ");
         #line hidden
         
         #line 1047 "SchemaEntity202012.tt"
-        this.Write("            this.stringBacking = default;\r\n        ");
+        this.Write("                this.booleanBacking = default;\r\n        ");
         
         #line default
         #line hidden
@@ -3701,166 +3711,12 @@ namespace ");
         #line hidden
         
         #line 1051 "SchemaEntity202012.tt"
-        this.Write("        }\r\n\r\n    ");
-        
-        #line default
-        #line hidden
-        
-        #line 1053 "SchemaEntity202012.tt"
-
-    }
-    
-        
-        #line default
-        #line hidden
-        
-        #line 1056 "SchemaEntity202012.tt"
-        this.Write("\r\n    ");
-        
-        #line default
-        #line hidden
-        
-        #line 1057 "SchemaEntity202012.tt"
- /* Implicit Constructors */ 
-        
-        #line default
-        #line hidden
-        
-        #line 1058 "SchemaEntity202012.tt"
-        this.Write("\r\n    ");
-        
-        #line default
-        #line hidden
-        
-        #line 1059 "SchemaEntity202012.tt"
-
-    foreach (Conversion conversion in ConversionsViaConstructor)
-    {
-        if (conversion.IsBuiltInType)
-        {
-            continue;
-        }
-    
-        
-        #line default
-        #line hidden
-        
-        #line 1067 "SchemaEntity202012.tt"
-        this.Write("        /// <summary>\r\n        /// Initializes a new instance of the <see cref=\"");
-        
-        #line default
-        #line hidden
-        
-        #line 1068 "SchemaEntity202012.tt"
-        this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
-        
-        #line default
-        #line hidden
-        
-        #line 1068 "SchemaEntity202012.tt"
-        this.Write("\"/> struct.\r\n        /// </summary>\r\n        /// <param name=\"conversion\">The <se" +
-                "e cref=\"");
-        
-        #line default
-        #line hidden
-        
-        #line 1070 "SchemaEntity202012.tt"
-        this.Write(this.ToStringHelper.ToStringWithCulture( conversion.FullyQualifiedDotnetTypeName ));
-        
-        #line default
-        #line hidden
-        
-        #line 1070 "SchemaEntity202012.tt"
-        this.Write("\"/> from which to construct the value.</param>\r\n        public ");
-        
-        #line default
-        #line hidden
-        
-        #line 1071 "SchemaEntity202012.tt"
-        this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
-        
-        #line default
-        #line hidden
-        
-        #line 1071 "SchemaEntity202012.tt"
-        this.Write("(");
-        
-        #line default
-        #line hidden
-        
-        #line 1071 "SchemaEntity202012.tt"
-        this.Write(this.ToStringHelper.ToStringWithCulture( conversion.FullyQualifiedDotnetTypeName ));
-        
-        #line default
-        #line hidden
-        
-        #line 1071 "SchemaEntity202012.tt"
-        this.Write(" conversion)\r\n        {\r\n            if (conversion.HasJsonElement)\r\n            " +
-                "{\r\n                this.jsonElementBacking = conversion.AsJsonElement;\r\n        " +
-                "");
-        
-        #line default
-        #line hidden
-        
-        #line 1076 "SchemaEntity202012.tt"
-
-        if(IsImplicitObject)
-        {
-        
-        
-        #line default
-        #line hidden
-        
-        #line 1080 "SchemaEntity202012.tt"
-        this.Write("                this.objectBacking = default;\r\n        ");
-        
-        #line default
-        #line hidden
-        
-        #line 1081 "SchemaEntity202012.tt"
-
-        }
-        
-        
-        #line default
-        #line hidden
-        
-        #line 1084 "SchemaEntity202012.tt"
-        this.Write("        ");
-        
-        #line default
-        #line hidden
-        
-        #line 1084 "SchemaEntity202012.tt"
-
-        if(IsImplicitBoolean)
-        {
-        
-        
-        #line default
-        #line hidden
-        
-        #line 1088 "SchemaEntity202012.tt"
-        this.Write("                this.booleanBacking = default;\r\n        ");
-        
-        #line default
-        #line hidden
-        
-        #line 1089 "SchemaEntity202012.tt"
-
-        }
-        
-        
-        #line default
-        #line hidden
-        
-        #line 1092 "SchemaEntity202012.tt"
         this.Write("\r\n        ");
         
         #line default
         #line hidden
         
-        #line 1093 "SchemaEntity202012.tt"
+        #line 1052 "SchemaEntity202012.tt"
 
         if(IsImplicitArray)
         {
@@ -3869,8 +3725,120 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1097 "SchemaEntity202012.tt"
+        #line 1056 "SchemaEntity202012.tt"
         this.Write("                this.arrayBacking = default;\r\n        ");
+        
+        #line default
+        #line hidden
+        
+        #line 1057 "SchemaEntity202012.tt"
+
+        }
+        
+        
+        #line default
+        #line hidden
+        
+        #line 1060 "SchemaEntity202012.tt"
+        this.Write("        ");
+        
+        #line default
+        #line hidden
+        
+        #line 1060 "SchemaEntity202012.tt"
+
+        if(IsImplicitNumber)
+        {
+        
+        
+        #line default
+        #line hidden
+        
+        #line 1064 "SchemaEntity202012.tt"
+        this.Write("                this.numberBacking = default;\r\n        ");
+        
+        #line default
+        #line hidden
+        
+        #line 1065 "SchemaEntity202012.tt"
+
+        }
+        
+        
+        #line default
+        #line hidden
+        
+        #line 1068 "SchemaEntity202012.tt"
+        this.Write("        ");
+        
+        #line default
+        #line hidden
+        
+        #line 1068 "SchemaEntity202012.tt"
+
+        if(IsImplicitString)
+        {
+        
+        
+        #line default
+        #line hidden
+        
+        #line 1072 "SchemaEntity202012.tt"
+        this.Write("                this.stringBacking = default;\r\n        ");
+        
+        #line default
+        #line hidden
+        
+        #line 1073 "SchemaEntity202012.tt"
+
+        }
+        
+        
+        #line default
+        #line hidden
+        
+        #line 1076 "SchemaEntity202012.tt"
+        this.Write("            }\r\n            else\r\n            {\r\n                this.jsonElementB" +
+                "acking = default;\r\n        ");
+        
+        #line default
+        #line hidden
+        
+        #line 1080 "SchemaEntity202012.tt"
+
+        if(conversion.IsObject)
+        {
+        
+        
+        #line default
+        #line hidden
+        
+        #line 1084 "SchemaEntity202012.tt"
+        this.Write(@"                if (conversion.ValueKind == JsonValueKind.Object)
+                {
+                    this.objectBacking = conversion;
+                }
+                else
+                {
+                    this.objectBacking = default;
+                }
+        ");
+        
+        #line default
+        #line hidden
+        
+        #line 1092 "SchemaEntity202012.tt"
+
+        }
+        else if (IsImplicitObject)
+        {
+        
+        
+        #line default
+        #line hidden
+        
+        #line 1097 "SchemaEntity202012.tt"
+        this.Write("                this.objectBacking = default;\r\n        ");
         
         #line default
         #line hidden
@@ -3891,118 +3859,6 @@ namespace ");
         
         #line 1101 "SchemaEntity202012.tt"
 
-        if(IsImplicitNumber)
-        {
-        
-        
-        #line default
-        #line hidden
-        
-        #line 1105 "SchemaEntity202012.tt"
-        this.Write("                this.numberBacking = default;\r\n        ");
-        
-        #line default
-        #line hidden
-        
-        #line 1106 "SchemaEntity202012.tt"
-
-        }
-        
-        
-        #line default
-        #line hidden
-        
-        #line 1109 "SchemaEntity202012.tt"
-        this.Write("        ");
-        
-        #line default
-        #line hidden
-        
-        #line 1109 "SchemaEntity202012.tt"
-
-        if(IsImplicitString)
-        {
-        
-        
-        #line default
-        #line hidden
-        
-        #line 1113 "SchemaEntity202012.tt"
-        this.Write("                this.stringBacking = default;\r\n        ");
-        
-        #line default
-        #line hidden
-        
-        #line 1114 "SchemaEntity202012.tt"
-
-        }
-        
-        
-        #line default
-        #line hidden
-        
-        #line 1117 "SchemaEntity202012.tt"
-        this.Write("            }\r\n            else\r\n            {\r\n                this.jsonElementB" +
-                "acking = default;\r\n        ");
-        
-        #line default
-        #line hidden
-        
-        #line 1121 "SchemaEntity202012.tt"
-
-        if(conversion.IsObject)
-        {
-        
-        
-        #line default
-        #line hidden
-        
-        #line 1125 "SchemaEntity202012.tt"
-        this.Write(@"                if (conversion.ValueKind == JsonValueKind.Object)
-                {
-                    this.objectBacking = conversion;
-                }
-                else
-                {
-                    this.objectBacking = default;
-                }
-        ");
-        
-        #line default
-        #line hidden
-        
-        #line 1133 "SchemaEntity202012.tt"
-
-        }
-        else if (IsImplicitObject)
-        {
-        
-        
-        #line default
-        #line hidden
-        
-        #line 1138 "SchemaEntity202012.tt"
-        this.Write("                this.objectBacking = default;\r\n        ");
-        
-        #line default
-        #line hidden
-        
-        #line 1139 "SchemaEntity202012.tt"
-
-        }
-        
-        
-        #line default
-        #line hidden
-        
-        #line 1142 "SchemaEntity202012.tt"
-        this.Write("        ");
-        
-        #line default
-        #line hidden
-        
-        #line 1142 "SchemaEntity202012.tt"
-
         if(conversion.IsBoolean)
         {
         
@@ -4010,7 +3866,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1146 "SchemaEntity202012.tt"
+        #line 1105 "SchemaEntity202012.tt"
         this.Write(@"                if (conversion.ValueKind == JsonValueKind.True || conversion.ValueKind == JsonValueKind.False)
                 {
                     this.booleanBacking = conversion;
@@ -4024,7 +3880,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1154 "SchemaEntity202012.tt"
+        #line 1113 "SchemaEntity202012.tt"
 
         }
         else if (IsImplicitBoolean)
@@ -4034,13 +3890,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1159 "SchemaEntity202012.tt"
+        #line 1118 "SchemaEntity202012.tt"
         this.Write("                this.booleanBacking = default;\r\n        ");
         
         #line default
         #line hidden
         
-        #line 1160 "SchemaEntity202012.tt"
+        #line 1119 "SchemaEntity202012.tt"
 
         }
         
@@ -4048,13 +3904,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1163 "SchemaEntity202012.tt"
+        #line 1122 "SchemaEntity202012.tt"
         this.Write("\r\n        ");
         
         #line default
         #line hidden
         
-        #line 1164 "SchemaEntity202012.tt"
+        #line 1123 "SchemaEntity202012.tt"
 
         if(conversion.IsArray)
         {
@@ -4063,7 +3919,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1168 "SchemaEntity202012.tt"
+        #line 1127 "SchemaEntity202012.tt"
         this.Write(@"                if (conversion.ValueKind == JsonValueKind.Array)
                 {
                     this.arrayBacking = conversion;
@@ -4077,7 +3933,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1176 "SchemaEntity202012.tt"
+        #line 1135 "SchemaEntity202012.tt"
 
         }
         else if (IsImplicitArray)
@@ -4087,13 +3943,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1181 "SchemaEntity202012.tt"
+        #line 1140 "SchemaEntity202012.tt"
         this.Write("                this.arrayBacking = default;\r\n        ");
         
         #line default
         #line hidden
         
-        #line 1182 "SchemaEntity202012.tt"
+        #line 1141 "SchemaEntity202012.tt"
 
         }
         
@@ -4101,13 +3957,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1185 "SchemaEntity202012.tt"
+        #line 1144 "SchemaEntity202012.tt"
         this.Write("        ");
         
         #line default
         #line hidden
         
-        #line 1185 "SchemaEntity202012.tt"
+        #line 1144 "SchemaEntity202012.tt"
 
         if(conversion.IsNumber)
         {
@@ -4116,7 +3972,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1189 "SchemaEntity202012.tt"
+        #line 1148 "SchemaEntity202012.tt"
         this.Write(@"                if (conversion.ValueKind == JsonValueKind.Number)
                 {
                     this.numberBacking = conversion;
@@ -4130,7 +3986,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1197 "SchemaEntity202012.tt"
+        #line 1156 "SchemaEntity202012.tt"
 
         }
         else if (IsImplicitNumber)
@@ -4140,13 +3996,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1202 "SchemaEntity202012.tt"
+        #line 1161 "SchemaEntity202012.tt"
         this.Write("                this.numberBacking = default;\r\n        ");
         
         #line default
         #line hidden
         
-        #line 1203 "SchemaEntity202012.tt"
+        #line 1162 "SchemaEntity202012.tt"
 
         }
         
@@ -4154,13 +4010,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1206 "SchemaEntity202012.tt"
+        #line 1165 "SchemaEntity202012.tt"
         this.Write("        ");
         
         #line default
         #line hidden
         
-        #line 1206 "SchemaEntity202012.tt"
+        #line 1165 "SchemaEntity202012.tt"
 
         if(conversion.IsString)
         {
@@ -4169,7 +4025,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1210 "SchemaEntity202012.tt"
+        #line 1169 "SchemaEntity202012.tt"
         this.Write(@"                if (conversion.ValueKind == JsonValueKind.String)
                 {
                     this.stringBacking = conversion;
@@ -4183,7 +4039,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1218 "SchemaEntity202012.tt"
+        #line 1177 "SchemaEntity202012.tt"
 
         }
         else if (IsImplicitString)
@@ -4193,13 +4049,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1223 "SchemaEntity202012.tt"
+        #line 1182 "SchemaEntity202012.tt"
         this.Write("                this.stringBacking = default;\r\n        ");
         
         #line default
         #line hidden
         
-        #line 1224 "SchemaEntity202012.tt"
+        #line 1183 "SchemaEntity202012.tt"
 
         }
         
@@ -4207,13 +4063,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1227 "SchemaEntity202012.tt"
+        #line 1186 "SchemaEntity202012.tt"
         this.Write("            }\r\n        }\r\n    ");
         
         #line default
         #line hidden
         
-        #line 1229 "SchemaEntity202012.tt"
+        #line 1188 "SchemaEntity202012.tt"
 
     }
     
@@ -4221,13 +4077,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1232 "SchemaEntity202012.tt"
+        #line 1191 "SchemaEntity202012.tt"
         this.Write("\r\n\r\n    ");
         
         #line default
         #line hidden
         
-        #line 1234 "SchemaEntity202012.tt"
+        #line 1193 "SchemaEntity202012.tt"
 
     if (IsImplicitArray)
     {
@@ -4236,7 +4092,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1238 "SchemaEntity202012.tt"
+        #line 1197 "SchemaEntity202012.tt"
         this.Write(@"        /// <inheritdoc/>
         public int Length
         {
@@ -4255,7 +4111,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1251 "SchemaEntity202012.tt"
+        #line 1210 "SchemaEntity202012.tt"
 
     }
     
@@ -4263,13 +4119,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1254 "SchemaEntity202012.tt"
+        #line 1213 "SchemaEntity202012.tt"
         this.Write("\r\n    ");
         
         #line default
         #line hidden
         
-        #line 1255 "SchemaEntity202012.tt"
+        #line 1214 "SchemaEntity202012.tt"
 
     foreach (Conversion conversion in ConversionsViaConstructor)
     {
@@ -4282,43 +4138,43 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1263 "SchemaEntity202012.tt"
+        #line 1222 "SchemaEntity202012.tt"
         this.Write("        /// <summary>\r\n        /// Gets the value as a <see cref=\"");
         
         #line default
         #line hidden
         
-        #line 1264 "SchemaEntity202012.tt"
+        #line 1223 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( conversion.FullyQualifiedDotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 1264 "SchemaEntity202012.tt"
+        #line 1223 "SchemaEntity202012.tt"
         this.Write("\" />.\r\n        /// </summary>\r\n        public ");
         
         #line default
         #line hidden
         
-        #line 1266 "SchemaEntity202012.tt"
+        #line 1225 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( conversion.FullyQualifiedDotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 1266 "SchemaEntity202012.tt"
+        #line 1225 "SchemaEntity202012.tt"
         this.Write(" As");
         
         #line default
         #line hidden
         
-        #line 1266 "SchemaEntity202012.tt"
+        #line 1225 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( conversion.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 1266 "SchemaEntity202012.tt"
+        #line 1225 "SchemaEntity202012.tt"
         this.Write("\r\n        {\r\n            get\r\n            {\r\n                return this;\r\n      " +
                 "      }\r\n        }\r\n\r\n        /// <summary>\r\n        /// Gets a value indicating" +
                 " whether this is a valid <see cref=\"");
@@ -4326,43 +4182,43 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1275 "SchemaEntity202012.tt"
+        #line 1234 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( conversion.FullyQualifiedDotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 1275 "SchemaEntity202012.tt"
+        #line 1234 "SchemaEntity202012.tt"
         this.Write("\" />.\r\n        /// </summary>\r\n        public bool Is");
         
         #line default
         #line hidden
         
-        #line 1277 "SchemaEntity202012.tt"
+        #line 1236 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( conversion.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 1277 "SchemaEntity202012.tt"
+        #line 1236 "SchemaEntity202012.tt"
         this.Write("\r\n        {\r\n            get\r\n            {\r\n                return ((");
         
         #line default
         #line hidden
         
-        #line 1281 "SchemaEntity202012.tt"
+        #line 1240 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( conversion.FullyQualifiedDotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 1281 "SchemaEntity202012.tt"
+        #line 1240 "SchemaEntity202012.tt"
         this.Write(")this).Validate().IsValid;\r\n            }\r\n        }\r\n\r\n    ");
         
         #line default
         #line hidden
         
-        #line 1285 "SchemaEntity202012.tt"
+        #line 1244 "SchemaEntity202012.tt"
 
     }
     
@@ -4370,13 +4226,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1288 "SchemaEntity202012.tt"
+        #line 1247 "SchemaEntity202012.tt"
         this.Write("\r\n    ");
         
         #line default
         #line hidden
         
-        #line 1289 "SchemaEntity202012.tt"
+        #line 1248 "SchemaEntity202012.tt"
 
     if (HasIfThenElse)
     {
@@ -4385,13 +4241,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1293 "SchemaEntity202012.tt"
+        #line 1252 "SchemaEntity202012.tt"
         this.Write("        ");
         
         #line default
         #line hidden
         
-        #line 1293 "SchemaEntity202012.tt"
+        #line 1252 "SchemaEntity202012.tt"
 
         if (HasThen)
         {
@@ -4400,32 +4256,32 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1297 "SchemaEntity202012.tt"
+        #line 1256 "SchemaEntity202012.tt"
         this.Write("        /// <summary>\r\n        /// Gets a value indicating whether this matches t" +
                 "he If/Then type.\r\n        /// </summary>\r\n        public bool IsIfMatch");
         
         #line default
         #line hidden
         
-        #line 1300 "SchemaEntity202012.tt"
+        #line 1259 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture(                ThenDotnetTypeName));
         
         #line default
         #line hidden
         
-        #line 1300 "SchemaEntity202012.tt"
+        #line 1259 "SchemaEntity202012.tt"
         this.Write("\r\n        {\r\n            get\r\n            {\r\n                return this.As<");
         
         #line default
         #line hidden
         
-        #line 1304 "SchemaEntity202012.tt"
+        #line 1263 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture(                IfFullyQualifiedDotnetTypeName));
         
         #line default
         #line hidden
         
-        #line 1304 "SchemaEntity202012.tt"
+        #line 1263 "SchemaEntity202012.tt"
         this.Write(">().IsValid(); \r\n            }\r\n        }\r\n\r\n        /// <summary>\r\n        /// G" +
                 "ets this as the matching type for the If/Then clause.\r\n        /// </summary>\r\n " +
                 "       public ");
@@ -4433,43 +4289,43 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1311 "SchemaEntity202012.tt"
+        #line 1270 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture(ThenFullyQualifiedDotnetTypeName));
         
         #line default
         #line hidden
         
-        #line 1311 "SchemaEntity202012.tt"
+        #line 1270 "SchemaEntity202012.tt"
         this.Write(" AsIfMatch");
         
         #line default
         #line hidden
         
-        #line 1311 "SchemaEntity202012.tt"
+        #line 1270 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture(ThenDotnetTypeName));
         
         #line default
         #line hidden
         
-        #line 1311 "SchemaEntity202012.tt"
+        #line 1270 "SchemaEntity202012.tt"
         this.Write("\r\n        {\r\n            get\r\n            {\r\n                return this.As<");
         
         #line default
         #line hidden
         
-        #line 1315 "SchemaEntity202012.tt"
+        #line 1274 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture(ThenFullyQualifiedDotnetTypeName));
         
         #line default
         #line hidden
         
-        #line 1315 "SchemaEntity202012.tt"
+        #line 1274 "SchemaEntity202012.tt"
         this.Write(">(); \r\n            }\r\n        }\r\n\r\n        ");
         
         #line default
         #line hidden
         
-        #line 1319 "SchemaEntity202012.tt"
+        #line 1278 "SchemaEntity202012.tt"
 
         }
         
@@ -4477,13 +4333,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1322 "SchemaEntity202012.tt"
+        #line 1281 "SchemaEntity202012.tt"
         this.Write("\r\n        ");
         
         #line default
         #line hidden
         
-        #line 1323 "SchemaEntity202012.tt"
+        #line 1282 "SchemaEntity202012.tt"
 
         if (HasElse)
         {
@@ -4492,32 +4348,32 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1327 "SchemaEntity202012.tt"
+        #line 1286 "SchemaEntity202012.tt"
         this.Write("        /// <summary>\r\n        /// Gets a value indicating whether this matches t" +
                 "he If/Else type.\r\n        /// </summary>\r\n        public bool IsElseMatch");
         
         #line default
         #line hidden
         
-        #line 1330 "SchemaEntity202012.tt"
+        #line 1289 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture(ElseDotnetTypeName));
         
         #line default
         #line hidden
         
-        #line 1330 "SchemaEntity202012.tt"
+        #line 1289 "SchemaEntity202012.tt"
         this.Write("\r\n        {\r\n            get\r\n            {\r\n                return !this.As<");
         
         #line default
         #line hidden
         
-        #line 1334 "SchemaEntity202012.tt"
+        #line 1293 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture(IfFullyQualifiedDotnetTypeName));
         
         #line default
         #line hidden
         
-        #line 1334 "SchemaEntity202012.tt"
+        #line 1293 "SchemaEntity202012.tt"
         this.Write(">().IsValid(); \r\n            }\r\n        }\r\n\r\n        /// <summary>\r\n        /// G" +
                 "ets this as the matching type for the If/Else clause.\r\n        /// </summary>\r\n " +
                 "       public ");
@@ -4525,43 +4381,43 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1341 "SchemaEntity202012.tt"
+        #line 1300 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture(ElseFullyQualifiedDotnetTypeName));
         
         #line default
         #line hidden
         
-        #line 1341 "SchemaEntity202012.tt"
+        #line 1300 "SchemaEntity202012.tt"
         this.Write(" AsElseMatch");
         
         #line default
         #line hidden
         
-        #line 1341 "SchemaEntity202012.tt"
+        #line 1300 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture(ElseDotnetTypeName));
         
         #line default
         #line hidden
         
-        #line 1341 "SchemaEntity202012.tt"
+        #line 1300 "SchemaEntity202012.tt"
         this.Write("\r\n        {\r\n            get\r\n            {\r\n                return this.As<");
         
         #line default
         #line hidden
         
-        #line 1345 "SchemaEntity202012.tt"
+        #line 1304 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture(ElseFullyQualifiedDotnetTypeName));
         
         #line default
         #line hidden
         
-        #line 1345 "SchemaEntity202012.tt"
+        #line 1304 "SchemaEntity202012.tt"
         this.Write(">(); \r\n            }\r\n        }\r\n        ");
         
         #line default
         #line hidden
         
-        #line 1348 "SchemaEntity202012.tt"
+        #line 1307 "SchemaEntity202012.tt"
 
         }
         
@@ -4569,13 +4425,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1351 "SchemaEntity202012.tt"
+        #line 1310 "SchemaEntity202012.tt"
         this.Write("    ");
         
         #line default
         #line hidden
         
-        #line 1351 "SchemaEntity202012.tt"
+        #line 1310 "SchemaEntity202012.tt"
 
     }
     
@@ -4583,13 +4439,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1354 "SchemaEntity202012.tt"
+        #line 1313 "SchemaEntity202012.tt"
         this.Write("\r\n    ");
         
         #line default
         #line hidden
         
-        #line 1355 "SchemaEntity202012.tt"
+        #line 1314 "SchemaEntity202012.tt"
 
     if(HasProperties)
     {
@@ -4598,13 +4454,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1359 "SchemaEntity202012.tt"
+        #line 1318 "SchemaEntity202012.tt"
         this.Write("        ");
         
         #line default
         #line hidden
         
-        #line 1359 "SchemaEntity202012.tt"
+        #line 1318 "SchemaEntity202012.tt"
 
         foreach(var property in Properties)
         {
@@ -4613,19 +4469,19 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1363 "SchemaEntity202012.tt"
+        #line 1322 "SchemaEntity202012.tt"
         this.Write("\r\n        /// <summary>\r\n        /// Gets ");
         
         #line default
         #line hidden
         
-        #line 1365 "SchemaEntity202012.tt"
+        #line 1324 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( property.DotnetPropertyName ));
         
         #line default
         #line hidden
         
-        #line 1365 "SchemaEntity202012.tt"
+        #line 1324 "SchemaEntity202012.tt"
         this.Write(".\r\n        /// </summary>\r\n        /// <remarks>\r\n        /// {Property title}.\r\n" +
                 "        /// {Property description}.\r\n        /// </remarks>\r\n        /// <exampl" +
                 "e>\r\n        /// {Property examples}.\r\n        /// </example>\r\n        public ");
@@ -4633,39 +4489,39 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1374 "SchemaEntity202012.tt"
+        #line 1333 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( property.Type.FullyQualifiedDotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 1374 "SchemaEntity202012.tt"
+        #line 1333 "SchemaEntity202012.tt"
         this.Write(" ");
         
         #line default
         #line hidden
         
-        #line 1374 "SchemaEntity202012.tt"
+        #line 1333 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( property.DotnetPropertyName ));
         
         #line default
         #line hidden
         
-        #line 1374 "SchemaEntity202012.tt"
+        #line 1333 "SchemaEntity202012.tt"
         this.Write("\r\n        {\r\n            get\r\n            {\r\n                if (this.objectBacki" +
-                "ng is ImmutableDictionary<JsonEncodedText, JsonAny> properties)\r\n               " +
-                " {\r\n                    if(properties.TryGetValue(");
+                "ng is ImmutableDictionary<string, JsonAny> properties)\r\n                {\r\n     " +
+                "               if(properties.TryGetValue(");
         
         #line default
         #line hidden
         
-        #line 1380 "SchemaEntity202012.tt"
+        #line 1339 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( property.DotnetPropertyName ));
         
         #line default
         #line hidden
         
-        #line 1380 "SchemaEntity202012.tt"
+        #line 1339 "SchemaEntity202012.tt"
         this.Write(@"JsonPropertyName, out JsonAny result))
                     {
                         return result;
@@ -4679,33 +4535,33 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1388 "SchemaEntity202012.tt"
+        #line 1347 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( property.DotnetPropertyName ));
         
         #line default
         #line hidden
         
-        #line 1388 "SchemaEntity202012.tt"
+        #line 1347 "SchemaEntity202012.tt"
         this.Write("Utf8JsonPropertyName.Span, out JsonElement result))\r\n                    {\r\n     " +
                 "                   return new  ");
         
         #line default
         #line hidden
         
-        #line 1390 "SchemaEntity202012.tt"
+        #line 1349 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( property.Type.FullyQualifiedDotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 1390 "SchemaEntity202012.tt"
+        #line 1349 "SchemaEntity202012.tt"
         this.Write("(result);\r\n                    }\r\n                }\r\n\r\n                return def" +
                 "ault;\r\n            }\r\n        }\r\n\r\n        ");
         
         #line default
         #line hidden
         
-        #line 1398 "SchemaEntity202012.tt"
+        #line 1357 "SchemaEntity202012.tt"
 
         }
         
@@ -4713,13 +4569,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1401 "SchemaEntity202012.tt"
+        #line 1360 "SchemaEntity202012.tt"
         this.Write("    ");
         
         #line default
         #line hidden
         
-        #line 1401 "SchemaEntity202012.tt"
+        #line 1360 "SchemaEntity202012.tt"
 
     }
     
@@ -4727,7 +4583,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1404 "SchemaEntity202012.tt"
+        #line 1363 "SchemaEntity202012.tt"
         this.Write("        /// <summary>\r\n        /// Gets a value indicating whether this is backed" +
                 " by a JSON element.\r\n        /// </summary>\r\n        public bool HasJsonElement " +
                 "=>\r\n    ");
@@ -4735,7 +4591,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1408 "SchemaEntity202012.tt"
+        #line 1367 "SchemaEntity202012.tt"
 
     bool isFirstProperty = true;
     
@@ -4743,13 +4599,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1411 "SchemaEntity202012.tt"
+        #line 1370 "SchemaEntity202012.tt"
         this.Write("\r\n    ");
         
         #line default
         #line hidden
         
-        #line 1412 "SchemaEntity202012.tt"
+        #line 1371 "SchemaEntity202012.tt"
 
     if (IsImplicitObject)
     {
@@ -4758,13 +4614,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1416 "SchemaEntity202012.tt"
+        #line 1375 "SchemaEntity202012.tt"
         this.Write("            this.objectBacking is null\r\n            \r\n    ");
         
         #line default
         #line hidden
         
-        #line 1418 "SchemaEntity202012.tt"
+        #line 1377 "SchemaEntity202012.tt"
 
         isFirstProperty = false;
     }
@@ -4773,13 +4629,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1422 "SchemaEntity202012.tt"
+        #line 1381 "SchemaEntity202012.tt"
         this.Write("\r\n    ");
         
         #line default
         #line hidden
         
-        #line 1423 "SchemaEntity202012.tt"
+        #line 1382 "SchemaEntity202012.tt"
 
     if (IsImplicitArray)
     {
@@ -4788,13 +4644,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1427 "SchemaEntity202012.tt"
+        #line 1386 "SchemaEntity202012.tt"
         this.Write("        ");
         
         #line default
         #line hidden
         
-        #line 1427 "SchemaEntity202012.tt"
+        #line 1386 "SchemaEntity202012.tt"
 
         if (isFirstProperty)
         {
@@ -4807,13 +4663,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1435 "SchemaEntity202012.tt"
+        #line 1394 "SchemaEntity202012.tt"
         this.Write("            &&\r\n        ");
         
         #line default
         #line hidden
         
-        #line 1436 "SchemaEntity202012.tt"
+        #line 1395 "SchemaEntity202012.tt"
 
         }
         
@@ -4821,13 +4677,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1439 "SchemaEntity202012.tt"
+        #line 1398 "SchemaEntity202012.tt"
         this.Write("            this.arrayBacking is null\r\n    ");
         
         #line default
         #line hidden
         
-        #line 1440 "SchemaEntity202012.tt"
+        #line 1399 "SchemaEntity202012.tt"
 
     }
     
@@ -4835,13 +4691,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1443 "SchemaEntity202012.tt"
+        #line 1402 "SchemaEntity202012.tt"
         this.Write("    ");
         
         #line default
         #line hidden
         
-        #line 1443 "SchemaEntity202012.tt"
+        #line 1402 "SchemaEntity202012.tt"
 
     if (IsImplicitNumber)
     {
@@ -4850,13 +4706,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1447 "SchemaEntity202012.tt"
+        #line 1406 "SchemaEntity202012.tt"
         this.Write("        ");
         
         #line default
         #line hidden
         
-        #line 1447 "SchemaEntity202012.tt"
+        #line 1406 "SchemaEntity202012.tt"
 
         if (isFirstProperty)
         {
@@ -4869,13 +4725,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1455 "SchemaEntity202012.tt"
+        #line 1414 "SchemaEntity202012.tt"
         this.Write("            &&\r\n        ");
         
         #line default
         #line hidden
         
-        #line 1456 "SchemaEntity202012.tt"
+        #line 1415 "SchemaEntity202012.tt"
 
         }
         
@@ -4883,13 +4739,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1459 "SchemaEntity202012.tt"
+        #line 1418 "SchemaEntity202012.tt"
         this.Write("            this.numberBacking is null\r\n    ");
         
         #line default
         #line hidden
         
-        #line 1460 "SchemaEntity202012.tt"
+        #line 1419 "SchemaEntity202012.tt"
 
     }
     
@@ -4897,13 +4753,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1463 "SchemaEntity202012.tt"
+        #line 1422 "SchemaEntity202012.tt"
         this.Write("    ");
         
         #line default
         #line hidden
         
-        #line 1463 "SchemaEntity202012.tt"
+        #line 1422 "SchemaEntity202012.tt"
 
     if (IsImplicitString)
     {
@@ -4912,13 +4768,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1467 "SchemaEntity202012.tt"
+        #line 1426 "SchemaEntity202012.tt"
         this.Write("        ");
         
         #line default
         #line hidden
         
-        #line 1467 "SchemaEntity202012.tt"
+        #line 1426 "SchemaEntity202012.tt"
 
         if (isFirstProperty)
         {
@@ -4931,13 +4787,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1475 "SchemaEntity202012.tt"
+        #line 1434 "SchemaEntity202012.tt"
         this.Write("            &&\r\n        ");
         
         #line default
         #line hidden
         
-        #line 1476 "SchemaEntity202012.tt"
+        #line 1435 "SchemaEntity202012.tt"
 
         }
         
@@ -4945,13 +4801,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1479 "SchemaEntity202012.tt"
+        #line 1438 "SchemaEntity202012.tt"
         this.Write("            this.stringBacking is null\r\n    ");
         
         #line default
         #line hidden
         
-        #line 1480 "SchemaEntity202012.tt"
+        #line 1439 "SchemaEntity202012.tt"
 
     }
     
@@ -4959,13 +4815,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1483 "SchemaEntity202012.tt"
+        #line 1442 "SchemaEntity202012.tt"
         this.Write("    ");
         
         #line default
         #line hidden
         
-        #line 1483 "SchemaEntity202012.tt"
+        #line 1442 "SchemaEntity202012.tt"
 
     if (IsImplicitBoolean)
     {
@@ -4974,13 +4830,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1487 "SchemaEntity202012.tt"
+        #line 1446 "SchemaEntity202012.tt"
         this.Write("        ");
         
         #line default
         #line hidden
         
-        #line 1487 "SchemaEntity202012.tt"
+        #line 1446 "SchemaEntity202012.tt"
 
         if (isFirstProperty)
         {
@@ -4993,13 +4849,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1495 "SchemaEntity202012.tt"
+        #line 1454 "SchemaEntity202012.tt"
         this.Write("            &&\r\n        ");
         
         #line default
         #line hidden
         
-        #line 1496 "SchemaEntity202012.tt"
+        #line 1455 "SchemaEntity202012.tt"
 
         }
         
@@ -5007,13 +4863,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1499 "SchemaEntity202012.tt"
+        #line 1458 "SchemaEntity202012.tt"
         this.Write("            this.booleanBacking is null\r\n    ");
         
         #line default
         #line hidden
         
-        #line 1500 "SchemaEntity202012.tt"
+        #line 1459 "SchemaEntity202012.tt"
 
     }
     
@@ -5021,13 +4877,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1503 "SchemaEntity202012.tt"
+        #line 1462 "SchemaEntity202012.tt"
         this.Write("\r\n    ");
         
         #line default
         #line hidden
         
-        #line 1504 "SchemaEntity202012.tt"
+        #line 1463 "SchemaEntity202012.tt"
 
     if (!IsImplicitObject && !IsImplicitArray && !IsImplicitNumber && !IsImplicitBoolean && !IsImplicitString)
     {
@@ -5036,13 +4892,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1508 "SchemaEntity202012.tt"
+        #line 1467 "SchemaEntity202012.tt"
         this.Write("    true\r\n    ");
         
         #line default
         #line hidden
         
-        #line 1509 "SchemaEntity202012.tt"
+        #line 1468 "SchemaEntity202012.tt"
 
     }
     
@@ -5050,7 +4906,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1512 "SchemaEntity202012.tt"
+        #line 1471 "SchemaEntity202012.tt"
         this.Write("            ;\r\n\r\n        /// <summary>\r\n        /// Gets the value as a JsonEleme" +
                 "nt.\r\n        /// </summary>\r\n        public JsonElement AsJsonElement\r\n        {" +
                 "\r\n            get\r\n            {\r\n    ");
@@ -5058,7 +4914,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1521 "SchemaEntity202012.tt"
+        #line 1480 "SchemaEntity202012.tt"
 
     if (IsImplicitObject)
     {
@@ -5067,15 +4923,15 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1525 "SchemaEntity202012.tt"
-        this.Write("          \r\n                if (this.objectBacking is ImmutableDictionary<JsonEnc" +
-                "odedText, JsonAny> objectBacking)\r\n                {\r\n                    return" +
-                " JsonObject.PropertiesToJsonElement(objectBacking);\r\n                }\r\n\r\n    ");
+        #line 1484 "SchemaEntity202012.tt"
+        this.Write("          \r\n                if (this.objectBacking is ImmutableDictionary<string," +
+                " JsonAny> objectBacking)\r\n                {\r\n                    return JsonObje" +
+                "ct.PropertiesToJsonElement(objectBacking);\r\n                }\r\n\r\n    ");
         
         #line default
         #line hidden
         
-        #line 1531 "SchemaEntity202012.tt"
+        #line 1490 "SchemaEntity202012.tt"
 
     }
     
@@ -5083,13 +4939,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1534 "SchemaEntity202012.tt"
+        #line 1493 "SchemaEntity202012.tt"
         this.Write("\r\n    ");
         
         #line default
         #line hidden
         
-        #line 1535 "SchemaEntity202012.tt"
+        #line 1494 "SchemaEntity202012.tt"
 
     if (IsImplicitArray)
     {
@@ -5098,7 +4954,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1539 "SchemaEntity202012.tt"
+        #line 1498 "SchemaEntity202012.tt"
         this.Write("                if (this.arrayBacking is ImmutableList<JsonAny> arrayBacking)\r\n  " +
                 "              {\r\n                    return JsonArray.ItemsToJsonElement(arrayBa" +
                 "cking);\r\n                }\r\n    ");
@@ -5106,7 +4962,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1543 "SchemaEntity202012.tt"
+        #line 1502 "SchemaEntity202012.tt"
 
     }
     
@@ -5114,13 +4970,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1546 "SchemaEntity202012.tt"
+        #line 1505 "SchemaEntity202012.tt"
         this.Write("\r\n    ");
         
         #line default
         #line hidden
         
-        #line 1547 "SchemaEntity202012.tt"
+        #line 1506 "SchemaEntity202012.tt"
 
     if (IsImplicitNumber)
     {
@@ -5129,7 +4985,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1551 "SchemaEntity202012.tt"
+        #line 1510 "SchemaEntity202012.tt"
         this.Write("                if (this.numberBacking is double numberBacking)\r\n                " +
                 "{\r\n                    return JsonNumber.NumberToJsonElement(numberBacking);\r\n  " +
                 "              }\r\n\r\n    ");
@@ -5137,7 +4993,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1556 "SchemaEntity202012.tt"
+        #line 1515 "SchemaEntity202012.tt"
 
     }
     
@@ -5145,13 +5001,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1559 "SchemaEntity202012.tt"
+        #line 1518 "SchemaEntity202012.tt"
         this.Write("\r\n    ");
         
         #line default
         #line hidden
         
-        #line 1560 "SchemaEntity202012.tt"
+        #line 1519 "SchemaEntity202012.tt"
 
     if (IsImplicitString)
     {
@@ -5160,15 +5016,15 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1564 "SchemaEntity202012.tt"
-        this.Write("                if (this.stringBacking is JsonEncodedText stringBacking)\r\n       " +
-                "         {\r\n                    return JsonString.StringToJsonElement(stringBack" +
-                "ing);\r\n                }\r\n\r\n    ");
+        #line 1523 "SchemaEntity202012.tt"
+        this.Write("                if (this.stringBacking is string stringBacking)\r\n                " +
+                "{\r\n                    return JsonString.StringToJsonElement(stringBacking);\r\n  " +
+                "              }\r\n\r\n    ");
         
         #line default
         #line hidden
         
-        #line 1569 "SchemaEntity202012.tt"
+        #line 1528 "SchemaEntity202012.tt"
 
     }
     
@@ -5176,13 +5032,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1572 "SchemaEntity202012.tt"
+        #line 1531 "SchemaEntity202012.tt"
         this.Write("\r\n    ");
         
         #line default
         #line hidden
         
-        #line 1573 "SchemaEntity202012.tt"
+        #line 1532 "SchemaEntity202012.tt"
 
     if (IsImplicitBoolean)
     {
@@ -5191,7 +5047,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1577 "SchemaEntity202012.tt"
+        #line 1536 "SchemaEntity202012.tt"
         this.Write("                if (this.booleanBacking is bool booleanBacking)\r\n                " +
                 "{\r\n                    return JsonBoolean.BoolToJsonElement(booleanBacking);\r\n  " +
                 "              }\r\n\r\n    ");
@@ -5199,7 +5055,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1582 "SchemaEntity202012.tt"
+        #line 1541 "SchemaEntity202012.tt"
 
     }
     
@@ -5207,7 +5063,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1585 "SchemaEntity202012.tt"
+        #line 1544 "SchemaEntity202012.tt"
         this.Write("\r\n                return this.jsonElementBacking;\r\n            }\r\n        }\r\n\r\n  " +
                 "      /// <inheritdoc/>\r\n        public JsonValueKind ValueKind\r\n        {\r\n    " +
                 "        get\r\n            {\r\n    ");
@@ -5215,7 +5071,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1595 "SchemaEntity202012.tt"
+        #line 1554 "SchemaEntity202012.tt"
 
     if (IsImplicitObject)
     {
@@ -5224,15 +5080,15 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1599 "SchemaEntity202012.tt"
-        this.Write("                if (this.objectBacking is ImmutableDictionary<JsonEncodedText, Js" +
-                "onAny>)\r\n                {\r\n                    return JsonValueKind.Object;\r\n  " +
-                "              }\r\n\r\n    ");
+        #line 1558 "SchemaEntity202012.tt"
+        this.Write("                if (this.objectBacking is ImmutableDictionary<string, JsonAny>)\r\n" +
+                "                {\r\n                    return JsonValueKind.Object;\r\n           " +
+                "     }\r\n\r\n    ");
         
         #line default
         #line hidden
         
-        #line 1604 "SchemaEntity202012.tt"
+        #line 1563 "SchemaEntity202012.tt"
 
     }
     
@@ -5240,13 +5096,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1607 "SchemaEntity202012.tt"
+        #line 1566 "SchemaEntity202012.tt"
         this.Write("\r\n    ");
         
         #line default
         #line hidden
         
-        #line 1608 "SchemaEntity202012.tt"
+        #line 1567 "SchemaEntity202012.tt"
 
     if (IsImplicitArray)
     {
@@ -5255,14 +5111,14 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1612 "SchemaEntity202012.tt"
+        #line 1571 "SchemaEntity202012.tt"
         this.Write("                if (this.arrayBacking is ImmutableList<JsonAny>)\r\n               " +
                 " {\r\n                    return JsonValueKind.Array;\r\n                }\r\n\r\n    ");
         
         #line default
         #line hidden
         
-        #line 1617 "SchemaEntity202012.tt"
+        #line 1576 "SchemaEntity202012.tt"
 
     }
     
@@ -5270,13 +5126,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1620 "SchemaEntity202012.tt"
+        #line 1579 "SchemaEntity202012.tt"
         this.Write("\r\n    ");
         
         #line default
         #line hidden
         
-        #line 1621 "SchemaEntity202012.tt"
+        #line 1580 "SchemaEntity202012.tt"
 
     if (IsImplicitNumber)
     {
@@ -5285,14 +5141,14 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1625 "SchemaEntity202012.tt"
+        #line 1584 "SchemaEntity202012.tt"
         this.Write("                if (this.numberBacking is double)\r\n                {\r\n           " +
                 "         return JsonValueKind.Number;\r\n                }\r\n\r\n    ");
         
         #line default
         #line hidden
         
-        #line 1630 "SchemaEntity202012.tt"
+        #line 1589 "SchemaEntity202012.tt"
 
     }
     
@@ -5300,13 +5156,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1633 "SchemaEntity202012.tt"
+        #line 1592 "SchemaEntity202012.tt"
         this.Write("\r\n    ");
         
         #line default
         #line hidden
         
-        #line 1634 "SchemaEntity202012.tt"
+        #line 1593 "SchemaEntity202012.tt"
 
     if (IsImplicitString)
     {
@@ -5315,14 +5171,14 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1638 "SchemaEntity202012.tt"
-        this.Write("                if (this.stringBacking is JsonEncodedText)\r\n                {\r\n  " +
-                "                  return JsonValueKind.String;\r\n                }\r\n\r\n    ");
+        #line 1597 "SchemaEntity202012.tt"
+        this.Write("                if (this.stringBacking is string)\r\n                {\r\n           " +
+                "         return JsonValueKind.String;\r\n                }\r\n\r\n    ");
         
         #line default
         #line hidden
         
-        #line 1643 "SchemaEntity202012.tt"
+        #line 1602 "SchemaEntity202012.tt"
 
     }
     
@@ -5330,13 +5186,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1646 "SchemaEntity202012.tt"
+        #line 1605 "SchemaEntity202012.tt"
         this.Write("\r\n    ");
         
         #line default
         #line hidden
         
-        #line 1647 "SchemaEntity202012.tt"
+        #line 1606 "SchemaEntity202012.tt"
 
     if (IsImplicitBoolean)
     {
@@ -5345,7 +5201,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1651 "SchemaEntity202012.tt"
+        #line 1610 "SchemaEntity202012.tt"
         this.Write("                if (this.booleanBacking is bool booleanBacking)\r\n                " +
                 "{\r\n                    return booleanBacking ? JsonValueKind.True : JsonValueKin" +
                 "d.False;\r\n                }\r\n\r\n    ");
@@ -5353,7 +5209,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1656 "SchemaEntity202012.tt"
+        #line 1615 "SchemaEntity202012.tt"
 
     }
     
@@ -5361,7 +5217,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1659 "SchemaEntity202012.tt"
+        #line 1618 "SchemaEntity202012.tt"
         this.Write("\r\n                return this.jsonElementBacking.ValueKind;\r\n            }\r\n     " +
                 "   }\r\n\r\n        /// <inheritdoc/>\r\n        public JsonAny AsAny\r\n        {\r\n    " +
                 "        get\r\n            {\r\n    ");
@@ -5369,7 +5225,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1669 "SchemaEntity202012.tt"
+        #line 1628 "SchemaEntity202012.tt"
 
     if (IsImplicitObject)
     {
@@ -5378,15 +5234,15 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1673 "SchemaEntity202012.tt"
-        this.Write("                if (this.objectBacking is ImmutableDictionary<JsonEncodedText, Js" +
-                "onAny> objectBacking)\r\n                {\r\n                    return new JsonAny" +
-                "(objectBacking);\r\n                }\r\n\r\n    ");
+        #line 1632 "SchemaEntity202012.tt"
+        this.Write("                if (this.objectBacking is ImmutableDictionary<string, JsonAny> ob" +
+                "jectBacking)\r\n                {\r\n                    return new JsonAny(objectBa" +
+                "cking);\r\n                }\r\n\r\n    ");
         
         #line default
         #line hidden
         
-        #line 1678 "SchemaEntity202012.tt"
+        #line 1637 "SchemaEntity202012.tt"
 
     }
     
@@ -5394,13 +5250,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1681 "SchemaEntity202012.tt"
+        #line 1640 "SchemaEntity202012.tt"
         this.Write("\r\n    ");
         
         #line default
         #line hidden
         
-        #line 1682 "SchemaEntity202012.tt"
+        #line 1641 "SchemaEntity202012.tt"
 
     if (IsImplicitArray)
     {
@@ -5409,7 +5265,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1686 "SchemaEntity202012.tt"
+        #line 1645 "SchemaEntity202012.tt"
         this.Write("                if (this.arrayBacking is ImmutableList<JsonAny> arrayBacking)\r\n  " +
                 "              {\r\n                    return new JsonAny(arrayBacking);\r\n        " +
                 "        }\r\n\r\n    ");
@@ -5417,7 +5273,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1691 "SchemaEntity202012.tt"
+        #line 1650 "SchemaEntity202012.tt"
 
     }
     
@@ -5425,13 +5281,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1694 "SchemaEntity202012.tt"
+        #line 1653 "SchemaEntity202012.tt"
         this.Write("\r\n    ");
         
         #line default
         #line hidden
         
-        #line 1695 "SchemaEntity202012.tt"
+        #line 1654 "SchemaEntity202012.tt"
 
     if (IsImplicitNumber)
     {
@@ -5440,7 +5296,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1699 "SchemaEntity202012.tt"
+        #line 1658 "SchemaEntity202012.tt"
         this.Write("                if (this.numberBacking is double numberBacking)\r\n                " +
                 "{\r\n                    return new JsonAny(numberBacking);\r\n                }\r\n\r\n" +
                 "    ");
@@ -5448,7 +5304,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1704 "SchemaEntity202012.tt"
+        #line 1663 "SchemaEntity202012.tt"
 
     }
     
@@ -5456,13 +5312,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1707 "SchemaEntity202012.tt"
+        #line 1666 "SchemaEntity202012.tt"
         this.Write("\r\n    ");
         
         #line default
         #line hidden
         
-        #line 1708 "SchemaEntity202012.tt"
+        #line 1667 "SchemaEntity202012.tt"
 
     if (IsImplicitString)
     {
@@ -5471,15 +5327,15 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1712 "SchemaEntity202012.tt"
-        this.Write("                if (this.stringBacking is JsonEncodedText stringBacking)\r\n       " +
-                "         {\r\n                    return new JsonAny(stringBacking);\r\n            " +
-                "    }\r\n\r\n    ");
+        #line 1671 "SchemaEntity202012.tt"
+        this.Write("                if (this.stringBacking is string stringBacking)\r\n                " +
+                "{\r\n                    return new JsonAny(stringBacking);\r\n                }\r\n\r\n" +
+                "    ");
         
         #line default
         #line hidden
         
-        #line 1717 "SchemaEntity202012.tt"
+        #line 1676 "SchemaEntity202012.tt"
 
     }
     
@@ -5487,13 +5343,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1720 "SchemaEntity202012.tt"
+        #line 1679 "SchemaEntity202012.tt"
         this.Write("\r\n    ");
         
         #line default
         #line hidden
         
-        #line 1721 "SchemaEntity202012.tt"
+        #line 1680 "SchemaEntity202012.tt"
 
     if (IsImplicitBoolean)
     {
@@ -5502,7 +5358,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1725 "SchemaEntity202012.tt"
+        #line 1684 "SchemaEntity202012.tt"
         this.Write("                if (this.booleanBacking is bool booleanBacking)\r\n                " +
                 "{\r\n                    return new JsonAny(booleanBacking);\r\n                }\r\n\r" +
                 "\n    ");
@@ -5510,7 +5366,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1730 "SchemaEntity202012.tt"
+        #line 1689 "SchemaEntity202012.tt"
 
     }
     
@@ -5518,7 +5374,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1733 "SchemaEntity202012.tt"
+        #line 1692 "SchemaEntity202012.tt"
         this.Write(@"
                 return new JsonAny(this.jsonElementBacking);
             }
@@ -5536,7 +5392,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1745 "SchemaEntity202012.tt"
+        #line 1704 "SchemaEntity202012.tt"
 
     if (IsImplicitObject)
     {
@@ -5545,15 +5401,15 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1749 "SchemaEntity202012.tt"
-        this.Write("                if (this.objectBacking is ImmutableDictionary<JsonEncodedText, Js" +
-                "onAny> objectBacking)\r\n                {\r\n                    return new JsonObj" +
-                "ect(objectBacking);\r\n                }\r\n\r\n    ");
+        #line 1708 "SchemaEntity202012.tt"
+        this.Write("                if (this.objectBacking is ImmutableDictionary<string, JsonAny> ob" +
+                "jectBacking)\r\n                {\r\n                    return new JsonObject(objec" +
+                "tBacking);\r\n                }\r\n\r\n    ");
         
         #line default
         #line hidden
         
-        #line 1754 "SchemaEntity202012.tt"
+        #line 1713 "SchemaEntity202012.tt"
 
     }
     
@@ -5561,7 +5417,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1757 "SchemaEntity202012.tt"
+        #line 1716 "SchemaEntity202012.tt"
         this.Write(@"
                 return new JsonObject(this.jsonElementBacking);
             }
@@ -5579,7 +5435,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1769 "SchemaEntity202012.tt"
+        #line 1728 "SchemaEntity202012.tt"
 
     if (IsImplicitArray)
     {
@@ -5588,7 +5444,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1773 "SchemaEntity202012.tt"
+        #line 1732 "SchemaEntity202012.tt"
         this.Write("                if (this.arrayBacking is ImmutableList<JsonAny> arrayBacking)\r\n  " +
                 "              {\r\n                    return new JsonArray(arrayBacking);\r\n      " +
                 "          }\r\n\r\n    ");
@@ -5596,7 +5452,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1778 "SchemaEntity202012.tt"
+        #line 1737 "SchemaEntity202012.tt"
 
     }
     
@@ -5604,7 +5460,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1781 "SchemaEntity202012.tt"
+        #line 1740 "SchemaEntity202012.tt"
         this.Write(@"
                 return new JsonArray(this.jsonElementBacking);
             }
@@ -5622,7 +5478,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1793 "SchemaEntity202012.tt"
+        #line 1752 "SchemaEntity202012.tt"
 
     if (IsImplicitNumber)
     {
@@ -5631,7 +5487,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1797 "SchemaEntity202012.tt"
+        #line 1756 "SchemaEntity202012.tt"
         this.Write("                if (this.numberBacking is double numberBacking)\r\n                " +
                 "{\r\n                    return new JsonNumber(numberBacking);\r\n                }\r" +
                 "\n\r\n    ");
@@ -5639,7 +5495,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1802 "SchemaEntity202012.tt"
+        #line 1761 "SchemaEntity202012.tt"
 
     }
     
@@ -5647,7 +5503,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1805 "SchemaEntity202012.tt"
+        #line 1764 "SchemaEntity202012.tt"
         this.Write(@"                return new JsonNumber(this.jsonElementBacking);
             }
         }
@@ -5664,7 +5520,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1816 "SchemaEntity202012.tt"
+        #line 1775 "SchemaEntity202012.tt"
 
     if (IsImplicitString)
     {
@@ -5673,15 +5529,15 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1820 "SchemaEntity202012.tt"
-        this.Write("                if (this.stringBacking is JsonEncodedText stringBacking)\r\n       " +
-                "         {\r\n                    return new JsonString(stringBacking);\r\n         " +
-                "       }\r\n\r\n    ");
+        #line 1779 "SchemaEntity202012.tt"
+        this.Write("                if (this.stringBacking is string stringBacking)\r\n                " +
+                "{\r\n                    return new JsonString(stringBacking);\r\n                }\r" +
+                "\n\r\n    ");
         
         #line default
         #line hidden
         
-        #line 1825 "SchemaEntity202012.tt"
+        #line 1784 "SchemaEntity202012.tt"
 
     }
     
@@ -5689,7 +5545,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1828 "SchemaEntity202012.tt"
+        #line 1787 "SchemaEntity202012.tt"
         this.Write(@"                return new JsonString(this.jsonElementBacking);
             }
         }
@@ -5706,7 +5562,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1839 "SchemaEntity202012.tt"
+        #line 1798 "SchemaEntity202012.tt"
 
     if (IsImplicitBoolean)
     {
@@ -5715,7 +5571,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1843 "SchemaEntity202012.tt"
+        #line 1802 "SchemaEntity202012.tt"
         this.Write("                if (this.booleanBacking is bool booleanBacking)\r\n                " +
                 "{\r\n                    return new JsonBoolean(booleanBacking);\r\n                " +
                 "}\r\n    ");
@@ -5723,7 +5579,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1847 "SchemaEntity202012.tt"
+        #line 1806 "SchemaEntity202012.tt"
 
     }
     
@@ -5731,7 +5587,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1850 "SchemaEntity202012.tt"
+        #line 1809 "SchemaEntity202012.tt"
         this.Write(@"                return new JsonBoolean(this.jsonElementBacking);
             }
         }
@@ -5752,7 +5608,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1865 "SchemaEntity202012.tt"
+        #line 1824 "SchemaEntity202012.tt"
 
     foreach(Conversion conversion in ConversionsViaConstructor)
     {
@@ -5765,100 +5621,100 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1873 "SchemaEntity202012.tt"
+        #line 1832 "SchemaEntity202012.tt"
         this.Write("        /// <summary>\r\n        /// Conversion from <see cref=\"");
         
         #line default
         #line hidden
         
-        #line 1874 "SchemaEntity202012.tt"
+        #line 1833 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( conversion.FullyQualifiedDotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 1874 "SchemaEntity202012.tt"
+        #line 1833 "SchemaEntity202012.tt"
         this.Write("\" />.\r\n        /// </summary>\r\n        /// <param name=\"value\">The value from whi" +
                 "ch to convert.</param>\r\n        public static implicit operator ");
         
         #line default
         #line hidden
         
-        #line 1877 "SchemaEntity202012.tt"
+        #line 1836 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 1877 "SchemaEntity202012.tt"
+        #line 1836 "SchemaEntity202012.tt"
         this.Write("(");
         
         #line default
         #line hidden
         
-        #line 1877 "SchemaEntity202012.tt"
+        #line 1836 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( conversion.FullyQualifiedDotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 1877 "SchemaEntity202012.tt"
+        #line 1836 "SchemaEntity202012.tt"
         this.Write(" value)\r\n        {\r\n            return new ");
         
         #line default
         #line hidden
         
-        #line 1879 "SchemaEntity202012.tt"
+        #line 1838 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 1879 "SchemaEntity202012.tt"
+        #line 1838 "SchemaEntity202012.tt"
         this.Write("(value);\r\n        }\r\n\r\n        /// <summary>\r\n        /// Conversion to <see cref" +
                 "=\"");
         
         #line default
         #line hidden
         
-        #line 1883 "SchemaEntity202012.tt"
+        #line 1842 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( conversion.FullyQualifiedDotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 1883 "SchemaEntity202012.tt"
+        #line 1842 "SchemaEntity202012.tt"
         this.Write("\" />.\r\n        /// </summary>\r\n        /// <param name=\"value\">The value from whi" +
                 "ch to convert.</param>\r\n        public static implicit operator ");
         
         #line default
         #line hidden
         
-        #line 1886 "SchemaEntity202012.tt"
+        #line 1845 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( conversion.FullyQualifiedDotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 1886 "SchemaEntity202012.tt"
+        #line 1845 "SchemaEntity202012.tt"
         this.Write("(");
         
         #line default
         #line hidden
         
-        #line 1886 "SchemaEntity202012.tt"
+        #line 1845 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 1886 "SchemaEntity202012.tt"
+        #line 1845 "SchemaEntity202012.tt"
         this.Write(" value)\r\n        {\r\n        ");
         
         #line default
         #line hidden
         
-        #line 1888 "SchemaEntity202012.tt"
+        #line 1847 "SchemaEntity202012.tt"
 
         if(conversion.IsObject)
         {
@@ -5867,26 +5723,26 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1892 "SchemaEntity202012.tt"
+        #line 1851 "SchemaEntity202012.tt"
         this.Write("            if (value.ValueKind == JsonValueKind.Object)\r\n            {\r\n        " +
                 "        return new ");
         
         #line default
         #line hidden
         
-        #line 1894 "SchemaEntity202012.tt"
+        #line 1853 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( conversion.FullyQualifiedDotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 1894 "SchemaEntity202012.tt"
+        #line 1853 "SchemaEntity202012.tt"
         this.Write("(value.AsObject);\r\n            }\r\n        ");
         
         #line default
         #line hidden
         
-        #line 1896 "SchemaEntity202012.tt"
+        #line 1855 "SchemaEntity202012.tt"
 
         }
         
@@ -5894,13 +5750,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1899 "SchemaEntity202012.tt"
+        #line 1858 "SchemaEntity202012.tt"
         this.Write("        ");
         
         #line default
         #line hidden
         
-        #line 1899 "SchemaEntity202012.tt"
+        #line 1858 "SchemaEntity202012.tt"
 
         if(conversion.IsArray)
         {
@@ -5909,26 +5765,26 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1903 "SchemaEntity202012.tt"
+        #line 1862 "SchemaEntity202012.tt"
         this.Write("            if (value.ValueKind == JsonValueKind.Array)\r\n            {\r\n         " +
                 "       return new ");
         
         #line default
         #line hidden
         
-        #line 1905 "SchemaEntity202012.tt"
+        #line 1864 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( conversion.FullyQualifiedDotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 1905 "SchemaEntity202012.tt"
+        #line 1864 "SchemaEntity202012.tt"
         this.Write("(value.AsArray);\r\n            }\r\n        ");
         
         #line default
         #line hidden
         
-        #line 1907 "SchemaEntity202012.tt"
+        #line 1866 "SchemaEntity202012.tt"
 
         }
         
@@ -5936,13 +5792,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1910 "SchemaEntity202012.tt"
+        #line 1869 "SchemaEntity202012.tt"
         this.Write("        ");
         
         #line default
         #line hidden
         
-        #line 1910 "SchemaEntity202012.tt"
+        #line 1869 "SchemaEntity202012.tt"
 
         if(conversion.IsString)
         {
@@ -5951,26 +5807,26 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1914 "SchemaEntity202012.tt"
+        #line 1873 "SchemaEntity202012.tt"
         this.Write("            if (value.ValueKind == JsonValueKind.String)\r\n            {\r\n        " +
                 "        return new ");
         
         #line default
         #line hidden
         
-        #line 1916 "SchemaEntity202012.tt"
+        #line 1875 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( conversion.FullyQualifiedDotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 1916 "SchemaEntity202012.tt"
+        #line 1875 "SchemaEntity202012.tt"
         this.Write("(value.AsString);\r\n            }\r\n        ");
         
         #line default
         #line hidden
         
-        #line 1918 "SchemaEntity202012.tt"
+        #line 1877 "SchemaEntity202012.tt"
 
         }
         
@@ -5978,13 +5834,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1921 "SchemaEntity202012.tt"
+        #line 1880 "SchemaEntity202012.tt"
         this.Write("        ");
         
         #line default
         #line hidden
         
-        #line 1921 "SchemaEntity202012.tt"
+        #line 1880 "SchemaEntity202012.tt"
 
         if(conversion.IsBoolean)
         {
@@ -5993,26 +5849,26 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1925 "SchemaEntity202012.tt"
+        #line 1884 "SchemaEntity202012.tt"
         this.Write("            if (value.ValueKind == JsonValueKind.True || value.ValueKind == JsonV" +
                 "alueKind.False)\r\n            {\r\n                return new ");
         
         #line default
         #line hidden
         
-        #line 1927 "SchemaEntity202012.tt"
+        #line 1886 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( conversion.FullyQualifiedDotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 1927 "SchemaEntity202012.tt"
+        #line 1886 "SchemaEntity202012.tt"
         this.Write("(value.AsBoolean);\r\n            }\r\n        ");
         
         #line default
         #line hidden
         
-        #line 1929 "SchemaEntity202012.tt"
+        #line 1888 "SchemaEntity202012.tt"
 
         }
         
@@ -6020,13 +5876,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1932 "SchemaEntity202012.tt"
+        #line 1891 "SchemaEntity202012.tt"
         this.Write("        ");
         
         #line default
         #line hidden
         
-        #line 1932 "SchemaEntity202012.tt"
+        #line 1891 "SchemaEntity202012.tt"
 
         if(conversion.IsNumber)
         {
@@ -6035,26 +5891,26 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1936 "SchemaEntity202012.tt"
+        #line 1895 "SchemaEntity202012.tt"
         this.Write("            if (value.ValueKind == JsonValueKind.Number)\r\n            {\r\n        " +
                 "        return new ");
         
         #line default
         #line hidden
         
-        #line 1938 "SchemaEntity202012.tt"
+        #line 1897 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( conversion.FullyQualifiedDotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 1938 "SchemaEntity202012.tt"
+        #line 1897 "SchemaEntity202012.tt"
         this.Write("(value.AsNumber);\r\n            }\r\n        ");
         
         #line default
         #line hidden
         
-        #line 1940 "SchemaEntity202012.tt"
+        #line 1899 "SchemaEntity202012.tt"
 
         }
         
@@ -6062,13 +5918,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1943 "SchemaEntity202012.tt"
+        #line 1902 "SchemaEntity202012.tt"
         this.Write("            return default;\r\n        }\r\n    ");
         
         #line default
         #line hidden
         
-        #line 1945 "SchemaEntity202012.tt"
+        #line 1904 "SchemaEntity202012.tt"
 
     }
     
@@ -6076,13 +5932,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1948 "SchemaEntity202012.tt"
+        #line 1907 "SchemaEntity202012.tt"
         this.Write("\r\n        ");
         
         #line default
         #line hidden
         
-        #line 1949 "SchemaEntity202012.tt"
+        #line 1908 "SchemaEntity202012.tt"
 
     foreach(Conversion conversion in ConversionsViaCast)
     {
@@ -6091,112 +5947,112 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1953 "SchemaEntity202012.tt"
+        #line 1912 "SchemaEntity202012.tt"
         this.Write("        /// <summary>\r\n        /// Conversion from <see cref=\"");
         
         #line default
         #line hidden
         
-        #line 1954 "SchemaEntity202012.tt"
+        #line 1913 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( conversion.FullyQualifiedDotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 1954 "SchemaEntity202012.tt"
+        #line 1913 "SchemaEntity202012.tt"
         this.Write("\" />.\r\n        /// </summary>\r\n        /// <param name=\"value\">The value from whi" +
                 "ch to convert.</param>\r\n        public static implicit operator ");
         
         #line default
         #line hidden
         
-        #line 1957 "SchemaEntity202012.tt"
+        #line 1916 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 1957 "SchemaEntity202012.tt"
+        #line 1916 "SchemaEntity202012.tt"
         this.Write("(");
         
         #line default
         #line hidden
         
-        #line 1957 "SchemaEntity202012.tt"
+        #line 1916 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( conversion.FullyQualifiedDotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 1957 "SchemaEntity202012.tt"
+        #line 1916 "SchemaEntity202012.tt"
         this.Write(" value)\r\n        {\r\n            return (");
         
         #line default
         #line hidden
         
-        #line 1959 "SchemaEntity202012.tt"
+        #line 1918 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( conversion.ConvertViaDotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 1959 "SchemaEntity202012.tt"
+        #line 1918 "SchemaEntity202012.tt"
         this.Write(")value;\r\n        }\r\n\r\n        /// <summary>\r\n        /// Conversion to <see cref=" +
                 "\"");
         
         #line default
         #line hidden
         
-        #line 1963 "SchemaEntity202012.tt"
+        #line 1922 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( conversion.FullyQualifiedDotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 1963 "SchemaEntity202012.tt"
+        #line 1922 "SchemaEntity202012.tt"
         this.Write("\" />.\r\n        /// </summary>\r\n        /// <param name=\"value\">The value from whi" +
                 "ch to convert.</param>\r\n        public static implicit operator ");
         
         #line default
         #line hidden
         
-        #line 1966 "SchemaEntity202012.tt"
+        #line 1925 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( conversion.FullyQualifiedDotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 1966 "SchemaEntity202012.tt"
+        #line 1925 "SchemaEntity202012.tt"
         this.Write("(");
         
         #line default
         #line hidden
         
-        #line 1966 "SchemaEntity202012.tt"
+        #line 1925 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 1966 "SchemaEntity202012.tt"
+        #line 1925 "SchemaEntity202012.tt"
         this.Write(" value)\r\n        {\r\n            return (");
         
         #line default
         #line hidden
         
-        #line 1968 "SchemaEntity202012.tt"
+        #line 1927 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( conversion.ConvertViaDotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 1968 "SchemaEntity202012.tt"
+        #line 1927 "SchemaEntity202012.tt"
         this.Write(")value;\r\n        }\r\n    ");
         
         #line default
         #line hidden
         
-        #line 1970 "SchemaEntity202012.tt"
+        #line 1929 "SchemaEntity202012.tt"
 
     }
     
@@ -6204,7 +6060,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1973 "SchemaEntity202012.tt"
+        #line 1932 "SchemaEntity202012.tt"
         this.Write("\r\n        /// <summary>\r\n        /// Conversion from any.\r\n        /// </summary>" +
                 "\r\n        /// <param name=\"value\">The value from which to convert.</param>\r\n    " +
                 "    public static implicit operator ");
@@ -6212,38 +6068,38 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1978 "SchemaEntity202012.tt"
+        #line 1937 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 1978 "SchemaEntity202012.tt"
+        #line 1937 "SchemaEntity202012.tt"
         this.Write("(JsonAny value)\r\n        {\r\n            if (value.HasJsonElement)\r\n            {\r" +
                 "\n                return new ");
         
         #line default
         #line hidden
         
-        #line 1982 "SchemaEntity202012.tt"
+        #line 1941 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 1982 "SchemaEntity202012.tt"
+        #line 1941 "SchemaEntity202012.tt"
         this.Write("(value.AsJsonElement);\r\n            }\r\n\r\n            return value.As<");
         
         #line default
         #line hidden
         
-        #line 1985 "SchemaEntity202012.tt"
+        #line 1944 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 1985 "SchemaEntity202012.tt"
+        #line 1944 "SchemaEntity202012.tt"
         this.Write(">();\r\n        }\r\n\r\n        /// <summary>\r\n        /// Conversion to any.\r\n       " +
                 " /// </summary>\r\n        /// <param name=\"value\">The value from which to convert" +
                 ".</param>\r\n        public static implicit operator JsonAny(");
@@ -6251,19 +6107,19 @@ namespace ");
         #line default
         #line hidden
         
-        #line 1992 "SchemaEntity202012.tt"
+        #line 1951 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 1992 "SchemaEntity202012.tt"
+        #line 1951 "SchemaEntity202012.tt"
         this.Write(" value)\r\n        {\r\n            return value.AsAny;\r\n        }\r\n\r\n    ");
         
         #line default
         #line hidden
         
-        #line 1997 "SchemaEntity202012.tt"
+        #line 1956 "SchemaEntity202012.tt"
 
     if (IsImplicitArray)
     {
@@ -6272,7 +6128,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2001 "SchemaEntity202012.tt"
+        #line 1960 "SchemaEntity202012.tt"
         this.Write("\r\n        /// <summary>\r\n        /// Conversion from array.\r\n        /// </summar" +
                 "y>\r\n        /// <param name=\"value\">The value from which to convert.</param>\r\n  " +
                 "      public static implicit operator ");
@@ -6280,25 +6136,25 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2006 "SchemaEntity202012.tt"
+        #line 1965 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2006 "SchemaEntity202012.tt"
+        #line 1965 "SchemaEntity202012.tt"
         this.Write("(JsonArray value)\r\n        {\r\n            return new ");
         
         #line default
         #line hidden
         
-        #line 2008 "SchemaEntity202012.tt"
+        #line 1967 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2008 "SchemaEntity202012.tt"
+        #line 1967 "SchemaEntity202012.tt"
         this.Write("(value);\r\n        }\r\n\r\n        /// <summary>\r\n        /// Conversion to array.\r\n " +
                 "       /// </summary>\r\n        /// <param name=\"value\">The value from which to c" +
                 "onvert.</param>\r\n        public static implicit operator JsonArray(");
@@ -6306,13 +6162,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2015 "SchemaEntity202012.tt"
+        #line 1974 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2015 "SchemaEntity202012.tt"
+        #line 1974 "SchemaEntity202012.tt"
         this.Write(@" value)
         {
             return value.AsArray;
@@ -6327,13 +6183,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2024 "SchemaEntity202012.tt"
+        #line 1983 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2024 "SchemaEntity202012.tt"
+        #line 1983 "SchemaEntity202012.tt"
         this.Write(@" value)
         {
             return value.AsArray.AsItemsList;
@@ -6348,31 +6204,31 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2033 "SchemaEntity202012.tt"
+        #line 1992 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2033 "SchemaEntity202012.tt"
+        #line 1992 "SchemaEntity202012.tt"
         this.Write("(ImmutableList<JsonAny> value)\r\n        {\r\n            return new ");
         
         #line default
         #line hidden
         
-        #line 2035 "SchemaEntity202012.tt"
+        #line 1994 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2035 "SchemaEntity202012.tt"
+        #line 1994 "SchemaEntity202012.tt"
         this.Write("(value);\r\n        }\r\n    ");
         
         #line default
         #line hidden
         
-        #line 2037 "SchemaEntity202012.tt"
+        #line 1996 "SchemaEntity202012.tt"
 
     }
     
@@ -6380,13 +6236,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2040 "SchemaEntity202012.tt"
+        #line 1999 "SchemaEntity202012.tt"
         this.Write("\r\n    ");
         
         #line default
         #line hidden
         
-        #line 2041 "SchemaEntity202012.tt"
+        #line 2000 "SchemaEntity202012.tt"
 
     if (IsImplicitObject)
     {
@@ -6395,7 +6251,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2045 "SchemaEntity202012.tt"
+        #line 2004 "SchemaEntity202012.tt"
         this.Write("\r\n        /// <summary>\r\n        /// Conversion from object.\r\n        /// </summa" +
                 "ry>\r\n        /// <param name=\"value\">The value from which to convert.</param>\r\n " +
                 "       public static implicit operator ");
@@ -6403,25 +6259,25 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2050 "SchemaEntity202012.tt"
+        #line 2009 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2050 "SchemaEntity202012.tt"
+        #line 2009 "SchemaEntity202012.tt"
         this.Write("(JsonObject value)\r\n        {\r\n            return new ");
         
         #line default
         #line hidden
         
-        #line 2052 "SchemaEntity202012.tt"
+        #line 2011 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2052 "SchemaEntity202012.tt"
+        #line 2011 "SchemaEntity202012.tt"
         this.Write("(value);\r\n        }\r\n\r\n        /// <summary>\r\n        /// Conversion to object.\r\n" +
                 "        /// </summary>\r\n        /// <param name=\"value\">The value from which to " +
                 "convert.</param>\r\n        public static implicit operator JsonObject(");
@@ -6429,13 +6285,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2059 "SchemaEntity202012.tt"
+        #line 2018 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2059 "SchemaEntity202012.tt"
+        #line 2018 "SchemaEntity202012.tt"
         this.Write(@" value)
         {
             return value.AsObject;
@@ -6445,18 +6301,18 @@ namespace ");
         /// Implicit conversion to a property dictionary.
         /// </summary>
         /// <param name=""value"">The value from which to convert.</param>
-        public static implicit operator ImmutableDictionary<JsonEncodedText, JsonAny>(");
+        public static implicit operator ImmutableDictionary<string, JsonAny>(");
         
         #line default
         #line hidden
         
-        #line 2068 "SchemaEntity202012.tt"
+        #line 2027 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2068 "SchemaEntity202012.tt"
+        #line 2027 "SchemaEntity202012.tt"
         this.Write(@"  value)
         {
             return value.AsObject.AsPropertyDictionary;
@@ -6471,32 +6327,32 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2077 "SchemaEntity202012.tt"
+        #line 2036 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2077 "SchemaEntity202012.tt"
-        this.Write(" (ImmutableDictionary<JsonEncodedText, JsonAny> value)\r\n        {\r\n            re" +
-                "turn new ");
+        #line 2036 "SchemaEntity202012.tt"
+        this.Write(" (ImmutableDictionary<string, JsonAny> value)\r\n        {\r\n            return new " +
+                "");
         
         #line default
         #line hidden
         
-        #line 2079 "SchemaEntity202012.tt"
+        #line 2038 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2079 "SchemaEntity202012.tt"
+        #line 2038 "SchemaEntity202012.tt"
         this.Write(" (value);\r\n        }\r\n\r\n    ");
         
         #line default
         #line hidden
         
-        #line 2082 "SchemaEntity202012.tt"
+        #line 2041 "SchemaEntity202012.tt"
 
     }
     
@@ -6504,13 +6360,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2085 "SchemaEntity202012.tt"
+        #line 2044 "SchemaEntity202012.tt"
         this.Write("\r\n    ");
         
         #line default
         #line hidden
         
-        #line 2086 "SchemaEntity202012.tt"
+        #line 2045 "SchemaEntity202012.tt"
 
     if (IsImplicitString)
     {
@@ -6519,7 +6375,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2090 "SchemaEntity202012.tt"
+        #line 2049 "SchemaEntity202012.tt"
         this.Write("\r\n        /// <summary>\r\n        /// Conversion from string.\r\n        /// </summa" +
                 "ry>\r\n        /// <param name=\"value\">The value from which to convert.</param>\r\n " +
                 "       public static implicit operator ");
@@ -6527,25 +6383,25 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2095 "SchemaEntity202012.tt"
+        #line 2054 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2095 "SchemaEntity202012.tt"
+        #line 2054 "SchemaEntity202012.tt"
         this.Write("(string value)\r\n        {\r\n            return new ");
         
         #line default
         #line hidden
         
-        #line 2097 "SchemaEntity202012.tt"
+        #line 2056 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2097 "SchemaEntity202012.tt"
+        #line 2056 "SchemaEntity202012.tt"
         this.Write("(value);\r\n        }\r\n\r\n        /// <summary>\r\n        /// Conversion to string.\r\n" +
                 "        /// </summary>\r\n        /// <param name=\"value\">The number from which to" +
                 " convert.</param>\r\n        public static implicit operator string(");
@@ -6553,68 +6409,16 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2104 "SchemaEntity202012.tt"
+        #line 2063 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2104 "SchemaEntity202012.tt"
+        #line 2063 "SchemaEntity202012.tt"
         this.Write(@" value)
         {
-            return value.AsString.GetString();
-        }
-
-        /// <summary>
-        /// Conversion from <see cref=""JsonEncodedText""/>.
-        /// </summary>
-        /// <param name=""value"">The value from which to convert.</param>
-        public static implicit operator ");
-        
-        #line default
-        #line hidden
-        
-        #line 2113 "SchemaEntity202012.tt"
-        this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
-        
-        #line default
-        #line hidden
-        
-        #line 2113 "SchemaEntity202012.tt"
-        this.Write("(JsonEncodedText value)\r\n        {\r\n            return new ");
-        
-        #line default
-        #line hidden
-        
-        #line 2115 "SchemaEntity202012.tt"
-        this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
-        
-        #line default
-        #line hidden
-        
-        #line 2115 "SchemaEntity202012.tt"
-        this.Write(@"(value);
-        }
-
-        /// <summary>
-        /// Conversion to <see cref=""JsonEncodedText""/>.
-        /// </summary>
-        /// <param name=""value"">The number from which to convert.</param>
-        public static implicit operator JsonEncodedText(");
-        
-        #line default
-        #line hidden
-        
-        #line 2122 "SchemaEntity202012.tt"
-        this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
-        
-        #line default
-        #line hidden
-        
-        #line 2122 "SchemaEntity202012.tt"
-        this.Write(@" value)
-        {
-            return value.AsString.GetJsonEncodedText();
+            return value.AsString;
         }
 
         /// <summary>
@@ -6626,25 +6430,25 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2131 "SchemaEntity202012.tt"
+        #line 2072 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2131 "SchemaEntity202012.tt"
+        #line 2072 "SchemaEntity202012.tt"
         this.Write("(ReadOnlySpan<char> value)\r\n        {\r\n            return new ");
         
         #line default
         #line hidden
         
-        #line 2133 "SchemaEntity202012.tt"
+        #line 2074 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2133 "SchemaEntity202012.tt"
+        #line 2074 "SchemaEntity202012.tt"
         this.Write("(value);\r\n        }\r\n\r\n        /// <summary>\r\n        /// Conversion to string.\r\n" +
                 "        /// </summary>\r\n        /// <param name=\"value\">The number from which to" +
                 " convert.</param>\r\n        public static implicit operator ReadOnlySpan<char>(");
@@ -6652,16 +6456,16 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2140 "SchemaEntity202012.tt"
+        #line 2081 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2140 "SchemaEntity202012.tt"
+        #line 2081 "SchemaEntity202012.tt"
         this.Write(@" value)
         {
-            return value.AsString.AsSpan();
+            return value.AsString;
         }
 
         /// <summary>
@@ -6673,25 +6477,25 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2149 "SchemaEntity202012.tt"
+        #line 2090 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2149 "SchemaEntity202012.tt"
+        #line 2090 "SchemaEntity202012.tt"
         this.Write("(ReadOnlySpan<byte> value)\r\n        {\r\n            return new ");
         
         #line default
         #line hidden
         
-        #line 2151 "SchemaEntity202012.tt"
+        #line 2092 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2151 "SchemaEntity202012.tt"
+        #line 2092 "SchemaEntity202012.tt"
         this.Write("(value);\r\n        }\r\n\r\n        /// <summary>\r\n        /// Conversion to utf8 byte" +
                 "s.\r\n        /// </summary>\r\n        /// <param name=\"value\">The number from whic" +
                 "h to convert.</param>\r\n        public static implicit operator ReadOnlySpan<byte" +
@@ -6700,16 +6504,16 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2158 "SchemaEntity202012.tt"
+        #line 2099 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2158 "SchemaEntity202012.tt"
+        #line 2099 "SchemaEntity202012.tt"
         this.Write(@" value)
         {
-            return value.AsString.GetJsonEncodedText().EncodedUtf8Bytes;
+            return value.AsString;
         }
 
         /// <summary>
@@ -6721,25 +6525,25 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2167 "SchemaEntity202012.tt"
+        #line 2108 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2167 "SchemaEntity202012.tt"
+        #line 2108 "SchemaEntity202012.tt"
         this.Write("(JsonString value)\r\n        {\r\n            return new ");
         
         #line default
         #line hidden
         
-        #line 2169 "SchemaEntity202012.tt"
+        #line 2110 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2169 "SchemaEntity202012.tt"
+        #line 2110 "SchemaEntity202012.tt"
         this.Write("(value);\r\n        }\r\n\r\n        /// <summary>\r\n        /// Conversion to string.\r\n" +
                 "        /// </summary>\r\n        /// <param name=\"value\">The value from which to " +
                 "convert.</param>\r\n        public static implicit operator JsonString(");
@@ -6747,19 +6551,19 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2176 "SchemaEntity202012.tt"
+        #line 2117 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2176 "SchemaEntity202012.tt"
+        #line 2117 "SchemaEntity202012.tt"
         this.Write(" value)\r\n        {\r\n            return value.AsString;\r\n        }\r\n\r\n    ");
         
         #line default
         #line hidden
         
-        #line 2181 "SchemaEntity202012.tt"
+        #line 2122 "SchemaEntity202012.tt"
 
     }
     
@@ -6767,13 +6571,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2184 "SchemaEntity202012.tt"
+        #line 2125 "SchemaEntity202012.tt"
         this.Write("\r\n    ");
         
         #line default
         #line hidden
         
-        #line 2185 "SchemaEntity202012.tt"
+        #line 2126 "SchemaEntity202012.tt"
 
     if (IsImplicitNumber)
     {
@@ -6782,7 +6586,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2189 "SchemaEntity202012.tt"
+        #line 2130 "SchemaEntity202012.tt"
         this.Write("\r\n        /// <summary>\r\n        /// Conversion from double.\r\n        /// </summa" +
                 "ry>\r\n        /// <param name=\"value\">The value from which to convert.</param>\r\n " +
                 "       public static implicit operator ");
@@ -6790,25 +6594,25 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2194 "SchemaEntity202012.tt"
+        #line 2135 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2194 "SchemaEntity202012.tt"
+        #line 2135 "SchemaEntity202012.tt"
         this.Write("(double value)\r\n        {\r\n            return new ");
         
         #line default
         #line hidden
         
-        #line 2196 "SchemaEntity202012.tt"
+        #line 2137 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2196 "SchemaEntity202012.tt"
+        #line 2137 "SchemaEntity202012.tt"
         this.Write("(value);\r\n        }\r\n\r\n        /// <summary>\r\n        /// Conversion to double.\r\n" +
                 "        /// </summary>\r\n        /// <param name=\"number\">The number from which t" +
                 "o convert.</param>\r\n        public static implicit operator double(");
@@ -6816,13 +6620,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2203 "SchemaEntity202012.tt"
+        #line 2144 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2203 "SchemaEntity202012.tt"
+        #line 2144 "SchemaEntity202012.tt"
         this.Write(@" number)
         {
             return number.AsNumber.GetDouble();
@@ -6837,25 +6641,25 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2212 "SchemaEntity202012.tt"
+        #line 2153 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2212 "SchemaEntity202012.tt"
+        #line 2153 "SchemaEntity202012.tt"
         this.Write("(float value)\r\n        {\r\n            return new ");
         
         #line default
         #line hidden
         
-        #line 2214 "SchemaEntity202012.tt"
+        #line 2155 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2214 "SchemaEntity202012.tt"
+        #line 2155 "SchemaEntity202012.tt"
         this.Write("(value);\r\n        }\r\n\r\n        /// <summary>\r\n        /// Conversion to float.\r\n " +
                 "       /// </summary>\r\n        /// <param name=\"number\">The number from which to" +
                 " convert.</param>\r\n        public static implicit operator float(");
@@ -6863,13 +6667,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2221 "SchemaEntity202012.tt"
+        #line 2162 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2221 "SchemaEntity202012.tt"
+        #line 2162 "SchemaEntity202012.tt"
         this.Write(@" number)
         {
             return number.AsNumber.GetSingle();
@@ -6884,25 +6688,25 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2230 "SchemaEntity202012.tt"
+        #line 2171 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2230 "SchemaEntity202012.tt"
+        #line 2171 "SchemaEntity202012.tt"
         this.Write("(long value)\r\n        {\r\n            return new ");
         
         #line default
         #line hidden
         
-        #line 2232 "SchemaEntity202012.tt"
+        #line 2173 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2232 "SchemaEntity202012.tt"
+        #line 2173 "SchemaEntity202012.tt"
         this.Write("(value);\r\n        }\r\n\r\n        /// <summary>\r\n        /// Conversion to long.\r\n  " +
                 "      /// </summary>\r\n        /// <param name=\"number\">The number from which to " +
                 "convert.</param>\r\n        public static implicit operator long(");
@@ -6910,13 +6714,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2239 "SchemaEntity202012.tt"
+        #line 2180 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2239 "SchemaEntity202012.tt"
+        #line 2180 "SchemaEntity202012.tt"
         this.Write(@" number)
         {
             return number.AsNumber.GetInt64();
@@ -6931,25 +6735,25 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2248 "SchemaEntity202012.tt"
+        #line 2189 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2248 "SchemaEntity202012.tt"
+        #line 2189 "SchemaEntity202012.tt"
         this.Write("(int value)\r\n        {\r\n            return new ");
         
         #line default
         #line hidden
         
-        #line 2250 "SchemaEntity202012.tt"
+        #line 2191 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2250 "SchemaEntity202012.tt"
+        #line 2191 "SchemaEntity202012.tt"
         this.Write("(value);\r\n        }\r\n\r\n        /// <summary>\r\n        /// Conversion to int.\r\n   " +
                 "     /// </summary>\r\n        /// <param name=\"number\">The number from which to c" +
                 "onvert.</param>\r\n        public static implicit operator int(");
@@ -6957,13 +6761,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2257 "SchemaEntity202012.tt"
+        #line 2198 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2257 "SchemaEntity202012.tt"
+        #line 2198 "SchemaEntity202012.tt"
         this.Write(@" number)
         {
             return number.AsNumber.GetInt32();
@@ -6978,25 +6782,25 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2266 "SchemaEntity202012.tt"
+        #line 2207 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2266 "SchemaEntity202012.tt"
+        #line 2207 "SchemaEntity202012.tt"
         this.Write("(JsonNumber value)\r\n        {\r\n            return new ");
         
         #line default
         #line hidden
         
-        #line 2268 "SchemaEntity202012.tt"
+        #line 2209 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2268 "SchemaEntity202012.tt"
+        #line 2209 "SchemaEntity202012.tt"
         this.Write("(value);\r\n        }\r\n\r\n        /// <summary>\r\n        /// Conversion to number.\r\n" +
                 "        /// </summary>\r\n        /// <param name=\"number\">The value from which to" +
                 " convert.</param>\r\n        public static implicit operator JsonNumber(");
@@ -7004,19 +6808,19 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2275 "SchemaEntity202012.tt"
+        #line 2216 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2275 "SchemaEntity202012.tt"
+        #line 2216 "SchemaEntity202012.tt"
         this.Write(" number)\r\n        {\r\n            return number.AsNumber;\r\n        }\r\n\r\n    ");
         
         #line default
         #line hidden
         
-        #line 2280 "SchemaEntity202012.tt"
+        #line 2221 "SchemaEntity202012.tt"
 
     }
     
@@ -7024,13 +6828,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2283 "SchemaEntity202012.tt"
+        #line 2224 "SchemaEntity202012.tt"
         this.Write("\r\n    ");
         
         #line default
         #line hidden
         
-        #line 2284 "SchemaEntity202012.tt"
+        #line 2225 "SchemaEntity202012.tt"
 
     if (IsImplicitBoolean)
     {
@@ -7039,7 +6843,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2288 "SchemaEntity202012.tt"
+        #line 2229 "SchemaEntity202012.tt"
         this.Write("\r\n        /// <summary>\r\n        /// Conversion from bool.\r\n        /// </summary" +
                 ">\r\n        /// <param name=\"value\">The value from which to convert.</param>\r\n   " +
                 "     public static implicit operator ");
@@ -7047,25 +6851,25 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2293 "SchemaEntity202012.tt"
+        #line 2234 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2293 "SchemaEntity202012.tt"
+        #line 2234 "SchemaEntity202012.tt"
         this.Write("(bool value)\r\n        {\r\n            return new ");
         
         #line default
         #line hidden
         
-        #line 2295 "SchemaEntity202012.tt"
+        #line 2236 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2295 "SchemaEntity202012.tt"
+        #line 2236 "SchemaEntity202012.tt"
         this.Write("(value);\r\n        }\r\n\r\n        /// <summary>\r\n        /// Conversion to bool.\r\n  " +
                 "      /// </summary>\r\n        /// <param name=\"boolean\">The value from which to " +
                 "convert.</param>\r\n        public static implicit operator bool(");
@@ -7073,13 +6877,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2302 "SchemaEntity202012.tt"
+        #line 2243 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2302 "SchemaEntity202012.tt"
+        #line 2243 "SchemaEntity202012.tt"
         this.Write(@" boolean)
         {
             return boolean.AsBoolean.GetBoolean();
@@ -7094,25 +6898,25 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2311 "SchemaEntity202012.tt"
+        #line 2252 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2311 "SchemaEntity202012.tt"
+        #line 2252 "SchemaEntity202012.tt"
         this.Write("(JsonBoolean value)\r\n        {\r\n            return new ");
         
         #line default
         #line hidden
         
-        #line 2313 "SchemaEntity202012.tt"
+        #line 2254 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2313 "SchemaEntity202012.tt"
+        #line 2254 "SchemaEntity202012.tt"
         this.Write("(value);\r\n        }\r\n\r\n        /// <summary>\r\n        /// Conversion to bool.\r\n  " +
                 "      /// </summary>\r\n        /// <param name=\"boolean\">The value from which to " +
                 "convert.</param>\r\n        public static implicit operator JsonBoolean(");
@@ -7120,19 +6924,19 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2320 "SchemaEntity202012.tt"
+        #line 2261 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2320 "SchemaEntity202012.tt"
+        #line 2261 "SchemaEntity202012.tt"
         this.Write(" boolean)\r\n        {\r\n            return boolean.AsBoolean;\r\n        }\r\n\r\n    ");
         
         #line default
         #line hidden
         
-        #line 2325 "SchemaEntity202012.tt"
+        #line 2266 "SchemaEntity202012.tt"
 
     }
     
@@ -7140,7 +6944,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2328 "SchemaEntity202012.tt"
+        #line 2269 "SchemaEntity202012.tt"
         this.Write(@"
         /// <summary>
         /// Standard equality operator.
@@ -7153,25 +6957,25 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2335 "SchemaEntity202012.tt"
+        #line 2276 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2335 "SchemaEntity202012.tt"
+        #line 2276 "SchemaEntity202012.tt"
         this.Write(" lhs, ");
         
         #line default
         #line hidden
         
-        #line 2335 "SchemaEntity202012.tt"
+        #line 2276 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2335 "SchemaEntity202012.tt"
+        #line 2276 "SchemaEntity202012.tt"
         this.Write(@" rhs)
         {
             return lhs.Equals(rhs);
@@ -7188,31 +6992,31 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2346 "SchemaEntity202012.tt"
+        #line 2287 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2346 "SchemaEntity202012.tt"
+        #line 2287 "SchemaEntity202012.tt"
         this.Write(" lhs, ");
         
         #line default
         #line hidden
         
-        #line 2346 "SchemaEntity202012.tt"
+        #line 2287 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2346 "SchemaEntity202012.tt"
+        #line 2287 "SchemaEntity202012.tt"
         this.Write(" rhs)\r\n        {\r\n            return !lhs.Equals(rhs);\r\n        }\r\n\r\n    ");
         
         #line default
         #line hidden
         
-        #line 2351 "SchemaEntity202012.tt"
+        #line 2292 "SchemaEntity202012.tt"
 
     if (IsImplicitArray)
     {
@@ -7221,13 +7025,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2355 "SchemaEntity202012.tt"
+        #line 2296 "SchemaEntity202012.tt"
         this.Write("        ");
         
         #line default
         #line hidden
         
-        #line 2355 "SchemaEntity202012.tt"
+        #line 2296 "SchemaEntity202012.tt"
 
         if (CanEnumerateAsSpecificType)
         {
@@ -7236,7 +7040,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2359 "SchemaEntity202012.tt"
+        #line 2300 "SchemaEntity202012.tt"
         this.Write(@"        /// <summary>
         /// Create an array from the given items.
         /// </summary>
@@ -7247,37 +7051,37 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2364 "SchemaEntity202012.tt"
+        #line 2305 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2364 "SchemaEntity202012.tt"
+        #line 2305 "SchemaEntity202012.tt"
         this.Write(" From(params ");
         
         #line default
         #line hidden
         
-        #line 2364 "SchemaEntity202012.tt"
+        #line 2305 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( SingleItemsDotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2364 "SchemaEntity202012.tt"
+        #line 2305 "SchemaEntity202012.tt"
         this.Write("[] items)\r\n        {\r\n            return new ");
         
         #line default
         #line hidden
         
-        #line 2366 "SchemaEntity202012.tt"
+        #line 2307 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2366 "SchemaEntity202012.tt"
+        #line 2307 "SchemaEntity202012.tt"
         this.Write(@"(items.Select(i => (JsonAny)i).ToImmutableList());
         }
 
@@ -7291,37 +7095,37 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2374 "SchemaEntity202012.tt"
+        #line 2315 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2374 "SchemaEntity202012.tt"
+        #line 2315 "SchemaEntity202012.tt"
         this.Write(" From(");
         
         #line default
         #line hidden
         
-        #line 2374 "SchemaEntity202012.tt"
+        #line 2315 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( SingleItemsDotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2374 "SchemaEntity202012.tt"
+        #line 2315 "SchemaEntity202012.tt"
         this.Write(" item1)\r\n        {\r\n            return new ");
         
         #line default
         #line hidden
         
-        #line 2376 "SchemaEntity202012.tt"
+        #line 2317 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2376 "SchemaEntity202012.tt"
+        #line 2317 "SchemaEntity202012.tt"
         this.Write(@"(ImmutableList.Create((JsonAny)item1));
         }
 
@@ -7336,49 +7140,49 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2385 "SchemaEntity202012.tt"
+        #line 2326 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2385 "SchemaEntity202012.tt"
+        #line 2326 "SchemaEntity202012.tt"
         this.Write(" From(");
         
         #line default
         #line hidden
         
-        #line 2385 "SchemaEntity202012.tt"
+        #line 2326 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( SingleItemsDotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2385 "SchemaEntity202012.tt"
+        #line 2326 "SchemaEntity202012.tt"
         this.Write(" item1, ");
         
         #line default
         #line hidden
         
-        #line 2385 "SchemaEntity202012.tt"
+        #line 2326 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( SingleItemsDotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2385 "SchemaEntity202012.tt"
+        #line 2326 "SchemaEntity202012.tt"
         this.Write(" item2)\r\n        {\r\n            return new ");
         
         #line default
         #line hidden
         
-        #line 2387 "SchemaEntity202012.tt"
+        #line 2328 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2387 "SchemaEntity202012.tt"
+        #line 2328 "SchemaEntity202012.tt"
         this.Write(@"(ImmutableList.Create((JsonAny)item1, (JsonAny)item2));
         }
 
@@ -7394,61 +7198,61 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2397 "SchemaEntity202012.tt"
+        #line 2338 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2397 "SchemaEntity202012.tt"
+        #line 2338 "SchemaEntity202012.tt"
         this.Write(" From(");
         
         #line default
         #line hidden
         
-        #line 2397 "SchemaEntity202012.tt"
+        #line 2338 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( SingleItemsDotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2397 "SchemaEntity202012.tt"
+        #line 2338 "SchemaEntity202012.tt"
         this.Write(" item1, ");
         
         #line default
         #line hidden
         
-        #line 2397 "SchemaEntity202012.tt"
+        #line 2338 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( SingleItemsDotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2397 "SchemaEntity202012.tt"
+        #line 2338 "SchemaEntity202012.tt"
         this.Write(" item2, ");
         
         #line default
         #line hidden
         
-        #line 2397 "SchemaEntity202012.tt"
+        #line 2338 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( SingleItemsDotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2397 "SchemaEntity202012.tt"
+        #line 2338 "SchemaEntity202012.tt"
         this.Write(" item3)\r\n        {\r\n            return new ");
         
         #line default
         #line hidden
         
-        #line 2399 "SchemaEntity202012.tt"
+        #line 2340 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2399 "SchemaEntity202012.tt"
+        #line 2340 "SchemaEntity202012.tt"
         this.Write(@"(ImmutableList.Create((JsonAny)item1, (JsonAny)item2, (JsonAny)item3));
         }
 
@@ -7465,80 +7269,80 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2410 "SchemaEntity202012.tt"
+        #line 2351 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2410 "SchemaEntity202012.tt"
+        #line 2351 "SchemaEntity202012.tt"
         this.Write(" From(");
         
         #line default
         #line hidden
         
-        #line 2410 "SchemaEntity202012.tt"
+        #line 2351 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( SingleItemsDotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2410 "SchemaEntity202012.tt"
+        #line 2351 "SchemaEntity202012.tt"
         this.Write(" item1, ");
         
         #line default
         #line hidden
         
-        #line 2410 "SchemaEntity202012.tt"
+        #line 2351 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( SingleItemsDotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2410 "SchemaEntity202012.tt"
+        #line 2351 "SchemaEntity202012.tt"
         this.Write(" item2, ");
         
         #line default
         #line hidden
         
-        #line 2410 "SchemaEntity202012.tt"
+        #line 2351 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( SingleItemsDotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2410 "SchemaEntity202012.tt"
+        #line 2351 "SchemaEntity202012.tt"
         this.Write(" item3, ");
         
         #line default
         #line hidden
         
-        #line 2410 "SchemaEntity202012.tt"
+        #line 2351 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( SingleItemsDotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2410 "SchemaEntity202012.tt"
+        #line 2351 "SchemaEntity202012.tt"
         this.Write(" item4)\r\n        {\r\n            return new ");
         
         #line default
         #line hidden
         
-        #line 2412 "SchemaEntity202012.tt"
+        #line 2353 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2412 "SchemaEntity202012.tt"
+        #line 2353 "SchemaEntity202012.tt"
         this.Write("(ImmutableList.Create((JsonAny)item1, (JsonAny)item2, (JsonAny)item3, (JsonAny)it" +
                 "em4));\r\n        }\r\n        ");
         
         #line default
         #line hidden
         
-        #line 2414 "SchemaEntity202012.tt"
+        #line 2355 "SchemaEntity202012.tt"
 
         }
         else
@@ -7548,7 +7352,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2419 "SchemaEntity202012.tt"
+        #line 2360 "SchemaEntity202012.tt"
         this.Write(@"                /// <summary>
         /// Create an array from the given items.
         /// </summary>
@@ -7559,25 +7363,25 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2424 "SchemaEntity202012.tt"
+        #line 2365 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2424 "SchemaEntity202012.tt"
+        #line 2365 "SchemaEntity202012.tt"
         this.Write(" From(params JsonAny[] items)\r\n        {\r\n            return new ");
         
         #line default
         #line hidden
         
-        #line 2426 "SchemaEntity202012.tt"
+        #line 2367 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2426 "SchemaEntity202012.tt"
+        #line 2367 "SchemaEntity202012.tt"
         this.Write(@"(items.ToImmutableList());
         }
 
@@ -7591,25 +7395,25 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2434 "SchemaEntity202012.tt"
+        #line 2375 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2434 "SchemaEntity202012.tt"
+        #line 2375 "SchemaEntity202012.tt"
         this.Write(" From(JsonAny item1)\r\n        {\r\n            return new ");
         
         #line default
         #line hidden
         
-        #line 2436 "SchemaEntity202012.tt"
+        #line 2377 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2436 "SchemaEntity202012.tt"
+        #line 2377 "SchemaEntity202012.tt"
         this.Write(@"(ImmutableList.Create(item1));
         }
 
@@ -7624,25 +7428,25 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2445 "SchemaEntity202012.tt"
+        #line 2386 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2445 "SchemaEntity202012.tt"
+        #line 2386 "SchemaEntity202012.tt"
         this.Write(" From(JsonAny item1, JsonAny item2)\r\n        {\r\n            return new ");
         
         #line default
         #line hidden
         
-        #line 2447 "SchemaEntity202012.tt"
+        #line 2388 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2447 "SchemaEntity202012.tt"
+        #line 2388 "SchemaEntity202012.tt"
         this.Write(@"(ImmutableList.Create(item1, item2));
         }
 
@@ -7658,26 +7462,26 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2457 "SchemaEntity202012.tt"
+        #line 2398 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2457 "SchemaEntity202012.tt"
+        #line 2398 "SchemaEntity202012.tt"
         this.Write(" From(JsonAny item1, JsonAny item2, JsonAny item3)\r\n        {\r\n            return" +
                 " new ");
         
         #line default
         #line hidden
         
-        #line 2459 "SchemaEntity202012.tt"
+        #line 2400 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2459 "SchemaEntity202012.tt"
+        #line 2400 "SchemaEntity202012.tt"
         this.Write(@"(ImmutableList.Create(item1, item2, item3));
         }
 
@@ -7694,32 +7498,32 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2470 "SchemaEntity202012.tt"
+        #line 2411 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2470 "SchemaEntity202012.tt"
+        #line 2411 "SchemaEntity202012.tt"
         this.Write(" From(JsonAny item1, JsonAny item2, JsonAny item3, JsonAny item4)\r\n        {\r\n   " +
                 "         return new ");
         
         #line default
         #line hidden
         
-        #line 2472 "SchemaEntity202012.tt"
+        #line 2413 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2472 "SchemaEntity202012.tt"
+        #line 2413 "SchemaEntity202012.tt"
         this.Write("(ImmutableList.Create(item1, item2, item3, item4));\r\n        }\r\n        ");
         
         #line default
         #line hidden
         
-        #line 2474 "SchemaEntity202012.tt"
+        #line 2415 "SchemaEntity202012.tt"
 
         }
         
@@ -7727,13 +7531,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2477 "SchemaEntity202012.tt"
+        #line 2418 "SchemaEntity202012.tt"
         this.Write("\r\n    ");
         
         #line default
         #line hidden
         
-        #line 2478 "SchemaEntity202012.tt"
+        #line 2419 "SchemaEntity202012.tt"
 
     }
     
@@ -7741,13 +7545,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2481 "SchemaEntity202012.tt"
+        #line 2422 "SchemaEntity202012.tt"
         this.Write("\r\n    ");
         
         #line default
         #line hidden
         
-        #line 2482 "SchemaEntity202012.tt"
+        #line 2423 "SchemaEntity202012.tt"
 
     if (HasProperties)
     {
@@ -7756,37 +7560,37 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2486 "SchemaEntity202012.tt"
+        #line 2427 "SchemaEntity202012.tt"
         this.Write("        /// <summary>\r\n        /// Creates an instance of a <see cref=\"");
         
         #line default
         #line hidden
         
-        #line 2487 "SchemaEntity202012.tt"
+        #line 2428 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2487 "SchemaEntity202012.tt"
+        #line 2428 "SchemaEntity202012.tt"
         this.Write("\"/>.\r\n        /// </summary>\r\n        public static ");
         
         #line default
         #line hidden
         
-        #line 2489 "SchemaEntity202012.tt"
+        #line 2430 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2489 "SchemaEntity202012.tt"
+        #line 2430 "SchemaEntity202012.tt"
         this.Write(" Create(\r\n        ");
         
         #line default
         #line hidden
         
-        #line 2490 "SchemaEntity202012.tt"
+        #line 2431 "SchemaEntity202012.tt"
 
         bool isFirstCreateParameter = true;
         foreach(var property in RequiredAllOfAndRefProperties)
@@ -7802,13 +7606,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2501 "SchemaEntity202012.tt"
+        #line 2442 "SchemaEntity202012.tt"
         this.Write(", ");
         
         #line default
         #line hidden
         
-        #line 2501 "SchemaEntity202012.tt"
+        #line 2442 "SchemaEntity202012.tt"
 
             }
         
@@ -7816,37 +7620,37 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2504 "SchemaEntity202012.tt"
+        #line 2445 "SchemaEntity202012.tt"
         this.Write("           ");
         
         #line default
         #line hidden
         
-        #line 2504 "SchemaEntity202012.tt"
+        #line 2445 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( property.Type.FullyQualifiedDotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2504 "SchemaEntity202012.tt"
+        #line 2445 "SchemaEntity202012.tt"
         this.Write(" ");
         
         #line default
         #line hidden
         
-        #line 2504 "SchemaEntity202012.tt"
+        #line 2445 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( property.DotnetParameterName ));
         
         #line default
         #line hidden
         
-        #line 2504 "SchemaEntity202012.tt"
+        #line 2445 "SchemaEntity202012.tt"
         this.Write("\r\n        ");
         
         #line default
         #line hidden
         
-        #line 2505 "SchemaEntity202012.tt"
+        #line 2446 "SchemaEntity202012.tt"
 
         }
         
@@ -7854,13 +7658,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2508 "SchemaEntity202012.tt"
+        #line 2449 "SchemaEntity202012.tt"
         this.Write("        ");
         
         #line default
         #line hidden
         
-        #line 2508 "SchemaEntity202012.tt"
+        #line 2449 "SchemaEntity202012.tt"
 
         foreach(var property in OptionalAllOfAndRefProperties)
         {
@@ -7875,13 +7679,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2518 "SchemaEntity202012.tt"
+        #line 2459 "SchemaEntity202012.tt"
         this.Write(", ");
         
         #line default
         #line hidden
         
-        #line 2518 "SchemaEntity202012.tt"
+        #line 2459 "SchemaEntity202012.tt"
 
             }
         
@@ -7889,37 +7693,37 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2521 "SchemaEntity202012.tt"
+        #line 2462 "SchemaEntity202012.tt"
         this.Write("            ");
         
         #line default
         #line hidden
         
-        #line 2521 "SchemaEntity202012.tt"
+        #line 2462 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( property.Type.FullyQualifiedDotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2521 "SchemaEntity202012.tt"
+        #line 2462 "SchemaEntity202012.tt"
         this.Write("? ");
         
         #line default
         #line hidden
         
-        #line 2521 "SchemaEntity202012.tt"
+        #line 2462 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( property.DotnetParameterName ));
         
         #line default
         #line hidden
         
-        #line 2521 "SchemaEntity202012.tt"
+        #line 2462 "SchemaEntity202012.tt"
         this.Write(" = null\r\n        ");
         
         #line default
         #line hidden
         
-        #line 2522 "SchemaEntity202012.tt"
+        #line 2463 "SchemaEntity202012.tt"
 
         }
         
@@ -7927,14 +7731,14 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2525 "SchemaEntity202012.tt"
+        #line 2466 "SchemaEntity202012.tt"
         this.Write("\r\n        )\r\n        {\r\n            var builder = ImmutableDictionary.CreateBuild" +
-                "er<JsonEncodedText, JsonAny>();\r\n        ");
+                "er<string, JsonAny>();\r\n        ");
         
         #line default
         #line hidden
         
-        #line 2529 "SchemaEntity202012.tt"
+        #line 2470 "SchemaEntity202012.tt"
 
         foreach(var property in RequiredAllOfAndRefProperties)
         {
@@ -7943,37 +7747,37 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2533 "SchemaEntity202012.tt"
+        #line 2474 "SchemaEntity202012.tt"
         this.Write("            builder.Add(");
         
         #line default
         #line hidden
         
-        #line 2533 "SchemaEntity202012.tt"
+        #line 2474 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( property.DotnetPropertyName));
         
         #line default
         #line hidden
         
-        #line 2533 "SchemaEntity202012.tt"
+        #line 2474 "SchemaEntity202012.tt"
         this.Write("JsonPropertyName, ");
         
         #line default
         #line hidden
         
-        #line 2533 "SchemaEntity202012.tt"
+        #line 2474 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( property.DotnetParameterName ));
         
         #line default
         #line hidden
         
-        #line 2533 "SchemaEntity202012.tt"
+        #line 2474 "SchemaEntity202012.tt"
         this.Write(");\r\n        ");
         
         #line default
         #line hidden
         
-        #line 2534 "SchemaEntity202012.tt"
+        #line 2475 "SchemaEntity202012.tt"
 
         }
         
@@ -7981,13 +7785,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2537 "SchemaEntity202012.tt"
+        #line 2478 "SchemaEntity202012.tt"
         this.Write("        ");
         
         #line default
         #line hidden
         
-        #line 2537 "SchemaEntity202012.tt"
+        #line 2478 "SchemaEntity202012.tt"
 
         foreach(var property in OptionalAllOfAndRefProperties)
         {
@@ -7996,73 +7800,73 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2541 "SchemaEntity202012.tt"
+        #line 2482 "SchemaEntity202012.tt"
         this.Write("            if (");
         
         #line default
         #line hidden
         
-        #line 2541 "SchemaEntity202012.tt"
+        #line 2482 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( property.DotnetParameterName ));
         
         #line default
         #line hidden
         
-        #line 2541 "SchemaEntity202012.tt"
+        #line 2482 "SchemaEntity202012.tt"
         this.Write(" is ");
         
         #line default
         #line hidden
         
-        #line 2541 "SchemaEntity202012.tt"
+        #line 2482 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( property.Type.FullyQualifiedDotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2541 "SchemaEntity202012.tt"
+        #line 2482 "SchemaEntity202012.tt"
         this.Write(" ");
         
         #line default
         #line hidden
         
-        #line 2541 "SchemaEntity202012.tt"
+        #line 2482 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( property.DotnetParameterName ));
         
         #line default
         #line hidden
         
-        #line 2541 "SchemaEntity202012.tt"
+        #line 2482 "SchemaEntity202012.tt"
         this.Write("__)\r\n            {\r\n                builder.Add(");
         
         #line default
         #line hidden
         
-        #line 2543 "SchemaEntity202012.tt"
+        #line 2484 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( property.DotnetPropertyName));
         
         #line default
         #line hidden
         
-        #line 2543 "SchemaEntity202012.tt"
+        #line 2484 "SchemaEntity202012.tt"
         this.Write("JsonPropertyName, ");
         
         #line default
         #line hidden
         
-        #line 2543 "SchemaEntity202012.tt"
+        #line 2484 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( property.DotnetParameterName ));
         
         #line default
         #line hidden
         
-        #line 2543 "SchemaEntity202012.tt"
+        #line 2484 "SchemaEntity202012.tt"
         this.Write("__);\r\n            }\r\n        ");
         
         #line default
         #line hidden
         
-        #line 2545 "SchemaEntity202012.tt"
+        #line 2486 "SchemaEntity202012.tt"
 
         }
         
@@ -8070,13 +7874,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2548 "SchemaEntity202012.tt"
+        #line 2489 "SchemaEntity202012.tt"
         this.Write("            return builder.ToImmutable();\r\n        }\r\n\r\n        ");
         
         #line default
         #line hidden
         
-        #line 2551 "SchemaEntity202012.tt"
+        #line 2492 "SchemaEntity202012.tt"
 
         foreach(var property in Properties)
         {
@@ -8085,19 +7889,19 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2555 "SchemaEntity202012.tt"
+        #line 2496 "SchemaEntity202012.tt"
         this.Write("\r\n        /// <summary>\r\n        /// Sets ");
         
         #line default
         #line hidden
         
-        #line 2557 "SchemaEntity202012.tt"
+        #line 2498 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( Formatting.FormatLiteralOrNull(property.JsonPropertyName, true).Trim('"') ));
         
         #line default
         #line hidden
         
-        #line 2557 "SchemaEntity202012.tt"
+        #line 2498 "SchemaEntity202012.tt"
         this.Write(".\r\n        /// </summary>\r\n        /// <param name=\"value\">The value to set.</par" +
                 "am>\r\n        /// <returns>The entity with the updated property.</returns>\r\n     " +
                 "   public ");
@@ -8105,55 +7909,55 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2561 "SchemaEntity202012.tt"
+        #line 2502 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2561 "SchemaEntity202012.tt"
+        #line 2502 "SchemaEntity202012.tt"
         this.Write(" With");
         
         #line default
         #line hidden
         
-        #line 2561 "SchemaEntity202012.tt"
+        #line 2502 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( property.DotnetPropertyName ));
         
         #line default
         #line hidden
         
-        #line 2561 "SchemaEntity202012.tt"
+        #line 2502 "SchemaEntity202012.tt"
         this.Write("(");
         
         #line default
         #line hidden
         
-        #line 2561 "SchemaEntity202012.tt"
+        #line 2502 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( property.Type.FullyQualifiedDotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2561 "SchemaEntity202012.tt"
+        #line 2502 "SchemaEntity202012.tt"
         this.Write(" value)\r\n        {\r\n            return this.SetProperty(");
         
         #line default
         #line hidden
         
-        #line 2563 "SchemaEntity202012.tt"
+        #line 2504 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( property.DotnetPropertyName ));
         
         #line default
         #line hidden
         
-        #line 2563 "SchemaEntity202012.tt"
+        #line 2504 "SchemaEntity202012.tt"
         this.Write("JsonPropertyName, value);\r\n        }\r\n\r\n        ");
         
         #line default
         #line hidden
         
-        #line 2566 "SchemaEntity202012.tt"
+        #line 2507 "SchemaEntity202012.tt"
 
         }
         
@@ -8161,13 +7965,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2569 "SchemaEntity202012.tt"
+        #line 2510 "SchemaEntity202012.tt"
         this.Write("\r\n    ");
         
         #line default
         #line hidden
         
-        #line 2570 "SchemaEntity202012.tt"
+        #line 2511 "SchemaEntity202012.tt"
 
     }
     
@@ -8175,20 +7979,20 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2573 "SchemaEntity202012.tt"
+        #line 2514 "SchemaEntity202012.tt"
         this.Write("\r\n        /// <inheritdoc/>\r\n        public override bool Equals(object? obj)\r\n  " +
                 "      {\r\n            if (obj is ");
         
         #line default
         #line hidden
         
-        #line 2577 "SchemaEntity202012.tt"
+        #line 2518 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2577 "SchemaEntity202012.tt"
+        #line 2518 "SchemaEntity202012.tt"
         this.Write(@" entity)
             {
                 return this.Equals(entity);
@@ -8225,7 +8029,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2608 "SchemaEntity202012.tt"
+        #line 2549 "SchemaEntity202012.tt"
 
     if (IsImplicitObject)
     {
@@ -8234,15 +8038,15 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2612 "SchemaEntity202012.tt"
-        this.Write("            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAn" +
-                "y> objectBacking)\r\n            {\r\n                JsonObject.WriteProperties(obj" +
-                "ectBacking, writer);\r\n                return;\r\n            }\r\n\r\n    ");
+        #line 2553 "SchemaEntity202012.tt"
+        this.Write("            if (this.objectBacking is ImmutableDictionary<string, JsonAny> object" +
+                "Backing)\r\n            {\r\n                JsonObject.WriteProperties(objectBackin" +
+                "g, writer);\r\n                return;\r\n            }\r\n\r\n    ");
         
         #line default
         #line hidden
         
-        #line 2618 "SchemaEntity202012.tt"
+        #line 2559 "SchemaEntity202012.tt"
 
     }
     
@@ -8250,13 +8054,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2621 "SchemaEntity202012.tt"
+        #line 2562 "SchemaEntity202012.tt"
         this.Write("\r\n    ");
         
         #line default
         #line hidden
         
-        #line 2622 "SchemaEntity202012.tt"
+        #line 2563 "SchemaEntity202012.tt"
 
     if (IsImplicitArray)
     {
@@ -8265,7 +8069,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2626 "SchemaEntity202012.tt"
+        #line 2567 "SchemaEntity202012.tt"
         this.Write("            if (this.arrayBacking is ImmutableList<JsonAny> arrayBacking)\r\n      " +
                 "      {\r\n                JsonArray.WriteItems(arrayBacking, writer);\r\n          " +
                 "      return;\r\n            }\r\n\r\n    ");
@@ -8273,7 +8077,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2632 "SchemaEntity202012.tt"
+        #line 2573 "SchemaEntity202012.tt"
 
     }
     
@@ -8281,13 +8085,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2635 "SchemaEntity202012.tt"
+        #line 2576 "SchemaEntity202012.tt"
         this.Write("\r\n    ");
         
         #line default
         #line hidden
         
-        #line 2636 "SchemaEntity202012.tt"
+        #line 2577 "SchemaEntity202012.tt"
 
     if (IsImplicitNumber)
     {
@@ -8296,7 +8100,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2640 "SchemaEntity202012.tt"
+        #line 2581 "SchemaEntity202012.tt"
         this.Write("            if (this.numberBacking is double numberBacking)\r\n            {\r\n     " +
                 "           writer.WriteNumberValue(numberBacking);\r\n                return;\r\n   " +
                 "         }\r\n\r\n    ");
@@ -8304,7 +8108,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2646 "SchemaEntity202012.tt"
+        #line 2587 "SchemaEntity202012.tt"
 
     }
     
@@ -8312,13 +8116,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2649 "SchemaEntity202012.tt"
+        #line 2590 "SchemaEntity202012.tt"
         this.Write("\r\n    ");
         
         #line default
         #line hidden
         
-        #line 2650 "SchemaEntity202012.tt"
+        #line 2591 "SchemaEntity202012.tt"
 
     if (IsImplicitString)
     {
@@ -8327,15 +8131,15 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2654 "SchemaEntity202012.tt"
-        this.Write("            if (this.stringBacking is JsonEncodedText stringBacking)\r\n           " +
-                " {\r\n                writer.WriteStringValue(stringBacking);\r\n                ret" +
-                "urn;\r\n            }\r\n\r\n    ");
+        #line 2595 "SchemaEntity202012.tt"
+        this.Write("            if (this.stringBacking is string stringBacking)\r\n            {\r\n     " +
+                "           writer.WriteStringValue(stringBacking);\r\n                return;\r\n   " +
+                "         }\r\n\r\n    ");
         
         #line default
         #line hidden
         
-        #line 2660 "SchemaEntity202012.tt"
+        #line 2601 "SchemaEntity202012.tt"
 
     }
     
@@ -8343,13 +8147,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2663 "SchemaEntity202012.tt"
+        #line 2604 "SchemaEntity202012.tt"
         this.Write("\r\n    ");
         
         #line default
         #line hidden
         
-        #line 2664 "SchemaEntity202012.tt"
+        #line 2605 "SchemaEntity202012.tt"
 
     if (IsImplicitBoolean)
     {
@@ -8358,7 +8162,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2668 "SchemaEntity202012.tt"
+        #line 2609 "SchemaEntity202012.tt"
         this.Write("            if (this.booleanBacking is bool booleanBacking)\r\n            {\r\n     " +
                 "           writer.WriteBooleanValue(booleanBacking);\r\n                return;\r\n " +
                 "           }\r\n    ");
@@ -8366,7 +8170,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2673 "SchemaEntity202012.tt"
+        #line 2614 "SchemaEntity202012.tt"
 
     }
     
@@ -8374,7 +8178,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2676 "SchemaEntity202012.tt"
+        #line 2617 "SchemaEntity202012.tt"
         this.Write("\r\n            if (this.jsonElementBacking.ValueKind != JsonValueKind.Undefined)\r\n" +
                 "            {\r\n                this.jsonElementBacking.WriteTo(writer);\r\n       " +
                 "         return;\r\n            }\r\n\r\n            writer.WriteNullValue();\r\n       " +
@@ -8383,7 +8187,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2686 "SchemaEntity202012.tt"
+        #line 2627 "SchemaEntity202012.tt"
 
     if (IsImplicitObject)
     {
@@ -8392,13 +8196,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2690 "SchemaEntity202012.tt"
+        #line 2631 "SchemaEntity202012.tt"
         this.Write("\r\n        ");
         
         #line default
         #line hidden
         
-        #line 2691 "SchemaEntity202012.tt"
+        #line 2632 "SchemaEntity202012.tt"
 
         if (HasAdditionalPropertiesObject && !HasUnevaluatedPropertiesObject)
         {
@@ -8407,34 +8211,34 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2695 "SchemaEntity202012.tt"
+        #line 2636 "SchemaEntity202012.tt"
         this.Write("        /// <summary>\r\n        /// Enumerate the object as the given item type\r\n " +
                 "       /// </summary>\r\n        public JsonObjectEnumerator<");
         
         #line default
         #line hidden
         
-        #line 2698 "SchemaEntity202012.tt"
+        #line 2639 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( AdditionalPropertiesDotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2698 "SchemaEntity202012.tt"
+        #line 2639 "SchemaEntity202012.tt"
         this.Write("> EnumerateProperties()\r\n        {\r\n            if (this.objectBacking is Immutab" +
-                "leDictionary<JsonEncodedText, JsonAny> properties)\r\n            {\r\n             " +
-                "   return new JsonObjectEnumerator<");
+                "leDictionary<string, JsonAny> properties)\r\n            {\r\n                return" +
+                " new JsonObjectEnumerator<");
         
         #line default
         #line hidden
         
-        #line 2702 "SchemaEntity202012.tt"
+        #line 2643 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( AdditionalPropertiesDotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2702 "SchemaEntity202012.tt"
+        #line 2643 "SchemaEntity202012.tt"
         this.Write(">(properties);\r\n            }\r\n\r\n            if (this.jsonElementBacking.ValueKin" +
                 "d == JsonValueKind.Object)\r\n            {\r\n                return new JsonObject" +
                 "Enumerator<");
@@ -8442,20 +8246,20 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2707 "SchemaEntity202012.tt"
+        #line 2648 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( AdditionalPropertiesDotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2707 "SchemaEntity202012.tt"
+        #line 2648 "SchemaEntity202012.tt"
         this.Write(">(this.jsonElementBacking);\r\n            }\r\n\r\n            return default;\r\n\r\n    " +
                 "    }\r\n        ");
         
         #line default
         #line hidden
         
-        #line 2713 "SchemaEntity202012.tt"
+        #line 2654 "SchemaEntity202012.tt"
 
         }
         
@@ -8463,13 +8267,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2716 "SchemaEntity202012.tt"
+        #line 2657 "SchemaEntity202012.tt"
         this.Write("\r\n        ");
         
         #line default
         #line hidden
         
-        #line 2717 "SchemaEntity202012.tt"
+        #line 2658 "SchemaEntity202012.tt"
 
         if (!HasAdditionalPropertiesObject && HasUnevaluatedPropertiesObject)
         {
@@ -8478,34 +8282,34 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2721 "SchemaEntity202012.tt"
+        #line 2662 "SchemaEntity202012.tt"
         this.Write("        /// <summary>\r\n        /// Enumerate the object as the given item type\r\n " +
                 "       /// </summary>\r\n        public JsonObjectEnumerator<");
         
         #line default
         #line hidden
         
-        #line 2724 "SchemaEntity202012.tt"
+        #line 2665 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( UnevaluatedPropertiesDotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2724 "SchemaEntity202012.tt"
+        #line 2665 "SchemaEntity202012.tt"
         this.Write("> EnumerateProperties()\r\n        {\r\n            if (this.objectBacking is Immutab" +
-                "leDictionary<JsonEncodedText, JsonAny> properties)\r\n            {\r\n             " +
-                "   return new JsonObjectEnumerator<");
+                "leDictionary<string, JsonAny> properties)\r\n            {\r\n                return" +
+                " new JsonObjectEnumerator<");
         
         #line default
         #line hidden
         
-        #line 2728 "SchemaEntity202012.tt"
+        #line 2669 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( UnevaluatedPropertiesDotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2728 "SchemaEntity202012.tt"
+        #line 2669 "SchemaEntity202012.tt"
         this.Write(">(properties);\r\n            }\r\n\r\n            if (this.jsonElementBacking.ValueKin" +
                 "d == JsonValueKind.Object)\r\n            {\r\n                return new JsonObject" +
                 "Enumerator<");
@@ -8513,20 +8317,20 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2733 "SchemaEntity202012.tt"
+        #line 2674 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( UnevaluatedPropertiesDotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2733 "SchemaEntity202012.tt"
+        #line 2674 "SchemaEntity202012.tt"
         this.Write(">(this.jsonElementBacking);\r\n            }\r\n\r\n            return default;\r\n\r\n    " +
                 "    }\r\n        ");
         
         #line default
         #line hidden
         
-        #line 2739 "SchemaEntity202012.tt"
+        #line 2680 "SchemaEntity202012.tt"
 
         }
         
@@ -8534,7 +8338,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2742 "SchemaEntity202012.tt"
+        #line 2683 "SchemaEntity202012.tt"
         this.Write("\r\n        /// <inheritdoc/>\r\n        public JsonObjectEnumerator EnumerateObject(" +
                 ")\r\n        {\r\n            return this.AsObject.EnumerateObject();\r\n        }\r\n\r\n" +
                 "    ");
@@ -8542,7 +8346,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2749 "SchemaEntity202012.tt"
+        #line 2690 "SchemaEntity202012.tt"
 
     }
     
@@ -8550,13 +8354,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2752 "SchemaEntity202012.tt"
+        #line 2693 "SchemaEntity202012.tt"
         this.Write("\r\n    ");
         
         #line default
         #line hidden
         
-        #line 2753 "SchemaEntity202012.tt"
+        #line 2694 "SchemaEntity202012.tt"
 
     if (IsImplicitArray)
     {
@@ -8565,13 +8369,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2757 "SchemaEntity202012.tt"
+        #line 2698 "SchemaEntity202012.tt"
         this.Write("\r\n        ");
         
         #line default
         #line hidden
         
-        #line 2758 "SchemaEntity202012.tt"
+        #line 2699 "SchemaEntity202012.tt"
 
         if (CanEnumerateAsSpecificType)
         {
@@ -8580,32 +8384,32 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2762 "SchemaEntity202012.tt"
+        #line 2703 "SchemaEntity202012.tt"
         this.Write("        /// <summary>\r\n        /// Enumerate the items in the array as a <see cre" +
                 "f=\"");
         
         #line default
         #line hidden
         
-        #line 2763 "SchemaEntity202012.tt"
+        #line 2704 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( SingleItemsDotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2763 "SchemaEntity202012.tt"
+        #line 2704 "SchemaEntity202012.tt"
         this.Write("\" />.\r\n        /// </summary>\r\n        public JsonArrayEnumerator<");
         
         #line default
         #line hidden
         
-        #line 2765 "SchemaEntity202012.tt"
+        #line 2706 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( SingleItemsDotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2765 "SchemaEntity202012.tt"
+        #line 2706 "SchemaEntity202012.tt"
         this.Write("> EnumerateItems()\r\n        {\r\n            if (this.arrayBacking is ImmutableList" +
                 "<JsonAny> items)\r\n            {\r\n                return new JsonArrayEnumerator<" +
                 "");
@@ -8613,13 +8417,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2769 "SchemaEntity202012.tt"
+        #line 2710 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( SingleItemsDotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2769 "SchemaEntity202012.tt"
+        #line 2710 "SchemaEntity202012.tt"
         this.Write(">(items);\r\n            }\r\n\r\n            if (this.jsonElementBacking.ValueKind == " +
                 "JsonValueKind.Array)\r\n            {\r\n                return new JsonArrayEnumera" +
                 "tor<");
@@ -8627,20 +8431,20 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2774 "SchemaEntity202012.tt"
+        #line 2715 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( SingleItemsDotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2774 "SchemaEntity202012.tt"
+        #line 2715 "SchemaEntity202012.tt"
         this.Write(">(this.jsonElementBacking);\r\n            }\r\n\r\n            return default;\r\n      " +
                 "  }\r\n        ");
         
         #line default
         #line hidden
         
-        #line 2779 "SchemaEntity202012.tt"
+        #line 2720 "SchemaEntity202012.tt"
 
         }
         
@@ -8648,14 +8452,14 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2782 "SchemaEntity202012.tt"
+        #line 2723 "SchemaEntity202012.tt"
         this.Write("        /// <inheritdoc/>\r\n        public JsonArrayEnumerator EnumerateArray()\r\n " +
                 "       {\r\n            return this.AsArray.EnumerateArray();\r\n        }\r\n    ");
         
         #line default
         #line hidden
         
-        #line 2787 "SchemaEntity202012.tt"
+        #line 2728 "SchemaEntity202012.tt"
 
     }
     
@@ -8663,13 +8467,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2790 "SchemaEntity202012.tt"
+        #line 2731 "SchemaEntity202012.tt"
         this.Write("\r\n    ");
         
         #line default
         #line hidden
         
-        #line 2791 "SchemaEntity202012.tt"
+        #line 2732 "SchemaEntity202012.tt"
 
     if (IsImplicitObject)
     {
@@ -8678,14 +8482,8 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2795 "SchemaEntity202012.tt"
+        #line 2736 "SchemaEntity202012.tt"
         this.Write(@"
-        /// <inheritdoc/>
-        public bool TryGetProperty(JsonEncodedText name, out JsonAny value)
-        {
-            return this.AsObject.TryGetProperty(name, out value);
-        }
-
         /// <inheritdoc/>
         public bool TryGetProperty(string name, out JsonAny value)
         {
@@ -8709,7 +8507,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2820 "SchemaEntity202012.tt"
+        #line 2755 "SchemaEntity202012.tt"
 
         if (HasDefaults)
         {
@@ -8718,33 +8516,49 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2824 "SchemaEntity202012.tt"
-        this.Write("        /// <inheritdoc/>\r\n        public bool TryGetDefault(JsonEncodedText name" +
-                ", out JsonAny value)\r\n        {\r\n            return __MenesDefaults.TryGetValue(" +
-                "name, out value);\r\n        }\r\n\r\n        /// <inheritdoc/>\r\n        public bool T" +
-                "ryGetDefault(string name, out JsonAny value)\r\n        {\r\n            return __Me" +
-                "nesDefaults.TryGetValue(JsonEncodedText.Encode(name), out value);\r\n        }\r\n\r\n" +
-                "        /// <inheritdoc/>\r\n        public bool TryGetDefault(ReadOnlySpan<char> " +
-                "name, out JsonAny value)\r\n        {\r\n            return __MenesDefaults.TryGetVa" +
-                "lue(JsonEncodedText.Encode(name), out value);\r\n        }\r\n\r\n        /// <inherit" +
-                "doc/>\r\n        public bool TryGetDefault(ReadOnlySpan<byte> utf8name, out JsonAn" +
-                "y value)\r\n        {\r\n            return __MenesDefaults.TryGetValue(JsonEncodedT" +
-                "ext.Encode(utf8name), out value);\r\n        }\r\n\r\n        /// <inheritdoc/>\r\n     " +
-                "   public bool HasDefault(JsonEncodedText name)\r\n        {\r\n            return _" +
-                "_MenesDefaults.TryGetValue(name, out _);\r\n        }\r\n\r\n        /// <inheritdoc/>" +
-                "\r\n        public bool HasDefault(string name)\r\n        {\r\n            return __M" +
-                "enesDefaults.TryGetValue(JsonEncodedText.Encode(name), out _);\r\n        }\r\n\r\n   " +
-                "     /// <inheritdoc/>\r\n        public bool HasDefault(ReadOnlySpan<char> name)\r" +
-                "\n        {\r\n            return __MenesDefaults.TryGetValue(JsonEncodedText.Encod" +
-                "e(name), out _);\r\n        }\r\n\r\n        /// <inheritdoc/>\r\n        public bool Ha" +
-                "sDefault(ReadOnlySpan<byte> utf8name)\r\n        {\r\n            return __MenesDefa" +
-                "ults.TryGetValue(JsonEncodedText.Encode(utf8name), out _);\r\n        }\r\n\r\n       " +
-                " ");
+        #line 2759 "SchemaEntity202012.tt"
+        this.Write(@"        /// <inheritdoc/>
+        public bool TryGetDefault(string name, out JsonAny value)
+        {
+            return __MenesDefaults.TryGetValue(name, out value);
+        }
+
+        /// <inheritdoc/>
+        public bool TryGetDefault(ReadOnlySpan<char> name, out JsonAny value)
+        {
+            return __MenesDefaults.TryGetValue(name.ToString(), out value);
+        }
+
+        /// <inheritdoc/>
+        public bool TryGetDefault(ReadOnlySpan<byte> utf8name, out JsonAny value)
+        {
+            return __MenesDefaults.TryGetValue(Encoding.UTF8.GetString(utf8name), out value);
+        }
+
+        /// <inheritdoc/>
+        public bool HasDefault(string name)
+        {
+            return __MenesDefaults.TryGetValue(name, out _);
+        }
+
+        /// <inheritdoc/>
+        public bool HasDefault(ReadOnlySpan<char> name)
+        {
+            return __MenesDefaults.TryGetValue(name.ToString(), out _);
+        }
+
+        /// <inheritdoc/>
+        public bool HasDefault(ReadOnlySpan<byte> utf8name)
+        {
+            return __MenesDefaults.TryGetValue(Encoding.UTF8.GetString(utf8name), out _);
+        }
+
+        ");
         
         #line default
         #line hidden
         
-        #line 2872 "SchemaEntity202012.tt"
+        #line 2795 "SchemaEntity202012.tt"
 
         }
         
@@ -8752,13 +8566,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2875 "SchemaEntity202012.tt"
+        #line 2798 "SchemaEntity202012.tt"
         this.Write("\r\n    ");
         
         #line default
         #line hidden
         
-        #line 2876 "SchemaEntity202012.tt"
+        #line 2799 "SchemaEntity202012.tt"
 
     }
     
@@ -8766,7 +8580,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2879 "SchemaEntity202012.tt"
+        #line 2802 "SchemaEntity202012.tt"
         this.Write(@"
         /// <inheritdoc/>
         public bool Equals<T>(T other)
@@ -8797,13 +8611,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2904 "SchemaEntity202012.tt"
+        #line 2827 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2904 "SchemaEntity202012.tt"
+        #line 2827 "SchemaEntity202012.tt"
         this.Write(@" other)
         {
             JsonValueKind valueKind = this.ValueKind;
@@ -8830,7 +8644,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2925 "SchemaEntity202012.tt"
+        #line 2848 "SchemaEntity202012.tt"
 
     if (IsImplicitObject)
     {
@@ -8839,70 +8653,39 @@ namespace ");
         #line default
         #line hidden
         
-        #line 2929 "SchemaEntity202012.tt"
-        this.Write("\r\n        /// <inheritdoc/>\r\n        public bool HasProperty(JsonEncodedText name" +
-                ")\r\n        {\r\n            if (this.objectBacking is ImmutableDictionary<JsonEnco" +
-                "dedText, JsonAny> properties)\r\n            {\r\n                return properties." +
-                "TryGetValue(name, out _);\r\n            }\r\n\r\n            if (this.jsonElementBack" +
-                "ing.ValueKind == JsonValueKind.Object)\r\n            {\r\n                return th" +
-                "is.jsonElementBacking.TryGetProperty(name.ToString(), out JsonElement _);\r\n     " +
-                "       }\r\n\r\n            return false;\r\n        }\r\n\r\n        /// <inheritdoc/>\r\n " +
-                "       public bool HasProperty(string name)\r\n        {\r\n            if (this.obj" +
-                "ectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)\r\n       " +
-                "     {\r\n                return properties.TryGetValue(JsonEncodedText.Encode(nam" +
-                "e), out _);\r\n            }\r\n\r\n            if (this.jsonElementBacking.ValueKind " +
-                "== JsonValueKind.Object)\r\n            {\r\n                return this.jsonElement" +
-                "Backing.TryGetProperty(name, out JsonElement _);\r\n            }\r\n\r\n            r" +
-                "eturn false;\r\n        }\r\n\r\n        /// <inheritdoc/>\r\n        public bool HasPro" +
-                "perty(ReadOnlySpan<char> name)\r\n        {\r\n            if (this.objectBacking is" +
-                " ImmutableDictionary<JsonEncodedText, JsonAny> properties)\r\n            {\r\n     " +
-                "           return properties.TryGetValue(JsonEncodedText.Encode(name), out _);\r\n" +
-                "            }\r\n\r\n            if (this.jsonElementBacking.ValueKind == JsonValueK" +
-                "ind.Object)\r\n            {\r\n                return this.jsonElementBacking.TryGe" +
-                "tProperty(name, out JsonElement _);\r\n            }\r\n\r\n            return false; " +
-                "       }\r\n\r\n        /// <inheritdoc/>\r\n        public bool HasProperty(ReadOnlyS" +
-                "pan<byte> utf8name)\r\n        {\r\n            if (this.objectBacking is ImmutableD" +
-                "ictionary<JsonEncodedText, JsonAny> properties)\r\n            {\r\n                " +
-                "return properties.TryGetValue(JsonEncodedText.Encode(utf8name), out _);\r\n       " +
-                "     }\r\n\r\n            if (this.jsonElementBacking.ValueKind == JsonValueKind.Obj" +
-                "ect)\r\n            {\r\n                return this.jsonElementBacking.TryGetProper" +
-                "ty(utf8name, out JsonElement _);\r\n            }\r\n\r\n            return false;    " +
-                "    }\r\n\r\n        /// <inheritdoc/>\r\n        public ");
+        #line 2852 "SchemaEntity202012.tt"
+        this.Write("\r\n        /// <inheritdoc/>\r\n        public bool HasProperty(string name)\r\n      " +
+                "  {\r\n            if (this.objectBacking is ImmutableDictionary<string, JsonAny> " +
+                "properties)\r\n            {\r\n                return properties.TryGetValue(name, " +
+                "out _);\r\n            }\r\n\r\n            if (this.jsonElementBacking.ValueKind == J" +
+                "sonValueKind.Object)\r\n            {\r\n                return this.jsonElementBack" +
+                "ing.TryGetProperty(name.ToString(), out JsonElement _);\r\n            }\r\n\r\n      " +
+                "      return false;\r\n        }\r\n\r\n        /// <inheritdoc/>\r\n        public bool" +
+                " HasProperty(ReadOnlySpan<char> name)\r\n        {\r\n            if (this.objectBac" +
+                "king is ImmutableDictionary<string, JsonAny> properties)\r\n            {\r\n       " +
+                "         return properties.TryGetValue(name.ToString(), out _);\r\n            }\r\n" +
+                "\r\n            if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)\r\n  " +
+                "          {\r\n                return this.jsonElementBacking.TryGetProperty(name," +
+                " out JsonElement _);\r\n            }\r\n\r\n            return false;        }\r\n\r\n   " +
+                "     /// <inheritdoc/>\r\n        public bool HasProperty(ReadOnlySpan<byte> utf8n" +
+                "ame)\r\n        {\r\n            if (this.objectBacking is ImmutableDictionary<strin" +
+                "g, JsonAny> properties)\r\n            {\r\n                return properties.TryGet" +
+                "Value(Encoding.UTF8.GetString(utf8name), out _);\r\n            }\r\n\r\n            i" +
+                "f (this.jsonElementBacking.ValueKind == JsonValueKind.Object)\r\n            {\r\n  " +
+                "              return this.jsonElementBacking.TryGetProperty(utf8name, out JsonEl" +
+                "ement _);\r\n            }\r\n\r\n            return false;        }\r\n\r\n        /// <i" +
+                "nheritdoc/>\r\n        public ");
         
         #line default
         #line hidden
         
-        #line 2993 "SchemaEntity202012.tt"
+        #line 2900 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 2993 "SchemaEntity202012.tt"
-        this.Write(@" SetProperty<TValue>(JsonEncodedText name, TValue value)
-            where TValue : IJsonValue
-        {
-            if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
-            {
-                return this.AsObject.SetProperty(name, value);
-            }
-
-            return this;
-        }
-
-        /// <inheritdoc/>
-        public ");
-        
-        #line default
-        #line hidden
-        
-        #line 3005 "SchemaEntity202012.tt"
-        this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
-        
-        #line default
-        #line hidden
-        
-        #line 3005 "SchemaEntity202012.tt"
+        #line 2900 "SchemaEntity202012.tt"
         this.Write(@" SetProperty<TValue>(string name, TValue value)
             where TValue : IJsonValue
         {
@@ -8920,13 +8703,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3017 "SchemaEntity202012.tt"
+        #line 2912 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 3017 "SchemaEntity202012.tt"
+        #line 2912 "SchemaEntity202012.tt"
         this.Write(@" SetProperty<TValue>(ReadOnlySpan<char> name, TValue value)
             where TValue : IJsonValue
         {
@@ -8944,13 +8727,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3029 "SchemaEntity202012.tt"
+        #line 2924 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 3029 "SchemaEntity202012.tt"
+        #line 2924 "SchemaEntity202012.tt"
         this.Write(@" SetProperty<TValue>(ReadOnlySpan<byte> utf8name, TValue value)
             where TValue : IJsonValue
         {
@@ -8968,36 +8751,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3041 "SchemaEntity202012.tt"
+        #line 2936 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 3041 "SchemaEntity202012.tt"
-        this.Write(@" RemoveProperty(JsonEncodedText name)
-        {
-            if (this.ValueKind == JsonValueKind.Object)
-            {
-                return this.AsObject.RemoveProperty(name);
-            }
-
-            return this;
-        }
-
-        /// <inheritdoc/>
-        public ");
-        
-        #line default
-        #line hidden
-        
-        #line 3052 "SchemaEntity202012.tt"
-        this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
-        
-        #line default
-        #line hidden
-        
-        #line 3052 "SchemaEntity202012.tt"
+        #line 2936 "SchemaEntity202012.tt"
         this.Write(@" RemoveProperty(string name)
         {
             if (this.ValueKind == JsonValueKind.Object)
@@ -9014,13 +8774,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3063 "SchemaEntity202012.tt"
+        #line 2947 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 3063 "SchemaEntity202012.tt"
+        #line 2947 "SchemaEntity202012.tt"
         this.Write(@" RemoveProperty(ReadOnlySpan<char> name)
         {
             if (this.ValueKind == JsonValueKind.Object)
@@ -9037,13 +8797,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3074 "SchemaEntity202012.tt"
+        #line 2958 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 3074 "SchemaEntity202012.tt"
+        #line 2958 "SchemaEntity202012.tt"
         this.Write(" RemoveProperty(ReadOnlySpan<byte> utf8Name)\r\n        {\r\n            if (this.Val" +
                 "ueKind == JsonValueKind.Object)\r\n            {\r\n                return this.AsOb" +
                 "ject.RemoveProperty(utf8Name);\r\n            }\r\n\r\n            return this;\r\n     " +
@@ -9052,7 +8812,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3084 "SchemaEntity202012.tt"
+        #line 2968 "SchemaEntity202012.tt"
 
     }
     
@@ -9060,13 +8820,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3087 "SchemaEntity202012.tt"
+        #line 2971 "SchemaEntity202012.tt"
         this.Write("\r\n    ");
         
         #line default
         #line hidden
         
-        #line 3088 "SchemaEntity202012.tt"
+        #line 2972 "SchemaEntity202012.tt"
 
     if (IsImplicitArray)
     {
@@ -9075,19 +8835,19 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3092 "SchemaEntity202012.tt"
+        #line 2976 "SchemaEntity202012.tt"
         this.Write("\r\n        /// <inheritdoc/>\r\n        public ");
         
         #line default
         #line hidden
         
-        #line 3094 "SchemaEntity202012.tt"
+        #line 2978 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 3094 "SchemaEntity202012.tt"
+        #line 2978 "SchemaEntity202012.tt"
         this.Write(@" Add<TItem>(TItem item)
             where TItem : struct, IJsonValue
         {
@@ -9105,13 +8865,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3106 "SchemaEntity202012.tt"
+        #line 2990 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 3106 "SchemaEntity202012.tt"
+        #line 2990 "SchemaEntity202012.tt"
         this.Write(@" Insert<TItem>(int index, TItem item)
             where TItem : struct, IJsonValue
         {
@@ -9129,13 +8889,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3118 "SchemaEntity202012.tt"
+        #line 3002 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 3118 "SchemaEntity202012.tt"
+        #line 3002 "SchemaEntity202012.tt"
         this.Write(@" Replace<TItem>(TItem oldValue, TItem newValue)
             where TItem : struct, IJsonValue
         {
@@ -9153,13 +8913,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3130 "SchemaEntity202012.tt"
+        #line 3014 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 3130 "SchemaEntity202012.tt"
+        #line 3014 "SchemaEntity202012.tt"
         this.Write(@" RemoveAt(int index)
         {
             if (this.ValueKind == JsonValueKind.Array)
@@ -9176,13 +8936,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3141 "SchemaEntity202012.tt"
+        #line 3025 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 3141 "SchemaEntity202012.tt"
+        #line 3025 "SchemaEntity202012.tt"
         this.Write(@" RemoveRange(int index, int count)
         {
             if (this.ValueKind == JsonValueKind.Array)
@@ -9199,13 +8959,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3152 "SchemaEntity202012.tt"
+        #line 3036 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 3152 "SchemaEntity202012.tt"
+        #line 3036 "SchemaEntity202012.tt"
         this.Write(@" SetItem<TItem>(int index, TItem value)
             where TItem : struct, IJsonValue
         {
@@ -9222,7 +8982,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3163 "SchemaEntity202012.tt"
+        #line 3047 "SchemaEntity202012.tt"
 
     }
     
@@ -9230,20 +8990,20 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3166 "SchemaEntity202012.tt"
+        #line 3050 "SchemaEntity202012.tt"
         this.Write("\r\n        /// <inheritdoc/>\r\n        public T As<T>()\r\n            where T : stru" +
                 "ct, IJsonValue\r\n        {\r\n            return this.As<");
         
         #line default
         #line hidden
         
-        #line 3171 "SchemaEntity202012.tt"
+        #line 3055 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 3171 "SchemaEntity202012.tt"
+        #line 3055 "SchemaEntity202012.tt"
         this.Write(@", T>();
         }
 
@@ -9261,7 +9021,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3183 "SchemaEntity202012.tt"
+        #line 3067 "SchemaEntity202012.tt"
 
     if (HasRef)
     {    
@@ -9270,7 +9030,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3187 "SchemaEntity202012.tt"
+        #line 3071 "SchemaEntity202012.tt"
         this.Write("            result = this.ValidateRef(result, level);\r\n            if (level == V" +
                 "alidationLevel.Flag && !result.IsValid)\r\n            {\r\n                return r" +
                 "esult;\r\n            }\r\n    ");
@@ -9278,7 +9038,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3192 "SchemaEntity202012.tt"
+        #line 3076 "SchemaEntity202012.tt"
 
     }
     
@@ -9286,13 +9046,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3195 "SchemaEntity202012.tt"
+        #line 3079 "SchemaEntity202012.tt"
         this.Write("\r\n    ");
         
         #line default
         #line hidden
         
-        #line 3196 "SchemaEntity202012.tt"
+        #line 3080 "SchemaEntity202012.tt"
 
     if ((HasExplicitType || HasFormat || HasMediaTypeOrEncoding) || (HasItems || HasContains || HasUniqueItems || HasMaxItems || HasMinItems || HasUnevaluatedItems || HasPrefixItems) || (HasDependentRequired || HasLocalProperties || HasRequired || HasMaxProperties || HasMinProperties || HasDependentSchemas || HasPropertyNames || HasPatternProperties || ((AllowsAdditionalProperties && (HasAdditionalProperties || HasUnevaluatedProperties)))))
     {
@@ -9301,13 +9061,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3200 "SchemaEntity202012.tt"
+        #line 3084 "SchemaEntity202012.tt"
         this.Write("            JsonValueKind valueKind = this.ValueKind;\r\n    ");
         
         #line default
         #line hidden
         
-        #line 3201 "SchemaEntity202012.tt"
+        #line 3085 "SchemaEntity202012.tt"
 
     }
     
@@ -9315,13 +9075,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3204 "SchemaEntity202012.tt"
+        #line 3088 "SchemaEntity202012.tt"
         this.Write("\r\n    ");
         
         #line default
         #line hidden
         
-        #line 3205 "SchemaEntity202012.tt"
+        #line 3089 "SchemaEntity202012.tt"
 
     if (HasExplicitType || HasFormat || HasMediaTypeOrEncoding)
     {
@@ -9330,13 +9090,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3209 "SchemaEntity202012.tt"
+        #line 3093 "SchemaEntity202012.tt"
         this.Write("\r\n        ");
         
         #line default
         #line hidden
         
-        #line 3210 "SchemaEntity202012.tt"
+        #line 3094 "SchemaEntity202012.tt"
 
         if (HasExplicitType)
         {
@@ -9345,7 +9105,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3214 "SchemaEntity202012.tt"
+        #line 3098 "SchemaEntity202012.tt"
         this.Write("            result = this.ValidateType(valueKind, result, level);\r\n            if" +
                 " (level == ValidationLevel.Flag && !result.IsValid)\r\n            {\r\n            " +
                 "    return result;\r\n            }\r\n        ");
@@ -9353,7 +9113,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3219 "SchemaEntity202012.tt"
+        #line 3103 "SchemaEntity202012.tt"
 
         }
         
@@ -9361,13 +9121,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3222 "SchemaEntity202012.tt"
+        #line 3106 "SchemaEntity202012.tt"
         this.Write("\r\n        ");
         
         #line default
         #line hidden
         
-        #line 3223 "SchemaEntity202012.tt"
+        #line 3107 "SchemaEntity202012.tt"
 
         if (HasFormat)
         {
@@ -9376,7 +9136,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3227 "SchemaEntity202012.tt"
+        #line 3111 "SchemaEntity202012.tt"
         this.Write("            result = this.ValidateFormat(valueKind, result, level);\r\n            " +
                 "if (level == ValidationLevel.Flag && !result.IsValid)\r\n            {\r\n          " +
                 "      return result;\r\n            }\r\n        ");
@@ -9384,7 +9144,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3232 "SchemaEntity202012.tt"
+        #line 3116 "SchemaEntity202012.tt"
 
         }
         
@@ -9392,13 +9152,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3235 "SchemaEntity202012.tt"
+        #line 3119 "SchemaEntity202012.tt"
         this.Write("\r\n        \r\n        ");
         
         #line default
         #line hidden
         
-        #line 3237 "SchemaEntity202012.tt"
+        #line 3121 "SchemaEntity202012.tt"
 
         if (HasMediaTypeOrEncoding)
         {
@@ -9407,7 +9167,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3241 "SchemaEntity202012.tt"
+        #line 3125 "SchemaEntity202012.tt"
         this.Write("            result = this.ValidateMediaTypeAndEncoding(valueKind, result, level);" +
                 "\r\n            if (level == ValidationLevel.Flag && !result.IsValid)\r\n           " +
                 " {\r\n                return result;\r\n            }\r\n        ");
@@ -9415,7 +9175,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3246 "SchemaEntity202012.tt"
+        #line 3130 "SchemaEntity202012.tt"
 
         }
         
@@ -9423,13 +9183,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3249 "SchemaEntity202012.tt"
+        #line 3133 "SchemaEntity202012.tt"
         this.Write("\r\n    ");
         
         #line default
         #line hidden
         
-        #line 3250 "SchemaEntity202012.tt"
+        #line 3134 "SchemaEntity202012.tt"
 
     }
     
@@ -9437,13 +9197,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3253 "SchemaEntity202012.tt"
+        #line 3137 "SchemaEntity202012.tt"
         this.Write("\r\n    ");
         
         #line default
         #line hidden
         
-        #line 3254 "SchemaEntity202012.tt"
+        #line 3138 "SchemaEntity202012.tt"
 
     if (HasConst)
     {
@@ -9452,7 +9212,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3258 "SchemaEntity202012.tt"
+        #line 3142 "SchemaEntity202012.tt"
         this.Write("            result = Menes.Json.Validate.ValidateConst(this, result, level, __Men" +
                 "esConstValue);\r\n            if (level == ValidationLevel.Flag && !result.IsValid" +
                 ")\r\n            {\r\n                return result;\r\n            }\r\n\r\n    ");
@@ -9460,7 +9220,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3264 "SchemaEntity202012.tt"
+        #line 3148 "SchemaEntity202012.tt"
 
     }
     
@@ -9468,13 +9228,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3267 "SchemaEntity202012.tt"
+        #line 3151 "SchemaEntity202012.tt"
         this.Write("\r\n    ");
         
         #line default
         #line hidden
         
-        #line 3268 "SchemaEntity202012.tt"
+        #line 3152 "SchemaEntity202012.tt"
 
     if (HasEnum)
     {
@@ -9483,14 +9243,14 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3272 "SchemaEntity202012.tt"
+        #line 3156 "SchemaEntity202012.tt"
         this.Write("            result = Menes.Json.Validate.ValidateEnum(\r\n                this,\r\n  " +
                 "              result,\r\n                level\r\n        ");
         
         #line default
         #line hidden
         
-        #line 3276 "SchemaEntity202012.tt"
+        #line 3160 "SchemaEntity202012.tt"
 
         for(int enumIndex = 0; enumIndex < EnumValues.Length; ++enumIndex)
         {
@@ -9499,25 +9259,25 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3280 "SchemaEntity202012.tt"
+        #line 3164 "SchemaEntity202012.tt"
         this.Write("                , EnumValues.Item");
         
         #line default
         #line hidden
         
-        #line 3280 "SchemaEntity202012.tt"
+        #line 3164 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( enumIndex ));
         
         #line default
         #line hidden
         
-        #line 3280 "SchemaEntity202012.tt"
+        #line 3164 "SchemaEntity202012.tt"
         this.Write("\r\n        ");
         
         #line default
         #line hidden
         
-        #line 3281 "SchemaEntity202012.tt"
+        #line 3165 "SchemaEntity202012.tt"
 
         }
         
@@ -9525,14 +9285,14 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3284 "SchemaEntity202012.tt"
+        #line 3168 "SchemaEntity202012.tt"
         this.Write("                );\r\n\r\n            if (level == ValidationLevel.Flag && !result.Is" +
                 "Valid)\r\n            {\r\n                return result;\r\n            }\r\n    ");
         
         #line default
         #line hidden
         
-        #line 3290 "SchemaEntity202012.tt"
+        #line 3174 "SchemaEntity202012.tt"
 
     }
     
@@ -9540,13 +9300,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3293 "SchemaEntity202012.tt"
+        #line 3177 "SchemaEntity202012.tt"
         this.Write("\r\n    ");
         
         #line default
         #line hidden
         
-        #line 3294 "SchemaEntity202012.tt"
+        #line 3178 "SchemaEntity202012.tt"
 
     if (HasMultipleOf || HasMaximum || HasExclusiveMaximum|| HasMinimum || HasExclusiveMinimum)
     {
@@ -9555,14 +9315,14 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3298 "SchemaEntity202012.tt"
+        #line 3182 "SchemaEntity202012.tt"
         this.Write("            result = Menes.Json.Validate.ValidateNumber(\r\n                this,\r\n" +
                 "                result,\r\n                level,\r\n        ");
         
         #line default
         #line hidden
         
-        #line 3302 "SchemaEntity202012.tt"
+        #line 3186 "SchemaEntity202012.tt"
 
         if (HasMultipleOf)
         {
@@ -9571,25 +9331,25 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3306 "SchemaEntity202012.tt"
+        #line 3190 "SchemaEntity202012.tt"
         this.Write("                ");
         
         #line default
         #line hidden
         
-        #line 3306 "SchemaEntity202012.tt"
+        #line 3190 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( MultipleOf ));
         
         #line default
         #line hidden
         
-        #line 3306 "SchemaEntity202012.tt"
+        #line 3190 "SchemaEntity202012.tt"
         this.Write(",\r\n        ");
         
         #line default
         #line hidden
         
-        #line 3307 "SchemaEntity202012.tt"
+        #line 3191 "SchemaEntity202012.tt"
 
         }
         else
@@ -9599,13 +9359,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3312 "SchemaEntity202012.tt"
+        #line 3196 "SchemaEntity202012.tt"
         this.Write("                null,\r\n        ");
         
         #line default
         #line hidden
         
-        #line 3313 "SchemaEntity202012.tt"
+        #line 3197 "SchemaEntity202012.tt"
 
         }
         
@@ -9613,13 +9373,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3316 "SchemaEntity202012.tt"
+        #line 3200 "SchemaEntity202012.tt"
         this.Write("        ");
         
         #line default
         #line hidden
         
-        #line 3316 "SchemaEntity202012.tt"
+        #line 3200 "SchemaEntity202012.tt"
 
         if (HasMaximum)
         {
@@ -9628,25 +9388,25 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3320 "SchemaEntity202012.tt"
+        #line 3204 "SchemaEntity202012.tt"
         this.Write("                 ");
         
         #line default
         #line hidden
         
-        #line 3320 "SchemaEntity202012.tt"
+        #line 3204 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( Maximum ));
         
         #line default
         #line hidden
         
-        #line 3320 "SchemaEntity202012.tt"
+        #line 3204 "SchemaEntity202012.tt"
         this.Write(",\r\n        ");
         
         #line default
         #line hidden
         
-        #line 3321 "SchemaEntity202012.tt"
+        #line 3205 "SchemaEntity202012.tt"
 
         }
         else
@@ -9656,13 +9416,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3326 "SchemaEntity202012.tt"
+        #line 3210 "SchemaEntity202012.tt"
         this.Write("                null,\r\n        ");
         
         #line default
         #line hidden
         
-        #line 3327 "SchemaEntity202012.tt"
+        #line 3211 "SchemaEntity202012.tt"
 
         }
         
@@ -9670,13 +9430,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3330 "SchemaEntity202012.tt"
+        #line 3214 "SchemaEntity202012.tt"
         this.Write("        ");
         
         #line default
         #line hidden
         
-        #line 3330 "SchemaEntity202012.tt"
+        #line 3214 "SchemaEntity202012.tt"
 
         if (HasExclusiveMaximum)
         {
@@ -9685,25 +9445,25 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3334 "SchemaEntity202012.tt"
+        #line 3218 "SchemaEntity202012.tt"
         this.Write("                 ");
         
         #line default
         #line hidden
         
-        #line 3334 "SchemaEntity202012.tt"
+        #line 3218 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( ExclusiveMaximum ));
         
         #line default
         #line hidden
         
-        #line 3334 "SchemaEntity202012.tt"
+        #line 3218 "SchemaEntity202012.tt"
         this.Write(",\r\n        ");
         
         #line default
         #line hidden
         
-        #line 3335 "SchemaEntity202012.tt"
+        #line 3219 "SchemaEntity202012.tt"
 
         }
         else
@@ -9713,13 +9473,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3340 "SchemaEntity202012.tt"
+        #line 3224 "SchemaEntity202012.tt"
         this.Write("                null,\r\n        ");
         
         #line default
         #line hidden
         
-        #line 3341 "SchemaEntity202012.tt"
+        #line 3225 "SchemaEntity202012.tt"
 
         }
         
@@ -9727,13 +9487,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3344 "SchemaEntity202012.tt"
+        #line 3228 "SchemaEntity202012.tt"
         this.Write("        ");
         
         #line default
         #line hidden
         
-        #line 3344 "SchemaEntity202012.tt"
+        #line 3228 "SchemaEntity202012.tt"
 
         if (HasMinimum)
         {
@@ -9742,25 +9502,25 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3348 "SchemaEntity202012.tt"
+        #line 3232 "SchemaEntity202012.tt"
         this.Write("                 ");
         
         #line default
         #line hidden
         
-        #line 3348 "SchemaEntity202012.tt"
+        #line 3232 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( Minimum ));
         
         #line default
         #line hidden
         
-        #line 3348 "SchemaEntity202012.tt"
+        #line 3232 "SchemaEntity202012.tt"
         this.Write(",\r\n        ");
         
         #line default
         #line hidden
         
-        #line 3349 "SchemaEntity202012.tt"
+        #line 3233 "SchemaEntity202012.tt"
 
         }
         else
@@ -9770,13 +9530,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3354 "SchemaEntity202012.tt"
+        #line 3238 "SchemaEntity202012.tt"
         this.Write("                null,\r\n        ");
         
         #line default
         #line hidden
         
-        #line 3355 "SchemaEntity202012.tt"
+        #line 3239 "SchemaEntity202012.tt"
 
         }
         
@@ -9784,13 +9544,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3358 "SchemaEntity202012.tt"
+        #line 3242 "SchemaEntity202012.tt"
         this.Write("        ");
         
         #line default
         #line hidden
         
-        #line 3358 "SchemaEntity202012.tt"
+        #line 3242 "SchemaEntity202012.tt"
 
         if (HasExclusiveMinimum)
         {
@@ -9799,25 +9559,25 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3362 "SchemaEntity202012.tt"
+        #line 3246 "SchemaEntity202012.tt"
         this.Write("                 ");
         
         #line default
         #line hidden
         
-        #line 3362 "SchemaEntity202012.tt"
+        #line 3246 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( ExclusiveMinimum ));
         
         #line default
         #line hidden
         
-        #line 3362 "SchemaEntity202012.tt"
+        #line 3246 "SchemaEntity202012.tt"
         this.Write("\r\n        ");
         
         #line default
         #line hidden
         
-        #line 3363 "SchemaEntity202012.tt"
+        #line 3247 "SchemaEntity202012.tt"
 
         }
         else
@@ -9827,13 +9587,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3368 "SchemaEntity202012.tt"
+        #line 3252 "SchemaEntity202012.tt"
         this.Write("                null\r\n        ");
         
         #line default
         #line hidden
         
-        #line 3369 "SchemaEntity202012.tt"
+        #line 3253 "SchemaEntity202012.tt"
 
         }
         
@@ -9841,14 +9601,14 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3372 "SchemaEntity202012.tt"
+        #line 3256 "SchemaEntity202012.tt"
         this.Write("                );\r\n\r\n            if (level == ValidationLevel.Flag && !result.Is" +
                 "Valid)\r\n            {\r\n                return result;\r\n            }\r\n\r\n    ");
         
         #line default
         #line hidden
         
-        #line 3379 "SchemaEntity202012.tt"
+        #line 3263 "SchemaEntity202012.tt"
 
     }
     
@@ -9856,13 +9616,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3382 "SchemaEntity202012.tt"
+        #line 3266 "SchemaEntity202012.tt"
         this.Write("    \r\n    ");
         
         #line default
         #line hidden
         
-        #line 3383 "SchemaEntity202012.tt"
+        #line 3267 "SchemaEntity202012.tt"
 
     if (HasMaxLength || HasMinLength || HasPattern)
     {
@@ -9871,14 +9631,14 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3387 "SchemaEntity202012.tt"
+        #line 3271 "SchemaEntity202012.tt"
         this.Write("            result = Menes.Json.Validate.ValidateString(\r\n                this,\r\n" +
                 "                result,\r\n                level,\r\n        ");
         
         #line default
         #line hidden
         
-        #line 3391 "SchemaEntity202012.tt"
+        #line 3275 "SchemaEntity202012.tt"
 
         if (HasMaxLength)
         {
@@ -9887,25 +9647,25 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3395 "SchemaEntity202012.tt"
+        #line 3279 "SchemaEntity202012.tt"
         this.Write("                 ");
         
         #line default
         #line hidden
         
-        #line 3395 "SchemaEntity202012.tt"
+        #line 3279 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( MaxLength ));
         
         #line default
         #line hidden
         
-        #line 3395 "SchemaEntity202012.tt"
+        #line 3279 "SchemaEntity202012.tt"
         this.Write(",\r\n        ");
         
         #line default
         #line hidden
         
-        #line 3396 "SchemaEntity202012.tt"
+        #line 3280 "SchemaEntity202012.tt"
 
         }
         else
@@ -9915,13 +9675,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3401 "SchemaEntity202012.tt"
+        #line 3285 "SchemaEntity202012.tt"
         this.Write("                null,\r\n        ");
         
         #line default
         #line hidden
         
-        #line 3402 "SchemaEntity202012.tt"
+        #line 3286 "SchemaEntity202012.tt"
 
         }
         
@@ -9929,13 +9689,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3405 "SchemaEntity202012.tt"
+        #line 3289 "SchemaEntity202012.tt"
         this.Write("        ");
         
         #line default
         #line hidden
         
-        #line 3405 "SchemaEntity202012.tt"
+        #line 3289 "SchemaEntity202012.tt"
 
         if (HasMinLength)
         {
@@ -9944,25 +9704,25 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3409 "SchemaEntity202012.tt"
+        #line 3293 "SchemaEntity202012.tt"
         this.Write("                 ");
         
         #line default
         #line hidden
         
-        #line 3409 "SchemaEntity202012.tt"
+        #line 3293 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( MinLength ));
         
         #line default
         #line hidden
         
-        #line 3409 "SchemaEntity202012.tt"
+        #line 3293 "SchemaEntity202012.tt"
         this.Write(",\r\n        ");
         
         #line default
         #line hidden
         
-        #line 3410 "SchemaEntity202012.tt"
+        #line 3294 "SchemaEntity202012.tt"
 
         }
         else
@@ -9972,13 +9732,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3415 "SchemaEntity202012.tt"
+        #line 3299 "SchemaEntity202012.tt"
         this.Write("                null,\r\n        ");
         
         #line default
         #line hidden
         
-        #line 3416 "SchemaEntity202012.tt"
+        #line 3300 "SchemaEntity202012.tt"
 
         }
         
@@ -9986,13 +9746,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3419 "SchemaEntity202012.tt"
+        #line 3303 "SchemaEntity202012.tt"
         this.Write("        ");
         
         #line default
         #line hidden
         
-        #line 3419 "SchemaEntity202012.tt"
+        #line 3303 "SchemaEntity202012.tt"
 
         if (HasPattern)
         {
@@ -10001,13 +9761,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3423 "SchemaEntity202012.tt"
+        #line 3307 "SchemaEntity202012.tt"
         this.Write("                __MenesPatternExpression\r\n        ");
         
         #line default
         #line hidden
         
-        #line 3424 "SchemaEntity202012.tt"
+        #line 3308 "SchemaEntity202012.tt"
 
         }
         else
@@ -10017,13 +9777,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3429 "SchemaEntity202012.tt"
+        #line 3313 "SchemaEntity202012.tt"
         this.Write("                null\r\n        ");
         
         #line default
         #line hidden
         
-        #line 3430 "SchemaEntity202012.tt"
+        #line 3314 "SchemaEntity202012.tt"
 
         }
         
@@ -10031,14 +9791,14 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3433 "SchemaEntity202012.tt"
+        #line 3317 "SchemaEntity202012.tt"
         this.Write("                );\r\n\r\n            if (level == ValidationLevel.Flag && !result.Is" +
                 "Valid)\r\n            {\r\n                return result;\r\n            }\r\n    ");
         
         #line default
         #line hidden
         
-        #line 3439 "SchemaEntity202012.tt"
+        #line 3323 "SchemaEntity202012.tt"
 
     }
     
@@ -10046,13 +9806,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3442 "SchemaEntity202012.tt"
+        #line 3326 "SchemaEntity202012.tt"
         this.Write("\r\n    ");
         
         #line default
         #line hidden
         
-        #line 3443 "SchemaEntity202012.tt"
+        #line 3327 "SchemaEntity202012.tt"
 
     if (HasIfThenElse)
     {
@@ -10061,7 +9821,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3447 "SchemaEntity202012.tt"
+        #line 3331 "SchemaEntity202012.tt"
         this.Write("            result = this.ValidateIfThenElse(result, level);\r\n            if (lev" +
                 "el == ValidationLevel.Flag && !result.IsValid)\r\n            {\r\n                r" +
                 "eturn result;\r\n            }\r\n\r\n    ");
@@ -10069,7 +9829,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3453 "SchemaEntity202012.tt"
+        #line 3337 "SchemaEntity202012.tt"
 
     }
     
@@ -10077,13 +9837,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3456 "SchemaEntity202012.tt"
+        #line 3340 "SchemaEntity202012.tt"
         this.Write("\r\n    ");
         
         #line default
         #line hidden
         
-        #line 3457 "SchemaEntity202012.tt"
+        #line 3341 "SchemaEntity202012.tt"
 
     if (HasNot)
     {
@@ -10092,7 +9852,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3461 "SchemaEntity202012.tt"
+        #line 3345 "SchemaEntity202012.tt"
         this.Write("            result = this.ValidateNot(result, level);\r\n            if (level == V" +
                 "alidationLevel.Flag && !result.IsValid)\r\n            {\r\n                return r" +
                 "esult;\r\n            }\r\n\r\n    ");
@@ -10100,7 +9860,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3467 "SchemaEntity202012.tt"
+        #line 3351 "SchemaEntity202012.tt"
 
     }
     
@@ -10108,13 +9868,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3470 "SchemaEntity202012.tt"
+        #line 3354 "SchemaEntity202012.tt"
         this.Write("\r\n    ");
         
         #line default
         #line hidden
         
-        #line 3471 "SchemaEntity202012.tt"
+        #line 3355 "SchemaEntity202012.tt"
 
     if (HasAllOf)
     {
@@ -10123,7 +9883,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3475 "SchemaEntity202012.tt"
+        #line 3359 "SchemaEntity202012.tt"
         this.Write("            result = this.ValidateAllOf(result, level);\r\n            if (level ==" +
                 " ValidationLevel.Flag && !result.IsValid)\r\n            {\r\n                return" +
                 " result;\r\n            }\r\n    ");
@@ -10131,7 +9891,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3480 "SchemaEntity202012.tt"
+        #line 3364 "SchemaEntity202012.tt"
 
     }
     
@@ -10139,13 +9899,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3483 "SchemaEntity202012.tt"
+        #line 3367 "SchemaEntity202012.tt"
         this.Write("\r\n    ");
         
         #line default
         #line hidden
         
-        #line 3484 "SchemaEntity202012.tt"
+        #line 3368 "SchemaEntity202012.tt"
 
     if (HasAnyOf)
     {
@@ -10154,7 +9914,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3488 "SchemaEntity202012.tt"
+        #line 3372 "SchemaEntity202012.tt"
         this.Write("            result = this.ValidateAnyOf(result, level);\r\n            if (level ==" +
                 " ValidationLevel.Flag && !result.IsValid)\r\n            {\r\n                return" +
                 " result;\r\n            }\r\n    ");
@@ -10162,7 +9922,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3493 "SchemaEntity202012.tt"
+        #line 3377 "SchemaEntity202012.tt"
 
     }
     
@@ -10170,13 +9930,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3496 "SchemaEntity202012.tt"
+        #line 3380 "SchemaEntity202012.tt"
         this.Write("\r\n    ");
         
         #line default
         #line hidden
         
-        #line 3497 "SchemaEntity202012.tt"
+        #line 3381 "SchemaEntity202012.tt"
 
     if (HasOneOf)
     {
@@ -10185,7 +9945,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3501 "SchemaEntity202012.tt"
+        #line 3385 "SchemaEntity202012.tt"
         this.Write("            result = this.ValidateOneOf(result, level);\r\n            if (level ==" +
                 " ValidationLevel.Flag && !result.IsValid)\r\n            {\r\n                return" +
                 " result;\r\n            }\r\n\r\n    ");
@@ -10193,7 +9953,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3507 "SchemaEntity202012.tt"
+        #line 3391 "SchemaEntity202012.tt"
 
     }
     
@@ -10201,13 +9961,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3510 "SchemaEntity202012.tt"
+        #line 3394 "SchemaEntity202012.tt"
         this.Write("\r\n    ");
         
         #line default
         #line hidden
         
-        #line 3511 "SchemaEntity202012.tt"
+        #line 3395 "SchemaEntity202012.tt"
 
     if (HasDependentRequired || HasLocalProperties || HasRequired || HasMaxProperties || HasMinProperties || HasDependentSchemas || HasPropertyNames || HasPatternProperties || ((AllowsAdditionalProperties && (HasAdditionalProperties || HasUnevaluatedProperties)) || !AllowsAdditionalProperties))
     {
@@ -10216,7 +9976,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3515 "SchemaEntity202012.tt"
+        #line 3399 "SchemaEntity202012.tt"
         this.Write("            result = this.ValidateObject(valueKind, result, level);\r\n            " +
                 "if (level == ValidationLevel.Flag && !result.IsValid)\r\n            {\r\n          " +
                 "      return result;\r\n            }\r\n\r\n    ");
@@ -10224,7 +9984,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3521 "SchemaEntity202012.tt"
+        #line 3405 "SchemaEntity202012.tt"
 
     }
     
@@ -10232,13 +9992,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3524 "SchemaEntity202012.tt"
+        #line 3408 "SchemaEntity202012.tt"
         this.Write("\r\n\r\n    ");
         
         #line default
         #line hidden
         
-        #line 3526 "SchemaEntity202012.tt"
+        #line 3410 "SchemaEntity202012.tt"
 
     if (HasItems || HasContains || HasUniqueItems || HasMaxItems || HasMinItems || HasUnevaluatedItems || HasPrefixItems)
     {
@@ -10247,7 +10007,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3530 "SchemaEntity202012.tt"
+        #line 3414 "SchemaEntity202012.tt"
         this.Write("            result = this.ValidateArray(valueKind, result, level);\r\n            i" +
                 "f (level == ValidationLevel.Flag && !result.IsValid)\r\n            {\r\n           " +
                 "     return result;\r\n            }\r\n    ");
@@ -10255,7 +10015,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3535 "SchemaEntity202012.tt"
+        #line 3419 "SchemaEntity202012.tt"
 
     }
     
@@ -10263,13 +10023,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3538 "SchemaEntity202012.tt"
+        #line 3422 "SchemaEntity202012.tt"
         this.Write("            return result;\r\n        }\r\n\r\n    ");
         
         #line default
         #line hidden
         
-        #line 3541 "SchemaEntity202012.tt"
+        #line 3425 "SchemaEntity202012.tt"
 
     if (HasPatternProperties)
     {
@@ -10278,7 +10038,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3545 "SchemaEntity202012.tt"
+        #line 3429 "SchemaEntity202012.tt"
         this.Write(@"        private static ImmutableDictionary<Regex, Func<Property, ValidationContext, ValidationLevel, ValidationContext>> CreatePatternPropertiesValidators()
         {
             ImmutableDictionary<Regex, Func<Property, ValidationContext, ValidationLevel, ValidationContext>>.Builder builder =
@@ -10289,7 +10049,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3550 "SchemaEntity202012.tt"
+        #line 3434 "SchemaEntity202012.tt"
 
         foreach (var patternProperty in PatternProperties)
         {
@@ -10298,38 +10058,38 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3554 "SchemaEntity202012.tt"
+        #line 3438 "SchemaEntity202012.tt"
         this.Write("            builder.Add(\r\n                PatternProperty");
         
         #line default
         #line hidden
         
-        #line 3555 "SchemaEntity202012.tt"
+        #line 3439 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( PatternPropertySuffix(patternProperty) ));
         
         #line default
         #line hidden
         
-        #line 3555 "SchemaEntity202012.tt"
+        #line 3439 "SchemaEntity202012.tt"
         this.Write(",\r\n                (property, validationContext, level) =>\r\n                {\r\n  " +
                 "                  return property.ValueAs<");
         
         #line default
         #line hidden
         
-        #line 3558 "SchemaEntity202012.tt"
+        #line 3442 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( patternProperty.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 3558 "SchemaEntity202012.tt"
+        #line 3442 "SchemaEntity202012.tt"
         this.Write(">().Validate(validationContext, level);\r\n                });\r\n        ");
         
         #line default
         #line hidden
         
-        #line 3560 "SchemaEntity202012.tt"
+        #line 3444 "SchemaEntity202012.tt"
 
         }
         
@@ -10337,13 +10097,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3563 "SchemaEntity202012.tt"
+        #line 3447 "SchemaEntity202012.tt"
         this.Write("\r\n            return builder.ToImmutable();\r\n        }\r\n\r\n    ");
         
         #line default
         #line hidden
         
-        #line 3567 "SchemaEntity202012.tt"
+        #line 3451 "SchemaEntity202012.tt"
 
     }
     
@@ -10351,13 +10111,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3570 "SchemaEntity202012.tt"
+        #line 3454 "SchemaEntity202012.tt"
         this.Write("\r\n    ");
         
         #line default
         #line hidden
         
-        #line 3571 "SchemaEntity202012.tt"
+        #line 3455 "SchemaEntity202012.tt"
 
     if (HasDependentSchemas)
     {
@@ -10366,51 +10126,51 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3575 "SchemaEntity202012.tt"
-        this.Write("\r\n        private static ImmutableDictionary<JsonEncodedText, Func<");
+        #line 3459 "SchemaEntity202012.tt"
+        this.Write("\r\n        private static ImmutableDictionary<string, Func<");
         
         #line default
         #line hidden
         
-        #line 3576 "SchemaEntity202012.tt"
+        #line 3460 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 3576 "SchemaEntity202012.tt"
+        #line 3460 "SchemaEntity202012.tt"
         this.Write(", ValidationContext, ValidationLevel, ValidationContext>> CreateDependentSchemaVa" +
-                "lidators()\r\n        {\r\n            ImmutableDictionary<JsonEncodedText, Func<");
+                "lidators()\r\n        {\r\n            ImmutableDictionary<string, Func<");
         
         #line default
         #line hidden
         
-        #line 3578 "SchemaEntity202012.tt"
+        #line 3462 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 3578 "SchemaEntity202012.tt"
+        #line 3462 "SchemaEntity202012.tt"
         this.Write(", ValidationContext, ValidationLevel, ValidationContext>>.Builder builder =\r\n    " +
-                "            ImmutableDictionary.CreateBuilder<JsonEncodedText, Func<");
+                "            ImmutableDictionary.CreateBuilder<string, Func<");
         
         #line default
         #line hidden
         
-        #line 3579 "SchemaEntity202012.tt"
+        #line 3463 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 3579 "SchemaEntity202012.tt"
+        #line 3463 "SchemaEntity202012.tt"
         this.Write(", ValidationContext, ValidationLevel, ValidationContext>>();\r\n\r\n        ");
         
         #line default
         #line hidden
         
-        #line 3581 "SchemaEntity202012.tt"
+        #line 3465 "SchemaEntity202012.tt"
 
         foreach (var dependentSchema in DependentSchemas)
         {
@@ -10419,38 +10179,38 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3585 "SchemaEntity202012.tt"
-        this.Write("            builder.Add(\r\n                JsonEncodedText.Encode(\"");
+        #line 3469 "SchemaEntity202012.tt"
+        this.Write("            builder.Add(\r\n                \"");
         
         #line default
         #line hidden
         
-        #line 3586 "SchemaEntity202012.tt"
+        #line 3470 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( dependentSchema.Name ));
         
         #line default
         #line hidden
         
-        #line 3586 "SchemaEntity202012.tt"
-        this.Write("\"),\r\n                (entity, validationContext, level) =>\r\n                {\r\n  " +
-                "                  return entity.As<");
+        #line 3470 "SchemaEntity202012.tt"
+        this.Write("\",\r\n                (entity, validationContext, level) =>\r\n                {\r\n   " +
+                "                 return entity.As<");
         
         #line default
         #line hidden
         
-        #line 3589 "SchemaEntity202012.tt"
+        #line 3473 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( dependentSchema.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 3589 "SchemaEntity202012.tt"
+        #line 3473 "SchemaEntity202012.tt"
         this.Write(">().Validate(validationContext, level);\r\n                });\r\n\r\n        ");
         
         #line default
         #line hidden
         
-        #line 3592 "SchemaEntity202012.tt"
+        #line 3476 "SchemaEntity202012.tt"
 
         }
         
@@ -10458,13 +10218,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3595 "SchemaEntity202012.tt"
+        #line 3479 "SchemaEntity202012.tt"
         this.Write("            return builder.ToImmutable();\r\n        }\r\n\r\n    ");
         
         #line default
         #line hidden
         
-        #line 3598 "SchemaEntity202012.tt"
+        #line 3482 "SchemaEntity202012.tt"
 
     }
     
@@ -10472,13 +10232,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3601 "SchemaEntity202012.tt"
+        #line 3485 "SchemaEntity202012.tt"
         this.Write("\r\n    ");
         
         #line default
         #line hidden
         
-        #line 3602 "SchemaEntity202012.tt"
+        #line 3486 "SchemaEntity202012.tt"
 
     if (HasDefaults)
     {
@@ -10487,18 +10247,15 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3606 "SchemaEntity202012.tt"
-        this.Write(@"        private static ImmutableDictionary<JsonEncodedText, JsonAny> BuildDefaults()
-        {
-            ImmutableDictionary<JsonEncodedText, JsonAny>.Builder builder =
-                ImmutableDictionary.CreateBuilder<JsonEncodedText, JsonAny>();
-
-        ");
+        #line 3490 "SchemaEntity202012.tt"
+        this.Write("        private static ImmutableDictionary<string, JsonAny> BuildDefaults()\r\n    " +
+                "    {\r\n            ImmutableDictionary<string, JsonAny>.Builder builder =\r\n     " +
+                "           ImmutableDictionary.CreateBuilder<string, JsonAny>();\r\n\r\n        ");
         
         #line default
         #line hidden
         
-        #line 3611 "SchemaEntity202012.tt"
+        #line 3495 "SchemaEntity202012.tt"
 
         foreach (var property in Defaults)
         {
@@ -10507,37 +10264,37 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3615 "SchemaEntity202012.tt"
+        #line 3499 "SchemaEntity202012.tt"
         this.Write("            builder.Add(");
         
         #line default
         #line hidden
         
-        #line 3615 "SchemaEntity202012.tt"
+        #line 3499 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( property.DotnetPropertyName ));
         
         #line default
         #line hidden
         
-        #line 3615 "SchemaEntity202012.tt"
+        #line 3499 "SchemaEntity202012.tt"
         this.Write("JsonPropertyName, JsonAny.Parse(");
         
         #line default
         #line hidden
         
-        #line 3615 "SchemaEntity202012.tt"
+        #line 3499 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( Formatting.FormatLiteralOrNull(property.DefaultValue, true) ));
         
         #line default
         #line hidden
         
-        #line 3615 "SchemaEntity202012.tt"
+        #line 3499 "SchemaEntity202012.tt"
         this.Write("));\r\n        ");
         
         #line default
         #line hidden
         
-        #line 3616 "SchemaEntity202012.tt"
+        #line 3500 "SchemaEntity202012.tt"
 
         }
         
@@ -10545,13 +10302,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3619 "SchemaEntity202012.tt"
+        #line 3503 "SchemaEntity202012.tt"
         this.Write("            return builder.ToImmutable();\r\n        }\r\n    ");
         
         #line default
         #line hidden
         
-        #line 3621 "SchemaEntity202012.tt"
+        #line 3505 "SchemaEntity202012.tt"
 
     }
     
@@ -10559,13 +10316,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3624 "SchemaEntity202012.tt"
+        #line 3508 "SchemaEntity202012.tt"
         this.Write("\r\n    ");
         
         #line default
         #line hidden
         
-        #line 3625 "SchemaEntity202012.tt"
+        #line 3509 "SchemaEntity202012.tt"
 
     if (HasDependentRequired)
     {
@@ -10574,19 +10331,19 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3629 "SchemaEntity202012.tt"
+        #line 3513 "SchemaEntity202012.tt"
         this.Write(@"
-        private static ImmutableDictionary<JsonEncodedText, ImmutableArray<ReadOnlyMemory<byte>>> BuildDependentRequired()
+        private static ImmutableDictionary<string, ImmutableArray<ReadOnlyMemory<byte>>> BuildDependentRequired()
         {
-            ImmutableDictionary<JsonEncodedText, ImmutableArray<ReadOnlyMemory<byte>>>.Builder builder =
-                ImmutableDictionary.CreateBuilder<JsonEncodedText, ImmutableArray<ReadOnlyMemory<byte>>>();
+            ImmutableDictionary<string, ImmutableArray<ReadOnlyMemory<byte>>>.Builder builder =
+                ImmutableDictionary.CreateBuilder<string, ImmutableArray<ReadOnlyMemory<byte>>>();
 
         ");
         
         #line default
         #line hidden
         
-        #line 3635 "SchemaEntity202012.tt"
+        #line 3519 "SchemaEntity202012.tt"
 
         foreach (var dependentRequired in DependentRequired)
         {
@@ -10595,26 +10352,26 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3639 "SchemaEntity202012.tt"
-        this.Write("            builder.Add(\r\n                    JsonEncodedText.Encode(");
+        #line 3523 "SchemaEntity202012.tt"
+        this.Write("            builder.Add(\r\n                    ");
         
         #line default
         #line hidden
         
-        #line 3640 "SchemaEntity202012.tt"
+        #line 3524 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( Formatting.FormatLiteralOrNull(dependentRequired.Name, true) ));
         
         #line default
         #line hidden
         
-        #line 3640 "SchemaEntity202012.tt"
-        this.Write("),\r\n                    ImmutableArray.Create<ReadOnlyMemory<byte>>(\r\n           " +
-                " ");
+        #line 3524 "SchemaEntity202012.tt"
+        this.Write(",\r\n                    ImmutableArray.Create<ReadOnlyMemory<byte>>(\r\n            " +
+                "");
         
         #line default
         #line hidden
         
-        #line 3642 "SchemaEntity202012.tt"
+        #line 3526 "SchemaEntity202012.tt"
 
             bool isFirst1 = true;
             foreach (var dependentRequiredValue in dependentRequired.RequiredNames)
@@ -10624,13 +10381,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3647 "SchemaEntity202012.tt"
+        #line 3531 "SchemaEntity202012.tt"
         this.Write("                ");
         
         #line default
         #line hidden
         
-        #line 3647 "SchemaEntity202012.tt"
+        #line 3531 "SchemaEntity202012.tt"
 
                 if (isFirst1)
                 {
@@ -10640,25 +10397,25 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3652 "SchemaEntity202012.tt"
+        #line 3536 "SchemaEntity202012.tt"
         this.Write("                        System.Text.Encoding.UTF8.GetBytes(");
         
         #line default
         #line hidden
         
-        #line 3652 "SchemaEntity202012.tt"
+        #line 3536 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture(  Formatting.FormatLiteralOrNull(dependentRequiredValue, true) ));
         
         #line default
         #line hidden
         
-        #line 3652 "SchemaEntity202012.tt"
+        #line 3536 "SchemaEntity202012.tt"
         this.Write(").AsMemory()\r\n                ");
         
         #line default
         #line hidden
         
-        #line 3653 "SchemaEntity202012.tt"
+        #line 3537 "SchemaEntity202012.tt"
 
                 }
                 else
@@ -10668,25 +10425,25 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3658 "SchemaEntity202012.tt"
+        #line 3542 "SchemaEntity202012.tt"
         this.Write("                        , System.Text.Encoding.UTF8.GetBytes(");
         
         #line default
         #line hidden
         
-        #line 3658 "SchemaEntity202012.tt"
+        #line 3542 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture(  Formatting.FormatLiteralOrNull(dependentRequiredValue, true) ));
         
         #line default
         #line hidden
         
-        #line 3658 "SchemaEntity202012.tt"
+        #line 3542 "SchemaEntity202012.tt"
         this.Write(").AsMemory()\r\n                ");
         
         #line default
         #line hidden
         
-        #line 3659 "SchemaEntity202012.tt"
+        #line 3543 "SchemaEntity202012.tt"
 
                 }
                 
@@ -10694,13 +10451,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3662 "SchemaEntity202012.tt"
+        #line 3546 "SchemaEntity202012.tt"
         this.Write("            ");
         
         #line default
         #line hidden
         
-        #line 3662 "SchemaEntity202012.tt"
+        #line 3546 "SchemaEntity202012.tt"
 
             }
             
@@ -10708,13 +10465,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3665 "SchemaEntity202012.tt"
+        #line 3549 "SchemaEntity202012.tt"
         this.Write("                        ));\r\n        ");
         
         #line default
         #line hidden
         
-        #line 3666 "SchemaEntity202012.tt"
+        #line 3550 "SchemaEntity202012.tt"
 
         }
         
@@ -10722,13 +10479,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3669 "SchemaEntity202012.tt"
+        #line 3553 "SchemaEntity202012.tt"
         this.Write("            return builder.ToImmutable();\r\n        }\r\n\r\n    ");
         
         #line default
         #line hidden
         
-        #line 3672 "SchemaEntity202012.tt"
+        #line 3556 "SchemaEntity202012.tt"
 
     }
     
@@ -10736,13 +10493,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3675 "SchemaEntity202012.tt"
+        #line 3559 "SchemaEntity202012.tt"
         this.Write("\r\n    ");
         
         #line default
         #line hidden
         
-        #line 3676 "SchemaEntity202012.tt"
+        #line 3560 "SchemaEntity202012.tt"
 
     if (HasLocalProperties)
     {
@@ -10751,51 +10508,51 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3680 "SchemaEntity202012.tt"
-        this.Write("\r\n        private static ImmutableDictionary<JsonEncodedText, Func<");
+        #line 3564 "SchemaEntity202012.tt"
+        this.Write("\r\n        private static ImmutableDictionary<string, Func<");
         
         #line default
         #line hidden
         
-        #line 3681 "SchemaEntity202012.tt"
+        #line 3565 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 3681 "SchemaEntity202012.tt"
+        #line 3565 "SchemaEntity202012.tt"
         this.Write(", ValidationContext, ValidationLevel, ValidationContext>> CreateLocalPropertyVali" +
-                "dators()\r\n        {\r\n            ImmutableDictionary<JsonEncodedText, Func<");
+                "dators()\r\n        {\r\n            ImmutableDictionary<string, Func<");
         
         #line default
         #line hidden
         
-        #line 3683 "SchemaEntity202012.tt"
+        #line 3567 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 3683 "SchemaEntity202012.tt"
+        #line 3567 "SchemaEntity202012.tt"
         this.Write(", ValidationContext, ValidationLevel, ValidationContext>>.Builder builder =\r\n    " +
-                "            ImmutableDictionary.CreateBuilder<JsonEncodedText, Func<");
+                "            ImmutableDictionary.CreateBuilder<string, Func<");
         
         #line default
         #line hidden
         
-        #line 3684 "SchemaEntity202012.tt"
+        #line 3568 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 3684 "SchemaEntity202012.tt"
+        #line 3568 "SchemaEntity202012.tt"
         this.Write(", ValidationContext, ValidationLevel, ValidationContext>>();\r\n\r\n        ");
         
         #line default
         #line hidden
         
-        #line 3686 "SchemaEntity202012.tt"
+        #line 3570 "SchemaEntity202012.tt"
 
         foreach (var property in LocalProperties)
         {
@@ -10804,51 +10561,51 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3690 "SchemaEntity202012.tt"
+        #line 3574 "SchemaEntity202012.tt"
         this.Write("            builder.Add(\r\n                ");
         
         #line default
         #line hidden
         
-        #line 3691 "SchemaEntity202012.tt"
+        #line 3575 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( property.DotnetPropertyName ));
         
         #line default
         #line hidden
         
-        #line 3691 "SchemaEntity202012.tt"
+        #line 3575 "SchemaEntity202012.tt"
         this.Write("JsonPropertyName,\r\n                (that, validationContext, level) =>\r\n         " +
                 "       {\r\n                    ");
         
         #line default
         #line hidden
         
-        #line 3694 "SchemaEntity202012.tt"
+        #line 3578 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( property.Type.FullyQualifiedDotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 3694 "SchemaEntity202012.tt"
+        #line 3578 "SchemaEntity202012.tt"
         this.Write(" property = that.");
         
         #line default
         #line hidden
         
-        #line 3694 "SchemaEntity202012.tt"
+        #line 3578 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( property.DotnetPropertyName ));
         
         #line default
         #line hidden
         
-        #line 3694 "SchemaEntity202012.tt"
+        #line 3578 "SchemaEntity202012.tt"
         this.Write(";\r\n                    return property.Validate(validationContext, level);\r\n     " +
                 "           });\r\n        ");
         
         #line default
         #line hidden
         
-        #line 3697 "SchemaEntity202012.tt"
+        #line 3581 "SchemaEntity202012.tt"
 
         }
         
@@ -10856,13 +10613,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3700 "SchemaEntity202012.tt"
+        #line 3584 "SchemaEntity202012.tt"
         this.Write("\r\n            return builder.ToImmutable();\r\n        }\r\n\r\n    ");
         
         #line default
         #line hidden
         
-        #line 3704 "SchemaEntity202012.tt"
+        #line 3588 "SchemaEntity202012.tt"
 
     }
     
@@ -10870,13 +10627,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3707 "SchemaEntity202012.tt"
+        #line 3591 "SchemaEntity202012.tt"
         this.Write("\r\n    ");
         
         #line default
         #line hidden
         
-        #line 3708 "SchemaEntity202012.tt"
+        #line 3592 "SchemaEntity202012.tt"
 
     if (HasRef)
     {
@@ -10885,7 +10642,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3712 "SchemaEntity202012.tt"
+        #line 3596 "SchemaEntity202012.tt"
         this.Write("        private ValidationContext ValidateRef(in ValidationContext validationCont" +
                 "ext, ValidationLevel level)\r\n        {\r\n            ValidationContext result = v" +
                 "alidationContext;\r\n\r\n            ValidationContext refResult = this.As<");
@@ -10893,13 +10650,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3716 "SchemaEntity202012.tt"
+        #line 3600 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( RefDotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 3716 "SchemaEntity202012.tt"
+        #line 3600 "SchemaEntity202012.tt"
         this.Write(@">().Validate(validationContext.CreateChildContext(), level);
 
             if (!refResult.IsValid)
@@ -10934,7 +10691,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3745 "SchemaEntity202012.tt"
+        #line 3629 "SchemaEntity202012.tt"
 
     }
     
@@ -10942,13 +10699,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3748 "SchemaEntity202012.tt"
+        #line 3632 "SchemaEntity202012.tt"
         this.Write("\r\n    ");
         
         #line default
         #line hidden
         
-        #line 3749 "SchemaEntity202012.tt"
+        #line 3633 "SchemaEntity202012.tt"
 
     if (HasItems || HasContains || HasUniqueItems || HasMaxItems || HasMinItems || HasUnevaluatedItems || HasPrefixItems)
     {
@@ -10957,7 +10714,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3753 "SchemaEntity202012.tt"
+        #line 3637 "SchemaEntity202012.tt"
         this.Write(@"        private ValidationContext ValidateArray(JsonValueKind valueKind, in ValidationContext validationContext, ValidationLevel level)
         {
             ValidationContext result = validationContext;
@@ -10972,7 +10729,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3762 "SchemaEntity202012.tt"
+        #line 3646 "SchemaEntity202012.tt"
 
         if (HasItems || HasContains || HasUniqueItems || HasUnevaluatedItems || HasPrefixItems)
         {
@@ -10981,13 +10738,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3766 "SchemaEntity202012.tt"
+        #line 3650 "SchemaEntity202012.tt"
         this.Write("\r\n            int arrayLength = 0;\r\n         ");
         
         #line default
         #line hidden
         
-        #line 3768 "SchemaEntity202012.tt"
+        #line 3652 "SchemaEntity202012.tt"
 
         }
         else
@@ -10997,13 +10754,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3773 "SchemaEntity202012.tt"
+        #line 3657 "SchemaEntity202012.tt"
         this.Write("            int arrayLength = this.Length;\r\n        ");
         
         #line default
         #line hidden
         
-        #line 3774 "SchemaEntity202012.tt"
+        #line 3658 "SchemaEntity202012.tt"
 
         }
         
@@ -11011,13 +10768,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3777 "SchemaEntity202012.tt"
+        #line 3661 "SchemaEntity202012.tt"
         this.Write("\r\n        ");
         
         #line default
         #line hidden
         
-        #line 3778 "SchemaEntity202012.tt"
+        #line 3662 "SchemaEntity202012.tt"
 
         if (HasContains)
         {
@@ -11026,13 +10783,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3782 "SchemaEntity202012.tt"
+        #line 3666 "SchemaEntity202012.tt"
         this.Write("            int containsCount = 0;\r\n\r\n        ");
         
         #line default
         #line hidden
         
-        #line 3784 "SchemaEntity202012.tt"
+        #line 3668 "SchemaEntity202012.tt"
 
         }
 
@@ -11041,13 +10798,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3788 "SchemaEntity202012.tt"
+        #line 3672 "SchemaEntity202012.tt"
         this.Write("\r\n         ");
         
         #line default
         #line hidden
         
-        #line 3789 "SchemaEntity202012.tt"
+        #line 3673 "SchemaEntity202012.tt"
 
         if (HasItems || HasContains || HasUniqueItems || HasUnevaluatedItems || HasPrefixItems)
         {
@@ -11056,14 +10813,14 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3793 "SchemaEntity202012.tt"
+        #line 3677 "SchemaEntity202012.tt"
         this.Write("            JsonArrayEnumerator arrayEnumerator = this.EnumerateArray();\r\n\r\n     " +
                 "       while (arrayEnumerator.MoveNext())\r\n            {\r\n        ");
         
         #line default
         #line hidden
         
-        #line 3797 "SchemaEntity202012.tt"
+        #line 3681 "SchemaEntity202012.tt"
 
             if (HasUniqueItems)
             {
@@ -11072,7 +10829,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3801 "SchemaEntity202012.tt"
+        #line 3685 "SchemaEntity202012.tt"
         this.Write(@"                JsonArrayEnumerator innerEnumerator = this.EnumerateArray();
                 int innerIndex = -1;
                 while (innerIndex < arrayLength && innerEnumerator.MoveNext())
@@ -11104,7 +10861,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3827 "SchemaEntity202012.tt"
+        #line 3711 "SchemaEntity202012.tt"
 
             }
         
@@ -11112,13 +10869,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3830 "SchemaEntity202012.tt"
+        #line 3714 "SchemaEntity202012.tt"
         this.Write("\r\n        ");
         
         #line default
         #line hidden
         
-        #line 3831 "SchemaEntity202012.tt"
+        #line 3715 "SchemaEntity202012.tt"
 
             if (HasContains)
             {
@@ -11127,19 +10884,19 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3835 "SchemaEntity202012.tt"
+        #line 3719 "SchemaEntity202012.tt"
         this.Write("                ValidationContext containsResult = arrayEnumerator.Current.As<");
         
         #line default
         #line hidden
         
-        #line 3835 "SchemaEntity202012.tt"
+        #line 3719 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture(     ContainsDotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 3835 "SchemaEntity202012.tt"
+        #line 3719 "SchemaEntity202012.tt"
         this.Write(">().Validate(result.CreateChildContext(), level);\r\n\r\n                if (contains" +
                 "Result.IsValid)\r\n                {\r\n                    result = result.WithLoca" +
                 "lItemIndex(arrayLength);\r\n                    containsCount++;\r\n\r\n            ");
@@ -11147,7 +10904,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3842 "SchemaEntity202012.tt"
+        #line 3726 "SchemaEntity202012.tt"
 
                 if (HasMaxContains)
                 {
@@ -11156,26 +10913,26 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3846 "SchemaEntity202012.tt"
+        #line 3730 "SchemaEntity202012.tt"
         this.Write("                    if (level == ValidationLevel.Flag && containsCount > ");
         
         #line default
         #line hidden
         
-        #line 3846 "SchemaEntity202012.tt"
+        #line 3730 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture(  MaxContains ));
         
         #line default
         #line hidden
         
-        #line 3846 "SchemaEntity202012.tt"
+        #line 3730 "SchemaEntity202012.tt"
         this.Write(")\r\n                    {\r\n                        return result.WithResult(isVali" +
                 "d: false);\r\n                    }\r\n            ");
         
         #line default
         #line hidden
         
-        #line 3850 "SchemaEntity202012.tt"
+        #line 3734 "SchemaEntity202012.tt"
 
                 }
             
@@ -11183,13 +10940,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3853 "SchemaEntity202012.tt"
+        #line 3737 "SchemaEntity202012.tt"
         this.Write("                }\r\n\r\n        ");
         
         #line default
         #line hidden
         
-        #line 3855 "SchemaEntity202012.tt"
+        #line 3739 "SchemaEntity202012.tt"
 
             }
         
@@ -11197,13 +10954,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3858 "SchemaEntity202012.tt"
+        #line 3742 "SchemaEntity202012.tt"
         this.Write("\r\n        ");
         
         #line default
         #line hidden
         
-        #line 3859 "SchemaEntity202012.tt"
+        #line 3743 "SchemaEntity202012.tt"
 
             if (HasSingleItemsType && !HasPrefixItems)
             {
@@ -11212,19 +10969,19 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3863 "SchemaEntity202012.tt"
+        #line 3747 "SchemaEntity202012.tt"
         this.Write("                result = arrayEnumerator.Current.As<");
         
         #line default
         #line hidden
         
-        #line 3863 "SchemaEntity202012.tt"
+        #line 3747 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture(     SingleItemsDotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 3863 "SchemaEntity202012.tt"
+        #line 3747 "SchemaEntity202012.tt"
         this.Write(">().Validate(result, level);\r\n                if (level == ValidationLevel.Flag &" +
                 "& !result.IsValid)\r\n                {\r\n                    return result;\r\n     " +
                 "           }\r\n\r\n                result = result.WithLocalItemIndex(arrayLength);" +
@@ -11233,7 +10990,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3871 "SchemaEntity202012.tt"
+        #line 3755 "SchemaEntity202012.tt"
 
             }
             else if (HasMultipleItemsType || HasPrefixItems)
@@ -11244,13 +11001,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3877 "SchemaEntity202012.tt"
+        #line 3761 "SchemaEntity202012.tt"
         this.Write("                switch (arrayLength)\r\n                {\r\n            ");
         
         #line default
         #line hidden
         
-        #line 3879 "SchemaEntity202012.tt"
+        #line 3763 "SchemaEntity202012.tt"
 
                 if (HasPrefixItems)
                 {
@@ -11262,32 +11019,32 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3886 "SchemaEntity202012.tt"
+        #line 3770 "SchemaEntity202012.tt"
         this.Write("                    case ");
         
         #line default
         #line hidden
         
-        #line 3886 "SchemaEntity202012.tt"
+        #line 3770 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( itemsIndex ));
         
         #line default
         #line hidden
         
-        #line 3886 "SchemaEntity202012.tt"
+        #line 3770 "SchemaEntity202012.tt"
         this.Write(":\r\n                    \r\n                        result = arrayEnumerator.Current" +
                 ".As<");
         
         #line default
         #line hidden
         
-        #line 3888 "SchemaEntity202012.tt"
+        #line 3772 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( prefixItem ));
         
         #line default
         #line hidden
         
-        #line 3888 "SchemaEntity202012.tt"
+        #line 3772 "SchemaEntity202012.tt"
         this.Write(@">().Validate(result, level);
                         if (level == ValidationLevel.Flag && !result.IsValid)
                         {
@@ -11300,7 +11057,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3895 "SchemaEntity202012.tt"
+        #line 3779 "SchemaEntity202012.tt"
 
                         itemsIndex++;
                     }
@@ -11310,13 +11067,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3900 "SchemaEntity202012.tt"
+        #line 3784 "SchemaEntity202012.tt"
         this.Write("\r\n                    default:\r\n                ");
         
         #line default
         #line hidden
         
-        #line 3902 "SchemaEntity202012.tt"
+        #line 3786 "SchemaEntity202012.tt"
 
                 if (HasSingleItemsType)
                 {
@@ -11325,19 +11082,19 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3906 "SchemaEntity202012.tt"
+        #line 3790 "SchemaEntity202012.tt"
         this.Write("                        result = arrayEnumerator.Current.As<");
         
         #line default
         #line hidden
         
-        #line 3906 "SchemaEntity202012.tt"
+        #line 3790 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture(     SingleItemsDotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 3906 "SchemaEntity202012.tt"
+        #line 3790 "SchemaEntity202012.tt"
         this.Write(@">().Validate(result, level);
                         if (level == ValidationLevel.Flag && !result.IsValid)
                         {
@@ -11350,7 +11107,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3913 "SchemaEntity202012.tt"
+        #line 3797 "SchemaEntity202012.tt"
 
                 }
                 else if (HasUnevaluatedItems)
@@ -11360,7 +11117,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3918 "SchemaEntity202012.tt"
+        #line 3802 "SchemaEntity202012.tt"
         this.Write("                        if (!result.HasEvaluatedLocalOrAppliedItemIndex(arrayLeng" +
                 "th))\r\n                        {\r\n\r\n                            result = arrayEnu" +
                 "merator.Current.As<");
@@ -11368,13 +11125,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3921 "SchemaEntity202012.tt"
+        #line 3805 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture(  UnevaluatedItemsDotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 3921 "SchemaEntity202012.tt"
+        #line 3805 "SchemaEntity202012.tt"
         this.Write(@">().Validate(result, level);
 
                             if (level == ValidationLevel.Flag && !result.IsValid)
@@ -11389,7 +11146,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3930 "SchemaEntity202012.tt"
+        #line 3814 "SchemaEntity202012.tt"
 
                 }
                 
@@ -11397,13 +11154,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3933 "SchemaEntity202012.tt"
+        #line 3817 "SchemaEntity202012.tt"
         this.Write("\r\n                        break;\r\n                }\r\n\r\n        ");
         
         #line default
         #line hidden
         
-        #line 3937 "SchemaEntity202012.tt"
+        #line 3821 "SchemaEntity202012.tt"
 
             }
             else if (HasUnevaluatedItems)
@@ -11413,20 +11170,20 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3942 "SchemaEntity202012.tt"
+        #line 3826 "SchemaEntity202012.tt"
         this.Write("                if (!result.HasEvaluatedLocalOrAppliedItemIndex(arrayLength))\r\n  " +
                 "              {\r\n                    result = arrayEnumerator.Current.As<");
         
         #line default
         #line hidden
         
-        #line 3944 "SchemaEntity202012.tt"
+        #line 3828 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture(  UnevaluatedItemsDotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 3944 "SchemaEntity202012.tt"
+        #line 3828 "SchemaEntity202012.tt"
         this.Write(@">().Validate(result, level);
 
                     if (level == ValidationLevel.Flag && !result.IsValid)
@@ -11442,7 +11199,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3954 "SchemaEntity202012.tt"
+        #line 3838 "SchemaEntity202012.tt"
 
             }
         
@@ -11450,13 +11207,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3957 "SchemaEntity202012.tt"
+        #line 3841 "SchemaEntity202012.tt"
         this.Write("\r\n                arrayLength++;\r\n            }\r\n        ");
         
         #line default
         #line hidden
         
-        #line 3960 "SchemaEntity202012.tt"
+        #line 3844 "SchemaEntity202012.tt"
 
         }
         
@@ -11464,13 +11221,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3963 "SchemaEntity202012.tt"
+        #line 3847 "SchemaEntity202012.tt"
         this.Write("\r\n        ");
         
         #line default
         #line hidden
         
-        #line 3964 "SchemaEntity202012.tt"
+        #line 3848 "SchemaEntity202012.tt"
 
         if (HasMaxItems)
         {
@@ -11479,19 +11236,19 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3968 "SchemaEntity202012.tt"
+        #line 3852 "SchemaEntity202012.tt"
         this.Write("            if (arrayLength > ");
         
         #line default
         #line hidden
         
-        #line 3968 "SchemaEntity202012.tt"
+        #line 3852 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( MaxItems ));
         
         #line default
         #line hidden
         
-        #line 3968 "SchemaEntity202012.tt"
+        #line 3852 "SchemaEntity202012.tt"
         this.Write(")\r\n            {\r\n                if (level >= ValidationLevel.Detailed)\r\n       " +
                 "         {\r\n                    result = result.WithResult(isValid: false, $\"6.4" +
                 ".1. maxItems - {arrayLength} exceeds maximum number of items ");
@@ -11499,13 +11256,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3972 "SchemaEntity202012.tt"
+        #line 3856 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( MaxItems ));
         
         #line default
         #line hidden
         
-        #line 3972 "SchemaEntity202012.tt"
+        #line 3856 "SchemaEntity202012.tt"
         this.Write(".\");\r\n                }\r\n                else if (level >= ValidationLevel.Basic)" +
                 "\r\n                {\r\n                    result = result.WithResult(isValid: fal" +
                 "se, \"6.4.1. maxItems - item count exceeds maximum number of items ");
@@ -11513,13 +11270,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3976 "SchemaEntity202012.tt"
+        #line 3860 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( MaxItems ));
         
         #line default
         #line hidden
         
-        #line 3976 "SchemaEntity202012.tt"
+        #line 3860 "SchemaEntity202012.tt"
         this.Write(".\");\r\n                }\r\n                else\r\n                {\r\n               " +
                 "     return result.WithResult(isValid: false);\r\n                }\r\n\r\n           " +
                 " }\r\n        ");
@@ -11527,7 +11284,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3984 "SchemaEntity202012.tt"
+        #line 3868 "SchemaEntity202012.tt"
 
         }
         
@@ -11535,13 +11292,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3987 "SchemaEntity202012.tt"
+        #line 3871 "SchemaEntity202012.tt"
         this.Write("\r\n        ");
         
         #line default
         #line hidden
         
-        #line 3988 "SchemaEntity202012.tt"
+        #line 3872 "SchemaEntity202012.tt"
 
         if (HasMinItems)
         {
@@ -11550,19 +11307,19 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3992 "SchemaEntity202012.tt"
+        #line 3876 "SchemaEntity202012.tt"
         this.Write("            if (arrayLength < ");
         
         #line default
         #line hidden
         
-        #line 3992 "SchemaEntity202012.tt"
+        #line 3876 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( MinItems ));
         
         #line default
         #line hidden
         
-        #line 3992 "SchemaEntity202012.tt"
+        #line 3876 "SchemaEntity202012.tt"
         this.Write(")\r\n            {\r\n                if (level >= ValidationLevel.Detailed)\r\n       " +
                 "         {\r\n                    result = result.WithResult(isValid: false, $\"6.4" +
                 ".2. minItems - {arrayLength} is less than the minimum number of items ");
@@ -11570,13 +11327,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 3996 "SchemaEntity202012.tt"
+        #line 3880 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( MinItems ));
         
         #line default
         #line hidden
         
-        #line 3996 "SchemaEntity202012.tt"
+        #line 3880 "SchemaEntity202012.tt"
         this.Write(".\");\r\n                }\r\n                else if (level >= ValidationLevel.Basic)" +
                 "\r\n                {\r\n                    result = result.WithResult(isValid: fal" +
                 "se, \"6.4.2. minItems - item count is less than the minimum number of items ");
@@ -11584,13 +11341,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4000 "SchemaEntity202012.tt"
+        #line 3884 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( MinItems ));
         
         #line default
         #line hidden
         
-        #line 4000 "SchemaEntity202012.tt"
+        #line 3884 "SchemaEntity202012.tt"
         this.Write(".\");\r\n                }\r\n                else\r\n                {\r\n               " +
                 "     return result.WithResult(isValid: false);\r\n                }\r\n\r\n           " +
                 " }\r\n        ");
@@ -11598,7 +11355,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4008 "SchemaEntity202012.tt"
+        #line 3892 "SchemaEntity202012.tt"
 
         }
         
@@ -11606,13 +11363,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4011 "SchemaEntity202012.tt"
+        #line 3895 "SchemaEntity202012.tt"
         this.Write("\r\n        ");
         
         #line default
         #line hidden
         
-        #line 4012 "SchemaEntity202012.tt"
+        #line 3896 "SchemaEntity202012.tt"
 
         if (HasContains)
         {
@@ -11621,13 +11378,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4016 "SchemaEntity202012.tt"
+        #line 3900 "SchemaEntity202012.tt"
         this.Write("            ");
         
         #line default
         #line hidden
         
-        #line 4016 "SchemaEntity202012.tt"
+        #line 3900 "SchemaEntity202012.tt"
 
             if (HasMaxContains)
             {
@@ -11636,19 +11393,19 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4020 "SchemaEntity202012.tt"
+        #line 3904 "SchemaEntity202012.tt"
         this.Write("\r\n            if (containsCount > ");
         
         #line default
         #line hidden
         
-        #line 4021 "SchemaEntity202012.tt"
+        #line 3905 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture(     MaxContains ));
         
         #line default
         #line hidden
         
-        #line 4021 "SchemaEntity202012.tt"
+        #line 3905 "SchemaEntity202012.tt"
         this.Write(")\r\n            {\r\n                if (level >= ValidationLevel.Detailed)\r\n       " +
                 "         {\r\n                    result = result.WithResult(isValid: false, $\"6.4" +
                 ".4. maxContains - {containsCount} exceeds maximum number of matching items ");
@@ -11656,13 +11413,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4025 "SchemaEntity202012.tt"
+        #line 3909 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture(     MaxContains ));
         
         #line default
         #line hidden
         
-        #line 4025 "SchemaEntity202012.tt"
+        #line 3909 "SchemaEntity202012.tt"
         this.Write(".\");\r\n                }\r\n                else if (level >= ValidationLevel.Basic)" +
                 "\r\n                {\r\n                    result = result.WithResult(isValid: fal" +
                 "se, \"6.4.4. maxContains - item count exceeds maximum number of matching items ");
@@ -11670,13 +11427,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4029 "SchemaEntity202012.tt"
+        #line 3913 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture(     MaxContains ));
         
         #line default
         #line hidden
         
-        #line 4029 "SchemaEntity202012.tt"
+        #line 3913 "SchemaEntity202012.tt"
         this.Write(".\");\r\n                }\r\n                else\r\n                {\r\n               " +
                 "     return result.WithResult(isValid: false);\r\n                }\r\n            }" +
                 "\r\n\r\n            ");
@@ -11684,7 +11441,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4037 "SchemaEntity202012.tt"
+        #line 3921 "SchemaEntity202012.tt"
 
             }
             
@@ -11692,13 +11449,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4040 "SchemaEntity202012.tt"
+        #line 3924 "SchemaEntity202012.tt"
         this.Write("\r\n            ");
         
         #line default
         #line hidden
         
-        #line 4041 "SchemaEntity202012.tt"
+        #line 3925 "SchemaEntity202012.tt"
 
             if (HasMinContains)
             {
@@ -11707,19 +11464,19 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4045 "SchemaEntity202012.tt"
+        #line 3929 "SchemaEntity202012.tt"
         this.Write("            if (containsCount < ");
         
         #line default
         #line hidden
         
-        #line 4045 "SchemaEntity202012.tt"
+        #line 3929 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture(     MinContains ));
         
         #line default
         #line hidden
         
-        #line 4045 "SchemaEntity202012.tt"
+        #line 3929 "SchemaEntity202012.tt"
         this.Write(")\r\n            {\r\n                if (level >= ValidationLevel.Detailed)\r\n       " +
                 "         {\r\n                    result = result.WithResult(isValid: false, $\"6.4" +
                 ".5. minContains - {containsCount} is less than minimum number of matching items " +
@@ -11728,13 +11485,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4049 "SchemaEntity202012.tt"
+        #line 3933 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture(     MinContains ));
         
         #line default
         #line hidden
         
-        #line 4049 "SchemaEntity202012.tt"
+        #line 3933 "SchemaEntity202012.tt"
         this.Write(".\");\r\n                }\r\n                else if (level >= ValidationLevel.Basic)" +
                 "\r\n                {\r\n                    result = result.WithResult(isValid: fal" +
                 "se, \"6.4.5. minContains - item count is less than minimum number of matching ite" +
@@ -11743,13 +11500,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4053 "SchemaEntity202012.tt"
+        #line 3937 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture(     MinContains ));
         
         #line default
         #line hidden
         
-        #line 4053 "SchemaEntity202012.tt"
+        #line 3937 "SchemaEntity202012.tt"
         this.Write(".\");\r\n                }\r\n                else\r\n                {\r\n               " +
                 "     return result.WithResult(isValid: false);\r\n                }\r\n            }" +
                 "\r\n\r\n            ");
@@ -11757,7 +11514,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4061 "SchemaEntity202012.tt"
+        #line 3945 "SchemaEntity202012.tt"
 
             }
             else
@@ -11767,7 +11524,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4066 "SchemaEntity202012.tt"
+        #line 3950 "SchemaEntity202012.tt"
         this.Write(@"            if (containsCount == 0)
             {
                 if (level >= ValidationLevel.Detailed)
@@ -11789,7 +11546,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4082 "SchemaEntity202012.tt"
+        #line 3966 "SchemaEntity202012.tt"
 
             }
             
@@ -11797,13 +11554,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4085 "SchemaEntity202012.tt"
+        #line 3969 "SchemaEntity202012.tt"
         this.Write("\r\n\r\n        ");
         
         #line default
         #line hidden
         
-        #line 4087 "SchemaEntity202012.tt"
+        #line 3971 "SchemaEntity202012.tt"
 
         }
         
@@ -11811,13 +11568,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4090 "SchemaEntity202012.tt"
+        #line 3974 "SchemaEntity202012.tt"
         this.Write("\r\n            return result;\r\n        }\r\n\r\n    ");
         
         #line default
         #line hidden
         
-        #line 4094 "SchemaEntity202012.tt"
+        #line 3978 "SchemaEntity202012.tt"
 
     }
     
@@ -11825,13 +11582,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4097 "SchemaEntity202012.tt"
+        #line 3981 "SchemaEntity202012.tt"
         this.Write("\r\n    ");
         
         #line default
         #line hidden
         
-        #line 4098 "SchemaEntity202012.tt"
+        #line 3982 "SchemaEntity202012.tt"
 
     if (HasDependentRequired || HasLocalProperties || HasRequired || HasMaxProperties || HasMinProperties|| HasDependentSchemas || HasPropertyNames || HasPatternProperties || ((AllowsAdditionalProperties && (HasAdditionalProperties || HasUnevaluatedProperties)) || !AllowsAdditionalProperties))
     {
@@ -11840,7 +11597,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4102 "SchemaEntity202012.tt"
+        #line 3986 "SchemaEntity202012.tt"
         this.Write(@"        private ValidationContext ValidateObject(JsonValueKind valueKind, in ValidationContext validationContext, ValidationLevel level)
         {
             ValidationContext result = validationContext;
@@ -11855,7 +11612,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4111 "SchemaEntity202012.tt"
+        #line 3995 "SchemaEntity202012.tt"
 
         if (AllowsAdditionalProperties && (HasAdditionalProperties || HasUnevaluatedProperties))
         {
@@ -11864,13 +11621,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4115 "SchemaEntity202012.tt"
+        #line 3999 "SchemaEntity202012.tt"
         this.Write("            result = result.UsingEvaluatedProperties();\r\n        ");
         
         #line default
         #line hidden
         
-        #line 4116 "SchemaEntity202012.tt"
+        #line 4000 "SchemaEntity202012.tt"
 
         }
         
@@ -11878,13 +11635,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4119 "SchemaEntity202012.tt"
+        #line 4003 "SchemaEntity202012.tt"
         this.Write("\r\n        ");
         
         #line default
         #line hidden
         
-        #line 4120 "SchemaEntity202012.tt"
+        #line 4004 "SchemaEntity202012.tt"
 
         if (HasMaxProperties || HasMinProperties)
         {
@@ -11893,13 +11650,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4124 "SchemaEntity202012.tt"
+        #line 4008 "SchemaEntity202012.tt"
         this.Write("            int propertyCount = 0;\r\n        ");
         
         #line default
         #line hidden
         
-        #line 4125 "SchemaEntity202012.tt"
+        #line 4009 "SchemaEntity202012.tt"
 
         }
         
@@ -11907,13 +11664,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4128 "SchemaEntity202012.tt"
+        #line 4012 "SchemaEntity202012.tt"
         this.Write("\r\n        ");
         
         #line default
         #line hidden
         
-        #line 4129 "SchemaEntity202012.tt"
+        #line 4013 "SchemaEntity202012.tt"
 
         if (HasRequired)
         {
@@ -11922,13 +11679,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4133 "SchemaEntity202012.tt"
+        #line 4017 "SchemaEntity202012.tt"
         this.Write("            ");
         
         #line default
         #line hidden
         
-        #line 4133 "SchemaEntity202012.tt"
+        #line 4017 "SchemaEntity202012.tt"
  
             foreach(var property in RequiredProperties)
             {
@@ -11937,25 +11694,25 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4137 "SchemaEntity202012.tt"
+        #line 4021 "SchemaEntity202012.tt"
         this.Write("            bool found");
         
         #line default
         #line hidden
         
-        #line 4137 "SchemaEntity202012.tt"
+        #line 4021 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture(     property.DotnetPropertyName ));
         
         #line default
         #line hidden
         
-        #line 4137 "SchemaEntity202012.tt"
+        #line 4021 "SchemaEntity202012.tt"
         this.Write(" = false;\r\n            ");
         
         #line default
         #line hidden
         
-        #line 4138 "SchemaEntity202012.tt"
+        #line 4022 "SchemaEntity202012.tt"
 
             }
             
@@ -11963,13 +11720,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4141 "SchemaEntity202012.tt"
+        #line 4025 "SchemaEntity202012.tt"
         this.Write("        ");
         
         #line default
         #line hidden
         
-        #line 4141 "SchemaEntity202012.tt"
+        #line 4025 "SchemaEntity202012.tt"
 
         }
         
@@ -11977,15 +11734,14 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4144 "SchemaEntity202012.tt"
+        #line 4028 "SchemaEntity202012.tt"
         this.Write("\r\n            foreach (Property property in this.EnumerateObject())\r\n            " +
-                "{\r\n                JsonEncodedText propertyName = property.NameAsJsonEncodedText" +
-                ";\r\n\r\n        ");
+                "{\r\n                string propertyName = property.Name;\r\n\r\n        ");
         
         #line default
         #line hidden
         
-        #line 4149 "SchemaEntity202012.tt"
+        #line 4033 "SchemaEntity202012.tt"
 
         if (HasDependentRequired)
         {
@@ -11994,7 +11750,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4153 "SchemaEntity202012.tt"
+        #line 4037 "SchemaEntity202012.tt"
         this.Write(@"                if (__MenesDependentRequired.TryGetValue(propertyName, out ImmutableArray<ReadOnlyMemory<byte>> dependencies))
                 {
                     foreach (ReadOnlyMemory<byte> dependency in dependencies)
@@ -12005,7 +11761,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4158 "SchemaEntity202012.tt"
+        #line 4042 "SchemaEntity202012.tt"
 
             if (HasDefaults)
             {
@@ -12014,13 +11770,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4162 "SchemaEntity202012.tt"
+        #line 4046 "SchemaEntity202012.tt"
         this.Write("                        && !this.HasDefault(dependency.Span)\r\n            ");
         
         #line default
         #line hidden
         
-        #line 4163 "SchemaEntity202012.tt"
+        #line 4047 "SchemaEntity202012.tt"
 
             }
             
@@ -12028,7 +11784,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4166 "SchemaEntity202012.tt"
+        #line 4050 "SchemaEntity202012.tt"
         this.Write(@"                        )
                         {
                             if (level >= ValidationLevel.Detailed)
@@ -12052,7 +11808,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4184 "SchemaEntity202012.tt"
+        #line 4068 "SchemaEntity202012.tt"
 
         }
         
@@ -12060,13 +11816,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4187 "SchemaEntity202012.tt"
+        #line 4071 "SchemaEntity202012.tt"
         this.Write("\r\n        ");
         
         #line default
         #line hidden
         
-        #line 4188 "SchemaEntity202012.tt"
+        #line 4072 "SchemaEntity202012.tt"
 
         if (HasLocalProperties || HasRequired)
         {
@@ -12075,19 +11831,19 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4192 "SchemaEntity202012.tt"
+        #line 4076 "SchemaEntity202012.tt"
         this.Write("                if (__MenesLocalProperties.TryGetValue(propertyName, out Func<");
         
         #line default
         #line hidden
         
-        #line 4192 "SchemaEntity202012.tt"
+        #line 4076 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 4192 "SchemaEntity202012.tt"
+        #line 4076 "SchemaEntity202012.tt"
         this.Write(@", ValidationContext, ValidationLevel, ValidationContext>? propertyValidator))
                 {
                     result = result.WithLocalProperty(propertyName);
@@ -12103,7 +11859,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4202 "SchemaEntity202012.tt"
+        #line 4086 "SchemaEntity202012.tt"
 
             if (HasRequired)
             {
@@ -12117,13 +11873,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4211 "SchemaEntity202012.tt"
+        #line 4095 "SchemaEntity202012.tt"
         this.Write("                else \r\n                    ");
         
         #line default
         #line hidden
         
-        #line 4212 "SchemaEntity202012.tt"
+        #line 4096 "SchemaEntity202012.tt"
 
                     }
                     else
@@ -12135,38 +11891,38 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4219 "SchemaEntity202012.tt"
+        #line 4103 "SchemaEntity202012.tt"
         this.Write("\r\n                if (");
         
         #line default
         #line hidden
         
-        #line 4220 "SchemaEntity202012.tt"
+        #line 4104 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture(  property.DotnetPropertyName ));
         
         #line default
         #line hidden
         
-        #line 4220 "SchemaEntity202012.tt"
+        #line 4104 "SchemaEntity202012.tt"
         this.Write("JsonPropertyName.Equals(propertyName))\r\n                {\r\n                    fo" +
                 "und");
         
         #line default
         #line hidden
         
-        #line 4222 "SchemaEntity202012.tt"
+        #line 4106 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture(  property.DotnetPropertyName));
         
         #line default
         #line hidden
         
-        #line 4222 "SchemaEntity202012.tt"
+        #line 4106 "SchemaEntity202012.tt"
         this.Write(" = true;\r\n                }\r\n            ");
         
         #line default
         #line hidden
         
-        #line 4224 "SchemaEntity202012.tt"
+        #line 4108 "SchemaEntity202012.tt"
 
                 }
             }
@@ -12175,13 +11931,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4228 "SchemaEntity202012.tt"
+        #line 4112 "SchemaEntity202012.tt"
         this.Write("\r\n                }\r\n        ");
         
         #line default
         #line hidden
         
-        #line 4230 "SchemaEntity202012.tt"
+        #line 4114 "SchemaEntity202012.tt"
 
         }
         
@@ -12189,13 +11945,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4233 "SchemaEntity202012.tt"
+        #line 4117 "SchemaEntity202012.tt"
         this.Write("\r\n        ");
         
         #line default
         #line hidden
         
-        #line 4234 "SchemaEntity202012.tt"
+        #line 4118 "SchemaEntity202012.tt"
 
         if (HasDependentSchemas)
         {
@@ -12204,19 +11960,19 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4238 "SchemaEntity202012.tt"
+        #line 4122 "SchemaEntity202012.tt"
         this.Write("                if (__MenesDependentSchema.TryGetValue(propertyName, out Func<");
         
         #line default
         #line hidden
         
-        #line 4238 "SchemaEntity202012.tt"
+        #line 4122 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 4238 "SchemaEntity202012.tt"
+        #line 4122 "SchemaEntity202012.tt"
         this.Write(@", ValidationContext, ValidationLevel, ValidationContext>? dependentSchemaValidator))
                 {
                     result = result.WithLocalProperty(propertyName);
@@ -12231,7 +11987,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4247 "SchemaEntity202012.tt"
+        #line 4131 "SchemaEntity202012.tt"
 
         }
         
@@ -12239,13 +11995,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4250 "SchemaEntity202012.tt"
+        #line 4134 "SchemaEntity202012.tt"
         this.Write("\r\n        ");
         
         #line default
         #line hidden
         
-        #line 4251 "SchemaEntity202012.tt"
+        #line 4135 "SchemaEntity202012.tt"
 
         if (HasPropertyNames || HasPatternProperties)
         {
@@ -12254,13 +12010,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4255 "SchemaEntity202012.tt"
+        #line 4139 "SchemaEntity202012.tt"
         this.Write("                string propertyNameAsString = property.Name;\r\n\r\n            ");
         
         #line default
         #line hidden
         
-        #line 4257 "SchemaEntity202012.tt"
+        #line 4141 "SchemaEntity202012.tt"
 
             if (HasPropertyNames)
             {
@@ -12269,19 +12025,19 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4261 "SchemaEntity202012.tt"
+        #line 4145 "SchemaEntity202012.tt"
         this.Write("                result = new JsonString(propertyNameAsString).As<");
         
         #line default
         #line hidden
         
-        #line 4261 "SchemaEntity202012.tt"
+        #line 4145 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture(     PropertyNamesDotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 4261 "SchemaEntity202012.tt"
+        #line 4145 "SchemaEntity202012.tt"
         this.Write(">().Validate(result, level);\r\n                if (level == ValidationLevel.Flag &" +
                 "& !result.IsValid)\r\n                {\r\n                    return result;\r\n     " +
                 "           }\r\n            ");
@@ -12289,7 +12045,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4266 "SchemaEntity202012.tt"
+        #line 4150 "SchemaEntity202012.tt"
 
             }
             
@@ -12297,13 +12053,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4269 "SchemaEntity202012.tt"
+        #line 4153 "SchemaEntity202012.tt"
         this.Write("\r\n            ");
         
         #line default
         #line hidden
         
-        #line 4270 "SchemaEntity202012.tt"
+        #line 4154 "SchemaEntity202012.tt"
 
             if (HasPatternProperties)
             {
@@ -12312,7 +12068,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4274 "SchemaEntity202012.tt"
+        #line 4158 "SchemaEntity202012.tt"
         this.Write(@"                foreach (KeyValuePair<Regex, Func<Property, ValidationContext, ValidationLevel, ValidationContext>> patternProperty in __MenesPatternProperties)
                 {
                     if (patternProperty.Key.IsMatch(propertyNameAsString))
@@ -12331,7 +12087,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4287 "SchemaEntity202012.tt"
+        #line 4171 "SchemaEntity202012.tt"
 
             }
             
@@ -12339,13 +12095,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4290 "SchemaEntity202012.tt"
+        #line 4174 "SchemaEntity202012.tt"
         this.Write("        ");
         
         #line default
         #line hidden
         
-        #line 4290 "SchemaEntity202012.tt"
+        #line 4174 "SchemaEntity202012.tt"
 
         }
         
@@ -12353,13 +12109,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4293 "SchemaEntity202012.tt"
+        #line 4177 "SchemaEntity202012.tt"
         this.Write("\r\n        ");
         
         #line default
         #line hidden
         
-        #line 4294 "SchemaEntity202012.tt"
+        #line 4178 "SchemaEntity202012.tt"
 
         if (AllowsAdditionalProperties && HasAdditionalProperties)
         {
@@ -12368,20 +12124,20 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4298 "SchemaEntity202012.tt"
+        #line 4182 "SchemaEntity202012.tt"
         this.Write("                if (!result.HasEvaluatedLocalProperty(propertyName))\r\n           " +
                 "     {\r\n                    result = property.ValueAs<");
         
         #line default
         #line hidden
         
-        #line 4300 "SchemaEntity202012.tt"
+        #line 4184 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( AdditionalPropertiesDotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 4300 "SchemaEntity202012.tt"
+        #line 4184 "SchemaEntity202012.tt"
         this.Write(@">().Validate(result, level);
                     if (level == ValidationLevel.Flag && !result.IsValid)
                     {
@@ -12394,7 +12150,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4307 "SchemaEntity202012.tt"
+        #line 4191 "SchemaEntity202012.tt"
 
         }
         
@@ -12402,13 +12158,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4310 "SchemaEntity202012.tt"
+        #line 4194 "SchemaEntity202012.tt"
         this.Write("\r\n        ");
         
         #line default
         #line hidden
         
-        #line 4311 "SchemaEntity202012.tt"
+        #line 4195 "SchemaEntity202012.tt"
 
         if (AllowsAdditionalProperties && HasUnevaluatedProperties)
         {
@@ -12417,20 +12173,20 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4315 "SchemaEntity202012.tt"
+        #line 4199 "SchemaEntity202012.tt"
         this.Write("        \r\n                if (!result.HasEvaluatedLocalOrAppliedProperty(property" +
                 "Name))\r\n                {\r\n\r\n                    result = property.ValueAs<");
         
         #line default
         #line hidden
         
-        #line 4319 "SchemaEntity202012.tt"
+        #line 4203 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( UnevaluatedPropertiesDotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 4319 "SchemaEntity202012.tt"
+        #line 4203 "SchemaEntity202012.tt"
         this.Write(@">().Validate(result, level);
                     if (level == ValidationLevel.Flag && !result.IsValid)
                     {
@@ -12444,7 +12200,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4327 "SchemaEntity202012.tt"
+        #line 4211 "SchemaEntity202012.tt"
 
         }
         
@@ -12452,13 +12208,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4330 "SchemaEntity202012.tt"
+        #line 4214 "SchemaEntity202012.tt"
         this.Write("\r\n        ");
         
         #line default
         #line hidden
         
-        #line 4331 "SchemaEntity202012.tt"
+        #line 4215 "SchemaEntity202012.tt"
 
         if (!AllowsAdditionalProperties)
         {
@@ -12467,7 +12223,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4335 "SchemaEntity202012.tt"
+        #line 4219 "SchemaEntity202012.tt"
         this.Write(@"        
                 if (!result.HasEvaluatedLocalProperty(propertyName))
                 {
@@ -12490,7 +12246,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4352 "SchemaEntity202012.tt"
+        #line 4236 "SchemaEntity202012.tt"
 
         }
         
@@ -12498,13 +12254,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4355 "SchemaEntity202012.tt"
+        #line 4239 "SchemaEntity202012.tt"
         this.Write("\r\n        ");
         
         #line default
         #line hidden
         
-        #line 4356 "SchemaEntity202012.tt"
+        #line 4240 "SchemaEntity202012.tt"
 
         if (HasMaxProperties || HasMinProperties)
         {
@@ -12513,13 +12269,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4360 "SchemaEntity202012.tt"
+        #line 4244 "SchemaEntity202012.tt"
         this.Write("        \r\n                propertyCount++;\r\n\r\n        ");
         
         #line default
         #line hidden
         
-        #line 4363 "SchemaEntity202012.tt"
+        #line 4247 "SchemaEntity202012.tt"
 
         }
         
@@ -12527,13 +12283,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4366 "SchemaEntity202012.tt"
+        #line 4250 "SchemaEntity202012.tt"
         this.Write("            }\r\n\r\n        ");
         
         #line default
         #line hidden
         
-        #line 4368 "SchemaEntity202012.tt"
+        #line 4252 "SchemaEntity202012.tt"
 
         if (HasRequired)
         {
@@ -12542,13 +12298,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4372 "SchemaEntity202012.tt"
+        #line 4256 "SchemaEntity202012.tt"
         this.Write("\r\n            ");
         
         #line default
         #line hidden
         
-        #line 4373 "SchemaEntity202012.tt"
+        #line 4257 "SchemaEntity202012.tt"
 
             foreach (var property in RequiredProperties)
             {
@@ -12557,25 +12313,25 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4377 "SchemaEntity202012.tt"
+        #line 4261 "SchemaEntity202012.tt"
         this.Write("            if (!found");
         
         #line default
         #line hidden
         
-        #line 4377 "SchemaEntity202012.tt"
+        #line 4261 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture(     property.DotnetPropertyName ));
         
         #line default
         #line hidden
         
-        #line 4377 "SchemaEntity202012.tt"
+        #line 4261 "SchemaEntity202012.tt"
         this.Write("\r\n            ");
         
         #line default
         #line hidden
         
-        #line 4378 "SchemaEntity202012.tt"
+        #line 4262 "SchemaEntity202012.tt"
 
                 if (HasDefaults)
                 {
@@ -12584,25 +12340,25 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4382 "SchemaEntity202012.tt"
+        #line 4266 "SchemaEntity202012.tt"
         this.Write("            && !HasDefault(");
         
         #line default
         #line hidden
         
-        #line 4382 "SchemaEntity202012.tt"
+        #line 4266 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture(  property.DotnetPropertyName ));
         
         #line default
         #line hidden
         
-        #line 4382 "SchemaEntity202012.tt"
+        #line 4266 "SchemaEntity202012.tt"
         this.Write("JsonPropertyName)\r\n            ");
         
         #line default
         #line hidden
         
-        #line 4383 "SchemaEntity202012.tt"
+        #line 4267 "SchemaEntity202012.tt"
 
                 }
             
@@ -12610,7 +12366,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4386 "SchemaEntity202012.tt"
+        #line 4270 "SchemaEntity202012.tt"
         this.Write("            )\r\n            {\r\n                if (level >= ValidationLevel.Detail" +
                 "ed)\r\n                {\r\n                    result = result.WithResult(isValid: " +
                 "false, $\"6.5.3. required - required property \\\"");
@@ -12618,13 +12374,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4390 "SchemaEntity202012.tt"
+        #line 4274 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture(     Formatting.FormatLiteralOrNull(property.JsonPropertyName, true).Trim('"') ));
         
         #line default
         #line hidden
         
-        #line 4390 "SchemaEntity202012.tt"
+        #line 4274 "SchemaEntity202012.tt"
         this.Write(@"\"" not present."");
                 }
                 else if (level >= ValidationLevel.Basic)
@@ -12641,7 +12397,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4401 "SchemaEntity202012.tt"
+        #line 4285 "SchemaEntity202012.tt"
 
             }
             
@@ -12649,13 +12405,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4404 "SchemaEntity202012.tt"
+        #line 4288 "SchemaEntity202012.tt"
         this.Write("        ");
         
         #line default
         #line hidden
         
-        #line 4404 "SchemaEntity202012.tt"
+        #line 4288 "SchemaEntity202012.tt"
 
         }
         
@@ -12663,13 +12419,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4407 "SchemaEntity202012.tt"
+        #line 4291 "SchemaEntity202012.tt"
         this.Write("\r\n        ");
         
         #line default
         #line hidden
         
-        #line 4408 "SchemaEntity202012.tt"
+        #line 4292 "SchemaEntity202012.tt"
 
         if (HasMaxProperties)
         {
@@ -12678,19 +12434,19 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4412 "SchemaEntity202012.tt"
+        #line 4296 "SchemaEntity202012.tt"
         this.Write("        \r\n            if (propertyCount > ");
         
         #line default
         #line hidden
         
-        #line 4413 "SchemaEntity202012.tt"
+        #line 4297 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( MaxProperties ));
         
         #line default
         #line hidden
         
-        #line 4413 "SchemaEntity202012.tt"
+        #line 4297 "SchemaEntity202012.tt"
         this.Write(")\r\n            {\r\n                if (level >= ValidationLevel.Detailed)\r\n       " +
                 "         {\r\n                    result = result.WithResult(isValid: false, $\"6.5" +
                 ".1. maxProperties - property count of {propertyCount} is greater than ");
@@ -12698,13 +12454,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4417 "SchemaEntity202012.tt"
+        #line 4301 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( MaxProperties ));
         
         #line default
         #line hidden
         
-        #line 4417 "SchemaEntity202012.tt"
+        #line 4301 "SchemaEntity202012.tt"
         this.Write(".\");\r\n                }\r\n                else if (level >= ValidationLevel.Basic)" +
                 "\r\n                {\r\n                    result = result.WithResult(isValid: fal" +
                 "se, \"6.5.1. maxProperties - property count greater than ");
@@ -12712,13 +12468,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4421 "SchemaEntity202012.tt"
+        #line 4305 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( MaxProperties ));
         
         #line default
         #line hidden
         
-        #line 4421 "SchemaEntity202012.tt"
+        #line 4305 "SchemaEntity202012.tt"
         this.Write(".\");\r\n                }\r\n                else\r\n                {\r\n               " +
                 "     return result.WithResult(isValid: false);\r\n                }\r\n            }" +
                 "\r\n        ");
@@ -12726,7 +12482,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4428 "SchemaEntity202012.tt"
+        #line 4312 "SchemaEntity202012.tt"
 
         }
         
@@ -12734,13 +12490,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4431 "SchemaEntity202012.tt"
+        #line 4315 "SchemaEntity202012.tt"
         this.Write("\r\n        ");
         
         #line default
         #line hidden
         
-        #line 4432 "SchemaEntity202012.tt"
+        #line 4316 "SchemaEntity202012.tt"
 
         if (HasMinProperties)
         {
@@ -12749,19 +12505,19 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4436 "SchemaEntity202012.tt"
+        #line 4320 "SchemaEntity202012.tt"
         this.Write("        \r\n            if (propertyCount < ");
         
         #line default
         #line hidden
         
-        #line 4437 "SchemaEntity202012.tt"
+        #line 4321 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( MinProperties ));
         
         #line default
         #line hidden
         
-        #line 4437 "SchemaEntity202012.tt"
+        #line 4321 "SchemaEntity202012.tt"
         this.Write(")\r\n            {\r\n                if (level >= ValidationLevel.Detailed)\r\n       " +
                 "         {\r\n                    result = result.WithResult(isValid: false, $\"6.5" +
                 ".2. minProperties - property count of {propertyCount} is lezs than ");
@@ -12769,13 +12525,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4441 "SchemaEntity202012.tt"
+        #line 4325 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( MinProperties ));
         
         #line default
         #line hidden
         
-        #line 4441 "SchemaEntity202012.tt"
+        #line 4325 "SchemaEntity202012.tt"
         this.Write(".\");\r\n                }\r\n                else if (level >= ValidationLevel.Basic)" +
                 "\r\n                {\r\n                    result = result.WithResult(isValid: fal" +
                 "se, \"6.5.2. minProperties - property count less than ");
@@ -12783,13 +12539,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4445 "SchemaEntity202012.tt"
+        #line 4329 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( MinProperties ));
         
         #line default
         #line hidden
         
-        #line 4445 "SchemaEntity202012.tt"
+        #line 4329 "SchemaEntity202012.tt"
         this.Write(".\");\r\n                }\r\n                else\r\n                {\r\n               " +
                 "     return result.WithResult(isValid: false);\r\n                }\r\n            }" +
                 "\r\n\r\n        ");
@@ -12797,7 +12553,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4453 "SchemaEntity202012.tt"
+        #line 4337 "SchemaEntity202012.tt"
 
         }
         
@@ -12805,13 +12561,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4456 "SchemaEntity202012.tt"
+        #line 4340 "SchemaEntity202012.tt"
         this.Write("\r\n            return result;\r\n        }\r\n\r\n    ");
         
         #line default
         #line hidden
         
-        #line 4460 "SchemaEntity202012.tt"
+        #line 4344 "SchemaEntity202012.tt"
 
     }
     
@@ -12819,13 +12575,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4463 "SchemaEntity202012.tt"
+        #line 4347 "SchemaEntity202012.tt"
         this.Write("\r\n    ");
         
         #line default
         #line hidden
         
-        #line 4464 "SchemaEntity202012.tt"
+        #line 4348 "SchemaEntity202012.tt"
 
     if (HasOneOf)
     {
@@ -12834,7 +12590,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4468 "SchemaEntity202012.tt"
+        #line 4352 "SchemaEntity202012.tt"
         this.Write("        \r\n        private ValidationContext ValidateOneOf(in ValidationContext va" +
                 "lidationContext, ValidationLevel level)\r\n        {\r\n            ValidationContex" +
                 "t result = validationContext;\r\n\r\n            int oneOfCount = 0;\r\n\r\n        ");
@@ -12842,7 +12598,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4475 "SchemaEntity202012.tt"
+        #line 4359 "SchemaEntity202012.tt"
 
         int oneOfIndex = 0;
         foreach (var oneOf in OneOf)
@@ -12852,64 +12608,64 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4480 "SchemaEntity202012.tt"
+        #line 4364 "SchemaEntity202012.tt"
         this.Write("        \r\n\r\n            ValidationContext oneOfResult");
         
         #line default
         #line hidden
         
-        #line 4482 "SchemaEntity202012.tt"
+        #line 4366 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( oneOfIndex));
         
         #line default
         #line hidden
         
-        #line 4482 "SchemaEntity202012.tt"
+        #line 4366 "SchemaEntity202012.tt"
         this.Write(" = this.As<");
         
         #line default
         #line hidden
         
-        #line 4482 "SchemaEntity202012.tt"
+        #line 4366 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( oneOf ));
         
         #line default
         #line hidden
         
-        #line 4482 "SchemaEntity202012.tt"
+        #line 4366 "SchemaEntity202012.tt"
         this.Write(">().Validate(validationContext.CreateChildContext(), level);\r\n\r\n            if (o" +
                 "neOfResult");
         
         #line default
         #line hidden
         
-        #line 4484 "SchemaEntity202012.tt"
+        #line 4368 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( oneOfIndex ));
         
         #line default
         #line hidden
         
-        #line 4484 "SchemaEntity202012.tt"
+        #line 4368 "SchemaEntity202012.tt"
         this.Write(".IsValid)\r\n            {\r\n                result = result.MergeChildContext(oneOf" +
                 "Result");
         
         #line default
         #line hidden
         
-        #line 4486 "SchemaEntity202012.tt"
+        #line 4370 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( oneOfIndex ));
         
         #line default
         #line hidden
         
-        #line 4486 "SchemaEntity202012.tt"
+        #line 4370 "SchemaEntity202012.tt"
         this.Write(", level >= ValidationLevel.Detailed);\r\n                oneOfCount += 1;\r\n        " +
                 "    ");
         
         #line default
         #line hidden
         
-        #line 4488 "SchemaEntity202012.tt"
+        #line 4372 "SchemaEntity202012.tt"
 
             if (!HasUnevaluatedItems && !HasUnevaluatedProperties)
             {
@@ -12918,7 +12674,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4492 "SchemaEntity202012.tt"
+        #line 4376 "SchemaEntity202012.tt"
         this.Write("                if (oneOfCount > 1 && level == ValidationLevel.Flag)\r\n           " +
                 "     {\r\n                    result = result.WithResult(isValid: false);\r\n       " +
                 "             return result;\r\n                }\r\n            ");
@@ -12926,7 +12682,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4497 "SchemaEntity202012.tt"
+        #line 4381 "SchemaEntity202012.tt"
 
             }
             
@@ -12934,7 +12690,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4500 "SchemaEntity202012.tt"
+        #line 4384 "SchemaEntity202012.tt"
         this.Write("            }\r\n            else\r\n            {\r\n                if (level >= Vali" +
                 "dationLevel.Detailed)\r\n                {\r\n                    result = result.Me" +
                 "rgeChildContext(oneOfResult");
@@ -12942,13 +12698,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4505 "SchemaEntity202012.tt"
+        #line 4389 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( oneOfIndex ));
         
         #line default
         #line hidden
         
-        #line 4505 "SchemaEntity202012.tt"
+        #line 4389 "SchemaEntity202012.tt"
         this.Write(", true);\r\n                }\r\n                else if (level >= ValidationLevel.Ba" +
                 "sic)\r\n                {\r\n                    result = result.MergeChildContext(o" +
                 "neOfResult");
@@ -12956,32 +12712,32 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4509 "SchemaEntity202012.tt"
+        #line 4393 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( oneOfIndex ));
         
         #line default
         #line hidden
         
-        #line 4509 "SchemaEntity202012.tt"
+        #line 4393 "SchemaEntity202012.tt"
         this.Write(", true);\r\n                }\r\n                else\r\n                {\r\n           " +
                 "         result = result.MergeChildContext(oneOfResult");
         
         #line default
         #line hidden
         
-        #line 4513 "SchemaEntity202012.tt"
+        #line 4397 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( oneOfIndex ));
         
         #line default
         #line hidden
         
-        #line 4513 "SchemaEntity202012.tt"
+        #line 4397 "SchemaEntity202012.tt"
         this.Write(", false);\r\n                }\r\n            }\r\n\r\n        ");
         
         #line default
         #line hidden
         
-        #line 4517 "SchemaEntity202012.tt"
+        #line 4401 "SchemaEntity202012.tt"
 
             oneOfIndex++;
         }
@@ -12990,7 +12746,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4521 "SchemaEntity202012.tt"
+        #line 4405 "SchemaEntity202012.tt"
         this.Write("\r\n            if (oneOfCount == 1)\r\n            {\r\n                if (level >= V" +
                 "alidationLevel.Detailed)\r\n                {\r\n                    result = result" +
                 ".WithResult(isValid: true, \"Validation 10.2.1.3. onef - validated against the on" +
@@ -13017,7 +12773,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4563 "SchemaEntity202012.tt"
+        #line 4447 "SchemaEntity202012.tt"
 
     }
     
@@ -13025,13 +12781,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4566 "SchemaEntity202012.tt"
+        #line 4450 "SchemaEntity202012.tt"
         this.Write("        \r\n\r\n    ");
         
         #line default
         #line hidden
         
-        #line 4568 "SchemaEntity202012.tt"
+        #line 4452 "SchemaEntity202012.tt"
 
     if (HasAnyOf)
     {
@@ -13040,7 +12796,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4572 "SchemaEntity202012.tt"
+        #line 4456 "SchemaEntity202012.tt"
         this.Write("        \r\n        private ValidationContext ValidateAnyOf(in ValidationContext va" +
                 "lidationContext, ValidationLevel level)\r\n        {\r\n            ValidationContex" +
                 "t result = validationContext;\r\n\r\n            bool foundValid = false;\r\n\r\n       " +
@@ -13049,7 +12805,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4579 "SchemaEntity202012.tt"
+        #line 4463 "SchemaEntity202012.tt"
 
         int anyOfIndex = 0;
         foreach (var anyOf in AnyOf)
@@ -13059,63 +12815,63 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4584 "SchemaEntity202012.tt"
+        #line 4468 "SchemaEntity202012.tt"
         this.Write("        \r\n\r\n            ValidationContext anyOfResult");
         
         #line default
         #line hidden
         
-        #line 4586 "SchemaEntity202012.tt"
+        #line 4470 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( anyOfIndex ));
         
         #line default
         #line hidden
         
-        #line 4586 "SchemaEntity202012.tt"
+        #line 4470 "SchemaEntity202012.tt"
         this.Write(" = this.As<");
         
         #line default
         #line hidden
         
-        #line 4586 "SchemaEntity202012.tt"
+        #line 4470 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( anyOf ));
         
         #line default
         #line hidden
         
-        #line 4586 "SchemaEntity202012.tt"
+        #line 4470 "SchemaEntity202012.tt"
         this.Write(">().Validate(validationContext.CreateChildContext(), level);\r\n\r\n            if (a" +
                 "nyOfResult");
         
         #line default
         #line hidden
         
-        #line 4588 "SchemaEntity202012.tt"
+        #line 4472 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( anyOfIndex ));
         
         #line default
         #line hidden
         
-        #line 4588 "SchemaEntity202012.tt"
+        #line 4472 "SchemaEntity202012.tt"
         this.Write(".IsValid)\r\n            {\r\n                result = result.MergeChildContext(anyOf" +
                 "Result");
         
         #line default
         #line hidden
         
-        #line 4590 "SchemaEntity202012.tt"
+        #line 4474 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( anyOfIndex ));
         
         #line default
         #line hidden
         
-        #line 4590 "SchemaEntity202012.tt"
+        #line 4474 "SchemaEntity202012.tt"
         this.Write(", level >= ValidationLevel.Detailed);\r\n            ");
         
         #line default
         #line hidden
         
-        #line 4591 "SchemaEntity202012.tt"
+        #line 4475 "SchemaEntity202012.tt"
 
             if (!HasUnevaluatedItems && !HasUnevaluatedProperties)
             {
@@ -13124,7 +12880,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4595 "SchemaEntity202012.tt"
+        #line 4479 "SchemaEntity202012.tt"
         this.Write("                if (level == ValidationLevel.Flag)\r\n                {\r\n          " +
                 "          return result;\r\n                }\r\n                else\r\n             " +
                 "   {\r\n                    foundValid = true;\r\n                }\r\n            ");
@@ -13132,7 +12888,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4603 "SchemaEntity202012.tt"
+        #line 4487 "SchemaEntity202012.tt"
 
             }
             else
@@ -13142,13 +12898,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4608 "SchemaEntity202012.tt"
+        #line 4492 "SchemaEntity202012.tt"
         this.Write("                    foundValid = true;\r\n            ");
         
         #line default
         #line hidden
         
-        #line 4609 "SchemaEntity202012.tt"
+        #line 4493 "SchemaEntity202012.tt"
 
             }
             
@@ -13156,7 +12912,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4612 "SchemaEntity202012.tt"
+        #line 4496 "SchemaEntity202012.tt"
         this.Write("            }\r\n            else\r\n            {\r\n                if (level >= Vali" +
                 "dationLevel.Detailed)\r\n                {\r\n                    result = result.Me" +
                 "rgeResults(result.IsValid, level, anyOfResult");
@@ -13164,13 +12920,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4617 "SchemaEntity202012.tt"
+        #line 4501 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( anyOfIndex ));
         
         #line default
         #line hidden
         
-        #line 4617 "SchemaEntity202012.tt"
+        #line 4501 "SchemaEntity202012.tt"
         this.Write(");\r\n                }\r\n                else if (level >= ValidationLevel.Basic)\r\n" +
                 "                {\r\n                    result = result.MergeResults(result.IsVal" +
                 "id, level, anyOfResult");
@@ -13178,19 +12934,19 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4621 "SchemaEntity202012.tt"
+        #line 4505 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( anyOfIndex ));
         
         #line default
         #line hidden
         
-        #line 4621 "SchemaEntity202012.tt"
+        #line 4505 "SchemaEntity202012.tt"
         this.Write(");\r\n                }\r\n            }\r\n\r\n        ");
         
         #line default
         #line hidden
         
-        #line 4625 "SchemaEntity202012.tt"
+        #line 4509 "SchemaEntity202012.tt"
 
             anyOfIndex++;
         }
@@ -13199,7 +12955,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4629 "SchemaEntity202012.tt"
+        #line 4513 "SchemaEntity202012.tt"
         this.Write(@"
             if (foundValid)
             {
@@ -13232,7 +12988,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4656 "SchemaEntity202012.tt"
+        #line 4540 "SchemaEntity202012.tt"
 
     }
     
@@ -13240,13 +12996,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4659 "SchemaEntity202012.tt"
+        #line 4543 "SchemaEntity202012.tt"
         this.Write("        \r\n\r\n    ");
         
         #line default
         #line hidden
         
-        #line 4661 "SchemaEntity202012.tt"
+        #line 4545 "SchemaEntity202012.tt"
 
     if (HasAllOf)
     {
@@ -13255,7 +13011,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4665 "SchemaEntity202012.tt"
+        #line 4549 "SchemaEntity202012.tt"
         this.Write("        \r\n        private ValidationContext ValidateAllOf(in ValidationContext va" +
                 "lidationContext, ValidationLevel level)\r\n        {\r\n            ValidationContex" +
                 "t result = validationContext;\r\n\r\n        ");
@@ -13263,7 +13019,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4670 "SchemaEntity202012.tt"
+        #line 4554 "SchemaEntity202012.tt"
 
         int allOfIndex = 0;
         foreach (var allOf in AllOf)
@@ -13273,44 +13029,44 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4675 "SchemaEntity202012.tt"
+        #line 4559 "SchemaEntity202012.tt"
         this.Write("        \r\n\r\n            ValidationContext allOfResult");
         
         #line default
         #line hidden
         
-        #line 4677 "SchemaEntity202012.tt"
+        #line 4561 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( allOfIndex ));
         
         #line default
         #line hidden
         
-        #line 4677 "SchemaEntity202012.tt"
+        #line 4561 "SchemaEntity202012.tt"
         this.Write(" = this.As<");
         
         #line default
         #line hidden
         
-        #line 4677 "SchemaEntity202012.tt"
+        #line 4561 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( allOf ));
         
         #line default
         #line hidden
         
-        #line 4677 "SchemaEntity202012.tt"
+        #line 4561 "SchemaEntity202012.tt"
         this.Write(">().Validate(validationContext.CreateChildContext(), level);\r\n\r\n            if (!" +
                 "allOfResult");
         
         #line default
         #line hidden
         
-        #line 4679 "SchemaEntity202012.tt"
+        #line 4563 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( allOfIndex ));
         
         #line default
         #line hidden
         
-        #line 4679 "SchemaEntity202012.tt"
+        #line 4563 "SchemaEntity202012.tt"
         this.Write(".IsValid)\r\n            {\r\n                if (level >= ValidationLevel.Detailed)\r" +
                 "\n                {\r\n                    result = result.MergeChildContext(allOfR" +
                 "esult");
@@ -13318,13 +13074,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4683 "SchemaEntity202012.tt"
+        #line 4567 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( allOfIndex ));
         
         #line default
         #line hidden
         
-        #line 4683 "SchemaEntity202012.tt"
+        #line 4567 "SchemaEntity202012.tt"
         this.Write(@", true).WithResult(isValid: false, ""Validation 10.2.1.1. allOf - failed to validate against the allOf schema."");
                 }
                 else if (level >= ValidationLevel.Basic)
@@ -13334,13 +13090,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4687 "SchemaEntity202012.tt"
+        #line 4571 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( allOfIndex ));
         
         #line default
         #line hidden
         
-        #line 4687 "SchemaEntity202012.tt"
+        #line 4571 "SchemaEntity202012.tt"
         this.Write(", true).WithResult(isValid: false, \"Validation 10.2.1.1. allOf - failed to valida" +
                 "te against the allOf schema.\");\r\n                }\r\n                else\r\n      " +
                 "          {\r\n                    result = result.MergeChildContext(allOfResult");
@@ -13348,13 +13104,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4691 "SchemaEntity202012.tt"
+        #line 4575 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( allOfIndex ));
         
         #line default
         #line hidden
         
-        #line 4691 "SchemaEntity202012.tt"
+        #line 4575 "SchemaEntity202012.tt"
         this.Write(", false).WithResult(isValid: false);\r\n                    return result;\r\n       " +
                 "         }\r\n            }\r\n            else\r\n            {\r\n                resu" +
                 "lt = result.MergeChildContext(allOfResult");
@@ -13362,19 +13118,19 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4697 "SchemaEntity202012.tt"
+        #line 4581 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( allOfIndex ));
         
         #line default
         #line hidden
         
-        #line 4697 "SchemaEntity202012.tt"
+        #line 4581 "SchemaEntity202012.tt"
         this.Write(", level >= ValidationLevel.Detailed);\r\n            }\r\n\r\n        ");
         
         #line default
         #line hidden
         
-        #line 4700 "SchemaEntity202012.tt"
+        #line 4584 "SchemaEntity202012.tt"
 
             allOfIndex++;
         }
@@ -13383,13 +13139,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4704 "SchemaEntity202012.tt"
+        #line 4588 "SchemaEntity202012.tt"
         this.Write("\r\n            return result;\r\n        }\r\n\r\n    ");
         
         #line default
         #line hidden
         
-        #line 4708 "SchemaEntity202012.tt"
+        #line 4592 "SchemaEntity202012.tt"
 
     }
     
@@ -13397,13 +13153,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4711 "SchemaEntity202012.tt"
+        #line 4595 "SchemaEntity202012.tt"
         this.Write("        \r\n\r\n    ");
         
         #line default
         #line hidden
         
-        #line 4713 "SchemaEntity202012.tt"
+        #line 4597 "SchemaEntity202012.tt"
 
     if (HasNot)
     {
@@ -13412,7 +13168,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4717 "SchemaEntity202012.tt"
+        #line 4601 "SchemaEntity202012.tt"
         this.Write("        \r\n        private ValidationContext ValidateNot(ValidationContext validat" +
                 "ionContext, ValidationLevel level)\r\n        {\r\n            ValidationContext res" +
                 "ult = validationContext;\r\n\r\n            ValidationContext notResult = this.As<");
@@ -13420,13 +13176,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4722 "SchemaEntity202012.tt"
+        #line 4606 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( NotDotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 4722 "SchemaEntity202012.tt"
+        #line 4606 "SchemaEntity202012.tt"
         this.Write(@">().Validate(validationContext.CreateChildContext(), level);
             if (notResult.IsValid)
             {
@@ -13456,7 +13212,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4746 "SchemaEntity202012.tt"
+        #line 4630 "SchemaEntity202012.tt"
 
     }
     
@@ -13464,13 +13220,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4749 "SchemaEntity202012.tt"
+        #line 4633 "SchemaEntity202012.tt"
         this.Write("        \r\n\r\n    ");
         
         #line default
         #line hidden
         
-        #line 4751 "SchemaEntity202012.tt"
+        #line 4635 "SchemaEntity202012.tt"
 
     if (HasIfThenElse)
     {
@@ -13479,7 +13235,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4755 "SchemaEntity202012.tt"
+        #line 4639 "SchemaEntity202012.tt"
         this.Write("        \r\n        private ValidationContext ValidateIfThenElse(in ValidationConte" +
                 "xt validationContext, ValidationLevel level)\r\n        {\r\n            ValidationC" +
                 "ontext result = validationContext;\r\n\r\n            ValidationContext ifResult = t" +
@@ -13488,13 +13244,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4760 "SchemaEntity202012.tt"
+        #line 4644 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( IfFullyQualifiedDotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 4760 "SchemaEntity202012.tt"
+        #line 4644 "SchemaEntity202012.tt"
         this.Write(@">().Validate(validationContext.CreateChildContext(), level);
 
             if (!ifResult.IsValid)
@@ -13524,7 +13280,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4784 "SchemaEntity202012.tt"
+        #line 4668 "SchemaEntity202012.tt"
 
         if (HasThen)
         {
@@ -13533,20 +13289,20 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4788 "SchemaEntity202012.tt"
+        #line 4672 "SchemaEntity202012.tt"
         this.Write("        \r\n            if (ifResult.IsValid)\r\n            {\r\n                Valid" +
                 "ationContext thenResult = this.As<");
         
         #line default
         #line hidden
         
-        #line 4791 "SchemaEntity202012.tt"
+        #line 4675 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( ThenFullyQualifiedDotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 4791 "SchemaEntity202012.tt"
+        #line 4675 "SchemaEntity202012.tt"
         this.Write(@">().Validate(validationContext.CreateChildContext(), level);
 
                 if (!thenResult.IsValid)
@@ -13580,7 +13336,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4819 "SchemaEntity202012.tt"
+        #line 4703 "SchemaEntity202012.tt"
 
         }
         
@@ -13588,13 +13344,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4822 "SchemaEntity202012.tt"
+        #line 4706 "SchemaEntity202012.tt"
         this.Write("\r\n        ");
         
         #line default
         #line hidden
         
-        #line 4823 "SchemaEntity202012.tt"
+        #line 4707 "SchemaEntity202012.tt"
 
         if (HasElse)
         {
@@ -13603,20 +13359,20 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4827 "SchemaEntity202012.tt"
+        #line 4711 "SchemaEntity202012.tt"
         this.Write("        \r\n            if (!ifResult.IsValid)\r\n            {\r\n                Vali" +
                 "dationContext elseResult = this.As<");
         
         #line default
         #line hidden
         
-        #line 4830 "SchemaEntity202012.tt"
+        #line 4714 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( ElseFullyQualifiedDotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 4830 "SchemaEntity202012.tt"
+        #line 4714 "SchemaEntity202012.tt"
         this.Write(@">().Validate(validationContext.CreateChildContext(), level);
 
                 if (!elseResult.IsValid)
@@ -13650,7 +13406,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4858 "SchemaEntity202012.tt"
+        #line 4742 "SchemaEntity202012.tt"
 
         }
         
@@ -13658,13 +13414,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4861 "SchemaEntity202012.tt"
+        #line 4745 "SchemaEntity202012.tt"
         this.Write("\r\n            return result;\r\n        }\r\n\r\n    ");
         
         #line default
         #line hidden
         
-        #line 4865 "SchemaEntity202012.tt"
+        #line 4749 "SchemaEntity202012.tt"
 
     }
     
@@ -13672,13 +13428,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4868 "SchemaEntity202012.tt"
+        #line 4752 "SchemaEntity202012.tt"
         this.Write("\r\n    ");
         
         #line default
         #line hidden
         
-        #line 4869 "SchemaEntity202012.tt"
+        #line 4753 "SchemaEntity202012.tt"
 
     if (HasMediaTypeOrEncoding)
     {
@@ -13687,14 +13443,14 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4873 "SchemaEntity202012.tt"
+        #line 4757 "SchemaEntity202012.tt"
         this.Write("        private ValidationContext ValidateMediaTypeAndEncoding(JsonValueKind valu" +
                 "eKind, ValidationContext result, ValidationLevel level)\r\n        {\r\n        ");
         
         #line default
         #line hidden
         
-        #line 4875 "SchemaEntity202012.tt"
+        #line 4759 "SchemaEntity202012.tt"
 
         if (IsJsonBase64Content)
         {
@@ -13703,7 +13459,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4879 "SchemaEntity202012.tt"
+        #line 4763 "SchemaEntity202012.tt"
         this.Write("        \r\n            if (valueKind == JsonValueKind.String)\r\n            {\r\n    " +
                 "            return this.As<JsonBase64Content>().Validate(result, level);\r\n      " +
                 "      }\r\n        ");
@@ -13711,7 +13467,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4884 "SchemaEntity202012.tt"
+        #line 4768 "SchemaEntity202012.tt"
 
         }
         
@@ -13719,13 +13475,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4887 "SchemaEntity202012.tt"
+        #line 4771 "SchemaEntity202012.tt"
         this.Write("\r\n        ");
         
         #line default
         #line hidden
         
-        #line 4888 "SchemaEntity202012.tt"
+        #line 4772 "SchemaEntity202012.tt"
 
         if (IsJsonBase64String)
         {
@@ -13734,7 +13490,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4892 "SchemaEntity202012.tt"
+        #line 4776 "SchemaEntity202012.tt"
         this.Write("        \r\n            if (valueKind == JsonValueKind.String)\r\n            {\r\n    " +
                 "            return this.As<JsonBase64String>().Validate(result, level);\r\n       " +
                 "     }\r\n\r\n        ");
@@ -13742,7 +13498,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4898 "SchemaEntity202012.tt"
+        #line 4782 "SchemaEntity202012.tt"
 
         }
         
@@ -13750,13 +13506,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4901 "SchemaEntity202012.tt"
+        #line 4785 "SchemaEntity202012.tt"
         this.Write("\r\n        ");
         
         #line default
         #line hidden
         
-        #line 4902 "SchemaEntity202012.tt"
+        #line 4786 "SchemaEntity202012.tt"
 
         if (IsJsonContent)
         {
@@ -13765,7 +13521,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4906 "SchemaEntity202012.tt"
+        #line 4790 "SchemaEntity202012.tt"
         this.Write("        \r\n            if (valueKind == JsonValueKind.String)\r\n            {\r\n    " +
                 "            return this.As<JsonContent>().Validate(result, level);\r\n            " +
                 "}\r\n        ");
@@ -13773,7 +13529,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4911 "SchemaEntity202012.tt"
+        #line 4795 "SchemaEntity202012.tt"
 
         }
         
@@ -13781,13 +13537,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4914 "SchemaEntity202012.tt"
+        #line 4798 "SchemaEntity202012.tt"
         this.Write("\r\n            return result;\r\n        }\r\n\r\n    ");
         
         #line default
         #line hidden
         
-        #line 4918 "SchemaEntity202012.tt"
+        #line 4802 "SchemaEntity202012.tt"
 
     }
     
@@ -13795,13 +13551,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4921 "SchemaEntity202012.tt"
+        #line 4805 "SchemaEntity202012.tt"
         this.Write("\r\n    ");
         
         #line default
         #line hidden
         
-        #line 4922 "SchemaEntity202012.tt"
+        #line 4806 "SchemaEntity202012.tt"
 
     if (HasFormat)
     {
@@ -13810,14 +13566,14 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4926 "SchemaEntity202012.tt"
+        #line 4810 "SchemaEntity202012.tt"
         this.Write("        \r\n        private ValidationContext ValidateFormat(JsonValueKind valueKin" +
                 "d, ValidationContext result, ValidationLevel level)\r\n        {\r\n        ");
         
         #line default
         #line hidden
         
-        #line 4929 "SchemaEntity202012.tt"
+        #line 4813 "SchemaEntity202012.tt"
 
         if (IsJsonRelativePointer)
         {
@@ -13826,7 +13582,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4933 "SchemaEntity202012.tt"
+        #line 4817 "SchemaEntity202012.tt"
         this.Write("        \r\n            if (valueKind == JsonValueKind.String)\r\n            {\r\n    " +
                 "            return Menes.Json.Validate.TypeRelativeJsonPointer(this, result, lev" +
                 "el);\r\n            }\r\n        ");
@@ -13834,7 +13590,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4938 "SchemaEntity202012.tt"
+        #line 4822 "SchemaEntity202012.tt"
 
         }
         
@@ -13842,13 +13598,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4941 "SchemaEntity202012.tt"
+        #line 4825 "SchemaEntity202012.tt"
         this.Write("\r\n        ");
         
         #line default
         #line hidden
         
-        #line 4942 "SchemaEntity202012.tt"
+        #line 4826 "SchemaEntity202012.tt"
 
         if (IsJsonDate)
         {
@@ -13857,7 +13613,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4946 "SchemaEntity202012.tt"
+        #line 4830 "SchemaEntity202012.tt"
         this.Write("        \r\n            if (valueKind == JsonValueKind.String)\r\n            {\r\n    " +
                 "            return Menes.Json.Validate.TypeDate(this, result, level);\r\n         " +
                 "   }\r\n\r\n        ");
@@ -13865,7 +13621,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4952 "SchemaEntity202012.tt"
+        #line 4836 "SchemaEntity202012.tt"
 
         }
         
@@ -13873,13 +13629,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4955 "SchemaEntity202012.tt"
+        #line 4839 "SchemaEntity202012.tt"
         this.Write("\r\n        ");
         
         #line default
         #line hidden
         
-        #line 4956 "SchemaEntity202012.tt"
+        #line 4840 "SchemaEntity202012.tt"
 
         if (IsJsonDateTime)
         {
@@ -13888,7 +13644,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4960 "SchemaEntity202012.tt"
+        #line 4844 "SchemaEntity202012.tt"
         this.Write("        \r\n            if (valueKind == JsonValueKind.String)\r\n            {\r\n    " +
                 "            return Menes.Json.Validate.TypeDateTime(this, result, level);\r\n     " +
                 "       }\r\n        ");
@@ -13896,7 +13652,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4965 "SchemaEntity202012.tt"
+        #line 4849 "SchemaEntity202012.tt"
 
         }
         
@@ -13904,13 +13660,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4968 "SchemaEntity202012.tt"
+        #line 4852 "SchemaEntity202012.tt"
         this.Write("\r\n        ");
         
         #line default
         #line hidden
         
-        #line 4969 "SchemaEntity202012.tt"
+        #line 4853 "SchemaEntity202012.tt"
 
         if (IsJsonDuration)
         {
@@ -13919,7 +13675,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4973 "SchemaEntity202012.tt"
+        #line 4857 "SchemaEntity202012.tt"
         this.Write("        \r\n            if (valueKind == JsonValueKind.String)\r\n            {\r\n    " +
                 "            return Menes.Json.Validate.TypeDuration(this, result, level);\r\n     " +
                 "       }\r\n        ");
@@ -13927,7 +13683,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4978 "SchemaEntity202012.tt"
+        #line 4862 "SchemaEntity202012.tt"
 
         }
         
@@ -13935,13 +13691,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4981 "SchemaEntity202012.tt"
+        #line 4865 "SchemaEntity202012.tt"
         this.Write("\r\n        ");
         
         #line default
         #line hidden
         
-        #line 4982 "SchemaEntity202012.tt"
+        #line 4866 "SchemaEntity202012.tt"
 
         if (IsJsonTime)
         {
@@ -13950,7 +13706,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4986 "SchemaEntity202012.tt"
+        #line 4870 "SchemaEntity202012.tt"
         this.Write("        \r\n            if (valueKind == JsonValueKind.String)\r\n            {\r\n    " +
                 "            return Menes.Json.Validate.TypeTime(this, result, level);\r\n         " +
                 "   }\r\n        ");
@@ -13958,7 +13714,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4991 "SchemaEntity202012.tt"
+        #line 4875 "SchemaEntity202012.tt"
 
         }
         
@@ -13966,13 +13722,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4994 "SchemaEntity202012.tt"
+        #line 4878 "SchemaEntity202012.tt"
         this.Write("\r\n        ");
         
         #line default
         #line hidden
         
-        #line 4995 "SchemaEntity202012.tt"
+        #line 4879 "SchemaEntity202012.tt"
 
         if (IsJsonEmail)
         {
@@ -13981,7 +13737,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 4999 "SchemaEntity202012.tt"
+        #line 4883 "SchemaEntity202012.tt"
         this.Write("        \r\n            if (valueKind == JsonValueKind.String)\r\n            {\r\n    " +
                 "            return Menes.Json.Validate.TypeEmail(this, result, level);\r\n        " +
                 "    }\r\n        ");
@@ -13989,7 +13745,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5004 "SchemaEntity202012.tt"
+        #line 4888 "SchemaEntity202012.tt"
 
         }
         
@@ -13997,13 +13753,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5007 "SchemaEntity202012.tt"
+        #line 4891 "SchemaEntity202012.tt"
         this.Write("\r\n        ");
         
         #line default
         #line hidden
         
-        #line 5008 "SchemaEntity202012.tt"
+        #line 4892 "SchemaEntity202012.tt"
 
         if (IsJsonHostname)
         {
@@ -14012,7 +13768,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5012 "SchemaEntity202012.tt"
+        #line 4896 "SchemaEntity202012.tt"
         this.Write("        \r\n            if (valueKind == JsonValueKind.String)\r\n            {\r\n    " +
                 "            return Menes.Json.Validate.TypeHostname(this, result, level);\r\n     " +
                 "       }\r\n        ");
@@ -14020,7 +13776,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5017 "SchemaEntity202012.tt"
+        #line 4901 "SchemaEntity202012.tt"
 
         }
         
@@ -14028,13 +13784,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5020 "SchemaEntity202012.tt"
+        #line 4904 "SchemaEntity202012.tt"
         this.Write("\r\n        ");
         
         #line default
         #line hidden
         
-        #line 5021 "SchemaEntity202012.tt"
+        #line 4905 "SchemaEntity202012.tt"
 
         if (IsJsonIdnEmail)
         {
@@ -14043,7 +13799,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5025 "SchemaEntity202012.tt"
+        #line 4909 "SchemaEntity202012.tt"
         this.Write("        \r\n            if (valueKind == JsonValueKind.String)\r\n            {\r\n    " +
                 "            return Menes.Json.Validate.TypeIdnEmail(this, result, level);\r\n     " +
                 "       }\r\n\r\n        ");
@@ -14051,7 +13807,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5031 "SchemaEntity202012.tt"
+        #line 4915 "SchemaEntity202012.tt"
 
         }
         
@@ -14059,13 +13815,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5034 "SchemaEntity202012.tt"
+        #line 4918 "SchemaEntity202012.tt"
         this.Write("\r\n        ");
         
         #line default
         #line hidden
         
-        #line 5035 "SchemaEntity202012.tt"
+        #line 4919 "SchemaEntity202012.tt"
 
         if (IsJsonIdnHostname)
         {
@@ -14074,7 +13830,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5039 "SchemaEntity202012.tt"
+        #line 4923 "SchemaEntity202012.tt"
         this.Write("        \r\n            if (valueKind == JsonValueKind.String)\r\n            {\r\n    " +
                 "            return Menes.Json.Validate.TypeIdnHostname(this, result, level);\r\n  " +
                 "          }\r\n        ");
@@ -14082,7 +13838,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5044 "SchemaEntity202012.tt"
+        #line 4928 "SchemaEntity202012.tt"
 
         }
         
@@ -14090,13 +13846,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5047 "SchemaEntity202012.tt"
+        #line 4931 "SchemaEntity202012.tt"
         this.Write("\r\n        ");
         
         #line default
         #line hidden
         
-        #line 5048 "SchemaEntity202012.tt"
+        #line 4932 "SchemaEntity202012.tt"
 
         if (IsJsonInteger)
         {
@@ -14105,7 +13861,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5052 "SchemaEntity202012.tt"
+        #line 4936 "SchemaEntity202012.tt"
         this.Write("        \r\n            if (valueKind == JsonValueKind.Number)\r\n            {\r\n    " +
                 "            return Menes.Json.Validate.TypeInteger(this, result, level);\r\n      " +
                 "      }\r\n        ");
@@ -14113,7 +13869,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5057 "SchemaEntity202012.tt"
+        #line 4941 "SchemaEntity202012.tt"
 
         }
         
@@ -14121,13 +13877,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5060 "SchemaEntity202012.tt"
+        #line 4944 "SchemaEntity202012.tt"
         this.Write("\r\n        ");
         
         #line default
         #line hidden
         
-        #line 5061 "SchemaEntity202012.tt"
+        #line 4945 "SchemaEntity202012.tt"
 
         if (IsJsonIpV4)
         {
@@ -14136,7 +13892,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5065 "SchemaEntity202012.tt"
+        #line 4949 "SchemaEntity202012.tt"
         this.Write("        \r\n            if (valueKind == JsonValueKind.String)\r\n            {\r\n    " +
                 "            return Menes.Json.Validate.TypeIpV4(this, result, level);\r\n         " +
                 "   }\r\n\r\n        ");
@@ -14144,7 +13900,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5071 "SchemaEntity202012.tt"
+        #line 4955 "SchemaEntity202012.tt"
 
         }
         
@@ -14152,13 +13908,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5074 "SchemaEntity202012.tt"
+        #line 4958 "SchemaEntity202012.tt"
         this.Write("\r\n        ");
         
         #line default
         #line hidden
         
-        #line 5075 "SchemaEntity202012.tt"
+        #line 4959 "SchemaEntity202012.tt"
 
         if (IsJsonIpV6)
         {
@@ -14167,7 +13923,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5079 "SchemaEntity202012.tt"
+        #line 4963 "SchemaEntity202012.tt"
         this.Write("        \r\n            if (valueKind == JsonValueKind.String)\r\n            {\r\n    " +
                 "            return Menes.Json.Validate.TypeIpV6(this, result, level);\r\n         " +
                 "   }\r\n\r\n        ");
@@ -14175,7 +13931,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5085 "SchemaEntity202012.tt"
+        #line 4969 "SchemaEntity202012.tt"
 
         }
         
@@ -14183,13 +13939,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5088 "SchemaEntity202012.tt"
+        #line 4972 "SchemaEntity202012.tt"
         this.Write("\r\n        ");
         
         #line default
         #line hidden
         
-        #line 5089 "SchemaEntity202012.tt"
+        #line 4973 "SchemaEntity202012.tt"
 
         if (IsJsonIri)
         {
@@ -14198,7 +13954,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5093 "SchemaEntity202012.tt"
+        #line 4977 "SchemaEntity202012.tt"
         this.Write("        \r\n            if (valueKind == JsonValueKind.String)\r\n            {\r\n    " +
                 "            return Menes.Json.Validate.TypeIri(this, result, level);\r\n          " +
                 "  }\r\n        ");
@@ -14206,7 +13962,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5098 "SchemaEntity202012.tt"
+        #line 4982 "SchemaEntity202012.tt"
 
         }
         
@@ -14214,13 +13970,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5101 "SchemaEntity202012.tt"
+        #line 4985 "SchemaEntity202012.tt"
         this.Write("\r\n        ");
         
         #line default
         #line hidden
         
-        #line 5102 "SchemaEntity202012.tt"
+        #line 4986 "SchemaEntity202012.tt"
 
         if (IsJsonIriReference)
         {
@@ -14229,7 +13985,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5106 "SchemaEntity202012.tt"
+        #line 4990 "SchemaEntity202012.tt"
         this.Write("        \r\n            if (valueKind == JsonValueKind.String)\r\n            {\r\n    " +
                 "            return Menes.Json.Validate.TypeIriReference(this, result, level);\r\n " +
                 "           }\r\n        ");
@@ -14237,7 +13993,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5111 "SchemaEntity202012.tt"
+        #line 4995 "SchemaEntity202012.tt"
 
         }
         
@@ -14245,13 +14001,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5114 "SchemaEntity202012.tt"
+        #line 4998 "SchemaEntity202012.tt"
         this.Write("\r\n        ");
         
         #line default
         #line hidden
         
-        #line 5115 "SchemaEntity202012.tt"
+        #line 4999 "SchemaEntity202012.tt"
 
         if (IsJsonPointer)
         {
@@ -14260,7 +14016,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5119 "SchemaEntity202012.tt"
+        #line 5003 "SchemaEntity202012.tt"
         this.Write("        \r\n            if (valueKind == JsonValueKind.String)\r\n            {\r\n    " +
                 "            return Menes.Json.Validate.TypeJsonPointer(this, result, level);\r\n  " +
                 "          }\r\n        ");
@@ -14268,7 +14024,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5124 "SchemaEntity202012.tt"
+        #line 5008 "SchemaEntity202012.tt"
 
         }
         
@@ -14276,13 +14032,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5127 "SchemaEntity202012.tt"
+        #line 5011 "SchemaEntity202012.tt"
         this.Write("\r\n        ");
         
         #line default
         #line hidden
         
-        #line 5128 "SchemaEntity202012.tt"
+        #line 5012 "SchemaEntity202012.tt"
 
         if (IsJsonRegex)
         {
@@ -14291,7 +14047,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5132 "SchemaEntity202012.tt"
+        #line 5016 "SchemaEntity202012.tt"
         this.Write("        \r\n            if (valueKind == JsonValueKind.String)\r\n            {\r\n    " +
                 "            return Menes.Json.Validate.TypeRegex(this, result, level);\r\n        " +
                 "    }\r\n        ");
@@ -14299,7 +14055,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5137 "SchemaEntity202012.tt"
+        #line 5021 "SchemaEntity202012.tt"
 
         }
         
@@ -14307,13 +14063,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5140 "SchemaEntity202012.tt"
+        #line 5024 "SchemaEntity202012.tt"
         this.Write("\r\n        ");
         
         #line default
         #line hidden
         
-        #line 5141 "SchemaEntity202012.tt"
+        #line 5025 "SchemaEntity202012.tt"
 
         if (IsJsonRelativePointer)
         {
@@ -14322,7 +14078,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5145 "SchemaEntity202012.tt"
+        #line 5029 "SchemaEntity202012.tt"
         this.Write("        \r\n            if (valueKind == JsonValueKind.String)\r\n            {\r\n    " +
                 "            return Menes.Json.Validate.TypeRelativeJsonPointer(this, result, lev" +
                 "el);\r\n            }\r\n        ");
@@ -14330,7 +14086,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5150 "SchemaEntity202012.tt"
+        #line 5034 "SchemaEntity202012.tt"
 
         }
         
@@ -14338,13 +14094,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5153 "SchemaEntity202012.tt"
+        #line 5037 "SchemaEntity202012.tt"
         this.Write("\r\n        ");
         
         #line default
         #line hidden
         
-        #line 5154 "SchemaEntity202012.tt"
+        #line 5038 "SchemaEntity202012.tt"
 
         if (IsJsonTime)
         {
@@ -14353,7 +14109,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5158 "SchemaEntity202012.tt"
+        #line 5042 "SchemaEntity202012.tt"
         this.Write("        \r\n            if (valueKind == JsonValueKind.String)\r\n            {\r\n    " +
                 "            return Menes.Json.Validate.TypeTime(this, result, level);\r\n         " +
                 "   }\r\n\r\n        ");
@@ -14361,7 +14117,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5164 "SchemaEntity202012.tt"
+        #line 5048 "SchemaEntity202012.tt"
 
         }
         
@@ -14369,13 +14125,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5167 "SchemaEntity202012.tt"
+        #line 5051 "SchemaEntity202012.tt"
         this.Write("\r\n        ");
         
         #line default
         #line hidden
         
-        #line 5168 "SchemaEntity202012.tt"
+        #line 5052 "SchemaEntity202012.tt"
 
         if (IsJsonUri)
         {
@@ -14384,7 +14140,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5172 "SchemaEntity202012.tt"
+        #line 5056 "SchemaEntity202012.tt"
         this.Write("        \r\n            if (valueKind == JsonValueKind.String)\r\n            {\r\n    " +
                 "            return Menes.Json.Validate.TypeUri(this, result, level);\r\n          " +
                 "  }\r\n\r\n        ");
@@ -14392,7 +14148,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5178 "SchemaEntity202012.tt"
+        #line 5062 "SchemaEntity202012.tt"
 
         }
         
@@ -14400,13 +14156,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5181 "SchemaEntity202012.tt"
+        #line 5065 "SchemaEntity202012.tt"
         this.Write("\r\n        ");
         
         #line default
         #line hidden
         
-        #line 5182 "SchemaEntity202012.tt"
+        #line 5066 "SchemaEntity202012.tt"
 
         if (IsJsonUriReference)
         {
@@ -14415,7 +14171,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5186 "SchemaEntity202012.tt"
+        #line 5070 "SchemaEntity202012.tt"
         this.Write("        \r\n            if (valueKind == JsonValueKind.String)\r\n            {\r\n    " +
                 "            return Menes.Json.Validate.TypeUriReference(this, result, level);\r\n " +
                 "           }\r\n        ");
@@ -14423,7 +14179,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5191 "SchemaEntity202012.tt"
+        #line 5075 "SchemaEntity202012.tt"
 
         }
         
@@ -14431,13 +14187,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5194 "SchemaEntity202012.tt"
+        #line 5078 "SchemaEntity202012.tt"
         this.Write("\r\n        ");
         
         #line default
         #line hidden
         
-        #line 5195 "SchemaEntity202012.tt"
+        #line 5079 "SchemaEntity202012.tt"
 
         if (IsJsonUriTemplate)
         {
@@ -14446,7 +14202,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5199 "SchemaEntity202012.tt"
+        #line 5083 "SchemaEntity202012.tt"
         this.Write("        \r\n            if (valueKind == JsonValueKind.String)\r\n            {\r\n    " +
                 "            return Menes.Json.Validate.TypeUriTemplate(this, result, level);\r\n  " +
                 "          }\r\n\r\n        ");
@@ -14454,7 +14210,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5205 "SchemaEntity202012.tt"
+        #line 5089 "SchemaEntity202012.tt"
 
         }
         
@@ -14462,13 +14218,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5208 "SchemaEntity202012.tt"
+        #line 5092 "SchemaEntity202012.tt"
         this.Write("\r\n        ");
         
         #line default
         #line hidden
         
-        #line 5209 "SchemaEntity202012.tt"
+        #line 5093 "SchemaEntity202012.tt"
 
         if (IsJsonUuid)
         {
@@ -14477,7 +14233,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5213 "SchemaEntity202012.tt"
+        #line 5097 "SchemaEntity202012.tt"
         this.Write("        \r\n            if (valueKind == JsonValueKind.String)\r\n            {\r\n    " +
                 "            return Menes.Json.Validate.TypeUuid(this, result, level);\r\n         " +
                 "   }\r\n\r\n        ");
@@ -14485,7 +14241,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5219 "SchemaEntity202012.tt"
+        #line 5103 "SchemaEntity202012.tt"
 
         }
         
@@ -14493,13 +14249,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5222 "SchemaEntity202012.tt"
+        #line 5106 "SchemaEntity202012.tt"
         this.Write("\r\n            return result;\r\n        }\r\n\r\n    ");
         
         #line default
         #line hidden
         
-        #line 5226 "SchemaEntity202012.tt"
+        #line 5110 "SchemaEntity202012.tt"
 
     }
     
@@ -14507,13 +14263,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5229 "SchemaEntity202012.tt"
+        #line 5113 "SchemaEntity202012.tt"
         this.Write("\r\n    ");
         
         #line default
         #line hidden
         
-        #line 5230 "SchemaEntity202012.tt"
+        #line 5114 "SchemaEntity202012.tt"
 
     if (HasType)
     {
@@ -14522,7 +14278,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5234 "SchemaEntity202012.tt"
+        #line 5118 "SchemaEntity202012.tt"
         this.Write(@"        
         private ValidationContext ValidateType(JsonValueKind valueKind, in ValidationContext validationContext, ValidationLevel level)
         {
@@ -14534,7 +14290,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5240 "SchemaEntity202012.tt"
+        #line 5124 "SchemaEntity202012.tt"
 
         if (HasStringType)
         {
@@ -14543,7 +14299,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5244 "SchemaEntity202012.tt"
+        #line 5128 "SchemaEntity202012.tt"
         this.Write(@"        
             ValidationContext localResultString = Menes.Json.Validate.TypeString(valueKind, result, level);
             if (level == ValidationLevel.Flag && localResultString.IsValid)
@@ -14561,7 +14317,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5256 "SchemaEntity202012.tt"
+        #line 5140 "SchemaEntity202012.tt"
 
         }
         
@@ -14569,13 +14325,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5259 "SchemaEntity202012.tt"
+        #line 5143 "SchemaEntity202012.tt"
         this.Write("\r\n        ");
         
         #line default
         #line hidden
         
-        #line 5260 "SchemaEntity202012.tt"
+        #line 5144 "SchemaEntity202012.tt"
 
         if (HasObjectType)
         {
@@ -14584,7 +14340,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5264 "SchemaEntity202012.tt"
+        #line 5148 "SchemaEntity202012.tt"
         this.Write(@"        
             ValidationContext localResultObject = Menes.Json.Validate.TypeObject(valueKind, result, level);
             if (level == ValidationLevel.Flag && localResultObject.IsValid)
@@ -14602,7 +14358,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5276 "SchemaEntity202012.tt"
+        #line 5160 "SchemaEntity202012.tt"
 
         }
         
@@ -14610,13 +14366,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5279 "SchemaEntity202012.tt"
+        #line 5163 "SchemaEntity202012.tt"
         this.Write("\r\n        ");
         
         #line default
         #line hidden
         
-        #line 5280 "SchemaEntity202012.tt"
+        #line 5164 "SchemaEntity202012.tt"
 
         if (HasArrayType)
         {
@@ -14625,7 +14381,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5284 "SchemaEntity202012.tt"
+        #line 5168 "SchemaEntity202012.tt"
         this.Write(@"        
             ValidationContext localResultArray = Menes.Json.Validate.TypeArray(valueKind, result, level);
             if (level == ValidationLevel.Flag && localResultArray.IsValid)
@@ -14643,7 +14399,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5296 "SchemaEntity202012.tt"
+        #line 5180 "SchemaEntity202012.tt"
 
         }
         
@@ -14651,13 +14407,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5299 "SchemaEntity202012.tt"
+        #line 5183 "SchemaEntity202012.tt"
         this.Write("\r\n        ");
         
         #line default
         #line hidden
         
-        #line 5300 "SchemaEntity202012.tt"
+        #line 5184 "SchemaEntity202012.tt"
 
         if (HasNumberType)
         {
@@ -14666,7 +14422,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5304 "SchemaEntity202012.tt"
+        #line 5188 "SchemaEntity202012.tt"
         this.Write(@"        
             ValidationContext localResultNumber = Menes.Json.Validate.TypeNumber(valueKind, result, level);
             if (level == ValidationLevel.Flag && localResultNumber.IsValid)
@@ -14684,7 +14440,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5316 "SchemaEntity202012.tt"
+        #line 5200 "SchemaEntity202012.tt"
 
         }
         
@@ -14692,13 +14448,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5319 "SchemaEntity202012.tt"
+        #line 5203 "SchemaEntity202012.tt"
         this.Write("\r\n        ");
         
         #line default
         #line hidden
         
-        #line 5320 "SchemaEntity202012.tt"
+        #line 5204 "SchemaEntity202012.tt"
 
         if (HasIntegerType)
         {
@@ -14707,7 +14463,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5324 "SchemaEntity202012.tt"
+        #line 5208 "SchemaEntity202012.tt"
         this.Write(@"        
             ValidationContext localResultInteger = Menes.Json.Validate.TypeInteger(this, result, level);
             if (level == ValidationLevel.Flag && localResultInteger.IsValid)
@@ -14725,7 +14481,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5336 "SchemaEntity202012.tt"
+        #line 5220 "SchemaEntity202012.tt"
 
         }
         
@@ -14733,13 +14489,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5339 "SchemaEntity202012.tt"
+        #line 5223 "SchemaEntity202012.tt"
         this.Write("\r\n        ");
         
         #line default
         #line hidden
         
-        #line 5340 "SchemaEntity202012.tt"
+        #line 5224 "SchemaEntity202012.tt"
 
         if (HasBooleanType)
         {
@@ -14748,7 +14504,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5344 "SchemaEntity202012.tt"
+        #line 5228 "SchemaEntity202012.tt"
         this.Write(@"        
             ValidationContext localResultBoolean = Menes.Json.Validate.TypeBoolean(valueKind, result, level);
             if (level == ValidationLevel.Flag && localResultBoolean.IsValid)
@@ -14766,7 +14522,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5356 "SchemaEntity202012.tt"
+        #line 5240 "SchemaEntity202012.tt"
 
         }
         
@@ -14774,13 +14530,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5359 "SchemaEntity202012.tt"
+        #line 5243 "SchemaEntity202012.tt"
         this.Write("\r\n        ");
         
         #line default
         #line hidden
         
-        #line 5360 "SchemaEntity202012.tt"
+        #line 5244 "SchemaEntity202012.tt"
 
         if (HasNullType)
         {
@@ -14789,7 +14545,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5364 "SchemaEntity202012.tt"
+        #line 5248 "SchemaEntity202012.tt"
         this.Write(@"        
             ValidationContext localResultNull = Menes.Json.Validate.TypeNull(valueKind, result, level);
             if (level == ValidationLevel.Flag && localResultNull.IsValid)
@@ -14807,7 +14563,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5376 "SchemaEntity202012.tt"
+        #line 5260 "SchemaEntity202012.tt"
 
         }
         
@@ -14815,14 +14571,14 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5379 "SchemaEntity202012.tt"
+        #line 5263 "SchemaEntity202012.tt"
         this.Write("\r\n            result = result.MergeResults(\r\n                isValid,\r\n          " +
                 "      level\r\n        ");
         
         #line default
         #line hidden
         
-        #line 5383 "SchemaEntity202012.tt"
+        #line 5267 "SchemaEntity202012.tt"
 
         if (HasStringType)
         {
@@ -14831,13 +14587,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5387 "SchemaEntity202012.tt"
+        #line 5271 "SchemaEntity202012.tt"
         this.Write("        \r\n                , localResultString\r\n        ");
         
         #line default
         #line hidden
         
-        #line 5389 "SchemaEntity202012.tt"
+        #line 5273 "SchemaEntity202012.tt"
 
         }
         
@@ -14845,13 +14601,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5392 "SchemaEntity202012.tt"
+        #line 5276 "SchemaEntity202012.tt"
         this.Write("\r\n        ");
         
         #line default
         #line hidden
         
-        #line 5393 "SchemaEntity202012.tt"
+        #line 5277 "SchemaEntity202012.tt"
 
         if (HasObjectType)
         {
@@ -14860,13 +14616,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5397 "SchemaEntity202012.tt"
+        #line 5281 "SchemaEntity202012.tt"
         this.Write("        \r\n                , localResultObject\r\n        ");
         
         #line default
         #line hidden
         
-        #line 5399 "SchemaEntity202012.tt"
+        #line 5283 "SchemaEntity202012.tt"
 
         }
         
@@ -14874,13 +14630,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5402 "SchemaEntity202012.tt"
+        #line 5286 "SchemaEntity202012.tt"
         this.Write("\r\n        ");
         
         #line default
         #line hidden
         
-        #line 5403 "SchemaEntity202012.tt"
+        #line 5287 "SchemaEntity202012.tt"
 
         if (HasArrayType)
         {
@@ -14889,13 +14645,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5407 "SchemaEntity202012.tt"
+        #line 5291 "SchemaEntity202012.tt"
         this.Write("        \r\n                , localResultArray\r\n        ");
         
         #line default
         #line hidden
         
-        #line 5409 "SchemaEntity202012.tt"
+        #line 5293 "SchemaEntity202012.tt"
 
         }
         
@@ -14903,13 +14659,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5412 "SchemaEntity202012.tt"
+        #line 5296 "SchemaEntity202012.tt"
         this.Write("\r\n        ");
         
         #line default
         #line hidden
         
-        #line 5413 "SchemaEntity202012.tt"
+        #line 5297 "SchemaEntity202012.tt"
 
         if (HasNumberType)
         {
@@ -14918,13 +14674,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5417 "SchemaEntity202012.tt"
+        #line 5301 "SchemaEntity202012.tt"
         this.Write("        \r\n                , localResultNumber\r\n        ");
         
         #line default
         #line hidden
         
-        #line 5419 "SchemaEntity202012.tt"
+        #line 5303 "SchemaEntity202012.tt"
 
         }
         
@@ -14932,13 +14688,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5422 "SchemaEntity202012.tt"
+        #line 5306 "SchemaEntity202012.tt"
         this.Write("\r\n        ");
         
         #line default
         #line hidden
         
-        #line 5423 "SchemaEntity202012.tt"
+        #line 5307 "SchemaEntity202012.tt"
 
         if (HasBooleanType)
         {
@@ -14947,13 +14703,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5427 "SchemaEntity202012.tt"
+        #line 5311 "SchemaEntity202012.tt"
         this.Write("        \r\n                , localResultBoolean\r\n        ");
         
         #line default
         #line hidden
         
-        #line 5429 "SchemaEntity202012.tt"
+        #line 5313 "SchemaEntity202012.tt"
 
         }
         
@@ -14961,13 +14717,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5432 "SchemaEntity202012.tt"
+        #line 5316 "SchemaEntity202012.tt"
         this.Write("\r\n        ");
         
         #line default
         #line hidden
         
-        #line 5433 "SchemaEntity202012.tt"
+        #line 5317 "SchemaEntity202012.tt"
 
         if (HasNullType)
         {
@@ -14976,13 +14732,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5437 "SchemaEntity202012.tt"
+        #line 5321 "SchemaEntity202012.tt"
         this.Write("        \r\n                , localResultNull\r\n        ");
         
         #line default
         #line hidden
         
-        #line 5439 "SchemaEntity202012.tt"
+        #line 5323 "SchemaEntity202012.tt"
 
         }
         
@@ -14990,13 +14746,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5442 "SchemaEntity202012.tt"
+        #line 5326 "SchemaEntity202012.tt"
         this.Write("                );\r\n\r\n            return result;\r\n        }\r\n\r\n    ");
         
         #line default
         #line hidden
         
-        #line 5447 "SchemaEntity202012.tt"
+        #line 5331 "SchemaEntity202012.tt"
 
     }
     
@@ -15004,13 +14760,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5450 "SchemaEntity202012.tt"
+        #line 5334 "SchemaEntity202012.tt"
         this.Write("\r\n    ");
         
         #line default
         #line hidden
         
-        #line 5451 "SchemaEntity202012.tt"
+        #line 5335 "SchemaEntity202012.tt"
 
     if (HasEnum)
     {
@@ -15019,14 +14775,14 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5455 "SchemaEntity202012.tt"
+        #line 5339 "SchemaEntity202012.tt"
         this.Write("        \r\n        /// <summary>\r\n        /// Permitted values.\r\n        /// </sum" +
                 "mary>\r\n        public static class EnumValues\r\n        {\r\n        ");
         
         #line default
         #line hidden
         
-        #line 5461 "SchemaEntity202012.tt"
+        #line 5345 "SchemaEntity202012.tt"
 
         int enumItemIndex = 0;
         foreach (var enumValue in EnumValues)
@@ -15036,13 +14792,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5466 "SchemaEntity202012.tt"
+        #line 5350 "SchemaEntity202012.tt"
         this.Write("            ");
         
         #line default
         #line hidden
         
-        #line 5466 "SchemaEntity202012.tt"
+        #line 5350 "SchemaEntity202012.tt"
 
             if (enumValue.IsString)
             {
@@ -15051,7 +14807,7 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5470 "SchemaEntity202012.tt"
+        #line 5354 "SchemaEntity202012.tt"
         this.Write("            /// <summary>\r\n            /// enumValue.AsPropertyName.\r\n           " +
                 " /// </summary>\r\n            /// <remarks>\r\n            /// {Description}.\r\n    " +
                 "        /// </remarks>\r\n            public static readonly ");
@@ -15059,43 +14815,43 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5476 "SchemaEntity202012.tt"
+        #line 5360 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture(                    TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 5476 "SchemaEntity202012.tt"
+        #line 5360 "SchemaEntity202012.tt"
         this.Write(" ");
         
         #line default
         #line hidden
         
-        #line 5476 "SchemaEntity202012.tt"
+        #line 5360 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture(                    enumValue.AsPropertyName));
         
         #line default
         #line hidden
         
-        #line 5476 "SchemaEntity202012.tt"
+        #line 5360 "SchemaEntity202012.tt"
         this.Write(" = JsonAny.Parse(");
         
         #line default
         #line hidden
         
-        #line 5476 "SchemaEntity202012.tt"
+        #line 5360 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture(                    enumValue.SerializedValue ));
         
         #line default
         #line hidden
         
-        #line 5476 "SchemaEntity202012.tt"
+        #line 5360 "SchemaEntity202012.tt"
         this.Write(");\r\n            ");
         
         #line default
         #line hidden
         
-        #line 5477 "SchemaEntity202012.tt"
+        #line 5361 "SchemaEntity202012.tt"
 
             }
             else if (enumValue.IsBoolean)
@@ -15105,19 +14861,19 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5482 "SchemaEntity202012.tt"
+        #line 5366 "SchemaEntity202012.tt"
         this.Write("            /// <summary>\r\n            /// [{Title} || Item ");
         
         #line default
         #line hidden
         
-        #line 5483 "SchemaEntity202012.tt"
+        #line 5367 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture(     enumItemIndex));
         
         #line default
         #line hidden
         
-        #line 5483 "SchemaEntity202012.tt"
+        #line 5367 "SchemaEntity202012.tt"
         this.Write("] (with predictable naming).\r\n            /// </summary>\r\n            /// <remark" +
                 "s>\r\n            /// {Description}.\r\n            /// </remarks>\r\n            publ" +
                 "ic static readonly ");
@@ -15125,43 +14881,43 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5488 "SchemaEntity202012.tt"
+        #line 5372 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture(     TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 5488 "SchemaEntity202012.tt"
+        #line 5372 "SchemaEntity202012.tt"
         this.Write(" Item");
         
         #line default
         #line hidden
         
-        #line 5488 "SchemaEntity202012.tt"
+        #line 5372 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture(     enumItemIndex));
         
         #line default
         #line hidden
         
-        #line 5488 "SchemaEntity202012.tt"
+        #line 5372 "SchemaEntity202012.tt"
         this.Write(" = JsonAny.Parse(");
         
         #line default
         #line hidden
         
-        #line 5488 "SchemaEntity202012.tt"
+        #line 5372 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture(     enumValue.SerializedValue ));
         
         #line default
         #line hidden
         
-        #line 5488 "SchemaEntity202012.tt"
+        #line 5372 "SchemaEntity202012.tt"
         this.Write(");\r\n            ");
         
         #line default
         #line hidden
         
-        #line 5489 "SchemaEntity202012.tt"
+        #line 5373 "SchemaEntity202012.tt"
 
             }
             else if (enumValue.IsNumber)
@@ -15171,19 +14927,19 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5494 "SchemaEntity202012.tt"
+        #line 5378 "SchemaEntity202012.tt"
         this.Write("            /// <summary>\r\n            /// [{Title} || Item ");
         
         #line default
         #line hidden
         
-        #line 5495 "SchemaEntity202012.tt"
+        #line 5379 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture(     enumItemIndex));
         
         #line default
         #line hidden
         
-        #line 5495 "SchemaEntity202012.tt"
+        #line 5379 "SchemaEntity202012.tt"
         this.Write("] (with predictable naming).\r\n            /// </summary>\r\n            /// <remark" +
                 "s>\r\n            /// {Description}.\r\n            /// </remarks>\r\n            publ" +
                 "ic static readonly ");
@@ -15191,43 +14947,43 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5500 "SchemaEntity202012.tt"
+        #line 5384 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture(     TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 5500 "SchemaEntity202012.tt"
+        #line 5384 "SchemaEntity202012.tt"
         this.Write(" Item");
         
         #line default
         #line hidden
         
-        #line 5500 "SchemaEntity202012.tt"
+        #line 5384 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture(     enumItemIndex));
         
         #line default
         #line hidden
         
-        #line 5500 "SchemaEntity202012.tt"
+        #line 5384 "SchemaEntity202012.tt"
         this.Write(" = JsonAny.Parse(");
         
         #line default
         #line hidden
         
-        #line 5500 "SchemaEntity202012.tt"
+        #line 5384 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture(     enumValue.SerializedValue ));
         
         #line default
         #line hidden
         
-        #line 5500 "SchemaEntity202012.tt"
+        #line 5384 "SchemaEntity202012.tt"
         this.Write(");\r\n            ");
         
         #line default
         #line hidden
         
-        #line 5501 "SchemaEntity202012.tt"
+        #line 5385 "SchemaEntity202012.tt"
 
             }
             else if (enumValue.IsObject)
@@ -15237,19 +14993,19 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5506 "SchemaEntity202012.tt"
+        #line 5390 "SchemaEntity202012.tt"
         this.Write("            /// <summary>\r\n            /// [{Title} || Item ");
         
         #line default
         #line hidden
         
-        #line 5507 "SchemaEntity202012.tt"
+        #line 5391 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture(     enumItemIndex));
         
         #line default
         #line hidden
         
-        #line 5507 "SchemaEntity202012.tt"
+        #line 5391 "SchemaEntity202012.tt"
         this.Write("] (with predictable naming).\r\n            /// </summary>\r\n            /// <remark" +
                 "s>\r\n            /// {Description}.\r\n            /// </remarks>\r\n            publ" +
                 "ic static readonly ");
@@ -15257,43 +15013,43 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5512 "SchemaEntity202012.tt"
+        #line 5396 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture(     TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 5512 "SchemaEntity202012.tt"
+        #line 5396 "SchemaEntity202012.tt"
         this.Write(" Item");
         
         #line default
         #line hidden
         
-        #line 5512 "SchemaEntity202012.tt"
+        #line 5396 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture(     enumItemIndex));
         
         #line default
         #line hidden
         
-        #line 5512 "SchemaEntity202012.tt"
+        #line 5396 "SchemaEntity202012.tt"
         this.Write(" = JsonAny.Parse(");
         
         #line default
         #line hidden
         
-        #line 5512 "SchemaEntity202012.tt"
+        #line 5396 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture(     enumValue.SerializedValue ));
         
         #line default
         #line hidden
         
-        #line 5512 "SchemaEntity202012.tt"
+        #line 5396 "SchemaEntity202012.tt"
         this.Write(");\r\n            ");
         
         #line default
         #line hidden
         
-        #line 5513 "SchemaEntity202012.tt"
+        #line 5397 "SchemaEntity202012.tt"
 
             }
             else if (enumValue.IsArray)
@@ -15303,19 +15059,19 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5518 "SchemaEntity202012.tt"
+        #line 5402 "SchemaEntity202012.tt"
         this.Write("            /// <summary>\r\n            /// [{Title} || Item ");
         
         #line default
         #line hidden
         
-        #line 5519 "SchemaEntity202012.tt"
+        #line 5403 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture(     enumItemIndex));
         
         #line default
         #line hidden
         
-        #line 5519 "SchemaEntity202012.tt"
+        #line 5403 "SchemaEntity202012.tt"
         this.Write("] (with predictable naming).\r\n            /// </summary>\r\n            /// <remark" +
                 "s>\r\n            /// {Description}.\r\n            /// </remarks>\r\n            publ" +
                 "ic static readonly ");
@@ -15323,43 +15079,43 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5524 "SchemaEntity202012.tt"
+        #line 5408 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture(     TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 5524 "SchemaEntity202012.tt"
+        #line 5408 "SchemaEntity202012.tt"
         this.Write(" Item");
         
         #line default
         #line hidden
         
-        #line 5524 "SchemaEntity202012.tt"
+        #line 5408 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture(     enumItemIndex));
         
         #line default
         #line hidden
         
-        #line 5524 "SchemaEntity202012.tt"
+        #line 5408 "SchemaEntity202012.tt"
         this.Write(" = JsonAny.Parse(");
         
         #line default
         #line hidden
         
-        #line 5524 "SchemaEntity202012.tt"
+        #line 5408 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture(     enumValue.SerializedValue ));
         
         #line default
         #line hidden
         
-        #line 5524 "SchemaEntity202012.tt"
+        #line 5408 "SchemaEntity202012.tt"
         this.Write(");\r\n            ");
         
         #line default
         #line hidden
         
-        #line 5525 "SchemaEntity202012.tt"
+        #line 5409 "SchemaEntity202012.tt"
 
             }
             else if (enumValue.IsNull)
@@ -15369,19 +15125,19 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5530 "SchemaEntity202012.tt"
+        #line 5414 "SchemaEntity202012.tt"
         this.Write("            /// <summary>\r\n            /// [{Title} || Item ");
         
         #line default
         #line hidden
         
-        #line 5531 "SchemaEntity202012.tt"
+        #line 5415 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture(     enumItemIndex));
         
         #line default
         #line hidden
         
-        #line 5531 "SchemaEntity202012.tt"
+        #line 5415 "SchemaEntity202012.tt"
         this.Write("] (with predictable naming).\r\n            /// </summary>\r\n            /// <remark" +
                 "s>\r\n            /// {Description}.\r\n            /// </remarks>\r\n            publ" +
                 "ic static readonly ");
@@ -15389,31 +15145,31 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5536 "SchemaEntity202012.tt"
+        #line 5420 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture(     TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 5536 "SchemaEntity202012.tt"
+        #line 5420 "SchemaEntity202012.tt"
         this.Write(" Item");
         
         #line default
         #line hidden
         
-        #line 5536 "SchemaEntity202012.tt"
+        #line 5420 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture(     enumItemIndex));
         
         #line default
         #line hidden
         
-        #line 5536 "SchemaEntity202012.tt"
+        #line 5420 "SchemaEntity202012.tt"
         this.Write(" = JsonAny.Parse(\"null\");\r\n            ");
         
         #line default
         #line hidden
         
-        #line 5537 "SchemaEntity202012.tt"
+        #line 5421 "SchemaEntity202012.tt"
 
             }
             
@@ -15421,13 +15177,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5540 "SchemaEntity202012.tt"
+        #line 5424 "SchemaEntity202012.tt"
         this.Write("\r\n        ");
         
         #line default
         #line hidden
         
-        #line 5541 "SchemaEntity202012.tt"
+        #line 5425 "SchemaEntity202012.tt"
 
             ++enumItemIndex;
         }
@@ -15436,13 +15192,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5545 "SchemaEntity202012.tt"
+        #line 5429 "SchemaEntity202012.tt"
         this.Write("\r\n\r\n        ");
         
         #line default
         #line hidden
         
-        #line 5547 "SchemaEntity202012.tt"
+        #line 5431 "SchemaEntity202012.tt"
 
         enumItemIndex = 0;
         foreach (var enumValue in EnumValues)
@@ -15452,13 +15208,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5552 "SchemaEntity202012.tt"
+        #line 5436 "SchemaEntity202012.tt"
         this.Write("            ");
         
         #line default
         #line hidden
         
-        #line 5552 "SchemaEntity202012.tt"
+        #line 5436 "SchemaEntity202012.tt"
 
             if (enumValue.IsString)
             {
@@ -15467,19 +15223,19 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5556 "SchemaEntity202012.tt"
+        #line 5440 "SchemaEntity202012.tt"
         this.Write("            /// <summary>\r\n            /// [{Title} || Item ");
         
         #line default
         #line hidden
         
-        #line 5557 "SchemaEntity202012.tt"
+        #line 5441 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture(     enumItemIndex));
         
         #line default
         #line hidden
         
-        #line 5557 "SchemaEntity202012.tt"
+        #line 5441 "SchemaEntity202012.tt"
         this.Write("] (with predictable naming).\r\n            /// </summary>\r\n            /// <remark" +
                 "s>\r\n            /// {Description}.\r\n            /// </remarks>\r\n            inte" +
                 "rnal static readonly ");
@@ -15487,43 +15243,43 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5562 "SchemaEntity202012.tt"
+        #line 5446 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture(     TypeDeclaration.DotnetTypeName ));
         
         #line default
         #line hidden
         
-        #line 5562 "SchemaEntity202012.tt"
+        #line 5446 "SchemaEntity202012.tt"
         this.Write(" Item");
         
         #line default
         #line hidden
         
-        #line 5562 "SchemaEntity202012.tt"
+        #line 5446 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture(     enumItemIndex));
         
         #line default
         #line hidden
         
-        #line 5562 "SchemaEntity202012.tt"
+        #line 5446 "SchemaEntity202012.tt"
         this.Write(" = JsonAny.Parse(");
         
         #line default
         #line hidden
         
-        #line 5562 "SchemaEntity202012.tt"
+        #line 5446 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture(     enumValue.SerializedValue ));
         
         #line default
         #line hidden
         
-        #line 5562 "SchemaEntity202012.tt"
+        #line 5446 "SchemaEntity202012.tt"
         this.Write(");\r\n            ");
         
         #line default
         #line hidden
         
-        #line 5563 "SchemaEntity202012.tt"
+        #line 5447 "SchemaEntity202012.tt"
 
             }
             enumItemIndex++;
@@ -15533,13 +15289,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5568 "SchemaEntity202012.tt"
+        #line 5452 "SchemaEntity202012.tt"
         this.Write("        }\r\n    ");
         
         #line default
         #line hidden
         
-        #line 5569 "SchemaEntity202012.tt"
+        #line 5453 "SchemaEntity202012.tt"
 
     }
     
@@ -15547,13 +15303,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5572 "SchemaEntity202012.tt"
+        #line 5456 "SchemaEntity202012.tt"
         this.Write("\r\n    ");
         
         #line default
         #line hidden
         
-        #line 5573 "SchemaEntity202012.tt"
+        #line 5457 "SchemaEntity202012.tt"
 
     foreach(var nestedType in NestedTypes)
     {
@@ -15562,25 +15318,25 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5577 "SchemaEntity202012.tt"
+        #line 5461 "SchemaEntity202012.tt"
         this.Write("\r\n    ");
         
         #line default
         #line hidden
         
-        #line 5578 "SchemaEntity202012.tt"
+        #line 5462 "SchemaEntity202012.tt"
         this.Write(this.ToStringHelper.ToStringWithCulture( WriteNestedType(nestedType) ));
         
         #line default
         #line hidden
         
-        #line 5578 "SchemaEntity202012.tt"
+        #line 5462 "SchemaEntity202012.tt"
         this.Write("\r\n\r\n    ");
         
         #line default
         #line hidden
         
-        #line 5580 "SchemaEntity202012.tt"
+        #line 5464 "SchemaEntity202012.tt"
 
     }
     
@@ -15588,13 +15344,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5583 "SchemaEntity202012.tt"
+        #line 5467 "SchemaEntity202012.tt"
         this.Write("\r\n    }\r\n    ");
         
         #line default
         #line hidden
         
-        #line 5585 "SchemaEntity202012.tt"
+        #line 5469 "SchemaEntity202012.tt"
 
     if (!IsNested)
     {
@@ -15603,13 +15359,13 @@ namespace ");
         #line default
         #line hidden
         
-        #line 5589 "SchemaEntity202012.tt"
+        #line 5473 "SchemaEntity202012.tt"
         this.Write("}\r\n    ");
         
         #line default
         #line hidden
         
-        #line 5590 "SchemaEntity202012.tt"
+        #line 5474 "SchemaEntity202012.tt"
 
     }
     

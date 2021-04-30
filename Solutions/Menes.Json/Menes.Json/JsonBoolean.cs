@@ -173,7 +173,7 @@ namespace Menes.Json
         }
 
         /// <summary>
-        /// Get the value as <see cref="JsonEncodedText"/>.
+        /// Get the value as a bool.
         /// </summary>
         /// <returns>The bool value.</returns>
         public bool GetBoolean()

@@ -16,6 +16,7 @@ namespace UnevaluatedItemsDraft201909Feature.UnevaluatedItemsWithOneOf
     using System.Collections.Generic;
     using System.Collections.Immutable;
     using System.Linq;
+    using System.Text;
     using System.Text.Json;
     using System.Text.RegularExpressions;
     using Menes.Json;
@@ -1014,7 +1015,7 @@ namespace UnevaluatedItemsDraft201909Feature.UnevaluatedItemsWithOneOf
     
     
     
-            private readonly JsonEncodedText? stringBacking;
+            private readonly string? stringBacking;
     
     
         /// <summary>
@@ -1037,16 +1038,6 @@ namespace UnevaluatedItemsDraft201909Feature.UnevaluatedItemsWithOneOf
         public Items0Entity(string value)
         {
             this.jsonElementBacking = default;
-                                            this.stringBacking = JsonEncodedText.Encode(value);
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Items0Entity"/> struct.
-        /// </summary>
-        /// <param name="value">A string value.</param>
-        public Items0Entity(JsonEncodedText value)
-        {
-            this.jsonElementBacking = default;
                                             this.stringBacking = value;
         }
 
@@ -1057,7 +1048,7 @@ namespace UnevaluatedItemsDraft201909Feature.UnevaluatedItemsWithOneOf
         public Items0Entity(ReadOnlySpan<char> value)
         {
             this.jsonElementBacking = default;
-                                            this.stringBacking = JsonEncodedText.Encode(value);
+                                            this.stringBacking = value.ToString();
         }
 
         /// <summary>
@@ -1067,7 +1058,7 @@ namespace UnevaluatedItemsDraft201909Feature.UnevaluatedItemsWithOneOf
         public Items0Entity(ReadOnlySpan<byte> value)
         {
             this.jsonElementBacking = default;
-                                            this.stringBacking = JsonEncodedText.Encode(value);
+                                            this.stringBacking = Encoding.UTF8.GetString(value);
         }
 
         /// <summary>
@@ -1084,7 +1075,7 @@ namespace UnevaluatedItemsDraft201909Feature.UnevaluatedItemsWithOneOf
             else
             {
                 this.jsonElementBacking = default;
-                this.stringBacking = jsonString.GetJsonEncodedText();
+                this.stringBacking = jsonString;
             }
 
                                         }
@@ -1116,7 +1107,7 @@ namespace UnevaluatedItemsDraft201909Feature.UnevaluatedItemsWithOneOf
     
     
     
-                    if (this.stringBacking is JsonEncodedText stringBacking)
+                    if (this.stringBacking is string stringBacking)
                 {
                     return JsonString.StringToJsonElement(stringBacking);
                 }
@@ -1135,7 +1126,7 @@ namespace UnevaluatedItemsDraft201909Feature.UnevaluatedItemsWithOneOf
     
     
     
-                    if (this.stringBacking is JsonEncodedText)
+                    if (this.stringBacking is string)
                 {
                     return JsonValueKind.String;
                 }
@@ -1154,7 +1145,7 @@ namespace UnevaluatedItemsDraft201909Feature.UnevaluatedItemsWithOneOf
     
     
     
-                    if (this.stringBacking is JsonEncodedText stringBacking)
+                    if (this.stringBacking is string stringBacking)
                 {
                     return new JsonAny(stringBacking);
                 }
@@ -1207,7 +1198,7 @@ namespace UnevaluatedItemsDraft201909Feature.UnevaluatedItemsWithOneOf
         {
             get
             {
-                    if (this.stringBacking is JsonEncodedText stringBacking)
+                    if (this.stringBacking is string stringBacking)
                 {
                     return new JsonString(stringBacking);
                 }
@@ -1281,25 +1272,7 @@ namespace UnevaluatedItemsDraft201909Feature.UnevaluatedItemsWithOneOf
         /// <param name="value">The number from which to convert.</param>
         public static implicit operator string(Items0Entity value)
         {
-            return value.AsString.GetString();
-        }
-
-        /// <summary>
-        /// Conversion from <see cref="JsonEncodedText"/>.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator Items0Entity(JsonEncodedText value)
-        {
-            return new Items0Entity(value);
-        }
-
-        /// <summary>
-        /// Conversion to <see cref="JsonEncodedText"/>.
-        /// </summary>
-        /// <param name="value">The number from which to convert.</param>
-        public static implicit operator JsonEncodedText(Items0Entity value)
-        {
-            return value.AsString.GetJsonEncodedText();
+            return value.AsString;
         }
 
         /// <summary>
@@ -1317,7 +1290,7 @@ namespace UnevaluatedItemsDraft201909Feature.UnevaluatedItemsWithOneOf
         /// <param name="value">The number from which to convert.</param>
         public static implicit operator ReadOnlySpan<char>(Items0Entity value)
         {
-            return value.AsString.AsSpan();
+            return value.AsString;
         }
 
         /// <summary>
@@ -1335,7 +1308,7 @@ namespace UnevaluatedItemsDraft201909Feature.UnevaluatedItemsWithOneOf
         /// <param name="value">The number from which to convert.</param>
         public static implicit operator ReadOnlySpan<byte>(Items0Entity value)
         {
-            return value.AsString.GetJsonEncodedText().EncodedUtf8Bytes;
+            return value.AsString;
         }
 
         /// <summary>
@@ -1420,7 +1393,7 @@ namespace UnevaluatedItemsDraft201909Feature.UnevaluatedItemsWithOneOf
     
     
     
-                if (this.stringBacking is JsonEncodedText stringBacking)
+                if (this.stringBacking is string stringBacking)
             {
                 writer.WriteStringValue(stringBacking);
                 return;
@@ -2251,7 +2224,7 @@ namespace UnevaluatedItemsDraft201909Feature.UnevaluatedItemsWithOneOf
     
     
     
-            private readonly JsonEncodedText? stringBacking;
+            private readonly string? stringBacking;
     
     
         /// <summary>
@@ -2274,16 +2247,6 @@ namespace UnevaluatedItemsDraft201909Feature.UnevaluatedItemsWithOneOf
         public Items1Entity(string value)
         {
             this.jsonElementBacking = default;
-                                            this.stringBacking = JsonEncodedText.Encode(value);
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Items1Entity"/> struct.
-        /// </summary>
-        /// <param name="value">A string value.</param>
-        public Items1Entity(JsonEncodedText value)
-        {
-            this.jsonElementBacking = default;
                                             this.stringBacking = value;
         }
 
@@ -2294,7 +2257,7 @@ namespace UnevaluatedItemsDraft201909Feature.UnevaluatedItemsWithOneOf
         public Items1Entity(ReadOnlySpan<char> value)
         {
             this.jsonElementBacking = default;
-                                            this.stringBacking = JsonEncodedText.Encode(value);
+                                            this.stringBacking = value.ToString();
         }
 
         /// <summary>
@@ -2304,7 +2267,7 @@ namespace UnevaluatedItemsDraft201909Feature.UnevaluatedItemsWithOneOf
         public Items1Entity(ReadOnlySpan<byte> value)
         {
             this.jsonElementBacking = default;
-                                            this.stringBacking = JsonEncodedText.Encode(value);
+                                            this.stringBacking = Encoding.UTF8.GetString(value);
         }
 
         /// <summary>
@@ -2321,7 +2284,7 @@ namespace UnevaluatedItemsDraft201909Feature.UnevaluatedItemsWithOneOf
             else
             {
                 this.jsonElementBacking = default;
-                this.stringBacking = jsonString.GetJsonEncodedText();
+                this.stringBacking = jsonString;
             }
 
                                         }
@@ -2353,7 +2316,7 @@ namespace UnevaluatedItemsDraft201909Feature.UnevaluatedItemsWithOneOf
     
     
     
-                    if (this.stringBacking is JsonEncodedText stringBacking)
+                    if (this.stringBacking is string stringBacking)
                 {
                     return JsonString.StringToJsonElement(stringBacking);
                 }
@@ -2372,7 +2335,7 @@ namespace UnevaluatedItemsDraft201909Feature.UnevaluatedItemsWithOneOf
     
     
     
-                    if (this.stringBacking is JsonEncodedText)
+                    if (this.stringBacking is string)
                 {
                     return JsonValueKind.String;
                 }
@@ -2391,7 +2354,7 @@ namespace UnevaluatedItemsDraft201909Feature.UnevaluatedItemsWithOneOf
     
     
     
-                    if (this.stringBacking is JsonEncodedText stringBacking)
+                    if (this.stringBacking is string stringBacking)
                 {
                     return new JsonAny(stringBacking);
                 }
@@ -2444,7 +2407,7 @@ namespace UnevaluatedItemsDraft201909Feature.UnevaluatedItemsWithOneOf
         {
             get
             {
-                    if (this.stringBacking is JsonEncodedText stringBacking)
+                    if (this.stringBacking is string stringBacking)
                 {
                     return new JsonString(stringBacking);
                 }
@@ -2518,25 +2481,7 @@ namespace UnevaluatedItemsDraft201909Feature.UnevaluatedItemsWithOneOf
         /// <param name="value">The number from which to convert.</param>
         public static implicit operator string(Items1Entity value)
         {
-            return value.AsString.GetString();
-        }
-
-        /// <summary>
-        /// Conversion from <see cref="JsonEncodedText"/>.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator Items1Entity(JsonEncodedText value)
-        {
-            return new Items1Entity(value);
-        }
-
-        /// <summary>
-        /// Conversion to <see cref="JsonEncodedText"/>.
-        /// </summary>
-        /// <param name="value">The number from which to convert.</param>
-        public static implicit operator JsonEncodedText(Items1Entity value)
-        {
-            return value.AsString.GetJsonEncodedText();
+            return value.AsString;
         }
 
         /// <summary>
@@ -2554,7 +2499,7 @@ namespace UnevaluatedItemsDraft201909Feature.UnevaluatedItemsWithOneOf
         /// <param name="value">The number from which to convert.</param>
         public static implicit operator ReadOnlySpan<char>(Items1Entity value)
         {
-            return value.AsString.AsSpan();
+            return value.AsString;
         }
 
         /// <summary>
@@ -2572,7 +2517,7 @@ namespace UnevaluatedItemsDraft201909Feature.UnevaluatedItemsWithOneOf
         /// <param name="value">The number from which to convert.</param>
         public static implicit operator ReadOnlySpan<byte>(Items1Entity value)
         {
-            return value.AsString.GetJsonEncodedText().EncodedUtf8Bytes;
+            return value.AsString;
         }
 
         /// <summary>
@@ -2657,7 +2602,7 @@ namespace UnevaluatedItemsDraft201909Feature.UnevaluatedItemsWithOneOf
     
     
     
-                if (this.stringBacking is JsonEncodedText stringBacking)
+                if (this.stringBacking is string stringBacking)
             {
                 writer.WriteStringValue(stringBacking);
                 return;
@@ -3492,7 +3437,7 @@ namespace UnevaluatedItemsDraft201909Feature.UnevaluatedItemsWithOneOf
     
     
     
-            private readonly JsonEncodedText? stringBacking;
+            private readonly string? stringBacking;
     
     
         /// <summary>
@@ -3515,16 +3460,6 @@ namespace UnevaluatedItemsDraft201909Feature.UnevaluatedItemsWithOneOf
         public Items1Entity(string value)
         {
             this.jsonElementBacking = default;
-                                            this.stringBacking = JsonEncodedText.Encode(value);
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Items1Entity"/> struct.
-        /// </summary>
-        /// <param name="value">A string value.</param>
-        public Items1Entity(JsonEncodedText value)
-        {
-            this.jsonElementBacking = default;
                                             this.stringBacking = value;
         }
 
@@ -3535,7 +3470,7 @@ namespace UnevaluatedItemsDraft201909Feature.UnevaluatedItemsWithOneOf
         public Items1Entity(ReadOnlySpan<char> value)
         {
             this.jsonElementBacking = default;
-                                            this.stringBacking = JsonEncodedText.Encode(value);
+                                            this.stringBacking = value.ToString();
         }
 
         /// <summary>
@@ -3545,7 +3480,7 @@ namespace UnevaluatedItemsDraft201909Feature.UnevaluatedItemsWithOneOf
         public Items1Entity(ReadOnlySpan<byte> value)
         {
             this.jsonElementBacking = default;
-                                            this.stringBacking = JsonEncodedText.Encode(value);
+                                            this.stringBacking = Encoding.UTF8.GetString(value);
         }
 
         /// <summary>
@@ -3562,7 +3497,7 @@ namespace UnevaluatedItemsDraft201909Feature.UnevaluatedItemsWithOneOf
             else
             {
                 this.jsonElementBacking = default;
-                this.stringBacking = jsonString.GetJsonEncodedText();
+                this.stringBacking = jsonString;
             }
 
                                         }
@@ -3594,7 +3529,7 @@ namespace UnevaluatedItemsDraft201909Feature.UnevaluatedItemsWithOneOf
     
     
     
-                    if (this.stringBacking is JsonEncodedText stringBacking)
+                    if (this.stringBacking is string stringBacking)
                 {
                     return JsonString.StringToJsonElement(stringBacking);
                 }
@@ -3613,7 +3548,7 @@ namespace UnevaluatedItemsDraft201909Feature.UnevaluatedItemsWithOneOf
     
     
     
-                    if (this.stringBacking is JsonEncodedText)
+                    if (this.stringBacking is string)
                 {
                     return JsonValueKind.String;
                 }
@@ -3632,7 +3567,7 @@ namespace UnevaluatedItemsDraft201909Feature.UnevaluatedItemsWithOneOf
     
     
     
-                    if (this.stringBacking is JsonEncodedText stringBacking)
+                    if (this.stringBacking is string stringBacking)
                 {
                     return new JsonAny(stringBacking);
                 }
@@ -3685,7 +3620,7 @@ namespace UnevaluatedItemsDraft201909Feature.UnevaluatedItemsWithOneOf
         {
             get
             {
-                    if (this.stringBacking is JsonEncodedText stringBacking)
+                    if (this.stringBacking is string stringBacking)
                 {
                     return new JsonString(stringBacking);
                 }
@@ -3759,25 +3694,7 @@ namespace UnevaluatedItemsDraft201909Feature.UnevaluatedItemsWithOneOf
         /// <param name="value">The number from which to convert.</param>
         public static implicit operator string(Items1Entity value)
         {
-            return value.AsString.GetString();
-        }
-
-        /// <summary>
-        /// Conversion from <see cref="JsonEncodedText"/>.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator Items1Entity(JsonEncodedText value)
-        {
-            return new Items1Entity(value);
-        }
-
-        /// <summary>
-        /// Conversion to <see cref="JsonEncodedText"/>.
-        /// </summary>
-        /// <param name="value">The number from which to convert.</param>
-        public static implicit operator JsonEncodedText(Items1Entity value)
-        {
-            return value.AsString.GetJsonEncodedText();
+            return value.AsString;
         }
 
         /// <summary>
@@ -3795,7 +3712,7 @@ namespace UnevaluatedItemsDraft201909Feature.UnevaluatedItemsWithOneOf
         /// <param name="value">The number from which to convert.</param>
         public static implicit operator ReadOnlySpan<char>(Items1Entity value)
         {
-            return value.AsString.AsSpan();
+            return value.AsString;
         }
 
         /// <summary>
@@ -3813,7 +3730,7 @@ namespace UnevaluatedItemsDraft201909Feature.UnevaluatedItemsWithOneOf
         /// <param name="value">The number from which to convert.</param>
         public static implicit operator ReadOnlySpan<byte>(Items1Entity value)
         {
-            return value.AsString.GetJsonEncodedText().EncodedUtf8Bytes;
+            return value.AsString;
         }
 
         /// <summary>
@@ -3898,7 +3815,7 @@ namespace UnevaluatedItemsDraft201909Feature.UnevaluatedItemsWithOneOf
     
     
     
-                if (this.stringBacking is JsonEncodedText stringBacking)
+                if (this.stringBacking is string stringBacking)
             {
                 writer.WriteStringValue(stringBacking);
                 return;

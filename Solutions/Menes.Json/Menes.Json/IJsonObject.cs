@@ -5,7 +5,6 @@
 namespace Menes.Json
 {
     using System;
-    using System.Text.Json;
 
     /// <summary>
     /// Interface implemented by a JSON object.
@@ -17,14 +16,6 @@ namespace Menes.Json
         /// </summary>
         /// <returns>A <see cref="JsonObjectEnumerator"/>.</returns>
         JsonObjectEnumerator EnumerateObject();
-
-        /// <summary>
-        /// Try to get a property value.
-        /// </summary>
-        /// <param name="name">The name of the property.</param>
-        /// <param name="value">The value of the property.</param>
-        /// <returns><c>True</c> if the property was found.</returns>
-        bool TryGetProperty(JsonEncodedText name, out JsonAny value);
 
         /// <summary>
         /// Try to get a property value.
@@ -49,13 +40,6 @@ namespace Menes.Json
         /// <param name="value">The value of the property.</param>
         /// <returns><c>True</c> if the property was found.</returns>
         bool TryGetProperty(ReadOnlySpan<byte> utf8name, out JsonAny value);
-
-        /// <summary>
-        /// Gets a value indicating whether the object has a property of the given name.
-        /// </summary>
-        /// <param name="name">The name of the property.</param>
-        /// <returns><c>True</c> if the property was found.</returns>
-        bool HasProperty(JsonEncodedText name);
 
         /// <summary>
         /// Gets a value indicating whether the object has a property of the given name.

@@ -17,7 +17,7 @@ namespace Menes.Json
     public readonly struct JsonTime : IJsonValue, IEquatable<JsonTime>
     {
         private readonly JsonElement jsonElement;
-        private readonly JsonEncodedText? value;
+        private readonly string? value;
         private readonly OffsetTime? localDateValue;
 
         /// <summary>
@@ -46,7 +46,7 @@ namespace Menes.Json
             else
             {
                 this.jsonElement = default;
-                this.value = value.GetJsonEncodedText();
+                this.value = value;
                 this.localDateValue = default;
             }
         }
@@ -56,17 +56,6 @@ namespace Menes.Json
         /// </summary>
         /// <param name="value">The base64 encoded string value.</param>
         public JsonTime(string value)
-        {
-            this.jsonElement = default;
-            this.value = JsonEncodedText.Encode(value);
-            this.localDateValue = default;
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="JsonTime"/> struct.
-        /// </summary>
-        /// <param name="value">The base 64 encoded string value.</param>
-        public JsonTime(JsonEncodedText value)
         {
             this.jsonElement = default;
             this.value = value;
@@ -80,7 +69,7 @@ namespace Menes.Json
         public JsonTime(ReadOnlySpan<char> value)
         {
             this.jsonElement = default;
-            this.value = JsonEncodedText.Encode(value);
+            this.value = value.ToString();
             this.localDateValue = default;
         }
 
@@ -91,7 +80,7 @@ namespace Menes.Json
         public JsonTime(ReadOnlySpan<byte> value)
         {
             this.jsonElement = default;
-            this.value = JsonEncodedText.Encode(value);
+            this.value = Encoding.UTF8.GetString(value);
             this.localDateValue = default;
         }
 
@@ -134,7 +123,7 @@ namespace Menes.Json
         {
             get
             {
-                if (this.value is JsonEncodedText value)
+                if (this.value is string value)
                 {
                     return JsonString.StringToJsonElement(value);
                 }
@@ -148,7 +137,7 @@ namespace Menes.Json
         {
             get
             {
-                if (this.value is JsonEncodedText value)
+                if (this.value is string value)
                 {
                     return new JsonAny(value);
                 }
@@ -165,7 +154,7 @@ namespace Menes.Json
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator JsonString(JsonTime value)
         {
-            if (value.value is JsonEncodedText jet)
+            if (value.value is string jet)
             {
                 return new JsonString(jet);
             }
@@ -239,24 +228,6 @@ namespace Menes.Json
         }
 
         /// <summary>
-        /// Conversion from <see cref="JsonEncodedText"/>.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator JsonTime(JsonEncodedText value)
-        {
-            return new JsonTime(value);
-        }
-
-        /// <summary>
-        /// Conversion to <see cref="JsonEncodedText"/>.
-        /// </summary>
-        /// <param name="value">The number from which to convert.</param>
-        public static implicit operator JsonEncodedText(JsonTime value)
-        {
-            return value.GetJsonEncodedText();
-        }
-
-        /// <summary>
         /// Conversion from string.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
@@ -289,7 +260,7 @@ namespace Menes.Json
         /// <param name="value">The number from which to convert.</param>
         public static implicit operator ReadOnlySpan<byte>(JsonTime value)
         {
-            return value.GetJsonEncodedText().EncodedUtf8Bytes;
+            return Encoding.UTF8.GetBytes(value);
         }
 
         /// <summary>
@@ -333,7 +304,7 @@ namespace Menes.Json
 
             if (typeof(T) == typeof(JsonString))
             {
-                if (this.value is JsonEncodedText value)
+                if (this.value is string value)
                 {
                     return CastTo<T>.From(new JsonString(value));
                 }
@@ -344,44 +315,6 @@ namespace Menes.Json
             }
 
             return this.As<JsonTime, T>();
-        }
-
-        /// <summary>
-        /// Get the value as <see cref="JsonEncodedText"/>.
-        /// </summary>
-        /// <returns>The JsonEncodedText.</returns>
-        public JsonEncodedText GetJsonEncodedText()
-        {
-            if (this.TryGetJsonEncodedText(out JsonEncodedText result))
-            {
-                return result;
-            }
-
-            return default;
-        }
-
-        /// <summary>
-        /// Gets the string as <see cref="JsonEncodedText"/>.
-        /// </summary>
-        /// <param name="result">The value as JsonEncodedText.</param>
-        /// <returns><c>True</c> if the value could be retrieved.</returns>
-        public bool TryGetJsonEncodedText(out JsonEncodedText result)
-        {
-            if (this.value is JsonEncodedText value)
-            {
-                result = value;
-                return true;
-            }
-
-            if (this.jsonElement.ValueKind == JsonValueKind.String)
-            {
-                string? str = this.jsonElement.GetString();
-                result = JsonEncodedText.Encode(str!);
-                return true;
-            }
-
-            result = default;
-            return false;
         }
 
         /// <summary>
@@ -405,9 +338,9 @@ namespace Menes.Json
         /// <returns><c>True</c> if the value could be retrieved.</returns>
         public bool TryGetString(out string result)
         {
-            if (this.value is JsonEncodedText value)
+            if (this.value is string value)
             {
-                result = value.ToString();
+                result = value;
                 return true;
             }
 
@@ -449,7 +382,7 @@ namespace Menes.Json
                 return true;
             }
 
-            if (this.value is JsonEncodedText value)
+            if (this.value is string value)
             {
                 return TryParseTime(value, out result);
             }
@@ -470,13 +403,9 @@ namespace Menes.Json
         /// <returns>The value as a span of char.</returns>
         public ReadOnlySpan<char> AsSpan()
         {
-            if (this.value is JsonEncodedText value)
+            if (this.value is string value)
             {
-                Span<char> output = stackalloc char[value.EncodedUtf8Bytes.Length];
-                int writtenChars = Encoding.UTF8.GetChars(value.EncodedUtf8Bytes, output);
-                Span<char> result = new char[writtenChars];
-                output.Slice(0, writtenChars).CopyTo(result);
-                return result;
+                return value;
             }
 
             if (this.jsonElement.ValueKind == JsonValueKind.String)
@@ -518,7 +447,7 @@ namespace Menes.Json
         /// <param name="writer">The writer to which to write the object.</param>
         public void WriteTo(Utf8JsonWriter writer)
         {
-            if (this.value is JsonEncodedText value)
+            if (this.value is string value)
             {
                 writer.WriteStringValue(value);
             }
@@ -571,14 +500,9 @@ namespace Menes.Json
             return thisDate.Equals(otherDate);
         }
 
-        private static JsonEncodedText FormatTime(OffsetTime value)
+        private static string FormatTime(OffsetTime value)
         {
-            return JsonEncodedText.Encode(OffsetTimePattern.ExtendedIso.Format(value));
-        }
-
-        private static bool TryParseTime(JsonEncodedText text, out OffsetTime value)
-        {
-            return TryParseTime(text.ToString(), out value);
+            return OffsetTimePattern.ExtendedIso.Format(value);
         }
 
         private static bool TryParseTime(string text, out OffsetTime value)

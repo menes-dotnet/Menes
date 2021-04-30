@@ -16,6 +16,7 @@ namespace EnumDraft202012Feature.EnumWith1DoesNotMatchTrue
     using System.Collections.Generic;
     using System.Collections.Immutable;
     using System.Linq;
+    using System.Text;
     using System.Text.Json;
     using System.Text.RegularExpressions;
     using Menes.Json;

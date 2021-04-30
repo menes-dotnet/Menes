@@ -16,6 +16,7 @@ namespace IfThenElseDraft201909Feature.IfWithBooleanSchemaTrue
     using System.Collections.Generic;
     using System.Collections.Immutable;
     using System.Linq;
+    using System.Text;
     using System.Text.Json;
     using System.Text.RegularExpressions;
     using Menes.Json;
@@ -43,7 +44,7 @@ namespace IfThenElseDraft201909Feature.IfWithBooleanSchemaTrue
     
     
     
-            private readonly JsonEncodedText? stringBacking;
+            private readonly string? stringBacking;
     
     
         /// <summary>
@@ -66,16 +67,6 @@ namespace IfThenElseDraft201909Feature.IfWithBooleanSchemaTrue
         public Schema(string value)
         {
             this.jsonElementBacking = default;
-                                            this.stringBacking = JsonEncodedText.Encode(value);
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Schema"/> struct.
-        /// </summary>
-        /// <param name="value">A string value.</param>
-        public Schema(JsonEncodedText value)
-        {
-            this.jsonElementBacking = default;
                                             this.stringBacking = value;
         }
 
@@ -86,7 +77,7 @@ namespace IfThenElseDraft201909Feature.IfWithBooleanSchemaTrue
         public Schema(ReadOnlySpan<char> value)
         {
             this.jsonElementBacking = default;
-                                            this.stringBacking = JsonEncodedText.Encode(value);
+                                            this.stringBacking = value.ToString();
         }
 
         /// <summary>
@@ -96,7 +87,7 @@ namespace IfThenElseDraft201909Feature.IfWithBooleanSchemaTrue
         public Schema(ReadOnlySpan<byte> value)
         {
             this.jsonElementBacking = default;
-                                            this.stringBacking = JsonEncodedText.Encode(value);
+                                            this.stringBacking = Encoding.UTF8.GetString(value);
         }
 
         /// <summary>
@@ -113,7 +104,7 @@ namespace IfThenElseDraft201909Feature.IfWithBooleanSchemaTrue
             else
             {
                 this.jsonElementBacking = default;
-                this.stringBacking = jsonString.GetJsonEncodedText();
+                this.stringBacking = jsonString;
             }
 
                                         }
@@ -285,7 +276,7 @@ namespace IfThenElseDraft201909Feature.IfWithBooleanSchemaTrue
     
     
     
-                    if (this.stringBacking is JsonEncodedText stringBacking)
+                    if (this.stringBacking is string stringBacking)
                 {
                     return JsonString.StringToJsonElement(stringBacking);
                 }
@@ -304,7 +295,7 @@ namespace IfThenElseDraft201909Feature.IfWithBooleanSchemaTrue
     
     
     
-                    if (this.stringBacking is JsonEncodedText)
+                    if (this.stringBacking is string)
                 {
                     return JsonValueKind.String;
                 }
@@ -323,7 +314,7 @@ namespace IfThenElseDraft201909Feature.IfWithBooleanSchemaTrue
     
     
     
-                    if (this.stringBacking is JsonEncodedText stringBacking)
+                    if (this.stringBacking is string stringBacking)
                 {
                     return new JsonAny(stringBacking);
                 }
@@ -376,7 +367,7 @@ namespace IfThenElseDraft201909Feature.IfWithBooleanSchemaTrue
         {
             get
             {
-                    if (this.stringBacking is JsonEncodedText stringBacking)
+                    if (this.stringBacking is string stringBacking)
                 {
                     return new JsonString(stringBacking);
                 }
@@ -492,25 +483,7 @@ namespace IfThenElseDraft201909Feature.IfWithBooleanSchemaTrue
         /// <param name="value">The number from which to convert.</param>
         public static implicit operator string(Schema value)
         {
-            return value.AsString.GetString();
-        }
-
-        /// <summary>
-        /// Conversion from <see cref="JsonEncodedText"/>.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator Schema(JsonEncodedText value)
-        {
-            return new Schema(value);
-        }
-
-        /// <summary>
-        /// Conversion to <see cref="JsonEncodedText"/>.
-        /// </summary>
-        /// <param name="value">The number from which to convert.</param>
-        public static implicit operator JsonEncodedText(Schema value)
-        {
-            return value.AsString.GetJsonEncodedText();
+            return value.AsString;
         }
 
         /// <summary>
@@ -528,7 +501,7 @@ namespace IfThenElseDraft201909Feature.IfWithBooleanSchemaTrue
         /// <param name="value">The number from which to convert.</param>
         public static implicit operator ReadOnlySpan<char>(Schema value)
         {
-            return value.AsString.AsSpan();
+            return value.AsString;
         }
 
         /// <summary>
@@ -546,7 +519,7 @@ namespace IfThenElseDraft201909Feature.IfWithBooleanSchemaTrue
         /// <param name="value">The number from which to convert.</param>
         public static implicit operator ReadOnlySpan<byte>(Schema value)
         {
-            return value.AsString.GetJsonEncodedText().EncodedUtf8Bytes;
+            return value.AsString;
         }
 
         /// <summary>
@@ -631,7 +604,7 @@ namespace IfThenElseDraft201909Feature.IfWithBooleanSchemaTrue
     
     
     
-                if (this.stringBacking is JsonEncodedText stringBacking)
+                if (this.stringBacking is string stringBacking)
             {
                 writer.WriteStringValue(stringBacking);
                 return;
@@ -880,7 +853,7 @@ namespace IfThenElseDraft201909Feature.IfWithBooleanSchemaTrue
     
     
     
-            private readonly JsonEncodedText? stringBacking;
+            private readonly string? stringBacking;
     
     
         /// <summary>
@@ -903,16 +876,6 @@ namespace IfThenElseDraft201909Feature.IfWithBooleanSchemaTrue
         public ElseEntity(string value)
         {
             this.jsonElementBacking = default;
-                                            this.stringBacking = JsonEncodedText.Encode(value);
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ElseEntity"/> struct.
-        /// </summary>
-        /// <param name="value">A string value.</param>
-        public ElseEntity(JsonEncodedText value)
-        {
-            this.jsonElementBacking = default;
                                             this.stringBacking = value;
         }
 
@@ -923,7 +886,7 @@ namespace IfThenElseDraft201909Feature.IfWithBooleanSchemaTrue
         public ElseEntity(ReadOnlySpan<char> value)
         {
             this.jsonElementBacking = default;
-                                            this.stringBacking = JsonEncodedText.Encode(value);
+                                            this.stringBacking = value.ToString();
         }
 
         /// <summary>
@@ -933,7 +896,7 @@ namespace IfThenElseDraft201909Feature.IfWithBooleanSchemaTrue
         public ElseEntity(ReadOnlySpan<byte> value)
         {
             this.jsonElementBacking = default;
-                                            this.stringBacking = JsonEncodedText.Encode(value);
+                                            this.stringBacking = Encoding.UTF8.GetString(value);
         }
 
         /// <summary>
@@ -950,7 +913,7 @@ namespace IfThenElseDraft201909Feature.IfWithBooleanSchemaTrue
             else
             {
                 this.jsonElementBacking = default;
-                this.stringBacking = jsonString.GetJsonEncodedText();
+                this.stringBacking = jsonString;
             }
 
                                         }
@@ -982,7 +945,7 @@ namespace IfThenElseDraft201909Feature.IfWithBooleanSchemaTrue
     
     
     
-                    if (this.stringBacking is JsonEncodedText stringBacking)
+                    if (this.stringBacking is string stringBacking)
                 {
                     return JsonString.StringToJsonElement(stringBacking);
                 }
@@ -1001,7 +964,7 @@ namespace IfThenElseDraft201909Feature.IfWithBooleanSchemaTrue
     
     
     
-                    if (this.stringBacking is JsonEncodedText)
+                    if (this.stringBacking is string)
                 {
                     return JsonValueKind.String;
                 }
@@ -1020,7 +983,7 @@ namespace IfThenElseDraft201909Feature.IfWithBooleanSchemaTrue
     
     
     
-                    if (this.stringBacking is JsonEncodedText stringBacking)
+                    if (this.stringBacking is string stringBacking)
                 {
                     return new JsonAny(stringBacking);
                 }
@@ -1073,7 +1036,7 @@ namespace IfThenElseDraft201909Feature.IfWithBooleanSchemaTrue
         {
             get
             {
-                    if (this.stringBacking is JsonEncodedText stringBacking)
+                    if (this.stringBacking is string stringBacking)
                 {
                     return new JsonString(stringBacking);
                 }
@@ -1147,25 +1110,7 @@ namespace IfThenElseDraft201909Feature.IfWithBooleanSchemaTrue
         /// <param name="value">The number from which to convert.</param>
         public static implicit operator string(ElseEntity value)
         {
-            return value.AsString.GetString();
-        }
-
-        /// <summary>
-        /// Conversion from <see cref="JsonEncodedText"/>.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator ElseEntity(JsonEncodedText value)
-        {
-            return new ElseEntity(value);
-        }
-
-        /// <summary>
-        /// Conversion to <see cref="JsonEncodedText"/>.
-        /// </summary>
-        /// <param name="value">The number from which to convert.</param>
-        public static implicit operator JsonEncodedText(ElseEntity value)
-        {
-            return value.AsString.GetJsonEncodedText();
+            return value.AsString;
         }
 
         /// <summary>
@@ -1183,7 +1128,7 @@ namespace IfThenElseDraft201909Feature.IfWithBooleanSchemaTrue
         /// <param name="value">The number from which to convert.</param>
         public static implicit operator ReadOnlySpan<char>(ElseEntity value)
         {
-            return value.AsString.AsSpan();
+            return value.AsString;
         }
 
         /// <summary>
@@ -1201,7 +1146,7 @@ namespace IfThenElseDraft201909Feature.IfWithBooleanSchemaTrue
         /// <param name="value">The number from which to convert.</param>
         public static implicit operator ReadOnlySpan<byte>(ElseEntity value)
         {
-            return value.AsString.GetJsonEncodedText().EncodedUtf8Bytes;
+            return value.AsString;
         }
 
         /// <summary>
@@ -1286,7 +1231,7 @@ namespace IfThenElseDraft201909Feature.IfWithBooleanSchemaTrue
     
     
     
-                if (this.stringBacking is JsonEncodedText stringBacking)
+                if (this.stringBacking is string stringBacking)
             {
                 writer.WriteStringValue(stringBacking);
                 return;
@@ -1443,7 +1388,7 @@ namespace IfThenElseDraft201909Feature.IfWithBooleanSchemaTrue
     
     
     
-            private readonly JsonEncodedText? stringBacking;
+            private readonly string? stringBacking;
     
     
         /// <summary>
@@ -1466,16 +1411,6 @@ namespace IfThenElseDraft201909Feature.IfWithBooleanSchemaTrue
         public ThenEntity(string value)
         {
             this.jsonElementBacking = default;
-                                            this.stringBacking = JsonEncodedText.Encode(value);
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ThenEntity"/> struct.
-        /// </summary>
-        /// <param name="value">A string value.</param>
-        public ThenEntity(JsonEncodedText value)
-        {
-            this.jsonElementBacking = default;
                                             this.stringBacking = value;
         }
 
@@ -1486,7 +1421,7 @@ namespace IfThenElseDraft201909Feature.IfWithBooleanSchemaTrue
         public ThenEntity(ReadOnlySpan<char> value)
         {
             this.jsonElementBacking = default;
-                                            this.stringBacking = JsonEncodedText.Encode(value);
+                                            this.stringBacking = value.ToString();
         }
 
         /// <summary>
@@ -1496,7 +1431,7 @@ namespace IfThenElseDraft201909Feature.IfWithBooleanSchemaTrue
         public ThenEntity(ReadOnlySpan<byte> value)
         {
             this.jsonElementBacking = default;
-                                            this.stringBacking = JsonEncodedText.Encode(value);
+                                            this.stringBacking = Encoding.UTF8.GetString(value);
         }
 
         /// <summary>
@@ -1513,7 +1448,7 @@ namespace IfThenElseDraft201909Feature.IfWithBooleanSchemaTrue
             else
             {
                 this.jsonElementBacking = default;
-                this.stringBacking = jsonString.GetJsonEncodedText();
+                this.stringBacking = jsonString;
             }
 
                                         }
@@ -1545,7 +1480,7 @@ namespace IfThenElseDraft201909Feature.IfWithBooleanSchemaTrue
     
     
     
-                    if (this.stringBacking is JsonEncodedText stringBacking)
+                    if (this.stringBacking is string stringBacking)
                 {
                     return JsonString.StringToJsonElement(stringBacking);
                 }
@@ -1564,7 +1499,7 @@ namespace IfThenElseDraft201909Feature.IfWithBooleanSchemaTrue
     
     
     
-                    if (this.stringBacking is JsonEncodedText)
+                    if (this.stringBacking is string)
                 {
                     return JsonValueKind.String;
                 }
@@ -1583,7 +1518,7 @@ namespace IfThenElseDraft201909Feature.IfWithBooleanSchemaTrue
     
     
     
-                    if (this.stringBacking is JsonEncodedText stringBacking)
+                    if (this.stringBacking is string stringBacking)
                 {
                     return new JsonAny(stringBacking);
                 }
@@ -1636,7 +1571,7 @@ namespace IfThenElseDraft201909Feature.IfWithBooleanSchemaTrue
         {
             get
             {
-                    if (this.stringBacking is JsonEncodedText stringBacking)
+                    if (this.stringBacking is string stringBacking)
                 {
                     return new JsonString(stringBacking);
                 }
@@ -1710,25 +1645,7 @@ namespace IfThenElseDraft201909Feature.IfWithBooleanSchemaTrue
         /// <param name="value">The number from which to convert.</param>
         public static implicit operator string(ThenEntity value)
         {
-            return value.AsString.GetString();
-        }
-
-        /// <summary>
-        /// Conversion from <see cref="JsonEncodedText"/>.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator ThenEntity(JsonEncodedText value)
-        {
-            return new ThenEntity(value);
-        }
-
-        /// <summary>
-        /// Conversion to <see cref="JsonEncodedText"/>.
-        /// </summary>
-        /// <param name="value">The number from which to convert.</param>
-        public static implicit operator JsonEncodedText(ThenEntity value)
-        {
-            return value.AsString.GetJsonEncodedText();
+            return value.AsString;
         }
 
         /// <summary>
@@ -1746,7 +1663,7 @@ namespace IfThenElseDraft201909Feature.IfWithBooleanSchemaTrue
         /// <param name="value">The number from which to convert.</param>
         public static implicit operator ReadOnlySpan<char>(ThenEntity value)
         {
-            return value.AsString.AsSpan();
+            return value.AsString;
         }
 
         /// <summary>
@@ -1764,7 +1681,7 @@ namespace IfThenElseDraft201909Feature.IfWithBooleanSchemaTrue
         /// <param name="value">The number from which to convert.</param>
         public static implicit operator ReadOnlySpan<byte>(ThenEntity value)
         {
-            return value.AsString.GetJsonEncodedText().EncodedUtf8Bytes;
+            return value.AsString;
         }
 
         /// <summary>
@@ -1849,7 +1766,7 @@ namespace IfThenElseDraft201909Feature.IfWithBooleanSchemaTrue
     
     
     
-                if (this.stringBacking is JsonEncodedText stringBacking)
+                if (this.stringBacking is string stringBacking)
             {
                 writer.WriteStringValue(stringBacking);
                 return;

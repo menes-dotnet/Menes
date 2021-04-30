@@ -16,6 +16,7 @@ namespace IfThenElseDraft202012Feature.IfAppearsAtTheEndWhenSerializedKeywordPro
     using System.Collections.Generic;
     using System.Collections.Immutable;
     using System.Linq;
+    using System.Text;
     using System.Text.Json;
     using System.Text.RegularExpressions;
     using Menes.Json;
@@ -43,7 +44,7 @@ namespace IfThenElseDraft202012Feature.IfAppearsAtTheEndWhenSerializedKeywordPro
     
     
     
-            private readonly JsonEncodedText? stringBacking;
+            private readonly string? stringBacking;
     
     
         /// <summary>
@@ -66,16 +67,6 @@ namespace IfThenElseDraft202012Feature.IfAppearsAtTheEndWhenSerializedKeywordPro
         public Schema(string value)
         {
             this.jsonElementBacking = default;
-                                            this.stringBacking = JsonEncodedText.Encode(value);
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Schema"/> struct.
-        /// </summary>
-        /// <param name="value">A string value.</param>
-        public Schema(JsonEncodedText value)
-        {
-            this.jsonElementBacking = default;
                                             this.stringBacking = value;
         }
 
@@ -86,7 +77,7 @@ namespace IfThenElseDraft202012Feature.IfAppearsAtTheEndWhenSerializedKeywordPro
         public Schema(ReadOnlySpan<char> value)
         {
             this.jsonElementBacking = default;
-                                            this.stringBacking = JsonEncodedText.Encode(value);
+                                            this.stringBacking = value.ToString();
         }
 
         /// <summary>
@@ -96,7 +87,7 @@ namespace IfThenElseDraft202012Feature.IfAppearsAtTheEndWhenSerializedKeywordPro
         public Schema(ReadOnlySpan<byte> value)
         {
             this.jsonElementBacking = default;
-                                            this.stringBacking = JsonEncodedText.Encode(value);
+                                            this.stringBacking = Encoding.UTF8.GetString(value);
         }
 
         /// <summary>
@@ -113,7 +104,7 @@ namespace IfThenElseDraft202012Feature.IfAppearsAtTheEndWhenSerializedKeywordPro
             else
             {
                 this.jsonElementBacking = default;
-                this.stringBacking = jsonString.GetJsonEncodedText();
+                this.stringBacking = jsonString;
             }
 
                                         }
@@ -333,7 +324,7 @@ namespace IfThenElseDraft202012Feature.IfAppearsAtTheEndWhenSerializedKeywordPro
     
     
     
-                    if (this.stringBacking is JsonEncodedText stringBacking)
+                    if (this.stringBacking is string stringBacking)
                 {
                     return JsonString.StringToJsonElement(stringBacking);
                 }
@@ -352,7 +343,7 @@ namespace IfThenElseDraft202012Feature.IfAppearsAtTheEndWhenSerializedKeywordPro
     
     
     
-                    if (this.stringBacking is JsonEncodedText)
+                    if (this.stringBacking is string)
                 {
                     return JsonValueKind.String;
                 }
@@ -371,7 +362,7 @@ namespace IfThenElseDraft202012Feature.IfAppearsAtTheEndWhenSerializedKeywordPro
     
     
     
-                    if (this.stringBacking is JsonEncodedText stringBacking)
+                    if (this.stringBacking is string stringBacking)
                 {
                     return new JsonAny(stringBacking);
                 }
@@ -424,7 +415,7 @@ namespace IfThenElseDraft202012Feature.IfAppearsAtTheEndWhenSerializedKeywordPro
         {
             get
             {
-                    if (this.stringBacking is JsonEncodedText stringBacking)
+                    if (this.stringBacking is string stringBacking)
                 {
                     return new JsonString(stringBacking);
                 }
@@ -561,25 +552,7 @@ namespace IfThenElseDraft202012Feature.IfAppearsAtTheEndWhenSerializedKeywordPro
         /// <param name="value">The number from which to convert.</param>
         public static implicit operator string(Schema value)
         {
-            return value.AsString.GetString();
-        }
-
-        /// <summary>
-        /// Conversion from <see cref="JsonEncodedText"/>.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator Schema(JsonEncodedText value)
-        {
-            return new Schema(value);
-        }
-
-        /// <summary>
-        /// Conversion to <see cref="JsonEncodedText"/>.
-        /// </summary>
-        /// <param name="value">The number from which to convert.</param>
-        public static implicit operator JsonEncodedText(Schema value)
-        {
-            return value.AsString.GetJsonEncodedText();
+            return value.AsString;
         }
 
         /// <summary>
@@ -597,7 +570,7 @@ namespace IfThenElseDraft202012Feature.IfAppearsAtTheEndWhenSerializedKeywordPro
         /// <param name="value">The number from which to convert.</param>
         public static implicit operator ReadOnlySpan<char>(Schema value)
         {
-            return value.AsString.AsSpan();
+            return value.AsString;
         }
 
         /// <summary>
@@ -615,7 +588,7 @@ namespace IfThenElseDraft202012Feature.IfAppearsAtTheEndWhenSerializedKeywordPro
         /// <param name="value">The number from which to convert.</param>
         public static implicit operator ReadOnlySpan<byte>(Schema value)
         {
-            return value.AsString.GetJsonEncodedText().EncodedUtf8Bytes;
+            return value.AsString;
         }
 
         /// <summary>
@@ -700,7 +673,7 @@ namespace IfThenElseDraft202012Feature.IfAppearsAtTheEndWhenSerializedKeywordPro
     
     
     
-                if (this.stringBacking is JsonEncodedText stringBacking)
+                if (this.stringBacking is string stringBacking)
             {
                 writer.WriteStringValue(stringBacking);
                 return;
@@ -949,7 +922,7 @@ namespace IfThenElseDraft202012Feature.IfAppearsAtTheEndWhenSerializedKeywordPro
     
     
     
-            private readonly JsonEncodedText? stringBacking;
+            private readonly string? stringBacking;
     
     
         /// <summary>
@@ -972,16 +945,6 @@ namespace IfThenElseDraft202012Feature.IfAppearsAtTheEndWhenSerializedKeywordPro
         public ElseEntity(string value)
         {
             this.jsonElementBacking = default;
-                                            this.stringBacking = JsonEncodedText.Encode(value);
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ElseEntity"/> struct.
-        /// </summary>
-        /// <param name="value">A string value.</param>
-        public ElseEntity(JsonEncodedText value)
-        {
-            this.jsonElementBacking = default;
                                             this.stringBacking = value;
         }
 
@@ -992,7 +955,7 @@ namespace IfThenElseDraft202012Feature.IfAppearsAtTheEndWhenSerializedKeywordPro
         public ElseEntity(ReadOnlySpan<char> value)
         {
             this.jsonElementBacking = default;
-                                            this.stringBacking = JsonEncodedText.Encode(value);
+                                            this.stringBacking = value.ToString();
         }
 
         /// <summary>
@@ -1002,7 +965,7 @@ namespace IfThenElseDraft202012Feature.IfAppearsAtTheEndWhenSerializedKeywordPro
         public ElseEntity(ReadOnlySpan<byte> value)
         {
             this.jsonElementBacking = default;
-                                            this.stringBacking = JsonEncodedText.Encode(value);
+                                            this.stringBacking = Encoding.UTF8.GetString(value);
         }
 
         /// <summary>
@@ -1019,7 +982,7 @@ namespace IfThenElseDraft202012Feature.IfAppearsAtTheEndWhenSerializedKeywordPro
             else
             {
                 this.jsonElementBacking = default;
-                this.stringBacking = jsonString.GetJsonEncodedText();
+                this.stringBacking = jsonString;
             }
 
                                         }
@@ -1051,7 +1014,7 @@ namespace IfThenElseDraft202012Feature.IfAppearsAtTheEndWhenSerializedKeywordPro
     
     
     
-                    if (this.stringBacking is JsonEncodedText stringBacking)
+                    if (this.stringBacking is string stringBacking)
                 {
                     return JsonString.StringToJsonElement(stringBacking);
                 }
@@ -1070,7 +1033,7 @@ namespace IfThenElseDraft202012Feature.IfAppearsAtTheEndWhenSerializedKeywordPro
     
     
     
-                    if (this.stringBacking is JsonEncodedText)
+                    if (this.stringBacking is string)
                 {
                     return JsonValueKind.String;
                 }
@@ -1089,7 +1052,7 @@ namespace IfThenElseDraft202012Feature.IfAppearsAtTheEndWhenSerializedKeywordPro
     
     
     
-                    if (this.stringBacking is JsonEncodedText stringBacking)
+                    if (this.stringBacking is string stringBacking)
                 {
                     return new JsonAny(stringBacking);
                 }
@@ -1142,7 +1105,7 @@ namespace IfThenElseDraft202012Feature.IfAppearsAtTheEndWhenSerializedKeywordPro
         {
             get
             {
-                    if (this.stringBacking is JsonEncodedText stringBacking)
+                    if (this.stringBacking is string stringBacking)
                 {
                     return new JsonString(stringBacking);
                 }
@@ -1216,25 +1179,7 @@ namespace IfThenElseDraft202012Feature.IfAppearsAtTheEndWhenSerializedKeywordPro
         /// <param name="value">The number from which to convert.</param>
         public static implicit operator string(ElseEntity value)
         {
-            return value.AsString.GetString();
-        }
-
-        /// <summary>
-        /// Conversion from <see cref="JsonEncodedText"/>.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator ElseEntity(JsonEncodedText value)
-        {
-            return new ElseEntity(value);
-        }
-
-        /// <summary>
-        /// Conversion to <see cref="JsonEncodedText"/>.
-        /// </summary>
-        /// <param name="value">The number from which to convert.</param>
-        public static implicit operator JsonEncodedText(ElseEntity value)
-        {
-            return value.AsString.GetJsonEncodedText();
+            return value.AsString;
         }
 
         /// <summary>
@@ -1252,7 +1197,7 @@ namespace IfThenElseDraft202012Feature.IfAppearsAtTheEndWhenSerializedKeywordPro
         /// <param name="value">The number from which to convert.</param>
         public static implicit operator ReadOnlySpan<char>(ElseEntity value)
         {
-            return value.AsString.AsSpan();
+            return value.AsString;
         }
 
         /// <summary>
@@ -1270,7 +1215,7 @@ namespace IfThenElseDraft202012Feature.IfAppearsAtTheEndWhenSerializedKeywordPro
         /// <param name="value">The number from which to convert.</param>
         public static implicit operator ReadOnlySpan<byte>(ElseEntity value)
         {
-            return value.AsString.GetJsonEncodedText().EncodedUtf8Bytes;
+            return value.AsString;
         }
 
         /// <summary>
@@ -1355,7 +1300,7 @@ namespace IfThenElseDraft202012Feature.IfAppearsAtTheEndWhenSerializedKeywordPro
     
     
     
-                if (this.stringBacking is JsonEncodedText stringBacking)
+                if (this.stringBacking is string stringBacking)
             {
                 writer.WriteStringValue(stringBacking);
                 return;
@@ -1511,7 +1456,7 @@ namespace IfThenElseDraft202012Feature.IfAppearsAtTheEndWhenSerializedKeywordPro
     
     
     
-            private readonly JsonEncodedText? stringBacking;
+            private readonly string? stringBacking;
     
     
         /// <summary>
@@ -1534,16 +1479,6 @@ namespace IfThenElseDraft202012Feature.IfAppearsAtTheEndWhenSerializedKeywordPro
         public IfEntity(string value)
         {
             this.jsonElementBacking = default;
-                                            this.stringBacking = JsonEncodedText.Encode(value);
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="IfEntity"/> struct.
-        /// </summary>
-        /// <param name="value">A string value.</param>
-        public IfEntity(JsonEncodedText value)
-        {
-            this.jsonElementBacking = default;
                                             this.stringBacking = value;
         }
 
@@ -1554,7 +1489,7 @@ namespace IfThenElseDraft202012Feature.IfAppearsAtTheEndWhenSerializedKeywordPro
         public IfEntity(ReadOnlySpan<char> value)
         {
             this.jsonElementBacking = default;
-                                            this.stringBacking = JsonEncodedText.Encode(value);
+                                            this.stringBacking = value.ToString();
         }
 
         /// <summary>
@@ -1564,7 +1499,7 @@ namespace IfThenElseDraft202012Feature.IfAppearsAtTheEndWhenSerializedKeywordPro
         public IfEntity(ReadOnlySpan<byte> value)
         {
             this.jsonElementBacking = default;
-                                            this.stringBacking = JsonEncodedText.Encode(value);
+                                            this.stringBacking = Encoding.UTF8.GetString(value);
         }
 
         /// <summary>
@@ -1581,7 +1516,7 @@ namespace IfThenElseDraft202012Feature.IfAppearsAtTheEndWhenSerializedKeywordPro
             else
             {
                 this.jsonElementBacking = default;
-                this.stringBacking = jsonString.GetJsonEncodedText();
+                this.stringBacking = jsonString;
             }
 
                                         }
@@ -1613,7 +1548,7 @@ namespace IfThenElseDraft202012Feature.IfAppearsAtTheEndWhenSerializedKeywordPro
     
     
     
-                    if (this.stringBacking is JsonEncodedText stringBacking)
+                    if (this.stringBacking is string stringBacking)
                 {
                     return JsonString.StringToJsonElement(stringBacking);
                 }
@@ -1632,7 +1567,7 @@ namespace IfThenElseDraft202012Feature.IfAppearsAtTheEndWhenSerializedKeywordPro
     
     
     
-                    if (this.stringBacking is JsonEncodedText)
+                    if (this.stringBacking is string)
                 {
                     return JsonValueKind.String;
                 }
@@ -1651,7 +1586,7 @@ namespace IfThenElseDraft202012Feature.IfAppearsAtTheEndWhenSerializedKeywordPro
     
     
     
-                    if (this.stringBacking is JsonEncodedText stringBacking)
+                    if (this.stringBacking is string stringBacking)
                 {
                     return new JsonAny(stringBacking);
                 }
@@ -1704,7 +1639,7 @@ namespace IfThenElseDraft202012Feature.IfAppearsAtTheEndWhenSerializedKeywordPro
         {
             get
             {
-                    if (this.stringBacking is JsonEncodedText stringBacking)
+                    if (this.stringBacking is string stringBacking)
                 {
                     return new JsonString(stringBacking);
                 }
@@ -1778,25 +1713,7 @@ namespace IfThenElseDraft202012Feature.IfAppearsAtTheEndWhenSerializedKeywordPro
         /// <param name="value">The number from which to convert.</param>
         public static implicit operator string(IfEntity value)
         {
-            return value.AsString.GetString();
-        }
-
-        /// <summary>
-        /// Conversion from <see cref="JsonEncodedText"/>.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator IfEntity(JsonEncodedText value)
-        {
-            return new IfEntity(value);
-        }
-
-        /// <summary>
-        /// Conversion to <see cref="JsonEncodedText"/>.
-        /// </summary>
-        /// <param name="value">The number from which to convert.</param>
-        public static implicit operator JsonEncodedText(IfEntity value)
-        {
-            return value.AsString.GetJsonEncodedText();
+            return value.AsString;
         }
 
         /// <summary>
@@ -1814,7 +1731,7 @@ namespace IfThenElseDraft202012Feature.IfAppearsAtTheEndWhenSerializedKeywordPro
         /// <param name="value">The number from which to convert.</param>
         public static implicit operator ReadOnlySpan<char>(IfEntity value)
         {
-            return value.AsString.AsSpan();
+            return value.AsString;
         }
 
         /// <summary>
@@ -1832,7 +1749,7 @@ namespace IfThenElseDraft202012Feature.IfAppearsAtTheEndWhenSerializedKeywordPro
         /// <param name="value">The number from which to convert.</param>
         public static implicit operator ReadOnlySpan<byte>(IfEntity value)
         {
-            return value.AsString.GetJsonEncodedText().EncodedUtf8Bytes;
+            return value.AsString;
         }
 
         /// <summary>
@@ -1917,7 +1834,7 @@ namespace IfThenElseDraft202012Feature.IfAppearsAtTheEndWhenSerializedKeywordPro
     
     
     
-                if (this.stringBacking is JsonEncodedText stringBacking)
+                if (this.stringBacking is string stringBacking)
             {
                 writer.WriteStringValue(stringBacking);
                 return;
@@ -2081,7 +1998,7 @@ namespace IfThenElseDraft202012Feature.IfAppearsAtTheEndWhenSerializedKeywordPro
     
     
     
-            private readonly JsonEncodedText? stringBacking;
+            private readonly string? stringBacking;
     
     
         /// <summary>
@@ -2104,16 +2021,6 @@ namespace IfThenElseDraft202012Feature.IfAppearsAtTheEndWhenSerializedKeywordPro
         public ThenEntity(string value)
         {
             this.jsonElementBacking = default;
-                                            this.stringBacking = JsonEncodedText.Encode(value);
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ThenEntity"/> struct.
-        /// </summary>
-        /// <param name="value">A string value.</param>
-        public ThenEntity(JsonEncodedText value)
-        {
-            this.jsonElementBacking = default;
                                             this.stringBacking = value;
         }
 
@@ -2124,7 +2031,7 @@ namespace IfThenElseDraft202012Feature.IfAppearsAtTheEndWhenSerializedKeywordPro
         public ThenEntity(ReadOnlySpan<char> value)
         {
             this.jsonElementBacking = default;
-                                            this.stringBacking = JsonEncodedText.Encode(value);
+                                            this.stringBacking = value.ToString();
         }
 
         /// <summary>
@@ -2134,7 +2041,7 @@ namespace IfThenElseDraft202012Feature.IfAppearsAtTheEndWhenSerializedKeywordPro
         public ThenEntity(ReadOnlySpan<byte> value)
         {
             this.jsonElementBacking = default;
-                                            this.stringBacking = JsonEncodedText.Encode(value);
+                                            this.stringBacking = Encoding.UTF8.GetString(value);
         }
 
         /// <summary>
@@ -2151,7 +2058,7 @@ namespace IfThenElseDraft202012Feature.IfAppearsAtTheEndWhenSerializedKeywordPro
             else
             {
                 this.jsonElementBacking = default;
-                this.stringBacking = jsonString.GetJsonEncodedText();
+                this.stringBacking = jsonString;
             }
 
                                         }
@@ -2183,7 +2090,7 @@ namespace IfThenElseDraft202012Feature.IfAppearsAtTheEndWhenSerializedKeywordPro
     
     
     
-                    if (this.stringBacking is JsonEncodedText stringBacking)
+                    if (this.stringBacking is string stringBacking)
                 {
                     return JsonString.StringToJsonElement(stringBacking);
                 }
@@ -2202,7 +2109,7 @@ namespace IfThenElseDraft202012Feature.IfAppearsAtTheEndWhenSerializedKeywordPro
     
     
     
-                    if (this.stringBacking is JsonEncodedText)
+                    if (this.stringBacking is string)
                 {
                     return JsonValueKind.String;
                 }
@@ -2221,7 +2128,7 @@ namespace IfThenElseDraft202012Feature.IfAppearsAtTheEndWhenSerializedKeywordPro
     
     
     
-                    if (this.stringBacking is JsonEncodedText stringBacking)
+                    if (this.stringBacking is string stringBacking)
                 {
                     return new JsonAny(stringBacking);
                 }
@@ -2274,7 +2181,7 @@ namespace IfThenElseDraft202012Feature.IfAppearsAtTheEndWhenSerializedKeywordPro
         {
             get
             {
-                    if (this.stringBacking is JsonEncodedText stringBacking)
+                    if (this.stringBacking is string stringBacking)
                 {
                     return new JsonString(stringBacking);
                 }
@@ -2348,25 +2255,7 @@ namespace IfThenElseDraft202012Feature.IfAppearsAtTheEndWhenSerializedKeywordPro
         /// <param name="value">The number from which to convert.</param>
         public static implicit operator string(ThenEntity value)
         {
-            return value.AsString.GetString();
-        }
-
-        /// <summary>
-        /// Conversion from <see cref="JsonEncodedText"/>.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator ThenEntity(JsonEncodedText value)
-        {
-            return new ThenEntity(value);
-        }
-
-        /// <summary>
-        /// Conversion to <see cref="JsonEncodedText"/>.
-        /// </summary>
-        /// <param name="value">The number from which to convert.</param>
-        public static implicit operator JsonEncodedText(ThenEntity value)
-        {
-            return value.AsString.GetJsonEncodedText();
+            return value.AsString;
         }
 
         /// <summary>
@@ -2384,7 +2273,7 @@ namespace IfThenElseDraft202012Feature.IfAppearsAtTheEndWhenSerializedKeywordPro
         /// <param name="value">The number from which to convert.</param>
         public static implicit operator ReadOnlySpan<char>(ThenEntity value)
         {
-            return value.AsString.AsSpan();
+            return value.AsString;
         }
 
         /// <summary>
@@ -2402,7 +2291,7 @@ namespace IfThenElseDraft202012Feature.IfAppearsAtTheEndWhenSerializedKeywordPro
         /// <param name="value">The number from which to convert.</param>
         public static implicit operator ReadOnlySpan<byte>(ThenEntity value)
         {
-            return value.AsString.GetJsonEncodedText().EncodedUtf8Bytes;
+            return value.AsString;
         }
 
         /// <summary>
@@ -2487,7 +2376,7 @@ namespace IfThenElseDraft202012Feature.IfAppearsAtTheEndWhenSerializedKeywordPro
     
     
     
-                if (this.stringBacking is JsonEncodedText stringBacking)
+                if (this.stringBacking is string stringBacking)
             {
                 writer.WriteStringValue(stringBacking);
                 return;

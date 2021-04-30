@@ -18,7 +18,7 @@ namespace Menes.Json
         private readonly bool hasJsonElementEnumerator;
         private readonly bool hasDictionaryEnumerator;
         private JsonElement.ObjectEnumerator jsonElementEnumerator;
-        private ImmutableDictionary<JsonEncodedText, JsonAny>.Enumerator dictionaryEnumerator;
+        private ImmutableDictionary<string, JsonAny>.Enumerator dictionaryEnumerator;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="JsonObjectEnumerator"/> struct.
@@ -36,7 +36,7 @@ namespace Menes.Json
         /// Initializes a new instance of the <see cref="JsonObjectEnumerator"/> struct.
         /// </summary>
         /// <param name="dictionary">The property dictionary to enumerate.</param>
-        public JsonObjectEnumerator(ImmutableDictionary<JsonEncodedText, JsonAny> dictionary)
+        public JsonObjectEnumerator(ImmutableDictionary<string, JsonAny> dictionary)
         {
             this.jsonElementEnumerator = default;
             this.hasJsonElementEnumerator = false;

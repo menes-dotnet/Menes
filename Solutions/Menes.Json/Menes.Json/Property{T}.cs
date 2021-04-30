@@ -5,6 +5,7 @@
 namespace Menes.Json
 {
     using System;
+    using System.Text;
     using System.Text.Json;
 
     /// <summary>
@@ -15,7 +16,7 @@ namespace Menes.Json
         where T : struct, IJsonValue
     {
         private readonly JsonProperty? jsonProperty;
-        private readonly JsonEncodedText? name;
+        private readonly string? name;
         private readonly T? value;
 
         /// <summary>
@@ -34,7 +35,7 @@ namespace Menes.Json
         /// </summary>
         /// <param name="name">The property name.</param>
         /// <param name="value">The property value.</param>
-        public Property(JsonEncodedText name, T value)
+        public Property(string name, T value)
         {
             this.jsonProperty = default;
             this.name = name;
@@ -59,27 +60,6 @@ namespace Menes.Json
                 }
 
                 return JsonValueKind.Undefined;
-            }
-        }
-
-        /// <summary>
-        /// Gets the name of the property.
-        /// </summary>
-        public JsonEncodedText NameAsJsonEncodedText
-        {
-            get
-            {
-                if (this.jsonProperty is JsonProperty jsonProperty)
-                {
-                    return JsonEncodedText.Encode(jsonProperty.Name);
-                }
-
-                if (this.name is JsonEncodedText encodedName)
-                {
-                    return encodedName;
-                }
-
-                return default;
             }
         }
 
@@ -116,9 +96,9 @@ namespace Menes.Json
                     return jsonProperty.Name;
                 }
 
-                if (this.name is JsonEncodedText encodedName)
+                if (this.name is string name)
                 {
-                    return encodedName.ToString();
+                    return name;
                 }
 
                 throw new InvalidOperationException("The property does not have a name.");
@@ -137,9 +117,11 @@ namespace Menes.Json
                 return jsonProperty.NameEquals(utf8Name);
             }
 
-            if (this.name is JsonEncodedText encodedName)
+            if (this.name is string name)
             {
-                return encodedName.Equals(JsonEncodedText.Encode(utf8Name));
+                Span<char> theirName = stackalloc char[Encoding.UTF8.GetMaxCharCount(utf8Name.Length)];
+                int written = Encoding.UTF8.GetChars(utf8Name, theirName);
+                return theirName.Slice(0, written).SequenceEqual(name.AsSpan());
             }
 
             return false;
@@ -157,9 +139,9 @@ namespace Menes.Json
                 return jsonProperty.NameEquals(name);
             }
 
-            if (this.name is JsonEncodedText encodedName)
+            if (this.name is string ourName)
             {
-                return encodedName.Equals(JsonEncodedText.Encode(name));
+                return name.SequenceEqual(ourName.AsSpan());
             }
 
             return false;
@@ -177,29 +159,9 @@ namespace Menes.Json
                 return jsonProperty.NameEquals(name);
             }
 
-            if (this.name is JsonEncodedText encodedName)
+            if (this.name is string encodedName)
             {
-                return encodedName.Equals(JsonEncodedText.Encode(name));
-            }
-
-            return false;
-        }
-
-        /// <summary>
-        /// Compares the specified text to the name of this property.
-        /// </summary>
-        /// <param name="name">The name to match.</param>
-        /// <returns><c>True</c> if the name matches.</returns>
-        public bool NameEquals(JsonEncodedText name)
-        {
-            if (this.jsonProperty is JsonProperty jsonProperty)
-            {
-                return jsonProperty.NameEquals(JsonReaderHelper.GetUnescapedSpan(name.EncodedUtf8Bytes, 0));
-            }
-
-            if (this.name is JsonEncodedText encodedName)
-            {
-                return encodedName.Equals(name);
+                return encodedName.Equals(name, StringComparison.Ordinal);
             }
 
             return false;

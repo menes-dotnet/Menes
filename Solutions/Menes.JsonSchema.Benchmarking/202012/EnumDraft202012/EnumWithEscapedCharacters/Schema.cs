@@ -16,6 +16,7 @@ namespace EnumDraft202012Feature.EnumWithEscapedCharacters
     using System.Collections.Generic;
     using System.Collections.Immutable;
     using System.Linq;
+    using System.Text;
     using System.Text.Json;
     using System.Text.RegularExpressions;
     using Menes.Json;
@@ -43,7 +44,7 @@ namespace EnumDraft202012Feature.EnumWithEscapedCharacters
     
     
     
-            private readonly JsonEncodedText? stringBacking;
+            private readonly string? stringBacking;
     
     
         /// <summary>
@@ -66,16 +67,6 @@ namespace EnumDraft202012Feature.EnumWithEscapedCharacters
         public Schema(string value)
         {
             this.jsonElementBacking = default;
-                                            this.stringBacking = JsonEncodedText.Encode(value);
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Schema"/> struct.
-        /// </summary>
-        /// <param name="value">A string value.</param>
-        public Schema(JsonEncodedText value)
-        {
-            this.jsonElementBacking = default;
                                             this.stringBacking = value;
         }
 
@@ -86,7 +77,7 @@ namespace EnumDraft202012Feature.EnumWithEscapedCharacters
         public Schema(ReadOnlySpan<char> value)
         {
             this.jsonElementBacking = default;
-                                            this.stringBacking = JsonEncodedText.Encode(value);
+                                            this.stringBacking = value.ToString();
         }
 
         /// <summary>
@@ -96,7 +87,7 @@ namespace EnumDraft202012Feature.EnumWithEscapedCharacters
         public Schema(ReadOnlySpan<byte> value)
         {
             this.jsonElementBacking = default;
-                                            this.stringBacking = JsonEncodedText.Encode(value);
+                                            this.stringBacking = Encoding.UTF8.GetString(value);
         }
 
         /// <summary>
@@ -113,7 +104,7 @@ namespace EnumDraft202012Feature.EnumWithEscapedCharacters
             else
             {
                 this.jsonElementBacking = default;
-                this.stringBacking = jsonString.GetJsonEncodedText();
+                this.stringBacking = jsonString;
             }
 
                                         }
@@ -145,7 +136,7 @@ namespace EnumDraft202012Feature.EnumWithEscapedCharacters
     
     
     
-                    if (this.stringBacking is JsonEncodedText stringBacking)
+                    if (this.stringBacking is string stringBacking)
                 {
                     return JsonString.StringToJsonElement(stringBacking);
                 }
@@ -164,7 +155,7 @@ namespace EnumDraft202012Feature.EnumWithEscapedCharacters
     
     
     
-                    if (this.stringBacking is JsonEncodedText)
+                    if (this.stringBacking is string)
                 {
                     return JsonValueKind.String;
                 }
@@ -183,7 +174,7 @@ namespace EnumDraft202012Feature.EnumWithEscapedCharacters
     
     
     
-                    if (this.stringBacking is JsonEncodedText stringBacking)
+                    if (this.stringBacking is string stringBacking)
                 {
                     return new JsonAny(stringBacking);
                 }
@@ -236,7 +227,7 @@ namespace EnumDraft202012Feature.EnumWithEscapedCharacters
         {
             get
             {
-                    if (this.stringBacking is JsonEncodedText stringBacking)
+                    if (this.stringBacking is string stringBacking)
                 {
                     return new JsonString(stringBacking);
                 }
@@ -310,25 +301,7 @@ namespace EnumDraft202012Feature.EnumWithEscapedCharacters
         /// <param name="value">The number from which to convert.</param>
         public static implicit operator string(Schema value)
         {
-            return value.AsString.GetString();
-        }
-
-        /// <summary>
-        /// Conversion from <see cref="JsonEncodedText"/>.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator Schema(JsonEncodedText value)
-        {
-            return new Schema(value);
-        }
-
-        /// <summary>
-        /// Conversion to <see cref="JsonEncodedText"/>.
-        /// </summary>
-        /// <param name="value">The number from which to convert.</param>
-        public static implicit operator JsonEncodedText(Schema value)
-        {
-            return value.AsString.GetJsonEncodedText();
+            return value.AsString;
         }
 
         /// <summary>
@@ -346,7 +319,7 @@ namespace EnumDraft202012Feature.EnumWithEscapedCharacters
         /// <param name="value">The number from which to convert.</param>
         public static implicit operator ReadOnlySpan<char>(Schema value)
         {
-            return value.AsString.AsSpan();
+            return value.AsString;
         }
 
         /// <summary>
@@ -364,7 +337,7 @@ namespace EnumDraft202012Feature.EnumWithEscapedCharacters
         /// <param name="value">The number from which to convert.</param>
         public static implicit operator ReadOnlySpan<byte>(Schema value)
         {
-            return value.AsString.GetJsonEncodedText().EncodedUtf8Bytes;
+            return value.AsString;
         }
 
         /// <summary>
@@ -449,7 +422,7 @@ namespace EnumDraft202012Feature.EnumWithEscapedCharacters
     
     
     
-                if (this.stringBacking is JsonEncodedText stringBacking)
+                if (this.stringBacking is string stringBacking)
             {
                 writer.WriteStringValue(stringBacking);
                 return;

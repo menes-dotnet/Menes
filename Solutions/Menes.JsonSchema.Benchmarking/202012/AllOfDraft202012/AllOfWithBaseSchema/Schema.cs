@@ -16,6 +16,7 @@ namespace AllOfDraft202012Feature.AllOfWithBaseSchema
     using System.Collections.Generic;
     using System.Collections.Immutable;
     using System.Linq;
+    using System.Text;
     using System.Text.Json;
     using System.Text.RegularExpressions;
     using Menes.Json;
@@ -39,7 +40,7 @@ namespace AllOfDraft202012Feature.AllOfWithBaseSchema
         /// <summary>
         /// JSON property name for <see cref="Bar"/>.
         /// </summary>
-        public static readonly JsonEncodedText BarJsonPropertyName = JsonEncodedText.Encode( BarUtf8JsonPropertyName.Span);
+        public static readonly string BarJsonPropertyName = "bar";
 
         
         /// <summary>
@@ -50,7 +51,7 @@ namespace AllOfDraft202012Feature.AllOfWithBaseSchema
         /// <summary>
         /// JSON property name for <see cref="Foo"/>.
         /// </summary>
-        public static readonly JsonEncodedText FooJsonPropertyName = JsonEncodedText.Encode( FooUtf8JsonPropertyName.Span);
+        public static readonly string FooJsonPropertyName = "foo";
 
         
         /// <summary>
@@ -61,7 +62,7 @@ namespace AllOfDraft202012Feature.AllOfWithBaseSchema
         /// <summary>
         /// JSON property name for <see cref="Baz"/>.
         /// </summary>
-        public static readonly JsonEncodedText BazJsonPropertyName = JsonEncodedText.Encode( BazUtf8JsonPropertyName.Span);
+        public static readonly string BazJsonPropertyName = "baz";
 
         
     
@@ -69,14 +70,14 @@ namespace AllOfDraft202012Feature.AllOfWithBaseSchema
     
     
     
-            private static readonly ImmutableDictionary<JsonEncodedText, Func<Schema, ValidationContext, ValidationLevel, ValidationContext>> __MenesLocalProperties = CreateLocalPropertyValidators();
+            private static readonly ImmutableDictionary<string, Func<Schema, ValidationContext, ValidationLevel, ValidationContext>> __MenesLocalProperties = CreateLocalPropertyValidators();
     
     
 
     
         private readonly JsonElement jsonElementBacking;
 
-            private readonly ImmutableDictionary<JsonEncodedText, JsonAny>? objectBacking;
+            private readonly ImmutableDictionary<string, JsonAny>? objectBacking;
     
     
     
@@ -96,7 +97,7 @@ namespace AllOfDraft202012Feature.AllOfWithBaseSchema
         /// Initializes a new instance of the <see cref="Schema"/> struct.
         /// </summary>
         /// <param name="value">A property dictionary.</param>
-        public Schema(ImmutableDictionary<JsonEncodedText, JsonAny> value)
+        public Schema(ImmutableDictionary<string, JsonAny> value)
         {
             this.jsonElementBacking = default;
             this.objectBacking = value;
@@ -242,7 +243,7 @@ namespace AllOfDraft202012Feature.AllOfWithBaseSchema
         {
             get
             {
-                if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+                if (this.objectBacking is ImmutableDictionary<string, JsonAny> properties)
                 {
                     if(properties.TryGetValue(BarJsonPropertyName, out JsonAny result))
                     {
@@ -277,7 +278,7 @@ namespace AllOfDraft202012Feature.AllOfWithBaseSchema
         {
             get
             {
-                if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+                if (this.objectBacking is ImmutableDictionary<string, JsonAny> properties)
                 {
                     if(properties.TryGetValue(FooJsonPropertyName, out JsonAny result))
                     {
@@ -312,7 +313,7 @@ namespace AllOfDraft202012Feature.AllOfWithBaseSchema
         {
             get
             {
-                if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+                if (this.objectBacking is ImmutableDictionary<string, JsonAny> properties)
                 {
                     if(properties.TryGetValue(BazJsonPropertyName, out JsonAny result))
                     {
@@ -351,7 +352,7 @@ namespace AllOfDraft202012Feature.AllOfWithBaseSchema
             get
             {
               
-                if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> objectBacking)
+                if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
                 {
                     return JsonObject.PropertiesToJsonElement(objectBacking);
                 }
@@ -370,7 +371,7 @@ namespace AllOfDraft202012Feature.AllOfWithBaseSchema
         {
             get
             {
-                    if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny>)
+                    if (this.objectBacking is ImmutableDictionary<string, JsonAny>)
                 {
                     return JsonValueKind.Object;
                 }
@@ -389,7 +390,7 @@ namespace AllOfDraft202012Feature.AllOfWithBaseSchema
         {
             get
             {
-                    if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> objectBacking)
+                    if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
                 {
                     return new JsonAny(objectBacking);
                 }
@@ -410,7 +411,7 @@ namespace AllOfDraft202012Feature.AllOfWithBaseSchema
         {
             get
             {
-                    if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> objectBacking)
+                    if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
                 {
                     return new JsonObject(objectBacking);
                 }
@@ -567,7 +568,7 @@ namespace AllOfDraft202012Feature.AllOfWithBaseSchema
         /// Implicit conversion to a property dictionary.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator ImmutableDictionary<JsonEncodedText, JsonAny>(Schema  value)
+        public static implicit operator ImmutableDictionary<string, JsonAny>(Schema  value)
         {
             return value.AsObject.AsPropertyDictionary;
         }
@@ -576,7 +577,7 @@ namespace AllOfDraft202012Feature.AllOfWithBaseSchema
         /// Implicit conversion from a property dictionary.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator Schema (ImmutableDictionary<JsonEncodedText, JsonAny> value)
+        public static implicit operator Schema (ImmutableDictionary<string, JsonAny> value)
         {
             return new Schema (value);
         }
@@ -618,7 +619,7 @@ namespace AllOfDraft202012Feature.AllOfWithBaseSchema
                 
         )
         {
-            var builder = ImmutableDictionary.CreateBuilder<JsonEncodedText, JsonAny>();
+            var builder = ImmutableDictionary.CreateBuilder<string, JsonAny>();
                     builder.Add(BarJsonPropertyName, bar);
                     builder.Add(FooJsonPropertyName, foo);
                     builder.Add(BazJsonPropertyName, baz);
@@ -694,7 +695,7 @@ namespace AllOfDraft202012Feature.AllOfWithBaseSchema
         /// <param name="writer">The writer to which to write the object.</param>
         public void WriteTo(Utf8JsonWriter writer)
         {
-                if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> objectBacking)
+                if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
             {
                 JsonObject.WriteProperties(objectBacking, writer);
                 return;
@@ -726,12 +727,6 @@ namespace AllOfDraft202012Feature.AllOfWithBaseSchema
     
     
     
-        /// <inheritdoc/>
-        public bool TryGetProperty(JsonEncodedText name, out JsonAny value)
-        {
-            return this.AsObject.TryGetProperty(name, out value);
-        }
-
         /// <inheritdoc/>
         public bool TryGetProperty(string name, out JsonAny value)
         {
@@ -799,9 +794,9 @@ namespace AllOfDraft202012Feature.AllOfWithBaseSchema
 
     
         /// <inheritdoc/>
-        public bool HasProperty(JsonEncodedText name)
+        public bool HasProperty(string name)
         {
-            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            if (this.objectBacking is ImmutableDictionary<string, JsonAny> properties)
             {
                 return properties.TryGetValue(name, out _);
             }
@@ -815,27 +810,11 @@ namespace AllOfDraft202012Feature.AllOfWithBaseSchema
         }
 
         /// <inheritdoc/>
-        public bool HasProperty(string name)
-        {
-            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
-            {
-                return properties.TryGetValue(JsonEncodedText.Encode(name), out _);
-            }
-
-            if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
-            {
-                return this.jsonElementBacking.TryGetProperty(name, out JsonElement _);
-            }
-
-            return false;
-        }
-
-        /// <inheritdoc/>
         public bool HasProperty(ReadOnlySpan<char> name)
         {
-            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            if (this.objectBacking is ImmutableDictionary<string, JsonAny> properties)
             {
-                return properties.TryGetValue(JsonEncodedText.Encode(name), out _);
+                return properties.TryGetValue(name.ToString(), out _);
             }
 
             if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
@@ -848,9 +827,9 @@ namespace AllOfDraft202012Feature.AllOfWithBaseSchema
         /// <inheritdoc/>
         public bool HasProperty(ReadOnlySpan<byte> utf8name)
         {
-            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            if (this.objectBacking is ImmutableDictionary<string, JsonAny> properties)
             {
-                return properties.TryGetValue(JsonEncodedText.Encode(utf8name), out _);
+                return properties.TryGetValue(Encoding.UTF8.GetString(utf8name), out _);
             }
 
             if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
@@ -859,18 +838,6 @@ namespace AllOfDraft202012Feature.AllOfWithBaseSchema
             }
 
             return false;        }
-
-        /// <inheritdoc/>
-        public Schema SetProperty<TValue>(JsonEncodedText name, TValue value)
-            where TValue : IJsonValue
-        {
-            if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
-            {
-                return this.AsObject.SetProperty(name, value);
-            }
-
-            return this;
-        }
 
         /// <inheritdoc/>
         public Schema SetProperty<TValue>(string name, TValue value)
@@ -903,17 +870,6 @@ namespace AllOfDraft202012Feature.AllOfWithBaseSchema
             if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
             {
                 return this.AsObject.SetProperty(utf8name, value);
-            }
-
-            return this;
-        }
-
-        /// <inheritdoc/>
-        public Schema RemoveProperty(JsonEncodedText name)
-        {
-            if (this.ValueKind == JsonValueKind.Object)
-            {
-                return this.AsObject.RemoveProperty(name);
             }
 
             return this;
@@ -1004,10 +960,10 @@ namespace AllOfDraft202012Feature.AllOfWithBaseSchema
     
     
     
-        private static ImmutableDictionary<JsonEncodedText, Func<Schema, ValidationContext, ValidationLevel, ValidationContext>> CreateLocalPropertyValidators()
+        private static ImmutableDictionary<string, Func<Schema, ValidationContext, ValidationLevel, ValidationContext>> CreateLocalPropertyValidators()
         {
-            ImmutableDictionary<JsonEncodedText, Func<Schema, ValidationContext, ValidationLevel, ValidationContext>>.Builder builder =
-                ImmutableDictionary.CreateBuilder<JsonEncodedText, Func<Schema, ValidationContext, ValidationLevel, ValidationContext>>();
+            ImmutableDictionary<string, Func<Schema, ValidationContext, ValidationLevel, ValidationContext>>.Builder builder =
+                ImmutableDictionary.CreateBuilder<string, Func<Schema, ValidationContext, ValidationLevel, ValidationContext>>();
 
                     builder.Add(
                 BarJsonPropertyName,
@@ -1038,7 +994,7 @@ namespace AllOfDraft202012Feature.AllOfWithBaseSchema
                     
             foreach (Property property in this.EnumerateObject())
             {
-                JsonEncodedText propertyName = property.NameAsJsonEncodedText;
+                string propertyName = property.Name;
 
         
                         if (__MenesLocalProperties.TryGetValue(propertyName, out Func<Schema, ValidationContext, ValidationLevel, ValidationContext>? propertyValidator))
@@ -1183,7 +1139,7 @@ namespace AllOfDraft202012Feature.AllOfWithBaseSchema
         /// <summary>
         /// JSON property name for <see cref="Foo"/>.
         /// </summary>
-        public static readonly JsonEncodedText FooJsonPropertyName = JsonEncodedText.Encode( FooUtf8JsonPropertyName.Span);
+        public static readonly string FooJsonPropertyName = "foo";
 
         
     
@@ -1191,14 +1147,14 @@ namespace AllOfDraft202012Feature.AllOfWithBaseSchema
     
     
     
-            private static readonly ImmutableDictionary<JsonEncodedText, Func<AllOf0Entity, ValidationContext, ValidationLevel, ValidationContext>> __MenesLocalProperties = CreateLocalPropertyValidators();
+            private static readonly ImmutableDictionary<string, Func<AllOf0Entity, ValidationContext, ValidationLevel, ValidationContext>> __MenesLocalProperties = CreateLocalPropertyValidators();
     
     
 
     
         private readonly JsonElement jsonElementBacking;
 
-            private readonly ImmutableDictionary<JsonEncodedText, JsonAny>? objectBacking;
+            private readonly ImmutableDictionary<string, JsonAny>? objectBacking;
     
     
     
@@ -1218,7 +1174,7 @@ namespace AllOfDraft202012Feature.AllOfWithBaseSchema
         /// Initializes a new instance of the <see cref="AllOf0Entity"/> struct.
         /// </summary>
         /// <param name="value">A property dictionary.</param>
-        public AllOf0Entity(ImmutableDictionary<JsonEncodedText, JsonAny> value)
+        public AllOf0Entity(ImmutableDictionary<string, JsonAny> value)
         {
             this.jsonElementBacking = default;
             this.objectBacking = value;
@@ -1268,7 +1224,7 @@ namespace AllOfDraft202012Feature.AllOfWithBaseSchema
         {
             get
             {
-                if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+                if (this.objectBacking is ImmutableDictionary<string, JsonAny> properties)
                 {
                     if(properties.TryGetValue(FooJsonPropertyName, out JsonAny result))
                     {
@@ -1307,7 +1263,7 @@ namespace AllOfDraft202012Feature.AllOfWithBaseSchema
             get
             {
               
-                if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> objectBacking)
+                if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
                 {
                     return JsonObject.PropertiesToJsonElement(objectBacking);
                 }
@@ -1326,7 +1282,7 @@ namespace AllOfDraft202012Feature.AllOfWithBaseSchema
         {
             get
             {
-                    if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny>)
+                    if (this.objectBacking is ImmutableDictionary<string, JsonAny>)
                 {
                     return JsonValueKind.Object;
                 }
@@ -1345,7 +1301,7 @@ namespace AllOfDraft202012Feature.AllOfWithBaseSchema
         {
             get
             {
-                    if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> objectBacking)
+                    if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
                 {
                     return new JsonAny(objectBacking);
                 }
@@ -1366,7 +1322,7 @@ namespace AllOfDraft202012Feature.AllOfWithBaseSchema
         {
             get
             {
-                    if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> objectBacking)
+                    if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
                 {
                     return new JsonObject(objectBacking);
                 }
@@ -1481,7 +1437,7 @@ namespace AllOfDraft202012Feature.AllOfWithBaseSchema
         /// Implicit conversion to a property dictionary.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator ImmutableDictionary<JsonEncodedText, JsonAny>(AllOf0Entity  value)
+        public static implicit operator ImmutableDictionary<string, JsonAny>(AllOf0Entity  value)
         {
             return value.AsObject.AsPropertyDictionary;
         }
@@ -1490,7 +1446,7 @@ namespace AllOfDraft202012Feature.AllOfWithBaseSchema
         /// Implicit conversion from a property dictionary.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator AllOf0Entity (ImmutableDictionary<JsonEncodedText, JsonAny> value)
+        public static implicit operator AllOf0Entity (ImmutableDictionary<string, JsonAny> value)
         {
             return new AllOf0Entity (value);
         }
@@ -1530,7 +1486,7 @@ namespace AllOfDraft202012Feature.AllOfWithBaseSchema
                 
         )
         {
-            var builder = ImmutableDictionary.CreateBuilder<JsonEncodedText, JsonAny>();
+            var builder = ImmutableDictionary.CreateBuilder<string, JsonAny>();
                     builder.Add(FooJsonPropertyName, foo);
                             return builder.ToImmutable();
         }
@@ -1582,7 +1538,7 @@ namespace AllOfDraft202012Feature.AllOfWithBaseSchema
         /// <param name="writer">The writer to which to write the object.</param>
         public void WriteTo(Utf8JsonWriter writer)
         {
-                if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> objectBacking)
+                if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
             {
                 JsonObject.WriteProperties(objectBacking, writer);
                 return;
@@ -1614,12 +1570,6 @@ namespace AllOfDraft202012Feature.AllOfWithBaseSchema
     
     
     
-        /// <inheritdoc/>
-        public bool TryGetProperty(JsonEncodedText name, out JsonAny value)
-        {
-            return this.AsObject.TryGetProperty(name, out value);
-        }
-
         /// <inheritdoc/>
         public bool TryGetProperty(string name, out JsonAny value)
         {
@@ -1687,9 +1637,9 @@ namespace AllOfDraft202012Feature.AllOfWithBaseSchema
 
     
         /// <inheritdoc/>
-        public bool HasProperty(JsonEncodedText name)
+        public bool HasProperty(string name)
         {
-            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            if (this.objectBacking is ImmutableDictionary<string, JsonAny> properties)
             {
                 return properties.TryGetValue(name, out _);
             }
@@ -1703,27 +1653,11 @@ namespace AllOfDraft202012Feature.AllOfWithBaseSchema
         }
 
         /// <inheritdoc/>
-        public bool HasProperty(string name)
-        {
-            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
-            {
-                return properties.TryGetValue(JsonEncodedText.Encode(name), out _);
-            }
-
-            if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
-            {
-                return this.jsonElementBacking.TryGetProperty(name, out JsonElement _);
-            }
-
-            return false;
-        }
-
-        /// <inheritdoc/>
         public bool HasProperty(ReadOnlySpan<char> name)
         {
-            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            if (this.objectBacking is ImmutableDictionary<string, JsonAny> properties)
             {
-                return properties.TryGetValue(JsonEncodedText.Encode(name), out _);
+                return properties.TryGetValue(name.ToString(), out _);
             }
 
             if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
@@ -1736,9 +1670,9 @@ namespace AllOfDraft202012Feature.AllOfWithBaseSchema
         /// <inheritdoc/>
         public bool HasProperty(ReadOnlySpan<byte> utf8name)
         {
-            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            if (this.objectBacking is ImmutableDictionary<string, JsonAny> properties)
             {
-                return properties.TryGetValue(JsonEncodedText.Encode(utf8name), out _);
+                return properties.TryGetValue(Encoding.UTF8.GetString(utf8name), out _);
             }
 
             if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
@@ -1747,18 +1681,6 @@ namespace AllOfDraft202012Feature.AllOfWithBaseSchema
             }
 
             return false;        }
-
-        /// <inheritdoc/>
-        public AllOf0Entity SetProperty<TValue>(JsonEncodedText name, TValue value)
-            where TValue : IJsonValue
-        {
-            if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
-            {
-                return this.AsObject.SetProperty(name, value);
-            }
-
-            return this;
-        }
 
         /// <inheritdoc/>
         public AllOf0Entity SetProperty<TValue>(string name, TValue value)
@@ -1791,17 +1713,6 @@ namespace AllOfDraft202012Feature.AllOfWithBaseSchema
             if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
             {
                 return this.AsObject.SetProperty(utf8name, value);
-            }
-
-            return this;
-        }
-
-        /// <inheritdoc/>
-        public AllOf0Entity RemoveProperty(JsonEncodedText name)
-        {
-            if (this.ValueKind == JsonValueKind.Object)
-            {
-                return this.AsObject.RemoveProperty(name);
             }
 
             return this;
@@ -1887,10 +1798,10 @@ namespace AllOfDraft202012Feature.AllOfWithBaseSchema
     
     
     
-        private static ImmutableDictionary<JsonEncodedText, Func<AllOf0Entity, ValidationContext, ValidationLevel, ValidationContext>> CreateLocalPropertyValidators()
+        private static ImmutableDictionary<string, Func<AllOf0Entity, ValidationContext, ValidationLevel, ValidationContext>> CreateLocalPropertyValidators()
         {
-            ImmutableDictionary<JsonEncodedText, Func<AllOf0Entity, ValidationContext, ValidationLevel, ValidationContext>>.Builder builder =
-                ImmutableDictionary.CreateBuilder<JsonEncodedText, Func<AllOf0Entity, ValidationContext, ValidationLevel, ValidationContext>>();
+            ImmutableDictionary<string, Func<AllOf0Entity, ValidationContext, ValidationLevel, ValidationContext>>.Builder builder =
+                ImmutableDictionary.CreateBuilder<string, Func<AllOf0Entity, ValidationContext, ValidationLevel, ValidationContext>>();
 
                     builder.Add(
                 FooJsonPropertyName,
@@ -1921,7 +1832,7 @@ namespace AllOfDraft202012Feature.AllOfWithBaseSchema
                     
             foreach (Property property in this.EnumerateObject())
             {
-                JsonEncodedText propertyName = property.NameAsJsonEncodedText;
+                string propertyName = property.Name;
 
         
                         if (__MenesLocalProperties.TryGetValue(propertyName, out Func<AllOf0Entity, ValidationContext, ValidationLevel, ValidationContext>? propertyValidator))
@@ -2011,7 +1922,7 @@ namespace AllOfDraft202012Feature.AllOfWithBaseSchema
         /// <summary>
         /// JSON property name for <see cref="Baz"/>.
         /// </summary>
-        public static readonly JsonEncodedText BazJsonPropertyName = JsonEncodedText.Encode( BazUtf8JsonPropertyName.Span);
+        public static readonly string BazJsonPropertyName = "baz";
 
         
     
@@ -2019,14 +1930,14 @@ namespace AllOfDraft202012Feature.AllOfWithBaseSchema
     
     
     
-            private static readonly ImmutableDictionary<JsonEncodedText, Func<AllOf1Entity, ValidationContext, ValidationLevel, ValidationContext>> __MenesLocalProperties = CreateLocalPropertyValidators();
+            private static readonly ImmutableDictionary<string, Func<AllOf1Entity, ValidationContext, ValidationLevel, ValidationContext>> __MenesLocalProperties = CreateLocalPropertyValidators();
     
     
 
     
         private readonly JsonElement jsonElementBacking;
 
-            private readonly ImmutableDictionary<JsonEncodedText, JsonAny>? objectBacking;
+            private readonly ImmutableDictionary<string, JsonAny>? objectBacking;
     
     
     
@@ -2046,7 +1957,7 @@ namespace AllOfDraft202012Feature.AllOfWithBaseSchema
         /// Initializes a new instance of the <see cref="AllOf1Entity"/> struct.
         /// </summary>
         /// <param name="value">A property dictionary.</param>
-        public AllOf1Entity(ImmutableDictionary<JsonEncodedText, JsonAny> value)
+        public AllOf1Entity(ImmutableDictionary<string, JsonAny> value)
         {
             this.jsonElementBacking = default;
             this.objectBacking = value;
@@ -2096,7 +2007,7 @@ namespace AllOfDraft202012Feature.AllOfWithBaseSchema
         {
             get
             {
-                if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+                if (this.objectBacking is ImmutableDictionary<string, JsonAny> properties)
                 {
                     if(properties.TryGetValue(BazJsonPropertyName, out JsonAny result))
                     {
@@ -2135,7 +2046,7 @@ namespace AllOfDraft202012Feature.AllOfWithBaseSchema
             get
             {
               
-                if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> objectBacking)
+                if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
                 {
                     return JsonObject.PropertiesToJsonElement(objectBacking);
                 }
@@ -2154,7 +2065,7 @@ namespace AllOfDraft202012Feature.AllOfWithBaseSchema
         {
             get
             {
-                    if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny>)
+                    if (this.objectBacking is ImmutableDictionary<string, JsonAny>)
                 {
                     return JsonValueKind.Object;
                 }
@@ -2173,7 +2084,7 @@ namespace AllOfDraft202012Feature.AllOfWithBaseSchema
         {
             get
             {
-                    if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> objectBacking)
+                    if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
                 {
                     return new JsonAny(objectBacking);
                 }
@@ -2194,7 +2105,7 @@ namespace AllOfDraft202012Feature.AllOfWithBaseSchema
         {
             get
             {
-                    if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> objectBacking)
+                    if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
                 {
                     return new JsonObject(objectBacking);
                 }
@@ -2309,7 +2220,7 @@ namespace AllOfDraft202012Feature.AllOfWithBaseSchema
         /// Implicit conversion to a property dictionary.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator ImmutableDictionary<JsonEncodedText, JsonAny>(AllOf1Entity  value)
+        public static implicit operator ImmutableDictionary<string, JsonAny>(AllOf1Entity  value)
         {
             return value.AsObject.AsPropertyDictionary;
         }
@@ -2318,7 +2229,7 @@ namespace AllOfDraft202012Feature.AllOfWithBaseSchema
         /// Implicit conversion from a property dictionary.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator AllOf1Entity (ImmutableDictionary<JsonEncodedText, JsonAny> value)
+        public static implicit operator AllOf1Entity (ImmutableDictionary<string, JsonAny> value)
         {
             return new AllOf1Entity (value);
         }
@@ -2358,7 +2269,7 @@ namespace AllOfDraft202012Feature.AllOfWithBaseSchema
                 
         )
         {
-            var builder = ImmutableDictionary.CreateBuilder<JsonEncodedText, JsonAny>();
+            var builder = ImmutableDictionary.CreateBuilder<string, JsonAny>();
                     builder.Add(BazJsonPropertyName, baz);
                             return builder.ToImmutable();
         }
@@ -2410,7 +2321,7 @@ namespace AllOfDraft202012Feature.AllOfWithBaseSchema
         /// <param name="writer">The writer to which to write the object.</param>
         public void WriteTo(Utf8JsonWriter writer)
         {
-                if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> objectBacking)
+                if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
             {
                 JsonObject.WriteProperties(objectBacking, writer);
                 return;
@@ -2442,12 +2353,6 @@ namespace AllOfDraft202012Feature.AllOfWithBaseSchema
     
     
     
-        /// <inheritdoc/>
-        public bool TryGetProperty(JsonEncodedText name, out JsonAny value)
-        {
-            return this.AsObject.TryGetProperty(name, out value);
-        }
-
         /// <inheritdoc/>
         public bool TryGetProperty(string name, out JsonAny value)
         {
@@ -2515,9 +2420,9 @@ namespace AllOfDraft202012Feature.AllOfWithBaseSchema
 
     
         /// <inheritdoc/>
-        public bool HasProperty(JsonEncodedText name)
+        public bool HasProperty(string name)
         {
-            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            if (this.objectBacking is ImmutableDictionary<string, JsonAny> properties)
             {
                 return properties.TryGetValue(name, out _);
             }
@@ -2531,27 +2436,11 @@ namespace AllOfDraft202012Feature.AllOfWithBaseSchema
         }
 
         /// <inheritdoc/>
-        public bool HasProperty(string name)
-        {
-            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
-            {
-                return properties.TryGetValue(JsonEncodedText.Encode(name), out _);
-            }
-
-            if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
-            {
-                return this.jsonElementBacking.TryGetProperty(name, out JsonElement _);
-            }
-
-            return false;
-        }
-
-        /// <inheritdoc/>
         public bool HasProperty(ReadOnlySpan<char> name)
         {
-            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            if (this.objectBacking is ImmutableDictionary<string, JsonAny> properties)
             {
-                return properties.TryGetValue(JsonEncodedText.Encode(name), out _);
+                return properties.TryGetValue(name.ToString(), out _);
             }
 
             if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
@@ -2564,9 +2453,9 @@ namespace AllOfDraft202012Feature.AllOfWithBaseSchema
         /// <inheritdoc/>
         public bool HasProperty(ReadOnlySpan<byte> utf8name)
         {
-            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            if (this.objectBacking is ImmutableDictionary<string, JsonAny> properties)
             {
-                return properties.TryGetValue(JsonEncodedText.Encode(utf8name), out _);
+                return properties.TryGetValue(Encoding.UTF8.GetString(utf8name), out _);
             }
 
             if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
@@ -2575,18 +2464,6 @@ namespace AllOfDraft202012Feature.AllOfWithBaseSchema
             }
 
             return false;        }
-
-        /// <inheritdoc/>
-        public AllOf1Entity SetProperty<TValue>(JsonEncodedText name, TValue value)
-            where TValue : IJsonValue
-        {
-            if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
-            {
-                return this.AsObject.SetProperty(name, value);
-            }
-
-            return this;
-        }
 
         /// <inheritdoc/>
         public AllOf1Entity SetProperty<TValue>(string name, TValue value)
@@ -2619,17 +2496,6 @@ namespace AllOfDraft202012Feature.AllOfWithBaseSchema
             if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
             {
                 return this.AsObject.SetProperty(utf8name, value);
-            }
-
-            return this;
-        }
-
-        /// <inheritdoc/>
-        public AllOf1Entity RemoveProperty(JsonEncodedText name)
-        {
-            if (this.ValueKind == JsonValueKind.Object)
-            {
-                return this.AsObject.RemoveProperty(name);
             }
 
             return this;
@@ -2715,10 +2581,10 @@ namespace AllOfDraft202012Feature.AllOfWithBaseSchema
     
     
     
-        private static ImmutableDictionary<JsonEncodedText, Func<AllOf1Entity, ValidationContext, ValidationLevel, ValidationContext>> CreateLocalPropertyValidators()
+        private static ImmutableDictionary<string, Func<AllOf1Entity, ValidationContext, ValidationLevel, ValidationContext>> CreateLocalPropertyValidators()
         {
-            ImmutableDictionary<JsonEncodedText, Func<AllOf1Entity, ValidationContext, ValidationLevel, ValidationContext>>.Builder builder =
-                ImmutableDictionary.CreateBuilder<JsonEncodedText, Func<AllOf1Entity, ValidationContext, ValidationLevel, ValidationContext>>();
+            ImmutableDictionary<string, Func<AllOf1Entity, ValidationContext, ValidationLevel, ValidationContext>>.Builder builder =
+                ImmutableDictionary.CreateBuilder<string, Func<AllOf1Entity, ValidationContext, ValidationLevel, ValidationContext>>();
 
                     builder.Add(
                 BazJsonPropertyName,
@@ -2749,7 +2615,7 @@ namespace AllOfDraft202012Feature.AllOfWithBaseSchema
                     
             foreach (Property property in this.EnumerateObject())
             {
-                JsonEncodedText propertyName = property.NameAsJsonEncodedText;
+                string propertyName = property.Name;
 
         
                         if (__MenesLocalProperties.TryGetValue(propertyName, out Func<AllOf1Entity, ValidationContext, ValidationLevel, ValidationContext>? propertyValidator))

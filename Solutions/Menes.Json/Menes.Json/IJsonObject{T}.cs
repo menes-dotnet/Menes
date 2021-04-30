@@ -21,16 +21,6 @@ namespace Menes.Json
         /// <param name="name">The name of the property.</param>
         /// <param name="value">The value of the property.</param>
         /// <returns>The instance with the property set.</returns>
-        T SetProperty<TValue>(JsonEncodedText name, TValue value)
-            where TValue : IJsonValue;
-
-        /// <summary>
-        /// Sets the given property value.
-        /// </summary>
-        /// <typeparam name="TValue">The type of the value.</typeparam>
-        /// <param name="name">The name of the property.</param>
-        /// <param name="value">The value of the property.</param>
-        /// <returns>The instance with the property set.</returns>
         T SetProperty<TValue>(string name, TValue value)
             where TValue : IJsonValue;
 
@@ -53,13 +43,6 @@ namespace Menes.Json
         /// <returns>The instance with the property set.</returns>
         T SetProperty<TValue>(ReadOnlySpan<byte> utf8Name, TValue value)
             where TValue : IJsonValue;
-
-        /// <summary>
-        /// Removes the given property value.
-        /// </summary>
-        /// <param name="name">The name of the property.</param>
-        /// <returns>The isntance with the property removed.</returns>
-        T RemoveProperty(JsonEncodedText name);
 
         /// <summary>
         /// Removes the given property value.

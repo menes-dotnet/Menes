@@ -16,6 +16,7 @@ namespace TypeDraft202012Feature.MultipleTypesCanBeSpecifiedInAnArray
     using System.Collections.Generic;
     using System.Collections.Immutable;
     using System.Linq;
+    using System.Text;
     using System.Text.Json;
     using System.Text.RegularExpressions;
     using Menes.Json;
@@ -44,7 +45,7 @@ namespace TypeDraft202012Feature.MultipleTypesCanBeSpecifiedInAnArray
     
             private readonly double? numberBacking;
     
-            private readonly JsonEncodedText? stringBacking;
+            private readonly string? stringBacking;
     
     
         /// <summary>
@@ -131,17 +132,6 @@ namespace TypeDraft202012Feature.MultipleTypesCanBeSpecifiedInAnArray
         {
             this.jsonElementBacking = default;
                                     this.numberBacking = default;
-                            this.stringBacking = JsonEncodedText.Encode(value);
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Schema"/> struct.
-        /// </summary>
-        /// <param name="value">A string value.</param>
-        public Schema(JsonEncodedText value)
-        {
-            this.jsonElementBacking = default;
-                                    this.numberBacking = default;
                             this.stringBacking = value;
         }
 
@@ -153,7 +143,7 @@ namespace TypeDraft202012Feature.MultipleTypesCanBeSpecifiedInAnArray
         {
             this.jsonElementBacking = default;
                                     this.numberBacking = default;
-                            this.stringBacking = JsonEncodedText.Encode(value);
+                            this.stringBacking = value.ToString();
         }
 
         /// <summary>
@@ -164,7 +154,7 @@ namespace TypeDraft202012Feature.MultipleTypesCanBeSpecifiedInAnArray
         {
             this.jsonElementBacking = default;
                                     this.numberBacking = default;
-                            this.stringBacking = JsonEncodedText.Encode(value);
+                            this.stringBacking = Encoding.UTF8.GetString(value);
         }
 
         /// <summary>
@@ -181,7 +171,7 @@ namespace TypeDraft202012Feature.MultipleTypesCanBeSpecifiedInAnArray
             else
             {
                 this.jsonElementBacking = default;
-                this.stringBacking = jsonString.GetJsonEncodedText();
+                this.stringBacking = jsonString;
             }
 
                                     this.numberBacking = default;
@@ -221,7 +211,7 @@ namespace TypeDraft202012Feature.MultipleTypesCanBeSpecifiedInAnArray
                 }
 
     
-                    if (this.stringBacking is JsonEncodedText stringBacking)
+                    if (this.stringBacking is string stringBacking)
                 {
                     return JsonString.StringToJsonElement(stringBacking);
                 }
@@ -245,7 +235,7 @@ namespace TypeDraft202012Feature.MultipleTypesCanBeSpecifiedInAnArray
                 }
 
     
-                    if (this.stringBacking is JsonEncodedText)
+                    if (this.stringBacking is string)
                 {
                     return JsonValueKind.String;
                 }
@@ -269,7 +259,7 @@ namespace TypeDraft202012Feature.MultipleTypesCanBeSpecifiedInAnArray
                 }
 
     
-                    if (this.stringBacking is JsonEncodedText stringBacking)
+                    if (this.stringBacking is string stringBacking)
                 {
                     return new JsonAny(stringBacking);
                 }
@@ -327,7 +317,7 @@ namespace TypeDraft202012Feature.MultipleTypesCanBeSpecifiedInAnArray
         {
             get
             {
-                    if (this.stringBacking is JsonEncodedText stringBacking)
+                    if (this.stringBacking is string stringBacking)
                 {
                     return new JsonString(stringBacking);
                 }
@@ -401,25 +391,7 @@ namespace TypeDraft202012Feature.MultipleTypesCanBeSpecifiedInAnArray
         /// <param name="value">The number from which to convert.</param>
         public static implicit operator string(Schema value)
         {
-            return value.AsString.GetString();
-        }
-
-        /// <summary>
-        /// Conversion from <see cref="JsonEncodedText"/>.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator Schema(JsonEncodedText value)
-        {
-            return new Schema(value);
-        }
-
-        /// <summary>
-        /// Conversion to <see cref="JsonEncodedText"/>.
-        /// </summary>
-        /// <param name="value">The number from which to convert.</param>
-        public static implicit operator JsonEncodedText(Schema value)
-        {
-            return value.AsString.GetJsonEncodedText();
+            return value.AsString;
         }
 
         /// <summary>
@@ -437,7 +409,7 @@ namespace TypeDraft202012Feature.MultipleTypesCanBeSpecifiedInAnArray
         /// <param name="value">The number from which to convert.</param>
         public static implicit operator ReadOnlySpan<char>(Schema value)
         {
-            return value.AsString.AsSpan();
+            return value.AsString;
         }
 
         /// <summary>
@@ -455,7 +427,7 @@ namespace TypeDraft202012Feature.MultipleTypesCanBeSpecifiedInAnArray
         /// <param name="value">The number from which to convert.</param>
         public static implicit operator ReadOnlySpan<byte>(Schema value)
         {
-            return value.AsString.GetJsonEncodedText().EncodedUtf8Bytes;
+            return value.AsString;
         }
 
         /// <summary>
@@ -637,7 +609,7 @@ namespace TypeDraft202012Feature.MultipleTypesCanBeSpecifiedInAnArray
             }
 
     
-                if (this.stringBacking is JsonEncodedText stringBacking)
+                if (this.stringBacking is string stringBacking)
             {
                 writer.WriteStringValue(stringBacking);
                 return;

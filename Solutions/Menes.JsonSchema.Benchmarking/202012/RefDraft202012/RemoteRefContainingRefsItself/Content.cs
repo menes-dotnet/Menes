@@ -16,6 +16,7 @@ namespace RefDraft202012Feature.RemoteRefContainingRefsItself
     using System.Collections.Generic;
     using System.Collections.Immutable;
     using System.Linq;
+    using System.Text;
     using System.Text.Json;
     using System.Text.RegularExpressions;
     using Menes.Json;
@@ -39,7 +40,7 @@ namespace RefDraft202012Feature.RemoteRefContainingRefsItself
         /// <summary>
         /// JSON property name for <see cref="ContentEncoding"/>.
         /// </summary>
-        public static readonly JsonEncodedText ContentEncodingJsonPropertyName = JsonEncodedText.Encode( ContentEncodingUtf8JsonPropertyName.Span);
+        public static readonly string ContentEncodingJsonPropertyName = "contentEncoding";
 
         
         /// <summary>
@@ -50,7 +51,7 @@ namespace RefDraft202012Feature.RemoteRefContainingRefsItself
         /// <summary>
         /// JSON property name for <see cref="ContentMediaType"/>.
         /// </summary>
-        public static readonly JsonEncodedText ContentMediaTypeJsonPropertyName = JsonEncodedText.Encode( ContentMediaTypeUtf8JsonPropertyName.Span);
+        public static readonly string ContentMediaTypeJsonPropertyName = "contentMediaType";
 
         
         /// <summary>
@@ -61,7 +62,7 @@ namespace RefDraft202012Feature.RemoteRefContainingRefsItself
         /// <summary>
         /// JSON property name for <see cref="ContentSchema"/>.
         /// </summary>
-        public static readonly JsonEncodedText ContentSchemaJsonPropertyName = JsonEncodedText.Encode( ContentSchemaUtf8JsonPropertyName.Span);
+        public static readonly string ContentSchemaJsonPropertyName = "contentSchema";
 
         
     
@@ -69,14 +70,14 @@ namespace RefDraft202012Feature.RemoteRefContainingRefsItself
     
     
     
-            private static readonly ImmutableDictionary<JsonEncodedText, Func<Content, ValidationContext, ValidationLevel, ValidationContext>> __MenesLocalProperties = CreateLocalPropertyValidators();
+            private static readonly ImmutableDictionary<string, Func<Content, ValidationContext, ValidationLevel, ValidationContext>> __MenesLocalProperties = CreateLocalPropertyValidators();
     
     
 
     
         private readonly JsonElement jsonElementBacking;
 
-            private readonly ImmutableDictionary<JsonEncodedText, JsonAny>? objectBacking;
+            private readonly ImmutableDictionary<string, JsonAny>? objectBacking;
     
     
     
@@ -98,7 +99,7 @@ namespace RefDraft202012Feature.RemoteRefContainingRefsItself
         /// Initializes a new instance of the <see cref="Content"/> struct.
         /// </summary>
         /// <param name="value">A property dictionary.</param>
-        public Content(ImmutableDictionary<JsonEncodedText, JsonAny> value)
+        public Content(ImmutableDictionary<string, JsonAny> value)
         {
             this.jsonElementBacking = default;
             this.objectBacking = value;
@@ -182,7 +183,7 @@ namespace RefDraft202012Feature.RemoteRefContainingRefsItself
         {
             get
             {
-                if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+                if (this.objectBacking is ImmutableDictionary<string, JsonAny> properties)
                 {
                     if(properties.TryGetValue(ContentEncodingJsonPropertyName, out JsonAny result))
                     {
@@ -217,7 +218,7 @@ namespace RefDraft202012Feature.RemoteRefContainingRefsItself
         {
             get
             {
-                if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+                if (this.objectBacking is ImmutableDictionary<string, JsonAny> properties)
                 {
                     if(properties.TryGetValue(ContentMediaTypeJsonPropertyName, out JsonAny result))
                     {
@@ -252,7 +253,7 @@ namespace RefDraft202012Feature.RemoteRefContainingRefsItself
         {
             get
             {
-                if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+                if (this.objectBacking is ImmutableDictionary<string, JsonAny> properties)
                 {
                     if(properties.TryGetValue(ContentSchemaJsonPropertyName, out JsonAny result))
                     {
@@ -293,7 +294,7 @@ namespace RefDraft202012Feature.RemoteRefContainingRefsItself
             get
             {
               
-                if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> objectBacking)
+                if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
                 {
                     return JsonObject.PropertiesToJsonElement(objectBacking);
                 }
@@ -317,7 +318,7 @@ namespace RefDraft202012Feature.RemoteRefContainingRefsItself
         {
             get
             {
-                    if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny>)
+                    if (this.objectBacking is ImmutableDictionary<string, JsonAny>)
                 {
                     return JsonValueKind.Object;
                 }
@@ -341,7 +342,7 @@ namespace RefDraft202012Feature.RemoteRefContainingRefsItself
         {
             get
             {
-                    if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> objectBacking)
+                    if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
                 {
                     return new JsonAny(objectBacking);
                 }
@@ -367,7 +368,7 @@ namespace RefDraft202012Feature.RemoteRefContainingRefsItself
         {
             get
             {
-                    if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> objectBacking)
+                    if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
                 {
                     return new JsonObject(objectBacking);
                 }
@@ -486,7 +487,7 @@ namespace RefDraft202012Feature.RemoteRefContainingRefsItself
         /// Implicit conversion to a property dictionary.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator ImmutableDictionary<JsonEncodedText, JsonAny>(Content  value)
+        public static implicit operator ImmutableDictionary<string, JsonAny>(Content  value)
         {
             return value.AsObject.AsPropertyDictionary;
         }
@@ -495,7 +496,7 @@ namespace RefDraft202012Feature.RemoteRefContainingRefsItself
         /// Implicit conversion from a property dictionary.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
-        public static implicit operator Content (ImmutableDictionary<JsonEncodedText, JsonAny> value)
+        public static implicit operator Content (ImmutableDictionary<string, JsonAny> value)
         {
             return new Content (value);
         }
@@ -574,7 +575,7 @@ namespace RefDraft202012Feature.RemoteRefContainingRefsItself
         
         )
         {
-            var builder = ImmutableDictionary.CreateBuilder<JsonEncodedText, JsonAny>();
+            var builder = ImmutableDictionary.CreateBuilder<string, JsonAny>();
                             if (contentEncoding is Menes.Json.JsonString contentEncoding__)
             {
                 builder.Add(ContentEncodingJsonPropertyName, contentEncoding__);
@@ -659,7 +660,7 @@ namespace RefDraft202012Feature.RemoteRefContainingRefsItself
         /// <param name="writer">The writer to which to write the object.</param>
         public void WriteTo(Utf8JsonWriter writer)
         {
-                if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> objectBacking)
+                if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
             {
                 JsonObject.WriteProperties(objectBacking, writer);
                 return;
@@ -696,12 +697,6 @@ namespace RefDraft202012Feature.RemoteRefContainingRefsItself
     
     
     
-        /// <inheritdoc/>
-        public bool TryGetProperty(JsonEncodedText name, out JsonAny value)
-        {
-            return this.AsObject.TryGetProperty(name, out value);
-        }
-
         /// <inheritdoc/>
         public bool TryGetProperty(string name, out JsonAny value)
         {
@@ -769,9 +764,9 @@ namespace RefDraft202012Feature.RemoteRefContainingRefsItself
 
     
         /// <inheritdoc/>
-        public bool HasProperty(JsonEncodedText name)
+        public bool HasProperty(string name)
         {
-            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            if (this.objectBacking is ImmutableDictionary<string, JsonAny> properties)
             {
                 return properties.TryGetValue(name, out _);
             }
@@ -785,27 +780,11 @@ namespace RefDraft202012Feature.RemoteRefContainingRefsItself
         }
 
         /// <inheritdoc/>
-        public bool HasProperty(string name)
-        {
-            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
-            {
-                return properties.TryGetValue(JsonEncodedText.Encode(name), out _);
-            }
-
-            if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
-            {
-                return this.jsonElementBacking.TryGetProperty(name, out JsonElement _);
-            }
-
-            return false;
-        }
-
-        /// <inheritdoc/>
         public bool HasProperty(ReadOnlySpan<char> name)
         {
-            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            if (this.objectBacking is ImmutableDictionary<string, JsonAny> properties)
             {
-                return properties.TryGetValue(JsonEncodedText.Encode(name), out _);
+                return properties.TryGetValue(name.ToString(), out _);
             }
 
             if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
@@ -818,9 +797,9 @@ namespace RefDraft202012Feature.RemoteRefContainingRefsItself
         /// <inheritdoc/>
         public bool HasProperty(ReadOnlySpan<byte> utf8name)
         {
-            if (this.objectBacking is ImmutableDictionary<JsonEncodedText, JsonAny> properties)
+            if (this.objectBacking is ImmutableDictionary<string, JsonAny> properties)
             {
-                return properties.TryGetValue(JsonEncodedText.Encode(utf8name), out _);
+                return properties.TryGetValue(Encoding.UTF8.GetString(utf8name), out _);
             }
 
             if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
@@ -829,18 +808,6 @@ namespace RefDraft202012Feature.RemoteRefContainingRefsItself
             }
 
             return false;        }
-
-        /// <inheritdoc/>
-        public Content SetProperty<TValue>(JsonEncodedText name, TValue value)
-            where TValue : IJsonValue
-        {
-            if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
-            {
-                return this.AsObject.SetProperty(name, value);
-            }
-
-            return this;
-        }
 
         /// <inheritdoc/>
         public Content SetProperty<TValue>(string name, TValue value)
@@ -873,17 +840,6 @@ namespace RefDraft202012Feature.RemoteRefContainingRefsItself
             if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
             {
                 return this.AsObject.SetProperty(utf8name, value);
-            }
-
-            return this;
-        }
-
-        /// <inheritdoc/>
-        public Content RemoveProperty(JsonEncodedText name)
-        {
-            if (this.ValueKind == JsonValueKind.Object)
-            {
-                return this.AsObject.RemoveProperty(name);
             }
 
             return this;
@@ -979,10 +935,10 @@ namespace RefDraft202012Feature.RemoteRefContainingRefsItself
     
     
     
-        private static ImmutableDictionary<JsonEncodedText, Func<Content, ValidationContext, ValidationLevel, ValidationContext>> CreateLocalPropertyValidators()
+        private static ImmutableDictionary<string, Func<Content, ValidationContext, ValidationLevel, ValidationContext>> CreateLocalPropertyValidators()
         {
-            ImmutableDictionary<JsonEncodedText, Func<Content, ValidationContext, ValidationLevel, ValidationContext>>.Builder builder =
-                ImmutableDictionary.CreateBuilder<JsonEncodedText, Func<Content, ValidationContext, ValidationLevel, ValidationContext>>();
+            ImmutableDictionary<string, Func<Content, ValidationContext, ValidationLevel, ValidationContext>>.Builder builder =
+                ImmutableDictionary.CreateBuilder<string, Func<Content, ValidationContext, ValidationLevel, ValidationContext>>();
 
                     builder.Add(
                 ContentEncodingJsonPropertyName,
@@ -1026,7 +982,7 @@ namespace RefDraft202012Feature.RemoteRefContainingRefsItself
         
             foreach (Property property in this.EnumerateObject())
             {
-                JsonEncodedText propertyName = property.NameAsJsonEncodedText;
+                string propertyName = property.Name;
 
         
                         if (__MenesLocalProperties.TryGetValue(propertyName, out Func<Content, ValidationContext, ValidationLevel, ValidationContext>? propertyValidator))

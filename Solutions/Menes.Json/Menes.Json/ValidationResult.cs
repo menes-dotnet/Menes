@@ -18,7 +18,7 @@ namespace Menes.Json
         /// <param name="message">The error message.</param>
         /// <param name="absoluteKeywordLocation">The absolute keyword location of the result.</param>
         /// <param name="location">The location of the result.</param>
-        public ValidationResult(bool valid, string? message = null, string? absoluteKeywordLocation = null, JsonEncodedText? location = null)
+        public ValidationResult(bool valid, string? message = null, string? absoluteKeywordLocation = null, string? location = null)
         {
             this.Valid = valid;
             this.Message = message;
@@ -47,6 +47,6 @@ namespace Menes.Json
         /// <summary>
         /// Gets the location.
         /// </summary>
-        public JsonEncodedText? Location { get; }
+        public string? Location { get; }
     }
 }

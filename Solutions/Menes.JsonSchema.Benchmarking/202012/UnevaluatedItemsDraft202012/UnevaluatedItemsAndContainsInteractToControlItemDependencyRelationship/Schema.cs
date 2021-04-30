@@ -16,6 +16,7 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteract
     using System.Collections.Generic;
     using System.Collections.Immutable;
     using System.Linq;
+    using System.Text;
     using System.Text.Json;
     using System.Text.RegularExpressions;
     using Menes.Json;
@@ -1652,7 +1653,7 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteract
     
     
     
-            private readonly JsonEncodedText? stringBacking;
+            private readonly string? stringBacking;
     
     
         /// <summary>
@@ -1675,16 +1676,6 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteract
         public ContainsEntity(string value)
         {
             this.jsonElementBacking = default;
-                                            this.stringBacking = JsonEncodedText.Encode(value);
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ContainsEntity"/> struct.
-        /// </summary>
-        /// <param name="value">A string value.</param>
-        public ContainsEntity(JsonEncodedText value)
-        {
-            this.jsonElementBacking = default;
                                             this.stringBacking = value;
         }
 
@@ -1695,7 +1686,7 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteract
         public ContainsEntity(ReadOnlySpan<char> value)
         {
             this.jsonElementBacking = default;
-                                            this.stringBacking = JsonEncodedText.Encode(value);
+                                            this.stringBacking = value.ToString();
         }
 
         /// <summary>
@@ -1705,7 +1696,7 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteract
         public ContainsEntity(ReadOnlySpan<byte> value)
         {
             this.jsonElementBacking = default;
-                                            this.stringBacking = JsonEncodedText.Encode(value);
+                                            this.stringBacking = Encoding.UTF8.GetString(value);
         }
 
         /// <summary>
@@ -1722,7 +1713,7 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteract
             else
             {
                 this.jsonElementBacking = default;
-                this.stringBacking = jsonString.GetJsonEncodedText();
+                this.stringBacking = jsonString;
             }
 
                                         }
@@ -1754,7 +1745,7 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteract
     
     
     
-                    if (this.stringBacking is JsonEncodedText stringBacking)
+                    if (this.stringBacking is string stringBacking)
                 {
                     return JsonString.StringToJsonElement(stringBacking);
                 }
@@ -1773,7 +1764,7 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteract
     
     
     
-                    if (this.stringBacking is JsonEncodedText)
+                    if (this.stringBacking is string)
                 {
                     return JsonValueKind.String;
                 }
@@ -1792,7 +1783,7 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteract
     
     
     
-                    if (this.stringBacking is JsonEncodedText stringBacking)
+                    if (this.stringBacking is string stringBacking)
                 {
                     return new JsonAny(stringBacking);
                 }
@@ -1845,7 +1836,7 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteract
         {
             get
             {
-                    if (this.stringBacking is JsonEncodedText stringBacking)
+                    if (this.stringBacking is string stringBacking)
                 {
                     return new JsonString(stringBacking);
                 }
@@ -1919,25 +1910,7 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteract
         /// <param name="value">The number from which to convert.</param>
         public static implicit operator string(ContainsEntity value)
         {
-            return value.AsString.GetString();
-        }
-
-        /// <summary>
-        /// Conversion from <see cref="JsonEncodedText"/>.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator ContainsEntity(JsonEncodedText value)
-        {
-            return new ContainsEntity(value);
-        }
-
-        /// <summary>
-        /// Conversion to <see cref="JsonEncodedText"/>.
-        /// </summary>
-        /// <param name="value">The number from which to convert.</param>
-        public static implicit operator JsonEncodedText(ContainsEntity value)
-        {
-            return value.AsString.GetJsonEncodedText();
+            return value.AsString;
         }
 
         /// <summary>
@@ -1955,7 +1928,7 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteract
         /// <param name="value">The number from which to convert.</param>
         public static implicit operator ReadOnlySpan<char>(ContainsEntity value)
         {
-            return value.AsString.AsSpan();
+            return value.AsString;
         }
 
         /// <summary>
@@ -1973,7 +1946,7 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteract
         /// <param name="value">The number from which to convert.</param>
         public static implicit operator ReadOnlySpan<byte>(ContainsEntity value)
         {
-            return value.AsString.GetJsonEncodedText().EncodedUtf8Bytes;
+            return value.AsString;
         }
 
         /// <summary>
@@ -2058,7 +2031,7 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteract
     
     
     
-                if (this.stringBacking is JsonEncodedText stringBacking)
+                if (this.stringBacking is string stringBacking)
             {
                 writer.WriteStringValue(stringBacking);
                 return;
@@ -3746,7 +3719,7 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteract
     
     
     
-            private readonly JsonEncodedText? stringBacking;
+            private readonly string? stringBacking;
     
     
         /// <summary>
@@ -3769,16 +3742,6 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteract
         public ContainsEntity(string value)
         {
             this.jsonElementBacking = default;
-                                            this.stringBacking = JsonEncodedText.Encode(value);
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ContainsEntity"/> struct.
-        /// </summary>
-        /// <param name="value">A string value.</param>
-        public ContainsEntity(JsonEncodedText value)
-        {
-            this.jsonElementBacking = default;
                                             this.stringBacking = value;
         }
 
@@ -3789,7 +3752,7 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteract
         public ContainsEntity(ReadOnlySpan<char> value)
         {
             this.jsonElementBacking = default;
-                                            this.stringBacking = JsonEncodedText.Encode(value);
+                                            this.stringBacking = value.ToString();
         }
 
         /// <summary>
@@ -3799,7 +3762,7 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteract
         public ContainsEntity(ReadOnlySpan<byte> value)
         {
             this.jsonElementBacking = default;
-                                            this.stringBacking = JsonEncodedText.Encode(value);
+                                            this.stringBacking = Encoding.UTF8.GetString(value);
         }
 
         /// <summary>
@@ -3816,7 +3779,7 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteract
             else
             {
                 this.jsonElementBacking = default;
-                this.stringBacking = jsonString.GetJsonEncodedText();
+                this.stringBacking = jsonString;
             }
 
                                         }
@@ -3848,7 +3811,7 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteract
     
     
     
-                    if (this.stringBacking is JsonEncodedText stringBacking)
+                    if (this.stringBacking is string stringBacking)
                 {
                     return JsonString.StringToJsonElement(stringBacking);
                 }
@@ -3867,7 +3830,7 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteract
     
     
     
-                    if (this.stringBacking is JsonEncodedText)
+                    if (this.stringBacking is string)
                 {
                     return JsonValueKind.String;
                 }
@@ -3886,7 +3849,7 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteract
     
     
     
-                    if (this.stringBacking is JsonEncodedText stringBacking)
+                    if (this.stringBacking is string stringBacking)
                 {
                     return new JsonAny(stringBacking);
                 }
@@ -3939,7 +3902,7 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteract
         {
             get
             {
-                    if (this.stringBacking is JsonEncodedText stringBacking)
+                    if (this.stringBacking is string stringBacking)
                 {
                     return new JsonString(stringBacking);
                 }
@@ -4013,25 +3976,7 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteract
         /// <param name="value">The number from which to convert.</param>
         public static implicit operator string(ContainsEntity value)
         {
-            return value.AsString.GetString();
-        }
-
-        /// <summary>
-        /// Conversion from <see cref="JsonEncodedText"/>.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator ContainsEntity(JsonEncodedText value)
-        {
-            return new ContainsEntity(value);
-        }
-
-        /// <summary>
-        /// Conversion to <see cref="JsonEncodedText"/>.
-        /// </summary>
-        /// <param name="value">The number from which to convert.</param>
-        public static implicit operator JsonEncodedText(ContainsEntity value)
-        {
-            return value.AsString.GetJsonEncodedText();
+            return value.AsString;
         }
 
         /// <summary>
@@ -4049,7 +3994,7 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteract
         /// <param name="value">The number from which to convert.</param>
         public static implicit operator ReadOnlySpan<char>(ContainsEntity value)
         {
-            return value.AsString.AsSpan();
+            return value.AsString;
         }
 
         /// <summary>
@@ -4067,7 +4012,7 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteract
         /// <param name="value">The number from which to convert.</param>
         public static implicit operator ReadOnlySpan<byte>(ContainsEntity value)
         {
-            return value.AsString.GetJsonEncodedText().EncodedUtf8Bytes;
+            return value.AsString;
         }
 
         /// <summary>
@@ -4152,7 +4097,7 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteract
     
     
     
-                if (this.stringBacking is JsonEncodedText stringBacking)
+                if (this.stringBacking is string stringBacking)
             {
                 writer.WriteStringValue(stringBacking);
                 return;
@@ -5712,7 +5657,7 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteract
     
     
     
-            private readonly JsonEncodedText? stringBacking;
+            private readonly string? stringBacking;
     
     
         /// <summary>
@@ -5735,16 +5680,6 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteract
         public ContainsEntity(string value)
         {
             this.jsonElementBacking = default;
-                                            this.stringBacking = JsonEncodedText.Encode(value);
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ContainsEntity"/> struct.
-        /// </summary>
-        /// <param name="value">A string value.</param>
-        public ContainsEntity(JsonEncodedText value)
-        {
-            this.jsonElementBacking = default;
                                             this.stringBacking = value;
         }
 
@@ -5755,7 +5690,7 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteract
         public ContainsEntity(ReadOnlySpan<char> value)
         {
             this.jsonElementBacking = default;
-                                            this.stringBacking = JsonEncodedText.Encode(value);
+                                            this.stringBacking = value.ToString();
         }
 
         /// <summary>
@@ -5765,7 +5700,7 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteract
         public ContainsEntity(ReadOnlySpan<byte> value)
         {
             this.jsonElementBacking = default;
-                                            this.stringBacking = JsonEncodedText.Encode(value);
+                                            this.stringBacking = Encoding.UTF8.GetString(value);
         }
 
         /// <summary>
@@ -5782,7 +5717,7 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteract
             else
             {
                 this.jsonElementBacking = default;
-                this.stringBacking = jsonString.GetJsonEncodedText();
+                this.stringBacking = jsonString;
             }
 
                                         }
@@ -5814,7 +5749,7 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteract
     
     
     
-                    if (this.stringBacking is JsonEncodedText stringBacking)
+                    if (this.stringBacking is string stringBacking)
                 {
                     return JsonString.StringToJsonElement(stringBacking);
                 }
@@ -5833,7 +5768,7 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteract
     
     
     
-                    if (this.stringBacking is JsonEncodedText)
+                    if (this.stringBacking is string)
                 {
                     return JsonValueKind.String;
                 }
@@ -5852,7 +5787,7 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteract
     
     
     
-                    if (this.stringBacking is JsonEncodedText stringBacking)
+                    if (this.stringBacking is string stringBacking)
                 {
                     return new JsonAny(stringBacking);
                 }
@@ -5905,7 +5840,7 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteract
         {
             get
             {
-                    if (this.stringBacking is JsonEncodedText stringBacking)
+                    if (this.stringBacking is string stringBacking)
                 {
                     return new JsonString(stringBacking);
                 }
@@ -5979,25 +5914,7 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteract
         /// <param name="value">The number from which to convert.</param>
         public static implicit operator string(ContainsEntity value)
         {
-            return value.AsString.GetString();
-        }
-
-        /// <summary>
-        /// Conversion from <see cref="JsonEncodedText"/>.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator ContainsEntity(JsonEncodedText value)
-        {
-            return new ContainsEntity(value);
-        }
-
-        /// <summary>
-        /// Conversion to <see cref="JsonEncodedText"/>.
-        /// </summary>
-        /// <param name="value">The number from which to convert.</param>
-        public static implicit operator JsonEncodedText(ContainsEntity value)
-        {
-            return value.AsString.GetJsonEncodedText();
+            return value.AsString;
         }
 
         /// <summary>
@@ -6015,7 +5932,7 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteract
         /// <param name="value">The number from which to convert.</param>
         public static implicit operator ReadOnlySpan<char>(ContainsEntity value)
         {
-            return value.AsString.AsSpan();
+            return value.AsString;
         }
 
         /// <summary>
@@ -6033,7 +5950,7 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteract
         /// <param name="value">The number from which to convert.</param>
         public static implicit operator ReadOnlySpan<byte>(ContainsEntity value)
         {
-            return value.AsString.GetJsonEncodedText().EncodedUtf8Bytes;
+            return value.AsString;
         }
 
         /// <summary>
@@ -6118,7 +6035,7 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteract
     
     
     
-                if (this.stringBacking is JsonEncodedText stringBacking)
+                if (this.stringBacking is string stringBacking)
             {
                 writer.WriteStringValue(stringBacking);
                 return;
