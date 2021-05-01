@@ -20,8 +20,8 @@
 namespace <#= Namespace #>
 {
     using System;
+    using System.Collections.Generic;
     using System.Collections.Immutable;
-    using System.Text;
     using System.Text.Json;
     using System.Text.RegularExpressions;
     using Menes.Json;
@@ -852,7 +852,7 @@ namespace <#= Namespace #>
         <#
         }
         #>
-            this.stringBacking = Encoding.UTF8.GetString(value);
+            this.stringBacking = System.Text.Encoding.UTF8.GetString(value);
         }
 
         /// <summary>
@@ -2174,7 +2174,13 @@ namespace <#= Namespace #>
         /// <returns>The new array created from the items.</returns>
         public static <#= TypeDeclaration.DotnetTypeName #> From(params <#= SingleItemsDotnetTypeName #>[] items)
         {
-            return new <#= TypeDeclaration.DotnetTypeName #>(items.Select(i => (JsonAny)i).ToImmutableList());
+            var builder = ImmutableList.CreateBuilder<JsonAny>();
+            foreach (var item in items)
+            {
+                builder.Add(item);
+            }
+
+            return new <#= TypeDeclaration.DotnetTypeName #>(builder.ToImmutable());
         }
 
         /// <summary>
@@ -2639,7 +2645,7 @@ namespace <#= Namespace #>
         /// <inheritdoc/>
         public bool TryGetDefault(ReadOnlySpan<byte> utf8name, out JsonAny value)
         {
-            return __MenesDefaults.TryGetValue(Encoding.UTF8.GetString(utf8name), out value);
+            return __MenesDefaults.TryGetValue(System.Text.Encoding.UTF8.GetString(utf8name), out value);
         }
 
         /// <inheritdoc/>
@@ -2657,7 +2663,7 @@ namespace <#= Namespace #>
         /// <inheritdoc/>
         public bool HasDefault(ReadOnlySpan<byte> utf8name)
         {
-            return __MenesDefaults.TryGetValue(Encoding.UTF8.GetString(utf8name), out _);
+            return __MenesDefaults.TryGetValue(System.Text.Encoding.UTF8.GetString(utf8name), out _);
         }
 
         <#
@@ -2754,7 +2760,7 @@ namespace <#= Namespace #>
         {
             if (this.objectBacking is ImmutableDictionary<string, JsonAny> properties)
             {
-                return properties.TryGetValue(Encoding.UTF8.GetString(utf8name), out _);
+                return properties.TryGetValue(System.Text.Encoding.UTF8.GetString(utf8name), out _);
             }
 
             if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
@@ -4196,7 +4202,7 @@ namespace <#= Namespace #>
             if (HasPatternProperties)
             {
             #>
-                foreach (KeyValuePair<Regex, Func<Property, ValidationContext, ValidationLevel, ValidationContext>> patternProperty in __MenesPatternProperties)
+                foreach (System.Collections.Generic.KeyValuePair<Regex, Func<Property, ValidationContext, ValidationLevel, ValidationContext>> patternProperty in __MenesPatternProperties)
                 {
                     if (patternProperty.Key.IsMatch(propertyNameAsString))
                     {
