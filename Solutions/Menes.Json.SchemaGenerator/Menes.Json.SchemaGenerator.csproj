@@ -4,7 +4,7 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>net5.0</TargetFramework>
     <AssemblyName>menes</AssemblyName>
-
+    <Nullable>enable</Nullable>
     <PackAsTool>true</PackAsTool>
     <ToolCommandName>menes</ToolCommandName>
     <PackageOutputPath>./nupkg</PackageOutputPath>
