@@ -47,14 +47,6 @@ namespace Marain.LineOfBusiness
         /// JSON property name for <see cref = "Embedded"/>.
         /// </summary>
         public static readonly string EmbeddedJsonPropertyName = "_embedded";
-        /// <summary>
-        /// JSON property name for <see cref = "Foo"/>.
-        /// </summary>
-        public static readonly ReadOnlyMemory<byte> FooUtf8JsonPropertyName = new byte[]{102, 111, 111};
-        /// <summary>
-        /// JSON property name for <see cref = "Foo"/>.
-        /// </summary>
-        public static readonly string FooJsonPropertyName = "foo";
         private static readonly ImmutableDictionary<string, Func<PersonResource, ValidationContext, ValidationLevel, ValidationContext>> __MenesLocalProperties = CreateLocalPropertyValidators();
         private readonly JsonElement jsonElementBacking;
         private readonly ImmutableDictionary<string, JsonAny>? objectBacking;
@@ -246,40 +238,6 @@ namespace Marain.LineOfBusiness
         }
 
         /// <summary>
-        /// Gets Foo.
-        /// </summary>
-        /// <remarks>
-        /// {Property title}.
-        /// {Property description}.
-        /// </remarks>
-        /// <example>
-        /// {Property examples}.
-        /// </example>
-        public Menes.Json.JsonString Foo
-        {
-            get
-            {
-                if (this.objectBacking is ImmutableDictionary<string, JsonAny> properties)
-                {
-                    if (properties.TryGetValue(FooJsonPropertyName, out JsonAny result))
-                    {
-                        return result;
-                    }
-                }
-
-                if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
-                {
-                    if (this.jsonElementBacking.TryGetProperty(FooUtf8JsonPropertyName.Span, out JsonElement result))
-                    {
-                        return new Menes.Json.JsonString(result);
-                    }
-                }
-
-                return default;
-            }
-        }
-
-        /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
         public bool HasJsonElement => this.objectBacking is null;
@@ -324,77 +282,6 @@ namespace Marain.LineOfBusiness
                 }
 
                 return new JsonAny(this.jsonElementBacking);
-            }
-        }
-
-        /// <summary>
-        /// Gets the value as a <see cref = "JsonObject"/>.
-        /// </summary>
-        public JsonObject AsObject
-        {
-            get
-            {
-                if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
-                {
-                    return new JsonObject(objectBacking);
-                }
-
-                return new JsonObject(this.jsonElementBacking);
-            }
-        }
-
-        /// <summary>
-        /// Gets the value as a <see cref = "JsonArray"/>.
-        /// </summary>
-        public JsonArray AsArray
-        {
-            get
-            {
-                return new JsonArray(this.jsonElementBacking);
-            }
-        }
-
-        /// <summary>
-        /// Gets the value as a <see cref = "JsonNumber"/>.
-        /// </summary>
-        public JsonNumber AsNumber
-        {
-            get
-            {
-                return new JsonNumber(this.jsonElementBacking);
-            }
-        }
-
-        /// <summary>
-        /// Gets the value as a <see cref = "JsonString"/>.
-        /// </summary>
-        public JsonString AsString
-        {
-            get
-            {
-                return new JsonString(this.jsonElementBacking);
-            }
-        }
-
-        /// <summary>
-        /// Gets the value as a <see cref = "JsonBoolean"/>.
-        /// </summary>
-        public JsonBoolean AsBoolean
-        {
-            get
-            {
-                return new JsonBoolean(this.jsonElementBacking);
-            }
-        }
-
-        /// <summary>
-        /// Gets the value as a <see cref = "JsonNull"/>.
-        /// </summary>
-        public JsonNull AsNull
-        {
-            get
-            {
-                return default;
             }
         }
 
@@ -505,7 +392,7 @@ namespace Marain.LineOfBusiness
         /// <summary>
         /// Creates an instance of a <see cref = "PersonResource"/>.
         /// </summary>
-        public static PersonResource Create(Marain.LineOfBusiness.PersonResource.LinksValue? links = null, Menes.Json.JsonString? contentType = null, Marain.LineOfBusiness.PersonResource.EmbeddedValue? embedded = null, Menes.Json.JsonString? foo = null)
+        public static PersonResource Create(Marain.LineOfBusiness.PersonResource.LinksValue? links = null, Menes.Json.JsonString? contentType = null, Marain.LineOfBusiness.PersonResource.EmbeddedValue? embedded = null)
         {
             var builder = ImmutableDictionary.CreateBuilder<string, JsonAny>();
             if (links is Marain.LineOfBusiness.PersonResource.LinksValue links__)
@@ -521,11 +408,6 @@ namespace Marain.LineOfBusiness
             if (embedded is Marain.LineOfBusiness.PersonResource.EmbeddedValue embedded__)
             {
                 builder.Add(EmbeddedJsonPropertyName, embedded__);
-            }
-
-            if (foo is Menes.Json.JsonString foo__)
-            {
-                builder.Add(FooJsonPropertyName, foo__);
             }
 
             return builder.ToImmutable();
@@ -561,16 +443,6 @@ namespace Marain.LineOfBusiness
             return this.SetProperty(EmbeddedJsonPropertyName, value);
         }
 
-        /// <summary>
-        /// Sets foo.
-        /// </summary>
-        /// <param name = "value">The value to set.</param>
-        /// <returns>The entity with the updated property.</returns>
-        public PersonResource WithFoo(Menes.Json.JsonString value)
-        {
-            return this.SetProperty(FooJsonPropertyName, value);
-        }
-
         /// <inheritdoc/>
         public override bool Equals(object? obj)
         {
@@ -588,7 +460,7 @@ namespace Marain.LineOfBusiness
             JsonValueKind valueKind = this.ValueKind;
             return valueKind switch
             {
-            JsonValueKind.Object => this.AsObject.GetHashCode(), JsonValueKind.Array => this.AsArray.GetHashCode(), JsonValueKind.Number => this.AsNumber.GetHashCode(), JsonValueKind.String => this.AsString.GetHashCode(), JsonValueKind.True or JsonValueKind.False => this.AsBoolean.GetHashCode(), JsonValueKind.Null => JsonNull.NullHashCode, _ => 0, }
+            JsonValueKind.Object => this.AsObject().GetHashCode(), JsonValueKind.Array => this.AsArray().GetHashCode(), JsonValueKind.Number => this.AsNumber().GetHashCode(), JsonValueKind.String => this.AsString().GetHashCode(), JsonValueKind.True or JsonValueKind.False => this.AsBoolean().GetHashCode(), JsonValueKind.Null => JsonNull.NullHashCode, _ => 0, }
 
             ;
         }
@@ -650,7 +522,7 @@ namespace Marain.LineOfBusiness
 
             return valueKind switch
             {
-            JsonValueKind.Object => this.AsObject.Equals(other.AsObject()), JsonValueKind.Array => this.AsArray.Equals(other.AsArray()), JsonValueKind.Number => this.AsNumber.Equals(other.AsNumber()), JsonValueKind.String => this.AsString.Equals(other.AsString()), JsonValueKind.Null => true, JsonValueKind.True or JsonValueKind.False => this.AsBoolean.Equals(other.AsBoolean()), _ => false, }
+            JsonValueKind.Object => this.AsObject().Equals(other.AsObject()), JsonValueKind.Array => this.AsArray().Equals(other.AsArray()), JsonValueKind.Number => this.AsNumber().Equals(other.AsNumber()), JsonValueKind.String => this.AsString().Equals(other.AsString()), JsonValueKind.Null => true, JsonValueKind.True or JsonValueKind.False => this.AsBoolean().Equals(other.AsBoolean()), _ => false, }
 
             ;
         }
@@ -666,7 +538,7 @@ namespace Marain.LineOfBusiness
 
             return valueKind switch
             {
-            JsonValueKind.Object => this.AsObject.Equals(other.AsObject), JsonValueKind.Array => this.AsArray.Equals(other.AsArray), JsonValueKind.Number => this.AsNumber.Equals(other.AsNumber), JsonValueKind.String => this.AsString.Equals(other.AsString), JsonValueKind.Null => true, JsonValueKind.True or JsonValueKind.False => this.AsBoolean.Equals(other.AsBoolean), _ => false, }
+            JsonValueKind.Object => this.AsObject().Equals(other.AsObject()), JsonValueKind.Array => this.AsArray().Equals(other.AsArray()), JsonValueKind.Number => this.AsNumber().Equals(other.AsNumber()), JsonValueKind.String => this.AsString().Equals(other.AsString()), JsonValueKind.Null => true, JsonValueKind.True or JsonValueKind.False => this.AsBoolean().Equals(other.AsBoolean()), _ => false, }
 
             ;
         }
@@ -826,6 +698,22 @@ namespace Marain.LineOfBusiness
             return result;
         }
 
+        /// <summary>
+        /// Gets the value as a <see cref = "JsonObject"/>.
+        /// </summary>
+        private JsonObject AsObject
+        {
+            get
+            {
+                if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
+                {
+                    return new JsonObject(objectBacking);
+                }
+
+                return new JsonObject(this.jsonElementBacking);
+            }
+        }
+
         private static ImmutableDictionary<string, Func<PersonResource, ValidationContext, ValidationLevel, ValidationContext>> CreateLocalPropertyValidators()
         {
             ImmutableDictionary<string, Func<PersonResource, ValidationContext, ValidationLevel, ValidationContext>>.Builder builder = ImmutableDictionary.CreateBuilder<string, Func<PersonResource, ValidationContext, ValidationLevel, ValidationContext>>();
@@ -837,11 +725,6 @@ namespace Marain.LineOfBusiness
             builder.Add(EmbeddedJsonPropertyName, (that, validationContext, level) =>
             {
                 Marain.LineOfBusiness.PersonResource.EmbeddedValue property = that.Embedded;
-                return property.Validate(validationContext, level);
-            });
-            builder.Add(FooJsonPropertyName, (that, validationContext, level) =>
-            {
-                Menes.Json.JsonString property = that.Foo;
                 return property.Validate(validationContext, level);
             });
             return builder.ToImmutable();
@@ -1314,77 +1197,6 @@ namespace Marain.LineOfBusiness
             }
 
             /// <summary>
-            /// Gets the value as a <see cref = "JsonObject"/>.
-            /// </summary>
-            public JsonObject AsObject
-            {
-                get
-                {
-                    if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
-                    {
-                        return new JsonObject(objectBacking);
-                    }
-
-                    return new JsonObject(this.jsonElementBacking);
-                }
-            }
-
-            /// <summary>
-            /// Gets the value as a <see cref = "JsonArray"/>.
-            /// </summary>
-            public JsonArray AsArray
-            {
-                get
-                {
-                    return new JsonArray(this.jsonElementBacking);
-                }
-            }
-
-            /// <summary>
-            /// Gets the value as a <see cref = "JsonNumber"/>.
-            /// </summary>
-            public JsonNumber AsNumber
-            {
-                get
-                {
-                    return new JsonNumber(this.jsonElementBacking);
-                }
-            }
-
-            /// <summary>
-            /// Gets the value as a <see cref = "JsonString"/>.
-            /// </summary>
-            public JsonString AsString
-            {
-                get
-                {
-                    return new JsonString(this.jsonElementBacking);
-                }
-            }
-
-            /// <summary>
-            /// Gets the value as a <see cref = "JsonBoolean"/>.
-            /// </summary>
-            public JsonBoolean AsBoolean
-            {
-                get
-                {
-                    return new JsonBoolean(this.jsonElementBacking);
-                }
-            }
-
-            /// <summary>
-            /// Gets the value as a <see cref = "JsonNull"/>.
-            /// </summary>
-            public JsonNull AsNull
-            {
-                get
-                {
-                    return default;
-                }
-            }
-
-            /// <summary>
             /// Conversion from <see cref = "Marain.LineOfBusiness.LinksProperty"/>.
             /// </summary>
             /// <param name = "value">The value from which to convert.</param>
@@ -1596,7 +1408,7 @@ namespace Marain.LineOfBusiness
                 JsonValueKind valueKind = this.ValueKind;
                 return valueKind switch
                 {
-                JsonValueKind.Object => this.AsObject.GetHashCode(), JsonValueKind.Array => this.AsArray.GetHashCode(), JsonValueKind.Number => this.AsNumber.GetHashCode(), JsonValueKind.String => this.AsString.GetHashCode(), JsonValueKind.True or JsonValueKind.False => this.AsBoolean.GetHashCode(), JsonValueKind.Null => JsonNull.NullHashCode, _ => 0, }
+                JsonValueKind.Object => this.AsObject().GetHashCode(), JsonValueKind.Array => this.AsArray().GetHashCode(), JsonValueKind.Number => this.AsNumber().GetHashCode(), JsonValueKind.String => this.AsString().GetHashCode(), JsonValueKind.True or JsonValueKind.False => this.AsBoolean().GetHashCode(), JsonValueKind.Null => JsonNull.NullHashCode, _ => 0, }
 
                 ;
             }
@@ -1676,7 +1488,7 @@ namespace Marain.LineOfBusiness
 
                 return valueKind switch
                 {
-                JsonValueKind.Object => this.AsObject.Equals(other.AsObject()), JsonValueKind.Array => this.AsArray.Equals(other.AsArray()), JsonValueKind.Number => this.AsNumber.Equals(other.AsNumber()), JsonValueKind.String => this.AsString.Equals(other.AsString()), JsonValueKind.Null => true, JsonValueKind.True or JsonValueKind.False => this.AsBoolean.Equals(other.AsBoolean()), _ => false, }
+                JsonValueKind.Object => this.AsObject().Equals(other.AsObject()), JsonValueKind.Array => this.AsArray().Equals(other.AsArray()), JsonValueKind.Number => this.AsNumber().Equals(other.AsNumber()), JsonValueKind.String => this.AsString().Equals(other.AsString()), JsonValueKind.Null => true, JsonValueKind.True or JsonValueKind.False => this.AsBoolean().Equals(other.AsBoolean()), _ => false, }
 
                 ;
             }
@@ -1692,7 +1504,7 @@ namespace Marain.LineOfBusiness
 
                 return valueKind switch
                 {
-                JsonValueKind.Object => this.AsObject.Equals(other.AsObject), JsonValueKind.Array => this.AsArray.Equals(other.AsArray), JsonValueKind.Number => this.AsNumber.Equals(other.AsNumber), JsonValueKind.String => this.AsString.Equals(other.AsString), JsonValueKind.Null => true, JsonValueKind.True or JsonValueKind.False => this.AsBoolean.Equals(other.AsBoolean), _ => false, }
+                JsonValueKind.Object => this.AsObject().Equals(other.AsObject()), JsonValueKind.Array => this.AsArray().Equals(other.AsArray()), JsonValueKind.Number => this.AsNumber().Equals(other.AsNumber()), JsonValueKind.String => this.AsString().Equals(other.AsString()), JsonValueKind.Null => true, JsonValueKind.True or JsonValueKind.False => this.AsBoolean().Equals(other.AsBoolean()), _ => false, }
 
                 ;
             }
@@ -1851,6 +1663,22 @@ namespace Marain.LineOfBusiness
                 }
 
                 return result;
+            }
+
+            /// <summary>
+            /// Gets the value as a <see cref = "JsonObject"/>.
+            /// </summary>
+            private JsonObject AsObject
+            {
+                get
+                {
+                    if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
+                    {
+                        return new JsonObject(objectBacking);
+                    }
+
+                    return new JsonObject(this.jsonElementBacking);
+                }
             }
 
             private static ImmutableDictionary<string, Func<LinksValue, ValidationContext, ValidationLevel, ValidationContext>> CreateLocalPropertyValidators()
@@ -2175,77 +2003,6 @@ namespace Marain.LineOfBusiness
             }
 
             /// <summary>
-            /// Gets the value as a <see cref = "JsonObject"/>.
-            /// </summary>
-            public JsonObject AsObject
-            {
-                get
-                {
-                    if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
-                    {
-                        return new JsonObject(objectBacking);
-                    }
-
-                    return new JsonObject(this.jsonElementBacking);
-                }
-            }
-
-            /// <summary>
-            /// Gets the value as a <see cref = "JsonArray"/>.
-            /// </summary>
-            public JsonArray AsArray
-            {
-                get
-                {
-                    return new JsonArray(this.jsonElementBacking);
-                }
-            }
-
-            /// <summary>
-            /// Gets the value as a <see cref = "JsonNumber"/>.
-            /// </summary>
-            public JsonNumber AsNumber
-            {
-                get
-                {
-                    return new JsonNumber(this.jsonElementBacking);
-                }
-            }
-
-            /// <summary>
-            /// Gets the value as a <see cref = "JsonString"/>.
-            /// </summary>
-            public JsonString AsString
-            {
-                get
-                {
-                    return new JsonString(this.jsonElementBacking);
-                }
-            }
-
-            /// <summary>
-            /// Gets the value as a <see cref = "JsonBoolean"/>.
-            /// </summary>
-            public JsonBoolean AsBoolean
-            {
-                get
-                {
-                    return new JsonBoolean(this.jsonElementBacking);
-                }
-            }
-
-            /// <summary>
-            /// Gets the value as a <see cref = "JsonNull"/>.
-            /// </summary>
-            public JsonNull AsNull
-            {
-                get
-                {
-                    return default;
-                }
-            }
-
-            /// <summary>
             /// Conversion from <see cref = "Marain.LineOfBusiness.EmbeddedProperty"/>.
             /// </summary>
             /// <param name = "value">The value from which to convert.</param>
@@ -2386,7 +2143,7 @@ namespace Marain.LineOfBusiness
                 JsonValueKind valueKind = this.ValueKind;
                 return valueKind switch
                 {
-                JsonValueKind.Object => this.AsObject.GetHashCode(), JsonValueKind.Array => this.AsArray.GetHashCode(), JsonValueKind.Number => this.AsNumber.GetHashCode(), JsonValueKind.String => this.AsString.GetHashCode(), JsonValueKind.True or JsonValueKind.False => this.AsBoolean.GetHashCode(), JsonValueKind.Null => JsonNull.NullHashCode, _ => 0, }
+                JsonValueKind.Object => this.AsObject().GetHashCode(), JsonValueKind.Array => this.AsArray().GetHashCode(), JsonValueKind.Number => this.AsNumber().GetHashCode(), JsonValueKind.String => this.AsString().GetHashCode(), JsonValueKind.True or JsonValueKind.False => this.AsBoolean().GetHashCode(), JsonValueKind.Null => JsonNull.NullHashCode, _ => 0, }
 
                 ;
             }
@@ -2466,7 +2223,7 @@ namespace Marain.LineOfBusiness
 
                 return valueKind switch
                 {
-                JsonValueKind.Object => this.AsObject.Equals(other.AsObject()), JsonValueKind.Array => this.AsArray.Equals(other.AsArray()), JsonValueKind.Number => this.AsNumber.Equals(other.AsNumber()), JsonValueKind.String => this.AsString.Equals(other.AsString()), JsonValueKind.Null => true, JsonValueKind.True or JsonValueKind.False => this.AsBoolean.Equals(other.AsBoolean()), _ => false, }
+                JsonValueKind.Object => this.AsObject().Equals(other.AsObject()), JsonValueKind.Array => this.AsArray().Equals(other.AsArray()), JsonValueKind.Number => this.AsNumber().Equals(other.AsNumber()), JsonValueKind.String => this.AsString().Equals(other.AsString()), JsonValueKind.Null => true, JsonValueKind.True or JsonValueKind.False => this.AsBoolean().Equals(other.AsBoolean()), _ => false, }
 
                 ;
             }
@@ -2482,7 +2239,7 @@ namespace Marain.LineOfBusiness
 
                 return valueKind switch
                 {
-                JsonValueKind.Object => this.AsObject.Equals(other.AsObject), JsonValueKind.Array => this.AsArray.Equals(other.AsArray), JsonValueKind.Number => this.AsNumber.Equals(other.AsNumber), JsonValueKind.String => this.AsString.Equals(other.AsString), JsonValueKind.Null => true, JsonValueKind.True or JsonValueKind.False => this.AsBoolean.Equals(other.AsBoolean), _ => false, }
+                JsonValueKind.Object => this.AsObject().Equals(other.AsObject()), JsonValueKind.Array => this.AsArray().Equals(other.AsArray()), JsonValueKind.Number => this.AsNumber().Equals(other.AsNumber()), JsonValueKind.String => this.AsString().Equals(other.AsString()), JsonValueKind.Null => true, JsonValueKind.True or JsonValueKind.False => this.AsBoolean().Equals(other.AsBoolean()), _ => false, }
 
                 ;
             }
@@ -2641,6 +2398,22 @@ namespace Marain.LineOfBusiness
                 }
 
                 return result;
+            }
+
+            /// <summary>
+            /// Gets the value as a <see cref = "JsonObject"/>.
+            /// </summary>
+            private JsonObject AsObject
+            {
+                get
+                {
+                    if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
+                    {
+                        return new JsonObject(objectBacking);
+                    }
+
+                    return new JsonObject(this.jsonElementBacking);
+                }
             }
 
             private static ImmutableDictionary<string, Func<EmbeddedValue, ValidationContext, ValidationLevel, ValidationContext>> CreateLocalPropertyValidators()

@@ -6,7 +6,6 @@ namespace Steps
 {
     using System.Threading.Tasks;
     using Drivers;
-    using Menes.OpenApi;
     using TechTalk.SpecFlow;
 
     /// <summary>

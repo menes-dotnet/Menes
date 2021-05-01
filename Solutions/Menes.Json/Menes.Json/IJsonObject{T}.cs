@@ -5,7 +5,6 @@
 namespace Menes.Json
 {
     using System;
-    using System.Text.Json;
 
     /// <summary>
     /// Interface implemented by a JSON object.

@@ -5,8 +5,6 @@
 namespace Menes.Json
 {
     using System;
-    using System.Buffers;
-    using System.Buffers.Text;
     using System.Diagnostics.CodeAnalysis;
     using System.Text;
     using System.Text.Json;

@@ -4,8 +4,6 @@
 
 namespace Menes.Json
 {
-    using System.Text.Json;
-
     /// <summary>
     /// A validation result.
     /// </summary>
