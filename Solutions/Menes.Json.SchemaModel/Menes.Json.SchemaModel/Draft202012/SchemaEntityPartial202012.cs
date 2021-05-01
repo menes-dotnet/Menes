@@ -2003,11 +2003,11 @@ public partial class SchemaEntity202012
         {
             if (this.TypeDeclaration.Schema.Type.IsSimpleTypesEntity)
             {
-                return this.TypeDeclaration.Schema.Type.AsSimpleTypesEntity.AsString == typeToMatch;
+                return this.TypeDeclaration.Schema.Type.AsSimpleTypesEntity.AsString() == typeToMatch;
             }
             else if (this.TypeDeclaration.Schema.Type.IsSimpleTypesEntityArray)
             {
-                return this.TypeDeclaration.Schema.Type.AsSimpleTypesEntityArray.EnumerateItems().Any(t => t.AsString == typeToMatch);
+                return this.TypeDeclaration.Schema.Type.AsSimpleTypesEntityArray.EnumerateItems().Any(t => t.AsString() == typeToMatch);
             }
         }
 

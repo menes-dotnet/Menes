@@ -188,7 +188,7 @@ namespace Menes.Json.SchemaModel.Draft201909
                 }
                 else
                 {
-                    (ns, type) = BuiltInTypes.GetTypeNameFor(this.Schema.Type.AsSimpleTypesEntity.AsString, this.Schema.Format, this.Schema.ContentEncoding, this.Schema.ContentMediaType);
+                    (ns, type) = BuiltInTypes.GetTypeNameFor(this.Schema.Type.AsSimpleTypesEntity.AsString(), this.Schema.Format, this.Schema.ContentEncoding, this.Schema.ContentMediaType);
                 }
 
                 this.SetNamespaceAndTypeName(ns, type);

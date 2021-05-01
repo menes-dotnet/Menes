@@ -49,18 +49,15 @@ namespace Menes
                             self: Link.Create("https://endjin.com/names/baz")),
                         familyName: "Pugwash",
                         givenName: "Arthur",
-                        otherNames: JsonArray.Empty)));
+                        otherNames: JsonArray.From("Willam", "Henry"))));
 
-            PersonListResource.Create(
+            var personListResource = PersonListResource.Create(
                 links: PagedListResource.LinksValue.Create(
                     items: LinkArray.From(personResource.Links.Self, personResource2.Links.Self),
                     self: Link.Create("https://endjin.com/people"),
                     next: Link.Create("https://endjin.com/people?continuationToken=2342fsjdvbawe==")),
                 embedded: PersonListResource.EmbeddedValue.Create(
                     PersonListResource.PersonResourceArray.From(personResource, personResource2)));
-
-
-
 
             using JsonDocument doc = JsonDocument.Parse(@"
 {
