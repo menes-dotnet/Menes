@@ -1739,9 +1739,6 @@
         ],
         "type": "object",
         "properties": {
-          "foo": {
-            "type":  "string"
-          },
           "_links": {
             "allOf": [
               {

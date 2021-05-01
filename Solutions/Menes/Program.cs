@@ -10,7 +10,7 @@ namespace Menes
     using System.Linq;
     using System.Text.Json;
     using System.Threading.Tasks;
-    ////using Marain.LineOfBusiness;
+    using Marain.LineOfBusiness;
 
     using Menes.Json;
     using Menes.OpenApi;
@@ -27,18 +27,40 @@ namespace Menes
 
             var result = schema.Validate();
 
-            ////PersonResource person = PersonResource.Create(
-            ////    foo: "Hello",
-            ////    links: PersonResource.LinksValue.Create(
-            ////        self: Link.Create("https://endjin.com/person/bar"),
-            ////        primaryName: Link.Create("https://endjin.com/names/foo")),
-            ////    embedded: PersonResource.EmbeddedValue.Create(
-            ////        primaryName: PersonNameResource.Create(
-            ////            links: LinksProperty.Create(
-            ////                self: Link.Create("https://endjin.com/names/foo")),
-            ////            familyName: "Silver",
-            ////            givenName: "John",
-            ////            otherNames: JsonArray.Empty)));
+            PersonResource personResource = PersonResource.Create(
+                links: PersonResource.LinksValue.Create(
+                    self: Link.Create("https://endjin.com/person/bar"),
+                    primaryName: Link.Create("https://endjin.com/names/foo")),
+                embedded: PersonResource.EmbeddedValue.Create(
+                    primaryName: PersonNameResource.Create(
+                        links: LinksProperty.Create(
+                            self: Link.Create("https://endjin.com/names/foo")),
+                        familyName: "Silver",
+                        givenName: "John",
+                        otherNames: JsonArray.Empty)));
+
+            PersonResource personResource2 = PersonResource.Create(
+                links: PersonResource.LinksValue.Create(
+                    self: Link.Create("https://endjin.com/person/bat"),
+                    primaryName: Link.Create("https://endjin.com/names/baz")),
+                embedded: PersonResource.EmbeddedValue.Create(
+                    primaryName: PersonNameResource.Create(
+                        links: LinksProperty.Create(
+                            self: Link.Create("https://endjin.com/names/baz")),
+                        familyName: "Pugwash",
+                        givenName: "Arthur",
+                        otherNames: JsonArray.Empty)));
+
+            PersonListResource.Create(
+                links: PagedListResource.LinksValue.Create(
+                    items: LinkArray.From(personResource.Links.Self, personResource2.Links.Self),
+                    self: Link.Create("https://endjin.com/people"),
+                    next: Link.Create("https://endjin.com/people?continuationToken=2342fsjdvbawe==")),
+                embedded: PersonListResource.EmbeddedValue.Create(
+                    PersonListResource.PersonResourceArray.From(personResource, personResource2)));
+
+
+
 
             using JsonDocument doc = JsonDocument.Parse(@"
 {
