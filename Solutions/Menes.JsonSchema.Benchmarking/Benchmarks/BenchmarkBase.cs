@@ -76,7 +76,7 @@ namespace Menes.JsonSchema.Benchmarking.Benchmarks
             JsonDocument.TryParseValue(ref reader, out JsonDocument? document);
             T value = new JsonAny(document!.RootElement).As<T>();
 
-            if (value.Validate(ValidationContext.ValidContext).IsValid != this.isValid)
+            if (value.Validate().IsValid != this.isValid)
             {
                 throw new InvalidOperationException("Unable to validate.");
             }

@@ -15,8 +15,6 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithAnyOf
     using System;
     using System.Collections.Generic;
     using System.Collections.Immutable;
-    using System.Linq;
-    using System.Text;
     using System.Text.Json;
     using System.Text.RegularExpressions;
     using Menes.Json;
@@ -360,79 +358,6 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithAnyOf
             }
         }
 
-        /// <summary>
-        /// Gets the value as a <see cref="JsonObject"/>.
-        /// </summary>
-        public JsonObject AsObject
-        {
-            get
-            {
-                    if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
-                {
-                    return new JsonObject(objectBacking);
-                }
-
-    
-                return new JsonObject(this.jsonElementBacking);
-            }
-        }
-
-        /// <summary>
-        /// Gets the value as a <see cref="JsonArray"/>.
-        /// </summary>
-        public JsonArray AsArray
-        {
-            get
-            {
-    
-                return new JsonArray(this.jsonElementBacking);
-            }
-        }
-
-        /// <summary>
-        /// Gets the value as a <see cref="JsonNumber"/>.
-        /// </summary>
-        public JsonNumber AsNumber
-        {
-            get
-            {
-                    return new JsonNumber(this.jsonElementBacking);
-            }
-        }
-
-        /// <summary>
-        /// Gets the value as a <see cref="JsonString"/>.
-        /// </summary>
-        public JsonString AsString
-        {
-            get
-            {
-                    return new JsonString(this.jsonElementBacking);
-            }
-        }
-
-        /// <summary>
-        /// Gets the value as a <see cref="JsonBoolean"/>.
-        /// </summary>
-        public JsonBoolean AsBoolean
-        {
-            get
-            {
-                    return new JsonBoolean(this.jsonElementBacking);
-            }
-        }
-
-        /// <summary>
-        /// Gets the value as a <see cref="JsonNull"/>.
-        /// </summary>
-        public JsonNull AsNull
-        {
-            get
-            {
-                return default;
-            }
-        }
-
             /// <summary>
         /// Conversion from <see cref="UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithAnyOf.Schema.AnyOf0Entity" />.
         /// </summary>
@@ -633,11 +558,11 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithAnyOf
 
             return valueKind switch
             {
-                JsonValueKind.Object => this.AsObject.GetHashCode(),
-                JsonValueKind.Array => this.AsArray.GetHashCode(),
-                JsonValueKind.Number => this.AsNumber.GetHashCode(),
-                JsonValueKind.String => this.AsString.GetHashCode(),
-                JsonValueKind.True or JsonValueKind.False => this.AsBoolean.GetHashCode(),
+                JsonValueKind.Object => this.AsObject().GetHashCode(),
+                JsonValueKind.Array => this.AsArray().GetHashCode(),
+                JsonValueKind.Number => this.AsNumber().GetHashCode(),
+                JsonValueKind.String => this.AsString().GetHashCode(),
+                JsonValueKind.True or JsonValueKind.False => this.AsBoolean().GetHashCode(),
                 JsonValueKind.Null => JsonNull.NullHashCode,
                 _ => 0,
             };
@@ -714,12 +639,12 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithAnyOf
 
             return valueKind switch
             {
-                JsonValueKind.Object => this.AsObject.Equals(other.AsObject()),
-                JsonValueKind.Array => this.AsArray.Equals(other.AsArray()),
-                JsonValueKind.Number => this.AsNumber.Equals(other.AsNumber()),
-                JsonValueKind.String => this.AsString.Equals(other.AsString()),
+                JsonValueKind.Object => this.AsObject().Equals(other.AsObject()),
+                JsonValueKind.Array => this.AsArray().Equals(other.AsArray()),
+                JsonValueKind.Number => this.AsNumber().Equals(other.AsNumber()),
+                JsonValueKind.String => this.AsString().Equals(other.AsString()),
                 JsonValueKind.Null => true,
-                JsonValueKind.True or JsonValueKind.False => this.AsBoolean.Equals(other.AsBoolean()),
+                JsonValueKind.True or JsonValueKind.False => this.AsBoolean().Equals(other.AsBoolean()),
                 _ => false,
             };
         }
@@ -736,12 +661,12 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithAnyOf
 
             return valueKind switch
             {
-                JsonValueKind.Object => this.AsObject.Equals(other.AsObject),
-                JsonValueKind.Array => this.AsArray.Equals(other.AsArray),
-                JsonValueKind.Number => this.AsNumber.Equals(other.AsNumber),
-                JsonValueKind.String => this.AsString.Equals(other.AsString),
+                JsonValueKind.Object => this.AsObject().Equals(other.AsObject()),
+                JsonValueKind.Array => this.AsArray().Equals(other.AsArray()),
+                JsonValueKind.Number => this.AsNumber().Equals(other.AsNumber()),
+                JsonValueKind.String => this.AsString().Equals(other.AsString()),
                 JsonValueKind.Null => true,
-                JsonValueKind.True or JsonValueKind.False => this.AsBoolean.Equals(other.AsBoolean),
+                JsonValueKind.True or JsonValueKind.False => this.AsBoolean().Equals(other.AsBoolean()),
                 _ => false,
             };
         }
@@ -783,7 +708,7 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithAnyOf
         {
             if (this.objectBacking is ImmutableDictionary<string, JsonAny> properties)
             {
-                return properties.TryGetValue(Encoding.UTF8.GetString(utf8name), out _);
+                return properties.TryGetValue(System.Text.Encoding.UTF8.GetString(utf8name), out _);
             }
 
             if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
@@ -923,6 +848,7 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithAnyOf
                 return result;
         }
 
+
     
     
     
@@ -944,6 +870,26 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithAnyOf
             return builder.ToImmutable();
         }
 
+    
+            /// <summary>
+        /// Gets the value as a <see cref="JsonObject"/>.
+        /// </summary>
+        private JsonObject AsObject
+        {
+            get
+            {
+                if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
+                {
+                    return new JsonObject(objectBacking);
+                }
+
+                return new JsonObject(this.jsonElementBacking);
+            }
+        }
+    
+    
+    
+    
     
     
     
@@ -1349,79 +1295,6 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithAnyOf
             }
         }
 
-        /// <summary>
-        /// Gets the value as a <see cref="JsonObject"/>.
-        /// </summary>
-        public JsonObject AsObject
-        {
-            get
-            {
-                    if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
-                {
-                    return new JsonObject(objectBacking);
-                }
-
-    
-                return new JsonObject(this.jsonElementBacking);
-            }
-        }
-
-        /// <summary>
-        /// Gets the value as a <see cref="JsonArray"/>.
-        /// </summary>
-        public JsonArray AsArray
-        {
-            get
-            {
-    
-                return new JsonArray(this.jsonElementBacking);
-            }
-        }
-
-        /// <summary>
-        /// Gets the value as a <see cref="JsonNumber"/>.
-        /// </summary>
-        public JsonNumber AsNumber
-        {
-            get
-            {
-                    return new JsonNumber(this.jsonElementBacking);
-            }
-        }
-
-        /// <summary>
-        /// Gets the value as a <see cref="JsonString"/>.
-        /// </summary>
-        public JsonString AsString
-        {
-            get
-            {
-                    return new JsonString(this.jsonElementBacking);
-            }
-        }
-
-        /// <summary>
-        /// Gets the value as a <see cref="JsonBoolean"/>.
-        /// </summary>
-        public JsonBoolean AsBoolean
-        {
-            get
-            {
-                    return new JsonBoolean(this.jsonElementBacking);
-            }
-        }
-
-        /// <summary>
-        /// Gets the value as a <see cref="JsonNull"/>.
-        /// </summary>
-        public JsonNull AsNull
-        {
-            get
-            {
-                return default;
-            }
-        }
-
     
         
         /// <summary>
@@ -1556,11 +1429,11 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithAnyOf
 
             return valueKind switch
             {
-                JsonValueKind.Object => this.AsObject.GetHashCode(),
-                JsonValueKind.Array => this.AsArray.GetHashCode(),
-                JsonValueKind.Number => this.AsNumber.GetHashCode(),
-                JsonValueKind.String => this.AsString.GetHashCode(),
-                JsonValueKind.True or JsonValueKind.False => this.AsBoolean.GetHashCode(),
+                JsonValueKind.Object => this.AsObject().GetHashCode(),
+                JsonValueKind.Array => this.AsArray().GetHashCode(),
+                JsonValueKind.Number => this.AsNumber().GetHashCode(),
+                JsonValueKind.String => this.AsString().GetHashCode(),
+                JsonValueKind.True or JsonValueKind.False => this.AsBoolean().GetHashCode(),
                 JsonValueKind.Null => JsonNull.NullHashCode,
                 _ => 0,
             };
@@ -1637,12 +1510,12 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithAnyOf
 
             return valueKind switch
             {
-                JsonValueKind.Object => this.AsObject.Equals(other.AsObject()),
-                JsonValueKind.Array => this.AsArray.Equals(other.AsArray()),
-                JsonValueKind.Number => this.AsNumber.Equals(other.AsNumber()),
-                JsonValueKind.String => this.AsString.Equals(other.AsString()),
+                JsonValueKind.Object => this.AsObject().Equals(other.AsObject()),
+                JsonValueKind.Array => this.AsArray().Equals(other.AsArray()),
+                JsonValueKind.Number => this.AsNumber().Equals(other.AsNumber()),
+                JsonValueKind.String => this.AsString().Equals(other.AsString()),
                 JsonValueKind.Null => true,
-                JsonValueKind.True or JsonValueKind.False => this.AsBoolean.Equals(other.AsBoolean()),
+                JsonValueKind.True or JsonValueKind.False => this.AsBoolean().Equals(other.AsBoolean()),
                 _ => false,
             };
         }
@@ -1659,12 +1532,12 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithAnyOf
 
             return valueKind switch
             {
-                JsonValueKind.Object => this.AsObject.Equals(other.AsObject),
-                JsonValueKind.Array => this.AsArray.Equals(other.AsArray),
-                JsonValueKind.Number => this.AsNumber.Equals(other.AsNumber),
-                JsonValueKind.String => this.AsString.Equals(other.AsString),
+                JsonValueKind.Object => this.AsObject().Equals(other.AsObject()),
+                JsonValueKind.Array => this.AsArray().Equals(other.AsArray()),
+                JsonValueKind.Number => this.AsNumber().Equals(other.AsNumber()),
+                JsonValueKind.String => this.AsString().Equals(other.AsString()),
                 JsonValueKind.Null => true,
-                JsonValueKind.True or JsonValueKind.False => this.AsBoolean.Equals(other.AsBoolean),
+                JsonValueKind.True or JsonValueKind.False => this.AsBoolean().Equals(other.AsBoolean()),
                 _ => false,
             };
         }
@@ -1706,7 +1579,7 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithAnyOf
         {
             if (this.objectBacking is ImmutableDictionary<string, JsonAny> properties)
             {
-                return properties.TryGetValue(Encoding.UTF8.GetString(utf8name), out _);
+                return properties.TryGetValue(System.Text.Encoding.UTF8.GetString(utf8name), out _);
             }
 
             if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
@@ -1830,6 +1703,7 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithAnyOf
                 return result;
         }
 
+
     
     
     
@@ -1851,6 +1725,26 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithAnyOf
             return builder.ToImmutable();
         }
 
+    
+            /// <summary>
+        /// Gets the value as a <see cref="JsonObject"/>.
+        /// </summary>
+        private JsonObject AsObject
+        {
+            get
+            {
+                if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
+                {
+                    return new JsonObject(objectBacking);
+                }
+
+                return new JsonObject(this.jsonElementBacking);
+            }
+        }
+    
+    
+    
+    
     
     
     
@@ -2002,7 +1896,7 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithAnyOf
         public BarEntity(ReadOnlySpan<byte> value)
         {
             this.jsonElementBacking = default;
-                                            this.stringBacking = Encoding.UTF8.GetString(value);
+                                            this.stringBacking = System.Text.Encoding.UTF8.GetString(value);
         }
 
         /// <summary>
@@ -2097,79 +1991,6 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithAnyOf
     
     
                 return new JsonAny(this.jsonElementBacking);
-            }
-        }
-
-        /// <summary>
-        /// Gets the value as a <see cref="JsonObject"/>.
-        /// </summary>
-        public JsonObject AsObject
-        {
-            get
-            {
-    
-                return new JsonObject(this.jsonElementBacking);
-            }
-        }
-
-        /// <summary>
-        /// Gets the value as a <see cref="JsonArray"/>.
-        /// </summary>
-        public JsonArray AsArray
-        {
-            get
-            {
-    
-                return new JsonArray(this.jsonElementBacking);
-            }
-        }
-
-        /// <summary>
-        /// Gets the value as a <see cref="JsonNumber"/>.
-        /// </summary>
-        public JsonNumber AsNumber
-        {
-            get
-            {
-                    return new JsonNumber(this.jsonElementBacking);
-            }
-        }
-
-        /// <summary>
-        /// Gets the value as a <see cref="JsonString"/>.
-        /// </summary>
-        public JsonString AsString
-        {
-            get
-            {
-                    if (this.stringBacking is string stringBacking)
-                {
-                    return new JsonString(stringBacking);
-                }
-
-                    return new JsonString(this.jsonElementBacking);
-            }
-        }
-
-        /// <summary>
-        /// Gets the value as a <see cref="JsonBoolean"/>.
-        /// </summary>
-        public JsonBoolean AsBoolean
-        {
-            get
-            {
-                    return new JsonBoolean(this.jsonElementBacking);
-            }
-        }
-
-        /// <summary>
-        /// Gets the value as a <see cref="JsonNull"/>.
-        /// </summary>
-        public JsonNull AsNull
-        {
-            get
-            {
-                return default;
             }
         }
 
@@ -2318,11 +2139,11 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithAnyOf
 
             return valueKind switch
             {
-                JsonValueKind.Object => this.AsObject.GetHashCode(),
-                JsonValueKind.Array => this.AsArray.GetHashCode(),
-                JsonValueKind.Number => this.AsNumber.GetHashCode(),
-                JsonValueKind.String => this.AsString.GetHashCode(),
-                JsonValueKind.True or JsonValueKind.False => this.AsBoolean.GetHashCode(),
+                JsonValueKind.Object => this.AsObject().GetHashCode(),
+                JsonValueKind.Array => this.AsArray().GetHashCode(),
+                JsonValueKind.Number => this.AsNumber().GetHashCode(),
+                JsonValueKind.String => this.AsString().GetHashCode(),
+                JsonValueKind.True or JsonValueKind.False => this.AsBoolean().GetHashCode(),
                 JsonValueKind.Null => JsonNull.NullHashCode,
                 _ => 0,
             };
@@ -2370,12 +2191,12 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithAnyOf
 
             return valueKind switch
             {
-                JsonValueKind.Object => this.AsObject.Equals(other.AsObject()),
-                JsonValueKind.Array => this.AsArray.Equals(other.AsArray()),
-                JsonValueKind.Number => this.AsNumber.Equals(other.AsNumber()),
-                JsonValueKind.String => this.AsString.Equals(other.AsString()),
+                JsonValueKind.Object => this.AsObject().Equals(other.AsObject()),
+                JsonValueKind.Array => this.AsArray().Equals(other.AsArray()),
+                JsonValueKind.Number => this.AsNumber().Equals(other.AsNumber()),
+                JsonValueKind.String => this.AsString().Equals(other.AsString()),
                 JsonValueKind.Null => true,
-                JsonValueKind.True or JsonValueKind.False => this.AsBoolean.Equals(other.AsBoolean()),
+                JsonValueKind.True or JsonValueKind.False => this.AsBoolean().Equals(other.AsBoolean()),
                 _ => false,
             };
         }
@@ -2392,12 +2213,12 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithAnyOf
 
             return valueKind switch
             {
-                JsonValueKind.Object => this.AsObject.Equals(other.AsObject),
-                JsonValueKind.Array => this.AsArray.Equals(other.AsArray),
-                JsonValueKind.Number => this.AsNumber.Equals(other.AsNumber),
-                JsonValueKind.String => this.AsString.Equals(other.AsString),
+                JsonValueKind.Object => this.AsObject().Equals(other.AsObject()),
+                JsonValueKind.Array => this.AsArray().Equals(other.AsArray()),
+                JsonValueKind.Number => this.AsNumber().Equals(other.AsNumber()),
+                JsonValueKind.String => this.AsString().Equals(other.AsString()),
                 JsonValueKind.Null => true,
-                JsonValueKind.True or JsonValueKind.False => this.AsBoolean.Equals(other.AsBoolean),
+                JsonValueKind.True or JsonValueKind.False => this.AsBoolean().Equals(other.AsBoolean()),
                 _ => false,
             };
         }
@@ -2446,9 +2267,30 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithAnyOf
                 return result;
         }
 
+
     
     
     
+    
+    
+    
+    
+    
+            /// <summary>
+        /// Gets the value as a <see cref="JsonString"/>.
+        /// </summary>
+        private JsonString AsString
+        {
+            get
+            {
+                if (this.stringBacking is string stringBacking)
+                {
+                    return new JsonString(stringBacking);
+                }
+
+                return new JsonString(this.jsonElementBacking);
+            }
+        }
     
     
     
@@ -2672,79 +2514,6 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithAnyOf
             }
         }
 
-        /// <summary>
-        /// Gets the value as a <see cref="JsonObject"/>.
-        /// </summary>
-        public JsonObject AsObject
-        {
-            get
-            {
-                    if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
-                {
-                    return new JsonObject(objectBacking);
-                }
-
-    
-                return new JsonObject(this.jsonElementBacking);
-            }
-        }
-
-        /// <summary>
-        /// Gets the value as a <see cref="JsonArray"/>.
-        /// </summary>
-        public JsonArray AsArray
-        {
-            get
-            {
-    
-                return new JsonArray(this.jsonElementBacking);
-            }
-        }
-
-        /// <summary>
-        /// Gets the value as a <see cref="JsonNumber"/>.
-        /// </summary>
-        public JsonNumber AsNumber
-        {
-            get
-            {
-                    return new JsonNumber(this.jsonElementBacking);
-            }
-        }
-
-        /// <summary>
-        /// Gets the value as a <see cref="JsonString"/>.
-        /// </summary>
-        public JsonString AsString
-        {
-            get
-            {
-                    return new JsonString(this.jsonElementBacking);
-            }
-        }
-
-        /// <summary>
-        /// Gets the value as a <see cref="JsonBoolean"/>.
-        /// </summary>
-        public JsonBoolean AsBoolean
-        {
-            get
-            {
-                    return new JsonBoolean(this.jsonElementBacking);
-            }
-        }
-
-        /// <summary>
-        /// Gets the value as a <see cref="JsonNull"/>.
-        /// </summary>
-        public JsonNull AsNull
-        {
-            get
-            {
-                return default;
-            }
-        }
-
     
         
         /// <summary>
@@ -2879,11 +2648,11 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithAnyOf
 
             return valueKind switch
             {
-                JsonValueKind.Object => this.AsObject.GetHashCode(),
-                JsonValueKind.Array => this.AsArray.GetHashCode(),
-                JsonValueKind.Number => this.AsNumber.GetHashCode(),
-                JsonValueKind.String => this.AsString.GetHashCode(),
-                JsonValueKind.True or JsonValueKind.False => this.AsBoolean.GetHashCode(),
+                JsonValueKind.Object => this.AsObject().GetHashCode(),
+                JsonValueKind.Array => this.AsArray().GetHashCode(),
+                JsonValueKind.Number => this.AsNumber().GetHashCode(),
+                JsonValueKind.String => this.AsString().GetHashCode(),
+                JsonValueKind.True or JsonValueKind.False => this.AsBoolean().GetHashCode(),
                 JsonValueKind.Null => JsonNull.NullHashCode,
                 _ => 0,
             };
@@ -2960,12 +2729,12 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithAnyOf
 
             return valueKind switch
             {
-                JsonValueKind.Object => this.AsObject.Equals(other.AsObject()),
-                JsonValueKind.Array => this.AsArray.Equals(other.AsArray()),
-                JsonValueKind.Number => this.AsNumber.Equals(other.AsNumber()),
-                JsonValueKind.String => this.AsString.Equals(other.AsString()),
+                JsonValueKind.Object => this.AsObject().Equals(other.AsObject()),
+                JsonValueKind.Array => this.AsArray().Equals(other.AsArray()),
+                JsonValueKind.Number => this.AsNumber().Equals(other.AsNumber()),
+                JsonValueKind.String => this.AsString().Equals(other.AsString()),
                 JsonValueKind.Null => true,
-                JsonValueKind.True or JsonValueKind.False => this.AsBoolean.Equals(other.AsBoolean()),
+                JsonValueKind.True or JsonValueKind.False => this.AsBoolean().Equals(other.AsBoolean()),
                 _ => false,
             };
         }
@@ -2982,12 +2751,12 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithAnyOf
 
             return valueKind switch
             {
-                JsonValueKind.Object => this.AsObject.Equals(other.AsObject),
-                JsonValueKind.Array => this.AsArray.Equals(other.AsArray),
-                JsonValueKind.Number => this.AsNumber.Equals(other.AsNumber),
-                JsonValueKind.String => this.AsString.Equals(other.AsString),
+                JsonValueKind.Object => this.AsObject().Equals(other.AsObject()),
+                JsonValueKind.Array => this.AsArray().Equals(other.AsArray()),
+                JsonValueKind.Number => this.AsNumber().Equals(other.AsNumber()),
+                JsonValueKind.String => this.AsString().Equals(other.AsString()),
                 JsonValueKind.Null => true,
-                JsonValueKind.True or JsonValueKind.False => this.AsBoolean.Equals(other.AsBoolean),
+                JsonValueKind.True or JsonValueKind.False => this.AsBoolean().Equals(other.AsBoolean()),
                 _ => false,
             };
         }
@@ -3029,7 +2798,7 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithAnyOf
         {
             if (this.objectBacking is ImmutableDictionary<string, JsonAny> properties)
             {
-                return properties.TryGetValue(Encoding.UTF8.GetString(utf8name), out _);
+                return properties.TryGetValue(System.Text.Encoding.UTF8.GetString(utf8name), out _);
             }
 
             if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
@@ -3153,6 +2922,7 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithAnyOf
                 return result;
         }
 
+
     
     
     
@@ -3174,6 +2944,26 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithAnyOf
             return builder.ToImmutable();
         }
 
+    
+            /// <summary>
+        /// Gets the value as a <see cref="JsonObject"/>.
+        /// </summary>
+        private JsonObject AsObject
+        {
+            get
+            {
+                if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
+                {
+                    return new JsonObject(objectBacking);
+                }
+
+                return new JsonObject(this.jsonElementBacking);
+            }
+        }
+    
+    
+    
+    
     
     
     
@@ -3325,7 +3115,7 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithAnyOf
         public BazEntity(ReadOnlySpan<byte> value)
         {
             this.jsonElementBacking = default;
-                                            this.stringBacking = Encoding.UTF8.GetString(value);
+                                            this.stringBacking = System.Text.Encoding.UTF8.GetString(value);
         }
 
         /// <summary>
@@ -3420,79 +3210,6 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithAnyOf
     
     
                 return new JsonAny(this.jsonElementBacking);
-            }
-        }
-
-        /// <summary>
-        /// Gets the value as a <see cref="JsonObject"/>.
-        /// </summary>
-        public JsonObject AsObject
-        {
-            get
-            {
-    
-                return new JsonObject(this.jsonElementBacking);
-            }
-        }
-
-        /// <summary>
-        /// Gets the value as a <see cref="JsonArray"/>.
-        /// </summary>
-        public JsonArray AsArray
-        {
-            get
-            {
-    
-                return new JsonArray(this.jsonElementBacking);
-            }
-        }
-
-        /// <summary>
-        /// Gets the value as a <see cref="JsonNumber"/>.
-        /// </summary>
-        public JsonNumber AsNumber
-        {
-            get
-            {
-                    return new JsonNumber(this.jsonElementBacking);
-            }
-        }
-
-        /// <summary>
-        /// Gets the value as a <see cref="JsonString"/>.
-        /// </summary>
-        public JsonString AsString
-        {
-            get
-            {
-                    if (this.stringBacking is string stringBacking)
-                {
-                    return new JsonString(stringBacking);
-                }
-
-                    return new JsonString(this.jsonElementBacking);
-            }
-        }
-
-        /// <summary>
-        /// Gets the value as a <see cref="JsonBoolean"/>.
-        /// </summary>
-        public JsonBoolean AsBoolean
-        {
-            get
-            {
-                    return new JsonBoolean(this.jsonElementBacking);
-            }
-        }
-
-        /// <summary>
-        /// Gets the value as a <see cref="JsonNull"/>.
-        /// </summary>
-        public JsonNull AsNull
-        {
-            get
-            {
-                return default;
             }
         }
 
@@ -3641,11 +3358,11 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithAnyOf
 
             return valueKind switch
             {
-                JsonValueKind.Object => this.AsObject.GetHashCode(),
-                JsonValueKind.Array => this.AsArray.GetHashCode(),
-                JsonValueKind.Number => this.AsNumber.GetHashCode(),
-                JsonValueKind.String => this.AsString.GetHashCode(),
-                JsonValueKind.True or JsonValueKind.False => this.AsBoolean.GetHashCode(),
+                JsonValueKind.Object => this.AsObject().GetHashCode(),
+                JsonValueKind.Array => this.AsArray().GetHashCode(),
+                JsonValueKind.Number => this.AsNumber().GetHashCode(),
+                JsonValueKind.String => this.AsString().GetHashCode(),
+                JsonValueKind.True or JsonValueKind.False => this.AsBoolean().GetHashCode(),
                 JsonValueKind.Null => JsonNull.NullHashCode,
                 _ => 0,
             };
@@ -3693,12 +3410,12 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithAnyOf
 
             return valueKind switch
             {
-                JsonValueKind.Object => this.AsObject.Equals(other.AsObject()),
-                JsonValueKind.Array => this.AsArray.Equals(other.AsArray()),
-                JsonValueKind.Number => this.AsNumber.Equals(other.AsNumber()),
-                JsonValueKind.String => this.AsString.Equals(other.AsString()),
+                JsonValueKind.Object => this.AsObject().Equals(other.AsObject()),
+                JsonValueKind.Array => this.AsArray().Equals(other.AsArray()),
+                JsonValueKind.Number => this.AsNumber().Equals(other.AsNumber()),
+                JsonValueKind.String => this.AsString().Equals(other.AsString()),
                 JsonValueKind.Null => true,
-                JsonValueKind.True or JsonValueKind.False => this.AsBoolean.Equals(other.AsBoolean()),
+                JsonValueKind.True or JsonValueKind.False => this.AsBoolean().Equals(other.AsBoolean()),
                 _ => false,
             };
         }
@@ -3715,12 +3432,12 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithAnyOf
 
             return valueKind switch
             {
-                JsonValueKind.Object => this.AsObject.Equals(other.AsObject),
-                JsonValueKind.Array => this.AsArray.Equals(other.AsArray),
-                JsonValueKind.Number => this.AsNumber.Equals(other.AsNumber),
-                JsonValueKind.String => this.AsString.Equals(other.AsString),
+                JsonValueKind.Object => this.AsObject().Equals(other.AsObject()),
+                JsonValueKind.Array => this.AsArray().Equals(other.AsArray()),
+                JsonValueKind.Number => this.AsNumber().Equals(other.AsNumber()),
+                JsonValueKind.String => this.AsString().Equals(other.AsString()),
                 JsonValueKind.Null => true,
-                JsonValueKind.True or JsonValueKind.False => this.AsBoolean.Equals(other.AsBoolean),
+                JsonValueKind.True or JsonValueKind.False => this.AsBoolean().Equals(other.AsBoolean()),
                 _ => false,
             };
         }
@@ -3769,9 +3486,30 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithAnyOf
                 return result;
         }
 
+
     
     
     
+    
+    
+    
+    
+    
+            /// <summary>
+        /// Gets the value as a <see cref="JsonString"/>.
+        /// </summary>
+        private JsonString AsString
+        {
+            get
+            {
+                if (this.stringBacking is string stringBacking)
+                {
+                    return new JsonString(stringBacking);
+                }
+
+                return new JsonString(this.jsonElementBacking);
+            }
+        }
     
     
     
@@ -3995,79 +3733,6 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithAnyOf
             }
         }
 
-        /// <summary>
-        /// Gets the value as a <see cref="JsonObject"/>.
-        /// </summary>
-        public JsonObject AsObject
-        {
-            get
-            {
-                    if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
-                {
-                    return new JsonObject(objectBacking);
-                }
-
-    
-                return new JsonObject(this.jsonElementBacking);
-            }
-        }
-
-        /// <summary>
-        /// Gets the value as a <see cref="JsonArray"/>.
-        /// </summary>
-        public JsonArray AsArray
-        {
-            get
-            {
-    
-                return new JsonArray(this.jsonElementBacking);
-            }
-        }
-
-        /// <summary>
-        /// Gets the value as a <see cref="JsonNumber"/>.
-        /// </summary>
-        public JsonNumber AsNumber
-        {
-            get
-            {
-                    return new JsonNumber(this.jsonElementBacking);
-            }
-        }
-
-        /// <summary>
-        /// Gets the value as a <see cref="JsonString"/>.
-        /// </summary>
-        public JsonString AsString
-        {
-            get
-            {
-                    return new JsonString(this.jsonElementBacking);
-            }
-        }
-
-        /// <summary>
-        /// Gets the value as a <see cref="JsonBoolean"/>.
-        /// </summary>
-        public JsonBoolean AsBoolean
-        {
-            get
-            {
-                    return new JsonBoolean(this.jsonElementBacking);
-            }
-        }
-
-        /// <summary>
-        /// Gets the value as a <see cref="JsonNull"/>.
-        /// </summary>
-        public JsonNull AsNull
-        {
-            get
-            {
-                return default;
-            }
-        }
-
     
         
         /// <summary>
@@ -4202,11 +3867,11 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithAnyOf
 
             return valueKind switch
             {
-                JsonValueKind.Object => this.AsObject.GetHashCode(),
-                JsonValueKind.Array => this.AsArray.GetHashCode(),
-                JsonValueKind.Number => this.AsNumber.GetHashCode(),
-                JsonValueKind.String => this.AsString.GetHashCode(),
-                JsonValueKind.True or JsonValueKind.False => this.AsBoolean.GetHashCode(),
+                JsonValueKind.Object => this.AsObject().GetHashCode(),
+                JsonValueKind.Array => this.AsArray().GetHashCode(),
+                JsonValueKind.Number => this.AsNumber().GetHashCode(),
+                JsonValueKind.String => this.AsString().GetHashCode(),
+                JsonValueKind.True or JsonValueKind.False => this.AsBoolean().GetHashCode(),
                 JsonValueKind.Null => JsonNull.NullHashCode,
                 _ => 0,
             };
@@ -4283,12 +3948,12 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithAnyOf
 
             return valueKind switch
             {
-                JsonValueKind.Object => this.AsObject.Equals(other.AsObject()),
-                JsonValueKind.Array => this.AsArray.Equals(other.AsArray()),
-                JsonValueKind.Number => this.AsNumber.Equals(other.AsNumber()),
-                JsonValueKind.String => this.AsString.Equals(other.AsString()),
+                JsonValueKind.Object => this.AsObject().Equals(other.AsObject()),
+                JsonValueKind.Array => this.AsArray().Equals(other.AsArray()),
+                JsonValueKind.Number => this.AsNumber().Equals(other.AsNumber()),
+                JsonValueKind.String => this.AsString().Equals(other.AsString()),
                 JsonValueKind.Null => true,
-                JsonValueKind.True or JsonValueKind.False => this.AsBoolean.Equals(other.AsBoolean()),
+                JsonValueKind.True or JsonValueKind.False => this.AsBoolean().Equals(other.AsBoolean()),
                 _ => false,
             };
         }
@@ -4305,12 +3970,12 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithAnyOf
 
             return valueKind switch
             {
-                JsonValueKind.Object => this.AsObject.Equals(other.AsObject),
-                JsonValueKind.Array => this.AsArray.Equals(other.AsArray),
-                JsonValueKind.Number => this.AsNumber.Equals(other.AsNumber),
-                JsonValueKind.String => this.AsString.Equals(other.AsString),
+                JsonValueKind.Object => this.AsObject().Equals(other.AsObject()),
+                JsonValueKind.Array => this.AsArray().Equals(other.AsArray()),
+                JsonValueKind.Number => this.AsNumber().Equals(other.AsNumber()),
+                JsonValueKind.String => this.AsString().Equals(other.AsString()),
                 JsonValueKind.Null => true,
-                JsonValueKind.True or JsonValueKind.False => this.AsBoolean.Equals(other.AsBoolean),
+                JsonValueKind.True or JsonValueKind.False => this.AsBoolean().Equals(other.AsBoolean()),
                 _ => false,
             };
         }
@@ -4352,7 +4017,7 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithAnyOf
         {
             if (this.objectBacking is ImmutableDictionary<string, JsonAny> properties)
             {
-                return properties.TryGetValue(Encoding.UTF8.GetString(utf8name), out _);
+                return properties.TryGetValue(System.Text.Encoding.UTF8.GetString(utf8name), out _);
             }
 
             if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
@@ -4476,6 +4141,7 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithAnyOf
                 return result;
         }
 
+
     
     
     
@@ -4497,6 +4163,26 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithAnyOf
             return builder.ToImmutable();
         }
 
+    
+            /// <summary>
+        /// Gets the value as a <see cref="JsonObject"/>.
+        /// </summary>
+        private JsonObject AsObject
+        {
+            get
+            {
+                if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
+                {
+                    return new JsonObject(objectBacking);
+                }
+
+                return new JsonObject(this.jsonElementBacking);
+            }
+        }
+    
+    
+    
+    
     
     
     
@@ -4648,7 +4334,7 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithAnyOf
         public QuuxEntity(ReadOnlySpan<byte> value)
         {
             this.jsonElementBacking = default;
-                                            this.stringBacking = Encoding.UTF8.GetString(value);
+                                            this.stringBacking = System.Text.Encoding.UTF8.GetString(value);
         }
 
         /// <summary>
@@ -4743,79 +4429,6 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithAnyOf
     
     
                 return new JsonAny(this.jsonElementBacking);
-            }
-        }
-
-        /// <summary>
-        /// Gets the value as a <see cref="JsonObject"/>.
-        /// </summary>
-        public JsonObject AsObject
-        {
-            get
-            {
-    
-                return new JsonObject(this.jsonElementBacking);
-            }
-        }
-
-        /// <summary>
-        /// Gets the value as a <see cref="JsonArray"/>.
-        /// </summary>
-        public JsonArray AsArray
-        {
-            get
-            {
-    
-                return new JsonArray(this.jsonElementBacking);
-            }
-        }
-
-        /// <summary>
-        /// Gets the value as a <see cref="JsonNumber"/>.
-        /// </summary>
-        public JsonNumber AsNumber
-        {
-            get
-            {
-                    return new JsonNumber(this.jsonElementBacking);
-            }
-        }
-
-        /// <summary>
-        /// Gets the value as a <see cref="JsonString"/>.
-        /// </summary>
-        public JsonString AsString
-        {
-            get
-            {
-                    if (this.stringBacking is string stringBacking)
-                {
-                    return new JsonString(stringBacking);
-                }
-
-                    return new JsonString(this.jsonElementBacking);
-            }
-        }
-
-        /// <summary>
-        /// Gets the value as a <see cref="JsonBoolean"/>.
-        /// </summary>
-        public JsonBoolean AsBoolean
-        {
-            get
-            {
-                    return new JsonBoolean(this.jsonElementBacking);
-            }
-        }
-
-        /// <summary>
-        /// Gets the value as a <see cref="JsonNull"/>.
-        /// </summary>
-        public JsonNull AsNull
-        {
-            get
-            {
-                return default;
             }
         }
 
@@ -4964,11 +4577,11 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithAnyOf
 
             return valueKind switch
             {
-                JsonValueKind.Object => this.AsObject.GetHashCode(),
-                JsonValueKind.Array => this.AsArray.GetHashCode(),
-                JsonValueKind.Number => this.AsNumber.GetHashCode(),
-                JsonValueKind.String => this.AsString.GetHashCode(),
-                JsonValueKind.True or JsonValueKind.False => this.AsBoolean.GetHashCode(),
+                JsonValueKind.Object => this.AsObject().GetHashCode(),
+                JsonValueKind.Array => this.AsArray().GetHashCode(),
+                JsonValueKind.Number => this.AsNumber().GetHashCode(),
+                JsonValueKind.String => this.AsString().GetHashCode(),
+                JsonValueKind.True or JsonValueKind.False => this.AsBoolean().GetHashCode(),
                 JsonValueKind.Null => JsonNull.NullHashCode,
                 _ => 0,
             };
@@ -5016,12 +4629,12 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithAnyOf
 
             return valueKind switch
             {
-                JsonValueKind.Object => this.AsObject.Equals(other.AsObject()),
-                JsonValueKind.Array => this.AsArray.Equals(other.AsArray()),
-                JsonValueKind.Number => this.AsNumber.Equals(other.AsNumber()),
-                JsonValueKind.String => this.AsString.Equals(other.AsString()),
+                JsonValueKind.Object => this.AsObject().Equals(other.AsObject()),
+                JsonValueKind.Array => this.AsArray().Equals(other.AsArray()),
+                JsonValueKind.Number => this.AsNumber().Equals(other.AsNumber()),
+                JsonValueKind.String => this.AsString().Equals(other.AsString()),
                 JsonValueKind.Null => true,
-                JsonValueKind.True or JsonValueKind.False => this.AsBoolean.Equals(other.AsBoolean()),
+                JsonValueKind.True or JsonValueKind.False => this.AsBoolean().Equals(other.AsBoolean()),
                 _ => false,
             };
         }
@@ -5038,12 +4651,12 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithAnyOf
 
             return valueKind switch
             {
-                JsonValueKind.Object => this.AsObject.Equals(other.AsObject),
-                JsonValueKind.Array => this.AsArray.Equals(other.AsArray),
-                JsonValueKind.Number => this.AsNumber.Equals(other.AsNumber),
-                JsonValueKind.String => this.AsString.Equals(other.AsString),
+                JsonValueKind.Object => this.AsObject().Equals(other.AsObject()),
+                JsonValueKind.Array => this.AsArray().Equals(other.AsArray()),
+                JsonValueKind.Number => this.AsNumber().Equals(other.AsNumber()),
+                JsonValueKind.String => this.AsString().Equals(other.AsString()),
                 JsonValueKind.Null => true,
-                JsonValueKind.True or JsonValueKind.False => this.AsBoolean.Equals(other.AsBoolean),
+                JsonValueKind.True or JsonValueKind.False => this.AsBoolean().Equals(other.AsBoolean()),
                 _ => false,
             };
         }
@@ -5092,9 +4705,30 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithAnyOf
                 return result;
         }
 
+
     
     
     
+    
+    
+    
+    
+    
+            /// <summary>
+        /// Gets the value as a <see cref="JsonString"/>.
+        /// </summary>
+        private JsonString AsString
+        {
+            get
+            {
+                if (this.stringBacking is string stringBacking)
+                {
+                    return new JsonString(stringBacking);
+                }
+
+                return new JsonString(this.jsonElementBacking);
+            }
+        }
     
     
     

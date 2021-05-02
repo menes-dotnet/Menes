@@ -13,9 +13,7 @@
 namespace DefsDraft202012Feature.ValidateDefinitionAgainstMetaschema
 {
     using System;
-    using System.Collections.Generic;
     using System.Collections.Immutable;
-    using System.Linq;
     using System.Text;
     using System.Text.Json;
     using System.Text.RegularExpressions;
@@ -914,83 +912,6 @@ namespace DefsDraft202012Feature.ValidateDefinitionAgainstMetaschema
             }
         }
 
-        /// <summary>
-        /// Gets the value as a <see cref="JsonObject"/>.
-        /// </summary>
-        public JsonObject AsObject
-        {
-            get
-            {
-                    if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
-                {
-                    return new JsonObject(objectBacking);
-                }
-
-    
-                return new JsonObject(this.jsonElementBacking);
-            }
-        }
-
-        /// <summary>
-        /// Gets the value as a <see cref="JsonArray"/>.
-        /// </summary>
-        public JsonArray AsArray
-        {
-            get
-            {
-    
-                return new JsonArray(this.jsonElementBacking);
-            }
-        }
-
-        /// <summary>
-        /// Gets the value as a <see cref="JsonNumber"/>.
-        /// </summary>
-        public JsonNumber AsNumber
-        {
-            get
-            {
-                    return new JsonNumber(this.jsonElementBacking);
-            }
-        }
-
-        /// <summary>
-        /// Gets the value as a <see cref="JsonString"/>.
-        /// </summary>
-        public JsonString AsString
-        {
-            get
-            {
-                    return new JsonString(this.jsonElementBacking);
-            }
-        }
-
-        /// <summary>
-        /// Gets the value as a <see cref="JsonBoolean"/>.
-        /// </summary>
-        public JsonBoolean AsBoolean
-        {
-            get
-            {
-                    if (this.booleanBacking is bool booleanBacking)
-                {
-                    return new JsonBoolean(booleanBacking);
-                }
-                    return new JsonBoolean(this.jsonElementBacking);
-            }
-        }
-
-        /// <summary>
-        /// Gets the value as a <see cref="JsonNull"/>.
-        /// </summary>
-        public JsonNull AsNull
-        {
-            get
-            {
-                return default;
-            }
-        }
-
     
         
         /// <summary>
@@ -1389,11 +1310,11 @@ namespace DefsDraft202012Feature.ValidateDefinitionAgainstMetaschema
 
             return valueKind switch
             {
-                JsonValueKind.Object => this.AsObject.GetHashCode(),
-                JsonValueKind.Array => this.AsArray.GetHashCode(),
-                JsonValueKind.Number => this.AsNumber.GetHashCode(),
-                JsonValueKind.String => this.AsString.GetHashCode(),
-                JsonValueKind.True or JsonValueKind.False => this.AsBoolean.GetHashCode(),
+                JsonValueKind.Object => this.AsObject().GetHashCode(),
+                JsonValueKind.Array => this.AsArray().GetHashCode(),
+                JsonValueKind.Number => this.AsNumber().GetHashCode(),
+                JsonValueKind.String => this.AsString().GetHashCode(),
+                JsonValueKind.True or JsonValueKind.False => this.AsBoolean().GetHashCode(),
                 JsonValueKind.Null => JsonNull.NullHashCode,
                 _ => 0,
             };
@@ -1475,7 +1396,7 @@ namespace DefsDraft202012Feature.ValidateDefinitionAgainstMetaschema
         /// <inheritdoc/>
         public bool TryGetDefault(ReadOnlySpan<byte> utf8name, out JsonAny value)
         {
-            return __MenesDefaults.TryGetValue(Encoding.UTF8.GetString(utf8name), out value);
+            return __MenesDefaults.TryGetValue(System.Text.Encoding.UTF8.GetString(utf8name), out value);
         }
 
         /// <inheritdoc/>
@@ -1493,7 +1414,7 @@ namespace DefsDraft202012Feature.ValidateDefinitionAgainstMetaschema
         /// <inheritdoc/>
         public bool HasDefault(ReadOnlySpan<byte> utf8name)
         {
-            return __MenesDefaults.TryGetValue(Encoding.UTF8.GetString(utf8name), out _);
+            return __MenesDefaults.TryGetValue(System.Text.Encoding.UTF8.GetString(utf8name), out _);
         }
 
         
@@ -1511,12 +1432,12 @@ namespace DefsDraft202012Feature.ValidateDefinitionAgainstMetaschema
 
             return valueKind switch
             {
-                JsonValueKind.Object => this.AsObject.Equals(other.AsObject()),
-                JsonValueKind.Array => this.AsArray.Equals(other.AsArray()),
-                JsonValueKind.Number => this.AsNumber.Equals(other.AsNumber()),
-                JsonValueKind.String => this.AsString.Equals(other.AsString()),
+                JsonValueKind.Object => this.AsObject().Equals(other.AsObject()),
+                JsonValueKind.Array => this.AsArray().Equals(other.AsArray()),
+                JsonValueKind.Number => this.AsNumber().Equals(other.AsNumber()),
+                JsonValueKind.String => this.AsString().Equals(other.AsString()),
                 JsonValueKind.Null => true,
-                JsonValueKind.True or JsonValueKind.False => this.AsBoolean.Equals(other.AsBoolean()),
+                JsonValueKind.True or JsonValueKind.False => this.AsBoolean().Equals(other.AsBoolean()),
                 _ => false,
             };
         }
@@ -1533,12 +1454,12 @@ namespace DefsDraft202012Feature.ValidateDefinitionAgainstMetaschema
 
             return valueKind switch
             {
-                JsonValueKind.Object => this.AsObject.Equals(other.AsObject),
-                JsonValueKind.Array => this.AsArray.Equals(other.AsArray),
-                JsonValueKind.Number => this.AsNumber.Equals(other.AsNumber),
-                JsonValueKind.String => this.AsString.Equals(other.AsString),
+                JsonValueKind.Object => this.AsObject().Equals(other.AsObject()),
+                JsonValueKind.Array => this.AsArray().Equals(other.AsArray()),
+                JsonValueKind.Number => this.AsNumber().Equals(other.AsNumber()),
+                JsonValueKind.String => this.AsString().Equals(other.AsString()),
                 JsonValueKind.Null => true,
-                JsonValueKind.True or JsonValueKind.False => this.AsBoolean.Equals(other.AsBoolean),
+                JsonValueKind.True or JsonValueKind.False => this.AsBoolean().Equals(other.AsBoolean()),
                 _ => false,
             };
         }
@@ -1580,7 +1501,7 @@ namespace DefsDraft202012Feature.ValidateDefinitionAgainstMetaschema
         {
             if (this.objectBacking is ImmutableDictionary<string, JsonAny> properties)
             {
-                return properties.TryGetValue(Encoding.UTF8.GetString(utf8name), out _);
+                return properties.TryGetValue(System.Text.Encoding.UTF8.GetString(utf8name), out _);
             }
 
             if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
@@ -1713,6 +1634,41 @@ namespace DefsDraft202012Feature.ValidateDefinitionAgainstMetaschema
                 return result;
         }
 
+            /// <summary>
+        /// Gets the value as a <see cref="JsonObject"/>.
+        /// </summary>
+        private JsonObject AsObject
+        {
+            get
+            {
+                if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
+                {
+                    return new JsonObject(objectBacking);
+                }
+
+                return new JsonObject(this.jsonElementBacking);
+            }
+        }
+    
+    
+    
+    
+            /// <summary>
+        /// Gets the value as a <see cref="JsonBoolean"/>.
+        /// </summary>
+        private JsonBoolean AsBoolean
+        {
+            get
+            {
+                if (this.booleanBacking is bool booleanBacking)
+                {
+                    return new JsonBoolean(booleanBacking);
+                }
+
+                return new JsonBoolean(this.jsonElementBacking);
+            }
+        }
+    
     
     
             private static ImmutableDictionary<string, JsonAny> BuildDefaults()
@@ -2113,79 +2069,6 @@ namespace DefsDraft202012Feature.ValidateDefinitionAgainstMetaschema
             }
         }
 
-        /// <summary>
-        /// Gets the value as a <see cref="JsonObject"/>.
-        /// </summary>
-        public JsonObject AsObject
-        {
-            get
-            {
-    
-                return new JsonObject(this.jsonElementBacking);
-            }
-        }
-
-        /// <summary>
-        /// Gets the value as a <see cref="JsonArray"/>.
-        /// </summary>
-        public JsonArray AsArray
-        {
-            get
-            {
-                    if (this.arrayBacking is ImmutableList<JsonAny> arrayBacking)
-                {
-                    return new JsonArray(arrayBacking);
-                }
-
-    
-                return new JsonArray(this.jsonElementBacking);
-            }
-        }
-
-        /// <summary>
-        /// Gets the value as a <see cref="JsonNumber"/>.
-        /// </summary>
-        public JsonNumber AsNumber
-        {
-            get
-            {
-                    return new JsonNumber(this.jsonElementBacking);
-            }
-        }
-
-        /// <summary>
-        /// Gets the value as a <see cref="JsonString"/>.
-        /// </summary>
-        public JsonString AsString
-        {
-            get
-            {
-                    return new JsonString(this.jsonElementBacking);
-            }
-        }
-
-        /// <summary>
-        /// Gets the value as a <see cref="JsonBoolean"/>.
-        /// </summary>
-        public JsonBoolean AsBoolean
-        {
-            get
-            {
-                    return new JsonBoolean(this.jsonElementBacking);
-            }
-        }
-
-        /// <summary>
-        /// Gets the value as a <see cref="JsonNull"/>.
-        /// </summary>
-        public JsonNull AsNull
-        {
-            get
-            {
-                return default;
-            }
-        }
-
     
         
         /// <summary>
@@ -2281,7 +2164,13 @@ namespace DefsDraft202012Feature.ValidateDefinitionAgainstMetaschema
         /// <returns>The new array created from the items.</returns>
         public static SchemaArray From(params DefsDraft202012Feature.ValidateDefinitionAgainstMetaschema.Schema[] items)
         {
-            return new SchemaArray(items.Select(i => (JsonAny)i).ToImmutableList());
+            var builder = ImmutableList.CreateBuilder<JsonAny>();
+            foreach (var item in items)
+            {
+                builder.Add(item);
+            }
+
+            return new SchemaArray(builder.ToImmutable());
         }
 
         /// <summary>
@@ -2350,11 +2239,11 @@ namespace DefsDraft202012Feature.ValidateDefinitionAgainstMetaschema
 
             return valueKind switch
             {
-                JsonValueKind.Object => this.AsObject.GetHashCode(),
-                JsonValueKind.Array => this.AsArray.GetHashCode(),
-                JsonValueKind.Number => this.AsNumber.GetHashCode(),
-                JsonValueKind.String => this.AsString.GetHashCode(),
-                JsonValueKind.True or JsonValueKind.False => this.AsBoolean.GetHashCode(),
+                JsonValueKind.Object => this.AsObject().GetHashCode(),
+                JsonValueKind.Array => this.AsArray().GetHashCode(),
+                JsonValueKind.Number => this.AsNumber().GetHashCode(),
+                JsonValueKind.String => this.AsString().GetHashCode(),
+                JsonValueKind.True or JsonValueKind.False => this.AsBoolean().GetHashCode(),
                 JsonValueKind.Null => JsonNull.NullHashCode,
                 _ => 0,
             };
@@ -2425,12 +2314,12 @@ namespace DefsDraft202012Feature.ValidateDefinitionAgainstMetaschema
 
             return valueKind switch
             {
-                JsonValueKind.Object => this.AsObject.Equals(other.AsObject()),
-                JsonValueKind.Array => this.AsArray.Equals(other.AsArray()),
-                JsonValueKind.Number => this.AsNumber.Equals(other.AsNumber()),
-                JsonValueKind.String => this.AsString.Equals(other.AsString()),
+                JsonValueKind.Object => this.AsObject().Equals(other.AsObject()),
+                JsonValueKind.Array => this.AsArray().Equals(other.AsArray()),
+                JsonValueKind.Number => this.AsNumber().Equals(other.AsNumber()),
+                JsonValueKind.String => this.AsString().Equals(other.AsString()),
                 JsonValueKind.Null => true,
-                JsonValueKind.True or JsonValueKind.False => this.AsBoolean.Equals(other.AsBoolean()),
+                JsonValueKind.True or JsonValueKind.False => this.AsBoolean().Equals(other.AsBoolean()),
                 _ => false,
             };
         }
@@ -2447,12 +2336,12 @@ namespace DefsDraft202012Feature.ValidateDefinitionAgainstMetaschema
 
             return valueKind switch
             {
-                JsonValueKind.Object => this.AsObject.Equals(other.AsObject),
-                JsonValueKind.Array => this.AsArray.Equals(other.AsArray),
-                JsonValueKind.Number => this.AsNumber.Equals(other.AsNumber),
-                JsonValueKind.String => this.AsString.Equals(other.AsString),
+                JsonValueKind.Object => this.AsObject().Equals(other.AsObject()),
+                JsonValueKind.Array => this.AsArray().Equals(other.AsArray()),
+                JsonValueKind.Number => this.AsNumber().Equals(other.AsNumber()),
+                JsonValueKind.String => this.AsString().Equals(other.AsString()),
                 JsonValueKind.Null => true,
-                JsonValueKind.True or JsonValueKind.False => this.AsBoolean.Equals(other.AsBoolean),
+                JsonValueKind.True or JsonValueKind.False => this.AsBoolean().Equals(other.AsBoolean()),
                 _ => false,
             };
         }
@@ -2581,6 +2470,26 @@ namespace DefsDraft202012Feature.ValidateDefinitionAgainstMetaschema
                 return result;
         }
 
+    
+            /// <summary>
+        /// Gets the value as a <see cref="JsonArray"/>.
+        /// </summary>
+        private JsonArray AsArray
+        {
+            get
+            {
+                if (this.arrayBacking is ImmutableList<JsonAny> arrayBacking)
+                {
+                    return new JsonArray(arrayBacking);
+                }
+
+                return new JsonArray(this.jsonElementBacking);
+            }
+        }
+    
+    
+    
+    
     
     
     
@@ -2847,79 +2756,6 @@ namespace DefsDraft202012Feature.ValidateDefinitionAgainstMetaschema
             }
         }
 
-        /// <summary>
-        /// Gets the value as a <see cref="JsonObject"/>.
-        /// </summary>
-        public JsonObject AsObject
-        {
-            get
-            {
-                    if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
-                {
-                    return new JsonObject(objectBacking);
-                }
-
-    
-                return new JsonObject(this.jsonElementBacking);
-            }
-        }
-
-        /// <summary>
-        /// Gets the value as a <see cref="JsonArray"/>.
-        /// </summary>
-        public JsonArray AsArray
-        {
-            get
-            {
-    
-                return new JsonArray(this.jsonElementBacking);
-            }
-        }
-
-        /// <summary>
-        /// Gets the value as a <see cref="JsonNumber"/>.
-        /// </summary>
-        public JsonNumber AsNumber
-        {
-            get
-            {
-                    return new JsonNumber(this.jsonElementBacking);
-            }
-        }
-
-        /// <summary>
-        /// Gets the value as a <see cref="JsonString"/>.
-        /// </summary>
-        public JsonString AsString
-        {
-            get
-            {
-                    return new JsonString(this.jsonElementBacking);
-            }
-        }
-
-        /// <summary>
-        /// Gets the value as a <see cref="JsonBoolean"/>.
-        /// </summary>
-        public JsonBoolean AsBoolean
-        {
-            get
-            {
-                    return new JsonBoolean(this.jsonElementBacking);
-            }
-        }
-
-        /// <summary>
-        /// Gets the value as a <see cref="JsonNull"/>.
-        /// </summary>
-        public JsonNull AsNull
-        {
-            get
-            {
-                return default;
-            }
-        }
-
     
         
         /// <summary>
@@ -3029,11 +2865,11 @@ namespace DefsDraft202012Feature.ValidateDefinitionAgainstMetaschema
 
             return valueKind switch
             {
-                JsonValueKind.Object => this.AsObject.GetHashCode(),
-                JsonValueKind.Array => this.AsArray.GetHashCode(),
-                JsonValueKind.Number => this.AsNumber.GetHashCode(),
-                JsonValueKind.String => this.AsString.GetHashCode(),
-                JsonValueKind.True or JsonValueKind.False => this.AsBoolean.GetHashCode(),
+                JsonValueKind.Object => this.AsObject().GetHashCode(),
+                JsonValueKind.Array => this.AsArray().GetHashCode(),
+                JsonValueKind.Number => this.AsNumber().GetHashCode(),
+                JsonValueKind.String => this.AsString().GetHashCode(),
+                JsonValueKind.True or JsonValueKind.False => this.AsBoolean().GetHashCode(),
                 JsonValueKind.Null => JsonNull.NullHashCode,
                 _ => 0,
             };
@@ -3128,12 +2964,12 @@ namespace DefsDraft202012Feature.ValidateDefinitionAgainstMetaschema
 
             return valueKind switch
             {
-                JsonValueKind.Object => this.AsObject.Equals(other.AsObject()),
-                JsonValueKind.Array => this.AsArray.Equals(other.AsArray()),
-                JsonValueKind.Number => this.AsNumber.Equals(other.AsNumber()),
-                JsonValueKind.String => this.AsString.Equals(other.AsString()),
+                JsonValueKind.Object => this.AsObject().Equals(other.AsObject()),
+                JsonValueKind.Array => this.AsArray().Equals(other.AsArray()),
+                JsonValueKind.Number => this.AsNumber().Equals(other.AsNumber()),
+                JsonValueKind.String => this.AsString().Equals(other.AsString()),
                 JsonValueKind.Null => true,
-                JsonValueKind.True or JsonValueKind.False => this.AsBoolean.Equals(other.AsBoolean()),
+                JsonValueKind.True or JsonValueKind.False => this.AsBoolean().Equals(other.AsBoolean()),
                 _ => false,
             };
         }
@@ -3150,12 +2986,12 @@ namespace DefsDraft202012Feature.ValidateDefinitionAgainstMetaschema
 
             return valueKind switch
             {
-                JsonValueKind.Object => this.AsObject.Equals(other.AsObject),
-                JsonValueKind.Array => this.AsArray.Equals(other.AsArray),
-                JsonValueKind.Number => this.AsNumber.Equals(other.AsNumber),
-                JsonValueKind.String => this.AsString.Equals(other.AsString),
+                JsonValueKind.Object => this.AsObject().Equals(other.AsObject()),
+                JsonValueKind.Array => this.AsArray().Equals(other.AsArray()),
+                JsonValueKind.Number => this.AsNumber().Equals(other.AsNumber()),
+                JsonValueKind.String => this.AsString().Equals(other.AsString()),
                 JsonValueKind.Null => true,
-                JsonValueKind.True or JsonValueKind.False => this.AsBoolean.Equals(other.AsBoolean),
+                JsonValueKind.True or JsonValueKind.False => this.AsBoolean().Equals(other.AsBoolean()),
                 _ => false,
             };
         }
@@ -3197,7 +3033,7 @@ namespace DefsDraft202012Feature.ValidateDefinitionAgainstMetaschema
         {
             if (this.objectBacking is ImmutableDictionary<string, JsonAny> properties)
             {
-                return properties.TryGetValue(Encoding.UTF8.GetString(utf8name), out _);
+                return properties.TryGetValue(System.Text.Encoding.UTF8.GetString(utf8name), out _);
             }
 
             if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
@@ -3331,6 +3167,26 @@ namespace DefsDraft202012Feature.ValidateDefinitionAgainstMetaschema
                 return result;
         }
 
+            /// <summary>
+        /// Gets the value as a <see cref="JsonObject"/>.
+        /// </summary>
+        private JsonObject AsObject
+        {
+            get
+            {
+                if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
+                {
+                    return new JsonObject(objectBacking);
+                }
+
+                return new JsonObject(this.jsonElementBacking);
+            }
+        }
+    
+    
+    
+    
+    
     
     
     
@@ -3583,79 +3439,6 @@ namespace DefsDraft202012Feature.ValidateDefinitionAgainstMetaschema
             }
         }
 
-        /// <summary>
-        /// Gets the value as a <see cref="JsonObject"/>.
-        /// </summary>
-        public JsonObject AsObject
-        {
-            get
-            {
-                    if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
-                {
-                    return new JsonObject(objectBacking);
-                }
-
-    
-                return new JsonObject(this.jsonElementBacking);
-            }
-        }
-
-        /// <summary>
-        /// Gets the value as a <see cref="JsonArray"/>.
-        /// </summary>
-        public JsonArray AsArray
-        {
-            get
-            {
-    
-                return new JsonArray(this.jsonElementBacking);
-            }
-        }
-
-        /// <summary>
-        /// Gets the value as a <see cref="JsonNumber"/>.
-        /// </summary>
-        public JsonNumber AsNumber
-        {
-            get
-            {
-                    return new JsonNumber(this.jsonElementBacking);
-            }
-        }
-
-        /// <summary>
-        /// Gets the value as a <see cref="JsonString"/>.
-        /// </summary>
-        public JsonString AsString
-        {
-            get
-            {
-                    return new JsonString(this.jsonElementBacking);
-            }
-        }
-
-        /// <summary>
-        /// Gets the value as a <see cref="JsonBoolean"/>.
-        /// </summary>
-        public JsonBoolean AsBoolean
-        {
-            get
-            {
-                    return new JsonBoolean(this.jsonElementBacking);
-            }
-        }
-
-        /// <summary>
-        /// Gets the value as a <see cref="JsonNull"/>.
-        /// </summary>
-        public JsonNull AsNull
-        {
-            get
-            {
-                return default;
-            }
-        }
-
     
         
         /// <summary>
@@ -3765,11 +3548,11 @@ namespace DefsDraft202012Feature.ValidateDefinitionAgainstMetaschema
 
             return valueKind switch
             {
-                JsonValueKind.Object => this.AsObject.GetHashCode(),
-                JsonValueKind.Array => this.AsArray.GetHashCode(),
-                JsonValueKind.Number => this.AsNumber.GetHashCode(),
-                JsonValueKind.String => this.AsString.GetHashCode(),
-                JsonValueKind.True or JsonValueKind.False => this.AsBoolean.GetHashCode(),
+                JsonValueKind.Object => this.AsObject().GetHashCode(),
+                JsonValueKind.Array => this.AsArray().GetHashCode(),
+                JsonValueKind.Number => this.AsNumber().GetHashCode(),
+                JsonValueKind.String => this.AsString().GetHashCode(),
+                JsonValueKind.True or JsonValueKind.False => this.AsBoolean().GetHashCode(),
                 JsonValueKind.Null => JsonNull.NullHashCode,
                 _ => 0,
             };
@@ -3864,12 +3647,12 @@ namespace DefsDraft202012Feature.ValidateDefinitionAgainstMetaschema
 
             return valueKind switch
             {
-                JsonValueKind.Object => this.AsObject.Equals(other.AsObject()),
-                JsonValueKind.Array => this.AsArray.Equals(other.AsArray()),
-                JsonValueKind.Number => this.AsNumber.Equals(other.AsNumber()),
-                JsonValueKind.String => this.AsString.Equals(other.AsString()),
+                JsonValueKind.Object => this.AsObject().Equals(other.AsObject()),
+                JsonValueKind.Array => this.AsArray().Equals(other.AsArray()),
+                JsonValueKind.Number => this.AsNumber().Equals(other.AsNumber()),
+                JsonValueKind.String => this.AsString().Equals(other.AsString()),
                 JsonValueKind.Null => true,
-                JsonValueKind.True or JsonValueKind.False => this.AsBoolean.Equals(other.AsBoolean()),
+                JsonValueKind.True or JsonValueKind.False => this.AsBoolean().Equals(other.AsBoolean()),
                 _ => false,
             };
         }
@@ -3886,12 +3669,12 @@ namespace DefsDraft202012Feature.ValidateDefinitionAgainstMetaschema
 
             return valueKind switch
             {
-                JsonValueKind.Object => this.AsObject.Equals(other.AsObject),
-                JsonValueKind.Array => this.AsArray.Equals(other.AsArray),
-                JsonValueKind.Number => this.AsNumber.Equals(other.AsNumber),
-                JsonValueKind.String => this.AsString.Equals(other.AsString),
+                JsonValueKind.Object => this.AsObject().Equals(other.AsObject()),
+                JsonValueKind.Array => this.AsArray().Equals(other.AsArray()),
+                JsonValueKind.Number => this.AsNumber().Equals(other.AsNumber()),
+                JsonValueKind.String => this.AsString().Equals(other.AsString()),
                 JsonValueKind.Null => true,
-                JsonValueKind.True or JsonValueKind.False => this.AsBoolean.Equals(other.AsBoolean),
+                JsonValueKind.True or JsonValueKind.False => this.AsBoolean().Equals(other.AsBoolean()),
                 _ => false,
             };
         }
@@ -3933,7 +3716,7 @@ namespace DefsDraft202012Feature.ValidateDefinitionAgainstMetaschema
         {
             if (this.objectBacking is ImmutableDictionary<string, JsonAny> properties)
             {
-                return properties.TryGetValue(Encoding.UTF8.GetString(utf8name), out _);
+                return properties.TryGetValue(System.Text.Encoding.UTF8.GetString(utf8name), out _);
             }
 
             if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
@@ -4067,6 +3850,26 @@ namespace DefsDraft202012Feature.ValidateDefinitionAgainstMetaschema
                 return result;
         }
 
+            /// <summary>
+        /// Gets the value as a <see cref="JsonObject"/>.
+        /// </summary>
+        private JsonObject AsObject
+        {
+            get
+            {
+                if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
+                {
+                    return new JsonObject(objectBacking);
+                }
+
+                return new JsonObject(this.jsonElementBacking);
+            }
+        }
+    
+    
+    
+    
+    
     
     
     
@@ -4276,74 +4079,6 @@ namespace DefsDraft202012Feature.ValidateDefinitionAgainstMetaschema
             }
         }
 
-        /// <summary>
-        /// Gets the value as a <see cref="JsonObject"/>.
-        /// </summary>
-        public JsonObject AsObject
-        {
-            get
-            {
-    
-                return new JsonObject(this.jsonElementBacking);
-            }
-        }
-
-        /// <summary>
-        /// Gets the value as a <see cref="JsonArray"/>.
-        /// </summary>
-        public JsonArray AsArray
-        {
-            get
-            {
-    
-                return new JsonArray(this.jsonElementBacking);
-            }
-        }
-
-        /// <summary>
-        /// Gets the value as a <see cref="JsonNumber"/>.
-        /// </summary>
-        public JsonNumber AsNumber
-        {
-            get
-            {
-                    return new JsonNumber(this.jsonElementBacking);
-            }
-        }
-
-        /// <summary>
-        /// Gets the value as a <see cref="JsonString"/>.
-        /// </summary>
-        public JsonString AsString
-        {
-            get
-            {
-                    return new JsonString(this.jsonElementBacking);
-            }
-        }
-
-        /// <summary>
-        /// Gets the value as a <see cref="JsonBoolean"/>.
-        /// </summary>
-        public JsonBoolean AsBoolean
-        {
-            get
-            {
-                    return new JsonBoolean(this.jsonElementBacking);
-            }
-        }
-
-        /// <summary>
-        /// Gets the value as a <see cref="JsonNull"/>.
-        /// </summary>
-        public JsonNull AsNull
-        {
-            get
-            {
-                return default;
-            }
-        }
-
     
         
         /// <summary>
@@ -4416,11 +4151,11 @@ namespace DefsDraft202012Feature.ValidateDefinitionAgainstMetaschema
 
             return valueKind switch
             {
-                JsonValueKind.Object => this.AsObject.GetHashCode(),
-                JsonValueKind.Array => this.AsArray.GetHashCode(),
-                JsonValueKind.Number => this.AsNumber.GetHashCode(),
-                JsonValueKind.String => this.AsString.GetHashCode(),
-                JsonValueKind.True or JsonValueKind.False => this.AsBoolean.GetHashCode(),
+                JsonValueKind.Object => this.AsObject().GetHashCode(),
+                JsonValueKind.Array => this.AsArray().GetHashCode(),
+                JsonValueKind.Number => this.AsNumber().GetHashCode(),
+                JsonValueKind.String => this.AsString().GetHashCode(),
+                JsonValueKind.True or JsonValueKind.False => this.AsBoolean().GetHashCode(),
                 JsonValueKind.Null => JsonNull.NullHashCode,
                 _ => 0,
             };
@@ -4462,12 +4197,12 @@ namespace DefsDraft202012Feature.ValidateDefinitionAgainstMetaschema
 
             return valueKind switch
             {
-                JsonValueKind.Object => this.AsObject.Equals(other.AsObject()),
-                JsonValueKind.Array => this.AsArray.Equals(other.AsArray()),
-                JsonValueKind.Number => this.AsNumber.Equals(other.AsNumber()),
-                JsonValueKind.String => this.AsString.Equals(other.AsString()),
+                JsonValueKind.Object => this.AsObject().Equals(other.AsObject()),
+                JsonValueKind.Array => this.AsArray().Equals(other.AsArray()),
+                JsonValueKind.Number => this.AsNumber().Equals(other.AsNumber()),
+                JsonValueKind.String => this.AsString().Equals(other.AsString()),
                 JsonValueKind.Null => true,
-                JsonValueKind.True or JsonValueKind.False => this.AsBoolean.Equals(other.AsBoolean()),
+                JsonValueKind.True or JsonValueKind.False => this.AsBoolean().Equals(other.AsBoolean()),
                 _ => false,
             };
         }
@@ -4484,12 +4219,12 @@ namespace DefsDraft202012Feature.ValidateDefinitionAgainstMetaschema
 
             return valueKind switch
             {
-                JsonValueKind.Object => this.AsObject.Equals(other.AsObject),
-                JsonValueKind.Array => this.AsArray.Equals(other.AsArray),
-                JsonValueKind.Number => this.AsNumber.Equals(other.AsNumber),
-                JsonValueKind.String => this.AsString.Equals(other.AsString),
+                JsonValueKind.Object => this.AsObject().Equals(other.AsObject()),
+                JsonValueKind.Array => this.AsArray().Equals(other.AsArray()),
+                JsonValueKind.Number => this.AsNumber().Equals(other.AsNumber()),
+                JsonValueKind.String => this.AsString().Equals(other.AsString()),
                 JsonValueKind.Null => true,
-                JsonValueKind.True or JsonValueKind.False => this.AsBoolean.Equals(other.AsBoolean),
+                JsonValueKind.True or JsonValueKind.False => this.AsBoolean().Equals(other.AsBoolean()),
                 _ => false,
             };
         }
@@ -4542,6 +4277,11 @@ namespace DefsDraft202012Feature.ValidateDefinitionAgainstMetaschema
                 return result;
         }
 
+    
+    
+    
+    
+    
     
     
     
@@ -4752,79 +4492,6 @@ namespace DefsDraft202012Feature.ValidateDefinitionAgainstMetaschema
             }
         }
 
-        /// <summary>
-        /// Gets the value as a <see cref="JsonObject"/>.
-        /// </summary>
-        public JsonObject AsObject
-        {
-            get
-            {
-                    if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
-                {
-                    return new JsonObject(objectBacking);
-                }
-
-    
-                return new JsonObject(this.jsonElementBacking);
-            }
-        }
-
-        /// <summary>
-        /// Gets the value as a <see cref="JsonArray"/>.
-        /// </summary>
-        public JsonArray AsArray
-        {
-            get
-            {
-    
-                return new JsonArray(this.jsonElementBacking);
-            }
-        }
-
-        /// <summary>
-        /// Gets the value as a <see cref="JsonNumber"/>.
-        /// </summary>
-        public JsonNumber AsNumber
-        {
-            get
-            {
-                    return new JsonNumber(this.jsonElementBacking);
-            }
-        }
-
-        /// <summary>
-        /// Gets the value as a <see cref="JsonString"/>.
-        /// </summary>
-        public JsonString AsString
-        {
-            get
-            {
-                    return new JsonString(this.jsonElementBacking);
-            }
-        }
-
-        /// <summary>
-        /// Gets the value as a <see cref="JsonBoolean"/>.
-        /// </summary>
-        public JsonBoolean AsBoolean
-        {
-            get
-            {
-                    return new JsonBoolean(this.jsonElementBacking);
-            }
-        }
-
-        /// <summary>
-        /// Gets the value as a <see cref="JsonNull"/>.
-        /// </summary>
-        public JsonNull AsNull
-        {
-            get
-            {
-                return default;
-            }
-        }
-
     
         
         /// <summary>
@@ -4934,11 +4601,11 @@ namespace DefsDraft202012Feature.ValidateDefinitionAgainstMetaschema
 
             return valueKind switch
             {
-                JsonValueKind.Object => this.AsObject.GetHashCode(),
-                JsonValueKind.Array => this.AsArray.GetHashCode(),
-                JsonValueKind.Number => this.AsNumber.GetHashCode(),
-                JsonValueKind.String => this.AsString.GetHashCode(),
-                JsonValueKind.True or JsonValueKind.False => this.AsBoolean.GetHashCode(),
+                JsonValueKind.Object => this.AsObject().GetHashCode(),
+                JsonValueKind.Array => this.AsArray().GetHashCode(),
+                JsonValueKind.Number => this.AsNumber().GetHashCode(),
+                JsonValueKind.String => this.AsString().GetHashCode(),
+                JsonValueKind.True or JsonValueKind.False => this.AsBoolean().GetHashCode(),
                 JsonValueKind.Null => JsonNull.NullHashCode,
                 _ => 0,
             };
@@ -5033,12 +4700,12 @@ namespace DefsDraft202012Feature.ValidateDefinitionAgainstMetaschema
 
             return valueKind switch
             {
-                JsonValueKind.Object => this.AsObject.Equals(other.AsObject()),
-                JsonValueKind.Array => this.AsArray.Equals(other.AsArray()),
-                JsonValueKind.Number => this.AsNumber.Equals(other.AsNumber()),
-                JsonValueKind.String => this.AsString.Equals(other.AsString()),
+                JsonValueKind.Object => this.AsObject().Equals(other.AsObject()),
+                JsonValueKind.Array => this.AsArray().Equals(other.AsArray()),
+                JsonValueKind.Number => this.AsNumber().Equals(other.AsNumber()),
+                JsonValueKind.String => this.AsString().Equals(other.AsString()),
                 JsonValueKind.Null => true,
-                JsonValueKind.True or JsonValueKind.False => this.AsBoolean.Equals(other.AsBoolean()),
+                JsonValueKind.True or JsonValueKind.False => this.AsBoolean().Equals(other.AsBoolean()),
                 _ => false,
             };
         }
@@ -5055,12 +4722,12 @@ namespace DefsDraft202012Feature.ValidateDefinitionAgainstMetaschema
 
             return valueKind switch
             {
-                JsonValueKind.Object => this.AsObject.Equals(other.AsObject),
-                JsonValueKind.Array => this.AsArray.Equals(other.AsArray),
-                JsonValueKind.Number => this.AsNumber.Equals(other.AsNumber),
-                JsonValueKind.String => this.AsString.Equals(other.AsString),
+                JsonValueKind.Object => this.AsObject().Equals(other.AsObject()),
+                JsonValueKind.Array => this.AsArray().Equals(other.AsArray()),
+                JsonValueKind.Number => this.AsNumber().Equals(other.AsNumber()),
+                JsonValueKind.String => this.AsString().Equals(other.AsString()),
                 JsonValueKind.Null => true,
-                JsonValueKind.True or JsonValueKind.False => this.AsBoolean.Equals(other.AsBoolean),
+                JsonValueKind.True or JsonValueKind.False => this.AsBoolean().Equals(other.AsBoolean()),
                 _ => false,
             };
         }
@@ -5102,7 +4769,7 @@ namespace DefsDraft202012Feature.ValidateDefinitionAgainstMetaschema
         {
             if (this.objectBacking is ImmutableDictionary<string, JsonAny> properties)
             {
-                return properties.TryGetValue(Encoding.UTF8.GetString(utf8name), out _);
+                return properties.TryGetValue(System.Text.Encoding.UTF8.GetString(utf8name), out _);
             }
 
             if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
@@ -5236,6 +4903,26 @@ namespace DefsDraft202012Feature.ValidateDefinitionAgainstMetaschema
                 return result;
         }
 
+            /// <summary>
+        /// Gets the value as a <see cref="JsonObject"/>.
+        /// </summary>
+        private JsonObject AsObject
+        {
+            get
+            {
+                if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
+                {
+                    return new JsonObject(objectBacking);
+                }
+
+                return new JsonObject(this.jsonElementBacking);
+            }
+        }
+    
+    
+    
+    
+    
     
     
     
