@@ -310,6 +310,10 @@ namespace Menes.Json
             foreach (Property otherProperty in other.EnumerateObject())
             {
                 otherCount++;
+                if (otherCount > count)
+                {
+                    return false;
+                }
             }
 
             return count == otherCount;
