@@ -335,3 +335,4 @@ coverage.cobertura.xml
 # VS Code config files
 /.vscode
 /Solutions/Menes.Specs/appsettings.local.json
+*.diagsession
