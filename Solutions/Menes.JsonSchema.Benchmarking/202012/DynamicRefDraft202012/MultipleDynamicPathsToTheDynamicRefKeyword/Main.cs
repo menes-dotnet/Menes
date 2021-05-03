@@ -1744,9 +1744,7 @@ namespace DynamicRefDraft202012Feature.MultipleDynamicPathsToTheDynamicRefKeywor
         
         
         
-                        string propertyNameAsString = property.Name;
-
-                            result = new JsonString(propertyNameAsString).As<DynamicRefDraft202012Feature.MultipleDynamicPathsToTheDynamicRefKeyword.Main.IfEntity.PropertyNamesEntity>().Validate(result, level);
+                                    result = new JsonString(propertyName).As<DynamicRefDraft202012Feature.MultipleDynamicPathsToTheDynamicRefKeyword.Main.IfEntity.PropertyNamesEntity>().Validate(result, level);
                 if (level == ValidationLevel.Flag && !result.IsValid)
                 {
                     return result;

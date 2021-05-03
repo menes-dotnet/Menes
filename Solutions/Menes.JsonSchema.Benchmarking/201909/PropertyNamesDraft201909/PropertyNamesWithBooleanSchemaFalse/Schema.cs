@@ -594,9 +594,7 @@ namespace PropertyNamesDraft201909Feature.PropertyNamesWithBooleanSchemaFalse
         
         
         
-                        string propertyNameAsString = property.Name;
-
-                            result = new JsonString(propertyNameAsString).As<Menes.Json.JsonNotAny>().Validate(result, level);
+                                    result = new JsonString(propertyName).As<Menes.Json.JsonNotAny>().Validate(result, level);
                 if (level == ValidationLevel.Flag && !result.IsValid)
                 {
                     return result;

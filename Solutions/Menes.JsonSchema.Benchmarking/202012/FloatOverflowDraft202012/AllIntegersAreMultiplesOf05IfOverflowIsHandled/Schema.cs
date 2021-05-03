@@ -574,6 +574,9 @@ namespace FloatOverflowDraft202012Feature.AllIntegersAreMultiplesOf05IfOverflowI
         
         
         
+                
+                , localResultInteger
+        
         
                         );
 

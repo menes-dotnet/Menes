@@ -594,9 +594,7 @@ namespace PropertyNamesDraft201909Feature.PropertyNamesValidation
         
         
         
-                        string propertyNameAsString = property.Name;
-
-                            result = new JsonString(propertyNameAsString).As<PropertyNamesDraft201909Feature.PropertyNamesValidation.Schema.PropertyNamesEntity>().Validate(result, level);
+                                    result = new JsonString(propertyName).As<PropertyNamesDraft201909Feature.PropertyNamesValidation.Schema.PropertyNamesEntity>().Validate(result, level);
                 if (level == ValidationLevel.Flag && !result.IsValid)
                 {
                     return result;

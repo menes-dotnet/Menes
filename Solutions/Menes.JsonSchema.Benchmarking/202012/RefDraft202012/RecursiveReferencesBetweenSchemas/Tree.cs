@@ -750,6 +750,7 @@ namespace RefDraft202012Feature.RecursiveReferencesBetweenSchemas
                 return result;
             }
 
+                    int propertyCount = 0;
         
                                 bool foundMeta = false;
                         bool foundNodes = false;
@@ -761,8 +762,8 @@ namespace RefDraft202012Feature.RecursiveReferencesBetweenSchemas
         
                         if (__MenesLocalProperties.TryGetValue(propertyName, out Func<Tree, ValidationContext, ValidationLevel, ValidationContext>? propertyValidator))
                 {
-                    result = result.WithLocalProperty(propertyName);
-                    var propertyResult = propertyValidator(this, result, level);
+                    result = result.WithLocalProperty(propertyCount);
+                    var propertyResult = propertyValidator(this, result.CreateChildContext(), level);
                     result = result.MergeResults(propertyResult.IsValid, level, propertyResult);
                     if (level == ValidationLevel.Flag && !result.IsValid)
                     {
@@ -788,11 +789,13 @@ namespace RefDraft202012Feature.RecursiveReferencesBetweenSchemas
         
         
         
+                
+                propertyCount++;
+
                     }
 
         
-                        if (!foundMeta
-                        )
+                        if (!foundMeta)
             {
                 if (level >= ValidationLevel.Detailed)
                 {
@@ -807,8 +810,7 @@ namespace RefDraft202012Feature.RecursiveReferencesBetweenSchemas
                     return result.WithResult(isValid: false);
                 }
             }
-                        if (!foundNodes
-                        )
+                        if (!foundNodes)
             {
                 if (level >= ValidationLevel.Detailed)
                 {
@@ -872,6 +874,7 @@ namespace RefDraft202012Feature.RecursiveReferencesBetweenSchemas
         
                 
                 , localResultObject
+        
         
         
         
@@ -1550,6 +1553,7 @@ namespace RefDraft202012Feature.RecursiveReferencesBetweenSchemas
         
                 
                 , localResultArray
+        
         
         
         

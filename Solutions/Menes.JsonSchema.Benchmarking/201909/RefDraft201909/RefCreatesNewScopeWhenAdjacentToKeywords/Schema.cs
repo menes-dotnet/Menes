@@ -787,6 +787,7 @@ namespace RefDraft201909Feature.RefCreatesNewScopeWhenAdjacentToKeywords
                 return result;
             }
 
+                    int propertyCount = 0;
         
         
             foreach (Property property in this.EnumerateObject())
@@ -796,8 +797,8 @@ namespace RefDraft201909Feature.RefCreatesNewScopeWhenAdjacentToKeywords
         
                         if (__MenesLocalProperties.TryGetValue(propertyName, out Func<Schema, ValidationContext, ValidationLevel, ValidationContext>? propertyValidator))
                 {
-                    result = result.WithLocalProperty(propertyName);
-                    var propertyResult = propertyValidator(this, result, level);
+                    result = result.WithLocalProperty(propertyCount);
+                    var propertyResult = propertyValidator(this, result.CreateChildContext(), level);
                     result = result.MergeResults(propertyResult.IsValid, level, propertyResult);
                     if (level == ValidationLevel.Flag && !result.IsValid)
                     {
@@ -812,6 +813,9 @@ namespace RefDraft201909Feature.RefCreatesNewScopeWhenAdjacentToKeywords
         
         
         
+                
+                propertyCount++;
+
                     }
 
         
@@ -1403,6 +1407,7 @@ namespace RefDraft201909Feature.RefCreatesNewScopeWhenAdjacentToKeywords
                 return result;
             }
 
+                    int propertyCount = 0;
         
         
             foreach (Property property in this.EnumerateObject())
@@ -1415,7 +1420,7 @@ namespace RefDraft201909Feature.RefCreatesNewScopeWhenAdjacentToKeywords
         
         
                 
-                if (!result.HasEvaluatedLocalOrAppliedProperty(propertyName))
+                if (!result.HasEvaluatedLocalOrAppliedProperty(propertyCount))
                 {
 
                     result = property.ValueAs<Menes.Json.JsonNotAny>().Validate(result, level);
@@ -1424,10 +1429,13 @@ namespace RefDraft201909Feature.RefCreatesNewScopeWhenAdjacentToKeywords
                         return result;
                     }
 
-                    result = result.WithLocalProperty(propertyName);
+                    result = result.WithLocalProperty(propertyCount);
                 }
         
         
+                
+                propertyCount++;
+
                     }
 
         

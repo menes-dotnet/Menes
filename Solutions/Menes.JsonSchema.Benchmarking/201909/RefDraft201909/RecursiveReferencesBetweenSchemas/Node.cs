@@ -755,6 +755,7 @@ namespace RefDraft201909Feature.RecursiveReferencesBetweenSchemas
                 return result;
             }
 
+                    int propertyCount = 0;
         
                                 bool foundValue = false;
                     
@@ -765,8 +766,8 @@ namespace RefDraft201909Feature.RecursiveReferencesBetweenSchemas
         
                         if (__MenesLocalProperties.TryGetValue(propertyName, out Func<Node, ValidationContext, ValidationLevel, ValidationContext>? propertyValidator))
                 {
-                    result = result.WithLocalProperty(propertyName);
-                    var propertyResult = propertyValidator(this, result, level);
+                    result = result.WithLocalProperty(propertyCount);
+                    var propertyResult = propertyValidator(this, result.CreateChildContext(), level);
                     result = result.MergeResults(propertyResult.IsValid, level, propertyResult);
                     if (level == ValidationLevel.Flag && !result.IsValid)
                     {
@@ -786,11 +787,13 @@ namespace RefDraft201909Feature.RecursiveReferencesBetweenSchemas
         
         
         
+                
+                propertyCount++;
+
                     }
 
         
-                        if (!foundValue
-                        )
+                        if (!foundValue)
             {
                 if (level >= ValidationLevel.Detailed)
                 {
@@ -854,6 +857,7 @@ namespace RefDraft201909Feature.RecursiveReferencesBetweenSchemas
         
                 
                 , localResultObject
+        
         
         
         

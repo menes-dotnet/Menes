@@ -606,6 +606,7 @@ namespace AdditionalPropertiesDraft202012Feature.NonASIIPatternWithAdditionalPro
                 return result;
             }
 
+                    int propertyCount = 0;
         
         
             foreach (Property property in this.EnumerateObject())
@@ -615,14 +616,12 @@ namespace AdditionalPropertiesDraft202012Feature.NonASIIPatternWithAdditionalPro
         
         
         
-                        string propertyNameAsString = property.Name;
-
-            
+                    
                             foreach (System.Collections.Generic.KeyValuePair<Regex, Func<Property, ValidationContext, ValidationLevel, ValidationContext>> patternProperty in __MenesPatternProperties)
                 {
-                    if (patternProperty.Key.IsMatch(propertyNameAsString))
+                    if (patternProperty.Key.IsMatch(propertyName))
                     {
-                        result = result.WithLocalProperty(propertyName);
+                        result = result.WithLocalProperty(propertyCount);
                         result = patternProperty.Value(property, result, level);
                         if (level == ValidationLevel.Flag && !result.IsValid)
                         {
@@ -635,7 +634,7 @@ namespace AdditionalPropertiesDraft202012Feature.NonASIIPatternWithAdditionalPro
         
         
                 
-                if (!result.HasEvaluatedLocalProperty(propertyName))
+                if (!result.HasEvaluatedLocalProperty(propertyCount))
                 {
                     if (level >= ValidationLevel.Detailed)
                     {
@@ -652,6 +651,9 @@ namespace AdditionalPropertiesDraft202012Feature.NonASIIPatternWithAdditionalPro
                 }
 
         
+                
+                propertyCount++;
+
                     }
 
         

@@ -574,6 +574,9 @@ namespace MultipleOfDraft202012Feature.InvalidInstanceShouldNotRaiseErrorWhenFlo
         
         
         
+                
+                , localResultInteger
+        
         
                         );
 

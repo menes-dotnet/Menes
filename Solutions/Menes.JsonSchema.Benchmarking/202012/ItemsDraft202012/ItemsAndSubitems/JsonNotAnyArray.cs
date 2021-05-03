@@ -721,6 +721,7 @@ namespace ItemsDraft202012Feature.ItemsAndSubitems
         
         
         
+        
                         );
 
             return result;
@@ -1423,6 +1424,7 @@ namespace ItemsDraft202012Feature.ItemsAndSubitems
         
         
         
+        
                         );
 
             return result;
@@ -2101,6 +2103,7 @@ namespace ItemsDraft202012Feature.ItemsAndSubitems
                 return result;
             }
 
+                    int propertyCount = 0;
         
                                 bool foundFoo = false;
                     
@@ -2111,8 +2114,8 @@ namespace ItemsDraft202012Feature.ItemsAndSubitems
         
                         if (__MenesLocalProperties.TryGetValue(propertyName, out Func<SubItemValue, ValidationContext, ValidationLevel, ValidationContext>? propertyValidator))
                 {
-                    result = result.WithLocalProperty(propertyName);
-                    var propertyResult = propertyValidator(this, result, level);
+                    result = result.WithLocalProperty(propertyCount);
+                    var propertyResult = propertyValidator(this, result.CreateChildContext(), level);
                     result = result.MergeResults(propertyResult.IsValid, level, propertyResult);
                     if (level == ValidationLevel.Flag && !result.IsValid)
                     {
@@ -2132,11 +2135,13 @@ namespace ItemsDraft202012Feature.ItemsAndSubitems
         
         
         
+                
+                propertyCount++;
+
                     }
 
         
-                        if (!foundFoo
-                        )
+                        if (!foundFoo)
             {
                 if (level >= ValidationLevel.Detailed)
                 {
@@ -2200,6 +2205,7 @@ namespace ItemsDraft202012Feature.ItemsAndSubitems
         
                 
                 , localResultObject
+        
         
         
         

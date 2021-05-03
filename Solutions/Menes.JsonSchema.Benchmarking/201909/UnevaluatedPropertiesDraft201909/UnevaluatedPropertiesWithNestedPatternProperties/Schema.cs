@@ -764,6 +764,7 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithNeste
                 return result;
             }
 
+                    int propertyCount = 0;
         
         
             foreach (Property property in this.EnumerateObject())
@@ -773,8 +774,8 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithNeste
         
                         if (__MenesLocalProperties.TryGetValue(propertyName, out Func<Schema, ValidationContext, ValidationLevel, ValidationContext>? propertyValidator))
                 {
-                    result = result.WithLocalProperty(propertyName);
-                    var propertyResult = propertyValidator(this, result, level);
+                    result = result.WithLocalProperty(propertyCount);
+                    var propertyResult = propertyValidator(this, result.CreateChildContext(), level);
                     result = result.MergeResults(propertyResult.IsValid, level, propertyResult);
                     if (level == ValidationLevel.Flag && !result.IsValid)
                     {
@@ -788,7 +789,7 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithNeste
         
         
                 
-                if (!result.HasEvaluatedLocalOrAppliedProperty(propertyName))
+                if (!result.HasEvaluatedLocalOrAppliedProperty(propertyCount))
                 {
 
                     result = property.ValueAs<Menes.Json.JsonNotAny>().Validate(result, level);
@@ -797,10 +798,13 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithNeste
                         return result;
                     }
 
-                    result = result.WithLocalProperty(propertyName);
+                    result = result.WithLocalProperty(propertyCount);
                 }
         
         
+                
+                propertyCount++;
+
                     }
 
         
@@ -886,6 +890,7 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithNeste
         
                 
                 , localResultObject
+        
         
         
         
@@ -1487,6 +1492,7 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithNeste
                 return result;
             }
 
+                    int propertyCount = 0;
         
         
             foreach (Property property in this.EnumerateObject())
@@ -1496,14 +1502,12 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithNeste
         
         
         
-                        string propertyNameAsString = property.Name;
-
-            
+                    
                             foreach (System.Collections.Generic.KeyValuePair<Regex, Func<Property, ValidationContext, ValidationLevel, ValidationContext>> patternProperty in __MenesPatternProperties)
                 {
-                    if (patternProperty.Key.IsMatch(propertyNameAsString))
+                    if (patternProperty.Key.IsMatch(propertyName))
                     {
-                        result = result.WithLocalProperty(propertyName);
+                        result = result.WithLocalProperty(propertyCount);
                         result = patternProperty.Value(property, result, level);
                         if (level == ValidationLevel.Flag && !result.IsValid)
                         {
@@ -1516,6 +1520,9 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithNeste
         
         
         
+                
+                propertyCount++;
+
                     }
 
         

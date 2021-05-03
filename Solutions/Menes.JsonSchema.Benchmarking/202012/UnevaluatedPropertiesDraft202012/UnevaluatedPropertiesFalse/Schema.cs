@@ -594,6 +594,7 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesFalse
                 return result;
             }
 
+                    int propertyCount = 0;
         
         
             foreach (Property property in this.EnumerateObject())
@@ -606,7 +607,7 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesFalse
         
         
                 
-                if (!result.HasEvaluatedLocalOrAppliedProperty(propertyName))
+                if (!result.HasEvaluatedLocalOrAppliedProperty(propertyCount))
                 {
 
                     result = property.ValueAs<Menes.Json.JsonNotAny>().Validate(result, level);
@@ -615,10 +616,13 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesFalse
                         return result;
                     }
 
-                    result = result.WithLocalProperty(propertyName);
+                    result = result.WithLocalProperty(propertyCount);
                 }
         
         
+                
+                propertyCount++;
+
                     }
 
         
@@ -670,6 +674,7 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesFalse
         
                 
                 , localResultObject
+        
         
         
         

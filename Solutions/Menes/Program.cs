@@ -10,11 +10,10 @@ namespace Menes
     using System.Linq;
     using System.Text.Json;
     using System.Threading.Tasks;
-    using AdditionalItemsDraft201909Feature.AdditionalItemsAsSchema;
-    using Marain.LineOfBusiness;
 
     using Menes.Json;
     using Menes.OpenApi;
+    using RefDraft201909Feature.RootPointerRef;
 
     ////using UnevaluatedItemsDraft202012Feature.ItemIsEvaluatedInAnUncleSchemaToUnevaluatedItems;
 
@@ -23,12 +22,9 @@ namespace Menes
         static async Task Main(string[] args)
         {
 
-            Schema schema = JsonAny.Parse(@"[ null, 2, 3, 4 ]");
+            Schema schema = JsonAny.Parse(@"{""foo"": {""bar"": false}}");
 
-            for (int i = 0; i < 50000000; ++i)
-            {
-                var result = schema.Validate();
-            }
+            var result = schema.Validate();
         }
     }
 }

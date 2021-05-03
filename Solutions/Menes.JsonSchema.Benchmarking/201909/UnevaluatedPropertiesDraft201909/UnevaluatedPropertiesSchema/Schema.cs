@@ -614,6 +614,7 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesSchema
                 return result;
             }
 
+                    int propertyCount = 0;
         
         
             foreach (Property property in this.EnumerateObject())
@@ -626,7 +627,7 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesSchema
         
         
                 
-                if (!result.HasEvaluatedLocalOrAppliedProperty(propertyName))
+                if (!result.HasEvaluatedLocalOrAppliedProperty(propertyCount))
                 {
 
                     result = property.ValueAs<UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesSchema.Schema.UnevaluatedPropertiesValue>().Validate(result, level);
@@ -635,10 +636,13 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesSchema
                         return result;
                     }
 
-                    result = result.WithLocalProperty(propertyName);
+                    result = result.WithLocalProperty(propertyCount);
                 }
         
         
+                
+                propertyCount++;
+
                     }
 
         
@@ -690,6 +694,7 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesSchema
         
                 
                 , localResultObject
+        
         
         
         
@@ -1228,6 +1233,7 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesSchema
                 level
                 
                 , localResultString
+        
         
         
         

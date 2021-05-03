@@ -851,6 +851,7 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
                 return result;
             }
 
+                    int propertyCount = 0;
         
         
             foreach (Property property in this.EnumerateObject())
@@ -863,7 +864,7 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
         
         
                 
-                if (!result.HasEvaluatedLocalOrAppliedProperty(propertyName))
+                if (!result.HasEvaluatedLocalOrAppliedProperty(propertyCount))
                 {
 
                     result = property.ValueAs<Menes.Json.JsonNotAny>().Validate(result, level);
@@ -872,10 +873,13 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
                         return result;
                     }
 
-                    result = result.WithLocalProperty(propertyName);
+                    result = result.WithLocalProperty(propertyCount);
                 }
         
         
+                
+                propertyCount++;
+
                     }
 
         
@@ -1023,6 +1027,7 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
         
                 
                 , localResultObject
+        
         
         
         
@@ -1691,6 +1696,7 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
                 return result;
             }
 
+                    int propertyCount = 0;
         
                                 bool foundBaz = false;
                     
@@ -1701,8 +1707,8 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
         
                         if (__MenesLocalProperties.TryGetValue(propertyName, out Func<ElseEntity, ValidationContext, ValidationLevel, ValidationContext>? propertyValidator))
                 {
-                    result = result.WithLocalProperty(propertyName);
-                    var propertyResult = propertyValidator(this, result, level);
+                    result = result.WithLocalProperty(propertyCount);
+                    var propertyResult = propertyValidator(this, result.CreateChildContext(), level);
                     result = result.MergeResults(propertyResult.IsValid, level, propertyResult);
                     if (level == ValidationLevel.Flag && !result.IsValid)
                     {
@@ -1722,11 +1728,13 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
         
         
         
+                
+                propertyCount++;
+
                     }
 
         
-                        if (!foundBaz
-                        )
+                        if (!foundBaz)
             {
                 if (level >= ValidationLevel.Detailed)
                 {
@@ -2422,6 +2430,7 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
                 return result;
             }
 
+                    int propertyCount = 0;
         
                                 bool foundFoo = false;
                     
@@ -2432,8 +2441,8 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
         
                         if (__MenesLocalProperties.TryGetValue(propertyName, out Func<IfEntity, ValidationContext, ValidationLevel, ValidationContext>? propertyValidator))
                 {
-                    result = result.WithLocalProperty(propertyName);
-                    var propertyResult = propertyValidator(this, result, level);
+                    result = result.WithLocalProperty(propertyCount);
+                    var propertyResult = propertyValidator(this, result.CreateChildContext(), level);
                     result = result.MergeResults(propertyResult.IsValid, level, propertyResult);
                     if (level == ValidationLevel.Flag && !result.IsValid)
                     {
@@ -2453,11 +2462,13 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
         
         
         
+                
+                propertyCount++;
+
                     }
 
         
-                        if (!foundFoo
-                        )
+                        if (!foundFoo)
             {
                 if (level >= ValidationLevel.Detailed)
                 {
@@ -3637,6 +3648,7 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
                 return result;
             }
 
+                    int propertyCount = 0;
         
                                 bool foundBar = false;
                     
@@ -3647,8 +3659,8 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
         
                         if (__MenesLocalProperties.TryGetValue(propertyName, out Func<ThenEntity, ValidationContext, ValidationLevel, ValidationContext>? propertyValidator))
                 {
-                    result = result.WithLocalProperty(propertyName);
-                    var propertyResult = propertyValidator(this, result, level);
+                    result = result.WithLocalProperty(propertyCount);
+                    var propertyResult = propertyValidator(this, result.CreateChildContext(), level);
                     result = result.MergeResults(propertyResult.IsValid, level, propertyResult);
                     if (level == ValidationLevel.Flag && !result.IsValid)
                     {
@@ -3668,11 +3680,13 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithIfThe
         
         
         
+                
+                propertyCount++;
+
                     }
 
         
-                        if (!foundBar
-                        )
+                        if (!foundBar)
             {
                 if (level >= ValidationLevel.Detailed)
                 {

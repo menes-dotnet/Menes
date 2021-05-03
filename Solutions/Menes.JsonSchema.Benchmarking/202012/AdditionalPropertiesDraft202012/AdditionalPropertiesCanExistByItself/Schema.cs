@@ -602,6 +602,7 @@ namespace AdditionalPropertiesDraft202012Feature.AdditionalPropertiesCanExistByI
                 return result;
             }
 
+                    int propertyCount = 0;
         
         
             foreach (Property property in this.EnumerateObject())
@@ -612,18 +613,21 @@ namespace AdditionalPropertiesDraft202012Feature.AdditionalPropertiesCanExistByI
         
         
         
-                        if (!result.HasEvaluatedLocalProperty(propertyName))
+                        if (!result.HasEvaluatedLocalProperty(propertyCount))
                 {
                     result = property.ValueAs<Menes.Json.JsonBoolean>().Validate(result, level);
                     if (level == ValidationLevel.Flag && !result.IsValid)
                     {
                         return result;
                     }
-                    result = result.WithLocalProperty(propertyName);
+                    result = result.WithLocalProperty(propertyCount);
                 }
         
         
         
+                
+                propertyCount++;
+
                     }
 
         

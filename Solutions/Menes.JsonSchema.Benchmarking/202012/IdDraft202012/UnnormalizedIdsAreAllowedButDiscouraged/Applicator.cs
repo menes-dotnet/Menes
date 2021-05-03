@@ -1810,6 +1810,7 @@ namespace IdDraft202012Feature.UnnormalizedIdsAreAllowedButDiscouraged
                 return result;
             }
 
+                    int propertyCount = 0;
         
         
             foreach (Property property in this.EnumerateObject())
@@ -1819,8 +1820,8 @@ namespace IdDraft202012Feature.UnnormalizedIdsAreAllowedButDiscouraged
         
                         if (__MenesLocalProperties.TryGetValue(propertyName, out Func<Applicator, ValidationContext, ValidationLevel, ValidationContext>? propertyValidator))
                 {
-                    result = result.WithLocalProperty(propertyName);
-                    var propertyResult = propertyValidator(this, result, level);
+                    result = result.WithLocalProperty(propertyCount);
+                    var propertyResult = propertyValidator(this, result.CreateChildContext(), level);
                     result = result.MergeResults(propertyResult.IsValid, level, propertyResult);
                     if (level == ValidationLevel.Flag && !result.IsValid)
                     {
@@ -1835,6 +1836,9 @@ namespace IdDraft202012Feature.UnnormalizedIdsAreAllowedButDiscouraged
         
         
         
+                
+                propertyCount++;
+
                     }
 
         
@@ -1898,6 +1902,7 @@ namespace IdDraft202012Feature.UnnormalizedIdsAreAllowedButDiscouraged
         
                 
                 , localResultObject
+        
         
         
         
@@ -2597,6 +2602,7 @@ namespace IdDraft202012Feature.UnnormalizedIdsAreAllowedButDiscouraged
         
         
         
+        
                         );
 
             return result;
@@ -3203,6 +3209,7 @@ namespace IdDraft202012Feature.UnnormalizedIdsAreAllowedButDiscouraged
                 return result;
             }
 
+                    int propertyCount = 0;
         
         
             foreach (Property property in this.EnumerateObject())
@@ -3213,18 +3220,21 @@ namespace IdDraft202012Feature.UnnormalizedIdsAreAllowedButDiscouraged
         
         
         
-                        if (!result.HasEvaluatedLocalProperty(propertyName))
+                        if (!result.HasEvaluatedLocalProperty(propertyCount))
                 {
                     result = property.ValueAs<IdDraft202012Feature.UnnormalizedIdsAreAllowedButDiscouraged.Schema>().Validate(result, level);
                     if (level == ValidationLevel.Flag && !result.IsValid)
                     {
                         return result;
                     }
-                    result = result.WithLocalProperty(propertyName);
+                    result = result.WithLocalProperty(propertyCount);
                 }
         
         
         
+                
+                propertyCount++;
+
                     }
 
         
@@ -3276,6 +3286,7 @@ namespace IdDraft202012Feature.UnnormalizedIdsAreAllowedButDiscouraged
         
                 
                 , localResultObject
+        
         
         
         
@@ -3886,6 +3897,7 @@ namespace IdDraft202012Feature.UnnormalizedIdsAreAllowedButDiscouraged
                 return result;
             }
 
+                    int propertyCount = 0;
         
         
             foreach (Property property in this.EnumerateObject())
@@ -3895,27 +3907,28 @@ namespace IdDraft202012Feature.UnnormalizedIdsAreAllowedButDiscouraged
         
         
         
-                        string propertyNameAsString = property.Name;
-
-                            result = new JsonString(propertyNameAsString).As<IdDraft202012Feature.UnnormalizedIdsAreAllowedButDiscouraged.Applicator.PatternPropertiesValue.PropertyNamesEntity>().Validate(result, level);
+                                    result = new JsonString(propertyName).As<IdDraft202012Feature.UnnormalizedIdsAreAllowedButDiscouraged.Applicator.PatternPropertiesValue.PropertyNamesEntity>().Validate(result, level);
                 if (level == ValidationLevel.Flag && !result.IsValid)
                 {
                     return result;
                 }
             
                     
-                        if (!result.HasEvaluatedLocalProperty(propertyName))
+                        if (!result.HasEvaluatedLocalProperty(propertyCount))
                 {
                     result = property.ValueAs<IdDraft202012Feature.UnnormalizedIdsAreAllowedButDiscouraged.Schema>().Validate(result, level);
                     if (level == ValidationLevel.Flag && !result.IsValid)
                     {
                         return result;
                     }
-                    result = result.WithLocalProperty(propertyName);
+                    result = result.WithLocalProperty(propertyCount);
                 }
         
         
         
+                
+                propertyCount++;
+
                     }
 
         
@@ -3967,6 +3980,7 @@ namespace IdDraft202012Feature.UnnormalizedIdsAreAllowedButDiscouraged
         
                 
                 , localResultObject
+        
         
         
         
@@ -4939,6 +4953,7 @@ namespace IdDraft202012Feature.UnnormalizedIdsAreAllowedButDiscouraged
                 return result;
             }
 
+                    int propertyCount = 0;
         
         
             foreach (Property property in this.EnumerateObject())
@@ -4949,18 +4964,21 @@ namespace IdDraft202012Feature.UnnormalizedIdsAreAllowedButDiscouraged
         
         
         
-                        if (!result.HasEvaluatedLocalProperty(propertyName))
+                        if (!result.HasEvaluatedLocalProperty(propertyCount))
                 {
                     result = property.ValueAs<IdDraft202012Feature.UnnormalizedIdsAreAllowedButDiscouraged.Schema>().Validate(result, level);
                     if (level == ValidationLevel.Flag && !result.IsValid)
                     {
                         return result;
                     }
-                    result = result.WithLocalProperty(propertyName);
+                    result = result.WithLocalProperty(propertyCount);
                 }
         
         
         
+                
+                propertyCount++;
+
                     }
 
         
@@ -5012,6 +5030,7 @@ namespace IdDraft202012Feature.UnnormalizedIdsAreAllowedButDiscouraged
         
                 
                 , localResultObject
+        
         
         
         

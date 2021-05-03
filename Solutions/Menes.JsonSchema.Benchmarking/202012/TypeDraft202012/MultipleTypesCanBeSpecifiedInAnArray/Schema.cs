@@ -742,6 +742,9 @@ namespace TypeDraft202012Feature.MultipleTypesCanBeSpecifiedInAnArray
         
         
         
+                
+                , localResultInteger
+        
         
                         );
 

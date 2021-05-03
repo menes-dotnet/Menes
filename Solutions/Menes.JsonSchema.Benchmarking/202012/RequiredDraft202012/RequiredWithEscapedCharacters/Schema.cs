@@ -1004,6 +1004,7 @@ namespace RequiredDraft202012Feature.RequiredWithEscapedCharacters
                 return result;
             }
 
+                    int propertyCount = 0;
         
                                 bool foundFooBar = false;
                         bool foundFooBar1 = false;
@@ -1019,8 +1020,8 @@ namespace RequiredDraft202012Feature.RequiredWithEscapedCharacters
         
                         if (__MenesLocalProperties.TryGetValue(propertyName, out Func<Schema, ValidationContext, ValidationLevel, ValidationContext>? propertyValidator))
                 {
-                    result = result.WithLocalProperty(propertyName);
-                    var propertyResult = propertyValidator(this, result, level);
+                    result = result.WithLocalProperty(propertyCount);
+                    var propertyResult = propertyValidator(this, result.CreateChildContext(), level);
                     result = result.MergeResults(propertyResult.IsValid, level, propertyResult);
                     if (level == ValidationLevel.Flag && !result.IsValid)
                     {
@@ -1070,11 +1071,13 @@ namespace RequiredDraft202012Feature.RequiredWithEscapedCharacters
         
         
         
+                
+                propertyCount++;
+
                     }
 
         
-                        if (!foundFooBar
-                        )
+                        if (!foundFooBar)
             {
                 if (level >= ValidationLevel.Detailed)
                 {
@@ -1089,8 +1092,7 @@ namespace RequiredDraft202012Feature.RequiredWithEscapedCharacters
                     return result.WithResult(isValid: false);
                 }
             }
-                        if (!foundFooBar1
-                        )
+                        if (!foundFooBar1)
             {
                 if (level >= ValidationLevel.Detailed)
                 {
@@ -1105,8 +1107,7 @@ namespace RequiredDraft202012Feature.RequiredWithEscapedCharacters
                     return result.WithResult(isValid: false);
                 }
             }
-                        if (!foundFooBar2
-                        )
+                        if (!foundFooBar2)
             {
                 if (level >= ValidationLevel.Detailed)
                 {
@@ -1121,8 +1122,7 @@ namespace RequiredDraft202012Feature.RequiredWithEscapedCharacters
                     return result.WithResult(isValid: false);
                 }
             }
-                        if (!foundFooBar3
-                        )
+                        if (!foundFooBar3)
             {
                 if (level >= ValidationLevel.Detailed)
                 {
@@ -1137,8 +1137,7 @@ namespace RequiredDraft202012Feature.RequiredWithEscapedCharacters
                     return result.WithResult(isValid: false);
                 }
             }
-                        if (!foundFooBar4
-                        )
+                        if (!foundFooBar4)
             {
                 if (level >= ValidationLevel.Detailed)
                 {
@@ -1153,8 +1152,7 @@ namespace RequiredDraft202012Feature.RequiredWithEscapedCharacters
                     return result.WithResult(isValid: false);
                 }
             }
-                        if (!foundFooBar5
-                        )
+                        if (!foundFooBar5)
             {
                 if (level >= ValidationLevel.Detailed)
                 {

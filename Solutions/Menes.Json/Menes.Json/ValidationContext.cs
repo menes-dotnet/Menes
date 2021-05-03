@@ -26,9 +26,9 @@ namespace Menes.Json
         private static readonly ImmutableStack<string> RootAbsoluteLocationStack = ImmutableStack.Create("#");
 
         private readonly ImmutableArray<ulong>? localEvaluatedItemIndex;
-        private readonly ImmutableHashSet<string>? localEvaluatedProperties;
+        private readonly ImmutableArray<ulong>? localEvaluatedProperties;
         private readonly ImmutableArray<ulong>? appliedEvaluatedItemIndex;
-        private readonly ImmutableHashSet<string>? appliedEvaluatedProperties;
+        private readonly ImmutableArray<ulong>? appliedEvaluatedProperties;
         private readonly ImmutableStack<string>? absoluteKeywordLocationStack;
         private readonly ImmutableStack<string>? locationStack;
         private readonly ImmutableArray<ValidationResult>? results;
@@ -44,7 +44,7 @@ namespace Menes.Json
         /// <param name="locationStack">The current location stack.</param>
         /// <param name="absoluteKeywordLocationStack">The current absolute keyword location stack.</param>
         /// <param name="results">The validation results.</param>
-        private ValidationContext(bool isValid, ImmutableArray<ulong>? localEvaluatedItemIndex = null, in ImmutableHashSet<string>? localEvaluatedProperties = null, ImmutableArray<ulong>? appliedEvaluatedItemIndex = null, in ImmutableHashSet<string>? appliedEvaluatedProperties = null, in ImmutableStack<string>? locationStack = null, in ImmutableStack<string>? absoluteKeywordLocationStack = null, in ImmutableArray<ValidationResult>? results = null)
+        private ValidationContext(bool isValid, in ImmutableArray<ulong>? localEvaluatedItemIndex = null, in ImmutableArray<ulong>? localEvaluatedProperties = null, in ImmutableArray<ulong>? appliedEvaluatedItemIndex = null, in ImmutableArray<ulong>? appliedEvaluatedProperties = null, in ImmutableStack<string>? locationStack = null, in ImmutableStack<string>? absoluteKeywordLocationStack = null, in ImmutableArray<ValidationResult>? results = null)
         {
             this.localEvaluatedItemIndex = localEvaluatedItemIndex;
             this.localEvaluatedProperties = localEvaluatedProperties;
@@ -76,7 +76,7 @@ namespace Menes.Json
         /// <returns>The validation context enabled with evaluated properties.</returns>
         public ValidationContext UsingEvaluatedProperties()
         {
-            return new ValidationContext(this.IsValid, this.localEvaluatedItemIndex, this.localEvaluatedProperties ?? ImmutableHashSet<string>.Empty, this.appliedEvaluatedItemIndex, this.appliedEvaluatedProperties ?? ImmutableHashSet<string>.Empty, this.locationStack, this.absoluteKeywordLocationStack, this.results);
+            return new ValidationContext(this.IsValid, this.localEvaluatedItemIndex, this.localEvaluatedProperties ?? ImmutableArray.Create<ulong>(0), this.appliedEvaluatedItemIndex, this.appliedEvaluatedProperties ?? ImmutableArray.Create<ulong>(0), this.locationStack, this.absoluteKeywordLocationStack, this.results);
         }
 
         /// <summary>
@@ -91,11 +91,18 @@ namespace Menes.Json
         /// <summary>
         /// Determines if a property has been locally evaluated.
         /// </summary>
-        /// <param name="propertyName">The name of the property.</param>
+        /// <param name="propertyIndex">The index of the property.</param>
         /// <returns><c>True</c> if the property has been evaluated locally.</returns>
-        public bool HasEvaluatedLocalProperty(string propertyName)
+        public bool HasEvaluatedLocalProperty(int propertyIndex)
         {
-            return this.localEvaluatedProperties?.Contains(propertyName) ?? false;
+            if (this.localEvaluatedProperties is ImmutableArray<ulong> lep)
+            {
+                int offset = propertyIndex / 64;
+                int bit = propertyIndex % 64;
+                return offset < lep.Length && ((lep[offset] & (1UL << bit)) != 0);
+            }
+
+            return false;
         }
 
         /// <summary>
@@ -118,11 +125,39 @@ namespace Menes.Json
         /// <summary>
         /// Determines if a property has been evaluated locally or by applied schema.
         /// </summary>
-        /// <param name="propertyName">The name of the property.</param>
+        /// <param name="propertyIndex">The index of the property.</param>
         /// <returns><c>True</c> if the property has been evaluated either locally or by applied schema.</returns>
-        public bool HasEvaluatedLocalOrAppliedProperty(string propertyName)
+        public bool HasEvaluatedLocalOrAppliedProperty(int propertyIndex)
         {
-            return (this.localEvaluatedProperties?.Contains(propertyName) ?? false) || (this.appliedEvaluatedProperties?.Contains(propertyName) ?? false);
+            bool hasLep = this.localEvaluatedProperties is ImmutableArray<ulong> lep;
+            bool hasAep = this.appliedEvaluatedProperties is ImmutableArray<ulong> aep;
+
+            if (!hasLep && !hasAep)
+            {
+                return false;
+            }
+
+            int offset = propertyIndex / 64;
+            int bit = propertyIndex % 64;
+            ulong bitPattern = 1UL << bit;
+
+            if (hasLep)
+            {
+                if (offset < lep.Length && ((lep[offset] & bitPattern) != 0))
+                {
+                    return true;
+                }
+            }
+
+            if (hasAep)
+            {
+                if (offset < aep.Length && ((aep[offset] & bitPattern) != 0))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         /// <summary>
@@ -187,11 +222,11 @@ namespace Menes.Json
         /// <summary>
         /// Adds an property name to the evaluated properties array.
         /// </summary>
-        /// <param name="propertyName">The property name to add.</param>
+        /// <param name="propertyIndex">The property index to add.</param>
         /// <returns>The updated validation context.</returns>
-        public ValidationContext WithLocalProperty(string propertyName)
+        public ValidationContext WithLocalProperty(int propertyIndex)
         {
-            return new ValidationContext(this.IsValid, this.localEvaluatedItemIndex, this.AddLocalEvaluatedProperty(propertyName), this.appliedEvaluatedItemIndex, this.appliedEvaluatedProperties, this.locationStack, this.absoluteKeywordLocationStack, this.results);
+            return new ValidationContext(this.IsValid, this.localEvaluatedItemIndex, this.AddLocalEvaluatedProperty(propertyIndex), this.appliedEvaluatedItemIndex, this.appliedEvaluatedProperties, this.locationStack, this.absoluteKeywordLocationStack, this.results);
         }
 
         /// <summary>
@@ -231,7 +266,7 @@ namespace Menes.Json
         /// <returns>A new (valid) validation context with no evaluated items or properties, at the current location.</returns>
         public ValidationContext CreateChildContext()
         {
-            return new ValidationContext(this.IsValid, this.localEvaluatedItemIndex is null ? null : ImmutableArray.Create<ulong>(0), this.localEvaluatedProperties is null ? null : ImmutableHashSet<string>.Empty, this.appliedEvaluatedItemIndex is null ? null : ImmutableArray.Create<ulong>(0), this.appliedEvaluatedProperties is null ? null : ImmutableHashSet<string>.Empty, this.locationStack, this.absoluteKeywordLocationStack, null);
+            return new ValidationContext(this.IsValid, this.localEvaluatedItemIndex is null ? null : ImmutableArray.Create<ulong>(0), this.localEvaluatedProperties is null ? null : ImmutableArray.Create<ulong>(0), this.appliedEvaluatedItemIndex is null ? null : ImmutableArray.Create<ulong>(0), this.appliedEvaluatedProperties is null ? null : ImmutableArray.Create<ulong>(0), this.locationStack, this.absoluteKeywordLocationStack, null);
         }
 
         /// <summary>
@@ -242,7 +277,7 @@ namespace Menes.Json
         /// <returns>A new (valid) validation context with no evaluated items or properties, at the current location.</returns>
         public ValidationContext CreateChildContext(string location, string absoluteKeywordLocation)
         {
-            return new ValidationContext(this.IsValid, this.localEvaluatedItemIndex is null ? null : ImmutableArray.Create<ulong>(0), this.localEvaluatedProperties is null ? null : ImmutableHashSet<string>.Empty, null, null, this.locationStack?.Push(location), this.absoluteKeywordLocationStack?.Push(absoluteKeywordLocation), null);
+            return new ValidationContext(this.IsValid, this.localEvaluatedItemIndex is null ? null : ImmutableArray.Create<ulong>(0), this.localEvaluatedProperties is null ? null : ImmutableArray.Create<ulong>(0), null, null, this.locationStack?.Push(location), this.absoluteKeywordLocationStack?.Push(absoluteKeywordLocation), null);
         }
 
         /// <summary>
@@ -866,14 +901,20 @@ namespace Menes.Json
                 builder.ToImmutable());
         }
 
-        private ImmutableHashSet<string>? AddLocalEvaluatedProperty(string propertyName)
+        private ImmutableArray<ulong>? AddLocalEvaluatedProperty(int index)
         {
-            if (this.localEvaluatedProperties is ImmutableHashSet<string> lep)
+            if (this.localEvaluatedProperties is ImmutableArray<ulong> lep)
             {
-                if (!lep.Contains(propertyName))
+                // Calculate the offset into the array
+                int offset = index / 64;
+                ulong bit = 1UL << (index % 64);
+                if (offset >= lep.Length)
                 {
-                    return lep.Add(propertyName);
+                    lep = lep.AddRange(Enumerable.Repeat(0UL, offset - lep.Length + 1));
                 }
+
+                lep = lep.SetItem(offset, lep[offset] | bit);
+                return lep;
             }
 
             return this.localEvaluatedProperties;
@@ -943,27 +984,28 @@ namespace Menes.Json
             }
         }
 
-        private ImmutableHashSet<string>? CombineProperties(in ValidationContext childContext)
+        private ImmutableArray<ulong>? CombineProperties(in ValidationContext childContext)
         {
-            if (this.appliedEvaluatedProperties is not ImmutableHashSet<string> aep)
+            if (this.appliedEvaluatedProperties is not ImmutableArray<ulong> aep)
             {
                 return null;
             }
 
             if (childContext.appliedEvaluatedProperties is not null || childContext.localEvaluatedProperties is not null)
             {
-                ImmutableHashSet<string> result = aep;
-                if (childContext.appliedEvaluatedProperties is not null)
+                ImmutableArray<ulong>.Builder result = ImmutableArray.CreateBuilder<ulong>();
+                result.AddRange(aep);
+                if (childContext.appliedEvaluatedProperties is ImmutableArray<ulong> childaep)
                 {
-                    result = result.Union(childContext.appliedEvaluatedProperties);
+                    this.ApplyBits(result, childaep);
                 }
 
-                if (childContext.localEvaluatedProperties is not null)
+                if (childContext.localEvaluatedProperties is ImmutableArray<ulong> childlep)
                 {
-                    result = result.Union(childContext.localEvaluatedProperties);
+                    this.ApplyBits(result, childlep);
                 }
 
-                return result;
+                return result.ToImmutable();
             }
 
             return null;

@@ -607,6 +607,7 @@ namespace DependentSchemasDraft202012Feature.BooleanSubschemas
                 return result;
             }
 
+                    int propertyCount = 0;
         
         
             foreach (Property property in this.EnumerateObject())
@@ -617,7 +618,7 @@ namespace DependentSchemasDraft202012Feature.BooleanSubschemas
         
                         if (__MenesDependentSchema.TryGetValue(propertyName, out Func<Schema, ValidationContext, ValidationLevel, ValidationContext>? dependentSchemaValidator))
                 {
-                    result = result.WithLocalProperty(propertyName);
+                    result = result.WithLocalProperty(propertyCount);
                     result = dependentSchemaValidator(this, result, level);
                     if (level == ValidationLevel.Flag && !result.IsValid)
                     {
@@ -629,6 +630,9 @@ namespace DependentSchemasDraft202012Feature.BooleanSubschemas
         
         
         
+                
+                propertyCount++;
+
                     }
 
         

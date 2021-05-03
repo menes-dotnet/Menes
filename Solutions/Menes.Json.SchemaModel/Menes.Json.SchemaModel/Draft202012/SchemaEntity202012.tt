@@ -4195,7 +4195,7 @@ namespace <#= Namespace #>
             }
 
         <#
-        if (HasMaxProperties || HasMinProperties)
+        if (HasMaxProperties || HasMinProperties || HasLocalProperties || HasRequired || HasDependentSchemas || HasPatternProperties || HasAdditionalProperties || HasUnevaluatedProperties)
         {
         #>
             int propertyCount = 0;
@@ -4268,8 +4268,8 @@ namespace <#= Namespace #>
         #>
                 if (__MenesLocalProperties.TryGetValue(propertyName, out Func<<#= TypeDeclaration.DotnetTypeName #>, ValidationContext, ValidationLevel, ValidationContext>? propertyValidator))
                 {
-                    result = result.WithLocalProperty(propertyName);
-                    var propertyResult = propertyValidator(this, result, level);
+                    result = result.WithLocalProperty(propertyCount);
+                    var propertyResult = propertyValidator(this, result.CreateChildContext(), level);
                     result = result.MergeResults(propertyResult.IsValid, level, propertyResult);
                     if (level == ValidationLevel.Flag && !result.IsValid)
                     {
@@ -4314,7 +4314,7 @@ namespace <#= Namespace #>
         #>
                 if (__MenesDependentSchema.TryGetValue(propertyName, out Func<<#= TypeDeclaration.DotnetTypeName #>, ValidationContext, ValidationLevel, ValidationContext>? dependentSchemaValidator))
                 {
-                    result = result.WithLocalProperty(propertyName);
+                    result = result.WithLocalProperty(propertyCount);
                     result = dependentSchemaValidator(this, result, level);
                     if (level == ValidationLevel.Flag && !result.IsValid)
                     {
@@ -4329,13 +4329,11 @@ namespace <#= Namespace #>
         if (HasPropertyNames || HasPatternProperties)
         {
         #>
-                string propertyNameAsString = property.Name;
-
             <#
             if (HasPropertyNames)
             {
             #>
-                result = new JsonString(propertyNameAsString).As<<#=     PropertyNamesDotnetTypeName #>>().Validate(result, level);
+                result = new JsonString(propertyName).As<<#=     PropertyNamesDotnetTypeName #>>().Validate(result, level);
                 if (level == ValidationLevel.Flag && !result.IsValid)
                 {
                     return result;
@@ -4350,9 +4348,9 @@ namespace <#= Namespace #>
             #>
                 foreach (System.Collections.Generic.KeyValuePair<Regex, Func<Property, ValidationContext, ValidationLevel, ValidationContext>> patternProperty in __MenesPatternProperties)
                 {
-                    if (patternProperty.Key.IsMatch(propertyNameAsString))
+                    if (patternProperty.Key.IsMatch(propertyName))
                     {
-                        result = result.WithLocalProperty(propertyName);
+                        result = result.WithLocalProperty(propertyCount);
                         result = patternProperty.Value(property, result, level);
                         if (level == ValidationLevel.Flag && !result.IsValid)
                         {
@@ -4372,14 +4370,14 @@ namespace <#= Namespace #>
         if (AllowsAdditionalProperties && HasAdditionalProperties)
         {
         #>
-                if (!result.HasEvaluatedLocalProperty(propertyName))
+                if (!result.HasEvaluatedLocalProperty(propertyCount))
                 {
                     result = property.ValueAs<<#= AdditionalPropertiesDotnetTypeName #>>().Validate(result, level);
                     if (level == ValidationLevel.Flag && !result.IsValid)
                     {
                         return result;
                     }
-                    result = result.WithLocalProperty(propertyName);
+                    result = result.WithLocalProperty(propertyCount);
                 }
         <#
         }
@@ -4389,7 +4387,7 @@ namespace <#= Namespace #>
         if (AllowsAdditionalProperties && HasUnevaluatedProperties)
         {
         #>        
-                if (!result.HasEvaluatedLocalOrAppliedProperty(propertyName))
+                if (!result.HasEvaluatedLocalOrAppliedProperty(propertyCount))
                 {
 
                     result = property.ValueAs<<#= UnevaluatedPropertiesDotnetTypeName #>>().Validate(result, level);
@@ -4398,7 +4396,7 @@ namespace <#= Namespace #>
                         return result;
                     }
 
-                    result = result.WithLocalProperty(propertyName);
+                    result = result.WithLocalProperty(propertyCount);
                 }
         <#
         }
@@ -4408,7 +4406,7 @@ namespace <#= Namespace #>
         if (!AllowsAdditionalProperties)
         {
         #>        
-                if (!result.HasEvaluatedLocalProperty(propertyName))
+                if (!result.HasEvaluatedLocalProperty(propertyCount))
                 {
                     if (level >= ValidationLevel.Detailed)
                     {
@@ -4429,7 +4427,7 @@ namespace <#= Namespace #>
         #>
 
         <#
-        if (HasMaxProperties || HasMinProperties)
+        if (HasMaxProperties || HasMinProperties || HasLocalProperties || HasRequired || HasDependentSchemas || HasPatternProperties || HasAdditionalProperties || HasUnevaluatedProperties)
         {
         #>        
                 propertyCount++;
@@ -4447,21 +4445,14 @@ namespace <#= Namespace #>
             <#
             foreach (var property in RequiredProperties)
             {
-            #>
-            if (!found<#=     property.DotnetPropertyName #>
-            <#
-                if (HasDefaults)
+                if (!property.HasDefaultValue)
                 {
             #>
-            && !HasDefault(<#=  property.DotnetPropertyName #>JsonPropertyName)
-            <#
-                }
-            #>
-            )
+            if (!found<#=                    property.DotnetPropertyName #>)
             {
                 if (level >= ValidationLevel.Detailed)
                 {
-                    result = result.WithResult(isValid: false, $"6.5.3. required - required property \"<#=     Formatting.FormatLiteralOrNull(property.JsonPropertyName, true).Trim('"') #>\" not present.");
+                    result = result.WithResult(isValid: false, $"6.5.3. required - required property \"<#=                    Formatting.FormatLiteralOrNull(property.JsonPropertyName, true).Trim('"') #>\" not present.");
                 }
                 else if (level >= ValidationLevel.Basic)
                 {
@@ -4473,6 +4464,7 @@ namespace <#= Namespace #>
                 }
             }
             <#
+                }
             }
             #>
         <#

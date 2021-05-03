@@ -943,6 +943,9 @@ namespace RecursiveRefDraft201909Feature.MultipleDynamicPathsToTheRecursiveRefKe
         
         
         
+                
+                , localResultInteger
+        
         
                         );
 
@@ -1538,6 +1541,7 @@ namespace RecursiveRefDraft201909Feature.MultipleDynamicPathsToTheRecursiveRefKe
                 return result;
             }
 
+                    int propertyCount = 0;
         
         
             foreach (Property property in this.EnumerateObject())
@@ -1548,18 +1552,21 @@ namespace RecursiveRefDraft201909Feature.MultipleDynamicPathsToTheRecursiveRefKe
         
         
         
-                        if (!result.HasEvaluatedLocalProperty(propertyName))
+                        if (!result.HasEvaluatedLocalProperty(propertyCount))
                 {
                     result = property.ValueAs<RecursiveRefDraft201909Feature.MultipleDynamicPathsToTheRecursiveRefKeyword.RecursiveRef8IntegerNodeJson>().Validate(result, level);
                     if (level == ValidationLevel.Flag && !result.IsValid)
                     {
                         return result;
                     }
-                    result = result.WithLocalProperty(propertyName);
+                    result = result.WithLocalProperty(propertyCount);
                 }
         
         
         
+                
+                propertyCount++;
+
                     }
 
         

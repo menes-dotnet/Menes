@@ -1036,6 +1036,7 @@ namespace NotDraft202012Feature.NotMoreComplexSchema
                 return result;
             }
 
+                    int propertyCount = 0;
         
         
             foreach (Property property in this.EnumerateObject())
@@ -1045,8 +1046,8 @@ namespace NotDraft202012Feature.NotMoreComplexSchema
         
                         if (__MenesLocalProperties.TryGetValue(propertyName, out Func<NotValue, ValidationContext, ValidationLevel, ValidationContext>? propertyValidator))
                 {
-                    result = result.WithLocalProperty(propertyName);
-                    var propertyResult = propertyValidator(this, result, level);
+                    result = result.WithLocalProperty(propertyCount);
+                    var propertyResult = propertyValidator(this, result.CreateChildContext(), level);
                     result = result.MergeResults(propertyResult.IsValid, level, propertyResult);
                     if (level == ValidationLevel.Flag && !result.IsValid)
                     {
@@ -1061,6 +1062,9 @@ namespace NotDraft202012Feature.NotMoreComplexSchema
         
         
         
+                
+                propertyCount++;
+
                     }
 
         
@@ -1112,6 +1116,7 @@ namespace NotDraft202012Feature.NotMoreComplexSchema
         
                 
                 , localResultObject
+        
         
         
         

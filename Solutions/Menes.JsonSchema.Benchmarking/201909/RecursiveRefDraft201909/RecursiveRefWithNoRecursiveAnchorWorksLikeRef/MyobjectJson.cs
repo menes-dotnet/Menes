@@ -1344,6 +1344,7 @@ namespace RecursiveRefDraft201909Feature.RecursiveRefWithNoRecursiveAnchorWorksL
                 return result;
             }
 
+                    int propertyCount = 0;
         
         
             foreach (Property property in this.EnumerateObject())
@@ -1354,18 +1355,21 @@ namespace RecursiveRefDraft201909Feature.RecursiveRefWithNoRecursiveAnchorWorksL
         
         
         
-                        if (!result.HasEvaluatedLocalProperty(propertyName))
+                        if (!result.HasEvaluatedLocalProperty(propertyCount))
                 {
                     result = property.ValueAs<RecursiveRefDraft201909Feature.RecursiveRefWithNoRecursiveAnchorWorksLikeRef.MyobjectJson>().Validate(result, level);
                     if (level == ValidationLevel.Flag && !result.IsValid)
                     {
                         return result;
                     }
-                    result = result.WithLocalProperty(propertyName);
+                    result = result.WithLocalProperty(propertyCount);
                 }
         
         
         
+                
+                propertyCount++;
+
                     }
 
         
@@ -1417,6 +1421,7 @@ namespace RecursiveRefDraft201909Feature.RecursiveRefWithNoRecursiveAnchorWorksL
         
                 
                 , localResultObject
+        
         
         
         

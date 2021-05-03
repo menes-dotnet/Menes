@@ -935,6 +935,7 @@ namespace AllOfDraft202012Feature.AllOfWithBaseSchema
                 return result;
             }
 
+                    int propertyCount = 0;
         
                                 bool foundBar = false;
                     
@@ -945,8 +946,8 @@ namespace AllOfDraft202012Feature.AllOfWithBaseSchema
         
                         if (__MenesLocalProperties.TryGetValue(propertyName, out Func<Schema, ValidationContext, ValidationLevel, ValidationContext>? propertyValidator))
                 {
-                    result = result.WithLocalProperty(propertyName);
-                    var propertyResult = propertyValidator(this, result, level);
+                    result = result.WithLocalProperty(propertyCount);
+                    var propertyResult = propertyValidator(this, result.CreateChildContext(), level);
                     result = result.MergeResults(propertyResult.IsValid, level, propertyResult);
                     if (level == ValidationLevel.Flag && !result.IsValid)
                     {
@@ -966,11 +967,13 @@ namespace AllOfDraft202012Feature.AllOfWithBaseSchema
         
         
         
+                
+                propertyCount++;
+
                     }
 
         
-                        if (!foundBar
-                        )
+                        if (!foundBar)
             {
                 if (level >= ValidationLevel.Detailed)
                 {
@@ -1721,6 +1724,7 @@ namespace AllOfDraft202012Feature.AllOfWithBaseSchema
                 return result;
             }
 
+                    int propertyCount = 0;
         
                                 bool foundFoo = false;
                     
@@ -1731,8 +1735,8 @@ namespace AllOfDraft202012Feature.AllOfWithBaseSchema
         
                         if (__MenesLocalProperties.TryGetValue(propertyName, out Func<AllOf0Entity, ValidationContext, ValidationLevel, ValidationContext>? propertyValidator))
                 {
-                    result = result.WithLocalProperty(propertyName);
-                    var propertyResult = propertyValidator(this, result, level);
+                    result = result.WithLocalProperty(propertyCount);
+                    var propertyResult = propertyValidator(this, result.CreateChildContext(), level);
                     result = result.MergeResults(propertyResult.IsValid, level, propertyResult);
                     if (level == ValidationLevel.Flag && !result.IsValid)
                     {
@@ -1752,11 +1756,13 @@ namespace AllOfDraft202012Feature.AllOfWithBaseSchema
         
         
         
+                
+                propertyCount++;
+
                     }
 
         
-                        if (!foundFoo
-                        )
+                        if (!foundFoo)
             {
                 if (level >= ValidationLevel.Detailed)
                 {
@@ -2452,6 +2458,7 @@ namespace AllOfDraft202012Feature.AllOfWithBaseSchema
                 return result;
             }
 
+                    int propertyCount = 0;
         
                                 bool foundBaz = false;
                     
@@ -2462,8 +2469,8 @@ namespace AllOfDraft202012Feature.AllOfWithBaseSchema
         
                         if (__MenesLocalProperties.TryGetValue(propertyName, out Func<AllOf1Entity, ValidationContext, ValidationLevel, ValidationContext>? propertyValidator))
                 {
-                    result = result.WithLocalProperty(propertyName);
-                    var propertyResult = propertyValidator(this, result, level);
+                    result = result.WithLocalProperty(propertyCount);
+                    var propertyResult = propertyValidator(this, result.CreateChildContext(), level);
                     result = result.MergeResults(propertyResult.IsValid, level, propertyResult);
                     if (level == ValidationLevel.Flag && !result.IsValid)
                     {
@@ -2483,11 +2490,13 @@ namespace AllOfDraft202012Feature.AllOfWithBaseSchema
         
         
         
+                
+                propertyCount++;
+
                     }
 
         
-                        if (!foundBaz
-                        )
+                        if (!foundBaz)
             {
                 if (level >= ValidationLevel.Detailed)
                 {

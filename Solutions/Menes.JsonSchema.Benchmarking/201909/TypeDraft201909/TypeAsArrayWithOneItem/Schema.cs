@@ -536,6 +536,7 @@ namespace TypeDraft201909Feature.TypeAsArrayWithOneItem
         
         
         
+        
                         );
 
             return result;

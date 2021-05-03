@@ -787,6 +787,7 @@ namespace OneOfDraft202012Feature.OneOfWithBaseSchema
         
         
         
+        
                         );
 
             return result;

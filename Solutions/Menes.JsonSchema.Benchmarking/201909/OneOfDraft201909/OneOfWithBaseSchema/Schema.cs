@@ -789,6 +789,7 @@ namespace OneOfDraft201909Feature.OneOfWithBaseSchema
         
         
         
+        
                         );
 
             return result;

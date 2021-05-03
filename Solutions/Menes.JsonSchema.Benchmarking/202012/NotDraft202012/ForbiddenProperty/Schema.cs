@@ -677,6 +677,7 @@ namespace NotDraft202012Feature.ForbiddenProperty
                 return result;
             }
 
+                    int propertyCount = 0;
         
         
             foreach (Property property in this.EnumerateObject())
@@ -686,8 +687,8 @@ namespace NotDraft202012Feature.ForbiddenProperty
         
                         if (__MenesLocalProperties.TryGetValue(propertyName, out Func<Schema, ValidationContext, ValidationLevel, ValidationContext>? propertyValidator))
                 {
-                    result = result.WithLocalProperty(propertyName);
-                    var propertyResult = propertyValidator(this, result, level);
+                    result = result.WithLocalProperty(propertyCount);
+                    var propertyResult = propertyValidator(this, result.CreateChildContext(), level);
                     result = result.MergeResults(propertyResult.IsValid, level, propertyResult);
                     if (level == ValidationLevel.Flag && !result.IsValid)
                     {
@@ -702,6 +703,9 @@ namespace NotDraft202012Feature.ForbiddenProperty
         
         
         
+                
+                propertyCount++;
+
                     }
 
         

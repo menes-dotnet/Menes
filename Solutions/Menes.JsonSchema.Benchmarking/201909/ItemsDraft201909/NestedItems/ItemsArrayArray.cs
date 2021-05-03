@@ -689,6 +689,7 @@ namespace ItemsDraft201909Feature.NestedItems
         
         
         
+        
                         );
 
             return result;
@@ -1365,6 +1366,7 @@ namespace ItemsDraft201909Feature.NestedItems
         
                 
                 , localResultArray
+        
         
         
         
@@ -2051,6 +2053,7 @@ namespace ItemsDraft201909Feature.NestedItems
         
         
         
+        
                         );
 
             return result;
@@ -2731,6 +2734,7 @@ namespace ItemsDraft201909Feature.NestedItems
         
                 
                 , localResultArray
+        
         
         
         

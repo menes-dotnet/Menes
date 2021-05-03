@@ -10,7 +10,7 @@
 
 #nullable enable
 
-namespace AdditionalItemsDraft201909Feature.AdditionalItemsAsSchema
+namespace RefDraft201909Feature.RootPointerRef
 {
     using System;
     using System.Collections.Generic;
@@ -23,9 +23,22 @@ namespace AdditionalItemsDraft201909Feature.AdditionalItemsAsSchema
     /// A type generated from a JsonSchema specification.
     /// </summary>
     public readonly struct Schema :
-                IJsonArray<Schema>,
-                IEquatable<Schema>
+            IJsonObject<Schema>,
+                    IEquatable<Schema>
     {
+
+        
+    
+        
+        /// <summary>
+        /// JSON property name for <see cref="Foo"/>.
+        /// </summary>
+        public static readonly ReadOnlyMemory<byte> FooUtf8JsonPropertyName = new byte[] { 102, 111, 111 };
+
+        /// <summary>
+        /// JSON property name for <see cref="Foo"/>.
+        /// </summary>
+        public static readonly string FooJsonPropertyName = "foo";
 
         
     
@@ -33,14 +46,15 @@ namespace AdditionalItemsDraft201909Feature.AdditionalItemsAsSchema
     
     
     
+            private static readonly ImmutableDictionary<string, Func<Schema, ValidationContext, ValidationLevel, ValidationContext>> __MenesLocalProperties = CreateLocalPropertyValidators();
     
     
 
     
         private readonly JsonElement jsonElementBacking;
 
+            private readonly ImmutableDictionary<string, JsonAny>? objectBacking;
     
-            private readonly ImmutableList<JsonAny>? arrayBacking;
     
     
     
@@ -52,35 +66,34 @@ namespace AdditionalItemsDraft201909Feature.AdditionalItemsAsSchema
         public Schema(JsonElement value)
         {
             this.jsonElementBacking = value;
-                    this.arrayBacking = default;
-                        }
+                this.objectBacking = default;
+                            }
 
-    
             /// <summary>
         /// Initializes a new instance of the <see cref="Schema"/> struct.
         /// </summary>
-        /// <param name="value">An array list.</param>
-        public Schema(ImmutableList<JsonAny> value)
+        /// <param name="value">A property dictionary.</param>
+        public Schema(ImmutableDictionary<string, JsonAny> value)
         {
             this.jsonElementBacking = default;
-                                            this.arrayBacking = value;
-        }
+            this.objectBacking = value;
+                                        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Schema"/> struct.
         /// </summary>
-        /// <param name="jsonArray">The <see cref="JsonArray"/> from which to construct the value.</param>
-        public Schema(JsonArray jsonArray)
+        /// <param name="jsonObject">The <see cref="JsonObject"/> from which to construct the value.</param>
+        public Schema(JsonObject jsonObject)
         {
-            if (jsonArray.HasJsonElement)
+            if (jsonObject.HasJsonElement)
             {
-                this.jsonElementBacking = jsonArray.AsJsonElement;
-                this.arrayBacking = default;
+                this.jsonElementBacking = jsonObject.AsJsonElement;
+                this.objectBacking = default;
             }
             else
             {
                 this.jsonElementBacking = default;
-                this.arrayBacking = jsonArray.AsItemsList;
+                this.objectBacking = jsonObject.AsPropertyDictionary;
             }
 
                                         }
@@ -90,30 +103,54 @@ namespace AdditionalItemsDraft201909Feature.AdditionalItemsAsSchema
     
     
     
+    
 
-            /// <inheritdoc/>
-        public int Length
-        {
-            get
-            {
-                if (this.arrayBacking is ImmutableList<JsonAny> items)
-                {
-                    return items.Count;
-                }
-
-                return this.jsonElementBacking.GetArrayLength();
-            }
-        }
     
     
         
-            /// <summary>
+            
+        /// <summary>
+        /// Gets Foo.
+        /// </summary>
+        /// <remarks>
+        /// {Property title}.
+        /// {Property description}.
+        /// </remarks>
+        /// <example>
+        /// {Property examples}.
+        /// </example>
+        public RefDraft201909Feature.RootPointerRef.Schema Foo
+        {
+            get
+            {
+                if (this.objectBacking is ImmutableDictionary<string, JsonAny> properties)
+                {
+                    if(properties.TryGetValue(FooJsonPropertyName, out JsonAny result))
+                    {
+                        return result;
+                    }
+                }
+
+                if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
+                {
+                    if (this.jsonElementBacking.TryGetProperty(FooUtf8JsonPropertyName.Span, out JsonElement result))
+                    {
+                        return new  RefDraft201909Feature.RootPointerRef.Schema(result);
+                    }
+                }
+
+                return default;
+            }
+        }
+
+                    /// <summary>
         /// Gets a value indicating whether this is backed by a JSON element.
         /// </summary>
         public bool HasJsonElement =>
     
+                this.objectBacking is null
+            
     
-                        this.arrayBacking is null
                 
                 ;
 
@@ -124,11 +161,13 @@ namespace AdditionalItemsDraft201909Feature.AdditionalItemsAsSchema
         {
             get
             {
-    
-                    if (this.arrayBacking is ImmutableList<JsonAny> arrayBacking)
+              
+                if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
                 {
-                    return JsonArray.ItemsToJsonElement(arrayBacking);
+                    return JsonObject.PropertiesToJsonElement(objectBacking);
                 }
+
+    
     
     
     
@@ -142,12 +181,12 @@ namespace AdditionalItemsDraft201909Feature.AdditionalItemsAsSchema
         {
             get
             {
-    
-                    if (this.arrayBacking is ImmutableList<JsonAny>)
+                    if (this.objectBacking is ImmutableDictionary<string, JsonAny>)
                 {
-                    return JsonValueKind.Array;
+                    return JsonValueKind.Object;
                 }
 
+    
     
     
     
@@ -161,12 +200,12 @@ namespace AdditionalItemsDraft201909Feature.AdditionalItemsAsSchema
         {
             get
             {
-    
-                    if (this.arrayBacking is ImmutableList<JsonAny> arrayBacking)
+                    if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
                 {
-                    return new JsonAny(arrayBacking);
+                    return new JsonAny(objectBacking);
                 }
 
+    
     
     
     
@@ -201,42 +240,43 @@ namespace AdditionalItemsDraft201909Feature.AdditionalItemsAsSchema
         }
 
     
-        /// <summary>
-        /// Conversion from array.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator Schema(JsonArray value)
-        {
-            return new Schema(value);
-        }
-
-        /// <summary>
-        /// Conversion to array.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator JsonArray(Schema value)
-        {
-            return value.AsArray;
-        }
-       
-        /// <summary>
-        /// Implicit conversion to an <see cref="ImmutableList{T}"/> of <see cref="JsonAny"/>.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator ImmutableList<JsonAny>(Schema value)
-        {
-            return value.AsArray.AsItemsList;
-        }
-
-        /// <summary>
-        /// Implicit conversion from an <see cref="ImmutableList{T}"/> of <see cref="JsonAny"/>.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator Schema(ImmutableList<JsonAny> value)
-        {
-            return new Schema(value);
-        }
     
+        /// <summary>
+        /// Conversion from object.
+        /// </summary>
+        /// <param name="value">The value from which to convert.</param>
+        public static implicit operator Schema(JsonObject value)
+        {
+            return new Schema(value);
+        }
+
+        /// <summary>
+        /// Conversion to object.
+        /// </summary>
+        /// <param name="value">The value from which to convert.</param>
+        public static implicit operator JsonObject(Schema value)
+        {
+            return value.AsObject;
+        }
+
+                /// <summary>
+        /// Implicit conversion to a property dictionary.
+        /// </summary>
+        /// <param name="value">The value from which to convert.</param>
+        public static implicit operator ImmutableDictionary<string, JsonAny>(Schema  value)
+        {
+            return value.AsObject.AsPropertyDictionary;
+        }
+
+        /// <summary>
+        /// Implicit conversion from a property dictionary.
+        /// </summary>
+        /// <param name="value">The value from which to convert.</param>
+        public static implicit operator Schema (ImmutableDictionary<string, JsonAny> value)
+        {
+            return new Schema (value);
+        }
+
     
     
     
@@ -263,63 +303,35 @@ namespace AdditionalItemsDraft201909Feature.AdditionalItemsAsSchema
             return !lhs.Equals(rhs);
         }
 
-                            /// <summary>
-        /// Create an array from the given items.
-        /// </summary>
-        /// <param name="items">The items from which to create the array.</param>
-        /// <returns>The new array created from the items.</returns>
-        public static Schema From(params JsonAny[] items)
-        {
-            return new Schema(items.ToImmutableList());
-        }
-
-        /// <summary>
-        /// Create an array from the given items.
-        /// </summary>
-        /// <param name="item1">The items from which to create the array.</param>
-        /// <returns>The new array created from the items.</returns>
-        public static Schema From(JsonAny item1)
-        {
-            return new Schema(ImmutableList.Create(item1));
-        }
-
-        /// <summary>
-        /// Create an array from the given items.
-        /// </summary>
-        /// <param name="item1">The first item from which to create the array.</param>
-        /// <param name="item2">The second item from which to create the array.</param>
-        /// <returns>The new array created from the items.</returns>
-        public static Schema From(JsonAny item1, JsonAny item2)
-        {
-            return new Schema(ImmutableList.Create(item1, item2));
-        }
-
-        /// <summary>
-        /// Create an array from the given items.
-        /// </summary>
-        /// <param name="item1">The first item from which to create the array.</param>
-        /// <param name="item2">The second item from which to create the array.</param>
-        /// <param name="item3">The third item from which to create the array.</param>
-        /// <returns>The new array created from the items.</returns>
-        public static Schema From(JsonAny item1, JsonAny item2, JsonAny item3)
-        {
-            return new Schema(ImmutableList.Create(item1, item2, item3));
-        }
-
-        /// <summary>
-        /// Create an array from the given items.
-        /// </summary>
-        /// <param name="item1">The first item from which to create the array.</param>
-        /// <param name="item2">The second item from which to create the array.</param>
-        /// <param name="item3">The third item from which to create the array.</param>
-        /// <param name="item4">The fourth item from which to create the array.</param>
-        /// <returns>The new array created from the items.</returns>
-        public static Schema From(JsonAny item1, JsonAny item2, JsonAny item3, JsonAny item4)
-        {
-            return new Schema(ImmutableList.Create(item1, item2, item3, item4));
-        }
-        
     
+            /// <summary>
+        /// Creates an instance of a <see cref="Schema"/>.
+        /// </summary>
+        public static Schema Create(
+                            RefDraft201909Feature.RootPointerRef.Schema? foo = null
+        
+        )
+        {
+            var builder = ImmutableDictionary.CreateBuilder<string, JsonAny>();
+                            if (foo is RefDraft201909Feature.RootPointerRef.Schema foo__)
+            {
+                builder.Add(FooJsonPropertyName, foo__);
+            }
+                    return builder.ToImmutable();
+        }
+
+        
+        /// <summary>
+        /// Sets foo.
+        /// </summary>
+        /// <param name="value">The value to set.</param>
+        /// <returns>The entity with the updated property.</returns>
+        public Schema WithFoo(RefDraft201909Feature.RootPointerRef.Schema value)
+        {
+            return this.SetProperty(FooJsonPropertyName, value);
+        }
+
+        
     
         /// <inheritdoc/>
         public override bool Equals(object? obj)
@@ -339,8 +351,8 @@ namespace AdditionalItemsDraft201909Feature.AdditionalItemsAsSchema
 
             return valueKind switch
             {
-                    JsonValueKind.Object => this.AsObject().GetHashCode(),
-                        JsonValueKind.Array => this.AsArray.GetHashCode(),
+                    JsonValueKind.Object => this.AsObject.GetHashCode(),
+                        JsonValueKind.Array => this.AsArray().GetHashCode(),
                         JsonValueKind.Number => this.AsNumber().GetHashCode(),
                         JsonValueKind.String => this.AsString().GetHashCode(),
                         JsonValueKind.True or JsonValueKind.False => this.AsBoolean().GetHashCode(),
@@ -355,13 +367,13 @@ namespace AdditionalItemsDraft201909Feature.AdditionalItemsAsSchema
         /// <param name="writer">The writer to which to write the object.</param>
         public void WriteTo(Utf8JsonWriter writer)
         {
-    
-                if (this.arrayBacking is ImmutableList<JsonAny> arrayBacking)
+                if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
             {
-                JsonArray.WriteItems(arrayBacking, writer);
+                JsonObject.WriteProperties(objectBacking, writer);
                 return;
             }
 
+    
     
     
     
@@ -376,13 +388,36 @@ namespace AdditionalItemsDraft201909Feature.AdditionalItemsAsSchema
         }
 
     
-    
-                /// <inheritdoc/>
-        public JsonArrayEnumerator EnumerateArray()
+        
+        
+        /// <inheritdoc/>
+        public JsonObjectEnumerator EnumerateObject()
         {
-            return this.AsArray.EnumerateArray();
+            return this.AsObject.EnumerateObject();
         }
+
     
+    
+    
+        /// <inheritdoc/>
+        public bool TryGetProperty(string name, out JsonAny value)
+        {
+            return this.AsObject.TryGetProperty(name, out value);
+        }
+
+        /// <inheritdoc/>
+        public bool TryGetProperty(ReadOnlySpan<char> name, out JsonAny value)
+        {
+            return this.AsObject.TryGetProperty(name, out value);
+        }
+
+        /// <inheritdoc/>
+        public bool TryGetProperty(ReadOnlySpan<byte> utf8name, out JsonAny value)
+        {
+            return this.AsObject.TryGetProperty(utf8name, out value);
+        }
+
+        
     
         /// <inheritdoc/>
         public bool Equals<T>(T other)
@@ -397,8 +432,8 @@ namespace AdditionalItemsDraft201909Feature.AdditionalItemsAsSchema
 
             return valueKind switch
             {
-                    JsonValueKind.Object => this.AsObject().Equals(other.AsObject()),
-                        JsonValueKind.Array => this.AsArray.Equals(other.AsArray()),
+                    JsonValueKind.Object => this.AsObject.Equals(other.AsObject()),
+                        JsonValueKind.Array => this.AsArray().Equals(other.AsArray()),
                         JsonValueKind.Number => this.AsNumber().Equals(other.AsNumber()),
                         JsonValueKind.String => this.AsString().Equals(other.AsString()),
                         JsonValueKind.True or JsonValueKind.False => this.AsBoolean().Equals(other.AsBoolean()),
@@ -419,8 +454,8 @@ namespace AdditionalItemsDraft201909Feature.AdditionalItemsAsSchema
 
             return valueKind switch
             {
-                                JsonValueKind.Object => this.AsObject().Equals(other.AsObject()),
-                        JsonValueKind.Array => this.AsArray.Equals(other.AsArray),
+                                JsonValueKind.Object => this.AsObject.Equals(other.AsObject),
+                        JsonValueKind.Array => this.AsArray().Equals(other.AsArray()),
                         JsonValueKind.Number => this.AsNumber().Equals(other.AsNumber()),
                         JsonValueKind.String => this.AsString().Equals(other.AsString()),
                         JsonValueKind.True or JsonValueKind.False => this.AsBoolean().Equals(other.AsBoolean()),
@@ -430,77 +465,122 @@ namespace AdditionalItemsDraft201909Feature.AdditionalItemsAsSchema
         }
 
     
+        /// <inheritdoc/>
+        public bool HasProperty(string name)
+        {
+            if (this.objectBacking is ImmutableDictionary<string, JsonAny> properties)
+            {
+                return properties.TryGetValue(name, out _);
+            }
+
+            if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
+            {
+                return this.jsonElementBacking.TryGetProperty(name.ToString(), out JsonElement _);
+            }
+
+            return false;
+        }
+
+        /// <inheritdoc/>
+        public bool HasProperty(ReadOnlySpan<char> name)
+        {
+            if (this.objectBacking is ImmutableDictionary<string, JsonAny> properties)
+            {
+                return properties.TryGetValue(name.ToString(), out _);
+            }
+
+            if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
+            {
+                return this.jsonElementBacking.TryGetProperty(name, out JsonElement _);
+            }
+
+            return false;        }
+
+        /// <inheritdoc/>
+        public bool HasProperty(ReadOnlySpan<byte> utf8name)
+        {
+            if (this.objectBacking is ImmutableDictionary<string, JsonAny> properties)
+            {
+                return properties.TryGetValue(System.Text.Encoding.UTF8.GetString(utf8name), out _);
+            }
+
+            if (this.jsonElementBacking.ValueKind == JsonValueKind.Object)
+            {
+                return this.jsonElementBacking.TryGetProperty(utf8name, out JsonElement _);
+            }
+
+            return false;        }
+
+        /// <inheritdoc/>
+        public Schema SetProperty<TValue>(string name, TValue value)
+            where TValue : IJsonValue
+        {
+            if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
+            {
+                return this.AsObject.SetProperty(name, value);
+            }
+
+            return this;
+        }
+
+        /// <inheritdoc/>
+        public Schema SetProperty<TValue>(ReadOnlySpan<char> name, TValue value)
+            where TValue : IJsonValue
+        {
+            if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
+            {
+                return this.AsObject.SetProperty(name, value);
+            }
+
+            return this;
+        }
+
+        /// <inheritdoc/>
+        public Schema SetProperty<TValue>(ReadOnlySpan<byte> utf8name, TValue value)
+            where TValue : IJsonValue
+        {
+            if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
+            {
+                return this.AsObject.SetProperty(utf8name, value);
+            }
+
+            return this;
+        }
+
+        /// <inheritdoc/>
+        public Schema RemoveProperty(string name)
+        {
+            if (this.ValueKind == JsonValueKind.Object)
+            {
+                return this.AsObject.RemoveProperty(name);
+            }
+
+            return this;
+        }
+
+        /// <inheritdoc/>
+        public Schema RemoveProperty(ReadOnlySpan<char> name)
+        {
+            if (this.ValueKind == JsonValueKind.Object)
+            {
+                return this.AsObject.RemoveProperty(name);
+            }
+
+            return this;
+        }
+
+        /// <inheritdoc/>
+        public Schema RemoveProperty(ReadOnlySpan<byte> utf8Name)
+        {
+            if (this.ValueKind == JsonValueKind.Object)
+            {
+                return this.AsObject.RemoveProperty(utf8Name);
+            }
+
+            return this;
+        }
+
     
-        /// <inheritdoc/>
-        public Schema Add<TItem>(TItem item)
-            where TItem : struct, IJsonValue
-        {
-            if (this.ValueKind == JsonValueKind.Array || this.ValueKind == JsonValueKind.Undefined)
-            {
-                return this.AsArray.Add(item);
-            }
-
-            return this;
-        }
-
-        /// <inheritdoc/>
-        public Schema Insert<TItem>(int index, TItem item)
-            where TItem : struct, IJsonValue
-        {
-            if (this.ValueKind == JsonValueKind.Array || this.ValueKind == JsonValueKind.Undefined)
-            {
-                return this.AsArray.Insert(index, item);
-            }
-
-            return this;
-        }
-
-        /// <inheritdoc/>
-        public Schema Replace<TItem>(TItem oldValue, TItem newValue)
-            where TItem : struct, IJsonValue
-        {
-            if (this.ValueKind == JsonValueKind.Array)
-            {
-                return this.AsArray.Replace(oldValue, newValue);
-            }
-
-            return this;
-        }
-
-        /// <inheritdoc/>
-        public Schema RemoveAt(int index)
-        {
-            if (this.ValueKind == JsonValueKind.Array)
-            {
-                return this.AsArray.RemoveAt(index);
-            }
-
-            return this;
-        }
-
-        /// <inheritdoc/>
-        public Schema RemoveRange(int index, int count)
-        {
-            if (this.ValueKind == JsonValueKind.Array)
-            {
-                return this.AsArray.RemoveRange(index, count);
-            }
-
-            return this;
-        }
-
-        /// <inheritdoc/>
-        public Schema SetItem<TItem>(int index, TItem value)
-            where TItem : struct, IJsonValue
-        {
-            if (this.ValueKind == JsonValueKind.Array)
-            {
-                return this.AsArray.SetItem(index, value);
-            }
-
-            return this;
-        }
-
     
         /// <inheritdoc/>
         public T As<T>()
@@ -519,8 +599,8 @@ namespace AdditionalItemsDraft201909Feature.AdditionalItemsAsSchema
             }
 
                         
+                    result = result.UsingEvaluatedProperties();
         
-                    result = result.UsingEvaluatedItems();
         
     
                 JsonValueKind valueKind = this.ValueKind;
@@ -535,13 +615,14 @@ namespace AdditionalItemsDraft201909Feature.AdditionalItemsAsSchema
     
     
     
-    
-
-                result = this.ValidateArray(valueKind, result, level);
+                result = this.ValidateObject(valueKind, result, level);
             if (level == ValidationLevel.Flag && !result.IsValid)
             {
                 return result;
             }
+
+    
+
                 return result;
         }
 
@@ -551,20 +632,36 @@ namespace AdditionalItemsDraft201909Feature.AdditionalItemsAsSchema
     
     
     
+        private static ImmutableDictionary<string, Func<Schema, ValidationContext, ValidationLevel, ValidationContext>> CreateLocalPropertyValidators()
+        {
+            ImmutableDictionary<string, Func<Schema, ValidationContext, ValidationLevel, ValidationContext>>.Builder builder =
+                ImmutableDictionary.CreateBuilder<string, Func<Schema, ValidationContext, ValidationLevel, ValidationContext>>();
+
+                    builder.Add(
+                FooJsonPropertyName,
+                (that, validationContext, level) =>
+                {
+                    RefDraft201909Feature.RootPointerRef.Schema property = that.Foo;
+                    return property.Validate(validationContext, level);
+                });
+        
+            return builder.ToImmutable();
+        }
+
     
             /// <summary>
-        /// Gets the value as a <see cref="JsonArray"/>.
+        /// Gets the value as a <see cref="JsonObject"/>.
         /// </summary>
-        private JsonArray AsArray
+        private JsonObject AsObject
         {
             get
             {
-                if (this.arrayBacking is ImmutableList<JsonAny> arrayBacking)
+                if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
                 {
-                    return new JsonArray(arrayBacking);
+                    return new JsonObject(objectBacking);
                 }
 
-                return new JsonArray(this.jsonElementBacking);
+                return new JsonObject(this.jsonElementBacking);
             }
         }
     
@@ -572,62 +669,71 @@ namespace AdditionalItemsDraft201909Feature.AdditionalItemsAsSchema
     
     
     
-            private ValidationContext ValidateArray(JsonValueKind valueKind, in ValidationContext validationContext, ValidationLevel level)
+    
+    
+            private ValidationContext ValidateObject(JsonValueKind valueKind, in ValidationContext validationContext, ValidationLevel level)
         {
             ValidationContext result = validationContext;
 
-            if (valueKind != JsonValueKind.Array)
+            if (valueKind != JsonValueKind.Object)
             {
                 return result;
             }
 
-         
-            int arrayLength = 0;
-         
+                    int propertyCount = 0;
         
-                     JsonArrayEnumerator arrayEnumerator = this.EnumerateArray();
-
-            while (arrayEnumerator.MoveNext())
+        
+            foreach (Property property in this.EnumerateObject())
             {
+                string propertyName = property.Name;
+
         
-        
-                        switch (arrayLength)
+                        if (__MenesLocalProperties.TryGetValue(propertyName, out Func<Schema, ValidationContext, ValidationLevel, ValidationContext>? propertyValidator))
                 {
-                                case 0:
-                        result = arrayEnumerator.Current.As<Menes.Json.JsonAny>().Validate(result, level);
-                        if (level == ValidationLevel.Flag && !result.IsValid)
-                        {
-                            return result;
-                        }
+                    result = result.WithLocalProperty(propertyCount);
+                    var propertyResult = propertyValidator(this, result, level);
+                    result = result.MergeResults(propertyResult.IsValid, level, propertyResult);
+                    if (level == ValidationLevel.Flag && !result.IsValid)
+                    {
+                        return result;
+                    }
 
-                        result = result.WithLocalItemIndex(arrayLength);
-                        break;
             
-                    default:
-            
-                                                                        result = arrayEnumerator.Current.As<Menes.Json.JsonInteger>().Validate(result, level);
-                        if (level == ValidationLevel.Flag && !result.IsValid)
-                        {
-                            return result;
-                        }
-                                            
-                        result = result.WithLocalItemIndex(arrayLength);
-
+                }
+        
+        
+        
+        
+        
                 
-                                    break;
+                if (!result.HasEvaluatedLocalProperty(propertyCount))
+                {
+                    if (level >= ValidationLevel.Detailed)
+                    {
+                        result = result.WithResult(isValid: false, $"9.3.2.3. additionalProperties - additional property \"{propertyName}\" is not permitted.");
+                    }
+                    else if (level >= ValidationLevel.Basic)
+                    {
+                        result = result.WithResult(isValid: false, "9.3.2.3. additionalProperties - additional properties are not permitted.");
+                    }
+                    else
+                    {
+                        return result.WithResult(isValid: false);
+                    }
                 }
 
         
-                arrayLength++;
-            }
-        
+                
+                propertyCount++;
+
+                    }
+
         
         
         
             return result;
         }
 
-    
     
             
 

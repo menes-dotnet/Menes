@@ -1036,6 +1036,9 @@ namespace NotDraft201909Feature.NotMultipleTypes
         
         
                 
+                , localResultInteger
+        
+                
                 , localResultBoolean
         
                         );

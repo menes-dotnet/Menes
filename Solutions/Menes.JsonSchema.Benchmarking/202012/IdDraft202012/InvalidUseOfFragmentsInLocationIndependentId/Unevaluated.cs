@@ -866,6 +866,7 @@ namespace IdDraft202012Feature.InvalidUseOfFragmentsInLocationIndependentId
                 return result;
             }
 
+                    int propertyCount = 0;
         
         
             foreach (Property property in this.EnumerateObject())
@@ -875,8 +876,8 @@ namespace IdDraft202012Feature.InvalidUseOfFragmentsInLocationIndependentId
         
                         if (__MenesLocalProperties.TryGetValue(propertyName, out Func<Unevaluated, ValidationContext, ValidationLevel, ValidationContext>? propertyValidator))
                 {
-                    result = result.WithLocalProperty(propertyName);
-                    var propertyResult = propertyValidator(this, result, level);
+                    result = result.WithLocalProperty(propertyCount);
+                    var propertyResult = propertyValidator(this, result.CreateChildContext(), level);
                     result = result.MergeResults(propertyResult.IsValid, level, propertyResult);
                     if (level == ValidationLevel.Flag && !result.IsValid)
                     {
@@ -891,6 +892,9 @@ namespace IdDraft202012Feature.InvalidUseOfFragmentsInLocationIndependentId
         
         
         
+                
+                propertyCount++;
+
                     }
 
         
@@ -954,6 +958,7 @@ namespace IdDraft202012Feature.InvalidUseOfFragmentsInLocationIndependentId
         
                 
                 , localResultObject
+        
         
         
         

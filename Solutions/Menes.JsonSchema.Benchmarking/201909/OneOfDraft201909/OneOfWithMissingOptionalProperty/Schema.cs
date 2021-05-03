@@ -1564,6 +1564,7 @@ namespace OneOfDraft201909Feature.OneOfWithMissingOptionalProperty
                 return result;
             }
 
+                    int propertyCount = 0;
         
                                 bool foundBar = false;
                     
@@ -1574,8 +1575,8 @@ namespace OneOfDraft201909Feature.OneOfWithMissingOptionalProperty
         
                         if (__MenesLocalProperties.TryGetValue(propertyName, out Func<OneOf0Entity, ValidationContext, ValidationLevel, ValidationContext>? propertyValidator))
                 {
-                    result = result.WithLocalProperty(propertyName);
-                    var propertyResult = propertyValidator(this, result, level);
+                    result = result.WithLocalProperty(propertyCount);
+                    var propertyResult = propertyValidator(this, result.CreateChildContext(), level);
                     result = result.MergeResults(propertyResult.IsValid, level, propertyResult);
                     if (level == ValidationLevel.Flag && !result.IsValid)
                     {
@@ -1595,11 +1596,13 @@ namespace OneOfDraft201909Feature.OneOfWithMissingOptionalProperty
         
         
         
+                
+                propertyCount++;
+
                     }
 
         
-                        if (!foundBar
-                        )
+                        if (!foundBar)
             {
                 if (level >= ValidationLevel.Detailed)
                 {
@@ -2297,6 +2300,7 @@ namespace OneOfDraft201909Feature.OneOfWithMissingOptionalProperty
                 return result;
             }
 
+                    int propertyCount = 0;
         
                                 bool foundFoo = false;
                     
@@ -2307,8 +2311,8 @@ namespace OneOfDraft201909Feature.OneOfWithMissingOptionalProperty
         
                         if (__MenesLocalProperties.TryGetValue(propertyName, out Func<OneOf1Entity, ValidationContext, ValidationLevel, ValidationContext>? propertyValidator))
                 {
-                    result = result.WithLocalProperty(propertyName);
-                    var propertyResult = propertyValidator(this, result, level);
+                    result = result.WithLocalProperty(propertyCount);
+                    var propertyResult = propertyValidator(this, result.CreateChildContext(), level);
                     result = result.MergeResults(propertyResult.IsValid, level, propertyResult);
                     if (level == ValidationLevel.Flag && !result.IsValid)
                     {
@@ -2328,11 +2332,13 @@ namespace OneOfDraft201909Feature.OneOfWithMissingOptionalProperty
         
         
         
+                
+                propertyCount++;
+
                     }
 
         
-                        if (!foundFoo
-                        )
+                        if (!foundFoo)
             {
                 if (level >= ValidationLevel.Detailed)
                 {

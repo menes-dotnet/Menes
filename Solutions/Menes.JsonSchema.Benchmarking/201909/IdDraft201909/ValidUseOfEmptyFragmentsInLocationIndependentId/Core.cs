@@ -1396,6 +1396,7 @@ namespace IdDraft201909Feature.ValidUseOfEmptyFragmentsInLocationIndependentId
                 return result;
             }
 
+                    int propertyCount = 0;
         
         
             foreach (Property property in this.EnumerateObject())
@@ -1405,8 +1406,8 @@ namespace IdDraft201909Feature.ValidUseOfEmptyFragmentsInLocationIndependentId
         
                         if (__MenesLocalProperties.TryGetValue(propertyName, out Func<Core, ValidationContext, ValidationLevel, ValidationContext>? propertyValidator))
                 {
-                    result = result.WithLocalProperty(propertyName);
-                    var propertyResult = propertyValidator(this, result, level);
+                    result = result.WithLocalProperty(propertyCount);
+                    var propertyResult = propertyValidator(this, result.CreateChildContext(), level);
                     result = result.MergeResults(propertyResult.IsValid, level, propertyResult);
                     if (level == ValidationLevel.Flag && !result.IsValid)
                     {
@@ -1421,6 +1422,9 @@ namespace IdDraft201909Feature.ValidUseOfEmptyFragmentsInLocationIndependentId
         
         
         
+                
+                propertyCount++;
+
                     }
 
         
@@ -1484,6 +1488,7 @@ namespace IdDraft201909Feature.ValidUseOfEmptyFragmentsInLocationIndependentId
         
                 
                 , localResultObject
+        
         
         
         
@@ -2068,6 +2073,7 @@ namespace IdDraft201909Feature.ValidUseOfEmptyFragmentsInLocationIndependentId
         
         
         
+        
                         );
 
             return result;
@@ -2612,6 +2618,7 @@ namespace IdDraft201909Feature.ValidUseOfEmptyFragmentsInLocationIndependentId
         
         
         
+        
                         );
 
             return result;
@@ -3079,6 +3086,7 @@ namespace IdDraft201909Feature.ValidUseOfEmptyFragmentsInLocationIndependentId
             result = result.MergeResults(
                 isValid,
                 level
+        
         
         
         
@@ -3694,6 +3702,7 @@ namespace IdDraft201909Feature.ValidUseOfEmptyFragmentsInLocationIndependentId
                 return result;
             }
 
+                    int propertyCount = 0;
         
         
             foreach (Property property in this.EnumerateObject())
@@ -3703,27 +3712,28 @@ namespace IdDraft201909Feature.ValidUseOfEmptyFragmentsInLocationIndependentId
         
         
         
-                        string propertyNameAsString = property.Name;
-
-                            result = new JsonString(propertyNameAsString).As<Menes.Json.JsonUri>().Validate(result, level);
+                                    result = new JsonString(propertyName).As<Menes.Json.JsonUri>().Validate(result, level);
                 if (level == ValidationLevel.Flag && !result.IsValid)
                 {
                     return result;
                 }
             
                     
-                        if (!result.HasEvaluatedLocalProperty(propertyName))
+                        if (!result.HasEvaluatedLocalProperty(propertyCount))
                 {
                     result = property.ValueAs<Menes.Json.JsonBoolean>().Validate(result, level);
                     if (level == ValidationLevel.Flag && !result.IsValid)
                     {
                         return result;
                     }
-                    result = result.WithLocalProperty(propertyName);
+                    result = result.WithLocalProperty(propertyCount);
                 }
         
         
         
+                
+                propertyCount++;
+
                     }
 
         
@@ -3775,6 +3785,7 @@ namespace IdDraft201909Feature.ValidUseOfEmptyFragmentsInLocationIndependentId
         
                 
                 , localResultObject
+        
         
         
         
@@ -4387,6 +4398,7 @@ namespace IdDraft201909Feature.ValidUseOfEmptyFragmentsInLocationIndependentId
                 return result;
             }
 
+                    int propertyCount = 0;
         
         
             foreach (Property property in this.EnumerateObject())
@@ -4397,18 +4409,21 @@ namespace IdDraft201909Feature.ValidUseOfEmptyFragmentsInLocationIndependentId
         
         
         
-                        if (!result.HasEvaluatedLocalProperty(propertyName))
+                        if (!result.HasEvaluatedLocalProperty(propertyCount))
                 {
                     result = property.ValueAs<IdDraft201909Feature.ValidUseOfEmptyFragmentsInLocationIndependentId.Schema>().Validate(result, level);
                     if (level == ValidationLevel.Flag && !result.IsValid)
                     {
                         return result;
                     }
-                    result = result.WithLocalProperty(propertyName);
+                    result = result.WithLocalProperty(propertyCount);
                 }
         
         
         
+                
+                propertyCount++;
+
                     }
 
         
@@ -4460,6 +4475,7 @@ namespace IdDraft201909Feature.ValidUseOfEmptyFragmentsInLocationIndependentId
         
                 
                 , localResultObject
+        
         
         
         

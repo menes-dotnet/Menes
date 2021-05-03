@@ -1491,6 +1491,7 @@ namespace OneOfDraft202012Feature.OneOfComplexTypes
                 return result;
             }
 
+                    int propertyCount = 0;
         
                                 bool foundBar = false;
                     
@@ -1501,8 +1502,8 @@ namespace OneOfDraft202012Feature.OneOfComplexTypes
         
                         if (__MenesLocalProperties.TryGetValue(propertyName, out Func<OneOf0Entity, ValidationContext, ValidationLevel, ValidationContext>? propertyValidator))
                 {
-                    result = result.WithLocalProperty(propertyName);
-                    var propertyResult = propertyValidator(this, result, level);
+                    result = result.WithLocalProperty(propertyCount);
+                    var propertyResult = propertyValidator(this, result.CreateChildContext(), level);
                     result = result.MergeResults(propertyResult.IsValid, level, propertyResult);
                     if (level == ValidationLevel.Flag && !result.IsValid)
                     {
@@ -1522,11 +1523,13 @@ namespace OneOfDraft202012Feature.OneOfComplexTypes
         
         
         
+                
+                propertyCount++;
+
                     }
 
         
-                        if (!foundBar
-                        )
+                        if (!foundBar)
             {
                 if (level >= ValidationLevel.Detailed)
                 {
@@ -2222,6 +2225,7 @@ namespace OneOfDraft202012Feature.OneOfComplexTypes
                 return result;
             }
 
+                    int propertyCount = 0;
         
                                 bool foundFoo = false;
                     
@@ -2232,8 +2236,8 @@ namespace OneOfDraft202012Feature.OneOfComplexTypes
         
                         if (__MenesLocalProperties.TryGetValue(propertyName, out Func<OneOf1Entity, ValidationContext, ValidationLevel, ValidationContext>? propertyValidator))
                 {
-                    result = result.WithLocalProperty(propertyName);
-                    var propertyResult = propertyValidator(this, result, level);
+                    result = result.WithLocalProperty(propertyCount);
+                    var propertyResult = propertyValidator(this, result.CreateChildContext(), level);
                     result = result.MergeResults(propertyResult.IsValid, level, propertyResult);
                     if (level == ValidationLevel.Flag && !result.IsValid)
                     {
@@ -2253,11 +2257,13 @@ namespace OneOfDraft202012Feature.OneOfComplexTypes
         
         
         
+                
+                propertyCount++;
+
                     }
 
         
-                        if (!foundFoo
-                        )
+                        if (!foundFoo)
             {
                 if (level >= ValidationLevel.Detailed)
                 {

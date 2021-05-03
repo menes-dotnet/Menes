@@ -602,6 +602,7 @@ namespace DependentSchemasDraft201909Feature.SingleDependency
                 return result;
             }
 
+                    int propertyCount = 0;
         
         
             foreach (Property property in this.EnumerateObject())
@@ -612,7 +613,7 @@ namespace DependentSchemasDraft201909Feature.SingleDependency
         
                         if (__MenesDependentSchema.TryGetValue(propertyName, out Func<Schema, ValidationContext, ValidationLevel, ValidationContext>? dependentSchemaValidator))
                 {
-                    result = result.WithLocalProperty(propertyName);
+                    result = result.WithLocalProperty(propertyCount);
                     result = dependentSchemaValidator(this, result, level);
                     if (level == ValidationLevel.Flag && !result.IsValid)
                     {
@@ -624,6 +625,9 @@ namespace DependentSchemasDraft201909Feature.SingleDependency
         
         
         
+                
+                propertyCount++;
+
                     }
 
         
@@ -1377,6 +1381,7 @@ namespace DependentSchemasDraft201909Feature.SingleDependency
                 return result;
             }
 
+                    int propertyCount = 0;
         
         
             foreach (Property property in this.EnumerateObject())
@@ -1386,8 +1391,8 @@ namespace DependentSchemasDraft201909Feature.SingleDependency
         
                         if (__MenesLocalProperties.TryGetValue(propertyName, out Func<BarEntity, ValidationContext, ValidationLevel, ValidationContext>? propertyValidator))
                 {
-                    result = result.WithLocalProperty(propertyName);
-                    var propertyResult = propertyValidator(this, result, level);
+                    result = result.WithLocalProperty(propertyCount);
+                    var propertyResult = propertyValidator(this, result.CreateChildContext(), level);
                     result = result.MergeResults(propertyResult.IsValid, level, propertyResult);
                     if (level == ValidationLevel.Flag && !result.IsValid)
                     {
@@ -1402,6 +1407,9 @@ namespace DependentSchemasDraft201909Feature.SingleDependency
         
         
         
+                
+                propertyCount++;
+
                     }
 
         

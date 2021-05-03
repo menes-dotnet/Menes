@@ -1742,9 +1742,7 @@ namespace RecursiveRefDraft201909Feature.MultipleDynamicPathsToTheRecursiveRefKe
         
         
         
-                        string propertyNameAsString = property.Name;
-
-                            result = new JsonString(propertyNameAsString).As<RecursiveRefDraft201909Feature.MultipleDynamicPathsToTheRecursiveRefKeyword.RecursiveRef8MainJson.IfEntity.PropertyNamesEntity>().Validate(result, level);
+                                    result = new JsonString(propertyName).As<RecursiveRefDraft201909Feature.MultipleDynamicPathsToTheRecursiveRefKeyword.RecursiveRef8MainJson.IfEntity.PropertyNamesEntity>().Validate(result, level);
                 if (level == ValidationLevel.Flag && !result.IsValid)
                 {
                     return result;

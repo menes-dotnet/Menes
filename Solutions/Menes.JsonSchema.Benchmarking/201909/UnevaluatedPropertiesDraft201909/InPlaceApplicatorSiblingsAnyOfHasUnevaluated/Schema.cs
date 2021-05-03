@@ -947,6 +947,7 @@ namespace UnevaluatedPropertiesDraft201909Feature.InPlaceApplicatorSiblingsAnyOf
         
         
         
+        
                         );
 
             return result;
@@ -1616,6 +1617,7 @@ namespace UnevaluatedPropertiesDraft201909Feature.InPlaceApplicatorSiblingsAnyOf
                 return result;
             }
 
+                    int propertyCount = 0;
         
         
             foreach (Property property in this.EnumerateObject())
@@ -1625,8 +1627,8 @@ namespace UnevaluatedPropertiesDraft201909Feature.InPlaceApplicatorSiblingsAnyOf
         
                         if (__MenesLocalProperties.TryGetValue(propertyName, out Func<AllOf0Entity, ValidationContext, ValidationLevel, ValidationContext>? propertyValidator))
                 {
-                    result = result.WithLocalProperty(propertyName);
-                    var propertyResult = propertyValidator(this, result, level);
+                    result = result.WithLocalProperty(propertyCount);
+                    var propertyResult = propertyValidator(this, result.CreateChildContext(), level);
                     result = result.MergeResults(propertyResult.IsValid, level, propertyResult);
                     if (level == ValidationLevel.Flag && !result.IsValid)
                     {
@@ -1641,6 +1643,9 @@ namespace UnevaluatedPropertiesDraft201909Feature.InPlaceApplicatorSiblingsAnyOf
         
         
         
+                
+                propertyCount++;
+
                     }
 
         
@@ -2330,6 +2335,7 @@ namespace UnevaluatedPropertiesDraft201909Feature.InPlaceApplicatorSiblingsAnyOf
                 return result;
             }
 
+                    int propertyCount = 0;
         
         
             foreach (Property property in this.EnumerateObject())
@@ -2339,8 +2345,8 @@ namespace UnevaluatedPropertiesDraft201909Feature.InPlaceApplicatorSiblingsAnyOf
         
                         if (__MenesLocalProperties.TryGetValue(propertyName, out Func<AnyOf0Entity, ValidationContext, ValidationLevel, ValidationContext>? propertyValidator))
                 {
-                    result = result.WithLocalProperty(propertyName);
-                    var propertyResult = propertyValidator(this, result, level);
+                    result = result.WithLocalProperty(propertyCount);
+                    var propertyResult = propertyValidator(this, result.CreateChildContext(), level);
                     result = result.MergeResults(propertyResult.IsValid, level, propertyResult);
                     if (level == ValidationLevel.Flag && !result.IsValid)
                     {
@@ -2354,7 +2360,7 @@ namespace UnevaluatedPropertiesDraft201909Feature.InPlaceApplicatorSiblingsAnyOf
         
         
                 
-                if (!result.HasEvaluatedLocalOrAppliedProperty(propertyName))
+                if (!result.HasEvaluatedLocalOrAppliedProperty(propertyCount))
                 {
 
                     result = property.ValueAs<Menes.Json.JsonNotAny>().Validate(result, level);
@@ -2363,10 +2369,13 @@ namespace UnevaluatedPropertiesDraft201909Feature.InPlaceApplicatorSiblingsAnyOf
                         return result;
                     }
 
-                    result = result.WithLocalProperty(propertyName);
+                    result = result.WithLocalProperty(propertyCount);
                 }
         
         
+                
+                propertyCount++;
+
                     }
 
         
