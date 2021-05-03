@@ -27,8 +27,7 @@ namespace Menes.JsonSchema.Benchmarking
                 .AddJob(Job.Dry
                     .WithRuntime(CoreRuntime.Core50)
                     .WithOutlierMode(OutlierMode.RemoveAll)
-                    .WithStrategy(RunStrategy.Throughput)
-                    .WithIterationCount(10)));
+                    .WithStrategy(RunStrategy.Throughput)));
         }
     }
 }

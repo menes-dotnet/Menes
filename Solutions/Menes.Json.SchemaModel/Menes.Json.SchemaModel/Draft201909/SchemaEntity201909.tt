@@ -2404,11 +2404,76 @@ namespace <#= Namespace #>
 
             return valueKind switch
             {
+    <#
+    if (IsImplicitObject)
+    {
+    #>
+                JsonValueKind.Object => this.AsObject.GetHashCode(),
+    <#
+    }
+    else
+    {
+    #>
                 JsonValueKind.Object => this.AsObject().GetHashCode(),
+    <#
+    }
+    #>
+    <#
+    if (IsImplicitArray)
+    {
+    #>
+                JsonValueKind.Array => this.AsArray.GetHashCode(),
+    <#
+    }
+    else
+    {
+    #>
                 JsonValueKind.Array => this.AsArray().GetHashCode(),
+    <#
+    }
+    #>
+    <#
+    if (IsImplicitNumber)
+    {
+    #>
+                JsonValueKind.Number => this.AsNumber.GetHashCode(),
+    <#
+    }
+    else
+    {
+    #>
                 JsonValueKind.Number => this.AsNumber().GetHashCode(),
+    <#
+    }
+    #>
+    <#
+    if (IsImplicitString)
+    {
+    #>
+                JsonValueKind.String => this.AsString.GetHashCode(),
+    <#
+    }
+    else
+    {
+    #>
                 JsonValueKind.String => this.AsString().GetHashCode(),
+    <#
+    }
+    #>
+    <#
+    if (IsImplicitBoolean)
+    {
+    #>
+                JsonValueKind.True or JsonValueKind.False => this.AsBoolean.GetHashCode(),
+    <#
+    }
+    else
+    {
+    #>
                 JsonValueKind.True or JsonValueKind.False => this.AsBoolean().GetHashCode(),
+    <#
+    }
+    #>
                 JsonValueKind.Null => JsonNull.NullHashCode,
                 _ => 0,
             };
@@ -2687,12 +2752,77 @@ namespace <#= Namespace #>
 
             return valueKind switch
             {
+    <#
+    if (IsImplicitObject)
+    {
+    #>
+                JsonValueKind.Object => this.AsObject.Equals(other.AsObject()),
+    <#
+    }
+    else
+    {
+    #>
                 JsonValueKind.Object => this.AsObject().Equals(other.AsObject()),
+    <#
+    }
+    #>
+    <#
+    if (IsImplicitArray)
+    {
+    #>
+                JsonValueKind.Array => this.AsArray.Equals(other.AsArray()),
+    <#
+    }
+    else
+    {
+    #>
                 JsonValueKind.Array => this.AsArray().Equals(other.AsArray()),
+    <#
+    }
+    #>
+    <#
+    if (IsImplicitNumber)
+    {
+    #>
+                JsonValueKind.Number => this.AsNumber.Equals(other.AsNumber()),
+    <#
+    }
+    else
+    {
+    #>
                 JsonValueKind.Number => this.AsNumber().Equals(other.AsNumber()),
+    <#
+    }
+    #>
+    <#
+    if (IsImplicitString)
+    {
+    #>
+                JsonValueKind.String => this.AsString.Equals(other.AsString()),
+    <#
+    }
+    else
+    {
+    #>
                 JsonValueKind.String => this.AsString().Equals(other.AsString()),
-                JsonValueKind.Null => true,
+    <#
+    }
+    #>
+    <#
+    if (IsImplicitBoolean)
+    {
+    #>
+                JsonValueKind.True or JsonValueKind.False => this.AsBoolean.Equals(other.AsBoolean()),
+    <#
+    }
+    else
+    {
+    #>
                 JsonValueKind.True or JsonValueKind.False => this.AsBoolean().Equals(other.AsBoolean()),
+    <#
+    }
+    #>
+                JsonValueKind.Null => true,
                 _ => false,
             };
         }
@@ -2709,12 +2839,77 @@ namespace <#= Namespace #>
 
             return valueKind switch
             {
+                <#
+    if (IsImplicitObject)
+    {
+    #>
+                JsonValueKind.Object => this.AsObject.Equals(other.AsObject),
+    <#
+    }
+    else
+    {
+    #>
                 JsonValueKind.Object => this.AsObject().Equals(other.AsObject()),
+    <#
+    }
+    #>
+    <#
+    if (IsImplicitArray)
+    {
+    #>
+                JsonValueKind.Array => this.AsArray.Equals(other.AsArray),
+    <#
+    }
+    else
+    {
+    #>
                 JsonValueKind.Array => this.AsArray().Equals(other.AsArray()),
+    <#
+    }
+    #>
+    <#
+    if (IsImplicitNumber)
+    {
+    #>
+                JsonValueKind.Number => this.AsNumber.Equals(other.AsNumber),
+    <#
+    }
+    else
+    {
+    #>
                 JsonValueKind.Number => this.AsNumber().Equals(other.AsNumber()),
+    <#
+    }
+    #>
+    <#
+    if (IsImplicitString)
+    {
+    #>
+                JsonValueKind.String => this.AsString.Equals(other.AsString),
+    <#
+    }
+    else
+    {
+    #>
                 JsonValueKind.String => this.AsString().Equals(other.AsString()),
-                JsonValueKind.Null => true,
+    <#
+    }
+    #>
+    <#
+    if (IsImplicitBoolean)
+    {
+    #>
+                JsonValueKind.True or JsonValueKind.False => this.AsBoolean.Equals(other.AsBoolean),
+    <#
+    }
+    else
+    {
+    #>
                 JsonValueKind.True or JsonValueKind.False => this.AsBoolean().Equals(other.AsBoolean()),
+    <#
+    }
+    #>
+                JsonValueKind.Null => true,
                 _ => false,
             };
         }
@@ -5290,6 +5485,15 @@ namespace <#= Namespace #>
         {
         #>        
                 , localResultNumber
+        <#
+        }
+        #>
+
+        <#
+        if (HasIntegerType)
+        {
+        #>        
+                , localResultInteger
         <#
         }
         #>

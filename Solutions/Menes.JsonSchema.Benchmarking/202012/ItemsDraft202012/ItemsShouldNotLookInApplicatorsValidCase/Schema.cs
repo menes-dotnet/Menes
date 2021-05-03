@@ -414,12 +414,12 @@ namespace ItemsDraft202012Feature.ItemsShouldNotLookInApplicatorsValidCase
 
             return valueKind switch
             {
-                JsonValueKind.Object => this.AsObject().GetHashCode(),
-                JsonValueKind.Array => this.AsArray().GetHashCode(),
-                JsonValueKind.Number => this.AsNumber().GetHashCode(),
-                JsonValueKind.String => this.AsString().GetHashCode(),
-                JsonValueKind.True or JsonValueKind.False => this.AsBoolean().GetHashCode(),
-                JsonValueKind.Null => JsonNull.NullHashCode,
+                    JsonValueKind.Object => this.AsObject().GetHashCode(),
+                        JsonValueKind.Array => this.AsArray.GetHashCode(),
+                        JsonValueKind.Number => this.AsNumber().GetHashCode(),
+                        JsonValueKind.String => this.AsString().GetHashCode(),
+                        JsonValueKind.True or JsonValueKind.False => this.AsBoolean().GetHashCode(),
+                    JsonValueKind.Null => JsonNull.NullHashCode,
                 _ => 0,
             };
         }
@@ -489,12 +489,12 @@ namespace ItemsDraft202012Feature.ItemsShouldNotLookInApplicatorsValidCase
 
             return valueKind switch
             {
-                JsonValueKind.Object => this.AsObject().Equals(other.AsObject()),
-                JsonValueKind.Array => this.AsArray().Equals(other.AsArray()),
-                JsonValueKind.Number => this.AsNumber().Equals(other.AsNumber()),
-                JsonValueKind.String => this.AsString().Equals(other.AsString()),
-                JsonValueKind.Null => true,
-                JsonValueKind.True or JsonValueKind.False => this.AsBoolean().Equals(other.AsBoolean()),
+                    JsonValueKind.Object => this.AsObject().Equals(other.AsObject()),
+                        JsonValueKind.Array => this.AsArray.Equals(other.AsArray()),
+                        JsonValueKind.Number => this.AsNumber().Equals(other.AsNumber()),
+                        JsonValueKind.String => this.AsString().Equals(other.AsString()),
+                        JsonValueKind.True or JsonValueKind.False => this.AsBoolean().Equals(other.AsBoolean()),
+                    JsonValueKind.Null => true,
                 _ => false,
             };
         }
@@ -511,12 +511,12 @@ namespace ItemsDraft202012Feature.ItemsShouldNotLookInApplicatorsValidCase
 
             return valueKind switch
             {
-                JsonValueKind.Object => this.AsObject().Equals(other.AsObject()),
-                JsonValueKind.Array => this.AsArray().Equals(other.AsArray()),
-                JsonValueKind.Number => this.AsNumber().Equals(other.AsNumber()),
-                JsonValueKind.String => this.AsString().Equals(other.AsString()),
-                JsonValueKind.Null => true,
-                JsonValueKind.True or JsonValueKind.False => this.AsBoolean().Equals(other.AsBoolean()),
+                                JsonValueKind.Object => this.AsObject().Equals(other.AsObject()),
+                        JsonValueKind.Array => this.AsArray.Equals(other.AsArray),
+                        JsonValueKind.Number => this.AsNumber().Equals(other.AsNumber()),
+                        JsonValueKind.String => this.AsString().Equals(other.AsString()),
+                        JsonValueKind.True or JsonValueKind.False => this.AsBoolean().Equals(other.AsBoolean()),
+                    JsonValueKind.Null => true,
                 _ => false,
             };
         }
@@ -1074,12 +1074,12 @@ namespace ItemsDraft202012Feature.ItemsShouldNotLookInApplicatorsValidCase
 
             return valueKind switch
             {
-                JsonValueKind.Object => this.AsObject().GetHashCode(),
-                JsonValueKind.Array => this.AsArray().GetHashCode(),
-                JsonValueKind.Number => this.AsNumber().GetHashCode(),
-                JsonValueKind.String => this.AsString().GetHashCode(),
-                JsonValueKind.True or JsonValueKind.False => this.AsBoolean().GetHashCode(),
-                JsonValueKind.Null => JsonNull.NullHashCode,
+                    JsonValueKind.Object => this.AsObject().GetHashCode(),
+                        JsonValueKind.Array => this.AsArray.GetHashCode(),
+                        JsonValueKind.Number => this.AsNumber().GetHashCode(),
+                        JsonValueKind.String => this.AsString().GetHashCode(),
+                        JsonValueKind.True or JsonValueKind.False => this.AsBoolean().GetHashCode(),
+                    JsonValueKind.Null => JsonNull.NullHashCode,
                 _ => 0,
             };
         }
@@ -1132,12 +1132,12 @@ namespace ItemsDraft202012Feature.ItemsShouldNotLookInApplicatorsValidCase
 
             return valueKind switch
             {
-                JsonValueKind.Object => this.AsObject().Equals(other.AsObject()),
-                JsonValueKind.Array => this.AsArray().Equals(other.AsArray()),
-                JsonValueKind.Number => this.AsNumber().Equals(other.AsNumber()),
-                JsonValueKind.String => this.AsString().Equals(other.AsString()),
-                JsonValueKind.Null => true,
-                JsonValueKind.True or JsonValueKind.False => this.AsBoolean().Equals(other.AsBoolean()),
+                    JsonValueKind.Object => this.AsObject().Equals(other.AsObject()),
+                        JsonValueKind.Array => this.AsArray.Equals(other.AsArray()),
+                        JsonValueKind.Number => this.AsNumber().Equals(other.AsNumber()),
+                        JsonValueKind.String => this.AsString().Equals(other.AsString()),
+                        JsonValueKind.True or JsonValueKind.False => this.AsBoolean().Equals(other.AsBoolean()),
+                    JsonValueKind.Null => true,
                 _ => false,
             };
         }
@@ -1154,12 +1154,12 @@ namespace ItemsDraft202012Feature.ItemsShouldNotLookInApplicatorsValidCase
 
             return valueKind switch
             {
-                JsonValueKind.Object => this.AsObject().Equals(other.AsObject()),
-                JsonValueKind.Array => this.AsArray().Equals(other.AsArray()),
-                JsonValueKind.Number => this.AsNumber().Equals(other.AsNumber()),
-                JsonValueKind.String => this.AsString().Equals(other.AsString()),
-                JsonValueKind.Null => true,
-                JsonValueKind.True or JsonValueKind.False => this.AsBoolean().Equals(other.AsBoolean()),
+                                JsonValueKind.Object => this.AsObject().Equals(other.AsObject()),
+                        JsonValueKind.Array => this.AsArray.Equals(other.AsArray),
+                        JsonValueKind.Number => this.AsNumber().Equals(other.AsNumber()),
+                        JsonValueKind.String => this.AsString().Equals(other.AsString()),
+                        JsonValueKind.True or JsonValueKind.False => this.AsBoolean().Equals(other.AsBoolean()),
+                    JsonValueKind.Null => true,
                 _ => false,
             };
         }
@@ -1703,12 +1703,12 @@ namespace ItemsDraft202012Feature.ItemsShouldNotLookInApplicatorsValidCase
 
             return valueKind switch
             {
-                JsonValueKind.Object => this.AsObject().GetHashCode(),
-                JsonValueKind.Array => this.AsArray().GetHashCode(),
-                JsonValueKind.Number => this.AsNumber().GetHashCode(),
-                JsonValueKind.String => this.AsString().GetHashCode(),
-                JsonValueKind.True or JsonValueKind.False => this.AsBoolean().GetHashCode(),
-                JsonValueKind.Null => JsonNull.NullHashCode,
+                    JsonValueKind.Object => this.AsObject().GetHashCode(),
+                        JsonValueKind.Array => this.AsArray().GetHashCode(),
+                        JsonValueKind.Number => this.AsNumber.GetHashCode(),
+                        JsonValueKind.String => this.AsString().GetHashCode(),
+                        JsonValueKind.True or JsonValueKind.False => this.AsBoolean().GetHashCode(),
+                    JsonValueKind.Null => JsonNull.NullHashCode,
                 _ => 0,
             };
         }
@@ -1755,12 +1755,12 @@ namespace ItemsDraft202012Feature.ItemsShouldNotLookInApplicatorsValidCase
 
             return valueKind switch
             {
-                JsonValueKind.Object => this.AsObject().Equals(other.AsObject()),
-                JsonValueKind.Array => this.AsArray().Equals(other.AsArray()),
-                JsonValueKind.Number => this.AsNumber().Equals(other.AsNumber()),
-                JsonValueKind.String => this.AsString().Equals(other.AsString()),
-                JsonValueKind.Null => true,
-                JsonValueKind.True or JsonValueKind.False => this.AsBoolean().Equals(other.AsBoolean()),
+                    JsonValueKind.Object => this.AsObject().Equals(other.AsObject()),
+                        JsonValueKind.Array => this.AsArray().Equals(other.AsArray()),
+                        JsonValueKind.Number => this.AsNumber.Equals(other.AsNumber()),
+                        JsonValueKind.String => this.AsString().Equals(other.AsString()),
+                        JsonValueKind.True or JsonValueKind.False => this.AsBoolean().Equals(other.AsBoolean()),
+                    JsonValueKind.Null => true,
                 _ => false,
             };
         }
@@ -1777,12 +1777,12 @@ namespace ItemsDraft202012Feature.ItemsShouldNotLookInApplicatorsValidCase
 
             return valueKind switch
             {
-                JsonValueKind.Object => this.AsObject().Equals(other.AsObject()),
-                JsonValueKind.Array => this.AsArray().Equals(other.AsArray()),
-                JsonValueKind.Number => this.AsNumber().Equals(other.AsNumber()),
-                JsonValueKind.String => this.AsString().Equals(other.AsString()),
-                JsonValueKind.Null => true,
-                JsonValueKind.True or JsonValueKind.False => this.AsBoolean().Equals(other.AsBoolean()),
+                                JsonValueKind.Object => this.AsObject().Equals(other.AsObject()),
+                        JsonValueKind.Array => this.AsArray().Equals(other.AsArray()),
+                        JsonValueKind.Number => this.AsNumber.Equals(other.AsNumber),
+                        JsonValueKind.String => this.AsString().Equals(other.AsString()),
+                        JsonValueKind.True or JsonValueKind.False => this.AsBoolean().Equals(other.AsBoolean()),
+                    JsonValueKind.Null => true,
                 _ => false,
             };
         }
@@ -2227,12 +2227,12 @@ namespace ItemsDraft202012Feature.ItemsShouldNotLookInApplicatorsValidCase
 
             return valueKind switch
             {
-                JsonValueKind.Object => this.AsObject().GetHashCode(),
-                JsonValueKind.Array => this.AsArray().GetHashCode(),
-                JsonValueKind.Number => this.AsNumber().GetHashCode(),
-                JsonValueKind.String => this.AsString().GetHashCode(),
-                JsonValueKind.True or JsonValueKind.False => this.AsBoolean().GetHashCode(),
-                JsonValueKind.Null => JsonNull.NullHashCode,
+                    JsonValueKind.Object => this.AsObject().GetHashCode(),
+                        JsonValueKind.Array => this.AsArray().GetHashCode(),
+                        JsonValueKind.Number => this.AsNumber.GetHashCode(),
+                        JsonValueKind.String => this.AsString().GetHashCode(),
+                        JsonValueKind.True or JsonValueKind.False => this.AsBoolean().GetHashCode(),
+                    JsonValueKind.Null => JsonNull.NullHashCode,
                 _ => 0,
             };
         }
@@ -2279,12 +2279,12 @@ namespace ItemsDraft202012Feature.ItemsShouldNotLookInApplicatorsValidCase
 
             return valueKind switch
             {
-                JsonValueKind.Object => this.AsObject().Equals(other.AsObject()),
-                JsonValueKind.Array => this.AsArray().Equals(other.AsArray()),
-                JsonValueKind.Number => this.AsNumber().Equals(other.AsNumber()),
-                JsonValueKind.String => this.AsString().Equals(other.AsString()),
-                JsonValueKind.Null => true,
-                JsonValueKind.True or JsonValueKind.False => this.AsBoolean().Equals(other.AsBoolean()),
+                    JsonValueKind.Object => this.AsObject().Equals(other.AsObject()),
+                        JsonValueKind.Array => this.AsArray().Equals(other.AsArray()),
+                        JsonValueKind.Number => this.AsNumber.Equals(other.AsNumber()),
+                        JsonValueKind.String => this.AsString().Equals(other.AsString()),
+                        JsonValueKind.True or JsonValueKind.False => this.AsBoolean().Equals(other.AsBoolean()),
+                    JsonValueKind.Null => true,
                 _ => false,
             };
         }
@@ -2301,12 +2301,12 @@ namespace ItemsDraft202012Feature.ItemsShouldNotLookInApplicatorsValidCase
 
             return valueKind switch
             {
-                JsonValueKind.Object => this.AsObject().Equals(other.AsObject()),
-                JsonValueKind.Array => this.AsArray().Equals(other.AsArray()),
-                JsonValueKind.Number => this.AsNumber().Equals(other.AsNumber()),
-                JsonValueKind.String => this.AsString().Equals(other.AsString()),
-                JsonValueKind.Null => true,
-                JsonValueKind.True or JsonValueKind.False => this.AsBoolean().Equals(other.AsBoolean()),
+                                JsonValueKind.Object => this.AsObject().Equals(other.AsObject()),
+                        JsonValueKind.Array => this.AsArray().Equals(other.AsArray()),
+                        JsonValueKind.Number => this.AsNumber.Equals(other.AsNumber),
+                        JsonValueKind.String => this.AsString().Equals(other.AsString()),
+                        JsonValueKind.True or JsonValueKind.False => this.AsBoolean().Equals(other.AsBoolean()),
+                    JsonValueKind.Null => true,
                 _ => false,
             };
         }

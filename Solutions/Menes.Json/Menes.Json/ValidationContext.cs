@@ -5,6 +5,7 @@
 namespace Menes.Json
 {
     using System.Collections.Immutable;
+    using System.Linq;
 
     /// <summary>
     /// The current validation context.
@@ -24,9 +25,9 @@ namespace Menes.Json
         private static readonly ImmutableStack<string> RootLocationStack = ImmutableStack.Create("#");
         private static readonly ImmutableStack<string> RootAbsoluteLocationStack = ImmutableStack.Create("#");
 
-        private readonly ImmutableHashSet<int>? localEvaluatedItemIndex;
+        private readonly ImmutableArray<ulong>? localEvaluatedItemIndex;
         private readonly ImmutableHashSet<string>? localEvaluatedProperties;
-        private readonly ImmutableHashSet<int>? appliedEvaluatedItemIndex;
+        private readonly ImmutableArray<ulong>? appliedEvaluatedItemIndex;
         private readonly ImmutableHashSet<string>? appliedEvaluatedProperties;
         private readonly ImmutableStack<string>? absoluteKeywordLocationStack;
         private readonly ImmutableStack<string>? locationStack;
@@ -43,7 +44,7 @@ namespace Menes.Json
         /// <param name="locationStack">The current location stack.</param>
         /// <param name="absoluteKeywordLocationStack">The current absolute keyword location stack.</param>
         /// <param name="results">The validation results.</param>
-        private ValidationContext(bool isValid, ImmutableHashSet<int>? localEvaluatedItemIndex = null, in ImmutableHashSet<string>? localEvaluatedProperties = null, ImmutableHashSet<int>? appliedEvaluatedItemIndex = null, in ImmutableHashSet<string>? appliedEvaluatedProperties = null, in ImmutableStack<string>? locationStack = null, in ImmutableStack<string>? absoluteKeywordLocationStack = null, in ImmutableArray<ValidationResult>? results = null)
+        private ValidationContext(bool isValid, ImmutableArray<ulong>? localEvaluatedItemIndex = null, in ImmutableHashSet<string>? localEvaluatedProperties = null, ImmutableArray<ulong>? appliedEvaluatedItemIndex = null, in ImmutableHashSet<string>? appliedEvaluatedProperties = null, in ImmutableStack<string>? locationStack = null, in ImmutableStack<string>? absoluteKeywordLocationStack = null, in ImmutableArray<ValidationResult>? results = null)
         {
             this.localEvaluatedItemIndex = localEvaluatedItemIndex;
             this.localEvaluatedProperties = localEvaluatedProperties;
@@ -84,7 +85,7 @@ namespace Menes.Json
         /// <returns>The validation context enabled with evaluated properties.</returns>
         public ValidationContext UsingEvaluatedItems()
         {
-            return new ValidationContext(this.IsValid, this.localEvaluatedItemIndex ?? ImmutableHashSet<int>.Empty, this.localEvaluatedProperties, this.appliedEvaluatedItemIndex ?? ImmutableHashSet<int>.Empty, this.appliedEvaluatedProperties, this.locationStack, this.absoluteKeywordLocationStack, this.results);
+            return new ValidationContext(this.IsValid, this.localEvaluatedItemIndex ?? ImmutableArray.Create<ulong>(0), this.localEvaluatedProperties, this.appliedEvaluatedItemIndex ?? ImmutableArray.Create<ulong>(0), this.appliedEvaluatedProperties, this.locationStack, this.absoluteKeywordLocationStack, this.results);
         }
 
         /// <summary>
@@ -104,7 +105,14 @@ namespace Menes.Json
         /// <returns><c>True</c> if the item has been evaluated locally.</returns>
         public bool HasEvaluatedLocalItemIndex(int itemIndex)
         {
-            return this.localEvaluatedItemIndex?.Contains(itemIndex) ?? false;
+            if (this.localEvaluatedItemIndex is ImmutableArray<ulong> leii)
+            {
+                int offset = itemIndex / 64;
+                int bit = itemIndex % 64;
+                return offset < leii.Length && ((leii[offset] & (1UL << bit)) != 0);
+            }
+
+            return false;
         }
 
         /// <summary>
@@ -124,7 +132,35 @@ namespace Menes.Json
         /// <returns><c>True</c> if an item has been evaluated either locally or by applied schema.</returns>
         public bool HasEvaluatedLocalOrAppliedItemIndex(int itemIndex)
         {
-            return (this.localEvaluatedItemIndex?.Contains(itemIndex) ?? false) || (this.appliedEvaluatedItemIndex?.Contains(itemIndex) ?? false);
+            bool hasLeii = this.localEvaluatedItemIndex is ImmutableArray<ulong> leii;
+            bool hasAeii = this.appliedEvaluatedItemIndex is ImmutableArray<ulong> aeii;
+
+            if (!hasLeii && !hasAeii)
+            {
+                return false;
+            }
+
+            int offset = itemIndex / 64;
+            int bit = itemIndex % 64;
+            ulong bitPattern = 1UL << bit;
+
+            if (hasLeii)
+            {
+                if (offset < leii.Length && ((leii[offset] & bitPattern) != 0))
+                {
+                    return true;
+                }
+            }
+
+            if (hasAeii)
+            {
+                if (offset < aeii.Length && ((aeii[offset] & bitPattern) != 0))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         /// <summary>
@@ -195,7 +231,7 @@ namespace Menes.Json
         /// <returns>A new (valid) validation context with no evaluated items or properties, at the current location.</returns>
         public ValidationContext CreateChildContext()
         {
-            return new ValidationContext(this.IsValid, this.localEvaluatedItemIndex is null ? null : ImmutableHashSet<int>.Empty, this.localEvaluatedProperties is null ? null : ImmutableHashSet<string>.Empty, this.appliedEvaluatedItemIndex is null ? null : ImmutableHashSet<int>.Empty, this.appliedEvaluatedProperties is null ? null : ImmutableHashSet<string>.Empty, this.locationStack, this.absoluteKeywordLocationStack, null);
+            return new ValidationContext(this.IsValid, this.localEvaluatedItemIndex is null ? null : ImmutableArray.Create<ulong>(0), this.localEvaluatedProperties is null ? null : ImmutableHashSet<string>.Empty, this.appliedEvaluatedItemIndex is null ? null : ImmutableArray.Create<ulong>(0), this.appliedEvaluatedProperties is null ? null : ImmutableHashSet<string>.Empty, this.locationStack, this.absoluteKeywordLocationStack, null);
         }
 
         /// <summary>
@@ -206,7 +242,7 @@ namespace Menes.Json
         /// <returns>A new (valid) validation context with no evaluated items or properties, at the current location.</returns>
         public ValidationContext CreateChildContext(string location, string absoluteKeywordLocation)
         {
-            return new ValidationContext(this.IsValid, this.localEvaluatedItemIndex is null ? null : ImmutableHashSet<int>.Empty, this.localEvaluatedProperties is null ? null : ImmutableHashSet<string>.Empty, null, null, this.locationStack?.Push(location), this.absoluteKeywordLocationStack?.Push(absoluteKeywordLocation), null);
+            return new ValidationContext(this.IsValid, this.localEvaluatedItemIndex is null ? null : ImmutableArray.Create<ulong>(0), this.localEvaluatedProperties is null ? null : ImmutableHashSet<string>.Empty, null, null, this.locationStack?.Push(location), this.absoluteKeywordLocationStack?.Push(absoluteKeywordLocation), null);
         }
 
         /// <summary>
@@ -843,43 +879,68 @@ namespace Menes.Json
             return this.localEvaluatedProperties;
         }
 
-        private ImmutableHashSet<int>? AddLocalEvaluatedItem(int index)
+        private ImmutableArray<ulong>? AddLocalEvaluatedItem(int index)
         {
-            if (this.localEvaluatedItemIndex is ImmutableHashSet<int> lep)
+            if (this.localEvaluatedItemIndex is ImmutableArray<ulong> lep)
             {
-                if (!lep.Contains(index))
+                // Calculate the offset into the array
+                int offset = index / 64;
+                ulong bit = 1UL << (index % 64);
+                if (offset >= lep.Length)
                 {
-                    return lep.Add(index);
+                    lep = lep.AddRange(Enumerable.Repeat(0UL, offset - lep.Length + 1));
                 }
+
+                lep = lep.SetItem(offset, lep[offset] | bit);
+                return lep;
             }
 
             return this.localEvaluatedItemIndex;
         }
 
-        private ImmutableHashSet<int>? CombineItems(in ValidationContext childContext)
+        private ImmutableArray<ulong>? CombineItems(in ValidationContext childContext)
         {
-            if (this.appliedEvaluatedItemIndex is not ImmutableHashSet<int> aeii)
+            if (this.appliedEvaluatedItemIndex is not ImmutableArray<ulong> aeii)
             {
                 return null;
             }
 
             if (childContext.appliedEvaluatedItemIndex is not null || childContext.localEvaluatedItemIndex is not null)
             {
-                ImmutableHashSet<int> result = aeii;
-                if (childContext.appliedEvaluatedItemIndex is not null)
+                ImmutableArray<ulong>.Builder result = ImmutableArray.CreateBuilder<ulong>();
+                result.AddRange(aeii);
+                if (childContext.appliedEvaluatedItemIndex is ImmutableArray<ulong> childaeii)
                 {
-                    result = result.Union(childContext.appliedEvaluatedItemIndex);
+                    this.ApplyBits(result, childaeii);
                 }
 
-                if (childContext.localEvaluatedItemIndex is not null)
+                if (childContext.localEvaluatedItemIndex is  ImmutableArray<ulong> childleii)
                 {
-                    result = result.Union(childContext.localEvaluatedItemIndex);
+                    this.ApplyBits(result, childleii);
                 }
 
-                return result;
+                return result.ToImmutable();
             }
 
             return null;
+        }
+
+        /// <summary>
+        ///  Merges the bitfields representing the items we have seen in the array.
+        /// </summary>
+        private void ApplyBits(ImmutableArray<ulong>.Builder result, ImmutableArray<ulong> items)
+        {
+            for (int i = 0; i < items.Length; ++i)
+            {
+                if (i < result.Count)
+                {
+                    result[i] = result[i] | items[i];
+                }
+                else
+                {
+                    result.Add(items[i]);
+                }
+            }
         }
 
         private ImmutableHashSet<string>? CombineProperties(in ValidationContext childContext)
