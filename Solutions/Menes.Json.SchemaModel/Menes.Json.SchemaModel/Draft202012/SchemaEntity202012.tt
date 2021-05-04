@@ -171,7 +171,7 @@ namespace <#= Namespace #>
     if(HasDependentSchemas)
     {
     #>
-        private static readonly ImmutableDictionary<string, Func<<#= TypeDeclaration.DotnetTypeName #>, ValidationContext, ValidationLevel, ValidationContext>> __MenesDependentSchema = CreateDependentSchemaValidators();
+        private static readonly ImmutableDictionary<string, PropertyValidator<<#= TypeDeclaration.DotnetTypeName #>>> __MenesDependentSchema = CreateDependentSchemaValidators();
     <#
     }
     #>
@@ -3659,27 +3659,39 @@ namespace <#= Namespace #>
     {
     #>
 
-        private static ImmutableDictionary<string, Func<<#= TypeDeclaration.DotnetTypeName #>, ValidationContext, ValidationLevel, ValidationContext>> CreateDependentSchemaValidators()
+        private static ImmutableDictionary<string, PropertyValidator<<#= TypeDeclaration.DotnetTypeName #>>> CreateDependentSchemaValidators()
         {
-            ImmutableDictionary<string, Func<<#= TypeDeclaration.DotnetTypeName #>, ValidationContext, ValidationLevel, ValidationContext>>.Builder builder =
-                ImmutableDictionary.CreateBuilder<string, Func<<#= TypeDeclaration.DotnetTypeName #>, ValidationContext, ValidationLevel, ValidationContext>>();
+            ImmutableDictionary<string, PropertyValidator<<#= TypeDeclaration.DotnetTypeName #>>>.Builder builder =
+                ImmutableDictionary.CreateBuilder<string, PropertyValidator<<#= TypeDeclaration.DotnetTypeName #>>>();
 
         <#
+        int dsIndex = 0;
         foreach (var dependentSchema in DependentSchemas)
         {
+            dsIndex++;
         #>
             builder.Add(
-                "<#= dependentSchema.Name #>",
-                (entity, validationContext, level) =>
-                {
-                    return entity.As<<#= dependentSchema.DotnetTypeName #>>().Validate(validationContext, level);
-                });
+                "<#= dependentSchema.Name #>", __MenesValidateDependentSchema<#= dsIndex #>);
 
         <#
         }
         #>
             return builder.ToImmutable();
         }
+
+        <#
+        int dsIndexV = 0;
+        foreach (var dependentSchema in DependentSchemas)
+        {
+            dsIndexV++;
+        #>
+        private static ValidationContext __MenesValidateDependentSchema<#= dsIndexV #>(in <#= TypeDeclaration.DotnetTypeName #> that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            return that.As<<#= dependentSchema.DotnetTypeName #>>().Validate(validationContext, level);
+        }
+        <#
+        }
+        #>
 
     <#
     }
@@ -4319,7 +4331,7 @@ namespace <#= Namespace #>
         if (HasDependentSchemas)
         {
         #>
-                if (__MenesDependentSchema.TryGetValue(propertyName, out Func<<#= TypeDeclaration.DotnetTypeName #>, ValidationContext, ValidationLevel, ValidationContext>? dependentSchemaValidator))
+                if (__MenesDependentSchema.TryGetValue(propertyName, out PropertyValidator<<#= TypeDeclaration.DotnetTypeName #>>? dependentSchemaValidator))
                 {
                     result = result.WithLocalProperty(propertyCount);
                     result = dependentSchemaValidator(this, result, level);
