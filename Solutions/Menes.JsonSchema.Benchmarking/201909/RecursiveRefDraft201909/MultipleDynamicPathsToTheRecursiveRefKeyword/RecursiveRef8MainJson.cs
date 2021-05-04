@@ -158,34 +158,6 @@ namespace RecursiveRefDraft201909Feature.MultipleDynamicPathsToTheRecursiveRefKe
             /// <summary>
         /// Initializes a new instance of the <see cref="RecursiveRef8MainJson"/> struct.
         /// </summary>
-        /// <param name="conversion">The <see cref="RecursiveRefDraft201909Feature.MultipleDynamicPathsToTheRecursiveRefKeyword.RecursiveRef8MainJson.IfEntity"/> from which to construct the value.</param>
-        public RecursiveRef8MainJson(RecursiveRefDraft201909Feature.MultipleDynamicPathsToTheRecursiveRefKeyword.RecursiveRef8MainJson.IfEntity conversion)
-        {
-            if (conversion.HasJsonElement)
-            {
-                this.jsonElementBacking = conversion.AsJsonElement;
-                        this.objectBacking = default;
-                
-                                this.numberBacking = default;
-                            }
-            else
-            {
-                this.jsonElementBacking = default;
-                        if (conversion.ValueKind == JsonValueKind.Object)
-                {
-                    this.objectBacking = conversion;
-                }
-                else
-                {
-                    this.objectBacking = default;
-                }
-                
-                                this.numberBacking = default;
-                            }
-        }
-            /// <summary>
-        /// Initializes a new instance of the <see cref="RecursiveRef8MainJson"/> struct.
-        /// </summary>
         /// <param name="conversion">The <see cref="RecursiveRefDraft201909Feature.MultipleDynamicPathsToTheRecursiveRefKeyword.RecursiveRef8InnerJson"/> from which to construct the value.</param>
         public RecursiveRef8MainJson(RecursiveRefDraft201909Feature.MultipleDynamicPathsToTheRecursiveRefKeyword.RecursiveRef8InnerJson conversion)
         {
@@ -249,28 +221,6 @@ namespace RecursiveRefDraft201909Feature.MultipleDynamicPathsToTheRecursiveRefKe
     
 
     
-            /// <summary>
-        /// Gets the value as a <see cref="RecursiveRefDraft201909Feature.MultipleDynamicPathsToTheRecursiveRefKeyword.RecursiveRef8MainJson.IfEntity" />.
-        /// </summary>
-        public RecursiveRefDraft201909Feature.MultipleDynamicPathsToTheRecursiveRefKeyword.RecursiveRef8MainJson.IfEntity AsIfEntity
-        {
-            get
-            {
-                return this;
-            }
-        }
-
-        /// <summary>
-        /// Gets a value indicating whether this is a valid <see cref="RecursiveRefDraft201909Feature.MultipleDynamicPathsToTheRecursiveRefKeyword.RecursiveRef8MainJson.IfEntity" />.
-        /// </summary>
-        public bool IsIfEntity
-        {
-            get
-            {
-                return ((RecursiveRefDraft201909Feature.MultipleDynamicPathsToTheRecursiveRefKeyword.RecursiveRef8MainJson.IfEntity)this).Validate().IsValid;
-            }
-        }
-
             /// <summary>
         /// Gets the value as a <see cref="RecursiveRefDraft201909Feature.MultipleDynamicPathsToTheRecursiveRefKeyword.RecursiveRef8InnerJson" />.
         /// </summary>
@@ -449,27 +399,6 @@ namespace RecursiveRefDraft201909Feature.MultipleDynamicPathsToTheRecursiveRefKe
             }
         }
 
-            /// <summary>
-        /// Conversion from <see cref="RecursiveRefDraft201909Feature.MultipleDynamicPathsToTheRecursiveRefKeyword.RecursiveRef8MainJson.IfEntity" />.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator RecursiveRef8MainJson(RecursiveRefDraft201909Feature.MultipleDynamicPathsToTheRecursiveRefKeyword.RecursiveRef8MainJson.IfEntity value)
-        {
-            return new RecursiveRef8MainJson(value);
-        }
-
-        /// <summary>
-        /// Conversion to <see cref="RecursiveRefDraft201909Feature.MultipleDynamicPathsToTheRecursiveRefKeyword.RecursiveRef8MainJson.IfEntity" />.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator RecursiveRefDraft201909Feature.MultipleDynamicPathsToTheRecursiveRefKeyword.RecursiveRef8MainJson.IfEntity(RecursiveRef8MainJson value)
-        {
-                    if (value.ValueKind == JsonValueKind.Object)
-            {
-                return new RecursiveRefDraft201909Feature.MultipleDynamicPathsToTheRecursiveRefKeyword.RecursiveRef8MainJson.IfEntity(value.AsObject);
-            }
-                                                    return default;
-        }
             /// <summary>
         /// Conversion from <see cref="RecursiveRefDraft201909Feature.MultipleDynamicPathsToTheRecursiveRefKeyword.RecursiveRef8InnerJson" />.
         /// </summary>

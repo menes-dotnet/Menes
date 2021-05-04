@@ -121,32 +121,6 @@ namespace IfThenElseDraft202012Feature.ValidateAgainstCorrectBranchThenVsElse
             /// <summary>
         /// Initializes a new instance of the <see cref="Schema"/> struct.
         /// </summary>
-        /// <param name="conversion">The <see cref="IfThenElseDraft202012Feature.ValidateAgainstCorrectBranchThenVsElse.Schema.IfEntity"/> from which to construct the value.</param>
-        public Schema(IfThenElseDraft202012Feature.ValidateAgainstCorrectBranchThenVsElse.Schema.IfEntity conversion)
-        {
-            if (conversion.HasJsonElement)
-            {
-                this.jsonElementBacking = conversion.AsJsonElement;
-                
-                                this.numberBacking = default;
-                            }
-            else
-            {
-                this.jsonElementBacking = default;
-                
-                                if (conversion.ValueKind == JsonValueKind.Number)
-                {
-                    this.numberBacking = conversion;
-                }
-                else
-                {
-                    this.numberBacking = default;
-                }
-                            }
-        }
-            /// <summary>
-        /// Initializes a new instance of the <see cref="Schema"/> struct.
-        /// </summary>
         /// <param name="conversion">The <see cref="IfThenElseDraft202012Feature.ValidateAgainstCorrectBranchThenVsElse.Schema.ThenEntity"/> from which to construct the value.</param>
         public Schema(IfThenElseDraft202012Feature.ValidateAgainstCorrectBranchThenVsElse.Schema.ThenEntity conversion)
         {
@@ -199,28 +173,6 @@ namespace IfThenElseDraft202012Feature.ValidateAgainstCorrectBranchThenVsElse
     
 
     
-            /// <summary>
-        /// Gets the value as a <see cref="IfThenElseDraft202012Feature.ValidateAgainstCorrectBranchThenVsElse.Schema.IfEntity" />.
-        /// </summary>
-        public IfThenElseDraft202012Feature.ValidateAgainstCorrectBranchThenVsElse.Schema.IfEntity AsIfEntity
-        {
-            get
-            {
-                return this;
-            }
-        }
-
-        /// <summary>
-        /// Gets a value indicating whether this is a valid <see cref="IfThenElseDraft202012Feature.ValidateAgainstCorrectBranchThenVsElse.Schema.IfEntity" />.
-        /// </summary>
-        public bool IsIfEntity
-        {
-            get
-            {
-                return ((IfThenElseDraft202012Feature.ValidateAgainstCorrectBranchThenVsElse.Schema.IfEntity)this).Validate().IsValid;
-            }
-        }
-
             /// <summary>
         /// Gets the value as a <see cref="IfThenElseDraft202012Feature.ValidateAgainstCorrectBranchThenVsElse.Schema.ThenEntity" />.
         /// </summary>
@@ -380,27 +332,6 @@ namespace IfThenElseDraft202012Feature.ValidateAgainstCorrectBranchThenVsElse
             }
         }
 
-            /// <summary>
-        /// Conversion from <see cref="IfThenElseDraft202012Feature.ValidateAgainstCorrectBranchThenVsElse.Schema.IfEntity" />.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator Schema(IfThenElseDraft202012Feature.ValidateAgainstCorrectBranchThenVsElse.Schema.IfEntity value)
-        {
-            return new Schema(value);
-        }
-
-        /// <summary>
-        /// Conversion to <see cref="IfThenElseDraft202012Feature.ValidateAgainstCorrectBranchThenVsElse.Schema.IfEntity" />.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator IfThenElseDraft202012Feature.ValidateAgainstCorrectBranchThenVsElse.Schema.IfEntity(Schema value)
-        {
-                                                    if (value.ValueKind == JsonValueKind.Number)
-            {
-                return new IfThenElseDraft202012Feature.ValidateAgainstCorrectBranchThenVsElse.Schema.IfEntity(value.AsNumber);
-            }
-                    return default;
-        }
             /// <summary>
         /// Conversion from <see cref="IfThenElseDraft202012Feature.ValidateAgainstCorrectBranchThenVsElse.Schema.ThenEntity" />.
         /// </summary>

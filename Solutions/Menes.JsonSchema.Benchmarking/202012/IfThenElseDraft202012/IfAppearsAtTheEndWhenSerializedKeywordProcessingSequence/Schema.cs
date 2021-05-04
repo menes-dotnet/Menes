@@ -112,32 +112,6 @@ namespace IfThenElseDraft202012Feature.IfAppearsAtTheEndWhenSerializedKeywordPro
             /// <summary>
         /// Initializes a new instance of the <see cref="Schema"/> struct.
         /// </summary>
-        /// <param name="conversion">The <see cref="IfThenElseDraft202012Feature.IfAppearsAtTheEndWhenSerializedKeywordProcessingSequence.Schema.IfEntity"/> from which to construct the value.</param>
-        public Schema(IfThenElseDraft202012Feature.IfAppearsAtTheEndWhenSerializedKeywordProcessingSequence.Schema.IfEntity conversion)
-        {
-            if (conversion.HasJsonElement)
-            {
-                this.jsonElementBacking = conversion.AsJsonElement;
-                
-                                        this.stringBacking = default;
-                    }
-            else
-            {
-                this.jsonElementBacking = default;
-                
-                                        if (conversion.ValueKind == JsonValueKind.String)
-                {
-                    this.stringBacking = conversion;
-                }
-                else
-                {
-                    this.stringBacking = default;
-                }
-                    }
-        }
-            /// <summary>
-        /// Initializes a new instance of the <see cref="Schema"/> struct.
-        /// </summary>
         /// <param name="conversion">The <see cref="IfThenElseDraft202012Feature.IfAppearsAtTheEndWhenSerializedKeywordProcessingSequence.Schema.ThenEntity"/> from which to construct the value.</param>
         public Schema(IfThenElseDraft202012Feature.IfAppearsAtTheEndWhenSerializedKeywordProcessingSequence.Schema.ThenEntity conversion)
         {
@@ -190,28 +164,6 @@ namespace IfThenElseDraft202012Feature.IfAppearsAtTheEndWhenSerializedKeywordPro
     
 
     
-            /// <summary>
-        /// Gets the value as a <see cref="IfThenElseDraft202012Feature.IfAppearsAtTheEndWhenSerializedKeywordProcessingSequence.Schema.IfEntity" />.
-        /// </summary>
-        public IfThenElseDraft202012Feature.IfAppearsAtTheEndWhenSerializedKeywordProcessingSequence.Schema.IfEntity AsIfEntity
-        {
-            get
-            {
-                return this;
-            }
-        }
-
-        /// <summary>
-        /// Gets a value indicating whether this is a valid <see cref="IfThenElseDraft202012Feature.IfAppearsAtTheEndWhenSerializedKeywordProcessingSequence.Schema.IfEntity" />.
-        /// </summary>
-        public bool IsIfEntity
-        {
-            get
-            {
-                return ((IfThenElseDraft202012Feature.IfAppearsAtTheEndWhenSerializedKeywordProcessingSequence.Schema.IfEntity)this).Validate().IsValid;
-            }
-        }
-
             /// <summary>
         /// Gets the value as a <see cref="IfThenElseDraft202012Feature.IfAppearsAtTheEndWhenSerializedKeywordProcessingSequence.Schema.ThenEntity" />.
         /// </summary>
@@ -371,27 +323,6 @@ namespace IfThenElseDraft202012Feature.IfAppearsAtTheEndWhenSerializedKeywordPro
             }
         }
 
-            /// <summary>
-        /// Conversion from <see cref="IfThenElseDraft202012Feature.IfAppearsAtTheEndWhenSerializedKeywordProcessingSequence.Schema.IfEntity" />.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator Schema(IfThenElseDraft202012Feature.IfAppearsAtTheEndWhenSerializedKeywordProcessingSequence.Schema.IfEntity value)
-        {
-            return new Schema(value);
-        }
-
-        /// <summary>
-        /// Conversion to <see cref="IfThenElseDraft202012Feature.IfAppearsAtTheEndWhenSerializedKeywordProcessingSequence.Schema.IfEntity" />.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator IfThenElseDraft202012Feature.IfAppearsAtTheEndWhenSerializedKeywordProcessingSequence.Schema.IfEntity(Schema value)
-        {
-                                    if (value.ValueKind == JsonValueKind.String)
-            {
-                return new IfThenElseDraft202012Feature.IfAppearsAtTheEndWhenSerializedKeywordProcessingSequence.Schema.IfEntity(value.AsString);
-            }
-                                    return default;
-        }
             /// <summary>
         /// Conversion from <see cref="IfThenElseDraft202012Feature.IfAppearsAtTheEndWhenSerializedKeywordProcessingSequence.Schema.ThenEntity" />.
         /// </summary>

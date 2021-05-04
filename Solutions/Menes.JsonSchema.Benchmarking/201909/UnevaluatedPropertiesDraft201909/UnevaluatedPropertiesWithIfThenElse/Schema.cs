@@ -92,32 +92,6 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithIfThe
             /// <summary>
         /// Initializes a new instance of the <see cref="Schema"/> struct.
         /// </summary>
-        /// <param name="conversion">The <see cref="UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithIfThenElse.Schema.IfEntity"/> from which to construct the value.</param>
-        public Schema(UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithIfThenElse.Schema.IfEntity conversion)
-        {
-            if (conversion.HasJsonElement)
-            {
-                this.jsonElementBacking = conversion.AsJsonElement;
-                        this.objectBacking = default;
-                
-                                    }
-            else
-            {
-                this.jsonElementBacking = default;
-                        if (conversion.ValueKind == JsonValueKind.Object)
-                {
-                    this.objectBacking = conversion;
-                }
-                else
-                {
-                    this.objectBacking = default;
-                }
-                
-                                    }
-        }
-            /// <summary>
-        /// Initializes a new instance of the <see cref="Schema"/> struct.
-        /// </summary>
         /// <param name="conversion">The <see cref="UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithIfThenElse.Schema.ThenEntity"/> from which to construct the value.</param>
         public Schema(UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithIfThenElse.Schema.ThenEntity conversion)
         {
@@ -170,28 +144,6 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithIfThe
     
 
     
-            /// <summary>
-        /// Gets the value as a <see cref="UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithIfThenElse.Schema.IfEntity" />.
-        /// </summary>
-        public UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithIfThenElse.Schema.IfEntity AsIfEntity
-        {
-            get
-            {
-                return this;
-            }
-        }
-
-        /// <summary>
-        /// Gets a value indicating whether this is a valid <see cref="UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithIfThenElse.Schema.IfEntity" />.
-        /// </summary>
-        public bool IsIfEntity
-        {
-            get
-            {
-                return ((UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithIfThenElse.Schema.IfEntity)this).Validate().IsValid;
-            }
-        }
-
             /// <summary>
         /// Gets the value as a <see cref="UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithIfThenElse.Schema.ThenEntity" />.
         /// </summary>
@@ -353,27 +305,6 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithIfThe
             }
         }
 
-            /// <summary>
-        /// Conversion from <see cref="UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithIfThenElse.Schema.IfEntity" />.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator Schema(UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithIfThenElse.Schema.IfEntity value)
-        {
-            return new Schema(value);
-        }
-
-        /// <summary>
-        /// Conversion to <see cref="UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithIfThenElse.Schema.IfEntity" />.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithIfThenElse.Schema.IfEntity(Schema value)
-        {
-                    if (value.ValueKind == JsonValueKind.Object)
-            {
-                return new UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithIfThenElse.Schema.IfEntity(value.AsObject);
-            }
-                                                    return default;
-        }
             /// <summary>
         /// Conversion from <see cref="UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithIfThenElse.Schema.ThenEntity" />.
         /// </summary>

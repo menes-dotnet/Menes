@@ -92,32 +92,6 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteract
             /// <summary>
         /// Initializes a new instance of the <see cref="Schema"/> struct.
         /// </summary>
-        /// <param name="conversion">The <see cref="UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteractToControlItemDependencyRelationship.Schema.IfEntity"/> from which to construct the value.</param>
-        public Schema(UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteractToControlItemDependencyRelationship.Schema.IfEntity conversion)
-        {
-            if (conversion.HasJsonElement)
-            {
-                this.jsonElementBacking = conversion.AsJsonElement;
-                
-                        this.arrayBacking = default;
-                                    }
-            else
-            {
-                this.jsonElementBacking = default;
-                
-                        if (conversion.ValueKind == JsonValueKind.Array)
-                {
-                    this.arrayBacking = conversion;
-                }
-                else
-                {
-                    this.arrayBacking = default;
-                }
-                                    }
-        }
-            /// <summary>
-        /// Initializes a new instance of the <see cref="Schema"/> struct.
-        /// </summary>
         /// <param name="conversion">The <see cref="UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteractToControlItemDependencyRelationship.Schema.ThenEntity"/> from which to construct the value.</param>
         public Schema(UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteractToControlItemDependencyRelationship.Schema.ThenEntity conversion)
         {
@@ -150,28 +124,6 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteract
             }
         }
     
-            /// <summary>
-        /// Gets the value as a <see cref="UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteractToControlItemDependencyRelationship.Schema.IfEntity" />.
-        /// </summary>
-        public UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteractToControlItemDependencyRelationship.Schema.IfEntity AsIfEntity
-        {
-            get
-            {
-                return this;
-            }
-        }
-
-        /// <summary>
-        /// Gets a value indicating whether this is a valid <see cref="UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteractToControlItemDependencyRelationship.Schema.IfEntity" />.
-        /// </summary>
-        public bool IsIfEntity
-        {
-            get
-            {
-                return ((UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteractToControlItemDependencyRelationship.Schema.IfEntity)this).Validate().IsValid;
-            }
-        }
-
             /// <summary>
         /// Gets the value as a <see cref="UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteractToControlItemDependencyRelationship.Schema.ThenEntity" />.
         /// </summary>
@@ -288,27 +240,6 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteract
         }
 
             /// <summary>
-        /// Conversion from <see cref="UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteractToControlItemDependencyRelationship.Schema.IfEntity" />.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator Schema(UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteractToControlItemDependencyRelationship.Schema.IfEntity value)
-        {
-            return new Schema(value);
-        }
-
-        /// <summary>
-        /// Conversion to <see cref="UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteractToControlItemDependencyRelationship.Schema.IfEntity" />.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteractToControlItemDependencyRelationship.Schema.IfEntity(Schema value)
-        {
-                            if (value.ValueKind == JsonValueKind.Array)
-            {
-                return new UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteractToControlItemDependencyRelationship.Schema.IfEntity(value.AsArray);
-            }
-                                            return default;
-        }
-            /// <summary>
         /// Conversion from <see cref="UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteractToControlItemDependencyRelationship.Schema.ThenEntity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
@@ -327,23 +258,6 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteract
         }
     
                 /// <summary>
-        /// Conversion from <see cref="UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteractToControlItemDependencyRelationship.Schema.ThenEntity.IfEntity" />.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator Schema(UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteractToControlItemDependencyRelationship.Schema.ThenEntity.IfEntity value)
-        {
-            return (UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteractToControlItemDependencyRelationship.Schema)value;
-        }
-
-        /// <summary>
-        /// Conversion to <see cref="UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteractToControlItemDependencyRelationship.Schema.ThenEntity.IfEntity" />.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteractToControlItemDependencyRelationship.Schema.ThenEntity.IfEntity(Schema value)
-        {
-            return (UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteractToControlItemDependencyRelationship.Schema)value;
-        }
-            /// <summary>
         /// Conversion from <see cref="UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteractToControlItemDependencyRelationship.Schema.ThenEntity.ThenEntity1" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
@@ -359,23 +273,6 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteract
         public static implicit operator UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteractToControlItemDependencyRelationship.Schema.ThenEntity.ThenEntity1(Schema value)
         {
             return (UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteractToControlItemDependencyRelationship.Schema)value;
-        }
-            /// <summary>
-        /// Conversion from <see cref="UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteractToControlItemDependencyRelationship.Schema.ThenEntity.ThenEntity1.IfEntity" />.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator Schema(UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteractToControlItemDependencyRelationship.Schema.ThenEntity.ThenEntity1.IfEntity value)
-        {
-            return (UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteractToControlItemDependencyRelationship.Schema.ThenEntity)value;
-        }
-
-        /// <summary>
-        /// Conversion to <see cref="UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteractToControlItemDependencyRelationship.Schema.ThenEntity.ThenEntity1.IfEntity" />.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteractToControlItemDependencyRelationship.Schema.ThenEntity.ThenEntity1.IfEntity(Schema value)
-        {
-            return (UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteractToControlItemDependencyRelationship.Schema.ThenEntity)value;
         }
     
         /// <summary>
@@ -2018,8 +1915,8 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteract
     /// A type generated from a JsonSchema specification.
     /// </summary>
     public readonly struct ThenEntity :
-                IJsonArray<ThenEntity>,
-                IEquatable<ThenEntity>
+                    IJsonValue,
+            IEquatable<ThenEntity>
     {
 
         
@@ -2035,7 +1932,6 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteract
         private readonly JsonElement jsonElementBacking;
 
     
-            private readonly ImmutableList<JsonAny>? arrayBacking;
     
     
     
@@ -2047,69 +1943,14 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteract
         public ThenEntity(JsonElement value)
         {
             this.jsonElementBacking = value;
-                    this.arrayBacking = default;
-                        }
+                            }
 
     
-            /// <summary>
-        /// Initializes a new instance of the <see cref="ThenEntity"/> struct.
-        /// </summary>
-        /// <param name="value">An array list.</param>
-        public ThenEntity(ImmutableList<JsonAny> value)
-        {
-            this.jsonElementBacking = default;
-                                            this.arrayBacking = value;
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ThenEntity"/> struct.
-        /// </summary>
-        /// <param name="jsonArray">The <see cref="JsonArray"/> from which to construct the value.</param>
-        public ThenEntity(JsonArray jsonArray)
-        {
-            if (jsonArray.HasJsonElement)
-            {
-                this.jsonElementBacking = jsonArray.AsJsonElement;
-                this.arrayBacking = default;
-            }
-            else
-            {
-                this.jsonElementBacking = default;
-                this.arrayBacking = jsonArray.AsItemsList;
-            }
-
-                                        }
     
     
     
     
     
-            /// <summary>
-        /// Initializes a new instance of the <see cref="ThenEntity"/> struct.
-        /// </summary>
-        /// <param name="conversion">The <see cref="UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteractToControlItemDependencyRelationship.Schema.ThenEntity.IfEntity"/> from which to construct the value.</param>
-        public ThenEntity(UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteractToControlItemDependencyRelationship.Schema.ThenEntity.IfEntity conversion)
-        {
-            if (conversion.HasJsonElement)
-            {
-                this.jsonElementBacking = conversion.AsJsonElement;
-                
-                        this.arrayBacking = default;
-                                    }
-            else
-            {
-                this.jsonElementBacking = default;
-                
-                        if (conversion.ValueKind == JsonValueKind.Array)
-                {
-                    this.arrayBacking = conversion;
-                }
-                else
-                {
-                    this.arrayBacking = default;
-                }
-                                    }
-        }
             /// <summary>
         /// Initializes a new instance of the <see cref="ThenEntity"/> struct.
         /// </summary>
@@ -2120,53 +1961,16 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteract
             {
                 this.jsonElementBacking = conversion.AsJsonElement;
                 
-                        this.arrayBacking = default;
                                     }
             else
             {
                 this.jsonElementBacking = default;
                 
-                        this.arrayBacking = default;
                                     }
         }
     
 
-            /// <inheritdoc/>
-        public int Length
-        {
-            get
-            {
-                if (this.arrayBacking is ImmutableList<JsonAny> items)
-                {
-                    return items.Count;
-                }
-
-                return this.jsonElementBacking.GetArrayLength();
-            }
-        }
     
-            /// <summary>
-        /// Gets the value as a <see cref="UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteractToControlItemDependencyRelationship.Schema.ThenEntity.IfEntity" />.
-        /// </summary>
-        public UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteractToControlItemDependencyRelationship.Schema.ThenEntity.IfEntity AsIfEntity
-        {
-            get
-            {
-                return this;
-            }
-        }
-
-        /// <summary>
-        /// Gets a value indicating whether this is a valid <see cref="UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteractToControlItemDependencyRelationship.Schema.ThenEntity.IfEntity" />.
-        /// </summary>
-        public bool IsIfEntity
-        {
-            get
-            {
-                return ((UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteractToControlItemDependencyRelationship.Schema.ThenEntity.IfEntity)this).Validate().IsValid;
-            }
-        }
-
             /// <summary>
         /// Gets the value as a <see cref="UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteractToControlItemDependencyRelationship.Schema.ThenEntity.ThenEntity1" />.
         /// </summary>
@@ -2220,8 +2024,8 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteract
         public bool HasJsonElement =>
     
     
-                        this.arrayBacking is null
                 
+        true
                 ;
 
         /// <summary>
@@ -2232,10 +2036,6 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteract
             get
             {
     
-                    if (this.arrayBacking is ImmutableList<JsonAny> arrayBacking)
-                {
-                    return JsonArray.ItemsToJsonElement(arrayBacking);
-                }
     
     
     
@@ -2250,11 +2050,6 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteract
             get
             {
     
-                    if (this.arrayBacking is ImmutableList<JsonAny>)
-                {
-                    return JsonValueKind.Array;
-                }
-
     
     
     
@@ -2269,11 +2064,6 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteract
             get
             {
     
-                    if (this.arrayBacking is ImmutableList<JsonAny> arrayBacking)
-                {
-                    return new JsonAny(arrayBacking);
-                }
-
     
     
     
@@ -2282,27 +2072,6 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteract
             }
         }
 
-            /// <summary>
-        /// Conversion from <see cref="UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteractToControlItemDependencyRelationship.Schema.ThenEntity.IfEntity" />.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator ThenEntity(UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteractToControlItemDependencyRelationship.Schema.ThenEntity.IfEntity value)
-        {
-            return new ThenEntity(value);
-        }
-
-        /// <summary>
-        /// Conversion to <see cref="UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteractToControlItemDependencyRelationship.Schema.ThenEntity.IfEntity" />.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteractToControlItemDependencyRelationship.Schema.ThenEntity.IfEntity(ThenEntity value)
-        {
-                            if (value.ValueKind == JsonValueKind.Array)
-            {
-                return new UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteractToControlItemDependencyRelationship.Schema.ThenEntity.IfEntity(value.AsArray);
-            }
-                                            return default;
-        }
             /// <summary>
         /// Conversion from <see cref="UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteractToControlItemDependencyRelationship.Schema.ThenEntity.ThenEntity1" />.
         /// </summary>
@@ -2321,24 +2090,7 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteract
                                                     return default;
         }
     
-                /// <summary>
-        /// Conversion from <see cref="UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteractToControlItemDependencyRelationship.Schema.ThenEntity.ThenEntity1.IfEntity" />.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator ThenEntity(UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteractToControlItemDependencyRelationship.Schema.ThenEntity.ThenEntity1.IfEntity value)
-        {
-            return (UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteractToControlItemDependencyRelationship.Schema.ThenEntity)value;
-        }
-
-        /// <summary>
-        /// Conversion to <see cref="UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteractToControlItemDependencyRelationship.Schema.ThenEntity.ThenEntity1.IfEntity" />.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteractToControlItemDependencyRelationship.Schema.ThenEntity.ThenEntity1.IfEntity(ThenEntity value)
-        {
-            return (UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteractToControlItemDependencyRelationship.Schema.ThenEntity)value;
-        }
-    
+        
         /// <summary>
         /// Conversion from any.
         /// </summary>
@@ -2362,42 +2114,6 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteract
             return value.AsAny;
         }
 
-    
-        /// <summary>
-        /// Conversion from array.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator ThenEntity(JsonArray value)
-        {
-            return new ThenEntity(value);
-        }
-
-        /// <summary>
-        /// Conversion to array.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator JsonArray(ThenEntity value)
-        {
-            return value.AsArray;
-        }
-       
-        /// <summary>
-        /// Implicit conversion to an <see cref="ImmutableList{T}"/> of <see cref="JsonAny"/>.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator ImmutableList<JsonAny>(ThenEntity value)
-        {
-            return value.AsArray.AsItemsList;
-        }
-
-        /// <summary>
-        /// Implicit conversion from an <see cref="ImmutableList{T}"/> of <see cref="JsonAny"/>.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator ThenEntity(ImmutableList<JsonAny> value)
-        {
-            return new ThenEntity(value);
-        }
     
     
     
@@ -2425,62 +2141,6 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteract
             return !lhs.Equals(rhs);
         }
 
-                            /// <summary>
-        /// Create an array from the given items.
-        /// </summary>
-        /// <param name="items">The items from which to create the array.</param>
-        /// <returns>The new array created from the items.</returns>
-        public static ThenEntity From(params JsonAny[] items)
-        {
-            return new ThenEntity(items.ToImmutableList());
-        }
-
-        /// <summary>
-        /// Create an array from the given items.
-        /// </summary>
-        /// <param name="item1">The items from which to create the array.</param>
-        /// <returns>The new array created from the items.</returns>
-        public static ThenEntity From(JsonAny item1)
-        {
-            return new ThenEntity(ImmutableList.Create(item1));
-        }
-
-        /// <summary>
-        /// Create an array from the given items.
-        /// </summary>
-        /// <param name="item1">The first item from which to create the array.</param>
-        /// <param name="item2">The second item from which to create the array.</param>
-        /// <returns>The new array created from the items.</returns>
-        public static ThenEntity From(JsonAny item1, JsonAny item2)
-        {
-            return new ThenEntity(ImmutableList.Create(item1, item2));
-        }
-
-        /// <summary>
-        /// Create an array from the given items.
-        /// </summary>
-        /// <param name="item1">The first item from which to create the array.</param>
-        /// <param name="item2">The second item from which to create the array.</param>
-        /// <param name="item3">The third item from which to create the array.</param>
-        /// <returns>The new array created from the items.</returns>
-        public static ThenEntity From(JsonAny item1, JsonAny item2, JsonAny item3)
-        {
-            return new ThenEntity(ImmutableList.Create(item1, item2, item3));
-        }
-
-        /// <summary>
-        /// Create an array from the given items.
-        /// </summary>
-        /// <param name="item1">The first item from which to create the array.</param>
-        /// <param name="item2">The second item from which to create the array.</param>
-        /// <param name="item3">The third item from which to create the array.</param>
-        /// <param name="item4">The fourth item from which to create the array.</param>
-        /// <returns>The new array created from the items.</returns>
-        public static ThenEntity From(JsonAny item1, JsonAny item2, JsonAny item3, JsonAny item4)
-        {
-            return new ThenEntity(ImmutableList.Create(item1, item2, item3, item4));
-        }
-        
     
     
         /// <inheritdoc/>
@@ -2502,7 +2162,7 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteract
             return valueKind switch
             {
                     JsonValueKind.Object => this.AsObject().GetHashCode(),
-                        JsonValueKind.Array => this.AsArray.GetHashCode(),
+                        JsonValueKind.Array => this.AsArray().GetHashCode(),
                         JsonValueKind.Number => this.AsNumber().GetHashCode(),
                         JsonValueKind.String => this.AsString().GetHashCode(),
                         JsonValueKind.True or JsonValueKind.False => this.AsBoolean().GetHashCode(),
@@ -2518,12 +2178,6 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteract
         public void WriteTo(Utf8JsonWriter writer)
         {
     
-                if (this.arrayBacking is ImmutableList<JsonAny> arrayBacking)
-            {
-                JsonArray.WriteItems(arrayBacking, writer);
-                return;
-            }
-
     
     
     
@@ -2538,12 +2192,6 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteract
         }
 
     
-    
-                /// <inheritdoc/>
-        public JsonArrayEnumerator EnumerateArray()
-        {
-            return this.AsArray.EnumerateArray();
-        }
     
     
         /// <inheritdoc/>
@@ -2560,7 +2208,7 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteract
             return valueKind switch
             {
                     JsonValueKind.Object => this.AsObject().Equals(other.AsObject()),
-                        JsonValueKind.Array => this.AsArray.Equals(other.AsArray()),
+                        JsonValueKind.Array => this.AsArray().Equals(other.AsArray()),
                         JsonValueKind.Number => this.AsNumber().Equals(other.AsNumber()),
                         JsonValueKind.String => this.AsString().Equals(other.AsString()),
                         JsonValueKind.True or JsonValueKind.False => this.AsBoolean().Equals(other.AsBoolean()),
@@ -2582,7 +2230,7 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteract
             return valueKind switch
             {
                                 JsonValueKind.Object => this.AsObject().Equals(other.AsObject()),
-                        JsonValueKind.Array => this.AsArray.Equals(other.AsArray),
+                        JsonValueKind.Array => this.AsArray().Equals(other.AsArray()),
                         JsonValueKind.Number => this.AsNumber().Equals(other.AsNumber()),
                         JsonValueKind.String => this.AsString().Equals(other.AsString()),
                         JsonValueKind.True or JsonValueKind.False => this.AsBoolean().Equals(other.AsBoolean()),
@@ -2592,77 +2240,6 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteract
         }
 
     
-    
-        /// <inheritdoc/>
-        public ThenEntity Add<TItem>(TItem item)
-            where TItem : struct, IJsonValue
-        {
-            if (this.ValueKind == JsonValueKind.Array || this.ValueKind == JsonValueKind.Undefined)
-            {
-                return this.AsArray.Add(item);
-            }
-
-            return this;
-        }
-
-        /// <inheritdoc/>
-        public ThenEntity Insert<TItem>(int index, TItem item)
-            where TItem : struct, IJsonValue
-        {
-            if (this.ValueKind == JsonValueKind.Array || this.ValueKind == JsonValueKind.Undefined)
-            {
-                return this.AsArray.Insert(index, item);
-            }
-
-            return this;
-        }
-
-        /// <inheritdoc/>
-        public ThenEntity Replace<TItem>(TItem oldValue, TItem newValue)
-            where TItem : struct, IJsonValue
-        {
-            if (this.ValueKind == JsonValueKind.Array)
-            {
-                return this.AsArray.Replace(oldValue, newValue);
-            }
-
-            return this;
-        }
-
-        /// <inheritdoc/>
-        public ThenEntity RemoveAt(int index)
-        {
-            if (this.ValueKind == JsonValueKind.Array)
-            {
-                return this.AsArray.RemoveAt(index);
-            }
-
-            return this;
-        }
-
-        /// <inheritdoc/>
-        public ThenEntity RemoveRange(int index, int count)
-        {
-            if (this.ValueKind == JsonValueKind.Array)
-            {
-                return this.AsArray.RemoveRange(index, count);
-            }
-
-            return this;
-        }
-
-        /// <inheritdoc/>
-        public ThenEntity SetItem<TItem>(int index, TItem value)
-            where TItem : struct, IJsonValue
-        {
-            if (this.ValueKind == JsonValueKind.Array)
-            {
-                return this.AsArray.SetItem(index, value);
-            }
-
-            return this;
-        }
-
     
         /// <inheritdoc/>
         public T As<T>()
@@ -2706,21 +2283,6 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteract
         }
 
     
-            /// <summary>
-        /// Gets the value as a <see cref="JsonArray"/>.
-        /// </summary>
-        private JsonArray AsArray
-        {
-            get
-            {
-                if (this.arrayBacking is ImmutableList<JsonAny> arrayBacking)
-                {
-                    return new JsonArray(arrayBacking);
-                }
-
-                return new JsonArray(this.jsonElementBacking);
-            }
-        }
     
     
     
@@ -3931,8 +3493,8 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteract
     /// A type generated from a JsonSchema specification.
     /// </summary>
     public readonly struct ThenEntity1 :
-                IJsonArray<ThenEntity1>,
-                IEquatable<ThenEntity1>
+                    IJsonValue,
+            IEquatable<ThenEntity1>
     {
 
         
@@ -3948,7 +3510,6 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteract
         private readonly JsonElement jsonElementBacking;
 
     
-            private readonly ImmutableList<JsonAny>? arrayBacking;
     
     
     
@@ -3960,107 +3521,17 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteract
         public ThenEntity1(JsonElement value)
         {
             this.jsonElementBacking = value;
-                    this.arrayBacking = default;
-                        }
+                            }
 
     
-            /// <summary>
-        /// Initializes a new instance of the <see cref="ThenEntity1"/> struct.
-        /// </summary>
-        /// <param name="value">An array list.</param>
-        public ThenEntity1(ImmutableList<JsonAny> value)
-        {
-            this.jsonElementBacking = default;
-                                            this.arrayBacking = value;
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ThenEntity1"/> struct.
-        /// </summary>
-        /// <param name="jsonArray">The <see cref="JsonArray"/> from which to construct the value.</param>
-        public ThenEntity1(JsonArray jsonArray)
-        {
-            if (jsonArray.HasJsonElement)
-            {
-                this.jsonElementBacking = jsonArray.AsJsonElement;
-                this.arrayBacking = default;
-            }
-            else
-            {
-                this.jsonElementBacking = default;
-                this.arrayBacking = jsonArray.AsItemsList;
-            }
-
-                                        }
     
     
     
     
     
-            /// <summary>
-        /// Initializes a new instance of the <see cref="ThenEntity1"/> struct.
-        /// </summary>
-        /// <param name="conversion">The <see cref="UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteractToControlItemDependencyRelationship.Schema.ThenEntity.ThenEntity1.IfEntity"/> from which to construct the value.</param>
-        public ThenEntity1(UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteractToControlItemDependencyRelationship.Schema.ThenEntity.ThenEntity1.IfEntity conversion)
-        {
-            if (conversion.HasJsonElement)
-            {
-                this.jsonElementBacking = conversion.AsJsonElement;
-                
-                        this.arrayBacking = default;
-                                    }
-            else
-            {
-                this.jsonElementBacking = default;
-                
-                        if (conversion.ValueKind == JsonValueKind.Array)
-                {
-                    this.arrayBacking = conversion;
-                }
-                else
-                {
-                    this.arrayBacking = default;
-                }
-                                    }
-        }
     
 
-            /// <inheritdoc/>
-        public int Length
-        {
-            get
-            {
-                if (this.arrayBacking is ImmutableList<JsonAny> items)
-                {
-                    return items.Count;
-                }
-
-                return this.jsonElementBacking.GetArrayLength();
-            }
-        }
     
-            /// <summary>
-        /// Gets the value as a <see cref="UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteractToControlItemDependencyRelationship.Schema.ThenEntity.ThenEntity1.IfEntity" />.
-        /// </summary>
-        public UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteractToControlItemDependencyRelationship.Schema.ThenEntity.ThenEntity1.IfEntity AsIfEntity
-        {
-            get
-            {
-                return this;
-            }
-        }
-
-        /// <summary>
-        /// Gets a value indicating whether this is a valid <see cref="UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteractToControlItemDependencyRelationship.Schema.ThenEntity.ThenEntity1.IfEntity" />.
-        /// </summary>
-        public bool IsIfEntity
-        {
-            get
-            {
-                return ((UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteractToControlItemDependencyRelationship.Schema.ThenEntity.ThenEntity1.IfEntity)this).Validate().IsValid;
-            }
-        }
-
     
             
             
@@ -4070,8 +3541,8 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteract
         public bool HasJsonElement =>
     
     
-                        this.arrayBacking is null
                 
+        true
                 ;
 
         /// <summary>
@@ -4082,10 +3553,6 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteract
             get
             {
     
-                    if (this.arrayBacking is ImmutableList<JsonAny> arrayBacking)
-                {
-                    return JsonArray.ItemsToJsonElement(arrayBacking);
-                }
     
     
     
@@ -4100,11 +3567,6 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteract
             get
             {
     
-                    if (this.arrayBacking is ImmutableList<JsonAny>)
-                {
-                    return JsonValueKind.Array;
-                }
-
     
     
     
@@ -4119,11 +3581,6 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteract
             get
             {
     
-                    if (this.arrayBacking is ImmutableList<JsonAny> arrayBacking)
-                {
-                    return new JsonAny(arrayBacking);
-                }
-
     
     
     
@@ -4132,27 +3589,6 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteract
             }
         }
 
-            /// <summary>
-        /// Conversion from <see cref="UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteractToControlItemDependencyRelationship.Schema.ThenEntity.ThenEntity1.IfEntity" />.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator ThenEntity1(UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteractToControlItemDependencyRelationship.Schema.ThenEntity.ThenEntity1.IfEntity value)
-        {
-            return new ThenEntity1(value);
-        }
-
-        /// <summary>
-        /// Conversion to <see cref="UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteractToControlItemDependencyRelationship.Schema.ThenEntity.ThenEntity1.IfEntity" />.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteractToControlItemDependencyRelationship.Schema.ThenEntity.ThenEntity1.IfEntity(ThenEntity1 value)
-        {
-                            if (value.ValueKind == JsonValueKind.Array)
-            {
-                return new UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteractToControlItemDependencyRelationship.Schema.ThenEntity.ThenEntity1.IfEntity(value.AsArray);
-            }
-                                            return default;
-        }
     
         
         /// <summary>
@@ -4178,42 +3614,6 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteract
             return value.AsAny;
         }
 
-    
-        /// <summary>
-        /// Conversion from array.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator ThenEntity1(JsonArray value)
-        {
-            return new ThenEntity1(value);
-        }
-
-        /// <summary>
-        /// Conversion to array.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator JsonArray(ThenEntity1 value)
-        {
-            return value.AsArray;
-        }
-       
-        /// <summary>
-        /// Implicit conversion to an <see cref="ImmutableList{T}"/> of <see cref="JsonAny"/>.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator ImmutableList<JsonAny>(ThenEntity1 value)
-        {
-            return value.AsArray.AsItemsList;
-        }
-
-        /// <summary>
-        /// Implicit conversion from an <see cref="ImmutableList{T}"/> of <see cref="JsonAny"/>.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator ThenEntity1(ImmutableList<JsonAny> value)
-        {
-            return new ThenEntity1(value);
-        }
     
     
     
@@ -4241,62 +3641,6 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteract
             return !lhs.Equals(rhs);
         }
 
-                            /// <summary>
-        /// Create an array from the given items.
-        /// </summary>
-        /// <param name="items">The items from which to create the array.</param>
-        /// <returns>The new array created from the items.</returns>
-        public static ThenEntity1 From(params JsonAny[] items)
-        {
-            return new ThenEntity1(items.ToImmutableList());
-        }
-
-        /// <summary>
-        /// Create an array from the given items.
-        /// </summary>
-        /// <param name="item1">The items from which to create the array.</param>
-        /// <returns>The new array created from the items.</returns>
-        public static ThenEntity1 From(JsonAny item1)
-        {
-            return new ThenEntity1(ImmutableList.Create(item1));
-        }
-
-        /// <summary>
-        /// Create an array from the given items.
-        /// </summary>
-        /// <param name="item1">The first item from which to create the array.</param>
-        /// <param name="item2">The second item from which to create the array.</param>
-        /// <returns>The new array created from the items.</returns>
-        public static ThenEntity1 From(JsonAny item1, JsonAny item2)
-        {
-            return new ThenEntity1(ImmutableList.Create(item1, item2));
-        }
-
-        /// <summary>
-        /// Create an array from the given items.
-        /// </summary>
-        /// <param name="item1">The first item from which to create the array.</param>
-        /// <param name="item2">The second item from which to create the array.</param>
-        /// <param name="item3">The third item from which to create the array.</param>
-        /// <returns>The new array created from the items.</returns>
-        public static ThenEntity1 From(JsonAny item1, JsonAny item2, JsonAny item3)
-        {
-            return new ThenEntity1(ImmutableList.Create(item1, item2, item3));
-        }
-
-        /// <summary>
-        /// Create an array from the given items.
-        /// </summary>
-        /// <param name="item1">The first item from which to create the array.</param>
-        /// <param name="item2">The second item from which to create the array.</param>
-        /// <param name="item3">The third item from which to create the array.</param>
-        /// <param name="item4">The fourth item from which to create the array.</param>
-        /// <returns>The new array created from the items.</returns>
-        public static ThenEntity1 From(JsonAny item1, JsonAny item2, JsonAny item3, JsonAny item4)
-        {
-            return new ThenEntity1(ImmutableList.Create(item1, item2, item3, item4));
-        }
-        
     
     
         /// <inheritdoc/>
@@ -4318,7 +3662,7 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteract
             return valueKind switch
             {
                     JsonValueKind.Object => this.AsObject().GetHashCode(),
-                        JsonValueKind.Array => this.AsArray.GetHashCode(),
+                        JsonValueKind.Array => this.AsArray().GetHashCode(),
                         JsonValueKind.Number => this.AsNumber().GetHashCode(),
                         JsonValueKind.String => this.AsString().GetHashCode(),
                         JsonValueKind.True or JsonValueKind.False => this.AsBoolean().GetHashCode(),
@@ -4334,12 +3678,6 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteract
         public void WriteTo(Utf8JsonWriter writer)
         {
     
-                if (this.arrayBacking is ImmutableList<JsonAny> arrayBacking)
-            {
-                JsonArray.WriteItems(arrayBacking, writer);
-                return;
-            }
-
     
     
     
@@ -4354,12 +3692,6 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteract
         }
 
     
-    
-                /// <inheritdoc/>
-        public JsonArrayEnumerator EnumerateArray()
-        {
-            return this.AsArray.EnumerateArray();
-        }
     
     
         /// <inheritdoc/>
@@ -4376,7 +3708,7 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteract
             return valueKind switch
             {
                     JsonValueKind.Object => this.AsObject().Equals(other.AsObject()),
-                        JsonValueKind.Array => this.AsArray.Equals(other.AsArray()),
+                        JsonValueKind.Array => this.AsArray().Equals(other.AsArray()),
                         JsonValueKind.Number => this.AsNumber().Equals(other.AsNumber()),
                         JsonValueKind.String => this.AsString().Equals(other.AsString()),
                         JsonValueKind.True or JsonValueKind.False => this.AsBoolean().Equals(other.AsBoolean()),
@@ -4398,7 +3730,7 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteract
             return valueKind switch
             {
                                 JsonValueKind.Object => this.AsObject().Equals(other.AsObject()),
-                        JsonValueKind.Array => this.AsArray.Equals(other.AsArray),
+                        JsonValueKind.Array => this.AsArray().Equals(other.AsArray()),
                         JsonValueKind.Number => this.AsNumber().Equals(other.AsNumber()),
                         JsonValueKind.String => this.AsString().Equals(other.AsString()),
                         JsonValueKind.True or JsonValueKind.False => this.AsBoolean().Equals(other.AsBoolean()),
@@ -4408,77 +3740,6 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteract
         }
 
     
-    
-        /// <inheritdoc/>
-        public ThenEntity1 Add<TItem>(TItem item)
-            where TItem : struct, IJsonValue
-        {
-            if (this.ValueKind == JsonValueKind.Array || this.ValueKind == JsonValueKind.Undefined)
-            {
-                return this.AsArray.Add(item);
-            }
-
-            return this;
-        }
-
-        /// <inheritdoc/>
-        public ThenEntity1 Insert<TItem>(int index, TItem item)
-            where TItem : struct, IJsonValue
-        {
-            if (this.ValueKind == JsonValueKind.Array || this.ValueKind == JsonValueKind.Undefined)
-            {
-                return this.AsArray.Insert(index, item);
-            }
-
-            return this;
-        }
-
-        /// <inheritdoc/>
-        public ThenEntity1 Replace<TItem>(TItem oldValue, TItem newValue)
-            where TItem : struct, IJsonValue
-        {
-            if (this.ValueKind == JsonValueKind.Array)
-            {
-                return this.AsArray.Replace(oldValue, newValue);
-            }
-
-            return this;
-        }
-
-        /// <inheritdoc/>
-        public ThenEntity1 RemoveAt(int index)
-        {
-            if (this.ValueKind == JsonValueKind.Array)
-            {
-                return this.AsArray.RemoveAt(index);
-            }
-
-            return this;
-        }
-
-        /// <inheritdoc/>
-        public ThenEntity1 RemoveRange(int index, int count)
-        {
-            if (this.ValueKind == JsonValueKind.Array)
-            {
-                return this.AsArray.RemoveRange(index, count);
-            }
-
-            return this;
-        }
-
-        /// <inheritdoc/>
-        public ThenEntity1 SetItem<TItem>(int index, TItem value)
-            where TItem : struct, IJsonValue
-        {
-            if (this.ValueKind == JsonValueKind.Array)
-            {
-                return this.AsArray.SetItem(index, value);
-            }
-
-            return this;
-        }
-
     
         /// <inheritdoc/>
         public T As<T>()
@@ -4522,21 +3783,6 @@ namespace UnevaluatedItemsDraft202012Feature.UnevaluatedItemsAndContainsInteract
         }
 
     
-            /// <summary>
-        /// Gets the value as a <see cref="JsonArray"/>.
-        /// </summary>
-        private JsonArray AsArray
-        {
-            get
-            {
-                if (this.arrayBacking is ImmutableList<JsonAny> arrayBacking)
-                {
-                    return new JsonArray(arrayBacking);
-                }
-
-                return new JsonArray(this.jsonElementBacking);
-            }
-        }
     
     
     

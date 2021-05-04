@@ -288,23 +288,6 @@ namespace IfThenElseDraft201909Feature.NonInterferenceAcrossCombinedSchemas
         }
     
                 /// <summary>
-        /// Conversion from <see cref="IfThenElseDraft201909Feature.NonInterferenceAcrossCombinedSchemas.Schema.AllOf0Entity.IfEntity" />.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator Schema(IfThenElseDraft201909Feature.NonInterferenceAcrossCombinedSchemas.Schema.AllOf0Entity.IfEntity value)
-        {
-            return (IfThenElseDraft201909Feature.NonInterferenceAcrossCombinedSchemas.Schema)value;
-        }
-
-        /// <summary>
-        /// Conversion to <see cref="IfThenElseDraft201909Feature.NonInterferenceAcrossCombinedSchemas.Schema.AllOf0Entity.IfEntity" />.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator IfThenElseDraft201909Feature.NonInterferenceAcrossCombinedSchemas.Schema.AllOf0Entity.IfEntity(Schema value)
-        {
-            return (IfThenElseDraft201909Feature.NonInterferenceAcrossCombinedSchemas.Schema)value;
-        }
-            /// <summary>
         /// Conversion from <see cref="IfThenElseDraft201909Feature.NonInterferenceAcrossCombinedSchemas.Schema.AllOf1Entity.ThenEntity" />.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
@@ -665,7 +648,6 @@ namespace IfThenElseDraft201909Feature.NonInterferenceAcrossCombinedSchemas
 
     
     
-            private readonly double? numberBacking;
     
     
     
@@ -676,123 +658,17 @@ namespace IfThenElseDraft201909Feature.NonInterferenceAcrossCombinedSchemas
         public AllOf0Entity(JsonElement value)
         {
             this.jsonElementBacking = value;
-                        this.numberBacking = default;
-                    }
-
-    
-    
-            /// <summary>
-        /// Initializes a new instance of the <see cref="AllOf0Entity"/> struct.
-        /// </summary>
-        /// <param name="jsonNumber">The <see cref="JsonNumber"/> from which to construct the value.</param>
-        public AllOf0Entity(JsonNumber jsonNumber)
-        {
-            if (jsonNumber.HasJsonElement)
-            {
-                this.jsonElementBacking = jsonNumber.AsJsonElement;
-                this.numberBacking = default;
-            }
-            else
-            {
-                this.jsonElementBacking = default;
-                this.numberBacking = jsonNumber.GetDouble();
-            }
-                                        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="AllOf0Entity"/> struct.
-        /// </summary>
-        /// <param name="value">A number value.</param>
-        public AllOf0Entity(double value)
-        {
-            this.jsonElementBacking = default;
-                                            this.numberBacking = value;
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="AllOf0Entity"/> struct.
-        /// </summary>
-        /// <param name="value">A number value.</param>
-        public AllOf0Entity(int value)
-        {
-            this.jsonElementBacking = default;
-                                            this.numberBacking = value;
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="AllOf0Entity"/> struct.
-        /// </summary>
-        /// <param name="value">A number value.</param>
-        public AllOf0Entity(float value)
-        {
-            this.jsonElementBacking = default;
-                                            this.numberBacking = value;
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="AllOf0Entity"/> struct.
-        /// </summary>
-        /// <param name="value">A number value.</param>
-        public AllOf0Entity(long value)
-        {
-            this.jsonElementBacking = default;
-                                            this.numberBacking = value;
-        }
-    
-    
-    
-    
-            /// <summary>
-        /// Initializes a new instance of the <see cref="AllOf0Entity"/> struct.
-        /// </summary>
-        /// <param name="conversion">The <see cref="IfThenElseDraft201909Feature.NonInterferenceAcrossCombinedSchemas.Schema.AllOf0Entity.IfEntity"/> from which to construct the value.</param>
-        public AllOf0Entity(IfThenElseDraft201909Feature.NonInterferenceAcrossCombinedSchemas.Schema.AllOf0Entity.IfEntity conversion)
-        {
-            if (conversion.HasJsonElement)
-            {
-                this.jsonElementBacking = conversion.AsJsonElement;
-                
-                                this.numberBacking = default;
                             }
-            else
-            {
-                this.jsonElementBacking = default;
-                
-                                if (conversion.ValueKind == JsonValueKind.Number)
-                {
-                    this.numberBacking = conversion;
-                }
-                else
-                {
-                    this.numberBacking = default;
-                }
-                            }
-        }
+
+    
+    
+    
+    
+    
+    
     
 
     
-            /// <summary>
-        /// Gets the value as a <see cref="IfThenElseDraft201909Feature.NonInterferenceAcrossCombinedSchemas.Schema.AllOf0Entity.IfEntity" />.
-        /// </summary>
-        public IfThenElseDraft201909Feature.NonInterferenceAcrossCombinedSchemas.Schema.AllOf0Entity.IfEntity AsIfEntity
-        {
-            get
-            {
-                return this;
-            }
-        }
-
-        /// <summary>
-        /// Gets a value indicating whether this is a valid <see cref="IfThenElseDraft201909Feature.NonInterferenceAcrossCombinedSchemas.Schema.AllOf0Entity.IfEntity" />.
-        /// </summary>
-        public bool IsIfEntity
-        {
-            get
-            {
-                return ((IfThenElseDraft201909Feature.NonInterferenceAcrossCombinedSchemas.Schema.AllOf0Entity.IfEntity)this).Validate().IsValid;
-            }
-        }
-
     
                 
             
@@ -802,8 +678,8 @@ namespace IfThenElseDraft201909Feature.NonInterferenceAcrossCombinedSchemas
         public bool HasJsonElement =>
     
     
-                            this.numberBacking is null
-            
+                
+        true
                 ;
 
         /// <summary>
@@ -815,11 +691,6 @@ namespace IfThenElseDraft201909Feature.NonInterferenceAcrossCombinedSchemas
             {
     
     
-                    if (this.numberBacking is double numberBacking)
-                {
-                    return JsonNumber.NumberToJsonElement(numberBacking);
-                }
-
     
     
     
@@ -834,11 +705,6 @@ namespace IfThenElseDraft201909Feature.NonInterferenceAcrossCombinedSchemas
             {
     
     
-                    if (this.numberBacking is double)
-                {
-                    return JsonValueKind.Number;
-                }
-
     
     
     
@@ -853,11 +719,6 @@ namespace IfThenElseDraft201909Feature.NonInterferenceAcrossCombinedSchemas
             {
     
     
-                    if (this.numberBacking is double numberBacking)
-                {
-                    return new JsonAny(numberBacking);
-                }
-
     
     
     
@@ -865,27 +726,6 @@ namespace IfThenElseDraft201909Feature.NonInterferenceAcrossCombinedSchemas
             }
         }
 
-            /// <summary>
-        /// Conversion from <see cref="IfThenElseDraft201909Feature.NonInterferenceAcrossCombinedSchemas.Schema.AllOf0Entity.IfEntity" />.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator AllOf0Entity(IfThenElseDraft201909Feature.NonInterferenceAcrossCombinedSchemas.Schema.AllOf0Entity.IfEntity value)
-        {
-            return new AllOf0Entity(value);
-        }
-
-        /// <summary>
-        /// Conversion to <see cref="IfThenElseDraft201909Feature.NonInterferenceAcrossCombinedSchemas.Schema.AllOf0Entity.IfEntity" />.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator IfThenElseDraft201909Feature.NonInterferenceAcrossCombinedSchemas.Schema.AllOf0Entity.IfEntity(AllOf0Entity value)
-        {
-                                                    if (value.ValueKind == JsonValueKind.Number)
-            {
-                return new IfThenElseDraft201909Feature.NonInterferenceAcrossCombinedSchemas.Schema.AllOf0Entity.IfEntity(value.AsNumber);
-            }
-                    return default;
-        }
     
         
         /// <summary>
@@ -914,97 +754,6 @@ namespace IfThenElseDraft201909Feature.NonInterferenceAcrossCombinedSchemas
     
     
     
-    
-        /// <summary>
-        /// Conversion from double.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator AllOf0Entity(double value)
-        {
-            return new AllOf0Entity(value);
-        }
-
-        /// <summary>
-        /// Conversion to double.
-        /// </summary>
-        /// <param name="number">The number from which to convert.</param>
-        public static implicit operator double(AllOf0Entity number)
-        {
-            return number.AsNumber.GetDouble();
-        }
-
-        /// <summary>
-        /// Conversion from float.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator AllOf0Entity(float value)
-        {
-            return new AllOf0Entity(value);
-        }
-
-        /// <summary>
-        /// Conversion to float.
-        /// </summary>
-        /// <param name="number">The number from which to convert.</param>
-        public static implicit operator float(AllOf0Entity number)
-        {
-            return number.AsNumber.GetSingle();
-        }
-
-        /// <summary>
-        /// Conversion from long.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator AllOf0Entity(long value)
-        {
-            return new AllOf0Entity(value);
-        }
-
-        /// <summary>
-        /// Conversion to long.
-        /// </summary>
-        /// <param name="number">The number from which to convert.</param>
-        public static implicit operator long(AllOf0Entity number)
-        {
-            return number.AsNumber.GetInt64();
-        }
-
-        /// <summary>
-        /// Conversion from int.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator AllOf0Entity(int value)
-        {
-            return new AllOf0Entity(value);
-        }
-
-        /// <summary>
-        /// Conversion to int.
-        /// </summary>
-        /// <param name="number">The number from which to convert.</param>
-        public static implicit operator int(AllOf0Entity number)
-        {
-            return number.AsNumber.GetInt32();
-        }
-
-        /// <summary>
-        /// Conversion from number.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator AllOf0Entity(JsonNumber value)
-        {
-            return new AllOf0Entity(value);
-        }
-
-        /// <summary>
-        /// Conversion to number.
-        /// </summary>
-        /// <param name="number">The value from which to convert.</param>
-        public static implicit operator JsonNumber(AllOf0Entity number)
-        {
-            return number.AsNumber;
-        }
-
     
     
         /// <summary>
@@ -1051,7 +800,7 @@ namespace IfThenElseDraft201909Feature.NonInterferenceAcrossCombinedSchemas
             {
                     JsonValueKind.Object => this.AsObject().GetHashCode(),
                         JsonValueKind.Array => this.AsArray().GetHashCode(),
-                        JsonValueKind.Number => this.AsNumber.GetHashCode(),
+                        JsonValueKind.Number => this.AsNumber().GetHashCode(),
                         JsonValueKind.String => this.AsString().GetHashCode(),
                         JsonValueKind.True or JsonValueKind.False => this.AsBoolean().GetHashCode(),
                     JsonValueKind.Null => JsonNull.NullHashCode,
@@ -1067,12 +816,6 @@ namespace IfThenElseDraft201909Feature.NonInterferenceAcrossCombinedSchemas
         {
     
     
-                if (this.numberBacking is double numberBacking)
-            {
-                writer.WriteNumberValue(numberBacking);
-                return;
-            }
-
     
     
     
@@ -1103,7 +846,7 @@ namespace IfThenElseDraft201909Feature.NonInterferenceAcrossCombinedSchemas
             {
                     JsonValueKind.Object => this.AsObject().Equals(other.AsObject()),
                         JsonValueKind.Array => this.AsArray().Equals(other.AsArray()),
-                        JsonValueKind.Number => this.AsNumber.Equals(other.AsNumber()),
+                        JsonValueKind.Number => this.AsNumber().Equals(other.AsNumber()),
                         JsonValueKind.String => this.AsString().Equals(other.AsString()),
                         JsonValueKind.True or JsonValueKind.False => this.AsBoolean().Equals(other.AsBoolean()),
                     JsonValueKind.Null => true,
@@ -1125,7 +868,7 @@ namespace IfThenElseDraft201909Feature.NonInterferenceAcrossCombinedSchemas
             {
                                 JsonValueKind.Object => this.AsObject().Equals(other.AsObject()),
                         JsonValueKind.Array => this.AsArray().Equals(other.AsArray()),
-                        JsonValueKind.Number => this.AsNumber.Equals(other.AsNumber),
+                        JsonValueKind.Number => this.AsNumber().Equals(other.AsNumber()),
                         JsonValueKind.String => this.AsString().Equals(other.AsString()),
                         JsonValueKind.True or JsonValueKind.False => this.AsBoolean().Equals(other.AsBoolean()),
                     JsonValueKind.Null => true,
@@ -1185,21 +928,6 @@ namespace IfThenElseDraft201909Feature.NonInterferenceAcrossCombinedSchemas
     
     
     
-            /// <summary>
-        /// Gets the value as a <see cref="JsonNumber"/>.
-        /// </summary>
-        private JsonNumber AsNumber
-        {
-            get
-            {
-                if (this.numberBacking is double numberBacking)
-                {
-                    return new JsonNumber(numberBacking);
-                }
-
-                return new JsonNumber(this.jsonElementBacking);
-            }
-        }
     
     
     

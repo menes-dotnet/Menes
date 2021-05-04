@@ -92,32 +92,6 @@ namespace UnevaluatedItemsDraft201909Feature.UnevaluatedItemsWithIfThenElse
             /// <summary>
         /// Initializes a new instance of the <see cref="Schema"/> struct.
         /// </summary>
-        /// <param name="conversion">The <see cref="UnevaluatedItemsDraft201909Feature.UnevaluatedItemsWithIfThenElse.Schema.IfEntity"/> from which to construct the value.</param>
-        public Schema(UnevaluatedItemsDraft201909Feature.UnevaluatedItemsWithIfThenElse.Schema.IfEntity conversion)
-        {
-            if (conversion.HasJsonElement)
-            {
-                this.jsonElementBacking = conversion.AsJsonElement;
-                
-                        this.arrayBacking = default;
-                                    }
-            else
-            {
-                this.jsonElementBacking = default;
-                
-                        if (conversion.ValueKind == JsonValueKind.Array)
-                {
-                    this.arrayBacking = conversion;
-                }
-                else
-                {
-                    this.arrayBacking = default;
-                }
-                                    }
-        }
-            /// <summary>
-        /// Initializes a new instance of the <see cref="Schema"/> struct.
-        /// </summary>
         /// <param name="conversion">The <see cref="UnevaluatedItemsDraft201909Feature.UnevaluatedItemsWithIfThenElse.Schema.ThenEntity"/> from which to construct the value.</param>
         public Schema(UnevaluatedItemsDraft201909Feature.UnevaluatedItemsWithIfThenElse.Schema.ThenEntity conversion)
         {
@@ -183,28 +157,6 @@ namespace UnevaluatedItemsDraft201909Feature.UnevaluatedItemsWithIfThenElse
             }
         }
     
-            /// <summary>
-        /// Gets the value as a <see cref="UnevaluatedItemsDraft201909Feature.UnevaluatedItemsWithIfThenElse.Schema.IfEntity" />.
-        /// </summary>
-        public UnevaluatedItemsDraft201909Feature.UnevaluatedItemsWithIfThenElse.Schema.IfEntity AsIfEntity
-        {
-            get
-            {
-                return this;
-            }
-        }
-
-        /// <summary>
-        /// Gets a value indicating whether this is a valid <see cref="UnevaluatedItemsDraft201909Feature.UnevaluatedItemsWithIfThenElse.Schema.IfEntity" />.
-        /// </summary>
-        public bool IsIfEntity
-        {
-            get
-            {
-                return ((UnevaluatedItemsDraft201909Feature.UnevaluatedItemsWithIfThenElse.Schema.IfEntity)this).Validate().IsValid;
-            }
-        }
-
             /// <summary>
         /// Gets the value as a <see cref="UnevaluatedItemsDraft201909Feature.UnevaluatedItemsWithIfThenElse.Schema.ThenEntity" />.
         /// </summary>
@@ -363,27 +315,6 @@ namespace UnevaluatedItemsDraft201909Feature.UnevaluatedItemsWithIfThenElse
             }
         }
 
-            /// <summary>
-        /// Conversion from <see cref="UnevaluatedItemsDraft201909Feature.UnevaluatedItemsWithIfThenElse.Schema.IfEntity" />.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator Schema(UnevaluatedItemsDraft201909Feature.UnevaluatedItemsWithIfThenElse.Schema.IfEntity value)
-        {
-            return new Schema(value);
-        }
-
-        /// <summary>
-        /// Conversion to <see cref="UnevaluatedItemsDraft201909Feature.UnevaluatedItemsWithIfThenElse.Schema.IfEntity" />.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator UnevaluatedItemsDraft201909Feature.UnevaluatedItemsWithIfThenElse.Schema.IfEntity(Schema value)
-        {
-                            if (value.ValueKind == JsonValueKind.Array)
-            {
-                return new UnevaluatedItemsDraft201909Feature.UnevaluatedItemsWithIfThenElse.Schema.IfEntity(value.AsArray);
-            }
-                                            return default;
-        }
             /// <summary>
         /// Conversion from <see cref="UnevaluatedItemsDraft201909Feature.UnevaluatedItemsWithIfThenElse.Schema.ThenEntity" />.
         /// </summary>

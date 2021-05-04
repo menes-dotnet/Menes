@@ -158,34 +158,6 @@ namespace DynamicRefDraft202012Feature.MultipleDynamicPathsToTheDynamicRefKeywor
             /// <summary>
         /// Initializes a new instance of the <see cref="Main"/> struct.
         /// </summary>
-        /// <param name="conversion">The <see cref="DynamicRefDraft202012Feature.MultipleDynamicPathsToTheDynamicRefKeyword.Main.IfEntity"/> from which to construct the value.</param>
-        public Main(DynamicRefDraft202012Feature.MultipleDynamicPathsToTheDynamicRefKeyword.Main.IfEntity conversion)
-        {
-            if (conversion.HasJsonElement)
-            {
-                this.jsonElementBacking = conversion.AsJsonElement;
-                        this.objectBacking = default;
-                
-                                this.numberBacking = default;
-                            }
-            else
-            {
-                this.jsonElementBacking = default;
-                        if (conversion.ValueKind == JsonValueKind.Object)
-                {
-                    this.objectBacking = conversion;
-                }
-                else
-                {
-                    this.objectBacking = default;
-                }
-                
-                                this.numberBacking = default;
-                            }
-        }
-            /// <summary>
-        /// Initializes a new instance of the <see cref="Main"/> struct.
-        /// </summary>
         /// <param name="conversion">The <see cref="DynamicRefDraft202012Feature.MultipleDynamicPathsToTheDynamicRefKeyword.AnyLeafNode"/> from which to construct the value.</param>
         public Main(DynamicRefDraft202012Feature.MultipleDynamicPathsToTheDynamicRefKeyword.AnyLeafNode conversion)
         {
@@ -242,28 +214,6 @@ namespace DynamicRefDraft202012Feature.MultipleDynamicPathsToTheDynamicRefKeywor
     
 
     
-            /// <summary>
-        /// Gets the value as a <see cref="DynamicRefDraft202012Feature.MultipleDynamicPathsToTheDynamicRefKeyword.Main.IfEntity" />.
-        /// </summary>
-        public DynamicRefDraft202012Feature.MultipleDynamicPathsToTheDynamicRefKeyword.Main.IfEntity AsIfEntity
-        {
-            get
-            {
-                return this;
-            }
-        }
-
-        /// <summary>
-        /// Gets a value indicating whether this is a valid <see cref="DynamicRefDraft202012Feature.MultipleDynamicPathsToTheDynamicRefKeyword.Main.IfEntity" />.
-        /// </summary>
-        public bool IsIfEntity
-        {
-            get
-            {
-                return ((DynamicRefDraft202012Feature.MultipleDynamicPathsToTheDynamicRefKeyword.Main.IfEntity)this).Validate().IsValid;
-            }
-        }
-
             /// <summary>
         /// Gets the value as a <see cref="DynamicRefDraft202012Feature.MultipleDynamicPathsToTheDynamicRefKeyword.AnyLeafNode" />.
         /// </summary>
@@ -442,27 +392,6 @@ namespace DynamicRefDraft202012Feature.MultipleDynamicPathsToTheDynamicRefKeywor
             }
         }
 
-            /// <summary>
-        /// Conversion from <see cref="DynamicRefDraft202012Feature.MultipleDynamicPathsToTheDynamicRefKeyword.Main.IfEntity" />.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator Main(DynamicRefDraft202012Feature.MultipleDynamicPathsToTheDynamicRefKeyword.Main.IfEntity value)
-        {
-            return new Main(value);
-        }
-
-        /// <summary>
-        /// Conversion to <see cref="DynamicRefDraft202012Feature.MultipleDynamicPathsToTheDynamicRefKeyword.Main.IfEntity" />.
-        /// </summary>
-        /// <param name="value">The value from which to convert.</param>
-        public static implicit operator DynamicRefDraft202012Feature.MultipleDynamicPathsToTheDynamicRefKeyword.Main.IfEntity(Main value)
-        {
-                    if (value.ValueKind == JsonValueKind.Object)
-            {
-                return new DynamicRefDraft202012Feature.MultipleDynamicPathsToTheDynamicRefKeyword.Main.IfEntity(value.AsObject);
-            }
-                                                    return default;
-        }
             /// <summary>
         /// Conversion from <see cref="DynamicRefDraft202012Feature.MultipleDynamicPathsToTheDynamicRefKeyword.AnyLeafNode" />.
         /// </summary>
