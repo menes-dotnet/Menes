@@ -46,7 +46,7 @@ namespace RefRemoteDraft202012Feature.BaseURChangeChangeFolder
     
     
     
-            private static readonly ImmutableDictionary<string, Func<ScopeChangeDefs1Json, ValidationContext, ValidationLevel, ValidationContext>> __MenesLocalProperties = CreateLocalPropertyValidators();
+            private static readonly ImmutableDictionary<string, PropertyValidator<ScopeChangeDefs1Json>> __MenesLocalProperties = CreateLocalPropertyValidators();
     
     
 
@@ -659,23 +659,23 @@ namespace RefRemoteDraft202012Feature.BaseURChangeChangeFolder
     
     
     
-        private static ImmutableDictionary<string, Func<ScopeChangeDefs1Json, ValidationContext, ValidationLevel, ValidationContext>> CreateLocalPropertyValidators()
+        private static ImmutableDictionary<string, PropertyValidator<ScopeChangeDefs1Json>> CreateLocalPropertyValidators()
         {
-            ImmutableDictionary<string, Func<ScopeChangeDefs1Json, ValidationContext, ValidationLevel, ValidationContext>>.Builder builder =
-                ImmutableDictionary.CreateBuilder<string, Func<ScopeChangeDefs1Json, ValidationContext, ValidationLevel, ValidationContext>>();
+            ImmutableDictionary<string, PropertyValidator<ScopeChangeDefs1Json>>.Builder builder =
+                ImmutableDictionary.CreateBuilder<string, PropertyValidator<ScopeChangeDefs1Json>>();
 
                     builder.Add(
-                ListJsonPropertyName,
-                (that, validationContext, level) =>
-                {
-                    RefRemoteDraft202012Feature.BaseURChangeChangeFolder.JsonIntegerArray property = that.List;
-                    return property.Validate(validationContext, level);
-                });
+                ListJsonPropertyName, __MenesValidateList);
         
             return builder.ToImmutable();
         }
 
-    
+                private static ValidationContext __MenesValidateList(in ScopeChangeDefs1Json that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            RefRemoteDraft202012Feature.BaseURChangeChangeFolder.JsonIntegerArray property = that.List;
+            return property.Validate(validationContext, level);
+        }
+            
     
     
             private ValidationContext ValidateObject(JsonValueKind valueKind, in ValidationContext validationContext, ValidationLevel level)
@@ -695,7 +695,7 @@ namespace RefRemoteDraft202012Feature.BaseURChangeChangeFolder
                 string propertyName = property.Name;
 
         
-                        if (__MenesLocalProperties.TryGetValue(propertyName, out Func<ScopeChangeDefs1Json, ValidationContext, ValidationLevel, ValidationContext>? propertyValidator))
+                        if (__MenesLocalProperties.TryGetValue(propertyName, out PropertyValidator<ScopeChangeDefs1Json>? propertyValidator))
                 {
                     result = result.WithLocalProperty(propertyCount);
                     var propertyResult = propertyValidator(this, result.CreateChildContext(), level);

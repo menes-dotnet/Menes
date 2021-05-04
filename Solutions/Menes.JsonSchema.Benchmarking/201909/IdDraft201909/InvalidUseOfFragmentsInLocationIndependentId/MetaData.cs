@@ -112,7 +112,7 @@ namespace IdDraft201909Feature.InvalidUseOfFragmentsInLocationIndependentId
     
     
     
-            private static readonly ImmutableDictionary<string, Func<MetaData, ValidationContext, ValidationLevel, ValidationContext>> __MenesLocalProperties = CreateLocalPropertyValidators();
+            private static readonly ImmutableDictionary<string, PropertyValidator<MetaData>> __MenesLocalProperties = CreateLocalPropertyValidators();
     
             private static readonly ImmutableDictionary<string, JsonAny> __MenesDefaults = BuildDefaults();
     
@@ -1155,65 +1155,65 @@ namespace IdDraft201909Feature.InvalidUseOfFragmentsInLocationIndependentId
     
     
     
-        private static ImmutableDictionary<string, Func<MetaData, ValidationContext, ValidationLevel, ValidationContext>> CreateLocalPropertyValidators()
+        private static ImmutableDictionary<string, PropertyValidator<MetaData>> CreateLocalPropertyValidators()
         {
-            ImmutableDictionary<string, Func<MetaData, ValidationContext, ValidationLevel, ValidationContext>>.Builder builder =
-                ImmutableDictionary.CreateBuilder<string, Func<MetaData, ValidationContext, ValidationLevel, ValidationContext>>();
+            ImmutableDictionary<string, PropertyValidator<MetaData>>.Builder builder =
+                ImmutableDictionary.CreateBuilder<string, PropertyValidator<MetaData>>();
 
                     builder.Add(
-                TitleJsonPropertyName,
-                (that, validationContext, level) =>
-                {
-                    Menes.Json.JsonString property = that.Title;
-                    return property.Validate(validationContext, level);
-                });
+                TitleJsonPropertyName, __MenesValidateTitle);
                     builder.Add(
-                DescriptionJsonPropertyName,
-                (that, validationContext, level) =>
-                {
-                    Menes.Json.JsonString property = that.Description;
-                    return property.Validate(validationContext, level);
-                });
+                DescriptionJsonPropertyName, __MenesValidateDescription);
                     builder.Add(
-                DefaultJsonPropertyName,
-                (that, validationContext, level) =>
-                {
-                    Menes.Json.JsonAny property = that.Default;
-                    return property.Validate(validationContext, level);
-                });
+                DefaultJsonPropertyName, __MenesValidateDefault);
                     builder.Add(
-                DeprecatedJsonPropertyName,
-                (that, validationContext, level) =>
-                {
-                    IdDraft201909Feature.InvalidUseOfFragmentsInLocationIndependentId.MetaData.DeprecatedValue property = that.Deprecated;
-                    return property.Validate(validationContext, level);
-                });
+                DeprecatedJsonPropertyName, __MenesValidateDeprecated);
                     builder.Add(
-                ReadOnlyJsonPropertyName,
-                (that, validationContext, level) =>
-                {
-                    IdDraft201909Feature.InvalidUseOfFragmentsInLocationIndependentId.MetaData.ReadOnlyValue property = that.ReadOnly;
-                    return property.Validate(validationContext, level);
-                });
+                ReadOnlyJsonPropertyName, __MenesValidateReadOnly);
                     builder.Add(
-                WriteOnlyJsonPropertyName,
-                (that, validationContext, level) =>
-                {
-                    IdDraft201909Feature.InvalidUseOfFragmentsInLocationIndependentId.MetaData.WriteOnlyValue property = that.WriteOnly;
-                    return property.Validate(validationContext, level);
-                });
+                WriteOnlyJsonPropertyName, __MenesValidateWriteOnly);
                     builder.Add(
-                ExamplesJsonPropertyName,
-                (that, validationContext, level) =>
-                {
-                    IdDraft201909Feature.InvalidUseOfFragmentsInLocationIndependentId.MetaData.JsonAnyArray property = that.Examples;
-                    return property.Validate(validationContext, level);
-                });
+                ExamplesJsonPropertyName, __MenesValidateExamples);
         
             return builder.ToImmutable();
         }
 
-    
+                private static ValidationContext __MenesValidateTitle(in MetaData that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            Menes.Json.JsonString property = that.Title;
+            return property.Validate(validationContext, level);
+        }
+                private static ValidationContext __MenesValidateDescription(in MetaData that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            Menes.Json.JsonString property = that.Description;
+            return property.Validate(validationContext, level);
+        }
+                private static ValidationContext __MenesValidateDefault(in MetaData that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            Menes.Json.JsonAny property = that.Default;
+            return property.Validate(validationContext, level);
+        }
+                private static ValidationContext __MenesValidateDeprecated(in MetaData that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            IdDraft201909Feature.InvalidUseOfFragmentsInLocationIndependentId.MetaData.DeprecatedValue property = that.Deprecated;
+            return property.Validate(validationContext, level);
+        }
+                private static ValidationContext __MenesValidateReadOnly(in MetaData that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            IdDraft201909Feature.InvalidUseOfFragmentsInLocationIndependentId.MetaData.ReadOnlyValue property = that.ReadOnly;
+            return property.Validate(validationContext, level);
+        }
+                private static ValidationContext __MenesValidateWriteOnly(in MetaData that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            IdDraft201909Feature.InvalidUseOfFragmentsInLocationIndependentId.MetaData.WriteOnlyValue property = that.WriteOnly;
+            return property.Validate(validationContext, level);
+        }
+                private static ValidationContext __MenesValidateExamples(in MetaData that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            IdDraft201909Feature.InvalidUseOfFragmentsInLocationIndependentId.MetaData.JsonAnyArray property = that.Examples;
+            return property.Validate(validationContext, level);
+        }
+            
             /// <summary>
         /// Gets the value as a <see cref="JsonObject"/>.
         /// </summary>
@@ -1267,7 +1267,7 @@ namespace IdDraft201909Feature.InvalidUseOfFragmentsInLocationIndependentId
                 string propertyName = property.Name;
 
         
-                        if (__MenesLocalProperties.TryGetValue(propertyName, out Func<MetaData, ValidationContext, ValidationLevel, ValidationContext>? propertyValidator))
+                        if (__MenesLocalProperties.TryGetValue(propertyName, out PropertyValidator<MetaData>? propertyValidator))
                 {
                     result = result.WithLocalProperty(propertyCount);
                     var propertyResult = propertyValidator(this, result.CreateChildContext(), level);

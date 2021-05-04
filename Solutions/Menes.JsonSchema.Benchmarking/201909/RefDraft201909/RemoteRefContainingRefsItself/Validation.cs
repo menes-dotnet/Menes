@@ -255,7 +255,7 @@ namespace RefDraft201909Feature.RemoteRefContainingRefsItself
     
     
     
-            private static readonly ImmutableDictionary<string, Func<Validation, ValidationContext, ValidationLevel, ValidationContext>> __MenesLocalProperties = CreateLocalPropertyValidators();
+            private static readonly ImmutableDictionary<string, PropertyValidator<Validation>> __MenesLocalProperties = CreateLocalPropertyValidators();
     
             private static readonly ImmutableDictionary<string, JsonAny> __MenesDefaults = BuildDefaults();
     
@@ -1964,156 +1964,156 @@ namespace RefDraft201909Feature.RemoteRefContainingRefsItself
     
     
     
-        private static ImmutableDictionary<string, Func<Validation, ValidationContext, ValidationLevel, ValidationContext>> CreateLocalPropertyValidators()
+        private static ImmutableDictionary<string, PropertyValidator<Validation>> CreateLocalPropertyValidators()
         {
-            ImmutableDictionary<string, Func<Validation, ValidationContext, ValidationLevel, ValidationContext>>.Builder builder =
-                ImmutableDictionary.CreateBuilder<string, Func<Validation, ValidationContext, ValidationLevel, ValidationContext>>();
+            ImmutableDictionary<string, PropertyValidator<Validation>>.Builder builder =
+                ImmutableDictionary.CreateBuilder<string, PropertyValidator<Validation>>();
 
                     builder.Add(
-                MultipleOfJsonPropertyName,
-                (that, validationContext, level) =>
-                {
-                    RefDraft201909Feature.RemoteRefContainingRefsItself.Validation.MultipleOfValue property = that.MultipleOf;
-                    return property.Validate(validationContext, level);
-                });
+                MultipleOfJsonPropertyName, __MenesValidateMultipleOf);
                     builder.Add(
-                MaximumJsonPropertyName,
-                (that, validationContext, level) =>
-                {
-                    Menes.Json.JsonNumber property = that.Maximum;
-                    return property.Validate(validationContext, level);
-                });
+                MaximumJsonPropertyName, __MenesValidateMaximum);
                     builder.Add(
-                ExclusiveMaximumJsonPropertyName,
-                (that, validationContext, level) =>
-                {
-                    Menes.Json.JsonNumber property = that.ExclusiveMaximum;
-                    return property.Validate(validationContext, level);
-                });
+                ExclusiveMaximumJsonPropertyName, __MenesValidateExclusiveMaximum);
                     builder.Add(
-                MinimumJsonPropertyName,
-                (that, validationContext, level) =>
-                {
-                    Menes.Json.JsonNumber property = that.Minimum;
-                    return property.Validate(validationContext, level);
-                });
+                MinimumJsonPropertyName, __MenesValidateMinimum);
                     builder.Add(
-                ExclusiveMinimumJsonPropertyName,
-                (that, validationContext, level) =>
-                {
-                    Menes.Json.JsonNumber property = that.ExclusiveMinimum;
-                    return property.Validate(validationContext, level);
-                });
+                ExclusiveMinimumJsonPropertyName, __MenesValidateExclusiveMinimum);
                     builder.Add(
-                MaxLengthJsonPropertyName,
-                (that, validationContext, level) =>
-                {
-                    RefDraft201909Feature.RemoteRefContainingRefsItself.Validation.NonNegativeIntegerValue property = that.MaxLength;
-                    return property.Validate(validationContext, level);
-                });
+                MaxLengthJsonPropertyName, __MenesValidateMaxLength);
                     builder.Add(
-                MinLengthJsonPropertyName,
-                (that, validationContext, level) =>
-                {
-                    RefDraft201909Feature.RemoteRefContainingRefsItself.Validation.NonNegativeIntegerDefault0Entity property = that.MinLength;
-                    return property.Validate(validationContext, level);
-                });
+                MinLengthJsonPropertyName, __MenesValidateMinLength);
                     builder.Add(
-                PatternJsonPropertyName,
-                (that, validationContext, level) =>
-                {
-                    Menes.Json.JsonRegex property = that.Pattern;
-                    return property.Validate(validationContext, level);
-                });
+                PatternJsonPropertyName, __MenesValidatePattern);
                     builder.Add(
-                MaxItemsJsonPropertyName,
-                (that, validationContext, level) =>
-                {
-                    RefDraft201909Feature.RemoteRefContainingRefsItself.Validation.NonNegativeIntegerValue property = that.MaxItems;
-                    return property.Validate(validationContext, level);
-                });
+                MaxItemsJsonPropertyName, __MenesValidateMaxItems);
                     builder.Add(
-                MinItemsJsonPropertyName,
-                (that, validationContext, level) =>
-                {
-                    RefDraft201909Feature.RemoteRefContainingRefsItself.Validation.NonNegativeIntegerDefault0Entity property = that.MinItems;
-                    return property.Validate(validationContext, level);
-                });
+                MinItemsJsonPropertyName, __MenesValidateMinItems);
                     builder.Add(
-                UniqueItemsJsonPropertyName,
-                (that, validationContext, level) =>
-                {
-                    RefDraft201909Feature.RemoteRefContainingRefsItself.Validation.UniqueItemsValue property = that.UniqueItems;
-                    return property.Validate(validationContext, level);
-                });
+                UniqueItemsJsonPropertyName, __MenesValidateUniqueItems);
                     builder.Add(
-                MaxContainsJsonPropertyName,
-                (that, validationContext, level) =>
-                {
-                    RefDraft201909Feature.RemoteRefContainingRefsItself.Validation.NonNegativeIntegerValue property = that.MaxContains;
-                    return property.Validate(validationContext, level);
-                });
+                MaxContainsJsonPropertyName, __MenesValidateMaxContains);
                     builder.Add(
-                MinContainsJsonPropertyName,
-                (that, validationContext, level) =>
-                {
-                    RefDraft201909Feature.RemoteRefContainingRefsItself.Validation.MinContainsEntity property = that.MinContains;
-                    return property.Validate(validationContext, level);
-                });
+                MinContainsJsonPropertyName, __MenesValidateMinContains);
                     builder.Add(
-                MaxPropertiesJsonPropertyName,
-                (that, validationContext, level) =>
-                {
-                    RefDraft201909Feature.RemoteRefContainingRefsItself.Validation.NonNegativeIntegerValue property = that.MaxProperties;
-                    return property.Validate(validationContext, level);
-                });
+                MaxPropertiesJsonPropertyName, __MenesValidateMaxProperties);
                     builder.Add(
-                MinPropertiesJsonPropertyName,
-                (that, validationContext, level) =>
-                {
-                    RefDraft201909Feature.RemoteRefContainingRefsItself.Validation.NonNegativeIntegerDefault0Entity property = that.MinProperties;
-                    return property.Validate(validationContext, level);
-                });
+                MinPropertiesJsonPropertyName, __MenesValidateMinProperties);
                     builder.Add(
-                RequiredJsonPropertyName,
-                (that, validationContext, level) =>
-                {
-                    RefDraft201909Feature.RemoteRefContainingRefsItself.Validation.JsonStringArray property = that.Required;
-                    return property.Validate(validationContext, level);
-                });
+                RequiredJsonPropertyName, __MenesValidateRequired);
                     builder.Add(
-                DependentRequiredJsonPropertyName,
-                (that, validationContext, level) =>
-                {
-                    RefDraft201909Feature.RemoteRefContainingRefsItself.Validation.DependentRequiredValue property = that.DependentRequired;
-                    return property.Validate(validationContext, level);
-                });
+                DependentRequiredJsonPropertyName, __MenesValidateDependentRequired);
                     builder.Add(
-                ConstJsonPropertyName,
-                (that, validationContext, level) =>
-                {
-                    Menes.Json.JsonAny property = that.Const;
-                    return property.Validate(validationContext, level);
-                });
+                ConstJsonPropertyName, __MenesValidateConst);
                     builder.Add(
-                EnumJsonPropertyName,
-                (that, validationContext, level) =>
-                {
-                    RefDraft201909Feature.RemoteRefContainingRefsItself.Validation.JsonAnyArray property = that.Enum;
-                    return property.Validate(validationContext, level);
-                });
+                EnumJsonPropertyName, __MenesValidateEnum);
                     builder.Add(
-                TypeJsonPropertyName,
-                (that, validationContext, level) =>
-                {
-                    RefDraft201909Feature.RemoteRefContainingRefsItself.Validation.TypeEntity property = that.Type;
-                    return property.Validate(validationContext, level);
-                });
+                TypeJsonPropertyName, __MenesValidateType);
         
             return builder.ToImmutable();
         }
 
-    
+                private static ValidationContext __MenesValidateMultipleOf(in Validation that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            RefDraft201909Feature.RemoteRefContainingRefsItself.Validation.MultipleOfValue property = that.MultipleOf;
+            return property.Validate(validationContext, level);
+        }
+                private static ValidationContext __MenesValidateMaximum(in Validation that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            Menes.Json.JsonNumber property = that.Maximum;
+            return property.Validate(validationContext, level);
+        }
+                private static ValidationContext __MenesValidateExclusiveMaximum(in Validation that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            Menes.Json.JsonNumber property = that.ExclusiveMaximum;
+            return property.Validate(validationContext, level);
+        }
+                private static ValidationContext __MenesValidateMinimum(in Validation that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            Menes.Json.JsonNumber property = that.Minimum;
+            return property.Validate(validationContext, level);
+        }
+                private static ValidationContext __MenesValidateExclusiveMinimum(in Validation that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            Menes.Json.JsonNumber property = that.ExclusiveMinimum;
+            return property.Validate(validationContext, level);
+        }
+                private static ValidationContext __MenesValidateMaxLength(in Validation that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            RefDraft201909Feature.RemoteRefContainingRefsItself.Validation.NonNegativeIntegerValue property = that.MaxLength;
+            return property.Validate(validationContext, level);
+        }
+                private static ValidationContext __MenesValidateMinLength(in Validation that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            RefDraft201909Feature.RemoteRefContainingRefsItself.Validation.NonNegativeIntegerDefault0Entity property = that.MinLength;
+            return property.Validate(validationContext, level);
+        }
+                private static ValidationContext __MenesValidatePattern(in Validation that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            Menes.Json.JsonRegex property = that.Pattern;
+            return property.Validate(validationContext, level);
+        }
+                private static ValidationContext __MenesValidateMaxItems(in Validation that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            RefDraft201909Feature.RemoteRefContainingRefsItself.Validation.NonNegativeIntegerValue property = that.MaxItems;
+            return property.Validate(validationContext, level);
+        }
+                private static ValidationContext __MenesValidateMinItems(in Validation that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            RefDraft201909Feature.RemoteRefContainingRefsItself.Validation.NonNegativeIntegerDefault0Entity property = that.MinItems;
+            return property.Validate(validationContext, level);
+        }
+                private static ValidationContext __MenesValidateUniqueItems(in Validation that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            RefDraft201909Feature.RemoteRefContainingRefsItself.Validation.UniqueItemsValue property = that.UniqueItems;
+            return property.Validate(validationContext, level);
+        }
+                private static ValidationContext __MenesValidateMaxContains(in Validation that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            RefDraft201909Feature.RemoteRefContainingRefsItself.Validation.NonNegativeIntegerValue property = that.MaxContains;
+            return property.Validate(validationContext, level);
+        }
+                private static ValidationContext __MenesValidateMinContains(in Validation that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            RefDraft201909Feature.RemoteRefContainingRefsItself.Validation.MinContainsEntity property = that.MinContains;
+            return property.Validate(validationContext, level);
+        }
+                private static ValidationContext __MenesValidateMaxProperties(in Validation that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            RefDraft201909Feature.RemoteRefContainingRefsItself.Validation.NonNegativeIntegerValue property = that.MaxProperties;
+            return property.Validate(validationContext, level);
+        }
+                private static ValidationContext __MenesValidateMinProperties(in Validation that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            RefDraft201909Feature.RemoteRefContainingRefsItself.Validation.NonNegativeIntegerDefault0Entity property = that.MinProperties;
+            return property.Validate(validationContext, level);
+        }
+                private static ValidationContext __MenesValidateRequired(in Validation that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            RefDraft201909Feature.RemoteRefContainingRefsItself.Validation.JsonStringArray property = that.Required;
+            return property.Validate(validationContext, level);
+        }
+                private static ValidationContext __MenesValidateDependentRequired(in Validation that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            RefDraft201909Feature.RemoteRefContainingRefsItself.Validation.DependentRequiredValue property = that.DependentRequired;
+            return property.Validate(validationContext, level);
+        }
+                private static ValidationContext __MenesValidateConst(in Validation that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            Menes.Json.JsonAny property = that.Const;
+            return property.Validate(validationContext, level);
+        }
+                private static ValidationContext __MenesValidateEnum(in Validation that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            RefDraft201909Feature.RemoteRefContainingRefsItself.Validation.JsonAnyArray property = that.Enum;
+            return property.Validate(validationContext, level);
+        }
+                private static ValidationContext __MenesValidateType(in Validation that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            RefDraft201909Feature.RemoteRefContainingRefsItself.Validation.TypeEntity property = that.Type;
+            return property.Validate(validationContext, level);
+        }
+            
             /// <summary>
         /// Gets the value as a <see cref="JsonObject"/>.
         /// </summary>
@@ -2167,7 +2167,7 @@ namespace RefDraft201909Feature.RemoteRefContainingRefsItself
                 string propertyName = property.Name;
 
         
-                        if (__MenesLocalProperties.TryGetValue(propertyName, out Func<Validation, ValidationContext, ValidationLevel, ValidationContext>? propertyValidator))
+                        if (__MenesLocalProperties.TryGetValue(propertyName, out PropertyValidator<Validation>? propertyValidator))
                 {
                     result = result.WithLocalProperty(propertyCount);
                     var propertyResult = propertyValidator(this, result.CreateChildContext(), level);

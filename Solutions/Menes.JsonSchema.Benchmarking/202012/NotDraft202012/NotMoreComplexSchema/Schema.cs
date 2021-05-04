@@ -395,7 +395,7 @@ namespace NotDraft202012Feature.NotMoreComplexSchema
     
     
     
-            private static readonly ImmutableDictionary<string, Func<NotValue, ValidationContext, ValidationLevel, ValidationContext>> __MenesLocalProperties = CreateLocalPropertyValidators();
+            private static readonly ImmutableDictionary<string, PropertyValidator<NotValue>> __MenesLocalProperties = CreateLocalPropertyValidators();
     
     
 
@@ -1008,23 +1008,23 @@ namespace NotDraft202012Feature.NotMoreComplexSchema
     
     
     
-        private static ImmutableDictionary<string, Func<NotValue, ValidationContext, ValidationLevel, ValidationContext>> CreateLocalPropertyValidators()
+        private static ImmutableDictionary<string, PropertyValidator<NotValue>> CreateLocalPropertyValidators()
         {
-            ImmutableDictionary<string, Func<NotValue, ValidationContext, ValidationLevel, ValidationContext>>.Builder builder =
-                ImmutableDictionary.CreateBuilder<string, Func<NotValue, ValidationContext, ValidationLevel, ValidationContext>>();
+            ImmutableDictionary<string, PropertyValidator<NotValue>>.Builder builder =
+                ImmutableDictionary.CreateBuilder<string, PropertyValidator<NotValue>>();
 
                     builder.Add(
-                FooJsonPropertyName,
-                (that, validationContext, level) =>
-                {
-                    Menes.Json.JsonString property = that.Foo;
-                    return property.Validate(validationContext, level);
-                });
+                FooJsonPropertyName, __MenesValidateFoo);
         
             return builder.ToImmutable();
         }
 
-    
+                private static ValidationContext __MenesValidateFoo(in NotValue that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            Menes.Json.JsonString property = that.Foo;
+            return property.Validate(validationContext, level);
+        }
+            
     
     
             private ValidationContext ValidateObject(JsonValueKind valueKind, in ValidationContext validationContext, ValidationLevel level)
@@ -1044,7 +1044,7 @@ namespace NotDraft202012Feature.NotMoreComplexSchema
                 string propertyName = property.Name;
 
         
-                        if (__MenesLocalProperties.TryGetValue(propertyName, out Func<NotValue, ValidationContext, ValidationLevel, ValidationContext>? propertyValidator))
+                        if (__MenesLocalProperties.TryGetValue(propertyName, out PropertyValidator<NotValue>? propertyValidator))
                 {
                     result = result.WithLocalProperty(propertyCount);
                     var propertyResult = propertyValidator(this, result.CreateChildContext(), level);

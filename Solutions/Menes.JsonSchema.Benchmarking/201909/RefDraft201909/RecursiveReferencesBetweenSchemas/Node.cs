@@ -57,7 +57,7 @@ namespace RefDraft201909Feature.RecursiveReferencesBetweenSchemas
     
     
     
-            private static readonly ImmutableDictionary<string, Func<Node, ValidationContext, ValidationLevel, ValidationContext>> __MenesLocalProperties = CreateLocalPropertyValidators();
+            private static readonly ImmutableDictionary<string, PropertyValidator<Node>> __MenesLocalProperties = CreateLocalPropertyValidators();
     
     
 
@@ -700,30 +700,30 @@ namespace RefDraft201909Feature.RecursiveReferencesBetweenSchemas
     
     
     
-        private static ImmutableDictionary<string, Func<Node, ValidationContext, ValidationLevel, ValidationContext>> CreateLocalPropertyValidators()
+        private static ImmutableDictionary<string, PropertyValidator<Node>> CreateLocalPropertyValidators()
         {
-            ImmutableDictionary<string, Func<Node, ValidationContext, ValidationLevel, ValidationContext>>.Builder builder =
-                ImmutableDictionary.CreateBuilder<string, Func<Node, ValidationContext, ValidationLevel, ValidationContext>>();
+            ImmutableDictionary<string, PropertyValidator<Node>>.Builder builder =
+                ImmutableDictionary.CreateBuilder<string, PropertyValidator<Node>>();
 
                     builder.Add(
-                ValueJsonPropertyName,
-                (that, validationContext, level) =>
-                {
-                    Menes.Json.JsonNumber property = that.Value;
-                    return property.Validate(validationContext, level);
-                });
+                ValueJsonPropertyName, __MenesValidateValue);
                     builder.Add(
-                SubtreeJsonPropertyName,
-                (that, validationContext, level) =>
-                {
-                    RefDraft201909Feature.RecursiveReferencesBetweenSchemas.Tree property = that.Subtree;
-                    return property.Validate(validationContext, level);
-                });
+                SubtreeJsonPropertyName, __MenesValidateSubtree);
         
             return builder.ToImmutable();
         }
 
-    
+                private static ValidationContext __MenesValidateValue(in Node that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            Menes.Json.JsonNumber property = that.Value;
+            return property.Validate(validationContext, level);
+        }
+                private static ValidationContext __MenesValidateSubtree(in Node that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            RefDraft201909Feature.RecursiveReferencesBetweenSchemas.Tree property = that.Subtree;
+            return property.Validate(validationContext, level);
+        }
+            
             /// <summary>
         /// Gets the value as a <see cref="JsonObject"/>.
         /// </summary>
@@ -764,7 +764,7 @@ namespace RefDraft201909Feature.RecursiveReferencesBetweenSchemas
                 string propertyName = property.Name;
 
         
-                        if (__MenesLocalProperties.TryGetValue(propertyName, out Func<Node, ValidationContext, ValidationLevel, ValidationContext>? propertyValidator))
+                        if (__MenesLocalProperties.TryGetValue(propertyName, out PropertyValidator<Node>? propertyValidator))
                 {
                     result = result.WithLocalProperty(propertyCount);
                     var propertyResult = propertyValidator(this, result.CreateChildContext(), level);

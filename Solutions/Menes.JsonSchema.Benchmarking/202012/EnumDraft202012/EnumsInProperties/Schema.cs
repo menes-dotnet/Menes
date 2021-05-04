@@ -57,7 +57,7 @@ namespace EnumDraft202012Feature.EnumsInProperties
     
     
     
-            private static readonly ImmutableDictionary<string, Func<Schema, ValidationContext, ValidationLevel, ValidationContext>> __MenesLocalProperties = CreateLocalPropertyValidators();
+            private static readonly ImmutableDictionary<string, PropertyValidator<Schema>> __MenesLocalProperties = CreateLocalPropertyValidators();
     
     
 
@@ -718,30 +718,30 @@ namespace EnumDraft202012Feature.EnumsInProperties
     
     
     
-        private static ImmutableDictionary<string, Func<Schema, ValidationContext, ValidationLevel, ValidationContext>> CreateLocalPropertyValidators()
+        private static ImmutableDictionary<string, PropertyValidator<Schema>> CreateLocalPropertyValidators()
         {
-            ImmutableDictionary<string, Func<Schema, ValidationContext, ValidationLevel, ValidationContext>>.Builder builder =
-                ImmutableDictionary.CreateBuilder<string, Func<Schema, ValidationContext, ValidationLevel, ValidationContext>>();
+            ImmutableDictionary<string, PropertyValidator<Schema>>.Builder builder =
+                ImmutableDictionary.CreateBuilder<string, PropertyValidator<Schema>>();
 
                     builder.Add(
-                BarJsonPropertyName,
-                (that, validationContext, level) =>
-                {
-                    EnumDraft202012Feature.EnumsInProperties.Schema.BarEntity property = that.Bar;
-                    return property.Validate(validationContext, level);
-                });
+                BarJsonPropertyName, __MenesValidateBar);
                     builder.Add(
-                FooJsonPropertyName,
-                (that, validationContext, level) =>
-                {
-                    EnumDraft202012Feature.EnumsInProperties.Schema.FooEntity property = that.Foo;
-                    return property.Validate(validationContext, level);
-                });
+                FooJsonPropertyName, __MenesValidateFoo);
         
             return builder.ToImmutable();
         }
 
-    
+                private static ValidationContext __MenesValidateBar(in Schema that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            EnumDraft202012Feature.EnumsInProperties.Schema.BarEntity property = that.Bar;
+            return property.Validate(validationContext, level);
+        }
+                private static ValidationContext __MenesValidateFoo(in Schema that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            EnumDraft202012Feature.EnumsInProperties.Schema.FooEntity property = that.Foo;
+            return property.Validate(validationContext, level);
+        }
+            
     
     
             private ValidationContext ValidateObject(JsonValueKind valueKind, in ValidationContext validationContext, ValidationLevel level)
@@ -762,7 +762,7 @@ namespace EnumDraft202012Feature.EnumsInProperties
                 string propertyName = property.Name;
 
         
-                        if (__MenesLocalProperties.TryGetValue(propertyName, out Func<Schema, ValidationContext, ValidationLevel, ValidationContext>? propertyValidator))
+                        if (__MenesLocalProperties.TryGetValue(propertyName, out PropertyValidator<Schema>? propertyValidator))
                 {
                     result = result.WithLocalProperty(propertyCount);
                     var propertyResult = propertyValidator(this, result.CreateChildContext(), level);

@@ -47,7 +47,7 @@ namespace PatternPropertiesDraft201909Feature.RegexesAreNotAnchoredByDefaultAndA
     
     
 
-            private static readonly ImmutableDictionary<Regex, Func<Property, ValidationContext, ValidationLevel, ValidationContext>> __MenesPatternProperties = CreatePatternPropertiesValidators();
+            private static readonly ImmutableDictionary<Regex, PatternPropertyValidator> __MenesPatternProperties = CreatePatternPropertiesValidators();
     
         private readonly JsonElement jsonElementBacking;
 
@@ -561,27 +561,28 @@ namespace PatternPropertiesDraft201909Feature.RegexesAreNotAnchoredByDefaultAndA
         }
 
 
-            private static ImmutableDictionary<Regex, Func<Property, ValidationContext, ValidationLevel, ValidationContext>> CreatePatternPropertiesValidators()
+            private static ImmutableDictionary<Regex, PatternPropertyValidator> CreatePatternPropertiesValidators()
         {
-            ImmutableDictionary<Regex, Func<Property, ValidationContext, ValidationLevel, ValidationContext>>.Builder builder =
-                ImmutableDictionary.CreateBuilder<Regex, Func<Property, ValidationContext, ValidationLevel, ValidationContext>>();
+            ImmutableDictionary<Regex, PatternPropertyValidator>.Builder builder =
+                ImmutableDictionary.CreateBuilder<Regex, PatternPropertyValidator>();
 
                     builder.Add(
-                PatternPropertyJsonBoolean,
-                (property, validationContext, level) =>
-                {
-                    return property.ValueAs<Menes.Json.JsonBoolean>().Validate(validationContext, level);
-                });
+                PatternPropertyJsonBoolean, __MenesValidatePatternPropertyJsonBoolean);
                     builder.Add(
-                PatternPropertyJsonString,
-                (property, validationContext, level) =>
-                {
-                    return property.ValueAs<Menes.Json.JsonString>().Validate(validationContext, level);
-                });
+                PatternPropertyJsonString, __MenesValidatePatternPropertyJsonString);
         
             return builder.ToImmutable();
         }
 
+                private static ValidationContext __MenesValidatePatternPropertyJsonBoolean(in Property that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            return that.ValueAs<Menes.Json.JsonBoolean>().Validate(validationContext, level);
+        }
+                private static ValidationContext __MenesValidatePatternPropertyJsonString(in Property that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            return that.ValueAs<Menes.Json.JsonString>().Validate(validationContext, level);
+        }
+        
     
     
     
@@ -629,7 +630,7 @@ namespace PatternPropertiesDraft201909Feature.RegexesAreNotAnchoredByDefaultAndA
         
         
                     
-                            foreach (System.Collections.Generic.KeyValuePair<Regex, Func<Property, ValidationContext, ValidationLevel, ValidationContext>> patternProperty in __MenesPatternProperties)
+                            foreach (System.Collections.Generic.KeyValuePair<Regex, PatternPropertyValidator> patternProperty in __MenesPatternProperties)
                 {
                     if (patternProperty.Key.IsMatch(propertyName))
                     {

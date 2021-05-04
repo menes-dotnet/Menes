@@ -57,7 +57,7 @@ namespace IdDraft202012Feature.InvalidUseOfFragmentsInLocationIndependentId
     
     
     
-            private static readonly ImmutableDictionary<string, Func<Unevaluated, ValidationContext, ValidationLevel, ValidationContext>> __MenesLocalProperties = CreateLocalPropertyValidators();
+            private static readonly ImmutableDictionary<string, PropertyValidator<Unevaluated>> __MenesLocalProperties = CreateLocalPropertyValidators();
     
     
 
@@ -831,30 +831,30 @@ namespace IdDraft202012Feature.InvalidUseOfFragmentsInLocationIndependentId
     
     
     
-        private static ImmutableDictionary<string, Func<Unevaluated, ValidationContext, ValidationLevel, ValidationContext>> CreateLocalPropertyValidators()
+        private static ImmutableDictionary<string, PropertyValidator<Unevaluated>> CreateLocalPropertyValidators()
         {
-            ImmutableDictionary<string, Func<Unevaluated, ValidationContext, ValidationLevel, ValidationContext>>.Builder builder =
-                ImmutableDictionary.CreateBuilder<string, Func<Unevaluated, ValidationContext, ValidationLevel, ValidationContext>>();
+            ImmutableDictionary<string, PropertyValidator<Unevaluated>>.Builder builder =
+                ImmutableDictionary.CreateBuilder<string, PropertyValidator<Unevaluated>>();
 
                     builder.Add(
-                UnevaluatedItemsJsonPropertyName,
-                (that, validationContext, level) =>
-                {
-                    IdDraft202012Feature.InvalidUseOfFragmentsInLocationIndependentId.Schema property = that.UnevaluatedItems;
-                    return property.Validate(validationContext, level);
-                });
+                UnevaluatedItemsJsonPropertyName, __MenesValidateUnevaluatedItems);
                     builder.Add(
-                UnevaluatedPropertiesJsonPropertyName,
-                (that, validationContext, level) =>
-                {
-                    IdDraft202012Feature.InvalidUseOfFragmentsInLocationIndependentId.Schema property = that.UnevaluatedProperties;
-                    return property.Validate(validationContext, level);
-                });
+                UnevaluatedPropertiesJsonPropertyName, __MenesValidateUnevaluatedProperties);
         
             return builder.ToImmutable();
         }
 
-    
+                private static ValidationContext __MenesValidateUnevaluatedItems(in Unevaluated that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            IdDraft202012Feature.InvalidUseOfFragmentsInLocationIndependentId.Schema property = that.UnevaluatedItems;
+            return property.Validate(validationContext, level);
+        }
+                private static ValidationContext __MenesValidateUnevaluatedProperties(in Unevaluated that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            IdDraft202012Feature.InvalidUseOfFragmentsInLocationIndependentId.Schema property = that.UnevaluatedProperties;
+            return property.Validate(validationContext, level);
+        }
+            
     
     
             private ValidationContext ValidateObject(JsonValueKind valueKind, in ValidationContext validationContext, ValidationLevel level)
@@ -874,7 +874,7 @@ namespace IdDraft202012Feature.InvalidUseOfFragmentsInLocationIndependentId
                 string propertyName = property.Name;
 
         
-                        if (__MenesLocalProperties.TryGetValue(propertyName, out Func<Unevaluated, ValidationContext, ValidationLevel, ValidationContext>? propertyValidator))
+                        if (__MenesLocalProperties.TryGetValue(propertyName, out PropertyValidator<Unevaluated>? propertyValidator))
                 {
                     result = result.WithLocalProperty(propertyCount);
                     var propertyResult = propertyValidator(this, result.CreateChildContext(), level);

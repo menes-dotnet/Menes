@@ -46,7 +46,7 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithAnyOf
     
     
     
-            private static readonly ImmutableDictionary<string, Func<Schema, ValidationContext, ValidationLevel, ValidationContext>> __MenesLocalProperties = CreateLocalPropertyValidators();
+            private static readonly ImmutableDictionary<string, PropertyValidator<Schema>> __MenesLocalProperties = CreateLocalPropertyValidators();
     
     
 
@@ -872,23 +872,23 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithAnyOf
     
     
     
-        private static ImmutableDictionary<string, Func<Schema, ValidationContext, ValidationLevel, ValidationContext>> CreateLocalPropertyValidators()
+        private static ImmutableDictionary<string, PropertyValidator<Schema>> CreateLocalPropertyValidators()
         {
-            ImmutableDictionary<string, Func<Schema, ValidationContext, ValidationLevel, ValidationContext>>.Builder builder =
-                ImmutableDictionary.CreateBuilder<string, Func<Schema, ValidationContext, ValidationLevel, ValidationContext>>();
+            ImmutableDictionary<string, PropertyValidator<Schema>>.Builder builder =
+                ImmutableDictionary.CreateBuilder<string, PropertyValidator<Schema>>();
 
                     builder.Add(
-                FooJsonPropertyName,
-                (that, validationContext, level) =>
-                {
-                    Menes.Json.JsonString property = that.Foo;
-                    return property.Validate(validationContext, level);
-                });
+                FooJsonPropertyName, __MenesValidateFoo);
         
             return builder.ToImmutable();
         }
 
-    
+                private static ValidationContext __MenesValidateFoo(in Schema that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            Menes.Json.JsonString property = that.Foo;
+            return property.Validate(validationContext, level);
+        }
+            
     
     
             private ValidationContext ValidateObject(JsonValueKind valueKind, in ValidationContext validationContext, ValidationLevel level)
@@ -908,7 +908,7 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithAnyOf
                 string propertyName = property.Name;
 
         
-                        if (__MenesLocalProperties.TryGetValue(propertyName, out Func<Schema, ValidationContext, ValidationLevel, ValidationContext>? propertyValidator))
+                        if (__MenesLocalProperties.TryGetValue(propertyName, out PropertyValidator<Schema>? propertyValidator))
                 {
                     result = result.WithLocalProperty(propertyCount);
                     var propertyResult = propertyValidator(this, result.CreateChildContext(), level);
@@ -1130,7 +1130,7 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithAnyOf
     
     
     
-            private static readonly ImmutableDictionary<string, Func<AnyOf0Entity, ValidationContext, ValidationLevel, ValidationContext>> __MenesLocalProperties = CreateLocalPropertyValidators();
+            private static readonly ImmutableDictionary<string, PropertyValidator<AnyOf0Entity>> __MenesLocalProperties = CreateLocalPropertyValidators();
     
     
 
@@ -1730,23 +1730,23 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithAnyOf
     
     
     
-        private static ImmutableDictionary<string, Func<AnyOf0Entity, ValidationContext, ValidationLevel, ValidationContext>> CreateLocalPropertyValidators()
+        private static ImmutableDictionary<string, PropertyValidator<AnyOf0Entity>> CreateLocalPropertyValidators()
         {
-            ImmutableDictionary<string, Func<AnyOf0Entity, ValidationContext, ValidationLevel, ValidationContext>>.Builder builder =
-                ImmutableDictionary.CreateBuilder<string, Func<AnyOf0Entity, ValidationContext, ValidationLevel, ValidationContext>>();
+            ImmutableDictionary<string, PropertyValidator<AnyOf0Entity>>.Builder builder =
+                ImmutableDictionary.CreateBuilder<string, PropertyValidator<AnyOf0Entity>>();
 
                     builder.Add(
-                BarJsonPropertyName,
-                (that, validationContext, level) =>
-                {
-                    UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithAnyOf.Schema.AnyOf0Entity.BarEntity property = that.Bar;
-                    return property.Validate(validationContext, level);
-                });
+                BarJsonPropertyName, __MenesValidateBar);
         
             return builder.ToImmutable();
         }
 
-    
+                private static ValidationContext __MenesValidateBar(in AnyOf0Entity that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithAnyOf.Schema.AnyOf0Entity.BarEntity property = that.Bar;
+            return property.Validate(validationContext, level);
+        }
+            
     
     
             private ValidationContext ValidateObject(JsonValueKind valueKind, in ValidationContext validationContext, ValidationLevel level)
@@ -1767,7 +1767,7 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithAnyOf
                 string propertyName = property.Name;
 
         
-                        if (__MenesLocalProperties.TryGetValue(propertyName, out Func<AnyOf0Entity, ValidationContext, ValidationLevel, ValidationContext>? propertyValidator))
+                        if (__MenesLocalProperties.TryGetValue(propertyName, out PropertyValidator<AnyOf0Entity>? propertyValidator))
                 {
                     result = result.WithLocalProperty(propertyCount);
                     var propertyResult = propertyValidator(this, result.CreateChildContext(), level);
@@ -2348,7 +2348,7 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithAnyOf
     
     
     
-            private static readonly ImmutableDictionary<string, Func<AnyOf1Entity, ValidationContext, ValidationLevel, ValidationContext>> __MenesLocalProperties = CreateLocalPropertyValidators();
+            private static readonly ImmutableDictionary<string, PropertyValidator<AnyOf1Entity>> __MenesLocalProperties = CreateLocalPropertyValidators();
     
     
 
@@ -2948,23 +2948,23 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithAnyOf
     
     
     
-        private static ImmutableDictionary<string, Func<AnyOf1Entity, ValidationContext, ValidationLevel, ValidationContext>> CreateLocalPropertyValidators()
+        private static ImmutableDictionary<string, PropertyValidator<AnyOf1Entity>> CreateLocalPropertyValidators()
         {
-            ImmutableDictionary<string, Func<AnyOf1Entity, ValidationContext, ValidationLevel, ValidationContext>>.Builder builder =
-                ImmutableDictionary.CreateBuilder<string, Func<AnyOf1Entity, ValidationContext, ValidationLevel, ValidationContext>>();
+            ImmutableDictionary<string, PropertyValidator<AnyOf1Entity>>.Builder builder =
+                ImmutableDictionary.CreateBuilder<string, PropertyValidator<AnyOf1Entity>>();
 
                     builder.Add(
-                BazJsonPropertyName,
-                (that, validationContext, level) =>
-                {
-                    UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithAnyOf.Schema.AnyOf1Entity.BazEntity property = that.Baz;
-                    return property.Validate(validationContext, level);
-                });
+                BazJsonPropertyName, __MenesValidateBaz);
         
             return builder.ToImmutable();
         }
 
-    
+                private static ValidationContext __MenesValidateBaz(in AnyOf1Entity that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithAnyOf.Schema.AnyOf1Entity.BazEntity property = that.Baz;
+            return property.Validate(validationContext, level);
+        }
+            
     
     
             private ValidationContext ValidateObject(JsonValueKind valueKind, in ValidationContext validationContext, ValidationLevel level)
@@ -2985,7 +2985,7 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithAnyOf
                 string propertyName = property.Name;
 
         
-                        if (__MenesLocalProperties.TryGetValue(propertyName, out Func<AnyOf1Entity, ValidationContext, ValidationLevel, ValidationContext>? propertyValidator))
+                        if (__MenesLocalProperties.TryGetValue(propertyName, out PropertyValidator<AnyOf1Entity>? propertyValidator))
                 {
                     result = result.WithLocalProperty(propertyCount);
                     var propertyResult = propertyValidator(this, result.CreateChildContext(), level);
@@ -3566,7 +3566,7 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithAnyOf
     
     
     
-            private static readonly ImmutableDictionary<string, Func<AnyOf2Entity, ValidationContext, ValidationLevel, ValidationContext>> __MenesLocalProperties = CreateLocalPropertyValidators();
+            private static readonly ImmutableDictionary<string, PropertyValidator<AnyOf2Entity>> __MenesLocalProperties = CreateLocalPropertyValidators();
     
     
 
@@ -4166,23 +4166,23 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithAnyOf
     
     
     
-        private static ImmutableDictionary<string, Func<AnyOf2Entity, ValidationContext, ValidationLevel, ValidationContext>> CreateLocalPropertyValidators()
+        private static ImmutableDictionary<string, PropertyValidator<AnyOf2Entity>> CreateLocalPropertyValidators()
         {
-            ImmutableDictionary<string, Func<AnyOf2Entity, ValidationContext, ValidationLevel, ValidationContext>>.Builder builder =
-                ImmutableDictionary.CreateBuilder<string, Func<AnyOf2Entity, ValidationContext, ValidationLevel, ValidationContext>>();
+            ImmutableDictionary<string, PropertyValidator<AnyOf2Entity>>.Builder builder =
+                ImmutableDictionary.CreateBuilder<string, PropertyValidator<AnyOf2Entity>>();
 
                     builder.Add(
-                QuuxJsonPropertyName,
-                (that, validationContext, level) =>
-                {
-                    UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithAnyOf.Schema.AnyOf2Entity.QuuxEntity property = that.Quux;
-                    return property.Validate(validationContext, level);
-                });
+                QuuxJsonPropertyName, __MenesValidateQuux);
         
             return builder.ToImmutable();
         }
 
-    
+                private static ValidationContext __MenesValidateQuux(in AnyOf2Entity that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithAnyOf.Schema.AnyOf2Entity.QuuxEntity property = that.Quux;
+            return property.Validate(validationContext, level);
+        }
+            
     
     
             private ValidationContext ValidateObject(JsonValueKind valueKind, in ValidationContext validationContext, ValidationLevel level)
@@ -4203,7 +4203,7 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithAnyOf
                 string propertyName = property.Name;
 
         
-                        if (__MenesLocalProperties.TryGetValue(propertyName, out Func<AnyOf2Entity, ValidationContext, ValidationLevel, ValidationContext>? propertyValidator))
+                        if (__MenesLocalProperties.TryGetValue(propertyName, out PropertyValidator<AnyOf2Entity>? propertyValidator))
                 {
                     result = result.WithLocalProperty(propertyCount);
                     var propertyResult = propertyValidator(this, result.CreateChildContext(), level);

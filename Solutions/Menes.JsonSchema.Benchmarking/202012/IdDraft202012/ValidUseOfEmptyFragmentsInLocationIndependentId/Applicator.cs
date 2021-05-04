@@ -200,7 +200,7 @@ namespace IdDraft202012Feature.ValidUseOfEmptyFragmentsInLocationIndependentId
     
     
     
-            private static readonly ImmutableDictionary<string, Func<Applicator, ValidationContext, ValidationLevel, ValidationContext>> __MenesLocalProperties = CreateLocalPropertyValidators();
+            private static readonly ImmutableDictionary<string, PropertyValidator<Applicator>> __MenesLocalProperties = CreateLocalPropertyValidators();
     
             private static readonly ImmutableDictionary<string, JsonAny> __MenesDefaults = BuildDefaults();
     
@@ -1684,121 +1684,121 @@ namespace IdDraft202012Feature.ValidUseOfEmptyFragmentsInLocationIndependentId
     
     
     
-        private static ImmutableDictionary<string, Func<Applicator, ValidationContext, ValidationLevel, ValidationContext>> CreateLocalPropertyValidators()
+        private static ImmutableDictionary<string, PropertyValidator<Applicator>> CreateLocalPropertyValidators()
         {
-            ImmutableDictionary<string, Func<Applicator, ValidationContext, ValidationLevel, ValidationContext>>.Builder builder =
-                ImmutableDictionary.CreateBuilder<string, Func<Applicator, ValidationContext, ValidationLevel, ValidationContext>>();
+            ImmutableDictionary<string, PropertyValidator<Applicator>>.Builder builder =
+                ImmutableDictionary.CreateBuilder<string, PropertyValidator<Applicator>>();
 
                     builder.Add(
-                PrefixItemsJsonPropertyName,
-                (that, validationContext, level) =>
-                {
-                    IdDraft202012Feature.ValidUseOfEmptyFragmentsInLocationIndependentId.Applicator.SchemaArray property = that.PrefixItems;
-                    return property.Validate(validationContext, level);
-                });
+                PrefixItemsJsonPropertyName, __MenesValidatePrefixItems);
                     builder.Add(
-                ItemsJsonPropertyName,
-                (that, validationContext, level) =>
-                {
-                    IdDraft202012Feature.ValidUseOfEmptyFragmentsInLocationIndependentId.Schema property = that.Items;
-                    return property.Validate(validationContext, level);
-                });
+                ItemsJsonPropertyName, __MenesValidateItems);
                     builder.Add(
-                ContainsJsonPropertyName,
-                (that, validationContext, level) =>
-                {
-                    IdDraft202012Feature.ValidUseOfEmptyFragmentsInLocationIndependentId.Schema property = that.Contains;
-                    return property.Validate(validationContext, level);
-                });
+                ContainsJsonPropertyName, __MenesValidateContains);
                     builder.Add(
-                AdditionalPropertiesJsonPropertyName,
-                (that, validationContext, level) =>
-                {
-                    IdDraft202012Feature.ValidUseOfEmptyFragmentsInLocationIndependentId.Schema property = that.AdditionalProperties;
-                    return property.Validate(validationContext, level);
-                });
+                AdditionalPropertiesJsonPropertyName, __MenesValidateAdditionalProperties);
                     builder.Add(
-                PropertiesJsonPropertyName,
-                (that, validationContext, level) =>
-                {
-                    IdDraft202012Feature.ValidUseOfEmptyFragmentsInLocationIndependentId.Applicator.PropertiesValue property = that.Properties;
-                    return property.Validate(validationContext, level);
-                });
+                PropertiesJsonPropertyName, __MenesValidateProperties);
                     builder.Add(
-                PatternPropertiesJsonPropertyName,
-                (that, validationContext, level) =>
-                {
-                    IdDraft202012Feature.ValidUseOfEmptyFragmentsInLocationIndependentId.Applicator.PatternPropertiesValue property = that.PatternProperties;
-                    return property.Validate(validationContext, level);
-                });
+                PatternPropertiesJsonPropertyName, __MenesValidatePatternProperties);
                     builder.Add(
-                DependentSchemasJsonPropertyName,
-                (that, validationContext, level) =>
-                {
-                    IdDraft202012Feature.ValidUseOfEmptyFragmentsInLocationIndependentId.Applicator.DependentSchemasValue property = that.DependentSchemas;
-                    return property.Validate(validationContext, level);
-                });
+                DependentSchemasJsonPropertyName, __MenesValidateDependentSchemas);
                     builder.Add(
-                PropertyNamesJsonPropertyName,
-                (that, validationContext, level) =>
-                {
-                    IdDraft202012Feature.ValidUseOfEmptyFragmentsInLocationIndependentId.Schema property = that.PropertyNames;
-                    return property.Validate(validationContext, level);
-                });
+                PropertyNamesJsonPropertyName, __MenesValidatePropertyNames);
                     builder.Add(
-                IfJsonPropertyName,
-                (that, validationContext, level) =>
-                {
-                    IdDraft202012Feature.ValidUseOfEmptyFragmentsInLocationIndependentId.Schema property = that.If;
-                    return property.Validate(validationContext, level);
-                });
+                IfJsonPropertyName, __MenesValidateIf);
                     builder.Add(
-                ThenJsonPropertyName,
-                (that, validationContext, level) =>
-                {
-                    IdDraft202012Feature.ValidUseOfEmptyFragmentsInLocationIndependentId.Schema property = that.Then;
-                    return property.Validate(validationContext, level);
-                });
+                ThenJsonPropertyName, __MenesValidateThen);
                     builder.Add(
-                ElseJsonPropertyName,
-                (that, validationContext, level) =>
-                {
-                    IdDraft202012Feature.ValidUseOfEmptyFragmentsInLocationIndependentId.Schema property = that.Else;
-                    return property.Validate(validationContext, level);
-                });
+                ElseJsonPropertyName, __MenesValidateElse);
                     builder.Add(
-                AllOfJsonPropertyName,
-                (that, validationContext, level) =>
-                {
-                    IdDraft202012Feature.ValidUseOfEmptyFragmentsInLocationIndependentId.Applicator.SchemaArray property = that.AllOf;
-                    return property.Validate(validationContext, level);
-                });
+                AllOfJsonPropertyName, __MenesValidateAllOf);
                     builder.Add(
-                AnyOfJsonPropertyName,
-                (that, validationContext, level) =>
-                {
-                    IdDraft202012Feature.ValidUseOfEmptyFragmentsInLocationIndependentId.Applicator.SchemaArray property = that.AnyOf;
-                    return property.Validate(validationContext, level);
-                });
+                AnyOfJsonPropertyName, __MenesValidateAnyOf);
                     builder.Add(
-                OneOfJsonPropertyName,
-                (that, validationContext, level) =>
-                {
-                    IdDraft202012Feature.ValidUseOfEmptyFragmentsInLocationIndependentId.Applicator.SchemaArray property = that.OneOf;
-                    return property.Validate(validationContext, level);
-                });
+                OneOfJsonPropertyName, __MenesValidateOneOf);
                     builder.Add(
-                NotJsonPropertyName,
-                (that, validationContext, level) =>
-                {
-                    IdDraft202012Feature.ValidUseOfEmptyFragmentsInLocationIndependentId.Schema property = that.Not;
-                    return property.Validate(validationContext, level);
-                });
+                NotJsonPropertyName, __MenesValidateNot);
         
             return builder.ToImmutable();
         }
 
-    
+                private static ValidationContext __MenesValidatePrefixItems(in Applicator that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            IdDraft202012Feature.ValidUseOfEmptyFragmentsInLocationIndependentId.Applicator.SchemaArray property = that.PrefixItems;
+            return property.Validate(validationContext, level);
+        }
+                private static ValidationContext __MenesValidateItems(in Applicator that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            IdDraft202012Feature.ValidUseOfEmptyFragmentsInLocationIndependentId.Schema property = that.Items;
+            return property.Validate(validationContext, level);
+        }
+                private static ValidationContext __MenesValidateContains(in Applicator that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            IdDraft202012Feature.ValidUseOfEmptyFragmentsInLocationIndependentId.Schema property = that.Contains;
+            return property.Validate(validationContext, level);
+        }
+                private static ValidationContext __MenesValidateAdditionalProperties(in Applicator that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            IdDraft202012Feature.ValidUseOfEmptyFragmentsInLocationIndependentId.Schema property = that.AdditionalProperties;
+            return property.Validate(validationContext, level);
+        }
+                private static ValidationContext __MenesValidateProperties(in Applicator that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            IdDraft202012Feature.ValidUseOfEmptyFragmentsInLocationIndependentId.Applicator.PropertiesValue property = that.Properties;
+            return property.Validate(validationContext, level);
+        }
+                private static ValidationContext __MenesValidatePatternProperties(in Applicator that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            IdDraft202012Feature.ValidUseOfEmptyFragmentsInLocationIndependentId.Applicator.PatternPropertiesValue property = that.PatternProperties;
+            return property.Validate(validationContext, level);
+        }
+                private static ValidationContext __MenesValidateDependentSchemas(in Applicator that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            IdDraft202012Feature.ValidUseOfEmptyFragmentsInLocationIndependentId.Applicator.DependentSchemasValue property = that.DependentSchemas;
+            return property.Validate(validationContext, level);
+        }
+                private static ValidationContext __MenesValidatePropertyNames(in Applicator that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            IdDraft202012Feature.ValidUseOfEmptyFragmentsInLocationIndependentId.Schema property = that.PropertyNames;
+            return property.Validate(validationContext, level);
+        }
+                private static ValidationContext __MenesValidateIf(in Applicator that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            IdDraft202012Feature.ValidUseOfEmptyFragmentsInLocationIndependentId.Schema property = that.If;
+            return property.Validate(validationContext, level);
+        }
+                private static ValidationContext __MenesValidateThen(in Applicator that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            IdDraft202012Feature.ValidUseOfEmptyFragmentsInLocationIndependentId.Schema property = that.Then;
+            return property.Validate(validationContext, level);
+        }
+                private static ValidationContext __MenesValidateElse(in Applicator that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            IdDraft202012Feature.ValidUseOfEmptyFragmentsInLocationIndependentId.Schema property = that.Else;
+            return property.Validate(validationContext, level);
+        }
+                private static ValidationContext __MenesValidateAllOf(in Applicator that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            IdDraft202012Feature.ValidUseOfEmptyFragmentsInLocationIndependentId.Applicator.SchemaArray property = that.AllOf;
+            return property.Validate(validationContext, level);
+        }
+                private static ValidationContext __MenesValidateAnyOf(in Applicator that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            IdDraft202012Feature.ValidUseOfEmptyFragmentsInLocationIndependentId.Applicator.SchemaArray property = that.AnyOf;
+            return property.Validate(validationContext, level);
+        }
+                private static ValidationContext __MenesValidateOneOf(in Applicator that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            IdDraft202012Feature.ValidUseOfEmptyFragmentsInLocationIndependentId.Applicator.SchemaArray property = that.OneOf;
+            return property.Validate(validationContext, level);
+        }
+                private static ValidationContext __MenesValidateNot(in Applicator that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            IdDraft202012Feature.ValidUseOfEmptyFragmentsInLocationIndependentId.Schema property = that.Not;
+            return property.Validate(validationContext, level);
+        }
+            
     
     
             private ValidationContext ValidateObject(JsonValueKind valueKind, in ValidationContext validationContext, ValidationLevel level)
@@ -1818,7 +1818,7 @@ namespace IdDraft202012Feature.ValidUseOfEmptyFragmentsInLocationIndependentId
                 string propertyName = property.Name;
 
         
-                        if (__MenesLocalProperties.TryGetValue(propertyName, out Func<Applicator, ValidationContext, ValidationLevel, ValidationContext>? propertyValidator))
+                        if (__MenesLocalProperties.TryGetValue(propertyName, out PropertyValidator<Applicator>? propertyValidator))
                 {
                     result = result.WithLocalProperty(propertyCount);
                     var propertyResult = propertyValidator(this, result.CreateChildContext(), level);

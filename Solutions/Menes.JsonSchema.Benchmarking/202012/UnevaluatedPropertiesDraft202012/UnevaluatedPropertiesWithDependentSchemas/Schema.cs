@@ -45,9 +45,9 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithDepen
     
     
     
-            private static readonly ImmutableDictionary<string, Func<Schema, ValidationContext, ValidationLevel, ValidationContext>> __MenesDependentSchema = CreateDependentSchemaValidators();
+            private static readonly ImmutableDictionary<string, PropertyValidator<Schema>> __MenesDependentSchema = CreateDependentSchemaValidators();
     
-            private static readonly ImmutableDictionary<string, Func<Schema, ValidationContext, ValidationLevel, ValidationContext>> __MenesLocalProperties = CreateLocalPropertyValidators();
+            private static readonly ImmutableDictionary<string, PropertyValidator<Schema>> __MenesLocalProperties = CreateLocalPropertyValidators();
     
     
 
@@ -658,42 +658,43 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithDepen
     
     
     
-        private static ImmutableDictionary<string, Func<Schema, ValidationContext, ValidationLevel, ValidationContext>> CreateDependentSchemaValidators()
+        private static ImmutableDictionary<string, PropertyValidator<Schema>> CreateDependentSchemaValidators()
         {
-            ImmutableDictionary<string, Func<Schema, ValidationContext, ValidationLevel, ValidationContext>>.Builder builder =
-                ImmutableDictionary.CreateBuilder<string, Func<Schema, ValidationContext, ValidationLevel, ValidationContext>>();
+            ImmutableDictionary<string, PropertyValidator<Schema>>.Builder builder =
+                ImmutableDictionary.CreateBuilder<string, PropertyValidator<Schema>>();
 
                     builder.Add(
-                "foo",
-                (entity, validationContext, level) =>
-                {
-                    return entity.As<UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithDependentSchemas.Schema.FooEntity>().Validate(validationContext, level);
-                });
+                "foo", __MenesValidateDependentSchema1);
 
                     return builder.ToImmutable();
         }
 
-    
-    
-    
-    
-        private static ImmutableDictionary<string, Func<Schema, ValidationContext, ValidationLevel, ValidationContext>> CreateLocalPropertyValidators()
+                private static ValidationContext __MenesValidateDependentSchema1(in Schema that, in ValidationContext validationContext, ValidationLevel level)
         {
-            ImmutableDictionary<string, Func<Schema, ValidationContext, ValidationLevel, ValidationContext>>.Builder builder =
-                ImmutableDictionary.CreateBuilder<string, Func<Schema, ValidationContext, ValidationLevel, ValidationContext>>();
+            return that.As<UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithDependentSchemas.Schema.FooEntity>().Validate(validationContext, level);
+        }
+        
+    
+    
+    
+    
+        private static ImmutableDictionary<string, PropertyValidator<Schema>> CreateLocalPropertyValidators()
+        {
+            ImmutableDictionary<string, PropertyValidator<Schema>>.Builder builder =
+                ImmutableDictionary.CreateBuilder<string, PropertyValidator<Schema>>();
 
                     builder.Add(
-                FooJsonPropertyName,
-                (that, validationContext, level) =>
-                {
-                    Menes.Json.JsonString property = that.Foo;
-                    return property.Validate(validationContext, level);
-                });
+                FooJsonPropertyName, __MenesValidateFoo);
         
             return builder.ToImmutable();
         }
 
-    
+                private static ValidationContext __MenesValidateFoo(in Schema that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            Menes.Json.JsonString property = that.Foo;
+            return property.Validate(validationContext, level);
+        }
+            
     
     
             private ValidationContext ValidateObject(JsonValueKind valueKind, in ValidationContext validationContext, ValidationLevel level)
@@ -713,7 +714,7 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithDepen
                 string propertyName = property.Name;
 
         
-                        if (__MenesLocalProperties.TryGetValue(propertyName, out Func<Schema, ValidationContext, ValidationLevel, ValidationContext>? propertyValidator))
+                        if (__MenesLocalProperties.TryGetValue(propertyName, out PropertyValidator<Schema>? propertyValidator))
                 {
                     result = result.WithLocalProperty(propertyCount);
                     var propertyResult = propertyValidator(this, result.CreateChildContext(), level);
@@ -726,7 +727,7 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithDepen
             
                 }
         
-                        if (__MenesDependentSchema.TryGetValue(propertyName, out Func<Schema, ValidationContext, ValidationLevel, ValidationContext>? dependentSchemaValidator))
+                        if (__MenesDependentSchema.TryGetValue(propertyName, out PropertyValidator<Schema>? dependentSchemaValidator))
                 {
                     result = result.WithLocalProperty(propertyCount);
                     result = dependentSchemaValidator(this, result, level);
@@ -847,7 +848,7 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithDepen
     
     
     
-            private static readonly ImmutableDictionary<string, Func<FooEntity, ValidationContext, ValidationLevel, ValidationContext>> __MenesLocalProperties = CreateLocalPropertyValidators();
+            private static readonly ImmutableDictionary<string, PropertyValidator<FooEntity>> __MenesLocalProperties = CreateLocalPropertyValidators();
     
     
 
@@ -1447,23 +1448,23 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithDepen
     
     
     
-        private static ImmutableDictionary<string, Func<FooEntity, ValidationContext, ValidationLevel, ValidationContext>> CreateLocalPropertyValidators()
+        private static ImmutableDictionary<string, PropertyValidator<FooEntity>> CreateLocalPropertyValidators()
         {
-            ImmutableDictionary<string, Func<FooEntity, ValidationContext, ValidationLevel, ValidationContext>>.Builder builder =
-                ImmutableDictionary.CreateBuilder<string, Func<FooEntity, ValidationContext, ValidationLevel, ValidationContext>>();
+            ImmutableDictionary<string, PropertyValidator<FooEntity>>.Builder builder =
+                ImmutableDictionary.CreateBuilder<string, PropertyValidator<FooEntity>>();
 
                     builder.Add(
-                BarJsonPropertyName,
-                (that, validationContext, level) =>
-                {
-                    UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithDependentSchemas.Schema.FooEntity.BarEntity property = that.Bar;
-                    return property.Validate(validationContext, level);
-                });
+                BarJsonPropertyName, __MenesValidateBar);
         
             return builder.ToImmutable();
         }
 
-    
+                private static ValidationContext __MenesValidateBar(in FooEntity that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithDependentSchemas.Schema.FooEntity.BarEntity property = that.Bar;
+            return property.Validate(validationContext, level);
+        }
+            
     
     
             private ValidationContext ValidateObject(JsonValueKind valueKind, in ValidationContext validationContext, ValidationLevel level)
@@ -1484,7 +1485,7 @@ namespace UnevaluatedPropertiesDraft202012Feature.UnevaluatedPropertiesWithDepen
                 string propertyName = property.Name;
 
         
-                        if (__MenesLocalProperties.TryGetValue(propertyName, out Func<FooEntity, ValidationContext, ValidationLevel, ValidationContext>? propertyValidator))
+                        if (__MenesLocalProperties.TryGetValue(propertyName, out PropertyValidator<FooEntity>? propertyValidator))
                 {
                     result = result.WithLocalProperty(propertyCount);
                     var propertyResult = propertyValidator(this, result.CreateChildContext(), level);

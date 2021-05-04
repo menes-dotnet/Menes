@@ -32,7 +32,7 @@ namespace DependentSchemasDraft201909Feature.SingleDependency
     
     
     
-            private static readonly ImmutableDictionary<string, Func<Schema, ValidationContext, ValidationLevel, ValidationContext>> __MenesDependentSchema = CreateDependentSchemaValidators();
+            private static readonly ImmutableDictionary<string, PropertyValidator<Schema>> __MenesDependentSchema = CreateDependentSchemaValidators();
     
     
     
@@ -552,21 +552,22 @@ namespace DependentSchemasDraft201909Feature.SingleDependency
 
     
     
-        private static ImmutableDictionary<string, Func<Schema, ValidationContext, ValidationLevel, ValidationContext>> CreateDependentSchemaValidators()
+        private static ImmutableDictionary<string, PropertyValidator<Schema>> CreateDependentSchemaValidators()
         {
-            ImmutableDictionary<string, Func<Schema, ValidationContext, ValidationLevel, ValidationContext>>.Builder builder =
-                ImmutableDictionary.CreateBuilder<string, Func<Schema, ValidationContext, ValidationLevel, ValidationContext>>();
+            ImmutableDictionary<string, PropertyValidator<Schema>>.Builder builder =
+                ImmutableDictionary.CreateBuilder<string, PropertyValidator<Schema>>();
 
                     builder.Add(
-                "bar",
-                (entity, validationContext, level) =>
-                {
-                    return entity.As<DependentSchemasDraft201909Feature.SingleDependency.Schema.BarEntity>().Validate(validationContext, level);
-                });
+                "bar", __MenesValidateDependentSchema1);
 
                     return builder.ToImmutable();
         }
 
+                private static ValidationContext __MenesValidateDependentSchema1(in Schema that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            return that.As<DependentSchemasDraft201909Feature.SingleDependency.Schema.BarEntity>().Validate(validationContext, level);
+        }
+        
     
     
     
@@ -611,7 +612,7 @@ namespace DependentSchemasDraft201909Feature.SingleDependency
 
         
         
-                        if (__MenesDependentSchema.TryGetValue(propertyName, out Func<Schema, ValidationContext, ValidationLevel, ValidationContext>? dependentSchemaValidator))
+                        if (__MenesDependentSchema.TryGetValue(propertyName, out PropertyValidator<Schema>? dependentSchemaValidator))
                 {
                     result = result.WithLocalProperty(propertyCount);
                     result = dependentSchemaValidator(this, result, level);
@@ -690,7 +691,7 @@ namespace DependentSchemasDraft201909Feature.SingleDependency
     
     
     
-            private static readonly ImmutableDictionary<string, Func<BarEntity, ValidationContext, ValidationLevel, ValidationContext>> __MenesLocalProperties = CreateLocalPropertyValidators();
+            private static readonly ImmutableDictionary<string, PropertyValidator<BarEntity>> __MenesLocalProperties = CreateLocalPropertyValidators();
     
     
 
@@ -1326,30 +1327,30 @@ namespace DependentSchemasDraft201909Feature.SingleDependency
     
     
     
-        private static ImmutableDictionary<string, Func<BarEntity, ValidationContext, ValidationLevel, ValidationContext>> CreateLocalPropertyValidators()
+        private static ImmutableDictionary<string, PropertyValidator<BarEntity>> CreateLocalPropertyValidators()
         {
-            ImmutableDictionary<string, Func<BarEntity, ValidationContext, ValidationLevel, ValidationContext>>.Builder builder =
-                ImmutableDictionary.CreateBuilder<string, Func<BarEntity, ValidationContext, ValidationLevel, ValidationContext>>();
+            ImmutableDictionary<string, PropertyValidator<BarEntity>>.Builder builder =
+                ImmutableDictionary.CreateBuilder<string, PropertyValidator<BarEntity>>();
 
                     builder.Add(
-                FooJsonPropertyName,
-                (that, validationContext, level) =>
-                {
-                    Menes.Json.JsonInteger property = that.Foo;
-                    return property.Validate(validationContext, level);
-                });
+                FooJsonPropertyName, __MenesValidateFoo);
                     builder.Add(
-                BarJsonPropertyName,
-                (that, validationContext, level) =>
-                {
-                    Menes.Json.JsonInteger property = that.Bar;
-                    return property.Validate(validationContext, level);
-                });
+                BarJsonPropertyName, __MenesValidateBar);
         
             return builder.ToImmutable();
         }
 
-    
+                private static ValidationContext __MenesValidateFoo(in BarEntity that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            Menes.Json.JsonInteger property = that.Foo;
+            return property.Validate(validationContext, level);
+        }
+                private static ValidationContext __MenesValidateBar(in BarEntity that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            Menes.Json.JsonInteger property = that.Bar;
+            return property.Validate(validationContext, level);
+        }
+            
             /// <summary>
         /// Gets the value as a <see cref="JsonObject"/>.
         /// </summary>
@@ -1389,7 +1390,7 @@ namespace DependentSchemasDraft201909Feature.SingleDependency
                 string propertyName = property.Name;
 
         
-                        if (__MenesLocalProperties.TryGetValue(propertyName, out Func<BarEntity, ValidationContext, ValidationLevel, ValidationContext>? propertyValidator))
+                        if (__MenesLocalProperties.TryGetValue(propertyName, out PropertyValidator<BarEntity>? propertyValidator))
                 {
                     result = result.WithLocalProperty(propertyCount);
                     var propertyResult = propertyValidator(this, result.CreateChildContext(), level);

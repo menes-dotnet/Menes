@@ -57,7 +57,7 @@ namespace DynamicRefDraft202012Feature.ADynamicRefThatInitiallyResolvesToASchema
     
     
     
-            private static readonly ImmutableDictionary<string, Func<Root, ValidationContext, ValidationLevel, ValidationContext>> __MenesLocalProperties = CreateLocalPropertyValidators();
+            private static readonly ImmutableDictionary<string, PropertyValidator<Root>> __MenesLocalProperties = CreateLocalPropertyValidators();
     
     
 
@@ -795,23 +795,23 @@ namespace DynamicRefDraft202012Feature.ADynamicRefThatInitiallyResolvesToASchema
     
     
     
-        private static ImmutableDictionary<string, Func<Root, ValidationContext, ValidationLevel, ValidationContext>> CreateLocalPropertyValidators()
+        private static ImmutableDictionary<string, PropertyValidator<Root>> CreateLocalPropertyValidators()
         {
-            ImmutableDictionary<string, Func<Root, ValidationContext, ValidationLevel, ValidationContext>>.Builder builder =
-                ImmutableDictionary.CreateBuilder<string, Func<Root, ValidationContext, ValidationLevel, ValidationContext>>();
+            ImmutableDictionary<string, PropertyValidator<Root>>.Builder builder =
+                ImmutableDictionary.CreateBuilder<string, PropertyValidator<Root>>();
 
                     builder.Add(
-                FooJsonPropertyName,
-                (that, validationContext, level) =>
-                {
-                    DynamicRefDraft202012Feature.ADynamicRefThatInitiallyResolvesToASchemaWithAMatchingDynamicAnchorShouldResolveToTheFirstDynamicAnchorInTheDynamicScope.Root.FooEntity property = that.Foo;
-                    return property.Validate(validationContext, level);
-                });
+                FooJsonPropertyName, __MenesValidateFoo);
         
             return builder.ToImmutable();
         }
 
-    
+                private static ValidationContext __MenesValidateFoo(in Root that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            DynamicRefDraft202012Feature.ADynamicRefThatInitiallyResolvesToASchemaWithAMatchingDynamicAnchorShouldResolveToTheFirstDynamicAnchorInTheDynamicScope.Root.FooEntity property = that.Foo;
+            return property.Validate(validationContext, level);
+        }
+            
             private ValidationContext ValidateRef(in ValidationContext validationContext, ValidationLevel level)
         {
             ValidationContext result = validationContext;
@@ -864,7 +864,7 @@ namespace DynamicRefDraft202012Feature.ADynamicRefThatInitiallyResolvesToASchema
                 string propertyName = property.Name;
 
         
-                        if (__MenesLocalProperties.TryGetValue(propertyName, out Func<Root, ValidationContext, ValidationLevel, ValidationContext>? propertyValidator))
+                        if (__MenesLocalProperties.TryGetValue(propertyName, out PropertyValidator<Root>? propertyValidator))
                 {
                     result = result.WithLocalProperty(propertyCount);
                     var propertyResult = propertyValidator(this, result.CreateChildContext(), level);
@@ -1461,7 +1461,7 @@ namespace DynamicRefDraft202012Feature.ADynamicRefThatInitiallyResolvesToASchema
     
     
     
-            private static readonly ImmutableDictionary<string, Func<ExtendedValue, ValidationContext, ValidationLevel, ValidationContext>> __MenesLocalProperties = CreateLocalPropertyValidators();
+            private static readonly ImmutableDictionary<string, PropertyValidator<ExtendedValue>> __MenesLocalProperties = CreateLocalPropertyValidators();
     
     
 
@@ -2074,23 +2074,23 @@ namespace DynamicRefDraft202012Feature.ADynamicRefThatInitiallyResolvesToASchema
     
     
     
-        private static ImmutableDictionary<string, Func<ExtendedValue, ValidationContext, ValidationLevel, ValidationContext>> CreateLocalPropertyValidators()
+        private static ImmutableDictionary<string, PropertyValidator<ExtendedValue>> CreateLocalPropertyValidators()
         {
-            ImmutableDictionary<string, Func<ExtendedValue, ValidationContext, ValidationLevel, ValidationContext>>.Builder builder =
-                ImmutableDictionary.CreateBuilder<string, Func<ExtendedValue, ValidationContext, ValidationLevel, ValidationContext>>();
+            ImmutableDictionary<string, PropertyValidator<ExtendedValue>>.Builder builder =
+                ImmutableDictionary.CreateBuilder<string, PropertyValidator<ExtendedValue>>();
 
                     builder.Add(
-                BarJsonPropertyName,
-                (that, validationContext, level) =>
-                {
-                    DynamicRefDraft202012Feature.ADynamicRefThatInitiallyResolvesToASchemaWithAMatchingDynamicAnchorShouldResolveToTheFirstDynamicAnchorInTheDynamicScope.Bar property = that.Bar;
-                    return property.Validate(validationContext, level);
-                });
+                BarJsonPropertyName, __MenesValidateBar);
         
             return builder.ToImmutable();
         }
 
-    
+                private static ValidationContext __MenesValidateBar(in ExtendedValue that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            DynamicRefDraft202012Feature.ADynamicRefThatInitiallyResolvesToASchemaWithAMatchingDynamicAnchorShouldResolveToTheFirstDynamicAnchorInTheDynamicScope.Bar property = that.Bar;
+            return property.Validate(validationContext, level);
+        }
+            
     
     
             private ValidationContext ValidateObject(JsonValueKind valueKind, in ValidationContext validationContext, ValidationLevel level)
@@ -2110,7 +2110,7 @@ namespace DynamicRefDraft202012Feature.ADynamicRefThatInitiallyResolvesToASchema
                 string propertyName = property.Name;
 
         
-                        if (__MenesLocalProperties.TryGetValue(propertyName, out Func<ExtendedValue, ValidationContext, ValidationLevel, ValidationContext>? propertyValidator))
+                        if (__MenesLocalProperties.TryGetValue(propertyName, out PropertyValidator<ExtendedValue>? propertyValidator))
                 {
                     result = result.WithLocalProperty(propertyCount);
                     var propertyResult = propertyValidator(this, result.CreateChildContext(), level);

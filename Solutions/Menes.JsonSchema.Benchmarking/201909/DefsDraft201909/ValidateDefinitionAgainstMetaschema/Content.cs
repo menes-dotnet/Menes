@@ -68,7 +68,7 @@ namespace DefsDraft201909Feature.ValidateDefinitionAgainstMetaschema
     
     
     
-            private static readonly ImmutableDictionary<string, Func<Content, ValidationContext, ValidationLevel, ValidationContext>> __MenesLocalProperties = CreateLocalPropertyValidators();
+            private static readonly ImmutableDictionary<string, PropertyValidator<Content>> __MenesLocalProperties = CreateLocalPropertyValidators();
     
     
 
@@ -860,37 +860,37 @@ namespace DefsDraft201909Feature.ValidateDefinitionAgainstMetaschema
     
     
     
-        private static ImmutableDictionary<string, Func<Content, ValidationContext, ValidationLevel, ValidationContext>> CreateLocalPropertyValidators()
+        private static ImmutableDictionary<string, PropertyValidator<Content>> CreateLocalPropertyValidators()
         {
-            ImmutableDictionary<string, Func<Content, ValidationContext, ValidationLevel, ValidationContext>>.Builder builder =
-                ImmutableDictionary.CreateBuilder<string, Func<Content, ValidationContext, ValidationLevel, ValidationContext>>();
+            ImmutableDictionary<string, PropertyValidator<Content>>.Builder builder =
+                ImmutableDictionary.CreateBuilder<string, PropertyValidator<Content>>();
 
                     builder.Add(
-                ContentMediaTypeJsonPropertyName,
-                (that, validationContext, level) =>
-                {
-                    Menes.Json.JsonString property = that.ContentMediaType;
-                    return property.Validate(validationContext, level);
-                });
+                ContentMediaTypeJsonPropertyName, __MenesValidateContentMediaType);
                     builder.Add(
-                ContentEncodingJsonPropertyName,
-                (that, validationContext, level) =>
-                {
-                    Menes.Json.JsonString property = that.ContentEncoding;
-                    return property.Validate(validationContext, level);
-                });
+                ContentEncodingJsonPropertyName, __MenesValidateContentEncoding);
                     builder.Add(
-                ContentSchemaJsonPropertyName,
-                (that, validationContext, level) =>
-                {
-                    DefsDraft201909Feature.ValidateDefinitionAgainstMetaschema.Schema property = that.ContentSchema;
-                    return property.Validate(validationContext, level);
-                });
+                ContentSchemaJsonPropertyName, __MenesValidateContentSchema);
         
             return builder.ToImmutable();
         }
 
-    
+                private static ValidationContext __MenesValidateContentMediaType(in Content that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            Menes.Json.JsonString property = that.ContentMediaType;
+            return property.Validate(validationContext, level);
+        }
+                private static ValidationContext __MenesValidateContentEncoding(in Content that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            Menes.Json.JsonString property = that.ContentEncoding;
+            return property.Validate(validationContext, level);
+        }
+                private static ValidationContext __MenesValidateContentSchema(in Content that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            DefsDraft201909Feature.ValidateDefinitionAgainstMetaschema.Schema property = that.ContentSchema;
+            return property.Validate(validationContext, level);
+        }
+            
             /// <summary>
         /// Gets the value as a <see cref="JsonObject"/>.
         /// </summary>
@@ -944,7 +944,7 @@ namespace DefsDraft201909Feature.ValidateDefinitionAgainstMetaschema
                 string propertyName = property.Name;
 
         
-                        if (__MenesLocalProperties.TryGetValue(propertyName, out Func<Content, ValidationContext, ValidationLevel, ValidationContext>? propertyValidator))
+                        if (__MenesLocalProperties.TryGetValue(propertyName, out PropertyValidator<Content>? propertyValidator))
                 {
                     result = result.WithLocalProperty(propertyCount);
                     var propertyResult = propertyValidator(this, result.CreateChildContext(), level);

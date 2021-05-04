@@ -47,7 +47,7 @@ namespace PatternPropertiesDraft201909Feature.MultipleSimultaneousPatternPropert
     
     
 
-            private static readonly ImmutableDictionary<Regex, Func<Property, ValidationContext, ValidationLevel, ValidationContext>> __MenesPatternProperties = CreatePatternPropertiesValidators();
+            private static readonly ImmutableDictionary<Regex, PatternPropertyValidator> __MenesPatternProperties = CreatePatternPropertiesValidators();
     
         private readonly JsonElement jsonElementBacking;
 
@@ -561,27 +561,28 @@ namespace PatternPropertiesDraft201909Feature.MultipleSimultaneousPatternPropert
         }
 
 
-            private static ImmutableDictionary<Regex, Func<Property, ValidationContext, ValidationLevel, ValidationContext>> CreatePatternPropertiesValidators()
+            private static ImmutableDictionary<Regex, PatternPropertyValidator> CreatePatternPropertiesValidators()
         {
-            ImmutableDictionary<Regex, Func<Property, ValidationContext, ValidationLevel, ValidationContext>>.Builder builder =
-                ImmutableDictionary.CreateBuilder<Regex, Func<Property, ValidationContext, ValidationLevel, ValidationContext>>();
+            ImmutableDictionary<Regex, PatternPropertyValidator>.Builder builder =
+                ImmutableDictionary.CreateBuilder<Regex, PatternPropertyValidator>();
 
                     builder.Add(
-                PatternPropertyJsonInteger,
-                (property, validationContext, level) =>
-                {
-                    return property.ValueAs<Menes.Json.JsonInteger>().Validate(validationContext, level);
-                });
+                PatternPropertyJsonInteger, __MenesValidatePatternPropertyJsonInteger);
                     builder.Add(
-                PatternPropertyAaaEntity,
-                (property, validationContext, level) =>
-                {
-                    return property.ValueAs<PatternPropertiesDraft201909Feature.MultipleSimultaneousPatternPropertiesAreValidated.Schema.AaaEntity>().Validate(validationContext, level);
-                });
+                PatternPropertyAaaEntity, __MenesValidatePatternPropertyAaaEntity);
         
             return builder.ToImmutable();
         }
 
+                private static ValidationContext __MenesValidatePatternPropertyJsonInteger(in Property that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            return that.ValueAs<Menes.Json.JsonInteger>().Validate(validationContext, level);
+        }
+                private static ValidationContext __MenesValidatePatternPropertyAaaEntity(in Property that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            return that.ValueAs<PatternPropertiesDraft201909Feature.MultipleSimultaneousPatternPropertiesAreValidated.Schema.AaaEntity>().Validate(validationContext, level);
+        }
+        
     
     
     
@@ -629,7 +630,7 @@ namespace PatternPropertiesDraft201909Feature.MultipleSimultaneousPatternPropert
         
         
                     
-                            foreach (System.Collections.Generic.KeyValuePair<Regex, Func<Property, ValidationContext, ValidationLevel, ValidationContext>> patternProperty in __MenesPatternProperties)
+                            foreach (System.Collections.Generic.KeyValuePair<Regex, PatternPropertyValidator> patternProperty in __MenesPatternProperties)
                 {
                     if (patternProperty.Key.IsMatch(propertyName))
                     {

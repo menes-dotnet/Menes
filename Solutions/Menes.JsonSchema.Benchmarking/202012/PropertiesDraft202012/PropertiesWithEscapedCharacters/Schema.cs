@@ -101,7 +101,7 @@ namespace PropertiesDraft202012Feature.PropertiesWithEscapedCharacters
     
     
     
-            private static readonly ImmutableDictionary<string, Func<Schema, ValidationContext, ValidationLevel, ValidationContext>> __MenesLocalProperties = CreateLocalPropertyValidators();
+            private static readonly ImmutableDictionary<string, PropertyValidator<Schema>> __MenesLocalProperties = CreateLocalPropertyValidators();
     
     
 
@@ -959,58 +959,58 @@ namespace PropertiesDraft202012Feature.PropertiesWithEscapedCharacters
     
     
     
-        private static ImmutableDictionary<string, Func<Schema, ValidationContext, ValidationLevel, ValidationContext>> CreateLocalPropertyValidators()
+        private static ImmutableDictionary<string, PropertyValidator<Schema>> CreateLocalPropertyValidators()
         {
-            ImmutableDictionary<string, Func<Schema, ValidationContext, ValidationLevel, ValidationContext>>.Builder builder =
-                ImmutableDictionary.CreateBuilder<string, Func<Schema, ValidationContext, ValidationLevel, ValidationContext>>();
+            ImmutableDictionary<string, PropertyValidator<Schema>>.Builder builder =
+                ImmutableDictionary.CreateBuilder<string, PropertyValidator<Schema>>();
 
                     builder.Add(
-                FooBarJsonPropertyName,
-                (that, validationContext, level) =>
-                {
-                    Menes.Json.JsonNumber property = that.FooBar;
-                    return property.Validate(validationContext, level);
-                });
+                FooBarJsonPropertyName, __MenesValidateFooBar);
                     builder.Add(
-                FooBar1JsonPropertyName,
-                (that, validationContext, level) =>
-                {
-                    Menes.Json.JsonNumber property = that.FooBar1;
-                    return property.Validate(validationContext, level);
-                });
+                FooBar1JsonPropertyName, __MenesValidateFooBar1);
                     builder.Add(
-                FooBar2JsonPropertyName,
-                (that, validationContext, level) =>
-                {
-                    Menes.Json.JsonNumber property = that.FooBar2;
-                    return property.Validate(validationContext, level);
-                });
+                FooBar2JsonPropertyName, __MenesValidateFooBar2);
                     builder.Add(
-                FooBar3JsonPropertyName,
-                (that, validationContext, level) =>
-                {
-                    Menes.Json.JsonNumber property = that.FooBar3;
-                    return property.Validate(validationContext, level);
-                });
+                FooBar3JsonPropertyName, __MenesValidateFooBar3);
                     builder.Add(
-                FooBar4JsonPropertyName,
-                (that, validationContext, level) =>
-                {
-                    Menes.Json.JsonNumber property = that.FooBar4;
-                    return property.Validate(validationContext, level);
-                });
+                FooBar4JsonPropertyName, __MenesValidateFooBar4);
                     builder.Add(
-                FooBar5JsonPropertyName,
-                (that, validationContext, level) =>
-                {
-                    Menes.Json.JsonNumber property = that.FooBar5;
-                    return property.Validate(validationContext, level);
-                });
+                FooBar5JsonPropertyName, __MenesValidateFooBar5);
         
             return builder.ToImmutable();
         }
 
-    
+                private static ValidationContext __MenesValidateFooBar(in Schema that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            Menes.Json.JsonNumber property = that.FooBar;
+            return property.Validate(validationContext, level);
+        }
+                private static ValidationContext __MenesValidateFooBar1(in Schema that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            Menes.Json.JsonNumber property = that.FooBar1;
+            return property.Validate(validationContext, level);
+        }
+                private static ValidationContext __MenesValidateFooBar2(in Schema that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            Menes.Json.JsonNumber property = that.FooBar2;
+            return property.Validate(validationContext, level);
+        }
+                private static ValidationContext __MenesValidateFooBar3(in Schema that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            Menes.Json.JsonNumber property = that.FooBar3;
+            return property.Validate(validationContext, level);
+        }
+                private static ValidationContext __MenesValidateFooBar4(in Schema that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            Menes.Json.JsonNumber property = that.FooBar4;
+            return property.Validate(validationContext, level);
+        }
+                private static ValidationContext __MenesValidateFooBar5(in Schema that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            Menes.Json.JsonNumber property = that.FooBar5;
+            return property.Validate(validationContext, level);
+        }
+            
     
     
             private ValidationContext ValidateObject(JsonValueKind valueKind, in ValidationContext validationContext, ValidationLevel level)
@@ -1030,7 +1030,7 @@ namespace PropertiesDraft202012Feature.PropertiesWithEscapedCharacters
                 string propertyName = property.Name;
 
         
-                        if (__MenesLocalProperties.TryGetValue(propertyName, out Func<Schema, ValidationContext, ValidationLevel, ValidationContext>? propertyValidator))
+                        if (__MenesLocalProperties.TryGetValue(propertyName, out PropertyValidator<Schema>? propertyValidator))
                 {
                     result = result.WithLocalProperty(propertyCount);
                     var propertyResult = propertyValidator(this, result.CreateChildContext(), level);

@@ -32,7 +32,7 @@ namespace DependentSchemasDraft201909Feature.DependenciesWithEscapedCharacters
     
     
     
-            private static readonly ImmutableDictionary<string, Func<Schema, ValidationContext, ValidationLevel, ValidationContext>> __MenesDependentSchema = CreateDependentSchemaValidators();
+            private static readonly ImmutableDictionary<string, PropertyValidator<Schema>> __MenesDependentSchema = CreateDependentSchemaValidators();
     
     
     
@@ -552,28 +552,29 @@ namespace DependentSchemasDraft201909Feature.DependenciesWithEscapedCharacters
 
     
     
-        private static ImmutableDictionary<string, Func<Schema, ValidationContext, ValidationLevel, ValidationContext>> CreateDependentSchemaValidators()
+        private static ImmutableDictionary<string, PropertyValidator<Schema>> CreateDependentSchemaValidators()
         {
-            ImmutableDictionary<string, Func<Schema, ValidationContext, ValidationLevel, ValidationContext>>.Builder builder =
-                ImmutableDictionary.CreateBuilder<string, Func<Schema, ValidationContext, ValidationLevel, ValidationContext>>();
+            ImmutableDictionary<string, PropertyValidator<Schema>>.Builder builder =
+                ImmutableDictionary.CreateBuilder<string, PropertyValidator<Schema>>();
 
                     builder.Add(
-                "foo	bar",
-                (entity, validationContext, level) =>
-                {
-                    return entity.As<DependentSchemasDraft201909Feature.DependenciesWithEscapedCharacters.Schema.FooBarEntity>().Validate(validationContext, level);
-                });
+                "foo	bar", __MenesValidateDependentSchema1);
 
                     builder.Add(
-                "foo'bar",
-                (entity, validationContext, level) =>
-                {
-                    return entity.As<DependentSchemasDraft201909Feature.DependenciesWithEscapedCharacters.Schema.FooBarEntity1>().Validate(validationContext, level);
-                });
+                "foo'bar", __MenesValidateDependentSchema2);
 
                     return builder.ToImmutable();
         }
 
+                private static ValidationContext __MenesValidateDependentSchema1(in Schema that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            return that.As<DependentSchemasDraft201909Feature.DependenciesWithEscapedCharacters.Schema.FooBarEntity>().Validate(validationContext, level);
+        }
+                private static ValidationContext __MenesValidateDependentSchema2(in Schema that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            return that.As<DependentSchemasDraft201909Feature.DependenciesWithEscapedCharacters.Schema.FooBarEntity1>().Validate(validationContext, level);
+        }
+        
     
     
     
@@ -618,7 +619,7 @@ namespace DependentSchemasDraft201909Feature.DependenciesWithEscapedCharacters
 
         
         
-                        if (__MenesDependentSchema.TryGetValue(propertyName, out Func<Schema, ValidationContext, ValidationLevel, ValidationContext>? dependentSchemaValidator))
+                        if (__MenesDependentSchema.TryGetValue(propertyName, out PropertyValidator<Schema>? dependentSchemaValidator))
                 {
                     result = result.WithLocalProperty(propertyCount);
                     result = dependentSchemaValidator(this, result, level);
@@ -1314,7 +1315,7 @@ namespace DependentSchemasDraft201909Feature.DependenciesWithEscapedCharacters
     
     
     
-            private static readonly ImmutableDictionary<string, Func<FooBarEntity1, ValidationContext, ValidationLevel, ValidationContext>> __MenesLocalProperties = CreateLocalPropertyValidators();
+            private static readonly ImmutableDictionary<string, PropertyValidator<FooBarEntity1>> __MenesLocalProperties = CreateLocalPropertyValidators();
     
     
 
@@ -1896,23 +1897,23 @@ namespace DependentSchemasDraft201909Feature.DependenciesWithEscapedCharacters
     
     
     
-        private static ImmutableDictionary<string, Func<FooBarEntity1, ValidationContext, ValidationLevel, ValidationContext>> CreateLocalPropertyValidators()
+        private static ImmutableDictionary<string, PropertyValidator<FooBarEntity1>> CreateLocalPropertyValidators()
         {
-            ImmutableDictionary<string, Func<FooBarEntity1, ValidationContext, ValidationLevel, ValidationContext>>.Builder builder =
-                ImmutableDictionary.CreateBuilder<string, Func<FooBarEntity1, ValidationContext, ValidationLevel, ValidationContext>>();
+            ImmutableDictionary<string, PropertyValidator<FooBarEntity1>>.Builder builder =
+                ImmutableDictionary.CreateBuilder<string, PropertyValidator<FooBarEntity1>>();
 
                     builder.Add(
-                FooBarJsonPropertyName,
-                (that, validationContext, level) =>
-                {
-                    Menes.Json.JsonAny property = that.FooBar;
-                    return property.Validate(validationContext, level);
-                });
+                FooBarJsonPropertyName, __MenesValidateFooBar);
         
             return builder.ToImmutable();
         }
 
-    
+                private static ValidationContext __MenesValidateFooBar(in FooBarEntity1 that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            Menes.Json.JsonAny property = that.FooBar;
+            return property.Validate(validationContext, level);
+        }
+            
             /// <summary>
         /// Gets the value as a <see cref="JsonObject"/>.
         /// </summary>
@@ -1953,7 +1954,7 @@ namespace DependentSchemasDraft201909Feature.DependenciesWithEscapedCharacters
                 string propertyName = property.Name;
 
         
-                        if (__MenesLocalProperties.TryGetValue(propertyName, out Func<FooBarEntity1, ValidationContext, ValidationLevel, ValidationContext>? propertyValidator))
+                        if (__MenesLocalProperties.TryGetValue(propertyName, out PropertyValidator<FooBarEntity1>? propertyValidator))
                 {
                     result = result.WithLocalProperty(propertyCount);
                     var propertyResult = propertyValidator(this, result.CreateChildContext(), level);

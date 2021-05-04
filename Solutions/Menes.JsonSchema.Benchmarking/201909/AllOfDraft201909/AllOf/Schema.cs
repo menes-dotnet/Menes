@@ -946,7 +946,7 @@ namespace AllOfDraft201909Feature.AllOf
     
     
     
-            private static readonly ImmutableDictionary<string, Func<AllOf0Entity, ValidationContext, ValidationLevel, ValidationContext>> __MenesLocalProperties = CreateLocalPropertyValidators();
+            private static readonly ImmutableDictionary<string, PropertyValidator<AllOf0Entity>> __MenesLocalProperties = CreateLocalPropertyValidators();
     
     
 
@@ -1528,23 +1528,23 @@ namespace AllOfDraft201909Feature.AllOf
     
     
     
-        private static ImmutableDictionary<string, Func<AllOf0Entity, ValidationContext, ValidationLevel, ValidationContext>> CreateLocalPropertyValidators()
+        private static ImmutableDictionary<string, PropertyValidator<AllOf0Entity>> CreateLocalPropertyValidators()
         {
-            ImmutableDictionary<string, Func<AllOf0Entity, ValidationContext, ValidationLevel, ValidationContext>>.Builder builder =
-                ImmutableDictionary.CreateBuilder<string, Func<AllOf0Entity, ValidationContext, ValidationLevel, ValidationContext>>();
+            ImmutableDictionary<string, PropertyValidator<AllOf0Entity>>.Builder builder =
+                ImmutableDictionary.CreateBuilder<string, PropertyValidator<AllOf0Entity>>();
 
                     builder.Add(
-                BarJsonPropertyName,
-                (that, validationContext, level) =>
-                {
-                    Menes.Json.JsonInteger property = that.Bar;
-                    return property.Validate(validationContext, level);
-                });
+                BarJsonPropertyName, __MenesValidateBar);
         
             return builder.ToImmutable();
         }
 
-    
+                private static ValidationContext __MenesValidateBar(in AllOf0Entity that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            Menes.Json.JsonInteger property = that.Bar;
+            return property.Validate(validationContext, level);
+        }
+            
             /// <summary>
         /// Gets the value as a <see cref="JsonObject"/>.
         /// </summary>
@@ -1585,7 +1585,7 @@ namespace AllOfDraft201909Feature.AllOf
                 string propertyName = property.Name;
 
         
-                        if (__MenesLocalProperties.TryGetValue(propertyName, out Func<AllOf0Entity, ValidationContext, ValidationLevel, ValidationContext>? propertyValidator))
+                        if (__MenesLocalProperties.TryGetValue(propertyName, out PropertyValidator<AllOf0Entity>? propertyValidator))
                 {
                     result = result.WithLocalProperty(propertyCount);
                     var propertyResult = propertyValidator(this, result.CreateChildContext(), level);
@@ -1682,7 +1682,7 @@ namespace AllOfDraft201909Feature.AllOf
     
     
     
-            private static readonly ImmutableDictionary<string, Func<AllOf1Entity, ValidationContext, ValidationLevel, ValidationContext>> __MenesLocalProperties = CreateLocalPropertyValidators();
+            private static readonly ImmutableDictionary<string, PropertyValidator<AllOf1Entity>> __MenesLocalProperties = CreateLocalPropertyValidators();
     
     
 
@@ -2264,23 +2264,23 @@ namespace AllOfDraft201909Feature.AllOf
     
     
     
-        private static ImmutableDictionary<string, Func<AllOf1Entity, ValidationContext, ValidationLevel, ValidationContext>> CreateLocalPropertyValidators()
+        private static ImmutableDictionary<string, PropertyValidator<AllOf1Entity>> CreateLocalPropertyValidators()
         {
-            ImmutableDictionary<string, Func<AllOf1Entity, ValidationContext, ValidationLevel, ValidationContext>>.Builder builder =
-                ImmutableDictionary.CreateBuilder<string, Func<AllOf1Entity, ValidationContext, ValidationLevel, ValidationContext>>();
+            ImmutableDictionary<string, PropertyValidator<AllOf1Entity>>.Builder builder =
+                ImmutableDictionary.CreateBuilder<string, PropertyValidator<AllOf1Entity>>();
 
                     builder.Add(
-                FooJsonPropertyName,
-                (that, validationContext, level) =>
-                {
-                    Menes.Json.JsonString property = that.Foo;
-                    return property.Validate(validationContext, level);
-                });
+                FooJsonPropertyName, __MenesValidateFoo);
         
             return builder.ToImmutable();
         }
 
-    
+                private static ValidationContext __MenesValidateFoo(in AllOf1Entity that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            Menes.Json.JsonString property = that.Foo;
+            return property.Validate(validationContext, level);
+        }
+            
             /// <summary>
         /// Gets the value as a <see cref="JsonObject"/>.
         /// </summary>
@@ -2321,7 +2321,7 @@ namespace AllOfDraft201909Feature.AllOf
                 string propertyName = property.Name;
 
         
-                        if (__MenesLocalProperties.TryGetValue(propertyName, out Func<AllOf1Entity, ValidationContext, ValidationLevel, ValidationContext>? propertyValidator))
+                        if (__MenesLocalProperties.TryGetValue(propertyName, out PropertyValidator<AllOf1Entity>? propertyValidator))
                 {
                     result = result.WithLocalProperty(propertyCount);
                     var propertyResult = propertyValidator(this, result.CreateChildContext(), level);

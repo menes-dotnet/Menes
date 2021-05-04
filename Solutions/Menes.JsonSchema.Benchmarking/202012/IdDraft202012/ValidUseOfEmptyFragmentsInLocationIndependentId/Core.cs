@@ -134,7 +134,7 @@ namespace IdDraft202012Feature.ValidUseOfEmptyFragmentsInLocationIndependentId
     
     
     
-            private static readonly ImmutableDictionary<string, Func<Core, ValidationContext, ValidationLevel, ValidationContext>> __MenesLocalProperties = CreateLocalPropertyValidators();
+            private static readonly ImmutableDictionary<string, PropertyValidator<Core>> __MenesLocalProperties = CreateLocalPropertyValidators();
     
     
 
@@ -1265,79 +1265,79 @@ namespace IdDraft202012Feature.ValidUseOfEmptyFragmentsInLocationIndependentId
     
     
     
-        private static ImmutableDictionary<string, Func<Core, ValidationContext, ValidationLevel, ValidationContext>> CreateLocalPropertyValidators()
+        private static ImmutableDictionary<string, PropertyValidator<Core>> CreateLocalPropertyValidators()
         {
-            ImmutableDictionary<string, Func<Core, ValidationContext, ValidationLevel, ValidationContext>>.Builder builder =
-                ImmutableDictionary.CreateBuilder<string, Func<Core, ValidationContext, ValidationLevel, ValidationContext>>();
+            ImmutableDictionary<string, PropertyValidator<Core>>.Builder builder =
+                ImmutableDictionary.CreateBuilder<string, PropertyValidator<Core>>();
 
                     builder.Add(
-                IdJsonPropertyName,
-                (that, validationContext, level) =>
-                {
-                    IdDraft202012Feature.ValidUseOfEmptyFragmentsInLocationIndependentId.Core.IdEntity property = that.Id;
-                    return property.Validate(validationContext, level);
-                });
+                IdJsonPropertyName, __MenesValidateId);
                     builder.Add(
-                SchemaJsonPropertyName,
-                (that, validationContext, level) =>
-                {
-                    Menes.Json.JsonUri property = that.Schema;
-                    return property.Validate(validationContext, level);
-                });
+                SchemaJsonPropertyName, __MenesValidateSchema);
                     builder.Add(
-                RefJsonPropertyName,
-                (that, validationContext, level) =>
-                {
-                    Menes.Json.JsonUriReference property = that.Ref;
-                    return property.Validate(validationContext, level);
-                });
+                RefJsonPropertyName, __MenesValidateRef);
                     builder.Add(
-                AnchorJsonPropertyName,
-                (that, validationContext, level) =>
-                {
-                    IdDraft202012Feature.ValidUseOfEmptyFragmentsInLocationIndependentId.Core.AnchorStringValue property = that.Anchor;
-                    return property.Validate(validationContext, level);
-                });
+                AnchorJsonPropertyName, __MenesValidateAnchor);
                     builder.Add(
-                DynamicRefJsonPropertyName,
-                (that, validationContext, level) =>
-                {
-                    Menes.Json.JsonUriReference property = that.DynamicRef;
-                    return property.Validate(validationContext, level);
-                });
+                DynamicRefJsonPropertyName, __MenesValidateDynamicRef);
                     builder.Add(
-                DynamicAnchorJsonPropertyName,
-                (that, validationContext, level) =>
-                {
-                    IdDraft202012Feature.ValidUseOfEmptyFragmentsInLocationIndependentId.Core.AnchorStringValue property = that.DynamicAnchor;
-                    return property.Validate(validationContext, level);
-                });
+                DynamicAnchorJsonPropertyName, __MenesValidateDynamicAnchor);
                     builder.Add(
-                VocabularyJsonPropertyName,
-                (that, validationContext, level) =>
-                {
-                    IdDraft202012Feature.ValidUseOfEmptyFragmentsInLocationIndependentId.Core.VocabularyValue property = that.Vocabulary;
-                    return property.Validate(validationContext, level);
-                });
+                VocabularyJsonPropertyName, __MenesValidateVocabulary);
                     builder.Add(
-                CommentJsonPropertyName,
-                (that, validationContext, level) =>
-                {
-                    Menes.Json.JsonString property = that.Comment;
-                    return property.Validate(validationContext, level);
-                });
+                CommentJsonPropertyName, __MenesValidateComment);
                     builder.Add(
-                DefsJsonPropertyName,
-                (that, validationContext, level) =>
-                {
-                    IdDraft202012Feature.ValidUseOfEmptyFragmentsInLocationIndependentId.Core.DefsValue property = that.Defs;
-                    return property.Validate(validationContext, level);
-                });
+                DefsJsonPropertyName, __MenesValidateDefs);
         
             return builder.ToImmutable();
         }
 
-    
+                private static ValidationContext __MenesValidateId(in Core that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            IdDraft202012Feature.ValidUseOfEmptyFragmentsInLocationIndependentId.Core.IdEntity property = that.Id;
+            return property.Validate(validationContext, level);
+        }
+                private static ValidationContext __MenesValidateSchema(in Core that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            Menes.Json.JsonUri property = that.Schema;
+            return property.Validate(validationContext, level);
+        }
+                private static ValidationContext __MenesValidateRef(in Core that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            Menes.Json.JsonUriReference property = that.Ref;
+            return property.Validate(validationContext, level);
+        }
+                private static ValidationContext __MenesValidateAnchor(in Core that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            IdDraft202012Feature.ValidUseOfEmptyFragmentsInLocationIndependentId.Core.AnchorStringValue property = that.Anchor;
+            return property.Validate(validationContext, level);
+        }
+                private static ValidationContext __MenesValidateDynamicRef(in Core that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            Menes.Json.JsonUriReference property = that.DynamicRef;
+            return property.Validate(validationContext, level);
+        }
+                private static ValidationContext __MenesValidateDynamicAnchor(in Core that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            IdDraft202012Feature.ValidUseOfEmptyFragmentsInLocationIndependentId.Core.AnchorStringValue property = that.DynamicAnchor;
+            return property.Validate(validationContext, level);
+        }
+                private static ValidationContext __MenesValidateVocabulary(in Core that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            IdDraft202012Feature.ValidUseOfEmptyFragmentsInLocationIndependentId.Core.VocabularyValue property = that.Vocabulary;
+            return property.Validate(validationContext, level);
+        }
+                private static ValidationContext __MenesValidateComment(in Core that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            Menes.Json.JsonString property = that.Comment;
+            return property.Validate(validationContext, level);
+        }
+                private static ValidationContext __MenesValidateDefs(in Core that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            IdDraft202012Feature.ValidUseOfEmptyFragmentsInLocationIndependentId.Core.DefsValue property = that.Defs;
+            return property.Validate(validationContext, level);
+        }
+            
     
     
             private ValidationContext ValidateObject(JsonValueKind valueKind, in ValidationContext validationContext, ValidationLevel level)
@@ -1357,7 +1357,7 @@ namespace IdDraft202012Feature.ValidUseOfEmptyFragmentsInLocationIndependentId
                 string propertyName = property.Name;
 
         
-                        if (__MenesLocalProperties.TryGetValue(propertyName, out Func<Core, ValidationContext, ValidationLevel, ValidationContext>? propertyValidator))
+                        if (__MenesLocalProperties.TryGetValue(propertyName, out PropertyValidator<Core>? propertyValidator))
                 {
                     result = result.WithLocalProperty(propertyCount);
                     var propertyResult = propertyValidator(this, result.CreateChildContext(), level);

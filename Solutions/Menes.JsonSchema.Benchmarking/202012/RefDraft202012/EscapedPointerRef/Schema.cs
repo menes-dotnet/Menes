@@ -68,7 +68,7 @@ namespace RefDraft202012Feature.EscapedPointerRef
     
     
     
-            private static readonly ImmutableDictionary<string, Func<Schema, ValidationContext, ValidationLevel, ValidationContext>> __MenesLocalProperties = CreateLocalPropertyValidators();
+            private static readonly ImmutableDictionary<string, PropertyValidator<Schema>> __MenesLocalProperties = CreateLocalPropertyValidators();
     
     
 
@@ -773,37 +773,37 @@ namespace RefDraft202012Feature.EscapedPointerRef
     
     
     
-        private static ImmutableDictionary<string, Func<Schema, ValidationContext, ValidationLevel, ValidationContext>> CreateLocalPropertyValidators()
+        private static ImmutableDictionary<string, PropertyValidator<Schema>> CreateLocalPropertyValidators()
         {
-            ImmutableDictionary<string, Func<Schema, ValidationContext, ValidationLevel, ValidationContext>>.Builder builder =
-                ImmutableDictionary.CreateBuilder<string, Func<Schema, ValidationContext, ValidationLevel, ValidationContext>>();
+            ImmutableDictionary<string, PropertyValidator<Schema>>.Builder builder =
+                ImmutableDictionary.CreateBuilder<string, PropertyValidator<Schema>>();
 
                     builder.Add(
-                TildeJsonPropertyName,
-                (that, validationContext, level) =>
-                {
-                    Menes.Json.JsonInteger property = that.Tilde;
-                    return property.Validate(validationContext, level);
-                });
+                TildeJsonPropertyName, __MenesValidateTilde);
                     builder.Add(
-                SlashJsonPropertyName,
-                (that, validationContext, level) =>
-                {
-                    Menes.Json.JsonInteger property = that.Slash;
-                    return property.Validate(validationContext, level);
-                });
+                SlashJsonPropertyName, __MenesValidateSlash);
                     builder.Add(
-                PercentJsonPropertyName,
-                (that, validationContext, level) =>
-                {
-                    Menes.Json.JsonInteger property = that.Percent;
-                    return property.Validate(validationContext, level);
-                });
+                PercentJsonPropertyName, __MenesValidatePercent);
         
             return builder.ToImmutable();
         }
 
-    
+                private static ValidationContext __MenesValidateTilde(in Schema that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            Menes.Json.JsonInteger property = that.Tilde;
+            return property.Validate(validationContext, level);
+        }
+                private static ValidationContext __MenesValidateSlash(in Schema that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            Menes.Json.JsonInteger property = that.Slash;
+            return property.Validate(validationContext, level);
+        }
+                private static ValidationContext __MenesValidatePercent(in Schema that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            Menes.Json.JsonInteger property = that.Percent;
+            return property.Validate(validationContext, level);
+        }
+            
     
     
             private ValidationContext ValidateObject(JsonValueKind valueKind, in ValidationContext validationContext, ValidationLevel level)
@@ -823,7 +823,7 @@ namespace RefDraft202012Feature.EscapedPointerRef
                 string propertyName = property.Name;
 
         
-                        if (__MenesLocalProperties.TryGetValue(propertyName, out Func<Schema, ValidationContext, ValidationLevel, ValidationContext>? propertyValidator))
+                        if (__MenesLocalProperties.TryGetValue(propertyName, out PropertyValidator<Schema>? propertyValidator))
                 {
                     result = result.WithLocalProperty(propertyCount);
                     var propertyResult = propertyValidator(this, result.CreateChildContext(), level);

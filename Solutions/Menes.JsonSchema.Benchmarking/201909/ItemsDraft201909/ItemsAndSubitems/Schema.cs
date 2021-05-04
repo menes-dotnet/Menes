@@ -1437,7 +1437,7 @@ namespace ItemsDraft201909Feature.ItemsAndSubitems
     
     
     
-            private static readonly ImmutableDictionary<string, Func<SubItemValue, ValidationContext, ValidationLevel, ValidationContext>> __MenesLocalProperties = CreateLocalPropertyValidators();
+            private static readonly ImmutableDictionary<string, PropertyValidator<SubItemValue>> __MenesLocalProperties = CreateLocalPropertyValidators();
     
     
 
@@ -2029,23 +2029,23 @@ namespace ItemsDraft201909Feature.ItemsAndSubitems
     
     
     
-        private static ImmutableDictionary<string, Func<SubItemValue, ValidationContext, ValidationLevel, ValidationContext>> CreateLocalPropertyValidators()
+        private static ImmutableDictionary<string, PropertyValidator<SubItemValue>> CreateLocalPropertyValidators()
         {
-            ImmutableDictionary<string, Func<SubItemValue, ValidationContext, ValidationLevel, ValidationContext>>.Builder builder =
-                ImmutableDictionary.CreateBuilder<string, Func<SubItemValue, ValidationContext, ValidationLevel, ValidationContext>>();
+            ImmutableDictionary<string, PropertyValidator<SubItemValue>>.Builder builder =
+                ImmutableDictionary.CreateBuilder<string, PropertyValidator<SubItemValue>>();
 
                     builder.Add(
-                FooJsonPropertyName,
-                (that, validationContext, level) =>
-                {
-                    Menes.Json.JsonAny property = that.Foo;
-                    return property.Validate(validationContext, level);
-                });
+                FooJsonPropertyName, __MenesValidateFoo);
         
             return builder.ToImmutable();
         }
 
-    
+                private static ValidationContext __MenesValidateFoo(in SubItemValue that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            Menes.Json.JsonAny property = that.Foo;
+            return property.Validate(validationContext, level);
+        }
+            
             /// <summary>
         /// Gets the value as a <see cref="JsonObject"/>.
         /// </summary>
@@ -2086,7 +2086,7 @@ namespace ItemsDraft201909Feature.ItemsAndSubitems
                 string propertyName = property.Name;
 
         
-                        if (__MenesLocalProperties.TryGetValue(propertyName, out Func<SubItemValue, ValidationContext, ValidationLevel, ValidationContext>? propertyValidator))
+                        if (__MenesLocalProperties.TryGetValue(propertyName, out PropertyValidator<SubItemValue>? propertyValidator))
                 {
                     result = result.WithLocalProperty(propertyCount);
                     var propertyResult = propertyValidator(this, result.CreateChildContext(), level);

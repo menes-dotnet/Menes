@@ -42,7 +42,7 @@ namespace AdditionalPropertiesDraft202012Feature.NonASIIPatternWithAdditionalPro
     
     
 
-            private static readonly ImmutableDictionary<Regex, Func<Property, ValidationContext, ValidationLevel, ValidationContext>> __MenesPatternProperties = CreatePatternPropertiesValidators();
+            private static readonly ImmutableDictionary<Regex, PatternPropertyValidator> __MenesPatternProperties = CreatePatternPropertiesValidators();
     
         private readonly JsonElement jsonElementBacking;
 
@@ -575,21 +575,22 @@ namespace AdditionalPropertiesDraft202012Feature.NonASIIPatternWithAdditionalPro
     
     
     
-            private static ImmutableDictionary<Regex, Func<Property, ValidationContext, ValidationLevel, ValidationContext>> CreatePatternPropertiesValidators()
+            private static ImmutableDictionary<Regex, PatternPropertyValidator> CreatePatternPropertiesValidators()
         {
-            ImmutableDictionary<Regex, Func<Property, ValidationContext, ValidationLevel, ValidationContext>>.Builder builder =
-                ImmutableDictionary.CreateBuilder<Regex, Func<Property, ValidationContext, ValidationLevel, ValidationContext>>();
+            ImmutableDictionary<Regex, PatternPropertyValidator>.Builder builder =
+                ImmutableDictionary.CreateBuilder<Regex, PatternPropertyValidator>();
 
                     builder.Add(
-                PatternPropertyJsonAny,
-                (property, validationContext, level) =>
-                {
-                    return property.ValueAs<Menes.Json.JsonAny>().Validate(validationContext, level);
-                });
+                PatternPropertyJsonAny,__MenesValidatePatternPropertyJsonAny);
         
             return builder.ToImmutable();
         }
 
+                private static ValidationContext __MenesValidatePatternPropertyJsonAny(in Property that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            return that.ValueAs<Menes.Json.JsonAny>().Validate(validationContext, level);
+        }
+        
     
     
     
@@ -617,7 +618,7 @@ namespace AdditionalPropertiesDraft202012Feature.NonASIIPatternWithAdditionalPro
         
         
                     
-                            foreach (System.Collections.Generic.KeyValuePair<Regex, Func<Property, ValidationContext, ValidationLevel, ValidationContext>> patternProperty in __MenesPatternProperties)
+                            foreach (System.Collections.Generic.KeyValuePair<Regex, PatternPropertyValidator> patternProperty in __MenesPatternProperties)
                 {
                     if (patternProperty.Key.IsMatch(propertyName))
                     {

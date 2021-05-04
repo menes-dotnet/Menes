@@ -46,7 +46,7 @@ namespace RefDraft202012Feature.RefsWithQuote
     
     
     
-            private static readonly ImmutableDictionary<string, Func<Schema, ValidationContext, ValidationLevel, ValidationContext>> __MenesLocalProperties = CreateLocalPropertyValidators();
+            private static readonly ImmutableDictionary<string, PropertyValidator<Schema>> __MenesLocalProperties = CreateLocalPropertyValidators();
     
     
 
@@ -649,23 +649,23 @@ namespace RefDraft202012Feature.RefsWithQuote
     
     
     
-        private static ImmutableDictionary<string, Func<Schema, ValidationContext, ValidationLevel, ValidationContext>> CreateLocalPropertyValidators()
+        private static ImmutableDictionary<string, PropertyValidator<Schema>> CreateLocalPropertyValidators()
         {
-            ImmutableDictionary<string, Func<Schema, ValidationContext, ValidationLevel, ValidationContext>>.Builder builder =
-                ImmutableDictionary.CreateBuilder<string, Func<Schema, ValidationContext, ValidationLevel, ValidationContext>>();
+            ImmutableDictionary<string, PropertyValidator<Schema>>.Builder builder =
+                ImmutableDictionary.CreateBuilder<string, PropertyValidator<Schema>>();
 
                     builder.Add(
-                FooBarJsonPropertyName,
-                (that, validationContext, level) =>
-                {
-                    Menes.Json.JsonNumber property = that.FooBar;
-                    return property.Validate(validationContext, level);
-                });
+                FooBarJsonPropertyName, __MenesValidateFooBar);
         
             return builder.ToImmutable();
         }
 
-    
+                private static ValidationContext __MenesValidateFooBar(in Schema that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            Menes.Json.JsonNumber property = that.FooBar;
+            return property.Validate(validationContext, level);
+        }
+            
     
     
             private ValidationContext ValidateObject(JsonValueKind valueKind, in ValidationContext validationContext, ValidationLevel level)
@@ -685,7 +685,7 @@ namespace RefDraft202012Feature.RefsWithQuote
                 string propertyName = property.Name;
 
         
-                        if (__MenesLocalProperties.TryGetValue(propertyName, out Func<Schema, ValidationContext, ValidationLevel, ValidationContext>? propertyValidator))
+                        if (__MenesLocalProperties.TryGetValue(propertyName, out PropertyValidator<Schema>? propertyValidator))
                 {
                     result = result.WithLocalProperty(propertyCount);
                     var propertyResult = propertyValidator(this, result.CreateChildContext(), level);

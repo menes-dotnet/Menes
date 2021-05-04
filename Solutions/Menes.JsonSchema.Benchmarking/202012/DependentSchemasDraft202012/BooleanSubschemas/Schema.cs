@@ -32,7 +32,7 @@ namespace DependentSchemasDraft202012Feature.BooleanSubschemas
     
     
     
-            private static readonly ImmutableDictionary<string, Func<Schema, ValidationContext, ValidationLevel, ValidationContext>> __MenesDependentSchema = CreateDependentSchemaValidators();
+            private static readonly ImmutableDictionary<string, PropertyValidator<Schema>> __MenesDependentSchema = CreateDependentSchemaValidators();
     
     
     
@@ -570,28 +570,29 @@ namespace DependentSchemasDraft202012Feature.BooleanSubschemas
     
     
     
-        private static ImmutableDictionary<string, Func<Schema, ValidationContext, ValidationLevel, ValidationContext>> CreateDependentSchemaValidators()
+        private static ImmutableDictionary<string, PropertyValidator<Schema>> CreateDependentSchemaValidators()
         {
-            ImmutableDictionary<string, Func<Schema, ValidationContext, ValidationLevel, ValidationContext>>.Builder builder =
-                ImmutableDictionary.CreateBuilder<string, Func<Schema, ValidationContext, ValidationLevel, ValidationContext>>();
+            ImmutableDictionary<string, PropertyValidator<Schema>>.Builder builder =
+                ImmutableDictionary.CreateBuilder<string, PropertyValidator<Schema>>();
 
                     builder.Add(
-                "foo",
-                (entity, validationContext, level) =>
-                {
-                    return entity.As<Menes.Json.JsonAny>().Validate(validationContext, level);
-                });
+                "foo", __MenesValidateDependentSchema1);
 
                     builder.Add(
-                "bar",
-                (entity, validationContext, level) =>
-                {
-                    return entity.As<Menes.Json.JsonNotAny>().Validate(validationContext, level);
-                });
+                "bar", __MenesValidateDependentSchema2);
 
                     return builder.ToImmutable();
         }
 
+                private static ValidationContext __MenesValidateDependentSchema1(in Schema that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            return that.As<Menes.Json.JsonAny>().Validate(validationContext, level);
+        }
+                private static ValidationContext __MenesValidateDependentSchema2(in Schema that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            return that.As<Menes.Json.JsonNotAny>().Validate(validationContext, level);
+        }
+        
     
     
     
@@ -616,7 +617,7 @@ namespace DependentSchemasDraft202012Feature.BooleanSubschemas
 
         
         
-                        if (__MenesDependentSchema.TryGetValue(propertyName, out Func<Schema, ValidationContext, ValidationLevel, ValidationContext>? dependentSchemaValidator))
+                        if (__MenesDependentSchema.TryGetValue(propertyName, out PropertyValidator<Schema>? dependentSchemaValidator))
                 {
                     result = result.WithLocalProperty(propertyCount);
                     result = dependentSchemaValidator(this, result, level);

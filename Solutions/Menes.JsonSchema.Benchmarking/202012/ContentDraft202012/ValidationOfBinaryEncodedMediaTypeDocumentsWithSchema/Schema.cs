@@ -417,7 +417,7 @@ namespace ContentDraft202012Feature.ValidationOfBinaryEncodedMediaTypeDocumentsW
     
     
     
-            private static readonly ImmutableDictionary<string, Func<ContentSchemaEntity, ValidationContext, ValidationLevel, ValidationContext>> __MenesLocalProperties = CreateLocalPropertyValidators();
+            private static readonly ImmutableDictionary<string, PropertyValidator<ContentSchemaEntity>> __MenesLocalProperties = CreateLocalPropertyValidators();
     
     
 
@@ -1017,23 +1017,23 @@ namespace ContentDraft202012Feature.ValidationOfBinaryEncodedMediaTypeDocumentsW
     
     
     
-        private static ImmutableDictionary<string, Func<ContentSchemaEntity, ValidationContext, ValidationLevel, ValidationContext>> CreateLocalPropertyValidators()
+        private static ImmutableDictionary<string, PropertyValidator<ContentSchemaEntity>> CreateLocalPropertyValidators()
         {
-            ImmutableDictionary<string, Func<ContentSchemaEntity, ValidationContext, ValidationLevel, ValidationContext>>.Builder builder =
-                ImmutableDictionary.CreateBuilder<string, Func<ContentSchemaEntity, ValidationContext, ValidationLevel, ValidationContext>>();
+            ImmutableDictionary<string, PropertyValidator<ContentSchemaEntity>>.Builder builder =
+                ImmutableDictionary.CreateBuilder<string, PropertyValidator<ContentSchemaEntity>>();
 
                     builder.Add(
-                FooJsonPropertyName,
-                (that, validationContext, level) =>
-                {
-                    Menes.Json.JsonString property = that.Foo;
-                    return property.Validate(validationContext, level);
-                });
+                FooJsonPropertyName, __MenesValidateFoo);
         
             return builder.ToImmutable();
         }
 
-    
+                private static ValidationContext __MenesValidateFoo(in ContentSchemaEntity that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            Menes.Json.JsonString property = that.Foo;
+            return property.Validate(validationContext, level);
+        }
+            
     
     
             private ValidationContext ValidateObject(JsonValueKind valueKind, in ValidationContext validationContext, ValidationLevel level)
@@ -1054,7 +1054,7 @@ namespace ContentDraft202012Feature.ValidationOfBinaryEncodedMediaTypeDocumentsW
                 string propertyName = property.Name;
 
         
-                        if (__MenesLocalProperties.TryGetValue(propertyName, out Func<ContentSchemaEntity, ValidationContext, ValidationLevel, ValidationContext>? propertyValidator))
+                        if (__MenesLocalProperties.TryGetValue(propertyName, out PropertyValidator<ContentSchemaEntity>? propertyValidator))
                 {
                     result = result.WithLocalProperty(propertyCount);
                     var propertyResult = propertyValidator(this, result.CreateChildContext(), level);

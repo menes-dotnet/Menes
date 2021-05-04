@@ -46,7 +46,7 @@ namespace RefDraft201909Feature.RemoteRefContainingRefsItself
     
     
     
-            private static readonly ImmutableDictionary<string, Func<Format, ValidationContext, ValidationLevel, ValidationContext>> __MenesLocalProperties = CreateLocalPropertyValidators();
+            private static readonly ImmutableDictionary<string, PropertyValidator<Format>> __MenesLocalProperties = CreateLocalPropertyValidators();
     
     
 
@@ -736,23 +736,23 @@ namespace RefDraft201909Feature.RemoteRefContainingRefsItself
     
     
     
-        private static ImmutableDictionary<string, Func<Format, ValidationContext, ValidationLevel, ValidationContext>> CreateLocalPropertyValidators()
+        private static ImmutableDictionary<string, PropertyValidator<Format>> CreateLocalPropertyValidators()
         {
-            ImmutableDictionary<string, Func<Format, ValidationContext, ValidationLevel, ValidationContext>>.Builder builder =
-                ImmutableDictionary.CreateBuilder<string, Func<Format, ValidationContext, ValidationLevel, ValidationContext>>();
+            ImmutableDictionary<string, PropertyValidator<Format>>.Builder builder =
+                ImmutableDictionary.CreateBuilder<string, PropertyValidator<Format>>();
 
                     builder.Add(
-                Format1JsonPropertyName,
-                (that, validationContext, level) =>
-                {
-                    Menes.Json.JsonString property = that.Format1;
-                    return property.Validate(validationContext, level);
-                });
+                Format1JsonPropertyName, __MenesValidateFormat1);
         
             return builder.ToImmutable();
         }
 
-    
+                private static ValidationContext __MenesValidateFormat1(in Format that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            Menes.Json.JsonString property = that.Format1;
+            return property.Validate(validationContext, level);
+        }
+            
             /// <summary>
         /// Gets the value as a <see cref="JsonObject"/>.
         /// </summary>
@@ -806,7 +806,7 @@ namespace RefDraft201909Feature.RemoteRefContainingRefsItself
                 string propertyName = property.Name;
 
         
-                        if (__MenesLocalProperties.TryGetValue(propertyName, out Func<Format, ValidationContext, ValidationLevel, ValidationContext>? propertyValidator))
+                        if (__MenesLocalProperties.TryGetValue(propertyName, out PropertyValidator<Format>? propertyValidator))
                 {
                     result = result.WithLocalProperty(propertyCount);
                     var propertyResult = propertyValidator(this, result.CreateChildContext(), level);

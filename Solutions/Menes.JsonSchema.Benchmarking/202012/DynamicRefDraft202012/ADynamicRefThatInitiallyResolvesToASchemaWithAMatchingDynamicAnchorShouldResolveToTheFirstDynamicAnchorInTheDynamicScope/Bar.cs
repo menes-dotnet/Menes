@@ -46,7 +46,7 @@ namespace DynamicRefDraft202012Feature.ADynamicRefThatInitiallyResolvesToASchema
     
     
     
-            private static readonly ImmutableDictionary<string, Func<Bar, ValidationContext, ValidationLevel, ValidationContext>> __MenesLocalProperties = CreateLocalPropertyValidators();
+            private static readonly ImmutableDictionary<string, PropertyValidator<Bar>> __MenesLocalProperties = CreateLocalPropertyValidators();
     
     
 
@@ -659,23 +659,23 @@ namespace DynamicRefDraft202012Feature.ADynamicRefThatInitiallyResolvesToASchema
     
     
     
-        private static ImmutableDictionary<string, Func<Bar, ValidationContext, ValidationLevel, ValidationContext>> CreateLocalPropertyValidators()
+        private static ImmutableDictionary<string, PropertyValidator<Bar>> CreateLocalPropertyValidators()
         {
-            ImmutableDictionary<string, Func<Bar, ValidationContext, ValidationLevel, ValidationContext>>.Builder builder =
-                ImmutableDictionary.CreateBuilder<string, Func<Bar, ValidationContext, ValidationLevel, ValidationContext>>();
+            ImmutableDictionary<string, PropertyValidator<Bar>>.Builder builder =
+                ImmutableDictionary.CreateBuilder<string, PropertyValidator<Bar>>();
 
                     builder.Add(
-                BazJsonPropertyName,
-                (that, validationContext, level) =>
-                {
-                    DynamicRefDraft202012Feature.ADynamicRefThatInitiallyResolvesToASchemaWithAMatchingDynamicAnchorShouldResolveToTheFirstDynamicAnchorInTheDynamicScope.Root property = that.Baz;
-                    return property.Validate(validationContext, level);
-                });
+                BazJsonPropertyName, __MenesValidateBaz);
         
             return builder.ToImmutable();
         }
 
-    
+                private static ValidationContext __MenesValidateBaz(in Bar that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            DynamicRefDraft202012Feature.ADynamicRefThatInitiallyResolvesToASchemaWithAMatchingDynamicAnchorShouldResolveToTheFirstDynamicAnchorInTheDynamicScope.Root property = that.Baz;
+            return property.Validate(validationContext, level);
+        }
+            
     
     
             private ValidationContext ValidateObject(JsonValueKind valueKind, in ValidationContext validationContext, ValidationLevel level)
@@ -695,7 +695,7 @@ namespace DynamicRefDraft202012Feature.ADynamicRefThatInitiallyResolvesToASchema
                 string propertyName = property.Name;
 
         
-                        if (__MenesLocalProperties.TryGetValue(propertyName, out Func<Bar, ValidationContext, ValidationLevel, ValidationContext>? propertyValidator))
+                        if (__MenesLocalProperties.TryGetValue(propertyName, out PropertyValidator<Bar>? propertyValidator))
                 {
                     result = result.WithLocalProperty(propertyCount);
                     var propertyResult = propertyValidator(this, result.CreateChildContext(), level);
