@@ -722,7 +722,7 @@ public partial class SchemaEntity202012
     {
         get
         {
-            return this.TypeDeclaration.Schema.If.IsNotUndefined() && (this.TypeDeclaration.Schema.Then.IsNotUndefined() || this.TypeDeclaration.Schema.Else.IsNotUndefined());
+            return this.TypeDeclaration.Schema.If.IsNotUndefined();
         }
     }
 
