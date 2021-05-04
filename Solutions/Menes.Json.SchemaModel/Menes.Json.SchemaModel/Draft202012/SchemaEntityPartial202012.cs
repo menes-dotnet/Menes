@@ -722,7 +722,7 @@ public partial class SchemaEntity202012
     {
         get
         {
-            return this.TypeDeclaration.Schema.If.IsNotUndefined();
+            return this.TypeDeclaration.Schema.If.IsNotUndefined() && (this.TypeDeclaration.Schema.Then.IsNotUndefined() || this.TypeDeclaration.Schema.Else.IsNotUndefined());
         }
     }
 
@@ -2085,11 +2085,12 @@ public partial class SchemaEntity202012
         {
             TypeDeclaration td = this.Builder.GetTypeDeclarationForProperty(typeDeclaration, "if");
 
-            if (!conversions.ContainsKey(td))
-            {
-                conversions.Add(td, new Conversion(td, parent));
-                this.AddConversionsFor(td, conversions, typeDeclaration);
-            }
+            // Do not add conversions for If
+            ////if (!conversions.ContainsKey(td))
+            ////{
+            ////    conversions.Add(td, new Conversion(td, parent));
+            ////    this.AddConversionsFor(td, conversions, typeDeclaration);
+            ////}
         }
 
         if (typeDeclaration.Schema.Then.IsNotUndefined() && !(typeDeclaration.Schema.IsNakedReference() || typeDeclaration.Schema.IsNakedRecursiveReference()))
