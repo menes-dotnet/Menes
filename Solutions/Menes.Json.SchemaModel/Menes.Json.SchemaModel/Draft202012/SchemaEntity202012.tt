@@ -199,7 +199,7 @@ namespace <#= Namespace #>
     if(HasPatternProperties)
     {
     #>
-        private static readonly ImmutableDictionary<Regex, Func<Property, ValidationContext, ValidationLevel, ValidationContext>> __MenesPatternProperties = CreatePatternPropertiesValidators();
+        private static readonly ImmutableDictionary<Regex, PatternPropertyValidator> __MenesPatternProperties = CreatePatternPropertiesValidators();
     <#
     }
     #>
@@ -3628,27 +3628,35 @@ namespace <#= Namespace #>
     if (HasPatternProperties)
     {
     #>
-        private static ImmutableDictionary<Regex, Func<Property, ValidationContext, ValidationLevel, ValidationContext>> CreatePatternPropertiesValidators()
+        private static ImmutableDictionary<Regex, PatternPropertyValidator> CreatePatternPropertiesValidators()
         {
-            ImmutableDictionary<Regex, Func<Property, ValidationContext, ValidationLevel, ValidationContext>>.Builder builder =
-                ImmutableDictionary.CreateBuilder<Regex, Func<Property, ValidationContext, ValidationLevel, ValidationContext>>();
+            ImmutableDictionary<Regex, PatternPropertyValidator>.Builder builder =
+                ImmutableDictionary.CreateBuilder<Regex, PatternPropertyValidator>();
 
         <#
         foreach (var patternProperty in PatternProperties)
         {
         #>
             builder.Add(
-                PatternProperty<#= PatternPropertySuffix(patternProperty) #>,
-                (property, validationContext, level) =>
-                {
-                    return property.ValueAs<<#= patternProperty.DotnetTypeName #>>().Validate(validationContext, level);
-                });
+                PatternProperty<#= PatternPropertySuffix(patternProperty) #>,__MenesValidatePatternProperty<#= PatternPropertySuffix(patternProperty) #>);
         <#
         }
         #>
 
             return builder.ToImmutable();
         }
+
+        <#
+        foreach (var patternProperty in PatternProperties)
+        {
+        #>
+        private static ValidationContext __MenesValidatePatternProperty<#= PatternPropertySuffix(patternProperty) #>(in Property that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            return that.ValueAs<<#= patternProperty.DotnetTypeName #>>().Validate(validationContext, level);
+        }
+        <#
+        }
+        #>
 
     <#
     }
@@ -4365,7 +4373,7 @@ namespace <#= Namespace #>
             if (HasPatternProperties)
             {
             #>
-                foreach (System.Collections.Generic.KeyValuePair<Regex, Func<Property, ValidationContext, ValidationLevel, ValidationContext>> patternProperty in __MenesPatternProperties)
+                foreach (System.Collections.Generic.KeyValuePair<Regex, PatternPropertyValidator> patternProperty in __MenesPatternProperties)
                 {
                     if (patternProperty.Key.IsMatch(propertyName))
                     {
