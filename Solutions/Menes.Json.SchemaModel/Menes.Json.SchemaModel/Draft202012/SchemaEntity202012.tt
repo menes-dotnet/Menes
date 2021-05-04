@@ -180,7 +180,7 @@ namespace <#= Namespace #>
     if(HasLocalProperties)
     {
     #>
-        private static readonly ImmutableDictionary<string, Func<<#= TypeDeclaration.DotnetTypeName #>, ValidationContext, ValidationLevel, ValidationContext>> __MenesLocalProperties = CreateLocalPropertyValidators();
+        private static readonly ImmutableDictionary<string, PropertyValidator<<#= TypeDeclaration.DotnetTypeName #>>> __MenesLocalProperties = CreateLocalPropertyValidators();
     <#
     }
     #>
@@ -3764,22 +3764,17 @@ namespace <#= Namespace #>
     {
     #>
 
-        private static ImmutableDictionary<string, Func<<#= TypeDeclaration.DotnetTypeName #>, ValidationContext, ValidationLevel, ValidationContext>> CreateLocalPropertyValidators()
+        private static ImmutableDictionary<string, PropertyValidator<<#= TypeDeclaration.DotnetTypeName #>>> CreateLocalPropertyValidators()
         {
-            ImmutableDictionary<string, Func<<#= TypeDeclaration.DotnetTypeName #>, ValidationContext, ValidationLevel, ValidationContext>>.Builder builder =
-                ImmutableDictionary.CreateBuilder<string, Func<<#= TypeDeclaration.DotnetTypeName #>, ValidationContext, ValidationLevel, ValidationContext>>();
+            ImmutableDictionary<string, PropertyValidator<<#= TypeDeclaration.DotnetTypeName #>>>.Builder builder =
+                ImmutableDictionary.CreateBuilder<string, PropertyValidator<<#= TypeDeclaration.DotnetTypeName #>>>();
 
         <#
         foreach (var property in LocalProperties)
         {
         #>
             builder.Add(
-                <#= property.DotnetPropertyName #>JsonPropertyName,
-                (that, validationContext, level) =>
-                {
-                    <#= property.Type.FullyQualifiedDotnetTypeName #> property = that.<#= property.DotnetPropertyName #>;
-                    return property.Validate(validationContext, level);
-                });
+                <#= property.DotnetPropertyName #>JsonPropertyName, __MenesValidate<#= property.DotnetPropertyName #>);
         <#
         }
         #>
@@ -3787,6 +3782,18 @@ namespace <#= Namespace #>
             return builder.ToImmutable();
         }
 
+        <#
+        foreach (var property in LocalProperties)
+        {
+        #>
+        private static ValidationContext __MenesValidate<#= property.DotnetPropertyName #>(in <#= TypeDeclaration.DotnetTypeName #> that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            <#= property.Type.FullyQualifiedDotnetTypeName #> property = that.<#= property.DotnetPropertyName #>;
+            return property.Validate(validationContext, level);
+        }
+        <#
+        }
+        #>
     <#
     }
     #>
@@ -4266,7 +4273,7 @@ namespace <#= Namespace #>
         if (HasLocalProperties || HasRequired)
         {
         #>
-                if (__MenesLocalProperties.TryGetValue(propertyName, out Func<<#= TypeDeclaration.DotnetTypeName #>, ValidationContext, ValidationLevel, ValidationContext>? propertyValidator))
+                if (__MenesLocalProperties.TryGetValue(propertyName, out PropertyValidator<<#= TypeDeclaration.DotnetTypeName #>>? propertyValidator))
                 {
                     result = result.WithLocalProperty(propertyCount);
                     var propertyResult = propertyValidator(this, result.CreateChildContext(), level);
