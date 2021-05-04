@@ -12,5 +12,6 @@ namespace Menes.Json
     /// <param name="validationContext">The validation context.</param>
     /// <param name="level">The validation level.</param>
     /// <returns>The updated validation context.</returns>
-    public delegate ValidationContext PropertyValidator<T>(in T that, in ValidationContext validationContext, ValidationLevel level);
+    public delegate ValidationContext PropertyValidator<T>(in T that, in ValidationContext validationContext, ValidationLevel level)
+        where T : struct, IJsonObject;
 }
