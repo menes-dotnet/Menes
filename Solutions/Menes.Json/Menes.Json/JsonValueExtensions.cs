@@ -20,6 +20,9 @@ namespace Menes.Json
     {
         private static readonly ConcurrentDictionary<ConverterType, object> FactoryCache = new ConcurrentDictionary<ConverterType, object>();
 
+        private delegate TTarget JsonValueConverter<TSource, TTarget>(TSource source)
+            where TTarget : struct, IJsonValue;
+
         /// <summary>
         /// Gets a value determining whether the value is valid.
         /// </summary>
@@ -50,35 +53,35 @@ namespace Menes.Json
                 return CastTo<TTarget>.From(source);
             }
 
-            if (targetType == typeof(JsonObject))
-            {
-                return CastTo<TTarget>.From(source.AsObject());
-            }
+            ////if (targetType == typeof(JsonObject))
+            ////{
+            ////    return CastTo<TTarget>.From(source.AsObject());
+            ////}
 
-            if (targetType == typeof(JsonAny))
-            {
-                return CastTo<TTarget>.From(source.AsAny);
-            }
+            ////if (targetType == typeof(JsonAny))
+            ////{
+            ////    return CastTo<TTarget>.From(source.AsAny);
+            ////}
 
-            if (targetType == typeof(JsonArray))
-            {
-                return CastTo<TTarget>.From(source.AsArray());
-            }
+            ////if (targetType == typeof(JsonArray))
+            ////{
+            ////    return CastTo<TTarget>.From(source.AsArray());
+            ////}
 
-            if (targetType == typeof(JsonNumber))
-            {
-                return CastTo<TTarget>.From(source.AsNumber());
-            }
+            ////if (targetType == typeof(JsonNumber))
+            ////{
+            ////    return CastTo<TTarget>.From(source.AsNumber());
+            ////}
 
-            if (targetType == typeof(JsonString))
-            {
-                return CastTo<TTarget>.From(source.AsString());
-            }
+            ////if (targetType == typeof(JsonString))
+            ////{
+            ////    return CastTo<TTarget>.From(source.AsString());
+            ////}
 
-            if (targetType == typeof(JsonBoolean))
-            {
-                return CastTo<TTarget>.From(source.AsBoolean());
-            }
+            ////if (targetType == typeof(JsonBoolean))
+            ////{
+            ////    return CastTo<TTarget>.From(source.AsBoolean());
+            ////}
 
             if (source.HasJsonElement)
             {
@@ -315,74 +318,81 @@ namespace Menes.Json
         /// <typeparam name="TTarget">The target type.</typeparam>
         /// <param name="jsonElement">The <see cref="JsonElement"/> from which to create the instance.</param>
         /// <returns>An instance of the given type backed by the JsonElement.</returns>
-        internal static TTarget FromJsonElement<TTarget>(JsonElement jsonElement)
+        internal static TTarget FromJsonElement<TTarget>(in JsonElement jsonElement)
             where TTarget : struct, IJsonValue
         {
             return From<JsonElement, TTarget>(jsonElement);
         }
 
-        private static TTarget FromBoolean<TTarget>(JsonBoolean jsonBoolean)
+        private static TTarget FromBoolean<TTarget>(in JsonBoolean jsonBoolean)
             where TTarget : struct, IJsonValue
         {
             return From<JsonBoolean, TTarget>(jsonBoolean);
         }
 
-        private static TTarget FromString<TTarget>(JsonString jsonString)
+        private static TTarget FromString<TTarget>(in JsonString jsonString)
             where TTarget : struct, IJsonValue
         {
             return From<JsonString, TTarget>(jsonString);
         }
 
-        private static TTarget FromNumber<TTarget>(JsonNumber jsonNumber)
+        private static TTarget FromNumber<TTarget>(in JsonNumber jsonNumber)
             where TTarget : struct, IJsonValue
         {
             return From<JsonNumber, TTarget>(jsonNumber);
         }
 
-        private static TTarget FromObject<TTarget>(JsonObject jsonObject)
+        private static TTarget FromObject<TTarget>(in JsonObject jsonObject)
             where TTarget : struct, IJsonValue
         {
             return From<JsonObject, TTarget>(jsonObject);
         }
 
-        private static TTarget FromArray<TTarget>(JsonArray jsonArray)
+        private static TTarget FromArray<TTarget>(in JsonArray jsonArray)
             where TTarget : struct, IJsonValue
         {
             return From<JsonArray, TTarget>(jsonArray);
         }
 
-        private static TTarget From<TSource, TTarget>(TSource source)
+        private static TTarget From<TSource, TTarget>(in TSource source)
             where TTarget : struct, IJsonValue
         {
-            Func<TSource, TTarget> func = CastTo<Func<TSource, TTarget>>.From(FactoryCache.GetOrAdd(new ConverterType(typeof(TSource), typeof(TTarget)), t =>
-            {
-                Type sourceType = typeof(TSource);
-
-                Type returnType = typeof(TTarget);
-                Type[] argumentTypes = new[] { sourceType };
-
-                ConstructorInfo ctor = returnType.GetConstructor(argumentTypes);
-                if (ctor == null)
-                {
-                    return new Func<TSource, TTarget>((TSource _) => default);
-                }
-
-                var dynamic = new DynamicMethod(
-                    $"${returnType.Name}_From{sourceType.Name}",
-                    returnType,
-                    argumentTypes,
-                    returnType);
-                ILGenerator il = dynamic.GetILGenerator();
-
-                il.DeclareLocal(returnType);
-                il.Emit(OpCodes.Ldarg, 0);
-                il.Emit(OpCodes.Newobj, ctor);
-                il.Emit(OpCodes.Ret);
-
-                return dynamic.CreateDelegate(typeof(Func<TSource, TTarget>));
-            }));
-
+            JsonValueConverter<TSource, TTarget> func = CastTo<JsonValueConverter<TSource, TTarget>>.From(FactoryCache.GetOrAdd(new ConverterType(typeof(TSource), typeof(TTarget)), BuildConverter<TSource, TTarget>));
             return func(source);
+        }
+
+        private static object BuildConverter<TSource, TTarget>(ConverterType arg)
+            where TTarget : struct, IJsonValue
+        {
+            Type sourceType = typeof(TSource);
+
+            Type returnType = typeof(TTarget);
+            Type[] argumentTypes = new[] { sourceType };
+
+            ConstructorInfo ctor = returnType.GetConstructor(argumentTypes);
+            if (ctor == null)
+            {
+                return new JsonValueConverter<TSource, TTarget>(CreateDefault);
+            }
+
+            var dynamic = new DynamicMethod(
+                $"${returnType.Name}_From{sourceType.Name}",
+                returnType,
+                argumentTypes,
+                returnType);
+            ILGenerator il = dynamic.GetILGenerator();
+
+            il.DeclareLocal(returnType);
+            il.Emit(OpCodes.Ldarg, 0);
+            il.Emit(OpCodes.Newobj, ctor);
+            il.Emit(OpCodes.Ret);
+
+            return dynamic.CreateDelegate(typeof(JsonValueConverter<TSource, TTarget>));
+
+            static TTarget CreateDefault(TSource source)
+            {
+                return default;
+            }
         }
 
         private struct ConverterType : IEquatable<ConverterType>
