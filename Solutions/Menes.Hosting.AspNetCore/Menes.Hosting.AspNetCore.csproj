@@ -9,7 +9,14 @@
     <PackageDescription>Menes is a framework for hosting Web APIs with OpenAPI-based service definitions. This library defines the ASP.NET-Core-specific aspects of hosting in Menes.</PackageDescription>
 
     <WarningsAsErrors />
+
+    <!-- Don't want ConfigureAwait warnings because ASP.NET Core doesn't use synchronization context, so such calls are overhead with no purpose. -->
+    <NoWarn>$(NoWarn);RCS1090</NoWarn>
   </PropertyGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="Menes.Specs" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Endjin.RecommendedPractices" Version="1.2.0">
