@@ -1,34 +1,37 @@
-﻿// <copyright file="OpenApiResultActionResultOutputBuilder.cs" company="Endjin Limited">
+﻿// <copyright file="OpenApiResultHttpResponseOutputBuilder.cs" company="Endjin Limited">
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
 namespace Menes.Internal
 {
     using System.Collections.Generic;
+
     using Menes.Converters;
-    using Microsoft.AspNetCore.Mvc;
+
     using Microsoft.Extensions.Logging;
     using Microsoft.OpenApi.Models;
 
     /// <summary>
-    /// Builds an <see cref="IActionResult"/> for an <see cref="OpenApiResult"/>, with output validation aginst the <see cref="OpenApiOperation"/> definition.
+    /// Builds an <see cref="OpenApiHttpResponseResult"/> for an <see cref="OpenApiResult"/>, with output validation aginst the <see cref="OpenApiOperation"/> definition.
     /// </summary>
     /// <remarks>
     /// <para>
     /// This uses the <see cref="OpenApiActionResult"/> for the actual output formatting and validation.
     /// </para>
     /// </remarks>
-    public class OpenApiResultActionResultOutputBuilder : IResponseOutputBuilder<IActionResult>
+    internal class OpenApiResultHttpResponseOutputBuilder : IResponseOutputBuilder<IHttpResponseResult>
     {
         private readonly IEnumerable<IOpenApiConverter> converters;
-        private readonly ILogger<OpenApiResultActionResultOutputBuilder> logger;
+        private readonly ILogger<OpenApiResultHttpResponseOutputBuilder> logger;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="OpenApiResultActionResultOutputBuilder"/> class.
+        /// Creates an <see cref="OpenApiResultHttpResponseOutputBuilder"/>.
         /// </summary>
         /// <param name="converters">The open API converters to use with the builder.</param>
         /// <param name="logger">The logger for the output builder.</param>
-        public OpenApiResultActionResultOutputBuilder(IEnumerable<IOpenApiConverter> converters, ILogger<OpenApiResultActionResultOutputBuilder> logger)
+        public OpenApiResultHttpResponseOutputBuilder(
+            IEnumerable<IOpenApiConverter> converters,
+            ILogger<OpenApiResultHttpResponseOutputBuilder> logger)
         {
             this.converters = converters;
             this.logger = logger;
@@ -38,7 +41,7 @@ namespace Menes.Internal
         public int Priority => 100;
 
         /// <inheritdoc/>
-        public IActionResult BuildOutput(object result, OpenApiOperation operation)
+        public IHttpResponseResult BuildOutput(object result, OpenApiOperation operation)
         {
             if (this.logger.IsEnabled(LogLevel.Debug))
             {
@@ -51,7 +54,7 @@ namespace Menes.Internal
             // and lookups will succeed
             var openApiResult = (OpenApiResult)result;
 
-            var actionResult = OpenApiActionResult.FromOpenApiResult(openApiResult, operation, this.converters, this.logger);
+            var httpResponseResult = OpenApiHttpResponseResult.FromOpenApiResult(openApiResult, operation, this.converters, this.logger);
 
             if (this.logger.IsEnabled(LogLevel.Debug))
             {
@@ -60,7 +63,7 @@ namespace Menes.Internal
                                 operation.GetOperationId());
             }
 
-            return actionResult;
+            return httpResponseResult;
         }
 
         /// <inheritdoc/>
@@ -72,7 +75,7 @@ namespace Menes.Internal
                 return false;
             }
 
-            return OpenApiActionResult.CanConstructFrom(openApiResult, operation);
+            return OpenApiHttpResponseResult.CanConstructFrom(openApiResult, operation);
         }
     }
 }

@@ -22,7 +22,7 @@
     <PackageReference Include="Corvus.Testing.SpecFlow.NUnit" Version="1.3.5" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Menes.PetStore.Hosting\Menes.PetStore.Hosting.csproj" />
+    <ProjectReference Include="..\Menes.PetStore.Hosting.AzureFunctions\Menes.PetStore.Hosting.AzureFunctions.csproj" />
     <ProjectReference Include="..\Menes.Testing.AspNetCoreSelfHosting\Menes.Testing.AspNetCoreSelfHosting.csproj" />
   </ItemGroup>
   <ItemGroup>
