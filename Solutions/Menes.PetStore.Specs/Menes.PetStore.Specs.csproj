@@ -2,7 +2,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <Import Project="$(EndjinProjectPropsPath)" Condition="$(EndjinProjectPropsPath) != ''" />
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <Nullable>enable</Nullable>
     <IsPackable>false</IsPackable>
     <!-- Disabling SA1204 because it prioritizes static/non-static over public/non-public, which doesn't fit very well
@@ -22,6 +22,7 @@
     <PackageReference Include="Corvus.Testing.SpecFlow.NUnit" Version="1.3.5" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Menes.PetStore.Hosting.AspNetCore.DirectPipeline\Menes.PetStore.Hosting.AspNetCore.DirectPipeline.csproj" />
     <ProjectReference Include="..\Menes.PetStore.Hosting.AzureFunctions\Menes.PetStore.Hosting.AzureFunctions.csproj" />
     <ProjectReference Include="..\Menes.Testing.AspNetCoreSelfHosting\Menes.Testing.AspNetCoreSelfHosting.csproj" />
   </ItemGroup>
@@ -30,4 +31,20 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+
+  <!--
+  To enable execution of feature files for each hosting mode, we exploit the fact that SpecFlow's
+  NUnit integration generates partial classes. We modify these by adding a constructor and a test
+  fixture source that causes the suite for certain features to run multiple times, once for each
+  hosting type.
+  We put our custom additions to these partial classes in files named FeatureName.feature.multi.cs.
+  The following ItemGroup arranges for these to appear nested inside FeatureName.feature (just like
+  the FeatureName.cs files that SpecFlow generates).
+  -->
+  <ItemGroup>
+    <Compile Update="**\*.feature.multi.cs">
+      <DependentUpon>%(RelativeDir)$([System.String]::Copy('%(Filename)').Replace(".multi", ""))</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
 </Project>

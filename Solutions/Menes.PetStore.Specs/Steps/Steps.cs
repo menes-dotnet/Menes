@@ -97,8 +97,8 @@ namespace Menes.PetStore.Specs.Steps
         {
             HttpResponseMessage response = this.scenarioContext.Get<HttpResponseMessage>();
 
-            Assert.IsTrue(response.Headers.TryGetValues(headerName, out IEnumerable<string> values));
-            Assert.IsNotEmpty(values);
+            Assert.IsTrue(response.Headers.TryGetValues(headerName, out IEnumerable<string>? values));
+            Assert.IsNotEmpty(values!);
         }
 
         [Then("the response should not contain the '(.*)' header")]

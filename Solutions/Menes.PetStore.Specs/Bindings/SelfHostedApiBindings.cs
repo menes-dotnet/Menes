@@ -6,13 +6,18 @@ namespace Menes.PetStore.Specs.Bindings
 {
     using System.Linq;
     using System.Threading.Tasks;
+
     using Corvus.Testing.SpecFlow;
-    using Menes.PetStore.Hosting;
+
+    using Menes.PetStore.Specs.Internals;
     using Menes.PetStore.Specs.Stubs;
     using Menes.Testing.AspNetCoreSelfHosting;
+
     using Microsoft.Extensions.DependencyInjection;
-    using Microsoft.Extensions.DependencyInjection.Extensions;
     using Microsoft.Extensions.Logging;
+
+    using NUnit.Framework.Internal;
+
     using TechTalk.SpecFlow;
 
     [Binding]
@@ -21,23 +26,40 @@ namespace Menes.PetStore.Specs.Bindings
         [BeforeScenario("useSelfHostedApi", Order = ContainerBeforeScenarioOrder.ServiceProviderAvailable)]
         public static Task StartSelfHostedApi(ScenarioContext scenarioContext)
         {
+            bool emulateFunctionsHost = TestExecutionContext.CurrentContext.TestObject switch
+            {
+                IMultiModeTest<TestHostTypes> multiModeTest => multiModeTest.TestType == TestHostTypes.EmulateFunctionWithActionResult,
+                _ => true
+            };
+
             var hostManager = new OpenApiWebHostManager();
             scenarioContext.Set(hostManager);
 
-            return hostManager.StartHostAsync<Startup>(
-                "http://localhost:7071",
-                services =>
-                {
-                    // Ensure log level for the service is set to debug.
-                    services.AddLogging(builder => builder.SetMinimumLevel(LogLevel.Debug));
+            if (emulateFunctionsHost)
+            {
+                return hostManager.StartInProcessFunctionsHostAsync<Menes.PetStore.Hosting.Startup>(
+                    "http://localhost:7071",
+                    ConfigureServices);
+            }
+            else
+            {
+                return hostManager.StartInProcessAspNetHostAsync(
+                    "http://localhost:7071",
+                    new AspNetDirectPetStoreStartupTestWrapper(ConfigureServices));
+            }
 
-                    if (scenarioContext.ScenarioInfo.Tags.Contains("useStubServiceImplementation"))
-                    {
-                        ServiceDescriptor petStoreServiceDescriptor = services.First(x => x.ImplementationType == typeof(PetStoreService));
-                        services.Remove(petStoreServiceDescriptor);
-                        services.AddSingleton<IOpenApiService, StubPetStoreService>();
-                    }
-                });
+            void ConfigureServices(IServiceCollection services)
+            {
+                // Ensure log level for the service is set to debug.
+                services.AddLogging(builder => builder.SetMinimumLevel(LogLevel.Debug));
+
+                if (scenarioContext.ScenarioInfo.Tags.Contains("useStubServiceImplementation"))
+                {
+                    ServiceDescriptor petStoreServiceDescriptor = services.First(x => x.ImplementationType == typeof(PetStoreService));
+                    services.Remove(petStoreServiceDescriptor);
+                    services.AddSingleton<IOpenApiService, StubPetStoreService>();
+                }
+            }
         }
 
         [AfterScenario("useSelfHostedApi")]
