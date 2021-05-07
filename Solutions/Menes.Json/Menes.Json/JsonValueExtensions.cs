@@ -36,6 +36,216 @@ namespace Menes.Json
         }
 
         /// <summary>
+        /// Sets the property.
+        /// </summary>
+        /// <typeparam name="T">The type of the instance on which to set the property.</typeparam>
+        /// <param name="instance">The instance on which to set the property.</param>
+        /// <param name="name">The name of the property.</param>
+        /// <param name="value">The value of the property.</param>
+        /// <returns>An instance with the property set.</returns>
+        public static T SetProperty<T>(this T instance, string name, JsonString value)
+            where T : struct, IJsonObject<T>
+        {
+            return instance.SetProperty(name, value);
+        }
+
+        /// <summary>
+        /// Sets the property.
+        /// </summary>
+        /// <typeparam name="T">The type of the instance on which to set the property.</typeparam>
+        /// <param name="instance">The instance on which to set the property.</param>
+        /// <param name="name">The name of the property.</param>
+        /// <param name="value">The value of the property.</param>
+        /// <returns>An instance with the property set.</returns>
+        public static T SetProperty<T>(this T instance, ReadOnlySpan<char> name, JsonString value)
+            where T : struct, IJsonObject<T>
+        {
+            return instance.SetProperty(name, value);
+        }
+
+        /// <summary>
+        /// Sets the property.
+        /// </summary>
+        /// <typeparam name="T">The type of the instance on which to set the property.</typeparam>
+        /// <param name="instance">The instance on which to set the property.</param>
+        /// <param name="utf8Name">The name of the property.</param>
+        /// <param name="value">The value of the property.</param>
+        /// <returns>An instance with the property set.</returns>
+        public static T SetProperty<T>(this T instance, ReadOnlySpan<byte> utf8Name, JsonString value)
+            where T : struct, IJsonObject<T>
+        {
+            return instance.SetProperty(utf8Name, value);
+        }
+
+        /// <summary>
+        /// Sets the property.
+        /// </summary>
+        /// <typeparam name="T">The type of the instance on which to set the property.</typeparam>
+        /// <param name="instance">The instance on which to set the property.</param>
+        /// <param name="name">The name of the property.</param>
+        /// <param name="value">The value of the property.</param>
+        /// <returns>An instance with the property set.</returns>
+        public static T SetProperty<T>(this T instance, string name, JsonBoolean value)
+            where T : struct, IJsonObject<T>
+        {
+            return instance.SetProperty(name, value);
+        }
+
+        /// <summary>
+        /// Sets the property.
+        /// </summary>
+        /// <typeparam name="T">The type of the instance on which to set the property.</typeparam>
+        /// <param name="instance">The instance on which to set the property.</param>
+        /// <param name="name">The name of the property.</param>
+        /// <param name="value">The value of the property.</param>
+        /// <returns>An instance with the property set.</returns>
+        public static T SetProperty<T>(this T instance, ReadOnlySpan<char> name, JsonBoolean value)
+            where T : struct, IJsonObject<T>
+        {
+            return instance.SetProperty(name, value);
+        }
+
+        /// <summary>
+        /// Sets the property.
+        /// </summary>
+        /// <typeparam name="T">The type of the instance on which to set the property.</typeparam>
+        /// <param name="instance">The instance on which to set the property.</param>
+        /// <param name="utf8Name">The name of the property.</param>
+        /// <param name="value">The value of the property.</param>
+        /// <returns>An instance with the property set.</returns>
+        public static T SetProperty<T>(this T instance, ReadOnlySpan<byte> utf8Name, JsonBoolean value)
+            where T : struct, IJsonObject<T>
+        {
+            return instance.SetProperty(utf8Name, value);
+        }
+
+        /// <summary>
+        /// Sets the property.
+        /// </summary>
+        /// <typeparam name="T">The type of the instance on which to set the property.</typeparam>
+        /// <param name="instance">The instance on which to set the property.</param>
+        /// <param name="name">The name of the property.</param>
+        /// <param name="value">The value of the property.</param>
+        /// <returns>An instance with the property set.</returns>
+        public static T SetProperty<T>(this T instance, string name, JsonNumber value)
+            where T : struct, IJsonObject<T>
+        {
+            return instance.SetProperty(name, value);
+        }
+
+        /// <summary>
+        /// Sets the property.
+        /// </summary>
+        /// <typeparam name="T">The type of the instance on which to set the property.</typeparam>
+        /// <param name="instance">The instance on which to set the property.</param>
+        /// <param name="name">The name of the property.</param>
+        /// <param name="value">The value of the property.</param>
+        /// <returns>An instance with the property set.</returns>
+        public static T SetProperty<T>(this T instance, ReadOnlySpan<char> name, JsonNumber value)
+            where T : struct, IJsonObject<T>
+        {
+            return instance.SetProperty(name, value);
+        }
+
+        /// <summary>
+        /// Sets the property.
+        /// </summary>
+        /// <typeparam name="T">The type of the instance on which to set the property.</typeparam>
+        /// <param name="instance">The instance on which to set the property.</param>
+        /// <param name="utf8Name">The name of the property.</param>
+        /// <param name="value">The value of the property.</param>
+        /// <returns>An instance with the property set.</returns>
+        public static T SetProperty<T>(this T instance, ReadOnlySpan<byte> utf8Name, JsonNumber value)
+            where T : struct, IJsonObject<T>
+        {
+            return instance.SetProperty(utf8Name, value);
+        }
+
+        /// <summary>
+        /// Sets the property.
+        /// </summary>
+        /// <typeparam name="T">The type of the instance on which to set the property.</typeparam>
+        /// <param name="instance">The instance on which to set the property.</param>
+        /// <param name="name">The name of the property.</param>
+        /// <param name="value">The value of the property.</param>
+        /// <returns>An instance with the property set.</returns>
+        public static T SetProperty<T>(this T instance, string name, JsonObject value)
+            where T : struct, IJsonObject<T>
+        {
+            return instance.SetProperty(name, value);
+        }
+
+        /// <summary>
+        /// Sets the property.
+        /// </summary>
+        /// <typeparam name="T">The type of the instance on which to set the property.</typeparam>
+        /// <param name="instance">The instance on which to set the property.</param>
+        /// <param name="name">The name of the property.</param>
+        /// <param name="value">The value of the property.</param>
+        /// <returns>An instance with the property set.</returns>
+        public static T SetProperty<T>(this T instance, ReadOnlySpan<char> name, JsonObject value)
+            where T : struct, IJsonObject<T>
+        {
+            return instance.SetProperty(name, value);
+        }
+
+        /// <summary>
+        /// Sets the property.
+        /// </summary>
+        /// <typeparam name="T">The type of the instance on which to set the property.</typeparam>
+        /// <param name="instance">The instance on which to set the property.</param>
+        /// <param name="utf8Name">The name of the property.</param>
+        /// <param name="value">The value of the property.</param>
+        /// <returns>An instance with the property set.</returns>
+        public static T SetProperty<T>(this T instance, ReadOnlySpan<byte> utf8Name, JsonObject value)
+            where T : struct, IJsonObject<T>
+        {
+            return instance.SetProperty(utf8Name, value);
+        }
+
+        /// <summary>
+        /// Sets the property.
+        /// </summary>
+        /// <typeparam name="T">The type of the instance on which to set the property.</typeparam>
+        /// <param name="instance">The instance on which to set the property.</param>
+        /// <param name="name">The name of the property.</param>
+        /// <param name="value">The value of the property.</param>
+        /// <returns>An instance with the property set.</returns>
+        public static T SetProperty<T>(this T instance, string name, JsonArray value)
+            where T : struct, IJsonObject<T>
+        {
+            return instance.SetProperty(name, value);
+        }
+
+        /// <summary>
+        /// Sets the property.
+        /// </summary>
+        /// <typeparam name="T">The type of the instance on which to set the property.</typeparam>
+        /// <param name="instance">The instance on which to set the property.</param>
+        /// <param name="name">The name of the property.</param>
+        /// <param name="value">The value of the property.</param>
+        /// <returns>An instance with the property set.</returns>
+        public static T SetProperty<T>(this T instance, ReadOnlySpan<char> name, JsonArray value)
+            where T : struct, IJsonObject<T>
+        {
+            return instance.SetProperty(name, value);
+        }
+
+        /// <summary>
+        /// Sets the property.
+        /// </summary>
+        /// <typeparam name="T">The type of the instance on which to set the property.</typeparam>
+        /// <param name="instance">The instance on which to set the property.</param>
+        /// <param name="utf8Name">The name of the property.</param>
+        /// <param name="value">The value of the property.</param>
+        /// <returns>An instance with the property set.</returns>
+        public static T SetProperty<T>(this T instance, ReadOnlySpan<byte> utf8Name, JsonArray value)
+            where T : struct, IJsonObject<T>
+        {
+            return instance.SetProperty(utf8Name, value);
+        }
+
+        /// <summary>
         /// Convert from the source to the target type.
         /// </summary>
         /// <typeparam name="TSource">The source type.</typeparam>
@@ -48,40 +258,40 @@ namespace Menes.Json
         {
             Type targetType = typeof(TTarget);
 
-            if (typeof(TTarget) == typeof(TSource))
+            if (targetType == typeof(TSource))
             {
                 return CastTo<TTarget>.From(source);
             }
 
-            ////if (targetType == typeof(JsonObject))
-            ////{
-            ////    return CastTo<TTarget>.From(source.AsObject());
-            ////}
+            if (targetType == typeof(JsonObject))
+            {
+                return CastTo<TTarget>.From(source.AsObject());
+            }
 
-            ////if (targetType == typeof(JsonAny))
-            ////{
-            ////    return CastTo<TTarget>.From(source.AsAny);
-            ////}
+            if (targetType == typeof(JsonAny))
+            {
+                return CastTo<TTarget>.From(source.AsAny);
+            }
 
-            ////if (targetType == typeof(JsonArray))
-            ////{
-            ////    return CastTo<TTarget>.From(source.AsArray());
-            ////}
+            if (targetType == typeof(JsonArray))
+            {
+                return CastTo<TTarget>.From(source.AsArray());
+            }
 
-            ////if (targetType == typeof(JsonNumber))
-            ////{
-            ////    return CastTo<TTarget>.From(source.AsNumber());
-            ////}
+            if (targetType == typeof(JsonNumber))
+            {
+                return CastTo<TTarget>.From(source.AsNumber());
+            }
 
-            ////if (targetType == typeof(JsonString))
-            ////{
-            ////    return CastTo<TTarget>.From(source.AsString());
-            ////}
+            if (targetType == typeof(JsonString))
+            {
+                return CastTo<TTarget>.From(source.AsString());
+            }
 
-            ////if (targetType == typeof(JsonBoolean))
-            ////{
-            ////    return CastTo<TTarget>.From(source.AsBoolean());
-            ////}
+            if (targetType == typeof(JsonBoolean))
+            {
+                return CastTo<TTarget>.From(source.AsBoolean());
+            }
 
             if (source.HasJsonElement)
             {

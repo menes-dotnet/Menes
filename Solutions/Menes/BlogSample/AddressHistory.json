@@ -1,0 +1,23 @@
+{
+  "type": "object",
+  "properties": {
+    "addressHistory": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/address" }
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "address": {
+      "type": "object",
+      "properties": {
+        "line1": { "type": "string" },
+        "line2": { "type": "string" },
+        "townOrCity": { "type": "string" },
+        "region": { "type": "string" },
+        "postalCode": { "type": "string" }
+      },
+      "additionalProperties": false
+    }
+  }
+}

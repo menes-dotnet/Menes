@@ -1,0 +1,31 @@
+{
+  "type": "object",
+  "properties": {
+    "primaryName": { "$ref": "#/$defs/personName" },
+    "address": { "$ref": "#/$defs/address" }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "personName": {
+      "type": "object",
+      "properties": {
+        "firstName": { "type": "string" },
+        "lastName": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "address": {
+      "type": "object",
+      "required": ["line1"],
+      "properties": {
+        "line1": { "type": "string" },
+        "line2": { "type": "string" },
+        "line3": { "type": "string" },
+        "line4": { "type": "string" },
+        "postalCode": { "type": "string" },
+        "country": { "type": "string" }
+      },
+      "additionalProperties": false
+    }
+  }
+}

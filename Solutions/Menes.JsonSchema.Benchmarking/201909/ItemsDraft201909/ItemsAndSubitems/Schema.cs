@@ -1901,7 +1901,7 @@ namespace ItemsDraft201909Feature.ItemsAndSubitems
 
         /// <inheritdoc/>
         public SubItemValue SetProperty<TValue>(string name, TValue value)
-            where TValue : IJsonValue
+            where TValue : struct, IJsonValue
         {
             if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
             {
@@ -1913,7 +1913,7 @@ namespace ItemsDraft201909Feature.ItemsAndSubitems
 
         /// <inheritdoc/>
         public SubItemValue SetProperty<TValue>(ReadOnlySpan<char> name, TValue value)
-            where TValue : IJsonValue
+            where TValue : struct, IJsonValue
         {
             if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
             {
@@ -1925,7 +1925,7 @@ namespace ItemsDraft201909Feature.ItemsAndSubitems
 
         /// <inheritdoc/>
         public SubItemValue SetProperty<TValue>(ReadOnlySpan<byte> utf8name, TValue value)
-            where TValue : IJsonValue
+            where TValue : struct, IJsonValue
         {
             if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
             {

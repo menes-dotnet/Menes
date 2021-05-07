@@ -618,7 +618,7 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithIfThe
 
         /// <inheritdoc/>
         public Schema SetProperty<TValue>(string name, TValue value)
-            where TValue : IJsonValue
+            where TValue : struct, IJsonValue
         {
             if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
             {
@@ -630,7 +630,7 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithIfThe
 
         /// <inheritdoc/>
         public Schema SetProperty<TValue>(ReadOnlySpan<char> name, TValue value)
-            where TValue : IJsonValue
+            where TValue : struct, IJsonValue
         {
             if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
             {
@@ -642,7 +642,7 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithIfThe
 
         /// <inheritdoc/>
         public Schema SetProperty<TValue>(ReadOnlySpan<byte> utf8name, TValue value)
-            where TValue : IJsonValue
+            where TValue : struct, IJsonValue
         {
             if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
             {
@@ -1465,7 +1465,7 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithIfThe
 
         /// <inheritdoc/>
         public ElseEntity SetProperty<TValue>(string name, TValue value)
-            where TValue : IJsonValue
+            where TValue : struct, IJsonValue
         {
             if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
             {
@@ -1477,7 +1477,7 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithIfThe
 
         /// <inheritdoc/>
         public ElseEntity SetProperty<TValue>(ReadOnlySpan<char> name, TValue value)
-            where TValue : IJsonValue
+            where TValue : struct, IJsonValue
         {
             if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
             {
@@ -1489,7 +1489,7 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithIfThe
 
         /// <inheritdoc/>
         public ElseEntity SetProperty<TValue>(ReadOnlySpan<byte> utf8name, TValue value)
-            where TValue : IJsonValue
+            where TValue : struct, IJsonValue
         {
             if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
             {
@@ -2201,7 +2201,7 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithIfThe
 
         /// <inheritdoc/>
         public IfEntity SetProperty<TValue>(string name, TValue value)
-            where TValue : IJsonValue
+            where TValue : struct, IJsonValue
         {
             if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
             {
@@ -2213,7 +2213,7 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithIfThe
 
         /// <inheritdoc/>
         public IfEntity SetProperty<TValue>(ReadOnlySpan<char> name, TValue value)
-            where TValue : IJsonValue
+            where TValue : struct, IJsonValue
         {
             if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
             {
@@ -2225,7 +2225,7 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithIfThe
 
         /// <inheritdoc/>
         public IfEntity SetProperty<TValue>(ReadOnlySpan<byte> utf8name, TValue value)
-            where TValue : IJsonValue
+            where TValue : struct, IJsonValue
         {
             if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
             {
@@ -3423,7 +3423,7 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithIfThe
 
         /// <inheritdoc/>
         public ThenEntity SetProperty<TValue>(string name, TValue value)
-            where TValue : IJsonValue
+            where TValue : struct, IJsonValue
         {
             if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
             {
@@ -3435,7 +3435,7 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithIfThe
 
         /// <inheritdoc/>
         public ThenEntity SetProperty<TValue>(ReadOnlySpan<char> name, TValue value)
-            where TValue : IJsonValue
+            where TValue : struct, IJsonValue
         {
             if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
             {
@@ -3447,7 +3447,7 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithIfThe
 
         /// <inheritdoc/>
         public ThenEntity SetProperty<TValue>(ReadOnlySpan<byte> utf8name, TValue value)
-            where TValue : IJsonValue
+            where TValue : struct, IJsonValue
         {
             if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
             {

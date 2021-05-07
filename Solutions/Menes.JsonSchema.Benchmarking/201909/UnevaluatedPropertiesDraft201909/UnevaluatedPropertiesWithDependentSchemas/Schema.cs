@@ -514,7 +514,7 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithDepen
 
         /// <inheritdoc/>
         public Schema SetProperty<TValue>(string name, TValue value)
-            where TValue : IJsonValue
+            where TValue : struct, IJsonValue
         {
             if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
             {
@@ -526,7 +526,7 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithDepen
 
         /// <inheritdoc/>
         public Schema SetProperty<TValue>(ReadOnlySpan<char> name, TValue value)
-            where TValue : IJsonValue
+            where TValue : struct, IJsonValue
         {
             if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
             {
@@ -538,7 +538,7 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithDepen
 
         /// <inheritdoc/>
         public Schema SetProperty<TValue>(ReadOnlySpan<byte> utf8name, TValue value)
-            where TValue : IJsonValue
+            where TValue : struct, IJsonValue
         {
             if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
             {
@@ -1314,7 +1314,7 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithDepen
 
         /// <inheritdoc/>
         public FooEntity SetProperty<TValue>(string name, TValue value)
-            where TValue : IJsonValue
+            where TValue : struct, IJsonValue
         {
             if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
             {
@@ -1326,7 +1326,7 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithDepen
 
         /// <inheritdoc/>
         public FooEntity SetProperty<TValue>(ReadOnlySpan<char> name, TValue value)
-            where TValue : IJsonValue
+            where TValue : struct, IJsonValue
         {
             if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
             {
@@ -1338,7 +1338,7 @@ namespace UnevaluatedPropertiesDraft201909Feature.UnevaluatedPropertiesWithDepen
 
         /// <inheritdoc/>
         public FooEntity SetProperty<TValue>(ReadOnlySpan<byte> utf8name, TValue value)
-            where TValue : IJsonValue
+            where TValue : struct, IJsonValue
         {
             if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
             {

@@ -21,7 +21,7 @@ namespace Menes.Json
         /// <param name="value">The value of the property.</param>
         /// <returns>The instance with the property set.</returns>
         T SetProperty<TValue>(string name, TValue value)
-            where TValue : IJsonValue;
+            where TValue : struct, IJsonValue;
 
         /// <summary>
         /// Sets the given property value.
@@ -31,7 +31,7 @@ namespace Menes.Json
         /// <param name="value">The value of the property.</param>
         /// <returns>The instance with the property set.</returns>
         T SetProperty<TValue>(ReadOnlySpan<char> name, TValue value)
-            where TValue : IJsonValue;
+            where TValue : struct, IJsonValue;
 
         /// <summary>
         /// Sets the given property value.
@@ -41,7 +41,7 @@ namespace Menes.Json
         /// <param name="value">The value of the property.</param>
         /// <returns>The instance with the property set.</returns>
         T SetProperty<TValue>(ReadOnlySpan<byte> utf8Name, TValue value)
-            where TValue : IJsonValue;
+            where TValue : struct, IJsonValue;
 
         /// <summary>
         /// Removes the given property value.

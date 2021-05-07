@@ -807,7 +807,7 @@ namespace Menes.Json
 
         /// <inheritdoc/>
         public JsonNotAny SetProperty<TValue>(string name, TValue value)
-            where TValue : IJsonValue
+            where TValue : struct, IJsonValue
         {
             if (this.ValueKind == JsonValueKind.Object)
             {
@@ -819,7 +819,7 @@ namespace Menes.Json
 
         /// <inheritdoc/>
         public JsonNotAny SetProperty<TValue>(ReadOnlySpan<char> name, TValue value)
-            where TValue : IJsonValue
+            where TValue : struct, IJsonValue
         {
             if (this.ValueKind == JsonValueKind.Object)
             {
@@ -831,7 +831,7 @@ namespace Menes.Json
 
         /// <inheritdoc/>
         public JsonNotAny SetProperty<TValue>(ReadOnlySpan<byte> utf8Name, TValue value)
-            where TValue : IJsonValue
+            where TValue : struct, IJsonValue
         {
             if (this.ValueKind == JsonValueKind.Object)
             {

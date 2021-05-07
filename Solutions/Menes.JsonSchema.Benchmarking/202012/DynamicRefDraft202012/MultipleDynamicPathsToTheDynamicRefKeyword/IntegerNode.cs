@@ -687,7 +687,7 @@ namespace DynamicRefDraft202012Feature.MultipleDynamicPathsToTheDynamicRefKeywor
 
         /// <inheritdoc/>
         public IntegerNode SetProperty<TValue>(string name, TValue value)
-            where TValue : IJsonValue
+            where TValue : struct, IJsonValue
         {
             if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
             {
@@ -699,7 +699,7 @@ namespace DynamicRefDraft202012Feature.MultipleDynamicPathsToTheDynamicRefKeywor
 
         /// <inheritdoc/>
         public IntegerNode SetProperty<TValue>(ReadOnlySpan<char> name, TValue value)
-            where TValue : IJsonValue
+            where TValue : struct, IJsonValue
         {
             if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
             {
@@ -711,7 +711,7 @@ namespace DynamicRefDraft202012Feature.MultipleDynamicPathsToTheDynamicRefKeywor
 
         /// <inheritdoc/>
         public IntegerNode SetProperty<TValue>(ReadOnlySpan<byte> utf8name, TValue value)
-            where TValue : IJsonValue
+            where TValue : struct, IJsonValue
         {
             if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
             {
@@ -1388,7 +1388,7 @@ namespace DynamicRefDraft202012Feature.MultipleDynamicPathsToTheDynamicRefKeywor
 
         /// <inheritdoc/>
         public InnerEntity SetProperty<TValue>(string name, TValue value)
-            where TValue : IJsonValue
+            where TValue : struct, IJsonValue
         {
             if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
             {
@@ -1400,7 +1400,7 @@ namespace DynamicRefDraft202012Feature.MultipleDynamicPathsToTheDynamicRefKeywor
 
         /// <inheritdoc/>
         public InnerEntity SetProperty<TValue>(ReadOnlySpan<char> name, TValue value)
-            where TValue : IJsonValue
+            where TValue : struct, IJsonValue
         {
             if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
             {
@@ -1412,7 +1412,7 @@ namespace DynamicRefDraft202012Feature.MultipleDynamicPathsToTheDynamicRefKeywor
 
         /// <inheritdoc/>
         public InnerEntity SetProperty<TValue>(ReadOnlySpan<byte> utf8name, TValue value)
-            where TValue : IJsonValue
+            where TValue : struct, IJsonValue
         {
             if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
             {

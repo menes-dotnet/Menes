@@ -432,21 +432,21 @@ namespace Menes.Json
 
         /// <inheritdoc/>
         public JsonObject SetProperty<TValue>(string name, TValue value)
-            where TValue : IJsonValue
+            where TValue : struct, IJsonValue
         {
             return new JsonObject(this.AsPropertyDictionary.SetItem(name, value.AsAny));
         }
 
         /// <inheritdoc/>
         public JsonObject SetProperty<TValue>(ReadOnlySpan<char> name, TValue value)
-            where TValue : IJsonValue
+            where TValue : struct, IJsonValue
         {
             return this.SetProperty(name, value);
         }
 
         /// <inheritdoc/>
         public JsonObject SetProperty<TValue>(ReadOnlySpan<byte> utf8Name, TValue value)
-            where TValue : IJsonValue
+            where TValue : struct, IJsonValue
         {
             return this.SetProperty(utf8Name, value);
         }

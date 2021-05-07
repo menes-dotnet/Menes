@@ -591,7 +591,7 @@ namespace Marain.LineOfBusiness
 
         /// <inheritdoc/>
         public PersonResource SetProperty<TValue>(string name, TValue value)
-            where TValue : IJsonValue
+            where TValue : struct, IJsonValue
         {
             if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
             {
@@ -603,7 +603,7 @@ namespace Marain.LineOfBusiness
 
         /// <inheritdoc/>
         public PersonResource SetProperty<TValue>(ReadOnlySpan<char> name, TValue value)
-            where TValue : IJsonValue
+            where TValue : struct, IJsonValue
         {
             if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
             {
@@ -615,7 +615,7 @@ namespace Marain.LineOfBusiness
 
         /// <inheritdoc/>
         public PersonResource SetProperty<TValue>(ReadOnlySpan<byte> utf8name, TValue value)
-            where TValue : IJsonValue
+            where TValue : struct, IJsonValue
         {
             if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
             {
@@ -1564,7 +1564,7 @@ namespace Marain.LineOfBusiness
 
             /// <inheritdoc/>
             public LinksValue SetProperty<TValue>(string name, TValue value)
-                where TValue : IJsonValue
+                where TValue : struct, IJsonValue
             {
                 if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
                 {
@@ -1576,7 +1576,7 @@ namespace Marain.LineOfBusiness
 
             /// <inheritdoc/>
             public LinksValue SetProperty<TValue>(ReadOnlySpan<char> name, TValue value)
-                where TValue : IJsonValue
+                where TValue : struct, IJsonValue
             {
                 if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
                 {
@@ -1588,7 +1588,7 @@ namespace Marain.LineOfBusiness
 
             /// <inheritdoc/>
             public LinksValue SetProperty<TValue>(ReadOnlySpan<byte> utf8name, TValue value)
-                where TValue : IJsonValue
+                where TValue : struct, IJsonValue
             {
                 if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
                 {
@@ -2312,7 +2312,7 @@ namespace Marain.LineOfBusiness
 
             /// <inheritdoc/>
             public EmbeddedValue SetProperty<TValue>(string name, TValue value)
-                where TValue : IJsonValue
+                where TValue : struct, IJsonValue
             {
                 if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
                 {
@@ -2324,7 +2324,7 @@ namespace Marain.LineOfBusiness
 
             /// <inheritdoc/>
             public EmbeddedValue SetProperty<TValue>(ReadOnlySpan<char> name, TValue value)
-                where TValue : IJsonValue
+                where TValue : struct, IJsonValue
             {
                 if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
                 {
@@ -2336,7 +2336,7 @@ namespace Marain.LineOfBusiness
 
             /// <inheritdoc/>
             public EmbeddedValue SetProperty<TValue>(ReadOnlySpan<byte> utf8name, TValue value)
-                where TValue : IJsonValue
+                where TValue : struct, IJsonValue
             {
                 if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
                 {

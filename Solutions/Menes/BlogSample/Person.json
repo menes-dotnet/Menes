@@ -1,0 +1,19 @@
+{
+  "type": "object",
+  "properties": {
+    "primaryName": { "$ref": "#/$defs/personName" }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "personName": {
+      "type": "object",
+      "required": [ "lastName" ],
+      "properties": {
+        "firstName": { "type": "string" },
+        "middleName": { "type": "string" },
+        "lastName": { "type": "string" }
+      },
+      "additionalProperties": false
+    }
+  }
+}

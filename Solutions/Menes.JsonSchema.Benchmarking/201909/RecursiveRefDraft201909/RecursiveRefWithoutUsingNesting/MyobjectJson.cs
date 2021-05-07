@@ -505,7 +505,7 @@ namespace RecursiveRefDraft201909Feature.RecursiveRefWithoutUsingNesting
 
         /// <inheritdoc/>
         public MyobjectJson SetProperty<TValue>(string name, TValue value)
-            where TValue : IJsonValue
+            where TValue : struct, IJsonValue
         {
             if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
             {
@@ -517,7 +517,7 @@ namespace RecursiveRefDraft201909Feature.RecursiveRefWithoutUsingNesting
 
         /// <inheritdoc/>
         public MyobjectJson SetProperty<TValue>(ReadOnlySpan<char> name, TValue value)
-            where TValue : IJsonValue
+            where TValue : struct, IJsonValue
         {
             if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
             {
@@ -529,7 +529,7 @@ namespace RecursiveRefDraft201909Feature.RecursiveRefWithoutUsingNesting
 
         /// <inheritdoc/>
         public MyobjectJson SetProperty<TValue>(ReadOnlySpan<byte> utf8name, TValue value)
-            where TValue : IJsonValue
+            where TValue : struct, IJsonValue
         {
             if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
             {
@@ -1184,7 +1184,7 @@ namespace RecursiveRefDraft201909Feature.RecursiveRefWithoutUsingNesting
 
         /// <inheritdoc/>
         public AnyOf1Value SetProperty<TValue>(string name, TValue value)
-            where TValue : IJsonValue
+            where TValue : struct, IJsonValue
         {
             if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
             {
@@ -1196,7 +1196,7 @@ namespace RecursiveRefDraft201909Feature.RecursiveRefWithoutUsingNesting
 
         /// <inheritdoc/>
         public AnyOf1Value SetProperty<TValue>(ReadOnlySpan<char> name, TValue value)
-            where TValue : IJsonValue
+            where TValue : struct, IJsonValue
         {
             if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
             {
@@ -1208,7 +1208,7 @@ namespace RecursiveRefDraft201909Feature.RecursiveRefWithoutUsingNesting
 
         /// <inheritdoc/>
         public AnyOf1Value SetProperty<TValue>(ReadOnlySpan<byte> utf8name, TValue value)
-            where TValue : IJsonValue
+            where TValue : struct, IJsonValue
         {
             if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
             {

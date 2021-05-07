@@ -6,10 +6,12 @@
 
 namespace Menes
 {
+    using System.Buffers;
     using System.IO;
     using System.Linq;
     using System.Text.Json;
     using System.Threading.Tasks;
+    using BlogSample;
     using Marain.LineOfBusiness;
     using Menes.Json;
     using Menes.OpenApi;
@@ -22,9 +24,48 @@ namespace Menes
         static async Task Main(string[] args)
         {
 
-            Schema schema = JsonAny.Parse(@"{""foo"": {""bar"": false}}");
+            ////Schema schema = JsonAny.Parse(@"{""foo"": {""bar"": false}}");
 
-            var result = schema.Validate();
+            ////var result = schema.Validate();
+
+            PersonEntity person = JsonAny.Parse(@"{
+  ""primaryName"": {
+    ""firstName"": ""Jonathan"",
+    ""lastName"": ""Small""
+  }
+    }
+");
+
+            AddressHistoryEntity addressHistory = JsonAny.Parse(@"{
+  ""addressHistory"": [
+    {
+                ""line1"": ""32 Andaman Street"",
+      ""townOrCity"": ""London"",
+      ""postalCode"": ""SE1 3JS""
+    },
+    {
+                ""line1"": ""Wisteria Lodge"",
+      ""line2"": ""32, Norwood Street"",
+      ""townOrCity"": ""London"",
+      ""postalCode"": ""SE3 5JB""
+    }
+  ]
+}");
+
+            AddressHistoryEntity.AddressValue address = addressHistory.AddressHistory.EnumerateItems().FirstOrDefault();
+
+            var personDetails = PersonDetailsEntity.Create(
+                primaryName: person.PrimaryName.As<PersonDetailsEntity.PersonNameValue>(),
+                address: address.IsNotNullOrUndefined() ? 
+                    PersonDetailsEntity.AddressValue.Create(
+                        line1: address.Line1,
+                        line2: address.Line2.AsOptional(),
+                        line3: address.TownOrCity.AsOptional(),
+                        line4: address.Region.AsOptional(),
+                        postalCode: address.PostalCode.AsOptional()) : null);
+
+
+            System.Console.WriteLine(personDetails.AsJsonElement.GetRawText());
 
             PersonResource personResource = PersonResource.Create(
                 links: PersonResource.LinksValue.Create(

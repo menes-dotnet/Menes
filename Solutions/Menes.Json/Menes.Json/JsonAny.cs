@@ -853,7 +853,7 @@ namespace Menes.Json
 
         /// <inheritdoc/>
         public JsonAny SetProperty<TValue>(string name, TValue value)
-            where TValue : IJsonValue
+            where TValue : struct, IJsonValue
         {
             if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
             {
@@ -865,7 +865,7 @@ namespace Menes.Json
 
         /// <inheritdoc/>
         public JsonAny SetProperty<TValue>(ReadOnlySpan<char> name, TValue value)
-            where TValue : IJsonValue
+            where TValue : struct, IJsonValue
         {
             if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
             {
@@ -877,7 +877,7 @@ namespace Menes.Json
 
         /// <inheritdoc/>
         public JsonAny SetProperty<TValue>(ReadOnlySpan<byte> utf8Name, TValue value)
-            where TValue : IJsonValue
+            where TValue : struct, IJsonValue
         {
             if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
             {

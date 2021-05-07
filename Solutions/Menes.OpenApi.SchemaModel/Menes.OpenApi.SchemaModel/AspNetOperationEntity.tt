@@ -24,7 +24,7 @@ namespace <#= Namespace #>
 
     public readonly struct <#= OperationName #>
     {
-        <#
+    <#
     if (HasRequestBodyParameter)
     {
     #>

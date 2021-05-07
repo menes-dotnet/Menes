@@ -63,6 +63,7 @@ namespace Menes.OpenApi.SchemaModel
         private async Task ProcessPathItem(string path, Document.PathItemOrReferenceEntity pathItemOrReference)
         {
             Document.PathItemValue pathItem;
+
             if (pathItemOrReference.IsIfMatchReferenceValue)
             {
                 pathItem = await this.ResolveReference<Document.PathItemValue>(pathItemOrReference.AsIfMatchReferenceValue.Ref).ConfigureAwait(false);

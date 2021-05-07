@@ -9123,7 +9123,7 @@ namespace ");
         
         #line 2972 "SchemaEntity201909.tt"
         this.Write(@" SetProperty<TValue>(string name, TValue value)
-            where TValue : IJsonValue
+            where TValue : struct, IJsonValue
         {
             if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
             {
@@ -9147,7 +9147,7 @@ namespace ");
         
         #line 2984 "SchemaEntity201909.tt"
         this.Write(@" SetProperty<TValue>(ReadOnlySpan<char> name, TValue value)
-            where TValue : IJsonValue
+            where TValue : struct, IJsonValue
         {
             if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
             {
@@ -9171,7 +9171,7 @@ namespace ");
         
         #line 2996 "SchemaEntity201909.tt"
         this.Write(@" SetProperty<TValue>(ReadOnlySpan<byte> utf8name, TValue value)
-            where TValue : IJsonValue
+            where TValue : struct, IJsonValue
         {
             if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
             {
