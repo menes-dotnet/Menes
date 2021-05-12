@@ -22,20 +22,17 @@ namespace <#= Namespace #>
     using Menes.OpenApi.Services;
     using Microsoft.AspNetCore.Http;
 
-    public readonly struct <#= OperationName #>
+    public readonly struct <#= Operation.DotnetTypeName #>
     {
     <#
-    if (HasRequestBodyParameter)
+    if (Operation.HasRequestBodyParameter)
     {
     #>
         <#
-        foreach(var mediaType in RequestBodyMediaTypes)
+        foreach(var mediaType in Operation.RequestBodyMediaTypes)
         {
         #>
-        /// <summary>
-        /// Gets the media type for the <#= mediaType.RequestBodyParameterName #> parameter.
-        /// </summary
-        public const Regex <#= mediaType.RequestBodyParameterName #>MediaType = new Regex(<#= Formatting.FormatLiteralOrNull(mediaType.RegexValue) #>, RegexOptions.Compiled);
+        private const Regex <#= mediaType.DotnetName #>MediaType = new Regex(<#= Formatting.FormatLiteralOrNull(mediaType.RegexValue) #>, RegexOptions.Compiled);
         <#
         }
         #>
@@ -44,10 +41,10 @@ namespace <#= Namespace #>
     #>
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="<#= OperationName #>"/> class.
+        /// Initializes a new instance of the <see cref="<#= Operation.DotnetTypeName #>"/> class.
         /// </summary>
         /// <param name="request">The see cref="HttpContext"/> over which to create the operation.</param>
-        public <#= OperationName #>(HttpContext context)
+        public <#= Operation.DotnetTypeName #>(HttpContext context)
         {
             this.Context = context;
         }
@@ -58,17 +55,17 @@ namespace <#= Namespace #>
         public HttpContext Context { get; }
 
     <#
-    if (HasRequestBodyParameter)
+    if (Operation.HasRequestBodyParameter)
     {
     #>
         <#
-        foreach(var mediaType in RequestBodyMediaTypes)
+        foreach(var mediaType in Operation.RequestBodyMediaTypes)
         {
         #>
         /// <summary>
-        /// Gets the <#= RequestBodyParameterName #> as a <see cref="<#= mediaType.RequestBodyFullyQualifiedDotnetTypeName #>" />.
+        /// Gets the request body as a <see cref="<#= mediaType.RequestBodyFullyQualifiedDotnetTypeName #>" />.
         /// </summary>
-        public <#= mediaType.RequestBodyFullyQualifiedDotnetTypeName #> <#= mediaType.RequestBodyParameterName #>>
+        public <#= mediaType.RequestBodyFullyQualifiedDotnetTypeName #> RequestBodyAs<#= mediaType.DotnetName #>>
         {
             get
             {
@@ -77,17 +74,17 @@ namespace <#= Namespace #>
         }
 
             <#
-            if (HasMultipleRequestBodyMediaTypes)
+            if (Operation.HasMultipleRequestBodyMediaTypes)
             {
             #>
         /// <summary>
-        /// Gets a value indicating whether the <#= RequestBodyParameterName #> is a <see cref="<#= mediaType.RequestBodyFullyQualifiedDotnetTypeName #>" />.
+        /// Gets a value indicating whether the request body matches the <see cref="<#= mediaType.DotnetName #>" media type />.
         /// </summary>
-        public bool Has<#= mediaType.RequestBodyParameterName #>>
+        public bool RequestBodyIs<#= mediaType.DotnetName #>>
         {
             get
             {
-                return Service.MatchMediaType(<#= mediaType.RequestBodyParameterName #>MediaType);
+                return Service.MatchMediaType(<#= mediaType.DotnetName #>MediaType);
             }
         }
 

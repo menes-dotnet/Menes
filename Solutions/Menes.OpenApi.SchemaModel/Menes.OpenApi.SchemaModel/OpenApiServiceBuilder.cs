@@ -7,9 +7,11 @@ namespace Menes.OpenApi.SchemaModel
     using System;
     using System.Collections.Generic;
     using System.Collections.Immutable;
+    using System.Linq;
     using System.Text.Json;
     using System.Threading.Tasks;
     using Menes.Json;
+    using Menes.Json.SchemaModel;
 
     /// <summary>
     /// Builds OpenAPI service output.
@@ -17,56 +19,116 @@ namespace Menes.OpenApi.SchemaModel
     public class OpenApiServiceBuilder
     {
         private readonly Stack<Document.ServerValueArray> serverStack = new Stack<Document.ServerValueArray>();
-        private readonly Queue<ImmutableList<Document.ParameterValue>> parametersQueue = new Queue<ImmutableList<Document.ParameterValue>>();
+        private readonly Stack<ImmutableList<Parameter>> parametersStack = new Stack<ImmutableList<Parameter>>();
         private readonly IDocumentResolver resolver;
+        private readonly List<Operation> operations = new List<Operation>();
+        private readonly IJsonSchemaBuilder schemaBuilder;
+        private readonly Stack<string> locationStack = new Stack<string>();
+        private ImmutableDictionary<string, (string, string)> generatedTypesForSchema;
+        private string rootReference;
+        private string rootNamespace;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="OpenApiServiceBuilder"/> class.
         /// </summary>
+        /// <param name="schemaBuilder">The JSON schema builder to use.</param>
         /// <param name="resolver">The document resolver to use.</param>
-        public OpenApiServiceBuilder(IDocumentResolver resolver)
+        public OpenApiServiceBuilder(IJsonSchemaBuilder schemaBuilder, IDocumentResolver resolver)
         {
+            this.schemaBuilder = schemaBuilder;
             this.resolver = resolver;
+            this.rootReference = "#";
+            this.rootNamespace = "Menes.Generated";
+            this.generatedTypesForSchema = ImmutableDictionary<string, (string, string)>.Empty;
         }
 
         /// <summary>
         /// Build services for the given OpenApi document.
         /// </summary>
         /// <param name="rootReference">The root reference from which to load the document.</param>
+        /// <param name="rootNamespace">The (optional) root namespace.</param>
         /// <returns>A <see cref="Task"/> which completes when the services are built.</returns>
-        public async Task BuildServices(string rootReference)
+        public async Task BuildServices(string rootReference, string? rootNamespace = null)
         {
             Document openApiDocument = await this.ResolveReference<Document>(rootReference).ConfigureAwait(false);
+            this.rootReference = rootReference;
 
+            if (!string.IsNullOrEmpty(rootNamespace))
+            {
+                this.rootNamespace = rootNamespace;
+            }
+
+            this.PushReferenceLocation(rootReference);
             this.PushRootServers(openApiDocument);
 
             await this.ProcessPaths(openApiDocument).ConfigureAwait(false);
         }
 
+        private void PushReferenceLocation(string rootReference)
+        {
+            if (this.locationStack.IsEmpty())
+            {
+                this.locationStack.Push(rootReference);
+            }
+            else
+            {
+                this.locationStack.Push(new JsonReference(this.locationStack.Peek()).Apply(new JsonReference(rootReference)));
+            }
+        }
+
+        private void PushPropertyLocation(string propertyName)
+        {
+            if (this.locationStack.IsEmpty())
+            {
+                this.locationStack.Push(propertyName);
+            }
+            else
+            {
+                this.locationStack.Push(new JsonReference(this.locationStack.Peek()).AppendUnencodedPropertyNameToFragment(propertyName));
+            }
+        }
+
+        private void PushArrayIndexLocation(int index)
+        {
+            if (this.locationStack.IsEmpty())
+            {
+                this.locationStack.Push(index.ToString());
+            }
+            else
+            {
+                this.locationStack.Push(new JsonReference(this.locationStack.Peek()).AppendArrayIndexToFragment(index));
+            }
+        }
+
         private async Task ProcessPaths(Document openApiDocument)
         {
+            this.PushPropertyLocation("paths");
+
             foreach (Property pathProperty in openApiDocument.Paths.EnumerateObject())
             {
-                if (IsPathItemValue(pathProperty))
+                if (openApiDocument.Paths.MatchesPatternPathItemValue(pathProperty))
                 {
-                    Document.PathItemOrReferenceEntity pathItem = pathProperty.ValueAs<Document.PathItemOrReferenceEntity>();
+                    Document.PathItemOrReferenceEntity pathItem = openApiDocument.Paths.AsPatternPathItemValue(pathProperty);
                     await this.ProcessPathItem(pathProperty.Name, pathItem).ConfigureAwait(false);
                 }
             }
 
-            static bool IsPathItemValue(Property pathProperty)
-            {
-                return Document.PathsValue.PatternPropertyPathItemValue.IsMatch(pathProperty.Name);
-            }
+            this.locationStack.Pop();
         }
 
         private async Task ProcessPathItem(string path, Document.PathItemOrReferenceEntity pathItemOrReference)
         {
+            this.PushPropertyLocation(path);
+
             Document.PathItemValue pathItem;
 
+            bool pushedReference = false;
             if (pathItemOrReference.IsIfMatchReferenceValue)
             {
-                pathItem = await this.ResolveReference<Document.PathItemValue>(pathItemOrReference.AsIfMatchReferenceValue.Ref).ConfigureAwait(false);
+                JsonUri reference = pathItemOrReference.AsIfMatchReferenceValue.Ref;
+                this.PushReferenceLocation(reference);
+                pushedReference = true;
+                pathItem = await this.ResolveReference<Document.PathItemValue>(reference).ConfigureAwait(false);
             }
             else
             {
@@ -80,30 +142,14 @@ namespace Menes.OpenApi.SchemaModel
 
             if (pathItem.Parameters.IsNotNullOrUndefined())
             {
-                ImmutableList<Document.ParameterValue>.Builder parameterBuilder = ImmutableList.CreateBuilder<Document.ParameterValue>();
-                foreach (Document.ParameterOrReferenceEntity itemOrReference in pathItem.Parameters.EnumerateItems())
-                {
-                    Document.ParameterValue parameterValue;
-                    if (itemOrReference.IsIfMatchReferenceValue)
-                    {
-                        parameterValue = await this.ResolveReference<Document.ParameterValue>(itemOrReference.AsIfMatchReferenceValue.Ref);
-                    }
-                    else
-                    {
-                        parameterValue = itemOrReference.AsElseMatchParameterValue;
-                    }
-
-                    parameterBuilder.Add(parameterValue);
-                }
-
-                this.parametersQueue.Enqueue(parameterBuilder.ToImmutable());
+                await this.ProcessPathItemParameters(pathItem).ConfigureAwait(false);
             }
 
             foreach (Property property in pathItem.EnumerateObject())
             {
                 if (IsOperationValue(property))
                 {
-                    await this.ProcessOperation(property.Name, property.ValueAs<Document.OperationValue>()).ConfigureAwait(false);
+                    await this.ProcessOperation(property.ValueAs<Document.OperationValue>()).ConfigureAwait(false);
                 }
             }
 
@@ -114,8 +160,15 @@ namespace Menes.OpenApi.SchemaModel
 
             if (pathItem.Parameters.IsNotNullOrUndefined())
             {
-                this.parametersQueue.Dequeue();
+                this.parametersStack.Pop();
             }
+
+            if (pushedReference)
+            {
+                this.locationStack.Pop();
+            }
+
+            this.locationStack.Pop();
 
             static bool IsOperationValue(Property pathItemProperty)
             {
@@ -123,7 +176,45 @@ namespace Menes.OpenApi.SchemaModel
             }
         }
 
-        private async Task ProcessOperation(string verb, Document.OperationValue operation)
+        private async Task ProcessPathItemParameters(Document.PathItemValue pathItem)
+        {
+            this.PushPropertyLocation("parameters");
+            ImmutableList<Parameter>.Builder parameterBuilder = ImmutableList.CreateBuilder<Parameter>();
+            int index = 0;
+            foreach (Document.ParameterOrReferenceEntity itemOrReference in pathItem.Parameters.EnumerateItems())
+            {
+                bool resolvedReference = false;
+                this.PushArrayIndexLocation(index);
+                index++;
+                Document.ParameterValue parameterValue;
+                if (itemOrReference.IsIfMatchReferenceValue)
+                {
+                    JsonUri reference = itemOrReference.AsIfMatchReferenceValue.Ref;
+                    resolvedReference = true;
+                    this.PushReferenceLocation(reference);
+                    parameterValue = await this.ResolveReference<Document.ParameterValue>(reference).ConfigureAwait(false);
+                }
+                else
+                {
+                    parameterValue = itemOrReference.AsElseMatchParameterValue;
+                }
+
+                parameterBuilder.Add(new Parameter(parameterValue, this.locationStack.Peek()));
+
+                if (resolvedReference)
+                {
+                    this.locationStack.Pop();
+                }
+
+                this.locationStack.Pop();
+            }
+
+            this.parametersStack.Push(parameterBuilder.ToImmutable());
+
+            this.locationStack.Pop();
+        }
+
+        private async Task ProcessOperation(Document.OperationValue operation)
         {
             if (operation.Servers.IsNotNullOrUndefined())
             {
@@ -132,24 +223,31 @@ namespace Menes.OpenApi.SchemaModel
 
             if (operation.Parameters.IsNotNullOrUndefined())
             {
-                ImmutableList<Document.ParameterValue>.Builder parameterBuilder = ImmutableList.CreateBuilder<Document.ParameterValue>();
-                foreach (Document.ParameterOrReferenceEntity itemOrReference in operation.Parameters.EnumerateItems())
-                {
-                    Document.ParameterValue parameterValue;
-                    if (itemOrReference.IsIfMatchReferenceValue)
-                    {
-                        parameterValue = await this.ResolveReference<Document.ParameterValue>(itemOrReference.AsIfMatchReferenceValue.Ref);
-                    }
-                    else
-                    {
-                        parameterValue = itemOrReference.AsElseMatchParameterValue;
-                    }
-
-                    parameterBuilder.Add(parameterValue);
-                }
-
-                this.parametersQueue.Enqueue(parameterBuilder.ToImmutable());
+                ImmutableList<Parameter> parameters = await this.ProcessOperationParameters(operation).ConfigureAwait(false);
+                this.parametersStack.Push(parameters);
             }
+
+            List<RequestBodyMediaType>? requestBodyMediaTypes = null;
+
+            if (operation.RequestBody.IsNotNullOrUndefined())
+            {
+                requestBodyMediaTypes = await this.ProcessOperationRequestBody(operation).ConfigureAwait(false);
+            }
+
+            List<Response>? responses = null;
+
+            if (operation.Responses.IsNotNullOrUndefined())
+            {
+                responses = await this.ProcessOperationResponses(operation).ConfigureAwait(false);
+            }
+
+            var operationModel = new Operation(
+                dotnetTypeName: this.GetOperationDotnetTypeName(operation),
+                requestBodyMediaTypes: requestBodyMediaTypes?.ToImmutableArray(),
+                responses: responses?.ToImmutableArray(),
+                parameters: this.MergeParameters());
+
+            this.operations.Add(operationModel);
 
             if (operation.Servers.IsNotNullOrUndefined())
             {
@@ -158,22 +256,164 @@ namespace Menes.OpenApi.SchemaModel
 
             if (operation.Parameters.IsNotNullOrUndefined())
             {
-                this.parametersQueue.Dequeue();
+                this.parametersStack.Pop();
             }
+        }
+
+        private async Task<List<Response>> ProcessOperationResponses(Document.OperationValue operation)
+        {
+            this.PushPropertyLocation("responses");
+
+            var result = new List<Response>();
+
+            foreach (Property property in operation.Responses.EnumerateObject())
+            {
+                if (operation.Responses.MatchesPatternResponseOrReferenceEntity(property))
+                {
+                    Response response = await this.ProcessOperationResponse(property.Name, operation.Responses.AsPatternResponseOrReferenceEntity(property)).ConfigureAwait(false);
+                    result.Add(response);
+                }
+            }
+
+            this.locationStack.Pop();
+
+            return result;
+        }
+
+        private Task<Response> ProcessOperationResponse(string name, Document.ResponseOrReferenceEntity responseOrReferenceEntity)
+        {
+            throw new NotImplementedException();
+        }
+
+        private string GetOperationDotnetTypeName(Document.OperationValue operation)
+        {
+            ReadOnlySpan<char> baseName = Formatting.ToPascalCaseWithReservedWords(operation.OperationId);
+            Span<char> name = stackalloc char[baseName.Length + 10];
+            baseName.CopyTo(name);
+            int length = baseName.Length;
+            int extension = 0;
+
+            while (ContainsName(this.operations, name.Slice(0, length)))
+            {
+                extension++;
+                extension.TryFormat(name[baseName.Length..], out int charsWritten);
+                length = baseName.Length + charsWritten;
+            }
+
+            return name.Slice(0, length).ToString();
+
+            static bool ContainsName(List<Operation> operations, ReadOnlySpan<char> name)
+            {
+                foreach (Operation existingOperation in operations)
+                {
+                    if (name.SequenceEqual(existingOperation.DotnetTypeName))
+                    {
+                        return true;
+                    }
+                }
+
+                return false;
+            }
+        }
+
+        private async Task<List<RequestBodyMediaType>> ProcessOperationRequestBody(Document.OperationValue operation)
+        {
+            Document.RequestBodyValue requestBody;
+
+            this.PushPropertyLocation("requestBody");
+
+            bool pushedReference = false;
+            if (operation.RequestBody.IsIfMatchReferenceValue)
+            {
+                JsonUri reference = operation.RequestBody.AsIfMatchReferenceValue.Ref;
+                this.PushReferenceLocation(reference);
+                pushedReference = true;
+                requestBody = await this.ResolveReference<Document.RequestBodyValue>(reference).ConfigureAwait(false);
+            }
+            else
+            {
+                requestBody = operation.RequestBody.AsElseMatchRequestBodyValue;
+            }
+
+            var mediaTypes = new List<RequestBodyMediaType>();
+
+            this.PushPropertyLocation("content");
+
+            foreach (Property<Document.MediaTypeValue> mediaType in requestBody.Content.EnumerateProperties())
+            {
+                this.PushPropertyLocation(mediaType.Name);
+                (string rootType, ImmutableDictionary<string, (string, string)> generatedTypes) = await this.schemaBuilder.BuildTypesFor(this.locationStack.Peek(), this.rootNamespace).ConfigureAwait(false);
+                this.MergeTypesFrom(generatedTypes);
+                mediaTypes.Add(new RequestBodyMediaType(Formatting.ToPascalCaseWithReservedWords(mediaType.Name.Replace("*", "Any")).ToString(), rootType));
+                this.locationStack.Pop();
+            }
+
+            if (pushedReference)
+            {
+                this.locationStack.Pop();
+            }
+
+            this.locationStack.Pop();
+
+            return mediaTypes;
+        }
+
+        private void MergeTypesFrom(ImmutableDictionary<string, (string, string)> generatedTypes)
+        {
+            this.generatedTypesForSchema = this.generatedTypesForSchema.Union(generatedTypes).ToImmutableDictionary();
+        }
+
+        private async Task<ImmutableList<Parameter>> ProcessOperationParameters(Document.OperationValue operation)
+        {
+            this.PushPropertyLocation("parameters");
+            ImmutableList<Parameter>.Builder parameterBuilder = ImmutableList.CreateBuilder<Parameter>();
+            int index = 0;
+            foreach (Document.ParameterOrReferenceEntity itemOrReference in operation.Parameters.EnumerateItems())
+            {
+                this.PushArrayIndexLocation(index);
+                index++;
+                Document.ParameterValue parameterValue;
+
+                bool matchedReference = false;
+
+                if (itemOrReference.IsIfMatchReferenceValue)
+                {
+                    JsonUri reference = itemOrReference.AsIfMatchReferenceValue.Ref;
+                    matchedReference = true;
+                    this.PushReferenceLocation(reference);
+                    parameterValue = await this.ResolveReference<Document.ParameterValue>(reference).ConfigureAwait(false);
+                }
+                else
+                {
+                    parameterValue = itemOrReference.AsElseMatchParameterValue;
+                }
+
+                parameterBuilder.Add(new Parameter(parameterValue, this.locationStack.Peek()));
+
+                if (matchedReference)
+                {
+                    this.locationStack.Pop();
+                }
+
+                this.locationStack.Pop();
+            }
+
+            this.locationStack.Pop();
+            return parameterBuilder.ToImmutable();
         }
 
         /// <summary>
         /// Creates the merged list of parameters for the current context.
         /// </summary>
         /// <returns>A list of parameter values which represents the set for the current context.</returns>
-        private ImmutableList<Document.ParameterValue> MergeParameters()
+        private ImmutableArray<Parameter> MergeParameters()
         {
-            ImmutableList<Document.ParameterValue>.Builder result = ImmutableList.CreateBuilder<Document.ParameterValue>();
-            foreach (ImmutableList<Document.ParameterValue> parameters in this.parametersQueue)
+            ImmutableList<Parameter>.Builder result = ImmutableList.CreateBuilder<Parameter>();
+            foreach (ImmutableList<Parameter> parameters in this.parametersStack.Reverse())
             {
-                foreach (Document.ParameterValue parameter in parameters)
+                foreach (Parameter parameter in parameters)
                 {
-                    int index = result.FindIndex(r => r.In == parameter.In && r.Name == parameter.Name);
+                    int index = result.FindIndex(r => r.ParameterValue.In == parameter.ParameterValue.In && r.ParameterValue.Name == parameter.ParameterValue.Name);
                     if (index >= 0)
                     {
                         result.RemoveAt(index);
@@ -183,7 +423,7 @@ namespace Menes.OpenApi.SchemaModel
                 }
             }
 
-            return result.ToImmutable();
+            return result.ToImmutableArray();
         }
 
         private void PushRootServers(Document openApiDocument)

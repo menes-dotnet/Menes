@@ -3124,6 +3124,39 @@ namespace <#= Namespace #>
             return this.As<<#= TypeDeclaration.DotnetTypeName #>, T>();
         }
 
+
+    <#
+    if(HasPatternProperties)
+    {
+    #>
+
+        <#
+        foreach(var patternProperty in PatternProperties)
+        {
+        #>
+        /// <summary>
+        /// Determines if a property matches <#=                Formatting.FormatLiteralOrNull(patternProperty.Pattern, true).Trim('"')#> producing a <see cref="<#= patternProperty.DotnetTypeName #>" />.
+        /// </summary>
+        public bool MatchesPattern<#= PatternPropertySuffix(patternProperty) #>(in Property property)
+        {
+            return PatternProperty<#= PatternPropertySuffix(patternProperty) #>.IsMatch(property.Name);
+        }
+
+        /// <summary>
+        /// Get a property as the matching property type <#=                Formatting.FormatLiteralOrNull(patternProperty.Pattern, true).Trim('"')#> as a <see cref="<#= patternProperty.DotnetTypeName #>" />.
+        /// </summary>
+        public <#= patternProperty.DotnetTypeName #> AsPattern<#= PatternPropertySuffix(patternProperty) #>(in Property property)
+        {
+            return property.ValueAs<<#= patternProperty.DotnetTypeName #>>();
+        }
+
+        <#
+        }
+        #>
+    <#
+    }
+    #>
+
         /// <inheritdoc/>
         public ValidationContext Validate(in ValidationContext? validationContext = null, ValidationLevel level = ValidationLevel.Flag)
         {

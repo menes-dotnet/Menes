@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Menes.Json.SchemaModel\Menes.Json.SchemaModel.csproj" />
     <ProjectReference Include="..\Menes.OpenApi\Menes.OpenApi.csproj" />
     <ProjectReference Include="..\Menes.Json.Walker\Menes.Json.Walker.csproj" />
   </ItemGroup>
