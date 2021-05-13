@@ -1,4 +1,4 @@
-﻿// <copyright file="OpenApiResultActionResultOutputBuilder.cs" company="Endjin Limited">
+﻿// <copyright file="OpenApiResultHttpResponseOutputBuilder.cs" company="Endjin Limited">
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
@@ -8,47 +8,46 @@ namespace Menes.Internal
 
     using Menes.Converters;
 
-    using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
     using Microsoft.OpenApi.Models;
 
     /// <summary>
-    /// Builds an <see cref="IActionResult"/> for an <see cref="OpenApiResult"/>, with output
-    /// validation against the <see cref="OpenApiOperation"/> definition.
+    /// Builds an <see cref="OpenApiHttpResponseResult"/> for an <see cref="OpenApiResult"/>, with
+    /// output validation against the <see cref="OpenApiOperation"/> definition.
     /// </summary>
     /// <remarks>
     /// <para>
-    /// This uses the <see cref="OpenApiActionResult"/> for the actual output formatting and validation.
+    /// This uses the <see cref="OpenApiHttpResponseResult"/> for the actual output formatting and validation.
     /// </para>
     /// </remarks>
-    internal class OpenApiResultActionResultOutputBuilder : OpenApiResultOutputBuilder<IActionResult>
+    internal class OpenApiResultHttpResponseOutputBuilder : OpenApiResultOutputBuilder<IHttpResponseResult>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="OpenApiResultActionResultOutputBuilder"/> class.
+        /// Creates an <see cref="OpenApiResultHttpResponseOutputBuilder"/>.
         /// </summary>
         /// <param name="converters">The open API converters to use with the builder.</param>
         /// <param name="logger">The logger for the output builder.</param>
-        public OpenApiResultActionResultOutputBuilder(
+        public OpenApiResultHttpResponseOutputBuilder(
             IEnumerable<IOpenApiConverter> converters,
-            ILogger<OpenApiResultActionResultOutputBuilder> logger)
+            ILogger<OpenApiResultHttpResponseOutputBuilder> logger)
             : base(converters, logger)
         {
         }
 
         /// <inheritdoc/>
-        protected override IActionResult FromOpenApiResult(
+        protected override IHttpResponseResult FromOpenApiResult(
             OpenApiResult openApiResult,
             OpenApiOperation operation,
             IEnumerable<IOpenApiConverter> converters,
             ILogger logger)
         {
-            return OpenApiActionResult.FromOpenApiResult(openApiResult, operation, converters, logger);
+            return OpenApiHttpResponseResult.FromOpenApiResult(openApiResult, operation, converters, logger);
         }
 
         /// <inheritdoc/>
         protected override bool CanConstructFrom(OpenApiResult openApiResult, OpenApiOperation operation)
         {
-            return OpenApiActionResult.CanConstructFrom(openApiResult, operation);
+            return OpenApiHttpResponseResult.CanConstructFrom(openApiResult, operation);
         }
     }
 }

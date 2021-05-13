@@ -1,31 +1,23 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk.Web">
   <Import Project="$(EndjinProjectPropsPath)" Condition="$(EndjinProjectPropsPath) != ''" />
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <Nullable>enable</Nullable>
+
     <IsPackable>false</IsPackable>
   </PropertyGroup>
-
-  <ItemGroup>
-    <None Remove="Menes\PetStore\PetStore.yaml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="Menes\PetStore\PetStore.yaml" />
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Endjin.RecommendedPractices" Version="1.2.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.Extensions.Http" Version="3.1.15" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Menes.Abstractions\Menes.Abstractions.csproj" />
-    <ProjectReference Include="..\Menes.Hosting\Menes.Hosting.csproj" />
+    <ProjectReference Include="..\Menes.Hosting.AspNetCore\Menes.Hosting.AspNetCore.csproj" />
+    <ProjectReference Include="..\Menes.PetStore\Menes.PetStore.csproj" />
   </ItemGroup>
 
 </Project>

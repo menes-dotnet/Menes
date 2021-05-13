@@ -61,14 +61,14 @@ namespace Menes.Specs.Steps
             try
             {
                 var resultBuilder =
-                    new HttpRequestResultBuilder(
+                    new OpenApiActionResultBuilder(
                         new[]
                         {
                             new OpenApiResultActionResultOutputBuilder(
                             Enumerable.Empty<IOpenApiConverter>(),
                             ContainerBindings.GetServiceProvider(this.scenarioContext).GetRequiredService<ILogger<OpenApiResultActionResultOutputBuilder>>()),
                         },
-                        ContainerBindings.GetServiceProvider(this.scenarioContext).GetRequiredService<ILogger<HttpRequestResultBuilder>>());
+                        ContainerBindings.GetServiceProvider(this.scenarioContext).GetRequiredService<ILogger<OpenApiActionResultBuilder>>());
                 resultBuilder.BuildResult(this.result!, this.operation!);
             }
             catch (Exception x)

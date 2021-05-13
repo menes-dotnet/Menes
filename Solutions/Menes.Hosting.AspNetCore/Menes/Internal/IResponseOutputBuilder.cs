@@ -1,22 +1,20 @@
-﻿// <copyright file="IActionResultOutputBuilder.cs" company="Endjin Limited">
+﻿// <copyright file="IResponseOutputBuilder.cs" company="Endjin Limited">
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
 namespace Menes.Internal
 {
-    using Microsoft.AspNetCore.Mvc;
     using Microsoft.OpenApi.Models;
 
     /// <summary>
-    /// Interface implemented by types that are used to build <see cref="IActionResult"/> based output.
+    /// Interface implemented by types that are used to build outputs to be used with the Menes
+    /// host.
     /// </summary>
-    /// <remarks>
-    /// <para>
-    /// This can be used by any host that implements the AspNetCore 2.x model, such as
-    /// Functions V2 and AspNetCore itself.
-    /// </para>
-    /// </remarks>
-    public interface IActionResultOutputBuilder
+    /// <typeparam name="TResponse">
+    /// The response type. Corresponds to the 2nd type argument in
+    /// <see cref="IOpenApiHost{TRequest, TResponse}"/>.
+    /// </typeparam>
+    public interface IResponseOutputBuilder<TResponse>
     {
         /// <summary>
         /// Gets the priority of the output builder.
@@ -41,7 +39,7 @@ namespace Menes.Internal
         /// </summary>
         /// <param name="result">The result.</param>
         /// <param name="operation">The operation.</param>
-        /// <returns>The <see cref="IActionResult"/> constructed from the operation and result.</returns>
-        IActionResult BuildOutput(object result, OpenApiOperation operation);
+        /// <returns>The <typeparamref name="TResponse"/> constructed from the operation and result.</returns>
+        TResponse BuildOutput(object result, OpenApiOperation operation);
     }
 }
