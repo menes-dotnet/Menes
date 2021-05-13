@@ -26,7 +26,7 @@ namespace Menes.Internal
         /// </summary>
         /// <param name="converters">The open API converters to use with the builder.</param>
         /// <param name="logger">The logger for the output builder.</param>
-        public OpenApiResultOutputBuilder(
+        protected OpenApiResultOutputBuilder(
             IEnumerable<IOpenApiConverter> converters,
             ILogger logger)
         {
