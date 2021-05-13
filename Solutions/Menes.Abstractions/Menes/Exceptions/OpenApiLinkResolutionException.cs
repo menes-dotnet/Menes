@@ -43,7 +43,7 @@ namespace Menes.Exceptions
 
             if (!string.IsNullOrEmpty(this.ContentType))
             {
-                this.AddProblemDetailsExtension("Owner ContentType", this.ContentType!); // ! required as netstandard2.0 lacks nullable attributes
+                this.AddProblemDetailsExtension("Owner ContentType", this.ContentType);
             }
 
             this.AddProblemDetailsExtension("Owner CLR type", this.FullTypeName);

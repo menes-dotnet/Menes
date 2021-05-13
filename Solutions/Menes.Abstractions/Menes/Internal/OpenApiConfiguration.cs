@@ -40,15 +40,8 @@ namespace Menes.Internal
         /// <inheritdoc/>
         public Dictionary<string, Type> DiscriminatedTypes
         {
-            get
-            {
-                return this.discriminators ?? (this.discriminators = new Dictionary<string, Type>());
-            }
-
-            set
-            {
-                this.discriminators = value;
-            }
+            get => this.discriminators ??= new Dictionary<string, Type>();
+            set => this.discriminators = value;
         }
 
         /// <inheritdoc/>

@@ -140,9 +140,13 @@ namespace Menes.Internal
             logger.LogDebug(
                 "Attempting to get OpenAPI result for with POCO with [{operation}]",
                 operation.GetOperationId());
-#pragma warning disable IDE0007 // Use implicit type - see https://github.com/dotnet/roslyn/issues/30450
-            List<KeyValuePair<string, OpenApiResponse>> successResponses = operation
-#pragma warning restore IDE0007 // Use implicit type
+
+            // Due to https://github.com/dotnet/roslyn/issues/30450, VS wants us to use var here.
+            // And there seems to be a bug meaning that if we add a pragma to disable the IDE0007,
+            // VS reports that as an IDE0079 unnecessary suppression! So we're reduced either to
+            // having the (frankly non-obvious) type name remain obscure, or to put it in a comment.
+            // It's a List<KeyValuePair<string, OpenApiResponse>>
+            var successResponses = operation
                 .Responses
                 .Where(r => r.Key == "default" || (r.Key.Length == 3 && r.Key[0] == '2'))
                 .ToList();
@@ -172,7 +176,7 @@ namespace Menes.Internal
         }
 
         /// <summary>
-        /// Determines if the result result can be constructed from the provided result and operation definition.
+        /// Determines if the result can be constructed from the provided result and operation definition.
         /// </summary>
         /// <param name="openApiResult">The <see cref="OpenApiResult"/>.</param>
         /// <param name="operation">The OpenAPI operation definition.</param>
