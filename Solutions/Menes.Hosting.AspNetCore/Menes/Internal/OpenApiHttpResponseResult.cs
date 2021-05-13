@@ -298,7 +298,7 @@ namespace Menes.Internal
                     this.logger.LogDebug("Attempting to add header for response [{response}]", response.Description);
                 }
 
-                if (this.openApiResult.Results.TryGetValue(header.Key, out object value))
+                if (this.openApiResult.Results.TryGetValue(header.Key, out object? value))
                 {
                     string? convertedValue = null;
 
