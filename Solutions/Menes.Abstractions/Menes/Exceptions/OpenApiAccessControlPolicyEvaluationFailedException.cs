@@ -50,7 +50,7 @@ namespace Menes.Exceptions
 
             if (!string.IsNullOrEmpty(this.PolicyName))
             {
-                this.AddProblemDetailsExtension("Policy Name", this.PolicyName!); // ! required as netstandard2.0 lacks nullable attributes
+                this.AddProblemDetailsExtension("Policy Name", this.PolicyName);
             }
 
             if (this.Requests?.Length > 0)

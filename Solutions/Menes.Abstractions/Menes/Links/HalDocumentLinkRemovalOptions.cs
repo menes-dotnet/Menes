@@ -42,7 +42,7 @@ namespace Menes.Links
         NonRecursive = 1,
 
         /// <summary>
-        /// Perform an unsafe check. With this options set, link checking will skip any <code>self</code> links
+        /// Perform an unsafe check. With this options set, link checking will skip any <c>self</c> links
         /// and will also not validate any links that have a corresponding document in the <see cref="HalDocument.EmbeddedResources"/>
         /// collection.
         /// </summary>

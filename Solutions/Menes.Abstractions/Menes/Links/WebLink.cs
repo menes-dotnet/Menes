@@ -149,7 +149,7 @@ namespace Menes.Links
         /// <inheritdoc/>
         public override int GetHashCode()
         {
-            return (this.Href, this.Name, this.IsTemplated, this.Hreflang, this.Title, this.Type, this.Profile).GetHashCode();
+            return HashCode.Combine(this.Href, this.Name, this.IsTemplated, this.Hreflang, this.Title, this.Type, this.Profile);
         }
     }
 }

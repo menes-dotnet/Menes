@@ -212,7 +212,7 @@ namespace Menes.PetStore
 
             HalDocument response = await this.petMapper.MapAsync(body).ConfigureAwait(false);
             WebLink location = response.GetLinksForRelation("self").First();
-            return this.CreatedResult(location.Href, response, "application/hal+json").WithAuditData(("id", (object)body.Id));
+            return this.CreatedResult(location.Href, response, "application/hal+json").WithAuditData(("id", body.Id));
         }
 
         /// <summary>
@@ -316,7 +316,7 @@ namespace Menes.PetStore
 
             return this
                 .OkResult(response, "application/hal+json")
-                .WithAuditData(("id", (object)result.Id));
+                .WithAuditData(("id", result.Id));
         }
     }
 }

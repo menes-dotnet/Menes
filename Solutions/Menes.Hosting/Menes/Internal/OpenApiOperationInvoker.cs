@@ -205,7 +205,7 @@ namespace Menes.Internal
                 };
                 if (!string.IsNullOrWhiteSpace(result.Explanation))
                 {
-                    x.AddProblemDetailsExplanation(result.Explanation!); // ! required as netstandard2.0 lacks nullable attributes
+                    x.AddProblemDetailsExplanation(result.Explanation);
                 }
 
                 throw x;

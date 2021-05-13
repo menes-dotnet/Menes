@@ -10,6 +10,8 @@ namespace Menes.PetStore.Specs.Stubs
     using Menes.PetStore.Responses;
     using Menes.PetStore.Responses.Mappers;
 
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "Some implementations deliberately empty, but parameters need to be present for Menes to match with the operation")]
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Redundancy", "RCS1163:Unused parameter.", Justification = "See IDE0060 justification")]
     public class StubPetStoreService : IOpenApiService
     {
         private readonly PetResourceMapper petResourceMapper;

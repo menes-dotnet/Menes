@@ -58,7 +58,7 @@ namespace Menes
 
             if (diagnostics.Errors.Count > 0)
             {
-                throw new OpenApiServiceMismatchException($"Errors reading the YAML file at resource name attribute.ResourceName")
+                throw new OpenApiServiceMismatchException($"Errors reading the YAML file at resource name {resourceName}")
                     .AddProblemDetailsExtension("OpenApiErrors", diagnostics.Errors);
             }
 
