@@ -1,4 +1,4 @@
-﻿// <copyright file="HttpContextExtensions.cs" company="Endjin Limited">
+﻿// <copyright file="OpenApiHostDirectPipelineExtensions.cs" company="Endjin Limited">
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
@@ -11,9 +11,19 @@ namespace Menes.Hosting.AspNetCore
     using Microsoft.AspNetCore.Http;
 
     /// <summary>
-    /// Extension methods for HttpContext.
+    /// Extension methods for <see cref="IOpenApiHost{HttpRequest, IHttpResponseResult}"/>.
     /// </summary>
-    public static class HttpContextExtensions
+    /// <remarks>
+    /// <para>
+    /// Applications typically don't use this directly. Instead, they will normally use
+    /// <see cref="OpenApiAspNetApplicationBuilderExtensions.UseMenesCatchAll(Microsoft.AspNetCore.Builder.IApplicationBuilder)"/>
+    /// to Menes middleware that calls this to an ASP.NET Core pipeline.
+    /// </para>
+    /// <para>
+    /// This does not require a dependency on MVC.
+    /// </para>
+    /// </remarks>
+    public static class OpenApiHostDirectPipelineExtensions
     {
         /// <summary>
         /// Uses the <see cref="IOpenApiHost{HttpRequest, IActionResult}"/> to handle the request.

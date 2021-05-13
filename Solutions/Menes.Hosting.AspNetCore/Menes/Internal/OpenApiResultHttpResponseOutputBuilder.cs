@@ -12,18 +12,16 @@ namespace Menes.Internal
     using Microsoft.OpenApi.Models;
 
     /// <summary>
-    /// Builds an <see cref="OpenApiHttpResponseResult"/> for an <see cref="OpenApiResult"/>, with output validation aginst the <see cref="OpenApiOperation"/> definition.
+    /// Builds an <see cref="OpenApiHttpResponseResult"/> for an <see cref="OpenApiResult"/>, with
+    /// output validation against the <see cref="OpenApiOperation"/> definition.
     /// </summary>
     /// <remarks>
     /// <para>
-    /// This uses the <see cref="OpenApiActionResult"/> for the actual output formatting and validation.
+    /// This uses the <see cref="OpenApiHttpResponseResult"/> for the actual output formatting and validation.
     /// </para>
     /// </remarks>
-    internal class OpenApiResultHttpResponseOutputBuilder : IResponseOutputBuilder<IHttpResponseResult>
+    internal class OpenApiResultHttpResponseOutputBuilder : OpenApiResultOutputBuilder<IHttpResponseResult>
     {
-        private readonly IEnumerable<IOpenApiConverter> converters;
-        private readonly ILogger<OpenApiResultHttpResponseOutputBuilder> logger;
-
         /// <summary>
         /// Creates an <see cref="OpenApiResultHttpResponseOutputBuilder"/>.
         /// </summary>
@@ -32,49 +30,23 @@ namespace Menes.Internal
         public OpenApiResultHttpResponseOutputBuilder(
             IEnumerable<IOpenApiConverter> converters,
             ILogger<OpenApiResultHttpResponseOutputBuilder> logger)
+            : base(converters, logger)
         {
-            this.converters = converters;
-            this.logger = logger;
         }
 
         /// <inheritdoc/>
-        public int Priority => 100;
-
-        /// <inheritdoc/>
-        public IHttpResponseResult BuildOutput(object result, OpenApiOperation operation)
+        protected override IHttpResponseResult FromOpenApiResult(
+            OpenApiResult openApiResult,
+            OpenApiOperation operation,
+            IEnumerable<IOpenApiConverter> converters,
+            ILogger logger)
         {
-            if (this.logger.IsEnabled(LogLevel.Debug))
-            {
-                this.logger.LogDebug(
-                                "Building output for [{operation}]",
-                                operation.GetOperationId());
-            }
-
-            // This must have been called after CanBuildOutput(), so we know these casts
-            // and lookups will succeed
-            var openApiResult = (OpenApiResult)result;
-
-            var httpResponseResult = OpenApiHttpResponseResult.FromOpenApiResult(openApiResult, operation, this.converters, this.logger);
-
-            if (this.logger.IsEnabled(LogLevel.Debug))
-            {
-                this.logger.LogDebug(
-                                "Built output for [{operation}]",
-                                operation.GetOperationId());
-            }
-
-            return httpResponseResult;
+            return OpenApiHttpResponseResult.FromOpenApiResult(openApiResult, operation, converters, logger);
         }
 
         /// <inheritdoc/>
-        public bool CanBuildOutput(object result, OpenApiOperation operation)
+        protected override bool CanConstructFrom(OpenApiResult openApiResult, OpenApiOperation operation)
         {
-            // Are we an OpenApi Result?
-            if (!(result is OpenApiResult openApiResult))
-            {
-                return false;
-            }
-
             return OpenApiHttpResponseResult.CanConstructFrom(openApiResult, operation);
         }
     }

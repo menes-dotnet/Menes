@@ -11,7 +11,7 @@ namespace Menes.Internal
     using Microsoft.OpenApi.Models;
 
     /// <summary>
-    /// Builds n response object for an OpenAPI result and operation.
+    /// Builds a response object for an OpenAPI result and operation.
     /// </summary>
     /// <typeparam name="TResponse">
     /// The response type.
@@ -26,7 +26,7 @@ namespace Menes.Internal
         /// </summary>
         /// <param name="outputBuilders">The output builders.</param>
         /// <param name="logger">The logger.</param>
-        public OpenApiResultBuilder(
+        protected OpenApiResultBuilder(
             IEnumerable<IResponseOutputBuilder<TResponse>> outputBuilders,
             ILogger<OpenApiResultBuilder<TResponse>> logger)
         {

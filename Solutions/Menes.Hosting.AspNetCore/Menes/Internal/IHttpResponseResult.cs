@@ -6,11 +6,19 @@ namespace Menes.Internal
 {
     using System.Threading.Tasks;
 
+    using Menes.Hosting.AspNetCore;
+
     using Microsoft.AspNetCore.Http;
 
     /// <summary>
     /// Populates an <see cref="HttpResponse"/> with the outcome (or failure) of an operation.
     /// </summary>
+    /// <remarks>
+    /// Used in direct pipeline mode (<see cref="OpenApiHostDirectPipelineExtensions.HandleRequestAsync(IOpenApiHost{HttpRequest, IHttpResponseResult}, HttpContext, object)"/>).
+    /// This enables Menes to build a description of how the HTTP response is to be generated,
+    /// which can then be applied to the <see cref="HttpResponse"/> supplied by ASP.NET once
+    /// Menes is done.
+    /// </remarks>
     public interface IHttpResponseResult
     {
         /// <summary>

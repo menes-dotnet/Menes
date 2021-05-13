@@ -31,7 +31,7 @@ namespace Menes.Internal
     /// CAVEAT: It does not currently support writing cookies.
     /// </para>
     /// </remarks>
-    public class OpenApiHttpResponseResult : IHttpResponseResult
+    internal class OpenApiHttpResponseResult : IHttpResponseResult
     {
         private readonly OpenApiResult openApiResult;
         private readonly OpenApiOperation operation;

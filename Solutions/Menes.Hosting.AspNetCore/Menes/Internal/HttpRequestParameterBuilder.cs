@@ -22,7 +22,7 @@ namespace Menes.Internal
     /// <summary>
     /// An implementation of an <see cref="IOpenApiParameterBuilder{TRequest}"/>.
     /// </summary>
-    public class HttpRequestParameterBuilder : IOpenApiParameterBuilder<HttpRequest>
+    internal class HttpRequestParameterBuilder : IOpenApiParameterBuilder<HttpRequest>
     {
         private readonly IEnumerable<IOpenApiConverter> converters;
         private readonly ILogger<HttpRequestParameterBuilder> logger;

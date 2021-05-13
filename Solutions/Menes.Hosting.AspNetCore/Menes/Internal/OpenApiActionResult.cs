@@ -28,6 +28,11 @@ namespace Menes.Internal
     /// </remarks>
     internal sealed class OpenApiActionResult : ActionResult
     {
+        /// <summary>
+        /// We need to do everything to the underlying <c>HttpResponse</c> that the lower-level
+        /// <see cref="OpenApiHttpResponseResult"/> does, so we just delegate to that for the
+        /// bulk of the work.
+        /// </summary>
         private readonly OpenApiHttpResponseResult httpResponseResult;
 
         /// <summary>
