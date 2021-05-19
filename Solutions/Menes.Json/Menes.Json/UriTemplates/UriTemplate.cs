@@ -591,7 +591,15 @@ namespace Menes.Json.UriTemplates
                 switch (currentChar)
                 {
                     case '*':
-                        varSpec.Explode = true;
+                        if (varSpec.PrefixLength == 0)
+                        {
+                            varSpec.Explode = true;
+                        }
+                        else
+                        {
+                            result.ErrorDetected = true;
+                        }
+
                         break;
 
                     case ':':  // Parse Prefix Modifier
@@ -722,6 +730,12 @@ namespace Menes.Json.UriTemplates
             }
             else if (valueKind == JsonValueKind.Object)
             {
+                if (varSpec.PrefixLength != 0)
+                {
+                    result.ErrorDetected = true;
+                    return false;
+                }
+
                 JsonObject instance = value;
                 if (varSpec.OperatorInfo.Named && !varSpec.Explode)  //// exploding will prefix with list name
                 {
