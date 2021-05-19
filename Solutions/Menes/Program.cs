@@ -14,6 +14,7 @@ namespace Menes
     using BlogSample;
     using Marain.LineOfBusiness;
     using Menes.Json;
+    using Menes.Json.UriTemplates;
     using Menes.OpenApi;
     using RefDraft201909Feature.RootPointerRef;
 
@@ -23,6 +24,13 @@ namespace Menes
     {
         static async Task Main(string[] args)
         {
+            UriTemplate uriTemplate = new UriTemplate("{;keys*}");
+            uriTemplate = uriTemplate.SetParameter("var", "value");
+            uriTemplate = uriTemplate.SetParameter("hello", "Hello World!");
+            uriTemplate = uriTemplate.SetParameter("path", "/foo/bar");
+            uriTemplate = uriTemplate.SetParameter("list", JsonAny.Parse("[\"red\", \"green\", \"blue\"]"));
+            uriTemplate = uriTemplate.SetParameter("keys", JsonAny.Parse("{ \"semi\": \";\", \"dot\": \".\", \"comma\": \",\"}"));
+            var result = uriTemplate.Resolve();
 
             ////Schema schema = JsonAny.Parse(@"{""foo"": {""bar"": false}}");
 

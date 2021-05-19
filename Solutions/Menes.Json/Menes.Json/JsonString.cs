@@ -214,6 +214,12 @@ namespace Menes.Json
         }
 
         /// <inheritdoc/>
+        public override string ToString()
+        {
+            return this.GetString();
+        }
+
+        /// <inheritdoc/>
         public ValidationContext Validate(in ValidationContext? validationContext = null, ValidationLevel level = ValidationLevel.Flag)
         {
             ValidationContext result = validationContext ?? ValidationContext.ValidContext;

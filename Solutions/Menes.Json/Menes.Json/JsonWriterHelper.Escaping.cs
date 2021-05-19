@@ -59,21 +59,6 @@ namespace Menes.Json
             return (encoder ?? JavaScriptEncoder.Default).FindFirstCharacterToEncodeUtf8(value);
         }
 
-        public static unsafe int NeedsEscaping(ReadOnlySpan<char> value, JavaScriptEncoder? encoder)
-        {
-            // Some implementations of JavaScriptEncoder.FindFirstCharacterToEncode may not accept
-            // null pointers and guard against that. Hence, check up-front to return -1.
-            if (value.IsEmpty)
-            {
-                return -1;
-            }
-
-            fixed (char* ptr = value)
-            {
-                return (encoder ?? JavaScriptEncoder.Default).FindFirstCharacterToEncode(ptr, value.Length);
-            }
-        }
-
         public static int GetMaxEscapedLength(int textLength, int firstIndexToEscape)
         {
             Debug.Assert(textLength > 0);

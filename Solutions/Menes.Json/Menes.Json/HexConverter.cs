@@ -98,9 +98,8 @@ namespace Menes.Json
             }
         }
 
-        public static unsafe string ToString(ReadOnlySpan<byte> bytes, Casing casing = Casing.Upper)
+        public static string ToString(ReadOnlySpan<byte> bytes, Casing casing = Casing.Upper)
         {
-#if NETFRAMEWORK || NETSTANDARD1_0 || NETSTANDARD1_3 || NETSTANDARD2_0
             Span<char> result = stackalloc char[0];
             if (bytes.Length > 16)
             {
@@ -119,16 +118,6 @@ namespace Menes.Json
                 pos += 2;
             }
             return result.ToString();
-#else
-            fixed (byte* bytesPtr = bytes)
-            {
-                return string.Create(bytes.Length * 2, (Ptr: (IntPtr)bytesPtr, bytes.Length, casing), static (chars, args) =>
-                {
-                    var ros = new ReadOnlySpan<byte>((byte*)args.Ptr, args.Length);
-                    EncodeToUtf16(ros, chars, args.casing);
-                });
-            }
-#endif
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

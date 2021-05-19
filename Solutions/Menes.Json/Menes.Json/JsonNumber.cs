@@ -255,6 +255,19 @@ namespace Menes.Json
             return this.As<JsonNumber, T>();
         }
 
+        /// <inheritdoc/>
+        public override string ToString()
+        {
+            JsonValueKind valueKind = this.ValueKind;
+
+            return valueKind switch
+            {
+                JsonValueKind.Number => this.GetDouble().ToString(),
+                JsonValueKind.Null => "null",
+                _ => string.Empty,
+            };
+        }
+
         /// <summary>
         /// Gets the <see cref="JsonNumber"/> as a <see cref="double"/>.
         /// </summary>

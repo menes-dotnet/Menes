@@ -16,6 +16,27 @@ namespace Menes.OpenApi.SchemaModel
     /// <summary>
     /// Builds OpenAPI service output.
     /// </summary>
+    /// <remarks>
+    /// <para>
+    /// This builds a list of <see cref="Operation"/> instances which can be passed to the <see cref="AspNetOperationEntityPartial"/>
+    /// to build types for those operations.
+    /// </para>
+    /// <para>
+    /// It maintains a <see cref="locationStack"/> which keeps track of where in the current document we are (for reference resolution across documents).
+    /// </para>
+    /// <para>
+    /// It maintains a <see cref="serverStack"/> which captures the "servers" defined throughout the structure, pushing
+    /// and popping them as they go in and out of scope.
+    /// </para>
+    /// <para>
+    /// Similarly, it maintains a <see cref="parametersStack"/> which pushes/pops the parameters defined at a path and operation level
+    /// depending on scope.
+    /// </para>
+    /// <para>
+    /// For types defined by JSON schema it will use a <see cref="IJsonSchemaBuilder"/>. This allows us to support any schema/dialect
+    /// for which you have implemented a builder (currently Draft202012 and Draft201909).
+    /// </para>
+    /// </remarks>
     public class OpenApiServiceBuilder
     {
         private readonly Stack<Document.ServerValueArray> serverStack = new Stack<Document.ServerValueArray>();
@@ -199,7 +220,7 @@ namespace Menes.OpenApi.SchemaModel
                     parameterValue = itemOrReference.AsElseMatchParameterValue;
                 }
 
-                parameterBuilder.Add(new Parameter(parameterValue, this.locationStack.Peek()));
+                parameterBuilder.Add(this.ProcessParameter(parameterValue, this.locationStack.Peek()));
 
                 if (resolvedReference)
                 {
@@ -344,7 +365,7 @@ namespace Menes.OpenApi.SchemaModel
                 this.PushPropertyLocation(mediaType.Name);
                 (string rootType, ImmutableDictionary<string, (string, string)> generatedTypes) = await this.schemaBuilder.BuildTypesFor(this.locationStack.Peek(), this.rootNamespace).ConfigureAwait(false);
                 this.MergeTypesFrom(generatedTypes);
-                mediaTypes.Add(new RequestBodyMediaType(Formatting.ToPascalCaseWithReservedWords(mediaType.Name.Replace("*", "Any")).ToString(), rootType));
+                mediaTypes.Add(new RequestBodyMediaType(mediaType.Name, Formatting.ToPascalCaseWithReservedWords(mediaType.Name.Replace("*", "Any")).ToString(), rootType));
                 this.locationStack.Pop();
             }
 
@@ -388,7 +409,7 @@ namespace Menes.OpenApi.SchemaModel
                     parameterValue = itemOrReference.AsElseMatchParameterValue;
                 }
 
-                parameterBuilder.Add(new Parameter(parameterValue, this.locationStack.Peek()));
+                parameterBuilder.Add(this.ProcessParameter(parameterValue, this.locationStack.Peek()));
 
                 if (matchedReference)
                 {
@@ -400,6 +421,38 @@ namespace Menes.OpenApi.SchemaModel
 
             this.locationStack.Pop();
             return parameterBuilder.ToImmutable();
+        }
+
+        private Parameter ProcessParameter(Document.ParameterValue parameterValue, string location)
+        {
+            return parameterValue switch
+            {
+                var pv when pv.In == Document.ParameterValue.InEntity.EnumValues.Header => this.ProcessHeaderParameter(parameterValue, location),
+                var pv when pv.In == Document.ParameterValue.InEntity.EnumValues.Cookie => this.ProcessCookieParameter(parameterValue, location),
+                var pv when pv.In == Document.ParameterValue.InEntity.EnumValues.Path => this.ProcessPathParameter(parameterValue, location),
+                var pv when pv.In == Document.ParameterValue.InEntity.EnumValues.Query => this.ProcessQueryParameter(parameterValue, location),
+                _ => throw new InvalidOperationException($"Unexpected In value for parameter at '{location}'")
+            };
+        }
+
+        private Parameter ProcessHeaderParameter(Document.ParameterValue parameterValue, string location)
+        {
+            throw new NotImplementedException();
+        }
+
+        private Parameter ProcessCookieParameter(Document.ParameterValue parameterValue, string location)
+        {
+            throw new NotImplementedException();
+        }
+
+        private Parameter ProcessPathParameter(Document.ParameterValue parameterValue, string location)
+        {
+            throw new NotImplementedException();
+        }
+
+        private Parameter ProcessQueryParameter(Document.ParameterValue parameterValue, string location)
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>

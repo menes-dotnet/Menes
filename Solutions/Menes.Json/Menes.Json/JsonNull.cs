@@ -128,6 +128,12 @@ namespace Menes.Json
         }
 
         /// <inheritdoc/>
+        public override string ToString()
+        {
+            return "null";
+        }
+
+        /// <inheritdoc/>
         public void WriteTo(Utf8JsonWriter writer)
         {
             writer.WriteNullValue();

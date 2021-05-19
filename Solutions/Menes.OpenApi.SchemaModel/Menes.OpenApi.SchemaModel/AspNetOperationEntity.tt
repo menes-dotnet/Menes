@@ -62,16 +62,35 @@ namespace <#= Namespace #>
         foreach(var mediaType in Operation.RequestBodyMediaTypes)
         {
         #>
+            <#
+            if (mediaType.IsMultipart)
+            {
+            #>
+            // TODO: Add the code to deal with multipart values
+            <#
+            }
+            else if (mediaType.IsFormUrlEncoded)
+            {
+            #>
+            // TODO: Add the code to deal with form URL encoded values
+            <#
+            }
+            else
+            {
+            #>
         /// <summary>
-        /// Gets the request body as a <see cref="<#= mediaType.RequestBodyFullyQualifiedDotnetTypeName #>" />.
+        /// Gets the request body as a <see cref="<#=                    mediaType.RequestBodyFullyQualifiedDotnetTypeName #>" />.
         /// </summary>
-        public <#= mediaType.RequestBodyFullyQualifiedDotnetTypeName #> RequestBodyAs<#= mediaType.DotnetName #>>
+        public <#=                    mediaType.RequestBodyFullyQualifiedDotnetTypeName #> RequestBodyAs<#=                    mediaType.DotnetName #>>
         {
             get
             {
-                return new <#= mediaType.RequestBodyFullyQualifiedDotnetTypeName #>(Service.GetRequestBodyJsonDocument(this.Context).RootElement);
+                return new <#=                    mediaType.RequestBodyFullyQualifiedDotnetTypeName #>(Service.GetRequestBodyJsonDocument(this.Context).RootElement);
             }
         }
+            <#
+            }
+            #>
 
             <#
             if (Operation.HasMultipleRequestBodyMediaTypes)

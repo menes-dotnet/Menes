@@ -187,6 +187,82 @@ namespace Menes.Json
         }
 
         /// <summary>
+        /// Create a <see cref="JsonObject"/> from a set of key-value tuples.
+        /// </summary>
+        /// <param name="keyValuePairs">The dictionary of objects.</param>
+        /// <returns>A <see cref="JsonObject"/> constructed from a dictionary of objects.</returns>
+        /// <remarks>
+        /// Note that this will serialize the object to be constructed. You should consider a non-serializing
+        /// method of constructing a JSON object where possible.
+        /// </remarks>
+        public static JsonObject From(params (string, JsonAny)[] keyValuePairs)
+        {
+            ImmutableDictionary<string, JsonAny>.Builder builder = ImmutableDictionary.CreateBuilder<string, JsonAny>();
+            foreach ((string key, JsonAny value) in keyValuePairs)
+            {
+                builder.Add(key, value);
+            }
+
+            return new JsonObject(builder.ToImmutable());
+        }
+
+        /// <summary>
+        /// Create a JsonObject from a dictionary of key value pairs of strings.
+        /// </summary>
+        /// <param name="keyValuePairs">The dictionary of strings.</param>
+        /// <returns>A <see cref="JsonObject"/> constructed from a dictionary of strings.</returns>
+        public static JsonObject From(IDictionary<string, string> keyValuePairs)
+        {
+            ImmutableDictionary<string, JsonAny>.Builder builder = ImmutableDictionary.CreateBuilder<string, JsonAny>();
+            foreach ((string key, string value) in keyValuePairs)
+            {
+                builder.Add(key, value);
+            }
+
+            return new JsonObject(builder.ToImmutable());
+        }
+
+        /// <summary>
+        /// Create a <see cref="JsonObject"/> from a dictionary of key value pairs of <see cref="JsonAny"/>.
+        /// </summary>
+        /// <param name="keyValuePairs">The dictionary of <see cref="JsonAny"/>.</param>
+        /// <returns>A  <see cref="JsonObject"/> constructed from a dictionary of <see cref="JsonAny"/>.</returns>
+        public static JsonObject From(IDictionary<string, JsonAny> keyValuePairs)
+        {
+            ImmutableDictionary<string, JsonAny>.Builder builder = ImmutableDictionary.CreateBuilder<string, JsonAny>();
+            foreach ((string key, JsonAny value) in keyValuePairs)
+            {
+                builder.Add(key, value);
+            }
+
+            return new JsonObject(builder.ToImmutable());
+        }
+
+        /// <summary>
+        /// Create a <see cref="JsonObject"/> from a dictionary of key value pairs of objects.
+        /// </summary>
+        /// <param name="keyValuePairs">The dictionary of objects.</param>
+        /// <returns>A <see cref="JsonObject"/> constructed from a dictionary of objects.</returns>
+        /// <remarks>
+        /// Note that this will serialize the object to be constructed. You should consider a non-serializing
+        /// method of constructing a JSON object where possible.
+        /// </remarks>
+        public static JsonObject From(IDictionary<string, object> keyValuePairs)
+        {
+            ImmutableDictionary<string, JsonAny>.Builder builder = ImmutableDictionary.CreateBuilder<string, JsonAny>();
+            foreach ((string key, object value) in keyValuePairs)
+            {
+                var abw = new ArrayBufferWriter<byte>();
+                using var writer = new Utf8JsonWriter(abw);
+                JsonSerializer.Serialize(writer, value);
+                writer.Flush();
+                builder.Add(key, JsonAny.Parse(abw.WrittenMemory));
+            }
+
+            return new JsonObject(builder.ToImmutable());
+        }
+
+        /// <summary>
         /// Writes a property dictionary to a JSON writer.
         /// </summary>
         /// <param name="properties">The property dictionary to write.</param>
@@ -241,6 +317,19 @@ namespace Menes.Json
                 JsonValueKind.Null => JsonNull.NullHashCode,
                 _ => 0,
             };
+        }
+
+        /// <inheritdoc/>
+        public override string ToString()
+        {
+            var abw = new ArrayBufferWriter<byte>();
+            using var writer = new Utf8JsonWriter(abw);
+            this.WriteTo(writer);
+            writer.Flush();
+
+            Span<char> chars = stackalloc char[Encoding.UTF8.GetMaxCharCount(abw.WrittenCount)];
+            Encoding.UTF8.GetChars(abw.WrittenSpan, chars);
+            return new string(chars);
         }
 
         /// <summary>

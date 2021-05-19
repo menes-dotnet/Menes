@@ -6,8 +6,11 @@ namespace Menes.Json
 {
     using System;
     using System.Buffers;
+    using System.Collections.Generic;
     using System.Collections.Immutable;
+    using System.Text;
     using System.Text.Json;
+    using Corvus.Extensions;
 
     /// <summary>
     /// A JSON array.
@@ -200,6 +203,143 @@ namespace Menes.Json
         /// <summary>
         /// Create an array from the given items.
         /// </summary>
+        /// <typeparam name="T">The type of the <paramref name="items"/> from which to create the array.</typeparam>
+        /// <param name="items">The items from which to create the array.</param>
+        /// <returns>The new array created from the items.</returns>
+        /// <remarks>
+        /// This will serialize the items to create the underlying JsonArray. Note the
+        /// other overloads which avoid this serialization step.
+        /// </remarks>
+        public static JsonArray From<T>(IEnumerable<T> items)
+        {
+            ImmutableList<JsonAny>.Builder builder = ImmutableList.CreateBuilder<JsonAny>();
+            foreach (T item in items)
+            {
+                var abw = new ArrayBufferWriter<byte>();
+                using var writer = new Utf8JsonWriter(abw);
+                JsonSerializer.Serialize(writer, item);
+                writer.Flush();
+                builder.Add(JsonAny.Parse(abw.WrittenMemory));
+            }
+
+            return new JsonArray(builder.ToImmutable());
+        }
+
+        /// <summary>
+        /// Create an array from the given items.
+        /// </summary>
+        /// <param name="items">The items from which to create the array.</param>
+        /// <returns>The new array created from the items.</returns>
+        public static JsonArray From(IEnumerable<IJsonValue> items)
+        {
+            ImmutableList<JsonAny>.Builder builder = ImmutableList.CreateBuilder<JsonAny>();
+            foreach (IJsonValue item in items)
+            {
+                builder.Add(item.AsAny);
+            }
+
+            return new JsonArray(builder.ToImmutable());
+        }
+
+        /// <summary>
+        /// Create an array from the given items.
+        /// </summary>
+        /// <param name="items">The items from which to create the array.</param>
+        /// <returns>The new array created from the items.</returns>
+        public static JsonArray From(IEnumerable<string> items)
+        {
+            ImmutableList<JsonAny>.Builder builder = ImmutableList.CreateBuilder<JsonAny>();
+            foreach (string item in items)
+            {
+                builder.Add(new JsonAny(item));
+            }
+
+            return new JsonArray(builder.ToImmutable());
+        }
+
+        /// <summary>
+        /// Create an array from the given items.
+        /// </summary>
+        /// <param name="items">The items from which to create the array.</param>
+        /// <returns>The new array created from the items.</returns>
+        public static JsonArray From(IEnumerable<double> items)
+        {
+            ImmutableList<JsonAny>.Builder builder = ImmutableList.CreateBuilder<JsonAny>();
+            foreach (double item in items)
+            {
+                builder.Add(new JsonAny(item));
+            }
+
+            return new JsonArray(builder.ToImmutable());
+        }
+
+        /// <summary>
+        /// Create an array from the given items.
+        /// </summary>
+        /// <param name="items">The items from which to create the array.</param>
+        /// <returns>The new array created from the items.</returns>
+        public static JsonArray From(IEnumerable<float> items)
+        {
+            ImmutableList<JsonAny>.Builder builder = ImmutableList.CreateBuilder<JsonAny>();
+            foreach (float item in items)
+            {
+                builder.Add(new JsonAny(item));
+            }
+
+            return new JsonArray(builder.ToImmutable());
+        }
+
+        /// <summary>
+        /// Create an array from the given items.
+        /// </summary>
+        /// <param name="items">The items from which to create the array.</param>
+        /// <returns>The new array created from the items.</returns>
+        public static JsonArray From(IEnumerable<int> items)
+        {
+            ImmutableList<JsonAny>.Builder builder = ImmutableList.CreateBuilder<JsonAny>();
+            foreach (int item in items)
+            {
+                builder.Add(new JsonAny(item));
+            }
+
+            return new JsonArray(builder.ToImmutable());
+        }
+
+        /// <summary>
+        /// Create an array from the given items.
+        /// </summary>
+        /// <param name="items">The items from which to create the array.</param>
+        /// <returns>The new array created from the items.</returns>
+        public static JsonArray From(IEnumerable<long> items)
+        {
+            ImmutableList<JsonAny>.Builder builder = ImmutableList.CreateBuilder<JsonAny>();
+            foreach (long item in items)
+            {
+                builder.Add(new JsonAny(item));
+            }
+
+            return new JsonArray(builder.ToImmutable());
+        }
+
+        /// <summary>
+        /// Create an array from the given items.
+        /// </summary>
+        /// <param name="items">The items from which to create the array.</param>
+        /// <returns>The new array created from the items.</returns>
+        public static JsonArray From(IEnumerable<bool> items)
+        {
+            ImmutableList<JsonAny>.Builder builder = ImmutableList.CreateBuilder<JsonAny>();
+            foreach (bool item in items)
+            {
+                builder.Add(new JsonAny(item));
+            }
+
+            return new JsonArray(builder.ToImmutable());
+        }
+
+        /// <summary>
+        /// Create an array from the given items.
+        /// </summary>
         /// <param name="item1">The items from which to create the array.</param>
         /// <returns>The new array created from the items.</returns>
         public static JsonArray From(JsonAny item1)
@@ -313,6 +453,19 @@ namespace Menes.Json
                 JsonValueKind.Null => JsonNull.NullHashCode,
                 _ => 0,
             };
+        }
+
+        /// <inheritdoc/>
+        public override string ToString()
+        {
+            var abw = new ArrayBufferWriter<byte>();
+            using var writer = new Utf8JsonWriter(abw);
+            this.WriteTo(writer);
+            writer.Flush();
+
+            Span<char> chars = stackalloc char[Encoding.UTF8.GetMaxCharCount(abw.WrittenCount)];
+            Encoding.UTF8.GetChars(abw.WrittenSpan, chars);
+            return new string(chars);
         }
 
         /// <summary>

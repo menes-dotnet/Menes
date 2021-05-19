@@ -240,6 +240,20 @@ namespace Menes.Json
             };
         }
 
+        /// <inheritdoc/>
+        public override string ToString()
+        {
+            JsonValueKind valueKind = this.ValueKind;
+
+            return valueKind switch
+            {
+                JsonValueKind.True => true.ToString(),
+                JsonValueKind.False => false.ToString(),
+                JsonValueKind.Null => "null",
+                _ => string.Empty,
+            };
+        }
+
         /// <summary>
         /// Writes the string to the <see cref="Utf8JsonWriter"/>.
         /// </summary>

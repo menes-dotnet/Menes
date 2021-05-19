@@ -36,6 +36,18 @@ namespace Menes.Json
         }
 
         /// <summary>
+        /// Gets a value indicating whether the instance has properties.
+        /// </summary>
+        /// <typeparam name="TValue">The type of the instance.</typeparam>
+        /// <param name="value">The instance to check for properties.</param>
+        /// <returns>True if the object has any proprties.</returns>
+        public static bool HasProperties<TValue>(this TValue value)
+            where TValue : struct, IJsonObject<TValue>
+        {
+            return value.EnumerateObject().MoveNext();
+        }
+
+        /// <summary>
         /// Sets the property.
         /// </summary>
         /// <typeparam name="T">The type of the instance on which to set the property.</typeparam>
@@ -511,12 +523,13 @@ namespace Menes.Json
         /// </summary>
         /// <typeparam name="T">The type of the instance from which to get the raw text.</typeparam>
         /// <param name="value">The value for which to get the raw text.</param>
+        /// <param name="options">The <see cref="JsonWriterOptions"/>.</param>
         /// <returns>The raw text representation of the value.</returns>
-        public static ReadOnlySpan<byte> GetRawText<T>(this T value)
+        public static ReadOnlySpan<byte> GetRawText<T>(this T value, JsonWriterOptions options = default)
             where T : struct, IJsonValue
         {
             var abw = new ArrayBufferWriter<byte>();
-            using var writer = new Utf8JsonWriter(abw);
+            using var writer = new Utf8JsonWriter(abw, options);
             value.WriteTo(writer);
             writer.Flush();
             return abw.WrittenSpan;
