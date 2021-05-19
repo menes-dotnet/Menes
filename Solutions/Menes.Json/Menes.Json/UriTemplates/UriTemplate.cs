@@ -749,7 +749,7 @@ namespace Menes.Json.UriTemplates
                 JsonString instance = value;
                 if (varSpec.OperatorInfo.Named)
                 {
-                    result.AppendName(varname, varSpec.OperatorInfo, value.IsNullOrUndefined() || string.IsNullOrEmpty(value));
+                    result.AppendName(varname, varSpec.OperatorInfo, value.IsNullOrUndefined() || string.IsNullOrEmpty(instance));
                 }
 
                 result.AppendValue(value, varSpec.PrefixLength, varSpec.OperatorInfo.AllowReserved);

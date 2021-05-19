@@ -111,62 +111,62 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-                TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table20 = new TechTalk.SpecFlow.Table(new string[] {
                             "name",
                             "value"});
-                table6.AddRow(new string[] {
+                table20.AddRow(new string[] {
                             "count",
                             "[\"one\",\"two\",\"three\"]"});
-                table6.AddRow(new string[] {
+                table20.AddRow(new string[] {
                             "dom",
                             "[\"example\",\"com\"]"});
-                table6.AddRow(new string[] {
+                table20.AddRow(new string[] {
                             "dub",
                             "\"me/too\""});
-                table6.AddRow(new string[] {
+                table20.AddRow(new string[] {
                             "hello",
                             "\"Hello World!\""});
-                table6.AddRow(new string[] {
+                table20.AddRow(new string[] {
                             "half",
                             "\"50%\""});
-                table6.AddRow(new string[] {
+                table20.AddRow(new string[] {
                             "var",
                             "\"value\""});
-                table6.AddRow(new string[] {
+                table20.AddRow(new string[] {
                             "who",
                             "\"fred\""});
-                table6.AddRow(new string[] {
+                table20.AddRow(new string[] {
                             "base",
                             "\"http://example.com/home/\""});
-                table6.AddRow(new string[] {
+                table20.AddRow(new string[] {
                             "path",
                             "\"/foo/bar\""});
-                table6.AddRow(new string[] {
+                table20.AddRow(new string[] {
                             "list",
                             "[\"red\",\"green\",\"blue\"]"});
-                table6.AddRow(new string[] {
+                table20.AddRow(new string[] {
                             "keys",
                             "{\"semi\":\";\",\"dot\":\".\",\"comma\":\",\"}"});
-                table6.AddRow(new string[] {
+                table20.AddRow(new string[] {
                             "v",
                             "\"6\""});
-                table6.AddRow(new string[] {
+                table20.AddRow(new string[] {
                             "x",
                             "\"1024\""});
-                table6.AddRow(new string[] {
+                table20.AddRow(new string[] {
                             "y",
                             "\"768\""});
-                table6.AddRow(new string[] {
+                table20.AddRow(new string[] {
                             "empty",
                             "\"\""});
-                table6.AddRow(new string[] {
+                table20.AddRow(new string[] {
                             "empty_keys",
                             "[]"});
-                table6.AddRow(new string[] {
+                table20.AddRow(new string[] {
                             "undef",
                             "null"});
 #line 5
- testRunner.Given("the variables", ((string)(null)), table6, "Given ");
+ testRunner.Given("the variables", ((string)(null)), table20, "Given ");
 #line hidden
 #line 24
  testRunner.When(string.Format("I apply the variables to the template {0}", template), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
@@ -227,62 +227,62 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-                TechTalk.SpecFlow.Table table7 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table21 = new TechTalk.SpecFlow.Table(new string[] {
                             "name",
                             "value"});
-                table7.AddRow(new string[] {
+                table21.AddRow(new string[] {
                             "count",
                             "[\"one\",\"two\",\"three\"]"});
-                table7.AddRow(new string[] {
+                table21.AddRow(new string[] {
                             "dom",
                             "[\"example\",\"com\"]"});
-                table7.AddRow(new string[] {
+                table21.AddRow(new string[] {
                             "dub",
                             "\"me/too\""});
-                table7.AddRow(new string[] {
+                table21.AddRow(new string[] {
                             "hello",
                             "\"Hello World!\""});
-                table7.AddRow(new string[] {
+                table21.AddRow(new string[] {
                             "half",
                             "\"50%\""});
-                table7.AddRow(new string[] {
+                table21.AddRow(new string[] {
                             "var",
                             "\"value\""});
-                table7.AddRow(new string[] {
+                table21.AddRow(new string[] {
                             "who",
                             "\"fred\""});
-                table7.AddRow(new string[] {
+                table21.AddRow(new string[] {
                             "base",
                             "\"http://example.com/home/\""});
-                table7.AddRow(new string[] {
+                table21.AddRow(new string[] {
                             "path",
                             "\"/foo/bar\""});
-                table7.AddRow(new string[] {
+                table21.AddRow(new string[] {
                             "list",
                             "[\"red\",\"green\",\"blue\"]"});
-                table7.AddRow(new string[] {
+                table21.AddRow(new string[] {
                             "keys",
                             "{\"semi\":\";\",\"dot\":\".\",\"comma\":\",\"}"});
-                table7.AddRow(new string[] {
+                table21.AddRow(new string[] {
                             "v",
                             "\"6\""});
-                table7.AddRow(new string[] {
+                table21.AddRow(new string[] {
                             "x",
                             "\"1024\""});
-                table7.AddRow(new string[] {
+                table21.AddRow(new string[] {
                             "y",
                             "\"768\""});
-                table7.AddRow(new string[] {
+                table21.AddRow(new string[] {
                             "empty",
                             "\"\""});
-                table7.AddRow(new string[] {
+                table21.AddRow(new string[] {
                             "empty_keys",
                             "[]"});
-                table7.AddRow(new string[] {
+                table21.AddRow(new string[] {
                             "undef",
                             "null"});
 #line 40
- testRunner.Given("the variables", ((string)(null)), table7, "Given ");
+ testRunner.Given("the variables", ((string)(null)), table21, "Given ");
 #line hidden
 #line 59
  testRunner.When(string.Format("I apply the variables to the template {0}", template), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
@@ -344,62 +344,62 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-                TechTalk.SpecFlow.Table table8 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table22 = new TechTalk.SpecFlow.Table(new string[] {
                             "name",
                             "value"});
-                table8.AddRow(new string[] {
+                table22.AddRow(new string[] {
                             "count",
                             "[\"one\",\"two\",\"three\"]"});
-                table8.AddRow(new string[] {
+                table22.AddRow(new string[] {
                             "dom",
                             "[\"example\",\"com\"]"});
-                table8.AddRow(new string[] {
+                table22.AddRow(new string[] {
                             "dub",
                             "\"me/too\""});
-                table8.AddRow(new string[] {
+                table22.AddRow(new string[] {
                             "hello",
                             "\"Hello World!\""});
-                table8.AddRow(new string[] {
+                table22.AddRow(new string[] {
                             "half",
                             "\"50%\""});
-                table8.AddRow(new string[] {
+                table22.AddRow(new string[] {
                             "var",
                             "\"value\""});
-                table8.AddRow(new string[] {
+                table22.AddRow(new string[] {
                             "who",
                             "\"fred\""});
-                table8.AddRow(new string[] {
+                table22.AddRow(new string[] {
                             "base",
                             "\"http://example.com/home/\""});
-                table8.AddRow(new string[] {
+                table22.AddRow(new string[] {
                             "path",
                             "\"/foo/bar\""});
-                table8.AddRow(new string[] {
+                table22.AddRow(new string[] {
                             "list",
                             "[\"red\",\"green\",\"blue\"]"});
-                table8.AddRow(new string[] {
+                table22.AddRow(new string[] {
                             "keys",
                             "{\"semi\":\";\",\"dot\":\".\",\"comma\":\",\"}"});
-                table8.AddRow(new string[] {
+                table22.AddRow(new string[] {
                             "v",
                             "\"6\""});
-                table8.AddRow(new string[] {
+                table22.AddRow(new string[] {
                             "x",
                             "\"1024\""});
-                table8.AddRow(new string[] {
+                table22.AddRow(new string[] {
                             "y",
                             "\"768\""});
-                table8.AddRow(new string[] {
+                table22.AddRow(new string[] {
                             "empty",
                             "\"\""});
-                table8.AddRow(new string[] {
+                table22.AddRow(new string[] {
                             "empty_keys",
                             "[]"});
-                table8.AddRow(new string[] {
+                table22.AddRow(new string[] {
                             "undef",
                             "null"});
 #line 82
- testRunner.Given("the variables", ((string)(null)), table8, "Given ");
+ testRunner.Given("the variables", ((string)(null)), table22, "Given ");
 #line hidden
 #line 101
  testRunner.When(string.Format("I apply the variables to the template {0}", template), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
@@ -452,62 +452,62 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-                TechTalk.SpecFlow.Table table9 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table23 = new TechTalk.SpecFlow.Table(new string[] {
                             "name",
                             "value"});
-                table9.AddRow(new string[] {
+                table23.AddRow(new string[] {
                             "count",
                             "[\"one\",\"two\",\"three\"]"});
-                table9.AddRow(new string[] {
+                table23.AddRow(new string[] {
                             "dom",
                             "[\"example\",\"com\"]"});
-                table9.AddRow(new string[] {
+                table23.AddRow(new string[] {
                             "dub",
                             "\"me/too\""});
-                table9.AddRow(new string[] {
+                table23.AddRow(new string[] {
                             "hello",
                             "\"Hello World!\""});
-                table9.AddRow(new string[] {
+                table23.AddRow(new string[] {
                             "half",
                             "\"50%\""});
-                table9.AddRow(new string[] {
+                table23.AddRow(new string[] {
                             "var",
                             "\"value\""});
-                table9.AddRow(new string[] {
+                table23.AddRow(new string[] {
                             "who",
                             "\"fred\""});
-                table9.AddRow(new string[] {
+                table23.AddRow(new string[] {
                             "base",
                             "\"http://example.com/home/\""});
-                table9.AddRow(new string[] {
+                table23.AddRow(new string[] {
                             "path",
                             "\"/foo/bar\""});
-                table9.AddRow(new string[] {
+                table23.AddRow(new string[] {
                             "list",
                             "[\"red\",\"green\",\"blue\"]"});
-                table9.AddRow(new string[] {
+                table23.AddRow(new string[] {
                             "keys",
                             "{\"semi\":\";\",\"dot\":\".\",\"comma\":\",\"}"});
-                table9.AddRow(new string[] {
+                table23.AddRow(new string[] {
                             "v",
                             "\"6\""});
-                table9.AddRow(new string[] {
+                table23.AddRow(new string[] {
                             "x",
                             "\"1024\""});
-                table9.AddRow(new string[] {
+                table23.AddRow(new string[] {
                             "y",
                             "\"768\""});
-                table9.AddRow(new string[] {
+                table23.AddRow(new string[] {
                             "empty",
                             "\"\""});
-                table9.AddRow(new string[] {
+                table23.AddRow(new string[] {
                             "empty_keys",
                             "[]"});
-                table9.AddRow(new string[] {
+                table23.AddRow(new string[] {
                             "undef",
                             "null"});
 #line 127
- testRunner.Given("the variables", ((string)(null)), table9, "Given ");
+ testRunner.Given("the variables", ((string)(null)), table23, "Given ");
 #line hidden
 #line 146
  testRunner.When(string.Format("I apply the variables to the template {0}", template), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
@@ -564,62 +564,62 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-                TechTalk.SpecFlow.Table table10 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table24 = new TechTalk.SpecFlow.Table(new string[] {
                             "name",
                             "value"});
-                table10.AddRow(new string[] {
+                table24.AddRow(new string[] {
                             "count",
                             "[\"one\",\"two\",\"three\"]"});
-                table10.AddRow(new string[] {
+                table24.AddRow(new string[] {
                             "dom",
                             "[\"example\",\"com\"]"});
-                table10.AddRow(new string[] {
+                table24.AddRow(new string[] {
                             "dub",
                             "\"me/too\""});
-                table10.AddRow(new string[] {
+                table24.AddRow(new string[] {
                             "hello",
                             "\"Hello World!\""});
-                table10.AddRow(new string[] {
+                table24.AddRow(new string[] {
                             "half",
                             "\"50%\""});
-                table10.AddRow(new string[] {
+                table24.AddRow(new string[] {
                             "var",
                             "\"value\""});
-                table10.AddRow(new string[] {
+                table24.AddRow(new string[] {
                             "who",
                             "\"fred\""});
-                table10.AddRow(new string[] {
+                table24.AddRow(new string[] {
                             "base",
                             "\"http://example.com/home/\""});
-                table10.AddRow(new string[] {
+                table24.AddRow(new string[] {
                             "path",
                             "\"/foo/bar\""});
-                table10.AddRow(new string[] {
+                table24.AddRow(new string[] {
                             "list",
                             "[\"red\",\"green\",\"blue\"]"});
-                table10.AddRow(new string[] {
+                table24.AddRow(new string[] {
                             "keys",
                             "{\"semi\":\";\",\"dot\":\".\",\"comma\":\",\"}"});
-                table10.AddRow(new string[] {
+                table24.AddRow(new string[] {
                             "v",
                             "\"6\""});
-                table10.AddRow(new string[] {
+                table24.AddRow(new string[] {
                             "x",
                             "\"1024\""});
-                table10.AddRow(new string[] {
+                table24.AddRow(new string[] {
                             "y",
                             "\"768\""});
-                table10.AddRow(new string[] {
+                table24.AddRow(new string[] {
                             "empty",
                             "\"\""});
-                table10.AddRow(new string[] {
+                table24.AddRow(new string[] {
                             "empty_keys",
                             "[]"});
-                table10.AddRow(new string[] {
+                table24.AddRow(new string[] {
                             "undef",
                             "null"});
 #line 164
- testRunner.Given("the variables", ((string)(null)), table10, "Given ");
+ testRunner.Given("the variables", ((string)(null)), table24, "Given ");
 #line hidden
 #line 183
  testRunner.When(string.Format("I apply the variables to the template {0}", template), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
@@ -678,62 +678,62 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-                TechTalk.SpecFlow.Table table11 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table25 = new TechTalk.SpecFlow.Table(new string[] {
                             "name",
                             "value"});
-                table11.AddRow(new string[] {
+                table25.AddRow(new string[] {
                             "count",
                             "[\"one\",\"two\",\"three\"]"});
-                table11.AddRow(new string[] {
+                table25.AddRow(new string[] {
                             "dom",
                             "[\"example\",\"com\"]"});
-                table11.AddRow(new string[] {
+                table25.AddRow(new string[] {
                             "dub",
                             "\"me/too\""});
-                table11.AddRow(new string[] {
+                table25.AddRow(new string[] {
                             "hello",
                             "\"Hello World!\""});
-                table11.AddRow(new string[] {
+                table25.AddRow(new string[] {
                             "half",
                             "\"50%\""});
-                table11.AddRow(new string[] {
+                table25.AddRow(new string[] {
                             "var",
                             "\"value\""});
-                table11.AddRow(new string[] {
+                table25.AddRow(new string[] {
                             "who",
                             "\"fred\""});
-                table11.AddRow(new string[] {
+                table25.AddRow(new string[] {
                             "base",
                             "\"http://example.com/home/\""});
-                table11.AddRow(new string[] {
+                table25.AddRow(new string[] {
                             "path",
                             "\"/foo/bar\""});
-                table11.AddRow(new string[] {
+                table25.AddRow(new string[] {
                             "list",
                             "[\"red\",\"green\",\"blue\"]"});
-                table11.AddRow(new string[] {
+                table25.AddRow(new string[] {
                             "keys",
                             "{\"semi\":\";\",\"dot\":\".\",\"comma\":\",\"}"});
-                table11.AddRow(new string[] {
+                table25.AddRow(new string[] {
                             "v",
                             "\"6\""});
-                table11.AddRow(new string[] {
+                table25.AddRow(new string[] {
                             "x",
                             "\"1024\""});
-                table11.AddRow(new string[] {
+                table25.AddRow(new string[] {
                             "y",
                             "\"768\""});
-                table11.AddRow(new string[] {
+                table25.AddRow(new string[] {
                             "empty",
                             "\"\""});
-                table11.AddRow(new string[] {
+                table25.AddRow(new string[] {
                             "empty_keys",
                             "[]"});
-                table11.AddRow(new string[] {
+                table25.AddRow(new string[] {
                             "undef",
                             "null"});
 #line 204
- testRunner.Given("the variables", ((string)(null)), table11, "Given ");
+ testRunner.Given("the variables", ((string)(null)), table25, "Given ");
 #line hidden
 #line 223
  testRunner.When(string.Format("I apply the variables to the template {0}", template), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
@@ -791,62 +791,62 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-                TechTalk.SpecFlow.Table table12 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table26 = new TechTalk.SpecFlow.Table(new string[] {
                             "name",
                             "value"});
-                table12.AddRow(new string[] {
+                table26.AddRow(new string[] {
                             "count",
                             "[\"one\",\"two\",\"three\"]"});
-                table12.AddRow(new string[] {
+                table26.AddRow(new string[] {
                             "dom",
                             "[\"example\",\"com\"]"});
-                table12.AddRow(new string[] {
+                table26.AddRow(new string[] {
                             "dub",
                             "\"me/too\""});
-                table12.AddRow(new string[] {
+                table26.AddRow(new string[] {
                             "hello",
                             "\"Hello World!\""});
-                table12.AddRow(new string[] {
+                table26.AddRow(new string[] {
                             "half",
                             "\"50%\""});
-                table12.AddRow(new string[] {
+                table26.AddRow(new string[] {
                             "var",
                             "\"value\""});
-                table12.AddRow(new string[] {
+                table26.AddRow(new string[] {
                             "who",
                             "\"fred\""});
-                table12.AddRow(new string[] {
+                table26.AddRow(new string[] {
                             "base",
                             "\"http://example.com/home/\""});
-                table12.AddRow(new string[] {
+                table26.AddRow(new string[] {
                             "path",
                             "\"/foo/bar\""});
-                table12.AddRow(new string[] {
+                table26.AddRow(new string[] {
                             "list",
                             "[\"red\",\"green\",\"blue\"]"});
-                table12.AddRow(new string[] {
+                table26.AddRow(new string[] {
                             "keys",
                             "{\"semi\":\";\",\"dot\":\".\",\"comma\":\",\"}"});
-                table12.AddRow(new string[] {
+                table26.AddRow(new string[] {
                             "v",
                             "\"6\""});
-                table12.AddRow(new string[] {
+                table26.AddRow(new string[] {
                             "x",
                             "\"1024\""});
-                table12.AddRow(new string[] {
+                table26.AddRow(new string[] {
                             "y",
                             "\"768\""});
-                table12.AddRow(new string[] {
+                table26.AddRow(new string[] {
                             "empty",
                             "\"\""});
-                table12.AddRow(new string[] {
+                table26.AddRow(new string[] {
                             "empty_keys",
                             "[]"});
-                table12.AddRow(new string[] {
+                table26.AddRow(new string[] {
                             "undef",
                             "null"});
 #line 244
- testRunner.Given("the variables", ((string)(null)), table12, "Given ");
+ testRunner.Given("the variables", ((string)(null)), table26, "Given ");
 #line hidden
 #line 263
  testRunner.When(string.Format("I apply the variables to the template {0}", template), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
@@ -901,62 +901,62 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-                TechTalk.SpecFlow.Table table13 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table27 = new TechTalk.SpecFlow.Table(new string[] {
                             "name",
                             "value"});
-                table13.AddRow(new string[] {
+                table27.AddRow(new string[] {
                             "count",
                             "[\"one\",\"two\",\"three\"]"});
-                table13.AddRow(new string[] {
+                table27.AddRow(new string[] {
                             "dom",
                             "[\"example\",\"com\"]"});
-                table13.AddRow(new string[] {
+                table27.AddRow(new string[] {
                             "dub",
                             "\"me/too\""});
-                table13.AddRow(new string[] {
+                table27.AddRow(new string[] {
                             "hello",
                             "\"Hello World!\""});
-                table13.AddRow(new string[] {
+                table27.AddRow(new string[] {
                             "half",
                             "\"50%\""});
-                table13.AddRow(new string[] {
+                table27.AddRow(new string[] {
                             "var",
                             "\"value\""});
-                table13.AddRow(new string[] {
+                table27.AddRow(new string[] {
                             "who",
                             "\"fred\""});
-                table13.AddRow(new string[] {
+                table27.AddRow(new string[] {
                             "base",
                             "\"http://example.com/home/\""});
-                table13.AddRow(new string[] {
+                table27.AddRow(new string[] {
                             "path",
                             "\"/foo/bar\""});
-                table13.AddRow(new string[] {
+                table27.AddRow(new string[] {
                             "list",
                             "[\"red\",\"green\",\"blue\"]"});
-                table13.AddRow(new string[] {
+                table27.AddRow(new string[] {
                             "keys",
                             "{\"semi\":\";\",\"dot\":\".\",\"comma\":\",\"}"});
-                table13.AddRow(new string[] {
+                table27.AddRow(new string[] {
                             "v",
                             "\"6\""});
-                table13.AddRow(new string[] {
+                table27.AddRow(new string[] {
                             "x",
                             "\"1024\""});
-                table13.AddRow(new string[] {
+                table27.AddRow(new string[] {
                             "y",
                             "\"768\""});
-                table13.AddRow(new string[] {
+                table27.AddRow(new string[] {
                             "empty",
                             "\"\""});
-                table13.AddRow(new string[] {
+                table27.AddRow(new string[] {
                             "empty_keys",
                             "[]"});
-                table13.AddRow(new string[] {
+                table27.AddRow(new string[] {
                             "undef",
                             "null"});
 #line 283
- testRunner.Given("the variables", ((string)(null)), table13, "Given ");
+ testRunner.Given("the variables", ((string)(null)), table27, "Given ");
 #line hidden
 #line 302
  testRunner.When(string.Format("I apply the variables to the template {0}", template), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
@@ -1009,62 +1009,62 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-                TechTalk.SpecFlow.Table table14 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table28 = new TechTalk.SpecFlow.Table(new string[] {
                             "name",
                             "value"});
-                table14.AddRow(new string[] {
+                table28.AddRow(new string[] {
                             "count",
                             "[\"one\",\"two\",\"three\"]"});
-                table14.AddRow(new string[] {
+                table28.AddRow(new string[] {
                             "dom",
                             "[\"example\",\"com\"]"});
-                table14.AddRow(new string[] {
+                table28.AddRow(new string[] {
                             "dub",
                             "\"me/too\""});
-                table14.AddRow(new string[] {
+                table28.AddRow(new string[] {
                             "hello",
                             "\"Hello World!\""});
-                table14.AddRow(new string[] {
+                table28.AddRow(new string[] {
                             "half",
                             "\"50%\""});
-                table14.AddRow(new string[] {
+                table28.AddRow(new string[] {
                             "var",
                             "\"value\""});
-                table14.AddRow(new string[] {
+                table28.AddRow(new string[] {
                             "who",
                             "\"fred\""});
-                table14.AddRow(new string[] {
+                table28.AddRow(new string[] {
                             "base",
                             "\"http://example.com/home/\""});
-                table14.AddRow(new string[] {
+                table28.AddRow(new string[] {
                             "path",
                             "\"/foo/bar\""});
-                table14.AddRow(new string[] {
+                table28.AddRow(new string[] {
                             "list",
                             "[\"red\",\"green\",\"blue\"]"});
-                table14.AddRow(new string[] {
+                table28.AddRow(new string[] {
                             "keys",
                             "{\"semi\":\";\",\"dot\":\".\",\"comma\":\",\"}"});
-                table14.AddRow(new string[] {
+                table28.AddRow(new string[] {
                             "v",
                             "\"6\""});
-                table14.AddRow(new string[] {
+                table28.AddRow(new string[] {
                             "x",
                             "\"1024\""});
-                table14.AddRow(new string[] {
+                table28.AddRow(new string[] {
                             "y",
                             "\"768\""});
-                table14.AddRow(new string[] {
+                table28.AddRow(new string[] {
                             "empty",
                             "\"\""});
-                table14.AddRow(new string[] {
+                table28.AddRow(new string[] {
                             "empty_keys",
                             "[]"});
-                table14.AddRow(new string[] {
+                table28.AddRow(new string[] {
                             "undef",
                             "null"});
 #line 319
- testRunner.Given("the variables", ((string)(null)), table14, "Given ");
+ testRunner.Given("the variables", ((string)(null)), table28, "Given ");
 #line hidden
 #line 338
  testRunner.When(string.Format("I apply the variables to the template {0}", template), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");

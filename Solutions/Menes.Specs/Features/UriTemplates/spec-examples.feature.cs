@@ -104,17 +104,17 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-                TechTalk.SpecFlow.Table table15 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table29 = new TechTalk.SpecFlow.Table(new string[] {
                             "name",
                             "value"});
-                table15.AddRow(new string[] {
+                table29.AddRow(new string[] {
                             "var",
                             "\"value\""});
-                table15.AddRow(new string[] {
+                table29.AddRow(new string[] {
                             "hello",
                             "\"Hello World!\""});
 #line 5
- testRunner.Given("the variables", ((string)(null)), table15, "Given ");
+ testRunner.Given("the variables", ((string)(null)), table29, "Given ");
 #line hidden
 #line 9
  testRunner.When(string.Format("I apply the variables to the template {0}", template), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
@@ -159,20 +159,20 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-                TechTalk.SpecFlow.Table table16 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table30 = new TechTalk.SpecFlow.Table(new string[] {
                             "name",
                             "value"});
-                table16.AddRow(new string[] {
+                table30.AddRow(new string[] {
                             "var",
                             "\"value\""});
-                table16.AddRow(new string[] {
+                table30.AddRow(new string[] {
                             "hello",
                             "\"Hello World!\""});
-                table16.AddRow(new string[] {
+                table30.AddRow(new string[] {
                             "path",
                             "\"/foo/bar\""});
 #line 18
- testRunner.Given("the variables", ((string)(null)), table16, "Given ");
+ testRunner.Given("the variables", ((string)(null)), table30, "Given ");
 #line hidden
 #line 23
  testRunner.When(string.Format("I apply the variables to the template {0}", template), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
@@ -229,29 +229,29 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-                TechTalk.SpecFlow.Table table17 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table31 = new TechTalk.SpecFlow.Table(new string[] {
                             "name",
                             "value"});
-                table17.AddRow(new string[] {
+                table31.AddRow(new string[] {
                             "var",
                             "\"value\""});
-                table17.AddRow(new string[] {
+                table31.AddRow(new string[] {
                             "hello",
                             "\"Hello World!\""});
-                table17.AddRow(new string[] {
+                table31.AddRow(new string[] {
                             "empty",
                             "\"\""});
-                table17.AddRow(new string[] {
+                table31.AddRow(new string[] {
                             "path",
                             "\"/foo/bar\""});
-                table17.AddRow(new string[] {
+                table31.AddRow(new string[] {
                             "x",
                             "\"1024\""});
-                table17.AddRow(new string[] {
+                table31.AddRow(new string[] {
                             "y",
                             "\"768\""});
 #line 34
- testRunner.Given("the variables", ((string)(null)), table17, "Given ");
+ testRunner.Given("the variables", ((string)(null)), table31, "Given ");
 #line hidden
 #line 42
  testRunner.When(string.Format("I apply the variables to the template {0}", template), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
@@ -357,26 +357,26 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-                TechTalk.SpecFlow.Table table18 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table32 = new TechTalk.SpecFlow.Table(new string[] {
                             "name",
                             "value"});
-                table18.AddRow(new string[] {
+                table32.AddRow(new string[] {
                             "var",
                             "\"value\""});
-                table18.AddRow(new string[] {
+                table32.AddRow(new string[] {
                             "hello",
                             "\"Hello World!\""});
-                table18.AddRow(new string[] {
+                table32.AddRow(new string[] {
                             "path",
                             "\"/foo/bar\""});
-                table18.AddRow(new string[] {
+                table32.AddRow(new string[] {
                             "list",
                             "[\"red\",\"green\",\"blue\"]"});
-                table18.AddRow(new string[] {
+                table32.AddRow(new string[] {
                             "keys",
                             "{\"semi\":\";\",\"dot\":\".\",\"comma\":\",\"}"});
 #line 65
- testRunner.Given("the variables", ((string)(null)), table18, "Given ");
+ testRunner.Given("the variables", ((string)(null)), table32, "Given ");
 #line hidden
 #line 72
  testRunner.When(string.Format("I apply the variables to the template {0}", template), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
