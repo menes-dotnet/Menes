@@ -35,6 +35,18 @@ namespace Menes.Json.UriTemplates
         /// <param name="parameters">The parameters to apply in a query string.</param>
         /// <returns>The URI template with the corresponding query string parameters.</returns>
         /// <remarks>It is expected the parameters for the query string have already been exploded if appropriate.</remarks>
+        public static UriTemplate MakeTemplate(this Uri uri, params (string key, JsonAny value)[] parameters)
+        {
+            return MakeTemplate(uri, parameters.ToImmutableDictionary(p => p.key, p => p.value));
+        }
+
+        /// <summary>
+        /// Make a template from a URI and a given set of parameters to use as a query string.
+        /// </summary>
+        /// <param name="uri">The uri from which to make a template.</param>
+        /// <param name="parameters">The parameters to apply in a query string.</param>
+        /// <returns>The URI template with the corresponding query string parameters.</returns>
+        /// <remarks>It is expected the parameters for the query string have already been exploded if appropriate.</remarks>
         public static UriTemplate MakeTemplate(this Uri uri, ImmutableDictionary<string, JsonAny> parameters)
         {
             string target = uri.GetComponents(

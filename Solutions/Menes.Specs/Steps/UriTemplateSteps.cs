@@ -31,6 +31,40 @@ namespace Steps
         }
 
         /// <summary>
+        /// Make a template for the URI in the context variable <c>TargetUri</c> using the given parameters and stores it in the context variable <c>Template</c>.
+        /// </summary>
+        /// <param name="table">The parameters to apply.</param>
+        [When(@"I make a template for the target uri with the parameters")]
+        public void WhenIMakeATemplateForTheTargetUriWithTheParameters(Table table)
+        {
+            ImmutableDictionary<string, JsonAny>.Builder parameters = ImmutableDictionary.CreateBuilder<string, JsonAny>();
+            foreach (TableRow row in table.Rows)
+            {
+                parameters.Add(row["name"], JsonAny.ParseUriValue(row["value"]));
+            }
+
+            this.scenarioContext.Set(this.scenarioContext.Get<Uri>("TargetUri").MakeTemplate(parameters.ToImmutable()), "Template");
+        }
+
+        /// <summary>
+        /// Make a template for the URI in the context variable <c>TargetUri</c> using the given parameters and stores it in the context variable <c>Template</c>.
+        /// </summary>
+        /// <param name="table">The parameters to apply.</param>
+        [When(@"I make a template for the target uri with the parameters as params")]
+        public void WhenIMakeATemplateForTheTargetUriWithTheParametersAsParams(Table table)
+        {
+            var parameters = new (string, JsonAny)[table.Rows.Count];
+            int index = 0;
+            foreach (TableRow row in table.Rows)
+            {
+                parameters[index] = (row["name"], JsonAny.ParseUriValue(row["value"]));
+                index++;
+            }
+
+            this.scenarioContext.Set(this.scenarioContext.Get<Uri>("TargetUri").MakeTemplate(parameters), "Template");
+        }
+
+        /// <summary>
         /// Sets the target uri into a context variable called <c>TargetUri</c>.
         /// </summary>
         /// <param name="targetUri">The target uri.</param>
@@ -58,7 +92,7 @@ namespace Steps
         public void WhenISetTheParameterCalledTo(string name, string value)
         {
             ImmutableDictionary<string, JsonAny> parameters = this.scenarioContext.Get<ImmutableDictionary<string, JsonAny>>("Parameters");
-            this.scenarioContext.Set(parameters.SetItem(name, JsonAny.Parse(value)), "Parameters");
+            this.scenarioContext.Set(parameters.SetItem(name, JsonAny.ParseUriValue(value)), "Parameters");
         }
 
         /// <summary>
@@ -88,7 +122,7 @@ namespace Steps
                 }
             }
 
-            Assert.Fail($"Saw saw {resolved} but expected one of\r\n{table.ToString()}");
+            Assert.Fail($"Saw {resolved} but expected one of\r\n{table.ToString()}");
         }
 
         /// <summary>
@@ -108,7 +142,7 @@ namespace Steps
         [When(@"I set the template parameter called ""(.*)"" to ""(.*)""")]
         public void WhenISetTheTemplateParameterCalledTo(string name, string value)
         {
-            this.scenarioContext.Set(this.scenarioContext.Get<UriTemplate>("Template").SetParameter(name, JsonAny.Parse(value)), "Template");
+            this.scenarioContext.Set(this.scenarioContext.Get<UriTemplate>("Template").SetParameter(name, JsonAny.ParseUriValue(value)), "Template");
         }
 
         /// <summary>
