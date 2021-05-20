@@ -242,24 +242,43 @@ namespace Menes.Json
         /// Create a <see cref="JsonObject"/> from a dictionary of key value pairs of objects.
         /// </summary>
         /// <param name="keyValuePairs">The dictionary of objects.</param>
+        /// <param name="options">The (optional) <see cref="JsonWriterOptions"/>.</param>
         /// <returns>A <see cref="JsonObject"/> constructed from a dictionary of objects.</returns>
         /// <remarks>
         /// Note that this will serialize the object to be constructed. You should consider a non-serializing
         /// method of constructing a JSON object where possible.
         /// </remarks>
-        public static JsonObject From(IDictionary<string, object> keyValuePairs)
+        public static JsonObject From(IDictionary<string, object> keyValuePairs, JsonWriterOptions options = default)
         {
             ImmutableDictionary<string, JsonAny>.Builder builder = ImmutableDictionary.CreateBuilder<string, JsonAny>();
             foreach ((string key, object value) in keyValuePairs)
             {
-                var abw = new ArrayBufferWriter<byte>();
-                using var writer = new Utf8JsonWriter(abw);
-                JsonSerializer.Serialize(writer, value);
-                writer.Flush();
-                builder.Add(key, JsonAny.Parse(abw.WrittenMemory));
+                builder.Add(key, JsonAny.From(value, options));
             }
 
             return new JsonObject(builder.ToImmutable());
+        }
+
+        /// <summary>
+        /// Create a <see cref="JsonObject"/> from an arbitrary object.
+        /// </summary>
+        /// <typeparam name="T">The type of object from which to create the <see cref="JsonObject"/>.</typeparam>
+        /// <param name="value">The value from which to construct the JsonObject.</param>
+        /// <param name="options">The (optional) <see cref="JsonWriterOptions"/>.</param>
+        /// <returns>A <see cref="JsonObject"/> constructed from serialized object.</returns>
+        /// <remarks>
+        /// Note that this will serialize the object to be constructed. You should consider a non-serializing
+        /// method of constructing a JSON object where possible.
+        /// </remarks>
+        public static JsonObject From<T>(T value, JsonWriterOptions options = default)
+        {
+            var any = JsonAny.From(value, options);
+            if (any.ValueKind != JsonValueKind.Object)
+            {
+                throw new ArgumentException($"The value must be serializable to {JsonValueKind.Object}, but were {any.ValueKind}", nameof(value));
+            }
+
+            return any;
         }
 
         /// <summary>

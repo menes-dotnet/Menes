@@ -51,6 +51,21 @@ namespace Menes
 
             Console.WriteLine(uriTemplate2.Resolve());
 
+            JsonObject someObject = 
+                JsonAny.From(new {
+                    var = "value`",
+                    @int = 4,
+                    @double = 4.4,
+                    hello = "Goobye, cruel world!",
+                    path = "/baz/bat",
+                    list = new[] { "cyan", "magenta", "yellow" },
+                    keys =
+                    new { 
+                        notsemi = "&",
+                        notdot = "!",
+                        notcomma = "_"
+                    },
+                });
 
             ////Schema schema = JsonAny.Parse(@"{""foo"": {""bar"": false}}");
 

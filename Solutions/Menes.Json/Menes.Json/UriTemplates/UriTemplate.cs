@@ -254,13 +254,23 @@ namespace Menes.Json.UriTemplates
         /// <remarks>This serializes the object, and treats each property on the resulting <see cref="JsonObject"/> as a named parameter value.</remarks>
         public UriTemplate SetParameters<T>(T parameters, JsonWriterOptions options = default)
         {
-            var any = JsonAny.From(parameters, options);
-            if (any.ValueKind != JsonValueKind.Object)
+            return this.SetParameters(JsonObject.From(parameters, options));
+        }
+
+        /// <summary>
+        /// Sets multiple parameters on the URI template.
+        /// </summary>
+        /// <param name="parameters">The parameters to set.</param>
+        /// <returns>An instance of the template with the updated parameters.</returns>
+        /// <remarks>This treats each property on the <see cref="JsonObject"/> as a named parameter value.</remarks>
+        public UriTemplate SetParameters(JsonAny parameters)
+        {
+            if (parameters.ValueKind != JsonValueKind.Object)
             {
-                throw new ArgumentException($"The parameters must be serializable to {JsonValueKind.Object}, but were {any.ValueKind}", nameof(parameters));
+                throw new ArgumentException($"The parameters must be {JsonValueKind.Object}, but were {parameters.ValueKind}", nameof(parameters));
             }
 
-            return this.SetParameters(any);
+            return this.SetParameters(parameters.AsObject);
         }
 
         /// <summary>
