@@ -7,7 +7,7 @@ namespace Menes.Json.UriTemplates
 {
     using System;
     using System.Collections.Immutable;
-    using System.Linq;
+    using System.Text;
     using System.Text.RegularExpressions;
 
     /// <summary>
@@ -15,6 +15,8 @@ namespace Menes.Json.UriTemplates
     /// </summary>
     public static class UriExtensions
     {
+        private static readonly Regex UnreservedCharacters = new Regex(@"([-A-Za-z0-9._~]*)=([^&]*)&?", RegexOptions.Compiled);       //// Unreserved characters: http://tools.ietf.org/html/rfc3986#section-2.3
+
         /// <summary>
         /// Make a template from a URI and its query string parameters.
         /// </summary>
@@ -39,9 +41,38 @@ namespace Menes.Json.UriTemplates
                 UriComponents.AbsoluteUri
                 & ~UriComponents.Query
                 & ~UriComponents.Fragment, UriFormat.Unescaped);
-            var template = new UriTemplate(target + "{?" + string.Join(",", parameters.Keys.ToArray()) + "}", false, parameters, null);
 
-            return template;
+            StringBuilder sb = StringBuilderPool.Shared.Get();
+            try
+            {
+                sb.Append(target);
+                sb.Append("{?");
+                bool first = true;
+
+                foreach (string name in parameters.Keys)
+                {
+                    if (first)
+                    {
+                        first = false;
+                    }
+                    else
+                    {
+                        sb.Append(",");
+                    }
+
+                    sb.Append(name);
+                }
+
+                sb.Append("}");
+
+                var template = new UriTemplate(sb.ToString(), false, parameters, null);
+
+                return template;
+            }
+            finally
+            {
+                StringBuilderPool.Shared.Return(sb);
+            }
         }
 
         /// <summary>
@@ -54,12 +85,11 @@ namespace Menes.Json.UriTemplates
             Uri uri = target;
             ImmutableDictionary<string, JsonAny>.Builder? parameters = ImmutableDictionary.CreateBuilder<string, JsonAny>();
 
-            var reg = new Regex(@"([-A-Za-z0-9._~]*)=([^&]*)&?");       //// Unreserved characters: http://tools.ietf.org/html/rfc3986#section-2.3
-            foreach (Match m in reg.Matches(uri.Query))
+            foreach (Match m in UnreservedCharacters.Matches(uri.Query))
             {
                 string key = m.Groups[1].Value.ToLowerInvariant();
                 string value = m.Groups[2].Value;
-                parameters.Add(key, value);
+                parameters.Add(key, JsonAny.ParseUriValue(value));
             }
 
             return parameters.ToImmutable();

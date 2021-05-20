@@ -8,7 +8,7 @@ using System.Text.Json;
 using Menes.Json;
 
 /// <summary>
-/// Wraps a <see cref="Property"/> to create a scenario.
+/// Wraps a <see cref="JsonArray"/> to create a test case.
 /// </summary>
 public readonly struct TestCase
 {

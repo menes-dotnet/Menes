@@ -31,10 +31,101 @@ namespace Steps
         }
 
         /// <summary>
+        /// Sets the target uri into a context variable called <c>TargetUri</c>.
+        /// </summary>
+        /// <param name="targetUri">The target uri.</param>
+        [Given(@"the target uri ""(.*)""")]
+        public void GivenTheTargetUri(string targetUri)
+        {
+            this.scenarioContext.Set(new Uri(targetUri, UriKind.RelativeOrAbsolute), "TargetUri");
+        }
+
+        /// <summary>
+        /// Sets the query string parameters for the target URI in the context variable <c>TargetUri</c> into a context variable called <c>Parameters</c>.
+        /// </summary>
+        [When(@"I get the query string parameters for the target uri")]
+        public void WhenIGetTheQueryStringParametersForTheTargetUri()
+        {
+            this.scenarioContext.Set(this.scenarioContext.Get<Uri>("TargetUri").GetQueryStringParameters(), "Parameters");
+        }
+
+        /// <summary>
+        /// Sets the named parameter in the context variable called <c>Parameters</c> to the given value.
+        /// </summary>
+        /// <param name="name">The name of the parameter.</param>
+        /// <param name="value">The value of the parameter, in JSON format.</param>
+        [When(@"I set the parameter called ""(.*)"" to ""(.*)""")]
+        public void WhenISetTheParameterCalledTo(string name, string value)
+        {
+            ImmutableDictionary<string, JsonAny> parameters = this.scenarioContext.Get<ImmutableDictionary<string, JsonAny>>("Parameters");
+            this.scenarioContext.Set(parameters.SetItem(name, JsonAny.Parse(value)), "Parameters");
+        }
+
+        /// <summary>
+        /// Makes a URI template for the target uri in the context variable <c>TargetUri</c> using the parameters in the context variable <c>Parameters</c> and sets it into a context variable called <c>Template</c>.
+        /// </summary>
+        [When(@"I make a template for the target uri from the parameters")]
+        public void WhenIMakeATemplateForTheTargetUriFromTheParameters()
+        {
+            this.scenarioContext.Set(
+                this.scenarioContext.Get<Uri>("TargetUri").MakeTemplate(this.scenarioContext.Get<ImmutableDictionary<string, JsonAny>>("Parameters")),
+                "Template");
+        }
+
+        /// <summary>
+        /// Matches the resolved template in the context variable <c>Template</c> with the expected value.
+        /// </summary>
+        /// <param name="table">The table of possible values to match.</param>
+        [Then(@"the resolved template should be one of")]
+        public void ThenTheResovledTemplateShouldBeOneOf(Table table)
+        {
+            string resolved = this.scenarioContext.Get<UriTemplate>("Template").Resolve();
+            foreach (TableRow row in table.Rows)
+            {
+                if (row[0] == resolved)
+                {
+                    return;
+                }
+            }
+
+            Assert.Fail($"Saw saw {resolved} but expected one of\r\n{table.ToString()}");
+        }
+
+        /// <summary>
+        /// Makes a template for the target URI in the context variable <c>TargetUri</c> and stores it in the context variable <c>Template</c>.
+        /// </summary>
+        [Given(@"I make a template for the target uri")]
+        public void GivenIMakeATemplateForTheTargetUri()
+        {
+            this.scenarioContext.Set(this.scenarioContext.Get<Uri>("TargetUri").MakeTemplate(), "Template");
+        }
+
+        /// <summary>
+        /// Set a parameter on the URI template stored in the context variable <c>Template</c>, and writes it back to the context.
+        /// </summary>
+        /// <param name="name">The parmaeter name.</param>
+        /// <param name="value">The new value, in JSON form.</param>
+        [When(@"I set the template parameter called ""(.*)"" to ""(.*)""")]
+        public void WhenISetTheTemplateParameterCalledTo(string name, string value)
+        {
+            this.scenarioContext.Set(this.scenarioContext.Get<UriTemplate>("Template").SetParameter(name, JsonAny.Parse(value)), "Template");
+        }
+
+        /// <summary>
+        /// Removes a parameter from the URI template stored in the context variable <c>Template</c>, and writes it back to the context.
+        /// </summary>
+        /// <param name="name">The parmaeter name.</param>
+        [When(@"I clear the template parameter called ""(.*)""")]
+        public void WhenIClearTheTemplateParameterCalled(string name)
+        {
+            this.scenarioContext.Set(this.scenarioContext.Get<UriTemplate>("Template").ClearParameter(name), "Template");
+        }
+
+        /// <summary>
         /// Creates a regex for the given template expression and stores it in the context variable "Regex".
         /// </summary>
         /// <param name="regex">The regex expression.</param>
-        [Given(@"I create a regex for the template ""(.*)""")]
+        [When(@"I create a regex for the template ""(.*)""")]
         public void GivenICreateARegexForTheTemplate(string regex)
         {
             this.scenarioContext.Set(new Regex(UriTemplate.CreateMatchingRegex(regex)), "Regex");
@@ -69,7 +160,7 @@ namespace Steps
         /// Creates a URI template for the given template expression and stores it in the context variable "UriTemplate".
         /// </summary>
         /// <param name="uriTemplate">The template expression.</param>
-        [Given(@"I create a UriTemplate for ""(.*)""")]
+        [When(@"I create a UriTemplate for ""(.*)""")]
         public void GivenICreateAUriTemplateFor(string uriTemplate)
         {
             this.scenarioContext.Set(new UriTemplate(uriTemplate), "UriTemplate");
@@ -83,12 +174,12 @@ namespace Steps
         [Then(@"the parameters for ""(.*)"" should be")]
         public void ThenTheParametersForShouldBe(string uri, Table parameters)
         {
-            if (this.scenarioContext.Get<UriTemplate>("UriTemplate").TryGetParameters(new Uri(uri, UriKind.RelativeOrAbsolute), out ImmutableDictionary<string, string>? actual))
+            if (this.scenarioContext.Get<UriTemplate>("UriTemplate").TryGetParameters(new Uri(uri, UriKind.RelativeOrAbsolute), out ImmutableDictionary<string, JsonAny>? actual))
             {
                 Assert.AreEqual(parameters.RowCount, actual.Count);
                 foreach (TableRow row in parameters.Rows)
                 {
-                    Assert.AreEqual(row["value"], actual[row["name"]]);
+                    Assert.AreEqual(JsonAny.ParseUriValue(row["value"]), actual[row["name"]]);
                 }
             }
             else

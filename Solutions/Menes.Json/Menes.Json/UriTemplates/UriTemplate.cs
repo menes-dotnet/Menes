@@ -210,13 +210,13 @@ namespace Menes.Json.UriTemplates
         /// <param name="uri">The URI from which to get the parameters.</param>
         /// <param name="parameters">The parameters decomposed from the Uri.</param>
         /// <returns>True if the parameters were successfully decomposed, otherwise false.</returns>
-        public bool TryGetParameters(Uri uri, [NotNullWhen(true)] out ImmutableDictionary<string, string>? parameters)
+        public bool TryGetParameters(Uri uri, [NotNullWhen(true)] out ImmutableDictionary<string, JsonAny>? parameters)
         {
             Regex regex = this.parameterRegex ?? new Regex(CreateMatchingRegex(this.template));
             Match match = regex.Match(uri.OriginalString);
             if (match.Success)
             {
-                ImmutableDictionary<string, string>.Builder result = ImmutableDictionary.CreateBuilder<string, string>();
+                ImmutableDictionary<string, JsonAny>.Builder result = ImmutableDictionary.CreateBuilder<string, JsonAny>();
 
                 for (int x = 1; x < match.Groups.Count; x++)
                 {
@@ -225,7 +225,7 @@ namespace Menes.Json.UriTemplates
                         string paramName = regex.GroupNameFromNumber(x);
                         if (!string.IsNullOrEmpty(paramName))
                         {
-                            result.Add(paramName, Uri.UnescapeDataString(match.Groups[x].Value));
+                            result.Add(paramName, JsonAny.ParseUriValue(Uri.UnescapeDataString(match.Groups[x].Value)));
                         }
                     }
                 }

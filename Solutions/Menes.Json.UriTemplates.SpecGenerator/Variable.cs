@@ -7,7 +7,7 @@ using System.Text.Json;
 using Menes.Json;
 
 /// <summary>
-/// Wraps a <see cref="Property"/> to create a scenario.
+/// Wraps a <see cref="Property"/> to create a variable.
 /// </summary>
 public readonly struct Variable
 {

@@ -655,6 +655,66 @@ namespace Menes.Json
         }
 
         /// <summary>
+        /// Parses a naked value from a URI string.
+        /// </summary>
+        /// <param name="value">The value to parse.</param>
+        /// <param name="options">The (optional) JsonDocumentOptions.</param>
+        /// <returns>A <see cref="JsonAny"/> instance representing the value.</returns>
+        public static JsonAny ParseUriValue(string value, JsonDocumentOptions options = default)
+        {
+            try
+            {
+                // Try to parse the naked value from the URI
+                return Parse(value, options);
+            }
+            catch (Exception)
+            {
+                // In the event of being unable to parse, treat it as a string.
+                return value;
+            }
+        }
+
+        /// <summary>
+        /// Parses a naked value from a URI UTF8-encoded byte array.
+        /// </summary>
+        /// <param name="value">The value to parse.</param>
+        /// <param name="options">The (optional) JsonDocumentOptions.</param>
+        /// <returns>A <see cref="JsonAny"/> instance representing the value.</returns>
+        public static JsonAny ParseUriValue(ReadOnlyMemory<byte> value, JsonDocumentOptions options = default)
+        {
+            try
+            {
+                // Try to parse the naked value from the URI
+                return Parse(value, options);
+            }
+            catch (Exception)
+            {
+                // In the event of being unable to parse, treat it as a string.
+                return new JsonAny(value.Span);
+            }
+        }
+
+        /// <summary>
+        /// Parses a naked value from a URI string.
+        /// </summary>
+        /// <param name="value">The value to parse.</param>
+        /// <param name="options">The (optional) JsonDocumentOptions.</param>
+        /// <returns>A <see cref="JsonAny"/> instance representing the value.</returns>
+        public static JsonAny ParseUriValue(ReadOnlyMemory<char> value, JsonDocumentOptions options = default)
+        {
+            try
+            {
+                // Try to parse the naked value from the URI
+                return Parse(value, options);
+            }
+            catch (Exception)
+            {
+                // In the event of being unable to parse, treat it as a string.
+                return new JsonAny(value.Span);
+            }
+        }
+
+        /// <summary>
         /// Parses a JSON string into a JsonAny.
         /// </summary>
         /// <param name="utf8Json">The json string to parse.</param>
