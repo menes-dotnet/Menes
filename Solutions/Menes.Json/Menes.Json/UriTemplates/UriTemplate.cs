@@ -245,6 +245,71 @@ namespace Menes.Json.UriTemplates
         }
 
         /// <summary>
+        /// Sets multiple parameters on the URI template.
+        /// </summary>
+        /// <typeparam name="T">The type of the object to use to set parameters.</typeparam>
+        /// <param name="parameters">The parameters to set.</param>
+        /// <param name="options">The (optional) serialization options.</param>
+        /// <returns>An instance of the template with the updated parameters.</returns>
+        /// <remarks>This serializes the object, and treats each property on the resulting <see cref="JsonObject"/> as a named parameter value.</remarks>
+        public UriTemplate SetParameters<T>(T parameters, JsonWriterOptions options = default)
+        {
+            var any = JsonAny.From(parameters, options);
+            if (any.ValueKind != JsonValueKind.Object)
+            {
+                throw new ArgumentException($"The parameters must be serializable to {JsonValueKind.Object}, but were {any.ValueKind}", nameof(parameters));
+            }
+
+            return this.SetParameters(any);
+        }
+
+        /// <summary>
+        /// Sets multiple parameters on the URI template.
+        /// </summary>
+        /// <param name="parameters">The parameters to set.</param>
+        /// <returns>An instance of the template with the updated parameters.</returns>
+        /// <remarks>This treats each property on the <see cref="JsonObject"/> as a named parameter value.</remarks>
+        public UriTemplate SetParameters(JsonObject parameters)
+        {
+            ImmutableDictionary<string, JsonAny>.Builder builder = ImmutableDictionary.CreateBuilder<string, JsonAny>(this.parameters.KeyComparer);
+            builder.AddRange(this.parameters);
+            foreach (Property property in parameters.EnumerateObject())
+            {
+                string name = property.Name;
+                if (builder.ContainsKey(name))
+                {
+                    builder.Remove(name);
+                }
+
+                builder.Add(name, property.Value);
+            }
+
+            return new UriTemplate(this.template, this.resolvePartially, builder.ToImmutable(), this.parameterRegex);
+        }
+
+        /// <summary>
+        /// Sets multiple parameters on the URI template.
+        /// </summary>
+        /// <param name="parameters">The parameters to set.</param>
+        /// <returns>An instance of the template with the updated parameters.</returns>
+        public UriTemplate SetParameters(params (string, JsonAny)[] parameters)
+        {
+            ImmutableDictionary<string, JsonAny>.Builder builder = ImmutableDictionary.CreateBuilder<string, JsonAny>(this.parameters.KeyComparer);
+            builder.AddRange(this.parameters);
+            foreach ((string name, JsonAny value) in parameters)
+            {
+                if (builder.ContainsKey(name))
+                {
+                    builder.Remove(name);
+                }
+
+                builder.Add(name, value);
+            }
+
+            return new UriTemplate(this.template, this.resolvePartially, builder.ToImmutable(), this.parameterRegex);
+        }
+
+        /// <summary>
         /// Sets the named parameter to the given value.
         /// </summary>
         /// <typeparam name="T">The type of the value to set.</typeparam>

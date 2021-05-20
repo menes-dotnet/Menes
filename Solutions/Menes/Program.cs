@@ -6,6 +6,7 @@
 
 namespace Menes
 {
+    using System;
     using System.Buffers;
     using System.IO;
     using System.Linq;
@@ -24,13 +25,32 @@ namespace Menes
     {
         static async Task Main(string[] args)
         {
-            UriTemplate uriTemplate = new UriTemplate("{;keys*}");
-            uriTemplate = uriTemplate.SetParameter("var", "value");
-            uriTemplate = uriTemplate.SetParameter("hello", "Hello World!");
-            uriTemplate = uriTemplate.SetParameter("path", "/foo/bar");
-            uriTemplate = uriTemplate.SetParameter("list", JsonAny.Parse("[\"red\", \"green\", \"blue\"]"));
-            uriTemplate = uriTemplate.SetParameter("keys", JsonAny.Parse("{ \"semi\": \";\", \"dot\": \".\", \"comma\": \",\"}"));
-            var result = uriTemplate.Resolve();
+            UriTemplate uriTemplate = new UriTemplate("/{var}/{int}/{hello}{?double,boolean,path,list*,keys*}");
+            uriTemplate = uriTemplate.SetParameters(
+                ("var", "value"),
+                ("int", 3),
+                ("double", 3.3),
+                ("boolean", true),
+                ("hello", "Hello World!"),
+                ("path", "/foo/bar"),
+                ("list", JsonArray.From("red", "green", "blue")),
+                ("keys", JsonObject.From(("semi", ";"), ("dot", "."), ("comma", ","))));
+
+            Console.WriteLine(uriTemplate.Resolve());
+
+            UriTemplate uriTemplate2 = new UriTemplate("/{var}/{int}/{hello}{?double,boolean,path,list*,keys*}");
+            uriTemplate2 = uriTemplate.SetParameters(new {
+                var = "value`",
+                @int = 4,
+                @double = 4.4,
+                hello = "Goobye, cruel world!",
+                path = "/baz/bat",
+                list = new [] { "cyan", "magenta", "yellow" },
+                keys = new { notsemi = "&", notdot = "!", notcomma = "_" },
+            });
+
+            Console.WriteLine(uriTemplate2.Resolve());
+
 
             ////Schema schema = JsonAny.Parse(@"{""foo"": {""bar"": false}}");
 
@@ -64,7 +84,7 @@ namespace Menes
 
             var personDetails = PersonDetailsEntity.Create(
                 primaryName: person.PrimaryName.As<PersonDetailsEntity.PersonNameValue>(),
-                address: address.IsNotNullOrUndefined() ? 
+                address: address.IsNotNullOrUndefined() ?
                     PersonDetailsEntity.AddressValue.Create(
                         line1: address.Line1,
                         line2: address.Line2.AsOptional(),

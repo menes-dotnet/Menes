@@ -643,6 +643,22 @@ namespace Menes.Json
         }
 
         /// <summary>
+        /// Create a <see cref="JsonAny"/> instance from an arbitrary object.
+        /// </summary>
+        /// <typeparam name="T">The type of the object from which to create the instance.</typeparam>
+        /// <param name="instance">The object from which to create the instance.</param>
+        /// <param name="options">The (optional) <see cref="JsonWriterOptions"/>.</param>
+        /// <returns>A <see cref="JsonAny"/> derived from serializing the object.</returns>
+        public static JsonAny From<T>(T instance, JsonWriterOptions options = default)
+        {
+            var abw = new ArrayBufferWriter<byte>();
+            using var writer = new Utf8JsonWriter(abw, options);
+            JsonSerializer.Serialize(writer, instance, typeof(T));
+            writer.Flush();
+            return Parse(abw.WrittenMemory);
+        }
+
+        /// <summary>
         /// Parses a JSON string into a JsonAny.
         /// </summary>
         /// <param name="json">The json string to parse.</param>
