@@ -111,459 +111,6 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-                TechTalk.SpecFlow.Table table20 = new TechTalk.SpecFlow.Table(new string[] {
-                            "name",
-                            "value"});
-                table20.AddRow(new string[] {
-                            "count",
-                            "[\"one\",\"two\",\"three\"]"});
-                table20.AddRow(new string[] {
-                            "dom",
-                            "[\"example\",\"com\"]"});
-                table20.AddRow(new string[] {
-                            "dub",
-                            "\"me/too\""});
-                table20.AddRow(new string[] {
-                            "hello",
-                            "\"Hello World!\""});
-                table20.AddRow(new string[] {
-                            "half",
-                            "\"50%\""});
-                table20.AddRow(new string[] {
-                            "var",
-                            "\"value\""});
-                table20.AddRow(new string[] {
-                            "who",
-                            "\"fred\""});
-                table20.AddRow(new string[] {
-                            "base",
-                            "\"http://example.com/home/\""});
-                table20.AddRow(new string[] {
-                            "path",
-                            "\"/foo/bar\""});
-                table20.AddRow(new string[] {
-                            "list",
-                            "[\"red\",\"green\",\"blue\"]"});
-                table20.AddRow(new string[] {
-                            "keys",
-                            "{\"semi\":\";\",\"dot\":\".\",\"comma\":\",\"}"});
-                table20.AddRow(new string[] {
-                            "v",
-                            "\"6\""});
-                table20.AddRow(new string[] {
-                            "x",
-                            "\"1024\""});
-                table20.AddRow(new string[] {
-                            "y",
-                            "\"768\""});
-                table20.AddRow(new string[] {
-                            "empty",
-                            "\"\""});
-                table20.AddRow(new string[] {
-                            "empty_keys",
-                            "[]"});
-                table20.AddRow(new string[] {
-                            "undef",
-                            "null"});
-#line 5
- testRunner.Given("the variables", ((string)(null)), table20, "Given ");
-#line hidden
-#line 24
- testRunner.When(string.Format("I apply the variables to the template {0}", template), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
-#line 25
- testRunner.Then(string.Format("the result should be one of {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-            }
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("3.2.2 Simple String Expansion at level 0")]
-        [NUnit.Framework.TestCaseAttribute("{var}", "[\"value\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("{hello}", "[\"Hello%20World%21\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("{half}", "[\"50%25\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("O{empty}X", "[\"OX\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("O{undef}X", "[\"OX\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("{x,y}", "[\"1024,768\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("{x,hello,y}", "[\"1024,Hello%20World%21,768\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("?{x,empty}", "[\"?1024,\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("?{x,undef}", "[\"?1024\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("?{undef,y}", "[\"?768\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("{var:3}", "[\"val\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("{var:30}", "[\"value\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("{list}", "[\"red,green,blue\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("{list*}", "[\"red,green,blue\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("{keys}", "[\"comma,%2C,dot,.,semi,%3B\",\"comma,%2C,semi,%3B,dot,.\",\"dot,.,comma,%2C,semi,%3B\"" +
-            ",\"dot,.,semi,%3B,comma,%2C\",\"semi,%3B,comma,%2C,dot,.\",\"semi,%3B,dot,.,comma,%2C" +
-            "\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("{keys*}", "[\"comma=%2C,dot=.,semi=%3B\",\"comma=%2C,semi=%3B,dot=.\",\"dot=.,comma=%2C,semi=%3B\"" +
-            ",\"dot=.,semi=%3B,comma=%2C\",\"semi=%3B,comma=%2C,dot=.\",\"semi=%3B,dot=.,comma=%2C" +
-            "\"]", null)]
-        public virtual void _3_2_2SimpleStringExpansionAtLevel0(string template, string result, string[] exampleTags)
-        {
-            string[] tagsOfScenario = exampleTags;
-            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            argumentsOfScenario.Add("template", template);
-            argumentsOfScenario.Add("result", result);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("3.2.2 Simple String Expansion at level 0", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 39
-this.ScenarioInitialize(scenarioInfo);
-#line hidden
-            bool isScenarioIgnored = default(bool);
-            bool isFeatureIgnored = default(bool);
-            if ((tagsOfScenario != null))
-            {
-                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((this._featureTags != null))
-            {
-                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((isScenarioIgnored || isFeatureIgnored))
-            {
-                testRunner.SkipScenario();
-            }
-            else
-            {
-                this.ScenarioStart();
-                TechTalk.SpecFlow.Table table21 = new TechTalk.SpecFlow.Table(new string[] {
-                            "name",
-                            "value"});
-                table21.AddRow(new string[] {
-                            "count",
-                            "[\"one\",\"two\",\"three\"]"});
-                table21.AddRow(new string[] {
-                            "dom",
-                            "[\"example\",\"com\"]"});
-                table21.AddRow(new string[] {
-                            "dub",
-                            "\"me/too\""});
-                table21.AddRow(new string[] {
-                            "hello",
-                            "\"Hello World!\""});
-                table21.AddRow(new string[] {
-                            "half",
-                            "\"50%\""});
-                table21.AddRow(new string[] {
-                            "var",
-                            "\"value\""});
-                table21.AddRow(new string[] {
-                            "who",
-                            "\"fred\""});
-                table21.AddRow(new string[] {
-                            "base",
-                            "\"http://example.com/home/\""});
-                table21.AddRow(new string[] {
-                            "path",
-                            "\"/foo/bar\""});
-                table21.AddRow(new string[] {
-                            "list",
-                            "[\"red\",\"green\",\"blue\"]"});
-                table21.AddRow(new string[] {
-                            "keys",
-                            "{\"semi\":\";\",\"dot\":\".\",\"comma\":\",\"}"});
-                table21.AddRow(new string[] {
-                            "v",
-                            "\"6\""});
-                table21.AddRow(new string[] {
-                            "x",
-                            "\"1024\""});
-                table21.AddRow(new string[] {
-                            "y",
-                            "\"768\""});
-                table21.AddRow(new string[] {
-                            "empty",
-                            "\"\""});
-                table21.AddRow(new string[] {
-                            "empty_keys",
-                            "[]"});
-                table21.AddRow(new string[] {
-                            "undef",
-                            "null"});
-#line 40
- testRunner.Given("the variables", ((string)(null)), table21, "Given ");
-#line hidden
-#line 59
- testRunner.When(string.Format("I apply the variables to the template {0}", template), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
-#line 60
- testRunner.Then(string.Format("the result should be one of {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-            }
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("3.2.3 Reserved Expansion at level 0")]
-        [NUnit.Framework.TestCaseAttribute("{+var}", "[\"value\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("{/var,empty}", "[\"/value/\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("{/var,undef}", "[\"/value\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("{+hello}", "[\"Hello%20World!\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("{+half}", "[\"50%25\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("{base}index", "[\"http%3A%2F%2Fexample.com%2Fhome%2Findex\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("{+base}index", "[\"http://example.com/home/index\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("O{+empty}X", "[\"OX\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("O{+undef}X", "[\"OX\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("{+path}/here", "[\"/foo/bar/here\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("{+path:6}/here", "[\"/foo/b/here\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("here?ref={+path}", "[\"here?ref=/foo/bar\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("up{+path}{var}/here", "[\"up/foo/barvalue/here\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("{+x,hello,y}", "[\"1024,Hello%20World!,768\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("{+path,x}/here", "[\"/foo/bar,1024/here\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("{+list}", "[\"red,green,blue\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("{+list*}", "[\"red,green,blue\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("{+keys}", "[\"comma,,,dot,.,semi,;\",\"comma,,,semi,;,dot,.\",\"dot,.,comma,,,semi,;\",\"dot,.,semi" +
-            ",;,comma,,\",\"semi,;,comma,,,dot,.\",\"semi,;,dot,.,comma,,\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("{+keys*}", "[\"comma=,,dot=.,semi=;\",\"comma=,,semi=;,dot=.\",\"dot=.,comma=,,semi=;\",\"dot=.,semi" +
-            "=;,comma=,\",\"semi=;,comma=,,dot=.\",\"semi=;,dot=.,comma=,\"]", null)]
-        public virtual void _3_2_3ReservedExpansionAtLevel0(string template, string result, string[] exampleTags)
-        {
-            string[] tagsOfScenario = exampleTags;
-            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            argumentsOfScenario.Add("template", template);
-            argumentsOfScenario.Add("result", result);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("3.2.3 Reserved Expansion at level 0", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 81
-this.ScenarioInitialize(scenarioInfo);
-#line hidden
-            bool isScenarioIgnored = default(bool);
-            bool isFeatureIgnored = default(bool);
-            if ((tagsOfScenario != null))
-            {
-                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((this._featureTags != null))
-            {
-                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((isScenarioIgnored || isFeatureIgnored))
-            {
-                testRunner.SkipScenario();
-            }
-            else
-            {
-                this.ScenarioStart();
-                TechTalk.SpecFlow.Table table22 = new TechTalk.SpecFlow.Table(new string[] {
-                            "name",
-                            "value"});
-                table22.AddRow(new string[] {
-                            "count",
-                            "[\"one\",\"two\",\"three\"]"});
-                table22.AddRow(new string[] {
-                            "dom",
-                            "[\"example\",\"com\"]"});
-                table22.AddRow(new string[] {
-                            "dub",
-                            "\"me/too\""});
-                table22.AddRow(new string[] {
-                            "hello",
-                            "\"Hello World!\""});
-                table22.AddRow(new string[] {
-                            "half",
-                            "\"50%\""});
-                table22.AddRow(new string[] {
-                            "var",
-                            "\"value\""});
-                table22.AddRow(new string[] {
-                            "who",
-                            "\"fred\""});
-                table22.AddRow(new string[] {
-                            "base",
-                            "\"http://example.com/home/\""});
-                table22.AddRow(new string[] {
-                            "path",
-                            "\"/foo/bar\""});
-                table22.AddRow(new string[] {
-                            "list",
-                            "[\"red\",\"green\",\"blue\"]"});
-                table22.AddRow(new string[] {
-                            "keys",
-                            "{\"semi\":\";\",\"dot\":\".\",\"comma\":\",\"}"});
-                table22.AddRow(new string[] {
-                            "v",
-                            "\"6\""});
-                table22.AddRow(new string[] {
-                            "x",
-                            "\"1024\""});
-                table22.AddRow(new string[] {
-                            "y",
-                            "\"768\""});
-                table22.AddRow(new string[] {
-                            "empty",
-                            "\"\""});
-                table22.AddRow(new string[] {
-                            "empty_keys",
-                            "[]"});
-                table22.AddRow(new string[] {
-                            "undef",
-                            "null"});
-#line 82
- testRunner.Given("the variables", ((string)(null)), table22, "Given ");
-#line hidden
-#line 101
- testRunner.When(string.Format("I apply the variables to the template {0}", template), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
-#line 102
- testRunner.Then(string.Format("the result should be one of {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-            }
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("3.2.4 Fragment Expansion at level 0")]
-        [NUnit.Framework.TestCaseAttribute("{#var}", "[\"#value\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("{#hello}", "[\"#Hello%20World!\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("{#half}", "[\"#50%25\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("foo{#empty}", "[\"foo#\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("foo{#undef}", "[\"foo\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("{#x,hello,y}", "[\"#1024,Hello%20World!,768\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("{#path,x}/here", "[\"#/foo/bar,1024/here\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("{#path:6}/here", "[\"#/foo/b/here\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("{#list}", "[\"#red,green,blue\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("{#list*}", "[\"#red,green,blue\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("{#keys}", "[\"#comma,,,dot,.,semi,;\",\"#comma,,,semi,;,dot,.\",\"#dot,.,comma,,,semi,;\",\"#dot,.," +
-            "semi,;,comma,,\",\"#semi,;,comma,,,dot,.\",\"#semi,;,dot,.,comma,,\"]", null)]
-        public virtual void _3_2_4FragmentExpansionAtLevel0(string template, string result, string[] exampleTags)
-        {
-            string[] tagsOfScenario = exampleTags;
-            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            argumentsOfScenario.Add("template", template);
-            argumentsOfScenario.Add("result", result);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("3.2.4 Fragment Expansion at level 0", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 126
-this.ScenarioInitialize(scenarioInfo);
-#line hidden
-            bool isScenarioIgnored = default(bool);
-            bool isFeatureIgnored = default(bool);
-            if ((tagsOfScenario != null))
-            {
-                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((this._featureTags != null))
-            {
-                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((isScenarioIgnored || isFeatureIgnored))
-            {
-                testRunner.SkipScenario();
-            }
-            else
-            {
-                this.ScenarioStart();
-                TechTalk.SpecFlow.Table table23 = new TechTalk.SpecFlow.Table(new string[] {
-                            "name",
-                            "value"});
-                table23.AddRow(new string[] {
-                            "count",
-                            "[\"one\",\"two\",\"three\"]"});
-                table23.AddRow(new string[] {
-                            "dom",
-                            "[\"example\",\"com\"]"});
-                table23.AddRow(new string[] {
-                            "dub",
-                            "\"me/too\""});
-                table23.AddRow(new string[] {
-                            "hello",
-                            "\"Hello World!\""});
-                table23.AddRow(new string[] {
-                            "half",
-                            "\"50%\""});
-                table23.AddRow(new string[] {
-                            "var",
-                            "\"value\""});
-                table23.AddRow(new string[] {
-                            "who",
-                            "\"fred\""});
-                table23.AddRow(new string[] {
-                            "base",
-                            "\"http://example.com/home/\""});
-                table23.AddRow(new string[] {
-                            "path",
-                            "\"/foo/bar\""});
-                table23.AddRow(new string[] {
-                            "list",
-                            "[\"red\",\"green\",\"blue\"]"});
-                table23.AddRow(new string[] {
-                            "keys",
-                            "{\"semi\":\";\",\"dot\":\".\",\"comma\":\",\"}"});
-                table23.AddRow(new string[] {
-                            "v",
-                            "\"6\""});
-                table23.AddRow(new string[] {
-                            "x",
-                            "\"1024\""});
-                table23.AddRow(new string[] {
-                            "y",
-                            "\"768\""});
-                table23.AddRow(new string[] {
-                            "empty",
-                            "\"\""});
-                table23.AddRow(new string[] {
-                            "empty_keys",
-                            "[]"});
-                table23.AddRow(new string[] {
-                            "undef",
-                            "null"});
-#line 127
- testRunner.Given("the variables", ((string)(null)), table23, "Given ");
-#line hidden
-#line 146
- testRunner.When(string.Format("I apply the variables to the template {0}", template), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
-#line 147
- testRunner.Then(string.Format("the result should be one of {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-            }
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("3.2.5 Label Expansion with Dot-Prefix at level 0")]
-        [NUnit.Framework.TestCaseAttribute("{.who}", "[\".fred\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("{.who,who}", "[\".fred.fred\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("{.half,who}", "[\".50%25.fred\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("www{.dom*}", "[\"www.example.com\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("X{.var}", "[\"X.value\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("X{.var:3}", "[\"X.val\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("X{.empty}", "[\"X.\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("X{.undef}", "[\"X\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("X{.list}", "[\"X.red,green,blue\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("X{.list*}", "[\"X.red.green.blue\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("{#keys}", "[\"#comma,,,dot,.,semi,;\",\"#comma,,,semi,;,dot,.\",\"#dot,.,comma,,,semi,;\",\"#dot,.," +
-            "semi,;,comma,,\",\"#semi,;,comma,,,dot,.\",\"#semi,;,dot,.,comma,,\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("{#keys*}", "[\"#comma=,,dot=.,semi=;\",\"#comma=,,semi=;,dot=.\",\"#dot=.,comma=,,semi=;\",\"#dot=.," +
-            "semi=;,comma=,\",\"#semi=;,comma=,,dot=.\",\"#semi=;,dot=.,comma=,\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("X{.empty_keys}", "[\"X\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("X{.empty_keys*}", "[\"X\"]", null)]
-        public virtual void _3_2_5LabelExpansionWithDot_PrefixAtLevel0(string template, string result, string[] exampleTags)
-        {
-            string[] tagsOfScenario = exampleTags;
-            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            argumentsOfScenario.Add("template", template);
-            argumentsOfScenario.Add("result", result);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("3.2.5 Label Expansion with Dot-Prefix at level 0", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 163
-this.ScenarioInitialize(scenarioInfo);
-#line hidden
-            bool isScenarioIgnored = default(bool);
-            bool isFeatureIgnored = default(bool);
-            if ((tagsOfScenario != null))
-            {
-                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((this._featureTags != null))
-            {
-                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((isScenarioIgnored || isFeatureIgnored))
-            {
-                testRunner.SkipScenario();
-            }
-            else
-            {
-                this.ScenarioStart();
                 TechTalk.SpecFlow.Table table24 = new TechTalk.SpecFlow.Table(new string[] {
                             "name",
                             "value"});
@@ -618,13 +165,13 @@ this.ScenarioInitialize(scenarioInfo);
                 table24.AddRow(new string[] {
                             "undef",
                             "null"});
-#line 164
+#line 5
  testRunner.Given("the variables", ((string)(null)), table24, "Given ");
 #line hidden
-#line 183
+#line 24
  testRunner.When(string.Format("I apply the variables to the template {0}", template), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 184
+#line 25
  testRunner.Then(string.Format("the result should be one of {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -632,33 +179,35 @@ this.ScenarioInitialize(scenarioInfo);
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("3.2.6 Path Segment Expansion at level 0")]
-        [NUnit.Framework.TestCaseAttribute("{/who}", "[\"/fred\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("{/who,who}", "[\"/fred/fred\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("{/half,who}", "[\"/50%25/fred\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("{/who,dub}", "[\"/fred/me%2Ftoo\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("{/var}", "[\"/value\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("{/var,empty}", "[\"/value/\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("{/var,undef}", "[\"/value\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("{/var,x}/here", "[\"/value/1024/here\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("{/var:1,var}", "[\"/v/value\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("{/list}", "[\"/red,green,blue\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("{/list*}", "[\"/red/green/blue\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("{/list*,path:4}", "[\"/red/green/blue/%2Ffoo\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("{/keys}", "[\"/comma,%2C,dot,.,semi,%3B\",\"/comma,%2C,semi,%3B,dot,.\",\"/dot,.,comma,%2C,semi,%" +
-            "3B\",\"/dot,.,semi,%3B,comma,%2C\",\"/semi,%3B,comma,%2C,dot,.\",\"/semi,%3B,dot,.,com" +
-            "ma,%2C\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("{/keys*}", "[\"/comma=%2C/dot=./semi=%3B\",\"/comma=%2C/semi=%3B/dot=.\",\"/dot=./comma=%2C/semi=%" +
-            "3B\",\"/dot=./semi=%3B/comma=%2C\",\"/semi=%3B/comma=%2C/dot=.\",\"/semi=%3B/dot=./com" +
-            "ma=%2C\"]", null)]
-        public virtual void _3_2_6PathSegmentExpansionAtLevel0(string template, string result, string[] exampleTags)
+        [NUnit.Framework.DescriptionAttribute("3.2.2 Simple String Expansion at level 0")]
+        [NUnit.Framework.TestCaseAttribute("{var}", "[\"value\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("{hello}", "[\"Hello%20World%21\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("{half}", "[\"50%25\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("O{empty}X", "[\"OX\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("O{undef}X", "[\"OX\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("{x,y}", "[\"1024,768\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("{x,hello,y}", "[\"1024,Hello%20World%21,768\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("?{x,empty}", "[\"?1024,\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("?{x,undef}", "[\"?1024\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("?{undef,y}", "[\"?768\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("{var:3}", "[\"val\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("{var:30}", "[\"value\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("{list}", "[\"red,green,blue\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("{list*}", "[\"red,green,blue\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("{keys}", "[\"comma,%2C,dot,.,semi,%3B\",\"comma,%2C,semi,%3B,dot,.\",\"dot,.,comma,%2C,semi,%3B\"" +
+            ",\"dot,.,semi,%3B,comma,%2C\",\"semi,%3B,comma,%2C,dot,.\",\"semi,%3B,dot,.,comma,%2C" +
+            "\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("{keys*}", "[\"comma=%2C,dot=.,semi=%3B\",\"comma=%2C,semi=%3B,dot=.\",\"dot=.,comma=%2C,semi=%3B\"" +
+            ",\"dot=.,semi=%3B,comma=%2C\",\"semi=%3B,comma=%2C,dot=.\",\"semi=%3B,dot=.,comma=%2C" +
+            "\"]", null)]
+        public virtual void _3_2_2SimpleStringExpansionAtLevel0(string template, string result, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("template", template);
             argumentsOfScenario.Add("result", result);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("3.2.6 Path Segment Expansion at level 0", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 203
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("3.2.2 Simple String Expansion at level 0", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 39
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -732,13 +281,13 @@ this.ScenarioInitialize(scenarioInfo);
                 table25.AddRow(new string[] {
                             "undef",
                             "null"});
-#line 204
+#line 40
  testRunner.Given("the variables", ((string)(null)), table25, "Given ");
 #line hidden
-#line 223
+#line 59
  testRunner.When(string.Format("I apply the variables to the template {0}", template), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 224
+#line 60
  testRunner.Then(string.Format("the result should be one of {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -746,32 +295,36 @@ this.ScenarioInitialize(scenarioInfo);
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("3.2.7 Path-Style Parameter Expansion at level 0")]
-        [NUnit.Framework.TestCaseAttribute("{;who}", "[\";who=fred\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("{;half}", "[\";half=50%25\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("{;empty}", "[\";empty\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("{;hello:5}", "[\";hello=Hello\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("{;v,empty,who}", "[\";v=6;empty;who=fred\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("{;v,bar,who}", "[\";v=6;who=fred\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("{;x,y}", "[\";x=1024;y=768\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("{;x,y,empty}", "[\";x=1024;y=768;empty\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("{;x,y,undef}", "[\";x=1024;y=768\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("{;list}", "[\";list=red,green,blue\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("{;list*}", "[\";list=red;list=green;list=blue\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("{;keys}", "[\";keys=comma,%2C,dot,.,semi,%3B\",\";keys=comma,%2C,semi,%3B,dot,.\",\";keys=dot,.,c" +
-            "omma,%2C,semi,%3B\",\";keys=dot,.,semi,%3B,comma,%2C\",\";keys=semi,%3B,comma,%2C,do" +
-            "t,.\",\";keys=semi,%3B,dot,.,comma,%2C\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("{;keys*}", "[\";comma=%2C;dot=.;semi=%3B\",\";comma=%2C;semi=%3B;dot=.\",\";dot=.;comma=%2C;semi=%" +
-            "3B\",\";dot=.;semi=%3B;comma=%2C\",\";semi=%3B;comma=%2C;dot=.\",\";semi=%3B;dot=.;com" +
-            "ma=%2C\"]", null)]
-        public virtual void _3_2_7Path_StyleParameterExpansionAtLevel0(string template, string result, string[] exampleTags)
+        [NUnit.Framework.DescriptionAttribute("3.2.3 Reserved Expansion at level 0")]
+        [NUnit.Framework.TestCaseAttribute("{+var}", "[\"value\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("{/var,empty}", "[\"/value/\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("{/var,undef}", "[\"/value\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("{+hello}", "[\"Hello%20World!\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("{+half}", "[\"50%25\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("{base}index", "[\"http%3A%2F%2Fexample.com%2Fhome%2Findex\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("{+base}index", "[\"http://example.com/home/index\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("O{+empty}X", "[\"OX\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("O{+undef}X", "[\"OX\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("{+path}/here", "[\"/foo/bar/here\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("{+path:6}/here", "[\"/foo/b/here\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("here?ref={+path}", "[\"here?ref=/foo/bar\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("up{+path}{var}/here", "[\"up/foo/barvalue/here\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("{+x,hello,y}", "[\"1024,Hello%20World!,768\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("{+path,x}/here", "[\"/foo/bar,1024/here\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("{+list}", "[\"red,green,blue\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("{+list*}", "[\"red,green,blue\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("{+keys}", "[\"comma,,,dot,.,semi,;\",\"comma,,,semi,;,dot,.\",\"dot,.,comma,,,semi,;\",\"dot,.,semi" +
+            ",;,comma,,\",\"semi,;,comma,,,dot,.\",\"semi,;,dot,.,comma,,\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("{+keys*}", "[\"comma=,,dot=.,semi=;\",\"comma=,,semi=;,dot=.\",\"dot=.,comma=,,semi=;\",\"dot=.,semi" +
+            "=;,comma=,\",\"semi=;,comma=,,dot=.\",\"semi=;,dot=.,comma=,\"]", null)]
+        public virtual void _3_2_3ReservedExpansionAtLevel0(string template, string result, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("template", template);
             argumentsOfScenario.Add("result", result);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("3.2.7 Path-Style Parameter Expansion at level 0", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 243
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("3.2.3 Reserved Expansion at level 0", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 81
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -845,13 +398,13 @@ this.ScenarioInitialize(scenarioInfo);
                 table26.AddRow(new string[] {
                             "undef",
                             "null"});
-#line 244
+#line 82
  testRunner.Given("the variables", ((string)(null)), table26, "Given ");
 #line hidden
-#line 263
+#line 101
  testRunner.When(string.Format("I apply the variables to the template {0}", template), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 264
+#line 102
  testRunner.Then(string.Format("the result should be one of {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -859,29 +412,27 @@ this.ScenarioInitialize(scenarioInfo);
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("3.2.8 Form-Style Query Expansion at level 0")]
-        [NUnit.Framework.TestCaseAttribute("{?who}", "[\"?who=fred\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("{?half}", "[\"?half=50%25\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("{?x,y}", "[\"?x=1024\\u0026y=768\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("{?x,y,empty}", "[\"?x=1024\\u0026y=768\\u0026empty=\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("{?x,y,undef}", "[\"?x=1024\\u0026y=768\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("{?var:3}", "[\"?var=val\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("{?list}", "[\"?list=red,green,blue\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("{?list*}", "[\"?list=red\\u0026list=green\\u0026list=blue\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("{?keys}", "[\"?keys=comma,%2C,dot,.,semi,%3B\",\"?keys=comma,%2C,semi,%3B,dot,.\",\"?keys=dot,.,c" +
-            "omma,%2C,semi,%3B\",\"?keys=dot,.,semi,%3B,comma,%2C\",\"?keys=semi,%3B,comma,%2C,do" +
-            "t,.\",\"?keys=semi,%3B,dot,.,comma,%2C\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("{?keys*}", "[\"?comma=%2C\\u0026dot=.\\u0026semi=%3B\",\"?comma=%2C\\u0026semi=%3B\\u0026dot=.\",\"?do" +
-            "t=.\\u0026comma=%2C\\u0026semi=%3B\",\"?dot=.\\u0026semi=%3B\\u0026comma=%2C\",\"?semi=%" +
-            "3B\\u0026comma=%2C\\u0026dot=.\",\"?semi=%3B\\u0026dot=.\\u0026comma=%2C\"]", null)]
-        public virtual void _3_2_8Form_StyleQueryExpansionAtLevel0(string template, string result, string[] exampleTags)
+        [NUnit.Framework.DescriptionAttribute("3.2.4 Fragment Expansion at level 0")]
+        [NUnit.Framework.TestCaseAttribute("{#var}", "[\"#value\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("{#hello}", "[\"#Hello%20World!\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("{#half}", "[\"#50%25\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("foo{#empty}", "[\"foo#\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("foo{#undef}", "[\"foo\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("{#x,hello,y}", "[\"#1024,Hello%20World!,768\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("{#path,x}/here", "[\"#/foo/bar,1024/here\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("{#path:6}/here", "[\"#/foo/b/here\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("{#list}", "[\"#red,green,blue\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("{#list*}", "[\"#red,green,blue\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("{#keys}", "[\"#comma,,,dot,.,semi,;\",\"#comma,,,semi,;,dot,.\",\"#dot,.,comma,,,semi,;\",\"#dot,.," +
+            "semi,;,comma,,\",\"#semi,;,comma,,,dot,.\",\"#semi,;,dot,.,comma,,\"]", null)]
+        public virtual void _3_2_4FragmentExpansionAtLevel0(string template, string result, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("template", template);
             argumentsOfScenario.Add("result", result);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("3.2.8 Form-Style Query Expansion at level 0", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 282
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("3.2.4 Fragment Expansion at level 0", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 126
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -955,13 +506,13 @@ this.ScenarioInitialize(scenarioInfo);
                 table27.AddRow(new string[] {
                             "undef",
                             "null"});
-#line 283
+#line 127
  testRunner.Given("the variables", ((string)(null)), table27, "Given ");
 #line hidden
-#line 302
+#line 146
  testRunner.When(string.Format("I apply the variables to the template {0}", template), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 303
+#line 147
  testRunner.Then(string.Format("the result should be one of {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -969,27 +520,31 @@ this.ScenarioInitialize(scenarioInfo);
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("3.2.9 Form-Style Query Continuation at level 0")]
-        [NUnit.Framework.TestCaseAttribute("{&who}", "[\"\\u0026who=fred\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("{&half}", "[\"\\u0026half=50%25\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("?fixed=yes{&x}", "[\"?fixed=yes\\u0026x=1024\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("{&var:3}", "[\"\\u0026var=val\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("{&x,y,empty}", "[\"\\u0026x=1024\\u0026y=768\\u0026empty=\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("{&x,y,undef}", "[\"\\u0026x=1024\\u0026y=768\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("{&list}", "[\"\\u0026list=red,green,blue\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("{&list*}", "[\"\\u0026list=red\\u0026list=green\\u0026list=blue\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("{&keys}", "[\"\\u0026keys=comma,%2C,dot,.,semi,%3B\",\"\\u0026keys=comma,%2C,semi,%3B,dot,.\",\"\\u0" +
-            "026keys=dot,.,comma,%2C,semi,%3B\",\"\\u0026keys=dot,.,semi,%3B,comma,%2C\",\"\\u0026k" +
-            "eys=semi,%3B,comma,%2C,dot,.\",\"\\u0026keys=semi,%3B,dot,.,comma,%2C\"]", null)]
-        [NUnit.Framework.TestCaseAttribute("{&keys*}", @"[""\u0026comma=%2C\u0026dot=.\u0026semi=%3B"",""\u0026comma=%2C\u0026semi=%3B\u0026dot=."",""\u0026dot=.\u0026comma=%2C\u0026semi=%3B"",""\u0026dot=.\u0026semi=%3B\u0026comma=%2C"",""\u0026semi=%3B\u0026comma=%2C\u0026dot=."",""\u0026semi=%3B\u0026dot=.\u0026comma=%2C""]", null)]
-        public virtual void _3_2_9Form_StyleQueryContinuationAtLevel0(string template, string result, string[] exampleTags)
+        [NUnit.Framework.DescriptionAttribute("3.2.5 Label Expansion with Dot-Prefix at level 0")]
+        [NUnit.Framework.TestCaseAttribute("{.who}", "[\".fred\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("{.who,who}", "[\".fred.fred\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("{.half,who}", "[\".50%25.fred\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("www{.dom*}", "[\"www.example.com\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("X{.var}", "[\"X.value\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("X{.var:3}", "[\"X.val\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("X{.empty}", "[\"X.\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("X{.undef}", "[\"X\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("X{.list}", "[\"X.red,green,blue\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("X{.list*}", "[\"X.red.green.blue\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("{#keys}", "[\"#comma,,,dot,.,semi,;\",\"#comma,,,semi,;,dot,.\",\"#dot,.,comma,,,semi,;\",\"#dot,.," +
+            "semi,;,comma,,\",\"#semi,;,comma,,,dot,.\",\"#semi,;,dot,.,comma,,\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("{#keys*}", "[\"#comma=,,dot=.,semi=;\",\"#comma=,,semi=;,dot=.\",\"#dot=.,comma=,,semi=;\",\"#dot=.," +
+            "semi=;,comma=,\",\"#semi=;,comma=,,dot=.\",\"#semi=;,dot=.,comma=,\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("X{.empty_keys}", "[\"X\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("X{.empty_keys*}", "[\"X\"]", null)]
+        public virtual void _3_2_5LabelExpansionWithDot_PrefixAtLevel0(string template, string result, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("template", template);
             argumentsOfScenario.Add("result", result);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("3.2.9 Form-Style Query Continuation at level 0", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 318
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("3.2.5 Label Expansion with Dot-Prefix at level 0", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 163
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -1063,8 +618,453 @@ this.ScenarioInitialize(scenarioInfo);
                 table28.AddRow(new string[] {
                             "undef",
                             "null"});
-#line 319
+#line 164
  testRunner.Given("the variables", ((string)(null)), table28, "Given ");
+#line hidden
+#line 183
+ testRunner.When(string.Format("I apply the variables to the template {0}", template), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 184
+ testRunner.Then(string.Format("the result should be one of {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("3.2.6 Path Segment Expansion at level 0")]
+        [NUnit.Framework.TestCaseAttribute("{/who}", "[\"/fred\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("{/who,who}", "[\"/fred/fred\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("{/half,who}", "[\"/50%25/fred\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("{/who,dub}", "[\"/fred/me%2Ftoo\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("{/var}", "[\"/value\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("{/var,empty}", "[\"/value/\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("{/var,undef}", "[\"/value\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("{/var,x}/here", "[\"/value/1024/here\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("{/var:1,var}", "[\"/v/value\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("{/list}", "[\"/red,green,blue\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("{/list*}", "[\"/red/green/blue\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("{/list*,path:4}", "[\"/red/green/blue/%2Ffoo\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("{/keys}", "[\"/comma,%2C,dot,.,semi,%3B\",\"/comma,%2C,semi,%3B,dot,.\",\"/dot,.,comma,%2C,semi,%" +
+            "3B\",\"/dot,.,semi,%3B,comma,%2C\",\"/semi,%3B,comma,%2C,dot,.\",\"/semi,%3B,dot,.,com" +
+            "ma,%2C\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("{/keys*}", "[\"/comma=%2C/dot=./semi=%3B\",\"/comma=%2C/semi=%3B/dot=.\",\"/dot=./comma=%2C/semi=%" +
+            "3B\",\"/dot=./semi=%3B/comma=%2C\",\"/semi=%3B/comma=%2C/dot=.\",\"/semi=%3B/dot=./com" +
+            "ma=%2C\"]", null)]
+        public virtual void _3_2_6PathSegmentExpansionAtLevel0(string template, string result, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("template", template);
+            argumentsOfScenario.Add("result", result);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("3.2.6 Path Segment Expansion at level 0", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 203
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+                TechTalk.SpecFlow.Table table29 = new TechTalk.SpecFlow.Table(new string[] {
+                            "name",
+                            "value"});
+                table29.AddRow(new string[] {
+                            "count",
+                            "[\"one\",\"two\",\"three\"]"});
+                table29.AddRow(new string[] {
+                            "dom",
+                            "[\"example\",\"com\"]"});
+                table29.AddRow(new string[] {
+                            "dub",
+                            "\"me/too\""});
+                table29.AddRow(new string[] {
+                            "hello",
+                            "\"Hello World!\""});
+                table29.AddRow(new string[] {
+                            "half",
+                            "\"50%\""});
+                table29.AddRow(new string[] {
+                            "var",
+                            "\"value\""});
+                table29.AddRow(new string[] {
+                            "who",
+                            "\"fred\""});
+                table29.AddRow(new string[] {
+                            "base",
+                            "\"http://example.com/home/\""});
+                table29.AddRow(new string[] {
+                            "path",
+                            "\"/foo/bar\""});
+                table29.AddRow(new string[] {
+                            "list",
+                            "[\"red\",\"green\",\"blue\"]"});
+                table29.AddRow(new string[] {
+                            "keys",
+                            "{\"semi\":\";\",\"dot\":\".\",\"comma\":\",\"}"});
+                table29.AddRow(new string[] {
+                            "v",
+                            "\"6\""});
+                table29.AddRow(new string[] {
+                            "x",
+                            "\"1024\""});
+                table29.AddRow(new string[] {
+                            "y",
+                            "\"768\""});
+                table29.AddRow(new string[] {
+                            "empty",
+                            "\"\""});
+                table29.AddRow(new string[] {
+                            "empty_keys",
+                            "[]"});
+                table29.AddRow(new string[] {
+                            "undef",
+                            "null"});
+#line 204
+ testRunner.Given("the variables", ((string)(null)), table29, "Given ");
+#line hidden
+#line 223
+ testRunner.When(string.Format("I apply the variables to the template {0}", template), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 224
+ testRunner.Then(string.Format("the result should be one of {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("3.2.7 Path-Style Parameter Expansion at level 0")]
+        [NUnit.Framework.TestCaseAttribute("{;who}", "[\";who=fred\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("{;half}", "[\";half=50%25\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("{;empty}", "[\";empty\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("{;hello:5}", "[\";hello=Hello\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("{;v,empty,who}", "[\";v=6;empty;who=fred\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("{;v,bar,who}", "[\";v=6;who=fred\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("{;x,y}", "[\";x=1024;y=768\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("{;x,y,empty}", "[\";x=1024;y=768;empty\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("{;x,y,undef}", "[\";x=1024;y=768\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("{;list}", "[\";list=red,green,blue\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("{;list*}", "[\";list=red;list=green;list=blue\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("{;keys}", "[\";keys=comma,%2C,dot,.,semi,%3B\",\";keys=comma,%2C,semi,%3B,dot,.\",\";keys=dot,.,c" +
+            "omma,%2C,semi,%3B\",\";keys=dot,.,semi,%3B,comma,%2C\",\";keys=semi,%3B,comma,%2C,do" +
+            "t,.\",\";keys=semi,%3B,dot,.,comma,%2C\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("{;keys*}", "[\";comma=%2C;dot=.;semi=%3B\",\";comma=%2C;semi=%3B;dot=.\",\";dot=.;comma=%2C;semi=%" +
+            "3B\",\";dot=.;semi=%3B;comma=%2C\",\";semi=%3B;comma=%2C;dot=.\",\";semi=%3B;dot=.;com" +
+            "ma=%2C\"]", null)]
+        public virtual void _3_2_7Path_StyleParameterExpansionAtLevel0(string template, string result, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("template", template);
+            argumentsOfScenario.Add("result", result);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("3.2.7 Path-Style Parameter Expansion at level 0", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 243
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+                TechTalk.SpecFlow.Table table30 = new TechTalk.SpecFlow.Table(new string[] {
+                            "name",
+                            "value"});
+                table30.AddRow(new string[] {
+                            "count",
+                            "[\"one\",\"two\",\"three\"]"});
+                table30.AddRow(new string[] {
+                            "dom",
+                            "[\"example\",\"com\"]"});
+                table30.AddRow(new string[] {
+                            "dub",
+                            "\"me/too\""});
+                table30.AddRow(new string[] {
+                            "hello",
+                            "\"Hello World!\""});
+                table30.AddRow(new string[] {
+                            "half",
+                            "\"50%\""});
+                table30.AddRow(new string[] {
+                            "var",
+                            "\"value\""});
+                table30.AddRow(new string[] {
+                            "who",
+                            "\"fred\""});
+                table30.AddRow(new string[] {
+                            "base",
+                            "\"http://example.com/home/\""});
+                table30.AddRow(new string[] {
+                            "path",
+                            "\"/foo/bar\""});
+                table30.AddRow(new string[] {
+                            "list",
+                            "[\"red\",\"green\",\"blue\"]"});
+                table30.AddRow(new string[] {
+                            "keys",
+                            "{\"semi\":\";\",\"dot\":\".\",\"comma\":\",\"}"});
+                table30.AddRow(new string[] {
+                            "v",
+                            "\"6\""});
+                table30.AddRow(new string[] {
+                            "x",
+                            "\"1024\""});
+                table30.AddRow(new string[] {
+                            "y",
+                            "\"768\""});
+                table30.AddRow(new string[] {
+                            "empty",
+                            "\"\""});
+                table30.AddRow(new string[] {
+                            "empty_keys",
+                            "[]"});
+                table30.AddRow(new string[] {
+                            "undef",
+                            "null"});
+#line 244
+ testRunner.Given("the variables", ((string)(null)), table30, "Given ");
+#line hidden
+#line 263
+ testRunner.When(string.Format("I apply the variables to the template {0}", template), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 264
+ testRunner.Then(string.Format("the result should be one of {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("3.2.8 Form-Style Query Expansion at level 0")]
+        [NUnit.Framework.TestCaseAttribute("{?who}", "[\"?who=fred\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("{?half}", "[\"?half=50%25\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("{?x,y}", "[\"?x=1024\\u0026y=768\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("{?x,y,empty}", "[\"?x=1024\\u0026y=768\\u0026empty=\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("{?x,y,undef}", "[\"?x=1024\\u0026y=768\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("{?var:3}", "[\"?var=val\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("{?list}", "[\"?list=red,green,blue\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("{?list*}", "[\"?list=red\\u0026list=green\\u0026list=blue\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("{?keys}", "[\"?keys=comma,%2C,dot,.,semi,%3B\",\"?keys=comma,%2C,semi,%3B,dot,.\",\"?keys=dot,.,c" +
+            "omma,%2C,semi,%3B\",\"?keys=dot,.,semi,%3B,comma,%2C\",\"?keys=semi,%3B,comma,%2C,do" +
+            "t,.\",\"?keys=semi,%3B,dot,.,comma,%2C\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("{?keys*}", "[\"?comma=%2C\\u0026dot=.\\u0026semi=%3B\",\"?comma=%2C\\u0026semi=%3B\\u0026dot=.\",\"?do" +
+            "t=.\\u0026comma=%2C\\u0026semi=%3B\",\"?dot=.\\u0026semi=%3B\\u0026comma=%2C\",\"?semi=%" +
+            "3B\\u0026comma=%2C\\u0026dot=.\",\"?semi=%3B\\u0026dot=.\\u0026comma=%2C\"]", null)]
+        public virtual void _3_2_8Form_StyleQueryExpansionAtLevel0(string template, string result, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("template", template);
+            argumentsOfScenario.Add("result", result);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("3.2.8 Form-Style Query Expansion at level 0", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 282
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+                TechTalk.SpecFlow.Table table31 = new TechTalk.SpecFlow.Table(new string[] {
+                            "name",
+                            "value"});
+                table31.AddRow(new string[] {
+                            "count",
+                            "[\"one\",\"two\",\"three\"]"});
+                table31.AddRow(new string[] {
+                            "dom",
+                            "[\"example\",\"com\"]"});
+                table31.AddRow(new string[] {
+                            "dub",
+                            "\"me/too\""});
+                table31.AddRow(new string[] {
+                            "hello",
+                            "\"Hello World!\""});
+                table31.AddRow(new string[] {
+                            "half",
+                            "\"50%\""});
+                table31.AddRow(new string[] {
+                            "var",
+                            "\"value\""});
+                table31.AddRow(new string[] {
+                            "who",
+                            "\"fred\""});
+                table31.AddRow(new string[] {
+                            "base",
+                            "\"http://example.com/home/\""});
+                table31.AddRow(new string[] {
+                            "path",
+                            "\"/foo/bar\""});
+                table31.AddRow(new string[] {
+                            "list",
+                            "[\"red\",\"green\",\"blue\"]"});
+                table31.AddRow(new string[] {
+                            "keys",
+                            "{\"semi\":\";\",\"dot\":\".\",\"comma\":\",\"}"});
+                table31.AddRow(new string[] {
+                            "v",
+                            "\"6\""});
+                table31.AddRow(new string[] {
+                            "x",
+                            "\"1024\""});
+                table31.AddRow(new string[] {
+                            "y",
+                            "\"768\""});
+                table31.AddRow(new string[] {
+                            "empty",
+                            "\"\""});
+                table31.AddRow(new string[] {
+                            "empty_keys",
+                            "[]"});
+                table31.AddRow(new string[] {
+                            "undef",
+                            "null"});
+#line 283
+ testRunner.Given("the variables", ((string)(null)), table31, "Given ");
+#line hidden
+#line 302
+ testRunner.When(string.Format("I apply the variables to the template {0}", template), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 303
+ testRunner.Then(string.Format("the result should be one of {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("3.2.9 Form-Style Query Continuation at level 0")]
+        [NUnit.Framework.TestCaseAttribute("{&who}", "[\"\\u0026who=fred\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("{&half}", "[\"\\u0026half=50%25\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("?fixed=yes{&x}", "[\"?fixed=yes\\u0026x=1024\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("{&var:3}", "[\"\\u0026var=val\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("{&x,y,empty}", "[\"\\u0026x=1024\\u0026y=768\\u0026empty=\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("{&x,y,undef}", "[\"\\u0026x=1024\\u0026y=768\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("{&list}", "[\"\\u0026list=red,green,blue\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("{&list*}", "[\"\\u0026list=red\\u0026list=green\\u0026list=blue\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("{&keys}", "[\"\\u0026keys=comma,%2C,dot,.,semi,%3B\",\"\\u0026keys=comma,%2C,semi,%3B,dot,.\",\"\\u0" +
+            "026keys=dot,.,comma,%2C,semi,%3B\",\"\\u0026keys=dot,.,semi,%3B,comma,%2C\",\"\\u0026k" +
+            "eys=semi,%3B,comma,%2C,dot,.\",\"\\u0026keys=semi,%3B,dot,.,comma,%2C\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("{&keys*}", @"[""\u0026comma=%2C\u0026dot=.\u0026semi=%3B"",""\u0026comma=%2C\u0026semi=%3B\u0026dot=."",""\u0026dot=.\u0026comma=%2C\u0026semi=%3B"",""\u0026dot=.\u0026semi=%3B\u0026comma=%2C"",""\u0026semi=%3B\u0026comma=%2C\u0026dot=."",""\u0026semi=%3B\u0026dot=.\u0026comma=%2C""]", null)]
+        public virtual void _3_2_9Form_StyleQueryContinuationAtLevel0(string template, string result, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("template", template);
+            argumentsOfScenario.Add("result", result);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("3.2.9 Form-Style Query Continuation at level 0", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 318
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+                TechTalk.SpecFlow.Table table32 = new TechTalk.SpecFlow.Table(new string[] {
+                            "name",
+                            "value"});
+                table32.AddRow(new string[] {
+                            "count",
+                            "[\"one\",\"two\",\"three\"]"});
+                table32.AddRow(new string[] {
+                            "dom",
+                            "[\"example\",\"com\"]"});
+                table32.AddRow(new string[] {
+                            "dub",
+                            "\"me/too\""});
+                table32.AddRow(new string[] {
+                            "hello",
+                            "\"Hello World!\""});
+                table32.AddRow(new string[] {
+                            "half",
+                            "\"50%\""});
+                table32.AddRow(new string[] {
+                            "var",
+                            "\"value\""});
+                table32.AddRow(new string[] {
+                            "who",
+                            "\"fred\""});
+                table32.AddRow(new string[] {
+                            "base",
+                            "\"http://example.com/home/\""});
+                table32.AddRow(new string[] {
+                            "path",
+                            "\"/foo/bar\""});
+                table32.AddRow(new string[] {
+                            "list",
+                            "[\"red\",\"green\",\"blue\"]"});
+                table32.AddRow(new string[] {
+                            "keys",
+                            "{\"semi\":\";\",\"dot\":\".\",\"comma\":\",\"}"});
+                table32.AddRow(new string[] {
+                            "v",
+                            "\"6\""});
+                table32.AddRow(new string[] {
+                            "x",
+                            "\"1024\""});
+                table32.AddRow(new string[] {
+                            "y",
+                            "\"768\""});
+                table32.AddRow(new string[] {
+                            "empty",
+                            "\"\""});
+                table32.AddRow(new string[] {
+                            "empty_keys",
+                            "[]"});
+                table32.AddRow(new string[] {
+                            "undef",
+                            "null"});
+#line 319
+ testRunner.Given("the variables", ((string)(null)), table32, "Given ");
 #line hidden
 #line 338
  testRunner.When(string.Format("I apply the variables to the template {0}", template), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");

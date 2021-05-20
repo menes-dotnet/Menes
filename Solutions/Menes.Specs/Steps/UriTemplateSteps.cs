@@ -191,24 +191,25 @@ namespace Steps
         }
 
         /// <summary>
-        /// Creates a URI template for the given template expression and stores it in the context variable "UriTemplate".
+        /// Creates a URI template for the given template expression and stores it in the context variable "Template".
         /// </summary>
         /// <param name="uriTemplate">The template expression.</param>
+        [Given(@"I create a UriTemplate for ""(.*)""")]
         [When(@"I create a UriTemplate for ""(.*)""")]
         public void GivenICreateAUriTemplateFor(string uriTemplate)
         {
-            this.scenarioContext.Set(new UriTemplate(uriTemplate), "UriTemplate");
+            this.scenarioContext.Set(new UriTemplate(uriTemplate), "Template");
         }
 
         /// <summary>
-        /// Validates the parameters for the URI template stored in the context variable "UriTemplate" when resolved against the given URI.
+        /// Validates the parameters for the URI template stored in the context variable "Template" when resolved against the given URI.
         /// </summary>
         /// <param name="uri">The uri from which to extract the parameters.</param>
         /// <param name="parameters">The parameters to match.</param>
         [Then(@"the parameters for ""(.*)"" should be")]
         public void ThenTheParametersForShouldBe(string uri, Table parameters)
         {
-            if (this.scenarioContext.Get<UriTemplate>("UriTemplate").TryGetParameters(new Uri(uri, UriKind.RelativeOrAbsolute), out ImmutableDictionary<string, JsonAny>? actual))
+            if (this.scenarioContext.Get<UriTemplate>("Template").TryGetParameters(new Uri(uri, UriKind.RelativeOrAbsolute), out ImmutableDictionary<string, JsonAny>? actual))
             {
                 Assert.AreEqual(parameters.RowCount, actual.Count);
                 foreach (TableRow row in parameters.Rows)

@@ -105,3 +105,30 @@ Scenario: Optional path parameter with multiple values
 		| name | value |
 		| bar  | yuck  |
 		| baz  | yob   |
+
+Scenario: Update path parameter
+	Given I create a UriTemplate for "http://example.org/{tenant}/customers"
+	When I set the template parameter called "tenant" to "acmé"
+	Then the resolved template should be one of
+		| values                                 |
+		| http://example.org/acm%C3%A9/customers |
+
+Scenario: Query parameters the old way
+	Given I create a UriTemplate for "http://example.org/customers?active={activeflag}"
+	When I set the template parameter called "activeFlag" to "true"
+	Then the resolved template should be one of
+		| values                                   |
+		| http://example.org/customers?active=True |
+
+Scenario: Query parameters the new way
+	Given I create a UriTemplate for "http://example.org/customers{?active}"
+	When I set the template parameter called "active" to "true"
+	Then the resolved template should be one of
+		| values                                   |
+		| http://example.org/customers?active=True |
+
+Scenario: Query parameters the new way without value
+	When I create a UriTemplate for "http://example.org/customers{?active}"
+	Then the resolved template should be one of
+		| values                       |
+		| http://example.org/customers |
