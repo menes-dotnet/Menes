@@ -84,7 +84,7 @@ namespace Features.UriTemplates
             argumentsOfScenario.Add("template", template);
             argumentsOfScenario.Add("result", result);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Level 1 Examples at level 1", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 4
+#line 3
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -113,13 +113,13 @@ this.ScenarioInitialize(scenarioInfo);
                 table33.AddRow(new string[] {
                             "hello",
                             "\"Hello World!\""});
-#line 5
+#line 4
  testRunner.Given("the variables", ((string)(null)), table33, "Given ");
 #line hidden
-#line 9
+#line 8
  testRunner.When(string.Format("I apply the variables to the template {0}", template), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 10
+#line 9
  testRunner.Then(string.Format("the result should be one of {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -139,7 +139,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("template", template);
             argumentsOfScenario.Add("result", result);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Level 2 Examples at level 2", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 17
+#line 16
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -171,13 +171,13 @@ this.ScenarioInitialize(scenarioInfo);
                 table34.AddRow(new string[] {
                             "path",
                             "\"/foo/bar\""});
-#line 18
+#line 17
  testRunner.Given("the variables", ((string)(null)), table34, "Given ");
 #line hidden
-#line 23
+#line 22
  testRunner.When(string.Format("I apply the variables to the template {0}", template), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 24
+#line 23
  testRunner.Then(string.Format("the result should be one of {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -209,7 +209,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("template", template);
             argumentsOfScenario.Add("result", result);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Level 3 Examples at level 3", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 33
+#line 32
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -250,13 +250,13 @@ this.ScenarioInitialize(scenarioInfo);
                 table35.AddRow(new string[] {
                             "y",
                             "\"768\""});
-#line 34
+#line 33
  testRunner.Given("the variables", ((string)(null)), table35, "Given ");
 #line hidden
-#line 42
+#line 41
  testRunner.When(string.Format("I apply the variables to the template {0}", template), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 43
+#line 42
  testRunner.Then(string.Format("the result should be one of {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -337,7 +337,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("template", template);
             argumentsOfScenario.Add("result", result);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Level 4 Examples at level 4", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 64
+#line 63
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -375,13 +375,13 @@ this.ScenarioInitialize(scenarioInfo);
                 table36.AddRow(new string[] {
                             "keys",
                             "{\"semi\":\";\",\"dot\":\".\",\"comma\":\",\"}"});
-#line 65
+#line 64
  testRunner.Given("the variables", ((string)(null)), table36, "Given ");
 #line hidden
-#line 72
+#line 71
  testRunner.When(string.Format("I apply the variables to the template {0}", template), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 73
+#line 72
  testRunner.Then(string.Format("the result should be one of {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }

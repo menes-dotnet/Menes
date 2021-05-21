@@ -111,7 +111,7 @@ namespace Features.UriTemplates
             argumentsOfScenario.Add("template", template);
             argumentsOfScenario.Add("result", result);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Failure Tests at level 4", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 4
+#line 3
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -186,13 +186,13 @@ this.ScenarioInitialize(scenarioInfo);
                             "query",
                             "\"PREFIX dc: \\u003Chttp://purl.org/dc/elements/1.1/\\u003E SELECT ?book ?who WHERE " +
                                 "{ ?book dc:creator ?who }\""});
-#line 5
+#line 4
  testRunner.Given("the variables", ((string)(null)), table5, "Given ");
 #line hidden
-#line 24
+#line 23
  testRunner.When(string.Format("I apply the variables to the template {0}", template), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 25
+#line 24
  testRunner.Then(string.Format("the result should be one of {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }

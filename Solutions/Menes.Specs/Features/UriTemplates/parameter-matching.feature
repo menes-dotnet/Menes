@@ -114,7 +114,7 @@ Scenario: Update path parameter
 		| http://example.org/acm%C3%A9/customers |
 
 Scenario: Query parameters the old way
-	Given I create a UriTemplate for "http://example.org/customers?active={activeflag}"
+	Given I create a UriTemplate for "http://example.org/customers?active={activeFlag}"
 	When I set the template parameter called "activeFlag" to "true"
 	Then the resolved template should be one of
 		| values                                   |

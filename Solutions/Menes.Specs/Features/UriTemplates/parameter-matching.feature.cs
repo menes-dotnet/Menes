@@ -838,7 +838,7 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 117
- testRunner.Given("I create a UriTemplate for \"http://example.org/customers?active={activeflag}\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("I create a UriTemplate for \"http://example.org/customers?active={activeFlag}\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 118
  testRunner.When("I set the template parameter called \"activeFlag\" to \"true\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");

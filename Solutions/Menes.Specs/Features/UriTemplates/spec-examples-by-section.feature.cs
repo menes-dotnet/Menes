@@ -91,7 +91,7 @@ namespace Features.UriTemplates
             argumentsOfScenario.Add("template", template);
             argumentsOfScenario.Add("result", result);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("3.2.1 Variable Expansion at level 0", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 4
+#line 3
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -165,13 +165,13 @@ this.ScenarioInitialize(scenarioInfo);
                 table24.AddRow(new string[] {
                             "undef",
                             "null"});
-#line 5
+#line 4
  testRunner.Given("the variables", ((string)(null)), table24, "Given ");
 #line hidden
-#line 24
+#line 23
  testRunner.When(string.Format("I apply the variables to the template {0}", template), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 25
+#line 24
  testRunner.Then(string.Format("the result should be one of {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -207,7 +207,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("template", template);
             argumentsOfScenario.Add("result", result);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("3.2.2 Simple String Expansion at level 0", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 39
+#line 38
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -281,13 +281,13 @@ this.ScenarioInitialize(scenarioInfo);
                 table25.AddRow(new string[] {
                             "undef",
                             "null"});
-#line 40
+#line 39
  testRunner.Given("the variables", ((string)(null)), table25, "Given ");
 #line hidden
-#line 59
+#line 58
  testRunner.When(string.Format("I apply the variables to the template {0}", template), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 60
+#line 59
  testRunner.Then(string.Format("the result should be one of {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -324,7 +324,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("template", template);
             argumentsOfScenario.Add("result", result);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("3.2.3 Reserved Expansion at level 0", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 81
+#line 80
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -398,13 +398,13 @@ this.ScenarioInitialize(scenarioInfo);
                 table26.AddRow(new string[] {
                             "undef",
                             "null"});
-#line 82
+#line 81
  testRunner.Given("the variables", ((string)(null)), table26, "Given ");
 #line hidden
-#line 101
+#line 100
  testRunner.When(string.Format("I apply the variables to the template {0}", template), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 102
+#line 101
  testRunner.Then(string.Format("the result should be one of {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -432,7 +432,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("template", template);
             argumentsOfScenario.Add("result", result);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("3.2.4 Fragment Expansion at level 0", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 126
+#line 125
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -506,13 +506,13 @@ this.ScenarioInitialize(scenarioInfo);
                 table27.AddRow(new string[] {
                             "undef",
                             "null"});
-#line 127
+#line 126
  testRunner.Given("the variables", ((string)(null)), table27, "Given ");
 #line hidden
-#line 146
+#line 145
  testRunner.When(string.Format("I apply the variables to the template {0}", template), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 147
+#line 146
  testRunner.Then(string.Format("the result should be one of {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -544,7 +544,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("template", template);
             argumentsOfScenario.Add("result", result);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("3.2.5 Label Expansion with Dot-Prefix at level 0", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 163
+#line 162
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -618,13 +618,13 @@ this.ScenarioInitialize(scenarioInfo);
                 table28.AddRow(new string[] {
                             "undef",
                             "null"});
-#line 164
+#line 163
  testRunner.Given("the variables", ((string)(null)), table28, "Given ");
 #line hidden
-#line 183
+#line 182
  testRunner.When(string.Format("I apply the variables to the template {0}", template), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 184
+#line 183
  testRunner.Then(string.Format("the result should be one of {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -658,7 +658,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("template", template);
             argumentsOfScenario.Add("result", result);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("3.2.6 Path Segment Expansion at level 0", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 203
+#line 202
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -732,13 +732,13 @@ this.ScenarioInitialize(scenarioInfo);
                 table29.AddRow(new string[] {
                             "undef",
                             "null"});
-#line 204
+#line 203
  testRunner.Given("the variables", ((string)(null)), table29, "Given ");
 #line hidden
-#line 223
+#line 222
  testRunner.When(string.Format("I apply the variables to the template {0}", template), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 224
+#line 223
  testRunner.Then(string.Format("the result should be one of {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -771,7 +771,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("template", template);
             argumentsOfScenario.Add("result", result);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("3.2.7 Path-Style Parameter Expansion at level 0", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 243
+#line 242
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -845,13 +845,13 @@ this.ScenarioInitialize(scenarioInfo);
                 table30.AddRow(new string[] {
                             "undef",
                             "null"});
-#line 244
+#line 243
  testRunner.Given("the variables", ((string)(null)), table30, "Given ");
 #line hidden
-#line 263
+#line 262
  testRunner.When(string.Format("I apply the variables to the template {0}", template), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 264
+#line 263
  testRunner.Then(string.Format("the result should be one of {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -881,7 +881,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("template", template);
             argumentsOfScenario.Add("result", result);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("3.2.8 Form-Style Query Expansion at level 0", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 282
+#line 281
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -955,13 +955,13 @@ this.ScenarioInitialize(scenarioInfo);
                 table31.AddRow(new string[] {
                             "undef",
                             "null"});
-#line 283
+#line 282
  testRunner.Given("the variables", ((string)(null)), table31, "Given ");
 #line hidden
-#line 302
+#line 301
  testRunner.When(string.Format("I apply the variables to the template {0}", template), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 303
+#line 302
  testRunner.Then(string.Format("the result should be one of {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -989,7 +989,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("template", template);
             argumentsOfScenario.Add("result", result);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("3.2.9 Form-Style Query Continuation at level 0", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 318
+#line 317
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -1063,13 +1063,13 @@ this.ScenarioInitialize(scenarioInfo);
                 table32.AddRow(new string[] {
                             "undef",
                             "null"});
-#line 319
+#line 318
  testRunner.Given("the variables", ((string)(null)), table32, "Given ");
 #line hidden
-#line 338
+#line 337
  testRunner.When(string.Format("I apply the variables to the template {0}", template), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 339
+#line 338
  testRunner.Then(string.Format("the result should be one of {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
