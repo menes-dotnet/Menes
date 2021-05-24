@@ -5,9 +5,11 @@
 namespace Menes.Json
 {
     using System;
+    using System.Collections.Immutable;
     using System.Text;
     using System.Text.Json;
     using Corvus.Extensions;
+    using Menes.Json.UriTemplates;
 
     /// <summary>
     /// A JSON object.
@@ -314,6 +316,34 @@ namespace Menes.Json
             }
 
             result = string.Empty;
+            return false;
+        }
+
+        /// <summary>
+        /// Gets the value as a <see cref="UriTemplate"/>.
+        /// </summary>
+        /// <param name="result">The value as a UriTemplate.</param>
+        /// <param name="resolvePartially">Whether to allow partial resolution.</param>
+        /// <param name="caseInsensitiveParameterNames">Whether to use case insensitive parameter names.</param>
+        /// <param name="createParameterRegex">Whether to create a parameter regex (defaults to true).</param>
+        /// <param name="parameters">The parameter values with which to initialize the template.</param>
+        /// <returns><c>True</c> if the value could be retrieved.</returns>
+        public bool TryGetUriTemplate(out UriTemplate result, bool resolvePartially = false, bool caseInsensitiveParameterNames = false, bool createParameterRegex = true, ImmutableDictionary<string, JsonAny>? parameters = null)
+        {
+            if (this.value is string value)
+            {
+                result = new UriTemplate(value, resolvePartially, caseInsensitiveParameterNames, createParameterRegex, parameters);
+                return true;
+            }
+
+            if (this.jsonElement.ValueKind == JsonValueKind.String)
+            {
+                string? str = this.jsonElement.GetString();
+                result = new UriTemplate(str!, resolvePartially, caseInsensitiveParameterNames, createParameterRegex, parameters);
+                return true;
+            }
+
+            result = default;
             return false;
         }
 
