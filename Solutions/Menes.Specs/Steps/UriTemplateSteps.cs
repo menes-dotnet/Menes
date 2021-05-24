@@ -5,13 +5,16 @@
 namespace Steps
 {
     using System;
+    using System.Collections.Generic;
     using System.Collections.Immutable;
+    using System.Linq;
     using System.Text.Json;
     using System.Text.RegularExpressions;
     using Menes.Json;
     using Menes.Json.UriTemplates;
     using NUnit.Framework;
     using TechTalk.SpecFlow;
+    using TechTalk.SpecFlow.Assist;
 
     /// <summary>
     /// Steps for URI template validation.
@@ -35,6 +38,94 @@ namespace Steps
         public UriTemplateSteps(ScenarioContext scenarioContext)
         {
             this.scenarioContext = scenarioContext;
+        }
+
+        /// <summary>
+        /// Set a parameter on the URI template stored in the context variable <c>Template</c>, and writes it back to the context.
+        /// </summary>
+        /// <param name="name">The parmaeter name.</param>
+        /// <param name="value">The new value.</param>
+        [When(@"I set the template parameter called ""(.*)"" to the integer ""(.*)""")]
+        public void WhenISetTheTemplateParameterCalledToTheInteger(string name, int value)
+        {
+            this.scenarioContext.Set(this.scenarioContext.Get<UriTemplate>(TemplateKey).SetParameter(name, value), TemplateKey);
+        }
+
+        /// <summary>
+        /// Set a parameter on the URI template stored in the context variable <c>Template</c>, and writes it back to the context.
+        /// </summary>
+        /// <param name="name">The parmaeter name.</param>
+        /// <param name="value">The new value.</param>
+        [When(@"I set the template parameter called ""(.*)"" to the double ""(.*)""")]
+        public void WhenISetTheTemplateParameterCalledToTheDouble(string name, double value)
+        {
+            this.scenarioContext.Set(this.scenarioContext.Get<UriTemplate>(TemplateKey).SetParameter(name, value), TemplateKey);
+        }
+
+        /// <summary>
+        /// Set a parameter on the URI template stored in the context variable <c>Template</c>, and writes it back to the context.
+        /// </summary>
+        /// <param name="name">The parmaeter name.</param>
+        /// <param name="value">The new value.</param>
+        [When(@"I set the template parameter called ""(.*)"" to the bool ""(.*)""")]
+        public void WhenISetTheTemplateParameterCalledToTheBool(string name, bool value)
+        {
+            this.scenarioContext.Set(this.scenarioContext.Get<UriTemplate>(TemplateKey).SetParameter(name, value), TemplateKey);
+        }
+
+        /// <summary>
+        /// Set a parameter on the URI template stored in the context variable <c>Template</c>, and writes it back to the context.
+        /// </summary>
+        /// <param name="name">The parmaeter name.</param>
+        /// <param name="value">The new value.</param>
+        [When(@"I set the template parameter called ""(.*)"" to the string ""(.*)""")]
+        public void WhenISetTheTemplateParameterCalledToTheString(string name, string value)
+        {
+            this.scenarioContext.Set(this.scenarioContext.Get<UriTemplate>(TemplateKey).SetParameter(name, value), TemplateKey);
+        }
+
+        /// <summary>
+        /// Set a parameter on the URI template stored in the context variable <c>Template</c>, and writes it back to the context.
+        /// </summary>
+        /// <param name="name">The parmaeter name.</param>
+        /// <param name="table">The new value.</param>
+        [When(@"I set the template parameter called ""(.*)"" to the dictionary of strings")]
+        public void WhenISetTheTemplateParameterCalledToTheDictionaryOfStrings(string name, Table table)
+        {
+            this.scenarioContext.Set(this.scenarioContext.Get<UriTemplate>(TemplateKey).SetParameter(name, table.Rows.ToDictionary(r => r["key"], r => r["value"])), TemplateKey);
+        }
+
+        /// <summary>
+        /// Set a parameter on the URI template stored in the context variable <c>Template</c>, and writes it back to the context.
+        /// </summary>
+        /// <param name="name">The parmaeter name.</param>
+        /// <param name="table">The new value.</param>
+        [When(@"I set the template parameter called ""(.*)"" to the enumerable of strings")]
+        public void WhenISetTheTemplateParameterCalledToTheArrayOfStrings(string name, Table table)
+        {
+            this.scenarioContext.Set(this.scenarioContext.Get<UriTemplate>(TemplateKey).SetParameter(name, table.Rows.Select(r => r["value"])), TemplateKey);
+        }
+
+        /// <summary>
+        /// Set a parameter on the URI template stored in the context variable <c>Template</c>, and writes it back to the context.
+        /// </summary>
+        /// <param name="name">The parmaeter name.</param>
+        /// <param name="value">The new value.</param>
+        [When(@"I set the template parameter called ""(.*)"" to the float ""(.*)""")]
+        public void WhenISetTheTemplateParameterCalledToTheFloat(string name, float value)
+        {
+            this.scenarioContext.Set(this.scenarioContext.Get<UriTemplate>(TemplateKey).SetParameter(name, value), TemplateKey);
+        }
+
+        /// <summary>
+        /// Set a parameter on the URI template stored in the context variable <c>Template</c>, and writes it back to the context.
+        /// </summary>
+        /// <param name="name">The parmaeter name.</param>
+        /// <param name="value">The new value.</param>
+        [When(@"I set the template parameter called ""(.*)"" to the long ""(.*)""")]
+        public void WhenISetTheTemplateParameterCalledToTheLong(string name, long value)
+        {
+            this.scenarioContext.Set(this.scenarioContext.Get<UriTemplate>(TemplateKey).SetParameter(name, value), TemplateKey);
         }
 
         /// <summary>
@@ -235,6 +326,16 @@ namespace Steps
         public void GivenICreateAUriTemplateFor(string uriTemplate)
         {
             this.scenarioContext.Set(new UriTemplate(uriTemplate), TemplateKey);
+        }
+
+        /// <summary>
+        /// Creates a URI template with partial resoltion for the given template expression and stores it in the context variable <c>Template</c>.
+        /// </summary>
+        /// <param name="uriTemplate">The template expression.</param>
+        [Given(@"I create a UriTemplate for ""(.*)"" with partial resolution")]
+        public void GivenICreateAUriTemplateForWithPartialResolution(string uriTemplate)
+        {
+            this.scenarioContext.Set(new UriTemplate(uriTemplate, resolvePartially: true), TemplateKey);
         }
 
         /// <summary>

@@ -1185,7 +1185,7 @@ this.ScenarioInitialize(scenarioInfo);
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Extreme encoding", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 178
+#line 177
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -1205,10 +1205,10 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 179
+#line 178
  testRunner.Given("I create a UriTemplate for \"http://example.org/sparql{?query}\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 180
+#line 179
  testRunner.When("I set the template parameter called \"query\" to \"PREFIX dc: <http://purl.org/dc/el" +
                         "ements/1.1/> SELECT ?book ?who WHERE { ?book dc:creator ?who }\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
@@ -1218,7 +1218,7 @@ this.ScenarioInitialize(scenarioInfo);
                             "http://example.org/sparql?query=PREFIX%20dc%3A%20%3Chttp%3A%2F%2Fpurl.org%2Fdc%2F" +
                                 "elements%2F1.1%2F%3E%20SELECT%20%3Fbook%20%3Fwho%20WHERE%20%7B%20%3Fbook%20dc%3A" +
                                 "creator%20%3Fwho%20%7D"});
-#line 181
+#line 180
  testRunner.Then("the resolved template should be one of", ((string)(null)), table30, "Then ");
 #line hidden
             }
@@ -1232,7 +1232,7 @@ this.ScenarioInitialize(scenarioInfo);
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Apply parameters from a JsonObject with a list", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 185
+#line 184
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -1252,10 +1252,10 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 186
+#line 185
  testRunner.Given("I create a UriTemplate for \"http://example.org/customers{?ids,order}\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 187
+#line 186
  testRunner.When("I set the template parameters from the JsonObject \'{\"order\": \"up\", \"ids\": [\"21\", " +
                         "\"75\", \"21\"] }\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
@@ -1265,7 +1265,7 @@ this.ScenarioInitialize(scenarioInfo);
                             "http://example.org/customers?ids=21,75,21&order=up"});
                 table31.AddRow(new string[] {
                             "http://example.org/customers?order=up&ids=21,75,21"});
-#line 188
+#line 187
  testRunner.Then("the resolved template should be one of", ((string)(null)), table31, "Then ");
 #line hidden
             }
@@ -1279,7 +1279,7 @@ this.ScenarioInitialize(scenarioInfo);
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Apply parameters from a JsonObject with a list of ints", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 193
+#line 192
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -1299,10 +1299,10 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 194
+#line 193
  testRunner.Given("I create a UriTemplate for \"http://example.org/customers{?ids,order}\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 195
+#line 194
  testRunner.When("I set the template parameters from the JsonObject \'{\"order\": \"up\", \"ids\": [21, 75" +
                         ", 21] }\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
@@ -1312,7 +1312,7 @@ this.ScenarioInitialize(scenarioInfo);
                             "http://example.org/customers?ids=21,75,21&order=up"});
                 table32.AddRow(new string[] {
                             "http://example.org/customers?order=up&ids=21,75,21"});
-#line 196
+#line 195
  testRunner.Then("the resolved template should be one of", ((string)(null)), table32, "Then ");
 #line hidden
             }
@@ -1326,7 +1326,7 @@ this.ScenarioInitialize(scenarioInfo);
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Apply parameters from a JsonObject with a list of ints exploded", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 202
+#line 200
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -1346,10 +1346,10 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 203
+#line 201
  testRunner.Given("I create a UriTemplate for \"http://example.org/customers{?ids*,order}\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 204
+#line 202
  testRunner.When("I set the template parameters from the JsonObject \'{\"order\": \"up\", \"ids\": [21, 75" +
                         ", 21] }\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
@@ -1359,8 +1359,779 @@ this.ScenarioInitialize(scenarioInfo);
                             "http://example.org/customers?ids=21&ids=75&ids=21&order=up"});
                 table33.AddRow(new string[] {
                             "http://example.org/customers?order=up&ids=21&ids=75&ids=21"});
-#line 205
+#line 203
  testRunner.Then("the resolved template should be one of", ((string)(null)), table33, "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Apply folders from a JsonObject to a path")]
+        public virtual void ApplyFoldersFromAJsonObjectToAPath()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Apply folders from a JsonObject to a path", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 208
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 209
+ testRunner.Given("I create a UriTemplate for \"http://example.org/files{/folders*}{?filename}\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 210
+ testRunner.When("I set the template parameters from the JsonObject \'{\"filename\": \"proposal.pdf\", \"" +
+                        "folders\": [\"customer\", \"project\"] }\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+                TechTalk.SpecFlow.Table table34 = new TechTalk.SpecFlow.Table(new string[] {
+                            "values"});
+                table34.AddRow(new string[] {
+                            "http://example.org/files/customer/project?filename=proposal.pdf"});
+#line 211
+ testRunner.Then("the resolved template should be one of", ((string)(null)), table34, "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Apply folders from a JsonObject to a path from string not URL")]
+        public virtual void ApplyFoldersFromAJsonObjectToAPathFromStringNotURL()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Apply folders from a JsonObject to a path from string not URL", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 215
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 216
+ testRunner.Given("I create a UriTemplate for \"http://example.org{/folders*}{?filename}\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 217
+ testRunner.When("I set the template parameters from the JsonObject \'{\"filename\": \"proposal.pdf\", \"" +
+                        "folders\": [\"files\", \"customer\", \"project\"] }\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+                TechTalk.SpecFlow.Table table35 = new TechTalk.SpecFlow.Table(new string[] {
+                            "values"});
+                table35.AddRow(new string[] {
+                            "http://example.org/files/customer/project?filename=proposal.pdf"});
+#line 218
+ testRunner.Then("the resolved template should be one of", ((string)(null)), table35, "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Parameters from a JsonObject from invalid URL")]
+        public virtual void ParametersFromAJsonObjectFromInvalidURL()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Parameters from a JsonObject from invalid URL", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 222
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 223
+ testRunner.Given("I create a UriTemplate for \"http://{environment}.example.org/{version}/customers{" +
+                        "?active,country}\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 224
+ testRunner.When("I set the template parameters from the JsonObject \'{\"environment\": \"dev\", \"versio" +
+                        "n\": \"v2\", \"active\": true, \"country\": \"CA\" }\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+                TechTalk.SpecFlow.Table table36 = new TechTalk.SpecFlow.Table(new string[] {
+                            "values"});
+                table36.AddRow(new string[] {
+                            "http://dev.example.org/v2/customers?active=True&country=CA"});
+                table36.AddRow(new string[] {
+                            "http://example.org/dev/v2/customers?country=CA&active=True"});
+#line 225
+ testRunner.Then("the resolved template should be one of", ((string)(null)), table36, "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Replace base address")]
+        public virtual void ReplaceBaseAddress()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Replace base address", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 230
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 231
+ testRunner.Given("I create a UriTemplate for \"{+baseUrl}api/customer/{id}\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 232
+ testRunner.When("I set the template parameters from the JsonObject \'{\"baseUrl\": \"http://example.or" +
+                        "g/\", \"id\": \"22\" }\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+                TechTalk.SpecFlow.Table table37 = new TechTalk.SpecFlow.Table(new string[] {
+                            "values"});
+                table37.AddRow(new string[] {
+                            "http://example.org/api/customer/22"});
+#line 233
+ testRunner.Then("the resolved template should be one of", ((string)(null)), table37, "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Replace base address but not ID")]
+        public virtual void ReplaceBaseAddressButNotID()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Replace base address but not ID", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 237
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 238
+ testRunner.Given("I create a UriTemplate for \"{+baseUrl}api/customer/{id}\" with partial resolution", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 239
+ testRunner.When("I set the template parameters from the JsonObject \'{\"baseUrl\": \"http://example.or" +
+                        "g/\" }\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+                TechTalk.SpecFlow.Table table38 = new TechTalk.SpecFlow.Table(new string[] {
+                            "values"});
+                table38.AddRow(new string[] {
+                            "http://example.org/api/customer/{id}"});
+#line 240
+ testRunner.Then("the resolved template should be one of", ((string)(null)), table38, "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Partially apply parameters from a JSON Object from Invalid URL")]
+        public virtual void PartiallyApplyParametersFromAJSONObjectFromInvalidURL()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Partially apply parameters from a JSON Object from Invalid URL", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 244
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 245
+ testRunner.Given("I create a UriTemplate for \"http://{environment}.example.org/{version}/customers{" +
+                        "?active,country}\" with partial resolution", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 246
+ testRunner.When("I set the template parameters from the JsonObject \'{\"environment\": \"dev\", \"versio" +
+                        "n\": \"v2\"}\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+                TechTalk.SpecFlow.Table table39 = new TechTalk.SpecFlow.Table(new string[] {
+                            "values"});
+                table39.AddRow(new string[] {
+                            "http://dev.example.org/v2/customers{?active,country}"});
+#line 247
+ testRunner.Then("the resolved template should be one of", ((string)(null)), table39, "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Partially apply parameters from a JSON Object to a path from string not url")]
+        public virtual void PartiallyApplyParametersFromAJSONObjectToAPathFromStringNotUrl()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Partially apply parameters from a JSON Object to a path from string not url", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 251
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 252
+ testRunner.Given("I create a UriTemplate for \"http://example.org{/folders*}{?filename}\" with partia" +
+                        "l resolution", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 253
+ testRunner.When("I set the template parameters from the JsonObject \'{\"filename\": \"proposal.pdf\" }\'" +
+                        "", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+                TechTalk.SpecFlow.Table table40 = new TechTalk.SpecFlow.Table(new string[] {
+                            "values"});
+                table40.AddRow(new string[] {
+                            "http://example.org{/folders*}?filename=proposal.pdf"});
+#line 254
+ testRunner.Then("the resolved template should be one of", ((string)(null)), table40, "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Add multiple parameters to link")]
+        public virtual void AddMultipleParametersToLink()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add multiple parameters to link", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 258
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 259
+ testRunner.Given("I create a UriTemplate for \"http://localhost/api/{dataset}/customer{?foo,bar,baz}" +
+                        "\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+                TechTalk.SpecFlow.Table table41 = new TechTalk.SpecFlow.Table(new string[] {
+                            "name",
+                            "value"});
+                table41.AddRow(new string[] {
+                            "foo",
+                            "bar"});
+                table41.AddRow(new string[] {
+                            "baz",
+                            "99"});
+                table41.AddRow(new string[] {
+                            "dataset",
+                            "bob"});
+#line 260
+ testRunner.When("I set the template parameters", ((string)(null)), table41, "When ");
+#line hidden
+                TechTalk.SpecFlow.Table table42 = new TechTalk.SpecFlow.Table(new string[] {
+                            "values"});
+                table42.AddRow(new string[] {
+                            "http://localhost/api/bob/customer?foo=bar&baz=99"});
+                table42.AddRow(new string[] {
+                            "http://localhost/api/bob/customer?baz=99&foo=bar"});
+#line 265
+ testRunner.Then("the resolved template should be one of", ((string)(null)), table42, "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Set template parameters for an int")]
+        public virtual void SetTemplateParametersForAnInt()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Set template parameters for an int", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 270
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 271
+ testRunner.Given("I create a UriTemplate for \"http://example.org/location{?value}\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 272
+ testRunner.When("I set the template parameter called \"value\" to the integer \"3\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+                TechTalk.SpecFlow.Table table43 = new TechTalk.SpecFlow.Table(new string[] {
+                            "values"});
+                table43.AddRow(new string[] {
+                            "http://example.org/location?value=3"});
+#line 273
+ testRunner.Then("the resolved template should be one of", ((string)(null)), table43, "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Set template parameters for a double")]
+        public virtual void SetTemplateParametersForADouble()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Set template parameters for a double", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 277
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 278
+ testRunner.Given("I create a UriTemplate for \"http://example.org/location{?value}\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 279
+ testRunner.When("I set the template parameter called \"value\" to the double \"3.3\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+                TechTalk.SpecFlow.Table table44 = new TechTalk.SpecFlow.Table(new string[] {
+                            "values"});
+                table44.AddRow(new string[] {
+                            "http://example.org/location?value=3.3"});
+#line 280
+ testRunner.Then("the resolved template should be one of", ((string)(null)), table44, "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Set template parameters for a boolean")]
+        public virtual void SetTemplateParametersForABoolean()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Set template parameters for a boolean", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 284
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 285
+ testRunner.Given("I create a UriTemplate for \"http://example.org/location{?value}\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 286
+ testRunner.When("I set the template parameter called \"value\" to the bool \"true\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+                TechTalk.SpecFlow.Table table45 = new TechTalk.SpecFlow.Table(new string[] {
+                            "values"});
+                table45.AddRow(new string[] {
+                            "http://example.org/location?value=True"});
+#line 287
+ testRunner.Then("the resolved template should be one of", ((string)(null)), table45, "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Set template parameters for a string")]
+        public virtual void SetTemplateParametersForAString()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Set template parameters for a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 291
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 292
+ testRunner.Given("I create a UriTemplate for \"http://example.org/location{?value}\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 293
+ testRunner.When("I set the template parameter called \"value\" to the string \"SomeString\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+                TechTalk.SpecFlow.Table table46 = new TechTalk.SpecFlow.Table(new string[] {
+                            "values"});
+                table46.AddRow(new string[] {
+                            "http://example.org/location?value=SomeString"});
+#line 294
+ testRunner.Then("the resolved template should be one of", ((string)(null)), table46, "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Set template parameters for a float")]
+        public virtual void SetTemplateParametersForAFloat()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Set template parameters for a float", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 298
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 299
+ testRunner.Given("I create a UriTemplate for \"http://example.org/location{?value}\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 300
+ testRunner.When("I set the template parameter called \"value\" to the float \"3.3\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+                TechTalk.SpecFlow.Table table47 = new TechTalk.SpecFlow.Table(new string[] {
+                            "values"});
+                table47.AddRow(new string[] {
+                            "http://example.org/location?value=3.299999952316284"});
+#line 301
+ testRunner.Then("the resolved template should be one of", ((string)(null)), table47, "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Set template parameters for a long")]
+        public virtual void SetTemplateParametersForALong()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Set template parameters for a long", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 305
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 306
+ testRunner.Given("I create a UriTemplate for \"http://example.org/location{?value}\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 307
+ testRunner.When("I set the template parameter called \"value\" to the long \"333\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+                TechTalk.SpecFlow.Table table48 = new TechTalk.SpecFlow.Table(new string[] {
+                            "values"});
+                table48.AddRow(new string[] {
+                            "http://example.org/location?value=333"});
+#line 308
+ testRunner.Then("the resolved template should be one of", ((string)(null)), table48, "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Set template parameters for a dictionary of strings")]
+        public virtual void SetTemplateParametersForADictionaryOfStrings()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Set template parameters for a dictionary of strings", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 312
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 313
+ testRunner.Given("I create a UriTemplate for \"http://example.org/location{?value*}\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+                TechTalk.SpecFlow.Table table49 = new TechTalk.SpecFlow.Table(new string[] {
+                            "key",
+                            "value"});
+                table49.AddRow(new string[] {
+                            "foo",
+                            "bar"});
+                table49.AddRow(new string[] {
+                            "bar",
+                            "baz"});
+                table49.AddRow(new string[] {
+                            "baz",
+                            "bob"});
+#line 314
+ testRunner.When("I set the template parameter called \"value\" to the dictionary of strings", ((string)(null)), table49, "When ");
+#line hidden
+                TechTalk.SpecFlow.Table table50 = new TechTalk.SpecFlow.Table(new string[] {
+                            "values"});
+                table50.AddRow(new string[] {
+                            "http://example.org/location?foo=bar&bar=baz&baz=bob"});
+                table50.AddRow(new string[] {
+                            "http://example.org/location?foo=bar&baz=bob&bar=baz"});
+                table50.AddRow(new string[] {
+                            "http://example.org/location?baz=bob&bar=baz&foo=bar"});
+                table50.AddRow(new string[] {
+                            "http://example.org/location?baz=bob&foo=bar&bar=baz"});
+                table50.AddRow(new string[] {
+                            "http://example.org/location?bar=baz&baz=bob&foo=bar"});
+                table50.AddRow(new string[] {
+                            "http://example.org/location?bar=baz&foo=bar&baz=bob"});
+#line 319
+ testRunner.Then("the resolved template should be one of", ((string)(null)), table50, "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Set template parameters for an array of strings")]
+        public virtual void SetTemplateParametersForAnArrayOfStrings()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Set template parameters for an array of strings", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 328
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 329
+ testRunner.Given("I create a UriTemplate for \"http://example.org/location{?value*}\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+                TechTalk.SpecFlow.Table table51 = new TechTalk.SpecFlow.Table(new string[] {
+                            "value"});
+                table51.AddRow(new string[] {
+                            "bar"});
+                table51.AddRow(new string[] {
+                            "baz"});
+                table51.AddRow(new string[] {
+                            "bob"});
+#line 330
+ testRunner.When("I set the template parameter called \"value\" to the enumerable of strings", ((string)(null)), table51, "When ");
+#line hidden
+                TechTalk.SpecFlow.Table table52 = new TechTalk.SpecFlow.Table(new string[] {
+                            "values"});
+                table52.AddRow(new string[] {
+                            "http://example.org/location?value=bar&value=baz&value=bob"});
+                table52.AddRow(new string[] {
+                            "http://example.org/location?value=bar&value=bob&value=baz"});
+                table52.AddRow(new string[] {
+                            "http://example.org/location?value=baz&value=bob&value=bar"});
+                table52.AddRow(new string[] {
+                            "http://example.org/location?value=baz&value=bar&value=bob"});
+                table52.AddRow(new string[] {
+                            "http://example.org/location?value=bob&value=baz&value=bar"});
+                table52.AddRow(new string[] {
+                            "http://example.org/location?value=bob&value=bar&value=baz"});
+#line 335
+ testRunner.Then("the resolved template should be one of", ((string)(null)), table52, "Then ");
 #line hidden
             }
             this.ScenarioCleanup();

@@ -174,19 +174,18 @@ Scenario: Apply parameters from a JsonObject to a path segment
 		| values                        |
 		| http://example.org/foo/yo/baz |
 
-
 Scenario: Extreme encoding
 	Given I create a UriTemplate for "http://example.org/sparql{?query}"
 	When I set the template parameter called "query" to "PREFIX dc: <http://purl.org/dc/elements/1.1/> SELECT ?book ?who WHERE { ?book dc:creator ?who }"
 	Then the resolved template should be one of
-		| values                         |
+		| values                                                                                                                                                                                  |
 		| http://example.org/sparql?query=PREFIX%20dc%3A%20%3Chttp%3A%2F%2Fpurl.org%2Fdc%2Felements%2F1.1%2F%3E%20SELECT%20%3Fbook%20%3Fwho%20WHERE%20%7B%20%3Fbook%20dc%3Acreator%20%3Fwho%20%7D |
 
 Scenario: Apply parameters from a JsonObject with a list
 	Given I create a UriTemplate for "http://example.org/customers{?ids,order}"
 	When I set the template parameters from the JsonObject '{"order": "up", "ids": ["21", "75", "21"] }'
 	Then the resolved template should be one of
-		| values                        |
+		| values                                             |
 		| http://example.org/customers?ids=21,75,21&order=up |
 		| http://example.org/customers?order=up&ids=21,75,21 |
 
@@ -194,15 +193,150 @@ Scenario: Apply parameters from a JsonObject with a list of ints
 	Given I create a UriTemplate for "http://example.org/customers{?ids,order}"
 	When I set the template parameters from the JsonObject '{"order": "up", "ids": [21, 75, 21] }'
 	Then the resolved template should be one of
-		| values                        |
+		| values                                             |
 		| http://example.org/customers?ids=21,75,21&order=up |
 		| http://example.org/customers?order=up&ids=21,75,21 |
-
 
 Scenario: Apply parameters from a JsonObject with a list of ints exploded
 	Given I create a UriTemplate for "http://example.org/customers{?ids*,order}"
 	When I set the template parameters from the JsonObject '{"order": "up", "ids": [21, 75, 21] }'
 	Then the resolved template should be one of
-		| values                        |
+		| values                                                     |
 		| http://example.org/customers?ids=21&ids=75&ids=21&order=up |
 		| http://example.org/customers?order=up&ids=21&ids=75&ids=21 |
+
+Scenario: Apply folders from a JsonObject to a path
+	Given I create a UriTemplate for "http://example.org/files{/folders*}{?filename}"
+	When I set the template parameters from the JsonObject '{"filename": "proposal.pdf", "folders": ["customer", "project"] }'
+	Then the resolved template should be one of
+		| values                                                          |
+		| http://example.org/files/customer/project?filename=proposal.pdf |
+
+Scenario: Apply folders from a JsonObject to a path from string not URL
+	Given I create a UriTemplate for "http://example.org{/folders*}{?filename}"
+	When I set the template parameters from the JsonObject '{"filename": "proposal.pdf", "folders": ["files", "customer", "project"] }'
+	Then the resolved template should be one of
+		| values                                                          |
+		| http://example.org/files/customer/project?filename=proposal.pdf |
+
+Scenario: Parameters from a JsonObject from invalid URL
+	Given I create a UriTemplate for "http://{environment}.example.org/{version}/customers{?active,country}"
+	When I set the template parameters from the JsonObject '{"environment": "dev", "version": "v2", "active": true, "country": "CA" }'
+	Then the resolved template should be one of
+		| values                                                     |
+		| http://dev.example.org/v2/customers?active=True&country=CA |
+		| http://example.org/dev/v2/customers?country=CA&active=True |
+
+Scenario: Replace base address
+	Given I create a UriTemplate for "{+baseUrl}api/customer/{id}"
+	When I set the template parameters from the JsonObject '{"baseUrl": "http://example.org/", "id": "22" }'
+	Then the resolved template should be one of
+		| values                             |
+		| http://example.org/api/customer/22 |
+
+Scenario: Replace base address but not ID
+	Given I create a UriTemplate for "{+baseUrl}api/customer/{id}" with partial resolution
+	When I set the template parameters from the JsonObject '{"baseUrl": "http://example.org/" }'
+	Then the resolved template should be one of
+		| values                               |
+		| http://example.org/api/customer/{id} |
+
+Scenario: Partially apply parameters from a JSON Object from Invalid URL
+	Given I create a UriTemplate for "http://{environment}.example.org/{version}/customers{?active,country}" with partial resolution
+	When I set the template parameters from the JsonObject '{"environment": "dev", "version": "v2"}'
+	Then the resolved template should be one of
+		| values                                               |
+		| http://dev.example.org/v2/customers{?active,country} |
+
+Scenario: Partially apply parameters from a JSON Object to a path from string not url
+	Given I create a UriTemplate for "http://example.org{/folders*}{?filename}" with partial resolution
+	When I set the template parameters from the JsonObject '{"filename": "proposal.pdf" }'
+	Then the resolved template should be one of
+		| values                                              |
+		| http://example.org{/folders*}?filename=proposal.pdf |
+
+Scenario: Add multiple parameters to link
+	Given I create a UriTemplate for "http://localhost/api/{dataset}/customer{?foo,bar,baz}"
+	When I set the template parameters
+		| name    | value |
+		| foo     | bar   |
+		| baz     | 99    |
+		| dataset | bob   |
+	Then the resolved template should be one of
+		| values                                           |
+		| http://localhost/api/bob/customer?foo=bar&baz=99 |
+		| http://localhost/api/bob/customer?baz=99&foo=bar |
+
+Scenario: Set template parameters for an int
+	Given I create a UriTemplate for "http://example.org/location{?value}"
+	When I set the template parameter called "value" to the integer "3"
+	Then the resolved template should be one of
+		| values                              |
+		| http://example.org/location?value=3 |
+
+Scenario: Set template parameters for a double
+	Given I create a UriTemplate for "http://example.org/location{?value}"
+	When I set the template parameter called "value" to the double "3.3"
+	Then the resolved template should be one of
+		| values                                |
+		| http://example.org/location?value=3.3 |
+
+Scenario: Set template parameters for a boolean
+	Given I create a UriTemplate for "http://example.org/location{?value}"
+	When I set the template parameter called "value" to the bool "true"
+	Then the resolved template should be one of
+		| values                                 |
+		| http://example.org/location?value=True |
+
+Scenario: Set template parameters for a string
+	Given I create a UriTemplate for "http://example.org/location{?value}"
+	When I set the template parameter called "value" to the string "SomeString"
+	Then the resolved template should be one of
+		| values                                       |
+		| http://example.org/location?value=SomeString |
+
+Scenario: Set template parameters for a float
+	Given I create a UriTemplate for "http://example.org/location{?value}"
+	When I set the template parameter called "value" to the float "3.3"
+	Then the resolved template should be one of
+		| values                                              |
+		| http://example.org/location?value=3.299999952316284 |
+
+Scenario: Set template parameters for a long
+	Given I create a UriTemplate for "http://example.org/location{?value}"
+	When I set the template parameter called "value" to the long "333"
+	Then the resolved template should be one of
+		| values                                |
+		| http://example.org/location?value=333 |
+
+Scenario: Set template parameters for a dictionary of strings
+	Given I create a UriTemplate for "http://example.org/location{?value*}"
+	When I set the template parameter called "value" to the dictionary of strings
+		| key | value |
+		| foo | bar   |
+		| bar | baz   |
+		| baz | bob   |
+	Then the resolved template should be one of
+		| values                                              |
+		| http://example.org/location?foo=bar&bar=baz&baz=bob |
+		| http://example.org/location?foo=bar&baz=bob&bar=baz |
+		| http://example.org/location?baz=bob&bar=baz&foo=bar |
+		| http://example.org/location?baz=bob&foo=bar&bar=baz |
+		| http://example.org/location?bar=baz&baz=bob&foo=bar |
+		| http://example.org/location?bar=baz&foo=bar&baz=bob |
+
+Scenario: Set template parameters for an array of strings
+	Given I create a UriTemplate for "http://example.org/location{?value*}"
+	When I set the template parameter called "value" to the enumerable of strings
+		| value |
+		| bar   |
+		| baz   |
+		| bob   |
+	Then the resolved template should be one of
+		| values                                                    |
+		| http://example.org/location?value=bar&value=baz&value=bob |
+		| http://example.org/location?value=bar&value=bob&value=baz |
+		| http://example.org/location?value=baz&value=bob&value=bar |
+		| http://example.org/location?value=baz&value=bar&value=bob |
+		| http://example.org/location?value=bob&value=baz&value=bar |
+		| http://example.org/location?value=bob&value=bar&value=baz |
