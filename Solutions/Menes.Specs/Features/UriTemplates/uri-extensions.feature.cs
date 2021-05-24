@@ -112,14 +112,14 @@ this.ScenarioInitialize(scenarioInfo);
 #line 8
  testRunner.And("I make a template for the target uri from the parameters", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-                TechTalk.SpecFlow.Table table42 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table44 = new TechTalk.SpecFlow.Table(new string[] {
                             "values"});
-                table42.AddRow(new string[] {
+                table44.AddRow(new string[] {
                             "http://example/customer?view=True&foo=bar"});
-                table42.AddRow(new string[] {
+                table44.AddRow(new string[] {
                             "http://example/customer?foo=bar&view=True"});
 #line 9
- testRunner.Then("the resolved template should be one of", ((string)(null)), table42, "Then ");
+ testRunner.Then("the resolved template should be one of", ((string)(null)), table44, "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -161,14 +161,14 @@ this.ScenarioInitialize(scenarioInfo);
 #line 17
  testRunner.When("I set the template parameter called \"view\" to \"true\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-                TechTalk.SpecFlow.Table table43 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table45 = new TechTalk.SpecFlow.Table(new string[] {
                             "values"});
-                table43.AddRow(new string[] {
+                table45.AddRow(new string[] {
                             "http://example/customer?view=True&foo=bar"});
-                table43.AddRow(new string[] {
+                table45.AddRow(new string[] {
                             "http://example/customer?foo=bar&view=True"});
 #line 18
- testRunner.Then("the resolved template should be one of", ((string)(null)), table43, "Then ");
+ testRunner.Then("the resolved template should be one of", ((string)(null)), table45, "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -210,12 +210,12 @@ this.ScenarioInitialize(scenarioInfo);
 #line 26
  testRunner.When("I clear the template parameter called \"view\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-                TechTalk.SpecFlow.Table table44 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table46 = new TechTalk.SpecFlow.Table(new string[] {
                             "values"});
-                table44.AddRow(new string[] {
+                table46.AddRow(new string[] {
                             "http://example/customer?foo=bar"});
 #line 27
- testRunner.Then("the resolved template should be one of", ((string)(null)), table44, "Then ");
+ testRunner.Then("the resolved template should be one of", ((string)(null)), table46, "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -251,26 +251,26 @@ this.ScenarioInitialize(scenarioInfo);
 #line 32
  testRunner.Given("the target uri \"http://example/customer\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-                TechTalk.SpecFlow.Table table45 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table47 = new TechTalk.SpecFlow.Table(new string[] {
                             "name",
                             "value"});
-                table45.AddRow(new string[] {
+                table47.AddRow(new string[] {
                             "id",
                             "99"});
-                table45.AddRow(new string[] {
+                table47.AddRow(new string[] {
                             "view",
                             "false"});
 #line 33
- testRunner.When("I make a template for the target uri with the parameters", ((string)(null)), table45, "When ");
+ testRunner.When("I make a template for the target uri with the parameters", ((string)(null)), table47, "When ");
 #line hidden
-                TechTalk.SpecFlow.Table table46 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table48 = new TechTalk.SpecFlow.Table(new string[] {
                             "values"});
-                table46.AddRow(new string[] {
+                table48.AddRow(new string[] {
                             "http://example/customer?id=99&view=False"});
-                table46.AddRow(new string[] {
+                table48.AddRow(new string[] {
                             "http://example/customer?view=False&id=99"});
 #line 37
- testRunner.Then("the resolved template should be one of", ((string)(null)), table46, "Then ");
+ testRunner.Then("the resolved template should be one of", ((string)(null)), table48, "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -306,26 +306,26 @@ this.ScenarioInitialize(scenarioInfo);
 #line 43
  testRunner.Given("the target uri \"http://example/customer\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-                TechTalk.SpecFlow.Table table47 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table49 = new TechTalk.SpecFlow.Table(new string[] {
                             "name",
                             "value"});
-                table47.AddRow(new string[] {
+                table49.AddRow(new string[] {
                             "id",
                             "99"});
-                table47.AddRow(new string[] {
+                table49.AddRow(new string[] {
                             "view",
                             "false"});
 #line 44
- testRunner.When("I make a template for the target uri with the parameters as params", ((string)(null)), table47, "When ");
+ testRunner.When("I make a template for the target uri with the parameters as params", ((string)(null)), table49, "When ");
 #line hidden
-                TechTalk.SpecFlow.Table table48 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table50 = new TechTalk.SpecFlow.Table(new string[] {
                             "values"});
-                table48.AddRow(new string[] {
+                table50.AddRow(new string[] {
                             "http://example/customer?id=99&view=False"});
-                table48.AddRow(new string[] {
+                table50.AddRow(new string[] {
                             "http://example/customer?view=False&id=99"});
 #line 48
- testRunner.Then("the resolved template should be one of", ((string)(null)), table48, "Then ");
+ testRunner.Then("the resolved template should be one of", ((string)(null)), table50, "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -373,14 +373,14 @@ this.ScenarioInitialize(scenarioInfo);
 #line 58
  testRunner.When("I set the template parameter called \"id\" to \"99\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-                TechTalk.SpecFlow.Table table49 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table51 = new TechTalk.SpecFlow.Table(new string[] {
                             "values"});
-                table49.AddRow(new string[] {
+                table51.AddRow(new string[] {
                             "http://example/customer/99?view=True&context=detail"});
-                table49.AddRow(new string[] {
+                table51.AddRow(new string[] {
                             "http://example/customer/99?context=detail&view=True"});
 #line 59
- testRunner.Then("the resolved template should be one of", ((string)(null)), table49, "Then ");
+ testRunner.Then("the resolved template should be one of", ((string)(null)), table51, "Then ");
 #line hidden
             }
             this.ScenarioCleanup();

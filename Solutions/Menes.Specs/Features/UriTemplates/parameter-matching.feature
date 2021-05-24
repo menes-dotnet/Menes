@@ -166,3 +166,18 @@ Scenario: Add JSON Object to query parameter
 		| values                         |
 		| http://example.org/foo?x=1&y=2 |
 		| http://example.org/foo?y=2&x=1 |
+
+Scenario: Apply parameters from a JsonObject to a path segment
+	Given I create a UriTemplate for "http://example.org/foo/{bar}/baz"
+	When I set the template parameters from the JsonObject '{"bar": "yo" }'
+	Then the resolved template should be one of
+		| values                        |
+		| http://example.org/foo/yo/baz |
+
+
+Scenario: Extreme encoding
+	Given I create a UriTemplate for "http://example.org/sparql{?query}"
+	When I set the template parameter called "query" to "PREFIX dc: <http://purl.org/dc/elements/1.1/> SELECT ?book ?who WHERE { ?book dc:creator ?who }"
+	Then the resolved template should be one of
+		| values                         |
+		| http://example.org/sparql?query=PREFIX%20dc%3A%20%3Chttp%3A%2F%2Fpurl.org%2Fdc%2Felements%2F1.1%2F%3E%20SELECT%20%3Fbook%20%3Fwho%20WHERE%20%7B%20%3Fbook%20dc%3Acreator%20%3Fwho%20%7D |
