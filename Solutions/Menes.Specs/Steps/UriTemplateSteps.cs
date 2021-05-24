@@ -19,6 +19,13 @@ namespace Steps
     [Binding]
     public class UriTemplateSteps
     {
+        private const string TemplateKey = "Template";
+        private const string TargetUriKey = "TargetUri";
+        private const string ParametersKey = "Parameters";
+        private const string RegexKey = "Regex";
+        private const string ExceptionKey = "Exception";
+        private const string VariablesKey = "Variables";
+        private const string ResultKey = "Result";
         private readonly ScenarioContext scenarioContext;
 
         /// <summary>
@@ -28,6 +35,17 @@ namespace Steps
         public UriTemplateSteps(ScenarioContext scenarioContext)
         {
             this.scenarioContext = scenarioContext;
+        }
+
+        /// <summary>
+        /// Set the template parameters from a JsonObject on the UriTemplate in the context variable called <c>Template</c> and store it back to the context.
+        /// </summary>
+        /// <param name="json">The json string for the JSON object.</param>
+        [When(@"I set the template parameters from the JsonObject '(.*)'")]
+        public void WhenISetTheTemplateParametersFromTheJsonObject(string json)
+        {
+            JsonObject jsonObject = JsonAny.Parse(json);
+            this.scenarioContext.Set(this.scenarioContext.Get<UriTemplate>(TemplateKey).SetParameters(jsonObject), TemplateKey);
         }
 
         /// <summary>
@@ -43,7 +61,7 @@ namespace Steps
                 parameters.Add(row["name"], JsonAny.ParseUriValue(row["value"]));
             }
 
-            this.scenarioContext.Set(this.scenarioContext.Get<Uri>("TargetUri").MakeTemplate(parameters.ToImmutable()), "Template");
+            this.scenarioContext.Set(this.scenarioContext.Get<Uri>(TargetUriKey).MakeTemplate(parameters.ToImmutable()), TemplateKey);
         }
 
         /// <summary>
@@ -61,7 +79,25 @@ namespace Steps
                 index++;
             }
 
-            this.scenarioContext.Set(this.scenarioContext.Get<Uri>("TargetUri").MakeTemplate(parameters), "Template");
+            this.scenarioContext.Set(this.scenarioContext.Get<Uri>(TargetUriKey).MakeTemplate(parameters), TemplateKey);
+        }
+
+        /// <summary>
+        /// Set the template parameters from the table on the UriTemplate in the context variable called <c>Template</c> and store it back to the context.
+        /// </summary>
+        /// <param name="table">The table of parameters to set.</param>
+        [When(@"I set the template parameters")]
+        public void WhenISetTheTemplateParameters(Table table)
+        {
+            var parameters = new (string, JsonAny)[table.RowCount];
+            int index = 0;
+            foreach (TableRow row in table.Rows)
+            {
+                parameters[index] = (row["name"], JsonAny.ParseUriValue(row["value"]));
+                ++index;
+            }
+
+            this.scenarioContext.Set(this.scenarioContext.Get<UriTemplate>(TemplateKey).SetParameters(parameters), TemplateKey);
         }
 
         /// <summary>
@@ -71,7 +107,7 @@ namespace Steps
         [Given(@"the target uri ""(.*)""")]
         public void GivenTheTargetUri(string targetUri)
         {
-            this.scenarioContext.Set(new Uri(targetUri, UriKind.RelativeOrAbsolute), "TargetUri");
+            this.scenarioContext.Set(new Uri(targetUri, UriKind.RelativeOrAbsolute), TargetUriKey);
         }
 
         /// <summary>
@@ -80,7 +116,7 @@ namespace Steps
         [When(@"I get the query string parameters for the target uri")]
         public void WhenIGetTheQueryStringParametersForTheTargetUri()
         {
-            this.scenarioContext.Set(this.scenarioContext.Get<Uri>("TargetUri").GetQueryStringParameters(), "Parameters");
+            this.scenarioContext.Set(this.scenarioContext.Get<Uri>(TargetUriKey).GetQueryStringParameters(), ParametersKey);
         }
 
         /// <summary>
@@ -91,8 +127,8 @@ namespace Steps
         [When(@"I set the parameter called ""(.*)"" to ""(.*)""")]
         public void WhenISetTheParameterCalledTo(string name, string value)
         {
-            ImmutableDictionary<string, JsonAny> parameters = this.scenarioContext.Get<ImmutableDictionary<string, JsonAny>>("Parameters");
-            this.scenarioContext.Set(parameters.SetItem(name, JsonAny.ParseUriValue(value)), "Parameters");
+            ImmutableDictionary<string, JsonAny> parameters = this.scenarioContext.Get<ImmutableDictionary<string, JsonAny>>(ParametersKey);
+            this.scenarioContext.Set(parameters.SetItem(name, JsonAny.ParseUriValue(value)), ParametersKey);
         }
 
         /// <summary>
@@ -102,8 +138,8 @@ namespace Steps
         public void WhenIMakeATemplateForTheTargetUriFromTheParameters()
         {
             this.scenarioContext.Set(
-                this.scenarioContext.Get<Uri>("TargetUri").MakeTemplate(this.scenarioContext.Get<ImmutableDictionary<string, JsonAny>>("Parameters")),
-                "Template");
+                this.scenarioContext.Get<Uri>(TargetUriKey).MakeTemplate(this.scenarioContext.Get<ImmutableDictionary<string, JsonAny>>(ParametersKey)),
+                TemplateKey);
         }
 
         /// <summary>
@@ -113,7 +149,7 @@ namespace Steps
         [Then(@"the resolved template should be one of")]
         public void ThenTheResovledTemplateShouldBeOneOf(Table table)
         {
-            string resolved = this.scenarioContext.Get<UriTemplate>("Template").Resolve();
+            string resolved = this.scenarioContext.Get<UriTemplate>(TemplateKey).Resolve();
             foreach (TableRow row in table.Rows)
             {
                 if (row[0] == resolved)
@@ -131,7 +167,7 @@ namespace Steps
         [Given(@"I make a template for the target uri")]
         public void GivenIMakeATemplateForTheTargetUri()
         {
-            this.scenarioContext.Set(this.scenarioContext.Get<Uri>("TargetUri").MakeTemplate(), "Template");
+            this.scenarioContext.Set(this.scenarioContext.Get<Uri>(TargetUriKey).MakeTemplate(), TemplateKey);
         }
 
         /// <summary>
@@ -142,7 +178,7 @@ namespace Steps
         [When(@"I set the template parameter called ""(.*)"" to ""(.*)""")]
         public void WhenISetTheTemplateParameterCalledTo(string name, string value)
         {
-            this.scenarioContext.Set(this.scenarioContext.Get<UriTemplate>("Template").SetParameter(name, JsonAny.ParseUriValue(value)), "Template");
+            this.scenarioContext.Set(this.scenarioContext.Get<UriTemplate>(TemplateKey).SetParameter(name, JsonAny.ParseUriValue(value)), TemplateKey);
         }
 
         /// <summary>
@@ -152,7 +188,7 @@ namespace Steps
         [When(@"I clear the template parameter called ""(.*)""")]
         public void WhenIClearTheTemplateParameterCalled(string name)
         {
-            this.scenarioContext.Set(this.scenarioContext.Get<UriTemplate>("Template").ClearParameter(name), "Template");
+            this.scenarioContext.Set(this.scenarioContext.Get<UriTemplate>(TemplateKey).ClearParameter(name), TemplateKey);
         }
 
         /// <summary>
@@ -162,7 +198,7 @@ namespace Steps
         [When(@"I create a regex for the template ""(.*)""")]
         public void GivenICreateARegexForTheTemplate(string regex)
         {
-            this.scenarioContext.Set(new Regex(UriTemplate.CreateMatchingRegex(regex)), "Regex");
+            this.scenarioContext.Set(new Regex(UriTemplate.CreateMatchingRegex(regex)), RegexKey);
         }
 
         /// <summary>
@@ -172,7 +208,7 @@ namespace Steps
         [Then(@"the regex should match ""(.*)""")]
         public void ThenTheRegexShouldMatch(string uri)
         {
-            Assert.IsTrue(this.scenarioContext.Get<Regex>("Regex").IsMatch(uri));
+            Assert.IsTrue(this.scenarioContext.Get<Regex>(RegexKey).IsMatch(uri));
         }
 
         /// <summary>
@@ -183,7 +219,7 @@ namespace Steps
         [Then(@"the matches for ""(.*)"" should be")]
         public void ThenTheMatchesForShouldBe(string uri, Table table)
         {
-            Match match = this.scenarioContext.Get<Regex>("Regex").Match(uri);
+            Match match = this.scenarioContext.Get<Regex>(RegexKey).Match(uri);
             foreach (TableRow row in table.Rows)
             {
                 Assert.AreEqual(row["match"], match.Groups[row["group"]].Value);
@@ -198,7 +234,7 @@ namespace Steps
         [When(@"I create a UriTemplate for ""(.*)""")]
         public void GivenICreateAUriTemplateFor(string uriTemplate)
         {
-            this.scenarioContext.Set(new UriTemplate(uriTemplate), "Template");
+            this.scenarioContext.Set(new UriTemplate(uriTemplate), TemplateKey);
         }
 
         /// <summary>
@@ -209,7 +245,7 @@ namespace Steps
         [Then(@"the parameters for ""(.*)"" should be")]
         public void ThenTheParametersForShouldBe(string uri, Table parameters)
         {
-            if (this.scenarioContext.Get<UriTemplate>("Template").TryGetParameters(new Uri(uri, UriKind.RelativeOrAbsolute), out ImmutableDictionary<string, JsonAny>? actual))
+            if (this.scenarioContext.Get<UriTemplate>(TemplateKey).TryGetParameters(new Uri(uri, UriKind.RelativeOrAbsolute), out ImmutableDictionary<string, JsonAny>? actual))
             {
                 Assert.AreEqual(parameters.RowCount, actual.Count);
                 foreach (TableRow row in parameters.Rows)
@@ -247,7 +283,7 @@ namespace Steps
                 builder.Add(row["name"], JsonAny.Parse(row["value"]));
             }
 
-            this.scenarioContext.Set(builder.ToImmutable(), "Variables");
+            this.scenarioContext.Set(builder.ToImmutable(), VariablesKey);
         }
 
         /// <summary>
@@ -259,12 +295,12 @@ namespace Steps
         {
             try
             {
-                var uriTemplate = new UriTemplate(template, parameters: this.scenarioContext.Get<ImmutableDictionary<string, JsonAny>>("Variables"));
-                this.scenarioContext.Set(uriTemplate.Resolve(), "Result");
+                var uriTemplate = new UriTemplate(template, parameters: this.scenarioContext.Get<ImmutableDictionary<string, JsonAny>>(VariablesKey));
+                this.scenarioContext.Set(uriTemplate.Resolve(), ResultKey);
             }
             catch (Exception ex)
             {
-                this.scenarioContext.Set(ex, "Exception");
+                this.scenarioContext.Set(ex, ExceptionKey);
             }
         }
 
@@ -284,13 +320,13 @@ namespace Steps
                 enumerator.MoveNext();
                 if (enumerator.Current.ValueKind == JsonValueKind.False)
                 {
-                    Assert.IsTrue(this.scenarioContext.ContainsKey("Exception"));
+                    Assert.IsTrue(this.scenarioContext.ContainsKey(ExceptionKey));
                     return;
                 }
             }
 
-            Assert.False(this.scenarioContext.ContainsKey("Exception"));
-            string actual = this.scenarioContext.Get<string>("Result");
+            Assert.False(this.scenarioContext.ContainsKey(ExceptionKey));
+            string actual = this.scenarioContext.Get<string>(ResultKey);
             foreach (string expected in array.EnumerateArray())
             {
                 if (expected == actual)

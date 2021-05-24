@@ -155,56 +155,6 @@ namespace Menes.Json.UriTemplates
         }
 
         /// <summary>
-        /// Creates a regular expression matching the given URI template.
-        /// </summary>
-        /// <param name="uriTemplate">The uri template.</param>
-        /// <returns>The regular expression string matching the URI template.</returns>
-        public static string CreateMatchingRegex2(string uriTemplate)
-        {
-            var findParam = new Regex(Varspec);
-
-            //// split by host/path/query/fragment
-
-            string template = TemplateConversion.Replace(uriTemplate, @"$+\?");
-            string regex = findParam.Replace(template, Match);
-            return regex + "$";
-
-            static string Match(Match m)
-            {
-                CaptureCollection captures = m.Groups["lvar"].Captures;
-                string[] paramNames = ArrayPool<string>.Shared.Rent(captures.Count);
-                try
-                {
-                    int written = 0;
-                    foreach (Capture capture in captures)
-                    {
-                        if (!string.IsNullOrEmpty(capture.Value))
-                        {
-                            paramNames[written++] = capture.Value;
-                        }
-                    }
-
-                    ReadOnlySpan<string> paramNamesSpan = paramNames.AsSpan()[0..written];
-
-                    string op = m.Groups["op"].Value;
-                    return op switch
-                    {
-                        "?" => GetQueryExpression(paramNamesSpan, prefix: "?"),
-                        "&" => GetQueryExpression(paramNamesSpan, prefix: "&"),
-                        "#" => GetExpression(paramNamesSpan, prefix: "#"),
-                        "/" => GetExpression(paramNamesSpan, prefix: "/"),
-                        "+" => GetExpression(paramNamesSpan),
-                        _ => GetExpression(paramNamesSpan),
-                    };
-                }
-                finally
-                {
-                    ArrayPool<string>.Shared.Return(paramNames);
-                }
-            }
-        }
-
-        /// <summary>
         /// Gets the parameters from the given URI.
         /// </summary>
         /// <param name="uri">The URI from which to get the parameters.</param>

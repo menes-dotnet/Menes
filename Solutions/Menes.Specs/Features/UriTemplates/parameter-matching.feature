@@ -132,3 +132,37 @@ Scenario: Query parameters the new way without value
 	Then the resolved template should be one of
 		| values                       |
 		| http://example.org/customers |
+
+Scenario: Should resolve URI template with non-string parameters.
+	Given I create a UriTemplate for "http://example.org/location{?lat,lng}"
+	When I set the template parameters
+		| name | value  |
+		| lat  | 31.464 |
+		| lng  | 74.386 |
+	Then the resolved template should be one of
+		| values                                            |
+		| http://example.org/location?lng=74.386&lat=31.464 |
+		| http://example.org/location?lat=31.464&lng=74.386 |
+
+Scenario: Parameters from a JsonObject
+	Given I create a UriTemplate for "http://example.org/{environment}/{version}/customers{?active,country}"
+	When I set the template parameters from the JsonObject '{"environment": "dev", "version": "v2", "active": true, "country": "CA" }'
+	Then the resolved template should be one of
+		| values                                                     |
+		| http://example.org/dev/v2/customers?active=True&country=CA |
+		| http://example.org/dev/v2/customers?country=CA&active=True |
+
+Scenario: Some parameters from a JsonObject
+	Given I create a UriTemplate for "http://example.org{/environment}/{version}/customers{?active,country}"
+	When I set the template parameters from the JsonObject '{"version": "v2", "active": true }'
+	Then the resolved template should be one of
+		| values                                      |
+		| http://example.org/v2/customers?active=True |
+
+Scenario: Add JSON Object to query parameter
+	Given I create a UriTemplate for "http://example.org/foo{?coords*}"
+	When I set the template parameter called "coords" to "{"x": 1, "y": 2 }"
+	Then the resolved template should be one of
+		| values                         |
+		| http://example.org/foo?x=1&y=2 |
+		| http://example.org/foo?y=2&x=1 |
