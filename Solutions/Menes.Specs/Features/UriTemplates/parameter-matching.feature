@@ -181,3 +181,28 @@ Scenario: Extreme encoding
 	Then the resolved template should be one of
 		| values                         |
 		| http://example.org/sparql?query=PREFIX%20dc%3A%20%3Chttp%3A%2F%2Fpurl.org%2Fdc%2Felements%2F1.1%2F%3E%20SELECT%20%3Fbook%20%3Fwho%20WHERE%20%7B%20%3Fbook%20dc%3Acreator%20%3Fwho%20%7D |
+
+Scenario: Apply parameters from a JsonObject with a list
+	Given I create a UriTemplate for "http://example.org/customers{?ids,order}"
+	When I set the template parameters from the JsonObject '{"order": "up", "ids": ["21", "75", "21"] }'
+	Then the resolved template should be one of
+		| values                        |
+		| http://example.org/customers?ids=21,75,21&order=up |
+		| http://example.org/customers?order=up&ids=21,75,21 |
+
+Scenario: Apply parameters from a JsonObject with a list of ints
+	Given I create a UriTemplate for "http://example.org/customers{?ids,order}"
+	When I set the template parameters from the JsonObject '{"order": "up", "ids": [21, 75, 21] }'
+	Then the resolved template should be one of
+		| values                        |
+		| http://example.org/customers?ids=21,75,21&order=up |
+		| http://example.org/customers?order=up&ids=21,75,21 |
+
+
+Scenario: Apply parameters from a JsonObject with a list of ints exploded
+	Given I create a UriTemplate for "http://example.org/customers{?ids*,order}"
+	When I set the template parameters from the JsonObject '{"order": "up", "ids": [21, 75, 21] }'
+	Then the resolved template should be one of
+		| values                        |
+		| http://example.org/customers?ids=21&ids=75&ids=21&order=up |
+		| http://example.org/customers?order=up&ids=21&ids=75&ids=21 |
