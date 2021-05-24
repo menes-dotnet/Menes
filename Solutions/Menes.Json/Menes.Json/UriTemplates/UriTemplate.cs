@@ -9,7 +9,6 @@ namespace Menes.Json.UriTemplates
     using System.Buffers;
     using System.Collections.Generic;
     using System.Collections.Immutable;
-    using System.ComponentModel;
     using System.Diagnostics.CodeAnalysis;
     using System.Text;
     using System.Text.Json;
@@ -18,7 +17,6 @@ namespace Menes.Json.UriTemplates
     /// <summary>
     /// A UriTemplate conforming to http://tools.ietf.org/html/rfc6570.
     /// </summary>
-    [TypeConverter(typeof(UriTemplateConverter))]
     public readonly struct UriTemplate
     {
         private const string Varname = "[a-zA-Z0-9_]*";
