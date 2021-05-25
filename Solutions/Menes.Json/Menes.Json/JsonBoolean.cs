@@ -247,8 +247,8 @@ namespace Menes.Json
 
             return valueKind switch
             {
-                JsonValueKind.True => true.ToString(),
-                JsonValueKind.False => false.ToString(),
+                JsonValueKind.True => "true",
+                JsonValueKind.False => "false",
                 JsonValueKind.Null => "null",
                 _ => string.Empty,
             };
@@ -274,12 +274,12 @@ namespace Menes.Json
         public bool Equals<T>(T other)
             where T : struct, IJsonValue
         {
-            if (other.ValueKind != JsonValueKind.String)
+            if (other.ValueKind != this.ValueKind)
             {
                 return false;
             }
 
-            return this.Equals(other.AsString());
+            return true;
         }
 
         /// <inheritdoc/>

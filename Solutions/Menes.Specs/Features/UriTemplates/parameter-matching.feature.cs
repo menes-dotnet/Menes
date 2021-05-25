@@ -846,7 +846,7 @@ this.ScenarioInitialize(scenarioInfo);
                 TechTalk.SpecFlow.Table table21 = new TechTalk.SpecFlow.Table(new string[] {
                             "values"});
                 table21.AddRow(new string[] {
-                            "http://example.org/customers?active=True"});
+                            "http://example.org/customers?active=true"});
 #line 119
  testRunner.Then("the resolved template should be one of", ((string)(null)), table21, "Then ");
 #line hidden
@@ -890,7 +890,7 @@ this.ScenarioInitialize(scenarioInfo);
                 TechTalk.SpecFlow.Table table22 = new TechTalk.SpecFlow.Table(new string[] {
                             "values"});
                 table22.AddRow(new string[] {
-                            "http://example.org/customers?active=True"});
+                            "http://example.org/customers?active=true"});
 #line 126
  testRunner.Then("the resolved template should be one of", ((string)(null)), table22, "Then ");
 #line hidden
@@ -1032,9 +1032,9 @@ this.ScenarioInitialize(scenarioInfo);
                 TechTalk.SpecFlow.Table table26 = new TechTalk.SpecFlow.Table(new string[] {
                             "values"});
                 table26.AddRow(new string[] {
-                            "http://example.org/dev/v2/customers?active=True&country=CA"});
+                            "http://example.org/dev/v2/customers?active=true&country=CA"});
                 table26.AddRow(new string[] {
-                            "http://example.org/dev/v2/customers?country=CA&active=True"});
+                            "http://example.org/dev/v2/customers?country=CA&active=true"});
 #line 150
  testRunner.Then("the resolved template should be one of", ((string)(null)), table26, "Then ");
 #line hidden
@@ -1080,7 +1080,7 @@ this.ScenarioInitialize(scenarioInfo);
                 TechTalk.SpecFlow.Table table27 = new TechTalk.SpecFlow.Table(new string[] {
                             "values"});
                 table27.AddRow(new string[] {
-                            "http://example.org/v2/customers?active=True"});
+                            "http://example.org/v2/customers?active=true"});
 #line 158
  testRunner.Then("the resolved template should be one of", ((string)(null)), table27, "Then ");
 #line hidden
@@ -1494,9 +1494,9 @@ this.ScenarioInitialize(scenarioInfo);
                 TechTalk.SpecFlow.Table table36 = new TechTalk.SpecFlow.Table(new string[] {
                             "values"});
                 table36.AddRow(new string[] {
-                            "http://dev.example.org/v2/customers?active=True&country=CA"});
+                            "http://dev.example.org/v2/customers?active=true&country=CA"});
                 table36.AddRow(new string[] {
-                            "http://example.org/dev/v2/customers?country=CA&active=True"});
+                            "http://example.org/dev/v2/customers?country=CA&active=true"});
 #line 225
  testRunner.Then("the resolved template should be one of", ((string)(null)), table36, "Then ");
 #line hidden
@@ -1869,7 +1869,7 @@ this.ScenarioInitialize(scenarioInfo);
                 TechTalk.SpecFlow.Table table45 = new TechTalk.SpecFlow.Table(new string[] {
                             "values"});
                 table45.AddRow(new string[] {
-                            "http://example.org/location?value=True"});
+                            "http://example.org/location?value=true"});
 #line 287
  testRunner.Then("the resolved template should be one of", ((string)(null)), table45, "Then ");
 #line hidden

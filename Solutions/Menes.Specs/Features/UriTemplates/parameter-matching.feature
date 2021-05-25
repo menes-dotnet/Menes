@@ -118,14 +118,14 @@ Scenario: Query parameters the old way
 	When I set the template parameter called "activeFlag" to "true"
 	Then the resolved template should be one of
 		| values                                   |
-		| http://example.org/customers?active=True |
+		| http://example.org/customers?active=true |
 
 Scenario: Query parameters the new way
 	Given I create a UriTemplate for "http://example.org/customers{?active}"
 	When I set the template parameter called "active" to "true"
 	Then the resolved template should be one of
 		| values                                   |
-		| http://example.org/customers?active=True |
+		| http://example.org/customers?active=true |
 
 Scenario: Query parameters the new way without value
 	When I create a UriTemplate for "http://example.org/customers{?active}"
@@ -149,15 +149,15 @@ Scenario: Parameters from a JsonObject
 	When I set the template parameters from the JsonObject '{"environment": "dev", "version": "v2", "active": true, "country": "CA" }'
 	Then the resolved template should be one of
 		| values                                                     |
-		| http://example.org/dev/v2/customers?active=True&country=CA |
-		| http://example.org/dev/v2/customers?country=CA&active=True |
+		| http://example.org/dev/v2/customers?active=true&country=CA |
+		| http://example.org/dev/v2/customers?country=CA&active=true |
 
 Scenario: Some parameters from a JsonObject
 	Given I create a UriTemplate for "http://example.org{/environment}/{version}/customers{?active,country}"
 	When I set the template parameters from the JsonObject '{"version": "v2", "active": true }'
 	Then the resolved template should be one of
 		| values                                      |
-		| http://example.org/v2/customers?active=True |
+		| http://example.org/v2/customers?active=true |
 
 Scenario: Add JSON Object to query parameter
 	Given I create a UriTemplate for "http://example.org/foo{?coords*}"
@@ -224,8 +224,8 @@ Scenario: Parameters from a JsonObject from invalid URL
 	When I set the template parameters from the JsonObject '{"environment": "dev", "version": "v2", "active": true, "country": "CA" }'
 	Then the resolved template should be one of
 		| values                                                     |
-		| http://dev.example.org/v2/customers?active=True&country=CA |
-		| http://example.org/dev/v2/customers?country=CA&active=True |
+		| http://dev.example.org/v2/customers?active=true&country=CA |
+		| http://example.org/dev/v2/customers?country=CA&active=true |
 
 Scenario: Replace base address
 	Given I create a UriTemplate for "{+baseUrl}api/customer/{id}"
@@ -286,7 +286,7 @@ Scenario: Set template parameters for a boolean
 	When I set the template parameter called "value" to the bool "true"
 	Then the resolved template should be one of
 		| values                                 |
-		| http://example.org/location?value=True |
+		| http://example.org/location?value=true |
 
 Scenario: Set template parameters for a string
 	Given I create a UriTemplate for "http://example.org/location{?value}"
