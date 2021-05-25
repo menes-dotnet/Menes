@@ -80,7 +80,7 @@ namespace Steps
         }
 
         /// <summary>
-        /// Compares the value in JsonBoolean in the context variable <c>Value</c> with the expected string, and set it into the context variable <c>Result</c>.
+        /// Compares the value in JsonBoolean in the context variable <c>Value</c> with the expected boolean, and set it into the context variable <c>Result</c>.
         /// </summary>
         /// <param name="expected">The expected value.</param>
         [When(@"I compare it to the boolean (.*)")]
@@ -90,7 +90,7 @@ namespace Steps
         }
 
         /// <summary>
-        /// Compares the value in JsonBoolean in the context variable <c>Value</c> with the expected string, and set it into the context variable <c>Result</c>.
+        /// Compares the value in JsonString in the context variable <c>Value</c> with the expected string, and set it into the context variable <c>Result</c>.
         /// </summary>
         /// <param name="expected">The expected value.</param>
         [When(@"I compare the string to the IJsonValue (.*)")]
@@ -100,13 +100,35 @@ namespace Steps
         }
 
         /// <summary>
-        /// Compares the value in JsonBoolean in the context variable <c>Value</c> with the expected string, and set it into the context variable <c>Result</c>.
+        /// Compares the value in JsonBoolean in the context variable <c>Value</c> with the expected boolean, and set it into the context variable <c>Result</c>.
         /// </summary>
         /// <param name="expected">The expected value.</param>
         [When(@"I compare the boolean to the IJsonValue (.*)")]
         public void WhenICompareTheBooleanToTheIJsonValue(string expected)
         {
             this.scenarioContext.Set(this.scenarioContext.Get<JsonBoolean>(ValueKey).Equals(JsonAny.ParseUriValue(expected)), ResultKey);
+        }
+
+        /// <summary>
+        /// Compares the value in JsonString in the context variable <c>Value</c> with the expected string, and set it into the context variable <c>Result</c>.
+        /// </summary>
+        /// <param name="expected">The expected value.</param>
+        [When(@"I compare the string to the object (.*)")]
+        public void WhenICompareTheStringToTheObject(string expected)
+        {
+            object? obj = JsonAny.ParseUriValue(expected);
+            this.scenarioContext.Set(((object)this.scenarioContext.Get<JsonString>(ValueKey)).Equals(obj), ResultKey);
+        }
+
+        /// <summary>
+        /// Compares the value in JsonBoolean in the context variable <c>Value</c> with the expected boolean, and set it into the context variable <c>Result</c>.
+        /// </summary>
+        /// <param name="expected">The expected value.</param>
+        [When(@"I compare the boolean to the object (.*)")]
+        public void WhenICompareTheBooleanToTheObject(string expected)
+        {
+            object? obj = JsonAny.ParseUriValue(expected);
+            this.scenarioContext.Set(((object)this.scenarioContext.Get<JsonBoolean>(ValueKey)).Equals(obj), ResultKey);
         }
 
         /// <summary>

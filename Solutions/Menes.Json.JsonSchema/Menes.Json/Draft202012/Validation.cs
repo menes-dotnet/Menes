@@ -1431,9 +1431,9 @@ namespace Menes.Json.Draft202012
         /// <inheritdoc/>
         public override bool Equals(object? obj)
         {
-            if (obj is Validation entity)
+            if (obj is IJsonValue jv)
             {
-                return this.Equals(entity);
+                return this.Equals(jv.AsAny);
             }
 
             return false;
@@ -2505,9 +2505,9 @@ namespace Menes.Json.Draft202012
             /// <inheritdoc/>
             public override bool Equals(object? obj)
             {
-                if (obj is TypeEntity entity)
+                if (obj is IJsonValue jv)
                 {
-                    return this.Equals(entity);
+                    return this.Equals(jv.AsAny);
                 }
 
                 return false;
@@ -3050,9 +3050,9 @@ namespace Menes.Json.Draft202012
                 /// <inheritdoc/>
                 public override bool Equals(object? obj)
                 {
-                    if (obj is SimpleTypesEntityArray entity)
+                    if (obj is IJsonValue jv)
                     {
-                        return this.Equals(entity);
+                        return this.Equals(jv.AsAny);
                     }
 
                     return false;
@@ -3600,9 +3600,9 @@ namespace Menes.Json.Draft202012
             /// <inheritdoc/>
             public override bool Equals(object? obj)
             {
-                if (obj is JsonAnyArray entity)
+                if (obj is IJsonValue jv)
                 {
-                    return this.Equals(entity);
+                    return this.Equals(jv.AsAny);
                 }
 
                 return false;
@@ -4103,9 +4103,9 @@ namespace Menes.Json.Draft202012
             /// <inheritdoc/>
             public override bool Equals(object? obj)
             {
-                if (obj is MultipleOfValue entity)
+                if (obj is IJsonValue jv)
                 {
-                    return this.Equals(entity);
+                    return this.Equals(jv.AsAny);
                 }
 
                 return false;
@@ -4505,9 +4505,9 @@ namespace Menes.Json.Draft202012
             /// <inheritdoc/>
             public override bool Equals(object? obj)
             {
-                if (obj is NonNegativeIntegerValue entity)
+                if (obj is IJsonValue jv)
                 {
-                    return this.Equals(entity);
+                    return this.Equals(jv.AsAny);
                 }
 
                 return false;
@@ -4977,9 +4977,9 @@ namespace Menes.Json.Draft202012
             /// <inheritdoc/>
             public override bool Equals(object? obj)
             {
-                if (obj is NonNegativeIntegerDefault0Entity entity)
+                if (obj is IJsonValue jv)
                 {
-                    return this.Equals(entity);
+                    return this.Equals(jv.AsAny);
                 }
 
                 return false;
@@ -5301,9 +5301,9 @@ namespace Menes.Json.Draft202012
             /// <inheritdoc/>
             public override bool Equals(object? obj)
             {
-                if (obj is UniqueItemsValue entity)
+                if (obj is IJsonValue jv)
                 {
-                    return this.Equals(entity);
+                    return this.Equals(jv.AsAny);
                 }
 
                 return false;
@@ -5767,9 +5767,9 @@ namespace Menes.Json.Draft202012
             /// <inheritdoc/>
             public override bool Equals(object? obj)
             {
-                if (obj is MinContainsEntity entity)
+                if (obj is IJsonValue jv)
                 {
-                    return this.Equals(entity);
+                    return this.Equals(jv.AsAny);
                 }
 
                 return false;
@@ -6167,9 +6167,9 @@ namespace Menes.Json.Draft202012
             /// <inheritdoc/>
             public override bool Equals(object? obj)
             {
-                if (obj is JsonStringArray entity)
+                if (obj is IJsonValue jv)
                 {
-                    return this.Equals(entity);
+                    return this.Equals(jv.AsAny);
                 }
 
                 return false;
@@ -6630,9 +6630,9 @@ namespace Menes.Json.Draft202012
             /// <inheritdoc/>
             public override bool Equals(object? obj)
             {
-                if (obj is DependentRequiredValue entity)
+                if (obj is IJsonValue jv)
                 {
-                    return this.Equals(entity);
+                    return this.Equals(jv.AsAny);
                 }
 
                 return false;
@@ -7193,9 +7193,9 @@ namespace Menes.Json.Draft202012
             /// <inheritdoc/>
             public override bool Equals(object? obj)
             {
-                if (obj is SimpleTypesEntity entity)
+                if (obj is IJsonValue jv)
                 {
-                    return this.Equals(entity);
+                    return this.Equals(jv.AsAny);
                 }
 
                 return false;

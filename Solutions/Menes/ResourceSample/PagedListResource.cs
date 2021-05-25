@@ -440,9 +440,9 @@ namespace Marain.LineOfBusiness
         /// <inheritdoc/>
         public override bool Equals(object? obj)
         {
-            if (obj is PagedListResource entity)
+            if (obj is IJsonValue jv)
             {
-                return this.Equals(entity);
+                return this.Equals(jv.AsAny);
             }
 
             return false;
@@ -1296,9 +1296,9 @@ namespace Marain.LineOfBusiness
             /// <inheritdoc/>
             public override bool Equals(object? obj)
             {
-                if (obj is LinksValue entity)
+                if (obj is IJsonValue jv)
                 {
-                    return this.Equals(entity);
+                    return this.Equals(jv.AsAny);
                 }
 
                 return false;

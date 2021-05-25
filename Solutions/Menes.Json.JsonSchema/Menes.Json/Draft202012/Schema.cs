@@ -4363,9 +4363,9 @@ namespace Menes.Json.Draft202012
         /// <inheritdoc/>
         public override bool Equals(object? obj)
         {
-            if (obj is Schema entity)
+            if (obj is IJsonValue jv)
             {
-                return this.Equals(entity);
+                return this.Equals(jv.AsAny);
             }
 
             return false;
@@ -5139,9 +5139,9 @@ namespace Menes.Json.Draft202012
             /// <inheritdoc/>
             public override bool Equals(object? obj)
             {
-                if (obj is DefinitionsValue entity)
+                if (obj is IJsonValue jv)
                 {
-                    return this.Equals(entity);
+                    return this.Equals(jv.AsAny);
                 }
 
                 return false;
@@ -5646,9 +5646,9 @@ namespace Menes.Json.Draft202012
             /// <inheritdoc/>
             public override bool Equals(object? obj)
             {
-                if (obj is DependenciesValue entity)
+                if (obj is IJsonValue jv)
                 {
-                    return this.Equals(entity);
+                    return this.Equals(jv.AsAny);
                 }
 
                 return false;
@@ -6687,9 +6687,9 @@ namespace Menes.Json.Draft202012
                 /// <inheritdoc/>
                 public override bool Equals(object? obj)
                 {
-                    if (obj is AdditionalPropertiesEntity entity)
+                    if (obj is IJsonValue jv)
                     {
-                        return this.Equals(entity);
+                        return this.Equals(jv.AsAny);
                     }
 
                     return false;

@@ -347,9 +347,9 @@ namespace Menes.Json.Draft202012
         /// <inheritdoc/>
         public override bool Equals(object? obj)
         {
-            if (obj is FormatAnnotation entity)
+            if (obj is IJsonValue jv)
             {
-                return this.Equals(entity);
+                return this.Equals(jv.AsAny);
             }
 
             return false;

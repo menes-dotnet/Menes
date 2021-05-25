@@ -297,9 +297,9 @@ namespace Menes.Json
         /// <inheritdoc/>
         public override bool Equals(object? obj)
         {
-            if (obj is JsonString jany)
+            if (obj is IJsonValue jv)
             {
-                return this.Equals(jany);
+                return this.Equals(jv.AsAny);
             }
 
             return false;

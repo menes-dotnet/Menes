@@ -690,9 +690,9 @@ namespace Menes.Json.Draft202012
         /// <inheritdoc/>
         public override bool Equals(object? obj)
         {
-            if (obj is MetaData entity)
+            if (obj is IJsonValue jv)
             {
-                return this.Equals(entity);
+                return this.Equals(jv.AsAny);
             }
 
             return false;
@@ -1310,9 +1310,9 @@ namespace Menes.Json.Draft202012
             /// <inheritdoc/>
             public override bool Equals(object? obj)
             {
-                if (obj is DeprecatedValue entity)
+                if (obj is IJsonValue jv)
                 {
-                    return this.Equals(entity);
+                    return this.Equals(jv.AsAny);
                 }
 
                 return false;
@@ -1622,9 +1622,9 @@ namespace Menes.Json.Draft202012
             /// <inheritdoc/>
             public override bool Equals(object? obj)
             {
-                if (obj is ReadOnlyValue entity)
+                if (obj is IJsonValue jv)
                 {
-                    return this.Equals(entity);
+                    return this.Equals(jv.AsAny);
                 }
 
                 return false;
@@ -1934,9 +1934,9 @@ namespace Menes.Json.Draft202012
             /// <inheritdoc/>
             public override bool Equals(object? obj)
             {
-                if (obj is WriteOnlyValue entity)
+                if (obj is IJsonValue jv)
                 {
-                    return this.Equals(entity);
+                    return this.Equals(jv.AsAny);
                 }
 
                 return false;
@@ -2316,9 +2316,9 @@ namespace Menes.Json.Draft202012
             /// <inheritdoc/>
             public override bool Equals(object? obj)
             {
-                if (obj is JsonAnyArray entity)
+                if (obj is IJsonValue jv)
                 {
-                    return this.Equals(entity);
+                    return this.Equals(jv.AsAny);
                 }
 
                 return false;

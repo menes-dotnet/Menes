@@ -370,9 +370,9 @@ namespace Marain.LineOfBusiness
         /// <inheritdoc/>
         public override bool Equals(object? obj)
         {
-            if (obj is Resource entity)
+            if (obj is IJsonValue jv)
             {
-                return this.Equals(entity);
+                return this.Equals(jv.AsAny);
             }
 
             return false;

@@ -461,9 +461,9 @@ namespace Menes.Json.Draft201909
         /// <inheritdoc/>
         public override bool Equals(object? obj)
         {
-            if (obj is Content entity)
+            if (obj is IJsonValue jv)
             {
-                return this.Equals(entity);
+                return this.Equals(jv.AsAny);
             }
 
             return false;

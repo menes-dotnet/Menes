@@ -317,9 +317,9 @@ namespace BlogSample
         /// <inheritdoc/>
         public override bool Equals(object? obj)
         {
-            if (obj is PersonDetailsEntity entity)
+            if (obj is IJsonValue jv)
             {
-                return this.Equals(entity);
+                return this.Equals(jv.AsAny);
             }
 
             return false;
@@ -965,9 +965,9 @@ namespace BlogSample
             /// <inheritdoc/>
             public override bool Equals(object? obj)
             {
-                if (obj is PersonNameValue entity)
+                if (obj is IJsonValue jv)
                 {
-                    return this.Equals(entity);
+                    return this.Equals(jv.AsAny);
                 }
 
                 return false;
@@ -1838,9 +1838,9 @@ namespace BlogSample
             /// <inheritdoc/>
             public override bool Equals(object? obj)
             {
-                if (obj is AddressValue entity)
+                if (obj is IJsonValue jv)
                 {
-                    return this.Equals(entity);
+                    return this.Equals(jv.AsAny);
                 }
 
                 return false;

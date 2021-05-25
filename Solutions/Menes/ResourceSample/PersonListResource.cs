@@ -458,9 +458,9 @@ namespace Marain.LineOfBusiness
         /// <inheritdoc/>
         public override bool Equals(object? obj)
         {
-            if (obj is PersonListResource entity)
+            if (obj is IJsonValue jv)
             {
-                return this.Equals(entity);
+                return this.Equals(jv.AsAny);
             }
 
             return false;
@@ -1129,9 +1129,9 @@ namespace Marain.LineOfBusiness
             /// <inheritdoc/>
             public override bool Equals(object? obj)
             {
-                if (obj is EmbeddedValue entity)
+                if (obj is IJsonValue jv)
                 {
-                    return this.Equals(entity);
+                    return this.Equals(jv.AsAny);
                 }
 
                 return false;
@@ -1770,9 +1770,9 @@ namespace Marain.LineOfBusiness
             /// <inheritdoc/>
             public override bool Equals(object? obj)
             {
-                if (obj is PersonResourceArray entity)
+                if (obj is IJsonValue jv)
                 {
-                    return this.Equals(entity);
+                    return this.Equals(jv.AsAny);
                 }
 
                 return false;
