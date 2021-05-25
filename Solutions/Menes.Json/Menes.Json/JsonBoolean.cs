@@ -274,7 +274,8 @@ namespace Menes.Json
         public bool Equals<T>(T other)
             where T : struct, IJsonValue
         {
-            if (other.ValueKind != this.ValueKind)
+            JsonValueKind valueKind = this.ValueKind;
+            if ((valueKind != JsonValueKind.True && valueKind != JsonValueKind.False) || valueKind != other.ValueKind)
             {
                 return false;
             }
@@ -285,7 +286,8 @@ namespace Menes.Json
         /// <inheritdoc/>
         public bool Equals(JsonBoolean other)
         {
-            if (other.ValueKind != this.ValueKind)
+            JsonValueKind valueKind = this.ValueKind;
+            if ((valueKind != JsonValueKind.True && valueKind != JsonValueKind.False) || valueKind != other.ValueKind)
             {
                 return false;
             }

@@ -506,7 +506,7 @@ namespace Menes.Json
                 return false;
             }
 
-            return this.Equals(other.AsString());
+            return this.Equals((JsonBase64String)other.AsString());
         }
 
         /// <inheritdoc/>
