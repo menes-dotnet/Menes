@@ -477,7 +477,9 @@ namespace Menes.Json
         {
             if (this.value is string value)
             {
-                result = value;
+                Span<byte> source = stackalloc byte[JsonReaderHelper.GetUtf8ByteCount(value)];
+                int written = JsonReaderHelper.GetUtf8FromText(value, source);
+                result = JsonReaderHelper.GetUnescapedString(source.Slice(0, written), 0);
                 return true;
             }
 
@@ -500,7 +502,28 @@ namespace Menes.Json
         {
             if (this.value is string value)
             {
-                return value;
+                Span<byte> source = stackalloc byte[JsonReaderHelper.GetUtf8ByteCount(value)];
+                Span<byte> target = stackalloc byte[source.Length];
+                int written = JsonReaderHelper.GetUtf8FromText(value, source);
+                int totalWritten = 0;
+                for (int i = 0; i < written; ++i)
+                {
+                    if (source[i] == JsonConstants.BackSlash)
+                    {
+                        ReadOnlySpan<byte> unescaped = JsonReaderHelper.GetUnescapedSpan(source, i);
+                        unescaped.CopyTo(target.Slice(totalWritten));
+                        totalWritten += unescaped.Length;
+                        break;
+                    }
+                    else
+                    {
+                        target[totalWritten++] = source[i];
+                    }
+                }
+
+                Span<char> result = new char[Encoding.UTF8.GetCharCount(target.Slice(0, totalWritten))];
+                Encoding.UTF8.GetChars(target.Slice(0, totalWritten), result);
+                return result;
             }
 
             if (this.jsonElement.ValueKind == JsonValueKind.String)
@@ -561,7 +584,7 @@ namespace Menes.Json
                 return false;
             }
 
-            return this.Equals(other.AsString());
+            return this.Equals((JsonContent)other.AsString());
         }
 
         /// <inheritdoc/>

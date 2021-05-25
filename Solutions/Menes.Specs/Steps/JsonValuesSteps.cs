@@ -294,6 +294,59 @@ namespace Steps
             this.scenarioContext.Set(((object)this.scenarioContext.Get<JsonBase64String>(ValueKey)).Equals(obj), ResultKey);
         }
 
+        /* content */
+
+        /// <summary>
+        /// Store a <see cref="JsonElement"/>-backed value in the context variable <c>Value</c>.
+        /// </summary>
+        /// <param name="value">The json value.</param>
+        [Given(@"the JsonElement backed JsonContent (.*)")]
+        public void GivenTheJsonElementBackedJsonContent(string value)
+        {
+            this.scenarioContext.Set<JsonContent>(JsonAny.ParseUriValue(value), ValueKey);
+        }
+
+        /// <summary>
+        /// Store a dotnet-type-backed value in the context variable <c>Value</c>.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        [Given(@"the dotnet backed JsonContent (.*)")]
+        public void GivenTheDotnetBackedJsonContent(string value)
+        {
+            this.scenarioContext.Set(new JsonContent((string)JsonAny.ParseUriValue(value)), ValueKey);
+        }
+
+        /// <summary>
+        /// Compares the value in JsonContent in the context variable <c>Value</c> with the expected base64String, and set it into the context variable <c>Result</c>.
+        /// </summary>
+        /// <param name="expected">The expected value.</param>
+        [When(@"I compare it to the content (.*)")]
+        public void WhenICompareItToTheContent(string expected)
+        {
+            this.scenarioContext.Set(this.scenarioContext.Get<JsonContent>(ValueKey).Equals((JsonContent)JsonAny.ParseUriValue(expected)), ResultKey);
+        }
+
+        /// <summary>
+        /// Compares the value in JsonContent in the context variable <c>Value</c> with the expected base64String, and set it into the context variable <c>Result</c>.
+        /// </summary>
+        /// <param name="expected">The expected value.</param>
+        [When(@"I compare the content to the IJsonValue (.*)")]
+        public void WhenICompareTheContentToTheIJsonValue(string expected)
+        {
+            this.scenarioContext.Set(this.scenarioContext.Get<JsonContent>(ValueKey).Equals(JsonAny.ParseUriValue(expected)), ResultKey);
+        }
+
+        /// <summary>
+        /// Compares the value in JsonContent in the context variable <c>Value</c> with the expected base64String, and set it into the context variable <c>Result</c>.
+        /// </summary>
+        /// <param name="expected">The expected value.</param>
+        [When(@"I compare the content to the object (.*)")]
+        public void WhenICompareTheContentToTheObject(string expected)
+        {
+            object? obj = expected == "<null>" ? null : expected == "<new object()>" ? new object() : JsonAny.ParseUriValue(expected);
+            this.scenarioContext.Set(((object)this.scenarioContext.Get<JsonContent>(ValueKey)).Equals(obj), ResultKey);
+        }
+
         /// <summary>
         /// Asserts that the result from a previous comparison stored in the context variable <c>Result</c> is as expected.
         /// </summary>
