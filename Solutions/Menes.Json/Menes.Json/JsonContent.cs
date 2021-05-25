@@ -475,11 +475,9 @@ namespace Menes.Json
         /// <returns><c>True</c> if the value could be retrieved.</returns>
         public bool TryGetString(out string result)
         {
-            if (this.value is string value)
+            if (this.value is string)
             {
-                Span<byte> source = stackalloc byte[JsonReaderHelper.GetUtf8ByteCount(value)];
-                int written = JsonReaderHelper.GetUtf8FromText(value, source);
-                result = JsonReaderHelper.GetUnescapedString(source.Slice(0, written), 0);
+                result = this.AsSpan().ToString();
                 return true;
             }
 
