@@ -347,6 +347,59 @@ namespace Steps
             this.scenarioContext.Set(((object)this.scenarioContext.Get<JsonContent>(ValueKey)).Equals(obj), ResultKey);
         }
 
+        /* date */
+
+        /// <summary>
+        /// Store a <see cref="JsonElement"/>-backed value in the context variable <c>Value</c>.
+        /// </summary>
+        /// <param name="value">The json value.</param>
+        [Given(@"the JsonElement backed JsonDate (.*)")]
+        public void GivenTheJsonElementBackedJsonDate(string value)
+        {
+            this.scenarioContext.Set<JsonDate>(JsonAny.ParseUriValue(value), ValueKey);
+        }
+
+        /// <summary>
+        /// Store a dotnet-type-backed value in the context variable <c>Value</c>.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        [Given(@"the dotnet backed JsonDate (.*)")]
+        public void GivenTheDotnetBackedJsonDate(string value)
+        {
+            this.scenarioContext.Set(new JsonDate((string)JsonAny.ParseUriValue(value)), ValueKey);
+        }
+
+        /// <summary>
+        /// Compares the value in JsonDate in the context variable <c>Value</c> with the expected base64String, and set it into the context variable <c>Result</c>.
+        /// </summary>
+        /// <param name="expected">The expected value.</param>
+        [When(@"I compare it to the date (.*)")]
+        public void WhenICompareItToTheDate(string expected)
+        {
+            this.scenarioContext.Set(this.scenarioContext.Get<JsonDate>(ValueKey).Equals((JsonDate)JsonAny.ParseUriValue(expected)), ResultKey);
+        }
+
+        /// <summary>
+        /// Compares the value in JsonDate in the context variable <c>Value</c> with the expected base64String, and set it into the context variable <c>Result</c>.
+        /// </summary>
+        /// <param name="expected">The expected value.</param>
+        [When(@"I compare the date to the IJsonValue (.*)")]
+        public void WhenICompareTheDateToTheIJsonValue(string expected)
+        {
+            this.scenarioContext.Set(this.scenarioContext.Get<JsonDate>(ValueKey).Equals(JsonAny.ParseUriValue(expected)), ResultKey);
+        }
+
+        /// <summary>
+        /// Compares the value in JsonDate in the context variable <c>Value</c> with the expected base64String, and set it into the context variable <c>Result</c>.
+        /// </summary>
+        /// <param name="expected">The expected value.</param>
+        [When(@"I compare the date to the object (.*)")]
+        public void WhenICompareTheDateToTheObject(string expected)
+        {
+            object? obj = expected == "<null>" ? null : expected == "<new object()>" ? new object() : JsonAny.ParseUriValue(expected);
+            this.scenarioContext.Set(((object)this.scenarioContext.Get<JsonDate>(ValueKey)).Equals(obj), ResultKey);
+        }
+
         /// <summary>
         /// Asserts that the result from a previous comparison stored in the context variable <c>Result</c> is as expected.
         /// </summary>
