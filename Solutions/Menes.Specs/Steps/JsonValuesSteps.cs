@@ -16,7 +16,9 @@ namespace Steps
     public class JsonValuesSteps
     {
         private const string ValueKey = "Value";
-        private const string ResultKey = "Result";
+        private const string EqualsResultKey = "EqualsResult";
+        private const string EqualityResultKey = "EqualityResult";
+        private const string InequalityResultKey = "InequalityResult";
 
         private readonly ScenarioContext scenarioContext;
 
@@ -58,7 +60,9 @@ namespace Steps
         [When(@"I compare it to the string (.*)")]
         public void WhenICompareItToTheString(string expected)
         {
-            this.scenarioContext.Set(this.scenarioContext.Get<JsonString>(ValueKey).Equals(JsonAny.ParseUriValue(expected)), ResultKey);
+            this.scenarioContext.Set(this.scenarioContext.Get<JsonString>(ValueKey).Equals((JsonString)JsonAny.ParseUriValue(expected)), EqualsResultKey);
+            this.scenarioContext.Set(this.scenarioContext.Get<JsonString>(ValueKey) == (JsonString)JsonAny.ParseUriValue(expected), EqualityResultKey);
+            this.scenarioContext.Set(this.scenarioContext.Get<JsonString>(ValueKey) != (JsonString)JsonAny.ParseUriValue(expected), InequalityResultKey);
         }
 
         /// <summary>
@@ -68,7 +72,7 @@ namespace Steps
         [When(@"I compare the string to the IJsonValue (.*)")]
         public void WhenICompareTheStringToTheIJsonValue(string expected)
         {
-            this.scenarioContext.Set(this.scenarioContext.Get<JsonString>(ValueKey).Equals(JsonAny.ParseUriValue(expected)), ResultKey);
+            this.scenarioContext.Set(this.scenarioContext.Get<JsonString>(ValueKey).Equals(JsonAny.ParseUriValue(expected)), EqualsResultKey);
         }
 
         /// <summary>
@@ -79,7 +83,7 @@ namespace Steps
         public void WhenICompareTheStringToTheObject(string expected)
         {
             object? obj = expected == "<null>" ? null : expected == "<new object()>" ? new object() : JsonAny.ParseUriValue(expected);
-            this.scenarioContext.Set(((object)this.scenarioContext.Get<JsonString>(ValueKey)).Equals(obj), ResultKey);
+            this.scenarioContext.Set(((object)this.scenarioContext.Get<JsonString>(ValueKey)).Equals(obj), EqualsResultKey);
         }
 
         /* boolean */
@@ -111,7 +115,9 @@ namespace Steps
         [When(@"I compare it to the boolean (.*)")]
         public void WhenICompareItToTheBoolean(string expected)
         {
-            this.scenarioContext.Set(this.scenarioContext.Get<JsonBoolean>(ValueKey).Equals(JsonAny.ParseUriValue(expected)), ResultKey);
+            this.scenarioContext.Set(this.scenarioContext.Get<JsonBoolean>(ValueKey).Equals((JsonBoolean)JsonAny.ParseUriValue(expected)), EqualsResultKey);
+            this.scenarioContext.Set(this.scenarioContext.Get<JsonBoolean>(ValueKey) == (JsonBoolean)JsonAny.ParseUriValue(expected), EqualityResultKey);
+            this.scenarioContext.Set(this.scenarioContext.Get<JsonBoolean>(ValueKey) != (JsonBoolean)JsonAny.ParseUriValue(expected), InequalityResultKey);
         }
 
         /// <summary>
@@ -121,7 +127,7 @@ namespace Steps
         [When(@"I compare the boolean to the IJsonValue (.*)")]
         public void WhenICompareTheBooleanToTheIJsonValue(string expected)
         {
-            this.scenarioContext.Set(this.scenarioContext.Get<JsonBoolean>(ValueKey).Equals(JsonAny.ParseUriValue(expected)), ResultKey);
+            this.scenarioContext.Set(this.scenarioContext.Get<JsonBoolean>(ValueKey).Equals(JsonAny.ParseUriValue(expected)), EqualsResultKey);
         }
 
         /// <summary>
@@ -132,7 +138,7 @@ namespace Steps
         public void WhenICompareTheBooleanToTheObject(string expected)
         {
             object? obj = expected == "<null>" ? null : expected == "<new object()>" ? new object() : JsonAny.ParseUriValue(expected);
-            this.scenarioContext.Set(((object)this.scenarioContext.Get<JsonBoolean>(ValueKey)).Equals(obj), ResultKey);
+            this.scenarioContext.Set(((object)this.scenarioContext.Get<JsonBoolean>(ValueKey)).Equals(obj), EqualsResultKey);
         }
 
         /* array */
@@ -164,7 +170,9 @@ namespace Steps
         [When(@"I compare it to the array (.*)")]
         public void WhenICompareItToTheArray(string expected)
         {
-            this.scenarioContext.Set(this.scenarioContext.Get<JsonArray>(ValueKey).Equals((JsonArray)JsonAny.ParseUriValue(expected)), ResultKey);
+            this.scenarioContext.Set(this.scenarioContext.Get<JsonArray>(ValueKey).Equals((JsonArray)JsonAny.ParseUriValue(expected)), EqualsResultKey);
+            this.scenarioContext.Set(this.scenarioContext.Get<JsonArray>(ValueKey) == (JsonArray)JsonAny.ParseUriValue(expected), EqualityResultKey);
+            this.scenarioContext.Set(this.scenarioContext.Get<JsonArray>(ValueKey) != (JsonArray)JsonAny.ParseUriValue(expected), InequalityResultKey);
         }
 
         /// <summary>
@@ -174,7 +182,7 @@ namespace Steps
         [When(@"I compare the array to the IJsonValue (.*)")]
         public void WhenICompareTheArrayToTheIJsonValue(string expected)
         {
-            this.scenarioContext.Set(this.scenarioContext.Get<JsonArray>(ValueKey).Equals(JsonAny.ParseUriValue(expected)), ResultKey);
+            this.scenarioContext.Set(this.scenarioContext.Get<JsonArray>(ValueKey).Equals(JsonAny.ParseUriValue(expected)), EqualsResultKey);
         }
 
         /// <summary>
@@ -185,7 +193,7 @@ namespace Steps
         public void WhenICompareTheArrayToTheObject(string expected)
         {
             object? obj = expected == "<null>" ? null : expected == "<new object()>" ? new object() : JsonAny.ParseUriValue(expected);
-            this.scenarioContext.Set(((object)this.scenarioContext.Get<JsonArray>(ValueKey)).Equals(obj), ResultKey);
+            this.scenarioContext.Set(((object)this.scenarioContext.Get<JsonArray>(ValueKey)).Equals(obj), EqualsResultKey);
         }
 
         /* base64content */
@@ -217,7 +225,9 @@ namespace Steps
         [When(@"I compare it to the base64content (.*)")]
         public void WhenICompareItToTheBase64Content(string expected)
         {
-            this.scenarioContext.Set(this.scenarioContext.Get<JsonBase64Content>(ValueKey).Equals((JsonBase64Content)JsonAny.ParseUriValue(expected)), ResultKey);
+            this.scenarioContext.Set(this.scenarioContext.Get<JsonBase64Content>(ValueKey).Equals((JsonBase64Content)JsonAny.ParseUriValue(expected)), EqualsResultKey);
+            this.scenarioContext.Set(this.scenarioContext.Get<JsonBase64Content>(ValueKey) == (JsonBase64Content)JsonAny.ParseUriValue(expected), EqualityResultKey);
+            this.scenarioContext.Set(this.scenarioContext.Get<JsonBase64Content>(ValueKey) != (JsonBase64Content)JsonAny.ParseUriValue(expected), InequalityResultKey);
         }
 
         /// <summary>
@@ -227,7 +237,7 @@ namespace Steps
         [When(@"I compare the base64content to the IJsonValue (.*)")]
         public void WhenICompareTheBase64ContentToTheIJsonValue(string expected)
         {
-            this.scenarioContext.Set(this.scenarioContext.Get<JsonBase64Content>(ValueKey).Equals(JsonAny.ParseUriValue(expected)), ResultKey);
+            this.scenarioContext.Set(this.scenarioContext.Get<JsonBase64Content>(ValueKey).Equals(JsonAny.ParseUriValue(expected)), EqualsResultKey);
         }
 
         /// <summary>
@@ -238,7 +248,7 @@ namespace Steps
         public void WhenICompareTheBase64ContentToTheObject(string expected)
         {
             object? obj = expected == "<null>" ? null : expected == "<new object()>" ? new object() : JsonAny.ParseUriValue(expected);
-            this.scenarioContext.Set(((object)this.scenarioContext.Get<JsonBase64Content>(ValueKey)).Equals(obj), ResultKey);
+            this.scenarioContext.Set(((object)this.scenarioContext.Get<JsonBase64Content>(ValueKey)).Equals(obj), EqualsResultKey);
         }
 
         /* base64string */
@@ -270,7 +280,9 @@ namespace Steps
         [When(@"I compare it to the base64string (.*)")]
         public void WhenICompareItToTheBase64String(string expected)
         {
-            this.scenarioContext.Set(this.scenarioContext.Get<JsonBase64String>(ValueKey).Equals((JsonBase64String)JsonAny.ParseUriValue(expected)), ResultKey);
+            this.scenarioContext.Set(this.scenarioContext.Get<JsonBase64String>(ValueKey).Equals((JsonBase64String)JsonAny.ParseUriValue(expected)), EqualsResultKey);
+            this.scenarioContext.Set(this.scenarioContext.Get<JsonBase64String>(ValueKey) == (JsonBase64String)JsonAny.ParseUriValue(expected), EqualityResultKey);
+            this.scenarioContext.Set(this.scenarioContext.Get<JsonBase64String>(ValueKey) != (JsonBase64String)JsonAny.ParseUriValue(expected), InequalityResultKey);
         }
 
         /// <summary>
@@ -280,7 +292,7 @@ namespace Steps
         [When(@"I compare the base64string to the IJsonValue (.*)")]
         public void WhenICompareTheBase64StringToTheIJsonValue(string expected)
         {
-            this.scenarioContext.Set(this.scenarioContext.Get<JsonBase64String>(ValueKey).Equals(JsonAny.ParseUriValue(expected)), ResultKey);
+            this.scenarioContext.Set(this.scenarioContext.Get<JsonBase64String>(ValueKey).Equals(JsonAny.ParseUriValue(expected)), EqualsResultKey);
         }
 
         /// <summary>
@@ -291,7 +303,7 @@ namespace Steps
         public void WhenICompareTheBase64StringToTheObject(string expected)
         {
             object? obj = expected == "<null>" ? null : expected == "<new object()>" ? new object() : JsonAny.ParseUriValue(expected);
-            this.scenarioContext.Set(((object)this.scenarioContext.Get<JsonBase64String>(ValueKey)).Equals(obj), ResultKey);
+            this.scenarioContext.Set(((object)this.scenarioContext.Get<JsonBase64String>(ValueKey)).Equals(obj), EqualsResultKey);
         }
 
         /* content */
@@ -323,7 +335,9 @@ namespace Steps
         [When(@"I compare it to the content (.*)")]
         public void WhenICompareItToTheContent(string expected)
         {
-            this.scenarioContext.Set(this.scenarioContext.Get<JsonContent>(ValueKey).Equals((JsonContent)JsonAny.ParseUriValue(expected)), ResultKey);
+            this.scenarioContext.Set(this.scenarioContext.Get<JsonContent>(ValueKey).Equals((JsonContent)JsonAny.ParseUriValue(expected)), EqualsResultKey);
+            this.scenarioContext.Set(this.scenarioContext.Get<JsonContent>(ValueKey) == (JsonContent)JsonAny.ParseUriValue(expected), EqualityResultKey);
+            this.scenarioContext.Set(this.scenarioContext.Get<JsonContent>(ValueKey) != (JsonContent)JsonAny.ParseUriValue(expected), InequalityResultKey);
         }
 
         /// <summary>
@@ -333,7 +347,7 @@ namespace Steps
         [When(@"I compare the content to the IJsonValue (.*)")]
         public void WhenICompareTheContentToTheIJsonValue(string expected)
         {
-            this.scenarioContext.Set(this.scenarioContext.Get<JsonContent>(ValueKey).Equals(JsonAny.ParseUriValue(expected)), ResultKey);
+            this.scenarioContext.Set(this.scenarioContext.Get<JsonContent>(ValueKey).Equals(JsonAny.ParseUriValue(expected)), EqualsResultKey);
         }
 
         /// <summary>
@@ -344,7 +358,7 @@ namespace Steps
         public void WhenICompareTheContentToTheObject(string expected)
         {
             object? obj = expected == "<null>" ? null : expected == "<new object()>" ? new object() : JsonAny.ParseUriValue(expected);
-            this.scenarioContext.Set(((object)this.scenarioContext.Get<JsonContent>(ValueKey)).Equals(obj), ResultKey);
+            this.scenarioContext.Set(((object)this.scenarioContext.Get<JsonContent>(ValueKey)).Equals(obj), EqualsResultKey);
         }
 
         /* date */
@@ -376,7 +390,9 @@ namespace Steps
         [When(@"I compare it to the date (.*)")]
         public void WhenICompareItToTheDate(string expected)
         {
-            this.scenarioContext.Set(this.scenarioContext.Get<JsonDate>(ValueKey).Equals((JsonDate)JsonAny.ParseUriValue(expected)), ResultKey);
+            this.scenarioContext.Set(this.scenarioContext.Get<JsonDate>(ValueKey).Equals((JsonDate)JsonAny.ParseUriValue(expected)), EqualsResultKey);
+            this.scenarioContext.Set(this.scenarioContext.Get<JsonDate>(ValueKey) == (JsonDate)JsonAny.ParseUriValue(expected), EqualityResultKey);
+            this.scenarioContext.Set(this.scenarioContext.Get<JsonDate>(ValueKey) != (JsonDate)JsonAny.ParseUriValue(expected), InequalityResultKey);
         }
 
         /// <summary>
@@ -386,7 +402,7 @@ namespace Steps
         [When(@"I compare the date to the IJsonValue (.*)")]
         public void WhenICompareTheDateToTheIJsonValue(string expected)
         {
-            this.scenarioContext.Set(this.scenarioContext.Get<JsonDate>(ValueKey).Equals(JsonAny.ParseUriValue(expected)), ResultKey);
+            this.scenarioContext.Set(this.scenarioContext.Get<JsonDate>(ValueKey).Equals(JsonAny.ParseUriValue(expected)), EqualsResultKey);
         }
 
         /// <summary>
@@ -397,7 +413,7 @@ namespace Steps
         public void WhenICompareTheDateToTheObject(string expected)
         {
             object? obj = expected == "<null>" ? null : expected == "<new object()>" ? new object() : JsonAny.ParseUriValue(expected);
-            this.scenarioContext.Set(((object)this.scenarioContext.Get<JsonDate>(ValueKey)).Equals(obj), ResultKey);
+            this.scenarioContext.Set(((object)this.scenarioContext.Get<JsonDate>(ValueKey)).Equals(obj), EqualsResultKey);
         }
 
         /// <summary>
@@ -407,7 +423,16 @@ namespace Steps
         [Then(@"the result should be (.*)")]
         public void ThenTheResultShouldBe(bool expected)
         {
-            Assert.AreEqual(expected, this.scenarioContext.Get<bool>(ResultKey));
+            Assert.AreEqual(expected, this.scenarioContext.Get<bool>(EqualsResultKey));
+            if (this.scenarioContext.ContainsKey(EqualityResultKey))
+            {
+                Assert.AreEqual(expected, this.scenarioContext.Get<bool>(EqualityResultKey));
+            }
+
+            if (this.scenarioContext.ContainsKey(InequalityResultKey))
+            {
+                Assert.AreNotEqual(expected, this.scenarioContext.Get<bool>(InequalityResultKey));
+            }
         }
     }
 }
