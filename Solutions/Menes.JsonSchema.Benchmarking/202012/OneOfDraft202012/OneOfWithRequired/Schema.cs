@@ -418,7 +418,7 @@ namespace OneOfDraft202012Feature.OneOfWithRequired
                         JsonValueKind.String => this.AsString().GetHashCode(),
                         JsonValueKind.True or JsonValueKind.False => this.AsBoolean().GetHashCode(),
                     JsonValueKind.Null => JsonNull.NullHashCode,
-                _ => 0,
+                _ => JsonAny.UndefinedHashCode,
             };
         }
 
@@ -1282,7 +1282,7 @@ namespace OneOfDraft202012Feature.OneOfWithRequired
                         JsonValueKind.String => this.AsString().GetHashCode(),
                         JsonValueKind.True or JsonValueKind.False => this.AsBoolean().GetHashCode(),
                     JsonValueKind.Null => JsonNull.NullHashCode,
-                _ => 0,
+                _ => JsonAny.UndefinedHashCode,
             };
         }
 
@@ -2104,7 +2104,7 @@ namespace OneOfDraft202012Feature.OneOfWithRequired
                         JsonValueKind.String => this.AsString().GetHashCode(),
                         JsonValueKind.True or JsonValueKind.False => this.AsBoolean().GetHashCode(),
                     JsonValueKind.Null => JsonNull.NullHashCode,
-                _ => 0,
+                _ => JsonAny.UndefinedHashCode,
             };
         }
 

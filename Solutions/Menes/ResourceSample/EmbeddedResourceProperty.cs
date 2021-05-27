@@ -509,7 +509,7 @@ namespace Marain.LineOfBusiness
             JsonValueKind valueKind = this.ValueKind;
             return valueKind switch
             {
-            JsonValueKind.Object => this.AsObject.GetHashCode(), JsonValueKind.Array => this.AsArray.GetHashCode(), JsonValueKind.Number => this.AsNumber().GetHashCode(), JsonValueKind.String => this.AsString().GetHashCode(), JsonValueKind.True or JsonValueKind.False => this.AsBoolean().GetHashCode(), JsonValueKind.Null => JsonNull.NullHashCode, _ => 0, }
+            JsonValueKind.Object => this.AsObject.GetHashCode(), JsonValueKind.Array => this.AsArray.GetHashCode(), JsonValueKind.Number => this.AsNumber().GetHashCode(), JsonValueKind.String => this.AsString().GetHashCode(), JsonValueKind.True or JsonValueKind.False => this.AsBoolean().GetHashCode(), JsonValueKind.Null => JsonNull.NullHashCode, _ => JsonAny.UndefinedHashCode, }
 
             ;
         }

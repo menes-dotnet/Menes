@@ -357,7 +357,7 @@ namespace RefRemoteDraft202012Feature.RootRefInRemoteRef
                         JsonValueKind.String => this.AsString().GetHashCode(),
                         JsonValueKind.True or JsonValueKind.False => this.AsBoolean().GetHashCode(),
                     JsonValueKind.Null => JsonNull.NullHashCode,
-                _ => 0,
+                _ => JsonAny.UndefinedHashCode,
             };
         }
 

@@ -2394,7 +2394,7 @@ namespace <#= Namespace #>
                 return this.Equals(jv.AsAny);
             }
 
-            return false;
+            return obj is null && this.IsNull();
         }
 
         /// <inheritdoc/>
@@ -2475,7 +2475,7 @@ namespace <#= Namespace #>
     }
     #>
                 JsonValueKind.Null => JsonNull.NullHashCode,
-                _ => 0,
+                _ => JsonAny.UndefinedHashCode,
             };
         }
 

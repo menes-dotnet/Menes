@@ -20,30 +20,32 @@ namespace Menes.Json
         /// <summary>
         /// Gets a null value.
         /// </summary>
-        public static readonly JsonNull Instance = default;
+        public static readonly JsonNull Instance = new JsonNull(JsonAny.ParseUriValue("null").AsJsonElement);
 
-        private readonly JsonElement? jsonElementBacking;
+        private static readonly JsonAny NullAnyInstance = new JsonAny(Instance.AsJsonElement);
+
+        private readonly JsonElement jsonElementBacking;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="JsonNull"/> struct.
         /// </summary>
-        /// <param name="jsonElement">The json element from which to construct the value.</param>
+        /// <param name="jsonElement">The JsonElement from which to construct the entity.</param>
         public JsonNull(JsonElement jsonElement)
         {
             this.jsonElementBacking = jsonElement;
         }
 
         /// <inheritdoc/>
-        public JsonElement AsJsonElement => this.jsonElementBacking ?? default;
+        public JsonElement AsJsonElement => this.jsonElementBacking;
 
         /// <inheritdoc/>
-        public bool HasJsonElement => this.jsonElementBacking is not null;
+        public bool HasJsonElement => true;
 
         /// <inheritdoc/>
         public JsonValueKind ValueKind => JsonValueKind.Null;
 
         /// <inheritdoc/>
-        public JsonAny AsAny => default;
+        public JsonAny AsAny => NullAnyInstance;
 
         /// <summary>
         /// Implicit conversion to JsonAny.
@@ -51,7 +53,7 @@ namespace Menes.Json
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator JsonAny(JsonNull value)
         {
-            return default;
+            return NullAnyInstance;
         }
 
         /// <summary>
@@ -60,7 +62,7 @@ namespace Menes.Json
         /// <param name="value">The value from which to convert.</param>
         public static implicit operator JsonNull(JsonAny value)
         {
-            return default;
+            return Instance;
         }
 
         /// <summary>
@@ -100,7 +102,7 @@ namespace Menes.Json
         public T As<T>()
             where T : struct, IJsonValue
         {
-            return default;
+            return NullAnyInstance.As<T>();
         }
 
         /// <inheritdoc/>

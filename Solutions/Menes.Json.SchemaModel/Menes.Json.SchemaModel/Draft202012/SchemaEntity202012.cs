@@ -7761,7 +7761,7 @@ namespace ");
                 return this.Equals(jv.AsAny);
             }
 
-            return false;
+            return obj is null && this.IsNull();
         }
 
         /// <inheritdoc/>
@@ -7999,7 +7999,7 @@ namespace ");
         
         #line 2480 "SchemaEntity202012.tt"
         this.Write(@"                JsonValueKind.Null => JsonNull.NullHashCode,
-                _ => 0,
+                _ => JsonAny.UndefinedHashCode,
             };
         }
 

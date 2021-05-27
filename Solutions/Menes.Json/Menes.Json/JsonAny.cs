@@ -15,6 +15,11 @@ namespace Menes.Json
     /// </summary>
     public readonly struct JsonAny : IJsonObject<JsonAny>, IJsonArray<JsonAny>, IEquatable<JsonAny>
     {
+        /// <summary>
+        /// Gets the hash code for an undefined object.
+        /// </summary>
+        public const int UndefinedHashCode = 7260706; // This is the hashcode of the Guid 3b0d8364-8163-4963-8e72-baf49c4bdb25
+
         private readonly JsonElement jsonElementBacking;
         private readonly ImmutableDictionary<string, JsonAny>? objectBacking;
         private readonly ImmutableList<JsonAny>? arrayBacking;
@@ -786,7 +791,7 @@ namespace Menes.Json
                 return this.Equals(jv.AsAny);
             }
 
-            return false;
+            return obj is null && this.IsNull();
         }
 
         /// <inheritdoc/>
@@ -802,7 +807,7 @@ namespace Menes.Json
                 JsonValueKind.String => this.AsString.GetHashCode(),
                 JsonValueKind.True or JsonValueKind.False => this.AsBoolean.GetHashCode(),
                 JsonValueKind.Null => JsonNull.NullHashCode,
-                _ => 0,
+                _ => JsonAny.UndefinedHashCode,
             };
         }
 
@@ -940,6 +945,7 @@ namespace Menes.Json
                 JsonValueKind.Number => this.AsNumber.Equals(other.AsNumber),
                 JsonValueKind.String => this.AsString.Equals(other.AsString),
                 JsonValueKind.True or JsonValueKind.False => this.AsBoolean.Equals(other.AsBoolean),
+                JsonValueKind.Null => true,
                 _ => false,
             };
         }

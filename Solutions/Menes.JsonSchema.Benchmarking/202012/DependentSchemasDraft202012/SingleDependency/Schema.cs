@@ -281,7 +281,7 @@ namespace DependentSchemasDraft202012Feature.SingleDependency
                         JsonValueKind.String => this.AsString().GetHashCode(),
                         JsonValueKind.True or JsonValueKind.False => this.AsBoolean().GetHashCode(),
                     JsonValueKind.Null => JsonNull.NullHashCode,
-                _ => 0,
+                _ => JsonAny.UndefinedHashCode,
             };
         }
 
@@ -1051,7 +1051,7 @@ namespace DependentSchemasDraft202012Feature.SingleDependency
                         JsonValueKind.String => this.AsString().GetHashCode(),
                         JsonValueKind.True or JsonValueKind.False => this.AsBoolean().GetHashCode(),
                     JsonValueKind.Null => JsonNull.NullHashCode,
-                _ => 0,
+                _ => JsonAny.UndefinedHashCode,
             };
         }
 

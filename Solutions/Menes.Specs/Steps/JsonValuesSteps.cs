@@ -17,8 +17,10 @@ namespace Steps
     {
         private const string ValueKey = "Value";
         private const string EqualsResultKey = "EqualsResult";
+        private const string EqualsObjectBackedResultKey = "EqualsObjectBackedResult";
         private const string EqualityResultKey = "EqualityResult";
         private const string InequalityResultKey = "InequalityResult";
+        private const string HashCodeResultKey = "HashCodeResult";
 
         private readonly ScenarioContext scenarioContext;
 
@@ -50,7 +52,14 @@ namespace Steps
         [Given(@"the dotnet backed JsonString (.*)")]
         public void GivenTheDotnetBackedJsonString(string value)
         {
-            this.scenarioContext.Set(new JsonString(value), ValueKey);
+            if (value == "null")
+            {
+                this.scenarioContext.Set(JsonNull.Instance.AsAny.AsString, ValueKey);
+            }
+            else
+            {
+                this.scenarioContext.Set(new JsonString((string)JsonAny.ParseUriValue(value)), ValueKey);
+            }
         }
 
         /// <summary>
@@ -60,9 +69,15 @@ namespace Steps
         [When(@"I compare it to the string (.*)")]
         public void WhenICompareItToTheString(string expected)
         {
+            if (expected != "null")
+            {
+                this.scenarioContext.Set(this.scenarioContext.Get<JsonString>(ValueKey).Equals(new JsonString((string)JsonAny.ParseUriValue(expected))), EqualsObjectBackedResultKey);
+            }
+
             this.scenarioContext.Set(this.scenarioContext.Get<JsonString>(ValueKey).Equals((JsonString)JsonAny.ParseUriValue(expected)), EqualsResultKey);
             this.scenarioContext.Set(this.scenarioContext.Get<JsonString>(ValueKey) == (JsonString)JsonAny.ParseUriValue(expected), EqualityResultKey);
             this.scenarioContext.Set(this.scenarioContext.Get<JsonString>(ValueKey) != (JsonString)JsonAny.ParseUriValue(expected), InequalityResultKey);
+            this.scenarioContext.Set(this.scenarioContext.Get<JsonString>(ValueKey).GetHashCode() == ((JsonString)JsonAny.ParseUriValue(expected)).GetHashCode(), HashCodeResultKey);
         }
 
         /// <summary>
@@ -82,8 +97,12 @@ namespace Steps
         [When(@"I compare the string to the object (.*)")]
         public void WhenICompareTheStringToTheObject(string expected)
         {
-            object? obj = expected == "<null>" ? null : expected == "<new object()>" ? new object() : JsonAny.ParseUriValue(expected);
+            object? obj = expected == "<undefined>" ? default(JsonString) : expected == "<null>" ? null : expected == "<new object()>" ? new object() : JsonAny.ParseUriValue(expected);
             this.scenarioContext.Set(((object)this.scenarioContext.Get<JsonString>(ValueKey)).Equals(obj), EqualsResultKey);
+            if (obj is not null)
+            {
+                this.scenarioContext.Set(((object)this.scenarioContext.Get<JsonString>(ValueKey)).GetHashCode() == obj.GetHashCode(), HashCodeResultKey);
+            }
         }
 
         /* boolean */
@@ -105,7 +124,14 @@ namespace Steps
         [Given(@"the dotnet backed JsonBoolean (.*)")]
         public void GivenTheDotnetBackedJsonBoolean(string value)
         {
-            this.scenarioContext.Set(new JsonBoolean(value == "true"), ValueKey);
+            if (value == "null")
+            {
+                this.scenarioContext.Set(JsonNull.Instance.AsAny.AsBoolean, ValueKey);
+            }
+            else
+            {
+                this.scenarioContext.Set(new JsonBoolean(value == "true"), ValueKey);
+            }
         }
 
         /// <summary>
@@ -115,9 +141,15 @@ namespace Steps
         [When(@"I compare it to the boolean (.*)")]
         public void WhenICompareItToTheBoolean(string expected)
         {
+            if (expected != "null")
+            {
+                this.scenarioContext.Set(this.scenarioContext.Get<JsonBoolean>(ValueKey).Equals(new JsonBoolean((bool)JsonAny.ParseUriValue(expected))), EqualsObjectBackedResultKey);
+            }
+
             this.scenarioContext.Set(this.scenarioContext.Get<JsonBoolean>(ValueKey).Equals((JsonBoolean)JsonAny.ParseUriValue(expected)), EqualsResultKey);
             this.scenarioContext.Set(this.scenarioContext.Get<JsonBoolean>(ValueKey) == (JsonBoolean)JsonAny.ParseUriValue(expected), EqualityResultKey);
             this.scenarioContext.Set(this.scenarioContext.Get<JsonBoolean>(ValueKey) != (JsonBoolean)JsonAny.ParseUriValue(expected), InequalityResultKey);
+            this.scenarioContext.Set(this.scenarioContext.Get<JsonBoolean>(ValueKey).GetHashCode() == ((JsonBoolean)JsonAny.ParseUriValue(expected)).GetHashCode(), HashCodeResultKey);
         }
 
         /// <summary>
@@ -137,8 +169,12 @@ namespace Steps
         [When(@"I compare the boolean to the object (.*)")]
         public void WhenICompareTheBooleanToTheObject(string expected)
         {
-            object? obj = expected == "<null>" ? null : expected == "<new object()>" ? new object() : JsonAny.ParseUriValue(expected);
+            object? obj = expected == "<undefined>" ? default(JsonBoolean) : expected == "<null>" ? null : expected == "<new object()>" ? new object() : JsonAny.ParseUriValue(expected);
             this.scenarioContext.Set(((object)this.scenarioContext.Get<JsonBoolean>(ValueKey)).Equals(obj), EqualsResultKey);
+            if (obj is not null)
+            {
+                this.scenarioContext.Set(this.scenarioContext.Get<JsonBoolean>(ValueKey).GetHashCode() == obj.GetHashCode(), HashCodeResultKey);
+            }
         }
 
         /* array */
@@ -160,7 +196,14 @@ namespace Steps
         [Given(@"the dotnet backed JsonArray (.*)")]
         public void GivenTheDotnetBackedJsonArray(string value)
         {
-            this.scenarioContext.Set(new JsonArray(new JsonArray(((JsonArray)JsonAny.ParseUriValue(value)).AsItemsList)), ValueKey);
+            if (value == "null")
+            {
+                this.scenarioContext.Set(JsonNull.Instance.AsAny.AsArray, ValueKey);
+            }
+            else
+            {
+                this.scenarioContext.Set(new JsonArray(new JsonArray(((JsonArray)JsonAny.ParseUriValue(value)).AsItemsList)), ValueKey);
+            }
         }
 
         /// <summary>
@@ -170,9 +213,15 @@ namespace Steps
         [When(@"I compare it to the array (.*)")]
         public void WhenICompareItToTheArray(string expected)
         {
+            if (expected != "null")
+            {
+                this.scenarioContext.Set(this.scenarioContext.Get<JsonArray>(ValueKey).Equals(new JsonArray(((JsonArray)JsonAny.ParseUriValue(expected)).AsItemsList)), EqualsObjectBackedResultKey);
+            }
+
             this.scenarioContext.Set(this.scenarioContext.Get<JsonArray>(ValueKey).Equals((JsonArray)JsonAny.ParseUriValue(expected)), EqualsResultKey);
             this.scenarioContext.Set(this.scenarioContext.Get<JsonArray>(ValueKey) == (JsonArray)JsonAny.ParseUriValue(expected), EqualityResultKey);
             this.scenarioContext.Set(this.scenarioContext.Get<JsonArray>(ValueKey) != (JsonArray)JsonAny.ParseUriValue(expected), InequalityResultKey);
+            this.scenarioContext.Set(this.scenarioContext.Get<JsonArray>(ValueKey).GetHashCode() == ((JsonArray)JsonAny.ParseUriValue(expected)).GetHashCode(), HashCodeResultKey);
         }
 
         /// <summary>
@@ -192,8 +241,12 @@ namespace Steps
         [When(@"I compare the array to the object (.*)")]
         public void WhenICompareTheArrayToTheObject(string expected)
         {
-            object? obj = expected == "<null>" ? null : expected == "<new object()>" ? new object() : JsonAny.ParseUriValue(expected);
+            object? obj = expected == "<undefined>" ? default(JsonArray) : expected == "<null>" ? null : expected == "<new object()>" ? new object() : JsonAny.ParseUriValue(expected);
             this.scenarioContext.Set(((object)this.scenarioContext.Get<JsonArray>(ValueKey)).Equals(obj), EqualsResultKey);
+            if (obj is not null)
+            {
+                this.scenarioContext.Set(this.scenarioContext.Get<JsonArray>(ValueKey).GetHashCode() == obj.GetHashCode(), HashCodeResultKey);
+            }
         }
 
         /* base64content */
@@ -215,7 +268,14 @@ namespace Steps
         [Given(@"the dotnet backed JsonBase64Content (.*)")]
         public void GivenTheDotnetBackedJsonBase64Content(string value)
         {
-            this.scenarioContext.Set(new JsonBase64Content(value), ValueKey);
+            if (value == "null")
+            {
+                this.scenarioContext.Set((JsonBase64Content)JsonNull.Instance.AsAny.AsString, ValueKey);
+            }
+            else
+            {
+                this.scenarioContext.Set(new JsonBase64Content(JsonAny.ParseUriValue(value).AsString.GetString()), ValueKey);
+            }
         }
 
         /// <summary>
@@ -225,9 +285,15 @@ namespace Steps
         [When(@"I compare it to the base64content (.*)")]
         public void WhenICompareItToTheBase64Content(string expected)
         {
+            if (expected != "null")
+            {
+                this.scenarioContext.Set(this.scenarioContext.Get<JsonBase64Content>(ValueKey).Equals(new JsonBase64Content((string)JsonAny.ParseUriValue(expected))), EqualsObjectBackedResultKey);
+            }
+
             this.scenarioContext.Set(this.scenarioContext.Get<JsonBase64Content>(ValueKey).Equals((JsonBase64Content)JsonAny.ParseUriValue(expected)), EqualsResultKey);
             this.scenarioContext.Set(this.scenarioContext.Get<JsonBase64Content>(ValueKey) == (JsonBase64Content)JsonAny.ParseUriValue(expected), EqualityResultKey);
             this.scenarioContext.Set(this.scenarioContext.Get<JsonBase64Content>(ValueKey) != (JsonBase64Content)JsonAny.ParseUriValue(expected), InequalityResultKey);
+            this.scenarioContext.Set(this.scenarioContext.Get<JsonBase64Content>(ValueKey).GetHashCode() == ((JsonBase64Content)JsonAny.ParseUriValue(expected)).GetHashCode(), HashCodeResultKey);
         }
 
         /// <summary>
@@ -247,8 +313,12 @@ namespace Steps
         [When(@"I compare the base64content to the object (.*)")]
         public void WhenICompareTheBase64ContentToTheObject(string expected)
         {
-            object? obj = expected == "<null>" ? null : expected == "<new object()>" ? new object() : JsonAny.ParseUriValue(expected);
+            object? obj = expected == "<undefined>" ? default(JsonBase64Content) : expected == "<null>" ? null : expected == "<new object()>" ? new object() : JsonAny.ParseUriValue(expected);
             this.scenarioContext.Set(((object)this.scenarioContext.Get<JsonBase64Content>(ValueKey)).Equals(obj), EqualsResultKey);
+            if (obj is not null)
+            {
+                this.scenarioContext.Set(((object)this.scenarioContext.Get<JsonBase64Content>(ValueKey)).GetHashCode() == obj.GetHashCode(), HashCodeResultKey);
+            }
         }
 
         /* base64string */
@@ -270,7 +340,14 @@ namespace Steps
         [Given(@"the dotnet backed JsonBase64String (.*)")]
         public void GivenTheDotnetBackedJsonBase64String(string value)
         {
-            this.scenarioContext.Set(new JsonBase64String(value), ValueKey);
+            if (value == "null")
+            {
+                this.scenarioContext.Set((JsonBase64String)JsonNull.Instance.AsAny.AsString, ValueKey);
+            }
+            else
+            {
+                this.scenarioContext.Set(new JsonBase64String(JsonAny.ParseUriValue(value).AsString.GetString()), ValueKey);
+            }
         }
 
         /// <summary>
@@ -280,9 +357,15 @@ namespace Steps
         [When(@"I compare it to the base64string (.*)")]
         public void WhenICompareItToTheBase64String(string expected)
         {
+            if (expected != "null")
+            {
+                this.scenarioContext.Set(this.scenarioContext.Get<JsonBase64String>(ValueKey).Equals(new JsonBase64String((string)JsonAny.ParseUriValue(expected))), EqualsObjectBackedResultKey);
+            }
+
             this.scenarioContext.Set(this.scenarioContext.Get<JsonBase64String>(ValueKey).Equals((JsonBase64String)JsonAny.ParseUriValue(expected)), EqualsResultKey);
             this.scenarioContext.Set(this.scenarioContext.Get<JsonBase64String>(ValueKey) == (JsonBase64String)JsonAny.ParseUriValue(expected), EqualityResultKey);
             this.scenarioContext.Set(this.scenarioContext.Get<JsonBase64String>(ValueKey) != (JsonBase64String)JsonAny.ParseUriValue(expected), InequalityResultKey);
+            this.scenarioContext.Set(this.scenarioContext.Get<JsonBase64String>(ValueKey).GetHashCode() == ((JsonBase64String)JsonAny.ParseUriValue(expected)).GetHashCode(), HashCodeResultKey);
         }
 
         /// <summary>
@@ -302,8 +385,12 @@ namespace Steps
         [When(@"I compare the base64string to the object (.*)")]
         public void WhenICompareTheBase64StringToTheObject(string expected)
         {
-            object? obj = expected == "<null>" ? null : expected == "<new object()>" ? new object() : JsonAny.ParseUriValue(expected);
+            object? obj = expected == "<undefined>" ? default(JsonBase64String) : expected == "<null>" ? null : expected == "<new object()>" ? new object() : JsonAny.ParseUriValue(expected);
             this.scenarioContext.Set(((object)this.scenarioContext.Get<JsonBase64String>(ValueKey)).Equals(obj), EqualsResultKey);
+            if (obj is not null)
+            {
+                this.scenarioContext.Set(((object)this.scenarioContext.Get<JsonBase64String>(ValueKey)).GetHashCode() == obj.GetHashCode(), HashCodeResultKey);
+            }
         }
 
         /* content */
@@ -325,7 +412,14 @@ namespace Steps
         [Given(@"the dotnet backed JsonContent (.*)")]
         public void GivenTheDotnetBackedJsonContent(string value)
         {
-            this.scenarioContext.Set(new JsonContent((string)JsonAny.ParseUriValue(value)), ValueKey);
+            if (value == "null")
+            {
+                this.scenarioContext.Set((JsonContent)JsonNull.Instance.AsAny.AsString, ValueKey);
+            }
+            else
+            {
+                this.scenarioContext.Set(new JsonContent((string)JsonAny.ParseUriValue(value)), ValueKey);
+            }
         }
 
         /// <summary>
@@ -335,9 +429,15 @@ namespace Steps
         [When(@"I compare it to the content (.*)")]
         public void WhenICompareItToTheContent(string expected)
         {
+            if (expected != "null")
+            {
+                this.scenarioContext.Set(this.scenarioContext.Get<JsonContent>(ValueKey).Equals(new JsonContent((string)JsonAny.ParseUriValue(expected))), EqualsObjectBackedResultKey);
+            }
+
             this.scenarioContext.Set(this.scenarioContext.Get<JsonContent>(ValueKey).Equals((JsonContent)JsonAny.ParseUriValue(expected)), EqualsResultKey);
             this.scenarioContext.Set(this.scenarioContext.Get<JsonContent>(ValueKey) == (JsonContent)JsonAny.ParseUriValue(expected), EqualityResultKey);
             this.scenarioContext.Set(this.scenarioContext.Get<JsonContent>(ValueKey) != (JsonContent)JsonAny.ParseUriValue(expected), InequalityResultKey);
+            this.scenarioContext.Set(this.scenarioContext.Get<JsonContent>(ValueKey).GetHashCode() == ((JsonContent)JsonAny.ParseUriValue(expected)).GetHashCode(), HashCodeResultKey);
         }
 
         /// <summary>
@@ -357,8 +457,12 @@ namespace Steps
         [When(@"I compare the content to the object (.*)")]
         public void WhenICompareTheContentToTheObject(string expected)
         {
-            object? obj = expected == "<null>" ? null : expected == "<new object()>" ? new object() : JsonAny.ParseUriValue(expected);
+            object? obj = expected == "<undefined>" ? default(JsonContent) : expected == "<null>" ? null : expected == "<new object()>" ? new object() : JsonAny.ParseUriValue(expected);
             this.scenarioContext.Set(((object)this.scenarioContext.Get<JsonContent>(ValueKey)).Equals(obj), EqualsResultKey);
+            if (obj is not null)
+            {
+                this.scenarioContext.Set(((object)this.scenarioContext.Get<JsonContent>(ValueKey)).GetHashCode() == obj.GetHashCode(), HashCodeResultKey);
+            }
         }
 
         /* date */
@@ -380,7 +484,14 @@ namespace Steps
         [Given(@"the dotnet backed JsonDate (.*)")]
         public void GivenTheDotnetBackedJsonDate(string value)
         {
-            this.scenarioContext.Set(new JsonDate((string)JsonAny.ParseUriValue(value)), ValueKey);
+            if (value == "null")
+            {
+                this.scenarioContext.Set((JsonDate)JsonNull.Instance.AsAny.AsString, ValueKey);
+            }
+            else
+            {
+                this.scenarioContext.Set(new JsonDate((string)JsonAny.ParseUriValue(value)), ValueKey);
+            }
         }
 
         /// <summary>
@@ -390,9 +501,15 @@ namespace Steps
         [When(@"I compare it to the date (.*)")]
         public void WhenICompareItToTheDate(string expected)
         {
+            if (expected != "null")
+            {
+                this.scenarioContext.Set(this.scenarioContext.Get<JsonDate>(ValueKey).Equals(new JsonDate((string)JsonAny.ParseUriValue(expected))), EqualsObjectBackedResultKey);
+            }
+
             this.scenarioContext.Set(this.scenarioContext.Get<JsonDate>(ValueKey).Equals((JsonDate)JsonAny.ParseUriValue(expected)), EqualsResultKey);
             this.scenarioContext.Set(this.scenarioContext.Get<JsonDate>(ValueKey) == (JsonDate)JsonAny.ParseUriValue(expected), EqualityResultKey);
             this.scenarioContext.Set(this.scenarioContext.Get<JsonDate>(ValueKey) != (JsonDate)JsonAny.ParseUriValue(expected), InequalityResultKey);
+            this.scenarioContext.Set(this.scenarioContext.Get<JsonDate>(ValueKey).GetHashCode() == ((JsonDate)JsonAny.ParseUriValue(expected)).GetHashCode(), HashCodeResultKey);
         }
 
         /// <summary>
@@ -412,8 +529,12 @@ namespace Steps
         [When(@"I compare the date to the object (.*)")]
         public void WhenICompareTheDateToTheObject(string expected)
         {
-            object? obj = expected == "<null>" ? null : expected == "<new object()>" ? new object() : JsonAny.ParseUriValue(expected);
+            object? obj = expected == "<undefined>" ? default(JsonDate) : expected == "<null>" ? null : expected == "<new object()>" ? new object() : JsonAny.ParseUriValue(expected);
             this.scenarioContext.Set(((object)this.scenarioContext.Get<JsonDate>(ValueKey)).Equals(obj), EqualsResultKey);
+            if (obj is not null)
+            {
+                this.scenarioContext.Set(((object)this.scenarioContext.Get<JsonDate>(ValueKey)).GetHashCode() == obj.GetHashCode(), HashCodeResultKey);
+            }
         }
 
         /// <summary>
@@ -432,6 +553,16 @@ namespace Steps
             if (this.scenarioContext.ContainsKey(InequalityResultKey))
             {
                 Assert.AreNotEqual(expected, this.scenarioContext.Get<bool>(InequalityResultKey));
+            }
+
+            if (this.scenarioContext.ContainsKey(HashCodeResultKey))
+            {
+                Assert.AreEqual(expected, this.scenarioContext.Get<bool>(HashCodeResultKey));
+            }
+
+            if (this.scenarioContext.ContainsKey(EqualsObjectBackedResultKey))
+            {
+                Assert.AreEqual(expected, this.scenarioContext.Get<bool>(EqualsObjectBackedResultKey));
             }
         }
     }

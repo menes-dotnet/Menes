@@ -349,7 +349,7 @@ namespace AnchorDraft201909Feature.AnchorInsideAnEnumIsNotARealIdentifier
                         JsonValueKind.String => this.AsString().GetHashCode(),
                         JsonValueKind.True or JsonValueKind.False => this.AsBoolean().GetHashCode(),
                     JsonValueKind.Null => JsonNull.NullHashCode,
-                _ => 0,
+                _ => JsonAny.UndefinedHashCode,
             };
         }
 
@@ -1010,7 +1010,7 @@ namespace AnchorDraft201909Feature.AnchorInsideAnEnumIsNotARealIdentifier
                         JsonValueKind.String => this.AsString().GetHashCode(),
                         JsonValueKind.True or JsonValueKind.False => this.AsBoolean().GetHashCode(),
                     JsonValueKind.Null => JsonNull.NullHashCode,
-                _ => 0,
+                _ => JsonAny.UndefinedHashCode,
             };
         }
 

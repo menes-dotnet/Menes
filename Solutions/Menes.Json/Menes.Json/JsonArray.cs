@@ -439,7 +439,7 @@ namespace Menes.Json
                 return this.Equals(jv.AsAny);
             }
 
-            return false;
+            return obj is null && this.IsNull();
         }
 
         /// <inheritdoc/>
@@ -451,7 +451,7 @@ namespace Menes.Json
             {
                 JsonValueKind.Array => this.GetHashCodeCore(),
                 JsonValueKind.Null => JsonNull.NullHashCode,
-                _ => 0,
+                _ => JsonAny.UndefinedHashCode,
             };
         }
 
@@ -504,6 +504,11 @@ namespace Menes.Json
         public bool Equals<T>(T other)
             where T : struct, IJsonValue
         {
+            if (this.IsNull() && other.IsNull())
+            {
+                return true;
+            }
+
             if (other.ValueKind != JsonValueKind.Array)
             {
                 return false;
@@ -515,6 +520,11 @@ namespace Menes.Json
         /// <inheritdoc/>
         public bool Equals(JsonArray other)
         {
+            if (this.IsNull() && other.IsNull())
+            {
+                return true;
+            }
+
             if (other.ValueKind != this.ValueKind || this.ValueKind != JsonValueKind.Array)
             {
                 return false;

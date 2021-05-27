@@ -9,9 +9,9 @@ Scenario Outline: Equals for json element backed value as a string
 
 	Examples:
 		| jsonValue | value     | result |
-		| Hello     | "Hello"   | true   |
-		| Hello     | "Goodbye" | false  |
-		| null      | null      | false  |
+		| "Hello"   | "Hello"   | true   |
+		| "Hello"   | "Goodbye" | false  |
+		| null      | null      | true   |
 		| null      | "Goodbye" | false  |
 
 Scenario Outline: Equals for dotnet backed value as a string
@@ -21,8 +21,8 @@ Scenario Outline: Equals for dotnet backed value as a string
 
 	Examples:
 		| jsonValue | value     | result |
-		| Hello     | "Hello"   | true   |
-		| Hello     | "Goodbye" | false  |
+		| "Hello"   | "Hello"   | true   |
+		| "Hello"   | "Goodbye" | false  |
 
 Scenario Outline: Equals for string json element backed value as an IJsonValue
 	Given the JsonElement backed JsonString <jsonValue>
@@ -31,19 +31,19 @@ Scenario Outline: Equals for string json element backed value as an IJsonValue
 
 	Examples:
 		| jsonValue | value                          | result |
-		| Hello     | "Hello"                        | true   |
-		| Hello     | "Goodbye"                      | false  |
-		| Hello     | 1                              | false  |
-		| Hello     | 1.1                            | false  |
-		| Hello     | [1,2,3]                        | false  |
-		| Hello     | { "first": "1" }               | false  |
-		| Hello     | true                           | false  |
-		| Hello     | false                          | false  |
-		| Hello     | "2018-11-13T20:20:39+00:00"    | false  |
-		| Hello     | "2018-11-13"                   | false  |
-		| Hello     | "hello@endjin.com"             | false  |
-		| Hello     | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
-		| Hello     | "{ \"first\": \"1\" }"         | false  |
+		| "Hello"   | "Hello"                        | true   |
+		| "Hello"   | "Goodbye"                      | false  |
+		| "Hello"   | 1                              | false  |
+		| "Hello"   | 1.1                            | false  |
+		| "Hello"   | [1,2,3]                        | false  |
+		| "Hello"   | { "first": "1" }               | false  |
+		| "Hello"   | true                           | false  |
+		| "Hello"   | false                          | false  |
+		| "Hello"   | "2018-11-13T20:20:39+00:00"    | false  |
+		| "Hello"   | "2018-11-13"                   | false  |
+		| "Hello"   | "hello@endjin.com"             | false  |
+		| "Hello"   | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
+		| "Hello"   | "{ \"first\": \"1\" }"         | false  |
 
 Scenario Outline: Equals for string dotnet backed value as an IJsonValue
 	Given the dotnet backed JsonString <jsonValue>
@@ -52,19 +52,19 @@ Scenario Outline: Equals for string dotnet backed value as an IJsonValue
 
 	Examples:
 		| jsonValue | value                          | result |
-		| Hello     | "Hello"                        | true   |
-		| Hello     | "Goodbye"                      | false  |
-		| Hello     | 1                              | false  |
-		| Hello     | 1.1                            | false  |
-		| Hello     | [1,2,3]                        | false  |
-		| Hello     | { "first": "1" }               | false  |
-		| Hello     | true                           | false  |
-		| Hello     | false                          | false  |
-		| Hello     | "2018-11-13T20:20:39+00:00"    | false  |
-		| Hello     | "2018-11-13"                   | false  |
-		| Hello     | "hello@endjin.com"             | false  |
-		| Hello     | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
-		| Hello     | "{ \"first\": \"1\" }"         | false  |
+		| "Hello"   | "Hello"                        | true   |
+		| "Hello"   | "Goodbye"                      | false  |
+		| "Hello"   | 1                              | false  |
+		| "Hello"   | 1.1                            | false  |
+		| "Hello"   | [1,2,3]                        | false  |
+		| "Hello"   | { "first": "1" }               | false  |
+		| "Hello"   | true                           | false  |
+		| "Hello"   | false                          | false  |
+		| "Hello"   | "2018-11-13T20:20:39+00:00"    | false  |
+		| "Hello"   | "2018-11-13"                   | false  |
+		| "Hello"   | "hello@endjin.com"             | false  |
+		| "Hello"   | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
+		| "Hello"   | "{ \"first\": \"1\" }"         | false  |
 
 Scenario Outline: Equals for string json element backed value as an object
 	Given the JsonElement backed JsonString <jsonValue>
@@ -73,21 +73,21 @@ Scenario Outline: Equals for string json element backed value as an object
 
 	Examples:
 		| jsonValue | value                          | result |
-		| Hello     | "Hello"                        | true   |
-		| Hello     | "Goodbye"                      | false  |
-		| Hello     | 1                              | false  |
-		| Hello     | 1.1                            | false  |
-		| Hello     | [1,2,3]                        | false  |
-		| Hello     | { "first": "1" }               | false  |
-		| Hello     | true                           | false  |
-		| Hello     | false                          | false  |
-		| Hello     | "2018-11-13T20:20:39+00:00"    | false  |
-		| Hello     | "2018-11-13"                   | false  |
-		| Hello     | "hello@endjin.com"             | false  |
-		| Hello     | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
-		| Hello     | "{ \"first\": \"1\" }"         | false  |
-		| Hello     | <new object()>                 | false  |
-		| Hello     | <null>                         | false  |
+		| "Hello"   | "Hello"                        | true   |
+		| "Hello"   | "Goodbye"                      | false  |
+		| "Hello"   | 1                              | false  |
+		| "Hello"   | 1.1                            | false  |
+		| "Hello"   | [1,2,3]                        | false  |
+		| "Hello"   | { "first": "1" }               | false  |
+		| "Hello"   | true                           | false  |
+		| "Hello"   | false                          | false  |
+		| "Hello"   | "2018-11-13T20:20:39+00:00"    | false  |
+		| "Hello"   | "2018-11-13"                   | false  |
+		| "Hello"   | "hello@endjin.com"             | false  |
+		| "Hello"   | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
+		| "Hello"   | "{ \"first\": \"1\" }"         | false  |
+		| "Hello"   | <new object()>                 | false  |
+		| "Hello"   | null                           | false  |
 
 Scenario Outline: Equals for string dotnet backed value as an object
 	Given the dotnet backed JsonString <jsonValue>
@@ -96,21 +96,26 @@ Scenario Outline: Equals for string dotnet backed value as an object
 
 	Examples:
 		| jsonValue | value                          | result |
-		| Hello     | "Hello"                        | true   |
-		| Hello     | "Goodbye"                      | false  |
-		| Hello     | 1                              | false  |
-		| Hello     | 1.1                            | false  |
-		| Hello     | [1,2,3]                        | false  |
-		| Hello     | { "first": "1" }               | false  |
-		| Hello     | true                           | false  |
-		| Hello     | false                          | false  |
-		| Hello     | "2018-11-13T20:20:39+00:00"    | false  |
-		| Hello     | "2018-11-13"                   | false  |
-		| Hello     | "hello@endjin.com"             | false  |
-		| Hello     | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
-		| Hello     | "{ \"first\": \"1\" }"         | false  |
-		| Hello     | <new object()>                 | false  |
-		| Hello     | <null>                         | false  |
+		| "Hello"   | "Hello"                        | true   |
+		| "Hello"   | "Goodbye"                      | false  |
+		| "Hello"   | 1                              | false  |
+		| "Hello"   | 1.1                            | false  |
+		| "Hello"   | [1,2,3]                        | false  |
+		| "Hello"   | { "first": "1" }               | false  |
+		| "Hello"   | true                           | false  |
+		| "Hello"   | false                          | false  |
+		| "Hello"   | "2018-11-13T20:20:39+00:00"    | false  |
+		| "Hello"   | "2018-11-13"                   | false  |
+		| "Hello"   | "hello@endjin.com"             | false  |
+		| "Hello"   | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
+		| "Hello"   | "{ \"first\": \"1\" }"         | false  |
+		| "Hello"   | <new object()>                 | false  |
+		| "Hello"   | null                           | false  |
+		| "Hello"   | <null>                         | false  |
+		| "Hello"   | <undefined>                    | false  |
+		| null      | null                           | true   |
+		| null      | <null>                         | true   |
+		| null      | <undefined>                    | false  |
 
 # JsonBoolean
 Scenario Outline: Equals for json element backed value as a boolean
@@ -126,7 +131,7 @@ Scenario Outline: Equals for json element backed value as a boolean
 		| false     | true  | false  |
 		| true      | null  | false  |
 		| null      | true  | false  |
-		| null      | null  | false  |
+		| null      | null  | true   |
 
 Scenario Outline: Equals for dotnet backed value as a boolean
 	Given the dotnet backed JsonBoolean <jsonValue>
@@ -206,7 +211,7 @@ Scenario Outline: Equals for boolean json element backed value as an object
 		| false     | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
 		| false     | "{ \"first\": \"1\" }"         | false  |
 		| false     | <new object()>                 | false  |
-		| false     | <null>                         | false  |
+		| false     | null                           | false  |
 
 Scenario Outline: Equals for boolean dotnet backed value as an object
 	Given the dotnet backed JsonBoolean <jsonValue>
@@ -230,7 +235,12 @@ Scenario Outline: Equals for boolean dotnet backed value as an object
 		| false     | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
 		| false     | "{ \"first\": \"1\" }"         | false  |
 		| false     | <new object()>                 | false  |
+		| false     | null                           | false  |
 		| false     | <null>                         | false  |
+		| false     | <undefined>                    | false  |
+		| null      | null                           | true   |
+		| null      | <null>                         | true   |
+		| null      | <undefined>                    | false  |
 
 # JsonArray
 Scenario Outline: Equals for json element backed value as an array
@@ -245,7 +255,7 @@ Scenario Outline: Equals for json element backed value as an array
 		| [1,"2",3] | [1,2,3]   | false  |
 		| []        | []        | true   |
 		| []        | [3,2,1]   | false  |
-		| null      | null      | false  |
+		| null      | null      | true   |
 		| null      | [1,2,3]   | false  |
 
 Scenario Outline: Equals for dotnet backed value as an array
@@ -341,7 +351,12 @@ Scenario Outline: Equals for array dotnet backed value as an object
 		| [1,2,3]   | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
 		| [1,2,3]   | "{ \"first\": \"1\" }"         | false  |
 		| [1,2,3]   | <new object()>                 | false  |
+		| [1,2,3]   | null                           | false  |
 		| [1,2,3]   | <null>                         | false  |
+		| [1,2,3]   | <undefined>                    | false  |
+		| null      | null                           | true   |
+		| null      | <null>                         | true   |
+		| null      | <undefined>                    | false  |
 
 # JsonBase64Content
 Scenario Outline: Equals for json element backed value as a base64content
@@ -350,11 +365,11 @@ Scenario Outline: Equals for json element backed value as a base64content
 	Then the result should be <result>
 
 	Examples:
-		| jsonValue                    | value                          | result |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | true   |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | "Goodbye"                      | false  |
-		| null                         | null                           | false  |
-		| null                         | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
+		| jsonValue                      | value                          | result |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | true   |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "Goodbye"                      | false  |
+		| null                           | null                           | true   |
+		| null                           | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
 
 Scenario Outline: Equals for dotnet backed value as a base64content
 	Given the dotnet backed JsonBase64Content <jsonValue>
@@ -362,9 +377,9 @@ Scenario Outline: Equals for dotnet backed value as a base64content
 	Then the result should be <result>
 
 	Examples:
-		| jsonValue                    | value                          | result |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | true   |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | "Goodbye"                      | false  |
+		| jsonValue                      | value                          | result |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | true   |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "Goodbye"                      | false  |
 
 Scenario Outline: Equals for base64content json element backed value as an IJsonValue
 	Given the JsonElement backed JsonBase64Content <jsonValue>
@@ -372,20 +387,20 @@ Scenario Outline: Equals for base64content json element backed value as an IJson
 	Then the result should be <result>
 
 	Examples:
-		| jsonValue                    | value                          | result |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | "Hello"                        | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | "Goodbye"                      | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | 1                              | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | 1.1                            | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | [1,2,3]                        | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | { "first": "1" }               | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | true                           | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | false                          | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | "2018-11-13T20:20:39+00:00"    | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | "2018-11-13"                   | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | "hello@endjin.com"             | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | true   |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | "{ \"first\": \"1\" }"         | false  |
+		| jsonValue                      | value                          | result |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "Hello"                        | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "Goodbye"                      | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | 1                              | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | 1.1                            | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | [1,2,3]                        | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | { "first": "1" }               | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | true                           | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false                          | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "2018-11-13T20:20:39+00:00"    | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "2018-11-13"                   | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "hello@endjin.com"             | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | true   |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "{ \"first\": \"1\" }"         | false  |
 
 Scenario Outline: Equals for base64content dotnet backed value as an IJsonValue
 	Given the dotnet backed JsonBase64Content <jsonValue>
@@ -393,20 +408,20 @@ Scenario Outline: Equals for base64content dotnet backed value as an IJsonValue
 	Then the result should be <result>
 
 	Examples:
-		| jsonValue                    | value                          | result |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | "Hello"                        | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | "Goodbye"                      | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | 1                              | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | 1.1                            | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | [1,2,3]                        | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | { "first": "1" }               | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | true                           | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | false                          | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | "2018-11-13T20:20:39+00:00"    | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | "2018-11-13"                   | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | "hello@endjin.com"             | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | true   |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | "{ \"first\": \"1\" }"         | false  |
+		| jsonValue                      | value                          | result |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "Hello"                        | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "Goodbye"                      | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | 1                              | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | 1.1                            | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | [1,2,3]                        | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | { "first": "1" }               | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | true                           | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false                          | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "2018-11-13T20:20:39+00:00"    | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "2018-11-13"                   | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "hello@endjin.com"             | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | true   |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "{ \"first\": \"1\" }"         | false  |
 
 Scenario Outline: Equals for base64content json element backed value as an object
 	Given the JsonElement backed JsonBase64Content <jsonValue>
@@ -414,22 +429,22 @@ Scenario Outline: Equals for base64content json element backed value as an objec
 	Then the result should be <result>
 
 	Examples:
-		| jsonValue                    | value                          | result |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | "Hello"                        | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | "Goodbye"                      | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | 1                              | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | 1.1                            | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | [1,2,3]                        | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | { "first": "1" }               | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | true                           | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | false                          | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | "2018-11-13T20:20:39+00:00"    | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | "2018-11-13"                   | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | "hello@endjin.com"             | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | true   |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | "{ \"first\": \"1\" }"         | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | <new object()>                 | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | <null>                         | false  |
+		| jsonValue                      | value                          | result |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "Hello"                        | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "Goodbye"                      | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | 1                              | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | 1.1                            | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | [1,2,3]                        | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | { "first": "1" }               | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | true                           | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false                          | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "2018-11-13T20:20:39+00:00"    | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "2018-11-13"                   | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "hello@endjin.com"             | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | true   |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "{ \"first\": \"1\" }"         | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | <new object()>                 | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | null                           | false  |
 
 Scenario Outline: Equals for base64content dotnet backed value as an object
 	Given the dotnet backed JsonBase64Content <jsonValue>
@@ -437,22 +452,27 @@ Scenario Outline: Equals for base64content dotnet backed value as an object
 	Then the result should be <result>
 
 	Examples:
-		| jsonValue                    | value                          | result |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | "Hello"                        | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | "Goodbye"                      | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | 1                              | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | 1.1                            | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | [1,2,3]                        | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | { "first": "1" }               | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | true                           | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | false                          | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | "2018-11-13T20:20:39+00:00"    | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | "2018-11-13"                   | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | "hello@endjin.com"             | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | true   |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | "{ \"first\": \"1\" }"         | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | <new object()>                 | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | <null>                         | false  |
+		| jsonValue                      | value                          | result |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "Hello"                        | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "Goodbye"                      | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | 1                              | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | 1.1                            | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | [1,2,3]                        | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | { "first": "1" }               | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | true                           | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false                          | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "2018-11-13T20:20:39+00:00"    | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "2018-11-13"                   | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "hello@endjin.com"             | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | true   |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "{ \"first\": \"1\" }"         | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | <new object()>                 | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | null                           | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | <null>                         | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | <undefined>                    | false  |
+		| null                           | null                           | true   |
+		| null                           | <null>                         | true   |
+		| null                           | <undefined>                    | false  |
 
 # JsonBase64String
 Scenario Outline: Equals for json element backed value as a base64string
@@ -461,11 +481,11 @@ Scenario Outline: Equals for json element backed value as a base64string
 	Then the result should be <result>
 
 	Examples:
-		| jsonValue                    | value                          | result |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | true   |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | "Goodbye"                      | false  |
-		| null                         | null                           | false  |
-		| null                         | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
+		| jsonValue                      | value                          | result |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | true   |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "Goodbye"                      | false  |
+		| null                           | null                           | true   |
+		| null                           | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
 
 Scenario Outline: Equals for dotnet backed value as a base64string
 	Given the dotnet backed JsonBase64String <jsonValue>
@@ -473,9 +493,9 @@ Scenario Outline: Equals for dotnet backed value as a base64string
 	Then the result should be <result>
 
 	Examples:
-		| jsonValue                    | value                          | result |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | true   |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | "Goodbye"                      | false  |
+		| jsonValue                      | value                          | result |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | true   |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "Goodbye"                      | false  |
 
 Scenario Outline: Equals for base64string json element backed value as an IJsonValue
 	Given the JsonElement backed JsonBase64String <jsonValue>
@@ -483,20 +503,20 @@ Scenario Outline: Equals for base64string json element backed value as an IJsonV
 	Then the result should be <result>
 
 	Examples:
-		| jsonValue                    | value                          | result |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | "Hello"                        | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | "Goodbye"                      | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | 1                              | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | 1.1                            | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | [1,2,3]                        | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | { "first": "1" }               | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | true                           | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | false                          | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | "2018-11-13T20:20:39+00:00"    | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | "2018-11-13"                   | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | "hello@endjin.com"             | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | true   |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | "{ \"first\": \"1\" }"         | false  |
+		| jsonValue                      | value                          | result |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "Hello"                        | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "Goodbye"                      | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | 1                              | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | 1.1                            | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | [1,2,3]                        | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | { "first": "1" }               | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | true                           | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false                          | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "2018-11-13T20:20:39+00:00"    | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "2018-11-13"                   | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "hello@endjin.com"             | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | true   |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "{ \"first\": \"1\" }"         | false  |
 
 Scenario Outline: Equals for base64string dotnet backed value as an IJsonValue
 	Given the dotnet backed JsonBase64String <jsonValue>
@@ -504,20 +524,20 @@ Scenario Outline: Equals for base64string dotnet backed value as an IJsonValue
 	Then the result should be <result>
 
 	Examples:
-		| jsonValue                    | value                          | result |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | "Hello"                        | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | "Goodbye"                      | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | 1                              | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | 1.1                            | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | [1,2,3]                        | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | { "first": "1" }               | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | true                           | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | false                          | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | "2018-11-13T20:20:39+00:00"    | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | "2018-11-13"                   | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | "hello@endjin.com"             | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | true   |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | "{ \"first\": \"1\" }"         | false  |
+		| jsonValue                      | value                          | result |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "Hello"                        | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "Goodbye"                      | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | 1                              | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | 1.1                            | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | [1,2,3]                        | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | { "first": "1" }               | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | true                           | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false                          | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "2018-11-13T20:20:39+00:00"    | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "2018-11-13"                   | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "hello@endjin.com"             | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | true   |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "{ \"first\": \"1\" }"         | false  |
 
 Scenario Outline: Equals for base64string json element backed value as an object
 	Given the JsonElement backed JsonBase64String <jsonValue>
@@ -525,22 +545,22 @@ Scenario Outline: Equals for base64string json element backed value as an object
 	Then the result should be <result>
 
 	Examples:
-		| jsonValue                    | value                          | result |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | "Hello"                        | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | "Goodbye"                      | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | 1                              | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | 1.1                            | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | [1,2,3]                        | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | { "first": "1" }               | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | true                           | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | false                          | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | "2018-11-13T20:20:39+00:00"    | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | "2018-11-13"                   | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | "hello@endjin.com"             | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | true   |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | "{ \"first\": \"1\" }"         | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | <new object()>                 | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | <null>                         | false  |
+		| jsonValue                      | value                          | result |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "Hello"                        | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "Goodbye"                      | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | 1                              | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | 1.1                            | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | [1,2,3]                        | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | { "first": "1" }               | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | true                           | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false                          | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "2018-11-13T20:20:39+00:00"    | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "2018-11-13"                   | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "hello@endjin.com"             | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | true   |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "{ \"first\": \"1\" }"         | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | <new object()>                 | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | null                           | false  |
 
 Scenario Outline: Equals for base64string dotnet backed value as an object
 	Given the dotnet backed JsonBase64String <jsonValue>
@@ -548,22 +568,27 @@ Scenario Outline: Equals for base64string dotnet backed value as an object
 	Then the result should be <result>
 
 	Examples:
-		| jsonValue                    | value                          | result |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | "Hello"                        | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | "Goodbye"                      | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | 1                              | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | 1.1                            | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | [1,2,3]                        | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | { "first": "1" }               | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | true                           | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | false                          | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | "2018-11-13T20:20:39+00:00"    | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | "2018-11-13"                   | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | "hello@endjin.com"             | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | true   |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | "{ \"first\": \"1\" }"         | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | <new object()>                 | false  |
-		| eyAiaGVsbG8iOiAid29ybGQiIH0= | <null>                         | false  |
+		| jsonValue                      | value                          | result |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "Hello"                        | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "Goodbye"                      | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | 1                              | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | 1.1                            | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | [1,2,3]                        | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | { "first": "1" }               | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | true                           | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false                          | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "2018-11-13T20:20:39+00:00"    | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "2018-11-13"                   | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "hello@endjin.com"             | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | true   |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "{ \"first\": \"1\" }"         | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | <new object()>                 | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | null                           | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | <null>                         | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | <undefined>                    | false  |
+		| null                           | null                           | true   |
+		| null                           | <null>                         | true   |
+		| null                           | <undefined>                    | false  |
 
 # JsonContent
 Scenario Outline: Equals for json element backed value as a content
@@ -575,7 +600,7 @@ Scenario Outline: Equals for json element backed value as a content
 		| jsonValue              | value                  | result |
 		| "{ \"first\": \"1\" }" | "{ \"first\": \"1\" }" | true   |
 		| "{ \"first\": \"1\" }" | "Goodbye"              | false  |
-		| null                   | null                   | false  |
+		| null                   | null                   | true   |
 		| null                   | "{ \"first\": \"1\" }" | false  |
 
 Scenario Outline: Equals for dotnet backed value as a content
@@ -651,7 +676,7 @@ Scenario Outline: Equals for content json element backed value as an object
 		| "{ \"first\": \"1\" }" | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
 		| "{ \"first\": \"1\" }" | "{ \"first\": \"1\" }"         | true   |
 		| "{ \"first\": \"1\" }" | <new object()>                 | false  |
-		| "{ \"first\": \"1\" }" | <null>                         | false  |
+		| "{ \"first\": \"1\" }" | null                           | false  |
 
 Scenario Outline: Equals for content dotnet backed value as an object
 	Given the dotnet backed JsonContent <jsonValue>
@@ -674,7 +699,12 @@ Scenario Outline: Equals for content dotnet backed value as an object
 		| "{ \"first\": \"1\" }" | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
 		| "{ \"first\": \"1\" }" | "{ \"first\": \"1\" }"         | true   |
 		| "{ \"first\": \"1\" }" | <new object()>                 | false  |
+		| "{ \"first\": \"1\" }" | null                           | false  |
 		| "{ \"first\": \"1\" }" | <null>                         | false  |
+		| "{ \"first\": \"1\" }" | <undefined>                    | false  |
+		| null                   | null                           | true   |
+		| null                   | <null>                         | true   |
+		| null                   | <undefined>                    | false  |
 
 # JsonDate
 Scenario Outline: Equals for json element backed value as a date
@@ -687,7 +717,7 @@ Scenario Outline: Equals for json element backed value as a date
 		| "2018-11-13" | "2018-11-13" | true   |
 		| "Garbage"    | "2018-11-13" | false  |
 		| "2018-11-13" | "Goodbye"    | false  |
-		| null         | null         | false  |
+		| null         | null         | true   |
 		| null         | "2018-11-13" | false  |
 
 Scenario Outline: Equals for dotnet backed value as a date
@@ -766,7 +796,7 @@ Scenario Outline: Equals for date json element backed value as an object
 		| "2018-11-13" | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
 		| "2018-11-13" | "{ \"first\": \"1\" }"         | false  |
 		| "2018-11-13" | <new object()>                 | false  |
-		| "2018-11-13" | <null>                         | false  |
+		| "2018-11-13" | null                           | false  |
 
 Scenario Outline: Equals for date dotnet backed value as an object
 	Given the dotnet backed JsonDate <jsonValue>
@@ -789,4 +819,9 @@ Scenario Outline: Equals for date dotnet backed value as an object
 		| "2018-11-13" | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
 		| "2018-11-13" | "{ \"first\": \"1\" }"         | false  |
 		| "2018-11-13" | <new object()>                 | false  |
+		| "2018-11-13" | null                           | false  |
 		| "2018-11-13" | <null>                         | false  |
+		| "2018-11-13" | <undefined>                    | false  |
+		| null         | null                           | true   |
+		| null         | <null>                         | true   |
+		| null         | <undefined>                    | false  |

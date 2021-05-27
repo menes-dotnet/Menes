@@ -484,7 +484,7 @@ namespace Menes.Json
             {
                 JsonValueKind.Number => this.TryGetInt64(out long value) ? value.GetHashCode() : 0,
                 JsonValueKind.Null => JsonNull.NullHashCode,
-                _ => 0,
+                _ => JsonAny.UndefinedHashCode,
             };
         }
 

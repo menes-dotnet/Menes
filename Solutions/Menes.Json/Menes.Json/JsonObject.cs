@@ -334,7 +334,7 @@ namespace Menes.Json
             {
                 JsonValueKind.Object => this.GetHashCodeCore(),
                 JsonValueKind.Null => JsonNull.NullHashCode,
-                _ => 0,
+                _ => JsonAny.UndefinedHashCode,
             };
         }
 

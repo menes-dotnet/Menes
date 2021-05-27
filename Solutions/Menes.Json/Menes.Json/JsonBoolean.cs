@@ -223,7 +223,7 @@ namespace Menes.Json
                 return this.Equals(jv.AsAny);
             }
 
-            return false;
+            return obj is null && this.IsNull();
         }
 
         /// <inheritdoc/>
@@ -236,7 +236,7 @@ namespace Menes.Json
                 JsonValueKind.True => TrueHashCode,
                 JsonValueKind.False => FalseHashCode,
                 JsonValueKind.Null => JsonNull.NullHashCode,
-                _ => 0,
+                _ => JsonAny.UndefinedHashCode,
             };
         }
 
@@ -275,7 +275,13 @@ namespace Menes.Json
             where T : struct, IJsonValue
         {
             JsonValueKind valueKind = this.ValueKind;
-            if ((valueKind != JsonValueKind.True && valueKind != JsonValueKind.False) || valueKind != other.ValueKind)
+            JsonValueKind otherValueKind = other.ValueKind;
+            if (valueKind == JsonValueKind.Null && other.ValueKind == JsonValueKind.Null)
+            {
+                return true;
+            }
+
+            if ((valueKind != JsonValueKind.True && valueKind != JsonValueKind.False) || valueKind != otherValueKind)
             {
                 return false;
             }
@@ -287,7 +293,13 @@ namespace Menes.Json
         public bool Equals(JsonBoolean other)
         {
             JsonValueKind valueKind = this.ValueKind;
-            if ((valueKind != JsonValueKind.True && valueKind != JsonValueKind.False) || valueKind != other.ValueKind)
+            JsonValueKind otherValueKind = other.ValueKind;
+            if (valueKind == JsonValueKind.Null && other.ValueKind == JsonValueKind.Null)
+            {
+                return true;
+            }
+
+            if ((valueKind != JsonValueKind.True && valueKind != JsonValueKind.False) || valueKind != otherValueKind)
             {
                 return false;
             }
