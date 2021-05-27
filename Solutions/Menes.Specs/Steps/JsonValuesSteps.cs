@@ -537,6 +537,78 @@ namespace Steps
             }
         }
 
+        /* dateTime */
+
+        /// <summary>
+        /// Store a <see cref="JsonElement"/>-backed value in the context variable <c>Value</c>.
+        /// </summary>
+        /// <param name="value">The json value.</param>
+        [Given(@"the JsonElement backed JsonDateTime (.*)")]
+        public void GivenTheJsonElementBackedJsonDateTime(string value)
+        {
+            this.scenarioContext.Set<JsonDateTime>(JsonAny.ParseUriValue(value), ValueKey);
+        }
+
+        /// <summary>
+        /// Store a dotnet-type-backed value in the context variable <c>Value</c>.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        [Given(@"the dotnet backed JsonDateTime (.*)")]
+        public void GivenTheDotnetBackedJsonDateTime(string value)
+        {
+            if (value == "null")
+            {
+                this.scenarioContext.Set((JsonDateTime)JsonNull.Instance.AsAny.AsString, ValueKey);
+            }
+            else
+            {
+                this.scenarioContext.Set(new JsonDateTime((string)JsonAny.ParseUriValue(value)), ValueKey);
+            }
+        }
+
+        /// <summary>
+        /// Compares the value in JsonDateTime in the context variable <c>Value</c> with the expected base64String, and set it into the context variable <c>Result</c>.
+        /// </summary>
+        /// <param name="expected">The expected value.</param>
+        [When(@"I compare it to the dateTime (.*)")]
+        public void WhenICompareItToTheDateTime(string expected)
+        {
+            if (expected != "null")
+            {
+                this.scenarioContext.Set(this.scenarioContext.Get<JsonDateTime>(ValueKey).Equals(new JsonDateTime((string)JsonAny.ParseUriValue(expected))), EqualsObjectBackedResultKey);
+            }
+
+            this.scenarioContext.Set(this.scenarioContext.Get<JsonDateTime>(ValueKey).Equals((JsonDateTime)JsonAny.ParseUriValue(expected)), EqualsResultKey);
+            this.scenarioContext.Set(this.scenarioContext.Get<JsonDateTime>(ValueKey) == (JsonDateTime)JsonAny.ParseUriValue(expected), EqualityResultKey);
+            this.scenarioContext.Set(this.scenarioContext.Get<JsonDateTime>(ValueKey) != (JsonDateTime)JsonAny.ParseUriValue(expected), InequalityResultKey);
+            this.scenarioContext.Set(this.scenarioContext.Get<JsonDateTime>(ValueKey).GetHashCode() == ((JsonDateTime)JsonAny.ParseUriValue(expected)).GetHashCode(), HashCodeResultKey);
+        }
+
+        /// <summary>
+        /// Compares the value in JsonDateTime in the context variable <c>Value</c> with the expected base64String, and set it into the context variable <c>Result</c>.
+        /// </summary>
+        /// <param name="expected">The expected value.</param>
+        [When(@"I compare the dateTime to the IJsonValue (.*)")]
+        public void WhenICompareTheDateTimeToTheIJsonValue(string expected)
+        {
+            this.scenarioContext.Set(this.scenarioContext.Get<JsonDateTime>(ValueKey).Equals(JsonAny.ParseUriValue(expected)), EqualsResultKey);
+        }
+
+        /// <summary>
+        /// Compares the value in JsonDateTime in the context variable <c>Value</c> with the expected base64String, and set it into the context variable <c>Result</c>.
+        /// </summary>
+        /// <param name="expected">The expected value.</param>
+        [When(@"I compare the dateTime to the object (.*)")]
+        public void WhenICompareTheDateTimeToTheObject(string expected)
+        {
+            object? obj = expected == "<undefined>" ? default(JsonDateTime) : expected == "<null>" ? null : expected == "<new object()>" ? new object() : JsonAny.ParseUriValue(expected);
+            this.scenarioContext.Set(((object)this.scenarioContext.Get<JsonDateTime>(ValueKey)).Equals(obj), EqualsResultKey);
+            if (obj is not null)
+            {
+                this.scenarioContext.Set(((object)this.scenarioContext.Get<JsonDateTime>(ValueKey)).GetHashCode() == obj.GetHashCode(), HashCodeResultKey);
+            }
+        }
+
         /// <summary>
         /// Asserts that the result from a previous comparison stored in the context variable <c>Result</c> is as expected.
         /// </summary>

@@ -412,7 +412,7 @@ namespace Menes.Json
                 return this.Equals(jv.AsAny);
             }
 
-            return false;
+            return obj is null && this.IsNull();
         }
 
         /// <inheritdoc/>
@@ -448,6 +448,11 @@ namespace Menes.Json
         public bool Equals<T>(T other)
             where T : struct, IJsonValue
         {
+            if (this.IsNull() && other.IsNull())
+            {
+                return true;
+            }
+
             if (other.ValueKind != JsonValueKind.String)
             {
                 return false;
@@ -469,6 +474,11 @@ namespace Menes.Json
         /// <inheritdoc/>
         public bool Equals(JsonDateTime other)
         {
+            if (this.IsNull() && other.IsNull())
+            {
+                return true;
+            }
+
             if (other.ValueKind != this.ValueKind || this.ValueKind != JsonValueKind.String)
             {
                 return false;

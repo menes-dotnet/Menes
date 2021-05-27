@@ -2360,6 +2360,335 @@ this.ScenarioInitialize(scenarioInfo);
             }
             this.ScenarioCleanup();
         }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Equals for json element backed value as a dateTime")]
+        [NUnit.Framework.TestCaseAttribute("\"2018-11-13T20:20:39+00:00\"", "\"2018-11-13T20:20:39+00:00\"", "true", null)]
+        [NUnit.Framework.TestCaseAttribute("\"Garbage\"", "\"2018-11-13T20:20:39+00:00\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"2018-11-13T20:20:39+00:00\"", "\"Goodbye\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("null", "null", "true", null)]
+        [NUnit.Framework.TestCaseAttribute("null", "\"2018-11-13T20:20:39+00:00\"", "false", null)]
+        public virtual void EqualsForJsonElementBackedValueAsADateTime(string jsonValue, string value, string result, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("jsonValue", jsonValue);
+            argumentsOfScenario.Add("value", value);
+            argumentsOfScenario.Add("result", result);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for json element backed value as a dateTime", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 830
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 831
+ testRunner.Given(string.Format("the JsonElement backed JsonDateTime {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 832
+ testRunner.When(string.Format("I compare it to the dateTime {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 833
+ testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Equals for dotnet backed value as a dateTime")]
+        [NUnit.Framework.TestCaseAttribute("\"Garbage\"", "\"2018-11-13T20:20:39+00:00\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"2018-11-13T20:20:39+00:00\"", "\"2018-11-13T20:20:39+00:00\"", "true", null)]
+        [NUnit.Framework.TestCaseAttribute("\"2018-11-13T20:20:39+00:00\"", "\"Goodbye\"", "false", null)]
+        public virtual void EqualsForDotnetBackedValueAsADateTime(string jsonValue, string value, string result, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("jsonValue", jsonValue);
+            argumentsOfScenario.Add("value", value);
+            argumentsOfScenario.Add("result", result);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for dotnet backed value as a dateTime", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 843
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 844
+ testRunner.Given(string.Format("the dotnet backed JsonDateTime {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 845
+ testRunner.When(string.Format("I compare it to the dateTime {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 846
+ testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Equals for dateTime json element backed value as an IJsonValue")]
+        [NUnit.Framework.TestCaseAttribute("\"2018-11-13T20:20:39+00:00\"", "\"Hello\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"2018-11-13T20:20:39+00:00\"", "\"Goodbye\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"2018-11-13T20:20:39+00:00\"", "1", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"2018-11-13T20:20:39+00:00\"", "1.1", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"2018-11-13T20:20:39+00:00\"", "[1,2,3]", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"2018-11-13T20:20:39+00:00\"", "{ \"first\": \"1\" }", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"2018-11-13T20:20:39+00:00\"", "true", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"2018-11-13T20:20:39+00:00\"", "false", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"2018-11-13T20:20:39+00:00\"", "\"2018-11-13T20:20:39+00:00\"", "true", null)]
+        [NUnit.Framework.TestCaseAttribute("\"2018-11-13T20:20:39+00:00\"", "\"2018-11-13\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"Garbage\"", "\"2018-11-13\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"2018-11-13T20:20:39+00:00\"", "\"hello@endjin.com\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"2018-11-13T20:20:39+00:00\"", "\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"2018-11-13T20:20:39+00:00\"", "\"{ \\\"first\\\": \\\"1\\\" }\"", "false", null)]
+        public virtual void EqualsForDateTimeJsonElementBackedValueAsAnIJsonValue(string jsonValue, string value, string result, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("jsonValue", jsonValue);
+            argumentsOfScenario.Add("value", value);
+            argumentsOfScenario.Add("result", result);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for dateTime json element backed value as an IJsonValue", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 854
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 855
+ testRunner.Given(string.Format("the JsonElement backed JsonDateTime {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 856
+ testRunner.When(string.Format("I compare the dateTime to the IJsonValue {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 857
+ testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Equals for dateTime dotnet backed value as an IJsonValue")]
+        [NUnit.Framework.TestCaseAttribute("\"2018-11-13T20:20:39+00:00\"", "\"Hello\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"2018-11-13T20:20:39+00:00\"", "\"Goodbye\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"2018-11-13T20:20:39+00:00\"", "1", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"2018-11-13T20:20:39+00:00\"", "1.1", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"2018-11-13T20:20:39+00:00\"", "[1,2,3]", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"2018-11-13T20:20:39+00:00\"", "{ \"first\": \"1\" }", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"2018-11-13T20:20:39+00:00\"", "true", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"2018-11-13T20:20:39+00:00\"", "false", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"2018-11-13T20:20:39+00:00\"", "\"2018-11-13T20:20:39+00:00\"", "true", null)]
+        [NUnit.Framework.TestCaseAttribute("\"2018-11-13T20:20:39+00:00\"", "\"2018-11-13\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"Garbage\"", "\"2018-11-13\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"2018-11-13T20:20:39+00:00\"", "\"hello@endjin.com\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"2018-11-13T20:20:39+00:00\"", "\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"2018-11-13T20:20:39+00:00\"", "\"{ \\\"first\\\": \\\"1\\\" }\"", "false", null)]
+        public virtual void EqualsForDateTimeDotnetBackedValueAsAnIJsonValue(string jsonValue, string value, string result, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("jsonValue", jsonValue);
+            argumentsOfScenario.Add("value", value);
+            argumentsOfScenario.Add("result", result);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for dateTime dotnet backed value as an IJsonValue", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 876
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 877
+ testRunner.Given(string.Format("the dotnet backed JsonDateTime {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 878
+ testRunner.When(string.Format("I compare the dateTime to the IJsonValue {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 879
+ testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Equals for dateTime json element backed value as an object")]
+        [NUnit.Framework.TestCaseAttribute("\"2018-11-13T20:20:39+00:00\"", "\"Hello\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"2018-11-13T20:20:39+00:00\"", "\"Goodbye\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"2018-11-13T20:20:39+00:00\"", "1", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"2018-11-13T20:20:39+00:00\"", "1.1", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"2018-11-13T20:20:39+00:00\"", "[1,2,3]", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"2018-11-13T20:20:39+00:00\"", "{ \"first\": \"1\" }", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"2018-11-13T20:20:39+00:00\"", "true", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"2018-11-13T20:20:39+00:00\"", "false", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"2018-11-13T20:20:39+00:00\"", "\"2018-11-13T20:20:39+00:00\"", "true", null)]
+        [NUnit.Framework.TestCaseAttribute("\"2018-11-13T20:20:39+00:00\"", "\"2018-11-13\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"2018-11-13T20:20:39+00:00\"", "\"hello@endjin.com\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"2018-11-13T20:20:39+00:00\"", "\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"2018-11-13T20:20:39+00:00\"", "\"{ \\\"first\\\": \\\"1\\\" }\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"2018-11-13T20:20:39+00:00\"", "<new object()>", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"2018-11-13T20:20:39+00:00\"", "null", "false", null)]
+        public virtual void EqualsForDateTimeJsonElementBackedValueAsAnObject(string jsonValue, string value, string result, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("jsonValue", jsonValue);
+            argumentsOfScenario.Add("value", value);
+            argumentsOfScenario.Add("result", result);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for dateTime json element backed value as an object", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 898
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 899
+ testRunner.Given(string.Format("the JsonElement backed JsonDateTime {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 900
+ testRunner.When(string.Format("I compare the dateTime to the object {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 901
+ testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Equals for dateTime dotnet backed value as an object")]
+        [NUnit.Framework.TestCaseAttribute("\"2018-11-13T20:20:39+00:00\"", "\"Hello\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"2018-11-13T20:20:39+00:00\"", "\"Goodbye\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"2018-11-13T20:20:39+00:00\"", "1", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"2018-11-13T20:20:39+00:00\"", "1.1", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"2018-11-13T20:20:39+00:00\"", "[1,2,3]", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"2018-11-13T20:20:39+00:00\"", "{ \"first\": \"1\" }", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"2018-11-13T20:20:39+00:00\"", "true", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"2018-11-13T20:20:39+00:00\"", "false", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"2018-11-13T20:20:39+00:00\"", "\"2018-11-13T20:20:39+00:00\"", "true", null)]
+        [NUnit.Framework.TestCaseAttribute("\"2018-11-13T20:20:39+00:00\"", "\"2018-11-13\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"2018-11-13T20:20:39+00:00\"", "\"hello@endjin.com\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"2018-11-13T20:20:39+00:00\"", "\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"2018-11-13T20:20:39+00:00\"", "\"{ \\\"first\\\": \\\"1\\\" }\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"2018-11-13T20:20:39+00:00\"", "<new object()>", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"2018-11-13T20:20:39+00:00\"", "null", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"2018-11-13T20:20:39+00:00\"", "<null>", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"2018-11-13T20:20:39+00:00\"", "<undefined>", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("null", "null", "true", null)]
+        [NUnit.Framework.TestCaseAttribute("null", "<null>", "true", null)]
+        [NUnit.Framework.TestCaseAttribute("null", "<undefined>", "false", null)]
+        public virtual void EqualsForDateTimeDotnetBackedValueAsAnObject(string jsonValue, string value, string result, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("jsonValue", jsonValue);
+            argumentsOfScenario.Add("value", value);
+            argumentsOfScenario.Add("result", result);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for dateTime dotnet backed value as an object", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 921
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 922
+ testRunner.Given(string.Format("the dotnet backed JsonDateTime {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 923
+ testRunner.When(string.Format("I compare the dateTime to the object {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 924
+ testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
     }
 }
 #pragma warning restore
