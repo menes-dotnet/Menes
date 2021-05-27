@@ -40,6 +40,7 @@ Scenario Outline: Equals for string json element backed value as an IJsonValue
 		| "Hello"   | true                           | false  |
 		| "Hello"   | false                          | false  |
 		| "Hello"   | "2018-11-13T20:20:39+00:00"    | false  |
+		| "Hello"   | "P3Y6M4DT12H30M5S"             | false  |
 		| "Hello"   | "2018-11-13"                   | false  |
 		| "Hello"   | "hello@endjin.com"             | false  |
 		| "Hello"   | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
@@ -61,6 +62,7 @@ Scenario Outline: Equals for string dotnet backed value as an IJsonValue
 		| "Hello"   | true                           | false  |
 		| "Hello"   | false                          | false  |
 		| "Hello"   | "2018-11-13T20:20:39+00:00"    | false  |
+		| "Hello"   | "P3Y6M4DT12H30M5S"             | false  |
 		| "Hello"   | "2018-11-13"                   | false  |
 		| "Hello"   | "hello@endjin.com"             | false  |
 		| "Hello"   | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
@@ -82,6 +84,7 @@ Scenario Outline: Equals for string json element backed value as an object
 		| "Hello"   | true                           | false  |
 		| "Hello"   | false                          | false  |
 		| "Hello"   | "2018-11-13T20:20:39+00:00"    | false  |
+		| "Hello"   | "P3Y6M4DT12H30M5S"             | false  |
 		| "Hello"   | "2018-11-13"                   | false  |
 		| "Hello"   | "hello@endjin.com"             | false  |
 		| "Hello"   | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
@@ -105,6 +108,7 @@ Scenario Outline: Equals for string dotnet backed value as an object
 		| "Hello"   | true                           | false  |
 		| "Hello"   | false                          | false  |
 		| "Hello"   | "2018-11-13T20:20:39+00:00"    | false  |
+		| "Hello"   | "P3Y6M4DT12H30M5S"             | false  |
 		| "Hello"   | "2018-11-13"                   | false  |
 		| "Hello"   | "hello@endjin.com"             | false  |
 		| "Hello"   | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
@@ -162,6 +166,7 @@ Scenario Outline: Equals for boolean json element backed value as an IJsonValue
 		| true      | false                          | false  |
 		| false     | true                           | false  |
 		| false     | "2018-11-13T20:20:39+00:00"    | false  |
+		| false     | "P3Y6M4DT12H30M5S"             | false  |
 		| false     | "2018-11-13"                   | false  |
 		| false     | "hello@endjin.com"             | false  |
 		| false     | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
@@ -184,6 +189,7 @@ Scenario Outline: Equals for boolean dotnet backed value as an IJsonValue
 		| true      | false                          | false  |
 		| false     | true                           | false  |
 		| false     | "2018-11-13T20:20:39+00:00"    | false  |
+		| false     | "P3Y6M4DT12H30M5S"             | false  |
 		| false     | "2018-11-13"                   | false  |
 		| false     | "hello@endjin.com"             | false  |
 		| false     | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
@@ -206,6 +212,7 @@ Scenario Outline: Equals for boolean json element backed value as an object
 		| true      | false                          | false  |
 		| false     | true                           | false  |
 		| false     | "2018-11-13T20:20:39+00:00"    | false  |
+		| false     | "P3Y6M4DT12H30M5S"             | false  |
 		| false     | "2018-11-13"                   | false  |
 		| false     | "hello@endjin.com"             | false  |
 		| false     | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
@@ -230,6 +237,7 @@ Scenario Outline: Equals for boolean dotnet backed value as an object
 		| true      | false                          | false  |
 		| false     | true                           | false  |
 		| false     | "2018-11-13T20:20:39+00:00"    | false  |
+		| false     | "P3Y6M4DT12H30M5S"             | false  |
 		| false     | "2018-11-13"                   | false  |
 		| false     | "hello@endjin.com"             | false  |
 		| false     | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
@@ -286,6 +294,7 @@ Scenario Outline: Equals for array json element backed value as an IJsonValue
 		| [1,2,3]   | true                           | false  |
 		| [1,2,3]   | false                          | false  |
 		| [1,2,3]   | "2018-11-13T20:20:39+00:00"    | false  |
+		| [1,2,3]   | "P3Y6M4DT12H30M5S"             | false  |
 		| [1,2,3]   | "2018-11-13"                   | false  |
 		| [1,2,3]   | "hello@endjin.com"             | false  |
 		| [1,2,3]   | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
@@ -306,6 +315,7 @@ Scenario Outline: Equals for array dotnet backed value as an IJsonValue
 		| [1,2,3]   | true                           | false  |
 		| [1,2,3]   | false                          | false  |
 		| [1,2,3]   | "2018-11-13T20:20:39+00:00"    | false  |
+		| [1,2,3]   | "P3Y6M4DT12H30M5S"             | false  |
 		| [1,2,3]   | "2018-11-13"                   | false  |
 		| [1,2,3]   | "hello@endjin.com"             | false  |
 		| [1,2,3]   | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
@@ -326,6 +336,7 @@ Scenario Outline: Equals for array json element backed value as an object
 		| [1,2,3]   | true                           | false  |
 		| [1,2,3]   | false                          | false  |
 		| [1,2,3]   | "2018-11-13T20:20:39+00:00"    | false  |
+		| [1,2,3]   | "P3Y6M4DT12H30M5S"             | false  |
 		| [1,2,3]   | "2018-11-13"                   | false  |
 		| [1,2,3]   | "hello@endjin.com"             | false  |
 		| [1,2,3]   | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
@@ -346,6 +357,7 @@ Scenario Outline: Equals for array dotnet backed value as an object
 		| [1,2,3]   | true                           | false  |
 		| [1,2,3]   | false                          | false  |
 		| [1,2,3]   | "2018-11-13T20:20:39+00:00"    | false  |
+		| [1,2,3]   | "P3Y6M4DT12H30M5S"             | false  |
 		| [1,2,3]   | "2018-11-13"                   | false  |
 		| [1,2,3]   | "hello@endjin.com"             | false  |
 		| [1,2,3]   | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
@@ -397,6 +409,7 @@ Scenario Outline: Equals for base64content json element backed value as an IJson
 		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | true                           | false  |
 		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false                          | false  |
 		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "2018-11-13T20:20:39+00:00"    | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "P3Y6M4DT12H30M5S"             | false  |
 		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "2018-11-13"                   | false  |
 		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "hello@endjin.com"             | false  |
 		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | true   |
@@ -418,6 +431,7 @@ Scenario Outline: Equals for base64content dotnet backed value as an IJsonValue
 		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | true                           | false  |
 		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false                          | false  |
 		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "2018-11-13T20:20:39+00:00"    | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "P3Y6M4DT12H30M5S"             | false  |
 		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "2018-11-13"                   | false  |
 		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "hello@endjin.com"             | false  |
 		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | true   |
@@ -439,6 +453,7 @@ Scenario Outline: Equals for base64content json element backed value as an objec
 		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | true                           | false  |
 		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false                          | false  |
 		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "2018-11-13T20:20:39+00:00"    | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "P3Y6M4DT12H30M5S"             | false  |
 		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "2018-11-13"                   | false  |
 		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "hello@endjin.com"             | false  |
 		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | true   |
@@ -462,6 +477,7 @@ Scenario Outline: Equals for base64content dotnet backed value as an object
 		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | true                           | false  |
 		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false                          | false  |
 		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "2018-11-13T20:20:39+00:00"    | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "P3Y6M4DT12H30M5S"             | false  |
 		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "2018-11-13"                   | false  |
 		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "hello@endjin.com"             | false  |
 		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | true   |
@@ -513,6 +529,7 @@ Scenario Outline: Equals for base64string json element backed value as an IJsonV
 		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | true                           | false  |
 		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false                          | false  |
 		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "2018-11-13T20:20:39+00:00"    | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "P3Y6M4DT12H30M5S"             | false  |
 		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "2018-11-13"                   | false  |
 		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "hello@endjin.com"             | false  |
 		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | true   |
@@ -534,6 +551,7 @@ Scenario Outline: Equals for base64string dotnet backed value as an IJsonValue
 		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | true                           | false  |
 		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false                          | false  |
 		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "2018-11-13T20:20:39+00:00"    | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "P3Y6M4DT12H30M5S"             | false  |
 		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "2018-11-13"                   | false  |
 		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "hello@endjin.com"             | false  |
 		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | true   |
@@ -555,6 +573,7 @@ Scenario Outline: Equals for base64string json element backed value as an object
 		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | true                           | false  |
 		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false                          | false  |
 		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "2018-11-13T20:20:39+00:00"    | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "P3Y6M4DT12H30M5S"             | false  |
 		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "2018-11-13"                   | false  |
 		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "hello@endjin.com"             | false  |
 		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | true   |
@@ -578,6 +597,7 @@ Scenario Outline: Equals for base64string dotnet backed value as an object
 		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | true                           | false  |
 		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false                          | false  |
 		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "2018-11-13T20:20:39+00:00"    | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "P3Y6M4DT12H30M5S"             | false  |
 		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "2018-11-13"                   | false  |
 		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "hello@endjin.com"             | false  |
 		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | true   |
@@ -629,6 +649,7 @@ Scenario Outline: Equals for content json element backed value as an IJsonValue
 		| "{ \"first\": \"1\" }" | true                           | false  |
 		| "{ \"first\": \"1\" }" | false                          | false  |
 		| "{ \"first\": \"1\" }" | "2018-11-13T20:20:39+00:00"    | false  |
+		| "{ \"first\": \"1\" }" | "P3Y6M4DT12H30M5S"             | false  |
 		| "{ \"first\": \"1\" }" | "2018-11-13"                   | false  |
 		| "{ \"first\": \"1\" }" | "hello@endjin.com"             | false  |
 		| "{ \"first\": \"1\" }" | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
@@ -650,6 +671,7 @@ Scenario Outline: Equals for content dotnet backed value as an IJsonValue
 		| "{ \"first\": \"1\" }" | true                           | false  |
 		| "{ \"first\": \"1\" }" | false                          | false  |
 		| "{ \"first\": \"1\" }" | "2018-11-13T20:20:39+00:00"    | false  |
+		| "{ \"first\": \"1\" }" | "P3Y6M4DT12H30M5S"             | false  |
 		| "{ \"first\": \"1\" }" | "2018-11-13"                   | false  |
 		| "{ \"first\": \"1\" }" | "hello@endjin.com"             | false  |
 		| "{ \"first\": \"1\" }" | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
@@ -671,6 +693,7 @@ Scenario Outline: Equals for content json element backed value as an object
 		| "{ \"first\": \"1\" }" | true                           | false  |
 		| "{ \"first\": \"1\" }" | false                          | false  |
 		| "{ \"first\": \"1\" }" | "2018-11-13T20:20:39+00:00"    | false  |
+		| "{ \"first\": \"1\" }" | "P3Y6M4DT12H30M5S"             | false  |
 		| "{ \"first\": \"1\" }" | "2018-11-13"                   | false  |
 		| "{ \"first\": \"1\" }" | "hello@endjin.com"             | false  |
 		| "{ \"first\": \"1\" }" | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
@@ -694,6 +717,7 @@ Scenario Outline: Equals for content dotnet backed value as an object
 		| "{ \"first\": \"1\" }" | true                           | false  |
 		| "{ \"first\": \"1\" }" | false                          | false  |
 		| "{ \"first\": \"1\" }" | "2018-11-13T20:20:39+00:00"    | false  |
+		| "{ \"first\": \"1\" }" | "P3Y6M4DT12H30M5S"             | false  |
 		| "{ \"first\": \"1\" }" | "2018-11-13"                   | false  |
 		| "{ \"first\": \"1\" }" | "hello@endjin.com"             | false  |
 		| "{ \"first\": \"1\" }" | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
@@ -747,6 +771,7 @@ Scenario Outline: Equals for date json element backed value as an IJsonValue
 		| "2018-11-13" | true                           | false  |
 		| "2018-11-13" | false                          | false  |
 		| "2018-11-13" | "2018-11-13T20:20:39+00:00"    | false  |
+		| "2018-11-13" | "P3Y6M4DT12H30M5S"             | false  |
 		| "2018-11-13" | "2018-11-13"                   | true   |
 		| "Garbage"    | "2018-11-13"                   | false  |
 		| "2018-11-13" | "hello@endjin.com"             | false  |
@@ -769,8 +794,9 @@ Scenario Outline: Equals for date dotnet backed value as an IJsonValue
 		| "2018-11-13" | true                           | false  |
 		| "2018-11-13" | false                          | false  |
 		| "2018-11-13" | "2018-11-13T20:20:39+00:00"    | false  |
+		| "2018-11-13" | "P3Y6M4DT12H30M5S"             | false  |
 		| "2018-11-13" | "2018-11-13"                   | true   |
-		| "Garbage"    | "2018-11-13"                   | false  |
+		| "Garbage"    | "2018-11-13T20:20:39+00:00"    | false  |
 		| "2018-11-13" | "hello@endjin.com"             | false  |
 		| "2018-11-13" | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
 		| "2018-11-13" | "{ \"first\": \"1\" }"         | false  |
@@ -791,6 +817,7 @@ Scenario Outline: Equals for date json element backed value as an object
 		| "2018-11-13" | true                           | false  |
 		| "2018-11-13" | false                          | false  |
 		| "2018-11-13" | "2018-11-13T20:20:39+00:00"    | false  |
+		| "2018-11-13" | "P3Y6M4DT12H30M5S"             | false  |
 		| "2018-11-13" | "2018-11-13"                   | true   |
 		| "2018-11-13" | "hello@endjin.com"             | false  |
 		| "2018-11-13" | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
@@ -814,6 +841,7 @@ Scenario Outline: Equals for date dotnet backed value as an object
 		| "2018-11-13" | true                           | false  |
 		| "2018-11-13" | false                          | false  |
 		| "2018-11-13" | "2018-11-13T20:20:39+00:00"    | false  |
+		| "2018-11-13" | "P3Y6M4DT12H30M5S"             | false  |
 		| "2018-11-13" | "2018-11-13"                   | true   |
 		| "2018-11-13" | "hello@endjin.com"             | false  |
 		| "2018-11-13" | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
@@ -867,6 +895,7 @@ Scenario Outline: Equals for dateTime json element backed value as an IJsonValue
 		| "2018-11-13T20:20:39+00:00" | true                           | false  |
 		| "2018-11-13T20:20:39+00:00" | false                          | false  |
 		| "2018-11-13T20:20:39+00:00" | "2018-11-13T20:20:39+00:00"    | true   |
+		| "2018-11-13T20:20:39+00:00" | "P3Y6M4DT12H30M5S"             | false  |
 		| "2018-11-13T20:20:39+00:00" | "2018-11-13"                   | false  |
 		| "Garbage"                   | "2018-11-13"                   | false  |
 		| "2018-11-13T20:20:39+00:00" | "hello@endjin.com"             | false  |
@@ -889,6 +918,7 @@ Scenario Outline: Equals for dateTime dotnet backed value as an IJsonValue
 		| "2018-11-13T20:20:39+00:00" | true                           | false  |
 		| "2018-11-13T20:20:39+00:00" | false                          | false  |
 		| "2018-11-13T20:20:39+00:00" | "2018-11-13T20:20:39+00:00"    | true   |
+		| "2018-11-13T20:20:39+00:00" | "P3Y6M4DT12H30M5S"             | false  |
 		| "2018-11-13T20:20:39+00:00" | "2018-11-13"                   | false  |
 		| "Garbage"                   | "2018-11-13"                   | false  |
 		| "2018-11-13T20:20:39+00:00" | "hello@endjin.com"             | false  |
@@ -911,6 +941,7 @@ Scenario Outline: Equals for dateTime json element backed value as an object
 		| "2018-11-13T20:20:39+00:00" | true                           | false  |
 		| "2018-11-13T20:20:39+00:00" | false                          | false  |
 		| "2018-11-13T20:20:39+00:00" | "2018-11-13T20:20:39+00:00"    | true   |
+		| "2018-11-13T20:20:39+00:00" | "P3Y6M4DT12H30M5S"             | false  |
 		| "2018-11-13T20:20:39+00:00" | "2018-11-13"                   | false  |
 		| "2018-11-13T20:20:39+00:00" | "hello@endjin.com"             | false  |
 		| "2018-11-13T20:20:39+00:00" | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
@@ -934,6 +965,7 @@ Scenario Outline: Equals for dateTime dotnet backed value as an object
 		| "2018-11-13T20:20:39+00:00" | true                           | false  |
 		| "2018-11-13T20:20:39+00:00" | false                          | false  |
 		| "2018-11-13T20:20:39+00:00" | "2018-11-13T20:20:39+00:00"    | true   |
+		| "2018-11-13T20:20:39+00:00" | "P3Y6M4DT12H30M5S"             | false  |
 		| "2018-11-13T20:20:39+00:00" | "2018-11-13"                   | false  |
 		| "2018-11-13T20:20:39+00:00" | "hello@endjin.com"             | false  |
 		| "2018-11-13T20:20:39+00:00" | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
@@ -945,3 +977,127 @@ Scenario Outline: Equals for dateTime dotnet backed value as an object
 		| null                        | null                           | true   |
 		| null                        | <null>                         | true   |
 		| null                        | <undefined>                    | false  |
+
+# JsonDuration
+Scenario Outline: Equals for json element backed value as a duration
+	Given the JsonElement backed JsonDuration <jsonValue>
+	When I compare it to the duration <value>
+	Then the result should be <result>
+
+	Examples:
+		| jsonValue          | value              | result |
+		| "P3Y6M4DT12H30M5S" | "P3Y6M4DT12H30M5S" | true   |
+		| "Garbage"          | "P3Y6M4DT12H30M5S" | false  |
+		| "P3Y6M4DT12H30M5S" | "Goodbye"          | false  |
+		| null               | null               | true   |
+		| null               | "P3Y6M4DT12H30M5S" | false  |
+
+Scenario Outline: Equals for dotnet backed value as a duration
+	Given the dotnet backed JsonDuration <jsonValue>
+	When I compare it to the duration <value>
+	Then the result should be <result>
+
+	Examples:
+		| jsonValue          | value              | result |
+		| "Garbage"          | "P3Y6M4DT12H30M5S" | false  |
+		| "P3Y6M4DT12H30M5S" | "P3Y6M4DT12H30M5S" | true   |
+		| "P3Y6M4DT12H30M5S" | "Goodbye"          | false  |
+
+Scenario Outline: Equals for duration json element backed value as an IJsonValue
+	Given the JsonElement backed JsonDuration <jsonValue>
+	When I compare the duration to the IJsonValue <value>
+	Then the result should be <result>
+
+	Examples:
+		| jsonValue          | value                          | result |
+		| "P3Y6M4DT12H30M5S" | "Hello"                        | false  |
+		| "P3Y6M4DT12H30M5S" | "Goodbye"                      | false  |
+		| "P3Y6M4DT12H30M5S" | 1                              | false  |
+		| "P3Y6M4DT12H30M5S" | 1.1                            | false  |
+		| "P3Y6M4DT12H30M5S" | [1,2,3]                        | false  |
+		| "P3Y6M4DT12H30M5S" | { "first": "1" }               | false  |
+		| "P3Y6M4DT12H30M5S" | true                           | false  |
+		| "P3Y6M4DT12H30M5S" | false                          | false  |
+		| "P3Y6M4DT12H30M5S" | "2018-11-13T20:20:39+00:00"    | false  |
+		| "P3Y6M4DT12H30M5S" | "2018-11-13"                   | false  |
+		| "P3Y6M4DT12H30M5S" | "P3Y6M4DT12H30M5S"             | true   |
+		| "Garbage"          | "2018-11-13"                   | false  |
+		| "P3Y6M4DT12H30M5S" | "hello@endjin.com"             | false  |
+		| "P3Y6M4DT12H30M5S" | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
+		| "P3Y6M4DT12H30M5S" | "{ \"first\": \"1\" }"         | false  |
+
+Scenario Outline: Equals for duration dotnet backed value as an IJsonValue
+	Given the dotnet backed JsonDuration <jsonValue>
+	When I compare the duration to the IJsonValue <value>
+	Then the result should be <result>
+
+	Examples:
+		| jsonValue          | value                          | result |
+		| "P3Y6M4DT12H30M5S" | "Hello"                        | false  |
+		| "P3Y6M4DT12H30M5S" | "Goodbye"                      | false  |
+		| "P3Y6M4DT12H30M5S" | 1                              | false  |
+		| "P3Y6M4DT12H30M5S" | 1.1                            | false  |
+		| "P3Y6M4DT12H30M5S" | [1,2,3]                        | false  |
+		| "P3Y6M4DT12H30M5S" | { "first": "1" }               | false  |
+		| "P3Y6M4DT12H30M5S" | true                           | false  |
+		| "P3Y6M4DT12H30M5S" | false                          | false  |
+		| "P3Y6M4DT12H30M5S" | "2018-11-13T20:20:39+00:00"    | false  |
+		| "P3Y6M4DT12H30M5S" | "P3Y6M4DT12H30M5S"             | true   |
+		| "P3Y6M4DT12H30M5S" | "2018-11-13"                   | false  |
+		| "Garbage"          | "P3Y6M4DT12H30M5S"             | false  |
+		| "P3Y6M4DT12H30M5S" | "hello@endjin.com"             | false  |
+		| "P3Y6M4DT12H30M5S" | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
+		| "P3Y6M4DT12H30M5S" | "{ \"first\": \"1\" }"         | false  |
+
+Scenario Outline: Equals for duration json element backed value as an object
+	Given the JsonElement backed JsonDuration <jsonValue>
+	When I compare the duration to the object <value>
+	Then the result should be <result>
+
+	Examples:
+		| jsonValue          | value                          | result |
+		| "P3Y6M4DT12H30M5S" | "Hello"                        | false  |
+		| "P3Y6M4DT12H30M5S" | "Goodbye"                      | false  |
+		| "P3Y6M4DT12H30M5S" | 1                              | false  |
+		| "P3Y6M4DT12H30M5S" | 1.1                            | false  |
+		| "P3Y6M4DT12H30M5S" | [1,2,3]                        | false  |
+		| "P3Y6M4DT12H30M5S" | { "first": "1" }               | false  |
+		| "P3Y6M4DT12H30M5S" | true                           | false  |
+		| "P3Y6M4DT12H30M5S" | false                          | false  |
+		| "P3Y6M4DT12H30M5S" | "2018-11-13T20:20:39+00:00"    | false  |
+		| "P3Y6M4DT12H30M5S" | "P3Y6M4DT12H30M5S"             | true   |
+		| "P3Y6M4DT12H30M5S" | "2018-11-13"                   | false  |
+		| "P3Y6M4DT12H30M5S" | "hello@endjin.com"             | false  |
+		| "P3Y6M4DT12H30M5S" | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
+		| "P3Y6M4DT12H30M5S" | "{ \"first\": \"1\" }"         | false  |
+		| "P3Y6M4DT12H30M5S" | <new object()>                 | false  |
+		| "P3Y6M4DT12H30M5S" | null                           | false  |
+
+Scenario Outline: Equals for duration dotnet backed value as an object
+	Given the dotnet backed JsonDuration <jsonValue>
+	When I compare the duration to the object <value>
+	Then the result should be <result>
+
+	Examples:
+		| jsonValue          | value                          | result |
+		| "P3Y6M4DT12H30M5S" | "Hello"                        | false  |
+		| "P3Y6M4DT12H30M5S" | "Goodbye"                      | false  |
+		| "P3Y6M4DT12H30M5S" | 1                              | false  |
+		| "P3Y6M4DT12H30M5S" | 1.1                            | false  |
+		| "P3Y6M4DT12H30M5S" | [1,2,3]                        | false  |
+		| "P3Y6M4DT12H30M5S" | { "first": "1" }               | false  |
+		| "P3Y6M4DT12H30M5S" | true                           | false  |
+		| "P3Y6M4DT12H30M5S" | false                          | false  |
+		| "P3Y6M4DT12H30M5S" | "2018-11-13T20:20:39+00:00"    | false  |
+		| "P3Y6M4DT12H30M5S" | "2018-11-13"                   | false  |
+		| "P3Y6M4DT12H30M5S" | "P3Y6M4DT12H30M5S"             | true   |
+		| "P3Y6M4DT12H30M5S" | "hello@endjin.com"             | false  |
+		| "P3Y6M4DT12H30M5S" | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
+		| "P3Y6M4DT12H30M5S" | "{ \"first\": \"1\" }"         | false  |
+		| "P3Y6M4DT12H30M5S" | <new object()>                 | false  |
+		| "P3Y6M4DT12H30M5S" | null                           | false  |
+		| "P3Y6M4DT12H30M5S" | <null>                         | false  |
+		| "P3Y6M4DT12H30M5S" | <undefined>                    | false  |
+		| null               | null                           | true   |
+		| null               | <null>                         | true   |
+		| null               | <undefined>                    | false  |
