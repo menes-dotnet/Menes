@@ -13,8 +13,8 @@ namespace Menes.Json
     /// </summary>
     public readonly struct JsonBoolean : IJsonValue, IEquatable<JsonBoolean>
     {
-        private static readonly int TrueHashCode = true.GetHashCode();
-        private static readonly int FalseHashCode = false.GetHashCode();
+        private static readonly int TrueHashCode = HashCode.Combine(true.GetHashCode(), "JsonBoolean".GetHashCode());
+        private static readonly int FalseHashCode = HashCode.Combine(false.GetHashCode(), "JsonBoolean".GetHashCode());
         private readonly JsonElement jsonElement;
         private readonly bool? value;
 
