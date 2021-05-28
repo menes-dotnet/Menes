@@ -1185,6 +1185,294 @@ namespace Steps
             }
         }
 
+        /* uri */
+
+        /// <summary>
+        /// Store a <see cref="JsonElement"/>-backed value in the context variable <c>Value</c>.
+        /// </summary>
+        /// <param name="value">The json value.</param>
+        [Given(@"the JsonElement backed JsonUri (.*)")]
+        public void GivenTheJsonElementBackedJsonUri(string value)
+        {
+            this.scenarioContext.Set<JsonUri>(JsonAny.ParseUriValue(value), ValueKey);
+        }
+
+        /// <summary>
+        /// Store a dotnet-type-backed value in the context variable <c>Value</c>.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        [Given(@"the dotnet backed JsonUri (.*)")]
+        public void GivenTheDotnetBackedJsonUri(string value)
+        {
+            if (value == "null")
+            {
+                this.scenarioContext.Set((JsonUri)JsonNull.Instance.AsAny.AsString, ValueKey);
+            }
+            else
+            {
+                this.scenarioContext.Set(new JsonUri((string)JsonAny.ParseUriValue(value)), ValueKey);
+            }
+        }
+
+        /// <summary>
+        /// Compares the value in JsonUri in the context variable <c>Value</c> with the expected base64String, and set it into the context variable <c>Result</c>.
+        /// </summary>
+        /// <param name="expected">The expected value.</param>
+        [When(@"I compare it to the uri (.*)")]
+        public void WhenICompareItToTheUri(string expected)
+        {
+            if (expected != "null")
+            {
+                this.scenarioContext.Set(this.scenarioContext.Get<JsonUri>(ValueKey).Equals(new JsonUri((string)JsonAny.ParseUriValue(expected))), EqualsObjectBackedResultKey);
+            }
+
+            this.scenarioContext.Set(this.scenarioContext.Get<JsonUri>(ValueKey).Equals((JsonUri)JsonAny.ParseUriValue(expected)), EqualsResultKey);
+            this.scenarioContext.Set(this.scenarioContext.Get<JsonUri>(ValueKey) == (JsonUri)JsonAny.ParseUriValue(expected), EqualityResultKey);
+            this.scenarioContext.Set(this.scenarioContext.Get<JsonUri>(ValueKey) != (JsonUri)JsonAny.ParseUriValue(expected), InequalityResultKey);
+            this.scenarioContext.Set(this.scenarioContext.Get<JsonUri>(ValueKey).GetHashCode() == ((JsonUri)JsonAny.ParseUriValue(expected)).GetHashCode(), HashCodeResultKey);
+        }
+
+        /// <summary>
+        /// Compares the value in JsonUri in the context variable <c>Value</c> with the expected base64String, and set it into the context variable <c>Result</c>.
+        /// </summary>
+        /// <param name="expected">The expected value.</param>
+        [When(@"I compare the uri to the IJsonValue (.*)")]
+        public void WhenICompareTheUriToTheIJsonValue(string expected)
+        {
+            this.scenarioContext.Set(this.scenarioContext.Get<JsonUri>(ValueKey).Equals(JsonAny.ParseUriValue(expected)), EqualsResultKey);
+        }
+
+        /// <summary>
+        /// Compares the value in JsonUri in the context variable <c>Value</c> with the expected base64String, and set it into the context variable <c>Result</c>.
+        /// </summary>
+        /// <param name="expected">The expected value.</param>
+        [When(@"I compare the uri to the object (.*)")]
+        public void WhenICompareTheUriToTheObject(string expected)
+        {
+            object? obj = expected == "<undefined>" ? default(JsonUri) : expected == "<null>" ? null : expected == "<new object()>" ? new object() : JsonAny.ParseUriValue(expected);
+            this.scenarioContext.Set(((object)this.scenarioContext.Get<JsonUri>(ValueKey)).Equals(obj), EqualsResultKey);
+            if (obj is not null)
+            {
+                this.scenarioContext.Set(((object)this.scenarioContext.Get<JsonUri>(ValueKey)).GetHashCode() == obj.GetHashCode(), HashCodeResultKey);
+            }
+        }
+
+        /* uriReference */
+
+        /// <summary>
+        /// Store a <see cref="JsonElement"/>-backed value in the context variable <c>Value</c>.
+        /// </summary>
+        /// <param name="value">The json value.</param>
+        [Given(@"the JsonElement backed JsonUriReference (.*)")]
+        public void GivenTheJsonElementBackedJsonUriReference(string value)
+        {
+            this.scenarioContext.Set<JsonUriReference>(JsonAny.ParseUriValue(value), ValueKey);
+        }
+
+        /// <summary>
+        /// Store a dotnet-type-backed value in the context variable <c>Value</c>.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        [Given(@"the dotnet backed JsonUriReference (.*)")]
+        public void GivenTheDotnetBackedJsonUriReference(string value)
+        {
+            if (value == "null")
+            {
+                this.scenarioContext.Set((JsonUriReference)JsonNull.Instance.AsAny.AsString, ValueKey);
+            }
+            else
+            {
+                this.scenarioContext.Set(new JsonUriReference((string)JsonAny.ParseUriValue(value)), ValueKey);
+            }
+        }
+
+        /// <summary>
+        /// Compares the value in JsonUriReference in the context variable <c>Value</c> with the expected base64String, and set it into the context variable <c>Result</c>.
+        /// </summary>
+        /// <param name="expected">The expected value.</param>
+        [When(@"I compare it to the uriReference (.*)")]
+        public void WhenICompareItToTheUriReference(string expected)
+        {
+            if (expected != "null")
+            {
+                this.scenarioContext.Set(this.scenarioContext.Get<JsonUriReference>(ValueKey).Equals(new JsonUriReference((string)JsonAny.ParseUriValue(expected))), EqualsObjectBackedResultKey);
+            }
+
+            this.scenarioContext.Set(this.scenarioContext.Get<JsonUriReference>(ValueKey).Equals((JsonUriReference)JsonAny.ParseUriValue(expected)), EqualsResultKey);
+            this.scenarioContext.Set(this.scenarioContext.Get<JsonUriReference>(ValueKey) == (JsonUriReference)JsonAny.ParseUriValue(expected), EqualityResultKey);
+            this.scenarioContext.Set(this.scenarioContext.Get<JsonUriReference>(ValueKey) != (JsonUriReference)JsonAny.ParseUriValue(expected), InequalityResultKey);
+            this.scenarioContext.Set(this.scenarioContext.Get<JsonUriReference>(ValueKey).GetHashCode() == ((JsonUriReference)JsonAny.ParseUriValue(expected)).GetHashCode(), HashCodeResultKey);
+        }
+
+        /// <summary>
+        /// Compares the value in JsonUriReference in the context variable <c>Value</c> with the expected base64String, and set it into the context variable <c>Result</c>.
+        /// </summary>
+        /// <param name="expected">The expected value.</param>
+        [When(@"I compare the uriReference to the IJsonValue (.*)")]
+        public void WhenICompareTheUriReferenceToTheIJsonValue(string expected)
+        {
+            this.scenarioContext.Set(this.scenarioContext.Get<JsonUriReference>(ValueKey).Equals(JsonAny.ParseUriValue(expected)), EqualsResultKey);
+        }
+
+        /// <summary>
+        /// Compares the value in JsonUriReference in the context variable <c>Value</c> with the expected base64String, and set it into the context variable <c>Result</c>.
+        /// </summary>
+        /// <param name="expected">The expected value.</param>
+        [When(@"I compare the uriReference to the object (.*)")]
+        public void WhenICompareTheUriReferenceToTheObject(string expected)
+        {
+            object? obj = expected == "<undefined>" ? default(JsonUriReference) : expected == "<null>" ? null : expected == "<new object()>" ? new object() : JsonAny.ParseUriValue(expected);
+            this.scenarioContext.Set(((object)this.scenarioContext.Get<JsonUriReference>(ValueKey)).Equals(obj), EqualsResultKey);
+            if (obj is not null)
+            {
+                this.scenarioContext.Set(((object)this.scenarioContext.Get<JsonUriReference>(ValueKey)).GetHashCode() == obj.GetHashCode(), HashCodeResultKey);
+            }
+        }
+
+        /* iri */
+
+        /// <summary>
+        /// Store a <see cref="JsonElement"/>-backed value in the context variable <c>Value</c>.
+        /// </summary>
+        /// <param name="value">The json value.</param>
+        [Given(@"the JsonElement backed JsonIri (.*)")]
+        public void GivenTheJsonElementBackedJsonIri(string value)
+        {
+            this.scenarioContext.Set<JsonIri>(JsonAny.ParseUriValue(value), ValueKey);
+        }
+
+        /// <summary>
+        /// Store a dotnet-type-backed value in the context variable <c>Value</c>.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        [Given(@"the dotnet backed JsonIri (.*)")]
+        public void GivenTheDotnetBackedJsonIri(string value)
+        {
+            if (value == "null")
+            {
+                this.scenarioContext.Set((JsonIri)JsonNull.Instance.AsAny.AsString, ValueKey);
+            }
+            else
+            {
+                this.scenarioContext.Set(new JsonIri((string)JsonAny.ParseUriValue(value)), ValueKey);
+            }
+        }
+
+        /// <summary>
+        /// Compares the value in JsonIri in the context variable <c>Value</c> with the expected base64String, and set it into the context variable <c>Result</c>.
+        /// </summary>
+        /// <param name="expected">The expected value.</param>
+        [When(@"I compare it to the iri (.*)")]
+        public void WhenICompareItToTheIri(string expected)
+        {
+            if (expected != "null")
+            {
+                this.scenarioContext.Set(this.scenarioContext.Get<JsonIri>(ValueKey).Equals(new JsonIri((string)JsonAny.ParseUriValue(expected))), EqualsObjectBackedResultKey);
+            }
+
+            this.scenarioContext.Set(this.scenarioContext.Get<JsonIri>(ValueKey).Equals((JsonIri)JsonAny.ParseUriValue(expected)), EqualsResultKey);
+            this.scenarioContext.Set(this.scenarioContext.Get<JsonIri>(ValueKey) == (JsonIri)JsonAny.ParseUriValue(expected), EqualityResultKey);
+            this.scenarioContext.Set(this.scenarioContext.Get<JsonIri>(ValueKey) != (JsonIri)JsonAny.ParseUriValue(expected), InequalityResultKey);
+            this.scenarioContext.Set(this.scenarioContext.Get<JsonIri>(ValueKey).GetHashCode() == ((JsonIri)JsonAny.ParseUriValue(expected)).GetHashCode(), HashCodeResultKey);
+        }
+
+        /// <summary>
+        /// Compares the value in JsonIri in the context variable <c>Value</c> with the expected base64String, and set it into the context variable <c>Result</c>.
+        /// </summary>
+        /// <param name="expected">The expected value.</param>
+        [When(@"I compare the iri to the IJsonValue (.*)")]
+        public void WhenICompareTheIriToTheIJsonValue(string expected)
+        {
+            this.scenarioContext.Set(this.scenarioContext.Get<JsonIri>(ValueKey).Equals(JsonAny.ParseUriValue(expected)), EqualsResultKey);
+        }
+
+        /// <summary>
+        /// Compares the value in JsonIri in the context variable <c>Value</c> with the expected base64String, and set it into the context variable <c>Result</c>.
+        /// </summary>
+        /// <param name="expected">The expected value.</param>
+        [When(@"I compare the iri to the object (.*)")]
+        public void WhenICompareTheIriToTheObject(string expected)
+        {
+            object? obj = expected == "<undefined>" ? default(JsonIri) : expected == "<null>" ? null : expected == "<new object()>" ? new object() : JsonAny.ParseUriValue(expected);
+            this.scenarioContext.Set(((object)this.scenarioContext.Get<JsonIri>(ValueKey)).Equals(obj), EqualsResultKey);
+            if (obj is not null)
+            {
+                this.scenarioContext.Set(((object)this.scenarioContext.Get<JsonIri>(ValueKey)).GetHashCode() == obj.GetHashCode(), HashCodeResultKey);
+            }
+        }
+
+        /* iriReference */
+
+        /// <summary>
+        /// Store a <see cref="JsonElement"/>-backed value in the context variable <c>Value</c>.
+        /// </summary>
+        /// <param name="value">The json value.</param>
+        [Given(@"the JsonElement backed JsonIriReference (.*)")]
+        public void GivenTheJsonElementBackedJsonIriReference(string value)
+        {
+            this.scenarioContext.Set<JsonIriReference>(JsonAny.ParseUriValue(value), ValueKey);
+        }
+
+        /// <summary>
+        /// Store a dotnet-type-backed value in the context variable <c>Value</c>.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        [Given(@"the dotnet backed JsonIriReference (.*)")]
+        public void GivenTheDotnetBackedJsonIriReference(string value)
+        {
+            if (value == "null")
+            {
+                this.scenarioContext.Set((JsonIriReference)JsonNull.Instance.AsAny.AsString, ValueKey);
+            }
+            else
+            {
+                this.scenarioContext.Set(new JsonIriReference((string)JsonAny.ParseUriValue(value)), ValueKey);
+            }
+        }
+
+        /// <summary>
+        /// Compares the value in JsonIriReference in the context variable <c>Value</c> with the expected base64String, and set it into the context variable <c>Result</c>.
+        /// </summary>
+        /// <param name="expected">The expected value.</param>
+        [When(@"I compare it to the iriReference (.*)")]
+        public void WhenICompareItToTheIriReference(string expected)
+        {
+            if (expected != "null")
+            {
+                this.scenarioContext.Set(this.scenarioContext.Get<JsonIriReference>(ValueKey).Equals(new JsonIriReference((string)JsonAny.ParseUriValue(expected))), EqualsObjectBackedResultKey);
+            }
+
+            this.scenarioContext.Set(this.scenarioContext.Get<JsonIriReference>(ValueKey).Equals((JsonIriReference)JsonAny.ParseUriValue(expected)), EqualsResultKey);
+            this.scenarioContext.Set(this.scenarioContext.Get<JsonIriReference>(ValueKey) == (JsonIriReference)JsonAny.ParseUriValue(expected), EqualityResultKey);
+            this.scenarioContext.Set(this.scenarioContext.Get<JsonIriReference>(ValueKey) != (JsonIriReference)JsonAny.ParseUriValue(expected), InequalityResultKey);
+            this.scenarioContext.Set(this.scenarioContext.Get<JsonIriReference>(ValueKey).GetHashCode() == ((JsonIriReference)JsonAny.ParseUriValue(expected)).GetHashCode(), HashCodeResultKey);
+        }
+
+        /// <summary>
+        /// Compares the value in JsonIriReference in the context variable <c>Value</c> with the expected base64String, and set it into the context variable <c>Result</c>.
+        /// </summary>
+        /// <param name="expected">The expected value.</param>
+        [When(@"I compare the iriReference to the IJsonValue (.*)")]
+        public void WhenICompareTheIriReferenceToTheIJsonValue(string expected)
+        {
+            this.scenarioContext.Set(this.scenarioContext.Get<JsonIriReference>(ValueKey).Equals(JsonAny.ParseUriValue(expected)), EqualsResultKey);
+        }
+
+        /// <summary>
+        /// Compares the value in JsonIriReference in the context variable <c>Value</c> with the expected base64String, and set it into the context variable <c>Result</c>.
+        /// </summary>
+        /// <param name="expected">The expected value.</param>
+        [When(@"I compare the iriReference to the object (.*)")]
+        public void WhenICompareTheIriReferenceToTheObject(string expected)
+        {
+            object? obj = expected == "<undefined>" ? default(JsonIriReference) : expected == "<null>" ? null : expected == "<new object()>" ? new object() : JsonAny.ParseUriValue(expected);
+            this.scenarioContext.Set(((object)this.scenarioContext.Get<JsonIriReference>(ValueKey)).Equals(obj), EqualsResultKey);
+            if (obj is not null)
+            {
+                this.scenarioContext.Set(((object)this.scenarioContext.Get<JsonIriReference>(ValueKey)).GetHashCode() == obj.GetHashCode(), HashCodeResultKey);
+            }
+        }
+
         /// <summary>
         /// Asserts that the result from a previous comparison stored in the context variable <c>Result</c> is as expected.
         /// </summary>
